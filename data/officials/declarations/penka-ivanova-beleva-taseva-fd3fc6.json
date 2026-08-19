@@ -56,7 +56,8 @@
         "holderName": "Пенка Иванова Белева - Тасева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": "лизинг"
+        "fundsOrigin": "лизинг",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -74,7 +75,8 @@
         "holderName": "Пенка Иванова Белева - Тасева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -92,7 +94,8 @@
         "holderName": "Красимир Ангелов Тасев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Пенка Иванова Белева - Тасева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -128,7 +132,8 @@
         "holderName": "Красимир Ангелова Тасев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот - наследяване"
+        "fundsOrigin": "продажба на имот - наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -146,7 +151,8 @@
         "holderName": "Красимир Ангелова Тасев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "holderName": "Пенка Иванова Белева - Тасева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -182,7 +189,8 @@
         "holderName": "Пенка Иванова Белева - Тасева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -200,7 +208,8 @@
         "holderName": "Пенка Иванова Белева - Тасева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -218,7 +227,8 @@
         "holderName": "Пенка Иванова Белева - Тасева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

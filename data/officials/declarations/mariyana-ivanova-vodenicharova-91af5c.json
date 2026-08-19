@@ -56,7 +56,8 @@
         "holderName": "Марияна Иванова Воденичарова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -74,7 +75,8 @@
         "holderName": "Станислав Владимиров Воденичаров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "дивиденти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -92,7 +94,8 @@
         "holderName": "Марияна Иванова Воденичарова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Станислав Владимиров Воденичаров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -128,7 +132,8 @@
         "holderName": "Марияна Иванова Воденичарова",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

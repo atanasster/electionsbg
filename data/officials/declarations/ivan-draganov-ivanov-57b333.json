@@ -44,7 +44,8 @@
         "holderName": "Иван Драганов Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "Иван Драганов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировъчни средства от дългосрочна задгранична командировка"
+        "fundsOrigin": "командировъчни средства от дългосрочна задгранична командировка",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Иван Драганов Иванов",
         "isSpouse": false,
         "legalBasis": "4.67%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Иван Драганов Иванов",
         "isSpouse": false,
         "legalBasis": "4.41%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Ирина Димитрова Сотирова-Иванова",
         "isSpouse": true,
         "legalBasis": "4.44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Ирина Димитрова Сотирова-Иванова",
         "isSpouse": true,
         "legalBasis": "4.99%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -184,7 +190,8 @@
         "holderName": "Иван Драганов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировъчни средства от дългосрочна задгранична командировка"
+        "fundsOrigin": "командировъчни средства от дългосрочна задгранична командировка",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -202,7 +209,8 @@
         "holderName": "Ирина Димитрова Сотирова-Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -220,7 +228,8 @@
         "holderName": "Иван Драганов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -270,7 +279,8 @@
         "holderName": "Ирина Димитрова Сотирова-Иванова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -288,7 +298,8 @@
         "holderName": "Иван Драганов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировъчни средства от дългосрочна задгранична командировка"
+        "fundsOrigin": "командировъчни средства от дългосрочна задгранична командировка",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -306,7 +317,8 @@
         "holderName": "Ирина Димитрова Сотирова-Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -324,7 +336,8 @@
         "holderName": "Иван Драганов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -43,7 +43,8 @@
         "holderName": "Димитър Веселинов Николов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Димитрър Веселинов Николов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Динитър Веселинов Николов",
         "isSpouse": true,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

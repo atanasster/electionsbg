@@ -38,7 +38,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -74,7 +76,8 @@
         "holderName": "Незабравка Димитрова Колева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -92,7 +95,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Иротека жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -110,7 +114,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -154,7 +159,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -172,7 +178,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -190,7 +197,8 @@
         "holderName": "Незабравка Димитрова Колева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и обезщетение при пенсиониране"
+        "fundsOrigin": "заплата и обезщетение при пенсиониране",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -208,7 +216,8 @@
         "holderName": "Незабравка Димитрова Колева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия"
+        "fundsOrigin": "пенсия",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -226,7 +235,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Ипотека жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -244,7 +254,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -288,7 +299,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Ипотека жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -306,7 +318,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -393,7 +406,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Ипотека жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -411,7 +425,8 @@
         "holderName": "Иван Тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -455,7 +470,8 @@
         "holderName": "Иван тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Ипотека жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -473,7 +489,8 @@
         "holderName": "Иван тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -491,7 +508,8 @@
         "holderName": "Иван тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -509,7 +527,8 @@
         "holderName": "Иван тодоров Колев",
         "isSpouse": false,
         "legalBasis": "Овърдрафт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

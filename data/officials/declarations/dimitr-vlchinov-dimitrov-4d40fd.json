@@ -44,7 +44,8 @@
         "holderName": "Димитър Вълчинов Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Димитър Вълчинов Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Моника Николова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Моника Николова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -116,7 +120,8 @@
         "holderName": "Димитър Вълчинов Димитров",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Димитър Вълчинов Димитров",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

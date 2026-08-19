@@ -219,6 +219,7 @@ re AS (
   FROM declaration_asset a
   JOIN latest l ON l.declaration_id = a.declaration_id
   WHERE a.category = 'real_estate'
+    AND is_declared_holding(a.table_num)   -- owned only; see 089
   GROUP BY a.declaration_id
 ),
 filed AS (
@@ -424,7 +425,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                  'currency', a.currency, 'amount', a.amount,
                  'valueEur', round(a.value_eur), 'holderName', a.holder_name,
                  'isSpouse', a.is_spouse, 'legalBasis', a.legal_basis,
-                 'fundsOrigin', a.funds_origin
+                 'fundsOrigin', a.funds_origin,
+                 -- Which form table the row came from, and whether it is the declarant's
+                 -- to own. Derived server-side so this list and 090's cannot disagree.
+                 'tableNum', a.table_num,
+                 'isHolding', is_declared_holding(a.table_num)
                ) ORDER BY a.seq)
                FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
              ), '[]'::jsonb),
@@ -567,6 +572,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         -- exceed its own header by billions.
         LEFT JOIN declaration_asset a ON a.declaration_id = l.declaration_id
                                      AND a.category = c.cat
+                                     -- Same holding basis as the header it sits under
+                                     -- (person_wealth_year), or the composition does not
+                                     -- sum to it. See 089.
+                                     AND is_declared_holding(a.table_num)
                                      -- `value_eur IS NULL` FIRST: an unvalued row is a
                                      -- real filing pattern (092 rule 4) and must still be
                                      -- COUNTED. `NULL <= n` is NULL, not true, so omitting

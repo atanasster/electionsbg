@@ -56,7 +56,8 @@
         "holderName": "Севдалина Минчева Първакова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -74,7 +75,8 @@
         "holderName": "Севдалина Минчева Първакова",
         "isSpouse": false,
         "legalBasis": "граждански брак",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -92,7 +94,8 @@
         "holderName": "Илия Дечев Първаков",
         "isSpouse": true,
         "legalBasis": "граждански брак",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Севдалина Минчева Първакова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -128,7 +132,8 @@
         "holderName": "Илия Дечев Първаков",
         "isSpouse": true,
         "legalBasis": "договор за заем-4,5% лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -178,7 +183,8 @@
         "holderName": "Илия Дечев Първаков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -196,7 +202,8 @@
         "holderName": "Севдалина Минчева Първакова",
         "isSpouse": false,
         "legalBasis": "граждански брак",
-        "fundsOrigin": "заем"
+        "fundsOrigin": "заем",
+        "tableNum": "3.4"
       }
     ],
     "events": []
@@ -246,7 +253,8 @@
         "holderName": "Илия Дечев Първаков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -264,7 +272,8 @@
         "holderName": "Севдалина Минчева Първакова",
         "isSpouse": false,
         "legalBasis": "граждански брак",
-        "fundsOrigin": "заем"
+        "fundsOrigin": "заем",
+        "tableNum": "3.4"
       }
     ],
     "events": []

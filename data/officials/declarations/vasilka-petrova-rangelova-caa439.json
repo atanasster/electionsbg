@@ -62,7 +62,8 @@
         "holderName": "Василка Петрова Рангелова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -80,7 +81,8 @@
         "holderName": "Василка Петрова Рангелова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +100,8 @@
         "holderName": "Андрей Кънчев Тифонов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +119,8 @@
         "holderName": "Андрей Кънчев Трифонов",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -171,7 +175,8 @@
         "holderName": "Василка Петрова Рангелова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -189,7 +194,8 @@
         "holderName": "Василка Петрова Рангелова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -207,7 +213,8 @@
         "holderName": "Василка Петрова Рангелова",
         "isSpouse": false,
         "legalBasis": "кредит, 6.89 лихвен %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

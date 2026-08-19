@@ -22,7 +22,10 @@ import type {
   MpCarsFile,
   MpDeclaration,
 } from "../../src/data/dataTypes";
-import { assetWeightedEur } from "../../src/lib/declarations";
+import {
+  assetWeightedEur,
+  isDeclaredHolding,
+} from "../../src/lib/declarations";
 
 type MpIndexEntry = {
   id: number;
@@ -361,6 +364,10 @@ export const buildCarMakes = ({ publicFolder }: BuildCarMakesArgs): void => {
 
     for (const a of assets) {
       if (a.category !== "vehicle") continue;
+      // Table 3.4 is „Чужди … превозни средства" — a car provided to the declarant, its
+      // money column „Цена ПО ДОГОВОР". Counting it here credits an MP with somebody
+      // else's fleet: 612 such rows sit on MP filings, €11.5m. See is_declared_holding.
+      if (!isDeclaredHolding(a)) continue;
       if (!isCarDescription(a.description)) continue;
       const key = [
         normalizeDetailForKey(a.detail),

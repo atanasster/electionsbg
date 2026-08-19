@@ -67,7 +67,8 @@
         "holderName": "МАРИЯ ТОШКОВА БОЗУКОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -85,7 +86,8 @@
         "holderName": "КОСТАДИН ГЕОРГИЕВ БОЗУКОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -103,7 +105,8 @@
         "holderName": "МАРИЯ ТОШКОВА БОЗУКОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -121,7 +124,8 @@
         "holderName": "МАРИЯ ТОШКОВА БОЗУКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно и стари суми"
+        "fundsOrigin": "по Таблица 12 - ръчно и стари суми",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -139,7 +143,8 @@
         "holderName": "КОСТАДИН ГЕОРГИЕВ БОЗУКОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно и стари суми"
+        "fundsOrigin": "по Таблица 12 - ръчно и стари суми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -157,7 +162,8 @@
         "holderName": "МАРИЯ ТОШКОВА БОЗУКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивиденти"
+        "fundsOrigin": "заплата и дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -175,7 +181,8 @@
         "holderName": "КОСТАДИН ГЕОРИГЕВ БОЗУКОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -193,7 +200,8 @@
         "holderName": "КОСТАДИН ГЕОРГИЕВ БОЗУКОВ",
         "isSpouse": true,
         "legalBasis": "ПРОТОКОЛИ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "investment",
@@ -211,7 +219,8 @@
         "holderName": "МАРИЯ ТОШКОВА БОЗУКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "депозити от предходни години"
+        "fundsOrigin": "депозити от предходни години",
+        "tableNum": "8"
       }
     ],
     "events": [

@@ -86,7 +86,8 @@
         "holderName": "Иван Динев Паскалев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3.3"
       },
       {
         "category": "bank",
@@ -104,7 +105,8 @@
         "holderName": "Весела Георгиева Паскалева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -122,7 +124,8 @@
         "holderName": "Весела Георгиева Паскалева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -172,7 +175,8 @@
         "holderName": "Весела Георгиева Паскалева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       }
     ],
     "events": []

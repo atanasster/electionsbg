@@ -44,7 +44,8 @@
         "holderName": "Иван Петров Спиров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "Иван Петров Спиров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Иван Петров Спиров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Иван Петров Спиров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Златка Николова Ряхова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Иван Петров Спиров",
         "isSpouse": true,
         "legalBasis": "банкови кредити - 2,1% и 2,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -184,7 +190,8 @@
         "holderName": "Иван Петров Спиров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -202,7 +209,8 @@
         "holderName": "Златка Николова Ряхова",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -220,7 +228,8 @@
         "holderName": "Иван Петров Спиров",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

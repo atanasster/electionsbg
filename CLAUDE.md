@@ -483,6 +483,102 @@ mapping matches), but a partial or re-ordered load would silently write every va
 wrong filing. It refuses below a 95% match rate — a low rate means the two corpora are not the
 same vintage — and updates only rows whose values actually differ, so re-running it is free.
 
+### `is_declared_holding()` — the ONE definition of what counts as the declarant's own
+
+**Two of the form's tables are not holdings, and until 2026-08-18 every wealth figure on
+the site counted them.** Tables **1.2** („Чуждо недвижимо имущество") and **3.4** („Чужди
+моторни сухопътни, водни и въздухоплавателни превозни средства") record property and
+vehicles owned by SOMEBODY ELSE that the declarant rents or is provided with. The
+register's own column headers are what settle it — and they differ from tables 1/3 in
+three places, not one:
+
+| | table 1 / 3 (own) | table 1.2 / 3.4 (чуждо) |
+|---|---|---|
+| the money column | „Цена на **придобиване**" | „Цена **по договор**" |
+| the basis column | „Правно основание за **придобиване**" | „Правно основание за **ползване**" |
+| the year (3 vs 3.4) | „Година на придобиване" | „Година на **сключване на договора**" |
+
+So the number is not a mis-attributed asset value — it is **what the use costs**. Пеевски's
+2025 annual files tables 1 and 3 as `Declared="False"`, declares eight rented houses and
+five provided cars, and was published at **€10,070,563** against a real **€9,760,147**.
+
+`is_declared_holding(table_num)` (089, beside `declared_label`) is the rule, with a TS twin
+`isDeclaredHolding()` in `src/lib/declarations.ts` because a route cannot import TS.
+`declaration_asset.table_num` stores the **canonical 2018-form** number — same convention as
+`declaration_stake.table_num`, since the printed number is version-dependent (the pre-2018
+form's „4" is boats, the current one's is cash).
+
+Four things about it are easy to get backwards:
+
+- **NULL RETURNS TRUE, and the function is deliberately NOT STRICT.** The provenance exists
+  only in the source XML, so every row on a database that has not re-parsed is NULL —
+  reading that as "not a holding" deletes every real estate from every published figure at
+  once. STRICT would return NULL, which `WHERE is_declared_holding(…)` filters out, i.e.
+  exactly that. **The whole change is therefore INERT until the corpus is stamped**, which
+  is the correct order: `npx tsx scripts/declarations/backfill_asset_table_num.ts --apply`,
+  then `db:load:declarations:pg` (phase 1 — `--resolve` alone does NOT rewrite asset rows),
+  then the matview refresh. Applying 089/090 to Cloud SQL without shipping the re-parsed
+  shards changes nothing there while local is correct, with every row count reconciling.
+- **`category` and `legal_basis` cannot stand in, and the second is the trap.** A rented
+  flat is still `real_estate`. And Пеевски's чужди cars carry `legal_basis = 'договор'` —
+  which is also what Румен Радев's OWN car carries. A probe on `legal_basis ILIKE '%наем%'`
+  finds 948 real-estate rows in the 2026 annuals and misses the vehicle side entirely.
+- **The top of the leaderboard does not move, which is why this survived.** Of 19,188 people
+  with a published net worth the top 100 is unchanged — the largest fortunes are real. The
+  damage is per-profile: **882** people affected in their latest year, **217** ≥50% чуждо,
+  **106** ≥90%, one at **100%** (Стефан Добрев Стайков, €445,386 → €0), **552** falling 50+
+  ranks, and eight going from a published positive net worth to declared net liabilities.
+  No aggregate check can see this shape.
+- **Excluding is not hiding.** The rows stay in `declaration_asset` and render on `/person`
+  under „Ползва, но не притежава" with the contract-price caveat — „declares no property of
+  his own and rents eight houses" is the finding, and dropping the rows would lose it.
+  `person_declaration_detail` carries `usedAssetRows` / `usedContractEur` beside the totals,
+  and every asset row carries `tableNum`, `legalBasis` and a server-derived `isHolding`.
+
+⚠️ **THE LEASE ASYMMETRY — know this before quoting a negative net worth.** Table 3.4's
+dominant use is a LEASED vehicle: **1,014 of the 1,826 filings carrying a 3.4 row also carry
+a лизинг debt**. Under a lease the lessor owns the car, so 3.4 is the right table — but the
+lease liability sits in table 7 and stays counted, so excluding the asset while keeping the
+debt is asymmetric. **103 people move from a published positive net worth to a negative one,
+70 of them on exactly this pairing.** Shipped strict (they do not own the car and they do owe
+the money) plus a caveat: the „ползва" block prints each row's „правно основание" and, when a
+filing pairs a чуждо vehicle with a лизинг debt, says in words why the net figure can go
+below zero. Pairing them and dropping both is NOT reliably implementable — the table-7
+description is free text, and matching „лизинг" would also drop lease debts against property
+the declarant DOES own. See `docs/plans/declaration-foreign-assets-v1.md` §4d.
+
+**Measured locally 2026-08-18** (the pre-`table_num` estimates in that plan's §2 over-matched
+and are superseded): 7,278 чуждо rows / €73.6m raw; **€55,565,683** left `person_wealth_year`
+across 1,980 person-years and 1,120 people; corpus assets €4,213,997,747 → €4,158,432,064;
+795 latest-year profiles affected, 77 of them reduced to €0; 562 fall 50+ ranks and the top
+100 does not move. `/mp-cars` went 721 → 643 rows, €7,109,059 → €5,483,110, and **41 MPs left
+the register entirely** because every car they declared was leased or provided.
+
+Nine surfaces read the rule: 090 (the matview join + `person_declaration_detail`), 092, 100,
+105 ×3, plus the TS builders `scripts/officials/rankings.ts`,
+`scripts/declarations/build_assets_rankings.ts`, `build_car_makes.ts` (612 чужди cars were
+counted as MPs' own, €11.5m) and `scripts/person/compare_declarations.ts`.
+
+**The gate is `scripts/db/tests/declaration_foreign_assets.data.test.ts`.** Its last test is
+an EXHAUSTIVENESS sweep in the `declared_label` style — every function/view/matview whose
+definition reads `declaration_asset` and SUMs a value must route through the predicate or be
+listed in `HOLDING_FILTER_EXCEPTIONS` with a reason, so a new wealth surface fails until
+someone decides, and a stale exception fails too. It also carries a mutation check
+(the filtered recompute is compared against the UNfiltered one, so an assertion satisfied by
+two implementations that both forgot the filter cannot pass) and skips with a DISTINCT
+reason when `table_num` is entirely NULL — "the corpus has no provenance yet" must never
+read as "the rule is enforced".
+
+⚠️ **Deferred, and it is a live parse-time ambiguity:** table 1.2's area column is headed
+„Площ /**декара**/" while table 1's is „Площ кв.м.", and the parser feeds both into
+`area_sqm`. Measured: all 1,787 declared 1.2 tables carry the декара header, but 5,375 of
+5,830 rows are bare numbers, 451 say кв.м. and 4 say декара — the declarants largely ignore
+it and the unit is unrecoverable per row. That matters because `perSqmAnchor` drives
+`correctRealEstateSeparatorTypo`, which **mutates the stored value**.
+`check_suspicious_values.ts` now marks a чуждо flag as such so a reviewer does not
+"correct" a contract price as if it were a purchase price, but nothing else is fixed. See
+`docs/plans/declaration-foreign-assets-v1.md` §6.
+
 ### `declared_label()` — the ONE definition of which office label a reader sees
 
 **Nine serving surfaces now read these columns, and all of them go through

@@ -55,7 +55,8 @@
         "holderName": "Ясен Атаасов Киров",
         "isSpouse": true,
         "legalBasis": "други Постановление",
-        "fundsOrigin": "кредит и заплати"
+        "fundsOrigin": "кредит и заплати",
+        "tableNum": "1"
       },
       {
         "category": "receivable",
@@ -73,7 +74,8 @@
         "holderName": "Ясен Атанасов Киров",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -91,7 +93,8 @@
         "holderName": "Ясен Атанасов Киров",
         "isSpouse": false,
         "legalBasis": "договор за кредит, дог.л.% -6",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "holderName": "Светлана Добрева Кирова",
         "isSpouse": true,
         "legalBasis": "договор за кредит, дог.л.% -6",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

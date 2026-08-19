@@ -43,7 +43,8 @@
         "holderName": "Любомир Атанасов Вангелов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Любомир Атанасов Вангелов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Заплати, заем , преводи"
+        "fundsOrigin": "Заплати, заем , преводи",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Радка Стоянова Вангелова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия"
+        "fundsOrigin": "пенсия",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Любомир Атанасов Вангелов",
         "isSpouse": false,
         "legalBasis": "потребителски кредит, 6,36%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

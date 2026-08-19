@@ -55,7 +55,8 @@
         "holderName": "Светослав Стефанов Балабански",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -73,7 +74,8 @@
         "holderName": "Михаела Василева Балабанска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -91,7 +93,8 @@
         "holderName": "Светослав Стефанов Балабански",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -109,7 +112,8 @@
         "holderName": "Михаела Василева Балабанска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -127,7 +131,8 @@
         "holderName": "Светолав Стефанов Балабански",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -145,7 +150,8 @@
         "holderName": "Михаела Василева Балабанска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -163,7 +169,8 @@
         "holderName": "Светослав Стефанов Балабански",
         "isSpouse": false,
         "legalBasis": "4,44",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -181,7 +188,8 @@
         "holderName": "Светослав Стефанов Балабански",
         "isSpouse": false,
         "legalBasis": "18",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

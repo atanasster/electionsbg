@@ -44,7 +44,8 @@
         "holderName": "Мария Тодорова Тумбева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Мария Тодорова Тумбева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -80,7 +82,8 @@
         "holderName": "Мария Тодорова Тумбева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -98,7 +101,8 @@
         "holderName": "Мария Тодорова Тумбева",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -116,7 +120,8 @@
         "holderName": "Дойчин Генов Дойчев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -134,7 +139,8 @@
         "holderName": "Дойчин Генов Дойчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -152,7 +158,8 @@
         "holderName": "Дойчин Генов Дойчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -170,7 +177,8 @@
         "holderName": "Мария Тодорова Тумбева",
         "isSpouse": true,
         "legalBasis": "Нотариален акт 43, том I, рег.N: 480, дело 42 от 2009г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -188,7 +196,8 @@
         "holderName": "Дойчин Генов Дойчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -243,7 +252,8 @@
         "holderName": "Дойчин Генов Дойчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -261,7 +271,8 @@
         "holderName": "Дойчин Генов Дойчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "investment",
@@ -279,7 +290,8 @@
         "holderName": "Дойчин Генов Дойчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "8"
       }
     ],
     "events": []

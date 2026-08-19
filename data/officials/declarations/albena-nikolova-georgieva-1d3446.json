@@ -31,7 +31,8 @@
         "holderName": "Албена Николова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -49,7 +50,8 @@
         "holderName": "Румен Живков Георгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -67,7 +69,8 @@
         "holderName": "Албена Николова Георгиева",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -85,7 +88,8 @@
         "holderName": "Албена Николова Георгиева",
         "isSpouse": false,
         "legalBasis": "овърдрафт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -129,7 +133,8 @@
         "holderName": "Румен Живков Георгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "лични средства"
+        "fundsOrigin": "лични средства",
+        "tableNum": "3"
       }
     ],
     "events": [
@@ -198,7 +203,8 @@
         "holderName": "Албена Николова Георгиева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -216,7 +222,8 @@
         "holderName": "Албена Николова Георгиева",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -234,7 +241,8 @@
         "holderName": "Албена Николова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -252,7 +260,8 @@
         "holderName": "Румен Живков Георгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [

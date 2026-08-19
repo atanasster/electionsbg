@@ -44,7 +44,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -80,7 +82,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "Право на строеж",
-        "fundsOrigin": "Заеми, обезщетение и дарение"
+        "fundsOrigin": "Заеми, обезщетение и дарение",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -98,7 +101,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -116,7 +120,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -134,7 +139,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -152,7 +158,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -170,7 +177,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "Заеми, обезщетение и дарение"
+        "fundsOrigin": "Заеми, обезщетение и дарение",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -188,7 +196,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -206,7 +215,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Отчуждаване на имот"
+        "fundsOrigin": "Отчуждаване на имот",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -224,7 +234,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -242,7 +253,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Отчуждаване на имот"
+        "fundsOrigin": "Отчуждаване на имот",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -260,7 +272,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -278,7 +291,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -296,7 +310,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, наследяване и отчуждаване на имот"
+        "fundsOrigin": "спестявания, наследяване и отчуждаване на имот",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -359,7 +374,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -377,7 +393,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -395,7 +412,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -413,7 +431,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "право на строеж",
-        "fundsOrigin": "заеми, обезщетение и дарение"
+        "fundsOrigin": "заеми, обезщетение и дарение",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -431,7 +450,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -449,7 +469,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -467,7 +488,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -485,7 +507,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -503,7 +526,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми, обезщетение и дарение"
+        "fundsOrigin": "заеми, обезщетение и дарение",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -521,7 +545,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -539,7 +564,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -557,7 +583,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -575,7 +602,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -593,7 +621,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и наследство"
+        "fundsOrigin": "спестявания и наследство",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -611,7 +640,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -661,7 +691,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -679,7 +710,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -697,7 +729,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -715,7 +748,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "право на строеж",
-        "fundsOrigin": "заеми, обезщетение и дарение"
+        "fundsOrigin": "заеми, обезщетение и дарение",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -733,7 +767,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -751,7 +786,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -769,7 +805,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -787,7 +824,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -805,7 +843,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми, обезщетение и дарение"
+        "fundsOrigin": "заеми, обезщетение и дарение",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -823,7 +862,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -841,7 +881,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -859,7 +900,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -877,7 +919,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -895,7 +938,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и наследство"
+        "fundsOrigin": "спестявания и наследство",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -913,7 +957,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА-ПАВЛОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -950,7 +995,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -968,7 +1014,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -986,7 +1033,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -1004,7 +1052,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА",
         "isSpouse": true,
         "legalBasis": "собственик",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -1022,7 +1071,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -1040,7 +1090,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми, заплата и дарение"
+        "fundsOrigin": "заеми, заплата и дарение",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1058,7 +1109,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми и обезщетение от ДАНС"
+        "fundsOrigin": "заеми и обезщетение от ДАНС",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1076,7 +1128,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми, заплата и дарение"
+        "fundsOrigin": "заеми, заплата и дарение",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1094,7 +1147,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми и обезщетение от ДАНС"
+        "fundsOrigin": "заеми и обезщетение от ДАНС",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1112,7 +1166,8 @@
         "holderName": "ЕМИЛ ЕМАНУИЛОВ ПАВЛОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1130,7 +1185,8 @@
         "holderName": "ЯНА ЗЛАТИНОВА УЗУНОВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

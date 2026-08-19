@@ -61,7 +61,8 @@
         "holderName": "Маргарита Иванова Стефанова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -79,7 +80,8 @@
         "holderName": "Сашка Иванова Александрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -97,7 +99,8 @@
         "holderName": "Сашка Иванова Александрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -115,7 +118,8 @@
         "holderName": "Сашка Иванова Александрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -133,7 +137,8 @@
         "holderName": "Сашка Иванова Александрова",
         "isSpouse": false,
         "legalBasis": "14.75",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -151,7 +156,8 @@
         "holderName": "Сашка Иванова Александрова",
         "isSpouse": false,
         "legalBasis": "14.75",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -169,7 +175,8 @@
         "holderName": "Сашка Иванова Александрова",
         "isSpouse": false,
         "legalBasis": "4.21",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -56,7 +56,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, кредит, наем"
+        "fundsOrigin": "заплата, кредит, наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -74,7 +75,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дивидент, наем"
+        "fundsOrigin": "заплата, дивидент, наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -92,7 +94,8 @@
         "holderName": "Красена Боянова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -110,7 +113,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит, 2,85%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -128,7 +132,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг, 2, 2%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -146,7 +151,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит, 3,21%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит, 4, 65%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -226,7 +233,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -244,7 +252,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -262,7 +271,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -280,7 +290,8 @@
         "holderName": "Ивалин Боянов Боев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -298,7 +309,8 @@
         "holderName": "Красена Боянова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -316,7 +328,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, кредит и дивидент"
+        "fundsOrigin": "заплата, кредит и дивидент",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -334,7 +347,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -352,7 +366,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -370,7 +385,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -388,7 +404,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -450,7 +467,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -468,7 +486,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -486,7 +505,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -504,7 +524,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -522,7 +543,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -540,7 +562,8 @@
         "holderName": "Ивалин Боянов Боев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -558,7 +581,8 @@
         "holderName": "Красена Боянова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -576,7 +600,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, кредит и дивидент"
+        "fundsOrigin": "заплата, кредит и дивидент",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -594,7 +619,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -612,7 +638,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -630,7 +657,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -717,7 +745,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -735,7 +764,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -753,7 +783,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -771,7 +802,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -789,7 +821,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -807,7 +840,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -825,7 +859,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -843,7 +878,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -861,7 +897,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и средства от продажба на автомобил"
+        "fundsOrigin": "заплата и средства от продажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -879,7 +916,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, средства от продажба на автомобил"
+        "fundsOrigin": "заплата, средства от продажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -897,7 +935,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -915,7 +954,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -933,7 +973,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -951,7 +992,8 @@
         "holderName": "Ивалин Боянов Боев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -969,7 +1011,8 @@
         "holderName": "Красена Боянова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -987,7 +1030,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1005,7 +1049,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1023,7 +1068,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -1122,7 +1168,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1140,7 +1187,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1158,7 +1206,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1176,7 +1225,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1194,7 +1244,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1212,7 +1263,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1230,7 +1282,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1248,7 +1301,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -1266,7 +1320,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и средства от продажба на автомобил"
+        "fundsOrigin": "заплата и средства от продажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1284,7 +1339,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, средства от продажба на автомобил"
+        "fundsOrigin": "заплата, средства от продажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1302,7 +1358,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -1320,7 +1377,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -1338,7 +1396,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1356,7 +1415,8 @@
         "holderName": "Ивалин Боянов Боев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1374,7 +1434,8 @@
         "holderName": "Красена Боянова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1392,7 +1453,8 @@
         "holderName": "Данилина Красимирова Боева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1410,7 +1472,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1428,7 +1491,8 @@
         "holderName": "Боян Иванов Боев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

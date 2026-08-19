@@ -43,7 +43,8 @@
         "holderName": "Александър Викторов Станоев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "ОББ ИНТЕРЛИЙЗ ЕАД",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.3"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Тереза Милчова Божилова",
         "isSpouse": true,
         "legalBasis": "7.11700%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Тереза Милчова Божилова",
         "isSpouse": true,
         "legalBasis": "3.35%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

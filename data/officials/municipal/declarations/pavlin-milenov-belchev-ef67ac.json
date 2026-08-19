@@ -37,7 +37,8 @@
         "holderName": "Мария Иванова Белчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -55,7 +56,8 @@
         "holderName": "Павлин Миленов Белчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -73,7 +75,8 @@
         "holderName": "Павлин Миленов Белчев",
         "isSpouse": false,
         "legalBasis": "договор, лихва 12%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

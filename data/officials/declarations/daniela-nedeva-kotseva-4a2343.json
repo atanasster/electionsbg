@@ -63,7 +63,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": "дарение и покупко-продажба",
-        "fundsOrigin": "дарения и заеми"
+        "fundsOrigin": "дарения и заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -81,7 +82,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми и заплати"
+        "fundsOrigin": "заеми и заплати",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -99,7 +101,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -117,7 +120,8 @@
         "holderName": "Иван Манолов Коцев",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -161,7 +165,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -179,7 +184,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -197,7 +203,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -215,7 +222,8 @@
         "holderName": "Иван Манолов Коцев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -233,7 +241,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -251,7 +260,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -269,7 +279,8 @@
         "holderName": "Иван Манолов Коцев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -324,7 +335,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -342,7 +354,8 @@
         "holderName": "Иван Манолов Коцев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -360,7 +373,8 @@
         "holderName": "Иван Манолов Коцев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -378,7 +392,8 @@
         "holderName": "Даниела Недева Коцева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       }
     ],
     "events": []

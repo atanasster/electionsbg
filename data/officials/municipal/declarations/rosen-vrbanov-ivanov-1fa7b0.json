@@ -49,7 +49,8 @@
         "holderName": "СНЕЖАНА СИМЕОНОВА АЛЕКСАНДРОВА-ИВАНОВА",
         "isSpouse": true,
         "legalBasis": "ПОКУПКО-ПРОДАЖББА",
-        "fundsOrigin": "КРЕДИТ, СПЕСТЯВАНИЯ ОТ ЗАПЛАТА, ОБЕЗЩЕТЕНИЕ ОТЧУЖДАВАНЕ ЗЕМЯ"
+        "fundsOrigin": "КРЕДИТ, СПЕСТЯВАНИЯ ОТ ЗАПЛАТА, ОБЕЗЩЕТЕНИЕ ОТЧУЖДАВАНЕ ЗЕМЯ",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -67,7 +68,8 @@
         "holderName": "РОСЕН ВЪРБАНОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "ПОКУПКО-ПРОДАЖББА",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -85,7 +87,8 @@
         "holderName": "Росен Върбанов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "Росен Върбанов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от трудови и приравнени правоотношения"
+        "fundsOrigin": "спестявания от трудови и приравнени правоотношения",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -121,7 +125,8 @@
         "holderName": "Росен Върбанов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от трудови и приравнени правоотношения"
+        "fundsOrigin": "спестявания от трудови и приравнени правоотношения",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -139,7 +144,8 @@
         "holderName": "Снежана Симеонова Александрова-Иванова",
         "isSpouse": true,
         "legalBasis": "договор за кредит, 4,5% ГПР",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -157,7 +163,8 @@
         "holderName": "Росен Върбанов Иванов",
         "isSpouse": false,
         "legalBasis": "Договор за кредит, 0 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

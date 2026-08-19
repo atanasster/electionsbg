@@ -55,7 +55,8 @@
         "holderName": "Михаил Николов Михайлов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -73,7 +74,8 @@
         "holderName": "Михаил Николов Михайлов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -91,7 +93,8 @@
         "holderName": "Денка Димитрова Михайлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -109,7 +112,8 @@
         "holderName": "Михаил Николов Михайлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -127,7 +131,8 @@
         "holderName": "Денка Димитрова Михайлова",
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит, лихвен процент 2,7%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

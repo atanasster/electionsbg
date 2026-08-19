@@ -57,7 +57,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -75,7 +76,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -93,7 +95,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -111,7 +114,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -129,7 +133,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания от предишни години"
+        "fundsOrigin": "заплата и спестявания от предишни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -147,7 +152,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания от предишни години"
+        "fundsOrigin": "заплата и спестявания от предишни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -165,7 +171,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -183,7 +190,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -201,7 +209,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -219,7 +228,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова, Ангел Петров Найденов - съдлъжник",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -237,7 +247,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -555,7 +566,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба на терен и договор за строителство на сграда",
-        "fundsOrigin": "собствени средства, личен кредит и кредит, изтеглен от съпругата"
+        "fundsOrigin": "собствени средства, личен кредит и кредит, изтеглен от съпругата",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -573,7 +585,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -591,7 +604,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -609,7 +623,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати и спестявания от предишни години"
+        "fundsOrigin": "заплати и спестявания от предишни години",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -627,7 +642,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати и спестявания от предишни години"
+        "fundsOrigin": "заплати и спестявания от предишни години",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -645,7 +661,8 @@
         "holderName": "Мая Божидарова Манолова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -663,7 +680,8 @@
         "holderName": "Мая Божидарова Манолова",
         "isSpouse": true,
         "legalBasis": "договр",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -681,7 +699,8 @@
         "holderName": "Мая Божидарова Манолова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -699,7 +718,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -743,7 +763,8 @@
         "holderName": "Мая Божидарова Манолова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -761,7 +782,8 @@
         "holderName": "Мая Божидарова Манолова",
         "isSpouse": false,
         "legalBasis": "договр",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -779,7 +801,8 @@
         "holderName": "Мая Божидарова Манолова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

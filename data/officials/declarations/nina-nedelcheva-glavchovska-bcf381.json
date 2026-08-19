@@ -44,7 +44,8 @@
         "holderName": "Борис Димитров Главчовски",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Борис Димитров Главчовски",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "покупко-продажба и спестявания"
+        "fundsOrigin": "покупко-продажба и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": "договор за лизинг 18.05%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": "кредит -4.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -191,7 +197,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -209,7 +216,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": "договор за лизинг 18.05%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -227,7 +235,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": "договор за лизинг 11.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -245,7 +254,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": "кредит - 4.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -289,7 +299,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "от остатък заем и спестяване"
+        "fundsOrigin": "от остатък заем и спестяване",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -307,7 +318,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -325,7 +337,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -369,7 +382,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -387,7 +401,8 @@
         "holderName": "Борис Димитров Главчовски",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -405,7 +420,8 @@
         "holderName": "Нина Неделчева Главчовска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

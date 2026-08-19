@@ -38,7 +38,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -56,7 +57,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -74,7 +76,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "кредитна карта"
+        "fundsOrigin": "кредитна карта",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -92,7 +95,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +114,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -128,7 +133,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": "4,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -185,7 +191,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "от заплата"
+        "fundsOrigin": "от заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -203,7 +210,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "от заплата"
+        "fundsOrigin": "от заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -247,7 +255,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -265,7 +274,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -283,7 +293,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": "остатък",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -301,7 +312,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": "остатък",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -345,7 +357,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -363,7 +376,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": "кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -413,7 +427,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -431,7 +446,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -449,7 +465,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "кредитна карта"
+        "fundsOrigin": "кредитна карта",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -467,7 +484,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -485,7 +503,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -529,7 +548,8 @@
         "holderName": "Наско Руменов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата по дебитна карта"
+        "fundsOrigin": "заплата по дебитна карта",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -547,7 +567,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата по дебитна карта"
+        "fundsOrigin": "заплата по дебитна карта",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -565,7 +586,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": "остатък по кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -622,7 +644,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -640,7 +663,8 @@
         "holderName": "Сашка Георгиева Атанасова",
         "isSpouse": true,
         "legalBasis": "Стоки на кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -702,7 +726,8 @@
         "holderName": "Наско и Сашка Атанасови",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "debt",
@@ -720,7 +745,8 @@
         "holderName": "Сашка Георгиева Атанасов",
         "isSpouse": true,
         "legalBasis": "договор № 36400КР-АА-5505",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -738,7 +764,8 @@
         "holderName": "Сашка Георгиева Атанасов",
         "isSpouse": true,
         "legalBasis": "договор за стоков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

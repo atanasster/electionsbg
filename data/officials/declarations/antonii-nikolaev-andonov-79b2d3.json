@@ -44,7 +44,8 @@
         "holderName": "Велислава Харизанова Андонова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Велислава Харизанова Андонова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -80,7 +82,8 @@
         "holderName": "Велислава Харизанова Андонова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Антоний Николаев Андонов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Антоний Николаев Андонов",
         "isSpouse": false,
         "legalBasis": "договор- л.% -4.879",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Велислава Харизанова Андонова",
         "isSpouse": true,
         "legalBasis": "договор-л.% -6.06",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -184,7 +190,8 @@
         "holderName": "Антоний Николаев Андонов",
         "isSpouse": false,
         "legalBasis": "договор- л.% -4.879",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -202,7 +209,8 @@
         "holderName": "Велислава Харизанова Андонова",
         "isSpouse": true,
         "legalBasis": "договор-л.% -6.06",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

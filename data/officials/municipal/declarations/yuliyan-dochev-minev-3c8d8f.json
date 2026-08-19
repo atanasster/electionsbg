@@ -49,7 +49,8 @@
         "holderName": "Юлиян Дочев Минев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на недвижим имот"
+        "fundsOrigin": "продажба на недвижим имот",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +68,8 @@
         "holderName": "Венета Николаева Минева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на недвижим имот"
+        "fundsOrigin": "продажба на недвижим имот",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -85,7 +87,8 @@
         "holderName": "Юлиян Дочев Минев",
         "isSpouse": false,
         "legalBasis": "Договор за ипотечен кредит, 3,13%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "Венета Николаева Минева",
         "isSpouse": true,
         "legalBasis": "Договор за ипотечен кредит, 3,13%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

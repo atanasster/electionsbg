@@ -44,7 +44,8 @@
         "holderName": "Юли Станчев Гoрнишки",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Нина Иванoва Гoрнишка",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Юли Станчев Гoрнишки",
         "isSpouse": true,
         "legalBasis": "финансoв лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Юли Станчев Гoрнишки",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Нина Иванoва Гoрнишка",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Юли Станчев Гoрнишки",
         "isSpouse": true,
         "legalBasis": "2,99",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "Юли Станчев Гoрнишки",
         "isSpouse": true,
         "legalBasis": "2,74",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -202,7 +209,8 @@
         "holderName": "Юли Станчев Горнишки",
         "isSpouse": false,
         "legalBasis": "Лизингов договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -220,7 +228,8 @@
         "holderName": "Юли Станчев Горнишки",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -238,7 +247,8 @@
         "holderName": "Нина Иванова Горнишка",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -256,7 +266,8 @@
         "holderName": "Юли Станчев Горнишки",
         "isSpouse": false,
         "legalBasis": "лизингов договор 2.99",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -318,7 +329,8 @@
         "holderName": "Юли Станчев Горнишки",
         "isSpouse": false,
         "legalBasis": "Финансов лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -336,7 +348,8 @@
         "holderName": "Юли Станчев Горнишки",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -354,7 +367,8 @@
         "holderName": "Юли Станчев горнишки",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -372,7 +386,8 @@
         "holderName": "Нина Иванова Горнишка",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -390,7 +405,8 @@
         "holderName": "Юли Станчев Горнишки",
         "isSpouse": false,
         "legalBasis": "Договор за фин.лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

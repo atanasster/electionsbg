@@ -43,7 +43,8 @@
         "holderName": "Борислав Руменов Борисов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмезно"
+        "fundsOrigin": "безвъзмезно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Димитър Анчев Бонев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -79,7 +81,8 @@
         "holderName": "Димитър Анчев Бонев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -97,7 +100,8 @@
         "holderName": "Борислав Руменов Борисов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Борислав Руменов Борисов",
         "isSpouse": false,
         "legalBasis": "5,22%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "holderName": "Борислав Руменов Борисов",
         "isSpouse": false,
         "legalBasis": "18,9",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -151,7 +157,8 @@
         "holderName": "Борислав Руменов Борисов",
         "isSpouse": false,
         "legalBasis": "0",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

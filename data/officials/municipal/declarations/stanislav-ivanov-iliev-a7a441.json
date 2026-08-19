@@ -37,7 +37,8 @@
         "holderName": "Мариела Йорданова Илиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -55,7 +56,8 @@
         "holderName": "Станислав Иванов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -73,7 +75,8 @@
         "holderName": "Мариела Йорданова Илиева",
         "isSpouse": true,
         "legalBasis": "Договор за потребителски кредит с лихвен процент 5,05%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -91,7 +94,8 @@
         "holderName": "Станислав Иванов Илиев",
         "isSpouse": false,
         "legalBasis": "Договор за кредитна карта с лихвен процент 18,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

@@ -43,7 +43,8 @@
         "holderName": "Иван Бориславов Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Зорница Маринова Иванова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -79,7 +81,8 @@
         "holderName": "Иван Бориславов Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "Иван Бориславов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -115,7 +119,8 @@
         "holderName": "Иван Бориславов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +138,8 @@
         "holderName": "Зорница Маринова Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -151,7 +157,8 @@
         "holderName": "Иван Бориславов Иванов",
         "isSpouse": false,
         "legalBasis": "лизингов договор - 7.5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -169,7 +176,8 @@
         "holderName": "Иван Бориславов Иванов",
         "isSpouse": false,
         "legalBasis": "Договор за потребителски кредит - 4.40%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

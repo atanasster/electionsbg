@@ -44,7 +44,8 @@
         "holderName": "Мая Филипова Краева-депозит",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Мая Филипова Краева-депозит",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Мая Филипова Краева-разплащателна сметка",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Димитър Томов Краев-разплащателна сметка",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплата и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Мая Филипова Краева - разплащателна сметка",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "holderName": "Мая Филипова Краева - ВСК",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит-3.1%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -170,7 +177,8 @@
         "holderName": "Димитър Томов Краев-съкредититор",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит-3.1%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -188,7 +196,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": "потребителски кредит-4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -232,7 +241,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -250,7 +260,8 @@
         "holderName": "Димитър Томов Краев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -268,7 +279,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -286,7 +298,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -304,7 +317,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -322,7 +336,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -340,7 +355,8 @@
         "holderName": "Димитър Томов Краева",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -358,7 +374,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -402,7 +419,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -420,7 +438,8 @@
         "holderName": "Мая Филипова Краева",
         "isSpouse": false,
         "legalBasis": "ипотечен заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -438,7 +457,8 @@
         "holderName": "Димитър Томов Краев",
         "isSpouse": true,
         "legalBasis": "ипотечен заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

@@ -326,7 +326,8 @@
         "holderName": "Тодор Николаев Костов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -344,7 +345,8 @@
         "holderName": "Тодор Николаев Костов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.2"
       },
       {
         "category": "vehicle",
@@ -362,7 +364,8 @@
         "holderName": "Тодор Николаев Костов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -380,7 +383,8 @@
         "holderName": "Тодор Николаев Костов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивидент"
+        "fundsOrigin": "заплата и дивидент",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -398,7 +402,8 @@
         "holderName": "Тодор Николаев Костов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и дивидент"
+        "fundsOrigin": "заплати и дивидент",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -416,7 +421,8 @@
         "holderName": "Тодор Николаев Костов",
         "isSpouse": false,
         "legalBasis": "законна ипотека с лихва - 3,04%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -434,7 +440,8 @@
         "holderName": "Тодор Николаев Костов",
         "isSpouse": false,
         "legalBasis": "лихва -8,00%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -452,7 +459,8 @@
         "holderName": "Тодор Николаев Костов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и дивидент"
+        "fundsOrigin": "заплати и дивидент",
+        "tableNum": "8"
       }
     ],
     "events": []

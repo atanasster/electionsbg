@@ -44,7 +44,8 @@
         "holderName": "Петя Янкова Василева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Петя Янкова Василева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Никола Веселинов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Никола Веселинов Василев",
         "isSpouse": false,
         "legalBasis": "ЗПК - 2,4 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -153,7 +157,8 @@
         "holderName": "Никола Веселинов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -171,7 +176,8 @@
         "holderName": "Никола Веселинов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -189,7 +195,8 @@
         "holderName": "Никола Веселинов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -207,7 +214,8 @@
         "holderName": "Никола Веселинов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -225,7 +233,8 @@
         "holderName": "Петя Янкова Василева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -243,7 +252,8 @@
         "holderName": "Никола Веселинов Василев",
         "isSpouse": false,
         "legalBasis": "чл.430 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

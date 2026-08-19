@@ -50,7 +50,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -68,7 +69,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -86,7 +88,8 @@
         "holderName": "Данка Дамянова Сидерова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -104,7 +107,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -122,7 +126,8 @@
         "holderName": "Данка Дамянова Сидерова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -140,7 +145,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -158,7 +164,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": true,
         "legalBasis": "3,21%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -233,7 +240,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -251,7 +259,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -269,7 +278,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -287,7 +297,8 @@
         "holderName": "Данка Дамянова Сидерова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -343,7 +354,8 @@
         "holderName": "Данка Дамянова Сидерова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -361,7 +373,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -379,7 +392,8 @@
         "holderName": "Илия Филипров Сидеров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -397,7 +411,8 @@
         "holderName": "Илия Филипов Сидеров",
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

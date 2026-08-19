@@ -38,7 +38,8 @@
         "holderName": "Цветомир Крумов Петров",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -56,7 +57,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит, 2,69 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -74,7 +76,8 @@
         "holderName": "Цветомир Крумов Петров",
         "isSpouse": false,
         "legalBasis": "ОК-кредит, 11,75 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -92,7 +95,8 @@
         "holderName": "Цветомир Крумов Петров",
         "isSpouse": false,
         "legalBasis": "лизинг, 4,20 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -110,7 +114,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": "КК, 12,30 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -154,7 +159,8 @@
         "holderName": "Цветомир Крумов Петров",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "продажба, лизинг, заплати"
+        "fundsOrigin": "продажба, лизинг, заплати",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -172,7 +178,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": "2,69%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -190,7 +197,8 @@
         "holderName": "Цветомир Крумов Петров",
         "isSpouse": false,
         "legalBasis": "4,20%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -247,7 +255,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -265,7 +274,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -322,7 +332,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -366,7 +377,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -410,7 +422,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       }
     ],
     "events": []
@@ -466,7 +479,8 @@
         "holderName": "Цветомир Крумов Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       }
     ],
     "events": []
@@ -516,7 +530,8 @@
         "holderName": "Цветомир Крумов Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -534,7 +549,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -552,7 +568,8 @@
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
         "legalBasis": "жилищен",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

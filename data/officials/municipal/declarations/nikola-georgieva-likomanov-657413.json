@@ -62,7 +62,8 @@
         "holderName": "Никола Георгиев Ликоманов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -80,7 +81,8 @@
         "holderName": "Никола Георгиев Ликоманов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -98,7 +100,8 @@
         "holderName": "Никола Георгиев Ликоманов",
         "isSpouse": false,
         "legalBasis": "НА за учредяване на договорна ипотека за недвижим имот",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +119,8 @@
         "holderName": "Галина Росенова Маджарова",
         "isSpouse": true,
         "legalBasis": "НА за учредяване на договорна ипотека за недвижим имот",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

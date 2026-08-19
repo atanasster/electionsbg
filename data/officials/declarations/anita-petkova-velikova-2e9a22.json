@@ -69,7 +69,8 @@
         "holderName": "Фотко Стайков Великов и Анита Петкова Великова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -87,7 +88,8 @@
         "holderName": "Анита Петкова Великова и Фотко Стайков Великов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивидент"
+        "fundsOrigin": "заплата и дивидент",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -105,7 +107,8 @@
         "holderName": "Анита Петкова Великова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -123,7 +126,8 @@
         "holderName": "Фотко Стайков Великов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -141,7 +145,8 @@
         "holderName": "Анита Петкова Великова и Фотко Стайков Великов",
         "isSpouse": true,
         "legalBasis": "банков кредит, лихвен процент 3.3613%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -216,7 +221,8 @@
         "holderName": "Анита Петкова Великова и Фотко Стайков Великов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивидент"
+        "fundsOrigin": "заплата и дивидент",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -234,7 +240,8 @@
         "holderName": "Анита Петкова Великова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -252,7 +259,8 @@
         "holderName": "Фотко Стайков Великов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -270,7 +278,8 @@
         "holderName": "Анита Петкова Великова и Фотко Стайков Великов",
         "isSpouse": true,
         "legalBasis": "банков кредит, лихвен процент 3,29447%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -55,7 +55,8 @@
         "holderName": "Иван Валентинов Томов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -73,7 +74,8 @@
         "holderName": "Иван Валентинов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба имот"
+        "fundsOrigin": "продажба имот",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -91,7 +93,8 @@
         "holderName": "Иван Валентинов Томов",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит - 3.484%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

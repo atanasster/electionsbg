@@ -43,7 +43,8 @@
         "holderName": "Иван Иванов Френкев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -61,7 +62,8 @@
         "holderName": "Иван Иванов Френкев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми и спестявания"
+        "fundsOrigin": "заеми и спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Иван Иванов Френкев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "Иван Иванов Френкев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми и спестявания"
+        "fundsOrigin": "заеми и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Иван Иванов Френкев",
         "isSpouse": false,
         "legalBasis": "заем от роднина, 0,01%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "holderName": "Иван Иванов Френкев",
         "isSpouse": false,
         "legalBasis": "заем от роднина, 0,01%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

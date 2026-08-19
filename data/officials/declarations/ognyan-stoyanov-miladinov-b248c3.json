@@ -62,7 +62,8 @@
         "holderName": "Огнян Стоянов Миладинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -80,7 +81,8 @@
         "holderName": "Камелия Цветанова Миладинова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -98,7 +100,8 @@
         "holderName": "Огнян Стоянов Миладинов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -116,7 +119,8 @@
         "holderName": "Огнян Стоянов Миладинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +138,8 @@
         "holderName": "Камелия Цветанова Миладинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -152,7 +157,8 @@
         "holderName": "Огнян Стоянов Миладинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -170,7 +176,8 @@
         "holderName": "Камелия Цветанова Миладинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [

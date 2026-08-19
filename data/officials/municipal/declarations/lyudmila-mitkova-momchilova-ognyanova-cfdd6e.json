@@ -43,7 +43,8 @@
         "holderName": "Станчо Асенов Огнянов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -61,7 +62,8 @@
         "holderName": "Людмила Миткова Момчилова-Огнянова",
         "isSpouse": false,
         "legalBasis": "кредит - 7.5 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Людмила Миткова Момчилова-Огнянова",
         "isSpouse": false,
         "legalBasis": "стоков кредит - 24 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Станчо Ангелов Огнянов",
         "isSpouse": true,
         "legalBasis": "стоков кредит - 24 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

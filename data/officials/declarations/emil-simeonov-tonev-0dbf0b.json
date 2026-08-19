@@ -38,7 +38,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -56,7 +57,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -74,7 +76,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": true,
         "legalBasis": "Финансов лизинг при лихвен процент в размер от 7,06",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -92,7 +95,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": true,
         "legalBasis": "потребителски кредит с лихвен процент в размер от 4,00",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -155,7 +159,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
-        "fundsOrigin": "заплата + финансов лизинг"
+        "fundsOrigin": "заплата + финансов лизинг",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -173,7 +178,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -191,7 +197,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно през 2023"
+        "fundsOrigin": "по Таблица 12 - ръчно през 2023",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -209,7 +216,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -227,7 +235,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "договор за фининсов лизинг с лихва 7,06 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -283,7 +292,8 @@
         "holderName": "Емил Симеонов Тонев и Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -301,7 +311,8 @@
         "holderName": "Емил Симеонов Тонев и Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": "делба",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -319,7 +330,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -337,7 +349,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -355,7 +368,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -373,7 +387,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -391,7 +406,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата + финансов лизинг"
+        "fundsOrigin": "заплата + финансов лизинг",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -409,7 +425,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -427,7 +444,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -445,7 +463,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "Финансов лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -538,7 +557,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата и финансов лизинг"
+        "fundsOrigin": "заплата и финансов лизинг",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -556,7 +576,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -574,7 +595,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -592,7 +614,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "Договор за ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -610,7 +633,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -667,7 +691,8 @@
         "holderName": "Емил Симеонов Тонев - СИО",
         "isSpouse": true,
         "legalBasis": "завършено право строеж в изпълнение на нотариален акт от 2017 г., въведено в експлоатация през 2021 г. с Акт 16",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -685,7 +710,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -703,7 +729,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "Договор за ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -747,7 +774,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -765,7 +793,8 @@
         "holderName": "Нели Петкова Тонева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -783,7 +812,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -919,7 +949,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -937,7 +968,8 @@
         "holderName": "Емил Симеонов Тонев",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

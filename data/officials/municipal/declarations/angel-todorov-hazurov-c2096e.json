@@ -80,7 +80,8 @@
         "holderName": "Даниела Стоянова Топова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -98,7 +99,8 @@
         "holderName": "Даниела Стоянова Топова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -116,7 +118,8 @@
         "holderName": "Ангел Тодоров Хазуров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -134,7 +137,8 @@
         "holderName": "Ангел Тодоров Хазуров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

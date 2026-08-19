@@ -44,7 +44,8 @@
         "holderName": "Магда Димитроа Димитрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Магда Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наследяване"
+        "fundsOrigin": "заплата, наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Магда Димитроа Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Магда Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Магда Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": "наследяване - 2.50%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Магда Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": "покупка - 2.41%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -178,7 +184,8 @@
         "holderName": "Магда Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -196,7 +203,8 @@
         "holderName": "Магда Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -214,7 +222,8 @@
         "holderName": "Магда Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -258,7 +267,8 @@
         "holderName": "Магда Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -276,7 +286,8 @@
         "holderName": "Магда Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

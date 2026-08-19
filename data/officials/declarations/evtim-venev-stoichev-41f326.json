@@ -56,7 +56,8 @@
         "holderName": "Янита Ангелова Стойчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -74,7 +75,8 @@
         "holderName": "Евтим Венев Стойчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -92,7 +94,8 @@
         "holderName": "Евтим Венев Стойчев",
         "isSpouse": false,
         "legalBasis": "Договор за ПК-4,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -110,7 +113,8 @@
         "holderName": "Евтим Венев Стойчев",
         "isSpouse": false,
         "legalBasis": "Договор за КК с ЛП по ОУ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -128,7 +132,8 @@
         "holderName": "Янита Ангелова Стойчева",
         "isSpouse": true,
         "legalBasis": "Договор за КК с ЛП по ОУ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -146,7 +151,8 @@
         "holderName": "Евтим Венев Стойчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -164,7 +170,8 @@
         "holderName": "Евтим Венев Стойчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": [
@@ -276,7 +283,8 @@
         "holderName": "Евтим Стойчев Стойчев",
         "isSpouse": true,
         "legalBasis": "Договор за ПК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

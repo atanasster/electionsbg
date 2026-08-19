@@ -44,7 +44,8 @@
         "holderName": "Димитър Ангелов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "Мартина Янкова Янкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения и продажби на земеделска земя"
+        "fundsOrigin": "дарения и продажби на земеделска земя",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -80,7 +82,8 @@
         "holderName": "Мартина Янкова Янкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "налични от предходни периоди"
+        "fundsOrigin": "налични от предходни периоди",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Адриан Димитров Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения от роднини"
+        "fundsOrigin": "дарения от роднини",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Димитър Ангелов Иванов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -166,7 +171,8 @@
         "holderName": "Димитър Ангелов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -184,7 +190,8 @@
         "holderName": "Адриан Димитров Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарение от роднини"
+        "fundsOrigin": "дарение от роднини",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -202,7 +209,8 @@
         "holderName": "Димитър Ангелов Иванов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -277,7 +285,8 @@
         "holderName": "Мартина Янкова Янкова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -295,7 +304,8 @@
         "holderName": "Димитър Ангелов Иванов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

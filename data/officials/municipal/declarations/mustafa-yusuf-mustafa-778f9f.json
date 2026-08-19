@@ -49,7 +49,8 @@
         "holderName": "Мустафа Юсуф Мустафа",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -67,7 +68,8 @@
         "holderName": "Юлия Събинова Дурлева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -85,7 +87,8 @@
         "holderName": "Мустафа Юсуф Мустафа",
         "isSpouse": false,
         "legalBasis": "Договор за кредит с 4,4 лих. %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

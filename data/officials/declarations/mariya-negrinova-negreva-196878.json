@@ -50,7 +50,8 @@
         "holderName": "Георги Стефанов Бъчваров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Мария Негринова Негрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Георги Стефанов Бъчваров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "Георги Стефанов Бъчваров",
         "isSpouse": true,
         "legalBasis": "банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

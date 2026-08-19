@@ -44,7 +44,8 @@
         "holderName": "Камен Светлозаров Костов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "Камен Светлозаров Костов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -112,7 +114,8 @@
         "holderName": "Камен Светлозаров Костов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -174,7 +177,8 @@
         "holderName": "Жанна Огнянова Николова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -192,7 +196,8 @@
         "holderName": "Жанна Огнянова Николова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -210,7 +215,8 @@
         "holderName": "Камен Светлозаров Костов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       }
     ],
     "events": []

@@ -419,6 +419,9 @@ SELECT
         SELECT a2.category AS cat, round(SUM(a2.value_eur * asset_share_multiplier(a2.share, a2.category))) AS total
           FROM declaration_asset a2
          WHERE a2.declaration_id = rep.declaration_id
+           -- Same holding filter as the join below, or the breakdown would not sum to the
+           -- header it sits under — the internal contradiction the ceiling comment warns of.
+           AND is_declared_holding(a2.table_num)
            -- Same ceiling as the totals above. A category breakdown that included the
            -- excluded row would not sum to its own header, which is exactly the kind of
            -- internal contradiction a reader notices and cannot explain.
@@ -431,7 +434,21 @@ SELECT
       ) c
   ), '{}'::jsonb) AS by_category
 FROM rep
+-- ⚠️ is_declared_holding IS ON THE JOIN, not on each aggregate, and that is the point:
+-- every FILTER above (assets, debts, net, excluded_asset_rows) then reads the same row set
+-- and they cannot drift. Tables 1.2 / 3.4 are property and vehicles the declarant RENTS or
+-- is provided with — see 089 for why neither `category` nor `legal_basis` can express that.
+--
+-- The join stays a LEFT JOIN, so a filing whose only asset rows are чуждо keeps its
+-- person-year and publishes €0. That is the honest answer, not a gap: the person filed and
+-- declared nothing of their own. Стефан Добрев Стайков's 2024 is exactly this shape —
+-- €445,386 published before this line, €0 after, all of it other people's property.
+--
+-- The `rep` CTE's has_assets / has_valued_assets ranking is deliberately NOT filtered. That
+-- tier decides WHICH filing speaks for a year, never what it is worth, and a чуждо-only
+-- annual is still a real wealth statement — one that says zero.
 LEFT JOIN declaration_asset a ON a.declaration_id = rep.declaration_id
+                             AND is_declared_holding(a.table_num)
 GROUP BY rep.person_id, rep.period_year, rep.declaration_id, rep.tier, rep.filings;
 
 -- The series query is "everything for person N, oldest→newest"; the unique index
@@ -528,10 +545,12 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         (SELECT SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (
                   WHERE a.category NOT IN ('debt', 'credit_limit')
                     AND a.value_eur <= asset_row_ceiling_eur())
-           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
+           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
+             AND is_declared_holding(a.table_num)), 0)),
       'debtsEur', round(COALESCE(
         (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
-           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
+           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
+             AND is_declared_holding(a.table_num)), 0)),
       -- net is computed HERE, on the same basis as person_wealth_year, so the
       -- declaration block and the wealth chart cannot publish different net worths
       -- for one person-year.
@@ -539,16 +558,30 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         (SELECT SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (
                   WHERE a.category NOT IN ('debt', 'credit_limit')
                     AND a.value_eur <= asset_row_ceiling_eur())
-           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)
+           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
+             AND is_declared_holding(a.table_num)), 0)
         - COALESCE(
         (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
-           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
+           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
+             AND is_declared_holding(a.table_num)), 0)),
       -- How many rows this filing had excluded, so the block can caveat a total it
       -- knows is incomplete rather than presenting it as whole ("no silent caps").
       'excludedAssetRows', (SELECT count(*) FROM declaration_asset a
                               WHERE a.declaration_id = d.declaration_id
+                                AND is_declared_holding(a.table_num)
                                 AND a.category NOT IN ('debt', 'credit_limit')
                                 AND a.value_eur > asset_row_ceiling_eur()),
+      -- Tables 1.2 / 3.4 — what the declarant USES but does not own. Carried as its own
+      -- pair so the profile can render „ползва" beside „притежава" instead of the rows
+      -- simply vanishing from a filing that has nothing else in it. The value is the
+      -- CONTRACT price („Цена по договор"), never a holding, and is summed separately for
+      -- exactly that reason: it may not be added to anything above.
+      'usedAssetRows', (SELECT count(*) FROM declaration_asset a
+                          WHERE a.declaration_id = d.declaration_id
+                            AND NOT is_declared_holding(a.table_num)),
+      'usedContractEur', round(COALESCE((SELECT SUM(a.value_eur) FROM declaration_asset a
+                          WHERE a.declaration_id = d.declaration_id
+                            AND NOT is_declared_holding(a.table_num)), 0)),
       'assetCount', (SELECT count(*) FROM declaration_asset a
                        WHERE a.declaration_id = d.declaration_id),
       -- Whether this filing declares crypto at all, and for how much. Carried on the
@@ -670,7 +703,18 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         END,
         -- Server-classified so the profile block and the /declarations/crypto register
         -- cannot disagree about what counts as crypto. See is_crypto_asset above.
-        'isCrypto', is_crypto_asset(a.category, a.description, a.detail, a.currency)
+        'isCrypto', is_crypto_asset(a.category, a.description, a.detail, a.currency),
+        -- Which form table the row came from, like `stakes` below. `isHolding` is derived
+        -- server-side rather than left to the client to re-derive from tableNum: the rule
+        -- has one home (089) and a UI that re-implemented it would be the sixth copy.
+        'tableNum', a.table_num,
+        'isHolding', is_declared_holding(a.table_num),
+        -- „Правно основание" — for an OWNED row how it was acquired („покупко-продажба",
+        -- „дарение"), and for a чуждо one how it is USED („договор за наем", „лизинг").
+        -- Carried for the second: the „ползва" block is not self-explanatory without it,
+        -- and a LEASE is the case where the site's own arithmetic needs explaining — the
+        -- car leaves the assets while the lease liability stays in table 7.
+        'legalBasis', a.legal_basis
       ) ORDER BY a.seq) FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
     ), '[]'::jsonb),
     'income', COALESCE((

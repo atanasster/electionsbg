@@ -86,7 +86,8 @@
         "holderName": "Ружка Милчева Генова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -104,7 +105,8 @@
         "holderName": "Юлиян Георгиев Найденчовски",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -122,7 +124,8 @@
         "holderName": "Ружка Милчева Генова",
         "isSpouse": false,
         "legalBasis": "падеж полица 1000002964",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -140,7 +143,8 @@
         "holderName": "Ружка Милчева Генова",
         "isSpouse": false,
         "legalBasis": "лизинг, вкл. ЛП 2.69%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -214,7 +218,8 @@
         "holderName": "Ружка Милчева Генова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -232,7 +237,8 @@
         "holderName": "Ружка Милчеа Генова",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -250,7 +256,8 @@
         "holderName": "Ружка Милчева Генова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -343,7 +350,8 @@
         "holderName": "РУЖКА МИЛЧЕВА ГЕНОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -361,7 +369,8 @@
         "holderName": "РУЖКА МИЛЧЕВА ГЕНОВА",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -379,7 +388,8 @@
         "holderName": "РУЖКА МИЛЧЕВА ГЕНОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -397,7 +407,8 @@
         "holderName": "ЮЛИЯН ГЕОРГИЕВ НАЙДЕНЧОВСКИ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -415,7 +426,8 @@
         "holderName": "РУЖКА МИЛЧЕВА ГЕНОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -433,7 +445,8 @@
         "holderName": "РУЖКА МИЛЧЕВА ГЕНОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -451,7 +464,8 @@
         "holderName": "РУЖКА МИЛЧЕВА ГЕНОВА",
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГ",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -469,7 +483,8 @@
         "holderName": "РУЖКА МИЛЧЕВА ГЕНОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -487,7 +502,8 @@
         "holderName": "РУЖКА МИЛЧЕВА ГЕНОВА",
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -505,7 +521,8 @@
         "holderName": "РУЖКА МИЛЧЕВА ГЕНОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

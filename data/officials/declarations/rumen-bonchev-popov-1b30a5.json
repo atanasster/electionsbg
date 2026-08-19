@@ -87,7 +87,8 @@
         "holderName": "РУМЕН БОНЧЕВ ПОПОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати,средства кредит предх.год,обратно изкупуване на фин.инструмнти"
+        "fundsOrigin": "заплати,средства кредит предх.год,обратно изкупуване на фин.инструмнти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -105,7 +106,8 @@
         "holderName": "ТЕОФАНА НИКОЛОВА ПОПОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания/доходи от дивиденти, наем заплати/"
+        "fundsOrigin": "спестявания/доходи от дивиденти, наем заплати/",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -123,7 +125,8 @@
         "holderName": "ТЕОФАНА НИКОЛОВА ПОПОВА",
         "isSpouse": true,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -141,7 +144,8 @@
         "holderName": "РУМЕН БОНЧЕВ ПОПОВ",
         "isSpouse": false,
         "legalBasis": "Дог. за кредит и учредена ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -159,7 +163,8 @@
         "holderName": "РУМЕН БОНЧЕВ ПОПОВ",
         "isSpouse": false,
         "legalBasis": "използван лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -177,7 +182,8 @@
         "holderName": "ТЕОФАНА НИКОЛОВА ПОПОВА",
         "isSpouse": true,
         "legalBasis": "използван лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -195,7 +201,8 @@
         "holderName": "РУМЕН БОНЧЕВ ПОПОВ",
         "isSpouse": false,
         "legalBasis": "Договор за покупка",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -257,7 +264,8 @@
         "holderName": "Румен Бончев Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -275,7 +283,8 @@
         "holderName": "Теофана Николова Попова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -293,7 +302,8 @@
         "holderName": "Румен Бончев Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -311,7 +321,8 @@
         "holderName": "Румен Бончев Попова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -329,7 +340,8 @@
         "holderName": "Румен Бончев Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -347,7 +359,8 @@
         "holderName": "Теофана Николова Попова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -365,7 +378,8 @@
         "holderName": "Румен Бончев Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -383,7 +397,8 @@
         "holderName": "Теофана Николова Попова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -401,7 +416,8 @@
         "holderName": "Теофана Николова Попова",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -419,7 +435,8 @@
         "holderName": "Румен Бончев Попов",
         "isSpouse": false,
         "legalBasis": "учредяванедоговорна ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -437,7 +454,8 @@
         "holderName": "Теофана Николова Попова",
         "isSpouse": true,
         "legalBasis": "договор за кр.карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -506,7 +524,8 @@
         "holderName": "РУМЕН БОНЧЕВ ПОПОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и отпуснат кредит предходна год."
+        "fundsOrigin": "заплати и отпуснат кредит предходна год.",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -524,7 +543,8 @@
         "holderName": "ТЕОФАНА НИКОЛОВА ПОПОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата,наем, дивидент"
+        "fundsOrigin": "заплата,наем, дивидент",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -542,7 +562,8 @@
         "holderName": "ТЕОФАНА НИКОЛОВА ПОПОВА",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -560,7 +581,8 @@
         "holderName": "РУМЕН БОНЧЕВ ПОПОВ",
         "isSpouse": false,
         "legalBasis": "Учредена договорна ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -49,7 +49,8 @@
         "holderName": "Сабахтин Мустафа Караибрям",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, дивиденти"
+        "fundsOrigin": "спестявания, дивиденти",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -67,7 +68,8 @@
         "holderName": "Гюлер Сабри Караибрям",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, доходи като земеделски стопанин"
+        "fundsOrigin": "спестявания, доходи като земеделски стопанин",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "Сабахтин Мустафа Караибрям",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дивиденти"
+        "fundsOrigin": "заплата, дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "Гюлер Сабри Караибрям",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи като земеделски стопанин, спестявания"
+        "fundsOrigin": "заплата, доходи като земеделски стопанин, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "Сабахтин Мустафа Караибрям",
         "isSpouse": false,
         "legalBasis": "Договор 8,95 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -139,7 +144,8 @@
         "holderName": "Гюлер Сабри Караибрям",
         "isSpouse": true,
         "legalBasis": "Договор 4,56 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -55,7 +55,8 @@
         "holderName": "Теодора Тодорова Маринова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -73,7 +74,8 @@
         "holderName": "Теодора Тодорова Маринова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -91,7 +93,8 @@
         "holderName": "Теодора Тодорова Маринова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -109,7 +112,8 @@
         "holderName": "Теодора Тодорова Маринова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -127,7 +131,8 @@
         "holderName": "Теодора Тодорова Маринова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -145,7 +150,8 @@
         "holderName": "Теодора Тодорова Маринова",
         "isSpouse": false,
         "legalBasis": "Договор LD2407810335, лихвен %-4,31",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -163,7 +169,8 @@
         "holderName": "Станимир Димитров Маринов",
         "isSpouse": true,
         "legalBasis": "Договор, лихвен %-4,62",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -181,7 +188,8 @@
         "holderName": "Станимир Димитров Маринов",
         "isSpouse": true,
         "legalBasis": "Договор, лихвен %-4,38",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

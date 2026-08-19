@@ -43,7 +43,8 @@
         "holderName": "Радко Петров тумбев",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Мариана Иванова Тумбева",
         "isSpouse": true,
         "legalBasis": "покупка",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -79,7 +81,8 @@
         "holderName": "Мариана Иванова Тумбева",
         "isSpouse": true,
         "legalBasis": "делба",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -97,7 +100,8 @@
         "holderName": "Радко Петров Тумбев",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -115,7 +119,8 @@
         "holderName": "Мариана Иванова Тумбева",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -133,7 +138,8 @@
         "holderName": "Радко Петров Тумбев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -151,7 +157,8 @@
         "holderName": "Радко Петров Тумбев",
         "isSpouse": false,
         "legalBasis": "лизинг, ГПР 12,10%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -169,7 +176,8 @@
         "holderName": "Мариана Иванова Тумбева",
         "isSpouse": true,
         "legalBasis": "лизинг, ГПР 13,19%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -187,7 +195,8 @@
         "holderName": "Мариана Иванова Тумбева",
         "isSpouse": true,
         "legalBasis": "кредит, ГПР 8,00%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -205,7 +214,8 @@
         "holderName": "Радко Петров Тумбев",
         "isSpouse": false,
         "legalBasis": "КК, 17,09%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -223,7 +233,8 @@
         "holderName": "Радко Петров Тумбев",
         "isSpouse": false,
         "legalBasis": "КК, 16,10%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

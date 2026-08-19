@@ -38,7 +38,8 @@
         "holderName": "Костадин Стоянов Грудев",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -74,7 +76,8 @@
         "holderName": "Костадин Стоянов Грудев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -92,7 +95,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия, продажба на апартамент"
+        "fundsOrigin": "заплата, пенсия, продажба на апартамент",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +114,8 @@
         "holderName": "Костадин Стоянов Грудев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия"
+        "fundsOrigin": "заплата, пенсия",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -128,7 +133,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -191,7 +197,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -209,7 +216,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "investment",
@@ -227,7 +235,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -264,7 +273,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -282,7 +292,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -300,7 +311,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "investment",
@@ -318,7 +330,8 @@
         "holderName": "Красимира Димитрова Грудева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

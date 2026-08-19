@@ -55,7 +55,8 @@
         "holderName": "НЕДЖМИ БАЙРЯМ УРУЧ",
         "isSpouse": false,
         "legalBasis": "съгласно предварителен договор авансово плащане",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -73,7 +74,8 @@
         "holderName": "НЕДЖМИ БАЙРЯМ УРУЧ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "стари суми"
+        "fundsOrigin": "стари суми",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -91,7 +93,8 @@
         "holderName": "ЗЕЙНЕПА ИСМАИЛ УРУЧ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "стари суми"
+        "fundsOrigin": "стари суми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -109,7 +112,8 @@
         "holderName": "НЕДЖМИ БАЙРЯМ УРУЧ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "стари суми и заплати"
+        "fundsOrigin": "стари суми и заплати",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -127,7 +131,8 @@
         "holderName": "ЗЕЙНЕПА ИСМАИЛ УРУЧ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "стари суми и заплати"
+        "fundsOrigin": "стари суми и заплати",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -145,7 +150,8 @@
         "holderName": "НЕДЖМИ БАЙРЯМ УРУЧ",
         "isSpouse": false,
         "legalBasis": "договор с лихва 2.55%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

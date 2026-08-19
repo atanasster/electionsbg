@@ -49,7 +49,8 @@
         "holderName": "Димчо Иванов Димов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -67,7 +68,8 @@
         "holderName": "Ирена Методиева Димова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "Ирена Методиева Димова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "Димчо Иванов Димов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажба на МПС"
+        "fundsOrigin": "заплата и продажба на МПС",
+        "tableNum": "5"
       },
       {
         "category": "credit_limit",
@@ -121,7 +125,8 @@
         "holderName": "Ирена Методиева Димова",
         "isSpouse": false,
         "legalBasis": "договор-15,6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -139,7 +144,8 @@
         "holderName": "Ирена Методиева Димова",
         "isSpouse": false,
         "legalBasis": "договор-9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -157,7 +163,8 @@
         "holderName": "Димчо Иванов Димов",
         "isSpouse": true,
         "legalBasis": "договор-18%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -175,7 +182,8 @@
         "holderName": "Димчо Иванов Димов",
         "isSpouse": true,
         "legalBasis": "договор-10.68%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -193,7 +201,8 @@
         "holderName": "Иван Димчев Димов",
         "isSpouse": true,
         "legalBasis": "договор-солидарен длъжник Ирена Методиева Димова -2,47%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -211,7 +220,8 @@
         "holderName": "Ирена Мтодиева Димова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "от минали години заплати и спестявания"
+        "fundsOrigin": "от минали години заплати и спестявания",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -229,7 +239,8 @@
         "holderName": "Димчо Иванов Димов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти и спестявания от минали години"
+        "fundsOrigin": "дивиденти и спестявания от минали години",
+        "tableNum": "8"
       }
     ],
     "events": [

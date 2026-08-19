@@ -50,7 +50,8 @@
         "holderName": "Истилиан Петров Петров",
         "isSpouse": true,
         "legalBasis": "предварителен договор за изпълнение на строителство и покупко-продажба на недвижим имот",
-        "fundsOrigin": "заплата, спестявания от предходни години и приходи от продажба на апартамент"
+        "fundsOrigin": "заплата, спестявания от предходни години и приходи от продажба на апартамент",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Маринела Богданова Белева;",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия и спестявания от предходни години"
+        "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Маринела Богданова Белева;",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия и спестявания от предходни години"
+        "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -104,7 +107,8 @@
         "holderName": "Истилиан Петров Петров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия и спестявания от предходни години, покупко продажба на апартамент"
+        "fundsOrigin": "заплата, пенсия и спестявания от предходни години, покупко продажба на апартамент",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -122,7 +126,8 @@
         "holderName": "Истилиан Петров Петров",
         "isSpouse": true,
         "legalBasis": "предварителен договор за изпълнение на строителство и покупко-продажба на недвижим имот",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -140,7 +145,8 @@
         "holderName": "Истилиан Петров Петров",
         "isSpouse": true,
         "legalBasis": "нотариален акт за покупко -продажба на недвижим имот от м.12.2025 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": [
@@ -209,7 +215,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия и спестявания от предходни години"
+        "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -227,7 +234,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия, спестявания от предходни години и обезщетения"
+        "fundsOrigin": "заплата, пенсия, спестявания от предходни години и обезщетения",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -245,7 +253,8 @@
         "holderName": "Истилиан Петров Петров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "обезщетения, пенсия,"
+        "fundsOrigin": "обезщетения, пенсия,",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -319,7 +328,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия и спестявания от предходни годони"
+        "fundsOrigin": "заплата, пенсия и спестявания от предходни годони",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -337,7 +347,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия и спестявания от предходни годони"
+        "fundsOrigin": "заплата, пенсия и спестявания от предходни годони",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -355,7 +366,8 @@
         "holderName": "Истилиан Петров Петров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "обезщетение, пенсия"
+        "fundsOrigin": "обезщетение, пенсия",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -411,7 +423,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия и спестявания от предходни години"
+        "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -429,7 +442,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия и спестявания от предходни години"
+        "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -479,7 +493,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания от предходни години"
+        "fundsOrigin": "заплата и спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -497,7 +512,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания от предходни години"
+        "fundsOrigin": "заплата и спестявания от предходни години",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -547,7 +563,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": "предварителен договор за изпълнение на строителство и покупко-продажба на недвижим имот",
-        "fundsOrigin": "заплата, спестявания от предходни години и получени средства от родители"
+        "fundsOrigin": "заплата, спестявания от предходни години и получени средства от родители",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -565,7 +582,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания от предходни години"
+        "fundsOrigin": "заплата и спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -583,7 +601,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания от предходни години"
+        "fundsOrigin": "заплата и спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -601,7 +620,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": "предварителен договор за изпълнение на строителство и покупко-продажба на недвижим имот",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -645,7 +665,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -663,7 +684,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -713,7 +735,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -731,7 +754,8 @@
         "holderName": "Маринела Богданова Белева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

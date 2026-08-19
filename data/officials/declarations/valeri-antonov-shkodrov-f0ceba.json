@@ -44,7 +44,8 @@
         "holderName": "Валери Антонов Шкодров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": [
@@ -107,7 +108,8 @@
         "holderName": "Емине Хасанова Шкодрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "receivable",
@@ -125,7 +127,8 @@
         "holderName": "Валери Антонов Шкодров",
         "isSpouse": false,
         "legalBasis": "да",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -143,7 +146,8 @@
         "holderName": "Валери Антонов Шкодров",
         "isSpouse": false,
         "legalBasis": "да",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

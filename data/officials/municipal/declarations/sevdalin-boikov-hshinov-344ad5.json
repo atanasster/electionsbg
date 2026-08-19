@@ -55,7 +55,8 @@
         "holderName": "Севдалин Бойков Хъшинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -73,7 +74,8 @@
         "holderName": "Севдалин Бойков Хъшинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -91,7 +93,8 @@
         "holderName": "Събка Славкова Хъшинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "holderName": "Събка Славкова Хъшинова",
         "isSpouse": true,
         "legalBasis": "8",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

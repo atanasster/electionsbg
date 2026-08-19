@@ -44,7 +44,8 @@
         "holderName": "Гинка Любенова Кацарска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "л.спестявания и заплата"
+        "fundsOrigin": "л.спестявания и заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "Димитър Стоянов Кацарски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "разпр.печалба и заплата"
+        "fundsOrigin": "разпр.печалба и заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -112,7 +114,8 @@
         "holderName": "Димитър Стоянов Кацарски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и разпределена печалба"
+        "fundsOrigin": "заплата и разпределена печалба",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -130,7 +133,8 @@
         "holderName": "Димитър Стоянов Кацарски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "разпределена печалба"
+        "fundsOrigin": "разпределена печалба",
+        "tableNum": "5"
       }
     ],
     "events": []

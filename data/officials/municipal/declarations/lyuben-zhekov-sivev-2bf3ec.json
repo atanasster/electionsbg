@@ -73,7 +73,8 @@
         "holderName": "Даниела Костадинова Сивева и Любен Жеков Сивев-СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дивиденти, ренти и пенсии"
+        "fundsOrigin": "дивиденти, ренти и пенсии",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -91,7 +92,8 @@
         "holderName": "Любен Жеков Сивев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, пенсии и ренти"
+        "fundsOrigin": "заплати, пенсии и ренти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -109,7 +111,8 @@
         "holderName": "Даниела Костадинова Сивева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти, ренти и пенсии"
+        "fundsOrigin": "дивиденти, ренти и пенсии",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -127,7 +130,8 @@
         "holderName": "Даниела Костадинова Сивева",
         "isSpouse": true,
         "legalBasis": "Договори за паричен заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": [

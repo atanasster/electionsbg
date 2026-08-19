@@ -43,7 +43,8 @@
         "holderName": "Анелия Димитрова Горова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Станислав Владмиров Горов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Станислав Владимиров Горов",
         "isSpouse": false,
         "legalBasis": "Договор за ПК, 4,37%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Станислав Владимиров Горов",
         "isSpouse": false,
         "legalBasis": "Договор за КК, 14,30 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

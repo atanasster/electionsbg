@@ -44,7 +44,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит, заплата, дарение"
+        "fundsOrigin": "кредит, заплата, дарение",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит, заплата, дивидент"
+        "fundsOrigin": "кредит, заплата, дивидент",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "Лизинг",
-        "fundsOrigin": "заплата, прехвърляне на права върху МПС"
+        "fundsOrigin": "заплата, прехвърляне на права върху МПС",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -98,7 +101,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -116,7 +120,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -152,7 +158,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -170,7 +177,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -188,7 +196,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за кредит, 2,45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -206,7 +215,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за кредит, 4,44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -224,7 +234,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за лизинг, 4,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -242,7 +253,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг - 3,09%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -260,7 +272,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор - 9,60%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -278,7 +291,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор - 9,0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -296,7 +310,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор - 12,75%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -314,7 +329,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор - 9,0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -332,7 +348,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -350,7 +367,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -438,7 +456,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -456,7 +475,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -474,7 +494,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -492,7 +513,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -510,7 +532,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заплата, приспадане на сума от предходен лизинг"
+        "fundsOrigin": "заплата, приспадане на сума от предходен лизинг",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -528,7 +551,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -546,7 +570,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -564,7 +589,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -582,7 +608,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -600,7 +627,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -618,7 +646,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -636,7 +665,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -654,7 +684,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -672,7 +703,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -690,7 +722,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -708,7 +741,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -726,7 +760,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "осигурителни вноски от заплата"
+        "fundsOrigin": "осигурителни вноски от заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -744,7 +779,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "осигурителни вноски от заплата"
+        "fundsOrigin": "осигурителни вноски от заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -951,7 +987,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата, приспадане на сума от предходен лизинг"
+        "fundsOrigin": "заплата, приспадане на сума от предходен лизинг",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -969,7 +1006,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -987,7 +1025,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1005,7 +1044,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1023,7 +1063,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1041,7 +1082,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1059,7 +1101,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1077,7 +1120,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1095,7 +1139,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1113,7 +1158,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1131,7 +1177,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -1149,7 +1196,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "осигурителни вноски от заплата"
+        "fundsOrigin": "осигурителни вноски от заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -1167,7 +1215,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "осигурителни вноски от заплата"
+        "fundsOrigin": "осигурителни вноски от заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -1254,7 +1303,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата, приспадане на сума от предходен лизинг"
+        "fundsOrigin": "заплата, приспадане на сума от предходен лизинг",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -1272,7 +1322,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -1290,7 +1341,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1308,7 +1360,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1326,7 +1379,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и доходи от друга стопанска дейност"
+        "fundsOrigin": "заплати и доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1344,7 +1398,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и доходи от друга стопанска дейност"
+        "fundsOrigin": "заплати и доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1362,7 +1417,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати и доходи от друга стопанска дейност"
+        "fundsOrigin": "заплати и доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1380,7 +1436,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1398,7 +1455,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1416,7 +1474,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1434,7 +1493,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -1452,7 +1512,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "осигурителни вноски от заплата"
+        "fundsOrigin": "осигурителни вноски от заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -1470,7 +1531,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "осигурителни вноски от заплата"
+        "fundsOrigin": "осигурителни вноски от заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -1624,7 +1686,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит, продажба, спестявания"
+        "fundsOrigin": "кредит, продажба, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1642,7 +1705,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит, продажба, спестявания"
+        "fundsOrigin": "кредит, продажба, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1660,7 +1724,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит, продажба, спестявания"
+        "fundsOrigin": "кредит, продажба, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1678,7 +1743,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1696,7 +1762,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследство"
+        "fundsOrigin": "наследство",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1714,7 +1781,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит, спестявания, дарение"
+        "fundsOrigin": "кредит, спестявания, дарение",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1732,7 +1800,8 @@
         "holderName": "Евгени Петров Станимиорв",
         "isSpouse": true,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит, спестявания, дарение"
+        "fundsOrigin": "кредит, спестявания, дарение",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1750,7 +1819,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "дарение, покупка",
-        "fundsOrigin": "работна заплата"
+        "fundsOrigin": "работна заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -1768,7 +1838,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -1786,7 +1857,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -1804,7 +1876,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата и доходи от друга стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1822,7 +1895,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата и доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1840,7 +1914,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата и доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1858,7 +1933,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата и доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1876,7 +1952,8 @@
         "holderName": "Мариия Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1894,7 +1971,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договр за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1912,7 +1990,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1930,7 +2009,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1948,7 +2028,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -1966,7 +2047,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "осигуровки / работна заплата"
+        "fundsOrigin": "осигуровки / работна заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -1984,7 +2066,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "осигуровки / работна заплата"
+        "fundsOrigin": "осигуровки / работна заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -2034,7 +2117,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит, продажба и спестявания"
+        "fundsOrigin": "кредит, продажба и спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2052,7 +2136,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит, продажба и спестявания"
+        "fundsOrigin": "кредит, продажба и спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2070,7 +2155,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит, продажба и спестявания"
+        "fundsOrigin": "кредит, продажба и спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2088,7 +2174,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2106,7 +2193,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "-I44-Q44п"
+        "fundsOrigin": "-I44-Q44п",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2124,7 +2212,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба и дарение",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -2142,7 +2231,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -2160,7 +2250,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -2178,7 +2269,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -2196,7 +2288,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -2214,7 +2307,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2232,7 +2326,8 @@
         "holderName": "Мария Радославова Станимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -2250,7 +2345,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2268,7 +2364,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -2305,7 +2402,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2323,7 +2421,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2341,7 +2440,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2359,7 +2459,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2377,7 +2478,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2395,7 +2497,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -2413,7 +2516,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -2431,7 +2535,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -2449,7 +2554,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -2467,7 +2573,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2485,7 +2592,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -2503,7 +2611,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2521,7 +2630,8 @@
         "holderName": "Евгени Петров Станимиров",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

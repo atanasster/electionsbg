@@ -44,7 +44,8 @@
         "holderName": "Борислав Любомиров Иванов",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Борислав Любомиров Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -80,7 +82,8 @@
         "holderName": "Алекс дизайн",
         "isSpouse": true,
         "legalBasis": "НАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "БОРИСЛАВ ЛЮБОМИРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ С 4,25%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "БОРИСЛАВ ЛЮБОМИРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ С 1,99%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "БОРИСЛАВ ЛЮБОМИРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ С 5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "БОРИСЛАВ ЛЮБОМИРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ С 5,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -170,7 +177,8 @@
         "holderName": "БОРИСЛАВ ЛЮБОМИРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ С 4,8%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -188,7 +196,8 @@
         "holderName": "БОРИСЛАВ ЛЮБОМИРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ С 7,33%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -257,7 +266,8 @@
         "holderName": "Борислав Любомиров Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -275,7 +285,8 @@
         "holderName": "БОРИСЛАВ ЛЮБОМИРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -293,7 +304,8 @@
         "holderName": "БОРИСЛАВ ЛЮБОМИРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

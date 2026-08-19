@@ -44,7 +44,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": "лизингов договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Екатерина Петровна Пенчева",
         "isSpouse": true,
         "legalBasis": "договор за ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -148,7 +152,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -166,7 +171,8 @@
         "holderName": "Екатерина Петровна Пенчева",
         "isSpouse": true,
         "legalBasis": "договор за ипотека",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -184,7 +190,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -202,7 +209,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -220,7 +228,8 @@
         "holderName": "Екатерина Петровна Пенчева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -238,7 +247,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": "лизингов договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -256,7 +266,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "от продажба на недвижим имот"
+        "fundsOrigin": "от продажба на недвижим имот",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -274,7 +285,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -292,7 +304,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -310,7 +323,8 @@
         "holderName": "Екатерина Петровна Пенчева",
         "isSpouse": true,
         "legalBasis": "договор за ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -360,7 +374,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -378,7 +393,8 @@
         "holderName": "Екатерина Петровна Пенчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -396,7 +412,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -414,7 +431,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -432,7 +450,8 @@
         "holderName": "Екатерина Петровна Пенчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -450,7 +469,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -468,7 +488,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -486,7 +507,8 @@
         "holderName": "Данчо Иванов Пенчев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -504,7 +526,8 @@
         "holderName": "Екатерина Петровна Пенчева",
         "isSpouse": true,
         "legalBasis": "договор за ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

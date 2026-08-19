@@ -55,7 +55,8 @@
         "holderName": "ЯСИН ТАСИМ МЕХМЕД",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -73,7 +74,8 @@
         "holderName": "ЛЕМАН ФИКРЕТ РАМАДАН",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -91,7 +93,8 @@
         "holderName": "ЛЕМАН ФИКРЕТ РАМАДАН",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "holderName": "ЯСИН ТАСИМ МЕХМЕД",
         "isSpouse": true,
         "legalBasis": "9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

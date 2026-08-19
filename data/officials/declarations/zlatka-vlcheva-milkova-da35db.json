@@ -44,7 +44,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -98,7 +101,8 @@
         "holderName": "Живко Иванов Милков",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": true,
         "legalBasis": "Безвъзможна помощ 1,83%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "Живко Иванов Милков",
         "isSpouse": true,
         "legalBasis": "Договор за лизинг 4,07%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -196,7 +203,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -214,7 +222,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -232,7 +241,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -250,7 +260,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Кредит и заплата"
+        "fundsOrigin": "Кредит и заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -268,7 +279,8 @@
         "holderName": "Златка Вълчева Милкова",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

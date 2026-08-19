@@ -80,7 +80,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -98,7 +99,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "лични средства"
+        "fundsOrigin": "лични средства",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -116,7 +118,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -134,7 +137,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "лични средства"
+        "fundsOrigin": "лични средства",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -152,7 +156,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -170,7 +175,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "лични средства"
+        "fundsOrigin": "лични средства",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -188,7 +194,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "лични средства"
+        "fundsOrigin": "лични средства",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -206,7 +213,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "кредит 6% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -224,7 +232,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "заем 0% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -242,7 +251,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": "заем 0% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -260,7 +270,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "заем 0% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -278,7 +289,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": "заем 0% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -328,7 +340,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и наем"
+        "fundsOrigin": "заплата и наем",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -346,7 +359,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем"
+        "fundsOrigin": "наем",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -364,7 +378,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -382,7 +397,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доходи и дивиденти"
+        "fundsOrigin": "доходи и дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -400,7 +416,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доходи и дивиденти"
+        "fundsOrigin": "доходи и дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -418,7 +435,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "кредит 6.25% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -436,7 +454,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "заем 0% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -454,7 +473,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": "заем 0% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -510,7 +530,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наем и заплата"
+        "fundsOrigin": "наем и заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -528,7 +549,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем"
+        "fundsOrigin": "наем",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -546,7 +568,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -564,7 +587,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доходи, дивиденти"
+        "fundsOrigin": "доходи, дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -582,7 +606,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доходи, дивиденти"
+        "fundsOrigin": "доходи, дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -600,7 +625,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -618,7 +644,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -636,7 +663,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -735,7 +763,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми, заеми и дивиденти"
+        "fundsOrigin": "наеми, заеми и дивиденти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -753,7 +782,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -771,7 +801,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "авансови плащания, заеми и дивиденти"
+        "fundsOrigin": "авансови плащания, заеми и дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -789,7 +820,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "авансови плащания, заеми и дивиденти"
+        "fundsOrigin": "авансови плащания, заеми и дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -807,7 +839,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -825,7 +858,8 @@
         "holderName": "Елена Славова Павлова",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -843,7 +877,8 @@
         "holderName": "Орлин Асенов Павлов",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

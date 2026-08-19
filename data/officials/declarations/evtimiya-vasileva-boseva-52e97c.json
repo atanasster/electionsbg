@@ -38,7 +38,8 @@
         "holderName": "Борис Иванов Босев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и наследство"
+        "fundsOrigin": "заплата и наследство",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -56,7 +57,8 @@
         "holderName": "Евтимия Василева Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -74,7 +76,8 @@
         "holderName": "Борис Иванов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "покупко продажба на имот и наследство"
+        "fundsOrigin": "покупко продажба на имот и наследство",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -92,7 +95,8 @@
         "holderName": "Евтимия Василева Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -110,7 +114,8 @@
         "holderName": "Евтимия Василева Босева",
         "isSpouse": false,
         "legalBasis": "предварителен договор- чл.19 от ЗЗД",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -167,7 +172,8 @@
         "holderName": "Борис Иванов Босев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -185,7 +191,8 @@
         "holderName": "Евтимия Василева Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -229,7 +236,8 @@
         "holderName": "Борис Иванов Босев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -247,7 +255,8 @@
         "holderName": "Евтимия Василева Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -265,7 +274,8 @@
         "holderName": "Евтимия Василева Босева",
         "isSpouse": false,
         "legalBasis": "предварителен договор- чл.19 от ЗЗД",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

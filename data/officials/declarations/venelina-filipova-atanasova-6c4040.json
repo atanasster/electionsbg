@@ -44,7 +44,8 @@
         "holderName": "ВЕНЕЛИНА ФИЛИПОВА АТАНАСОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "ВЕНЕЛИНА ФИЛИПОВА АТАНАСОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "ВЕНЕЛИНА ФИЛИПОВА АТАНАСОВА",
         "isSpouse": false,
         "legalBasis": "ПОКУПКА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "ВЕНЕЛИНА ФИЛИПОВА АТАНАСОВА",
         "isSpouse": false,
         "legalBasis": "ИПОТЕКА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -154,7 +158,8 @@
         "holderName": "Венелина Филипова Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -172,7 +177,8 @@
         "holderName": "Димо Желязков Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "девиденти"
+        "fundsOrigin": "девиденти",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -190,7 +196,8 @@
         "holderName": "Венелина Филипова Атанасова",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -208,7 +215,8 @@
         "holderName": "Венелина Филипова Атанасова",
         "isSpouse": false,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -324,7 +332,8 @@
         "holderName": "Димо Желязков Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -342,7 +351,8 @@
         "holderName": "Димо Желязков Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -360,7 +370,8 @@
         "holderName": "Димо Желязков Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -378,7 +389,8 @@
         "holderName": "Димо Желязков Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -396,7 +408,8 @@
         "holderName": "Димо Желязков Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -414,7 +427,8 @@
         "holderName": "Венелина Филипова Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -432,7 +446,8 @@
         "holderName": "Филип Борисов Върбанов",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "security",
@@ -450,7 +465,8 @@
         "holderName": "Димо Желязков Атанасова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Доника Георгиева Балева-Господинова",
         "isSpouse": true,
         "legalBasis": "покупка",
-        "fundsOrigin": "по Таблица 12 - стопанска дейност като едноличен търговец"
+        "fundsOrigin": "по Таблица 12 - стопанска дейност като едноличен търговец",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Доника Георгиева Балева-Господинова",
         "isSpouse": true,
         "legalBasis": "продажба",
-        "fundsOrigin": "продажба"
+        "fundsOrigin": "продажба",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Драгомир Господинов Господинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Доника Георгиева Балева-Господинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - от стопанска дейност като едноличен търговец"
+        "fundsOrigin": "по Таблица 12 - от стопанска дейност като едноличен търговец",
+        "tableNum": "5"
       }
     ],
     "events": []

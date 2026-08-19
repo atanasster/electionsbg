@@ -44,7 +44,8 @@
         "holderName": "Румен Митков Смирнов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "Румен Митков Смирнов",
         "isSpouse": false,
         "legalBasis": "договор - ЛП 3.35%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Румен Митков Смирнов",
         "isSpouse": false,
         "legalBasis": "договор - ЛП 4.99%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -124,7 +127,8 @@
         "holderName": "Румяна Димитрова Смирнова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -142,7 +146,8 @@
         "holderName": "Румен Митков Смирнов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -160,7 +165,8 @@
         "holderName": "Румен Митков Смирнов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -178,7 +184,8 @@
         "holderName": "Румен Митков Смирнов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -196,7 +203,8 @@
         "holderName": "Румен Митков Смирнов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

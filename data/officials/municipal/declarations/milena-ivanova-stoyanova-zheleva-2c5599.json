@@ -43,7 +43,8 @@
         "holderName": "Румен Станков Желев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Милена Иванова Стоянова Желева",
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Милена Иванова Сточнова-Желева",
         "isSpouse": true,
         "legalBasis": "договор, 2,9% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

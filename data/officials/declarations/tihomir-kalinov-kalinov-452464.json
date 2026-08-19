@@ -44,7 +44,8 @@
         "holderName": "Тихомир Калинов Калинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Дияна Венциславова Илиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "земеделски производител"
+        "fundsOrigin": "земеделски производител",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -118,7 +120,8 @@
         "holderName": "Дияна Венциславова Илиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -136,7 +139,8 @@
         "holderName": "Тихомир Калинов Калинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -154,7 +158,8 @@
         "holderName": "Тихомир Калинов Калинов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -172,7 +177,8 @@
         "holderName": "Тихомир Калинов Калинов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

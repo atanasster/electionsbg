@@ -43,7 +43,8 @@
         "holderName": "Лазар костадинов Лазаров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Лазар Костадинов Лазаров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Лазар Костадинов Лазаров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Лазар Костадинов Лазаров",
         "isSpouse": false,
         "legalBasis": "4,4",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

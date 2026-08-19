@@ -49,7 +49,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -67,7 +68,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми"
+        "fundsOrigin": "наеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТНА КАРТА 17.95%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЛИЗИНГ 4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

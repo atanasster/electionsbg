@@ -80,7 +80,8 @@
         "holderName": "Веселина Момчилова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно, кредит, заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно, кредит, заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -98,7 +99,8 @@
         "holderName": "Веселина Момчилова Георгиева",
         "isSpouse": false,
         "legalBasis": "4,59",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +118,8 @@
         "holderName": "Веселина Момчилова Георгиева",
         "isSpouse": false,
         "legalBasis": "5,45",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -160,7 +163,8 @@
         "holderName": "Веселина Момчилова Георгиева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -178,7 +182,8 @@
         "holderName": "Веселина Момчилова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, остатък от кредит"
+        "fundsOrigin": "заплата, остатък от кредит",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -196,7 +201,8 @@
         "holderName": "Веселина Момчилова Георгиева",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -240,7 +246,8 @@
         "holderName": "Веселина Момчилова Гуеоргиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата-кредит"
+        "fundsOrigin": "заплата-кредит",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -258,7 +265,8 @@
         "holderName": "Веселина Момчилова Георгиева",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

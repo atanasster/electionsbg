@@ -55,7 +55,8 @@
         "holderName": "Бистра Ангелова Павловска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата от търговска дейност"
+        "fundsOrigin": "заплата от търговска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -73,7 +74,8 @@
         "holderName": "Бистра Ангелова Павловска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -91,7 +93,8 @@
         "holderName": "Емо Иванов Павловски",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и пенсия"
+        "fundsOrigin": "спестявания и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -109,7 +112,8 @@
         "holderName": "Емо Иванов Павловски",
         "isSpouse": true,
         "legalBasis": "Договор за съвместна дейност и сътрудничество, 0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []

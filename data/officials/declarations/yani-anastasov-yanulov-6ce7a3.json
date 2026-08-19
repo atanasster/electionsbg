@@ -51,7 +51,8 @@
         "holderName": "ЯНИ АНАСТАСОВ ЯНУЛОВ",
         "isSpouse": false,
         "legalBasis": "ПОКУПКА",
-        "fundsOrigin": "КРЕДИТ"
+        "fundsOrigin": "КРЕДИТ",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -69,7 +70,8 @@
         "holderName": "ЯНИ АНАСТАСОВ ЯНУЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -87,7 +89,8 @@
         "holderName": "ВЕЛМИРА ТОДОРОВА ЯНУЛОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -105,7 +108,8 @@
         "holderName": "ЯНИ АНАСТАСОВ ЯНУЛОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ЗАЕМ, ЛИХВА 4,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -162,7 +166,8 @@
         "holderName": "ЯНИ АНАСТАСОВ ЯНУЛОВ",
         "isSpouse": false,
         "legalBasis": "БАНКОВ КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

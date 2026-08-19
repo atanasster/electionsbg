@@ -38,7 +38,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -56,7 +57,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -74,7 +76,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -124,7 +127,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -142,7 +146,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНОВА",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -192,7 +197,8 @@
         "holderName": "АТАНАС ЙОРДАНОВ ПАНОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       }
     ],
     "events": []
@@ -236,7 +242,8 @@
         "holderName": "АТАНАС ЙОРДАНОВ ПАНОВ",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       }
     ],
     "events": []
@@ -305,7 +312,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНОВА",
         "isSpouse": true,
         "legalBasis": "строителство",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -349,7 +357,8 @@
         "holderName": "Атанас Йорданов Панов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -367,7 +376,8 @@
         "holderName": "Йорданка Димитрова Панова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -385,7 +395,8 @@
         "holderName": "Йорданка Димитрова Панова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -403,7 +414,8 @@
         "holderName": "Йорданка Димитрова Панова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -421,7 +433,8 @@
         "holderName": "АТАНАС ЙОРДАНОВ ПАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "от продажба на имоти"
+        "fundsOrigin": "от продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -439,7 +452,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "от продажба на имоти"
+        "fundsOrigin": "от продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -457,7 +471,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНОВА",
         "isSpouse": true,
         "legalBasis": "ПОКУПКА НА ИМОТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -61,7 +61,8 @@
         "holderName": "Иван Христов Калчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дивиденти, наеми"
+        "fundsOrigin": "заплата, дивиденти, наеми",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -79,7 +80,8 @@
         "holderName": "Симона Христова Христова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -97,7 +99,8 @@
         "holderName": "Иван Христов Калчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наследяване"
+        "fundsOrigin": "заплата, наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -115,7 +118,8 @@
         "holderName": "Симона Христова Христова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "security",
@@ -133,7 +137,8 @@
         "holderName": "Иван Христов Калчев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -151,7 +156,8 @@
         "holderName": "Иван Христов Калчев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "9"
       }
     ],
     "events": []

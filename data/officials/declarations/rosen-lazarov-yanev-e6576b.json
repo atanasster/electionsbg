@@ -50,7 +50,8 @@
         "holderName": "Росен Лазаров Янев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -68,7 +69,8 @@
         "holderName": "Росен Лазаров Янев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Росен Лазаров Янев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "Росен Лазаров Янев",
         "isSpouse": false,
         "legalBasis": "Договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -148,7 +152,8 @@
         "holderName": "Росен Лазаров Янев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -166,7 +171,8 @@
         "holderName": "Росен Лазаров Янев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -184,7 +190,8 @@
         "holderName": "Росен Лазаров Янев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.1"
       },
       {
         "category": "debt",
@@ -202,7 +209,8 @@
         "holderName": "Росен Лазаров Янев",
         "isSpouse": false,
         "legalBasis": "Договор за банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

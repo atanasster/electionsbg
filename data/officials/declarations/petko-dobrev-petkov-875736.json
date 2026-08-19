@@ -62,7 +62,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -80,7 +81,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -98,7 +100,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -116,7 +119,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -134,7 +138,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -152,7 +157,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -170,7 +176,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -188,7 +195,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -206,7 +214,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -224,7 +233,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -242,7 +252,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -260,7 +271,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -278,7 +290,8 @@
         "holderName": "Петко Добрев Петков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -346,7 +359,8 @@
         "holderName": "ПETKO ДОБРЕВ ПЕТКОВ",
         "isSpouse": true,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -364,7 +378,8 @@
         "holderName": "ПЕТКО ДОБРЕВ ПЕТКОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -382,7 +397,8 @@
         "holderName": "ПЕТКО ДОБРЕВ ПЕТКОВ",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -400,7 +416,8 @@
         "holderName": "ПЕТКО ДОБРЕВ ПЕТКОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [

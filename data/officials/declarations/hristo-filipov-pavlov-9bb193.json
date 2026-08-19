@@ -50,7 +50,8 @@
         "holderName": "Христо Филипов Павлов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Христо Филипов Павлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -86,7 +88,8 @@
         "holderName": "Христо Филипов Павлов",
         "isSpouse": false,
         "legalBasis": "Предварителен договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "Христо Филипов Павлов",
         "isSpouse": false,
         "legalBasis": "Банков кредит, 6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -160,7 +164,8 @@
         "holderName": "Христо Филипов Павлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -234,7 +239,8 @@
         "holderName": "Христо Филипов Павлов",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -252,7 +258,8 @@
         "holderName": "Христо Филипов Павлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -270,7 +277,8 @@
         "holderName": "Христо Филипов Павлов",
         "isSpouse": false,
         "legalBasis": "Банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

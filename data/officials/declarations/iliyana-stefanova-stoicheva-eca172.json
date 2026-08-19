@@ -44,7 +44,8 @@
         "holderName": "Илияна Стефанова Стойчева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "лизинг"
+        "fundsOrigin": "лизинг",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Илияна Стефанова Стойчева",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.3"
       },
       {
         "category": "cash",
@@ -80,7 +82,8 @@
         "holderName": "Илияна Стефанова Стойчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Илияна Стефанова Стойчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми , заплата"
+        "fundsOrigin": "заеми , заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -154,7 +158,8 @@
         "holderName": "Илияна Стефанова Стойчева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -172,7 +177,8 @@
         "holderName": "Илияна Стефанова Стойчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -190,7 +196,8 @@
         "holderName": "Илияна Стефанова Стойчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -208,7 +215,8 @@
         "holderName": "Илияна Стефанова Стойчева",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

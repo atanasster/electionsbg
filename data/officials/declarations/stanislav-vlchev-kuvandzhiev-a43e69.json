@@ -64,7 +64,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -82,7 +83,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -100,7 +102,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -118,7 +121,8 @@
         "holderName": "Петя Евгениева Куванджиева",
         "isSpouse": true,
         "legalBasis": "чл.134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -136,7 +140,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "дог.за ипот.кредит, 3% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -154,7 +159,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "кредит,18.6%лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -172,7 +178,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "потр.кредит, 5.5% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -228,7 +235,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит, спестявания"
+        "fundsOrigin": "кредит, спестявания",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -246,7 +254,8 @@
         "holderName": "Стансилав Вълчев Куванджиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -264,7 +273,8 @@
         "holderName": "Петя Евгениева Куванджиева",
         "isSpouse": true,
         "legalBasis": "чл.134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -282,7 +292,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "дог.за ипот.кредит, 3% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -300,7 +311,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "кредит,18.6%лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -419,7 +431,8 @@
         "holderName": "Антония Станиславова Куванджиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -437,7 +450,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -455,7 +469,8 @@
         "holderName": "Петя Евгениева Куванджиева",
         "isSpouse": true,
         "legalBasis": "чл.134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -473,7 +488,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -491,7 +507,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -509,7 +526,8 @@
         "holderName": "Станислав Вълчев Куванджиев",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

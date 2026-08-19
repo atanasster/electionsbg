@@ -31,7 +31,8 @@
         "holderName": "Цветан Генчев Цветанов и Десислава Василева Цветанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Цветан Генчев Цветанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +69,8 @@
         "holderName": "Десислава Василева Цветанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -85,7 +88,8 @@
         "holderName": "Цветан Генчев Цветанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -103,7 +107,8 @@
         "holderName": "Цветан Генчев Цветанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -121,7 +126,8 @@
         "holderName": "Десислава Василева Цветанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -139,7 +145,8 @@
         "holderName": "Цветан Генчев Цветанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -157,7 +164,8 @@
         "holderName": "Василена Цетанова Цветанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -175,7 +183,8 @@
         "holderName": "София Цветанова Цетанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -193,7 +202,8 @@
         "holderName": "Цветан Генчев Цветанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "credit_limit",
@@ -211,7 +221,8 @@
         "holderName": "Цветан Генчев Цветанов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -229,7 +240,8 @@
         "holderName": "Цветан Генчев Цветанов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -285,7 +297,8 @@
         "holderName": "Цветан Генчев Цветанов и Десислава Василева Цветанова",
         "isSpouse": true,
         "legalBasis": "замяна на недвижими имоти",
-        "fundsOrigin": "замяна, заплати и кредит"
+        "fundsOrigin": "замяна, заплати и кредит",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -303,7 +316,8 @@
         "holderName": "Василена Цетанова Цветанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарение по възходяща линия (родител), декларирани и в предходни декларации"
+        "fundsOrigin": "дарение по възходяща линия (родител), декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -321,7 +335,8 @@
         "holderName": "София Цветанова Цетанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарение по възходяща линия (родител), декларирани и в предходни декларации"
+        "fundsOrigin": "дарение по възходяща линия (родител), декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "credit_limit",
@@ -339,7 +354,8 @@
         "holderName": "Цветан Генчев Цветанов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -357,7 +373,8 @@
         "holderName": "Цветан Генчев Цветанов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

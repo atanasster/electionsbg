@@ -44,7 +44,8 @@
         "holderName": "Таня Георгиева Андреева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Таня Георгиева Андреева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Таня Георгиева Андреева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -98,7 +101,8 @@
         "holderName": "Георги Василев Ушев",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Таня Георгиева Андреева",
         "isSpouse": false,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

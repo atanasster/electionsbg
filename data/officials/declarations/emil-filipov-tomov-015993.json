@@ -50,7 +50,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и доход от наем"
+        "fundsOrigin": "заплата и доход от наем",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Димитър Емилов Филипов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "доход от наем"
+        "fundsOrigin": "доход от наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -104,7 +107,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и командировъчни пари"
+        "fundsOrigin": "заплата и командировъчни пари",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -122,7 +126,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировъчни пари"
+        "fundsOrigin": "командировъчни пари",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -140,7 +145,8 @@
         "holderName": "Петя Валентинова Петрова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит за текущо потребление от 08.07.2021 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -196,7 +202,8 @@
         "holderName": "Емил Филипов Томов и Петя Валентинова Петрова",
         "isSpouse": true,
         "legalBasis": "Договор за финансов лизинг № 173049327206 от 14.11.2017 г.",
-        "fundsOrigin": "заплата и доход от наем"
+        "fundsOrigin": "заплата и доход от наем",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -214,7 +221,8 @@
         "holderName": "Димитър Емилов Филипов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -232,7 +240,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "доход от наем"
+        "fundsOrigin": "доход от наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -250,7 +259,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и командировъчни пари"
+        "fundsOrigin": "заплата и командировъчни пари",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -268,7 +278,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировъчни пари"
+        "fundsOrigin": "командировъчни пари",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -286,7 +297,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": "Лизингополучател по договор за финансов лизинг № 173049327206 от 14.11.2017 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -304,7 +316,8 @@
         "holderName": "Петя Валентинова Петрова",
         "isSpouse": true,
         "legalBasis": "Съдлъжник по договор за финансов лизинг № 173049327206 от 14.11.2017 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -322,7 +335,8 @@
         "holderName": "Петя Валентинова Петрова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит за текущо потребление от 08.07.2021 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -340,7 +354,8 @@
         "holderName": "Петя Валентинова Петрова",
         "isSpouse": true,
         "legalBasis": "Договор за стоков кредит № 857042 от 28.08.2022 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -395,7 +410,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -413,7 +429,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -431,7 +448,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -449,7 +467,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -467,7 +486,8 @@
         "holderName": "Димитър Емилов Филипов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -485,7 +505,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -503,7 +524,8 @@
         "holderName": "Емил Филипов Томов",
         "isSpouse": false,
         "legalBasis": "Договор за финансов лизинг № 173049327206 от 14.11.2017 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -521,7 +543,8 @@
         "holderName": "Петя Валентинова Петрова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит за текущо потребление от 08.07.2021 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

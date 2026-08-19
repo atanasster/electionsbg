@@ -50,7 +50,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -68,7 +69,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "козмандировъчни"
+        "fundsOrigin": "козмандировъчни",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -104,7 +107,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировъчни"
+        "fundsOrigin": "командировъчни",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -122,7 +126,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсии"
+        "fundsOrigin": "пенсии",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -140,7 +145,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване и делба"
+        "fundsOrigin": "наследяване и делба",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -196,7 +202,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировки"
+        "fundsOrigin": "командировки",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -214,7 +221,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -232,7 +240,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсии"
+        "fundsOrigin": "пенсии",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -250,7 +259,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване и делба"
+        "fundsOrigin": "наследяване и делба",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -300,7 +310,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировки"
+        "fundsOrigin": "командировки",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -318,7 +329,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -336,7 +348,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсии"
+        "fundsOrigin": "пенсии",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -354,7 +367,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсии"
+        "fundsOrigin": "пенсии",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -372,7 +386,8 @@
         "holderName": "цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване и делба"
+        "fundsOrigin": "наследяване и делба",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -440,7 +455,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -458,7 +474,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -476,7 +493,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -494,7 +512,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -512,7 +531,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -530,7 +550,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -548,7 +569,8 @@
         "holderName": "Данчо Добринов Мичев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -566,7 +588,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -584,7 +607,8 @@
         "holderName": "Цена Николова Мичева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Соня Боянова Василева",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Васил Митов Василев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -80,7 +82,8 @@
         "holderName": "Соня Боянова Василева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Соня Боянова Василева",
         "isSpouse": false,
         "legalBasis": "покупка на лизинг-0,6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

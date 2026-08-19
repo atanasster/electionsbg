@@ -50,7 +50,8 @@
         "holderName": "Деница Вълева Вълкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Деница Вълева Вълкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -86,7 +88,8 @@
         "holderName": "Деница Вълева Вълкова",
         "isSpouse": false,
         "legalBasis": "кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "Деница Вълева Вълкова",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -154,7 +158,8 @@
         "holderName": "ползвател е деклараторът Деница Вълкова-Петкова, а собственик е нейният баща Въльо Симеонов Вълков",
         "isSpouse": true,
         "legalBasis": "учредено право на ползване в нотариален акт за покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -172,7 +177,8 @@
         "holderName": "Деница Вълева Вълкова-Петкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -190,7 +196,8 @@
         "holderName": "Деница Вълева Вълкова-Петкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -208,7 +215,8 @@
         "holderName": "Деница Вълева Вълкова-Петкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -226,7 +234,8 @@
         "holderName": "Деница Вълева Вълкова-Петкова",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -244,7 +253,8 @@
         "holderName": "Деница Вълева Вълкова-Петкова",
         "isSpouse": false,
         "legalBasis": "кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -262,7 +272,8 @@
         "holderName": "Деница Вълева Вълкова-Петкова",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

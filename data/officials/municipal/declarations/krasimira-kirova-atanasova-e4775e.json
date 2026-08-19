@@ -61,7 +61,8 @@
         "holderName": "Красимира Кирова Атанасова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -79,7 +80,8 @@
         "holderName": "Иван Петков Атанасов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -97,7 +99,8 @@
         "holderName": "Иван Петков Атанасов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -115,7 +118,8 @@
         "holderName": "Красимира Кирова Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +137,8 @@
         "holderName": "Иван Петков Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -151,7 +156,8 @@
         "holderName": "Иван Петков Атанасов",
         "isSpouse": true,
         "legalBasis": "Дог. Лихвен % 7.418",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -169,7 +175,8 @@
         "holderName": "Иван Петков Атанасов",
         "isSpouse": true,
         "legalBasis": "Действащ лихвен процент - 3.01 %, в момента 3.05 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -187,7 +194,8 @@
         "holderName": "Иван Петков Атанасов",
         "isSpouse": true,
         "legalBasis": "Действащ лихвен процент - 3.01 %, в момента 3.05 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -205,7 +213,8 @@
         "holderName": "Иван Петков Атанасов",
         "isSpouse": true,
         "legalBasis": "Действащ лихвен процент - 2.51 %, в момента 2.55 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -223,7 +232,8 @@
         "holderName": "Красимира Кирова Атанасова",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг № 0077257/A",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

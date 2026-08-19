@@ -38,7 +38,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заплата, нредит"
+        "fundsOrigin": "Заплата, нредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -56,7 +57,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -74,7 +76,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -92,7 +95,8 @@
         "holderName": "Мануела Орлова Георгиева",
         "isSpouse": true,
         "legalBasis": "СИО, бракоразводно споразумение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -110,7 +114,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имот"
+        "fundsOrigin": "заплата, продажба на имот",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -128,7 +133,8 @@
         "holderName": "Мануела Орлова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -146,7 +152,8 @@
         "holderName": "Мануела Орлова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -164,7 +171,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имот"
+        "fundsOrigin": "заплата, продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -182,7 +190,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имот"
+        "fundsOrigin": "заплата, продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -200,7 +209,8 @@
         "holderName": "Мануела Орлова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -218,7 +228,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "чл. 134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -236,7 +247,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит; 4,87 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -254,7 +266,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит; 2,19 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -272,7 +285,8 @@
         "holderName": "Мануела Орлова Георгиева",
         "isSpouse": true,
         "legalBasis": "Договор за кредитна карта; 18,90 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

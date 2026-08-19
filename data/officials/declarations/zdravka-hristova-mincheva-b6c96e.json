@@ -75,7 +75,8 @@
         "holderName": "Здравка Христова Минчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наплатен отпуск и ДТВ"
+        "fundsOrigin": "наплатен отпуск и ДТВ",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -93,7 +94,8 @@
         "holderName": "Радослав Христов Минчев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -111,7 +113,8 @@
         "holderName": "Радослав Христов Минчев",
         "isSpouse": true,
         "legalBasis": "2.95",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -129,7 +132,8 @@
         "holderName": "Радослав Христов Минчев",
         "isSpouse": true,
         "legalBasis": "7.28",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

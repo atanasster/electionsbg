@@ -67,7 +67,8 @@
         "holderName": "Десислава Цвяткова Стоянова",
         "isSpouse": true,
         "legalBasis": "покупка",
-        "fundsOrigin": "заплата/рента/наем"
+        "fundsOrigin": "заплата/рента/наем",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -85,7 +86,8 @@
         "holderName": "Атанас Стоянов Стоянов",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "заплата/рента"
+        "fundsOrigin": "заплата/рента",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -103,7 +105,8 @@
         "holderName": "Десислава Цвяткова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата/наем/рента/продажби земи/остатък от минали години"
+        "fundsOrigin": "заплата/наем/рента/продажби земи/остатък от минали години",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -121,7 +124,8 @@
         "holderName": "Атанас Стоянов Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати/рента/продажби земи/остатък от минали години"
+        "fundsOrigin": "заплати/рента/продажби земи/остатък от минали години",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -139,7 +143,8 @@
         "holderName": "Атанас Стоянов Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати/рента/продажба земи"
+        "fundsOrigin": "заплати/рента/продажба земи",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -157,7 +162,8 @@
         "holderName": "Десислава Цвяткова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата/наем/рента/продажба земи/остатък от мин.години"
+        "fundsOrigin": "заплата/наем/рента/продажба земи/остатък от мин.години",
+        "tableNum": "5"
       }
     ],
     "events": [

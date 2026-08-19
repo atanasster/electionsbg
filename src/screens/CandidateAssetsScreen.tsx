@@ -26,6 +26,7 @@ import {
   assetShareMultiplier,
   assetWeightedEur,
   incomeTotals,
+  isDeclaredHolding,
 } from "@/lib/declarations";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 
@@ -441,8 +442,24 @@ export const CandidateAssetsScreen: FC = () => {
     return declarations.find((d) => d.sourceUrl === rollup.sourceUrl);
   }, [rollup, declarations]);
 
+  // Owned rows only. The per-category header figure comes from the ROLLUP, which excludes
+  // tables 1.2 / 3.4 — so listing чуждо rows in the same table would leave the rows not
+  // summing to the header above them, the internal contradiction 090's ceiling comment
+  // warns about. They get their own section below instead of disappearing.
   const sections = useMemo(
-    () => (latestDecl?.assets ? groupByCategory(latestDecl.assets) : []),
+    () =>
+      latestDecl?.assets
+        ? groupByCategory(latestDecl.assets.filter(isDeclaredHolding))
+        : [],
+    [latestDecl],
+  );
+  const usedSections = useMemo(
+    () =>
+      latestDecl?.assets
+        ? groupByCategory(
+            latestDecl.assets.filter((a) => !isDeclaredHolding(a)),
+          )
+        : [],
     [latestDecl],
   );
 
@@ -526,6 +543,30 @@ export const CandidateAssetsScreen: FC = () => {
           totalEur={rollup.byCategory?.[s.category]?.totalEur ?? null}
         />
       ))}
+
+      {usedSections.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-sm font-semibold">
+            {t("pp_decl_used") || "Ползва, но не притежава"}
+          </h2>
+          <p className="mt-1 text-xs leading-snug text-muted-foreground">
+            {t("pp_decl_used_note")}
+          </p>
+          {usedSections.map((s) => (
+            <AssetTable
+              key={`used-${s.category}`}
+              category={s.category}
+              rows={s.rows}
+              lang={lang}
+              /* null, never the rollup's figure: that bucket counts holdings, so passing it
+                 here would head a чуждо table with the value of the OWNED ones. AssetTable
+                 falls back to a weighted local sum, which is this table's own contract
+                 total — a different quantity, correctly labelled by the heading above. */
+              totalEur={null}
+            />
+          ))}
+        </div>
+      )}
 
       <IncomeTable decl={latestDecl} lang={lang} />
 

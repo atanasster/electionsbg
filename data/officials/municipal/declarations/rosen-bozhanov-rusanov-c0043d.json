@@ -43,7 +43,8 @@
         "holderName": "Росен божанов Русанов-Диана Александрова Русанова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "receivable",
@@ -61,7 +62,8 @@
         "holderName": "Росен Божанов Русанов",
         "isSpouse": false,
         "legalBasis": "Договор за дарение",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Диана Александрова Русанова-Росен Божанов Русанов",
         "isSpouse": true,
         "legalBasis": "Договор-2.6% лихвен %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Росен Божанов Русанов",
         "isSpouse": false,
         "legalBasis": "Договор-4.6% лихвен %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -57,7 +57,8 @@
         "holderName": "Васил Тодоров Филев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия,девиденти"
+        "fundsOrigin": "заплата, пенсия,девиденти",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -75,7 +76,8 @@
         "holderName": "Йорданка Ангелова Филева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия"
+        "fundsOrigin": "заплата, пенсия",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -93,7 +95,8 @@
         "holderName": "Васил Тодоров Филев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия и девиденти,"
+        "fundsOrigin": "заплата, пенсия и девиденти,",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -111,7 +114,8 @@
         "holderName": "Васил Тодоров Филев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -129,7 +133,8 @@
         "holderName": "Йорданка Ангелова Филева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия"
+        "fundsOrigin": "заплата, пенсия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -147,7 +152,8 @@
         "holderName": "Васил Тодоров Филев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "покупка на валута"
+        "fundsOrigin": "покупка на валута",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -165,7 +171,8 @@
         "holderName": "Васил Тодоров Филев",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит 2,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -183,7 +190,8 @@
         "holderName": "Васил Тодоров Филев",
         "isSpouse": false,
         "legalBasis": "кредитна карта 14%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -201,7 +209,8 @@
         "holderName": "Васил Тодоров Филев",
         "isSpouse": false,
         "legalBasis": "кредит 4,7%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

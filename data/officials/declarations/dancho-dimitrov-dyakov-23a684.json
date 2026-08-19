@@ -56,7 +56,8 @@
         "holderName": "Данчо Дяков и Теменужка Делчева - Дякова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Банков влог и заем"
+        "fundsOrigin": "Банков влог и заем",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -74,7 +75,8 @@
         "holderName": "Данчо Димитров Дяков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Остатък от депозит в началото на 2018"
+        "fundsOrigin": "Остатък от депозит в началото на 2018",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -92,7 +94,8 @@
         "holderName": "Данчо Димитров Дяков",
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -110,7 +113,8 @@
         "holderName": "Теменужка Георгиева Делчева - Дякова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -128,7 +132,8 @@
         "holderName": "Данчо Димитров Дяков",
         "isSpouse": false,
         "legalBasis": "Кредитен лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

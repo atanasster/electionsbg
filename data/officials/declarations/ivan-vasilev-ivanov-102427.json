@@ -97,7 +97,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -115,7 +116,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наеми и спестявания"
+        "fundsOrigin": "наеми и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +135,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба апартамент, заплата, дивиденти, хонорари по граждански договори"
+        "fundsOrigin": "продажба апартамент, заплата, дивиденти, хонорари по граждански договори",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -151,7 +154,8 @@
         "holderName": "Диана Василева Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент, заплати"
+        "fundsOrigin": "продажба на апартамент, заплати",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -169,7 +173,8 @@
         "holderName": "Иван Василев Иванов и Диана Василева Иванова",
         "isSpouse": true,
         "legalBasis": "ипотечен договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -187,7 +192,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент, спестявания, дивиденти, заплати"
+        "fundsOrigin": "продажба на апартамент, спестявания, дивиденти, заплати",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -237,7 +243,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -255,7 +262,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -273,7 +281,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -291,7 +300,8 @@
         "holderName": "Иван Василев Иванов иДиана Василева Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -309,7 +319,8 @@
         "holderName": "Иван Василев Иванов иДиана Василева Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -327,7 +338,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -345,7 +357,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -363,7 +376,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -381,7 +395,8 @@
         "holderName": "Иван Василев Иванов и Диана Василева Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -399,7 +414,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -417,7 +433,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -435,7 +452,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -453,7 +471,8 @@
         "holderName": "Диана Василева Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -471,7 +490,8 @@
         "holderName": "Иван Василев Иванов и Диана Василева Иванова",
         "isSpouse": true,
         "legalBasis": "договор-ипотечен",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -489,7 +509,8 @@
         "holderName": "Иван Василев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "8"
       }
     ],
     "events": []

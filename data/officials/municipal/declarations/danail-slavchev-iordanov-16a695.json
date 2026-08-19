@@ -37,7 +37,8 @@
         "holderName": "Десислава Иванова Йорданова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми и дарение"
+        "fundsOrigin": "заеми и дарение",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -55,7 +56,8 @@
         "holderName": "Данаил Славчев Йорданов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми дарение"
+        "fundsOrigin": "заеми дарение",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -73,7 +75,8 @@
         "holderName": "Данаил Славчев Йорданов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата лизинг"
+        "fundsOrigin": "заплата лизинг",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -91,7 +94,8 @@
         "holderName": "Данаил Славчев Йорданов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -109,7 +113,8 @@
         "holderName": "Десислава Иванова Йорданова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.2"
       },
       {
         "category": "vehicle",
@@ -127,7 +132,8 @@
         "holderName": "Десислава Иванова Йорданова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.3"
       },
       {
         "category": "bank",
@@ -145,7 +151,8 @@
         "holderName": "Десислава Иванова Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми и заплати"
+        "fundsOrigin": "заеми и заплати",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -163,7 +170,8 @@
         "holderName": "Данаил Славчев Йорданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дарения"
+        "fundsOrigin": "заплата и дарения",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -181,7 +189,8 @@
         "holderName": "Данаил Славчев Йорданов",
         "isSpouse": false,
         "legalBasis": "кредит 5,33%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -199,7 +208,8 @@
         "holderName": "Десислава Иванова Йорданова",
         "isSpouse": true,
         "legalBasis": "кредит 5,2%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

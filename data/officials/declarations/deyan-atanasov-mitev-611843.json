@@ -44,7 +44,8 @@
         "holderName": "НАДЯ РАДКОВА МИТЕВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "НАДЯ РАДКОВА МИТЕВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "ДЕЯН АТАНАСОВ МИТЕВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Деян Атанасов Митев",
         "isSpouse": false,
         "legalBasis": "3.62",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Надя Радкова Митева",
         "isSpouse": true,
         "legalBasis": "4.33",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -191,7 +196,8 @@
         "holderName": "Деян Атанасов Митев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -209,7 +215,8 @@
         "holderName": "Деян Атанасов Митев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "debt",
@@ -227,7 +234,8 @@
         "holderName": "Деян Атанасов Митев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -271,7 +279,8 @@
         "holderName": "Деян Атанасов Митев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -289,7 +298,8 @@
         "holderName": "Деян Атанасов Митев",
         "isSpouse": false,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

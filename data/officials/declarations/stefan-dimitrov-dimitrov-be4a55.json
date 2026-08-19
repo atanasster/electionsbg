@@ -44,7 +44,8 @@
         "holderName": "СТЕФАН ДИМИТРОВ ДИМИТРОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "СТЕФАН ДИМИТРОВ ДИМИТРОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "ГЕРГАНА ЙОСИФОВА ЙОСИФОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "СТЕФАН ДИМИТРОВ ДИМИТРОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -116,7 +120,8 @@
         "holderName": "ГЕРГАНА ЙОСИФОВА ЙОСИФОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [

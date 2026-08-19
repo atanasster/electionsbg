@@ -159,7 +159,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -177,7 +178,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -195,7 +197,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -213,7 +216,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -231,7 +235,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години"
+        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -249,7 +254,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години"
+        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -267,7 +273,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години"
+        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -285,7 +292,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -303,7 +311,8 @@
         "holderName": "Ася Ангелова данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "Изпълнителен лист",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -321,7 +330,8 @@
         "holderName": "Валери атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "договор-лихвен-2.4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -339,7 +349,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "договорен лихвен %-15.96",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -357,7 +368,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "договорен лихвен%-17%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -375,7 +387,8 @@
         "holderName": "Валери атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "договорен лихвен%-17.9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -393,7 +406,8 @@
         "holderName": "Валери атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "договорен лихвен %-17%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -589,7 +603,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -607,7 +622,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -625,7 +641,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години"
+        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -643,7 +660,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години"
+        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -661,7 +679,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години"
+        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -679,7 +698,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12"
+        "fundsOrigin": "Доходи декларирани в таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -697,7 +717,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "Изпълнителен лист",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -715,7 +736,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "договор-лихвен %-2.4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -733,7 +755,8 @@
         "holderName": "Ася Ангелова Данчева-атанасова",
         "isSpouse": false,
         "legalBasis": "договорен лихвен%-15.96",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -751,7 +774,8 @@
         "holderName": "Ася Ангелова Данчева-атанасова",
         "isSpouse": false,
         "legalBasis": "договорен лихвен%-17",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -769,7 +793,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "договорен лихвен% 17.9",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -787,7 +812,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "договорвн лихвен% 17",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -984,7 +1010,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство и покупко-продажба",
-        "fundsOrigin": "наследяване и трудови доходи"
+        "fundsOrigin": "наследяване и трудови доходи",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1002,7 +1029,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство и ипокупко-продажба",
-        "fundsOrigin": "наследяване и трудови доходи"
+        "fundsOrigin": "наследяване и трудови доходи",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1020,7 +1048,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство и покупко продажба",
-        "fundsOrigin": "наследяване и трудови доходи"
+        "fundsOrigin": "наследяване и трудови доходи",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1038,7 +1067,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство и покупко-продажба",
-        "fundsOrigin": "наследяване и трудови доходи"
+        "fundsOrigin": "наследяване и трудови доходи",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1056,7 +1086,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство и покупко-продажба",
-        "fundsOrigin": "наследяване и трудови доходи"
+        "fundsOrigin": "наследяване и трудови доходи",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1074,7 +1105,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство и покупко-продажба",
-        "fundsOrigin": "наследяване и трудови доходи"
+        "fundsOrigin": "наследяване и трудови доходи",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -1092,7 +1124,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години"
+        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1110,7 +1143,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години"
+        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1128,7 +1162,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години"
+        "fundsOrigin": "Доходи декларирани в таблица 12 включително и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1146,7 +1181,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Доходи декларирани в таблица 12"
+        "fundsOrigin": "Доходи декларирани в таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -1164,7 +1200,8 @@
         "holderName": "Ася Ангелова Данчева-Атанасова",
         "isSpouse": false,
         "legalBasis": "Изпълнителен лист",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -1182,7 +1219,8 @@
         "holderName": "Ася Ангелова Данчева-атанасова",
         "isSpouse": false,
         "legalBasis": "договор-лихвен %-2.3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1200,7 +1238,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "договор-лихвен %-2.4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1218,7 +1257,8 @@
         "holderName": "Ася Ангелова Данчева-атанасова",
         "isSpouse": false,
         "legalBasis": "договорен лихвен%-15.96",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1236,7 +1276,8 @@
         "holderName": "Ася Ангелова Данчева-атанасова",
         "isSpouse": false,
         "legalBasis": "договорен лихвен%-17",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1254,7 +1295,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "договорен лихвен% 17.9",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1272,7 +1314,8 @@
         "holderName": "Валери Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": "договорвн лихвен% 17",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

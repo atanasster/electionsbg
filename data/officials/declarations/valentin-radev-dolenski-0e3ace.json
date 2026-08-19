@@ -44,7 +44,8 @@
         "holderName": "Надя  Младенова Доленска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Надя  Младенова Доленска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Валентин Радев Доленски",
         "isSpouse": false,
         "legalBasis": "оговор за кредит 5.96 процента",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -117,7 +120,8 @@
         "holderName": "Надя Младенова Доленска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "Спестявания",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -135,7 +139,8 @@
         "holderName": "Надя Младенова Доленска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Кредит Спестявания"
+        "fundsOrigin": "Кредит Спестявания",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -153,7 +158,8 @@
         "holderName": "Валентин Радев Доленски",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -43,7 +43,8 @@
         "holderName": "Атанас Иванов Станков",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Атанас Иванов Станков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Виргиния Николаева Станкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "Атанас Иванов Станков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -115,7 +119,8 @@
         "holderName": "Атанас Иванов Станков",
         "isSpouse": true,
         "legalBasis": "парично разпределение",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "holderName": "Атанас Иванов Станков/сио",
         "isSpouse": true,
         "legalBasis": "4,8",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -151,7 +157,8 @@
         "holderName": "Виргиния Николаева Станкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -169,7 +176,8 @@
         "holderName": "Атанас Иванов Станков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

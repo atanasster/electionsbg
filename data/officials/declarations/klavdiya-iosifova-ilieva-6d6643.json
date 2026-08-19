@@ -44,7 +44,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Клавдия Йосифова Илиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Клавдия Йосифова Илиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Клавдия Йосифова Илиева",
         "isSpouse": false,
         "legalBasis": "договор 4.61%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Клавдия Йосифова Илиева",
         "isSpouse": false,
         "legalBasis": "договор 4.66%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": true,
         "legalBasis": "договор 7.37%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -170,7 +177,8 @@
         "holderName": "димитър Цветанов Илиев",
         "isSpouse": true,
         "legalBasis": "договор 9.91%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -188,7 +196,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": true,
         "legalBasis": "договор 16.20%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -206,7 +215,8 @@
         "holderName": "Клавдия Йосифова Илиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -275,7 +285,8 @@
         "holderName": "Клавдия Йосифова Илиева",
         "isSpouse": false,
         "legalBasis": "договор 5.5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -293,7 +304,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": true,
         "legalBasis": "договор 6.2%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -337,7 +349,8 @@
         "holderName": "Клавдия Йосифова Илиева",
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -355,7 +368,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": true,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

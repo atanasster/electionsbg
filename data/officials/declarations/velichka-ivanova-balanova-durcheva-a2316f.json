@@ -44,7 +44,8 @@
         "holderName": "Величка Иванова Баланова - Дурчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "Николай Христосков Дурчев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Николай Христосков Дурчев",
         "isSpouse": true,
         "legalBasis": "лизинг, 3,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -124,7 +127,8 @@
         "holderName": "Николай Христосков Дурчев",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -193,7 +197,8 @@
         "holderName": "Величка Иванова Баланова - Дурчева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -211,7 +216,8 @@
         "holderName": "Николай Христосков Дурчев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.3"
       },
       {
         "category": "debt",
@@ -229,7 +235,8 @@
         "holderName": "Николай Христосков Дурчев",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -49,7 +49,8 @@
         "holderName": "Даниела Илкова Славчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +68,8 @@
         "holderName": "Павел Димитров Анастасов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и средства от продажба на друго жилище"
+        "fundsOrigin": "заплата и средства от продажба на друго жилище",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -85,7 +87,8 @@
         "holderName": "Павел Димитров Анастасов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -103,7 +106,8 @@
         "holderName": "Павел Димитров Анастасов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и командировъчни средства"
+        "fundsOrigin": "заплата и командировъчни средства",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -121,7 +125,8 @@
         "holderName": "Павел Димитров Анастасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, командировъчни средства"
+        "fundsOrigin": "заплата, командировъчни средства",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -139,7 +144,8 @@
         "holderName": "Даниела Илкова Славчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, обезпечения за майчинство"
+        "fundsOrigin": "заплата, обезпечения за майчинство",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -157,7 +163,8 @@
         "holderName": "Павел Димитров Анастасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -175,7 +182,8 @@
         "holderName": "Даниела Илкова Славчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, обезпечения за майчинство"
+        "fundsOrigin": "заплата, обезпечения за майчинство",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -193,7 +201,8 @@
         "holderName": "Павел Димитров Анастасов",
         "isSpouse": false,
         "legalBasis": "Изп.дело N:20128640400073",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []

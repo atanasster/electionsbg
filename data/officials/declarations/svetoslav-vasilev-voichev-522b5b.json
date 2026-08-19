@@ -44,7 +44,8 @@
         "holderName": "Светослав Василев Войчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -94,7 +95,8 @@
         "holderName": "Светослав Василев Войчев",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -138,7 +140,8 @@
         "holderName": "Деница Георгиева Войчева",
         "isSpouse": true,
         "legalBasis": "делба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "receivable",
@@ -156,7 +159,8 @@
         "holderName": "Светослав Василев Войчев",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -174,7 +178,8 @@
         "holderName": "Деница Георгиева Войчева",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -192,7 +197,8 @@
         "holderName": "Светослав Василев Войчев",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -210,7 +216,8 @@
         "holderName": "Деница Георгиева Войчева",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

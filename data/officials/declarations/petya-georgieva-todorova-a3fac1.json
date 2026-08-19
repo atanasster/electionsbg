@@ -56,7 +56,8 @@
         "holderName": "Георги Илиев Тодоров",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -74,7 +75,8 @@
         "holderName": "Георги Илиев Тодоров",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -92,7 +94,8 @@
         "holderName": "Георги Илиев Тодоров",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -110,7 +113,8 @@
         "holderName": "Георги Илиев Тодоров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -128,7 +132,8 @@
         "holderName": "Петя Георгиева Тодорова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -146,7 +151,8 @@
         "holderName": "Георги Илиев Тодоров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -164,7 +170,8 @@
         "holderName": "Петя Георгиева Тодорова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -182,7 +189,8 @@
         "holderName": "Георги Илиев Тодоров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -200,7 +208,8 @@
         "holderName": "Петя Георгиева Тодорова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -218,7 +227,8 @@
         "holderName": "Петя Георгиева Тодорова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -236,7 +246,8 @@
         "holderName": "Петя Георгиева Тодорова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -254,7 +265,8 @@
         "holderName": "Петя Георгиева Тодорова",
         "isSpouse": false,
         "legalBasis": "гаранция по ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": [
@@ -334,7 +346,8 @@
         "holderName": "ПЕТЯ ГЕОРГИЕВА ТОДОРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -352,7 +365,8 @@
         "holderName": "ГЕОРТИ ИЛИЕВ ТОДОРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -370,7 +384,8 @@
         "holderName": "ГЕОРГИ ИЛИЕВ ТОДОРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -388,7 +403,8 @@
         "holderName": "ПЕТЯ ГЕОРГИЕВА ТОДОРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -406,7 +422,8 @@
         "holderName": "ПЕТЯ ГЕОРГИЕВА ТОДОРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       }
     ],
     "events": []

@@ -43,7 +43,8 @@
         "holderName": "Николай Драгомиров Буковинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Емануела Иванова Буковинова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Емануела Иванова Буковинова Николай Драгомиров Буковинов",
         "isSpouse": true,
         "legalBasis": "Договор За кредит 2.99",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Николай Драгомиров Буковинов",
         "isSpouse": false,
         "legalBasis": "Договор за кредит 6.37",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

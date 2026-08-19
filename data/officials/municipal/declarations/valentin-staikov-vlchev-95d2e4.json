@@ -49,7 +49,8 @@
         "holderName": "ВАЛЕНТИН СТАЙКОВ ВЪЛЧЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -67,7 +68,8 @@
         "holderName": "ПЕНКА ВЪЛЧЕВА ВЪЛЧЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "ВАЛЕНТИН СТАЙКОВ ВЪЛЧЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "ПЕНКА ВЪЛЧЕВА ВЪЛЧЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "ВАЛЕНТИН СТАЙКОВ ВЪЛЧЕВ",
         "isSpouse": false,
         "legalBasis": "ЗАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -139,7 +144,8 @@
         "holderName": "ПЕНКА ВЪЛЧЕВА ВЪЛЧЕВА",
         "isSpouse": true,
         "legalBasis": "ЗАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

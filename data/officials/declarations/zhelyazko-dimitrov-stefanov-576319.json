@@ -38,7 +38,8 @@
         "holderName": "Желязко Стефанов и Катерина Стефанова, СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит от банка"
+        "fundsOrigin": "ипотечен кредит от банка",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Желязко Стефанов, СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит от ЦКБ АД"
+        "fundsOrigin": "кредит от ЦКБ АД",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -74,7 +76,8 @@
         "holderName": "Желязко Стефанов, СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит от Юробанк АД"
+        "fundsOrigin": "кредит от Юробанк АД",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -92,7 +95,8 @@
         "holderName": "Желязко Стефанов и Катерина Стефанова",
         "isSpouse": true,
         "legalBasis": "договор ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -110,7 +114,8 @@
         "holderName": "Желязко Стефанов и Катерина Стефанова",
         "isSpouse": true,
         "legalBasis": "договор за доп. ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -128,7 +133,8 @@
         "holderName": "Желязко Стефанов и Катерина Стефанова",
         "isSpouse": true,
         "legalBasis": "договор потр. Кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -146,7 +152,8 @@
         "holderName": "Желязко Стефанов",
         "isSpouse": true,
         "legalBasis": "договор.потр.кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -164,7 +171,8 @@
         "holderName": "Желязко Димитров Стефанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -182,7 +190,8 @@
         "holderName": "Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -226,7 +235,8 @@
         "holderName": "Желязко Димитров Стефанов и Катерина Стаменова Стефанова, СИО",
         "isSpouse": true,
         "legalBasis": "Нотариален акт за продажба",
-        "fundsOrigin": "ипотечен кредит от Българска пощенска банка АД"
+        "fundsOrigin": "ипотечен кредит от Българска пощенска банка АД",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -244,7 +254,8 @@
         "holderName": "СИО на Желязко Димитров Стефанов и Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": "покупко - продажба",
-        "fundsOrigin": "потребителски кредит от ЦКБ АД на името на Катерина Стефанова"
+        "fundsOrigin": "потребителски кредит от ЦКБ АД на името на Катерина Стефанова",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -262,7 +273,8 @@
         "holderName": "Желязко Димитров Стефанов и Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -280,7 +292,8 @@
         "holderName": "Желязко Димитров Стефанов и Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": "договор за допълнителен ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -298,7 +311,8 @@
         "holderName": "Желязко Димитров Стефанов и Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -316,7 +330,8 @@
         "holderName": "Желязко Димитров Стефанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудово възнаграждение"
+        "fundsOrigin": "трудово възнаграждение",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -334,7 +349,8 @@
         "holderName": "Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудово възнаграждение"
+        "fundsOrigin": "трудово възнаграждение",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -371,7 +387,8 @@
         "holderName": "Желязко Димитров Стефанов и Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -389,7 +406,8 @@
         "holderName": "Желязко Димитров Стефанов, СИО",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -407,7 +425,8 @@
         "holderName": "Желязко Димитров Стефанов и Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": "ипотечен жилищен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -425,7 +444,8 @@
         "holderName": "Желязко Димитров Стефанов и Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": "Доп. ипотечен жилищен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -443,7 +463,8 @@
         "holderName": "Желязко Димитров Стефанов",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -461,7 +482,8 @@
         "holderName": "Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -479,7 +501,8 @@
         "holderName": "Желязко Димитров Стефанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -497,7 +520,8 @@
         "holderName": "Катерина Стаменова Стефанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "8"
       }
     ],
     "events": []

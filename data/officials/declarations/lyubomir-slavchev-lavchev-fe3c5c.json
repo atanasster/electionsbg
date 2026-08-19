@@ -38,7 +38,8 @@
         "holderName": "\"Еуратек Ауто\"ООД",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -56,7 +57,8 @@
         "holderName": "Любомир Славчев Лавчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата/командировъчни средства"
+        "fundsOrigin": "заплата/командировъчни средства",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -74,7 +76,8 @@
         "holderName": "Любомир Славчев Лавчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -92,7 +95,8 @@
         "holderName": "Любомир Славчев Лавчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата / доп. пенсионен фонд"
+        "fundsOrigin": "заплата / доп. пенсионен фонд",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -142,7 +146,8 @@
         "holderName": "Любомир Славчев Лавчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата/възнаграждение за командировка"
+        "fundsOrigin": "заплата/възнаграждение за командировка",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -160,7 +165,8 @@
         "holderName": "Любомир Славчев Лавчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата/възнаграждение за командировка"
+        "fundsOrigin": "заплата/възнаграждение за командировка",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -215,7 +221,8 @@
         "holderName": "Любомир Славчев Лавчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -233,7 +240,8 @@
         "holderName": "Любомир Славчев Лавчев",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

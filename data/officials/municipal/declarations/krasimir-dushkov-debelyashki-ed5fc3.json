@@ -43,7 +43,8 @@
         "holderName": "Красимир Душков Дебеляшки",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Продажба на МПС"
+        "fundsOrigin": "Продажба на МПС",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Красимир Душков Дебеляшки",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на МПС"
+        "fundsOrigin": "заплата, продажба на МПС",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Камелия Цветанова Дебеляшки",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Камелия Цветанова Дебеляшки",
         "isSpouse": true,
         "legalBasis": "5,84",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

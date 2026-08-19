@@ -50,7 +50,8 @@
         "holderName": "ДИМИТЪР КЪНЧЕВ АЛЕКСИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "ДИМИТЪР КЪНЧЕВ АЛЕКСИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -86,7 +88,8 @@
         "holderName": "ДИМИТЪР КЪНЧЕВ АЛЕКСИЕВ",
         "isSpouse": false,
         "legalBasis": "ЗА СТРОИТЕЛСТВО",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "ДИМИТЪР КЪНЧЕВ АЛЕКСИЕВ",
         "isSpouse": false,
         "legalBasis": "ЗА ЗАКУПУВАНЕ НА ЖИЛИЩЕ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -154,7 +158,8 @@
         "holderName": "ДИМИТЪР КЪНЧЕВ АЛЕКСИЕВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "СПЕСТЯВАНИЯ",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -172,7 +177,8 @@
         "holderName": "ТЕМЕНУЖКА ЗЛАТЕВА АЛЕКСИЕВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "СПЕСТЯВАНИЯ",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -190,7 +196,8 @@
         "holderName": "ДИМИТЪР КЪНЧЕВ АЛЕКСИЕВ",
         "isSpouse": false,
         "legalBasis": "ЗА СТРИТЕЛСТВО",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -208,7 +215,8 @@
         "holderName": "ТЕМЕНУЖКА ЗЛАТЕВА АЛЕКСИЕВА",
         "isSpouse": true,
         "legalBasis": "ЗА ЗАКУПУВАНЕ НА ЖИЛИЩЕ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

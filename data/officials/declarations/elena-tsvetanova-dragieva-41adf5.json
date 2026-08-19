@@ -44,7 +44,8 @@
         "holderName": "Валентин Начев Драгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Валентин Начев Драгиев",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "3.1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Валентин Начев Драгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.1"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Валентин Начев Драгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Валентин Начев Драгиев",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит 2.70",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

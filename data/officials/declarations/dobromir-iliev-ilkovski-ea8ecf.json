@@ -56,7 +56,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -74,7 +75,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -92,7 +94,8 @@
         "holderName": "Мая Нанкова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Елина Добромирова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "детски влог"
+        "fundsOrigin": "детски влог",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -128,7 +132,8 @@
         "holderName": "Елина Добромирова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "детски влог"
+        "fundsOrigin": "детски влог",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -146,7 +151,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": "3",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": "0",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -182,7 +189,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": "4,4",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -200,7 +208,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -218,7 +227,8 @@
         "holderName": "Мая Нанкова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -293,7 +303,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "от банков заем"
+        "fundsOrigin": "от банков заем",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -311,7 +322,8 @@
         "holderName": "Елина Добромирова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Детски влог"
+        "fundsOrigin": "Детски влог",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -329,7 +341,8 @@
         "holderName": "Елина Добромирова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Детски влог"
+        "fundsOrigin": "Детски влог",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -347,7 +360,8 @@
         "holderName": "Мая Нанкова Илковска",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -365,7 +379,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -383,7 +398,8 @@
         "holderName": "Мая Нанкова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -439,7 +455,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -457,7 +474,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "банков кредит"
+        "fundsOrigin": "банков кредит",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -475,7 +493,8 @@
         "holderName": "Добормир Илиев Илковски",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "банков заем"
+        "fundsOrigin": "банков заем",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -493,7 +512,8 @@
         "holderName": "Елина Добромирова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "детски влог"
+        "fundsOrigin": "детски влог",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -511,7 +531,8 @@
         "holderName": "Елина Добромирова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "детски влог"
+        "fundsOrigin": "детски влог",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -529,7 +550,8 @@
         "holderName": "Мая Нанкова Илковска",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -547,7 +569,8 @@
         "holderName": "Добромир Илиев Илковски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -565,7 +588,8 @@
         "holderName": "Мая Нанкова Илковска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

@@ -43,7 +43,8 @@
         "holderName": "Георги Ангелов Великов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Заплата и пенсия"
+        "fundsOrigin": "Заплата и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Здравка Стоянчевя Великова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -79,7 +81,8 @@
         "holderName": "Георги Ангелов Великов",
         "isSpouse": true,
         "legalBasis": "захранване на сметка",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -97,7 +100,8 @@
         "holderName": "Здравка Стоянчева Великова",
         "isSpouse": false,
         "legalBasis": "захранване на сметка",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []

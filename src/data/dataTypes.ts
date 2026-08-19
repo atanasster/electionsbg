@@ -974,6 +974,32 @@ export type MpDeclarationEvent = {
 
 export type MpAsset = {
   category: MpAssetCategory;
+  /** Which table of the declaration form the row was read from, as the CANONICAL
+   * (2018-form) number — "1", "1.1", "1.2", "3"…"3.4", "4"…"9" — whatever form
+   * version the filing itself used. Same convention as
+   * `MpOwnershipStake.table`, which stores "10"/"11" for both forms; the printed
+   * number is version-dependent and ambiguous (the old form's "4" is boats, the
+   * new one's is cash), so only the canonical number is safe to branch on.
+   *
+   * ⚠️ THIS IS WHAT SEPARATES A HOLDING FROM SOMETHING THE DECLARANT MERELY USES.
+   * Tables 1.2 („Чуждо недвижимо имущество") and 3.4 („Чужди … превозни
+   * средства") record property and vehicles owned by SOMEBODY ELSE that the
+   * declarant rents or has been provided with — and the register's own headers
+   * say so: their money column is „Цена по договор" against table 1/3's „Цена на
+   * придобиване", and their basis column is „Правно основание за ползване"
+   * against „…за придобиване". So the figure is not even a mis-attributed asset
+   * value; it is what the USE costs.
+   *
+   * `category` cannot carry this: a чуждо flat is still real estate and a чужд
+   * car is still a vehicle, and both render in the same lists. Nor can
+   * `legalBasis` — Пеевски's чужди cars say „договор" and so does Румен Радев's
+   * OWN car. Any consumer summing a net worth MUST go through
+   * `isDeclaredHolding` (src/lib/declarations.ts) or its SQL twin
+   * `is_declared_holding` (089_declarations.sql).
+   *
+   * null only on rows parsed before the field existed; those are treated as
+   * holdings, which is the pre-existing behaviour and the safe direction. */
+  tableNum: string | null;
   /** "Вид на имота/средството" — human description of the asset kind. */
   description: string | null;
   /** Brand (vehicle), issuer (security), or country (foreign asset). */
@@ -993,9 +1019,29 @@ export type MpAsset = {
    * footnote the original ("originally 5 000 лв"). */
   amount: number | null;
   /** Euro value for ranking math + display. null when the declarant left the
-   * value blank, or for foreign-currency rows with no declarant-provided BGN
-   * equivalent (common for inherited real estate). */
+   * value blank, or when the row is in a currency we hold no rate for — see
+   * `valueBasis`. */
   valueEur: number | null;
+  /** HOW `valueEur` was arrived at. Stored per row so no surface can present our
+   * arithmetic as the declarant's own figure.
+   *
+   *   'equiv'   the declarant's „Равностойност в лв./в евро." cell
+   *   'peg'     BGN/EUR at the locked 1.95583 (or EUR identity)
+   *   'fx_ecb'  OURS — the ECB reference rate at the end of the period the filing
+   *             covers, applied because the declarant left that cell blank
+   *   null      no euro figure; `person_wealth_year.excluded_asset_rows` counts it
+   *
+   * ⚠️ 'fx_ecb' never appears on a row the declarant valued. `pickEurValue` runs
+   * first and wins — we fill a blank, never override a filing.
+   *
+   * Before this existed, a foreign-currency row with no declarant equivalent was
+   * stored with `amount` + `currency` and a NULL `valueEur`, and dropped out of
+   * every wealth aggregate silently: 462 rows across 155 published people, one of
+   * them a 4,481,442 USD bank balance. See
+   * docs/plans/declaration-fx-conversion-v1.md.
+   *
+   * null also on rows parsed before the field existed. */
+  valueBasis: "equiv" | "peg" | "fx_ecb" | null;
   /** Holder name as it appears in the declaration. */
   holderName: string | null;
   /** True when the holder is not the declarant (i.e. the declarant's spouse,

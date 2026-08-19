@@ -49,7 +49,8 @@
         "holderName": "Хюсеин Алиосман Кула",
         "isSpouse": false,
         "legalBasis": "наследяване",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +68,8 @@
         "holderName": "Фатме Алиосман Кула",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -85,7 +87,8 @@
         "holderName": "Хюсеин Алиосмен Кула",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "Хюсеин Алиосман Кула",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Иван Георгиев Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Клавдия Димитрова Иванова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Иван Георгиев Иванов",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит 2.21",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Иван Георгиев Иванов",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит 3.09",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Иван Георгиев Иванов",
         "isSpouse": false,
         "legalBasis": "договор за кредит 13.25",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -160,7 +165,8 @@
         "holderName": "Иван Георгиев Иванов",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -178,7 +184,8 @@
         "holderName": "Клавдия Димитрова Иванова",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

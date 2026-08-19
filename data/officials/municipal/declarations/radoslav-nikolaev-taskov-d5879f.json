@@ -37,7 +37,8 @@
         "holderName": "Албена Стоилова Таскова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и дивиденти"
+        "fundsOrigin": "заплата и дивиденти",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -55,7 +56,8 @@
         "holderName": "Радослав Николаев Тасков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и дивиденти на съпругата"
+        "fundsOrigin": "заплата и дивиденти на съпругата",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -73,7 +75,8 @@
         "holderName": "Радослав Николаев Тасков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -91,7 +94,8 @@
         "holderName": "Албена Стоилова Таскова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -109,7 +113,8 @@
         "holderName": "Албена Стоилова Таскова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит - 3.4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -127,7 +132,8 @@
         "holderName": "Радослав Николаев Тасков",
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 3.4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -145,7 +151,8 @@
         "holderName": "Радослав Николаев Тасков",
         "isSpouse": false,
         "legalBasis": "Договор за кредитна карта - 15,20%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

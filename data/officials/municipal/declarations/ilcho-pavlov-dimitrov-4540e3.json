@@ -49,7 +49,8 @@
         "holderName": "Виолета Манолова Димитрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -67,7 +68,8 @@
         "holderName": "ИЛЧО ПАВЛОВ ДИМИТРОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.3"
       },
       {
         "category": "cash",
@@ -85,7 +87,8 @@
         "holderName": "Илчо Павлов Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "Илчо Павлов Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "Илчо Павлов Димитров",
         "isSpouse": false,
         "legalBasis": "договор, лихва 4,86 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

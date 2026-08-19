@@ -44,7 +44,8 @@
         "holderName": "Иля Иванов Генов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Иля Иванов Генов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Анна Николова Генова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -124,7 +127,8 @@
         "holderName": "Анна Николова Генова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -168,7 +172,8 @@
         "holderName": "Иля Иванов Генов",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -186,7 +191,8 @@
         "holderName": "Анна Николова Генова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -204,7 +210,8 @@
         "holderName": "Иля Иванов Генов",
         "isSpouse": false,
         "legalBasis": "договор за ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

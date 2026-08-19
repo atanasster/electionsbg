@@ -87,7 +87,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "придобит по давност",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -105,7 +106,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -123,7 +125,8 @@
         "holderName": "Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -141,7 +144,8 @@
         "holderName": "Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "изтекъл договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -159,7 +163,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "изтекъл договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -177,7 +182,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -195,7 +201,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -213,7 +220,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -231,7 +239,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -249,7 +258,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "неприложимо"
+        "fundsOrigin": "неприложимо",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -267,7 +277,8 @@
         "holderName": "Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": [
@@ -404,7 +415,8 @@
         "holderName": "Таня Здравкова Георгиева и Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "безвъзмездно ползване (имотът в посочената идеална част е собственост на сина на декларатора)",
-        "fundsOrigin": "0"
+        "fundsOrigin": "0",
+        "tableNum": "1.2"
       },
       {
         "category": "bank",
@@ -422,7 +434,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -440,7 +453,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -458,7 +472,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "договор за стандартен кредит за оборотни средства",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -476,7 +491,8 @@
         "holderName": "Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "договор за стандартен кредит за оборотни средства",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -494,7 +510,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -512,7 +529,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -530,7 +548,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "договор за овърдрафт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -548,7 +567,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "неприложимо"
+        "fundsOrigin": "неприложимо",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -566,7 +586,8 @@
         "holderName": "Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": [
@@ -702,7 +723,8 @@
         "holderName": "Таня Здравкова Георгиева и Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "безвъзмездно ползване (имотът в посочената идеална част е собственост на сина на декларатора)",
-        "fundsOrigin": "0"
+        "fundsOrigin": "0",
+        "tableNum": "1.2"
       },
       {
         "category": "bank",
@@ -720,7 +742,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -738,7 +761,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "договор за стандартен кредит за оборотни средства",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -756,7 +780,8 @@
         "holderName": "Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "договор за стандартен кредит за оборотни средства",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -774,7 +799,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -792,7 +818,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -810,7 +837,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "договор за овърдрафт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -828,7 +856,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "неприложимо"
+        "fundsOrigin": "неприложимо",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -846,7 +875,8 @@
         "holderName": "Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -939,7 +969,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -957,7 +988,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "договор за стандартен кредит за оборотни средства",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -975,7 +1007,8 @@
         "holderName": "Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "договор за стандартен кредит за оборотни средства",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -993,7 +1026,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1011,7 +1045,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1029,7 +1064,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "договор за овърдрафт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -1047,7 +1083,8 @@
         "holderName": "Таня Здравкова Георгиева",
         "isSpouse": false,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "неприложимо"
+        "fundsOrigin": "неприложимо",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1065,7 +1102,8 @@
         "holderName": "Георги Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": [

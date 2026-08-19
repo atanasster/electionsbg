@@ -50,7 +50,8 @@
         "holderName": "Румяна Стоянова Стоянова",
         "isSpouse": true,
         "legalBasis": "Нотариален акт",
-        "fundsOrigin": "договор за гледане"
+        "fundsOrigin": "договор за гледане",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -68,7 +69,8 @@
         "holderName": "Ивайло Ивайлов Янев",
         "isSpouse": true,
         "legalBasis": "Нотариален акт",
-        "fundsOrigin": "договор за гледане"
+        "fundsOrigin": "договор за гледане",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -86,7 +88,8 @@
         "holderName": "Ивайло Георгиев Янев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -104,7 +107,8 @@
         "holderName": "Ивайло Георгиев Янев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -122,7 +126,8 @@
         "holderName": "Румяна Стоянова Стоянова - семейни заплати",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -140,7 +145,8 @@
         "holderName": "Румяна Стоянова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -215,7 +221,8 @@
         "holderName": "Ивайло Георгиев Янев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -233,7 +240,8 @@
         "holderName": "Румяна Стоянова Стоянова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -251,7 +259,8 @@
         "holderName": "Румяна Стоянова Стоянова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -269,7 +278,8 @@
         "holderName": "Румяна Стоянова Стоянова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -287,7 +297,8 @@
         "holderName": "Румяна Стоянова Стоянова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -305,7 +316,8 @@
         "holderName": "Ивайло Георгиев Янев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -323,7 +335,8 @@
         "holderName": "Ивайло Георгиев Янев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -341,7 +354,8 @@
         "holderName": "Ивало Георгиев Янев",
         "isSpouse": true,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

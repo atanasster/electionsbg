@@ -48,6 +48,14 @@ export type DeclarationListItem = {
    *  block and /declarations/crypto cannot disagree about what counts. */
   cryptoCount: number;
   cryptoEur: number;
+  /** Rows from tables 1.2 / 3.4 — property and vehicles the declarant USES but does not
+   *  own (rented, or provided by a third party). They contribute to NONE of the figures
+   *  above; `usedContractEur` is the summed „Цена по договор", i.e. what the use costs,
+   *  and may never be added to `assetsEur`. Carried so the block can say „ползва" instead
+   *  of the rows silently vanishing from a filing that sometimes has nothing else in it —
+   *  Пеевски's 2025 annual declares no property and no vehicle of his own at all. */
+  usedAssetRows: number;
+  usedContractEur: number;
 };
 
 export const usePersonDeclarations = (
@@ -119,6 +127,16 @@ export type DeclarationDetail = {
     quantityUnit: string | null;
     /** Server-classified (`is_crypto_asset`, 090). See the type note on cryptoCount. */
     isCrypto: boolean;
+    /** Which form table the row came from, canonical (2018-form) numbering. */
+    tableNum: string | null;
+    /** Is this the declarant's own? FALSE for tables 1.2 / 3.4 — see the note on
+     *  `usedAssetRows`. Derived server-side by `is_declared_holding` (089) so the UI
+     *  cannot become a second, drifting definition of what counts as wealth. */
+    isHolding: boolean;
+    /** „Правно основание" — how it was acquired, or for a чуждо row how it is USED
+     *  („договор за наем", „лизинг"). The „ползва" block is not self-explanatory
+     *  without it. */
+    legalBasis: string | null;
   }[];
   income: {
     category: string | null;

@@ -56,7 +56,8 @@
         "holderName": "Екатерина Ангелова Стефанова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и обезщетение по ред 2 от табл. 12"
+        "fundsOrigin": "заплата и обезщетение по ред 2 от табл. 12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -74,7 +75,8 @@
         "holderName": "Стилиян Светославов Стефанов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и обезщетение по ред 2 от табл.12"
+        "fundsOrigin": "заплата и обезщетение по ред 2 от табл.12",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -149,7 +151,8 @@
         "holderName": "Екатерина Ангелова Стефанова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -167,7 +170,8 @@
         "holderName": "Стилиян Светославов Стефанов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -185,7 +189,8 @@
         "holderName": "Стилиян Светославов Стефанов",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит, 3.7%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

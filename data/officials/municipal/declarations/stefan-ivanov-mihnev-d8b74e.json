@@ -43,7 +43,8 @@
         "holderName": "Десислава Николаева Бошнакова",
         "isSpouse": true,
         "legalBasis": "собственост",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Стефан Иванов Михнев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -79,7 +81,8 @@
         "holderName": "Стефан Иванов Михнев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "Стефан Иванов Михнев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

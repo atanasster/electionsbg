@@ -176,6 +176,46 @@ AS $$
 $$;
 
 -- ---------------------------------------------------------------------------
+-- is_declared_holding(table_num) — the ONE definition of "is this row part of the
+-- declarant's estate", read by every surface that sums a net worth.
+--
+-- FALSE for exactly two tables, and the register's own column headers are the reason:
+--
+--   1.2  „Чуждо недвижимо имущество"                    money col „Цена ПО ДОГОВОР"
+--   3.4  „Чужди моторни сухопътни, водни и въздухоплавателни …"   basis col „…за ПОЛЗВАНЕ"
+--
+-- against table 1/3's „Цена на ПРИДОБИВАНЕ" / „Правно основание за ПРИДОБИВАНЕ". These are
+-- assets someone ELSE owns that the declarant rents or has been provided with, and the
+-- figure beside them is what the use costs — so it is not a mis-attributed asset value at
+-- all. Пеевски's 2025 annual files Table 1 and Table 3 as Declared="False" and declares
+-- eight rented houses and five provided cars; before this function his published estate was
+-- €10,070,563 against a real €9,760,147.
+--
+-- ⚠️ Do NOT restate the `NOT IN ('1.2','3.4')` at a call site — same rule as declared_label
+-- above, and the same reason. Five surfaces read this (090 ×2, 092, 100, 105) and a sixth
+-- added without it publishes the old figure with every row count reconciling.
+--
+-- NULL RETURNS TRUE, and that is load-bearing rather than lenient. table_num is filled only
+-- by a re-parse of the source XML (the provenance exists nowhere else), so every row on a
+-- database that has not reloaded is NULL — and reading NULL as "not a holding" would delete
+-- every real estate from every published figure at once. NOT STRICT for that reason: STRICT
+-- would return NULL, which `WHERE is_declared_holding(...)` filters out, i.e. exactly the
+-- catastrophic reading. The migration is inert until the corpus can answer the question.
+--
+-- NOT restricted to real_estate/vehicle either. The predicate is about the TABLE, and a
+-- future form revision that adds a чуждо subtable in the money family must be excludable
+-- here without also having to find every caller.
+-- ---------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION is_declared_holding(p_table_num text)
+RETURNS boolean
+LANGUAGE sql
+IMMUTABLE
+PARALLEL SAFE
+AS $$
+  SELECT p_table_num IS DISTINCT FROM '1.2' AND p_table_num IS DISTINCT FROM '3.4'
+$$;
+
+-- ---------------------------------------------------------------------------
 -- Asset rows — real estate, vehicles, cash, bank, receivables, debts, investments,
 -- securities. category matches the parser's MpAssetCategory. value_eur is the
 -- signed contribution the app already computes (a debt is negative in net worth,
@@ -184,6 +224,30 @@ $$;
 CREATE TABLE IF NOT EXISTS declaration_asset (
   declaration_id bigint NOT NULL REFERENCES declaration (declaration_id) ON DELETE CASCADE,
   seq            int NOT NULL,        -- position within the declaration, for stable order
+  -- Which table of the form the row came from, as the CANONICAL (2018-form) number:
+  -- '1', '1.1', '1.2', '3'…'3.4', '4'…'9'. Same convention as declaration_stake.table_num,
+  -- which stores '10'/'11' for both form versions — the PRINTED number is version-dependent
+  -- and ambiguous (the pre-2018 form's '4' is boats, the current one's is cash).
+  --
+  -- ⚠️ THIS IS THE ONLY THING SEPARATING A HOLDING FROM SOMETHING MERELY USED, and every
+  -- net-worth sum must go through is_declared_holding() above. Tables 1.2 („Чуждо недвижимо
+  -- имущество") and 3.4 („Чужди … превозни средства") are property and vehicles owned by
+  -- SOMEBODY ELSE that the declarant rents or is provided with. The register's own headers
+  -- say so: their money column is „Цена по договор" against table 1/3's „Цена на
+  -- придобиване", and their basis column „Правно основание за ползване" against „…за
+  -- придобиване" — so the figure is what the USE costs, not a value the declarant holds.
+  --
+  -- Neither `category` nor `legal_basis` can stand in. A чуждо flat is still real_estate;
+  -- and Пеевски's чужди cars carry legal_basis = 'договор', which is also what Румен Радев's
+  -- OWN car carries. Measured before this column existed: €69.5m across 5,183 rows was
+  -- published as declared wealth, €58.7m of it reaching person_wealth_year — 106 people
+  -- whose published estate was ≥90% other people's property, and one at 100%.
+  --
+  -- NO CHECK CONSTRAINT ON PURPOSE: a subtable added by a future form revision must land as
+  -- data, not abort the whole COPY. NULL = parsed before the column existed, and
+  -- is_declared_holding() reads that as a holding — the pre-existing behaviour, and the
+  -- safe direction (the other way silently deletes real estates from every figure).
+  table_num      text,
   -- 'credit_limit' is Table 7 like 'debt', but an available credit LINE rather than money
   -- owed — see creditLimitRow in scripts/declarations/parse_declaration.ts. Separate so the
   -- `category = 'debt'` filters in 090/105 exclude it without restating the rule: a declared
@@ -330,6 +394,13 @@ ALTER TABLE declaration_event ADD CONSTRAINT declaration_event_kind_check
                   'interest_contract', 'related_person', 'early_repayment'));
 CREATE INDEX IF NOT EXISTS idx_declaration_event_kind
   ON declaration_event (kind);
+
+-- Reconcile table_num onto a warm database — CREATE TABLE IF NOT EXISTS above is a no-op
+-- once the table exists, so without this the column reaches a fresh clone and nowhere else.
+-- Backfilling it is NOT possible in SQL: the provenance exists only in the source XML, so
+-- warm rows stay NULL until scripts/declarations/rebuild_all_from_cache.ts re-parses the
+-- corpus and the loader re-COPYs it. See docs/plans/declaration-foreign-assets-v1.md.
+ALTER TABLE declaration_asset ADD COLUMN IF NOT EXISTS table_num text;
 
 -- Reconcile the category CHECK on a warm database: CREATE TABLE IF NOT EXISTS above is a
 -- no-op once the table exists, so a running database would keep the pre-credit_limit

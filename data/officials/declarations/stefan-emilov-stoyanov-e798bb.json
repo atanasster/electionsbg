@@ -50,7 +50,8 @@
         "holderName": "Стефан Емиов Стоянов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Христина Георгиева Ванчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на недвижим имот"
+        "fundsOrigin": "продажба на недвижим имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Стефан Емилов Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "Стефан Емилов Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -270,7 +274,8 @@
         "holderName": "Стефан Емилов Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, продажба на недвижим имот и спестявания"
+        "fundsOrigin": "заем, продажба на недвижим имот и спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -288,7 +293,8 @@
         "holderName": "Стефан Емилов Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -306,7 +312,8 @@
         "holderName": "Стефан Емилов Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на акции и спестявания"
+        "fundsOrigin": "продажба на акции и спестявания",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -324,7 +331,8 @@
         "holderName": "Стефан Емилов Стоянов",
         "isSpouse": false,
         "legalBasis": "договорна ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -49,7 +49,8 @@
         "holderName": "Илиян Иванов Маринов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +68,8 @@
         "holderName": "Десислава Любомирова Маринова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -85,7 +87,8 @@
         "holderName": "Илиян Иванов Маринов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "Илиян Иванов Маринов",
         "isSpouse": false,
         "legalBasis": "дог.за кредит-5,36%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "Десислава Любомирова Маринова",
         "isSpouse": true,
         "legalBasis": "дог.за кредит-542%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

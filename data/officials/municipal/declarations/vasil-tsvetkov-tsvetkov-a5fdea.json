@@ -37,7 +37,8 @@
         "holderName": "Васил Цветков Цветков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "потребителски кредит на съпруга, средства от продажба на автомобили , спестени средства от заплати"
+        "fundsOrigin": "потребителски кредит на съпруга, средства от продажба на автомобили , спестени средства от заплати",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -55,7 +56,8 @@
         "holderName": "Васил Цветков Цветков",
         "isSpouse": false,
         "legalBasis": "къща на родител",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -73,7 +75,8 @@
         "holderName": "Васил Цветков Цветков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -91,7 +94,8 @@
         "holderName": "Васил Цветков Цветков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -109,7 +113,8 @@
         "holderName": "Анета Радкова Цветкова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -127,7 +132,8 @@
         "holderName": "Васил Цветков Цветков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -145,7 +151,8 @@
         "holderName": "Анета Радкова Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -163,7 +170,8 @@
         "holderName": "Васил Цветков Цветков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -181,7 +189,8 @@
         "holderName": "Анета Радкова Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -199,7 +208,8 @@
         "holderName": "Анета Радкова Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -217,7 +227,8 @@
         "holderName": "Анета Радкова Цветкова",
         "isSpouse": true,
         "legalBasis": "Договор номер: LD2536159493, с лихв.процент - 3,28",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

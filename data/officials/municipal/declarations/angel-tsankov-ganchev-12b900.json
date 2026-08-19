@@ -73,7 +73,8 @@
         "holderName": "Ангел Цанков Ганчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "пенсия"
+        "fundsOrigin": "пенсия",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -91,7 +92,8 @@
         "holderName": "Ангел Цанков Ганчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -109,7 +111,8 @@
         "holderName": "Ангел Цанков Ганчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -127,7 +130,8 @@
         "holderName": "Ангел Цанков Ганчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -145,7 +149,8 @@
         "holderName": "Миглена Ангелова Цанкова",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -163,7 +168,8 @@
         "holderName": "Миглена Ангелова Цанкова",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -181,7 +187,8 @@
         "holderName": "Александър Ангелов Цанков",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -199,7 +206,8 @@
         "holderName": "Ангел Цанков Ганчев",
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит 3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -217,7 +225,8 @@
         "holderName": "Ангел Цанков Ганчев",
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит 3,9 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -235,7 +244,8 @@
         "holderName": "Миглена Маринова Стоева",
         "isSpouse": true,
         "legalBasis": "Кредит 5,4 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -253,7 +263,8 @@
         "holderName": "Ангел Цанков Ганчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

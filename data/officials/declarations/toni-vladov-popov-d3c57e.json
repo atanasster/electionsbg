@@ -38,7 +38,8 @@
         "holderName": "Тони Владов Попов",
         "isSpouse": false,
         "legalBasis": "замяна-покупка",
-        "fundsOrigin": "замяна, покупка на гараж"
+        "fundsOrigin": "замяна, покупка на гараж",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Тони Владов Попов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -74,7 +76,8 @@
         "holderName": "Тони Владов Попов",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -149,7 +152,8 @@
         "holderName": "Тони Владов Попов",
         "isSpouse": false,
         "legalBasis": "договор - 15%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -224,7 +228,8 @@
         "holderName": "Тони Владов Попов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем"
+        "fundsOrigin": "заем",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -242,7 +247,8 @@
         "holderName": "Цветомира Калчева Попова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.3"
       },
       {
         "category": "cash",
@@ -260,7 +266,8 @@
         "holderName": "Тони Владов Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "4"
       }
     ],
     "events": []

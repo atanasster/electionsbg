@@ -55,7 +55,8 @@
         "holderName": "Климент Павлов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "Спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -73,7 +74,8 @@
         "holderName": "Пламена Димитрова Маркова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Продажба на МПС и спестявания"
+        "fundsOrigin": "Продажба на МПС и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -91,7 +93,8 @@
         "holderName": "Павлин Климентов Пенчев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "Спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "holderName": "Климент Павлов Пенчев",
         "isSpouse": false,
         "legalBasis": "Договор, лихвен % 3,10",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -127,7 +131,8 @@
         "holderName": "Климент Павлов Пенчев",
         "isSpouse": false,
         "legalBasis": "Договор, лихвен % 4,41",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

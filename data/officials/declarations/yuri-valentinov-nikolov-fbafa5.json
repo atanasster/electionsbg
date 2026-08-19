@@ -38,7 +38,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -74,7 +76,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба"
+        "fundsOrigin": "продажба",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -92,7 +95,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Продажба"
+        "fundsOrigin": "Продажба",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -110,7 +114,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": "6.38 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -197,7 +202,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -215,7 +221,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -233,7 +240,8 @@
         "holderName": "Мариана Валериева Николова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -251,7 +259,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -269,7 +278,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -287,7 +297,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -305,7 +316,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -323,7 +335,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -378,7 +391,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -396,7 +410,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -414,7 +429,8 @@
         "holderName": "Мариана Валериева Николова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -432,7 +448,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -450,7 +467,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -468,7 +486,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -486,7 +505,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -504,7 +524,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -554,7 +575,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -572,7 +594,8 @@
         "holderName": "Юри и Мариана Николова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -590,7 +613,8 @@
         "holderName": "Юри Валентонов Николов",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -640,7 +664,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -658,7 +683,8 @@
         "holderName": "Мариана Валериева Николова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -676,7 +702,8 @@
         "holderName": "Юри и Мариана Николови",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -694,7 +721,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -712,7 +740,8 @@
         "holderName": "Юри Валентинов Николов",
         "isSpouse": false,
         "legalBasis": "кредитен лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

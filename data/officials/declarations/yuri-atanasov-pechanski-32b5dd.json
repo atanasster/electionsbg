@@ -44,7 +44,8 @@
         "holderName": "Юри Атанасов Печански",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба наследствен имот през 2024 г."
+        "fundsOrigin": "продажба наследствен имот през 2024 г.",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Юри Атанасов Печански",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Венцислава Симеонова Печанска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Юри Атанасов Печански",
         "isSpouse": false,
         "legalBasis": "договор, 4.8%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Юри Атанасов Печански",
         "isSpouse": false,
         "legalBasis": "договор, 11%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Юри Атанасов Печански",
         "isSpouse": false,
         "legalBasis": "договор, 0 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -190,7 +196,8 @@
         "holderName": "Юри Атанасов Печански",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба наследствен имот"
+        "fundsOrigin": "продажба наследствен имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -208,7 +215,8 @@
         "holderName": "Венцислава Симеонова Печанска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -226,7 +234,8 @@
         "holderName": "Юри Атанасов Печански",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -244,7 +253,8 @@
         "holderName": "Юри Атанасов Печански",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -313,7 +323,8 @@
         "holderName": "Венцислава Симеонова Печанска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -331,7 +342,8 @@
         "holderName": "Юри Атанасов Печански",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

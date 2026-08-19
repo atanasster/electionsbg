@@ -38,7 +38,8 @@
         "holderName": "Цветан Трифонов Цветков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -56,7 +57,8 @@
         "holderName": "Десислава Тошкова Стойчева-Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -100,7 +102,8 @@
         "holderName": "Десислава Тошкова Стойчева-Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -118,7 +121,8 @@
         "holderName": "Цветан Трифонов Цветков",
         "isSpouse": false,
         "legalBasis": "Лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -162,7 +166,8 @@
         "holderName": "Десислава Тошкова Стойчева-Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -180,7 +185,8 @@
         "holderName": "Десислава Тошкова Стойчева-Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -198,7 +204,8 @@
         "holderName": "Цветан Трифонов Цветков",
         "isSpouse": false,
         "legalBasis": "Лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -242,7 +249,8 @@
         "holderName": "Десислава Тошкова Стойчева-Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -260,7 +268,8 @@
         "holderName": "Десислава Тошкова Стойчева-Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -278,7 +287,8 @@
         "holderName": "Цветан Трифонов Цветков",
         "isSpouse": false,
         "legalBasis": "Лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -322,7 +332,8 @@
         "holderName": "Цветан Трифонов Цветков",
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -340,7 +351,8 @@
         "holderName": "Цветан Трифонов Цветков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -358,7 +370,8 @@
         "holderName": "Десислава Тошкова Стойчева-Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -376,7 +389,8 @@
         "holderName": "Десислава Тошкова Стойчева-Цветкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -394,7 +408,8 @@
         "holderName": "Цветан Трифонов Цветков",
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -451,7 +466,8 @@
         "holderName": "Цветан Трифонов Цветков",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       }
     ],
     "events": []

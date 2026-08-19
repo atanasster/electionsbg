@@ -162,6 +162,9 @@ re AS (
   FROM declaration_asset a
   JOIN latest l ON l.declaration_id = a.declaration_id
   WHERE a.category = 'real_estate'
+    -- „N имота" beside a person's name must mean property they OWN. A rented flat is
+    -- real_estate too, and counting it states that the declarant holds it. See 089.
+    AND is_declared_holding(a.table_num)
   GROUP BY a.declaration_id
 ),
 filed AS (

@@ -92,7 +92,8 @@
         "holderName": "Жельо Василев Вардунски",
         "isSpouse": false,
         "legalBasis": "други строеж",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -110,7 +111,8 @@
         "holderName": "Севдалина Петрова Вардунска",
         "isSpouse": true,
         "legalBasis": "други строеж",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -128,7 +130,8 @@
         "holderName": "Жельо Василев Вардунски",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -146,7 +149,8 @@
         "holderName": "Севдалина Петрова Вардунска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -164,7 +168,8 @@
         "holderName": "Жельо Василев Вардунски",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -182,7 +187,8 @@
         "holderName": "Жельо Василев Вардунски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -200,7 +206,8 @@
         "holderName": "Севдалина Петрова Вардунска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -218,7 +225,8 @@
         "holderName": "Севдалина Петрова Вардунска",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -236,7 +244,8 @@
         "holderName": "Севдалина Петрова Вардунска",
         "isSpouse": true,
         "legalBasis": "договор    3,49%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

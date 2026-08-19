@@ -51,7 +51,8 @@
         "holderName": "ПЕНЬО КРАСИМИРОВ НЕНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -69,7 +70,8 @@
         "holderName": "ПЕНЬО КРАСИМИРОВ НЕНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на МПС, ПРОДАЖБА НА НАСЛЕДСТВЕНИ ДЯЛОВЕ и заплата"
+        "fundsOrigin": "продажба на МПС, ПРОДАЖБА НА НАСЛЕДСТВЕНИ ДЯЛОВЕ и заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -87,7 +89,8 @@
         "holderName": "ПЕНЬО КРАСИМИРОВ НЕНОВ",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит, договорен  лихвен процент в размер на 2.69%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -105,7 +108,8 @@
         "holderName": "ГЕРГАНА ЖИВКОВА НЕНОВА",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит, договорен  лихвен процент в размер на 2.69%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

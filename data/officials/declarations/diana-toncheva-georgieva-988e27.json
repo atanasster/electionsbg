@@ -44,7 +44,8 @@
         "holderName": "Диана Тончева Георгиева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на апартамент"
+        "fundsOrigin": "продажба на апартамент",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Мария Ивелинова Димитрова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Сталин Кеворк Ованесян",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Диана Тончева Георгиева",
         "isSpouse": false,
         "legalBasis": "4,37",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Диана Тончева Георгиева",
         "isSpouse": false,
         "legalBasis": "4,38",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -160,7 +165,8 @@
         "holderName": "Диана Тончева Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент, заплата"
+        "fundsOrigin": "продажба на апартамент, заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -178,7 +184,8 @@
         "holderName": "Диана Тончева Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент"
+        "fundsOrigin": "продажба на апартамент",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -196,7 +203,8 @@
         "holderName": "Диана Тончева Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент"
+        "fundsOrigin": "продажба на апартамент",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -214,7 +222,8 @@
         "holderName": "Диана Тончева Георгиева",
         "isSpouse": false,
         "legalBasis": "потребителски кредит -4,39",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -271,7 +280,8 @@
         "holderName": "Диана Тончева Георгиева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -289,7 +299,8 @@
         "holderName": "Сталин Кеворк Ованесян",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -307,7 +318,8 @@
         "holderName": "Диана Тончева Георгиева",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

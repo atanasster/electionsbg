@@ -38,7 +38,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -74,7 +76,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -92,7 +95,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания - дарение от родител"
+        "fundsOrigin": "спестявания - дарение от родител",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +114,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -128,7 +133,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": "Договорна ипотека - 2.7 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -146,7 +152,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": "Договор за овърдрафт - 10.9 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -164,7 +171,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 0.0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -221,7 +229,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -239,7 +248,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания - дарение от родител"
+        "fundsOrigin": "спестявания - дарение от родител",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -257,7 +267,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": "Договорна ипотека - 2.7 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -275,7 +286,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": "Договор за овърдрафт - 10.9 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -332,7 +344,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -350,7 +363,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -368,7 +382,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарение от родител - обезщетение след пенсиониране"
+        "fundsOrigin": "дарение от родител - обезщетение след пенсиониране",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -386,7 +401,8 @@
         "holderName": "Петър Христов Куков",
         "isSpouse": false,
         "legalBasis": "Договорна ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

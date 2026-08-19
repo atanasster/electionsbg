@@ -44,7 +44,8 @@
         "holderName": "ТЕМЕНУЖКА ИВАНОВА ХАРАЛАНОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "ТЕМЕНУЖКА ИВАНОВА ХАРАЛАНОВА",
         "isSpouse": false,
         "legalBasis": "БИТОВ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -112,7 +114,8 @@
         "holderName": "Теменужка Иванова Хараланова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -130,7 +133,8 @@
         "holderName": "Теменужка Иванова Хараланова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -148,7 +152,8 @@
         "holderName": "Теменужка Иванова Хараланова",
         "isSpouse": false,
         "legalBasis": "Битов",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

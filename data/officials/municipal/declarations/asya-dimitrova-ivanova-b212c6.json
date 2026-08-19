@@ -37,7 +37,8 @@
         "holderName": "Ася Димитрова Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -55,7 +56,8 @@
         "holderName": "Илиян Владимиров Иванов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -73,7 +75,8 @@
         "holderName": "Илиян Владимиров Иванов",
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит, лихва 2.35",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

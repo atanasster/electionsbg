@@ -43,7 +43,8 @@
         "holderName": "Иван Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Иван Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -79,7 +81,8 @@
         "holderName": "Иван Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -97,7 +100,8 @@
         "holderName": "Иван Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -115,7 +119,8 @@
         "holderName": "Иван Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "holderName": "Иван Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": "кредит, 5,09%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -151,7 +157,8 @@
         "holderName": "Иван Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": "овърдрафт, 6,42%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -169,7 +176,8 @@
         "holderName": "Иван Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": "кредитна карта, 18,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -187,7 +195,8 @@
         "holderName": "Гергана Драгомирова Димитрова",
         "isSpouse": true,
         "legalBasis": "кредит, 4,37%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -205,7 +214,8 @@
         "holderName": "Гергана Драгомирова Димитрова",
         "isSpouse": true,
         "legalBasis": "кредит, 4,51%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

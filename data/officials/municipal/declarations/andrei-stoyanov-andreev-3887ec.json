@@ -43,7 +43,8 @@
         "holderName": "Анрей Стоянов Андреев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба имот и спестявания"
+        "fundsOrigin": "продажба имот и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Андрей Стоянов Андреев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "кредитна карта"
+        "fundsOrigin": "кредитна карта",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Андрей Стоянов Андреев",
         "isSpouse": false,
         "legalBasis": "7.20",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

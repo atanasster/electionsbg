@@ -43,7 +43,8 @@
         "holderName": "Александър Петров Петров",
         "isSpouse": true,
         "legalBasis": "покупко-проджба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -61,7 +62,8 @@
         "holderName": "Десилава Евгениева Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Десислава Евгениева Петрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Десислава Евгениева Петрова",
         "isSpouse": false,
         "legalBasis": "договор за кредит, 1,81%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -115,7 +119,8 @@
         "holderName": "Десислава Евгениева Петрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -133,7 +138,8 @@
         "holderName": "Десислава Евгениева Петрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -151,7 +157,8 @@
         "holderName": "Десислава Евгениева Петрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

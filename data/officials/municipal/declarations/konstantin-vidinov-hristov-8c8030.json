@@ -55,7 +55,8 @@
         "holderName": "Бранимира Георгиева Христова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания,пенсия,др.доходи"
+        "fundsOrigin": "спестявания,пенсия,др.доходи",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -73,7 +74,8 @@
         "holderName": "Константин Видинов Христов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заплата,пенсия,спестявания"
+        "fundsOrigin": "Заплата,пенсия,спестявания",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -91,7 +93,8 @@
         "holderName": "Константин Видинов Христов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата,пенсия,възнаграждения"
+        "fundsOrigin": "заплата,пенсия,възнаграждения",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -109,7 +112,8 @@
         "holderName": "Бранимира Георгиева Христова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия,спестявания"
+        "fundsOrigin": "пенсия,спестявания",
+        "tableNum": "4"
       }
     ],
     "events": [

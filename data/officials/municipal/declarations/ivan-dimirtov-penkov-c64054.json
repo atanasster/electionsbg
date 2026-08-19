@@ -43,7 +43,8 @@
         "holderName": "ИВАН ДИМИТРОВ ПЕНКОВ",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "ИВАН ДИМИТРОВ ПЕНКОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -79,7 +81,8 @@
         "holderName": "ИВАН ДИМИТРОВ ПЕНКОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "ИВАН ДИМИТРОВ ПЕНКОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -115,7 +119,8 @@
         "holderName": "ИВАН ДИМИТРОВ ПЕНКОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "holderName": "ИВАН ДИМИТРОВ ПЕНКОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -151,7 +157,8 @@
         "holderName": "ИВАН ДИМИТРОВ ПЕНКОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

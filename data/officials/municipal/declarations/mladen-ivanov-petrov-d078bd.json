@@ -62,7 +62,8 @@
         "holderName": "Младен Иванов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивиденти"
+        "fundsOrigin": "заплата и дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +81,8 @@
         "holderName": "Младен Иванов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +100,8 @@
         "holderName": "Валентина Георгиева Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +119,8 @@
         "holderName": "Валентина Георгиева Петрова",
         "isSpouse": true,
         "legalBasis": "потребителски банков кредит с годишна лихва 4,44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -50,7 +50,8 @@
         "holderName": "Иван Ангелов Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Мария Стефанова Башева-Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "По т.12 (от 2020)+Т.12 (от 2021)+спестявания"
+        "fundsOrigin": "По т.12 (от 2020)+Т.12 (от 2021)+спестявания",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -118,7 +120,8 @@
         "holderName": "Иван Ангелов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -136,7 +139,8 @@
         "holderName": "Иван Ангелов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []

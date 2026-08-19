@@ -44,7 +44,8 @@
         "holderName": "Иван йорданов Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Иван Йорданов Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -80,7 +82,8 @@
         "holderName": "Анета Богомилова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -98,7 +101,8 @@
         "holderName": "Иван Йорданов Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       }
     ],
     "events": []
@@ -142,7 +146,8 @@
         "holderName": "Иван Йорданов Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       }
     ],
     "events": []
@@ -534,7 +539,8 @@
         "holderName": "Иван Йорданов Стоянов",
         "isSpouse": false,
         "legalBasis": "договор за дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -552,7 +558,8 @@
         "holderName": "Иван Йорданов Стоянов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -570,7 +577,8 @@
         "holderName": "Анета Богомилова Стоянова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -588,7 +596,8 @@
         "holderName": "Иван Йорданов Стоянов",
         "isSpouse": false,
         "legalBasis": "договор за покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -606,7 +615,8 @@
         "holderName": "Анета Богомилова Стоянова",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

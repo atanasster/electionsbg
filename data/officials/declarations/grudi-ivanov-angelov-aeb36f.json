@@ -75,7 +75,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -93,7 +94,8 @@
         "holderName": "Иван Грудев Ангелов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "договор за банков ипотечен кредит"
+        "fundsOrigin": "договор за банков ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -111,7 +113,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -129,7 +132,8 @@
         "holderName": "Златка Димитрова Ангелова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -147,7 +151,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": "Договор за финансов лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -343,7 +348,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -361,7 +367,8 @@
         "holderName": "Златка Димитрова Ангелова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -379,7 +386,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -397,7 +405,8 @@
         "holderName": "Златка Димитрова Ангелова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -415,7 +424,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -507,7 +517,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -525,7 +536,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -543,7 +555,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -561,7 +574,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -579,7 +593,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -597,7 +612,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -615,7 +631,8 @@
         "holderName": "Груди Иванов Ангелов",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -38,7 +38,8 @@
         "holderName": "Милена Драгиева Полизанова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -56,7 +57,8 @@
         "holderName": "Милена Драгиева Полизанова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -74,7 +76,8 @@
         "holderName": "Недялко Маринов Полизанов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -92,7 +95,8 @@
         "holderName": "Милена Драгиева Полизанова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -110,7 +114,8 @@
         "holderName": "Милена Драгиева Полизанова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -128,7 +133,8 @@
         "holderName": "Недялко Маринов Полизанов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -146,7 +152,8 @@
         "holderName": "Милена Драгиева Полизанова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -164,7 +171,8 @@
         "holderName": "Милена Драгиева Полизанова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -182,7 +190,8 @@
         "holderName": "Недялко Маринов Полизанов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -200,7 +209,8 @@
         "holderName": "Милена Драгиева Полизанова- съдлъжник",
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит/ 2,7 % лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -218,7 +228,8 @@
         "holderName": "Недялко Маринов Полизанов",
         "isSpouse": true,
         "legalBasis": "кредит/5,15 % лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

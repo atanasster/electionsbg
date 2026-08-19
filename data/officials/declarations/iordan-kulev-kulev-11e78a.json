@@ -56,7 +56,8 @@
         "holderName": "ИВАНКА ПЕТКОВА КУЛЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ"
+        "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -74,7 +75,8 @@
         "holderName": "ЙОРДАН КУЛЕВ КУЛЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати,пенсии,продажба"
+        "fundsOrigin": "заплати,пенсии,продажба",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -92,7 +94,8 @@
         "holderName": "ИВАНКА ПЕТКОВАКУЛЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТИ ДИВИДЕНТИ ,ПЕНСИИ"
+        "fundsOrigin": "ЗАПЛАТИ ДИВИДЕНТИ ,ПЕНСИИ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -110,7 +113,8 @@
         "holderName": "ЙОРДАН КУЛЕВ КУЛЕВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР-18.9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -128,7 +132,8 @@
         "holderName": "ЙОРДАН КУЛЕВ КУЛЕВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР-18.9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -146,7 +151,8 @@
         "holderName": "ЙОРДАН КУЛЕВ КУЛЕВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР- 2.81",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "holderName": "ИВАНКА ПЕТКОВА КУЛЕВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР - 2.81",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -233,7 +240,8 @@
         "holderName": "ЙОРДАН КУЛЕВ КУЛЕВ",
         "isSpouse": false,
         "legalBasis": "ПРИДОБИТ ПО ДАВНОСТНО ВЛАДЕНИЕ",
-        "fundsOrigin": "2"
+        "fundsOrigin": "2",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -251,7 +259,8 @@
         "holderName": "ИВАНКА ПЕТКОВА КУЛЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ"
+        "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -269,7 +278,8 @@
         "holderName": "ЙОРДАН КУЛЕВ КУЛЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТИ И ПЕНСИИ"
+        "fundsOrigin": "ЗАПЛАТИ И ПЕНСИИ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -287,7 +297,8 @@
         "holderName": "ИВАНКА ПЕТКОВА КУЛЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА,ДИВИДЕНТ,ПРОДАЖБА"
+        "fundsOrigin": "ЗАПЛАТА,ДИВИДЕНТ,ПРОДАЖБА",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -305,7 +316,8 @@
         "holderName": "ЙОРДАН КУЛЕВ КУЛЕВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -323,7 +335,8 @@
         "holderName": "ЙОРДАН КУЛЕВ КУЛЕВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -471,7 +484,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивидент"
+        "fundsOrigin": "заплата и дивидент",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -489,7 +503,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсии"
+        "fundsOrigin": "заплата и пенсии",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -507,7 +522,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -525,7 +541,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -543,7 +560,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -561,7 +579,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -642,7 +661,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "договор за гледане"
+        "fundsOrigin": "договор за гледане",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -660,7 +680,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "договор за гледане"
+        "fundsOrigin": "договор за гледане",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -678,7 +699,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "договор за гледане"
+        "fundsOrigin": "договор за гледане",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -696,7 +718,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "договор за гледане"
+        "fundsOrigin": "договор за гледане",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -714,7 +737,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -732,7 +756,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -750,7 +775,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "Доковор за наем на недвижим имот",
-        "fundsOrigin": "Командировъчни"
+        "fundsOrigin": "Командировъчни",
+        "tableNum": "1.2"
       },
       {
         "category": "cash",
@@ -768,7 +794,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивиденти"
+        "fundsOrigin": "заплата и дивиденти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -786,7 +813,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -804,7 +832,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -822,7 +851,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -840,7 +870,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -908,7 +939,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -926,7 +958,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ДАРЕНИЕ СЪПРУГА"
+        "fundsOrigin": "ДАРЕНИЕ СЪПРУГА",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -944,7 +977,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ЗАПЛАТА,ДИВИДЕНТИ"
+        "fundsOrigin": "ЗАПЛАТА,ДИВИДЕНТИ",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -962,7 +996,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ЗАПЛАТА,ДИВИДЕНТИ"
+        "fundsOrigin": "ЗАПЛАТА,ДИВИДЕНТИ",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -980,7 +1015,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ДАРЕНИЕ СЪПРУГА"
+        "fundsOrigin": "ДАРЕНИЕ СЪПРУГА",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -998,7 +1034,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дарения"
+        "fundsOrigin": "заплата и дарения",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1016,7 +1053,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и девиденти"
+        "fundsOrigin": "заплата и девиденти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1034,7 +1072,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дарения"
+        "fundsOrigin": "заплата и дарения",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1052,7 +1091,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1070,7 +1110,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "потребителски заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1088,7 +1129,8 @@
         "holderName": "Иванка Петкова Кулева",
         "isSpouse": true,
         "legalBasis": "потребителски заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1106,7 +1148,8 @@
         "holderName": "Йордан Кулев Кулев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

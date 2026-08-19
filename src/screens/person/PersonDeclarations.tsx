@@ -321,6 +321,22 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
       </div>
     );
 
+  // `isHolding` false only for tables 1.2 / 3.4. A shard loaded before the provenance
+  // existed carries no tableNum and 089 reads that as a holding, so on such a database
+  // every row lands in `ownedAssets` — i.e. exactly today's page, unchanged.
+  const ownedAssets = detail.assets.filter((a) => a.isHolding !== false);
+  const usedAssets = detail.assets.filter((a) => a.isHolding === false);
+  // Shown only when the filing actually pairs a чуждо VEHICLE with a lease debt — the
+  // caveat explains a specific arithmetic outcome, so printing it on a filing that merely
+  // rents a flat would be noise that trains readers to skip it.
+  const usedLeaseCaveat =
+    usedAssets.some((a) => a.category === "vehicle") &&
+    detail.assets.some(
+      (a) =>
+        a.category === "debt" &&
+        /лизинг/i.test(`${a.description ?? ""} ${a.legalBasis ?? ""}`),
+    );
+
   return (
     <div className="space-y-2 bg-muted/20 px-9 py-3 text-xs">
       {/* CITATION LINE. The numbers below are quoted by reporters, and the two facts that
@@ -356,9 +372,18 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
           <ExternalLink className="h-3 w-3" />
         </a>
       </div>
-      {detail.assets.length > 0 && (
+      {/* The filing's rows, split by whether they are the declarant's to own.
+          `isHolding` is server-derived (is_declared_holding, 089) — the client must not
+          re-derive it from tableNum, or the site gains a second definition of wealth that
+          can drift from the one the totals are computed on.
+
+          Both halves render. Excluding чуждо from the money is the correction; DROPPING it
+          from the page would lose the finding — Пеевски's 2025 annual files tables 1 and 3
+          as „not declared" and lists eight rented houses and five provided cars, which is
+          only visible if we show them. */}
+      {ownedAssets.length > 0 && (
         <div>
-          {detail.assets.map((a, i) => (
+          {ownedAssets.map((a, i) => (
             <div
               key={i}
               className="flex items-baseline justify-between gap-2 py-0.5"
@@ -372,6 +397,59 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
                     before, which is why four different coins rendered as four identical
                     „Инвестиции €66 030" lines. */}
                 {assetRowParts(a, locale, t("pp_decl_units") || "бр.")}
+                {a.isSpouse && (
+                  <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
+                    {t("pp_decl_spouse") || "съпруг/а"}
+                  </span>
+                )}
+              </span>
+              <span className="shrink-0 tabular-nums text-muted-foreground">
+                {a.valueEur != null ? formatEur(a.valueEur, locale) : "—"}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+      {usedAssets.length > 0 && (
+        <div className="border-t border-border pt-1">
+          <div className="mb-0.5 font-medium">
+            {t("pp_decl_used") || "Ползва, но не притежава"}
+          </div>
+          {/* The note is NOT optional chrome. The figures below look exactly like the ones
+              above and mean something else — „Цена по договор", what the use costs — so a
+              reader who takes them for asset values has been misled by the layout. */}
+          <div className="mb-1 text-[11px] leading-snug text-muted-foreground">
+            {t("pp_decl_used_note")}
+          </div>
+          {/* THE ASYMMETRY, named where it happens. Table 3.4's dominant use is a LEASED
+              vehicle — 1,014 of 1,826 filings carrying a 3.4 row also carry a лизинг debt —
+              and the lease liability sits in table 7, which stays counted. So excluding the
+              car while keeping the debt can push a net worth below zero: 103 people flip
+              from a published positive figure to a negative one, 70 of them on exactly this
+              pairing. The arithmetic is right and unexplained it reads as an accusation, so
+              the page says why rather than leaving a reader to discover it. */}
+          {usedLeaseCaveat && (
+            <div className="mb-1 text-[11px] leading-snug text-muted-foreground">
+              {t("pp_decl_used_lease")}
+            </div>
+          )}
+          {usedAssets.map((a, i) => (
+            <div
+              key={i}
+              className="flex items-baseline justify-between gap-2 py-0.5"
+            >
+              <span className="truncate">
+                <span className="text-muted-foreground">
+                  {t(`asset_category_${a.category}`)}
+                </span>{" "}
+                {assetRowParts(a, locale, t("pp_decl_units") || "бр.")}
+                {/* „договор за наем" / „лизинг" — without it the row is just a flat with a
+                    price beside it, which is the reading this block exists to prevent. */}
+                {a.legalBasis && (
+                  <span className="ml-1 text-muted-foreground">
+                    · {a.legalBasis}
+                  </span>
+                )}
                 {a.isSpouse && (
                   <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
                     {t("pp_decl_spouse") || "съпруг/а"}

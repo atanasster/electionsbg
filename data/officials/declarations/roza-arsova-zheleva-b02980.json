@@ -50,7 +50,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплата и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "социална помощ за лекарства"
+        "fundsOrigin": "социална помощ за лекарства",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -104,7 +107,8 @@
         "holderName": "Янчо Добрев Желев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -122,7 +126,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": "заем /3.60%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -140,7 +145,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": "кр. Карта 17.9 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -158,7 +164,8 @@
         "holderName": "Янчо Добрев Желев",
         "isSpouse": true,
         "legalBasis": "овърдрафт 5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -233,7 +240,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплата и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -251,7 +259,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплата и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -269,7 +278,8 @@
         "holderName": "Янчо Добрев Желев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата пенсия и обещетение"
+        "fundsOrigin": "заплата пенсия и обещетение",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -287,7 +297,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплата и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -305,7 +316,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -374,7 +386,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -392,7 +405,8 @@
         "holderName": "Роза Арсова Желева",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

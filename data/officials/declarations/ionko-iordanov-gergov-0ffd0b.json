@@ -44,7 +44,8 @@
         "holderName": "Йонко Йорадонов Гергов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем + заплата"
+        "fundsOrigin": "заем + заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Евгения Пламенова Гергова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем + заплата"
+        "fundsOrigin": "заем + заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Йонко Йорданов Гергов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -98,7 +101,8 @@
         "holderName": "Евгения Пламенова Гергова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "ЙОНКО ЙОРДАНОВ ГЕРГОВ",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

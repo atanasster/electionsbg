@@ -62,7 +62,8 @@
         "holderName": "\"ТОЧИ\" ООДНиязи Ниязиев Мехмедов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -80,7 +81,8 @@
         "holderName": "Ниязи Ниязиев Мехмедов",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -98,7 +100,8 @@
         "holderName": "Ниязи Ниязиев Мехмедов",
         "isSpouse": false,
         "legalBasis": "договор с 6,2 % лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +119,8 @@
         "holderName": "Ниязи Ниязиев Мехмедов, Неждан Ахмед Мехмедова",
         "isSpouse": true,
         "legalBasis": "договор с 3,09 % лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +138,8 @@
         "holderName": "Неждан Ахмед Мехмедова",
         "isSpouse": true,
         "legalBasis": "договор с 18,95 % лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -152,7 +157,8 @@
         "holderName": "Ниязи Ниязиев Мехмедов",
         "isSpouse": false,
         "legalBasis": "договор с 3% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

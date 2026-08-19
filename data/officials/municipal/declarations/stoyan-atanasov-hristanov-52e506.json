@@ -55,7 +55,8 @@
         "holderName": "Стоян Атанасов Христанов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -73,7 +74,8 @@
         "holderName": "Стоян Атанасов Христанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -91,7 +93,8 @@
         "holderName": "Стоян Атанасов Христанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "holderName": "Стоян Атанасов Христанов",
         "isSpouse": false,
         "legalBasis": "Кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -127,7 +131,8 @@
         "holderName": "Стоян Атанасов Христанов",
         "isSpouse": false,
         "legalBasis": "кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

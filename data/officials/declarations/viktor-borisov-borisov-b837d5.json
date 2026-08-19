@@ -50,7 +50,8 @@
         "holderName": "ДИАНА МАЛИНОВА БОРИСОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Годишна данъчна основа от друга стопанска дейност"
+        "fundsOrigin": "Годишна данъчна основа от друга стопанска дейност",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -68,7 +69,8 @@
         "holderName": "ВИКТОР БОРИСОВ БОРИСОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -86,7 +88,8 @@
         "holderName": "ВИКТОР БОРИСОВ БОРИСОВ",
         "isSpouse": false,
         "legalBasis": "потребителски заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -142,7 +145,8 @@
         "holderName": "ВИКТОР БОРИСОВ БОРИСОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заем, спестявания"
+        "fundsOrigin": "Заем, спестявания",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -160,7 +164,8 @@
         "holderName": "Виктор Борисов Борисов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -178,7 +183,8 @@
         "holderName": "ДИАНА МАЛИНОВА БОРИСОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -196,7 +202,8 @@
         "holderName": "ВИКТОР БОРИСОВ БОРИСОВ",
         "isSpouse": false,
         "legalBasis": "Потребителски заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -259,7 +266,8 @@
         "holderName": "Виктор Борисов Борисов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -277,7 +285,8 @@
         "holderName": "Виктор Борисов Борисов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": [
@@ -352,7 +361,8 @@
         "holderName": "Виктор Борисов Борисов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -370,7 +380,8 @@
         "holderName": "Диана Малинова Борисова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -414,7 +425,8 @@
         "holderName": "Диана Малинова Борисова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -432,7 +444,8 @@
         "holderName": "ВИКТОР БОРИСОВ БОРИСОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -450,7 +463,8 @@
         "holderName": "Виктор Борисов Борисов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -468,7 +482,8 @@
         "holderName": "Диана Малинова Борисова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -531,7 +546,8 @@
         "holderName": "Виктор Борисов Борисов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -575,7 +591,8 @@
         "holderName": "Виктор Борисов Борисов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "лизинг"
+        "fundsOrigin": "лизинг",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -593,7 +610,8 @@
         "holderName": "Виктор Борисов Борисов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -662,7 +680,8 @@
         "holderName": "ВИКТОР БОРИСОВ БОРИСОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []

@@ -50,7 +50,8 @@
         "holderName": "Нели Иванова Йорданова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Йордан Досев Йорданов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -124,7 +126,8 @@
         "holderName": "Йордан Досев Йорданов-СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -142,7 +145,8 @@
         "holderName": "Нели Иванова Йорданова-СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       }
     ],
     "events": [

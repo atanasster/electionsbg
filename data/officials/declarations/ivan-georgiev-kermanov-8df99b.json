@@ -44,7 +44,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и наследяване"
+        "fundsOrigin": "заплата и наследяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": "ипотека - 2.44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -130,7 +133,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -148,7 +152,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": "ипотека / 2.44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -166,7 +171,8 @@
         "holderName": "Елена Стефанова Керманова",
         "isSpouse": true,
         "legalBasis": "ипотека / 2.44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -184,7 +190,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": "заем / 3.99%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -252,7 +259,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -270,7 +278,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -288,7 +297,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -306,7 +316,8 @@
         "holderName": "Елена Стефанова Керманова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -324,7 +335,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -342,7 +354,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": "ипотека на имот",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -392,7 +405,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -410,7 +424,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -428,7 +443,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -446,7 +462,8 @@
         "holderName": "Елена Стефанова Керманова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -464,7 +481,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -482,7 +500,8 @@
         "holderName": "Елена Стефанова Керманова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -500,7 +519,8 @@
         "holderName": "Иван Георгиев Керманов",
         "isSpouse": false,
         "legalBasis": "ипотека на имот",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

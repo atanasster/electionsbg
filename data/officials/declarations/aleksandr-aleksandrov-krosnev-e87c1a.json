@@ -44,7 +44,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -80,7 +82,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "Кредит- 4.73%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -166,7 +171,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -216,7 +222,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -266,7 +273,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -284,7 +292,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -302,7 +311,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на автомобил"
+        "fundsOrigin": "продажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -320,7 +330,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -338,7 +349,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата пенсия"
+        "fundsOrigin": "заплата пенсия",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -395,7 +407,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -413,7 +426,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Продажба на автомобил"
+        "fundsOrigin": "Продажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -431,7 +445,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -449,7 +464,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Продажба на автомобил"
+        "fundsOrigin": "Продажба на автомобил",
+        "tableNum": "3"
       }
     ],
     "events": [
@@ -512,7 +528,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -530,7 +547,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Прадажба на автомобил"
+        "fundsOrigin": "Прадажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -548,7 +566,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -623,7 +642,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -641,7 +661,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -659,7 +680,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -677,7 +699,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -695,7 +718,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "Заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -750,7 +774,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -768,7 +793,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -786,7 +812,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -804,7 +831,8 @@
         "holderName": "Александър Александров Кроснев",
         "isSpouse": false,
         "legalBasis": "Заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

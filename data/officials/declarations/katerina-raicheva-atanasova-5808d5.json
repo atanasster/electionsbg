@@ -38,7 +38,8 @@
         "holderName": "Атанас Христов Атанасов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Катерина Райчева Атаносова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -74,7 +76,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата-спестовна сметка"
+        "fundsOrigin": "заплата-спестовна сметка",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -92,7 +95,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата-разплащателна сметка"
+        "fundsOrigin": "заплата-разплащателна сметка",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +114,8 @@
         "holderName": "Атанас Христов Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата-разплащателна сметка"
+        "fundsOrigin": "заплата-разплащателна сметка",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -128,7 +133,8 @@
         "holderName": "Христо Атанасов Атанасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Стипендии-разплщателна сметка"
+        "fundsOrigin": "Стипендии-разплщателна сметка",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -146,7 +152,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "договор - 3,1%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -164,7 +171,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "договор - 4,98%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -182,7 +190,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "договор-14,7% / 15,7%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -219,7 +228,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -237,7 +247,8 @@
         "holderName": "Атанас Христов Атанасов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -255,7 +266,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -273,7 +285,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -291,7 +304,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -309,7 +323,8 @@
         "holderName": "Атанас Христов Атанасов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -327,7 +342,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -345,7 +361,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -382,7 +399,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -400,7 +418,8 @@
         "holderName": "Атанас Христов Атанасов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -418,7 +437,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -436,7 +456,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -454,7 +475,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -472,7 +494,8 @@
         "holderName": "Атанас Христов Атанасов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -490,7 +513,8 @@
         "holderName": "Катерина Райчева Атанасова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       }
     ],
     "events": [

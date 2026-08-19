@@ -50,7 +50,8 @@
         "holderName": "ИВАЙЛО МИЛУШЕВ МИЛУШЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТИ И ОБЕЗЩЕТЕНИЯ"
+        "fundsOrigin": "ЗАПЛАТИ И ОБЕЗЩЕТЕНИЯ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "ПИНКА КИРЧЕВА  МИЛУШЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТИ И ДОХОДИ ИЗВЪНТРУДОВИ ПРАВООТНОШЕНИЯ"
+        "fundsOrigin": "ЗАПЛАТИ И ДОХОДИ ИЗВЪНТРУДОВИ ПРАВООТНОШЕНИЯ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -86,7 +88,8 @@
         "holderName": "ПЕНКА КИРЧЕВА МИЛУШЕВА",
         "isSpouse": true,
         "legalBasis": "ИПОТЕЧЕН КРЕДИТ -2,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "ИВАЙЛО МИЛУШЕВ МИЛУШЕВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ -4,23%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -160,7 +164,8 @@
         "holderName": "ПЕНКА КИРЧЕВА МИЛУШЕВА",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -178,7 +183,8 @@
         "holderName": "ИВАЙЛО МИЛУШЕВ МИЛУШЕВ",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -196,7 +202,8 @@
         "holderName": "ИВАЙЛО МИЛУШЕВ МИЛУШЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -214,7 +221,8 @@
         "holderName": "ПИНКА КИРЧЕВА МИЛУШЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -232,7 +240,8 @@
         "holderName": "ИВАЙЛО МИЛУШЕВ МИЛУШЕВ",
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг 4,2%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -250,7 +259,8 @@
         "holderName": "ПЕНКА МИЛУШЕВА МИЛУШЕВА",
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит -2,6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -306,7 +316,8 @@
         "holderName": "ИВАЙЛО МИЛУШЕВ МИЛУШЕВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми, заплати"
+        "fundsOrigin": "заеми, заплати",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -324,7 +335,8 @@
         "holderName": "ПЕНКА КИРЧЕВА МИЛУШЕВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми, заплати"
+        "fundsOrigin": "заеми, заплати",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -342,7 +354,8 @@
         "holderName": "ПЕНКА КИРЧЕВА МИЛУШЕВА",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -360,7 +373,8 @@
         "holderName": "ИВАЙЛО МИЛУШЕВ МИЛУШЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТИ"
+        "fundsOrigin": "ЗАПЛАТИ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -378,7 +392,8 @@
         "holderName": "ПЕНКА КИРЧЕВА МИЛУШЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТИ"
+        "fundsOrigin": "ЗАПЛАТИ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -396,7 +411,8 @@
         "holderName": "ПЕНКА КИРЧЕВА МИЛУШЕВА",
         "isSpouse": true,
         "legalBasis": "договорза ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

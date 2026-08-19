@@ -93,7 +93,8 @@
         "holderName": "ГАЛЯ БОРИСОВА ЧАЛЪМОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -111,7 +112,8 @@
         "holderName": "ГАЛЯ БОРИСОВА ЧАЛЪМОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -129,7 +131,8 @@
         "holderName": "ГАЛЯ БОРИСОВА ЧАЛЪМОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -147,7 +150,8 @@
         "holderName": "ГАЛЯ БОРИСОВА ЧАЛЪМОВА",
         "isSpouse": false,
         "legalBasis": "ЗАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

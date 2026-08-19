@@ -31,7 +31,8 @@
         "holderName": "НАДЯ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "НАДЯ АНГЕЛОВА ДОНКИНСКА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -67,7 +69,8 @@
         "holderName": "ПЛАМЕН ПЕТРОВ ДОНКИНСКИ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       }
     ],
     "events": []
@@ -104,7 +107,8 @@
         "holderName": "НАДЯ АНГЕЛОВА ДОНКИНСКА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -122,7 +126,8 @@
         "holderName": "НАДЯ АНГЕЛОВА ДОНКИНСКА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -140,7 +145,8 @@
         "holderName": "ПЛАМЕН ПЕТРОВ ДОНКИНСКИ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ЛИЗИНГ ЗАПЛАТА"
+        "fundsOrigin": "ЛИЗИНГ ЗАПЛАТА",
+        "tableNum": "3"
       }
     ],
     "events": []

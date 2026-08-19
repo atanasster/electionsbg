@@ -40,6 +40,7 @@ const decl = (
 const cash = (eur: number): NonNullable<OfficialDeclaration["assets"]> => [
   {
     category: "cash",
+    tableNum: "4",
     description: null,
     detail: null,
     location: null,
@@ -51,6 +52,7 @@ const cash = (eur: number): NonNullable<OfficialDeclaration["assets"]> => [
     currency: "BGN",
     amount: null,
     valueEur: eur,
+    valueBasis: null,
     holderName: null,
     isSpouse: false,
     legalBasis: null,

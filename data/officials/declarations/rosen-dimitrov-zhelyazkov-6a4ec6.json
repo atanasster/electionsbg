@@ -62,7 +62,8 @@
         "holderName": "Ралица Петрова Терзиева",
         "isSpouse": true,
         "legalBasis": "покупка",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -80,7 +81,8 @@
         "holderName": "Росен Димитров Желязков",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -98,7 +100,8 @@
         "holderName": "Росен Димитров Желязков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и други доходи от предходни години по Таблица 12"
+        "fundsOrigin": "заплати и други доходи от предходни години по Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +119,8 @@
         "holderName": "Ралица Петрова Терзиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба апартамент и спестявания"
+        "fundsOrigin": "продажба апартамент и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +138,8 @@
         "holderName": "Росен Димитров Желязков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и други доходи от предходни години по Таблица 12"
+        "fundsOrigin": "заплати и други доходи от предходни години по Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -152,7 +157,8 @@
         "holderName": "Ралица Петрова Терзиева",
         "isSpouse": true,
         "legalBasis": "допълнителна парична вноска Тера Пет 08 ЕООД",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -170,7 +176,8 @@
         "holderName": "Росен Димитров Желязков",
         "isSpouse": false,
         "legalBasis": "договор; 14,95%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -188,7 +195,8 @@
         "holderName": "Росен Димитров Желязков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследство"
+        "fundsOrigin": "наследство",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -206,7 +214,8 @@
         "holderName": "Росен Димитров Желязков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "обратно изкупуване от фонд и спестявания"
+        "fundsOrigin": "обратно изкупуване от фонд и спестявания",
+        "tableNum": "8"
       }
     ],
     "events": []

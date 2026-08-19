@@ -44,7 +44,8 @@
         "holderName": "Маргарита Цветкова Топалова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати,спестявания"
+        "fundsOrigin": "заплати,спестявания",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "Димитър Тодоров Топалов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати, спестявания"
+        "fundsOrigin": "заплати, спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Маргарита Цветкова Топалова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и други доходи от извът трудови правоотношения"
+        "fundsOrigin": "заплати и други доходи от извът трудови правоотношения",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Маргарита Цветкова Топалова",
         "isSpouse": false,
         "legalBasis": "4,8",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Димитър Тодоров Топалов",
         "isSpouse": true,
         "legalBasis": "9,05",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Димитър Тодоров Топалов",
         "isSpouse": true,
         "legalBasis": "11,00",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -197,7 +203,8 @@
         "holderName": "Маргарита Цветкова Топалова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплати, спестявания"
+        "fundsOrigin": "заплати, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -215,7 +222,8 @@
         "holderName": "Димитър Тодоров Топалов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заплати, спестявания"
+        "fundsOrigin": "Заплати, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -233,7 +241,8 @@
         "holderName": "Маргарита Цветкова Топалова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплати, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплати, доходи от друга стопанска дейност",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -251,7 +260,8 @@
         "holderName": "Маргарита Цветкова Топалова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, спестявания"
+        "fundsOrigin": "заплати, спестявания",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -269,7 +279,8 @@
         "holderName": "Димитър Тодоров Топалов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати, спестявания"
+        "fundsOrigin": "заплати, спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -287,7 +298,8 @@
         "holderName": "Маргарита Цветкова Топалова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата, доходи от друга стопанска дейност",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -337,7 +349,8 @@
         "holderName": "Маргарита Цветкова Топалова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, друга стопанска дейност"
+        "fundsOrigin": "заплата, друга стопанска дейност",
+        "tableNum": "5"
       }
     ],
     "events": []

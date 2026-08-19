@@ -24,6 +24,7 @@ const raw: RawFiling = {
       transfereeName: "Петър Петров",
       shareSize: "100%",
       valueEur: 5000,
+      valueBasis: null,
       registeredOffice: "София",
     },
   ],
@@ -38,6 +39,7 @@ const raw: RawFiling = {
   assets: [
     {
       category: "real_estate",
+      tableNum: "1",
       description: "Апартамент",
       detail: null,
       location: "София",
@@ -49,6 +51,7 @@ const raw: RawFiling = {
       currency: "BGN",
       amount: 100000,
       valueEur: 51129,
+      valueBasis: null,
       holderName: null,
       isSpouse: false,
       legalBasis: "покупко-продажба",
@@ -63,6 +66,7 @@ const raw: RawFiling = {
       location: "Пловдив",
       municipality: null,
       valueEur: 20000,
+      valueBasis: null,
       legalBasis: "възмездно",
     },
   ],

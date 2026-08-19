@@ -57,7 +57,8 @@
         "holderName": "Мартин Нойков Нойков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарение и заплати"
+        "fundsOrigin": "дарение и заплати",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -75,7 +76,8 @@
         "holderName": "Мартин Нойков Нойков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на зем. Продукти и субсидии"
+        "fundsOrigin": "продажба на зем. Продукти и субсидии",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -93,7 +95,8 @@
         "holderName": "Мартин Нойков Нойков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -111,7 +114,8 @@
         "holderName": "Юлия Радославова Митева",
         "isSpouse": true,
         "legalBasis": "2.36%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -174,7 +178,8 @@
         "holderName": "Мартин Нойков Нойков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -192,7 +197,8 @@
         "holderName": "Мартин Нойков Нойков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -210,7 +216,8 @@
         "holderName": "Мартин Нойков Нойков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "субсидии"
+        "fundsOrigin": "субсидии",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -228,7 +235,8 @@
         "holderName": "Юлия Радославова Митева",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -278,7 +286,8 @@
         "holderName": "Мартин Нойков Нойков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "субсидия зем. производител"
+        "fundsOrigin": "субсидия зем. производител",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -296,7 +305,8 @@
         "holderName": "Юлия Радославова Митева",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

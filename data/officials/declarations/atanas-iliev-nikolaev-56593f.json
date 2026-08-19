@@ -69,7 +69,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -87,7 +88,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -105,7 +107,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -123,7 +126,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -141,7 +145,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -159,7 +164,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -177,7 +183,8 @@
         "holderName": "Теодора Георгиева Станчева",
         "isSpouse": true,
         "legalBasis": "договор за финансов лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -195,7 +202,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -213,7 +221,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -231,7 +240,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -249,7 +259,8 @@
         "holderName": "Теодора Георгиева Станчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -267,7 +278,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": "потребителски кредит 4,4 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -285,7 +297,8 @@
         "holderName": "Теодора Георгиева Станчева",
         "isSpouse": true,
         "legalBasis": "договор за лизинг 3,9 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -366,7 +379,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -384,7 +398,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -402,7 +417,8 @@
         "holderName": "Теодора Георгиева Станчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -420,7 +436,8 @@
         "holderName": "Атанас Илиев Николаев",
         "isSpouse": false,
         "legalBasis": "потребителски кредит 4,4 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -470,7 +487,8 @@
         "holderName": "Теодора Георгиева Станчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

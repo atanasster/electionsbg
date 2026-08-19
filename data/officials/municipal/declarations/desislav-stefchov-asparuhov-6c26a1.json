@@ -49,7 +49,8 @@
         "holderName": "Десислав Стефчов Аспарухов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -67,7 +68,8 @@
         "holderName": "Десислав Стефчов Аспарухов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -85,7 +87,8 @@
         "holderName": "Весела Викторова Аспарухова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "Десислав Стефчов Аспарухов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -121,7 +125,8 @@
         "holderName": "Десислав Стефчов Аспарухов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -139,7 +144,8 @@
         "holderName": "Весела Викторова Аспарухова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -157,7 +163,8 @@
         "holderName": "Весела Викторова Аспарухова - Дог. За ипотечен кредит от 22 г.",
         "isSpouse": true,
         "legalBasis": "Солидарен длъжник - с Лихвен процент 2,55 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -175,7 +182,8 @@
         "holderName": "Десислав Стефчов Аспарухов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Застраховка Живот"
+        "fundsOrigin": "Застраховка Живот",
+        "tableNum": "8"
       }
     ],
     "events": []

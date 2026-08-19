@@ -38,7 +38,8 @@
         "holderName": "Гюнай Ферад Рамадан",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания и заеми"
+        "fundsOrigin": "спестявания и заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Наргис Йълмаз Мердан-Рамадан",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -74,7 +76,8 @@
         "holderName": "ОТП ЛИЗИНГ-ДСК",
         "isSpouse": true,
         "legalBasis": "Лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -92,7 +95,8 @@
         "holderName": "Наргис Йълмаз Мердан-Рамадан",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

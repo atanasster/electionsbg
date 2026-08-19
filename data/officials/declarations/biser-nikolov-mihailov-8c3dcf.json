@@ -343,7 +343,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -361,7 +362,8 @@
         "holderName": "Бисер Николов Михайлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -379,7 +381,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -397,7 +400,8 @@
         "holderName": "Бисер Николов Михайлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -415,7 +419,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и оборотни сметки"
+        "fundsOrigin": "спестявания и оборотни сметки",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -433,7 +438,8 @@
         "holderName": "Бисер Николов Михайлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "удръжки от заплата"
+        "fundsOrigin": "удръжки от заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -451,7 +457,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "самоосигуряване"
+        "fundsOrigin": "самоосигуряване",
+        "tableNum": "8"
       }
     ],
     "events": []

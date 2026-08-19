@@ -50,7 +50,8 @@
         "holderName": "Тихомир Николаев Николов",
         "isSpouse": false,
         "legalBasis": "родство- майка и брат",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.2"
       },
       {
         "category": "cash",
@@ -68,7 +69,8 @@
         "holderName": "Тихомир Николаев Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "възнаграждения и заплата"
+        "fundsOrigin": "възнаграждения и заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -86,7 +88,8 @@
         "holderName": "Тихомир Николаев Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "в брой"
+        "fundsOrigin": "в брой",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -104,7 +107,8 @@
         "holderName": "Тихомир Николаев Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "разплащателна сметка"
+        "fundsOrigin": "разплащателна сметка",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -122,7 +126,8 @@
         "holderName": "Тихомир Николаев Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "покупко - продажба на имот"
+        "fundsOrigin": "покупко - продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -140,7 +145,8 @@
         "holderName": "Тихомир Николаев Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "лични"
+        "fundsOrigin": "лични",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -158,7 +164,8 @@
         "holderName": "Тихомир Николаев Николов",
         "isSpouse": false,
         "legalBasis": "Договор за услуга",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -176,7 +183,8 @@
         "holderName": "Тихомир Николоаев Николов",
         "isSpouse": true,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

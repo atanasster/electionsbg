@@ -37,7 +37,8 @@
         "holderName": "Детелина Методиева Борисова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "пенсия и заплата"
+        "fundsOrigin": "пенсия и заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -55,7 +56,8 @@
         "holderName": "Борис Йорданов Борисов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсии"
+        "fundsOrigin": "пенсии",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -73,7 +75,8 @@
         "holderName": "Борис Йорданов Борисов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати и пенсии"
+        "fundsOrigin": "заплати и пенсии",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -91,7 +94,8 @@
         "holderName": "Владимир Борисов Борисов",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -109,7 +113,8 @@
         "holderName": "Детелина Методиева Борисова",
         "isSpouse": false,
         "legalBasis": "потр.кредит - 4.59%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

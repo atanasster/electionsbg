@@ -31,7 +31,8 @@
         "holderName": "Маргрета Иванова Николова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -49,7 +50,8 @@
         "holderName": "Николай Петров Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -67,7 +69,8 @@
         "holderName": "Николай Петров Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -104,7 +107,8 @@
         "holderName": "Маргрета Иванова Николова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -122,7 +126,8 @@
         "holderName": "Николай Петров Николов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "собствени"
+        "fundsOrigin": "собствени",
+        "tableNum": "3"
       }
     ],
     "events": []

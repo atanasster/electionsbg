@@ -57,7 +57,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -75,7 +76,8 @@
         "holderName": "Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "граждански договори"
+        "fundsOrigin": "граждански договори",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -93,7 +95,8 @@
         "holderName": "Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -111,7 +114,8 @@
         "holderName": "Асен Любенов Асенов и Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "договор с л.% 6м юробор+3,25",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -155,7 +159,8 @@
         "holderName": "Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -173,7 +178,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -191,7 +197,8 @@
         "holderName": "Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -209,7 +216,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "покупк на жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -253,7 +261,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "покупка на жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -297,7 +306,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -315,7 +325,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "покупка на жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -372,7 +383,8 @@
         "holderName": "Асен Любенов Асенов и Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -390,7 +402,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -408,7 +421,8 @@
         "holderName": "Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -426,7 +440,8 @@
         "holderName": "Асен Любенов Асенов и Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -444,7 +459,8 @@
         "holderName": "Асен Любенов Асенов и Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -462,7 +478,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -480,7 +497,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -498,7 +516,8 @@
         "holderName": "Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -516,7 +535,8 @@
         "holderName": "Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -534,7 +554,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -552,7 +573,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -570,7 +592,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -588,7 +611,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "Покупка на мотор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -606,7 +630,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "покупка на жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -650,7 +675,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследство"
+        "fundsOrigin": "наследство",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -668,7 +694,8 @@
         "holderName": "Асен Любенов Асенов и Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -712,7 +739,8 @@
         "holderName": "Асен Любенов Асенов и Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -730,7 +758,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -748,7 +777,8 @@
         "holderName": "Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -766,7 +796,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -784,7 +815,8 @@
         "holderName": "Янита Алексанрова Асенова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -802,7 +834,8 @@
         "holderName": "Янита Алексанрова Асенова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -820,7 +853,8 @@
         "holderName": "Янита Алексанрова Асенова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -838,7 +872,8 @@
         "holderName": "Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -856,7 +891,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -874,7 +910,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -911,7 +948,8 @@
         "holderName": "Асен Любенов Асенов и Янита Александрова Асенова",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -929,7 +967,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -947,7 +986,8 @@
         "holderName": "Асен Любенов Асенов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

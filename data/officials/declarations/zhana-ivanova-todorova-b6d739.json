@@ -38,7 +38,8 @@
         "holderName": "Жана Иванова Тодорова",
         "isSpouse": false,
         "legalBasis": "замяна",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -56,7 +57,8 @@
         "holderName": "Жана Иванова Тодорова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -74,7 +76,8 @@
         "holderName": "Жана Иванова Тодорова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -124,7 +127,8 @@
         "holderName": "Жана Иванова Тодорова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

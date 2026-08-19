@@ -43,7 +43,8 @@
         "holderName": "Стоян Маринов Маринов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Стоян Маринов Маринов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -79,7 +81,8 @@
         "holderName": "Нина Трифонова Маринова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Нина Трифонова Маринова",
         "isSpouse": true,
         "legalBasis": "потребителски кредит, лихва-5,66%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

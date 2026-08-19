@@ -55,7 +55,8 @@
         "holderName": "Неджиб Мехмед Акиф, Гюлсюм Мустафа Акиф",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -73,7 +74,8 @@
         "holderName": "Неджиб Мехмед Акиф",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -91,7 +93,8 @@
         "holderName": "Неджиб Мехмед Акиф",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми и спестявания"
+        "fundsOrigin": "заеми и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "holderName": "Неджиб Мехмед Акиф",
         "isSpouse": false,
         "legalBasis": "кредит с 2%  лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

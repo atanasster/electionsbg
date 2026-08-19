@@ -31,7 +31,8 @@
         "holderName": "Цветанка Стоянова Крумова",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -49,7 +50,8 @@
         "holderName": "Цветанка Стоянова Крумова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -67,7 +69,8 @@
         "holderName": "Цветанка Стоянова Лрумова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.3"
       },
       {
         "category": "cash",
@@ -85,7 +88,8 @@
         "holderName": "Цветанка Стоянова Крумова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -129,7 +133,8 @@
         "holderName": "Цветанка стоянова крумова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -147,7 +152,8 @@
         "holderName": "амиго",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3.3"
       }
     ],
     "events": []
@@ -191,7 +197,8 @@
         "holderName": "Цветанка Стоянова Крумова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -209,7 +216,8 @@
         "holderName": "амиго",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.3"
       },
       {
         "category": "debt",
@@ -227,7 +235,8 @@
         "holderName": "Цветанка Стоянова Крумова",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

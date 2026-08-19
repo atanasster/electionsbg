@@ -44,7 +44,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "НАСЛЕДСТВО И ДОГОВОР ЗА ПОКУПКО-ПРОДАЖБА",
-        "fundsOrigin": "ЗАПЛАТА И ЗАЕМИ, НАСЛЕДЯВАНЕ"
+        "fundsOrigin": "ЗАПЛАТА И ЗАЕМИ, НАСЛЕДЯВАНЕ",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -80,7 +82,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ПЕНСИЯ, РЕНТА"
+        "fundsOrigin": "ПЕНСИЯ, РЕНТА",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -98,7 +101,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ПЕНСИЯ, РЕНТА"
+        "fundsOrigin": "ПЕНСИЯ, РЕНТА",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ПЕНСИЯ, НАСЛЕДЯВАНЕ, РЕНТА"
+        "fundsOrigin": "ПЕНСИЯ, НАСЛЕДЯВАНЕ, РЕНТА",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ПЕНСИЯ, НАСЛЕДЯВАНЕ, РЕНТА"
+        "fundsOrigin": "ПЕНСИЯ, НАСЛЕДЯВАНЕ, РЕНТА",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -152,7 +158,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАЕМ, ЗАПЛАТА, ПРОДАЖБА НА ИМОТ"
+        "fundsOrigin": "ЗАЕМ, ЗАПЛАТА, ПРОДАЖБА НА ИМОТ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -170,7 +177,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ С ИПОТЕКА, ОЛП+4,3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -220,7 +228,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -238,7 +247,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -256,7 +266,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -274,7 +285,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -292,7 +304,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ПЕНСИЯ, РЕНТА"
+        "fundsOrigin": "ПЕНСИЯ, РЕНТА",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -310,7 +323,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "РЕНТА"
+        "fundsOrigin": "РЕНТА",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -328,7 +342,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАЕМ, ЗАПЛАТА"
+        "fundsOrigin": "ЗАЕМ, ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -346,7 +361,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ПЕНСИЯ, РЕНТА, НАСЛЕДЯВАНЕ"
+        "fundsOrigin": "ПЕНСИЯ, РЕНТА, НАСЛЕДЯВАНЕ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -364,7 +380,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "НАСЛЕДЯВАНЕ"
+        "fundsOrigin": "НАСЛЕДЯВАНЕ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -382,7 +399,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА, ОЛП+4,3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -432,7 +450,8 @@
         "holderName": "Сашо Недялков Димитров",
         "isSpouse": true,
         "legalBasis": "договор за покупко-продажба на МПС",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -450,7 +469,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАПЛАТА",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -468,7 +488,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия, рента"
+        "fundsOrigin": "пенсия, рента",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -486,7 +507,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "рента"
+        "fundsOrigin": "рента",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -504,7 +526,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАЕМ, ЗАПЛАТА"
+        "fundsOrigin": "ЗАЕМ, ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -522,7 +545,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия, рента, наследяване"
+        "fundsOrigin": "пенсия, рента, наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -540,7 +564,8 @@
         "holderName": "САШО НЕДЯЛКОВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "НАСЛЕДЯВАНЕ"
+        "fundsOrigin": "НАСЛЕДЯВАНЕ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -558,7 +583,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -615,7 +641,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -633,7 +660,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАЕМ, ЗАПЛАТА"
+        "fundsOrigin": "ЗАЕМ, ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -651,7 +679,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -695,7 +724,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВНА ДИМИТРОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -713,7 +743,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАЕМИ, ЗАПЛАТА"
+        "fundsOrigin": "ЗАЕМИ, ЗАПЛАТА",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -757,7 +788,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАПЛАТА",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -775,7 +807,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАЕМИ"
+        "fundsOrigin": "ЗАЕМИ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -793,7 +826,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -837,7 +871,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -855,7 +890,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -873,7 +909,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -910,7 +947,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -928,7 +966,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -946,7 +985,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -964,7 +1004,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -982,7 +1023,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -1000,7 +1042,8 @@
         "holderName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       }
     ],
     "events": []

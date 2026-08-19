@@ -49,7 +49,8 @@
         "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ, СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -67,7 +68,8 @@
         "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДИВИДЕНТИ"
+        "fundsOrigin": "ДИВИДЕНТИ",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАЕМИ, ДИВИДЕНТИ"
+        "fundsOrigin": "ЗАЕМИ, ДИВИДЕНТИ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "КРЕДИТНА КАРТА"
+        "fundsOrigin": "КРЕДИТНА КАРТА",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ - 5.4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -139,7 +144,8 @@
         "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ - 0 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -157,7 +163,8 @@
         "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТНА КАРТА -0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Ефросина Димитрова Кисьова",
         "isSpouse": false,
         "legalBasis": "замяна",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Илия Тенев Кисьов",
         "isSpouse": true,
         "legalBasis": "замяна",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -80,7 +82,8 @@
         "holderName": "Ефросина Димитрова Кисьова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -98,7 +101,8 @@
         "holderName": "Илия Тенев Кисьов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на част от къща, пенсия"
+        "fundsOrigin": "заплата, продажба на част от къща, пенсия",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Ефросина Димитрова Кисьова",
         "isSpouse": false,
         "legalBasis": "2,6",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Илия Тенев Кисьов",
         "isSpouse": true,
         "legalBasis": "4,1",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -178,7 +184,8 @@
         "holderName": "Ефросина Димитрова Кисьова",
         "isSpouse": false,
         "legalBasis": "договор за закупуване на жилище през 2021 г.лихвен процент 2.61",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -196,7 +203,8 @@
         "holderName": "Илия Тенев Кисьов",
         "isSpouse": true,
         "legalBasis": "договор, лихва 4.99",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

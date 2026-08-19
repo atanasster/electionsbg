@@ -61,7 +61,8 @@
         "holderName": "Йордан Иванов Чолев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -79,7 +80,8 @@
         "holderName": "Емилия Георгиева Чолева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -97,7 +99,8 @@
         "holderName": "Йордан Ивнов Чолев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -115,7 +118,8 @@
         "holderName": "Емилия Георгиев Чолева",
         "isSpouse": true,
         "legalBasis": "договор за заем, 5,56 лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

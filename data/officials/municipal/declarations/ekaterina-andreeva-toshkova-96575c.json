@@ -43,7 +43,8 @@
         "holderName": "ДИМИТЪР ИВАНОВ ТОШКОВ",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "ЕКАТЕРИНА АНДРЕЕВА ТОШКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "ЕКАТЕРИНА АНДРЕЕВА ТОШКОВА",
         "isSpouse": false,
         "legalBasis": "4,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "ДИМИТЪР ИВАНОВ ТОШКОВ",
         "isSpouse": true,
         "legalBasis": "5,7%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

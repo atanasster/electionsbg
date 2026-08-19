@@ -31,7 +31,8 @@
         "holderName": "Елица Христова Георгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Иван Геогриев Георгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -67,7 +69,8 @@
         "holderName": "Иван Георгив Георгиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -85,7 +88,8 @@
         "holderName": "Елица Христова Георгиева",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -153,7 +157,8 @@
         "holderName": "ЕЛИЦА ХРИСТОВА ГЕОРГИЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -171,7 +176,8 @@
         "holderName": "ЕЛИЦА ХРИСТОВА ГЕОРГИЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -189,7 +195,8 @@
         "holderName": "ЕЛИЦА ХРИСТОВА ГЕОРГИЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -207,7 +214,8 @@
         "holderName": "ЕЛИЦА ХРИСТОВА ГЕОРГИЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -225,7 +233,8 @@
         "holderName": "ЕЛИЦА ХРИСТОВА ГЕОРГИЕВА",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

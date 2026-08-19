@@ -43,7 +43,8 @@
         "holderName": "ГЕОРГИ ДАРИНОВ ДОНКОВ И ЕВЕЛИНА ХРИСТОВА ДОНКОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "ГЕОРГИ ДАРИНОВ ДОНКОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Продажба на имоти и доходи по Раздел 1, ред 1 и 3, колона 3 на Таблица 12"
+        "fundsOrigin": "Продажба на имоти и доходи по Раздел 1, ред 1 и 3, колона 3 на Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "ГЕОРГИ ДАРИНОВ ДОНКОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Продажба на имоти и доходи по Раздел 1, ред 1 и 3, колона 3 на Таблица 12"
+        "fundsOrigin": "Продажба на имоти и доходи по Раздел 1, ред 1 и 3, колона 3 на Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "ЕВЕЛИНА ХРИСТОВА ДОНКОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Заеми и доходи по Раздел 1, ред 1, колона 4 от Таблица 12"
+        "fundsOrigin": "Заеми и доходи по Раздел 1, ред 1, колона 4 от Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "ЕВЕЛИНА ХРИСТОВА ДОНКОВА",
         "isSpouse": true,
         "legalBasis": "БАНКОВ КРЕДИТ, ЛИХВЕН ПРОЦЕНТ 2.4019",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

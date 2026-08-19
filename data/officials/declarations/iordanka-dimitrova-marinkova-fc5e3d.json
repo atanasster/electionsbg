@@ -81,7 +81,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -99,7 +100,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата,наеми"
+        "fundsOrigin": "заплата,наеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -117,7 +119,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата,наеми,спестявяния,прод.насл.имот"
+        "fundsOrigin": "заплата,наеми,спестявяния,прод.насл.имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -135,7 +138,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -153,7 +157,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": "лизинг-4,19%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -171,7 +176,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": "потр.кредит-4,42%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -189,7 +195,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": "заем - 0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -207,7 +214,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата,спестявания,продажба насл.имот-СИП"
+        "fundsOrigin": "заплата,спестявания,продажба насл.имот-СИП",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -225,7 +233,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата,спестявания,продажба насл.имот -СИП"
+        "fundsOrigin": "заплата,спестявания,продажба насл.имот -СИП",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -243,7 +252,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата-СИП"
+        "fundsOrigin": "заплата-СИП",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -261,7 +271,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата-СИП"
+        "fundsOrigin": "заплата-СИП",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -355,7 +366,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми, кредит Банка"
+        "fundsOrigin": "заеми, кредит Банка",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -373,7 +385,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата,спестяване"
+        "fundsOrigin": "заплата,спестяване",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -391,7 +404,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -409,7 +423,8 @@
         "holderName": "Йорданка Димитрова  Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване, продажба на наследствен имот,земи"
+        "fundsOrigin": "наследяване, продажба на наследствен имот,земи",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -427,7 +442,8 @@
         "holderName": "Йорданка Маринкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -445,7 +461,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": "4,44 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -463,7 +480,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -481,7 +499,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване,продажба на наследствен имот, ниви"
+        "fundsOrigin": "наследяване,продажба на наследствен имот, ниви",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -499,7 +518,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата,пенсия родител,спестяване"
+        "fundsOrigin": "заплата,пенсия родител,спестяване",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -574,7 +594,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми-кредит от Банка ОББ"
+        "fundsOrigin": "заеми-кредит от Банка ОББ",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -592,7 +613,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -610,7 +632,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата-продажба на дял от насл.апартамент"
+        "fundsOrigin": "заплата-продажба на дял от насл.апартамент",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -628,7 +651,8 @@
         "holderName": "Йорданка Димитрова Маринкова",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

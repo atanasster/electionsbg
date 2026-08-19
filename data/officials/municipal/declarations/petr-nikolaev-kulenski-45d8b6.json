@@ -43,7 +43,8 @@
         "holderName": "Антоанета Николова Куленска",
         "isSpouse": true,
         "legalBasis": "продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Антоанета Николова Куленска",
         "isSpouse": true,
         "legalBasis": "покупка",
-        "fundsOrigin": "продажба на предходно МПС и банков заем"
+        "fundsOrigin": "продажба на предходно МПС и банков заем",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -79,7 +81,8 @@
         "holderName": "Антоанета Николова Куленска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -97,7 +100,8 @@
         "holderName": "Петър Николаев Куленски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -115,7 +119,8 @@
         "holderName": "Антоанета Николова Куленска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +138,8 @@
         "holderName": "Петър Николаев Куленски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -151,7 +157,8 @@
         "holderName": "Антоанета Николова Куленска",
         "isSpouse": true,
         "legalBasis": "Предварителен договор за покупка на апартамент и паркомясто, няма лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -169,7 +176,8 @@
         "holderName": "Антоанета Николова Куленска",
         "isSpouse": true,
         "legalBasis": "Предварителен договор за покупка на гараж, няма лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -187,7 +195,8 @@
         "holderName": "Антоанета Николова Куленска",
         "isSpouse": true,
         "legalBasis": "Потребителски кредит с годишна лихва от 4.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -205,7 +214,8 @@
         "holderName": "Антоанета Николова Куленска",
         "isSpouse": true,
         "legalBasis": "Ипотечен кредит с годишна лихва от 2.28%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

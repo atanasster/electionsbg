@@ -92,7 +92,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -110,7 +111,8 @@
         "holderName": "Марина Димитрова Чолева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -128,7 +130,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -146,7 +149,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": "безвъзмездно",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -164,7 +168,8 @@
         "holderName": "Марина Димитрова Чолева",
         "isSpouse": true,
         "legalBasis": "безвъзмездно",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -182,7 +187,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -200,7 +206,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг - 3.91%",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -218,7 +225,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -236,7 +244,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -254,7 +263,8 @@
         "holderName": "Марина Димитрова Чолева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -272,7 +282,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": "Кредит на фирма",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -290,7 +301,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 2.83%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -308,7 +320,8 @@
         "holderName": "Мирослав Илиев Чолев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 5,91%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

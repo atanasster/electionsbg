@@ -44,7 +44,8 @@
         "holderName": "Димитър Георгиев Геновски",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12, заем и собствени средства декларирани през предходни периоди"
+        "fundsOrigin": "по Таблица 12, заем и собствени средства декларирани през предходни периоди",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Ина Красимирова Тодорова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "Спестявания",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Димитър Георгиев Геновски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - заплати"
+        "fundsOrigin": "по Таблица 12 - заплати",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Ина Красимирова Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Димитър Георгиев Геновски",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -160,7 +165,8 @@
         "holderName": "Димитър Георгиев Геновски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - заплати"
+        "fundsOrigin": "по Таблица 12 - заплати",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -178,7 +184,8 @@
         "holderName": "Димитър Георгиев Геновски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "8"
       }
     ],
     "events": []

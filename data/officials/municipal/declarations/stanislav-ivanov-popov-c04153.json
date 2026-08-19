@@ -56,7 +56,8 @@
         "holderName": "Станислав Иванов Попов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания и банков кредит"
+        "fundsOrigin": "Спестявания и банков кредит",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -74,7 +75,8 @@
         "holderName": "Станислав Иванов Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -92,7 +94,8 @@
         "holderName": "Станислав Иванов Попов - Договор за наем на банков сейф № 624/2023 г.",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Станислав Иванов Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -128,7 +132,8 @@
         "holderName": "Станислав Иванов Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -146,7 +151,8 @@
         "holderName": "Станислав Иванов Попов",
         "isSpouse": false,
         "legalBasis": "Договор за ипотечен кредит с лихва 2,65 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "holderName": "Станислав Иванов Попов",
         "isSpouse": false,
         "legalBasis": "Договор за ипотечен кредит с лихва 2,16 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -182,7 +189,8 @@
         "holderName": "Станислав Иванов Попов",
         "isSpouse": false,
         "legalBasis": "Към Д-р за ипотечен кредит с год. лихва 18,9 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -200,7 +208,8 @@
         "holderName": "Станислав Иванов попов - Застраховка Живот със застрахователно покритие 10 000 евро",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Заплати и спестявания"
+        "fundsOrigin": "Заплати и спестявания",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -218,7 +227,8 @@
         "holderName": "Станислав Иванов попов - Застраховка Живот със застрахователно покритие 9 677 евро",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Заплати и спестявания"
+        "fundsOrigin": "Заплати и спестявания",
+        "tableNum": "8"
       }
     ],
     "events": []

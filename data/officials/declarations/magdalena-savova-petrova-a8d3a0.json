@@ -31,7 +31,8 @@
         "holderName": "Магдалена Савова Петрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Магдалена Савова Петрова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -67,7 +69,8 @@
         "holderName": "Валентин Иванов Петров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -85,7 +88,8 @@
         "holderName": "Магдалена Савова Петрова",
         "isSpouse": true,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

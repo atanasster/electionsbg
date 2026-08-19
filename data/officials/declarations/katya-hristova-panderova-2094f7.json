@@ -62,7 +62,8 @@
         "holderName": "Катя Христова Пандерова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -80,7 +81,8 @@
         "holderName": "Димитрин Стоянов Пандеров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.1"
       },
       {
         "category": "bank",
@@ -98,7 +100,8 @@
         "holderName": "Димитрин Стоянов Пандеров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +119,8 @@
         "holderName": "Димитрин Стоянов Пандеров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -134,7 +138,8 @@
         "holderName": "Димитрин Стоянов Пандеров",
         "isSpouse": true,
         "legalBasis": "договор за заем, 11,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -152,7 +157,8 @@
         "holderName": "Димитрин Стоянов Пандеров",
         "isSpouse": true,
         "legalBasis": "договор за заем, 5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -170,7 +176,8 @@
         "holderName": "Катя Христова Пандерова",
         "isSpouse": false,
         "legalBasis": "договор за заем, 2,29%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -188,7 +195,8 @@
         "holderName": "Катя Христова Пандерова",
         "isSpouse": false,
         "legalBasis": "договор за заем, 4,45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -206,7 +214,8 @@
         "holderName": "Катя Христова Пандерова",
         "isSpouse": false,
         "legalBasis": "договор за заем, 18,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -224,7 +233,8 @@
         "holderName": "Димитрин Стоянов Пандеров",
         "isSpouse": true,
         "legalBasis": "договор за заем,16,12",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -242,7 +252,8 @@
         "holderName": "Димитрин Стоянов Пандеров",
         "isSpouse": true,
         "legalBasis": "договор за лизинг, 3,6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -329,7 +340,8 @@
         "holderName": "Димитрин Стоянов Пандеров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -347,7 +359,8 @@
         "holderName": "Катя Христова Пандерова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -365,7 +378,8 @@
         "holderName": "Катя Христова Пандерова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -383,7 +397,8 @@
         "holderName": "ДИМИТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -401,7 +416,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -419,7 +435,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -437,7 +454,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -455,7 +473,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -473,7 +492,8 @@
         "holderName": "ДИМИТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -491,7 +511,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -509,7 +530,8 @@
         "holderName": "ДИМИТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -527,7 +549,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -545,7 +568,8 @@
         "holderName": "ДИМИТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.1"
       },
       {
         "category": "vehicle",
@@ -563,7 +587,8 @@
         "holderName": "ДИМИТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.1"
       },
       {
         "category": "debt",
@@ -581,7 +606,8 @@
         "holderName": "Катя Христова Пандерова",
         "isSpouse": false,
         "legalBasis": "кредит, 2,29%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -599,7 +625,8 @@
         "holderName": "Катя Христова Пандерова",
         "isSpouse": false,
         "legalBasis": "кредит, 4,45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -649,7 +676,8 @@
         "holderName": "ДИМИТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -667,7 +695,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -685,7 +714,8 @@
         "holderName": "ДИМИТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -703,7 +733,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -721,7 +752,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -739,7 +771,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -757,7 +790,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -775,7 +809,8 @@
         "holderName": "ДИМИТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -793,7 +828,8 @@
         "holderName": "ДИМИТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -811,7 +847,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -829,7 +866,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -847,7 +885,8 @@
         "holderName": "ДИМТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.1"
       },
       {
         "category": "vehicle",
@@ -865,7 +904,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.1"
       },
       {
         "category": "vehicle",
@@ -883,7 +923,8 @@
         "holderName": "ДИМТРИН СТОЯНОВ ПАНДЕРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.1"
       },
       {
         "category": "vehicle",
@@ -901,7 +942,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.1"
       },
       {
         "category": "debt",
@@ -919,7 +961,8 @@
         "holderName": "КАТЯ ХРИСТОВА ПАНДЕРОВА",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

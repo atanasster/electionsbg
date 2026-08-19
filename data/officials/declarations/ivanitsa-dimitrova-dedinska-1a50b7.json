@@ -56,7 +56,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми и по Таблица 12"
+        "fundsOrigin": "заеми и по Таблица 12",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -74,7 +75,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": "договор за кредит - 2.3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -92,7 +94,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": "договор за кредит - 2.3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -110,7 +113,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": "договор за кредит - 2.28%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -172,7 +176,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -190,7 +195,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -208,7 +214,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -226,7 +233,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -244,7 +252,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -262,7 +271,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -280,7 +290,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": "договор за кредит 2.3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -298,7 +309,8 @@
         "holderName": "Иваница Димитрова Дединска",
         "isSpouse": false,
         "legalBasis": "договор за кредит 2.3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -403,7 +415,8 @@
         "holderName": "Иваница Димитрова Бояджиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -421,7 +434,8 @@
         "holderName": "Евгений Кирилов Бояджиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -439,7 +453,8 @@
         "holderName": "Иваница Димитрова Бояджиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -457,7 +472,8 @@
         "holderName": "Иваница Димитрова Бояджиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -475,7 +491,8 @@
         "holderName": "Евгений Кирилов Бояджиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -493,7 +510,8 @@
         "holderName": "Иваница Димитрова Бояджиева",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -511,7 +529,8 @@
         "holderName": "Иваница Димитрова Бояджиева",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

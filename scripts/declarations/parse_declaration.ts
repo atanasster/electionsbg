@@ -28,6 +28,7 @@ import type {
   MpOwnershipStake,
 } from "../../src/data/dataTypes";
 import { isEurConvertible, toEur } from "../../src/lib/currency";
+import { fxValueEur } from "./fx";
 import { registerFolderYear } from "../lib/cacbg_register";
 
 const text = ($: CheerioAPI, sel: string): string | null => {
@@ -329,6 +330,31 @@ const TABLE_NUMS: Record<FormVersion, Record<LogicalTable, string | null>> = {
     guarantees: "14",
     expenses: "15",
   },
+};
+
+/** An asset row as the per-table parsers build it — everything except the
+ *  provenance, which only the caller walking the table list knows. */
+type AssetRow = Omit<MpAsset, "tableNum" | "valueBasis">;
+
+/** A row that knows its table but not yet how it was valued — what `parseAssetTables`
+ *  returns and `stampValueBasis` consumes. */
+type UnstampedAsset = Omit<MpAsset, "valueBasis">;
+
+/** The CANONICAL (2018-form) number for a logical table.
+ *
+ *  Stored on every asset row regardless of the filing's own form version, so a
+ *  consumer can branch on it without first knowing which form it is looking at.
+ *  Reads TABLE_NUMS.v2 rather than restating the numbers: one table of numbers,
+ *  not two that can drift. */
+const canonicalTableNum = (logical: LogicalTable): string => {
+  const num = TABLE_NUMS.v2[logical];
+  // Every logical table exists on the 2018 form — v1 is the version with gaps —
+  // so this is unreachable, and it is here to stay unreachable: a new logical
+  // table added with a null v2 entry must fail loudly rather than silently
+  // publish rows with no provenance.
+  if (num == null)
+    throw new Error(`[parse] no canonical table number for ${logical}`);
+  return num;
 };
 
 export const detectFormVersion = ($: CheerioAPI): FormVersion => {
@@ -639,6 +665,47 @@ export const pickEurValue = (
   return fromEquiv;
 };
 
+/** Record how every asset row's `valueEur` was arrived at, and fill the blanks a dated FX
+ *  rate can fill.
+ *
+ *  ONE POST-PASS RATHER THAN A FOURTH ARGUMENT TO `pickEurValue`. The period year is resolved
+ *  once, near the top of `parseDeclarationXml`, while `pickEurValue` is called from three
+ *  table parsers nested well below it; threading the year through all three would put the FX
+ *  rule in three places, which is the shape this repo has twice paid for. Here it is one site
+ *  and one reading order: value the row as the declarant did, then say how.
+ *
+ *  ⚠️ ORDER IS THE WHOLE CONTRACT. `pickEurValue` has already run, so a row it valued keeps
+ *  that number — we fill a blank, never override a filing. That is what makes 'fx_ecb' mean
+ *  „the declarant left the Равностойност cell empty and this figure is ours".
+ *
+ *  A row that stays unvalued keeps `valueBasis: null`, which 090 counts in
+ *  `excluded_asset_rows`. That residue path is the design and not a gap in it: a currency the
+ *  ECB does not quote must leave the row visibly untotalled rather than guessed.
+ *
+ *  `security` rows are excluded by construction rather than by a category list that could go
+ *  stale — their `amount` is a COUNT of shares, and a count's "currency" cell holds an issuer
+ *  or a coin name, which `fxCurrencyOf` does not recognise and so never converts. */
+export const stampValueBasis = (
+  assets: UnstampedAsset[],
+  periodYear: number | null,
+): MpAsset[] =>
+  assets.map((a) => {
+    if (a.valueEur != null) {
+      // Fixed-rate currencies cannot be told apart here and do not need to be: for BGN and
+      // EUR the declared amount and the Равностойност cell describe the SAME sum, so both
+      // paths give the same euro figure. What matters downstream is only that the number is
+      // the declarant's, which both are.
+      return {
+        ...a,
+        valueBasis: isEurConvertible(a.currency) ? "peg" : "equiv",
+      };
+    }
+    const fx = fxValueEur(a.amount, a.currency, periodYear);
+    return fx == null
+      ? { ...a, valueBasis: null }
+      : { ...a, valueEur: fx, valueBasis: "fx_ecb" as const };
+  });
+
 /** Hand-curated fixes for the rare separator typos the generic detector
  * (`correctRealEstateSeparatorTypo`, below) cannot resolve on its own —
  * chiefly /1000 typos, since the detector only corrects the dominant /100
@@ -932,7 +999,7 @@ const parseTable1Row = (
   sourceUrl: string,
   col: ColumnResolver,
   ccy: FormCurrency,
-): MpAsset => {
+): AssetRow => {
   const holder = cellByNum(row, col(8));
   const rawValue = toNumber(cellByNum(row, col(11)));
   const location = cellByNum(row, col(3));
@@ -1005,7 +1072,7 @@ const parseTable3Row = (
   sourceUrl: string,
   col: ColumnResolver,
   ccy: FormCurrency,
-): MpAsset => {
+): AssetRow => {
   const holder = cellByNum(row, col(6));
   const rawValue = toNumber(cellByNum(row, col(4)));
   const detail = cellByNum(row, col(3));
@@ -1078,7 +1145,7 @@ const parseMoneyRow = (
   cells: MoneyCellMap,
   col: ColumnResolver,
   ccy: FormCurrency,
-): MpAsset => {
+): AssetRow => {
   const currency = cellByNum(row, col(cells.currency));
   const bgnEquiv = toNumber(cellByNum(row, col(cells.bgnEquiv)));
   const amount = toAnnotatedNumber(
@@ -1125,7 +1192,7 @@ const parseTable9Row = (
   declarantName: string,
   col: ColumnResolver,
   ccy: FormCurrency,
-): MpAsset => {
+): AssetRow => {
   const holder = cellByNum(row, col(8));
   const price = toNumber(cellByNum(row, col(7)));
   return {
@@ -1163,11 +1230,11 @@ const parseTable9Row = (
  *    share or price are distinct holdings (often ideal parts of one
  *    property bought separately) and are kept. */
 const dedupeRealEstateRows = (
-  assets: MpAsset[],
+  assets: UnstampedAsset[],
   declarantName: string,
-): MpAsset[] => {
+): UnstampedAsset[] => {
   const seen = new Set<string>();
-  const out: MpAsset[] = [];
+  const out: UnstampedAsset[] = [];
   for (const asset of assets) {
     const desc = asset.description?.toLowerCase() ?? "";
     const isBuilding =
@@ -1177,7 +1244,15 @@ const dedupeRealEstateRows = (
       out.push(asset);
       continue;
     }
-    const sig = JSON.stringify(asset);
+    // tableNum is deliberately EXCLUDED from the signature. Collapsing a row
+    // repeated across Tables 1 / 1.1 / 1.2 is precisely what this function is
+    // for, and `out` is built in table order, so the survivor is the earliest —
+    // i.e. the OWNED row when a declarant keyed the same property as both owned
+    // and чуждо. Putting the provenance in the key would keep both and publish a
+    // holding twice, once counted and once not.
+    const { tableNum, ...identity } = asset;
+    void tableNum;
+    const sig = JSON.stringify(identity);
     if (seen.has(sig)) {
       console.warn(
         `[parse] dropped duplicate real-estate row — ${declarantName}: ` +
@@ -1209,8 +1284,16 @@ const parseAssetTables = (
   declarantName: string,
   sourceUrl: string,
   version: FormVersion,
-): MpAsset[] => {
-  const out: MpAsset[] = [];
+): UnstampedAsset[] => {
+  const out: UnstampedAsset[] = [];
+  // Stamps the row with the table it came from. Every asset row goes through
+  // here, and AssetRow (= MpAsset minus tableNum and valueBasis) is what makes that a
+  // compiler guarantee rather than a convention — see MpAsset.tableNum for why a row with
+  // no provenance is unusable downstream. `valueBasis` is added one step later, by
+  // stampValueBasis, which is the only place that knows the filing's period year.
+  const emit = (logical: LogicalTable, row: AssetRow): void => {
+    out.push({ ...row, tableNum: canonicalTableNum(logical) });
+  };
   // The unit every header-only money column on this form is denominated in.
   // Resolved per table below, with this as the fallback — see FormCurrency.
   const docCcy = documentFormCurrency($);
@@ -1227,7 +1310,7 @@ const parseAssetTables = (
     const col = columnResolver(version, tn);
     const ccy = tableFormCurrency($, version, tn, docCcy);
     for (const row of rowsOfTable($, version, tn)) {
-      out.push(parseTable1Row(row, declarantName, sourceUrl, col, ccy));
+      emit(tn, parseTable1Row(row, declarantName, sourceUrl, col, ccy));
     }
   }
 
@@ -1249,14 +1332,15 @@ const parseAssetTables = (
     const col = columnResolver(version, tn);
     const ccy = tableFormCurrency($, version, tn, docCcy);
     for (const row of rowsOfTable($, version, tn)) {
-      out.push(parseTable3Row(row, declarantName, sourceUrl, col, ccy));
+      emit(tn, parseTable3Row(row, declarantName, sourceUrl, col, ccy));
     }
   }
 
   // Table 4 — cash on hand
   const cashCol = columnResolver(version, "cash");
   for (const row of rowsOfTable($, version, "cash")) {
-    out.push(
+    emit(
+      "cash",
       parseMoneyRow(
         row,
         declarantName,
@@ -1277,7 +1361,8 @@ const parseAssetTables = (
   // Table 5 — bank accounts / deposits
   const bankCol = columnResolver(version, "bank");
   for (const row of rowsOfTable($, version, "bank")) {
-    out.push(
+    emit(
+      "bank",
       parseMoneyRow(
         row,
         declarantName,
@@ -1298,7 +1383,8 @@ const parseAssetTables = (
   // Table 6 — receivables > 10k BGN
   const receivableCol = columnResolver(version, "receivable");
   for (const row of rowsOfTable($, version, "receivable")) {
-    out.push(
+    emit(
+      "receivable",
       parseMoneyRow(
         row,
         declarantName,
@@ -1332,7 +1418,8 @@ const parseAssetTables = (
   // asset screens, and a rule restated in six places is one somebody misses.
   const debtCol = columnResolver(version, "debt");
   for (const row of rowsOfTable($, version, "debt")) {
-    out.push(
+    emit(
+      "debt",
       parseMoneyRow(
         row,
         declarantName,
@@ -1354,7 +1441,8 @@ const parseAssetTables = (
   // Table 8 — investment & pension funds (incl. crypto since 2024 ordinance)
   const investmentCol = columnResolver(version, "investment");
   for (const row of rowsOfTable($, version, "investment")) {
-    out.push(
+    emit(
+      "investment",
       parseMoneyRow(
         row,
         declarantName,
@@ -1375,7 +1463,8 @@ const parseAssetTables = (
   // Table 9 — securities & financial instruments
   const securityCol = columnResolver(version, "security");
   for (const row of rowsOfTable($, version, "security")) {
-    out.push(
+    emit(
+      "security",
       parseTable9Row(
         row,
         declarantName,
@@ -2048,7 +2137,10 @@ export const parseDeclarationXml = ({
     ownershipStakes.push(stake);
   }
 
-  const assets = parseAssetTables($, declarantName, sourceUrl, version);
+  const assets = stampValueBasis(
+    parseAssetTables($, declarantName, sourceUrl, version),
+    believedFiscalYear ?? declarationYear,
+  );
   const events = parseEventTables($, version, declarantName, sourceUrl);
 
   // The income table's layout is identical in both forms — it never gained the

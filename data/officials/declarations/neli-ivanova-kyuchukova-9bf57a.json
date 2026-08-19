@@ -56,7 +56,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -74,7 +75,8 @@
         "holderName": "Александър Панайотов Кючуков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -92,7 +94,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "cash",
@@ -110,7 +113,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наеми, пенсия"
+        "fundsOrigin": "заплата, наеми, пенсия",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -128,7 +132,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наеми, пенсия"
+        "fundsOrigin": "заплата, наеми, пенсия",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -146,7 +151,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": "4,51",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": "4,71",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -182,7 +189,8 @@
         "holderName": "Александър Панайотов Кючуков",
         "isSpouse": true,
         "legalBasis": "5,5",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -250,7 +258,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -268,7 +277,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -286,7 +296,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -304,7 +315,8 @@
         "holderName": "Александър Панайотов Кючуков",
         "isSpouse": true,
         "legalBasis": "5.8",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -372,7 +384,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -390,7 +403,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -408,7 +422,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -426,7 +441,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -444,7 +460,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -462,7 +479,8 @@
         "holderName": "Нели Иванова Кючукова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

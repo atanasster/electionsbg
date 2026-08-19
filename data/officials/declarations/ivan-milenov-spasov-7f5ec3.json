@@ -62,7 +62,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -80,7 +81,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -98,7 +100,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -191,7 +194,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -209,7 +213,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -283,7 +288,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -301,7 +307,8 @@
         "holderName": "Велина Мирославова Цокова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "разпределен дивидент от търг. дружество"
+        "fundsOrigin": "разпределен дивидент от търг. дружество",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -319,7 +326,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -394,7 +402,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -412,7 +421,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -430,7 +440,8 @@
         "holderName": "Иван Миленов Спасов",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

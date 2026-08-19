@@ -50,7 +50,8 @@
         "holderName": "Снежина Цветанова Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -68,7 +69,8 @@
         "holderName": "Снежина Цветанова Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Снежина Цветанова Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "Снежина Цветанова Иванова",
         "isSpouse": false,
         "legalBasis": "креди",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -161,7 +165,8 @@
         "holderName": "Snevina Cwetanowa Iwanowa",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "spestqwaniq"
+        "fundsOrigin": "spestqwaniq",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -179,7 +184,8 @@
         "holderName": "Снежина Цжетанова Иванова",
         "isSpouse": true,
         "legalBasis": "да",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -229,7 +235,8 @@
         "holderName": "Стефка Младеова Йорданова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -247,7 +254,8 @@
         "holderName": "Стефка Младенова Йорданова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -265,7 +273,8 @@
         "holderName": "Снежина Цветанова Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -283,7 +292,8 @@
         "holderName": "Снежина Цветанова Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -301,7 +311,8 @@
         "holderName": "Снежина Цветанова Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

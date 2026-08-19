@@ -56,7 +56,8 @@
         "holderName": "МАРИЯ АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -74,7 +75,8 @@
         "holderName": "СЕВДАЛИН ГЕОРГИЕВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -92,7 +94,8 @@
         "holderName": "МАРИЯ АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "СЕВДАЛИН ГЕОРГИЕВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -178,7 +182,8 @@
         "holderName": "МАРИЯ АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -196,7 +201,8 @@
         "holderName": "СЕВДАЛИН ГЕОРГИЕВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -214,7 +220,8 @@
         "holderName": "МАРИЯ АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ЗАЕМ 6,12%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -232,7 +239,8 @@
         "holderName": "МАРИЯ АНГЕЛОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ОВЪРДРАФТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -250,7 +258,8 @@
         "holderName": "СЕВДАЛИН ГЕОРГИЕВ ДИМИТРОВ",
         "isSpouse": true,
         "legalBasis": "ОВЪРДРАФТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -343,7 +352,8 @@
         "holderName": "Мария Ангелова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -361,7 +371,8 @@
         "holderName": "Севдалин Георгиев Димитров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -379,7 +390,8 @@
         "holderName": "Мария Ангелова Димитрова",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -397,7 +409,8 @@
         "holderName": "Мария Ангелова Димитрова",
         "isSpouse": false,
         "legalBasis": "овърдрафт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -415,7 +428,8 @@
         "holderName": "Севдалин Георгиев Димитров",
         "isSpouse": true,
         "legalBasis": "овърдрафт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

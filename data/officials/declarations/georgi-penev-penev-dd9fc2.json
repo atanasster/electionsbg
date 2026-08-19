@@ -44,7 +44,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Живка Димитрова Пенева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "от заплата на съпруга"
+        "fundsOrigin": "от заплата на съпруга",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировъчни пари, съгласно Таблица 12 II.2."
+        "fundsOrigin": "командировъчни пари, съгласно Таблица 12 II.2.",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит за текущо потребление. 5,86%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -184,7 +190,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -202,7 +209,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -220,7 +228,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировъчни пари, съгласно Таблица 12 II.2."
+        "fundsOrigin": "командировъчни пари, съгласно Таблица 12 II.2.",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -238,7 +247,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": "Договор за кредит за текущо потребление. 5,66%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -282,7 +292,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -300,7 +311,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -318,7 +330,8 @@
         "holderName": "Георги Пенев Пенев",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

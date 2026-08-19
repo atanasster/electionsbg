@@ -43,7 +43,8 @@
         "holderName": "Розалин и Станимира Станеви",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми и продажба на недвижим имот"
+        "fundsOrigin": "заеми и продажба на недвижим имот",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Розалин и Станимира Станеви",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми и продажба на недвижим имот"
+        "fundsOrigin": "заеми и продажба на недвижим имот",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Розалин Милифонов Станев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на недвижим имот и МПС,заеми"
+        "fundsOrigin": "продажба на недвижим имот и МПС,заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "Станимира Миткова Станева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент,заплата,заем"
+        "fundsOrigin": "продажба на апартамент,заплата,заем",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Розалин и Станимира Станеви",
         "isSpouse": true,
         "legalBasis": "ипотечен договор, лихвен % - 2,19%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "holderName": "Розалин Милифонов Станев",
         "isSpouse": false,
         "legalBasis": "договор,лихвен%-0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

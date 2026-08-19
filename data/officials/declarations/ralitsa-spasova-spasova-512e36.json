@@ -44,7 +44,8 @@
         "holderName": "Ралица Спасова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Ралица Спасова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -80,7 +82,8 @@
         "holderName": "Ралица Спасова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -98,7 +101,8 @@
         "holderName": "Ралица Спасова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -116,7 +120,8 @@
         "holderName": "Ралица Спасова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -134,7 +139,8 @@
         "holderName": "Ралица Спасова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -152,7 +158,8 @@
         "holderName": "Ралица Спасова Спасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -170,7 +177,8 @@
         "holderName": "Ралица Спасова Спасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -188,7 +196,8 @@
         "holderName": "Ралица Спасова Спасова",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -206,7 +215,8 @@
         "holderName": "Ралица Спасова Спасова",
         "isSpouse": false,
         "legalBasis": "имотен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -224,7 +234,8 @@
         "holderName": "Ралица Спасова Спасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -287,7 +298,8 @@
         "holderName": "Ралица Спасова Спасова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "5"
       }
     ],
     "events": []

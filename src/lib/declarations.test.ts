@@ -10,6 +10,7 @@ import {
   hasDeclaredAssets,
   hasDeclaredIncome,
   hasDeclaredStakes,
+  isDeclaredHolding,
   latestAssetDeclaration,
   latestDeclarationWith,
   priorAssetDeclaration,
@@ -18,8 +19,10 @@ import {
 const asset = (
   category: MpAsset["category"],
   valueEur: number | null,
+  valueBasis: null,
 ): MpAsset => ({
   category,
+  tableNum: null,
   description: null,
   detail: null,
   location: null,
@@ -289,6 +292,7 @@ describe("latestDeclarationWith — per-section filings", () => {
     companyName,
     registeredOffice: null,
     valueEur: null,
+    valueBasis: null,
     holderName: null,
     legalBasis: null,
     fundsOrigin: null,
@@ -324,5 +328,79 @@ describe("latestDeclarationWith — per-section filings", () => {
       { ...decl(2025, null, undefined), ownershipStakes: [stake("АЛФА")] },
     ];
     expect(latestAssetDeclaration(decls)).toBeNull();
+  });
+});
+
+describe("isDeclaredHolding", () => {
+  // Tables 1.2 / 3.4 record property and vehicles the declarant RENTS or is provided
+  // with, priced at „Цена по договор". Everything else is theirs.
+  it("excludes the two чуждо tables and nothing else", () => {
+    expect(isDeclaredHolding({ tableNum: "1.2" })).toBe(false);
+    expect(isDeclaredHolding({ tableNum: "3.4" })).toBe(false);
+    for (const t of [
+      "1",
+      "1.1",
+      "2",
+      "3",
+      "3.1",
+      "3.2",
+      "3.3",
+      "3.5",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+    ])
+      expect(isDeclaredHolding({ tableNum: t })).toBe(true);
+  });
+
+  // The catastrophic input. Every row on a database that has not re-parsed carries NULL,
+  // so reading it as a non-holding deletes every real asset from every published figure.
+  it("treats an unstamped row as a holding", () => {
+    expect(isDeclaredHolding({ tableNum: null })).toBe(true);
+    expect(isDeclaredHolding({ tableNum: undefined })).toBe(true);
+    expect(isDeclaredHolding({})).toBe(true);
+  });
+
+  // Prefix matching would take table 1 with it; substring matching would take 3.4 from
+  // a hypothetical "13.4". Equality only.
+  it("matches the whole table number, not a prefix", () => {
+    expect(isDeclaredHolding({ tableNum: "1" })).toBe(true);
+    expect(isDeclaredHolding({ tableNum: "3" })).toBe(true);
+    expect(isDeclaredHolding({ tableNum: "13.4" })).toBe(true);
+  });
+});
+
+describe("declarationTotals and чуждо rows", () => {
+  it("keeps a rented property out of both sides of the balance", () => {
+    const own = { ...asset("real_estate", 100_000), tableNum: "1" };
+    const used = { ...asset("real_estate", 60_000), tableNum: "1.2" };
+    const debt = { ...asset("debt", 20_000), tableNum: "7" };
+    const t = declarationTotals([own, used, debt]);
+    expect(t.assetsEur).toBe(100_000);
+    expect(t.debtsEur).toBe(20_000);
+    expect(t.netEur).toBe(80_000);
+  });
+
+  // A filing whose only rows are чуждо states a zero estate — not a missing one. Пеевски's
+  // 2025 annual files tables 1 and 3 as „not declared" and is exactly this shape.
+  it("reports zero for a filing that owns nothing", () => {
+    const t = declarationTotals([
+      { ...asset("real_estate", 233_109), tableNum: "1.2" },
+      { ...asset("vehicle", 77_307), tableNum: "3.4" },
+    ]);
+    expect(t.assetsEur).toBe(0);
+    expect(t.netEur).toBe(0);
+  });
+
+  // An unvalued чуждо row is not a caveat on a total it never entered.
+  it("does not count a чуждо row as an unvalued holding", () => {
+    const t = declarationTotals([
+      { ...asset("real_estate", null), tableNum: "1.2" },
+      { ...asset("real_estate", null), tableNum: "1" },
+    ]);
+    expect(t.realEstateUnvalued).toBe(1);
   });
 });

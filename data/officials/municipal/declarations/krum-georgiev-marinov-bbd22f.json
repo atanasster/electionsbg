@@ -43,7 +43,8 @@
         "holderName": "Крум Георгиев Маринов",
         "isSpouse": false,
         "legalBasis": "делба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Крум Георгиев Мринов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -79,7 +81,8 @@
         "holderName": "Стойка Николова Маринова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -97,7 +100,8 @@
         "holderName": "Крум  Георгиев Маринов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -115,7 +119,8 @@
         "holderName": "Стойка Николова  Маринова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       }
     ],
     "events": []

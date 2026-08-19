@@ -56,7 +56,8 @@
         "holderName": "Веска Василева Илиева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -74,7 +75,8 @@
         "holderName": "Веска Василева Илиева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -92,7 +94,8 @@
         "holderName": "Веска Василева Илиева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -110,7 +113,8 @@
         "holderName": "Веска Василева Илиева",
         "isSpouse": false,
         "legalBasis": "лизинг 3,8",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -160,7 +164,8 @@
         "holderName": "Веска Василева Илиева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -178,7 +183,8 @@
         "holderName": "Века Василева Илиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -196,7 +202,8 @@
         "holderName": "Веска Василева илиева",
         "isSpouse": false,
         "legalBasis": "лизинг, 4.1",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -240,7 +247,8 @@
         "holderName": "Христомир Митков Божинов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -258,7 +266,8 @@
         "holderName": "Веска Василева Илиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

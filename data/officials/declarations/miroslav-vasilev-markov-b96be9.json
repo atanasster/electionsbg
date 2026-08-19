@@ -80,7 +80,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": "Под наем - квартира",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -98,7 +99,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -116,7 +118,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -134,7 +137,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -152,7 +156,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -227,7 +232,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": "възмездно",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -245,7 +251,8 @@
         "holderName": "Антоанета Георгиева Маркова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -263,7 +270,8 @@
         "holderName": "Антоанета Георгиева Маркова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем"
+        "fundsOrigin": "заем",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -281,7 +289,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": "Кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -336,7 +345,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -354,7 +364,8 @@
         "holderName": "МирославВасилев Марков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -372,7 +383,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -390,7 +402,8 @@
         "holderName": "Мирослав Василев Марков",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

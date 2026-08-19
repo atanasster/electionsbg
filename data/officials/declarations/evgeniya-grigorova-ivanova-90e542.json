@@ -38,7 +38,8 @@
         "holderName": "Цветана Георгиева Иванова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -56,7 +57,8 @@
         "holderName": "Евгения Григорова Иванова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "debt",
@@ -74,7 +76,8 @@
         "holderName": "Евгения Григорова Иванова",
         "isSpouse": false,
         "legalBasis": "4,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -118,7 +121,8 @@
         "holderName": "Цветана Георгиева Иванова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -136,7 +140,8 @@
         "holderName": "Евгения Григорова Иванова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -154,7 +159,8 @@
         "holderName": "Евгения Григорова Иванова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -172,7 +178,8 @@
         "holderName": "Евгения Григорова Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

@@ -31,7 +31,8 @@
         "holderName": "Ярослава Игорвна Бубнова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +69,8 @@
         "holderName": "Ярослава Игорвна Бубнова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -85,7 +88,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -103,7 +107,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -121,7 +126,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -139,7 +145,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -157,7 +164,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -175,7 +183,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -193,7 +202,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -211,7 +221,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -229,7 +240,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -279,7 +291,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и хонорари"
+        "fundsOrigin": "заплата и хонорари",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -297,7 +310,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -315,7 +329,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -333,7 +348,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -351,7 +367,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на наследен имот, обезщетение за пенсиониране"
+        "fundsOrigin": "заплата, продажба на наследен имот, обезщетение за пенсиониране",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -369,7 +386,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "хонорари"
+        "fundsOrigin": "хонорари",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -387,7 +405,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на наследени имоти"
+        "fundsOrigin": "продажба на наследени имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -405,7 +424,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -423,7 +443,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на наследени имоти"
+        "fundsOrigin": "продажба на наследени имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -441,7 +462,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "хонорари и пенсия"
+        "fundsOrigin": "хонорари и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -459,7 +481,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "хонорари"
+        "fundsOrigin": "хонорари",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -477,7 +500,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на наследен имот"
+        "fundsOrigin": "продажба на наследен имот",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -521,7 +545,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -539,7 +564,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -557,7 +583,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -575,7 +602,8 @@
         "holderName": "Кирил Любенов Прашков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -593,7 +621,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -611,7 +640,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -629,7 +659,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -647,7 +678,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата+продажба на наследен имот"
+        "fundsOrigin": "заплата+продажба на наследен имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -665,7 +697,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "хонорари"
+        "fundsOrigin": "хонорари",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -683,7 +716,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "хонорари"
+        "fundsOrigin": "хонорари",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -701,7 +735,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот/наследяване"
+        "fundsOrigin": "продажба на имот/наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -719,7 +754,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот/наследяване"
+        "fundsOrigin": "продажба на имот/наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -737,7 +773,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -755,7 +792,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -773,7 +811,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -791,7 +830,8 @@
         "holderName": "Ярослава Игоревна Бубнова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба+наследяване"
+        "fundsOrigin": "продажба+наследяване",
+        "tableNum": "8"
       }
     ],
     "events": [

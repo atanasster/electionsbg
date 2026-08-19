@@ -67,7 +67,8 @@
         "holderName": "Петя Петрова Цанкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -85,7 +86,8 @@
         "holderName": "Петя Петрова Цанкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -103,7 +105,8 @@
         "holderName": "Цветомир Иванов Цанков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -121,7 +124,8 @@
         "holderName": "Петя Петрова Цанкова",
         "isSpouse": false,
         "legalBasis": "дог ипотека 3.4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -139,7 +143,8 @@
         "holderName": "Цветомир Иванов Цанков",
         "isSpouse": true,
         "legalBasis": "потр кредит 6.587%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

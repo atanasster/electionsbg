@@ -38,7 +38,8 @@
         "holderName": "Емилия Иванова Неделева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -56,7 +57,8 @@
         "holderName": "Емилия Иванова Неделчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -74,7 +76,8 @@
         "holderName": "Митко Недков Неделчев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -92,7 +95,8 @@
         "holderName": "Емилия Иванова Неделева",
         "isSpouse": true,
         "legalBasis": "лизинг, 4,4% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -110,7 +114,8 @@
         "holderName": "Митко Недков Неделчев",
         "isSpouse": true,
         "legalBasis": "кредит, лихва 8,2%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -128,7 +133,8 @@
         "holderName": "Митко Недков Неделчев",
         "isSpouse": true,
         "legalBasis": "лизинг, 3,5% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -146,7 +152,8 @@
         "holderName": "Емилия Иванова Неделева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -190,7 +197,8 @@
         "holderName": "Емилия Иванова Неделчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -208,7 +216,8 @@
         "holderName": "Емилия Иванова Неделчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и обезщетения"
+        "fundsOrigin": "заплати и обезщетения",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -226,7 +235,8 @@
         "holderName": "Митко Недков Неделчев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -244,7 +254,8 @@
         "holderName": "Емилия Иванова Неделчева",
         "isSpouse": false,
         "legalBasis": "Кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -262,7 +273,8 @@
         "holderName": "Митко Недков Неделчев",
         "isSpouse": true,
         "legalBasis": "Кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -280,7 +292,8 @@
         "holderName": "Митко Недков Неделчев",
         "isSpouse": true,
         "legalBasis": "Кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -298,7 +311,8 @@
         "holderName": "Емилия Иванова Неделчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -342,7 +356,8 @@
         "holderName": "Митко Недков Неделчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -360,7 +375,8 @@
         "holderName": "Митко Недков Недлечв",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -378,7 +394,8 @@
         "holderName": "Митко Недков Недлечв",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -396,7 +413,8 @@
         "holderName": "Емилия Иванова Неделчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -414,7 +432,8 @@
         "holderName": "Емилия Иванова Неделчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -432,7 +451,8 @@
         "holderName": "Митко Недков Неделчев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -450,7 +470,8 @@
         "holderName": "Емилия Иванова Неделчева",
         "isSpouse": false,
         "legalBasis": "кледит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -468,7 +489,8 @@
         "holderName": "Митко Недков Неделчев",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -486,7 +508,8 @@
         "holderName": "Митко Недков Неделчев",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -504,7 +527,8 @@
         "holderName": "Емилия Иванова Неделчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

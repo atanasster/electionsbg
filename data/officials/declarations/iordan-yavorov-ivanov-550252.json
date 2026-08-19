@@ -135,7 +135,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -153,7 +154,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -171,7 +173,8 @@
         "holderName": "Лилия Стефанова Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -189,7 +192,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -207,7 +211,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -225,7 +230,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -243,7 +249,8 @@
         "holderName": "ИСИТ ООД",
         "isSpouse": true,
         "legalBasis": "солидарен длъжник",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -261,7 +268,8 @@
         "holderName": "Йордан Яворов Иванов и Лилия Стефанова Иванова",
         "isSpouse": true,
         "legalBasis": "кредитополучател и солидарен длъжник",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -279,7 +287,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": "кредитополучател",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -297,7 +306,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -315,7 +325,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -408,7 +419,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "дивиденти",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -426,7 +438,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "дивиденти",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -444,7 +457,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "дивиденти",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -462,7 +476,8 @@
         "holderName": "ИСИТ ООД",
         "isSpouse": true,
         "legalBasis": "солидарен длъжник",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -480,7 +495,8 @@
         "holderName": "Йордан Яворов Иванов и Лилия Стефанова Иванова",
         "isSpouse": true,
         "legalBasis": "кредитополучател о слидарен длъжник",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -498,7 +514,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": "кредитополучател",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -516,7 +533,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "дивиденти",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -534,7 +552,8 @@
         "holderName": "Йордан Яворов Иванов",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "дивиденти",
+        "tableNum": "9"
       }
     ],
     "events": [

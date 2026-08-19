@@ -61,7 +61,8 @@
         "holderName": "Марин Мирославов Маринов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.1"
       },
       {
         "category": "cash",
@@ -79,7 +80,8 @@
         "holderName": "Момчил Мирославов Маринов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -97,7 +99,8 @@
         "holderName": "Момчил Мирославов Маринов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -115,7 +118,8 @@
         "holderName": "Ина Тодорова Ламбева-Маринова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +137,8 @@
         "holderName": "Ина Тодорова Ламбева-Маринова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -151,7 +156,8 @@
         "holderName": "Ина Тодорова Ламбева-Маринова",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []

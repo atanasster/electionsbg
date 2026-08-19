@@ -50,7 +50,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплати, пенсия, заем, дарение, продажба на имущество и МПС"
+        "fundsOrigin": "заплати, пенсия, заем, дарение, продажба на имущество и МПС",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -68,7 +69,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, пенсия, наеми"
+        "fundsOrigin": "заплати, пенсия, наеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -160,7 +164,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -178,7 +183,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия, продажба на недвижими имот и автомобил"
+        "fundsOrigin": "заплата, пенсия, продажба на недвижими имот и автомобил",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -240,7 +246,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -258,7 +265,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -276,7 +284,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -294,7 +303,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -312,7 +322,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -330,7 +341,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -348,7 +360,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -366,7 +379,8 @@
         "holderName": "Димитър Цветанов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       }
     ],
     "events": []

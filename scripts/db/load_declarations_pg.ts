@@ -305,6 +305,11 @@ const DECL_COLS = [
 const ASSET_COLS = [
   "declaration_id",
   "seq",
+  // Which form table the row came from — the only thing separating a holding from
+  // something the declarant merely uses. NULL on a shard written before the parser
+  // recorded it; is_declared_holding() (089) reads that as a holding. See
+  // docs/plans/declaration-foreign-assets-v1.md.
+  "table_num",
   "category",
   "description",
   "detail",
@@ -508,6 +513,7 @@ const load = async () => {
           assetRows.push([
             id,
             seq,
+            a.tableNum ?? null,
             a.category,
             a.description ?? null,
             a.detail ?? null,

@@ -43,7 +43,8 @@
         "holderName": "Георги Николов Митев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Поликсение Георгиева Митева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Поликсение Георгиева Митева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Поликсения Георгиева Митева",
         "isSpouse": true,
         "legalBasis": "покупка апартамент-3.03%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Георги Николов Митев",
         "isSpouse": false,
         "legalBasis": "покупка МПС-3.84%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

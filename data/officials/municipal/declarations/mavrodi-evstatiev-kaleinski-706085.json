@@ -61,7 +61,8 @@
         "holderName": "МАВРОДИ ЕВСТАТИЕВ КАЛЕЙНСКИ",
         "isSpouse": false,
         "legalBasis": "делба",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -79,7 +80,8 @@
         "holderName": "МАВРОДИ ЕВСТАТИЕВ КАЛЕЙНСКИ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -97,7 +99,8 @@
         "holderName": "МАВРОДИ ЕВСТАТИЕВ КАЛЕЙНСКИ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -115,7 +118,8 @@
         "holderName": "МАВРОДИ ЕВСТАТИЕВ КАЛЕЙНСКИ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +137,8 @@
         "holderName": "МАВРОДИ ЕВСТАТИЕВ КАЛЕЙНСКИ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -151,7 +156,8 @@
         "holderName": "МАВРОДИ ЕСТАТИЕВ КАЛЕЙНСКИ",
         "isSpouse": true,
         "legalBasis": "КРЕДИТ ФИНАНСОВ ЛИЗИНГ ЛИХВА 3.59%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -169,7 +175,8 @@
         "holderName": "МАВРОДИ ЕВСТАТИЕВ КАЛЕЙНСКИ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [

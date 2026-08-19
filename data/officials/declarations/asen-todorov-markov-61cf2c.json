@@ -50,7 +50,8 @@
         "holderName": "Ралица Василева Маринчева - Маркова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -68,7 +69,8 @@
         "holderName": "Асен Тодоров Марков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "credit_limit",
@@ -86,7 +88,8 @@
         "holderName": "Асен Тодоров Марков",
         "isSpouse": false,
         "legalBasis": "договор за КК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -104,7 +107,8 @@
         "holderName": "Ралица Василева Маринчева - Маркова",
         "isSpouse": true,
         "legalBasis": "договор за КК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -122,7 +126,8 @@
         "holderName": "Ралица Василева Маринчева - Маркова",
         "isSpouse": true,
         "legalBasis": "договор за КК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -222,7 +227,8 @@
         "holderName": "Асен Тодоров Марков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       }
     ],
     "events": []

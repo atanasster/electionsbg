@@ -44,7 +44,8 @@
         "holderName": "Георги Петров и Велислава Петрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "Георги Андонов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -80,7 +82,8 @@
         "holderName": "Георги Андонов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Георги Андонов Петров",
         "isSpouse": false,
         "legalBasis": "Ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -166,7 +170,8 @@
         "holderName": "Георги Петров и Велислава Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -184,7 +189,8 @@
         "holderName": "ГеоргиАндонов Петров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -202,7 +208,8 @@
         "holderName": "Георги Андонов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -220,7 +227,8 @@
         "holderName": "Георги Андонов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -238,7 +246,8 @@
         "holderName": "Георги Андонов Петров",
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

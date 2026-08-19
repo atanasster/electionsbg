@@ -44,7 +44,8 @@
         "holderName": "Тончо Христов Нейчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Тончо Христов Нейчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "командировъчни-НФУК"
+        "fundsOrigin": "командировъчни-НФУК",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Юлияна Димитрова Нейчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Юлияна Димитрова Нейчева",
         "isSpouse": true,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Тончо Христов Нейчев",
         "isSpouse": false,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -179,7 +184,8 @@
         "holderName": "Юлияна Димитрова Нейчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -197,7 +203,8 @@
         "holderName": "Тончо Христов Нейчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата/заем"
+        "fundsOrigin": "заплата/заем",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -215,7 +222,8 @@
         "holderName": "Тончо Христов Нейчев",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -233,7 +241,8 @@
         "holderName": "Юлияна Димитрова Нейчева",
         "isSpouse": true,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -288,7 +297,8 @@
         "holderName": "Тончо Христов Нейчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -306,7 +316,8 @@
         "holderName": "Тончо Христов Нейчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -324,7 +335,8 @@
         "holderName": "Юлияна Димитрова Нейчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -342,7 +354,8 @@
         "holderName": "Тончо Христов Нейчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -360,7 +373,8 @@
         "holderName": "Юлияна Димитрова Нейчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -378,7 +392,8 @@
         "holderName": "Юлияна Димитрова Нейчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -396,7 +411,8 @@
         "holderName": "Юлияна Димитрова Нейчева",
         "isSpouse": true,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

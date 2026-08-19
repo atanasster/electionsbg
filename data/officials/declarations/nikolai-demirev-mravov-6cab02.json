@@ -81,7 +81,8 @@
         "holderName": "Мария Kалинова Грозданова - Мравова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати и дарения"
+        "fundsOrigin": "заплати и дарения",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -99,7 +100,8 @@
         "holderName": "Николай Демирев Мравов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -117,7 +119,8 @@
         "holderName": "Мария Kалинова Грозданова - Мравова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дарение"
+        "fundsOrigin": "заплата и дарение",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -135,7 +138,8 @@
         "holderName": "Николай Демирев Мравов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дарение"
+        "fundsOrigin": "заплата и дарение",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -153,7 +157,8 @@
         "holderName": "Николай Демирев Мравов",
         "isSpouse": false,
         "legalBasis": "банков кредит 5,45",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -171,7 +176,8 @@
         "holderName": "Николай Демирев Мравов",
         "isSpouse": false,
         "legalBasis": "кредитна карта 0 / 17",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -189,7 +195,8 @@
         "holderName": "Николай Демирев Мравов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -207,7 +214,8 @@
         "holderName": "Николай Демирев Мравов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []

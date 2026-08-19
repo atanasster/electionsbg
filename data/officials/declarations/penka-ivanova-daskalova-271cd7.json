@@ -38,7 +38,8 @@
         "holderName": "ПЕНКА ИВАНОВА ДАСКАЛОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -56,7 +57,8 @@
         "holderName": "ПЕНКА ИВАНОВА ДАСКАЛОВА",
         "isSpouse": false,
         "legalBasis": "личен заем - 6,65%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -113,7 +115,8 @@
         "holderName": "Пенка Иванова Даскалова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -131,7 +134,8 @@
         "holderName": "Пенка Иванова Даскалова",
         "isSpouse": false,
         "legalBasis": "текущо потребление",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, заеми"
+        "fundsOrigin": "заплата, заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Роза Любенова Антова-Иванова",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -98,7 +101,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -116,7 +120,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -166,7 +171,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, заеми"
+        "fundsOrigin": "заплата, заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -184,7 +190,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -202,7 +209,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми и пенсия"
+        "fundsOrigin": "заеми и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -220,7 +228,8 @@
         "holderName": "Роза Любенова Антова - Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми и пенсия"
+        "fundsOrigin": "заеми и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -238,7 +247,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -256,7 +266,8 @@
         "holderName": "Роза Любенова Антова- Иванова",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -274,7 +285,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -292,7 +304,8 @@
         "holderName": "Роза Любенова Антова- Иванова",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -310,7 +323,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -328,7 +342,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -378,7 +393,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, продажба на предишно жилище"
+        "fundsOrigin": "заплата, продажба на предишно жилище",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -396,7 +412,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, продажба на предишно жилище"
+        "fundsOrigin": "заплата, продажба на предишно жилище",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -414,7 +431,8 @@
         "holderName": "Роза Любенова Антова-Иванова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, продажба на предишно жилище"
+        "fundsOrigin": "заплата, продажба на предишно жилище",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -432,7 +450,8 @@
         "holderName": "Роза Любенова Антова-Иванова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, продажба на предишно жилище"
+        "fundsOrigin": "заплата, продажба на предишно жилище",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -450,7 +469,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения от родители"
+        "fundsOrigin": "дарения от родители",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -468,7 +488,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "реституция",
-        "fundsOrigin": "реституция"
+        "fundsOrigin": "реституция",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -486,7 +507,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -504,7 +526,8 @@
         "holderName": "Роза Любенова Антова-Иванова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -522,7 +545,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, заеми"
+        "fundsOrigin": "заплата, заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -540,7 +564,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -558,7 +583,8 @@
         "holderName": "Роза Любенова Антова-Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми и пенсия"
+        "fundsOrigin": "заеми и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -576,7 +602,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -594,7 +621,8 @@
         "holderName": "Роза Любенова Антова- Иванова",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -612,7 +640,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -630,7 +659,8 @@
         "holderName": "Роза Любенова Антова- Иванова",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -648,7 +678,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -666,7 +697,8 @@
         "holderName": "Стоян Братоев Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

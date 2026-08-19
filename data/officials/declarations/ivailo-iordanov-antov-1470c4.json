@@ -56,7 +56,8 @@
         "holderName": "Йордан Дойчинов Антов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -74,7 +75,8 @@
         "holderName": "Евлоги Борисов Бонев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -92,7 +94,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -128,7 +132,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -165,7 +170,8 @@
         "holderName": "Йордан Дойчинов Антов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -183,7 +189,8 @@
         "holderName": "Евлоги Борисов Бонев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -201,7 +208,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -219,7 +227,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -275,7 +284,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "0"
+        "fundsOrigin": "0",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -293,7 +303,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -311,7 +322,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -329,7 +341,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -347,7 +360,8 @@
         "holderName": "Ивайло Йорданов Антов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": [

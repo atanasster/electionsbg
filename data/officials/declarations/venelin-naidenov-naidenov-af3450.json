@@ -51,7 +51,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -69,7 +70,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -87,7 +89,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -105,7 +108,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -123,7 +127,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -141,7 +146,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "Ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -159,7 +165,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -235,7 +242,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "банков кредит"
+        "fundsOrigin": "банков кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -253,7 +261,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "0"
+        "fundsOrigin": "0",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -271,7 +280,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -289,7 +299,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "0"
+        "fundsOrigin": "0",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -307,7 +318,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "0"
+        "fundsOrigin": "0",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -325,7 +337,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -343,7 +356,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -361,7 +375,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -379,7 +394,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -442,7 +458,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -460,7 +477,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -478,7 +496,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -496,7 +515,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -514,7 +534,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -532,7 +553,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -550,7 +572,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "смяна на предназначение",
-        "fundsOrigin": "дарение/заплата"
+        "fundsOrigin": "дарение/заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -568,7 +591,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "смяна на предназначение",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -586,7 +610,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -604,7 +629,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -622,7 +648,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -640,7 +667,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -658,7 +686,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -676,7 +705,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -764,7 +794,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -782,7 +813,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -800,7 +832,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -818,7 +851,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -836,7 +870,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -854,7 +889,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -872,7 +908,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -890,7 +927,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -908,7 +946,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -977,7 +1016,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -995,7 +1035,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1013,7 +1054,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1031,7 +1073,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1049,7 +1092,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -1067,7 +1111,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1085,7 +1130,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1103,7 +1149,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1121,7 +1168,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -1139,7 +1187,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1157,7 +1206,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1175,7 +1225,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1193,7 +1244,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -1211,7 +1263,8 @@
         "holderName": "Венелин Найденов Найденов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -1229,7 +1282,8 @@
         "holderName": "Десислава Николова Найденова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

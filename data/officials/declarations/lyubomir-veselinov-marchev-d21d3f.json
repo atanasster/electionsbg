@@ -80,7 +80,8 @@
         "holderName": "Любомир Веселинов Марчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -98,7 +99,8 @@
         "holderName": "Златина Димитрова Марчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.3"
       },
       {
         "category": "debt",
@@ -116,7 +118,8 @@
         "holderName": "Любомир Веселинов Марчев",
         "isSpouse": false,
         "legalBasis": "4,6",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +137,8 @@
         "holderName": "Златина Димитрова Марчева",
         "isSpouse": true,
         "legalBasis": "4,2",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -215,7 +219,8 @@
         "holderName": "Любомир Веселинов Марчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       }
     ],
     "events": []

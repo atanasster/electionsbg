@@ -43,7 +43,8 @@
         "holderName": "Мариета Пепелешкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми и Таблица 12"
+        "fundsOrigin": "заеми и Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Мариета Пепелешкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Деян Хитров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Мариета Пепелешкова",
         "isSpouse": true,
         "legalBasis": "потр.кредит,4,6%ГПЛП",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Деян Хитров",
         "isSpouse": true,
         "legalBasis": "кредитна карта,18,90%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

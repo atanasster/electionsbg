@@ -44,7 +44,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "3,37%-лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "5,56%-лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -130,7 +133,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "потребителски - 4,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -148,7 +152,8 @@
         "holderName": "Радослава Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "ипотечен - 5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -198,7 +203,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -216,7 +222,8 @@
         "holderName": "Радослава Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -234,7 +241,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -252,7 +260,8 @@
         "holderName": "Радослава  Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -333,7 +342,8 @@
         "holderName": "Радослава Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "ипотече кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -351,7 +361,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -369,7 +380,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -419,7 +431,8 @@
         "holderName": "Радослава Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -437,7 +450,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -487,7 +501,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -505,7 +520,8 @@
         "holderName": "Радослава Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -523,7 +539,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -541,7 +558,8 @@
         "holderName": "Радослава Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -559,7 +577,8 @@
         "holderName": "Кито Божинов Трифонов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -577,7 +596,8 @@
         "holderName": "Цветко Димитров Цветков",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -595,7 +615,8 @@
         "holderName": "Димитър Цветков Иванов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -613,7 +634,8 @@
         "holderName": "Димитър Цветков Иванов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -631,7 +653,8 @@
         "holderName": "Димитър Цветков Иванов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -649,7 +672,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -667,7 +691,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -685,7 +710,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -703,7 +729,8 @@
         "holderName": "Радослава Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -721,7 +748,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -771,7 +799,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -789,7 +818,8 @@
         "holderName": "Радослава Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -807,7 +837,8 @@
         "holderName": "петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -825,7 +856,8 @@
         "holderName": "Радослава горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -843,7 +875,8 @@
         "holderName": "Кито Божинов Трифонов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -861,7 +894,8 @@
         "holderName": "Цветко Димитров Цветков",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -879,7 +913,8 @@
         "holderName": "Димитър Цветков Иванов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -897,7 +932,8 @@
         "holderName": "Димитър Цветков Иванов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -915,7 +951,8 @@
         "holderName": "Димитър Цветков Иванов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -933,7 +970,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -951,7 +989,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -969,7 +1008,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -987,7 +1027,8 @@
         "holderName": "Радослава Горанова Димитрова",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1005,7 +1046,8 @@
         "holderName": "Петър Цветков Димитров",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

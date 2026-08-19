@@ -44,7 +44,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент и спестявания"
+        "fundsOrigin": "продажба на апартамент и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от заплата"
+        "fundsOrigin": "спестявания от заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарение"
+        "fundsOrigin": "дарение",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": "банков ипотечен кредит,  лихвен процент 2,5",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": "банков ипотечен кредит,  лихвен процент 2,5",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -215,7 +222,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -233,7 +241,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент и спестявания"
+        "fundsOrigin": "продажба на апартамент и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -251,7 +260,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от заплата"
+        "fundsOrigin": "спестявания от заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -269,7 +279,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарение"
+        "fundsOrigin": "дарение",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -287,7 +298,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "възнаграждения, спестявания"
+        "fundsOrigin": "възнаграждения, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -305,7 +317,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": "банков ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -323,7 +336,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": "банков ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -367,7 +381,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит, спестявания заплата"
+        "fundsOrigin": "ипотечен кредит, спестявания заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -385,7 +400,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит, спестявания заплата, наследяване"
+        "fundsOrigin": "ипотечен кредит, спестявания заплата, наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -403,7 +419,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -421,7 +438,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -439,7 +457,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -457,7 +476,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -475,7 +495,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": "други-лизинг",
-        "fundsOrigin": "възнаграждения"
+        "fundsOrigin": "възнаграждения",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -493,7 +514,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": "други-лизинг",
-        "fundsOrigin": "възнаграждения"
+        "fundsOrigin": "възнаграждения",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -511,7 +533,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -529,7 +552,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от заплата"
+        "fundsOrigin": "спестявания от заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -547,7 +571,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент и спестявания"
+        "fundsOrigin": "продажба на апартамент и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -565,7 +590,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарение"
+        "fundsOrigin": "дарение",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -583,7 +609,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "възнаграждения, спестявания"
+        "fundsOrigin": "възнаграждения, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -601,7 +628,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": "банков ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -619,7 +647,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": "банков ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -699,7 +728,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -717,7 +747,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -735,7 +766,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -753,7 +785,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -771,7 +804,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -789,7 +823,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -807,7 +842,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -825,7 +861,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -843,7 +880,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -861,7 +899,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -879,7 +918,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -897,7 +937,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -915,7 +956,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -933,7 +975,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -951,7 +994,8 @@
         "holderName": "Зара Добрева/Красимир Добрев",
         "isSpouse": true,
         "legalBasis": "продажба на апартамент от 44 кв.м.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -969,7 +1013,8 @@
         "holderName": "Зара Николаева Добрева",
         "isSpouse": false,
         "legalBasis": "банков ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -987,7 +1032,8 @@
         "holderName": "Красимир Добрев Добрев",
         "isSpouse": true,
         "legalBasis": "банков ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

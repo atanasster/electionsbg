@@ -37,7 +37,8 @@
         "holderName": "Берна Ферад Чауш-Карагьоз",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -55,7 +56,8 @@
         "holderName": "Бахар Мюмюн Карагьоз",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -73,7 +75,8 @@
         "holderName": "Берна Ферад Чауш-Карагьоз",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -91,7 +94,8 @@
         "holderName": "Берна Ферад Чауш-Карагьоз",
         "isSpouse": false,
         "legalBasis": "Банков кредит с дог.лихва 4,03%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

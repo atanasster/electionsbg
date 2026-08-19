@@ -44,7 +44,8 @@
         "holderName": "Николай Стоянов Клюнков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -98,7 +101,8 @@
         "holderName": "Николай Стоянов Клюнков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -116,7 +120,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "holderName": "Николай Стоянов Клюнков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -152,7 +158,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -170,7 +177,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -188,7 +196,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": "договор, 2.22%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -206,7 +215,8 @@
         "holderName": "Златка Иванова Клюнкова - кредитополучател",
         "isSpouse": true,
         "legalBasis": "договор, 2.18%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -224,7 +234,8 @@
         "holderName": "Николай Стоянов Клюнков - съдлъжник",
         "isSpouse": true,
         "legalBasis": "договор, 2,18%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -299,7 +310,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -317,7 +329,8 @@
         "holderName": "Николай Стоянов Клюнков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -335,7 +348,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -353,7 +367,8 @@
         "holderName": "Николай Стоянов Клюнков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -371,7 +386,8 @@
         "holderName": "Златка Иванова Клщнкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -389,7 +405,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -407,7 +424,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -457,7 +475,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": "Договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -475,7 +494,8 @@
         "holderName": "Николай Стоянов Клюнков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -493,7 +513,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -511,7 +532,8 @@
         "holderName": "Николай Стоянов Клюнков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -529,7 +551,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -547,7 +570,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -565,7 +589,8 @@
         "holderName": "Златка Иванова Клюнкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [

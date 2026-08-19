@@ -68,7 +68,8 @@
         "holderName": "НИКОЛАЙ ЧЕРНЕВ КОЛЕВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -86,7 +87,8 @@
         "holderName": "МИЛЕНА КИРОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -104,7 +106,8 @@
         "holderName": "МИЛЕНА КИРОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -122,7 +125,8 @@
         "holderName": "МИЛЕНА КИРОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР-ДОГОВОРЕН ЛИХВЕН ПРОЦЕНТ - 5.55%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -140,7 +144,8 @@
         "holderName": "НИКОЛАЙ ЧЕРНЕВ КОЛЕВ",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР-ДОГОВОРЕН ЛИХВЕН ПРОЦЕНТ - 6.30%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -158,7 +163,8 @@
         "holderName": "МИЛЕНА КИРОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "9"
       }
     ],
     "events": []

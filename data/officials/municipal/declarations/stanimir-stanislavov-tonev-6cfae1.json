@@ -55,7 +55,8 @@
         "holderName": "Станимир Станиславов Тонев и Теодора Стефанова Тонева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -73,7 +74,8 @@
         "holderName": "Станимир Станиславов Тонев и Теодора Стефанова Тонева",
         "isSpouse": true,
         "legalBasis": "строителство чрез кредит",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -91,7 +93,8 @@
         "holderName": "Станимир Станиславов Тонев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "holderName": "Станимир Станиславов Тонев",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит с ГЛП 2.45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

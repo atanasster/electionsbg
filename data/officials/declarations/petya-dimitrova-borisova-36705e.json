@@ -44,7 +44,8 @@
         "holderName": "Петя Димитрова Борисова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия ТЕЛК"
+        "fundsOrigin": "заплата и пенсия ТЕЛК",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "Борислав Георгиев Борисов",
         "isSpouse": true,
         "legalBasis": "кредит 4.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Петя Димитрова Борисова",
         "isSpouse": false,
         "legalBasis": "кредит 4,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -143,7 +146,8 @@
         "holderName": "Петя Димитрва Борисова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -161,7 +165,8 @@
         "holderName": "Петя Димитрва Борисова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       }
     ],
     "events": []
@@ -198,7 +203,8 @@
         "holderName": "Петя Димитрова Борисова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплата и пенсия",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -216,7 +222,8 @@
         "holderName": "Борислав Георгиев Борисов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -234,7 +241,8 @@
         "holderName": "Петя Димитрова Борисова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплата и пенсия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -252,7 +260,8 @@
         "holderName": "Борислав Георгиев Борисов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -270,7 +279,8 @@
         "holderName": "Петя Димитрова Борисова",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -288,7 +298,8 @@
         "holderName": "Петя Димитрова Борисова",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

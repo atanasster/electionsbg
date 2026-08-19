@@ -93,7 +93,8 @@
         "holderName": "Зафер Ахмед Хюсеин",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -111,7 +112,8 @@
         "holderName": "Айлин Ердинч Хюсеин",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми и от продажба на имоти"
+        "fundsOrigin": "заеми и от продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -129,7 +131,8 @@
         "holderName": "Айлин Ердинч Хюсеин - кредитополучател",
         "isSpouse": true,
         "legalBasis": "кредит / 4,05%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -147,7 +150,8 @@
         "holderName": "Зафер Ахмед Хюсеин - съдлъжник",
         "isSpouse": true,
         "legalBasis": "кредит / 4,05%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

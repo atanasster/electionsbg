@@ -43,7 +43,8 @@
         "holderName": "Янко Стоянов Добрев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заем, спестявания, дарение от родители"
+        "fundsOrigin": "Заем, спестявания, дарение от родители",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Жечка Петкова Ганчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заплата, дарение от родители"
+        "fundsOrigin": "Заплата, дарение от родители",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Янко Стоянов Добрев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Заплати, остатък от кредит"
+        "fundsOrigin": "Заплати, остатък от кредит",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Янко Стоянов Добрев",
         "isSpouse": false,
         "legalBasis": "2.28",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -115,7 +119,8 @@
         "holderName": "Янко Стоянов Добрев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

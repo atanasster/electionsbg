@@ -49,7 +49,8 @@
         "holderName": "Ивелин Емилов Терзийски",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -67,7 +68,8 @@
         "holderName": "Диана Георгиева Терзийска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -85,7 +87,8 @@
         "holderName": "Диана Георгиева Терзийска",
         "isSpouse": true,
         "legalBasis": "Ипотечен кредит - 2,5 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "Ивелин Емилов Терзийски",
         "isSpouse": false,
         "legalBasis": "Финансов лизинг - 4,5 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

@@ -49,7 +49,8 @@
         "holderName": "Бейтула Сали Мюмюн",
         "isSpouse": false,
         "legalBasis": "покупко продажба на парцел след ОПС",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +68,8 @@
         "holderName": "Бейтула Сали Мюмюн",
         "isSpouse": false,
         "legalBasis": "покупко-продажба на парцел след ОПС",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -85,7 +87,8 @@
         "holderName": "БЕЙТУЛА САЛИ МЮМЮН",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА НАЕМ",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -103,7 +106,8 @@
         "holderName": "БЕЙТУЛА САЛИ МЮМЮН",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА НАЕМ",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -121,7 +125,8 @@
         "holderName": "БЕЙТУЛА САЛИ МЮМЮН",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ",
-        "fundsOrigin": "ЗАПЛАТА И ДИВИДЕНТ"
+        "fundsOrigin": "ЗАПЛАТА И ДИВИДЕНТ",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -139,7 +144,8 @@
         "holderName": "Бейтула Сали Мюмюн",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивиденти"
+        "fundsOrigin": "заплата и дивиденти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -157,7 +163,8 @@
         "holderName": "Бейтула Сали Мюмюн",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивидент"
+        "fundsOrigin": "заплата и дивидент",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -175,7 +182,8 @@
         "holderName": "Хандан Азизова Мюмюн",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -193,7 +201,8 @@
         "holderName": "Бейтула Сали Мюмюн",
         "isSpouse": false,
         "legalBasis": "договор за кредит, лихвен процент-5.09%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -211,7 +220,8 @@
         "holderName": "Бейтула Сали Мюмюн",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг, лихвен процент - 4.5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

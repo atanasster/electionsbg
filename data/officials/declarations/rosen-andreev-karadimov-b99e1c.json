@@ -56,7 +56,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "собствена стопанска дейност"
+        "fundsOrigin": "собствена стопанска дейност",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -74,7 +75,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "собствена стопанска дейност"
+        "fundsOrigin": "собствена стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -92,7 +94,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "собствена стопанска дейност и заплата"
+        "fundsOrigin": "собствена стопанска дейност и заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "собствена стопанска дейност"
+        "fundsOrigin": "собствена стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -128,7 +132,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "собствена стопанска дейност"
+        "fundsOrigin": "собствена стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -146,7 +151,8 @@
         "holderName": "Нина Тодорова Ненова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот 2023"
+        "fundsOrigin": "продажба на имот 2023",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -164,7 +170,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": "Договор за покупо-продажба на дялове и заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -182,7 +189,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": "Договор за процесуално представителство и консултантски договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -200,7 +208,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -218,7 +227,8 @@
         "holderName": "Нина Тодорова Ненова",
         "isSpouse": true,
         "legalBasis": "Договор за покупо-продажба на дялове и заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -236,7 +246,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": "оперативен лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -305,7 +316,8 @@
         "holderName": "Нина Тодорова Ненова",
         "isSpouse": true,
         "legalBasis": "Констативен нот.акт по обстоятелствена проверка",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -323,7 +335,8 @@
         "holderName": "Нина Тодорова Ненова",
         "isSpouse": true,
         "legalBasis": "Констативен нот.акт по обстойтелствена проверка",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -341,7 +354,8 @@
         "holderName": "Нина Тодорова Ненова",
         "isSpouse": true,
         "legalBasis": "Дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -359,7 +373,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "собствена стопанска дейност като самоомисуряващо се лице със свободна професия и трудови договори"
+        "fundsOrigin": "собствена стопанска дейност като самоомисуряващо се лице със свободна професия и трудови договори",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -377,7 +392,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "собствена стопанска дейност като самоомисуряващо се лица със свободна професия и трудови договори"
+        "fundsOrigin": "собствена стопанска дейност като самоомисуряващо се лица със свободна професия и трудови договори",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -395,7 +411,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "собствена стопанска дейност като самоомисуряващо се лица със свободна професия и трудови договори"
+        "fundsOrigin": "собствена стопанска дейност като самоомисуряващо се лица със свободна професия и трудови договори",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -413,7 +430,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "собствена стопанска дейност като самоомисуряващо се лица със свободна професия и трудови договори"
+        "fundsOrigin": "собствена стопанска дейност като самоомисуряващо се лица със свободна професия и трудови договори",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -431,7 +449,8 @@
         "holderName": "Нина Тодорова Ненова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот през 2023 г."
+        "fundsOrigin": "продажба на имот през 2023 г.",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -449,7 +468,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": "Договор за покупо-продажба на дялове и заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -467,7 +487,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": "Договор за процесуално представителство и консултантски договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -485,7 +506,8 @@
         "holderName": "Нина Тодорова Ненова",
         "isSpouse": true,
         "legalBasis": "Договор за покупо-продажба на дялове и заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -503,7 +525,8 @@
         "holderName": "Росен Андреев Карадимов",
         "isSpouse": false,
         "legalBasis": "оперативен лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -87,7 +87,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -105,7 +106,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -123,7 +125,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -141,7 +144,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ПОКУПКО ПРОДАЖБА НА ИМОТ"
+        "fundsOrigin": "ПОКУПКО ПРОДАЖБА НА ИМОТ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -159,7 +163,8 @@
         "holderName": "МАРИЯ ЛАЗАРОВА ГРАДЕШЛИЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -177,7 +182,8 @@
         "holderName": "МАРИЯ ЛАЗАРОВА ГРАДЕШЛИЕВА",
         "isSpouse": false,
         "legalBasis": "5,6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -195,7 +201,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "9,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -213,7 +220,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -231,7 +239,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -331,7 +340,8 @@
         "holderName": "Тодор Василев Градешлиев",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -349,7 +359,8 @@
         "holderName": "Тодор Василев Градешлиев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -367,7 +378,8 @@
         "holderName": "Тодор Василев Градешлиев",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -385,7 +397,8 @@
         "holderName": "Мария Лазарова Градешлиева",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -403,7 +416,8 @@
         "holderName": "Тодор Василев Градешлиев",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -421,7 +435,8 @@
         "holderName": "Тодор Василев Градешлиев",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -439,7 +454,8 @@
         "holderName": "Тодор Василев Градешлиев",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -526,7 +542,8 @@
         "holderName": "МАРИЯ ВАСИЛЕВА ГРАДЕШЛИЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -544,7 +561,8 @@
         "holderName": "МАРИЯ ЛАЗАРОВА ГРАДЕШЛИЕВА",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -562,7 +580,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -580,7 +599,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -598,7 +618,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -616,7 +637,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -634,7 +656,8 @@
         "holderName": "ТОДОР ВАСИЛЕВ ГРАДЕШЛИЕВ",
         "isSpouse": true,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -31,7 +31,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Даниела Димитрово Денева-",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +69,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -85,7 +88,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -103,7 +107,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -121,7 +126,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, инвалидна пенсия, рента"
+        "fundsOrigin": "заплата, инвалидна пенсия, рента",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -139,7 +145,8 @@
         "holderName": "Даниела Димитрова Денева-Казанджиева",
         "isSpouse": true,
         "legalBasis": "кредитна карта 19%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -157,7 +164,8 @@
         "holderName": "Даниела Димитрова Денева-Казанджиева",
         "isSpouse": true,
         "legalBasis": "ипотека 6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -175,7 +183,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -237,7 +246,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, рента, инвалидна пенсия"
+        "fundsOrigin": "заплата, рента, инвалидна пенсия",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -255,7 +265,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, рента , инвалидна пепсия"
+        "fundsOrigin": "заплата, рента , инвалидна пепсия",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -273,7 +284,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -323,7 +335,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, рента, инвалидна пенсия"
+        "fundsOrigin": "заплата, рента, инвалидна пенсия",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -341,7 +354,8 @@
         "holderName": "Михаил Георгиев Казанджиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, рента, инвалидна пенсия"
+        "fundsOrigin": "заплата, рента, инвалидна пенсия",
+        "tableNum": "5"
       }
     ],
     "events": []

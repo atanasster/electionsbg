@@ -44,7 +44,8 @@
         "holderName": "Дамян Иванов Димов",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Дамян Иванов Димов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Дамян Иванов Димов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -160,7 +163,8 @@
         "holderName": "Дамян Иванов Димов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -178,7 +182,8 @@
         "holderName": "Дамян Иванов Димов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -196,7 +201,8 @@
         "holderName": "Дамян Иванов Димов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -214,7 +220,8 @@
         "holderName": "Цветелина Добринова Димова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -232,7 +239,8 @@
         "holderName": "Дамян Иванов Димов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       }
     ],
     "events": []

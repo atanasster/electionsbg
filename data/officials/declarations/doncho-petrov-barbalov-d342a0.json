@@ -148,7 +148,8 @@
         "holderName": "Дончо Петров Барбалов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -166,7 +167,8 @@
         "holderName": "Дончо Петров Барбалов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажба на имот"
+        "fundsOrigin": "заплата и продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -184,7 +186,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -202,7 +205,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Чужди средства в качество на депозитар"
+        "fundsOrigin": "Чужди средства в качество на депозитар",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -220,7 +224,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Наем"
+        "fundsOrigin": "Наем",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -238,7 +243,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -256,7 +262,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -274,7 +281,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -292,7 +300,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -310,7 +319,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -328,7 +338,8 @@
         "holderName": "Ваня Цветанова Барбалова/ Дончо Петров Барбалов (съдлъжник)",
         "isSpouse": true,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -346,7 +357,8 @@
         "holderName": "Ваня Цветанова Барбалова/ Дончо Петров Барбалов (съдлъжник)",
         "isSpouse": true,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -364,7 +376,8 @@
         "holderName": "Дончо Петров Барбалов",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -494,7 +507,8 @@
         "holderName": "Дончо Петров Барбалов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -512,7 +526,8 @@
         "holderName": "Дончо Петров Барбалов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -530,7 +545,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -548,7 +564,8 @@
         "holderName": "Ваня Цветанова Барбалова - депозитар",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Чужди средства в качество на депозитар"
+        "fundsOrigin": "Чужди средства в качество на депозитар",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -566,7 +583,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Доходи от наем"
+        "fundsOrigin": "Доходи от наем",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -584,7 +602,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "договор заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -602,7 +621,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "договор заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -620,7 +640,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "договор заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -638,7 +659,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "договор заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -656,7 +678,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": "договор заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -674,7 +697,8 @@
         "holderName": "Дончо Петров Барбалов",
         "isSpouse": false,
         "legalBasis": "договор заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -692,7 +716,8 @@
         "holderName": "Ваня Цветанова Барбалова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

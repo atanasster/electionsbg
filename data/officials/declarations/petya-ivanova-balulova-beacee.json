@@ -44,7 +44,8 @@
         "holderName": "Петя Иванова Балулова- собственик 1",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Пламен Георгиев Балулов- собственик 2",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Петя Иванова Балулова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Пламен Георгиев Балулов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -148,7 +152,8 @@
         "holderName": "Пламен Георгиев Балулов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -166,7 +171,8 @@
         "holderName": "Петя Иванова Балулова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -184,7 +190,8 @@
         "holderName": "Пламен Георгиев Балулов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -247,7 +254,8 @@
         "holderName": "Петя Иванова Балулова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -265,7 +273,8 @@
         "holderName": "Пламен Георгиев Балулов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата; прехвърляне на имоти"
+        "fundsOrigin": "заплата; прехвърляне на имоти",
+        "tableNum": "5"
       }
     ],
     "events": [

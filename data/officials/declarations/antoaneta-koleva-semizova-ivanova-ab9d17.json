@@ -44,7 +44,8 @@
         "holderName": "Неделчо Иванов Иванова",
         "isSpouse": true,
         "legalBasis": "договор за финансов лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "Неделчо Иванов Иванов",
         "isSpouse": true,
         "legalBasis": "3,93%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Антоанета Колева Семизова-Иванова",
         "isSpouse": false,
         "legalBasis": "4,8%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -137,7 +140,8 @@
         "holderName": "Антоанета Колева Семизова-Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -155,7 +159,8 @@
         "holderName": "Антоанета Колева Семизова-Иванова",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -205,7 +210,8 @@
         "holderName": "Антоанета Колева Семизова Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

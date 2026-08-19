@@ -44,7 +44,8 @@
         "holderName": "Катерина Борисова Додова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "Стоил Русев Додов",
         "isSpouse": true,
         "legalBasis": "5.87",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Катерина Борисова Додова",
         "isSpouse": false,
         "legalBasis": "8.09",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -124,7 +127,8 @@
         "holderName": "Катерина Борисова Додова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -142,7 +146,8 @@
         "holderName": "Катерина Борисова Додова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       }
     ],
     "events": []
@@ -192,7 +197,8 @@
         "holderName": "Катерина Борисова Додова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -210,7 +216,8 @@
         "holderName": "Катерина Борисона Додова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       }
     ],
     "events": []

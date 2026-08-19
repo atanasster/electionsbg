@@ -50,7 +50,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -68,7 +69,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -86,7 +88,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.2"
       },
       {
         "category": "cash",
@@ -104,7 +107,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -122,7 +126,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -140,7 +145,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "Договор за кредит 2.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -202,7 +208,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -220,7 +227,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -238,7 +246,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -331,7 +340,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -349,7 +359,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -367,7 +378,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -385,7 +397,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -460,7 +473,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -478,7 +492,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -496,7 +511,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ - ПОЛУЧЕН ДИВИДЕНТ 188 780 ЛВ.",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -514,7 +530,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ - 1/2",
         "isSpouse": true,
         "legalBasis": "договор за ж.кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -564,7 +581,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -582,7 +600,8 @@
         "holderName": "Петър Николаев Петров",
         "isSpouse": false,
         "legalBasis": "договор за жилищен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -600,7 +619,8 @@
         "holderName": "Елена Венкова Петрова",
         "isSpouse": true,
         "legalBasis": "договор за жилищен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -644,7 +664,8 @@
         "holderName": "Петър Николаев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -662,7 +683,8 @@
         "holderName": "Петър Николаев Петров",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -725,7 +747,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ и ЕЛЕНА ВЕНКОВА ПЕТРОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "СПЕСТЯВАНИЯ",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -743,7 +766,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ И ЕЛЕНА ВЕНКОВА ПЕТРОВА",
         "isSpouse": true,
         "legalBasis": "договор ип.кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -793,7 +817,8 @@
         "holderName": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "договор ипотечен кр.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

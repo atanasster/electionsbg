@@ -31,7 +31,8 @@
         "holderName": "Ивайло Людмилов Николов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -49,7 +50,8 @@
         "holderName": "Мария Петкова Михайлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -67,7 +69,8 @@
         "holderName": "Мария Петкова Михайлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -85,7 +88,8 @@
         "holderName": "Мария Петкова Михайлова",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -103,7 +107,8 @@
         "holderName": "Ивайло Людмилов Николов",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -147,7 +152,8 @@
         "holderName": "Мария Петкова Михайлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -165,7 +171,8 @@
         "holderName": "Мария Петкова Михайлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -183,7 +190,8 @@
         "holderName": "Мария Петкова Михайлова",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

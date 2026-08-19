@@ -44,7 +44,8 @@
         "holderName": "Таня Николаева Стоянова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Николай Недев Стоянов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Николай Недев Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -98,7 +101,8 @@
         "holderName": "Николай Недев Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Таня НИколаева Стоянова",
         "isSpouse": true,
         "legalBasis": "Ипотечен кредит,2,81%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Николай Недев Стоянов",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит ,5.81%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -189,7 +195,8 @@
         "holderName": "Таня Николаева Стоянова,Нколай Недев Стоянов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -207,7 +214,8 @@
         "holderName": "Николай Недев Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -225,7 +233,8 @@
         "holderName": "Николай Недев Стоянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -243,7 +252,8 @@
         "holderName": "Таня Николаева Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -261,7 +271,8 @@
         "holderName": "Таня Николаева Стоянова",
         "isSpouse": true,
         "legalBasis": "Ипотечен кредит,2,81%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -279,7 +290,8 @@
         "holderName": "Николай Недев Стоянов",
         "isSpouse": false,
         "legalBasis": "Овърдрафт,9,53 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

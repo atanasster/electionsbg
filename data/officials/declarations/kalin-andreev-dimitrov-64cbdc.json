@@ -44,7 +44,8 @@
         "holderName": "Калин Андреев Димитров/Юлианна Кулюкина",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания включително и декларирани за предходната година"
+        "fundsOrigin": "спестявания включително и декларирани за предходната година",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "Калин Андреев Димитров/Юлианна Кулюкина",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания включително и декларирани за предходната година"
+        "fundsOrigin": "спестявания включително и декларирани за предходната година",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Калин Андреев Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Калин Андреев Димитров",
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Калин Андреев Димитров",
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -191,7 +196,8 @@
         "holderName": "Юлианна Кулюкина",
         "isSpouse": true,
         "legalBasis": "покупко - продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -209,7 +215,8 @@
         "holderName": "Калин Андреев Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -227,7 +234,8 @@
         "holderName": "Калин Андреев Димитров/Юлианна Кулюкина",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, включително декларирани и в предходната година"
+        "fundsOrigin": "спестявания, включително декларирани и в предходната година",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -245,7 +253,8 @@
         "holderName": "Калин Андреев Димитров/Юлианна Кулюкина",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, включително декларирани и в предходната година"
+        "fundsOrigin": "спестявания, включително декларирани и в предходната година",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -263,7 +272,8 @@
         "holderName": "Калин Андреев Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -281,7 +291,8 @@
         "holderName": "Юлианна Кулюкина",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -299,7 +310,8 @@
         "holderName": "Калин Андреев Димитров",
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

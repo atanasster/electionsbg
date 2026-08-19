@@ -81,7 +81,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -99,7 +100,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -117,7 +119,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "УСТЕН ДОГОВОР",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -135,7 +138,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -153,7 +157,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -171,7 +176,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -189,7 +195,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -207,7 +214,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ВЪЗЛАГАНЕ НА УПРАВЛЕНИЕ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "credit_limit",
@@ -225,7 +233,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "БАНКОВ ДОГОВОР - 16,044 договорен лихен %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -243,7 +252,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "БАНКОВ ДОГОВОР - 18,95договорен лихен %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -261,7 +271,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": "БАНКОВ ДОГОВОР - 16,044договорен лихен %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -361,7 +372,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "УСТЕН ДОГОВОР",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -379,7 +391,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -397,7 +410,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -415,7 +429,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -433,7 +448,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -451,7 +467,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ЗАЕМ И АНЕКСИ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -469,7 +486,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ВЪЗЛАГАНЕ НА УПРАВЛЕНИЕ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "credit_limit",
@@ -487,7 +505,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "БАНКОВ ДОГОВОР - 16,556 договорен лихен %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -505,7 +524,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": "БАНКОВ ДОГОВОР - 16,556 договорен лихен %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -523,7 +543,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -541,7 +562,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -559,7 +581,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -577,7 +600,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -658,7 +682,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -676,7 +701,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -694,7 +720,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "УСТЕН ДОГОВОР",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -712,7 +739,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -730,7 +758,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -748,7 +777,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -766,7 +796,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -784,7 +815,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ЗАЕМ И АНЕКСИ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -802,7 +834,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ВЪЗЛАГАНЕ НА УПРАВЛЕНИЕ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "credit_limit",
@@ -820,7 +853,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": "БАНКОВ ДОГОВОР",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -838,7 +872,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": "БАНКОВ ДОГОВОР",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -856,7 +891,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -874,7 +910,8 @@
         "holderName": "ПАУЛИНА МИТКОВА ИВАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -892,7 +929,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -910,7 +948,8 @@
         "holderName": "КРАСИМИР ДИМИТРОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

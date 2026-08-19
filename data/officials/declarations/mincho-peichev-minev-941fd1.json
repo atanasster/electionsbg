@@ -31,7 +31,8 @@
         "holderName": "Минчо Пейчев Минев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       }
     ],
     "events": []
@@ -117,7 +118,8 @@
         "holderName": "Минчо Пейчев Минев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "receivable",
@@ -135,7 +137,8 @@
         "holderName": "Минчо Пейчев Минев",
         "isSpouse": false,
         "legalBasis": "делба",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -172,7 +175,8 @@
         "holderName": "Минчо Пейчев Минев",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -190,7 +194,8 @@
         "holderName": "Минчо Пейчев Минев",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -270,7 +275,8 @@
         "holderName": "Минчо Пейчев Минев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -288,7 +294,8 @@
         "holderName": "Минчо Пейчев Минев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -306,7 +313,8 @@
         "holderName": "Минчо Пейчев Минев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -324,7 +332,8 @@
         "holderName": "Минчо Пейчев Минев",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

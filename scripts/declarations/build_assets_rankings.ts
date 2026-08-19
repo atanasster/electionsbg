@@ -33,6 +33,7 @@ import type {
 } from "../../src/data/dataTypes";
 import {
   assetWeightedEur,
+  isDeclaredHolding,
   byRecency,
   latestAssetDeclaration,
   priorAssetDeclaration,
@@ -75,6 +76,11 @@ const totalsForDeclaration = (decl: MpDeclaration): DeclarationTotals => {
     // the JSON leaderboard and the PG one cannot disagree about the same human. See
     // ASSET_ROW_CEILING_EUR.
     if (!withinAssetCeiling(a)) continue;
+    // Tables 1.2 / 3.4 are property and vehicles the declarant RENTS or is provided with.
+    // Excluded from the COUNT as well as the money: this bucket's count is what renders as
+    // „N имота" beside the person's name, and a rented flat there asserts they hold it.
+    // Same rule as is_declared_holding() in 089 — read, never restated.
+    if (!isDeclaredHolding(a)) continue;
     bucket.count++;
     if (a.valueEur != null) {
       bucket.valuedCount++;

@@ -50,7 +50,8 @@
         "holderName": "Емануил Младенов Манолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -68,7 +69,8 @@
         "holderName": "Полина Янкова Манолова",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата и продажби"
+        "fundsOrigin": "заплата и продажби",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -86,7 +88,8 @@
         "holderName": "Емануил Младенов Манолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -104,7 +107,8 @@
         "holderName": "Полина Янкова Манолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажба"
+        "fundsOrigin": "заплата и продажба",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -122,7 +126,8 @@
         "holderName": "Емануил Младенов Манолов",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -140,7 +145,8 @@
         "holderName": "Полина Янкова Манолова",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -158,7 +164,8 @@
         "holderName": "Полина Янкова Манолова",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -233,7 +240,8 @@
         "holderName": "Емануил Младенов Манолов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -251,7 +259,8 @@
         "holderName": "Емануил Младенов Манолов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -269,7 +278,8 @@
         "holderName": "Емануил Младен Манолов",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -287,7 +297,8 @@
         "holderName": "Емануил Младен Манолов",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -305,7 +316,8 @@
         "holderName": "Емануил Младен Манолов",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -323,7 +335,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -341,7 +354,8 @@
         "holderName": "Емануил Младен Манолов",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -398,7 +412,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -416,7 +431,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -434,7 +450,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -452,7 +469,8 @@
         "holderName": "Емануил Младенов Манолов",
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -470,7 +488,8 @@
         "holderName": "Емануил Младенов Манолов",
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -488,7 +507,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -563,7 +583,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "строеж",
-        "fundsOrigin": "заеми и спестявания"
+        "fundsOrigin": "заеми и спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -581,7 +602,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -599,7 +621,8 @@
         "holderName": "Емануил Младенов Манолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -617,7 +640,8 @@
         "holderName": "Емануил Младенов Манолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -635,7 +659,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -653,7 +678,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -671,7 +697,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -689,7 +716,8 @@
         "holderName": "Полина Янкова Христова",
         "isSpouse": true,
         "legalBasis": "Предварителен договор право на строеж",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

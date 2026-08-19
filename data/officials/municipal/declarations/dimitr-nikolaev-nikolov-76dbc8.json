@@ -49,7 +49,8 @@
         "holderName": "Димитър Николаев Николов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -67,7 +68,8 @@
         "holderName": "Димитър Николаев Николов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и кредит"
+        "fundsOrigin": "заплати и кредит",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "Владислава Красимирова Колева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати, кредит, дивидент"
+        "fundsOrigin": "заплати, кредит, дивидент",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "Димитър Николаев Николов",
         "isSpouse": false,
         "legalBasis": "ипотека 2,2%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "Димитър Николаев Николов",
         "isSpouse": false,
         "legalBasis": "0,18%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

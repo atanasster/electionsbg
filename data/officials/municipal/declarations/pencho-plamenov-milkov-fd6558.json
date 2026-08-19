@@ -43,7 +43,8 @@
         "holderName": "Пенчо Пламенов Милков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба от Община Иваново след търг",
-        "fundsOrigin": "потребителски кредит и заплати"
+        "fundsOrigin": "потребителски кредит и заплати",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Василена Цветелинова Милкова",
         "isSpouse": true,
         "legalBasis": "договор за замяна",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -79,7 +81,8 @@
         "holderName": "Преслав Пенчев Милков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -97,7 +100,8 @@
         "holderName": "Пенчо Пламенов Милков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -115,7 +119,8 @@
         "holderName": "Пенчо Пламенов Милков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "работни заплати, спестявания, декларирани в предходни декларации"
+        "fundsOrigin": "работни заплати, спестявания, декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +138,8 @@
         "holderName": "Пенчо Пламенов Милков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -151,7 +157,8 @@
         "holderName": "Василена Цветелинова Милкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -169,7 +176,8 @@
         "holderName": "Василена Цветелинова Милкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "издръжка дете"
+        "fundsOrigin": "издръжка дете",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -187,7 +195,8 @@
         "holderName": "Пенчо Пламенов Милков",
         "isSpouse": false,
         "legalBasis": "потребителски кредит с договорен годишен лихвен процет 3,99%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -205,7 +214,8 @@
         "holderName": "Пенчо Пламенов Милков",
         "isSpouse": false,
         "legalBasis": "потребителски кредит с договорен годишен лихвен процет 4,20%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -223,7 +233,8 @@
         "holderName": "Пенчо Пламенов Милков",
         "isSpouse": false,
         "legalBasis": "Овърдрафт, съгласно Договор за банков кредит с договорен годишен лихвен процет 10,33%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -241,7 +252,8 @@
         "holderName": "Пенчо Пламенов Милков",
         "isSpouse": false,
         "legalBasis": "Кредитна карта-годишен лихвен процент 14.80%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -259,7 +271,8 @@
         "holderName": "Пенчо Пламенов Милков",
         "isSpouse": false,
         "legalBasis": "договор за лизинг-фиксиран лихвен процент - 3.9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

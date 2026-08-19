@@ -119,7 +119,8 @@
         "holderName": "Райчо Димитров Цветин",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -137,7 +138,8 @@
         "holderName": "Райчо Димитров Цветин- кредитополучател",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -155,7 +157,8 @@
         "holderName": "Емилия Дахилова Халилова -Цветина-солидарен длъжник",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

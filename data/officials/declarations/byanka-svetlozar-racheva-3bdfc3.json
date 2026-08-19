@@ -57,7 +57,8 @@
         "holderName": "Бянка Светлозар Рачева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -75,7 +76,8 @@
         "holderName": "Бянка Светлозар Рачева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -93,7 +95,8 @@
         "holderName": "Бянка Светлозар Рачева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -148,7 +151,8 @@
         "holderName": "Бянка Светлозар Рачева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -166,7 +170,8 @@
         "holderName": "Бянка Светлозар Рачева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -184,7 +189,8 @@
         "holderName": "Бянка Светлозар Рачева",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -247,7 +253,8 @@
         "holderName": "Бянка Светлозар Рачева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -265,7 +272,8 @@
         "holderName": "Бянка Светлозар Рачева",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

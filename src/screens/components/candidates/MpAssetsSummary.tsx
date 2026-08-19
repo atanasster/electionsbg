@@ -23,7 +23,7 @@ import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import type { MpAsset, MpAssetCategory } from "@/data/dataTypes";
 import { formatEur, formatEurSigned, toEur } from "@/lib/currency";
-import { incomeTotals } from "@/lib/declarations";
+import { incomeTotals, isDeclaredHolding } from "@/lib/declarations";
 
 type Props = { name: string; linkSlug?: string };
 
@@ -125,6 +125,10 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
   const latestDecl = declarations.find((d) => d.sourceUrl === rollup.sourceUrl);
   const unvaluedItems: MpAsset[] = (latestDecl?.assets ?? []).filter(
     (a) =>
+      // The list caveats the HEADER, which counts holdings only — so a чуждо row with no
+      // declared contract price is not a missing piece of it. Those render in their own
+      // „ползва" block instead.
+      isDeclaredHolding(a) &&
       a.category !== "debt" &&
       a.category !== "credit_limit" &&
       a.valueEur == null,

@@ -61,7 +61,8 @@
         "holderName": "Тихомира Петкова Илчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -79,7 +80,8 @@
         "holderName": "Ценко Николаев Жиков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -97,7 +99,8 @@
         "holderName": "Тихомира Петкова Илчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -115,7 +118,8 @@
         "holderName": "Ценко Николаев Жиков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +137,8 @@
         "holderName": "Ценко Николаев Жиков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -151,7 +156,8 @@
         "holderName": "Тихомира Петкова Илчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -169,7 +175,8 @@
         "holderName": "Ценко Николаев Жиков",
         "isSpouse": false,
         "legalBasis": "Банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -187,7 +194,8 @@
         "holderName": "Ценко Николаев Жиков",
         "isSpouse": false,
         "legalBasis": "Банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

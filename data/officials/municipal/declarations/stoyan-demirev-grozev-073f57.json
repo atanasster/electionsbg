@@ -43,7 +43,8 @@
         "holderName": "Олга Леонидовна Абдрахманова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания и по табл.12 т.4 доходи съпруг"
+        "fundsOrigin": "спестявания и по табл.12 т.4 доходи съпруг",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Стоян Демирев Грозев",
         "isSpouse": false,
         "legalBasis": "участие в тръжна процедура",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -79,7 +81,8 @@
         "holderName": "Стоян Демирев Грозев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -97,7 +100,8 @@
         "holderName": "Олга Леонидовна Абдрахманова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -115,7 +119,8 @@
         "holderName": "Стоян Демирев Грозев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +138,8 @@
         "holderName": "Олга Леонидовна Абдрахманова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -151,7 +157,8 @@
         "holderName": "Стоян Демирев Грозев",
         "isSpouse": false,
         "legalBasis": "договор, лихва 0,6487",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

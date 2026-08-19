@@ -49,7 +49,8 @@
         "holderName": "Петя Тодорова Лазарова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -67,7 +68,8 @@
         "holderName": "Камен Евтимов Лазаров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -85,7 +87,8 @@
         "holderName": "Камен Евтимов Лазаров",
         "isSpouse": false,
         "legalBasis": "кредит - 5.89%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

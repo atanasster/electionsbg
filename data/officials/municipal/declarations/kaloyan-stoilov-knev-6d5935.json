@@ -37,7 +37,8 @@
         "holderName": "ДАНИЕЛА ЙОРДАНОВА КЪНЕВА И КАЛОЯН СТОИЛОВ КЪНЕВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "СПЕСТЯВАНИЯ И ЗАПЛАТА"
+        "fundsOrigin": "СПЕСТЯВАНИЯ И ЗАПЛАТА",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -55,7 +56,8 @@
         "holderName": "КАЛОЯН СТОИЛОВ КЪНЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА И СРЕДСТВА КАТО ЗП"
+        "fundsOrigin": "ЗАПЛАТА И СРЕДСТВА КАТО ЗП",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -73,7 +75,8 @@
         "holderName": "КАЛОЯН СТОИЛОВ КЪНЕВ",
         "isSpouse": false,
         "legalBasis": "СУБСИДИИ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -91,7 +94,8 @@
         "holderName": "КАЛОЯН СТОИЛОВ КЪНЕВ",
         "isSpouse": false,
         "legalBasis": "НАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -109,7 +113,8 @@
         "holderName": "КАЛОЯН СТОИЛОВ КЪНЕВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ, 2.83%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -127,7 +132,8 @@
         "holderName": "ЕТ КАЛОЯН СТОИЛОВ КЪНЕВ",
         "isSpouse": true,
         "legalBasis": "КРЕДИТ, 2.15%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -145,7 +151,8 @@
         "holderName": "ДАНИЕЛА ЙОРДАНОВА КЪНЕВА",
         "isSpouse": true,
         "legalBasis": "КРЕДИТ, 5,4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

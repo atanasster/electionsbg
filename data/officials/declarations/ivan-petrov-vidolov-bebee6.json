@@ -31,7 +31,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Иван Петров Видолов/Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +69,8 @@
         "holderName": "Иван Петров Видолов/ Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -85,7 +88,8 @@
         "holderName": "Нина Георгиева Видолова/Иван Петров Видолов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -103,7 +107,8 @@
         "holderName": "Нина Георгиева Видолова/Иван Петров Видолов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -121,7 +126,8 @@
         "holderName": "Нина Георгиева Видолова/Иван Петров Видолов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -139,7 +145,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -157,7 +164,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -175,7 +183,8 @@
         "holderName": "Иван Петров Видолов/Нина Георгиева Видолов",
         "isSpouse": true,
         "legalBasis": "Договор за заем - 2,6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -231,7 +240,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -249,7 +259,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -267,7 +278,8 @@
         "holderName": "Иван Петров Видолов и Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "2,6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -323,7 +335,8 @@
         "holderName": "Иван Петров Видолов/Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -341,7 +354,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -359,7 +373,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "Договор за импотечен кредит от 2020; лихвен процент - 2,60.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -415,7 +430,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -433,7 +449,8 @@
         "holderName": "Иван Петров Видолов и Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -451,7 +468,8 @@
         "holderName": "Иван Петров Видолов и Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -469,7 +487,8 @@
         "holderName": "Иван Петров Видолов/Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -487,7 +506,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -505,7 +525,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -523,7 +544,8 @@
         "holderName": "Иван Петров Видолов/Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "Ипотемен заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -579,7 +601,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -597,7 +620,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -615,7 +639,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -633,7 +658,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -651,7 +677,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -669,7 +696,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -687,7 +715,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "договор за заем от 2020",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -767,7 +796,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -785,7 +815,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -803,7 +834,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -821,7 +853,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -839,7 +872,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -857,7 +891,8 @@
         "holderName": "Иван Петров Видолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -875,7 +910,8 @@
         "holderName": "Иван Петров Видолов Нина Георгиева Видолова",
         "isSpouse": true,
         "legalBasis": "договор за заем от 2020",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

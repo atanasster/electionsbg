@@ -371,6 +371,32 @@ export const byRecency = (a: DeclarationLike, b: DeclarationLike): number =>
   (a.entryNumber ?? "").localeCompare(b.entryNumber ?? "") ||
   a.sourceUrl.localeCompare(b.sourceUrl);
 
+/** The two form tables that record something the declarant USES rather than owns.
+ *
+ *  1.2 „Чуждо недвижимо имущество" and 3.4 „Чужди моторни сухопътни, водни и
+ *  въздухоплавателни превозни средства" — property and vehicles belonging to somebody
+ *  else, rented or provided. Canonical (2018-form) numbers; see MpAsset.tableNum. */
+const NON_HOLDING_TABLES = new Set(["1.2", "3.4"]);
+
+/** Is this row part of the declarant's estate?
+ *
+ *  The register's own headers are what decide it: tables 1.2 / 3.4 price their rows
+ *  „Цена по договор" under „Правно основание за ползване", where tables 1 / 3 say „Цена на
+ *  придобиване" / „…за придобиване". So the number beside a чуждо row is what the USE
+ *  costs — not a value the declarant holds, and not a figure any net worth may include.
+ *
+ *  Neither `category` nor `legalBasis` can stand in for this. A rented flat is still
+ *  real_estate, and Пеевски's чужди cars carry legalBasis „договор" — which is also what
+ *  Румен Радев's OWN car carries.
+ *
+ *  A NULL tableNum is a HOLDING. Rows parsed before the provenance existed carry none, and
+ *  reading them as non-holdings would drop every real asset from every total at once.
+ *
+ *  Keep this equal to is_declared_holding() in 089_declarations.sql — see
+ *  declarations.holding.test.ts, which runs both over the corpus. */
+export const isDeclaredHolding = (a: { tableNum?: string | null }): boolean =>
+  !NON_HOLDING_TABLES.has(a.tableNum ?? "");
+
 export type DeclarationTotals = {
   assetsEur: number;
   debtsEur: number;
@@ -395,6 +421,10 @@ export const declarationTotals = (
   let debtsEur = 0;
   let realEstateUnvalued = 0;
   for (const a of assets ?? []) {
+    // Чуждо rows (tables 1.2 / 3.4) reach neither side of the balance and are not
+    // counted as an unvalued caveat either — they are not this person's property at
+    // all, so their absence from the total is not a gap in it.
+    if (!isDeclaredHolding(a)) continue;
     const v = a.valueEur ?? 0;
     if (a.category === "debt") debtsEur += v;
     else assetsEur += v;

@@ -43,7 +43,8 @@
         "holderName": "Адам Георгиев Адамов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Таня Любомирова Адамова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Таня Любомирова Адамова",
         "isSpouse": true,
         "legalBasis": "FL1531279/7,380%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

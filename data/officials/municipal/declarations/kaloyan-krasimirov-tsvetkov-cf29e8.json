@@ -43,7 +43,8 @@
         "holderName": "Калоян Красимиров Цветков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "работна заплата и спестявания"
+        "fundsOrigin": "работна заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -61,7 +62,8 @@
         "holderName": "Калоян Красимиров Цветков",
         "isSpouse": false,
         "legalBasis": "вземане от запис на заповед",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Павлина Росенова Русева",
         "isSpouse": true,
         "legalBasis": "ипотекарен длъжник -",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Калоян Красимиров Цветков",
         "isSpouse": false,
         "legalBasis": "съдлъжник по ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

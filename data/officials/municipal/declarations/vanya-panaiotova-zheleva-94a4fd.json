@@ -37,7 +37,8 @@
         "holderName": "Ваня Панайотова Желева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДАРЕНИЯ ОТ БАЩА"
+        "fundsOrigin": "ДАРЕНИЯ ОТ БАЩА",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -55,7 +56,8 @@
         "holderName": "Ваня Панайотова Желева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДАРЕНИЯ ОТ БАЩА"
+        "fundsOrigin": "ДАРЕНИЯ ОТ БАЩА",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -73,7 +75,8 @@
         "holderName": "Кирил Живков Желев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -91,7 +94,8 @@
         "holderName": "Кирил Живков Желев",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -109,7 +113,8 @@
         "holderName": "Кирил Живков Желев",
         "isSpouse": true,
         "legalBasis": "договор на юридическо лице",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -127,7 +132,8 @@
         "holderName": "Кирил Живков Желев",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

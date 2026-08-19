@@ -44,7 +44,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -62,7 +63,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -80,7 +82,8 @@
         "holderName": "БОЙКО БОРИСОВ НАЧЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "обезщетения за прослужено време - нои"
+        "fundsOrigin": "обезщетения за прослужено време - нои",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "holderName": "БОЙКО БОРИСОВ НАЧЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "НОИ"
+        "fundsOrigin": "НОИ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -152,7 +158,8 @@
         "holderName": "БОЙКО БОРИСОВ НАЧЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "НОИ"
+        "fundsOrigin": "НОИ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -170,7 +177,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "credit_limit",
@@ -188,7 +196,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ИЗДАВАНЕ НА КРЕДИТНА КАРТА 1%  ЛИХВА МЕСЕЧНО",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -238,7 +247,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА, БОЙКО БОРИСОВ НАЧЕВ",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ С ОББ ИНТЕРЛИЙЗ АД ОТ 04.03.2021 Г.",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -256,7 +266,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -274,7 +285,8 @@
         "holderName": "БОЙКО БОРИСОВ НАЧЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "НОИ"
+        "fundsOrigin": "НОИ",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -292,7 +304,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -310,7 +323,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ОБЕЗЩЕТЕНИЯ \"БЛАГОЕВГРАД- БТ\" АД"
+        "fundsOrigin": "ОБЕЗЩЕТЕНИЯ \"БЛАГОЕВГРАД- БТ\" АД",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -328,7 +342,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -346,7 +361,8 @@
         "holderName": "БОЙКО БОРИСОВ НАЧЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "НОИ"
+        "fundsOrigin": "НОИ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -364,7 +380,8 @@
         "holderName": "БОЙКО БОРИСОВ НАЧЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "НОИ"
+        "fundsOrigin": "НОИ",
+        "tableNum": "5"
       },
       {
         "category": "credit_limit",
@@ -382,7 +399,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -438,7 +456,8 @@
         "holderName": "Бойко Борисов Начев",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ОТ 04.03.2021 Г.",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -456,7 +475,8 @@
         "holderName": "Бойко Борисов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -474,7 +494,8 @@
         "holderName": "Иванка Томова Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -492,7 +513,8 @@
         "holderName": "Бойко Борисов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на недвижим имот"
+        "fundsOrigin": "заплата, продажба на недвижим имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -510,7 +532,8 @@
         "holderName": "Бойко Борисов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, НОИ"
+        "fundsOrigin": "заплата, НОИ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -528,7 +551,8 @@
         "holderName": "Иванка Томова Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -546,7 +570,8 @@
         "holderName": "Иванка Томова Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "обезщетения \"Благоевград - БТ\" АД"
+        "fundsOrigin": "обезщетения \"Благоевград - БТ\" АД",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -564,7 +589,8 @@
         "holderName": "БОЙКО БОРИСОВ НАЧЕВ",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ОТ 04.03.2021 Г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -582,7 +608,8 @@
         "holderName": "ИВАНКА ТОМОВА НАЧЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

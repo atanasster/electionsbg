@@ -50,7 +50,8 @@
         "holderName": "Асена Христова Стоименова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем и спестявания от заплата"
+        "fundsOrigin": "заем и спестявания от заплата",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -68,7 +69,8 @@
         "holderName": "Асена Христова Стоименова",
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -86,7 +88,8 @@
         "holderName": "Асена Христова Стоименова",
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -142,7 +145,8 @@
         "holderName": "Асена Христова Стоименова",
         "isSpouse": false,
         "legalBasis": "замяна",
-        "fundsOrigin": "замяна"
+        "fundsOrigin": "замяна",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -160,7 +164,8 @@
         "holderName": "Асена Христова Стоименова",
         "isSpouse": false,
         "legalBasis": "замяна",
-        "fundsOrigin": "замяна"
+        "fundsOrigin": "замяна",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -178,7 +183,8 @@
         "holderName": "Асена Христова Стоименова",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "брачен договор"
+        "fundsOrigin": "брачен договор",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -196,7 +202,8 @@
         "holderName": "Асена Христова Стоименова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": [
@@ -320,7 +327,8 @@
         "holderName": "Асена Христова Стоименова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -338,7 +346,8 @@
         "holderName": "Георги Димитров Зайков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -356,7 +365,8 @@
         "holderName": "Георги Димитров Зайков",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -374,7 +384,8 @@
         "holderName": "Георги Димитров Зайков",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -392,7 +403,8 @@
         "holderName": "Георги Димитров Зайков",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -410,7 +422,8 @@
         "holderName": "Георги Димитров Зайков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       }
     ],
     "events": []

@@ -43,7 +43,8 @@
         "holderName": "Вили Иванова Пехливанска",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Вили Иванова Пехливанска",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Вили Иванова Пехливанска",
         "isSpouse": false,
         "legalBasis": "Договор-ГЛП 6.21%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

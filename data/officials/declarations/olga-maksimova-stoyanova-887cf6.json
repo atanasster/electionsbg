@@ -99,7 +99,8 @@
         "holderName": "Олга Максимова Стоянова",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -117,7 +118,8 @@
         "holderName": "Олга Максимова Стоянова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и наеми"
+        "fundsOrigin": "заплата и наеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -135,7 +137,8 @@
         "holderName": "Делян Колев Стоянов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -153,7 +156,8 @@
         "holderName": "Олга Максимова Стоянова",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит, 2,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -75,7 +75,8 @@
         "holderName": "Маргарита Георгиева Паскалева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "receivable",
@@ -93,7 +94,8 @@
         "holderName": "Маргарита Георгиева Паскалева",
         "isSpouse": false,
         "legalBasis": "за покупка на жилище",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -111,7 +113,8 @@
         "holderName": "Маргарита Георгиева Паскалева",
         "isSpouse": false,
         "legalBasis": "6362139/23.08.2024",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -198,7 +201,8 @@
         "holderName": "Георги Савов Янев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -216,7 +220,8 @@
         "holderName": "Васил Георгиев Паскалев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -234,7 +239,8 @@
         "holderName": "Маргарита Георгиева Паскалева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -252,7 +258,8 @@
         "holderName": "Васил Георгиев Паскалев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -270,7 +277,8 @@
         "holderName": "Маргарита Георгиева Паскалева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -288,7 +296,8 @@
         "holderName": "Маргарита Георгиева Паскалева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

@@ -122,7 +122,8 @@
         "holderName": "Иван Петров Гайков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -140,7 +141,8 @@
         "holderName": "Диляна Гоергиева Дракалиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -158,7 +160,8 @@
         "holderName": "Иван Петров Гайков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -176,7 +179,8 @@
         "holderName": "Иван Петров Гайков",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит 5.72%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -194,7 +198,8 @@
         "holderName": "Иван Петров Гайков",
         "isSpouse": false,
         "legalBasis": "потребителски кредит 4.56%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

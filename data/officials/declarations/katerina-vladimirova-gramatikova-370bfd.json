@@ -31,7 +31,8 @@
         "holderName": "Катерина Владимирова Граматикова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Катерина Владимирова Граматикова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +69,8 @@
         "holderName": "Михаил Василев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -85,7 +88,8 @@
         "holderName": "КАТЕРИНА ВЛАДИМИРОВА ГРАМАТИКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -103,7 +107,8 @@
         "holderName": "МИХАИЛ ВАСИЛЕВ ИВАНОВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -121,7 +126,8 @@
         "holderName": "Катерина Владимирова Граматикова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -139,7 +145,8 @@
         "holderName": "Катерина Владимирова Граматикова",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -183,7 +190,8 @@
         "holderName": "Катерина Владимирова Граматикова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -201,7 +209,8 @@
         "holderName": "Катерина Владимирова Граматикова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -219,7 +228,8 @@
         "holderName": "КАТЕРИНА ВЛАДИМИРОВА ГРАМАТИКОВА",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -237,7 +247,8 @@
         "holderName": "МИХАИЛ ВАСИЛЕВ ИВАНОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -255,7 +266,8 @@
         "holderName": "Катерина Владимирова Граматикова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -273,7 +285,8 @@
         "holderName": "Катерина Владимирова Граматикова",
         "isSpouse": true,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

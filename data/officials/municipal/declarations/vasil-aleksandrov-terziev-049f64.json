@@ -43,7 +43,8 @@
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на недвижим имот"
+        "fundsOrigin": "продажба на недвижим имот",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата+продажба на недвижим имот"
+        "fundsOrigin": "заплата+продажба на недвижим имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми и дивидент"
+        "fundsOrigin": "заеми и дивидент",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -115,7 +119,8 @@
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": "кредитна карта - 15.75% годишна лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -151,7 +157,8 @@
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": "договор за заем, лихва 2% годишно",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -169,7 +176,8 @@
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит към банка",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

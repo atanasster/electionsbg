@@ -69,7 +69,8 @@
         "holderName": "ТОДОР Георгиев Предов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -87,7 +88,8 @@
         "holderName": "Тодор Георгиев Предов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "гр.договор,наем"
+        "fundsOrigin": "гр.договор,наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -105,7 +107,8 @@
         "holderName": "Маринка Петрушева Предова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми"
+        "fundsOrigin": "наеми",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -155,7 +158,8 @@
         "holderName": "Тодор Георгиев Предов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -173,7 +177,8 @@
         "holderName": "Маринка Петрушева Предова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем"
+        "fundsOrigin": "наем",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -223,7 +228,8 @@
         "holderName": "Маринка Петрушева Предова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -241,7 +247,8 @@
         "holderName": "Маринка Петрушева Предова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       }
     ],
     "events": [

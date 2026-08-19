@@ -37,7 +37,8 @@
         "holderName": "Наско Кирчев Кичуков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, спестявания и кредит от предходни години"
+        "fundsOrigin": "заплати, спестявания и кредит от предходни години",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -55,7 +56,8 @@
         "holderName": "Дарина Росенова Топалова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -73,7 +75,8 @@
         "holderName": "Наско Кирчев Кичуков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -91,7 +94,8 @@
         "holderName": "Дарина Росенова Топалова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати, спестявания и кредит от предходни години"
+        "fundsOrigin": "заплати, спестявания и кредит от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -109,7 +113,8 @@
         "holderName": "Дарина Росенова Топалова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -127,7 +132,8 @@
         "holderName": "Наско Кирчев Кичуков",
         "isSpouse": false,
         "legalBasis": "Кредит, лихвен процент - 4.80%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -145,7 +151,8 @@
         "holderName": "Дарина Росенова Топалова",
         "isSpouse": true,
         "legalBasis": "Кредит, лихвен процент - 3.95%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

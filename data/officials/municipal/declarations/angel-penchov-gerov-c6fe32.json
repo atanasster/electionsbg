@@ -62,7 +62,8 @@
         "holderName": "АНГЕЛ ПЕНЧОВ ГЕРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -80,7 +81,8 @@
         "holderName": "АНГЕЛ ПЕНЧОВ ГЕРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДЕПОЗИТ"
+        "fundsOrigin": "ДЕПОЗИТ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +100,8 @@
         "holderName": "АНГЕЛ ПЕНЧОВ ГЕРОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +119,8 @@
         "holderName": "НЕЛИ НИКОЛОВА ГЕРОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ДЕПОЗИТ"
+        "fundsOrigin": "ДЕПОЗИТ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +138,8 @@
         "holderName": "НЕЛИ НИКОЛОВА ГЕРОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ДЕПОЗИТ"
+        "fundsOrigin": "ДЕПОЗИТ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -152,7 +157,8 @@
         "holderName": "АНГЕЛ ПЕНЧОВ ГЕРОВ",
         "isSpouse": false,
         "legalBasis": "0.1",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

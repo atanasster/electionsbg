@@ -70,7 +70,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -88,7 +89,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, продажба на имот"
+        "fundsOrigin": "заплата, продажба на имот",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -106,7 +108,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имот"
+        "fundsOrigin": "заплата, продажба на имот",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -124,7 +127,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имот"
+        "fundsOrigin": "заплата, продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -142,7 +146,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имот"
+        "fundsOrigin": "заплата, продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -160,7 +165,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "чл. 134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -178,7 +184,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Трансформиране на заем в допълнителни вноски по чл.134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -196,7 +203,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -214,7 +222,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -232,7 +241,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -315,7 +325,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": "прехвърляне на недвижим имот вместо плащане",
-        "fundsOrigin": "Изчистване на заемни средства"
+        "fundsOrigin": "Изчистване на заемни средства",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -333,7 +344,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имоти"
+        "fundsOrigin": "заплата, продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -351,7 +363,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -369,7 +382,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имоти"
+        "fundsOrigin": "заплата, продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -387,7 +401,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -405,7 +420,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Прехвърляне на недвижим имот вместо плащане",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -423,7 +439,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -441,7 +458,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -459,7 +477,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "чл. 134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -477,7 +496,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": "Прехвърляне на недвижим имот вместо плащане",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -495,7 +515,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": "чл. 134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -513,7 +534,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": "Договор за покупко-продажба",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -531,7 +553,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -606,7 +629,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имоти"
+        "fundsOrigin": "заплата, продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -624,7 +648,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -642,7 +667,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имоти"
+        "fundsOrigin": "заплата, продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -660,7 +686,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -678,7 +705,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -696,7 +724,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -714,7 +743,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -732,7 +762,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": "чл. 134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -750,7 +781,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": "Договор за покупко-продажба",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -768,7 +800,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -849,7 +882,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имоти"
+        "fundsOrigin": "заплата, продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -867,7 +901,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -885,7 +920,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имоти"
+        "fundsOrigin": "заплата, продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -903,7 +939,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -921,7 +958,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -939,7 +977,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -957,7 +996,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -975,7 +1015,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": "чл. 134 от ТЗ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -993,7 +1034,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": "Договор за покупко-продажба",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -1011,7 +1053,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1029,7 +1072,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -1098,7 +1142,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1116,7 +1161,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -1134,7 +1180,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имоти"
+        "fundsOrigin": "заплата, продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1152,7 +1199,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1170,7 +1218,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1188,7 +1237,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1206,7 +1256,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1224,7 +1275,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имоти"
+        "fundsOrigin": "заплата, продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1242,7 +1294,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1260,7 +1313,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имоти"
+        "fundsOrigin": "заплата, продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1278,7 +1332,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -1296,7 +1351,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -1314,7 +1370,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -1332,7 +1389,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": "чл. 134 от ДОПК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": [
@@ -1438,7 +1496,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": "покупка на парцел+застрояване",
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1456,7 +1515,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имоти"
+        "fundsOrigin": "продажба на имоти",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -1474,7 +1534,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1492,7 +1553,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1510,7 +1572,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1528,7 +1591,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1546,7 +1610,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1564,7 +1629,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имот"
+        "fundsOrigin": "заплата, продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1582,7 +1648,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1600,7 +1667,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1618,7 +1686,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -1722,7 +1791,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1740,7 +1810,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1758,7 +1829,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1776,7 +1848,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1794,7 +1867,8 @@
         "holderName": "Кирил Георгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1812,7 +1886,8 @@
         "holderName": "Кирил Георгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1830,7 +1905,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1848,7 +1924,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1866,7 +1943,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1884,7 +1962,8 @@
         "holderName": "Кирил Георгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1902,7 +1981,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1920,7 +2000,8 @@
         "holderName": "Кирил Георгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1938,7 +2019,8 @@
         "holderName": "Кирил Георгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -1956,7 +2038,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1974,7 +2057,8 @@
         "holderName": "Кирил Георгиев, Елеонора Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -1992,7 +2076,8 @@
         "holderName": "Кирил Георгиев Георгиев; към дата 08.05.2018 г.",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2010,7 +2095,8 @@
         "holderName": "Кирил Георгиев Георгиев; към дата 08.05.2018 г.",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2028,7 +2114,8 @@
         "holderName": "Елеонора Василева Георгиева; към дата 08.05.2018 г.",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2046,7 +2133,8 @@
         "holderName": "Елеонора Василева Георгиева; към дата 08.05.2018 г.",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2064,7 +2152,8 @@
         "holderName": "Елеонора Василева Георгиева; към дата 08.05.2018 г.",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -2082,7 +2171,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2100,7 +2190,8 @@
         "holderName": "Кирил Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2118,7 +2209,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2136,7 +2228,8 @@
         "holderName": "Елеонора Василева Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       }
     ],
     "events": []

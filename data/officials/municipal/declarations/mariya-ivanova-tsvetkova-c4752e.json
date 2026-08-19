@@ -49,7 +49,8 @@
         "holderName": "Мария Иванова Цветкова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -67,7 +68,8 @@
         "holderName": "Костадин Цветков Цветков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -85,7 +87,8 @@
         "holderName": "Костадин Цветков Цветков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Субсидия ДФЗ"
+        "fundsOrigin": "Субсидия ДФЗ",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -103,7 +106,8 @@
         "holderName": "Костадин Цветков Цветков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "Мария Иванова Цветкова",
         "isSpouse": false,
         "legalBasis": "банков кредит,  5.1%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -139,7 +144,8 @@
         "holderName": "Мария Иванова Цветкова",
         "isSpouse": false,
         "legalBasis": "КК, 17.5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -157,7 +163,8 @@
         "holderName": "Мария Иванова Цветкова",
         "isSpouse": false,
         "legalBasis": "КК, 0.00 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -175,7 +182,8 @@
         "holderName": "Мария Иванова Цветкова",
         "isSpouse": false,
         "legalBasis": "КК, 18.9 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -193,7 +201,8 @@
         "holderName": "Костадин Цветков Цветков",
         "isSpouse": true,
         "legalBasis": "банков кредит,  4.94%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -211,7 +220,8 @@
         "holderName": "Костадин Цветков Цветков",
         "isSpouse": true,
         "legalBasis": "КК, 12%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -229,7 +239,8 @@
         "holderName": "Костадин Цветков Цветков",
         "isSpouse": true,
         "legalBasis": "банков кредит,  12.95%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

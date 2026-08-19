@@ -164,7 +164,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": "МПС собственост на фирма, на която съм управител - \"Сим Кабел\" ООД, придобит през 2016 г., като през 2025 г. съм ползвал същия в това ми качество",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -182,7 +183,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - включително спестявания от предишни периоди"
+        "fundsOrigin": "по Таблица 12 - включително спестявания от предишни периоди",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -200,7 +202,8 @@
         "holderName": "Теодора Йорданова Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - включително спестявания от предишни периоди"
+        "fundsOrigin": "по Таблица 12 - включително спестявания от предишни периоди",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -218,7 +221,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12"
+        "fundsOrigin": "по Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -236,7 +240,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - включително от предходни периоди"
+        "fundsOrigin": "по Таблица 12 - включително от предходни периоди",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -254,7 +259,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12"
+        "fundsOrigin": "по Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -272,7 +278,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12, включително спествявания от предходни периоди"
+        "fundsOrigin": "по Таблица 12, включително спествявания от предходни периоди",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -290,7 +297,8 @@
         "holderName": "Теодора Йорданова Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12"
+        "fundsOrigin": "по Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -308,7 +316,8 @@
         "holderName": "Теодора Йорданова Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12"
+        "fundsOrigin": "по Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -326,7 +335,8 @@
         "holderName": "Теодора Йорданова Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12"
+        "fundsOrigin": "по Таблица 12",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -344,7 +354,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": "договор за заем от 2018 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -362,7 +373,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": "договор за заем от 2014 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -380,7 +392,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": "договор за заем от 2025 г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -398,7 +411,8 @@
         "holderName": "Стефан Иванов Терзийски",
         "isSpouse": false,
         "legalBasis": "Договор за универсален ипотечен кредит от 10.10.2024 г. с лихвен процент 3,40%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -416,7 +430,8 @@
         "holderName": "Теодора Йорданова Йорданова",
         "isSpouse": true,
         "legalBasis": "договор за асет специализиран потребителски кредит от 27.10.2021 г. с разрешен размер 30000 лв., лихвен процент 9,06%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -434,7 +449,8 @@
         "holderName": "Теодора Йорданова Йорданова",
         "isSpouse": true,
         "legalBasis": "кредитна карта с лихвен процент 12%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -452,7 +468,8 @@
         "holderName": "Теодора Йорданова Йорданова",
         "isSpouse": true,
         "legalBasis": "кредитна карта с лихвен процент 17,90%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

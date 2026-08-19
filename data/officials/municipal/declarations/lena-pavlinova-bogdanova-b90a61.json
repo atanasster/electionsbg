@@ -37,7 +37,8 @@
         "holderName": "Лена Павлинова Богданова",
         "isSpouse": false,
         "legalBasis": "покупко продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -55,7 +56,8 @@
         "holderName": "Лъчезар Йотов Богданов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -73,7 +75,8 @@
         "holderName": "Павлин Владимиров Владимиров",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -91,7 +94,8 @@
         "holderName": "Лъчезар Йотов Богданов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -109,7 +113,8 @@
         "holderName": "Лена Павлинова Богданова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -127,7 +132,8 @@
         "holderName": "Лена Павлинова Богданова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -145,7 +151,8 @@
         "holderName": "Лъчезар Йотов Богданов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -163,7 +170,8 @@
         "holderName": "Лена Павлинова Богданова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -181,7 +189,8 @@
         "holderName": "Лена Павлинова Богданова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

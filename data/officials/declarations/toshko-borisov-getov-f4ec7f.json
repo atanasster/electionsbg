@@ -44,7 +44,8 @@
         "holderName": "Тошко Борисов Гетов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Ваня Маринова Гетова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Тошко Борисов Гетов",
         "isSpouse": false,
         "legalBasis": "5,36",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Ваня Маринова Гетова",
         "isSpouse": true,
         "legalBasis": "4,6",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Тошко Борисов Гетов",
         "isSpouse": false,
         "legalBasis": "4,9",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -160,7 +165,8 @@
         "holderName": "Тошко Борисов Гетов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -178,7 +184,8 @@
         "holderName": "Тошко Борисов Гетов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -247,7 +254,8 @@
         "holderName": "Тошко Борисов Гетов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

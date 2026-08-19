@@ -68,7 +68,8 @@
         "holderName": "Атанас Петров Драков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -86,7 +87,8 @@
         "holderName": "Атанас Петров Драков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -104,7 +106,8 @@
         "holderName": "Атанас Петров Драков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -122,7 +125,8 @@
         "holderName": "Атанас Петров Драков",
         "isSpouse": false,
         "legalBasis": "4.92",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -140,7 +144,8 @@
         "holderName": "Нели Георгиева Дракова",
         "isSpouse": true,
         "legalBasis": "4.92",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

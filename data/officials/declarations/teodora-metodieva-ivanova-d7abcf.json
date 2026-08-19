@@ -44,7 +44,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -80,7 +82,8 @@
         "holderName": "Теодара Методиева Иванова",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": "договор за заем - 2,07%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": "договор за заем -4,75 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -166,7 +171,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -184,7 +190,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -202,7 +209,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -220,7 +228,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -238,7 +247,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -282,7 +292,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -300,7 +311,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -318,7 +330,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -336,7 +349,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -392,7 +406,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -410,7 +425,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -428,7 +444,8 @@
         "holderName": "Камен  Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -446,7 +463,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -490,7 +508,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -508,7 +527,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -526,7 +546,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -544,7 +565,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -562,7 +584,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -612,7 +635,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми и лични"
+        "fundsOrigin": "заеми и лични",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -630,7 +654,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -648,7 +673,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -666,7 +692,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наеми"
+        "fundsOrigin": "наеми",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -722,7 +749,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "лични"
+        "fundsOrigin": "лични",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -740,7 +768,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "лични"
+        "fundsOrigin": "лични",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -758,7 +787,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "лични"
+        "fundsOrigin": "лични",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -776,7 +806,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "лични"
+        "fundsOrigin": "лични",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -794,7 +825,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "лични"
+        "fundsOrigin": "лични",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -812,7 +844,8 @@
         "holderName": "Ивайло Каменов Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "лични"
+        "fundsOrigin": "лични",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -830,7 +863,8 @@
         "holderName": "Теодора Методиева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "лични и наеми"
+        "fundsOrigin": "лични и наеми",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -848,7 +882,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -866,7 +901,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -884,7 +920,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": "договор за кредит - остатък 10249",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -928,7 +965,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "от лични спестявания"
+        "fundsOrigin": "от лични спестявания",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -946,7 +984,8 @@
         "holderName": "Теодора Методиева Ивванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "от лични спестявания"
+        "fundsOrigin": "от лични спестявания",
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -964,7 +1003,8 @@
         "holderName": "Камен Василиев Иванов",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -982,7 +1022,8 @@
         "holderName": "Камен Василиев Иванов - остатък - 28 040 лв",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1000,7 +1041,8 @@
         "holderName": "Теодора Методиева Иванова - остатък - 4 255 лв",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

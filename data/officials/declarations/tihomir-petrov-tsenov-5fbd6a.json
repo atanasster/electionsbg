@@ -31,7 +31,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -67,7 +69,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -85,7 +88,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3.1"
       },
       {
         "category": "bank",
@@ -103,7 +107,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -121,7 +126,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -139,7 +145,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -157,7 +164,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "4,6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -175,7 +183,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "10,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -219,7 +228,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -237,7 +247,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -255,7 +266,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "фактура",
-        "fundsOrigin": "лизинг и спестявания"
+        "fundsOrigin": "лизинг и спестявания",
+        "tableNum": "3.1"
       },
       {
         "category": "bank",
@@ -273,7 +285,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -291,7 +304,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "овърдрафт"
+        "fundsOrigin": "овърдрафт",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -309,7 +323,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -327,7 +342,8 @@
         "holderName": "Капка Пламенова Ценова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "овърдрафт"
+        "fundsOrigin": "овърдрафт",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -345,7 +361,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "4.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -363,7 +380,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "10.9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -420,7 +438,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -438,7 +457,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -456,7 +476,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -474,7 +495,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -492,7 +514,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "овърдрафт"
+        "fundsOrigin": "овърдрафт",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -510,7 +533,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -554,7 +578,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и кредит"
+        "fundsOrigin": "спестявания и кредит",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -572,7 +597,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -590,7 +616,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и кредит"
+        "fundsOrigin": "спестявания и кредит",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -608,7 +635,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и кредит"
+        "fundsOrigin": "заплата и кредит",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -626,7 +654,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -681,7 +710,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -699,7 +729,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -717,7 +748,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -735,7 +767,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -753,7 +786,8 @@
         "holderName": "Тихомир Петров Ценов",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []

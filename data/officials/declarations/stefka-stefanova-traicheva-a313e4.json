@@ -31,7 +31,8 @@
         "holderName": "Стефка Стефанова Трайчева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Петя Трайчева Трайчева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       }
     ],
     "events": []
@@ -93,7 +95,8 @@
         "holderName": "Стефка Стефанова Трайчева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -111,7 +114,8 @@
         "holderName": "Петя Трайчева Трайчева",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -129,7 +133,8 @@
         "holderName": "Стефка Стефанова Трайчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и обезщетение при пенсиониране"
+        "fundsOrigin": "заплата и обезщетение при пенсиониране",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -147,7 +152,8 @@
         "holderName": "Стефка Стефанова Трайчева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

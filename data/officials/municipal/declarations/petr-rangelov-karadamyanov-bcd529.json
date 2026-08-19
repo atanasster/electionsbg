@@ -43,7 +43,8 @@
         "holderName": "Петър Рангелов Карадамянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "стопанска дейност"
+        "fundsOrigin": "стопанска дейност",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Петър Рангелов Карадамянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "стопанска дейност"
+        "fundsOrigin": "стопанска дейност",
+        "tableNum": "3.1"
       },
       {
         "category": "cash",
@@ -79,7 +81,8 @@
         "holderName": "Петър Рангелов Кардамянов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "стопанска дейност"
+        "fundsOrigin": "стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Петър Рангелов Карадамянов",
         "isSpouse": false,
         "legalBasis": "инвестиционен кредит-3,35%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Таня Петкова Карадамянова",
         "isSpouse": true,
         "legalBasis": "потребителски-4,82%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

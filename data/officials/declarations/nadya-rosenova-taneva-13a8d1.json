@@ -31,7 +31,8 @@
         "holderName": "Надя Росенова Танева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -49,7 +50,8 @@
         "holderName": "Надя росенова Танева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -67,7 +69,8 @@
         "holderName": "Надя Росенова Танева",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -117,7 +120,8 @@
         "holderName": "Надя Танева",
         "isSpouse": true,
         "legalBasis": "покупка",
-        "fundsOrigin": "кредит - Ти би ай"
+        "fundsOrigin": "кредит - Ти би ай",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -135,7 +139,8 @@
         "holderName": "Надя Росенова Танева",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

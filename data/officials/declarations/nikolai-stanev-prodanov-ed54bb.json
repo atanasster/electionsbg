@@ -56,7 +56,8 @@
         "holderName": "Николай Станев Проданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -74,7 +75,8 @@
         "holderName": "Вера Петрова Бонева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -136,7 +138,8 @@
         "holderName": "Николай Станев Проданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -154,7 +157,8 @@
         "holderName": "Николай Станев Проданов",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -172,7 +176,8 @@
         "holderName": "Николай Станев Проданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -228,7 +233,8 @@
         "holderName": "Вера Петрова Бонева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -246,7 +252,8 @@
         "holderName": "Николай Станев Проданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -264,7 +271,8 @@
         "holderName": "Николай Станев Проданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -282,7 +290,8 @@
         "holderName": "Николай Станев Проданов",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -300,7 +309,8 @@
         "holderName": "Николай Станев Проданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "доброволен пенсионен фонд"
+        "fundsOrigin": "доброволен пенсионен фонд",
+        "tableNum": "8"
       }
     ],
     "events": []

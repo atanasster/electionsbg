@@ -44,7 +44,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба имот"
+        "fundsOrigin": "продажба имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми"
+        "fundsOrigin": "наеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТНА КАРТА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -166,7 +171,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба поземлен имот"
+        "fundsOrigin": "продажба поземлен имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -184,7 +190,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -202,7 +209,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -220,7 +228,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наеми"
+        "fundsOrigin": "наеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -238,7 +247,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -256,7 +266,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТНА КАРТА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -319,7 +330,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "НАЕМ"
+        "fundsOrigin": "НАЕМ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -337,7 +349,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -355,7 +368,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -373,7 +387,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТНА КАРТА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -423,7 +438,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -441,7 +457,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": "поправка нот.акт",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -459,7 +476,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -477,7 +495,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -495,7 +514,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -513,7 +533,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -531,7 +552,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "НАЕМ"
+        "fundsOrigin": "НАЕМ",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -549,7 +571,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "НАЕМ"
+        "fundsOrigin": "НАЕМ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -567,7 +590,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -585,7 +609,8 @@
         "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -603,7 +628,8 @@
         "holderName": "ИВО ТЕНЕВ ДИМОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТНА КАРТА",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

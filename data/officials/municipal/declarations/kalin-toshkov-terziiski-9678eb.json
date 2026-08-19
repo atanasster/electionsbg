@@ -49,7 +49,8 @@
         "holderName": "Калин Тошков Терзийски",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -67,7 +68,8 @@
         "holderName": "Калин Тошков Терзийски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "Калин Тошков Терзийски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "Розалия Благоева Терзийска",
         "isSpouse": true,
         "legalBasis": "кредит-4,57%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "Калин Тошков Терзийски",
         "isSpouse": false,
         "legalBasis": "кредит-4,17%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -139,7 +144,8 @@
         "holderName": "Калин Тошков Терзийски",
         "isSpouse": false,
         "legalBasis": "Лизинг-5,57%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

@@ -49,7 +49,8 @@
         "holderName": "Димитър Георгиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -67,7 +68,8 @@
         "holderName": "Димитър Георгиев Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "Христина Николаева Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имущество"
+        "fundsOrigin": "заплата, продажба на имущество",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "Димитър Георгиев Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, продажба на имущество"
+        "fundsOrigin": "заплата, продажба на имущество",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -121,7 +125,8 @@
         "holderName": "Димитър Георгиев Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -139,7 +144,8 @@
         "holderName": "Димитър Георгиев Петров",
         "isSpouse": false,
         "legalBasis": "4,20",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

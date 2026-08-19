@@ -43,7 +43,8 @@
         "holderName": "ДОБРИНКА САШОВА КОЛЕВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ЗАЕМИ, ДАРЕНИЕ"
+        "fundsOrigin": "ЗАЕМИ, ДАРЕНИЕ",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -61,7 +62,8 @@
         "holderName": "ГЕОРГИ ИВАНОВ КОЛЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ДИВИДЕНТИ"
+        "fundsOrigin": "ДИВИДЕНТИ",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -79,7 +81,8 @@
         "holderName": "ДОБРИНКА САШОВА КОЛЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА, ЗАЕМ"
+        "fundsOrigin": "ЗАПЛАТА, ЗАЕМ",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "ГЕОРГИ ИВАНОВ КОЛЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДИВИДЕНТИ, ЗАПЛАТА"
+        "fundsOrigin": "ДИВИДЕНТИ, ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -115,7 +119,8 @@
         "holderName": "ДОБРИНКА САШОВА КОЛЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -133,7 +138,8 @@
         "holderName": "ДОБРИНКА САШОВА КОЛЕВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗАЕМ-3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -151,7 +157,8 @@
         "holderName": "ДОБРИНКА САШОВА КОЛЕВА",
         "isSpouse": true,
         "legalBasis": "ДАРЕНИЕ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -169,7 +176,8 @@
         "holderName": "ДОБРИНКА САШОВА КОЛЕВА",
         "isSpouse": true,
         "legalBasis": "ДАРЕНИЕ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -187,7 +195,8 @@
         "holderName": "ГЕОРГИ ИВАНОВ КОЛЕВ",
         "isSpouse": false,
         "legalBasis": "ПОТРЕБИТЕЛСКИ -4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -205,7 +214,8 @@
         "holderName": "ГЕОРГИ ИВАНОВ КОЛЕВ",
         "isSpouse": false,
         "legalBasis": "ПОТРЕБИТЕЛСКИ С ИПОТЕКА - 3,889%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -223,7 +233,8 @@
         "holderName": "ГЕОРГИ ИВАНОВ КОЛЕВ",
         "isSpouse": false,
         "legalBasis": "ЖИЛИЩЕН -3,289%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -241,7 +252,8 @@
         "holderName": "ГЕОРГИ ИВАНОВ КОЛЕВ",
         "isSpouse": false,
         "legalBasis": "ИПОТЕКА-5,8%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -259,7 +271,8 @@
         "holderName": "ДОБРИНКА САШОВА КОЛЕВА",
         "isSpouse": true,
         "legalBasis": "ЖИЛИЩЕН -3,271%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -277,7 +290,8 @@
         "holderName": "ДОБРИНКА САШОВА КОЛЕВА",
         "isSpouse": true,
         "legalBasis": "ПОТРЕБИТЕЛСКИ -4,76%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

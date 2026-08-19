@@ -55,7 +55,8 @@
         "holderName": "Георги Тодоров Георгиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -73,7 +74,8 @@
         "holderName": "Георги Тодоров Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -91,7 +93,8 @@
         "holderName": "Георги Тодоров Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -109,7 +112,8 @@
         "holderName": "Георги Тодоров Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестяване"
+        "fundsOrigin": "спестяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -127,7 +131,8 @@
         "holderName": "Георги Тодоров Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестяване"
+        "fundsOrigin": "спестяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -145,7 +150,8 @@
         "holderName": "Десислава Петрова Йорданова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

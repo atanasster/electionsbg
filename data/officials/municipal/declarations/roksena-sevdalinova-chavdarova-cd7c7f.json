@@ -43,7 +43,8 @@
         "holderName": "Валентин Звездалинов Чавдаров",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -61,7 +62,8 @@
         "holderName": "Роксена Севдалинова Чавдарова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -79,7 +81,8 @@
         "holderName": "Валентин Звездалинов Чавдаров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Роксена Звездалинова Чавдарова",
         "isSpouse": true,
         "legalBasis": "Банков кредит-6,04%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Роксена Звездалинова Чавдарова",
         "isSpouse": true,
         "legalBasis": "Банков кредит-18,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

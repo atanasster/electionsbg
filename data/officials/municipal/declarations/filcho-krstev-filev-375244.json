@@ -97,7 +97,8 @@
         "holderName": "Филчо Кръстев Филев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Наем, рента, по табл.12"
+        "fundsOrigin": "Наем, рента, по табл.12",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -115,7 +116,8 @@
         "holderName": "Анна Ангелова Филева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Заплати, по табл.12"
+        "fundsOrigin": "Заплати, по табл.12",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -133,7 +135,8 @@
         "holderName": "Филчо Кръстев Филев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Заплати, пенсии, спестявания, по табл.12"
+        "fundsOrigin": "Заплати, пенсии, спестявания, по табл.12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -151,7 +154,8 @@
         "holderName": "Филчо Кръстев Филев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "Спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -169,7 +173,8 @@
         "holderName": "Филчо Кръстев Филев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "Спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -187,7 +192,8 @@
         "holderName": "Анна Ангелова Филева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Заплати, спестявания, по табл.12"
+        "fundsOrigin": "Заплати, спестявания, по табл.12",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -205,7 +211,8 @@
         "holderName": "Анна Ангелова Филева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "Спестявания",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -223,7 +230,8 @@
         "holderName": "Филчо Кръстев Филев",
         "isSpouse": false,
         "legalBasis": "Предварителен договор - 2023г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -241,7 +249,8 @@
         "holderName": "Филчо Кръстев Филев",
         "isSpouse": false,
         "legalBasis": "Предварителен договор - 2023г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -259,7 +268,8 @@
         "holderName": "Анна Ангелова Филева",
         "isSpouse": true,
         "legalBasis": "Предварителен договор - 2023г.",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -277,7 +287,8 @@
         "holderName": "Филчо Кръстев Филев",
         "isSpouse": false,
         "legalBasis": "Договор за заем;  5,0 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -295,7 +306,8 @@
         "holderName": "Анна Ангелова Филева",
         "isSpouse": true,
         "legalBasis": "Договор за заем;  4,8 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -313,7 +325,8 @@
         "holderName": "Анна Ангелова Филева",
         "isSpouse": true,
         "legalBasis": "Договор; 0 % / 18,9 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -331,7 +344,8 @@
         "holderName": "Анна Ангелова Филева",
         "isSpouse": true,
         "legalBasis": "Договор; 0 % / 18,9 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

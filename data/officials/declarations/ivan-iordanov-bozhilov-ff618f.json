@@ -38,7 +38,8 @@
         "holderName": "Виолета Спасова Божилова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -56,7 +57,8 @@
         "holderName": "Иван Йорданов Божилов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "от продажба на имот"
+        "fundsOrigin": "от продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -74,7 +76,8 @@
         "holderName": "Виолета Спасова Божилова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -92,7 +95,8 @@
         "holderName": "Иван Йорданов Божилов",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -136,7 +140,8 @@
         "holderName": "Виолета Спасова Божилова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Кредит"
+        "fundsOrigin": "Кредит",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -154,7 +159,8 @@
         "holderName": "Иван Йорданов Божилов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "от продажба на имот"
+        "fundsOrigin": "от продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -172,7 +178,8 @@
         "holderName": "Иван Йорданов Божилов",
         "isSpouse": false,
         "legalBasis": "договорза заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -190,7 +197,8 @@
         "holderName": "Иван Йорданов Божилов",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -208,7 +216,8 @@
         "holderName": "Иван Йорданов Божилов",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -265,7 +274,8 @@
         "holderName": "Иван Йорданов Божилов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -283,7 +293,8 @@
         "holderName": "Виолета Спасова Божилова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -301,7 +312,8 @@
         "holderName": "Иван Йорданов Божилов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -358,7 +370,8 @@
         "holderName": "Виолета Спасова Божилова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -376,7 +389,8 @@
         "holderName": "Иван Йорданов Божилов",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Ваня Стефанова Зунева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -62,7 +63,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за паричен заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -197,7 +203,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -215,7 +222,8 @@
         "holderName": "Ваня Стефанова Зунева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -233,7 +241,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -251,7 +260,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -269,7 +279,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -287,7 +298,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -305,7 +317,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -323,7 +336,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "bank",
@@ -341,7 +355,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -359,7 +374,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за паричен заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -377,7 +393,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Ипотечен договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -395,7 +412,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -413,7 +431,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -476,7 +495,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "предварителен договор за покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -494,7 +514,8 @@
         "holderName": "Ваня Стефанова Зунева",
         "isSpouse": false,
         "legalBasis": "предварителен договор за покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -512,7 +533,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -530,7 +552,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -548,7 +571,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -566,7 +590,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "debt",
@@ -584,7 +609,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -602,7 +628,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -620,7 +647,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -657,7 +685,8 @@
         "holderName": "Ваня Стефанова Зунева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -675,7 +704,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -693,7 +723,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -711,7 +742,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -729,7 +761,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -747,7 +780,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -765,7 +799,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -783,7 +818,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -801,7 +837,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -819,7 +856,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -837,7 +875,8 @@
         "holderName": "Николай Пенчев Зунев",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

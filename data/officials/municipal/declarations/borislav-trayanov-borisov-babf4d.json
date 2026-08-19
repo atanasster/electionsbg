@@ -43,7 +43,8 @@
         "holderName": "ДОНКА ИВАНОВА БОРИСОВА",
         "isSpouse": true,
         "legalBasis": "делба",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Екопродукт ООД",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -79,7 +81,8 @@
         "holderName": "АУТО ХОБИ ЕООД",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "БОРИСЛАВ ТРАЯНОВ БОРИСОВ",
         "isSpouse": false,
         "legalBasis": "2",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "ДОНКА ИВАНОВА БОРИСОВА",
         "isSpouse": true,
         "legalBasis": "9",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

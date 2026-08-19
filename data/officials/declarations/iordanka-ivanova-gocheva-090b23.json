@@ -38,7 +38,8 @@
         "holderName": "Йорданка Иванова Гочева/Гочо Владов Гочев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба недвижим имот"
+        "fundsOrigin": "продажба недвижим имот",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Гочо Владов Гочев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба недвижим имот"
+        "fundsOrigin": "продажба недвижим имот",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -74,7 +76,8 @@
         "holderName": "Йорданка Иванова Гочева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на недвижим имот"
+        "fundsOrigin": "продажба на недвижим имот",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -92,7 +95,8 @@
         "holderName": "Йорданка Иванова Гочева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -173,7 +177,8 @@
         "holderName": "Гочо Владов Гочев/Йорданка Иванова Гочева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -191,7 +196,8 @@
         "holderName": "Гочо Владов Гочев/Йорданка Иванова Гочева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -209,7 +215,8 @@
         "holderName": "Гочо Владов Гочев/Йорданка Иванова Гочева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -227,7 +234,8 @@
         "holderName": "Йорданка Иванова Гочева",
         "isSpouse": false,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -245,7 +253,8 @@
         "holderName": "Гочо Владов Гочев",
         "isSpouse": true,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -263,7 +272,8 @@
         "holderName": "Йорданка Иванова Говеа",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -350,7 +360,8 @@
         "holderName": "Йорданка Иванова Гочева",
         "isSpouse": false,
         "legalBasis": "потребителски",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -368,7 +379,8 @@
         "holderName": "Гочо Владов Гочев",
         "isSpouse": true,
         "legalBasis": "потребителски",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -386,7 +398,8 @@
         "holderName": "Йорданка Иванова Гочева",
         "isSpouse": false,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -404,7 +417,8 @@
         "holderName": "Гочо Владов Гочев",
         "isSpouse": true,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -422,7 +436,8 @@
         "holderName": "Йорданка Иванова Гочева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Красимир Иванов Маринов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Женя Петрова Дюлгерова-Маринова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Женя Петрова Дюлгерова-Маринова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -186,7 +189,8 @@
         "holderName": "Красимир Иванов Маринов, Женя Петрова Дюлгерова-Маринова",
         "isSpouse": true,
         "legalBasis": "изплатен лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -204,7 +208,8 @@
         "holderName": "Красимир Иванов Маринов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -222,7 +227,8 @@
         "holderName": "Женя Петрова Дюлгерова-Маринова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -240,7 +246,8 @@
         "holderName": "Женя Петрова Дюлгерова-Маринова",
         "isSpouse": true,
         "legalBasis": "ипот.кредит-2.5% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -258,7 +265,8 @@
         "holderName": "Красимир Иванов Маринов",
         "isSpouse": false,
         "legalBasis": "потр.кредит-7% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -276,7 +284,8 @@
         "holderName": "Женя Петрова Дюлгерова-Маринова",
         "isSpouse": true,
         "legalBasis": "потр.кредит-12.49% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -326,7 +335,8 @@
         "holderName": "Красимир Иванов Маринов",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -344,7 +354,8 @@
         "holderName": "Женя Петрова Дюлгерова-Маринова",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -362,7 +373,8 @@
         "holderName": "Красимир Иванов Маринов",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -380,7 +392,8 @@
         "holderName": "Красимир Иванов Маринов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -398,7 +411,8 @@
         "holderName": "Женя Петрова Дюлгерва-Маринова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -416,7 +430,8 @@
         "holderName": "Красимир Иванов Маринов",
         "isSpouse": false,
         "legalBasis": "договор за лизинг за лек автомобил",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -434,7 +449,8 @@
         "holderName": "Женя Петрова Дюлгерва-Маринова",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -452,7 +468,8 @@
         "holderName": "Красимир Иванов Маринов",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -470,7 +487,8 @@
         "holderName": "Женя Петрова Дюлгерва-Маринова",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

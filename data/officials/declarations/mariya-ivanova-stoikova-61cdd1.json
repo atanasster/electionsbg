@@ -44,7 +44,8 @@
         "holderName": "Мария Иванова Стойкова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Мария Иванова Стойкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Мария Иванова Стойкова",
         "isSpouse": false,
         "legalBasis": "4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -143,7 +146,8 @@
         "holderName": "Мария Иванова Стойкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Заплати"
+        "fundsOrigin": "Заплати",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -161,7 +165,8 @@
         "holderName": "Мария Иванова Стойкова",
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

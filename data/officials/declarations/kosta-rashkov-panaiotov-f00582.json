@@ -68,7 +68,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -86,7 +87,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -104,7 +106,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -122,7 +125,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -140,7 +144,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -158,7 +163,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -176,7 +182,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -194,7 +201,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -212,7 +220,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -230,7 +239,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -248,7 +258,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -438,7 +449,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -456,7 +468,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -474,7 +487,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -492,7 +506,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -510,7 +525,8 @@
         "holderName": "Йордаянка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -528,7 +544,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -546,7 +563,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -564,7 +582,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -582,7 +601,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -600,7 +620,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -618,7 +639,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -636,7 +658,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ И ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -654,7 +677,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -672,7 +696,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба и заплата"
+        "fundsOrigin": "продажба и заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -690,7 +715,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -708,7 +734,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -726,7 +753,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -744,7 +772,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "доп.вноски",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -762,7 +791,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "доп.вноски",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -780,7 +810,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -798,7 +829,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": "аванс покупка на имот",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -816,7 +848,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -834,7 +867,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -852,7 +886,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -870,7 +905,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -888,7 +924,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -906,7 +943,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -924,7 +962,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -942,7 +981,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -960,7 +1000,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -1089,7 +1130,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1107,7 +1149,8 @@
         "holderName": "Йордаянка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1125,7 +1168,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1143,7 +1187,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1161,7 +1206,8 @@
         "holderName": "Йордаянка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1179,7 +1225,8 @@
         "holderName": "Йордаянка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1197,7 +1244,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1215,7 +1263,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1233,7 +1282,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1251,7 +1301,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1269,7 +1320,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1287,7 +1339,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1305,7 +1358,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ И ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -1323,7 +1377,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -1341,7 +1396,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1359,7 +1415,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1377,7 +1434,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1395,7 +1453,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -1413,7 +1472,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "доп.вноски",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -1431,7 +1491,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "доп.вноски",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -1449,7 +1510,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1467,7 +1529,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1485,7 +1548,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1503,7 +1567,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1521,7 +1586,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1539,7 +1605,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1557,7 +1624,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1575,7 +1643,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -1593,7 +1662,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -1611,7 +1681,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -1752,7 +1823,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1770,7 +1842,8 @@
         "holderName": "Йордаянка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1788,7 +1861,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1806,7 +1880,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1824,7 +1899,8 @@
         "holderName": "Йордаянка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1842,7 +1918,8 @@
         "holderName": "Йордаянка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1860,7 +1937,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1878,7 +1956,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1896,7 +1975,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1914,7 +1994,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1932,7 +2013,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1950,7 +2032,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1968,7 +2051,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ И ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -1986,7 +2070,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -2004,7 +2089,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2022,7 +2108,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "др.доходи"
+        "fundsOrigin": "др.доходи",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2040,7 +2127,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2058,7 +2146,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2076,7 +2165,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -2094,7 +2184,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "доп.вноски",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -2112,7 +2203,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "доп.вноски",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -2130,7 +2222,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "доп.вноски",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -2148,7 +2241,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2166,7 +2260,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2184,7 +2279,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2202,7 +2298,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2220,7 +2317,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2238,7 +2336,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2256,7 +2355,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2274,7 +2374,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2292,7 +2393,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2310,7 +2412,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -2328,7 +2431,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -2346,7 +2450,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -2432,7 +2537,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2450,7 +2556,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2468,7 +2575,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2486,7 +2594,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2504,7 +2613,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -2522,7 +2632,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -2540,7 +2651,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -2558,7 +2670,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -2576,7 +2689,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -2594,7 +2708,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -2612,7 +2727,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ И ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -2630,7 +2746,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -2648,7 +2765,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2666,7 +2784,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2684,7 +2803,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2702,7 +2822,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2720,7 +2841,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -2738,7 +2860,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -2756,7 +2879,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -2774,7 +2898,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2792,7 +2917,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2810,7 +2936,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": "Договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -2828,7 +2955,8 @@
         "holderName": "Коста Рашков Панайотов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -2846,7 +2974,8 @@
         "holderName": "Йорданка Димитрова Панайотова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -2969,7 +3098,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ И ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": "ДОГОВОР",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -2987,7 +3117,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -3005,7 +3136,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -3023,7 +3155,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -3041,7 +3174,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "остатък от кредит"
+        "fundsOrigin": "остатък от кредит",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -3059,7 +3193,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -3077,7 +3212,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -3095,7 +3231,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА КОЙЧЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "други доходи"
+        "fundsOrigin": "други доходи",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -3113,7 +3250,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -3131,7 +3269,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -3149,7 +3288,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -3167,7 +3307,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -3185,7 +3326,8 @@
         "holderName": "КОСТА РАШКОВ ПАНАЙОТОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -3203,7 +3345,8 @@
         "holderName": "ЙОРДАНКА ДИМИТРОВА ПАНАЙОТОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []

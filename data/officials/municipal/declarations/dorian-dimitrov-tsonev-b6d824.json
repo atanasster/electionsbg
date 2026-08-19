@@ -37,7 +37,8 @@
         "holderName": "Дориан Димитров Цонев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -55,7 +56,8 @@
         "holderName": "Златка Ангелова Урумова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -73,7 +75,8 @@
         "holderName": "Дориан Димитров Цонев",
         "isSpouse": false,
         "legalBasis": "Кредит-5.85% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -91,7 +94,8 @@
         "holderName": "Златка Ангелова Урумова",
         "isSpouse": true,
         "legalBasis": "Кредит-3.34% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

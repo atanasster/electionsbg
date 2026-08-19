@@ -22,6 +22,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import type { MpAsset } from "../../src/data/dataTypes";
 import { BGN_PER_EUR } from "../../src/lib/currency";
+import { isDeclaredHolding } from "../../src/lib/declarations";
 import { perSqmAnchor } from "./parse_declaration";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -124,6 +125,14 @@ const scanDeclaration = (
     const bgn = asset.valueEur == null ? null : asset.valueEur * BGN_PER_EUR;
     if (bgn == null || bgn <= 0) continue;
 
+    // A чуждо row (table 1.2 / 3.4) is priced „Цена по договор" — what the USE costs —
+    // and 1.2's area column is headed „Площ /декара/" while table 1's is „кв.м.", which
+    // most declarants ignore. Both thresholds below are calibrated for an ACQUISITION
+    // price against square metres, so a flag on one of these rows is very likely a false
+    // positive. Say so in the report rather than suppressing it: a reviewer who "corrects"
+    // a contract price as if it were a purchase price writes a wrong value into the
+    // override table, and that override is the one thing here that mutates the corpus.
+    const usedNotOwned = !isDeclaredHolding(asset);
     const flagOne = (reason: string, rowSummary: string) => {
       flags.push({
         scope,
@@ -131,7 +140,9 @@ const scanDeclaration = (
         sourceUrl: decl.sourceUrl,
         declarationYear: decl.declarationYear,
         category: asset.category,
-        reason,
+        reason: usedNotOwned
+          ? `${reason} — ⚠ ЧУЖДО (table ${asset.tableNum}), contract price, not a holding`
+          : reason,
         rowSummary,
         bgn,
       });

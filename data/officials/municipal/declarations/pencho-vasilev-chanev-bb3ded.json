@@ -98,7 +98,8 @@
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -116,7 +117,8 @@
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -134,7 +136,8 @@
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -152,7 +155,8 @@
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
         "legalBasis": "Наем/аренда земеделска земя",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -170,7 +174,8 @@
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит-3,4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -188,7 +193,8 @@
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит-4,49%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

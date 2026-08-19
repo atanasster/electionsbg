@@ -56,7 +56,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -74,7 +75,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -92,7 +94,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -128,7 +132,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -146,7 +151,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "ипотека с 2.7% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -182,7 +189,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "потребителски кредит с 4.7% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -200,7 +208,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "финансов лиизнг  с 3.95% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -218,7 +227,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "с лихва 0.042/ден за ден за плащане на стоки и услуги и\n0.05% на ден за суми изтеглени в брой",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -280,7 +290,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -298,7 +309,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -316,7 +328,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -334,7 +347,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "Ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -352,7 +366,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -370,7 +385,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "Финансов лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -407,7 +423,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -425,7 +442,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -443,7 +461,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -461,7 +480,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата,кредит"
+        "fundsOrigin": "заплата,кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -479,7 +499,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата,кредит"
+        "fundsOrigin": "заплата,кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -497,7 +518,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата,кредит"
+        "fundsOrigin": "заплата,кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -515,7 +537,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата,кредит"
+        "fundsOrigin": "заплата,кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -533,7 +556,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -551,7 +575,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -569,7 +594,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -587,7 +613,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати,наеми"
+        "fundsOrigin": "заплати,наеми",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -605,7 +632,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати,пенсия"
+        "fundsOrigin": "заплати,пенсия",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -623,7 +651,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -641,7 +670,8 @@
         "holderName": "Димитър Михайлов Милов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия"
+        "fundsOrigin": "пенсия",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -659,7 +689,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "Ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -677,7 +708,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -695,7 +727,8 @@
         "holderName": "Румяна Маринова Милова",
         "isSpouse": false,
         "legalBasis": "Финансов лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

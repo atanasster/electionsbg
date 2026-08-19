@@ -38,7 +38,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -56,7 +57,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -74,7 +76,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -92,7 +95,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -110,7 +114,8 @@
         "holderName": "Александър Радославов Ввелев",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -128,7 +133,8 @@
         "holderName": "Александър Радославов Ввелев",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -146,7 +152,8 @@
         "holderName": "Александър Радославов Ввелев",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -209,7 +216,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -227,7 +235,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -245,7 +254,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми и заплата"
+        "fundsOrigin": "заеми и заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -263,7 +273,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -281,7 +292,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -299,7 +311,8 @@
         "holderName": "Александър Радославов Велев",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

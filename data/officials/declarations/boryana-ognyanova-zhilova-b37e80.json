@@ -87,7 +87,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "приходи от продажба на имоти, наследство"
+        "fundsOrigin": "приходи от продажба на имоти, наследство",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -105,7 +106,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наем, прифходи от продажба на наследствен имот"
+        "fundsOrigin": "заплата, наем, прифходи от продажба на наследствен имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -123,7 +125,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доходи"
+        "fundsOrigin": "доходи",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -141,7 +144,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -159,7 +163,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит - 3.22 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -177,7 +182,8 @@
         "holderName": "София 383 ЕООД",
         "isSpouse": true,
         "legalBasis": "договор за лизинг - 3.11 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -195,7 +201,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта - 12%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -213,7 +220,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "масова приватизация"
+        "fundsOrigin": "масова приватизация",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -231,7 +239,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "масова приватизация"
+        "fundsOrigin": "масова приватизация",
+        "tableNum": "9"
       }
     ],
     "events": [
@@ -294,7 +303,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "неприложимо"
+        "fundsOrigin": "неприложимо",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -312,7 +322,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "заплата, доходи"
+        "fundsOrigin": "заплата, доходи",
+        "tableNum": "1.2"
       },
       {
         "category": "cash",
@@ -330,7 +341,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "приходи от продажба от имоти, наследство"
+        "fundsOrigin": "приходи от продажба от имоти, наследство",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -348,7 +360,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наем"
+        "fundsOrigin": "заплата, наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -366,7 +379,8 @@
         "holderName": "Асен рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доходи"
+        "fundsOrigin": "доходи",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -384,7 +398,8 @@
         "holderName": "Боряна Огнянова Жилов, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -402,7 +417,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договоро за ипотечен кредит - 3.22 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -420,7 +436,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -438,7 +455,8 @@
         "holderName": "София 383 ЕООД",
         "isSpouse": true,
         "legalBasis": "договор за лизинг - 4.32 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -456,7 +474,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта - 12%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -506,7 +525,8 @@
         "holderName": "Асен Рангелов Жилов, Боряна Огнянова Жилова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -524,7 +544,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "приходи от продажба на имоти, наследство"
+        "fundsOrigin": "приходи от продажба на имоти, наследство",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -542,7 +563,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наем"
+        "fundsOrigin": "заплата, наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -560,7 +582,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доходи търговска дейност"
+        "fundsOrigin": "доходи търговска дейност",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -578,7 +601,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -596,7 +620,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "догово за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -614,7 +639,8 @@
         "holderName": "София 383 ЕООД",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -632,7 +658,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -650,7 +677,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -668,7 +696,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -718,7 +747,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -736,7 +766,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -754,7 +785,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -772,7 +804,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -790,7 +823,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -808,7 +842,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -826,7 +861,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "приходи от продажба на имоти, наследство"
+        "fundsOrigin": "приходи от продажба на имоти, наследство",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -844,7 +880,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наем"
+        "fundsOrigin": "заплата, наем",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -862,7 +899,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -880,7 +918,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -898,7 +937,8 @@
         "holderName": "София 383 ООД",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -916,7 +956,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -1015,7 +1056,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1033,7 +1075,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1051,7 +1094,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1069,7 +1113,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1087,7 +1132,8 @@
         "holderName": "Асен Рангелов Жилов, Боряна Огнянова Жилова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -1105,7 +1151,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот, приходи от търговска дейност"
+        "fundsOrigin": "продажба на имот, приходи от търговска дейност",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1123,7 +1170,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наем"
+        "fundsOrigin": "заплата, наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1141,7 +1189,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "приходи от търговска дейност"
+        "fundsOrigin": "приходи от търговска дейност",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -1159,7 +1208,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов,",
         "isSpouse": true,
         "legalBasis": "договор за наем СИО",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -1177,7 +1227,8 @@
         "holderName": "Боряна Огнянова Жилов, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1195,7 +1246,8 @@
         "holderName": "Боряна Огнянова Жилов, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1213,7 +1265,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1231,7 +1284,8 @@
         "holderName": "София 383 ООД",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -1281,7 +1335,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата намевми"
+        "fundsOrigin": "заплата намевми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1299,7 +1354,8 @@
         "holderName": "Асен Рангелов Жилов, Боряна Огнянова Жилова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот приходи от търговска дейност"
+        "fundsOrigin": "продажба на имот приходи от търговска дейност",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -1317,7 +1373,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "Договор за наем СИО",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -1335,7 +1392,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1353,7 +1411,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1371,7 +1430,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1389,7 +1449,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1407,7 +1468,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": "договор за разпл. Сметка",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -1495,7 +1557,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наеми"
+        "fundsOrigin": "заплата, наеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1513,7 +1576,8 @@
         "holderName": "Асен Рангелов Жилова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "приходи от търговска дейност и от продажба на имот"
+        "fundsOrigin": "приходи от търговска дейност и от продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1531,7 +1595,8 @@
         "holderName": "Асен Рангелов Жилова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "приходи от търговска дейност"
+        "fundsOrigin": "приходи от търговска дейност",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -1549,7 +1614,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "Договор за наем на СИО",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -1567,7 +1633,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "Договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1585,7 +1652,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1603,7 +1671,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "Договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -1621,7 +1690,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДЗПО"
+        "fundsOrigin": "ДЗПО",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -1639,7 +1709,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ДЗПО"
+        "fundsOrigin": "ДЗПО",
+        "tableNum": "8"
       },
       {
         "category": "security",
@@ -1657,7 +1728,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1675,7 +1747,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": [
@@ -1757,7 +1830,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем от имот - СИО"
+        "fundsOrigin": "наем от имот - СИО",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1775,7 +1849,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -1793,7 +1868,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "Договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1811,7 +1887,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "Договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1829,7 +1906,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "Договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1847,7 +1925,8 @@
         "holderName": "Боряна Огнянова Жилова, Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -1865,7 +1944,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "търговска дейност"
+        "fundsOrigin": "търговска дейност",
+        "tableNum": "8"
       },
       {
         "category": "security",
@@ -1883,7 +1963,8 @@
         "holderName": "Боряна Огнянова Жилова",
         "isSpouse": false,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1901,7 +1982,8 @@
         "holderName": "Асен Рангелов Жилов",
         "isSpouse": true,
         "legalBasis": "масова приватизация",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": "6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -98,7 +101,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -135,7 +139,8 @@
         "holderName": "Софка Асенова Бурова - Илиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -153,7 +158,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -171,7 +177,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -215,7 +222,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -233,7 +241,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -301,7 +310,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -319,7 +329,8 @@
         "holderName": "Димитър Георгиев Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       }
     ],
     "events": []

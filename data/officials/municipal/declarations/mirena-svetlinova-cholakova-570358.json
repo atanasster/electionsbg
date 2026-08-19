@@ -43,7 +43,8 @@
         "holderName": "МИРЕНА СВЕТЛИНОВА МИТЕВА",
         "isSpouse": false,
         "legalBasis": "ПОКУПКО-ПРОДАЖБА",
-        "fundsOrigin": "Изпл.Каско, заплата и дарение"
+        "fundsOrigin": "Изпл.Каско, заплата и дарение",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "МИРЕНА СВЕТЛИНОВА МИТЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТИ"
+        "fundsOrigin": "ЗАПЛАТИ",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -79,7 +81,8 @@
         "holderName": "МИРЕНА СВЕТЛИНОВА ЧОЛАКОВА",
         "isSpouse": true,
         "legalBasis": "КРАЖБА НА АВТОМОБИЛ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": [

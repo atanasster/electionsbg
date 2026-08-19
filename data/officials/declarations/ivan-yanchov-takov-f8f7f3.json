@@ -75,7 +75,8 @@
         "holderName": "Иван Янчов Таков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -93,7 +94,8 @@
         "holderName": "Весела Спасова Такова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата и доходи от друга стопанска дейност",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -111,7 +113,8 @@
         "holderName": "Иван Янчов Таков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -129,7 +132,8 @@
         "holderName": "Весела Спасова Такова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и доходи от друга стопанска дейност"
+        "fundsOrigin": "заплата и доходи от друга стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -147,7 +151,8 @@
         "holderName": "Иван Янчов Таков",
         "isSpouse": false,
         "legalBasis": "Договор - 9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -165,7 +170,8 @@
         "holderName": "Иван Янчов Таков",
         "isSpouse": false,
         "legalBasis": "Договор - 17%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -183,7 +189,8 @@
         "holderName": "Иван Янчов Таков",
         "isSpouse": false,
         "legalBasis": "Договор - 17%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -201,7 +208,8 @@
         "holderName": "Иван Янчов Таков",
         "isSpouse": false,
         "legalBasis": "Договор - 17%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -219,7 +227,8 @@
         "holderName": "Весела Спасова Такова",
         "isSpouse": true,
         "legalBasis": "Договор - 17%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -237,7 +246,8 @@
         "holderName": "Весела Спасова Такова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -255,7 +265,8 @@
         "holderName": "Весела Спасова Такова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []

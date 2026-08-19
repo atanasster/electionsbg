@@ -56,7 +56,8 @@
         "holderName": "Лора Лукова Чотова-Христова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -74,7 +75,8 @@
         "holderName": "Лазар Валентинов Христов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -92,7 +94,8 @@
         "holderName": "Лазар Валентинов Христов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Лора Лукова Чотова-Христова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -128,7 +132,8 @@
         "holderName": "Лазар Валентинов Христов, Лора Лукова Чотова-Христова",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -146,7 +151,8 @@
         "holderName": "Лазар Валентинов Христов, Лора Лукова Чотова-Христова",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

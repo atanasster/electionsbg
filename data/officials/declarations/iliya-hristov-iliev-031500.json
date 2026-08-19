@@ -31,7 +31,8 @@
         "holderName": "Илия Христов Илиев, Мария Иванова Илиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Илия Христов Илиев, Мария Иванова Илиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -67,7 +69,8 @@
         "holderName": "Илия Христов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -85,7 +88,8 @@
         "holderName": "Илия Христов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -103,7 +107,8 @@
         "holderName": "Илия Христов Илиев, Мария Иванова Илиева",
         "isSpouse": true,
         "legalBasis": "HL99851 - 2.83%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -121,7 +126,8 @@
         "holderName": "Илия Христов Илиев",
         "isSpouse": false,
         "legalBasis": "FL977826 - 4.59%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -171,7 +177,8 @@
         "holderName": "Илия Христов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -189,7 +196,8 @@
         "holderName": "Илия Христов Илиев",
         "isSpouse": false,
         "legalBasis": "HL99851",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -207,7 +215,8 @@
         "holderName": "Илия Христов Илиев",
         "isSpouse": false,
         "legalBasis": "FL977826",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

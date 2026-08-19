@@ -44,7 +44,8 @@
         "holderName": "Александра Благова Михова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "Александра Благова Михова",
         "isSpouse": false,
         "legalBasis": "3 %, договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -112,7 +114,8 @@
         "holderName": "Александра Благова Михова",
         "isSpouse": false,
         "legalBasis": "Договор за ипотечен кредит с 3 договорен лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -130,7 +133,8 @@
         "holderName": "Иван Малинов Михов",
         "isSpouse": true,
         "legalBasis": "банков кредит с 15,75 договорен лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -148,7 +152,8 @@
         "holderName": "Александра Благова Михова",
         "isSpouse": false,
         "legalBasis": "заем с 2 договорен лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

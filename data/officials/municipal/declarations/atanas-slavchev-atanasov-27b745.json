@@ -55,7 +55,8 @@
         "holderName": "Ирина Желева Тодорова - Атанасова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -73,7 +74,8 @@
         "holderName": "Ирина Желева Тодорова - Атанасова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -91,7 +93,8 @@
         "holderName": "Ирина Желева Тодорова - Атанасова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "средства от кредит"
+        "fundsOrigin": "средства от кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -109,7 +112,8 @@
         "holderName": "Атанас Славчев Атанасов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "средства от кредит"
+        "fundsOrigin": "средства от кредит",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -127,7 +131,8 @@
         "holderName": "Атанас Славчев Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "кредит и заплата"
+        "fundsOrigin": "кредит и заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -145,7 +150,8 @@
         "holderName": "Атанас Славчев Атанасов",
         "isSpouse": false,
         "legalBasis": "договор 2,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

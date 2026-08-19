@@ -63,7 +63,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "възнаграждения от трудови правоотношения, включително и от предходни години"
+        "fundsOrigin": "възнаграждения от трудови правоотношения, включително и от предходни години",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -81,7 +82,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарение и възнаграждения, включително от предходни години и приходи от наеми"
+        "fundsOrigin": "дарение и възнаграждения, включително от предходни години и приходи от наеми",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -99,7 +101,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години"
+        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -117,7 +120,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години"
+        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -135,7 +139,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -153,7 +158,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -171,7 +177,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми и трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "наеми и трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -189,7 +196,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -207,7 +215,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор с лихвен процент от 15.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -270,7 +279,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "трудови доходи и наеми, декларирани в предходни декларации"
+        "fundsOrigin": "трудови доходи и наеми, декларирани в предходни декларации",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -288,7 +298,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години"
+        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -306,7 +317,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години"
+        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -324,7 +336,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -342,7 +355,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -360,7 +374,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми, включително и декларирани в предходни декларации"
+        "fundsOrigin": "наеми, включително и декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -378,7 +393,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -396,7 +412,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -414,7 +431,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -432,7 +450,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -450,7 +469,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор с лихвен процент от 15.60 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -500,7 +520,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години"
+        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -518,7 +539,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години"
+        "fundsOrigin": "трудови доходи, включително и декларирани в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -536,7 +558,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -554,7 +577,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -572,7 +596,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -590,7 +615,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -608,7 +634,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -626,7 +653,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -644,7 +672,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарения по права линия, декларирани в предходна декларация"
+        "fundsOrigin": "дарения по права линия, декларирани в предходна декларация",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -662,7 +691,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -680,7 +710,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми, включително и декларирани в предходни декларации"
+        "fundsOrigin": "наеми, включително и декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -698,7 +729,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -716,7 +748,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор с лихвен процент от 15.60%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -766,7 +799,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "трудови възнаграждения, декларирани и в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, декларирани и в предходни декларации",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -784,7 +818,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително декларирани и в предходни години"
+        "fundsOrigin": "трудови доходи, включително декларирани и в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -802,7 +837,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително декларирани и в предходни години"
+        "fundsOrigin": "трудови доходи, включително декларирани и в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -820,7 +856,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми, включително декларирани и в предходни декларации"
+        "fundsOrigin": "наеми, включително декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -838,7 +875,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -856,7 +894,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -874,7 +913,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -892,7 +932,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на МПС, декларирана и в предходни декларации"
+        "fundsOrigin": "продажба на МПС, декларирана и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -910,7 +951,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -928,7 +970,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -946,7 +989,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -964,7 +1008,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -982,7 +1027,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1000,7 +1046,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1018,7 +1065,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1036,7 +1084,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1054,7 +1103,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарение, декларирани и в предходна деклерация"
+        "fundsOrigin": "дарение, декларирани и в предходна деклерация",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1072,7 +1122,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарение по права линия, декларирани и в предходна декларация"
+        "fundsOrigin": "дарение по права линия, декларирани и в предходна декларация",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1090,7 +1141,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения"
+        "fundsOrigin": "трудови възнаграждения",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1108,7 +1160,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -1158,7 +1211,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "трудови доходи"
+        "fundsOrigin": "трудови доходи",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -1176,7 +1230,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително декларирани и в предходни години"
+        "fundsOrigin": "трудови доходи, включително декларирани и в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1194,7 +1249,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи, включително декларирани и в предходни години"
+        "fundsOrigin": "трудови доходи, включително декларирани и в предходни години",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1212,7 +1268,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми, включително декларирани и в предходни декларации"
+        "fundsOrigin": "наеми, включително декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1230,7 +1287,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1248,7 +1306,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1266,7 +1325,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1284,7 +1344,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на МПС, декларирана и в предходни декларации"
+        "fundsOrigin": "продажба на МПС, декларирана и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1302,7 +1363,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1320,7 +1382,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1338,7 +1401,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1356,7 +1420,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1374,7 +1439,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1392,7 +1458,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1410,7 +1477,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1428,7 +1496,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации"
+        "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1446,7 +1515,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарение, декларирани и в предходна деклерация"
+        "fundsOrigin": "дарение, декларирани и в предходна деклерация",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1464,7 +1534,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарение по права линия, декларирани и в предходна декларация"
+        "fundsOrigin": "дарение по права линия, декларирани и в предходна декларация",
+        "tableNum": "5"
       },
       {
         "category": "credit_limit",
@@ -1482,7 +1553,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -1538,7 +1610,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и от предходни години, декларирани"
+        "fundsOrigin": "заплата и от предходни години, декларирани",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1556,7 +1629,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и от предходни години, декларирани"
+        "fundsOrigin": "заплата и от предходни години, декларирани",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1574,7 +1648,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми от предходни години, декларирани в предходни декларации"
+        "fundsOrigin": "наеми от предходни години, декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1592,7 +1667,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "възнаграждения (обезщетения), декларирани в предходни декларации"
+        "fundsOrigin": "възнаграждения (обезщетения), декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1610,7 +1686,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от възнаграждения (заплата), декларирани в предходни декларации"
+        "fundsOrigin": "спестявания от възнаграждения (заплата), декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1628,7 +1705,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на недвижим имот от предходни години"
+        "fundsOrigin": "продажба на недвижим имот от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1646,7 +1724,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на МПС от предходни години"
+        "fundsOrigin": "продажба на МПС от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1664,7 +1743,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и от предходни години, декларирани в предходни декларации"
+        "fundsOrigin": "заплати и от предходни години, декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1682,7 +1762,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от заплати, декларирани в предходни декларации"
+        "fundsOrigin": "спестявания от заплати, декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1700,7 +1781,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и спестявания от предходни години, декларирани"
+        "fundsOrigin": "заплати и спестявания от предходни години, декларирани",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1718,7 +1800,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания от предходни години, декларирани в предходни декларации"
+        "fundsOrigin": "заплата и спестявания от предходни години, декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1736,7 +1819,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от трудови доходи от предходни години, декларирани"
+        "fundsOrigin": "спестявания от трудови доходи от предходни години, декларирани",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1754,7 +1838,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания от трудови възнаграждения, декларирани в предходни декларации"
+        "fundsOrigin": "заплата и спестявания от трудови възнаграждения, декларирани в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1772,7 +1857,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи и от предходни години"
+        "fundsOrigin": "трудови доходи и от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1790,7 +1876,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от трудови възнаграждения, декларирани  ив предходни декларации"
+        "fundsOrigin": "спестявания от трудови възнаграждения, декларирани  ив предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -1808,7 +1895,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -1826,7 +1914,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1844,7 +1933,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -1900,7 +1990,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -1918,7 +2009,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1936,7 +2028,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наеми от предходни години"
+        "fundsOrigin": "наеми от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1954,7 +2047,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "възнаграждения"
+        "fundsOrigin": "възнаграждения",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1972,7 +2066,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от възнаграждения"
+        "fundsOrigin": "спестявания от възнаграждения",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1990,7 +2085,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на недвижим имот от предходни години"
+        "fundsOrigin": "продажба на недвижим имот от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2008,7 +2104,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на МПС от предходни години"
+        "fundsOrigin": "продажба на МПС от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2026,7 +2123,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и от предходни годинир декларирана в предходна декларация"
+        "fundsOrigin": "заплата и от предходни годинир декларирана в предходна декларация",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2044,7 +2142,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от заплати"
+        "fundsOrigin": "спестявания от заплати",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2062,7 +2161,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и спестявания от предходни години"
+        "fundsOrigin": "заплати и спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2080,7 +2180,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и спестявания от предходни години"
+        "fundsOrigin": "заплати и спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2098,7 +2199,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от предходни години"
+        "fundsOrigin": "спестявания от предходни години",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2116,7 +2218,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и спестявания от възнаграждения"
+        "fundsOrigin": "заплати и спестявания от възнаграждения",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -2134,7 +2237,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -2152,7 +2256,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2170,7 +2275,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -2207,7 +2313,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2225,7 +2332,8 @@
         "holderName": "Георгица Петрова Стоянова и Владимир Асенов Малинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2243,7 +2351,8 @@
         "holderName": "Георгица Петрова Стоянова Владимир Асенов Малинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -2261,7 +2370,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2279,7 +2389,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2297,7 +2408,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2315,7 +2427,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2333,7 +2446,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2351,7 +2465,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2369,7 +2484,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2387,7 +2503,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2405,7 +2522,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2423,7 +2541,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2441,7 +2560,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -2459,7 +2579,8 @@
         "holderName": "Владимир Асенов Малинов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -2477,7 +2598,8 @@
         "holderName": "Георгица Петрова Стоянова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

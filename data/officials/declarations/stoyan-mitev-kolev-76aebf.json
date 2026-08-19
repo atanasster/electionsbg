@@ -38,7 +38,8 @@
         "holderName": "Стоян Митев Колев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба"
+        "fundsOrigin": "продажба",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -56,7 +57,8 @@
         "holderName": "Желка Димова Колева",
         "isSpouse": true,
         "legalBasis": "2.5 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -113,7 +115,8 @@
         "holderName": "Стоян Митев Колев и Желка Димова Колева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -131,7 +134,8 @@
         "holderName": "Стоян Митев Колев и Желка Димова Колева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -149,7 +153,8 @@
         "holderName": "Стоян Митев Колев/Желка Димова Колева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -167,7 +172,8 @@
         "holderName": "Стоян Митев Колев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -185,7 +191,8 @@
         "holderName": "Желка Димова Колева",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -242,7 +249,8 @@
         "holderName": "Стоян Митев Колев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []

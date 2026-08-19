@@ -44,7 +44,8 @@
         "holderName": "Лейля Местан Юсеин",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Лейля Местан Юсеин",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Лейля Местан Юсеин",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Заем и заплата"
+        "fundsOrigin": "Заем и заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Лейля Местан Юсеин",
         "isSpouse": false,
         "legalBasis": "договор -5.5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

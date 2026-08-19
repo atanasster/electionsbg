@@ -44,7 +44,8 @@
         "holderName": "Миглена Иванова Маркова - Господинова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Панайот Тянков Господинов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Миглена Иванова Маркова - Господинова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Панайот Тянков Господинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Миглена Иванова Маркова - Господинова",
         "isSpouse": false,
         "legalBasis": "потребителски, 0,00%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "Миглена Иванова Маркова - Господинова",
         "isSpouse": false,
         "legalBasis": "ипотечен, 2,44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "Панайот Тянков Господинов",
         "isSpouse": true,
         "legalBasis": "ипотечен, 2,44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -170,7 +177,8 @@
         "holderName": "Миглена Иванова Маркова - Господинова",
         "isSpouse": false,
         "legalBasis": "ипотечен, 2,26%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -188,7 +196,8 @@
         "holderName": "Панайот Тянков Господинов",
         "isSpouse": true,
         "legalBasis": "ипотечен, 2,26%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -263,7 +272,8 @@
         "holderName": "Миглена Иванова Маркова - Господинова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -281,7 +291,8 @@
         "holderName": "Панайот Тянков Господинов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -299,7 +310,8 @@
         "holderName": "Миглена Иванова Маркова - Господинова",
         "isSpouse": false,
         "legalBasis": "потребителски, 0,0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -317,7 +329,8 @@
         "holderName": "Миглена Иванова Маркова - Господинова",
         "isSpouse": false,
         "legalBasis": "ипотечен, 2,44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -335,7 +348,8 @@
         "holderName": "Панайот Тянков Господинов",
         "isSpouse": true,
         "legalBasis": "ипотечен, 2,44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -379,7 +393,8 @@
         "holderName": "Миглена Иванова Маркова-Господинова",
         "isSpouse": false,
         "legalBasis": "договор за покупко-продажба",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -397,7 +412,8 @@
         "holderName": "Панайот Тянков Господинов",
         "isSpouse": true,
         "legalBasis": "договор за покупко-продажба",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -415,7 +431,8 @@
         "holderName": "Миглена Иванова Маркова-Господинова",
         "isSpouse": false,
         "legalBasis": "потрбителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -433,7 +450,8 @@
         "holderName": "Миглена Иванова Маркова-Господинова",
         "isSpouse": false,
         "legalBasis": "потрбителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

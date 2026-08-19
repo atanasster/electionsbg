@@ -38,7 +38,8 @@
         "holderName": "Мария Петрова Мирова-Гюзелева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -56,7 +57,8 @@
         "holderName": "Спас Атанасов Гюзелев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -74,7 +76,8 @@
         "holderName": "Мария Петрова Миирова-Гюзелева",
         "isSpouse": true,
         "legalBasis": "5.65%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -92,7 +95,8 @@
         "holderName": "Спас Атанасов Гюзелев",
         "isSpouse": true,
         "legalBasis": "6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -179,7 +183,8 @@
         "holderName": "Мария Петрова Мирова-Гюзелева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -197,7 +202,8 @@
         "holderName": "Мария Петрова Мирова-Гюзелева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -215,7 +221,8 @@
         "holderName": "Мария Петрова Мирова-Гюзелева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -233,7 +240,8 @@
         "holderName": "Спас Атанасов Гюзелев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -251,7 +259,8 @@
         "holderName": "Спас Атанасов Гюзелев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -269,7 +278,8 @@
         "holderName": "Спас Атанасов Гюзелев",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -287,7 +297,8 @@
         "holderName": "Мария Петрова Мирова-Гюзелева",
         "isSpouse": false,
         "legalBasis": "Потребителски заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -305,7 +316,8 @@
         "holderName": "Спас Атанасов Гюзелев",
         "isSpouse": true,
         "legalBasis": "Потребителски заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

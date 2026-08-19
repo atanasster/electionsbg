@@ -62,7 +62,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -80,7 +81,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -98,7 +100,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -116,7 +119,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +138,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -152,7 +157,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -170,7 +176,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -188,7 +195,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -206,7 +214,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": "кредит 2,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -224,7 +233,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "съдлъжник по кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -242,7 +252,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "кредит 4,45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -260,7 +271,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "лизинг 3,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -278,7 +290,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "кредитна карта 18,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -296,7 +309,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -358,7 +372,8 @@
         "holderName": "Иван Николаев Пейчинов и Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит и продажба НИ"
+        "fundsOrigin": "кредит и продажба НИ",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -376,7 +391,8 @@
         "holderName": "Иван Николаев Пейчинов и Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -394,7 +410,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -412,7 +429,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -430,7 +448,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -448,7 +467,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заем"
+        "fundsOrigin": "заем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -466,7 +486,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -484,7 +505,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -502,7 +524,8 @@
         "holderName": "Николай Иванов Пейчинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "превод от Иван Пейчинов"
+        "fundsOrigin": "превод от Иван Пейчинов",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -520,7 +543,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -538,7 +562,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": "кредит 2,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -556,7 +581,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "съдлъжник по кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -574,7 +600,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "кредит 4,45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -592,7 +619,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "лизинг 3,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -610,7 +638,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "кредитна карта 18,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -628,7 +657,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -646,7 +676,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -714,7 +745,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -732,7 +764,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -750,7 +783,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -768,7 +802,8 @@
         "holderName": "Николай Иванов Пейчинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "стипендия"
+        "fundsOrigin": "стипендия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -786,7 +821,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба имот и наследство"
+        "fundsOrigin": "продажба имот и наследство",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -804,7 +840,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -822,7 +859,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -840,7 +878,8 @@
         "holderName": "Елеонора Матеева Пейчинова и Иван Николаев Пейчинов",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -858,7 +897,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -876,7 +916,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": [
@@ -963,7 +1004,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -981,7 +1023,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -999,7 +1042,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1017,7 +1061,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1035,7 +1080,8 @@
         "holderName": "Николай Иванов Пейчинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "стипендия"
+        "fundsOrigin": "стипендия",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1053,7 +1099,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1071,7 +1118,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1089,7 +1137,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1107,7 +1156,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -1125,7 +1175,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1143,7 +1194,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1161,7 +1213,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -1216,7 +1269,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1234,7 +1288,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1252,7 +1307,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1270,7 +1326,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1288,7 +1345,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1306,7 +1364,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1324,7 +1383,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -1342,7 +1402,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -1360,7 +1421,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1378,7 +1440,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1396,7 +1459,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1414,7 +1478,8 @@
         "holderName": "Николай Иванов Пейчинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1432,7 +1497,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1450,7 +1516,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1468,7 +1535,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1486,7 +1554,8 @@
         "holderName": "Елеонора Матеева Пейчинова",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -1504,7 +1573,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1522,7 +1592,8 @@
         "holderName": "Иван Николаев Пейчинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       }
     ],
     "events": []

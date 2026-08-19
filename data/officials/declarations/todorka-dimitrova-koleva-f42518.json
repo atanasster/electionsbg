@@ -129,7 +129,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наем, наследени средства"
+        "fundsOrigin": "заплата, наем, наследени средства",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -147,7 +148,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -165,7 +167,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -183,7 +186,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -318,7 +322,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наем, дивидент"
+        "fundsOrigin": "заплата, наем, дивидент",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -336,7 +341,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -354,7 +360,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -372,7 +379,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -490,7 +498,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дивидент, наем"
+        "fundsOrigin": "заплата, дивидент, наем",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -508,7 +517,8 @@
         "holderName": "Тодорка Димитрова Колева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -526,7 +536,8 @@
         "holderName": "НТодорка Димитрова Колева",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

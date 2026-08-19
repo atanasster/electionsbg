@@ -37,7 +37,8 @@
         "holderName": "Ашкън Ружди Салим",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -55,7 +56,8 @@
         "holderName": "Несрин Ахмед Салим",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -73,7 +75,8 @@
         "holderName": "Ашкън Ружди Салим",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -91,7 +94,8 @@
         "holderName": "Несрин Ахмед Салим",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -109,7 +113,8 @@
         "holderName": "Ашкън Ружди Салим",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -127,7 +132,8 @@
         "holderName": "Несрин Ахмед Салим",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -145,7 +151,8 @@
         "holderName": "Ашкън Ружди Салим",
         "isSpouse": false,
         "legalBasis": "Договор - променлива лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -163,7 +170,8 @@
         "holderName": "Ашкън Ружди Салим",
         "isSpouse": false,
         "legalBasis": "Договор - 3,87%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -181,7 +189,8 @@
         "holderName": "Несрин Ахмед Салим",
         "isSpouse": true,
         "legalBasis": "Договор - 2,61 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -199,7 +208,8 @@
         "holderName": "Незиха Акиф Юмер",
         "isSpouse": true,
         "legalBasis": "Договор - 2,61% - съкредитор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -217,7 +227,8 @@
         "holderName": "Несрин Ахмед Салим",
         "isSpouse": true,
         "legalBasis": "Договор - 3,87% - съкредитор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

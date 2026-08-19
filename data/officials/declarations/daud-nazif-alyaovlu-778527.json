@@ -99,7 +99,8 @@
         "holderName": "ДАУД НАЗИФ АЛЯОВЛУ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -117,7 +118,8 @@
         "holderName": "ЮМГЮЛСЮН АЛИ АЛЯОВЛУ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "дивиденти",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -135,7 +137,8 @@
         "holderName": "ДАУД НЯЗИФ АЛЯОВЛУ",
         "isSpouse": true,
         "legalBasis": "ЗАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -153,7 +156,8 @@
         "holderName": "ЮМГЮЛСЮН АЛИ АЛЯОВЛУ",
         "isSpouse": true,
         "legalBasis": "ЗАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -319,7 +323,8 @@
         "holderName": "Юмгюлсюн Али Аляовлу",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -509,7 +514,8 @@
         "holderName": "Дауд Назиф Аляовлу",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -527,7 +533,8 @@
         "holderName": "Дауд Назиф Аляовлу",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -545,7 +552,8 @@
         "holderName": "Юмгюлсюн Али Аляовлу",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -899,7 +907,8 @@
         "holderName": "ЮМГЮЛСЮН АЛИ АЛЯОВЛУ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -917,7 +926,8 @@
         "holderName": "ДАУД НАЗИФ АЛЯОВЛУ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -935,7 +945,8 @@
         "holderName": "ДАУД НАЗИФ АЛЯОВЛУ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -953,7 +964,8 @@
         "holderName": "ЮМГЮЛСЮН АЛИ АЛЯОВЛУ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ДИВИДЕНТИ"
+        "fundsOrigin": "ДИВИДЕНТИ",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -971,7 +983,8 @@
         "holderName": "ДАУД НАЗИФ АЛЯОВЛУ",
         "isSpouse": false,
         "legalBasis": "ЗАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -989,7 +1002,8 @@
         "holderName": "ЮМГЮЛСЮН АЛИ АЛЯОВЛУ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1007,7 +1021,8 @@
         "holderName": "ЮМГЮЛСЮН АЛИ АЛЯОВЛУ",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "БЕЗПЛАТНИ АКЦИИ УВЕЛИЧЕН КАПИТАЛ"
+        "fundsOrigin": "БЕЗПЛАТНИ АКЦИИ УВЕЛИЧЕН КАПИТАЛ",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1025,7 +1040,8 @@
         "holderName": "ЮМГЮЛСЮН АЛИ АЛЯОВЛУ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": [

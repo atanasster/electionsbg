@@ -55,7 +55,8 @@
         "holderName": "Любка Великова Великова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и дивидент"
+        "fundsOrigin": "заплата и дивидент",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -73,7 +74,8 @@
         "holderName": "Драгомир Събев Йосифов",
         "isSpouse": false,
         "legalBasis": "Договор за продажба на МПС",
-        "fundsOrigin": "заплати, дивидент"
+        "fundsOrigin": "заплати, дивидент",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -91,7 +93,8 @@
         "holderName": "Драгомир Събев Йосифов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, дивидент"
+        "fundsOrigin": "заплати, дивидент",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -109,7 +112,8 @@
         "holderName": "Любка Великова Великова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дивидент"
+        "fundsOrigin": "заплата, дивидент",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -127,7 +131,8 @@
         "holderName": "Любка Великова Великова",
         "isSpouse": true,
         "legalBasis": "договор за кредит-2,35%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -145,7 +150,8 @@
         "holderName": "Драгомир Събев Йосифов",
         "isSpouse": false,
         "legalBasis": "договор за кредит-2,50%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -163,7 +169,8 @@
         "holderName": "Драгомир Събев йосифов",
         "isSpouse": false,
         "legalBasis": "договор за лизинг-2,49%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

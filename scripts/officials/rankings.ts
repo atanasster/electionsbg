@@ -22,6 +22,7 @@ import type {
 import {
   assetWeightedEur,
   byRecency,
+  isDeclaredHolding,
   latestAssetDeclaration,
   priorAssetDeclaration,
   withinAssetCeiling,
@@ -69,6 +70,11 @@ export const aggregateAssets = (
     // read, so leaving it uncapped keeps publishing the €3.58bn artifact from a second
     // source after the PG surfaces stopped. See ASSET_ROW_CEILING_EUR.
     if (!withinAssetCeiling(a)) continue;
+    // Tables 1.2 / 3.4 record property and vehicles the declarant RENTS or is provided
+    // with — not their estate. Same rule as is_declared_holding() in 089; this builder
+    // keeps its own arithmetic (see declarationTotals' note), so it must read the shared
+    // predicate rather than restate the table numbers.
+    if (!isDeclaredHolding(a)) continue;
     // credit_limit is neither: an undrawn credit line is not money owed, and the `else`
     // here would otherwise bank it as an ASSET. Same rule as 090_person_wealth.sql.
     if (a.category === "credit_limit") continue;

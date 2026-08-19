@@ -50,7 +50,8 @@
         "holderName": "Елка Цветанова Станева-Ангелова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -104,7 +107,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "обезщетение"
+        "fundsOrigin": "обезщетение",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -122,7 +126,8 @@
         "holderName": "Елка Цветанова Станева-Ангелова",
         "isSpouse": false,
         "legalBasis": "ипотека с 2,6% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -184,7 +189,8 @@
         "holderName": "Елка Цветанова Станева-Ангелова",
         "isSpouse": false,
         "legalBasis": "безвъзмездно при децата",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -202,7 +208,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": "безвъзмездно при децата",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1.2"
       },
       {
         "category": "bank",
@@ -220,7 +227,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -238,7 +246,8 @@
         "holderName": "Елка Цветанова Станева-Ангелова",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -294,7 +303,8 @@
         "holderName": "Елка Цветанова Станева-Ангелова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -312,7 +322,8 @@
         "holderName": "Елка Цветанова Станева-Ангелова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -330,7 +341,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -348,7 +360,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -366,7 +379,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -384,7 +398,8 @@
         "holderName": "Елка Цветанова Станева-Ангелова",
         "isSpouse": false,
         "legalBasis": "при децата",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -402,7 +417,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -420,7 +436,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -438,7 +455,8 @@
         "holderName": "Антонио Георгиев Ангелов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба наследвен имот на родители"
+        "fundsOrigin": "продажба наследвен имот на родители",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -456,7 +474,8 @@
         "holderName": "Елка Цветанова Станева-Ангелова",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

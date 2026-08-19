@@ -44,7 +44,8 @@
         "holderName": "Таня Милопова Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Таня Милопова Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Таня Милорова Иванова",
         "isSpouse": false,
         "legalBasis": "лизингов договор 3%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -124,7 +127,8 @@
         "holderName": "ОББ ИНТЕРЛИЙЗ",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -142,7 +146,8 @@
         "holderName": "Таня Милорова Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и продажба на МПС"
+        "fundsOrigin": "заплати и продажба на МПС",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -160,7 +165,8 @@
         "holderName": "Таня Милорова Иванова",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -204,7 +210,8 @@
         "holderName": "Таня Милорова Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -222,7 +229,8 @@
         "holderName": "Таня Милорова Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "за"
+        "fundsOrigin": "за",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -240,7 +248,8 @@
         "holderName": "Таня Милорова Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

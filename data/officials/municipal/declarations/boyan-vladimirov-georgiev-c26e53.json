@@ -49,7 +49,8 @@
         "holderName": "Боян Владимиров Георгиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "от продажба на МПС и заплати"
+        "fundsOrigin": "от продажба на МПС и заплати",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -67,7 +68,8 @@
         "holderName": "Боян Владимиров Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -85,7 +87,8 @@
         "holderName": "Боян Владимиров Георгиев",
         "isSpouse": false,
         "legalBasis": "договор - 5.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

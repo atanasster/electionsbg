@@ -43,7 +43,8 @@
         "holderName": "Тодор Иванов Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "Цветелина Георгиева Иванова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Тодор Иванов Иванов",
         "isSpouse": false,
         "legalBasis": "договор с лихвен процент 2.24",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

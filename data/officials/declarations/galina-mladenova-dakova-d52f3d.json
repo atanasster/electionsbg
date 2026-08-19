@@ -38,7 +38,8 @@
         "holderName": "Галина Младенова Дакова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Владимир Димитров Даков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -74,7 +76,8 @@
         "holderName": "Галина Младенова Дакова",
         "isSpouse": false,
         "legalBasis": "2,7%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -118,7 +121,8 @@
         "holderName": "Галина Младенова Дакова",
         "isSpouse": false,
         "legalBasis": "Закупуване на НИ с 2,7% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -204,7 +208,8 @@
         "holderName": "Галина Младенова Дакова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -222,7 +227,8 @@
         "holderName": "Владимир Димитров Даков",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -240,7 +246,8 @@
         "holderName": "Владимир Димитров Даков",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -258,7 +265,8 @@
         "holderName": "Владимир Димитров Даков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "3"
       }
     ],
     "events": []

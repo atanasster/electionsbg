@@ -50,7 +50,8 @@
         "holderName": "Валерия Михайлоова Такева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -68,7 +69,8 @@
         "holderName": "Валерия Михайлоова Такева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -86,7 +88,8 @@
         "holderName": "Валерия Михайлова Такева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -104,7 +107,8 @@
         "holderName": "Валерия Михайлова Такева",
         "isSpouse": false,
         "legalBasis": "договор за заем,  плаваща лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -154,7 +158,8 @@
         "holderName": "ВАЛЕРИЯ МИХАЙЛОВА ТАКЕВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -172,7 +177,8 @@
         "holderName": "ВАЛЕРИЯ МИХАЙЛОВА ТАКЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

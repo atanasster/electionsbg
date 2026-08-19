@@ -62,7 +62,8 @@
         "holderName": "Жоро Иванов Илчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплати и спестявания"
+        "fundsOrigin": "заплати и спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -80,7 +81,8 @@
         "holderName": "Живка Атанасова Илчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплати и спестявания"
+        "fundsOrigin": "заплати и спестявания",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -98,7 +100,8 @@
         "holderName": "Жоро Иванов Илчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -116,7 +119,8 @@
         "holderName": "Жоро Иванов Илчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и спестявания"
+        "fundsOrigin": "заплати и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +138,8 @@
         "holderName": "Живка Атанасова Илчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати, спестявания и дивиденти"
+        "fundsOrigin": "заплати, спестявания и дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -152,7 +157,8 @@
         "holderName": "Жоро Иванов Илчев",
         "isSpouse": false,
         "legalBasis": "кредитна карта с овърдрафт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

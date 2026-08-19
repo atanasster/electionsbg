@@ -56,7 +56,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "строеж",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -74,7 +75,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "строеж",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -92,7 +94,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -110,7 +113,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -128,7 +132,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -146,7 +151,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -164,7 +170,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -182,7 +189,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -275,7 +283,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -293,7 +302,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -311,7 +321,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -329,7 +340,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -347,7 +359,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -365,7 +378,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "По договор за възлагане на управлението",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -383,7 +397,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -401,7 +416,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -438,7 +454,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -456,7 +473,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -474,7 +492,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -492,7 +511,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -510,7 +530,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -528,7 +549,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -546,7 +568,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -564,7 +587,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -582,7 +606,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -600,7 +625,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -618,7 +644,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -636,7 +663,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -654,7 +682,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -672,7 +701,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -690,7 +720,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -708,7 +739,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -726,7 +758,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -744,7 +777,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -762,7 +796,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -780,7 +815,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -798,7 +834,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -816,7 +853,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -834,7 +872,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ВЪЗЛАГАНЕ НА УПРАВЛЕНИЕ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -852,7 +891,8 @@
         "holderName": "КАМЕЛИЯ КИРЧЕВА СТАНЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -870,7 +910,8 @@
         "holderName": "ИВЕЛИН ВАСИЛЕВ СТАНЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -920,7 +961,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -938,7 +980,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -956,7 +999,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -974,7 +1018,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -992,7 +1037,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1010,7 +1056,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1028,7 +1075,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1046,7 +1094,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1064,7 +1113,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1082,7 +1132,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1100,7 +1151,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1118,7 +1170,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1136,7 +1189,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1154,7 +1208,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1172,7 +1227,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -1190,7 +1246,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1208,7 +1265,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -1226,7 +1284,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1244,7 +1303,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1262,7 +1322,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажба на имот"
+        "fundsOrigin": "заплата и продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1280,7 +1341,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1298,7 +1360,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "договор за възлгане на управление",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -1316,7 +1379,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1334,7 +1398,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": [
@@ -1421,7 +1486,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1439,7 +1505,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1457,7 +1524,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1475,7 +1543,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1493,7 +1562,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1511,7 +1581,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1529,7 +1600,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1547,7 +1619,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1565,7 +1638,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1583,7 +1657,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1601,7 +1676,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1619,7 +1695,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1637,7 +1714,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1655,7 +1733,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1673,7 +1752,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1691,7 +1771,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1709,7 +1790,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1727,7 +1809,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -1745,7 +1828,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1763,7 +1847,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -1781,7 +1866,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1799,7 +1885,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1817,7 +1904,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1835,7 +1923,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -1853,7 +1942,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "договор за възлагане на управлението",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -1871,7 +1961,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -1889,7 +1980,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -1939,7 +2031,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1957,7 +2050,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1975,7 +2069,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1993,7 +2088,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2011,7 +2107,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2029,7 +2126,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2047,7 +2145,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2065,7 +2164,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2083,7 +2183,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2101,7 +2202,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2119,7 +2221,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2137,7 +2240,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2155,7 +2259,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2173,7 +2278,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2191,7 +2297,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2209,7 +2316,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2227,7 +2335,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -2245,7 +2354,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -2263,7 +2373,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -2281,7 +2392,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2299,7 +2411,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2317,7 +2430,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2335,7 +2449,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -2353,7 +2468,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "Договор за възлагане на управлението",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -2371,7 +2487,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -2389,7 +2506,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -2445,7 +2563,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2463,7 +2582,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2481,7 +2601,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2499,7 +2620,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2517,7 +2639,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2535,7 +2658,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2553,7 +2677,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2571,7 +2696,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2589,7 +2715,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2607,7 +2734,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2625,7 +2753,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2643,7 +2772,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2661,7 +2791,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2679,7 +2810,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2697,7 +2829,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2715,7 +2848,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -2733,7 +2867,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -2751,7 +2886,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -2769,7 +2905,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "СПЕСТЯВАНИЯ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2787,7 +2924,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "СПЕСТЯВАНИЯ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2805,7 +2943,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "СПЕСТЯВАНИЯ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -2823,7 +2962,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "СПЕСТЯВАНИЯ",
+        "tableNum": "5"
       },
       {
         "category": "security",
@@ -2841,7 +2981,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -2859,7 +3000,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -2909,7 +3051,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2927,7 +3070,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2945,7 +3089,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2963,7 +3108,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2981,7 +3127,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -2999,7 +3146,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "замяна",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3017,7 +3165,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3035,7 +3184,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3053,7 +3203,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3071,7 +3222,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3089,7 +3241,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3107,7 +3260,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3125,7 +3279,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3143,7 +3298,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3161,7 +3317,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3179,7 +3336,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -3197,7 +3355,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -3215,7 +3374,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -3233,7 +3393,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "стопанска дейност - лекарски кабинет"
+        "fundsOrigin": "стопанска дейност - лекарски кабинет",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -3251,7 +3412,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -3269,7 +3431,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -3287,7 +3450,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -3305,7 +3469,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -3323,7 +3488,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -3341,7 +3507,8 @@
         "holderName": "Ивелин Василев станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -3359,7 +3526,8 @@
         "holderName": "Ивелин Василев станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "security",
@@ -3377,7 +3545,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -3395,7 +3564,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -3450,7 +3620,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3468,7 +3639,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3486,7 +3658,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3504,7 +3677,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3522,7 +3696,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3540,7 +3715,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3558,7 +3734,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3576,7 +3753,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3594,7 +3772,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3612,7 +3791,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3630,7 +3810,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3648,7 +3829,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3666,7 +3848,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3684,7 +3867,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3702,7 +3886,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -3720,7 +3905,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -3738,7 +3924,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -3756,7 +3943,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -3774,7 +3962,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -3792,7 +3981,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -3810,7 +4000,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -3828,7 +4019,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -3846,7 +4038,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -3864,7 +4057,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -3882,7 +4076,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "security",
@@ -3900,7 +4095,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -3918,7 +4114,8 @@
         "holderName": "Камелия Кирчева Станева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       },
       {
         "category": "security",
@@ -3936,7 +4133,8 @@
         "holderName": "Ивелин Василев Станев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       }
     ],
     "events": []

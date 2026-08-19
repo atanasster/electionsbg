@@ -37,7 +37,8 @@
         "holderName": "Януша Петрова Илиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Семейни спестявания по табл. 4 и 5  от предходна декл. И заплата"
+        "fundsOrigin": "Семейни спестявания по табл. 4 и 5  от предходна декл. И заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -55,7 +56,8 @@
         "holderName": "Илия Атанасов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -73,7 +75,8 @@
         "holderName": "Илия Атанасов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -91,7 +94,8 @@
         "holderName": "Януша Петрова Илиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Депозит отразен по  декл.от 2023г"
+        "fundsOrigin": "Депозит отразен по  декл.от 2023г",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -109,7 +113,8 @@
         "holderName": "Януша Петрова Илиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -127,7 +132,8 @@
         "holderName": "Илия Атанасов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Остатък от предходна декл.и заплата"
+        "fundsOrigin": "Остатък от предходна декл.и заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

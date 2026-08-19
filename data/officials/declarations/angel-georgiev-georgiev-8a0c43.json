@@ -44,7 +44,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -142,7 +146,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и ДВПР"
+        "fundsOrigin": "заплата и ДВПР",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -160,7 +165,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -204,7 +210,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, ДВПР и заеми"
+        "fundsOrigin": "заплата, ДВПР и заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -222,7 +229,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -291,7 +299,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и ДВПР"
+        "fundsOrigin": "заплата и ДВПР",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -309,7 +318,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -353,7 +363,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и ДВПР"
+        "fundsOrigin": "заплата и ДВПР",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -371,7 +382,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -415,7 +427,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми, заплата и спестявания"
+        "fundsOrigin": "заеми, заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -433,7 +446,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми, заплата и спестявания"
+        "fundsOrigin": "заеми, заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -451,7 +465,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -469,7 +484,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Кредитна Карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -487,7 +503,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": "Потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -531,7 +548,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -549,7 +567,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и наследство"
+        "fundsOrigin": "заплата и наследство",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -567,7 +586,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -585,7 +605,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "Кредитна Карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -603,7 +624,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": "Потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -658,7 +680,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -676,7 +699,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -694,7 +718,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -712,7 +737,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -730,7 +756,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -748,7 +775,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -766,7 +794,8 @@
         "holderName": "Виолета НеноваГеоргиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -784,7 +813,8 @@
         "holderName": "Виолета НеноваГеоргиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -802,7 +832,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -820,7 +851,8 @@
         "holderName": "Виолета Ненова Георгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -838,7 +870,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -856,7 +889,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -874,7 +908,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -892,7 +927,8 @@
         "holderName": "Ангел Георгиев Георгиев",
         "isSpouse": false,
         "legalBasis": "кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -910,7 +946,8 @@
         "holderName": "Виолета Ненова Георгиева",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

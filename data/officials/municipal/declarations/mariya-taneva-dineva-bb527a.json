@@ -79,7 +79,8 @@
         "holderName": "Мария Танева Динева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -97,7 +98,8 @@
         "holderName": "Мария Танева Динева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, рента, наеми, дивидент"
+        "fundsOrigin": "заплати, рента, наеми, дивидент",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -115,7 +117,8 @@
         "holderName": "Мария Танева Динева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, рента, наеми, дивидент"
+        "fundsOrigin": "заплати, рента, наеми, дивидент",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -133,7 +136,8 @@
         "holderName": "Александър Евгениев Жеков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "рента, наеми, наследство"
+        "fundsOrigin": "рента, наеми, наследство",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -151,7 +155,8 @@
         "holderName": "Александър Евгениев Жеков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследство, стипендия"
+        "fundsOrigin": "наследство, стипендия",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -169,7 +174,8 @@
         "holderName": "Мария Танева Динева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": [

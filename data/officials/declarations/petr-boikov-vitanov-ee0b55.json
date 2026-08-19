@@ -31,7 +31,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Милена Огнянова Витанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -67,7 +69,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -85,7 +88,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -103,7 +107,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -121,7 +126,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -139,7 +145,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -157,7 +164,8 @@
         "holderName": "Милена Огнянова Витанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -175,7 +183,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -193,7 +202,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "Лични средства",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "security",
@@ -211,7 +221,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -255,7 +266,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -273,7 +285,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -291,7 +304,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -309,7 +323,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -327,7 +342,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -345,7 +361,8 @@
         "holderName": "Милена Огнянова Витанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -363,7 +380,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "Лични средства",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -381,7 +399,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -399,7 +418,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания от предходни години"
+        "fundsOrigin": "Спестявания от предходни години",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -443,7 +463,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "дарение от майка и брат ми на наследствен семеен имот",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -461,7 +482,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -479,7 +501,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -497,7 +520,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -515,7 +539,8 @@
         "holderName": "Милена Огнянова Витанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -533,7 +558,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -577,7 +603,8 @@
         "holderName": "Милена Огнянова Витанова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -595,7 +622,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -613,7 +641,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -631,7 +660,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -649,7 +679,8 @@
         "holderName": "Милена Огнянова Витанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -667,7 +698,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -737,7 +769,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -755,7 +788,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -773,7 +807,8 @@
         "holderName": "Петър Бойков Витанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -791,7 +826,8 @@
         "holderName": "Милена Огнянова Витанова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "от продажба на акции"
+        "fundsOrigin": "от продажба на акции",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -809,7 +845,8 @@
         "holderName": "Петър Бийков Витанов",
         "isSpouse": true,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

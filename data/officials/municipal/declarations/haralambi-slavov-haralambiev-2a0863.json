@@ -43,7 +43,8 @@
         "holderName": "хараламби славов хараламбиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "хараламби славов хараламбиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на автомобил"
+        "fundsOrigin": "продажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -79,7 +81,8 @@
         "holderName": "ХАРРАЛАМБИ СЛАВОВ ХАРАЛАМБИЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "ХАРАЛАМБИ СЛАВОВ ХАРАЛАМБИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "ХАРАЛАМБИ СЛАВОВ ХАРАЛАМБИЕВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

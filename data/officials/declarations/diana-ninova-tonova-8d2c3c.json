@@ -44,7 +44,8 @@
         "holderName": "Диана Нинова Тонова Димитър Христов Тонов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -62,7 +63,8 @@
         "holderName": "Димитър Христов Тонов",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -80,7 +82,8 @@
         "holderName": "Диана нинова Тонова",
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

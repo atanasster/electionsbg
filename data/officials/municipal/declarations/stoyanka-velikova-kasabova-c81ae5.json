@@ -49,7 +49,8 @@
         "holderName": "Иван Веселинов Узунов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит, дарения и заплата"
+        "fundsOrigin": "кредит, дарения и заплата",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -67,7 +68,8 @@
         "holderName": "Стоянка Великова Касабова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "Стоянка Великова Касабова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дарения"
+        "fundsOrigin": "заплата и дарения",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "Иван Веселинов Узунов",
         "isSpouse": true,
         "legalBasis": "лихва - 2.18 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -139,7 +143,8 @@
         "holderName": "Стоянка Великова Касабова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -157,7 +162,8 @@
         "holderName": "Иван Веселинов Узунов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -175,7 +181,8 @@
         "holderName": "Стоянка Великова Касабова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -193,7 +200,8 @@
         "holderName": "Стоянка Великова Касабова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -211,7 +219,8 @@
         "holderName": "Стоянка Великова Касабова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -229,7 +238,8 @@
         "holderName": "Иван Веселинов Узунов",
         "isSpouse": true,
         "legalBasis": "лихва - 2.26%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

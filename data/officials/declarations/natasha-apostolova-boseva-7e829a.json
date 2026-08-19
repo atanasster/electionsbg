@@ -44,7 +44,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания заплата"
+        "fundsOrigin": "спестявания заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доход от наем"
+        "fundsOrigin": "доход от наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доход от наем"
+        "fundsOrigin": "доход от наем",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -166,7 +171,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -184,7 +190,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -202,7 +209,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем"
+        "fundsOrigin": "наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -220,7 +228,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем"
+        "fundsOrigin": "наем",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -264,7 +273,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -282,7 +292,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -300,7 +311,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -350,7 +362,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "наем"
+        "fundsOrigin": "наем",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -368,7 +381,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -386,7 +400,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем"
+        "fundsOrigin": "наем",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -455,7 +470,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -473,7 +489,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доход от наем"
+        "fundsOrigin": "доход от наем",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -491,7 +508,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -509,7 +527,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -565,7 +584,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -583,7 +603,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем"
+        "fundsOrigin": "наем",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -601,7 +622,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": "наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -619,7 +641,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": "наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -669,7 +692,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -687,7 +711,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доход от наем"
+        "fundsOrigin": "доход от наем",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -705,7 +730,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": "наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -723,7 +749,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": "наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -797,7 +824,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доход от наем"
+        "fundsOrigin": "доход от наем",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -815,7 +843,8 @@
         "holderName": "Наташа Апостолова Босева",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -833,7 +862,8 @@
         "holderName": "Красимир Асенов Босев",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []

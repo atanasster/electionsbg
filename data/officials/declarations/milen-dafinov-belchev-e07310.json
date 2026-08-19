@@ -44,7 +44,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Дивиденти"
+        "fundsOrigin": "Дивиденти",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -80,7 +82,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": "Заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -130,7 +133,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "получени дивиденти"
+        "fundsOrigin": "получени дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -148,7 +152,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -205,7 +210,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -223,7 +229,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -241,7 +248,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -259,7 +267,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -277,7 +286,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -295,7 +305,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -313,7 +324,8 @@
         "holderName": "Красимира Петрова Белчева",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []

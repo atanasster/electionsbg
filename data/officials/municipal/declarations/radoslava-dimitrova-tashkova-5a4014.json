@@ -49,7 +49,8 @@
         "holderName": "атанас иванов ташков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -67,7 +68,8 @@
         "holderName": "атанас иванов ташков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -85,7 +87,8 @@
         "holderName": "Атанас Иванов Ташков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи"
+        "fundsOrigin": "трудови доходи",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -103,7 +106,8 @@
         "holderName": "Атанас Иванов Ташков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -121,7 +125,8 @@
         "holderName": "Атанас Иванов Ташков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -139,7 +144,8 @@
         "holderName": "Радослава Димитрова Ташкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -157,7 +163,8 @@
         "holderName": "Радослава Димитрова Ташкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -175,7 +182,8 @@
         "holderName": "атанас иванов ташков",
         "isSpouse": true,
         "legalBasis": "договор с лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -193,7 +201,8 @@
         "holderName": "атанас иванов ташков",
         "isSpouse": true,
         "legalBasis": "договор с лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

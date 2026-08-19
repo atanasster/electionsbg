@@ -51,7 +51,8 @@
         "holderName": "Деница Андреева Димитрова-Стоянова",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -69,7 +70,8 @@
         "holderName": "Деница Андреева Димитрова-Стоянова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -87,7 +89,8 @@
         "holderName": "Валентин Стоянов Стоянов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -105,7 +108,8 @@
         "holderName": "Деница Андреева Димитрова-Стоянова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -123,7 +127,8 @@
         "holderName": "Валентин Стоянов Стоянов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -141,7 +146,8 @@
         "holderName": "Деница Андреева Димитрова-Стоянова",
         "isSpouse": false,
         "legalBasis": "лизингов договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -159,7 +165,8 @@
         "holderName": "Валентин Стоянова Стоянов",
         "isSpouse": true,
         "legalBasis": "лизингов договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -177,7 +184,8 @@
         "holderName": "Деница Андреева Димитрова-Стоянова",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -195,7 +203,8 @@
         "holderName": "Валентин Стоянова Стоянов",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

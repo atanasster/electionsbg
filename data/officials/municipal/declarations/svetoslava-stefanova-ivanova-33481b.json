@@ -55,7 +55,8 @@
         "holderName": "Светослава Стефанова Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем продажба на автомобили и спестявания"
+        "fundsOrigin": "заем продажба на автомобили и спестявания",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -73,7 +74,8 @@
         "holderName": "Светослава Стефанова Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -91,7 +93,8 @@
         "holderName": "Ивайло Михайлов Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "holderName": "Светослава Стефанова Иванова",
         "isSpouse": false,
         "legalBasis": "5.79",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -127,7 +131,8 @@
         "holderName": "Ивайло Михайлов Иванов",
         "isSpouse": true,
         "legalBasis": "5.5",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

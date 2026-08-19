@@ -44,7 +44,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата/спестявания"
+        "fundsOrigin": "заплата/спестявания",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -62,7 +63,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата/спестявания"
+        "fundsOrigin": "заплата/спестявания",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -98,7 +101,8 @@
         "holderName": "Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "holderName": "Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": "договорена ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -170,7 +177,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": "договорена ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -245,7 +253,8 @@
         "holderName": "Емил Владимиров Тодоров и Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -263,7 +272,8 @@
         "holderName": "Даниела Атанасова Гевренова и Емил Владимиров Тодоров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -281,7 +291,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -299,7 +310,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, обезщетение и от родител"
+        "fundsOrigin": "заплати, обезщетение и от родител",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -317,7 +329,8 @@
         "holderName": "Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -335,7 +348,8 @@
         "holderName": "Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": "договорна ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -353,7 +367,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": "договорен лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -371,7 +386,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": "договорна ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -470,7 +486,8 @@
         "holderName": "Емил Владимиров Тодоров и Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -488,7 +505,8 @@
         "holderName": "Емил Владимиров Тодоров и Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -506,7 +524,8 @@
         "holderName": "Емил Владимиров Тодоров и Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -524,7 +543,8 @@
         "holderName": "Емил Владимиров Тодоров и Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -542,7 +562,8 @@
         "holderName": "Емил Владимиров Тодоров и Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -560,7 +581,8 @@
         "holderName": "Емил Владимиров Тодоров и Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -578,7 +600,8 @@
         "holderName": "Даниела Атанасова Гевренова и Емил Владимиров Тодоров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -596,7 +619,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -614,7 +638,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -632,7 +657,8 @@
         "holderName": "Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -650,7 +676,8 @@
         "holderName": "Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": "договорена ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -668,7 +695,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": "договорен лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -686,7 +714,8 @@
         "holderName": "Даниела Атанасова Гевренова-Тодорова",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -704,7 +733,8 @@
         "holderName": "Емил Владимиров Тодоров",
         "isSpouse": false,
         "legalBasis": "договорена ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

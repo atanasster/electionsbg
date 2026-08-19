@@ -69,7 +69,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания, заеми, дарени средства, заплата"
+        "fundsOrigin": "спестявания, заеми, дарени средства, заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -87,7 +88,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания, заеми, дарени средства, заплата на Светозар Георгиев Спасов"
+        "fundsOrigin": "спестявания, заеми, дарени средства, заплата на Светозар Георгиев Спасов",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -105,7 +107,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -123,7 +126,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми, заплата"
+        "fundsOrigin": "заеми, заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -141,7 +145,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор - договорен лихвен процент 5,63%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -159,7 +164,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор-няма договорен лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -177,7 +183,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор-няма договорен лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -195,7 +202,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": "Договор - договорен лихвен процент 4,9083%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -213,7 +221,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": "Договор-няма договорен лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -257,7 +266,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -275,7 +285,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -293,7 +304,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -311,7 +323,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -329,7 +342,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с Групама Животозастраховане ЕАД",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -347,7 +361,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": "Договор с Първа Инвестиционна Банка",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -365,7 +380,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с Групама Застраховане ЕАД",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -415,7 +431,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -433,7 +450,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -451,7 +469,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с Групама Животозастраховане ЕАД",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -469,7 +488,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -487,7 +507,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": "Договор с Първа Инвестиционна банка",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -531,7 +552,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -549,7 +571,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -567,7 +590,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с Групама Животозастраховане ЕАД",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -585,7 +609,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -603,7 +628,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": "Договор с Първа Инвестиционна банка",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -647,7 +673,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -665,7 +692,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -683,7 +711,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с Групама Животозастраховане ЕАД",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -701,7 +730,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -719,7 +749,8 @@
         "holderName": "Светозар Георгиев Спасов",
         "isSpouse": true,
         "legalBasis": "Договор с Първа Инвестиционна банка",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -737,7 +768,8 @@
         "holderName": "Весела Радославова Симеонова",
         "isSpouse": false,
         "legalBasis": "Договор с банка ДСК",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

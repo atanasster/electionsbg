@@ -43,7 +43,8 @@
         "holderName": "Георги Данаилов Тенев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -61,7 +62,8 @@
         "holderName": "Георги Данаилов Тенев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Продажба на имот през 2024г."
+        "fundsOrigin": "Продажба на имот през 2024г.",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -79,7 +81,8 @@
         "holderName": "Десислава Георгиева Тенева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Кредит и дарение от предходни години"
+        "fundsOrigin": "Кредит и дарение от предходни години",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Десислава Георгиева Тенева",
         "isSpouse": true,
         "legalBasis": "Кредит - 4.37%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

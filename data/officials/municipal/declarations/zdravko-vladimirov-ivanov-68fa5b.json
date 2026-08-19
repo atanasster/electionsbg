@@ -37,7 +37,8 @@
         "holderName": "Здравко Владимиров Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно и заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно и заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -55,7 +56,8 @@
         "holderName": "Здравко Владимиров Иванов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно, заплата и върнат заем от Цветалин Пенков"
+        "fundsOrigin": "по Таблица 12 - ръчно, заплата и върнат заем от Цветалин Пенков",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -73,7 +75,8 @@
         "holderName": "Десислава Юлиянова Иванова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно и заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно и заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -91,7 +94,8 @@
         "holderName": "Здравко Владимиров Иваниов",
         "isSpouse": true,
         "legalBasis": "Договор за крдит. Лихва 3.50 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

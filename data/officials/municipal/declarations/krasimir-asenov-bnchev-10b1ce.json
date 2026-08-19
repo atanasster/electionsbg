@@ -43,7 +43,8 @@
         "holderName": "КРАСИМИР АСЕНОВ БЪНЧЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ ОТ ЗАПЛАТИ И ПЕНСИЯ"
+        "fundsOrigin": "СПЕСТЯВАНИЯ ОТ ЗАПЛАТИ И ПЕНСИЯ",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "КРАСИМИР АСЕНОВ БЪНЧЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ ОТ ЗАПЛАТИ"
+        "fundsOrigin": "СПЕСТЯВАНИЯ ОТ ЗАПЛАТИ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "НЕВЕНА БОРИСОВА БЪНЧЕВА",
         "isSpouse": true,
         "legalBasis": "лихвен процент 3,23",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

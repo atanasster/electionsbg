@@ -37,7 +37,8 @@
         "holderName": "Филип Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "обезщетение"
+        "fundsOrigin": "обезщетение",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -55,7 +56,8 @@
         "holderName": "Филип Георгиев Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -73,7 +75,8 @@
         "holderName": "Татяна Славчева Младенова-Димитрова",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -91,7 +94,8 @@
         "holderName": "Татяна Славчева Младенова-Димитрова",
         "isSpouse": true,
         "legalBasis": "договор - 0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

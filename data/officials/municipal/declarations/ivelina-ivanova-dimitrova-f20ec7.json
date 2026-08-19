@@ -49,7 +49,8 @@
         "holderName": "Лальо Георгиев Димитров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.1"
       },
       {
         "category": "bank",
@@ -67,7 +68,8 @@
         "holderName": "Лальо Георгиев Димитров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -85,7 +87,8 @@
         "holderName": "Лальо Георгиев Димитров",
         "isSpouse": true,
         "legalBasis": "вноски по чл.134",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "receivable",
@@ -103,7 +106,8 @@
         "holderName": "Лальо Георгиев Димитров",
         "isSpouse": true,
         "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "Ивелина Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": "договор по банков кредит от 15.02.2021-5.02%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

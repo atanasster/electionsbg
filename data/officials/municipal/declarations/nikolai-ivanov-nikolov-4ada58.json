@@ -80,7 +80,8 @@
         "holderName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -98,7 +99,8 @@
         "holderName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +118,8 @@
         "holderName": "ДИЯНА НИКОЛОВА НИКОЛОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +137,8 @@
         "holderName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -152,7 +156,8 @@
         "holderName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
         "isSpouse": false,
         "legalBasis": "КРЕДИТ С 4.15 ЛИХВЕН %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -170,7 +175,8 @@
         "holderName": "ДИЯНА НИКОЛОВА НИКОЛОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -188,7 +194,8 @@
         "holderName": "ДИЯНА НИКОЛОВА НИКОЛОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [

@@ -44,7 +44,8 @@
         "holderName": "Галя Йорданова Тодорова",
         "isSpouse": false,
         "legalBasis": "договор за гледане",
-        "fundsOrigin": "договор за гледане"
+        "fundsOrigin": "договор за гледане",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Галя Йорданова Тодорова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Галя Йорданова Тодорова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

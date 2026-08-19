@@ -43,7 +43,8 @@
         "holderName": "Ибрахим Ресим Муса",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -61,7 +62,8 @@
         "holderName": "Атидже Исмаилова Торбева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -79,7 +81,8 @@
         "holderName": "Ибрахим Ресим Муса",
         "isSpouse": false,
         "legalBasis": "банков кредит, лихвен %2,25",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Ибрахим Ресим Муса",
         "isSpouse": false,
         "legalBasis": "банков кредит, лихвен %4,37",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Атидже Исмаилова Торбева",
         "isSpouse": true,
         "legalBasis": "банков кредит, лихвен %5,78",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

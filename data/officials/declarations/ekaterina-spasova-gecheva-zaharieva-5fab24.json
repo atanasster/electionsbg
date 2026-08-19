@@ -87,7 +87,8 @@
         "holderName": "Екатерина Спасова Гечева - Захариева",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -105,7 +106,8 @@
         "holderName": "Екатерина Спасова Гечева- Захариева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -123,7 +125,8 @@
         "holderName": "Ангел Валериев Захариев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, деклларирани в предходни декларации"
+        "fundsOrigin": "спестявания, деклларирани в предходни декларации",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -141,7 +144,8 @@
         "holderName": "Екатерина Спасова Гечева Захариева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -159,7 +163,8 @@
         "holderName": "Екатерина Спасова Гечева Захариева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -177,7 +182,8 @@
         "holderName": "Екатерина Спасова Гечева Захариева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -195,7 +201,8 @@
         "holderName": "Ангел Валериев Захариев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доходи от стопанска дейност"
+        "fundsOrigin": "доходи от стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -213,7 +220,8 @@
         "holderName": "Ангел Валериев Захариев",
         "isSpouse": true,
         "legalBasis": "договор за заем, декларирано предходни години",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -231,7 +239,8 @@
         "holderName": "Екатерина Спасова Гечева- Захариева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -249,7 +258,8 @@
         "holderName": "Екатерина Спасова Гечева- Захариева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -267,7 +277,8 @@
         "holderName": "Екатерина Спасова Гечева- Захариева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -285,7 +296,8 @@
         "holderName": "Ангел Валериев Захариев",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -354,7 +366,8 @@
         "holderName": "Ангел Валериев Захариев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, декларирани в предходни декларации"
+        "fundsOrigin": "спестявания, декларирани в предходни декларации",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -372,7 +385,8 @@
         "holderName": "Екатерина Спасова Гечева Захариева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -390,7 +404,8 @@
         "holderName": "Ангел Валериев Захариев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "доходи от стопанска дейност"
+        "fundsOrigin": "доходи от стопанска дейност",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -408,7 +423,8 @@
         "holderName": "Екатерина Спасова Гечева Захариева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -426,7 +442,8 @@
         "holderName": "Ангел Валериев Захариев",
         "isSpouse": true,
         "legalBasis": "договор за заем, декларирано предходни години",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -444,7 +461,8 @@
         "holderName": "Екатерина Спасова Гечева - Захариева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -462,7 +480,8 @@
         "holderName": "Ангел Валериев Захариев",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

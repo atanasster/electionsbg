@@ -43,7 +43,8 @@
         "holderName": "Александър Цветанов Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Александър Цветанов Иванов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "receivable",
@@ -79,7 +81,8 @@
         "holderName": "Александър Цветанов Иванов",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -97,7 +100,8 @@
         "holderName": "Александър Цветанов Иванов",
         "isSpouse": false,
         "legalBasis": "4,5",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

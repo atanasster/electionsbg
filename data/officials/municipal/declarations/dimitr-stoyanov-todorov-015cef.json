@@ -43,7 +43,8 @@
         "holderName": "Димитър Стонов Тодоров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Димитър Стоянов Тодоров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Димитър Стоянов Тодоров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -97,7 +100,8 @@
         "holderName": "Димитър Стоянов Тодоров",
         "isSpouse": false,
         "legalBasis": "жилищен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Димитър Стоянов Тодоров",
         "isSpouse": false,
         "legalBasis": "6.05%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "holderName": "Димитър Стоянов Тодоров",
         "isSpouse": false,
         "legalBasis": "3.47%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

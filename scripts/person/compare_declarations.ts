@@ -592,7 +592,13 @@ export const compareDeclarations = async (
               WHERE a.category = 'debt' OR a.value_eur <= asset_row_ceiling_eur()
             ), 0))::float8 AS eur
        FROM chosen c
+       -- Same holding basis as person_wealth_year: tables 1.2 / 3.4 record property and
+       -- vehicles the declarant RENTS or is provided with, priced at „Цена по договор".
+       -- A versus card is a claim about two named people's estates, so a rented flat on
+       -- either side is a false statement — and the two sides must be filtered by ONE
+       -- rule, which is what reading is_declared_holding rather than restating it buys.
        LEFT JOIN declaration_asset a ON a.declaration_id = c.declaration_id
+                                    AND is_declared_holding(a.table_num)
       GROUP BY c.slug, c.display_name, c.filed_institution, c.filed_position,
                c.declaration_type, c.source_url, a.category
      UNION ALL

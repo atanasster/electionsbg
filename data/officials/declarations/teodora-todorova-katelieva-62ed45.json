@@ -50,7 +50,8 @@
         "holderName": "Теодора Тодорова Кателиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "Константин Георгиев Кателиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -86,7 +88,8 @@
         "holderName": "Константин Георгиев Кателиев",
         "isSpouse": true,
         "legalBasis": "Договор за дългов продукт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []

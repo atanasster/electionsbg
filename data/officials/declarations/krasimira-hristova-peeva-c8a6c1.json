@@ -31,7 +31,8 @@
         "holderName": "Красимира Христова Пеева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -49,7 +50,8 @@
         "holderName": "ЕТ \"Бари - д-р Акбар Емамзаде\"",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -67,7 +69,8 @@
         "holderName": "Красимира Христова Пеева",
         "isSpouse": false,
         "legalBasis": "разплащане",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -167,7 +170,8 @@
         "holderName": "Красимира Христова Пеева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -185,7 +189,8 @@
         "holderName": "ЕТ \"Бари - д-р Акбар Емамзаде\"",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -203,7 +208,8 @@
         "holderName": "Красимира Христова Пеева",
         "isSpouse": false,
         "legalBasis": "разплащане",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

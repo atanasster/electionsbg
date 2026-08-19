@@ -98,7 +98,8 @@
         "holderName": "Танер Исмаилов Ахмедов",
         "isSpouse": false,
         "legalBasis": "предварителен договор",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -116,7 +117,8 @@
         "holderName": "Невин Мехмедова Ахмедова",
         "isSpouse": true,
         "legalBasis": "предварителен договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -134,7 +136,8 @@
         "holderName": "Танер Исмаилов Ахмедов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "3.3"
       },
       {
         "category": "cash",
@@ -152,7 +155,8 @@
         "holderName": "Танер Исмаилов Ахмедов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -170,7 +174,8 @@
         "holderName": "Танер Исмаилов Ахмедов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -188,7 +193,8 @@
         "holderName": "Невин Мехмедова Ахмедова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и доходи от наем"
+        "fundsOrigin": "заплата и доходи от наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -206,7 +212,8 @@
         "holderName": "Гизем Танер Ахмедова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "стипендия и дарения"
+        "fundsOrigin": "стипендия и дарения",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -224,7 +231,8 @@
         "holderName": "Танер Исмаилов Ахмедов",
         "isSpouse": false,
         "legalBasis": "договор за фин.лизинг на МПС,2,99%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -242,7 +250,8 @@
         "holderName": "Танер Исмаилов Ахмедов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "8"
       },
       {
         "category": "investment",
@@ -260,7 +269,8 @@
         "holderName": "Невин Мехмедова Ахмедова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [

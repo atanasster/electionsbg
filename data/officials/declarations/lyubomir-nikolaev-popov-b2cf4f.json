@@ -44,7 +44,8 @@
         "holderName": "Мариета Йорданова Георгиева - Попова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -62,7 +63,8 @@
         "holderName": "Ивайло Радоев Фитковски",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       }
     ],
     "events": []
@@ -106,7 +108,8 @@
         "holderName": "Любомир Николаев Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -124,7 +127,8 @@
         "holderName": "Любомир Николаев Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -142,7 +146,8 @@
         "holderName": "Ивайло Радоев Фитковски",
         "isSpouse": true,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -160,7 +165,8 @@
         "holderName": "Любомир Николаев Попов",
         "isSpouse": false,
         "legalBasis": "договор за кредит - 4.44%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -178,7 +184,8 @@
         "holderName": "Любомир Николаев Попов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "9"
       }
     ],
     "events": []

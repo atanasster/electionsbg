@@ -49,7 +49,8 @@
         "holderName": "Мустафа Мехмед Ахмед",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата +заем"
+        "fundsOrigin": "заплата +заем",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -67,7 +68,8 @@
         "holderName": "Нергюл Мустафа Ахмед",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата+заем"
+        "fundsOrigin": "заплата+заем",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "Мустафа Мехмед Ахмед",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата +наем земя"
+        "fundsOrigin": "заплата +наем земя",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "Мустафа Мехмед Ахмед",
         "isSpouse": false,
         "legalBasis": "договор. 2.81% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "Нергюл Мустафа Ахмедн",
         "isSpouse": true,
         "legalBasis": "договор. 2.81% лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Иванка Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Иванка Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -80,7 +82,8 @@
         "holderName": "Иванка Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "няма",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -98,7 +101,8 @@
         "holderName": "Иванка Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -142,7 +146,8 @@
         "holderName": "Иванка Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -160,7 +165,8 @@
         "holderName": "Иванка Иванова Дмитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -178,7 +184,8 @@
         "holderName": "Иванка Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "удръжки ДПО"
+        "fundsOrigin": "удръжки ДПО",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -222,7 +229,8 @@
         "holderName": "Иванка Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -240,7 +248,8 @@
         "holderName": "Иванка Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата",
+        "tableNum": "5"
       },
       {
         "category": "investment",
@@ -258,7 +267,8 @@
         "holderName": "Иванка Иванова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДПО"
+        "fundsOrigin": "ДПО",
+        "tableNum": "8"
       }
     ],
     "events": []

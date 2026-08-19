@@ -31,7 +31,8 @@
         "holderName": "Иван Георгиев Маламов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -49,7 +50,8 @@
         "holderName": "Иван Георгиев Маламов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -67,7 +69,8 @@
         "holderName": "Иван Георгиев Маламов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -85,7 +88,8 @@
         "holderName": "Иван Георгиев Маламов и Наталия Петрова Маламова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -103,7 +107,8 @@
         "holderName": "Петър Иванов Маламов и Иван Георгиев Маламов",
         "isSpouse": true,
         "legalBasis": "Съкредитоискател",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -233,7 +238,8 @@
         "holderName": "Наталия Петрова Маламова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       }
     ],
     "events": [
@@ -296,7 +302,8 @@
         "holderName": "Иван Георгиев Маламов",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -422,7 +429,8 @@
         "holderName": "Иван Георгиев Маламов",
         "isSpouse": false,
         "legalBasis": "договор за банков кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

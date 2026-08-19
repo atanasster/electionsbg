@@ -38,7 +38,8 @@
         "holderName": "Даниела Костадинова Благоева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -56,7 +57,8 @@
         "holderName": "Венцислав Атанасов Благоев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -74,7 +76,8 @@
         "holderName": "Даниела Костадинова Благоева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -92,7 +95,8 @@
         "holderName": "Венцислав Атанасов Благоев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -110,7 +114,8 @@
         "holderName": "Даниела Костадинова Благоева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -128,7 +133,8 @@
         "holderName": "Венцислав Атанасов Благоев",
         "isSpouse": true,
         "legalBasis": "Договор за ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -172,7 +178,8 @@
         "holderName": "Даниела Костаднова Благоева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -190,7 +197,8 @@
         "holderName": "Даниела Костаднова Благоева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -208,7 +216,8 @@
         "holderName": "Венцислав Атанасов Благоев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -226,7 +235,8 @@
         "holderName": "Даниела Костадинова Благоева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -244,7 +254,8 @@
         "holderName": "Венцислав Атанасов Благоев",
         "isSpouse": true,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

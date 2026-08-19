@@ -44,7 +44,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Ани Ангелова Петров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -80,7 +82,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -98,7 +101,8 @@
         "holderName": "Ани Ангелова Петров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -116,7 +120,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -134,7 +139,8 @@
         "holderName": "Ани Ангелова Петров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -152,7 +158,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -170,7 +177,8 @@
         "holderName": "Ани Ангелова Петров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ипотечен кредит"
+        "fundsOrigin": "ипотечен кредит",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -188,7 +196,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, продажба на автомобил, спестявания"
+        "fundsOrigin": "заплата, продажба на автомобил, спестявания",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -206,7 +215,8 @@
         "holderName": "Ани Ангелова Петрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, продажба на автомобил, спестявания"
+        "fundsOrigin": "заплата, продажба на автомобил, спестявания",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -224,7 +234,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -242,7 +253,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания, продажба на МПС"
+        "fundsOrigin": "заплата, спестявания, продажба на МПС",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -260,7 +272,8 @@
         "holderName": "Ани Ангелова Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "обезщетение, спестявания"
+        "fundsOrigin": "обезщетение, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -278,7 +291,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": "Договор - 2.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -296,7 +310,8 @@
         "holderName": "Ани Ангелова Петрова",
         "isSpouse": true,
         "legalBasis": "Договор - 2.6%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -401,7 +416,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -419,7 +435,8 @@
         "holderName": "Ани Ангелова Петрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -437,7 +454,8 @@
         "holderName": "Петър Руменов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -455,7 +473,8 @@
         "holderName": "Ани Ангелова Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "СТАНИСЛАВА ДАВИДОВА ГЕОРГИЕВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "СТАНИСЛАВА ДАВИДОВА ГЕОРГИЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "4,37",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "2,29",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -215,7 +222,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -233,7 +241,8 @@
         "holderName": "СТАНИСЛАВА ДАВИДОВА ГЕОРГИЕВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -251,7 +260,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -269,7 +279,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "Договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -287,7 +298,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -337,7 +349,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -355,7 +368,8 @@
         "holderName": "СТАНИСЛАВА ДАВИДОВА ГЕОРГИЕВА",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -373,7 +387,8 @@
         "holderName": "ИЛИЯН ВЕНКОВ ГЕОРГИЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -435,7 +450,8 @@
         "holderName": "Илиян Венков Георгиев",
         "isSpouse": false,
         "legalBasis": "Паричен заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

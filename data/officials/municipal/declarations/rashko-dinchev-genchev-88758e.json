@@ -61,7 +61,8 @@
         "holderName": "РАШКО ДИНЧЕВ ГЕНЧЕВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -79,7 +80,8 @@
         "holderName": "РАШКО ДИНЧЕВ ГЕНЧЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и потребителснки кредит"
+        "fundsOrigin": "заплата и потребителснки кредит",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -97,7 +99,8 @@
         "holderName": "ТЕОДОРА ТОШЕВА ГЕНЧЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -115,7 +118,8 @@
         "holderName": "РАШКО ДИНЧЕВ ГЕНЧЕВ",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

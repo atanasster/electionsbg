@@ -50,7 +50,8 @@
         "holderName": "Стоян Стефанов Бечев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания заплата"
+        "fundsOrigin": "спестявания заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -68,7 +69,8 @@
         "holderName": "Нейка Данкова Бечева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания заплата"
+        "fundsOrigin": "спестявания заплата",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -124,7 +126,8 @@
         "holderName": "Нейка Данкова Бечева и Стоян Стефанов Бечев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "debt",
@@ -142,7 +145,8 @@
         "holderName": "Нейка Данкова Бечева",
         "isSpouse": false,
         "legalBasis": "2,18%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -204,7 +208,8 @@
         "holderName": "Стоян Стефанов Бечев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми,заплата"
+        "fundsOrigin": "заеми,заплата",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -222,7 +227,8 @@
         "holderName": "Нейка Данкова Бечева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -240,7 +246,8 @@
         "holderName": "Стоян Стефанов Бечев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       }
     ],
     "events": []

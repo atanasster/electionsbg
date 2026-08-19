@@ -44,7 +44,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми и самоучастие"
+        "fundsOrigin": "заеми и самоучастие",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор с лихвен процент от 0 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -170,7 +177,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит - 2.18%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -188,7 +196,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "кредитна карта - 0%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -206,7 +215,8 @@
         "holderName": "Андрей Гришов Новаков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": [
@@ -269,7 +279,8 @@
         "holderName": "Ема Андреева Новакова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -287,7 +298,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения"
+        "fundsOrigin": "доходи от трудови правоотношения",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -305,7 +317,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения"
+        "fundsOrigin": "доходи от трудови правоотношения",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -323,7 +336,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "трудови доходи"
+        "fundsOrigin": "трудови доходи",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -341,7 +355,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -359,7 +374,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -377,7 +393,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -395,7 +412,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -413,7 +431,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор с лихвен процент от 0 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -431,7 +450,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за лизинг с лихвен процент от 5 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -449,7 +469,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -499,7 +520,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения"
+        "fundsOrigin": "доходи от трудови правоотношения",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -517,7 +539,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения"
+        "fundsOrigin": "доходи от трудови правоотношения",
+        "tableNum": "1.2"
       },
       {
         "category": "bank",
@@ -535,7 +558,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -553,7 +577,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -571,7 +596,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -589,7 +615,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "credit_limit",
@@ -607,7 +634,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -625,7 +653,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -669,7 +698,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения"
+        "fundsOrigin": "доходи от трудови правоотношения",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -687,7 +717,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения"
+        "fundsOrigin": "доходи от трудови правоотношения",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -705,7 +736,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "трудови доходи"
+        "fundsOrigin": "трудови доходи",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -723,7 +755,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -741,7 +774,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -759,7 +793,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -777,7 +812,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "credit_limit",
@@ -795,7 +831,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -839,7 +876,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения"
+        "fundsOrigin": "доходи от трудови правоотношения",
+        "tableNum": "1.2"
       },
       {
         "category": "bank",
@@ -857,7 +895,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -875,7 +914,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -893,7 +933,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -911,7 +952,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -955,7 +997,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения"
+        "fundsOrigin": "доходи от трудови правоотношения",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -973,7 +1016,8 @@
         "holderName": "Татяна Димитрова Новакова",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения на съпруга"
+        "fundsOrigin": "доходи от трудови правоотношения на съпруга",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -991,7 +1035,8 @@
         "holderName": "Татяна Димитрова Новакова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "доходи от трудови правоотношения на съпруга"
+        "fundsOrigin": "доходи от трудови правоотношения на съпруга",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -1009,7 +1054,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1027,7 +1073,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1045,7 +1092,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1063,7 +1111,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -1107,7 +1156,8 @@
         "holderName": "Татяна Димитрова Новакова",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения на съпруга"
+        "fundsOrigin": "доходи от трудови правоотношения на съпруга",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -1125,7 +1175,8 @@
         "holderName": "Татяна Димитрова Новакова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -1143,7 +1194,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1161,7 +1213,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1179,7 +1232,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1197,7 +1251,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -1247,7 +1302,8 @@
         "holderName": "Татяна Димитрова Новакова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарение по възходяща линия"
+        "fundsOrigin": "дарение по възходяща линия",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1265,7 +1321,8 @@
         "holderName": "Татяна Димитрова Новакова",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "доходи от трудови правоотношения на съпруга"
+        "fundsOrigin": "доходи от трудови правоотношения на съпруга",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -1283,7 +1340,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": "предварителен договор за покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -1301,7 +1359,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1319,7 +1378,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1337,7 +1397,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1355,7 +1416,8 @@
         "holderName": "Андрей Гришев Новаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+        "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации",
+        "tableNum": "5"
       }
     ],
     "events": [

@@ -38,7 +38,8 @@
         "holderName": "Весела Динкова Кирилова - Денкова",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарение"
+        "fundsOrigin": "дарение",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Мирослав Славов Денков",
         "isSpouse": true,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -74,7 +76,8 @@
         "holderName": "Весела Динкова Кирилова - Денкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -92,7 +95,8 @@
         "holderName": "Мирослав Славов Денков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -110,7 +114,8 @@
         "holderName": "Мирослав Славов Денков",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -128,7 +133,8 @@
         "holderName": "Мирослав Славов Денков",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

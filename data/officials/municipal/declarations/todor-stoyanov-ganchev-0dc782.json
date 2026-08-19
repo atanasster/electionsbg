@@ -73,7 +73,8 @@
         "holderName": "Тодор Стоянов Ганчев",
         "isSpouse": false,
         "legalBasis": "Договор за наем",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "1.2"
       },
       {
         "category": "bank",
@@ -91,7 +92,8 @@
         "holderName": "Тодор Стоянов Ганчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -109,7 +111,8 @@
         "holderName": "Надя Лозанова Ганчева",
         "isSpouse": true,
         "legalBasis": "Договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

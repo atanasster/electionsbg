@@ -38,7 +38,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарение от родители, трудови възнаграждения"
+        "fundsOrigin": "дарение от родители, трудови възнаграждения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -56,7 +57,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -74,7 +76,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -92,7 +95,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -110,7 +114,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -128,7 +133,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": "4.44",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -191,7 +197,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "датрения от родителите, трудови възнаграждения"
+        "fundsOrigin": "датрения от родителите, трудови възнаграждения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -209,7 +216,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, дарение от родители"
+        "fundsOrigin": "заплата, дарение от родители",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -227,7 +235,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -245,7 +254,8 @@
         "holderName": "Георги Димитров Стамов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": []

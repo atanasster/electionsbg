@@ -50,7 +50,8 @@
         "holderName": "СТАНИСЛАВ ПЕТРОВ ПОЛОМСКИ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -68,7 +69,8 @@
         "holderName": "СТАНИСЛАВ ПЕТРОВ ПОЛОМСКИ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -86,7 +88,8 @@
         "holderName": "ПЕТКАНА ТРИФОНОВА ПОЛОМСКА",
         "isSpouse": true,
         "legalBasis": "4,75%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -155,7 +158,8 @@
         "holderName": "МОЗАЙКА  24 ЕООД",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -173,7 +177,8 @@
         "holderName": "СТАНСЛАВ ПЕТРОВ ПОЛОМСКИ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -191,7 +196,8 @@
         "holderName": "ПЕТКАНА ТРИФОНОВА ПОЛОМСКА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

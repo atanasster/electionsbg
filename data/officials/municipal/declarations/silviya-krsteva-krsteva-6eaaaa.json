@@ -43,7 +43,8 @@
         "holderName": "СИЛВИЯ КРЪСТЕВА КРЪСТЕВА",
         "isSpouse": false,
         "legalBasis": "ПОКУПКА, ДАРЕНИЕ",
-        "fundsOrigin": "КРЕДИТ"
+        "fundsOrigin": "КРЕДИТ",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -61,7 +62,8 @@
         "holderName": "СИЛВИЯ КРЪСТЕВА КРЪСТЕВА",
         "isSpouse": false,
         "legalBasis": "НАСЛЕДСТВО",
-        "fundsOrigin": "НАСЛЕДЯВАНЕ"
+        "fundsOrigin": "НАСЛЕДЯВАНЕ",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -79,7 +81,8 @@
         "holderName": "СИЛВИЯ КРЪСТЕВА КРЪСТЕВА",
         "isSpouse": false,
         "legalBasis": "НАСЛЕДСТВО",
-        "fundsOrigin": "НАСЛЕДЯВАНЕ"
+        "fundsOrigin": "НАСЛЕДЯВАНЕ",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -97,7 +100,8 @@
         "holderName": "СИЛВИЯ КРЪСТЕВА КРЪСТЕВА",
         "isSpouse": false,
         "legalBasis": "НАСЛЕДСТВО",
-        "fundsOrigin": "НАСЛЕДЯВАНЕ"
+        "fundsOrigin": "НАСЛЕДЯВАНЕ",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -115,7 +119,8 @@
         "holderName": "СИЛВИЯ КРЪСТЕВА КРЪСТЕВА",
         "isSpouse": false,
         "legalBasis": "ПОКУПКО-ПРОДАЖБА",
-        "fundsOrigin": "КРЕДИТ"
+        "fundsOrigin": "КРЕДИТ",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -133,7 +138,8 @@
         "holderName": "СИЛВИЯ КРЪСТЕВА КРЪСТЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДАРЕНИЯ, СПЕСТЯВАНИЯ, ЗАПЛАТА"
+        "fundsOrigin": "ДАРЕНИЯ, СПЕСТЯВАНИЯ, ЗАПЛАТА",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -151,7 +157,8 @@
         "holderName": "СИЛВИЯ КРЪСТЕВА КРЪСТЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ, ЗАПЛАТА"
+        "fundsOrigin": "СПЕСТЯВАНИЯ, ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -169,7 +176,8 @@
         "holderName": "СИЛВИЯ КРЪСТЕВА КРЪСТЕВА",
         "isSpouse": false,
         "legalBasis": "договор за кредит-5.4%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

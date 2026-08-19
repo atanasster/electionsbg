@@ -44,7 +44,8 @@
         "holderName": "Атанаска Трифонова Павлова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "Атанаска Трифонова Павлова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -80,7 +82,8 @@
         "holderName": "Атанаска Трифонова Павлова",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -98,7 +101,8 @@
         "holderName": "Димитър Славов Павлов",
         "isSpouse": false,
         "legalBasis": "договор 4,5 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -167,7 +171,8 @@
         "holderName": "Димитър Славов Павлов",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -185,7 +190,8 @@
         "holderName": "Димитър Славов Павлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -203,7 +209,8 @@
         "holderName": "Атанаска Трифонова Павлова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата/наем"
+        "fundsOrigin": "заплата/наем",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -221,7 +228,8 @@
         "holderName": "Атанаска Трифонова Павлова",
         "isSpouse": true,
         "legalBasis": "наем на парцел",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -239,7 +247,8 @@
         "holderName": "Димитър Славов Павлов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

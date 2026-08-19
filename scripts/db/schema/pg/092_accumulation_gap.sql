@@ -91,6 +91,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       FROM declaration_asset a, endpoints e
      WHERE a.declaration_id = e.to_decl
        AND a.category = 'real_estate'
+       -- A чуждо property (table 1.2) contributes nothing to either endpoint, so an
+       -- unvalued one is not a caveat on a gap it never entered. See 089.
+       AND is_declared_holding(a.table_num)
        AND (a.value_eur IS NULL OR a.value_eur = 0)
   )
   -- Every figure is derived from the ROUNDED endpoints, not rounded independently: a

@@ -49,7 +49,8 @@
         "holderName": "Йорданка Христова Стойчева",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "vehicle",
@@ -67,7 +68,8 @@
         "holderName": "Александра Георгиева Стойчева",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -85,7 +87,8 @@
         "holderName": "Йорданка Христова Стойчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "Александра Георгиева Стойчева",
         "isSpouse": true,
         "legalBasis": "договор за лизинг, лихвен процент 4,10",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

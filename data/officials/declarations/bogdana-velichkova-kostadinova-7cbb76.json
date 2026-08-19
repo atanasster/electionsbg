@@ -44,7 +44,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Явор Веселинов Костадинов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -80,7 +82,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -98,7 +101,8 @@
         "holderName": "Явор Веселинов Костадинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "holderName": "Явор Веселинов Костадинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "лични спестявания и заплата"
+        "fundsOrigin": "лични спестявания и заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -170,7 +177,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -226,7 +234,8 @@
         "holderName": "Явор Веселинов Костадинов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Доходи от дивиденти"
+        "fundsOrigin": "Доходи от дивиденти",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -244,7 +253,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -262,7 +272,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "лични спестявания и заплата"
+        "fundsOrigin": "лични спестявания и заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -280,7 +291,8 @@
         "holderName": "Явор Веселинов Костадинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "лични спестявания и заплата"
+        "fundsOrigin": "лични спестявания и заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -298,7 +310,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит с договорен лихвен процент по него в размер на 3,59%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -316,7 +329,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит с договорен лихвен процент по него в размер на 4,29%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -366,7 +380,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -384,7 +399,8 @@
         "holderName": "Явор Веселинов Костадинов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -402,7 +418,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -420,7 +437,8 @@
         "holderName": "Явор Веселинов Костадинов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -438,7 +456,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми и заплата"
+        "fundsOrigin": "заеми и заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -456,7 +475,8 @@
         "holderName": "Явор Веселинов Костадинов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми и заплата"
+        "fundsOrigin": "заеми и заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -474,7 +494,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -492,7 +513,8 @@
         "holderName": "Богдана Величкова Костадинова",
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

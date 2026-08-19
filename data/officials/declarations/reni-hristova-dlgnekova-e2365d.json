@@ -44,7 +44,8 @@
         "holderName": "РЕНИ ХРИСТОВА ДЛЪГНЕКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДОХОДИ ОТ ДЕЙНОСТ"
+        "fundsOrigin": "ДОХОДИ ОТ ДЕЙНОСТ",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -62,7 +63,8 @@
         "holderName": "РЕНИ ХРИСТОВ ДЛЪГНЕКОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ДОХОДИ ОТ ПЕНСИЯ,  ДЕЙНОСТ И НАЕМ"
+        "fundsOrigin": "ДОХОДИ ОТ ПЕНСИЯ,  ДЕЙНОСТ И НАЕМ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -80,7 +82,8 @@
         "holderName": "РЕНИ ХРИСТОВ ДЛЪГНЕКОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ДОХОДИ ОТ   ДЕЙНОСТ И НАЕМ"
+        "fundsOrigin": "ДОХОДИ ОТ   ДЕЙНОСТ И НАЕМ",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -130,7 +133,8 @@
         "holderName": "РЕНИ ХРИСТОВА ДЛЪГНЕКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "пенсия, доходи и наем"
+        "fundsOrigin": "пенсия, доходи и наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -148,7 +152,8 @@
         "holderName": "РЕНИ ХРИСТОВА ДЛЪГНЕКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "доходи и наем"
+        "fundsOrigin": "доходи и наем",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -166,7 +171,8 @@
         "holderName": "РЕНИ ХРИСТОВА ДЛЪГНЕКОВА",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ПОТРЕБИТЕЛСКИ ЗАЕМ -4,29%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -216,7 +222,8 @@
         "holderName": "РЕНИ ХРИСТОВА ДЛЪГНЕКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДОХОДИ ОТ ДЕЙНОСТ"
+        "fundsOrigin": "ДОХОДИ ОТ ДЕЙНОСТ",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -234,7 +241,8 @@
         "holderName": "РЕНИ ХРИСТОВА ДЛЪГНЕКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ПЕНСИЯ , НАЕМИ , ДЕЙНОСТ"
+        "fundsOrigin": "ПЕНСИЯ , НАЕМИ , ДЕЙНОСТ",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -252,7 +260,8 @@
         "holderName": "РЕНИ ХРИСТОВА ДЛЪГНЕКОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ПЕНСИЯ , НАЕМИ , ДЕЙНОСТ"
+        "fundsOrigin": "ПЕНСИЯ , НАЕМИ , ДЕЙНОСТ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -270,7 +279,8 @@
         "holderName": "РЕНИ ХРИСТОВА ДЛЪГНЕКОВА",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

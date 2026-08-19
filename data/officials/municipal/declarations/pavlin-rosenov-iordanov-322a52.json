@@ -49,7 +49,8 @@
         "holderName": "Павлин Росенов Йорданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и дивиденти"
+        "fundsOrigin": "заплати и дивиденти",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -67,7 +68,8 @@
         "holderName": "Милица Лъчезарова Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -85,7 +87,8 @@
         "holderName": "Павлин Росенов Йорданов",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -103,7 +106,8 @@
         "holderName": "Павлин Росен Йорданов",
         "isSpouse": true,
         "legalBasis": "договор за заем, лихвен процент 2.19%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "holderName": "Милица Лъчезарова Йорданова",
         "isSpouse": true,
         "legalBasis": "съдлъжник по договор за заем, лихвен процент 2.19%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

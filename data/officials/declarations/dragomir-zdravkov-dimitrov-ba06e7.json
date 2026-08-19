@@ -50,7 +50,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заплата, кредит,продажба на автомобил"
+        "fundsOrigin": "Заплата, кредит,продажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -68,7 +69,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата на Др. Димитров"
+        "fundsOrigin": "заплата на Др. Димитров",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -86,7 +88,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия, спестявания"
+        "fundsOrigin": "заплата, пенсия, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -104,7 +107,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -122,7 +126,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -140,7 +145,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -158,7 +164,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "credit_limit",
@@ -176,7 +183,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "кредитен лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -194,7 +202,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": "кредитен лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -212,7 +221,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "кредитен лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -268,7 +278,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, кредит,продажба на автомобил"
+        "fundsOrigin": "заплата, кредит,продажба на автомобил",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -286,7 +297,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия, спестявания"
+        "fundsOrigin": "заплата, пенсия, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -304,7 +316,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -322,7 +335,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания, обезщетения"
+        "fundsOrigin": "заплата, спестявания, обезщетения",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -340,7 +354,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -358,7 +373,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -376,7 +392,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -394,7 +411,8 @@
         "holderName": "Мирена Димитрова",
         "isSpouse": true,
         "legalBasis": "кредитен лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -412,7 +430,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "кредитен лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -468,7 +487,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, продажба на автомобил, заем"
+        "fundsOrigin": "заплата, продажба на автомобил, заем",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -486,7 +506,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -504,7 +525,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания"
+        "fundsOrigin": "заплата, спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -522,7 +544,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, обезщетение при напускане"
+        "fundsOrigin": "заплата, обезщетение при напускане",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -540,7 +563,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от заплати"
+        "fundsOrigin": "спестявания от заплати",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -558,7 +582,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от заплати"
+        "fundsOrigin": "спестявания от заплати",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -576,7 +601,8 @@
         "holderName": "Ива Драгомирова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "детски влог"
+        "fundsOrigin": "детски влог",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -594,7 +620,8 @@
         "holderName": "Ива Драгомирова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "детски влог"
+        "fundsOrigin": "детски влог",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -612,7 +639,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -630,7 +658,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -648,7 +677,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "кредитен лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "credit_limit",
@@ -666,7 +696,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": "кредитен лимит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -747,7 +778,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -765,7 +797,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -783,7 +816,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и продажба на друго МПС"
+        "fundsOrigin": "заплата и продажба на друго МПС",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -801,7 +835,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и продажба на друго МПС"
+        "fundsOrigin": "заплата и продажба на друго МПС",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -819,7 +854,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Обезщетения  при напускане"
+        "fundsOrigin": "Обезщетения  при напускане",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -837,7 +873,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -855,7 +892,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -873,7 +911,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -891,7 +930,8 @@
         "holderName": "Ива Драгомирова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "детски влог"
+        "fundsOrigin": "детски влог",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -909,7 +949,8 @@
         "holderName": "Ива Драгомирова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "детски влог"
+        "fundsOrigin": "детски влог",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -927,7 +968,8 @@
         "holderName": "Ива Драгомирова Димитрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "детски влог"
+        "fundsOrigin": "детски влог",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -945,7 +987,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -963,7 +1006,8 @@
         "holderName": "Драгомир Здравков Димитров",
         "isSpouse": false,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -981,7 +1025,8 @@
         "holderName": "Мирена Иванова Димитрова",
         "isSpouse": true,
         "legalBasis": "кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

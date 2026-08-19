@@ -37,7 +37,8 @@
         "holderName": "Ваня Димчева Мичева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -55,7 +56,8 @@
         "holderName": "Ваня Димчева Мичева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -73,7 +75,8 @@
         "holderName": "Уникредит Лизинг ЕАД- Ваня Димчева Мичева",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -91,7 +94,8 @@
         "holderName": "Ваня Димчева Мичева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -109,7 +113,8 @@
         "holderName": "Ваня Димчева Мичева",
         "isSpouse": false,
         "legalBasis": "3,3600",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

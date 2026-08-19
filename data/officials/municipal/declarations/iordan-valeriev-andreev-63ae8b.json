@@ -30,7 +30,8 @@
         "holderName": "Йордан Валериев Андреев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -48,7 +49,8 @@
         "holderName": "Йордан Валериев Андреев",
         "isSpouse": false,
         "legalBasis": "наем",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1.2"
       },
       {
         "category": "real_estate",
@@ -66,7 +68,8 @@
         "holderName": "Йордан Валериев Андреев",
         "isSpouse": false,
         "legalBasis": "наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.2"
       },
       {
         "category": "vehicle",
@@ -84,7 +87,8 @@
         "holderName": "Йордан Валериев Андреев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -102,7 +106,8 @@
         "holderName": "Йордан Валериев Андреев",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "debt",
@@ -120,7 +125,8 @@
         "holderName": "Йордан Валериев Андреев",
         "isSpouse": false,
         "legalBasis": "лични нужди 5,23%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -138,7 +144,8 @@
         "holderName": "Йордан Валериев Андреев",
         "isSpouse": false,
         "legalBasis": "закупуване на автомобил 3,9%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

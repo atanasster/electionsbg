@@ -57,7 +57,8 @@
         "holderName": "Албена Иванова Радева-Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата,дарения"
+        "fundsOrigin": "заплата,дарения",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -75,7 +76,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -93,7 +95,8 @@
         "holderName": "Албена Иванова Радева-Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -111,7 +114,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": "заем олп + 2.5 пункта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -187,7 +191,8 @@
         "holderName": "Албена Иванова Радева-Йорданова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -205,7 +210,8 @@
         "holderName": "Албена Иванова Радева-Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания,дарения от сватбата"
+        "fundsOrigin": "спестявания,дарения от сватбата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -223,7 +229,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -241,7 +248,8 @@
         "holderName": "Албена Иванова Радева-Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата,продажба автомобил"
+        "fundsOrigin": "заплата,продажба автомобил",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -259,7 +267,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -277,7 +286,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -359,7 +369,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -377,7 +388,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": "ЗАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -395,7 +407,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": "ЗАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -439,7 +452,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАПЛАТА",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -457,7 +471,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -501,7 +516,8 @@
         "holderName": "Изабела Пламенова Йорданова",
         "isSpouse": true,
         "legalBasis": "дарение от бабата -Тотка Събева",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -519,7 +535,8 @@
         "holderName": "Емили Пламенова Йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -537,7 +554,8 @@
         "holderName": "Изабела Пламенова Йорданова",
         "isSpouse": true,
         "legalBasis": "Дарение от майката Пламена Йорданова",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -555,7 +573,8 @@
         "holderName": "Емили Пламенова Йорданова",
         "isSpouse": true,
         "legalBasis": "дарение от майката -Пламена Йорданова",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарения",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -573,7 +592,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": "право на ползване",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -591,7 +611,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба от Пламена Йорданова",
-        "fundsOrigin": "заеми и спестявания"
+        "fundsOrigin": "заеми и спестявания",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -609,7 +630,8 @@
         "holderName": "Пламев Веселинов Йорданов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -627,7 +649,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -645,7 +668,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -663,7 +687,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -713,7 +738,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажба автомобил"
+        "fundsOrigin": "заплата и продажба автомобил",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -731,7 +757,8 @@
         "holderName": "ПЛАМЕНА АНТОНОВА ЙОРДАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба апартамент"
+        "fundsOrigin": "продажба апартамент",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -818,7 +845,8 @@
         "holderName": "Пламен Веселинов Йорданов",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -855,7 +883,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ  ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -873,7 +902,8 @@
         "holderName": "ПЛАМЕНА АНТОНОВА ЙОРДАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -891,7 +921,8 @@
         "holderName": "ПЛАМЕНА АНТОНОВА ЙОРДАНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -909,7 +940,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ  ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -927,7 +959,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -945,7 +978,8 @@
         "holderName": "Пламена антонова йорданова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -963,7 +997,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -981,7 +1016,8 @@
         "holderName": "ПЛАМЕН ВЕСЕЛИНОВ ЙОРДАНОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания и кредит"
+        "fundsOrigin": "спестявания и кредит",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания и кредит"
+        "fundsOrigin": "спестявания и кредит",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания и кредит"
+        "fundsOrigin": "спестявания и кредит",
+        "tableNum": "3.3"
       },
       {
         "category": "vehicle",
@@ -98,7 +101,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания и кредит"
+        "fundsOrigin": "спестявания и кредит",
+        "tableNum": "3.3"
       },
       {
         "category": "bank",
@@ -116,7 +120,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -152,7 +158,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -170,7 +177,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -188,7 +196,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -206,7 +215,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -224,7 +234,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -242,7 +253,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит с 2,5 % лихва",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -260,7 +272,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "investment",
@@ -278,7 +291,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "8"
       }
     ],
     "events": []
@@ -328,7 +342,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -346,7 +361,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -364,7 +380,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -382,7 +399,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -400,7 +418,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -418,7 +437,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -436,7 +456,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -454,7 +475,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -472,7 +494,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -490,7 +513,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -508,7 +532,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -526,7 +551,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, спестявания, заеми"
+        "fundsOrigin": "заплата, спестявания, заеми",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -544,7 +570,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -562,7 +589,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "договорен овърдрафт",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -612,7 +640,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -630,7 +659,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -648,7 +678,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -666,7 +697,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -684,7 +716,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -702,7 +735,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -720,7 +754,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -777,7 +812,8 @@
         "holderName": "Тедор Велчев Велчев",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -795,7 +831,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти, заплата"
+        "fundsOrigin": "продажба на имоти, заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -813,7 +850,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имоти, заплата"
+        "fundsOrigin": "продажба на имоти, заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -831,7 +869,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -849,7 +888,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, заплата"
+        "fundsOrigin": "спестявания, заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -867,7 +907,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, заплата"
+        "fundsOrigin": "спестявания, заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -885,7 +926,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": [
@@ -978,7 +1020,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "право на строеж"
+        "fundsOrigin": "право на строеж",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -996,7 +1039,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1014,7 +1058,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1032,7 +1077,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1050,7 +1096,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1068,7 +1115,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит"
+        "fundsOrigin": "кредит",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1086,7 +1134,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "real_estate",
@@ -1104,7 +1153,8 @@
         "holderName": "Станислава Йорданова Арабаджиеева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -1122,7 +1172,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1140,7 +1191,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -1158,7 +1210,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -1176,7 +1229,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1194,7 +1248,8 @@
         "holderName": "Теодор Велчев Велчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1212,7 +1267,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1230,7 +1286,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -1248,7 +1305,8 @@
         "holderName": "Станислава Йорданова Арабаджиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       }
     ],
     "events": [

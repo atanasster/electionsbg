@@ -62,7 +62,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -80,7 +81,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "делба",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -98,7 +100,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -116,7 +119,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивидент и заплата"
+        "fundsOrigin": "дивидент и заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -134,7 +138,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивидент"
+        "fundsOrigin": "заплата и дивидент",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -152,7 +157,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -170,7 +176,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -188,7 +195,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -206,7 +214,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -224,7 +233,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми и заплата"
+        "fundsOrigin": "заеми и заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -242,7 +252,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "договор за заем 5,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -260,7 +271,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за кредит 4,45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -278,7 +290,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг 9,49%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -296,7 +309,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит 4,45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -314,7 +328,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит 6,19%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -401,7 +416,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -419,7 +435,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -437,7 +454,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -455,7 +473,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -473,7 +492,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -491,7 +511,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -509,7 +530,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -527,7 +549,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": "Договор за паричен заем 5,5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -545,7 +568,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за паричен заем 5%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -563,7 +587,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг  9,49%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -581,7 +606,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за кредит 4,45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -599,7 +625,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит 4,45%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -748,7 +775,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -766,7 +794,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -784,7 +813,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -802,7 +832,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -820,7 +851,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -838,7 +870,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -856,7 +889,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -874,7 +908,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -892,7 +927,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -910,7 +946,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за ипотечен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -928,7 +965,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -946,7 +984,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "security",
@@ -964,7 +1003,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дивидент"
+        "fundsOrigin": "дивидент",
+        "tableNum": "9"
       }
     ],
     "events": []
@@ -1034,7 +1074,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1052,7 +1093,8 @@
         "holderName": "Клавдия Александрова Апостолова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -1070,7 +1112,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -1088,7 +1131,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "receivable",
@@ -1106,7 +1150,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -1124,7 +1169,8 @@
         "holderName": "ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1142,7 +1188,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1160,7 +1207,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1178,7 +1226,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1196,7 +1245,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "кредитна карта",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -1259,7 +1309,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "tableNum": "3.4"
       },
       {
         "category": "receivable",
@@ -1277,7 +1328,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -1295,7 +1347,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1313,7 +1366,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -1357,7 +1411,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "cash",
@@ -1375,7 +1430,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заем и заплати"
+        "fundsOrigin": "заем и заплати",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -1393,7 +1449,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -1449,7 +1506,8 @@
         "holderName": "ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -1467,7 +1525,8 @@
         "holderName": "ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -1553,7 +1612,8 @@
         "holderName": "ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -1571,7 +1631,8 @@
         "holderName": "Виктор Валериев Апостолов",
         "isSpouse": false,
         "legalBasis": "Договор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

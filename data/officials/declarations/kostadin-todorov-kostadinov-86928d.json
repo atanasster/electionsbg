@@ -57,7 +57,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -75,7 +76,8 @@
         "holderName": "Еленка Димчева Костадинова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -93,7 +95,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "cash",
@@ -111,7 +114,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "cash",
@@ -129,7 +133,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -147,7 +152,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -165,7 +171,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -183,7 +190,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "договор за лизинг с 5% лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -201,7 +209,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг с 4.2% лихвен процент",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -351,7 +360,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -369,7 +379,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -387,7 +398,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -405,7 +417,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -423,7 +436,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -441,7 +455,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -459,7 +474,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -578,7 +594,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -596,7 +613,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -614,7 +632,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "bank",
@@ -632,7 +651,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -650,7 +670,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -668,7 +689,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "договор за жилищен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -686,7 +708,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -704,7 +727,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -829,7 +853,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -847,7 +872,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -865,7 +891,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -883,7 +910,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3"
       },
       {
         "category": "cash",
@@ -901,7 +929,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "4"
       },
       {
         "category": "bank",
@@ -919,7 +948,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -937,7 +967,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "договор за жилищен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -955,7 +986,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -1194,7 +1226,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1212,7 +1245,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1230,7 +1264,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -1248,7 +1283,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупки-продажба",
-        "fundsOrigin": "застрахователно обезщетение, спестявания, дарение от родител, продажба на бракуван автомобил"
+        "fundsOrigin": "застрахователно обезщетение, спестявания, дарение от родител, продажба на бракуван автомобил",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1266,7 +1302,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -1284,7 +1321,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "договор за жилищен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -1302,7 +1340,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "даговор за потребителски кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -1346,7 +1385,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем, спестявания"
+        "fundsOrigin": "заем, спестявания",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -1364,7 +1404,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -1382,7 +1423,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "застрахователно обезщетение, спестявания, дарение от родител, продажба на бракуван автомобил"
+        "fundsOrigin": "застрахователно обезщетение, спестявания, дарение от родител, продажба на бракуван автомобил",
+        "tableNum": "3"
       },
       {
         "category": "debt",
@@ -1400,7 +1442,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "договор за жилищен кредит",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -1463,7 +1506,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -1481,7 +1525,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3"
       }
     ],
     "events": [
@@ -1544,7 +1589,8 @@
         "holderName": "Косдтадин Тодоров Костадинов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "1.1"
       },
       {
         "category": "vehicle",
@@ -1562,7 +1608,8 @@
         "holderName": "Костадин Тодоров Костадинов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -1580,7 +1627,8 @@
         "holderName": "Велина Денчева Костадинова",
         "isSpouse": true,
         "legalBasis": "други",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "3"
       }
     ],
     "events": []

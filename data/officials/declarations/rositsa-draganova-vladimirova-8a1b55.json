@@ -44,7 +44,8 @@
         "holderName": "РОСИЦА ДРАГАНОВА ВЛАДИМИРОВА",
         "isSpouse": false,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -62,7 +63,8 @@
         "holderName": "РОСИЦА ДРАГАНОВА ВЛАДИМИРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "vehicle",
@@ -80,7 +82,8 @@
         "holderName": "Росица Драганова Владимирова",
         "isSpouse": false,
         "legalBasis": "Алианс Лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -98,7 +101,8 @@
         "holderName": "Росица Драганова Владимирова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "продажба на имот",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -116,7 +120,8 @@
         "holderName": "Алианц Лизинг България ЕАД",
         "isSpouse": true,
         "legalBasis": "лихвен процент 3.49%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []
@@ -166,7 +171,8 @@
         "holderName": "РОСИЦА ДРАГАНОВА ВЛАДИМИРОВА",
         "isSpouse": false,
         "legalBasis": "ОНАСЛЕДЯВАНЕ",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "tableNum": "1"
       },
       {
         "category": "real_estate",
@@ -184,7 +190,8 @@
         "holderName": "РОСИЦА ДРАГАНОВА ВЛАДИМИРОВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "1"
       },
       {
         "category": "bank",
@@ -202,7 +209,8 @@
         "holderName": "РОСИЦА ДРАГАНОВА ВЛАДИМИРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ПРОДАЖБА НА ИМОТ"
+        "fundsOrigin": "ПРОДАЖБА НА ИМОТ",
+        "tableNum": "5"
       }
     ],
     "events": []
@@ -252,7 +260,8 @@
         "holderName": "РОСИЦА ДРАГАНОВА ВЛАДИМИРОВА",
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГ",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3.4"
       },
       {
         "category": "bank",
@@ -270,7 +279,8 @@
         "holderName": "РОСИЦА ДРАГАНОВА ВЛАДИМИРОВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ПРОДАЖБА НА ИМОТ"
+        "fundsOrigin": "ПРОДАЖБА НА ИМОТ",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -288,7 +298,8 @@
         "holderName": "РОСИЦА ДРАГАНОВА ВЛАДИМИРОВА",
         "isSpouse": false,
         "legalBasis": "ЗАЕМ",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

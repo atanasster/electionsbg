@@ -62,7 +62,8 @@
         "holderName": "Елена Василева Николова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване, заплати, наеми и пенсии"
+        "fundsOrigin": "наследяване, заплати, наеми и пенсии",
+        "tableNum": "4"
       }
     ],
     "events": []
@@ -136,7 +137,8 @@
         "holderName": "Любомир Василев Николов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заеми, спестявания, застрахователно обезщетение"
+        "fundsOrigin": "Заеми, спестявания, застрахователно обезщетение",
+        "tableNum": "1"
       },
       {
         "category": "cash",
@@ -154,7 +156,8 @@
         "holderName": "Елена Василева Николова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване , заплати, наеми"
+        "fundsOrigin": "наследяване , заплати, наеми",
+        "tableNum": "4"
       },
       {
         "category": "debt",
@@ -172,7 +175,8 @@
         "holderName": "Елена Василева Николова",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

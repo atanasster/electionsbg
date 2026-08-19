@@ -44,7 +44,8 @@
         "holderName": "Дико Иванов Иванов",
         "isSpouse": false,
         "legalBasis": "покупка на лизинг",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3.1"
       },
       {
         "category": "debt",
@@ -62,7 +63,8 @@
         "holderName": "Дико Иванов Иванов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
@@ -125,7 +127,8 @@
         "holderName": "Дико Иванов Иванов",
         "isSpouse": false,
         "legalBasis": "заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

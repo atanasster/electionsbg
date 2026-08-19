@@ -43,7 +43,8 @@
         "holderName": "Емин Алиосман Карамолл",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "tableNum": "3"
       },
       {
         "category": "vehicle",
@@ -61,7 +62,8 @@
         "holderName": "Фейзе Реджепова Карамолла",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -79,7 +81,8 @@
         "holderName": "Емин Алиосман Карамолла",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -97,7 +100,8 @@
         "holderName": "Фейзе Реджепова Карамолла",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -115,7 +119,8 @@
         "holderName": "Емин Алиосман Карамолла",
         "isSpouse": false,
         "legalBasis": "договор за кредити с 3,9 лих. %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "holderName": "Фейзе Реджепова Карамолла",
         "isSpouse": true,
         "legalBasis": "договор за лизинг с 8,5 лих. %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": []

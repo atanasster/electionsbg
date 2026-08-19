@@ -55,7 +55,8 @@
         "holderName": "Росица Ганчева Кръстева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "възнаграждения,кредит,спестявания"
+        "fundsOrigin": "възнаграждения,кредит,спестявания",
+        "tableNum": "3"
       },
       {
         "category": "bank",
@@ -73,7 +74,8 @@
         "holderName": "Росица Ганчева Кръстева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "възнаграждения,спестявания"
+        "fundsOrigin": "възнаграждения,спестявания",
+        "tableNum": "5"
       },
       {
         "category": "receivable",
@@ -91,7 +93,8 @@
         "holderName": "Росица Ганчева Кръстева",
         "isSpouse": false,
         "legalBasis": "споразумение",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "6"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "holderName": "Росица Ганчева Кръстева",
         "isSpouse": false,
         "legalBasis": "договор;4,75%",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [

@@ -74,7 +74,8 @@
         "holderName": "Дениз Ремзи Хайрула",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и наем"
+        "fundsOrigin": "заплата и наем",
+        "tableNum": "5"
       },
       {
         "category": "bank",
@@ -92,7 +93,8 @@
         "holderName": "Емне Селями Хайрула",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и ав.пл. по сделка с недв.имот"
+        "fundsOrigin": "заплата и ав.пл. по сделка с недв.имот",
+        "tableNum": "5"
       },
       {
         "category": "debt",
@@ -110,7 +112,8 @@
         "holderName": "Дениз Ремзи Хайрула",
         "isSpouse": false,
         "legalBasis": "договор за кредит, 5.15 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       },
       {
         "category": "debt",
@@ -128,7 +131,8 @@
         "holderName": "Дениз Ремзи Хайрула",
         "isSpouse": false,
         "legalBasis": "договор за кредит, 6.15 %",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "tableNum": "7"
       }
     ],
     "events": [
