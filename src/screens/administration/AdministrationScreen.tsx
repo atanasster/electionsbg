@@ -51,6 +51,7 @@ import {
 import { pctChange } from "@/data/administration/scopeOverview";
 import {
   ADMIN_SECTOR_EIKS,
+  ADMIN_STATE_BODY_CONTRACTORS,
   ADMIN_ENTITIES,
   ministryName,
 } from "@/lib/administrationReferenceData";
@@ -923,10 +924,22 @@ export const AdministrationScreen: FC = () => {
       <PackSection
         icon={Banknote}
         title={bg ? "Пари за електронно управление" : "The e-government money"}
+        // Deliberately NOT an enumeration: this caption named three members
+        // until ЕСМИС was added on 2026-08-19, and a stale list here is a false
+        // claim to the reader rather than a stale comment.
+        //
+        // It also must not say the four „held the mandate in succession" — the
+        // reference data's header refutes exactly that (ИА ИЕУ and МЕУ are an
+        // agency and its ministry running CONCURRENTLY, not a baton pass) and
+        // deliberately declines to state the succession on the page at all.
+        // „сгънати" is the whole claim: these EIKs are summed as one group.
+        //
+        // The pointer is to the chips, which render in BOTH branches — the
+        // charts do not exist on an empty scope.
         sub={
           bg
-            ? "Обществени поръчки на групата МЕУ + ИА ИЕУ + ДАЕУ (сгънати)."
-            : "Procurement by the МЕУ + ИА ИЕУ + ДАЕУ group (folded)."
+            ? `Обществените поръчки на ${ADMIN_ENTITIES.length} ведомства за електронно управление, сгънати в една група. Изброени са в края на секцията.`
+            : `Procurement by ${ADMIN_ENTITIES.length} e-government bodies, folded into one group. They are listed at the end of this section.`
         }
         id="admin-money"
       >
@@ -968,6 +981,8 @@ export const AdministrationScreen: FC = () => {
               <SectorTopContractorsTile
                 model={moneyModel}
                 seeAllTo={sectorContractsHref}
+                memberEiks={ADMIN_SECTOR_EIKS}
+                stateBodyEiks={ADMIN_STATE_BODY_CONTRACTORS}
               />
             </div>
           </>

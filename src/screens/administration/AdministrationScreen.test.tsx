@@ -72,13 +72,40 @@ vi.mock("@/data/administration/useAdminServices", () => ({
   useAdminServices: () => ({ data: undefined }),
 }));
 // The e-government procurement fold and the shared sector charts fetch on their
-// own; neither carries the year label under test.
+// own, so they stay render-free here. The leaderboard stub CAPTURES its props
+// rather than discarding them: the defect this screen last shipped was a WIRING
+// one — the tile could label a public-body contractor and the screen never asked
+// it to, so „Информационно обслужване" АД (a company whose принципал is the
+// ministry leading this sector) topped the list looking like a private vendor.
+// With `() => null` both prop lines could be deleted and every test in the repo
+// would still pass.
+const topContractorsProps = vi.fn();
 vi.mock("@/data/procurement/useAwarderGroupModel", () => ({
-  useAwarderGroupModel: () => ({ model: null, byUnit: [] }),
+  useAwarderGroupModel: () => ({
+    model: {
+      totalEur: 1,
+      contractCount: 1,
+      suppliers: [],
+      years: [],
+      categories: [],
+      supplierCount: 0,
+      bidKnownN: 0,
+      singleBidN: 0,
+      singleBidShare: null,
+      directEur: 0,
+      directShare: 0,
+      minYear: null,
+      maxYear: null,
+    },
+    byUnit: [],
+  }),
 }));
 vi.mock("@/screens/sector/SectorCharts", () => ({
   SectorSpendByYearTile: () => null,
-  SectorTopContractorsTile: () => null,
+  SectorTopContractorsTile: (p: Record<string, unknown>) => {
+    topContractorsProps(p);
+    return null;
+  },
 }));
 vi.mock("./DigitalSkillsTiles", () => ({ DigitalSkillsStub: () => null }));
 vi.mock("@/screens/components/procurement/SectorBreadcrumb", () => ({
@@ -89,6 +116,8 @@ vi.mock("@/ux/Title", () => ({
 }));
 
 const { AdministrationScreen } = await import("./AdministrationScreen");
+const { ADMIN_SECTOR_EIKS, ADMIN_STATE_BODY_CONTRACTORS } =
+  await import("@/lib/administrationReferenceData");
 
 const at = (url: string) =>
   render(<AdministrationScreen />, {
@@ -136,5 +165,18 @@ describe("AdministrationScreen scope", () => {
     at("/sector/administration?pscope=all");
     expect(nsPill()).toHaveAttribute("aria-pressed", "true");
     expect(headcount()).toContain("145,623");
+  });
+});
+
+describe("AdministrationScreen — the leaderboard's label sets", () => {
+  it("hands the tile both sets, so ИО does not render as a private vendor", () => {
+    topContractorsProps.mockClear();
+    at("/sector/administration");
+    const props = topContractorsProps.mock.calls.at(-1)?.[0] as
+      | Record<string, unknown>
+      | undefined;
+    expect(props).toBeDefined();
+    expect(props!.memberEiks).toEqual(ADMIN_SECTOR_EIKS);
+    expect(props!.stateBodyEiks).toBe(ADMIN_STATE_BODY_CONTRACTORS);
   });
 });

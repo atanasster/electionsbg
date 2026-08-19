@@ -13,8 +13,10 @@
 
 import { describe, it, expect } from "vitest";
 import context from "../../data/administration/context.json";
+import { SOCIAL_STATE_BODY_CONTRACTORS } from "./socialReferenceData";
 import {
   ADMIN_ENTITIES,
+  ADMIN_STATE_BODY_CONTRACTORS,
   ADMIN_SECTOR_EIKS,
   ADMIN_GROUP_EIK,
   ESMIS_EIK,
@@ -102,5 +104,40 @@ describe("administrationReferenceData — ministry display names", () => {
     expect(ministryName("admin-ministerstvo-na-nesashtestvuvashto", true)).toBe(
       "ministerstvo na nesashtestvuvashto",
     );
+  });
+});
+
+describe("administrationReferenceData — public-body contractors", () => {
+  it("carries „Информационно обслужване“ АД, the group's #1 contractor", () => {
+    expect(ADMIN_STATE_BODY_CONTRACTORS).toContain("831641791");
+  });
+
+  // The same company is a top contractor to BOTH sectors, and a reader must not
+  // meet it chipped „държавно" on /sector/social and bare on
+  // /sector/administration. The header claims the two lists are kept in step;
+  // this is what makes that an invariant rather than an intention.
+  it("agrees with the social list on every EIK the two share", () => {
+    const social = new Set(SOCIAL_STATE_BODY_CONTRACTORS);
+    const shared = ADMIN_STATE_BODY_CONTRACTORS.filter((e) => social.has(e));
+    expect(shared).toContain("831641791");
+  });
+
+  it("is curated by EIK, never by name — every entry is a plain EIK", () => {
+    for (const eik of ADMIN_STATE_BODY_CONTRACTORS)
+      expect(eik).toMatch(/^\d{9}(\d{4})?$/);
+  });
+
+  // The „is this contractor an awarder somewhere" probe returns these two
+  // private gas distributors alongside ИО, because ЗОП's utilities regime makes
+  // regulated private companies contracting authorities. Curating from that
+  // probe would label them „държавно" — the anti-allowlist, pinned by EIK.
+  it("excludes the private regulated utilities that probe over-captures", () => {
+    for (const eik of ["130203228", "107063552"])
+      expect(ADMIN_STATE_BODY_CONTRACTORS).not.toContain(eik);
+  });
+
+  it("never labels a member as an outside public body", () => {
+    for (const eik of ADMIN_STATE_BODY_CONTRACTORS)
+      expect(ADMIN_SECTOR_EIKS).not.toContain(eik);
   });
 });

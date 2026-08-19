@@ -1320,8 +1320,8 @@ export const DATASETS: DatasetDef[] = [
       en: "workforce, cost, services, e-gov",
     },
     desc: {
-      bg: "Административните услуги (ИИСДА, ~2 668), използването на е-управление спрямо ЕС (Eurostat), качеството на административното обслужване (сигнали, измерване на удовлетвореността — от годишния Доклад), плюс сгънатия page-context (щат, структури, разход, население). Поръчките за е-управление (МЕУ + ИА ИЕУ + ДАЕУ) идват от корпуса на договорите.",
-      en: "The administrative-services register (IISDA, ~2,668), e-government use vs the EU (Eurostat), service quality (signals, satisfaction-measurement — from the annual Report), plus the folded page-context (workforce, structures, cost, population). e-government procurement (МЕУ + ИА ИЕУ + ДАЕУ) comes from the contracts corpus.",
+      bg: "Административните услуги (ИИСДА, ~2 668), използването на е-управление спрямо ЕС (Eurostat), качеството на административното обслужване (сигнали, измерване на удовлетвореността — от годишния Доклад), плюс сгънатия page-context (щат, структури, разход, население). Поръчките за е-управление (групата ведомства в ADMIN_SECTOR_EIKS) идват от корпуса на договорите.",
+      en: "The administrative-services register (IISDA, ~2,668), e-government use vs the EU (Eurostat), service quality (signals, satisfaction-measurement — from the annual Report), plus the folded page-context (workforce, structures, cost, population). e-government procurement (the body group in ADMIN_SECTOR_EIKS) comes from the contracts corpus.",
     },
     path: "data/administration/",
     tags: ["fiscal", "indicators"],
@@ -1818,8 +1818,8 @@ export const FEATURES: FeatureDef[] = [
       en: "how big, what it costs, how digital",
     },
     desc: {
-      bg: "Държавната администрация като институция — щатна численост и структури по тип (годишният Доклад за състоянието на администрацията), разходът за персонал на щат, разминаването администрация–население, и парите за електронно управление (обществените поръчки на групата МЕУ + ИА ИЕУ + ДАЕУ).",
-      en: "The state administration as an institution — positions and structures by type (the annual Report on the State of the Administration), personnel cost per FTE, the administration-vs-population divergence, and the e-government money (procurement by the МЕУ + ИА ИЕУ + ДАЕУ group).",
+      bg: "Държавната администрация като институция — щатна численост и структури по тип (годишният Доклад за състоянието на администрацията), разходът за персонал на щат, разминаването администрация–население, и парите за електронно управление (обществените поръчки на сгънатата група ведомства).",
+      en: "The state administration as an institution — positions and structures by type (the annual Report on the State of the Administration), personnel cost per FTE, the administration-vs-population divergence, and the e-government money (procurement by the folded e-government body group).",
     },
     route: "/sector/administration",
     tags: ["fiscal", "indicators"],

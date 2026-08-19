@@ -72,13 +72,35 @@ export const SectorTopContractorsTile: FC<{
    *  in-group transfer, not a supplier the sector bought from on the market, and
    *  the row says so — see the note under the list. Omit to disable the check. */
   memberEiks?: readonly string[];
-}> = ({ model, seeAllTo, memberEiks }) => {
+  /** Contractors that are PUBLIC BODIES but NOT members of this sector — a state
+   *  or municipal company, an agency, a fund manager. Same treatment as
+   *  `memberEiks` and for the same reason: the money is an intra-government
+   *  transfer rather than a market award, and unlabelled the row reads as a
+   *  private vendor topping the sector. Still counted; never filtered out.
+   *
+   *  ⚠ MUST BE A CURATED LIST, never "is this EIK an awarder somewhere". ЗОП's
+   *  utilities regime makes private regulated companies contracting authorities
+   *  too, so that probe returns ЕВН, Овергаз, Софийска вода and the privately
+   *  held Топлофикации alongside the genuinely public ones — measured on water,
+   *  44% of its answer was private. Omit to disable the check. */
+  stateBodyEiks?: readonly string[];
+}> = ({ model, seeAllTo, memberEiks, stateBodyEiks }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const locale = bg ? "bg-BG" : "en-US";
   const rows = model.suppliers.slice(0, 8);
   const members = new Set(memberEiks ?? []);
+  // A member is already labelled „в групата", which is the more specific
+  // statement — so the two sets never both fire on one row.
+  const stateBodies = new Set(
+    (stateBodyEiks ?? []).filter((e) => !members.has(e)),
+  );
+  // Both gated on the VISIBLE rows rather than on the prop: a listed EIK that
+  // falls outside the top-8 must not produce a footnote explaining a chip the
+  // reader cannot see. `stateBodyEiks.length > 0` would pass every test here
+  // and be wrong on exactly that case.
   const hasInGroup = rows.some((s) => members.has(s.eik));
+  const hasStateBody = rows.some((s) => stateBodies.has(s.eik));
   if (rows.length < 2) return null;
   const max = rows[0].totalEur || 1;
 
@@ -100,6 +122,7 @@ export const SectorTopContractorsTile: FC<{
       <CardContent className="space-y-1.5 p-3 md:p-4">
         {rows.map((s) => {
           const inGroup = members.has(s.eik);
+          const isStateBody = stateBodies.has(s.eik);
           return (
             <div key={s.eik} className="flex items-center gap-2 text-sm">
               <CompanyLink
@@ -112,6 +135,7 @@ export const SectorTopContractorsTile: FC<{
               {inGroup && (
                 <span
                   className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground"
+                  aria-describedby="sector-topcontractors-ingroup-note"
                   title={
                     bg
                       ? "Изпълнителят е от същата група — парите остават в сектора"
@@ -121,10 +145,23 @@ export const SectorTopContractorsTile: FC<{
                   {bg ? "в групата" : "in-group"}
                 </span>
               )}
+              {isStateBody && (
+                <span
+                  className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground"
+                  aria-describedby="sector-topcontractors-statebody-note"
+                  title={
+                    bg
+                      ? "Изпълнителят е държавна или общинска структура — трансфер вътре в държавата, не спечелен на пазара договор"
+                      : "The contractor is a state or municipal body — a transfer inside government, not a contract won on a market"
+                  }
+                >
+                  {bg ? "държавно" : "state body"}
+                </span>
+              )}
               <div className="relative h-4 flex-1 overflow-hidden rounded bg-muted/40">
                 <div
                   className={`absolute inset-y-0 left-0 rounded ${
-                    inGroup ? "bg-primary/30" : "bg-primary/70"
+                    inGroup || isStateBody ? "bg-primary/30" : "bg-primary/70"
                   }`}
                   style={{ width: `${Math.max(3, (s.totalEur / max) * 100)}%` }}
                 />
@@ -136,10 +173,23 @@ export const SectorTopContractorsTile: FC<{
           );
         })}
         {hasInGroup && (
-          <p className="pt-1.5 text-xs text-muted-foreground">
+          <p
+            id="sector-topcontractors-ingroup-note"
+            className="pt-1.5 text-xs text-muted-foreground"
+          >
             {bg
               ? "„В групата“ = изпълнителят е една от организациите в сектора. Тези пари не са отишли на външен пазар — държавата плаща на собственото си дружество."
               : "“In-group” = the contractor is one of the sector's own organisations. That money did not go to an external market — the state is paying its own company."}
+          </p>
+        )}
+        {hasStateBody && (
+          <p
+            id="sector-topcontractors-statebody-note"
+            className="pt-1.5 text-xs text-muted-foreground"
+          >
+            {bg
+              ? "„Държавно“ = изпълнителят е държавна или общинска структура извън сектора. Договорът е реална обществена поръчка и се брои тук, но парите остават вътре в държавата, а не отиват на външен пазар."
+              : "“State body” = the contractor is a state or municipal organisation outside this sector. The contract is a real public procurement and is counted here, but the money stays inside government rather than reaching an external market."}
           </p>
         )}
       </CardContent>

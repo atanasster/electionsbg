@@ -138,6 +138,46 @@ export const ADMIN_SECTOR_EIKS: readonly string[] = ADMIN_ENTITIES.map(
  *  re-typing the digits. */
 export const ADMIN_GROUP_EIK = ADMIN_SECTOR_EIKS[0];
 
+/** PUBLIC-BODY CONTRACTORS — suppliers to this group that are themselves state
+ *  or municipal organisations, so the money never leaves government. The
+ *  „Топ изпълнители" tile labels these („държавно"); it never drops them, and
+ *  they stay in every total, because they are real public procurements.
+ *
+ *  The one that matters is „Информационно обслужване" АД at **24.15% of the
+ *  group's all-time money and 34.64% of 2025** (€81,321,665; measured
+ *  2026-08-19 over `contracts` at tag='contract', denominator = the FOUR-body
+ *  ADMIN_SECTOR_EIKS, €336,731,123) — the sector's #1 „изпълнител",
+ *  and a company whose принципал is МЕУ, the ministry that LEADS this sector.
+ *  Unlabelled it reads as a private IT vendor winning a quarter of Bulgarian
+ *  e-government. It is also the state's designated системен интегратор under
+ *  ЗЕУ, which is why 52 of its 64 awards here carry no procurement method and
+ *  the other 12 are single-bid `limited`: those are in-house awards required by
+ *  statute, not a competition failure — and the `tenders` join returns no
+ *  `legal_basis` for any of them, so the page cannot source that ground and
+ *  states it in the chip's tooltip rather than rendering it as data.
+ *
+ *  ⚠ CURATED BY EIK, and it CANNOT be derived. The obvious probe — "is this
+ *  contractor an awarder somewhere in the corpus" — over-captures, because
+ *  ЗОП's utilities regime makes private regulated companies contracting
+ *  authorities: on this group it also returns Балкангаз 2000 (130203228) and
+ *  Севлиевогаз-2000 (107063552), private gas distributors that are deliberately
+ *  NOT here. Checked by ownership, not by that probe.
+ *
+ *  ⚠ EVERY SHARE ABOVE NAMES ITS DENOMINATOR AND ITS DATE, and that is not
+ *  bookkeeping: the first draft of this block said „25.7%", which was the share
+ *  against the THREE-body group as it stood before ЕСМИС was added — to this
+ *  same file, on the same day, eleven lines above. A bare percentage in a
+ *  member-set file silently re-bases itself every time the set changes, and
+ *  nothing fails. Re-derive on the next membership change.
+ *
+ *  Kept in step with SOCIAL_STATE_BODY_CONTRACTORS, which already carries the
+ *  same EIK for the same reason — a reader must not meet it labelled on one
+ *  sector page and bare on another. `administrationReferenceData.test.ts`
+ *  asserts that, so dropping it from either side fails. */
+export const ADMIN_STATE_BODY_CONTRACTORS: readonly string[] = [
+  "831641791", // „Информационно обслужване" АД — majority state (принципал МЕУ)
+];
+
 /** First year the annual Доклад (data/budget/personnel.json `national`) covers
  *  — the INSTITUTION half of this screen.
  *
