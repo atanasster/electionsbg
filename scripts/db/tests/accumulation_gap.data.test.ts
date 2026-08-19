@@ -130,6 +130,12 @@ test.skipIf(skip)(
            SELECT count(*) expected FROM declaration_asset d
             WHERE d.declaration_id = last.declaration_id
               AND d.category = 'real_estate'
+              -- Same holding basis as 092's own unvalued CTE. A чуждо property
+              -- (table 1.2) contributes to neither endpoint, so an unvalued one is not
+              -- a caveat on a gap it never entered — and a recompute that omitted this
+              -- would be asserting the function against a DIFFERENT rule, which is how a
+              -- gate ends up demanding the defect it was written to catch.
+              AND is_declared_holding(d.table_num)
               AND (d.value_eur IS NULL OR d.value_eur = 0)
          ) u ON true
         WHERE x.g IS NOT NULL

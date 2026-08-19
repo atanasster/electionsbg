@@ -211,13 +211,23 @@ numbers below are from the stamped corpus and supersede §2.
 |---|---:|
 | чуждо rows in `declaration_asset` | **7,278** (6,945 valued), €73,556,611 raw, 3,201 filings |
 | removed from `person_wealth_year` | **€55,565,683** — 1,980 person-years, 1,120 people |
-| corpus total assets | €4,213,997,747 → **€4,158,432,064** |
+| corpus total assets | €4,213,997,747 → **€4,158,432,064** (see the drift note) |
 | latest-year profiles affected | **795**; 208 were ≥50% чуждо, 100 ≥90%, **77 entirely** |
 | rank displacement | 562 fall 50+ places; worst drop 15,106; **top 100 unchanged** |
 | `/mp-cars` | 721 → **643** rows, €7,109,059 → **€5,483,110**, 401 → **360** MPs |
 
 Worked examples hold: Пеевски 2025 **€10,070,563 → €9,760,147**, exactly the figure the
 report predicted; Стефан Добрев Стайков 2024 **€445,386 → €0**.
+
+**Drift note.** The two ABSOLUTE totals above were true at the moment of measurement and
+have since moved: concurrent FX-imputation work (`declaration_asset.value_basis`) began
+valuing rows the declarants left blank, taking the corpus to €4,184,427,196 and Пеевски's
+2025 to €9,849,697. That is unrelated and legitimate. **The DELTA figures are invariant** —
+7,278 rows, €73,556,611 raw, €55,565,683 removed, 1,980 person-years, 1,120 people — and are
+the ones to quote. The data test was re-anchored for the same reason: it asserted Пеевски's
+published assets fell in a €9.6-9.9m band, which the imputation walked to the edge of, and
+now asserts the RELATIONSHIP (published == holdings-only recompute), which nothing else can
+move.
 
 ## 4d. ⚠️ The lease asymmetry — an open decision, not a bug
 
@@ -249,6 +259,26 @@ unexplained beside a named public official it reads as an accusation.
 
 **This is worth a decision before the numbers are relied on.** It was not visible when the
 plan was written — the pre-`table_num` estimate put the flip count at 8, not 103.
+
+## 4e. A pre-existing hazard this reload uncovered (fixed)
+
+Running phase 1 to land the stamped shards **returned all 61,740
+`declaration.filed_position` / `filed_institution` values to NULL.** They are not in the
+shards — the shard writers never persisted them — so they live only in Postgres, filled by
+a ~5-hour, 54,071-fetch crawl. Phase 1 is `TRUNCATE declaration … CASCADE` + COPY of
+columns that do not include them. The load reported success and every row count reconciled;
+the only symptom was `declared_label()` falling back to the register's LISTING label, a
+GROUP bucket that describes nobody.
+
+This is not caused by the чуждо change — **any** `db:load:declarations:pg` did it, and
+CLAUDE.md instructs running phase 1 against Cloud SQL after a roster re-slug, so the
+documented procedure destroyed the values on the SERVING database. Cloud SQL survived only
+because nobody had followed that instruction against it yet.
+
+Recovered by shipping back from Cloud SQL (`ship_filed_position.ts --from <cloud> --to
+<local> --apply`, 61,743/61,743 matched) and closed permanently: the loader now snapshots
+both columns by `source_url` inside its own transaction and writes them back after the
+COPY, reporting `carried … for N/N filing(s)` — verified on a subsequent reload.
 
 ## 5. Cloud publish order
 

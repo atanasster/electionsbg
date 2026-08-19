@@ -323,6 +323,10 @@ const ASSET_COLS = [
   "currency",
   "amount",
   "value_eur",
+  // HOW value_eur was arrived at — and specifically whether the euro figure is the
+  // declarant's or ours (an ECB rate applied where they left the equivalent blank).
+  // NULL on a shard written before the parser recorded it. See 089's column comment.
+  "value_basis",
   "holder_name",
   "is_spouse",
   "legal_basis",
@@ -527,6 +531,7 @@ const load = async () => {
             a.currency ?? null,
             a.amount ?? null,
             a.valueEur ?? null,
+            a.valueBasis ?? null,
             a.holderName ?? null,
             a.isSpouse ?? false,
             a.legalBasis ?? null,
@@ -589,6 +594,35 @@ const load = async () => {
   // together or not at all — a mid-load failure must not leave the corpus half
   // replaced or the changelog claiming a batch that never landed.
   await withTx(async (c) => {
+    // ⚠️ CARRY filed_institution / filed_position ACROSS THE TRUNCATE.
+    //
+    // Those two columns hold the declarant's OWN job and employer, read from each
+    // filing's <Personal><Work> / <Position>. They are NOT in the shards — the shard
+    // writers never persisted them — so they live only in Postgres, and the local corpus
+    // was filled by a ~5-hour, 54,071-fetch crawl of a rate-limited public register
+    // (scripts/declarations/backfill_filed_position.ts). Without this snapshot the
+    // TRUNCATE below silently returns all 61,740 of them to NULL, and nothing here would
+    // report it: the load succeeds, every row count reconciles, and the damage surfaces
+    // only as declared_label() quietly falling back to the register's LISTING label —
+    // which is a GROUP bucket („Служебен министър-председател и министър" covers two
+    // people and describes neither), i.e. a false claim about a named individual.
+    //
+    // Recovering it costs another 5-hour crawl, or a ship_filed_position.ts run from a
+    // database that still has them. CLAUDE.md tells operators to run this loader against
+    // Cloud SQL after a roster re-slug, so before this the documented procedure destroyed
+    // the values on the SERVING database. Keyed on source_url for the same reason
+    // ship_filed_position.ts is: declaration_id is a bigserial and therefore a property
+    // of how a database was loaded, not of the filing.
+    const carried = await c.query<{
+      source_url: string;
+      filed_institution: string | null;
+      filed_position: string | null;
+    }>(
+      `SELECT source_url, filed_institution, filed_position
+         FROM declaration
+        WHERE filed_institution IS NOT NULL OR filed_position IS NOT NULL`,
+    );
+
     // Child tables cascade off declaration, so truncating it clears them; name
     // them all so the RESTART IDENTITY resets every serial.
     await c.query(
@@ -596,6 +630,37 @@ const load = async () => {
                 declaration_stake, declaration_event RESTART IDENTITY CASCADE`,
     );
     await copyRows(c, "declaration", DECL_COLS, declRows);
+    if (carried.rowCount) {
+      await c.query(
+        "CREATE TEMP TABLE _carried_job (source_url text PRIMARY KEY, filed_institution text, filed_position text) ON COMMIT DROP",
+      );
+      await copyRows(
+        c,
+        "_carried_job",
+        ["source_url", "filed_institution", "filed_position"],
+        carried.rows.map((r) => [
+          r.source_url,
+          r.filed_institution,
+          r.filed_position,
+        ]),
+      );
+      const back = await c.query(
+        `UPDATE declaration d
+            SET filed_institution = j.filed_institution,
+                filed_position    = j.filed_position
+           FROM _carried_job j
+          WHERE j.source_url = d.source_url`,
+      );
+      // Named, not silent: a filing the register has withdrawn drops out of the shards
+      // and its carried row then matches nothing, which is correct and worth seeing.
+      console.log(
+        `declarations: carried filed_institution/filed_position across the reload for ` +
+          `${back.rowCount}/${carried.rowCount} filing(s)` +
+          (back.rowCount === carried.rowCount
+            ? ""
+            : ` — ${carried.rowCount - (back.rowCount ?? 0)} no longer in the corpus`),
+      );
+    }
     await copyRows(c, "declaration_asset", ASSET_COLS, assetRows);
     await copyRows(c, "declaration_income", INCOME_COLS, incomeRows);
     await copyRows(c, "declaration_stake", STAKE_COLS, stakeRows);

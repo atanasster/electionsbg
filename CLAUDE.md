@@ -456,6 +456,20 @@ just vanish with nothing failing. `refresh_coverage.test.ts`'s `ORDER_PAIRS` hol
 chain; on the cloud side the order is `db:load:declarations:pg:cloud` →
 `db:resolve:persons:cloud` → `db:load:declarations:pg:cloud -- --resolve`.
 
+⚠️ **`db:load:declarations:pg` PHASE 1 USED TO DESTROY BOTH COLUMNS, and the documented
+cloud procedure ran it.** They are not in the shards — the shard writers never persisted
+them — so they live only in Postgres, and phase 1 is a `TRUNCATE declaration … CASCADE` +
+COPY of columns that do not include them. Every value came back NULL, the load reported
+success, every row count reconciled, and the only symptom was `declared_label()` quietly
+falling back to the register's LISTING label — a GROUP bucket that describes nobody. The
+recovery costs another ~5-hour crawl or a `ship_filed_position.ts` run from a database that
+still has them. Since 2026-08-18 the loader snapshots them by `source_url` inside its own
+transaction and writes them back after the COPY, reporting `carried … for N/N filing(s)`;
+a filing the register has withdrawn is named rather than silently dropped. Measured on the
+reload that found this: 61,740 values lost locally, recovered from Cloud SQL — which still
+had them only because nobody had yet followed the „roster re-slug needs BOTH phases, phase
+1 first" instruction above against it.
+
 **`declaration.filed_position` / `filed_institution` are SHIPPED, never re-crawled.** They
 hold the declarant's own job and institution from each filing's `<Personal><Work>` /
 `<Personal><Position>` — distinct from `institution` / `position_title`, which come from the

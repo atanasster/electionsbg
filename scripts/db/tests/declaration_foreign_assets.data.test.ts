@@ -225,12 +225,32 @@ test.skipIf(skip)(
       used > 300_000 && used < 320_000,
       `чуждо contract prices should total ~€310,416, got ${used}`,
     );
-    // The published estate must be the €9.76m, not the €10.07m that included them.
+    // The published estate must EXCLUDE those rows. Asserted as an exact recompute rather
+    // than an absolute band: the band was €9.6-9.9m against a measured €9,760,147, and the
+    // FX-imputation work then moved the figure to €9,849,697 by valuing rows the declarant
+    // left blank — legitimate, unrelated, and it would have walked this gate to its edge and
+    // then through it. What must hold is the RELATIONSHIP, which no other change can move.
     const published = Number(r.published);
+    const [h] = await allRows<{ holdings: string }>(
+      `SELECT COALESCE(round(SUM(a.value_eur * asset_share_multiplier(a.share, a.category))
+                FILTER (WHERE a.category NOT IN ('debt','credit_limit')
+                          AND a.value_eur <= asset_row_ceiling_eur()
+                          AND is_declared_holding(a.table_num))), 0)::text AS holdings
+         FROM declaration d JOIN declaration_asset a ON a.declaration_id = d.declaration_id
+        WHERE d.source_url LIKE '%0B5F88E9-F9D9-4D6A-96C5-DE597BCE76B6241314.xml'`,
+    );
     assert.ok(
-      published > 9_600_000 && published < 9_900_000,
-      `expected ~€9,760,147 of owned assets, got ${published} — ` +
-        `${published > 10_000_000 ? "the чуждо rows are still being counted" : "unexpected"}`,
+      Math.abs(published - Number(h.holdings)) <= 1,
+      `published ${published} is not the holdings-only sum ${h.holdings} — ` +
+        `the чуждо rows are still being counted`,
+    );
+    // …and the exclusion is not vacuous on this filing: it is a public figure whose Table 1
+    // and Table 3 are both Declared="False", so every property and vehicle he lists is
+    // somebody else's. If that ever stops being true the example needs replacing, not the
+    // assertion relaxing.
+    assert.ok(
+      Number(r.used_eur) > 0.02 * published,
+      `чуждо is only ${r.used_eur} against ${published} published — is this still the right example?`,
     );
   },
 );

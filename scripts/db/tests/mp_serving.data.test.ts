@@ -37,7 +37,10 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { allRows, end } from "../lib/pg";
-import { assetWeightedEur } from "../../../src/lib/declarations";
+import {
+  assetWeightedEur,
+  isDeclaredHolding,
+} from "../../../src/lib/declarations";
 import { isCarDescription } from "../../declarations/build_car_makes";
 
 const require_ = createRequire(import.meta.url);
@@ -82,6 +85,10 @@ afterAll(async () => {
 
 interface JsonAsset {
   category: string;
+  /** Which form table the row came from — what separates a holding from something the
+   *  declarant merely uses. Optional because a shard written before the backfill has
+   *  none, and isDeclaredHolding reads that as a holding. See 089. */
+  tableNum?: string | null;
   valueEur: number | null;
   // Read by the /mp-cars reconciliation below; `share` is what assetWeightedEur needs.
   description?: string | null;
@@ -152,10 +159,16 @@ test.skipIf(skip)(
       // line and belongs to neither side, which is how 090 computes it. Written as an
       // explicit exclusion rather than `!== "debt"` — that shape is exactly what banked
       // an undrawn EUR 10,226 limit as EUR 10,226 of assets on 36 filings here.
-      const assets = (d.assets ?? [])
+      // HOLDINGS ONLY on both sides too, for the same reason: 090's join filters tables
+      // 1.2 / 3.4, the property and vehicles the declarant rents or is provided with.
+      // Re-deriving without it demands PG reproduce other people's assets as this MP's.
+      // Read through isDeclaredHolding rather than testing the numbers here — one rule,
+      // and it is the same object the shard now carries a tableNum for.
+      const own = (d.assets ?? []).filter(isDeclaredHolding);
+      const assets = own
         .filter((a) => a.category !== "debt" && a.category !== "credit_limit")
         .reduce((s, a) => s + assetWeightedEur(a), 0);
-      const debts = (d.assets ?? [])
+      const debts = own
         .filter((a) => a.category === "debt")
         .reduce((s, a) => s + assetWeightedEur(a), 0);
       if ((d.ownershipStakes ?? []).some((x) => x.table === "10")) {
@@ -963,19 +976,21 @@ test.skipIf(skip)("mp_cars_table totals are share-weighted", async () => {
     const decls = JSON.parse(readFileSync(file, "utf8")) as JsonDeclaration[];
     // The builder reads the same "latest filing that declares something" the rest of
     // this file does; approximate it by the newest filing carrying a car row.
-    const withCars = decls.filter((d) =>
-      (d.assets ?? []).some(
-        (a) =>
-          a.category === "vehicle" && isCarDescription(a.description ?? null),
-      ),
-    );
+    // The builder's own predicate, verbatim on both the filing pick and the sum: a
+    // vehicle, described as a car, and OWNED. Table 3.4 is „Чужди … превозни средства"
+    // — a leased or provided car, priced at „Цена по договор" — and build_car_makes.ts
+    // drops those, so a re-derivation that kept them would demand /mp-cars credit an MP
+    // with somebody else's fleet. It also changes WHICH filing this picks, which is why
+    // the same predicate has to appear in both places.
+    const isOwnCar = (a: JsonAsset) =>
+      a.category === "vehicle" &&
+      isCarDescription(a.description ?? null) &&
+      isDeclaredHolding(a);
+    const withCars = decls.filter((d) => (d.assets ?? []).some(isOwnCar));
     if (withCars.length !== 1) continue; // ambiguous pick — not this test's subject
     checked++;
     const expected = (withCars[0].assets ?? [])
-      .filter(
-        (a) =>
-          a.category === "vehicle" && isCarDescription(a.description ?? null),
-      )
+      .filter(isOwnCar)
       .reduce((s, a) => s + assetWeightedEur(a), 0);
     if (Math.abs(expected - Number(row.total)) > 2) {
       mismatches.push(

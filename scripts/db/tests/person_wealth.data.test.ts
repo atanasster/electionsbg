@@ -66,6 +66,12 @@ test.skipIf(skip)(
                       FILTER (WHERE category =  'debt'), 0) d
            FROM declaration_asset
           WHERE declaration_id = w.declaration_id
+            -- HOLDINGS ONLY, matching the join in 090. Tables 1.2 / 3.4 are property and
+            -- vehicles the declarant rents or is provided with, priced at „Цена по
+            -- договор" — see is_declared_holding (089). Recomputing without it asserts
+            -- the matview against a different rule and would demand the very defect the
+            -- filter removes.
+            AND is_declared_holding(table_num)
             -- Assets only, matching the implementation: a debt is never capped, because
             -- dropping one would inflate net worth. Passes either way today (no debt row
             -- is over the ceiling), so it is written to match rather than to happen to.
@@ -272,19 +278,28 @@ test.skipIf(skip)("no wealth year is built from an excluded row", async () => {
             COALESCE(round(max(net_eur)), 0) max_net
        FROM person_wealth_year WHERE excluded_asset_rows > 0`,
   );
-  // The counter and the corpus must agree. Zero over-ceiling rows means zero years
-  // recording an exclusion; an over-ceiling row that NO year counts would mean 090's
-  // FILTER and its excluded_asset_rows tally had come apart, which is the failure that
+  // The counter and the corpus must agree. An excluded row that NO year counts would mean
+  // 090's FILTER and its excluded_asset_rows tally had come apart, which is the failure that
   // would let an artifact back into a sum while the page still claimed none was excluded.
-  const [c] = await allRows<{ over_ceiling: string }>(
-    `SELECT count(*) AS over_ceiling FROM declaration_asset
-      WHERE value_eur > asset_row_ceiling_eur()`,
+  //
+  // ⚠️ excluded_asset_rows HAS TWO ARMS, and this used to assert against only the first. The
+  // ceiling arm drops an artifact; the second counts a row we hold no euro figure for at all
+  // (a foreign currency with no rate — see declaration_fx_conversion.data.test.ts). Both are
+  // the same hole from the reader's side, so a biconditional against the ceiling alone is
+  // wrong in BOTH directions: it failed here the moment the FX conversion emptied the ceiling
+  // arm while six person-years still legitimately recorded an unvalued row, and it would
+  // equally have passed a corpus whose unvalued rows went uncounted.
+  const [c] = await allRows<{ over_ceiling: string; unvalued: string }>(
+    `SELECT count(*) FILTER (WHERE value_eur > asset_row_ceiling_eur()) AS over_ceiling,
+            count(*) FILTER (WHERE value_eur IS NULL AND amount IS NOT NULL) AS unvalued
+       FROM declaration_asset`,
   );
   assert.equal(
     Number(r.years) > 0,
-    Number(c.over_ceiling) > 0,
-    `${c.over_ceiling} over-ceiling asset row(s) but ${r.years} year(s) recording an ` +
-      `exclusion — the FILTER and the excluded_asset_rows tally disagree`,
+    Number(c.over_ceiling) > 0 || Number(c.unvalued) > 0,
+    `${c.over_ceiling} over-ceiling and ${c.unvalued} unvalued asset row(s) but ` +
+      `${r.years} year(s) recording an exclusion — the FILTERs and the ` +
+      `excluded_asset_rows tally disagree`,
   );
   // The affected person keeps their year — we hold a filing we cannot total, which is not
   // the same as holding no filing — but the total must not carry the artifact.
