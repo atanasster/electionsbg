@@ -53,7 +53,7 @@ through so the delta stays visible rather than being quietly overwritten.
 | КЗК appeals                                                       | 13 across 7 buyers, 1 upheld                                                             | `kzk_appeals` on the culture buyer set                                                                                                                                                                                                                                                                                                                                                  |
 | **ⓑ ИСУН grants to culture bodies**                               | **€147,135,798 / 1,559 projects / 1,365 beneficiaries** ~~€474,276,649 / 1,866 / 1,527~~ | `fund_projects`, `cultureNameSql('beneficiary_name')` (`src/lib/cultureMatch.ts`). **The draft's figure was ~70% false positives — see the ⚠️ below.**                                                                                                                                                                                                                                  |
 | — of which читалища                                               | €22,140,281 / 1,332 projects / 1,196 beneficiaries                                       | `chitalishteNameSql`. **ⓑ Reproduces the draft EXACTLY** — the читалища arm was always right; only the broad arm was not.                                                                                                                                                                                                                                                               |
-| **ⓑ** — to the register, EIK-exact                                | **€91,538,915 / 19 projects / 8 EIKs** ~~€56.2m across "26 named institutions"~~         | `beneficiary_eik = ANY(CULTURE_GROUP_EIKS)` — the 23-EIK register, so this is now a REPRODUCIBLE set rather than a named one. **All 19 rows are also admitted by the name matcher**, so it is a strict subset of the €147.1m; the draft's €56.2m was neither reproducible nor a subset.                                                                                                 |
+| **ⓓ** — to the register, EIK-exact                                | **€94,075,904 / 40 projects** ~~€91.5m / 19~~ ~~€56.2m across "26 named institutions"~~  | `beneficiary_eik = ANY(CULTURE_GROUP_EIKS)`. **The figure moved because the REGISTER did** — T0.6/T0.1 took it from 23 EIKs to 45, so the same expression now books 40 projects rather than 19. A reproducible set, unlike the draft's €56.2m, and a strict subset of the €147.1m name-matched figure.                                                                                  |
 | **ДФЗ subsidies to читалища**                                     | **€18,341,814 / 264 rows / 197 beneficiaries**, 2015–2025                                | `chitalishteNameSql('name')`. **ⓑ Reproduces the draft EXACTLY on all three counts.** The denominator is `coalesce(eik, name)`: `agri_subsidies` has 2,094,249 rows with a NULL eik, so counting EIKs alone reads 170 and drops every unregistered читалище. Culture-wide the arm is €18,956,087 / 277 rows, i.e. **97% читалища** — no state culture institution files a farm subsidy. |
 | **Interreg — culture BODIES as partners**                         | **€10,990,255 / 77 rows / 67 partners**                                                  | `interreg_partners`, `country='Bulgaria'`, name-matched                                                                                                                                                                                                                                                                                                                                 |
 | **ⓑ Interreg — culture/heritage-THEMED operations**               | **€48,807,847 / 202 BG partner rows / 168 partners** ~~€89,551,792 / 420 / 340~~         | `interregThemeSql('o.title_en')`. Two guards, measured separately: bare-`art` adds €18.2m of Partnership/Participation/Smart; the missing `-culture` compound exclusion added €4.0m of agriculture, aquaculture and viticulture — `култур`→`аквакултури` in English, on the arm that shipped with no exclusion list at all.                                                             |
@@ -354,12 +354,37 @@ eiks, Section? }>`, **18 entries** (water, roads, noi, nzok, agri, judiciary, de
 union is an established repo pattern with a canonical spec and a data test pinning it. The
 sector filter follows it:
 
-| Corpus                  | Key                         | Culture coverage                                  | Caveat                                              | ⓐ Filter state                                                     |
-| ----------------------- | --------------------------- | ------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------ |
-| `contracts` / `tenders` | `awarder_eik` / `buyer_eik` | €146.5m (23) → €219.7m (129)                      | —                                                   | **already works** — needs a `culture` pack entry                   |
-| `fund_projects` (ИСУН)  | `beneficiary_eik`           | **ⓑ €91.5m** exact / **€147.1m** name-matched     | state which matching                                | resource exists in `db_table.js`; no `?sector` reader              |
-| `agri_subsidies` (ДФЗ)  | `eik`                       | €18.3m, **читалища only** (96% of the €19.0m arm) | guard mandatory — now `CULTURE_NAME_EXCLUDE`        | resource exists; no reader. See open Q6 — may be name-only         |
-| `interreg_partners`     | `eik`                       | €11.0m bodies / **ⓑ €48.8m** thematic (guarded)   | **ⓑ only 18% of thematic partner rows have an EIK** | **no DbDataTable resource at all** — no browser destination exists |
+| Corpus                  | Key                         | Culture coverage                                        | Caveat                                              | ⓐ Filter state                                                                                  |
+| ----------------------- | --------------------------- | ------------------------------------------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `contracts` / `tenders` | `awarder_eik` / `buyer_eik` | €146.5m (23) → €219.7m (129)                            | —                                                   | **already works** — needs a `culture` pack entry                                                |
+| `fund_projects` (ИСУН)  | `beneficiary_eik`           | **ⓓ €94.1m** exact (40 rows) / **€147.1m** name-matched | state which matching                                | **ⓓ the ONE beneficiary corpus the culture EIK set reaches** — declared in `beneficiaryCorpora` |
+| `agri_subsidies` (ДФЗ)  | `eik`                       | €18.3m, **читалища only** (96% of the €19.0m arm)       | guard mandatory — now `CULTURE_NAME_EXCLUDE`        | resource exists; no reader. See open Q6 — may be name-only                                      |
+| `interreg_partners`     | `eik`                       | €11.0m bodies / **ⓑ €48.8m** thematic (guarded)         | **ⓑ only 18% of thematic partner rows have an EIK** | **no DbDataTable resource at all** — no browser destination exists                              |
+
+- **ⓓ Step 2 shipped (2026-08-18):** a `culture` entry in `SECTOR_BROWSE_PACKS` (the roll-up,
+  not the wider universe), a `role` field on `SectorBrowsePack`
+  (`awarder` | `beneficiary` | `both`, defaulting to `awarder` because every pre-existing pack
+  is a buyer set), `sectorBeneficiaryEiks()` as the only way a pack reaches a recipient corpus,
+  and `sector_beneficiary_reach.data.test.ts`. The two contracts/tenders links Band 3 needs now
+  work.
+
+  **The funds/subsidies wiring is a REFUSAL, and the refusal is the finding.** An EIK-keyed
+  sector filter is valid only on a corpus where that sector's bodies appear under their own EIK,
+  and that is decided PER CORPUS — a single „is this sector also a recipient" flag shipped first
+  and was wrong. Culture is a recipient, and of the three recipient corpora its 45 EIKs reach
+  exactly one:
+
+  | corpus              | ∩ CULTURE_GROUP_EIKS | the sector's real money there                        |
+  | ------------------- | -------------------- | ---------------------------------------------------- |
+  | `fund_projects`     | **40 rows / €94.1m** | answerable by EIK ✅                                 |
+  | `agri_subsidies`    | **0 rows**           | €18.3m — to народни читалища, a NAME population      |
+  | `interreg_partners` | **0 rows**           | ~€11m — partner rows that mostly carry no EIK at all |
+
+  In both zero cases the money exists and the EIKs cannot see it, so an empty result is not
+  „nothing here" but „not answerable this way" — and the two must not look alike. `?sector` is
+  therefore refused on both, in code, by `beneficiaryCorpora`. `/funds/beneficiaries` is separately not a DbDataTable at all —
+  it renders from `useFundsIndex()` — so its sector arm is a client-side filter over that blob
+  and belongs with the `/culture/funds` body in step 6, not here.
 
 - **Surfaces.** `?sector=` on `/procurement/contracts` ⓐ(done), `/procurement/tenders`
   ⓐ(done), `/procurement/contractors` ⓐ(**see §1.3-B — not servable**), and the
@@ -560,7 +585,7 @@ thing that is not true.
 | ------------------------------- | --------------------------------------------- | ---------------------------------------------------- | ------------------------------------------- |
 | Бюджет на МК                    | €269.1m **/ yr**                              | 2026, by law                                         | **one year**                                |
 | Обществени поръчки              | €146.5m (23 EIKs) / €219.7m (universe of 129) | post-annex current value                             | cumulative, ~2011→now                       |
-| **ⓑ** ИСУН (name-matched)       | **€147.1m**                                   | 1,365 beneficiaries — EIK-exact subset €91.5m        | **undated — the corpus has no date column** |
+| **ⓑ** ИСУН (name-matched)       | **€147.1m**                                   | 1,365 beneficiaries — EIK-exact subset ⓓ €94.1m      | **undated — the corpus has no date column** |
 | НФЦ филмови субсидии            | €94.9m                                        | 944 projects                                         | cumulative, 2014–2025                       |
 | Interreg — тематично            | **ⓑ €48.8m** (guarded)                        | 202 partner rows, **ⓑ 37 of 202 (18%)** EIK-resolved | cumulative, multi-period                    |
 | Interreg — културни организации | €11.0m                                        | 67 partners                                          | cumulative, multi-period                    |
@@ -1143,9 +1168,12 @@ implementation the way the rest can.
 3. **P1** — authorisation to run the full dossier crawl (~1.4 h against a shared public register).
 4. **§1.9-6** — `nearCeilingAward` needs a measured base rate before it can be called a signal.
 5. **T3.3** — the 9b conflict-flag policy sign-off is still outstanding from the v1 plan.
-6. **§1.3** — whether ДФЗ enters the sector registry at all, or stays a читалища-only arm
-   resolved by name. It is the one corpus where no state culture institution appears (0 rows for
-   all the named EIKs), so an EIK dimension for it may be empty by construction.
+6. **ⓓ §1.3 — ANSWERED by measurement, 2026-08-18: ДФЗ does NOT enter the sector EIK registry.**
+   `agri_subsidies ∩ CULTURE_GROUP_EIKS` is **0 rows** — no state cultural institution has ever
+   received a farm subsidy — while ИСУН is 40 rows / €94.1m. So an EIK-keyed `?sector=culture`
+   on `/subsidies` would render an EMPTY table, which reads as „culture received no subsidies"
+   against a truth of €18.3m paid to народни читалища. The ДФЗ arm stays a NAME rule
+   (`chitalishteNameSql`), and `sector_beneficiary_reach.data.test.ts` fails if that inverts.
 7. **Part 3** — whether the 14 generic `/sector/<key>` dashboards converge on the hub pattern.
    Decide from the three retrofits, not in advance.
 8. **ⓐ T0.6 — what "the culture universe" IS**: principal = МК (~€188m, Tier D stays out, the

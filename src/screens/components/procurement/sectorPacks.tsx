@@ -23,7 +23,7 @@ import { NZOK_EIK, HEALTH_SECTOR_EIKS } from "@/lib/healthReferenceData";
 import { VSS_EIK, JUDICIAL_EIKS } from "@/lib/vssReferenceData";
 import { MON_EIK } from "@/lib/monBenchmarks";
 import { EDU_SECTOR_EIKS } from "@/lib/educationReferenceData";
-import { KULTURA_EIK } from "@/lib/kulturaReferenceData";
+import { KULTURA_EIK, CULTURE_GROUP_EIKS } from "@/lib/kulturaReferenceData";
 import { VIK_HOLDING_EIK, WATER_SECTOR_EIKS } from "@/lib/vikReferenceData";
 import { MOD_EIK, DEFENSE_SECTOR_EIKS } from "@/lib/defenseReferenceData";
 import { NAP_EIK, NAP_AWARDER_PATH } from "@/lib/napReferenceData";
@@ -197,6 +197,12 @@ export const getSectorPack = (
 // blocked on it too. Requires contracts.awarder_eik to be filter:"in" (done in
 // functions/db_table.js) so the EIK-set can be an IN fixedFilter.
 
+/** The recipient-side corpora a sector filter could be pointed at. */
+export type BeneficiaryCorpus =
+  | "fund_projects"
+  | "agri_subsidies"
+  | "interreg_partners";
+
 export interface SectorBrowseSectionProps {
   /** [from, to) window inherited from the browse page's scope control. */
   scope: ScopeWindow;
@@ -210,6 +216,25 @@ export interface SectorBrowsePack {
   label: { bg: string; en: string };
   /** The awarder EIKs whose contracts the browse table is restricted to. */
   eiks: readonly string[];
+  /** The beneficiary corpora this EIK set may be filtered on — PER CORPUS, not
+   *  a single „is it also a recipient" flag.
+   *
+   *  A one-flag version of this shipped first and was wrong: culture is
+   *  genuinely „both", yet of the three recipient corpora its 45 EIKs reach
+   *  exactly ONE. Measured 2026-08-18:
+   *
+   *      fund_projects   ∩ CULTURE_GROUP_EIKS →  40 rows / €94,075,904   ✅
+   *      agri_subsidies  ∩ CULTURE_GROUP_EIKS →   0 rows                 ❌
+   *      interreg_partners ∩ CULTURE_GROUP_EIKS → 0 rows                 ❌
+   *
+   *  and in both zero cases the sector DOES receive that money — €18.3m of ДФЗ
+   *  to народни читалища, ~€11m of Interreg to culture organisations — under
+   *  identities the roll-up does not carry (a name population, and partner rows
+   *  that mostly have no EIK at all). So an empty result is not „nothing here";
+   *  it is „not answerable this way", and the two must not look alike.
+   *
+   *  Omit for a pure buyer set: every pack predates the funds arm and is one. */
+  beneficiaryCorpora?: readonly BeneficiaryCorpus[];
   /** Optional enrichment strip rendered above the table. Only water ships one
    *  in v1; the other sectors are filter-only until their Section is built. */
   Section?: ComponentType<SectorBrowseSectionProps>;
@@ -342,7 +367,44 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     label: { bg: "Туризъм (МТ)", en: "Tourism (МТ)" },
     eiks: TOURISM_SECTOR_EIKS,
   },
+  // Culture was the one sector with a curated EIK register and no browse pack,
+  // so `?sector=culture` — a param the other eighteen have had all along —
+  // resolved to null and served the unfiltered corpus. CULTURE_GROUP_EIKS is the
+  // principal-МК roll-up (kulturaReferenceData.ts, T0.6): funders, state
+  // institutes and the national art schools. Deliberately NOT the wider
+  // „universe" — verify-principal and adjacent bodies are declared but are not
+  // what a „Култура" filter should silently include.
+  culture: {
+    id: "culture",
+    label: { bg: "Култура (МК)", en: "Culture (МК)" },
+    eiks: CULTURE_GROUP_EIKS,
+    // ИСУН only — see beneficiaryCorpora. ДФЗ and Interreg culture money is real
+    // but is not reachable through these EIKs.
+    beneficiaryCorpora: ["fund_projects"],
+  },
 };
+
+/** The EIKs a pack may be used with on a BENEFICIARY corpus (fund_projects,
+ *  agri_subsidies, interreg_partners), or null when it may not be used there at
+ *  all.
+ *
+ *  Not decoration, and the reason it takes a CORPUS rather than just a pack:
+ *  culture reaches `fund_projects` and neither `agri_subsidies` nor
+ *  `interreg_partners`, though it demonstrably receives money from both. Wiring
+ *  `?sector` to a beneficiary table without this check renders an empty page
+ *  that reads as „culture received no subsidies", when the truth is €18.3m —
+ *  paid to народни читалища, a NAME population deliberately in no EIK list.
+ *
+ *  So the rule is: an EIK-keyed sector filter is only ever valid on a corpus
+ *  where that sector's bodies actually appear under their own EIK. Where they do
+ *  not, the answer is a name rule (`chitalishteNameSql`) or nothing — never a
+ *  silent zero. `sector_beneficiary_reach.data.test.ts` fails a pack that
+ *  declares a beneficiary role and matches nothing. */
+export const sectorBeneficiaryEiks = (
+  pack: SectorBrowsePack | null,
+  corpus: BeneficiaryCorpus,
+): readonly string[] | null =>
+  pack?.beneficiaryCorpora?.includes(corpus) ? pack.eiks : null;
 
 export const getSectorBrowsePack = (
   id: string | null | undefined,
