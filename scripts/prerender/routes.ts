@@ -965,7 +965,10 @@ const LATEST_ELECTION = (() => {
     // This feeds a `dist` contentUrl, so a silent miss re-publishes the 404 the
     // catalog was fixed to remove: the fallback names whichever election the
     // literal below happens to be, and the build still exits 0. stderr is the
-    // only signal — the same contract as placeNameEn.ts's degrade.
+    // only signal — the same contract as placeNameEn.ts's degrade. The literal
+    // equals the real latest election today, so the degrade is a no-op and
+    // untestable; refresh it in the SAME commit as src/data/json/elections.json,
+    // or the next cycle turns it silently wrong.
     console.warn(
       `[routes] getLatestElection failed — CATALOG_SPECS falls back to 2026_04_19, ` +
         `so the elections dataset contentUrl may 404: ${String(err)}`,
@@ -999,7 +1002,7 @@ type CatalogLang = {
  * never self-heal, because an -x match is excluded from DELETION as well as
  * upload and scripts/funds/ has no upload path at all. The silent one is the
  * worse one, and it is why omitting the node beats advertising a URL we cannot
- * honour. `catalog_specs.test.ts` fails on any `dist` isExcluded refuses.
+ * honour. `catalogSpecs.test.ts` fails on any `dist` isExcluded refuses.
  */
 type CatalogSpec = { page: string } & ( // `page` is the path after the site root ("" = home)
   | {

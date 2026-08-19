@@ -109,9 +109,9 @@ export const isExcluded = (rel: string): string | null => {
   // established the same way their presence was.
   //
   // NOT in this list, deliberately: `connections.json` (a published dataset on
-  // /data — scripts/prerender/routes.ts's CATALOG_SPECS offers it for download in both
-  // languages), and `connections-rankings{,-top}.json` (fetched by the AI's
-  // mpConnectionsTop and per-party rollup tools).
+  // /data — scripts/prerender/routes.ts's CATALOG_SPECS offers it for download
+  // in both languages), and `connections-rankings{,-top}.json` (fetched by the
+  // AI's mpConnectionsTop and per-party rollup tools).
   if (
     rel.startsWith("parliament/mp-connections") ||
     rel.startsWith("parliament/official-connections") ||
