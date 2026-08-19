@@ -893,7 +893,17 @@ mismatch class, and no operator should ever point a 5-hour crawl at it:
 npx tsx scripts/declarations/backfill_asset_is_spouse.ts --apply   # shards only, no network
 npm run db:load:declarations:pg                                    # phase 1
 npm run db:load:declarations:pg -- --resolve                       # phase 2 — refills person_id
+npx tsx scripts/declarations/rebuild_post.ts                       # car-makes.json + mp-cars.json carry isSpouse
+npm run db:load:mp-roster:pg                                       # mp-cars.json → mp_cars.is_spouse (104)
 ```
+
+⚠️ **The last two look skippable and are not.** Neither load phase touches the COMMITTED
+artifacts: `build_car_makes.ts` writes `isSpouse` into `data/parliament/car-makes.json` and
+`mp-cars.json`, and `load_mp_roster_pg.ts` loads that file into `mp_cars.is_spouse`, which 105
+serves to `/mp-cars`. `buildCarMakes` reads only each MP's LATEST filing, so a restamp is a
+no-op unless a flip lands on one — twice now it has not, which is luck rather than design. The
+first time it does and this step was skipped, `/mp-cars` ships „съпруг(а)" against an MP's own
+car at a 200 with nothing failing. The `value_basis` sibling above documents the same step.
 
 Cloud side is the `:cloud` twin of both and nothing runs it automatically. The stake side needs
 neither — it is computed at render time, so a rule change reaches it with the next build, which
@@ -905,7 +915,16 @@ name with a lost space („Николай МихайловКолибаров"), 
 Мизова") or a stray comma, slash or digit („Попдимитро3в") is no longer chipped as a third party
 on their own page. It never folds TOKENS: a shared surname is the SPOUSE case this exists to
 mark, so a token-set or reordering fold would delete real findings rather than typos. Measured
-2026-08-19: 563 of 110,835 asset rows cleared (→ 110,272), 8 of 4,830 stake rows.
+2026-08-19: 563 of 110,835 asset rows cleared, 8 of 4,830 stake rows.
+
+**A cell with NO letters names nobody**, and the guard for that is separate and SYMMETRIC.
+„-", „.", „0", „91697", „\*6" and a 255-char run of „#" all survive `normHolderName` (which
+keeps punctuation and digits), so before 2026-08-19 they compared unequal and published „held
+by someone else" against a named individual — 21 asset rows and 8 stake rows, one rendering a
+chip whose entire text was „.". The declarant half is not hypothetical either: two filings name
+the declarant „0" and two name them „4", carrying 9 marked rows between them, so guarding only
+the holder would assert a third party on the strength of the DECLARANT's typo. Together those
+took the asset side to **110,242** and the stake side to 4,814 / 5,184 / 8,571.
 
 **The gate is `scripts/db/tests/declaration_is_spouse.data.test.ts`** (3 tests). Unlike its
 neighbours it is a FULL-CORPUS recompute rather than a sample — the rows that move are hand-typing

@@ -147,6 +147,55 @@ test("a declarant's own name survives the register's mangled spellings", async (
   );
 });
 
+// The gate above reads `declaration_asset` alone, which is correct for the drift it exists to
+// catch — only the asset side has a STORED column that can go stale. But the headline
+// measurement in `isSpouseHolder`'s header is over `declaration_stake`, on the side the header
+// explicitly warns readers not to re-derive by hand, and nothing kept it true. Bands rather
+// than literals: the corpus grows, and the load-bearing claim is the DIRECTION — the fold puts
+// the declarant in the majority of named holders, which the raw `<>` count inverts.
+test("the stake side still matches the split the header publishes", async () => {
+  if (!(await reachable())) return;
+  const rows = await allRows<{
+    holder_name: string | null;
+    declarant_name: string;
+  }>(
+    `SELECT s.holder_name, d.declarant_name
+       FROM declaration_stake s JOIN declaration d USING (declaration_id)`,
+  );
+  const lettersOf = (v: string | null) =>
+    normHolderName(v).replace(/[^\p{L}]/gu, "");
+  const namesNobody = rows.filter(
+    (r) => lettersOf(r.holder_name) === "",
+  ).length;
+  const named = rows.length - namesNobody;
+  const other = rows.filter((r) =>
+    isSpouseHolder(r.holder_name, r.declarant_name),
+  ).length;
+
+  assert.ok(
+    other > 0 && other < named,
+    "the fold has stopped discriminating on stakes",
+  );
+  assert.ok(
+    other < named / 2,
+    `„somebody else" is ${other} of ${named} named holders — the majority. The fold has stopped ` +
+      `matching, or the header's split needs re-measuring; do NOT restate the raw <> count, which inverts it.`,
+  );
+  // A row the fold counts as somebody else must actually name somebody: this is the
+  // letters-free class (21 asset + 8 stake rows before the guard), where „-" or „." was
+  // published as a third party on the declarant's own page.
+  const letterless = rows.filter(
+    (r) =>
+      lettersOf(r.holder_name) === "" &&
+      isSpouseHolder(r.holder_name, r.declarant_name),
+  );
+  assert.equal(
+    letterless.length,
+    0,
+    `${letterless.length} stake row(s) whose holder cell has no letters are published as somebody else's`,
+  );
+});
+
 afterAll(async () => {
   await end();
 });

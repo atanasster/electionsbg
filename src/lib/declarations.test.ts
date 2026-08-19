@@ -503,6 +503,36 @@ describe("isSpouseHolder", () => {
     ).toBe(false);
   });
 
+  it("is false when the holder cell names nobody", () => {
+    // Verbatim from the corpus — 21 asset rows and 8 stake rows carried one of these, and
+    // one rendered a chip whose entire text was „.". The blank guard runs on the
+    // display-shaped form, which keeps punctuation and digits, so these reached the
+    // comparison and published „somebody else holds this" against a named individual on
+    // their own page.
+    for (const junk of ["-", ".", "0", "91697", "*6", "(", "#".repeat(40)])
+      expect(isSpouseHolder(junk, "ВАЛЕРИ СИМЕОНОВ СИМЕОНОВ")).toBe(false);
+    // …and it must not swallow a real single-token holder.
+    expect(isSpouseHolder("Петрова", "ВАЛЕРИ СИМЕОНОВ СИМЕОНОВ")).toBe(true);
+  });
+
+  it("is false when the DECLARANT's name has no letters", () => {
+    // Not hypothetical: two filings name the declarant „0" and two name them „4", between
+    // them carrying 9 marked rows. Guarding only the holder would leave a real third party
+    // asserted on the strength of the declarant's own typo.
+    expect(isSpouseHolder("Мария Петрова Иванова", "0")).toBe(false);
+    expect(isSpouseHolder("Мария Петрова Иванова", "4")).toBe(false);
+  });
+
+  it("normalises to NFC before folding", () => {
+    // `lettersOnly` strips \p{M}, so a DECOMPOSED „й" (и + U+0306) would lose its breve and
+    // fold equal to „и" — reattributing a third party's row to the declarant. 0 corpus rows
+    // are non-NFC today; this pins the direction before one is.
+    const nfd = "ЙОРДАНОВ".normalize("NFD");
+    expect(nfd).not.toBe("ЙОРДАНОВ");
+    expect(isSpouseHolder(nfd, "ЙОРДАНОВ")).toBe(false);
+    expect(isSpouseHolder(nfd, "ИОРДАНОВ")).toBe(true);
+  });
+
   it("folds SEPARATORS, never TOKENS", () => {
     // The whole point of the rule is to mark a spouse, and a spouse usually shares the
     // surname — so a shared-token or reordering fold would delete real findings rather

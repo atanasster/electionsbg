@@ -27,43 +27,33 @@
  *   npx tsx scripts/declarations/backfill_asset_is_spouse.ts --apply
  *
  * Then, in this order — `--resolve` alone does NOT rewrite asset rows:
- *   npm run db:load:declarations:pg
- *   npm run db:load:declarations:pg -- --resolve
+ *   npm run db:load:declarations:pg                 # phase 1
+ *   npm run db:load:declarations:pg -- --resolve    # phase 2
+ *   npx tsx scripts/declarations/rebuild_post.ts    # car-makes.json + mp-cars.json carry isSpouse
+ *   npm run db:load:mp-roster:pg                    # mp-cars.json -> mp_cars.is_spouse (104)
  *
- * Cloud side is the `:cloud` twin of both and nothing runs it automatically.
+ * ⚠️ THE LAST TWO ARE THE ONES THAT LOOK SKIPPABLE. Neither load phase touches the
+ * COMMITTED artifacts: `build_car_makes.ts` writes `isSpouse` into
+ * `data/parliament/car-makes.json` + `mp-cars.json`, and `load_mp_roster_pg.ts` loads that
+ * file into `mp_cars.is_spouse`, which 105 serves to /mp-cars. `buildCarMakes` reads only
+ * each MP's LATEST filing, so a restamp is a no-op unless a flip lands on one — which is
+ * luck, not design. The first time it does and this step was skipped, /mp-cars ships
+ * „съпруг(а)" against an MP's own car at a 200 with nothing failing.
+ *
+ * Cloud side is the `:cloud` twin of the load steps and nothing runs it automatically.
  */
 
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { isSpouseHolder } from "../../src/lib/declarations";
+import { DECLARATION_SHARD_TREES, reserializeShard } from "./formats";
 import type { MpAsset } from "../../src/data/dataTypes";
 
 const __filename = fileURLToPath(import.meta.url);
 const REPO = path.resolve(path.dirname(__filename), "../..");
 
-// The three shard trees load_declarations_pg.ts reads. `data/judiciary/declarations` is the
-// fourth spec there and is deliberately absent: the magistrate tier is derived from ВСС PDFs,
-// has no cacbg XML behind it, and the directory is empty.
-const TREES = [
-  "data/parliament/declarations",
-  "data/officials/declarations",
-  "data/officials/municipal/declarations",
-];
-
 type ShardDecl = { declarantName?: string; assets?: MpAsset[] };
-
-/** Re-serialise a shard in the EXACT format it was already stored in — see
- *  scripts/declarations/formats.ts, whose header ends „Do NOT mass-reformat either family to
- *  unify them". The parliament tree is compact, the officials trees are 2-space indented;
- *  writing one format for both buries the real change in a ~1.4M-line whitespace diff that
- *  the next ingest immediately writes back. Detected from the file's OWN bytes so a family
- *  that changes format later cannot start silently churning. */
-const reserialize = (raw: string, obj: unknown): string => {
-  const pretty = /^\s*\[\s*\n/.test(raw);
-  const body = pretty ? JSON.stringify(obj, null, 2) : JSON.stringify(obj);
-  return raw.endsWith("\n") ? body + "\n" : body;
-};
 
 const main = (): void => {
   const apply = process.argv.includes("--apply");
@@ -73,16 +63,18 @@ const main = (): void => {
   let decls = 0;
   let rows = 0;
   let noDeclarant = 0;
+  let skipped = 0;
   let trueBefore = 0;
   let trueAfter = 0;
   let toFalse = 0;
   let toTrue = 0;
   const samples: string[] = [];
 
-  for (const tree of TREES) {
+  for (const tree of DECLARATION_SHARD_TREES) {
     const dir = path.join(REPO, tree);
     if (!fs.existsSync(dir)) {
       console.warn(`[is_spouse] missing ${tree} — skipping`);
+      skipped++;
       continue;
     }
     for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".json"))) {
@@ -94,6 +86,7 @@ const main = (): void => {
         parsed = JSON.parse(raw) as ShardDecl[];
       } catch {
         console.warn(`[is_spouse] unreadable ${tree}/${file} — skipping`);
+        skipped++;
         continue;
       }
       if (!Array.isArray(parsed)) continue;
@@ -131,7 +124,7 @@ const main = (): void => {
 
       if (dirty) {
         shardsChanged++;
-        if (apply) fs.writeFileSync(fp, reserialize(raw, parsed), "utf-8");
+        if (apply) fs.writeFileSync(fp, reserializeShard(raw, parsed), "utf-8");
       }
     }
   }
@@ -159,6 +152,16 @@ const main = (): void => {
       ? `[is_spouse] wrote ${shardsChanged} shard(s)`
       : `[is_spouse] DRY RUN — ${shardsChanged} shard(s) would change; pass --apply to write`,
   );
+  // A skip is exactly the failure this design admits — the header's claim that „any
+  // post-reload disagreement is this script having missed a shard" is only useful if a miss
+  // is visible. Exiting 0 here hands a half-stamped corpus to the reload that runs next,
+  // and the data gate then fails somewhere else entirely.
+  if (skipped || noDeclarant) {
+    console.error(
+      `[is_spouse] ${skipped} shard/tree(s) skipped, ${noDeclarant} filing(s) unnamed — the corpus is NOT fully stamped; do not reload`,
+    );
+    process.exitCode = 1;
+  }
 };
 
 main();

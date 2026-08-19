@@ -447,13 +447,13 @@ export const declarationTotals = (
  * THE MEASURED SPLIT LIVES HERE AND NOWHERE ELSE. Measured 2026-08-19 over 18,569
  * `declaration_stake` rows, under THIS fold:
  *
- *     4,822  held by someone other than the declarant   (48.2% of named holders)
- *     5,184  held by the declarant                      (51.8%)
- *     8,563  no holder named at all
+ *     4,814  held by someone other than the declarant   (48.1% of named holders)
+ *     5,184  held by the declarant                      (51.9%)
+ *     8,571  naming nobody — 8,563 blank, and 8 whose cell has no LETTERS
  *
  * ⚠️ Do not quote a raw `holder_name <> declarant_name` count. That reports
  * 5,386 / 4,620 and INVERTS the conclusion — it makes „somebody else" look like the
- * majority when the fold puts the declarant there. The 564-row gap between the two
+ * majority when the fold puts the declarant there. The 572-row gap between the two
  * is this normalisation doing its job. Three source files carried the raw pair as
  * the feature's rationale before anyone re-measured it; that is why the numbers now
  * sit on the rule itself and the call sites point here instead of restating them.
@@ -481,14 +481,31 @@ export const declarationTotals = (
  * no mismatch class. Proof it stayed in step: the stored column was reproducible from
  * `holder_name` + `declarant_name` for 335,676 of 335,676 rows under the OLD rule, and
  * for 335,676 of 335,676 under this one after the reload. On the asset side the second
- * pass moved 563 rows, leaving 110,272 marked.
+ * pass moved 563 rows and the letters-free guard a further 30, leaving 110,242 marked.
  *
  * ⚠️ Named `spouse` for the form's dominant case, but all it proves is „not the
- * declarant": a minor child's holdings are reported on the same form. That is why
- * no surface asserts a relationship, and why one with room shows `holderName`.
+ * declarant": a minor child's holdings are reported on the same form. The stake row
+ * shows `holderName` for that reason, and so does every asset-side surface: they all
+ * render `HolderChip` (src/screens/person/HolderChip.tsx), which prints the register's
+ * own holder NAME where there is one and „друг титуляр" where there is not. Seven sites
+ * used to print „съпруг/а" instead — `PersonDeclarations` (×2), `PersonHeldAbroad`,
+ * `PersonCryptoHoldings`, `MpAssetsSummary`, `MpCarsScreen`, `CryptoRegistryScreen` and
+ * `CandidateAssetsScreen` — and on `/mp-cars` and `/declarations/crypto` it was the VALUE
+ * of a column headed „Притежател", i.e. a claim about a named MP's family that this rule
+ * cannot support.
+ *
+ * Two of those still cannot name anybody: the `mp_cars` and `person_crypto_table`
+ * payloads select no `holder_name`, so they get the neutral label. Adding the column
+ * there is the remaining half, and it is a migration rather than a rendering change.
  */
 export const normHolderName = (s: string | null): string =>
   (s ?? "")
+    // NFC first, because `lettersOnly` below strips \p{M} and a DECOMPOSED „й" (и +
+    // U+0306) would lose its breve and fold equal to „и" — reattributing a real third
+    // party's row to the declarant, the one direction this rule must never fail in.
+    // 0 rows in the corpus are non-NFC today, so it lands as a no-op; this repo has
+    // already been burned on the same й→и NFD axis in `councilNameKey`.
+    .normalize("NFC")
     .toUpperCase()
     .replace(/\s*-\s*/g, "-")
     .replace(/\s+/g, " ")
@@ -513,6 +530,19 @@ export const isSpouseHolder = (
   // about who owns what", which is not a direction to fail open in.
   if (!h || !d) return false;
   if (h === d) return false;
+  const hl = lettersOnly(h);
+  const dl = lettersOnly(d);
+  // A CELL WITH NO LETTERS NAMES NOBODY — „-", „.", „0", „91697", „*6", „(", a 255-char
+  // run of „#". The blank guard above runs on the DISPLAY-shaped form, which keeps
+  // punctuation and digits, so these passed it, compared unequal, and published „held by
+  // someone else" against a named individual on their own page: 21 asset rows and 8 stake
+  // rows, one of which rendered a chip whose entire text was „.".
+  //
+  // ⚠️ SYMMETRIC, and the declarant half is not hypothetical: two filings name the
+  // declarant „0" and two name them „4", carrying 9 marked rows between them. Guarding
+  // only the holder would leave those asserting „somebody else" on the strength of the
+  // DECLARANT's typo — the same fail-open as `!d` above, one normalisation down.
+  if (!hl || !dl) return false;
   // SEPARATOR-ONLY SECOND PASS. The register is hand-typed, so a declarant naming
   // THEMSELVES loses a space („ПЕТКОАНГЕЛОВ КУЩИРЕВ", „Николай МихайловКолибаров") or
   // gains a hyphen where the register carries none („Димитриева - Николова" against
@@ -527,5 +557,5 @@ export const isSpouseHolder = (
   // share ≥2 tokens with the declarant and 2 are the same tokens in another order. Those
   // are overwhelmingly a spouse, which is exactly what this rule exists to mark, so any
   // token-set or reordering fold would delete real findings rather than typos.
-  return lettersOnly(h) !== lettersOnly(d);
+  return hl !== dl;
 };

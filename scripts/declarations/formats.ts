@@ -34,3 +34,27 @@ export const compactJson = (o: object): string => JSON.stringify(o);
 
 /** 2-space indent. */
 export const prettyJson = (o: object): string => JSON.stringify(o, null, 2);
+
+/** The three committed per-person declaration shard trees, in loader order. The magistrate
+ *  tier is deliberately absent: it is derived from ВСС PDFs, has no cacbg XML behind it and
+ *  `data/judiciary/declarations` is empty. Mirrors the specs in
+ *  `scripts/db/load_declarations_pg.ts`, which is the authority — this is the copy a
+ *  one-off backfill walks, so that „someone missed one" cannot start with a fourth hand-typed
+ *  list. */
+export const DECLARATION_SHARD_TREES = [
+  "data/parliament/declarations",
+  "data/officials/declarations",
+  "data/officials/municipal/declarations",
+] as const;
+
+/** Re-serialise a shard in the EXACT format it was already stored in, detected from the
+ *  file's OWN bytes rather than from its tree — so a family that changes format later cannot
+ *  start silently churning. Per this file's header: parliament is compact, the officials
+ *  trees are 2-space indented, and writing one format for both buries the real change in a
+ *  ~1.4M-line whitespace diff that the next ingest immediately writes back. */
+export const reserializeShard = (raw: string, obj: unknown): string => {
+  const body = /^\s*\[\s*\n/.test(raw)
+    ? prettyJson(obj as object)
+    : compactJson(obj as object);
+  return raw.endsWith("\n") ? body + "\n" : body;
+};
