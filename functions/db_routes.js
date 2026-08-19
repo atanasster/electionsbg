@@ -6,7 +6,12 @@
 // `dbRows(sql, params)` is the caller's query fn (Cloud SQL pool or dev pool).
 // All values are bound parameters; identifiers never come from the client.
 
-const { runDbTable, runDbFacets, DbRequestError } = require("./db_table.js");
+const {
+  runDbTable,
+  runDbFacets,
+  DbRequestError,
+  SHLYO_TRIGGER_RAW,
+} = require("./db_table.js");
 const { interregQueryFor } = require("./interreg_topics.js");
 
 // Shared by the fit resolver's three queries. 42883 FIRST — the arms are FUNCTIONS, so a database
@@ -252,7 +257,10 @@ const missingMigrationRows = (e) =>
 // use in a folded query. `y` alone is deliberately NOT a trigger — every Latin-typed
 // Bulgarian name has one. A genuine shliokavitsa query almost always carries another marker
 // („jelezopyten" has its j), and one that carries only a bare y is the case we decline.
-const SHLYO_TRIGGER_RAW = /[469qjwx]/i;
+//
+// The pattern itself lives in db_table.js, which this module already require()s and which
+// needs it for the same gate on the DbDataTable search arm. One definition, imported —
+// not two that agree today.
 
 const shlyoAlt = (dbRows, term) =>
   !SHLYO_TRIGGER_RAW.test(term)

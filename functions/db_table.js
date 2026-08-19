@@ -1946,6 +1946,47 @@ const searchWhenRe = (src) => {
   return re;
 };
 
+// ── SHLIOKAVITSA — when the rewritten needle is worth a second arm ────────────
+// The characters that have no other use in a Cyrillic→Latin folded query, and so give
+// the rewrite a reason to exist. Lives HERE rather than in db_routes.js because that
+// module require()s this one and not the reverse; db_routes.js imports it back, so there
+// is one definition for the whole `functions/` package.
+//
+// ⚠️ THIS IS NOT `SHLYO_TRIGGER` FROM src/lib/shlyoRules.ts, and there are THREE
+// divergences, each load-bearing:
+//
+//  1. NO BARE `y`. The client's trigger also fires on `y(?![aeiou])`; the server's must
+//     not, because `translit_bg_latin` ITSELF emits `y` for й and ь — „Бойко Борисов"
+//     folds to `boyko borisov` and would rewrite to `boako borisov`. Measured: 13.64% of
+//     539,985 indexed names rewrite under the wider trigger, 97.4% of them carrying no
+//     shliokavitsa character at all. The client tolerates that because its probe is a
+//     substring test, where a nonsense needle simply matches nothing; here the arm is a
+//     fuzzy trigram/ILIKE match, so a nonsense needle matches plenty.
+//
+//  2. THE `i` FLAG. This tests the RAW term, which people routinely type in caps, while
+//     the rewrite runs in SQL AFTER translit_bg_latin has lowercased it. Without `i`,
+//     „6IPKA" would silently skip the arm while „6ipka" worked.
+//
+//  3. THE DIGITS MUST BE LETTER-ADJACENT. `q`/`j`/`w`/`x` are never emitted by the
+//     transliteration, so their presence is signal on its own. `4`/`6`/`9` are NOT — they
+//     are ordinary digits in years, road numbers, УНП and company names, and they are the
+//     bulk of the occurrences. In shliokavitsa a digit stands in for a LETTER, so it sits
+//     inside a word; a standalone digit run never does.
+//
+//     Measured over 611,704 real corpus names (contractor_rank ∪ person_search), all of
+//     them ordinary Bulgarian text: the untightened `[469qjwx]` fires on 4,684 (0.77%),
+//     this fires on 513 (0.08%) — 89% of the fires were waste. Each wasted fire is a
+//     second gin arm built for a needle that matches nothing: „автомагистрали 6" folds to
+//     `avtomagistrali 6` and rewrites to `avtomagistrali sh`, costing 308 → 461 buffers
+//     (+50%) to return zero extra rows. Against that, zero of sixteen genuine spellings
+//     are lost — „6ipka", „4erven", „9nko", „6t", „mlqko", „av4ar" and the rest all keep
+//     firing, because their digit IS letter-adjacent.
+//
+// Lives HERE rather than in db_routes.js because that module require()s this one and not
+// the reverse; db_routes.js imports it back, so the whole `functions/` package has one
+// definition. Never re-declare it there — `db_table.test.js` scans for that.
+const SHLYO_TRIGGER_RAW = /[qjwx]|[469](?=\p{L})|(?<=\p{L})[469]/iu;
+
 // Cap on the free-text term. Registry patterns are linear identifier shapes today, but
 // the term is unbounded user input and now reaches a RegExp — measured, a 200,000-char
 // term routes in 2 ms and binds as a 200 KB equality parameter. Harmless now; a future
@@ -2373,11 +2414,65 @@ const buildWhere = (r, req, opts = {}) => {
           // The fold is produced server-side by translit_bg_latin, so the escape has
           // to happen there too — escaping the JS-side param would be undone by the
           // transliteration. Backslash first, or it re-escapes its own output.
-          ors.push(
+          const foldArm = (inner) =>
             `${target} ILIKE '%' || replace(replace(replace(` +
-              `translit_bg_latin($${gParam()}),` +
-              ` '\\', '\\\\'), '%', '\\%'), '_', '\\_') || '%'`,
-          );
+            `${inner},` +
+            ` '\\', '\\\\'), '%', '\\%'), '_', '\\_') || '%'`;
+          const gi = gParam();
+          ors.push(foldArm(`translit_bg_latin($${gi})`));
+
+          // ── SHLIOKAVITSA: the second needle ────────────────────────────────
+          // translit_bg_latin folds Cyrillic→Streamlined Latin on BOTH sides, so
+          // „СОФАРМА" and a typed „sofarma" already meet. What it cannot reach is the
+          // Latin-side spelling a Bulgarian actually types — „6ipka", „4erven",
+          // „jelezopyten", „plowdiw" — because each of those folds to itself. Measured
+          // on contractor_rank's SERVED scope: „6ipka" returns 0 rows from the plain arm
+          // and 7 with this (МЕТРО ШИПКА, КМТ-ШИПКА, ДЗЗД Шипка 2019 …).
+          //
+          // ⚠️ 7, not the 85 an un-scoped `SELECT count(*) FROM contractor_rank` reports —
+          // that counts the same contractors once per (scope × division) bucket, i.e. the
+          // 14.6x fan-out this registry pins `division = 'ALL'` to avoid. Quoting a
+          // fanned-out count overstates the feature ~12x.
+          //
+          // ⚠️ THIS OR IS CHEAP AND THE IDENTIFIER OR IS NOT — what separates them is
+          // which index each side rides. Both arms here are gin scans on the SAME column,
+          // so the second one joins the first as another index scan rather than defeating
+          // it: on contractor_rankings, BitmapOr(fold, fold) nests inside the scope's
+          // existing BitmapAnd at 292 buffers for „6ipka" against 255 for the one-arm
+          // „sofarma". The routed identifier arm is an equality over a BTREE, and OR-ing
+          // that with a fold arm costs 722 with idx_contractor_rank_fold abandoned
+          // outright. Measured under a generic plan. "OR is slow" is the wrong lesson;
+          // "OR across DIFFERENT indexes is slow" is the right one.
+          //
+          // The BitmapAnd in that shape is the RESOURCE's, not this arm's — it comes from
+          // contractor_rankings pinning (scope_key, division) by equality. Across the four
+          // resources with a searchFold column the second arm behaves differently and none
+          // regresses: procurement_settlements gets the same nested shape; persons gets a
+          // wider BitmapOr with no BitmapAnd at all; and tenders was ALREADY a Seq Scan
+          // before this change (its search ORs four arms across four different indexes —
+          // the very pathology described above), so there the extra arm is not an index
+          // scan but a per-row regexp chain: buffers unchanged, ~10% more CPU on a pass
+          // that is already dominated by the scan.
+          //
+          // GATED, and the gate is not an optimisation. Ungated, the rewrite fires on
+          // ordinary Cyrillic and injects rows the reader never asked for — see
+          // SHLYO_TRIGGER_RAW's header for the 13.64% measurement. The gate also bounds
+          // the blast radius of the migration-141 dependency: a database without
+          // shlyo_query_fold fails only shliokavitsa queries (42883) rather than every
+          // search. This makes the shared engine the FOURTH consumer of 141, after
+          // person-search, procurement-search and db_routes.js's own probe — and 141's
+          // only loader-applier is db:load:person-search:pg, which is the cheapest
+          // applier rather than the only interested party. The fix is one idempotent
+          // apply, never a reload:
+          //   npx tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql That is what makes an INLINE arm acceptable here where db_routes.js
+          // needed a separate, degrading round trip — that module can merge a second
+          // result set, while a paginated table's page, count and aggregates must all
+          // come from ONE predicate.
+          //
+          // searchFold only: `searchText` matches through fold_prefix_tsquery and would
+          // need a differently shaped rewrite. A decision, not an oversight.
+          if (SHLYO_TRIGGER_RAW.test(g))
+            ors.push(foldArm(`shlyo_query_fold(translit_bg_latin($${gi}))`));
         } else {
           // Plain raw-column contiguous substring (trigram-indexed raw columns).
           ors.push(`${target} ILIKE $${rawParam()}`);
@@ -2659,4 +2754,7 @@ module.exports = {
   // require() this (separate CJS package) and keeps its own copy — see the constant's
   // header for why that mirror is the design rather than a duplication bug.
   SEARCH_MIN_CHARS,
+  // db_routes.js reads this for the SAME gate on its own shliokavitsa probe. It lives
+  // here because that module require()s this one, never the reverse.
+  SHLYO_TRIGGER_RAW,
 };

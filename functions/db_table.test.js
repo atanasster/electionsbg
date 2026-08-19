@@ -13,6 +13,7 @@ const {
   runDbFacets,
   buildAggSelect,
   SEARCH_MIN_CHARS,
+  SHLYO_TRIGGER_RAW,
 } = require("./db_table.js");
 
 const contracts = REGISTRY.contracts;
@@ -166,7 +167,8 @@ test("a sub-floor term REFUSES rather than serving an empty result", () => {
     "a two-character term throws a 400",
   );
   assert.throws(
-    () => buildWhere(REGISTRY.contractor_rankings, { filters: { global: "с" } }),
+    () =>
+      buildWhere(REGISTRY.contractor_rankings, { filters: { global: "с" } }),
     (e) => e.name === "DbRequestError",
     "a one-character term throws too",
   );
@@ -193,7 +195,10 @@ test("the floor drops only the FLOORED arms, never the whole search", () => {
     filters: { global: "00" },
   });
   assert.ok(whereSql.includes("unp LIKE"), "the prefix arm survives");
-  assert.ok(!whereSql.includes("buyer_fold"), "the floored fold arm is dropped");
+  assert.ok(
+    !whereSql.includes("buyer_fold"),
+    "the floored fold arm is dropped",
+  );
   assert.ok(
     !whereSql.includes("fold_prefix_tsquery"),
     "the floored FTS + side-table arms are dropped",
@@ -255,7 +260,8 @@ test("a resource with no searchable column reports THAT, not 'too short'", () =>
   };
   assert.throws(
     () => buildWhere(bare, { resource: "bare", filters: { global: "хемус" } }),
-    (e) => e.name === "DbRequestError" && /no searchable columns/.test(e.message),
+    (e) =>
+      e.name === "DbRequestError" && /no searchable columns/.test(e.message),
   );
 });
 
@@ -317,7 +323,12 @@ const routedResource = {
       searchEq: true,
       searchWhen: "^[0-9]{8,14}$",
     },
-    name: { type: "text", search: true, searchCol: "name_fold", searchFold: true },
+    name: {
+      type: "text",
+      search: true,
+      searchCol: "name_fold",
+      searchFold: true,
+    },
   },
   select: ["eik"],
   defaultSort: [["eik", "asc"]],
@@ -354,7 +365,10 @@ test("a term no arm claims matches NOTHING, explicitly", () => {
     filters: { global: "софарма", globalCols: ["eik"] },
   });
   assert.match(whereSql, /\bFALSE\b/, "an explicit no-match predicate");
-  assert.ok(!whereSql.includes("name_fold"), "the excluded arm is not resurrected");
+  assert.ok(
+    !whereSql.includes("name_fold"),
+    "the excluded arm is not resurrected",
+  );
   assert.equal(filtered, true, "and the request still counts as filtered");
 });
 
@@ -364,7 +378,10 @@ test("routing runs BEFORE the length floor, so an identifier is not floored", ()
   const { whereSql } = buildWhere(routedResource, {
     filters: { global: "12345678" },
   });
-  assert.ok(whereSql.includes("eik = $"), "an 8-character identifier is served");
+  assert.ok(
+    whereSql.includes("eik = $"),
+    "an 8-character identifier is served",
+  );
 });
 
 test("a specialist does not rescue a sub-floor term of the WRONG shape", () => {
@@ -408,7 +425,10 @@ test("the engine ANCHORS searchWhen, so a name carrying an EIK is not misrouted"
     whereSql.includes("name_fold"),
     "a name containing digits stays on the name arm",
   );
-  assert.ok(!whereSql.includes("eik = $"), "the identifier arm does not claim it");
+  assert.ok(
+    !whereSql.includes("eik = $"),
+    "the identifier arm does not claim it",
+  );
   assert.deepEqual(params, ["Хемус 103267194 ЕООД"]);
   // …and the bare identifier still routes, so the anchoring did not break the feature.
   assert.ok(
@@ -513,12 +533,212 @@ test("every searchWhen compiles, and searchEq is exclusive of the pattern arms",
         d.search,
         `${name}.${id}: searchEq needs search:true to ever be used`,
       );
-      for (const k of ["searchFold", "searchText", "searchPrefix", "searchInSet"])
+      for (const k of [
+        "searchFold",
+        "searchText",
+        "searchPrefix",
+        "searchInSet",
+      ])
         assert.ok(
           !d[k],
           `${name}.${id}: searchEq is mutually exclusive with ${k}`,
         );
     }
+});
+
+// ---- shliokavitsa, the second gin arm ----------------------------------------
+// translit_bg_latin folds Cyrillic→Streamlined Latin on BOTH sides, so „СОФАРМА" and a
+// typed „sofarma" already meet. What it cannot reach is the Latin-side spelling a
+// Bulgarian types — „6ipka", „4erven", „jelezopyten" — since each folds to itself.
+// Measured on contractor_rank: „6ipka" returns 0 rows from the plain arm and 7 with the
+// rewrite (МЕТРО ШИПКА, КМТ-ШИПКА, ДЗЗД Шипка 2019 …), at 310 buffers against 255.
+
+test("a trigger character adds a SECOND fold arm on the same column", () => {
+  const { whereSql, params } = buildWhere(REGISTRY.contractor_rankings, {
+    filters: { global: "6ipka" },
+  });
+  assert.equal(
+    (whereSql.match(/name_fold ILIKE/g) || []).length,
+    2,
+    "plain arm + rewritten arm",
+  );
+  assert.ok(whereSql.includes("shlyo_query_fold"), "the rewrite is applied");
+  // ONE bound parameter shared by both arms — the rewrite happens in SQL, so a second
+  // placeholder would mean the two arms could be handed different terms.
+  assert.equal(
+    params.filter((p) => p === "6ipka").length,
+    1,
+    "the term is bound once",
+  );
+});
+
+test("the shliokavitsa arm is GATED, not always on", () => {
+  // Ungated, the rewrite fires on ordinary Cyrillic and injects rows the reader never
+  // asked for: translit_bg_latin itself emits `y` for й/ь, so „Бойко Борисов" folds to
+  // `boyko borisov` and would rewrite to `boako borisov`. 13.64% of 539,985 indexed
+  // names rewrite under the client's wider trigger, 97.4% of them carrying no
+  // shliokavitsa character at all.
+  for (const g of ["софарма", "sofarma", "metro"]) {
+    const { whereSql } = buildWhere(REGISTRY.contractor_rankings, {
+      filters: { global: g },
+    });
+    assert.ok(
+      !whereSql.includes("shlyo_query_fold"),
+      `${g} carries no trigger character and must get ONE arm`,
+    );
+  }
+});
+
+test("a bare `y` is deliberately NOT a trigger", () => {
+  // The client's SHLYO_TRIGGER includes y(?![aeiou]); the server's must not, because
+  // every Latin-typed Bulgarian name has one. The client tolerates the ambiguity because
+  // its probe is a substring test where a nonsense needle matches nothing; here the arm
+  // is a fuzzy trigram/ILIKE match, where a nonsense needle matches plenty.
+  const { whereSql } = buildWhere(REGISTRY.contractor_rankings, {
+    filters: { global: "boyko" },
+  });
+  assert.ok(
+    !whereSql.includes("shlyo_query_fold"),
+    "no second arm for a bare y",
+  );
+});
+
+test("the shliokavitsa arm never reaches a routed identifier term", () => {
+  // `j`/`q`/`w`/`x` are trigger characters and also legal hex, so a synthetic supplier
+  // key could carry one. Routing runs first, so the identifier gets its equality arm and
+  // no fold arm at all — OR-ing a gin scan onto a btree equality is the 704-buffer plan.
+  const { whereSql } = buildWhere(REGISTRY.contractor_rankings, {
+    filters: { global: "obed-3c76d4088cb9" },
+  });
+  assert.ok(whereSql.includes("eik = $"), "routed to the equality arm");
+  assert.ok(
+    !whereSql.includes("shlyo_query_fold"),
+    "and carries no fold arm to OR against it",
+  );
+});
+
+test("the rewrite rides the SAME escape wrapper as the plain arm", () => {
+  // Both needles are produced server-side, so both must be escaped server-side — a
+  // JS-side escape would be undone by the transliteration. An unescaped rewrite would
+  // let a typed `%` turn the second arm into a scan of everything, which is exactly the
+  // 11,672 ms failure the plain arm's escape was added for.
+  const { whereSql } = buildWhere(REGISTRY.contractor_rankings, {
+    filters: { global: "6ipka" },
+  });
+  // Matched on the fold arms specifically rather than by splitting the whole WHERE:
+  // `split(" OR ").length === 2` holds only while this resource contributes exactly one
+  // non-OR filter chain, and it already has a second searchable column (`eik`) that this
+  // term merely does not route to. Measured, the same term splits into 2 arms here, 3 on
+  // persons and 6 on tenders — so a whole-clause split would fail on the count, or on an
+  // arm like `unp LIKE $1` that legitimately needs no escape, naming the wrong cause.
+  const foldArms =
+    whereSql.match(/name_fold ILIKE '%' \|\| replace\(replace\(replace\(/g) || [];
+  assert.equal(foldArms.length, 2, "both needles are escaped server-side");
+});
+
+test("the rewrite WRAPS the transliteration, not the other way round", () => {
+  // Not commutative on uppercase input, which is how people type company names:
+  //   shlyo_query_fold(translit_bg_latin('Jelqzkov')) = 'zhelyazkov'   ← as written
+  //   translit_bg_latin(shlyo_query_fold('Jelqzkov')) = 'jelyazkov'    ← reversed, wrong
+  // because reversed, the j→zh rule never sees the lowercased form. The two orders AGREE
+  // on lowercase input, so a swapped refactor passes every other assertion here and
+  // breaks uppercase shliokavitsa queries only — the same swapped-argument class the
+  // declared_label sweep is documented as unable to catch.
+  const { whereSql } = buildWhere(REGISTRY.contractor_rankings, {
+    filters: { global: "6ipka" },
+  });
+  assert.match(whereSql, /shlyo_query_fold\(translit_bg_latin\(\$\d+\)\)/);
+  assert.doesNotMatch(whereSql, /translit_bg_latin\(shlyo_query_fold\(/);
+});
+
+test("an UPPERCASE shliokavitsa term still fires the arm", () => {
+  // The `i` flag on SHLYO_TRIGGER_RAW is what makes this work: the gate tests the RAW
+  // term, while the rewrite runs after translit_bg_latin has lowercased it. Without the
+  // flag „6IPKA" silently skips the arm while „6ipka" works.
+  for (const g of ["6IPKA", "JELQZKOV", "PLOWDIW"])
+    assert.ok(
+      buildWhere(REGISTRY.contractor_rankings, {
+        filters: { global: g },
+      }).whereSql.includes("shlyo_query_fold"),
+      `${g} must fire the rewrite`,
+    );
+});
+
+test("a standalone digit run does NOT fire the arm", () => {
+  // `4`/`6`/`9` are ordinary digits in years, road numbers and УНП — unlike q/j/w/x, which
+  // translit_bg_latin never emits. In shliokavitsa a digit stands in for a LETTER and so
+  // sits inside a word. Measured over 611,704 corpus names, requiring letter-adjacency
+  // removes 89% of the fires (4,684 → 513) and loses no genuine spelling.
+  for (const g of [
+    "автомагистрали 6",
+    "мостстрой 49",
+    "2024 ремонт",
+    "София 1946",
+    "ОУ 4",
+  ])
+    assert.ok(
+      !buildWhere(REGISTRY.contractor_rankings, {
+        filters: { global: g },
+      }).whereSql.includes("shlyo_query_fold"),
+      `${g} is ordinary Bulgarian and must get ONE arm`,
+    );
+  // …while the letter-adjacent digits that ARE shliokavitsa keep firing.
+  for (const g of ["6ipka", "4erven", "9nko", "av4ar", "mlqko"])
+    assert.ok(
+      buildWhere(REGISTRY.contractor_rankings, {
+        filters: { global: g },
+      }).whereSql.includes("shlyo_query_fold"),
+      `${g} is a genuine spelling and must fire`,
+    );
+});
+
+test("the length floor is measured on the RAW term, not the rewrite", () => {
+  // „6t" is щ — two characters, so the floor refuses it even though its rewrite („sht")
+  // would be three and perfectly indexable. Deliberate: one rule, stated once, measured
+  // on what the reader typed. The alternative — flooring the rewritten needle — makes the
+  // minimum length depend on which rules happen to fire, which is unexplainable in a UI
+  // hint. Pinned so the refusal reads as a decision rather than an oversight.
+  assert.throws(
+    () => buildWhere(REGISTRY.contractor_rankings, { filters: { global: "6t" } }),
+    (e) => e.name === "DbRequestError" && /at least 3/.test(e.message),
+  );
+  // …and the same spelling one character longer is served with both arms.
+  assert.ok(
+    buildWhere(REGISTRY.contractor_rankings, {
+      filters: { global: "6tu" },
+    }).whereSql.includes("shlyo_query_fold"),
+  );
+});
+
+test("SHLYO_TRIGGER_RAW has ONE definition, and db_routes.js imports it", () => {
+  // The move's whole purpose is a single definition for the `functions/` package.
+  // Re-declaring a local copy in db_routes.js would shadow the import, leave both modules
+  // green, and let the two drift exactly as the constant's header says they must not.
+  // Source-scanning is the established idiom here (entryGraph.test.ts, key_usage.test.ts).
+  const src = require("node:fs").readFileSync(
+    require("node:path").join(__dirname, "db_routes.js"),
+    "utf8",
+  );
+  assert.doesNotMatch(
+    src,
+    /SHLYO_TRIGGER_RAW\s*=/,
+    "db_routes.js must import the pattern, never redeclare it",
+  );
+  assert.match(src, /SHLYO_TRIGGER_RAW/, "…and must still USE it");
+  assert.ok(SHLYO_TRIGGER_RAW instanceof RegExp);
+  // No /g: .test() would carry lastIndex across two modules sharing one instance, so
+  // alternating callers would get alternating answers.
+  assert.equal(SHLYO_TRIGGER_RAW.flags.includes("g"), false, "no /g flag");
+});
+
+test("searchText columns do NOT get the shliokavitsa arm", () => {
+  // A decision, not an oversight: `searchText` matches through fold_prefix_tsquery and
+  // would need a differently shaped rewrite. Pinned so the omission stays deliberate.
+  const { whereSql } = buildWhere(contracts, {
+    filters: { global: "6ipka", globalCols: ["title"] },
+  });
+  assert.ok(whereSql.includes("fold_prefix_tsquery"), "the FTS arm is there");
+  assert.ok(!whereSql.includes("shlyo_query_fold"), "and carries no rewrite");
 });
 
 // ---- registry shape invariants ----------------------------------------------
@@ -727,11 +947,11 @@ test("every fan-out resource declares a defaultScope", () => {
     "agri_political",
     "agri_cross_programme",
     // Both declaration registers fan out on `scope`, and their matview headers say the entry
-  // MUST carry a defaultScope. Neither was listed, so deleting it failed nothing — measured
-  // on abroad_holdings, an unscoped query returns 3.73x the rows and 4.06x the money.
-  "crypto_holdings",
-  "abroad_holdings",
-];
+    // MUST carry a defaultScope. Neither was listed, so deleting it failed nothing — measured
+    // on abroad_holdings, an unscoped query returns 3.73x the rows and 4.06x the money.
+    "crypto_holdings",
+    "abroad_holdings",
+  ];
   for (const name of FAN_OUT) {
     assert.ok(REGISTRY[name], `${name} is no longer a registry resource`);
     assert.ok(
@@ -832,7 +1052,10 @@ test("contractor_rankings searches the name FOLD, with the term folded", () => {
   });
   // The fold arm wraps the transliteration in LIKE-metacharacter escaping — see
   // "LIKE metacharacters are escaped on the pre-existing arms too".
-  assert.match(whereSql, /name_fold ILIKE '%' \|\| replace\(replace\(replace\(/);
+  assert.match(
+    whereSql,
+    /name_fold ILIKE '%' \|\| replace\(replace\(replace\(/,
+  );
   assert.match(whereSql, /translit_bg_latin\(\$\d\)/);
 });
 
@@ -1372,10 +1595,7 @@ test("unp searches by PREFIX, never a leading wildcard", () => {
     filters: { global: "05947-2023" },
   });
   assert.ok(whereSql.includes("unp LIKE"));
-  assert.ok(
-    params.includes("05947-2023%"),
-    "anchored prefix param, not %…%",
-  );
+  assert.ok(params.includes("05947-2023%"), "anchored prefix param, not %…%");
   assert.ok(
     !params.includes("%05947-2023%"),
     "no leading-wildcard param for the unp arm",
