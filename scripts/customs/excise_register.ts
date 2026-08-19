@@ -402,9 +402,10 @@ const build = async (): Promise<{
   // base columns, while the view's column set is rebuilt by
   // rebuild_contracts_list() at the foot of five migrations.
   //
-  // ⚠️ NOT YET GATED — scripts/db/tests/sector_stats_customs.data.test.ts does
-  // not exist (plan F5). Until it does, nothing pins this basis and a regression
-  // here is silent.
+  // GATED by scripts/db/tests/sector_stats_customs.data.test.ts: the stored-vs-live
+  // reconcile over the register's own EIKs, a two-arm mutation check (each filter
+  // must change the answer, and the consortium arm only shows in the COUNT), and
+  // a static scan for both predicates in this very query.
   const eiks = [...byEik.keys()];
   const proc = new Map<string, { eur: number; cnt: number }>();
   if (eiks.length) {
