@@ -271,6 +271,50 @@ read that cache offline, no re-fetch:
   renders without it). Nothing on the cloud side is automatic. Skipping the rebuild leaves the
   contracts browser's risk column without the flag while local has it.
 
+`tender_subcontracting` (migration 171, `db:load:subcontractors:pg`) is the declared
+**подизпълнители** answer off each ЗОП award notice — „the money on a contract is not the
+money that reaches the work". 53,854 declarations, 616 of them Да.
+
+```bash
+npm run db:load:subcontractors:pg:cloud
+```
+
+**It is a PROJECTION over `tender_notice`, not an ingest**, so its staleness trigger is
+`db:load:tender-dossier:pg` and nothing else — re-run it after every dossier load, on both
+sides. It reads no files and no network.
+
+Three things about it are easy to get backwards:
+
+- **NULL is a third answer and it is modelled as the ABSENCE OF A ROW.** 159,107 of 212,961
+  notices do not carry the question at all. Storing those as `has_subcontractors = NULL`
+  would let any consumer reading the column render „the winner performed it alone" about a
+  named contract nobody asked about — so the table holds only ANSWERED notices, and
+  `tender_subcontracting_for()` `GROUP BY`s specifically so an unknown УНП returns **no
+  rows** rather than one row of nulls (an ungrouped aggregate returns a row over an empty
+  set — that is how the leak got in).
+- **The answer must end at a NON-LETTER.** `(Да|Не)` without a boundary reads „**Да**та на
+  сключване" as Да and „**Не**приложимо" as Не. A fabricated Не breaks the whole design; a
+  fabricated Да publishes a claim a named buyer never made and is shape-identical to a real
+  one, so no gate can catch it. Use `(?![\p{L}\p{N}])` with the `u` flag — **not** `\b`,
+  which is ASCII-only and never matches after a Cyrillic letter.
+- **All four fields come from ONE occurrence of the block.** A notice can carry it twice (an
+  award plus a correction); matching each label independently across the document can take
+  „Да" from the first and its count from the second, producing a row that appears in neither.
+
+`ted_notice` / `ted_coverage` (migration 172, `db:load:ted:pg`) are the TED cross-check —
+217,525 Bulgarian notices, 99.8% carrying a buyer ЕИК that joins `contracts.awarder_eik`.
+
+```bash
+npm run db:load:ted:pg:cloud
+```
+
+⚠️ **The early years are the API's INDEX RAMP, not a trend.** TED's v3 index returns 0
+notices for 2015 and 4,687 for 2016 against ~17,000 for 2019. Empty years are dropped rather
+than recorded as zero — a stored zero would plot as „Bulgaria published nothing above the EU
+threshold that year", the exact false finding this dataset exists to prevent — and
+`ted_coverage` carries the per-year counts so the ramp stays visible. `ted_buyer_reconciliation()`
+therefore takes an explicit date range and has no „all time" default.
+
 `procurement_annexes` (migration 114, `db:load:annexes:pg`) is the same shape: it resolves
 against the `contracts` table and reads the raw ЦАИС ЕОП annex cache, so on the cloud side run
 `npm run db:load:annexes:pg:cloud` **after** the contracts corpus is loaded and whenever
@@ -1630,7 +1674,7 @@ Three things about it are easy to get backwards:
   deep link shorter than the floor, into the destructive „Данните не можаха да се
   заредят." panel on **23 of the 24** registry resources. Only `tenders` survives, via
   its `unp` `searchPrefix` arm — anchored `LIKE 'q%'` over a btree is floored at 1,
-  because a short term there *widens* the match instead of un-indexing the scan.
+  because a short term there _widens_ the match instead of un-indexing the scan.
 - **The length is counted in CHARACTERS, not UTF-16 code units**, on both sides
   (`[...s.normalize("NFC")].length`). `show_trgm('👍👍')` is the **empty set** — four
   code units, two characters, and no trigram at all, i.e. strictly worse than the `ст`
