@@ -1,6 +1,6 @@
 ---
 name: sector-dashboard
-description: Build or rework the DATA LAYER under a sector surface — the EIK register that defines who the sector is, the multi-corpus money union, the coverage declarations, the competition baselines, the people bridge and the grant→contract spine. Use when the user asks to build or fix a sector view (/culture, /judiciary, /defense, /sector/<key>, an awarder pack), to add a sector to the ?sector= filter, to work out "how much money does sector X get", to reconcile two figures about the same sector, or when a sector's headline number looks wrong. Defers to the dashboard-hub skill for the tile grid, bands, scenes, accents and search. Encodes the defect classes this layer reliably produces — a register that silently under-covers, name regexes that invert their own figure in BOTH directions, a rate compared against a baseline from a different window, an EIK filter pointed at a corpus that keys on names, and a figure whose matching nobody wrote down.
+description: Build or rework the DATA LAYER under a sector surface — the EIK register that defines who the sector is, the multi-corpus money union, the coverage declarations, the competition baselines, the people bridge and the grant→contract spine. Use when the user asks to build or fix a sector view (/culture, /judiciary, /defense, /sector/<key>, an awarder pack), to add a sector to the ?sector= filter, to work out "how much money does sector X get", to reconcile two figures about the same sector, or when a sector's headline number looks wrong. Defers to the dashboard-hub skill for the tile grid, bands, scenes, accents and search. Encodes the defect classes this layer reliably produces — a register that silently under-covers, name regexes that invert their own figure in BOTH directions, a rate compared against a baseline from a different window, an EIK filter pointed at a corpus that keys on names, and a figure whose matching nobody wrote down. Treats the universe rule, moving an EIK between the four principal lists, changing a headline's basis and excluding a real sector body as design decisions to confirm (presenting the € impact), and otherwise implements via /implement-plan.
 allowed-tools:
   - Read
   - Bash
@@ -563,9 +563,62 @@ The first three retrofits are the test of whether this skill is any good:
 three produces no findings, this is a description rather than a tool and should be
 cut back to the parts that did.**
 
+Then take the findings to §14 and implement them through `/implement-plan` —
+stopping only on the four decisions listed there.
+
 ---
 
-## 14. Keeping it current
+## 14. Implementing — hand the work to `/implement-plan`
+
+This skill decides WHAT the data layer should be. It does not hand-build it step
+by step: once the shape is settled, the register edits, the matcher, the loaders,
+the migrations and the gates go through **`/implement-plan`**, which drives each
+one implement → `/code-review` in a subagent → `/code-repair` → path-scoped
+commit. Same contract as `audit-sectors`.
+
+**One step per unit of work, and the gates are their own step** — not an
+afterthought appended to the last one. A workable decomposition for a new or
+retrofitted sector:
+
+1. the matching definitions (§2), published once and imported everywhere;
+2. the EIK register and its corpus-sweep gate (§1);
+3. the browse pack / `?sector` wiring and destination reachability (§10);
+4. each corpus arm with its coverage declaration (§4, §5);
+5. the baselines (§3);
+6. the loaders, migrations and `:cloud` commands (§11);
+7. the gates (§12) — always last, always separate.
+
+### STOP and ask — the decisions this skill must not make for you
+
+These change what every € on the page MEANS, so they are the user's call even
+when the evidence looks one-sided:
+
+- **The universe rule** (§1) — `principal = X` versus „everything a reader would
+  call X". Two defensible pages with different numbers.
+- **Moving an EIK between the four lists.** Measured: nine theatres moving from
+  `verify` into the roll-up took the culture headline **€157,944,723 →
+  €165,430,429 (+4.7%)**. Present the € impact WITH the ruling — the decision is
+  not answerable without it.
+- **Changing a headline's basis**, or which corpus a figure is drawn from.
+- **Excluding a body that genuinely belongs to the sector**, for any reason.
+
+### Otherwise, proceed
+
+Everything else is a bug fix and goes straight through `/implement-plan` without
+asking: a stem that over- or under-matches, an unfolded branch ЕИК, a fold
+written twice, a missing coverage declaration, a NULL rendered as an answer, a
+rate without its baseline, a roll-up entry with no name, a gate that cannot fail.
+None of those is a judgement call — they are wrong, and the measurement in the
+matching section of this file is the argument.
+
+⚠️ **Regenerate and commit the derived artifact alongside the code that produced
+it.** `hub_stats.json` / `sector_stats.json` are committed and PG-derived, so a
+register change that lands without them leaves the page serving the previous
+vintage at a 200 with every row count reconciling.
+
+---
+
+## 15. Keeping it current
 
 Add a section only when something **shipped wrong** and you can state the
 measurement. A rule without its number is advice, and this file is not for advice.
