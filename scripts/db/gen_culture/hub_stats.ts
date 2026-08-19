@@ -3,7 +3,7 @@
 // numbers stop being FROZEN STRINGS in the tile copy.
 //
 // That freezing is the problem this file exists to end. The hub shipped quoting
-// eight figures (€157.9m, 881 contracts, 42 institutions, 42.0% single-bid …)
+// eight figures (€165.4m, 927 contracts, 50 institutions, 41.6% single-bid …)
 // as literals, beside film figures the PRERENDER interpolates from
 // data/culture/overview.json — so half the page self-updated and half did not,
 // indistinguishably to a reader. `culture_hub_figures.data.test.ts` currently

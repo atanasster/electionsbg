@@ -200,6 +200,59 @@ export const ART_SCHOOLS: readonly { eik: string; bg: string }[] = [
 
 export const ART_SCHOOL_EIKS: readonly string[] = ART_SCHOOLS.map((s) => s.eik);
 
+/** The nine regional theatres МК's OWN ДКИ register lists as its state cultural
+ *  institutes — the T0.2 ruling, taken 2026-08-19 on primary-source evidence.
+ *
+ *  They sat in `VERIFY_PRINCIPAL_EIKS` from the start because „Драматичен театър
+ *  — Ловеч" does not say държавен or общински on its face, and no source we held
+ *  settled it. `scripts/culture/dki/` settles it: each of the nine appears by
+ *  name on mc.government.bg's own „Държавни драматични и драматично-куклени
+ *  театри" / „Държавни културни институти в областта на музикалното и танцовото
+ *  изкуство" pages, i.e. МК stating its own remit.
+ *
+ *  ⚠️ THIS MOVED THE SECTOR'S HEADLINE €. Measured at the time of the ruling:
+ *  the roll-up went from 881 contracts / €157,944,723 to €165,430,428, **+4.7%**
+ *  — €7,485,705 across eight of the nine, led by Константин Кисимов (€2.44m) and
+ *  Ловеч (€2.37m). The ninth, Пазарджик (112582278), reached the register only
+ *  through the TENDERS arm of the corpus sweep and has no awarded contract, so
+ *  it contributes nothing to the money and everything to the roster. If a
+ *  committed culture figure looks ~5% higher than a note written before
+ *  2026-08-19, this is why.
+ *
+ *  ⚠️ THEY CARRY NAMES, and that is not decoration. Being in
+ *  `CULTURE_GROUP_EIKS` is not the same as being REACHABLE: the roster tile, the
+ *  institution finder and the awarders list all build their rows from
+ *  `CULTURE_BODIES ∪ STATE_CULTURE_INSTITUTES ∪ ART_SCHOOLS ∪ this`, so a bare
+ *  EIK array adds €7.5m to every total while leaving nine bodies findable only
+ *  by someone who already knows the number. The art schools shipped that way
+ *  once; `culture_register.data.test.ts` is what catches it.
+ *
+ *  The evidence lives in `data/culture/dki_register.json` and the reconciliation
+ *  that produced it is `scripts/culture/dki/reconcile.ts`. */
+export const DKI_CONFIRMED_THEATRES: readonly { eik: string; bg: string }[] = [
+  {
+    eik: "000124037",
+    bg: "Музикално-драматичен театър „Константин Кисимов“ — Велико Търново",
+  },
+  { eik: "000282756", bg: "Драматичен театър — Ловеч" },
+  { eik: "000403802", bg: "Драматично-куклен театър „Иван Радоев“ — Плевен" },
+  { eik: "000014352", bg: "Драматичен театър „Н. Й. Вапцаров“ — Благоевград" },
+  { eik: "000867998", bg: "Драматичен театър — Търговище" },
+  { eik: "000455489", bg: "Драматичен театър „Н. О. Масалитинов“ — Пловдив" },
+  { eik: "126004416", bg: "Драматично-куклен театър „Иван Димов“ — Хасково" },
+  { eik: "000522703", bg: "Драматичен театър „Сава Огнянов“ — Русе" },
+  // Reached the register through the TENDERS arm of the corpus sweep: published
+  // procedures, no awarded contract. It contributes nothing to the money and
+  // everything to the roster.
+  {
+    eik: "112582278",
+    bg: "Драматично-куклен театър „Константин Величков“ — Пазарджик",
+  },
+];
+
+export const DKI_CONFIRMED_THEATRE_EIKS: readonly string[] =
+  DKI_CONFIRMED_THEATRES.map((t) => t.eik);
+
 /** The culture group roll-up set — Tier A funders + verified Tier B institutes.
  *  This is the `awarder_eik IN (...)` list for the group roll-up and the sector
  *  browse pack; НФЦ carries no contracts but is kept for a stable, honest set. */
@@ -207,6 +260,7 @@ export const CULTURE_GROUP_EIKS: readonly string[] = [
   ...CULTURE_FUNDER_EIKS,
   ...STATE_CULTURE_INSTITUTE_EIKS,
   ...ART_SCHOOL_EIKS,
+  ...DKI_CONFIRMED_THEATRE_EIKS,
 ];
 
 // --------------------------------------------- verify-principal (pending) ----
@@ -215,11 +269,6 @@ export const CULTURE_GROUP_EIKS: readonly string[] = [
  *  genuinely ambiguous. NOT in the roll-up until each is resolved against МК's
  *  ДКИ register (plan §2 "verify-principal", §15). Listed, not silently dropped. */
 export const VERIFY_PRINCIPAL_EIKS: readonly string[] = [
-  "000282756", // Драматичен театър — Ловеч
-  "000867998", // Драматичен театър — Търговище
-  "000124037", // Музикално-драматичен театър „К. Кисимов“ — В. Търново
-  "000403802", // Драматично-куклен театър „Иван Радоев“ — Плевен
-  "000014352", // Драматичен театър „Н. Й. Вапцаров“ — Благоевград
   "176362469", // Регионален исторически музей — София
   "000083697", // Регионален исторически музей — Варна
   "126128563", // Регионален исторически музей — Хасково
@@ -230,19 +279,16 @@ export const VERIFY_PRINCIPAL_EIKS: readonly string[] = [
   // undeclared. Listed, not silently dropped; T3.1's ДКИ register resolves them.
   "000014384", // Регионален исторически музей — Благоевград (€1.23m)
   "000523666", // Регионална библиотека „Любен Каравелов“ — Русе
-  "000455489", // Драматичен театър „Н. О. Масалитинов“ — Пловдив
   "000343052", // Регионален исторически музей — Пазарджик
   "000252994", // Регионален исторически музей „Акад. Й. Иванов“ — Кюстендил
   "102826129", // Исторически музей — Малко Търново
   "000085463", // Регионална библиотека „П. Р. Славейков“ — Велико Търново
-  "126004416", // Драматично-куклен театър „Иван Димов“ — Хасково
   "000212487", // Музей „Дом на хумора и сатирата“ — Габрово
   "000455585", // Регионален етнографски музей — Пловдив
   "000868018", // Регионален исторически музей — Търговище
   "175685416", // Регионален център на ЮНЕСКО за нематериално културно наследство
   // From the TENDERS arm of the same sweep — procedures only, no awarded
   // contract, so a contracts-only gate could never have seen them.
-  "112582278", // Драматично-куклен театър „Константин Величков“ — Пазарджик
   "000124051", // Регионален исторически музей
   "000609948", // Регионална библиотека „Николай Вранчев“
   "000014391", // Археологически музей — Сандански
@@ -256,7 +302,6 @@ export const VERIFY_PRINCIPAL_EIKS: readonly string[] = [
   "000455592", // Регионален природонаучен музей — Пловдив
   "176349482", // Регионален исторически музей — Габрово
   "000455578", // Регионален археологически музей — Пловдив
-  "000522703", // Драматичен театър „Сава Огнянов“ — Русе
   "831602703", // Профилирана гимназия по изобразителни изкуства „Проф. Н. Райнов“
   //              — „Профилирана", not „Национална": likely МОН/общинска rather
   //              than an МК art school, but the name alone does not settle it.

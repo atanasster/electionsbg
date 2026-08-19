@@ -40,6 +40,7 @@ import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
   ART_SCHOOLS,
+  DKI_CONFIRMED_THEATRES,
   NFC_EIK,
 } from "@/lib/kulturaReferenceData";
 
@@ -83,7 +84,11 @@ export const cultureRosterIndex = (): EntityIndex => {
       })),
       // Institutes and art schools are proper nouns with no separate EN form —
       // the awarders tile already renders them that way.
-      ...[...STATE_CULTURE_INSTITUTES, ...ART_SCHOOLS]
+      ...[
+        ...STATE_CULTURE_INSTITUTES,
+        ...ART_SCHOOLS,
+        ...DKI_CONFIRMED_THEATRES,
+      ]
         .filter((i) => !seen.has(i.eik))
         .map((i) => ({ eik: i.eik, name: i.bg })),
     ],

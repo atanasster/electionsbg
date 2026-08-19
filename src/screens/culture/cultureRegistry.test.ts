@@ -177,7 +177,7 @@ describe("the culture hub registry", () => {
 
   it("carries ?pscope=all on every tile quoting a whole-corpus figure", () => {
     // The browsers default to the SELECTED PARLIAMENT's window. A tile that says
-    // „881 contracts since 2011" and lands on 47 has not narrowed the view — it
+    // „927 contracts since 2011" and lands on 47 has not narrowed the view — it
     // has contradicted itself, and the reader reads the tile as invented.
     for (const t of CULTURE_TILES) {
       const [, qs = ""] = t.to.split("?");

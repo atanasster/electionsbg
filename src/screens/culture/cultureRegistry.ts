@@ -6,7 +6,7 @@
 //
 // ═══════════════════════════════════════════════════════════════════════════════
 // WHY THIS PAGE CHANGED SHAPE AT ALL. /culture rendered eleven tiles and TEN were
-// НФЦ film subsidy — €94.9m of a subject whose procurement alone is €157.9m and
+// НФЦ film subsidy — €94.9m of a subject whose procurement alone is €165.4m and
 // whose ИСУН grants are €147.1m. Film subsidy was 13% of the money and 100% of
 // the content, and the eleventh tile was a static roster of names with no counts.
 // The hub exists to put the other 87% on the page.
@@ -29,7 +29,7 @@
 //
 // ⚠️ EVERY PROCUREMENT TILE CARRIES `?pscope=all`, and it is not decoration. The
 // browsers default to the SELECTED PARLIAMENT's window, while these tiles quote
-// whole-corpus figures — 881 contracts / €157.9m „since 2011". Without the param
+// whole-corpus figures — 927 contracts / €165.4m „since 2011". Without the param
 // the contracts tile lands on 47 contracts / €4.93m and the risk tile on a single
 // row, so the tile and its destination disagree by more than an order of
 // magnitude and the reader concludes the number is invented.

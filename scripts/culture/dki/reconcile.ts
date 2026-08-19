@@ -67,30 +67,34 @@ export type Disagreement = {
 };
 
 /** WHAT RULING ON THESE COSTS, measured 2026-08-19 against `contracts`
- *  (`tag='contract'`). Today's roll-up is 881 contracts / €157,944,723.
+ *  (`tag='contract'`). The roll-up was 881 contracts / €157,944,723 before the
+ *  T0.2 ruling and €165,430,428 after it.
  *
- *  | bucket        | EIKs | €          | share |
- *  |---------------|------|------------|-------|
- *  | `verify`      |    9 | €7,485,705 |  4.7% |
- *  | `none`        |    7 |   €850,351 |  0.5% |
- *  | `adjacent`    |    1 |   €903,834 |  0.6% |
- *  | `excluded`    |    2 |   €386,770 |  0.2% |
- *  | **all 19**    |      | €9,626,660 | +6.1% |
+ *  | bucket     | EIKs | €          | share of the roll-up |
+ *  |------------|------|------------|----------------------|
+ *  | ~~verify~~ |    9 | €7,485,705 | RULED IN 2026-08-19  |
+ *  | `none`     |    7 |   €850,351 |                 0.5% |
+ *  | `adjacent` |    1 |   €903,834 |                 0.5% |
+ *  | `excluded` |    2 |   €386,770 |                 0.2% |
+ *  | remaining  |   10 | €2,140,955 |                +1.3% |
  *
- *  Three things that make the decision smaller than it looks: the T0.2 nine are
- *  78% of what is at stake AND the ones МК's own page answers; the two T0.3
- *  contradictions are 0.2%, so that question can be settled on the evidence
- *  rather than on its consequence; and one of the nine (112582278, Пазарджик)
- *  has no contracts at all, so it costs nothing either way.
+ *  So the expensive question is answered and the rest is a +1.3% tail. The two
+ *  T0.3 contradictions are 0.2% of it, which means that one can be settled on
+ *  the evidence rather than on its consequence — and of the seven unlisted,
+ *  НМУ „Любомир Пипков" — София (000669774, €507k) is the single largest and
+ *  looks most like an oversight, being an art school of the kind already in
+ *  ART_SCHOOLS.
  *
  *  Measured 2026-08-19 against the register as МК publishes it today.
  *
- *  Nineteen entries, and the three groups are NOT the same kind of problem:
+ *  TEN entries. It was nineteen: the nine `verify` rows were T0.2, the register
+ *  ANSWERED it, and on 2026-08-19 they were RULED into the roll-up — see
+ *  `DKI_CONFIRMED_THEATRE_EIKS` in src/lib/kulturaReferenceData.ts. They had to
+ *  LEAVE this table rather than be marked `accepted`, because the gate's „no
+ *  stale entry" arm is what stops it describing decisions already taken.
  *
- *  - the nine `verify` rows are T0.2, and the register ANSWERS it — МК lists
- *    each of them as its own ДКИ, which is the primary-source ruling the
- *    allowlist was waiting for. They are `open` only because moving them moves
- *    the sector's headline € and that is the user's call, not the ingest's.
+ *  What remains is the harder half, and the two groups are not the same problem:
+ *
  *  - the two `excluded` rows are T0.3 and are a genuine CONTRADICTION: the
  *    allowlist's recorded reasoning for Сфумато says it „appears in no МК ДКИ
  *    listing", and it is the second entry on МК's театър page.
@@ -98,70 +102,13 @@ export type Disagreement = {
  *    could not find some of them (a body with no ЗОП procurement is invisible to
  *    it), which is exactly the blind spot this register exists to cover. */
 export const DKI_DISAGREEMENTS: readonly Disagreement[] = [
-  // ---- T0.2: МК lists it; we had it as „principal unsettled" --------------
-  {
-    eik: "000124037",
-    list: "verify",
-    name: "Музикално-драматичен театър „Константин Кисимов“ — Велико Търново",
-    status: "open",
-    note: "МК lists it as its own ДКИ — the T0.2 ruling. Move to the roll-up.",
-  },
-  {
-    eik: "000282756",
-    list: "verify",
-    name: "Драматичен театър — Ловеч",
-    status: "open",
-    note: "МК lists it as its own ДКИ — the T0.2 ruling. Move to the roll-up.",
-  },
-  {
-    eik: "000867998",
-    list: "verify",
-    name: "Драматичен театър — Търговище",
-    status: "open",
-    note: "МК lists it as its own ДКИ — the T0.2 ruling. Move to the roll-up.",
-  },
-  {
-    eik: "000014352",
-    list: "verify",
-    name: "Драматичен театър „Н. Й. Вапцаров“ — Благоевград",
-    status: "open",
-    note: "МК lists it as its own ДКИ — the T0.2 ruling. Move to the roll-up.",
-  },
-  {
-    eik: "000455489",
-    list: "verify",
-    name: "Драматичен театър „Н. О. Масалитинов“ — Пловдив",
-    status: "open",
-    note: "МК lists it as its own ДКИ — the T0.2 ruling. Move to the roll-up.",
-  },
-  {
-    eik: "000522703",
-    list: "verify",
-    name: "Драматичен театър „Сава Огнянов“ — Русе",
-    status: "open",
-    note: "МК lists it as its own ДКИ — the T0.2 ruling. Move to the roll-up.",
-  },
-  {
-    eik: "112582278",
-    list: "verify",
-    name: "Драматично-куклен театър „Константин Величков“ — Пазарджик",
-    status: "open",
-    note: "МК lists it as its own ДКИ — the T0.2 ruling. Move to the roll-up.",
-  },
-  {
-    eik: "126004416",
-    list: "verify",
-    name: "Драматично-куклен театър „Иван Димов“ — Хасково",
-    status: "open",
-    note: "МК lists it as its own ДКИ — the T0.2 ruling. Move to the roll-up.",
-  },
-  {
-    eik: "000403802",
-    list: "verify",
-    name: "Драматично-куклен театър „Иван Радоев“ — Плевен",
-    status: "open",
-    note: "МК lists it as its own ДКИ — the T0.2 ruling. Move to the roll-up.",
-  },
+  // ---- T0.2 — RULED 2026-08-19, and these nine are GONE from this table ----
+  // МК lists all nine on its own ДКИ pages, so they moved into the roll-up as
+  // `DKI_CONFIRMED_THEATRE_EIKS` (src/lib/kulturaReferenceData.ts). That is what
+  // this register was built to settle, and it moved the sector headline +4.7%.
+  // The „no stale entry" arm of the gate is why they had to leave this list
+  // rather than being marked `accepted`: a table that keeps describing decisions
+  // already taken stops describing the code.
 
   // ---- T0.3: МК lists it; we excluded it ----------------------------------
   {

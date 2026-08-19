@@ -33,6 +33,7 @@ import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
   ART_SCHOOLS,
+  DKI_CONFIRMED_THEATRES,
   ADJACENT_EIKS,
   VERIFY_PRINCIPAL_EIKS,
   NFC_EIK,
@@ -193,7 +194,11 @@ export const CultureInstitutionsScreen: FC = () => {
               : "Each of these people stated, under their own name, where they work — that is the link below. It does NOT claim anyone signed a particular contract, nor that they still hold the post: the filing carries a year, the post does not."}
           </p>
           <ul className="space-y-3">
-            {[...STATE_CULTURE_INSTITUTES, ...ART_SCHOOLS].map((i) => (
+            {[
+              ...STATE_CULTURE_INSTITUTES,
+              ...ART_SCHOOLS,
+              ...DKI_CONFIRMED_THEATRES,
+            ].map((i) => (
               <CultureDirectorsSection
                 key={i.eik}
                 eik={i.eik}
