@@ -83,7 +83,7 @@ new URL builder, and emitting `/en/` gives the EN homepage a canonical that 301s
 hosting used the default (slash-adding) behaviour while the code emitted no-slash, so every
 canonical on ~248k pages named a redirecting URL; see `docs/plans/parliament-hub-v1.md` §2.8.
 `tests/seo.spec.ts` gates both the redirect direction and that no declared canonical / `og:url` /
-`hreflang` redirects — the older test asserted only that the canonical *string* was right, which is
+`hreflang` redirects — the older test asserted only that the canonical _string_ was right, which is
 why this survived unnoticed.
 
 **The prerender resolves `VITE_DATA_BASE_URL` a SECOND time, and it must agree with the
@@ -93,7 +93,7 @@ files it fetches on first render — and `scripts/prerender/index.ts` emits each
 re-resolving the data origin through Vite's `loadEnv`, so prerender correctness now depends on
 the **gitignored** `.env.production` being present and on the env MODE matching the one
 `vite build` used. It is pinned to the literal `"production"` for that reason: `vite build`
-takes no `--mode` anywhere in `package.json`, and Vite sets `NODE_ENV` *from* the mode, so
+takes no `--mode` anywhere in `package.json`, and Vite sets `NODE_ENV` _from_ the mode, so
 reading `NODE_ENV` back would be an independent input that can silently disagree.
 
 A mismatch is **not** a build failure. It yields an empty base, every hint becomes a
@@ -119,7 +119,7 @@ adding a fifth path to a route.
 
 Hosting first means the rewrite is live against a function that cannot serve it yet.
 
-**`/funds/contract/**` and `/company/**` are page URLs served by that function**
+**`/funds/contract/**`and`/company/**` are page URLs served by that function**
 (`functions/spa_page.js`), not static files. They exist because both families were serving
 the SPA shell — i.e. the HOMEPAGE's `<title>`, description and canonical — so to a crawler
 all 81,910 contract URLs were duplicates of the homepage. Prerendering them is not an
@@ -130,15 +130,15 @@ Deploying the hosting rewrite BEFORE the function is the one ordering that break
 that works today: the rewrite would route every contract and company URL to a function
 with no handler for it. `deploy:db` first, then `deploy`.
 
-**`/council/resolution/**` is a fifth member, and the only one that is function-served for a
+**`/council/resolution/**`is a fifth member, and the only one that is function-served for a
 CONTENT reason rather than a file-count one.** 4,676 resolutions (9,352 with the EN mirror)
 would fit under the Firebase ceiling comfortably — but each body is one title and a vote
 table, the shape that earns a thin-content penalty rather than traffic. So they get a real
-head from the function and deliberately **no sitemap `<loc>` and no prerender**: discoverable
+head from the function and deliberately **no sitemap`<loc>`and no prerender**: discoverable
 by a crawler already on the council page, never submitted en masse. The only inbound link is
-the resolution title in `CouncilScreen`; without it the whole family is unreachable, which is
+the resolution title in`CouncilScreen`; without it the whole family is unreachable, which is
 also what makes a routing bug here invisible to manual testing. Same ordering rule,
-`deploy:db` before `deploy`.
+`deploy:db`before`deploy`.
 
 Two things about it are easy to get backwards, and both shipped once:
 
@@ -166,11 +166,10 @@ ordering rule, `deploy:db` first. Three ways it differs from the three above:
   ranks exact-match static content above rewrites, so the function only ever sees the other
   ~101k. A missing rewrite therefore DEGRADES rather than breaks — which makes it easier to
   miss, not safer.
-- **The rewrite must stay single-segment (`*`, never `**`)**, and the `/person/**` HEADER
-  entry must carry no browser `max-age`: that value is read by the 25,167 static pages, and a
-  browser-cached one pointing at a deleted `/assets/index-<hash>.js` is a white screen
-  `main.tsx`'s stale-chunk recovery cannot reach (it only fires on dynamic-import failures).
-  `scripts/deploy/firebase_person_rewrite.test.ts` holds both.
+- **The rewrite must stay single-segment (`*`, never `**`)**, and the `/person/\*\*`HEADER
+entry must carry no browser`max-age`: that value is read by the 25,167 static pages, and a
+browser-cached one pointing at a deleted `/assets/index-<hash>.js`is a white screen`main.tsx`'s stale-chunk recovery cannot reach (it only fires on dynamic-import failures).
+`scripts/deploy/firebase_person_rewrite.test.ts` holds both.
 - **The handler owns every `/person` URL the rewrite reaches**, so anything it does not
   redirect it serves as the SPA shell — never a 404, or the ~101k non-prerendered people go
   with it. Those still serve the homepage's head; giving them their own via a `loadPerson`
@@ -249,6 +248,7 @@ the message if the columns are missing.
 tr:cr-deeds` (tiers 0/1/2a/2b/3; `--probe` first to gauge the block state); it writes the
 durable raw store `raw_data/tr/cr_deeds.sqlite` (gitignored, never uploaded). Two projections
 read that cache offline, no re-fetch:
+
 - **owners** → `tr:daily-refresh` runs the persons projection automatically (inside
   `daily_refresh.ts`, additive into `company_persons`), then `db:load:cr-founding:pg` folds
   the founding dates into local `company_founded`. To publish owners + founding to prod, run
@@ -506,11 +506,11 @@ vehicles owned by SOMEBODY ELSE that the declarant rents or is provided with. Th
 register's own column headers are what settle it — and they differ from tables 1/3 in
 three places, not one:
 
-| | table 1 / 3 (own) | table 1.2 / 3.4 (чуждо) |
-|---|---|---|
-| the money column | „Цена на **придобиване**" | „Цена **по договор**" |
-| the basis column | „Правно основание за **придобиване**" | „Правно основание за **ползване**" |
-| the year (3 vs 3.4) | „Година на придобиване" | „Година на **сключване на договора**" |
+|                     | table 1 / 3 (own)                     | table 1.2 / 3.4 (чуждо)               |
+| ------------------- | ------------------------------------- | ------------------------------------- |
+| the money column    | „Цена на **придобиване**"             | „Цена **по договор**"                 |
+| the basis column    | „Правно основание за **придобиване**" | „Правно основание за **ползване**"    |
+| the year (3 vs 3.4) | „Година на придобиване"               | „Година на **сключване на договора**" |
 
 So the number is not a mis-attributed asset value — it is **what the use costs**. Пеевски's
 2025 annual files tables 1 and 3 as `Declared="False"`, declares eight rented houses and
@@ -608,7 +608,7 @@ them on filings `person_wealth_year` publishes (155 people, 280 person-years).
 It was never a rounding caveat. Лъчезар Богомилов Иванов's 2021 was published at €254,294
 against a true €3,652,248 — **7% of the truth**; Пеевски's 2017 at €2,503,406 against
 €5,064,422 (a single 4,481,442 USD balance); and Владимир Славев Табутов's 2023 at
-**−€121,331**, i.e. declared net liabilities, against a true **+€504,142** — the *sign* was
+**−€121,331**, i.e. declared net liabilities, against a true **+€504,142** — the _sign_ was
 wrong. Twelve of the rows are `debt`, which OVERSTATES net worth, the one direction 090's
 header says this must never fail in.
 
@@ -729,10 +729,30 @@ npm run db:load:declarations:pg -- --resolve                        # phase 2 �
 ```
 
 Phase 2 is not optional even though nothing here reads `person_id`: phase 1 TRUNCATEs
-`declaration`, so skipping it leaves every filing unresolved. Cloud side is the `:cloud`
-twin of both and nothing runs it automatically; applying 089 to Cloud SQL **without**
-shipping the re-parsed shards changes nothing there while local is correct, with every row
-count reconciling.
+`declaration`, so skipping it leaves every filing unresolved.
+
+⚠️ **On Cloud SQL, SHIP these columns — do NOT reload for them.** The `:cloud` twin of those
+two commands works and costs a measured **~8 minutes of 500s** on `/persons`,
+`/officials/assets`, `/mp-assets` and `/declarations/crypto` (phase 1 NULLs every
+`person_id`; phase 2 runs 090's `DROP MATERIALIZED VIEW … CASCADE`, and a DbDataTable
+resource has no `missingMigration` degrade). The values are derived from immutable filings,
+so they are identical whichever database computes them — the `ship_filed_position.ts`
+argument — and `scripts/db/ship_held_abroad.ts` writes them into the rows already there:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 089_declarations.sql
+npx tsx scripts/db/ship_held_abroad.ts --to postgres://postgres@127.0.0.1:5434/electionsbg          # dry run
+npx tsx scripts/db/ship_held_abroad.ts --to postgres://postgres@127.0.0.1:5434/electionsbg --apply
+```
+
+Measured 2026-08-19: **76,953 rows in 31 s at 13:15 on a Wednesday**, RowExclusiveLock only,
+`person_id` / `filed_position` untouched, all five matviews still populated, all four pages
+200 throughout. The key is `(source_url, seq)` — `declaration_id` is a `bigserial` handed out
+in insertion order — and the payload carries `category` so that **any** row-identity
+disagreement refuses the whole ship rather than publishing „Белгия" against somebody else's
+account. Reload instead only when the SHARDS have moved for some other reason; the shipper
+carries these four columns and nothing else. Applying 089 alone changes nothing while local
+is correct, with every row count reconciling.
 
 **The gate is `scripts/db/tests/declaration_held_abroad.data.test.ts`** (8 tests), plus 17
 unit tests on the rule. It carries a mutation check — every stored value is re-derived from
@@ -755,11 +775,11 @@ in one day. The precedent is `kzk_effective_suspension(suspension, status)` in 0
 **⚠️ Which surfaces take the filed value is decided by what the COLUMN is for, NOT by the
 tier it spans.** Getting this backwards is the live defect this section exists to prevent:
 
-| the column's job | surfaces | source |
-|---|---|---|
-| a rendered label / substring search (`filter: "text"`) | 090 ×3, 093 ×2, 098, 100, 105, 159 | **filed**, listing as fallback |
-| an exact-match FACET KEY (`filter: "in"`) | 120 `person_browse_table.institution` | **listing** |
-| renamed into a different contract | 102 `municipality`, `role_raw` | **listing** |
+| the column's job                                       | surfaces                              | source                         |
+| ------------------------------------------------------ | ------------------------------------- | ------------------------------ |
+| a rendered label / substring search (`filter: "text"`) | 090 ×3, 093 ×2, 098, 100, 105, 159    | **filed**, listing as fallback |
+| an exact-match FACET KEY (`filter: "in"`)              | 120 `person_browse_table.institution` | **listing**                    |
+| renamed into a different contract                      | 102 `municipality`, `role_raw`        | **listing**                    |
 
 The two exclusions are deliberate and their own files' headers say so — do NOT "finish the
 job":
@@ -1682,6 +1702,7 @@ Five things about it are easy to get backwards:
   All four live in `scripts/bucket_sync_paths.ts` + `scripts/lib/upload.ts` and read one
   definition. Removing any of them puts a second copy of a PG load source on a bucket
   nothing reads — the shape that once pushed ~16.8k company-connection shards.
+
 - **`meets_threshold` is NULL on almost every row WITHOUT an official verdict, and that is
   correct.** The statute has **SEVEN** criteria, not six — МФ's year-end-anchored releases
   enumerate them 1..7 and `scripts/budget/municipal_fiscal/criteria.ts` reads them, so on the
@@ -1708,7 +1729,7 @@ npm run db:load:interreg:pg:cloud
 
 **Its re-run triggers are wider than its own source**, and two of the three are the
 non-obvious ones. Place resolution happens IN THE LOADER (Tier L1 reads `awarder_seats`,
-L2 reads `tr_company_place`), so 199 of the 1,469 placed rows depend on the *content* of
+L2 reads `tr_company_place`), so 199 of the 1,469 placed rows depend on the _content_ of
 those two tables and not merely on their existence. Re-run it after:
 
 - a keep.eu re-import (`npm run funds:crawl-interreg -- --full` then `funds:ingest-interreg`);
@@ -1787,9 +1808,9 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/a
   138_interreg_serving.sql 139_funds_muni_combined.sql
 ```
 
-**`/funds/interreg/**` is a page URL served by the `db` function** (`functions/spa_page.js`),
-like `/funds/contract/**` and `/company/**` — so the same ordering rule applies and it is the
-one that breaks a working page: **`npm run deploy:db` BEFORE `npm run deploy`**. Hosting
+**`/funds/interreg/**`is a page URL served by the`db` function** (`functions/spa_page.js`),
+like `/funds/contract/**`and`/company/**` — so the same ordering rule applies and it is the
+one that breaks a working page: **`npm run deploy:db`BEFORE`npm run deploy`**. Hosting
 first points all ~1,954 operation URLs at a function with no handler for them. They are not
 prerendered and carry no sitemap `<loc>`; without the function they serve the homepage's
 `<title>` and canonical, which is the duplicate-content shape this handler exists to end.
@@ -1881,7 +1902,7 @@ it, 2.3 ms. Any future „what did source X first see in window W" query wants t
   rail ships three cards, not the four the plan lists, and `funds_wire.data.test.ts` asserts
   exactly those three so the omission stays a decision.
 - **The disbursement card is restricted to the CLOSED 2014-2020 period** (`program_code LIKE
-  '2014%'`). Without that restriction a procedure at 0% is indistinguishable from one signed last
+'2014%'`). Without that restriction a procedure at 0% is indistinguishable from one signed last
   month — measured, the top three were all 0% and all 2021-2027, i.e. recency rendered as
   underperformance.
 
@@ -2020,7 +2041,7 @@ never part of the daily refresh. `update-open-calls` gives a call its title, dea
 ИСУН publishes the budget, aid rate, grant range and eligibility only inside each procedure's own
 PDF/DOCX. That skill reads one document, extracts each field **paired with a verbatim quote**, and
 puts both through `scripts/opencalls/enrich_gate.ts` before anything is stored — **two checks,
-not one**: the quote occurs in the extracted text (a plain normalised substring), *and* the quote
+not one**: the quote occurs in the extracted text (a plain normalised substring), _and_ the quote
 states the value. A field failing either is dropped and reported. Nothing about that guarantee
 comes from trusting the model.
 
@@ -2029,7 +2050,7 @@ checking the claim: with only the substring test, a fabricated `budget_eur: 999 
 to a real unrelated sentence from the document passed with no rejection, and so did a 100×
 magnitude error (`aid_rate_pct: 0.6` cited from „…60 %…"). Both are the shape a model produces
 when it answers from memory and then hunts for a sentence to cite. Neither check can judge
-whether the quoted sentence is the *right* one — a sub-component's „максимален размер" cited
+whether the quoted sentence is the _right_ one — a sub-component's „максимален размер" cited
 against the whole procedure's budget is a real number, correctly attributed and still wrong —
 which is why `auto` may not reach a money column at all.
 
@@ -2110,7 +2131,7 @@ npm run db:load:nzok-tariffs:pg:cloud
 
 Re-run writer + loader when the `nzok_nrd_tariffs` watcher flags a new НРД/amendment PDF
 (the parse needs a human pass). The loader is absent-safe (applies 059 and exits when the
-JSON is missing), so it sits in `db:refresh` — but only this manual flow ever *fills* the
+JSON is missing), so it sits in `db:refresh` — but only this manual flow ever _fills_ the
 table.
 
 `nzok_casemix_expected_vs_actual()` (migration 059) is the per-hospital case-mix signal behind
@@ -2147,8 +2168,9 @@ published** — the ratio appears on one hospital's own card, never as a league 
 `agri_subsidies` + `agri_payloads` (migration 046, `db:load:agri:pg`) are the ДФ „Земеделие"
 farm-subsidy corpus behind `/subsidies` and `/farm/:eik`. The loader is the pure-LOAD half of
 the fetch/load split: it reads only the **gitignored** `raw_data/agri/` cache (egov year sheets
-+ СЕУ CSVs) — on a fresh clone it skips-and-warns; on a PARTIAL cache it throws rather than
-publish a corpus missing a financial year. Publishing to prod:
+
+- СЕУ CSVs) — on a fresh clone it skips-and-warns; on a PARTIAL cache it throws rather than
+  publish a corpus missing a financial year. Publishing to prod:
 
 ```bash
 npm run db:load:agri:pg:cloud
@@ -2162,13 +2184,13 @@ scope-keyed matview behind `/api/db/agri-hub-stats` and every figure on the `/su
 refreshes 162, so a corpus reload carries it; this exists because the cache has FIVE inputs and
 the agri ingest owns one:
 
-| input | filled by |
-|---|---|
-| `agri_subsidies` / `agri_payloads` | `db:load:agri:pg` |
-| `person_role`, `person` | `db:resolve:persons` |
-| `fund_projects` | `db:load:funds:pg` |
-| `contracts` | `db:load:pg` |
-| `budget_muni_transfer` | `db:load:budget-muni:pg` |
+| input                              | filled by                |
+| ---------------------------------- | ------------------------ |
+| `agri_subsidies` / `agri_payloads` | `db:load:agri:pg`        |
+| `person_role`, `person`            | `db:resolve:persons`     |
+| `fund_projects`                    | `db:load:funds:pg`       |
+| `contracts`                        | `db:load:pg`             |
+| `budget_muni_transfer`             | `db:load:budget-muni:pg` |
 
 Re-run it after **any** of those. `db:refresh` runs it at step 56, after the person chain, for a
 reason worth knowing: the agri ingest is step 14 and `db:resolve:persons` is step 45, so the
@@ -2246,7 +2268,7 @@ IS NOT NULL` marks a row as machine-derived and re-derivable, NULL marks it as o
 
 **Migration ordering, 042 → 131.** `kzk_appeals_list` (042) SELECTs `decision_act_no`, whose
 home is 131 — and 131 is applied ONLY by `kzk:rejoin`, which every path that applies 042 runs
-*before* (`db:refresh` orders `db:load:tenders:pg` ahead of `kzk:rejoin`; `load_tenders_pg`
+_before_ (`db:refresh` orders `db:load:tenders:pg` ahead of `kzk:rejoin`; `load_tenders_pg`
 and `apply_functions` never touch 131). 042 therefore carries an idempotent
 `ADD COLUMN IF NOT EXISTS` for it. **Do not remove that line** thinking 131 owns the column:
 `exec()` sends a migration as one implicit transaction, so a 42703 there rolls the whole file
@@ -2383,7 +2405,7 @@ place label and the magistrates' oblast), and the contracts corpus. Re-run it:
   away from `/procurement/contracts` with nothing failing;
 - **after a `db:load:tr:pg[:cloud]`** — the matview reads `tr_officers` for its company
   counts. Until 2026-08-10 this was invisible for the worst possible reason: 003's
-  `DROP TABLE … CASCADE` *deleted* the matview on every TR load rather than staling it (see
+  `DROP TABLE … CASCADE` _deleted_ the matview on every TR load rather than staling it (see
   the CASCADE note in "SQL functions and indexes" below). 003 no longer drops, so what is
   left to close is ordinary staleness — and this is the loader that closes it.
 
@@ -2496,7 +2518,7 @@ people — the "с декларация" filter matches nobody and its KPI reads
 rendering from `person_wealth_year`, so the page looks healthy. This shipped to prod once; the
 loader's preflight now checks join-key population, not just row counts.
 
-Skipping it after a *place* loader blanks the same way `/person` does — the loader itself
+Skipping it after a _place_ loader blanks the same way `/person` does — the loader itself
 throws if any placed row lost its label, but only for the rows it can see at build time.
 `db:refresh` runs the local equivalent automatically; nothing runs it on the cloud side.
 
@@ -2578,7 +2600,7 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/a
 Safe at any time and idempotent — every one of these files is `CREATE OR REPLACE`. **A
 function-only change is invisible to every row count and every loader**: local is green, prod
 keeps running the previous body indefinitely, and nothing reports a difference. `deploy:db`
-does NOT carry it — that ships function *code* in `functions/`, which is a different thing
+does NOT carry it — that ships function _code_ in `functions/`, which is a different thing
 from a Postgres function.
 
 **Both appliers of a DROP…CASCADE chain now carry a collateral-drop guard, and the loader's
@@ -2629,7 +2651,7 @@ both classes or it is blind to exactly that vector.
 migration DROPs (077's and 145's).
 
 **CASCADE is the same rule with the failure mode inverted, and it is the more dangerous
-half.** A DROP without CASCADE REFUSES — 2BP01, loud, the loader aborts. A DROP *with* CASCADE
+half.** A DROP without CASCADE REFUSES — 2BP01, loud, the loader aborts. A DROP _with_ CASCADE
 SUCCEEDS: it deletes the dependent and the loader exits 0, with nothing in its output and no
 row count reporting the loss, because the counts that would move belong to a relation that no
 longer exists. `003_tr_search.sql` did exactly that from the start — `DROP TABLE IF EXISTS
@@ -2774,7 +2796,7 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
   `nzok_drug_quarterly`, present for all 610) and `overpay` (the above-median analysis, ~30). NULL
   is reserved for an INN in neither source. **066 MUST be in the same command and BEFORE it** — 054
   calls `nzok_drug_quarterly_by_inn()` from 066, and because 054 sets `check_function_bodies =
-  false` the missing dependency does not fail the apply: it fails on the first CALL with 42883,
+false` the missing dependency does not fail the apply: it fails on the first CALL with 42883,
   which `missingMigrationEmpty` degrades to `[]` — a truthy value that skips the not-found branch
   and renders "no above-median prices, the normal case" on every molecule page at a 200.
   `sector_search_landing.data.test.ts` fails if any findable INN is unservable.
@@ -2817,7 +2839,7 @@ which is what makes the office dates appear on prod without a multi-hour re-reso
 The column has **two** writers and needs both: 081's backfill carries a warm database across
 the gap, and `resolve_persons.ts` sets it in the `copyRows` list that rebuilds `person_role`
 from scratch. Dropping it from that list is the silent failure — the resolve DELETEs the
-table, every basis comes back NULL, and the renderer shows *nothing* rather than something
+table, every basis comes back NULL, and the renderer shows _nothing_ rather than something
 wrong, so no page errors and no count moves. `person_role_date_basis.data.test.ts` fails on
 a dated role with no basis, on the mp count collapsing, and on `person_by_slug` returning an
 MP's terms in a tie order (the profile keeps the first row of a deduped seat, so an
@@ -2850,7 +2872,7 @@ when adding a loader, check the call by hand — nothing will fail if you forget
 
 **This is the rare defect that is invisible from every angle a reviewer normally checks**: row
 counts reconcile, the corpus is correct, the migration is untouched, and the plan is still
-*named* an Index Only Scan — it just reports `Heap Fetches: <every row>`. Both instances found
+_named_ an Index Only Scan — it just reports `Heap Fetches: <every row>`. Both instances found
 so far were found by accident, and the first was initially read as a function-body regression in
 a file nobody had edited. `contracts` is the counter-example that locates the cause: it is
 stage-MERGEd rather than truncated, and its map survives a reload intact.
@@ -2909,7 +2931,7 @@ Two things about the repair are easy to get backwards:
 - **`PARALLEL 0` is required on the local docker Postgres, not optional.** Parallel vacuum
   allocates one DSM segment up front and the container's `/dev/shm` default is 64 MB, so
   `VACUUM (ANALYZE) tenders` (14 indexes) dies with `could not resize shared memory segment …
-  to 67145792 bytes`. `vacuumAfterReload` passes it for that reason. Nothing is lost: VACUUM
+to 67145792 bytes`. `vacuumAfterReload` passes it for that reason. Nothing is lost: VACUUM
   parallelises the index-vacuum phase only, and a freshly reloaded table has `n_dead_tup = 0`,
   so that phase has no work to do.
 - **A VACUUM run while any long transaction is open marks NOTHING and still reports success.**
@@ -2994,6 +3016,7 @@ opposite directions. Read that file's header before touching either.
 - `?pscope=all` / `?pscope=y:2024` — the shared time-scope on `/procurement*`, the sector views (water/defense/culture/judiciary), the farm-subsidy pages `/subsidies*`, and the sectors hub (all read by `useScope` in `src/data/scope/`; the param name stays `pscope`); default `ns` (the selected parliament's contract window) is omitted from the URL, `all` pivots to the full corpus, `y:<year>` to one calendar year. On `/culture` `ns` means "all years" (relabeled) and `y:<year>` re-aggregates the film KPIs / discipline split / concentration / awards to that year client-side from `films.json` — the time-spine (a historical trend) stays full-history (`scopeCultureOverview`). The procurement nav pills + the subsidies dashboard's tile links carry the current search forward (`useScopedHref` / a local `browseTo`) so the scope survives sub-page navigation. On `/subsidies` (which has no per-parliament slice) `ns` resolves to the latest financial year via `agriScopeToKey`, and each scope is served as its own precomputed `agri_payloads` overview blob (kind='overview', key=`<year>`|`all`|`''`); the `?pscope` year picker there lists only the CAP financial years present (`AGRI_FINANCIAL_YEARS`).
 
   **A page narrower than the corpus MUST resolve the inbound scope.** `pscope` is in the `usePreserveParams` allowlist, so any in-app link carries a scope minted where it was valid onto a page that cannot serve it (`y:2026` on `/culture`, whose НФЦ register ends 2025; `y:2019` on `/subsidies`, a hole in the CAP corpus; anything past the last Доклад on `/sector/administration`). Pass the page's coverage to the hook — `useScope({ years, allowAll })` — and hand `<ScopeControl>` the SAME resolved value via `value`/`onChange`; then the pill and the numbers are one value. Two failure modes this closes, both of which look like real data: an unresolved year reaching the aggregation (`selYear` on `/administration` labelled the latest report's numbers "2026") and a Radix `<Select>` whose controlled value matches no `<SelectItem>`, which renders EMPTY — not the placeholder — leaving the whole widget reading as the page default. Falling back to `ns` is not the only honest option: `/subsidies` keeps the raw scope and NAMES the gap ("Няма данни за субсидии за 2019"), which is why `ScopeControl` displays an off-list year rather than inventing one. What no page may do is show one window and count another.
+
 - `?q=<term>` — on `/procurement/contracts`, `/procurement/tenders` and `/persons`, seeds the DbDataTable free-text search (used by the combined-search "see all" deep links).
 - `?facet` / `?pfacet` / `?role` / `?party` / `?oblast` / `?obshtina` / `?court` / `?decl` / `?held` — the `/persons` browser filters, all owned by `useUrlPersonFilters` (`src/data/persons/`); `?q` seeds its search box. Two distinctions are load-bearing and easy to get backwards. **`?facet` is MEMBERSHIP, `?pfacet` is the PRIMARY facet** — the first asks "is this person also a …" and filters a boolean flag, the second asks "what is this person mainly" and filters the single-valued `primary_facet` the mix bar partitions. And **the multi-valued dimensions filter a space-padded CODE SET, never the display scalar beside it**: `?party=gerb` means "ever affiliated" (keeping the 4,723 switchers), `?oblast=VAR` means "holds any role there" — matching the representative column instead would drop 1,851 people from an oblast they genuinely serve, which reads as "no such people" rather than as a narrowed view. `?obshtina` is the ONE exception: it filters the representative seat, because there is no obshtina code-set column. `?court` carries an institution NAME (the picker facets and filters the same `institution` column, so its counts are exact and no code→name dictionary is needed). Every value is validated on read.
 - `?proc` / `?cpv` / `?single` / `?cancelled` / `?year` / `?grade` — the procurement browser filters, all owned by `useUrlProcurementFilters` (`src/data/procurement/`). `?proc` is a bucketed procedure, `?cpv` a division/prefix/comma-set, `?single|?cancelled` a boolean toggle (name differs per browser), `?year` the company/awarder page only. `?grade=D,E,F` is a validated A–F set filtering the **server-side** contract risk index (`risk_grade`, migration 112) — contracts browsers only, since tenders have no per-tender index. Every one is validated on read: unknown values are dropped rather than passed into a `DbColumnFilter`.

@@ -20,11 +20,11 @@ pair at all, and its `Cell Num="7"` is „Произход на средства
 does not yield a blank — it yields the funds origin, so all 25,717 cash rows would have
 published as held in a country called „заплата". The pair exists on exactly two tables:
 
-| form | table | cells | filings |
-|---|---|---|---|
-| 2018 (v2) | 5 „Банкови влогове" | 7 / 8 | 60,112 |
-| 2018 (v2) | 8 „Вложения в … фондове" | 7 / 8 | 60,112 |
-| pre-2018 (v1) | 7 „Банкови влогове" | **6 / 7** | 1,542 |
+| form          | table                    | cells     | filings |
+| ------------- | ------------------------ | --------- | ------- |
+| 2018 (v2)     | 5 „Банкови влогове"      | 7 / 8     | 60,112  |
+| 2018 (v2)     | 8 „Вложения в … фондове" | 7 / 8     | 60,112  |
+| pre-2018 (v1) | 7 „Банкови влогове"      | **6 / 7** | 1,542   |
 
 **The pre-2018 form puts them at 6/7, not 7/8.** No special case was needed:
 `columnResolver` already shifts every column after the ЕГН cell and `EGN_COLUMN.bank = 6`
@@ -42,8 +42,8 @@ each other on a real minority. A boolean would have to invent an answer for:
   Bulgaria" as a fact about a named person;
 - **~130 rows that tick both**;
 - **~93 rows that SPLIT one amount across the two columns** — 151,744 in „В страната"
-  + 967 in „В чужбина" against an amount cell of 152,711. Neither scope is true of the
-  whole row;
+  - 967 in „В чужбина" against an amount cell of 152,711. Neither scope is true of the
+    whole row;
 - **47 rows that answer domestically inside the „В чужбина" column** („в страната",
   „България") and 17 the reverse, so position alone gets every one of them backwards.
 
@@ -57,12 +57,12 @@ query because it is a function of `table_num` alone.
 
 Four columns on `declaration_asset` (089):
 
-| column | meaning |
-|---|---|
-| `held_scope` | `'domestic'` \| `'abroad'` \| `'unknown'` \| NULL |
-| `held_country` | canonical Bulgarian country name, or NULL |
-| `held_raw_in_country` | the „В страната" cell, verbatim |
-| `held_raw_abroad` | the „В чужбина" cell, verbatim |
+| column                | meaning                                           |
+| --------------------- | ------------------------------------------------- |
+| `held_scope`          | `'domestic'` \| `'abroad'` \| `'unknown'` \| NULL |
+| `held_country`        | canonical Bulgarian country name, or NULL         |
+| `held_raw_in_country` | the „В страната" cell, verbatim                   |
+| `held_raw_abroad`     | the „В чужбина" cell, verbatim                    |
 
 **NULL is not `'unknown'` and neither is `'domestic'`.** NULL means the row's table has no
 such question (every real-estate, vehicle and cash row, and every row parsed before this
@@ -102,11 +102,11 @@ resolved by picking a side. That is what the split amounts land on.
 
 Local Postgres, 2026-08-19, after the backfill and reload — 76,953 money rows on tables 5+8:
 
-| scope | rows | share | € |
-|---|---|---|---|
-| domestic | 73,461 | 95.46% | 2,074,105,247 |
+| scope      | rows      | share     | €               |
+| ---------- | --------- | --------- | --------------- |
+| domestic   | 73,461    | 95.46%    | 2,074,105,247   |
 | **abroad** | **3,196** | **4.15%** | **168,515,251** |
-| unknown | 296 | 0.38% | 13,572,006 |
+| unknown    | 296       | 0.38%     | 13,572,006      |
 
 **765 people** declare at least one holding abroad.
 
@@ -130,10 +130,43 @@ npm run db:load:declarations:pg -- --resolve                        # phase 2 �
 ```
 
 Phase 2 is not optional here even though nothing in this change reads `person_id`: phase 1
-TRUNCATEs `declaration`, so skipping it leaves every filing unresolved. Cloud side is the
-`:cloud` twin of both, and nothing runs it automatically. Applying 089 to Cloud SQL WITHOUT
-shipping the re-parsed shards changes nothing there while local is correct, with every row
+TRUNCATEs `declaration`, so skipping it leaves every filing unresolved. Applying 089 to Cloud
+SQL WITHOUT shipping the values changes nothing there while local is correct, with every row
 count reconciling.
+
+### On Cloud SQL, SHIP rather than reload — the reload route takes a measured outage
+
+The `:cloud` twin of the two commands above works, and costs ~8 minutes of **500s** on
+`/persons`, `/officials/assets`, `/mp-assets` and `/declarations/crypto`: phase 1 TRUNCATEs
+`declaration` and NULLs every `person_id`, and phase 2 runs 090's `DROP MATERIALIZED VIEW
+person_wealth_year CASCADE`, during which a DbDataTable resource has no `missingMigration`
+degrade. CLAUDE.md says off-peak only, and it means it.
+
+None of that is necessary for THIS change. The four columns are derived from immutable
+filings, so their values are identical whichever database computes them — the same argument
+`ship_filed_position.ts` is built on. `scripts/db/ship_held_abroad.ts` writes them into the
+rows already there:
+
+```bash
+DATABASE_URL=… npx tsx scripts/db/apply_functions.ts 089_declarations.sql   # additive, no DROPs
+npx tsx scripts/db/ship_held_abroad.ts --to postgres://postgres@127.0.0.1:5434/electionsbg
+npx tsx scripts/db/ship_held_abroad.ts --to … --apply
+```
+
+**Done 2026-08-19 at 13:15 EEST — peak hours, deliberately, because it takes no outage.**
+76,953 rows in **31 s**, RowExclusiveLock only, `person_id` and `filed_position` untouched,
+all five matviews still populated, all four pages 200 throughout.
+
+The key is `(source_url, seq)`, never `declaration_id` — that is a `bigserial` handed out in
+insertion order, i.e. a property of how a database was loaded. And because `seq` alone is not
+an identity, the payload carries `category` too and **any** disagreement refuses the whole
+ship: the backfill only ever ADDS fields and skips a filing whose row set has moved, so the
+two sides' numbering agrees by construction, and this check is what would catch it if that
+stopped being true. It is the one thing standing between a mis-keyed write and publishing
+„Белгия" against somebody else's bank account. Verified 76,953/76,953 on the real run.
+
+Reload instead of shipping when the SHARDS have moved for some other reason — the shipper
+only carries these four columns.
 
 The backfill is positional-but-verified, like `backfill_asset_table_num.ts`: rows are
 matched by index then checked on (category, description, valueEur), and a shard whose row
