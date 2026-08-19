@@ -59,6 +59,7 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
     table: "declaration_employer_link",
     loader: "db:load:employer-links:pg",
   },
+  { table: "grant_contract_link", loader: "db:load:grant-links:pg" },
   { table: "obshtina_population", loader: "db:load:municipal-fiscal:pg" },
   { table: "fund_projects", loader: "db:load:funds:pg" },
   { table: "fund_beneficiaries", loader: "db:load:funds:pg" },

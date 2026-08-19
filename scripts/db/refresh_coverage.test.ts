@@ -84,6 +84,19 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:load:grant-links:pg",
+    before: "db:load:tenders:pg",
+    why:
+      "the spine extracts ПИИ codes from tenders.subject; with no tenders it " +
+      "writes only the contract half and the coverage it prints reads as if the " +
+      "procedure side simply had no grants",
+  },
+  {
+    after: "db:load:grant-links:pg",
+    before: "db:load:pg",
+    why: "the other half of the spine is contracts.title",
+  },
+  {
     after: "db:load:employer-links:pg",
     before: "db:load:declarations:pg",
     why:
