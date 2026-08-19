@@ -326,7 +326,79 @@ const ContractorsScene: FC = () => (
   </SceneFrame>
 );
 
+// Еврофондове — four separate streams that do NOT converge. Deliberately drawn
+// as parallel channels of different widths rather than as a funnel: a funnel
+// would say they sum, which is the one thing this page's copy exists to deny.
+const FundsScene: FC = () => (
+  <SceneFrame>
+    {[
+      { y: 26, w: 104, o: 0.9 },
+      { y: 46, w: 78, o: 0.7 },
+      { y: 66, w: 44, o: 0.5 },
+      { y: 86, w: 26, o: 0.35 },
+    ].map((b) => (
+      <g key={b.y}>
+        <rect
+          x={150}
+          y={b.y}
+          width={b.w}
+          height={11}
+          rx={2}
+          fill={ACCENT}
+          opacity={b.o}
+        />
+        <path
+          d={`M${150 + b.w + 4} ${b.y + 5.5} H262`}
+          stroke="currentColor"
+          strokeWidth={1}
+          strokeDasharray="2 3"
+          opacity={0.3}
+        />
+      </g>
+    ))}
+  </SceneFrame>
+);
+
+// Институциите — a register: rows in a frame, four of them marked as a distinct
+// tier. The mark is the SPLIT, because the page's subject is that the list is
+// four lists and not one.
+const InstitutionsScene: FC = () => (
+  <SceneFrame>
+    <rect
+      x={144}
+      y={20}
+      width={118}
+      height={78}
+      rx={3}
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth={1.2}
+      opacity={0.9}
+    />
+    {[0, 1, 2, 3, 4, 5].map((i) => (
+      <rect
+        key={i}
+        x={154}
+        y={28 + i * 12}
+        width={i < 3 ? 84 : 58}
+        height={7}
+        rx={1.5}
+        fill={ACCENT}
+        opacity={i < 3 ? 0.85 : 0.4}
+      />
+    ))}
+    <path
+      d="M150 62 H256"
+      stroke="currentColor"
+      strokeWidth={1.2}
+      opacity={0.5}
+    />
+  </SceneFrame>
+);
+
 export const CULTURE_SCENES: Record<string, FC> = {
+  funds: FundsScene,
+  institutions: InstitutionsScene,
   budget: BudgetScene,
   procurement: ProcurementScene,
   subsidies: SubsidiesScene,

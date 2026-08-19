@@ -196,6 +196,10 @@ describe("the culture hub registry", () => {
     // strip the fragment before checking the path, so nothing else sees this.
     const FILE_FOR: Record<string, string> = {
       "culture/subsidies": "src/screens/culture/CultureSubsidiesScreen.tsx",
+      "culture/procurement": "src/screens/culture/CultureProcurementScreen.tsx",
+      "culture/funds": "src/screens/culture/CultureFundsScreen.tsx",
+      "culture/institutions":
+        "src/screens/culture/CultureInstitutionsScreen.tsx",
     };
     for (const t of CULTURE_TILES) {
       const [pathAndQs, hash] = t.to.split("#");
@@ -214,20 +218,17 @@ describe("the culture hub registry", () => {
     }
   });
 
-  it("points at no page the plan has not built yet", () => {
-    // The three sub-pages arrive with their bodies, not before them. If this
-    // starts failing because one of them now exists, add its tile — that is the
-    // signal, not a nuisance.
-    const unbuilt = [
+  it("reaches all three sub-pages, now that they exist", () => {
+    // The inverse of the gate this replaces. While /culture/procurement,
+    // /culture/funds and /culture/institutions did not exist, their tiles were
+    // asserted ABSENT; now that they do, a hub that does not front them is a
+    // module whose own pages are unreachable except by typing the URL.
+    const targets = CULTURE_TILES.map((t) => t.to.split("#")[0]);
+    for (const p of [
       "/culture/procurement",
       "/culture/funds",
       "/culture/institutions",
-    ];
-    for (const t of CULTURE_TILES)
-      for (const u of unbuilt)
-        expect(
-          t.to.startsWith(u),
-          `tile "${t.id}" points at ${u}, which has no route yet`,
-        ).toBe(false);
+    ])
+      expect(targets, `no tile fronts ${p}`).toContain(p);
   });
 });

@@ -25,7 +25,11 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { CULTURE_GROUP_EIKS } from "@/lib/kulturaReferenceData";
-import { chitalishteNameSql, cultureNameSql } from "@/lib/cultureMatch";
+import {
+  chitalishteNameSql,
+  cultureNameSql,
+  interregThemeSql,
+} from "@/lib/cultureMatch";
 import type { CultureHubStats } from "@/data/culture/hubStats";
 
 const ARTIFACT = path.resolve(
@@ -200,6 +204,36 @@ test.skipIf(skip)("the читалища arms match, in both corpora", async () =
   near(Number(agri.eur), b.agri.chitalishtaEur, "ДФЗ читалища money");
   near(Number(agri.n), b.agri.chitalishtaRows, "ДФЗ читалища rows");
 });
+
+test.skipIf(skip)(
+  "the Interreg thematic arm matches, with its coverage",
+  async () => {
+    const b = blob();
+    const [r] = await allRows<Record<string, string>>(
+      `SELECT count(*) n, count(p.eik) with_eik,
+            count(DISTINCT p.partner_name) partners,
+            round(sum(p.budget_eur)::numeric, 0) eur
+       FROM interreg_partners p JOIN interreg_operations o USING (keep_id)
+      WHERE p.country = 'Bulgaria' AND ${interregThemeSql("o.title_en")}`,
+    );
+    near(Number(r.eur), b.interreg.thematicEur, "Interreg thematic money");
+    near(Number(r.n), b.interreg.partnerRows, "Interreg partner rows");
+    // The COVERAGE is as load-bearing as the money: an EIK-keyed surface answers
+    // only for the rows that carry one, and a figure published without this number
+    // silently drops the rest. If it ever reached 100% the page's „about a fifth"
+    // caveat would become false.
+    near(
+      Number(r.with_eik),
+      b.interreg.rowsWithEik,
+      "Interreg rows with an EIK",
+    );
+    assert.ok(
+      b.interreg.rowsWithEik < b.interreg.partnerRows,
+      `every Interreg partner row now carries an EIK (${b.interreg.rowsWithEik}/` +
+        `${b.interreg.partnerRows}) — /culture/funds still says only about a fifth do`,
+    );
+  },
+);
 
 test.skipIf(skip)("the director count matches", async () => {
   const b = blob();

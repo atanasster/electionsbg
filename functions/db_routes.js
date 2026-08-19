@@ -766,7 +766,10 @@ const shlyoCandidates = (term) => {
   const noGlide = LAT2CYR_DIGRAPHS.filter(
     ([lat]) => !["ia", "iu", "io"].includes(lat),
   );
-  const keyboard = SHLYO_KEYBOARD.reduce((t, [re, to]) => t.replace(re, to), raw);
+  const keyboard = SHLYO_KEYBOARD.reduce(
+    (t, [re, to]) => t.replace(re, to),
+    raw,
+  );
   const out = [
     raw,
     latinToCyrillic(raw, noGlide),
@@ -2397,6 +2400,18 @@ const DB_ROUTES = {
   // EU Single Market Scoreboard competition indicators (single-bidder share,
   // no-call-for-bids share), window-scoped [from, to) or full corpus. Served from the
   // per-scope precompute (124); no cache before.
+  // The whole-corpus single-bid rate FOR THE SAME WINDOW a sector page is
+  // showing. Without it a scoped sector rate gets compared against an unscoped
+  // baseline, which on the culture corpus inverted the sign on 2023+ — the
+  // sector reads WORSE than the country while actually being better. Generic on
+  // purpose: every sector dashboard needs the same denominator.
+  "national-competition": async (dbRows, q) => {
+    const rows = await dbRows("SELECT national_competition($1, $2) AS r", [
+      orNull(q, "from"),
+      orNull(q, "to"),
+    ]);
+    return { body: rows[0]?.r ?? null };
+  },
   "procurement-benchmarks": async (dbRows, q) => {
     const from = orNull(q, "from");
     const to = orNull(q, "to");
@@ -4930,7 +4945,11 @@ const DB_ROUTES = {
       councils: [],
     };
     const rows = await dbRows("SELECT council_overview() AS r").catch(
-      missingMigrationLogged("council-overview", "cc:not-built", "db:load:council:pg"),
+      missingMigrationLogged(
+        "council-overview",
+        "cc:not-built",
+        "db:load:council:pg",
+      ),
     );
     return { body: rows[0]?.r ?? empty };
   },
@@ -4947,7 +4966,11 @@ const DB_ROUTES = {
       clampInt(q.limit, 20, 1, 200),
       clampInt(q.offset, 0, 0, 100_000),
     ]).catch(
-      missingMigrationLogged("council-muni", "cc:not-built", "db:load:council:pg"),
+      missingMigrationLogged(
+        "council-muni",
+        "cc:not-built",
+        "db:load:council:pg",
+      ),
     );
     // null = this place has no council coverage, which the tile renders as
     // "not covered" — distinct from "covered but publishes no named votes".
@@ -4960,11 +4983,14 @@ const DB_ROUTES = {
     const id = s(q, "id");
     if (!id || id.length > 128)
       return { status: 400, body: { error: "missing id" } };
-    const rows = await dbRows(
-      "SELECT council_resolution_detail($1) AS r",
-      [id],
-    ).catch(
-      missingMigrationLogged("council-resolution", "cc:not-built", "db:load:council:pg"),
+    const rows = await dbRows("SELECT council_resolution_detail($1) AS r", [
+      id,
+    ]).catch(
+      missingMigrationLogged(
+        "council-resolution",
+        "cc:not-built",
+        "db:load:council:pg",
+      ),
     );
     return { body: rows[0]?.r ?? null };
   },
@@ -4976,7 +5002,11 @@ const DB_ROUTES = {
     const rows = await dbRows("SELECT council_councillor($1) AS r", [
       personId,
     ]).catch(
-      missingMigrationLogged("council-councillor", "cc:not-built", "db:load:council:pg"),
+      missingMigrationLogged(
+        "council-councillor",
+        "cc:not-built",
+        "db:load:council:pg",
+      ),
     );
     return { body: rows[0]?.r ?? null };
   },

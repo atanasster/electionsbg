@@ -2788,6 +2788,137 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "culture/procurement",
+    // Shares the sector's card rather than naming a file the capture has not
+    // made. `npm run og` shoots what `capture-screens.ts` lists, so pointing at
+    // /og/culture-procurement.png before that entry exists would put a 404 in
+    // every share preview — strictly worse than a truthful sector card. Give it
+    // its own once a capture entry and a `data-og` anchor land together.
+    ogImage: "/og/culture.png",
+    title:
+      "Поръчките на културата — кой купува, от кого и с каква конкуренция | electionsbg.com",
+    description:
+      "Обществените поръчки на държавните културни институти, националните училища по изкуствата и Министерството на културата: стойност, изпълнители и делът на договорите с една оферта — с националната база до всяка цифра.",
+    breadcrumbName: "Поръчки в културата",
+    bodyHtml: `
+<h1>Поръчките на културата — кой купува, от кого и с каква конкуренция</h1>
+<p>Културата купува чрез много малки, независими възложители: театри, опери, музеи, библиотеки и националните училища по изкуствата, всяко със собствен бюджет. Тази страница ги събира на едно място — колко харчат, кои фирми печелят и колко от договорите са с един-единствен кандидат.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Изпълнителите на сектора</strong> — класация по стойност. Националната класация не може да се филтрира по сектор: тя брои изпълнители, а секторът е свойство на възложителя.</li>
+<li><strong>Конкуренция</strong> — делът на договорите с една оферта, винаги до националната база. Сама по себе си тази цифра не значи нищо.</li>
+<li><strong>Кой купува</strong> — разрезът по институция, с дела на едната оферта за всяка.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/culture">обзора на сектора</a> и <a href="${SITE_URL}/culture/institutions">регистъра на институциите</a>.</p>
+<p>Източник: АОП/ЦАИС ЕОП.</p>`.trim(),
+    english: {
+      title:
+        "Culture's public contracts — who buys, from whom, with what competition | electionsbg.com",
+      description:
+        "The public contracts of Bulgaria's state cultural institutes, national art schools and Ministry of Culture: value, contractors and the single-bidder share — each figure beside the national baseline.",
+      breadcrumbName: "Culture contracts",
+      bodyHtml: `
+<h1>Culture's public contracts — who buys, from whom, with what competition</h1>
+<p>Culture buys through many small, independent institutions — theatres, operas, museums, libraries and the national art schools, each with its own budget. This page gathers them: what they spend, which companies win, and how many contracts drew a single bidder.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>The sector's contractors</strong> — ranked by value. The national leaderboard cannot be filtered by sector: it counts contractors, and the sector is a property of the buyer.</li>
+<li><strong>Competition</strong> — the single-bidder share, always beside the national baseline. On its own that figure means nothing.</li>
+<li><strong>Who buys</strong> — the split by institution, each with its own single-bidder share.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/culture">sector overview</a> and the <a href="${SITE_URL}/en/culture/institutions">register of institutions</a>.</p>
+<p>Source: АОП/ЦАИС ЕОП.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "culture/funds",
+    // Shares the sector's card rather than naming a file the capture has not
+    // made. `npm run og` shoots what `capture-screens.ts` lists, so pointing at
+    // /og/culture-procurement.png before that entry exists would put a 404 in
+    // every share preview — strictly worse than a truthful sector card. Give it
+    // its own once a capture entry and a `data-og` anchor land together.
+    ogImage: "/og/culture.png",
+    title:
+      "Еврофондове за култура — ИСУН, ДФЗ и Interreg, всяко с основата си | electionsbg.com",
+    description:
+      "Европейските и националните пари, които стигат до културата извън обществените поръчки: ИСУН по ЕИК и по име, субсидиите на ДФЗ за читалищата и Interreg — с основата и покритието на всяко число.",
+    breadcrumbName: "Еврофондове за култура",
+    bodyHtml: `
+<h1>Еврофондове за култура — и защо числата не се събират</h1>
+<p>Публичните пари за култура извън обществените поръчки идват от няколко различни регистъра, на различни основи: стойност на договор по ИСУН, земеделска субсидия по ДФЗ, публикуван бюджет на партньор по Interreg. Тази страница ги показва един до друг — и казва за всяко число откъде идва и какво НЕ покрива.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>ИСУН по ЕИК</strong> — точно съвпадение срещу регистъра на сектора. Възпроизводимо, и подмножество на реда по име.</li>
+<li><strong>ИСУН по име</strong> — долна граница с размита граница; предимно читалища.</li>
+<li><strong>ДФЗ — читалища</strong> — нито един държавен културен институт не получава земеделска субсидия. Присъствието на културата тук са читалищата.</li>
+<li><strong>Проследи парите</strong> — кодът по ПВУ свързва гранта с поръчката, която той плаща.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/culture">обзора на сектора</a> и <a href="${SITE_URL}/funds">всички еврофондове</a>.</p>
+<p>Източници: ИСУН 2020, ДФ „Земеделие“, keep.eu (Interreg).</p>`.trim(),
+    english: {
+      title:
+        "EU funds for culture — ИСУН, ДФЗ and Interreg, each with its basis | electionsbg.com",
+      description:
+        "The European and national money reaching culture outside public procurement: ИСУН by EIK and by name, ДФЗ subsidies to читалища, and Interreg — each figure with its basis and its coverage.",
+      breadcrumbName: "EU funds for culture",
+      bodyHtml: `
+<h1>EU funds for culture — and why the figures do not sum</h1>
+<p>Public money for culture outside procurement arrives from several different registers on different bases: a contract value from ИСУН, a farm subsidy from ДФЗ, a partner's published budget from Interreg. This page puts them side by side — and says, for each, where it comes from and what it does NOT cover.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>ИСУН by EIK</strong> — an exact match against the sector register. Reproducible, and a subset of the by-name row.</li>
+<li><strong>ИСУН by name</strong> — a floor with a fuzzy edge; mostly читалища.</li>
+<li><strong>ДФЗ — читалища</strong> — no state cultural institution receives a farm subsidy. Culture's presence here is читалища.</li>
+<li><strong>Follow the money</strong> — the RRF code links a grant to the procurement it paid for.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/culture">sector overview</a> and <a href="${SITE_URL}/en/funds">all EU funds</a>.</p>
+<p>Sources: ИСУН 2020, State Fund Agriculture, keep.eu (Interreg).</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "culture/institutions",
+    // Shares the sector's card rather than naming a file the capture has not
+    // made. `npm run og` shoots what `capture-screens.ts` lists, so pointing at
+    // /og/culture-procurement.png before that entry exists would put a 404 in
+    // every share preview — strictly worse than a truthful sector card. Give it
+    // its own once a capture entry and a `data-og` anchor land together.
+    ogImage: "/og/culture.png",
+    title:
+      "Културните институции — регистърът и кой ги плаща | electionsbg.com",
+    description:
+      "Държавните културни институти и националните училища по изкуствата с принципал Министерството на културата, културните тела с друг принципал (МОН, БАН, МО) и тези с неизяснен — целият регистър, разделен по принципал.",
+    breadcrumbName: "Институциите",
+    bodyHtml: `
+<h1>Културните институции — кои са и кой ги плаща</h1>
+<p>Всяка сума за сектора зависи от това кои институции влизат в него. Затова регистърът е разделен на четири и всяка част казва какво точно твърди: държавните институти с принципал Министерството на културата, националните училища по изкуствата, културните тела с друг принципал, и тези, при които държавен срещу общински още не е решен.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Държавни културни институти</strong> — театри, опери, музеи и библиотеки с принципал МК. Това е наборът, който всяка сума за сектора означава.</li>
+<li><strong>Национални училища по изкуствата</strong> — второстепенни разпоредители на МК, и най-слабо конкурентният слой в сектора.</li>
+<li><strong>С друг принципал</strong> — истински културни институции, които плаща някой друг: висшите училища по изкуствата (МОН), музеите на БАН и на Министерството на отбраната. Показани, но извън всяка сума.</li>
+<li><strong>С неизяснен принципал</strong> — регионални музеи, библиотеки и театри, изброени, за да не изчезнат.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/culture">обзора на сектора</a> и <a href="${SITE_URL}/culture/procurement">поръчките им</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria's cultural institutions — the register and who pays | electionsbg.com",
+      description:
+        "The state cultural institutes and national art schools whose principal is the Ministry of Culture, the cultural bodies answering to someone else (МОН, БАН, МО), and those unresolved — the whole register, split by principal.",
+      breadcrumbName: "The institutions",
+      bodyHtml: `
+<h1>Bulgaria's cultural institutions — who they are and who pays for them</h1>
+<p>Every figure about this sector depends on which institutions are in it. So the register is split four ways, and each part says exactly what it claims: the state institutes whose principal is the Ministry of Culture, the national art schools, the cultural bodies answering to someone else, and those where държавен versus общински is still unsettled.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>State cultural institutes</strong> — theatres, operas, museums and libraries under МК. This is the set every sector total means.</li>
+<li><strong>National art schools</strong> — МК's second-level spending units, and the sector's worst-competing layer.</li>
+<li><strong>Another principal</strong> — real cultural institutions somebody else pays for: the arts universities (МОН), and the БАН and Ministry of Defence museums. Shown, but outside every total.</li>
+<li><strong>Principal unresolved</strong> — regional museums, libraries and theatres, listed so they cannot drift.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/culture">sector overview</a> and <a href="${SITE_URL}/en/culture/procurement">their contracts</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     // Was `path: "culture"` until 2026-08-18. The BODY did not change — this is
     // the film-subsidy page moving with its content, so whatever it ranks for
     // moves with it rather than being rewritten underneath the same URL.

@@ -48,6 +48,17 @@ export interface CultureHubStats {
     chitalishtaEur: number;
   };
   agri: { chitalishtaEur: number; chitalishtaRows: number };
+  /** THEMATIC — joined through the OPERATION's title, not through a beneficiary
+   *  set. „Interreg culture money reaching Bulgaria" and „culture bodies doing
+   *  Interreg" are different questions ~4.4x apart; this is the first. */
+  interreg: {
+    thematicEur: number;
+    partnerRows: number;
+    partners: number;
+    /** Of `partnerRows`. ~21% — an EIK-keyed surface answers only for these, so
+     *  a figure published without this number drops four fifths of the answer. */
+    rowsWithEik: number;
+  };
   people: { culturalInstituteRoles: number };
 }
 

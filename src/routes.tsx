@@ -303,6 +303,21 @@ const CultureSubsidiesScreen = lazy(() =>
     default: m.CultureSubsidiesScreen,
   })),
 );
+const CultureProcurementScreen = lazy(() =>
+  import("./screens/culture/CultureProcurementScreen").then((m) => ({
+    default: m.CultureProcurementScreen,
+  })),
+);
+const CultureFundsScreen = lazy(() =>
+  import("./screens/culture/CultureFundsScreen").then((m) => ({
+    default: m.CultureFundsScreen,
+  })),
+);
+const CultureInstitutionsScreen = lazy(() =>
+  import("./screens/culture/CultureInstitutionsScreen").then((m) => ({
+    default: m.CultureInstitutionsScreen,
+  })),
+);
 const CultureFilmsBrowserScreen = lazy(() =>
   import("./screens/culture/CultureFilmsBrowserScreen").then((m) => ({
     default: m.CultureFilmsBrowserScreen,
@@ -2023,6 +2038,30 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <CultureSubsidiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/procurement"
+            element={
+              <LayoutScreen>
+                <CultureProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/funds"
+            element={
+              <LayoutScreen>
+                <CultureFundsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/institutions"
+            element={
+              <LayoutScreen>
+                <CultureInstitutionsScreen />
               </LayoutScreen>
             }
           />

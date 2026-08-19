@@ -12,12 +12,11 @@
 // The hub exists to put the other 87% on the page.
 // ═══════════════════════════════════════════════════════════════════════════════
 //
-// EVERY `to` IS A LIVE DESTINATION. The plan sketches four bands including
-// /culture/procurement, /culture/funds and /culture/institutions; those pages do
-// not exist yet, so their tiles are NOT here. A tile pointing at an unregistered
-// route is a dead link no type system catches — the dashboard-hub rule — and
-// `cultureRegistry.test.ts` asserts every `to` against the routed list. They land
-// with their pages, not before them.
+// EVERY `to` IS A LIVE DESTINATION, asserted against the routed list by
+// `cultureRegistry.test.ts`. The three sub-pages this file waited for —
+// /culture/procurement, /culture/funds, /culture/institutions — landed with step
+// 6 and their tiles landed with them, not before: a tile pointing at an
+// unregistered route is a dead link no type system catches.
 //
 // NO SEEDED `:param` DESTINATIONS. Every path below is static.
 //
@@ -89,13 +88,23 @@ export const CULTURE_HUB_COPY: Record<string, { bg: string; en: string }> = {
     en: "Public contracts",
   },
   culture_tile_procurement_desc: {
-    bg: "Договорите на министерството, държавните институти и националните училища по изкуствата — от 2011 г. насам.",
-    en: "What the ministry, the state institutes and the national art schools buy — since 2011.",
+    bg: "Какво купуват министерството, държавните институти и националните училища по изкуствата — с националната база до всяка цифра.",
+    en: "What the ministry, the state institutes and the national art schools buy — each figure beside the national baseline.",
   },
   culture_tile_subsidies: { bg: "Филмови субсидии", en: "Film subsidies" },
   culture_tile_subsidies_desc: {
     bg: "Субсидията на НФЦ за игрално, документално и анимационно кино — кой я получава и как се концентрира.",
     en: "The National Film Center's subsidy for feature, documentary and animation film — who receives it and how it concentrates.",
+  },
+  culture_tile_funds: { bg: "Еврофондове", en: "EU funds" },
+  culture_tile_funds_desc: {
+    bg: "Парите, които стигат до културата извън поръчките — ИСУН, ДФЗ и Interreg, всяко с основата си. Не се събират.",
+    en: "The money reaching culture outside procurement — ИСУН, ДФЗ and Interreg, each with its basis. They do not sum.",
+  },
+  culture_tile_institutions: { bg: "Институциите", en: "The institutions" },
+  culture_tile_institutions_desc: {
+    bg: "Регистърът: кои са, кой ги плаща, и кои са с неизяснен принципал.",
+    en: "The register: who they are, who pays for them, and whose principal is unresolved.",
   },
   culture_tile_films: { bg: "Продуценти и филми", en: "Producers and films" },
   culture_tile_films_desc: {
@@ -136,8 +145,8 @@ export const CULTURE_HUB_COPY: Record<string, { bg: string; en: string }> = {
   },
   culture_tile_contractors: { bg: "Изпълнители", en: "Contractors" },
   culture_tile_contractors_desc: {
-    bg: "Класацията на изпълнителите в цялата страна. Разрезът само за културата идва с /culture/procurement.",
-    en: "The national contractor leaderboard. The culture-only cut arrives with /culture/procurement.",
+    bg: "Кои фирми печелят поръчките на културата — класацията за сектора, а не националната.",
+    en: "Which companies win culture's contracts — the sector's own leaderboard, not the national one.",
   },
 };
 
@@ -165,7 +174,7 @@ export const CULTURE_BANDS: CultureBand[] = [
         id: "procurement",
         titleKey: "culture_tile_procurement",
         descKey: "culture_tile_procurement_desc",
-        to: "/procurement/contracts?sector=culture&pscope=all",
+        to: "/culture/procurement",
         accent: TILE_ACCENTS.steel,
       },
       {
@@ -174,6 +183,13 @@ export const CULTURE_BANDS: CultureBand[] = [
         descKey: "culture_tile_subsidies_desc",
         to: "/culture/subsidies",
         accent: TILE_ACCENTS.gold,
+      },
+      {
+        id: "funds",
+        titleKey: "culture_tile_funds",
+        descKey: "culture_tile_funds_desc",
+        to: "/culture/funds",
+        accent: TILE_ACCENTS.emerald,
       },
       {
         id: "films",
@@ -238,6 +254,13 @@ export const CULTURE_BANDS: CultureBand[] = [
         accent: TILE_ACCENTS.teal,
       },
       {
+        id: "institutions",
+        titleKey: "culture_tile_institutions",
+        descKey: "culture_tile_institutions_desc",
+        to: "/culture/institutions",
+        accent: TILE_ACCENTS.moss,
+      },
+      {
         id: "directors",
         titleKey: "culture_tile_directors",
         descKey: "culture_tile_directors_desc",
@@ -253,7 +276,10 @@ export const CULTURE_BANDS: CultureBand[] = [
         id: "contractors",
         titleKey: "culture_tile_contractors",
         descKey: "culture_tile_contractors_desc",
-        to: "/procurement/contractors",
+        // /culture/procurement#contractors, NOT /procurement/contractors: the
+        // national leaderboard refuses ?sector by design (§1.3-B), so it cannot
+        // answer „who are culture's contractors". This is the page that can.
+        to: "/culture/procurement#contractors",
         accent: TILE_ACCENTS.copper,
       },
     ],

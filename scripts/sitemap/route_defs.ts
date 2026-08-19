@@ -108,6 +108,9 @@ export const ENGLISH_STATIC_PAGES = [
   "pensions",
   "culture",
   "culture/subsidies",
+  "culture/procurement",
+  "culture/funds",
+  "culture/institutions",
   "culture/films",
   "education",
   ...SECTOR_SLUGS,
@@ -238,6 +241,15 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "culture/subsidies",
     file: `src/screens/culture/CultureSubsidiesScreen.tsx`,
+  },
+  {
+    path: "culture/procurement",
+    file: `src/screens/culture/CultureProcurementScreen.tsx`,
+  },
+  { path: "culture/funds", file: `src/screens/culture/CultureFundsScreen.tsx` },
+  {
+    path: "culture/institutions",
+    file: `src/screens/culture/CultureInstitutionsScreen.tsx`,
   },
   {
     path: "culture/films",

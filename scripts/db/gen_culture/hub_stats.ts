@@ -45,6 +45,7 @@ import { CULTURE_GROUP_EIKS } from "../../../src/lib/kulturaReferenceData";
 import {
   cultureNameSql,
   chitalishteNameSql,
+  interregThemeSql,
 } from "../../../src/lib/cultureMatch";
 
 const ROOT = path.resolve(
@@ -61,21 +62,22 @@ const INPUTS: Record<string, string> = {
   fund_projects: "db:load:funds:pg",
   agri_subsidies: "db:load:agri:pg",
   person_role: "db:resolve:persons",
+  interreg_partners: "db:load:interreg:pg",
+  interreg_operations: "db:load:interreg:pg",
 };
 
-// ⚠️ `tenders`, `interreg_partners` and `interreg_operations` are NOT here,
-// because no query below reads them — and declaring an input a generator does
+// ⚠️ `tenders` is NOT here, because no query below reads it — and declaring an input a generator does
 // not read is not harmless padding. It makes the preflight refuse to run on a
 // database that would have produced a perfectly good artifact, and it lets a
 // chain-position argument cite a dependency that does not exist. (This file's
 // header cited exactly that until the review caught it.)
 //
-// They are the fingerprint of two arms this blob does not have yet: the
-// „Процедури" tile shows no number, and `interregThemeSql` — shipped in step 0
-// and gated — has no consumer outside its own test. When those arms land, add
-// the relations back HERE and re-argue the chain slot: reading interreg is what
-// would actually pin this after db:load:interreg:pg. Today the slot is merely
-// SAFE there (nothing later writes what it reads), not required by it.
+// It is the fingerprint of the one arm this blob still lacks: the „Процедури"
+// tile shows no number. When it lands, add `tenders` back here.
+//
+// The Interreg relations ARE read (see the thematic arm below), and that is what
+// now genuinely PINS this generator after db:load:interreg:pg rather than merely
+// making the slot safe.
 
 export interface CultureHubStats {
   /** ISO date the figures were derived. A reader of the JSON can tell its age. */
@@ -104,6 +106,15 @@ export interface CultureHubStats {
     chitalishtaEur: number;
   };
   agri: { chitalishtaEur: number; chitalishtaRows: number };
+  /** THEMATIC — joined through the operation's title. A different question from
+   *  „culture bodies doing Interreg", and ~4.4x apart from it. */
+  interreg: {
+    thematicEur: number;
+    partnerRows: number;
+    partners: number;
+    /** Of `partnerRows`. ~21%: an EIK-keyed surface answers only for these. */
+    rowsWithEik: number;
+  };
   people: { culturalInstituteRoles: number };
 }
 
@@ -175,6 +186,24 @@ const main = async () => {
     `SELECT count(*) n, round(sum(total_eur)::numeric, 0) eur
        FROM agri_subsidies WHERE ${chitalishteNameSql("name")}`,
   );
+  // The Interreg THEMATIC arm — culture-and-heritage money reaching Bulgaria,
+  // joined through the OPERATION's title rather than through a beneficiary set.
+  // It is a different question from „culture bodies doing Interreg" and the two
+  // are ~4.4x apart, so the key says which. This is `interregThemeSql`'s first
+  // consumer outside its own gate.
+  //
+  // The EIK coverage rides WITH the money because an EIK-keyed surface can only
+  // answer for the ~21% of partner rows that carry one — a figure published
+  // without it silently drops four fifths of the answer.
+  const [interreg] = await allRows<Record<string, string>>(
+    `SELECT count(*) n, count(p.eik) with_eik,
+            count(DISTINCT p.partner_name) partners,
+            round(sum(p.budget_eur)::numeric, 0) eur
+       FROM interreg_partners p
+       JOIN interreg_operations o USING (keep_id)
+      WHERE p.country = 'Bulgaria' AND ${interregThemeSql("o.title_en")}`,
+  );
+
   const [people] = await allRows<Record<string, string>>(
     `SELECT count(DISTINCT person_id) n FROM person_role
       WHERE role = 'cultural_institute'`,
@@ -204,6 +233,12 @@ const main = async () => {
       chitalishtaEur: num(fundsChit.eur),
     },
     agri: { chitalishtaEur: num(agri.eur), chitalishtaRows: num(agri.n) },
+    interreg: {
+      thematicEur: num(interreg.eur),
+      partnerRows: num(interreg.n),
+      partners: num(interreg.partners),
+      rowsWithEik: num(interreg.with_eik),
+    },
     people: { culturalInstituteRoles: num(people.n) },
   };
 
