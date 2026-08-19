@@ -184,6 +184,16 @@ const PERSON_CRYPTO_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/159_person_crypto.sql",
 );
+// „Пари в чужбина" — the corpus-level held-abroad register served to /declarations/abroad.
+// SIXTH victim of 090's `DROP … CASCADE`, and for exactly the same reason as 159: it joins
+// person_wealth_year so it cannot become a fifth opinion about which filing counts, which
+// is also what makes it a dependent. The comment above 159 says a hit in the collateral-drop
+// guard "means the chain has grown a sixth nobody added a CREATE for" — this is that sixth,
+// with its CREATE added rather than left for the guard to report.
+const PERSON_ABROAD_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/169_person_abroad.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -881,12 +891,14 @@ const resolve = async () => {
     // for the non-MP photos.
     for (const f of PERSON_BROWSE_SCHEMA)
       await exec(fs.readFileSync(f, "utf-8"));
-    // Last of the five CASCADE victims: the declared-crypto register. Its CREATE …  AS
-    // populates it, so no separate REFRESH is needed on this path.
+    // The declared-crypto register. Its CREATE … AS populates it, so no separate REFRESH is
+    // needed on this path.
     await exec(fs.readFileSync(PERSON_CRYPTO_SCHEMA, "utf-8"));
+    // Last of the six: the held-abroad register. Same shape, same reason, same no-REFRESH.
+    await exec(fs.readFileSync(PERSON_ABROAD_SCHEMA, "utf-8"));
   } finally {
-    // Fires on BOTH paths. On success it should find nothing — every one of 090's five
-    // victims is recreated above, and a hit here means the chain has grown a sixth nobody
+    // Fires on BOTH paths. On success it should find nothing — every one of 090's six
+    // victims is recreated above, and a hit here means the chain has grown a seventh nobody
     // added a CREATE for. On failure it names exactly what the interrupted run destroyed
     // and the command that rebuilds it, which is the difference between a loud stop and
     // four silent 500s.
@@ -911,6 +923,7 @@ const resolve = async () => {
     "mp_cars_table",
     "declaration_stake_company",
     "person_crypto_table",
+    "person_abroad_table",
   ])
     await exec(`ANALYZE ${t}`);
   const [{ n: cohortRows }] = await allRows<{ n: string }>(

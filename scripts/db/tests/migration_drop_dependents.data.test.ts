@@ -67,10 +67,11 @@ const SANCTIONED: Record<string, { dependents: string[]; why: string }> = {
       "person_browse_table",
       "person_cohort_wealth",
       "person_crypto_table",
+      "person_abroad_table",
     ],
     why:
-      "090's DROP … CASCADE takes all five, and load_declarations_pg.ts — the only applier " +
-      "of 090 — applies 097/100/105/120/159 AFTER it on the same path. Each of those five " +
+      "090's DROP … CASCADE takes all six, and load_declarations_pg.ts — the only applier " +
+      "of 090 — applies 097/100/105/120/159/169 AFTER it on the same path. Each of those six " +
       "constants carries a comment saying that is why it is applied there. This is the " +
       "shape 003 lacked.",
   },

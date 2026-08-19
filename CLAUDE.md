@@ -977,7 +977,7 @@ rows disagree". Only reading the VALUES separates them — this plan got 102 wro
 trusting the rate.
 
 **Apply order — `148` must be in the command and precede `120`.** 090 opens with
-`DROP MATERIALIZED VIEW person_wealth_year CASCADE`, which takes FIVE dependents, so every one
+`DROP MATERIALIZED VIEW person_wealth_year CASCADE`, which takes SIX dependents, so every one
 must be recreated in the same run; and 120's matview selects `person_company_bridge_a`, which
 only 148 creates. Omit 148 and 120 raises 42P01 **after** the CASCADE has already deleted
 `person_browse_table` — `/persons` down with nothing left to rebuild it. A local run can pass
@@ -987,7 +987,8 @@ without it purely because the view is already there.
 DATABASE_URL=postgres://postgres@127.0.0.1:5433/electionsbg npx tsx scripts/db/apply_functions.ts \
   089_declarations.sql 090_person_wealth.sql 093_declaration_events.sql 097_cohort_benchmark.sql \
   098_new_filings.sql 100_officials_rankings.sql 102_municipal_officials.sql 104_mp_roster.sql \
-  105_mp_serving.sql 148_person_company_basis.sql 120_person_browse.sql 159_person_crypto.sql
+  105_mp_serving.sql 148_person_company_basis.sql 120_person_browse.sql 159_person_crypto.sql \
+  169_person_abroad.sql
 ```
 
 Measured: 21.8 s local, **8m02s on Cloud SQL**, during which `/persons`, `/officials/assets`
@@ -996,8 +997,8 @@ degrade. Off-peak only. Prefer `db:load:declarations:pg:cloud -- --resolve` (whi
 same files in its own order) unless the CASCADE dependents have been resolved against the
 TARGET database, which is what makes the short command safe.
 
-**⚠️ After SHIPPING VALUES, refresh — do NOT re-apply.** Only two matviews read
-`declared_label` (`officials_rankings_table`, `person_crypto_table`) and both carry a UNIQUE
+**⚠️ After SHIPPING VALUES, refresh — do NOT re-apply.** Only three matviews read
+`declared_label` (`officials_rankings_table`, `person_crypto_table`, `person_abroad_table`) and all carry a UNIQUE
 index, so `REFRESH MATERIALIZED VIEW CONCURRENTLY` on the pair is **14 s with no reader
 blocking**, against the ~8-minute outage a re-apply costs. Re-apply only when a DEFINITION
 changed:
@@ -1005,6 +1006,7 @@ changed:
 ```sql
 REFRESH MATERIALIZED VIEW CONCURRENTLY officials_rankings_table;
 REFRESH MATERIALIZED VIEW CONCURRENTLY person_crypto_table;
+REFRESH MATERIALIZED VIEW CONCURRENTLY person_abroad_table;
 ```
 
 **The gate is `scripts/db/tests/declaration_filed_position.data.test.ts`** (18 tests). Its last
