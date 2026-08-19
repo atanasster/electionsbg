@@ -338,7 +338,7 @@ export const OfficialsAssetsScreen: FC = () => {
 
       <div className="text-xs text-muted-foreground mt-4">
         {t("officials_assets_page_footer") ||
-          "Net worth = sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (declarant + spouse) minus declared debts. Source: register.cacbg.bg (Bulgarian Court of Audit). Scope: cabinet, state-agency heads, and regional governors. Mayors and judiciary are tracked separately."}
+          "Net worth = sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (all holders named in the declaration) minus declared debts. Source: register.cacbg.bg (Bulgarian Court of Audit). Scope: cabinet, state-agency heads, and regional governors. Mayors and judiciary are tracked separately."}
       </div>
     </div>
   );

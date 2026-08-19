@@ -462,7 +462,7 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
           <span>
             ·{" "}
             {t("mp_assets_source_note") ||
-              "Combined declarant and spouse holdings; source: Court of Audit."}
+              "Combined holdings of the declarant and the other holders named in their declaration; source: Court of Audit."}
           </span>
         </div>
       </CardContent>

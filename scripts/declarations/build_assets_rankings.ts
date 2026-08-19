@@ -9,7 +9,9 @@
  *      for fiscal N is filed the following May and so shares a declarationYear
  *      with any exit filing lodged that year; ordering on the filing year handed
  *      "most recent" to whichever described the EARLIER state of affairs.
- *   2. Sum valueEur across all asset rows (declarant + spouse), bucketed by
+ *   2. Sum valueEur across all asset rows — the declarant's and every other holder
+ *      named on the filing (spouse, cohabiting partner, minor child; the form does
+ *      not say which) — bucketed by
  *      MpAssetCategory. `debt` rows are tracked separately so net-worth =
  *      assets − debts.
  *   3. Find the next-most-recent declaration to compute year-over-year delta.

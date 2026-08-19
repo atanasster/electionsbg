@@ -200,7 +200,7 @@ export const MpAssetsTile: FC<Props> = ({
       <div className="mt-2 pt-2 border-t flex items-center justify-end text-[11px] text-muted-foreground">
         <span>
           {t("dashboard_mp_assets_count_label") ||
-            "Net worth (€), declarant + spouse"}
+            "Net worth (€), all holders in the declaration"}
         </span>
       </div>
     </StatCard>

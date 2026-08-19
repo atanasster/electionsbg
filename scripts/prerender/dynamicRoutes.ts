@@ -4468,10 +4468,10 @@ export const buildPersonRoutes = (projectRoot: string): PrerenderRoute[] => {
       ? `Declared net worth ${netWorth}${yearBg} for ${nameEn}, ${categoryEn}${instEn}. Source: Bulgarian Court of Audit.`
       : `Profile of ${nameEn}, ${categoryEn}${instEn}: property/interest declarations, connections, public procurement. Source: Bulgarian Court of Audit.`;
     const netLineBg = netWorth
-      ? `<p>Декларирано нетно имущество ${netWorth}${c.year ? ` от подадената за ${c.year} г. декларация` : ""} за имущество и интереси пред Сметната палата (декларант + съпруг/а, минус задължения).</p>`
+      ? `<p>Декларирано нетно имущество ${netWorth}${c.year ? ` от подадената за ${c.year} г. декларация` : ""} за имущество и интереси пред Сметната палата (всички титуляри в декларацията, минус задължения).</p>`
       : "";
     const netLineEn = netWorth
-      ? `<p>Declared net worth ${netWorth}${c.year ? ` from the ${c.year} property/interest declaration` : ""} filed with the Court of Audit (declarant + spouse, minus debts).</p>`
+      ? `<p>Declared net worth ${netWorth}${c.year ? ` from the ${c.year} property/interest declaration` : ""} filed with the Court of Audit (all holders named in the declaration, minus debts).</p>`
       : "";
     out.push({
       path: path_,

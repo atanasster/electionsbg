@@ -1095,7 +1095,9 @@ export type MpAsset = {
  * latest filed declaration). Mirrors the per-MP file written to
  * /public/parliament/mp-assets/{mpId}.json. */
 export type MpAssetCategoryRollup = {
-  /** Number of declared items in this category (declarant + spouse). */
+  /** Number of declared items in this category — the declarant's rows and every
+   *  other holder's on the same filing (spouse, cohabiting partner, minor child;
+   *  the form names the holder but never the relationship). */
   count: number;
   /** Items with a non-null euro value. */
   valuedCount: number;
@@ -1244,7 +1246,7 @@ export type CarMakeEntry = {
   /** Canonical make label, English-cased ("Volkswagen", "BMW"). */
   make: string;
   /** Distinct MPs declaring at least one car of this make in their most
-   * recent declaration (declarant + spouse). */
+   * recent declaration — the declarant and every other holder named on it. */
   mpCount: number;
   /** Total vehicles of this make across all counted MPs. */
   vehicleCount: number;

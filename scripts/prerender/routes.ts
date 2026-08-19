@@ -4641,21 +4641,21 @@ export const prerenderRoutes: PrerenderRoute[] = [
     path: "mp-assets",
     title: "Народни представители по декларирани активи | electionsbg.com",
     description:
-      "Класиране на действащите народни представители по декларирано имущество — недвижими имоти, превозни средства, парични средства, инвестиции и дялове във фирми (декларант + съпруг).",
+      "Класиране на действащите народни представители по декларирано имущество — недвижими имоти, превозни средства, парични средства, инвестиции и дялове във фирми (всички титуляри в декларацията).",
     breadcrumbName: "Активи на депутати",
     ogImage: "/og/mp-assets.png",
     bodyHtml: `
 <h1>Народни представители по декларирани активи</h1>
-<p>Класиране на действащите народни представители по нетното имущество, декларирано в последната подадена декларация пред Сметната палата. Нетното имущество се изчислява като сума на декларираните недвижими имоти, превозни средства, парични средства и банкови депозити, вземания, инвестиции, ценни книжа и дялове във фирми (декларант + съпруг), намалена с декларираните задължения.</p>
+<p>Класиране на действащите народни представители по нетното имущество, декларирано в последната подадена декларация пред Сметната палата. Нетното имущество се изчислява като сума на декларираните недвижими имоти, превозни средства, парични средства и банкови депозити, вземания, инвестиции, ценни книжа и дялове във фирми (всички титуляри в декларацията), намалена с декларираните задължения.</p>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
       title: "MPs by Declared Assets — Bulgarian Parliament | electionsbg.com",
       description:
-        "Sitting Bulgarian MPs ranked by net worth from their most recent property/interest declaration filed with the Court of Audit (declarant + spouse, minus declared debts).",
+        "Sitting Bulgarian MPs ranked by net worth from their most recent property/interest declaration filed with the Court of Audit (all holders named in the declaration, minus declared debts).",
       breadcrumbName: "MPs by assets",
       bodyHtml: `
 <h1>MPs by declared assets</h1>
-<p>Sitting Bulgarian MPs ranked by net worth from their most recent property/interest declaration filed with the Court of Audit. Net worth is the sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (declarant + spouse) minus declared debts.</p>
+<p>Sitting Bulgarian MPs ranked by net worth from their most recent property/interest declaration filed with the Court of Audit. Net worth is the sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (all holders named in the declaration) minus declared debts.</p>
 <p>Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
     },
   }),
@@ -4668,7 +4668,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     ogImage: "/og/officials-assets.png",
     bodyHtml: `
 <h1>Длъжностни лица по декларирано имущество</h1>
-<p>Класиране на министри, заместник-министри, ръководители на държавни и изпълнителни агенции и областни управители по нетен имот според най-новата декларация за имущество и интереси, подадена пред Сметната палата. Нетният имот се изчислява като сума на декларирани имоти, превозни средства, парични средства, банкови депозити, вземания, инвестиции, ценни книжа и дялове във фирми (декларант + съпруг/а), намалена с декларирани задължения.</p>
+<p>Класиране на министри, заместник-министри, ръководители на държавни и изпълнителни агенции и областни управители по нетен имот според най-новата декларация за имущество и интереси, подадена пред Сметната палата. Нетният имот се изчислява като сума на декларирани имоти, превозни средства, парични средства, банкови депозити, вземания, инвестиции, ценни книжа и дялове във фирми (всички титуляри в декларацията), намалена с декларирани задължения.</p>
 <p>Кметове и магистрати са в отделни регистри и не са включени тук.</p>
 <p>Виж и <a href="${SITE_URL}/mp-assets">депутатите по декларирано имущество</a>. Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
@@ -4678,7 +4678,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
       breadcrumbName: "Officials by assets",
       bodyHtml: `
 <h1>Officials by declared assets</h1>
-<p>Bulgarian cabinet members, deputy ministers, state-agency heads, and regional governors ranked by net worth from their most recent property/interest declaration filed with the Court of Audit. Net worth is the sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (declarant + spouse) minus declared debts.</p>
+<p>Bulgarian cabinet members, deputy ministers, state-agency heads, and regional governors ranked by net worth from their most recent property/interest declaration filed with the Court of Audit. Net worth is the sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (all holders named in the declaration) minus declared debts.</p>
 <p>Mayors and judiciary are tracked in separate registers and are not included here.</p>
 <p>See also <a href="${SITE_URL}/en/mp-assets">MPs by declared assets</a>. Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
     },

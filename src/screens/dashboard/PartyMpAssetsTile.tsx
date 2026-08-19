@@ -201,7 +201,7 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
       </div>
       <div className="mt-2 pt-2 border-t text-[11px] text-muted-foreground">
         {t("dashboard_mp_assets_count_label") ||
-          "Net worth (€), declarant + spouse"}
+          "Net worth (€), all holders in the declaration"}
       </div>
     </StatCard>
   );

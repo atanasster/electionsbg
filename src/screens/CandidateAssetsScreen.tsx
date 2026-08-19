@@ -566,7 +566,7 @@ export const CandidateAssetsScreen: FC = () => {
 
       <div className="text-xs text-muted-foreground mt-4">
         {t("mp_assets_page_footer") ||
-          "Net worth = sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (declarant + spouse) minus declared debts. Source: register.cacbg.bg (Bulgarian Court of Audit)."}
+          "Net worth = sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (all holders named in the declaration) minus declared debts. Source: register.cacbg.bg (Bulgarian Court of Audit)."}
       </div>
     </div>
   );
