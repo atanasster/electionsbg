@@ -12,11 +12,14 @@
 // own thin corpus can't tell alone.
 //
 // e-gov procurement group — EIKs resolved from the LIVE corpus (buyer_eik /
-// buyer_name, 2026-07-14; ЕСМИС added 2026-08-19). FOUR bodies, measured per
-// EIK over `contracts` (tag='contract'):
+// buyer_name, 2026-07-14; ЕСМИС and МДААР added 2026-08-19). FIVE bodies,
+// measured per EIK over `contracts` (tag='contract'):
 //
 //   131516795 ДАИТС → ИА „Електронни съобщителни мрежи и информационни системи“
 //                                        2011–2017   €20.24M /  40 contracts
+//   131509441 Министерство на държавната администрация и административната
+//             реформа (МДААР) — ministry tier, legacy buyer record
+//                                        2011–2011    €6.43M /   1 contract
 //   177098809 Държавна агенция „Електронно управление“ (ДАЕУ)
 //                                        2017–2023   €29.67M / 156 contracts
 //   180742160 ИА „Инфраструктура на електронното управление“ (ИА ИЕУ)
@@ -34,8 +37,8 @@
 // has to travel with the number, since the chip is rendered verbatim to
 // readers and this header is not.
 //
-// ⚠ THE GROUP IS TWO SUCCESSIONS PLUS ONE CONCURRENT PAIR — not a single baton
-// pass, which is why the years above overlap:
+// ⚠ THE GROUP IS TWO SUCCESSIONS, ONE CONCURRENT PAIR AND ONE ORPHAN — not a
+// single baton pass, which is why the years above overlap:
 //
 //   ЕСМИС → ДАЕУ    a clean handover at MONTH grain: ЕСМИС's last contract is
 //                   2017-06-19, ДАЕУ's first is 2017-07-31. They DO share the
@@ -45,6 +48,11 @@
 //   ИЕУ  ∥ МЕУ      CONCURRENT by design (an agency and its ministry),
 //                   interleaved every year 2022–2025. Not a succession, and
 //                   not a defect.
+//   МДААР           NEITHER, and do not draw a fifth arrow. Its one row
+//                   (2011-08) lands INSIDE ЕСМИС's run rather than before or
+//                   after it, so it hands over to nobody and receives from
+//                   nobody — it is a ministry-tier record that happens to hold
+//                   the only e-gov contract the corpus has at that tier.
 //
 // ⚠ ЕСМИС WAS MISSING UNTIL 2026-08-19, and its absence was invisible because
 // nothing about the group looked short: every figure reconciled, the EIK-set
@@ -58,6 +66,27 @@
 // /ДАИТС/", and the handover has no overlapping month. That is enough to place
 // it in the group and is deliberately not stated on the page as a legal claim.
 //
+// ⚠ МДААР IS A LEGACY BUYER RECORD, NOT A BODY THAT WAS PROCURING IN 2011 —
+// and the page renders its name, so the distinction has to live here. Its one
+// row's `contract_id` is „МС 76": the contract is the COUNCIL OF MINISTERS',
+// filed against the record of a ministry abolished in 2009 whose functions МС
+// absorbed. Measured 2026-08-19 — 1 contract, €6,426,068, 2011-08-02, CPV
+// 72000000, „Доставка на софтуерни продукти на Майкрософт за нуждите на
+// държавната администрация на Република България", contractor ЦАПК „Прогрес"
+// ООД (000638693). It is in the group because it is the only row the corpus
+// holds for the MINISTRY-tier mandate between МДААР's abolition and ДАЕУ's
+// creation — a span neither ЕСМИС (agency) nor ДАЕУ covers.
+//
+// ⚠⚠ DO NOT „FINISH THE JOB" BY ADDING THE COUNCIL OF MINISTERS. The reasoning
+// above („МС held the e-gov mandate 2009–2016") reads like an argument for
+// `000695025`, and it is not: that awarder holds **603 contracts / €138.2M**,
+// almost none of it e-government — the МВР-into-defense shape at ministry
+// scale, and ~40% of the group's own €343.2M. `131509441` is safe precisely
+// because it is a dead record holding exactly one e-gov row; `000695025` is a
+// live buyer holding a ministry's entire procurement. The two are not the same
+// judgment. `sector_stats_administration.data.test.ts` pins МС's ABSENCE as an
+// anti-allowlist for this reason.
+//
 // ⚠ CURATED BY EIK ALLOWLIST, NEVER BY NAME REGEX. A sweep on „електронно
 // управление" false-positives every municipality's e-government department.
 
@@ -65,6 +94,7 @@ export const MEU_EIK = "180680495"; // Министерство на елект�
 export const IAIEU_EIK = "180742160"; // ИА „Инфраструктура на електронното управление"
 export const DAEU_EIK = "177098809"; // Държавна агенция „Електронно управление" (legacy)
 export const ESMIS_EIK = "131516795"; // ИА ЕСМИС / ex-ДАИТС (legacy infrastructure)
+export const MDAAR_EIK = "131509441"; // МДААР (legacy buyer record, ministry tier)
 
 export interface AdminEntity {
   eik: string;
@@ -122,6 +152,17 @@ export const ADMIN_ENTITIES: AdminEntity[] = [
     role: {
       bg: "предшественик · поръчки 2011–2017",
       en: "predecessor · contracts 2011–2017",
+    },
+  },
+  {
+    eik: MDAAR_EIK,
+    name: {
+      bg: "Министерство на държавната администрация и административната реформа",
+      en: "Ministry of State Administration and Administrative Reform",
+    },
+    role: {
+      bg: "предшественик · министерско ниво · поръчки 2011",
+      en: "predecessor · ministry tier · contracts 2011",
     },
   },
 ];

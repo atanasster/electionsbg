@@ -48,7 +48,29 @@ import {
   ADMIN_GROUP_EIK,
   ADMIN_STATE_BODY_CONTRACTORS,
   ESMIS_EIK,
+  MDAAR_EIK,
+  MEU_EIK,
+  IAIEU_EIK,
+  DAEU_EIK,
 } from "@/lib/administrationReferenceData";
+
+/** Per-member € floor for „every member still contributes real money". Each is
+ *  well under that member's own 2026-08-19 total and far above zero.
+ *
+ *  ⚠ IT IS A MAP RATHER THAN A CONSTANT BECAUSE THE MEMBERS ARE THREE ORDERS OF
+ *  MAGNITUDE APART. МДААР is a single €6.43M row, so one uniform floor is either
+ *  above it (rejecting a legitimate member) or has to drop to ~€5M for everyone
+ *  — at which point the arm stops discriminating for МЕУ (€166.2M) and ИЕУ
+ *  (€120.6M), which is exactly where a collapse would matter. The three legacy
+ *  bodies are CLOSED series whose € cannot grow, so their floors stay
+ *  meaningful as the corpus does. */
+const MEMBER_EUR_FLOOR: Record<string, number | undefined> = {
+  [MEU_EIK]: 100_000_000, //   measured €166,225,210 — open series
+  [IAIEU_EIK]: 80_000_000, //  measured €120,592,861 — open series
+  [DAEU_EIK]: 20_000_000, //   measured  €29,674,427 — closed 2023
+  [ESMIS_EIK]: 15_000_000, //  measured  €20,238,626 — closed 2017
+  [MDAAR_EIK]: 5_000_000, //   measured   €6,426,068 — closed 2011, ONE row
+};
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 const readJson = <T>(rel: string): T =>
@@ -258,10 +280,66 @@ describe("administration — the e-gov EIK-set", () => {
     assert.ok(r.n > 380 && r.n < 900, `${r.n} contracts outside band`);
   });
 
-  // The arm that DOES catch a drop. Each member's floor is well under its own
-  // 2026-08-19 total (€20.2M / €29.7M / €120.6M / €166.2M) but far above zero,
-  // and the two legacy bodies are closed series whose € cannot grow — so this
-  // stays meaningful as the corpus does.
+  // T5's two substantive claims. The floor-map arm below only fires for members
+  // that ARE present, so a removal is invisible to it — this is what catches one.
+  test.skipIf(noDb)(
+    "МДААР is in the set and still carries its one row",
+    async () => {
+      assert.ok(
+        ADMIN_SECTOR_EIKS.includes(MDAAR_EIK),
+        "МДААР dropped — the group loses its only MINISTRY-tier e-gov row",
+      );
+      const [r] = await allRows<{ eur: number; n: number; first: string }>(
+        `SELECT round(sum(amount_eur))::float8 AS eur, count(*)::int AS n,
+                min(date) AS first
+           FROM contracts WHERE tag = 'contract' AND awarder_eik = '${MDAAR_EIK}'`,
+      );
+      // A CLOSED one-row series (2011), so this cannot grow and the assert stays
+      // exact rather than banded — if it ever moves, the corpus changed, not us.
+      assert.equal(r.n, 1, `МДААР has ${r.n} contracts, expected exactly 1`);
+      assert.ok(
+        r.eur > 6_000_000 && r.eur < 7_000_000,
+        `МДААР contributes €${r.eur} — expected the measured €6,426,068`,
+      );
+      assert.ok(
+        r.first.startsWith("2011"),
+        `МДААР's row is dated ${r.first} — expected 2011`,
+      );
+    },
+  );
+
+  // ⚠ THE ANTI-ALLOWLIST, and administrationReferenceData.ts's header promises it
+  // by name. „МС held the e-gov mandate 2009–2016" is a true sentence that argues
+  // for adding the Council of Ministers, and doing so would fold a whole
+  // ministry's procurement into a sector that is not it — the МВР-into-defense
+  // shape. МДААР is includable precisely because it is a dead record holding one
+  // e-gov row; МС is a live buyer holding everything.
+  test.skipIf(noDb)(
+    "the Council of Ministers is NOT in the group",
+    async () => {
+      const MS_EIK = "000695025";
+      assert.ok(
+        !ADMIN_SECTOR_EIKS.includes(MS_EIK),
+        "МС (000695025) added to the e-gov group — see the ⚠⚠ block in " +
+          "administrationReferenceData.ts; it is ~40% of the group's total and " +
+          "almost none of it is e-government",
+      );
+      // Non-vacuity: the exclusion only means something while МС is a large live
+      // awarder. If this ever collapses, the guard is guarding nothing and the
+      // reasoning in the header needs re-measuring rather than trusting.
+      const [r] = await allRows<{ eur: number; n: number }>(
+        `SELECT round(sum(amount_eur))::float8 AS eur, count(*)::int AS n
+         FROM contracts WHERE tag = 'contract' AND awarder_eik = '${MS_EIK}'`,
+      );
+      assert.ok(
+        r.eur > 100_000_000 && r.n > 400,
+        `МС is €${r.eur} over ${r.n} contracts — the header's €138.2M/603 basis moved`,
+      );
+    },
+  );
+
+  // The arm that DOES catch a drop, per member and by € rather than by presence.
+  // See MEMBER_EUR_FLOOR for why the floor is a map.
   test.skipIf(noDb)("every member still contributes real money", async () => {
     const rows = await allRows<{ eik: string; eur: number }>(
       `SELECT awarder_eik AS eik, round(sum(amount_eur))::float8 AS eur
@@ -275,11 +353,19 @@ describe("administration — the e-gov EIK-set", () => {
       ADMIN_SECTOR_EIKS.length,
       `only ${byEik.size} of ${ADMIN_SECTOR_EIKS.length} members award anything`,
     );
-    for (const eik of ADMIN_SECTOR_EIKS)
+    // Every member needs an entry, so a future addition cannot land floorless —
+    // a missing key would otherwise read as „floor 0" and pass on any € at all.
+    for (const eik of ADMIN_SECTOR_EIKS) {
+      const floor = MEMBER_EUR_FLOOR[eik];
       assert.ok(
-        (byEik.get(eik) ?? 0) > 10_000_000,
-        `member ${eik} contributes €${byEik.get(eik) ?? 0} — floor is €10M`,
+        floor != null,
+        `member ${eik} has no MEMBER_EUR_FLOOR entry — add one when adding a member`,
       );
+      assert.ok(
+        (byEik.get(eik) ?? 0) > floor,
+        `member ${eik} contributes €${byEik.get(eik) ?? 0} — floor is €${floor}`,
+      );
+    }
   });
 });
 

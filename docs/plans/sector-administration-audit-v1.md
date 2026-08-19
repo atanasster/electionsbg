@@ -16,11 +16,13 @@ never asserts a finding the tree beside it has not acted on.
 | T1 · add ЕСМИС | ✅ shipped |
 | T1 · `MINISTRY_NAMES` `-то` | ✅ shipped (folded into the ЕСМИС commit by review) |
 | T1 · `ADMIN_EIK` repoint | ✅ shipped (same) |
-| T2 · `stateBodyEiks` + `ADMIN_STATE_BODY_CONTRACTORS` | ⏳ open |
+| T2 · `stateBodyEiks` + `ADMIN_STATE_BODY_CONTRACTORS` | ✅ shipped (7123b688eb) |
 | T2 · money band scoped to the year | ✅ shipped |
 | T2 · `parseStructureCounts` label strip | ✅ shipped (inert until the ingest re-runs) |
 | T4 · `sector_stats_administration.data.test.ts` | ✅ shipped |
 | T4 · `administrationReferenceData.test.ts` | ✅ shipped |
+| T5 · add МДААР (re-audit, F1) | ✅ shipped |
+| T6 · consortium note on the shared tile (re-audit, F3) | ⏳ open |
 
 ## What reconciled (no change)
 
@@ -69,8 +71,21 @@ inherited.
 
 ⚠ The live page reports **124** contractors where SQL gives 133 — that is
 `moneyModel.suppliers.length`, the folded model's supplier list, not
-`count(DISTINCT contractor_eik)`. Quote the SQL figure; the two are not
-interchangeable.
+`count(DISTINCT contractor_eik)`.
+
+**The mechanism, measured on the re-audit (2026-08-19) — the model is RIGHT and
+the raw count is the inflated one.** `061_awarder_group_model.sql`'s `sup` CTE
+excludes `consortium_role = 'member'`, i.e. the €0 member rows migration 087
+mints beside a consortium's carrier. On the page's default 2025 window that is
+**exactly 8 rows, all €0, covering 5 contractor keys with no other presence** —
+which is the whole of the live `35` vs the raw `40`. So `suppliers.length`
+counts *suppliers that received money*, while `count(DISTINCT contractor_eik)`
+double-counts members whose € sits on the carrier row.
+
+Quote whichever answers the question actually asked, and say which: „колко
+изпълнители получиха пари" is the model's figure, „колко юридически лица се
+появяват в регистъра" is the raw one. What is NOT safe is quoting one under the
+other's caption.
 
 ## Tier 1 — Add ИА ЕСМИС / ДАИТС to the e-gov group (Failure mode D)
 
@@ -239,3 +254,129 @@ key tripwire above), a `SectorTopContractorsTile` test for the new prop, and a
 `npm run db:gen-sector-stats` is NOT required: administration is headcount-basis
 and none of these changes touch a source the generator reads — confirm by diffing
 `sector_stats.json` (it must not move).
+
+
+---
+
+# Re-audit — 2026-08-19 (second pass)
+
+The whole audit was re-run from the sources rather than inherited. Everything in
+„What reconciled" above still holds on the four-EIK set, plus: the hub tile reads
+**133 275 · СЛУЖИТЕЛИ 2025 · МЕУ** live; the 2025 money window reconciles to the
+euro (**€173,144,231 / 97 contracts / 2 buyers**); hygiene is still 0/0/0/0; all
+9 `context.json` ministry ids resolve through `MINISTRY_NAMES` (the `-то` fix
+holds, 0 dead keys); `digital_skills.composition` sums to 100% in all three
+years and `youth.rank` 27/27 `isLast` is correct against the 38-geo
+cross-section; `services_overview.total` 2,671 == Σ `byTier`.
+
+Two findings were new. `F2` (the supplier-count mechanism) and `F4` (a stale
+status marker) are folded into the sections above.
+
+## Tier 5 — add МДААР `131509441` (Failure mode D)
+
+The e-gov group is missing its **ministry-tier predecessor**. Measured:
+
+| field | value |
+|---|---|
+| EIK | `131509441` |
+| `awarder_name` | Министерство на държавната администрация и административната реформа /МДААР/ |
+| rows | 1 contract, `tag='contract'` |
+| € | **6,426,068** |
+| date | 2011-08-02 (`date_signed` 2011-07-28) |
+| CPV | `72000000` (IT services) |
+| title | „Доставка на софтуерни продукти на Майкрософт за нуждите на държавната администрация на Република България" |
+| contractor | ЦАПК „Прогрес" ООД (`000638693`) |
+
+⚠ **`contract_id` is „МС 76" — the contract is the COUNCIL OF MINISTERS', filed
+against МДААР's legacy buyer record.** МДААР was abolished in 2009 and its
+functions moved to МС; the 2011 date postdates the ministry by two years. So the
+group gains the *mandate* line 2009–2016 that neither ЕСМИС (agency, →2017) nor
+ДАЕУ (2017→) covers — but the header must say the buyer record and the signing
+body are not the same thing, because the row renders under the МДААР name.
+
+⚠ **This does NOT open the door to МС's own corpus, and that is the whole reason
+it is safe.** `000695025` Министерски съвет is a separate awarder holding **603
+contracts / €138.2M**, almost none of it e-gov. `131509441` is a legacy record
+holding exactly this one row. Adding the ministry EIK instead would be the
+МВР-into-defense shape at €138M.
+
+**Impact** — all-time €336,731,123 → **€343,157,191 (+1.9%)**; 416 → 417
+contracts. **Zero** on the hub headline (headcount basis) and **zero** on the
+page's default 2025 window. The „Възложени по година" chart's left edge does not
+move either: ЕСМИС already starts 2011-03-22.
+
+**Decision (2026-08-19): include it.**
+
+**Steps**
+1. `MDAAR_EIK = "131509441"` in `src/lib/administrationReferenceData.ts`, added
+   to `ADMIN_ENTITIES` (role: ministry-tier predecessor) and therefore to
+   `ADMIN_SECTOR_EIKS`. Record the measured row, the „МС 76" provenance, and the
+   €138.2M МС counter-factual in the header — the last one is what stops a
+   future reader „finishing the job" by adding the Council of Ministers.
+2. `SECTOR_BROWSE_PACKS.administration` spreads `ADMIN_SECTOR_EIKS`, so no edit
+   there; the caption „поръчките на N ведомства" moves 4 → 5 on its own.
+
+⚠ **The per-member € floor must become PER MEMBER, or T5 fails its own gate.**
+`sector_stats_administration.data.test.ts`'s „every member still contributes real
+money" arm asserts a uniform `> €10M`. МДААР is €6.43M, so a uniform floor either
+rejects a legitimate member or has to drop to ~€5M for everyone — and at €5M the
+arm stops discriminating for МЕУ (€166.2M) and ИЕУ (€120.6M), which is where a
+collapse would actually matter. Replace the constant with an EIK→floor map, each
+entry well under its own measured total and far above zero.
+
+## Tier 6 — the consortium carriers are unexplained (beneficiary side)
+
+The top-contractors tile explains „държавно" and says nothing about
+„Обединение:" rows. Measured on the four-EIK set:
+
+- **10 distinct `obed-` carriers over 11 rows = €63,317,678 = 18.8%** of the
+  group all-time; in the displayed 2025 window, **three of the eight visible
+  rows** are carriers (€49.6M = **28.6%**).
+- A member firm can hold BOTH a carrier position and its own row, so the
+  leaderboard understates its real reach:
+
+  | | on the leaderboard | actual participation |
+  |---|---|---|
+  | А1 България, 2025 | #5 · €10,605,577 · 6.1% | **€38,730,210 · 22.3% (#2)** |
+  | А1 България, all-time | #6 · €17,589,682 · 5.2% | **€58,977,226 · 17.5% (#2)** |
+  | Парафлоу, 2025 | #3 · €17,878,890 | plus €8,789,610 inside row #6 |
+
+⚠ **The euros are correct and there is no double-count** — one carrier per
+consortium (11 rows / 10 keys), verified, and `CompanyLink` already renders a
+synthetic key as plain text rather than a dead `/company` link. This is the
+J/K/L class: a right number whose sentence is wrong. It is therefore a CAPTION,
+and the row must not be filtered, re-keyed, or exploded onto its members —
+crediting each member the full contract value is Failure mode M, the actual
+double-count.
+
+**Decision (2026-08-19): a generic note on the shared tile.**
+
+**Steps**
+1. `SectorTopContractorsTile` gains a consortium note modelled on the existing
+   „държавно" one: it fires only when an `obed-` carrier is present **in the
+   displayed top-8** (the same `rows.some(...)` gate the `stateBodyEiks` note
+   uses — `carriers.length > 0` would pass on a carrier the reader cannot see),
+   and says the row is one consortium counted once and that a member may also
+   appear on its own row.
+2. The predicate is `isLinkableCompanyKey`-adjacent but NOT that function: the
+   `obed-` prefix is the one namespace this note is about, and `ph-`/`np-`
+   carriers are a different statement entirely.
+3. Test both directions: the note appears when a carrier is inside the top-8, and
+   does NOT appear when the only carrier is below it.
+
+## Tier 7 — regression tests
+
+Extend `scripts/db/tests/sector_stats_administration.data.test.ts`:
+
+- `MDAAR_EIK` is in `ADMIN_SECTOR_EIKS`, and its per-EIK € clears its own floor
+  (a closed one-row series, so it cannot grow);
+- the per-member floor map covers every member (a member with no entry fails,
+  so a future addition cannot land floorless);
+- the group band's ceiling still holds at the wider total;
+- **the МС counter-factual as an anti-allowlist**: `000695025` is NOT in
+  `ADMIN_SECTOR_EIKS` — the €138.2M leak this tier deliberately declined;
+- a consortium-carrier arm: carriers are a minority of the group's € (ceiling),
+  and no carrier key is also a plain EIK (the one-carrier-per-consortium
+  property the no-double-count claim rests on).
+
+Plus a `SectorCharts.test.tsx` arm for the T6 note, both directions.
