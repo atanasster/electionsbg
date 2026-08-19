@@ -264,3 +264,52 @@ describe("structure, not just presence", () => {
     expect(calls.filter(([u]) => u.includes("declaration-detail"))).toEqual([]);
   });
 });
+
+// 3. THAT „Пари в чужбина" IS A LENS, NOT A PARTITION.
+//
+// Its „ползва" sibling removes exactly the rows it renders (`ownedAssets` filters
+// `isHolding !== false`). This block removes nothing: `held_scope` exists only on tables 5
+// and 8, which ARE holdings, so an abroad row renders in the plain asset list AND again
+// under „Пари в чужбина". That duplication is correct — the row is a holding and it is in
+// the totals — and it is also exactly what a future reader is most likely to "fix" by
+// filtering abroad rows out of `ownedAssets`, which would drop a bank account out of the
+// list the totals are computed over. Pinning it here is what makes that a failing test
+// rather than a plausible tidy-up.
+const bankAbroad = () => ({
+  category: "bank",
+  description: null,
+  detail: "EUR",
+  location: null,
+  municipality: null,
+  areaSqm: null,
+  acquiredYear: null,
+  share: null,
+  valueEur: 228_100,
+  holderName: DECLARANT,
+  isSpouse: false,
+  isHolding: true,
+  tableNum: "5",
+  legalBasis: null,
+  fundsOrigin: null,
+  unitRaw: null,
+  currency: "EUR",
+  amount: 228_100,
+  valueBasis: "peg",
+  heldScope: "abroad",
+  heldCountry: "Белгия",
+});
+
+describe("expanded filing — the abroad block is a lens over the asset list", () => {
+  it("keeps an abroad row in the plain asset list as well as the abroad block", async () => {
+    stubWith(baseDetail({ assets: [bankAbroad()] }));
+    render(<PersonDeclarations slug="x" />);
+    await expand();
+    // Three times: the plain asset list, the block's total, and the block's own row. If a
+    // future change filters abroad rows out of ownedAssets this drops to two.
+    await waitFor(() =>
+      expect(screen.getAllByText(/228[  ]?100/)).toHaveLength(3),
+    );
+    // …and the block names the country, which is the whole reason it exists.
+    expect(screen.getByText("Белгия")).toBeInTheDocument();
+  });
+});

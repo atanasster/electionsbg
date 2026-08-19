@@ -203,9 +203,30 @@ that way, holding **14 abroad rows** that stay unstamped.
 
 ## 7. Not done
 
-- **No serving surface reads these columns yet.** The natural one is a „къде се държат
-  парите" block on `/person` and an aggregate on `/persons` or a declarations landing; both
-  need copy that states the named-country caveat in §3.
+- ~~**No serving surface reads these columns yet.**~~ **Shipped 2026-08-19**, on BOTH
+  declaration surfaces — they had to move together, because two surfaces making different
+  claims about one row is the defect `valueBasis` already documented in 105's own comment:
+  - `/person` — `declaration_detail()` (090) carries `heldScope` / `heldCountry`, rendered
+    by `src/screens/person/PersonHeldAbroad.tsx`. It is a **lens, not a partition**: abroad
+    rows are holdings, so they stay in the plain asset list and in the totals and are
+    re-listed under „Пари в чужбина". Pinned by `PersonDeclarationDetailRows.test.tsx`.
+  - `/candidate/:id` assets — `mp_declarations()` (105) carries the same two keys, rendered
+    as a „Къде се държат" column on `CandidateAssetsScreen`. Carrying 090 alone left the
+    commit's own headline defect live here for **433 rows / 89 declarants / €36.0m**.
+
+  Both state the named-country caveat from §3: the block is keyed on `heldScope`, never on
+  `heldCountry != null`, which would hide 88.4% of the money.
+
+  **Deploy:** both are FUNCTION bodies, so they ship with the usual escape hatch rather
+  than a reload — and **090 must NOT be applied to Cloud SQL**, since its
+  `DROP MATERIALIZED VIEW … CASCADE` takes five matviews and ~8 minutes of 500s. Apply the
+  single `CREATE OR REPLACE FUNCTION declaration_detail(...)` statement instead; 105 has no
+  such hazard and applies whole.
+
+- **The aggregate is still open.** „How much of the money declared by officials is held
+  abroad" has no page — a figure on `/persons`, or a declarations landing. It needs the
+  same §3 caveat plus one more: the named-country subset is 11.6% of the money, so a
+  „where" breakdown must declare itself a subset.
 - **`nzok`-style country normalisation for institutions** — see §5.
 - **The `unknown` split rows could carry the split** rather than being refused, if a
   consumer ever needs per-row partial attribution. The raws make that a pure re-derivation.

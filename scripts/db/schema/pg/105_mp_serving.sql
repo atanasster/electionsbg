@@ -436,7 +436,22 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                  -- one row must be able to tell that from a figure they filed. Omitting it
                  -- here while 090 has it would leave the two declaration surfaces making
                  -- different claims about the same row. See declaration_asset.value_basis.
-                 'valueBasis', a.value_basis
+                 'valueBasis', a.value_basis,
+                 -- WHERE the declarant says this money sits, carried for the SAME reason
+                 -- valueBasis above is: 090's declaration_detail() has it, and the two
+                 -- declaration surfaces must not make different claims about one row.
+                 -- Omitting it here left „the Belgian account that looked exactly like the
+                 -- five Bulgarian ones" live on the MP assets page after it was fixed on
+                 -- /person — 433 rows, 89 declarants, EUR 36.0m.
+                 --
+                 -- ⚠️ NULL IS NOT 'domestic'. The „В страната" / „В чужбина" pair exists
+                 -- ONLY on tables 5 and 8, so every property, vehicle and CASH row is NULL
+                 -- here, as is anything parsed before the column existed.
+                 'heldScope', a.held_scope,
+                 -- ⚠️ A NULL COUNTRY IS NOT EVIDENCE OF BEING DOMESTIC — „да" in the
+                 -- „В чужбина" column says abroad and names nowhere, which is 88.4% of the
+                 -- abroad rows and 88.4% of the money. Key any UI on heldScope.
+                 'heldCountry', a.held_country
                ) ORDER BY a.seq)
                FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
              ), '[]'::jsonb),

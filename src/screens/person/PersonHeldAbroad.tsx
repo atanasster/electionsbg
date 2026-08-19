@@ -30,19 +30,43 @@ import { formatEur } from "@/lib/currency";
 import { assetRowParts, type DeclaredAsset } from "./assetRowText";
 import { HolderChip } from "./HolderChip";
 
-export const PersonHeldAbroad: FC<{ assets: DeclaredAsset[] }> = ({
-  assets,
-}) => {
-  const { t, i18n } = useTranslation();
-  const locale = i18n.language;
+// `locale` is a PROP, not `i18n.language`. FilingDetail computes the region-coded form once
+// („bg-BG" / „en-US") and threads it through every child that formats money; reading the bare
+// language here made this the one block in the panel that would diverge if that mapping ever
+// changed, or if a region-coded language were added. Intl gives identical output for both
+// forms today — the divergence, not a visible bug, is what this closes.
+export const PersonHeldAbroad: FC<{
+  assets: DeclaredAsset[];
+  locale: string;
+}> = ({ assets, locale }) => {
+  const { t } = useTranslation();
 
   const abroad = assets.filter((a) => a.heldScope === "abroad");
   // Counted, not dropped — see (2) above. Deliberately NOT merged into `abroad`: we do not
   // know that these are foreign, only that the filing did not say.
-  const unresolved = assets.filter((a) => a.heldScope === "unknown").length;
+  //
+  // Written as an EXCLUSION rather than `=== "unknown"` because the vocabulary is open on
+  // the SQL side by design — 089 carries no CHECK on held_scope so that a value a future
+  // parser adds lands as data instead of aborting the COPY. Enumerating would let such a
+  // value render nowhere and be counted nowhere, leaving the filing looking like a clean
+  // domestic sheet: exactly the silent cap rule (2) above forbids.
+  const unresolved = assets.filter(
+    (a) =>
+      a.heldScope != null &&
+      a.heldScope !== "domestic" &&
+      a.heldScope !== "abroad",
+  ).length;
   if (abroad.length === 0 && unresolved === 0) return null;
 
-  const totalEur = abroad.reduce((sum, a) => sum + (a.valueEur ?? 0), 0);
+  // ⚠️ ONLY THE VALUED ROWS. `valueEur ?? 0` would publish „€0" for a filing whose abroad
+  // rows carry no euro figure — a number the filing does not state, while the row beneath
+  // it correctly shows „—". One filing is that shape today (Маргарита Димова Бурлакова,
+  // 2024) and the class is permanent: 8 rows corpus-wide remain unvalued as declared
+  // residue, and every ingest can add more. Same principle as excludedAssetRows on the
+  // totals — count what is missing, never coerce it to zero.
+  const valued = abroad.filter((a) => a.valueEur != null);
+  const totalEur = valued.reduce((sum, a) => sum + (a.valueEur as number), 0);
+  const unvalued = abroad.length - valued.length;
   // The named-country subset, in the order the rows appear. Deduped so two accounts in
   // Belgium read „Белгия" once.
   const countries = [
@@ -57,7 +81,7 @@ export const PersonHeldAbroad: FC<{ assets: DeclaredAsset[] }> = ({
         <span className="font-medium">
           {t("pp_decl_abroad") || "Пари в чужбина"}
         </span>
-        {abroad.length > 0 && (
+        {valued.length > 0 && (
           <span className="shrink-0 tabular-nums text-muted-foreground">
             {formatEur(totalEur, locale)}
           </span>
@@ -80,7 +104,12 @@ export const PersonHeldAbroad: FC<{ assets: DeclaredAsset[] }> = ({
           key={i}
           className="flex items-baseline justify-between gap-2 py-0.5"
         >
-          <span className="truncate">
+          {/* NOT `truncate`. overflow:hidden clips from the END, and the country chip —
+              the one payload this block exists to surface — is the last child. The stakes
+              block two files over carries the same note for the same reason. Latent today
+              (these descriptions are empty and the longest country is 20 chars), and a
+              longer description or a spouse chip on the same row would make it live. */}
+          <span className="min-w-0 flex-1">
             <span className="text-muted-foreground">
               {t(`asset_category_${a.category}`)}
             </span>{" "}
@@ -99,9 +128,20 @@ export const PersonHeldAbroad: FC<{ assets: DeclaredAsset[] }> = ({
           </span>
         </div>
       ))}
+      {unvalued > 0 && (
+        <div className="mt-1 text-[11px] leading-snug text-muted-foreground">
+          {t("pp_decl_abroad_unvalued", { count: unvalued })}
+        </div>
+      )}
       {unresolved > 0 && (
         <div className="mt-1 text-[11px] leading-snug text-muted-foreground">
-          {t("pp_decl_abroad_unresolved", { count: unresolved })}
+          {/* „Още N записа" presupposes a list above it, and 208 of the 217 filings that
+              carry an unresolved row carry NO abroad row at all — so the standalone case is
+              the DOMINANT rendering of this branch, not an edge of it, and it needs copy
+              that stands on its own. */}
+          {abroad.length > 0
+            ? t("pp_decl_abroad_unresolved", { count: unresolved })
+            : t("pp_decl_abroad_unresolved_only", { count: unresolved })}
         </div>
       )}
     </div>

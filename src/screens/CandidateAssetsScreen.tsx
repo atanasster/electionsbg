@@ -106,6 +106,28 @@ const groupByCategory = (assets: MpAsset[]): CategorySection[] => {
   }));
 };
 
+/** „Белгия" / „в чужбина" / „в страната" / „—" for one money row.
+ *
+ *  ⚠️ THE FOUR CASES ARE NOT THREE. A NULL `heldScope` means the row's table has no such
+ *  question (or predates the ingest) and renders „—"; `'domestic'` is a positive statement
+ *  and renders as one. Collapsing NULL into „в страната" would put a domestic claim on
+ *  every row of a corpus that has not been re-parsed.
+ *
+ *  ⚠️ AND A NULL COUNTRY IS NOT DOMESTIC. „да" in the „В чужбина" column says abroad and
+ *  names nowhere — 88.4% of the abroad rows — so the country is the extra, never the test.
+ *  Same rule as PersonHeldAbroad and the two payload comments in 090 / 105. */
+const heldPlaceText = (a: MpAsset, t: (k: string) => string): string => {
+  if (a.heldScope === "abroad")
+    return a.heldCountry ?? (t("mp_assets_held_abroad") || "в чужбина");
+  if (a.heldScope === "domestic")
+    return t("mp_assets_held_domestic") || "в страната";
+  // Anything the filing ANSWERED that did not resolve — written as an exclusion because
+  // 089 carries no CHECK on held_scope on purpose, so a value a future parser adds must
+  // surface here rather than silently read as „—".
+  if (a.heldScope != null) return t("mp_assets_held_unknown") || "не е ясно";
+  return "—";
+};
+
 const AssetTable: FC<{
   category: MpAssetCategory;
   rows: MpAsset[];
@@ -130,6 +152,11 @@ const AssetTable: FC<{
   // reads lower than the € column above it, and on an accountability page an unexplained
   // half-of-the-visible-number looks like a bug. Drives the note below.
   const hasWeightedRow = rows.some((r) => assetShareMultiplier(r) !== 1);
+  // Does any row in this category say WHERE the money sits? Only tables 5 („Банкови
+  // влогове") and 8 („Вложения в … фондове") carry the „В страната" / „В чужбина" pair, so
+  // this is true for bank and investment and false everywhere else — and false on a corpus
+  // parsed before the column existed, which is what keeps the column from appearing empty.
+  const hasHeldMarker = rows.some((r) => r.heldScope != null);
   const categoryTitle =
     t(CATEGORY_KEYS[category]) || CATEGORY_FALLBACKS[category];
 
@@ -141,22 +168,34 @@ const AssetTable: FC<{
         cell: ({ row }) => row.original.description ?? "—",
       },
       {
+        // One column, three meanings, all of them "where is this thing": the property's
+        // town, the vehicle's make, and — since the held-abroad ingest — whether a bank or
+        // investment holding sits in Bulgaria or outside it. The third is why this column
+        // is no longer real-estate-and-vehicle only: without it a foreign account was
+        // byte-identical to a domestic one on this page (433 rows, 89 declarants, EUR
+        // 36.0m) months after /person had stopped conflating them.
         id: "location",
-        hidden: !(isRealEstate || isVehicle),
+        hidden: !(isRealEstate || isVehicle || hasHeldMarker),
         header: isRealEstate
           ? t("mp_assets_col_location") || "Location"
-          : t("mp_assets_col_brand") || "Brand",
+          : isVehicle
+            ? t("mp_assets_col_brand") || "Brand"
+            : t("mp_assets_col_held") || "Къде се държат",
         accessorFn: (row) =>
           isRealEstate
             ? [row.location, row.municipality].filter(Boolean).join(" · ")
-            : row.detail,
+            : isVehicle
+              ? row.detail
+              : heldPlaceText(row, t),
         cell: ({ row }) => (
           <span className="text-muted-foreground">
             {isRealEstate
               ? [row.original.location, row.original.municipality]
                   .filter(Boolean)
                   .join(" · ") || "—"
-              : (row.original.detail ?? "—")}
+              : isVehicle
+                ? (row.original.detail ?? "—")
+                : heldPlaceText(row.original, t)}
           </span>
         ),
       },
@@ -260,7 +299,7 @@ const AssetTable: FC<{
         ),
       },
     ],
-    [t, isDebt, isRealEstate, isVehicle, isSecurity, lang],
+    [t, isDebt, isRealEstate, isVehicle, isSecurity, lang, hasHeldMarker],
   );
 
   return (
