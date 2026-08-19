@@ -2522,6 +2522,25 @@ keeps running the previous body indefinitely, and nothing reports a difference. 
 does NOT carry it — that ships function *code* in `functions/`, which is a different thing
 from a Postgres function.
 
+**Both appliers of a DROP…CASCADE chain now carry a collateral-drop guard, and the loader's
+fires on ABORT.** `scripts/db/lib/collateral_drop.ts` snapshots public relations either side
+of an apply and reports any that vanished while some schema file still CREATEs them (so a
+tombstoned retirement is silent). `apply_functions.ts` runs it as a post-condition and exits
+1; `load_declarations_pg.ts --resolve` runs it in a **`finally`** around its 090 → … → 159
+chain, then rethrows.
+
+The `finally` is the load-bearing part. 090's CASCADE takes five relations that are
+recreated later IN THE SAME RUN, so an INTERRUPTED run is the failure mode — and `exec()`
+sends each file as its own transaction, so the CASCADE has already committed and there is
+nothing to roll back. Measured on Cloud SQL 2026-08-19: a resolve got through 090 and 097
+and died before 100, leaving `/persons`, `/officials/assets`, `/mp-assets` and
+`/declarations/crypto` at 500 with nothing logged. **The survivor set is what dates it** —
+`person_cohort_wealth` present and everything from 100 onward gone means the run stopped
+between them; reproduced exactly by injecting a failure into 100.
+
+A post-condition that only fires on SUCCESS is blind to precisely that case, which is why
+this one does not.
+
 **A migration a LOADER applies may not DROP an object another migration reads in a stored
 query, and CASCADE is never the way out.** `db:load:pg` applies 077 on every contracts load;
 077 used to open with an unconditional `DROP MATERIALIZED VIEW IF EXISTS

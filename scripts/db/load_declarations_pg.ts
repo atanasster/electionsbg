@@ -33,7 +33,20 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec, allRows, withClient, withTx, end } from "./lib/pg";
+import {
+  exec,
+  allRows,
+  withClient,
+  withTx,
+  end,
+  DATABASE_URL,
+  redactUrl,
+} from "./lib/pg";
+import {
+  collateralDrops,
+  relationSnapshot,
+  reportCollateralDrops,
+} from "./lib/collateral_drop";
 import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import {
@@ -801,44 +814,73 @@ const resolve = async () => {
     "SELECT count(*) n FROM declaration WHERE person_id IS NULL",
   );
 
-  // G13 step 4: person_id is now filled, so the wealth matview + serving fns can
-  // be created and refreshed. Applying 090 here (not in phase 1) keeps the CREATE
-  // after the data it aggregates, and REFRESH populates it from the resolved rows.
-  await exec(fs.readFileSync(WEALTH_SCHEMA, "utf-8"));
-  await exec(fs.readFileSync(GATE_SCHEMA, "utf-8"));
-  await exec(fs.readFileSync(GAP_SCHEMA, "utf-8"));
-  await exec(fs.readFileSync(EVENTS_SCHEMA, "utf-8"));
-  await exec(fs.readFileSync(STAKE_PROC_SCHEMA, "utf-8"));
-  await exec("REFRESH MATERIALIZED VIEW person_wealth_year");
-  // 097 reads person_wealth_year, so it is built from the REFRESHED matview, not the stale
-  // pre-reload one — apply it after the refresh above, never before. Its CREATE ... AS
-  // populates person_cohort_wealth, so no separate REFRESH is needed on THIS path; a run
-  // that rebuilds person_role without reloading declarations does need one (see 097).
-  await exec(fs.readFileSync(COHORT_SCHEMA, "utf-8"));
-  await exec(fs.readFileSync(NEW_FILINGS_SCHEMA, "utf-8"));
-  // Same ordering rule as 097: officials_rankings_table aggregates the REFRESHED
-  // person_wealth_year, so applying it before the refresh would populate the
-  // leaderboard from the pre-reload matview.
-  await exec(fs.readFileSync(OFFICIALS_RANKINGS_SCHEMA, "utf-8"));
-  // 108 first: 102's matview LEFT JOINs official_candidate_link, so the table must exist
-  // before 102's CREATE. Empty on a fresh DB until load_official_candidate_links_pg.ts
-  // populates it and REFRESHes 102.
-  await exec(fs.readFileSync(OFFICIAL_CANDIDATE_LINK_SCHEMA, "utf-8"));
-  await exec(fs.readFileSync(MUNICIPAL_OFFICIALS_SCHEMA, "utf-8"));
-  // Same rule again for the MP leaderboard (T0.3). It is applied HERE as well as in
-  // load_mp_roster_pg.ts because 090's `DROP MATERIALIZED VIEW … CASCADE` above takes
-  // mp_assets_rankings_table with it on every --resolve: without this line a resolve
-  // that does not also reload the roster would leave the resource missing entirely.
-  // 104 runs first so a database that has never seen the roster loader still gets the
-  // (empty) tables 105 selects from, rather than an aborted DDL.
-  await exec(fs.readFileSync(MP_ROSTER_SCHEMA, "utf-8"));
-  await exec(fs.readFileSync(MP_SERVING_SCHEMA, "utf-8"));
-  // And the /persons browser — after 108 above, whose official_candidate_link it reads
-  // for the non-MP photos.
-  for (const f of PERSON_BROWSE_SCHEMA) await exec(fs.readFileSync(f, "utf-8"));
-  // Last of the five CASCADE victims: the declared-crypto register. Its CREATE …  AS
-  // populates it, so no separate REFRESH is needed on this path.
-  await exec(fs.readFileSync(PERSON_CRYPTO_SCHEMA, "utf-8"));
+  // ⚠️ EVERYTHING FROM HERE TO THE END OF THE APPLY CHAIN IS GUARDED.
+  //
+  // 090 below opens with `DROP MATERIALIZED VIEW person_wealth_year CASCADE`, which takes
+  // FIVE relations owned by other migrations (097/100/105/120/159). They are recreated
+  // further down IN THIS SAME RUN — and that, per this file's own header, is "the ONLY
+  // thing keeping a --resolve from leaving those serving surfaces missing".
+  //
+  // Which makes an INTERRUPTED run the failure mode, and it is not hypothetical: on
+  // 2026-08-19 a Cloud SQL resolve got through 090 and 097 and died before 100, leaving
+  // /persons, /officials/assets, /mp-assets and /declarations/crypto answering 500 with
+  // nothing logged. exec() sends each file as its own transaction, so the CASCADE had
+  // already committed and there was nothing to roll back. The survivor set is what dated
+  // it — person_cohort_wealth present, everything from 100 onward gone.
+  //
+  // So the check runs in a `finally`, not after the chain: a post-condition that only fires
+  // on SUCCESS is blind to precisely the case that happened. On the failure path it reports
+  // and then rethrows, because the original error is the more useful thing to see first.
+  const relsBefore = await relationSnapshot();
+  try {
+    // G13 step 4: person_id is now filled, so the wealth matview + serving fns can
+    // be created and refreshed. Applying 090 here (not in phase 1) keeps the CREATE
+    // after the data it aggregates, and REFRESH populates it from the resolved rows.
+    await exec(fs.readFileSync(WEALTH_SCHEMA, "utf-8"));
+    await exec(fs.readFileSync(GATE_SCHEMA, "utf-8"));
+    await exec(fs.readFileSync(GAP_SCHEMA, "utf-8"));
+    await exec(fs.readFileSync(EVENTS_SCHEMA, "utf-8"));
+    await exec(fs.readFileSync(STAKE_PROC_SCHEMA, "utf-8"));
+    await exec("REFRESH MATERIALIZED VIEW person_wealth_year");
+    // 097 reads person_wealth_year, so it is built from the REFRESHED matview, not the stale
+    // pre-reload one — apply it after the refresh above, never before. Its CREATE ... AS
+    // populates person_cohort_wealth, so no separate REFRESH is needed on THIS path; a run
+    // that rebuilds person_role without reloading declarations does need one (see 097).
+    await exec(fs.readFileSync(COHORT_SCHEMA, "utf-8"));
+    await exec(fs.readFileSync(NEW_FILINGS_SCHEMA, "utf-8"));
+    // Same ordering rule as 097: officials_rankings_table aggregates the REFRESHED
+    // person_wealth_year, so applying it before the refresh would populate the
+    // leaderboard from the pre-reload matview.
+    await exec(fs.readFileSync(OFFICIALS_RANKINGS_SCHEMA, "utf-8"));
+    // 108 first: 102's matview LEFT JOINs official_candidate_link, so the table must exist
+    // before 102's CREATE. Empty on a fresh DB until load_official_candidate_links_pg.ts
+    // populates it and REFRESHes 102.
+    await exec(fs.readFileSync(OFFICIAL_CANDIDATE_LINK_SCHEMA, "utf-8"));
+    await exec(fs.readFileSync(MUNICIPAL_OFFICIALS_SCHEMA, "utf-8"));
+    // Same rule again for the MP leaderboard (T0.3). It is applied HERE as well as in
+    // load_mp_roster_pg.ts because 090's `DROP MATERIALIZED VIEW … CASCADE` above takes
+    // mp_assets_rankings_table with it on every --resolve: without this line a resolve
+    // that does not also reload the roster would leave the resource missing entirely.
+    // 104 runs first so a database that has never seen the roster loader still gets the
+    // (empty) tables 105 selects from, rather than an aborted DDL.
+    await exec(fs.readFileSync(MP_ROSTER_SCHEMA, "utf-8"));
+    await exec(fs.readFileSync(MP_SERVING_SCHEMA, "utf-8"));
+    // And the /persons browser — after 108 above, whose official_candidate_link it reads
+    // for the non-MP photos.
+    for (const f of PERSON_BROWSE_SCHEMA)
+      await exec(fs.readFileSync(f, "utf-8"));
+    // Last of the five CASCADE victims: the declared-crypto register. Its CREATE …  AS
+    // populates it, so no separate REFRESH is needed on this path.
+    await exec(fs.readFileSync(PERSON_CRYPTO_SCHEMA, "utf-8"));
+  } finally {
+    // Fires on BOTH paths. On success it should find nothing — every one of 090's five
+    // victims is recreated above, and a hit here means the chain has grown a sixth nobody
+    // added a CREATE for. On failure it names exactly what the interrupted run destroyed
+    // and the command that rebuilds it, which is the difference between a loud stop and
+    // four silent 500s.
+    const lost = await collateralDrops(relsBefore);
+    reportCollateralDrops(lost, redactUrl(DATABASE_URL));
+  }
   // Refresh planner stats on the freshly COPY'd declaration tables — a fresh load leaves
   // them stale until autoanalyze runs, and the feed / stake / cohort queries pick bad plans
   // in that window (declaration_new_filings ran at ~12s on a just-loaded prod DB). ANALYZE
