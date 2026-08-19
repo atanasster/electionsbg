@@ -36,7 +36,7 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import { command, run, flag, boolean } from "cmd-ts";
 import { isPlaceholderId } from "./eik";
 import { classifySupplierId } from "./supplier_identity";
@@ -61,11 +61,23 @@ type Row = {
   [k: string]: unknown;
 };
 
+/** A shard row, narrowed to the fields identity is derived from. */
+export type RekeyRow = {
+  key: string;
+  releaseId?: string;
+  contractId?: string;
+  tag: string;
+};
+
 /** Recompute a row's identity for a new supplier key, using the SAME builder its
  *  own feed uses. Returns null when the feed is unrecognised — better to report a
- *  row than to guess a key shape and mint one the parser would never produce. */
-const reidentify = (
-  r: Row,
+ *  row than to guess a key shape and mint one the parser would never produce.
+ *
+ *  Exported for the test: this is the fiddliest code here and it ran against
+ *  exactly ONE legacy row (€409) in anger, so its behaviour is pinned rather than
+ *  trusted. */
+export const reidentify = (
+  r: RekeyRow,
   eik: string,
 ): { key: string; releaseId?: string } | null => {
   const rel = r.releaseId ?? "";
@@ -78,8 +90,13 @@ const reidentify = (
       .find((d) => rel.startsWith(`aop-legacy-${d.year}-`));
     if (!ds) return null;
     const rest = rel.slice(`aop-legacy-${ds.year}-`.length);
-    // Trim the trailing `-<contractorEik>` to recover the document id.
-    const documentId = rest.slice(0, rest.lastIndexOf("-"));
+    // Trim the trailing `-<contractorEik>` to recover the document id. The cut
+    // must be a REAL hyphen: with none, `lastIndexOf` is -1 and `slice(0, -1)`
+    // silently drops the last character instead of failing, minting a key the
+    // parser would never produce. Refuse instead — the script reports refusals.
+    const cut = rest.lastIndexOf("-");
+    if (cut <= 0) return null;
+    const documentId = rest.slice(0, cut);
     if (!documentId) return null;
     return {
       key: legacyContractKey(ds.datasetUuid, documentId, eik),
@@ -136,10 +153,19 @@ const main = command({
           const amt = Number(r.amountEur ?? 0);
           const agg = byOldEik.get(old) ?? { rows: 0, eur: 0 };
           byOldEik.set(old, { rows: agg.rows + 1, eur: agg.eur + amt });
-          if (newKeys.has(ident.key))
+          // A collision must STOP this row. The first cut reported it and then
+          // fell through to the rewrite, so two contracts were written to one key
+          // while the report said "REFUSED (not rewritten)" — the exact failure
+          // this script exists to prevent. Reachable two ways: a nameless filler
+          // row gets `eik: ""` from classifySupplierId, and the legacy base string
+          // omits contractId, so two lots under one document collide by
+          // construction.
+          if (newKeys.has(ident.key)) {
             refused.push(
               `KEY COLLISION ${ident.key}: ${newKeys.get(ident.key)} vs ${r.key}`,
             );
+            continue;
+          }
           newKeys.set(ident.key, r.key);
           if (samples.length < 12)
             samples.push(
@@ -187,4 +213,13 @@ const main = command({
   },
 });
 
-run(main, process.argv.slice(2));
+// Only run when invoked directly. Importing this module — the test does — must not
+// execute the CLI: it walked all 406,722 rows on import.
+//
+// ⚠ An unanchored substring match on argv[1] does NOT do this. The first attempt
+// used /rekey_placeholder_suppliers/, which matches its own `.test.ts` path, so
+// `npx tsx …test.ts` still ran the whole scan; it only looked fixed because vitest
+// puts its own binary in argv[1]. This is the repo idiom (33+ call sites).
+const invokedDirectly =
+  !!process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (invokedDirectly) run(main, process.argv.slice(2));

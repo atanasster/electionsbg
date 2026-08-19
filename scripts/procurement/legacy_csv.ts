@@ -46,8 +46,12 @@
 
 import { parse } from "csv-parse/sync";
 import { Open as Unzip } from "unzipper";
-import { canonicalEik, isValidEik } from "./eik";
-import { isEgn, personSupplierKey } from "./supplier_identity";
+import { canonicalEik, isValidEik, isPlaceholderId } from "./eik";
+import {
+  isEgn,
+  personSupplierKey,
+  placeholderSupplierKey,
+} from "./supplier_identity";
 import { isUnp, UNP_HEADER_PATTERNS } from "./unp";
 import { overrideAmount } from "./amount_overrides";
 import type { Contract } from "./types";
@@ -462,12 +466,25 @@ export const parseLegacyCsv = (
     // test or a personal identity number becomes the contractor key. This feed
     // currently contributes no such rows, but the hole is the same one that put 98
     // ЕГН into the corpus via the other three paths. See supplier_identity.ts.
-    const contractorEik = isEgn(contractorEikRaw)
-      ? personSupplierKey(contractorName)
-      : canonicalEik(contractorEikRaw);
+    // FILLER first, for the same reason ЕГН comes before the EIK test: since
+    // `isValidEik` learned to reject filler, a filler-supplier row would other-
+    // wise fall to `droppedNoContractor` and this feed would emit NOTHING for it.
+    // That is not theoretical — the re-key wrote `aop-legacy-2023-366252-ph-…`
+    // („инж. Лъчезар Пиргов", €409) to the corpus while the parser dropped it, so
+    // the row sat at an address no parse reproduced. This branch is what makes the
+    // two agree. It deliberately does NOT adopt classifySupplierId wholesale: that
+    // would bring the foreign fallback with it and ADMIT rows this feed currently
+    // drops, which is a corpus change, not a fix.
+    const contractorEik = isPlaceholderId(contractorEikRaw)
+      ? placeholderSupplierKey(contractorName)
+      : isEgn(contractorEikRaw)
+        ? personSupplierKey(contractorName)
+        : canonicalEik(contractorEikRaw);
     if (
       !contractorEik ||
-      (!isEgn(contractorEikRaw) && !isValidEik(contractorEik))
+      (!isEgn(contractorEikRaw) &&
+        !isPlaceholderId(contractorEikRaw) &&
+        !isValidEik(contractorEik))
     ) {
       stats.droppedNoContractor++;
       continue;
