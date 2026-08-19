@@ -23,6 +23,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { formatEur } from "@/lib/currency";
 import { assetRowParts } from "./assetRowText";
+import { HolderChip } from "./HolderChip";
 import {
   useDeclarationDetail,
   type DeclarationListItem,
@@ -86,11 +87,7 @@ export const PersonCryptoHoldings: FC<{
                   sometimes a placeholder („няма", „Е") — dropping description there left
                   this block reading „няма · 10 000 бр.". */}
               {assetRowParts(a, locale, t("pp_decl_units") || "бр.")}
-              {a.isSpouse && (
-                <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
-                  {t("pp_decl_spouse")}
-                </span>
-              )}
+              <HolderChip asset={a} />
             </span>
             <span className="shrink-0 tabular-nums">
               {a.valueEur != null ? formatEur(a.valueEur, locale) : "—"}

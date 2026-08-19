@@ -186,18 +186,12 @@ const AssetTable: FC<{
         header: t("mp_assets_col_holder") || "Holder",
         cell: ({ row }) => (
           <span className="text-xs">
-            {row.original.holderName ? (
-              <>
-                {row.original.holderName}
-                {row.original.isSpouse && (
-                  <span className="ml-1 italic text-muted-foreground">
-                    ({t("mp_assets_spouse") || "spouse"})
-                  </span>
-                )}
-              </>
-            ) : (
-              "—"
-            )}
+            {/* The NAME is the answer, and it is already here. The „(spouse)" that used
+                to follow it added a family relationship `isSpouse` does not establish —
+                see HolderChip. When the register named nobody, the flag still says the
+                row is not the declarant's, which is worth more than a dash. */}
+            {row.original.holderName ||
+              (row.original.isSpouse ? t("pp_decl_holder_other") : "—")}
           </span>
         ),
       },

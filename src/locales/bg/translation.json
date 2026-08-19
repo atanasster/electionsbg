@@ -1014,7 +1014,6 @@
   "mp_cars_col_value": "Стойност (€)",
   "mp_cars_col_holder": "Притежател",
   "mp_cars_holder_self": "Депутат",
-  "mp_cars_holder_spouse": "съпруг(а)",
   "mp_cars_unknown_make": "неизвестна",
   "mp_cars_share_tooltip": "Обединено от {{count}} реда в декларацията: {{share}}",
   "dashboard_mp_assets_title": "Депутати по декларирано имущество",
@@ -1038,7 +1037,6 @@
   "mp_assets_show_more_one": "Покажи още {{count}} позиция",
   "mp_assets_show_more_other": "Покажи още {{count}} позиции",
   "mp_assets_show_less": "Покажи по-малко",
-  "mp_assets_spouse": "съпруг(а)",
   "mp_assets_source_note": "Сумирани притежания на деклариращия и неговия/нейния съпруг(а); източник: Сметна палата.",
   "officials_assets_page_title": "Длъжностни лица по декларирано имущество",
   "officials_assets_page_description": "Министри, ръководители на държавни агенции и областни управители, подредени по нетен имот според най-новата декларация за имущество и интереси, подадена пред Сметната палата.",
@@ -5063,7 +5061,6 @@
   "pp_decl_type_entry": "При встъпване",
   "pp_decl_type_vacate": "При напускане",
   "pp_decl_type_other": "Друга",
-  "pp_decl_spouse": "съпруг/а",
   "pp_decl_units": "бр.",
   "pp_crypto_title": "Криптоактиви",
   "pp_crypto_basis": "По декларацията за {{year}} г. ({{type}}).",
@@ -6171,5 +6168,6 @@
   "pp_prop_kind_commercial_one": "{{count}} търговски обект",
   "pp_prop_kind_commercial_other": "{{count}} търговски обекта",
   "pp_prop_kind_other_one": "{{count}} друг имот",
-  "pp_prop_kind_other_other": "{{count}} други имота"
+  "pp_prop_kind_other_other": "{{count}} други имота",
+  "pp_decl_holder_other": "друг титуляр"
 }

@@ -139,8 +139,10 @@ export const CryptoRegistryScreen: FC = () => {
         enableSorting: false,
         cell: ({ row }) => (
           <span className="text-xs text-muted-foreground">
+            {/* „not the declarant", which is all `isSpouse` establishes — this payload
+                carries no holder name. See HolderChip. */}
             {row.original.isSpouse
-              ? t("pp_decl_spouse")
+              ? t("pp_decl_holder_other")
               : t("crypto_holder_self")}
           </span>
         ),

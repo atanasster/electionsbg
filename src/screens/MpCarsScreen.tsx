@@ -168,8 +168,13 @@ export const MpCarsScreen: FC = () => {
         enableSorting: false,
         cell: ({ row }) => (
           <span className="text-xs text-muted-foreground">
+            {/* The column is headed „Притежател", so its VALUE is read as a statement
+                about who holds the car. `isSpouse` proves only „not the MP" — see
+                HolderChip — and this payload carries no holder name to print instead,
+                so the honest value is the neutral one. Adding `holder_name` to the
+                mp_cars matview would let this name the person, as /person does. */}
             {row.original.isSpouse
-              ? t("mp_cars_holder_spouse") || "spouse"
+              ? t("pp_decl_holder_other")
               : t("mp_cars_holder_self") || "MP"}
           </span>
         ),
@@ -289,7 +294,7 @@ export const MpCarsScreen: FC = () => {
 
       <div className="text-xs text-muted-foreground mt-4">
         {t("mp_cars_page_footer") ||
-          "Cars (passenger vehicles + jeeps) extracted from the most-recent declaration of every MP. Spouse-held cars are listed with holder = spouse. Source: register.cacbg.bg (Bulgarian Court of Audit)."}
+          "Cars (passenger vehicles + jeeps) extracted from the most-recent declaration of every MP. Cars held by someone other than the MP (a spouse, a cohabiting partner or a minor child — the declaration does not distinguish) are marked as such. Source: register.cacbg.bg (Bulgarian Court of Audit)."}
       </div>
     </div>
   );

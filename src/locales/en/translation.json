@@ -1014,7 +1014,6 @@
   "mp_cars_col_value": "Value (€)",
   "mp_cars_col_holder": "Holder",
   "mp_cars_holder_self": "MP",
-  "mp_cars_holder_spouse": "spouse",
   "mp_cars_unknown_make": "unknown",
   "mp_cars_share_tooltip": "Combined from {{count}} declaration rows: {{share}}",
   "dashboard_mp_assets_title": "MPs by declared assets",
@@ -1038,7 +1037,6 @@
   "mp_assets_show_more_one": "Show {{count}} more item",
   "mp_assets_show_more_other": "Show {{count}} more items",
   "mp_assets_show_less": "Show less",
-  "mp_assets_spouse": "spouse",
   "mp_assets_source_note": "Combined declarant and spouse holdings; source: Bulgarian Court of Audit (Сметна палата).",
   "officials_assets_page_title": "Officials by declared assets",
   "officials_assets_page_description": "Bulgarian cabinet members, state-agency heads, and regional governors ranked by net worth from their most recent property/interest declaration with the Court of Audit.",
@@ -5063,7 +5061,6 @@
   "pp_decl_type_entry": "On entering",
   "pp_decl_type_vacate": "On leaving",
   "pp_decl_type_other": "Other",
-  "pp_decl_spouse": "spouse",
   "pp_decl_units": "units",
   "pp_crypto_title": "Crypto assets",
   "pp_crypto_basis": "From the {{year}} filing ({{type}}).",
@@ -6171,5 +6168,6 @@
   "pp_prop_kind_commercial_one": "{{count}} commercial unit",
   "pp_prop_kind_commercial_other": "{{count}} commercial units",
   "pp_prop_kind_other_one": "{{count}} other property",
-  "pp_prop_kind_other_other": "{{count}} other properties"
+  "pp_prop_kind_other_other": "{{count}} other properties",
+  "pp_decl_holder_other": "other holder"
 }

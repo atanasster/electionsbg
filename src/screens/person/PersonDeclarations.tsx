@@ -19,6 +19,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { isSpouseHolder } from "@/lib/declarations";
 import { summariseProperties } from "@/lib/propertyKind";
+import { HolderChip } from "./HolderChip";
 import { cn } from "@/lib/utils";
 import { assetRowParts } from "./assetRowText";
 import { PersonCryptoHoldings } from "./PersonCryptoHoldings";
@@ -481,11 +482,7 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
                     before, which is why four different coins rendered as four identical
                     „Инвестиции €66 030" lines. */}
                 {assetRowParts(a, locale, t("pp_decl_units") || "бр.")}
-                {a.isSpouse && (
-                  <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
-                    {t("pp_decl_spouse") || "съпруг/а"}
-                  </span>
-                )}
+                <HolderChip asset={a} />
               </span>
               <span className="shrink-0 tabular-nums text-muted-foreground">
                 {a.valueEur != null ? formatEur(a.valueEur, locale) : "—"}
@@ -494,10 +491,20 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
           ))}
         </div>
       )}
-      {/* Sibling of the „ползва" block below: both take rows OUT of the plain asset list
-          and say something specific about them. Self-suppressing when the filing declares
-          nothing abroad — which is 95% of them. */}
-      <PersonHeldAbroad assets={detail.assets} />
+      {/* ⚠️ NOT a partition, unlike the „ползва" sibling below — this comment said it was,
+          and the difference matters. „ползва" removes exactly the rows it renders
+          (`ownedAssets` filters `isHolding !== false`). This block removes nothing:
+          `held_scope` exists only on tables 5 and 8, which ARE holdings, so every abroad
+          row renders twice inside one expanded filing — once in the plain asset list above
+          and once here. Иво Христов Петков's EUR 228,100 Belgian account appears twice on
+          this panel, and that is correct: the row is a holding and it is in the totals.
+
+          This block is a LENS over those rows, not a bucket taken out of them. Do NOT
+          "fix" the duplication by filtering abroad rows out of `ownedAssets` — that would
+          drop a bank account out of the asset list while the totals still count it.
+
+          Self-suppressing when the filing declares nothing abroad, which is 95% of them. */}
+      <PersonHeldAbroad assets={detail.assets} locale={locale} />
       {usedAssets.length > 0 && (
         <div className="border-t border-border pt-1">
           <div className="mb-0.5 font-medium">
@@ -538,11 +545,7 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
                     · {a.legalBasis}
                   </span>
                 )}
-                {a.isSpouse && (
-                  <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
-                    {t("pp_decl_spouse") || "съпруг/а"}
-                  </span>
-                )}
+                <HolderChip asset={a} />
               </span>
               <span className="shrink-0 tabular-nums text-muted-foreground">
                 {a.valueEur != null ? formatEur(a.valueEur, locale) : "—"}

@@ -28,6 +28,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { formatEur } from "@/lib/currency";
 import { assetRowParts, type DeclaredAsset } from "./assetRowText";
+import { HolderChip } from "./HolderChip";
 
 export const PersonHeldAbroad: FC<{ assets: DeclaredAsset[] }> = ({
   assets,
@@ -91,11 +92,7 @@ export const PersonHeldAbroad: FC<{ assets: DeclaredAsset[] }> = ({
                 {a.heldCountry}
               </span>
             )}
-            {a.isSpouse && (
-              <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
-                {t("pp_decl_spouse") || "съпруг/а"}
-              </span>
-            )}
+            <HolderChip asset={a} />
           </span>
           <span className="shrink-0 tabular-nums text-muted-foreground">
             {a.valueEur != null ? formatEur(a.valueEur, locale) : "—"}

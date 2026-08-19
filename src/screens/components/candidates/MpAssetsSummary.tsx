@@ -25,6 +25,7 @@ import type { MpAsset, MpAssetCategory } from "@/data/dataTypes";
 import { formatEur, formatEurSigned, toEur } from "@/lib/currency";
 import { incomeTotals, isDeclaredHolding } from "@/lib/declarations";
 import { summariseProperties } from "@/lib/propertyKind";
+import { HolderChip } from "@/screens/person/HolderChip";
 
 type Props = { name: string; linkSlug?: string };
 
@@ -405,10 +406,8 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
                   <li key={i} className="flex items-start gap-2">
                     <Icon className="h-3 w-3 shrink-0 mt-0.5 text-muted-foreground/60" />
                     <span className="flex-1">{parts.join(" · ")}</span>
-                    {a.isSpouse && declarantName && (
-                      <span className="italic shrink-0">
-                        {t("mp_assets_spouse") || "spouse"}
-                      </span>
+                    {declarantName && (
+                      <HolderChip asset={a} className="italic shrink-0" />
                     )}
                   </li>
                 );
