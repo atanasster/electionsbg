@@ -12,6 +12,26 @@
 //   ?mp  — a boolean "MP-tied only" toggle → is_mp_tied = true.
 // ?q (free-text) is read at the screen and passed as DbDataTable's initialSearch.
 //
+// ⛔ ?sector IS DELIBERATELY ABSENT, and this is the one filter someone will try
+// to add. Every other procurement browser reads it (getSectorBrowsePack →
+// awarder_eik / buyer_eik IN …), so the omission looks like an oversight. It is
+// not: `?sector` is a predicate on the BUYER, and `contractor_rank` (migration
+// 122) has no buyer dimension at all — its columns are
+// (scope_key, eik, division, name, name_fold, total_eur, contract_count,
+// award_count, total_other, is_mp_tied). There is nothing to filter on.
+//
+// Adding one is not a column either: this resource is already a TWO-dimensional
+// fan-out with rollup buckets, which is why `division` must always be sent (see
+// above) and why the engine carries a defaultFilters guard against a ~2x
+// double-counted leaderboard. A third dimension multiplies
+// (scope_key × division × sector) and re-opens exactly that class, over a
+// matview that already fans ~29.5k contractors × ~30 windows × division.
+//
+// The sector-scoped question — „who are culture's contractors" — is answered at
+// /culture/procurement#contractors instead, rendered from awarder_group_model
+// (migration 061), which already returns a COMPLETE per-contractor rollup for an
+// arbitrary EIK set. Decided as T0/§1.3-B of docs/plans/culture-investigative-v1.md.
+//
 // extraFilters is memoised on the raw param values: DbDataTable diffs it BY IDENTITY
 // to decide whether to reset pagination, so a fresh array each render would pin the
 // table to page 1 forever (the useUrlProcurementFilters EMPTY_GRADES lesson).

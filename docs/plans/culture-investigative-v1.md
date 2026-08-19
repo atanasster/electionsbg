@@ -415,7 +415,16 @@ row with every per-division row and yields a _~2× double-counted leaderboard se
 which is why `defaultFilters` exists. A third dimension multiplies
 `(scope_key × division × sector)` and re-opens exactly that class.
 
-Three options; **the plan currently assumes the first and never states it**:
+**ⓓ DECIDED 2026-08-18 — option 3, re-point.** Confirmed first that nothing links `?sector` at
+that browser today: `TopContractorsScreen` reads `useUrlContractorFilters`, which owns `?cpv`
+and `?mp` and has never read `?sector`, so this is a decision about what NOT to build rather
+than a bug to fix. The rule now lives where someone would otherwise add it — a `⛔` block in
+the hook's header, and two tests in `useUrlContractorFilters.test.tsx` that fail if the param
+reappears (comment-stripped first, since the header now discusses it at length). Band 2's tile
+and finder subject 3 point at `/culture/procurement#contractors`, built in T1.2b from
+`awarder_group_model`'s complete per-contractor rollup — data that call already returns.
+
+Three options; **the plan assumed the first and never stated it**:
 
 1. **New precompute arm** — a sector dimension on 122, with the rollup-bucket guard extended.
    Real cost: 122 already fans ~29.5k contractors × ~30 windows × CPV division ≈ 9 s locally,
@@ -427,10 +436,8 @@ Three options; **the plan currently assumes the first and never states it**:
 3. **Re-point the two links.** Band 2's "Изпълнители на културата" and finder subject 3 go to
    `/culture/procurement#contractors` instead — the cross-buyer supplier view (T1.3) is a
    better answer to that reader's question anyway, and `awarder_group_model` already returns a
-   **complete** per-contractor rollup for an EIK set (§1.4). **Recommended**: it costs nothing,
-   it removes the gate failure, and it keeps 122 single-purpose.
-
-Whichever is chosen, it belongs in step 2 and blocks the Band 2 tile.
+   **complete** per-contractor rollup for an EIK set (§1.4). **✅ CHOSEN**: it costs nothing, it
+   removes the gate failure, and it keeps 122 single-purpose.
 
 ## 1.4 Tier 1 — the procurement layer
 
