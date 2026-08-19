@@ -10,6 +10,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { DebtEmission, useDebtEmissions } from "@/data/macro/useDebtEmissions";
 import { BGN_PER_EUR } from "@/lib/currency";
+import { formatDate } from "@/lib/formatDate";
 
 // Lookup of currency code → unicode symbol. Anything not listed falls back
 // to the bare ISO code so we never silently drop a currency.
@@ -38,15 +39,11 @@ const fmtPrincipal = (currency: string, principalMillion: number): string => {
   })}M`;
 };
 
-const fmtDate = (iso: string | undefined, lang: "en" | "bg"): string => {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-};
+// issueDate / maturityDate are calendar DAYS ("2026-07-07"), which parse as UTC midnight —
+// formatting them in the reader's zone moves a settlement or maturity date a day earlier for
+// everyone west of Greenwich. formatDate pins UTC for that shape.
+const fmtDate = (iso: string | undefined, lang: "en" | "bg"): string =>
+  iso ? formatDate(iso, lang) : "—";
 
 const MarketBadge: FC<{ market: DebtEmission["market"] }> = ({ market }) => {
   const { t } = useTranslation();

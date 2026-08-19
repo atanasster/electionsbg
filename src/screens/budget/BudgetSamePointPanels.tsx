@@ -92,10 +92,14 @@ export const BudgetSamePointPanels: FC<{
   // „края на юни", not „края на месец 6". The bundle's own
   // `budget_same_point_subtitle` already interpolates a month NAME, so a bare
   // number here would be the one place on the site that does not.
+  // `timeZone: "UTC"` pairs with the `Date.UTC` above — without it the 1st-at-UTC-midnight
+  // instant rolls back a month for every reader west of Greenwich, so „края на юни" printed
+  // as „края на май".
   const monthName = new Date(
     Date.UTC(2020, data.month - 1, 1),
   ).toLocaleDateString(i18n.language === "bg" ? "bg-BG" : "en-GB", {
     month: "long",
+    timeZone: "UTC",
   });
 
   return (

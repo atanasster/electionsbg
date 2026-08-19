@@ -3,6 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { SEO } from "@/ux/SEO";
+import { formatDateLong } from "@/lib/formatDate";
 
 // Shared shell for long-form pages (analysis articles + documentation).
 // Renders the breadcrumb, header (date / title / description / divider),
@@ -50,14 +51,13 @@ export const ArticleLayout: FC<Props> = ({
   children,
 }) => {
   const { i18n } = useTranslation();
-  const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const formattedDate = date
-    ? new Date(date).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : null;
+  // formatDateLong, never a bare `new Date(date).toLocaleDateString(...)`: `publishedAt` is a
+  // calendar DAY ("2026-08-17"), which parses as UTC midnight, so formatting it in the
+  // viewer's zone printed the day BEFORE for every reader west of Greenwich — the byline read
+  // "16 АВГУСТ 2026 Г." while the article feed on the same page said 17. Bulgarian readers
+  // (UTC+3) never saw it. The helper pins UTC for the date-only shape only, so a caller that
+  // passes a real instant still renders in the reader's own zone.
+  const formattedDate = date ? formatDateLong(date, i18n.language) : null;
   return (
     <>
       {seo ? (

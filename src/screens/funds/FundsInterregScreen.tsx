@@ -26,8 +26,16 @@ import { useInterregOperation } from "@/data/funds/useInterreg";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
+// Numeric shape, so this cannot use @/lib/formatDate — but it needs that module's UTC pin.
+// `startDate` / `endDate` are PG `date` columns rendered inside jsonb, so they arrive as bare
+// days ("2025-11-15"); formatting them in the reader's zone starts and ends the operation a
+// day early for everyone west of Greenwich.
 const fmtDate = (d: string | null, lang: string): string =>
-  d ? new Date(d).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB") : "—";
+  d
+    ? new Date(d).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
+        timeZone: "UTC",
+      })
+    : "—";
 
 export const FundsInterregScreen: FC = () => {
   const { keepId } = useParams<{ keepId: string }>();

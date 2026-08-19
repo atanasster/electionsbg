@@ -142,12 +142,17 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
   // consumer has no height to reserve and ignores the pending flag.
   const { byMpId: signals } = useMpSignals(mpIds);
 
+  // Zero-padded day, so this cannot use @/lib/formatDate — but it needs that module's UTC
+  // pin. `it.date` is a session DAY ("2026-06-19") parsed as UTC midnight, and rendering it
+  // in the reader's zone puts the row a day before the /votes/<date> it links to for anyone
+  // west of Greenwich.
   const dateFmt = useMemo(
     () =>
       new Intl.DateTimeFormat(lang === "bg" ? "bg-BG" : "en-GB", {
         day: "2-digit",
         month: "short",
         year: "numeric",
+        timeZone: "UTC",
       }),
     [lang],
   );

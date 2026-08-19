@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { DebtEmission, useDebtEmissions } from "@/data/macro/useDebtEmissions";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { BGN_PER_EUR } from "@/lib/currency";
+import { formatDate } from "@/lib/formatDate";
 
 const CURRENCY_SYMBOL: Record<string, string> = {
   EUR: "€",
@@ -34,14 +35,10 @@ const fmtPrincipal = (currency: string, principalMillion: number): string => {
   })}M`;
 };
 
-const fmtDate = (iso: string, lang: "en" | "bg"): string => {
-  const d = new Date(iso);
-  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-};
+// Same calendar-day rule as DebtEmissionsTable — these are issue/maturity DAYS, so they are
+// pinned to UTC rather than rendered in the reader's zone.
+const fmtDate = (iso: string, lang: "en" | "bg"): string =>
+  formatDate(iso, lang);
 
 const fmtPct = (v: number | undefined): string =>
   typeof v === "number" ? `${v.toFixed(2)}%` : "—";

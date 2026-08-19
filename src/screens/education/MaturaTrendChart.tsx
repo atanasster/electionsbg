@@ -29,6 +29,7 @@ import { useGovernments } from "@/data/governments/useGovernments";
 import { ChartCabinetStrip } from "@/screens/components/governments/ChartCabinetStrip";
 import { useMeasuredWidth } from "@/ux/useMeasuredWidth";
 import { useTooltip } from "@/ux/useTooltip";
+import { formatDateLong } from "@/lib/formatDate";
 import {
   buildMaturaRows,
   cohortMax,
@@ -179,12 +180,10 @@ export const MaturaTrendChart: FC<{
       minimumFractionDigits: digits,
       maximumFractionDigits: digits,
     });
-  const fmtDate = (iso: string) =>
-    new Date(iso).toLocaleDateString(locale, {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+  // `r.date` is the exam DAY ("2026-05-20", from dziBelExamDate) — a calendar day parsed as
+  // UTC midnight, so formatting it in the reader's zone dates the matura a day early west of
+  // Greenwich. formatDateLong pins UTC for that shape.
+  const fmtDate = (iso: string) => formatDateLong(iso, locale);
 
   // role="img" collapses the whole chart to this one string for a screen
   // reader, so the label has to carry the series itself — the year-by-year

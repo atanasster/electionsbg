@@ -197,9 +197,16 @@ export const BudgetSamePointTile: FC<{
   if (!current || data.length < 2) return null;
 
   const lang = i18n.language === "bg" ? "bg" : "en";
+  // `timeZone: "UTC"` pairs with the `Date.UTC` above and is load-bearing: the instant is
+  // the 1st at UTC midnight, so rendering it in the reader's zone rolls back into the
+  // PREVIOUS month west of Greenwich — this tile said „май" where it meant „юни", on a
+  // heading whose whole job is to name the period the figures cover.
   const monthLabel = new Date(
     Date.UTC(2020, monthsAvailable - 1, 1),
-  ).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-US", { month: "long" });
+  ).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-US", {
+    month: "long",
+    timeZone: "UTC",
+  });
 
   const currentDeficit = (current.balance ?? 0) < 0;
   const ofPlan = t("budget_same_point_of_plan") || "of plan";

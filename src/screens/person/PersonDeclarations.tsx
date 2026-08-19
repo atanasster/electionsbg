@@ -356,8 +356,15 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
         )}
         {detail.filedAt && (
           <span>
+            {/* Numeric shape (the citation line is dense), so this cannot use
+                @/lib/formatDate — but it needs that module's UTC pin. `filedAt` is a PG
+                `date` rendered inside jsonb, so it arrives as a bare day ("2025-05-14");
+                formatting it in the reader's zone backdates the filing by one day west of
+                Greenwich, on a line that exists to make the figures checkable. */}
             {t("pp_decl_cite_filed", {
-              date: new Date(detail.filedAt).toLocaleDateString(locale),
+              date: new Date(detail.filedAt).toLocaleDateString(locale, {
+                timeZone: "UTC",
+              }),
             })}
           </span>
         )}

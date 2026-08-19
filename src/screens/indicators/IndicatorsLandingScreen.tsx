@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { Title } from "@/ux/Title";
 import { useMacro } from "@/data/macro/useMacro";
+import { formatDate } from "@/lib/formatDate";
 import { KpiTile } from "@/screens/components/macro/KpiTile";
 import {
   TileHubGrid,
@@ -85,18 +86,17 @@ const HUB_TILES = [
   },
 ] as const;
 
+// `macro.fetchedAt` is a real INSTANT ("2026-08-18T15:12:51.726Z"), so the reader's own zone
+// is the right answer for it and formatDate leaves it there — the UTC pin in that helper is
+// scoped to the date-only shape. Routed through the helper anyway so that a source which
+// later publishes a bare day cannot silently start rendering a day early here.
 const localDateFromIso = (
   iso: string | undefined,
   lang: "bg" | "en",
 ): string | null => {
   if (!iso) return null;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  if (Number.isNaN(new Date(iso).getTime())) return null;
+  return formatDate(iso, lang);
 };
 
 export const IndicatorsLandingScreen: FC = () => {
