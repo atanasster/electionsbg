@@ -126,7 +126,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -232,7 +236,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

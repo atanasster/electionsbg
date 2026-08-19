@@ -71,7 +71,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ТБ УНИКРЕДИТБУЛБАНК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -91,7 +95,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ТБ УНИКРЕДИТБУЛБАНК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -111,7 +119,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ТБ ОББ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -211,7 +223,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЗАД АЛИАНЦ БЪЛГАРИЯ ЖИВОТ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -231,7 +247,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЗАД АЛИАНЦ БЪЛГАРИЯ ЖИВОТ АД",
+        "heldRawAbroad": null
       }
     ],
     "events": []

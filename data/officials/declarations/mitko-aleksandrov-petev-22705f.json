@@ -70,7 +70,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -90,7 +94,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -110,7 +118,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни по НКСЗМ за Белгия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Белгия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "ING Belgium"
       },
       {
         "category": "investment",
@@ -130,7 +142,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -150,7 +166,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -170,7 +190,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни по НКСЗМ за Белгия",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Белгия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "инвестиционен фонд ING Belgium"
       },
       {
         "category": "investment",
@@ -190,7 +214,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -210,7 +238,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -280,7 +312,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -300,7 +336,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -320,7 +360,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Белгия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "ING Belgium"
       },
       {
         "category": "investment",
@@ -340,7 +384,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -360,7 +408,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -380,7 +432,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Белгия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "инвестиционен фонд ING Belgium"
       },
       {
         "category": "investment",
@@ -400,7 +456,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -420,7 +480,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -490,7 +554,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -510,7 +578,11 @@
         "legalBasis": null,
         "fundsOrigin": "задгранични командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Белгия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Белгия - ING"
       },
       {
         "category": "investment",
@@ -530,7 +602,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -550,7 +626,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -570,7 +650,11 @@
         "legalBasis": null,
         "fundsOrigin": "задгранични командировъчни",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Белгия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "инвестиционен фонд ING Belgium"
       },
       {
         "category": "investment",
@@ -590,7 +674,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -610,7 +698,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДПФ \"OББ Пенсионно осигуряване\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []

@@ -53,7 +53,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "59000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -119,7 +123,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "59000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -185,7 +193,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       }
     ],
     "events": []

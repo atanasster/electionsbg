@@ -186,7 +186,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УникредитБулбанк",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -385,7 +389,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредит Булбанк",
+        "heldRawAbroad": null
       }
     ],
     "events": []

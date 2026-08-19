@@ -172,7 +172,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да - УниКредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -192,7 +196,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, дарение, спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да - ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",

@@ -40,7 +40,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "70000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -152,7 +156,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "40000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -172,7 +180,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "9000",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

@@ -72,7 +72,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "receivable",
@@ -170,7 +174,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "FIBANK",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -266,7 +274,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

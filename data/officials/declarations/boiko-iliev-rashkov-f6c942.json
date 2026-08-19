@@ -46,7 +46,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "credit_limit",
@@ -86,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -106,7 +114,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

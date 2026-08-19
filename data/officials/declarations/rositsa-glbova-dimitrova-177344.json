@@ -113,7 +113,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -133,7 +137,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Райфайзен банк",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -179,7 +187,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати на майка ми при пенсиониране",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "КВС Банк-България",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -316,7 +328,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

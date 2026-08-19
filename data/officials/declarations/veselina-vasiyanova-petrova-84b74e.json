@@ -66,7 +66,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Първа инвестиционна банка АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -86,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Обединена българска банка АД",
+        "heldRawAbroad": null
       }
     ],
     "events": []

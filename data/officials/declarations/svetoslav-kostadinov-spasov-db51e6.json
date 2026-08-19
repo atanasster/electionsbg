@@ -96,7 +96,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсионен фонд",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -142,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -228,7 +236,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -434,7 +446,11 @@
         "legalBasis": null,
         "fundsOrigin": "УПФ",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -640,7 +656,11 @@
         "legalBasis": null,
         "fundsOrigin": "УПФ",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -819,7 +839,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []

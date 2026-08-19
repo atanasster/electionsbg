@@ -78,7 +78,11 @@
         "legalBasis": null,
         "fundsOrigin": "заем,продажба на апартамент,заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "receivable",
@@ -209,7 +213,11 @@
         "legalBasis": null,
         "fundsOrigin": "заем,заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "да"
       },
       {
         "category": "debt",
@@ -348,7 +356,11 @@
         "legalBasis": null,
         "fundsOrigin": "заем и продажба на апартамент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -513,7 +525,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -533,7 +549,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажма на недвижим имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",

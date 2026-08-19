@@ -333,7 +333,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА, ДЕПОЗИТ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -353,7 +357,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА,ДЕБИТНА КАРТА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -373,7 +381,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА, ДЕТСКА ДЕБ.КАРТА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -393,7 +405,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       },
       {
         "category": "credit_limit",
@@ -473,7 +489,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -551,7 +571,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА, ДЕПОЗИТ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -571,7 +595,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА, ДЕБИТНА КАРТА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -591,7 +619,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА,ДЕТСКА КАРТА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -611,7 +643,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -691,7 +727,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -777,7 +817,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да, депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -797,7 +841,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, обезщетение, продажба имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да, дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -817,7 +865,11 @@
         "legalBasis": null,
         "fundsOrigin": "стипендия Божидара Николова",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да, детска деб.карта",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -837,7 +889,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -917,7 +973,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и заем",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -1269,7 +1329,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1289,7 +1353,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1309,7 +1377,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1329,7 +1401,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "credit_limit",
@@ -1489,7 +1565,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

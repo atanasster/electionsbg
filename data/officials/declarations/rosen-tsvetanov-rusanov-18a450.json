@@ -496,7 +496,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р България",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -516,7 +520,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Нидерландия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Нидерландия- BUNQ bank"
       },
       {
         "category": "bank",
@@ -536,7 +544,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р България",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -556,7 +568,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Литва",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Литва- банка Revolut"
       },
       {
         "category": "security",
@@ -888,7 +904,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р България",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -908,7 +928,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Нидерландия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Нидерландия"
       },
       {
         "category": "security",
@@ -1225,7 +1249,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "48700",
+        "heldRawAbroad": "0"
       },
       {
         "category": "security",

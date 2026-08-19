@@ -80,7 +80,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -100,7 +104,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -120,7 +128,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Юробанк България АД",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -279,7 +291,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -299,7 +315,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -319,7 +339,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Юробанк България АД",
+        "heldRawAbroad": null
       },
       {
         "category": "security",

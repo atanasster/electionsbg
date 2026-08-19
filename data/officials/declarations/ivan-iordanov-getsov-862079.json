@@ -433,7 +433,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -453,7 +457,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -473,7 +481,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -493,7 +505,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -513,7 +529,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -533,7 +553,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -553,7 +577,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -593,7 +621,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -613,7 +645,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -633,7 +669,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "\"Алианс\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -653,7 +693,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "\"Алианс\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -673,7 +717,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -693,7 +741,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1185,7 +1237,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1205,7 +1261,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1225,7 +1285,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1245,7 +1309,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1265,7 +1333,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1285,7 +1357,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1305,7 +1381,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1325,7 +1405,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -1365,7 +1449,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1385,7 +1473,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1405,7 +1497,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1425,7 +1521,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1445,7 +1545,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "\"Алианс\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1465,7 +1569,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "\"Алианс\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1963,7 +2071,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1983,7 +2095,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2003,7 +2119,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2023,7 +2143,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2043,7 +2167,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2063,7 +2191,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -2103,7 +2235,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -2123,7 +2259,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -2143,7 +2283,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -2163,7 +2307,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -2183,7 +2331,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "\"Алианс\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -2203,7 +2355,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "\"Алианс\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []

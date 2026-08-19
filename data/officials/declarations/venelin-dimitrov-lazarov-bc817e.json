@@ -206,7 +206,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата-дългосрочни командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Дания",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "в Йордания"
       },
       {
         "category": "bank",
@@ -226,7 +230,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата-дългосрочни командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []

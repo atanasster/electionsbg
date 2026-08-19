@@ -233,7 +233,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -253,7 +257,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -273,7 +281,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": "НЕ",
+        "heldRawAbroad": "ДА"
       },
       {
         "category": "bank",
@@ -293,7 +305,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": []
@@ -359,7 +375,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата декларерани в предходни години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -379,7 +399,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и таблица 12",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -545,7 +569,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот и автомобил и заплата декларерани в предходни години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -565,7 +593,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -691,7 +723,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот и автомобил и заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -711,7 +747,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

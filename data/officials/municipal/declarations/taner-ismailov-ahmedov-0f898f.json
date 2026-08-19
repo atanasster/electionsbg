@@ -180,7 +180,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -200,7 +204,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи от наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -220,7 +228,11 @@
         "legalBasis": null,
         "fundsOrigin": "стипендия и дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -260,7 +272,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Граве България",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -280,7 +296,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Граве България",
+        "heldRawAbroad": null
       }
     ],
     "events": [

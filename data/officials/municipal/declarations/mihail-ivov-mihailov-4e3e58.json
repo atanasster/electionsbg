@@ -157,7 +157,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -177,7 +181,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -197,7 +205,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Citibank, New York"
       },
       {
         "category": "bank",
@@ -217,7 +229,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Wells Fargo, New York"
       },
       {
         "category": "bank",
@@ -237,7 +253,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Frankfurter Sparkasse, Frankfurt am Main"
       },
       {
         "category": "debt",

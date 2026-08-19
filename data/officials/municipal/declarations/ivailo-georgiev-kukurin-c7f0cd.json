@@ -159,7 +159,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения - от родители - преди 2020 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "164165",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -179,7 +183,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "20740",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -219,7 +227,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения -от родители за първоначална инвестиция - преди 2020 година",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "криптовалута"
       }
     ],
     "events": []

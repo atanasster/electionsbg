@@ -78,7 +78,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "КБС Банк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -98,7 +102,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Юробанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -118,7 +126,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Юробанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "receivable",
@@ -752,7 +764,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка - разпл.см",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

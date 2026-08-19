@@ -95,7 +95,11 @@
         "legalBasis": null,
         "fundsOrigin": "Кредити, заплата и пенсии НОИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -115,7 +119,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -135,7 +143,11 @@
         "legalBasis": null,
         "fundsOrigin": "Издръжка от ЕС /allowance/",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Да"
       },
       {
         "category": "bank",
@@ -155,7 +167,11 @@
         "legalBasis": null,
         "fundsOrigin": "Рента и преведени от съпруга",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -175,7 +191,11 @@
         "legalBasis": null,
         "fundsOrigin": "Преведени от съпруга",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Да"
       },
       {
         "category": "bank",
@@ -195,7 +215,11 @@
         "legalBasis": null,
         "fundsOrigin": "Преведени от баща",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Да"
       },
       {
         "category": "bank",
@@ -215,7 +239,11 @@
         "legalBasis": null,
         "fundsOrigin": "Преведени от баща",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Да"
       },
       {
         "category": "debt",
@@ -345,7 +373,11 @@
         "legalBasis": null,
         "fundsOrigin": "кредити, заплата и пенсия НОИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -365,7 +397,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -385,7 +421,11 @@
         "legalBasis": null,
         "fundsOrigin": "издръжка от ЕС /allowance/",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -405,7 +445,11 @@
         "legalBasis": null,
         "fundsOrigin": "рента и преведени от съпруга",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -425,7 +469,11 @@
         "legalBasis": null,
         "fundsOrigin": "преведени от съпруга",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "debt",
@@ -715,7 +763,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -735,7 +787,11 @@
         "legalBasis": null,
         "fundsOrigin": "издръжка от ЕС /allowance/",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": "не",
+        "heldRawAbroad": "да"
       },
       {
         "category": "debt",
@@ -775,7 +831,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [

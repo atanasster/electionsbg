@@ -40,7 +40,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -60,7 +64,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване и наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": []
@@ -106,7 +114,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -126,7 +138,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": []
@@ -172,7 +188,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване, заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -192,7 +212,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": []
@@ -264,7 +288,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване, заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

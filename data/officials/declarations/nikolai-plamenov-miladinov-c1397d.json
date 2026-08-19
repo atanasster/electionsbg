@@ -191,7 +191,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -211,7 +215,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Deutsche Bank AG"
       },
       {
         "category": "investment",
@@ -231,7 +239,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Trade Republic Bank GmbH"
       }
     ],
     "events": []

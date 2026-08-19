@@ -310,7 +310,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни средства от дългосрочна задгранична командировка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

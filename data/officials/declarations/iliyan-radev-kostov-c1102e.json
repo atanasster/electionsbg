@@ -253,7 +253,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -273,7 +277,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -293,7 +301,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -313,7 +325,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -333,7 +349,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -353,7 +373,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -605,7 +629,11 @@
         "legalBasis": null,
         "fundsOrigin": "родител",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -625,7 +653,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -645,7 +677,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на апартамент в Брюксел",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -665,7 +701,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата от работа в Брюксел",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -685,7 +725,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсионна осигуровка от работа в ЕК",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -705,7 +749,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -977,7 +1025,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на автомобил BMW1",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -997,7 +1049,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1017,7 +1073,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -1037,7 +1097,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1057,7 +1121,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на апартамент в Брюксел",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1077,7 +1145,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати ,граждански договори и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1097,7 +1169,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсионна осигуровка от работав ЕК",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -1117,7 +1193,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1389,7 +1469,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на лек автомобил AUDI Q5",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1409,7 +1493,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1429,7 +1517,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -1449,7 +1541,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на жилище в Брюксел",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1469,7 +1565,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на жилище в Брюксел",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1489,7 +1589,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсионни осигуровки от работа в ЕК",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -1509,7 +1613,11 @@
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплати",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1529,7 +1637,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1679,7 +1791,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на лек автомобил Ауди и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1699,7 +1815,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на офис и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

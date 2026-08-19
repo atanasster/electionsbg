@@ -203,7 +203,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "софия",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -223,7 +227,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "София",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -243,7 +251,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "София",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -263,7 +275,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "София",
+        "heldRawAbroad": null
       }
     ],
     "events": []

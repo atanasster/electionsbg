@@ -45,7 +45,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "86859",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -65,7 +69,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "3946",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -85,7 +93,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "5000",
+        "heldRawAbroad": null
       }
     ],
     "events": [

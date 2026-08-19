@@ -125,7 +125,11 @@
         "legalBasis": null,
         "fundsOrigin": "работни заплати, спестявания, декларирани в предходни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -145,7 +149,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -165,7 +173,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -185,7 +197,11 @@
         "legalBasis": null,
         "fundsOrigin": "издръжка дете",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",

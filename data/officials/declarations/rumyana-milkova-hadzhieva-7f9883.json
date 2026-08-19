@@ -120,7 +120,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "19835",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -140,7 +144,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "1000",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -246,7 +254,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "77000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -266,7 +278,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "5000",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -365,7 +381,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "15000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -385,7 +405,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "5000",
+        "heldRawAbroad": null
       }
     ],
     "events": []

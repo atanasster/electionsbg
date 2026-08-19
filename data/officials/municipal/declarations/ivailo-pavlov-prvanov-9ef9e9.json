@@ -143,7 +143,11 @@
         "legalBasis": null,
         "fundsOrigin": "стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -163,7 +167,11 @@
         "legalBasis": null,
         "fundsOrigin": "доходи от др. стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",

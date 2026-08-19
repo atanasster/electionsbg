@@ -92,7 +92,11 @@
         "legalBasis": null,
         "fundsOrigin": "покупко-продажба апартамент след погасяване на ипотека",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банков влог",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -112,7 +116,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -132,7 +140,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банков влог",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -391,7 +403,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банков влог",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -411,7 +427,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -431,7 +451,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банков влог",
+        "heldRawAbroad": null
       }
     ],
     "events": []

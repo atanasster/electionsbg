@@ -246,7 +246,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -266,7 +270,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни - наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Pайфайзенбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -286,7 +294,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Райфайзенбанк",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -538,7 +550,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплана-наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Райфайзенбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -558,7 +574,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -764,7 +784,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати - наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Райфайзенбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -784,7 +808,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       }
     ],
     "events": []

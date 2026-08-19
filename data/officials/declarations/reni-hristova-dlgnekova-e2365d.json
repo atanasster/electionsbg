@@ -66,7 +66,11 @@
         "legalBasis": null,
         "fundsOrigin": "ДОХОДИ ОТ ПЕНСИЯ,  ДЕЙНОСТ И НАЕМ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА ОББ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -86,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "ДОХОДИ ОТ   ДЕЙНОСТ И НАЕМ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА ТЕКСИМ АД",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -138,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия, доходи и наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -158,7 +170,11 @@
         "legalBasis": null,
         "fundsOrigin": "доходи и наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната Тексим",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -250,7 +266,11 @@
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ , НАЕМИ , ДЕЙНОСТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -270,7 +290,11 @@
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ , НАЕМИ , ДЕЙНОСТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

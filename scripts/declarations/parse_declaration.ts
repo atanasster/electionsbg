@@ -31,6 +31,7 @@ import { isEurConvertible, toEur } from "../../src/lib/currency";
 import { isSpouseHolder } from "../../src/lib/declarations";
 import { fxValueEur } from "./fx";
 import { registerFolderYear } from "../lib/cacbg_register";
+import { classifyHeldPlace } from "./held_abroad";
 
 const text = ($: CheerioAPI, sel: string): string | null => {
   const el = $(sel).first();
@@ -1124,6 +1125,13 @@ type MoneyCellMap = {
   legalBasis?: number;
   fundsOrigin?: number;
   description?: number;
+  /** „В страната" / „В чужбина" — the domestic/abroad pair, passed ONLY for the two tables
+   *  that have it (5 „Банкови влогове" and 8 „Вложения в … фондове"). Table 4 („Налични
+   *  парични средства") deliberately passes neither: its Cell Num=7 is „Произход на
+   *  средствата", so reading the pair off it would publish every cash row as held in a
+   *  country called „заплата". See scripts/declarations/held_abroad.ts. */
+  heldInCountry?: number;
+  heldAbroad?: number;
 };
 
 const parseMoneyRow = (
@@ -1142,8 +1150,32 @@ const parseMoneyRow = (
     bgnEquiv,
   );
   const holder = cellByNum(row, col(cells.holder));
+  // Only tables 5 and 8 carry the pair; everything else leaves these undefined, which is
+  // what keeps a car or a cash row from claiming it was declared as held somewhere.
+  const heldInCountry = cells.heldInCountry
+    ? cellByNum(row, col(cells.heldInCountry))
+    : null;
+  const heldAbroad = cells.heldAbroad
+    ? cellByNum(row, col(cells.heldAbroad))
+    : null;
+  const held =
+    cells.heldInCountry || cells.heldAbroad
+      ? classifyHeldPlace(heldInCountry, heldAbroad)
+      : null;
   return {
     category,
+    ...(held
+      ? {
+          heldScope: held.scope,
+          heldCountry: held.country,
+          // The raw cells are kept because the rule reads free text — 5,691 distinct
+          // spellings — so a later refinement has to be able to re-decide, and because the
+          // institution declarants write there („Revolut", „Amundi Funds") is the only place
+          // the corpus records it at all.
+          heldRawInCountry: heldInCountry || null,
+          heldRawAbroad: heldAbroad || null,
+        }
+      : {}),
     description: cells.description
       ? cellByNum(row, col(cells.description))
       : null,
@@ -1361,6 +1393,8 @@ const parseAssetTables = (
           bgnEquiv: 4,
           holder: 5,
           fundsOrigin: 9,
+          heldInCountry: 7,
+          heldAbroad: 8,
         },
         bankCol,
         tableFormCurrency($, version, "bank", docCcy),
@@ -1441,6 +1475,8 @@ const parseAssetTables = (
           bgnEquiv: 4,
           holder: 5,
           fundsOrigin: 9,
+          heldInCountry: 7,
+          heldAbroad: 8,
         },
         investmentCol,
         tableFormCurrency($, version, "investment", docCcy),

@@ -105,7 +105,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ, НАСЛЕДЯВАНЕ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -125,7 +129,11 @@
         "legalBasis": null,
         "fundsOrigin": "трансфери от ДСП до 2020",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

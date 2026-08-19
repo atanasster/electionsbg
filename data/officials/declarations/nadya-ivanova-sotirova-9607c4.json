@@ -40,7 +40,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "19474",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -60,7 +64,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "12157",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -80,7 +88,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имущество",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "29337",
+        "heldRawAbroad": null
       }
     ],
     "events": []

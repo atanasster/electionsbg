@@ -52,7 +52,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване,лихви от депозит,продажба на имот,заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -72,7 +76,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,лихви от депозит,дарение",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -92,7 +100,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,пенсия,стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -112,7 +124,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,пенсия,стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -152,7 +168,11 @@
         "legalBasis": null,
         "fundsOrigin": "стопанска дейност",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       }
     ],
     "events": []
@@ -330,7 +350,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване,лихви от депозит,продажба на имот, заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -350,7 +374,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,лихви от депозит,дарение",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -370,7 +398,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,пенсия,стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -390,7 +422,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,пенсия,стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -548,7 +584,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване,лихви от депозит,продажба на имот,заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -568,7 +608,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, рента, лихви от депозит,дарение",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -588,7 +632,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, рента, пенсия,стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -608,7 +656,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,пенсия, стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

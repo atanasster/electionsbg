@@ -60,7 +60,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот (влог) и заплата (банкова сметка)",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -80,7 +84,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       }
     ],
     "events": [
@@ -284,7 +292,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот и доходи от наем на земеделски земи",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": [

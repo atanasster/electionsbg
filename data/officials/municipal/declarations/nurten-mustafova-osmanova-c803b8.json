@@ -51,7 +51,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц Банк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -71,7 +75,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -91,7 +99,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -111,7 +123,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц Банк",
+        "heldRawAbroad": null
       }
     ],
     "events": []

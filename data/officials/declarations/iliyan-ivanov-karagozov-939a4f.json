@@ -213,7 +213,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "страната",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -439,7 +443,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на собствени имоти, заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -459,7 +467,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на собствен имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "receivable",
@@ -705,7 +717,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на собствени имоти, заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -911,7 +927,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на собствени имоти, заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

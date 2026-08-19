@@ -60,7 +60,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на недвижи имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "в чужбина"
       },
       {
         "category": "bank",
@@ -80,7 +84,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": [

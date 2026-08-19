@@ -155,7 +155,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА И ДИВИДЕНТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "26635",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -175,7 +179,11 @@
         "legalBasis": null,
         "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "206",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

@@ -45,7 +45,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и стопанска дейност",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -65,7 +69,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и стопанска дейност",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Х"
       }
     ],
     "events": []

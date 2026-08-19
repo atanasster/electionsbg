@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -158,7 +162,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -350,7 +358,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Ухикредит Булбанк",
+        "heldRawAbroad": null
       }
     ],
     "events": []

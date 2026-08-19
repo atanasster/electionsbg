@@ -78,7 +78,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -98,7 +102,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "credit_limit",
@@ -138,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - стари инвестиционни дялове",
         "tableNum": "8",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -158,7 +170,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - стари инвестиционни дялове",
         "tableNum": "8",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -178,7 +194,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - стари инвестиционни дялове",
         "tableNum": "8",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []

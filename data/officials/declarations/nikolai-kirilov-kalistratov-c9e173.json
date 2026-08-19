@@ -1558,7 +1558,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1578,7 +1582,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1598,7 +1606,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ-Алианц",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1618,7 +1630,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ-Алианц",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1960,7 +1976,11 @@
         "legalBasis": null,
         "fundsOrigin": "служвбно удържани от заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ Алианц",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1980,7 +2000,11 @@
         "legalBasis": null,
         "fundsOrigin": "служебно удържани от заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ Алианц",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -2796,7 +2820,11 @@
         "legalBasis": null,
         "fundsOrigin": "Служебно удържани от заплатата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ Алианц",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -2816,7 +2844,11 @@
         "legalBasis": null,
         "fundsOrigin": "Служебно удържани от заплатата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УФП Алианц",
+        "heldRawAbroad": null
       }
     ],
     "events": [

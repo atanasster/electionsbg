@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДФ Родина",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -106,7 +110,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ Топлина",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -178,7 +186,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДФ Родина",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -198,7 +210,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УФ Родина",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -270,7 +286,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -330,7 +350,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДПФ Родина",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -350,7 +374,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ Родина",
+        "heldRawAbroad": null
       }
     ],
     "events": []

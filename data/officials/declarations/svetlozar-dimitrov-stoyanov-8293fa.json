@@ -132,7 +132,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "55366",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -152,7 +156,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "30000",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -243,7 +251,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "3441",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -360,7 +372,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "6439",
+        "heldRawAbroad": "0"
       },
       {
         "category": "debt",

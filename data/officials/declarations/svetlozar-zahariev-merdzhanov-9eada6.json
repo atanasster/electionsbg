@@ -146,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -511,7 +515,11 @@
         "legalBasis": null,
         "fundsOrigin": "Дългосрочна командировка в чужбина",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК Банк",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

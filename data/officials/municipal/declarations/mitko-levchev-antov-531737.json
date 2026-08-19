@@ -59,7 +59,11 @@
         "legalBasis": null,
         "fundsOrigin": "Митко Антов и Беринка Антова заплати  декларирани и в предходна декларация",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -79,7 +83,11 @@
         "legalBasis": null,
         "fundsOrigin": "Минко Антов и Беринка Антова заплати декларирани и в предходна декларация",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -99,7 +107,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       }
     ],
     "events": []

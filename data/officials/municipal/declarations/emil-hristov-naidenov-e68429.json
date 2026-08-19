@@ -45,7 +45,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия и доход като общински съветник",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -65,7 +69,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       }
     ],
     "events": []

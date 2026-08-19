@@ -126,7 +126,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -146,7 +150,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Универсален пенсионен фонд - задължително пенсионно осигуряване",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -218,7 +226,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ ДСК \"Родина\" задължително пенсионно осигуряване",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -290,7 +302,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "допълнително задължително пенсионно осигуряване в УПФ ДСК \"Родина\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -376,7 +392,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Универсален пенсионен фонд \"ДСК-Родина\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []

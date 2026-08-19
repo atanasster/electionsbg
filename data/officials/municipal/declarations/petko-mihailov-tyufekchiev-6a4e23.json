@@ -103,7 +103,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УникредитБулбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -123,7 +127,11 @@
         "legalBasis": null,
         "fundsOrigin": "обезщитения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Общинска Банка",
+        "heldRawAbroad": null
       }
     ],
     "events": []

@@ -46,7 +46,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и обезщетение",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -104,7 +108,11 @@
         "legalBasis": null,
         "fundsOrigin": "работна заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "15000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -143,7 +151,11 @@
         "legalBasis": null,
         "fundsOrigin": "работна заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "11000",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []

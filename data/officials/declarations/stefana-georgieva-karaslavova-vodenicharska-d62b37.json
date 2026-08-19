@@ -433,7 +433,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -453,7 +457,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -473,7 +481,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "0"
       },
       {
         "category": "investment",
@@ -493,7 +505,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК-Родина",
+        "heldRawAbroad": "0"
       },
       {
         "category": "investment",
@@ -513,7 +529,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ-Сила",
+        "heldRawAbroad": "0"
       },
       {
         "category": "investment",
@@ -533,7 +553,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []
@@ -659,7 +683,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -679,7 +707,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -699,7 +731,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -719,7 +755,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК-Родина",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -739,7 +779,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ-Сила",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -759,7 +803,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [
@@ -904,7 +952,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на МП",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -924,7 +976,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -944,7 +1000,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -964,7 +1024,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ-Сила",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -984,7 +1048,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК-Родина",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [
@@ -1103,7 +1171,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1123,7 +1195,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Булбанк",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1189,7 +1265,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уни кредит Булбанк",
+        "heldRawAbroad": "няма"
       },
       {
         "category": "investment",
@@ -1209,7 +1289,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ Сила",
+        "heldRawAbroad": "няма"
       },
       {
         "category": "investment",
@@ -1229,7 +1313,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": "няма"
       }
     ],
     "events": []
@@ -1588,7 +1676,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уни кредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1608,7 +1700,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ Сила",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -1628,7 +1724,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК Родина",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1714,7 +1814,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ СИЛА",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -1933,7 +2037,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -1999,7 +2107,11 @@
         "legalBasis": null,
         "fundsOrigin": "Удръжки от възнаграждения",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пепсионноосигурително акционерно дружество ЦКБ Сила",
+        "heldRawAbroad": null
       }
     ],
     "events": []

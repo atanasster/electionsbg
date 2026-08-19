@@ -80,7 +80,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -100,7 +104,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -160,7 +168,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "пенсионен фонд \"Доверие\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -180,7 +192,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "застраховка \"Живот\" - ЗД Булстрад",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [
@@ -287,7 +303,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -307,7 +327,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -367,7 +391,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "пенсионен фонд \"Доверие\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -387,7 +415,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "застраховка Живот - ЗД Булстрад",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

@@ -433,7 +433,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "31700",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -499,7 +503,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "31700",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

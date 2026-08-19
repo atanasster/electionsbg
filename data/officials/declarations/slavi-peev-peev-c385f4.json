@@ -60,7 +60,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -310,7 +314,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц България",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -469,7 +477,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианс България- пенсионно осигорително дружество",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [
@@ -548,7 +560,11 @@
         "legalBasis": null,
         "fundsOrigin": "от кредит от ПИБ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "debt",
@@ -628,7 +644,11 @@
         "legalBasis": null,
         "fundsOrigin": "от заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианс Б-я пенсионно осиг. Дружество",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

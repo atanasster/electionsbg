@@ -60,7 +60,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да-Юробанк",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -126,7 +130,11 @@
         "legalBasis": null,
         "fundsOrigin": "от продажба на недвижим имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р.България",
+        "heldRawAbroad": null
       }
     ],
     "events": []

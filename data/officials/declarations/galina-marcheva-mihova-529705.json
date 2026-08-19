@@ -273,7 +273,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "422256",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -313,7 +317,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ Пенсионно осигуряване",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -417,7 +425,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, рента",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "825860",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -457,7 +469,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ Пенсионно осигуряване",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -555,7 +571,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, рента",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "794980",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -633,7 +653,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, рента",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "773349",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -673,7 +697,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, рента",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Юробанк България",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -693,7 +721,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ България",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -810,7 +842,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, рента",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "720000",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -850,7 +886,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц България",
+        "heldRawAbroad": null
       }
     ],
     "events": []

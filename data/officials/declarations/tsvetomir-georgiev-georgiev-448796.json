@@ -77,7 +77,11 @@
         "legalBasis": null,
         "fundsOrigin": "депозит, заплата, налични средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банкова гаранция",
+        "heldRawAbroad": null
       }
     ],
     "events": []

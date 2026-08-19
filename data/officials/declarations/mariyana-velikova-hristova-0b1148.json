@@ -40,7 +40,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата; заем от ВСКаса на учителите",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БЪЛГАРИЯ",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -164,7 +168,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, заем, хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

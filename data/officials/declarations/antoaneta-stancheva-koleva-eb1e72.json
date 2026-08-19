@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "покупко-продажба",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "РБългария",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -106,7 +110,11 @@
         "legalBasis": null,
         "fundsOrigin": "покупко-продажба",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "РБългария",
+        "heldRawAbroad": null
       }
     ],
     "events": []

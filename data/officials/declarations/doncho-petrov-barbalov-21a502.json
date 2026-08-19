@@ -274,7 +274,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -294,7 +298,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -314,7 +322,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Х"
       },
       {
         "category": "receivable",
@@ -745,7 +757,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "X",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -765,7 +781,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба имот и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "X",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -785,7 +805,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "X",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -805,7 +829,11 @@
         "legalBasis": null,
         "fundsOrigin": "депозитарни сметки на чужди юр.лица",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "X",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -825,7 +853,11 @@
         "legalBasis": null,
         "fundsOrigin": "депозитарни сметки на чужди юр.лица",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -845,7 +877,11 @@
         "legalBasis": null,
         "fundsOrigin": "Приходи наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Х"
       },
       {
         "category": "receivable",

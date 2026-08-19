@@ -146,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "63000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -278,7 +282,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "26000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -410,7 +418,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "26000",
+        "heldRawAbroad": null
       }
     ],
     "events": []

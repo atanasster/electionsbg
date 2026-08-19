@@ -66,7 +66,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "x",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -86,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "х",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -235,7 +243,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -255,7 +267,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, дивидент, пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -359,7 +375,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": "-"
       },
       {
         "category": "bank",
@@ -379,7 +399,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": "-"
       }
     ],
     "events": []
@@ -437,7 +461,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -457,7 +485,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       }
     ],
     "events": []

@@ -200,7 +200,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - наличност дебитна карта",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -220,7 +224,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - депозит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -240,7 +248,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - наличност дебитна карта",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "debt",
@@ -631,7 +643,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - наличност дебитна карта",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -651,7 +667,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - депозит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -671,7 +691,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - наличност дебитна карта",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "debt",

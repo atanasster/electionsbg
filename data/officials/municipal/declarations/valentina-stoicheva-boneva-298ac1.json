@@ -105,7 +105,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -125,7 +129,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -145,7 +153,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЗЕАД \"Булстрад живот ВИГ\" ЕАД",
+        "heldRawAbroad": null
       }
     ],
     "events": []

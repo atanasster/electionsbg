@@ -113,7 +113,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -133,7 +137,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "В чужбина"
       },
       {
         "category": "debt",

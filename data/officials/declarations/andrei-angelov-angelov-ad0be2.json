@@ -245,7 +245,11 @@
         "legalBasis": null,
         "fundsOrigin": "Продажба на имот и дарение",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р. България",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -351,7 +355,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -502,7 +510,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р. България",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -601,7 +613,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -805,7 +821,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

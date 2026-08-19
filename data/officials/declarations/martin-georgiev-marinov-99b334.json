@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА ИНВЕСТБАНК",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -106,7 +110,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА ТЕКСИМ БАНК",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -126,7 +134,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА ЮРОБАНК",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "debt",

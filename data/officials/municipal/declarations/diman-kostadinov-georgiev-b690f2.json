@@ -163,7 +163,11 @@
         "legalBasis": null,
         "fundsOrigin": "преводи от пощенска банка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА АЛИАНЦ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -183,7 +187,11 @@
         "legalBasis": null,
         "fundsOrigin": "междинна сметка за обслужване на кре.карта",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БПБ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -203,7 +211,11 @@
         "legalBasis": null,
         "fundsOrigin": "кредитна карта",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БПБ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -223,7 +235,11 @@
         "legalBasis": null,
         "fundsOrigin": "междинна сметка за обслужване на кредит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БПБ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -243,7 +259,11 @@
         "legalBasis": null,
         "fundsOrigin": "междинна сметка за обслужване на кредит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БПБ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -263,7 +283,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати , спестявания, дарения от родител, прод. На движ.и недв.имущество  и остатък от минали години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БПБ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -283,7 +307,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати , спестявания, дарения от родител, прод. На движ.и недв.имущество  и остатък от минали години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -363,7 +391,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОКУПКА НА ИНВЕСТИЦИОННО ЗЛАТО",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -383,7 +415,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОКУПКА НА ИНВЕСТИЦИОННО ЗЛАТО",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -403,7 +439,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОКУПКА НА ИНВЕСТИЦИОННО ЗЛАТО",
+        "heldRawAbroad": null
       },
       {
         "category": "security",

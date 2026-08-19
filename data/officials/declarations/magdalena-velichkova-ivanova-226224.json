@@ -120,7 +120,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЗАСТР. ПОЛИЦА",
+        "heldRawAbroad": "0"
       },
       {
         "category": "investment",
@@ -140,7 +144,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЗАСТР. ПОЛИЦА",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []

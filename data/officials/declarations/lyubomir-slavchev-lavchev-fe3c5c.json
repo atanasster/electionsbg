@@ -60,7 +60,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата/командировъчни средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -100,7 +104,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата / доп. пенсионен фонд",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -172,7 +180,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата/възнаграждение за командировка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       }
     ],
     "events": []

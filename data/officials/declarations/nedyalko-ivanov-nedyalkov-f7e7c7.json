@@ -100,7 +100,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, кредит, продажба на МПС",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -271,7 +275,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, дарение",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Експресбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -383,7 +391,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "SG Експресбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

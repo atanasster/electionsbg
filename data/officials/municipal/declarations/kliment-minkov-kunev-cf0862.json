@@ -103,7 +103,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА, ЗАЕМИ, РАЗПОРЕЖДАНЕ С ИМУЩЕСТВО",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "debt",
@@ -163,7 +167,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "investment",
@@ -183,7 +191,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА, ОБЕЗЩЕТЕНИЯ ЗА ОТГЛЕЖДАНЕ НА ДЕТЕ",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": [

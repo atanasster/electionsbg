@@ -52,7 +52,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ОБЕЗЩЕТЕНИЯ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в странта",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -72,7 +76,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ДОХОДИ ИЗВЪНТРУДОВИ ПРАВООТНОШЕНИЯ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -210,7 +218,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -230,7 +242,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -388,7 +404,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -408,7 +428,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

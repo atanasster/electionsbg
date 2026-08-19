@@ -150,7 +150,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -170,7 +174,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Турция",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Република Турция"
       },
       {
         "category": "bank",
@@ -190,7 +198,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       }
     ],
     "events": []

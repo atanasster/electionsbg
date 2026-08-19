@@ -91,7 +91,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -111,7 +115,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Прокредитбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -131,7 +139,11 @@
         "legalBasis": null,
         "fundsOrigin": "субсидия, заплата, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -151,7 +163,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",

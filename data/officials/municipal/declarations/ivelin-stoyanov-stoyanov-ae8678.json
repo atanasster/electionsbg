@@ -338,7 +338,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "120000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -358,7 +362,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "2000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -378,7 +386,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "160000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -398,7 +410,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "5600",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -418,7 +434,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "22000",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -438,7 +458,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "37240",
+        "heldRawAbroad": null
       }
     ],
     "events": []

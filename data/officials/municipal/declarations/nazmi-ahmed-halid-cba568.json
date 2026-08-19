@@ -51,7 +51,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА И ПЕНСИЯ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": []

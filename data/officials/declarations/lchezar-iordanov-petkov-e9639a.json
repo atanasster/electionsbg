@@ -158,7 +158,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - Варшава",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -178,7 +182,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - Вашингтон",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -198,7 +206,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц",
+        "heldRawAbroad": null
       }
     ],
     "events": [

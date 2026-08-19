@@ -116,7 +116,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба автомобил",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "5000",
+        "heldRawAbroad": "0"
       },
       {
         "category": "debt",
@@ -182,7 +186,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "36000",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []

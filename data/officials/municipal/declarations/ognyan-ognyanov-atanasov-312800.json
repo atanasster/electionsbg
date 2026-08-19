@@ -145,7 +145,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, аренда и спестявания от графа \"налични парични средства\" и графа \"банкови сметки\" от предходната декларация.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Картова разплащателна сметка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -165,7 +169,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Картова разплащателна сметка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -185,7 +193,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -205,7 +217,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, аренда и спестявания от графа \"налични парични средства\" и графа \"банкови сметки\" от предходната декларация.",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Застраховка живот - сбора от платените през годините първа, втора, трета, четвърта, пета, шеста и заплатената през 2025г. седма годишни вноски."
       },
       {
         "category": "investment",
@@ -225,7 +241,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, дивиденти, аренда - закупени през 2021г",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "бинанс"
       }
     ],
     "events": [

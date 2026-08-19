@@ -140,7 +140,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -160,7 +164,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнаграждения през 2025 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -180,7 +188,11 @@
         "legalBasis": null,
         "fundsOrigin": "собств. ср/ва и лихви",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - ср. депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -200,7 +212,11 @@
         "legalBasis": null,
         "fundsOrigin": "превод на собств. ср/ва",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ Ад - дет. и юн. к/ти",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -220,7 +236,11 @@
         "legalBasis": null,
         "fundsOrigin": "превод от собств. ср/ва",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЮРОБАНК АД - разпл.с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -240,7 +260,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнаграждения през 2025 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЮРОБАНК АД - разпл.с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -260,7 +284,11 @@
         "legalBasis": null,
         "fundsOrigin": "лични спестявания от мин. години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЮРОБАНК - срочен д/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -280,7 +308,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от мин. години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЮРОБАНК - срочен д/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -300,7 +332,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -320,7 +356,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по деп. с/ка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ - св. Депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -340,7 +380,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от мин. години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -360,7 +404,11 @@
         "legalBasis": null,
         "fundsOrigin": "обложени доходи и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -560,7 +608,11 @@
         "legalBasis": null,
         "fundsOrigin": "Паричен превод от собств. с/ка",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК Стабилност - Евро акции",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -886,7 +938,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -906,7 +962,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнаграждения през 2024 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -926,7 +986,11 @@
         "legalBasis": null,
         "fundsOrigin": "собств. ср-ва и лихва",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - ср. депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -946,7 +1010,11 @@
         "legalBasis": null,
         "fundsOrigin": "превод от лични средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - дет. и юн. К",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -966,7 +1034,11 @@
         "legalBasis": null,
         "fundsOrigin": "превод от собств. банк. с/ки",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Юробанк - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -986,7 +1058,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнаграждения през 2024 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Юробанк - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1006,7 +1082,11 @@
         "legalBasis": null,
         "fundsOrigin": "лични спеставания от мин. Години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Юробанк - ср. депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1026,7 +1106,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1046,7 +1130,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по деп. Сметка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - св. депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1066,7 +1154,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от мин. Години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1086,7 +1178,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1106,7 +1202,11 @@
         "legalBasis": null,
         "fundsOrigin": "обложени доходи и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -1286,7 +1386,11 @@
         "legalBasis": null,
         "fundsOrigin": "Пар. превод от собствена с/ка в EUR",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК Стабилност - Евро акции",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -1552,7 +1656,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -1572,7 +1680,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -1592,7 +1704,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -1612,7 +1728,11 @@
         "legalBasis": null,
         "fundsOrigin": "пар. превод от собствени средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1632,7 +1752,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнаграждени през 2023 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1652,7 +1776,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнаграждения от предх. год.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - срочен деп/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1672,7 +1800,11 @@
         "legalBasis": null,
         "fundsOrigin": "превод от лични средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - детски и юн. К",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1692,7 +1824,11 @@
         "legalBasis": null,
         "fundsOrigin": "превод от собствени банк. с/ки",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1712,7 +1848,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнагражздения през 2023 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1732,7 +1872,11 @@
         "legalBasis": null,
         "fundsOrigin": "лични спестявания в мин. години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощнеска банка - ср. деп/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1752,7 +1896,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по деп. Сметка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - свободен деп/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1772,7 +1920,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и дарения за деца",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1792,7 +1944,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и дарения за деца",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1812,7 +1968,11 @@
         "legalBasis": null,
         "fundsOrigin": "обложени доходи и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -1972,7 +2132,11 @@
         "legalBasis": null,
         "fundsOrigin": "Пар. превод от собствена с/ка в EUR",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК Стабилност - Евро акции",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -2226,7 +2390,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -2246,7 +2414,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -2266,7 +2438,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -2286,7 +2462,11 @@
         "legalBasis": null,
         "fundsOrigin": "пар. превод от собствени средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2306,7 +2486,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнаграждения през 2022 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2326,7 +2510,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени и обложени доходи от мин. год.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - гар. Депизит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2346,7 +2534,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнаграждения през 2022 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - сроч. Депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2366,7 +2558,11 @@
         "legalBasis": null,
         "fundsOrigin": "собствени пар. средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка -разпл.с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2386,7 +2582,11 @@
         "legalBasis": null,
         "fundsOrigin": "превид от собствена банк. с/ка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка -разпл.с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2406,7 +2606,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по деп. с/ка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - св. депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2426,7 +2630,11 @@
         "legalBasis": null,
         "fundsOrigin": "обложени доходи и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2446,7 +2654,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от мин. Години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -2466,7 +2678,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и получени дарения - деца",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -2666,7 +2882,11 @@
         "legalBasis": null,
         "fundsOrigin": "Пар. превод от собств. с/ка в EUR",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК Стабилност Евро акции",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -2948,7 +3168,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -2968,7 +3192,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -2988,7 +3216,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и продажба на ценни книжа",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -3008,7 +3240,11 @@
         "legalBasis": null,
         "fundsOrigin": "пар. превод от собств. банк. с/ка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3028,7 +3264,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени възнаграждения през 2021 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3048,7 +3288,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени и обложени доходи в мин. год.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - гарнц. деп/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3068,7 +3312,11 @@
         "legalBasis": null,
         "fundsOrigin": "получени и обложени доходи в мин. год.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - ср. деп/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3088,7 +3336,11 @@
         "legalBasis": null,
         "fundsOrigin": "пар. преводи от собств. банк. с/ки",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3108,7 +3360,11 @@
         "legalBasis": null,
         "fundsOrigin": "превод от собств. банк. с/ка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3128,7 +3384,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по деп. с/ка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД - ср. деп/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3148,7 +3408,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и обложени доходи",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3168,7 +3432,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от мин. години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3188,7 +3456,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и обложени доходи",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -3368,7 +3640,11 @@
         "legalBasis": null,
         "fundsOrigin": "Пар. превод от собствена с/ка в EUR",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК Стабилност Евро акции",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -3676,7 +3952,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -3696,7 +3976,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -3716,7 +4000,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "VONTOBEL Швейцария"
       },
       {
         "category": "bank",
@@ -3736,7 +4024,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания от мин. години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД срочен деп/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3756,7 +4048,11 @@
         "legalBasis": null,
         "fundsOrigin": "Получени и обложени доходи",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД разл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3776,7 +4072,11 @@
         "legalBasis": null,
         "fundsOrigin": "Получени и обложени доходи",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД гаранц. деп/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3796,7 +4096,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата/обезщетения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК АД - разпл. с/ка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3816,7 +4120,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по сметка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3836,7 +4144,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата/обезщетения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3856,7 +4168,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихва по депоз. с/ка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД срочен деп/т",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3876,7 +4192,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания от мин. години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -4512,7 +4832,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Vontobel - Швейцария"
       },
       {
         "category": "bank",
@@ -4532,7 +4856,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Vontobel - Швейцария"
       },
       {
         "category": "bank",
@@ -4552,7 +4880,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Vontobel - Швейцария"
       },
       {
         "category": "bank",
@@ -4572,7 +4904,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно Спестявания от мин. год.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Първа инвестиционна банка АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -4592,7 +4928,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно Получени и обложени доходи през годината",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Първа инвестиционна банка АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -4612,7 +4952,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно Спестявания от мин. год.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уни Кредит Булбанк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -4632,7 +4976,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно Спестявания от мин. год.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -4652,7 +5000,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -4672,7 +5024,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по сметка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уни Кредит Булбанк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -4692,7 +5048,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихва по депозитна сметка",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Първа инвестиционна банка АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -5258,7 +5618,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -5278,7 +5642,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -5298,7 +5666,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -5318,7 +5690,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

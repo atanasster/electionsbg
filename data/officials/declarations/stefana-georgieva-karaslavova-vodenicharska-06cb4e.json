@@ -80,7 +80,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ СИЛА",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -299,7 +303,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -365,7 +373,11 @@
         "legalBasis": null,
         "fundsOrigin": "Удръжки от възнаграждения",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пепсионноосигурително акционерно дружество ЦКБ Сила",
+        "heldRawAbroad": null
       }
     ],
     "events": []

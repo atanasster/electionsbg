@@ -159,7 +159,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата/спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "30000",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -179,7 +183,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата/спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "110000",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []

@@ -58,7 +58,11 @@
         "legalBasis": null,
         "fundsOrigin": "покурко-продажба, пенсии, заплати, обезщетения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -78,7 +82,11 @@
         "legalBasis": null,
         "fundsOrigin": "покурко-продажба, пенсии, заплати, обезщетения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [
@@ -143,7 +151,11 @@
         "legalBasis": null,
         "fundsOrigin": "покурко-продажба",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [

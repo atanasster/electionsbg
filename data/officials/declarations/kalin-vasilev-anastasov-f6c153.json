@@ -133,7 +133,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на жилища",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -781,7 +785,11 @@
         "legalBasis": null,
         "fundsOrigin": "кредит, спестявания, продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

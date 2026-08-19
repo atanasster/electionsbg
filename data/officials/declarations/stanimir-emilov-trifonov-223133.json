@@ -66,7 +66,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "KBC Банк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -86,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "съдийски такси - чл. 35 ЗДДФЛ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска Банка",
+        "heldRawAbroad": null
       }
     ],
     "events": []

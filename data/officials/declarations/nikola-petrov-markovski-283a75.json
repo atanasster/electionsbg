@@ -111,7 +111,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания от предходен период, заплата и заем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК АД/Юробанк България АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -256,7 +260,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания от предходен период и работна заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -348,7 +356,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания от предходен период, работна заплата, прехвърляне на средства от родител от изплатена застраховка имущество по изплащане на щета от пожар в семейно жилище",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -465,7 +477,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестени средства от предходен период",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -551,7 +567,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестени средства от предходен период",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       }
     ],
     "events": []

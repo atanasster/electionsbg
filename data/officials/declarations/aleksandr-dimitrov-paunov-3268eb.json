@@ -98,7 +98,11 @@
         "legalBasis": null,
         "fundsOrigin": "дебитна карта - пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -118,7 +122,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на земи и заплати от предходни години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -138,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": "прехвърлени средства от депозити",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДФ при Юробанк АД",
+        "heldRawAbroad": null
       }
     ],
     "events": []

@@ -58,7 +58,11 @@
         "legalBasis": null,
         "fundsOrigin": "зоплата, пенсия, ренти, наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "51000",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -78,7 +82,11 @@
         "legalBasis": null,
         "fundsOrigin": "Втори пенсионен фонд",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -208,7 +216,11 @@
         "legalBasis": null,
         "fundsOrigin": "зоплата, пенсия, ренти, наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "51000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -330,7 +342,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия рента",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "25000",
+        "heldRawAbroad": null
       }
     ],
     "events": [

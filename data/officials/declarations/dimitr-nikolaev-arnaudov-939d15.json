@@ -528,7 +528,11 @@
         "legalBasis": null,
         "fundsOrigin": "Алианс – ДЗПО",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -548,7 +552,11 @@
         "legalBasis": null,
         "fundsOrigin": "ДСК Родина – ДЗПО",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

@@ -264,7 +264,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата +хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "РБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -284,7 +288,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата + пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "РБ",
+        "heldRawAbroad": null
       }
     ],
     "events": []

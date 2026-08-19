@@ -45,7 +45,11 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране, спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Общинска банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -65,7 +69,11 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -85,7 +93,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

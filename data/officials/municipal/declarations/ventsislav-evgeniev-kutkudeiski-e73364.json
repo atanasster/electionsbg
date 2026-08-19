@@ -65,7 +65,11 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ ОТ ЗАПЛАТИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -85,7 +89,11 @@
         "legalBasis": null,
         "fundsOrigin": "ДЕПОЗИТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -105,7 +113,11 @@
         "legalBasis": null,
         "fundsOrigin": "ДОГОВОР ЗА ФИНАНСОВИ ОПЕРАЦИИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

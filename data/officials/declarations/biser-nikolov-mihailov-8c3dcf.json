@@ -416,7 +416,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -436,7 +440,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и оборотни сметки",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -456,7 +464,11 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \"Съгласие\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -476,7 +488,11 @@
         "legalBasis": null,
         "fundsOrigin": "самоосигуряване",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \"Съгласие\"",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

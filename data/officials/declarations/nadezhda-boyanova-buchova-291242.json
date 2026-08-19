@@ -66,7 +66,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на наследствен апартамент и лихви от срочен депозит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -86,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване и лихви от срочен депозит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -106,7 +114,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -126,7 +138,11 @@
         "legalBasis": null,
         "fundsOrigin": "лични средства и платена от купувача част от продажната цена на апартамент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -231,7 +247,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на наследствен апартамент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -251,7 +271,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -271,7 +295,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -311,7 +339,11 @@
         "legalBasis": null,
         "fundsOrigin": "допълнително задължително пенсионно осигуряване",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "NN Универсален пенсионен фонд",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -581,7 +613,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -601,7 +637,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -621,7 +661,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -661,7 +705,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "NN Универсален пенсионен фонд",
+        "heldRawAbroad": null
       },
       {
         "category": "security",

@@ -72,7 +72,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -92,7 +96,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -112,7 +120,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       }
     ],
     "events": []
@@ -170,7 +182,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, командировъчни и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -190,7 +206,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, командировъчни и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -210,7 +230,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, командировъчни и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -342,7 +366,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, командировъчни, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -362,7 +390,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, командировъчни, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -382,7 +414,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, командировъчни, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -402,7 +438,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Северна Македония",
+        "heldRawInCountry": "Унибанка",
+        "heldRawAbroad": "РСМакедония"
       }
     ],
     "events": []

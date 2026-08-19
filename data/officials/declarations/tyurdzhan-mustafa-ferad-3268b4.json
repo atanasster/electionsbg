@@ -40,7 +40,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -226,7 +230,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -392,7 +400,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -432,7 +444,11 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -452,7 +468,11 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -538,7 +558,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -598,7 +622,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -618,7 +646,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -664,7 +696,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -704,7 +740,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -724,7 +764,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -770,7 +814,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -810,7 +858,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -830,7 +882,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -876,7 +932,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -922,7 +982,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

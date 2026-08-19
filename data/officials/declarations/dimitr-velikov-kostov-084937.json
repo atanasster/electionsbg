@@ -193,7 +193,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -417,7 +421,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, обезщетения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": "Не"
       }
     ],
     "events": []

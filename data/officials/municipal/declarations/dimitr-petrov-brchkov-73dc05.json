@@ -125,7 +125,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "\"Първа Инвестиционна Банка\" АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -145,7 +149,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Първа Инвестиционна Банко",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

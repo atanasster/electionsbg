@@ -408,7 +408,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и дивидент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -468,7 +472,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и дивидент",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "БИНАНСЕ"
       }
     ],
     "events": []

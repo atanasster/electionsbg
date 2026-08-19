@@ -133,7 +133,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Обединена българска банка",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -153,7 +157,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Обединена българска банка",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -337,7 +345,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да-ОББ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -357,7 +369,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни пари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Нигерия",
+        "heldRawInCountry": "не",
+        "heldRawAbroad": "UBA Nigeria"
       },
       {
         "category": "bank",
@@ -377,7 +393,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни пари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да-ОББ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -561,7 +581,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -581,7 +605,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Нигерия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "United Bank of Africa - Nigeria"
       },
       {
         "category": "debt",
@@ -739,7 +767,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да - ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -759,7 +791,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да - United Bank of Africa"
       },
       {
         "category": "debt",
@@ -911,7 +947,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

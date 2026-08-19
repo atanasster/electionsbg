@@ -213,7 +213,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "104000",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -233,7 +237,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "25000"
       },
       {
         "category": "bank",
@@ -253,7 +261,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "89100",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -525,7 +537,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на наследствен имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "1276",
+        "heldRawAbroad": "25000"
       },
       {
         "category": "bank",
@@ -545,7 +561,11 @@
         "legalBasis": null,
         "fundsOrigin": "плащане по съдебни решения при отчуждаване на наследствен имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "172700",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -565,7 +585,11 @@
         "legalBasis": null,
         "fundsOrigin": "дивидент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "90100",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -830,7 +854,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "1276",
+        "heldRawAbroad": "25294"
       },
       {
         "category": "bank",
@@ -850,7 +878,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "8000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -870,7 +902,11 @@
         "legalBasis": null,
         "fundsOrigin": "дивидент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "83681",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

@@ -98,7 +98,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц Банк България",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -326,7 +330,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц Банк",
+        "heldRawAbroad": null
       }
     ],
     "events": []

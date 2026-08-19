@@ -80,7 +80,11 @@
         "legalBasis": null,
         "fundsOrigin": "Възстановен задатък по предварителен договор",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -100,7 +104,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -120,7 +128,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и продажба на апартамент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

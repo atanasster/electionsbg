@@ -126,7 +126,11 @@
         "legalBasis": null,
         "fundsOrigin": "Командировъчни дневни пари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -292,7 +296,11 @@
         "legalBasis": null,
         "fundsOrigin": "Командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Белгия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Белгия"
       },
       {
         "category": "debt",

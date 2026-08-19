@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително декларирани и в предходни години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -106,7 +110,11 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително декларирани и в предходни години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "receivable",
@@ -212,7 +220,11 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително декларирани и в предходни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -318,7 +330,11 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

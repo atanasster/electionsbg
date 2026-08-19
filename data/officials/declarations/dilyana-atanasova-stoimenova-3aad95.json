@@ -120,7 +120,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати,продажба на автомобил,от продажба на недвижим имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка ДСК АД разплащателна и вируална сметка",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -140,7 +144,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка ДСК АД виртуална карта",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -160,7 +168,11 @@
         "legalBasis": null,
         "fundsOrigin": "кредитна карта",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка ДСК АД  кредитна карта",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -180,7 +192,11 @@
         "legalBasis": null,
         "fundsOrigin": "за месечна издръжка за дете",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка ЦКБ АД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -304,7 +320,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -324,7 +344,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [
@@ -436,7 +460,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -456,7 +484,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [

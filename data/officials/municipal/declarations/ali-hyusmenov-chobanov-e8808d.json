@@ -305,7 +305,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "31598",
+        "heldRawAbroad": "0"
       },
       {
         "category": "investment",
@@ -325,7 +329,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОК \"Доверие\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -345,7 +353,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОК \"ЦКБ Сила\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []

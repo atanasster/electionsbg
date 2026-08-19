@@ -212,7 +212,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и по таблица 12 ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "24300",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -232,7 +236,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "46158"
       },
       {
         "category": "bank",
@@ -252,7 +260,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "6200",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -1382,7 +1394,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и по таблица 12 ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "125110",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1402,7 +1418,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "72196"
       },
       {
         "category": "bank",
@@ -1422,7 +1442,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "9200",
+        "heldRawAbroad": null
       },
       {
         "category": "security",

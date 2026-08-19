@@ -78,7 +78,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, гр. договори, хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "106 103",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -98,7 +102,11 @@
         "legalBasis": null,
         "fundsOrigin": "инвалидна пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "16 420",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -162,7 +170,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "49243",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -182,7 +194,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "9197",
+        "heldRawAbroad": null
       }
     ],
     "events": [

@@ -337,7 +337,11 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране МВР",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -377,7 +381,11 @@
         "legalBasis": null,
         "fundsOrigin": "средствата са част от получено обезщетение при напускане на МВР",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": []
@@ -536,7 +544,11 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране МВР",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",

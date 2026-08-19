@@ -180,7 +180,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата , кредит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -417,7 +421,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,жсв,продажба",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -623,7 +631,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,жсв,продажба",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -882,7 +894,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,жилищно спестовен влог",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

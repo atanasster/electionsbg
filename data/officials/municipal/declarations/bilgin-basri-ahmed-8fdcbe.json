@@ -645,7 +645,11 @@
         "legalBasis": null,
         "fundsOrigin": "дейност на ЕТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "102000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -665,7 +669,11 @@
         "legalBasis": null,
         "fundsOrigin": "дейност на ЕТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "3500",
+        "heldRawAbroad": null
       }
     ],
     "events": []

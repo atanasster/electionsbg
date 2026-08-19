@@ -90,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "субсидии от ЗП",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -110,7 +114,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка",
+        "heldRawAbroad": null
       }
     ],
     "events": []

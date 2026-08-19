@@ -1056,6 +1056,39 @@ export type MpAsset = {
   isSpouse: boolean;
   legalBasis: string | null;
   fundsOrigin: string | null;
+  /** Whether the declarant said this money sits in Bulgaria or abroad — from the
+   * „В страната" / „В чужбина" cell pair.
+   *
+   * ⚠️ PRESENT ONLY ON TABLES 5 („Банкови влогове") AND 8 („Вложения в …
+   * фондове"). Those are the only two tables the register gives the pair to;
+   * table 4 („Налични парични средства") has no such columns at all, and its
+   * Cell Num=7 is „Произход на средствата". So `undefined` here means "this kind
+   * of row has no such question", which is NOT the same as `'unknown'`.
+   *
+   * ⚠️ TRI-STATE, NEVER A BOOLEAN. The two cells are free text that the register
+   * does not validate, and they disagree often enough that a boolean would have
+   * to invent an answer: 346 rows leave both blank, ~130 tick both, and ~93 SPLIT
+   * one amount across the two columns. `'unknown'` is those rows, and nothing may
+   * read it as `'domestic'`.
+   *
+   * The rule is `classifyHeldPlace` in scripts/declarations/held_abroad.ts and is
+   * applied at parse time, so no consumer re-derives it. */
+  heldScope?: "domestic" | "abroad" | "unknown" | null;
+  /** Canonical Bulgarian country name when a cell named one.
+   *
+   * ⚠️ NULL DOES NOT MEAN "NOT ABROAD" — it is null on every domestic row, and on
+   * most abroad ones too. „да" in the „В чужбина" column (1,576 rows) says abroad
+   * and names nowhere; only 505 rows in the whole corpus name a country. Any
+   * "where is the money" surface must count `heldScope === 'abroad'` and report
+   * the named-country subset as the subset it is. */
+  heldCountry?: string | null;
+  /** The „В страната" cell, verbatim. Kept because the rule reads free text (5,691
+   * distinct spellings) so a later refinement must be able to re-decide, and
+   * because the institution declarants write here („ОББ", „Revolut", „Amundi
+   * Funds") is nowhere else in the corpus. */
+  heldRawInCountry?: string | null;
+  /** The „В чужбина" cell, verbatim. See `heldRawInCountry`. */
+  heldRawAbroad?: string | null;
 };
 
 /** Rollup of an MP's declared wealth at a single point in time (their

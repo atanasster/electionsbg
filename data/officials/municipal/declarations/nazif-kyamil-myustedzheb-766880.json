@@ -85,7 +85,11 @@
         "legalBasis": null,
         "fundsOrigin": "СУБСИДИИ И РЕФЕРЕНТНИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -105,7 +109,11 @@
         "legalBasis": null,
         "fundsOrigin": "ПРОДАДЕНА ПРОДУКЦИЯ И РЕФЕРЕНТНИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": [

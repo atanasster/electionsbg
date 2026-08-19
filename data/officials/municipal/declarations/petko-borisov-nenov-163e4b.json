@@ -79,7 +79,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК РОДИНА",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -99,7 +103,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ СИЛА",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -119,7 +127,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ пенс. Осигуряване",
+        "heldRawAbroad": null
       }
     ],
     "events": []

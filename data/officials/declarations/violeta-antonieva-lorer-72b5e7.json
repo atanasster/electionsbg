@@ -156,7 +156,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Белгия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Белгия"
       },
       {
         "category": "bank",
@@ -176,7 +180,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -196,7 +204,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -216,7 +228,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Лихтенщайн",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Лихтенщайн"
       },
       {
         "category": "debt",
@@ -276,7 +292,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -296,7 +316,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

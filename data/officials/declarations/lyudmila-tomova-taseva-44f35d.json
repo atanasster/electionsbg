@@ -33,7 +33,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, лихви",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -112,7 +116,11 @@
         "legalBasis": null,
         "fundsOrigin": "нови вноски",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в\nв страната",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -251,7 +259,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Токуда банк",
+        "heldRawAbroad": null
       },
       {
         "category": "security",

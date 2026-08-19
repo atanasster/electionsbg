@@ -194,7 +194,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и други по Табл.12",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -214,7 +218,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, обезщетения и други по Табл.12",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "debt",
@@ -294,7 +302,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "investment",
@@ -314,7 +326,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "investment",
@@ -334,7 +350,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "investment",
@@ -354,7 +374,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": "НЕ",
+        "heldRawAbroad": "ДА"
       },
       {
         "category": "security",
@@ -685,7 +709,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания и наследявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -705,7 +733,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания и наследявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -745,7 +777,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, наследяване, спестявания, дивиденти",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -765,7 +801,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, обезщетения",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -785,7 +825,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, наследяване, спестявания, дивиденти",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": "не",
+        "heldRawAbroad": "да"
       },
       {
         "category": "security",
@@ -990,7 +1034,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -1010,7 +1058,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и обезщетения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -1030,7 +1082,11 @@
         "legalBasis": null,
         "fundsOrigin": "запллата, дивиденти, наследство",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -1050,7 +1106,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и обезщетения",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "security",

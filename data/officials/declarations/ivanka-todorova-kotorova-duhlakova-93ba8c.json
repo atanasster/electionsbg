@@ -120,7 +120,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни средства при задграничен мандат",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -140,7 +144,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати и бонуси",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -160,7 +168,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати във ВСК",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "receivable",
@@ -312,7 +324,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": "не",
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -332,7 +348,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и командировъчни средства с натрупване от преднип години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -352,7 +372,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата бонуси",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -372,7 +396,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни заплата и от педховни години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [

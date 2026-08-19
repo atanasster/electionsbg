@@ -46,7 +46,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -118,7 +122,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка -ЦКБ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

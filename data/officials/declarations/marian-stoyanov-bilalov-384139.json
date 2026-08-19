@@ -300,7 +300,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "влог банка ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -320,7 +324,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта Уникредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -380,7 +388,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ Съгласие",
+        "heldRawAbroad": "не"
       },
       {
         "category": "security",
@@ -719,7 +731,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "влог банка ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -739,7 +755,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "деб карта Уникредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -819,7 +839,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ Съгласие",
+        "heldRawAbroad": "не"
       },
       {
         "category": "security",
@@ -925,7 +949,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "влог банка ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -945,7 +973,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта Уникредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -1005,7 +1037,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ Съгласие",
+        "heldRawAbroad": "не"
       },
       {
         "category": "security",

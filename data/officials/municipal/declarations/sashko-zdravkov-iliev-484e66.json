@@ -71,7 +71,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -91,7 +95,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианс",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -111,7 +119,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -171,7 +183,11 @@
         "legalBasis": null,
         "fundsOrigin": "застраховка живот",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЖСК Съгласие",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

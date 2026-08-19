@@ -79,7 +79,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Италия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Intesa SanPaolo, Италия"
       },
       {
         "category": "bank",
@@ -99,7 +103,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

@@ -152,7 +152,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА, ПРОДАЖБА ПИ, ППФЛ, БФС",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БЪЛГАРИЯ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -172,7 +176,11 @@
         "legalBasis": null,
         "fundsOrigin": "ИНВАЛИДНА ПЕНСИЯ, АСП",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БЪЛГАРИЯ",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -313,7 +321,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ, КОМАНДИРОВКИ, ОБЕЩЕТЕНИЕ ЕЗК, ТАКСА",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -333,7 +345,11 @@
         "legalBasis": null,
         "fundsOrigin": "ХОНОРАРИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": [
@@ -442,7 +458,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -462,7 +482,11 @@
         "legalBasis": null,
         "fundsOrigin": "хонорар",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -580,7 +604,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ, ПРОДАЖБА КЪЩА ДВОР",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": [

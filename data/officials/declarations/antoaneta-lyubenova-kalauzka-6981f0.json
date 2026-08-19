@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, дивиденти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредит Б улбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -106,7 +110,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

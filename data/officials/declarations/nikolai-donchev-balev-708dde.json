@@ -745,7 +745,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "кредитна карта ВИЗА в ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -765,7 +769,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "кредитнакарта ОК в ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -785,7 +793,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "кредитна карта МАСТЪР КАРД КЕШ В Пощенска банка",
+        "heldRawAbroad": null
       }
     ],
     "events": []

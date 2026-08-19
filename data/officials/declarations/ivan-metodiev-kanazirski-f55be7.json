@@ -337,7 +337,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -357,7 +361,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Сметка кредитна карта в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -377,7 +385,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Сметка кредитна карта в \"Пощенска банка\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -397,7 +409,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в БАКБ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -417,7 +433,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в \"Револют\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -437,7 +457,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в \"Easy Pay\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -457,7 +481,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в \"Пощенска банка\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -677,7 +705,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \"Доверие\"",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [
@@ -1009,7 +1041,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -1029,7 +1065,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Сметка кредитна карта в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -1049,7 +1089,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Сметка кредитна карта в \"БНП Париба\"",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -1069,7 +1113,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в БАКБ",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -1089,7 +1137,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в \"Револют\"",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -1109,7 +1161,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в \"Пощенска банка\"",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -1129,7 +1185,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Сметка кредитна карта в \"Пощенска банка\"",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "debt",
@@ -1309,7 +1369,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОК ДСК Родина - Универсален фонд",
+        "heldRawAbroad": "Не"
       }
     ],
     "events": []
@@ -1603,7 +1667,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банков влог в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -1623,7 +1691,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -1643,7 +1715,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Сметка кредитна карта в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -1663,7 +1739,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Сметка кредитна карта в \"БНП Париба\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -1683,7 +1763,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в \"Пощенска банка\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -1703,7 +1787,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Сметка кредитна карта в \"Пощенска банка\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -1903,7 +1991,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОК ДСК Родина - Универсален фонд",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -2196,7 +2288,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банков влог в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -2216,7 +2312,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -2236,7 +2336,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в \"Пощенска банка\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -2615,7 +2719,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банков влог в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -2635,7 +2743,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "bank",
@@ -2655,7 +2767,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в \"Пощенска банка\"",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "debt",
@@ -2892,7 +3008,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банков влог в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -2912,7 +3032,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "разплащателна сметка в Банка \"ДСК\" ЕАД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -2932,7 +3056,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "разплащателна сметка в Пощенска банка",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",

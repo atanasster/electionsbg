@@ -78,7 +78,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, овърдрафт",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -98,7 +102,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -118,7 +126,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -138,7 +150,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -276,7 +292,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, овърдрафт",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -296,7 +316,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -316,7 +340,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -336,7 +364,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -436,7 +468,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЗАД Алианц България Живот",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -456,7 +492,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Граве БългарияЖивотозастраховане ЕАД",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -548,7 +588,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -568,7 +612,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -588,7 +636,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -608,7 +660,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -708,7 +764,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЗАД Алианц България Живот",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -728,7 +788,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Граве България Животозастраховане ЕАД",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -813,7 +877,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -833,7 +901,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -853,7 +925,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -933,7 +1009,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЗАД \"Алианц България живот\" от2012 г.",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -953,7 +1033,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Граве България животозастраховане от 2012 г",
+        "heldRawAbroad": null
       }
     ],
     "events": []

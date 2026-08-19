@@ -1283,7 +1283,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК ЕАД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1303,7 +1307,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване и по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК ЕАД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1323,7 +1331,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц Банк България ЕАД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1343,7 +1355,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Прокредит Банк България ЕАД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

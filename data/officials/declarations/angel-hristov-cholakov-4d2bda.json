@@ -401,7 +401,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "7249",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -421,7 +425,11 @@
         "legalBasis": null,
         "fundsOrigin": "КОМАНДИРОВЪЧНИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "20144"
       },
       {
         "category": "bank",
@@ -441,7 +449,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЛИХВА",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "12",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -461,7 +473,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЛИХВА",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "26"
       }
     ],
     "events": []
@@ -500,7 +516,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "7207",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -520,7 +540,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "22406"
       },
       {
         "category": "bank",
@@ -540,7 +564,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихва по депозит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "28",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -560,7 +588,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихва по депозит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "94"
       }
     ],
     "events": []
@@ -599,7 +631,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "8780",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -619,7 +655,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по депозит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "192",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -639,7 +679,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировки, заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "20515"
       },
       {
         "category": "bank",
@@ -659,7 +703,11 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по депозит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "401"
       }
     ],
     "events": []

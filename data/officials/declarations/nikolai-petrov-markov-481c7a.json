@@ -133,7 +133,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -245,7 +249,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -305,7 +313,11 @@
         "legalBasis": null,
         "fundsOrigin": "осигурителни вноски",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -351,7 +363,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -411,7 +427,11 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПФ ДСК Родина",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -431,7 +451,11 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПФ Доверие",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -581,7 +605,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -641,7 +669,11 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата",
         "tableNum": "8",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПФ \"Доверие\"",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -661,7 +693,11 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата",
         "tableNum": "8",
-        "valueBasis": "legacy"
+        "valueBasis": "legacy",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПФ \"Доверие\"",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

@@ -320,7 +320,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследство, ГД 4959/14-СГС, 5305/15-САС, 60254/16-ВКС, заплати, детски, ГД 10237/16 СГС",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -340,7 +344,11 @@
         "legalBasis": null,
         "fundsOrigin": "ГД 4959/14-СГС, 5305/15-САС, 60254/16-ВКС",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -360,7 +368,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване, вноски от родители",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -380,7 +392,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОК ДСК Родина",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -400,7 +416,11 @@
         "legalBasis": null,
         "fundsOrigin": "ГД 4959/14-СГС, 5305/15-САС, 60254/16-ВКС",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредит Булбанк - фонд",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -420,7 +440,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДПФ Съгласие",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -757,7 +781,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "разплащателни сметки",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -777,7 +805,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "депозитна сметка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -797,7 +829,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "детски ср. Депозит",
+        "heldRawAbroad": null
       }
     ],
     "events": []

@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "По таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Италия",
+        "heldRawInCountry": "чужбина",
+        "heldRawAbroad": "Италия"
       },
       {
         "category": "investment",
@@ -106,7 +110,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -198,7 +206,11 @@
         "legalBasis": null,
         "fundsOrigin": "По таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Италия",
+        "heldRawInCountry": "чужбина",
+        "heldRawAbroad": "Италия"
       }
     ],
     "events": [
@@ -343,7 +355,11 @@
         "legalBasis": null,
         "fundsOrigin": "По таблица 12  - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Италия",
+        "heldRawInCountry": "чужбина",
+        "heldRawAbroad": "Италия"
       }
     ],
     "events": [
@@ -434,7 +450,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       }
     ],
     "events": [

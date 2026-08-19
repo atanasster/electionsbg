@@ -60,7 +60,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, включително декларирани в преходни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -80,7 +84,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, включително декларирани в предишни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -166,7 +174,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, включително декларирани в предходна декларация",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -252,7 +264,11 @@
         "legalBasis": null,
         "fundsOrigin": "зплата, включително декларирани в предходна декларация",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

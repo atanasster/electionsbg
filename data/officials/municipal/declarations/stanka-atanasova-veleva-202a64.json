@@ -39,7 +39,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -59,7 +63,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК АД",
+        "heldRawAbroad": null
       }
     ],
     "events": []

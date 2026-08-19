@@ -39,7 +39,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -59,7 +63,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Първа инвестиционна банка",
+        "heldRawAbroad": null
       }
     ],
     "events": []

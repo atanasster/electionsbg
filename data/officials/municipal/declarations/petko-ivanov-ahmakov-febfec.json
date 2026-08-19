@@ -65,7 +65,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА, ПЕНСИЯ, РЕНТИ, ПРОДАЖБА НА ИМОТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -85,7 +89,11 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ - ЗАПЛАТА",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -105,7 +113,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА, СПЕСТОВЕН ВЛОГ, РЕНТА",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": []

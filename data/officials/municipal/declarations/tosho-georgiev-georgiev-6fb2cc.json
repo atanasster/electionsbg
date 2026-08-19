@@ -91,7 +91,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАЕМИ, ДИВИДЕНТИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ОББ",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "bank",
@@ -111,7 +115,11 @@
         "legalBasis": null,
         "fundsOrigin": "КРЕДИТНА КАРТА",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ОББ",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "debt",

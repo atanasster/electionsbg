@@ -40,7 +40,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и декларирани спестявания в предходни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -60,7 +64,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и декларирани спестявания в предходни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -80,7 +88,11 @@
         "legalBasis": null,
         "fundsOrigin": "сума от продажба на недвижими имоти, декларирана във встъпителна декларация",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -120,7 +132,11 @@
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплата - УПФ",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": [

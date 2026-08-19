@@ -63,7 +63,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, интеграционни добавки",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -83,7 +87,11 @@
         "legalBasis": null,
         "fundsOrigin": "наличност от минали години и дивиденти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []

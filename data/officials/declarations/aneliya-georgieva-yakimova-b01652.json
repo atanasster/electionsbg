@@ -59,7 +59,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -79,7 +83,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и др. стоп. дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -99,7 +107,11 @@
         "legalBasis": null,
         "fundsOrigin": "наем за етажна собственост",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -244,7 +256,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -264,7 +280,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и др. стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -284,7 +304,11 @@
         "legalBasis": null,
         "fundsOrigin": "наем за етажна собственост",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -374,7 +398,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -394,7 +422,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и др. стоп. Дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -414,7 +446,11 @@
         "legalBasis": null,
         "fundsOrigin": "наем за етажна собственост",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -434,7 +470,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц България",
+        "heldRawAbroad": null
       }
     ],
     "events": []

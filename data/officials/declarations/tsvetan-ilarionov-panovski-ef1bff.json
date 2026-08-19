@@ -182,7 +182,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "debt",
@@ -539,7 +543,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Румъния",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Румъния"
       },
       {
         "category": "bank",
@@ -559,7 +567,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА Алианц",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -579,7 +591,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА Експресбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

@@ -326,7 +326,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, наследяване и отчуждаване на имот",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "REVOLUT IBAN LT61 3250089995567085"
       }
     ],
     "events": [
@@ -651,7 +655,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и наследство",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "REVOLUT IBAN LT61 3250089995567085"
       },
       {
         "category": "investment",
@@ -671,7 +679,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "REVOLUT IBAN LT63 3250062994414249"
       }
     ],
     "events": []
@@ -983,7 +995,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и наследство",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "REVOLUT IBAN LT61 3250089995567085"
       },
       {
         "category": "investment",
@@ -1003,7 +1019,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "REVOLUT IBAN LT63 3250062994414249"
       }
     ],
     "events": []
@@ -1182,7 +1202,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми, заплата и дарение",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦЕНТРАЛНА КООПЕРАТИВНА БАНКА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1202,7 +1226,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и обезщетение от ДАНС",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦЕНТРАЛНА КООПЕРАТИВНА БАНКА",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

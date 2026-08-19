@@ -72,7 +72,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, заплати, наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -92,7 +96,11 @@
         "legalBasis": null,
         "fundsOrigin": "дългосрочни командировъчни средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Загребска банка"
       }
     ],
     "events": []
@@ -198,7 +206,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания на баща ми Нколай Иванов Крулев",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "банка ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -218,7 +230,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -238,7 +254,11 @@
         "legalBasis": null,
         "fundsOrigin": "доходи от необлагаеми трудови правоотношения с МВнР от 2023 г. досега",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Загребска банка - Загреб"
       },
       {
         "category": "receivable",
@@ -377,7 +397,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -397,7 +421,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания/командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Загребачка банка"
       }
     ],
     "events": []

@@ -45,7 +45,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати,спестявания,кредит и дарения от родители и роднини",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -65,7 +69,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати,спестявания и кредит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

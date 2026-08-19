@@ -60,7 +60,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Дебитна карта издадена от Банка ДСК ЕАД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -80,7 +84,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Спестовна компонента в Банка ДСК ЕАД",
+        "heldRawAbroad": null
       },
       {
         "category": "credit_limit",
@@ -544,7 +552,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Универсален пенсионен фонд ,,ДСК-Родина\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []

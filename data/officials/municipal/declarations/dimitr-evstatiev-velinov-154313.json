@@ -91,7 +91,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в Алианц банк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -111,7 +115,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Първа инвестиционна банка АД - спестовна сметка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -131,7 +139,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Кредитна карта към Алианц банк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -151,7 +163,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Разплащателна сметка в Първа инвестиционна банка АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -171,7 +187,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Кредитна карта към Банка ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -231,7 +251,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алиац пенсионно осигуряване",
+        "heldRawAbroad": null
       }
     ],
     "events": []

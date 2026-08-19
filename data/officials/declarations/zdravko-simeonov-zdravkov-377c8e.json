@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ОБЕЗЩЕТЕНИЯ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -106,7 +110,11 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -172,7 +180,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ОБЕЗЩЕТЕНИЕ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       }
     ],
     "events": []

@@ -169,7 +169,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "УБС АГ, Швейцария"
       },
       {
         "category": "debt",
@@ -209,7 +213,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": "Швейцария",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "УБС АГ Швейцария"
       },
       {
         "category": "investment",
@@ -229,7 +237,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Свис Лайф"
       }
     ],
     "events": []

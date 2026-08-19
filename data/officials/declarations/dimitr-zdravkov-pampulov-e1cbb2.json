@@ -373,7 +373,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -393,7 +397,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -413,7 +421,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -433,7 +445,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Банка ВТБ24, Москва"
       },
       {
         "category": "bank",
@@ -453,7 +469,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Банка \"Откритие\", Москав"
       },
       {
         "category": "bank",
@@ -473,7 +493,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "МИН Банка, Москва"
       },
       {
         "category": "bank",
@@ -493,7 +517,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "МКБ Банка, Москва"
       }
     ],
     "events": []
@@ -869,7 +897,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -889,7 +921,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -909,7 +945,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -929,7 +969,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Bank of China"
       },
       {
         "category": "bank",
@@ -949,7 +993,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -969,7 +1017,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -989,7 +1041,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Банка \"Откритие\", Москва"
       },
       {
         "category": "bank",
@@ -1009,7 +1065,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "ОТП Банка, Москва"
       },
       {
         "category": "bank",
@@ -1029,7 +1089,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "МИН Банка, Москва"
       },
       {
         "category": "bank",
@@ -1049,7 +1113,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "МКБ Банка, Москва"
       },
       {
         "category": "bank",
@@ -1069,7 +1137,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Банка ВТБ24, Москва"
       },
       {
         "category": "bank",
@@ -1089,7 +1161,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1387,7 +1463,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1407,7 +1487,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1427,7 +1511,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1447,7 +1535,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1467,7 +1559,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1487,7 +1583,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Bank of China"
       },
       {
         "category": "bank",
@@ -1507,7 +1607,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство, продажба на имт и доход от наем на жилище",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Банка ВТБ24, Москва"
       },
       {
         "category": "bank",
@@ -1527,7 +1631,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство, продажба на имт и доход от наем на жилище",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "БИН Банка, Москва"
       },
       {
         "category": "bank",
@@ -1547,7 +1655,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство, продажба на имт и доход от наем на жилище",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "ОТП Банка, Москва"
       },
       {
         "category": "bank",
@@ -1567,7 +1679,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство, продажба на имт и доход от наем на жилище",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "МИН Банка, Москва"
       },
       {
         "category": "bank",
@@ -1587,7 +1703,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство, продажба на имт и доход от наем на жилище",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "МКБ Банка, Москва"
       }
     ],
     "events": []
@@ -1873,7 +1993,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1893,7 +2017,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1913,7 +2041,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1933,7 +2065,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от командировъчни",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Bank of China"
       },
       {
         "category": "bank",
@@ -1953,7 +2089,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1973,7 +2113,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Банка ВТБ24, Москва"
       },
       {
         "category": "bank",
@@ -1993,7 +2137,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Бин Банка, Москва"
       },
       {
         "category": "bank",
@@ -2013,7 +2161,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "ОТП Банка, Москва"
       },
       {
         "category": "bank",
@@ -2033,7 +2185,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "МИН Банка, Москва"
       },
       {
         "category": "bank",
@@ -2053,7 +2209,11 @@
         "legalBasis": null,
         "fundsOrigin": "от наследство и продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "МКБ Банка, Москва"
       }
     ],
     "events": []

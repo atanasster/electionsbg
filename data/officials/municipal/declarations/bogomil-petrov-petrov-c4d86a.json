@@ -312,7 +312,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Х"
       },
       {
         "category": "investment",
@@ -332,7 +336,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       }
     ],
     "events": []

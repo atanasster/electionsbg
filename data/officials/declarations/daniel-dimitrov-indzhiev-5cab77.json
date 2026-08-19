@@ -475,7 +475,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "investment",
@@ -495,7 +499,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       }
     ],
     "events": []
@@ -647,7 +655,11 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПФ Доверие",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -667,7 +679,11 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПФ Доверие",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

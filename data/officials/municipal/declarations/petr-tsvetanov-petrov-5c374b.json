@@ -237,7 +237,11 @@
         "legalBasis": null,
         "fundsOrigin": "възнаграждения и пенсии",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -257,7 +261,11 @@
         "legalBasis": null,
         "fundsOrigin": "свободна професия - вещо лице",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Х",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

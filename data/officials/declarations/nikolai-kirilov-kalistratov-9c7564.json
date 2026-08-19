@@ -104,7 +104,11 @@
         "legalBasis": null,
         "fundsOrigin": "адвокатски хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "\"Интернешънъл Асет Банк\" АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -124,7 +128,11 @@
         "legalBasis": null,
         "fundsOrigin": "аренда на земеделски земи, заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "\"Пошенска Банка\" АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -144,7 +152,11 @@
         "legalBasis": null,
         "fundsOrigin": "захранване на сметка от друга моя",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Револют"
       },
       {
         "category": "debt",
@@ -301,7 +313,11 @@
         "legalBasis": null,
         "fundsOrigin": "адвокатски хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Интернешънъл Асет Банк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -321,7 +337,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба недвижим имот, аренди, заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска Банка АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -341,7 +361,11 @@
         "legalBasis": null,
         "fundsOrigin": "захранване на сметка от друга моя",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Револют"
       },
       {
         "category": "debt",

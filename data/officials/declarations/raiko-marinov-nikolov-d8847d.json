@@ -116,7 +116,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -136,7 +140,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Гърция",
+        "heldRawInCountry": "Гърция",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -156,7 +164,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Литва",
+        "heldRawInCountry": "Литва (Револют)",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -176,7 +188,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Кипър",
+        "heldRawInCountry": "Кипър (Trading 212)",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -196,7 +212,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Люксембург",
+        "heldRawInCountry": "не",
+        "heldRawAbroad": "Ирландия/Люксембург"
       },
       {
         "category": "investment",
@@ -216,7 +236,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Кипър",
+        "heldRawInCountry": "не",
+        "heldRawAbroad": "Кипър"
       },
       {
         "category": "security",

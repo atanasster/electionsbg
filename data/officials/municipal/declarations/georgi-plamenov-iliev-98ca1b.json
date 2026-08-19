@@ -71,7 +71,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "45859",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -91,7 +95,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "5",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -111,7 +119,11 @@
         "legalBasis": null,
         "fundsOrigin": "дивидент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "109853",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -191,7 +203,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "7200",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -211,7 +227,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "31414",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -231,7 +251,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "25723",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -251,7 +275,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "25723",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -271,7 +299,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "39865",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -291,7 +323,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "24135"
       },
       {
         "category": "security",

@@ -45,7 +45,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

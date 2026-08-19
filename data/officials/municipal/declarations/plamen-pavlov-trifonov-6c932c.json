@@ -79,7 +79,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, продажба имот, продажба коли, пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц България",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -99,7 +103,11 @@
         "legalBasis": null,
         "fundsOrigin": "хонорари, заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -119,7 +127,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати,продажба наследствен имот, пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [

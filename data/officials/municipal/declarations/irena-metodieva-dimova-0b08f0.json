@@ -91,7 +91,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -111,7 +115,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на МПС",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "credit_limit",
@@ -231,7 +239,11 @@
         "legalBasis": null,
         "fundsOrigin": "от минали години заплати и спестявания",
         "tableNum": "8",
-        "valueBasis": "fx_ecb"
+        "valueBasis": "fx_ecb",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -251,7 +263,11 @@
         "legalBasis": null,
         "fundsOrigin": "дивиденти и спестявания от минали години",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": [

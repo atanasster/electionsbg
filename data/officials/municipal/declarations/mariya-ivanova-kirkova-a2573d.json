@@ -65,7 +65,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,кредит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -85,7 +89,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия,кредит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -105,7 +113,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,кредит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

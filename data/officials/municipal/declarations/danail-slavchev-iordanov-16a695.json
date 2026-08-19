@@ -159,7 +159,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми и заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -179,7 +183,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Инвестбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

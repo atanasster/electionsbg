@@ -39,7 +39,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -59,7 +63,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОЩЕНСКА БАНКА АД",
+        "heldRawAbroad": null
       }
     ],
     "events": [

@@ -193,7 +193,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -337,7 +341,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -417,7 +425,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -541,7 +553,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, дарения, върнат заем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ",
+        "heldRawAbroad": null
       },
       {
         "category": "credit_limit",
@@ -621,7 +637,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДЗПО- фонд Алианц България",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -771,7 +791,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -791,7 +815,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -811,7 +839,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, продажба на МПС",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ТБ Алианц",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

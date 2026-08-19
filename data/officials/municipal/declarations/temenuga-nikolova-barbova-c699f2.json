@@ -89,7 +89,11 @@
         "legalBasis": null,
         "fundsOrigin": "лични спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -109,7 +113,11 @@
         "legalBasis": null,
         "fundsOrigin": "лични спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ АД",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [

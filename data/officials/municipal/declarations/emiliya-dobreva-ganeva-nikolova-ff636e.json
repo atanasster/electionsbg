@@ -63,7 +63,11 @@
         "legalBasis": null,
         "fundsOrigin": "Дивидент,ренти,спестявания,наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -83,7 +87,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания,продажба на недв. Имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []

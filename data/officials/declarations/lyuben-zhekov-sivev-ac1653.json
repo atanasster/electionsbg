@@ -548,7 +548,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, ренти, пенсии и парични средства декларирани в предходни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "95471",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -568,7 +572,11 @@
         "legalBasis": null,
         "fundsOrigin": "доходи ЗП, дивиденти, ренти и парични средства декларирани в предходи декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "382213",
+        "heldRawAbroad": "0"
       },
       {
         "category": "receivable",
@@ -608,7 +616,11 @@
         "legalBasis": null,
         "fundsOrigin": "доход ЗП, дивиденти и ренти",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "15000",
+        "heldRawAbroad": "0"
       }
     ],
     "events": [
@@ -831,7 +843,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, ренти, пенсии и парични средства декларирани в предходни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "90834",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -851,7 +867,11 @@
         "legalBasis": null,
         "fundsOrigin": "доходи ЗП, дивиденти, ренти и парични средства декларирани в предходни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "203842",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []
@@ -1181,7 +1201,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии и ренти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "59051",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -1201,7 +1225,11 @@
         "legalBasis": null,
         "fundsOrigin": "доходи ЗП, дивиденти и ренти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "159295",
+        "heldRawAbroad": "0"
       }
     ],
     "events": [
@@ -1847,7 +1875,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и ренти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "83319",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -1867,7 +1899,11 @@
         "legalBasis": null,
         "fundsOrigin": "доходи ЗП, дивиденти и ренти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "220861",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []

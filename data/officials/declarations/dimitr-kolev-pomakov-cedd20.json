@@ -578,7 +578,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "50732",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []
@@ -643,7 +647,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, обезщетения от НОИ за врем. нетрудоспос.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "40252",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []

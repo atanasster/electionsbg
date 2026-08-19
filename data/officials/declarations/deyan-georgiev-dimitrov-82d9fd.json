@@ -100,7 +100,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -140,7 +144,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -206,7 +214,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наследство, по таблица 12 ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "80000",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -226,7 +238,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "20000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -312,7 +328,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми, заплата, наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "20000",
+        "heldRawAbroad": null
       }
     ],
     "events": [

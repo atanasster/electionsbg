@@ -46,7 +46,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наеми и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -66,7 +70,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -86,7 +94,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -164,7 +176,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -184,7 +200,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -204,7 +224,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -316,7 +340,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,пенсия, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в България",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -336,7 +364,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,пенсия, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в България",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -356,7 +388,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,пенсия, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в България",
+        "heldRawAbroad": "не"
       }
     ],
     "events": [

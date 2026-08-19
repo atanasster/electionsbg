@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, дмс",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -246,7 +250,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds и Onemarkets Fund"
       },
       {
         "category": "investment",
@@ -266,7 +274,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds и Onemarkets Fund"
       },
       {
         "category": "investment",
@@ -286,7 +298,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds и Onemarkets Fund"
       }
     ],
     "events": []
@@ -498,7 +514,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds"
       },
       {
         "category": "investment",
@@ -518,7 +538,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds"
       },
       {
         "category": "investment",
@@ -538,7 +562,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds"
       }
     ],
     "events": []
@@ -744,7 +772,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds"
       },
       {
         "category": "investment",
@@ -764,7 +796,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, преоформен депозит",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds"
       },
       {
         "category": "investment",
@@ -784,7 +820,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds"
       }
     ],
     "events": []
@@ -850,7 +890,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "Amundi Funds",
+        "heldRawAbroad": "Amundi Funds"
       }
     ],
     "events": []
@@ -1361,7 +1405,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "инвест фондове AMUNDIFUNDS"
       }
     ],
     "events": []

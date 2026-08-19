@@ -118,7 +118,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УНИКРЕДИТ БУЛБАНК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -138,7 +142,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УНИКРЕДИТ БУЛБАНК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

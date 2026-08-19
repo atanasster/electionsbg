@@ -109,7 +109,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата/наем/рента/продажба земи/остатък от минали години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -129,7 +133,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати/рента/проджба земи",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "де",
+        "heldRawAbroad": null
       }
     ],
     "events": [

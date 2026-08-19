@@ -106,7 +106,11 @@
         "legalBasis": null,
         "fundsOrigin": "Продажба на магазин и заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УНИКРЕДИТ БУЛБАНК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -126,7 +130,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УНИКРЕДИТ БУЛБАНК",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -227,7 +235,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УникредитБулбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -247,7 +259,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УникредитБулбанк",
+        "heldRawAbroad": null
       }
     ],
     "events": []

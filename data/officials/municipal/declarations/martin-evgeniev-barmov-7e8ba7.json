@@ -92,7 +92,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания декларирани в всъпителна декларация",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -112,7 +116,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани в всъпителна декларация",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -132,7 +140,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани в всъпителна декларация",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

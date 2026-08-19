@@ -40,7 +40,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "35 000",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []
@@ -86,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "26000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -138,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

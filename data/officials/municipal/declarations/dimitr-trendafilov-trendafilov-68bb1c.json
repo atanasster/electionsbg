@@ -205,7 +205,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Д банк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -225,7 +229,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК и Уникредит",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

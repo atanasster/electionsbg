@@ -225,7 +225,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсии",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "20000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -245,7 +249,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба наскедствен имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "36000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -265,7 +273,11 @@
         "legalBasis": null,
         "fundsOrigin": "Продажба нива в Поморие/2024/+заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "180000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -285,7 +297,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "10000",
+        "heldRawAbroad": null
       }
     ],
     "events": [

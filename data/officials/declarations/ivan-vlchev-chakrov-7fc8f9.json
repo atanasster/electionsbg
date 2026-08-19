@@ -120,7 +120,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и банков кредит",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "България",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -246,7 +250,11 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ, БАНКОВ КРЕДИТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "БЪЛГАРИЯ"
       },
       {
         "category": "debt",
@@ -392,7 +400,11 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ И БАНКОВ КРЕДИТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БЪЛГАРИЯ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -538,7 +550,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БЪЛГАРИЯ",
+        "heldRawAbroad": null
       }
     ],
     "events": []

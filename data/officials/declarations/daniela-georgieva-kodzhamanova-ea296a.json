@@ -46,7 +46,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ТБ ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -66,7 +70,11 @@
         "legalBasis": null,
         "fundsOrigin": "работна заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ТБ ДСК",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -138,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "18500",
+        "heldRawAbroad": null
       }
     ],
     "events": []

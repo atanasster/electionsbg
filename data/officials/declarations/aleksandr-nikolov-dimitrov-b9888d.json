@@ -222,7 +222,11 @@
         "legalBasis": null,
         "fundsOrigin": "наеми, заплати, хонорар",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "17000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -242,7 +246,11 @@
         "legalBasis": null,
         "fundsOrigin": "наеми, заплати, хонорар",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "15055",
+        "heldRawAbroad": null
       }
     ],
     "events": []

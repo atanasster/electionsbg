@@ -46,7 +46,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -66,7 +70,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "security",
@@ -138,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -158,7 +170,11 @@
         "legalBasis": null,
         "fundsOrigin": "работна заплата и хонорари",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "security",
@@ -230,7 +246,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "investment",
@@ -250,7 +270,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": "Не"
       },
       {
         "category": "security",
@@ -342,7 +366,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -362,7 +390,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -382,7 +414,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "да"
       }
     ],
     "events": []
@@ -434,7 +470,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -454,7 +494,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -474,7 +518,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -526,7 +574,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "да"
       }
     ],
     "events": []
@@ -578,7 +630,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -675,7 +731,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -695,7 +755,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

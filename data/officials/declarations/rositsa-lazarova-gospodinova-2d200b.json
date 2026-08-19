@@ -911,7 +911,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уни Кредит Булбанк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -931,7 +935,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уни Кредит Булбанк АД",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1043,7 +1051,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредитБулбанк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1063,7 +1075,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредитБулбанк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -1335,7 +1351,11 @@
         "legalBasis": null,
         "fundsOrigin": "издръжка за дете и от заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредит Булбанк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1355,7 +1375,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредит Булбанк АД",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -1567,7 +1591,11 @@
         "legalBasis": null,
         "fundsOrigin": "Издръжка за учащ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредит Булбант АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1587,7 +1615,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредит Булбант АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

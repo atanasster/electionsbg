@@ -90,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "Овърдрафт в Банка ДСК АД",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -110,7 +114,11 @@
         "legalBasis": null,
         "fundsOrigin": "Кредитна карта в Банка ДСК АД",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -130,7 +138,11 @@
         "legalBasis": null,
         "fundsOrigin": "Овърдрафт в Юробанк България АД",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -150,7 +162,11 @@
         "legalBasis": null,
         "fundsOrigin": "Кредитна карта в Юробанк България АД",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

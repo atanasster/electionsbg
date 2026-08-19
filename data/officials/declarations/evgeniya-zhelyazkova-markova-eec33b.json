@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредит Булбанк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -106,7 +110,11 @@
         "legalBasis": null,
         "fundsOrigin": "стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УниКредит Булбанк АД",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -238,7 +246,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит булбанк АД",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -258,7 +270,11 @@
         "legalBasis": null,
         "fundsOrigin": "стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит булбанк АД",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

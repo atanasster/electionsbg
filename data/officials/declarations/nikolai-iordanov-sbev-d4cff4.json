@@ -501,7 +501,11 @@
         "legalBasis": null,
         "fundsOrigin": "дивидент и работна заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -521,7 +525,11 @@
         "legalBasis": null,
         "fundsOrigin": "дивидент и работна заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "в чужбина"
       },
       {
         "category": "bank",
@@ -541,7 +549,11 @@
         "legalBasis": null,
         "fundsOrigin": "дивидент и работна заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -561,7 +573,11 @@
         "legalBasis": null,
         "fundsOrigin": "работни заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

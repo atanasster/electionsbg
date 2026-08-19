@@ -393,7 +393,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПиБ",
+        "heldRawAbroad": "не"
       },
       {
         "category": "debt",
@@ -492,7 +496,11 @@
         "legalBasis": null,
         "fundsOrigin": "Върнатта Гаранция ВиК",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПиБ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

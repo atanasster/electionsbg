@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -106,7 +110,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -178,7 +186,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и стопанска дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р България",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -250,7 +262,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - заплати и стоп. дейност",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р. България",
+        "heldRawAbroad": null
       }
     ],
     "events": []

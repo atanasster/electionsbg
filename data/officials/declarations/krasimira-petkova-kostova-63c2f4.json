@@ -58,7 +58,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплати и извънтрудови правоотношения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -122,7 +126,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и извънтрудови правоотношения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": []

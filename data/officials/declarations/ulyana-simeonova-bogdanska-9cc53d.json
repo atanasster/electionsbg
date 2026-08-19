@@ -52,7 +52,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "49000",
+        "heldRawAbroad": "40700"
       }
     ],
     "events": []
@@ -110,7 +114,11 @@
         "legalBasis": null,
         "fundsOrigin": "командировачни и заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "обб банка",
+        "heldRawAbroad": null
       }
     ],
     "events": []

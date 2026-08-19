@@ -119,7 +119,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОЩЕНСКА БАНКА",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -139,7 +143,11 @@
         "legalBasis": null,
         "fundsOrigin": "ВЪЗСТАНОВЕНА СУМА ПО ПРОЕКТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОЩЕНСКА БАНКА",
+        "heldRawAbroad": null
       }
     ],
     "events": [

@@ -79,7 +79,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наследяване, вкл. и от предходни години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -99,7 +103,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване,продажба на нед. имот,заплата, вкл. И от предходни години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -119,7 +127,11 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "в страната",
+        "heldRawAbroad": null
       }
     ],
     "events": [

@@ -95,7 +95,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии и ренти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "186966",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -115,7 +119,11 @@
         "legalBasis": null,
         "fundsOrigin": "дивиденти, ренти и пенсии",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "705919",
+        "heldRawAbroad": "0"
       },
       {
         "category": "receivable",

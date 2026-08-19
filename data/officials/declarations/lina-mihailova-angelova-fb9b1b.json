@@ -64,7 +64,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "50574",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -84,7 +88,11 @@
         "legalBasis": null,
         "fundsOrigin": "Гр. Договори, Пенсии",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "42937",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -104,7 +112,11 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "19683",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -263,7 +275,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "25954",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -283,7 +299,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "32719",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -303,7 +323,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "18231",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []

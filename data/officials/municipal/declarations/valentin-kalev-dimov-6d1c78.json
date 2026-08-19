@@ -209,7 +209,11 @@
         "legalBasis": null,
         "fundsOrigin": "Работна заплата, дийност като ЗП и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЦКБ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -229,7 +233,11 @@
         "legalBasis": null,
         "fundsOrigin": "Работна заплата, дийност като ЗП и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -249,7 +257,11 @@
         "legalBasis": null,
         "fundsOrigin": "Работна заплата, дийност като ЗП и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -269,7 +281,11 @@
         "legalBasis": null,
         "fundsOrigin": "От наеми и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -289,7 +305,11 @@
         "legalBasis": null,
         "fundsOrigin": "От дивиденти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

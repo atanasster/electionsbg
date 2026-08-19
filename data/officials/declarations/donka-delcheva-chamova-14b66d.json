@@ -193,7 +193,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "security",
@@ -271,7 +275,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наследствена пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р България",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -361,7 +369,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и наследствена пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р. България",
+        "heldRawAbroad": null
       },
       {
         "category": "security",
@@ -524,7 +536,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Панагюрище",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -544,7 +560,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Р. България",
+        "heldRawAbroad": null
       },
       {
         "category": "security",

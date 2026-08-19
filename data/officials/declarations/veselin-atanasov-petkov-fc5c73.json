@@ -72,7 +72,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "50852",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -92,7 +96,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "45000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -112,7 +120,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване/заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "44984",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -164,7 +176,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "53300",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -184,7 +200,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "28000",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

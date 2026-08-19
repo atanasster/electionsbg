@@ -224,7 +224,11 @@
         "legalBasis": null,
         "fundsOrigin": "Доходи от прехвърляне на средства",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "receivable",
@@ -646,7 +650,11 @@
         "legalBasis": null,
         "fundsOrigin": "Доходи от прехвърляне на имущество",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -666,7 +674,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата и прехвърляне на имущество",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "receivable",
@@ -882,7 +894,11 @@
         "legalBasis": null,
         "fundsOrigin": "ВЪРНАТ ЗАЕМ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УНИКРЕДИТ БУЛБАНК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

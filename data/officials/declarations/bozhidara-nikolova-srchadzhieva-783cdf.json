@@ -100,7 +100,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "София",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -120,7 +124,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследствено право след смъртта на баща, акт за смърт 0089/05.08.2024",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "София",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -140,7 +148,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследствено право след смъртта на баща, акт за смърт 0089/05.08.2024",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "София",
+        "heldRawAbroad": null
       }
     ],
     "events": []

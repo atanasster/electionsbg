@@ -171,7 +171,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Сосиете Женерал Експресбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -191,7 +195,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, обезпечения за майчинство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

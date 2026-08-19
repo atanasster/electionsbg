@@ -344,6 +344,14 @@ const ASSET_COLS = [
   "is_spouse",
   "legal_basis",
   "funds_origin",
+  // WHERE the money sits, from the „В страната" / „В чужбина" pair — present ONLY on
+  // table 5 and table 8, so NULL here means "this row's table has no such question" and
+  // never "domestic". 'unknown' is a real value and is not the same as NULL. See 089's
+  // column comment and scripts/declarations/held_abroad.ts.
+  "held_scope",
+  "held_country",
+  "held_raw_in_country",
+  "held_raw_abroad",
 ];
 const INCOME_COLS = [
   "declaration_id",
@@ -549,6 +557,10 @@ const load = async () => {
             a.isSpouse ?? false,
             a.legalBasis ?? null,
             a.fundsOrigin ?? null,
+            a.heldScope ?? null,
+            a.heldCountry ?? null,
+            a.heldRawInCountry ?? null,
+            a.heldRawAbroad ?? null,
           ]);
         });
 

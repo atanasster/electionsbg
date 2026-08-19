@@ -1553,7 +1553,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "55895",
+        "heldRawAbroad": "0"
       },
       {
         "category": "bank",
@@ -1573,7 +1577,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "20489",
+        "heldRawAbroad": "0"
       },
       {
         "category": "receivable",
@@ -1633,7 +1641,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "10226",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []
@@ -1765,7 +1777,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "74742",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1785,7 +1801,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "63760",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -1934,7 +1954,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "144734",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",
@@ -1974,7 +1998,11 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "20000",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []

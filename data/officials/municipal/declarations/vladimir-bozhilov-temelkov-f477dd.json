@@ -59,7 +59,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, върнати суми по предоставяни заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "receivable",

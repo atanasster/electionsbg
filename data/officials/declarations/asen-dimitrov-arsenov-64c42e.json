@@ -146,7 +146,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Кипър",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "кипър / + 500 /"
       },
       {
         "category": "investment",
@@ -166,7 +170,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "binanie"
       }
     ],
     "events": []
@@ -409,7 +417,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "8",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "investment",
@@ -429,7 +441,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       }
     ],
     "events": []

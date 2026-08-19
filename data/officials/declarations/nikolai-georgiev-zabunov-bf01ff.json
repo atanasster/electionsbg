@@ -92,7 +92,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ,НАЕМИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": [
@@ -193,7 +197,11 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ, НАЕМИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       }
     ],
     "events": []

@@ -100,7 +100,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата-НОИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "29000",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -120,7 +124,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата-НОИ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "12000",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -206,7 +214,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "11572",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -226,7 +238,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и обезщетение за безработица",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "17500",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -292,7 +308,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "8029",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -312,7 +332,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и обезщетение за безработица",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "11500",
+        "heldRawAbroad": null
       }
     ],
     "events": []

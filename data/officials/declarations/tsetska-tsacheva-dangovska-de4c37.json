@@ -810,7 +810,11 @@
         "legalBasis": null,
         "fundsOrigin": "от трудови правоотношения, наеми и продажба на имоти, декларирани и в предходни декларации",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -830,7 +834,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарение от възходящ, декларирано в предходна декларация",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -850,7 +858,11 @@
         "legalBasis": null,
         "fundsOrigin": "от продажба на гараж и склад, преустроени в ателие, декларирани в предходни декларции  и трудови възнаграждения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -890,7 +902,11 @@
         "legalBasis": null,
         "fundsOrigin": "от трудови възнаграждения",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": [

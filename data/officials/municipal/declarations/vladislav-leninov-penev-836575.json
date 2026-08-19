@@ -289,7 +289,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата  продажба на имоти, дивиденти и ренти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -309,7 +313,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата продажба на имоти и ренти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -329,7 +337,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата продажба на имоти и ренти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": "не",
+        "heldRawAbroad": "да"
       }
     ],
     "events": [

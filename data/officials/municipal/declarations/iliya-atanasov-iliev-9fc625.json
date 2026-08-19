@@ -99,7 +99,11 @@
         "legalBasis": null,
         "fundsOrigin": "Депозит отразен по  декл.от 2023г",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -119,7 +123,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната ОББ",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -139,7 +147,11 @@
         "legalBasis": null,
         "fundsOrigin": "Остатък от предходна декл.и заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната ОББ",
+        "heldRawAbroad": null
       }
     ],
     "events": []

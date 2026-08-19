@@ -3212,7 +3212,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Асет Банк, дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -3232,7 +3236,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -5341,7 +5349,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -5361,7 +5373,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -8173,7 +8189,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "дебитна карта",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

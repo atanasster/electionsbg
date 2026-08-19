@@ -123,7 +123,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия, дейност като ЕТ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "13375",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -143,7 +147,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "21785",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -163,7 +171,11 @@
         "legalBasis": null,
         "fundsOrigin": "излязла застраховка живот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "4338",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -183,7 +195,11 @@
         "legalBasis": null,
         "fundsOrigin": "монетизиран канал в You Tube",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "1717"
       },
       {
         "category": "bank",
@@ -203,7 +219,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия, заплата, застраховка живот, обезщетение при пенсиониране",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "58514",
+        "heldRawAbroad": null
       }
     ],
     "events": [

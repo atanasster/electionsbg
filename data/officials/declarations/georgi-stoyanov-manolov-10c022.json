@@ -312,7 +312,11 @@
         "legalBasis": null,
         "fundsOrigin": "влог от 2015 и дивидент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": "НЕ"
       },
       {
         "category": "credit_limit",
@@ -437,7 +441,11 @@
         "legalBasis": null,
         "fundsOrigin": "Влог от 2015г. и дивидент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       },
       {
         "category": "credit_limit",

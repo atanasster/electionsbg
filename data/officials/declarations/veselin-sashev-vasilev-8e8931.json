@@ -140,7 +140,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -160,7 +164,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк АД",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -326,7 +334,11 @@
         "legalBasis": null,
         "fundsOrigin": "-",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ АД",
+        "heldRawAbroad": "-"
       },
       {
         "category": "bank",
@@ -346,7 +358,11 @@
         "legalBasis": null,
         "fundsOrigin": "-",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Уникредит Булбанк АД",
+        "heldRawAbroad": "-"
       },
       {
         "category": "bank",
@@ -366,7 +382,11 @@
         "legalBasis": null,
         "fundsOrigin": "-",
         "tableNum": "5",
-        "valueBasis": null
+        "valueBasis": null,
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "-",
+        "heldRawAbroad": "-"
       },
       {
         "category": "debt",

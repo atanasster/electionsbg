@@ -52,7 +52,11 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "СТРАНАТА",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -110,7 +114,11 @@
         "legalBasis": null,
         "fundsOrigin": "ОТ ПРОДАЖБИ И СПЕСТЯВАНИЯ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БЪЛГАРИЯ",
+        "heldRawAbroad": "НЕ"
       }
     ],
     "events": [
@@ -307,7 +315,11 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В СТРАНАТА",
+        "heldRawAbroad": null
       }
     ],
     "events": []

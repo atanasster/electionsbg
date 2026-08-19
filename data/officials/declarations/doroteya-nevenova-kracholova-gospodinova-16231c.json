@@ -46,7 +46,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, награда, спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -264,7 +268,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, награда, хонорар",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "депозит",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

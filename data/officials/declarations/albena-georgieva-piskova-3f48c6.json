@@ -120,7 +120,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания от свободна професия адвокат",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЮроБАНК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -140,7 +144,11 @@
         "legalBasis": null,
         "fundsOrigin": "обещетение от болничен",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЮроБАНК АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -160,7 +168,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от свободна професия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Първа Инвестиционна Банка",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -180,7 +192,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от свободна професия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Първа Инвестиционна Банка",
+        "heldRawAbroad": null
       }
     ],
     "events": [

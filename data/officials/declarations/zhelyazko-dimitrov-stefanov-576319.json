@@ -180,7 +180,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОАД ЦКБ-СИЛА АД",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -200,7 +204,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПОД Алианц",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -346,7 +354,11 @@
         "legalBasis": null,
         "fundsOrigin": "трудово възнаграждение",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "задължително осигуряване в универсален пенсионен фонд към ЦКБ - Сила АД",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -366,7 +378,11 @@
         "legalBasis": null,
         "fundsOrigin": "трудово възнаграждение",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Универсален пенсионен фонд Алианц",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -525,7 +541,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "УПФ \" ЦКБ Сила \"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -545,7 +565,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ЗУПФ \" Алианц България \"",
+        "heldRawAbroad": null
       }
     ],
     "events": []

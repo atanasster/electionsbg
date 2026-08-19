@@ -106,7 +106,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "41377",
+        "heldRawAbroad": "0"
       },
       {
         "category": "debt",
@@ -178,7 +182,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "93985",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []
@@ -230,7 +238,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "65216",
+        "heldRawAbroad": "0"
       }
     ],
     "events": []
@@ -362,7 +374,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "17816",
+        "heldRawAbroad": null
       }
     ],
     "events": [

@@ -118,7 +118,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "сметка в Алианц",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -138,7 +142,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "депозит в Д-Банк",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -158,7 +166,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарение от родител от продажба на имот",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "депозит в Алианц",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

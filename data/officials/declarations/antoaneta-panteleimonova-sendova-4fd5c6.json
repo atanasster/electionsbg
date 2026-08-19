@@ -118,7 +118,11 @@
         "legalBasis": null,
         "fundsOrigin": "инвалидна пенсия и заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -138,7 +142,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, обещетение при пенсиониране и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -158,7 +166,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и обещетение за неползван отпуск",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -262,7 +274,11 @@
         "legalBasis": null,
         "fundsOrigin": "Обещетение при пенсиониране и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "65009",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -282,7 +298,11 @@
         "legalBasis": null,
         "fundsOrigin": "обещетения за неползван отпуск  и пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "21302",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -302,7 +322,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и семейни спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "16121",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -322,7 +346,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и семейни спестявания",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "23741",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -446,7 +474,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

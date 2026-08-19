@@ -59,7 +59,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно, заплата и върнат заем от Цветалин Пенков",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -79,7 +83,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно и заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БАНКА ДСК",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",

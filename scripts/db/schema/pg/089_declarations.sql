@@ -295,6 +295,44 @@ CREATE TABLE IF NOT EXISTS declaration_asset (
   is_spouse      boolean NOT NULL DEFAULT false,
   legal_basis    text,
   funds_origin   text,
+  -- WHERE the declarant says the money sits — 'domestic' | 'abroad' | 'unknown' | NULL.
+  -- From the „В страната" / „В чужбина" cell pair, classified by classifyHeldPlace in
+  -- scripts/declarations/held_abroad.ts and STORED (no SQL twin: a serving surface reads
+  -- this column instead of re-deriving a rule over free text).
+  --
+  -- ⚠️ NULL IS NOT 'unknown'. NULL means the row's table has no such question — the pair
+  -- exists ONLY on table 5 („Банкови влогове") and table 8 („Вложения в … фондове"), i.e.
+  -- table_num IN ('5','8'). Table 4 („Налични парични средства") has NEITHER column, and its
+  -- Cell Num=7 is „Произход на средствата": read the pair off table 4 and every cash row in
+  -- the corpus is published as held in a country called „заплата". NULL is also every row
+  -- parsed before this column existed, which is why nothing may read it as domestic.
+  --
+  -- ⚠️ 'unknown' IS A REAL ANSWER AND MUST NOT BE FOLDED INTO 'domestic'. The two cells are
+  -- free text the register does not validate — 5,691 distinct spellings in „В страната" —
+  -- and they contradict each other often enough that a boolean would have to invent a
+  -- figure: 346 rows leave both blank, ~130 tick both, and ~93 SPLIT one amount across the
+  -- two columns (151,744 domestic + 967 abroad against an amount cell of 152,711). Measured
+  -- over 82,665 money rows: 95.19% domestic, 4.05% abroad, 0.76% unknown.
+  --
+  -- NO CHECK CONSTRAINT, for the same reason table_num and value_basis have none: a value a
+  -- future parser adds must land as data rather than abort the whole COPY. The vocabulary is
+  -- gated in declaration_held_abroad.data.test.ts instead.
+  held_scope     text,
+  -- Canonical Bulgarian country name, or NULL.
+  --
+  -- ⚠️ NULL DOES NOT MEAN "NOT ABROAD", and this is the field most likely to be misread. It
+  -- is NULL on every domestic row AND on most abroad ones: „да" in the „В чужбина" column
+  -- (1,576 rows) says abroad and names nowhere, so only 505 rows corpus-wide name a country
+  -- at all against 3,347 that are abroad. „Which countries" is answerable only over the
+  -- named subset, and a surface that reports it must say so; „how much is abroad" is
+  -- answerable over held_scope and must never be derived from this column being non-null.
+  held_country   text,
+  -- The two cells verbatim, exactly as filed. Kept because the rule reads free text, so a
+  -- later refinement has to be able to re-decide without a re-parse — and because the
+  -- institution declarants write there („ОББ", „Revolut", „Amundi Funds", an IBAN) is
+  -- recorded nowhere else in the corpus.
+  held_raw_in_country text,
+  held_raw_abroad     text,
   PRIMARY KEY (declaration_id, seq)
 );
 CREATE INDEX IF NOT EXISTS idx_declaration_asset_category
@@ -429,6 +467,23 @@ ALTER TABLE declaration_asset ADD COLUMN IF NOT EXISTS table_num text;
 -- the peg is only recoverable by re-parsing the source XML. Warm rows stay NULL until
 -- scripts/declarations/backfill_asset_fx.ts has run and the loader has re-COPYed.
 ALTER TABLE declaration_asset ADD COLUMN IF NOT EXISTS value_basis text;
+
+-- Same reconcile, same reason, for the held-place columns. No SQL can backfill these either:
+-- the „В страната" / „В чужбина" cells exist only in the source XML, and the shards written
+-- before this change do not carry them. Warm rows stay NULL — read as "this row's table has
+-- no such question", NOT as domestic — until scripts/declarations/backfill_asset_held_abroad.ts
+-- has re-parsed the corpus and the loader has re-COPYed it. The whole change is therefore
+-- INERT until that backfill runs. See docs/plans/declaration-held-abroad-v1.md.
+ALTER TABLE declaration_asset ADD COLUMN IF NOT EXISTS held_scope text;
+ALTER TABLE declaration_asset ADD COLUMN IF NOT EXISTS held_country text;
+ALTER TABLE declaration_asset ADD COLUMN IF NOT EXISTS held_raw_in_country text;
+ALTER TABLE declaration_asset ADD COLUMN IF NOT EXISTS held_raw_abroad text;
+
+-- Partial: 4.05% of money rows are abroad and they are the whole point of the column, so the
+-- index only carries them. Domestic rows are answered by the count difference.
+CREATE INDEX IF NOT EXISTS idx_declaration_asset_held_abroad
+  ON declaration_asset (held_country)
+  WHERE held_scope = 'abroad';
 
 -- Reconcile the category CHECK on a warm database: CREATE TABLE IF NOT EXISTS above is a
 -- no-op once the table exists, so a running database would keep the pre-credit_limit

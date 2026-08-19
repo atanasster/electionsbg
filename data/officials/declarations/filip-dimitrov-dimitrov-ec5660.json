@@ -46,7 +46,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -66,7 +70,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари от научни разрабиотки",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "х"
       },
       {
         "category": "bank",
@@ -86,7 +94,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "х"
       },
       {
         "category": "bank",
@@ -106,7 +118,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -126,7 +142,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсии, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "х"
       }
     ],
     "events": []
@@ -178,7 +198,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания и спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -198,7 +222,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания и спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -218,7 +246,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -238,7 +270,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -258,7 +294,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -336,7 +376,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -356,7 +400,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -376,7 +424,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -396,7 +448,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -416,7 +472,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -436,7 +496,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -456,7 +520,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       }
     ],
     "events": []
@@ -514,7 +582,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -534,7 +606,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -554,7 +630,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -574,7 +654,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -594,7 +678,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -614,7 +702,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -634,7 +726,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       }
     ],
     "events": [
@@ -705,7 +801,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -725,7 +825,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -745,7 +849,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -765,7 +873,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -785,7 +897,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -805,7 +921,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -825,7 +945,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -845,7 +969,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -865,7 +993,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -885,7 +1017,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "debt",
@@ -996,7 +1132,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -1016,7 +1156,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "bank",
@@ -1036,7 +1180,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "equiv"
+        "valueBasis": "equiv",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1056,7 +1204,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1076,7 +1228,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1096,7 +1252,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "да",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -1116,7 +1276,11 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "да"
       },
       {
         "category": "debt",
@@ -1156,7 +1320,11 @@
         "legalBasis": null,
         "fundsOrigin": "Пенсионен фонд от Европейска комисия",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": "Белгия",
+        "heldRawInCountry": null,
+        "heldRawAbroad": "Allianz Belgium"
       },
       {
         "category": "security",

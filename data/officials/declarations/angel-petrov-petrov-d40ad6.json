@@ -111,7 +111,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -131,7 +135,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ОББ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -151,7 +159,11 @@
         "legalBasis": null,
         "fundsOrigin": "възстановена допълнителна парична вноска по ТЗ",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ПИБ АД",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

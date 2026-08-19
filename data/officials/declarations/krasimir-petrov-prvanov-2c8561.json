@@ -2018,7 +2018,11 @@
         "legalBasis": null,
         "fundsOrigin": null,
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "101968",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -2935,7 +2939,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно доходи от минал години",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "97791",
+        "heldRawAbroad": null
       }
     ],
     "events": []

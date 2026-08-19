@@ -91,7 +91,11 @@
         "legalBasis": null,
         "fundsOrigin": "гр.договор,наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "8750",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -111,7 +115,11 @@
         "legalBasis": null,
         "fundsOrigin": "наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "9880",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -163,7 +171,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "9725",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -183,7 +195,11 @@
         "legalBasis": null,
         "fundsOrigin": "наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "8460",
+        "heldRawAbroad": null
       }
     ],
     "events": []

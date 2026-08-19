@@ -66,7 +66,11 @@
         "legalBasis": null,
         "fundsOrigin": "дарения",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "булбанк разплащателна",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -86,7 +90,11 @@
         "legalBasis": null,
         "fundsOrigin": "заеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "булбанк разплащателна",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -106,7 +114,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "булбанк разплащателна",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -217,7 +229,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "булбанк разплащателна",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -314,7 +330,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "БУЛБАНК РАЗПЛАЩАТЕЛНА",
+        "heldRawAbroad": null
       }
     ],
     "events": [
@@ -393,7 +413,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 13 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "булбанк разплащателна",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -445,7 +469,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 13 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Булбанк разплащателна",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -524,7 +552,11 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 13 - ръчно",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Булбанк разплащателна",
+        "heldRawAbroad": null
       }
     ],
     "events": []

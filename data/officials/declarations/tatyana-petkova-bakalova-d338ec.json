@@ -78,7 +78,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "53127",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -98,7 +102,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "3569"
       },
       {
         "category": "bank",
@@ -118,7 +126,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия и наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "15538",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -138,7 +150,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия и наем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "3071"
       },
       {
         "category": "investment",
@@ -158,7 +174,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "abroad",
+        "heldCountry": null,
+        "heldRawInCountry": null,
+        "heldRawAbroad": "22388"
       }
     ],
     "events": []
@@ -222,7 +242,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "24990",
+        "heldRawAbroad": "1209"
       },
       {
         "category": "bank",
@@ -242,7 +266,11 @@
         "legalBasis": null,
         "fundsOrigin": "продажба наследствен апартамент и заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "92215",
+        "heldRawAbroad": "16"
       },
       {
         "category": "bank",
@@ -262,7 +290,11 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия и наем наследствен апартамент",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "26298",
+        "heldRawAbroad": "0"
       }
     ],
     "events": [
@@ -333,7 +365,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "12783",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -353,7 +389,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "13575",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -373,7 +413,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "30262",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -393,7 +437,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "8308",
+        "heldRawAbroad": null
       }
     ],
     "events": [

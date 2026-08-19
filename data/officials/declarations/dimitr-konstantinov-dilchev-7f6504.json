@@ -73,7 +73,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -93,7 +97,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "х",
+        "heldRawAbroad": null
       },
       {
         "category": "bank",
@@ -113,7 +121,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата наследство",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "unknown",
+        "heldCountry": null,
+        "heldRawInCountry": "ь",
+        "heldRawAbroad": null
       },
       {
         "category": "receivable",

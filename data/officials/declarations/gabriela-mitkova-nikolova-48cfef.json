@@ -104,7 +104,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Бнка ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -124,7 +128,11 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -144,7 +152,11 @@
         "legalBasis": null,
         "fundsOrigin": "наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -164,7 +176,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, ренти",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Инвестбанк",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -294,7 +310,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -314,7 +334,11 @@
         "legalBasis": null,
         "fundsOrigin": "наеми, спестявания, продажба наследствен дял",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -334,7 +358,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, дивиденти, рента",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Инвестбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -354,7 +382,11 @@
         "legalBasis": null,
         "fundsOrigin": "неприложимо",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Инвестбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -374,7 +406,11 @@
         "legalBasis": null,
         "fundsOrigin": "наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Банка ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -394,7 +430,11 @@
         "legalBasis": null,
         "fundsOrigin": "вноски ДЗПО",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -414,7 +454,11 @@
         "legalBasis": null,
         "fundsOrigin": "вноски ДЗПО",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК Родина",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []
@@ -526,7 +570,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, ТЕЛК пенсия",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК - картова сметка",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -546,7 +594,11 @@
         "legalBasis": null,
         "fundsOrigin": "наеми, продажба на жилище, спестяване",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК - спестовна",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -566,7 +618,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Инвестбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -586,7 +642,11 @@
         "legalBasis": null,
         "fundsOrigin": "наеми",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК",
+        "heldRawAbroad": "не"
       },
       {
         "category": "bank",
@@ -606,7 +666,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, дивиденти, върнат заем",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Инвестбанк",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -626,7 +690,11 @@
         "legalBasis": null,
         "fundsOrigin": "вноски ДЗПО",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Алианц",
+        "heldRawAbroad": "не"
       },
       {
         "category": "investment",
@@ -646,7 +714,11 @@
         "legalBasis": null,
         "fundsOrigin": "вноски ДЗПО",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДСК Родина",
+        "heldRawAbroad": "не"
       }
     ],
     "events": []

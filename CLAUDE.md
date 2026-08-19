@@ -681,6 +681,65 @@ shard row set disagrees with a fresh parse, so the backfill refuses to touch the
 parser had missed their `amount` column entirely). They are COUNTED rather than guessed, and
 the gate asserts both that they are counted and that the residue has not grown.
 
+### `held_scope` — whether declared money sits in Bulgaria or abroad
+
+**Tables 5 („Банкови влогове") and 8 („Вложения в … фондове") carry a „В страната" /
+„В чужбина" cell pair that we ingested none of until 2026-08-19.** The register publishes
+it per account — Иво Христов Петков's 228,100 EUR account is marked „Белгия" while his
+other five say „да" — and our rows for the two were byte-identical in every stored column.
+`declaration_asset.held_scope` / `held_country` / `held_raw_in_country` / `held_raw_abroad`
+close it. Rule: `classifyHeldPlace` in `scripts/declarations/held_abroad.ts`. Plan:
+`docs/plans/declaration-held-abroad-v1.md`.
+
+Measured over 76,953 money rows: **95.46% domestic, 4.15% abroad (€168.5m, 765 people),
+0.38% unknown**.
+
+Five things about it are easy to get backwards:
+
+- ⚠️ **TABLE 4 („Налични парични средства") HAS NEITHER COLUMN, and its `Cell Num="7"` is
+  „Произход на средствата".** The obvious specification of this work said tables 4/5/8;
+  reading the pair off table 4 does not yield a blank, it yields the funds origin, so all
+  25,717 cash rows would publish as held in a country called „заплата". The **pre-2018**
+  form carries the pair on table 7 at cells **6/7**, not 7/8 — no special case was needed
+  only because the pair goes through `columnResolver` like every other cell.
+- ⚠️ **NULL IS NOT `'unknown'`, AND NEITHER IS `'domestic'`.** NULL means the row's table
+  has no such question (every real-estate, vehicle and cash row, and everything parsed
+  before the column existed); `'unknown'` means the filing answered unintelligibly. The
+  answer is TRI-STATE because a boolean would have to invent one: the cells are free text
+  the register does not validate — 5,691 distinct spellings on the „В страната" side — and
+  346 rows leave both blank, ~130 tick both, and ~93 SPLIT one amount across the two
+  columns (151,744 + 967 against an amount cell of 152,711).
+- ⚠️ **`held_country IS NULL` IS NOT EVIDENCE OF BEING DOMESTIC.** „да" in the „В чужбина"
+  column says abroad and names nowhere: a country is named on only **521 of 3,288** abroad
+  rows, **11.6% of the money**. „How much is abroad" is answerable over `held_scope`;
+  „where" is answerable only over the named subset, and a surface reporting it must say so.
+- **Content overrides the column it sits in, and a named place beats a bare tick.** 47 rows
+  answer domestically inside „В чужбина"; and „РБългария" beside a bare „х" is a declarant
+  naming their country and STRIKING OUT the column that does not apply — „х" is a tick to
+  some filers and a strike-through to others. A lone denial asserts the OTHER column (the
+  pair is exhaustive), which is the only statement 81 rows make.
+- **Re-parse, then reload — the same order as `is_declared_holding` and `value_basis`, and
+  `--resolve` alone does NOT rewrite asset rows.** No SQL can backfill this; the cells exist
+  only in the source XML, so the whole change is INERT until the shards are stamped.
+
+```bash
+npx tsx scripts/declarations/backfill_asset_held_abroad.ts --apply   # offline, reads raw_data/
+npm run db:load:declarations:pg                                     # phase 1
+npm run db:load:declarations:pg -- --resolve                        # phase 2 — refills person_id
+```
+
+Phase 2 is not optional even though nothing here reads `person_id`: phase 1 TRUNCATEs
+`declaration`, so skipping it leaves every filing unresolved. Cloud side is the `:cloud`
+twin of both and nothing runs it automatically; applying 089 to Cloud SQL **without**
+shipping the re-parsed shards changes nothing there while local is correct, with every row
+count reconciling.
+
+**The gate is `scripts/db/tests/declaration_held_abroad.data.test.ts`** (8 tests), plus 17
+unit tests on the rule. It carries a mutation check — every stored value is re-derived from
+the stored RAW cells, which is what those two columns are for — and skips with a DISTINCT
+reason when `held_scope` is entirely NULL, so „the corpus has no provenance yet" cannot read
+as „the rule is enforced".
+
 ### `declared_label()` — the ONE definition of which office label a reader sees
 
 **Nine serving surfaces now read these columns, and all of them go through

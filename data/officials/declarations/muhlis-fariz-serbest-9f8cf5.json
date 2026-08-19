@@ -86,7 +86,11 @@
         "legalBasis": null,
         "fundsOrigin": "УНИВЕРСАЛЕН ПЕНСИОНЕН ФОНД",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "ДА",
+        "heldRawAbroad": null
       }
     ],
     "events": []
@@ -138,7 +142,11 @@
         "legalBasis": null,
         "fundsOrigin": "Остатък от субсидия към 31.12.2017 г.",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Да",
+        "heldRawAbroad": null
       }
     ],
     "events": []

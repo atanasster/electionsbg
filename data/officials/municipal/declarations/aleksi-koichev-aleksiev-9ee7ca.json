@@ -85,7 +85,11 @@
         "legalBasis": null,
         "fundsOrigin": "Заплати и пенсии",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Пощенска банка",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -125,7 +129,11 @@
         "legalBasis": null,
         "fundsOrigin": "Лични спестявания",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Закупуване на инвестиционно злато",
+        "heldRawAbroad": null
       }
     ],
     "events": [

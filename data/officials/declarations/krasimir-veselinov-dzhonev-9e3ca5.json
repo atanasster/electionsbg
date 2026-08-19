@@ -80,7 +80,11 @@
         "legalBasis": null,
         "fundsOrigin": "Предварителен договор за покупко продажба",
         "tableNum": "5",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "В страната",
+        "heldRawAbroad": null
       },
       {
         "category": "debt",
@@ -463,7 +467,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Универсален пенсионен фонд \"ДСК Родина\"",
+        "heldRawAbroad": null
       },
       {
         "category": "investment",
@@ -483,7 +491,11 @@
         "legalBasis": null,
         "fundsOrigin": "заплата",
         "tableNum": "8",
-        "valueBasis": "peg"
+        "valueBasis": "peg",
+        "heldScope": "domestic",
+        "heldCountry": null,
+        "heldRawInCountry": "Универсален пенсионен фонд \"ДСК-Родина\"",
+        "heldRawAbroad": null
       }
     ],
     "events": []
