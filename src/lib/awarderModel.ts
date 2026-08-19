@@ -114,6 +114,21 @@ export interface AwarderSupplier<Cat extends string> {
   category: Cat;
   singleBidShare: number | null;
   bidKnownN: number;
+  /** € this supplier won as a consortium CARRIER — the whole joint contract's
+   *  value, which is what a carrier row holds (migration 087).
+   *
+   *  ⚠ A SHARE, NEVER A FLAG. 162 suppliers hold BOTH carrier and solo rows
+   *  (€1.52bn vs €0.99bn corpus-wide), so „is this supplier a consortium?" has
+   *  no answer for them — ДЗЗД ХЕМУС-16320 is €448.2M joint AND €61.2M solo.
+   *  Compare against `totalEur` rather than reducing this to a boolean.
+   *
+   *  ⚠ `0` AND `null` ARE DIFFERENT ANSWERS. `0` = „won nothing jointly", which
+   *  is the common case (27,247 of 29,615 suppliers corpus-wide). `null` = „this
+   *  producer could not tell" — a database predating 061's projection. A
+   *  consumer must not render „no consortium money" from `null`; fall back to
+   *  `isConsortiumCarrierKey` there, which is right for the `obed-` half and
+   *  silent for the rest. */
+  consortiumEur?: number | null;
 }
 
 export interface AwarderCategoryAgg<Cat extends string> {
@@ -148,7 +163,16 @@ const yearOf = (date: string | undefined): number | null => {
 };
 
 /** Build the generic per-category / per-supplier / per-year model from
- *  already-filtered spend rows. */
+ *  already-filtered spend rows.
+ *
+ *  ⚠ THIS IS THE REFERENCE IMPLEMENTATION, NOT A SERVING PATH — as of 2026-08-19
+ *  it has no live caller. Every hook folds the server's aggregates through
+ *  `buildAwarderModelFromAggregates` instead; the eleven `build<X>Model` wrappers
+ *  in `src/lib/*Attributes.ts` are unimported. It is kept because the two must
+ *  agree: `awarder_group_model.data.test.ts` builds a real sector BOTH ways and
+ *  fails on any divergence, which is the only thing standing between 061 and a
+ *  silent drift. Do not delete it, and do not let it drift — a correction here is
+ *  latent (no page moves) but it is what the gate compares against. */
 export const buildAwarderModel = <Cat extends string>(
   rows: ProcurementContract[],
   classifier: SectorClassifier<Cat>,
@@ -162,9 +186,18 @@ export const buildAwarderModel = <Cat extends string>(
     contractCount: number;
     bidKnownN: number;
     singleBidN: number;
+    consortiumEur: number;
     byCat: Map<Cat, number>;
   }
   const sup = new Map<string, SupAcc>();
+  // ⚠ CAN THIS FOLD ANSWER „how much was won jointly"? Only if its INPUT carries
+  // the field. `buildAwarderModel` takes whatever rows a caller hands it, and
+  // `consortiumRole` is optional on ProcurementContract — a narrower projection,
+  // a fixture or a bucket-served row set omits it entirely. Emitting 0 there
+  // would assert „won nothing jointly" about a corpus we never saw, which is the
+  // same NULL-vs-0 error 061 COALESCEs away on the SQL side, inverted. So track
+  // whether ANY row carried the field and emit `null` when none did.
+  let consortiumKnown = false;
 
   interface CatAcc {
     totalEur: number;
@@ -215,8 +248,26 @@ export const buildAwarderModel = <Cat extends string>(
       yr.byCategory[category] = (yr.byCategory[category] ?? 0) + eur;
     }
 
+    if (c.consortiumRole != null) consortiumKnown = true;
+
     const eik = c.contractorEik;
-    if (eik) {
+    // ⚠ THE SUPPLIER BLOCK MIRRORS 061's `sup` CTE, and must keep doing so.
+    // Everything above this line counts every spend row (money and per-year
+    // totals), exactly as 061's `base` does; only the SUPPLIER view narrows —
+    // otherwise the two producers of this same type disagree about who the
+    // suppliers are, which is a divergence no row count reveals.
+    //
+    //   · €0 consortium MEMBER rows (087) — measured corpus-wide: 11,331 rows
+    //     over 3,215 keys, of which 1,164 appear ONLY as members. Before this,
+    //     the client fold published all 1,164 as €0 „suppliers" and inflated
+    //     supplierCount, while the SQL path did not. (HHI is unaffected either
+    //     way — the shares are €0. The COUNTS were not.)
+    //   · the self-deal artifact where the buyer's EIK landed in the supplier
+    //     field (29 rows / €3.87M corpus-wide). Nobody procures from themselves.
+    //
+    // Both drop from the SUPPLIER view only; the € stays in the headline,
+    // because the money really was spent.
+    if (eik && c.consortiumRole !== "member" && eik !== c.awarderEik) {
       ca.suppliers.add(eik);
       let s = sup.get(eik);
       if (!s) {
@@ -227,6 +278,7 @@ export const buildAwarderModel = <Cat extends string>(
           contractCount: 0,
           bidKnownN: 0,
           singleBidN: 0,
+          consortiumEur: 0,
           byCat: new Map(),
         };
         sup.set(eik, s);
@@ -235,6 +287,7 @@ export const buildAwarderModel = <Cat extends string>(
       s.contractCount += 1;
       if (known) s.bidKnownN += 1;
       if (single) s.singleBidN += 1;
+      if (c.consortiumRole === "carrier") s.consortiumEur += eur;
       s.byCat.set(category, (s.byCat.get(category) ?? 0) + eur);
     }
   }
@@ -259,6 +312,10 @@ export const buildAwarderModel = <Cat extends string>(
         category: dom ?? classifier.sink ?? ([...s.byCat.keys()][0] as Cat),
         singleBidShare: s.bidKnownN > 0 ? s.singleBidN / s.bidKnownN : null,
         bidKnownN: s.bidKnownN,
+        // 0 only when the input actually carried the field somewhere; `null`
+        // when it did not, so „not projected" cannot read as „none". See
+        // `consortiumKnown` above.
+        consortiumEur: consortiumKnown ? s.consortiumEur : null,
       };
     })
     // eik tiebreak so equal-€ suppliers order deterministically across renders.
@@ -340,6 +397,9 @@ export interface GroupModelPayload {
     contractCount: number;
     bidKnownN: number;
     singleBidN: number;
+    /** Absent on a database predating 061's projection — mapped to `null`, never
+     *  `0`, so „unknown" cannot read as „none". */
+    consortiumEur?: number;
   }[];
   byCpv: {
     cpv: string;
@@ -513,6 +573,12 @@ export const buildAwarderModelFromAggregates = <Cat extends string>(
           dom ?? classifier.sink ?? ([...(byCat?.keys() ?? [])][0] as Cat),
         singleBidShare: s.bidKnownN > 0 ? s.singleBidN / s.bidKnownN : null,
         bidKnownN: s.bidKnownN,
+        // ⚠ ABSENT MAPS TO null, NEVER 0 — `?? null` rather than `?? 0`. The
+        // field is missing exactly on a database whose 061 predates the
+        // projection, and „this producer could not tell" must stay
+        // distinguishable from „won nothing jointly". 061 COALESCEs its own
+        // empty aggregate to 0, so a 0 arriving here is always an answer.
+        consortiumEur: s.consortiumEur ?? null,
       };
     })
     .sort((a, b) => b.totalEur - a.totalEur || a.eik.localeCompare(b.eik));

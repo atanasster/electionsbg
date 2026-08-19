@@ -12,7 +12,7 @@ attribution carried through `ProcurementContract`.
 | tier / step                                                                  | state   |
 | ---------------------------------------------------------------------------- | ------- |
 | T1 · 061 projects the consortium € into `sup`                                | ⏳ open |
-| T2 · `AwarderSupplier.consortiumEur` from BOTH producers + member-row parity | ⏳ open |
+| T2 · `AwarderSupplier.consortiumEur` from BOTH producers + member-row parity | ✅ shipped |
 | T3 · both tiles read the share                                               | ⏳ open |
 | T4 · tests                                                                   | ⏳ open |
 
