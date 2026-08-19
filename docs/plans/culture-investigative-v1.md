@@ -853,8 +853,21 @@ Ranked value × ease. "Ease" accounts for a crawl being an operator action, not 
 ### P1 — Finish the ЦАИС ЕОП dossier crawl. **A decision, not a project.**
 
 `tender_dossier` + six siblings (migration 146) and the crawler exist and are probe-verified.
-Run on **1,861 of 237,321 procedures (0.78%)**. `tender-dossier-ingest-v1.md` §5.1 measures the
-full tier-A run at **~1.4 h at 100 Mbit** via the export-ZIP bulk route.
+Run on **1,861 of 237,321 procedures (0.78%)**.
+
+⚠️ **The cost of this is ~26 HOURS, not the ~1.4 h an earlier draft of this paragraph
+claimed.** That draft read the wrong column of `tender-dossier-ingest-v1.md` §5's table:
+**~1.4 h @100 Mbit is TIER B's transfer time** — 57 GB of техническа спецификация files
+over the wire — while **tier A, the JSON crawl this step actually runs, is ~830,000 API
+calls at ~26 h**. The export-ZIP bulk route (§9.1) removes ~394k signed-URL calls from
+tier B; it does not touch tier A's per-tender method calls, which are the wall clock.
+
+Re-probed 2026-08-19, two dry runs, 3,240 calls, **0 failures / 0 empty / 0 denied and no
+throttling**: sustained **13.2 req/s** at concurrency 6, above the 8.97 the crawler's own
+header records as measured-safe. Both ends of the corpus serve — the 2026-08-17 newest and
+the 2020-01-02 floor. Remaining work set **130,144 of 132,141** ЦАИС-era tenders (the store
+holds 1,997, i.e. 1.5%), ≈1.06M calls, so **22 h at the observed rate and 33 h at the
+conservative one**. The ~26 h figure is sound; the 1.4 h one was never about this step.
 
 Unlocks, measured against the claims we could not answer: `contact_name`/`contact_email`/
 `contact_phone` per procedure; `tender_document` + `tender_document_text` (documentation,
@@ -1172,7 +1185,9 @@ implementation the way the rest can.
    sub-pages. ⓐ Plus the five-file move listed in §1.7 — the `cultureFacts` build-time read is
    the one that fails quietly.
 2. **T0.5** — читалища in or out. Recommend a labelled sub-group.
-3. **P1** — authorisation to run the full dossier crawl (~1.4 h against a shared public register).
+3. **P1** — authorisation to run the full dossier crawl (**~26 h**, not the ~1.4 h this line
+   used to carry — see P1 — against a shared public register). Probe re-run 2026-08-19: the
+   surface is fully open, 0 failures in 3,240 calls, no throttling.
 4. **§1.9-6** — `nearCeilingAward` needs a measured base rate before it can be called a signal.
 5. **T3.3** — the 9b conflict-flag policy sign-off is still outstanding from the v1 plan.
 6. **ⓓ §1.3 — ANSWERED by measurement, 2026-08-18: ДФЗ does NOT enter the sector EIK registry.**
