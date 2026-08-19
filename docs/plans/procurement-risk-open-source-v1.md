@@ -495,28 +495,58 @@ A committed mapping table (generated from the catalog) that names, per flag, the
 **OCP *Red Flags for Integrity* (2024)** R-flag id and the **iMonitor 2.0 / OpenTender**
 indicator, plus a "we differ" note:
 
-| Our flag | OCP 2024 | iMonitor 2.0 | Note |
-|---|---|---|---|
-| `splitPurchase` | R049 (contract splitting) | splitting indicator | Ours is ceiling-aware (чл.20 ал.4, date/category) + honest FP floor |
-| `weakCompetition` (single-bid arm) | single-bidder flag | single-bid indicator | We suppress structurally single-bid CPV **divisions** (2-digit, share ≥0.8) + legal `22112`; iMonitor/ARACHNE do not. Our graded second arm keys on the **5-digit CPV prefix** median — a finer grain than either |
-| `annexGrowth` | amendment flags | amendment indicators | Ours is the ЗОП *cumulative* 50%, stricter than EU per-modification |
-| `awardOverEstimate` | (estimate-vs-award) | — | One-sided (over only) by design; under-valuation is normalcy, not risk (OCP R016) |
-| `directAward` / `nonOpenProcedure` | no-calls-for-bids flag | no-calls indicator | The EC-Scoreboard BG outlier (20% vs EU 5%) is the hero, not single-bid |
-| `nkidMismatch` | — | — | No OCP/iMonitor equivalent (declared-activity-vs-CPV) — our net-new |
+**✅ VERIFIED AND SHIPPED (T3).** Both source documents were read rather than recalled, and the
+mapping now lives in the catalog (`ocp` / `imonitor` on every flag, both REQUIRED) and is emitted
+into the handbook and `risk-flags.json`. The verification itself was the tier, and it changed the
+answer:
+
+| the plan guessed | the source says |
+|---|---|
+| `splitPurchase` → **R049** "contract splitting" | R049 is **"Direct awards below threshold"** — a SINGLE award, nearer our `directAward`. The multiple-awards-around-a-threshold flag is **R055**; R011 is the named concept. |
+| `awardOverEstimate` differs from **R016** "under-valuation" | R016 is **"Tender value is higher or lower than average for this item category"** — a comparison against PEERS, which is our normalcy panel. The estimate-versus-award flag is **R031**. |
+
+Both wrong ids were plausible, which is the point: nobody would have caught them by reading the
+table. Method, recorded in `ALIGNMENT_SOURCES` so it can be re-run: **`pdftotext -layout`** — the
+mode that keeps the two-column Definition tables apart, and therefore the only one that shows what
+a flag actually says; iMonitor's Table 2 gives 11 indicators, scored 0/50/100 rather than boolean.
+The 73 titles are committed at `scripts/risk/__fixtures__/ocp_2024_flags.json`, so a mapping is
+re-checked by a test rather than by re-reading the PDF.
+
+Findings worth carrying beyond the table:
+
+- **Four of our seventeen checks map to nothing in either scheme** — `mpConnected`,
+  `pepConnected`, `newFirmWinner` and `nkidMismatch`. The political-connection pair being
+  unmapped in both is the sharpest statement of what is local here, and it is also the part
+  making the strongest claim about named people.
+- **OCP publishes R062 "Decision period extremely long" beside R061 "extremely short".** So the
+  one-sidedness of our `shortDecisionPeriod` is a choice rather than the standard — independent
+  corroboration of the caveat risk-v2 already recorded about that flag's direction.
+- **iMonitor bands every indicator 0/50/100 where we fire booleans**, and its advertisement-period
+  indicator is banded per country — which is exactly the re-cut risk-v2 §6a says our flat 14-day
+  `shortTenderPeriod` needs.
+- **`unmapped` now means "somebody read the source and found no equivalent"**, with a note saying
+  what was searched. `gen_risk.test.ts` rejects a note under 20 characters, which is what caught
+  five bare "VERIFIED UNMAPPED." entries that told a reader nothing.
 
 The point of the table is **comparability**, not compliance: it lets an OpenTender/iMonitor user
 see our BG-calibrated flags through their lens, and it documents the two places we deliberately
 deviate (single-bid suppression, one-sided over-estimate). It also gives TI-Bulgaria's iMonitor
 deployment a concrete bridge to our corpus.
 
-⚠️ **Every R-id above is UNVERIFIED and T3 must verify each one before the table ships.** The ids
-(`R049` contract splitting, `R016` under-valuation) were carried over from drafting notes, and §10
-records that the OCP and iMonitor PDFs defeat text extractors — i.e. nobody has read them back
-against the source. This table is the most quotable artifact in the whole plan and the one an OCP
-or TI reader is most likely to check first; a wrong R-id there discredits the flags around it. T3
-is not "write the table", it is **"resolve each id against the 2024 OCP PDF (`pdftotext -layout`)
-and each indicator against iMonitor D2.2, or mark it `unmapped`"**. `unmapped` is an honest cell;
-a plausible-looking wrong id is not.
+⚠️ **This warning is DISCHARGED — kept because the rule it states outlived the task.** It read
+"every R-id above is UNVERIFIED and T3 must verify each one before the table ships", and it was
+right: both PDFs were read, and two of the ids above were wrong. What the verification also
+showed is that getting the ID right is not the whole job — three *supporting claims* about what
+those flags SAY were wrong even where the id was correct (R049 does cover multiple awards; R014
+measures to bid opening, not to the submission deadline; and `pdftotext -layout` does not fail on
+the OCP PDF — that reading came from piping the command into `head`, which SIGPIPEs it). All
+three were published in the handbook before review caught them.
+
+So the standing rule is stronger than the original warning: **an alignment claim is not verified
+until the source's own sentence has been read, and `unmapped` is an honest cell while a
+plausible-looking wrong id is not.** `scripts/risk/__fixtures__/ocp_2024_flags.json` commits the
+73 flag titles verbatim so re-checking a mapping is `npm run test:unit` rather than a 2 MB PDF
+read — which is what let the three false claims through a green suite in the first place.
 
 ## 6. Publishing surface
 
@@ -558,7 +588,7 @@ a plausible-looking wrong id is not.
 | **T1** ✅ | `src/lib/riskFlagCatalog.ts` (relocated + widened `CHECK_CATALOG`) + direct imports + the two vitest drift gates (§8) | T0 | Touched `RiskBadges.tsx`, `contractRiskMask.ts`, both scorers **and** `derived.ts`/`by_ns.ts` (two further copies found during the work) — not a UI-free refactor. Threshold resolution picked (§3b) |
 | **T1.5** ✅ | Version stamping: `contract_risk_meta` + `contract_risk_stamp()` + a `rebuild_contract_risk_cache(text)` overload + `/api/db/risk-catalog-version` | T1 | T4 cannot print an honest version without it (§3c). An OVERLOAD, not a defaulted argument — the latter would make the existing no-arg call ambiguous, inside `load_pg.ts` mid-reload |
 | **T2** ✅ | `npm run gen:risk` → `docs/methodology/procurement-risk-flags.md` + `public/risk-flags.json` | T1, T1.5 | Docs generated, not hand-copied, with a `--check` staleness gate. The i18n audit lives in `riskFlagCatalog.test.ts` rather than a `genRiskI18n` — the keys are declared, so what is needed is a check that they RESOLVE in both corpora, not a generator |
-| **T3** | OCP/iMonitor alignment table (§5) | T2 | Every R-id verified against the source PDF or marked `unmapped` — that verification *is* the tier |
+| **T3** ✅ | OCP/iMonitor alignment, in the catalog and both artifacts (§5) | T2 | Both PDFs read; two of the plan's own guessed R-ids were wrong. `pdftotext -layout` extracts NOTHING from the OCP PDF — use plain `pdftotext` |
 | **T4** | `/procurement/methodology` page (prerender + both sitemap lists + own og:image) + per-chip citation links + download | T2, T3 | See §6.1's three artifacts |
 | **T5** | (optional) publish the two scorers as a standalone subpackage with README | T1 | Only if SIGMA/others express interest; the catalog JSON already covers most use |
 

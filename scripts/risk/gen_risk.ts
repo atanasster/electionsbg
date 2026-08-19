@@ -27,6 +27,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  ALIGNMENT_SOURCES,
   AWARDER_EXPOSURE_LIST,
   CATALOG_VERSION,
   CONCENTRATION_MIN_AWARDER_TOTAL_EUR,
@@ -296,6 +297,85 @@ not quite: a 4-of-11 contract scores 36 while a 3-of-8 scores 38. The grade itse
 (it reads the fired count directly), and the leaderboard orders by fired count first for this
 reason.`;
 
+const alignmentSection = (): string => {
+  const all = [...CONTRACT_FLAG_LIST, ...TENDER_FLAG_LIST];
+
+  // ONE TABLE PER SCHEME rather than one table carrying both.
+  //
+  // A combined table needs a single "how we differ" cell, and the two notes then
+  // run together into a sentence that reads as one thought about the wrong
+  // scheme ("…a separate person-layer concern. No debarment indicator in the
+  // 11-indicator set."). Splitting keeps each difference attached to the scheme
+  // it is actually about.
+  const table = (
+    scheme: "ocp" | "imonitor",
+    heading: string,
+    idHeading: string,
+  ): string => {
+    const rows = all
+      .map((f) => {
+        const c = f[scheme];
+        const ref = c.id
+          ? "`" + c.id + "`" + (c.name ? " — " + c.name : "")
+          : "**unmapped**";
+        return `| \`${f.id}\` | ${cell(ref)} | ${cell(c.note)} |`;
+      })
+      .join("\n");
+    const unmapped = all.filter((f) => !f[scheme].id).length;
+    return [
+      `### ${heading}`,
+      "",
+      `${unmapped} of our ${all.length} checks have no equivalent there.`,
+      "",
+      `| our flag | ${idHeading} | how we differ |`,
+      "|---|---|---|",
+      rows,
+    ].join("\n");
+  };
+
+  return [
+    "## Alignment with OCP and iMonitor",
+    "",
+    "The point of these tables is **comparability, not compliance**. They let somebody already",
+    "working in either scheme see this Bulgarian calibration through their lens, and they mark the",
+    "places we deliberately deviate.",
+    "",
+    "**`unmapped` means somebody read the source and found no equivalent** — not that nobody looked.",
+    "",
+    `Verified ${ALIGNMENT_SOURCES.ocp.verifiedOn} against the documents themselves:`,
+    "",
+    `- **${ALIGNMENT_SOURCES.ocp.title}** — ${ALIGNMENT_SOURCES.ocp.flagCount} flags.`,
+    `  <${ALIGNMENT_SOURCES.ocp.url}>`,
+    `  *Method:* ${ALIGNMENT_SOURCES.ocp.method}`,
+    `- **${ALIGNMENT_SOURCES.imonitor.title}** — ${ALIGNMENT_SOURCES.imonitor.indicatorCount} indicators.`,
+    `  <${ALIGNMENT_SOURCES.imonitor.url}>`,
+    `  *Method:* ${ALIGNMENT_SOURCES.imonitor.method}`,
+    "",
+    table("ocp", "OCP, *Red Flags for Integrity* (2024)", "OCP flag"),
+    "",
+    table("imonitor", "iMonitor 2.0 / OpenTender", "iMonitor indicator"),
+    "",
+    "### What these tables are for",
+    "",
+    "1. **The political-connection flags have no counterpart in either scheme.** `mpConnected`,",
+    "   `pepConnected` and `nkidMismatch` are unmapped on both sides. That is the genuinely local",
+    "   part of this catalogue — and also the part making the strongest claim about named people,",
+    "   which is why it is gated on a resolved identity layer rather than on name matching.",
+    "2. **Where we are stricter, it is usually a legal anchor rather than a better statistic.**",
+    "   `annexGrowth` is bound to ЗОП чл.116 ал.2's cumulative cap and `splitPurchase` to чл.20",
+    "   ал.4's ceilings by date and category. Neither external scheme fixes a value, because",
+    "   neither is written for one jurisdiction.",
+    "3. **Where we are looser, we say so.** `weakCompetition` suppresses in structurally single-bid",
+    "   CPV divisions and on the statutory sole-source CPV; OCP's R018 and iMonitor's single-bidder",
+    "   indicator do not. That is a deliberate false-positive reduction, and it means **our",
+    "   single-bid rate is not comparable to theirs** until the suppression is undone.",
+    "",
+    "⚠️ **Both external schemes band several indicators (iMonitor scores 0/50/100 throughout) where",
+    "we fire a boolean.** A cross-country comparison that reads our booleans as their scores will",
+    "overstate the difference between Bulgaria and its peers, in both directions.",
+  ].join("\n");
+};
+
 const buildHandbook = (): string => `${GENERATED_BANNER}
 
 # Bulgarian public-procurement red flags — the methodology
@@ -349,6 +429,10 @@ ${exposureSection()}
 ---
 
 ${gradesSection()}
+
+---
+
+${alignmentSection()}
 
 ---
 
@@ -480,6 +564,8 @@ const buildJson = (): string =>
         availability: f.availability,
         baseRate: f.baseRate ?? null,
         caveat: f.caveat ?? null,
+        ocp: f.ocp,
+        imonitor: f.imonitor,
       })),
       contractGradeBands: CONTRACT_GRADE_BANDS,
       firedCountDistribution: {
@@ -493,7 +579,10 @@ const buildJson = (): string =>
         availability: f.availability,
         baseRate: f.baseRate ?? null,
         caveat: f.caveat ?? null,
+        ocp: f.ocp,
+        imonitor: f.imonitor,
       })),
+      alignmentSources: ALIGNMENT_SOURCES,
       exposureGrades: {
         note: "TWO weight sets. Availability-weighted mean; an unavailable component is dropped from the denominator, never scored 0.",
         awarder: AWARDER_EXPOSURE_LIST,

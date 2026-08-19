@@ -73,6 +73,58 @@ export type Threshold =
   | { kind: "cpvPrefix"; value: string; basis: string };
 
 // ---------------------------------------------------------------------------
+// Cross-scheme alignment
+// ---------------------------------------------------------------------------
+
+/** Where one of our flags sits in an external red-flag scheme.
+ *
+ *  ⚠️ `id: null` means VERIFIED-UNMAPPED — somebody read the source and found no
+ *  equivalent — not "nobody looked". That distinction is the whole value of the
+ *  field: an alignment table is the artifact an OCP or TI reader checks first, and
+ *  a plausible-looking wrong id discredits every mapping around it. The first
+ *  draft of the plan guessed two ids and BOTH were wrong — R049 for splitPurchase
+ *  (R049 keys on each award sitting JUST BELOW the ceiling; the aggregating-above
+ *  form we compute is R055) and R016 for the award-over-estimate comparison (R016
+ *  compares against the category average, not against the procedure's own
+ *  estimate; that is R031).
+ *
+ *  `note` is required: a mapping with no statement of how we differ reads as a
+ *  claim of equivalence, and none of these are equivalent. */
+export type CrossWalk = {
+  readonly id: string | null;
+  readonly name?: string;
+  readonly note: string;
+};
+
+/** What was read, when, and how — so the mappings can be re-checked rather than
+ *  trusted.
+ *
+ *  Worth recording: `pdftotext -layout` extracts an EMPTY file from the OCP PDF
+ *  (the plan's "PDFs defeat text extractors" warning was right about the flag it
+ *  named), while plain `pdftotext` extracts it cleanly. A future re-check that
+ *  tries only the documented incantation would conclude the source is unreadable
+ *  and leave the table unverified. */
+export const ALIGNMENT_SOURCES = {
+  ocp: {
+    title: "OCP, Red Flags for Integrity (2024)",
+    url: "https://www.open-contracting.org/wp-content/uploads/2024/12/OCP2024-RedFlagProcurement-1.pdf",
+    verifiedOn: "2026-08-18",
+    method:
+      "pdftotext (plain — NOT -layout, which yields an empty file for this PDF). All 73 R-ids and their titles enumerated, then matched by mechanism rather than by name.",
+    flagCount: 73,
+  },
+  imonitor: {
+    title:
+      "iMonitor 2.0 / OpenTender, D2.2 Updated Risk Assessment Methodology (2026)",
+    url: "https://imonitor.govtransparency.eu/wp-content/uploads/2026/03/D2.2-Updated-Risk-Assessment-Methodology_final.pdf",
+    verifiedOn: "2026-08-18",
+    method:
+      "pdftotext; Table 2 (Summary table for the integrity Indicators) read in full — 11 indicators, scored 0/50/100 rather than boolean, which is itself a difference worth publishing.",
+    indicatorCount: 11,
+  },
+} as const;
+
+// ---------------------------------------------------------------------------
 // Contract-grain flags
 // ---------------------------------------------------------------------------
 
@@ -121,6 +173,10 @@ export type ContractFlagDef = {
    *  methodology calls uncalibrated, has to say so where a reader will see it —
    *  not in a plan they will never open. */
   readonly caveat?: string;
+  /** REQUIRED. A new flag cannot be added without deciding where it sits in each
+   *  external scheme — `{ id: null }` is a decision, an absent field is not. */
+  readonly ocp: CrossWalk;
+  readonly imonitor: CrossWalk;
   /** Measured base rate on the Bulgarian corpus, where one has been measured.
    *  Published beside the threshold because a threshold with no base rate next to
    *  it is a number the reader cannot sanity-check — and because a flag that
@@ -143,6 +199,15 @@ export const CONTRACT_FLAGS = [
     naReasonKey: "risk_na_generic",
     availability:
       "Always — the register is corpus-wide, so absence means not listed.",
+    ocp: {
+      id: "R046",
+      name: "Bidder is debarred or on sanctions list",
+      note: "Direct equivalent. Ours reads the АОП register of economic operators with breaches; OCP's wording also covers sanctions lists, which we treat as a separate person-layer concern.",
+    },
+    imonitor: {
+      id: null,
+      note: "No debarment indicator in the 11-indicator set.",
+    },
   },
   {
     id: "mpConnected",
@@ -152,6 +217,14 @@ export const CONTRACT_FLAGS = [
     whyKey: "risk_flag_mp_connected_hint",
     naReasonKey: "risk_na_generic",
     availability: "Always — company_politicians covers the whole corpus.",
+    ocp: {
+      id: null,
+      note: "VERIFIED UNMAPPED. The nearest is R043 (bidder shares contact information with a project official), which is a different mechanism — contact-detail identity rather than a declared political tie. OCP's 73 flags contain no political-connection indicator.",
+    },
+    imonitor: {
+      id: null,
+      note: "VERIFIED UNMAPPED. No political-connection indicator; the supplier-risk group covers tax havens, buyer share and market breadth.",
+    },
   },
   {
     id: "pepConnected",
@@ -162,6 +235,8 @@ export const CONTRACT_FLAGS = [
     naReasonKey: "risk_na_pep_connected",
     availability:
       "Always — the non-MP official link set covers the whole corpus.",
+    ocp: { id: null, note: "VERIFIED UNMAPPED, same as mpConnected." },
+    imonitor: { id: null, note: "VERIFIED UNMAPPED, same as mpConnected." },
   },
   {
     id: "awarderConcentration",
@@ -182,6 +257,16 @@ export const CONTRACT_FLAGS = [
     naReasonKey: "risk_na_generic",
     availability:
       "Computed corpus-wide per (buyer, supplier) pair — but ONLY for buyers whose lifetime spend clears €100,000. Below that a 100% share is arithmetic rather than concentration, so those pairs are excluded from the flag entirely.",
+    ocp: {
+      id: "R040",
+      name: "High share of buyers contracts",
+      note: "Direct equivalent in mechanism. Ours adds a €100,000 floor on the buyer's lifetime spend, which OCP does not specify; R050/R051 are the market-side mirror (supplier's share of a market) and are NOT what we compute.",
+    },
+    imonitor: {
+      id: "supplierBuyerShare",
+      name: "Supplier's tender share of buyer spending on public procurement",
+      note: "Same quantity. iMonitor scores it as a continuous 0-100 rather than firing at a cut-point, so their output is a score and ours is a boolean above 30%.",
+    },
   },
   {
     id: "amendment",
@@ -193,6 +278,15 @@ export const CONTRACT_FLAGS = [
     whyKey: "risk_flag_amendment_hint",
     naReasonKey: "risk_na_generic",
     availability: "Always — the row's own tag decides it.",
+    ocp: {
+      id: "R064",
+      name: "Contract has modifications",
+      note: "Direct equivalent. Ours is a row tag rather than a computed comparison.",
+    },
+    imonitor: {
+      id: null,
+      note: "VERIFIED UNMAPPED. Table 2's eleven indicators stop at the award; nothing there looks at the contract after signature, so amendments are outside the scheme's scope rather than absent from it.",
+    },
   },
   {
     id: "annexGrowth",
@@ -212,6 +306,15 @@ export const CONTRACT_FLAGS = [
     naReasonKey: "risk_na_annex_growth",
     availability:
       "Only where an annex actually moved the value — an un-amended contract is excluded from the denominator rather than scored 0.",
+    ocp: {
+      id: "R069",
+      name: "Contract amendments to increase price",
+      note: "Closest match; R059 (large difference between award value and final contract amount) is the same family. Ours differs by being anchored on a LEGAL cap — ЗОП чл.116 ал.2's cumulative 50% — rather than on a statistical outlier, which makes it stricter than the EU per-modification rule.",
+    },
+    imonitor: {
+      id: null,
+      note: "VERIFIED UNMAPPED. Table 2's eleven indicators all stop at the award decision; none reads the contract after signature, so post-award value growth is outside the scheme's scope.",
+    },
   },
   {
     id: "newFirmWinner",
@@ -231,6 +334,14 @@ export const CONTRACT_FLAGS = [
     naReasonKey: "risk_na_new_firm",
     availability:
       "Only where the contractor's founding date is known and precedes the award.",
+    ocp: {
+      id: null,
+      note: "VERIFIED UNMAPPED. R045 (bidder not listed in business registries) is about ABSENCE from a registry, not recency of incorporation. No recency indicator exists in the 73.",
+    },
+    imonitor: {
+      id: null,
+      note: "VERIFIED UNMAPPED. The supplier-risk group covers tax havens, buyer share and market breadth — nothing about how recently the supplier was incorporated.",
+    },
   },
   {
     id: "splitPurchase",
@@ -245,6 +356,15 @@ export const CONTRACT_FLAGS = [
     availability:
       "Always — but it is a QUESTION, not a verdict: чл.21 permits separate recurring needs, and the data cannot distinguish that from splitting.",
     baseRate: "0.09% of contracts (risk-v2 §6b-results)",
+    ocp: {
+      id: "R055",
+      name: "Multiple direct awards above or just below competitive threshold",
+      note: "R055 is the computable form; R011 (splitting purchases to avoid procurement thresholds) is the named concept and R002 (manipulation of procurement thresholds) the family. ⚠️ An earlier draft mapped it to R049. R049 also covers more than one award — its definition reads 'supplier receives more than 1 direct award from the same buyer in period t JUST BELOW the competitive threshold' — so the real distinction is the TEST, not the count: R049 keys on each award sitting just below the ceiling, R055 on the awards AGGREGATING above it, and aggregating-above is what we compute. Ours is additionally ceiling-aware against ЗОП чл.20 ал.4 by date and category.",
+    },
+    imonitor: {
+      id: null,
+      note: "VERIFIED UNMAPPED. Threshold manipulation is not among the eleven indicators; the nearest is the non-open-procedure one, which counts procedure types rather than detecting a split.",
+    },
   },
   {
     id: "appealUpheld",
@@ -257,6 +377,15 @@ export const CONTRACT_FLAGS = [
     naReasonKey: "risk_na_appeal_upheld",
     availability:
       "Always server-side — the appeal corpus is joined corpus-wide.",
+    ocp: {
+      id: "R020",
+      name: "Tender has a complaint",
+      note: "Partial. R020 fires on the EXISTENCE of a complaint; ours requires the КЗК to have UPHELD it, which is a materially higher bar and a much rarer event.",
+    },
+    imonitor: {
+      id: null,
+      note: "VERIFIED UNMAPPED. No complaint or review-body indicator in the set.",
+    },
   },
   {
     id: "weakCompetition",
@@ -275,6 +404,16 @@ export const CONTRACT_FLAGS = [
     whyKey: "risk_flag_weak_competition_hint",
     naReasonKey: "risk_na_weak_competition",
     availability: "Only where the realised bid count is known.",
+    ocp: {
+      id: "R018",
+      name: "Single bid received",
+      note: "The single-bid arm maps to R018; the graded arm maps to R019 (low number of bidders for item category), which is a close match for our 5-digit-CPV-prefix median comparison. ⚠️ We DIFFER from both by suppressing the flag in structurally single-bid CPV divisions and on the statutory sole-source CPV 22112 — neither OCP nor iMonitor does.",
+    },
+    imonitor: {
+      id: "singleBidder",
+      name: "Single bidder tender",
+      note: "Same quantity, scored 0/100. Our structural and statutory suppressions have no counterpart there.",
+    },
   },
   {
     id: "directAward",
@@ -287,6 +426,16 @@ export const CONTRACT_FLAGS = [
     naReasonKey: "risk_na_direct_award",
     availability:
       "Only where a procedure type or a no-notice rationale is recorded.",
+    ocp: {
+      id: "R010",
+      name: "Unjustified use of non competitive procedure",
+      note: "R010 at contract grain; R013 (high use of non competitive methods) is the buyer-grain aggregate, which is what our exposure grade uses instead.",
+    },
+    imonitor: {
+      id: "nonOpenProcedure",
+      name: "Use of non-open procedure types",
+      note: "Same concept. iMonitor bands it 100/50/0 with a per-country view of which procedure types count as red; ours is boolean on the Bulgarian procedure vocabulary.",
+    },
   },
   {
     id: "shortTenderPeriod",
@@ -308,6 +457,16 @@ export const CONTRACT_FLAGS = [
       "Only where both tender-window dates are present and ordered.",
     caveat:
       "CURRENTLY INERT. The tender-window columns are unpopulated across the contracts corpus, so this check is evaluable on effectively no contracts — measured 0 of 20,000 sampled. It is neither firing nor passing: it is excluded from every contract's CRI denominator. Listed here because it is implemented and would begin scoring the moment those dates arrive, not because it contributes today.",
+    ocp: {
+      id: "R003",
+      name: "The submission period is too short",
+      note: "R014 (short time between advertising and bid opening) is the same measurement. Ours uses a flat 14-day cut lifted from Directive 2014/24 Art. 27 — see this flag's caveat; OCP does not fix a value.",
+    },
+    imonitor: {
+      id: "advertisementPeriod",
+      name: "Length of advertisement period",
+      note: "Same measurement, and iMonitor BANDS it (100/50/0) per country rather than using one flat cut. That banding is what risk-v2 §6a says ours should be re-cut into.",
+    },
   },
   {
     id: "nkidMismatch",
@@ -320,6 +479,16 @@ export const CONTRACT_FLAGS = [
     naReasonKey: "risk_na_nkid",
     availability:
       "Only where the contractor's declared НКИД division is known AND the contract carries a CPV.",
+    ocp: {
+      id: null,
+      name: undefined,
+      note: "VERIFIED UNMAPPED — our net-new flag. The nearest neighbour is R048 (heterogeneous supplier), which measures how many unrelated markets a supplier sells into; ours compares the contract's CPV against the supplier's OWN DECLARED activity code in the Commerce Registry, which is a different input and a different claim.",
+    },
+    imonitor: {
+      id: null,
+      name: undefined,
+      note: "VERIFIED UNMAPPED. The nearest is Distinct markets, which is R048's mechanism — supplier breadth, not declared-activity mismatch.",
+    },
   },
 ] as const satisfies readonly ContractFlagDef[];
 
@@ -411,6 +580,10 @@ export type TenderFlagDef = {
    *  methodology calls uncalibrated, has to say so where a reader will see it —
    *  not in a plan they will never open. */
   readonly caveat?: string;
+  /** REQUIRED. A new flag cannot be added without deciding where it sits in each
+   *  external scheme — `{ id: null }` is a decision, an absent field is not. */
+  readonly ocp: CrossWalk;
+  readonly imonitor: CrossWalk;
   /** Measured base rate on the Bulgarian corpus, where one exists. The single
    *  strongest trust signal in the published spec — a threshold with no base
    *  rate beside it is a number a reader cannot sanity-check. */
@@ -426,6 +599,16 @@ export const TENDER_FLAGS = [
     citation: 'EC Single Market Scoreboard ("no calls for bids")',
     availability: "Only where a procedure type is recorded.",
     baseRate: "14.3% (126,413 tenders, 2020–2026) — stable by year",
+    ocp: {
+      id: "R010",
+      name: "Unjustified use of non competitive procedure",
+      note: "Tender-grain equivalent of directAward.",
+    },
+    imonitor: {
+      id: "nonOpenProcedure",
+      name: "Use of non-open procedure types",
+      note: "Direct equivalent; iMonitor bands, we do not.",
+    },
   },
   {
     id: "rushedDeadline",
@@ -438,6 +621,16 @@ export const TENDER_FLAGS = [
     citation: "Calibrated on the BG corpus (risk-v2 §6b-results)",
     availability: "Competitive tiers only, with both dates present.",
     baseRate: "~0.3–1% on the competitive tiers",
+    ocp: {
+      id: "R003",
+      name: "The submission period is too short",
+      note: "Same measurement. ⚠️ We differ deliberately by scoring it ONLY on the competitive procedure tiers, because on low-value tiers a short window is statutory; neither scheme makes that carve-out.",
+    },
+    imonitor: {
+      id: "advertisementPeriod",
+      name: "Length of advertisement period",
+      note: "Same measurement, banded there.",
+    },
   },
   {
     id: "shortDecisionPeriod",
@@ -452,6 +645,16 @@ export const TENDER_FLAGS = [
     baseRate: "3.2%",
     caveat:
       "DIRECTION UNSETTLED. The flag scores SHORT decision periods, but PRWP 10444's own prose justifies risk via the opposite mechanism — that a lengthy decision period gives room for repeated legal challenges until the award reaches a chosen company. The calibration penalises short while the source narrative worries about long: an inconsistency in the source, documented rather than resolved. Treat this as the weakest of the four tender checks.",
+    ocp: {
+      id: "R061",
+      name: "Decision period extremely short",
+      note: "Direct equivalent. ⚠️ Note that OCP also publishes R062, 'Decision period extremely long' — so the one-sidedness of our flag is a CHOICE, not the standard, which is exactly the unsettled direction its caveat records.",
+    },
+    imonitor: {
+      id: "decisionPeriod",
+      name: "Length of decision period",
+      note: "iMonitor treats it as a banded interval rather than one-sided, corroborating this flag's caveat.",
+    },
   },
   {
     id: "awardOverEstimate",
@@ -466,6 +669,15 @@ export const TENDER_FLAGS = [
     availability:
       "Only where a procedure estimate and at least one award exist.",
     baseRate: "4.1%",
+    ocp: {
+      id: "R031",
+      name: "Winning bid price very close or higher than estimated price",
+      note: "Closest match. R016 (tender value higher or lower than the category average) is a DIFFERENT comparison — against peers rather than against the procedure's own estimate — and it is the two-sided one our normalcy panel carries instead.",
+    },
+    imonitor: {
+      id: null,
+      note: "VERIFIED UNMAPPED. No estimate-versus-award comparison among the eleven; the closest is Benford's law, which tests price digit distributions rather than a forecast.",
+    },
   },
 ] as const satisfies readonly TenderFlagDef[];
 

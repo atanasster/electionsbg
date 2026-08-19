@@ -256,6 +256,92 @@ reason.
 
 ---
 
+## Alignment with OCP and iMonitor
+
+The point of these tables is **comparability, not compliance**. They let somebody already
+working in either scheme see this Bulgarian calibration through their lens, and they mark the
+places we deliberately deviate.
+
+**`unmapped` means somebody read the source and found no equivalent** — not that nobody looked.
+
+Verified 2026-08-18 against the documents themselves:
+
+- **OCP, Red Flags for Integrity (2024)** — 73 flags.
+  <https://www.open-contracting.org/wp-content/uploads/2024/12/OCP2024-RedFlagProcurement-1.pdf>
+  *Method:* pdftotext (plain — NOT -layout, which yields an empty file for this PDF). All 73 R-ids and their titles enumerated, then matched by mechanism rather than by name.
+- **iMonitor 2.0 / OpenTender, D2.2 Updated Risk Assessment Methodology (2026)** — 11 indicators.
+  <https://imonitor.govtransparency.eu/wp-content/uploads/2026/03/D2.2-Updated-Risk-Assessment-Methodology_final.pdf>
+  *Method:* pdftotext; Table 2 (Summary table for the integrity Indicators) read in full — 11 indicators, scored 0/50/100 rather than boolean, which is itself a difference worth publishing.
+
+### OCP, *Red Flags for Integrity* (2024)
+
+4 of our 17 checks have no equivalent there.
+
+| our flag | OCP flag | how we differ |
+|---|---|---|
+| `debarred` | `R046` — Bidder is debarred or on sanctions list | Direct equivalent. Ours reads the АОП register of economic operators with breaches; OCP's wording also covers sanctions lists, which we treat as a separate person-layer concern. |
+| `mpConnected` | **unmapped** | VERIFIED UNMAPPED. The nearest is R043 (bidder shares contact information with a project official), which is a different mechanism — contact-detail identity rather than a declared political tie. OCP's 73 flags contain no political-connection indicator. |
+| `pepConnected` | **unmapped** | VERIFIED UNMAPPED, same as mpConnected. |
+| `awarderConcentration` | `R040` — High share of buyers contracts | Direct equivalent in mechanism. Ours adds a €100,000 floor on the buyer's lifetime spend, which OCP does not specify; R050/R051 are the market-side mirror (supplier's share of a market) and are NOT what we compute. |
+| `amendment` | `R064` — Contract has modifications | Direct equivalent. Ours is a row tag rather than a computed comparison. |
+| `annexGrowth` | `R069` — Contract amendments to increase price | Closest match; R059 (large difference between award value and final contract amount) is the same family. Ours differs by being anchored on a LEGAL cap — ЗОП чл.116 ал.2's cumulative 50% — rather than on a statistical outlier, which makes it stricter than the EU per-modification rule. |
+| `newFirmWinner` | **unmapped** | VERIFIED UNMAPPED. R045 (bidder not listed in business registries) is about ABSENCE from a registry, not recency of incorporation. No recency indicator exists in the 73. |
+| `splitPurchase` | `R055` — Multiple direct awards above or just below competitive threshold | R055 is the computable form; R011 (splitting purchases to avoid procurement thresholds) is the named concept and R002 (manipulation of procurement thresholds) the family. ⚠️ An earlier draft mapped it to R049. R049 also covers more than one award — its definition reads 'supplier receives more than 1 direct award from the same buyer in period t JUST BELOW the competitive threshold' — so the real distinction is the TEST, not the count: R049 keys on each award sitting just below the ceiling, R055 on the awards AGGREGATING above it, and aggregating-above is what we compute. Ours is additionally ceiling-aware against ЗОП чл.20 ал.4 by date and category. |
+| `appealUpheld` | `R020` — Tender has a complaint | Partial. R020 fires on the EXISTENCE of a complaint; ours requires the КЗК to have UPHELD it, which is a materially higher bar and a much rarer event. |
+| `weakCompetition` | `R018` — Single bid received | The single-bid arm maps to R018; the graded arm maps to R019 (low number of bidders for item category), which is a close match for our 5-digit-CPV-prefix median comparison. ⚠️ We DIFFER from both by suppressing the flag in structurally single-bid CPV divisions and on the statutory sole-source CPV 22112 — neither OCP nor iMonitor does. |
+| `directAward` | `R010` — Unjustified use of non competitive procedure | R010 at contract grain; R013 (high use of non competitive methods) is the buyer-grain aggregate, which is what our exposure grade uses instead. |
+| `shortTenderPeriod` | `R003` — The submission period is too short | R014 (short time between advertising and bid opening) is the same measurement. Ours uses a flat 14-day cut lifted from Directive 2014/24 Art. 27 — see this flag's caveat; OCP does not fix a value. |
+| `nkidMismatch` | **unmapped** | VERIFIED UNMAPPED — our net-new flag. The nearest neighbour is R048 (heterogeneous supplier), which measures how many unrelated markets a supplier sells into; ours compares the contract's CPV against the supplier's OWN DECLARED activity code in the Commerce Registry, which is a different input and a different claim. |
+| `nonOpenProcedure` | `R010` — Unjustified use of non competitive procedure | Tender-grain equivalent of directAward. |
+| `rushedDeadline` | `R003` — The submission period is too short | Same measurement. ⚠️ We differ deliberately by scoring it ONLY on the competitive procedure tiers, because on low-value tiers a short window is statutory; neither scheme makes that carve-out. |
+| `shortDecisionPeriod` | `R061` — Decision period extremely short | Direct equivalent. ⚠️ Note that OCP also publishes R062, 'Decision period extremely long' — so the one-sidedness of our flag is a CHOICE, not the standard, which is exactly the unsettled direction its caveat records. |
+| `awardOverEstimate` | `R031` — Winning bid price very close or higher than estimated price | Closest match. R016 (tender value higher or lower than the category average) is a DIFFERENT comparison — against peers rather than against the procedure's own estimate — and it is the two-sided one our normalcy panel carries instead. |
+
+### iMonitor 2.0 / OpenTender
+
+10 of our 17 checks have no equivalent there.
+
+| our flag | iMonitor indicator | how we differ |
+|---|---|---|
+| `debarred` | **unmapped** | No debarment indicator in the 11-indicator set. |
+| `mpConnected` | **unmapped** | VERIFIED UNMAPPED. No political-connection indicator; the supplier-risk group covers tax havens, buyer share and market breadth. |
+| `pepConnected` | **unmapped** | VERIFIED UNMAPPED, same as mpConnected. |
+| `awarderConcentration` | `supplierBuyerShare` — Supplier's tender share of buyer spending on public procurement | Same quantity. iMonitor scores it as a continuous 0-100 rather than firing at a cut-point, so their output is a score and ours is a boolean above 30%. |
+| `amendment` | **unmapped** | VERIFIED UNMAPPED. Table 2's eleven indicators stop at the award; nothing there looks at the contract after signature, so amendments are outside the scheme's scope rather than absent from it. |
+| `annexGrowth` | **unmapped** | VERIFIED UNMAPPED. Table 2's eleven indicators all stop at the award decision; none reads the contract after signature, so post-award value growth is outside the scheme's scope. |
+| `newFirmWinner` | **unmapped** | VERIFIED UNMAPPED. The supplier-risk group covers tax havens, buyer share and market breadth — nothing about how recently the supplier was incorporated. |
+| `splitPurchase` | **unmapped** | VERIFIED UNMAPPED. Threshold manipulation is not among the eleven indicators; the nearest is the non-open-procedure one, which counts procedure types rather than detecting a split. |
+| `appealUpheld` | **unmapped** | VERIFIED UNMAPPED. No complaint or review-body indicator in the set. |
+| `weakCompetition` | `singleBidder` — Single bidder tender | Same quantity, scored 0/100. Our structural and statutory suppressions have no counterpart there. |
+| `directAward` | `nonOpenProcedure` — Use of non-open procedure types | Same concept. iMonitor bands it 100/50/0 with a per-country view of which procedure types count as red; ours is boolean on the Bulgarian procedure vocabulary. |
+| `shortTenderPeriod` | `advertisementPeriod` — Length of advertisement period | Same measurement, and iMonitor BANDS it (100/50/0) per country rather than using one flat cut. That banding is what risk-v2 §6a says ours should be re-cut into. |
+| `nkidMismatch` | **unmapped** | VERIFIED UNMAPPED. The nearest is Distinct markets, which is R048's mechanism — supplier breadth, not declared-activity mismatch. |
+| `nonOpenProcedure` | `nonOpenProcedure` — Use of non-open procedure types | Direct equivalent; iMonitor bands, we do not. |
+| `rushedDeadline` | `advertisementPeriod` — Length of advertisement period | Same measurement, banded there. |
+| `shortDecisionPeriod` | `decisionPeriod` — Length of decision period | iMonitor treats it as a banded interval rather than one-sided, corroborating this flag's caveat. |
+| `awardOverEstimate` | **unmapped** | VERIFIED UNMAPPED. No estimate-versus-award comparison among the eleven; the closest is Benford's law, which tests price digit distributions rather than a forecast. |
+
+### What these tables are for
+
+1. **The political-connection flags have no counterpart in either scheme.** `mpConnected`,
+   `pepConnected` and `nkidMismatch` are unmapped on both sides. That is the genuinely local
+   part of this catalogue — and also the part making the strongest claim about named people,
+   which is why it is gated on a resolved identity layer rather than on name matching.
+2. **Where we are stricter, it is usually a legal anchor rather than a better statistic.**
+   `annexGrowth` is bound to ЗОП чл.116 ал.2's cumulative cap and `splitPurchase` to чл.20
+   ал.4's ceilings by date and category. Neither external scheme fixes a value, because
+   neither is written for one jurisdiction.
+3. **Where we are looser, we say so.** `weakCompetition` suppresses in structurally single-bid
+   CPV divisions and on the statutory sole-source CPV; OCP's R018 and iMonitor's single-bidder
+   indicator do not. That is a deliberate false-positive reduction, and it means **our
+   single-bid rate is not comparable to theirs** until the suppression is undone.
+
+⚠️ **Both external schemes band several indicators (iMonitor scores 0/50/100 throughout) where
+we fire a boolean.** A cross-country comparison that reads our booleans as their scores will
+overstate the difference between Bulgaria and its peers, in both directions.
+
+---
+
 ## Legal thresholds
 
 - **ЗОП чл.116 ал.2** — the 50% cap is **cumulative** ("общата стойност на измененията"), which is

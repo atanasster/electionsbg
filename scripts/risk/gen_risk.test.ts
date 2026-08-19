@@ -20,7 +20,17 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, test } from "vitest";
+import OCP_FIXTURE_RAW from "./__fixtures__/ocp_2024_flags.json";
+
+/** The fixture, widened for lookup by an arbitrary id string. The JSON import
+ *  types `flags` as an exact 73-key object, so indexing it with a variable is a
+ *  type error — and the whole point here is to look up ids that might NOT be in
+ *  it. */
+const OCP_FIXTURE = OCP_FIXTURE_RAW as unknown as {
+  flags: Record<string, string | undefined>;
+};
 import {
+  ALIGNMENT_SOURCES,
   AWARDER_EXPOSURE_LIST,
   CATALOG_VERSION,
   CONCENTRATION_MIN_AWARDER_TOTAL_EUR,
@@ -44,8 +54,14 @@ const catalogue = JSON.parse(fs.readFileSync(JSON_OUT, "utf8")) as {
     id: string;
     legacyWeight: number;
     baseRate: string | null;
+    ocp: { id: string | null; note: string };
+    imonitor: { id: string | null; note: string };
   }[];
-  tenderFlags: { id: string }[];
+  tenderFlags: {
+    id: string;
+    ocp: { id: string | null; note: string };
+    imonitor: { id: string | null; note: string };
+  }[];
   contractIndex: { weighted: boolean };
   exposureGrades: {
     awarder: { key: string }[];
@@ -119,6 +135,123 @@ describe("risk-flags.json is a faithful catalogue", () => {
       "upheldAppeal",
     );
     expect(catalogue.exposureGrades.supplierOpenQuestion).toMatch(/undecided/i);
+  });
+});
+
+describe("the OCP / iMonitor alignment", () => {
+  // The plan made verification the deliverable of this tier for a reason: an
+  // alignment table is the first artifact an OCP or TI reader checks, and a
+  // plausible-looking wrong id discredits every mapping beside it. The plan's own
+  // first draft guessed two ids and both were wrong.
+
+  test("every flag declares a decision for BOTH schemes", () => {
+    // An absent mapping is not the same as `unmapped`. The required field forces
+    // this at compile time; asserting it here catches a mapping hollowed out to
+    // an empty note.
+    for (const f of [...CONTRACT_FLAG_LIST, ...TENDER_FLAG_LIST])
+      for (const scheme of ["ocp", "imonitor"] as const) {
+        expect(f[scheme], `${f.id}.${scheme}`).toBeTruthy();
+        expect(
+          f[scheme].note.trim().length,
+          `${f.id}.${scheme} has no note — a mapping with no stated difference ` +
+            "reads as a claim of equivalence, and none of these are equivalent",
+        ).toBeGreaterThan(20);
+      }
+  });
+
+  test("every OCP id EXISTS in the published flag list, with the title we cite", () => {
+    // The fixture is the 73 flags verbatim from the source PDF, committed so this
+    // is a test run rather than a manual re-read. That distinction is not
+    // academic: three false claims about what these flags SAY survived a green
+    // suite precisely because nothing here could check them.
+    expect(Object.keys(OCP_FIXTURE.flags).length).toBe(
+      ALIGNMENT_SOURCES.ocp.flagCount,
+    );
+    for (const f of [...CONTRACT_FLAG_LIST, ...TENDER_FLAG_LIST]) {
+      const id = f.ocp.id;
+      if (id === null) continue;
+      const title = OCP_FIXTURE.flags[id];
+      expect(
+        title,
+        `${f.id} cites ${id}, which is not a published flag`,
+      ).toBeTruthy();
+      // The name we publish beside the id must be the source's own wording — a
+      // paraphrase drifts into a claim about a flag that says something else.
+      if (f.ocp.name) expect(f.ocp.name, `${f.id} → ${id}`).toBe(title);
+    }
+  });
+
+  test("any OCP flag NAMED in a note is a real flag", () => {
+    // The notes reference neighbouring flags to explain a difference (R011, R014,
+    // R019, R031, R045, R048, R049, R050, R059, R062 …). A wrong id there is as
+    // misleading as a wrong mapping, and is exactly where the false claims sat.
+    const cited = new Set<string>();
+    for (const f of [...CONTRACT_FLAG_LIST, ...TENDER_FLAG_LIST])
+      for (const m of f.ocp.note.matchAll(/\bR\d{3}\b/g)) cited.add(m[0]);
+    expect(
+      cited.size,
+      "no cross-references at all — the notes got thinner",
+    ).toBeGreaterThan(5);
+    for (const id of cited)
+      expect(
+        OCP_FIXTURE.flags[id],
+        `a note cites ${id}, which is not one of the ${ALIGNMENT_SOURCES.ocp.flagCount} published flags`,
+      ).toBeTruthy();
+  });
+
+  test("ids look like OCP ids and sit inside the published range", () => {
+    for (const f of [...CONTRACT_FLAG_LIST, ...TENDER_FLAG_LIST]) {
+      const id = f.ocp.id;
+      if (id === null) continue;
+      expect(id, `${f.id}: '${id}' is not an R-id`).toMatch(/^R\d{3}$/);
+      expect(
+        Number(id.slice(1)),
+        `${f.id}: R-id outside the ${ALIGNMENT_SOURCES.ocp.flagCount} published flags`,
+      ).toBeLessThanOrEqual(ALIGNMENT_SOURCES.ocp.flagCount);
+    }
+  });
+
+  test("the CORRECTED mappings are the ones published", () => {
+    // Pinned deliberately: these two are the errors verification found, and a
+    // silent regression to the guess would be invisible in a table this size.
+    const byId = Object.fromEntries(
+      [...CONTRACT_FLAG_LIST, ...TENDER_FLAG_LIST].map((f) => [f.id, f]),
+    );
+    // splitPurchase is R055 (MULTIPLE direct awards around the threshold), not
+    // R049 (a SINGLE direct award below it, which is nearer our directAward).
+    expect(byId.splitPurchase.ocp.id).toBe("R055");
+    // awardOverEstimate compares against the procedure's OWN estimate (R031),
+    // not against the category average (R016).
+    expect(byId.awardOverEstimate.ocp.id).toBe("R031");
+  });
+
+  test("the sources record how they were verified", () => {
+    for (const src of [ALIGNMENT_SOURCES.ocp, ALIGNMENT_SOURCES.imonitor]) {
+      expect(src.url).toMatch(/^https:\/\//);
+      expect(src.verifiedOn).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(src.method.length).toBeGreaterThan(30);
+    }
+  });
+
+  test("the handbook publishes both tables, the sources and the unmapped rule", () => {
+    expect(handbook).toContain("## Alignment with OCP and iMonitor");
+    expect(handbook).toContain(ALIGNMENT_SOURCES.ocp.url);
+    expect(handbook).toContain(ALIGNMENT_SOURCES.imonitor.url);
+    expect(handbook).toContain("**unmapped**");
+    expect(handbook).toMatch(
+      /somebody read the source and found no equivalent/,
+    );
+  });
+
+  test("the JSON carries the alignment for a machine consumer", () => {
+    const flags = [...catalogue.contractFlags, ...catalogue.tenderFlags];
+    expect(flags.length).toBe(
+      CONTRACT_FLAG_LIST.length + TENDER_FLAG_LIST.length,
+    );
+    for (const f of flags) {
+      expect(f.ocp, `${f.id}.ocp`).toBeTruthy();
+      expect(f.imonitor, `${f.id}.imonitor`).toBeTruthy();
+    }
   });
 });
 
