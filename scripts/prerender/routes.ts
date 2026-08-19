@@ -2546,7 +2546,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h2>Земя и култура</h2>
 <ul>
 <li><a href="${SITE_URL}/awarder/121100421">Земеделие (ДФЗ)</a> — субсидии, бенефициенти, САР.</li>
-<li><a href="${SITE_URL}/culture">Култура</a> — филмови субсидии и комисии.</li>
+<li><a href="${SITE_URL}/culture">Култура</a> — бюджет, поръчки, филмови субсидии и комисии.</li>
 </ul>`.trim(),
     english: {
       title:
@@ -2584,7 +2584,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h2>Land & culture</h2>
 <ul>
 <li><a href="${SITE_URL}/en/awarder/121100421">Agriculture (ДФЗ)</a> — subsidies, beneficiaries, CAP.</li>
-<li><a href="${SITE_URL}/en/culture">Culture</a> — film subsidies and commissions.</li>
+<li><a href="${SITE_URL}/en/culture">Culture</a> — budget, contracts, film subsidies and commissions.</li>
 </ul>`.trim(),
     },
   }),
@@ -2742,14 +2742,65 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    // The HUB. It keeps the /culture URL (prerendered and indexed since 2026-07)
+    // and changes what is on it — the film body moved to /culture/subsidies
+    // below, unchanged.
+    //
+    // The copy deliberately RETAINS the subsidy vocabulary and names the subsidy
+    // page in the first paragraph: per project_seo_discovery_gap a broader page
+    // does not inherit a narrower one's traffic, and everything this URL ranked
+    // for is about film money.
     path: "culture",
     title:
-      "Култура — държавните пари за кино и кой ги получава | electionsbg.com",
-    description: `Държавната субсидия на Националния филмов център за кино (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.totalBg} за ${cultureFacts.filmsBg} проекта на ${cultureFacts.producersBg} продуценти, по вид и по година, с концентрацията у най-финансираните.`,
+      "Култура — публичните пари за култура и кой ги получава | electionsbg.com",
+    description: `Всички публични пари за култура на едно място: бюджетът на Министерството на културата, обществените поръчки на 42 държавни институции, филмовите субсидии на НФЦ (${cultureFacts.totalBg} за ${cultureFacts.filmsBg} проекта) и еврофондовете — кой получава, от кого и с каква конкуренция.`,
     breadcrumbName: "Култура",
     ogImage: "/og/culture.png",
     bodyHtml: `
-<h1>Култура — къде отиват държавните пари за кино</h1>
+<h1>Култура — публичните пари за култура и кой ги получава</h1>
+<p>Държавните пари за култура идват по четири различни пътя, които не се събират в едно число: годишният бюджет на Министерството на културата, обществените поръчки на държавните културни институти, филмовите субсидии на Националния филмов център и европейските средства. Тази страница ги показва един до друг — с основата на всяко число, защото едното е годишен поток, а другите са натрупани от 2011 г. насам.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong><a href="${SITE_URL}/culture/subsidies">Филмови субсидии</a></strong> — ${cultureFacts.totalBg} на НФЦ за ${cultureFacts.filmsBg} филмови проекта на ${cultureFacts.producersBg} продуценти (${cultureFacts.firstYear}–${cultureFacts.lastYear}), по вид и по година, с концентрацията у най-финансираните.</li>
+<li><strong>Обществени поръчки</strong> — договорите на Министерството на културата, държавните културни институти и националните училища по изкуствата, с дела на поръчките с една оферта до националната база.</li>
+<li><strong>Кой решава</strong> — съставите на художествените комисии, които раздават филмовата субсидия извън Закона за обществените поръчки.</li>
+<li><strong>Кой ръководи</strong> — директорите на държавните културни институти и подадените от тях декларации.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/awarder/000695160">поръчките на Министерството на културата</a>, <a href="${SITE_URL}/culture/films">регистъра на финансираните филми</a> и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>
+<p>Източници: Национален филмов център, АОП/ЦАИС ЕОП, Министерство на финансите.</p>`.trim(),
+    english: {
+      title:
+        "Culture — Bulgaria's public culture money and who gets it | electionsbg.com",
+      description: `Bulgaria's public culture money in one place: the Ministry of Culture's budget, the public contracts of 42 state institutions, the National Film Center's subsidies (${cultureFacts.totalEn} across ${cultureFacts.filmsEn} projects) and EU funds — who receives, from whom, and with how much competition.`,
+      breadcrumbName: "Culture",
+      bodyHtml: `
+<h1>Culture — Bulgaria's public culture money and who gets it</h1>
+<p>State money for culture arrives by four different routes that do not add up to a single figure: the Ministry of Culture's annual budget, the public contracts of the state cultural institutes, the National Film Center's film subsidies, and EU funds. This page puts them side by side — each with its basis, because one is an annual flow and the others accumulate from 2011 onwards.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong><a href="${SITE_URL}/en/culture/subsidies">Film subsidies</a></strong> — ${cultureFacts.totalEn} from the National Film Center across ${cultureFacts.filmsEn} projects and ${cultureFacts.producersEn} producers (${cultureFacts.firstYear}–${cultureFacts.lastYear}), by discipline and year.</li>
+<li><strong>Public contracts</strong> — what the Ministry, the state cultural institutes and the national art schools buy, with the single-bidder share against the national baseline.</li>
+<li><strong>Who decides</strong> — the artistic commissions that award the film subsidy, outside the Public Procurement Act.</li>
+<li><strong>Who runs them</strong> — the directors of the state cultural institutes and the declarations they file.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/awarder/000695160">Ministry of Culture's procurement</a>, the <a href="${SITE_URL}/en/culture/films">register of funded films</a> and the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
+<p>Sources: National Film Center, АОП/ЦАИС ЕОП, Ministry of Finance.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    // Was `path: "culture"` until 2026-08-18. The BODY did not change — this is
+    // the film-subsidy page moving with its content, so whatever it ranks for
+    // moves with it rather than being rewritten underneath the same URL.
+    // `cultureFacts` (read from data/culture/overview.json at BUILD time) still
+    // feeds every figure below.
+    path: "culture/subsidies",
+    title:
+      "Филмови субсидии — държавните пари за кино и кой ги получава | electionsbg.com",
+    description: `Държавната субсидия на Националния филмов център за кино (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.totalBg} за ${cultureFacts.filmsBg} проекта на ${cultureFacts.producersBg} продуценти, по вид и по година, с концентрацията у най-финансираните.`,
+    breadcrumbName: "Филмови субсидии",
+    ogImage: "/og/culture.png",
+    bodyHtml: `
+<h1>Филмови субсидии — къде отиват държавните пари за кино</h1>
 <p>Между ${cultureFacts.firstYear} и ${cultureFacts.lastYear} г. Изпълнителна агенция „Национален филмов център" разпределя ${cultureFacts.totalBg} държавна субсидия за ${cultureFacts.filmsBg} филмови проекта на ${cultureFacts.producersBg} продуценти. Тази страница показва кой получава парите, за какъв вид кино и как се менят през годините — по Единния публичен регистър на НФЦ.</p>
 <h2>Какво ще намерите тук</h2>
 <ul>
@@ -2763,11 +2814,11 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/" rel="nofollow noopener">Национален филмов център — Единен публичен регистър</a>.</p>`.trim(),
     english: {
       title:
-        "Culture — Bulgaria's State Film Money and Who Gets It | electionsbg.com",
+        "Film subsidies — Bulgaria's State Film Money and Who Gets It | electionsbg.com",
       description: `The National Film Center's state subsidy for film (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.totalEn} across ${cultureFacts.filmsEn} projects and ${cultureFacts.producersEn} producers, by discipline and year, with the concentration among the most-funded.`,
-      breadcrumbName: "Culture",
+      breadcrumbName: "Film subsidies",
       bodyHtml: `
-<h1>Culture — where Bulgaria's state film money goes</h1>
+<h1>Film subsidies — where Bulgaria's state film money goes</h1>
 <p>Between ${cultureFacts.firstYear} and ${cultureFacts.lastYear}, the National Film Center awarded ${cultureFacts.totalEn} in state subsidy across ${cultureFacts.filmsEn} film projects to ${cultureFacts.producersEn} producers. This page shows who gets the money, for what kind of film, and how it moved over time — from the НФЦ public register.</p>
 <h2>What you'll find</h2>
 <ul>

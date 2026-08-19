@@ -931,7 +931,19 @@ const captures: Capture[] = [
   },
   {
     slug: "culture",
-    routePath: "culture",
+    // /culture/subsidies, NOT /culture: the film dashboard this shot frames moved
+    // there when /culture became the sector hub (2026-08-18), and
+    // `data-og="culture-hero"` moved with it. Left pointing at /culture, the
+    // capture waits 30 s for a selector that page no longer has, throws, and
+    // takes the whole run's exit code with it — while /og/culture.png keeps
+    // depicting the moved dashboard.
+    //
+    // The SLUG stays `culture` on purpose: both the hub and the subsidies page
+    // declare `ogImage: "/og/culture.png"` in scripts/prerender/routes.ts, so
+    // renaming the file would blank the card on two indexed pages. The image
+    // shows the subsidy figures for both, which is exact for one and
+    // representative for the other.
+    routePath: "culture/subsidies",
     // KPI row + discipline-split bar + subsidy-by-year, top-aligned so the clip
     // leads with the headline numbers. Like the subsidies card, the full-bleed
     // dashboard is capped at 1216px so the grid is exactly 1200 and the outer

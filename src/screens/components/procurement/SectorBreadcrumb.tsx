@@ -21,8 +21,16 @@ export const SectorBreadcrumb: FC<{
   /** Already-resolved current label (e.g. an awarder's display name). Wins over
    *  currentKey. */
   current?: string;
+  /** The sector this page sits UNDER, when the page is not the sector landing
+   *  itself — rendered as a linked crumb before the current one.
+   *
+   *  Without it a sector's sub-pages repeat the sector's own crumb and stop
+   *  anywhere: /culture, /culture/subsidies and /culture/films all rendered
+   *  „… › Култура", so the trail neither named the page you were on nor offered
+   *  a way back up to the hub. */
+  parent?: { label: string; to: string };
   className?: string;
-}> = ({ currentKey, current, className }) => {
+}> = ({ currentKey, current, parent, className }) => {
   const { t } = useTranslation();
   const label = current ?? (currentKey ? t(currentKey) : undefined);
 
@@ -33,6 +41,7 @@ export const SectorBreadcrumb: FC<{
     // hub itself.
     { label: t("sectors_hub_nav"), ...(label ? { to: SECTORS_HUB_PATH } : {}) },
   ];
+  if (parent) items.push({ label: parent.label, to: parent.to });
   if (label) items.push({ label });
 
   return <Breadcrumbs items={items} className={className} />;

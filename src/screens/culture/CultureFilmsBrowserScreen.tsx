@@ -121,7 +121,10 @@ export const CultureFilmsBrowserScreen: FC = () => {
       >
         {title}
       </Title>
-      <SectorBreadcrumb currentKey="culture_nav" />
+      <SectorBreadcrumb
+        parent={{ label: bg ? "Култура" : "Culture", to: "/culture" }}
+        current={bg ? "Финансирани филми" : "Funded films"}
+      />
 
       <div className="mt-2">
         <Link

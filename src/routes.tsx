@@ -293,9 +293,14 @@ const WaterOperatorsScreen = lazy(() =>
     default: m.WaterOperatorsScreen,
   })),
 );
-const CultureScreen = lazy(() =>
-  import("./screens/culture/CultureScreen").then((m) => ({
-    default: m.CultureScreen,
+const CultureHubScreen = lazy(() =>
+  import("./screens/culture/CultureHubScreen").then((m) => ({
+    default: m.CultureHubScreen,
+  })),
+);
+const CultureSubsidiesScreen = lazy(() =>
+  import("./screens/culture/CultureSubsidiesScreen").then((m) => ({
+    default: m.CultureSubsidiesScreen,
   })),
 );
 const CultureFilmsBrowserScreen = lazy(() =>
@@ -2004,7 +2009,15 @@ export const AuthRoutes = () => {
             path="culture"
             element={
               <LayoutScreen>
-                <CultureScreen />
+                <CultureHubScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/subsidies"
+            element={
+              <LayoutScreen>
+                <CultureSubsidiesScreen />
               </LayoutScreen>
             }
           />
