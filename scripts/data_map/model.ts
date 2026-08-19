@@ -964,6 +964,26 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal", "indicators"],
   },
   {
+    id: "ted",
+    label: {
+      bg: "TED · обявления над прага",
+      en: "TED · above-threshold notices",
+    },
+    detail: {
+      bg: "какво България публикува в ЕС",
+      en: "what Bulgaria publishes to the EU",
+    },
+    desc: {
+      bg: "Tenders Electronic Daily — публикацията на ЕС за обществени поръчки над европейския праг. 217 525 български обявления (2016→), 99.8% с ЕИК на възложителя, който се свързва пряко с националния корпус. Служи за проверка на пълнотата: обявление тук без съответствие у нас е или пропуск в нашия ингест, или поръчка, която не е стигнала до националния регистър. Ранните години са натрупване на индекса на TED, не тенденция.",
+      en: "Tenders Electronic Daily — the EU's publication of record for procurement above the European threshold. 217,525 Bulgarian notices (2016→), 99.8% carrying a buyer ЕИК that joins the national corpus directly. It exists as a completeness check: a notice here with no national counterpart is either a gap in our ingest or a procedure that never reached the Bulgarian register. The early years are TED's index deepening, not a trend.",
+    },
+    url: "https://ted.europa.eu/",
+    origin: "eu",
+    members: ["ted_bg"],
+    skills: ["update-procurement"],
+    tags: ["procurement"],
+  },
+  {
     id: "cprs",
     label: {
       bg: "ЦПРС · регистър на строителя",

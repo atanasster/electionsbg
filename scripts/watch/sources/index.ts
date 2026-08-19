@@ -61,6 +61,7 @@ import { grao } from "./grao";
 import { smetnaPalata } from "./smetna_palata";
 import { financingReports } from "./financing_reports";
 import { erikCampaignFinancing } from "./erik_campaign_financing";
+import { tedBg } from "./ted_bg";
 import { transparencyCpi } from "./transparency_cpi";
 import { worldbankWgi } from "./worldbank_wgi";
 import { eurobarometer } from "./eurobarometer";
@@ -218,6 +219,7 @@ export const SOURCES: WatchSource[] = [
   indicatorsNsiVital,
   nsiLanduse,
   grao,
+  tedBg,
   transparencyCpi,
   worldbankWgi,
   eurobarometer,
