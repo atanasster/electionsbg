@@ -28,6 +28,7 @@ import type {
   MpOwnershipStake,
 } from "../../src/data/dataTypes";
 import { isEurConvertible, toEur } from "../../src/lib/currency";
+import { isSpouseHolder } from "../../src/lib/declarations";
 import { fxValueEur } from "./fx";
 import { registerFolderYear } from "../lib/cacbg_register";
 
@@ -597,22 +598,9 @@ const toLooseNumber = (raw: string | null): number | null => {
 };
 
 // Compare a holder name to the declarant's. Used to flag spouse/family rows
-// without identifying who the spouse is (cacbg redacts <Spouse/>).
-const normName = (s: string | null): string =>
-  (s ?? "")
-    .toUpperCase()
-    .replace(/\s*-\s*/g, "-")
-    .replace(/\s+/g, " ")
-    .trim();
-
-const isSpouseHolder = (
-  holderName: string | null,
-  declarantName: string,
-): boolean => {
-  const h = normName(holderName);
-  if (!h) return false;
-  return h !== normName(declarantName);
-};
+// without identifying who the spouse is (cacbg redacts <Spouse/>). The fold lives
+// in src/lib/declarations.ts because the RENDERER needs the same rule for stake
+// rows, which carry no is_spouse column — see the note there.
 
 /** Pick the euro figure for an asset row.
  *

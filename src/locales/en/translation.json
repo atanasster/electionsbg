@@ -6151,5 +6151,8 @@
   "proc_meth_h_contract_grade": "The contract's own grade",
   "proc_meth_p_contract_grade": "The letter beside a single contract is banded on the COUNT of checks that fired, not on the ratio. The reason is measured: fed to the entity-grade scale, the ratio puts 99% of the corpus in A/B and makes F mathematically unreachable — the corpus maximum is 60. A = nothing fired, F = five or more. A contract is n=1: its letter is weaker evidence than an entity's and should be read that way.",
   "proc_meth_col_basis_short": "Measured base rate / notes",
-  "proc_meth_base_rate": "Fires on"
+  "proc_meth_base_rate": "Fires on",
+  "pp_decl_prop_summary_one": "{{count}} declared property",
+  "pp_decl_prop_summary_other": "{{count}} declared properties",
+  "pp_decl_prop_card": "Declared properties"
 }

@@ -17,6 +17,8 @@ import { ExternalLink, ChevronDown, ChevronRight } from "lucide-react";
 import { DeclarationsSection } from "./DeclarationsSection";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEur, formatEurCompact } from "@/lib/currency";
+import { isSpouseHolder } from "@/lib/declarations";
+import { summariseProperties } from "@/lib/propertyKind";
 import { cn } from "@/lib/utils";
 import { assetRowParts } from "./assetRowText";
 import { PersonCryptoHoldings } from "./PersonCryptoHoldings";
@@ -99,6 +101,27 @@ export const PersonDeclarations: FC<{
     };
   }, [rows]);
 
+  // The property summary needs the ROWS, and only declaration_detail carries them — the
+  // filing list has assetCount and no breakdown. So unlike the crypto block, which gates on
+  // `cryptoCount` off the list and costs ~56.8k people nothing, this is one extra
+  // declaration_detail() call for everyone with an asset-bearing filing. It is a
+  // single-declaration join and the page already makes several calls, but if it ever needs
+  // to be free the fix is a property count + breakdown on the LIST payload (090), not a
+  // cache here — useDeclarationDetail is a plain useState/useEffect fetch.
+  //
+  // Skipped in bare mode: that branch renders no stat cards, so there is nothing to hang
+  // the summary on and no reason to pay for the request.
+  const headlineDetail = useDeclarationDetail(
+    !bare && summary ? summary.latest.id : null,
+  );
+  const propertySummary = useMemo(() => {
+    const owned = (headlineDetail?.assets ?? []).filter(
+      (a) => a.isHolding !== false && a.category === "real_estate",
+    );
+    if (owned.length === 0) return null;
+    return summariseProperties(owned.map((a) => a.description));
+  }, [headlineDetail]);
+
   // Narrowed ONCE, above both exits, so neither branch needs a non-null assertion to hand
   // `rows` to FilingList. (The standalone path could lean on "summary != null implies rows
   // is non-empty", but that invariant lives fifty lines away and survives refactors that
@@ -166,6 +189,31 @@ export const PersonDeclarations: FC<{
             {formatEurCompact(latest.debtsEur, locale)}
           </div>
         </StatCard>
+        {/* WHAT THE HOLDING IS, beside what it is worth. The € cards answer „how much" and
+            for property they frequently answer €0 — 38.6% of declared properties carry no
+            stated price — so a declarant with nine ниви and a house can headline as almost
+            nothing owned. The count and the kind are known regardless, and they are the
+            part a reader came for.
+
+            Same fold as the comparison card (`summariseProperties`): two surfaces counting
+            one person's properties must not answer differently.
+
+            ⚠️ Rows, not buildings. A house filed as dwelling + terrace + basement + garage
+            is four, and the register carries nothing that folds them back — hence
+            „декларирани имота", which must not be shortened to „имота". Rented (чуждо)
+            property is excluded: it is not the declarant's to hold. */}
+        {propertySummary && (
+          <StatCard label={t("pp_decl_prop_card") || "Имоти"}>
+            <div className="text-2xl font-bold text-foreground">
+              {propertySummary.total}
+            </div>
+            <div className="mt-0.5 text-xs leading-snug text-muted-foreground">
+              {propertySummary.parts
+                .map((p) => `${p.n} ${p.label}`)
+                .join(" · ")}
+            </div>
+          </StatCard>
+        )}
       </div>
 
       <PersonCryptoHoldings filing={latest} />
@@ -485,6 +533,21 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
                 {s.stakeKind && s.stakeKind !== "share" && (
                   <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
                     {t(`pp_stake_kind_${s.stakeKind}`)}
+                  </span>
+                )}
+                {/* WHOSE company it is. The form names a holder per row and it is
+                    often not the declarant — 5,386 declared stakes corpus-wide are
+                    held by somebody else, against 4,620 by the declarant. Unmarked,
+                    the row reads as this person's company under their own profile:
+                    Николай Копринков's page showed „Дийонима ЕООД · 1/1" for a
+                    company the filing puts in his wife's name. The asset rows above
+                    have carried this marker all along; the stake rows did not,
+                    because `declaration_stake` has no is_spouse column and nobody
+                    derived it. Name it where we can — the register's own column is
+                    „Собственик или титуляр на правото". */}
+                {isSpouseHolder(s.holderName, detail.declarantName) && (
+                  <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
+                    {s.holderName || t("pp_decl_spouse") || "съпруг/а"}
                   </span>
                 )}
               </span>

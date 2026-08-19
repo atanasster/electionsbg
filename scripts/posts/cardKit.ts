@@ -2386,7 +2386,7 @@ export type VersusRow = {
  *  without prices has still declared 24 properties.
  *
  *  `parts` arrives pre-formatted and pre-ordered from `summariseProperties`
- *  (scripts/person/propertyKind.ts), because the Bulgarian counting form („2 апартамента",
+ *  (src/lib/propertyKind.ts), because the Bulgarian counting form („2 апартамента",
  *  never „2 апартаменти") is a property of the label, not of the renderer. */
 export type VersusProperties = {
   total: number;

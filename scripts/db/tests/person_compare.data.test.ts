@@ -26,7 +26,7 @@ import {
   MAX_UNVALUED_SHARE,
 } from "../../person/compare_declarations";
 import { VERSUS_METRICS } from "../../posts/cardKit";
-import { propertyKind, type PropertyKind } from "../../person/propertyKind";
+import { propertyKind, type PropertyKind } from "../../../src/lib/propertyKind";
 
 /** The fixture pair the whole skill was designed against: Бойко Рашков and Иван Демерджиев.
  *  Both are MPs, so their slugs are stable `mp-*` ids rather than name-derived hashes. */

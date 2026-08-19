@@ -438,3 +438,37 @@ export const declarationTotals = (
     realEstateUnvalued,
   };
 };
+
+/**
+ * Compare a holder name to the declarant's. The declaration form names, per row,
+ * who holds the thing — „Собственик или титуляр на правото" — and that person is
+ * often NOT the declarant: 5,386 of the corpus's declared company stakes are held
+ * by someone else, against 4,620 held by the declarant themselves.
+ *
+ * ONE definition, shared by the parser (which stores it on `declaration_asset`
+ * as `is_spouse`) and by the renderer (which has no such column on
+ * `declaration_stake` and must derive it from `holderName` + `declarantName`).
+ * Copying the fold is how the two sides come to disagree about whose company a
+ * row describes — and on a stake row that disagreement publishes a named
+ * individual's spouse's company as their own.
+ *
+ * ⚠️ Named `spouse` for the form's dominant case, but all it proves is „not the
+ * declarant": a minor child's holdings are reported on the same form. That is why
+ * the chip reads „съпруг/а" rather than asserting a relationship, and why any
+ * surface with room should prefer showing `holderName` itself.
+ */
+export const normHolderName = (s: string | null): string =>
+  (s ?? "")
+    .toUpperCase()
+    .replace(/\s*-\s*/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+
+export const isSpouseHolder = (
+  holderName: string | null,
+  declarantName: string | null,
+): boolean => {
+  const h = normHolderName(holderName);
+  if (!h) return false;
+  return h !== normHolderName(declarantName);
+};

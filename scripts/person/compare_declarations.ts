@@ -82,7 +82,7 @@
 import fs from "node:fs";
 import { pathToFileURL } from "node:url";
 import { allRows, end } from "../db/lib/pg";
-import { summariseProperties } from "./propertyKind";
+import { summariseProperties } from "../../src/lib/propertyKind";
 import {
   VERSUS_METRICS,
   renderVersusCard,

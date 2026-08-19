@@ -289,7 +289,7 @@ compared on money. On top of `naiasno-post`'s rules:
 - `scripts/posts/cardKit.test.ts` — the renderer's refusals (class rules, the
   shared metric set, the row budget, the property band's inventory-only and
   symmetry rules).
-- `scripts/person/propertyKind.test.ts` — the property fold, including the head-
+- `src/lib/propertyKind.test.ts` — the property fold, including the head-
   noun rule and the ancillary-space carve-out.
 
 Both run under `npm run test:data` / `npm run test:unit` and skip when Postgres
