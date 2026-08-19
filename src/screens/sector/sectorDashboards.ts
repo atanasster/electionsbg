@@ -43,6 +43,7 @@ import {
   TRANSPORT_ENTITIES,
   TRANSPORT_UNIVERSE_LABEL,
 } from "@/lib/transportReferenceData";
+import { ADMIN_GROUP_EIK } from "@/lib/administrationReferenceData";
 import {
   REGIONAL_EIK,
   REGIONAL_ENTITIES,
@@ -197,7 +198,11 @@ export interface SectorDashboardConfig {
 // TRANSPORT_EIK (000695388, МТС) is the group lead — defined in its reference data,
 // re-exported so sibling surfaces (sectorPacks) keep importing it here.
 export { TRANSPORT_EIK };
-export const ADMIN_EIK = "180680495"; // Министерство на електронното управление (МЕУ)
+// ADMIN_EIK (180680495, МЕУ) is the same shape. It was a hand-typed literal
+// until 2026-08-19, which made it the fourth copy of a member set the
+// reference data already owns — so ADMIN_GROUP_EIK sat exported and unused
+// while its own JSDoc described behaviour this duplicate was driving.
+export const ADMIN_EIK = ADMIN_GROUP_EIK;
 
 // Energy is the first sector to ship bespoke ThematicTiles (the invisible-€14bn
 // call-out, single-bid gauge, per-unit spend). Lazy so the config module — pulled
@@ -382,14 +387,18 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // ⚠ This config is INERT for administration: routes.tsx statically intercepts
   // /sector/administration with the bespoke AdministrationScreen, so the generic
   // SectorDashboardScreen never renders it and `members`/`leadEik` here are not
-  // consumed for the folded KPI row. The real e-gov procurement group (МЕУ + ИА
-  // ИЕУ + ДАЕУ) lives in ADMIN_SECTOR_EIKS (administrationReferenceData.ts) and
-  // is what the bespoke screen + SECTOR_BROWSE_PACKS.administration fold. The
-  // single МЕУ member below is kept only so SECTOR_DASHBOARD_IDS (sitemap / OG /
-  // prerender / sectorRegistry) still lists the slug. Suppression is lead-only by
-  // design (like every group sector): the non-lead members' own /awarder pages
-  // show their generic contracts AND those contracts fold into this view — the
-  // same double-surface energy's subsidiaries have.
+  // consumed for the folded KPI row. The real e-gov procurement group lives in
+  // ADMIN_SECTOR_EIKS (administrationReferenceData.ts — see that file's header
+  // for the per-EIK lineage) and is what the bespoke screen +
+  // SECTOR_BROWSE_PACKS.administration fold. This comment deliberately does NOT
+  // enumerate the members: it named three of them until 2026-08-19, when adding
+  // ЕСМИС staled it, and it is the first thing a maintainer reads when asking
+  // what the group is. The single МЕУ member below is kept only so
+  // SECTOR_DASHBOARD_IDS (sitemap / OG / prerender / sectorRegistry) still lists
+  // the slug. Suppression is lead-only by design (like every group sector): the
+  // non-lead members' own /awarder pages show their generic contracts AND those
+  // contracts fold into this view — the same double-surface energy's
+  // subsidiaries have.
   administration: {
     id: "administration",
     titleKey: "sector_admin_title",
