@@ -66,7 +66,24 @@ export type Disagreement = {
   note: string;
 };
 
-/** Measured 2026-08-19 against the register as МК publishes it today.
+/** WHAT RULING ON THESE COSTS, measured 2026-08-19 against `contracts`
+ *  (`tag='contract'`). Today's roll-up is 881 contracts / €157,944,723.
+ *
+ *  | bucket        | EIKs | €          | share |
+ *  |---------------|------|------------|-------|
+ *  | `verify`      |    9 | €7,485,705 |  4.7% |
+ *  | `none`        |    7 |   €850,351 |  0.5% |
+ *  | `adjacent`    |    1 |   €903,834 |  0.6% |
+ *  | `excluded`    |    2 |   €386,770 |  0.2% |
+ *  | **all 19**    |      | €9,626,660 | +6.1% |
+ *
+ *  Three things that make the decision smaller than it looks: the T0.2 nine are
+ *  78% of what is at stake AND the ones МК's own page answers; the two T0.3
+ *  contradictions are 0.2%, so that question can be settled on the evidence
+ *  rather than on its consequence; and one of the nine (112582278, Пазарджик)
+ *  has no contracts at all, so it costs nothing either way.
+ *
+ *  Measured 2026-08-19 against the register as МК publishes it today.
  *
  *  Nineteen entries, and the three groups are NOT the same kind of problem:
  *

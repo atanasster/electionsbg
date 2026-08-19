@@ -875,7 +875,25 @@ floor.
   pinned in `DKI_DISAGREEMENTS` (`scripts/culture/dki/reconcile.ts`) with what we
   know, in the `LISTING_LABEL_EXCEPTIONS` shape: a NEW disagreement fails a test
   until somebody rules, and a stale entry fails too. **Ruling on these 19 is the open
-  decision this step hands back.**
+  decision this step hands back — and it is a +6.1% question at most.** Measured
+  2026-08-19 against `contracts`, today's roll-up is 881 contracts /
+  **€157,944,723**, and the nineteen carry **€9,626,660** between them:
+
+  | bucket            | EIKs | €              | share of the roll-up |
+  | ----------------- | ---- | -------------- | -------------------- |
+  | `verify` (T0.2)   | 9    | **€7,485,705** | **4.7%**             |
+  | in no list        | 7    | €850,351       | 0.5%                 |
+  | `adjacent`        | 1    | €903,834       | 0.6%                 |
+  | `excluded` (T0.3) | 2    | €386,770       | 0.2%                 |
+
+  So the T0.2 nine are 78% of what is at stake and are exactly the ones МК's own
+  page answers; the two T0.3 contradictions are 0.2%, which means that question
+  can be settled on the evidence rather than on its consequence; and one of the
+  nine (112582278, Пазарджик) has no contracts at all, so it costs nothing
+  either way. Largest single movers: Константин Кисимов €2.44m and Драматичен
+  театър — Ловеч €2.37m; of the unlisted seven, НМУ „Любомир Пипков“ — София at
+  €507k looks most like an oversight, being an art school of exactly the kind
+  already in `ART_SCHOOLS`.
 
   **Follow-up, sized 2026-08-19: the museums register closes the `notListed`
   gap.** МК's „РЕГИСТЪР НА МУЗЕИТЕ" (`/документи/регистри-1/`, an .xlsx of 688
