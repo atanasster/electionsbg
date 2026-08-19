@@ -195,7 +195,9 @@ const parseSection2Prose = (text: string): DokladPositions => {
   };
 };
 
-const parseStructureCounts = (text: string): DokladStructureCounts => {
+/** Exported for `doklad.test.ts` — the label-stripping rule has a documented
+ *  trap and its output is rendered verbatim to readers. */
+export const parseStructureCounts = (text: string): DokladStructureCounts => {
   // Older Доклади (2017-2021) lay out Table 1 differently and may not be
   // detectable. Return empty when missing rather than throwing.
   const startIdx = text.search(/Вид администрация\s+Брой/);
@@ -215,10 +217,27 @@ const parseStructureCounts = (text: string): DokladStructureCounts => {
     if (!region) continue;
     const m = line.match(/^(.*?)\s+(\d+)\s+(\d+)\s*$/);
     if (!m) continue;
+    // Strip Table 1's LEFT-GUTTER cell, which pdftotext -layout wraps across
+    // two lines whose words share lines with DIFFERENT data rows:
+    //
+    //   „   Централна        Администрация на Министерския съвет   1    1"
+    //   „   администрация    Министерства                        19   19"
+    //
+    // ⚠ CASE IS THE DISCRIMINATOR, and it is the whole rule. The gutter's
+    // continuation („администрация") is lowercase; the label's own first word
+    // („Администрация на Министерския съвет") is capitalised. A case-INSENSITIVE
+    // `Централна\s+администрация` therefore eats the LABEL on the first line and
+    // stores the sentence fragment „на Министерския съвет" — which
+    // /sector/administration then rendered verbatim as the name of a public
+    // body, at a 200, with the count beside it perfectly correct.
+    //
+    // ⚠ And the lowercase arm is LOAD-BEARING, not redundant: it is the only
+    // rule that matches the second line, so dropping it stores „администрация
+    // Министерства". Verified against every cached Доклад (2021–2025): the
+    // gutter wraps in all five, always in this shape.
     const label = m[1]
-      .replace(/^(Централна|Териториална)\s+администрация\s*/i, "")
-      .replace(/^(Централна|Териториална)\s*/i, "")
-      .replace(/^администрация\s*/i, "")
+      .replace(/^(?:Централна|Териториална)(?:\s+администрация)?\s+/, "")
+      .replace(/^администрация\s+/, "")
       .trim();
     // Require ≥3 Cyrillic letters (rejects stray numbers, dashes, year
     // headers like "Брой 2024") while letting genuine short labels through.
