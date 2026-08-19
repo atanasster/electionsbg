@@ -24,6 +24,7 @@ import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import type { MpAsset, MpAssetCategory } from "@/data/dataTypes";
 import { formatEur, formatEurSigned, toEur } from "@/lib/currency";
 import { incomeTotals, isDeclaredHolding } from "@/lib/declarations";
+import { summariseProperties } from "@/lib/propertyKind";
 
 type Props = { name: string; linkSlug?: string };
 
@@ -146,6 +147,24 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
     spouseEur: incomeTotalSpouse,
   } = incomeTotals(latestDecl?.income ?? []);
 
+  // WHAT the property is, not just how many rows. The real-estate tile says „10 items · 10
+  // unvalued", which on a filing that prices nothing is the whole of what a reader learns —
+  // and 38.6% of declared properties carry no price. Nine ниви and a house is knowable
+  // regardless, and it is the part somebody came to find out.
+  //
+  // Same fold as /person's card and the comparison card (`summariseProperties`): three
+  // surfaces counting one person's properties must not answer differently. Costs no request
+  // — these rows are already here for the unvalued list above.
+  //
+  // ⚠️ Rows, not buildings: a house filed as dwelling + terrace + basement + garage is four,
+  // and the register carries nothing that folds them back. Чуждо rows are excluded — they
+  // are not the declarant's to hold.
+  const propertyParts = summariseProperties(
+    (latestDecl?.assets ?? [])
+      .filter((a) => a.category === "real_estate" && isDeclaredHolding(a))
+      .map((a) => a.description),
+  ).parts;
+
   const delta = rollup.previous
     ? {
         absolute: rollup.netWorthEur - rollup.previous.netWorthEur,
@@ -252,6 +271,13 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
                     {r.count > r.valuedCount &&
                       ` · ${r.count - r.valuedCount} ${t("mp_assets_unvalued") || "unvalued"}`}
                   </div>
+                  {c === "real_estate" && propertyParts.length > 0 && (
+                    <div className="text-[11px] leading-snug text-muted-foreground">
+                      {propertyParts
+                        .map((p) => t(`pp_prop_kind_${p.kind}`, { count: p.n }))
+                        .join(" · ")}
+                    </div>
+                  )}
                 </div>
               </div>
             );

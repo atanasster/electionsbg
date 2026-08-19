@@ -293,3 +293,107 @@ describe("income — declarant and spouse are never merged", () => {
     expect(table.textContent).not.toContain(formatEur(163255, "bg"));
   });
 });
+
+// The MP path's real-estate tile said „N items · N unvalued" and nothing about WHAT the
+// property is — which on a filing that prices nothing (38.6% of declared properties carry
+// no price) is the whole of what a reader learns. /person's KPI card already answered this;
+// MP pages, the highest-traffic person pages, did not.
+describe("property breakdown on the real-estate tile", () => {
+  const withProperties = (descriptions: string[]) => {
+    mpAssets.mockReturnValue({
+      rollup: {
+        mpId: 868,
+        name: DEFAULT_NAME,
+        latestDeclarationYear: 2024,
+        fiscalYear: 2024,
+        declarationType: "Annualy",
+        sourceUrl: SOURCE_URL,
+        totalAssetsEur: 0,
+        totalDebtsEur: 0,
+        netWorthEur: 0,
+        previous: null,
+        byCategory: {
+          ...EMPTY_BY_CATEGORY,
+          real_estate: {
+            count: descriptions.length,
+            valuedCount: 0,
+            totalEur: 0,
+          },
+        },
+      } as unknown as MpAssetsRollup,
+      isLoading: false,
+    });
+    mpDeclarations.mockReturnValue({
+      declarations: [
+        {
+          declarantName: DEFAULT_NAME,
+          sourceUrl: SOURCE_URL,
+          assets: descriptions.map(
+            (d) =>
+              ({
+                category: "real_estate",
+                description: d,
+                valueEur: null,
+                isSpouse: false,
+                tableNum: "1",
+              }) as unknown as MpAsset,
+          ),
+          income: [],
+          ownershipStakes: [],
+          events: [],
+        },
+      ],
+      isLoading: false,
+    });
+    return render(card());
+  };
+
+  it("names the kinds, folded and counted", () => {
+    withProperties([
+      ...Array.from({ length: 9 }, () => "нива"),
+      "къща с двор, гараж, стопански",
+    ]);
+    // Through `t` on the KIND — PROPERTY_KIND_LABEL is Bulgarian and this component
+    // renders on /en too.
+    expect(
+      screen.getByText("pp_prop_kind_farmland:9 · pp_prop_kind_house:1"),
+    ).toBeInTheDocument();
+  });
+
+  it("excludes property the declarant only uses", () => {
+    // A чуждо row (table 1.2) is not a holding; counting it would inflate the breakdown
+    // with property that is somebody else's.
+    withProperties(["апартамент"]);
+    mpDeclarations.mockReturnValue({
+      declarations: [
+        {
+          declarantName: DEFAULT_NAME,
+          sourceUrl: SOURCE_URL,
+          assets: [
+            {
+              category: "real_estate",
+              description: "апартамент",
+              valueEur: null,
+              tableNum: "1",
+            },
+            {
+              category: "real_estate",
+              description: "къща",
+              valueEur: null,
+              tableNum: "1.2",
+            },
+          ] as unknown as MpAsset[],
+          income: [],
+          ownershipStakes: [],
+          events: [],
+        },
+      ],
+      isLoading: false,
+    });
+    render(card());
+    expect(
+      screen.getAllByText("pp_prop_kind_apartment:1").length,
+    ).toBeGreaterThan(0);
+    expect(screen.queryByText(/pp_prop_kind_house/)).not.toBeInTheDocument();
+  });
+});
