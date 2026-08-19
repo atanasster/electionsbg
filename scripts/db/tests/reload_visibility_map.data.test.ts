@@ -63,6 +63,8 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "tender_subcontracting", loader: "db:load:subcontractors:pg" },
   { table: "ted_notice", loader: "db:load:ted:pg" },
   { table: "ted_coverage", loader: "db:load:ted:pg" },
+  { table: "adfi_inspection", loader: "db:load:adfi:pg" },
+  { table: "adfi_coverage", loader: "db:load:adfi:pg" },
   { table: "obshtina_population", loader: "db:load:municipal-fiscal:pg" },
   { table: "fund_projects", loader: "db:load:funds:pg" },
   { table: "fund_beneficiaries", loader: "db:load:funds:pg" },

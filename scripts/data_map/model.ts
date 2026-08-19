@@ -964,6 +964,26 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal", "indicators"],
   },
   {
+    id: "adfi",
+    label: {
+      bg: "АДФИ · финансови инспекции",
+      en: "ADFI · financial inspections",
+    },
+    detail: {
+      bg: "кой е бил инспектиран и на какво основание",
+      en: "who has been inspected, and under what power",
+    },
+    desc: {
+      bg: "Агенцията за държавна финансова инспекция публикува доклад за всяка възложена инспекция. 1 965 инспекции на 1 279 органа от 9.2.2024 г. насам, с правното основание по ЗДФИ и датата. Обектът е свободен текст без ЕИК, затова свързването с корпуса е по ИМЕ и отказва при двусмислие — приписването на инспекция на грешна община е обвинение. По-ранните инспекции са публикувани само като PDF без колона за обекта, затова „няма инспекция“ означава „няма от февруари 2024“, никога „никога не е инспектиран“.",
+      en: 'The State Financial Inspection Agency publishes a report for every inspection it orders. 1,965 inspections of 1,279 bodies since 9 Feb 2024, each with its statutory basis and date. The subject is free text with no ЕИК, so the join to our corpus is by NAME and refuses on ambiguity — attributing an inspection to the wrong municipality is an accusation. Earlier inspections are published as bare PDFs with no subject column, so „no inspection found" means „none since February 2024", never „never inspected".',
+    },
+    url: "https://adfi.minfin.bg/bg/34",
+    origin: "state",
+    members: ["adfi_inspections"],
+    skills: ["update-procurement"],
+    tags: ["procurement"],
+  },
+  {
     id: "ted",
     label: {
       bg: "TED · обявления над прага",
