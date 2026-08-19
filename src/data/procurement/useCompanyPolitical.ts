@@ -131,6 +131,17 @@ const fetchCompanyPolitical = async (
     // Both arrays are typed non-nullable, so both are normalized. Guarding one and spreading the
     // other means the type is a promise the fetch only half keeps.
     direct: j.direct ?? [],
+    // ⚠️ AND `arms` MOST OF ALL — it is the field whose absence prints a denial. Typed
+    // non-nullable like the arrays, so it is normalized HERE rather than guarded twice
+    // downstream; an absent `arms` means "we do not know which arms ran", which is
+    // `unavailable`, never `absent`. The route always emits it, but hosting and the `db`
+    // function deploy separately and a warm instance can serve an older response shape for ten
+    // minutes (CLAUDE.md), so the older shape must degrade to unknown rather than to "none".
+    arms: j.arms ?? {
+      pg: "unavailable",
+      funds: "unavailable",
+      personLayer: "unavailable",
+    },
     bridged: (j.bridged ?? []).map((b) => ({
       ...b,
       bridgeName: b.bridgeName ? decodeEntities(b.bridgeName) : null,
@@ -148,59 +159,77 @@ export const useCompanyPolitical = (eik?: string | null) =>
   });
 
 /**
- * True when we cannot support the sentence "no links found".
- * ⚠️ A `null`/`undefined` payload is UNKNOWN too, not empty — that covers React Query's loading
- * and error states, a route that is not deployed (404 → throw), and a malformed EIK. Folding any
- * of them into "nothing found" reinstates the denial this tile exists to delete. A body with no
- * `arms` at all is unknown for the same reason.
+ * Which sources could not be consulted. THE one place this rule is written.
+ *
+ * A missing `arms` object is every arm unavailable, not none of them — but the fetch normalizes
+ * that away at the boundary, so this branch is belt-and-braces rather than the only defence.
  */
-export const hasUnavailableArm = (d: CompanyPolitical | null | undefined) =>
-  !d ||
-  !d.arms ||
-  d.arms.pg === "unavailable" ||
-  d.arms.funds === "unavailable" ||
-  d.arms.personLayer === "unavailable";
+const unavailableArms = (d: CompanyPolitical): PoliticalArm[] => {
+  if (!d.arms) return ["pg", "funds", "person_layer"];
+  const out: PoliticalArm[] = [];
+  if (d.arms.pg === "unavailable") out.push("pg");
+  if (d.arms.funds === "unavailable") out.push("funds");
+  if (d.arms.personLayer === "unavailable") out.push("person_layer");
+  return out;
+};
 
 /**
- * What the corpus supports saying about this company. THREE states, because the two the old
- * tile had were what made it lie: it rendered «Няма установени връзки с политици.» off
- * `links.length === 0`, which conflates "every arm answered and found nobody" with "we could
- * not look".
+ * True when we cannot support the sentence "no links found".
+ *
+ * ⚠️ THIS IS THE SCALAR FORM, AND IT IS NOT WHAT THE TILE ASKS — `companyPoliticalVerdict` is.
+ * Kept exported because "is this answer complete?" is a legitimate question for a consumer that
+ * does not need the rows (a KPI, a chip), and DERIVED from `unavailableArms` so the two can never
+ * disagree about a missing `arms` object. They were two hand-written copies of the same rule, and
+ * the drift between them was invisible: the suite covered the armless case only through this
+ * predicate, which nothing ships, so deleting the guard in the shipped one still passed 11/11.
+ */
+export const hasUnavailableArm = (d: CompanyPolitical | null | undefined) =>
+  !d || unavailableArms(d).length > 0;
+
+/**
+ * What the corpus supports saying about this company. THREE states, because the two the old tile
+ * had were what made it lie: it rendered «Няма установени връзки с политици.» off
+ * `links.length === 0`, which conflates "every arm answered and found nobody" with "we could not
+ * look".
  *
  * ⚠️ ASK THROUGH THIS, NOT THROUGH `direct.length`. A predicate a caller may forget is weaker
- * than a type with no `none` member until the unknown case has been discharged — and the T3
- * author is porting from exactly the expression that got this wrong.
+ * than a type with no `none` member until the unknown case has been discharged.
+ *
+ * ⚠️ AND `links` OUTRANKS `unknown`, WHICH IS THE HALF THAT IS EASY TO GET BACKWARDS. Checking
+ * "is any arm unavailable" FIRST looks like the cautious order and is the mirror image of the
+ * original defect: with the PG arm down and the person layer returning five office-holders, it
+ * discards all five and prints «проверката не можа да бъде извършена». Suppressing a true finding
+ * is not the safe direction — it is the same failure pointed the other way. A found link is a
+ * fact whatever else was unreachable, so it is published WITH `unavailable` naming what is
+ * missing, and `unknown` is reserved for the case where we have nothing to show AND could not
+ * look everywhere.
  */
 export type PoliticalVerdict =
-  | { state: "unknown"; reason: "no-payload" | "arm-unavailable" }
-  | {
-      state: "none";
-      /** What was actually searched, so the copy can say it instead of denying flatly. */
-      searched: { registryRoles: boolean; bridgeComplete: boolean };
-    }
+  /** Nothing found and at least one source unreachable — we cannot say anything. */
+  | { state: "unknown"; unavailable: PoliticalArm[] | "no-payload" }
+  /** Every arm answered and found nobody. `bridgeComplete` false = the bridge was cut short. */
+  | { state: "none"; bridgeComplete: boolean }
+  /** Links found. `unavailable` may still be non-empty — the answer is real but partial. */
   | {
       state: "links";
       direct: CompanyPoliticalDirect[];
       bridged: CompanyPoliticalBridged[];
+      unavailable: PoliticalArm[];
+      bridgeComplete: boolean;
     };
 
 export const companyPoliticalVerdict = (
   d: CompanyPolitical | null | undefined,
 ): PoliticalVerdict => {
-  if (!d) return { state: "unknown", reason: "no-payload" };
-  if (hasUnavailableArm(d))
-    return { state: "unknown", reason: "arm-unavailable" };
+  if (!d) return { state: "unknown", unavailable: "no-payload" };
+  const unavailable = unavailableArms(d);
   const direct = d.direct ?? [];
   const bridged = d.bridged ?? [];
+  // A suppressed fold means the bridge did NOT look everywhere — a refusal, not an absence, and
+  // the copy has to be able to tell the reader which one it is looking at.
+  const bridgeComplete = (d.bridgeFoldsSuppressed ?? 0) === 0;
   if (direct.length || bridged.length)
-    return { state: "links", direct, bridged };
-  return {
-    state: "none",
-    searched: {
-      registryRoles: d.arms.personLayer !== "unavailable",
-      // A suppressed fold means the bridge did NOT look everywhere — a refusal, not an absence,
-      // and the copy has to be able to tell the reader which one it is looking at.
-      bridgeComplete: (d.bridgeFoldsSuppressed ?? 0) === 0,
-    },
-  };
+    return { state: "links", direct, bridged, unavailable, bridgeComplete };
+  if (unavailable.length) return { state: "unknown", unavailable };
+  return { state: "none", bridgeComplete };
 };

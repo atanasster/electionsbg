@@ -72,17 +72,14 @@ describe("hasUnavailableArm", () => {
 });
 
 describe("companyPoliticalVerdict", () => {
-  it("returns unknown — with the reason — rather than 'none' when we could not look", () => {
+  it("returns unknown — naming what was unreachable — rather than 'none'", () => {
     expect(companyPoliticalVerdict(null)).toEqual({
       state: "unknown",
-      reason: "no-payload",
+      unavailable: "no-payload",
     });
     expect(
       companyPoliticalVerdict(withArms({ personLayer: "unavailable" })),
-    ).toEqual({
-      state: "unknown",
-      reason: "arm-unavailable",
-    });
+    ).toEqual({ state: "unknown", unavailable: ["person_layer"] });
   });
 
   it("NEVER returns 'none' while an arm is unavailable, even with zero links", () => {
@@ -98,22 +95,113 @@ describe("companyPoliticalVerdict", () => {
     expect(v.state).toBe("unknown");
   });
 
+  // ⚠️ THE MIRROR IMAGE OF THE ORIGINAL DEFECT. Testing "is any arm unavailable" BEFORE testing
+  // for rows looks like the cautious order, and it throws away links that were actually found —
+  // printing «could not run» over real office-holders. Suppressing a true finding is not the safe
+  // direction; it is the same failure pointed the other way.
+  it("publishes links that WERE found even when another arm is down", () => {
+    const direct = [
+      {
+        arm: "person_layer" as const,
+        slug: "mp-2829",
+        href: "/person/mp-2829",
+        name: "К",
+        kind: "mp" as const,
+      },
+    ];
+    const v = companyPoliticalVerdict(
+      payload({
+        direct,
+        arms: { pg: "unavailable", funds: "ok", personLayer: "ok" },
+      }),
+    );
+    expect(v.state).toBe("links");
+    expect(v).toMatchObject({ direct, unavailable: ["pg"] });
+  });
+
+  it("reports every unavailable arm, so a partial answer can say how partial", () => {
+    expect(
+      companyPoliticalVerdict(
+        withArms({ pg: "unavailable", funds: "unavailable" }),
+      ),
+    ).toEqual({ state: "unknown", unavailable: ["pg", "funds"] });
+  });
+
   it("returns 'none' only when every arm answered and found nobody", () => {
     const v = companyPoliticalVerdict(
       withArms({ pg: "ok", funds: "absent", personLayer: "absent" }),
     );
-    expect(v).toEqual({
-      state: "none",
-      searched: { registryRoles: true, bridgeComplete: true },
-    });
+    expect(v).toEqual({ state: "none", bridgeComplete: true });
   });
 
   it("reports an incomplete bridge, so a refusal is not published as an absence", () => {
     const v = companyPoliticalVerdict(payload({ bridgeFoldsSuppressed: 3 }));
-    expect(v).toEqual({
-      state: "none",
-      searched: { registryRoles: true, bridgeComplete: false },
+    expect(v).toEqual({ state: "none", bridgeComplete: false });
+  });
+
+  // ⚠️ THESE TWO ASSERT AGAINST THE SHIPPED FUNCTION, NOT THE SCALAR PREDICATE. The armless case
+  // was covered only through `hasUnavailableArm`, which nothing ships — so deleting the guard in
+  // `unavailableArms` flipped an armless payload from `unknown` to `none` (the printed denial)
+  // and still passed 11/11. A test on the wrong function is not coverage.
+  it("treats an arms-less payload as unknown, not as 'none'", () => {
+    const armless = {
+      ...payload(),
+      arms: undefined,
+    } as unknown as CompanyPolitical;
+    expect(companyPoliticalVerdict(armless)).toEqual({
+      state: "unknown",
+      unavailable: ["pg", "funds", "person_layer"],
     });
+  });
+
+  it("keeps hasUnavailableArm and the verdict agreeing about a missing arms object", () => {
+    const armless = {
+      ...payload(),
+      arms: undefined,
+    } as unknown as CompanyPolitical;
+    expect(hasUnavailableArm(armless)).toBe(true);
+    expect(companyPoliticalVerdict(armless).state).toBe("unknown");
+  });
+
+  // Hard-coding `bridgeComplete: true` on the links branch passed the whole suite while claiming
+  // a complete bridge for a payload with four suppressed folds.
+  it("reports an incomplete bridge on the links state too, not only on none", () => {
+    const direct = [
+      {
+        arm: "person_layer" as const,
+        slug: "mp-1",
+        href: "/person/mp-1",
+        name: "К",
+        kind: "mp" as const,
+      },
+    ];
+    const v = companyPoliticalVerdict(
+      payload({ direct, bridgeFoldsSuppressed: 4 }),
+    );
+    expect(v).toMatchObject({ state: "links", bridgeComplete: false });
+
+    const clean = companyPoliticalVerdict(
+      payload({ direct, bridgeFoldsSuppressed: 0 }),
+    );
+    expect(clean).toMatchObject({ state: "links", bridgeComplete: true });
+  });
+
+  it("reports no unavailable arms on a fully healthy payload", () => {
+    const v = companyPoliticalVerdict(
+      payload({
+        direct: [
+          {
+            arm: "pg" as const,
+            slug: "mp-1",
+            href: "/candidate/mp-1",
+            name: "Х",
+            kind: "mp" as const,
+          },
+        ],
+        arms: { pg: "ok", funds: "ok", personLayer: "ok" },
+      }),
+    );
+    expect(v).toMatchObject({ state: "links", unavailable: [] });
   });
 
   it("returns 'links' when either array has rows", () => {
@@ -131,7 +219,7 @@ describe("companyPoliticalVerdict", () => {
       direct,
     });
 
-    // Bridged-only must still be "links" — it is a real answer, just a second-degree one.
+    // Bridged-only must still be "links" — a real answer, just a second-degree one.
     const bridged = [
       {
         slug: "mp-1",

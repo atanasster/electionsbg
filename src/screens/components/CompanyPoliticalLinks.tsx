@@ -215,12 +215,54 @@ const BridgedRow: FC<{ row: CompanyPoliticalBridged }> = ({ row }) => {
 
 export const CompanyPoliticalLinks: FC<{ eik: string }> = ({ eik }) => {
   const { t } = useTranslation();
-  const { data, isPending } = useCompanyPolitical(eik);
+  const { data, isPending, fetchStatus } = useCompanyPolitical(eik);
   const verdict = companyPoliticalVerdict(data);
+
+  // `enabled: !!eik` leaves a disabled query pending with fetchStatus "idle" for ever, so
+  // `isPending` alone would pin the spinner on a caller that passes "". An idle-pending query
+  // has nothing to say and falls through to the unknown copy, never to a denial.
+  const loading = isPending && fetchStatus !== "idle";
 
   const direct = verdict.state === "links" ? verdict.direct : [];
   const bridged = verdict.state === "links" ? verdict.bridged : [];
-  const suppressed = data?.bridgeFoldsSuppressed ?? 0;
+  // Read through the VERDICT, not the raw payload. Re-deriving it here left `bridgeComplete`
+  // with no consumer, and a mutation hard-coding it to `true` passed the whole suite while
+  // reporting a complete bridge for a payload with four suppressed folds.
+  const bridgeCut = verdict.state !== "unknown" && !verdict.bridgeComplete;
+  const suppressed = bridgeCut ? (data?.bridgeFoldsSuppressed ?? 0) : 0;
+
+  // ⚠️ A COUNT IS A CLAIM. `direct` is [] in three of the four states, so rendering its length
+  // unguarded publishes «(0) direct political links» while the body says the check could not be
+  // run — the shipped denial, in numeral form — and on every page load while pending. Only
+  // `links` (a real number) and `none` (a supported zero) may show a numeral.
+  // `CompanyDbScreen` applies the identical rule to its KPI and risk chip.
+  const directCount =
+    loading || verdict.state === "unknown" ? null : direct.length;
+
+  // The direct card has its own, narrower version of "could we look?": no direct rows AND a
+  // direct-feeding arm was down. Keying only on `verdict.state === "unknown"` made ONE bridged
+  // row flip this card from «could not check» to a denial — a weaker disclosure on the page
+  // carrying MORE evidence.
+  const directUnsupported =
+    verdict.state === "unknown" ||
+    (verdict.state === "links" && verdict.unavailable.length > 0);
+
+  // A found link is published even when another source was unreachable — but never SILENTLY, or
+  // a partial answer reads as a complete one. Naming WHICH source matters: `person_layer` is the
+  // registry arm the denial copy is about, while `pg` and `funds` are money-gated and empty for
+  // most companies by construction, so "one source was unavailable" does not tell a reader
+  // whether the register was checked.
+  const partial =
+    verdict.state === "links" && verdict.unavailable.length > 0 ? (
+      <div className="mt-2 text-xs text-muted-foreground">
+        {t("company_pol_partial", {
+          count: verdict.unavailable.length,
+          arms: verdict.unavailable
+            .map((a) => t(`company_pol_arm_${a}`))
+            .join(", "),
+        })}
+      </div>
+    ) : null;
 
   // A cut-short bridge is a fact about the SEARCH, not about the rows, so it must render even
   // when there are no bridged rows to attach it to — that is precisely the case where a flat
@@ -242,12 +284,12 @@ export const CompanyPoliticalLinks: FC<{ eik: string }> = ({ eik }) => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <Landmark className="h-4 w-4" /> {t("company_pol_direct_title")} (
-            {direct.length})
+            <Landmark className="h-4 w-4" /> {t("company_pol_direct_title")}
+            {directCount != null ? ` (${directCount})` : ""}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {isPending ? (
+          {loading ? (
             <div className="text-sm text-muted-foreground">
               {t("company_pol_loading")}
             </div>
@@ -263,7 +305,7 @@ export const CompanyPoliticalLinks: FC<{ eik: string }> = ({ eik }) => {
                 />
               ))}
             </ul>
-          ) : verdict.state === "unknown" ? (
+          ) : directUnsupported ? (
             <div className="text-sm text-muted-foreground">
               {t("company_pol_unknown")}
             </div>
@@ -281,6 +323,7 @@ export const CompanyPoliticalLinks: FC<{ eik: string }> = ({ eik }) => {
               {t("company_pol_direct_truncated", { count: direct.length })}
             </div>
           ) : null}
+          {partial}
           {bridged.length === 0 ? suppressionNote : null}
         </CardContent>
       </Card>
@@ -317,6 +360,7 @@ export const CompanyPoliticalLinks: FC<{ eik: string }> = ({ eik }) => {
                 })}
               </div>
             ) : null}
+            {partial}
             {suppressionNote}
           </CardContent>
         </Card>
