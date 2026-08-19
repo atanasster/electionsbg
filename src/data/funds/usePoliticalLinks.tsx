@@ -3,15 +3,17 @@
 //
 // Three access patterns, three hooks:
 //   1) usePoliticalIndex() — slim leaderboard for /funds + /funds/political
-//   2) usePoliticalManifest() — manifest of flagged EIKs (small) so per-EIK
-//      checks can short-circuit without a 404 round-trip
-//   3) usePoliticalForEik(eik) — per-EIK shard, only fetched when the manifest
-//      says the EIK is flagged
+//
+// `usePoliticalManifest` / `usePoliticalForEik` lived here too, as the per-EIK arm of
+// /company/:eik's political tile. That tile now reads `/api/db/company-political`, which unions
+// this shard with `company_politicians` and the person layer SERVER-side — the merge cannot be
+// done in the browser, because its dedup key needs `officials_person_slug()`. Both hooks were
+// left with no caller and were removed; the `political-by-eik` payload itself is still live and
+// is read by that route.
 //
 // Each file is absent on a fresh clone before /update-funds runs — the queries
 // degrade gracefully to "no data" rather than throwing.
 
-import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFundPayload } from "./fetchFundPayload";
 
@@ -80,19 +82,8 @@ export interface PoliticalIndexFile {
   flaggedEiks: string[];
 }
 
-interface PoliticalManifestFile {
-  generatedAt: string;
-  flaggedEiks: string[];
-}
-
 const fetchPoliticalIndex = (): Promise<PoliticalIndexFile | null> =>
   fetchFundPayload<PoliticalIndexFile>("political-links");
-
-const fetchPoliticalManifest = (): Promise<PoliticalManifestFile | null> =>
-  fetchFundPayload<PoliticalManifestFile>("political-by-eik-index");
-
-const fetchPoliticalShard = (eik: string): Promise<PoliticalEntry | null> =>
-  fetchFundPayload<PoliticalEntry>("political-by-eik", eik);
 
 /** Slim leaderboard — top-50 flagged beneficiaries plus corpus totals. Loads
  * one ~54 KB file. Used by the /funds tile and the standalone /funds/political
@@ -104,53 +95,3 @@ export const usePoliticalIndex = (enabled = true) =>
     staleTime: Infinity,
     enabled,
   });
-
-/** Manifest of flagged EIKs (~5 KB). Lets `/company/{eik}` skip both the
- * shard fetch AND the index fallback for the vast majority of beneficiaries
- * that aren't flagged. */
-export const usePoliticalManifest = (enabled = true) =>
-  useQuery({
-    queryKey: ["funds", "political_manifest"] as const,
-    queryFn: fetchPoliticalManifest,
-    staleTime: Infinity,
-    enabled,
-    retry: false,
-  });
-
-/** Per-EIK political-economy panel data. Two-phase: first the manifest
- * confirms the EIK is flagged, then the tiny per-EIK shard is fetched. Returns
- * `null` for non-flagged EIKs. */
-export const usePoliticalForEik = (
-  eik?: string | null,
-): { entry: PoliticalEntry | null; isLoading: boolean } => {
-  const manifestQuery = usePoliticalManifest(!!eik);
-  const flagged = useMemo(
-    () => new Set(manifestQuery.data?.flaggedEiks ?? []),
-    [manifestQuery.data],
-  );
-  const isFlagged = !!eik && flagged.has(eik);
-
-  const shardQuery = useQuery({
-    queryKey: ["funds", "political_shard", eik ?? ""] as const,
-    queryFn: () => fetchPoliticalShard(eik!),
-    enabled: isFlagged,
-    staleTime: Infinity,
-    retry: false,
-  });
-
-  return useMemo(() => {
-    if (!eik) return { entry: null, isLoading: false };
-    const manifestKnown = manifestQuery.data != null || manifestQuery.isFetched;
-    if (!manifestKnown) return { entry: null, isLoading: true };
-    if (!isFlagged) return { entry: null, isLoading: false };
-    if (shardQuery.data) return { entry: shardQuery.data, isLoading: false };
-    return { entry: null, isLoading: shardQuery.isLoading };
-  }, [
-    eik,
-    isFlagged,
-    manifestQuery.data,
-    manifestQuery.isFetched,
-    shardQuery.data,
-    shardQuery.isLoading,
-  ]);
-};

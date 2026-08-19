@@ -84,6 +84,10 @@ import {
 import { CompanyInterregTile } from "../components/procurement/CompanyInterregTile";
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
 import { CompanyPoliticalLinks } from "../components/CompanyPoliticalLinks";
+import {
+  useCompanyPolitical,
+  companyPoliticalVerdict,
+} from "@/data/procurement/useCompanyPolitical";
 import { CompanyMagistratesTile } from "../components/procurement/CompanyMagistratesTile";
 import { NzokHospitalReimbursementTile } from "../components/procurement/nzok/NzokHospitalReimbursementTile";
 import { NzokActivityByEikTile } from "../components/procurement/nzok/NzokActivityByEikTile";
@@ -189,14 +193,6 @@ interface Officer {
   added_at: string | null;
   erased_at: string | null;
   active: boolean;
-}
-interface Politician {
-  politician: string;
-  ref: string;
-  kind: string;
-  role: string | null;
-  total_eur: number | null;
-  relations?: unknown;
 }
 interface Debarred {
   name: string;
@@ -392,7 +388,26 @@ export const CompanyDbScreen: FC = () => {
     total_eur: number;
   } | null>(null);
   const [officers, setOfficers] = useState<Officer[]>([]);
-  const [politicians, setPoliticians] = useState<Politician[]>([]);
+  // ⚠️ THE CHIP AND THE STAT CARD MUST COUNT THE SAME THING THE TILE LISTS. `politicians` is
+  // `company_politicians` alone — 347 EIKs, money-gated — while the tile below now shows the
+  // union of that with the ИСУН shard and the person layer (26,047 EIKs). Left on the PG count,
+  // /company/175155542 printed «Свързани с властта — 0 лица» a few hundred pixels above a tile
+  // naming a former Deputy PM, and the risk chip vanished entirely (it renders only when the
+  // count is > 0) — the same false denial the rewrite deleted, re-published in a larger font.
+  //
+  // React Query caches this under ["company-political", eik] with staleTime: Infinity, so asking
+  // again on the same screen is a cache read rather than a second request.
+  const { data: political, isPending: politicalPending } =
+    useCompanyPolitical(eik);
+  const politicalVerdict = companyPoliticalVerdict(political);
+  // ⚠️ `null`, NEVER `0`, while the answer is unknown. Both surfaces are bare numbers with no
+  // room for a caveat, so a zero there IS the unsupported denial, in numeral form.
+  const politicalCount =
+    politicalPending || politicalVerdict.state === "unknown"
+      ? null
+      : politicalVerdict.state === "links"
+        ? politicalVerdict.direct.length
+        : 0;
   const [procurement, setProcurement] = useState<DbRollup | null>(null);
   const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
   const [debarred, setDebarred] = useState<Debarred[]>([]);
@@ -559,7 +574,6 @@ export const CompanyDbScreen: FC = () => {
           );
           setSummary(j.summary);
           setOfficers(j.officers ?? []);
-          setPoliticians(j.politicians ?? []);
           setProcurement(j.procurement ?? null);
           setCabinets(j.cabinets ?? []);
           setDebarred(j.debarred ?? []);
@@ -832,7 +846,7 @@ export const CompanyDbScreen: FC = () => {
             debarredCount={debarred.length}
             sectors={sectors}
             relationships={relationships}
-            politicianCount={politicians.length}
+            politicianCount={politicalCount ?? 0}
             fundsContractedEur={Number(funds?.contracted_eur ?? 0)}
             declaredNaceDivision={naceDivision}
           />
@@ -1574,7 +1588,9 @@ export const CompanyDbScreen: FC = () => {
                   <div className="flex items-baseline gap-2">
                     <Users className="h-5 w-5 text-muted-foreground shrink-0" />
                     <span className="text-2xl font-bold tabular-nums">
-                      {num.format(politicians.length)}
+                      {politicalCount == null
+                        ? "—"
+                        : num.format(politicalCount)}
                     </span>
                     <span className="text-sm text-muted-foreground">лица</span>
                   </div>
@@ -1764,9 +1780,7 @@ export const CompanyDbScreen: FC = () => {
             <CompanyRelatedTile data={related} />
           )}
 
-          {company && (
-            <CompanyPoliticalLinks eik={eik} politicians={politicians} />
-          )}
+          {company && <CompanyPoliticalLinks eik={eik} />}
 
           {company && <CompanyConnectionCheck eik={eik} />}
 
