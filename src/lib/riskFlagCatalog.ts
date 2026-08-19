@@ -165,6 +165,17 @@ export type ContractFlagDef = {
   readonly naReasonKey: string;
   /** One line: when is this check evaluable at all? The denominator rule. */
   readonly availability: string;
+  /** TRUE when 112 hard-codes `true AS a_<alias>` — the server can never mark
+   *  this check unavailable, so it is in every contract's CRI denominator.
+   *
+   *  Declared rather than inferred from the prose above, and asserted against the
+   *  SQL by risk_catalog_sql_parity.test.ts. It exists because a UI once
+   *  published the CHIP's not-applicable message as if it were an availability
+   *  RULE: `appealUpheld`'s chip says "no appeal recorded for this procedure",
+   *  which is a state a reader's screen can be in — while the check itself is
+   *  always evaluated and simply passes. Publishing that as "when it is not
+   *  applicable" told readers a check is skipped when it never is. */
+  readonly serverAlwaysAvailable: boolean;
   /** ⚠️ What is WRONG, unsettled or currently inert about this check.
    *
    *  Published verbatim in the handbook and in risk-flags.json. This field exists
@@ -208,6 +219,7 @@ export const CONTRACT_FLAGS = [
       id: null,
       note: "No debarment indicator in the 11-indicator set.",
     },
+    serverAlwaysAvailable: true,
   },
   {
     id: "mpConnected",
@@ -225,6 +237,7 @@ export const CONTRACT_FLAGS = [
       id: null,
       note: "VERIFIED UNMAPPED. No political-connection indicator; the supplier-risk group covers tax havens, buyer share and market breadth.",
     },
+    serverAlwaysAvailable: true,
   },
   {
     id: "pepConnected",
@@ -237,6 +250,7 @@ export const CONTRACT_FLAGS = [
       "Always — the non-MP official link set covers the whole corpus.",
     ocp: { id: null, note: "VERIFIED UNMAPPED, same as mpConnected." },
     imonitor: { id: null, note: "VERIFIED UNMAPPED, same as mpConnected." },
+    serverAlwaysAvailable: true,
   },
   {
     id: "awarderConcentration",
@@ -267,6 +281,7 @@ export const CONTRACT_FLAGS = [
       name: "Supplier's tender share of buyer spending on public procurement",
       note: "Same quantity. iMonitor scores it as a continuous 0-100 rather than firing at a cut-point, so their output is a score and ours is a boolean above 30%.",
     },
+    serverAlwaysAvailable: true,
   },
   {
     id: "amendment",
@@ -287,6 +302,7 @@ export const CONTRACT_FLAGS = [
       id: null,
       note: "VERIFIED UNMAPPED. Table 2's eleven indicators stop at the award; nothing there looks at the contract after signature, so amendments are outside the scheme's scope rather than absent from it.",
     },
+    serverAlwaysAvailable: true,
   },
   {
     id: "annexGrowth",
@@ -315,6 +331,7 @@ export const CONTRACT_FLAGS = [
       id: null,
       note: "VERIFIED UNMAPPED. Table 2's eleven indicators all stop at the award decision; none reads the contract after signature, so post-award value growth is outside the scheme's scope.",
     },
+    serverAlwaysAvailable: false,
   },
   {
     id: "newFirmWinner",
@@ -342,6 +359,7 @@ export const CONTRACT_FLAGS = [
       id: null,
       note: "VERIFIED UNMAPPED. The supplier-risk group covers tax havens, buyer share and market breadth — nothing about how recently the supplier was incorporated.",
     },
+    serverAlwaysAvailable: false,
   },
   {
     id: "splitPurchase",
@@ -365,6 +383,7 @@ export const CONTRACT_FLAGS = [
       id: null,
       note: "VERIFIED UNMAPPED. Threshold manipulation is not among the eleven indicators; the nearest is the non-open-procedure one, which counts procedure types rather than detecting a split.",
     },
+    serverAlwaysAvailable: true,
   },
   {
     id: "appealUpheld",
@@ -386,6 +405,7 @@ export const CONTRACT_FLAGS = [
       id: null,
       note: "VERIFIED UNMAPPED. No complaint or review-body indicator in the set.",
     },
+    serverAlwaysAvailable: true,
   },
   {
     id: "weakCompetition",
@@ -414,6 +434,7 @@ export const CONTRACT_FLAGS = [
       name: "Single bidder tender",
       note: "Same quantity, scored 0/100. Our structural and statutory suppressions have no counterpart there.",
     },
+    serverAlwaysAvailable: false,
   },
   {
     id: "directAward",
@@ -436,6 +457,7 @@ export const CONTRACT_FLAGS = [
       name: "Use of non-open procedure types",
       note: "Same concept. iMonitor bands it 100/50/0 with a per-country view of which procedure types count as red; ours is boolean on the Bulgarian procedure vocabulary.",
     },
+    serverAlwaysAvailable: false,
   },
   {
     id: "shortTenderPeriod",
@@ -467,6 +489,7 @@ export const CONTRACT_FLAGS = [
       name: "Length of advertisement period",
       note: "Same measurement, and iMonitor BANDS it (100/50/0) per country rather than using one flat cut. That banding is what risk-v2 §6a says ours should be re-cut into.",
     },
+    serverAlwaysAvailable: false,
   },
   {
     id: "nkidMismatch",
@@ -489,6 +512,7 @@ export const CONTRACT_FLAGS = [
       name: undefined,
       note: "VERIFIED UNMAPPED. The nearest is Distinct markets, which is R048's mechanism — supplier breadth, not declared-activity mismatch.",
     },
+    serverAlwaysAvailable: false,
   },
 ] as const satisfies readonly ContractFlagDef[];
 

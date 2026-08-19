@@ -35,6 +35,7 @@
       "threshold": null,
       "citation": "АОП register \"Стопански субекти с нарушения\"",
       "availability": "Always — the register is corpus-wide, so absence means not listed.",
+      "serverAlwaysAvailable": true,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -54,6 +55,7 @@
       "threshold": null,
       "citation": null,
       "availability": "Always — company_politicians covers the whole corpus.",
+      "serverAlwaysAvailable": true,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -72,6 +74,7 @@
       "threshold": null,
       "citation": null,
       "availability": "Always — the non-MP official link set covers the whole corpus.",
+      "serverAlwaysAvailable": true,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -95,6 +98,7 @@
       },
       "citation": "House threshold. 30% of a buyer's spend going to one supplier is the conventional red-flag bar in CEE procurement oversight (Transparency International methodology); the €100,000 floor beneath it is ours.",
       "availability": "Computed corpus-wide per (buyer, supplier) pair — but ONLY for buyers whose lifetime spend clears €100,000. Below that a 100% share is arithmetic rather than concentration, so those pairs are excluded from the flag entirely.",
+      "serverAlwaysAvailable": true,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -115,6 +119,7 @@
       "threshold": null,
       "citation": "ЗОП чл.116",
       "availability": "Always — the row's own tag decides it.",
+      "serverAlwaysAvailable": true,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -139,6 +144,7 @@
       },
       "citation": "ЗОП чл.116 ал.2 (cumulative)",
       "availability": "Only where an annex actually moved the value — an un-amended contract is excluded from the denominator rather than scored 0.",
+      "serverAlwaysAvailable": false,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -162,6 +168,7 @@
       },
       "citation": "House threshold. A company barely older than the contract it won is a structural signal, not a rule from a named index — an earlier draft of this catalogue cited a 'K-Index P4' that does not exist.",
       "availability": "Only where the contractor's founding date is known and precedes the award.",
+      "serverAlwaysAvailable": false,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -180,6 +187,7 @@
       "threshold": null,
       "citation": "ЗОП чл.20 ал.4 / чл.21. Reference implementations: OCP R049, ProZorro RISK-2-5/2-6, K-Index P3.",
       "availability": "Always — but it is a QUESTION, not a verdict: чл.21 permits separate recurring needs, and the data cannot distinguish that from splitting.",
+      "serverAlwaysAvailable": true,
       "baseRate": "0.09% of contracts (risk-v2 §6b-results)",
       "caveat": null,
       "ocp": {
@@ -199,6 +207,7 @@
       "threshold": null,
       "citation": "КЗК decision (уважена жалба)",
       "availability": "Always server-side — the appeal corpus is joined corpus-wide.",
+      "serverAlwaysAvailable": true,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -223,6 +232,7 @@
       },
       "citation": "EC Single Market Scoreboard; ЗОП чл.79 ал.1 т.3",
       "availability": "Only where the realised bid count is known.",
+      "serverAlwaysAvailable": false,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -243,6 +253,7 @@
       "threshold": null,
       "citation": "EC Single Market Scoreboard (\"no calls for bids\")",
       "availability": "Only where a procedure type or a no-notice rationale is recorded.",
+      "serverAlwaysAvailable": false,
       "baseRate": null,
       "caveat": null,
       "ocp": {
@@ -267,6 +278,7 @@
       },
       "citation": "EU Dir 2014/24 Art. 27 (a reference figure, not a rule it states)",
       "availability": "Only where both tender-window dates are present and ordered.",
+      "serverAlwaysAvailable": false,
       "baseRate": null,
       "caveat": "CURRENTLY INERT. The tender-window columns are unpopulated across the contracts corpus, so this check is evaluable on effectively no contracts — measured 0 of 20,000 sampled. It is neither firing nor passing: it is excluded from every contract's CRI denominator. Listed here because it is implemented and would begin scoring the moment those dates arrive, not because it contributes today.",
       "ocp": {
@@ -287,6 +299,7 @@
       "threshold": null,
       "citation": "КИД-2008 ↔ CPV crosswalk (src/lib/naceCpv.ts)",
       "availability": "Only where the contractor's declared НКИД division is known AND the contract carries a CPV.",
+      "serverAlwaysAvailable": false,
       "baseRate": null,
       "caveat": null,
       "ocp": {

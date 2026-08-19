@@ -962,6 +962,19 @@ export const RiskBadges: FC<Props> = ({
                       {item.ref}
                     </span>
                   ) : null}
+                  {/* CITATION ANCHOR. The methodology was one click away only if
+                      the reader already knew it existed; this makes each check
+                      link to its own row in the published spec. The fragment is
+                      the raw catalogue id, which is also the row `id` the
+                      methodology page renders — see
+                      ProcurementMethodologyScreen's FlagTable. */}
+                  {" · "}
+                  <Link
+                    className="underline decoration-dotted underline-offset-2 hover:text-foreground"
+                    to={`/procurement/methodology#${item.key}`}
+                  >
+                    {t("risk_flag_cite") || "methodology"}
+                  </Link>
                 </p>
                 {state === "na" ? (
                   <p className="mt-0.5 text-xs text-muted-foreground/70">

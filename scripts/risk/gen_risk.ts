@@ -562,6 +562,10 @@ const buildJson = (): string =>
         threshold: f.threshold ?? null,
         citation: f.citation ?? null,
         availability: f.availability,
+        // Whether the server can ever mark this check unavailable. Published
+        // because it decides whether the check is in EVERY contract's CRI
+        // denominator, which a consumer reproducing the index has to know.
+        serverAlwaysAvailable: f.serverAlwaysAvailable,
         baseRate: f.baseRate ?? null,
         caveat: f.caveat ?? null,
         ocp: f.ocp,

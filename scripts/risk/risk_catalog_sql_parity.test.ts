@@ -432,6 +432,28 @@ describe("112 — the version stamp is wired", () => {
   });
 });
 
+describe("112 — which checks can never be unavailable", () => {
+  test("serverAlwaysAvailable matches 112's `true AS a_*` lines exactly", () => {
+    // The catalogue's claim, checked against the SQL that makes it true. This
+    // matters beyond tidiness: /procurement/methodology publishes an
+    // "always evaluated" statement per check, and getting it backwards tells a
+    // reader a check was skipped when it ran (or ran when it was skipped).
+    const hardCoded = new Set(
+      [...CODE_112.matchAll(/true AS a_([a-z]+)/g)].map(
+        (m) => ALIAS_TO_ID[m[1]],
+      ),
+    );
+    expect(hardCoded.size, "no `true AS a_*` found at all").toBeGreaterThan(0);
+
+    for (const f of CONTRACT_FLAGS)
+      expect(
+        hardCoded.has(f.id),
+        `${f.id}: catalogue says serverAlwaysAvailable=${f.serverAlwaysAvailable}, ` +
+          `112 says ${hardCoded.has(f.id)}`,
+      ).toBe(f.serverAlwaysAvailable);
+  });
+});
+
 describe("the gate discriminates", () => {
   // Each case mutates the value an assertion above reads and proves the check
   // FAILS. Without these, an assertion whose regex stopped matching would report

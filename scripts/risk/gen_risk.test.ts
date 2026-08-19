@@ -47,7 +47,30 @@ const HANDBOOK = path.join(ROOT, "docs/methodology/procurement-risk-flags.md");
 const JSON_OUT = path.join(ROOT, "public/risk-flags.json");
 
 const handbook = fs.readFileSync(HANDBOOK, "utf8");
-const catalogue = JSON.parse(fs.readFileSync(JSON_OUT, "utf8")) as {
+
+/** Parse the committed catalogue, turning the one confusing failure mode into an
+ *  instruction.
+ *
+ *  The staleness tests below MUTATE the committed artifacts and restore them in a
+ *  `finally`. That covers an assertion failure, but not the process being killed
+ *  mid-test — a Ctrl-C or a timeout leaves a trailing "MUTATED" line on disk, and
+ *  the next run then dies with a bare `SyntaxError … at position 24199` that says
+ *  nothing about why. */
+const readCatalogue = (): unknown => {
+  const raw = fs.readFileSync(JSON_OUT, "utf8");
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    throw new Error(
+      `${JSON_OUT} is not valid JSON. A previous run of this file's staleness ` +
+        "test was almost certainly interrupted while the artifact was mutated. " +
+        "Run `npm run gen:risk` to restore it.\n" +
+        String(e),
+    );
+  }
+};
+
+const catalogue = readCatalogue() as {
   version: string;
   bitOrder: string[];
   contractFlags: {

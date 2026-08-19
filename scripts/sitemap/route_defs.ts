@@ -122,6 +122,7 @@ export const ENGLISH_STATIC_PAGES = [
   "consumption/products",
   "consumption/deals",
   "consumption/unit-prices",
+  "procurement/methodology",
   "risk-analysis",
   "risk-analysis/methodology",
   "risk-score",
@@ -500,6 +501,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "party-demographics",
     file: `src/screens/PartyDemographicsScreen.tsx`,
+  },
+  {
+    path: "procurement/methodology",
+    file: `src/screens/procurement/ProcurementMethodologyScreen.tsx`,
   },
   { path: "risk-analysis", file: `src/screens/RiskAnalysisScreen.tsx` },
   {

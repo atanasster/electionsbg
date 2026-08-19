@@ -749,6 +749,11 @@ const FundsRrfScreen = lazy(() =>
     default: m.FundsRrfScreen,
   })),
 );
+const ProcurementMethodologyScreen = lazy(() =>
+  import("./screens/procurement/ProcurementMethodologyScreen").then((m) => ({
+    default: m.ProcurementMethodologyScreen,
+  })),
+);
 const TopContractorsScreen = lazy(() =>
   import("./screens/TopContractorsScreen").then((m) => ({
     default: m.TopContractorsScreen,
@@ -3063,6 +3068,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <TopContractorsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/methodology"
+            element={
+              <LayoutScreen>
+                <ProcurementMethodologyScreen />
               </LayoutScreen>
             }
           />
