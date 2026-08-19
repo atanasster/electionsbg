@@ -109,7 +109,7 @@ export const isExcluded = (rel: string): string | null => {
   // established the same way their presence was.
   //
   // NOT in this list, deliberately: `connections.json` (a published dataset on
-  // /data — scripts/prerender/routes.ts:1018 offers it for download in both
+  // /data — scripts/prerender/routes.ts's CATALOG_SPECS offers it for download in both
   // languages), and `connections-rankings{,-top}.json` (fetched by the AI's
   // mpConnectionsTop and per-party rollup tools).
   if (

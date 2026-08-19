@@ -955,11 +955,21 @@ const sectorStaticPages = (): PrerenderRoute[] =>
 
 // Headline datasets the site publishes for download, surfaced as a schema.org
 // DataCatalog on /data so Google Dataset Search can ingest them. Distribution
-// URLs point at the public GCS bucket (DATA_URL) the app itself fetches from.
+// URLs point at the public GCS bucket (DATA_URL) the app itself fetches from —
+// but only for the corpora that actually HAVE a single-file download there; see
+// `dist` below for the two that do not.
 const LATEST_ELECTION = (() => {
   try {
     return getLatestElection(ELECTIONS_FILE);
-  } catch {
+  } catch (err) {
+    // This feeds a `dist` contentUrl, so a silent miss re-publishes the 404 the
+    // catalog was fixed to remove: the fallback names whichever election the
+    // literal below happens to be, and the build still exits 0. stderr is the
+    // only signal — the same contract as placeNameEn.ts's degrade.
+    console.warn(
+      `[routes] getLatestElection failed — CATALOG_SPECS falls back to 2026_04_19, ` +
+        `so the elections dataset contentUrl may 404: ${String(err)}`,
+    );
     return "2026_04_19";
   }
 })();
@@ -967,17 +977,45 @@ const LATEST_ELECTION = (() => {
 type CatalogLang = {
   name: string;
   description: string;
-  distName: string;
   keywords: string[];
 };
-type CatalogSpec = {
-  page: string; // path after the site root ("" = home)
-  dist: string; // path after DATA_URL
-  bg: CatalogLang;
-  en: CatalogLang;
-};
+/**
+ * A catalog entry either HAS a single-file download — `dist` plus a `distName`
+ * in BOTH languages — or has none of the three. The union is what enforces
+ * that; as three independently-optional fields governed by prose, all three
+ * mispairings type-checked clean, and each degraded silently rather than
+ * failing: a `dist` with no `distName` emits an unnamed DataDownload, an
+ * orphaned `distName` is dead translated copy that lints clean and reads as
+ * intentional, and a one-language pair ships a named download in Bulgarian and
+ * an unnamed one in English.
+ *
+ * ⚠️ OMIT `dist` for a corpus served from Cloud SQL rather than the bucket.
+ * `bucket_sync_paths.isExcluded()` is the authority on what belongs on the
+ * bucket, and a `dist` it refuses cannot be published: the two ways that fails
+ * were both live until 2026-08-19. `procurement/index.json` had never been
+ * uploaded, so the advertised contentUrl 404'd. `funds/index.json` HAD been,
+ * once, before `^funds/.*` joined bucket:sync's -x regex — so it answered 200
+ * with a 2026-06-28 vintage against a local file seven weeks newer, and could
+ * never self-heal, because an -x match is excluded from DELETION as well as
+ * upload and scripts/funds/ has no upload path at all. The silent one is the
+ * worse one, and it is why omitting the node beats advertising a URL we cannot
+ * honour. `catalog_specs.test.ts` fails on any `dist` isExcluded refuses.
+ */
+type CatalogSpec = { page: string } & ( // `page` is the path after the site root ("" = home)
+  | {
+      /** Path after DATA_URL to the download. */
+      dist: string;
+      bg: CatalogLang & { distName: string };
+      en: CatalogLang & { distName: string };
+    }
+  | {
+      dist?: never;
+      bg: CatalogLang & { distName?: never };
+      en: CatalogLang & { distName?: never };
+    }
+);
 
-const CATALOG_SPECS: CatalogSpec[] = [
+export const CATALOG_SPECS: CatalogSpec[] = [
   {
     page: "",
     dist: `/${LATEST_ELECTION}/cik_parties.json`,
@@ -1141,44 +1179,54 @@ const CATALOG_SPECS: CatalogSpec[] = [
     },
   },
   {
+    // No `dist`: the ИСУН corpus is served from Cloud SQL (fund_payloads), and
+    // bucket:sync refuses `funds/`. See CatalogSpec.dist.
     page: "funds",
-    dist: "/funds/index.json",
     bg: {
       name: "Европейски фондове (ИСУН)",
       description:
         "Бенефициенти и договори по европейските фондове от публичния регистър ИСУН.",
-      distName: "ЕС фондове (JSON)",
       keywords: ["еврофондове", "ИСУН", "бенефициенти"],
     },
     en: {
       name: "EU funds (ISUN)",
       description:
         "Beneficiaries and contracts under the EU funds from the public ISUN register.",
-      distName: "EU funds (JSON)",
       keywords: ["EU funds", "ISUN", "beneficiaries"],
     },
   },
   {
+    // No `dist`: the contracts corpus is served from Cloud SQL (/api/db/*), and
+    // bucket:sync refuses everything under `procurement/` except roads.json,
+    // three derived blobs and projects/. See CatalogSpec.dist.
     page: "procurement",
-    dist: "/procurement/index.json",
     bg: {
       name: "Обществени поръчки (АОП)",
       description:
         "Обществени поръчки от Агенцията по обществени поръчки — възложители, изпълнители и суми.",
-      distName: "Поръчки (JSON)",
       keywords: ["обществени поръчки", "АОП", "договори"],
     },
     en: {
       name: "Public procurement (AOP)",
       description:
         "Public procurement from the Public Procurement Agency — buyers, contractors and amounts.",
-      distName: "Procurement (JSON)",
       keywords: ["public procurement", "AOP", "contracts"],
     },
   },
 ];
 
-const buildDataCatalog = (lang: "bg" | "en") =>
+// The EN root is `/en`, never `/en/`, and the bare BG root is the one path that
+// keeps its slash — see EN_HOME's header. Hand-building this made the catalog the
+// 22nd JSON-LD node to declare a URL that 301s, in the one field Dataset Search
+// reconciles entities on.
+const catalogUrl = (lang: "bg" | "en", page: string) =>
+  page === ""
+    ? lang === "en"
+      ? EN_HOME
+      : `${SITE_URL}/`
+    : `${SITE_URL}/${lang === "en" ? "en/" : ""}${page}`;
+
+export const buildDataCatalog = (lang: "bg" | "en") =>
   buildDataCatalogLd({
     name:
       lang === "bg"
@@ -1193,16 +1241,18 @@ const buildDataCatalog = (lang: "bg" | "en") =>
       buildDatasetLd({
         name: s[lang].name,
         description: s[lang].description,
-        url: `${SITE_URL}/${lang === "en" ? "en/" : ""}${s.page}`,
+        url: catalogUrl(lang, s.page),
         spatialCoverage: lang === "bg" ? "България" : "Bulgaria",
         keywords: s[lang].keywords,
-        distribution: [
-          {
-            url: `${DATA_URL}${s.dist}`,
-            format: "application/json",
-            name: s[lang].distName,
-          },
-        ],
+        distribution: s.dist
+          ? [
+              {
+                url: `${DATA_URL}${s.dist}`,
+                format: "application/json",
+                name: s[lang].distName,
+              },
+            ]
+          : undefined,
       }),
     ),
   });
@@ -2369,7 +2419,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
       breadcrumbName: "Governance",
       bodyHtml: `
 <h1>Governance dashboard</h1>
-<p>The governance dashboard ties together the tools for tracking Bulgaria's executive and legislative branches: what parliament votes on, what MPs declare, how public money is spent, and the macroeconomic context. Its companion — the <a href="${SITE_URL}/en/">elections dashboard</a> — covers the parliamentary votes themselves.</p>
+<p>The governance dashboard ties together the tools for tracking Bulgaria's executive and legislative branches: what parliament votes on, what MPs declare, how public money is spent, and the macroeconomic context. Its companion — the <a href="${EN_HOME}">elections dashboard</a> — covers the parliamentary votes themselves.</p>
 <h2>What you'll find</h2>
 <ul>
 <li><a href="${SITE_URL}/en/parliament">Parliament</a> — roll-call votes, group cohesion, and a UMAP voting-space projection.</li>
@@ -3863,7 +3913,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>The map is generated automatically from the watched-sources registry — a new source appears on it the moment it is added. The refresh log lives on the <a href="${SITE_URL}/en/data/updates">recent-updates page</a>, and the processed data is free to reuse under Creative Commons BY 4.0 — see <a href="${SITE_URL}/en/data/sources">sources and downloads</a>.</p>
 <h2>What is published</h2>
 <ul>
-<li><a href="${SITE_URL}/en/">Parliamentary elections</a> — results by party, region, municipality, settlement and section.</li>
+<li><a href="${EN_HOME}">Parliamentary elections</a> — results by party, region, municipality, settlement and section.</li>
 <li><a href="${SITE_URL}/en/local/2023_10_29_mi">Local elections</a> — municipal councillors and mayors.</li>
 <li><a href="${SITE_URL}/en/parliament">Parliament</a> — roll-call votes and MP business connections.</li>
 <li><a href="${SITE_URL}/en/financing">Party financing</a> and <a href="${SITE_URL}/en/governments">governments</a>.</li>
