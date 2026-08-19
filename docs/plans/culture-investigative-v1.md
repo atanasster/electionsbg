@@ -834,9 +834,70 @@ floor.
 
 ## 1.10 Tier 3 — culture-specific ingests
 
-- **T3.1 — МК's ДКИ register (~74 institutes).** Closes T0.2/T0.3 permanently, turns the
-  frozen allowlist into a maintained one. Watcher + a gate failing when register and file
-  disagree.
+- **T3.1 — МК's ДКИ register — ✅ SHIPPED 2026-08-19, and it ANSWERED T0.2 while
+  CONTRADICTING the recorded reasoning for T0.3.**
+
+  МК publishes its ДКИ across three направление pages, not one register:
+  Музика и танц (9), Театър (38), Художествено образование (23) = **70**, against
+  the ~74 Дирекция СИХО states. `scripts/culture/dki/` fetches, parses and resolves
+  them into the committed `data/culture/dki_register.json`; `npm run culture:dki`;
+  watcher `mc_dki_register`; gates in `scripts/culture/dki/*.test.ts`.
+
+  **The register carries NO ЕИК**, so every id is resolved by NAME against
+  `contracts` ∪ `tenders`, refusing an ambiguous name rather than grading a guess:
+  **49 resolved, 2 refused, 19 unmatched.** „Unmatched" is not quite „absent" —
+  it means no candidate cleared the bar, and spot checks say most of these
+  genuinely have no ЗОП procurement in either corpus. That is the finding, not a
+  shortfall — a ДКИ that has never run a ЗОП procedure
+  is structurally invisible to step 1's corpus sweep, which is exactly the blind
+  spot this register exists to cover.
+
+  What the reconciliation says, against the four lists as they stand:
+
+  |                             | n     | meaning                                                        |
+  | --------------------------- | ----- | -------------------------------------------------------------- |
+  | already in the roll-up      | 30    | agrees                                                         |
+  | **`VERIFY_PRINCIPAL_EIKS`** | **9** | **T0.2 ANSWERED** — МК lists each as its own ДКИ               |
+  | `EXCLUDED_EIKS`             | 2     | a contradiction — see below                                    |
+  | `ADJACENT_EIKS`             | 1     | Театър „Българска армия“ (129009016): we say `mo`, МК lists it |
+  | in **no** list              | 7     | incl. two симфониети, НМУ „Любомир Пипков“ (000669774)         |
+
+  ⚠️ **T0.3's recorded reason is now contradicted by the primary source.** The note
+  says Театрална работилница „Сфумато“ (831381016) „appears in no МК ДКИ listing".
+  It is the **second entry** on МК's own театър page. The verdict was taken on the
+  reading that keeps a municipal theatre out of a state roll-up; that reading now has
+  evidence against it. The other excluded hit is НГДЕК „Константин-Кирил Философ“
+  (000674508), widely understood to be МОН's — the one case where the register may be
+  the stale side.
+
+  **Nothing was reclassified.** Moving any of these changes the sector's headline €,
+  and this plan's own rule is that principal is a human judgement. Each of the 19 is
+  pinned in `DKI_DISAGREEMENTS` (`scripts/culture/dki/reconcile.ts`) with what we
+  know, in the `LISTING_LABEL_EXCEPTIONS` shape: a NEW disagreement fails a test
+  until somebody rules, and a stale entry fails too. **Ruling on these 19 is the open
+  decision this step hands back.**
+
+  **Follow-up, sized 2026-08-19: the museums register closes the `notListed`
+  gap.** МК's „РЕГИСТЪР НА МУЗЕИТЕ" (`/документи/регистри-1/`, an .xlsx of 688
+  rows / ~262 named museums) carries a **„Форма на собственост"** column —
+  общински 190, „х" 46, **държавен 17**, частен 8, БПЦ 1 — so the state-owned
+  subset is enumerable, each row with a director. It was left out of this ingest
+  for a sharper reason than „mostly municipal": `държавен` **spans principals**.
+  Of the 10 that resolve to an EIK, 3 are already in the roll-up, **5 are
+  `adjacent`** (Национален военноисторически = МО; ИЕФЕМ, Природонаучен, НАИМ =
+  БАН; Шипка-Бузлуджа, already in `EXCLUDED_EIKS` as `mo`), and **2 are in no
+  list**: `131355961` „ДКИ Къща музей «Панчо Владигеров»" — МК's own label says
+  ДКИ — and `107027015` Национален музей на образованието — Габрово. Folding
+  `държавен` in wholesale imports МО and БАН museums into a culture roll-up,
+  which is the defect the four-list split exists to prevent; doing it properly is
+  ~17 hand-classified rows.
+
+  Two by-products worth their own line: every institute comes with its **director**
+  (an independent check on the declaration-derived officer layer, T2.3) and its
+  **seat** — and the seat is labelled `postcode` (evidence) or `name` (read off the
+  institute's own title, for the 9 theatres whose address line carries a bare
+  postcode), so a place surface can tell the two apart.
+
 - **T3.2 — читалища subsidy per unit.** €88.3m/yr, currently one line on a scale tile.
   `Единен разходен стандарт × subsidised units` per община joins it to the 86 читалища buyers,
   the 1,196 EU beneficiaries and the governance dashboards.
@@ -957,7 +1018,7 @@ destination has to be decided before Band 2 can be drawn).
 | **6**    | `/culture/procurement` + `/culture/funds` + `/culture/institutions` bodies                                                                                                                            | 5           |
 | **7**    | T2.3–T2.4 (directors, procurement officers)                                                                                                                                                           | 3, 6        |
 | **8**    | P1 (full dossier crawl) — operator decision                                                                                                                                                           | —           |
-| **9**    | T3.1 ДКИ register, re-run step 1's gate                                                                                                                                                               | 8 optional  |
+| **9**    | ✅ T3.1 ДКИ register — SHIPPED 2026-08-19. 70 institutes, 49 EIK-resolved; T0.2 answered, T0.3's stated reason contradicted; 19 disagreements pinned, unruled                                         | —           |
 | **10**   | P2, P3 — the two that change what procurement can assert                                                                                                                                              | —           |
 | **11**   | P4–P10, each with its watcher + cloud loader                                                                                                                                                          | —           |
 | **12**   | **Write the `sector-dashboard` skill** (Part 3)                                                                                                                                                       | 0–7 shipped |

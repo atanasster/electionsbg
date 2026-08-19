@@ -102,6 +102,7 @@ import { nzokDrugQuarterly } from "./nzok_drug_quarterly";
 import { nzokExecutionB1 } from "./nzok_execution_b1";
 import { nzokActivities } from "./nzok_activities";
 import { nzokNrdTariffs } from "./nzok_nrd_tariffs";
+import { mcDkiRegister } from "./mc_dki_register";
 import { nfcFilmRegister } from "./nfc_film_register";
 import { ncfGrantResults } from "./ncf_grant_results";
 import { nfcCommissions } from "./nfc_commissions";
@@ -133,6 +134,7 @@ export const SOURCES: WatchSource[] = [
   comdosDs, // person-layer ДС/COMDOS facet (→ update-persons)
   regulatorRosters, // person-layer regulator facet (→ update-persons)
   rnflInsolvency, // РНФЛ личен фалит (→ NO skill — operator reads docs/plans/rnfl-insolvency-v1.md)
+  mcDkiRegister,
   nfcFilmRegister,
   ncfGrantResults,
   nfcCommissions,

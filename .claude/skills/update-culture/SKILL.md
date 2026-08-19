@@ -1,6 +1,6 @@
 ---
 name: update-culture
-description: Refresh the Култура (culture) data behind /culture — the НФЦ (Национален филмов център) film-subsidy corpus in data/culture/films.json + overview.json, parsed from the per-year .xls registers of financed films/series at nfc.bg, plus НФК grant success rates, the artistic-commission compositions ("кой решава"), and the Sofia + читалища municipal streams. Use when the daily watch report flags `nfc_film_register`, `ncf_grant_results`, or `nfc_commissions` as changed, when the user asks to refresh culture / кино / филмови субсидии / НФЦ / комисии data, or after a fresh git clone if data/culture/*.json is missing.
+description: Refresh the Култура (culture) data behind /culture — the НФЦ (Национален филмов център) film-subsidy corpus in data/culture/films.json + overview.json, parsed from the per-year .xls registers of financed films/series at nfc.bg, plus НФК grant success rates, the artistic-commission compositions ("кой решава"), and the Sofia + читалища municipal streams. Also refreshes the МК ДКИ register (data/culture/dki_register.json) — the ministry's own listing of the държавни културни институти it is the principal of, with each institute's director and seat, reconciled against the four-list culture allowlist. Use when the daily watch report flags `nfc_film_register`, `ncf_grant_results`, `nfc_commissions`, or `mc_dki_register` as changed, when the user asks to refresh culture / кино / филмови субсидии / НФЦ / комисии data, or after a fresh git clone if data/culture/*.json is missing.
 ---
 
 # update-culture
@@ -27,6 +27,39 @@ Two format families the parser handles (see `scripts/culture/ingest.ts`):
 Discipline is classified from the **reg-number letter** (И=игрално, Д=документално,
 А=анимационно) — reliable across both families — with a title-prefix fallback.
 
+### The МК ДКИ register (`mc_dki_register`)
+
+A SECOND, unrelated source: МК's own three listings of the **държавни културни
+институти** it is the principal of — `направление Музика и танц` (opera,
+philharmonic, symphonietta), `направление Театър` (drama + puppet) and
+`направление Художествено образование` (the art schools). URLs in
+`scripts/culture/dki/sources.ts`.
+
+Three things about it decide how it may be used:
+
+- **It carries NO ЕИК.** Every id in the artifact is resolved by NAME against
+  `contracts` ∪ `tenders` (`scripts/culture/dki/resolve.ts`), which REFUSES an
+  ambiguous name rather than grading a guess — two register names are too
+  generic to identify and stay unresolved on purpose.
+- **It is not the whole of МК.** ~103 second-level spending units, ~74 of them
+  ДКИ; these three pages list 70, and the national museums, galleries and
+  library are on no ДКИ page at all. The museums register at
+  `/документи/регистри-1/` is deliberately NOT folded in, and the reason is
+  sharper than „mostly municipal": its `Форма на собственост` column shows
+  `държавен` **spans principals** — of the 17 state-owned museums, 5 of the 10
+  that resolve to an EIK are МО or БАН. Folding it in wholesale would import
+  those into a culture roll-up. It is a ~17-row hand-classified follow-up, not a
+  permanent boundary.
+- **It never becomes the allowlist.** `src/lib/kulturaReferenceData.ts` stays
+  hand-classified by principal. This is the independent evidence it is checked
+  against, and each source sees what the other structurally cannot: the corpus
+  sweep is blind to a ДКИ that never ran a ЗОП procedure, and the register is
+  blind to everything МК does not list.
+
+mc.government.bg serves an **incomplete certificate chain**, so both the ingest
+and the watcher pass `insecureTls` — curl and browsers accept it, Node's CA list
+does not. Read-only public pages.
+
 ## Run
 
 ```bash
@@ -36,6 +69,11 @@ npx tsx scripts/culture/ncf_grants.ts      # НФК grant results → grants.jso
 npx tsx scripts/culture/build_oblast.ts    # state institutes by oblast (needs Postgres)
 npx tsx scripts/culture/write_commissions.ts # НФЦ artistic-commission compositions → commissions.json
 npx tsx scripts/culture/sofia_program.ts   # Sofia Програма „Култура" + читалища → municipal.json (needs pdftotext)
+
+npm run culture:dki                        # МК ДКИ register → dki_register.json (DRY RUN; needs Postgres)
+npm run culture:dki -- --apply             # …and write it
+npm run culture:dki -- --apply --offline   # re-parse the cached HTML, no fetch
+npx vitest run scripts/culture/dki/        # the parser + reconciliation gates — ALWAYS after --apply
 
 npx tsx scripts/culture/enrich_producers.ts # REPAIR ONLY — re-link top producers → EIK (needs Postgres)
 ```

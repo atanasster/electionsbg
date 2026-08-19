@@ -202,6 +202,7 @@
     "db:verify": "DB_VERIFY=1 NODE_OPTIONS=--max-old-space-size=4096 vitest run scripts/db/tests",
     "data": "tsx ./scripts/main.ts",
     "data:decorate-local-persons": "tsx ./scripts/parsers_local/decorate_local_person_links.ts",
+    "culture:dki": "tsx scripts/culture/dki/ingest.ts",
     "data:local-person-refresh": "npm run data:decorate-local-persons && npm run data -- --local-rollups --local-place-trends --local-chmi-history",
     "data:local-person-refresh:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run data:decorate-local-persons && npm run data -- --local-rollups --local-place-trends --local-chmi-history",
     "data:nzok": "tsx ./scripts/nzok/ingest.ts",
