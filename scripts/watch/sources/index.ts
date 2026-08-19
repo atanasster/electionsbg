@@ -3,6 +3,7 @@ import { parliamentMps } from "./parliament_mps";
 import { parliamentVotes } from "./parliament_votes";
 import { wikiPolls } from "./wiki_polls";
 import { wikiGovernments } from "./wiki_governments";
+import { cprsRegister } from "./cprs_register";
 import { cacbgDeclarations } from "./cacbg_declarations";
 import { cacbgOfficials } from "./cacbg_officials";
 import { cacbgLocal } from "./cacbg_local";
@@ -140,6 +141,7 @@ export const SOURCES: WatchSource[] = [
   nfcCommissions,
   wikiPolls,
   wikiGovernments,
+  cprsRegister,
   cacbgDeclarations,
   cacbgOfficials,
   cacbgLocal,

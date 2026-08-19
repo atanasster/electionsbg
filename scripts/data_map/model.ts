@@ -964,6 +964,26 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal", "indicators"],
   },
   {
+    id: "cprs",
+    label: {
+      bg: "ЦПРС · регистър на строителя",
+      en: "CPRS · builders register",
+    },
+    detail: {
+      bg: "кой е лицензиран за какво строителство",
+      en: "who is licensed for which construction class",
+    },
+    desc: {
+      bg: "Централният професионален регистър на строителя (Камара на строителите в България) — 106 508 лиценза на 8 379 фирми по 49 класа строежи, с номер и дата на протокола на КСБ. Датата е същественото: тя прави проверимо дали изпълнителят е притежавал изисквания клас към датата на възлагане — проверка за допустимост по ЗОП, която другаде в българския уеб не може да се направи. NULL дата означава „регистърът не казва кога“, никога „нелицензиран“.",
+      en: 'The Central Professional Register of Builders (Bulgarian Construction Chamber) — 106,508 licences held by 8,379 firms across 49 construction classes, each with its КСБ protocol number and date. The date is the point: it makes „did this contractor hold the required class on the award date?" checkable — the ЗОП eligibility test, answerable nowhere else on the Bulgarian web. A NULL date means „the register does not say when", never „not licensed".',
+    },
+    url: "https://register.ksb.bg/",
+    origin: "state",
+    members: ["cprs_register"],
+    skills: ["update-procurement"],
+    tags: ["procurement"],
+  },
+  {
     id: "culture",
     label: { bg: "Култура · НФЦ, НФК, МК", en: "Culture · NFC, NCF, Ministry" },
     detail: {

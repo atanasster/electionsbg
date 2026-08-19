@@ -35,6 +35,12 @@ export interface FetchOpts {
   // AbortSignal for cancellation / timeout. Defaults to a 30-second timeout
   // so a hung upstream can't block the watcher indefinitely.
   signal?: AbortSignal;
+  // POST body, for the handful of registers that only answer a form submission
+  // (ЦПРС's listFirms.php is the first). Sending one implies method POST; set
+  // the Content-Type in `headers`. Still read-only in intent — these are search
+  // forms, not mutations — so the retry policy below applies unchanged.
+  body?: string;
+  method?: "GET" | "POST";
 }
 
 export const fetchText = async (
@@ -46,9 +52,11 @@ export const fetchText = async (
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const headers = { ...DEFAULT_HEADERS, ...(opts.headers ?? {}) };
+      const method = opts.method ?? (opts.body === undefined ? "GET" : "POST");
+      const init = { headers, signal, method, body: opts.body };
       const res = opts.insecureTls
-        ? await undiciFetch(url, { headers, dispatcher: insecureAgent, signal })
-        : await fetch(url, { headers, signal });
+        ? await undiciFetch(url, { ...init, dispatcher: insecureAgent })
+        : await fetch(url, init);
       if (res.status === 404 && opts.allow404) return null;
       if (res.status >= 500 && attempt < retries)
         throw new Error(`HTTP ${res.status}`);
