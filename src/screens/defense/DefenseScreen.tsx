@@ -59,7 +59,10 @@ export const DefenseScreen = () => {
     () => (gdp.data ? gdp.data.series.map((p) => p.year) : []),
     [gdp.data],
   );
-  const latestYear = years.length ? years[years.length - 1] : null;
+  // Derived, not read off the tail — same reason as pick() below: the ordering
+  // of data/defense/*.json is a property of the sources, not of the pipeline,
+  // and this value is the page's DEFAULT year.
+  const latestYear = years.length ? Math.max(...years) : null;
   const [yearOverride, setYearOverride] = useState<number | null>(null);
   const selectedYear = yearOverride ?? latestYear;
 
@@ -72,12 +75,19 @@ export const DefenseScreen = () => {
   // Each series has a different span (gdp 2014–, split 2019–, exports 2021–2024).
   // Show the picked year if present, else fall back to the series' own latest so
   // the default "latest year" view is never blank — annotate when it's a fallback.
+  //
+  // The latest is DERIVED, not read off the tail. Every data/defense/*.json
+  // artifact ships ascending today, but nothing in scripts/defense/ sorts them —
+  // the order is a property of the sources — and yearSuffix() renders whatever
+  // this returns as an authoritative `’24`. So an unsorted series would put a
+  // non-latest value on the page under its own year label: plausible, wrong, and
+  // nothing failing. A reduce over ~13 rows costs nothing to be sure.
   const pick = <T extends { year: number }>(rows: T[] | undefined) => {
     if (!rows?.length || selectedYear == null) return undefined;
     const exact = rows.find((r) => r.year === selectedYear);
     if (exact) return exact;
-    const latest = rows[rows.length - 1];
-    return latest && latest.year < selectedYear ? latest : undefined;
+    const latest = rows.reduce((a, b) => (b.year > a.year ? b : a));
+    return latest.year < selectedYear ? latest : undefined;
   };
   const yearSuffix = (pt: { year: number } | undefined) =>
     pt && pt.year !== selectedYear ? ` ’${String(pt.year).slice(2)}` : "";
@@ -86,12 +96,31 @@ export const DefenseScreen = () => {
   const exportPt = pick(exports.data?.series);
   // Per-capita is a raw array aligned to peers.years — lift it to {year, usd}
   // rows so it re-anchors to the picked year like the other KPIs.
-  const perCapitaPt = pick(
-    peers.data?.bulgaria?.perCapitaUsd.map((usd, i) => ({
-      year: peers.data!.years[i],
-      usd,
-    })),
-  );
+  //
+  // Truncated to the SHORTER side deliberately. The alignment is a convention
+  // the type cannot express (src/data/defense/types.ts says only "aligned to
+  // `years`"), and `noUncheckedIndexedAccess` is off, so `years[i]` is typed
+  // `number` while being `undefined` the moment perCapitaUsd outruns it.
+  //
+  // ⚠ This is DEFENCE IN DEPTH, not a live fix, and the distinction is worth
+  // keeping straight: pick()'s reduce below already makes a `undefined`-year row
+  // lose every comparison, so today the mispaired rows can never be selected and
+  // the rendered KPI is identical either way — measured, reverting this changes
+  // no test. What it buys is that the type stops LYING: any future reader of
+  // `perCapitaRows` that does not happen to go through pick() (a chart, a table,
+  // a CSV export) would otherwise get `{ year: undefined }` under a `number`
+  // annotation with nothing to warn them.
+  const perCapitaRows = useMemo(() => {
+    const years = peers.data?.years;
+    const usds = peers.data?.bulgaria?.perCapitaUsd;
+    if (!years || !usds) return undefined;
+    const n = Math.min(years.length, usds.length);
+    return Array.from({ length: n }, (_, i) => ({
+      year: years[i],
+      usd: usds[i],
+    }));
+  }, [peers.data]);
+  const perCapitaPt = pick(perCapitaRows);
   const dash = "—";
 
   const title = bg ? "Отбрана" : "Defense";
@@ -104,11 +133,22 @@ export const DefenseScreen = () => {
       <Title description={description}>{title}</Title>
       <SectorBreadcrumb currentKey="procurement_defense_nav" />
 
-      {/* OUTSIDE the gdp.data gate. MO_ENTITIES is static, so the finder has no
-          data dependency — mounting it inside made it absent while the GDP
-          series loaded and PERMANENTLY absent on a fetch failure, which is
-          exactly when a reader most wants a way to reach a specific body.
-          /culture does this correctly right next door. */}
+      {/* OUTSIDE the gdp.data gate, and rendered EXACTLY ONCE. MO_ENTITIES is
+          static, so the finder has no data dependency — mounting it inside made
+          it absent while the GDP series loaded and PERMANENTLY absent on a fetch
+          failure, which is exactly when a reader most wants a way to reach a
+          specific body. /culture does this correctly right next door.
+
+          ⚠ A second copy used to sit inside the gate as well: this one was added
+          without removing that one, so /defense drew the finder twice — the only
+          screen of the eight bespoke ones that did. It is not merely visual.
+          SectorEntitySearch derives its DOM ids from a HARDCODED idPrefix
+          ("defense-members-search"), so a second mount duplicates
+          `<idPrefix>-results` and every `<idPrefix>-opt-*`, and the second
+          combobox's aria-controls / aria-activedescendant then resolve to the
+          FIRST listbox — a screen-reader user arrowing through the lower box is
+          told about options in the upper one. hub_finder_single_render.test.ts
+          is the gate. */}
       <DefenseSearchBox />
 
       {isLoading && (
@@ -138,9 +178,6 @@ export const DefenseScreen = () => {
               nsLabelOverride={bg ? "Последна година" : "Latest year"}
             />
           </div>
-
-          {/* The roster finder, above the tiles. */}
-          <DefenseSearchBox />
 
           {/* KPI row — re-anchored to the picked year */}
           <div className="grid gap-3 grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
