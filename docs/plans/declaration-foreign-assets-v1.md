@@ -1,6 +1,12 @@
 # Чуждо имущество — the two declaration tables that are not holdings
 
-**Status:** implemented 2026-08-18 (T0-T6). Cloud publish pending — see §5.
+**Status:** implemented and committed 2026-08-18 (T0-T6), local only.
+
+**Cloud publish is HELD, deliberately.** Migrations 089 and 090 carry uncommitted
+FX-imputation work from concurrent development (`declaration_asset.value_basis`,
+`imputed_eur`) — +29/-1 and +42/-2 against HEAD at the time of writing. `apply_functions.ts`
+reads the WORKING TREE, so publishing would ship a half-finished migration to the serving
+database. Run §5 once 089/090 are settled; nothing else blocks it.
 
 `person_wealth_year` (090) publishes, as a named person's wealth, property and
 vehicles that person explicitly declared they **do not own**. Tables 1.2
@@ -26,7 +32,12 @@ it is **the price of the use contract**. Пеевски's 2025 filing carries
 „къща с двор, София, 917 кв.м. … 126 738 … договор за наем": that figure is what
 the tenancy costs, and it is currently published as €64,800 of his estate.
 
-## 2. Measured
+## 2. Measured — ESTIMATES, superseded by §4c
+
+⚠️ Everything in this section was derived BEFORE `table_num` existed, by matching чуждо rows
+on `(declaration_id, category, amount)`. That join **over-matches**: where a declarant files
+the same property in both table 1 and table 1.2 it counted the owned row as чуждо too. Kept
+because it is what justified the work; **quote §4c**, not this.
 
 Whole cached corpus (67,841 XMLs; root `PublicPerson` only, v2 forms only —
 the pre-2018 form has no 1.2/3.4 at all — honouring `Declared="True"` and
@@ -229,7 +240,7 @@ published assets fell in a €9.6-9.9m band, which the imputation walked to the 
 now asserts the RELATIONSHIP (published == holdings-only recompute), which nothing else can
 move.
 
-## 4d. ⚠️ The lease asymmetry — an open decision, not a bug
+## 4d. The lease asymmetry — DECIDED: strict, with the caveat named
 
 **103 people move from a published positive net worth to a negative one, and 70 of them do
 so because of a pairing this change does not resolve.** Table 3.4's dominant use is a
@@ -257,8 +268,16 @@ Shipped as (1) plus a caveat: the „ползва" block renders each row's „�
 the block states in words why the net figure can be negative. The arithmetic is right;
 unexplained beside a named public official it reads as an accusation.
 
-**This is worth a decision before the numbers are relied on.** It was not visible when the
-plan was written — the pre-`table_num` estimate put the flip count at 8, not 103.
+**Decided 2026-08-18: (1), strict, with the caveat.** The declarant does not own the car
+and does owe the money, and that is what the form itself says. The two alternatives were
+weighed and rejected: suppressing the net figure leaves a gap on ~103 profiles where the
+arithmetic is in fact correct, and dropping matched lease debts would also drop lease debts
+against property the declarant DOES own — a change that would need its own measurement
+before anyone could claim it was more accurate rather than merely more comfortable.
+
+Worth recording that this was not visible when the plan was written: the pre-`table_num`
+estimate put the flip count at **8**, not 103. It only became measurable once the corpus
+could answer which table a row came from — which is the whole point of the change.
 
 ## 4e. A pre-existing hazard this reload uncovered (fixed)
 
@@ -280,26 +299,53 @@ Recovered by shipping back from Cloud SQL (`ship_filed_position.ts --from <cloud
 both columns by `source_url` inside its own transaction and writes them back after the
 COPY, reporting `carried … for N/N filing(s)` — verified on a subsequent reload.
 
-## 5. Cloud publish order
+## 5. Cloud publish order — HELD, run this when 089/090 are settled
 
-Nothing here is automatic. 090 opens with `DROP MATERIALIZED VIEW
-person_wealth_year CASCADE` and takes five dependents, so the apply command is
-the full one from CLAUDE.md **including 148** — omit it and 120 raises 42P01
-after the CASCADE has already deleted `person_browse_table`.
+⚠️ **Do not start until `git diff HEAD -- scripts/db/schema/pg/089_declarations.sql
+scripts/db/schema/pg/090_person_wealth.sql` is empty.** `apply_functions.ts` reads the
+working tree, so any uncommitted edit in those files ships with this.
+
+Nothing here is automatic. 090 opens with `DROP MATERIALIZED VIEW person_wealth_year
+CASCADE` and takes five dependents, so the apply command is the full one from CLAUDE.md
+**including 148** — omit it and 120 raises 42P01 *after* the CASCADE has already deleted
+`person_browse_table`. Measured ~8 minutes on Cloud SQL, during which `/persons`,
+`/officials/assets` and `/declarations/crypto` answer 500. Off-peak only.
 
 ```bash
-npm run db:load:declarations:pg:cloud              # phase 1 — the re-parsed shards
-npm run db:resolve:persons:cloud                   # only if slugs moved; usually skip
-npm run db:load:declarations:pg:cloud -- --resolve # applies 089/090/…/159 in its own order
+# 1. the stamped shards — phase 1, which is what writes table_num onto the asset rows.
+#    `--resolve` alone does NOT rewrite them, and without this the whole change is inert
+#    on prod (every table_num NULL → is_declared_holding true) while local is correct.
+npm run db:load:declarations:pg:cloud
+
+# 2. person_id + the migration chain + every dependent matview
+npm run db:load:declarations:pg:cloud -- --resolve
+
+# 3. the two matviews that read the wealth figures downstream
 npm run db:load:persons-browse:pg:cloud
 npm run db:load:person-search:pg:cloud
-npm run deploy                                     # T5's rendering
+
+# 4. the „ползва" rendering, the payload fields, and the rebuilt JSON artifacts
+npm run deploy
 ```
 
-Phase 1 must lead: it is what rewrites the asset rows with their table numbers,
-and `--resolve` alone will not. Skipping it leaves the corpus without
-`table_num`, every row NULL, and the whole change inert on prod while local is
-correct — with every row count reconciling.
+**Step 1 is the one that is easy to skip and impossible to notice.** It is the only step
+that moves `declaration_asset`, and its absence is invisible to every row count: the corpus
+loads, the functions exist, and prod keeps publishing other people's property as declared
+wealth with nothing red anywhere.
+
+⚠️ **Phase 1 also carries the `filed_position` fix (§4e).** A cloud phase-1 run against a
+loader that predates it destroys 61,740 values on the SERVING database. Verify the run
+prints `carried filed_institution/filed_position across the reload for N/N filing(s)`; if
+it does not, stop and recover with `ship_filed_position.ts` before going further.
+
+**Artifacts that ship with `npm run deploy`, already rebuilt locally and committed:**
+`data/officials/assets-rankings{,-top}.json`, `data/parliament/assets-rankings{,-top}.json`,
+`data/parliament/mp-cars.json`, `car-makes.json`, `mp-assets/`, and
+`data/governance/declarations_hub_stats.json`. These are committed files, not tables — a
+cloud reload does not touch them, and they are already current.
+
+**`mp_car` needs its own reload**, since it is COPYed from `mp-cars.json` rather than
+derived: `npm run db:load:mp-roster:pg:cloud` (721 → 643 vehicles).
 
 ## 6. Deferred, deliberately
 

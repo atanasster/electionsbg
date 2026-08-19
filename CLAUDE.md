@@ -554,10 +554,12 @@ dominant use is a LEASED vehicle: **1,014 of the 1,826 filings carrying a 3.4 ro
 a лизинг debt**. Under a lease the lessor owns the car, so 3.4 is the right table — but the
 lease liability sits in table 7 and stays counted, so excluding the asset while keeping the
 debt is asymmetric. **103 people move from a published positive net worth to a negative one,
-70 of them on exactly this pairing.** Shipped strict (they do not own the car and they do owe
-the money) plus a caveat: the „ползва" block prints each row's „правно основание" and, when a
-filing pairs a чуждо vehicle with a лизинг debt, says in words why the net figure can go
-below zero. Pairing them and dropping both is NOT reliably implementable — the table-7
+70 of them on exactly this pairing.** **Decided 2026-08-18: strict, with the caveat** — they do not own the car
+and they do owe the money, which is what the form says. The „ползва" block prints each row's
+„правно основание" and, when a filing pairs a чуждо vehicle with a лизинг debt, says in words
+why the net figure can go below zero. Do not "fix" this by dropping the matched debts without
+measuring first: the table-7 description is free text and the same match would drop lease
+debts against property the declarant DOES own. Pairing them and dropping both is NOT reliably implementable — the table-7
 description is free text, and matching „лизинг" would also drop lease debts against property
 the declarant DOES own. See `docs/plans/declaration-foreign-assets-v1.md` §4d.
 
