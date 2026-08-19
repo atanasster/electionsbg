@@ -164,6 +164,25 @@ export interface SectorDashboardConfig {
    *
    *  Both are gated in sectorDashboards.test.ts, mutation-checked. */
   packOwnsScope?: boolean;
+  /** The pack already routes the reader to the contracts browser itself, so the
+   *  screen must not add a second link to the same place.
+   *
+   *  ⚠ The DEFAULT is to show the link, and that direction is deliberate. A pack
+   *  IS the page: the branch that renders one skips the KPI row, the
+   *  top-contractors tile AND the `/procurement/contracts?sector=` drill-down
+   *  every non-pack sector gets from its KPI cards. (The awarders tile renders
+   *  for every sector, outside that branch.) Four packs render no contracts link of their own — Митници,
+   *  НАП, АПИ and НЗОК — so their pages had no route to the buy-side at all while
+   *  the hub tile promised „договори": Митници alone is €262.0M over 1,222
+   *  contracts, reachable only by typing the browse URL (audit 2026-08-19 F3).
+   *  A redundant link is cosmetic; a hidden buy-side is the defect, so the
+   *  omission-prone direction is the harmless one.
+   *
+   *  Set it for a pack that links out itself (МВР's „Обществените поръчки на
+   *  цялата група", and the CPV breakdowns in the transport / regional / social /
+   *  environment packs). sectorDashboards.test.ts derives the truth from the pack
+   *  SOURCES and fails on either kind of drift, so this cannot go stale. */
+  packRendersOwnContractsLink?: boolean;
   /** Optional entity-search box, rendered directly under the scope control and
    *  above the first tile — ONE per page (see SectorEntitySearch's header). The
    *  sector supplies it because only the sector knows what its entities are and
@@ -263,6 +282,8 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // Members from the curated allowlist (transportReferenceData.ts).
   transport: {
     id: "transport",
+    // The pack renders its own contracts links (CPV breakdown / „виж всички").
+    packRendersOwnContractsLink: true,
     titleKey: "sector_transport_title",
     descKey: "sector_transport_desc",
     agency: "МТС",
@@ -286,6 +307,8 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // (regionalReferenceData.ts).
   regional: {
     id: "regional",
+    // The pack renders its own contracts links (CPV breakdown / „виж всички").
+    packRendersOwnContractsLink: true,
     titleKey: "sector_regional_title",
     descKey: "sector_regional_desc",
     agency: "МРРБ",
@@ -307,6 +330,8 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // from the curated allowlist (socialReferenceData.ts).
   social: {
     id: "social",
+    // The pack renders its own contracts links (CPV breakdown / „виж всички").
+    packRendersOwnContractsLink: true,
     titleKey: "sector_social_title",
     descKey: "sector_social_desc",
     agency: "МТСП",
@@ -508,6 +533,8 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // (securityReferenceData.ts); the canonical BG name doubles as the en label.
   security: {
     id: "security",
+    // The pack renders its own contracts links (CPV breakdown / „виж всички").
+    packRendersOwnContractsLink: true,
     titleKey: "sector_security_title",
     descKey: "sector_security_desc",
     agency: "МВР",
@@ -529,6 +556,8 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // is itself a top-tier buyer, nearly the size of the whole ministry.
   environment: {
     id: "environment",
+    // The pack renders its own contracts links (CPV breakdown / „виж всички").
+    packRendersOwnContractsLink: true,
     titleKey: "sector_environment_title",
     descKey: "sector_environment_desc",
     agency: "МОСВ",

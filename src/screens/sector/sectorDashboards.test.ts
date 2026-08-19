@@ -10,22 +10,26 @@
 //   · it must be a strict superset of the lead index, or a lead loses its own
 //     membership banner while keeping pack suppression — green everywhere, one page
 //     quietly wrong.
+//
+// The module has since grown two more contracts, each under its own banner below:
+// `packOwnsScope` (who renders the page's time control) and
+// `packRendersOwnContractsLink` (who routes the reader to the buy-side).
+//
+// ⚠️ EVERY SOURCE SCAN IN THIS FILE STRIPS COMMENTS. Prose that MENTIONS a
+// pattern is not an occurrence of it — CLAUDE.md names the shared primitive for
+// exactly this, and the gate below was already satisfied by comment prose once.
 
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { MZ_EIK, NZOK_EIK } from "@/lib/healthReferenceData";
-import { getSectorPack } from "@/screens/components/procurement/sectorPacks";
+import {
+  getSectorPack,
+  getSectorBrowsePack,
+} from "@/screens/components/procurement/sectorPacks";
 import { stripComments } from "../../../scripts/lib/strip_comments";
 
-const SCREEN_SRC = readFileSync(
-  path.join(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "../dev/CompanyDbScreen.tsx",
-  ),
-  "utf8",
-);
 import {
   buildMemberIndex,
   sectorDashboardForLeadEik,
@@ -34,6 +38,17 @@ import {
   SECTOR_DASHBOARDS,
   type SectorDashboardConfig,
 } from "./sectorDashboards";
+
+/** A path relative to this test file. The one place the module resolves paths. */
+const atDir = (rel: string) =>
+  path.join(path.dirname(fileURLToPath(import.meta.url)), rel);
+
+/** Read a source file with its comments removed — see the ⚠️ in the header. */
+const readStripped = (rel: string) =>
+  stripComments(readFileSync(atDir(rel), "utf8"));
+
+const SCREEN_SRC = readStripped("../dev/CompanyDbScreen.tsx");
+const SECTOR_SCREEN_SRC = readStripped("SectorDashboardScreen.tsx");
 
 // A config's members are what the index keys on; nothing else here matters.
 const cfg = (id: string, eiks: string[]): SectorDashboardConfig =>
@@ -207,16 +222,6 @@ const PACK_SRC: Record<string, string> = {
   revenue: "../components/procurement/nap/NapPack.tsx",
 };
 
-const atDir = (rel: string) =>
-  path.join(path.dirname(fileURLToPath(import.meta.url)), rel);
-
-const readStripped = (rel: string) =>
-  stripComments(readFileSync(atDir(rel), "utf8"));
-
-const SECTOR_SCREEN_SRC = stripComments(
-  readFileSync(atDir("SectorDashboardScreen.tsx"), "utf8"),
-);
-
 describe("packOwnsScope", () => {
   const flagged = () =>
     Object.values(SECTOR_DASHBOARDS).filter((c) => c.packOwnsScope);
@@ -310,5 +315,179 @@ describe("packOwnsScope", () => {
     // sector's lead really does resolve to a dashboard.
     for (const c of flagged())
       expect(sectorDashboardForLeadEik(c.leadEik)?.id).toBe(c.id);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// packRendersOwnContractsLink — who routes the reader to the buy-side.
+//
+// A pack IS the page: the branch that renders one skips the KPI row, the
+// top-contractors tile AND the `/procurement/contracts?sector=` drill-down every
+// non-pack sector gets from its KPI cards. (The awarders tile renders for every
+// sector, outside that branch.) So the screen adds that one link back — unless
+// the pack already links there, which five of them do.
+//
+// ⚠️ THE FLAG IS DERIVED FROM THE PACK SOURCES HERE, not trusted. Both kinds of
+// drift are invisible on the page a developer happens to open: a pack that grows
+// its own contracts link leaves a duplicate under it, and a pack that loses one
+// leaves the sector with no route to its buy-side at all while the hub tile still
+// promises „договори" — which is the defect this link exists to fix (Митници:
+// €262.0M over 1,222 contracts, reachable only by typing the browse URL).
+//
+// ⚠️ THE SECTOR→PACK JOIN IS ON THE EIK CONSTANT IDENTIFIER, never on a naming
+// convention. The first cut matched a lowercase prefix of the pack's component
+// name through a hand-written hint map, and an unresolvable join `continue`d —
+// so renaming MvrPack dropped `security` out of the sweep with the test still
+// green (the size floor counts the MAP, not the sectors checked), and
+// `judiciary`→VssPack / `pensions`→NoiPack would have been skipped silently the
+// day they graduate. `[MVR_EIK]: MvrPack` in the registry and `leadEik: MVR_EIK`
+// here share one token verbatim, so joining on it needs no convention and no
+// forecast — and an id that still fails to resolve is now an assertion.
+
+/** Every pack-backed sector that actually renders its pack as the page. A
+ *  thematic pack sits BELOW the generic dashboard, which carries the KPI row and
+ *  its own contracts drill-down, so it is not in this contract. */
+const packBackedIds = () =>
+  Object.values(SECTOR_DASHBOARDS)
+    .filter((c) => getSectorPack(c.leadEik) && !c.packIsThematic)
+    .map((c) => c.id)
+    .sort();
+
+/** EIK-constant identifier (e.g. "MVR_EIK") → the pack module's path, read out of
+ *  the registry's own lazy imports and PACKS map. */
+const packSources = (): Map<string, string> => {
+  const src = stripComments(
+    readFileSync(atDir("../components/procurement/sectorPacks.tsx"), "utf8"),
+  );
+  const byComponent = new Map<string, string>();
+  for (const m of src.matchAll(
+    /const (\w+) = lazy\(\(\) =>\s*import\("(\.[^"]+)"\)/g,
+  ))
+    byComponent.set(m[1], m[2]);
+  const out = new Map<string, string>();
+  for (const m of src.matchAll(/\[(\w+)\]:\s*(\w+Pack),/g)) {
+    const rel = byComponent.get(m[2]);
+    if (rel) out.set(m[1], rel); // key on the EIK constant, not the component
+  }
+  return out;
+};
+
+/** sector id → the EIK-constant identifier its `leadEik` is written with, read
+ *  out of this registry's own source. The other half of the same-token join. */
+const leadEikIdents = (): Map<string, string> => {
+  const src = stripComments(readFileSync(atDir("sectorDashboards.ts"), "utf8"));
+  const out = new Map<string, string>();
+  for (const m of src.matchAll(
+    /^ {2}(\w+): \{$[\s\S]*?^ {4}leadEik: (\w+),$/gm,
+  ))
+    out.set(m[1], m[2]);
+  return out;
+};
+
+/** Does any file in the pack's OWN directory link to the contracts browser?
+ *  Directory-wide, not entry-file-only: several packs delegate a drill-down to a
+ *  sibling tile (NzokPack imports 18 of them), and a link there is still a link
+ *  the reader sees — read as "absent" it would put a duplicate on the page. */
+const packLinksToContracts = (rel: string): boolean => {
+  const dir = path.dirname(
+    atDir(`../components/procurement/${rel.slice(2)}.tsx`),
+  );
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"))
+    .some((f) =>
+      stripComments(readFileSync(path.join(dir, f), "utf8")).includes(
+        "procurement/contracts",
+      ),
+    );
+};
+
+describe("packRendersOwnContractsLink", () => {
+  it("matches what each pack's source actually does", () => {
+    const sources = packSources();
+    const idents = leadEikIdents();
+    // Floor both sides of the join, and — the part the first cut missed — the
+    // number of sectors actually CHECKED, below.
+    expect(sources.size).toBeGreaterThan(8);
+    expect(idents.size).toBeGreaterThan(8);
+
+    const wrong: string[] = [];
+    const unresolved: string[] = [];
+    let checked = 0;
+    for (const id of packBackedIds()) {
+      const rel = sources.get(idents.get(id) ?? "");
+      // A sector whose pack cannot be located is UNVERIFIED, not compliant.
+      if (!rel) {
+        unresolved.push(id);
+        continue;
+      }
+      checked += 1;
+      const linksItself = packLinksToContracts(rel);
+      const declared =
+        SECTOR_DASHBOARDS[id].packRendersOwnContractsLink === true;
+      if (linksItself !== declared)
+        wrong.push(
+          `${id}: pack ${linksItself ? "DOES" : "does NOT"} link to the contracts browser, config says ${declared}`,
+        );
+    }
+    expect(
+      unresolved,
+      "sector→pack join failed; the EIK constant must match",
+    ).toEqual([]);
+    // Non-vacuity: `wrong === []` is also what a sweep that checked nothing
+    // returns, and that is exactly how the first cut passed after a rename.
+    expect(checked).toBe(packBackedIds().length);
+    expect(checked).toBeGreaterThan(5);
+    expect(wrong).toEqual([]);
+  });
+
+  it("leaves at least one sector relying on the screen's link", () => {
+    // The whole point. If every pack linked out itself the screen's link would be
+    // dead code — and if the flag were set everywhere by accident, the four
+    // collector/delivery packs would go back to hiding their buy-side.
+    const relying = packBackedIds().filter(
+      (id) => !SECTOR_DASHBOARDS[id].packRendersOwnContractsLink,
+    );
+    expect(relying).toEqual(["customs", "health", "revenue", "roads"]);
+  });
+
+  it("is never set on a thematic sector, where it is inert", () => {
+    // A thematic pack sets `Pack = null`, so the screen's link never renders and
+    // this flag does nothing — until someone removes packIsThematic, at which
+    // point a stale `true` silently hides that sector's buy-side. packBackedIds()
+    // filters thematic sectors out, so the sweep above cannot see this either.
+    const inert = Object.values(SECTOR_DASHBOARDS)
+      .filter((c) => c.packIsThematic && c.packRendersOwnContractsLink)
+      .map((c) => c.id);
+    expect(inert).toEqual([]);
+  });
+
+  it("the link lives INSIDE the Pack arm, gated on the flag", () => {
+    // Presence of the two tokens is not enough: moving the link below
+    // <SectorAwardersTile /> — outside the branch, guard intact — would add it to
+    // every non-pack sector, duplicating the drill-down their KPI cards already
+    // carry. That is the /sector/security duplicate this flag removed, mirrored.
+    expect(SECTOR_SCREEN_SRC).toMatch(
+      /<Pack eik=\{config\.leadEik\}[\s\S]{0,400}?!config\.packRendersOwnContractsLink && \([\s\S]{0,200}?<PackContractsLink/,
+    );
+  });
+
+  it("does not forward a scope the pack never rendered", () => {
+    // A packOwnsScope pack clamps ?pscope in memory and never writes it back, so
+    // the raw param can name a window the page above did not show.
+    expect(SECTOR_SCREEN_SRC).toMatch(
+      /if \(config\.packOwnsScope\) contractsSearch\.delete\("pscope"\);/,
+    );
+  });
+
+  it("every sector's ?sector= id is a registered browse pack", () => {
+    // Unregistered → getSectorBrowsePack returns null → the browse page serves
+    // the UNFILTERED corpus, under a card captioned with one institution's name:
+    // ~800k contracts presented as Агенция „Митници“'s. A wrong claim, not a
+    // wide one — which is why this matters more now than for the pre-existing
+    // „виж всички" chip that shares the id.
+    const unregistered = Object.values(SECTOR_DASHBOARDS)
+      .filter((c) => !getSectorBrowsePack(c.browsePackId ?? c.id))
+      .map((c) => c.id);
+    expect(unregistered).toEqual([]);
   });
 });

@@ -17,11 +17,15 @@ import {
   type To,
 } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { ScopeControl } from "@/screens/components/ScopeControl";
-import { getSectorPack } from "@/screens/components/procurement/sectorPacks";
+import {
+  getSectorPack,
+  getSectorBrowsePack,
+} from "@/screens/components/procurement/sectorPacks";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { useAwarderGroupModel } from "@/data/procurement/useAwarderGroupModel";
 import {
@@ -48,6 +52,68 @@ import { SECTORS_HUB_PATH } from "@/screens/components/procurement/SectorBreadcr
 // fold every contract into one bucket.
 const GENERIC_CLASSIFIER: SectorClassifier<"all"> = {
   categoryOf: () => "all",
+};
+
+/** The buy-side drill-down for a PACK-backed sector.
+ *
+ *  A pack IS the page — the branch below skips the KPI row, the top-contractors
+ *  tile and the `/procurement/contracts?sector=` link that every non-pack sector
+ *  gets from its KPI cards. (The awarders tile is NOT among them: it renders for
+ *  every sector, outside this branch.) For the two collector packs
+ *  that left the page with no route to the buy-side at all, while the hub tile
+ *  promised „договори": Митници alone is €262.0M over 1,222 contracts, reachable
+ *  only by typing the browse URL. Audit 2026-08-19 F3.
+ *
+ *  A LINK, not the KPI row: the row needs useAwarderGroupModel, which the pack
+ *  branch disables (`enabled: !Pack`), so restoring it would add a group-model
+ *  fetch to all twelve pack-backed sector pages to render four numbers the pack
+ *  deliberately reframes. This costs nothing and makes the caption true. */
+// Exported for SectorDashboardScreen.test.tsx only. A source scan can prove the
+// link is wired into the right branch; only a render can prove the copy branches
+// the right way — an inverted `single` names one institution over a table of 74
+// buyers, which is a wrong claim rather than a layout slip.
+export const PackContractsLink: FC<{
+  to: To;
+  /** The lead's own name — used ONLY on a single-member sector. */
+  name: string;
+  /** How many awarders the destination actually covers. */
+  memberN: number;
+  bg: boolean;
+}> = ({ to, name, memberN, bg }) => {
+  // ⚠ Name the LEAD only when it IS the whole set. `?sector=` filters the browse
+  // table by the sector's entire EIK roster — 73 directorates for МВР, 11 bodies
+  // for МТС — so „Обществените поръчки на МВР" over a table holding 72 other
+  // buyers is a wrong claim about whose contracts the reader is looking at.
+  const single = memberN === 1;
+  return (
+    <Link to={to} className="block">
+      <Card className="transition-colors hover:border-primary/50">
+        <CardContent className="flex items-center justify-between gap-3 p-3 md:p-4">
+          <div className="min-w-0">
+            <div className="truncate text-sm font-medium">
+              {single
+                ? bg
+                  ? `Обществените поръчки на ${name}`
+                  : `Public contracts of ${name}`
+                : bg
+                  ? "Обществените поръчки на сектора"
+                  : "Public contracts in this sector"}
+            </div>
+            <div className="mt-0.5 text-xs text-muted-foreground">
+              {single
+                ? bg
+                  ? "Какво купува институцията — договори, изпълнители и категории."
+                  : "What the institution buys — contracts, suppliers and categories."
+                : bg
+                  ? `Какво купуват ${memberN} възложители — договори, изпълнители и категории.`
+                  : `What ${memberN} awarders buy — contracts, suppliers and categories.`}
+            </div>
+          </div>
+          <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+        </CardContent>
+      </Card>
+    </Link>
+  );
 };
 
 const KpiCard: FC<{
@@ -118,6 +184,15 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
   // (carrying the current scope forward); contractors → the lead awarder's full
   // contractors list; top contractor → that company's page.
   const contractsSearch = new URLSearchParams(params);
+  // ⚠️ A packOwnsScope pack resolves `?pscope` against ITS OWN year list and
+  // never writes the resolved value back, so the raw param can name a window the
+  // page above never rendered: /sector/customs?pscope=y:2019 shows 2025 (the
+  // corpus is 2022-2025) while this link would ship y:2019 to a browse page that
+  // accepts it. `pscope` is in the usePreserveParams allowlist, so an ordinary
+  // in-app link mints that state — and both sectors that RELY on this card own
+  // their scope. Their year is a fiscal/revenue year besides, not a signing year,
+  // so carrying it across is not meaningful even when it resolves.
+  if (config.packOwnsScope) contractsSearch.delete("pscope");
   contractsSearch.set("sector", config.browsePackId ?? config.id);
   const contractsTo: To = {
     pathname: "/procurement/contracts",
@@ -133,6 +208,21 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
   const topContractorTo: To | undefined = top
     ? `/company/${top.eik}`
     : undefined;
+  // The lead's own name for the buy-side link. `members` is lead-first by
+  // convention, but resolve by EIK rather than trusting index 0 — a roster edit
+  // that reorders it would otherwise put another body's name on this link.
+  const lead =
+    config.members.find((m) => m.eik === config.leadEik) ?? config.members[0];
+  const leadName = lead ? (bg ? lead.name.bg : lead.name.en) : config.agency;
+  // …and the COUNT comes from the destination, not from this page. The caption is
+  // a claim about what the browse table holds, and `?sector=` filters on the
+  // BROWSE pack's EIK set, which is a different array from `members` — they
+  // diverge already in this registry (administration 1 vs 3, energy 10 vs 11).
+  // Getting it from `members` would let a single-member config name its lead over
+  // a table of three other buyers, which is the claim the branch exists to avoid.
+  const browseEikN =
+    getSectorBrowsePack(config.browsePackId ?? config.id)?.eiks.length ??
+    config.members.length;
   const ThematicTiles = config.ThematicTiles;
   const SearchBox = config.SearchBox;
   // Mirror each chart tile's own render condition so a lone survivor (e.g.
@@ -182,14 +272,27 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
       )}
 
       {Pack ? (
-        // Pack-backed sector: the disbursement/delivery pack is the content.
-        <Suspense
-          fallback={
-            <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
-          }
-        >
-          <Pack eik={config.leadEik} scopeWindow={scopeWindow} />
-        </Suspense>
+        // Pack-backed sector: the disbursement/delivery pack is the content,
+        // plus the one route to the buy-side it would otherwise swallow.
+        <>
+          <Suspense
+            fallback={
+              <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
+            }
+          >
+            <Pack eik={config.leadEik} scopeWindow={scopeWindow} />
+          </Suspense>
+          {/* …unless the pack already routes there itself — see
+              SectorDashboardConfig.packRendersOwnContractsLink. */}
+          {!config.packRendersOwnContractsLink && (
+            <PackContractsLink
+              to={contractsTo}
+              name={leadName}
+              memberN={browseEikN}
+              bg={bg}
+            />
+          )}
+        </>
       ) : isLoading ? (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
