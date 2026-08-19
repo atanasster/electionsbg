@@ -55,6 +55,8 @@ import { FollowStar } from "./components/procurement/FollowStar";
 import { KvRow } from "./components/procurement/KvRow";
 import { ContractNormalcyPanel } from "./components/procurement/ContractNormalcyPanel";
 import { ContractAnnexesPanel } from "./components/procurement/ContractAnnexesPanel";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
+import { isLinkableCompanyKey } from "@/lib/companyKey";
 
 const officialRoleLabel = (role: string, t: (k: string) => string): string => {
   const key = `official_role_${role}`;
@@ -175,15 +177,19 @@ export const ContractDetailScreen: FC = () => {
               {formatEur(c.consortiumFullEur ?? 0, i18n.language)}
             </strong>
             , записана при водещото обединение
-            {c.consortiumEik ? (
+            {/* The CTA is dropped entirely when the carrier has no page, rather
+                than degraded to text: „виж обединението" that goes nowhere is
+                worse than no offer at all, and 1,626 of 2,368 consortium keys
+                (10,648 of 15,345 rows) are `obed-` carriers with no page. */}
+            {c.consortiumEik && isLinkableCompanyKey(c.consortiumEik) ? (
               <>
                 {" — "}
-                <Link
-                  to={`/company/${c.consortiumEik}`}
+                <CompanyLink
+                  eik={c.consortiumEik}
                   className="text-primary hover:underline"
                 >
                   виж обединението
-                </Link>
+                </CompanyLink>
               </>
             ) : null}
             . Този запис е за фирма-участник (затова стойността по-долу е 0) —
@@ -235,15 +241,12 @@ export const ContractDetailScreen: FC = () => {
           <KvRow
             label={t("contract_contractor") || "Contractor"}
             value={
-              <Link
-                to={`/company/${c.contractorEik}`}
-                className="hover:underline"
-              >
+              <CompanyLink eik={c.contractorEik} className="hover:underline">
                 {c.contractorName}{" "}
                 <span className="text-xs text-muted-foreground">
                   {t("eik")} {c.contractorEik}
                 </span>
-              </Link>
+              </CompanyLink>
             }
           />
           {c.cpv ? (

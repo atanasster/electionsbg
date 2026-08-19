@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
 import { summarizeRelations } from "./procurement/relationLabel";
 import { formatEurWithOther } from "@/lib/currency";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 const TOP_ROWS = 5;
 
@@ -97,12 +98,12 @@ export const MpConnectedContractsTile: FC<{
               key={`${e.contractorEik}`}
               className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-2 first:pt-0 last:pb-0"
             >
-              <Link
-                to={`/company/${e.contractorEik}`}
+              <CompanyLink
+                eik={e.contractorEik}
                 className="font-medium hover:underline"
               >
                 {e.contractorName}
-              </Link>
+              </CompanyLink>
               <span className="text-xs text-muted-foreground">
                 {summarizeRelations(t, e.relations)}
               </span>

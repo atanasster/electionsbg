@@ -4,7 +4,6 @@
 // share. Clone of VssCategoryTile with the culture taxonomy.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Boxes } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -12,6 +11,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { categoryLabel } from "@/lib/kulturaReferenceData";
 import type { KulturaCategory } from "@/lib/kulturaReferenceData";
 import type { AwarderCategoryAgg } from "@/lib/awarderModel";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 const CATEGORY_COLOR: Record<KulturaCategory, string> = {
   heritage: "bg-primary",
@@ -80,12 +80,12 @@ export const KulturaCategoryTile: FC<{
                 {c.topSupplier && (
                   <span className="min-w-0 truncate">
                     {bg ? "водещ: " : "top: "}
-                    <Link
-                      to={`/company/${c.topSupplier.eik}`}
+                    <CompanyLink
+                      eik={c.topSupplier.eik}
                       className="hover:text-primary hover:underline"
                     >
                       {cleanSupplierName(c.topSupplier.name)}
-                    </Link>
+                    </CompanyLink>
                   </span>
                 )}
                 {sb != null && c.bidKnownN >= 3 && (

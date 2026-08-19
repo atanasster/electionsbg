@@ -6,7 +6,6 @@
 // sees not just WHAT is bought but how competitively. Pure from NoiCategoryAgg.
 
 import { FC, useState } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Boxes } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -14,6 +13,7 @@ import { PillToggle } from "@/components/ui/PillToggle";
 import { formatEurCompact } from "@/lib/currency";
 import { categoryLabel } from "@/lib/noiBenchmarks";
 import type { NoiCategoryAgg } from "@/lib/noiAttributes";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 type Metric = "value" | "count";
 
@@ -119,12 +119,12 @@ export const NoiCategoryTile: FC<{
                 {c.topSupplier && (
                   <span className="min-w-0 truncate">
                     {bg ? "водещ: " : "top: "}
-                    <Link
-                      to={`/company/${c.topSupplier.eik}`}
+                    <CompanyLink
+                      eik={c.topSupplier.eik}
                       className="hover:text-primary hover:underline"
                     >
                       {c.topSupplier.name.split(/\s[-–—]\s|[,/]/)[0].trim()}
-                    </Link>
+                    </CompanyLink>
                   </span>
                 )}
                 {sb != null && c.bidKnownN >= 3 && (

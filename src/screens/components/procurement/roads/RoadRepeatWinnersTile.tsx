@@ -5,12 +5,12 @@
 // Computed client-side from model.rows; no engine change.
 
 import { FC, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Repeat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { RoadContract } from "@/lib/roadAttributes";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 interface CorridorLeader {
   corridor: string;
@@ -101,13 +101,13 @@ export const RoadRepeatWinnersTile: FC<{ rows: RoadContract[] }> = ({
                 <span className="rounded bg-muted px-1.5 py-0.5 text-xs shrink-0">
                   {l.corridor}
                 </span>
-                <Link
-                  to={`/company/${l.leaderEik}`}
+                <CompanyLink
+                  eik={l.leaderEik}
                   className="min-w-0 flex-1 truncate font-medium hover:underline"
                   title={l.leaderName}
                 >
                   {l.leaderName}
-                </Link>
+                </CompanyLink>
                 <span
                   className={`shrink-0 tabular-nums font-semibold ${
                     l.share >= 0.6

@@ -23,6 +23,7 @@ import {
 import type { ProcurementByYear } from "@/data/dataTypes";
 import { formatEur, formatEurWithOther } from "@/lib/currency";
 import { useSeriesColors } from "@/screens/components/procurement/chartColors";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 // Per-company inline by-year chart. Compact (160px tall), no Card wrapper —
 // embeds inline inside the contractor card.
@@ -167,12 +168,12 @@ export const ConnectedContractorCard: FC<{
     <li className="rounded-xl border bg-card p-4 shadow-sm">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <Receipt className="h-4 w-4 text-muted-foreground" />
-        <Link
-          to={`/company/${e.contractorEik}`}
+        <CompanyLink
+          eik={e.contractorEik}
           className="text-base font-semibold hover:underline"
         >
           {e.contractorName}
-        </Link>
+        </CompanyLink>
         <span className="text-xs text-muted-foreground">
           {t("eik")} {e.contractorEik}
         </span>

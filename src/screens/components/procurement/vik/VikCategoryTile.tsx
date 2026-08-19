@@ -5,13 +5,13 @@
 // tiles.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Boxes } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { categoryLabel, type VikCategory } from "@/lib/vikAttributes";
 import type { VikCategoryAgg } from "@/lib/vikAttributes";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 const CATEGORY_COLOR: Record<VikCategory, string> = {
   construction: "bg-primary",
@@ -77,12 +77,12 @@ export const VikCategoryTile: FC<{
                 {c.topSupplier && (
                   <span className="min-w-0 truncate">
                     {bg ? "водещ: " : "top: "}
-                    <Link
-                      to={`/company/${c.topSupplier.eik}`}
+                    <CompanyLink
+                      eik={c.topSupplier.eik}
                       className="hover:text-primary hover:underline"
                     >
                       {c.topSupplier.name}
-                    </Link>
+                    </CompanyLink>
                   </span>
                 )}
                 {sb != null && c.bidKnownN >= 3 && (

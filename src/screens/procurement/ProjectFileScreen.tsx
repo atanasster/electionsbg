@@ -88,6 +88,7 @@ import {
   BuildForm,
   ProcurementQueryFilter,
 } from "@/screens/components/procurement/ProcurementQueryFilter";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 // Only render a curated link when it is an http(s) URL — an untrusted ?q= could
 // otherwise carry a javascript:/data: scheme.
@@ -1545,12 +1546,12 @@ export const ProjectFileScreen = () => {
                                   className="flex items-center gap-2 text-xs"
                                 >
                                   {m.contractorEik ? (
-                                    <Link
-                                      to={`/company/${m.contractorEik}`}
+                                    <CompanyLink
+                                      eik={m.contractorEik}
                                       className="text-primary hover:underline"
                                     >
                                       {m.contractorName}
-                                    </Link>
+                                    </CompanyLink>
                                   ) : (
                                     <span>{m.contractorName}</span>
                                   )}
@@ -1841,13 +1842,14 @@ export const ProjectFileScreen = () => {
                           {/* On desktop the risk chips sit inline after the name
                               (small gap); on mobile they wrap onto their own row. */}
                           <div className="sm:flex sm:flex-wrap sm:items-center sm:gap-x-2 sm:gap-y-1">
+                            {/* r.eik is foldByContractor()'s contractor key, so
+                                it can be an `obed-` carrier with no page — on
+                                /procurement/project/ruse-veliko-tarnovo the top
+                                row is one, at €337.7M / 41% of the dossier. */}
                             {r.eik ? (
-                              <Link
-                                to={`/company/${r.eik}`}
-                                className="text-primary"
-                              >
+                              <CompanyLink eik={r.eik} className="text-primary">
                                 {r.name}
-                              </Link>
+                              </CompanyLink>
                             ) : (
                               <span>{r.name}</span>
                             )}
@@ -2148,12 +2150,9 @@ const ContractRow = ({
         </span>
       )}
       {c.contractorEik ? (
-        <Link
-          to={`/company/${c.contractorEik}`}
-          className="text-sm text-primary"
-        >
+        <CompanyLink eik={c.contractorEik} className="text-sm text-primary">
           {c.contractorName}
-        </Link>
+        </CompanyLink>
       ) : (
         <span className="text-sm">{c.contractorName}</span>
       )}

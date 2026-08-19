@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useRiskFeed } from "@/data/procurement/useRiskFeed";
 import { useScopedHref } from "@/data/scope/useScope";
 import { formatEur } from "@/lib/currency";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 const PREVIEW = 5;
 
@@ -78,12 +79,9 @@ export const RiskSignalsTile: FC = () => {
                   {e.awarderName}
                 </AwarderLink>
                 <span className="text-muted-foreground"> → </span>
-                <Link
-                  to={`/company/${e.contractorEik}`}
-                  className="hover:underline"
-                >
+                <CompanyLink eik={e.contractorEik} className="hover:underline">
                   {e.contractorName}
-                </Link>
+                </CompanyLink>
               </span>
               <span className="tabular-nums text-xs shrink-0">
                 {formatEur(e.pairTotalEur)}

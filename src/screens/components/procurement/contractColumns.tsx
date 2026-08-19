@@ -45,6 +45,7 @@ import { ContractAmount } from "./ContractAmount";
 import { RiskBadges } from "./RiskBadges";
 import { AppealChip } from "./AppealChip";
 import { AwarderLink } from "./AwarderLink";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 export type ContractColumnId =
   | "date"
@@ -191,12 +192,12 @@ export const useContractColumns = ({
         header: tRef.current("company_contract_contractor") || "Contractor",
         enableSorting: sortableNames,
         cell: ({ row }) => (
-          <Link
-            to={`/company/${row.original.contractorEik}`}
+          <CompanyLink
+            eik={row.original.contractorEik}
             className="text-sm font-medium hover:underline"
           >
             {decodeEntities(row.original.contractorName)}
-          </Link>
+          </CompanyLink>
         ),
       },
 
@@ -296,12 +297,12 @@ export const useContractColumns = ({
               })}
             >
               {row.original.consortiumEik ? (
-                <Link
-                  to={`/company/${row.original.consortiumEik}`}
+                <CompanyLink
+                  eik={row.original.consortiumEik}
                   className="text-primary hover:underline"
                 >
                   <ContractAmount amountEur={row.original.consortiumFullEur} />
-                </Link>
+                </CompanyLink>
               ) : (
                 <ContractAmount amountEur={row.original.consortiumFullEur} />
               )}

@@ -15,6 +15,7 @@ import {
   type SocialCategory,
   type SocialCategoryAgg,
 } from "@/lib/socialAttributes";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 // Fixed colour per category (colour follows the entity, not its rank — dataviz
 // house rule). Status hues (red/green) are reserved for the single-bid signal.
@@ -116,12 +117,12 @@ export const SocialCategoryTile: FC<{
                 {c.topSupplier && (
                   <span className="min-w-0 truncate">
                     {bg ? "водещ: " : "top: "}
-                    <Link
-                      to={`/company/${c.topSupplier.eik}`}
+                    <CompanyLink
+                      eik={c.topSupplier.eik}
                       className="hover:text-primary hover:underline"
                     >
                       {c.topSupplier.name}
-                    </Link>
+                    </CompanyLink>
                   </span>
                 )}
                 {sb != null && c.bidKnownN >= 3 && (

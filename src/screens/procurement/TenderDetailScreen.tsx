@@ -60,6 +60,7 @@ import { formatDate } from "@/lib/formatDate";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
 import { ErrorSection } from "../components/ErrorSection";
 import { KvRow } from "../components/procurement/KvRow";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 // Localized date-time for the submission deadline (BG "15 юни 2026 г., 14:30",
 // EN "15 Jun 2026, 14:30"), falling back to the trimmed ISO if it won't parse.
@@ -379,12 +380,12 @@ const TenderAwardsCard: FC<{
             <li key={a.key} className="border-t pt-2 first:border-0 first:pt-0">
               <div className="flex items-baseline justify-between gap-2">
                 {a.contractorEik ? (
-                  <Link
-                    to={`/company/${a.contractorEik}`}
+                  <CompanyLink
+                    eik={a.contractorEik}
                     className="font-medium hover:underline"
                   >
                     {decodeEntities(a.contractorName)}
-                  </Link>
+                  </CompanyLink>
                 ) : (
                   <span className="font-medium">
                     {decodeEntities(a.contractorName) || "—"}

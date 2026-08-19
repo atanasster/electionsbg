@@ -6,7 +6,7 @@
 // sent ('ALL' by default) — the rollup matview would double-count without it.
 
 import { FC, useCallback, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Receipt } from "lucide-react";
 import { DbDataTable, type DbTableResponse } from "@/ux/data_table/DbDataTable";
@@ -23,6 +23,7 @@ import { useContractorScopeKpis } from "@/data/procurement/useContractorScopeKpi
 import { useContractorDivisions } from "@/data/procurement/useContractorDivisions";
 import { formatEur, formatEurWithOther } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 interface ContractorRow {
   eik: string;
@@ -95,12 +96,9 @@ export const TopContractorsScreen: FC = () => {
                 label={e.name}
                 className="shrink-0"
               />
-              <Link
-                to={`/company/${e.eik}`}
-                className="font-medium hover:underline"
-              >
+              <CompanyLink eik={e.eik} className="font-medium hover:underline">
                 {decodeEntities(e.name)}
-              </Link>
+              </CompanyLink>
               <span className="text-xs text-muted-foreground">{e.eik}</span>
               {e.isMpTied ? (
                 <span className="inline-block rounded bg-amber-200/60 dark:bg-amber-800/40 px-1.5 py-0.5 text-[10px] uppercase tracking-wide">

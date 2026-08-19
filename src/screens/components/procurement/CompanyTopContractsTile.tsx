@@ -16,6 +16,7 @@ import type { ProcurementContractorRollup } from "@/data/dataTypes";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { resolveContractSource } from "../candidates/procurement/sourceUrl";
 import { ContractAmount } from "./ContractAmount";
+import { CompanyLink } from "./CompanyLink";
 
 const TOP_ROWS = 10;
 
@@ -112,12 +113,16 @@ export const CompanyTopContractsTile: FC<{
                   {contractorHref && c.contractorEik && c.contractorName && (
                     <div className="mt-0.5 flex items-center gap-1 text-xs">
                       <Building2 className="h-3 w-3 shrink-0 text-muted-foreground" />
-                      <Link
-                        to={contractorHref(c.contractorEik)}
+                      {/* `contractorHref` survives as the caller's opt-in for
+                          WHETHER to link; the destination is owned here, because
+                          a contractor key can be a synthetic carrier with no page
+                          and only CompanyLink knows that. */}
+                      <CompanyLink
+                        eik={c.contractorEik}
                         className="truncate font-medium text-accent hover:underline"
                       >
                         {decodeEntities(c.contractorName)}
-                      </Link>
+                      </CompanyLink>
                     </div>
                   )}
                 </div>

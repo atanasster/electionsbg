@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { AwarderModel } from "@/lib/awarderModel";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 export const SectorSpendByYearTile: FC<{ model: AwarderModel<"all"> }> = ({
   model,
@@ -101,13 +102,13 @@ export const SectorTopContractorsTile: FC<{
           const inGroup = members.has(s.eik);
           return (
             <div key={s.eik} className="flex items-center gap-2 text-sm">
-              <Link
-                to={`/company/${s.eik}`}
+              <CompanyLink
+                eik={s.eik}
                 className="min-w-0 max-w-[42%] shrink truncate text-primary hover:underline"
                 title={s.name}
               >
                 {s.name}
-              </Link>
+              </CompanyLink>
               {inGroup && (
                 <span
                   className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground"

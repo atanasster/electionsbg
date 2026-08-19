@@ -19,6 +19,7 @@ import { ProcurementSectionHeader } from "@/screens/components/procurement/Procu
 import { ConcentrationOblastTiles } from "@/screens/components/procurement/ConcentrationOblastTiles";
 import { ConcentrationSection } from "@/screens/components/procurement/ConcentrationSection";
 import { useHashScroll } from "@/ux/useHashScroll";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
@@ -155,12 +156,12 @@ export const ProcurementFlagsScreen: FC = () => {
                   key={`${e.mpId}|${e.contractorEik}`}
                   className="flex items-center gap-2 py-1.5 border-b border-border/40 last:border-b-0 text-sm"
                 >
-                  <Link
-                    to={`/company/${e.contractorEik}`}
+                  <CompanyLink
+                    eik={e.contractorEik}
                     className="min-w-0 flex-1 truncate hover:underline font-medium"
                   >
                     {e.contractorName}
-                  </Link>
+                  </CompanyLink>
                   <Link
                     to={`/candidate/mp-${e.mpId}/procurement`}
                     className="text-xs text-muted-foreground shrink-0 hover:underline hidden sm:inline"

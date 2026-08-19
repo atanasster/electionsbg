@@ -22,6 +22,7 @@ import {
   type EnvCategory,
   type EnvCategoryAgg,
 } from "@/lib/environmentAttributes";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 // Fixed colour per category (colour follows the entity, not its rank — dataviz rule).
 const CATEGORY_COLOR: Record<EnvCategory, string> = {
@@ -128,12 +129,12 @@ export const EnvironmentCategoryTile: FC<{
                 {c.topSupplier && (
                   <span className="min-w-0 truncate">
                     {bg ? "водещ: " : "top: "}
-                    <Link
-                      to={`/company/${c.topSupplier.eik}`}
+                    <CompanyLink
+                      eik={c.topSupplier.eik}
                       className="hover:text-primary hover:underline"
                     >
                       {c.topSupplier.name}
-                    </Link>
+                    </CompanyLink>
                   </span>
                 )}
                 {sb != null && c.bidKnownN >= 3 && (

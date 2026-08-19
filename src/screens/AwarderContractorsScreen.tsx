@@ -19,6 +19,7 @@ import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import { formatEurWithOther } from "@/lib/currency";
 import { ErrorSection } from "./components/ErrorSection";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 export const AwarderContractorsScreen: FC = () => {
   const { eik } = useParams<{ eik: string }>();
@@ -48,12 +49,12 @@ export const AwarderContractorsScreen: FC = () => {
         header: t("procurement_col_contractor") || "Contractor",
         cell: ({ row }) => (
           <div className="flex items-center gap-2 flex-wrap">
-            <Link
-              to={`/company/${row.original.eik}`}
+            <CompanyLink
+              eik={row.original.eik}
               className="font-medium hover:underline"
             >
               {row.original.name}
-            </Link>
+            </CompanyLink>
             {row.original.mpTied ? (
               <span className="inline-block rounded bg-amber-200/60 dark:bg-amber-800/40 px-1.5 py-0.5 text-[10px] uppercase tracking-wide">
                 {t("procurement_index_mp_tag") || "MP-tied"}

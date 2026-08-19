@@ -34,6 +34,7 @@ import {
 import { TourismSeasonalityTile } from "./TourismSeasonalityTile";
 import { TourismSourceMarketsTile } from "./TourismSourceMarketsTile";
 import { TourismSpendVsNightsTile } from "./TourismSpendVsNightsTile";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 const EIKS = [TOURISM_MINISTRY_EIK] as const;
 
@@ -106,12 +107,12 @@ const CampaignCategoriesTile: FC = () => {
                   title={c.topSupplier?.name ?? undefined}
                 >
                   {c.topSupplier ? (
-                    <Link
-                      to={`/company/${c.topSupplier.eik}`}
+                    <CompanyLink
+                      eik={c.topSupplier.eik}
                       className="text-primary hover:underline"
                     >
                       {c.topSupplier.name}
-                    </Link>
+                    </CompanyLink>
                   ) : (
                     ""
                   )}
@@ -200,13 +201,13 @@ const TopCampaignsTile: FC = () => {
             </div>
             <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-muted-foreground">
               {c.contractorEik ? (
-                <Link
-                  to={`/company/${c.contractorEik}`}
+                <CompanyLink
+                  eik={c.contractorEik}
                   className="max-w-[60%] truncate text-primary hover:underline"
                   title={c.contractorName}
                 >
                   {c.contractorName}
-                </Link>
+                </CompanyLink>
               ) : (
                 <span className="max-w-[60%] truncate">{c.contractorName}</span>
               )}

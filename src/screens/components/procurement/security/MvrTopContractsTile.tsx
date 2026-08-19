@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { SECURITY_SECTOR_EIKS } from "@/lib/securityReferenceData";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 interface TopContract {
   key: string;
@@ -109,13 +110,13 @@ export const MvrTopContractsTile: FC = () => {
             </div>
             <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-muted-foreground">
               {c.contractorEik ? (
-                <Link
-                  to={`/company/${c.contractorEik}`}
+                <CompanyLink
+                  eik={c.contractorEik}
                   className="max-w-[60%] truncate text-primary hover:underline"
                   title={c.contractorName ?? undefined}
                 >
                   {c.contractorName}
-                </Link>
+                </CompanyLink>
               ) : (
                 <span className="max-w-[60%] truncate">{c.contractorName}</span>
               )}

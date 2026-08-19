@@ -4,13 +4,13 @@
 // Pure from DefenseCategoryAgg. Mirrors the ВСС/НЗОК/Води category tiles.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Boxes } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { categoryLabel, type DefenseCategory } from "@/lib/defenseAttributes";
 import type { DefenseCategoryAgg } from "@/lib/defenseAttributes";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 // Fixed colour per category so the universe Select never repaints a survivor
 // (colour follows the entity, not its rank — dataviz house rule). Status hues
@@ -81,12 +81,12 @@ export const DefenseCategoryTile: FC<{
                 {c.topSupplier && (
                   <span className="min-w-0 truncate">
                     {bg ? "водещ: " : "top: "}
-                    <Link
-                      to={`/company/${c.topSupplier.eik}`}
+                    <CompanyLink
+                      eik={c.topSupplier.eik}
                       className="hover:text-primary hover:underline"
                     >
                       {c.topSupplier.name}
-                    </Link>
+                    </CompanyLink>
                   </span>
                 )}
                 {sb != null && c.bidKnownN >= 3 && (

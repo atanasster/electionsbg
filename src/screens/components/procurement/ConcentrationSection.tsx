@@ -9,7 +9,7 @@
 
 import { FC, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { formatEur } from "@/lib/currency";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 const countFmt = new Intl.NumberFormat("bg-BG");
 const PAGE_SIZE = 50;
@@ -354,12 +355,12 @@ export const ConcentrationSection: FC = () => {
                           {r.awarderName}
                         </AwarderLink>
                         <span className="text-muted-foreground"> → </span>
-                        <Link
-                          to={`/company/${r.contractorEik}`}
+                        <CompanyLink
+                          eik={r.contractorEik}
                           className="font-medium hover:underline"
                         >
                           {r.contractorName}
-                        </Link>
+                        </CompanyLink>
                         <div className="text-xs text-muted-foreground">
                           {r.oblast ? r.oblast : ""}
                           {r.oblast ? " · " : ""}
