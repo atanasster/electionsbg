@@ -23,6 +23,7 @@ never asserts a finding the tree beside it has not acted on.
 | T4 · `administrationReferenceData.test.ts` | ✅ shipped |
 | T5 · add МДААР (re-audit, F1) | ✅ shipped |
 | T6 · consortium note on the shared tile (re-audit, F3) | ✅ shipped |
+| T7 · re-audit regression tests | ✅ shipped |
 
 ## What reconciled (no change)
 
@@ -380,3 +381,25 @@ Extend `scripts/db/tests/sector_stats_administration.data.test.ts`:
   property the no-double-count claim rests on).
 
 Plus a `SectorCharts.test.tsx` arm for the T6 note, both directions.
+
+⚠ **`obed-` IS NOT „every consortium", and the T6 note therefore under-covers.**
+Found by the T7 review, measured 2026-08-19: `consortium_role = 'carrier'` is **14
+rows / €95,341,695** on the group, of which only **11 / €63.3M** carry an `obed-`
+key. The other three are REGISTERED ДЗЗД with their own 9-digit EIKs — and one is
+**Консорциум СисТел ДЗЗД at €31,461,596, the group's #2 contractor all-time**, which
+gets no note while smaller consortia do. The consortium share is **27.78%**, not the
+18.45% the `obed-` arm measures.
+
+The tile cannot do better as built: `061`'s `sup` CTE reads `consortium_role` in
+`base` and does not project it, and `AwarderModel` has no such field, so the client
+sees only the key prefix. **Closing it is open work and a DECISION, not a cleanup** —
+it changes what every sector page says. `sector_stats_administration.data.test.ts`
+pins the blind spot at „fewer than 15 registered-ДЗЗД carriers (was 3)" so it stays
+measured rather than assumed.
+
+⚠ **The carrier share is quoted on TWO bases and they are eight days apart in
+nothing but T5.** 18.8% is over the FOUR-member set the finding was measured on;
+after МДААР widened the denominator it is **18.45%** over five. The data test
+bands it 5–40% and names the five-member figure, since that is the set the tree
+now has. Neither number is wrong — but a future reader comparing the plan's
+table against the test's comment must not read the gap as drift.

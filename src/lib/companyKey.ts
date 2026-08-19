@@ -56,6 +56,20 @@ export const isLinkableCompanyKey = (eik: string | undefined): boolean =>
  *  a member firm can ALSO hold its own row — so a leaderboard understates a firm
  *  that competes mainly through consortia. Measured on the e-gov group
  *  (2026-08-19): А1 България shows €17.6M standalone, 5.2% and rank 6, against a
- *  real €59.0M / 17.5% / rank 2 once its three carrier positions are included. */
+ *  real €59.0M / 17.5% / rank 2 once its three carrier positions are included.
+ *
+ *  ⚠ IT DOES NOT CATCH EVERY CONSORTIUM, and a caller must not caption it as if
+ *  it did. A consortium reaches the corpus in TWO forms — this synthetic carrier,
+ *  and a REGISTERED ДЗЗД holding its own 9-digit EIK, which is indistinguishable
+ *  from an ordinary company by key alone. Measured on the e-gov group: 14 rows
+ *  are `consortium_role = 'carrier'`, only 11 of them `obed-`, and one of the
+ *  three registered ones is Консорциум СисТел ДЗЗД at €31.5M — the group's
+ *  SECOND-largest contractor. Closing the gap means projecting `consortium_role`
+ *  out of `061_awarder_group_model.sql`'s sup CTE (it is read in `base` and
+ *  dropped) into `AwarderModel`, so the client can stop inferring from the key.
+ *  `sector_stats_administration.data.test.ts` keeps the blind spot measured.
+ *
+ *  ⚠ TS/SQL TWIN: that data test restates this rule as `LIKE 'obed-%'`, because
+ *  SQL cannot import it. Change the two together. */
 export const isConsortiumCarrierKey = (eik: string | undefined): boolean =>
   !!eik && eik.startsWith("obed-");

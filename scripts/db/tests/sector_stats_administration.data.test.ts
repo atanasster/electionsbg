@@ -415,6 +415,129 @@ describe("administration — the beneficiary side", () => {
     );
   });
 
+  // ── consortium carriers ──────────────────────────────────────────────────
+  //
+  // The `obed-` namespace is what makes the top-contractors note necessary, and
+  // the arms below guard claims the note MAKES rather than merely its wording.
+  //
+  // ⚠ TS/SQL TWIN: `LIKE 'obed-%'` below restates `isConsortiumCarrierKey`
+  // (src/lib/companyKey.ts). A data test cannot import the predicate into SQL, so
+  // the two must be changed together — that header carries the same note back.
+
+  // Claim 1: „counted once", which is what the note reassures the reader about —
+  // so if it breaks, the note is actively vouching for a wrong number.
+  //
+  // ⚠ MEMBER ROWS DO COEXIST WITH THEIR CARRIER, and an earlier draft of this
+  // comment said they must not. Measured on the group: 34 `consortium_role =
+  // 'member'` rows sit on the same contracts as their carrier — migration 087's
+  // design — and what makes them harmless is that EVERY ONE CARRIES €0. „Counted
+  // once" is therefore a statement about VALUE, not about row existence, and that
+  // is what this asserts. `061`'s sup CTE additionally drops member rows so they
+  // cannot inflate the distinct-supplier count either.
+  test.skipIf(noDb)("a consortium is counted once, by value", async () => {
+    const [m] = await allRows<{ n: number; eur: number; worst: number }>(
+      `SELECT count(*)::int AS n,
+              coalesce(round(sum(amount_eur)), 0)::float8 AS eur,
+              coalesce(max(amount_eur), 0)::float8 AS worst
+         FROM contracts
+        WHERE tag = 'contract'
+          AND awarder_eik IN (${eikList(ADMIN_SECTOR_EIKS)})
+          AND consortium_role = 'member'`,
+    );
+    // Non-vacuity: with no member rows the €0 assert below is trivially true.
+    assert.ok(m.n > 0, "no consortium member rows — this arm proves nothing");
+    assert.equal(
+      m.eur,
+      0,
+      `member rows carry €${m.eur} (worst single row €${m.worst}) — they must be ` +
+        `€0, or the carrier's value is being counted a second time per member`,
+    );
+
+    const dupes = await allRows<{ key: string; n: number }>(
+      `SELECT key, count(*)::int AS n
+         FROM contracts
+        WHERE tag = 'contract'
+          AND awarder_eik IN (${eikList(ADMIN_SECTOR_EIKS)})
+          AND consortium_role = 'carrier'
+        GROUP BY 1 HAVING count(*) > 1`,
+    );
+    assert.equal(
+      dupes.length,
+      0,
+      `contract(s) carrying more than one carrier row: ${dupes
+        .map((d) => `${d.key}×${d.n}`)
+        .join(", ")}`,
+    );
+  });
+
+  // ⚠ `obed-` IS NOT „consortia", AND THE GAP IS BIGGER THAN IT LOOKS. A
+  // consortium reaches the corpus in two forms: a synthetic `obed-` carrier when
+  // the award names an обединение with no legal identity, and a REGISTERED ДЗЗД
+  // with its own 9-digit EIK. Measured 2026-08-19 on the group: 14 carrier rows /
+  // €95,341,695, of which only 11 / €63.3M are `obed-`. The other three are
+  // registered — and one is Консорциум СисТел ДЗЗД at €31,461,596, the group's
+  // SECOND-largest contractor all-time.
+  //
+  // So `SectorTopContractorsTile`'s note under-covers, and it cannot do better as
+  // built: 061's sup CTE reads `consortium_role` but does not project it, and
+  // `AwarderModel` has no such field, so the client sees only the key prefix.
+  // This arm exists to keep that gap MEASURED rather than assumed — closing it
+  // means projecting `consortium_role` into the model, which changes what a
+  // second sector page says and is a decision, not a cleanup.
+  test.skipIf(noDb)("the note's blind spot stays measured", async () => {
+    const [r] = await allRows<{ hidden: number; eur: number }>(
+      `SELECT count(*)::int AS hidden,
+              coalesce(round(sum(amount_eur)), 0)::float8 AS eur
+         FROM contracts
+        WHERE tag = 'contract'
+          AND awarder_eik IN (${eikList(ADMIN_SECTOR_EIKS)})
+          AND consortium_role = 'carrier'
+          AND contractor_eik NOT LIKE 'obed-%'`,
+    );
+    // A band, not equality — the point is that the blind spot is known and small
+    // enough that a footnote is still the right response. If registered ДЗЗД come
+    // to dominate, the model change above stops being optional.
+    assert.ok(
+      r.hidden < 15,
+      `${r.hidden} registered-ДЗЗД carriers carry no consortium note (was 3)`,
+    );
+  });
+
+  // Claim 2: the `obed-` carriers — the rows the note actually marks — are a
+  // MINORITY of the sector's money. NOTE THE BASIS: this is the obed- share, not
+  // the consortium share, which is 27.78% once the registered ДЗЗД above are
+  // included. The note says the
+  // ranking „understates" firms competing through consortia — a fair description
+  // at 18.45% (measured 2026-08-19 over the five-member set; 18.8% over the four
+  // members before МДААР widened the denominator) and a wild understatement if
+  // carriers ever dominate, at which point the leaderboard needs more than a
+  // footnote.
+  //
+  // ⚠ The floor matters as much as the ceiling and is the half that goes vacuous:
+  // at zero carriers the note never renders, and „no carriers" would silently
+  // become „the note is untestable" rather than a failure.
+  test.skipIf(noDb)("carriers are a real but minority share", async () => {
+    const [r] = await allRows<{ pct: number; keys: number }>(
+      `WITH w AS (
+         SELECT * FROM contracts WHERE tag = 'contract'
+          AND awarder_eik IN (${eikList(ADMIN_SECTOR_EIKS)}))
+       SELECT round((100.0 * coalesce(sum(amount_eur) FILTER (
+                       WHERE contractor_eik LIKE 'obed-%'), 0)
+                     / sum(amount_eur))::numeric, 2)::float8 AS pct,
+              count(DISTINCT contractor_eik) FILTER (
+                       WHERE contractor_eik LIKE 'obed-%')::int AS keys
+         FROM w`,
+    );
+    assert.ok(
+      r.keys > 0,
+      "no obed- carriers in the group — the top-contractors note can never render",
+    );
+    assert.ok(
+      r.pct > 5 && r.pct < 40,
+      `obed- carriers hold ${r.pct}% of the group (measured 18.45%) — outside the 5–40% band`,
+    );
+  });
+
   // Every state-body entry must be a genuine outsider, and the private regulated
   // utilities the „is this an awarder somewhere" probe over-captures must stay
   // out. Пinned by EIK: ЗОП's utilities regime makes Балкангаз and Севлиевогаз
