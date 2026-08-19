@@ -1,7 +1,18 @@
-// НАП (National Revenue Agency) revenue pack — on the generic awarder dashboard
-// (/awarder/131063188) and /sector/revenue. НАП is a COLLECTOR: revenue-first.
-// Band 1 is the by-tax-type composition from the КФП snapshot (own year picker;
-// the partial current year is labelled and never annualized).
+// НАП (National Revenue Agency) revenue pack — on /sector/revenue, and NOWHERE
+// else. НАП is a COLLECTOR: revenue-first.
+//
+// ⚠️ NOT on /awarder/131063188, despite this header saying so until 2026-08-19.
+// CompanyDbScreen gates on `showPack = SectorPack && !sectorDash`, and this EIK
+// LEADS a sector dashboard, so the pack is dropped there — and that suppression
+// is load-bearing rather than incidental: that screen mounts its own
+// <ScopeControl> and so does this pack, so rendering both would be the
+// two-control state packOwnsScope exists to end.
+// Band 1 is the by-tax-type composition from the КФП snapshot; the partial
+// current year is labelled and never annualized.
+//
+// The pack renders its OWN <ScopeControl> — see SectorDashboardConfig
+// .packOwnsScope. Its year list is kfp.json's snapshot years, which only this
+// query knows, so the screen cannot own the control on its behalf.
 //
 // ⚠️ BAND 1 IS THE STATE BUDGET, NOT „what НАП collected" — and NOT the
 // consolidated fiscal programme either. Both halves of that are easy to get wrong
@@ -43,8 +54,9 @@
 // The ЗОП buy-side sits on the generic awarder page below. Banded via
 // <PackSection>.
 
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { usePackScope } from "../PackScopeControl";
 import {
   Landmark,
   Receipt,
@@ -76,6 +88,10 @@ import type { SectorPackProps } from "../sectorPacks";
 const num = (v: number, lang: string, dp = 1) =>
   v.toLocaleString(lang, { maximumFractionDigits: dp });
 
+// Takes no props on purpose. `scopeWindow` is the SCREEN's scope and this pack
+// owns its own (packOwnsScope); `eik` is redundant on a single-EIK sector. Note
+// packIsThematic's doc treats „does not even bind its `eik` prop" as the tell of
+// a pack that ignores its group — that heuristic does NOT apply here.
 export const NapPack: FC<SectorPackProps> = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
@@ -83,11 +99,14 @@ export const NapPack: FC<SectorPackProps> = () => {
   const eur = (v: number) => formatEurCompact(v, lang);
   const { compositions, vat, isLoading } = useNap();
 
-  const [yearOverride, setYearOverride] = useState<number | null>(null);
+  // The page's ONE time control — this pack owns it, because the years it can
+  // serve are kfp.json's snapshot years and the screen cannot enumerate them
+  // before this query lands. `strip` resolves `?pscope` and renders the pill from
+  // the SAME value `selYear` comes from, so the two cannot disagree.
+  const years = useMemo(() => compositions.map((c) => c.year), [compositions]);
+  const { year: selYear, strip } = usePackScope(years);
   const comp =
-    (yearOverride != null
-      ? compositions.find((c) => c.year === yearOverride)
-      : null) ??
+    (selYear != null ? compositions.find((c) => c.year === selYear) : null) ??
     compositions[0] ??
     null;
 
@@ -160,17 +179,36 @@ export const NapPack: FC<SectorPackProps> = () => {
 
   useHashScroll([compositions.length, comp?.year, vat, isLoading]);
 
+  // The control renders in BOTH early returns as well as the main branch: the
+  // screen has already dropped its own on the strength of this pack owning one,
+  // so a skeleton or a failed corpus must not take the page's only time control
+  // with it. See usePackScope's header.
   if (isLoading)
     return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
+      <section className="space-y-4">
+        {strip}
+        <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
+      </section>
     );
-  if (!comp) return null;
+  if (!comp)
+    return (
+      <section className="space-y-4">
+        {strip}
+        <p className="text-sm text-muted-foreground">
+          {bg
+            ? "Няма данни за данъчните приходи за избраната година."
+            : "No tax revenue data for the selected year."}
+        </p>
+      </section>
+    );
 
   const vg = TAX_GAP.vat;
   const pg = TAX_GAP.pit;
 
   return (
     <section className="space-y-4">
+      {strip}
+
       {/* ── Band 1 · Данъчни приходи / Tax revenue composition ─────────── */}
       <div
         id="nap-revenue"
@@ -189,44 +227,37 @@ export const NapPack: FC<SectorPackProps> = () => {
 
       <Card data-og="nap-revenue">
         <CardHeader className="pb-2">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <CardTitle className="text-base flex items-center gap-2">
+          {/* The year lives in the title now that the picker is the shared scope
+              control, and the partial marker travels WITH it — the button used to
+              carry the „*", and a running year rendered as a whole one is the one
+              thing this card must never do. The headline label and the source
+              footnote below say it in words too. */}
+          <CardTitle className="text-base flex items-center gap-2">
+            <span>
               {bg
-                ? "Откъде идват данъчните приходи"
-                : "Where tax revenue comes from"}
-            </CardTitle>
-            {compositions.length > 1 && (
-              <div
-                className="flex gap-1"
-                role="group"
-                aria-label={bg ? "Година" : "Year"}
-              >
-                {compositions.map((c) => (
-                  <button
-                    key={c.year}
-                    type="button"
-                    onClick={() => setYearOverride(c.year)}
-                    aria-pressed={c.year === comp.year}
-                    title={
-                      c.partial
-                        ? bg
-                          ? "частична година"
-                          : "partial year"
-                        : undefined
-                    }
-                    className={`rounded-full border px-2 py-0.5 text-xs font-medium transition-colors ${
-                      c.year === comp.year
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-border bg-background text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {c.year}
-                    {c.partial ? "*" : ""}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+                ? `Откъде идват данъчните приходи (${comp.year}`
+                : `Where tax revenue comes from (${comp.year}`}
+              {/* The marker keeps the explanation the retired year buttons
+                  carried in their `title`. A running year rendered as a whole
+                  one is the one thing this card must never do, so the glyph
+                  needs a name a screen reader can read out — „2026 star" is not
+                  one. The headline label and the source footnote below say it in
+                  words too. */}
+              {comp.partial && (
+                <abbr
+                  className="no-underline"
+                  title={
+                    bg
+                      ? `частична година — натрупано до ${comp.asOf}`
+                      : `partial year — cumulative to ${comp.asOf}`
+                  }
+                >
+                  *
+                </abbr>
+              )}
+              {")"}
+            </span>
+          </CardTitle>
         </CardHeader>
         <CardContent className="p-3 md:p-4 space-y-4">
           <RevenueCompositionBar

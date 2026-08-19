@@ -1,11 +1,21 @@
-// Митници (Customs) revenue pack — rendered on the generic awarder dashboard
-// (/awarder/000627597). Митници is a COLLECTOR: this pack is revenue-first and
-// shows where the ~€7bn it collects comes from (акцизи / ДДС при внос / мита /
-// глоби), the 2025 excise product split, and the origins of customs duty. The
-// small ЗОП buy-side already sits on the generic awarder page below, so the pack
-// renders no contract tiles. Banded via the shared <PackSection>.
+// Митници (Customs) revenue pack — rendered on /sector/customs, and NOWHERE else.
+// Митници is a COLLECTOR: this pack is revenue-first and shows where the ~€7bn it
+// collects comes from (акцизи / ДДС при внос / мита / глоби), the 2025 excise
+// product split, and the origins of customs duty. The small ЗОП buy-side is
+// reached through the contracts drill-down rather than rendered here. Banded via
+// the shared <PackSection>.
+//
+// ⚠️ NOT on /awarder/000627597, despite this header saying so until 2026-08-19.
+// CompanyDbScreen gates on `showPack = SectorPack && !sectorDash`, and this EIK
+// LEADS a sector dashboard, so the pack is dropped there — and that suppression
+// is load-bearing rather than incidental: that screen mounts its own
+// <ScopeControl> and so does this pack, so rendering both would be the
+// two-control state packOwnsScope exists to end.
+//
+// It owns the page's time control — see SectorDashboardConfig.packOwnsScope and
+// usePackScope, which is where the „render it above the early returns" rule is.
 
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Ship, Flame, Globe, Warehouse } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -16,6 +26,7 @@ import {
 } from "../RevenueCompositionBar";
 import { CustomsExciseRegisterTile } from "./CustomsExciseRegisterTile";
 import { ExciseWarehouseMap } from "@/screens/customs/ExciseWarehouseMap";
+import { usePackScope } from "../PackScopeControl";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { formatEurCompact } from "@/lib/currency";
 import {
@@ -34,6 +45,10 @@ import type { SectorPackProps } from "../sectorPacks";
 
 const SECONDS_PER_YEAR = 365 * 24 * 3600;
 
+// Takes no props on purpose. `scopeWindow` is the SCREEN's scope and this pack
+// owns its own (packOwnsScope); `eik` is redundant on a single-EIK sector. Note
+// packIsThematic's doc treats „does not even bind its `eik` prop" as the tell of
+// a pack that ignores its group — that heuristic does NOT apply here.
 export const CustomsPack: FC<SectorPackProps> = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
@@ -41,8 +56,11 @@ export const CustomsPack: FC<SectorPackProps> = () => {
   const eur = (v: number) => formatEurCompact(v, lang);
   const { years, byYear, isLoading } = useCustoms();
 
-  const [yearOverride, setYearOverride] = useState<number | null>(null);
-  const year = yearOverride ?? years[0] ?? null;
+  // The page's ONE time control — this pack owns it, because the years it can
+  // serve are whichever breakdown files actually fetched and the screen cannot
+  // know that list. `strip` resolves `?pscope` and renders the pill from the SAME
+  // value `year` comes from, so the two cannot disagree.
+  const { year, strip } = usePackScope(years);
   const file = year != null ? byYear[year] : undefined;
 
   const total =
@@ -79,11 +97,28 @@ export const CustomsPack: FC<SectorPackProps> = () => {
 
   useHashScroll([years.length, year, isLoading, register]);
 
+  // The control renders in BOTH early returns as well as the main branch: the
+  // screen has already dropped its own on the strength of this pack owning one,
+  // so a skeleton or a failed corpus must not take the page's only time control
+  // with it. See usePackScope's header.
   if (isLoading)
     return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
+      <section className="space-y-4">
+        {strip}
+        <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
+      </section>
     );
-  if (!file || total <= 0) return null;
+  if (!file || total <= 0)
+    return (
+      <section className="space-y-4">
+        {strip}
+        <p className="text-sm text-muted-foreground">
+          {bg
+            ? `Няма данни за митническите приходи${year != null ? ` за ${year} г.` : ""}.`
+            : `No customs revenue data${year != null ? ` for ${year}` : ""}.`}
+        </p>
+      </section>
+    );
 
   // Bar-scaling denominators — hoisted out of the render loops below.
   const exciseMax = Math.max(1, ...exciseProducts.map((x) => x.eur));
@@ -91,6 +126,8 @@ export const CustomsPack: FC<SectorPackProps> = () => {
 
   return (
     <section className="space-y-4">
+      {strip}
+
       {/* ── Band 1 · Приходи / Revenue composition ─────────────────────── */}
       <div
         id="customs-revenue"
@@ -104,36 +141,11 @@ export const CustomsPack: FC<SectorPackProps> = () => {
 
       <Card data-og="customs-revenue">
         <CardHeader className="pb-2">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              {bg
-                ? `Откъде идват митническите приходи (${year})`
-                : `Where customs revenue comes from (${year})`}
-            </CardTitle>
-            {years.length > 1 && (
-              <div
-                className="flex gap-1"
-                role="group"
-                aria-label={bg ? "Година" : "Year"}
-              >
-                {years.map((y) => (
-                  <button
-                    key={y}
-                    type="button"
-                    onClick={() => setYearOverride(y)}
-                    aria-pressed={y === year}
-                    className={`rounded-full border px-2 py-0.5 text-xs font-medium transition-colors ${
-                      y === year
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-border bg-background text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {y}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          <CardTitle className="text-base flex items-center gap-2">
+            {bg
+              ? `Откъде идват митническите приходи (${year})`
+              : `Where customs revenue comes from (${year})`}
+          </CardTitle>
         </CardHeader>
         <CardContent className="p-3 md:p-4 space-y-4">
           <RevenueCompositionBar

@@ -125,6 +125,45 @@ export interface SectorDashboardConfig {
    *  registry is not the fix: `/awarder/000695114` renders it too, via the same
    *  `getSectorPack`. */
   packIsThematic?: boolean;
+  /** The pack renders its OWN <ScopeControl>, so the screen must not render a
+   *  second one.
+   *
+   *  ⚠ Set this whenever a pack's content is year-scoped from a source the SCREEN
+   *  cannot enumerate. The screen's control is URL-backed and resolves `?pscope`
+   *  against a year list, and neither collector pack's year list is knowable
+   *  before its own query lands: useCustoms() returns only the years whose
+   *  breakdown file actually fetched, and useNap() derives its years from
+   *  kfp.json's snapshots. So the coverage cannot live in this config, and a
+   *  screen-level control would be resolving against a list it does not have.
+   *
+   *  Before this flag, CustomsPack and NapPack were the only two packs taking no
+   *  props at all — they ignored `scopeWindow` entirely and drove off their own
+   *  year buttons — while the screen rendered a scope control above them anyway.
+   *  Measured live: /sector/customs?pscope=y:2022 showed the pill reading „2022"
+   *  above „Откъде идват митническите приходи (2025)" and €7,4 млрд, and
+   *  /sector/revenue?pscope=y:2013 showed „2013" above 2026 figures. `?pscope` is
+   *  in the usePreserveParams allowlist, so ordinary in-app links mint that state.
+   *  CLAUDE.md's URL contract names this exact failure: „What no page may do is
+   *  show one window and count another."
+   *
+   *  ⚠ TWO RULES THE FLAG DOES NOT ENFORCE, both silent:
+   *
+   *  1. NEVER together with `packIsThematic`. The screen's guard is
+   *     `!(Pack && packOwnsScope)` and a thematic pack sets `Pack = null`, so the
+   *     screen renders ITS control and the pack renders its own — two controls,
+   *     the state this flag exists to end. That is not a bug in the guard: the
+   *     generic group dashboard above a thematic pack is scope-driven and needs
+   *     a control. The combination is simply invalid.
+   *  2. The pack must render its control ABOVE its own early returns. The
+   *     screen's suppression is STRUCTURAL — `Pack` is truthy the moment the EIK
+   *     is in the pack registry — while the pack's content waits on a lazy chunk
+   *     and a fetch, so a pack that returns a skeleton, or null on a failed
+   *     corpus, leaves the page with NO time control at all and no explanation.
+   *     `usePackScope` returns the strip precisely so it can be rendered in every
+   *     branch.
+   *
+   *  Both are gated in sectorDashboards.test.ts, mutation-checked. */
+  packOwnsScope?: boolean;
   /** Optional entity-search box, rendered directly under the scope control and
    *  above the first tile — ONE per page (see SectorEntitySearch's header). The
    *  sector supplies it because only the sector knows what its entities are and
@@ -286,6 +325,8 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     agency: "НАП",
     leadEik: NAP_EIK,
     browsePackId: "revenue",
+    // NapPack owns the year picker — its coverage is kfp.json's snapshot years.
+    packOwnsScope: true,
     members: [
       {
         eik: NAP_EIK,
@@ -303,6 +344,9 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     agency: "АМ",
     leadEik: CUSTOMS_EIK,
     browsePackId: "customs",
+    // CustomsPack owns the year picker — its coverage is whichever of
+    // data/budget/revenue_breakdown/customs/*.json actually fetched.
+    packOwnsScope: true,
     members: [
       {
         eik: CUSTOMS_EIK,

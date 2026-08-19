@@ -148,9 +148,16 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
 
       <SectorBreadcrumb currentKey={config.titleKey} />
 
-      <div className="mb-3">
-        <ScopeControl mode="toggle" />
-      </div>
+      {/* A pack that owns its own scope renders the control itself, against a
+          year list only its query knows (see SectorDashboardConfig.packOwnsScope).
+          Rendering one here too would put a second, URL-backed picker above
+          content that answers to the first — which is the state this replaced:
+          the pill read „2022" over 2025 figures. */}
+      {!(Pack && config.packOwnsScope) && (
+        <div className="mb-3">
+          <ScopeControl mode="toggle" />
+        </div>
+      )}
 
       {/* The sector's entity finder, above the first tile. Deliberately OUTSIDE
           the Pack/KPI branch below: the box is how a reader reaches a specific

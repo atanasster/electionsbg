@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { MZ_EIK, NZOK_EIK } from "@/lib/healthReferenceData";
 import { getSectorPack } from "@/screens/components/procurement/sectorPacks";
+import { stripComments } from "../../../scripts/lib/strip_comments";
 
 const SCREEN_SRC = readFileSync(
   path.join(
@@ -178,5 +179,136 @@ describe("the two lookups stay wired to their own concern", () => {
       .filter(({ m }) => getSectorPack(m.eik))
       .map(({ c, m }) => `${c.id}:${m.eik}`);
     expect(packed).toEqual([]);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// packOwnsScope — the flag that decides who renders the page's time control.
+//
+// SectorDashboardScreen suppresses its own <ScopeControl> for a pack-backed
+// sector carrying this flag, on the promise that the PACK renders one instead.
+// Nothing in the type system holds that promise, and every way of breaking it is
+// silent: a flagged pack that renders no control leaves the page with NO time
+// control, an unflagged pack that renders one leaves it with TWO, and an
+// UNCONTROLLED <ScopeControl> in a flagged pack is worse than either — it runs
+// its own useScope() with no support, resolves ?pscope against every year since
+// 2011, and paints a year the pack cannot render. That last one IS the shipped
+// defect: the pill read „2022" above „…митническите приходи (2025)" and €7,4 млрд.
+//
+// ⚠️ THE SOURCE SCANS STRIP COMMENTS. The first cut of this gate asserted
+// `toContain("<ScopeControl")` over raw source, and CustomsPack mentions that
+// string twice IN PROSE — so the gate passed for a pack with the JSX deleted, for
+// an uncontrolled control, and for one with its year narrowing dropped, all three
+// verified against the real files. CLAUDE.md names the shared primitive for
+// exactly this: „prose that MENTIONS a pattern is not an occurrence of it."
+
+const PACK_SRC: Record<string, string> = {
+  customs: "../components/procurement/customs/CustomsPack.tsx",
+  revenue: "../components/procurement/nap/NapPack.tsx",
+};
+
+const atDir = (rel: string) =>
+  path.join(path.dirname(fileURLToPath(import.meta.url)), rel);
+
+const readStripped = (rel: string) =>
+  stripComments(readFileSync(atDir(rel), "utf8"));
+
+const SECTOR_SCREEN_SRC = stripComments(
+  readFileSync(atDir("SectorDashboardScreen.tsx"), "utf8"),
+);
+
+describe("packOwnsScope", () => {
+  const flagged = () =>
+    Object.values(SECTOR_DASHBOARDS).filter((c) => c.packOwnsScope);
+
+  it("is set only on sectors that actually have a pack", () => {
+    // Floor the subject set locally: `[] === []` also passes when NO sector
+    // carries the flag, which is the absence-equivalent state.
+    expect(flagged().length).toBeGreaterThan(0);
+    const inert = flagged()
+      .filter((c) => !getSectorPack(c.leadEik))
+      .map((c) => c.id);
+    expect(inert).toEqual([]);
+  });
+
+  it("is never combined with packIsThematic", () => {
+    // A thematic pack does NOT replace the page: the generic group dashboard
+    // above it is scope-driven and needs the screen's control. The screen's
+    // guard keys on `Pack`, which is null for a thematic pack — so the screen
+    // would render one AND the pack its own. Two controls again. The
+    // "has a pack" test above cannot see this, because getSectorPack resolves a
+    // thematic pack too.
+    const both = flagged()
+      .filter((c) => c.packIsThematic)
+      .map((c) => c.id);
+    expect(both).toEqual([]);
+  });
+
+  it("the screen suppresses its own control for a flagged pack", () => {
+    // The other half of the contract. Without this, replacing the guard with
+    // `{true && (` — a one-token edit restoring the two-control state — leaves
+    // every other test here green.
+    expect(SECTOR_SCREEN_SRC).toContain("!(Pack && config.packOwnsScope)");
+    // …and the suppression must stay scoped to the FLAG. Widening it to every
+    // pack would strip the control from НЗОК / ВиК / МВР, whose group dashboards
+    // are scope-driven and mount no control of their own.
+    expect(SECTOR_SCREEN_SRC).not.toMatch(
+      /\{!Pack && \(\s*<div className="mb-3">/,
+    );
+  });
+
+  it("keeps the screen's own control for every other sector", () => {
+    const packedButUnflagged = Object.values(SECTOR_DASHBOARDS).filter(
+      (c) => getSectorPack(c.leadEik) && !c.packOwnsScope,
+    );
+    expect(packedButUnflagged.length).toBeGreaterThan(5);
+  });
+
+  it("covers exactly the packs that own their scope, and each is WIRED", () => {
+    const ids = flagged()
+      .map((c) => c.id)
+      .sort();
+    // Floor the subject set so a config wipe cannot pass this vacuously, and
+    // keep PACK_SRC in step with it.
+    expect(ids).toEqual(["customs", "revenue"]);
+    expect(Object.keys(PACK_SRC).sort()).toEqual(ids);
+
+    for (const id of ids) {
+      const src = readStripped(PACK_SRC[id]);
+      // Routed through the ONE hook that pairs the resolved scope with the
+      // control built from it. Matching `<ScopeControl` instead would pass for a
+      // bare uncontrolled one, which is the original defect.
+      expect(src, `${id} pack does not use usePackScope`).toMatch(
+        /usePackScope\(/,
+      );
+      // …and it must render what the hook returned. A pack that calls the hook
+      // and drops `strip` leaves the page with no control at all.
+      expect(src, `${id} pack never renders the scope strip`).toMatch(
+        /\{strip\}/,
+      );
+      // …in EVERY branch, including its own early returns. The screen's
+      // suppression is structural while a pack's content waits on a lazy chunk
+      // and a fetch, so a skeleton or a failed corpus would otherwise take the
+      // page's only time control with it. Three branches: loading, empty, main.
+      expect(
+        src.match(/\{strip\}/g)?.length ?? 0,
+        `${id} pack renders the scope strip in fewer than all three branches`,
+      ).toBeGreaterThanOrEqual(3);
+      // Nothing may assemble the control by hand beside the hook.
+      expect(src, `${id} pack mounts a ScopeControl of its own`).not.toMatch(
+        /<ScopeControl/,
+      );
+    }
+  });
+
+  it("suppresses the pack wherever a second control already exists", () => {
+    // CompanyDbScreen mounts its own ScopeControl AND resolves a pack by EIK, so
+    // a flagged pack rendering there would be the two-control state again. It is
+    // safe only because `showPack = SectorPack && !sectorDash` drops the pack for
+    // any awarder that leads a sector dashboard — asserted once above, at the
+    // `showPack` test; what this pins is the other half, that every flagged
+    // sector's lead really does resolve to a dashboard.
+    for (const c of flagged())
+      expect(sectorDashboardForLeadEik(c.leadEik)?.id).toBe(c.id);
   });
 });
