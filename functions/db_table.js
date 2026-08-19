@@ -1814,6 +1814,79 @@ const REGISTRY = {
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)
 const MAX_IN_VALUES = 1000; // cap on `in`-filter array length (bind-param guard)
+
+// ── The free-text length floor ────────────────────────────────────────────────
+// The shortest term a TRIGRAM/FTS arm may be run with. pg_trgm extracts no trigram
+// from a 1-2 character pattern, so `col ILIKE '%q%'` stops being an index probe and
+// becomes a FULL SCAN of the gin index — every posting list, every row — which the
+// surrounding BitmapAnd then has to narrow.
+//
+// MEASURED on contractor_rank (432,228 rows over 29,615 distinct contractors), local
+// and warm, under `SET plan_cache_mode = force_generic_plan` + PREPARE/EXECUTE — i.e.
+// the plan a deployed parameterized query actually gets:
+//
+//   `ст`  (2 char)  gin returned all 432,959 entries   3,447 buffers   359-490 ms
+//   `ст`  (2 char)  ditto on the count aggregate       3,441 buffers   249 ms
+//   `апи` (3 char)  ordinary bitmap probe                257 buffers   3.9 ms
+//
+// A psql test with a LITERAL term constant-folds, the planner estimates through
+// pg_trgm, picks the good plan and hides all of this — the same trap the OFFSET-0
+// fence below was written for. Measure short terms with PREPARE or not at all.
+//
+// The 250 ms debounce in DbDataTable does not help: every user typing a five-letter
+// term passes through one- and two-character states on the way, so this fired on
+// essentially every search. Prod is a db-g1-small read cold over the proxy under a
+// 10 s statement_timeout, which is where the exposure actually lives.
+// ⚠️ TWO-SIDED, like FIT_MIN_QUERY (db_routes.js) / useFundsFit: `DbDataTable` mirrors
+// this as its own SEARCH_MIN_CHARS and stops asking, while the engine stops answering,
+// so neither side depends on the other getting it right. The client's copy is what keeps
+// an ordinary reader off the 400 below; this one is what makes the guarantee real for a
+// hand-built request, an AI-tool path or a stale bundle. Changing one without the other
+// does not break the guard — it only decides which side reports the refusal.
+//
+// ⚠️ SIBLING CONSTANTS THAT ARE DELIBERATELY NOT THIS ONE, so a fourth author does not
+// read one of them as the definition:
+//
+//   FIT_MIN_QUERY      db_routes.js   3   empty payload at 200   /api/db/funds-fit
+//   price-search       db_routes.js   2   empty array at 200     a typeahead, not a browse table
+//   MIN_QUERY          hubSearchSources.ts  2  client-side, no request issued
+//
+// The VALUES may legitimately differ per index — a btree prefix probe tolerates two
+// characters where a trigram scan does not. The RESPONSES differ because the surfaces
+// differ: a typeahead that returns nothing shows an empty dropdown, which is what "keep
+// typing" looks like there, while a browse table that returns nothing has told the reader
+// the corpus is empty. This one is a browse table, so it refuses. Do not "unify" these on
+// the number alone.
+const SEARCH_MIN_CHARS = 3;
+
+// The term's length AS POSTGRES COUNTS IT. `String.prototype.length` is UTF-16 code
+// units; pg_trgm counts characters, and the two disagree outside the BMP and on
+// decomposed sequences — so a term BELOW the floor by the measure that matters was
+// passing it. Measured against the corpus's own pg_trgm:
+//
+//   show_trgm('ст')             → 3 trigrams   (the case the floor was written for)
+//   show_trgm('👍👍')           → {}           -- ZERO, and it passed at length 4
+//   show_trgm(U&'e\0301e\0301') → 2 trigrams   -- the 1-character shape, and it passed at 4
+//
+// The emoji case is not merely equivalent to `ст`; it is strictly worse, because an
+// empty trigram set gives the GIN scan nothing to filter on at all. NFC first so a
+// decomposed „é" is one character here exactly as it is to pg_trgm.
+const termLength = (s) => [...s.normalize("NFC")].length;
+
+// Which arms the floor applies to. `searchPrefix` is an anchored `LIKE 'q%'` over a
+// btree, where a short term *widens* the match rather than un-indexing the scan
+// (measured: the tenders `unp` prefix arm at two characters is an Index Only Scan over
+// idx_tenders_unp_pattern, 4 buffers). Returning 1 rather than 0 keeps this a length,
+// not a flag — which is what lets a resource NARROW to its surviving arms instead of
+// refusing outright.
+//
+// The FTS arms (`searchText`, `searchInSet`) are floored too, on a related but SEPARATE
+// ground that is REASONED rather than measured: `fold_prefix_tsquery('ст')` expands to
+// every lexeme carrying that prefix, so a short term is a wide GIN scan there as well —
+// it is simply not the pg_trgm failure measured above. `globalFtsOnly` does not lower
+// the floor for the same reason: dropping the `%>` arm removes the trigram exposure, not
+// the prefix-expansion one. Measure the tsquery arm on its own before exempting it.
+const armFloor = (d) => (d.searchPrefix ? 1 : SEARCH_MIN_CHARS);
 const clampInt = (v, def, lo, hi) => {
   const n = Number(v);
   return Number.isFinite(n) ? Math.min(Math.max(Math.trunc(n), lo), hi) : def;
@@ -2040,110 +2113,149 @@ const buildWhere = (r, req, opts = {}) => {
     // only pollutes the amount-sorted seed window with unrelated near-spellings
     // and inflates the exact count banner). Default keeps FTS+trigram.
     const ftsOnly = req.filters?.globalFtsOnly === true;
-    if (searchDefs.length) {
-      const ors = [];
-      let rawIdx = null; // "%g%" for the plain contiguous-substring arms
-      let gIdx = null; // raw g, shared by the fold + FTS arms
-      // ⚠️ `%` and `_` are LIKE WILDCARDS and must be escaped, or a query containing
-      // one silently becomes a scan of everything. Measured before this: the query
-      // "50%_x" on tenders took 11,672 ms end to end — past the 10 s
-      // statement_timeout, i.e. a 500 — of which 8,256 ms was `buyer_fold ILIKE
-      // '%50%_x%'` matching all 237,321 rows. Any user can type it.
-      const likeEscape = (v) => v.replace(/([\\%_])/g, "\\$1");
-      const rawParam = () => {
-        if (rawIdx == null) {
-          params.push(`%${likeEscape(g)}%`);
-          rawIdx = params.length;
-        }
-        return rawIdx;
-      };
-      const gParam = () => {
-        if (gIdx == null) {
-          params.push(g);
-          gIdx = params.length;
-        }
-        return gIdx;
-      };
-      for (const [id, d] of searchDefs) {
-        const target = d.searchCol || id;
-        if (d.searchText) {
-          // Long free-text field (contract title / tender subject). Match it the
-          // way the combined-search dropdown does: prefix-AND FTS over the
-          // Cyrillic→Latin fold, OR a trigram word-similarity fallback for
-          // mid-word / near-spelling hits (e.g. the article's "Югозападна" vs the
-          // corpus's "Западна дъга"). Keeps the "see all" table consistent with
-          // the dropdown instead of a raw contiguous substring, which returned
-          // nothing for any multi-word or punctuated query. Both passes ride the
-          // fold's gin indexes (to_tsvector FTS + gin_trgm); `%>` uses the default
-          // pg_trgm.word_similarity_threshold (0.6), same as the dropdown.
-          const i = gParam();
-          ors.push(
-            ftsOnly
-              ? `to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})`
-              : `(to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})` +
-                  ` OR ${target} %> translit_bg_latin($${i}))`,
-          );
-        } else if (d.searchInSet) {
-          // Side-table text search, folded back into the OR as an INDEXED EQUALITY
-          // on the base relation's key.
-          //
-          // ⚠️ THE `= ANY(ARRAY(...))` SHAPE IS THE WHOLE POINT — do not "simplify"
-          // it to a correlated EXISTS or an IN (SELECT …). A correlated subquery
-          // cannot participate in a BitmapOr, so it drags the ENTIRE search off its
-          // indexes: measured on the tenders corpus for "кафе", the other arms plan
-          // as a BitmapOr in 37 ms, and adding an EXISTS arm made the whole thing a
-          // Seq Scan at 6,617 ms — a 178x regression on every tender search, not
-          // just on searches this arm can answer. As an InitPlan array the side
-          // lookup runs ONCE and the key equality joins the BitmapOr as one more
-          // index scan: 21.5 ms, faster than the baseline.
-          //
-          // FTS only, no `%>` trigram fallback: word_similarity recomputes trigram
-          // sets over the whole body per row and these bodies are documents —
-          // measured 0.073 ms vs 13,490 ms on 1,861 rows. See 147's header.
-          const { table, key, on, col, limit } = d.searchInSet;
-          const i = gParam();
-          // Bounded so a stop-word query cannot mint a giant array (one btree probe
-          // per element). Truncation is SAFE HERE AND ONLY HERE because this arm is
-          // purely additive — a dropped key can fail to add a hit, never suppress
-          // one another arm found. It would not be safe on a filter.
-          //
-          // ORDER BY is not cosmetic: the page query and the count query are built
-          // separately from this same descriptor, so an unordered LIMIT can truncate
-          // to a DIFFERENT subset in each. That yields a total the rows do not add up
-          // to — a wrong answer rather than an incomplete one. Ordering on the key
-          // makes the truncated set identical across both.
-          const n = Number.isInteger(limit) && limit > 0 ? limit : 5000;
-          ors.push(
-            `${on} = ANY(ARRAY(SELECT ${key} FROM ${table}` +
-              ` WHERE to_tsvector('simple', ${col}) @@ fold_prefix_tsquery($${i})` +
-              ` ORDER BY ${key} LIMIT ${n}))`,
-          );
-        } else if (d.searchPrefix) {
-          // Anchored prefix on an indexed identifier column. `LIKE 'q%'` is a btree
-          // range scan; '%q%' would seq-scan. Escapes the LIKE metacharacters so a
-          // query containing % or _ matches literally instead of turning into a
-          // wildcard that scans everything.
-          params.push(`${likeEscape(g)}%`);
-          ors.push(`${target} LIKE $${params.length}`);
-        } else if (d.searchFold) {
-          // Transliterated contiguous substring — entity-name columns whose fold
-          // is gin_trgm-indexed (buyer_fold). ILIKE '%q%' stays simple + precise
-          // for names.
-          // The fold is produced server-side by translit_bg_latin, so the escape has
-          // to happen there too — escaping the JS-side param would be undone by the
-          // transliteration. Backslash first, or it re-escapes its own output.
-          ors.push(
-            `${target} ILIKE '%' || replace(replace(replace(` +
-              `translit_bg_latin($${gParam()}),` +
-              ` '\\', '\\\\'), '%', '\\%'), '_', '\\_') || '%'`,
-          );
-        } else {
-          // Plain raw-column contiguous substring (trigram-indexed raw columns).
-          ors.push(`${target} ILIKE $${rawParam()}`);
-        }
+
+    // ── The length floor (SEARCH_MIN_CHARS) ─────────────────────────────────────
+    // Drop the arms this term is too short for, and REFUSE if that leaves none.
+    //
+    // ⚠️ Refusing is the point — returning zero rows here would be a WRONG ANSWER
+    // SERVED AT 200, which is worse than the slow query being fixed. `ст` has 6,462
+    // matching rows in contractor_rank; answering "0 contractors" reads to a reader
+    // as "no such contractor exists", and nothing about the response says the search
+    // was never run. A 400 cannot be misread that way, and `DbDataTable` mirrors
+    // SEARCH_MIN_CHARS so an ordinary reader never produces one — what reaches here is
+    // a hand-built request, an AI-tool path, or a bundle older than this deploy.
+    //
+    // A resource whose arms are ALL floored refuses; one that keeps any arm (e.g.
+    // tenders, whose `unp` prefix arm has floor 1) narrows to the surviving arms and
+    // serves the term. That asymmetry is deliberate: the second is a narrower answer,
+    // the first would be a false one.
+    //
+    // The floor is applied to `searchDefs` — i.e. AFTER `globalCols` narrowing — so a
+    // request naming only a floored column refuses even when the resource has an
+    // unfloored arm it did not ask for. Filtering `searchAll` here instead would serve
+    // that other arm: the allowlist ignored AND the refusal skipped, both at a 200.
+    //
+    // A resource with NO searchable column is a different failure and gets its own
+    // message: "too short" would be false there, and unactionable, since no length of
+    // term can help.
+    if (!searchDefs.length)
+      throw new DbRequestError(
+        `resource has no searchable columns: ${req.resource ?? "?"}`,
+      );
+    const eligible = searchDefs.filter(([, d]) => termLength(g) >= armFloor(d));
+    if (!eligible.length)
+      throw new DbRequestError(
+        `search term too short: need at least ${SEARCH_MIN_CHARS} characters`,
+      );
+    // Both consumers of this predicate — the page query AND the count/sum aggregate
+    // in runDbTable — are built from this ONE buildWhere() call, so the floor reaches
+    // both by construction and they cannot disagree about which rows the term matches.
+    // Do not "also" apply it at a call site; a second copy is a second thing to get
+    // wrong. (runDbFacets never reaches this branch at all: it calls buildWhere with
+    // `filters: { columns }` and no `global`, so a facet vocabulary is never
+    // free-text-scoped in the first place.)
+    const ors = [];
+    let rawIdx = null; // "%g%" for the plain contiguous-substring arms
+    let gIdx = null; // raw g, shared by the fold + FTS arms
+    // ⚠️ `%` and `_` are LIKE WILDCARDS and must be escaped, or a query containing
+    // one silently becomes a scan of everything. Measured before this: the query
+    // "50%_x" on tenders took 11,672 ms end to end — past the 10 s
+    // statement_timeout, i.e. a 500 — of which 8,256 ms was `buyer_fold ILIKE
+    // '%50%_x%'` matching all 237,321 rows. Any user can type it.
+    const likeEscape = (v) => v.replace(/([\\%_])/g, "\\$1");
+    const rawParam = () => {
+      if (rawIdx == null) {
+        params.push(`%${likeEscape(g)}%`);
+        rawIdx = params.length;
       }
-      where.push(`(${ors.join(" OR ")})`);
+      return rawIdx;
+    };
+    const gParam = () => {
+      if (gIdx == null) {
+        params.push(g);
+        gIdx = params.length;
+      }
+      return gIdx;
+    };
+    for (const [id, d] of eligible) {
+      const target = d.searchCol || id;
+      if (d.searchText) {
+        // Long free-text field (contract title / tender subject). Match it the
+        // way the combined-search dropdown does: prefix-AND FTS over the
+        // Cyrillic→Latin fold, OR a trigram word-similarity fallback for
+        // mid-word / near-spelling hits (e.g. the article's "Югозападна" vs the
+        // corpus's "Западна дъга"). Keeps the "see all" table consistent with
+        // the dropdown instead of a raw contiguous substring, which returned
+        // nothing for any multi-word or punctuated query. Both passes ride the
+        // fold's gin indexes (to_tsvector FTS + gin_trgm); `%>` uses the default
+        // pg_trgm.word_similarity_threshold (0.6), same as the dropdown.
+        const i = gParam();
+        ors.push(
+          ftsOnly
+            ? `to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})`
+            : `(to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})` +
+                ` OR ${target} %> translit_bg_latin($${i}))`,
+        );
+      } else if (d.searchInSet) {
+        // Side-table text search, folded back into the OR as an INDEXED EQUALITY
+        // on the base relation's key.
+        //
+        // ⚠️ THE `= ANY(ARRAY(...))` SHAPE IS THE WHOLE POINT — do not "simplify"
+        // it to a correlated EXISTS or an IN (SELECT …). A correlated subquery
+        // cannot participate in a BitmapOr, so it drags the ENTIRE search off its
+        // indexes: measured on the tenders corpus for "кафе", the other arms plan
+        // as a BitmapOr in 37 ms, and adding an EXISTS arm made the whole thing a
+        // Seq Scan at 6,617 ms — a 178x regression on every tender search, not
+        // just on searches this arm can answer. As an InitPlan array the side
+        // lookup runs ONCE and the key equality joins the BitmapOr as one more
+        // index scan: 21.5 ms, faster than the baseline.
+        //
+        // FTS only, no `%>` trigram fallback: word_similarity recomputes trigram
+        // sets over the whole body per row and these bodies are documents —
+        // measured 0.073 ms vs 13,490 ms on 1,861 rows. See 147's header.
+        const { table, key, on, col, limit } = d.searchInSet;
+        const i = gParam();
+        // Bounded so a stop-word query cannot mint a giant array (one btree probe
+        // per element). Truncation is SAFE HERE AND ONLY HERE because this arm is
+        // purely additive — a dropped key can fail to add a hit, never suppress
+        // one another arm found. It would not be safe on a filter.
+        //
+        // ORDER BY is not cosmetic: the page query and the count query are built
+        // separately from this same descriptor, so an unordered LIMIT can truncate
+        // to a DIFFERENT subset in each. That yields a total the rows do not add up
+        // to — a wrong answer rather than an incomplete one. Ordering on the key
+        // makes the truncated set identical across both.
+        const n = Number.isInteger(limit) && limit > 0 ? limit : 5000;
+        ors.push(
+          `${on} = ANY(ARRAY(SELECT ${key} FROM ${table}` +
+            ` WHERE to_tsvector('simple', ${col}) @@ fold_prefix_tsquery($${i})` +
+            ` ORDER BY ${key} LIMIT ${n}))`,
+        );
+      } else if (d.searchPrefix) {
+        // Anchored prefix on an indexed identifier column. `LIKE 'q%'` is a btree
+        // range scan; '%q%' would seq-scan. Escapes the LIKE metacharacters so a
+        // query containing % or _ matches literally instead of turning into a
+        // wildcard that scans everything.
+        params.push(`${likeEscape(g)}%`);
+        ors.push(`${target} LIKE $${params.length}`);
+      } else if (d.searchFold) {
+        // Transliterated contiguous substring — entity-name columns whose fold
+        // is gin_trgm-indexed (buyer_fold). ILIKE '%q%' stays simple + precise
+        // for names.
+        // The fold is produced server-side by translit_bg_latin, so the escape has
+        // to happen there too — escaping the JS-side param would be undone by the
+        // transliteration. Backslash first, or it re-escapes its own output.
+        ors.push(
+          `${target} ILIKE '%' || replace(replace(replace(` +
+            `translit_bg_latin($${gParam()}),` +
+            ` '\\', '\\\\'), '%', '\\%'), '_', '\\_') || '%'`,
+        );
+      } else {
+        // Plain raw-column contiguous substring (trigram-indexed raw columns).
+        ors.push(`${target} ILIKE $${rawParam()}`);
+      }
     }
+    where.push(`(${ors.join(" OR ")})`);
   }
 
   return {
@@ -2413,4 +2525,9 @@ module.exports = {
   buildWhere,
   buildAggSelect,
   DbRequestError,
+  // Exported so the tests can SAMPLE at the floor without restating it, and so the
+  // two-sided contract has one server-side name to point at. `DbDataTable` cannot
+  // require() this (separate CJS package) and keeps its own copy — see the constant's
+  // header for why that mirror is the design rather than a duplication bug.
+  SEARCH_MIN_CHARS,
 };

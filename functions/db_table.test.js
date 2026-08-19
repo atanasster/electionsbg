@@ -12,6 +12,7 @@ const {
   runDbTable,
   runDbFacets,
   buildAggSelect,
+  SEARCH_MIN_CHARS,
 } = require("./db_table.js");
 
 const contracts = REGISTRY.contracts;
@@ -142,6 +143,160 @@ test("globalFtsOnly is a no-op on a non-searchText (name) column", () => {
     },
   });
   assert.ok(whereSql.includes("contractor_name ILIKE"), "name arm unchanged");
+});
+
+// ---- the free-text length floor (SEARCH_MIN_CHARS) ---------------------------
+// pg_trgm extracts no trigram from a 1-2 character pattern, so a short term turns
+// `col ILIKE '%q%'` from an index probe into a FULL SCAN of the gin index. Measured
+// on contractor_rank under a generic plan: `ст` returned all 432,959 entries at
+// 3,447 buffers / 359-490 ms, and again at 3,441 on the count aggregate, against 257
+// buffers for the 3-character `апи`. See db_table.js's SEARCH_MIN_CHARS header.
+
+test("a sub-floor term REFUSES rather than serving an empty result", () => {
+  // The failure this prevents is a WRONG ANSWER AT 200, not a slow one: `ст` matches
+  // 6,462 rows in contractor_rank, so answering "0 contractors" would read to a
+  // reader as "no such contractor exists" with nothing saying the search never ran.
+  assert.throws(
+    () =>
+      buildWhere(REGISTRY.contractor_rankings, { filters: { global: "ст" } }),
+    (e) =>
+      e.name === "DbRequestError" &&
+      e.status === 400 &&
+      /at least 3/.test(e.message),
+    "a two-character term throws a 400",
+  );
+  assert.throws(
+    () => buildWhere(REGISTRY.contractor_rankings, { filters: { global: "с" } }),
+    (e) => e.name === "DbRequestError",
+    "a one-character term throws too",
+  );
+});
+
+test("a term AT the floor is served normally", () => {
+  // Boundary: 3 passes, 2 does not. A floor written as `>` instead of `>=` would
+  // reject every three-letter acronym in the corpus ("АПИ", "БДЖ", "НЗОК").
+  const { whereSql } = buildWhere(REGISTRY.contractor_rankings, {
+    filters: { global: "апи" },
+  });
+  assert.ok(whereSql.includes("name_fold ILIKE"), "the fold arm is emitted");
+});
+
+test("the floor drops only the FLOORED arms, never the whole search", () => {
+  // tenders carries a searchPrefix arm (`unp`, floor 1) beside a fold arm, an FTS
+  // arm and a side-table arm. A two-character term keeps the prefix arm and narrows
+  // to it — a NARROWER answer, which is honest — instead of refusing outright.
+  //
+  // ⚠️ The arms it drops must actually disappear from the SQL. Leaving one in would
+  // reinstate the full gin scan this whole floor exists to prevent, on a request that
+  // looks like it was handled correctly.
+  const { whereSql } = buildWhere(REGISTRY.tenders, {
+    filters: { global: "00" },
+  });
+  assert.ok(whereSql.includes("unp LIKE"), "the prefix arm survives");
+  assert.ok(!whereSql.includes("buyer_fold"), "the floored fold arm is dropped");
+  assert.ok(
+    !whereSql.includes("fold_prefix_tsquery"),
+    "the floored FTS + side-table arms are dropped",
+  );
+});
+
+test("the floor counts CHARACTERS, not UTF-16 code units", () => {
+  // `String.length` is code units; pg_trgm counts characters. Measured against the
+  // corpus's own pg_trgm: show_trgm('👍👍') is the EMPTY set — 4 code units, 2
+  // characters, and NO trigram at all, i.e. strictly worse than the `ст` this floor was
+  // written for, because an empty trigram set gives the GIN scan nothing to filter on.
+  // The NFD pair is the same shape from the other direction: show_trgm on two decomposed
+  // e-acutes yields the 1-character trigram set.
+  for (const g of ["👍👍", "éé"])
+    assert.throws(
+      () =>
+        buildWhere(REGISTRY.contractor_rankings, { filters: { global: g } }),
+      (e) => e.name === "DbRequestError",
+      `${JSON.stringify(g)} is two characters and must be floored`,
+    );
+});
+
+test("the floor is applied AFTER globalCols narrowing", () => {
+  // `searchDefs` is `restrictedDefs ?? searchAll`, so a request naming ONLY a floored
+  // column must refuse even though the resource has an unfloored arm it did not ask for.
+  // Filtering `searchAll` here instead serves `unp LIKE …` for a buyer_name request —
+  // the allowlist ignored AND the refusal skipped, both at a 200.
+  assert.throws(
+    () =>
+      buildWhere(REGISTRY.tenders, {
+        filters: { global: "00", globalCols: ["buyer_name"] },
+      }),
+    (e) => e.name === "DbRequestError",
+    "a sub-floor term restricted to a floored arm refuses",
+  );
+  const { whereSql } = buildWhere(REGISTRY.tenders, {
+    filters: { global: "00", globalCols: ["unp"] },
+  });
+  assert.ok(
+    whereSql.includes("unp LIKE"),
+    "…while the unfloored arm alone is still served",
+  );
+  assert.ok(
+    !whereSql.includes("buyer_fold"),
+    "…and only that arm — the allowlist still holds",
+  );
+});
+
+test("a resource with no searchable column reports THAT, not 'too short'", () => {
+  // "too short" would be false and unactionable there: no length of term can help.
+  // Latent today (all 24 resources have a searchable column), but the engine is designed
+  // so a new resource is one registry entry, and a wrong error message on a live route is
+  // exactly what the shape-invariant tests in this file exist to prevent.
+  const bare = {
+    base: "x",
+    columns: { a: { type: "text", sort: true } },
+    select: ["a"],
+    defaultSort: [["a", "asc"]],
+  };
+  assert.throws(
+    () => buildWhere(bare, { resource: "bare", filters: { global: "хемус" } }),
+    (e) => e.name === "DbRequestError" && /no searchable columns/.test(e.message),
+  );
+});
+
+test("every resource keeps at least one arm at the floor length", () => {
+  // Vacuity guard on the two tests above. If some resource's only searchable column
+  // were floored at 3 while its UI let a shorter term through, the refusal would be
+  // correct but invisible here; and if the floor were ever raised, this names every
+  // resource it would start refusing rather than letting them fail one route at a
+  // time in production.
+  // Samples AT the floor via the exported constant rather than restating it, so raising
+  // SEARCH_MIN_CHARS reports "this resource can no longer be searched at the new floor"
+  // instead of looking like the boundary broke. The `/at least 3/` assertion above stays
+  // a LITERAL on purpose: it asserts the user-visible message, and deriving it from the
+  // source would let an inverted implementation satisfy the test against itself.
+  const term = "a".repeat(SEARCH_MIN_CHARS);
+  for (const [name, r] of Object.entries(REGISTRY)) {
+    assert.doesNotThrow(
+      () => buildWhere(r, { filters: { global: term } }),
+      `${name}: a ${term.length}-character term must be servable`,
+    );
+  }
+});
+
+test("the floor refuses BEFORE any SQL is issued, so page and count agree", async () => {
+  // The page query and the count/sum aggregate are built from ONE buildWhere call.
+  // Asserting that NO query ran is what proves the two cannot disagree — a floor
+  // applied at one call site and not the other would show a row count the rows
+  // beneath it do not add up to.
+  let issued = 0;
+  const q = async () => {
+    issued++;
+    return [];
+  };
+  await assert.rejects(
+    runDbTable(q, {
+      resource: "contractor_rankings",
+      filters: { global: "ст" },
+    }),
+    (e) => e.name === "DbRequestError",
+  );
+  assert.equal(issued, 0, "refused before issuing any query");
 });
 
 // ---- registry shape invariants ----------------------------------------------
@@ -1041,7 +1196,13 @@ test("the dossier arm is FTS-only — no %> trigram fallback", () => {
 });
 
 test("the dossier arm is bounded, so a stop-word cannot mint a giant array", () => {
-  const { whereSql } = buildWhere(tenders, { filters: { global: "на" } });
+  // „или" rather than „на": SEARCH_MIN_CHARS floors every trigram/FTS arm at three
+  // characters, so a two-letter term now never reaches this arm at all. That does
+  // NOT make the bound redundant — three-letter stop-words are just as common — so
+  // the assertion stays and only the example moves above the floor. Do not restore a
+  // two-character term here; it would assert against a predicate the engine refuses
+  // to build, which passes for the wrong reason or not at all.
+  const { whereSql } = buildWhere(tenders, { filters: { global: "или" } });
   assert.match(whereSql, /tender_search_text[\s\S]*LIMIT \d+\)\)/);
 });
 
@@ -1074,7 +1235,8 @@ test("the capped dossier subquery is ORDERed, so page and count truncate alike",
   // The page query and the count query are built separately from this descriptor.
   // An unordered LIMIT can truncate to a different subset in each, producing a
   // total the rows do not add up to — wrong, not merely incomplete.
-  const { whereSql } = buildWhere(tenders, { filters: { global: "на" } });
+  // Above SEARCH_MIN_CHARS for the same reason as the bound test above.
+  const { whereSql } = buildWhere(tenders, { filters: { global: "или" } });
   assert.match(whereSql, /ORDER BY t_unp LIMIT \d+\)\)/);
 });
 

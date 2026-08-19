@@ -1608,6 +1608,38 @@ from, so it returns all 237,321 rows as candidates and the heap recheck then dis
 arms escape in SQL rather than in JS, because their text is produced server-side by
 `translit_bg_latin` and a JS-side escape would be undone by the transliteration.
 
+**Also every DbDataTable: a free-text term shorter than `SEARCH_MIN_CHARS` (3) is
+REFUSED with a 400, not answered.** pg_trgm extracts no trigram from a 1–2 character
+pattern, so `col ILIKE '%q%'` stops being an index probe and becomes a full scan of the
+gin index — measured on `contractor_rank` (432,228 rows) under a generic plan, `ст`
+returned **all 432,959** index entries at 3,447 buffers / 359–490 ms, and again at 3,441
+on the count aggregate, against 257 buffers for the 3-character `апи`. The 250 ms
+debounce does not help: a user typing a five-letter term passes through both states.
+
+Three things about it are easy to get backwards:
+
+- **It refuses rather than returning zero rows, and that is the point.** `ст` has 6,462
+  matching rows; answering „0 изпълнители" at a 200 reads as "no such contractor exists"
+  with nothing saying the search never ran — the wrong-answer-at-200 shape this file
+  warns about everywhere else. A 400 cannot be misread.
+- **It is TWO-SIDED, like `FIT_MIN_QUERY` / `useFundsFit`.** `DbDataTable` mirrors the
+  constant (`searchMinChars`, default 3), suppresses the term below it and renders a
+  „въведете поне 3 знака" hint, so no ordinary reader ever produces the 400 — what
+  reaches it is a hand-built request, an AI tool, or a bundle older than the deploy.
+  Shipping only the server half turns every 1–2 character keystroke, and every `?q=`
+  deep link shorter than the floor, into the destructive „Данните не можаха да се
+  заредят." panel on **23 of the 24** registry resources. Only `tenders` survives, via
+  its `unp` `searchPrefix` arm — anchored `LIKE 'q%'` over a btree is floored at 1,
+  because a short term there *widens* the match instead of un-indexing the scan.
+- **The length is counted in CHARACTERS, not UTF-16 code units**, on both sides
+  (`[...s.normalize("NFC")].length`). `show_trgm('👍👍')` is the **empty set** — four
+  code units, two characters, and no trigram at all, i.e. strictly worse than the `ст`
+  the floor exists for — so a `.length` check lets exactly the worst case through.
+
+⚠️ **Measure a short term with `PREPARE`, never a psql literal.** A literal
+constant-folds, the planner estimates through pg_trgm, picks the good plan and hides all
+of this — the same trap the `OFFSET 0` search fence was written for.
+
 `transport_facility_geo` (migration 132, `db:load:transport-facility-map:pg`) is the static
 crosswalk behind the `/sector/transport` facility map — the same 073/074 family as the water
 and МВР maps, in `db:refresh`, curated from `TRANSPORT_ENTITIES` with a Варна physical-facility

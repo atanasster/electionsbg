@@ -83,6 +83,27 @@ test("an empty `required` filter is a 400, and costs no query", async () => {
   assert.match(lines[0], /db route table: bad request/);
 });
 
+test("a sub-floor global term is a 400 with an exposed message, not a 500", async () => {
+  // buildWhere throwing is covered in db_table.test.js; that the ROUTE turns it into an
+  // exposed 400 is not, and the two are independent. `badRequest` rethrows anything that
+  // is not a DbRequestError — and the "registry blame" convention in the same builder
+  // throws a plain Error deliberately — so a refactor that used the wrong error class
+  // here would 500 every short search with nothing in db_table.test.js failing.
+  const db = spyDb();
+  const { result, lines } = await captureWarn(() =>
+    DB_ROUTES.table(db, q({ resource: "persons", filters: { global: "ст" } })),
+  );
+
+  assert.equal(result.status, 400, "sub-floor term → 400, not 500");
+  assert.match(
+    result.body.error,
+    /at least 3/,
+    "the message tells the caller what to change",
+  );
+  assert.deepEqual(db.calls, [], "rejected before the pool was touched");
+  assert.equal(lines.length, 1, "still logged, like every other caller blame");
+});
+
 test("the same request on /api/db/facets is a 400 too", async () => {
   // Same buildWhere, different entry point. The settlement page's KPI strip fires facets
   // from the SAME filter set as the table below it, so a fix that only covered `table`

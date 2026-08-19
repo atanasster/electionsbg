@@ -228,7 +228,13 @@ export const subsidiesForEntity = async (
     : /^\d{9,13}$/.test(cleaned)
       ? cleaned
       : undefined;
-  if (!eik && cleaned) {
+  // ⚠️ The length guard is not cosmetic. /api/db/table REFUSES a free-text term below
+  // SEARCH_MIN_CHARS (functions/db_table.js) with a 400 rather than serving an empty
+  // result, so a question `cleanCompany` reduces to one or two characters would turn a
+  // graceful notFound() into a thrown fetch error surfacing as a tool failure. Counted
+  // in code POINTS, as the engine counts it — `String.length` is code units and would
+  // let a 2-character astral term through to the refusal.
+  if (!eik && cleaned && [...cleaned.normalize("NFC")].length >= 3) {
     const page = await fetchDb<{ rows: { eik: string | null }[] }>("table", {
       q: JSON.stringify({
         resource: "agri_subsidies",

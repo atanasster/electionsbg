@@ -82,6 +82,12 @@ interface Props<T> {
     total: number,
     totalExact: boolean,
   ) => ReactNode;
+  /** Shortest free-text term this table will SEND. Below it the term is suppressed and
+   *  the body shows a "keep typing" hint. Defaults to SEARCH_MIN_CHARS; a resource whose
+   *  only searchable column is an identifier (an anchored btree prefix, floor 1 in the
+   *  engine) may lower it. Raising it above the engine's floor is safe; lowering it below
+   *  is what produces the 400 this exists to avoid. */
+  searchMinChars?: number;
   /** Called once per loaded page — lets the parent derive a header (e.g. the entity name)
    *  from the rows without a second request. Does NOT need memoizing: it is invoked through
    *  a ref, so an inline arrow is fine.
@@ -95,6 +101,35 @@ interface Props<T> {
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
+/** Mirrors SEARCH_MIN_CHARS in functions/db_table.js — the client stops asking and the
+ *  server stops answering, so neither depends on the other getting it right. Same shape
+ *  as FIT_MIN_QUERY / useFundsFit.
+ *
+ *  WHY A FLOOR AT ALL (the server-side header carries the measurement): pg_trgm extracts
+ *  no trigram from a 1-2 character pattern, so `col ILIKE '%q%'` stops being an index
+ *  probe and becomes a full scan of the gin index — 3,447 buffers and 359-490 ms on
+ *  contractor_rank, paid twice per keystroke because the count aggregate repeats it.
+ *
+ *  WHY THE CLIENT HALF IS NOT OPTIONAL: the engine REFUSES a sub-floor term with a 400
+ *  rather than serving an empty result (an empty result would read as "no such
+ *  contractor"). Without this guard every one- and two-character keystroke — and every
+ *  `?q=` deep link shorter than three characters, which bypasses the debounce entirely
+ *  because `initialSearch` seeds the debounced state directly — renders the destructive
+ *  "Could not load data." panel on 23 of the 24 registry resources.
+ *
+ *  ⚠️ The floor suppresses the TERM, never the request: the unfiltered page is the right
+ *  thing to show while someone is still typing, and it keeps the aggregates footer
+ *  coherent with the rows under it. */
+export const SEARCH_MIN_CHARS = 3;
+
+/** Count characters as Postgres does. `String.length` is UTF-16 code units, so "👍👍" is
+ *  4 by that measure and 2 to pg_trgm — which extracts ZERO trigrams from it, i.e. a
+ *  strictly worse case than the two-letter term the floor was written for. NFC first so a
+ *  decomposed „é" counts as the one character the reader typed. Deliberately identical to
+ *  `termLength` in functions/db_table.js: if the two disagree, one side sends a term the
+ *  other refuses. */
+const termLength = (s: string): number => [...s.normalize("NFC")].length;
+
 export const DbDataTable = <T,>({
   resource,
   columns,
@@ -107,6 +142,7 @@ export const DbDataTable = <T,>({
   initialSearch,
   globalCols,
   globalFtsOnly,
+  searchMinChars = SEARCH_MIN_CHARS,
   toolbar,
   renderAggregates,
   onData,
@@ -125,6 +161,13 @@ export const DbDataTable = <T,>({
   // Any change to the query shape (filters/search/sort) returns to page 0.
   useEffect(() => setPageIndex(0), [debounced, extraFilters, sorting, scope]);
 
+  // A term the engine would refuse (see SEARCH_MIN_CHARS). Note this reads `debounced`,
+  // not `search`: the hint must not flicker on while someone is mid-word, and the request
+  // it guards is built from the debounced value anyway.
+  const tooShort =
+    debounced.trim().length > 0 &&
+    termLength(debounced.trim()) < searchMinChars;
+
   const request = useMemo(
     () => ({
       resource,
@@ -133,7 +176,10 @@ export const DbDataTable = <T,>({
       pageSize,
       sort: sorting.map((s) => ({ id: s.id, desc: s.desc })),
       filters: {
-        global: debounced || undefined,
+        // Suppress the TERM, not the request — the unfiltered page is what a reader
+        // should see while still typing, and it keeps the footer's aggregates matching
+        // the rows above them.
+        global: tooShort ? undefined : debounced || undefined,
         globalCols,
         globalFtsOnly,
         columns: [...(fixedFilters ?? []), ...(extraFilters ?? [])],
@@ -146,6 +192,7 @@ export const DbDataTable = <T,>({
       pageSize,
       sorting,
       debounced,
+      tooShort,
       fixedFilters,
       extraFilters,
       globalCols,
@@ -212,9 +259,16 @@ export const DbDataTable = <T,>({
         />
         {toolbar}
         <span className="ml-auto text-xs text-muted-foreground tabular-nums">
-          {data?.totalExact === false ? "≈" : ""}
-          {numFmt.format(total)} {t("db_table_rows") || "rows"}
-          {isFetching ? " · …" : ""}
+          {/* Suppressed while the term is below the floor: `total` is then the UNFILTERED
+              count, so printing it beside a two-letter query states a number that answers
+              a question the reader did not ask. The body carries the hint. */}
+          {tooShort ? null : (
+            <>
+              {data?.totalExact === false ? "≈" : ""}
+              {numFmt.format(total)} {t("db_table_rows") || "rows"}
+              {isFetching ? " · …" : ""}
+            </>
+          )}
         </span>
       </div>
 
@@ -241,7 +295,23 @@ export const DbDataTable = <T,>({
             ))}
           </TableHeader>
           <TableBody className="text-secondary-foreground">
-            {isError ? (
+            {tooShort ? (
+              // Guidance, not failure: the term was never sent, so nothing is broken and
+              // `text-destructive` would say otherwise. The rows behind this are the
+              // unfiltered page, which is why the hint replaces them rather than sitting
+              // above them — showing 3,441 unfiltered contractors under a two-letter
+              // query reads as "these are your matches".
+              <TableRow>
+                <TableCell
+                  colSpan={100}
+                  className="text-center text-muted-foreground"
+                  style={{ height: 400 }}
+                >
+                  {t("db_table_search_min", { n: searchMinChars }) ||
+                    `Type at least ${searchMinChars} characters.`}
+                </TableCell>
+              </TableRow>
+            ) : isError ? (
               <TableRow>
                 <TableCell
                   colSpan={100}
