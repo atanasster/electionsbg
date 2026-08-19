@@ -14,14 +14,21 @@
 // from "could not load" (a fact about this request), because publishing the
 // second as the first would be a false claim about the data.
 //
-// ⚠️ NO RAW CATALOGUE FIELD IS RENDERED. `availability`, `citation` and `caveat`
-// are English prose written for the handbook; rendering them here put English
-// sentences into a Bulgarian page. Everything user-facing is i18n; the numbers
-// (thresholds, weights) come straight from the catalogue because a number is
-// language-neutral and must not be re-typed.
+// ⚠️ NO RAW CATALOGUE PROSE IS RENDERED. `availability`, `citation`, `caveat`
+// and ALIGNMENT_SOURCES.method are English prose written for the handbook;
+// rendering them here put English sentences into a Bulgarian page. Everything
+// user-facing is i18n; the numbers (thresholds, weights) come straight from the
+// catalogue because a number is language-neutral and must not be re-typed.
+//
+// The source footnotes are the one place a non-numeric catalogue field reaches
+// the page: ALIGNMENT_SOURCES' `title`, `url` and `verifiedOn`. Those are
+// bibliographic facts about two English documents — a document's title is its
+// name in every language, and a translated URL is a second source of truth that
+// can drift from the catalogue the mappings were actually read against. The
+// sentence AROUND them is i18n, as everywhere else.
 
 import { FC, PropsWithChildren } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
 import {
   ArticleH2,
@@ -30,9 +37,12 @@ import {
   ArticleStrong,
   ArticleUL,
 } from "@/components/article/ArticleProse";
+import { proseClasses } from "@/components/article/proseClasses";
 import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
 import { useRiskCatalogVersion } from "@/data/procurement/useRiskCatalogVersion";
+import { formatDateLong } from "@/lib/formatDate";
 import {
+  ALIGNMENT_SOURCES,
   AWARDER_EXPOSURE_LIST,
   CATALOG_VERSION,
   CONTRACT_DISPLAY_ORDER,
@@ -49,6 +59,73 @@ const HANDBOOK_URL =
 
 const RISK_FLAGS_JSON_URL =
   "https://github.com/atanasster/electionsbg/blob/main/public/risk-flags.json";
+
+/** The two external methodologies every check is cross-walked against, in
+ *  footnote order. The number a citation prints and the position in the list at
+ *  the foot of the page are BOTH derived from this array, so a third source
+ *  cannot renumber one side and not the other.
+ *
+ *  The titles, URLs and verification dates come from ALIGNMENT_SOURCES rather
+ *  than from i18n: they are bibliographic facts about English documents, and a
+ *  translated copy of a URL or a document title is a second source of truth that
+ *  can go stale against the catalogue the mappings were actually read from.
+ *  `method` is deliberately NOT rendered — it is English prose for the handbook,
+ *  the same reason `availability` and `caveat` stay out of this page. */
+const SOURCE_ORDER = ["ocp", "imonitor"] as const;
+type SourceId = (typeof SOURCE_ORDER)[number];
+
+const sourceAnchor = (id: SourceId): string => `src-${id}`;
+
+/** An in-text citation: the name links DOWN to its footnote, which is where the
+ *  document's URL and provenance live. Deliberately not a direct link to the
+ *  PDF — a reader who follows a citation off-site never sees when it was read
+ *  or how much of it was compared, which is the part that makes the mapping
+ *  checkable rather than merely asserted. */
+const Cite: FC<PropsWithChildren<{ id: SourceId }>> = ({ id, children }) => (
+  <a className={proseClasses.a} href={`#${sourceAnchor(id)}`}>
+    {children}
+    <sup className="ml-0.5 align-super text-[0.7em]">
+      {SOURCE_ORDER.indexOf(id) + 1}
+    </sup>
+  </a>
+);
+
+const SourceNotes: FC = () => {
+  const { t, i18n } = useTranslation();
+  return (
+    <ol className={proseClasses.ol}>
+      {SOURCE_ORDER.map((id) => {
+        const src = ALIGNMENT_SOURCES[id];
+        const size =
+          "flagCount" in src
+            ? t("proc_meth_src_flags", { count: src.flagCount })
+            : t("proc_meth_src_indicators", { count: src.indicatorCount });
+        return (
+          <li
+            key={id}
+            id={sourceAnchor(id)}
+            className={`${proseClasses.li} scroll-mt-24`}
+          >
+            <a
+              className={proseClasses.a}
+              href={src.url}
+              rel="noreferrer"
+              target="_blank"
+            >
+              {src.title}
+            </a>{" "}
+            <span className="text-muted-foreground">
+              (PDF) — {size} ·{" "}
+              {t("proc_meth_src_verified", {
+                date: formatDateLong(src.verifiedOn, i18n.language),
+              })}
+            </span>
+          </li>
+        );
+      })}
+    </ol>
+  );
+};
 
 const LabelP: FC<PropsWithChildren<{ label: string }>> = ({
   label,
@@ -306,7 +383,11 @@ export const ProcurementMethodologyScreen = () => {
 
       <ArticleH2>{t("proc_meth_h_align")}</ArticleH2>
       <ArticleP>
-        {t("proc_meth_p_align")} {t("proc_meth_p_align_unmapped", { unmapped })}
+        <Trans
+          i18nKey="proc_meth_p_align"
+          components={{ ocp: <Cite id="ocp" />, im: <Cite id="imonitor" /> }}
+        />{" "}
+        {t("proc_meth_p_align_unmapped", { unmapped })}
       </ArticleP>
 
       <ArticleH2>{t("proc_meth_h_limits")}</ArticleH2>
@@ -341,6 +422,9 @@ export const ProcurementMethodologyScreen = () => {
           </a>
         </ArticleLI>
       </ArticleUL>
+
+      <ArticleH2>{t("proc_meth_h_sources")}</ArticleH2>
+      <SourceNotes />
     </ArticleLayout>
   );
 };
