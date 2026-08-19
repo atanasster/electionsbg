@@ -429,7 +429,14 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                  -- Which form table the row came from, and whether it is the declarant's
                  -- to own. Derived server-side so this list and 090's cannot disagree.
                  'tableNum', a.table_num,
-                 'isHolding', is_declared_holding(a.table_num)
+                 'isHolding', is_declared_holding(a.table_num),
+                 -- HOW the euro figure above was arrived at, carried for the SAME reason
+                 -- 090's copy of this payload carries it: a euro amount beside a foreign
+                 -- currency the declarant never converted is OURS, and a reader looking at
+                 -- one row must be able to tell that from a figure they filed. Omitting it
+                 -- here while 090 has it would leave the two declaration surfaces making
+                 -- different claims about the same row. See declaration_asset.value_basis.
+                 'valueBasis', a.value_basis
                ) ORDER BY a.seq)
                FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
              ), '[]'::jsonb),
