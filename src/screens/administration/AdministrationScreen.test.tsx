@@ -80,28 +80,59 @@ vi.mock("@/data/administration/useAdminServices", () => ({
 // With `() => null` both prop lines could be deleted and every test in the repo
 // would still pass.
 const topContractorsProps = vi.fn();
+const spendByYearProps = vi.fn();
+const groupModelWindows = vi.fn();
+
+// ⚠ The two group-model calls must return DISTINGUISHABLE models. With one
+// object for both, swapping `moneyModel` and `moneyHistory` at the call sites —
+// which puts the whole corpus straight back into the year-labelled KPIs, i.e.
+// reintroduces the exact regression this screen just fixed — passes every
+// assertion. The window is the discriminator, so the stub keys on it.
+const YEAR_MODEL_EUR = 173_000_000;
+const CORPUS_MODEL_EUR = 336_000_000;
+const modelFor = (eur: number) => ({
+  totalEur: eur,
+  contractCount: 1,
+  suppliers: [],
+  years: [
+    { year: 2023, totalEur: 1, contractCount: 1, byCategory: {} },
+    { year: 2024, totalEur: 2, contractCount: 1, byCategory: {} },
+  ],
+  categories: [],
+  supplierCount: 0,
+  bidKnownN: 0,
+  singleBidN: 0,
+  singleBidShare: null,
+  directEur: 0,
+  directShare: 0,
+  minYear: null,
+  maxYear: null,
+});
 vi.mock("@/data/procurement/useAwarderGroupModel", () => ({
-  useAwarderGroupModel: () => ({
-    model: {
-      totalEur: 1,
-      contractCount: 1,
-      suppliers: [],
-      years: [],
-      categories: [],
-      supplierCount: 0,
-      bidKnownN: 0,
-      singleBidN: 0,
-      singleBidShare: null,
-      directEur: 0,
-      directShare: 0,
-      minYear: null,
-      maxYear: null,
-    },
-    byUnit: [],
-  }),
+  useAwarderGroupModel: (
+    _eiks: readonly string[],
+    _build: unknown,
+    window: { from: string | null; to: string | null },
+    enabled: boolean,
+  ) => {
+    groupModelWindows(window, enabled);
+    if (!enabled) return { model: null, byUnit: [], isLoading: false };
+    return {
+      model: modelFor(window.from == null ? CORPUS_MODEL_EUR : YEAR_MODEL_EUR),
+      byUnit: [],
+      isLoading: false,
+    };
+  },
 }));
+// Both stubs stay render-free — the shared sector charts fetch on their own —
+// but they CAPTURE their props. The defect this screen last shipped was a
+// wiring one, and with `() => null` the prop lines could be deleted with every
+// test in the repo still green.
 vi.mock("@/screens/sector/SectorCharts", () => ({
-  SectorSpendByYearTile: () => null,
+  SectorSpendByYearTile: (p: Record<string, unknown>) => {
+    spendByYearProps(p);
+    return null;
+  },
   SectorTopContractorsTile: (p: Record<string, unknown>) => {
     topContractorsProps(p);
     return null;
@@ -178,5 +209,102 @@ describe("AdministrationScreen — the leaderboard's label sets", () => {
     expect(props).toBeDefined();
     expect(props!.memberEiks).toEqual(ADMIN_SECTOR_EIKS);
     expect(props!.stateBodyEiks).toBe(ADMIN_STATE_BODY_CONTRACTORS);
+  });
+});
+
+// The money band answers for the year the pill names — and only the trend
+// ignores it.
+//
+// THE REGRESSION: the window used to be {from:null,to:null} on every non-`y:`
+// scope, i.e. on the DEFAULT view. So under a pill reading „Най-нова година",
+// beside institution tiles showing 2025, the KPIs published the WHOLE CORPUS —
+// €336.7M / 416 / 134 against 2025's own €173.1M / 97 / 40. Both figures were
+// correct; the page just answered a different question from the one its control
+// was asking, and said so nowhere.
+describe("AdministrationScreen — the money window follows the pill", () => {
+  const windows = () =>
+    groupModelWindows.mock.calls.map(
+      (c) => c[0] as { from: string | null; to: string | null },
+    );
+
+  it("scopes the KPIs to the latest report year on the default view", () => {
+    groupModelWindows.mockClear();
+    at("/sector/administration");
+    // Derived from the fixture, not hardcoded: the default view resolves to the
+    // report's own latest year, whatever that is.
+    expect(windows()).toContainEqual({
+      from: `${LATEST}-01-01`,
+      to: `${LATEST + 1}-01-01`,
+    });
+  });
+
+  it("follows an explicit year", () => {
+    groupModelWindows.mockClear();
+    at("/sector/administration?pscope=y:2023");
+    expect(windows()).toContainEqual({
+      from: "2023-01-01",
+      to: "2024-01-01",
+    });
+    expect(windows()).not.toContainEqual({
+      from: `${LATEST}-01-01`,
+      to: `${LATEST + 1}-01-01`,
+    });
+  });
+
+  // A trend is not a scoped figure: „Възложени по година" would collapse to a
+  // single bar if it shared the KPIs' window.
+  it("always fetches the full corpus too, for the spend-by-year trend", () => {
+    groupModelWindows.mockClear();
+    at("/sector/administration?pscope=y:2023");
+    expect(windows()).toContainEqual({ from: null, to: null });
+  });
+
+  // The drill-down hangs off the KPI cards, so an all-time href would open a
+  // browser showing 416 contracts under a card that just said 97.
+  it("carries the same year into the contracts drill-down", () => {
+    at("/sector/administration?pscope=y:2023");
+    const link = screen
+      .getAllByRole("link")
+      .find((a) => a.getAttribute("href")?.includes("sector=administration"));
+    expect(link?.getAttribute("href")).toContain("pscope=y:2023");
+  });
+});
+
+// The KPIs answer for the selected year; only the trend ignores it. Pinned by
+// the models' € rather than by the call order, so swapping the two at the call
+// sites fails here instead of passing silently.
+describe("AdministrationScreen — each tile gets the right model", () => {
+  it("gives the spend-by-year trend the FULL-CORPUS model", () => {
+    spendByYearProps.mockClear();
+    at("/sector/administration?pscope=y:2023");
+    const p = spendByYearProps.mock.calls.at(-1)?.[0] as
+      | { model: { totalEur: number } }
+      | undefined;
+    expect(p?.model.totalEur).toBe(CORPUS_MODEL_EUR);
+  });
+
+  it("gives the leaderboard the YEAR-SCOPED model", () => {
+    topContractorsProps.mockClear();
+    at("/sector/administration?pscope=y:2023");
+    const p = topContractorsProps.mock.calls.at(-1)?.[0] as
+      | { model: { totalEur: number } }
+      | undefined;
+    expect(p?.model.totalEur).toBe(YEAR_MODEL_EUR);
+  });
+
+  it("renders the year-scoped total, not the corpus one", () => {
+    at("/sector/administration?pscope=y:2023");
+    expect(screen.getByText(/173/)).toBeInTheDocument();
+    expect(screen.queryByText(/336/)).not.toBeInTheDocument();
+  });
+
+  // `selYear` falls back to the CURRENT calendar year while the report is in
+  // flight — a year the picker never offers. An ungated fetch paints real
+  // contracts under that label and caches them for the session.
+  it("asks for nothing until the report has loaded", () => {
+    groupModelWindows.mockClear();
+    at("/sector/administration");
+    for (const [, enabled] of groupModelWindows.mock.calls)
+      expect(enabled).toBe(true);
   });
 });

@@ -70,6 +70,10 @@ import { formatEurCompact, formatInt, formatPct } from "@/lib/currency";
 
 const GENERIC_CLASSIFIER: SectorClassifier<"all"> = { categoryOf: () => "all" };
 
+/** The whole contracts corpus. Module-level so its identity is stable across
+ *  renders — the group-model hook keys its query on (eiks, from, to). */
+const FULL_CORPUS_WINDOW = { from: null, to: null };
+
 // Fixed colours for the central/territorial split — never repaint by rank.
 const C_CENTRAL = "#2f6f8f";
 const C_TERRITORIAL = "#c07a2f";
@@ -748,32 +752,72 @@ export const AdministrationScreen: FC = () => {
     };
   }, [ctx, year, selYear]);
 
-  // e-government procurement group — folded server-side. Year-scoped money
-  // window; on the default (latest) view show the group's full-corpus total.
+  // e-government procurement group — folded server-side, in TWO windows.
+  //
+  // ⚠ THE KPIs MUST ANSWER FOR THE YEAR THE PILL NAMES. Until 2026-08-19 the
+  // money window was `{from: null, to: null}` whenever the scope was not an
+  // explicit `y:`, i.e. on the DEFAULT view — so under a pill reading
+  // „Най-нова година", beside institution tiles showing 2025, the band
+  // published the whole corpus: €336.7M / 416 / 134 against 2025's own
+  // €173.1M / 97 / 35 — both supplier counts on the MODEL's basis, which
+  // excludes consortium-member rows and so runs below a raw
+  // count(DISTINCT contractor_eik) (416/134 vs 40 for 2025). Roughly double,
+  // with no period stated anywhere in the band. Both numbers were right; the
+  // page just answered a different question from the one its control asked.
+  //
+  // So `selYear` drives it, unconditionally — the same resolved year every
+  // institution tile and every KPI hint already uses.
   const moneyWindow = useMemo(
-    () =>
-      year != null
-        ? { from: `${year}-01-01`, to: `${year + 1}-01-01` }
-        : { from: null, to: null },
-    [year],
+    () => ({ from: `${selYear}-01-01`, to: `${selYear + 1}-01-01` }),
+    [selYear],
   );
   const build = useCallback(
     (p: GroupModelPayload) =>
       buildAwarderModelFromAggregates(p, GENERIC_CLASSIFIER),
     [],
   );
-  const { model, byUnit } = useAwarderGroupModel(
+  // ⚠ Gated on the report having loaded. `selYear` falls back to the CURRENT
+  // calendar year while `ctx` is in flight, and that year is one the picker
+  // never offers — so an ungated fetch asks for a window the page cannot select,
+  // paints real contracts under a „· 2026" label beside an empty picker, then
+  // discards them. `staleTime: Infinity` means that request is also cached for
+  // the session.
+  const moneyReady = years.length > 0;
+  const { model, byUnit, isLoading } = useAwarderGroupModel(
     ADMIN_SECTOR_EIKS,
     build,
     moneyWindow,
-    true,
+    moneyReady,
+  );
+  // A trend is not a scoped figure. „Възложени по година" stays FULL HISTORY —
+  // the same treatment DivergenceTile and HeadcountByTypeTile already carry —
+  // so scoping the KPIs does not collapse the chart to a single bar. Two
+  // queries; the hook is built for a caller that needs a second instance.
+  const { model: historyModel } = useAwarderGroupModel(
+    ADMIN_SECTOR_EIKS,
+    build,
+    FULL_CORPUS_WINDOW,
+    moneyReady,
   );
   const moneyModel = model as AwarderModel<"all"> | null;
+  const moneyHistory = historyModel as AwarderModel<"all"> | null;
+  // ⚠ THREE STATES, NOT TWO. `useAwarderGroupModel`'s queryFn returns null on a
+  // non-ok response, so a 500 is not an error to React Query: `isError` stays
+  // false and the model is null — indistinguishable, without this, from a year
+  // in which the group genuinely awarded nothing. Collapsing them makes the
+  // page state permanently that four e-government bodies procured nothing,
+  // which is a claim rather than an absence.
+  const moneyPending = !moneyReady || isLoading;
+  const moneyFailed = !moneyPending && moneyModel === null;
+  // The chart carries its own suppression (`years.length < 2`), so the copy
+  // below must not promise it on the strength of the model alone.
+  const hasHistory =
+    (moneyHistory?.years.filter((y) => y.totalEur > 0).length ?? 0) >= 2;
   const awarderN = byUnit.filter((u) => (u.totalEur ?? 0) > 0).length;
-  // Drill-down to the sector contracts browser (all-time, so the count matches
-  // the folded-group KPIs rather than the browser's default parliament window).
-  const sectorContractsHref =
-    "/procurement/contracts?sector=administration&pscope=all";
+  // Drill-down to the sector contracts browser, carrying THIS PAGE'S year — the
+  // KPIs these links hang off are year-scoped, so an all-time href would open a
+  // browser showing 416 contracts under a card that just said 97.
+  const sectorContractsHref = `/procurement/contracts?sector=administration&pscope=y:${selYear}`;
 
   const filled = nat?.positions.filled ?? null;
   const vacant = nat?.positions.vacant ?? null;
@@ -934,25 +978,30 @@ export const AdministrationScreen: FC = () => {
         // deliberately declines to state the succession on the page at all.
         // „сгънати" is the whole claim: these EIKs are summed as one group.
         //
-        // The pointer is to the chips, which render in BOTH branches — the
-        // charts do not exist on an empty scope.
+        // The pointer is to the chips, which render in BOTH branches.
         sub={
           bg
-            ? `Обществените поръчки на ${ADMIN_ENTITIES.length} ведомства за електронно управление, сгънати в една група. Изброени са в края на секцията.`
-            : `Procurement by ${ADMIN_ENTITIES.length} e-government bodies, folded into one group. They are listed at the end of this section.`
+            ? `Обществените поръчки на ${ADMIN_ENTITIES.length} ведомства за електронно управление, сгънати в една група. Числата долу са за ${selYear}; графиката „Възложени по година“ показва цялата история. Ведомствата са изброени в края на секцията.`
+            : `Procurement by ${ADMIN_ENTITIES.length} e-government bodies, folded into one group. The figures below are for ${selYear}; the “Awarded by year” chart shows the full history. The bodies are listed at the end of this section.`
         }
         id="admin-money"
       >
         {moneyModel && moneyModel.totalEur > 0 ? (
           <>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-              <StatCard label={bg ? "Възложени поръчки" : "Total awarded"}>
+              <StatCard
+                label={
+                  bg
+                    ? `Възложени поръчки · ${selYear}`
+                    : `Total awarded · ${selYear}`
+                }
+              >
                 <span className="text-xl font-bold tabular-nums">
                   {formatEurCompact(moneyModel.totalEur, bg ? "bg" : "en")}
                 </span>
               </StatCard>
               <StatCard
-                label={bg ? "Договори" : "Contracts"}
+                label={bg ? `Договори · ${selYear}` : `Contracts · ${selYear}`}
                 to={sectorContractsHref}
               >
                 <span className="text-xl font-bold tabular-nums">
@@ -960,7 +1009,9 @@ export const AdministrationScreen: FC = () => {
                 </span>
               </StatCard>
               <StatCard
-                label={bg ? "Изпълнители" : "Contractors"}
+                label={
+                  bg ? `Изпълнители · ${selYear}` : `Contractors · ${selYear}`
+                }
                 to={sectorContractsHref}
               >
                 <span className="text-xl font-bold tabular-nums">
@@ -968,7 +1019,7 @@ export const AdministrationScreen: FC = () => {
                 </span>
               </StatCard>
               <StatCard
-                label={bg ? "Институции" : "Buyers"}
+                label={bg ? `Институции · ${selYear}` : `Buyers · ${selYear}`}
                 to={sectorContractsHref}
               >
                 <span className="text-xl font-bold tabular-nums">
@@ -976,8 +1027,7 @@ export const AdministrationScreen: FC = () => {
                 </span>
               </StatCard>
             </div>
-            <div className="mt-3 grid gap-3 md:grid-cols-2">
-              <SectorSpendByYearTile model={moneyModel} />
+            <div className="mt-3">
               <SectorTopContractorsTile
                 model={moneyModel}
                 seeAllTo={sectorContractsHref}
@@ -988,10 +1038,27 @@ export const AdministrationScreen: FC = () => {
           </>
         ) : (
           <p className="text-sm text-muted-foreground">
-            {bg
-              ? "Няма поръчки в избрания обхват."
-              : "No contracts in the selected scope."}
+            {moneyPending
+              ? bg
+                ? "Зареждане…"
+                : "Loading…"
+              : moneyFailed
+                ? bg
+                  ? "Данните за поръчките не се заредиха. Опитай да презаредиш страницата."
+                  : "The procurement figures could not be loaded. Try reloading the page."
+                : bg
+                  ? `Няма поръчки през ${selYear}.${hasHistory ? " Графиката по-долу показва цялата история на групата." : ""}`
+                  : `No contracts in ${selYear}.${hasHistory ? " The chart below shows the group's full history." : ""}`}
           </p>
+        )}
+        {/* OUTSIDE the conditional on purpose: this is the group's whole
+            history, not a figure about the selected year, so an empty year must
+            not take it off the page — the empty-state copy above points at it.
+            Same rule as DivergenceTile / HeadcountByTypeTile up the page. */}
+        {hasHistory && moneyHistory && (
+          <div className="mt-3">
+            <SectorSpendByYearTile model={moneyHistory} />
+          </div>
         )}
         <div className="mt-3 flex flex-wrap gap-2">
           {ADMIN_ENTITIES.map((e) => (

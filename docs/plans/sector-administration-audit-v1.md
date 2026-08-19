@@ -17,7 +17,7 @@ never asserts a finding the tree beside it has not acted on.
 | T1 · `MINISTRY_NAMES` `-то` | ✅ shipped (folded into the ЕСМИС commit by review) |
 | T1 · `ADMIN_EIK` repoint | ✅ shipped (same) |
 | T2 · `stateBodyEiks` + `ADMIN_STATE_BODY_CONTRACTORS` | ⏳ open |
-| T2 · money band scoped to the year | ⏳ open |
+| T2 · money band scoped to the year | ✅ shipped |
 | T2 · `parseStructureCounts` label strip | ⏳ open |
 | T4 · `sector_stats_administration.data.test.ts` | ⏳ open |
 | T4 · `administrationReferenceData.test.ts` | ✅ shipped |
