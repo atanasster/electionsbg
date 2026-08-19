@@ -106,7 +106,11 @@ export const TAX_TYPES: {
 // exactly this, with its own regression test. JS `\s` covers NBSP, so this also
 // survives a U+00A0 creeping in from the XLS.
 //
-// Gate: src/data/procurement/useNap.test.ts.
+// Gate: src/data/procurement/useNap.test.ts (this constant + buildComposition,
+// with a mutation check) and scripts/db/tests/sector_stats_revenue.data.test.ts
+// (the same rule re-derived over the LIVE kfp.json). Both were verified to go red
+// on a revert of this line — deliberately stated without counts, which go stale
+// the moment either file gains a case.
 /** Test against a line's `groupLabelBg` — NEVER `labelBg`. The depth-0 subtotal's
  *  OWN labelBg is „Данъчни приходи" and matches this pattern, so testing labelBg
  *  returns the SUBTOTAL instead of its leaves — a row carrying the correct total,
