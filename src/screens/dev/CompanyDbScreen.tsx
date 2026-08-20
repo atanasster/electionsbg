@@ -1690,10 +1690,11 @@ export const CompanyDbScreen: FC = () => {
 
           {/* Sits under the ИСУН money because it qualifies THAT money: how much
               of it was delivered without a correction. Deliberately NOT gated on
-              the funds tile — the registers are built from different exports and
-              a beneficiary can be listed here while `fund_beneficiaries` holds no
-              contracted total. It renders only on a present row and never a zero:
-              absence is not a correction (175). */}
+              the funds tile's own condition — measured, that would hide 77 of the
+              32,420 listed beneficiaries (12 have no `fund_beneficiaries` row at
+              all, 65 have one with a zero contracted total), because the two
+              registers come from different ИСУН exports. It renders only on a
+              present row and never a zero: absence is not a correction (175). */}
           {cleanDelivery && <CompanyCleanDeliveryTile info={cleanDelivery} />}
 
           {/* NOT gated on the ИСУН tile above: Interreg is a separate corpus,
