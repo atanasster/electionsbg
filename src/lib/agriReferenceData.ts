@@ -48,26 +48,33 @@
 // a string's presence in a sibling file; `agriReferenceData.test.ts` now does this
 // for every AGRI_EXTERNAL_BODIES row, in both directions.
 //
-// ⚠ THE 132 ТПДГС/ТПДЛС TIMBER ENTERPRISES ARE DELIBERATELY OUT, and the number is
-// here so the next sweep does not read the omission as an oversight. The шест
-// държавни предприятия по чл. 163 ЗГ and their териториални поделения (държавни
-// горски / ловни стопанства) are МЗХ bodies too, but they are COMMERCIAL enterprises
-// that sell timber rather than administrative units, and at 18,921 contracts /
-// €911.3M they are 1.5× everything else in this file combined — folding them in
-// would make „Земеделие" a forestry-logistics sector by weight. Whether they belong
-// is a sector-boundary decision (audit Phase 3 tier 3), not a curation slip. See
-// docs/plans/agri-sector-audit-v1.md §5.
+// ⚠ THE STATE FORESTRY ENTERPRISES ARE DELIBERATELY OUT, ON KIND AND NOT ON SIZE.
+// The six държавни предприятия по чл. 163 ЗГ and their териториални поделения
+// (държавни горски / ловни стопанства) are МЗХ bodies too, but they are COMMERCIAL
+// undertakings that sell timber rather than administrative units. Whether they
+// belong is a sector-boundary decision (audit Phase 3 tier 3), not a curation slip.
+// See docs/plans/agri-sector-audit-v1.md §5.
 //
-// ⚠ БАБХ FILES UNDER ONE ШАРЕД БУЛСТАТ, AND OTHER BODIES' ROWS SIT INSIDE IT.
-// `176040023` carries SIX distinct names across 585 contracts / €217.56M — three
-// spellings of БАБХ itself (572 rows), plus „Централна лаборатория за химични
-// изпитвания и контрол към БАБХ" (10 / €195k), „ОДБХ … гр. Благоевград" (2 / €475k)
-// and „ОДБХ … гр. Велико Търново" (1 / €179k). One EIK, so a GROUP BY on
-// `awarder_eik` folds them correctly and it is listed ONCE below; listing it twice
-// would double-weight the sector's largest buyer the day this array drives a per-EIK
-// fan-out. Note Благоевград and Велико Търново ALSO have their own separate EIKs
-// (`176986803`, `176987022`) — those rows are real too, and the two sets are
-// disjoint, so neither the parent nor the child double-counts the other.
+// ⚠ NO TOTAL IS QUOTED FOR THAT FAMILY, AND THE ABSENCE IS THE POINT. Four attempts
+// to delimit it BY NAME gave four different answers, each wrong in a new way:
+//   `'%държавно предприятие%' AND '%дп%дп%'`  → €911.3M — sweeps in ДП „Пристанищна
+//      инфраструктура" (transport), ДП РВД, ДП „Радиоактивни отпадъци" (energy) and
+//      Българския спортен тотализатор.
+//   `'%държавно горско стопанство%'` alone     → €146.1M — undercounts: a parent ДП
+//      and its ТП share a Булстат and file rows under both names.
+//   the same folded to EIKs                     → €622.8M — pulls in Лесотехнически
+//      университет's whole €23.5M (it files rows as „Учебно-опитно горско
+//      стопанство") plus six ПГ по горско стопанство, one of them literally named
+//      „Професионална гимназия по земеделие и горско стопанство". The university is
+//      a member of educationReferenceData.ts, so that figure double-books another
+//      sector's roster.
+//   adding `териториално поделение`             → €992.2M — the phrase is generic;
+//      ДП „Пристанищна инфраструктура" uses it too.
+// TWO of those four reached committed files (this header and the plan) before the
+// step-4 gate measured them. So the exclusion is stated as a KIND and the gate
+// asserts MEMBERSHIP — „is any of the 66 known roster EIKs a forestry enterprise",
+// a question over a closed set — rather than a magnitude nothing here can pin down.
+// This file's own first rule applies to its own prose: curate, and measure, by EIK.
 
 /** ДФ „Земеделие“ — the CAP paying agency and the group lead. Re-exported rather
  *  than restated: the digits have one home, in src/data/agri/constants.ts beside the

@@ -160,13 +160,20 @@ They are now roster members, in two universes (`forestry`, `nature_park`).
 ⚠ A **природен** park is МЗХ; a **национален** park (Рила, Пирин, Централен Балкан)
 is МОСВ. The names read alike and only those eleven belong here.
 
-**Deliberately still out: the 132 ТПДГС/ТПДЛС timber enterprises** — the
-териториални поделения of the six чл. 163 ЗГ state forestry enterprises,
-**18,921 contracts / €911.3M**. They are МЗХ bodies, but commercial undertakings
-that sell timber rather than administration, and at 1.5× everything else in the
-roster combined they would make „Земеделие" a forestry-logistics sector by weight.
-Whether they belong is a Phase 3 tier-3 boundary call, not a curation slip — §5
-below records it as open.
+**Deliberately still out: the state forestry ENTERPRISES** — the six чл. 163 ЗГ
+държавни предприятия and their териториални поделения (ДГС/ДЛС). МЗХ bodies, but
+commercial timber undertakings rather than administration. A Phase 3 tier-3
+boundary call, not a curation slip — §5 records it as open.
+
+⚠ **No total is quoted for that family, and the absence is deliberate.** Four
+name-based attempts gave four answers, each wrong in a new way — €911.3M (sweeps in
+ДП „Пристанищна инфраструктура", ДП РВД, ДП „Радиоактивни отпадъци", the sports
+totalizator), €146.1M (undercounts: parent and ТП share a Булстат), €622.8M (pulls
+in Лесотехнически университет's whole €23.5M, an **edu** member, plus six ПГ по
+горско стопанство), €992.2M (`териториално поделение` is a generic phrase). Two of
+those reached committed files before the step-4 gate measured them. The exclusion is
+therefore stated as a KIND of body, and the gate asserts MEMBERSHIP over the 66
+known roster EIKs rather than a magnitude no name pattern can pin down.
 
 **Verified:** all 66 EIKs bear contracts, **zero** appear in any other sector's
 member list, and the roster totals **€597.0M over 3,885 contracts** (vs €131.1M /
@@ -274,7 +281,7 @@ fortnightly.
 - **signature members present with money**: `176040023` (БАБХ) and `831909905`
   (МЗХ) each `> €50M` all-scope.
 - **roster floor**: the 66-EIK sum `> €450M` all-scope (today €597.0M) — catches
-  an over-trim; ceiling `< €800M` — catches re-leakage of Напоителни/ССА, and a floor low enough that the ТПДГС family (€911.3M) cannot be folded in unnoticed.
+  an over-trim; ceiling `< €800M` — catches re-leakage of Напоителни/ССА, and low enough that the forestry-enterprise family (€622.8M) cannot be folded in unnoticed.
 - **`src/lib/agriReferenceData.test.ts`** (no Postgres) carries the anti-allowlist in
   BOTH directions — every `AGRI_EXTERNAL_BODIES` row is really claimed by the sector
   it names, and no roster EIK is claimed by another sector. Mutation-checked against
@@ -302,11 +309,11 @@ fortnightly.
 
 ## 5. Open — not decided by this audit
 
-**Do the 132 ТПДГС/ТПДЛС state forestry enterprises belong in „Земеделие"?**
-18,921 contracts, €911.3M — 1.5× the rest of the roster combined. They are МЗХ
-bodies (чл. 163 ЗГ), so the „one budget principal" rule that built this roster
-would admit them; but they are commercial timber undertakings rather than
-administration, and including them would make the sector's procurement figure
-mostly logging. Excluded for now, measured and documented in
-`agriReferenceData.ts`'s header so the omission cannot be mistaken for an
-oversight. Needs an operator decision before it changes.
+**Do the state forestry ENTERPRISES belong in „Земеделие"?** The six чл. 163 ЗГ
+държавни предприятия and their териториални поделения. They are МЗХ bodies, so the
+„one budget principal" rule that built this roster would admit them; but they are
+commercial timber undertakings rather than administration, and on any of the four
+measurements attempted they are comparable to or larger than the entire rest of the
+roster — enough to make logging the sector's dominant activity by contract count.
+Excluded for now on KIND. ⚠ Anyone re-taking this decision must first settle how the
+family is delimited: see §3a, and do it by EIK, not by name.

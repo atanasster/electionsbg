@@ -166,6 +166,14 @@ import { ADJACENT_EIKS, CULTURE_GROUP_EIKS } from "@/lib/kulturaReferenceData";
 // header for the two gates this primitive exists for.
 import { stripComments } from "@/../scripts/lib/strip_comments";
 import {
+  AGRI_ENTITIES,
+  AGRI_SECTOR_EIKS,
+  AGRI_EXTERNAL_BODIES,
+  AGRI_LEAD_EIK,
+  AGRI_BODY_COUNT,
+  agriFootnote,
+} from "@/lib/agriReferenceData";
+import {
   ENERGY_SECTOR_EIKS,
   ENERGY_MEMBER_EIKS,
   ENERGY_ALIAS_EIKS,
@@ -2481,6 +2489,355 @@ describe("defense sector (budget / МО)", () => {
       [],
       "hardcoded МО roster count — derive it from MO_ENTITIES.length:\n" +
         offenders.join("\n"),
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Земеделие (agri) — audit 2026-08-20, docs/plans/agri-sector-audit-v1.md.
+//
+// The sector's headline is `basis: 'payout'` — CAP money ДФЗ pays to farmers —
+// while its ROSTER is the МЗХ family's procurement. Two bases, one page, and the
+// gates below exist because each fails in a way no other check here would see:
+//
+//   * the headline drifting off `agri_payloads`, or `agri` acquiring a
+//     SECTOR_EIKS entry, which would silently flip the tile from €1.59bn of
+//     payout to €597.0M of procurement with every row count reconciling;
+//   * the roster shrinking back toward the single EIK it was (€131.1M, showing
+//     €2.9M on the default scope) or growing to swallow the 132 ТПДГС timber
+//     enterprises (€911.3M), which would make „Земеделие" a logging sector;
+//   * the three EIK-set copies drifting apart;
+//   * an agricultural VOCATIONAL SCHOOL or a ССА institute leaking in on a name
+//     sweep — both are МОН bodies and both match `%земедел%`.
+//
+// The anti-allowlist's OTHER half — that every AGRI_EXTERNAL_BODIES row is really
+// claimed by the sector it names — lives in src/lib/agriReferenceData.test.ts,
+// which needs no Postgres and so runs on every clone.
+describe("agri sector (ДФЗ/МЗХ; payout headline, procurement roster)", () => {
+  test.skipIf(skip)(
+    "hub headline is payout and reconciles to agri_payloads",
+    async () => {
+      const stats = readJson<SectorStats>(
+        "data/procurement/derived/sector_stats.json",
+      );
+      const a = stats["all"]?.agri;
+      assert.ok(a, "no agri stat for the `all` scope");
+      assert.equal(a.basis, "payout", "agri headline basis changed");
+      assert.equal(a.kind, "eur");
+
+      // The emitted value must BE a published annual payout, not merely near one.
+      // `annual()` resolves `all` to the latest year, so the datum is one row of
+      // agri_payloads and equality is the right assertion — a band would admit a
+      // year-off slip, which is exactly what a stale generator produces.
+      const rows = await allRows<{ key: string; eur: string }>(
+        `select key, (payload->'headline'->>'totalEur')::text eur
+         from agri_payloads
+        where kind = 'overview' and key ~ '^[0-9]{4}$'`,
+      );
+      assert.ok(rows.length >= 5, "agri_payloads has no annual overviews");
+      const byYear = new Map(rows.map((r) => [Number(r.key), Number(r.eur)]));
+      assert.ok(
+        a.year && byYear.has(a.year),
+        `agri headline names year ${a.year}, which agri_payloads has no overview for`,
+      );
+      assert.ok(
+        Math.abs(byYear.get(a.year!)! - a.value) < 1,
+        `agri headline ${a.value} ≠ agri_payloads[${a.year}] ${byYear.get(a.year!)}`,
+      );
+      // …and it must be the LATEST published year, not an older one left behind by
+      // a generator that ran before the newest payout landed.
+      assert.equal(
+        a.year,
+        Math.max(...byYear.keys()),
+        "agri headline is not the latest published CAP year",
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "agri never joins the generator's procurement EIK-sets",
+    () => {
+      // THE tripwire for the basis. Adding `agri` to SECTOR_EIKS in
+      // gen_procurement/sector_stats.ts would move the tile from „ИЗПЛАТЕНО €1,6
+      // млрд." to „ПОРЪЧКИ €597 млн." — a 2.7x drop presented as the same sector's
+      // money — and nothing else in this file would notice, because both numbers
+      // are individually correct.
+      const src = stripComments(
+        fs.readFileSync(
+          path.join(ROOT, "scripts/db/gen_procurement/sector_stats.ts"),
+          "utf-8",
+        ),
+      );
+      const map = src.slice(
+        src.indexOf("const SECTOR_EIKS"),
+        src.indexOf("};", src.indexOf("const SECTOR_EIKS")),
+      );
+      assert.ok(
+        map.length > 40,
+        "could not locate SECTOR_EIKS — update this gate",
+      );
+      assert.ok(
+        !/\bagri\s*:/.test(map),
+        "agri joined SECTOR_EIKS — its hub tile would silently switch from payout to procurement",
+      );
+      // Non-vacuity: the slice really is the map, so a rename cannot pass this.
+      assert.ok(
+        /\bwater\s*:/.test(map),
+        "SECTOR_EIKS slice lost its known members",
+      );
+    },
+  );
+
+  test.skipIf(skip)("the three EIK-set copies stay equal", () => {
+    const norm = (xs: readonly string[]) => [...new Set(xs)].sort();
+    const canonical = norm(AGRI_SECTOR_EIKS);
+    assert.deepEqual(
+      norm(SECTOR_DASHBOARDS.agri.members.map((m) => m.eik)),
+      canonical,
+      "SECTOR_DASHBOARDS.agri.members drifted from AGRI_SECTOR_EIKS",
+    );
+    assert.deepEqual(
+      norm(SECTOR_BROWSE_PACKS.agri.eiks),
+      canonical,
+      "SECTOR_BROWSE_PACKS.agri.eiks drifted from AGRI_SECTOR_EIKS",
+    );
+    assert.equal(
+      SECTOR_DASHBOARDS.agri.leadEik,
+      AGRI_LEAD_EIK,
+      "the agri lead is no longer ДФЗ",
+    );
+    // No duplicates — the judiciary pack shipped two, invisible behind an IN filter.
+    assert.equal(
+      canonical.length,
+      AGRI_SECTOR_EIKS.length,
+      "duplicate agri EIK",
+    );
+
+    // ⚠ THE EQUALITIES ABOVE CANNOT FAIL TODAY, and that is worth stating rather
+    // than pretending otherwise: `SECTOR_BROWSE_PACKS.agri.eiks` IS
+    // `AGRI_SECTOR_EIKS` (same object), and the members array is mapped from the
+    // same source. They are a tripwire for a FUTURE hardcode, and `energy` is the
+    // live proof that hardcoding happens — SECTOR_DASHBOARDS.energy.members
+    // restates nine EIK literals instead of mapping its roster, so a roster edit
+    // there does not propagate. What can fail today is the source scan: neither
+    // consuming site may contain an EIK literal in its agri entry.
+    for (const rel of [
+      "src/screens/sector/sectorDashboards.ts",
+      "src/screens/components/procurement/sectorPacks.tsx",
+    ]) {
+      const src = stripComments(fs.readFileSync(path.join(ROOT, rel), "utf-8"));
+      const i = src.indexOf("agri: {");
+      assert.ok(i > 0, `${rel}: no agri entry found — update this gate`);
+      const entry = src.slice(i, src.indexOf("\n  },", i));
+      const literals = entry.match(/["']\d{9,13}["']/g) ?? [];
+      assert.deepEqual(
+        literals,
+        [],
+        `${rel}: agri entry hardcodes EIK literals instead of importing AGRI_SECTOR_EIKS — ${literals.join(", ")}`,
+      );
+    }
+  });
+
+  test.skipIf(skip)(
+    "the roster's money stays in band, and every member is real",
+    async () => {
+      const total = await sectorSum(AGRI_SECTOR_EIKS);
+      // Measured 2026-08-20: €596,988,935 over 3,885 contracts across 66 EIKs.
+      // FLOOR catches a trim back toward the single-EIK roster (€131.1M) — the state
+      // this audit found. CEILING catches the 132 ТПДГС/ТПДЛС timber enterprises
+      // (€911.3M) being folded in, which is a sector-boundary decision and not a
+      // curation edit; see agriReferenceData.ts's header.
+      assert.ok(
+        total > 450_000_000 && total < 800_000_000,
+        `agri roster € out of band: ${total}`,
+      );
+
+      // Every member must actually be an awarder. A typo'd EIK contributes €0 and is
+      // invisible in the total, but puts a dead chip on the awarders tile.
+      const rows = await allRows<{ eik: string }>(
+        `select distinct awarder_eik eik from contracts
+        where tag='contract' and awarder_eik = any($1)`,
+        [[...AGRI_SECTOR_EIKS]],
+      );
+      const live = new Set(rows.map((r) => r.eik));
+      assert.deepEqual(
+        AGRI_SECTOR_EIKS.filter((e) => !live.has(e)),
+        [],
+        "agri member EIKs with no contracts at all",
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "the signature members carry the money they should",
+    async () => {
+      // БАБХ is the sector's largest buyer and МЗХ its principal; both were in NO
+      // sector before this audit. Pinning them by EIK — never by name — is what
+      // makes a silent removal fail.
+      for (const [eik, name, floor] of [
+        ["176040023", "БАБХ", 150_000_000],
+        ["831909905", "МЗХ", 80_000_000],
+        ["121486802", "ИА по горите", 5_000_000],
+      ] as const) {
+        assert.ok(
+          AGRI_SECTOR_EIKS.includes(eik),
+          `${name} ${eik} left the roster`,
+        );
+        const eur = await sectorSum([eik]);
+        assert.ok(eur > floor, `${name} ${eik} holds only ${eur}`);
+      }
+    },
+  );
+
+  test.skipIf(skip)("no agricultural school or ССА institute leaks in", () => {
+    // The `%земедел%` sweep that finds this roster also returns ~15 „Професионална
+    // гимназия по земеделие" (МОН/municipal) and every ССА institute (edu). Each is
+    // the `7-МО Основно училище` error from the defense audit, in the same shape.
+    const banned: Array<[string, string]> = [
+      ["000847248", 'ПГ по земеделие „Тодор Рачински"'],
+      ["000183295", 'ПГ по земеделие „Стефан Цанов" — Кнежа'],
+      ["000014128", 'ЗПГ „Климент Аркадиевич Тимирязев"'],
+      ["000559000", 'ПЗГ „Добруджа"'],
+      ["000840410", "Добруджански земеделски институт (ССА → edu)"],
+      ["123650307", "Земеделски институт Стара Загора (ССА → edu)"],
+      ["000455440", "УХТ Пловдив (edu)"],
+      ["831160078", "Напоителни системи (water)"],
+    ];
+    const set = new Set(AGRI_SECTOR_EIKS);
+    assert.deepEqual(
+      banned.filter(([e]) => set.has(e)).map(([e, n]) => `${e} (${n})`),
+      [],
+      "a non-МЗХ body leaked into the agri roster",
+    );
+    // …and the externals this roster DISCLAIMS must stay out of it, which is the
+    // half agriReferenceData.test.ts checks from the other side.
+    assert.deepEqual(
+      AGRI_EXTERNAL_BODIES.filter((e) => set.has(e.eik)).map((e) => e.eik),
+      [],
+      "an AGRI_EXTERNAL_BODIES row is also a roster member",
+    );
+  });
+
+  test.skipIf(skip)(
+    "the footnote counts INSTITUTIONS, not awarder records",
+    () => {
+      // „Възложители 66 … от 65 в сектора" rendered live: an EIK count over a body
+      // count. The two differ by the succeeded-body rows.
+      //
+      // ⚠ An arithmetic restatement of that (`BODY_COUNT === EIKS.length −
+      // succeeded`) is VACUOUS — it is true of every possible roster, which a
+      // 19,211-case fuzz confirmed. The defect was in the PROSE, so the gate has to
+      // read the prose: the footnote must open on the institution count and must not
+      // call it „възложителя", the noun reserved for EIKs.
+      const succeeded = AGRI_ENTITIES.filter((e) => e.succeededBy).length;
+      assert.ok(
+        succeeded > 0,
+        "no succeeded body — the two counts now coincide",
+      );
+      assert.ok(AGRI_BODY_COUNT < AGRI_SECTOR_EIKS.length);
+      for (const bgLang of [true, false]) {
+        const f = agriFootnote(bgLang);
+        const noun = bgLang ? "институции" : "institutions";
+        assert.ok(
+          f.startsWith(`${AGRI_BODY_COUNT} ${noun}`),
+          `footnote (${bgLang ? "bg" : "en"}) does not open on the institution count: ${f.slice(0, 60)}`,
+        );
+        assert.ok(
+          !f.includes(`${AGRI_BODY_COUNT} възложителя`),
+          "footnote calls the institution count „възложителя“ — that noun means an EIK",
+        );
+      }
+    },
+  );
+
+  test.skipIf(skip)(
+    "no state forestry ENTERPRISE is in the roster",
+    async () => {
+      // The six чл. 163 ЗГ държавни предприятия and their териториални поделения
+      // (държавни горски / ловни стопанства) are МЗХ bodies and are deliberately
+      // excluded — commercial timber undertakings, not administration.
+      //
+      // ⚠ THIS ASSERTS MEMBERSHIP, NOT SIZE, AND THAT IS THE FINDING. Four attempts
+      // to delimit the family BY NAME produced four different totals, each wrong in
+      // a new way:
+      //   `'%държавно предприятие%' AND '%дп%дп%'`      → €911.3M — sweeps in ДП
+      //      „Пристанищна инфраструктура" (transport), ДП РВД, ДП „Радиоактивни
+      //      отпадъци" (energy) and Българския спортен тотализатор.
+      //   `'%държавно горско стопанство%'` alone        → €146.1M — undercounts,
+      //      because a parent ДП and its ТП share a Булстат and file under both names.
+      //   the same folded to EIKs                        → €622.8M — pulls in
+      //      Лесотехнически университет's whole €23.5M (it files rows as „Учебно-
+      //      опитно горско стопанство") plus six ПГ по горско стопанство. The
+      //      university is a member of educationReferenceData.ts, so the figure
+      //      double-books another sector's roster.
+      //   adding `териториално поделение`                → €992.2M — that phrase is
+      //      generic; ДП „Пристанищна инфраструктура" uses it too.
+      // Two of those four figures reached committed files before this gate was
+      // written. So no total is asserted here and none is quoted in the reference
+      // data: the exclusion rests on the KIND of body, which is checkable, rather
+      // than on a magnitude, which by name is not. What IS precise is the question
+      // this gate asks — does any of the 66 KNOWN roster EIKs file under a forestry-
+      // enterprise name? That is a membership test over a closed set.
+      const leaked = await allRows<{ eik: string; name: string }>(
+        `select distinct awarder_eik eik, min(awarder_name) name from contracts
+          where tag='contract' and awarder_eik = any($1)
+            and (awarder_name ~* '(тпдгс|тпдлс)'
+              or awarder_name ~* 'държавно (горско|ловно) стопанство'
+              or awarder_name ~* '(северно|южно|северо|юго)(западно|източно|централно) държавно предприятие')
+          group by 1`,
+        [[...AGRI_SECTOR_EIKS]],
+      );
+      assert.deepEqual(
+        leaked.map((x) => `${x.eik} (${x.name})`),
+        [],
+        "a state forestry enterprise entered the agri roster",
+      );
+      // Non-vacuity: the pattern must still match SOMETHING in the corpus, or this
+      // gate silently stops asking its question.
+      const [any] = await allRows<{ n: string }>(
+        `select count(distinct awarder_eik)::text n from contracts
+          where tag='contract'
+            and (awarder_name ~* '(тпдгс|тпдлс)'
+              or awarder_name ~* 'държавно (горско|ловно) стопанство')`,
+      );
+      assert.ok(
+        Number(any?.n ?? 0) > 50,
+        `the forestry-enterprise pattern now matches ${any?.n} EIKs — it has gone stale`,
+      );
+    },
+  );
+
+  test.skipIf(skip)("every universe keeps a floor of members", () => {
+    // ⚠ A TOTAL-ONLY BAND CANNOT SEE A UNIVERSE DISAPPEARING. Deleting the audit's
+    // own headline finding — the 16 РДГ and 11 nature parks recovered from no
+    // sector at all — leaves €531.9M, comfortably inside the >€450M floor, with
+    // ИАГ still present to satisfy the signature-member check. Nothing else here
+    // would fail. Per-universe floors are what make that visible; transport and
+    // energy carry the same shape.
+    const n = (u: string) =>
+      AGRI_ENTITIES.filter((e) => e.universe === u).length;
+    const FLOORS: Record<string, number> = {
+      ministry: 1,
+      paying_agency: 1,
+      food_safety: 4,
+      agency: 7,
+      state_enterprise: 1,
+      forestry: 17, // ИАГ + 16 РДГ
+      nature_park: 11,
+      regional_odbh: 16,
+      regional_odz: 8,
+    };
+    const short = Object.entries(FLOORS)
+      .filter(([u, min]) => n(u) < min)
+      .map(([u, min]) => `${u}: ${n(u)} < ${min}`);
+    assert.deepEqual(short, [], "a universe lost members");
+    // …and every declared universe must be in this table, so a new one cannot be
+    // added without a floor — which is how a universe joins with no gate at all.
+    const declared = [...new Set(AGRI_ENTITIES.map((e) => e.universe))].sort();
+    assert.deepEqual(
+      declared,
+      Object.keys(FLOORS).sort(),
+      "a universe is missing from the floor table",
     );
   });
 });
