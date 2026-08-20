@@ -3112,3 +3112,247 @@ select count(*) from budget_admin_procurement;    -- vs local
 Note also that this residue is invisible to the usual verification: both differ by
 single-digit row counts against five-figure totals, and neither appears in the "cloud vs
 local" list earlier profiles in this document check.
+
+## Measured deploy profile (2026-08-20) — the publish killed by a tier upgrade, then re-baselined by it
+
+Seventh profile, and the only one that ran on two different machines. `contracts` was
+killed 41 minutes in by an instance restart, and the whole publish was then re-run in
+**24 minutes** on the upgraded tier. Both halves are findings.
+
+Baselines before the run — cloud `contracts` 409,392 (max date 2026-08-17), `tenders`
+237,668, `procurement_annexes` 24,258, `awarder_seats` **3,867**, `contractor_rank`
+432,228, `person_browse_table` 136,863; local ahead at 409,644 / 237,806 / 24,380 /
+3,878 / 432,404 / 136,863.
+
+Published: the ЦАИС ЕОП self-heal (+250 contracts, +€102.6 m), tenders to 237,806, the
+annex fold, the geo-override map at 2,170, and the myarea / macro / administration /
+hub-stats artifacts. `prices` held (F50), КЗК absent (crawl 403s from non-BG egress).
+
+**Attempt 1** (on `db-g1-small`, killed by the tier upgrade):
+
+| # | step | seconds | rc | |
+|--:|---|--:|--:|---|
+| 1 | `bucket:sync:paths` (7 paths) | 43 | 0 | myarea, macro, administration, data-changes, hub/sector stats |
+| 2 | `contracts` | **2472** | **1** | killed mid-load — see F48 |
+| — | (chain stopped deliberately) | — | — | 11 remaining steps all depend on `contracts` — see F49 |
+
+**Attempt 2**, run once the UPDATE reported `DONE`, on **`db-perf-optimized-N-2`**.
+12 steps, **every one `rc=0`**, total **1448 s = 24 m 08 s**:
+
+| # | step | s | vs F25 (`db-g1-small`) | speedup |
+|--:|---|--:|--:|--:|
+| 1 | `contracts` | **456** | 5370 | **11.8x** |
+| 2 | `tenders` | 192 | 1152 | 6.0x |
+| 3 | `annexes` | 115 | 187 | 1.6x |
+| 4 | `awarder-seats` | **77** | 914 | **11.9x** |
+| 5 | `transport-map` | 222 | 334 | 1.5x |
+| 6 | `water-map` | 2 | 3 | 1.5x |
+| 7 | `mvr-map` | 12 | 18 | 1.5x |
+| 8 | `persons-browse` | 42 | 214 | 5.1x |
+| 9 | `person-search` | 51 | 493 | **9.7x** |
+| 10 | `graph` | 34 | 212 | 6.2x |
+| 11 | `tr-company-place` | 106 | 128 | 1.2x |
+| 12 | `refresh-risk` | 139 | 912 (2026-08-18) | 6.6x |
+| | **total** | **1448** | 10575 | **7.3x** |
+
+`procurement-scopes` is absent by design (F20/F42). The payoff was visible in
+`pg_stat_activity` during step 4: `REFRESH MATERIALIZED VIEW **CONCURRENTLY**
+procurement_payloads`, i.e. the matviews were still populated, so there was no
+AccessExclusiveLock window and no `/procurement/contractors` outage.
+
+### F48 — a Cloud SQL instance UPDATE restarts the server mid-load, and the client error is a lie
+
+The client saw `Connection terminated unexpectedly` from `pg`. F40 established that this
+usually means the client died and the server carried on. This run is the **inverse**, and
+nothing in the client's output distinguishes them:
+
+```
+postmaster_start = 2026-08-20 08:59:55    uptime = 00:01:14
+```
+
+The **server** had restarted, 74 seconds before the check, which is exactly when the
+2472-second step ended. `gcloud sql operations list` gave the cause:
+
+```
+TYPE     STATUS   START
+UPDATE   RUNNING  2026-08-20T08:57:51+00:00      <-- still running
+```
+
+An instance **UPDATE was in flight**, and `gcloud sql instances describe` reported the
+tier as **`db-perf-optimized-N-2`** where every previous profile in this document ran on
+`db-g1-small`.
+
+**The upgrade was operator-initiated, started deliberately while the publish was
+running** (confirmed by the operator immediately after). That is the important half of
+this finding and it makes the hazard far more likely to recur than scheduled maintenance
+would: the failure mode is one person doing two reasonable things at once, and from the
+client's side an intentional tier upgrade and a Google-side restart are the same six
+words of stack trace. Nothing in `npm run db:load:pg:cloud` knows the instance is being
+changed, and nothing in the Cloud Console knows a 90-minute publish is in progress.
+
+**Nothing was published, and that is the good news.** Unlike F40's shape, the stage-merge
+transaction rolled back cleanly:
+
+| probe | before | after the failure |
+|---|--:|--:|
+| `contracts` | 409,392 | 409,392 |
+| `SUM(amount_eur) WHERE tag='contract'` | 93,666,856,916 | 93,666,856,916 |
+| `max(date)` | 2026-08-17 | 2026-08-17 |
+| `budget_admin_procurement` | 616 | 616 (equal to local) |
+
+So there is **no F47 residue** to reconcile — the failure landed before the COPY committed
+rather than between the COPY and the recompute. F41's orphaned-lock check was also clean:
+`pg_stat_activity` showed only autovacuum and the next step's own COPY. The whole cost was
+41 minutes of wall time.
+
+**The preflight is therefore a guard against ourselves, not against Google.** It costs one
+`gcloud` call and it is the only thing standing between a routine tier change and a
+silently discarded 41-minute step. The converse guard is human and belongs in the runbook:
+**do not resize, restart or fail over the instance while a publish is running** — check for
+a live `db:load:*:cloud` first.
+
+```bash
+# refuse to start while the instance is being changed underneath you
+gcloud sql operations list --instance=electionsbg-pg --project=elections-bg \
+  --limit=1 --format='value(status)'          # must not be RUNNING
+psql "$CLOUD" -tAc "select now()-pg_postmaster_start_time()"   # sanity: not seconds old
+```
+
+And after any `Connection terminated unexpectedly`, `pg_postmaster_start_time()` is the
+**first** thing to check — it separates F40 (client died, work landed) from F48 (server
+died, work rolled back) in one query, and they call for opposite responses: F40 wants a
+recovery step, F48 wants a plain retry.
+
+### F49 — 11 of 13 steps depend on `contracts`, so a contracts failure should stop the chain
+
+F45 established that a deploy driver must **continue** past a failing step rather than
+halt, and that remains right for independent steps — it is why one dropped connection on
+2026-08-18 did not strand the four steps behind it.
+
+It is wrong here, and the driver used today inherited the flaw. Of the 13 steps in a
+procurement-only publish, only `bucket:sync` and `tenders` are independent of `contracts`.
+The other eleven — `annexes`, `awarder-seats`, the three crosswalk maps, `persons-browse`,
+`person-search`, `graph`, `tr-company-place`, `refresh-risk` — all derive from the
+contracts corpus, so running them after a failed contracts load computes them against the
+**previous vintage**. They would not be internally wrong; they would be a self-consistent
+publish of stale data, and every one of them would need re-running anyway.
+
+Measured from F25's step table, that is **~3,415 s (57 min)** of cloud work that a
+continue-past-failure driver spends for nothing — plus a second pass of F46's reader
+degradation and of the AccessExclusiveLock windows in `awarder-seats` and `refresh-risk`,
+both against live production traffic.
+
+So F45 needs a qualifier rather than a reversal:
+
+- **Continue** past a failing step whose dependents are unaffected.
+- **Stop** when the failed step is one the rest of the chain derives from. In this
+  chain that is exactly `contracts`.
+
+The cheap encoding is a per-step `critical` flag in the driver, defaulting off, set on
+`contracts`. Attempt 1 was stopped by hand after reading the monitor, which worked only
+because someone was watching; attempt 2's driver carries the flag.
+
+### F50 — the prices hold is now a Билла hold, not a Kaufland one
+
+The 2026-08-18 profile records `prices` as absent because the upstream feed had been
+"missing Kaufland since 08-15". Re-measured on 2026-08-20 against the cached day archives,
+that description has aged into a wrong one, in a way that matters for deciding when the
+hold can end:
+
+| chain | 08-14 | 08-15 | 08-19 |
+|---|--:|--:|--:|
+| Кауфланд | 144,211 | **absent** | 144,002 — **recovered** |
+| Билла | 171,275 | 1,768 | **198** — still gone |
+
+Kaufland came back. **Билла has not**, five days on, under the same filename and the same
+ЕИК (`130007884`), with no new chain absorbing its volume and no survivor growing to match.
+The 08-15 load trips the >20% floor on the pair; 08-19 alone is −17.9% and would pass it
+unaided, which is the trap — the floor is a per-day delta and Билла's absence has become
+the new normal against which tomorrow looks fine.
+
+This matters because `load_day.ts` rewrites `price_current` from each day's own
+observations and **deletes rows absent from it**. Loading any of 08-15…08-19 therefore
+removes every Билла price from the serving table, silently changing the cheapest-basket
+ranking, the per-settlement medians and every affected `/product/:slug`. The hold is
+correct, but its **release condition is "Билла returns", not "the floor stops tripping"** —
+and those two will diverge as soon as the missing chain falls out of the comparison window.
+
+### F51 — the tier change re-baselines the whole document: 2 h 56 m becomes 24 m
+
+Attempt 2 is the same 12-step procurement publish F25 measured at **10,575 s (2 h 56 m)**
+on `db-g1-small`. On `db-perf-optimized-N-2` it is **1,448 s (24 m 08 s)** — **7.3x
+faster overall**, with the two whales collapsing hardest:
+
+- `contracts` **5370 s → 456 s (11.8x)**. This is the step every profile since F23 has
+  called "half the publish". It is now 31% of a much smaller total.
+- `awarder-seats` **914 s → 77 s (11.9x)**. F25 established that ~900 s of its 914 was a
+  scoped-matview refresh that `procurement-scopes` then threw away; dropping that step
+  (F20/F42) plus the faster tier leaves 77 s of actual work.
+
+The mechanism is visible rather than inferred. The new instance reports
+`shared_buffers = 5332MB` across 8 workers; `db-g1-small` has 1.7 GB of RAM in total, so
+its buffers were ~400 MB against a `contracts` table of 409,644 rows plus indexes. F25
+recorded the contracts client blocked on `IO/DataFileRead` with a 1,012 s open
+transaction — that working set now fits in cache, and the steps that gained least
+(`tr-company-place` 1.2x, the three crosswalk maps ~1.5x) are precisely the small ones
+that were never I/O-bound.
+
+**Consequences for this document, stated plainly:**
+
+- **Every timing in F23, F25, F36 and the 2026-08-16 / 2026-08-18 profiles is now
+  historical.** They remain valid as records of `db-g1-small` and as the source of the
+  structural findings (which step depends on which, what is refreshed twice, where the
+  locks are) — but they must not be quoted as expectations.
+- **CLAUDE.md's "contracts ~68 min" was already 22 minutes optimistic per F25; it is now
+  wrong by an order of magnitude in the other direction.** The honest replacement is
+  ~8 minutes, from this single measurement, and it should be re-confirmed on the next
+  publish before being treated as a baseline.
+- **The optimisation backlog changes shape.** F25's headline recommendation — recover the
+  ~900 s of duplicated matview refresh — is now worth ~77 s. The remaining structural
+  findings (F42's recovery path, F46's reader degradation, F49's dependency halt) are
+  unaffected, because they are about correctness and availability rather than speed.
+
+#### Parity after the run
+
+11 of 13 relations and 3 of 4 content probes matched exactly, including the F43-style
+content bases: `contracts` 409,644 / `SUM(amount_eur)` 93,769,415,944 / `max(date)`
+2026-08-19 / `person_browse_table.SUM(public_money_eur)` 216,718,635,276, all equal.
+
+`awarder_risk_grade_scoped` is **equal at 12,369** — F47's residue from the 2026-08-18
+deploy closed itself, confirming that finding's analysis that `load_pg.ts` is its only
+writer and a *completed* contracts run is the repair. `budget_admin_procurement` likewise
+616/616.
+
+Three residues remain, all traced and none a defect of this publish:
+
+| relation | local | cloud | cause |
+|---|--:|--:|---|
+| `person_role` | 323,450 | 323,445 | only `db:resolve:persons` rebuilds it; `update-persons` was not run |
+| `graph_edge` | 200,034 | 200,029 | derives from each database's own `person_role` — the same 5 rows |
+| `tr_company_place` money | €24.615 bn | €24.646 bn | tracks `company_public_money` (81,444 vs 81,449), same link layer |
+
+The €30.4 m gap is 0.12% of the basis. All three close on the next `update-persons` run;
+none is reachable by any loader in the procurement chain, which is exactly the shape
+CLAUDE.md warns about when it notes `person_role` has "no loader at all".
+
+### F52 — an orphaned load from another session was writing to prod throughout
+
+Observed mid-publish in `pg_stat_activity`: a `COPY tender_notice_stage` that belonged to
+none of the twelve steps. It traced to **PID 11733, PPID 1** — an orphaned
+`db:load:tender-dossier:pg:cloud` started at **05:05**, four hours before this publish,
+whose shell had since died. It was not wedged: cloud `tender_notice` was 154,210 against
+local's 212,961 and climbing, i.e. a legitimate dossier publish roughly two thirds done.
+
+Nothing collided, for a reason worth recording: `tender_notice_stage` is a **temp table**,
+so it is private to its own session and invisible to F22's global-stage-name hazard. None
+of the twelve steps reference it. But the situation is F22-adjacent and would have been a
+real collision had the dossier loader used a permanent stage.
+
+Two operational notes:
+
+- **`ps` alone is not enough to know what is writing to prod.** The orphan had no parent
+  to trace and no terminal; only `pg_stat_activity` plus a PID lookup identified it.
+- **A publish should not assume it is the only writer.** The F48 preflight above should
+  arguably also check for other active non-idle sessions on the target and report them,
+  rather than silently sharing the instance with a four-hour load.
+
