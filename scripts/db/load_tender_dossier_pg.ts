@@ -126,6 +126,18 @@ interface Scope {
   unps: string[];
 }
 
+/** Half-open tenderId window `(after, upTo]` — the key the publish is sliced on.
+ *  A tenderId range IS a УНП set here: measured on the full capture, 0 of 50,283
+ *  УНП span more than one tenderId, so a slice can never cut a procedure in half
+ *  and no slice's УНП-scoped DELETE can touch a row another slice owns. Slicing on
+ *  the store's own primary key is also what makes it cheap — each slice reads its
+ *  own rows through the keyset index instead of decompressing the whole 1.7 GB
+ *  store and discarding 90% of it, which is what a УНП-set filter would cost. */
+export interface IdRange {
+  after: number;
+  upTo: number;
+}
+
 const readScope = (store: EopDossierStore): Scope => {
   const unpByTender = new Map<number, string>();
   for (const { subjectId, body } of store.iterate<Details>("details")) {
@@ -159,10 +171,15 @@ const docRow = (
   wcfDate(d.CreatedDate),
 ];
 
-function* genDossier(store: EopDossierStore): Generator<unknown[]> {
+function* genDossier(
+  store: EopDossierStore,
+  range?: IdRange,
+): Generator<unknown[]> {
   const now = new Date().toISOString();
   for (const { subjectId: tenderId, body } of store.iterate<Details>(
     "details",
+    500,
+    range,
   )) {
     const unp = body.SpecialNumber?.trim();
     if (!unp) continue;
@@ -189,10 +206,13 @@ function* genDossier(store: EopDossierStore): Generator<unknown[]> {
 function* genDocuments(
   store: EopDossierStore,
   sc: Scope,
+  range?: IdRange,
 ): Generator<unknown[]> {
   const seen = new Set<number>();
   for (const { subjectId: tenderId, body } of store.iterate<Details>(
     "details",
+    500,
+    range,
   )) {
     const unp = body.SpecialNumber?.trim();
     if (!unp) continue;
@@ -204,6 +224,8 @@ function* genDocuments(
   }
   for (const { subjectId: tenderId, body } of store.iterate<{ Id?: number }[]>(
     "announcements",
+    500,
+    range,
   )) {
     const unp = sc.unpByTender.get(tenderId);
     if (!unp) continue;
@@ -219,9 +241,14 @@ function* genDocuments(
   }
 }
 
-function* genNotices(store: EopDossierStore): Generator<unknown[]> {
+function* genNotices(
+  store: EopDossierStore,
+  range?: IdRange,
+): Generator<unknown[]> {
   for (const { subjectId: tenderId, body } of store.iterate<Details>(
     "details",
+    500,
+    range,
   )) {
     const unp = body.SpecialNumber?.trim();
     if (!unp) continue;
@@ -256,10 +283,11 @@ function* genNotices(store: EopDossierStore): Generator<unknown[]> {
 function* genAnnouncements(
   store: EopDossierStore,
   sc: Scope,
+  range?: IdRange,
 ): Generator<unknown[]> {
   for (const { subjectId: tenderId, body } of store.iterate<
     { Id?: number; Title?: string; Text?: string; CreatedDate?: string }[]
-  >("announcements")) {
+  >("announcements", 500, range)) {
     const unp = sc.unpByTender.get(tenderId);
     if (!unp) continue;
     for (const a of body ?? []) {
@@ -279,6 +307,7 @@ function* genAnnouncements(
 function* genContractItems(
   store: EopDossierStore,
   sc: Scope,
+  range?: IdRange,
 ): Generator<unknown[]> {
   for (const { subjectId: tenderId, body } of store.iterate<{
     ContractListItems?: {
@@ -297,7 +326,7 @@ function* genContractItems(
       }[];
       Annexes?: unknown[];
     }[];
-  }>("contract_items")) {
+  }>("contract_items", 500, range)) {
     const unp = sc.unpByTender.get(tenderId);
     if (!unp) continue;
     for (const ci of body.ContractListItems ?? []) {
@@ -687,32 +716,10 @@ const main = async (args: { apply: boolean }): Promise<void> => {
     return;
   }
 
+  // Keyed on their own identity (orgId / document md5) rather than on a УНП, so
+  // they have no tenderId dimension to slice on and no scope to delete within —
+  // upsert only, once, outside the slice loop.
   await withTx(async (c) => {
-    await scopedMerge(c, "tender_dossier", genDossier(store), "unp", sc.unps);
-    await scopedMerge(
-      c,
-      "tender_document",
-      genDocuments(store, sc),
-      "unp",
-      sc.unps,
-    );
-    await scopedMerge(c, "tender_notice", genNotices(store), "unp", sc.unps);
-    await scopedMerge(
-      c,
-      "tender_announcement",
-      genAnnouncements(store, sc),
-      "unp",
-      sc.unps,
-    );
-    await scopedMerge(
-      c,
-      "tender_contract_item",
-      genContractItems(store, sc),
-      "unp",
-      sc.unps,
-    );
-    // Keyed on their own identity, not on a УНП, so a partial capture has no scope
-    // to delete within — upsert only.
     await scopedMerge(
       c,
       "tender_buyer_profile",
@@ -721,8 +728,84 @@ const main = async (args: { apply: boolean }): Promise<void> => {
       [],
     );
     await scopedMerge(c, "tender_document_text", genDocText(store), null, []);
-    await rebuildSearchText(c, sc.unps);
   });
+
+  // ── The sliced publish ─────────────────────────────────────────────────────
+  // Publishing the whole capture in ONE transaction exceeded Cloud SQL's
+  // `temp_file_limit` (2,569,247 kB; local Postgres is `-1`, so this is a
+  // cloud-ONLY failure class that no local run can reproduce) and then dropped the
+  // connection outright. Each slice now commits on its own.
+  //
+  // The trade, stated rather than hidden: we give up all-or-nothing PUBLICATION,
+  // not consistency. Every merge in a slice is УНП-scoped and no УНП spans two
+  // slices (see IdRange), so an interrupted run leaves some procedures at the new
+  // vintage and the rest at the old — never a half-written procedure, never an
+  // orphan row. Re-running is the repair and it is idempotent.
+  //
+  // ⚠️ Slice on the tenderId RANGE, never on a УНП set filtered out of a full
+  // walk. The generators read the store, and a set filter still decompresses all
+  // 1.7 GB per slice to discard ~90% of it — measured at >13 min per slice against
+  // ~2 min for the ranged read, i.e. the walk, not the database, becomes the cost.
+  const SLICE_TENDERS = 5_000;
+  const tenderIds = [...sc.unpByTender.keys()].sort((a, b) => a - b);
+  const slices: { range: IdRange; unps: string[] }[] = [];
+  for (let i = 0; i < tenderIds.length; i += SLICE_TENDERS) {
+    const chunk = tenderIds.slice(i, i + SLICE_TENDERS);
+    slices.push({
+      range: {
+        after: i === 0 ? -1 : tenderIds[i - 1],
+        upTo: chunk[chunk.length - 1],
+      },
+      unps: [...new Set(chunk.map((id) => sc.unpByTender.get(id) as string))],
+    });
+  }
+
+  let done = 0;
+  for (const [i, sl] of slices.entries()) {
+    await withTx(async (c) => {
+      const { range, unps } = sl;
+      await scopedMerge(
+        c,
+        "tender_dossier",
+        genDossier(store, range),
+        "unp",
+        unps,
+      );
+      await scopedMerge(
+        c,
+        "tender_document",
+        genDocuments(store, sc, range),
+        "unp",
+        unps,
+      );
+      await scopedMerge(
+        c,
+        "tender_notice",
+        genNotices(store, range),
+        "unp",
+        unps,
+      );
+      await scopedMerge(
+        c,
+        "tender_announcement",
+        genAnnouncements(store, sc, range),
+        "unp",
+        unps,
+      );
+      await scopedMerge(
+        c,
+        "tender_contract_item",
+        genContractItems(store, sc, range),
+        "unp",
+        unps,
+      );
+      await rebuildSearchText(c, unps);
+    });
+    done += sl.unps.length;
+    console.log(
+      `  slice ${i + 1}/${slices.length} — ${done.toLocaleString()} procedure(s) published`,
+    );
+  }
   store.close();
 
   const { rows } = await getPool().query<{ t: string; n: string }>(

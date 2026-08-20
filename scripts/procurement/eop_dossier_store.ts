@@ -326,6 +326,7 @@ export class EopDossierStore {
   *iterate<T>(
     kind: DossierKind,
     pageSize = 500,
+    range?: { after?: number; upTo?: number },
   ): Generator<{ subjectId: number; body: T }> {
     // A zero/negative page size yields LIMIT 0, so the first page is empty and the
     // walk returns having produced nothing — indistinguishable from an empty table.
@@ -334,14 +335,23 @@ export class EopDossierStore {
       throw new Error(
         `iterate: pageSize must be a positive integer, got ${pageSize}`,
       );
+    // The half-open range (after, upTo] lets a caller walk one slice of the store
+    // without decompressing the rest. It rides the same keyset index as the full
+    // walk, so a slice costs its own rows and nothing more — the reason the dossier
+    // loader can publish in slices at all. An inverted range is a caller bug, and
+    // yielding nothing would look exactly like an empty slice, so it throws.
+    const after0 = range?.after ?? -1;
+    const upTo = range?.upTo ?? Number.MAX_SAFE_INTEGER;
+    if (after0 > upTo)
+      throw new Error(`iterate: inverted range (${after0}, ${upTo}]`);
     const stmt = this.db.prepare(
       `SELECT subject_id, body_gz, byte_len FROM eop_dossier
-        WHERE kind = ? AND subject_id > ?
+        WHERE kind = ? AND subject_id > ? AND subject_id <= ?
         ORDER BY subject_id LIMIT ?`,
     );
-    let after = -1;
+    let after = after0;
     for (;;) {
-      const rows = stmt.all(kind, after, pageSize) as {
+      const rows = stmt.all(kind, after, upTo, pageSize) as {
         subject_id: number;
         body_gz: Uint8Array;
         byte_len: number;
