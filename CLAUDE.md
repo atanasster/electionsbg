@@ -3185,13 +3185,25 @@ Five things about it are easy to get backwards:
 
 - **The rule exists TWICE and the two must agree.** `owner_share.ts`
   (`scripts/declarations/tr/`) is the TypeScript twin, because the SQLite corpus is written
-  offline before Postgres exists and its `share_percent` reaches `/mp-company/:eik` through
-  `integrate.ts` → `companies-index.json`, which renders the number directly. ⚠️ Its change
-  is **INERT** until the corpus is rebuilt — `npm run tr:daily-refresh` then
-  `db:load:tr:pg` — and the gate SKIPS with a distinct reason until then, which must never
-  read as "the twins agree". Note `project_cr_deeds.ts` is a SECOND writer into the same
-  table and runs AFTER `sqlite_writer`, so it re-derives over the merged row set; without
-  that the stored value and the view partition over different rows and cannot agree.
+  offline before Postgres exists and two BUILD-TIME artifacts render its `share_percent`
+  directly: `companies-index.json` (via `integrate.ts`, read by `/mp/company/:slug`) and
+  `data/officials/derived/company_links.json` (via `build_officials_company_links.ts`, which
+  becomes `pep_connected` → `company_politicians.relations`). ⚠️ Its change is **INERT**
+  until the corpus is rebuilt — `npm run tr:daily-refresh` then `db:load:tr:pg` — and the
+  gate SKIPS with a distinct reason until then, which must never read as "the twins agree".
+  Note `project_cr_deeds.ts` is a SECOND writer into the same table and runs AFTER
+  `sqlite_writer`, so it re-derives over the merged row set; without that the stored value
+  and the view partition over different rows and cannot agree.
+
+  ⚠️ **THE TWIN AND THE VIEW DO NOT SHARE A COLUMN, AND THAT IS WHY THE GATE COMPARES TWO
+  IMPLEMENTATIONS RATHER THAN CHECKING ONE.** The twin writes `company_persons.share_percent`,
+  which `load_tr_pg.ts` COPYs into **`tr_person_roles.share`** — and `tr_owner_share` never
+  reads that column. The view re-derives from `share_amount` + `share_currency` through
+  `tr_share_eur`. So they are two outputs of one rule, not one value computed twice, and a
+  fix applied to either alone leaves the other publishing the old answer at a 200.
+  Consequence for any retirement: killing a RENDERING consumer does not make the twin dead
+  code — `tr_person_roles.share` still comes from it. (`docs/plans/company-page-consolidation-v1.md`
+  proposes retiring `companies-index.json`, i.e. the first of the two artifacts above.)
 
 - ⚠️ **„Заличено обстоятелство." IS NOT A PERSON.** It is the register's deleted-fact
   placeholder — 4,356 owner rows carry it, not one has an amount — and counting it as an
