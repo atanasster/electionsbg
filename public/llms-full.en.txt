@@ -860,6 +860,10 @@ The reason is not transparency for its own sake. **When a contract page says "co
 
 Seventeen checks: thirteen on a signed contract and four on the procedure itself, which can fire while bids are still open. Each one now states its threshold, where that threshold comes from, what data it needs before it can be evaluated at all, and how often it fires in the Bulgarian corpus.
 
+![The "fired flags" block on a contract page: the letter grade, the "4 of 10 applicable checks" counter, and the full ledger — the four checks that fired, the six that passed, and the three that cannot be evaluated at all, each with its explanation and legal basis.](/articles/images/procurement-risk/02-signals.webp)
+
+Here is what that looks like on one contract — awarded by the Road Infrastructure Agency to Avtomagistrali EAD. The ledger is always open and always complete: not only what fired, but what passed, and what could not be checked at all — with the reason why.
+
 A few of those numbers are worth saying out loud, because on their own they answer the question "how bad is it":
 
 - **62.6% of contracts fire no check at all.** Another 30.5% fire exactly one.
@@ -875,6 +879,10 @@ So: the tool does not find corruption everywhere. If it did, that would be groun
 **One check points in an unsettled direction.** We score a decision period that is too *short*. The source we build on justifies the risk through the opposite mechanism — that a long decision period leaves room for repeated appeals until the contract reaches a chosen company. The international catalogue we compared against publishes indicators for both directions. Ours has one. That contradiction is unresolved, and it is recorded next to the check itself.
 
 **The two A–F grades use different weights, and we are not certain they should.** The buyer grade was rebalanced in July 2026: the weight on direct award went up and the weight on single bidding went down, because against the European comparison Bulgaria is a dramatic outlier on the first and thoroughly average on the second. The supplier grade kept the old weights. Whether that is deliberate — a supplier does not choose the procedure type — or simply an unfinished change, has not been decided. We publish both sets and say the question is open.
+
+![Two grade cards for the same entity: "as a buyer" — B, 23 of 100, with components politically linked suppliers 0%, single-bid awards 26%, direct awards 3%, supplier concentration 74%, КЗК-upheld appeals 33%; and "as a supplier" — F, 90 of 100, with components politically linked 100%, single-bid awards 87%, direct awards 65%, reliance on one buyer 100%.](/articles/images/procurement-risk/01-grades.webp)
+
+One entity can carry both grades at once. Avtomagistrali EAD is a B as a buyer and an F as a supplier — not because one grade refutes the other, but because these are two different roles, measured over different components and with different weights. Those weights are the question we leave open.
 
 ## A flag is not a verdict
 
