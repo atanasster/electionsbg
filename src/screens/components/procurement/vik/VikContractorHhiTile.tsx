@@ -14,7 +14,6 @@
 // concession in one language only.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PieChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -24,11 +23,17 @@ import {
   HHI_BAND_COLOR,
   hhiBand,
 } from "@/lib/textbookPublishers";
+import { isConsortiumSupplier } from "@/lib/companyKey";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 interface Supplier {
   eik: string;
   name: string;
   totalEur: number;
+  /** € won as a consortium carrier (061 → AwarderSupplier). Optional so a caller
+   *  folding an older payload still type-checks; `null`/absent means „unknown",
+   *  which `isConsortiumSupplier` degrades to the key-prefix check. */
+  consortiumEur?: number | null;
 }
 
 const TOP_N = 8;
@@ -164,12 +169,12 @@ export const VikContractorHhiTile: FC<{
               <div key={s.eik} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2">
                   <span className="flex min-w-0 items-baseline gap-1.5">
-                    <Link
-                      to={`/company/${s.eik}`}
+                    <CompanyLink
+                      eik={s.eik}
                       className="min-w-0 truncate hover:text-primary hover:underline"
                     >
                       {s.name}
-                    </Link>
+                    </CompanyLink>
                     {inGroup && (
                       <span
                         className="shrink-0 rounded bg-muted px-1 py-px text-[10px] font-medium text-muted-foreground"
@@ -180,6 +185,18 @@ export const VikContractorHhiTile: FC<{
                         }
                       >
                         {bg ? "в групата" : "in-group"}
+                      </span>
+                    )}
+                    {isConsortiumSupplier(s) && (
+                      <span
+                        className="shrink-0 rounded bg-muted px-1 py-px text-[10px] font-medium text-muted-foreground"
+                        title={
+                          bg
+                            ? "Няколко фирми, спечелили заедно. Сумата е на целия договор и се брои веднъж."
+                            : "Several firms that won together. The figure is the whole contract and is counted once."
+                        }
+                      >
+                        {bg ? "консорциум" : "consortium"}
                       </span>
                     )}
                     {isStateBody && (
@@ -232,6 +249,13 @@ export const VikContractorHhiTile: FC<{
             {bg
               ? "„Държавно“ = изпълнителят е държавна или общинска структура извън сектора — парите не напускат държавата. И тези договори са в индекса: те са реални обществени поръчки, но не са спечелени на конкурентен пазар."
               : "“State body” = the contractor is a state or municipal organisation outside this sector — the money never leaves government. These are in the index too: they are real public procurements, but they were not won on a competitive market."}
+          </p>
+        )}
+        {top.some(isConsortiumSupplier) && (
+          <p className="text-[11px] text-muted-foreground">
+            {bg
+              ? "„Консорциум“ = няколко фирми, спечелили заедно. Сумата е на целия договор и се брои веднъж — но участник в консорциум може да има и собствен ред тук, така че концентрацията по фирма е подценена."
+              : "“Consortium” = several firms that won together. The figure is the whole contract and is counted once — but a member firm may also hold its own row here, so per-firm concentration is understated."}
           </p>
         )}
 

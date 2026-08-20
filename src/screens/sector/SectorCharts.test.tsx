@@ -189,10 +189,13 @@ describe("SectorTopContractorsTile — consortium carriers", () => {
     ).toBeInTheDocument();
   });
 
-  it("associates the consortium row with the note that explains it", () => {
+  // Anchored on the CHIP, like „в групата" and „държавно" — not on the name. A
+  // registered ДЗЗД carries an ordinary company name with no „Обединение" token
+  // in it, so the chip is the only thing a reader can see to be explained.
+  it("associates the consortium chip with the note that explains it", () => {
     renderWithCarrierAt(0);
-    const row = screen.getByTitle("Обединение: А1 България ЕАД, Контракс АД");
-    expect(row.getAttribute("aria-describedby")).toBe(
+    const chip = screen.getByText("консорциум");
+    expect(chip.getAttribute("aria-describedby")).toBe(
       "sector-topcontractors-consortium-note",
     );
     expect(
