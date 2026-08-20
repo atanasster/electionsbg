@@ -315,6 +315,66 @@ threshold that year", the exact false finding this dataset exists to prevent —
 `ted_coverage` carries the per-year counts so the ramp stays visible. `ted_buyer_reconciliation()`
 therefore takes an explicit date range and has no „all time" default.
 
+`aop_expert` / `aop_expert_area` (migration 174, `db:load:aop-experts:pg`) is the АОП
+register of external experts under чл. 232а, ал. 2 ЗОП — the people a contracting authority
+may co-opt onto an evaluation committee. Its source is COMMITTED
+(`data/procurement/aop_experts.json`, 88 rows), so the loader is pure-load and a fresh clone
+builds the table with no network; `npm run aop:experts` re-crawls.
+
+```bash
+npm run db:load:aop-experts:pg:cloud
+```
+
+⚠️⚠️ **THE REGISTER IS HISTORICAL — this is the first thing to know about it and every
+surface must phrase it in the PAST tense.** Measured 2026-08-20 over the full crawl: 88
+experts and **not one still valid** — the newest validity ended **2023-01-01** and no expert
+has been added since **2020-01-01**. It answers „who WAS an approved external expert between
+2017 and 2023"; it cannot answer „who is available now". `aop_expert_coverage` carries the
+window so a surface states it rather than inferring it from the rows it happens to hold, and
+`aop_expert_table` derives `is_current` at QUERY time — the `open_calls` rule (142), for the
+same reason. Postgres enforces it here by accident and usefully: `CURRENT_DATE` is not
+immutable, so a GENERATED column is refused outright.
+
+Four things about it are easy to get backwards:
+
+- ⚠️ **THE NAME IS TWO PARTS, and the link must REFUSE rather than grade.** The register
+  prints given + family only — its own form marks Презиме „за служебни цели и не се отразява
+  в публичната част" — while `person` holds three. So a link rides a weaker key than anything
+  else in this repo joins on. Measured: **58 of 88 match at least one person, but only 25
+  match exactly one.** `aop_expert_person_links()` returns those 25 and reports the other 33
+  as refused; it does not score candidates and must never be changed to. Naming the wrong
+  individual as a state-approved procurement expert is the harm the refusal exists to prevent,
+  and „25 of 88 are in our person layer" and „25 matched, 33 more share their name" are
+  different claims of which only the second is true.
+- ⚠️ **VALIDITY BELONGS TO THE (EXPERT, AREA) PAIR, NOT TO THE EXPERT.** An expert admitted
+  to a second competence area later carries a different window there — 4 of 88 do (ЕТС-49 Анна
+  Савова is 2019→2022 in one area and 2020→2023 in another). A scalar pair on the expert holds
+  one of two true answers, picked by whichever area the crawl visited first. The facts live in
+  `aop_expert_area`; the pair on `aop_expert` is explicitly the UNION. The defect was found by
+  the WATCHER, whose fingerprint keys on (УНЕ, validity) and reported 92 against the ingest's
+  88 — a per-expert fingerprint would have agreed with the bug.
+- **There is no „all areas" query.** The register has 77 competence areas and submitting the
+  blank form re-renders the form with no result table, so membership is only obtainable as one
+  query per area. An expert may hold several (28 of 88 do), so the per-area counts sum to more
+  than the register — **dedupe on УНЕ, never sum the areas**.
+- **The page is windows-1251 and says so only in a `<meta>`.** `Response.text()` decodes UTF-8
+  ALWAYS, per the fetch spec, regardless of the Content-Type charset — so the default path does
+  not throw, it stores a corpus of mojibake names that passes every row count. `fetchText` takes
+  an `encoding` for this.
+
+Finding it is worth recording, because the obvious search does not: aop.bg's own navigation
+does not link the register, and `www.aop.bg/ee2014.php` — the URL the ЦАИС bundle carries for
+the чл. 229 list — is a **404**. The live URL is the other config key in the same object
+(`externalExperts229AUrl` in app.eop.bg's main bundle), and the page behind it is a plain 1990s
+PHP GET form, not the Angular SPA that links to it.
+
+The gate is `scripts/db/tests/aop_experts.data.test.ts` (9 tests) plus 13 pure parser tests
+that need no Postgres. Two of the nine exist only to prove the refusal still DISCRIMINATES —
+one asserts a non-trivial number of names are refused, the other re-runs the join without the
+guard and requires strictly more experts, so a guard that had silently stopped filtering cannot
+pass. The parser refuses a page whose row count disagrees with the register's own „Общ брой",
+because a partial competence area is indistinguishable from a small one.
+
 `procurement_annexes` (migration 114, `db:load:annexes:pg`) is the same shape: it resolves
 against the `contracts` table and reads the raw ЦАИС ЕОП annex cache, so on the cloud side run
 `npm run db:load:annexes:pg:cloud` **after** the contracts corpus is loaded and whenever

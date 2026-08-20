@@ -1,0 +1,436 @@
+<html>
+  <head>
+    <title>Агенция по обществени поръчки - Списък по чл. 19, ал. 2, т. 8 от ЗОП</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+    <link rel="SHORTCUT ICON" href="https://www.aop.bg/favicon.ico">
+    <link rel="StyleSheet"
+	  href="https://www.aop.bg/css/portal_header.css"
+	  type="text/css">
+    <link rel="StyleSheet"
+	  href="https://www.aop.bg/css/calendar-win2k-cold-1.css"
+	  type="text/css" title="win2k-cold-1">
+
+    <script language="javascript" src="https://www.aop.bg/js/calendar.js"></script>
+    <script language="javascript" src="https://www.aop.bg/js/functions.js"></script>
+    <script type="text/javascript" src="https://www.aop.bg/js/lang/calendar-bg.js"></script>
+    <script type="text/javascript" src="https://www.aop.bg/js/calendar-setup.js"></script> 
+    <script type="text/javascript" src="https://www.aop.bg/js/popup.js"></script> 
+    <script type="text/javascript" src="https://www.aop.bg/js/jquery.js"></script>
+    <script type="text/javascript" src="https://www.aop.bg/js/matomo.js"></script>
+  </head>
+  <BODY topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" background="#E9FCE9">
+<style type="text/css">
+  table { border-collapse: collapse; }
+</style>
+
+<script type="text/javascript">
+
+function clearForm(oForm)
+{
+    var elements = oForm.elements;
+    oForm.reset();
+    for (i = 0; i < elements.length; i++) {
+        field_type = elements[i].type.toLowerCase();
+        switch (field_type) {
+            case "text":
+            case "password":
+            case "textarea":
+            case "hidden":
+                elements[i].value = "";
+                break;
+            case "radio":
+            case "checkbox":
+                if (elements[i].checked) {
+                    elements[i].checked = false;
+                }
+                break;
+            case "select-one":
+            case "select-multi":
+                elements[i].selectedIndex = 0;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+</script>
+
+<br/>
+
+<table bgcolor="#cef0cf" width="95%" cellspasing="0" cellpadding="0"
+       align="center" border="1">
+  <tr>
+    <td align="center" valign="center"><h1>Списък с външни експерти по
+	чл. 232а, ал. 2 от ЗОП</h1> 
+      <p align="center">&nbsp;&nbsp;&nbsp;&nbsp;Моля, въведете критерии, по
+	които да се извърши търсенето</p></td>
+  </tr>
+</table>
+
+<br>
+<form name="ee" action="https://www.aop.bg/ets.php" method="GET">
+  <input type="hidden" name="mode" value="search">
+  <table width="95%" cellspasing="0" cellpadding="5" align="center" border="1">
+    <tr>
+      <td align="top">
+	<table width="100%" border="0">
+	  
+	  <tr>
+	    <td width="50%" class="newstext" align="right">Уникален номер на
+	      експерта: </td> 
+	    <td class="newstext">
+	      ЕТС-<input class="input_elements" style="width: 332px;"
+			size="32" name="ets_venum" id="ets_venum"
+			value="">
+	    </td>
+	  </tr>
+	  
+	  <tr>
+	    <td width="50%" class="newstext" align="right">Номер на
+	      заявлението: </td> 
+	    <td class="newstext">
+	      <input class="input_elements" style="width: 350px;"
+		     size="32" name="ets_appl_id" id="ets_appl_id"
+		     value="">
+	    </td>
+	  </tr>
+	  
+	  <tr>
+	    <td width="50%" class="newstext" align="right">Име: </td>
+	    <td class="newstext">
+	      <input class="input_elements" style="width: 350px;"
+		     size="32" name="first_name" id="first_name"
+		     value="">
+	    </td>
+	  </tr>
+	  
+	  <tr>
+	    <td width="50%" class="newstext" align="right">Презиме*: </td>
+	    <td class="newstext">
+	      <input class="input_elements" style="width: 350px;"
+		     size="32" name="mid_name" id="mid_name"
+		     value="">
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <td width="50%" class="newstext" align="right">&nbsp;</td>
+	    <td class="newstext"><i>* Данните са за служебни цели и не се отразяват в публичната част от списъка</i></td>
+	  </tr>
+
+	  <tr>
+	    <td width="50%" class="newstext" align="right">Фамилия: </td>
+	    <td class="newstext">
+	      <input class="input_elements" style="width: 350px;"
+		     size="32" name="last_name" id="last_name"
+		     value="">
+	    </td>
+	  </tr>
+	  
+	  <tr>
+	    <td width="50%" class="newstext" align="right">Област на
+	      компетентност:</td>
+	    <td class="newstext">
+	      <select name="ets_prof_oblast" class="input_elements"
+		      style="width: 350px;">
+		<option value=''>--- Всички ---
+<option value='1' >1. Архитектура и дизайн на сгради
+<option value='2' >2. Строителство на сгради и съоръжения
+<option value='3' >3. Енергийна ефективност...
+<option value='4' >4. Строителни конструкции
+<option value='5' >5. Хидроинженерство
+<option value='6' >6. ВиК инженерство
+<option value='7' >7. Електроинженерство
+<option value='8' >8. Инженерство, профил Геозащитни дейности
+<option value='9' >9. Инженерство, профил Отоплителни, вентилационни и климатизационни инсталации
+<option value='10' >10. Инженерство, профил Пътно/транспортно строителство
+<option value='11' >11. Инженерство, профил Пожарна безопасност и безопасност на труда 
+<option value='12' >12. Инженерство, профил Автоматика
+<option value='13' >13. Инженерство, профил Технология на хранително-вкусова промишленост
+<option value='14' >14. Инженерство, профил Транспорт
+<option value='15' >15. Електроника
+<option value='16' >16. Химически технологии
+<option value='17' >17. Машинно инженерство 
+<option value='18' >18. Авио-инженерство 
+<option value='19' >19. Корабно инженерство - корабостроене, корабоводене, корабни машини и механизми
+<option value='20' >20. Текстилно инженерство
+<option value='21' >21. Технология на облеклото 
+<option value='22' >22. Системи за управление на трафика...
+<option value='23' >23. Системи за управление на сигурността...
+<option value='24' >24. Географски информационни системи 
+<option value='25' >25. Проучване, добив и обработка на полезни изкопаеми
+<option value='26' >26. Науки за земята (география, геология, геодезия и др.)
+<option value='27' >27. Металургия
+<option value='28' >28. Енергетика 
+<option value='29' >29. Ландшафтна архитектура...
+<option value='30' >30. Телекомуникации
+<option value='31' >31. Информационни и комуникационни технологии 
+<option value='32' >32. Информатика и компютърни науки
+<option value='33' >33. Комуникационна и компютърна техника
+<option value='34' >34. Археология
+<option value='35' >35. Опазване на културното наследство...
+<option value='36' >36. Социални дейности, Социален мениджмънт, Управление и контрол на условията на труд и социално предприемачество
+<option value='37' >37. Администрация и управление 
+<option value='38' >38. Електронно управление...
+<option value='39' selected>39. Право
+<option value='40' >40. Психология
+<option value='41' >41. Социология
+<option value='42' >42. История
+<option value='43' >43. Науки за културата
+<option value='44' >44. Химически науки
+<option value='45' >45. Физически науки
+<option value='46' >46. Биологически науки
+<option value='47' >47. Медицина
+<option value='48' >48. Дентална медицина и зъботехника
+<option value='49' >49. Фармация
+<option value='50' >50. Медицинска техника
+<option value='51' >51. Ботаника
+<option value='52' >52. Биотехнологии 
+<option value='53' >53. Растениевъдство
+<option value='54' >54. Животновъдство
+<option value='55' >55. Животновъдство, профил Рибовъдство и аквакултура
+<option value='56' >56. Горско стопанство
+<option value='57' >57. Ветеринарна медицина
+<option value='58' >58. Микробиология
+<option value='59' >59. Екология
+<option value='60' >60. Хидробиология
+<option value='61' >61. Педагогически науки
+<option value='62' >62. Икономика, профил Икономика и организация на труда
+<option value='63' >63. Икономика, профил Счетоводство и контрол 
+<option value='64' >64. Икономика, профил Финанси 
+<option value='65' >65. Финансов и икономически анализ 
+<option value='66' >66. Застрахователна и/или осигурителна дейност
+<option value='67' >67. Туризъм
+<option value='68' >68. Хранително-вкусова промишленост 
+<option value='69' >69. Изкуства
+<option value='70' >70. Дизайн и реклама
+<option value='71' >71. Национална сигурност
+<option value='72' >72. Военно дело
+<option value='73' >73. Електроенергетика. Топлоенергетика. Ядрена енергетика.
+<option value='74' >74. Транспортна техника и технологии. Автомобилна техника.
+<option value='75' >75. Храни, хранене и диетика.
+<option value='76' >76. Интериорен и екстериорен дизайн и обзавеждане.
+<option value='77' >77. Горива и биоенергийни технологии.
+	      </select>
+	    </td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      	<table width="100%" border="0">
+	  <tr>
+	    <td width="50%" class="newstext" align="center">&nbsp;</td>
+	    <td class="newstext">
+	      <input type="submit" value="Търси" class="input_elements"
+		     style="width: 350px; font-weight:
+		     bold;">&nbsp;<input type="button"
+					 onclick="clearForm(this.form);"
+					 style="width: 80px;
+						font-style:italic;"
+					 value="Изчисти" name="clear">
+	    </td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<table border="1" cellspacing="0" cellpadding="2" width="95%" align="center">
+  <tr bgcolor="#E8E7E8">
+    <td class="text"><B>УНЕ</B></td>
+    <td class="text"><B>Име и фамилия</B></td>
+    <td class="text"><B>Дата на включване в списъка</B></td>
+    <td class="text"><B>Срок на валидност</B></td>
+    <td class="text"><B>Област на компетентност</B></td>
+  </tr>
+
+  
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-8</nobr></b></td>
+    <td class="text" valign="top">Александър&nbsp;Анчев</td>
+    <td class="text" valign="top">21.12.2017&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">21.12.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-37</nobr></b></td>
+    <td class="text" valign="top">Даниела&nbsp;Зарева</td>
+    <td class="text" valign="top">21.12.2017&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">21.12.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-55</nobr></b></td>
+    <td class="text" valign="top">Димитрина&nbsp;Бъклова</td>
+    <td class="text" valign="top">01.01.2019&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2022&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-67</nobr></b></td>
+    <td class="text" valign="top">Димитър&nbsp;Златанов</td>
+    <td class="text" valign="top">01.01.2019&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2022&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-28</nobr></b></td>
+    <td class="text" valign="top">ЕЛИСАВЕТА &nbsp;МИНЧЕВА</td>
+    <td class="text" valign="top">21.12.2017&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">21.12.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-82</nobr></b></td>
+    <td class="text" valign="top">Ивелина&nbsp;Пенева</td>
+    <td class="text" valign="top">01.01.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2023&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-77</nobr></b></td>
+    <td class="text" valign="top">Ивета &nbsp;Иванова</td>
+    <td class="text" valign="top">01.01.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2023&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-63</nobr></b></td>
+    <td class="text" valign="top">Ирена&nbsp;Димитрова</td>
+    <td class="text" valign="top">01.01.2019&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2022&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-5</nobr></b></td>
+    <td class="text" valign="top">КАТЯ&nbsp;БАЧЕВА</td>
+    <td class="text" valign="top">21.12.2017&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">21.12.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-33</nobr></b></td>
+    <td class="text" valign="top">Калоян&nbsp;Богев</td>
+    <td class="text" valign="top">21.12.2017&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">21.12.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-43</nobr></b></td>
+    <td class="text" valign="top">Камелия&nbsp;Ангелова</td>
+    <td class="text" valign="top">21.12.2017&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">21.12.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-81</nobr></b></td>
+    <td class="text" valign="top">Магда &nbsp;Христозова</td>
+    <td class="text" valign="top">01.01.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2023&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-21</nobr></b></td>
+    <td class="text" valign="top">Милко&nbsp;Тодоров</td>
+    <td class="text" valign="top">21.12.2017&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">21.12.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-69</nobr></b></td>
+    <td class="text" valign="top">Пламен&nbsp;Караджов</td>
+    <td class="text" valign="top">01.01.2019&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2022&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-80</nobr></b></td>
+    <td class="text" valign="top">Пламен &nbsp;Христозов</td>
+    <td class="text" valign="top">01.01.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2023&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-87</nobr></b></td>
+    <td class="text" valign="top">Розалия&nbsp;Иванова</td>
+    <td class="text" valign="top">01.01.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2023&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-74</nobr></b></td>
+    <td class="text" valign="top">Светлана&nbsp;Битунска</td>
+    <td class="text" valign="top">01.01.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2023&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-53</nobr></b></td>
+    <td class="text" valign="top">Стефка&nbsp;Цанкова</td>
+    <td class="text" valign="top">01.01.2019&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2022&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-3</nobr></b></td>
+    <td class="text" valign="top">Таня &nbsp;Николова</td>
+    <td class="text" valign="top">21.12.2017&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">21.12.2020&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+  <tr>
+    <td class="text" valign="top">    <b><nobr>ЕТС-56</nobr></b></td>
+    <td class="text" valign="top">Цветанка&nbsp;Тодорова</td>
+    <td class="text" valign="top">01.01.2019&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">01.01.2022&nbsp;г.&nbsp;</td>
+    <td class="text" valign="top">39. Право</td>
+  </tr>
+
+
+<tr>
+  <td colspan='11'>
+    <table width='100%' cellspacing='0' cellpadding='0' border='0'><tr><tr><td colspan='2' class='text'>Общ брой: 20&nbsp;<a href='https://www.aop.bg/excel.php?hash=91aa76020336bf10cb5445aebbc3ad5c' title='Експорт в excel'><img src='https://www.aop.bg/images/icons/doc/xls.ico' border='0' width='15' /></a></td></td></tr><tr><td width='50$' class='text'>Страница&nbsp;1&nbsp;от&nbsp;1&nbsp;</td><td class='text' align='right'><table width='50' cellspacing='0' cellpadding='0' border='0'><tr><td>&nbsp;</td><td>&nbsp;</td><td class='text'>&nbsp;<B>1</B></td><td>&nbsp;</td><td>&nbsp;</td></tr></table></tr></table>  </td>
+</tr>
+</table>

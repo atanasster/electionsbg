@@ -41,6 +41,15 @@ export interface FetchOpts {
   // forms, not mutations — so the retry policy below applies unchanged.
   body?: string;
   method?: "GET" | "POST";
+  // Character encoding of the response body, for the pre-UTF-8 registers (АОП's
+  // ets.php is windows-1251; the ЦПРС family is the same vintage).
+  //
+  // ⚠️ `Response.text()` decodes as UTF-8 ALWAYS, per the fetch spec — it does
+  // NOT honour the charset in Content-Type. So a cp1251 register decoded through
+  // the default path does not throw: it yields a body of replacement characters
+  // that parses fine, counts fine, and stores a corpus of mojibake names. Naming
+  // the encoding here is the only thing that prevents it.
+  encoding?: string;
 }
 
 export const fetchText = async (
@@ -61,7 +70,9 @@ export const fetchText = async (
       if (res.status >= 500 && attempt < retries)
         throw new Error(`HTTP ${res.status}`);
       if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-      return await res.text();
+      return opts.encoding
+        ? new TextDecoder(opts.encoding).decode(await res.arrayBuffer())
+        : await res.text();
     } catch (e) {
       // Don't retry on abort/timeout — the server is unresponsive, not transiently failing.
       if (e instanceof Error && e.name === "AbortError") throw e;

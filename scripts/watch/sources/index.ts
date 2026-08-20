@@ -11,6 +11,7 @@ import { egovCommerce } from "./egov_commerce";
 import { egovProcurement } from "./egov_procurement";
 import { eopProcurement } from "./eop_procurement";
 import { adfiInspections } from "./adfi_inspections";
+import { aopExperts } from "./aop_experts";
 import { aopDebarred } from "./aop_debarred";
 import { ofacSanctions } from "./ofac_sanctions";
 import { comdosDs } from "./comdos_ds";
@@ -132,6 +133,7 @@ import {
 // can flip `cik` over to the same helper.
 export const SOURCES: WatchSource[] = [
   adfiInspections,
+  aopExperts,
   parliamentVotes, // listed first — primary deliverable per PRD
   parliamentMps,
   ofacSanctions, // person-layer sanctions facet (→ update-persons)
