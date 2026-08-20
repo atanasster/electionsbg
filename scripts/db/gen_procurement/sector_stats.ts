@@ -82,6 +82,7 @@ import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
 import { TRANSPORT_SECTOR_EIKS } from "../../../src/lib/transportReferenceData";
 import { MOSV_BUDGET_NODE } from "../../../src/lib/environmentReferenceData";
 import { EDU_BUDGET_NODE } from "../../../src/lib/educationReferenceData";
+import { VSS_BUDGET_NODE } from "../../../src/lib/vssReferenceData";
 import { ministryYearSeriesEur } from "../../../src/data/budget/ministrySeries";
 import {
   dooPensionsEur,
@@ -123,7 +124,7 @@ const SECTOR_EIKS: Record<string, string[]> = {
 const BUDGET_SECTOR_NODE: Record<string, string> = {
   defense: "admin-ministerstvo-na-otbranata",
   security: "admin-ministerstvo-na-vatreshnite-raboti",
-  justice: "admin-sadebnata-vlast",
+  justice: VSS_BUDGET_NODE,
   culture: "admin-ministerstvo-na-kulturata",
   // Образование — budget-basis, and the node covers LESS of its sector than any
   // other entry here. It is МОН's own enacted expenditure, so it excludes (a) the

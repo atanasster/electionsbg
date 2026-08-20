@@ -26,20 +26,28 @@
 // to the hub tile (budget basis — see below) and cost the browse pack's
 // `?sector=judiciary` filter one court.
 //
-// ⚠ NOTHING RE-CHECKS THE ROSTER AGAINST THE CORPUS YET — a completeness gate is
-// open work. Re-run the resolution query in the plan doc (§2) before relying on
-// this map. `vssReferenceData.test.ts` beside this file is a pure-TS gate and does
-// NOT close that gap: it holds the map's internal invariants (tier headers, alias
-// collapse, duplicate keys), which are the shape a hand-edit breaks — it cannot
-// see a court that exists only in Postgres.
+// TWO GATES NOW COVER IT, and they cover different halves — neither is redundant:
+//
+//  · `scripts/db/tests/sector_stats_justice.data.test.ts` sweeps the corpus for
+//    judicial buyers absent from this map, which is the Разлог shape exactly. It
+//    carries a REPLAY of that defect (drop 000025110 and the sweep must name it),
+//    so it cannot go vacuous. Needs Postgres, and SKIPS without it.
+//  · `vssReferenceData.test.ts` beside this file holds the map's INTERNAL
+//    invariants — tier headers vs block sizes, duplicate keys, alias collapse —
+//    the shape a hand-edit breaks. Pure TS, so it still guards on a fresh clone
+//    and on a database-less CI leg, where the sweep above is skipping.
+//
+// So: `npm run test:data` for completeness, `npm run test:unit` for shape. The
+// plan doc's (§2) manual query is no longer the only thing standing between this
+// map and the next new court.
 //
 // The judiciary is a MULTI-BODY sector (like the ВиК holding), not a single
 // buyer. Resolved from the local procurement corpus (contracts ∪ tenders):
 // 59 judicial EIKs · 1,642 contracts · ~€203.3M (2011-2026). ВСС alone is ~43%.
 //
 // ⚠ THE HUB TILE DOES NOT READ THIS SET. `/governance/sectors`' „Съдебна власт"
-// is BUDGET-basis (the `admin-sadebnata-vlast` ПРБ node), so a wrong or missing
-// EIK here moves it by exactly nothing. What the set does drive is the browse
+// is BUDGET-basis — the ПРБ node named by `VSS_BUDGET_NODE` below — so a wrong or
+// missing EIK here moves it by exactly nothing. What the set does drive is the browse
 // pack, the awarders tile's court count and any group roll-up — which is why a
 // membership defect here can never be caught by reconciling the headline.
 //
@@ -63,6 +71,16 @@
 //  3. Конституционният съд is NOT part of съдебната власт (чл. 147 КРБ) and the
 //     Министерство на правосъдието / ГД "Охрана" / ГД "Изпълнение на наказанията"
 //     are executive bodies. All are deliberately excluded from the set below.
+
+/** The ПРБ node the /governance/sectors „Съдебна власт" tile reads — the
+ *  generator's `BUDGET_SECTOR_NODE.justice`, under data/budget/ministries/.
+ *
+ *  Exported so the tile's generator and the regression net share ONE import site,
+ *  matching `MVR_BUDGET_NODE` / `MOSV_BUDGET_NODE` / `EDU_BUDGET_NODE`. That tree
+ *  is gitignored, so a test that hard-codes the slug SKIPS on a rename instead of
+ *  failing — the node file simply stops existing and „no pipeline run yet" and
+ *  „somebody renamed the node" become the same green. */
+export const VSS_BUDGET_NODE = "admin-sadebnata-vlast";
 
 /** Висш съдебен съвет — the pack anchor and the /awarder/:eik route param. */
 export const VSS_EIK = "121513231";
