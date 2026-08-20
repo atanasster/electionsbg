@@ -3372,10 +3372,16 @@ Every `:cloud` loader run now vacuums — including the ones that publish by `sh
 because the local copy of that table is upserted rather than truncated. But a database loaded
 before this shipped stays in the bad state until its next reload, and that reload is ~90 min for
 contracts, ~20 for tenders. Repair it directly instead (safe any time, and the tenders one is
-~2.5 s per 42k pages):
+~2.5 s per 42k pages). The list is the one in `reload_visibility_map.data.test.ts`'s `RELOADED`
+— that gate is what keeps it in step with the loaders' actual `vacuumAfterReload` calls, so a
+new entry belongs in BOTH. ⚠️ **One absent relation aborts the whole statement** (42P01, nothing
+vacuumed): several of these come from gitignored-input loaders that legitimately never ran on a
+given database, so on a partial one drop the names it lacks rather than reading the error as a
+failed repair. `company_founded` is the one member with no `RELOADED` entry — `shipTable()`
+passes the table as a VARIABLE, which the gate's string-literal scan cannot see:
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) declaration_employer_link, grant_contract_link, tender_subcontracting, ted_notice, ted_coverage, adfi_inspection, aop_expert, aop_expert_area, isun_clean_contract, isun_clean_beneficiary, adfi_coverage, obshtina_population, fund_projects, fund_beneficiaries, company_founded, tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, budget_fiscal_year, budget_fiscal_year_figure, budget_kfp_observation, budget_kfp_snapshot_section, budget_kfp_snapshot_line, budget_personnel, budget_admin_procurement, budget_muni_transfer, budget_muni_ipop_project, budget_muni_capital_project, budget_muni_execution, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, council_muni, council_muni_code, council_resolution, council_vote, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE

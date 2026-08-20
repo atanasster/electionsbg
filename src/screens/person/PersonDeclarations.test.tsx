@@ -9,7 +9,10 @@
 import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
-import type { DeclarationListItem } from "./usePersonDeclarations";
+import {
+  clearDeclarationDetailCache,
+  type DeclarationListItem,
+} from "./usePersonDeclarations";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (k: string) => k, i18n: { language: "bg" } }),
@@ -47,13 +50,31 @@ const filing = (
   return { ...row, periodYear: o.periodYear ?? row.fiscalYear ?? row.year };
 };
 
+// `vi.spyOn`, NOT `vi.stubGlobal`, and the difference is the whole reason this file
+// went red in CI. The file's own afterEach runs BEFORE vitest.setup.ts's — so
+// `vi.unstubAllGlobals()` restored the setup's THROWING fetch, and only then did
+// `cleanup()` flush React's pending passive effects. The non-bare block asks for
+// `declaration-detail` on the headline filing in one of those effects, so whenever it
+// had not already flushed inside the test body (locally it had; on a loaded runner it
+// had not) the unmount fired it into the throwing spy and reported it against this
+// test. A spy is restored by the setup's own `vi.restoreAllMocks()`, which runs AFTER
+// its cleanup, so a late effect still meets the stub.
 const stub = (rows: DeclarationListItem[]) =>
-  vi.stubGlobal(
-    "fetch",
-    vi.fn(async () => ({ json: async () => rows }) as Response),
+  vi.spyOn(globalThis, "fetch").mockImplementation(
+    (async (url: string) =>
+      ({
+        // The detail join is a separate payload; handing the LIST back for it would let a
+        // future case assert a property card off rows that endpoint never serves.
+        json: async () =>
+          String(url).includes("declaration-detail") ? null : rows,
+      }) as unknown as Response) as unknown as typeof fetch,
   );
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() =>
+  // useDeclarationDetail caches per filing id at MODULE scope, so without this a later
+  // case asking for the same id reads the first case's payload.
+  clearDeclarationDetailCache(),
+);
 
 describe("PersonDeclarations", () => {
   it("headlines the first ASSET-BEARING row of the server's byRecency order", async () => {

@@ -64,7 +64,12 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "ted_notice", loader: "db:load:ted:pg" },
   { table: "ted_coverage", loader: "db:load:ted:pg" },
   { table: "adfi_inspection", loader: "db:load:adfi:pg" },
+  // Both TRUNCATE + COPY in the loader's own transaction (174). The pair is
+  // listed as a pair because validity belongs to the (expert, area) row rather
+  // than to the expert, so `aop_expert_area` is what every competence-area read
+  // scans — an unlisted vacuum there is one nothing verifies took.
   { table: "aop_expert", loader: "db:load:aop-experts:pg" },
+  { table: "aop_expert_area", loader: "db:load:aop-experts:pg" },
   { table: "isun_clean_contract", loader: "db:load:clean-delivery:pg" },
   { table: "isun_clean_beneficiary", loader: "db:load:clean-delivery:pg" },
   { table: "adfi_coverage", loader: "db:load:adfi:pg" },
