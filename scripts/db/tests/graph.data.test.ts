@@ -15,10 +15,11 @@
 // numbers twice — which reads as a corpus-wide defect when it is a local one. Measure a cloud
 // bridge with SQL instead.
 //
-// ⚠️ WHEN THE BRIDGE ARM FAILS, SUSPECT A STALE LOCAL GRAPH FIRST. `tr:daily-refresh` rebuilds
-// `company_politicians` and does NOT re-run `db:load:graph:pg`, so `graph_edge` is left a vintage
-// behind its own input. Measured 2026-08-20: 498/673 (74%) before `npm run db:load:graph:pg`,
-// 643/673 (95.5%) after, while prod was at 95.5% throughout.
+// ⚠️ WHEN THE BRIDGE ARM FAILS, SUSPECT A STALE LOCAL GRAPH FIRST — `npm run db:load:graph:pg`.
+// `tr:daily-refresh` rebuilds `company_politicians`, and until 2026-08-20 it did not re-run that
+// loader, so `graph_edge` was left a vintage behind its own input: measured 498/673 (74%) before
+// the reload, 643/673 (95.5%) after, while prod was at 95.5% throughout. The loader is in that
+// chain now, so this should only fire on a graph reloaded by some other path.
 //
 // The metric is procurement EDGES over company_politicians ROWS, so it is a proxy, not a join:
 // 26 (person, company) pairs are named by two refs (21 of them the same human as both an MP and an

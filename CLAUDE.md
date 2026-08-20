@@ -2993,12 +2993,22 @@ and **any contracts/agri/funds reload** (127's money basis).
 it on the cloud side, so it is wired into the `update-persons` (last step) and `update-procurement`
 (after `persons-browse`) watch skills so an orchestrated re-ingest re-derives the graph on prod.
 
-⚠️ **`tr:daily-refresh` REBUILDS `company_politicians` AND DOES NOT RE-RUN THIS LOADER.** Its chain
-stops at `db:load:tr:pg` → `cr-founding` → `cr-nkid` → `tr-company-place`, so after every TR refresh
-the LOCAL `graph_edge` is one vintage behind the `company_politicians` it was derived from, and
-`graph.data.test.ts`'s bridge-coverage arm fails until `npm run db:load:graph:pg` runs. Measured
-2026-08-20: 498 procurement edges against 673 `company_politicians` rows (74%, below the test's 80%
-floor); after the reload, 643 (95.5%).
+**`tr:daily-refresh` runs this loader too**, between `cr-nkid` and `tr-company-place` — that
+position is forced from both sides: it must FOLLOW `db:load:tr:pg` (which rebuilds
+`company_politicians`, the procurement arm's input) and PRECEDE `db:load:tr-company-place:pg`
+(which denormalizes `money_eur` from the `company_public_money` this loader rebuilds). It was
+added 2026-08-20; before that the chain stopped at `tr-company-place`, so every TR refresh left
+the LOCAL `graph_edge` a vintage behind its own input and `graph.data.test.ts`'s bridge arm
+failed — measured 498 procurement edges against 673 `company_politicians` rows (74%, under the
+gate's 80% floor), 643 (95.5%) after a reload.
+
+⚠️ **`db:load:persons-browse:pg` is NOT in that chain, and deliberately so.** This loader reads
+`person_browse_table` for each person node's `primary_facet` / `position_type`, which its own
+comment marks DESCRIPTIVE ONLY — not load-bearing for money or closure — and both derive from the
+person layer, which a TR refresh does not touch. What a TR refresh DOES stale in
+`person_browse_table` is its company counts, which this loader never reads. Running the graph
+without a persons-browse first is therefore safe HERE and nowhere else: the ordering rule above
+still binds on any path that moved `person_role`.
 
 ⚠️ **AND THAT FAILURE IS EASY TO MISREAD AS A PROD PROBLEM.** `graph.data.test.ts` calls
 `pinLocalDatabase()`, so it measures LOCAL no matter what `DATABASE_URL` says — running it with the
