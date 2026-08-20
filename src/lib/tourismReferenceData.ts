@@ -129,9 +129,42 @@ export const TOURISM_SECTOR_EIKS: readonly string[] = [TOURISM_MINISTRY_EIK];
  *  rather than assertions. tourismReferenceData.test.ts holds the network-free
  *  invariants (well-formed deduped EIKs, disjoint from the roster, the two
  *  below-bar entries, agreement with the sibling lists on every shared EIK);
- *  scripts/db/tests/sector_stats_tourism.data.test.ts — step 4 of
- *  docs/plans/tourism-sector-audit-v1.md, NOT YET LANDED — will add the corpus
- *  arms, pinning shares and classifications and never a rank or an absolute €. */
+ *  scripts/db/tests/sector_stats_tourism.data.test.ts adds the corpus arms —
+ *  every entry still a МТ contractor and still outside the roster, the
+ *  default-scope share the chips cover, the anti-allowlist with its own
+ *  non-vacuity floor, and the advertising band the spend↔nights caption depends
+ *  on. For the BENEFICIARY figures it pins shares and classifications, never a
+ *  rank or an absolute €; the anti-allowlist's own floors are absolute by
+ *  necessity, since their job is to prove each excluded body is still large
+ *  enough for its inclusion to be a material error. */
+/** The bodies a name or keyword sweep would pull into this sector, each with the
+ *  reason it is out and the money that makes admitting it a material error rather
+ *  than a rounding difference. The header above is the prose version; this is the
+ *  machine-readable one, so sector_stats_tourism.data.test.ts can assert BOTH
+ *  halves — that none is in the roster, and that each is still a live awarder at
+ *  roughly this scale. A restated copy in the test would cover only the entries
+ *  somebody remembered to duplicate.
+ *
+ *  `minEur` is a FLOOR on the whole EIK's contract corpus, deliberately well under
+ *  the measured figure so an ordinary reload cannot trip it. Мeasured 2026-05-13:
+ *  МИЕ €21,279,264 · Военни клубове €93,080,352 · ПРО €6,237,402 · Ученически
+ *  отдих €5,469,656 · Камена €1,609,798 · БТС €310,571 · ОЦСЗУ Айтос €64,098,089
+ *  (that last on its whole corpus; the €142,119 in the header above is the subset
+ *  the туриз name sweep returns). */
+export const TOURISM_ANTI_ALLOWLIST: readonly {
+  eik: string;
+  why: string;
+  minEur: number;
+}[] = [
+  { eik: "130169256", why: "МИЕ — the pre-2014 combined ministry; MIXED economy/energy/tourism mandate, inseparable by EIK", minEur: 15_000_000 }, // prettier-ignore
+  { eik: "129008829", why: "ИА „Военни клубове и военно-почивно дело“ — принципал МО", minEur: 50_000_000 }, // prettier-ignore
+  { eik: "121577013", why: "„Профилактика, рехабилитация и отдих“ ЕАД — МТСП/НОИ", minEur: 3_000_000 }, // prettier-ignore
+  { eik: "175030371", why: "„Ученически отдих и спорт“ ЕАД — МОН", minEur: 3_000_000 }, // prettier-ignore
+  { eik: "112013405", why: "„Балнеологичен център — Камена“ ЕАД — municipal/health", minEur: 1_000_000 }, // prettier-ignore
+  { eik: "000690918", why: "Сдружение „Български туристически съюз“ — an NGO that ran a procedure", minEur: 100_000 }, // prettier-ignore
+  { eik: "000056764", why: "„Обединено счетоводство — Община Айтос“ — matched only because its own name lists a municipal „…спорт и туризъм“ directorate", minEur: 50_000_000 }, // prettier-ignore
+];
+
 export const TOURISM_STATE_BODY_CONTRACTORS: readonly string[] = [
   // Държавна: the public broadcaster. €1,073,528 all-scope; displayed at four
   // scopes and rank 2 at two of them (y:2024, ns:2023_04_02). Already badged by

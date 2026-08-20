@@ -203,3 +203,28 @@ this note. Also „~€27M" is now €28.78M.
    (to a documented €2 per-CPV rounding tolerance) so F2's basis-agreement cannot
    silently break. The three-copy lockstep is already held, network-free, by
    step 1's unit test.
+
+## Open work this audit deliberately did not do
+
+- **A shared `stateBodyOwnership.ts` registry.** Four `*_STATE_BODY_CONTRACTORS`
+  lists now hold 20 entries over 16 EIKs, four of them in more than one list, and
+  their agreement on a shared EIK is maintained by hand. `tourismReferenceData.test.ts`
+  asserts the agreement, which is the cheap half; making it structural means moving
+  the ownership label into one map that every sector indexes into.
+- **`stateBodyContractors` on the other eligible sectors.** Only three of fourteen
+  reach the generic KPI/leaderboard branch at all (tourism, energy, and edu via
+  `packIsThematic`), and `sectorDashboards.test.ts` now fails if a list is set on a
+  pack-backed one. Energy and edu need their own beneficiary passes first: an
+  INCOMPLETE list badges some state transfers and leaves the rest reading as market
+  awards, which is a claim rather than an omission.
+- **A shared `scripts/db/tests/lib/sectorStats.ts` harness.** The seven
+  `sector_stats_*.data.test.ts` files share ~120 lines of scaffolding and a
+  near-identical hub-headline reconcile body. That duplication is where this file's
+  own `unavailableSeen` floor started out fragile (a hardcoded 5 against a measured
+  7 that legitimately shrinks) — a parameterised helper would have made it one
+  documented meaning instead of seven copies.
+- **CPV 98000000.** Six contracts, €693,802, titled „Заплащане на наемната цена за
+  атрактивни рекламни площи" — rented advertising space landing in the `other` sink
+  because CPV 98 is unmapped, a fifth of that bucket. Mapping it needs someone to
+  read all six rows; until then it is recorded in `tourismCategories.ts`'s header as
+  one of the two reasons every surface quoting the advertising share says „по CPV".
