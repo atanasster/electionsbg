@@ -9,6 +9,20 @@
 // Plan: docs/plans/connections-engine-v1.md §P3.3.
 //
 // Auto-skips when Postgres is down or the graph is unbuilt — like the other *.data.test.ts gates.
+//
+// ⚠️ THIS FILE MEASURES THE LOCAL DATABASE, ALWAYS. `pinLocalDatabase()` below overrides
+// DATABASE_URL, so running it with a cloud URL to "compare the two" silently returns the local
+// numbers twice — which reads as a corpus-wide defect when it is a local one. Measure a cloud
+// bridge with SQL instead.
+//
+// ⚠️ WHEN THE BRIDGE ARM FAILS, SUSPECT A STALE LOCAL GRAPH FIRST. `tr:daily-refresh` rebuilds
+// `company_politicians` and does NOT re-run `db:load:graph:pg`, so `graph_edge` is left a vintage
+// behind its own input. Measured 2026-08-20: 498/673 (74%) before `npm run db:load:graph:pg`,
+// 643/673 (95.5%) after, while prod was at 95.5% throughout.
+//
+// The metric is procurement EDGES over company_politicians ROWS, so it is a proxy, not a join:
+// 26 (person, company) pairs are named by two refs (21 of them the same human as both an MP and an
+// official) and DISTINCT folds each into one edge. ~95% is the healthy value, not 100%.
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

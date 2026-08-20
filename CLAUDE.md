@@ -651,7 +651,7 @@ Three things about it differ from the `scripts/db/load_*.ts` family:
 
 - **It uses `execEach`, not `exec`, and that is load-bearing.** `exec` sends the file as ONE
   transaction, so the AccessExclusiveLock taken by its no-op `ALTER TABLE … ADD COLUMN IF
-  NOT EXISTS` is held until the last statement — which includes a multi-million-row seed
+NOT EXISTS` is held until the last statement — which includes a multi-million-row seed
   INSERT — on tables `/api/db/price-history` and `/api/db/price-product` read. The same
   TRUNCATE-shaped lock is what 500'd those readers on every ingest before the 2026-07 merge
   rewrite; do not re-introduce it through the DDL path.
@@ -2991,7 +2991,32 @@ nodes) and after **each** of `db:resolve:persons:cloud`, `db:load:person-electio
 and **any contracts/agri/funds reload** (127's money basis).
 `db:refresh` sequences the local equivalent right after `persons-browse`/`person-search`; nothing runs
 it on the cloud side, so it is wired into the `update-persons` (last step) and `update-procurement`
-(after `persons-browse`) watch skills so an orchestrated re-ingest re-derives the graph on prod. It
+(after `persons-browse`) watch skills so an orchestrated re-ingest re-derives the graph on prod.
+
+⚠️ **`tr:daily-refresh` REBUILDS `company_politicians` AND DOES NOT RE-RUN THIS LOADER.** Its chain
+stops at `db:load:tr:pg` → `cr-founding` → `cr-nkid` → `tr-company-place`, so after every TR refresh
+the LOCAL `graph_edge` is one vintage behind the `company_politicians` it was derived from, and
+`graph.data.test.ts`'s bridge-coverage arm fails until `npm run db:load:graph:pg` runs. Measured
+2026-08-20: 498 procurement edges against 673 `company_politicians` rows (74%, below the test's 80%
+floor); after the reload, 643 (95.5%).
+
+⚠️ **AND THAT FAILURE IS EASY TO MISREAD AS A PROD PROBLEM.** `graph.data.test.ts` calls
+`pinLocalDatabase()`, so it measures LOCAL no matter what `DATABASE_URL` says — running it with the
+cloud URL to "compare the two" returns the local numbers twice and looks like corpus-wide breakage.
+Measure a cloud bridge with SQL, not with that gate. When it did fail this way, prod was at 95.5% the
+whole time and the two arms mapped 85/85 and 561/561.
+
+⚠️ **The bridge's mp arm strips `:<ns>` from the `person_role` side, not the ref side.** `person_role`
+stores an MP as one row per (mp_id, ns) — `1005:39`, `1005:40` — so the join is
+`split_part(pr.ref, ':', 1) = substring(cp.ref from '^/candidate/mp-(.*)$')`. Stripping on the other
+side instead makes every MP who served in more than one National Assembly look unmapped (17/85
+against a true 85/85). The collapse is safe only while no mp_id is recycled across parliaments —
+0 today, and the roll-call corpus has 26, so re-measure rather than assume.
+
+**643 edges against 673 rows is not loss.** 26 (person, company) pairs are named by more than one
+`company_politicians` row — 21 of them the same human reached via BOTH an mp ref and an officials ref
+— and `SELECT DISTINCT (person_id, eik)` folds each into one edge, which is one relationship rather
+than two. The gate's own comment predicts "~95%". It
 carries its own **per-arm bridge preflight** (mp / official) that throws — inside the rebuild tx, so a
 broken `company_politicians.ref → person_id` join (a roster re-slug) rolls back rather than shipping a
 half graph, and a **non-empty blob guard** that rolls back rather than publishing a blank `/connections`
