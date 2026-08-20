@@ -1,15 +1,15 @@
 # ГФО (annual financial statements) ingest — feasibility spike
 
 **Goal.** Put per-company financials (revenue, profit, assets, employees) on the
-DB company page so we can answer *"is this company's state income proportionate
-to its real business?"* — the shell-company / captured-supplier signal that the
+DB company page so we can answer _"is this company's state income proportionate
+to its real business?"_ — the shell-company / captured-supplier signal that the
 best public-sector tools (Tussell, USASpending sub-award context) surface and
 that papagal.bg shows locally. A contractor billing the state €200M with €2M of
 private revenue is the headline red flag procurement data alone can't show.
 
 **Verdict up front.** There is **no structured open-data source** for Bulgarian
 company financials. ГФО are filed to the Търговски регистър as **attached
-documents (PDF, often scanned)** — the figures live *inside* the documents, not
+documents (PDF, often scanned)** — the figures live _inside_ the documents, not
 in structured fields (confirmed against registryagency.bg and our own TR feed).
 So this is a genuine new-source ingest requiring **document parsing (PDF text +
 OCR)** or a **paid commercial feed** — not a quick build. Run Phase 0 (below)
@@ -17,13 +17,13 @@ before committing.
 
 ## Source landscape (assessed 2026-07-02)
 
-| Source | Structured financials? | Access | Verdict |
-|---|---|---|---|
-| **TR published acts (обявени актове)** | ❌ — ГФО are **attached PDF/scanned documents**; line items are inside the file | per-company via portal (CF-Turnstile, like local-elections) OR the **paid full-DB export** (~100 BGN/yr, incl. act documents — see docs/tr-full-db-access-request.md) | **Primary DIY path** — get the documents, parse them |
-| TR deeds open-data feed (what we ingest now) | ❌ — carries only Managers/Partners/Funds(=capital)/Seat/ActualOwner (verified: zero financial markers) | data.egov.bg (already used) | Not a financials source |
-| **НСИ** annual accounts | ✅ but **aggregate only** (per sector/region, confidentiality) | open data | Not per-company — unusable for this |
-| **Commercial** (papagal.bg, APIS Регистър+) | ✅ structured financials | paid API / subscription | **Stopgap** for top-N; cost + ToS + dependency (not "our own data") |
-| "Expected" TR ГФО open-data initiative | ✅ (proposed) | not delivered | Watch, don't wait |
+| Source                                       | Structured financials?                                                                                  | Access                                                                                                                                                                                                                                                                | Verdict                                                             |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| **TR published acts (обявени актове)**       | ❌ — ГФО are **attached PDF/scanned documents**; line items are inside the file                         | per-company via portal (CF-Turnstile, like local-elections) OR the **paid full-DB export** (100 лв./yr — fee confirmed 2026-08-21; ⚠️ the “incl. act documents” claim made here is UNVERIFIED and the evidence is against it — see docs/tr-full-db-access-request.md) | **Primary DIY path** — get the documents, parse them                |
+| TR deeds open-data feed (what we ingest now) | ❌ — carries only Managers/Partners/Funds(=capital)/Seat/ActualOwner (verified: zero financial markers) | data.egov.bg (already used)                                                                                                                                                                                                                                           | Not a financials source                                             |
+| **НСИ** annual accounts                      | ✅ but **aggregate only** (per sector/region, confidentiality)                                          | open data                                                                                                                                                                                                                                                             | Not per-company — unusable for this                                 |
+| **Commercial** (papagal.bg, APIS Регистър+)  | ✅ structured financials                                                                                | paid API / subscription                                                                                                                                                                                                                                               | **Stopgap** for top-N; cost + ToS + dependency (not "our own data") |
+| "Expected" TR ГФО open-data initiative       | ✅ (proposed)                                                                                           | not delivered                                                                                                                                                                                                                                                         | Watch, don't wait                                                   |
 
 ## The two real options
 
@@ -31,6 +31,7 @@ before committing.
 paid full-DB export, which bundles the act files — cleaner than scraping the
 portal at scale past its anti-bot), classify digital-PDF vs scanned, and extract
 ~5 headline line items. Reuses tooling we already run:
+
 - digital PDFs → `pdf2array`/pdfjs (as in the budget/procurement PDF parsers),
 - scanned PDFs → **Gemini Vision OCR** (proven on the Sofia-council protokols,
   ~89% match, ~$1.85/session — see project_sofia_council_per_councillor_unlock).
@@ -66,6 +67,7 @@ profit / assets / employees by year) + a **proportionality** line: procurement �
 Later widen coverage beyond contractors.
 
 ## Schema sketch
+
 ```
 financials(
   eik text, year int, revenue_eur double precision, net_result_eur double precision,
@@ -74,9 +76,11 @@ financials(
   PRIMARY KEY (eik, year)
 )
 ```
+
 Joins the entity graph on `eik` like everything else.
 
 ## Risks / caveats
+
 - **Fetch at scale** is the operational hard part — per-company portal download
   hits CF-Turnstile; the paid full-DB export is the realistic bulk route.
 - **Layout variance** — micro/small/medium/large templates + НСС vs IFRS; the
@@ -87,6 +91,7 @@ Joins the entity graph on `eik` like everything else.
 - **EUR** — pre-2026 statements are in лв; convert at the locked peg (feedback_bg_uses_eur).
 
 ## Recommendation
+
 Run **Phase 0** (a ~100-doc feasibility test) before any build. It's a day of work
 and tells us whether DIY parsing clears a usable accuracy bar or whether we lead
 with a commercial stopgap. Everything downstream (schema, tile, proportionality)

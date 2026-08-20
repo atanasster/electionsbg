@@ -1255,6 +1255,78 @@ fixture.
 
 ---
 
+## 11g. Can this come from somewhere other than OCR? (researched 2026-08-21)
+
+**No — for the figures. Every alternative removes the FETCH at best, and the fetch is
+already free.** The question is worth a section because the obvious answer ("surely the
+Commerce Registry publishes financials") is wrong in a way that is cheap to re-derive
+badly.
+
+**The TR full catalogue carries no financial field at all.** Measured over one complete
+daily feed file (48,704 deeds): **97 distinct attribute keys, zero financial** — no
+revenue, profit, assets or equity. The ГФО act node carries exactly nine attributes
+(`RecordIncomingNumber, RecordID, GroupID, ActModeText, ActModeValue, Description,
+ActDate, ActYear, ActID`). It is an index entry pointing at a document, which is exactly
+what §11d uses it for. The nearest things to money in the whole feed are `share` /
+`currency` (partner shares, the `tr_owner_share` input) and `funds_amount` (registered
+capital) — neither is turnover. This independently confirms the spike's 2026-07-02
+finding, which was worth re-checking because the feed has grown since.
+
+| source                                             | removes the fetch?       | removes the OCR? | verdict                                         |
+| -------------------------------------------------- | ------------------------ | ---------------- | ----------------------------------------------- |
+| TR daily / bulk feed (already ingested, free)      | ✅ it IS the target list | ❌ no figures    | §11d — already the plan                         |
+| **TR paid full-DB export** (чл. 16д, 100 лв./год.) | ⚠️ probably not          | ❌ same scans    | see below + `docs/tr-full-db-access-request.md` |
+| НСИ annual accounts                                | —                        | —                | aggregate per sector/region only                |
+| commercial feeds (papagal, APIS)                   | ✅                       | ✅               | paid, ToS, external dependency                  |
+| **sector regulators**                              | ✅                       | ✅               | **one sector each — already exploited once**    |
+
+### 11g.1 The paid TR export buys the wrong half, and possibly nothing
+
+The spike's „~100 BGN/yr, incl. act documents" is **half right**. The fee is real —
+**чл. 16д, „годишна такса в размер 100 лв."** (€51.13 at the peg; older copies of the
+tariff say 10,000 лв, reduced by ДВ бр. 99/2017 from 01.01.2018). „Incl. act documents"
+is unverified and three things point against it:
+
+- чл. 16д says „актуализация на **обстоятелствата** в нея" — the structured layer.
+  „Обявени актове" is a different noun the article does not use.
+- The acts have their own tariff line, **per company and per event**: чл. 16е ал. 3,
+  „0,40 лв. за всяко вписване, заличаване и обявяване". A bulk product containing them
+  would not need it. At the tier's ~9,600 ГФО that arm is **3,840 лв ≈ €1,963**, against
+  a crawl measured at 1,772 docs/hour for free.
+- **We already ingest the structured database at no cost** — `raw_data/tr/daily` IS the
+  Agency's export, republished on data.egov.bg. If „цялата база данни" is that, the fee
+  buys a paid copy of what is on disk.
+
+Even at best it removes the fetch, not the **$155–$300** OCR, because the documents are
+scans either way: 0 of 16 sampled ГФО carried a usable text layer (§1.1). **Worth asking,
+not worth waiting for** — €51 and an email against the full tier's 4.2-day crawl, but
+tier 1 is 5.4 hours. The request, the decisive question and a draft letter are in
+`docs/tr-full-db-access-request.md`.
+
+### 11g.2 The pattern that DOES work is a sector regulator, and this repo already runs one
+
+`nzok_hospital_financials.revenue_eur` is structured quarterly revenue for hospitals from
+МЗ's ЕЕОФ — no OCR, no crawl of the register. Where a regulator collects financials as a
+condition of operating, it usually publishes them: КФН (pension funds, insurers), КЕВР
+(energy). Each covers one sector, so this supplements and never replaces — but inside a
+sector dashboard it beats OCR on cost _and_ accuracy, and it is the first thing to check
+before pointing this pipeline at a sector.
+
+⚠️ **ЦПРС is NOT one of them, despite appearances.** Plan P2 describes it as carrying
+„declared staff and turnover" — the Камара does collect turnover to assign a licence
+class, and does not publish it. Checked 2026-08-21: `register.ksb.bg/listFirms.php`
+returns ЕИК · name · protocol no/date, and `cprs_firm` is `eik / name / oblast`. No
+financial column exists on either side.
+
+⚠️ **And one free answer that looked available and is not.** The feed carries
+`IsConsortium` and `IsHolding` flags, which would have settled §11e.1 and §11e.4 at zero
+cost. Measured over 48,704 deeds they appear on **11 records** and on **0 of the top
+1,000 EIKs** — emitted only on particular ТЗ record types, far too sparse to use. A ДЗЗД
+is a ЗЗД civil partnership rather than a ТЗ консорциум, so the flag would miss the
+population anyway. §11e.1's `tr_companies`-membership test remains the discriminator.
+
+---
+
 ## 12. What I could NOT determine
 
 Listed explicitly so none of it is mistaken for measured.
@@ -1317,11 +1389,15 @@ Listed explicitly so none of it is mistaken for measured.
 15. **Whether the register's `DocumentLimit` is also a per-PERIOD quota**, and what the
     Registry Agency's terms say about bulk document download — the page is a stated limit, not
     only a rate signal, and this plan reads it purely as one (§13).
-16. **The paid TR full-DB export.** `docs/plans/gfo-ingest-spike.md` — this plan's own
-    predecessor — records it at ~100 BGN/yr **bundling the act documents** and calls it "the
-    realistic bulk route". It is not compared anywhere here against $2,900–$5,550 plus 4.2 days
-    of crawling. At the full tier that comparison is not close, and it should be made before
-    the full tier is authorised (tier 1 is small enough not to wait for it).
+16. ~~**The paid TR full-DB export.**~~ **MOSTLY RESOLVED — §11g.1 and
+    `docs/tr-full-db-access-request.md`.** The fee is confirmed (чл. 16д, 100 лв./год. =
+    €51.13; the 10,000 лв. a search will surface was superseded from 01.01.2018). What is
+    **still open is the only part that matters**: whether „цялата база данни" includes the
+    FILES of обявени актове or only the structured обстоятелства — no published page says, and
+    чл. 16д's own wording, the separate per-event tariff line for acts (чл. 16е ал. 3, 0.40
+    лв.) and the fact that we already ingest the structured export free all point at "only the
+    обстоятелства". Answerable only by asking; the request is drafted. Note that even the
+    favourable answer removes the fetch and not the $155–$300 OCR.
 
 ---
 
@@ -1329,6 +1405,11 @@ Listed explicitly so none of it is mistaken for measured.
 
 1. **Confirm the rate card** and replace §4.2's band with a number. (Anchor 2 is verified —
    §11b.3 — so the band is sound; only the list price is missing.)
+
+   In the same pass, **send the TR full-DB request** (`docs/tr-full-db-access-request.md`) —
+   €51 and an email, and its answer is a prerequisite for authorising the FULL tier, not for
+   tier 1. Ask the question, do not wait for it (§11g.1).
+
 2. ~~Probe the fetch~~ — **DONE, §11b.1.** Safe rate is concurrency 3 ≈ 1,772 docs/hour; above
    it the register 302s to a named `DocumentLimit` page. The crawler must treat that 302 as a
    refusal, not a fetch — unchecked, it stores a non-document at a 200-shaped success.
