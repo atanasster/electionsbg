@@ -189,8 +189,10 @@ against the cloud proxy:
 # The resolver reads its PG sources (magistrate / official_roster / tr_person_roles /
 # contracts) from whatever DATABASE_URL points at, so those must ALREADY be loaded on
 # Cloud SQL (db:load:magistrates:pg:cloud, db:load:tr:pg:cloud, db:load:pg:cloud) first.
-# TWO dimensions FIRST — the resolver READS both, and an empty one publishes blanks
-# rather than failing, so neither omission surfaces until someone looks at prod.
+# THREE prerequisites FIRST — the resolver READS all of them. The two dimensions publish
+# blanks rather than failing, so neither omission surfaces until someone looks at prod;
+# tr_name_fold_people is the exception and THROWS, which is the good failure but wastes
+# the whole resolve if you discover it at the end.
 # The place dimension: 082_person_api.sql JOINs place_dim for the mir/obshtina label on
 # every role. Skipping it publishes ~76,500 roles with placeLabel: null — and because the
 # ~2,700 judicial roles resolve via judicial_body instead and KEEP their label, the damage
@@ -200,9 +202,16 @@ npm run db:load:place-dim:pg:cloud
 # The judicial dimension: db:resolve:persons reads judicial_body_alias to give every
 # magistrate their court. Skipping it publishes ~2,700 magistrates with no institution.
 npm run db:load:judicial-bodies:pg:cloud
-# Verify BOTH landed before resolving — after the resolve it is too late to tell:
+# Bridge B's evidence table. `db:resolve:persons` REFUSES to run without it — it throws
+# naming this command — because Bridge B needs positive proof that a name belongs to ONE
+# registry person, and an empty table would mint nothing and empty every public figure's
+# company list. That is the good failure, but on Cloud SQL it aborts a ~5 min resolve, so
+# load it first. Input is the committed data/person/tr_name_fold_people.tsv.
+npm run db:load:tr-name-fold-people:pg:cloud
+# Verify ALL THREE landed before resolving — after the resolve it is too late to tell:
 #   select count(*) from place_dim;            -- must be non-zero (~5,700)
 #   select count(*) from judicial_body_alias;  -- must be non-zero (~530)
+#   select count(*) from tr_name_fold_people;  -- must be non-zero (the resolve throws on 0)
 npm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + rebuilds person_* on Cloud SQL
 # ~5 min on Cloud SQL, measured 2026-08-05 (~124k persons) — NOT the "multi-hour" CLAUDE.md
 # claims. Worth knowing: the multi-hour belief is why this resolve gets left out of chains

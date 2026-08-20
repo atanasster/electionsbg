@@ -697,17 +697,26 @@ first, then re-run the orchestrator.
    ### Person layer: the whole cloud chain (emit ALL of it, in THIS order)
 
    The `update-persons` row above is the one place where emitting "the loader for
-   the thing that changed" is not enough. `db:resolve:persons:cloud` READS three
-   dimension tables and DROPS one matview, so two loaders must run BEFORE it and
-   three AFTER — and every one of them fails **silently**, by publishing blanks
-   rather than erroring. Emit the whole block; do not reconstruct it from memory
+   the thing that changed" is not enough. `db:resolve:persons:cloud` READS four
+   inputs and DROPS one matview, so four loaders must run BEFORE it and three
+   AFTER. Three of the four fail **silently**, by publishing blanks rather than
+   erroring; the fourth, `tr-name-fold-people`, is the one that throws — which is
+   the good failure, but it aborts a ~29 min cloud resolve, so load it up front
+   rather than discovering it at the end. Emit the whole block; do not reconstruct it from memory
    or from CLAUDE.md piecemeal (that is exactly how `place-dim` got dropped from
    the emitted chain on 2026-07-29):
 
    ```bash
-   # BEFORE the resolve — it reads all three; an empty/stale one publishes blanks, not an error
+   # BEFORE the resolve — it reads all four. Three of them fail SILENTLY: an empty or stale
+   # place-dim / judicial-bodies / declarations-phase-1 publishes blanks, not an error.
+   # tr-name-fold-people is the exception — the resolve throws rather than under-publish.
    npm run db:load:place-dim:pg:cloud          # 117 — mir/obshtina labels on ~76.5k roles
    npm run db:load:judicial-bodies:pg:cloud    # 116 — the court on ~2,700 magistrate roles
+   npm run db:load:tr-name-fold-people:pg:cloud  # Bridge B's evidence table. The resolve
+                                              #   THROWS on an empty one (naming this
+                                              #   command), so it is a hard prerequisite
+                                              #   rather than a follow-up — and it aborts
+                                              #   the ~29 min cloud resolve, not a 5 min one.
    npm run db:load:declarations:pg:cloud       # phase 1 — rewrites subject_ref AND is what the
                                                #   resolve reads for the register gold key
    npm run db:resolve:persons:cloud            # 1733 s (28.9 min) measured 2026-08-11 on a

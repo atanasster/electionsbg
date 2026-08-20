@@ -80,9 +80,5 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
     kind: "unreviewed",
     reason: "pre-existing",
   },
-  "db:load:tr-name-fold-people:pg:cloud": {
-    kind: "unreviewed",
-    reason: "pre-existing",
-  },
   "person:kmetstvo-flips:cloud": { kind: "unreviewed", reason: "pre-existing" },
 };
