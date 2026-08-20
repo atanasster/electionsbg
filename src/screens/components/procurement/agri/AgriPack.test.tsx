@@ -94,6 +94,18 @@ vi.mock("@/data/agri/useAgriScope", async (orig) => ({
   }),
 }));
 
+// The three-basis strip has its OWN test (AgriBudgetBasesTile.test.tsx) and pulls a
+// React Query hook this file has no provider for. Stubbed to a marker so the two
+// assertions that matter here still hold: it renders, and it is fed the SAME payout
+// figure the hero above it shows — a second fetch would let the two disagree.
+const budgetTileProps = vi.fn();
+vi.mock("./AgriBudgetBasesTile", () => ({
+  AgriBudgetBasesTile: (p: Record<string, unknown>) => {
+    budgetTileProps(p);
+    return <div data-testid="agri-budget-bases" />;
+  },
+}));
+
 vi.mock("@/data/procurement/useAwarderGroupModel", () => ({
   useAwarderGroupModel: () => ({
     model: {
@@ -186,6 +198,20 @@ describe("AgriPack — the labels the numbers live under", () => {
     // „Възложители 66 … от 65 в сектора" shipped live: an EIK count over a body
     // count. Both sides must be the EIK count.
     expect(screen.getByText(/^от 66 в сектора$/)).toBeInTheDocument();
+  });
+
+  it("feeds the budget strip the SAME payout figure the hero shows", () => {
+    budgetTileProps.mockClear();
+    at();
+    // Two fetches of the same quantity is how one page comes to show two vintages
+    // of it. The strip takes the hero's numbers as props for that reason.
+    expect(budgetTileProps).toHaveBeenCalledWith(
+      expect.objectContaining({
+        payoutEur: STATS.totalEur,
+        payoutLabel: "2025",
+      }),
+    );
+    expect(screen.getByTestId("agri-budget-bases")).toBeInTheDocument();
   });
 
   it("renders the scope picker even though the gate is mocked open", () => {

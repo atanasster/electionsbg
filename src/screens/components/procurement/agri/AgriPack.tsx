@@ -53,6 +53,7 @@ import {
   type SectorClassifier,
 } from "@/lib/awarderModel";
 import type { SectorPackProps } from "@/screens/components/procurement/sectorPacks";
+import { AgriBudgetBasesTile } from "./AgriBudgetBasesTile";
 
 // The procurement band needs headline money, not a CPV taxonomy — one bucket.
 const ONE_BUCKET: SectorClassifier<"all"> = { categoryOf: () => "all" };
@@ -208,6 +209,18 @@ export const AgriPack: FC<SectorPackProps> = () => {
             </StatCard>
           </div>
         </PackSection>
+
+        {/* ── Band 1b: the three bases ──────────────────────────────────────
+             Immediately under the hero, because that is where a reader has just
+             met one euro figure and is most likely to add the next one to it. */}
+        {/* `scopeLabel` and not `scopeYear`: the `all` scope has no year by design,
+            and gating on one dropped the payout column exactly where the figure is
+            largest (€11.04bn). Reusing the label the hero already computed also
+            keeps the two from ever naming different periods. */}
+        <AgriBudgetBasesTile
+          payoutEur={stats?.totalEur ?? null}
+          payoutLabel={scopeLabel}
+        />
 
         {/* ── Band 2: who receives it ──────────────────────────────────────
            ⚠ „БЕЗ ЕИК" IS NOT „ФИЗИЧЕСКО ЛИЦЕ", AND THIS BAND SHIPPED THAT EXACT

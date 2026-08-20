@@ -75,6 +75,28 @@
 export { AGRI_PAYER_EIK as AGRI_LEAD_EIK } from "@/data/agri/constants";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 
+/** The two ПРБ nodes in the per-ministry budget tree (data/budget/ministries/<id>.json).
+ *
+ *  ⚠ THREE DIFFERENT QUESTIONS LIVE UNDER THE WORD „БЮДЖЕТ" HERE, and none of them is
+ *  the hub tile's number. The tile is CAP money PAID OUT to farmers (EU funds passing
+ *  through ДФЗ, `basis: 'payout'`); `AGRI_PAYER_BUDGET_NODE` is the state-budget line
+ *  for the paying agency; `AGRI_MINISTRY_BUDGET_NODE` is the state-budget line for the
+ *  ministry. No two of the three may be added, and none is a share of another.
+ *
+ *  ⚠ THE PAYER NODE'S PROGRAMMES DO NOT SUM TO ITS EXPENDITURE — €18.99M of programme
+ *  lines against a €300.92M total (2026), because the bulk of ДФЗ's state-budget line
+ *  is money it DISBURSES rather than money it spends on itself, and this source does
+ *  not itemise that. So a programme breakdown may be rendered for the MINISTRY node
+ *  (whose four programmes sum exactly) and must NOT be rendered for this one. */
+export const AGRI_PAYER_BUDGET_NODE = "admin-darzhaven-fond-zemedelie";
+
+/** ⚠ The ministry RENAMED, and the older node („Министерство на земеделието",
+ *  2022-2024) is a SEPARATE file. This one carries 2023 onward, so it is the right
+ *  node for a current figure and the wrong one for a long trend — do not plot a
+ *  series off it without folding the predecessor in first. */
+export const AGRI_MINISTRY_BUDGET_NODE =
+  "admin-ministerstvo-na-zemedelieto-i-hranite";
+
 /** The nine agri "universes" — label every group tile with which it covers. */
 export type AgriUniverse =
   | "ministry" // МЗХ (централа)
