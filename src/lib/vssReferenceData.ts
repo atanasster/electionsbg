@@ -4,23 +4,44 @@
 //
 // SCOPE NOTE: `JUDICIAL_BODIES` + `COURT_COUNT` drive the "as a buyer" tile on
 // /judiciary, which links each central body to its `/awarder/<eik>` dashboard.
-// `JUDICIAL_EIKS` (the full 58) is resolved and verified but not yet consumed —
-// it is the input for the judiciary entry of the `SECTOR_BROWSE_PACKS` seam
-// (docs/plans/judiciary-vss-v1.md §4.3), a shared prerequisite with the water
-// plan that remains unbuilt.
+// `JUDICIAL_EIKS` (the full 59) is the EIK-set behind the judiciary entry of
+// `SECTOR_BROWSE_PACKS` (sectorPacks.tsx) — i.e. the `?sector=judiciary` filter on
+// /procurement/contracts and /procurement/tenders. That seam is BUILT and live, so
+// a missing EIK here really does cost that filter a court; see the CORPUS AUDIT
+// note below, where exactly that happened. („not yet consumed / seam unbuilt" was
+// true when this file was written and stopped being true well before 2026-08-19 —
+// it read as „a membership error here is inert", the precise opposite of the truth.)
 //
-// BUNDLE COST: `COURT_COUNT` derives from `COURT_LEVEL`, so the 58-entry map DOES
-// ship (measured: ~44 EIK string literals in the main chunk, ≈1 KB pre-gzip). That
-// is deliberate — a hardcoded `50` would silently drift from the corpus, and a
-// kilobyte is cheaper than a wrong number.
+// BUNDLE COST: `COURT_COUNT` derives from `COURT_LEVEL`, so the 59-entry map DOES
+// ship (≈1 KB pre-gzip). That is deliberate — a hardcoded court count would
+// silently drift from the corpus, and a kilobyte is cheaper than a wrong number.
+// The literal is quoted as a SYMBOL rather than a number on purpose: this very
+// paragraph shipped „a hardcoded `50`" while the map held 51, i.e. refuted its own
+// argument by example.
 //
-// CORPUS AUDIT: 2026-07-10, against `contracts` ∪ `tenders` in local Postgres.
-// Nothing re-checks this map, so it WILL drift as new judicial awarders appear.
-// Re-run the resolution query in the plan doc (§2) before relying on it.
+// CORPUS AUDIT: 2026-08-19, against `contracts` ∪ `tenders` in local Postgres.
+// The map DOES drift as new judicial awarders appear, and the first re-audit
+// proved it: the 2026-07-10 cut missed Районен съд — Разлог (000025110), which
+// published its first tender on 2026-08-13, four weeks later. It was invisible
+// to the hub tile (budget basis — see below) and cost the browse pack's
+// `?sector=judiciary` filter one court.
+//
+// ⚠ NOTHING RE-CHECKS THE ROSTER AGAINST THE CORPUS YET — a completeness gate is
+// open work. Re-run the resolution query in the plan doc (§2) before relying on
+// this map. `vssReferenceData.test.ts` beside this file is a pure-TS gate and does
+// NOT close that gap: it holds the map's internal invariants (tier headers, alias
+// collapse, duplicate keys), which are the shape a hand-edit breaks — it cannot
+// see a court that exists only in Postgres.
 //
 // The judiciary is a MULTI-BODY sector (like the ВиК holding), not a single
 // buyer. Resolved from the local procurement corpus (contracts ∪ tenders):
-// 58 judicial EIKs · 1,337 contracts · ~€174.7M (2011-2026). ВСС alone is ~45%.
+// 59 judicial EIKs · 1,642 contracts · ~€203.3M (2011-2026). ВСС alone is ~43%.
+//
+// ⚠ THE HUB TILE DOES NOT READ THIS SET. `/governance/sectors`' „Съдебна власт"
+// is BUDGET-basis (the `admin-sadebnata-vlast` ПРБ node), so a wrong or missing
+// EIK here moves it by exactly nothing. What the set does drive is the browse
+// pack, the awarders tile's court count and any group roll-up — which is why a
+// membership defect here can never be caught by reconciling the headline.
 //
 // Three structural facts drive the design:
 //
@@ -72,9 +93,13 @@ export type CourtLevel =
   | "okrazhen"
   | "rayonen";
 
-/** eik → level. The 50 courts carry their tier; the seven central bodies carry
- *  their own id. Used for the client-derived "court level" column on the
- *  judiciary sector browse pack — free, no backend change. */
+/** eik → level. The 51 courts carry their tier; the six central bodies (EIGHT
+ *  keys — two are alias registrations) carry their own id.
+ *
+ *  The per-EIK LEVEL is currently unread: it is the input for a planned court-level
+ *  column on the judiciary browse pack, which ships no `Section` yet (only `water`
+ *  and `defense` do). Today only the key set and `COURT_COUNT` below are consumed —
+ *  said plainly so nobody goes hunting for a rendered column. */
 export const COURT_LEVEL: Record<string, CourtLevel> = {
   // central bodies — the aliases collapse onto their principal, sourced from the
   // alias constants above so the merge can't drift from the fact that names it.
@@ -116,7 +141,7 @@ export const COURT_LEVEL: Record<string, CourtLevel> = {
   "000134056": "okrazhen", // Велико Търново
   "000386833": "okrazhen", // Перник
   "000590768": "okrazhen", // Сливен
-  // районни (23)
+  // районни (24)
   "831462482": "rayonen", // Софийски районен съд
   "000471778": "rayonen", // Пловдив
   "000093759": "rayonen", // Варна
@@ -140,9 +165,10 @@ export const COURT_LEVEL: Record<string, CourtLevel> = {
   "000025085": "rayonen", // Благоевград
   "000321038": "rayonen", // Лом (tenders only)
   "000291787": "rayonen", // Луковит (tenders only)
+  "000025110": "rayonen", // Разлог (tenders only)
 };
 
-/** The full judicial sector set (58 EIKs) — the `eiks` list for the judiciary
+/** The full judicial sector set (59 EIKs) — the `eiks` list for the judiciary
  *  sector browse pack and the consolidated group roll-up. */
 export const JUDICIAL_EIKS: readonly string[] = Object.keys(COURT_LEVEL);
 
@@ -152,7 +178,7 @@ export const JUDICIAL_EIKS: readonly string[] = Object.keys(COURT_LEVEL);
  *  deliberately omitted — they are the same institutions under a second
  *  registration and would show up twice.
  *
- *  The 50 individual courts also procure, but sparsely (most have 1-3 contracts
+ *  The 51 individual courts also procure, but sparsely (most have 1-3 contracts
  *  ever — the judiciary buys centrally through the ВСС), so they are counted
  *  rather than listed. */
 export const JUDICIAL_BODIES: {

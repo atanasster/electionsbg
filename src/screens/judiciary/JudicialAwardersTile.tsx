@@ -6,7 +6,7 @@
 // by spending body, self-financing, procurement lens), because it is the buyer
 // that procures courthouses and the e-justice systems for the whole system.
 //
-// The 50 individual courts also procure, but most have only 1-3 contracts ever,
+// The 51 individual courts also procure, but most have only 1-3 contracts ever,
 // so they are counted rather than listed — a link per empty page would be noise.
 
 import { FC } from "react";

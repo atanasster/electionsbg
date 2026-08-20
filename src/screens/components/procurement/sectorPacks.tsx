@@ -191,7 +191,7 @@ export const getSectorPack = (
 // --- Sector browse packs ----------------------------------------------------
 // The awarder sector-pack generalized to the corpus-wide browse pages
 // (/procurement/contracts, /procurement/tenders): keyed on a sector id → an
-// EIK-set, so a multi-entity sector (the ~26 ВиК operators, the 58 judicial
+// EIK-set, so a multi-entity sector (the ~26 ВиК operators, the 59 judicial
 // bodies) can restrict + enrich the shared table via ?sector=. This is the
 // shared seam docs/plans/water-view-v1.md §4.3 designs; the judiciary plan is
 // blocked on it too. Requires contracts.awarder_eik to be filter:"in" (done in
@@ -302,8 +302,8 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     eiks: [AGRI_PAYER_EIK],
   },
   // JUDICIAL_EIKS ALREADY carries VSS_EIK and its alias, so the old
-  // `[VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS]` shipped 60 entries for 58
-  // bodies, with 121513231 and 181092349 in twice. Harmless in the `IN (...)`
+  // `[VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS]` shipped two DUPLICATE
+  // entries, 121513231 and 181092349 each in twice. Harmless in the `IN (...)`
   // filter this feeds today, which is why it went unnoticed — but it makes
   // eiks.length wrong and would double-weight both the council and its own alias
   // the day the list drives a per-EIK fan-out.
