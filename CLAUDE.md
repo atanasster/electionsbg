@@ -413,32 +413,64 @@ counts cannot drift.
 
 ### Supplier identity — the three synthetic key namespaces, and why a re-ingest cannot fix one
 
-`contracts.contractor_eik` is **not always a Bulgarian EIK**. Over every distinct
-contractor key (all tags): **27,553** plain 9/13-digit EIKs, **1,803** synthetic carriers and
-**282** neither — of which only 137 carry letters; the other 145 are numeric odd-length ids
-that `supplier_identity.ts`'s header says are unclassifiable offline. Scoped to
-`tag = 'contract'` the plain count is 27,531 and the last bucket 281; the synthetic three are
-identical under both, which is exactly why a scope slip here hides. `scripts/procurement/supplier_identity.ts` mints the synthetic ones,
-each because the source token could not become a key:
+`contracts.contractor_eik` is **not always a Bulgarian EIK**. Four other kinds of token live
+in that column. Measured 2026-08-19, **both columns at `tag = 'contract'`** — the € differ by
+6.9% across that filter (the plain bucket is €92.24bn over all tags), and a table mixing the
+two bases is the `tag`-blindness trap the same-feed-dedup note above is about:
 
-| prefix  | n     | why                                             | keyed by            |
-| ------- | ----- | ----------------------------------------------- | ------------------- |
-| `obed-` | 1,626 | a consortium carrier, not one legal entity      | the member set      |
-| `ph-`   | 91    | the registration number was **filler**          | the supplier's NAME |
-| `np-`   | 86    | a natural person — the ЕГН must never be stored | the person's NAME   |
+| bucket           | keys       | €        | linkable |
+| ---------------- | ---------- | -------- | -------- |
+| plain 9/13-digit | **27,531** | €86.30bn | ✅ yes   |
+| `obed-` carriers | **1,626**  | €6.21bn  | ✅ yes   |
+| `ph-` / `np-`    | **177**    | €87.3m   | ❌ no    |
+| neither          | **281**    | €857.5m  | ❌ no    |
+| the EMPTY string | **1**      | €210.0m  | ❌ no    |
 
-**None of the 2,084 has a `/company/:eik` page** — neither `tr_companies` nor
-`institution_identity()` resolves any of them — so a link to one renders „Няма фирма с ЕИК …
-в базата.". `isLinkableCompanyKey` (`src/lib/companyKey.ts`) is the one predicate for
-"is this key servable", and `CompanyLink` is how a CONTRACTOR key should become a link.
+Unscoped, the first row is 27,553 keys and the fourth 282 — the synthetic rows are identical
+either way, which is exactly why a scope slip here hides. The empty string is a key in the SQL
+sense and in no other (623 rows); it is listed because omitting it under-reported the
+non-linkable money by a fifth. `scripts/procurement/supplier_identity.ts` mints the synthetic
+ones, each because the source token could not become a key: `obed-` a consortium carrier
+keyed by its member set, `ph-` (91) a **filler** registration number keyed by the supplier's
+NAME, `np-` (86) a natural person keyed by name so no ЕГН is stored.
+
+⚠ **„NONE OF THEM HAS A PAGE" WAS TRUE ONCE AND HAS NOT BEEN SINCE 2026-07-06**, and this
+file asserted it until 2026-08-19. `institution_identity()` really does return NULL for all
+2,085 — but `8c8b9a9654` („render procurement body for corpus-only entities") gave
+`/company/:eik` a procurement-only fallback body, and its dead-end branch now fires only on
+`!company && !institution && !hasProcurement`. A key drawn out of `contracts.contractor_eik`
+HAS contracts by construction, so it can never reach that branch. Re-check with that one grep
+(`src/screens/dev/CompanyDbScreen.tsx` — yes, `dev/`; it serves `/company`) before tightening
+anything here.
+
+So `isLinkableCompanyKey` (`src/lib/companyKey.ts`) no longer asks „can the page serve this"
+— it serves all of them — but **„is this key worth promising a page for"**, and the
+namespaces answer differently. **`obed-` is IN**: its page is the richest of the four kinds,
+carrying a „Обединение — участници" block naming each member firm that no other key kind has
+— so de-linking it left a reader no route from a consortium's € to the firms behind it.
+**`ph-`, `np-` and the odd ids are OUT**: their pages render too, but a made-up registration
+number and a natural person are not identifiers anyone can check against a register. A link
+promises somewhere to go.
+
+`CompanyLink` is how a CONTRACTOR key should become a link.
 ⚠ It is NOT centrally enforced — `companyKey.test.ts` is a best-effort net over known
 surfaces and field names, and it has already missed two (`p.eik` on
-ProcurementSectorsScreen, `a.topEik` on the watchlist) that were rendering live dead links,
-one of them `obed-f58039ac056a` at €337.7M. `contractor_rank` alone holds 11,813 synthetic
-rows, so treat any new surface reading it as a candidate and check by hand.
+ProcurementSectorsScreen, `a.topEik` on the watchlist) that were rendering live dead links.
+`contractor_rank` alone holds 11,813 synthetic rows, so treat any new surface reading it as a
+candidate and check by hand.
 ⚠ It is contractor-only on purpose: awarder ids are validated by `isValidEik` (9–13 digits)
 and two live awarders sit outside 9/13 — ЕСО `1752013040`, АДФИ `175076479999` — both of
 which resolve, so routing an awarder through it de-links a working page.
+
+**A separate question about the same rows: is this supplier SEVERAL FIRMS?** That is
+`isConsortiumSupplier` (same file), and it is deliberately not the complement of linkability
+— a carrier is now linkable, and `ph-`/`np-` are neither linkable nor consortia. It prefers
+`AwarderSupplier.consortiumEur` (061) and falls back to the `obed-` prefix, because the €
+is the only thing that sees a REGISTERED ДЗЗД: those carry an ordinary 9-digit EIK and are
+**1,344 of 4,014 carrier rows, €5.63bn — 47.5% of all consortium money**. ⚠ `consortiumEur`
+is a € and never a flag: 162 suppliers hold BOTH carrier and solo rows (€1.52bn vs €0.99bn),
+so no boolean is true for them. `0` means „won nothing jointly"; `null` means „this producer
+could not tell" and must not render as „none".
 
 **Filler** is what a buyer types when ЦАИС demands a registration number the supplier has
 none of. `isValidEik` used to reject only the all-zero form, so `000000001` passed as a
