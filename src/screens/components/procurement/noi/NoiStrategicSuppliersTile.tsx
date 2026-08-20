@@ -11,7 +11,6 @@
 // (how few suppliers hold the bulk of the spend) the per-row list can't show.
 
 import { FC, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Bar,
@@ -32,6 +31,7 @@ import { WARN_CHIP_COLORS } from "../chipStyles";
 import { useSeriesColors } from "../chartColors";
 import { NOI_SUPPLIER_CONTEXT } from "@/lib/noiBenchmarks";
 import type { NoiSupplier } from "@/lib/noiAttributes";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 const TOP_N = 8;
 // Pareto: cap the bar count so a long tail doesn't crush the axis; the rest
@@ -157,13 +157,13 @@ export const NoiStrategicSuppliersTile: FC<{
             return (
               <div key={s.eik} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2 mb-1">
-                  <Link
-                    to={`/company/${s.eik}`}
+                  <CompanyLink
+                    eik={s.eik}
                     className="min-w-0 truncate font-medium hover:text-primary hover:underline"
                     title={s.name}
                   >
                     {s.name}
-                  </Link>
+                  </CompanyLink>
                   <span className="shrink-0 tabular-nums text-muted-foreground">
                     {byCount
                       ? `${s.contractCount.toLocaleString(lang)} ${bg ? "договора" : "contracts"}`

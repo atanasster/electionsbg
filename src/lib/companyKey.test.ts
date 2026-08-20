@@ -17,7 +17,11 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
-import { isLinkableCompanyKey, isConsortiumCarrierKey } from "./companyKey";
+import {
+  isLinkableCompanyKey,
+  isConsortiumCarrierKey,
+  isConsortiumSupplier,
+} from "./companyKey";
 
 describe("isLinkableCompanyKey", () => {
   it("accepts the two Bulgarian EIK shapes", () => {
@@ -123,6 +127,54 @@ describe("isConsortiumCarrierKey", () => {
   });
 });
 
+describe("isConsortiumSupplier", () => {
+  // The € wins when present — this is the whole point, since a REGISTERED ДЗЗД
+  // carries an ordinary 9-digit EIK and the prefix cannot see it. Corpus-wide
+  // that is 1,344 of 4,014 carrier rows and €5.63bn, 47.5% of consortium money.
+  it("prefers consortiumEur over the key prefix", () => {
+    // A plain EIK the prefix would call solo, marked by the €.
+    expect(
+      isConsortiumSupplier({ eik: "177424500", consortiumEur: 31_461_596 }),
+    ).toBe(true);
+    // …and an obed- key the prefix would call a consortium, un-marked by a 0 €.
+    // (Not a state the corpus produces — 061 sums the carrier's own row — but it
+    // is what „the € is authoritative" MEANS, and the assertion is what stops the
+    // two being reordered.)
+    expect(
+      isConsortiumSupplier({ eik: "obed-369bc7450c81", consortiumEur: 0 }),
+    ).toBe(false);
+  });
+
+  // ⚠ 0 IS AN ANSWER. `!= null`, never truthiness: 0 means „won nothing jointly"
+  // and is the common case (27,247 of 29,615 suppliers). A `?` check here would
+  // send every solo supplier to the prefix fallback — harmless for a plain EIK,
+  // and wrong for the obed- case above.
+  it("treats 0 as an answer, not as unknown", () => {
+    expect(isConsortiumSupplier({ eik: "131468980", consortiumEur: 0 })).toBe(
+      false,
+    );
+  });
+
+  // ⚠ null/undefined = „this producer could not tell" — a serving database whose
+  // 061 predates the projection, i.e. every one between a hosting deploy and the
+  // apply_functions that follows. Degrading to the prefix keeps the note right
+  // for the obed- half instead of making it vanish site-wide for that window.
+  it("falls back to the key when the € is unknown", () => {
+    for (const consortiumEur of [null, undefined]) {
+      expect(
+        isConsortiumSupplier({ eik: "obed-369bc7450c81", consortiumEur }),
+      ).toBe(true);
+      expect(isConsortiumSupplier({ eik: "131468980", consortiumEur })).toBe(
+        false,
+      );
+      // ph-/np- are not consortia on the fallback path either.
+      expect(
+        isConsortiumSupplier({ eik: "np-9f8e7d6c5b4a", consortiumEur }),
+      ).toBe(false);
+    }
+  });
+});
+
 describe("contractor surfaces route through CompanyLink", () => {
   // ⚠ THIS IS A NET, NOT A PROOF — and the first two cuts each looked like a proof
   // and were not. Cut 1 hand-listed five screens and missed twelve files. Cut 2
@@ -176,11 +228,32 @@ describe("contractor surfaces route through CompanyLink", () => {
     // synthetic rows, so any surface reading it is a candidate.
     "screens/ProcurementSectorsScreen.tsx",
     "screens/ProcurementWatchlistScreen.tsx",
+    // Found by review 2026-08-19, all on the bare-`eik` convention the comment
+    // above already named as the known escape without ever widening the token to
+    // catch it. VikContractorHhiTile is the sharpest: it renders on /sector/security
+    // as well as /water, and was linking `ph-`/`np-` keys with full link affordance
+    // while CompanyLink two sections up rendered the same kind as plain text.
+    "screens/components/procurement/vik/VikContractorHhiTile.tsx",
+    "screens/components/procurement/TopContractorsTile.tsx",
+    "screens/components/procurement/CompanySectorsTile.tsx",
+    "screens/components/procurement/roads/RoadTopContractorsTile.tsx",
+    "screens/components/procurement/noi/NoiStrategicSuppliersTile.tsx",
+    "screens/components/procurement/nzok/NzokProcurementLensTile.tsx",
+    "screens/culture/CultureProcurementScreen.tsx",
   ];
 
-  /** Field names a contractor key travels under. */
+  /** Field names a contractor key travels under. Used for the REPO-WIDE sweep, so
+   *  it must stay narrow: a bare `.eik` is legitimate in the awarder domain. */
   const CONTRACTOR_TOKEN =
     /to=\{`\/company\/\$\{[^}]*\b(contractorEik|consortiumEik|leaderEik|topSupplier|topEik)\b/;
+
+  /** The same, widened to the bare-`eik` convention that slipped the net twice.
+   *  Applied to CONTRACTOR_SURFACES ONLY — scoping by file is what preserves the
+   *  awarder carve-out. `SchoolProcurementTile`'s `to={`/company/${eik}`}` is the
+   *  worked counter-example: it links the SCHOOL (a buyer, via
+   *  `useAwarderProcurement`), whose key is validated by `isValidEik` (9–13
+   *  digits), so routing it through CompanyLink would de-link a working page. */
+  const CONTRACTOR_TOKEN_LOOSE = /to=\{`\/company\/\$\{[^}]*\beik\b/i;
 
   it.each(CONTRACTOR_SURFACES)(
     "%s routes contractors through CompanyLink",
@@ -194,6 +267,9 @@ describe("contractor surfaces route through CompanyLink", () => {
       // ProjectFileScreen keeps them for funds beneficiaries and person companies.
       // Both are validated-EIK domains where the page works.
       expect(src).not.toMatch(CONTRACTOR_TOKEN);
+      // On a KNOWN contractor surface the bare-`eik` convention counts too — this
+      // is the arm the two prior escapes would have died on.
+      expect(src).not.toMatch(CONTRACTOR_TOKEN_LOOSE);
     },
   );
 
@@ -215,6 +291,18 @@ describe("contractor surfaces route through CompanyLink", () => {
       true,
     );
     expect(CONTRACTOR_TOKEN.test("to={`/company/${c.awarderEik}`}")).toBe(
+      false,
+    );
+    // The loose token must catch what the strict one misses…
+    expect(CONTRACTOR_TOKEN_LOOSE.test("to={`/company/${s.eik}`}")).toBe(true);
+    expect(CONTRACTOR_TOKEN_LOOSE.test("to={`/company/${eik}`}")).toBe(true);
+    expect(CONTRACTOR_TOKEN.test("to={`/company/${s.eik}`}")).toBe(false);
+    // …and still not fire on the awarder field, or it would be the blanket rule
+    // the awarder carve-out exists to prevent.
+    expect(CONTRACTOR_TOKEN_LOOSE.test("to={`/company/${c.awarderEik}`}")).toBe(
+      false,
+    );
+    expect(CONTRACTOR_TOKEN_LOOSE.test("to={`/company/${row.uic}`}")).toBe(
       false,
     );
   });

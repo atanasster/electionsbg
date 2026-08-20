@@ -39,6 +39,7 @@ import {
   ART_SCHOOLS,
   DKI_CONFIRMED_INSTITUTES,
 } from "@/lib/kulturaReferenceData";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 /** Headline money and competition, not a CPV taxonomy — one bucket. */
 const CLASSIFIER: SectorClassifier<"all"> = { categoryOf: () => "all" };
@@ -197,12 +198,12 @@ export const CultureProcurementScreen: FC = () => {
                     <span className="w-5 shrink-0 tabular-nums text-muted-foreground">
                       {i + 1}
                     </span>
-                    <Link
-                      to={`/company/${s.eik}`}
+                    <CompanyLink
+                      eik={s.eik}
                       className="truncate hover:underline"
                     >
                       {s.name}
-                    </Link>
+                    </CompanyLink>
                   </span>
                   <span className="shrink-0 tabular-nums">
                     {eur(s.totalEur)}

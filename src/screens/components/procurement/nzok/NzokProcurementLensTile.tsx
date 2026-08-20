@@ -7,7 +7,6 @@
 // Pure from the NzokModel.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ScanSearch } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -18,6 +17,7 @@ import {
   cleanSupplierName,
 } from "@/lib/nzokBenchmarks";
 import type { NzokModel } from "@/lib/nzokAttributes";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 export const NzokProcurementLensTile: FC<{ model: NzokModel }> = ({
   model,
@@ -90,15 +90,15 @@ export const NzokProcurementLensTile: FC<{ model: NzokModel }> = ({
                 return (
                   <li key={s.eik} className="p-3">
                     <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-                      <Link
-                        to={`/company/${s.eik}`}
+                      <CompanyLink
+                        eik={s.eik}
                         className="font-medium hover:text-primary hover:underline"
                       >
                         <span className="mr-1.5 text-muted-foreground/70 tabular-nums">
                           {i + 1}.
                         </span>
                         {cleanSupplierName(s.name)}
-                      </Link>
+                      </CompanyLink>
                       <span className="tabular-nums text-muted-foreground">
                         {eur(s.totalEur)}
                         <span className="ml-1 text-muted-foreground/70">

@@ -177,10 +177,14 @@ export const ContractDetailScreen: FC = () => {
               {formatEur(c.consortiumFullEur ?? 0, i18n.language)}
             </strong>
             , записана при водещото обединение
-            {/* The CTA is dropped entirely when the carrier has no page, rather
-                than degraded to text: „виж обединението" that goes nowhere is
-                worse than no offer at all, and 1,626 of 2,368 consortium keys
-                (10,648 of 15,345 rows) are `obed-` carriers with no page. */}
+            {/* Since 2026-08-19 the 1,626 `obed-` carriers ARE linkable, so this
+                CTA now renders for them — the carrier's page is what names the
+                member firms, and 719 more are registered ДЗЗД holding a plain EIK,
+                which were always linkable. The guard now survives for just 23 keys
+                (108 rows) that are neither, where „виж обединението" would promise
+                a key a reader cannot check anywhere. It is
+                dropped entirely rather than degraded to text — an offer that goes
+                nowhere is worse than no offer at all. */}
             {c.consortiumEik && isLinkableCompanyKey(c.consortiumEik) ? (
               <>
                 {" — "}

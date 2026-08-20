@@ -1701,12 +1701,12 @@ export const ProjectFileScreen = () => {
                     {inhouseHit.map((h, i) => (
                       <span key={h.eik}>
                         {i > 0 ? ", " : ""}
-                        <Link
-                          to={`/company/${h.eik}`}
+                        <CompanyLink
+                          eik={h.eik}
                           className="text-primary hover:underline"
                         >
                           {h.name}
-                        </Link>
+                        </CompanyLink>
                       </span>
                     ))}
                     {")"}
@@ -1720,12 +1720,12 @@ export const ProjectFileScreen = () => {
                         className="flex flex-wrap items-baseline gap-x-2 text-xs"
                       >
                         {s.eik ? (
-                          <Link
-                            to={`/company/${s.eik}`}
+                          <CompanyLink
+                            eik={s.eik}
                             className="text-primary hover:underline"
                           >
                             {s.name}
-                          </Link>
+                          </CompanyLink>
                         ) : (
                           <span className="text-foreground">{s.name}</span>
                         )}

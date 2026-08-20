@@ -2,24 +2,37 @@
 // hand-rolling `<Link to={`/company/${eik}`}>`.
 //
 // It exists for the same reason AwarderLink does — one invariant kept being
-// forgotten at many call sites — but the invariant here is simpler and the failure
-// louder: **not every supplier key HAS a company page.** `contracts.contractor_eik`
-// carries 1,803 synthetic carriers (`obed-` / `ph-` / `np-`) and 282 ids that are
-// neither those nor a plain EIK, and `institution_identity()` returns NULL for all
-// 2,085, so the page renders „Няма фирма с ЕИК … в базата.". Every one was a live
-// link before.
+// forgotten at many call sites — but the invariant here is different: **not every
+// supplier key is worth promising a page for.** `contracts.contractor_eik` carries
+// 1,803 synthetic carriers (`obed-` / `ph-` / `np-`) and 282 ids that are neither
+// those nor a plain EIK (the empty string among them), and `institution_identity()`
+// returns NULL for all 2,085.
 //
-// When the key is not servable this renders the name as plain text. It deliberately
+// ⚠ THAT DOES NOT MEAN THE PAGE 404s, AND THIS COMMENT SAID IT DID UNTIL
+// 2026-08-19. `/company/:eik` falls back to a procurement-only body (8c8b9a9654,
+// 2026-07-06) and reaches „Няма фирма с ЕИК … в базата." only when it has no
+// contracts either — which a key drawn from `contracts.contractor_eik` never is.
+// So the split below is editorial, not a servability test, and `isLinkableCompanyKey`
+// is where it is argued. Do not re-derive it from „does the page exist".
+//
+// `obed-` carriers ARE linked: the carrier's page names its member firms, which is
+// the only route from a dominated leaderboard row to the companies behind it.
+// `ph-` (a registration number the buyer made up), `np-` (one natural person) and
+// the foreign / malformed ids are NOT: those pages load, but the key names nothing
+// a reader can check against any register.
+//
+// When the key is not linked this renders the name as plain text. It deliberately
 // does NOT hide the row: the supplier is real and its money is real — Elsevier B.V.
-// is a `ph-` key holding €32.8M — so it belongs on the leaderboard. What it must
-// not do is promise a page that does not exist.
+// is a `ph-` key holding €32.8M — so it belongs on the leaderboard.
 //
 // ⚠ CONTRACTOR KEYS ONLY. `isLinkableCompanyKey` accepts the 9- and 13-digit forms
-// `canonicalEik` emits, which is exactly the contractor domain — but AWARDER keys
-// are validated by `isValidEik`, which admits 9–13 digits, and two live awarders
-// sit outside 9/13: ЕСО `1752013040` (10 digits, 10 rows) and АДФИ `175076479999`
-// (12 digits). Both RESOLVE. Routing an awarder through this component de-links
-// them, which is why the awarder row on /contract/:key deliberately does not use it.
+// `canonicalEik` emits plus `obed-`, which is exactly the contractor domain — but
+// AWARDER keys are validated by `isValidEik`, which admits 9–13 digits, and two live
+// awarders sit outside 9/13: ЕСО `1752013040` (10 digits, 10 rows) and АДФИ
+// `175076479999` (12 digits). Both RESOLVE. Routing an awarder through this
+// component de-links them, which is why the awarder row on /contract/:key
+// deliberately does not use it, and why `SchoolProcurementTile`'s „виж поръчките на
+// училището" (the school as a BUYER) is not one of this component's call sites.
 //
 // ⚠ THE NON-LINK BRANCH STRIPS LINK AFFORDANCE. Call sites pass `hover:underline`
 // (and sometimes `text-primary`) together with layout classes like `truncate` and

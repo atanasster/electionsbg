@@ -6,7 +6,6 @@
 // styled <Tooltip>, not the native title=.
 
 import { FC, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PieChart, ChevronRight, ChevronDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -20,6 +19,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import type { ProcurementBreakdown } from "@/data/dataTypes";
 import type { SectorRank } from "./CompanySectorRankTile";
+import { CompanyLink } from "./CompanyLink";
 
 interface PeerRow {
   eik: string;
@@ -199,12 +199,12 @@ export const CompanySectorsTile: FC<{
                             <span className="w-8 shrink-0 tabular-nums text-muted-foreground">
                               №{p.rank}
                             </span>
-                            <Link
-                              to={`/company/${p.eik}`}
+                            <CompanyLink
+                              eik={p.eik}
                               className={`truncate ${p.isSelf ? "" : "text-accent hover:underline"}`}
                             >
                               {decodeEntities(p.name) || p.eik}
-                            </Link>
+                            </CompanyLink>
                             <span className="ml-auto shrink-0 tabular-nums text-muted-foreground">
                               {formatEurCompact(p.totalEur, lang)}
                             </span>

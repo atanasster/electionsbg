@@ -4,13 +4,13 @@
 // the firm is linked to an MP/official. Click → /company/:eik.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Banknote, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
 import type { TopContractor } from "@/lib/roadAttributes";
 import { COMPONENT_LABEL } from "./roadLabels";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 export const RoadTopContractorsTile: FC<{
   contractors: TopContractor[];
@@ -61,12 +61,12 @@ export const RoadTopContractorsTile: FC<{
                 </span>
                 <span className="flex-1 min-w-0">
                   <span className="flex items-center gap-1 min-w-0">
-                    <Link
-                      to={`/company/${c.eik}`}
+                    <CompanyLink
+                      eik={c.eik}
                       className="min-w-0 truncate font-medium hover:underline"
                     >
                       {c.name}
-                    </Link>
+                    </CompanyLink>
                     {connected ? (
                       <Users className="h-3 w-3 text-amber-600 shrink-0" />
                     ) : null}

@@ -16,6 +16,7 @@ import { FollowStar } from "./FollowStar";
 import { useTopContractors } from "@/data/procurement/useProcurementIndex";
 import type { ProcurementByNsFile } from "@/data/dataTypes";
 import { formatEur, formatEurWithOther } from "@/lib/currency";
+import { CompanyLink } from "./CompanyLink";
 
 const TOP_ROWS = 10;
 
@@ -106,8 +107,8 @@ export const TopContractorsTile: FC<{
                 {idx + 1}
               </span>
               <div className="min-w-0 flex-1">
-                <Link
-                  to={`/company/${e.eik}`}
+                <CompanyLink
+                  eik={e.eik}
                   className="font-medium hover:underline truncate inline-flex items-center gap-2"
                 >
                   <span className="truncate">{e.name}</span>
@@ -116,7 +117,7 @@ export const TopContractorsTile: FC<{
                       {t("procurement_index_mp_tag") || "MP-tied"}
                     </span>
                   ) : null}
-                </Link>
+                </CompanyLink>
               </div>
               <span className="tabular-nums shrink-0 min-w-[90px] text-right font-medium">
                 {e.totalDisplay}
