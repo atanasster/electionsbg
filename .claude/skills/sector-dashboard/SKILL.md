@@ -1,6 +1,6 @@
 ---
 name: sector-dashboard
-description: Build or rework the DATA LAYER under a sector surface — the EIK register that defines who the sector is, the multi-corpus money union, the coverage declarations, the competition baselines, the people bridge and the grant→contract spine. Use when the user asks to build or fix a sector view (/culture, /judiciary, /defense, /sector/<key>, an awarder pack), to add a sector to the ?sector= filter, to work out "how much money does sector X get", to reconcile two figures about the same sector, or when a sector's headline number looks wrong. Defers to the dashboard-hub skill for the tile grid, bands, scenes, accents and search. Encodes the defect classes this layer reliably produces — a register that silently under-covers, name regexes that invert their own figure in BOTH directions, a rate compared against a baseline from a different window, an EIK filter pointed at a corpus that keys on names, and a figure whose matching nobody wrote down. Treats the universe rule, moving an EIK between the four principal lists, changing a headline's basis and excluding a real sector body as design decisions to confirm (presenting the € impact), and otherwise implements via /implement-plan.
+description: Build or rework the DATA LAYER under a sector surface — the EIK register that defines who the sector is, the multi-corpus money union, the coverage declarations, the competition baselines, the people bridge and the grant→contract spine. Use when the user asks to build or fix a sector view (/culture, /judiciary, /defense, /sector/<key>, an awarder pack), to add a sector to the ?sector= filter, to work out "how much money does sector X get", to reconcile two figures about the same sector, or when a sector's headline number looks wrong. Defers to the dashboard-hub skill for the tile grid, bands, scenes, accents and search. Encodes the defect classes this layer reliably produces — a register that silently under-covers, name regexes that invert their own figure in BOTH directions, a rate compared against a baseline from a different window, an EIK filter pointed at a corpus that keys on names, a figure whose matching nobody wrote down, a register inverted into a claim its source never makes, and a corpus that loads locally while production silently keeps the previous vintage because no skill names its :cloud loader. Treats the universe rule, moving an EIK between the four principal lists, changing a headline's basis and excluding a real sector body as design decisions to confirm (presenting the € impact), and otherwise implements via /implement-plan.
 allowed-tools:
   - Read
   - Bash
@@ -35,7 +35,7 @@ written, so re-derive before quoting one.
 Sections 1, 2, 5 and 12 gained material the same day from four further ingests
 (ЦПРС licences, the ЦАИС dossier, TED, АДФИ) — the branch-ЕИК fold, the
 one-fold rule, the three coverage rules and the three unfailable-gate shapes.
-Each is here because it shipped or nearly shipped, per §15.
+Each is here because it shipped or nearly shipped, per §17.
 
 Everything below is a rule **plus the measurement that produced it**. That pairing
 is the point: a rule without its number gets argued with, and every number here
@@ -432,7 +432,7 @@ contract → contractor is already joinable. 262 of 264 codes match (99.2%).
 Build it once as a shared object, not a per-sector chart.
 
 ⚠️ **This is the one section here that is a CAPABILITY rather than a defect.**
-Nothing shipped wrong to produce it, and the table has no consumer yet. By §15's
+Nothing shipped wrong to produce it, and the table has no consumer yet. By §17's
 own standard that makes it advice; it is kept on one condition — the 99.2% join
 rate is measured, so „this is possible" is checkable rather than hopeful. If it
 still has no consumer at the next retrofit, cut it.
@@ -493,6 +493,45 @@ row and a Data Map entry (`reference_migrated_family_watch_reload`).
 - **`vacuumAfterReload()` after any bulk rewrite**, and list the table in
   `RELOADED` — `test:data` is `db:refresh`'s last link, so an unlisted table
   fails every full refresh at the end.
+
+### The reload path is part of the dataset, not paperwork after it
+
+A `:cloud` loader is the ONLY way a corpus reaches production, and nothing runs
+one automatically. So a dataset is not finished when it loads locally — it is
+finished when someone downstream is _told to reload it_. Three things, and the
+third is the one that gets skipped:
+
+1. a **watcher** in `scripts/watch/sources/` (+ registered in `SOURCES`);
+2. a **`process-watch-report` mapping row** naming the owning `update-*` skill;
+3. **the `:cloud` command written INSIDE that row.**
+
+Measured on the session that produced this section: five new datasets shipped
+with working watchers, registered, fingerprinting correctly — and **not one of
+their `:cloud` loaders was named in any skill**. The failure that buys is
+specific and silent: the watcher fires, an operator re-ingests locally, commits,
+and production keeps the previous vintage **at a 200 with every row count
+reconciling**. Nothing is red. It is the same class as a stale matview, one layer
+further out.
+
+`scripts/db/cloud_loader_coverage.test.ts` is the gate, and it found the problem
+is not confined to new work — **23 of 75 `:cloud` scripts had no owning skill**,
+22 of them pre-existing. Those are parked as `kind: 'unreviewed'` with the count
+capped, so the gate stays non-vacuous for new loaders while the backlog stays
+visible instead of being blanket-passed.
+
+⚠️ **Registering a watcher is not the same as wiring it, and the `SOURCES` array
+will lie to you about it.** A `WatchSource` imported into the wrong block of
+`sources/index.ts` — inside an `export … from` rather than beside the plain
+imports — type-checks, appears in the file, and is absent at runtime. Only
+`tsc -b --force` surfaced it. Assert membership by _running_ the array, not by
+grepping the file.
+
+⚠️ **A watcher must throw on a refusal, never report zero.** Both WAF shapes on
+2020.eufunds.bg (the „Please enable JavaScript" challenge and the 245-byte
+„Request Rejected") are served as **HTTP 200**, so `res.ok` is blind to them. A
+fingerprint that folds a refusal into „0 rows" reports the collapse of the source
+as news — on a clean-delivery register that reads as _every project losing its
+clean status_.
 
 ---
 
@@ -597,6 +636,12 @@ Run against an existing sector surface, in order:
 9. **Pages** (§12) — is every page prerendered AND in the sitemap, in both
    languages? Open each one and check its rendered title and `<h1>` against what
    the prerender declares.
+10. **Reload path** (§11) — does every `:cloud` loader appear in a
+    `process-watch-report` mapping row, and does its watcher exist AND resolve in
+    `SOURCES` at runtime? Run `cloud_loader_coverage.test.ts`.
+11. **Source shape** (§16) — is any figure derived by INVERTING a register that
+    publishes only one side? Is a suspected export cap actually a cap, per the
+    source's own total?
 
 The first three retrofits are the test of whether this skill is any good:
 `/judiciary`, `/defense`, `/sector/energy`. **If running the checklist on those
@@ -628,7 +673,9 @@ retrofitted sector:
 6. the loaders, migrations and `:cloud` commands (§11);
 7. the page layer (§12) — prerender entry, sitemap entry, and a look at every
    page in both languages;
-8. the gates (§13) — always last, always separate.
+8. the reload path (§11) — watcher, `process-watch-report` row, and the `:cloud`
+   command written inside it;
+9. the gates (§13) — always last, always separate.
 
 ### STOP and ask — the decisions this skill must not make for you
 
@@ -651,7 +698,8 @@ asking: a stem that over- or under-matches, an unfolded branch ЕИК, a fold
 written twice, a missing coverage declaration, a NULL rendered as an answer, a
 rate without its baseline, a roll-up entry with no name, a gate that cannot fail,
 a page missing its prerender or sitemap entry, a screen whose title no longer
-matches the URL it moved to.
+matches the URL it moved to, a `:cloud` loader no skill names, a watcher that
+reports zero where it should throw.
 None of those is a judgement call — they are wrong, and the measurement in the
 matching section of this file is the argument.
 
@@ -662,7 +710,99 @@ vintage at a 200 with every row count reconciling.
 
 ---
 
-## 16. Keeping it current
+## 16. What the source IS — four ways a register is not what it looks like
+
+Every one of these cost real work in one session, and each would have shipped a
+number that was wrong in a direction nobody could walk back.
+
+### The state publishes the ACHIEVEMENT list, not the complement
+
+ИСУН publishes „Проекти без наложени финансови корекции" — projects that ended
+with **no** correction. The tempting move is subtraction: everything else must be
+the corrected ones. It is not. A project can be absent because it finished LATE,
+was terminated, or is still in final verification, and the individual
+irregularity records go to OLAF's IMS, which is **confidential** — the complement
+is not published anywhere, by design.
+
+Measured: subtracting that list from `fund_projects` would have asserted a
+financial correction against **41,126** completed projects, including 87% of
+ОПИК's. Not a wrong statistic — an accusation against thousands of named
+companies, in the one direction that cannot be corrected later.
+
+The rule that generalises: **before inverting any register, ask whether the
+source publishes the other half at all.** If it does not, the inversion is your
+inference, not its data. Model it so the inversion is unreachable rather than
+merely discouraged — the coverage row's caveat column is `NOT NULL`, the serving
+function returns that sentence beside every figure, and the tile refuses to draw
+a zero (see §12).
+
+### „Looks like an export cap" is not a cap — read the source's own total
+
+Two reports on the same register returned 9,940 and 41,530. The first sat in a
+9,949-row sheet: a ~10,000 ceiling, obviously, the same shape BULSTAT's 999 and
+ЦПРС's cartesian product both have. The correct response looked like partitioning
+the export per programme.
+
+It was not a cap. Each listing prints its own pager — „Страница (1/398)" and
+„(1/1359)" — and 398 × 25 = 9,950 against 9,940 exported, 1359 × 25 = 33,975
+against 33,954. **Both exports were complete**, and the 4× gap is real: the two
+reports count different populations. Partitioning would have meant `ProgrammeId`
+round-trips against a WAF that blocks its own autocomplete endpoint, to fix
+nothing.
+
+**Find the source's own count — a pager, an „Общо: N", a result header — before
+you design around a ceiling.** Two figures disagreeing is evidence about the
+figures, not automatically about truncation.
+
+### A register can be DEAD, and „current" must then be derived, never stored
+
+The АОП external-experts register: **88 experts, 0 still valid**, newest expiry
+2023-01-01, nobody added since 2020-01-01. It cannot answer „who is available
+now" — only „who was approved between 2017 and 2023". Ingest it, but every
+surface must be past-tense, and the coverage row carries the window so no page
+re-derives it.
+
+Store no `is_current` flag: it is only true until the clock passes it. Derive it
+at query time in a view — the rule `open_calls` already follows. Postgres
+enforces this by accident and usefully: `CURRENT_DATE` is not immutable, so a
+`GENERATED` column is refused outright.
+
+⚠️ **The expected state of such a source is „unchanged, forever", which makes its
+watcher unusual**: it is not watching for an update, it is watching for the
+register to REOPEN — which would invalidate the historical framing in the
+migration, the gate and the docs at once. Say so in the mapping row, or the next
+operator will treat a fire as routine.
+
+### A fingerprint at a FINER grain than your fold is a free grain check
+
+The АОП watcher hashes `(id, valid_from, valid_until)` and reported **92**; the
+ingest's fold, keyed on id alone, wrote **88**. The gap was the finding:
+validity belongs to `(expert, competence area)`, not to the expert — 4 of 88 were
+admitted to a second area later and carry a different window there. A scalar pair
+on the parent stores one of two true answers, chosen by whichever area the crawl
+visited first.
+
+No test caught it. No row count could: 88 is the right number of experts. It
+surfaced only because two independent counts of the same corpus disagreed. **Key
+the watcher on the fields you believe are functionally dependent on the id** —
+when they are not, it tells you for free.
+
+### Related: two smaller ones from the same work
+
+- **A source that publishes fewer name parts than your identity layer demands
+  REFUSAL, not scoring.** АОП prints given + family; `person` holds three. 58 of
+  88 matched a person, only **25** matched exactly one. The other 33 are refused
+  and reported, never graded — the same rule §2 states for name matching, and it
+  binds hardest when the source is the weaker side.
+- **`Response.text()` decodes UTF-8 ALWAYS**, per the fetch spec, regardless of
+  the `Content-Type` charset. A windows-1251 register (АОП's `ets.php`; the ЦПРС
+  family is the same vintage) therefore does not throw — it yields a corpus of
+  mojibake names that passes every row count. `fetchText` takes an `encoding` for
+  exactly this.
+
+---
+
+## 17. Keeping it current
 
 Add a section only when something **shipped wrong** and you can state the
 measurement. A rule without its number is advice, and this file is not for advice.
