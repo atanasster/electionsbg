@@ -41,6 +41,7 @@
 
 import { FC, PropsWithChildren } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
 import {
   ArticleH2,
@@ -387,7 +388,14 @@ export const ProcurementMethodologyScreen = () => {
         {t("proc_meth_caveat_body")}
       </MethodologyCallout>
 
-      <ArticleP>{t("proc_meth_intro")}</ArticleP>
+      <ArticleP>
+        <Trans
+          i18nKey="proc_meth_intro"
+          components={{
+            dash: <Link to="/procurement" className={proseClasses.a} />,
+          }}
+        />
+      </ArticleP>
       <VersionLine />
 
       <ArticleH2>{t("proc_meth_h_read")}</ArticleH2>
@@ -407,9 +415,26 @@ export const ProcurementMethodologyScreen = () => {
       <ContractFlagTable />
 
       <ArticleH2>
-        {t("proc_meth_h_tender")} ({TENDER_FLAG_LIST.length})
+        <Trans
+          i18nKey="proc_meth_h_tender"
+          components={{
+            tenders: (
+              <Link to="/procurement/tenders" className={proseClasses.a} />
+            ),
+          }}
+        />{" "}
+        ({TENDER_FLAG_LIST.length})
       </ArticleH2>
-      <ArticleP>{t("proc_meth_p_tender")}</ArticleP>
+      <ArticleP>
+        <Trans
+          i18nKey="proc_meth_p_tender"
+          components={{
+            tenders: (
+              <Link to="/procurement/tenders" className={proseClasses.a} />
+            ),
+          }}
+        />
+      </ArticleP>
       <TenderFlagTable />
 
       <ArticleH2>{t("proc_meth_h_contract_grade")}</ArticleH2>
@@ -423,7 +448,16 @@ export const ProcurementMethodologyScreen = () => {
       <LabelP label={t("proc_meth_grade_supplier_t")}>
         {componentList(SUPPLIER_EXPOSURE_LIST, t)}
       </LabelP>
-      <ArticleP>{t("proc_meth_p_grades_differ")}</ArticleP>
+      <ArticleP>
+        <Trans
+          i18nKey="proc_meth_p_grades_differ"
+          components={{
+            tenders: (
+              <Link to="/procurement/tenders" className={proseClasses.a} />
+            ),
+          }}
+        />
+      </ArticleP>
       <Shot
         src="/articles/images/procurement-risk/01-grades.webp"
         alt={t("proc_meth_shot_grades_alt")}
