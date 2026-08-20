@@ -98,6 +98,24 @@ export const isDeletedFactPlaceholder = (
   name: string | null | undefined,
 ): boolean => /^\s*заличено обстоятелство/i.test(name ?? "");
 
+/**
+ * A record that names NOBODY, and so cannot be an owner: blank, or the deleted-fact
+ * placeholder.
+ *
+ * ⚠️ The blank half exists to match what Postgres actually SEES. `load_tr_pg.ts` loads
+ * `WHERE name IS NOT NULL AND name <> ''`, so a nameless row never reaches
+ * tr_person_roles and the view cannot count it — while this side reads state.sqlite,
+ * where it is present. The CR projection emits such rows (an owner field the deed leaves
+ * empty), and counting one made a two-owner company out of a one-owner one: three lone
+ * sole owners were refused their correct 100% because a nameless partner sat beside them.
+ * Two implementations of one rule have to read the same row set, not just apply the same
+ * arithmetic.
+ */
+const namesNobody = (name: string | null | undefined): boolean => {
+  const n = (name ?? "").trim();
+  return n === "" || isDeletedFactPlaceholder(n);
+};
+
 /** Match SQL `round(x, 4)` closely enough for the data test's tolerance. */
 const round4 = (n: number): number => Math.round(n * 1e4) / 1e4;
 
@@ -117,7 +135,7 @@ export const ownerSharePercents = (
     (r) =>
       r.erasedAt === null &&
       isOwnerRole(r.role) &&
-      !isDeletedFactPlaceholder(r.name ?? r.nameNormalized),
+      !namesNobody(r.name ?? r.nameNormalized),
   );
   if (owners.length === 0) return out;
 

@@ -64,7 +64,8 @@ export const deedToPersonRows = (parsed: CrDeedParsed): CrPersonRow[] => {
   const owners = parsed.parties.filter(
     (p) =>
       (p.role === "partner" || p.role === "sole_owner") &&
-      !isDeletedFactPlaceholder(p.name),
+      !isDeletedFactPlaceholder(p.name) &&
+      (p.name ?? "").trim() !== "",
   );
   return parsed.parties.map((p, i) => ({
     uic: parsed.uic,

@@ -811,13 +811,21 @@ test.skipIf(skip)(
     // Direction 2 — the view publishes and the store does not. This is the whole
     // `missing` family (refusals 2, 3, 4); a TS predicate that fired too often would be
     // invisible to direction 1.
+    //
+    // ⚠️ ASK "does the store publish on ANY row of this group", never "on every row".
+    // tr_owner_share holds ONE row per (uic, name_fold, role) while tr_person_roles
+    // holds one per FILING, so an equi-join matches the view's single row against every
+    // superseded vintage too — and those correctly carry NULL. Company 000222314 has 43
+    // owner rows across 6 vintages and the store publishes on the current 15; the
+    // all-rows form counted the other 28 as disagreements, 23,728 corpus-wide.
     const [over] = await allRows<{ n: string }>(`
       SELECT count(*) n
         FROM tr_owner_share s
-        JOIN tr_person_roles r
-          ON r.uic = s.uic AND r.name_fold = s.name_fold AND r.role = s.role
-         AND r.erased_at IS NULL
-       WHERE s.share_pct IS NOT NULL AND r.share IS NULL`);
+       WHERE s.share_pct IS NOT NULL
+         AND NOT EXISTS (
+           SELECT 1 FROM tr_person_roles r
+            WHERE r.uic = s.uic AND r.name_fold = s.name_fold AND r.role = s.role
+              AND r.erased_at IS NULL AND r.share IS NOT NULL)`);
     assert.equal(
       num(over.n),
       0,

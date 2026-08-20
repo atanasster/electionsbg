@@ -448,3 +448,38 @@ describe("ownerSharePercents — the deleted-fact placeholder", () => {
     expect(out.get("p")).toBeNull();
   });
 });
+
+describe("ownerSharePercents — a nameless record", () => {
+  it("does not count a blank-named row as an owner", () => {
+    // load_tr_pg loads `WHERE name <> ''`, so Postgres never sees these — but the
+    // SQLite corpus does, and the CR projection emits them. Counting one made a
+    // two-owner company out of a one-owner one and refused three lone sole owners
+    // their correct 100%.
+    const out = ownerSharePercents([
+      rec({
+        key: "s",
+        name: "НИКОЛАЙ СТОИЛОВ МИХАЙЛОВ",
+        nameNormalized: "НИКОЛАЙ СТОИЛОВ МИХАЙЛОВ",
+        role: "sole_owner",
+        shareAmount: null,
+      }),
+      rec({
+        key: "blank",
+        name: "",
+        nameNormalized: "",
+        role: "partner",
+        shareAmount: null,
+      }),
+    ]);
+    expect(out.get("s")).toBe(100);
+    expect(out.get("blank")).toBeNull();
+  });
+
+  it("treats a whitespace-only name the same way", () => {
+    const out = ownerSharePercents([
+      rec({ key: "s", name: "С", nameNormalized: "С", role: "sole_owner" }),
+      rec({ key: "ws", name: "   ", nameNormalized: "   ", role: "partner" }),
+    ]);
+    expect(out.get("s")).toBe(100);
+  });
+});
