@@ -266,7 +266,28 @@ CREATE INDEX IF NOT EXISTS price_skus_product    ON price_skus (product_id);
 CREATE INDEX IF NOT EXISTS price_skus_eik        ON price_skus (eik);
 CREATE INDEX IF NOT EXISTS price_stores_ekatte   ON price_stores (ekatte);
 CREATE INDEX IF NOT EXISTS price_products_pid    ON price_products (pid);
-CREATE INDEX IF NOT EXISTS price_products_browse ON price_products (chain_count DESC, product_id) WHERE chain_count > 0;
+-- ⚠️ `DESC NULLS LAST`, and the DROP above it, are BOTH load-bearing.
+--
+-- db_table.js's buildOrder emits `chain_count DESC NULLS LAST` for the `price_products`
+-- default sort, while a plain `DESC` index is NULLS FIRST — and Postgres bridges neither
+-- direction. Note it does NOT matter that `chain_count` is NOT NULL: pathkeys are compared
+-- structurally and no NOT NULL constraint is consulted, so this table is the corpus proof
+-- that the defect is not confined to matviews. MEASURED on the /consumption/products
+-- arrival (chain_count >= 1, 102,976 rows): 19,261 buffers / 18.7 ms parallel seq scan +
+-- top-N heapsort, against 27 buffers / 0.036 ms.
+--
+-- The partial predicate stays: the browser's own fixed filter is `chain_count >= 1`, which
+-- Postgres proves implies `chain_count > 0`, so the index is still a candidate for it.
+--
+-- The DROP is required because this file is applied to WARM databases and
+-- `CREATE INDEX IF NOT EXISTS` is a no-op against an existing name — editing the definition
+-- alone would reach a fresh clone and nowhere else. (Cheap here: 048 is applied with
+-- execEach, so the DROP commits on its own and the rebuild takes a ~1 s ShareLock on a
+-- 118k-row table. Do NOT fold this pattern into an `exec`-applied file, where the lock
+-- would be held for the whole migration.)
+-- Gate: scripts/db/tests/db_table_sort_indexes.data.test.ts.
+DROP INDEX IF EXISTS price_products_browse;
+CREATE INDEX IF NOT EXISTS price_products_browse ON price_products (chain_count DESC NULLS LAST, product_id) WHERE chain_count > 0;
 CREATE INDEX IF NOT EXISTS price_products_since   ON price_products (pct_since_euro) WHERE chain_count > 1 AND pct_since_euro IS NOT NULL;
 CREATE INDEX IF NOT EXISTS price_products_trgm   ON price_products USING gin (title gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS price_grid_days_day   ON price_grid_days (day);

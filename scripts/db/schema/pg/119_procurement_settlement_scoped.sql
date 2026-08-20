@@ -69,10 +69,19 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_psr_scope_ekatte
 -- The default sort. total_eur DESC then ekatte — the tiebreak is not cosmetic: without it
 -- equal-valued rows can swap between pages mid-scroll, and the payload sorts already round
 -- before ordering for exactly this reason (per-instance summation noise).
+--
+-- ⚠️ `DESC NULLS LAST` MUST MATCH WHAT buildOrder EMITS, or the index is not a candidate
+-- at all: db_table.js spells every descending sort `<col> DESC NULLS LAST`, a plain `DESC`
+-- index is NULLS FIRST, and Postgres bridges neither direction (not even for a NOT NULL
+-- column — it compares pathkeys structurally). Mismatched, this page bitmap-scans the
+-- whole scope and top-N heapsorts it. MEASURED on scope_key='all' (871 settlements):
+-- 22 buffers / 0.23 ms against 3 buffers / 0.011 ms. Small here only because a scope holds
+-- under a thousand rows; 122 carries the same note over 29,622.
+-- Gate: scripts/db/tests/db_table_sort_indexes.data.test.ts.
 CREATE INDEX IF NOT EXISTS idx_psr_scope_total
-  ON procurement_settlement_rank (scope_key, total_eur DESC, ekatte);
+  ON procurement_settlement_rank (scope_key, total_eur DESC NULLS LAST, ekatte);
 CREATE INDEX IF NOT EXISTS idx_psr_scope_contracts
-  ON procurement_settlement_rank (scope_key, contract_count DESC, ekatte);
+  ON procurement_settlement_rank (scope_key, contract_count DESC NULLS LAST, ekatte);
 CREATE INDEX IF NOT EXISTS idx_psr_fold
   ON procurement_settlement_rank USING gin (name_fold gin_trgm_ops);
 

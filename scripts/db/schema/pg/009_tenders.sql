@@ -101,8 +101,12 @@ CREATE INDEX IF NOT EXISTS idx_tenders_cpv_pattern
 -- global index vs 6ms / 2ms once the buyer is the index's leading column.
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_value
   ON tenders(buyer_eik, estimated_value_eur DESC NULLS LAST, unp DESC);
+-- `DESC NULLS LAST, unp` (not `DESC, unp DESC`) so the key matches what db_table.js's
+-- buildOrder emits — 113 recreates this index with the same shape and carries the
+-- measurement; kept in step here so a fresh clone that has not reached 113 is not built
+-- with an index the date sort cannot use.
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_date
-  ON tenders(buyer_eik, publication_date DESC, unp DESC);
+  ON tenders(buyer_eik, publication_date DESC NULLS LAST, unp);
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_fold ON tenders USING gin (buyer_fold gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_tenders_subj_fold  ON tenders USING gin (subject_fold gin_trgm_ops);
 -- The global tenders browser default-sorts by forecast value — keep it an index

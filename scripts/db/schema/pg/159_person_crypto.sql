@@ -122,8 +122,17 @@ WHERE p.status = 'active' AND p.is_public_figure;
 
 CREATE UNIQUE INDEX IF NOT EXISTS ux_person_crypto_table
   ON person_crypto_table(scope, holding_key);
+-- `DESC NULLS LAST` matches what db_table.js's buildOrder emits for the `crypto_holdings`
+-- default sort; a plain `DESC` index is NULLS FIRST and Postgres bridges neither direction,
+-- so the mismatched spelling made this index un-candidatable. Correcting it changes NOTHING
+-- MEASURABLE TODAY and is recorded as such: the matview is 114 rows / 8 pages, so the
+-- planner seq-scans it either way (measured 8 buffers before and after). It is fixed
+-- because the register accumulates a year of filings at a time and because a wrong spelling
+-- here is indistinguishable from the one that cost /persons and /ngos two orders of
+-- magnitude. 169 is the sibling that had it right.
+-- Gate: scripts/db/tests/db_table_sort_indexes.data.test.ts.
 CREATE INDEX IF NOT EXISTS idx_person_crypto_scope_value
-  ON person_crypto_table(scope, value_eur DESC);
+  ON person_crypto_table(scope, value_eur DESC NULLS LAST);
 CREATE INDEX IF NOT EXISTS idx_person_crypto_scope_person
   ON person_crypto_table(scope, person_slug);
 

@@ -75,10 +75,22 @@ CREATE INDEX IF NOT EXISTS idx_tenders_order
   INCLUDE (estimated_value_eur, procedure_type, is_eu_funded);
 
 -- ── Per-buyer tender pipeline: WHERE buyer_eik = $1. idx_tenders_buyer_value
--- (buyer_eik, estimated_value_eur DESC, unp DESC) already covers the buyer
+-- (buyer_eik, estimated_value_eur DESC NULLS LAST, unp DESC) already covers the buyer
 -- count+sum (value is in its key); this one adds the facet columns so the buyer
--- procedure / eu-funded facets are index-only too. Key unchanged from 009.
+-- procedure / eu-funded facets are index-only too.
+--
+-- ⚠️ KEY CHANGED from 009: `publication_date DESC NULLS LAST, unp` (was `DESC, unp DESC`).
+-- db_table.js's buildOrder emits `publication_date DESC NULLS LAST, unp ASC` when a reader
+-- sorts a buyer's pipeline by date, and Postgres will not bridge either mismatch — so the
+-- old spelling was refused outright and the page sorted the buyer's whole tender set.
+-- MEASURED on the largest buyer (000696327): 4,356 buffers / 10.8 ms against 2,103 / 4.5 ms.
+--
+-- idx_tenders_buyer_value is deliberately NOT re-spelled to match: its leading key is
+-- already NULLS LAST, so the default arrival IS index-served and only the `unp` tiebreak
+-- costs an Incremental Sort — measured at ONE buffer (2,107 → 2,106), which does not pay
+-- for rebuilding a large index on every database.
+-- Gate: scripts/db/tests/db_table_sort_indexes.data.test.ts.
 DROP INDEX IF EXISTS idx_tenders_buyer_date;
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_date
-  ON tenders (buyer_eik, publication_date DESC, unp DESC)
+  ON tenders (buyer_eik, publication_date DESC NULLS LAST, unp)
   INCLUDE (estimated_value_eur, procedure_type, is_eu_funded);

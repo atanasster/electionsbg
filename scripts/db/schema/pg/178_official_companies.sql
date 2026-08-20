@@ -180,11 +180,18 @@ SELECT a.uic,
 CREATE UNIQUE INDEX official_companies_pkey ON official_companies (uic);
 -- ⚠️ `NULLS LAST` IS LOAD-BEARING, NOT DECORATION. db_table.js's buildOrder emits
 -- `<col> DESC NULLS LAST` for every descending sort, while a plain `DESC` index is NULLS
--- FIRST — and a matview carries no NOT NULL constraint for the planner to bridge the two
--- with. Mismatched, the default arrival stops being an index walk and becomes a seq scan
+-- FIRST. Mismatched, the default arrival stops being an index walk and becomes a seq scan
 -- plus a top-N heapsort: measured 426 buffers / 7.3 ms against 51 / 0.15 ms. Both of these
 -- exist to serve a sort the engine actually issues, so both must spell it the same way.
--- 122 carries the same note for the same reason.
+--
+-- ⚠️ AN EARLIER VERSION OF THIS NOTE BLAMED THE MATVIEW ("no NOT NULL constraint for the
+-- planner to bridge the two with"). That is FALSE and the wrong lesson to carry away: there
+-- is no bridge to build. Postgres compares pathkeys structurally and never consults a NOT
+-- NULL constraint to equate two NULLS orderings — verified on a NOT NULL int column, where
+-- a `(v DESC, id)` index serves `ORDER BY v DESC` and is refused for `ORDER BY v DESC NULLS
+-- LAST`. So ordinary tables are exposed too, which is how `price_products.chain_count`
+-- (NOT NULL) came to seq-scan 102,976 rows on every /consumption/products arrival.
+-- The house-wide gate is scripts/db/tests/db_table_sort_indexes.data.test.ts.
 CREATE INDEX idx_official_companies_money
   ON official_companies (money_eur DESC NULLS LAST, uic);
 CREATE INDEX idx_official_companies_people

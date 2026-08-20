@@ -368,9 +368,22 @@ WITH NO DATA;
 
 -- UNIQUE(eik) enables REFRESH … CONCURRENTLY once populated; the money/count
 -- indexes serve the list default sort; the GIN index serves code-filtering.
+--
+-- ⚠️ `DESC NULLS LAST` IS WHAT MAKES THEM SERVE IT. db_table.js's buildOrder spells every
+-- descending sort `<col> DESC NULLS LAST`, a plain `DESC` index is NULLS FIRST, and
+-- Postgres bridges neither direction — so until 2026-08-20 these two indexes existed,
+-- looked right, and were never a candidate: /ngos parallel seq-scanned ngo_signals and
+-- top-N heapsorted it. MEASURED on the default arrival (entity_class IN (…) AND
+-- has_signal): 17,630 buffers / 13.1 ms against 132 / 0.076 ms.
+--
+-- The `eik` tail is not a tiebreak — the browser's is `name`/`uic`, which live on
+-- tr_companies and cannot be indexed from here, so an Incremental Sort on top is expected
+-- and correct. It is there to make the ordered scan INDEX-ONLY (Heap Fetches: 0) before
+-- the nested loop out to tr_companies.
+-- Gate: scripts/db/tests/db_table_sort_indexes.data.test.ts.
 CREATE UNIQUE INDEX idx_ngo_signals_eik   ON ngo_signals (eik);
-CREATE INDEX        idx_ngo_signals_money ON ngo_signals (public_money_eur DESC);
-CREATE INDEX        idx_ngo_signals_count ON ngo_signals (signal_count DESC);
+CREATE INDEX        idx_ngo_signals_money ON ngo_signals (public_money_eur DESC NULLS LAST, eik);
+CREATE INDEX        idx_ngo_signals_count ON ngo_signals (signal_count DESC NULLS LAST, eik);
 CREATE INDEX        idx_ngo_signals_gin   ON ngo_signals USING gin (signals jsonb_path_ops);
 
 -- The list registry base — the /api/db/table engine is single-relation, so the

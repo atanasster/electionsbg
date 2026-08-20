@@ -599,8 +599,17 @@ CREATE UNIQUE INDEX idx_person_browse_key ON person_browse_table (key);
 CREATE INDEX idx_person_browse_slug ON person_browse_table (slug);
 -- The default sort. DESC on prominence, ASC on name — matching the registry exactly, or
 -- the planner sorts instead of scanning.
+--
+-- ⚠️ `NULLS LAST` IS PART OF "MATCHING EXACTLY", and every `prominence` index below needs
+-- it. db_table.js's buildOrder emits `prominence DESC NULLS LAST`; a plain `DESC` index is
+-- NULLS FIRST; Postgres bridges neither direction, so the index is not a candidate and
+-- /persons falls back to a parallel seq scan + top-N heapsort. MEASURED on the default
+-- arrival (tier='P', 53,460 rows): 6,978 buffers / 18.3 ms against 28 / 0.021 ms.
+-- The net/money/parties block below already spelled this correctly — these did not, which
+-- is how the DEFAULT page came to be the one unindexed sort in the file.
+-- Gate: scripts/db/tests/db_table_sort_indexes.data.test.ts.
 CREATE INDEX idx_person_browse_prominence
-  ON person_browse_table (prominence DESC, name, key);
+  ON person_browse_table (prominence DESC NULLS LAST, name, key);
 -- NULLS LAST is not cosmetic: both figures are NULL for most of the corpus (39,764 have
 -- no declared net worth, 55,731 no ЗОП money), so the browser sorts DESC NULLS LAST to
 -- keep them off the top — and a plain DESC index is NULLS FIRST, which the planner will
@@ -639,7 +648,7 @@ CREATE INDEX idx_person_browse_position ON person_browse_table (position_type);
 -- `position_type <> 'private_sector'` — those are DIFFERENT sets: a public figure whose top role
 -- is a company is tier='P' yet position_type='private_sector', and must stay on the public page.)
 CREATE INDEX idx_person_browse_tier_default
-  ON person_browse_table (tier, prominence DESC, name, key);
+  ON person_browse_table (tier, prominence DESC NULLS LAST, name, key);
 -- Money sort on the default (public) population: the name-fold V arm's broad-basis figures are the
 -- largest and would otherwise dominate the head of the un-tiered money index, so a public
 -- money-sorted page scans past them. Partial on the default floor keeps it an index scan.
@@ -654,12 +663,12 @@ CREATE INDEX idx_person_browse_year ON person_browse_table (latest_declaration_y
 -- Partial indexes: the membership filters the UI issues, each paired with the DEFAULT
 -- sort so a facet-scoped first page is one index scan rather than a filter over 56.8k.
 CREATE INDEX idx_person_browse_exec
-  ON person_browse_table (prominence DESC, name, key) WHERE is_exec;
+  ON person_browse_table (prominence DESC NULLS LAST, name, key) WHERE is_exec;
 CREATE INDEX idx_person_browse_muni
-  ON person_browse_table (prominence DESC, name, key) WHERE is_muni;
+  ON person_browse_table (prominence DESC NULLS LAST, name, key) WHERE is_muni;
 CREATE INDEX idx_person_browse_decl
-  ON person_browse_table (prominence DESC, name, key) WHERE has_declaration;
+  ON person_browse_table (prominence DESC NULLS LAST, name, key) WHERE has_declaration;
 CREATE INDEX idx_person_browse_company
-  ON person_browse_table (prominence DESC, name, key) WHERE is_company;
+  ON person_browse_table (prominence DESC NULLS LAST, name, key) WHERE is_company;
 CREATE INDEX idx_person_browse_held
-  ON person_browse_table (prominence DESC, name, key) WHERE held_office;
+  ON person_browse_table (prominence DESC NULLS LAST, name, key) WHERE held_office;

@@ -191,13 +191,13 @@ test.skipIf(!ok)("orders deterministically, with a tiebreak", async () => {
   const paged = await allRows<{ eik: string }>(`
     SELECT eik FROM contractor_rank
      WHERE scope_key = 'all' AND division = 'ALL'
-     ORDER BY total_eur DESC, eik LIMIT 150`);
+     ORDER BY total_eur DESC NULLS LAST, eik LIMIT 150`);
   const slices = await Promise.all(
     [0, 50, 100].map((off) =>
       allRows<{ eik: string }>(
         `SELECT eik FROM contractor_rank
           WHERE scope_key = 'all' AND division = 'ALL'
-          ORDER BY total_eur DESC, eik LIMIT 50 OFFSET ${off}`,
+          ORDER BY total_eur DESC NULLS LAST, eik LIMIT 50 OFFSET ${off}`,
       ),
     ),
   );
@@ -206,8 +206,13 @@ test.skipIf(!ok)("orders deterministically, with a tiebreak", async () => {
     paged.map((r) => r.eik),
     "paginating the ranking drops or repeats rows — the sort is not a total order",
   );
-  // The index that serves the default sort carries the tiebreak.
+  // The index that serves the default sort carries the tiebreak — AND spells the sort the
+  // way db_table.js's buildOrder spells it. `DESC` alone is `DESC NULLS FIRST`, which
+  // Postgres will not use for the `DESC NULLS LAST` the engine emits, so this assertion
+  // pinned the broken shape until 2026-08-20: it required exactly the spelling that made
+  // the arrival a seq scan + top-N heapsort. The house-wide rule and the plan-level proof
+  // live in scripts/db/tests/db_table_sort_indexes.data.test.ts.
   const [i] = await allRows<{ def: string }>(`
     SELECT indexdef AS def FROM pg_indexes WHERE indexname = 'idx_contractor_rank_total'`);
-  assert.match(i.def, /total_eur DESC, eik/);
+  assert.match(i.def, /total_eur DESC NULLS LAST, eik/);
 });

@@ -155,10 +155,28 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_contractor_rank_key
   ON contractor_rank (scope_key, division, eik);
 -- The default sort. Every browser query filters (scope_key, division), so the sort
 -- indexes lead with both; the eik tiebreak stops equal-valued rows swapping pages.
+--
+-- ⚠️ `DESC NULLS LAST` IS LOAD-BEARING AND MUST MATCH buildOrder EXACTLY. db_table.js
+-- emits `<col> DESC NULLS LAST` for every descending sort, while a plain `DESC` index is
+-- NULLS FIRST — and Postgres will NOT bridge the two, so a mismatched index is simply not
+-- a candidate and the arrival degrades to a scan plus a top-N heapsort. MEASURED on the
+-- default `/procurement/contractors` arrival (scope_key='all', division='ALL', 29,622
+-- rows): 665 buffers / 5.3 ms against 28 buffers / 0.016 ms.
+--
+-- The `eik` tail matches buildOrder's ASC tiebreak; flipping it to DESC would cost the
+-- index the tiebreak and leave an Incremental Sort on top.
+--
+-- ⚠️ Note the NOT NULL escape hatch does NOT exist — the rule holds for ordinary tables
+-- with NOT NULL columns too. Postgres compares pathkeys structurally and never consults
+-- a NOT NULL constraint to equate two NULLS orderings. Verified on a NOT NULL int column:
+-- a `(v DESC, id)` index serves `ORDER BY v DESC` and is refused for
+-- `ORDER BY v DESC NULLS LAST`. `price_products.chain_count` is the corpus example.
+--
+-- The house-wide gate is scripts/db/tests/db_table_sort_indexes.data.test.ts.
 CREATE INDEX IF NOT EXISTS idx_contractor_rank_total
-  ON contractor_rank (scope_key, division, total_eur DESC, eik);
+  ON contractor_rank (scope_key, division, total_eur DESC NULLS LAST, eik);
 CREATE INDEX IF NOT EXISTS idx_contractor_rank_contracts
-  ON contractor_rank (scope_key, division, contract_count DESC, eik);
+  ON contractor_rank (scope_key, division, contract_count DESC NULLS LAST, eik);
 CREATE INDEX IF NOT EXISTS idx_contractor_rank_fold
   ON contractor_rank USING gin (name_fold gin_trgm_ops);
 
