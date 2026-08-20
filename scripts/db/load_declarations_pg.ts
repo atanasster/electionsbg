@@ -99,6 +99,16 @@ const STAKE_PROC_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/096_stake_procurement.sql",
 );
+// The company-keyed twin of 096's person function — the declared-stake block on
+// /company/:eik, which is what replaced the retired /mp/company/:slug page. Applied in
+// phase 2 directly after 096 because its sql body reads that file's matview; see the note
+// at the call site. Kept in its own file so a body fix never costs 096's
+// DROP MATERIALIZED VIEW ... CASCADE rebuild.
+// Plan: docs/plans/company-page-consolidation-v1.md (Tier 1).
+const COMPANY_STAKES_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/177_company_declared_stakes.sql",
+);
 // Peer benchmarks (T3.9). Reads person_wealth_year (090) and person_role, so it must be
 // applied after 090 and after the resolve — its matview is built by its own CREATE ... AS.
 const COHORT_SCHEMA = path.join(
@@ -863,6 +873,12 @@ const resolve = async () => {
     await exec(fs.readFileSync(GAP_SCHEMA, "utf-8"));
     await exec(fs.readFileSync(EVENTS_SCHEMA, "utf-8"));
     await exec(fs.readFileSync(STAKE_PROC_SCHEMA, "utf-8"));
+    // 177 IMMEDIATELY AFTER 096, AND NEVER BEFORE IT. Its LANGUAGE sql body SELECTs
+    // declaration_stake_company, and a sql body is validated at CREATE — so on a database
+    // where 096 has not run this raises 42P01 and, exec() sending a file as one transaction,
+    // rolls the whole thing back. The 081→082 trap. It is a lone function over 096's matview,
+    // so it carries no data of its own and this is its only applier.
+    await exec(fs.readFileSync(COMPANY_STAKES_SCHEMA, "utf-8"));
     await exec("REFRESH MATERIALIZED VIEW person_wealth_year");
     // 097 reads person_wealth_year, so it is built from the REFRESHED matview, not the stale
     // pre-reload one — apply it after the refresh above, never before. Its CREATE ... AS
