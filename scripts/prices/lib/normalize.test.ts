@@ -59,9 +59,11 @@ describe("normLabel / normName (the DB-constraint key)", () => {
   });
 });
 
+const KZP_HEADER =
+  "Населено място;Търговски обект;Наименование на продукта;Код на продукта;Категория;Цена на дребно;Цена в промоция";
+
 describe("parseChainCsv", () => {
-  const header =
-    "Населено място;Търговски обект;Наименование на продукта;Код на продукта;Категория;Цена на дребно;Цена в промоция";
+  const header = KZP_HEADER;
 
   it("parses a semicolon file: header skip, comma-decimal price, promo", () => {
     const csv = [
@@ -130,5 +132,70 @@ describe("parseChainCsv", () => {
   it("strips a UTF-8 BOM before the header", () => {
     const csv = ["﻿" + header, "68134;Shop;МЛЯКО;A;6;1,50;"].join("\n");
     expect(parseChainCsv(csv, "Billa_130007884.csv")).toHaveLength(1);
+  });
+});
+
+// Plan T5, gate 5. The zero-price guarantee, pinned at the only place it is
+// enforced.
+//
+// The concern that prompted it: when a chain stops filing, does the loader write
+// its products at a price of 0 and drag every average toward zero? It does not,
+// and cannot — `toPrice` returns null unless the value parses to a number > 0,
+// and the row is skipped. Measured across the whole corpus: 0 rows with
+// `price <= 0` in price_current, price_facts, price_grid_days,
+// price_chain_grid_days and price_last_seen (the stored half of this gate lives
+// in scripts/db/tests/prices_last_seen.data.test.ts).
+//
+// The guarantee is STRUCTURAL — one `> 0` and one `continue`. This block is what
+// stops it being structural by ACCIDENT: removing the comparison turns 7 of
+// these red rather than silently shifting a quarterly average.
+//
+// See docs/plans/prices-chain-absence-v1.md §5 and §6.
+describe("toPrice — no writer can introduce a non-positive price", () => {
+  // Same header the `parseChainCsv` block above uses. Declared once here rather
+  // than copied: a third spelling of the column order is how two blocks end up
+  // testing different files.
+  const header = KZP_HEADER;
+  const row = (price: string, promo = "") =>
+    ["68134", "Магазин", "ХЛЯБ", "000001", "1", price, promo].join(";");
+  const parse = (...rows: string[]) =>
+    parseChainCsv([header, ...rows].join("\n"), "Тест_100000001.csv");
+
+  it("keeps an ordinary price", () => {
+    const rows = parse(row("1,99"));
+    expect(rows).toHaveLength(1);
+    expect(rows[0].price).toBeCloseTo(1.99, 6);
+  });
+
+  for (const bad of ["0", "0,00", "0.00", "-1", "-0,50", "", "   "]) {
+    it(`drops the row for a price of ${JSON.stringify(bad)}`, () => {
+      expect(parse(row(bad))).toHaveLength(0);
+    });
+  }
+
+  it("drops a row whose price is not a number at all", () => {
+    // The euro-changeover shape: a chain appends a currency to the cell.
+    expect(parse(row("1,99 лв."))).toHaveLength(0);
+    expect(parse(row("n/a"))).toHaveLength(0);
+  });
+
+  it("never emits a non-positive price across a mixed file", () => {
+    const rows = parse(
+      row("1,99"),
+      row("0"),
+      row("-2,50"),
+      row("3,49"),
+      row(""),
+    );
+    expect(rows).toHaveLength(2);
+    for (const r of rows) expect(r.price).toBeGreaterThan(0);
+  });
+
+  it("a zero PROMO is null rather than a zero price, and keeps the row", () => {
+    // promo shares toPrice, so the same rule applies — but a bad promo must not
+    // take the row with it: the regular price is still a fact.
+    const [r] = parse(row("1,99", "0"));
+    expect(r.price).toBeCloseTo(1.99, 6);
+    expect(r.promo).toBeNull();
   });
 });

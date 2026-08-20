@@ -424,3 +424,56 @@ test.skipIf(skip)(
     );
   },
 );
+
+// Plan T5, gate 5 (the stored half). `toPrice`'s `> 0` is pinned by
+// scripts/prices/lib/normalize.test.ts at the parse; this is the same
+// guarantee asserted against what actually landed, across every table a price
+// can reach. The two together are what make "a missing chain contributes no
+// rows, not zero-valued rows" checkable rather than merely true today.
+test.skipIf(skip)("no table holds a non-positive price", async () => {
+  // Keyed by the REAL relation name, not a SQL alias — the failure message is
+  // the whole value of this gate and "chain_grid" is not something anyone can
+  // go and look at.
+  //
+  // `price_grid_days.promo_min_eur` is checked separately from `min_eur`: it is
+  // an independent aggregate (1.7M populated values) and a positive `min_eur`
+  // does not imply a positive promo.
+  const CHECKS: ReadonlyArray<{ table: string; where: string }> = [
+    {
+      table: "price_current",
+      where: "price_eur <= 0 OR (promo_eur IS NOT NULL AND promo_eur <= 0)",
+    },
+    {
+      table: "price_facts",
+      where: "price_eur <= 0 OR (promo_eur IS NOT NULL AND promo_eur <= 0)",
+    },
+    {
+      table: "price_last_seen",
+      where: "price_eur <= 0 OR (promo_eur IS NOT NULL AND promo_eur <= 0)",
+    },
+    { table: "price_grid_days", where: "min_eur <= 0" },
+    {
+      table: "price_grid_days",
+      where: "promo_min_eur IS NOT NULL AND promo_min_eur <= 0",
+    },
+    { table: "price_chain_grid_days", where: "min_eur <= 0" },
+  ];
+
+  // Collect every offender before asserting, so one bad table does not hide the
+  // others.
+  const bad: string[] = [];
+  for (const c of CHECKS) {
+    const [r] = await allRows<{ n: string }>(
+      `SELECT count(*)::text AS n FROM ${c.table} WHERE ${c.where}`,
+    );
+    if (r.n !== "0") bad.push(`${c.table} (${c.where}): ${r.n} row(s)`);
+  }
+  assert.deepEqual(
+    bad,
+    [],
+    `non-positive prices are stored:\n  ${bad.join("\n  ")}\n` +
+      `A zero drags every average toward it, which is the failure toPrice's ` +
+      `\`> 0\` exists to prevent (pinned at the parse in ` +
+      `scripts/prices/lib/normalize.test.ts).`,
+  );
+});

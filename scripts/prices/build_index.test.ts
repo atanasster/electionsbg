@@ -368,3 +368,99 @@ describe("the publish-side headline gate (T0.4)", () => {
     expect(c.headlineDate).toBe("2026-01-05");
   });
 });
+
+// Plan T5, gate 3. The claim `matchedCell` exists to make true, stated as an
+// INVARIANCE rather than the plan's "<0.2%" empirical bound — that number
+// (0.068%, measured by removing Билла from 2026-08-14) describes one corpus on
+// one day and would drift with the data. The property does not.
+//
+// Why it matters: the КЗП feed lost more than half its reporters in six days
+// (210 → 98 between 2026-07-26 and 2026-08-14). An index built on whoever filed
+// today measures the sample, not the prices.
+describe("matchedCell — the index is invariant to a chain that is not on both days", () => {
+  // ⚠️ BILLA is priced far from the others ON PURPOSE. With {10, 11, 12} it sits
+  // exactly at the median, so median(10,12) === median(10,11,12) === 11 and
+  // dropping it moves nothing — a fixture where the assertions below cannot
+  // fail however broken the matching is. The first cut of this block used
+  // exactly that, and a mutant leaking every base-day chain passed it.
+  const base = day({
+    KAUF: { "1": 10, "2": 20 },
+    BILLA: { "1": 100, "2": 200 },
+    LIDL: { "1": 12, "2": 22 },
+  });
+
+  it("a chain missing TODAY is dropped from the BASE vector too", () => {
+    // If BILLA's base-day 100 survived while today's three-chain median did
+    // not, the ratio would read as a collapse in prices. The value, not the
+    // count, is what proves it did not.
+    const billaGone = matchedCell(
+      day({ KAUF: { "1": 10, "2": 20 }, LIDL: { "1": 12, "2": 22 } }),
+      base,
+    );
+    expect(billaGone.chains).toBe(2);
+    // median(10, 12) — BILLA's 100 must not be in here.
+    expect(billaGone.base.get(1)).toBe(11);
+    expect(billaGone.now.get(1)).toBe(11);
+    expect(billaGone.base.get(2)).toBe(21);
+
+    // …and with BILLA present on both days it IS included, so the fixture is
+    // demonstrably capable of telling the two apart.
+    const withAll = matchedCell(
+      day({
+        KAUF: { "1": 10, "2": 20 },
+        BILLA: { "1": 100, "2": 200 },
+        LIDL: { "1": 12, "2": 22 },
+      }),
+      base,
+    );
+    expect(withAll.chains).toBe(3);
+    expect(withAll.base.get(1)).toBe(12);
+    expect(withAll.base.get(1)).not.toBe(billaGone.base.get(1));
+  });
+
+  it("a chain missing on the BASE day is excluded from today too", () => {
+    // NEWCO appears today only. Including it would let an ARRIVAL move the
+    // index exactly as a departure would.
+    const withNew = matchedCell(
+      day({
+        KAUF: { "1": 10, "2": 20 },
+        BILLA: { "1": 100, "2": 200 },
+        LIDL: { "1": 12, "2": 22 },
+        NEWCO: { "1": 1, "2": 1 },
+      }),
+      base,
+    );
+    const withoutNew = matchedCell(
+      day({
+        KAUF: { "1": 10, "2": 20 },
+        BILLA: { "1": 100, "2": 200 },
+        LIDL: { "1": 12, "2": 22 },
+      }),
+      base,
+    );
+
+    expect(withNew.chains).toBe(withoutNew.chains);
+    expect(withNew.now.get(1)).toBeDefined();
+    expect(withNew.now.get(1)).toBe(withoutNew.now.get(1));
+    expect(withNew.now.get(2)).toBe(withoutNew.now.get(2));
+  });
+
+  it("with NO price moving, the matched ratio is exactly 1 whoever leaves", () => {
+    // The strongest form: identical prices on both days, chains coming and
+    // going. Any deviation from parity is the sample talking.
+    //
+    // The `toBeDefined` is not padding — without it `undefined === undefined`
+    // makes this pass for an implementation that matches NOTHING.
+    for (const today of [
+      day({ KAUF: { "1": 10 }, BILLA: { "1": 100 }, LIDL: { "1": 12 } }),
+      day({ KAUF: { "1": 10 }, LIDL: { "1": 12 } }),
+      day({ LIDL: { "1": 12 } }),
+      day({ KAUF: { "1": 10 }, LIDL: { "1": 12 }, NEWCO: { "1": 99 } }),
+    ]) {
+      const m = matchedCell(today, base);
+      expect(m.now.get(1)).toBeDefined();
+      expect(m.chains).toBeGreaterThan(0);
+      expect(m.now.get(1)).toBe(m.base.get(1));
+    }
+  });
+});
