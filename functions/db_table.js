@@ -1853,6 +1853,92 @@ const REGISTRY = {
     // is the 'all'/'ALL' leaderboard (~29.5k rows); MAX_OFFSET still caps deep paging.
     maxPageSize: 1000,
   },
+  // Companies attached to a person in public life (matview official_companies, 178) — the
+  // /governance/companies browser, replacing the MP-name-matched companies-index.json that
+  // /mp/companies read. 17,608 rows against that artifact's 2,969, on the gated person layer.
+  // Plan: docs/plans/company-page-consolidation-v1.md (Tier 3).
+  official_companies: {
+    base: "official_companies",
+    // ⚠️ DECLARED EMPTY, NEVER OMITTED. buildWhere dereferences scopeCols unguarded, so a
+    // request carrying a scope against a resource that omits it is an uncaught TypeError —
+    // a 500 where the engine's contract promises a 400. This relation is genuinely
+    // unscoped: it is the whole corpus, with no ?pscope analogue.
+    scopeCols: [],
+    columns: {
+      // The paging tiebreak AND the deep-link key. Searchable for the same reason
+      // contractor_rankings' eik is: the page PRINTS it beside every name, so pasting one
+      // back must find the row. Routed by SHAPE rather than OR'd into the name arm — an EIK
+      // never matches a name, and OR-ing costs the name search its trigram index.
+      // 8..14 rather than 9|13: the corpus reaches this matview through person_role.ref,
+      // which carries the same synthetic carriers supplier_identity mints.
+      uic: {
+        type: "text",
+        sort: true,
+        filter: "eq",
+        search: true,
+        searchEq: true,
+        searchWhen: "[0-9]{8,14}|(obed|ph|np)-[0-9a-f]{6,32}",
+      },
+      // Global search hits the transliterated fold (gin_trgm-indexed in 178), so Latin
+      // "sofarma" matches „СОФАРМА"; the raw name column is indexed too but the fold is what
+      // makes a Latin query work at all.
+      name: {
+        type: "text",
+        sort: true,
+        search: true,
+        searchCol: "name_fold",
+        searchFold: true,
+      },
+      legal_form: { type: "text", filter: "in" },
+      seat: { type: "text" },
+      status: { type: "text", filter: "in" },
+      entity_class: { type: "text", filter: "in" },
+      // ⚠️ THE OBLAST FILTER CARRIES A NAME, NOT A CODE, and the column says so. 178's
+      // source has no oblast code and deriving one from the obshtina prefix is unsafe here
+      // (project_oblast_code_shard_mismatch). The picker facets this same column, so its
+      // counts are exact and no code→name dictionary is needed — the `?court` pattern on
+      // /persons, deliberately NOT the `?oblast=VAR` one.
+      oblast_name: { type: "text", filter: "in" },
+      obshtina_code: { type: "text", filter: "eq" },
+      // How many DISTINCT people in public life are attached. Not a sum over the two arms —
+      // a person the registry AND their own filing both place here is one person.
+      person_count: { type: "number", sort: true, filter: "range" },
+      // WHICH evidence, so the page can label rather than imply. `has_current_role` is the
+      // one that keeps 2,342 companies resting entirely on WITHDRAWN filings from being
+      // published present-tense.
+      has_registry_link: { type: "bool", filter: "eq" },
+      has_declared_stake: { type: "bool", filter: "eq" },
+      has_current_role: { type: "bool", filter: "eq" },
+      // 127's broad basis (contracts ∪ subsidies ∪ funds ∪ interreg). Backs the footer sum
+      // and the in-cell magnitude bar's max.
+      money_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+    },
+    select: [
+      "uic",
+      "name",
+      "legal_form",
+      "seat",
+      "status",
+      "oblast_name",
+      "person_count",
+      "has_registry_link",
+      "has_declared_stake",
+      "has_current_role",
+      "money_eur",
+    ],
+    // uic is the tiebreak, not decoration: money_eur alone is not a total order (14,577 rows
+    // sit at exactly 0), and 178's composite index trails with uic so this stays index-served.
+    defaultSort: [
+      ["money_eur", "desc"],
+      ["uic", "asc"],
+    ],
+    aggregates: [
+      { fn: "count" },
+      { fn: "sum", col: "money_eur" },
+      { fn: "max", col: "money_eur" },
+    ],
+    maxPageSize: 1000,
+  },
 };
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)

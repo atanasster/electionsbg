@@ -178,8 +178,17 @@ SELECT a.uic,
   LEFT JOIN company_public_money_rows() m ON m.eik = a.uic;
 
 CREATE UNIQUE INDEX official_companies_pkey ON official_companies (uic);
-CREATE INDEX idx_official_companies_money ON official_companies (money_eur DESC, uic);
-CREATE INDEX idx_official_companies_people ON official_companies (person_count DESC, uic);
+-- ⚠️ `NULLS LAST` IS LOAD-BEARING, NOT DECORATION. db_table.js's buildOrder emits
+-- `<col> DESC NULLS LAST` for every descending sort, while a plain `DESC` index is NULLS
+-- FIRST — and a matview carries no NOT NULL constraint for the planner to bridge the two
+-- with. Mismatched, the default arrival stops being an index walk and becomes a seq scan
+-- plus a top-N heapsort: measured 426 buffers / 7.3 ms against 51 / 0.15 ms. Both of these
+-- exist to serve a sort the engine actually issues, so both must spell it the same way.
+-- 122 carries the same note for the same reason.
+CREATE INDEX idx_official_companies_money
+  ON official_companies (money_eur DESC NULLS LAST, uic);
+CREATE INDEX idx_official_companies_people
+  ON official_companies (person_count DESC NULLS LAST, uic);
 CREATE INDEX idx_official_companies_oblast ON official_companies (oblast_name)
   WHERE oblast_name IS NOT NULL;
 -- Free-text search over both the Cyrillic name and its fold, the pair every other browse

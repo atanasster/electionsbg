@@ -16,6 +16,27 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { createRequire } from "node:module";
+import path from "node:path";
+
+// The SERVING registry, read rather than restated. `functions/` is a separate CJS package,
+// so a plain import will not do — but reading it is the point: a column renamed in 178 with
+// db_table.js left behind is a 500 on every /governance/companies request, and nothing else
+// in the repo compares the two.
+const req = createRequire(import.meta.url);
+const { REGISTRY } = req(
+  path.resolve(import.meta.dirname, "../../../functions/db_table.js"),
+) as {
+  REGISTRY: Record<
+    string,
+    {
+      base: string;
+      columns: Record<string, unknown>;
+      select: string[];
+      defaultSort: [string, string][];
+    }
+  >;
+};
 
 const reachable = async (): Promise<string | false> => {
   try {
@@ -304,5 +325,112 @@ test.skipIf(skip)(
       "0",
       "a stake-only company claims a current role, which no filing can support",
     );
+  },
+);
+
+test.skipIf(skip)(
+  "every column the serving registry declares exists in the matview",
+  async () => {
+    const res = REGISTRY.official_companies;
+    assert.ok(
+      res,
+      "the official_companies resource is not registered in db_table.js",
+    );
+    assert.equal(res.base, "official_companies");
+    const cols = new Set(
+      (
+        await allRows<{ column_name: string }>(
+          // pg_attribute, NOT information_schema.columns — the latter does not list
+          // MATERIALIZED VIEW columns at all, so it reports every column as missing and the
+          // assertion fails for the wrong reason.
+          `SELECT a.attname AS column_name
+             FROM pg_attribute a
+            WHERE a.attrelid = 'public.official_companies'::regclass
+              AND a.attnum > 0 AND NOT a.attisdropped`,
+        )
+      ).map((r) => r.column_name),
+    );
+    // Declared columns are client-addressable — a filter or sort on a missing one is a 500.
+    for (const c of Object.keys(res.columns))
+      assert.ok(
+        cols.has(c),
+        `db_table declares column "${c}" that 178 does not have`,
+      );
+    for (const c of res.select)
+      assert.ok(
+        cols.has(c),
+        `db_table projects column "${c}" that 178 does not have`,
+      );
+    for (const [c] of res.defaultSort)
+      assert.ok(
+        cols.has(c),
+        `db_table sorts on column "${c}" that 178 does not have`,
+      );
+  },
+);
+
+test.skipIf(skip)(
+  "the default sort is index-served, not a full sort",
+  async () => {
+    // ⚠️ THE ORDER BY IS DERIVED FROM THE REGISTRY AND SPELLED THE WAY buildOrder SPELLS IT.
+    // The first cut hard-coded `ORDER BY money_eur DESC, uic ASC` — a query the engine never
+    // issues. buildOrder emits `DESC NULLS LAST`, and a plain `DESC` index is NULLS FIRST,
+    // which the planner cannot bridge on a matview (no NOT NULL constraint to reason from). So
+    // the real arrival seq-scanned and top-N heapsorted at 426 buffers while this test walked
+    // an index at 51 and reported success — it certified the defect it existed to catch.
+    const res = REGISTRY.official_companies;
+    const order = res.defaultSort
+      .map(
+        ([col, dir]) => `${col} ${dir === "desc" ? "DESC NULLS LAST" : "ASC"}`,
+      )
+      .join(", ");
+    const rows = await allRows<{ "QUERY PLAN": string }>(
+      `EXPLAIN (FORMAT TEXT)
+     SELECT uic, name, money_eur FROM official_companies ORDER BY ${order} LIMIT 50`,
+    );
+    const plan = rows.map((r) => r["QUERY PLAN"]).join("\n");
+    assert.ok(
+      /Index (Only )?Scan/.test(plan),
+      `the default sort (${order}) is not index-served:\n${plan}`,
+    );
+    assert.ok(
+      !/\bSort\b/.test(plan),
+      `the default sort (${order}) still sorts — the index's NULLS ordering does not match ` +
+        `what buildOrder emits:\n${plan}`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "every searchCol the registry redirects to exists",
+  async () => {
+    // `name.searchCol = "name_fold"` is deliberately NOT in `columns` — it is a server-side
+    // redirect, not a client-addressable column — so the column gate above cannot see it. A
+    // rename in 178 would be a 42703 on every search, with that test still green.
+    const res = REGISTRY.official_companies as unknown as {
+      columns: Record<string, { searchCol?: string }>;
+    };
+    const cols = new Set(
+      (
+        await allRows<{ column_name: string }>(
+          `SELECT a.attname AS column_name
+           FROM pg_attribute a
+          WHERE a.attrelid = 'public.official_companies'::regclass
+            AND a.attnum > 0 AND NOT a.attisdropped`,
+        )
+      ).map((r) => r.column_name),
+    );
+    const redirects = Object.values(res.columns)
+      .map((c) => c.searchCol)
+      .filter((c): c is string => !!c);
+    assert.ok(
+      redirects.length > 0,
+      "no searchCol redirect declared — is search still wired?",
+    );
+    for (const c of redirects)
+      assert.ok(
+        cols.has(c),
+        `db_table searches column "${c}" that 178 does not have`,
+      );
   },
 );
