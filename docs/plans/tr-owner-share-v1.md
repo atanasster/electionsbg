@@ -64,9 +64,9 @@ on the 11,502 multi-vintage companies that carry one:
 
 | denominator                        | reconciles with registered capital |
 | ---------------------------------- | ---------------------------------- |
-| all active owner rows (the defect) | 130 (1.1%)                         |
-| **latest active owner vintage**    | **7,753 (67.4%)**                  |
-| latest row per person              | 6,491 (56.4%)                      |
+| all active owner rows (the defect) | 413 (3.6%)                         |
+| **latest active owner vintage**    | **10,951 (95.2%)**                 |
+| latest row per person              | 8,685 (75.5%)                      |
 
 Two refusals, both the safe direction:
 
@@ -80,16 +80,23 @@ A row outside the vintage keeps its place on the page with a NULL share: a stake
 we cannot express as a fraction of the current capital renders "—", never a
 number.
 
-**Outcome:** 348,452 of 356,221 companies get a percentage, and every one sums
-to 100% **within the residue of `round(…, 4)`** — 345,105 land on exactly 100
-and the other 3,347 inside 99.9945 … 100.0019 (±0.0055pp), because three equal
-owners are 33.3333 × 3 = 99.9999. The gate asserts the tolerance, never equality.
+A third refusal joined them once the gate was written: **one person's stake
+restated in both лв and EUR inside a single vintage** is a holding carried
+across the re-denomination, not two holdings, and summing them publishes a
+doubled stake — the same лв+EUR addition this whole change removes, one level
+down. 161 groups over 85 companies were publishing on that basis.
 
-The **7,769** that get no percentage are all the missing-`share_amount` refusal
-(7,329 with several current owners, 440 with a single partner). 3,689 of them
-also carry a `sole_owner` beside a partner in the current vintage, but none is
-refused for that alone. Note 3,689 ≠ the 4,517 quoted above for the same shape:
-that one is measured on the display dedup, this one on the current vintage.
+**Outcome:** 348,367 of 356,221 companies get a percentage, and every one sums
+to 100% **within the residue of `round(…, 4)`** — 345,023 land on exactly 100
+and the other 3,344 inside ±0.0055pp, because three equal owners are
+33.3333 × 3 = 99.9999. The gate asserts the tolerance, never equality.
+
+The **7,854** that get no percentage are each attributable: 7,769 a missing
+`share_amount` (7,329 with several current owners, 440 with a single partner)
+and 85 the restated-stake refusal. 3,689 also carry a `sole_owner` beside a
+partner in the current vintage, but none is refused for that alone. Note
+3,689 ≠ the 4,517 quoted above for the same shape: that one is measured on the
+display dedup, this one on the current vintage.
 
 ## Steps
 
@@ -124,5 +131,5 @@ The population that renders "—" is bounded above by the 7,769 companies that g
 no percentage at all — a different and larger set than the vintage-mixing one.
 An earlier draft put the vintage-mixing count at ~1,262, derived from the gap
 between the latest-vintage and latest-row-per-person reconciliation rates in the
-table above (7,753 − 6,491); that is an inference, not a direct measurement, and
-it is left unpinned deliberately rather than quoted as a fact.
+table above; that is an inference, not a direct measurement, and it is left
+unpinned deliberately rather than quoted as a fact.

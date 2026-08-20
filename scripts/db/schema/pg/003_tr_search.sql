@@ -199,8 +199,13 @@ ALTER TABLE tr_person_roles ADD COLUMN IF NOT EXISTS name_fold      text GENERAT
 -- share is their amount over that vintage's total, normalised to EUR.
 -- Validated against the registered capital (tr_companies.funds_amount) on the
 -- 11,502 multi-vintage companies that carry one — the latest vintage
--- reconciles for 7,753 (67.4%) against 130 (1.1%) for the all-active sum this
--- replaces, and 6,491 (56.4%) for "latest row per person". Rows outside the
+-- reconciles for 10,951 (95.2%) against 413 (3.6%) for the all-active sum this
+-- replaces, and 8,685 (75.5%) for "latest row per person". (Both sides of that
+-- comparison accept EITHER currency basis: funds_currency is unpopulated
+-- corpus-wide, so the capital may be recorded either side of the
+-- re-denomination, and pinning one measures the corpus's vintage mix rather
+-- than the rule — that guess is what made an earlier draft report 67.4%.)
+-- Rows outside the
 -- vintage keep their place on the page and get a NULL share: a stake we
 -- cannot express as a fraction of the current capital renders "—" rather than
 -- a number.
@@ -219,21 +224,24 @@ ALTER TABLE tr_person_roles ADD COLUMN IF NOT EXISTS name_fold      text GENERAT
 --   • Otherwise, ANY owner in a multi-owner current set with no share_amount
 --     → NO percentage for that company. Dropping just that row would inflate
 --     everyone else against a short denominator, which is this defect wearing
---     new clothes.
+--     new clothes. The same refusal covers an undated row in a dated company,
+--     and one person's stake RESTATED in both лв and EUR inside one vintage —
+--     see the notes on the `cur` CTE for each.
 --
--- Result, measured over the whole corpus 2026-08-20: 348,452 of 356,221
+-- Result, measured over the whole corpus 2026-08-20: 348,367 of 356,221
 -- companies get a percentage, and every one sums to 100% WITHIN THE RESIDUE
--- of round(…, 4) — 345,105 land on exactly 100 and the other 3,347 inside
--- 99.9945 … 100.0019, i.e. ±0.0055pp. Three equal owners are 33.3333 × 3 =
--- 99.9999, so assert the tolerance, NEVER equality.
+-- of round(…, 4) — 345,023 land on exactly 100 and the other 3,344 inside
+-- ±0.0055pp. Three equal owners are 33.3333 × 3 = 99.9999, so assert the
+-- tolerance, NEVER equality.
 --
--- The 7,769 that get no percentage are ALL the missing-amount refusal —
--- 7,329 with several current owners, 440 with a single partner; none is
--- refused for the sole_owner ambiguity alone, though 3,689 of them carry it
+-- The 7,854 that get no percentage break down cleanly, and every one is
+-- attributable: 7,769 a missing share_amount (7,329 with several current
+-- owners, 440 with a single partner) and 85 the restated-stake refusal below.
+-- None is refused for the sole_owner ambiguity alone, though 3,689 carry it
 -- too. (Do not confuse that 3,689 with the 4,517 quoted for the same shape on
 -- the DISPLAY dedup: different populations, and the current vintage is the
 -- only one this rule sees.)
--- Gate (T3, pending): scripts/db/tests/tr_owner_share.data.test.ts.
+-- Gate: scripts/db/tests/tr_owner_share.data.test.ts.
 -- ───────────────────────────────────────────────────────────────────────────
 
 -- лв → EUR at the locked peg. The declared cell carries no currency at all on
@@ -300,6 +308,8 @@ CREATE OR REPLACE VIEW tr_owner_share AS
 WITH owner_rows AS (
   SELECT r.uic, r.name_fold, r.role, r.added_at,
          tr_share_eur(r.share_amount, r.share_currency) AS eur,
+         upper(btrim(coalesce(r.share_currency, '')))
+           IN ('EUR', 'EURO', 'ЕВРО', '€') AS is_eur,
          max(r.added_at) OVER (PARTITION BY r.uic) AS latest_at
   FROM tr_person_roles r
   WHERE r.role IN ('partner', 'sole_owner') AND r.erased_at IS NULL
@@ -320,7 +330,17 @@ cur AS (
   SELECT uic, name_fold, role,
          sum(eur) AS eur,
          bool_or(eur IS NULL)
-           OR bool_or(added_at IS NULL AND latest_at IS NOT NULL) AS missing
+           OR bool_or(added_at IS NULL AND latest_at IS NOT NULL)
+           -- ⚠️ THE SAME STAKE RESTATED IS NOT TWO STAKES. 161 groups hold both
+           -- a лв and a EUR record for one person in ONE vintage — a holding
+           -- carried across the re-denomination, not two holdings — and summing
+           -- them publishes a doubled stake: exactly the лв+EUR addition this
+           -- view exists to remove, one level down. Nothing in the record
+           -- distinguishes "restated" from "two stakes", so the company is
+           -- refused. 161 groups over 85 companies were publishing a percentage
+           -- on that basis before 2026-08-20.
+           OR count(DISTINCT is_eur) FILTER (WHERE eur IS NOT NULL) > 1
+             AS missing
   FROM owner_rows
   WHERE latest_at IS NULL OR added_at = latest_at OR added_at IS NULL
   GROUP BY uic, name_fold, role
