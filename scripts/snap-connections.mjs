@@ -10,6 +10,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = "/Users/atanasster/data-bg/docs/images/connections";
 const BASE = "http://localhost:5173";
 
+// ⚠️ SHOT LIST DRIFT, pre-existing: this writes to docs/images/connections while both
+// articles read public/articles/images/connections, so a run does NOT refresh the images
+// they display. The list is also out of step with them in both directions —
+// 02-region-dashboard-tile.png is referenced by nothing, and 11-orbital-pathfind-attempt.png
+// is used by both articles and absent here. Left alone deliberately: reconciling it is an
+// editorial pass over the articles' images, not part of the company-page retirement.
 const SHOTS = [
   // [filename, route, prep-fn, capture-fn]
   // dashboard tile (full national dashboard, then crop tile)
@@ -170,6 +176,10 @@ const SHOTS = [
   },
   {
     file: "09-all-companies.png",
+    // ⚠️ /mp/companies MOVES to /governance/companies in Tier 3, and widens from MPs to all
+    // public office-holders. Unlike a retired API this fails SILENTLY — the SPA renders its
+    // shell and this script screenshots an empty page rather than erroring — so update the
+    // URL in the same change that lands the redirect.
     url: "/mp/companies",
     prep: async (p) => {
       await p.waitForLoadState("networkidle");
@@ -179,7 +189,13 @@ const SHOTS = [
   },
   {
     file: "10-company-detail.png",
-    url: "/mp/company/" + encodeURIComponent("ПиВи-Квантум-ООД"),
+    // ⚠️ Was /mp/company/<declared-name-slug>, a route retired with companies-index.
+    // The company page is keyed on the EIK now. NOTE the committed PNG still shows the
+    // OLD page and the registry has since renamed this EIK to „Инолед България", so a
+    // regeneration will not look like the image the article currently carries — which is
+    // a caption decision, not something to fix by pointing this back at a dead route.
+    // Plan: docs/plans/company-page-consolidation-v1.md (Tier 2).
+    url: "/company/206258486",
     prep: async (p) => {
       await p.waitForLoadState("networkidle");
       await p.waitForTimeout(800);
