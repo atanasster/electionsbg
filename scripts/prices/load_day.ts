@@ -25,7 +25,18 @@ import type { PoolClient } from "pg";
 import { withClient, allRows } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
 import { recordIngestBatch } from "../db/lib/ingest_changelog";
-import { parseChainCsv, ChainParseError } from "./lib/normalize";
+import {
+  parseChainCsv,
+  parseChainFromFilename,
+  ChainParseError,
+} from "./lib/normalize";
+import {
+  reconcileRowLoss,
+  describeReconciliation,
+  chainsAccountedFor,
+  cliffVerdict,
+  RESIDUE_TOLERANCE,
+} from "./lib/chain_reconcile";
 import { resolvePlace } from "./lib/locations";
 import {
   COVERAGE_WINDOW_DAYS,
@@ -74,22 +85,44 @@ interface StageRow extends PriceRow {
   oblast: string;
 }
 
-/** Parse the ZIP into stage-ready rows. resolvePlace() runs HERE, not later. */
-const readZip = async (
+/** Parse the ZIP into stage-ready rows. resolvePlace() runs HERE, not later.
+ *
+ *  Exported for `load_day.test.ts`, which pins the one ordering in this
+ *  function that is safety-critical: `archiveEiks` is recorded ABOVE the parse
+ *  (see the note at the call site). */
+export const readZip = async (
   zipPath: string,
 ): Promise<{
   rows: StageRow[];
   unresolved: number;
   legacyCodes: number;
   parseErrors: number;
+  /** Every chain EIK whose CSV was PRESENT in the archive, whatever came of
+   *  parsing it. This is "the source published a file for this chain today",
+   *  which is not the same as "we ended up with rows from it" — the difference
+   *  is what lets the guard tell a chain that stopped filing from a file we
+   *  failed to read. */
+  archiveEiks: Set<string>;
 }> => {
   const dir = await unzipper.Open.file(zipPath);
   const rows: StageRow[] = [];
+  const archiveEiks = new Set<string>();
   let unresolved = 0;
   let legacyCodes = 0;
   let parseErrors = 0;
 
   for (const f of dir.files.filter((x) => /\.csv$/i.test(x.path))) {
+    // Recorded BEFORE the parse, so a file that fails to read still counts as
+    // published. Otherwise a parse failure would masquerade as the chain not
+    // having filed, which is the one confusion this set exists to prevent.
+    //
+    // `parseChainFromFilename` deliberately never throws — on a name with no
+    // `_` it returns the whole basename as the eik. That is the right trade on
+    // a path that must not abort the read: a stray non-chain CSV adds a junk
+    // key, and the set is only ever probed with `has()`. The shape check keeps
+    // the junk out anyway, so a junk key can never mark a real chain absent.
+    const { eik: fileEik } = parseChainFromFilename(f.path);
+    if (/^\d{9,13}$/.test(fileEik)) archiveEiks.add(fileEik);
     const buf = await f.buffer();
     let parsed: PriceRow[];
     try {
@@ -123,7 +156,7 @@ const readZip = async (
       });
     }
   }
-  return { rows, unresolved, legacyCodes, parseErrors };
+  return { rows, unresolved, legacyCodes, parseErrors, archiveEiks };
 };
 
 /**
@@ -202,11 +235,19 @@ export const loadDay = async (
   day: string,
   opts: { skipFloor?: boolean } = {},
 ): Promise<DayStats> => {
-  const { rows, unresolved, legacyCodes, parseErrors } = await readZip(zipPath);
+  const { rows, unresolved, legacyCodes, parseErrors, archiveEiks } =
+    await readZip(zipPath);
   if (rows.length === 0)
     throw new Error(`${day}: ZIP produced zero usable rows`);
 
-  const chainsToday = new Set(rows.map((r) => r.eik)).size;
+  const rowsByEik = new Map<string, number>();
+  const chainNames = new Map<string, string>();
+  for (const r of rows) {
+    rowsByEik.set(r.eik, (rowsByEik.get(r.eik) ?? 0) + 1);
+    if (!chainNames.has(r.eik)) chainNames.set(r.eik, r.chain);
+  }
+  const chainsToday = rowsByEik.size;
+
   let coverageShortfall: DayStats["coverageShortfall"] = null;
 
   // Out-of-order loading corrupts the step function irrecoverably, and
@@ -254,14 +295,34 @@ export const loadDay = async (
   // −31% drop the check would have caught) entered the corpus unremarked; they
   // now downgrade it to a printed warning instead.
   {
-    const prev = await allRows<{ rows: string; chains: string }>(
-      `SELECT sum(rows)::bigint AS rows, count(*)::int AS chains
-         FROM price_chain_days
-        WHERE day = (SELECT max(day) FROM price_chain_days WHERE day < $1::date)`,
+    // ONE statement, one snapshot, one basis. The aggregate and the per-chain
+    // breakdown used to be two independent round-trips each re-resolving
+    // `max(day)`, so `prevRows` had two derivations with nothing asserting they
+    // described the same day. ~200 rows unconditionally is nothing against a
+    // 1.4M-row load.
+    //
+    // The JOIN is what lets `describeReconciliation` name a chain that filed
+    // NOTHING today: names harvested from today's rows necessarily miss exactly
+    // the absent chains the message exists to identify.
+    const prevRowsByEik = await allRows<{
+      eik: string;
+      rows: string;
+      name: string | null;
+    }>(
+      `SELECT d.eik, d.rows::text AS rows, c.name
+         FROM price_chain_days d
+         LEFT JOIN price_chains c USING (eik)
+        WHERE d.day = (SELECT max(day) FROM price_chain_days WHERE day < $1::date)`,
       [day],
     );
-    const prevRows = Number(prev[0]?.rows ?? 0);
-    const prevChains = Number(prev[0]?.chains ?? 0);
+    const prevByEik = new Map<string, number>();
+    for (const r of prevRowsByEik) {
+      prevByEik.set(r.eik, Number(r.rows));
+      if (r.name && !chainNames.has(r.eik)) chainNames.set(r.eik, r.name);
+    }
+    let prevRows = 0;
+    for (const n of prevByEik.values()) prevRows += n;
+    const prevChains = prevByEik.size;
     const cliff: string[] = [];
     if (prevRows > 0 && rows.length < prevRows * (1 - SANITY_DROP))
       cliff.push(
@@ -270,21 +331,63 @@ export const loadDay = async (
     if (prevChains > 0 && chainsToday < prevChains * (1 - SANITY_DROP))
       cliff.push(`${chainsToday} chains vs ${prevChains} the previous day`);
     if (cliff.length) {
+      // The cliff fired. Before refusing, ask WHY the day is smaller: a drop
+      // that identified chains account for is the feed shrinking (real, and the
+      // day must load), while a drop spread across chains that are all still
+      // filing is the shape a parse regression takes.
+      //
+      const rec = reconcileRowLoss(
+        prevByEik,
+        rowsByEik,
+        parseErrors,
+        archiveEiks,
+      );
+      const why = describeReconciliation(
+        rec,
+        (eik) => chainNames.get(eik) ?? eik,
+      );
       const detail =
         `${day}: ${cliff.join("; ")} ` +
-        `(>${SANITY_DROP * 100}% drop, ${parseErrors} parse errors).`;
-      if (opts.skipFloor)
+        `(>${SANITY_DROP * 100}% drop${parseErrors ? `, ${parseErrors} parse errors` : ""}).`;
+
+      // F006: the cliff has two arms and either can fire it. A row verdict does
+      // not answer a chain-count trigger, so the chains that went missing must
+      // ALSO be the ones we identified.
+      const chainsOk = chainsAccountedFor(
+        rec,
+        chainsToday,
+        prevChains,
+        SANITY_DROP,
+      );
+
+      const verdict = cliffVerdict(rec, chainsOk, !!opts.skipFloor);
+
+      if (verdict === "load") {
+        // Attributable, and the parse was clean. This is the case the blanket
+        // --no-floor used to be needed for; the daily path no longer needs it.
+        console.warn(
+          `[prices] ⚠ ${detail} ${why} — within the ${RESIDUE_TOLERANCE * 100}% ` +
+            `residue tolerance, so the drop is the feed rather than the parse. Loading.`,
+        );
+      } else if (verdict === "warn-bypass") {
         // Never silent. The bypass exists so a backfill is not stopped by a
         // real historical dip, and so a deliberate re-load can proceed — but
         // it says so, every time.
         console.warn(
-          `[prices] ⚠ ${detail} Loading anyway (floor bypassed). If this is a ` +
+          `[prices] ⚠ ${detail} ${why} Loading anyway (floor bypassed). If this is a ` +
             `parse regression it has now replaced price_current.`,
         );
-      else
+      } else
         throw new Error(
-          `${detail} Refusing to overwrite price_current. Investigate the ` +
-            `feed, or re-run with --no-floor if the drop is real.`,
+          `${detail} ${why}. Refusing to overwrite price_current: the loss is ` +
+            (chainsOk
+              ? `NOT attributable to collapsed chains`
+              : `NOT attributable: ${chainsToday} chains today + ${rec.collapsed.length} ` +
+                `identified as collapsed does not account for ${prevChains} yesterday`) +
+            (parseErrors > 0
+              ? ` (and ${parseErrors} file(s) failed to parse, which forbids attribution)`
+              : "") +
+            `. Investigate the feed, or re-run with --no-floor if the drop is real.`,
         );
     }
 
