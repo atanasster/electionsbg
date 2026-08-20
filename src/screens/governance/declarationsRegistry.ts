@@ -75,7 +75,7 @@ export const DECLARATION_TILES: DeclarationTile[] = [
     id: "companies",
     titleKey: "all_companies",
     descKey: "decl_mp_companies_desc",
-    to: "/mp/companies",
+    to: "/governance/companies",
     accent: TILE_ACCENTS.teal,
   },
   {

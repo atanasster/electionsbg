@@ -878,12 +878,17 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
-    slug: "mp-companies",
-    routePath: "mp/companies?elections=2026_04_19",
+    slug: "official-companies",
+    routePath: "governance/companies?elections=2026_04_19",
     // MP-connected companies (most MPs first) — company rows with their linked-MP
     // avatars. (Was a rendered text card — job removed from generate.ts.)
-    waitFor: '[data-og="mp-companies-og"] tbody tr',
-    anchor: '[data-og="mp-companies-og"]',
+    // ⚠️ `tr.group`, NOT a bare `tbody tr`. DbDataTable puts a TableRow in its LOADING,
+    // ERROR and EMPTY branches too, so the loose selector resolves on first paint — and
+    // since this resource is not on prod yet while the capture proxies /api/db there, it
+    // would shoot a card whose entire content is „Could not load data." and exit 0. The
+    // same reasoning is spelled out at the subsidies and administration captures above.
+    waitFor: '[data-og="official-companies-og"] tbody tr.group',
+    anchor: '[data-og="official-companies-og"]',
     leftAlign: true,
     settleMs: 2500,
     extraCss: "[data-community-banner]{display:none!important;}",

@@ -31,8 +31,9 @@ import { Navigate, useParams } from "react-router-dom";
 import { useCompanyIndex } from "@/data/parliament/useCompanyIndex";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 
-/** Where /mp/companies lives. One constant so the Tier 3 rename has a single site here. */
-const COMPANIES_LIST = "/mp/companies";
+/** One constant so the list's URL has a single site here. Renamed from /mp/companies
+ *  in Tier 3 when the page widened from MPs to all public office-holders. */
+const COMPANIES_LIST = "/governance/companies";
 
 export const MpCompanyRedirect: FC = () => {
   // ⚠️ NO decodeURIComponent HERE. React Router has already decoded the param, and on a

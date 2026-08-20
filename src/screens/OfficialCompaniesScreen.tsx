@@ -14,9 +14,10 @@
 //
 // ⚠️ THE EVIDENCE COLUMN IS NOT DECORATION. A company reaches this list two ways and they are
 // different claims: the registry records the person there, or their own Court-of-Audit filing
-// says so and 096 confirmed it. And 2,342 of them rest ENTIRELY on WITHDRAWN registry
-// filings — a former directorship, which is a real fact and must not be printed in the
-// present tense. `has_current_role` is what keeps that honest, so the chips are load-bearing.
+// says so and 096 confirmed it. And on 2,342 of them EVERY registry filing has been WITHDRAWN
+// (2,106 of those carry no declared stake either) — a former directorship, which is a real
+// fact and must not be printed in the present tense. `has_current_role` keeps that honest, so
+// the chips are load-bearing.
 
 import { FC, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -179,9 +180,9 @@ export const OfficialCompaniesScreen: FC = () => {
   return (
     /* data-og is the anchor scripts/og/capture-screens.ts screenshots. The retired screen
        carried it; without it the capture times out on its waitFor and SILENTLY keeps serving
-       the old MP-avatar share card. The slug is renamed alongside the URL in Tier 3.4 — both
-       ends move together or the capture breaks the other way. */
-    <div className="w-full px-4 md:px-8 pb-12" data-og="mp-companies-og">
+       the old MP-avatar share card. The slug and selectors in capture-screens.ts carry the
+       same name; both ends move together or the capture breaks the other way. */
+    <div className="w-full px-4 md:px-8 pb-12" data-og="official-companies-og">
       <Title description="Companies in which a Bulgarian public office-holder is an owner, officer, or declared stakeholder.">
         {t("oc_title") || "Фирми, свързани с лица на публична длъжност"}
       </Title>

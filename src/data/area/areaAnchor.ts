@@ -62,6 +62,10 @@ export const GOVERNANCE_NON_PLACE_SEGMENTS = [
   "overview",
   "declarations",
   "municipal-finance",
+  // /governance/companies — the all-office-holder companies list (Tier 3 of the
+  // company-page consolidation). Without this, AREA_PATH_RE reads "companies" as a place id
+  // and the page anchors the whole My-Area context to a município that does not exist.
+  "companies",
 ] as const;
 
 export const AREA_PATH_RE = new RegExp(

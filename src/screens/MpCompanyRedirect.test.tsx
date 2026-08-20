@@ -106,7 +106,9 @@ describe("MpCompanyRedirect — where a retired company URL lands", () => {
 
   it("never dead-ends on an unknown slug", () => {
     landOn("no-such-company", []);
-    expect(screen.getByTestId("landed").textContent).toContain("/mp/companies");
+    expect(screen.getByTestId("landed").textContent).toContain(
+      "/governance/companies",
+    );
   });
 
   it("sends an EIK-less slug declared by ONE person to that person", () => {
@@ -140,7 +142,9 @@ describe("MpCompanyRedirect — where a retired company URL lands", () => {
     // in src/ — so a second decodeURIComponent here threw URIError during render and took
     // the whole app down, on the one route whose contract is "never dead-end".
     expect(() => landOn("%zz", [])).not.toThrow();
-    expect(screen.getByTestId("landed").textContent).toBe("/mp/companies");
+    expect(screen.getByTestId("landed").textContent).toBe(
+      "/governance/companies",
+    );
   });
 
   it("refuses to pick one of several declarants, and falls back to the list", () => {
@@ -150,7 +154,7 @@ describe("MpCompanyRedirect — where a retired company URL lands", () => {
       entry({ slug: "bez-eik", stakes: [stake(4598), stake(3643)] }),
     ]);
     const landed = screen.getByTestId("landed").textContent ?? "";
-    expect(landed).toContain("/mp/companies");
+    expect(landed).toContain("/governance/companies");
     expect(landed).not.toContain("4598");
   });
 });

@@ -3516,8 +3516,11 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
+          {/* Renamed from /mp/companies: the population is all public office-holders now,
+              not MPs. firebase.json 301s the four old spellings.
+              Plan: docs/plans/company-page-consolidation-v1.md (Tier 3). */}
           <Route
-            path="mp/companies"
+            path="governance/companies"
             element={
               <LayoutScreen>
                 <OfficialCompaniesScreen />

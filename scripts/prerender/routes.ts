@@ -4652,7 +4652,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <ul>
 <li>Графика на връзките с разцветяване по партийна група.</li>
 <li>Откриване на пътища между двама конкретни депутати.</li>
-<li><a href="${SITE_URL}/mp/companies">Списък на всички фирми</a> с поне един депутат-собственик или ръководител.</li>
+<li><a href="${SITE_URL}/governance/companies">Списък на всички фирми</a> с поне един депутат-собственик или ръководител.</li>
 <li><a href="${SITE_URL}/mp-assets">Класиране на депутатите</a> по декларирани активи.</li>
 <li><a href="${SITE_URL}/mp-cars">Декларирани коли</a> на народните представители.</li>
 <li><a href="${SITE_URL}/declarations/crypto">Декларирани криптоактиви</a> — монета, количество и стойност, за всички власти.</li>
@@ -4671,7 +4671,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <ul>
 <li>Network graph coloured by parliamentary group.</li>
 <li>Path-finding between any two named MPs.</li>
-<li><a href="${SITE_URL}/en/mp/companies">List of all companies</a> with at least one MP owner or director.</li>
+<li><a href="${SITE_URL}/en/governance/companies">List of all companies</a> with at least one MP owner or director.</li>
 <li><a href="${SITE_URL}/en/mp-assets">MPs ranked</a> by declared assets.</li>
 <li><a href="${SITE_URL}/en/mp-cars">Cars declared</a> by MPs.</li>
 <li><a href="${SITE_URL}/en/declarations/crypto">Declared crypto assets</a> — coin, quantity and value, across every tier.</li>
@@ -4681,13 +4681,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
-    path: "mp/companies",
+    path: "governance/companies",
     title:
       "Фирми и организации, свързани с лица на публична длъжност | electionsbg.com",
     description:
       "Списък на фирмите и организациите, в които лица на публична длъжност — народни представители, министри, кметове, общински съветници, магистрати и членове на регулаторни органи — фигурират като собственици или в управлението, или са декларирали дял. Данни от Търговския регистър и декларациите пред Сметната палата.",
     breadcrumbName: "Фирми на публични лица",
-    ogImage: "/og/mp-companies.png",
+    ogImage: "/og/official-companies.png",
     bodyHtml: `
 <h1>Фирми и организации, свързани с лица на публична длъжност</h1>
 <p>Фирмите, сдруженията, читалищата и фондациите, в които лице на публична длъжност — народен представител, министър, кмет, общински съветник, магистрат или член на регулаторен орган — фигурира като собственик или в управлението според Търговския регистър, или е декларирало дял пред Сметната палата. Народните представители са малка част от списъка.</p>
@@ -5701,7 +5701,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/parliament/attendance">Присъствие</a> — кой депутат участва в гласуванията и кой отсъства, претеглено спрямо точките, в които е могъл да гласува.</li>
 <li><a href="${SITE_URL}/persons?role=mp">Депутати</a> — всички народни представители от 44-то НС насам.</li>
 </ul>
-<p>Извън залата: <a href="${SITE_URL}/governance/declarations">декларациите</a> пред Сметната палата, <a href="${SITE_URL}/mp-assets">декларираното имущество</a>, <a href="${SITE_URL}/mp/companies">фирмите, свързани с депутати</a>, и <a href="${SITE_URL}/connections">графът на връзките</a>.</p>`.trim(),
+<p>Извън залата: <a href="${SITE_URL}/governance/declarations">декларациите</a> пред Сметната палата, <a href="${SITE_URL}/mp-assets">декларираното имущество</a>, <a href="${SITE_URL}/governance/companies">фирмите, свързани с депутати</a>, и <a href="${SITE_URL}/connections">графът на връзките</a>.</p>`.trim(),
     // extraJsonLd, not jsonLd: staticPage composes WebPage + BreadcrumbList itself.
     // The hub described itself less than any record page beneath it — WebPage plus a
     // breadcrumb, while every /votes/<date> also carries a Dataset. Dataset is what makes
@@ -5787,7 +5787,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/parliament/attendance">Attendance</a> — which MPs take part in votes and which do not, weighted by the items they could have voted on.</li>
 <li><a href="${SITE_URL}/en/persons?role=mp">MPs</a> — every member of parliament since the 44th National Assembly.</li>
 </ul>
-<p>Outside the chamber: <a href="${SITE_URL}/en/governance/declarations">declarations</a> filed with the Court of Audit, <a href="${SITE_URL}/en/mp-assets">declared assets</a>, <a href="${SITE_URL}/en/mp/companies">companies linked to MPs</a>, and the <a href="${SITE_URL}/en/connections">connections graph</a>.</p>`.trim(),
+<p>Outside the chamber: <a href="${SITE_URL}/en/governance/declarations">declarations</a> filed with the Court of Audit, <a href="${SITE_URL}/en/mp-assets">declared assets</a>, <a href="${SITE_URL}/en/governance/companies">companies linked to MPs</a>, and the <a href="${SITE_URL}/en/connections">connections graph</a>.</p>`.trim(),
       extraJsonLd: [
         buildFaqLd([
           {

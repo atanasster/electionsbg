@@ -1904,8 +1904,8 @@ const REGISTRY = {
       // a person the registry AND their own filing both place here is one person.
       person_count: { type: "number", sort: true, filter: "range" },
       // WHICH evidence, so the page can label rather than imply. `has_current_role` is the
-      // one that keeps 2,342 companies resting entirely on WITHDRAWN filings from being
-      // published present-tense.
+      // one that keeps the 2,342 companies whose every registry filing has been WITHDRAWN
+      // (2,106 with no declared stake either) from being published present-tense.
       has_registry_link: { type: "bool", filter: "eq" },
       has_declared_stake: { type: "bool", filter: "eq" },
       has_current_role: { type: "bool", filter: "eq" },

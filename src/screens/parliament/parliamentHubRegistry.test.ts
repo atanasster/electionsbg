@@ -40,7 +40,7 @@ const ROUTED_PATTERNS = [
   "/persons",
   "/governance/declarations",
   "/mp-assets",
-  "/mp/companies",
+  "/governance/companies",
   "/connections",
 ];
 
