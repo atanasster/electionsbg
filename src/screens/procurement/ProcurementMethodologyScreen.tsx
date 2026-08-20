@@ -20,6 +20,17 @@
 // user-facing is i18n; the numbers (thresholds, weights) come straight from the
 // catalogue because a number is language-neutral and must not be re-typed.
 //
+// ⚠️ THE TWO SCREENSHOTS ARE THE ONE PLACE THIS PAGE SHOWS A NUMBER IT DOES NOT
+// DERIVE. They are snapshots, so a corpus reload moves the corpus underneath
+// them — which is why their captions are deliberately number-free and say
+// "example": the picture illustrates the SHAPE (a ledger that also lists what
+// passed and what was inapplicable; one entity carrying two different grades),
+// and every threshold, weight and count a reader might cite is rendered from
+// the catalogue elsewhere on the page. Regenerate with
+// `node scripts/capture-risk-shots.mjs`, which also documents why they are webp
+// rather than png (a png here would be deleted by the postbuild image pass and
+// the reference left dangling).
+//
 // The source footnotes are the one place a non-numeric catalogue field reaches
 // the page: ALIGNMENT_SOURCES' `title`, `url` and `verifiedOn`. Those are
 // bibliographic facts about two English documents — a document's title is its
@@ -126,6 +137,35 @@ const SourceNotes: FC = () => {
     </ol>
   );
 };
+
+/** A captioned screenshot of the live UI. `width`/`height` are the file's own
+ *  intrinsic pixels — the image renders `w-full`, so the pair only serves to
+ *  reserve the aspect ratio and keep the page CLS-free (the article renderer
+ *  gets the same attributes from `collectImageDimensions`; a hand-written JSX
+ *  page has to state them, so a re-capture that changes a dimension has to
+ *  change these too — `capture-risk-shots.mjs` prints both and says so). */
+const Shot: FC<{
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+}> = ({ src, alt, caption, width, height }) => (
+  <figure className="my-6">
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+      className={proseClasses.img}
+    />
+    <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
+      {caption}
+    </figcaption>
+  </figure>
+);
 
 const LabelP: FC<PropsWithChildren<{ label: string }>> = ({
   label,
@@ -355,6 +395,13 @@ export const ProcurementMethodologyScreen = () => {
       <ArticleH2>{t("proc_meth_h_read")}</ArticleH2>
       <ArticleP>{t("proc_meth_p_abc")}</ArticleP>
       <ArticleP>{t("proc_meth_p_denominator")}</ArticleP>
+      <Shot
+        src="/articles/images/procurement-risk/02-signals.webp"
+        alt={t("proc_meth_shot_signals_alt")}
+        caption={t("proc_meth_shot_signals_cap")}
+        width={2000}
+        height={2114}
+      />
 
       <ArticleH2>
         {t("proc_meth_h_flags")} ({CONTRACT_FLAG_LIST.length})
@@ -380,6 +427,13 @@ export const ProcurementMethodologyScreen = () => {
         {componentList(SUPPLIER_EXPOSURE_LIST, t)}
       </LabelP>
       <ArticleP>{t("proc_meth_p_grades_differ")}</ArticleP>
+      <Shot
+        src="/articles/images/procurement-risk/01-grades.webp"
+        alt={t("proc_meth_shot_grades_alt")}
+        caption={t("proc_meth_shot_grades_cap")}
+        width={1920}
+        height={1324}
+      />
 
       <ArticleH2>{t("proc_meth_h_align")}</ArticleH2>
       <ArticleP>
