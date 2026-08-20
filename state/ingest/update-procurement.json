@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-18T15:12:00.762Z",
+  "lastSuccessfulIngest": "2026-08-20T08:08:23.184Z",
   "skill": "update-procurement",
-  "summary": "ЦАИС ЕОП self-heal: +101 rows/61 buyers (76d window), +92 contracts to PG, tenders 237,601→237,668; annex fold net +€2,272.7M, reconcile 0 evicted; corpus €93.67bn"
+  "summary": "EOP self-heal +261 rows/107 buyers → +250 contracts +€102.6M; geo map 2168→2170 (Tier B 403, 92 carried); tenders +138; annexes 24,380; local PG reloaded. Also clears adfi/aop_experts/cprs/ted first-run fingerprints — corpora verified already current, no crawl."
 }

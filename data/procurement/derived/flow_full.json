@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T11:33:58.498Z",
+  "generatedAt": "2026-08-20T07:52:08.247Z",
   "nodes": [
     {
       "id": "awarder:000012611",
@@ -4877,6 +4877,11 @@
       "label": "Хасан Илияз Хаджихасан"
     },
     {
+      "id": "mp:5125",
+      "type": "mp",
+      "label": "Младен Найденов Маринов"
+    },
+    {
       "id": "mp:4818",
       "type": "mp",
       "label": "ИВАН ВАЛЕНТИНОВ ИВАНОВ"
@@ -4925,11 +4930,6 @@
       "id": "mp:5092",
       "type": "mp",
       "label": "БОГОМИЛ ИВАНОВ ПЕТКОВ"
-    },
-    {
-      "id": "mp:5125",
-      "type": "mp",
-      "label": "Младен Найденов Маринов"
     },
     {
       "id": "mp:4108",
@@ -5897,6 +5897,11 @@
       "label": "Борислав Стефанов Арнаудов"
     },
     {
+      "id": "official:kliment-hristov-todorov-b9eb33",
+      "type": "official",
+      "label": "Климент Христов Тодоров"
+    },
+    {
       "id": "official:margarita-lyubomirova-tomova-099da6",
       "type": "official",
       "label": "Маргарита Любомирова Томова"
@@ -5905,11 +5910,6 @@
       "id": "official:pencho-anchev-dimitrov-f5847b",
       "type": "official",
       "label": "Пенчо Анчев Димитров"
-    },
-    {
-      "id": "official:kliment-hristov-todorov-b9eb33",
-      "type": "official",
-      "label": "Климент Христов Тодоров"
     },
     {
       "id": "official:rumen-andonov-porozhanov-63cc25",
@@ -6672,6 +6672,11 @@
       "label": "Георги Иванов Маринчев"
     },
     {
+      "id": "official:rositsa-svilenova-itova-4deef7",
+      "type": "official",
+      "label": "Росица Свиленова Итова"
+    },
+    {
       "id": "official:zdravko-ivanov-petrov-aab231",
       "type": "official",
       "label": "Здравко Иванов Петров"
@@ -6710,11 +6715,6 @@
       "id": "official:zdravko-dimitrov-bakalov-e041d8",
       "type": "official",
       "label": "Здравко Димитров Бакалов"
-    },
-    {
-      "id": "official:rositsa-svilenova-itova-4deef7",
-      "type": "official",
-      "label": "Росица Свиленова Итова"
     },
     {
       "id": "official:ertach-halil-salim-d1a32d",
@@ -11706,7 +11706,7 @@
     {
       "source": "awarder:110549443",
       "target": "contractor:202957624",
-      "valueEur": 229811.9
+      "valueEur": 464507.05
     },
     {
       "source": "awarder:110549443",
@@ -12522,6 +12522,11 @@
       "source": "awarder:129008829",
       "target": "contractor:831637711",
       "valueEur": 17413442.88
+    },
+    {
+      "source": "awarder:129008829",
+      "target": "contractor:130175000",
+      "valueEur": 315738.25
     },
     {
       "source": "awarder:129009023",
@@ -14359,6 +14364,11 @@
       "valueEur": 527709
     },
     {
+      "source": "contractor:202957624",
+      "target": "mp:5125",
+      "valueEur": 464507.05
+    },
+    {
       "source": "contractor:101741900",
       "target": "mp:4818",
       "valueEur": 459768.18
@@ -14397,11 +14407,6 @@
       "source": "contractor:817045463",
       "target": "mp:5092",
       "valueEur": 262037.09
-    },
-    {
-      "source": "contractor:202957624",
-      "target": "mp:5125",
-      "valueEur": 229811.9
     },
     {
       "source": "contractor:121031861",
@@ -14956,7 +14961,7 @@
     {
       "source": "contractor:130175000",
       "target": "official:atanas-georgiev-darelov-4fc909",
-      "valueEur": 34051136.99
+      "valueEur": 34213356.43
     },
     {
       "source": "contractor:101004999",
@@ -15274,6 +15279,11 @@
       "valueEur": 5860593.46
     },
     {
+      "source": "contractor:824106518",
+      "target": "official:kliment-hristov-todorov-b9eb33",
+      "valueEur": 5801135.36
+    },
+    {
       "source": "contractor:130175896",
       "target": "official:margarita-lyubomirova-tomova-099da6",
       "valueEur": 5788492.47
@@ -15282,11 +15292,6 @@
       "source": "contractor:130175896",
       "target": "official:pencho-anchev-dimitrov-f5847b",
       "valueEur": 5788492.47
-    },
-    {
-      "source": "contractor:824106518",
-      "target": "official:kliment-hristov-todorov-b9eb33",
-      "valueEur": 5771135.36
     },
     {
       "source": "contractor:831902088",
@@ -15786,7 +15791,7 @@
     {
       "source": "contractor:205323041",
       "target": "official:sergei-vasilev-stoinov-122113",
-      "valueEur": 785859.89
+      "valueEur": 788099.89
     },
     {
       "source": "contractor:120520365",
@@ -15989,6 +15994,11 @@
       "valueEur": 426149.32
     },
     {
+      "source": "contractor:832046330",
+      "target": "official:rositsa-svilenova-itova-4deef7",
+      "valueEur": 422750.06
+    },
+    {
       "source": "contractor:207302430",
       "target": "official:zdravko-ivanov-petrov-aab231",
       "valueEur": 403792.76
@@ -16022,11 +16032,6 @@
       "source": "contractor:201619580",
       "target": "official:zdravko-dimitrov-bakalov-e041d8",
       "valueEur": 372917.3
-    },
-    {
-      "source": "contractor:832046330",
-      "target": "official:rositsa-svilenova-itova-4deef7",
-      "valueEur": 371887.71
     },
     {
       "source": "contractor:828026941",

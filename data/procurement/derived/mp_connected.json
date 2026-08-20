@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T11:33:51.260Z",
+  "generatedAt": "2026-08-20T07:52:03.522Z",
   "total": 94,
   "entries": [
     {
@@ -4080,6 +4080,48 @@
       ]
     },
     {
+      "mpId": 5125,
+      "mpName": "Младен Найденов Маринов",
+      "contractorEik": "202957624",
+      "contractorName": "Биоминерал ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "33%",
+          "valueEur": 1712.83,
+          "fiscalYear": 2023,
+          "declarationYear": 2023
+        }
+      ],
+      "totalEur": 464507.05,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 229811.9,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 234695.15,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "110549443",
+          "name": "в и К АД",
+          "contractCount": 2,
+          "totalEur": 464507.05,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 4818,
       "mpName": "ИВАН ВАЛЕНТИНОВ ИВАНОВ",
       "contractorEik": "101741900",
@@ -4512,42 +4554,6 @@
           "name": "Община Севлиево",
           "contractCount": 3,
           "totalEur": 262037.09,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "mpId": 5125,
-      "mpName": "Младен Найденов Маринов",
-      "contractorEik": "202957624",
-      "contractorName": "Биоминерал ООД",
-      "relations": [
-        {
-          "kind": "stake",
-          "shareSize": "33%",
-          "valueEur": 1712.83,
-          "fiscalYear": 2023,
-          "declarationYear": 2023
-        }
-      ],
-      "totalEur": 229811.9,
-      "totalOther": {},
-      "contractCount": 1,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2024",
-          "contractCount": 1,
-          "totalEur": 229811.9,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "110549443",
-          "name": "в и К АД",
-          "contractCount": 1,
-          "totalEur": 229811.9,
           "totalOther": {}
         }
       ]

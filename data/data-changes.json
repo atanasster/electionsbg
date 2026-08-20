@@ -1,6 +1,26 @@
 {
-  "updatedAt": "2026-08-18T15:12:01.175Z",
+  "updatedAt": "2026-08-20T08:08:23.607Z",
   "entries": [
+    {
+      "timestamp": "2026-08-20T08:08:23.607Z",
+      "date": "2026-08-20",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП: +250 договора (+€102.6 млн.), +138 обществени поръчки",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-08-20T07:40:31.513Z",
+      "date": "2026-08-20",
+      "skill": "update-macro",
+      "summary": "July 2026 HICP finalised: 4.1% → 4.4%",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-08-18T15:12:01.175Z",
       "date": "2026-08-18",

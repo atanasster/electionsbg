@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T11:33:43.402Z",
+  "generatedAt": "2026-08-20T07:51:58.936Z",
   "total": 579,
   "officialCount": 561,
   "entries": [
@@ -7355,9 +7355,9 @@
       "role": "state_enterprise",
       "contractorEik": "130175000",
       "contractorName": "Софийска вода АД",
-      "totalEur": 34051136.99,
+      "totalEur": 34213356.43,
       "totalOther": {},
-      "contractCount": 256,
+      "contractCount": 257,
       "awardCount": 0,
       "relations": [
         {
@@ -7454,8 +7454,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 16,
-          "totalEur": 3457396.16,
+          "contractCount": 17,
+          "totalEur": 3619615.6,
           "totalOther": {}
         }
       ],
@@ -14009,6 +14009,133 @@
       ]
     },
     {
+      "slug": "kliment-hristov-todorov-b9eb33",
+      "name": "Климент Христов Тодоров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "824106518",
+      "contractorName": "Водоснабдяване и канализация ЕООД",
+      "totalEur": 5801135.36,
+      "totalOther": {},
+      "contractCount": 44,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        },
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 2,
+          "totalEur": 80528.47,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 3,
+          "totalEur": 771437.19,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 2965.49,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 6,
+          "totalEur": 117784.61,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 8,
+          "totalEur": 1148166.34,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 4,
+          "totalEur": 93390.72,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 3,
+          "totalEur": 46783.21,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 4,
+          "totalEur": 22017.25,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 6,
+          "totalEur": 2388442.61,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 4,
+          "totalEur": 1092119.47,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 3,
+          "totalEur": 37500,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "114532352",
+          "name": "Университетска многопрофилна болница за активно лечение - Д-Р георги Странски ЕАД",
+          "contractCount": 3,
+          "totalEur": 2755180.51,
+          "totalOther": {}
+        },
+        {
+          "eik": "000413974",
+          "name": "Община Плевен",
+          "contractCount": 2,
+          "totalEur": 1999151.26,
+          "totalOther": {}
+        },
+        {
+          "eik": "000405689",
+          "name": "Медицински университет",
+          "contractCount": 2,
+          "totalEur": 398807.67,
+          "totalOther": {}
+        },
+        {
+          "eik": "129009863",
+          "name": "Областна дирекция на МВР (ОДМВР) - Плевен",
+          "contractCount": 3,
+          "totalEur": 192330.96,
+          "totalOther": {}
+        },
+        {
+          "eik": "130277958",
+          "name": "ЧЕЗ Разпределение българия АД",
+          "contractCount": 2,
+          "totalEur": 86919.62,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "margarita-lyubomirova-tomova-099da6",
       "name": "Маргарита Любомирова Томова",
       "tier": "executive",
@@ -14306,133 +14433,6 @@
           "name": "Община Ловеч",
           "contractCount": 1,
           "totalEur": 107115.65,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "kliment-hristov-todorov-b9eb33",
-      "name": "Климент Христов Тодоров",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "contractorEik": "824106518",
-      "contractorName": "Водоснабдяване и канализация ЕООД",
-      "totalEur": 5771135.36,
-      "totalOther": {},
-      "contractCount": 43,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        },
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2012",
-          "contractCount": 2,
-          "totalEur": 80528.47,
-          "totalOther": {}
-        },
-        {
-          "year": "2015",
-          "contractCount": 3,
-          "totalEur": 771437.19,
-          "totalOther": {}
-        },
-        {
-          "year": "2016",
-          "contractCount": 1,
-          "totalEur": 2965.49,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 6,
-          "totalEur": 117784.61,
-          "totalOther": {}
-        },
-        {
-          "year": "2019",
-          "contractCount": 8,
-          "totalEur": 1148166.34,
-          "totalOther": {}
-        },
-        {
-          "year": "2021",
-          "contractCount": 4,
-          "totalEur": 93390.72,
-          "totalOther": {}
-        },
-        {
-          "year": "2022",
-          "contractCount": 3,
-          "totalEur": 46783.21,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 4,
-          "totalEur": 22017.25,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 6,
-          "totalEur": 2388442.61,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 4,
-          "totalEur": 1092119.47,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 2,
-          "totalEur": 7500,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "114532352",
-          "name": "Университетска многопрофилна болница за активно лечение - Д-Р георги Странски ЕАД",
-          "contractCount": 3,
-          "totalEur": 2755180.51,
-          "totalOther": {}
-        },
-        {
-          "eik": "000413974",
-          "name": "Община Плевен",
-          "contractCount": 2,
-          "totalEur": 1999151.26,
-          "totalOther": {}
-        },
-        {
-          "eik": "000405689",
-          "name": "Медицински университет",
-          "contractCount": 2,
-          "totalEur": 398807.67,
-          "totalOther": {}
-        },
-        {
-          "eik": "129009863",
-          "name": "Областна дирекция на МВР (ОДМВР) - Плевен",
-          "contractCount": 3,
-          "totalEur": 192330.96,
-          "totalOther": {}
-        },
-        {
-          "eik": "130277958",
-          "name": "ЧЕЗ Разпределение българия АД",
-          "contractCount": 2,
-          "totalEur": 86919.62,
           "totalOther": {}
         }
       ]
@@ -23621,9 +23621,9 @@
       "role": "state_enterprise",
       "contractorEik": "205323041",
       "contractorName": "Водоснабдяване и канализационни услуги ЕООД",
-      "totalEur": 785859.89,
+      "totalEur": 788099.89,
       "totalOther": {},
-      "contractCount": 27,
+      "contractCount": 28,
       "awardCount": 0,
       "relations": [
         {
@@ -23692,8 +23692,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 2,
-          "totalEur": 41542.47,
+          "contractCount": 3,
+          "totalEur": 43782.47,
           "totalOther": {}
         }
       ],
@@ -27133,6 +27133,159 @@
       ]
     },
     {
+      "slug": "rositsa-svilenova-itova-4deef7",
+      "name": "Росица Свиленова Итова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "832046330",
+      "contractorName": "Водоснабдяване и канализация ЕООД",
+      "totalEur": 422750.06,
+      "totalOther": {},
+      "contractCount": 54,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 1,
+          "totalEur": 2863.23,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 5,
+          "totalEur": 31188.81,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 3,
+          "totalEur": 4703.88,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 12015.36,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 2,
+          "totalEur": 39880.77,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 511.3,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 8,
+          "totalEur": 23735.08,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 233.16,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 3,
+          "totalEur": 3384.74,
+          "totalOther": {}
+        },
+        {
+          "year": "2020",
+          "contractCount": 1,
+          "totalEur": 5112.92,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 4,
+          "totalEur": 110336.79,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 6,
+          "totalEur": 57426.61,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 5,
+          "totalEur": 16430.03,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 3,
+          "totalEur": 29152.16,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 4,
+          "totalEur": 30742.86,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 5,
+          "totalEur": 55032.36,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "831917834",
+          "name": "Технически университет",
+          "contractCount": 2,
+          "totalEur": 112164.66,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010157",
+          "name": "Дирекция Управление на собствеността и социални дейности /Дуссд/ към Министерство на вътрешните работи - МВР",
+          "contractCount": 9,
+          "totalEur": 110423.45,
+          "totalOther": {}
+        },
+        {
+          "eik": "129008829",
+          "name": "Изпълнителна агенция “Военни клубове и военно-почивно дело”",
+          "contractCount": 2,
+          "totalEur": 50862.35,
+          "totalOther": {}
+        },
+        {
+          "eik": "000696327",
+          "name": "Столична община",
+          "contractCount": 1,
+          "totalEur": 38346.89,
+          "totalOther": {}
+        },
+        {
+          "eik": "131063188",
+          "name": "Национална агенция за приходите",
+          "contractCount": 11,
+          "totalEur": 25934.1,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "zdravko-ivanov-petrov-aab231",
       "name": "Здравко Иванов Петров",
       "tier": "municipal",
@@ -27729,159 +27882,6 @@
           "name": "Главна дирекция - Пожарна безопасност и защита на населението/ГДПБЗН/ - МВР, гр. София",
           "contractCount": 1,
           "totalEur": 4049.43,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "rositsa-svilenova-itova-4deef7",
-      "name": "Росица Свиленова Итова",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "contractorEik": "832046330",
-      "contractorName": "Водоснабдяване и канализация ЕООД",
-      "totalEur": 371887.71,
-      "totalOther": {},
-      "contractCount": 52,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 1,
-          "totalEur": 2863.23,
-          "totalOther": {}
-        },
-        {
-          "year": "2012",
-          "contractCount": 5,
-          "totalEur": 31188.81,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 3,
-          "totalEur": 4703.88,
-          "totalOther": {}
-        },
-        {
-          "year": "2014",
-          "contractCount": 1,
-          "totalEur": 12015.36,
-          "totalOther": {}
-        },
-        {
-          "year": "2015",
-          "contractCount": 2,
-          "totalEur": 39880.77,
-          "totalOther": {}
-        },
-        {
-          "year": "2016",
-          "contractCount": 2,
-          "totalEur": 511.3,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 8,
-          "totalEur": 23735.08,
-          "totalOther": {}
-        },
-        {
-          "year": "2018",
-          "contractCount": 1,
-          "totalEur": 233.16,
-          "totalOther": {}
-        },
-        {
-          "year": "2019",
-          "contractCount": 3,
-          "totalEur": 3384.74,
-          "totalOther": {}
-        },
-        {
-          "year": "2020",
-          "contractCount": 1,
-          "totalEur": 5112.92,
-          "totalOther": {}
-        },
-        {
-          "year": "2021",
-          "contractCount": 4,
-          "totalEur": 110336.79,
-          "totalOther": {}
-        },
-        {
-          "year": "2022",
-          "contractCount": 6,
-          "totalEur": 57426.61,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 5,
-          "totalEur": 16430.03,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 3,
-          "totalEur": 29152.16,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 4,
-          "totalEur": 30742.86,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 3,
-          "totalEur": 4170.01,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "831917834",
-          "name": "Технически университет",
-          "contractCount": 2,
-          "totalEur": 112164.66,
-          "totalOther": {}
-        },
-        {
-          "eik": "129010157",
-          "name": "Дирекция Управление на собствеността и социални дейности /Дуссд/ към Министерство на вътрешните работи - МВР",
-          "contractCount": 9,
-          "totalEur": 110423.45,
-          "totalOther": {}
-        },
-        {
-          "eik": "000696327",
-          "name": "Столична община",
-          "contractCount": 1,
-          "totalEur": 38346.89,
-          "totalOther": {}
-        },
-        {
-          "eik": "131063188",
-          "name": "Национална агенция за приходите",
-          "contractCount": 11,
-          "totalEur": 25934.1,
-          "totalOther": {}
-        },
-        {
-          "eik": "130277958",
-          "name": "Електроразпределителни мрежи Запад АД",
-          "contractCount": 2,
-          "totalEur": 20962.97,
           "totalOther": {}
         }
       ]

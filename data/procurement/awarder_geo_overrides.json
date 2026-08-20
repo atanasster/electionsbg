@@ -1,41 +1,41 @@
 {
-  "generatedAt": "2026-08-18T14:55:29.304Z",
-  "count": 2168,
+  "generatedAt": "2026-08-20T07:49:40.180Z",
+  "count": 2170,
   "sources": {
-    "ocds": 327,
-    "name+oblast": 84,
+    "ocds": 331,
+    "name+oblast": 83,
     "ri": 1290,
     "name": 266,
     "tr": 107,
     "mon": 35,
-    "mon+oblast": 58,
+    "mon+oblast": 57,
     "school": 1
   },
   "run": {
-    "candidates": 2758,
-    "resolved": 2075,
-    "unresolved": 683
+    "candidates": 2759,
+    "resolved": 2078,
+    "unresolved": 681
   },
   "carriedOver": {
     "mon": 35,
-    "mon+oblast": 58
+    "mon+oblast": 57
   },
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-08-18T14:55:29.304Z"
+      "lastFreshAt": "2026-08-20T07:49:40.180Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-08-18T14:55:29.304Z"
+      "lastFreshAt": "2026-08-20T07:49:40.180Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-08-18T14:55:29.304Z"
+      "lastFreshAt": "2026-08-20T07:49:40.180Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-08-18T14:55:29.304Z"
+      "lastFreshAt": "2026-08-20T07:49:40.180Z"
     },
     "mon": {
       "status": "unavailable",
@@ -44,15 +44,15 @@
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-08-18T14:55:29.304Z"
+      "lastFreshAt": "2026-08-20T07:49:40.180Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-08-18T14:55:29.304Z"
+      "lastFreshAt": "2026-08-20T07:49:40.180Z"
     }
   },
   "notes": [
-    "Tier mon was unavailable on 2026-08-18 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 35, mon+oblast 58."
+    "Tier mon was unavailable on 2026-08-20 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 35, mon+oblast 57."
   ],
   "awarders": {
     "101005300": {
@@ -2600,6 +2600,11 @@
       "source": "name",
       "confidence": "name_only"
     },
+    "200462966": {
+      "ekatte": "65677",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "200464696": {
       "ekatte": "83510",
       "source": "name",
@@ -2822,7 +2827,7 @@
     },
     "812117554": {
       "ekatte": "07079",
-      "source": "mon+oblast",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "813106564": {
@@ -6487,7 +6492,7 @@
     },
     "000450887": {
       "ekatte": "36498",
-      "source": "name+oblast",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "000450912": {
@@ -10454,6 +10459,11 @@
       "ekatte": "87374",
       "source": "ri",
       "confidence": "exact"
+    },
+    "000962738": {
+      "ekatte": "27382",
+      "source": "ocds",
+      "confidence": "name+province"
     },
     "000964237": {
       "ekatte": "27382",
