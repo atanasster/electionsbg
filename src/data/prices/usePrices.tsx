@@ -362,9 +362,31 @@ export interface ChainProduct {
   price: number;
   marketMin: number | null;
   pctSinceEuro: number | null;
+  /** The day this price was OBSERVED. Equals the corpus's latest day for a chain
+   *  that filed today; older for one that has gone quiet. Never render the price
+   *  without it — a retained price with no date is worse than a deleted one,
+   *  because the reader cannot tell.
+   *  Optional: absent on any blob built before T2c. */
+  asOf?: string;
 }
 export interface ChainProductsFile {
   products: ChainProduct[];
+  /** The day the CHAIN last filed anything, from the dimension rather than from
+   *  the product slice. Optional/null: absent on a blob built before T2c, which
+   *  is why every read of it is in boolean position. */
+  asOf?: string | null;
+  /** The corpus's most recent loaded day. Carried so a future "filed N days
+   *  ago" caption can date the gap without a second fetch — NO consumer reads it
+   *  yet, because `stale` and `beyondCeiling` are precomputed by the builder.
+   *  Optional: absent on a blob built before T2c. */
+  latestDate?: string;
+  /** `asOf < latestDate` — this chain did not file on the latest day. */
+  stale?: boolean;
+  /** Past the display ceiling (STALE_DAYS). `products` is then EMPTY BY DESIGN,
+   *  not by absence: the page still names the chain and its last filing day, but
+   *  quoting a price that old would be a worse answer than declining to.
+   *  Optional: absent on a blob built before T2c. */
+  beyondCeiling?: boolean;
 }
 /** A retail chain's own products (top 100 by popularity), precomputed per EIK. */
 export const useChainProducts = (eik: string | undefined) =>

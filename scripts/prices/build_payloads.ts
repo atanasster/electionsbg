@@ -36,7 +36,11 @@ import { buildPriceIndex, type Emit } from "./build_index";
 import { headlineIndex } from "../../src/data/prices/headline";
 import type { PricePoint } from "../../src/data/prices/usePrices";
 import { loadGridsFromPg } from "./lib/grids_pg";
-import { STALE_DAYS, isStale, beyondCeiling } from "./lib/staleness";
+import {
+  STALE_DAYS,
+  isStale,
+  beyondCeiling,
+} from "../../src/lib/priceStaleness";
 
 // --- Deals quality gate (national + per-município) -------------------------
 // The КЗП feed carries both a "redovna цена" (regular) and a promo price per
@@ -511,7 +515,7 @@ export const buildPayloads = async (): Promise<void> => {
   // Past STALE_DAYS the fallback arm yields nothing, and emitting nothing is a
   // DELETE: the payload merge's anti-join prunes the blob and the chain's page
   // disappears — the exact cascade this task exists to break, arriving one month
-  // later instead of one day. staleness.ts's header promises the opposite ("the
+  // later instead of one day. priceStaleness.ts's header promises the opposite ("the
   // page says 'no data since <date>' and shows no prices"), so honour it: an
   // empty, dated blob. Measured: 3 chains are already past the ceiling, and 64
   // share last_seen = 2026-08-08, i.e. they would all have vanished together.

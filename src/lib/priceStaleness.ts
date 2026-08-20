@@ -1,6 +1,8 @@
 // How old a last-known price may be before it stops being shown at all — the
-// ONE definition, shared by the payload builder and anything that renders or
-// filters on `price_last_seen.as_of`.
+// ONE definition, shared by the payload builder (scripts/prices/build_payloads.ts)
+// and the React surfaces that render it. It lives in src/ rather than scripts/
+// because the component cannot import from scripts/, while the builder already
+// imports from src/ — so this is the only direction that gives both one copy.
 //
 // It exists because "never delete a chain" and "never show a stale price as
 // current" pull against each other, and the resolution is a bounded middle: a

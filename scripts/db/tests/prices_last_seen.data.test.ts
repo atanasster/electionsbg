@@ -356,3 +356,71 @@ test.skipIf(skip)(
       );
   },
 );
+
+// TEST-003. The three staleness fields are computed by the builder and trusted
+// verbatim by the page, so nothing else checks that they agree with each other
+// or with the data they were derived from. A blob claiming `stale: false` while
+// dated before the latest day would render a days-old price as today's.
+test.skipIf(skip)(
+  "the stored staleness fields agree with their own inputs",
+  async () => {
+    const [r] = await allRows<{
+      total: string;
+      wrong_stale: string;
+      ceiling_with_products: string;
+      ceiling_not_stale: string;
+      asof_after_latest: string;
+    }>(
+      `WITH p AS (
+       SELECT key,
+              payload->>'asOf'                       AS as_of,
+              payload->>'latestDate'                 AS latest,
+              (payload->>'stale')::boolean           AS stale,
+              (payload->>'beyondCeiling')::boolean   AS beyond,
+              jsonb_array_length(payload->'products') AS n
+         FROM price_payloads WHERE kind='chain-products'
+     )
+     SELECT count(*)::text AS total,
+            -- stale must be exactly "dated before the corpus's latest day"
+            count(*) FILTER (
+              WHERE as_of IS NOT NULL AND latest IS NOT NULL
+                AND stale <> (as_of < latest))::text AS wrong_stale,
+            -- past the ceiling the page shows no prices, so the blob must carry none
+            count(*) FILTER (WHERE beyond AND n > 0)::text AS ceiling_with_products,
+            -- and anything past the ceiling is necessarily stale
+            count(*) FILTER (WHERE beyond AND NOT stale)::text AS ceiling_not_stale,
+            -- a blob can never be dated after the corpus it came from
+            count(*) FILTER (
+              WHERE as_of IS NOT NULL AND latest IS NOT NULL
+                AND as_of > latest)::text AS asof_after_latest
+       FROM p`,
+    );
+
+    if (r.total === "0") {
+      console.warn(
+        "[prices_last_seen] no chain-products payloads built — run build_payloads",
+      );
+      return;
+    }
+    assert.equal(
+      r.wrong_stale,
+      "0",
+      `${r.wrong_stale} blobs whose stale flag disagrees with asOf < latestDate`,
+    );
+    assert.equal(
+      r.ceiling_with_products,
+      "0",
+      `${r.ceiling_with_products} beyond-ceiling blobs still carry prices`,
+    );
+    assert.equal(
+      r.ceiling_not_stale,
+      "0",
+      `${r.ceiling_not_stale} blobs are beyond the ceiling but not marked stale`,
+    );
+    assert.equal(
+      r.asof_after_latest,
+      "0",
+      `${r.asof_after_latest} blobs are dated after the corpus's latest day`,
+    );
+  },
+);

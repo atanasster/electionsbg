@@ -19,9 +19,11 @@ import {
   useNationalChains,
   useChainProducts,
   fmtEur,
+  fmtPriceDate,
 } from "@/data/prices/usePrices";
 import { useCompanyProfile } from "@/data/procurement/useCompanyProfile";
 import { formatEurCompact } from "@/lib/currency";
+import { STALE_DAYS } from "@/lib/priceStaleness";
 
 export const ChainProfileScreen: FC = () => {
   const { eik = "" } = useParams();
@@ -150,60 +152,115 @@ export const ChainProfileScreen: FC = () => {
             ) : (
               <p className="text-sm text-muted-foreground">
                 {T(
-                  "Тази верига няма съпоставима кошница в мониторинга.",
-                  "This chain has no comparable basket in the monitor.",
+                  chainProducts?.stale
+                    ? "Веригата не подава данни в момента, затова няма кошница за сравнение."
+                    : "Тази верига няма съпоставима кошница в мониторинга.",
+                  chainProducts?.stale
+                    ? "This chain is not currently reporting, so it has no basket to compare."
+                    : "This chain has no comparable basket in the monitor.",
                 )}
               </p>
             )}
           </Card>
         </DashboardSection>
 
-        {chainProducts?.products?.length ? (
+        {chainProducts &&
+        (chainProducts.products.length > 0 || chainProducts.asOf) ? (
           <DashboardSection
             id="products"
             title={T("Продукти на веригата", "Chain products")}
-            subtitle={T(
-              "Цена в тази верига спрямо най-ниската на пазара",
-              "Price at this chain vs the cheapest on the market",
-            )}
+            subtitle={
+              chainProducts.stale
+                ? T(
+                    "Последно подадени цени — веригата не подава данни в момента",
+                    "Last filed prices — this chain is not currently reporting",
+                  )
+                : T(
+                    "Цена в тази верига спрямо най-ниската на пазара",
+                    "Price at this chain vs the cheapest on the market",
+                  )
+            }
             icon={ShoppingBasket}
           >
-            <Card className="p-3 sm:p-4">
-              <ul className="divide-y">
-                {chainProducts.products.map((p) => {
-                  const cheapest =
-                    p.marketMin != null && p.price <= p.marketMin + 0.001;
-                  return (
-                    <li
-                      key={p.slug}
-                      className="flex items-center gap-3 py-2 text-sm"
-                    >
-                      <Link
-                        to={`/product/${p.slug}`}
-                        className="min-w-0 flex-1 truncate font-medium hover:underline"
-                      >
-                        {p.title}
-                      </Link>
-                      {!cheapest && p.marketMin != null ? (
-                        <span className="hidden shrink-0 text-xs tabular-nums text-muted-foreground line-through sm:inline">
-                          {fmtEur(p.marketMin, lang)}
-                        </span>
-                      ) : null}
-                      <span className="w-20 shrink-0 text-right font-semibold tabular-nums">
-                        {fmtEur(p.price, lang)}
-                      </span>
-                      {cheapest ? (
-                        <span className="hidden w-16 shrink-0 text-right text-[11px] font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400 sm:inline">
-                          {T("най-евтина", "cheapest")}
-                        </span>
-                      ) : (
-                        <span className="hidden w-16 shrink-0 sm:inline" />
+            {/* A retained price with no date is worse than a deleted one: the
+                reader cannot tell it is old. Say the date, always, and say what
+                it means for the comparison. */}
+            {chainProducts.stale && chainProducts.asOf ? (
+              <Card className="mb-3 border-amber-300/60 bg-amber-50/60 p-3 text-sm dark:border-amber-500/30 dark:bg-amber-950/20">
+                <p className="font-medium">
+                  {T(
+                    `Последните данни от веригата към КЗП са от ${fmtPriceDate(chainProducts.asOf, lang)}.`,
+                    `The most recent data this chain filed to the КЗП is from ${fmtPriceDate(chainProducts.asOf, lang)}.`,
+                  )}
+                </p>
+                <p className="mt-1 text-muted-foreground">
+                  {chainProducts.products.length === 0
+                    ? chainProducts.beyondCeiling
+                      ? T(
+                          `Затова не показваме цени — последните са отпреди повече от ${STALE_DAYS} дни и вече не описват какво струва в момента.`,
+                          `We therefore show no prices — the last ones are more than ${STALE_DAYS} days old and no longer describe what it costs now.`,
+                        )
+                      : T(
+                          "Нямаме съпоставими цени от последното ѝ подаване.",
+                          "We have no comparable prices from its last filing.",
+                        )
+                    : T(
+                        "Показаните цени са последните подадени и не участват в класациите за най-евтина верига или най-евтина област.",
+                        "The prices shown are the last ones filed. They are excluded from the cheapest-chain and cheapest-region rankings.",
                       )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </Card>
+                </p>
+              </Card>
+            ) : null}
+            {chainProducts.products.length ? (
+              <Card className="p-3 sm:p-4">
+                <ul className="divide-y">
+                  {chainProducts.products.map((p) => {
+                    // ⚠️ A comparison, not a display. A price the chain filed
+                    // days ago must never be allowed to claim it is the cheapest
+                    // on the market today — that is precisely the claim T2c
+                    // forbids a stale value from making.
+                    // ⚠️ BOTH the badge and the struck-through market minimum
+                    // compare against TODAY's market, so a price the chain filed
+                    // days ago is ineligible for either — not just the badge.
+                    // An old price shown beside today's cheapest, with the older
+                    // struck through, states exactly the claim the notice above
+                    // says we are not making.
+                    const comparable =
+                      !chainProducts.stale && p.marketMin != null;
+                    const cheapest =
+                      comparable && p.price <= (p.marketMin as number) + 0.001;
+                    return (
+                      <li
+                        key={p.slug}
+                        className="flex items-center gap-3 py-2 text-sm"
+                      >
+                        <Link
+                          to={`/product/${p.slug}`}
+                          className="min-w-0 flex-1 truncate font-medium hover:underline"
+                        >
+                          {p.title}
+                        </Link>
+                        {comparable && !cheapest ? (
+                          <span className="hidden shrink-0 text-xs tabular-nums text-muted-foreground line-through sm:inline">
+                            {fmtEur(p.marketMin as number, lang)}
+                          </span>
+                        ) : null}
+                        <span className="w-20 shrink-0 text-right font-semibold tabular-nums">
+                          {fmtEur(p.price, lang)}
+                        </span>
+                        {cheapest ? (
+                          <span className="hidden w-16 shrink-0 text-right text-[11px] font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400 sm:inline">
+                            {T("най-евтина", "cheapest")}
+                          </span>
+                        ) : (
+                          <span className="hidden w-16 shrink-0 sm:inline" />
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </Card>
+            ) : null}
           </DashboardSection>
         ) : null}
 

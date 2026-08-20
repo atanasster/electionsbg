@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { STALE_DAYS, isStale, daysBetween, beyondCeiling } from "./staleness";
+import {
+  STALE_DAYS,
+  isStale,
+  daysBetween,
+  beyondCeiling,
+} from "./priceStaleness";
 
 describe("isStale", () => {
   it("is false on the latest day and true before it", () => {
@@ -27,12 +32,22 @@ describe("daysBetween", () => {
     expect(daysBetween("2026-08-14", "2026-08-14")).toBe(0);
   });
 
-  it("crosses a month and a DST boundary without drifting", () => {
-    // Parsed as UTC precisely so a local-time DST shift cannot round to 29 or 31.
+  it("crosses a month boundary without drifting", () => {
     expect(daysBetween("2026-07-31", "2026-08-30")).toBe(30);
     expect(daysBetween("2026-03-01", "2026-03-31")).toBe(30);
     expect(daysBetween("2026-10-01", "2026-10-31")).toBe(30);
   });
+
+  // ⚠️ NOT tested here, deliberately, because it CANNOT be: `daysBetween`
+  // rounds, and every DST shift is ±1h, which rounding absorbs. Measured — with
+  // the `Z` suffixes removed and TZ=Europe/Sofia (which shifts on 2026-03-29),
+  // all ten cases in this file still pass. So the UTC parse is belt-and-braces
+  // for readers rather than a behaviour any assertion on this function can pin.
+  //
+  // Where the parse mode IS observable is in what DAY gets displayed, and that
+  // belongs to `parseCalendarDay` / `fmtPriceDate` in usePrices.tsx — pinned by
+  // src/lib/dateFormatterPin.test.ts, which is the right home for it. Do not
+  // add a test here claiming to cover DST; the last one did and was vacuous.
 
   it("returns null rather than a number it cannot justify", () => {
     expect(daysBetween(null, "2026-08-14")).toBeNull();
