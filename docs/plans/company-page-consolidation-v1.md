@@ -7,9 +7,18 @@ inaccurate independently of this plan.
 Related: `docs/plans/mp-tr-edges-pg-v1.md` (the same retirement, one layer over),
 `docs/plans/persons-pg-retirement-v1.md`, `docs/plans/connections-pg-migration-v1.md`.
 
-Decided during drafting: **`/mp/companies` widens to ALL public office-holders**, not MPs, and
-moves to **`/governance/companies`**. That decision drives Tier 4, most of Tier 2, and eight of
-the seventeen audit findings — it is not a cosmetic scope change.
+**Decisions taken (2026-08-20), all three binding on the tiers below:**
+
+1. **`/mp/companies` widens to ALL public office-holders**, not MPs, and moves to
+   **`/governance/companies`**.
+2. **The political-links tile KEEPS its declared-stake chip** — so the chip is not dropped, it is
+   RE-BASED off the gated layer (Tier 4a). That is the more expensive of the two options and it
+   is what pulls `company_politicians` into scope.
+3. **`data/officials/derived/company_links.json` is retired inside this plan** (Tier 4b + Tier 6).
+
+Together, 2 and 3 mean **both** arms of `company_politicians` stop being file-fed — which makes
+the table PG-native, and makes Tier 4 the largest and riskiest step here. §5 Tier 4 is where the
+measured consequences live; they were not in the first two drafts.
 
 ---
 
@@ -104,7 +113,8 @@ That table has **two** name-match producers, and the page shows both:
 
 So this is not an additive change. Adding a 096-based block without re-basing **both** arms
 leaves two or three opinions about the same fact on one page — and under the all-officials
-decision the second arm covers the same population as the new page (G10).
+decision the second arm covers the same population as the new page (G10). Decision 2 keeps the
+chip, so both arms are re-based rather than dropped: Tier 4.
 
 **3c. It is a 4.16 MB eager fetch to render one company.** Both `/mp/companies` and
 `/mp/company/:slug` call `useCompanyIndex()`, which fetches the whole file.
@@ -184,31 +194,7 @@ over `declaration_stake_company` ⨝ `declaration` ⨝ `person`, with 096's priv
   `holder_is_declarant` discriminates, and carries a **mutation check** (drop the holder filter,
   assert the count moves) so a filter-less implementation cannot pass.
 
-### Tier 2 — re-base every weak company↔person claim on that page (do NOT skip; see 3b)
-
-Once Tier 1 ships, `company_politicians` is a second, weaker opinion about the same fact on the
-same page — on **both** arms.
-
-**2a. The `mp` arm (94 rows).** Either (i) drop the `stake` relation kind from the political-links
-tile and let Tier 1 own the claim, leaving `company_politicians` a procurement-money linkage only,
-or (ii) re-base `mp_connected`'s stake arm on `declaration_stake_company` (which Tier 5 does
-anyway). Decide from a measured diff.
-
-**2b. The `official` arm (579 rows) — `data/officials/derived/company_links.json` (G10).** This is
-the officials-side twin of the artifact being retired: same name-match method, same
-`share_percent` source (`build_officials_company_links.ts:158`), and under the all-officials
-decision it answers the **same question as the new `/mp/companies`**. Leaving it produces two
-different official↔company answers on one site. Minimum: measure its overlap with the gated
-person layer in the same pass as 2a, and record the delta. Full retirement is either a Tier 6
-here or its own plan — but it must not be silently out of scope, which is what the first draft
-did.
-
-⚠️ `company_politicians` is not page-local. It feeds `contractor_rank.is_mp_tied` (122), four of
-124's six aggregates, `procurement_risk_feed`, `hub_stats`, and `tr_company_place.political_n`
-(133). A row-count diff is not enough: the two arms have different producers and different
-populations.
-
-### Tier 3 — retire `/mp/company/:slug`
+### Tier 2 — retire `/mp/company/:slug`
 
 1. `MpFinancialDeclarations.tsx:50` — stop emitting `/mp/company/${slug}`. Link to `/company/:eik`
    when 096 resolved the stake, and to nothing otherwise. `PersonCompanies.tsx` already does
@@ -229,7 +215,7 @@ populations.
    Political parties are **not in `tr_companies`** (they register with the Sofia City Court), so
    they can never have a `/company/:eik` — which is exactly why the party case belongs on `/party`.
 
-### Tier 4 — `/mp/companies` → `/governance/companies`, all officials, from Postgres
+### Tier 3 — `/mp/companies` → `/governance/companies`, all officials, from Postgres
 
 **Basis:** `augment_mp_roles.ts`'s `MP_ROLES_SQL` **without the MP restriction**, unioned with
 `declaration_stake_company`. 17,614 companies.
@@ -281,7 +267,68 @@ populations.
   question** (G16) and must share the predicate. 151's own name is already wrong for the same
   reason — note it there so the two cannot drift.
 
-### Tier 5 — retire the file (heaviest; do last)
+### Tier 4 — re-base `company_politicians` onto the gated person layer (the heavy one)
+
+Decisions 2 and 3 land here. Both arms of `company_politicians` stop being file-fed, which is
+what lets Tiers 5 and 6 delete their producers — so **Tier 4 must precede both**.
+
+**4a. The `mp` arm (94 rows / 89 EIKs).** The chip stays, so `relations`' `kind:'stake'` entries
+are rebuilt from `declaration_stake_company` instead of `companies-index.json`. The matview
+already carries `share_size`, `value_eur` and `stake_year`, so the chip renders identically —
+only the population changes. Role kinds come from `person_role` at source tr/ngo.
+
+**4b. The `official` arm (579 rows / 402 EIKs).** Replaced by the same gated query, unrestricted
+by tier. This is what retires `company_links.json` (Tier 6).
+
+**4c. The table becomes PG-native.** With no file input left, `load_tr_pg.ts`'s JSON-reading block
+and its `TRUNCATE company_politicians` + `copyTable` go away, and the table becomes a matview or a
+migration-owned relation refreshed on the person chain. Two things fall out of that:
+
+- **`ref` becomes a real `person_id`.** Today it is a URL STRING — `/officials/<slug>` and
+  `/candidate/mp-<id>` — parsed by regex at **five sites in `load_graph_pg.ts`** (184, 192, 204,
+  312, 316) and at a sixth in `112_contract_risk_cache.sql` (`ref LIKE '/candidate/mp-%'`). That
+  is the brittle bridge whose breakage the graph loader's per-arm preflight exists to catch
+  (G20).
+- **`/officials/<slug>` is a 301 family**, redirected to `/person/<slug>` by
+  `functions/officials_redirect.js`. Every official ref in this table currently points at a
+  redirecting URL; the re-base points them at the real one.
+
+#### ⚠️ The measured consequence — this is the largest change in the plan (G19)
+
+`company_politicians` is read by **24 migrations**. The two that matter most are
+`033_procurement_risk_indexes.sql`, which publishes `mpConnectedEiks` / `pepConnectedEiks`
+straight to the **client-side risk scorer**, and `112_contract_risk_cache.sql`, whose `mp` and
+`pep` CTEs feed `041`'s BUYER `connection` and SUPPLIER `connectedSelf` components — i.e. the
+per-contract **A–F `risk_grade`**, which is cached, rendered in the contracts browser's risk
+column and filterable via `?grade=D,E,F`.
+
+| linked-EIK set | today | gated replacement |
+|---|---|---|
+| `kind='mp'` | 89 | — |
+| `kind='official'` | 402 | — |
+| **total distinct EIKs** | **464** | **925** (registry-role arm, contract-holding) **+ 127** (declared-stake arm) |
+
+**The politically-connected-supplier population roughly doubles**, while refusing the shared-name
+attributions the current set includes. So contracts change grade in both directions, and the
+change is user-visible on a filterable column. Nothing in the first two drafts said this.
+
+Required before shipping 4a/4b:
+
+1. Build the replacement beside the current table and **diff the EIK sets**, split by arm — which
+   EIKs are gained, which are lost, and for the losses, confirm each is a shared-name refusal
+   rather than a bridge bug.
+2. Re-derive `contract_risk_cache` on both bases and **report the grade-transition matrix**
+   (how many contracts move A→B, C→D, …). A count of changed rows is not enough; the direction
+   is the story.
+3. Re-check every other money surface that reads the table:
+   `contractor_rank.is_mp_tied` (122), 124's four MP-tied aggregates, `procurement_risk_feed`
+   (029 → `/procurement/flags`), `tr_company_place.political_n` (133), plus `hub_stats`,
+   `awarder_kindex` (039), `ngo_signals` (080), `agri_political` (163) and
+   `budget_admin_procurement` (157).
+4. Refresh every dependent in one pass. `112`'s own header says a missing dependency here "should
+   surface, not be swallowed" — so a partial apply is a hard failure, not a degrade.
+
+### Tier 5 — retire `companies-index.json`
 
 `companies-index.json` is a **build-time input**, not only a serving artifact:
 
@@ -290,17 +337,22 @@ companies-index.json ─┬─→ scripts/procurement/cross_reference.ts → mp_
                       │        → load_tr_pg.ts → company_politicians (008)
                       ├─→ scripts/funds/cross_reference.ts        (EIK → MP-linkage map)
                       ├─→ scripts/db/gen_procurement/cross_reference.ts (the SQL parity verifier)
-                      └─→ scripts/db/gen_governance/declarations_hub_stats.ts   [Tier 4]
+                      └─→ scripts/db/gen_governance/declarations_hub_stats.ts   [Tier 3]
 ```
 
-Both `cross_reference` modules want one thing: an **EIK → linkage map**. Tier 4's function is
-already that map.
+**Tier 4 has already cut the top branch.** Once `company_politicians` is PG-native, nothing loads
+`mp_connected.json` into it, and the diff that branch existed to protect was taken in Tier 4 —
+so do not re-take it here. What remains is the two branches Tier 4 does not touch: the funds
+linkage map and the parity verifier.
 
-1. Land the PG linkage producer beside the file-based one; run both; **diff `mp_connected.json`
-   byte-for-byte**. `db:gen-xref` is already a parity verifier and is the natural harness.
-2. Expect a diff — the PG set refuses shared names the index keeps (410 of 2,014 measured
-   2026-08-12) and is wider elsewhere. Record the measured delta in `company_politicians`, then in
-   `contractor_rank.is_mp_tied` and 124's four MP-tied aggregates, before switching.
+1. **`scripts/funds/cross_reference.ts`** builds its own EIK → linkage map straight from the file.
+   Point it at Tier 3's gated function. Its output feeds the funds MP-tied payload, so diff that
+   payload rather than `mp_connected.json`.
+2. **`scripts/db/gen_procurement/cross_reference.ts`** is the sql-migration parity verifier: it
+   re-derives `mp_connected` / `pep_connected` from Postgres and byte-compares them to the on-disk
+   files. With both files retired it has nothing left to verify on those two arms — retire those
+   arms of the verifier rather than leaving it comparing against files that no longer exist, which
+   would degrade to a permanent "no live file" log line that reads as passing.
 3. **Port the sanity floors** (G15): `procurement/cross_reference.ts:138` and
    `funds/cross_reference.ts:75` both refuse/warn when too few entries carry a `tr.uic`. They are
    the only thing between a broken index and a silently empty `mp_connected`; the PG replacement
@@ -326,6 +378,52 @@ already that map.
    `update-connections`, `update-procurement`, `update-funds` and `dashboard-hub` SKILL.md files,
    and CLAUDE.md's `tr_owner_share` section (already corrected — see G5).
 
+
+### Tier 6 — retire `company_links.json`
+
+Decision 3. Depends on Tier 4b having already replaced its only serving path.
+
+**What it is (G18).** `scripts/declarations/build_officials_company_links.ts` →
+`data/officials/derived/company_links.json`: **70,525 links over 9,659 officials and 22,960
+distinct UICs**, of which **60,317 (85.5%) are low-confidence**. Its confidence model is the
+discredited one, stated in its own header — "high only when the name is rare on BOTH sides:
+unique among officials AND mapped to a single TR company" — i.e. the `isUniqueName`
+one-company straitjacket that 158's header calls wrong in both directions.
+
+**Why the serving risk is nevertheless small.** `pep_connected.ts` gates to HIGH confidence AND
+to companies that actually hold contracts, so only ~579 (official, EIK) pairs of the 70,525 links
+ever reach `company_politicians`. The file is a large latent liability, not a large live surface.
+
+Chain to unwind:
+
+```
+company_links.json → pep_connected.ts → derived/pep_connected.json + derived/pep-by-eik/
+                                      → load_tr_pg.ts → company_politicians (kind='official')
+                                      → derived.ts (journalism payload)
+                                      → risk_feed.ts → derived/risk_feed.json
+                                                     + derived/person_procurement_index.json
+```
+
+**Most of that chain is already dead on the serving side — verify, do not assume (G21).**
+`/procurement/people` is retired (`TopMpsScreen` replaced the scanner) and `useRiskIndexes` reads
+`/api/db/procurement-risk-indexes` rather than the static files, so `pep-by-eik/` and
+`person_procurement_index.json` have no client reader; `/procurement/flags` reads
+`procurement_risk_feed` (029), which reads `company_politicians`, not the JSON. Confirm each with
+a fresh grep before deleting — the `company-connections/` precedent is that a reader hid in `ai/`,
+which is not under `src/ scripts/ functions/`.
+
+Then: delete the builder, `scripts/run-officials-links-only.ts`, `pep_connected.ts`'s file arm,
+the `pep_connected`/`pep-by-eik` outputs, the `formats.ts` pretty-format entry, and the two
+operator hints that name the rebuild command
+(`officials/remerge_collision_slugs.ts:250`, `officials/migrate_slug_normalisation.ts:473`).
+Check `bucket_sync_paths.ts` for the outputs, as in Tier 5.5 — an exclusion freezes, it does not
+retire.
+
+⚠️ **`build_officials_company_links.ts` is the LAST rendering consumer of `owner_share.ts`**
+(it reads `share_percent` at line 158). Retiring it does **not** make the twin dead code — the
+twin still writes `company_persons.share_percent`, which `load_tr_pg.ts:360` COPYs into
+`tr_person_roles.share`. CLAUDE.md now states this explicitly (G5); do not undo it.
+
 ---
 
 ## 6. What is deliberately NOT done
@@ -344,27 +442,36 @@ already that map.
 
 ---
 
-## 7. Open questions
+## 7. Decisions taken
 
-1. **Tier 2a (i) or (ii)** — does the political-links tile keep a declared-stake chip once Tier 1
-   owns that claim?
-2. **Tier 2b scope** — is `company_links.json` retired inside this plan (a Tier 6) or given its
-   own? It supplies 579 of `company_politicians`' 673 rows and is the last remaining rendering
-   consumer of `owner_share.ts`.
+All three open questions are closed (2026-08-20):
 
-CLOSED: the new URL is `/governance/companies` (decided 2026-08-20).
+1. **`/mp/companies` scope** → ALL public office-holders. §2b, Tier 3.
+2. **The new URL** → `/governance/companies`. Tier 3.
+3. **The declared-stake chip** → KEPT, and re-based off the gated layer rather than dropped.
+   Tier 4a.
+4. **`company_links.json`** → retired inside this plan. Tier 4b + Tier 6.
 
----
+No open questions remain. What is still UNKNOWN rather than undecided is the grade-transition
+matrix in Tier 4 — that is a measurement to take during implementation, not a decision to make
+now.
 
 ## 8. Suggested order
 
-Tier 1 → Tier 3 → Tier 4 → Tier 2 → Tier 5.
+**Tier 1 → 2 → 3 → 4 → 5 → 6.**
 
-Tier 1 first: purely additive and reversible. Tier 3 next: the visible win, depends only on Tier 1.
-Tier 4 builds the function Tier 5 then reuses. Tier 2 and Tier 5 move numbers on
-`/procurement/contractors` and the risk feed, and both want a measured diff before they ship.
+- **Tier 1** first: purely additive, reversible, and the only tier that ships reader value on its
+  own.
+- **Tier 2** next: the visible win, depends only on Tier 1.
+- **Tier 3** builds the gated all-officials function that Tier 4 then reuses.
+- **Tier 4 is the gate for everything after it.** Both files stay alive until it lands, because it
+  is what replaces their only serving path — and it is the step that moves the contract risk
+  grade. Do not start 5 or 6 before its diff is measured and accepted.
+- **Tiers 5 and 6** are then deletions with no behaviour left in them.
 
----
+Tier 4 is also the one to split across more than one commit: 4a and 4b can be measured
+independently, and 4c (the PG-native rewrite plus `ref` → `person_id`) should not ride in the same
+change as either.
 
 ## 9. Audit log — findings against the first draft (2026-08-20)
 
@@ -372,27 +479,39 @@ Every entry is folded into a tier above; the section number is given so nothing 
 
 | # | finding | severity | folded into |
 |---|---|---|---|
-| **G1** | **The first draft claimed the only inbound links were two in-app call sites. False.** `public/articles/2026-05-04-mp-connections-{bg,en}.md` link `/mp/company/<slug>` (216/215) **and** `/mp/companies` (208/207), and both are folded into `llms-full.txt` / `llms-full.en.txt`. The prose also describes the table as MP-only, so the widening makes indexed content inaccurate in two languages. | **high** | Tier 3.3, Tier 4 |
-| **G2** | `tr_company_place.person_link_n` looks like the ready-made all-officials basis and is not: it needs a resolvable EKATTE seat and covers **10,373 of 17,101** companies. Building Tier 4 on it drops 39% silently at a 200. | **high** | Tier 4 |
-| **G4** | The rename surface was understated: URL, 4× 301s, **both** `route_defs` lists, prerender title/description/bodyHtml in BG+EN, four hub link labels, og slug + `data-og` + `waitFor` selectors, screen file name, i18n keys, article prose. | **high** | Tier 4 |
-| **G10** | `data/officials/derived/company_links.json` is the officials-side twin of the retired artifact (579 of `company_politicians`' 673 rows) and was put out of scope. Under the all-officials decision it answers the SAME question as the new page, by the old method. | **high** | Tier 2b, §3b, OQ 2 |
-| **G3** | All-officials sizing was unmeasured: **17,614** vs today's 2,969 — 5.9×. Confirms server-side is mandatory and that the hub tile number moves ~6×. | medium | §2b |
-| **G5** | CLAUDE.md's `tr_owner_share` section named `/mp-company/:eik` — a route that does not exist (it is `/mp/company/:slug`, keyed by declared name) — as the reason the TypeScript twin exists. Verified the view derives from `share_amount` + `share_currency` via `tr_share_eur` and **never reads the stored `tr_person_roles.share`**, which is what the twin populates. So the twin and the view share no column: they are two outputs of one rule, which is why the gate compares implementations. A reader following the old wording would delete a live twin. **APPLIED — CLAUDE.md corrected.** | medium | §6, Tier 5.8 |
+| **G1** | **The first draft claimed the only inbound links were two in-app call sites. False.** `public/articles/2026-05-04-mp-connections-{bg,en}.md` link `/mp/company/<slug>` (216/215) **and** `/mp/companies` (208/207), and both are folded into `llms-full.txt` / `llms-full.en.txt`. The prose also describes the table as MP-only, so the widening makes indexed content inaccurate in two languages. | **high** | Tier 2.3, Tier 3 |
+| **G2** | `tr_company_place.person_link_n` looks like the ready-made all-officials basis and is not: it needs a resolvable EKATTE seat and covers **10,373 of 17,101** companies. Building Tier 4 on it drops 39% silently at a 200. | **high** | Tier 3 |
+| **G4** | The rename surface was understated: URL, 4× 301s, **both** `route_defs` lists, prerender title/description/bodyHtml in BG+EN, four hub link labels, og slug + `data-og` + `waitFor` selectors, screen file name, i18n keys, article prose. | **high** | Tier 3 |
+| **G10** | `data/officials/derived/company_links.json` is the officials-side twin of the retired artifact (579 of `company_politicians`' 673 rows) and was put out of scope. Under the all-officials decision it answers the SAME question as the new page, by the old method. | **high** | Tier 4b, Tier 6, §3b |
+| **G3** | All-officials sizing was unmeasured: **17,614** vs today's 2,969 — 5.9×. Confirms server-side is mandatory and that the hub tile number moves ~6×. | medium | §2b, Tier 3 |
+| **G5** | CLAUDE.md's `tr_owner_share` section named `/mp-company/:eik` — a route that does not exist (it is `/mp/company/:slug`, keyed by declared name) — as the reason the TypeScript twin exists. Verified the view derives from `share_amount` + `share_currency` via `tr_share_eur` and **never reads the stored `tr_person_roles.share`**, which is what the twin populates. So the twin and the view share no column: they are two outputs of one rule, which is why the gate compares implementations. A reader following the old wording would delete a live twin. **APPLIED — CLAUDE.md corrected.** | medium | §6, Tier 5.8, Tier 6 |
 | **G6** | `companies-index.json` has **no `isExcluded` entry** in `bucket_sync_paths.ts`, so it is bucket-synced. Deleting from git leaves the object; an exclusion freezes rather than retires. | medium | Tier 5.5 |
-| **G7** | `mp_roles_sql.data.test.ts` exists because that query silently failed for two days (unit tests mock `allRows`). It should migrate onto the new function, not be deleted with its caller. | medium | Tier 4 |
+| **G7** | `mp_roles_sql.data.test.ts` exists because that query silently failed for two days (unit tests mock `allRows`). It should migrate onto the new function, not be deleted with its caller. | medium | Tier 3 |
 | **G9** | `MpOwnershipStake.companySlug` is written into every per-MP declaration shard. Removing it rewrites `public/parliament/declarations/*.json` — keep the compact format unchanged so the diff is one field. | medium | Tier 5.6 |
 | **G15** | Both `cross_reference` modules carry a "too few `tr.uic` entries" floor that is the only guard against a silently empty `mp_connected`. The PG replacement needs an equivalent. | medium | Tier 5.3 |
-| **G16** | Tier 4 and `place_mp_companies` (151) become the national and local views of one question and must share a predicate. 151's name is already wrong for the same reason. | medium | Tier 4 |
+| **G16** | Tier 4 and `place_mp_companies` (151) become the national and local views of one question and must share a predicate. 151's name is already wrong for the same reason. | medium | Tier 3 |
 | **G8** | ~10 i18n keys orphan; `key_usage.test.ts` fails; `i18n:prune` is dry-run and in no chain. Several keys are shared and must not be deleted blind. | low | Tier 5.7 |
 | **G11** | `README.md` names `companies-index.json` in four places — the `procurement/` and `funds/` module descriptions (327, 328) and two skill-table rows (366, 367). | low | Tier 5.8 |
-| **G12** | The og capture waits on `[data-og="mp-companies-og"] tbody tr`; a server-side table changes that DOM and the capture can hang or emit an empty card. | low | Tier 4 |
-| **G13** | `declarations_hub_stats`' `companies` / `companyMps` fields keep MP-shaped names under an all-officials basis. | low | Tier 4 |
-| **G14** | `scripts/snap-connections.mjs:182` hard-codes a `/mp/company/…` URL. | low | Tier 3.4 |
+| **G12** | The og capture waits on `[data-og="mp-companies-og"] tbody tr`; a server-side table changes that DOM and the capture can hang or emit an empty card. | low | Tier 3 |
+| **G13** | `declarations_hub_stats`' `companies` / `companyMps` fields keep MP-shaped names under an all-officials basis. | low | Tier 3 |
+| **G14** | `scripts/snap-connections.mjs:182` hard-codes a `/mp/company/…` URL. | low | Tier 2.4 |
 | **G17** | The Tier 1 block is all-officials from day one (966 of its UICs are non-MP), so its tile copy must never say „депутати". | low | §4, Tier 1 |
+| **G19** | **The re-base changes the per-contract A–F `risk_grade`, and nothing in the first two drafts said so.** `company_politicians` is read by **24 migrations**; `112_contract_risk_cache.sql`'s `mp` / `pep` CTEs feed `041`'s BUYER `connection` and SUPPLIER `connectedSelf` components, and `033` publishes the two EIK sets straight to the client-side risk scorer. The linked-EIK population goes **464 → ~925 + 127**, roughly doubling, on a column that is cached, rendered and filterable via `?grade=`. | **high** | Tier 4 |
+| **G18** | `company_links.json` is **70,525 links / 9,659 officials / 22,960 UICs, 85.5% low-confidence**, on the "name rare on BOTH sides" model its own header describes — the `isUniqueName` straitjacket 158 calls wrong in both directions. Only ~579 pairs reach serving (`pep_connected` gates to high + contract-holding), so it is a large latent liability rather than a large live surface. | **high** | Tier 6 |
+| **G20** | `company_politicians.ref` is a URL STRING (`/officials/<slug>`, `/candidate/mp-<id>`) parsed by regex at **five sites in `load_graph_pg.ts`** and a sixth in `112`. `/officials/*` is itself a 301 family, so every official ref points at a redirecting URL. The re-base replaces it with a real `person_id` and removes the bridge. | medium | Tier 4c |
+| **G21** | Most of the `pep_connected` chain is already dead on the serving side — `/procurement/people` is retired (`TopMpsScreen`), `useRiskIndexes` reads `/api/db/procurement-risk-indexes`, and `/procurement/flags` reads `procurement_risk_feed`. So `pep-by-eik/` and `person_procurement_index.json` have no client reader. Verify with a fresh grep INCLUDING `ai/` — the `company-connections/` precedent is a reader that hid there. | medium | Tier 6 |
 
 **Verified-and-clear (no action).** `/mp/company/:slug` genuinely has no sitemap `<loc>`, no
 prerender entry and no og:image. `scripts/llms/buildIndex.ts` carries no `/mp/companies` entry.
 All 2,120 index UICs exist in `tr_companies`, so `/company/:eik` cannot hit its dead-end branch
 (`!company && !institution && !hasProcurement`) for any of them. `declaration_stake_company` has
 no matview dependents, so 096 re-applies cleanly (6.1 s local — a figure that says nothing about
-Cloud SQL, per the ANALYZE caveat in Tier 1).
+Cloud SQL, per the ANALYZE caveat in Tier 1). `governance/:id` (routes.tsx:4351) cannot shadow
+`/governance/companies`: React Router ranks static above dynamic, and no place code is the literal
+string `companies`. ESLint covers only `.ts/.tsx`, so neither this plan nor CLAUDE.md can break
+the `npm run lint` predeploy hook.
+
+**Final audit pass (2026-08-20, third).** Triggered by decisions 2 and 3, which moved
+`company_politicians` from a side note into the plan's largest step. It added G18–G21 and
+restructured §5 into six tiers; G19 in particular is the finding that reorders the work, since it
+makes Tier 4 the gate for both retirements rather than a cleanup after them.
