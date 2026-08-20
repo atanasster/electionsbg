@@ -166,10 +166,14 @@ ALTER TABLE tr_person_roles ADD COLUMN IF NOT EXISTS name_fold      text GENERAT
 -- `tr_person_roles.share` is the feed's own derivation and is wrong for the
 -- reason below.
 --
--- ⚠️ NOT YET SERVED. As of 2026-08-20 this view has no consumers:
--- company_officers() and person_roles() (008) and company_person_roles (022)
--- all still select the stored `share`, so /company/104119056 publishes
--- 26% / 8% today. Repointing them is T2 of docs/plans/tr-owner-share-v1.md.
+-- SERVED BY (T2, 2026-08-20): company_officers() and person_roles() (008),
+-- the company_person_roles matview (022) and mp_tr_roles() (150). Those four
+-- are the complete set — nothing else may read tr_person_roles.share, and a
+-- new consumer belongs on this list.
+--
+-- ⚠️ A consumer with no constant `uic` must correlate, not LEFT JOIN — see the
+-- performance note on the view itself. person_roles() cost 200,666 buffers /
+-- 1,465 ms for six rows before that was understood.
 --
 -- ⚠️ `erased_at IS NULL` DOES NOT MEAN "current". The TR daily feed re-lists
 -- the WHOLE partner set on every capital change and never erases the prior
@@ -274,13 +278,24 @@ $$;
 -- role rows) cost 26,208 buffers / 252 ms. As written it is 28 buffers /
 -- 2.4 ms. Re-EXPLAIN that company before adding a second reference.
 --
+-- ⚠️ THAT PUSHDOWN NEEDS A CONSTANT `uic`, AND NOT EVERY CONSUMER HAS ONE.
+-- company_officers(eik) does. person_roles(q) does NOT — it filters on
+-- name_fold, so a plain LEFT JOIN leaves the planner nothing to push and it
+-- builds the WHOLE view to answer for one person: measured, 200,666 buffers /
+-- 1,465 ms to return six rows, against 285 / 1.9 ms. That route is walked by a
+-- crawler under a 10 s statement_timeout on a db-g1-small, so such a consumer
+-- must read this view through a CORRELATED scalar subquery keyed on its own
+-- rows' uic (008's person_roles is the worked example). EXPLAIN any new
+-- consumer; a slow one looks identical to a fast one in the result.
+--
 -- ⚠️ The COLUMN LIST is one-way. load_tr_pg.ts applies this file on every run
 -- and CREATE OR REPLACE VIEW can only APPEND a column — never rename, drop or
 -- retype one — so an edit to `share_pct` fails on every warm database in the
 -- apply phase, the same 2BP01-class abort this file's header is built around.
--- The escape is a hand-written DROP+CREATE, and once 008/022 read this view
--- that DROP needs CASCADE, which is the silent deletion the header forbids.
--- Append, or write the migration deliberately.
+-- The escape is a hand-written DROP+CREATE, and since T2 that DROP needs
+-- CASCADE — company_person_roles (022) is a MATVIEW and so records a real
+-- pg_depend edge on this view — which is the silent deletion the header
+-- forbids. Append, or write the migration deliberately.
 CREATE OR REPLACE VIEW tr_owner_share AS
 WITH owner_rows AS (
   SELECT r.uic, r.name_fold, r.role, r.added_at,
@@ -318,5 +333,13 @@ SELECT uic, name_fold, role,
               OR sum(eur) OVER (PARTITION BY uic) IS NULL
               OR sum(eur) OVER (PARTITION BY uic) <= 0 THEN NULL
          ELSE round(100 * eur / sum(eur) OVER (PARTITION BY uic), 4)
-       END AS share_pct
+       END AS share_pct,
+       -- The amount share_pct is actually built from — this person's WHOLE
+       -- current-vintage holding in EUR. tr_person_roles.share_amount is one
+       -- RECORD's declared figure in whatever currency it was filed in, so on
+       -- the 280 groups holding several records in one vintage the two
+       -- disagree, and a UI rendering the raw amount beside the percentage
+       -- prints a parenthetical that contradicts the number it appears to
+       -- explain. Consumers render this instead wherever a percentage is shown.
+       round(eur, 2) AS share_eur
 FROM cur;

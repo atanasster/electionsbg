@@ -142,8 +142,27 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   --
   -- Joined on `name_fold`, not on name: TR spells one person several ways across filings
   -- (case, hyphen spacing), and the fold is the key the whole person layer already uses.
+  --
+  -- `share` comes from tr_owner_share (003), NEVER from tr_person_roles.share:
+  -- the stored column divides each owner by every cap table the company has
+  -- ever filed, and since the euro changeover by лв and EUR added together.
+  -- ⚠️ CORRELATED, not a LEFT JOIN — there is no constant uic here to push into
+  -- the view, and a plain join makes the planner materialise the whole thing
+  -- (200,666 buffers for a handful of rows). 008's person_roles carries the
+  -- same note and the same shape. All three key columns, because 55
+  -- (uic, name_fold) pairs hold both a partner and a sole_owner row.
+  --
+  -- NOTE this CTE does NOT dedup — it is one row per FILING by design, so a
+  -- company re-listed across vintages still appears once per filing. Each of
+  -- those rows now carries the SAME current-vintage percentage rather than one
+  -- stale figure per vintage, which is an improvement but not a dedup; that
+  -- question belongs with roleCount/companyCount below, not here.
   roles AS (
-    SELECT t.uic, t.role, t.position_label, t.share, t.added_at, t.erased_at,
+    SELECT t.uic, t.role, t.position_label,
+           (SELECT os.share_pct FROM tr_owner_share os
+             WHERE os.uic = t.uic AND os.name_fold = t.name_fold
+               AND os.role = t.role) AS share,
+           t.added_at, t.erased_at,
            c.name AS company_name, c.legal_form, c.seat, c.status,
            (ba.uic IS NOT NULL) AS declared
       FROM subj s

@@ -7,7 +7,21 @@
 -- query time, but the table engine paginates a plain relation (no DISTINCT ON),
 -- so we materialise the same current-record-per-(company, person, role) view.
 -- `key` is the unique paging tiebreaker the engine needs. REFRESHed in
--- load_tr_pg.ts. Depends on tr_person_roles. SELECT auto-granted to app_readonly.
+-- load_tr_pg.ts. Depends on tr_person_roles + tr_owner_share (003). SELECT
+-- auto-granted to app_readonly.
+--
+-- ⚠️ `share` is the DERIVED percentage from tr_owner_share, never the stored
+-- tr_person_roles.share — see that view's header. It stays sortable and
+-- range-filterable in db_table.js, so a NULL must mean "no answer" everywhere
+-- that reads it: 7,769 companies legitimately publish no percentage at all.
+-- `share_eur` is the amount that percentage is built from; render it rather
+-- than share_amount, which is one RECORD's figure in its own currency.
+--
+-- ⚠️ APPLY 003 FIRST. A matview resolves its query at CREATE regardless of
+-- check_function_bodies, so the SET below gives this no cover: on a database
+-- whose 003 predates tr_owner_share this file raises 42P01 and rolls back.
+-- db:load:tr:pg applies 003 → 008 → 022 in order; a standalone apply must be
+--   npx tsx scripts/db/apply_functions.ts 003_tr_search.sql 022_company_officers.sql
 
 SET check_function_bodies = off;
 
@@ -25,13 +39,19 @@ CREATE MATERIALIZED VIEW company_person_roles AS
          r.uic,
          r.name,
          r.role,
-         r.share,
+         os.share_pct AS share,
+         os.share_eur,
          r.share_amount,
          r.share_currency,
          r.added_at,
          r.erased_at,
          (CASE WHEN r.erased_at IS NULL THEN 1 ELSE 0 END) AS active
   FROM tr_person_roles r
+  -- Full three-column key: 55 (uic, name_fold) pairs carry both a partner and a
+  -- sole_owner row in one vintage, so a two-column join would fan this out and
+  -- break the UNIQUE index on `key` below.
+  LEFT JOIN tr_owner_share os
+    ON os.uic = r.uic AND os.name_fold = r.name_fold AND os.role = r.role
   ORDER BY r.uic, r.name_fold, r.role,
            (r.erased_at IS NULL) DESC, r.added_at DESC NULLS LAST;
 

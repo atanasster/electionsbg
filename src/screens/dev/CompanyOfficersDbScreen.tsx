@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { formatOwnerShare, formatOwnerAmount } from "@/lib/ownerShare";
 
 // Keys are camelCased by the table engine's projection (added_at → addedAt);
 // the column `id`s below stay snake_case (the server sort keys).
@@ -28,8 +29,9 @@ interface OfficerRow {
   uic: string;
   name: string;
   role: string | null;
-  share: number | null;
-  shareAmount: number | null;
+  share: string | number | null;
+  shareEur: string | number | null;
+  shareAmount: string | number | null;
   shareCurrency: string | null;
   addedAt: string | null;
   erasedAt: string | null;
@@ -37,10 +39,7 @@ interface OfficerRow {
 }
 
 const ALL = "__all__";
-const num = new Intl.NumberFormat("bg-BG");
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
-const pct = (s: number | null): string =>
-  s === null || s === undefined ? "—" : `${Math.round(Number(s))}%`;
 
 export const CompanyOfficersDbScreen: FC = () => {
   const { eik = "" } = useParams();
@@ -112,15 +111,19 @@ export const CompanyOfficersDbScreen: FC = () => {
         meta: { align: "right" },
         cell: ({ row }) => (
           <span className="tabular-nums whitespace-nowrap">
-            {row.original.role === "sole_owner" && row.original.share == null
-              ? "100%"
-              : pct(row.original.share)}
-            {row.original.shareAmount != null && (
+            {formatOwnerShare(row.original.share)}
+            {formatOwnerAmount(
+              row.original.shareEur,
+              row.original.shareAmount,
+              row.original.shareCurrency,
+            ) && (
               <span className="ml-1 text-xs text-muted-foreground/70">
-                ({num.format(Number(row.original.shareAmount))}
-                {row.original.shareCurrency
-                  ? ` ${row.original.shareCurrency}`
-                  : ""}
+                (
+                {formatOwnerAmount(
+                  row.original.shareEur,
+                  row.original.shareAmount,
+                  row.original.shareCurrency,
+                )}
                 )
               </span>
             )}

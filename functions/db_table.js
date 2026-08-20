@@ -499,6 +499,10 @@ const REGISTRY = {
       name: { type: "text", sort: true, filter: "text", search: true },
       role: { type: "text", sort: true, filter: "in" },
       share: { type: "number", sort: true, filter: "range" },
+      // The amount `share` is derived from (tr_owner_share, migration 003) —
+      // render this rather than share_amount, which is one record's declared
+      // figure in its own currency and can disagree with the percentage.
+      share_eur: { type: "number" },
       share_amount: { type: "number" },
       share_currency: { type: "text" },
       added_at: { type: "date", sort: true, filter: "range" },
@@ -511,6 +515,7 @@ const REGISTRY = {
       "name",
       "role",
       "share",
+      "share_eur",
       "share_amount",
       "share_currency",
       "added_at",

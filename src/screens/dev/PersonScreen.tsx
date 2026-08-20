@@ -67,6 +67,7 @@ import type {
   ProcurementContractorRollup,
   ProcurementBreakdown,
 } from "@/data/dataTypes";
+import { formatOwnerShare } from "@/lib/ownerShare";
 
 interface RoleRow {
   uic: string;
@@ -142,8 +143,6 @@ const OWNS = new Set(["sole_owner", "partner", "actual_owner"]);
 
 const num = new Intl.NumberFormat("bg-BG");
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
-const pct = (s: string | number | null): string =>
-  s === null || s === undefined || s === "" ? "—" : `${Math.round(Number(s))}%`;
 
 // At-a-glance signal chips (person-shaped analogue of CompanyRiskChips).
 const chipTone = {
@@ -374,9 +373,7 @@ export const PersonScreen: FC = () => {
               {trRoleLabel(r.role, t)}
             </td>
             <td className="py-1 text-right tabular-nums">
-              {r.role === "sole_owner" && (r.share === null || r.share === "")
-                ? "100%"
-                : pct(r.share)}
+              {formatOwnerShare(r.share)}
             </td>
             <td className="py-1 tabular-nums text-muted-foreground">
               {day(r.added_at)}

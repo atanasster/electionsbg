@@ -129,6 +129,7 @@ import { scopeYear, useScope, useScopedHref } from "@/data/scope/useScope";
 import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useHashScroll } from "@/ux/useHashScroll";
+import { formatOwnerShare, formatOwnerAmount } from "@/lib/ownerShare";
 
 interface Company {
   uic: string;
@@ -192,6 +193,7 @@ interface Officer {
   name: string;
   role: string | null;
   share: string | number | null;
+  share_eur: string | number | null;
   share_amount: string | number | null;
   share_currency: string | null;
   added_at: string | null;
@@ -374,8 +376,6 @@ const num = new Intl.NumberFormat("bg-BG");
 // backend-paginated /company/:eik/officers table.
 const OFFICERS_PREVIEW = 10;
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
-const pct = (s: string | number | null): string =>
-  s === null || s === undefined || s === "" ? "—" : `${Math.round(Number(s))}%`;
 
 export const CompanyDbScreen: FC = () => {
   const { eik = "" } = useParams();
@@ -1751,14 +1751,19 @@ export const CompanyDbScreen: FC = () => {
                             {trRoleLabel(o.role, t)}
                           </td>
                           <td className="py-1 text-right tabular-nums">
-                            {o.role === "sole_owner" &&
-                            (o.share === null || o.share === "")
-                              ? "100%"
-                              : pct(o.share)}
-                            {o.share_amount != null && (
+                            {formatOwnerShare(o.share)}
+                            {formatOwnerAmount(
+                              o.share_eur,
+                              o.share_amount,
+                              o.share_currency,
+                            ) && (
                               <span className="ml-1 text-xs text-muted-foreground/70">
-                                ({num.format(Number(o.share_amount))}
-                                {o.share_currency ? ` ${o.share_currency}` : ""}
+                                (
+                                {formatOwnerAmount(
+                                  o.share_eur,
+                                  o.share_amount,
+                                  o.share_currency,
+                                )}
                                 )
                               </span>
                             )}

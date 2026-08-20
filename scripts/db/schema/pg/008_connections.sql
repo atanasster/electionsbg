@@ -4,6 +4,16 @@
 -- mp_connected/pep_connected by load_tr_pg.ts) so political connections come
 -- straight from the DB. Requires 003 (tr tables), 006 (contracts), 000 (fold).
 -- See docs/plans/postgres-migration-v1.md.
+--
+-- ⚠️ SHIPS WITH 003, AND 003 GOES FIRST. Since T2 (tr-owner-share-v1) both
+-- person_roles and company_officers read the `tr_owner_share` VIEW that 003
+-- owns — a view, not one of the "tr tables" above. They are LANGUAGE sql and
+-- this file does NOT set check_function_bodies = off, so both bodies are
+-- validated at CREATE and raise 42P01 on any database whose 003 predates that
+-- view, rolling the whole file back (loud and atomic — the good direction, but
+-- it does abort). db:load:tr:pg applies 003 → 008 → 022 in order; the
+-- standalone function hatch must name both:
+--   npx tsx scripts/db/apply_functions.ts 003_tr_search.sql 008_connections.sql
 
 CREATE TABLE IF NOT EXISTS company_politicians (
   eik        text NOT NULL,
@@ -64,7 +74,12 @@ $$;
 
 -- Per-role history: one row per company × role, with the ownership share and the
 -- from/to dates (current vs former). Powers the person page's detailed roles
--- table + chronology. `share` is nullable until the TR parser captures дял.
+-- table + chronology.
+--
+-- `share` comes from tr_owner_share (003), NEVER from tr_person_roles.share —
+-- see that view's header for why the stored column is wrong. NULL means "we
+-- cannot express this stake as a fraction of the current capital" and must
+-- render as "—", never as 0%.
 CREATE OR REPLACE FUNCTION person_roles(q text)
 RETURNS TABLE (
   uic           text,
@@ -85,10 +100,27 @@ LANGUAGE sql STABLE AS $$
   -- current record per (company, role) so the person page lists each once.
   dedup AS (
     SELECT DISTINCT ON (r.uic, r.role)
-           r.uic, r.role, r.share, r.added_at, r.erased_at
+           r.uic, r.name_fold, r.role, r.added_at, r.erased_at
     FROM tr_person_roles r CROSS JOIN me
     WHERE r.name_fold = me.qf
     ORDER BY r.uic, r.role, (r.erased_at IS NULL) DESC, r.added_at DESC NULLS LAST
+  ),
+  -- ⚠️ CORRELATED ON PURPOSE — do not "simplify" this to a LEFT JOIN.
+  -- tr_owner_share is only cheap when the planner can push a constant `uic`
+  -- into it, and this function has none: it filters on name_fold, so a plain
+  -- join gives the planner nothing and it materialises the WHOLE view to
+  -- answer for one person — measured 200,666 buffers / 1,465 ms for six rows,
+  -- on a route a crawler walks under a 10 s statement_timeout. Correlated,
+  -- each probe rides idx_tr_person_roles_uic: 285 buffers / 1.9 ms.
+  -- The lookup still carries all three key columns; name_fold is pinned to
+  -- me.qf here, but 55 (uic, name_fold) pairs hold both a partner and a
+  -- sole_owner row in one vintage, so dropping `role` would fan out.
+  shared AS (
+    SELECT d.uic, d.role, d.added_at, d.erased_at,
+           (SELECT os.share_pct FROM tr_owner_share os
+             WHERE os.uic = d.uic AND os.name_fold = d.name_fold
+               AND os.role = d.role) AS share
+    FROM dedup d
   )
   SELECT d.uic,
          c.name AS company,
@@ -103,7 +135,7 @@ LANGUAGE sql STABLE AS $$
          (SELECT coalesce(sum(k.amount_eur), 0) FROM contracts k
             WHERE k.contractor_eik = d.uic AND k.tag = 'contract')
            AS contracts_eur
-  FROM dedup d
+  FROM shared d
   LEFT JOIN tr_companies c ON c.uic = d.uic
   ORDER BY active DESC, added_at DESC NULLS LAST, company;
 $$;
@@ -115,11 +147,28 @@ $$;
 -- all partners, so one person appears once per filing (a 50-member company can
 -- have ~1,000 rows). Collapse to the CURRENT record per (person, role) — the
 -- most recent, active-preferred — so each officer shows once.
+--
+-- ⚠️ That dedup fixes WHO is shown and cannot fix the PERCENTAGE: the stored
+-- tr_person_roles.share was derived against the UN-deduped set, so it divides
+-- each owner by every vintage the company has ever filed (and, since the euro
+-- changeover, by лв and EUR added together). `share` therefore comes from
+-- tr_owner_share (003). A row outside the current vintage — or an erased one —
+-- gets NULL and must render "—", never 0%.
+-- ⚠️ DROP before CREATE, and the line is load-bearing: T2 added `share_eur` to
+-- the OUT parameters, and CREATE OR REPLACE cannot change a function's return
+-- row type (42P13 — "cannot change return type of existing function"). Same
+-- reason 144 drops funds_wire. Safe here because 008 OWNS this function and
+-- recreates it three lines down, and exec() sends the file as ONE transaction
+-- so the drop and the create commit together. NO CASCADE: nothing reads it in
+-- a stored definition today (db_routes.js calls it at runtime), so a bare DROP
+-- fails loudly if that ever changes rather than deleting the new reader.
+DROP FUNCTION IF EXISTS company_officers(text);
 CREATE OR REPLACE FUNCTION company_officers(eik text)
 RETURNS TABLE (
   name           text,
   role           text,
   share          numeric,
+  share_eur      numeric,
   share_amount   numeric,
   share_currency text,
   added_at       timestamptz,
@@ -129,14 +178,17 @@ RETURNS TABLE (
 LANGUAGE sql STABLE AS $$
   WITH dedup AS (
     SELECT DISTINCT ON (r.name_fold, r.role)
-           r.name, r.role, r.share, r.share_amount, r.share_currency,
+           r.name, r.role, os.share_pct AS share, os.share_eur,
+           r.share_amount, r.share_currency,
            r.added_at, r.erased_at, (r.erased_at IS NULL) AS active
     FROM tr_person_roles r
+    LEFT JOIN tr_owner_share os
+      ON os.uic = r.uic AND os.name_fold = r.name_fold AND os.role = r.role
     WHERE r.uic = eik
     ORDER BY r.name_fold, r.role,
              (r.erased_at IS NULL) DESC, r.added_at DESC NULLS LAST
   )
-  SELECT name, role, share, share_amount, share_currency,
+  SELECT name, role, share, share_eur, share_amount, share_currency,
          added_at, erased_at, active
   FROM dedup
   ORDER BY active DESC, share DESC NULLS LAST, added_at DESC NULLS LAST;
