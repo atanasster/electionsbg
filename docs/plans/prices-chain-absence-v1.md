@@ -172,6 +172,28 @@ product is unpriced, so a place drops off the board rather than jumping. `promoS
 the same treatment or an explicit caveat — `index.json`'s own note already flags it as
 *"a LEVEL with no baseline to cancel composition against"*.
 
+#### ⚠️ ATTEMPTED 2026-08-20 AND REVERTED — the design above is not sufficient
+
+Implemented as written, reviewed, and backed out rather than shipped. Two defects, and the
+second is the one that makes this a design fork rather than a bug:
+
+1. **It reached the wrong tier.** The matched panel was applied at the SETTLEMENT grain,
+   because that is where `matchedCell` already lives. The „Най-евтини области" board — the
+   surface this task exists for, and the one the +415.3% figure was measured on — ranks at
+   the **OBLAST** tier, which aggregates settlements *after* the matching. So the expensive
+   half ran and the exposed board was untouched.
+2. **Per-place baselines systematically bias newcomers cheaper.** Holding the chain set
+   fixed *per place* means each place is matched against its own history, so a place a cheap
+   chain has only just entered keeps a baseline that predates it and reads as having fallen.
+   The index escapes this because it compares one place against ITSELF across two days; a
+   RANKING compares places against each other, and a per-place matched set is not a common
+   basis. A single national matched set fixes the basis but strands every place the panel
+   chains do not reach — which, at 98 reporting chains, is most of them.
+
+There is no default that is obviously right, so it stays open. **T4 is the only mitigation
+currently shipped**, and both `build_index.ts`'s header and `PriceCoverageNote`'s say so in
+those words, so nobody reads the note as belt-and-braces over a fix that is not there.
+
 ### T4 — surface coverage where the exposed figures render
 
 `coverage.chainsComplete`, `incompleteDates` and `headlineDate` already exist in
