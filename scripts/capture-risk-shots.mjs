@@ -9,18 +9,24 @@
 //   node scripts/capture-risk-shots.mjs
 //   BASE=http://localhost:57243 node scripts/capture-risk-shots.mjs
 //
-// ⚠️ WRITES WEBP, NOT PNG — unlike the older capture scripts here, and the
-// difference is load-bearing rather than a style choice. `scripts/images/
-// optimize.ts` converts every PNG under dist/articles/images to webp, DELETES
-// the original and rewrites the references it can find — HTML, JSON, Markdown,
-// XML. It does NOT rewrite the built JS bundle, so a PNG path hard-coded in a
-// TSX component (ProcurementMethodologyScreen embeds both of these) would point
-// at a file the postbuild had just deleted: a broken image on prod, at a 200,
-// invisible in dev where the PNG still exists. Emitting webp keeps ONE copy of
-// each shot that both the markdown and the component can name, because
-// optimize.ts only ever considers png/jpg. `collectImageDimensions` already
-// reads webp, so the prerendered <img> still gets its width/height and the page
-// stays CLS-free.
+// WRITES WEBP, NOT PNG — unlike the older capture scripts here. This used to be
+// load-bearing: `scripts/images/optimize.ts` converts every PNG under
+// dist/articles/images to webp and DELETES the original, and until 2026-08-20
+// it rewrote references only in an allowlist of text types that excluded the
+// built JS bundle. A PNG path hard-coded in a TSX component (this page embeds
+// both of these shots) therefore pointed at a file the postbuild had just
+// deleted — a broken image on prod, at a 200, invisible in dev where the PNG
+// still exists. Emitting webp sidestepped it, because optimize.ts only ever
+// considers png/jpg.
+//
+// That hole is CLOSED: the rewrite now covers every non-binary payload in
+// dist/ (the JS bundle included, safe because Vite hashes chunk names before
+// the pass runs), and a verification pass fails the build on any reference to a
+// file the pass deleted. So a PNG here would be handled correctly now. Webp
+// stays the output anyway — it keeps ONE copy of each shot that both the
+// markdown and the component can name, with nothing for the postbuild to do.
+// `collectImageDimensions` already reads webp, so the prerendered <img> still
+// gets its width/height and the page stays CLS-free.
 //
 // Sized for the article column (max-w-5xl ≈ 960 CSS px): captured at a 1000 px
 // viewport, 2× DPI, so the source is ~2000 px wide — retina-sharp at the
@@ -133,7 +139,10 @@ await page.evaluate(() => {
   localStorage.setItem("i18nextLng", "bg");
   // The community CTA strip sits under the header and would eat the top of a
   // clip taken near the fold.
-  localStorage.setItem("naiasno_cta_dismissed_until", String(9_999_999_999_999));
+  localStorage.setItem(
+    "naiasno_cta_dismissed_until",
+    String(9_999_999_999_999),
+  );
 });
 
 for (const shot of SHOTS) {

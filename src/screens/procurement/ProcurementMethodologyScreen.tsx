@@ -28,8 +28,9 @@
 // and every threshold, weight and count a reader might cite is rendered from
 // the catalogue elsewhere on the page. Regenerate with
 // `node scripts/capture-risk-shots.mjs`, which also documents why they are webp
-// rather than png (a png here would be deleted by the postbuild image pass and
-// the reference left dangling).
+// rather than png (a png used to be deleted by the postbuild image pass with
+// this reference left dangling — closed since 2026-08-20, but webp is still the
+// one copy both the markdown and this component can name).
 //
 // The source footnotes are the one place a non-numeric catalogue field reaches
 // the page: ALIGNMENT_SOURCES' `title`, `url` and `verifiedOn`. Those are
