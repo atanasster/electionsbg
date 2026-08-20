@@ -180,7 +180,7 @@ npm run db:load:judicial-bodies:pg     # MUST follow the two above
 (All three are wired into `db:refresh`.)
 
 **Then publish to Cloud SQL — nothing does this automatically**, and the order is the
-same. Written out rather than as a `+ :cloud` shorthand: the shorthand reads fine to a
+same. Written out in full rather than as a bare-suffix shorthand: that form reads fine to a
 human and is invisible to `cloud_loader_coverage.test.ts`, which is how
 `db:load:court-load:pg:cloud` sat outside every skill's literal text while looking wired
 here. (The other two were already named in `update-persons`.)

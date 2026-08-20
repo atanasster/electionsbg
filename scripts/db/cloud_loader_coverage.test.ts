@@ -91,10 +91,16 @@ describe("every :cloud loader is reachable from a skill", () => {
           fs.readFileSync(fp, "utf8")
             .split("\n")
             .forEach((line, i) => {
-              // a bare `:cloud` mention NOT preceded by a real script name on that line
+              // The SHORTHAND form specifically: a `:cloud` used as a suffix
+              // MODIFIER on a command named nearby — `# + :cloud`, `(+ \`:cloud\`)`,
+              // `pg(:cloud)`, `` + `:cloud` ``. The marker is a `+` or `(`
+              // immediately before it. Prose ABOUT the concept ("a `:cloud`
+              // loader", "the `:cloud` command") is legitimate and must not trip
+              // this, and neither must the documented `db:load:*:cloud` glob — so
+              // a line that also names a real script is exempt.
               if (
-                /[(#]\s*\+?\s*`?:cloud`?/.test(line) &&
-                !/[\w-]+:cloud\b/.test(line)
+                /[+(]\s*`?:cloud`?/.test(line) &&
+                !/[\w*-]+:cloud\b/.test(line)
               )
                 offenders.push(
                   `${path.relative(ROOT, fp)}:${i + 1}  ${line.trim()}`,
@@ -111,12 +117,28 @@ describe("every :cloud loader is reachable from a skill", () => {
     ).toEqual([]);
   });
 
+  it("the exemption list as a WHOLE cannot grow unnoticed", () => {
+    // The `unreviewed` count alone does not close the loophole: a new unwired
+    // loader silenced as `operator-tool` or `manual-trigger` passes every other
+    // assertion here. Pinning the TOTAL means any addition — whatever kind it
+    // claims — is a deliberate edit to this number, which is the moment someone
+    // reads the reason and decides whether it is true.
+    expect(
+      Object.keys(CLOUD_SKILL_EXEMPTIONS).length,
+      "an exemption was added or removed — if you EXEMPTED a loader, say why in " +
+        "CLOUD_SKILL_EXEMPTIONS and raise this number deliberately; if you WIRED " +
+        "one, lower it",
+    ).toBe(8);
+  });
+
   it("reports the unreviewed backlog so it stays visible", () => {
     const unreviewed = Object.entries(CLOUD_SKILL_EXEMPTIONS)
       .filter(([, v]) => v.kind === "unreviewed")
       .map(([k]) => k);
-    // Not an assertion that it is empty — it is pre-existing debt. This prints it
-    // so it cannot quietly become permanent, and fails only if it GROWS.
+    // The backlog is now EMPTY: every one of the original 19 has been wired or
+    // given a real kind. Keeping the assertion (at zero) rather than deleting it is
+    // the point — it is what stops a future loader being parked as `unreviewed`
+    // instead of decided.
     console.warn(
       `cloud_loader_coverage: ${unreviewed.length} unreviewed :cloud loader(s) ` +
         `with no owning skill — pre-existing debt: ${unreviewed.join(", ")}`,
@@ -129,6 +151,6 @@ describe("every :cloud loader is reachable from a skill", () => {
       unreviewed.length,
       "the unreviewed backlog changed — if you WIRED one, lower this number in the " +
         "same commit; if this grew, a new loader landed unwired",
-    ).toBe(4);
+    ).toBe(0);
   });
 });
