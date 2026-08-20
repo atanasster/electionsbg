@@ -1015,13 +1015,51 @@ The state's public list of experts available to run procedures. Zero references 
 Small, exact; joined to T2.4's procurement officers it makes "the same expert wrote the
 documentation and sat on the committee" a query rather than an investigation.
 
-### P5 — BULSTAT ДЗЗД / consortium registry.
+### P5 — BULSTAT ДЗЗД / consortium registry. **PROBED 2026-08-20 — the premise does not hold.**
 
 We infer composition from contract rows (migration 087) and it works — the Зад канала winner is
 correctly a two-member Д&Д + Мулти Строй Комерс consortium. What we cannot do is **name** it
-(„Театрал" and „Примо Град" do not exist in our data) or say who filed it. BULSTAT carries the
-name, the filer and the members, turning a repeated anonymous "Обединение: A, B" into a named
-recurring vehicle.
+(„Театрал" and „Примо Град" do not exist in our data) or say who filed it. The plan assumed
+BULSTAT carries the name, the filer and the members.
+
+**It does not — not on any surface we can reach.** Probed end to end on 2026-08-20; findings,
+so nobody re-does this:
+
+- **The transport is fully open and fully mapped.** `reports.bulstat.bg/bulstat-ireports/
+report.jsf?x_rpt=rpt1|rpt2|rpt3` is anonymous — no login, no token. The chain is: GET the JSF
+  page for a ViewState → POST the form → the response carries a `post_to_birt(<abs>.rptdesign,
+{params}, /frameset)` call → POST that to `/frameset`, which assigns a `YYYYMMDD_HHMMSS_mmm`
+  session id embedded bare in the shell → a SECOND POST with `__sessionId` + `__dpi` renders the
+  body. That last hop is a **SOAP** call (`BirtSoapMessageDispatcherServlet`), so curl alone gets
+  only the 110 KB viewer shell — identical bytes for every query, which is why an early probe
+  read as „works" when it had fetched nothing. A JS-executing browser does the whole thing
+  (verified: the report rendered, „Генерирана на 20.08.2026 08:55:20").
+- ⚠️ **„Свързаност" IS NOT MEMBERSHIP.** This is the finding that ends P5. `rpt2` is „Справка за
+  свързаност на нефизическо лице" and its columns are **Субект · Код по БУЛСТАТ · Стари кодове
+  по БУЛСТАТ** — it is the old-code↔new-code CONTINUITY report. Queried for a real consortium
+  (`101578143 ОБЕДИНЕНИЕ /КОНСОРЦИУМ/ „ГЕОПИРИН"`) it returns that subject and „Общо: 1". No
+  members, no filer. The name is what the report exists to disambiguate, not the composition.
+- **The registered-access tier is the SAME six reports.** `bulstat.bg/bg/view/spravki` and
+  `…/spravki-s-registriran-dostap` list an identical set, so registering adds no membership
+  report. Whether the paid „Абонамент за web услуги" exposes more is unverified — it is a
+  purchase, not a crawl.
+- **Our contractor codes are not BULSTAT subjects.** `017693982 ДЗЗД Ника-Рефлекта` and four
+  others return „Няма намерен резултат" from `rpt1` (subject lookup), i.e. they are Commerce
+  Register EIKs. So even a working BULSTAT ingest would join to our corpus by NAME, with all the
+  ambiguity P4 has just measured — 33 of 58 refused there on a 88-row register.
+- **What IS obtainable**, should it ever be wanted: a name→code directory of ДЗЗД/обединения via
+  `rpt1`'s Наименование field (a search for „ОБЕДИНЕНИЕ" returns real subjects), and the old↔new
+  code mapping. Both are capped — the register prints „Показват се първите **999** намерени
+  резултата!" — so any sweep needs a partition finer than 999 hits, the ЦПРС cartesian problem
+  again.
+- ⚠️ `rpt3` („свързаност на физическо лице") takes an **ЕГН**. We hold none, and must not.
+
+**Blocking behaviour was never reached and is therefore unmeasured**: ~50 requests across the
+probe drew no CAPTCHA and no 429, but the JSF page does load PrimeFaces' `captcha.js`, so a
+5,828-subject sweep remains an untested risk. Moot unless the premise is revived.
+
+**Status: not implementable as specified.** Reopen only if the paid web-service subscription is
+shown to publish membership.
 
 ### P6 — Действителни собственици (beneficial owners, ЗМИП).
 
