@@ -486,7 +486,26 @@ export const buildPayloads = async (): Promise<void> => {
      )
      SELECT eik, slug, title,
             net_qty AS "netQty", net_unit AS "netUnit", price,
-            current_min_eur AS "marketMin", pct_since_euro AS "pctSinceEuro",
+            -- ⚠️ marketMin is TODAY's cross-chain minimum, so it is a claim
+            -- about the market NOW. Beside a price observed on an earlier day it
+            -- is not a comparison at all — and the page renders it struck
+            -- through, plus a „най-евтина" badge when the row undercuts it, i.e.
+            -- it asserts a days-old price is currently the cheapest on the
+            -- market. So the SERVER withholds it rather than trusting the client
+            -- to: as_of = latest is exactly "this price was observed today".
+            --
+            -- ChainProfileScreen gates on stale as well, and that redundancy
+            -- is deliberate rather than sloppy. This half is what makes the
+            -- payload safe to publish AHEAD of a bundle — a deploy order that is
+            -- otherwise a live defect, since an older bundle knows nothing about
+            -- staleness and will happily render whatever it is sent. It is also
+            -- the structural half: the client gate has already been forgotten
+            -- once (the strikethrough shipped in the first cut of T2c and
+            -- survived review), whereas a column that is NULL cannot be
+            -- rendered by any consumer, present or future.
+            CASE WHEN as_of = (SELECT d FROM latest) THEN current_min_eur END
+              AS "marketMin",
+            pct_since_euro AS "pctSinceEuro",
             as_of::text AS "asOf"
        FROM r
       WHERE rn <= 100

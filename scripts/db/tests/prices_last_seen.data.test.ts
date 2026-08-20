@@ -535,3 +535,91 @@ test.skipIf(skip)(
     );
   },
 );
+
+// The SERVER half of the stale-comparison rule (build_payloads, chain-products).
+//
+// `marketMin` is TODAY's cross-chain minimum. Beside a price observed on an
+// earlier day it is not a comparison — the page strikes it through and adds a
+// „най-евтина" badge when the row undercuts it, i.e. asserts that a days-old
+// price is currently the cheapest on the market.
+//
+// ChainProfileScreen ALSO gates on `stale`, and that client gate has its own
+// tests. This one exists because the two halves fail differently: the client
+// gate protects the deployed bundle, while THIS one is what makes the payload
+// safe to publish ahead of one. A payload rebuilt onto production before the
+// bundle ships is exactly the state that turns the client-only gate into a live
+// defect on every retained chain page — which is the deploy order actually taken
+// on 2026-08-20 — and it is also the half a future consumer cannot forget,
+// because a NULL cannot be rendered.
+test.skipIf(skip)(
+  "no chain-products row pairs an old price with today's market minimum",
+  async () => {
+    const rows = await allRows<{
+      eik: string;
+      as_of: string;
+      latest: string;
+      n: number;
+    }>(
+      `WITH latest AS (SELECT max(day) AS d FROM price_grid_days),
+            p AS (
+              SELECT key AS eik,
+                     jsonb_array_elements(payload->'products') AS prod,
+                     payload->>'latestDate' AS latest
+                FROM price_payloads WHERE kind = 'chain-products'
+            )
+       SELECT eik, prod->>'asOf' AS as_of, latest, count(*)::int AS n
+         FROM p, latest l
+        WHERE prod->>'asOf' IS DISTINCT FROM l.d::text
+          AND prod->'marketMin' <> 'null'::jsonb
+        GROUP BY 1,2,3 ORDER BY n DESC LIMIT 10`,
+    );
+
+    assert.deepEqual(
+      rows,
+      [],
+      rows.length
+        ? `${rows.length} chain(s) publish today's marketMin beside an older price — ` +
+            `e.g. eik ${rows[0].eik} dated ${rows[0].as_of} against ${rows[0].latest} ` +
+            `(${rows[0].n} products). An older bundle renders that as a live claim.`
+        : "",
+    );
+  },
+);
+
+// …and the mutation check for it. An assertion that "no row does X" passes
+// vacuously on an empty corpus, on a payload with no retained chains, and on a
+// build where the fallback arm silently stopped emitting — none of which is the
+// property above. So require that retained rows EXIST and that they are the
+// ones carrying a NULL: without the CASE, these same rows would carry a number.
+test.skipIf(skip)(
+  "…and that gate is not vacuous — retained rows exist and are the nulled ones",
+  async () => {
+    const [r] = await allRows<{ retained: number; nulled: number }>(
+      `WITH latest AS (SELECT max(day) AS d FROM price_grid_days),
+            p AS (
+              SELECT jsonb_array_elements(payload->'products') AS prod
+                FROM price_payloads WHERE kind = 'chain-products'
+            )
+       SELECT count(*) FILTER (WHERE prod->>'asOf' IS DISTINCT FROM l.d::text)::int
+                AS retained,
+              count(*) FILTER (WHERE prod->>'asOf' IS DISTINCT FROM l.d::text
+                                 AND prod->'marketMin' = 'null'::jsonb)::int
+                AS nulled
+         FROM p, latest l`,
+    );
+    if (!r || r.retained === 0) {
+      // Not a failure: on a day every chain filed there is nothing to retain.
+      // Say so explicitly rather than letting the gate above read as enforced.
+      console.warn(
+        "[prices_last_seen] no retained chain-products rows — the stale-marketMin " +
+          "gate above is vacuous on this corpus, not satisfied by it",
+      );
+      return;
+    }
+    assert.equal(
+      r.nulled,
+      r.retained,
+      `${r.retained} retained rows but only ${r.nulled} carry a NULL marketMin`,
+    );
+  },
+);
