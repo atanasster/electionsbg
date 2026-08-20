@@ -44,6 +44,7 @@ import { SECTOR_DASHBOARDS } from "@/screens/sector/sectorDashboards";
 import { SECTOR_BROWSE_PACKS } from "@/screens/components/procurement/sectorPacks";
 import {
   SECURITY_SECTOR_EIKS,
+  SECURITY_STATE_BODY_CONTRACTORS,
   MVR_ENTITIES,
   MVR_EIK,
   MEDICAL_INSTITUTE_EIK,
@@ -324,26 +325,36 @@ describe("security sector — beneficiaries", () => {
   test.skipIf(skip)(
     "the labelled state bodies are still contractors",
     async () => {
-      // The beneficiary twin of the anti-allowlist. These are the public bodies that
-      // reach a displayed rank on the HHI tile; pinned by EIK, never by name, so a
-      // later "clean up the leaderboard" cannot quietly turn a state transfer back
+      // The beneficiary twin of the anti-allowlist. Pinned by EIK, never by name, so
+      // a later "clean up the leaderboard" cannot quietly turn a state transfer back
       // into an apparent private vendor.
-      const STATE: Record<string, string> = {
-        "831609046": "Топлофикация София ЕАД (100% Столична община)",
-        "121396123": "Български пощи ЕАД (100% state)",
-        "831641791": "Информационно обслужване АД (majority state)",
-      };
+      //
+      // ⚠ IMPORTS the constant rather than restating it. A hardcoded copy here would
+      // cover only the entries someone remembered to duplicate — which is how the
+      // list's first cut shipped three entries and needed five, with this gate green
+      // throughout.
       const rows = await allRows<{ contractor_eik: string; eur: string }>(
         `SELECT contractor_eik, coalesce(sum(amount_eur),0)::text AS eur
          FROM contracts WHERE tag = 'contract' AND awarder_eik = ANY($1)
           AND contractor_eik = ANY($2) GROUP BY 1`,
-        [SECURITY_SECTOR_EIKS, Object.keys(STATE)],
+        [SECURITY_SECTOR_EIKS, [...SECURITY_STATE_BODY_CONTRACTORS]],
       );
       const by = new Map(rows.map((r) => [r.contractor_eik, Number(r.eur)]));
-      for (const [eik, who] of Object.entries(STATE))
+      assert.ok(
+        SECURITY_STATE_BODY_CONTRACTORS.length >= 3,
+        "the curated state-body list has emptied out",
+      );
+      for (const eik of SECURITY_STATE_BODY_CONTRACTORS)
         assert.ok(
           (by.get(eik) ?? 0) > 0,
-          `${eik} (${who}) no longer a contractor to МВР — re-check the curated list`,
+          `${eik} no longer a contractor to МВР — re-check the curated list`,
+        );
+      // …and each must still be OUTSIDE the roster, or the tile drops it from
+      // `stateBodies` in favour of the more specific „в групата" badge.
+      for (const eik of SECURITY_STATE_BODY_CONTRACTORS)
+        assert.ok(
+          !SECURITY_SECTOR_EIKS.includes(eik),
+          `${eik} is both a curated state body and an МВР unit`,
         );
     },
   );

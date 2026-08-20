@@ -53,6 +53,15 @@ export interface MvrData {
   groupEiks: string[];
   /** Whole-group € (all universes) — for the reconciliation footnote / health share. */
   groupTotalEur: number;
+  /** Whole-group units WITH contracts in scope — filter-invariant, exactly like
+   *  `groupTotalEur`, because the footnote pairs the two in ONE sentence
+   *  („по N структури … (€X)"). `units.length` is the wrong source: it is
+   *  universe-FILTERED, so 8 of the picker's 9 options would state a narrowed
+   *  count against the whole group's money — worst case „по 1 структури …
+   *  (€1,9 млрд.)". The roster size (74) is wrong too, and for the mirror reason:
+   *  no scope has every unit contracting (the current parliament has 23). Same
+   *  trap, same fix, as `useSocial`'s `groupUnitCount`. */
+  groupUnitCount: number;
   isLoading: boolean;
 }
 
@@ -94,6 +103,13 @@ export const useMvr = (
     !isAll,
   );
 
+  // The whole-group per-unit rollup — `active` already IS it when universe="all".
+  const wholeUnits = isAll ? active.byUnit : whole.byUnit;
+  const groupUnitCount = useMemo(
+    () => wholeUnits.filter((u) => u.contractCount > 0).length,
+    [wholeUnits],
+  );
+
   const units = useMemo<MvrUnitAgg[]>(
     () =>
       active.byUnit
@@ -121,6 +137,7 @@ export const useMvr = (
     // When universe="all" the active call is the whole group; else use the
     // dedicated whole-group call (the health-share denominator is filter-invariant).
     groupTotalEur: isAll ? active.groupTotalEur : whole.groupTotalEur,
+    groupUnitCount,
     isLoading: active.isLoading || (!isAll && whole.isLoading),
   };
 };

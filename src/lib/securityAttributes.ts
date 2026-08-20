@@ -28,17 +28,22 @@ export type SecurityCategory =
   | "fuel" // 09 — горива и енергия
   | "it_surveillance" // 72/48/32/30 — ИТ, комуникации, видеонаблюдение, електроника
   | "security_equip" // 35/38 — оръжие, боеприпаси, тактическо, радари/оптика (граница)
-  | "health" // 33 — медицина и лекарства (Медицински институт) — the confound
+  | "health" // 33 — медицина и консумативи (89.5% Мед. институт, not only it)
   | "construction" // 45 — строителство, сгради, гранична инфраструктура
-  | "supplies" // 18/55/15 — униформи, храна, материали
+  | "supplies" // 18/55/15/39 — униформи, храна, материали, обзавеждане
   | "maintenance" // 50 — ремонт и поддръжка
   | "other";
 
 export type SecurityCategoryAgg = AwarderCategoryAgg<SecurityCategory>;
 export type SecurityModel = AwarderModel<SecurityCategory>;
 
-const startsWithAny = (s: string, prefixes: string[]) =>
-  prefixes.some((p) => s.startsWith(p));
+/** ⚠ Membership of a two-character DIVISION set, not a prefix test. Every caller
+ *  passes `c.slice(0, 2)`, so a longer entry (e.g. "3210") could never match and
+ *  would silently drop its division into `other`. A Set makes that a type-level
+ *  impossibility rather than a convention. */
+const inDivisions = (div: string, divisions: Set<string>) => divisions.has(div);
+const IT_DIVISIONS = new Set(["72", "48", "32", "30"]);
+const SUPPLY_DIVISIONS = new Set(["18", "55", "15", "39"]);
 
 /** CPV division → policing operating function, on the two-digit division only. */
 export const categoryOfCpv = (cpv: string | undefined): SecurityCategory => {
@@ -50,7 +55,7 @@ export const categoryOfCpv = (cpv: string | undefined): SecurityCategory => {
   // Fuels & energy (09).
   if (div === "09") return "fuel";
   // IT, software, comms, electronics, surveillance.
-  if (startsWithAny(div, ["72", "48", "32", "30"])) return "it_surveillance";
+  if (inDivisions(div, IT_DIVISIONS)) return "it_surveillance";
   // Weapons, munitions (35); 38 = precision/optical/radar (border surveillance).
   if (div === "35" || div === "38") return "security_equip";
   // Medical equipment & pharmaceuticals (33) — the Медицински институт.
@@ -58,7 +63,7 @@ export const categoryOfCpv = (cpv: string | undefined): SecurityCategory => {
   // Construction (45).
   if (div === "45") return "construction";
   // Clothing/uniforms (18), catering (55), food (15), furniture (39).
-  if (startsWithAny(div, ["18", "55", "15", "39"])) return "supplies";
+  if (inDivisions(div, SUPPLY_DIVISIONS)) return "supplies";
   // Repair & maintenance services (50).
   if (div === "50") return "maintenance";
   return "other";
@@ -75,9 +80,16 @@ const CATEGORY_LABEL: Record<SecurityCategory, { bg: string; en: string }> = {
     bg: "Оръжие и тактическо оборудване",
     en: "Weapons & tactical equipment",
   },
+  // ⚠ NOT „(Мед. институт)". This row is CPV-33 across the WHOLE group, and naming
+  // one awarder in it put two different numbers under one name on the same page:
+  // the KPI „От което Мед. институт" is 9% (€4.99M, the institute's own spend,
+  // whatever it buys) while this row was 2% (€1.2M, everyone's medical spend).
+  // Measured all-scope: CPV-33 is 88.5% the institute, but the institute's own
+  // spend is only 60.8% CPV-33 — it also buys construction, fuel and IT. (On the
+  // default scope those are 89.5% and 21.3%; quote the scope with the number.)
   health: {
-    bg: "Медицина (Мед. институт)",
-    en: "Medical (Medical Institute)",
+    bg: "Медицина и консумативи",
+    en: "Medical & consumables",
   },
   construction: { bg: "Строителство", en: "Construction" },
   supplies: { bg: "Униформи, храна и материали", en: "Uniforms, food & supplies" }, // prettier-ignore

@@ -168,6 +168,51 @@ export const SECURITY_ALIAS_EIKS: string[] = MVR_ENTITIES.filter(
  *  sector-dashboard rollup and the group-rollup endpoint. */
 export const SECURITY_SECTOR_EIKS: string[] = MVR_ENTITIES.map((e) => e.eik);
 
+/** Contractors to the МВР group that are PUBLIC BODIES but not МВР units — the
+ *  state or a município paying itself. Passed to `VikContractorHhiTile`, which
+ *  badges the row „държавно" and states the market-only HHI beside the headline
+ *  one. The money is never filtered out: these are real ЗОП awards, they are just
+ *  not won on a competitive market, and an unlabelled row reads as a private
+ *  vendor topping the sector.
+ *
+ *  ⚠ CURATED BY EIK, and it MUST stay curated — never derived from „is this EIK an
+ *  awarder somewhere". That probe is wrong in BOTH directions:
+ *    · it OVER-captures — ЗОП's utilities regime makes private regulated companies
+ *      contracting authorities, so it answers ЕВН, Овергаз, Софийска вода (a Veolia
+ *      concession) and the privately-held Топлофикации alongside the genuinely
+ *      public ones; measured on the water sector, 44% of its answer was private;
+ *    · and it UNDER-captures just as badly — run across the 98 contractors that
+ *      reach a displayed rank here it returns THREE rows, and neither Печатница на
+ *      БНБ nor ТЕРЕМ is among them, because neither is a ЗОП contracting authority
+ *      while both are 100% state-owned. Absence from that probe is NOT evidence of
+ *      private ownership.
+ *  Ownership is named per row because that is the claim being made.
+ *
+ *  ⚠ IT COVERS TOP-8 REACH, NOT THE WHOLE CONTRACTOR SET. The tile badges only the
+ *  rows it displays, so the bar is „every public body that reaches a displayed
+ *  rank at some scope", not „every public body МВР has ever paid". Municipal ВиК
+ *  operators and the smaller Топлофикации are deliberately absent: МВР pays them
+ *  utility bills of €0.2–1.5M and none comes near a rank. Add one when it does.
+ *  One entry is carried BELOW that bar and says so — see Български пощи.
+ *
+ *  ⚠ The list ALSO drives the market-only HHI line and the `internalShare` figure
+ *  beside the headline index, not just the per-row chip. Neither fires on today's
+ *  МВР corpus (the internal share is under the tile's 5% threshold at every scope),
+ *  so an omission here is currently invisible in the number and visible only as a
+ *  missing chip — which is exactly why it needs curating rather than measuring.
+ *  `sector_stats_security.data.test.ts` asserts each entry is still a contractor,
+ *  importing THIS constant rather than restating it. */
+export const SECURITY_STATE_BODY_CONTRACTORS: readonly string[] = [
+  "831609046", // „Топлофикация София" ЕАД — 100% Столична община (€32.6M; rank 4 at ns:2026_04_19)
+  "831641791", // „Информационно обслужване" АД — majority state (€4.1M)
+  "130800278", // „Печатница на БНБ" АД — 100% БНБ; excise stamps + identity documents (€13.5M; rank 3 at y:2018)
+  "103882821", // „ТЕРЕМ-КРЗ Флотски Арсенал-Варна" — ТЕРЕМ holding, 100% МО; dry-docks the border police's vessels (€4.3M; rank 8 at y:2018)
+  // Below the top-8 bar (best rank 13) and kept anyway: it is already labelled a
+  // state body by SOCIAL_STATE_BODY_CONTRACTORS, and one company badged „държавно"
+  // on one sector page and not on another is a worse defect than an unused entry.
+  "121396123", // „Български пощи" ЕАД — 100% state (€6.9M)
+];
+
 export const SECURITY_UNIVERSE_LABEL: Record<
   SecurityUniverse,
   { bg: string; en: string }

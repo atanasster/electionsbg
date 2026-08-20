@@ -33,6 +33,8 @@ import {
 import { buildPackInsights, type PackInsight } from "@/lib/packInsights";
 import {
   SECURITY_UNIVERSES,
+  SECURITY_SECTOR_EIKS,
+  SECURITY_STATE_BODY_CONTRACTORS,
   securityUniverseLabel,
   MEDICAL_INSTITUTE_EIK,
   type SecurityUniverse,
@@ -62,7 +64,7 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   const bg = lang === "bg";
 
   const [universe, setUniverse] = useState<UniverseFilter>("all");
-  const { model, units, groupTotalEur, isLoading } = useMvr(
+  const { model, units, groupTotalEur, groupUnitCount, isLoading } = useMvr(
     eik,
     scopeWindow,
     universe,
@@ -357,6 +359,8 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         <VikContractorHhiTile
           suppliers={model.suppliers}
           totalEur={model.totalEur}
+          memberEiks={SECURITY_SECTOR_EIKS}
+          stateBodyEiks={SECURITY_STATE_BODY_CONTRACTORS}
         />
       </PackSection>
 
@@ -389,7 +393,14 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       </PackSection>
 
       <PackFootnote
-        unitCount={74}
+        // Not the roster size (the hardcoded 74 rendered „по 74 структури …
+        // (€53,2 млн.)" while the KPI two screens up said „Структури с договори:
+        // 23"), and not `units.length` either: this sentence pairs the count with
+        // `groupTotalEur`, which is filter-INVARIANT, so a universe-filtered count
+        // beside it would describe a different group from the € it sits next to.
+        // The „Структури с договори" StatCard above keeps `units.length` — that
+        // one describes the ACTIVE view and has no whole-group figure beside it.
+        unitCount={groupUnitCount}
         groupOf={{
           bg: "Министерството на вътрешните работи",
           en: "the Ministry of Interior",
