@@ -54,6 +54,9 @@ This:
 - **Serving is live from Postgres** — no `bucket:sync` for prices any more. The daily run writes only PG (+ the small `product_slugs.json`); no multi-GB upload.
 - Commit `data/prices/product_slugs.json` if it changed. The `_cache/` grids + `raw_data/prices/` ZIPs are gitignored.
 - **For production**, run `npm run prices:ingest:cloud` (targets Cloud SQL directly, the agri pattern); `db:dump` is only a periodic DR snapshot, never the daily path. DR for prices is "replay the archived ZIPs".
+- **`npm run prices:payloads:cloud` republishes the serving blobs WITHOUT an ingest**, and it is the command to reach for whenever the payload BUILDER changed but the corpus did not — a new field, a new blob kind, a widened chain set. It applies 048 itself (seeding `price_last_seen` on a database that has never had it) and rebuilds every blob from the corpus already on the target, so it needs no ZIP and no feed. Measured 2026-08-20 against a corpus at 2026-08-14: **4m16s**, seed 4,387,949 rows.
+
+  ⚠️ **Ship the BUNDLE before running it whenever the chain set widens.** The retained-price fallback brings back every chain silent for less than `STALE_DAYS` (measured: 98 → 215 blobs, 114 chains carrying prices 1–30 days old), and only `ChainProfileScreen` knows how to date them. `build_payloads` withholds `marketMin` from any row not observed on the latest day, so a payload-first publish cannot make an older bundle assert that a days-old price is today's cheapest — but it cannot supply the notice either, so those pages stay undated until hosting ships.
 - The ingest self-reports its `/data/updates` row — no separate stamp needed for the public changelog.
 
 ## Adding the product dictionary (rare)

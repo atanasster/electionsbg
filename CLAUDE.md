@@ -640,12 +640,41 @@ rows, so no person's money can include a re-keyed contract.
 
 `scripts/db/tests/supplier_filler_ids.data.test.ts` is the gate.
 
-### The prices schema — the one migration a LOADER applies from outside `scripts/db/`
+### The prices schema — the migration TWO scripts apply from outside `scripts/db/`
 
 `048_prices.sql` had **no applier at all** until 2026-08-20: the price tables reached every
 existing database by hand, so a table added to the file existed only where somebody had
-remembered to run `apply_functions.ts`. `scripts/prices/ingest.ts` now applies it once per
+remembered to run `apply_functions.ts`. `scripts/prices/ingest.ts` applies it once per
 run, which is what makes a schema change reach the serving database at all.
+
+⚠️ **`scripts/prices/build_payloads.ts` is a SECOND applier, and it is not redundant.** It
+READS a table 048 owns — `price_last_seen`, the retained-price fallback behind every chain
+page — so with the ingest as sole applier, publishing payloads to a database the daily
+ingest had not yet run against failed on a relation nobody knew was missing. Measured on
+Cloud SQL 2026-08-20: `price_grid_days` was current and at the SAME day as local, and the
+rebuild still could not run.
+
+The ingest is not a substitute for it. It fetches and loads a DAY, and the moment these
+pages matter most — a chain has gone silent, so the daily load is being held back — running
+it merely to obtain a `CREATE TABLE` is not an option. Both appliers use `execEach` for the
+reason below; the seed is `NOT EXISTS`-guarded, so the second is a no-op on a warm database.
+
+**Publishing payloads to Cloud SQL is `npm run prices:payloads:cloud`**, and it needs no
+ingest: it applies 048, seeds `price_last_seen` and rebuilds every blob from the corpus
+already there. Measured 2026-08-20 against a corpus at 2026-08-14 — the seed wrote
+**4,387,949 rows, exactly matching local**, which is the check worth repeating, since the
+two databases deriving the identical open-run set is what proves they are the same vintage.
+
+⚠️ **Ship the BUNDLE before the payloads whenever the chain pages widen.** A payload rebuild
+brings back every chain retained by the `price_last_seen` fallback (measured: 98 → 215 blobs,
+114 chains carrying prices 1–30 days old), and staleness is labelled in `ChainProfileScreen`.
+An older bundle has no such notion and renders whatever it is sent. `build_payloads` therefore
+withholds `marketMin` — today's cross-chain minimum — from any row not observed on the latest
+day, because beside an older price it is not a comparison but a claim that a days-old price is
+currently the cheapest on the market. That server-side NULL is what makes a payload-first
+publish safe at all: verified against the deployed pre-T2c bundle, a null takes BOTH its
+`cheapest` badge and its struck-through minimum to false. What it cannot supply is the notice,
+so payload-first still leaves those pages undated until hosting ships.
 
 Three things about it differ from the `scripts/db/load_*.ts` family:
 
