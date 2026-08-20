@@ -981,7 +981,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     origin: "state",
     members: ["adfi_inspections"],
     skills: ["update-procurement"],
-    tags: ["procurement"],
+    tags: ["fiscal"],
   },
   {
     id: "ted",
@@ -1001,7 +1001,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     origin: "eu",
     members: ["ted_bg"],
     skills: ["update-procurement"],
-    tags: ["procurement"],
+    tags: ["fiscal"],
   },
   {
     id: "cprs",
@@ -2087,6 +2087,19 @@ export const EDGES: [string, string][] = [
   // scripts/procurement/ and snapshotted to data/procurement/cprs.json — which is the
   // dataset node's own `path`. Its `skills: ["update-procurement"]` already says as much.
   ["src:cprs", "ds:procurement"],
+  // АДФИ is an INSPECTION register, not another contract feed: it says which public
+  // bodies were financially inspected, on what ЗДФИ basis and when — the "has this
+  // buyer ever been inspected" column on /awarder/:eik. It carries no ЕИК, so it joins
+  // the corpus by NAME and refuses on ambiguity, is ingested under scripts/procurement/
+  // and snapshotted to data/procurement/adfi.json — inside the dataset node's own `path`.
+  ["src:adfi", "ds:procurement"],
+  // TED is the same corpus seen from the EU side rather than a second one: every
+  // above-threshold Bulgarian procurement must appear in both, so it exists to make the
+  // NATIONAL corpus's completeness checkable — a notice with no counterpart is a gap in
+  // our ingest or a procedure that never reached the Bulgarian register. It joins on
+  // contracts.awarder_eik (99.8%) and is served from Postgres (ted_notice / ted_coverage,
+  // migration 172), like ds:ngo — a dataset node's path need not be a JSON tree.
+  ["src:ted", "ds:procurement"],
   ["src:isun", "ds:funds"],
   ["src:opencalls", "ds:opencalls"],
   // Renders on /funds (the band-1 tile) and /funds/calls, both of which live under the `funds`
