@@ -1035,6 +1035,7 @@ const DB_ROUTES = {
       ngoBoardLinks,
       nkid,
       cleanDelivery,
+      declaredStakes,
     ] = await Promise.all([
       dbRows(
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
@@ -1207,6 +1208,41 @@ const DB_ROUTES = {
         (e) =>
           e?.code === "42P01" || e?.code === "42883" ? [] : Promise.reject(e),
       ),
+      // Public office-holders who declared a stake in, or a role at, this company
+      // (177, over 096's gated matview). Degrades to null so a database that has
+      // not applied 177 — or has not resolved declarations at all — serves the rest
+      // of the page rather than 500ing.
+      //
+      // ⚠️ A NULL HERE IS NOT A NEGATIVE FINDING, and no consumer may render it as
+      // one. It means nothing survived 096's gates, which is a different claim from
+      // „nobody declared a stake in this company": 1,751 of the retired
+      // companies-index's own UICs are in exactly that state.
+      dbRows("SELECT company_declared_stakes($1) AS r", [eik]).catch((e) => {
+        // ⚠️ THE MATVIEW DEGRADE SET, NOT cleanDelivery's plain-table pair. 177 is a thin
+        // function over 096's MATERIALIZED VIEW, and 096 opens with
+        // `DROP MATERIALIZED VIEW declaration_stake_company CASCADE` inside ONE transaction.
+        // A concurrent reader therefore hits 55P03 (lock_timeout), and because this arm
+        // shares the route's single Promise.all, rejecting there 500s the ENTIRE
+        // /api/db/company payload — for every company, for as long as the rebuild runs. The
+        // plan measures that rebuild at 4 h 41 m on Cloud SQL.
+        //
+        // 55000 covers a WITH NO DATA state and 42501 a database that never received the
+        // readonly grants. 57014 stays OUT: it is the pool's own statement_timeout, so the
+        // request has already spent its budget and degrading only makes the failure slower.
+        if (!["42P01", "42883", "55000", "55P03", "42501"].includes(e?.code)) {
+          return Promise.reject(e);
+        }
+        // Without this line the degrade is SILENT, and „177 never reached this database"
+        // looks exactly like „nothing survived 096's gates" — the block simply never
+        // appears, on every company, with nothing in the logs. Same contract as the
+        // psp:/pp: precomputes.
+        logMissOnce(
+          `cds:not-built:${e.code}`,
+          `company-declared-stakes: read failed (${e.code}) — serving none. ` +
+            `Apply 096 then 177 (npm run db:load:declarations:pg -- --resolve).`,
+        );
+        return [];
+      }),
     ]);
     return {
       body: {
@@ -1240,6 +1276,7 @@ const DB_ROUTES = {
         ngoBoardLinks,
         nkid: nkid[0] ?? null,
         cleanDelivery: cleanDelivery[0] ?? null,
+        declaredStakes: declaredStakes[0]?.r ?? null,
       },
     };
   },

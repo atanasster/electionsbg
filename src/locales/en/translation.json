@@ -6239,5 +6239,10 @@
   "pp_prop_kind_commercial_other": "{{count}} commercial units",
   "pp_prop_kind_other_one": "{{count}} other property",
   "pp_prop_kind_other_other": "{{count}} other properties",
-  "pp_decl_holder_other": "other holder"
+  "pp_decl_holder_other": "other holder",
+  "company_declared_stakes_title": "Declared stakes",
+  "company_declared_stakes_note": "Source: property and interest declarations filed with the Bulgarian Court of Audit (Сметна палата). A declaration is linked to this company only where the Commerce Registry independently places the declared holder here. Declarations name a company but carry no UIC, so a declaration we could not link this way is not shown.",
+  "company_declared_sole_trader": "sole trader",
+  "company_declared_by_other": "declared holder",
+  "company_declared_by_other_unnamed": "declared as held by another person"
 }

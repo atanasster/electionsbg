@@ -74,6 +74,10 @@ import {
   type RetailChainInfo,
 } from "../components/procurement/CompanyRetailChainTile";
 import {
+  CompanyDeclaredStakesTile,
+  type DeclaredStakesPayload,
+} from "../components/procurement/CompanyDeclaredStakesTile";
+import {
   CompanyCleanDeliveryTile,
   type CleanDeliveryInfo,
 } from "../components/procurement/CompanyCleanDeliveryTile";
@@ -438,6 +442,11 @@ export const CompanyDbScreen: FC = () => {
   );
   const [subsidies, setSubsidies] = useState<AgriRecipientFile | null>(null);
   const [retailChain, setRetailChain] = useState<RetailChainInfo | null>(null);
+  // 177, via /api/db/company. NULL means nothing survived 096's gates — NOT that no stake
+  // was declared here — so the tile is mounted only on a present payload and never draws a
+  // zero state. See CompanyDeclaredStakesTile's header.
+  const [declaredStakes, setDeclaredStakes] =
+    useState<DeclaredStakesPayload | null>(null);
   const [cleanDelivery, setCleanDelivery] = useState<CleanDeliveryInfo | null>(
     null,
   );
@@ -612,6 +621,7 @@ export const CompanyDbScreen: FC = () => {
           setSubsidies(j.subsidies ?? null);
           setRetailChain(j.retailChain ?? null);
           setCleanDelivery(j.cleanDelivery ?? null);
+          setDeclaredStakes(j.declaredStakes ?? null);
           setAwarderGrade(j.awarderRiskGrade ?? null);
           setSupplierGrade(j.supplierRiskGrade ?? null);
           setCorpusName(j.corpusName ? decodeEntities(j.corpusName) : null);
@@ -1696,6 +1706,9 @@ export const CompanyDbScreen: FC = () => {
               registers come from different ИСУН exports. It renders only on a
               present row and never a zero: absence is not a correction (175). */}
           {cleanDelivery && <CompanyCleanDeliveryTile info={cleanDelivery} />}
+          {declaredStakes && (
+            <CompanyDeclaredStakesTile data={declaredStakes} />
+          )}
 
           {/* NOT gated on the ИСУН tile above: Interreg is a separate corpus,
               and an organisation can have cross-border money with no ИСУН
