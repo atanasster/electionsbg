@@ -34,6 +34,7 @@ import {
   type SectorClassifier,
 } from "@/lib/awarderModel";
 import { formatEurCompact } from "@/lib/currency";
+import { isConsortiumSupplier } from "@/lib/companyKey";
 import {
   getSectorDashboard,
   sectorMemberEiks,
@@ -120,16 +121,34 @@ const KpiCard: FC<{
   label: string;
   value: string;
   sub?: string;
+  /** A short qualifier on `sub` — „в групата" / „консорциум" / „държавно". Kept
+   *  OUT of `sub` on purpose: the row is `grid-cols-2` until `md`, so on a ~375px
+   *  viewport the sub-label truncates, and appended to the end of one truncating
+   *  string the qualifier is what gets dropped while the company name survives —
+   *  i.e. „Столична община · държавно" renders as „Столична община", the exact
+   *  reading the label exists to prevent. As a `shrink-0` sibling the NAME yields
+   *  first, which is the priority SectorCharts.tsx's chip already uses. */
+  tag?: string;
+  /** Hover text for `tag`. The KPI carries no footnote of its own — the tile's
+   *  note only renders when the tile does (≥2 suppliers) — so the qualifier has
+   *  to explain itself wherever it appears. Pass the tile's own chip `title` so
+   *  the two cannot drift. */
+  tagTitle?: string;
   /** When set, the whole tile is a drill-down link. */
   to?: To;
-}> = ({ label, value, sub, to }) => {
+}> = ({ label, value, sub, tag, tagTitle, to }) => {
   const body = (
     <CardContent className="p-3 md:p-4">
       <div className="text-xs text-muted-foreground">{label}</div>
       <div className="mt-1 text-xl font-semibold tabular-nums">{value}</div>
-      {sub && (
-        <div className="mt-0.5 truncate text-xs text-muted-foreground">
-          {sub}
+      {(sub || tag) && (
+        <div className="mt-0.5 flex items-baseline gap-1 text-xs text-muted-foreground">
+          {sub && <span className="min-w-0 truncate">{sub}</span>}
+          {tag && (
+            <span className="shrink-0" title={tagTitle}>
+              · {tag}
+            </span>
+          )}
         </div>
       )}
     </CardContent>
@@ -179,6 +198,57 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
 
   const top = model?.suppliers[0] ?? null;
   const awarderN = byUnit.filter((u) => (u.totalEur ?? 0) > 0).length;
+  // The „Топ изпълнител" KPI names the top row, and the top row can be a public
+  // body — on /sector/tourism's default scope it is Столична община. The
+  // leaderboard tile below badges it; the KPI is the bigger number and is read
+  // first, so it carries the same qualifier or the two disagree about the same
+  // company. Order and wording come from the tile (SectorCharts.tsx): a member
+  // takes the more specific „в групата", then „консорциум" (which needs no
+  // curation — `isConsortiumSupplier` reads the row itself, so every sector gets
+  // it), then „държавно".
+  //
+  // ⚠ Two deliberate differences from the tile. The KPI shows ONE qualifier where
+  // the tile can show several, so a row that is both a consortium and a state
+  // body reads „консорциум" here and carries two chips there — the narrower label
+  // wins, and it is never a contradiction. And this is NOT gated on the tile
+  // rendering: with a single supplier the tile (and its footnote) is absent, and
+  // that is precisely when an unqualified public body most reads as a private
+  // vendor winning the sector, so the qualifier stays and carries its own `title`
+  // instead.
+  const topIsMember = !!top && eiks.includes(top.eik);
+  const topIsConsortium = !!top && !topIsMember && isConsortiumSupplier(top);
+  const topIsStateBody =
+    !!top &&
+    !topIsMember &&
+    !topIsConsortium &&
+    !!config.stateBodyContractors?.includes(top.eik);
+  const topTag = topIsMember
+    ? bg
+      ? "в групата"
+      : "in-group"
+    : topIsConsortium
+      ? bg
+        ? "консорциум"
+        : "consortium"
+      : topIsStateBody
+        ? bg
+          ? "държавно"
+          : "state body"
+        : undefined;
+  // Verbatim from the tile's chip titles, so one place defines what each means.
+  const topTagTitle = topIsMember
+    ? bg
+      ? "Изпълнителят е от същата група — парите остават в сектора"
+      : "The contractor is one of this sector's own organisations — the money stays inside it"
+    : topIsConsortium
+      ? bg
+        ? "Няколко фирми, спечелили заедно. Сумата е на целия договор и се брои веднъж."
+        : "Several firms that won together. The figure is the whole contract and is counted once."
+      : topIsStateBody
+        ? bg
+          ? "Изпълнителят е държавна или общинска структура — трансфер вътре в държавата, не спечелен на пазара договор"
+          : "The contractor is a state or municipal body — a transfer inside government, not a contract won on a market"
+        : undefined;
 
   // KPI drill-downs. Money/contracts → the sector-filtered browse table
   // (carrying the current scope forward); contractors → the lead awarder's full
@@ -225,12 +295,27 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
     config.members.length;
   const ThematicTiles = config.ThematicTiles;
   const SearchBox = config.SearchBox;
-  // Mirror each chart tile's own render condition so a lone survivor (e.g.
-  // spend-by-year needs ≥2 years, absent on a narrow scope) spans full width
-  // instead of leaving an empty grid half.
-  const showSpendChart =
-    (model?.years.filter((y) => y.totalEur > 0).length ?? 0) >= 2;
-  const showTopChart = (model?.suppliers.length ?? 0) >= 2;
+  // Each chart tile is built ONCE and then placed, so the branch below decides
+  // LAYOUT only — a lone survivor (spend-by-year needs ≥2 years, absent on a
+  // narrow scope) spans full width instead of leaving an empty grid half.
+  //
+  // ⚠ Build once, do not inline them into both arms. A per-arm copy of the prop
+  // list is how a prop reaches one layout and not the other: `stateBodyEiks`
+  // shipped in both copies but only the fallback arm was covered, and the grid
+  // arm — which every sector with ≥2 years of spend renders, i.e. the one readers
+  // actually see — could have lost it with the whole suite green.
+  const spendTile =
+    (model?.years.filter((y) => y.totalEur > 0).length ?? 0) >= 2 && model ? (
+      <SectorSpendByYearTile model={model} />
+    ) : null;
+  const topTile =
+    (model?.suppliers.length ?? 0) >= 2 && model ? (
+      <SectorTopContractorsTile
+        model={model}
+        memberEiks={eiks}
+        stateBodyEiks={config.stateBodyContractors}
+      />
+    ) : null;
 
   return (
     <div className="space-y-4" id="sector-dashboard">
@@ -331,20 +416,20 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
               label={bg ? "Топ изпълнител" : "Top contractor"}
               value={top ? formatEurCompact(top.totalEur, locale) : "—"}
               sub={top?.name}
+              tag={topTag}
+              tagTitle={topTagTitle}
               to={topContractorTo}
             />
           </div>
-          {showSpendChart && showTopChart ? (
+          {spendTile && topTile ? (
             <div className="grid gap-4 md:grid-cols-2">
-              <SectorSpendByYearTile model={model} />
-              <SectorTopContractorsTile model={model} memberEiks={eiks} />
+              {spendTile}
+              {topTile}
             </div>
           ) : (
             <>
-              {showSpendChart && <SectorSpendByYearTile model={model} />}
-              {showTopChart && (
-                <SectorTopContractorsTile model={model} memberEiks={eiks} />
-              )}
+              {spendTile}
+              {topTile}
             </>
           )}
         </>

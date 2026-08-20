@@ -21,7 +21,10 @@ import {
   TOURISM_STATE_BODY_CONTRACTORS,
   TOURISM_AWARDER_PATH,
 } from "./tourismReferenceData";
-import { SECTOR_DASHBOARDS } from "@/screens/sector/sectorDashboards";
+import {
+  SECTOR_DASHBOARDS,
+  sectorMemberEiks,
+} from "@/screens/sector/sectorDashboards";
 import { SECTOR_BROWSE_PACKS } from "@/screens/components/procurement/sectorPacks";
 import { SOCIAL_STATE_BODY_CONTRACTORS } from "./socialReferenceData";
 import { SECURITY_STATE_BODY_CONTRACTORS } from "./securityReferenceData";
@@ -70,12 +73,34 @@ describe("TOURISM_STATE_BODY_CONTRACTORS", () => {
     for (const e of list) expect(e, e).toMatch(/^(\d{9}|\d{13})$/);
   });
 
-  it("names no roster member — a member is a buyer, not a supplier", () => {
+  it("names no member of the set the SCREEN reads", () => {
     // The tile drops a listed EIK from `stateBodies` when it is also a member, in
     // favour of the more specific „в групата" badge, so an entry in both places
     // is a silently unused one.
+    //
+    // ⚠ Checked against `sectorMemberEiks(config)` — SECTOR_DASHBOARDS.tourism
+    // .members — and NOT against TOURISM_SECTOR_EIKS. Those are two separately
+    // maintained arrays that coincide only at one member (see this file's roster
+    // block), so on a widened roster a members-only EIK that is also a state body
+    // would slip past a roster-side check. sectorDashboards.test.ts carries the
+    // same assertion for every sector; this keeps it close to the list it guards.
+    const members = new Set(sectorMemberEiks(SECTOR_DASHBOARDS.tourism));
+    expect(members.size).toBeGreaterThan(0);
     for (const e of TOURISM_STATE_BODY_CONTRACTORS)
-      expect(TOURISM_SECTOR_EIKS, e).not.toContain(e);
+      expect(members.has(e), `${e} is both a member and a state body`).toBe(
+        false,
+      );
+  });
+
+  it("is wired to the dashboard, or the chip never renders", () => {
+    // The list is inert without this: SectorTopContractorsTile defaults
+    // `stateBodyEiks` to undefined and disables the check entirely, which is the
+    // state the audit found — the mechanism present on the tile and nothing
+    // feeding it from any generic /sector/:id. Identity rather than set equality,
+    // so a hand-copied literal here fails.
+    expect(SECTOR_DASHBOARDS.tourism.stateBodyContractors).toBe(
+      TOURISM_STATE_BODY_CONTRACTORS,
+    );
   });
 
   it("carries the two entries admitted below the rank bar", () => {
