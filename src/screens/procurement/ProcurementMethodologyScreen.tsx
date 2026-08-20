@@ -220,19 +220,16 @@ const VersionLine: FC = () => {
   // problem, so a bare `!==` would fire on it and say something untrue.
   const bundleAhead = served !== null && served !== CATALOG_VERSION;
 
+  // An unstamped database shows no version line at all.
+  if (!served) return null;
+
   return (
     <ArticleP>
-      {served ? (
-        <>
-          <ArticleStrong>
-            {t("proc_meth_version_served")} v{served}
-          </ArticleStrong>
-          {day ? ` · ${t("proc_meth_version_rebuilt")} ${day}` : null}
-          {bundleAhead ? <> · {t("proc_meth_version_drift")}</> : null}
-        </>
-      ) : (
-        <ArticleStrong>{t("proc_meth_version_unstamped")}</ArticleStrong>
-      )}
+      <ArticleStrong>
+        {t("proc_meth_version_served")} v{served}
+      </ArticleStrong>
+      {day ? ` · ${t("proc_meth_version_rebuilt")} ${day}` : null}
+      {bundleAhead ? <> · {t("proc_meth_version_drift")}</> : null}
     </ArticleP>
   );
 };
@@ -406,7 +403,6 @@ export const ProcurementMethodologyScreen = () => {
       <ArticleH2>
         {t("proc_meth_h_flags")} ({CONTRACT_FLAG_LIST.length})
       </ArticleH2>
-      <ArticleP>{t("proc_meth_p_flags_intro")}</ArticleP>
       <ContractFlagTable />
 
       <ArticleH2>
