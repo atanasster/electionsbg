@@ -119,12 +119,42 @@ CREATE TABLE IF NOT EXISTS price_facts (
   PRIMARY KEY (store_id, sku_id, valid_from)
 );
 
--- TODAY'S TRUTH. TRUNCATE + reload each run: ~1.4M rows, heap reset, no bloat.
+-- TODAY'S TRUTH. MERGED from each day's observations (upsert + anti-join
+-- delete), never TRUNCATE — see load_day.ts step (3): TRUNCATE's
+-- AccessExclusiveLock 500'd /api/db/price-product readers on every ingest.
 CREATE TABLE IF NOT EXISTS price_current (
   store_id    bigint NOT NULL,
   sku_id      bigint NOT NULL,
   price_eur   double precision NOT NULL,
   promo_eur   double precision,
+  PRIMARY KEY (store_id, sku_id)
+);
+
+-- LAST-KNOWN price per (store, sku), with the day it was observed.
+--
+-- price_current answers "what does this cost NOW" and is deliberately emptied
+-- of anything today's feed omits — absence is only knowable at observation
+-- time, and inferring it from price_facts over-counts 3.7x (4,387,949 open runs
+-- against 1,177,730 real rows, measured 2026-08-20). That rule is load-bearing
+-- and this table does not touch it.
+--
+-- What it adds is the OTHER question: "when did we last see a price for this,
+-- and what was it". Upsert-only, never deleted, so a chain that stops filing
+-- keeps its record here after price_current has dropped it. That is what lets a
+-- chain's page survive its absence instead of being pruned out of existence
+-- (docs/plans/prices-chain-absence-v1.md, T2).
+--
+-- ⚠️ `as_of` is not decoration. A row whose as_of is not the latest loaded day
+-- is a STALE price, and no consumer may put one into a minimum, a ranking or a
+-- cross-chain comparison — a retained price with no date is strictly worse than
+-- a deleted one, because the reader cannot tell. Render it, label it, exclude
+-- it from aggregates.
+CREATE TABLE IF NOT EXISTS price_last_seen (
+  store_id    bigint NOT NULL,
+  sku_id      bigint NOT NULL,
+  price_eur   double precision NOT NULL,
+  promo_eur   double precision,
+  as_of       date NOT NULL,
   PRIMARY KEY (store_id, sku_id)
 );
 
@@ -242,3 +272,52 @@ CREATE INDEX IF NOT EXISTS price_products_trgm   ON price_products USING gin (ti
 CREATE INDEX IF NOT EXISTS price_grid_days_day   ON price_grid_days (day);
 CREATE INDEX IF NOT EXISTS price_grid_days_pid   ON price_grid_days (pid, day);
 CREATE INDEX IF NOT EXISTS price_chain_grid_eik  ON price_chain_grid_days (eik, day);
+-- Mirrors price_current_sku; serves the product-ladder join.
+--
+-- Deliberately NO index on `as_of`. The query it would serve — "everything not
+-- observed on the latest day" — matches ~73% of the table at steady state
+-- (~3.2M of ~4.4M), and a plain btree over most of a table is never chosen.
+-- The repo's rule is to EXPLAIN a new consumer before indexing for it, so this
+-- waits for T2b's real query shape; `(as_of, store_id)` or a partial index
+-- anchored to what T2b actually filters on is the likelier answer.
+CREATE INDEX IF NOT EXISTS price_last_seen_sku   ON price_last_seen (sku_id);
+
+-- ── warm-database reconcile ───────────────────────────────────────────────
+-- `CREATE TABLE IF NOT EXISTS` is a no-op where the prices schema already
+-- exists, so on every database that has ever loaded a day the new table would
+-- sit empty until the next ingest — and the chain pages that read it (T2b)
+-- would render nothing in the meantime, which is the very outcome this table
+-- was added to prevent.
+--
+-- ⚠️ Seeding from `price_current` would be the WRONG rescue, and precisely
+-- backwards. price_current holds only the chains that reported on the latest
+-- day — measured 2026-08-20: 98 of 215 chains, leaving 117 with history and no
+-- last-seen row. Those are exactly the chains that already went silent (the
+-- feed fell 210 → 98 between 2026-07-26 and 2026-08-14), i.e. the entire
+-- population this table exists for, and nothing would ever add them: only the
+-- daily `obs` write does, and they will never appear in `obs` again.
+--
+-- So seed from the OPEN RUNS instead: the latest run per (store, sku), dated
+-- from that store's own last reporting day. Reading an open run as LAST-KNOWN
+-- is literally what an open run is — the 3.7x phantom-count warning in this
+-- file's header forbids reading them as CURRENT, which is a different claim and
+-- still holds.
+--
+-- ⚠️ `as_of` here is STORE-granular and an upper bound: a SKU delisted while
+-- its store kept filing gets the store's last day rather than its own. The
+-- daily writer stamps exact per-observation dates and supersedes these rows as
+-- soon as a chain files again. Seeded dates are a best-effort recovery of
+-- history that predates the table, never a claim of per-SKU precision.
+--
+-- Sizing: ~4.4M rows on the 2026-08 corpus (against ~1.2M in price_current).
+-- Retention is an open question — nothing prunes this table today, and it grows
+-- with the union of every (store, sku) ever seen rather than with the feed.
+INSERT INTO price_last_seen (store_id, sku_id, price_eur, promo_eur, as_of)
+SELECT DISTINCT ON (f.store_id, f.sku_id)
+       f.store_id, f.sku_id, f.price_eur, f.promo_eur, s.last_seen
+  FROM price_facts f
+  JOIN price_stores s ON s.store_id = f.store_id
+ WHERE f.valid_to IS NULL
+   AND NOT EXISTS (SELECT 1 FROM price_last_seen)
+ ORDER BY f.store_id, f.sku_id, f.valid_from DESC
+ON CONFLICT (store_id, sku_id) DO NOTHING;

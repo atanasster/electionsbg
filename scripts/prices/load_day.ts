@@ -22,7 +22,7 @@
 
 import unzipper from "unzipper";
 import type { PoolClient } from "pg";
-import { withClient, allRows } from "../db/lib/pg";
+import { withClient, allRows, vacuumAfterReload } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
 import { recordIngestBatch } from "../db/lib/ingest_changelog";
 import {
@@ -57,6 +57,12 @@ export interface DayStats {
   unresolved: number;
   legacyCodes: number;
   parseErrors: number;
+  /** Rows the last-known layer accepted, and rows a corrected re-publish
+   *  withdrew. Reported because a refusal (a newer `as_of` already stored — the
+   *  correct behaviour under --backfill) is otherwise indistinguishable from a
+   *  write that never happened. */
+  lastSeenWritten: number;
+  lastSeenWithdrawn: number;
   /** Set when the day's reporter count fell below COVERAGE_FLOOR of its
    *  trailing median. The day is still loaded — see the guard's note — so this
    *  is how the run's summary can report a slide the per-day floor cannot see. */
@@ -554,6 +560,46 @@ export const loadDay = async (
           `price_current merge parity check failed: live=${parity.rows[0].live} obs=${parity.rows[0].obs}`,
         );
 
+      // ── (3b) last-known price per (store, sku) ─────────────────────────
+      // The same observations, upserted and NEVER deleted. price_current above
+      // is "today's truth" and drops what today's feed omits; this is "the last
+      // price we ever saw, and when" — which is what lets a chain that stopped
+      // filing keep a page instead of being pruned out of the served layer.
+      //
+      // Deliberately AFTER the parity guard: that assertion is about
+      // price_current alone, and this table must never be able to influence it.
+      const lastSeenUpsert = await c.query(
+        `INSERT INTO price_last_seen (store_id, sku_id, price_eur, promo_eur, as_of)
+         SELECT store_id, sku_id, price_eur, promo_eur, $1::date FROM obs
+         ON CONFLICT (store_id, sku_id) DO UPDATE
+            SET price_eur = excluded.price_eur,
+                promo_eur = excluded.promo_eur,
+                as_of     = excluded.as_of
+          WHERE price_last_seen.as_of <= excluded.as_of`,
+        [day],
+      );
+      // Re-publish repair. Every other day-scoped write in this loader is
+      // idempotent by REPLACEMENT (price_facts step 0 undoes a prior load of the
+      // day; the two grids delete the day and rebuild it). Without the same arm
+      // here, a corrected re-publish that WITHDRAWS a (store, sku) leaves this
+      // table asserting a price stamped with that day which the corrected feed
+      // says was never filed — attributed to a named retailer, which is the
+      // invention the plan rejects.
+      //
+      // The row is removed rather than reverted to its pre-D value: that value
+      // is not recoverable from this table alone. It does NOT breach "never
+      // delete a chain's record" — price_facts, price_chain_days and the
+      // dimensions are untouched — but it does mean a re-published day can
+      // shrink the table, so any future non-shrink gate must exempt it.
+      const lastSeenWithdrawn = await c.query(
+        `DELETE FROM price_last_seen pls
+          WHERE pls.as_of = $1::date
+            AND NOT EXISTS (SELECT 1 FROM obs o
+                             WHERE o.store_id = pls.store_id
+                               AND o.sku_id  = pls.sku_id)`,
+        [day],
+      );
+
       // ── (4) daily aggregates, from the day's OWN observations ──────────
       // Built from price_stage (RAW rows), not obs. parse.ts computes
       // avg/median/max/stores over every raw row, and a store may list the same
@@ -606,6 +652,11 @@ export const loadDay = async (
 
       await c.query("TRUNCATE price_stage");
       await c.query("COMMIT");
+      // Not optional: step 3b rewrites every observed row every day, so
+      // price_last_seen's visibility map is zeroed and no scan over it can go
+      // index-only. VACUUM cannot run inside a transaction block, so it lives
+      // here rather than above. price_current is in the same position.
+      await vacuumAfterReload("price_last_seen", "price_current");
 
       const [agg] = await allRows<{
         chains: string;
@@ -630,6 +681,8 @@ export const loadDay = async (
         unresolved,
         legacyCodes,
         parseErrors,
+        lastSeenWritten: lastSeenUpsert.rowCount ?? 0,
+        lastSeenWithdrawn: lastSeenWithdrawn.rowCount ?? 0,
         coverageShortfall,
       };
     } catch (e) {

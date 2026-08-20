@@ -24,7 +24,7 @@ import { rebuildCatalog } from "./rebuild_catalog";
 import { buildProductDays } from "./build_product_days";
 import { buildPayloads } from "./build_payloads";
 import { exportSlugs } from "./export_slugs";
-import { withClient, allRows, end } from "../db/lib/pg";
+import { withClient, allRows, execEach, end } from "../db/lib/pg";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -32,6 +32,8 @@ const ROOT = path.resolve(
   "..",
 );
 const RAW_DIR = path.join(ROOT, "raw_data/prices");
+
+const PRICES_SCHEMA = path.join(ROOT, "scripts/db/schema/pg/048_prices.sql");
 
 const argv = process.argv.slice(2);
 const has = (f: string) => argv.includes(f);
@@ -58,6 +60,19 @@ const loadedDays = async (): Promise<Set<string>> => {
 const main = async (): Promise<void> => {
   const archive = has("--archive");
   const loaded: DayStats[] = [];
+
+  // Idempotent DDL, once per run. 048 has no other applier — the price tables
+  // reached every existing database by hand — so a table added to it would
+  // otherwise exist only where someone remembered to run apply_functions, and
+  // the loader would fail on a relation nobody knew was missing.
+  //
+  // execEach, NOT exec: exec sends the file as ONE transaction, so the
+  // AccessExclusiveLock taken by the file's no-op `ALTER TABLE … ADD COLUMN IF
+  // NOT EXISTS` is held until the last statement — which now includes a
+  // multi-million-row seed INSERT — on tables /api/db/price-history and
+  // /api/db/price-product read. Statement-at-a-time releases each lock as it
+  // goes.
+  await execEach(fs.readFileSync(PRICES_SCHEMA, "utf8"));
 
   await withClient(async (c) => {
     await c.query("BEGIN");

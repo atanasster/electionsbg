@@ -640,6 +640,38 @@ rows, so no person's money can include a re-keyed contract.
 
 `scripts/db/tests/supplier_filler_ids.data.test.ts` is the gate.
 
+### The prices schema — the one migration a LOADER applies from outside `scripts/db/`
+
+`048_prices.sql` had **no applier at all** until 2026-08-20: the price tables reached every
+existing database by hand, so a table added to the file existed only where somebody had
+remembered to run `apply_functions.ts`. `scripts/prices/ingest.ts` now applies it once per
+run, which is what makes a schema change reach the serving database at all.
+
+Three things about it differ from the `scripts/db/load_*.ts` family:
+
+- **It uses `execEach`, not `exec`, and that is load-bearing.** `exec` sends the file as ONE
+  transaction, so the AccessExclusiveLock taken by its no-op `ALTER TABLE … ADD COLUMN IF
+  NOT EXISTS` is held until the last statement — which includes a multi-million-row seed
+  INSERT — on tables `/api/db/price-history` and `/api/db/price-product` read. The same
+  TRUNCATE-shaped lock is what 500'd those readers on every ingest before the 2026-07 merge
+  rewrite; do not re-introduce it through the DDL path.
+- **`price_last_seen` is seeded from OPEN RUNS, never from `price_current`.** The narrow
+  seed looks obvious and is precisely backwards: `price_current` holds only the chains that
+  reported on the latest day — measured 2026-08-20, **98 of 215** — so it omits the 170 that
+  had already gone silent, which is the entire population the table exists for, and nothing
+  would ever add them (only the daily `obs` write does, and they never appear in `obs`
+  again). The wide seed covers **215 of 215** at ~4.4M rows.
+- **Its VACUUM is invisible to `reload_visibility_map.data.test.ts`'s scan.** That gate globs
+  `scripts/db/load_*.ts` and their escaping imports; the prices ingest has no such wrapper,
+  so `price_last_seen` / `price_current` carry RELOADED entries with no discoverable call
+  site. The entries still switch the per-table map assertion on, which is the half that
+  matters.
+
+⚠️ **`price_last_seen` is upsert-only with ONE exception**: a re-published day that
+withdraws a `(store, sku)` deletes that row, so the table matches the corrected feed rather
+than asserting a price the source now says was never filed. Any future non-shrink gate must
+exempt that case. Plan: `docs/plans/prices-chain-absence-v1.md`.
+
 ### The two committed artifacts `db:refresh` regenerates
 
 `data/procurement/derived/hub_stats.json` (the nine `/procurement` hub stat-tile numbers) and
@@ -3522,7 +3554,7 @@ failed repair. `company_founded` is the one member with no `RELOADED` entry — 
 passes the table as a VARIABLE, which the gate's string-literal scan cannot see:
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) declaration_employer_link, grant_contract_link, tender_subcontracting, ted_notice, ted_coverage, adfi_inspection, aop_expert, aop_expert_area, isun_clean_contract, isun_clean_beneficiary, adfi_coverage, obshtina_population, fund_projects, fund_beneficiaries, company_founded, tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, tender_search_text, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, budget_fiscal_year, budget_fiscal_year_figure, budget_kfp_observation, budget_kfp_snapshot_section, budget_kfp_snapshot_line, budget_personnel, budget_admin_procurement, budget_muni_transfer, budget_muni_ipop_project, budget_muni_capital_project, budget_muni_execution, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, council_muni, council_muni_code, council_resolution, council_vote, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) declaration_employer_link, grant_contract_link, tender_subcontracting, ted_notice, ted_coverage, adfi_inspection, aop_expert, aop_expert_area, isun_clean_contract, isun_clean_beneficiary, adfi_coverage, obshtina_population, fund_projects, fund_beneficiaries, company_founded, tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, tender_search_text, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, budget_fiscal_year, budget_fiscal_year_figure, budget_kfp_observation, budget_kfp_snapshot_section, budget_kfp_snapshot_line, budget_personnel, budget_admin_procurement, budget_muni_transfer, budget_muni_ipop_project, budget_muni_capital_project, budget_muni_execution, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, council_muni, council_muni_code, council_resolution, council_vote, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme, price_last_seen, price_current;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE

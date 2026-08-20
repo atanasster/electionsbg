@@ -65,6 +65,20 @@ const REPO = path.resolve(
 // procurement and TR hot paths. `contracts` is 2,449 MB and the largest thing 176
 // touches, so it is the one that matters most.
 const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
+  // ⚠️ THE SCAN BELOW CANNOT SEE THESE TWO. Their vacuum lives in
+  // `scripts/prices/load_day.ts`, and neither LOADER_FILES (a glob over
+  // `scripts/db/load_*.ts`) nor DELEGATE_FILES (their escaping imports) reaches
+  // it — the prices ingest has no `scripts/db/load_prices*.ts` wrapper to be
+  // followed from. So the "every table a loader vacuums is listed here"
+  // direction is blind here, and these entries exist purely to switch ON the
+  // per-table map assertion further down. Adding them is safe because that
+  // assertion is one-directional (called ⊆ declared, never the converse).
+  //
+  // `price_last_seen` (048) is rewritten for every observed row every day, and
+  // its one-off seed inserts ~4.4M rows in a single statement — measured
+  // straight after that seed: 0 of 8,829 pages all-visible.
+  { table: "price_last_seen", loader: "npm run prices" },
+  { table: "price_current", loader: "npm run prices" },
   {
     table: "declaration_employer_link",
     loader: "db:load:employer-links:pg",
