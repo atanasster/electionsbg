@@ -35,7 +35,7 @@ written, so re-derive before quoting one.
 Sections 1, 2, 5 and 12 gained material the same day from four further ingests
 (ЦПРС licences, the ЦАИС dossier, TED, АДФИ) — the branch-ЕИК fold, the
 one-fold rule, the three coverage rules and the three unfailable-gate shapes.
-Each is here because it shipped or nearly shipped, per §14.
+Each is here because it shipped or nearly shipped, per §15.
 
 Everything below is a rule **plus the measurement that produced it**. That pairing
 is the point: a rule without its number gets argued with, and every number here
@@ -432,7 +432,7 @@ contract → contractor is already joinable. 262 of 264 codes match (99.2%).
 Build it once as a shared object, not a per-sector chart.
 
 ⚠️ **This is the one section here that is a CAPABILITY rather than a defect.**
-Nothing shipped wrong to produce it, and the table has no consumer yet. By §14's
+Nothing shipped wrong to produce it, and the table has no consumer yet. By §15's
 own standard that makes it advice; it is kept on one condition — the 99.2% join
 rate is measured, so „this is possible" is checkable rather than hopeful. If it
 still has no consumer at the next retrofit, cut it.
@@ -496,7 +496,44 @@ row and a Data Map entry (`reference_migrated_family_watch_reload`).
 
 ---
 
-## 12. Gates to write
+## 12. The page layer — sitemap, prerendered HTML, and actually look at it
+
+A sector's work is not done when the data is right. Four things sit between a
+correct corpus and a page anyone can find, and each fails quietly.
+
+- **Every sector page needs a prerender entry** (`scripts/prerender/routes.ts`).
+  Without one the URL serves the SPA shell — i.e. the HOMEPAGE's `<title>`,
+  description and canonical — so to a crawler every page of the sector is a
+  duplicate of the homepage. Nothing errors; the page looks perfect to a human.
+- **Every sector page needs a sitemap entry** (`scripts/sitemap/route_defs.ts`),
+  in BOTH languages, and every `<loc>` needs a real `dist/<path>/index.html`
+  behind it. `scripts/sitemap/families.data.test.ts` is the gate, and it only
+  sees a `dist/` that exists — run it AFTER `npm run build`, not before.
+- **A per-record sub-family is a DECISION, not an oversight.** 944 film records
+  of one card each are the thin-content shape: no `<loc>` and no prerender is the
+  right call, the same one `/council/resolution/**` made. But that call is only
+  half-made until the family gets a real head from `functions/spa_page.js` —
+  otherwise it is not "excluded from the index", it is "serving the homepage's
+  title and canonical on 944 URLs". Decide, then write the decision down.
+- **Open every page and look at it, in both languages.** Then compare what the
+  RUNTIME renders against what the PRERENDER declares — `document.title` and the
+  `<h1>`, per page.
+
+That last check is not padding. Measured on `/culture`: when the film body moved
+from `/culture` to `/culture/subsidies`, the prerender entry was repointed and the
+screen's own `<Title>` was not — so the prerendered head correctly said „Филмови
+субсидии" while the page a reader actually saw was headed „Култура", identical to
+the hub one level up. Two different answers for one URL, with the wrong one on the
+side a human sees. Every test passed, the body was completely correct, and no gate
+in this file would have caught it: it is only visible by opening the page.
+
+**A moved path is the trigger.** When a body changes URL, three things must move
+together — the route, the prerender entry, and the screen's own title/`<h1>`. The
+first two are in the diff; the third is in a file nobody re-reads.
+
+---
+
+## 13. Gates to write
 
 - Every buyer above a money floor is in exactly one declared list — swept from
   BOTH corpora.
@@ -540,7 +577,7 @@ code, and you must have watched it do so.**
 
 ---
 
-## 13. Retrofit checklist
+## 14. Retrofit checklist
 
 Run against an existing sector surface, in order:
 
@@ -557,18 +594,21 @@ Run against an existing sector surface, in order:
 7. **Destinations** (§10) — does every filtered link's destination carry that
    dimension?
 8. **Deploy** (§11) — does every function have an applier?
+9. **Pages** (§12) — is every page prerendered AND in the sitemap, in both
+   languages? Open each one and check its rendered title and `<h1>` against what
+   the prerender declares.
 
 The first three retrofits are the test of whether this skill is any good:
 `/judiciary`, `/defense`, `/sector/energy`. **If running the checklist on those
 three produces no findings, this is a description rather than a tool and should be
 cut back to the parts that did.**
 
-Then take the findings to §14 and implement them through `/implement-plan` —
+Then take the findings to §15 and implement them through `/implement-plan` —
 stopping only on the four decisions listed there.
 
 ---
 
-## 14. Implementing — hand the work to `/implement-plan`
+## 15. Implementing — hand the work to `/implement-plan`
 
 This skill decides WHAT the data layer should be. It does not hand-build it step
 by step: once the shape is settled, the register edits, the matcher, the loaders,
@@ -586,7 +626,9 @@ retrofitted sector:
 4. each corpus arm with its coverage declaration (§4, §5);
 5. the baselines (§3);
 6. the loaders, migrations and `:cloud` commands (§11);
-7. the gates (§12) — always last, always separate.
+7. the page layer (§12) — prerender entry, sitemap entry, and a look at every
+   page in both languages;
+8. the gates (§13) — always last, always separate.
 
 ### STOP and ask — the decisions this skill must not make for you
 
@@ -607,7 +649,9 @@ when the evidence looks one-sided:
 Everything else is a bug fix and goes straight through `/implement-plan` without
 asking: a stem that over- or under-matches, an unfolded branch ЕИК, a fold
 written twice, a missing coverage declaration, a NULL rendered as an answer, a
-rate without its baseline, a roll-up entry with no name, a gate that cannot fail.
+rate without its baseline, a roll-up entry with no name, a gate that cannot fail,
+a page missing its prerender or sitemap entry, a screen whose title no longer
+matches the URL it moved to.
 None of those is a judgement call — they are wrong, and the measurement in the
 matching section of this file is the argument.
 
@@ -618,7 +662,7 @@ vintage at a 200 with every row count reconciling.
 
 ---
 
-## 15. Keeping it current
+## 16. Keeping it current
 
 Add a section only when something **shipped wrong** and you can state the
 measurement. A rule without its number is advice, and this file is not for advice.

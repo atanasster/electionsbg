@@ -1601,6 +1601,29 @@ so before this a procurement for nine kinds of coffee was searchable only as
 npm run db:load:tender-dossier:pg:cloud
 ```
 
+**⚠️ The publish is SLICED, and the reason is a failure class no local run can
+reproduce.** One transaction for the whole capture exceeds Cloud SQL's
+`temp_file_limit` — **2,569,247 kB there, `-1` (unlimited) on the local docker
+Postgres** — and the observed failure was not a clean `53400` either: the first
+attempt died on the limit and the second dropped the connection outright
+(`Connection terminated unexpectedly`). Local was green both times, at the full
+50,283 procedures. Any future bulk publish on this instance wants the same check.
+
+The loader now commits one slice of 5,000 tenderIds at a time. **The trade is
+all-or-nothing PUBLICATION, not consistency**: every merge is УНП-scoped and no УНП
+spans two slices (measured — 0 of 50,283 span more than one tenderId), so an
+interrupted run leaves some procedures at the new vintage and the rest at the old,
+never a half-written procedure and never an orphan row. **Re-running is the repair,
+and it is idempotent** — so on a failed cloud run, re-run it rather than reasoning
+about which slice died.
+
+⚠️ **Slice on the tenderId RANGE, never on a УНП set filtered out of a full walk.**
+The generators read the 1.7 GB SQLite capture, so a set filter still decompresses
+all of it once per slice to discard ~90% — measured at **>13 min per slice against
+~1.5 min** for the ranged read, i.e. the store walk, not the database, becomes the
+cost. `EopDossierStore.iterate()` takes an optional `(after, upTo]` range that rides
+its existing keyset index for exactly this.
+
 **Three things about it invert the usual rules of this file, and the first is a
 live-breaking deploy hazard rather than the customary staleness:**
 

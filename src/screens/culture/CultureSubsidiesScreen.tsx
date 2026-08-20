@@ -92,7 +92,12 @@ export const CultureSubsidiesScreen = () => {
       ? `${o.firstYear}`
       : `${o.firstYear}–${o.lastYear}`;
 
-  const title = bg ? "Култура" : "Culture";
+  // Was "Култура" until this body moved from /culture to /culture/subsidies: the
+  // prerender entry was repointed and this was not, so the page rendered the HUB’s
+  // heading and document title while its prerendered head correctly said
+  // „Филмови субсидии“ — two different answers for one URL, and the one a reader
+  // actually sees was the wrong one.
+  const title = bg ? "Филмови субсидии" : "Film subsidies";
   const description = bg
     ? "Къде отиват държавните пари за култура — субсидиите на Националния филмов център за игрално, документално и анимационно кино (2014–2025): кой ги получава, как се концентрират и как се менят през годините."
     : "Where Bulgaria's culture money goes — the National Film Center's subsidies for feature, documentary and animation film (2014–2025): who receives them, how they concentrate, and how they moved over time.";
