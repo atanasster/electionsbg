@@ -123,7 +123,13 @@ describe("security sector — hub headline", () => {
     const byYear = new Map<number, number>();
     for (const y of node.years ?? []) {
       const v = ministryYearSeriesEur(y);
-      if (v != null) byYear.set(y.fiscalYear, v);
+      // ⚠ TRUTHINESS, not `!= null` — `budgetSeries` in the generator drops a €0
+      // year deliberately (an un-appropriated shell, so `annual()` falls back to
+      // the latest REAL year rather than captioning „бюджет 2024: €0"). Reading it
+      // as a present year here would make this arm expect 0 where the generator
+      // correctly published the fallback, failing on all 30 scopes at once — on
+      // db:refresh's LAST link, the worst place to mint a false failure.
+      if (v) byYear.set(y.fiscalYear, v);
     }
     assert.ok(byYear.size >= 5, `МВР node carries ${byYear.size} year(s)`);
     const latestYear = Math.max(...byYear.keys());
@@ -152,10 +158,26 @@ describe("security sector — hub headline", () => {
         // `all` and every `ns:` window resolve to the latest fiscal year.
         assert.equal(s.value, latest.eur, `${scopeKey} value`);
         assert.equal(s.year, latest.fiscalYear, `${scopeKey} year`);
+        // …and are NOT flagged. `annual()` only sets the flag when a specific year
+        // was asked for and missed, so a flag here means the scope key stopped
+        // parsing as a window — which would otherwise pass silently, since value
+        // and year would still be the latest ones.
+        assert.ok(
+          !s.unavailable,
+          `${scopeKey} must not be flagged unavailable`,
+        );
       }
+      assert.ok(s.value > 0, `${scopeKey} publishes a zero headline`);
       checked++;
     }
-    assert.ok(checked >= 20, `only ${checked} scopes checked`);
+    // The generator mints SCOPE_FIRST_YEAR..currentYear + one per election + `all`.
+    // A floor of 20 would pass with a third of them missing.
+    assert.equal(
+      checked,
+      Object.keys(stats).length,
+      "some scope carries no security stat",
+    );
+    assert.ok(checked >= 28, `only ${checked} scopes checked`);
   });
 });
 
@@ -166,13 +188,28 @@ describe("security sector — the EIK set", () => {
       (SECTOR_DASHBOARDS.security?.members ?? []).map((m) => m.eik),
     );
     const pack = new Set(SECTOR_BROWSE_PACKS.security?.eiks ?? []);
-    assert.equal(
-      ref.size,
-      MVR_ENTITIES.length,
-      "duplicate EIK in MVR_ENTITIES",
-    );
     assert.deepEqual([...dash].sort(), [...ref].sort(), "dashboard members");
     assert.deepEqual([...pack].sort(), [...ref].sort(), "browse pack eiks");
+
+    // ⚠ LOCKSTEP ALONE IS VACUOUS AGAINST A ROSTER LOSS, because all three copies
+    // derive from MVR_ENTITIES — deleting members keeps them equal. Measured:
+    // dropping 27 of 74 (every ПБЗН unit) passed all ten tests in this file, since
+    // 1,279 contractors still clear the >500 floor, the top share stays at 6.4%
+    // and every state body and carrier survives. So the size is pinned directly,
+    // and so is the composition: a bulk deletion takes a whole universe, and the
+    // two large ones are exactly where it would go unnoticed.
+    assert.ok(
+      SECURITY_SECTOR_EIKS.length >= 70,
+      `roster is ${SECURITY_SECTOR_EIKS.length} EIKs, was 74`,
+    );
+    const perUniverse = new Map<string, number>();
+    for (const e of MVR_ENTITIES)
+      perUniverse.set(e.universe, (perUniverse.get(e.universe) ?? 0) + 1);
+    assert.ok((perUniverse.get("police") ?? 0) >= 34, "police universe shrank");
+    assert.ok((perUniverse.get("fire") ?? 0) >= 25, "fire universe shrank");
+
+    // Roster shape beyond this (no duplicates, EIK format, universe labelling) is
+    // src/lib/securityReferenceData.test.ts's job — it needs no database.
     // The generator carries NO security entry — the sector is budget-basis, and a
     // SECTOR_EIKS re-entry is what would silently flip the headline.
     assert.ok(ref.has(MVR_EIK) && ref.has(MEDICAL_INSTITUTE_EIK));
@@ -205,17 +242,43 @@ describe("security sector — the EIK set", () => {
         WHERE tag = 'contract' AND awarder_eik = ANY($1) GROUP BY 1`,
       [SECURITY_SECTOR_EIKS],
     );
+    // ⚠ „организираната престъпност" and „Академия" WERE alternatives here and are
+    // deliberately gone. Both were redundant — removing them leaves 0 of the 73
+    // non-exempt members failing — and both were this arm's only false-positive
+    // vectors: the first admitted ЦППКОП, which this file's own anti-allowlist
+    // excludes, and „Академия" admitted Военна академия, БАН and — the pointed one
+    // — ВОЕННОМЕДИЦИНСКА академия, МО's military hospital, which the reference data
+    // calls „the ВМА analogue" of the Мед. институт. A digit typo on 129007218
+    // could have landed there and passed every arm in this file.
     const OK =
-      /вътрешни(те)?\s+работи|МВР|гранична\s+полиц|национална\s+полиц|охранителна\s+полиц|криминална\s+полиц|организираната\s+престъпност|ГДБОП|жандармер|пожарна\s+безопасност|ПБЗН|РДПБЗН|миграц|куриерска\s+служба|Академия/i;
+      /вътрешни(те)?\s+работи|МВР|гранична\s+полиц|национална\s+полиц|охранителна\s+полиц|криминална\s+полиц|ГДБОП|жандармер|пожарна\s+безопасност|ПБЗН|РДПБЗН|миграц|куриерска\s+служба/i;
     // ONE unit whose ЦАИС name carries no ministry token at all — a real property
     // of the corpus, not a curation slip, so it is exempted BY EIK with the name
     // that made it necessary. Exempting by pattern instead would blunt the arm for
     // the other 73. The staleness arm below is what keeps this list at one: the
     // first cut listed four, and it proved three of them (ДУССД, ДМП, ДМ) already
-    // carry „МВР" in their registry name and needed no exemption.
+    // carry „МВР" in their registry name and needed no exemption. Not a claim to
+    // take on trust: the staleness arm re-derives it on every run and fails on any
+    // entry the pattern would have matched anyway.
     const NAME_EXEMPT: Record<string, string> = {
       "129010698": "Дирекция Комуникационни и Информационни системи (ДКИС)",
     };
+    // …and a RULE for the adjacent families, beside the enumerated anti-allowlist
+    // in the next test. That one names 7 EIKs; this catches a SIBLING of any of
+    // them — an МЮ penitentiary unit, an intelligence service, an anti-corruption
+    // body, anything към МС, anything военно. Deliberate redundancy: after
+    // „организираната престъпност" and „Академия" left `OK`, ЦППКОП is now caught
+    // by rule here, by name above and by enumeration below — and it took all three
+    // to notice the name arm had been admitting it.
+    const ADJACENT =
+      /изпълнение\s+на\s+наказанията|затворно\s+дело|национална\s+сигурност|технически\s+операции|противодействие\s+на\s+корупцията|антикорупц|Министерски\s+съвет|военн/i;
+    const leaked = rows.filter((r) => ADJACENT.test(r.nm));
+    assert.deepEqual(
+      leaked.map((r) => `${r.awarder_eik} ${r.nm}`),
+      [],
+      "a member reads as an МЮ / intelligence / anti-corruption / military body",
+    );
+
     const odd = rows.filter(
       (r) => !OK.test(r.nm) && !NAME_EXEMPT[r.awarder_eik],
     );
@@ -273,7 +336,7 @@ describe("security sector — the EIK set", () => {
 
   test.skipIf(skip)("signature members carry real money", async () => {
     const FLOORS: Record<string, number> = {
-      "000695235": 500_000_000, // МВР itself — €810.6M measured
+      [MVR_EIK]: 500_000_000, // МВР itself — €810.6M measured
       "129010125": 200_000_000, // ГД Гранична полиция — €379.0M
       "129010157": 150_000_000, // ДУССД — €309.0M
       [MEDICAL_INSTITUTE_EIK]: 80_000_000, // Мед. институт — €166.4M
@@ -295,10 +358,16 @@ describe("security sector — the EIK set", () => {
 
 describe("security sector — beneficiaries", () => {
   test.skipIf(skip)("no single contractor dominates the group", async () => {
-    // 5.9% measured 2026-08-19. The ceiling is a rollup tripwire, not a forecast:
-    // crediting a consortium's full value to every member would blow past it long
-    // before any total looked wrong. Ranks and absolute € are deliberately NOT
-    // pinned — a leaderboard is supposed to reorder.
+    // 5.9% measured 2026-08-19. Ranks and absolute € are deliberately NOT pinned —
+    // a leaderboard is supposed to reorder.
+    //
+    // ⚠ THIS CEILING CANNOT SEE THE CONSORTIUM MUTATION, and an earlier version of
+    // this comment claimed it could. The query excludes `consortium_role = 'member'`
+    // — exactly the rows a "credit the full value to every member" change would
+    // populate — so the mutation would move nothing here. That invariant is
+    // assertable directly instead, and is, in the next test. What this ceiling does
+    // catch is the other shape: one contractor swallowing the sector, whether by a
+    // real award, a key merge, or a fold that stops splitting.
     const [row] = await allRows<{ top: string; total: string; n: string }>(
       `WITH s AS (
          SELECT contractor_eik, sum(amount_eur) AS eur FROM contracts
@@ -340,9 +409,12 @@ describe("security sector — beneficiaries", () => {
         [SECURITY_SECTOR_EIKS, [...SECURITY_STATE_BODY_CONTRACTORS]],
       );
       const by = new Map(rows.map((r) => [r.contractor_eik, Number(r.eur)]));
+      // Five today. The floor sits at the list's own stated bar — every public body
+      // that reaches a displayed rank — so dropping one back below it fails here
+      // rather than quietly un-badging a state transfer.
       assert.ok(
-        SECURITY_STATE_BODY_CONTRACTORS.length >= 3,
-        "the curated state-body list has emptied out",
+        SECURITY_STATE_BODY_CONTRACTORS.length >= 5,
+        `curated state-body list is ${SECURITY_STATE_BODY_CONTRACTORS.length}, was 5`,
       );
       for (const eik of SECURITY_STATE_BODY_CONTRACTORS)
         assert.ok(
@@ -360,13 +432,83 @@ describe("security sector — beneficiaries", () => {
   );
 
   test.skipIf(skip)(
+    "consortium member rows carry no money, so no rollup can double-count them",
+    async () => {
+      // The invariant the share ceiling above is blind to, stated where it CAN be
+      // seen. 061's supplier CTE drops these rows to keep the distinct-supplier
+      // count honest, and that is only safe while they are worth €0 — the moment a
+      // fold starts crediting each member the full contract value, this fails and
+      // the leaderboard's totals become a sum over the same money N times.
+      // Corpus-wide rather than МВР-scoped: the rule belongs to the ingest.
+      const [row] = await allRows<{ n: string; eur: string; nonzero: string }>(
+        `SELECT count(*)::text AS n,
+                coalesce(sum(amount_eur), 0)::text AS eur,
+                count(*) FILTER (WHERE amount_eur <> 0)::text AS nonzero
+           FROM contracts WHERE tag = 'contract' AND consortium_role = 'member'`,
+      );
+      assert.ok(
+        Number(row.n) > 1000,
+        `only ${row.n} member rows — arm going vacuous`,
+      );
+      assert.equal(
+        Number(row.nonzero),
+        0,
+        "a consortium member row carries money",
+      );
+      assert.equal(Number(row.eur), 0, "member rows no longer sum to zero");
+    },
+  );
+
+  test.skipIf(skip)(
+    "intra-group circulation stays negligible, and nobody contracts with themselves",
+    async () => {
+      // Both are named in this file's header as "cleanliness that needs pinning"
+      // and neither was pinned. They are the same row today: СДВР's own EIK landed
+      // in the contractor field of a „ТОП ЕЛАНА ООД" contract (the real EIK is
+      // 131555677), €14,941 — a register artifact 061 already drops from
+      // `suppliers` while leaving the € in the totals.
+      //
+      // A ceiling rather than an equality: a genuine МВР unit buying from another
+      // is possible and would be a finding, not a bug. What must not happen quietly
+      // is the share becoming material — at which point „the sector procured €X"
+      // stops implying an external market.
+      const [row] = await allRows<{ self: string; other: string; eur: string }>(
+        `SELECT count(*) FILTER (WHERE c.awarder_eik = c.contractor_eik)::text AS self,
+                count(*) FILTER (WHERE c.awarder_eik <> c.contractor_eik)::text AS other,
+                coalesce(sum(c.amount_eur), 0)::text AS eur
+           FROM contracts c
+          WHERE c.tag = 'contract' AND c.awarder_eik = ANY($1)
+            AND c.contractor_eik = ANY($1)`,
+        [SECURITY_SECTOR_EIKS],
+      );
+      const [tot] = await allRows<{ eur: string }>(
+        `SELECT coalesce(sum(amount_eur), 0)::text AS eur FROM contracts
+          WHERE tag = 'contract' AND awarder_eik = ANY($1)`,
+        [SECURITY_SECTOR_EIKS],
+      );
+      assert.ok(
+        Number(row.self) <= 2,
+        `${row.self} self-dealing rows — the ingest artifact is spreading`,
+      );
+      const share = Number(row.eur) / Number(tot.eur);
+      assert.ok(
+        share < 0.01,
+        `intra-group circulation is ${(share * 100).toFixed(2)}% of the sector`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
     "a consortium carrier is a top МВР contractor, and is linkable",
     async () => {
       // The corpus half of the 2026-08-19 widening. `isLinkableCompanyKey` admitting
       // `obed-` is pinned as a unit test; this asserts the corpus still exercises it,
       // so a regex simplification cannot pass unit tests while de-linking the biggest
-      // supplier on this page. Measured: the current parliament's top contractor is
-      // `obed-76634551a3a1` at 38.5% of the window.
+      // supplier on this page. The query is ALL-TIME, so the floor below is an
+      // all-time figure (€71.5M, obed-dc9fb761d9c6). The 38.5%-of-the-window
+      // headline this audit opened with belongs to a DIFFERENT carrier on a
+      // different scope; quoting it above an unwindowed query is how a floor comes
+      // to be set against a number the query cannot return.
       const rows = await allRows<{ contractor_eik: string; eur: string }>(
         `SELECT contractor_eik, sum(amount_eur)::text AS eur FROM contracts
         WHERE tag = 'contract' AND awarder_eik = ANY($1)
