@@ -287,10 +287,22 @@ test("every table a loader vacuums is listed here", () => {
   for (const f of SCANNED_FILES) {
     const src = readFileSync(path.join(REPO, f), "utf8");
     // `vacuumAfterReload("a", "b")`, including the multi-line prettier form.
-    for (const m of src.matchAll(/vacuumAfterReload\(([^)]*)\)/g))
+    // BOTH helpers, and the alternation is load-bearing rather than tidy:
+    // compactAfterReload (lib/pg.ts) is a VACUUM FULL + the plain VACUUM it
+    // delegates, so its tables need this coverage for exactly the same reason —
+    // more so, since a FULL is what EMPTIES a visibility map in the first place.
+    // Matching only the older name silently narrowed this scan the day
+    // db:load:council:pg switched, and the per-table assertions kept passing off
+    // the hand-written RELOADED list, so nothing went red.
+    for (const m of src.matchAll(
+      /(?:vacuumAfterReload|compactAfterReload)\(([^)]*)\)/g,
+    ))
       for (const q of m[1].matchAll(/"([a-z_][a-z0-9_]*)"/g)) called.add(q[1]);
   }
-  assert.ok(called.size > 0, "found no vacuumAfterReload call sites to check");
+  assert.ok(
+    called.size > 0,
+    "found no vacuumAfterReload/compactAfterReload call sites to check",
+  );
   const missing = [...called].filter((t) => !declared.has(t)).sort();
   assert.deepEqual(
     missing,

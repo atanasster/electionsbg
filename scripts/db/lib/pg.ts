@@ -531,6 +531,81 @@ export const vacuumAfterReload = async (
   });
 };
 
+/**
+ * The size above which a table is NOT compacted. VACUUM FULL takes an
+ * AccessExclusiveLock for the whole rewrite, so this cap is what keeps that lock
+ * bounded — measured on the council tables at ~33 ms per MB (790 pages / 6.3 MB in
+ * 210 ms), so 32 MB is about a second. Past it we warn and leave the slack: a
+ * multi-second exclusive lock on a serving table is worse than the bloat it removes.
+ */
+export const COMPACT_MAX_BYTES = 32 * 1024 * 1024;
+
+/**
+ * Reclaim the heap slack a full-table rewrite leaves behind, then hand off to
+ * `vacuumAfterReload`.
+ *
+ * WHY THIS EXISTS SEPARATELY FROM `vacuumAfterReload`. Plain VACUUM marks dead space
+ * REUSABLE but never returns pages to the filesystem, so a loader whose merge rewrites
+ * every row settles at ~2x its live size FOR EVER — stable, so no growth alarm ever
+ * fires, and invisible to every row count. Measured on `council_resolution`: 224 pages
+ * compacted, 439 after ONE ordinary `db:load:council:pg`, then 441 / 442 / 442 over
+ * three more runs. The steady state is the defect. It cost `council_overview()` ~444
+ * buffers of its 1,500 ceiling — the gate still passed, at 7% headroom.
+ *
+ * ⚠️ THE SECOND VACUUM IS MANDATORY AND IS THE WHOLE REASON THIS IS A HELPER. VACUUM
+ * FULL rewrites the heap into a NEW relfilenode whose visibility map is EMPTY, so on its
+ * own it trades bloat for the exact defect `visibilityMapShort` exists to catch: every
+ * index-only scan silently degrades to a heap fetch. Measured, doing only the FULL:
+ * `count(*) FROM council_vote` went 44 buffers -> 790, `council_overview()` 953 -> 2,502,
+ * and `reload_visibility_map.data.test.ts` failed on both council tables. Compacting is
+ * therefore never a bare `VACUUM FULL`; it is FULL followed by the plain VACUUM, which is
+ * what `vacuumAfterReload` already does — including its read-back and its "who is holding
+ * a snapshot open" diagnostic.
+ *
+ * Compaction is UNCONDITIONAL below the cap rather than gated on a bloat estimate. The
+ * obvious gate — "did the heap grow this run?" — is precisely wrong here: at steady state
+ * it does not grow (441 -> 442 -> 442), because the rewrite is reusing slack it already
+ * owns, so the gate reads healthy on exactly the state worth fixing. Postgres exposes no
+ * cheap exact bloat figure without pgstattuple, and an unconditional pass is self-limiting:
+ * on an already-compact table there is little to copy (70 ms for council_resolution).
+ */
+export const compactAfterReload = async (
+  ...tables: readonly string[]
+): Promise<void> => {
+  // Validate the WHOLE list up front, for the reason vacuumAfterReload gives: a bad name
+  // in position two must not leave position one already rewritten.
+  for (const t of tables)
+    if (!SAFE_IDENTIFIER.test(t))
+      throw new Error(
+        `compactAfterReload: unsafe identifier ${JSON.stringify(t)}`,
+      );
+
+  await withClient(async (c) => {
+    for (const t of tables) {
+      // to_regclass, not a bare cast: an absent table is a skip, not a throw. Loaders
+      // call this on tables a partial database may legitimately not have.
+      const { rows } = await c.query<{ bytes: string | null }>(
+        `SELECT pg_relation_size(to_regclass($1))::text AS bytes`,
+        [t],
+      );
+      const bytes = Number(rows[0]?.bytes ?? 0);
+      if (!Number.isFinite(bytes) || bytes === 0) continue;
+      if (bytes > COMPACT_MAX_BYTES) {
+        console.warn(
+          `[pg] ${t} is ${(bytes / 1024 / 1024).toFixed(1)} MB — above the ` +
+            `${COMPACT_MAX_BYTES / 1024 / 1024} MB compaction cap, so its heap slack is ` +
+            `left in place rather than held under an AccessExclusiveLock to remove it.`,
+        );
+        continue;
+      }
+      await c.query(`VACUUM (FULL, ANALYZE) ${t}`);
+    }
+  });
+
+  // NOT optional — see the header. The FULL above left every visibility map empty.
+  await vacuumAfterReload(...tables);
+};
+
 export const end = async (): Promise<void> => {
   if (pool) {
     await pool.end();

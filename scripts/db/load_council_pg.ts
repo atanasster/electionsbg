@@ -28,7 +28,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec, withTx, end, allRows, vacuumAfterReload } from "./lib/pg";
+import { exec, withTx, end, allRows, compactAfterReload } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import {
   addStagePrimaryKey,
@@ -340,8 +340,14 @@ const main = async (): Promise<void> => {
   // INSERT only, so leaving it out turns "last seen" into "first seen" and
   // inverts the absence-tracking that replaces an anti-join delete. The cost is
   // that stageUpsertSql's IS DISTINCT FROM never short-circuits and all 4,676
-  // rows are rewritten each run — cheap at this size, and NOT a reason to drop
-  // the column from the arm.
+  // rows are rewritten each run — NOT a reason to drop the column from the arm.
+  // It is not free, though, and "cheap at this size" (what this said until
+  // 2026-08-20) undersold it: a full rewrite every run leaves the heap at ~2x
+  // live size permanently, because plain VACUUM makes the slack reusable but
+  // never returns the pages. council_resolution ran 224 pages -> 442 and stayed
+  // there, costing council_overview() ~444 buffers of its 1,500 ceiling. The
+  // compactAfterReload() at the foot of main() is what reclaims it; keep them
+  // together — this arm is the cause and that call is the answer to it.
   const now = new Date().toISOString();
   let polluted = 0;
   let dupKeys = 0;
@@ -748,7 +754,14 @@ const main = async (): Promise<void> => {
     await exec(`DROP TABLE IF EXISTS ${spec.source}`);
   }
 
-  await vacuumAfterReload(
+  // compactAfterReload, not vacuumAfterReload: this loader rewrites every
+  // council_resolution row on EVERY run (see the last_seen_at note above), and
+  // plain VACUUM only makes that slack reusable — it never gives the pages back,
+  // so the table settles at ~2x live size permanently. Measured: 224 pages
+  // compacted, 439 after one ordinary run, then 441/442/442 — stable, which is
+  // why nothing ever flagged it. All four are far below the compaction cap
+  // (council_vote, the largest, is 6.3 MB / 210 ms).
+  await compactAfterReload(
     "council_muni",
     "council_muni_code",
     "council_resolution",

@@ -3670,6 +3670,34 @@ suspicious. Measured on the top-N by money the loader itself issues (`GLOBAL_COM
 rows): `Index Only Scan … Heap Fetches: 208`, 170 buffers, 7.8 ms → `Heap Fetches: 0`, 5
 buffers, 0.18 ms. Use `vacuumAfterReload()`, never a bare ANALYZE, after a bulk rewrite.
 
+**And plain VACUUM is not the whole fix either when a loader rewrites EVERY row — use
+`compactAfterReload()`.** VACUUM makes dead space reusable but never returns pages to the
+filesystem, so a merge that touches all rows settles at ~2x live size PERMANENTLY. It is
+stable, so no growth alarm fires, `n_dead_tup` sits at 0 and the visibility map reads 100% —
+every signal this section describes looks healthy. Measured on `council_resolution`, whose
+upsert carries `last_seen_at` in the DO UPDATE arm so `stageUpsertSql`'s `IS DISTINCT FROM`
+can never short-circuit: **224 pages compacted, 439 after ONE ordinary `db:load:council:pg`,
+then 441 / 442 / 442** over three more runs. That cost `council_overview()` ~444 buffers of
+its 1,500 ceiling — the gate still PASSED, at 7% headroom, which is why it went unnoticed;
+after compaction it is 945.
+
+⚠️ **Never do the `VACUUM FULL` on its own.** It rewrites the heap into a new relfilenode
+whose visibility map is EMPTY, i.e. it trades the bloat for exactly the defect this section
+is about. Measured doing only the FULL: `count(*) FROM council_vote` went **44 buffers → 790**,
+`council_overview()` **953 → 2,502**, and `reload_visibility_map.data.test.ts` failed on both
+council tables. `compactAfterReload()` exists so that cannot be got wrong — it is FULL followed
+by `vacuumAfterReload()`, and it is capped at `COMPACT_MAX_BYTES` (32 MB, ~1 s of
+AccessExclusiveLock at the measured ~33 ms/MB) so the lock can never grow with the corpus.
+Above the cap it warns and leaves the slack.
+
+Two things follow for anyone adding a loader. Compaction is deliberately UNCONDITIONAL below
+the cap rather than gated on "did the heap grow this run" — at steady state it does NOT grow
+(441 → 442 → 442), so that gate reads healthy on precisely the state worth fixing. And
+`reload_visibility_map.data.test.ts`'s call-site scan matches **both** helper names: it
+matched only `vacuumAfterReload` until 2026-08-20, so the day the council loader switched, its
+four tables silently dropped out of the scan while the per-table assertions kept passing off
+the hand-written `RELOADED` list — a gate going half-blind with nothing red.
+
 **Cloud SQL carries the same exposure, and `tenders` is the one that costs something.** Migration
 113 exists to make the `/procurement/tenders` browser's count+sum and its two facet GROUP BYs
 Index-Only Scans over `idx_tenders_order`, and `db_table.js` routes them at the base table rather
