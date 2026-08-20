@@ -223,10 +223,23 @@ git commit -m "funds: refresh ИСУН EU-funds beneficiaries + projects"
 
 # 2) Reload LOCAL Postgres from the fresh shards
 npm run db:load:funds:pg          # fund_beneficiaries + fund_projects + fund_payloads
+npm run db:load:funds-fit:pg      # 143+144+145 — keep local in step with prod, or
+                                  # funds_fit.data.test.ts fails with "the rollup and
+                                  # the corpus disagree", which reads as a derivation bug
 
 # 3) Publish to PROD Cloud SQL (operator runs this — proxy on 127.0.0.1:5434, .pgpass set)
 npm run db:load:funds:pg:cloud
+npm run db:load:funds-fit:pg:cloud   # sole applier of 143 + 144 + 145 — see below
 ```
+
+> ⚠️ **`db:load:funds-fit:pg:cloud` is not optional.** It is the ONLY applier of
+> migrations 143 (`fund_fit`, the „финансирано ли е нещо като моето" resolver),
+> 144 (`funds_wire` / `funds_news`, the band-0 wire and band-2 news rail) and 145
+> (`funds_hub_stats_cache`, every figure on the `/funds` hub). A funds reload
+> without it leaves all three serving the previous vintage at a 200 — and a change
+> to a 144 function body otherwise reaches prod only via the targeted hatch
+> `apply_functions.ts 144_funds_wire.sql` — which is the right tool when ONLY a
+> function body changed, since it avoids 145's DROP+CREATE of the live hub cache.
 
 > **Deployment (READ THIS before syncing):** funds is served from **Cloud SQL**
 > (Firebase fn `/api/db/*`), **not GCS** — same architecture as procurement.
@@ -393,7 +406,9 @@ npm run funds:ingest
 git add data/funds/
 git commit -m "funds: refresh ИСУН EU-funds beneficiaries"
 npm run db:load:funds:pg          # local PG
+npm run db:load:funds-fit:pg      # local — 143+144+145
 npm run db:load:funds:pg:cloud    # prod Cloud SQL (operator runs this)
+npm run db:load:funds-fit:pg:cloud
 
 # Dry run (parse + validate, no writes)
 npm run funds:ingest -- --dry-run

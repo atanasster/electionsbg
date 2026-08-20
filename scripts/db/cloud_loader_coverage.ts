@@ -72,7 +72,6 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
     reason: "pre-existing",
   },
   "db:load:cr-nkid:pg:cloud": { kind: "unreviewed", reason: "pre-existing" },
-  "db:load:funds-fit:pg:cloud": { kind: "unreviewed", reason: "pre-existing" },
   "db:load:grant-links:pg:cloud": {
     kind: "unreviewed",
     reason: "pre-existing",
