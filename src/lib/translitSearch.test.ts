@@ -314,3 +314,74 @@ describe("shlyo is strictly additive", () => {
     }
   });
 });
+
+// Cyrillic homoglyphs — the client half of the fold hole documented in
+// docs/plans/search-fold-homoglyphs-v1.md. Without a CYR_TO_LATIN entry these fall
+// through unchanged and are then stripped by the `[^a-z0-9]` filter, so the word loses a
+// letter and matches nothing — the failure is a MISSING character, not a wrong one,
+// which is why it never looked like mojibake to anyone.
+describe("Cyrillic homoglyphs fold to their Latin lookalike", () => {
+  it("keeps the letter instead of dropping it", () => {
+    // ЦАИС writes „Раздел І" with a Cyrillic І (U+0406) — 2.16M occurrences corpus-wide.
+    expect(latinSkeleton("Раздел І")).toBe("razdeli");
+    // Hörmann GmbH, spelled with a Cyrillic ӧ (U+04E7).
+    expect(latinSkeleton("Hӧrmann")).toBe("hormann");
+    // Bulgarian's own grave-accented и (U+045D).
+    expect(latinSkeleton("нѝва")).toBe("niva");
+  });
+
+  it("maps every homoglyph the server maps", () => {
+    // One assertion per character. A table with only the common cases would still pass
+    // if an entry were dropped from CYR_TO_LATIN, and the failure mode is a DELETED
+    // letter (the `[^a-z0-9]` filter eats anything unmapped), which reads as a shorter
+    // word rather than a wrong one.
+    const pairs: [string, string][] = [
+      ["і", "i"],
+      ["ї", "i"],
+      ["ѝ", "i"],
+      ["ѵ", "i"],
+      ["ѐ", "e"],
+      ["ё", "e"],
+      ["э", "e"],
+      ["є", "e"],
+      ["ы", "y"],
+      ["ј", "j"],
+      ["ѕ", "s"],
+      ["ӧ", "o"],
+      ["ӓ", "a"],
+    ];
+    for (const [cyr, latin] of pairs) expect(latinSkeleton(cyr)).toBe(latin);
+    // Uppercase rides on the lowercase pass, never on its own entry.
+    for (const [cyr, latin] of pairs)
+      expect(latinSkeleton(cyr.toUpperCase())).toBe(latin);
+  });
+
+  it("folds the Latin letters NFD cannot decompose", () => {
+    // ł ø ß æ œ ð đ þ ħ ŋ ı ŧ ŀ ſ are single indivisible code points: the diacritic strip
+    // does not touch them, so without LATIN_EXTRA the [^a-z0-9] filter deletes them and
+    // the word loses a letter. Real corpus rows (Polish contractors) depend on this.
+    expect(latinSkeleton("Wojskowe Zakłady Lotnicze")).toBe(
+      "wojskowezakladylotnicze",
+    );
+    expect(latinSkeleton("Nørrebro")).toBe("norrebro");
+    expect(latinSkeleton("Straße")).toBe("strasse");
+    expect(latinSkeleton("Æther")).toBe("aether");
+    // And the search path a reader actually takes.
+    expect(searchMatches("Wojskowe Zakłady Lotnicze Nr2 S.A.", "zaklady")).toBe(
+      true,
+    );
+  });
+
+  it("strips Latin diacritics instead of deleting the letter", () => {
+    // The same defect one alphabet over: an accented Latin letter is in neither
+    // CYR_TO_LATIN nor [a-z0-9], so without the NFD pass it is DELETED — „Hörmann"
+    // became `hrmann` and „Cañón" became `can`. This is also what makes the client
+    // agree with the server, which gets it from unaccent().
+    expect(latinSkeleton("Hörmann")).toBe("hormann");
+    expect(latinSkeleton("Cañón")).toBe("canon");
+    expect(latinSkeleton("Škoda")).toBe("skoda");
+    // The Cyrillic-ӧ and Latin-ö spellings of the same company now fold alike, which is
+    // the whole point — the corpus contains both.
+    expect(latinSkeleton("Hӧrmann")).toBe(latinSkeleton("Hörmann"));
+  });
+});

@@ -53,12 +53,105 @@ const CYR_TO_LATIN: Record<string, string> = {
   ь: "y",
   ю: "yu",
   я: "ya",
+  // CYRILLIC HOMOGLYPHS — not Bulgarian letters, so they are not part of the
+  // transliteration proper, but they DO appear in Bulgarian text and without an entry
+  // here they fall through `CYR_TO_LATIN[ch] ?? ch` unchanged and are then stripped by
+  // the `[^a-z0-9]` filter — so the word silently loses a letter and matches nothing.
+  //
+  // Measured in the corpus (2026-08-20), which is why these and not others: `і` U+0456
+  // appears 2,155,780 times because ЦАИС writes „Раздел І:" with the Cyrillic І; `ѝ`
+  // 8,227 (Bulgarian's own grave-accented и); `э`/`ы` in Russian-language
+  // specifications; `ј ѕ ӧ ӓ ѵ є` in a long tail that includes „Hӧrmann GmbH", a German
+  // name carrying a Cyrillic ӧ. The server-side twin `translit_bg_latin()` maps exactly
+  // this set — see 000_search_fns.sql and docs/plans/search-fold-homoglyphs-v1.md.
+  //
+  // Uppercase needs no entry: `latinSkeleton` lowercases before the lookup, and
+  // 'І'.toLowerCase() === 'і'.
+  і: "i",
+  ї: "i",
+  ѝ: "i",
+  ѵ: "i",
+  ѐ: "e",
+  ё: "e",
+  э: "e",
+  є: "e",
+  ы: "y",
+  ј: "j",
+  ѕ: "s",
+  ӧ: "o",
+  ӓ: "a",
 };
 
-/** Fold a string (Cyrillic and/or Latin) to a comparable Latin skeleton. */
+/** Latin letters that NFD cannot decompose, and what the server folds them to.
+ *
+ *  ⚠️ Stripping combining marks only reaches letters that HAVE a combining form. `ł ø ß æ
+ *  œ ð đ þ ħ ŋ ı ŧ ŀ ſ` are single indivisible code points, so NFD leaves them untouched
+ *  and the `[^a-z0-9]` filter then DELETES them — the same lost-letter defect the
+ *  diacritic strip was added to fix, one class of character over. Measured: 111 corpus
+ *  rows carry one, mostly Polish contractors, and `searchMatches("Wojskowe Zakłady
+ *  Lotnicze", "zaklady")` was false while the server folded it to `wojskowe zaklady`.
+ *
+ *  DERIVED, not typed: every code point in U+00C0–U+017F (plus the Extended-B letters that
+ *  occur in European names) was folded by the server's `translit_bg_latin()` and compared
+ *  against what this module produces; these 23 are exactly the disagreements. Re-derive
+ *  the same way if the server's unaccent rules ever change — a hand-list here would drift
+ *  from the server silently, and the failure is a search that returns nothing. */
+const LATIN_EXTRA: Record<string, string> = {
+  æ: "ae",
+  ð: "d",
+  ø: "o",
+  þ: "th",
+  ß: "ss",
+  đ: "d",
+  ħ: "h",
+  ı: "i",
+  ĳ: "ij",
+  ĸ: "q",
+  ŀ: "l",
+  ł: "l",
+  ŉ: "n",
+  ŋ: "n",
+  œ: "oe",
+  ŧ: "t",
+  ſ: "s",
+  ƀ: "b",
+  ɓ: "b",
+  ɖ: "d",
+  ƒ: "f",
+  ƶ: "z",
+  ȷ: "j",
+};
+
+/** Drop combining marks from ONE character, for the Latin side only.
+ *
+ *  ⚠️ It is applied per character AFTER the Cyrillic lookup misses, never to the whole
+ *  string up front, and the difference is a real regression that the punctuation test
+ *  caught: NFD decomposes `й` into `и` + U+0306 COMBINING BREVE, so a blanket strip turns
+ *  „АЕЦ Козлодуй" into `kozlodui` — it silently re-spells a Bulgarian letter as a
+ *  different one. `й` and `ё` are in CYR_TO_LATIN and so never reach this. */
+const stripDiacritics = (ch: string): string =>
+  ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+/** Fold a string (Cyrillic and/or Latin) to a comparable Latin skeleton.
+ *
+ *  ⚠️ LATIN DIACRITICS ARE STRIPPED FIRST, and that step is not cosmetic. Without it an
+ *  accented Latin letter is in neither `CYR_TO_LATIN` nor `[a-z0-9]`, so it survives the
+ *  lookup unchanged and is then DELETED by the filter below — „Hörmann" folded to
+ *  `hrmann` and „Cañón" to `can`, losing a letter rather than mis-spelling one, which is
+ *  why it never looked like a bug to anyone reading the output.
+ *
+ *  It also brings this function CLOSER to the server's `translit_bg_latin()`, which gets
+ *  the same effect from `unaccent()`. They are deliberately NOT identical — this side
+ *  additionally collapses ч/х and strips every non-alphanumeric, which is right for a
+ *  substring filter over text a reader is scanning and wrong for a stored name index —
+ *  so the property that must hold is narrower and more important than equality: NEITHER
+ *  SIDE MAY DROP A LETTER THE OTHER KEEPS. A dropped letter is a search that quietly
+ *  returns nothing. NFD splits a letter into base + combining mark and the range below is
+ *  the combining-diacritics block. */
 export const latinSkeleton = (s: string): string => {
   let out = "";
-  for (const ch of s.toLowerCase()) out += CYR_TO_LATIN[ch] ?? ch;
+  for (const ch of s.toLowerCase())
+    out += CYR_TO_LATIN[ch] ?? LATIN_EXTRA[ch] ?? stripDiacritics(ch);
   // Collapse ч(→"ch")/х(→"h") and any typed "ch" to a single "h" so "arch",
   // "arh" and "арх" all fold alike. sh/zh/sht keep their "h" (no bare "ch").
   return out.replace(/ch/g, "h").replace(/[^a-z0-9]/g, "");

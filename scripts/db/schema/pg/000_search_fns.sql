@@ -35,20 +35,43 @@ END $$;
 -- the Commerce Registry writes the same person's name inconsistently across filings.
 -- IMMUTABLE is preserved (regexp_replace/btrim are immutable). Changing this body makes
 -- every STORED *_fold generated column stale until recomputed — see
--- 099_translit_fold_recompute.sql.
+-- 099_translit_fold_recompute.sql and docs/plans/search-fold-homoglyphs-v1.md.
+--
+-- ⚠️ `unaccent` RUNS FIRST, and the order is the fix rather than a style choice. It used
+-- to run AFTER the Cyrillic→Latin translate, which meant anything it folded INTO a
+-- Bulgarian letter re-entered the output as Cyrillic: `unaccent('ё')` is `е` (U+0435), so
+-- `translit_bg_latin('ё')` returned a CYRILLIC е and the function was not idempotent —
+-- folding its own output again produced the Latin `e` it should have produced first time.
+-- Verified safe in this position: unaccent leaves й Й ъ щ ю and every homoglyph below
+-- untouched, and ё/Ё is the ONLY character it changes here, so nothing loses its
+-- transliteration by being unaccented before the translate rather than after it.
+--
+-- ⚠️ The translate set covers the Bulgarian alphabet AND the Cyrillic HOMOGLYPHS that are
+-- not in it. Without them a homoglyph passes through into the stored fold, where it can
+-- never be matched: the query side runs this same function, so both sides agree on a
+-- character no reader will ever type. All ten below were MEASURED in the corpus
+-- (2026-08-20) rather than guessed —
+--   і U+0456  2,155,780 occurrences — ЦАИС writes „Раздел І:" with the Cyrillic І
+--   ѝ U+045D      8,227 — Bulgarian's own grave-accented и
+--   э U+044D        910 · ы U+044B 596 — Russian-language specifications
+--   ј U+0458         65 · ӧ U+04E7 13 — e.g. „hӧrmann gmbh", Hörmann with a Cyrillic ӧ
+--   ѵ U+0475          3 · ѕ U+0455 3 · є U+0454 2 · ӓ U+04D3 2
+-- — and each is paired with its uppercase twin, because translate runs BEFORE lower().
+-- ї/Ї and ѐ/Ѐ are mapped too: they are the unused members of families whose siblings are
+-- in the corpus, and a 1:1 pair costs nothing to carry.
 CREATE OR REPLACE FUNCTION translit_bg_latin(txt text)
   RETURNS text LANGUAGE sql IMMUTABLE PARALLEL SAFE AS
 $$
   SELECT btrim(regexp_replace(
-    lower(public.unaccent('public.unaccent'::regdictionary, translate(
+    lower(translate(
     replace(replace(replace(replace(replace(replace(replace(
     replace(replace(replace(replace(replace(replace(replace(
-      coalesce(txt, ''),
+      public.unaccent('public.unaccent'::regdictionary, coalesce(txt, '')),
       'ж','zh'),'Ж','zh'),'ц','ts'),'Ц','ts'),'ч','ch'),'Ч','ch'),
       'ш','sh'),'Ш','sh'),'щ','sht'),'Щ','sht'),'ю','yu'),'Ю','yu'),
       'я','ya'),'Я','ya'),
-    'абвгдезийклмнопрстуфхъьАБВГДЕЗИЙКЛМНОПРСТУФХЪЬ',
-    'abvgdeziyklmnoprstufhayabvgdeziyklmnoprstufhay'))),
+    'абвгдезийклмнопрстуфхъьАБВГДЕЗИЙКЛМНОПРСТУФХЪЬіІїЇѝЍѐЀэЭєЄыЫјЈѕЅӧӦӓӒѵѴ',
+    'abvgdeziyklmnoprstufhayabvgdeziyklmnoprstufhayiiiiiieeeeeeyyjjssooaaii')),
     '[[:space:]–—-]+', ' ', 'g'));
 $$;
 

@@ -8,13 +8,14 @@
 // same wrong answer, so the search returns rows, just never THAT row. A term is
 // unfindable by anyone typing its Latin form, and nothing errors.
 //
-// Two holes are known (docs/plans/search-fold-homoglyphs-v1.md):
+// Two holes had to be fixed in the function (plan T1, now applied — so the past tense
+// below is deliberate; what still lags is the CORPUS, which is what this file measures):
 //
-//   A. ORDER. `unaccent` runs AFTER the Cyrillic→Latin `translate`, so anything it
-//      folds INTO a Bulgarian letter re-enters the output as Cyrillic —
-//      `translit_bg_latin('ё')` returns `е` (U+0435), not `e`.
-//   B. COVERAGE. The mapping is the 30-letter Bulgarian alphabet, so Cyrillic
-//      HOMOGLYPHS outside it pass straight through: `і`/`І` (U+0456/U+0406) is in
+//   A. ORDER. `unaccent` ran AFTER the Cyrillic→Latin `translate`, so anything it
+//      folded INTO a Bulgarian letter re-entered the output as Cyrillic —
+//      `translit_bg_latin('ё')` returned `е` (U+0435) rather than `e`.
+//   B. COVERAGE. The mapping was the 30-letter Bulgarian alphabet, so Cyrillic
+//      HOMOGLYPHS outside it passed straight through: `і`/`І` (U+0456/U+0406) is in
 //      50,256 of 50,283 dossier folds, because ЦАИС's own notice template writes the
 //      Roman numeral in „Раздел І:" with a Cyrillic І.
 //
@@ -297,31 +298,99 @@ test.skipIf(skip)(
   },
 );
 
-// THE DEFECT ITSELF, PINNED. `translit_bg_latin` is not idempotent today: `ё` folds to
-// a Cyrillic `е`, and folding that result again yields the Latin `e` it should have
-// produced the first time. That single property is the cheapest possible gate for hole
-// A, and it is asserted here in its CURRENT (broken) state on purpose.
+// ─────────────────────────────────────────────────────────────────────────────────────
+// STALE STORED FOLDS — the mechanical link between a function change and the refold.
 //
-// It is not a claim that the behaviour is right — it is a tripwire on the coupling the
-// plan's §4 is about. Fixing the function without rewriting the stored folds BREAKS
-// searches that work today (a reader typing Cyrillic `І` currently matches the stored
-// `і`; afterwards the query folds to `i` and the stored value has not moved yet), so
-// the fix and the refold must land together. Whoever changes the function will fail
-// this test and be sent to the plan, rather than shipping half of a two-part change.
+// A correctly folded value is a FIXED POINT of the fold: `translit_bg_latin(fold) = fold`.
+// So a row whose stored fold disagrees with the installed function was folded by an older
+// body and has not been rewritten since. That is the plan's §4 hazard in one predicate,
+// and it needs no knowledge of which source column each generated fold derives from.
+//
+// ⚠️ THE EXPECTATION BELOW IS `true` FOR MOST COLUMNS ON PURPOSE. `translit_bg_latin` was
+// fixed (plan T1) before the corpus was rewritten (plan T2), which is the only possible
+// order — and in between, the query side folds `І` to `i` while the stored side still says
+// `і`, so those rows are unfindable by EITHER spelling. Recording that state here is what
+// stops the interval from being invisible: when T2's refold lands, every `true` becomes
+// `false`, this test fails, and whoever ran the refold has to record that it worked.
+//
+// ⚠️ THE SCAN IS BOUNDED, AND THE BOUND IS WHAT MAKES IT RUNNABLE. The predicate calls
+// the fold per row and the dossier bodies are documents — an unbounded count over
+// `tender_search_text` did not finish in 300 s, and even a flat 20,000-row bound blew the
+// 120 s test timeout. Two things cut it to seconds:
+//   - only rows that CARRY Cyrillic can be stale FROM THIS CHANGE, so the candidate set
+//     is the cheap regex the residue test already runs. ⚠️ That narrowing is specific to
+//     a change in the CHARACTER MAPPING. An ASCII fold is not a fixed point in general —
+//     a hyphen, a tab, a double space, a leading space or an uppercase letter all fold
+//     further, which is exactly the class migration 099 introduced — so a future change
+//     to the whitespace collapse would be INVISIBLE here and needs its own candidate set;
+//   - of those candidates only a handful need folding to answer a boolean.
+// Both narrowings can only ever MISS staleness, never invent it — and every column here
+// is either densely stale or not stale at all, so a miss would have to be a column whose
+// entire residue sits beyond the first `STALE_SAMPLE` rows.
+const STALE_SAMPLE = 200;
+
+const EXPECT_STALE: Record<string, boolean> = {
+  "awarder_search.name_fold": true,
+  "contractor_search.name_fold": true,
+  "contracts.title_fold": true,
+  // The only two that were already clean: no homoglyph has ever reached a person name.
+  "person.name_fold": false,
+  "person_alias.alias_fold": false,
+  "person_search.name_fold": true,
+  "tenders.buyer_fold": true,
+  "tenders.subject_fold": true,
+  "tr_companies.name_fold": true,
+  "tr_officers.name_fold": true,
+  "tr_person_roles.name_fold": true,
+  "tender_search_text.fold": true,
+};
+
 test.skipIf(skip)(
-  "translit_bg_latin is NOT YET idempotent — plan T1 flips this",
+  "stored folds agree with the installed function — or are recorded as not yet rewritten",
   async () => {
-    const [row] = await allRows<{ once: string; twice: string }>(
-      `SELECT translit_bg_latin('ё') AS once,
-            translit_bg_latin(translit_bg_latin('ё')) AS twice`,
+    const wrong: string[] = [];
+    for (const { table, column, key } of FOLD_COLUMNS) {
+      const [row] = await allRows<{ stale: boolean | null; seen: string }>(
+        `WITH candidates AS (
+           SELECT "${column}" AS v FROM "${table}"
+            WHERE "${column}" ~ $1 OR "${column}" ~ $2
+            LIMIT ${STALE_SAMPLE})
+         SELECT bool_or(translit_bg_latin(v) IS DISTINCT FROM v) AS stale,
+                count(*)::text AS seen
+           FROM candidates`,
+        [BG_CLASS, EXTRA_CLASS],
+      );
+      // ⚠️ An EMPTY table must SKIP, never resolve to "current". `tender_search_text` is
+      // created empty by migration 147 and filled only by a REFRESH_EXCLUSIONS loader
+      // behind a gitignored ~26 h crawl, so on a fresh clone it legitimately has no rows
+      // — and collapsing that into `stale = false` would fail `db:refresh` at its final
+      // test:data step with a message advising exactly the edit that permanently retires
+      // this gate on the machines that DO hold the corpus.
+      const [total] = await allRows<{ n: string }>(
+        `SELECT count(*)::text AS n FROM (SELECT 1 FROM "${table}" LIMIT 1) x`,
+      );
+      if (Number(total.n) === 0) continue;
+      // Rows exist but none carries Cyrillic — nothing that COULD be stale.
+      const stale = Number(row.seen) > 0 && row.stale === true;
+      const expected = EXPECT_STALE[key];
+      if (expected === undefined) {
+        wrong.push(`${key}: no staleness expectation declared`);
+      } else if (stale !== expected) {
+        wrong.push(
+          stale
+            ? `${key}: stored folds are STALE but declared current — a function change ` +
+                `landed without the refold, so these rows match neither spelling`
+            : `${key}: stored folds are now CURRENT but declared stale — the refold ran; ` +
+                `set EXPECT_STALE["${key}"] = false and re-measure its residue down to 0`,
+        );
+      }
+    }
+    assert.deepEqual(
+      wrong,
+      [],
+      `stored folds and the installed translit_bg_latin() disagree about who is up to date:\n  ` +
+        wrong.join("\n  ") +
+        `\nSee docs/plans/search-fold-homoglyphs-v1.md §4 and T2.`,
     );
-    assert.equal(
-      row.once,
-      "е",
-      "translit_bg_latin('ё') no longer returns a Cyrillic е — if hole A was fixed, the " +
-        "stored folds must be rewritten in the same window (docs/plans/search-fold-homoglyphs-v1.md T2) " +
-        "and this test replaced by a real idempotence assertion",
-    );
-    assert.equal(row.twice, "e", "the second fold no longer reaches Latin e");
   },
 );
