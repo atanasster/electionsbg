@@ -88,11 +88,44 @@ UPDATE person_search     SET name = name;
 -- INSERTs will fold it correctly; nothing needs to happen in this file.
 
 -- Refresh the matviews aggregated/joined on those folds so their keys track the new folds.
-REFRESH MATERIALIZED VIEW owner_name_counts;
-REFRESH MATERIALIZED VIEW officer_name_counts;
-REFRESH MATERIALIZED VIEW company_officer_counts;
-REFRESH MATERIALIZED VIEW company_person_roles;
-REFRESH MATERIALIZED VIEW declaration_stake_company;
+--
+-- ⚠️ CONCURRENTLY WHERE POSSIBLE, and on a serving database that is the difference between
+-- a refresh and an outage. A plain REFRESH takes an AccessExclusiveLock for its whole run,
+-- so every reader of these five blocks — `company_person_roles` alone is 311 MB and takes
+-- ~500 s to rebuild, which on a db-g1-small is /connections and the conflict-of-interest
+-- surfaces hanging for eight minutes in the middle of the day. CONCURRENTLY takes an
+-- ExclusiveLock instead and readers keep the previous contents until it commits.
+--
+-- Two preconditions, which is why this is a DO block rather than five plain statements:
+-- CONCURRENTLY needs a UNIQUE index (all five have one) and refuses on a matview that was
+-- created WITH NO DATA. The fallback matters on a COLD database — a fresh clone or a first
+-- cloud deploy — where an unpopulated matview would otherwise raise and, since exec() sends
+-- this file as one transaction, roll the entire refold back.
+--
+-- Verified on 16.14: unlike VACUUM and CREATE INDEX CONCURRENTLY, REFRESH ... CONCURRENTLY
+-- IS allowed inside a transaction block, so it composes with the way migrations are applied.
+DO $$
+DECLARE
+  mv text;
+  populated boolean;
+BEGIN
+  FOREACH mv IN ARRAY ARRAY[
+    'owner_name_counts', 'officer_name_counts', 'company_officer_counts',
+    'company_person_roles', 'declaration_stake_company'
+  ] LOOP
+    SELECT c.relispopulated INTO populated
+      FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+     WHERE c.relkind = 'm' AND n.nspname = 'public' AND c.relname = mv;
+    IF populated IS NULL THEN
+      RAISE NOTICE 'skipping %: not present on this database', mv;
+    ELSIF populated THEN
+      EXECUTE format('REFRESH MATERIALIZED VIEW CONCURRENTLY %I', mv);
+    ELSE
+      -- Never populated, so there are no readers to protect and CONCURRENTLY would refuse.
+      EXECUTE format('REFRESH MATERIALIZED VIEW %I', mv);
+    END IF;
+  END LOOP;
+END $$;
 
 -- ⚠️ VACUUM AFTERWARDS — IT IS NOT OPTIONAL, AND IT CANNOT LIVE IN THIS FILE.
 -- `apply_functions.ts` runs a migration through `exec()`, which sends the whole file as
