@@ -65,6 +65,14 @@ const REPO = path.resolve(
 // procurement and TR hot paths. `contracts` is 2,449 MB and the largest thing 176
 // touches, so it is the one that matters most.
 const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
+  // /governance/companies (178) — built by CREATE MATERIALIZED VIEW ... AS inside
+  // load_declarations_pg's phase 2, which is the classic empty-map shape. The page sorts
+  // by money and by person count over 17,681 rows, so both are index-only scans or they
+  // are nothing.
+  {
+    table: "official_companies",
+    loader: "npm run db:load:declarations:pg -- --resolve",
+  },
   // ⚠️ THE SCAN BELOW CANNOT SEE THESE TWO. Their vacuum lives in
   // `scripts/prices/load_day.ts`, and neither LOADER_FILES (a glob over
   // `scripts/db/load_*.ts`) nor DELEGATE_FILES (their escaping imports) reaches

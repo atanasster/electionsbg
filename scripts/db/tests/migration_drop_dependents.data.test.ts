@@ -60,6 +60,16 @@ afterAll(async () => {
 // dropped relation and listing the dependents by name, so a NEW dependent appearing on one
 // of these still fails.
 const SANCTIONED: Record<string, { dependents: string[]; why: string }> = {
+  declaration_stake_company: {
+    dependents: ["official_companies"],
+    why:
+      "096's DROP … CASCADE takes it, and load_declarations_pg.ts — the only applier of 096 " +
+      "— applies 178 a few statements later on the same path, with a comment at the constant " +
+      "saying that is why it is applied there. Same shape as person_wealth_year's six. NOTE " +
+      "178's OTHER input, company_public_money (127), is NOT sanctionable this way: 127's " +
+      "only applier is db:load:graph:pg, a different loader that would never rebuild 178 — " +
+      "so 178 reads that one through a plpgsql wrapper instead.",
+  },
   person_wealth_year: {
     dependents: [
       "officials_rankings_table",
