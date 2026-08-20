@@ -13,7 +13,7 @@
 -- ⚠️ `share` is the DERIVED percentage from tr_owner_share, never the stored
 -- tr_person_roles.share — see that view's header. It stays sortable and
 -- range-filterable in db_table.js, so a NULL must mean "no answer" everywhere
--- that reads it: 7,769 companies legitimately publish no percentage at all.
+-- that reads it: 4,228 companies legitimately publish no percentage at all.
 -- `share_eur` is the amount that percentage is built from; render it rather
 -- than share_amount, which is one RECORD's figure in its own currency.
 --

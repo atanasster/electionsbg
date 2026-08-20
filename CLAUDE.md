@@ -3042,6 +3042,102 @@ The single-producer fix is `pd.name_en` on the prerender card (the locals query 
 `person:slugs:cloud` mint — the manifest is committed, so a card field changes nothing until
 the file is re-minted from the serving database.
 
+### `tr_owner_share` — the ONE definition of who owns what percentage of a company
+
+`tr_owner_share` (a VIEW in `003_tr_search.sql`) answers "what fraction of this company
+does this person own". FOUR serving surfaces read it and nothing else may read the stored
+`tr_person_roles.share`: `company_officers()` and `person_roles()` (008), the
+`company_person_roles` matview (022) and `mp_tr_roles()` (150). Plan:
+`docs/plans/tr-owner-share-v1.md`.
+
+⚠️ **`erased_at IS NULL` DOES NOT MEAN CURRENT.** The TR daily feed re-lists the WHOLE
+partner set on every capital change and never erases the prior vintage, so a denominator
+built from "every non-erased owner row" sums a company's cap table once per filing it has
+ever made. Since the euro changeover it also added лв and EUR as bare numbers — a
+re-denomination is filed as a new vintage. БИЛЯНА ООД (104119056) published **26% + 8%**
+against a real **75.5% + 24.5%**. Measured 2026-08-20 before the fix: 10,400 companies
+understated (mean 50.4%), 777 overstated (mean 200.8%).
+
+**The rule:** the current cap table is the LATEST ACTIVE OWNER VINTAGE, and each owner's
+share is their amount over that vintage's total, normalised to EUR at the peg. Validated
+against `tr_companies.funds_amount` on the 11,502 multi-vintage companies that carry one —
+the view's denominator reconciles for **10,923 (95.0%)** against **130 (1.1%)** for the raw
+all-active sum it replaces (that is the pair the gate asserts). 351,981 of 356,209 companies
+get a percentage and every one sums to 100% within the `round(…, 4)` residue.
+
+Five things about it are easy to get backwards:
+
+- ⚠️ **003 MUST BE APPLIED BEFORE 008 AND 022.** `person_roles`/`company_officers` are
+  `LANGUAGE sql` and 008 does NOT set `check_function_bodies = off`, so both bodies are
+  validated at CREATE and raise 42P01 on a database whose 003 predates the view, rolling
+  the whole file back. 022 gets no cover from its own `SET` either — a matview resolves
+  its query at creation regardless. `db:load:tr:pg` applies 003 → 008 → 022 in order; a
+  standalone function fix must name them together:
+
+  ```bash
+  DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+    003_tr_search.sql 008_connections.sql 022_company_officers.sql \
+    148_person_company_basis.sql 150_mp_tr_roles.sql
+  ```
+
+  ⚠️ **150 IS THE ONE `db:load:tr:pg` DOES NOT APPLY** — its only applier in the repo
+  is `db:resolve:persons` (`resolve_persons.ts`'s SCHEMA_FILES). So a TR publish alone
+  leaves `mp_tr_roles()` on the old body, and `/api/db/mp-management` keeps publishing
+  the defect at a 200 beside a corrected `/company/:eik`. 148 must precede it in the
+  same command: 150's `LANGUAGE sql` body SELECTs `person_company_bridge_a`, which
+  only 148 creates.
+
+- ⚠️ **A VIEW change leaves `company_person_roles` STALE, and nothing says so.** The
+  matview is built FROM the view, so `/company/:eik/officers` keeps serving the previous
+  rule at a 200 until it is refreshed. Prefer the REFRESH to re-applying 022: 022 opens
+  with `DROP MATERIALIZED VIEW`, and the `company_person_roles` DbDataTable resource reads
+  the base relation with no `missingMigration` degrade, so that page **500s for the whole
+  rebuild**. The unique index on `key` exists, so the refresh can be concurrent:
+  `REFRESH MATERIALIZED VIEW CONCURRENTLY company_person_roles;`
+
+- **A CONSUMER WITH NO CONSTANT `uic` MUST CORRELATE, NEVER `LEFT JOIN`.** The view is
+  cheap only when the planner can push a `uic` into it. `company_officers(eik)` has one;
+  `person_roles(q)` filters on `name_fold` and has none, so a plain join made the planner
+  build all 455k view rows to answer for one person — **200,666 buffers / 1,465 ms**, on a
+  route a crawler walks under a 10 s `statement_timeout`. Correlated it is low hundreds
+  (83–137 measured across fixtures and cache states; the gate's ceiling is 5,000). EXPLAIN
+  any new consumer — a slow one looks identical to a fast one in the result, and the gate
+  anchors on the view's OWN scan node because `person_roles` also joins `tr_companies` on
+  `uic`, so a bare `Index Cond: (uic =` regex matches even the regressed form.
+
+- **The rule exists TWICE and the two must agree.** `owner_share.ts`
+  (`scripts/declarations/tr/`) is the TypeScript twin, because the SQLite corpus is written
+  offline before Postgres exists and its `share_percent` reaches `/mp-company/:eik` through
+  `integrate.ts` → `companies-index.json`, which renders the number directly. ⚠️ Its change
+  is **INERT** until the corpus is rebuilt — `npm run tr:daily-refresh` then
+  `db:load:tr:pg` — and the gate SKIPS with a distinct reason until then, which must never
+  read as "the twins agree". Note `project_cr_deeds.ts` is a SECOND writer into the same
+  table and runs AFTER `sqlite_writer`, so it re-derives over the merged row set; without
+  that the stored value and the view partition over different rows and cannot agree.
+
+- ⚠️ **„Заличено обстоятелство." IS NOT A PERSON.** It is the register's deleted-fact
+  placeholder — 4,356 owner rows carry it, not one has an amount — and counting it as an
+  owner makes a two-owner company out of a one-owner one, refusing 4,299 lone sole owners
+  their correct 100%. BOTH implementations exclude it; excluding on one side only makes
+  them disagree about who the owners are, which is worse than the defect it fixes.
+
+**Cloud side.** `npm run db:load:tr:pg:cloud` applies 003 → 008 → 022 in order and
+refreshes the matview — but **NOT 150**, so it must be followed by either
+`npm run db:resolve:persons:cloud` (a multi-hour rebuild) or the `apply_functions.ts`
+command above, which is the cheap path. Then `npm run deploy:db` (the
+`share_eur` column on the `company_person_roles` registry resource in `db_table.js`) and
+`npm run deploy` (`formatOwnerShare`, which renders one decimal and must never re-acquire
+the client-side `sole_owner → 100%` fallback the server now refuses).
+
+**The gate is `scripts/db/tests/tr_owner_share.data.test.ts`** (22 tests), plus 23 unit
+tests on the TS twin and 12 on the formatter. It carries a mutation check that deliberately
+does NOT use "the shares sum to 100%" — the OLD broken denominator summed to 100% too, and
+that is exactly why the defect survived — reconciling the view's own denominator against
+registered capital instead. Two reference companies, because neither catches both defects:
+БИЛЯНА's vintages carry identical лв:EUR proportions so its percentages are invariant under
+the currency fold, and МИТОТОПИЯ (208164555) is the one where folding decides which partner
+is the majority owner.
+
 ### SQL functions and indexes — applied, never loaded
 
 A serving FUNCTION or an INDEX carries no data, so no `db:load:*` ships it. The person functions
@@ -3381,7 +3477,7 @@ failed repair. `company_founded` is the one member with no `RELOADED` entry — 
 passes the table as a VARIABLE, which the gate's string-literal scan cannot see:
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) declaration_employer_link, grant_contract_link, tender_subcontracting, ted_notice, ted_coverage, adfi_inspection, aop_expert, aop_expert_area, isun_clean_contract, isun_clean_beneficiary, adfi_coverage, obshtina_population, fund_projects, fund_beneficiaries, company_founded, tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, budget_fiscal_year, budget_fiscal_year_figure, budget_kfp_observation, budget_kfp_snapshot_section, budget_kfp_snapshot_line, budget_personnel, budget_admin_procurement, budget_muni_transfer, budget_muni_ipop_project, budget_muni_capital_project, budget_muni_execution, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, council_muni, council_muni_code, council_resolution, council_vote, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) declaration_employer_link, grant_contract_link, tender_subcontracting, ted_notice, ted_coverage, adfi_inspection, aop_expert, aop_expert_area, isun_clean_contract, isun_clean_beneficiary, adfi_coverage, obshtina_population, fund_projects, fund_beneficiaries, company_founded, tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, tender_search_text, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, budget_fiscal_year, budget_fiscal_year_figure, budget_kfp_observation, budget_kfp_snapshot_section, budget_kfp_snapshot_line, budget_personnel, budget_admin_procurement, budget_muni_transfer, budget_muni_ipop_project, budget_muni_capital_project, budget_muni_execution, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, council_muni, council_muni_code, council_resolution, council_vote, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE

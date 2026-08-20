@@ -677,13 +677,20 @@ test.skipIf(skip)(
 // ── Query plans ──────────────────────────────────────────────────────────────
 
 /**
+ * The view's OWN scan of tr_person_roles must carry a per-uic qual.
+ *
  * ⚠️ NOT a bare /Index Cond: \(uic = /. person_roles also LEFT JOINs tr_companies on uic,
- * so that matches from tr_companies_pkey even when the view's own scan has degraded to a
- * full index scan — measured on the regressed LEFT JOIN form, 184,292 buffers with the
- * bare regex still matching. Anchor on the NODE that scans the view's base table.
+ * so that matches from tr_companies_pkey even when the view's scan has degraded to a full
+ * index scan — measured on the regressed LEFT JOIN form, 184,292 buffers with the bare
+ * regex still matching. Anchor on the INDEX, which only the view's side uses.
+ *
+ * ⚠️ Both plan shapes are accepted on purpose. The planner picks a plain Index Scan or a
+ * Bitmap Index Scan + Bitmap Heap Scan depending on the row filter — adding the
+ * deleted-fact-placeholder exclusion to the view flipped company_officers from the first
+ * to the second. Either is fine; what must not happen is the qual disappearing.
  */
 const VIEW_PROBE =
-  /Index Scan using idx_tr_person_roles_uic on tr_person_roles \w+[^\n]*\n\s*Index Cond: \(uic = /;
+  /(?:Bitmap Index Scan on idx_tr_person_roles_uic|Index Scan using idx_tr_person_roles_uic on tr_person_roles \w+)[^\n]*\n\s*Index Cond: \(uic = /;
 
 test.skipIf(skip)(
   "person_roles() does not materialise the whole view",

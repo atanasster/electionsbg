@@ -238,7 +238,7 @@ ALTER TABLE tr_person_roles ADD COLUMN IF NOT EXISTS name_fold      text GENERAT
 -- tolerance, NEVER equality.
 --
 -- The 4,228 that get no percentage break down cleanly, and every one is
--- attributable: 4,143 a missing share_amount (3,810 with several current
+-- attributable: 4,143 a missing share_amount (3,725 with several current
 -- owners, 418 with a single partner) and 85 the restated-stake refusal below.
 -- None is refused for the sole_owner ambiguity alone.
 -- Gate: scripts/db/tests/tr_owner_share.data.test.ts.

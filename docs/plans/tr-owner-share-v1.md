@@ -1,6 +1,6 @@
 # Ownership percentages on `/company/:eik` — v1
 
-**Status:** in progress · **Opened:** 2026-08-20
+**Status:** complete (T1-T5) · **Opened:** 2026-08-20
 
 ## The report
 
@@ -62,11 +62,23 @@ share is their amount over that vintage's total, normalised to EUR at 1.95583.
 Chosen on evidence. Against the registered capital (`tr_companies.funds_amount`)
 on the 11,502 multi-vintage companies that carry one:
 
-| denominator                        | reconciles with registered capital |
-| ---------------------------------- | ---------------------------------- |
-| all active owner rows (the defect) | 413 (3.6%)                         |
-| **latest active owner vintage**    | **10,951 (95.2%)**                 |
-| latest row per person              | 8,685 (75.5%)                      |
+The gate measures the rule AS IMPLEMENTED against the defect AS SHIPPED — the
+view's own denominator versus a raw sum of every active owner amount:
+
+| denominator                                     | reconciles         |
+| ----------------------------------------------- | ------------------ |
+| all active owner rows, raw sum (**the defect**) | 130 (1.1%)         |
+| **`tr_owner_share.share_eur` (the rule)**       | **10,923 (95.0%)** |
+
+The three-way comparison below isolates the DENOMINATOR choice with the currency
+fold applied to all three rows, which is why its baseline is 413 rather than 130 —
+the defect did not fold currency, so 130 is the honest figure for it:
+
+| denominator (currency folded throughout) | reconciles         |
+| ---------------------------------------- | ------------------ |
+| all active owner rows                    | 413 (3.6%)         |
+| **latest active owner vintage**          | **10,951 (95.2%)** |
+| latest row per person                    | 8,685 (75.5%)      |
 
 Two refusals, both the safe direction:
 
@@ -98,20 +110,60 @@ and the other 3,344 inside ±0.0055pp, because three equal owners are
 33.3333 × 3 = 99.9999. The gate asserts the tolerance, never equality.
 
 The **4,228** that get no percentage are each attributable: 4,143 a missing
-`share_amount` (3,810 with several current owners, 418 with a single partner)
+`share_amount` (3,725 with several current owners, 418 with a single partner)
 and 85 the restated-stake refusal.
 
 ## Steps
 
-- **T1** — `tr_share_eur()` + the `tr_owner_share` view in `003_tr_search.sql`.
-- **T2** — serve it: `company_officers()` and `person_roles()` (008), the
-  `company_person_roles` matview (022). Join inside each dedup CTE on the full
+- **T1** ✅ — `tr_share_eur()` + the `tr_owner_share` view in `003_tr_search.sql`.
+- **T2** ✅ — serve it: `company_officers()` and `person_roles()` (008), the
+  `company_person_roles` matview (022), and `mp_tr_roles()` (150 — a fourth
+  consumer the first draft missed). Join inside each dedup CTE on the full
   `(uic, name_fold, role)` key: the view exposes `name_fold` rather than `name`,
   and 55 `(uic, name_fold)` pairs hold both a `partner` and a `sole_owner` row in
-  the current vintage, so a two-column join fans out.
-- **T3** — `scripts/db/tests/tr_owner_share.data.test.ts`, with a mutation check.
-- **T4** — the writer's stored `share_percent` (TS twin of the same rule).
-- **T5** — CLAUDE.md + publish/ordering notes.
+  the current vintage, so a two-column join fans out. Also removed the client-side
+  `sole_owner && share == null → "100%"` fallback from three call sites, which
+  would have re-manufactured the 200.8% totals the server now refuses.
+- **T3** ✅ — `scripts/db/tests/tr_owner_share.data.test.ts`, with a mutation check
+  that reconciles against registered capital rather than asserting sums-to-100.
+- **T4** ✅ — the writer's stored `share_percent` (`owner_share.ts`, the TS twin).
+- **T5** ✅ — CLAUDE.md + publish/ordering notes.
+
+## Publishing
+
+`npm run db:load:tr:pg:cloud` applies 003 → 008 → 022 in order and refreshes the
+matview, so an ordinary TR publish carries the whole change. For a body-only fix:
+
+```bash
+DATABASE_URL=<target> npx tsx scripts/db/apply_functions.ts \
+  003_tr_search.sql 008_connections.sql 022_company_officers.sql \
+  148_person_company_basis.sql 150_mp_tr_roles.sql
+```
+
+then `REFRESH MATERIALIZED VIEW CONCURRENTLY company_person_roles;` — a change to
+the VIEW alone leaves the matview serving the previous rule at a 200, and the
+concurrent form avoids the 500s that re-applying 022 causes (it DROPs the matview,
+which the DbDataTable resource reads with no degrade).
+
+⚠️ **`db:load:tr:pg[:cloud]` does NOT apply 150.** Its only applier is
+`db:resolve:persons`, so a TR publish on its own leaves `mp_tr_roles()` on the old
+body and `/api/db/mp-management` publishing the defect beside a corrected
+`/company/:eik`. 148 precedes 150 because 150's body SELECTs
+`person_company_bridge_a`, which only 148 creates.
+
+Then `npm run deploy:db` (the `share_eur` column on the `company_person_roles`
+registry resource) and `npm run deploy` (`formatOwnerShare`).
+
+⚠️ **003 must precede 008 and 022 in that command.** 008 does not set
+`check_function_bodies = off`, so its two `LANGUAGE sql` bodies are validated at
+CREATE and raise 42P01 against a database whose 003 predates the view, rolling the
+whole file back; and a matview resolves its query at creation regardless of that
+setting, so 022 has no cover either.
+
+⚠️ **The TS twin is INERT until the SQLite corpus is rebuilt** — `npm run
+tr:daily-refresh` then `db:load:tr:pg`. Until then `/mp-company/:eik` keeps
+rendering the old percentages, and the twin-agreement gate skips with a distinct
+reason rather than passing.
 
 ## Performance
 
@@ -130,7 +182,7 @@ latest row predates the current cap table now shows "—" instead of a wrong
 number; whether they are still an owner at all is a separate question about the
 dedup, not about this rule.
 
-The population that renders "—" is bounded above by the 7,769 companies that get
+The population that renders "—" is bounded above by the 4,228 companies that get
 no percentage at all — a different and larger set than the vintage-mixing one.
 An earlier draft put the vintage-mixing count at ~1,262, derived from the gap
 between the latest-vintage and latest-row-per-person reconciliation rates in the
