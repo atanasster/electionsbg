@@ -114,6 +114,58 @@ git commit -m "budget: ingest through YYYY-MM"
 
 The canary fixtures (`tests/fixtures/budget/*.json`) are committed.
 
+## Step 4 — Publish to Cloud SQL
+
+Nothing does this automatically. Until 2026-08-20 this file contained zero `db:load`
+and zero `:cloud` strings, so the budget corpus had no publish path written down here
+at all (`place-dim` was named in other skills; the four budget loaders were named
+nowhere). **Order matters at both ends:**
+
+```bash
+npm run db:load:place-dim:pg:cloud         # HARD prerequisite of 149 — see below
+npm run db:load:municipal-fiscal:pg:cloud  # 149: municipal_fiscal + obshtina_population
+npm run db:load:budget:pg:cloud            # 152 КФП · 153 admin/programme · 157
+npm run db:load:budget-muni:pg:cloud       # 154: transfers, execution, capital + ИПОП projects
+npm run db:load:budget-hub:pg:cloud        # 156 — LAST, it reads all of the above
+```
+
+Three things about that order are easy to get backwards:
+
+- **`place-dim` is a hard PREREQUISITE of 149, not a nicety.** Two of 149's three
+  serving functions JOIN `place_dim`, and a `LANGUAGE sql` body is validated at
+  CREATE time — so on a database without it the migration raises `42P01`, and
+  because `exec()` sends the file as ONE transaction the target ends up with **no
+  `municipal_fiscal` table at all**, not merely unlabelled rows. It also supplies
+  `obshtina_population`'s Sofia resolution: the census keys Sofia `SOF46`, which is
+  `place_dim.price_code`.
+- **`budget-hub` must run LAST.** 156's matview reads eleven relations produced by
+  the four loaders above — including `municipal_fiscal` — so running it earlier
+  caches the previous vintage and reports success. (Its twelfth input,
+  `budget_peer_band`, it fills itself; that one is derived from the committed
+  `data/macro_peers.json`, an `update-macro` artifact, so a peer-set change is a
+  second, rarer trigger for this loader.)
+- **`budget:pg` and `budget-muni:pg` are different corpora, and neither fills the
+  other's tables.** 152/153 are the STATE budget — КФП execution, the admin and
+  programme grain, COFOG, personnel. 154 is the MUNICIPAL side: `budget_muni_transfer`
+  (what the state sends down), `budget_muni_execution`, and the capital / ИПОП project
+  registers. Loading one and skipping the other leaves half the `/budget` module on the
+  previous vintage with every row count reconciling.
+
+⚠️ **The side-ingests publish through this step too, and none of them says so.**
+`db:load:budget-muni:pg` reads four committed trees written by four different
+sub-steps of this skill — the Art. 53 transfer envelope, the Приложение III
+investment programme (`dv_investment_annex`), the 26 per-município capital
+programmes (`capital_programs`), and the municipal cash-execution side-ingest
+(`egov_municipal_execution`). Each of those runbooks ends at `git commit`; **that
+commits the data but ships nothing.** If any of them ran, Step 4 is what puts it
+live, and `db:load:budget-hub:pg:cloud` after it is what makes the hub agree.
+
+⚠️ `db:load:budget:pg` is a `REFRESH_EXCLUSIONS` member because its admin and
+programme grain lives in the **gitignored** `data/budget/reconciliation/` and
+`data/budget/ministries/`. That is about the INPUT, not the cost — the load itself is
+~2 MB and seconds. It means a fresh clone has the budget tables EMPTY (the in-chain
+`db:load:budget-muni:pg` creates them), and this is the step that fills them.
+
 ## Revenue-breakdown ingests (separate scripts)
 
 Two complementary ingests live alongside the main budget pipeline but run independently. They itemise the revenue-side wedges (excise, import VAT, customs duties, domestic VAT, PIT) that the KFP feed publishes only as flat aggregates. Run them when the matching watcher source flips (`customs_revenue`, `nap_annual`).
@@ -250,6 +302,9 @@ tsx scripts/budget/municipal_execution/ingest.ts --muni ruse --year 2024
 
 - **Coverage** is in the `REGISTRY` in `ingest.ts` — currently Русе (RSE27, org 157, 2016-2025) and Николаево (SZR38, org 281, 2019-2024). These are the only sizeable munis with fresh, portal-hosted, parseable B3; most общини either link out to their own site or stopped publishing ~2019-2020 (see the one-off survey in this conversation's history). To add a muni, append to `REGISTRY` with its org id, obshtina code, and the resource-name `resourcePref` regex; the parser is generic.
 - **Watcher**: `egov_municipal_execution` flags new/re-uploaded muni-year reports → re-run `--all`.
+
+> **Publish:** these rows reach production through `npm run db:load:budget-muni:pg:cloud` (migration 154) — see **Step 4**. The ingest writes a committed tree and stops; nothing else ships it, so a run that ends at `git commit` leaves the live page on the previous vintage.
+
 - **The revenue side is OWN revenue** (собствени приходи: local taxes, fees, property income) — it funds only part of spending; the rest is state transfers + carry-over, which is why expense ≫ revenue. The tile labels and caption say so; don't "fix" the gap.
 - Output `{muni}/{year}.json` is ~12 KB (paragraph rollups only — под-§§ detail and the 9000-row РАЗХОДИ ПО ДЕЙНОСТИ section are dropped), so no tile-shrink sidecar. `index.json` carries `latestFullYear` so the tile defaults to a complete year, not a mid-year partial.
 - **§§ code format varies**: some files use dashed `01-00`, others no-dash `100`/`1300`; the parser normalizes both. Reads the §§ code from the §§ column only, so the `99-99` grand total (in the под-§§ column) is excluded and the paragraph sum equals the published ВСИЧКО.
