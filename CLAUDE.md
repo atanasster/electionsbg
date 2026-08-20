@@ -315,6 +315,65 @@ threshold that year", the exact false finding this dataset exists to prevent —
 `ted_coverage` carries the per-year counts so the ramp stays visible. `ted_buyer_reconciliation()`
 therefore takes an explicit date range and has no „all time" default.
 
+`isun_clean_contract` / `isun_clean_beneficiary` (migration 175,
+`db:load:clean-delivery:pg`) are the ИСУН „clean delivery" register — what the state
+publishes about EU-funded contracts that ended with no financial correction. Source is
+COMMITTED (`data/funds/clean_delivery.json`), so the loader is pure-load; rebuild it with
+`npm run funds:clean-delivery`.
+
+```bash
+npm run db:load:clean-delivery:pg:cloud
+```
+
+⚠️⚠️ **IT IS AN ACHIEVEMENT REGISTER, NOT THE COMPLEMENT OF „WAS CORRECTED", and
+inverting it is the one thing that must never happen.** Plan P9 asked which contracts were
+clawed back. That is **not derivable** — a project can be absent because it finished LATE,
+was terminated (3,656 `Прекратен` rows in our corpus), or is still in final verification.
+Individual irregularity records go to OLAF's **IMS, which is confidential**; there is no
+public complement anywhere. Subtracting these tables from `fund_projects` would manufacture
+accusations against named beneficiaries out of ordinary lateness — the one direction that
+cannot be walked back. `isun_clean_delivery_coverage.absence_meaning` is **NOT NULL** so a
+row without that sentence cannot exist, and `isun_clean_delivery_for_eik()` returns it
+beside every figure so a page cannot render the number without the caveat.
+
+Four things about it are easy to get backwards:
+
+- ⚠️ **THE JOIN KEY IS `contract_number`, NOT `reg_no`.** ИСУН's registration number carries
+  a `-C##` contract-VERSION suffix (`…-0001-C01`) that `fund_projects.contract_number` does
+  not. Measured: the raw value matches **0 of 9,940**; the stripped base matches **9,940 of
+  9,940**. The data test carries a mutation check on exactly this, because a gate asserting
+  „the join works" passes on an implementation that quietly stopped stripping.
+- ⚠️ **THE TWO REPORTS DISAGREE AND MUST BE LEFT TO.** 9,940 clean contracts against
+  **41,530** on-time contracts declared by clean beneficiaries. That looks exactly like a
+  ~10,000-row export cap (BULSTAT's 999 ceiling, ЦПРС's cartesian product) and **is not** —
+  each listing prints its own pager and they agree with the exports to within a part-page:
+  contracts „Страница (1/398)" → 398×25 = 9,950, beneficiaries „(1/1359)" → 33,975. So the
+  4× gap is real: the reports count different populations (projects with no imposed
+  correction vs on-time contracts of beneficiaries with none). **Do not partition the export
+  per programme to „fix" it** — there is no cap, and `GetProgrammes` is WAF-blocked anyway.
+- ⚠️ **„В СРОК" is a STRICTER test than „clean".** The beneficiary column is „Брой договори,
+  успешно приключени **в срок**" — on time. A contract can be on-time-but-corrected or
+  late-but-clean, which is why the two numbers cannot be reconciled.
+- **ORGANISATIONS ONLY, and the omission is counted.** 1,533 beneficiary rows are natural
+  persons published with a first name and no id („Христо", org type „Друга"), and 2 carry a
+  10-digit **ЕГН**. Neither is stored — a first name identifies nobody and joins to nothing,
+  and an ЕГН is a personal identifier this project does not hold. `cleanEik()` drops them at
+  PARSE time rather than filtering downstream, so no consumer can reach one, and
+  `coverage.natural_persons_excluded` makes the exclusion visible.
+
+**The input is operator-downloaded on purpose.** `data/_cache/isun_clean_delivery/*.xlsx`
+is gitignored: the F5 WAF in front of 2020.eufunds.bg refuses automated exports
+intermittently (`isun_download.ts` documents the same wall for the funds ingest) and blocks
+its `GetProgrammes` XHR outright — even from within the page's own origin. A human clicking
+„Експорт → Excel" always works. Save the two files as `contracts__ALL.xlsx` and
+`beneficiaries__ALL.xlsx`; the ingest folds several drops by key, so a future split works
+unchanged.
+
+The gate is `scripts/db/tests/isun_clean_delivery.data.test.ts` (8 tests) plus 14 pure
+parser tests that need no Postgres. One of the eight asserts the two reports still
+DISAGREE, so that a future change „reconciling" them fails loudly rather than quietly
+publishing a fabricated equality.
+
 `aop_expert` / `aop_expert_area` (migration 174, `db:load:aop-experts:pg`) is the АОП
 register of external experts under чл. 232а, ал. 2 ЗОП — the people a contracting authority
 may co-opt onto an evaluation committee. Its source is COMMITTED

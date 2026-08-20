@@ -151,6 +151,11 @@ functions/.secret.local
 # client, so it follows the tender-dossier convention: the loader applies its
 # schema and skip-and-warns when the file is absent, which is the fresh-clone state.
 /data/procurement/ted.json
+# ИСУН clean-delivery XLSX drops (operator-downloaded; the F5 WAF fights
+# automation, so these are inputs to a pure-parse ingest — see
+# scripts/funds/clean_delivery/).
+data/_cache/isun_clean_delivery/
+
 /data/procurement/roads.json
 # КЗК appeals + decisions — headed-Playwright ingest artifacts, served from
 # Postgres (kzk_appeals), not client-fetched. Off-laptop durability is via
