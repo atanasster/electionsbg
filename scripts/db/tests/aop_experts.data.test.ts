@@ -102,7 +102,10 @@ d("aop_expert (174)", () => {
     const [r] = await allRows<{
       pairs: string;
       experts: string;
-      varying: string;
+      // `varying_n`, matching the SQL alias below — a bare `varying` is a syntax
+      // error in Postgres (VARYING is reserved, as in CHARACTER VARYING), so the
+      // suffix is deliberate and this declaration has to carry it too.
+      varying_n: string;
     }>(
       `SELECT (SELECT count(*) FROM aop_expert_area)::text pairs,
               (SELECT count(*) FROM aop_expert)::text experts,
