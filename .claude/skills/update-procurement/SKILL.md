@@ -288,6 +288,11 @@ npm run db:load:persons-browse:pg:cloud   # /persons money column — see below
 npm run db:load:graph:pg:cloud            # /connections company money — see below
 npm run db:load:annexes:pg:cloud          # MANDATORY after the reconcile — see step 2c
 npm run db:load:employer-links:pg:cloud   # declared employer → buyer; needs declarations PHASE 1 too
+npm run db:load:grant-links:pg:cloud      # grant → the procurement it paid for (166).
+                                          # Needs contracts AND tenders; reads no
+                                          # declaration. No serving reader yet (T1.6c
+                                          # unbuilt) — run it anyway: it is corpus-derived,
+                                          # so it would be stale the day that ships.
 npm run db:load:transport-facility-map:pg:cloud   # rides awarder-seats, not contracts
 ```
 
@@ -605,7 +610,11 @@ npm run procurement:ingest
 # Ingest, publish to Postgres (local + prod), commit
 npm run procurement:ingest
 npm run db:refresh                  # local PG (Step 2b)
-npm run db:load:pg:cloud && npm run db:load:tenders:pg:cloud && npm run db:load:awarder-seats:pg:cloud   # prod Cloud SQL
+npm run db:load:pg:cloud && npm run db:load:tenders:pg:cloud && npm run db:load:awarder-seats:pg:cloud   # prod
+# …and the derived loaders that go stale with the corpus — the full list is Step 3:
+npm run db:load:annexes:pg:cloud          # MANDATORY (CLAUDE.md) — orphaned annex rows
+npm run db:load:employer-links:pg:cloud   # also needs declarations PHASE 1
+npm run db:load:grant-links:pg:cloud      # needs contracts + tenders (no declarations) Cloud SQL
 git add data/procurement/ tests/fixtures/procurement/
 git commit -m "procurement: ingest"
 
