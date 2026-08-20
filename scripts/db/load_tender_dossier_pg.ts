@@ -544,7 +544,32 @@ const scopedMerge = async (
 //
 // ⚠️ SCOPED TO THE CAPTURED УНП, like every merge above. An unscoped rebuild would
 // see the 99.2% of the corpus this run did not capture as rows to delete.
+/** ⚠️ BATCHED, and the batch size is a Cloud SQL constraint rather than a
+ *  performance tweak. Managed Postgres sets `temp_file_limit` (2,569,247 kB on
+ *  the serving instance); local sets `-1`, so the unbatched form CANNOT FAIL in
+ *  development and fails every time in production. Measured 2026-08-19 on the
+ *  first full-capture publish: the whole 50,283-УНП scope aborted the entire
+ *  transaction with „temporary file size exceeds temp_file_limit" inside this
+ *  function, after the seven table merges had already streamed ~929k rows over
+ *  the proxy — all of it rolled back.
+ *
+ *  The sort feeding the document aggregate carries extracted PDF text, so its
+ *  temp footprint scales with the scope. Temp files are released when a
+ *  STATEMENT ends, so running the same scoped query over slices keeps the peak
+ *  bounded while leaving the merge semantics identical — every slice is still
+ *  inside the caller's single transaction. */
+const SEARCH_TEXT_BATCH = 2_000;
+
 const rebuildSearchText = async (
+  c: Parameters<Parameters<typeof withTx>[0]>[0],
+  unps: string[],
+): Promise<void> => {
+  for (let i = 0; i < unps.length; i += SEARCH_TEXT_BATCH) {
+    await rebuildSearchTextBatch(c, unps.slice(i, i + SEARCH_TEXT_BATCH));
+  }
+};
+
+const rebuildSearchTextBatch = async (
   c: Parameters<Parameters<typeof withTx>[0]>[0],
   unps: string[],
 ): Promise<void> => {
