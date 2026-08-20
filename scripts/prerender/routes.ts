@@ -4682,24 +4682,26 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "mp/companies",
-    title: "Фирми с участие на народни представители | electionsbg.com",
+    title:
+      "Фирми и организации, свързани с лица на публична длъжност | electionsbg.com",
     description:
-      "Списък на всички фирми, в които действащите народни представители са собственици, акционери или членове на управлението — данни от Търговския регистър и декларациите на Сметната палата.",
-    breadcrumbName: "Фирми на депутати",
+      "Списък на фирмите и организациите, в които лица на публична длъжност — народни представители, министри, кметове, общински съветници, магистрати и членове на регулаторни органи — фигурират като собственици или в управлението, или са декларирали дял. Данни от Търговския регистър и декларациите пред Сметната палата.",
+    breadcrumbName: "Фирми на публични лица",
     ogImage: "/og/mp-companies.png",
     bodyHtml: `
-<h1>Фирми с участие на народни представители</h1>
-<p>Списък на всички фирми, в които поне един действащ народен представител фигурира като собственик, акционер или роля в управлението. Данните се обединяват от декларациите, подадени пред Сметната палата, и от публичните филинги в Търговския регистър.</p>
+<h1>Фирми и организации, свързани с лица на публична длъжност</h1>
+<p>Фирмите, сдруженията, читалищата и фондациите, в които лице на публична длъжност — народен представител, министър, кмет, общински съветник, магистрат или член на регулаторен орган — фигурира като собственик или в управлението според Търговския регистър, или е декларирало дял пред Сметната палата. Народните представители са малка част от списъка.</p>
+<p>Свързването е по идентичност, а не по съвпадение на име: име, което Търговският регистър приписва на повече от един човек, се отхвърля. Където всички вписвания на лицето при дадена организация са заличени, ролята е отбелязана като бивша.</p>
 <p>За мрежовия изглед виж <a href="${SITE_URL}/connections">Бизнес-връзки между депутатите</a>.</p>`.trim(),
     english: {
-      title:
-        "Companies Owned or Run by MPs — Bulgarian Parliament | electionsbg.com",
+      title: "Companies Linked to Public Office-Holders | electionsbg.com",
       description:
-        "Every company in which a sitting Bulgarian MP is an owner, shareholder, or board member — sourced from the Commerce Registry and Court of Audit declarations.",
-      breadcrumbName: "MP companies",
+        "Every company, association, chitalishte and foundation in which a Bulgarian public office-holder — MP, minister, mayor, councillor, magistrate or regulator — is an owner or in management, or has declared a stake. Sourced from the Commerce Registry and Court of Audit declarations.",
+      breadcrumbName: "Office-holder companies",
       bodyHtml: `
-<h1>Companies owned or run by MPs</h1>
-<p>Every company in which at least one sitting Bulgarian MP figures as an owner, shareholder, or role on the board. Data is combined from declarations filed with the Court of Audit and public filings in the Commerce Registry.</p>
+<h1>Companies and organisations linked to public office-holders</h1>
+<p>The companies, associations, chitalishta and foundations in which a public office-holder — an MP, minister, mayor, councillor, magistrate or regulator — figures as an owner or in management per the Commerce Registry, or has declared a stake to the Court of Audit. MPs are a small part of the list.</p>
+<p>Linking is by identity rather than by matching names: a name the Commerce Registry attributes to more than one person is refused. Where every entry for that person at an organisation has been withdrawn, the role is marked as former.</p>
 <p>For the network view see <a href="${SITE_URL}/en/connections">MP business connections</a>.</p>`.trim(),
     },
   }),

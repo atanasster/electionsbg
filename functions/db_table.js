@@ -1919,6 +1919,10 @@ const REGISTRY = {
       "legal_form",
       "seat",
       "status",
+      // PROJECTED, not merely filterable: 5,200 of 17,608 rows are сдружения, читалища,
+      // фондации, кооперации or държавни предприятия, and a page that calls them all
+      // „фирми" makes a different and wrong claim about each.
+      "entity_class",
       "oblast_name",
       "person_count",
       "has_registry_link",

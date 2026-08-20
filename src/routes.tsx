@@ -976,9 +976,11 @@ const ConnectionsScreen = lazy(() =>
     default: m.ConnectionsScreen,
   })),
 );
-const AllMpCompaniesScreen = lazy(() =>
-  import("./screens/AllMpCompaniesScreen").then((m) => ({
-    default: m.AllMpCompaniesScreen,
+// /mp/companies is RENAMED to /governance/companies in the next step; the screen is already
+// the all-office-holder one, served from Postgres. Plan: company-page-consolidation-v1 Tier 3.
+const OfficialCompaniesScreen = lazy(() =>
+  import("./screens/OfficialCompaniesScreen").then((m) => ({
+    default: m.OfficialCompaniesScreen,
   })),
 );
 const AllMpAssetsScreen = lazy(() =>
@@ -3518,7 +3520,7 @@ export const AuthRoutes = () => {
             path="mp/companies"
             element={
               <LayoutScreen>
-                <AllMpCompaniesScreen />
+                <OfficialCompaniesScreen />
               </LayoutScreen>
             }
           />
