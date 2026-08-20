@@ -964,9 +964,11 @@ const ParliamentHubScreen = lazy(() =>
     default: m.ParliamentHubScreen,
   })),
 );
-const MpCompanyScreen = lazy(() =>
-  import("./screens/MpCompanyScreen").then((m) => ({
-    default: m.MpCompanyScreen,
+// /mp/company/:slug is RETIRED — see MpCompanyRedirect's header. Kept as a redirect so the
+// two published articles' links, llms-full.txt and any bookmark still land somewhere real.
+const MpCompanyRedirect = lazy(() =>
+  import("./screens/MpCompanyRedirect").then((m) => ({
+    default: m.MpCompanyRedirect,
   })),
 );
 const ConnectionsScreen = lazy(() =>
@@ -3594,8 +3596,13 @@ export const AuthRoutes = () => {
           <Route
             path="mp/company/:slug"
             element={
+              // Keeps the site chrome: the redirect waits on the companies index before it
+              // can resolve, and a chrome-less blank page for the length of that fetch reads
+              // as a broken site rather than as a hop.
               <LayoutScreen>
-                <MpCompanyScreen />
+                <Suspense fallback={<RouteFallback />}>
+                  <MpCompanyRedirect />
+                </Suspense>
               </LayoutScreen>
             }
           />
