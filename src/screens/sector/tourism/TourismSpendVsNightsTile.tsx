@@ -1,12 +1,35 @@
-// The spend↔outcome bridge on /sector/tourism: the Ministry's marketing spend
-// per year (real procurement €) overlaid on foreign overnight-nights per year
-// (real Eurostat) — the fusion the competitive research flagged as the thing
-// almost no tourism dashboard does. DESCRIPTIVE, not causal: it shows the two
-// trends side by side (e.g. the 2020 COVID collapse in nights, the 2024 spend
-// spike), it does NOT claim the spend produced the nights.
+// The spend↔outcome bridge on /sector/tourism: the Ministry's CONTRACT spend per
+// year (real procurement €) overlaid on foreign overnight-nights per year (real
+// Eurostat) — the fusion the competitive research flagged as the thing almost no
+// tourism dashboard does. DESCRIPTIVE, not causal: it shows the two trends side
+// by side (e.g. the 2020 COVID collapse in nights, the 2024 spend spike), it does
+// NOT claim the spend produced the nights.
 //
-// Full-history (NOT ?pscope-scoped) — a multi-year trend, like the culture
-// time-spine. Built the same way as the seasonality tile: a FIXED-height
+// ⚠️ THE BARS ARE EVERY МТ CONTRACT IN RANGE, NOT THE MARKETING LINE, and the
+// copy said otherwise until the 2026-08-20 audit („Реклама и чужди нощувки" /
+// „разход за реклама (€)"). Реклама и медиа is about half the corpus by CPV — the
+// measured split lives once, in tourismCategories.ts's header, and is not
+// restated here — so the legend named a quantity roughly half the size of the bar
+// it labelled.
+//
+// The fix is the SENTENCE, not the filter. Narrowing to advertising CPVs would
+// break basis-agreement with the KPI row above (which is the whole group model at
+// this scope) and with the hub, so the page would carry two different „МТ spend"
+// series with nothing saying which is which. CampaignCategoriesTile is where the
+// share is derived; this tile only restates it as prose, which is why the caption
+// says „по CPV" — under a wider reading of what counts as advertising the share is
+// 73.3%, and a bare „half" would be picking one basis silently.
+//
+// ⚠️ THE YEAR AXIS IS EUROSTAT'S, NOT THE CORPUS'S. `rows` is built by mapping
+// over `visitors.annualForeign` and looking each year's spend up, so a contract
+// year Eurostat does not cover is not zeroed — it is absent. Today that is
+// 2014-2017 and 2026: 77 contracts, €3.79M, 13.2% of the corpus. The caption
+// therefore names the range it plots and must never claim „всички" (it did, for
+// one commit). That is also the sense in which this tile is „full-history": the
+// Eurostat series is, the contract series is not.
+//
+// NOT ?pscope-scoped — a multi-year trend, like the culture time-spine. Built the
+// same way as the seasonality tile: a FIXED-height
 // container with HTML spend bars + an SVG line overlay (non-scaling stroke) +
 // HTML year labels — so it's fixed-height and fluid-width like every other chart
 // on the page (a viewBox + h-auto SVG would scale its height with the tile width
@@ -36,7 +59,10 @@ export const TourismSpendVsNightsTile: FC = () => {
     );
   if (!visitors || !contracts) return null;
 
-  // Marketing € per calendar year (contracts only, to match the headline).
+  // МТ's contract € per calendar year. `tag === "contract"` excludes amendments,
+  // which is what makes this agree with the KPI row and the hub — see
+  // reference_procurement_eur_sum_basis. It is NOT filtered by CPV: see the ⚠️ at
+  // the top of this file.
   const spendByYear = new Map<number, number>();
   for (const c of contracts.contracts) {
     if (c.tag !== "contract") continue;
@@ -51,6 +77,10 @@ export const TourismSpendVsNightsTile: FC = () => {
     spend: spendByYear.get(a.year) ?? 0,
   }));
   if (rows.length < 3) return null;
+
+  // Derived, so the caption cannot go stale when Eurostat publishes another year.
+  const yr0 = rows[0].year;
+  const yrN = rows[rows.length - 1].year;
 
   const maxSpend = Math.max(...rows.map((r) => r.spend), 1);
   const maxNights = Math.max(...rows.map((r) => r.nights), 1);
@@ -70,12 +100,14 @@ export const TourismSpendVsNightsTile: FC = () => {
     <Card className="min-w-0">
       <CardHeader className="pb-2">
         <CardTitle className="text-base">
-          {bg ? "Реклама и чужди нощувки" : "Marketing spend vs foreign nights"}
+          {bg
+            ? "Разход на МТ и чужди нощувки"
+            : "MT contract spend vs foreign nights"}
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {bg
-            ? "Годишен маркетингов разход (ЗОП) и чуждестранни нощувки. Съпоставка на тенденции — без причинно-следствена връзка."
-            : "Yearly marketing spend (procurement) and foreign nights. Trends side by side — not a causal claim."}
+            ? `Договорите на МТ по година (ЗОП, ${yr0}–${yrN}) и чуждестранни нощувки. Рекламата е около половината от този разход по CPV. Съпоставка на тенденции, без причинно-следствена връзка.`
+            : `MT contracts per year (procurement, ${yr0}–${yrN}) and foreign nights. Advertising is about half of that spend by CPV. Trends side by side, not a causal claim.`}
         </p>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
@@ -147,7 +179,7 @@ export const TourismSpendVsNightsTile: FC = () => {
         <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <span className="inline-block h-2 w-3 rounded-sm bg-primary/70" />
-            {bg ? "разход за реклама (€)" : "marketing spend (€)"}
+            {bg ? "договори на МТ (€)" : "MT contracts (€)"}
           </span>
           <span className="inline-flex items-center gap-1.5">
             <span className="inline-block h-[2px] w-4 bg-foreground/85" />

@@ -1,8 +1,12 @@
 // Tourism-specific thematic tiles rendered on the generic /sector/tourism
 // dashboard (via SECTOR_DASHBOARDS.tourism.ThematicTiles) between the KPI row
-// and the awarders bridge. МТ's ~€27M is overwhelmingly destination marketing,
-// so these two tiles tell that story: WHAT the money buys (campaign categories)
-// and the BIGGEST individual campaigns by name.
+// and the awarders bridge. Destination marketing is МТ's largest single line but
+// only about half of its €28.8M by CPV — the measured split lives once, in
+// tourismCategories.ts's header — so these two tiles answer WHAT the money buys
+// (campaign categories, which is where that share is derived) and WHICH
+// individual CONTRACTS are biggest. „Overwhelmingly marketing" is what this
+// comment used to say, and TourismSpendVsNightsTile's legend used to act on it;
+// see the ⚠️ in that file.
 //
 // Both inherit ?pscope date scoping. The category split re-folds the SAME server
 // group-model the dashboard already fetches (deduped by react-query on the
@@ -138,8 +142,17 @@ const CampaignCategoriesTile: FC = () => {
   );
 };
 
-/** The biggest individual contracts (named campaigns) in the current scope. */
-const TopCampaignsTile: FC = () => {
+/** The biggest individual contracts in the current scope.
+ *
+ *  ⚠ „договори", NOT „кампании" — in the title AND in this component's name. The
+ *  identifier was the last copy of the claim the title dropped, which is what the
+ *  next reader greps for. The list is unfiltered by CPV,
+ *  and marketing is only 51.0% of this corpus — so on a narrow scope the top rows
+ *  can be event-staging transfers to municipalities or plain operational buys.
+ *  The caption always said „най-скъпите отделни договори"; the title used to
+ *  promise campaigns over the same rows. Same defect as
+ *  TourismSpendVsNightsTile's legend, one tile over. */
+const TopContractsTile: FC = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const locale = bg ? "bg-BG" : "en-US";
@@ -169,7 +182,7 @@ const TopCampaignsTile: FC = () => {
       <CardHeader className="pb-2">
         <div className="flex items-start justify-between gap-2">
           <CardTitle className="text-base">
-            {bg ? "Най-големи кампании" : "Biggest campaigns"}
+            {bg ? "Най-големи договори" : "Biggest contracts"}
           </CardTitle>
           <Link
             to={seeAllTo}
@@ -237,12 +250,12 @@ export const TourismThematicTiles: FC = () => (
       <TourismSeasonalityTile />
       <TourismSourceMarketsTile />
     </div>
-    {/* The fusion: marketing spend vs the visitor outcome it targets. */}
+    {/* The fusion: МТ's contract spend vs the visitor outcome it targets. */}
     <TourismSpendVsNightsTile />
     {/* Procurement-detail row: where the money goes (ЗОП). */}
     <div className="grid gap-4 md:grid-cols-2">
       <CampaignCategoriesTile />
-      <TopCampaignsTile />
+      <TopContractsTile />
     </div>
   </div>
 );

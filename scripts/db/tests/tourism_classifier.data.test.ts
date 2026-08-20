@@ -1,8 +1,14 @@
-// Pins the tourism CPV → category classifier. The dashboard's headline split
-// (advertising ~53%, production ~11%, events/digital ~9%, research ~4%, other
-// ~15%) is validated against the real 303-row corpus in the classifier's own
-// comment — but nothing else stops an edit to a `d4 === "79xx"` branch from
-// silently reshuffling it. This locks the CPV→bucket mapping.
+// Pins the tourism CPV → category MAPPING, and only that. The measured shares
+// live in one place — tourismCategories.ts's own header — and are pinned against
+// the corpus by sector_stats_tourism.data.test.ts; this file exists because
+// neither of those stops an edit to a `d4 === "79xx"` branch from silently
+// reshuffling which bucket a CPV lands in.
+//
+// ⚠️ This header used to restate the split itself („advertising ~53%, production
+// ~11%, … other ~15%", validated against a 303-row corpus) and point at the
+// classifier comment as the authority. Every figure had gone stale — the corpus is
+// 335 rows and production is 16.2%, not ~11% — so the two copies contradicted each
+// other with nothing saying which was current. Do not reintroduce a share here.
 //
 // Pure logic, no DB. Run: npm run test:data (tsx --test), or standalone:
 //   npx tsx --test scripts/db/tests/tourism_classifier.data.test.ts

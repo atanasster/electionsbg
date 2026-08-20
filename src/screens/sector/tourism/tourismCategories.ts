@@ -1,14 +1,40 @@
 // CPV → campaign-category classifier for the Tourism sector (Министерство на
-// туризма). МТ's ~€27M procurement is dominated by destination marketing, so —
-// unlike the generic sector dashboard's single "all" bucket — the Tourism
-// dashboard breaks the spend into what the money actually buys.
+// туризма). Destination marketing is МТ's largest line, so — unlike the generic
+// sector dashboard's single "all" bucket — the Tourism dashboard breaks the spend
+// into what the money actually buys.
 //
-// Buckets validated against the real 303-row corpus
-// (data/procurement/awarder_contracts/176789478.json): advertising ~53%,
-// production ~11%, events ~9%, digital ~9%, research ~4%, other ~15% (the last a
-// legitimate operational remainder — translation, security, insurance,
-// utilities — not a misclassification). Classification is by CPV ONLY (the same
-// contract-shape the server group-model exposes), never by name/keyword.
+// ⚠️ THIS HEADER OWNS THE MEASURED SPLIT — the other tourism files reference it
+// by name rather than restating it, since three full copies is how one came to be
+// stale. Measured over the full 335-row / €28,780,437 corpus (2026-05-13):
+// advertising 51.0% (€14,686,799), production 16.2%, other 11.8%, events 8.6%,
+// digital 8.6%, research 3.8%.
+//
+// ⚠️ IT IS NOT „DOMINATED BY" MARKETING, and this header said so — against a
+// stale 303-row / ~53% measurement — until the 2026-08-20 audit. That mattered
+// because TourismSpendVsNightsTile's legend acted on it and labelled МТ's whole
+// contract line „разход за реклама".
+//
+// ⚠️ TWO KNOWN LEAKS OUT OF `advertising`, and they are the reason any surface
+// quoting this share must say „по CPV" rather than „about half" bare:
+//   · CPV 39154100 → `production`: 44 contracts, €3,232,055 of trade-fair stands
+//     („Intourmarket Москва, Русия" and siblings) — destination promotion by any
+//     reader's definition;
+//   · CPV 98000000 → `other`: 6 contracts, €693,802, titled „Заплащане на
+//     наемната цена за атрактивни рекламни площи" — rented advertising space
+//     landing in the sink because CPV 98 is unmapped. That is a fifth of the
+//     `other` bucket, so „the remainder is purely operational" is not true either.
+// Under the widest defensible reading (advertising ∪ events ∪ those two) the share
+// is 73.3% against 51.0% here — 22 points apart. Do not remap either without
+// reading all rows first; the cost of the current mapping is a declared basis, and
+// the cost of a wrong remap is a share nobody can reconcile.
+//
+// `CampaignCategoriesTile` is the only place this share is DERIVED;
+// TourismSpendVsNightsTile's caption restates it as prose, so a drift here
+// silently falsifies that sentence too. sector_stats_tourism.data.test.ts pins
+// the advertising share to a band for exactly that reason.
+//
+// Classification is by CPV ONLY (the same contract-shape the server group-model
+// exposes), never by name/keyword.
 
 import type { SectorClassifier } from "@/lib/awarderModel";
 import type { ProcurementContract } from "@/data/dataTypes";
