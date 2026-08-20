@@ -171,12 +171,33 @@ export interface PriceRankPlace {
   rankChange: RankTriple;
   peers: RankTriple;
 }
+/** Whether the day these LEVEL figures are built from is comparable with the
+ *  days around it. Carried on the ranking rather than fetched from index.json
+ *  because the tiles that render levels read only this payload. */
+export interface PriceRankingCoverage {
+  /** The latest day cleared COVERAGE_FLOOR of its own trailing median. FALSE
+   *  means the board is built on a thin day; UNDEFINED means a payload built
+   *  before this field existed — which is not the same as complete. */
+  chainsComplete?: boolean;
+  /** Reporter count behind these numbers, and what it is judged against. */
+  chains?: number;
+  trailingMedian?: number | null;
+  /** The day these rows were built from — the same value as the payload's own
+   *  `latestDate`, carried inside `coverage` so a consumer holding only this
+   *  object can date what it is captioning. NOT `headlineDate`: that names the
+   *  day a quoted INDEX figure comes from, which is not the day `places` is
+   *  built from. */
+  latestDate?: string;
+}
+
 export interface PriceRankingFile {
   latestDate: string;
   baseline: string;
   commonBasket: number[];
   commonBasketSize: number;
   places: PriceRankPlace[];
+  /** Optional: absent on a payload built before T4. */
+  coverage?: PriceRankingCoverage;
 }
 
 export interface DealRow {

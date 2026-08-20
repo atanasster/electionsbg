@@ -6,16 +6,27 @@
 // município pages and uncovered settlements, where the summary tile already
 // carries the headline.
 //
-// Data is entirely from the place:<ekatte> shard already fetched by the
-// summary tile — no new payload. NOT official CPI.
+// Data is from the place:<ekatte> shard already fetched by the summary tile.
+// It also reads the ranking payload for ONE boolean — coverage.chainsComplete —
+// so PriceCoverageNote can say when the day these prices come from was thin.
+// That is a second fetch, and deliberate: the flag is a property of the DAY, not
+// of the place, so duplicating it into all ~5,000 place shards would multiply
+// one fact by five thousand and let the copies drift. The ranking payload is
+// already in React Query's cache on every surface that renders this tile.
+//
+// The note here takes basis="place": this tile ranks nothing, so the „the
+// ranking may reflect who filed" sentence would describe something it is not
+// doing. NOT official CPI.
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ShoppingBasket, MapPin, Tag } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
+import { PriceCoverageNote } from "@/screens/components/prices/PriceCoverageNote";
 import {
   usePriceDict,
+  usePriceRanking,
   useSettlementPrices,
   fmtEur,
   mapsDirectionsUrl,
@@ -36,6 +47,7 @@ export const PlaceBasketTile: FC<Props> = ({ ekatte, obshtina }) => {
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const { priceEkatte } = resolvePriceKeys(obshtina, ekatte);
   const { data: dict } = usePriceDict();
+  const { data: ranking } = usePriceRanking();
   const { data: sett } = useSettlementPrices(priceEkatte);
   const [expanded, setExpanded] = useState<Set<number>>(new Set());
 
@@ -184,6 +196,11 @@ export const PlaceBasketTile: FC<Props> = ({ ekatte, obshtina }) => {
           );
         })}
       </div>
+      <PriceCoverageNote
+        coverage={ranking?.coverage}
+        basis="place"
+        className="mt-3"
+      />
     </Card>
   );
 };

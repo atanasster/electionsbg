@@ -16,6 +16,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Gauge } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { PriceCoverageNote } from "@/screens/components/prices/PriceCoverageNote";
 import {
   usePriceRanking,
   fmtEur,
@@ -226,6 +227,7 @@ export const ConsumptionPriceLevelTile: FC<Props> = ({ ekatte, obshtina }) => {
           {T("кошница", "basket")} {fmtEur(level, lang)}
         </span>
       </div>
+      <PriceCoverageNote coverage={ranking?.coverage} className="mt-3" />
     </Card>
   );
 };

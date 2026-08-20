@@ -32,6 +32,7 @@ import { Title } from "@/ux/Title";
 import { Link } from "@/ux/Link";
 import { Card } from "@/components/ui/card";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import { PriceCoverageNote } from "@/screens/components/prices/PriceCoverageNote";
 import { PriceIndexTrendChart } from "@/screens/components/prices/PriceIndexTrendChart";
 import { ChainBasketList } from "@/screens/components/prices/ChainBasketList";
 import { MoversInline } from "@/screens/components/prices/PriceMovers";
@@ -495,6 +496,10 @@ export const PricesScreen: FC = () => {
             ))}
           </ul>
         </DashTile>
+        <PriceCoverageNote
+          coverage={ranking?.coverage}
+          className="-mt-2 px-1"
+        />
 
         {/* Deals today */}
         <DashTile

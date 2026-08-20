@@ -35,8 +35,18 @@
 //   single raw day over whichever stores filed, and remain exposed to exactly
 //   the reporter-set drift the index was fixed for. Measured on a CALM
 //   transition (206 → 208 chains): 6 places entered the basket board, 4
-//   dropped out, max |rank change| 33. Fixing that is plan T0 follow-up work,
-//   not done here.
+//   dropped out, max |rank change| 33.
+//
+//   ⚠️ That exposure is DISCLOSED, not fixed. This payload now carries a
+//   `coverage` block — chainsComplete / chains / trailingMedian / latestDate —
+//   which every LEVEL surface renders through PriceCoverageNote so a reader of
+//   a thin day is told the gaps may be composition rather than price. The
+//   levels themselves are unchanged, and moving them onto a matched panel
+//   (plan T3) was attempted and REVERTED: it reached only the settlement tier
+//   while the cheapest board is the OBLAST tier, and per-place baselines bias
+//   newcomers cheaper. So the note is currently the ONLY mitigation, and
+//   `latestDate` — not `headlineDate` — is what it must be captioned with,
+//   because the place payloads are built from the latest day.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -1053,12 +1063,37 @@ export const buildPriceIndex = (
     commonBasketSize: commonBasket.length,
   });
 
+  // ⚠️ The coverage judgement travels WITH the ranking, not just with the index.
+  //
+  // Every figure in `places` is a LEVEL — basketLevel and the ranks derived from
+  // it — and this file's own header records that levels "remain exposed to
+  // exactly the reporter-set drift the index was fixed for". Until that is
+  // fixed (plan T3), a reader of the cheapest-places board is entitled to know
+  // that the day it is built from was thin.
+  //
+  // It is carried here rather than fetched by each tile because the tiles that
+  // render these numbers — the price-level tile, the choropleth, the My-Area
+  // basket — read `usePriceRanking()` and nothing else. Making each of them
+  // fetch index.json to learn whether its own numbers are comparable is how one
+  // of them ends up not doing it.
   emit("ranking", "", {
     latestDate,
     baseline: baselineDate,
     commonBasket,
     commonBasketSize: commonBasket.length,
     places,
+    coverage: {
+      // Did the latest day clear COVERAGE_FLOOR of its own trailing median?
+      chainsComplete: latestComplete,
+      // The reporter count behind these numbers, and what it is judged against.
+      chains: chainsPerDay[days.length - 1] ?? 0,
+      trailingMedian: latestTrailingMedian,
+      // ⚠️ Deliberately NOT `headlineDate`. `places` is always built from
+      // `latestDate`, so publishing the headline day here would caption these
+      // rows with a day they are not from — dict.json refuses it for exactly
+      // that reason a few lines up. The note dates what it is standing next to.
+      latestDate,
+    },
   });
 
   // ── chains.json (national) + chains/<muni>.json ──

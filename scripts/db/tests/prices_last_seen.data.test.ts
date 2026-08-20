@@ -477,3 +477,61 @@ test.skipIf(skip)("no table holds a non-positive price", async () => {
       `scripts/prices/lib/normalize.test.ts).`,
   );
 });
+
+// Plan T4. The ranking payload's `coverage` block, which is the ONLY thing
+// telling a reader that a cheapest-places board may be composition-driven —
+// plan T3, which would have removed the exposure itself, was attempted and
+// reverted.
+//
+// It needs a producer-side gate because the consumer is deliberately SILENT on
+// absence: `PriceCoverageNote` renders nothing when `coverage` is missing,
+// which is right (it must not warn about something it cannot substantiate) but
+// means deleting the emit leaves every test green and the note simply never
+// appears again. This is what makes that silence observable.
+test.skipIf(skip)(
+  "the ranking payload carries a coverage judgement",
+  async () => {
+    const [r] = await allRows<{
+      has_cov: boolean;
+      complete: boolean | null;
+      chains: number | null;
+      median: number | null;
+      day: string | null;
+      latest: string | null;
+    }>(
+      `SELECT (payload ? 'coverage')                        AS has_cov,
+            (payload->'coverage'->>'chainsComplete')::boolean AS complete,
+            (payload->'coverage'->>'chains')::int         AS chains,
+            (payload->'coverage'->>'trailingMedian')::float8 AS median,
+            (payload->'coverage'->>'latestDate')          AS day,
+            (payload->>'latestDate')                      AS latest
+       FROM price_payloads WHERE kind='ranking'`,
+    );
+
+    if (!r) {
+      console.warn(
+        "[prices_last_seen] no ranking payload — run build_payloads",
+      );
+      return;
+    }
+    assert.ok(
+      r.has_cov,
+      "the ranking payload has no `coverage` block, so every level surface is " +
+        "silent about reporter-set drift and nothing else would notice",
+    );
+    assert.notEqual(r.complete, null, "coverage.chainsComplete is not set");
+    assert.ok(
+      r.chains != null && r.chains > 0,
+      `coverage.chains is ${r.chains} — the note suppresses its detail without it`,
+    );
+    // ⚠️ The date inside `coverage` must be the day `places` was BUILT from, not
+    // the headline day. Publishing `headlineDate` here would caption these rows
+    // with a day they are not from; dict.json refuses it for the same reason.
+    assert.equal(
+      r.day,
+      r.latest,
+      `coverage.latestDate (${r.day}) must equal the payload's latestDate (${r.latest}) — ` +
+        `anything else dates the board with a day its rows are not from`,
+    );
+  },
+);

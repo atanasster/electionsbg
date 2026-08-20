@@ -24,6 +24,7 @@ import {
   priceChangeColor as changeColor,
   type PriceRankPlace,
 } from "@/data/prices/usePrices";
+import { PriceCoverageNote } from "@/screens/components/prices/PriceCoverageNote";
 
 interface Props {
   // When set, render the oblast view (its index series + settlements within).
@@ -252,6 +253,7 @@ export const GovernancePricesTile: FC<Props> = ({
           </Link>
         ) : null}
       </div>
+      <PriceCoverageNote coverage={ranking?.coverage} className="mt-3" />
     </div>
   );
 };

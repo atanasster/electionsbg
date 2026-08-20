@@ -19,6 +19,7 @@ import { consumptionUrl } from "@/data/local/placeViews";
 import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
 import {
   usePriceDict,
+  usePriceRanking,
   useSettlementPrices,
   useMuniChains,
   comparableChains,
@@ -28,6 +29,7 @@ import {
   mapsDirectionsUrl,
   priceChangeColor as changeColor,
 } from "@/data/prices/usePrices";
+import { PriceCoverageNote } from "@/screens/components/prices/PriceCoverageNote";
 
 interface Props {
   ekatte?: string;
@@ -54,6 +56,7 @@ export const MyAreaPricesTile: FC<Props> = ({
   // the small dictionary + the place's own shard (its rank is embedded there).
   const { priceObshtina, priceEkatte } = resolvePriceKeys(obshtina, ekatte);
   const { data: dict } = usePriceDict();
+  const { data: ranking } = usePriceRanking();
   const { data: sett } = useSettlementPrices(priceEkatte);
   const { data: muniChains } = useMuniChains(priceObshtina);
 
@@ -340,6 +343,7 @@ export const MyAreaPricesTile: FC<Props> = ({
           )}
         </a>
       </div>
+      <PriceCoverageNote coverage={ranking?.coverage} className="mt-3" />
     </Card>
   );
 };

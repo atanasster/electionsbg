@@ -15,6 +15,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { usePriceRanking, fmtEur } from "@/data/prices/usePrices";
+import { PriceCoverageNote } from "@/screens/components/prices/PriceCoverageNote";
 import { useRegional } from "@/data/regional/useRegional";
 
 interface Props {
@@ -211,6 +212,11 @@ export const ConsumptionAffordabilityTile: FC<Props> = ({ oblast }) => {
           {T("Източник: Евростат (БВП)", "Source: Eurostat (GDP)")}
         </a>
       ) : null}
+      <PriceCoverageNote
+        coverage={ranking?.coverage}
+        basis="ranking"
+        className="mt-3"
+      />
     </div>
   );
 };
