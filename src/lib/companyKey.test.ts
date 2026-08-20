@@ -1,10 +1,16 @@
 // Gate for `isLinkableCompanyKey` and for the rule it exists to enforce: a
 // hand-rolled `/company/${eik}` link cannot come back.
 //
-// The defect: ~20 call sites rendered every supplier key as a live link, but 2,084
-// of them — 1,803 synthetic carriers (`obed-` / `ph-` / `np-`) and 281 foreign
-// registry ids — have no company page at all. `institution_identity()` returns
-// NULL for every one, so the link landed on „Няма фирма с ЕИК … в базата.".
+// The defect: ~20 call sites rendered every supplier key as a live link, and for
+// `ph-` (filler registration number), `np-` (natural person) and the 282 foreign /
+// malformed ids the key names nothing a reader can look up.
+//
+// ⚠ `obed-` CARRIERS ARE LINKABLE, and the arms below are written to make an
+// accidental re-collapse of the three namespaces fail. The first cut de-linked all
+// of them on the premise that none had a page; `/company/:eik` had in fact grown a
+// procurement-only body six weeks earlier (8c8b9a9654), and the carrier's page is
+// the one that carries the „Обединение — участници" member block. See
+// companyKey.ts's header for the branch condition and the measurement.
 //
 //   npx vitest run src/lib/companyKey.test.ts
 
@@ -20,12 +26,21 @@ describe("isLinkableCompanyKey", () => {
     expect(isLinkableCompanyKey("000695114")).toBe(true);
   });
 
-  it("rejects every synthetic namespace", () => {
-    // Each is minted because the source id could NOT become a key — a consortium
-    // is not one legal entity, filler is not an identifier, and an ЕГН must never
-    // be stored. None has a page.
+  it("accepts an obed- consortium carrier", () => {
+    // The carrier's page is the richest of the four kinds — it names the member
+    // firms, which is the only route from a dominated leaderboard row to the
+    // companies behind it. Measured on /sector/security: one carrier holds 38.5%
+    // of the current parliament's window.
+    expect(isLinkableCompanyKey("obed-e0d64b6674a1")).toBe(true);
+    expect(isLinkableCompanyKey("obed-f58039ac056a")).toBe(true);
+  });
+
+  it("rejects the namespaces that name nothing checkable", () => {
+    // Both pages load; neither key is an identifier. `ph-` stands for a
+    // registration number the buyer made up (several hold €0) and `np-` is one
+    // natural person, keyed by name so no ЕГН is stored. A link promises somewhere
+    // to go. An unknown future namespace defaults to NOT linkable.
     for (const k of [
-      "obed-e0d64b6674a1",
       "ph-2475f7344022",
       "np-9906396c39ba",
       "future-namespace-abc",
@@ -86,13 +101,25 @@ describe("isConsortiumCarrierKey", () => {
       expect(isConsortiumCarrierKey(k), String(k)).toBe(false);
   });
 
-  // The two predicates answer different questions and only OVERLAP — a carrier is
-  // both unlinkable and a consortium, but „unlinkable" is the wider set. Pinning
-  // the direction stops one being refactored into the negation of the other.
-  it("is a strict subset of the unlinkable keys", () => {
-    for (const k of ["obed-369bc7450c81", "ph-1a2b3c4d5e6f", "np-9f8e7d6c5b4a"])
-      expect(isLinkableCompanyKey(k)).toBe(false);
-    expect(isConsortiumCarrierKey("ph-1a2b3c4d5e6f")).toBe(false);
+  // ⚠ THE MUTATION GUARD FOR THE 2026-08-19 WIDENING. The two predicates now agree
+  // on `obed-` and disagree on everything else, which makes two wrong refactors
+  // look plausible: `isLinkable = !isConsortiumCarrier` (inverts the carrier), and
+  // `isLinkable = isConsortiumCarrier || plainEik` collapsed into „any non-plain
+  // key is a consortium" (labels a natural person as several firms). Pin all four
+  // cells of the truth table so neither survives.
+  it("agrees with isLinkableCompanyKey on obed- and nowhere else", () => {
+    expect(isConsortiumCarrierKey("obed-369bc7450c81")).toBe(true);
+    expect(isLinkableCompanyKey("obed-369bc7450c81")).toBe(true);
+
+    // linkable, not a consortium
+    expect(isLinkableCompanyKey("131468980")).toBe(true);
+    expect(isConsortiumCarrierKey("131468980")).toBe(false);
+
+    // neither
+    for (const k of ["ph-1a2b3c4d5e6f", "np-9f8e7d6c5b4a"]) {
+      expect(isLinkableCompanyKey(k), k).toBe(false);
+      expect(isConsortiumCarrierKey(k), k).toBe(false);
+    }
   });
 });
 
