@@ -147,6 +147,24 @@ const ARRIVALS: Record<string, Record<string, unknown>> = {
 };
 
 /**
+ * Index keys that keep the NULLS FIRST spelling ON PURPOSE, `"<relation>.<index>.<column>"`.
+ *
+ * An entry means a SECOND consumer of the same index sorts the column with a plain `DESC`
+ * and would lose more than the browser gains. That is a real conflict, not a loophole: the
+ * two orderings cannot share one btree, so one of them sorts. Each entry must carry the A/B
+ * that decided it, and the losing side's cost.
+ */
+const CATALOG_EXCEPTIONS: Record<string, string> = {
+  "tenders.idx_tenders_buyer_date.publication_date":
+    "tenders_by_buyer (010) sorts `publication_date DESC, unp DESC` and is the AWARDER PAGE's " +
+    "DEFAULT load; the browser's date sort is an opt-in column click. A/B on one database: " +
+    "this spelling is 254 buffers for tenders_by_buyer and the buildOrder-matching spelling is " +
+    "2,603 (the planner drops the buyer seek and scans idx_tenders_order backward over the " +
+    "corpus). The browser pays 4,356 instead of 2,103 — an order of magnitude cheaper to lose. " +
+    "Same conflict and same resolution as 042's idx_kzk_appeals_date.",
+};
+
+/**
  * Resources whose arrival legitimately does NOT ride an ordered index, each with the reason
  * and the measurement that settles it. An entry here is a DECISION, not a suppression — a
  * stale one fails below, so removing the reason is not free.
@@ -275,6 +293,16 @@ test.skipIf(skip)(
     }
 
     const failures: string[] = [];
+    const usedExceptions = new Set<string>();
+    // Returns true when this (relation, index, column) is a recorded exception — and records
+    // that it was reached, so a stale entry can be failed below.
+    const seen = {
+      add(key: string): boolean {
+        if (!(key in CATALOG_EXCEPTIONS)) return false;
+        usedExceptions.add(key);
+        return true;
+      },
+    };
     let examined = 0;
     for (const [name, r] of Object.entries(REGISTRY)) {
       // A reader may click ANY sortable column descending, so the rule covers all of them,
@@ -300,7 +328,7 @@ test.skipIf(skip)(
       for (const rel of rels) {
         examined += sortable.size;
         for (const b of byRel.get(rel) ?? [])
-          if (sortable.has(b.col))
+          if (sortable.has(b.col) && !seen.add(`${rel}.${b.idx}.${b.col}`))
             failures.push(
               `${name}: ${rel}.${b.idx} key ${b.keypos} is "${b.col} DESC NULLS FIRST", ` +
                 `but buildOrder emits "${b.col} DESC NULLS LAST" — the index cannot serve it`,
@@ -316,6 +344,18 @@ test.skipIf(skip)(
       examined > 0,
       "no resource resolved to a relation carrying any DESC NULLS FIRST key — the join is " +
         "not reaching the catalog",
+    );
+    // A stale exception is as much a defect as a missing one: it asserts a conflict that no
+    // longer exists and quietly exempts a column the next migration may break.
+    const stale = Object.keys(CATALOG_EXCEPTIONS).filter(
+      (k) => !usedExceptions.has(k),
+    );
+    assert.deepEqual(
+      stale,
+      [],
+      `CATALOG_EXCEPTIONS entries no longer match anything — the index was re-spelled or ` +
+        `renamed, so delete the entry rather than leaving a stale reason on the record: ` +
+        `${stale.join(", ")}`,
     );
   },
 );

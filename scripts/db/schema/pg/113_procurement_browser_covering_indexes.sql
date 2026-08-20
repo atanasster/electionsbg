@@ -79,18 +79,18 @@ CREATE INDEX IF NOT EXISTS idx_tenders_order
 -- count+sum (value is in its key); this one adds the facet columns so the buyer
 -- procedure / eu-funded facets are index-only too.
 --
--- ⚠️ KEY CHANGED from 009: `publication_date DESC NULLS LAST, unp` (was `DESC, unp DESC`).
--- db_table.js's buildOrder emits `publication_date DESC NULLS LAST, unp ASC` when a reader
--- sorts a buyer's pipeline by date, and Postgres will not bridge either mismatch — so the
--- old spelling was refused outright and the page sorted the buyer's whole tender set.
--- MEASURED on the largest buyer (000696327): 4,356 buffers / 10.8 ms against 2,103 / 4.5 ms.
+-- ⚠️ Key unchanged from 009, and its NULLS FIRST spelling is DELIBERATE — see 009's header.
+-- Re-spelling it to match db_table.js's buildOrder (`publication_date DESC NULLS LAST, unp`)
+-- wins the browser's opt-in date sort 4,356 → 2,103 buffers and LOSES tenders_by_buyer, the
+-- awarder page's default load, 254 → 2,603, because the planner then abandons the buyer seek
+-- for a backward scan of idx_tenders_order. Measured A/B on one database. Do not "finish the
+-- job" here; it is a named exception in
+-- scripts/db/tests/db_table_sort_indexes.data.test.ts.
 --
--- idx_tenders_buyer_value is deliberately NOT re-spelled to match: its leading key is
--- already NULLS LAST, so the default arrival IS index-served and only the `unp` tiebreak
--- costs an Incremental Sort — measured at ONE buffer (2,107 → 2,106), which does not pay
--- for rebuilding a large index on every database.
--- Gate: scripts/db/tests/db_table_sort_indexes.data.test.ts.
+-- idx_tenders_buyer_value needs no change for the opposite reason: its leading key is already
+-- NULLS LAST, so the default arrival IS index-served and only the `unp` tiebreak costs an
+-- Incremental Sort — measured at ONE buffer (2,107 → 2,106).
 DROP INDEX IF EXISTS idx_tenders_buyer_date;
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_date
-  ON tenders (buyer_eik, publication_date DESC NULLS LAST, unp)
+  ON tenders (buyer_eik, publication_date DESC, unp DESC)
   INCLUDE (estimated_value_eur, procedure_type, is_eu_funded);

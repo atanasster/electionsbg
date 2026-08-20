@@ -101,12 +101,22 @@ CREATE INDEX IF NOT EXISTS idx_tenders_cpv_pattern
 -- global index vs 6ms / 2ms once the buyer is the index's leading column.
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_value
   ON tenders(buyer_eik, estimated_value_eur DESC NULLS LAST, unp DESC);
--- `DESC NULLS LAST, unp` (not `DESC, unp DESC`) so the key matches what db_table.js's
--- buildOrder emits — 113 recreates this index with the same shape and carries the
--- measurement; kept in step here so a fresh clone that has not reached 113 is not built
--- with an index the date sort cannot use.
+-- ⚠️ `DESC, unp DESC` — deliberately NOT the `DESC NULLS LAST, unp` that db_table.js's
+-- buildOrder emits, and this is the one index in the repo that keeps the NULLS FIRST
+-- spelling ON PURPOSE. TWO consumers want incompatible shapes and only one can win:
+--   tenders_by_buyer (010) sorts `… publication_date DESC, unp DESC` and is the AWARDER
+--     PAGE's default load;
+--   the DbDataTable per-buyer date sort is `publication_date DESC NULLS LAST, unp ASC`
+--     and is an opt-in column click.
+-- MEASURED A/B on one database, tenders_by_buyer('000696327', 50, 'date'): this shape is
+-- 254 buffers; the buildOrder-matching shape is 2,603, because the planner abandons the
+-- buyer seek entirely and scans idx_tenders_order BACKWARD over the whole corpus — the
+-- exact pathology the comment above warns about. The browser sort loses 4,356 → 2,103 by
+-- keeping this shape, which is the cheaper of the two regressions by an order of magnitude.
+-- Same trade-off, same resolution as 042's idx_kzk_appeals_date. Recorded as a named
+-- exception in scripts/db/tests/db_table_sort_indexes.data.test.ts.
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_date
-  ON tenders(buyer_eik, publication_date DESC NULLS LAST, unp);
+  ON tenders(buyer_eik, publication_date DESC, unp DESC);
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_fold ON tenders USING gin (buyer_fold gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_tenders_subj_fold  ON tenders USING gin (subject_fold gin_trgm_ops);
 -- The global tenders browser default-sorts by forecast value — keep it an index
