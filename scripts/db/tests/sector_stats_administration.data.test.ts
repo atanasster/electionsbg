@@ -53,6 +53,7 @@ import {
   IAIEU_EIK,
   DAEU_EIK,
 } from "@/lib/administrationReferenceData";
+import { isConsortiumCarrierKey, isConsortiumSupplier } from "@/lib/companyKey";
 
 /** Per-member € floor for „every member still contributes real money". Each is
  *  well under that member's own 2026-08-19 total and far above zero.
@@ -423,6 +424,9 @@ describe("administration — the beneficiary side", () => {
   // ⚠ TS/SQL TWIN: `LIKE 'obed-%'` below restates `isConsortiumCarrierKey`
   // (src/lib/companyKey.ts). A data test cannot import the predicate into SQL, so
   // the two must be changed together — that header carries the same note back.
+  // (Since consortium-visibility-v1 the prefix is only the FALLBACK; the
+  // authoritative signal is `consortiumEur`, gated in
+  // awarder_group_model.data.test.ts.)
 
   // Claim 1: „counted once", which is what the note reassures the reader about —
   // so if it breaks, the note is actively vouching for a wrong number.
@@ -470,38 +474,53 @@ describe("administration — the beneficiary side", () => {
     );
   });
 
-  // ⚠ `obed-` IS NOT „consortia", AND THE GAP IS BIGGER THAN IT LOOKS. A
+  // ⚠ `obed-` IS NOT „consortia", AND THIS ARM WAS INVERTED ON 2026-08-19. A
   // consortium reaches the corpus in two forms: a synthetic `obed-` carrier when
   // the award names an обединение with no legal identity, and a REGISTERED ДЗЗД
-  // with its own 9-digit EIK. Measured 2026-08-19 on the group: 14 carrier rows /
+  // with its own 9-digit EIK. Measured on the group: 14 carrier rows /
   // €95,341,695, of which only 11 / €63.3M are `obed-`. The other three are
   // registered — and one is Консорциум СисТел ДЗЗД at €31,461,596, the group's
   // SECOND-largest contractor all-time.
   //
-  // So `SectorTopContractorsTile`'s note under-covers, and it cannot do better as
-  // built: 061's sup CTE reads `consortium_role` but does not project it, and
-  // `AwarderModel` has no such field, so the client sees only the key prefix.
-  // This arm exists to keep that gap MEASURED rather than assumed — closing it
-  // means projecting `consortium_role` into the model, which changes what a
-  // second sector page says and is a decision, not a cleanup.
-  test.skipIf(noDb)("the note's blind spot stays measured", async () => {
-    const [r] = await allRows<{ hidden: number; eur: number }>(
-      `SELECT count(*)::int AS hidden,
-              coalesce(round(sum(amount_eur)), 0)::float8 AS eur
-         FROM contracts
-        WHERE tag = 'contract'
-          AND awarder_eik IN (${eikList(ADMIN_SECTOR_EIKS)})
-          AND consortium_role = 'carrier'
-          AND contractor_eik NOT LIKE 'obed-%'`,
-    );
-    // A band, not equality — the point is that the blind spot is known and small
-    // enough that a footnote is still the right response. If registered ДЗЗД come
-    // to dominate, the model change above stops being optional.
-    assert.ok(
-      r.hidden < 15,
-      `${r.hidden} registered-ДЗЗД carriers carry no consortium note (was 3)`,
-    );
-  });
+  // While the tile sniffed the key prefix, those three were a BLIND SPOT and this
+  // arm banded it („fewer than 15"). consortium-visibility-v1 closed it: 061 now
+  // projects `consortiumEur`, `AwarderSupplier` carries it and
+  // `isConsortiumSupplier` prefers it over the prefix. So the assertion flips —
+  // it no longer tolerates the gap, it requires the € that closes it.
+  //
+  // The three registered carriers are what makes this non-vacuous: an arm that
+  // only ever saw `obed-` rows would pass under the OLD prefix rule too.
+  test.skipIf(noDb)(
+    "the registered ДЗЗД carriers are reachable by the note",
+    async () => {
+      const rows = await allRows<{ eik: string; eur: number }>(
+        `SELECT contractor_eik AS eik, round(sum(amount_eur))::float8 AS eur
+           FROM contracts
+          WHERE tag = 'contract'
+            AND awarder_eik IN (${eikList(ADMIN_SECTOR_EIKS)})
+            AND consortium_role = 'carrier'
+            AND contractor_eik NOT LIKE 'obed-%'
+          GROUP BY 1`,
+      );
+      assert.ok(
+        rows.length > 0,
+        "no registered-ДЗЗД carriers in the group — this arm cannot discriminate " +
+          "between the prefix rule and the consortiumEur rule",
+      );
+      // Each is invisible to the prefix and visible to the €. Asserting BOTH is
+      // what makes this a test of the new rule rather than of the corpus.
+      for (const r of rows) {
+        assert.ok(
+          !isConsortiumCarrierKey(r.eik),
+          `${r.eik} matches the obed- prefix — the fixture no longer discriminates`,
+        );
+        assert.ok(
+          isConsortiumSupplier({ eik: r.eik, consortiumEur: r.eur }),
+          `${r.eik} (€${r.eur}) is a carrier the tile would still not mark`,
+        );
+      }
+    },
+  );
 
   // Claim 2: the `obed-` carriers — the rows the note actually marks — are a
   // MINORITY of the sector's money. NOTE THE BASIS: this is the obed- share, not

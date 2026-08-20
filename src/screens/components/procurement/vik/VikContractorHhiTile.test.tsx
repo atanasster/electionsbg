@@ -10,7 +10,7 @@
 // enterprise, a dams enterprise and 14 municipal operators were companies in
 // Български ВиК холдинг. A caption cannot be checked in one language.
 
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { VikContractorHhiTile } from "./VikContractorHhiTile";
@@ -255,3 +255,73 @@ describe.each(["bg", "en"])(
     });
   },
 );
+
+describe("VikContractorHhiTile — consortium rows", () => {
+  /** One supplier marked, by whichever signal the case is testing. */
+  const renderWith = (mark: { eik?: string; consortiumEur?: number | null }) =>
+    render(
+      <MemoryRouter>
+        <VikContractorHhiTile
+          suppliers={[
+            {
+              ...suppliers[0],
+              eik: mark.eik ?? suppliers[0].eik,
+              consortiumEur: mark.consortiumEur,
+            },
+            suppliers[1],
+            suppliers[2],
+          ]}
+          totalEur={1000}
+        />
+      </MemoryRouter>,
+    );
+
+  beforeEach(() => {
+    lang = "bg";
+  });
+
+  // The case the whole change exists for: a REGISTERED ДЗЗД carries an ordinary
+  // 9-digit EIK, so the obed- prefix cannot see it. Only the € can.
+  it("marks a registered ДЗЗД, which the key prefix cannot see", () => {
+    renderWith({ eik: "177424500", consortiumEur: 600 });
+    expect(screen.getByText("консорциум")).toBeInTheDocument();
+    expect(
+      screen.getByText(/концентрацията по фирма е подценена/),
+    ).toBeInTheDocument();
+  });
+
+  // 0 is an answer, not „unknown" — a solo supplier must not be marked.
+  it("does not mark a supplier that won nothing jointly", () => {
+    renderWith({ consortiumEur: 0 });
+    expect(screen.queryByText("консорциум")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/концентрацията по фирма е подценена/),
+    ).not.toBeInTheDocument();
+  });
+
+  // The degrade path: on a database whose 061 predates the projection the € is
+  // null, and the obed- prefix still answers for its half.
+  it("falls back to the key when the € is unknown", () => {
+    renderWith({ eik: "obed-369bc7450c81", consortiumEur: null });
+    expect(screen.getByText("консорциум")).toBeInTheDocument();
+  });
+
+  it("says nothing when no row is a consortium", () => {
+    renderTile();
+    expect(screen.queryByText("консорциум")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/концентрацията по фирма е подценена/),
+    ).not.toBeInTheDocument();
+  });
+
+  // A caption cannot be checked in one language — the sibling tile shipped a
+  // Bulgarian correction while the English text kept asserting the old thing.
+  it("carries the chip and note in English", () => {
+    lang = "en";
+    renderWith({ eik: "177424500", consortiumEur: 600 });
+    expect(screen.getByText("consortium")).toBeInTheDocument();
+    expect(
+      screen.getByText(/per-firm concentration is understated/),
+    ).toBeInTheDocument();
+  });
+});
