@@ -71,17 +71,26 @@ export const GovernanceDeclarationsScreen: FC = () => {
         metric: nf.format(stats.officials),
         caption: t("decl_kpi_officials"),
       },
-      companies: {
-        metric: nf.format(stats.companies),
-        caption: t("decl_kpi_companies"),
-        // The MPs attached to them. „2 781" alone reads as a corpus size; paired with 855
-        // members it is a statement about the chamber.
-        secondary: t("decl_kpi_companies_secondary", {
-          count: stats.companyMps,
-          n: nf.format(stats.companyMps),
-        }),
-      },
     };
+
+    // ⚠️ OMITTED AT ZERO, never rendered as „0 организации". The generator ships 0 when
+    // official_companies (178) is absent or unbuilt — a state its own warning calls "ships
+    // without a figure" — and a tile printing that zero would turn "we have not built this
+    // yet" into "no office-holder is attached to any organisation", about every named person
+    // at once. Same rule the per-parliament tiles below already follow for an empty slice.
+    if (stats.organisations > 0) {
+      out.companies = {
+        metric: nf.format(stats.organisations),
+        caption: t("decl_kpi_companies"),
+        // The people attached to them. „17 608" alone reads as a corpus size; paired with
+        // the people it is a statement about public life. NOT „MPs" any more — the
+        // destination covers every tier and they are a minority of it.
+        secondary: t("decl_kpi_companies_secondary", {
+          count: stats.organisationPeople,
+          n: nf.format(stats.organisationPeople),
+        }),
+      };
+    }
 
     // The two PER-PARLIAMENT tiles. Absent when the selected election's parliament has no
     // registry rows — the 39th has 124 members with a filing and no cars at all — and an

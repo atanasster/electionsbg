@@ -16,14 +16,13 @@ import { readFileSync, existsSync } from "node:fs";
 import { allRows, dbReachable, end } from "../lib/pg";
 
 const BLOB = "data/governance/declarations_hub_stats.json";
-const COMPANIES_INDEX = "data/parliament/companies-index.json";
 
 interface Blob {
   people: number;
   peopleWithDeclaration: number;
   officials: number;
-  companies: number;
-  companyMps: number;
+  organisations: number;
+  organisationPeople: number;
   byNs: Record<
     string,
     { mpsWithAssets: number; cars: number; carOwners: number }
@@ -127,22 +126,56 @@ test("people and officials quote their DESTINATION's filter, not their table", a
   assert.ok(blob.peopleWithDeclaration < blob.people);
 });
 
-test("the companies figure comes from the file /mp/companies renders", (t) => {
+test("the organisations figure comes from what /governance/companies renders", async (t) => {
+  // ⚠️ THE TILE QUOTES ITS DESTINATION'S OWN RELATION. It used to quote
+  // data/parliament/companies-index.json because that WAS what /mp/companies rendered; the
+  // destination is now /governance/companies over `official_companies` (178). The rule did
+  // not change — only which relation satisfies it.
+  if (!(await dbReachable())) return t.skip();
   const blob = load();
-  if (!blob || !existsSync(COMPANIES_INDEX)) return t.skip();
-
-  const idx = JSON.parse(readFileSync(COMPANIES_INDEX, "utf8")) as {
-    companies: { mpRoles?: { mpId?: number }[] }[];
-  };
+  if (!blob) return t.skip();
+  const [row] = await allRows<Record<string, string>>(
+    `SELECT count(*)::text AS n FROM official_companies`,
+  ).catch(() => [undefined as unknown as Record<string, string>]);
+  if (!row) return t.skip();
   assert.equal(
-    blob.companies,
-    idx.companies.length,
-    "companies drifted from companies-index.json — the tile and its destination disagree",
+    blob.organisations,
+    Number(row.n),
+    "organisations drifted from official_companies — the tile and its destination disagree",
   );
-  const mps = new Set<number>();
-  for (const c of idx.companies)
-    for (const r of c.mpRoles ?? []) if (r.mpId != null) mps.add(r.mpId);
-  assert.equal(blob.companyMps, mps.size);
+  // ⚠️ THE EXACT RECOUNT, carrying 178's TWO registry guards. The first version asserted
+  // only `< sum(person_count)` (21,207), which admits anything in [0, 21206] — and that is
+  // precisely how a 6-person overstatement shipped green: re-deriving from person_role alone
+  // drops the tr_person_roles name_fold join and the tr_name_fold_people fold gate.
+  const [people] = await allRows<Record<string, string>>(
+    `SELECT count(DISTINCT person_id)::text AS n FROM (
+       SELECT ptr.person_id
+         FROM person_role ptr
+         JOIN person pe ON pe.person_id = ptr.person_id
+         JOIN tr_person_roles t ON t.uic = ptr.ref AND t.name_fold = pe.name_fold
+         JOIN tr_name_fold_people f ON f.name_fold = pe.name_fold AND f.people_n = 1
+        WHERE ptr.source IN ('tr','ngo')
+          AND ptr.confidence IN ('exact_id','high','manual')
+          AND pe.status = 'active' AND pe.is_public_figure
+       UNION
+       SELECT sc.person_id
+         FROM declaration_stake_company sc
+         JOIN person pe ON pe.person_id = sc.person_id
+        WHERE pe.status = 'active' AND pe.is_public_figure) z`,
+  );
+  assert.equal(
+    blob.organisationPeople,
+    Number(people.n),
+    "organisationPeople drifted from the gated recount — check the fold gate is still joined",
+  );
+  // And still not a SUM: people repeat across organisations.
+  const [sum] = await allRows<Record<string, string>>(
+    `SELECT coalesce(sum(person_count),0)::text AS s FROM official_companies`,
+  );
+  assert.ok(
+    blob.organisationPeople < Number(sum.s),
+    "organisationPeople equals the SUM of person_count — it must be a DISTINCT recount",
+  );
 });
 
 test("the companies figure is NOT company_politicians", async (t) => {
@@ -155,6 +188,6 @@ test("the companies figure is NOT company_politicians", async (t) => {
   const [row] = await allRows<Record<string, string>>(`
     SELECT (SELECT count(DISTINCT eik) FROM company_politicians)  AS cp_companies,
            (SELECT count(*) FROM company_politicians)             AS cp_links`);
-  assert.notEqual(blob.companies, Number(row.cp_companies));
-  assert.notEqual(blob.companyMps, Number(row.cp_links));
+  assert.notEqual(blob.organisations, Number(row.cp_companies));
+  assert.notEqual(blob.organisationPeople, Number(row.cp_links));
 });

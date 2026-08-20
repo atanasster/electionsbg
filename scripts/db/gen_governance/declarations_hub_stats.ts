@@ -50,8 +50,6 @@ const ROOT = path.resolve(
   "..",
 );
 const OUT = path.join(ROOT, "data/governance/declarations_hub_stats.json");
-/** The /mp/companies destination's OWN fact source — the file that screen fetches. */
-const COMPANIES_INDEX = path.join(ROOT, "data/parliament/companies-index.json");
 
 const RELATIONS = [
   "person_browse_table",
@@ -82,8 +80,14 @@ export interface DeclarationsHubStats {
   officials: number;
   /** Companies /mp/companies LISTS, from that page's own index, and the MPs attached to
    *  them. Deliberately not company_politicians — different corpus, 8x smaller. */
-  companies: number;
-  companyMps: number;
+  /** Organisations /governance/companies LISTS — its own relation, `official_companies`
+   *  (178). NOT „companies": 5,200 of them are сдружения, читалища, фондации, кооперации or
+   *  държавни предприятия, and the tile's own copy names them. */
+  organisations: number;
+  /** DISTINCT people in public life attached to those organisations. Renamed from
+   *  `companyMps`: the destination stopped being MP-only when it widened to every
+   *  office-holder tier, and a field keeping the old name lies by name. */
+  organisationPeople: number;
   /** Per-parliament, because both MP screens open scoped to the selected election. */
   byNs: Record<string, DeclarationsNsStats>;
 }
@@ -144,27 +148,66 @@ const run = async (): Promise<void> => {
     s.carOwners = Number(r.owners);
   }
 
-  // The companies tile quotes the file its destination renders. Reading Postgres here would
-  // be reading a DIFFERENT corpus that happens to be about the same subject — the exact
-  // "destination counts a different set" trap, with an 8x gap.
-  let companies = 0;
-  let companyMps = 0;
-  if (fs.existsSync(COMPANIES_INDEX)) {
-    const idx = JSON.parse(fs.readFileSync(COMPANIES_INDEX, "utf8")) as {
-      companies?: { mpRoles?: { mpId?: number }[] }[];
-    };
-    const list = idx.companies ?? [];
-    companies = list.length;
-    const mps = new Set<number>();
-    for (const c of list)
-      for (const r of c.mpRoles ?? []) if (r.mpId != null) mps.add(r.mpId);
-    companyMps = mps.size;
-  } else {
-    // Absent on a checkout that has not run the parliament pipeline. Zero here means the
-    // hook omits the figure, which is the honest render — not a tile claiming no companies.
-    console.warn(
-      `declarations_hub_stats: ${path.relative(ROOT, COMPANIES_INDEX)} absent — companies tile ships without a figure`,
+  // ⚠️ THE TILE QUOTES ITS DESTINATION'S OWN RELATION, and that is the whole rule here.
+  // It used to read data/parliament/companies-index.json because that WAS what
+  // /mp/companies rendered; the destination is now /governance/companies over
+  // `official_companies` (178), so this reads that. Reading anything else — company_politicians
+  // is the standing temptation — would be counting a different corpus that happens to be about
+  // the same subject, which is the trap the previous comment here was written for.
+  //
+  // person_count is per organisation and people repeat across them, so the headline needs a
+  // DISTINCT recount over the two arms rather than a SUM of the column.
+  let organisations = 0;
+  let organisationPeople = 0;
+  const ocMissing = await missingRelations(["official_companies"]);
+  if (ocMissing.length) {
+    // Absent on a database that has not applied 178. Both figures stay 0 and the hook OMITS
+    // the tile's metric rather than rendering „0 организации", which would be a claim.
+    warnSkip(
+      "declarations_hub_stats",
+      "official_companies absent — companies tile ships without a figure",
+      "run npm run db:load:declarations:pg -- --resolve",
     );
+  } else {
+    const [oc] = await allRows<{ n: string; people: string }>(
+      // ⚠️ THE PEOPLE RECOUNT MUST CARRY 178's TWO REGISTRY GUARDS. Re-deriving from
+      // person_role alone drops the `tr_person_roles` name_fold join and the
+      // `tr_name_fold_people.people_n = 1` fold gate, and publishes 14,870 against the
+      // matview's 14,864 — six people the registry says are not uniquely identified by
+      // their name, three of them on a fold it has not measured at all, which 148's rule
+      // refuses rather than admits. The error is one-way: it can only ever overstate.
+      //
+      // A DISTINCT recount, never sum(person_count): people repeat across organisations, and
+      // that column sums to 21,207.
+      `SELECT count(*)::text AS n,
+              (SELECT count(DISTINCT person_id)::text FROM (
+                 SELECT ptr.person_id
+                   FROM person_role ptr
+                   JOIN person pe ON pe.person_id = ptr.person_id
+                   JOIN tr_person_roles t
+                     ON t.uic = ptr.ref AND t.name_fold = pe.name_fold
+                   JOIN tr_name_fold_people f
+                     ON f.name_fold = pe.name_fold AND f.people_n = 1
+                  WHERE ptr.source IN ('tr','ngo')
+                    AND ptr.confidence IN ('exact_id','high','manual')
+                    AND pe.status = 'active' AND pe.is_public_figure
+                 UNION
+                 SELECT sc.person_id
+                   FROM declaration_stake_company sc
+                   JOIN person pe ON pe.person_id = sc.person_id
+                  WHERE pe.status = 'active' AND pe.is_public_figure) z) AS people
+         FROM official_companies`,
+    );
+    organisations = Number(oc.n);
+    organisationPeople = Number(oc.people);
+    if (organisations === 0) {
+      // Applied but never built. Distinct from absent, and silent before this.
+      warnSkip(
+        "declarations_hub_stats",
+        "official_companies is EMPTY — companies tile ships without a figure",
+        "run npm run db:load:declarations:pg -- --resolve",
+      );
+    }
   }
 
   const out: DeclarationsHubStats = {
@@ -172,8 +215,8 @@ const run = async (): Promise<void> => {
     people: Number(row.people),
     peopleWithDeclaration: Number(row.people_with_declaration),
     officials: Number(row.officials),
-    companies,
-    companyMps,
+    organisations,
+    organisationPeople,
     byNs,
   };
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
@@ -181,7 +224,8 @@ const run = async (): Promise<void> => {
   const all = byNs.all;
   console.log(
     `declarations_hub_stats: ${out.people} people (${out.peopleWithDeclaration} with a filing) · ` +
-      `${out.officials} exec officials · ${out.companies} companies/${out.companyMps} MPs · ` +
+      `${out.officials} exec officials · ${out.organisations} organisations/` +
+      `${out.organisationPeople} people · ` +
       `${Object.keys(byNs).length} ns partitions (all: ${all?.mpsWithAssets} MPs, ${all?.cars} cars/${all?.carOwners} owners)`,
   );
   await end();

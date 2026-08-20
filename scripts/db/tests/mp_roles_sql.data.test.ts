@@ -13,6 +13,14 @@
 // The unit tests could not catch it: augment_mp_roles.test.ts mocks `allRows`, so the SQL
 // string is never parsed by anything. Executing it is the only gate that discriminates.
 //
+// ⚠️ DO NOT DELETE THIS FILE WITH ITS CALLER. `augment_mp_roles.ts` is scheduled for
+// retirement (company-page-consolidation-v1 Tier 5.2), and the reflex when a caller dies is
+// to delete its test — which would drop the ONLY executing check on this query shape. Its
+// successor is `scripts/db/tests/official_companies.data.test.ts`, which recomputes the same
+// registry arm (person_role at tr/ngo ⨝ tr_person_roles on name_fold, gated on
+// tr_name_fold_people) against migration 178. Move any assertion that is not already there
+// BEFORE removing this, and check that file still executes SQL rather than mocking it.
+//
 // This asserts the query RUNS and orders as the dedup below it requires. It does NOT assert a
 // row count — the set legitimately empties on a database without a resolved person layer, and
 // that is what the skip is for.
