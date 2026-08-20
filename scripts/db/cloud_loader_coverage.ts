@@ -61,7 +61,6 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
   // Each of these shipped before this gate existed. They are NOT sanctioned —
   // they are the backlog this gate exists to stop growing.
   "build:project-members:cloud": { kind: "unreviewed", reason: "pre-existing" },
-  "db:load:annexes:pg:cloud": { kind: "unreviewed", reason: "pre-existing" },
   "db:load:budget-hub:pg:cloud": { kind: "unreviewed", reason: "pre-existing" },
   "db:load:budget-muni:pg:cloud": {
     kind: "unreviewed",
@@ -73,10 +72,6 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
     reason: "pre-existing",
   },
   "db:load:cr-nkid:pg:cloud": { kind: "unreviewed", reason: "pre-existing" },
-  "db:load:employer-links:pg:cloud": {
-    kind: "unreviewed",
-    reason: "pre-existing",
-  },
   "db:load:funds-fit:pg:cloud": { kind: "unreviewed", reason: "pre-existing" },
   "db:load:grant-links:pg:cloud": {
     kind: "unreviewed",
@@ -87,10 +82,6 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
     reason: "pre-existing",
   },
   "db:load:tr-name-fold-people:pg:cloud": {
-    kind: "unreviewed",
-    reason: "pre-existing",
-  },
-  "db:load:transport-facility-map:pg:cloud": {
     kind: "unreviewed",
     reason: "pre-existing",
   },

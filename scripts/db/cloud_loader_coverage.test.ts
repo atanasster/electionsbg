@@ -129,6 +129,6 @@ describe("every :cloud loader is reachable from a skill", () => {
       unreviewed.length,
       "the unreviewed backlog changed — if you WIRED one, lower this number in the " +
         "same commit; if this grew, a new loader landed unwired",
-    ).toBe(14);
+    ).toBe(11);
   });
 });

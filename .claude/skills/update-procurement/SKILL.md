@@ -190,6 +190,7 @@ npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent 
 - It is idempotent and dry-run by default. A second run over its own output finds nothing; the
   permanently-unresolvable groups it prints (7 ambiguous + 5 blocked today) are expected output,
   not failures. See `docs/plans/procurement-cross-source-dedup-v2.md`.
+- To publish the same to prod: **`npm run db:load:annexes:pg:cloud`**, after `db:load:pg:cloud`. Nothing runs it automatically, and the orphan below is exactly as real on Cloud SQL as it is locally.
 - Then **`db:load:annexes:pg` must follow the contracts reload**: an eviction orphans the evicted
   row's `procurement_annexes` rows (16 across 9 keys on the last run), and only that loader
   re-resolves them.
@@ -285,6 +286,9 @@ npm run db:load:awarder-seats:pg:cloud
 npm run db:load:tender-dossier:pg:cloud   # ЦАИС ЕОП dossier + tender search — see below
 npm run db:load:persons-browse:pg:cloud   # /persons money column — see below
 npm run db:load:graph:pg:cloud            # /connections company money — see below
+npm run db:load:annexes:pg:cloud          # MANDATORY after the reconcile — see step 2c
+npm run db:load:employer-links:pg:cloud   # declared employer → buyer; needs declarations PHASE 1 too
+npm run db:load:transport-facility-map:pg:cloud   # rides awarder-seats, not contracts
 ```
 
 `db:load:tender-dossier:pg:cloud` publishes the ЦАИС ЕОП per-procedure dossier (146) and

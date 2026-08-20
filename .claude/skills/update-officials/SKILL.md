@@ -157,6 +157,8 @@ npm run db:load:ngo-board-links       # official_roster ← data/officials/{,mun
 npm run db:load:declarations:pg       # filings, person_id LEFT NULL
 npm run db:resolve:persons            # person / person_role from official_roster
 npm run db:load:declarations:pg -- --resolve   # fill person_id, REFRESH person_wealth_year
+npm run db:load:employer-links:pg             # declared employer → procurement buyer (165+168)
+                                              # publish: npm run db:load:employer-links:pg:cloud
 npm run db:load:person-elections:pg   # candidate_person — person_ids were just reassigned
 ```
 
