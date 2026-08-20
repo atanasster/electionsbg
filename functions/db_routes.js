@@ -1034,6 +1034,7 @@ const DB_ROUTES = {
       ngoSignals,
       ngoBoardLinks,
       nkid,
+      cleanDelivery,
     ] = await Promise.all([
       dbRows(
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
@@ -1193,6 +1194,19 @@ const DB_ROUTES = {
       dbRows("SELECT nace_div, label FROM company_nkid WHERE eik = $1", [
         eik,
       ]).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
+      // ИСУН clean-delivery (175). Guarded on the missing-migration case so the
+      // page still renders on a database that never ran db:load:clean-delivery:pg.
+      //
+      // ⚠️ An ABSENT row is not a negative finding. This register lists projects
+      // that ended with no financial correction; a company missing from it may
+      // simply have finished late, be mid-verification, or hold no EU grant at
+      // all. The tile therefore renders ONLY on a present row — never a zero —
+      // and the row carries `absence_meaning` so the page states the bound
+      // rather than re-deriving it.
+      dbRows("SELECT * FROM isun_clean_delivery_for_eik($1)", [eik]).catch(
+        (e) =>
+          e?.code === "42P01" || e?.code === "42883" ? [] : Promise.reject(e),
+      ),
     ]);
     return {
       body: {
@@ -1225,6 +1239,7 @@ const DB_ROUTES = {
         ngoSignals: ngoSignals[0]?.r ?? null,
         ngoBoardLinks,
         nkid: nkid[0] ?? null,
+        cleanDelivery: cleanDelivery[0] ?? null,
       },
     };
   },

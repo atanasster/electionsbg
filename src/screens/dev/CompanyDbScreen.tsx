@@ -74,6 +74,10 @@ import {
   type RetailChainInfo,
 } from "../components/procurement/CompanyRetailChainTile";
 import {
+  CompanyCleanDeliveryTile,
+  type CleanDeliveryInfo,
+} from "../components/procurement/CompanyCleanDeliveryTile";
+import {
   EntityRiskGradeCard,
   type EntityRiskGrade,
 } from "../components/procurement/EntityRiskGradeCard";
@@ -434,6 +438,9 @@ export const CompanyDbScreen: FC = () => {
   );
   const [subsidies, setSubsidies] = useState<AgriRecipientFile | null>(null);
   const [retailChain, setRetailChain] = useState<RetailChainInfo | null>(null);
+  const [cleanDelivery, setCleanDelivery] = useState<CleanDeliveryInfo | null>(
+    null,
+  );
   const [awarderGrade, setAwarderGrade] = useState<EntityRiskGrade | null>(
     null,
   );
@@ -604,6 +611,7 @@ export const CompanyDbScreen: FC = () => {
           setNgoBoardLinks(j.ngoBoardLinks ?? null);
           setSubsidies(j.subsidies ?? null);
           setRetailChain(j.retailChain ?? null);
+          setCleanDelivery(j.cleanDelivery ?? null);
           setAwarderGrade(j.awarderRiskGrade ?? null);
           setSupplierGrade(j.supplierRiskGrade ?? null);
           setCorpusName(j.corpusName ? decodeEntities(j.corpusName) : null);
@@ -1679,6 +1687,14 @@ export const CompanyDbScreen: FC = () => {
           {funds && Number(funds.contracted_eur ?? 0) > 0 && (
             <CompanyFundsTile eik={eik} funds={funds} projects={fundProjects} />
           )}
+
+          {/* Sits under the ИСУН money because it qualifies THAT money: how much
+              of it was delivered without a correction. Deliberately NOT gated on
+              the funds tile — the registers are built from different exports and
+              a beneficiary can be listed here while `fund_beneficiaries` holds no
+              contracted total. It renders only on a present row and never a zero:
+              absence is not a correction (175). */}
+          {cleanDelivery && <CompanyCleanDeliveryTile info={cleanDelivery} />}
 
           {/* NOT gated on the ИСУН tile above: Interreg is a separate corpus,
               and an organisation can have cross-border money with no ИСУН
