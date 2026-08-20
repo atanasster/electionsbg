@@ -30,7 +30,12 @@ import {
 } from "@/lib/educationReferenceData";
 import { NAP_EIK } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK } from "@/lib/customsReferenceData";
-import { AGRI_PAYER_EIK } from "@/data/agri/constants";
+import {
+  AGRI_LEAD_EIK,
+  AGRI_ENTITIES,
+  AGRI_UNIVERSE_LABEL,
+  agriFootnote,
+} from "@/lib/agriReferenceData";
 import { BEH_EIK } from "@/lib/energyReferenceData";
 import { TOURISM_MINISTRY_EIK } from "@/lib/tourismReferenceData";
 import {
@@ -434,22 +439,25 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       group: EDU_UNIVERSE_LABEL[e.universe],
     })),
   },
+  // Земеделие — the МЗХ group. `members` is the whole roster (38 EIKs) so the
+  // rollup folds БАБХ, the ministry and the regional directorates rather than the
+  // paying agency alone; ДФЗ leads because it is what the hub tile names. The tile
+  // itself stays basis='payout' (CAP money paid to farmers) — a DIFFERENT basis from
+  // this roster's procurement, which is why `agri` must stay out of SECTOR_EIKS.
+  // See agriReferenceData.ts and docs/plans/agri-sector-audit-v1.md.
   agri: {
     id: "agri",
     titleKey: "sector_agri_title",
     descKey: "sector_agri_desc",
     agency: "ДФЗ",
-    leadEik: AGRI_PAYER_EIK,
+    leadEik: AGRI_LEAD_EIK,
     browsePackId: "agri",
-    members: [
-      {
-        eik: AGRI_PAYER_EIK,
-        name: {
-          bg: "Държавен фонд „Земеделие“",
-          en: "State Fund Agriculture",
-        },
-      },
-    ],
+    footnote: { bg: agriFootnote(true), en: agriFootnote(false) },
+    members: AGRI_ENTITIES.map((e) => ({
+      eik: e.eik,
+      name: { bg: e.name, en: e.name },
+      group: AGRI_UNIVERSE_LABEL[e.universe],
+    })),
   },
   // Енергетика — the БЕХ state-energy group. Unlike the single-institution
   // sectors above, `members` IS the whole group (9 EIKs) so the KPI rollup folds

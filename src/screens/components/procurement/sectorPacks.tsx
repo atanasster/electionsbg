@@ -29,6 +29,7 @@ import { MOD_EIK, DEFENSE_SECTOR_EIKS } from "@/lib/defenseReferenceData";
 import { NAP_EIK, NAP_AWARDER_PATH } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK, CUSTOMS_AWARDER_PATH } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
+import { AGRI_SECTOR_EIKS } from "@/lib/agriReferenceData";
 import { ENERGY_SECTOR_EIKS } from "@/lib/energyReferenceData";
 import {
   TRANSPORT_EIK,
@@ -296,10 +297,17 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     },
     eiks: [...HEALTH_SECTOR_EIKS],
   },
+  // The 2026-08-20 audit widened this from ДФЗ alone to the 66-EIK МЗХ roster
+  // (agriReferenceData.ts): БАБХ (€217.6M), the ministry (€107.6M) and the whole
+  // forestry administration (€73.3M) were in no sector at all, so `?sector=agri`
+  // narrowed the browse table to the paying agency's own €131.1M. The label names
+  // МЗХ rather than ДФЗ because the set is now the principal, not the agency — the
+  // `single`-vs-group caption rule in SectorDashboardScreen turns on exactly that
+  // distinction.
   agri: {
     id: "agri",
-    label: { bg: "Земеделие (ДФЗ)", en: "Agriculture (ДФЗ)" },
-    eiks: [AGRI_PAYER_EIK],
+    label: { bg: "Земеделие (МЗХ)", en: "Agriculture (МЗХ)" },
+    eiks: AGRI_SECTOR_EIKS,
   },
   // JUDICIAL_EIKS ALREADY carries VSS_EIK and its alias, so the old
   // `[VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS]` shipped two DUPLICATE
