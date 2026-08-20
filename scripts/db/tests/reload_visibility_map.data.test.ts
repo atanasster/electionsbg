@@ -50,10 +50,20 @@ const REPO = path.resolve(
 // checked against the loaders' actual calls below, so it cannot quietly fall behind
 // them — it did once already, missing `nzok_activity_monthly`.
 //
-// `contracts` is deliberately ABSENT: it is stage-MERGEd rather than truncated
-// (load_pg.ts, RowExclusiveLock so readers never block), and its map survives a
-// reload intact. It is the counter-example that shows the defect belongs to the
-// reload SHAPE and not to bulk loading.
+// `contracts` used to be deliberately ABSENT, as the counter-example: it is stage-MERGEd
+// rather than truncated by `db:load:pg` (RowExclusiveLock, readers never block) and its
+// map survives THAT reload intact.
+//
+// ⚠️ It is listed now, because a second writer breaks the premise. The one-time migration
+// 176_translit_homoglyph_refold.sql rewrites EVERY row of seven tables (`UPDATE t SET
+// col = col`, to recompute the stored fold after a `translit_bg_latin()` change), which
+// is the map-losing shape — and its VACUUM cannot live in the migration, because
+// `apply_functions.ts` sends a file through `exec()` as one implicit transaction and
+// Postgres refuses VACUUM there. So the vacuum is a documented follow-up command, i.e.
+// exactly the kind of step that gets skipped. These entries are what turns skipping it
+// into a red gate rather than into index-only scans quietly disappearing from the
+// procurement and TR hot paths. `contracts` is 2,449 MB and the largest thing 176
+// touches, so it is the one that matters most.
 const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   {
     table: "declaration_employer_link",
@@ -77,6 +87,23 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "fund_projects", loader: "db:load:funds:pg" },
   { table: "fund_beneficiaries", loader: "db:load:funds:pg" },
   { table: "tenders", loader: "db:load:tenders:pg" },
+  // The seven tables 176 rewrites wholesale — see the note above. Named by the step that
+  // must vacuum them rather than by a loader, because no loader does.
+  { table: "contracts", loader: "176 refold + its follow-up VACUUM" },
+  { table: "contractor_search", loader: "176 refold + its follow-up VACUUM" },
+  { table: "awarder_search", loader: "176 refold + its follow-up VACUUM" },
+  { table: "person_search", loader: "176 refold + its follow-up VACUUM" },
+  { table: "tr_companies", loader: "176 refold + its follow-up VACUUM" },
+  { table: "tr_officers", loader: "176 refold + its follow-up VACUUM" },
+  { table: "tr_person_roles", loader: "176 refold + its follow-up VACUUM" },
+  // Vacuumed by the dossier loader's `--refold` mode, which rewrites every row of the
+  // search index after a `translit_bg_latin()` change (176). Not the ordinary load path —
+  // that one merges — but a full rewrite when it runs, and the table is read on every
+  // tenders search, so an empty map there costs the same as anywhere else.
+  {
+    table: "tender_search_text",
+    loader: "load_tender_dossier_pg.ts --refold",
+  },
   { table: "tender_normalcy_cache", loader: "db:load:tenders:pg" },
   { table: "procurement_normalcy_cache", loader: "db:load:pg" },
   { table: "procurement_annexes", loader: "db:load:annexes:pg" },

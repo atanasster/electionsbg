@@ -23,7 +23,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { command, run, optional, flag, boolean } from "cmd-ts";
-import { exec, getPool, withTx } from "./lib/pg";
+import { exec, getPool, vacuumAfterReload, withTx } from "./lib/pg";
 import { copyRows, pgTextArray } from "./lib/copy";
 import { EopDossierStore } from "../procurement/eop_dossier_store";
 import {
@@ -668,6 +668,91 @@ const rebuildSearchTextBatch = async (
   );
 };
 
+/** Re-project `tender_search_text` from rows ALREADY IN POSTGRES, with no capture.
+ *
+ *  Why it exists: the fold is stored, so a change to `translit_bg_latin()` leaves every
+ *  row folded by the old body — findable by neither the old spelling nor the new. Every
+ *  other fold in the schema is a STORED GENERATED column, which `UPDATE t SET base = base`
+ *  rewrites (099's pattern); this one is loader-written, so nothing rewrites it.
+ *
+ *  ⚠️ The obvious repair — re-run the loader — is not available where it is most needed.
+ *  Its input is `raw_data/procurement/eop_dossier.sqlite`, gitignored and produced by a
+ *  rate-limited ~26 h crawl, so on any machine without that file the loader applies DDL
+ *  and returns. But the fold's three SOURCES (`tender_dossier.description_text`,
+ *  `tender_notice.text`, `tender_document_text.text`) are all in the database already, so
+ *  the projection needs no capture at all — only the same statement the loader runs, over
+ *  the УНПs already stored.
+ *
+ *  Cheap because the INSERT ... ON CONFLICT is guarded by `fold IS DISTINCT FROM`, so a
+ *  re-fold that changes nothing writes nothing. Batched through the same helper as the
+ *  loader, so the two cannot project differently. */
+const refoldSearchText = async (args: { apply: boolean }): Promise<void> => {
+  await exec(fs.readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(fs.readFileSync(SEARCH_SCHEMA_FILE, "utf8"));
+
+  const { rows } = await getPool().query<{ unp: string }>(
+    "SELECT unp FROM tender_dossier ORDER BY unp",
+  );
+  const unps = rows.map((r) => r.unp);
+  if (unps.length === 0) {
+    console.log("→ tender_dossier is empty; nothing to re-fold.");
+    await getPool().end();
+    return;
+  }
+
+  // ⚠️ THE STALENESS REPORT USES THE REGEX, NOT THE FOLD. The obvious form —
+  // `count(*) WHERE translit_bg_latin(fold) IS DISTINCT FROM fold` — calls the fold once
+  // per row over document-sized bodies: measured 306.9 s here, twice, which is longer
+  // than the re-projection it is reporting on. Matching the Cyrillic block is 3.8 s and
+  // answers the same question for THIS change, since a homoglyph is what an old fold
+  // leaves behind. It is a REPORT, not the gate — `translit_fold_residue.data.test.ts`
+  // owns the exact predicate.
+  const cyrillic = `[${[...Array(0x100).keys()]
+    .map((i) => String.fromCodePoint(0x0400 + i))
+    .join("")}]`;
+  const countResidue = async (): Promise<number> => {
+    const r = await getPool().query<{ n: string }>(
+      "SELECT count(*)::text AS n FROM tender_search_text WHERE fold ~ $1",
+      [cyrillic],
+    );
+    return Number(r.rows[0].n);
+  };
+
+  const before = await countResidue();
+  if (!args.apply) {
+    console.log(
+      `→ dry run: would re-fold ${unps.length.toLocaleString()} procedure(s); ` +
+        `${before.toLocaleString()} row(s) currently carry Cyrillic. Nothing written.`,
+    );
+    await getPool().end();
+    return;
+  }
+
+  // SLICED, for the reason main() slices: one transaction spanning the whole capture
+  // exceeded Cloud SQL's temp_file_limit, and an interrupted run must leave whole
+  // procedures at one vintage or the other rather than a half-written row. Each slice is
+  // its own transaction; the merge is per-УНП, so re-running is the repair.
+  const SLICE = 5_000;
+  for (let i = 0; i < unps.length; i += SLICE) {
+    const chunk = unps.slice(i, i + SLICE);
+    await withTx(async (c) => {
+      await rebuildSearchText(c, chunk);
+    });
+    console.log(
+      `  … ${Math.min(i + SLICE, unps.length).toLocaleString()}/${unps.length.toLocaleString()}`,
+    );
+  }
+
+  // The map goes with any bulk rewrite — see reload_visibility_map.data.test.ts.
+  await vacuumAfterReload("tender_search_text");
+  const after = await countResidue();
+  console.log(
+    `✓ re-folded ${unps.length.toLocaleString()} procedure(s): ` +
+      `${before.toLocaleString()} → ${after.toLocaleString()} row(s) carrying Cyrillic`,
+  );
+  await getPool().end();
+};
+
 const main = async (args: { apply: boolean }): Promise<void> => {
   // ⚠️ DDL FIRST, BEFORE THE CAPTURE GUARD. The schema needs no capture, and 147 is
   // what repairs 146's missing app_readonly GRANTs on an already-deployed database —
@@ -838,8 +923,22 @@ run(
         description: "Report the projection without writing.",
         defaultValue: () => false,
       }),
+      // Deliberately a SEPARATE mode rather than something the normal load does: the
+      // normal load needs the gitignored capture, and this exists precisely for the
+      // machines that do not have it.
+      refold: flag({
+        type: optional(boolean),
+        long: "refold",
+        description:
+          "Re-project tender_search_text from rows already in Postgres (no capture needed) " +
+          "after a translit_bg_latin() change. Writes nothing where the fold is unchanged.",
+        defaultValue: () => false,
+      }),
     },
-    handler: (a) => main({ apply: !a.dryRun }),
+    handler: (a) =>
+      a.refold
+        ? refoldSearchText({ apply: !a.dryRun })
+        : main({ apply: !a.dryRun }),
   }),
   process.argv.slice(2),
 );

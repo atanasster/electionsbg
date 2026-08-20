@@ -77,11 +77,10 @@ describe("tender_search_text", () => {
     // one AFTER the transliteration ran) and it belongs beside the other
     // tender_search_text invariants.
     //
-    // A CEILING rather than 0 until the one-time refold lands (plan T2): the fix to
-    // `translit_bg_latin` and the rewrite of the rows folded by the old body are
-    // separate steps, and an equality gate would just be red across the interval.
-    // Lower it to 0 with that refold. It may only ever be lowered.
-    const CEILING = 1; // measured 2026-08-20 — УНП 00382-2021-0002, a `ё` in its notice text
+    // ZERO since the T2 refold (2026-08-20) rewrote every row through the fixed
+    // function. It was 1 before that — УНП 00382-2021-0002, a `ё` in its notice text,
+    // folded to a Cyrillic `е` by the old unaccent-after-translate order.
+    const CEILING = 0;
     // The class is SHARED with translit_fold_residue.data.test.ts rather than spelled
     // out again — a 60-character enumeration copied into two files is one that gets
     // edited in only one of them.

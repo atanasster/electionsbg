@@ -34,7 +34,15 @@ UPDATE tr_person_roles  SET name = name;
 UPDATE tr_officers      SET name = name;
 UPDATE tr_companies     SET name = name;
 UPDATE contracts        SET title = title;
-UPDATE tenders          SET buyer_name = buyer_name;   -- also recomputes subject_fold (same row)
+-- ⚠️ BOTH source columns, not one. This line said `SET buyer_name = buyer_name` with the
+-- comment "also recomputes subject_fold (same row)", and that is NOT how Postgres behaves:
+-- a stored generated column is recomputed when a column ITS OWN expression depends on is in
+-- the UPDATE's target list, not on every row rewrite. Measured on 16.14 while running the
+-- successor migration (176): after this statement over all 237,806 rows, `buyer_fold` went
+-- 245 → 0 stale and `subject_fold` stayed at 4,477, disagreeing with a fresh
+-- `translit_bg_latin(subject)`. Left uncorrected, this file silently half-repairs `tenders`
+-- on any warm database that still needs it.
+UPDATE tenders          SET buyer_name = buyer_name, subject = subject;
 UPDATE contractor_search SET name = name;
 UPDATE awarder_search   SET name = name;
 

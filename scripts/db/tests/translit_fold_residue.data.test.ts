@@ -63,23 +63,23 @@ const EXTRA_CLASS = charClass(CYR_EXTRA);
 type Measured = { bg: number; extraPct: number; extraFloor: number };
 
 const MEASURED: Record<string, Measured> = {
-  "awarder_search.name_fold": { bg: 0, extraPct: 0.246, extraFloor: 5 },
-  "contractor_search.name_fold": { bg: 0, extraPct: 0.039, extraFloor: 5 },
-  // includes `hӧrmann gmbh` — a Cyrillic ӧ inside a German name
-  "contracts.title_fold": { bg: 1, extraPct: 1.72, extraFloor: 0 },
+  // ALL ZERO since the T2 refold (2026-08-20). Every one of these was non-zero before it
+  // — `tender_search_text.fold` at 99.946% — and the numbers are kept in the plan and in
+  // 176's header rather than here, because a ceiling's job is to describe what is allowed
+  // now, not to catalogue what used to be wrong.
+  "awarder_search.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  "contractor_search.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  "contracts.title_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "person.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "person_alias.alias_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
-  "person_search.name_fold": { bg: 0, extraPct: 0.007, extraFloor: 5 },
-  "tenders.buyer_fold": { bg: 0, extraPct: 0.103, extraFloor: 5 },
-  "tenders.subject_fold": { bg: 0, extraPct: 1.883, extraFloor: 0 },
-  "tr_companies.name_fold": { bg: 0, extraPct: 0.016, extraFloor: 5 },
-  "tr_officers.name_fold": { bg: 0, extraPct: 0.005, extraFloor: 5 },
-  "tr_person_roles.name_fold": { bg: 0, extraPct: 0.003, extraFloor: 5 },
-  // The only loader-written fold rather than a generated column, and the largest
-  // affected surface: 50,256 of 50,283 rows carry the `і` homoglyph.
-  "tender_search_text.fold": { bg: 1, extraPct: 99.946, extraFloor: 0 },
+  "person_search.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  "tenders.buyer_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  "tenders.subject_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  "tr_companies.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  "tr_officers.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  "tr_person_roles.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  "tender_search_text.fold": { bg: 0, extraPct: 0, extraFloor: 0 },
 };
-
 /** Headroom over the measured rate. Ordinary ingestion adds rows at roughly the rate
  *  already there, so 30% absorbs corpus churn while still catching a fold that started
  *  leaving MORE Cyrillic behind than it used to. */
@@ -315,36 +315,37 @@ test.skipIf(skip)(
 //
 // ⚠️ THE SCAN IS BOUNDED, AND THE BOUND IS WHAT MAKES IT RUNNABLE. The predicate calls
 // the fold per row and the dossier bodies are documents — an unbounded count over
-// `tender_search_text` did not finish in 300 s, and even a flat 20,000-row bound blew the
-// 120 s test timeout. Two things cut it to seconds:
-//   - only rows that CARRY Cyrillic can be stale FROM THIS CHANGE, so the candidate set
-//     is the cheap regex the residue test already runs. ⚠️ That narrowing is specific to
-//     a change in the CHARACTER MAPPING. An ASCII fold is not a fixed point in general —
-//     a hyphen, a tab, a double space, a leading space or an uppercase letter all fold
-//     further, which is exactly the class migration 099 introduced — so a future change
-//     to the whitespace collapse would be INVISIBLE here and needs its own candidate set;
-//   - of those candidates only a handful need folding to answer a boolean.
-// Both narrowings can only ever MISS staleness, never invent it — and every column here
-// is either densely stale or not stale at all, so a miss would have to be a column whose
-// entire residue sits beyond the first `STALE_SAMPLE` rows.
-const STALE_SAMPLE = 200;
+// `tender_search_text` did not finish in 300 s. A bound is sound for a boolean question:
+// it can only ever MISS staleness, never invent it.
+//
+// ⚠️⚠️ THE CANDIDATE SET IS EVERY ROW, NOT THE CYRILLIC-BEARING ONES. Restricting it to
+// rows matching the residue classes made this gate VACUOUS the moment the refold landed:
+// residue is 0 everywhere now, so the candidate set was empty and the test passed on all
+// twelve columns without folding a single row — the one gate built to make a
+// function/corpus divergence impossible to miss, quietly checking nothing. It also
+// narrowed the class of change it could see: a fold is not a fixed point when it carries
+// a hyphen, a tab, a double space, a leading space or an uppercase letter either, which is
+// exactly the class migration 099 introduced, and none of those rows carry Cyrillic.
+const STALE_SAMPLE = 500;
 
 const EXPECT_STALE: Record<string, boolean> = {
-  "awarder_search.name_fold": true,
-  "contractor_search.name_fold": true,
-  "contracts.title_fold": true,
-  // The only two that were already clean: no homoglyph has ever reached a person name.
+  // ALL FALSE since the T2 refold. Before it these were mostly `true`, recording the
+  // window in which the function had been fixed and the corpus had not — see 176's header
+  // for what that window costs a reader. A `true` here again means somebody changed
+  // `translit_bg_latin()` and has not yet rewritten the rows.
+  "awarder_search.name_fold": false,
+  "contractor_search.name_fold": false,
+  "contracts.title_fold": false,
   "person.name_fold": false,
   "person_alias.alias_fold": false,
-  "person_search.name_fold": true,
-  "tenders.buyer_fold": true,
-  "tenders.subject_fold": true,
-  "tr_companies.name_fold": true,
-  "tr_officers.name_fold": true,
-  "tr_person_roles.name_fold": true,
-  "tender_search_text.fold": true,
+  "person_search.name_fold": false,
+  "tenders.buyer_fold": false,
+  "tenders.subject_fold": false,
+  "tr_companies.name_fold": false,
+  "tr_officers.name_fold": false,
+  "tr_person_roles.name_fold": false,
+  "tender_search_text.fold": false,
 };
-
 test.skipIf(skip)(
   "stored folds agree with the installed function — or are recorded as not yet rewritten",
   async () => {
@@ -352,13 +353,10 @@ test.skipIf(skip)(
     for (const { table, column, key } of FOLD_COLUMNS) {
       const [row] = await allRows<{ stale: boolean | null; seen: string }>(
         `WITH candidates AS (
-           SELECT "${column}" AS v FROM "${table}"
-            WHERE "${column}" ~ $1 OR "${column}" ~ $2
-            LIMIT ${STALE_SAMPLE})
+           SELECT "${column}" AS v FROM "${table}" LIMIT ${STALE_SAMPLE})
          SELECT bool_or(translit_bg_latin(v) IS DISTINCT FROM v) AS stale,
                 count(*)::text AS seen
            FROM candidates`,
-        [BG_CLASS, EXTRA_CLASS],
       );
       // ⚠️ An EMPTY table must SKIP, never resolve to "current". `tender_search_text` is
       // created empty by migration 147 and filled only by a REFRESH_EXCLUSIONS loader
@@ -370,7 +368,6 @@ test.skipIf(skip)(
         `SELECT count(*)::text AS n FROM (SELECT 1 FROM "${table}" LIMIT 1) x`,
       );
       if (Number(total.n) === 0) continue;
-      // Rows exist but none carries Cyrillic — nothing that COULD be stale.
       const stale = Number(row.seen) > 0 && row.stale === true;
       const expected = EXPECT_STALE[key];
       if (expected === undefined) {
