@@ -472,6 +472,15 @@ test.skipIf(skip)(
 // matview: a test that reused 120's own CTE would validate nothing, because a change to
 // that CTE would silently redefine what `declared` means and the test would follow it. Do
 // not "DRY this up" — the duplication is the guard.
+//
+// [2026-08-20] That guard fired for real, which is why the source list below has six
+// entries rather than three. 148's view had listed only official_exec/official_muni/
+// public_sector, so a CURATED declared link on a `president`, `mep` or `diplomat` was
+// unreachable from Bridge A and rendered with the name-matched caveat — a wrong BASIS on a
+// named individual, not a missing row. Widening 148 to the full officials tier (the set
+// 103's person_officials_sources() names) flipped one pair to 'declared', and this
+// re-derivation correctly refused it until it was updated here too. Deliberate: the two
+// copies must agree on the RULE while staying independent implementations of it.
 test.skipIf(skip)(
   "tr_link_basis='declared' is backed by a curated link",
   async () => {
@@ -483,7 +492,8 @@ test.skipIf(skip)(
            ON (cp.kind = 'mp' AND pr.source = 'mp'
                AND split_part(pr.ref, ':', 1) = replace(cp.ref, '/candidate/mp-', ''))
            OR (cp.kind = 'official'
-               AND pr.source IN ('official_exec','official_muni','public_sector')
+               AND pr.source IN ('official_exec','official_muni','public_sector',
+                                 'president','mep','diplomat')
                AND pr.ref = replace(cp.ref, '/officials/', ''))
        UNION
        SELECT DISTINCT pr.person_id
@@ -523,7 +533,8 @@ test.skipIf(skip)(
            ON (cp.kind = 'mp' AND pr.source = 'mp'
                AND split_part(pr.ref, ':', 1) = replace(cp.ref, '/candidate/mp-', ''))
            OR (cp.kind = 'official'
-               AND pr.source IN ('official_exec','official_muni','public_sector')
+               AND pr.source IN ('official_exec','official_muni','public_sector',
+                                 'president','mep','diplomat')
                AND pr.ref = replace(cp.ref, '/officials/', ''))
        UNION
        SELECT DISTINCT pr.person_id, mc.eik

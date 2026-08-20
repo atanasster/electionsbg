@@ -162,6 +162,26 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
       "unattributed at a 200, the declarations --resolve trap one table over",
   },
   {
+    after: "db:load:person-elections:pg",
+    before: "db:resolve:persons",
+    why:
+      "candidate_person and person_election_stats store person_id with NO foreign key, " +
+      "and db:resolve:persons hands out person_id as a POSITIONAL ordinal — so a stale " +
+      "row does not dangle, it silently resolves to a DIFFERENT person. Measured across " +
+      "the 2026-08-20 resolve: 35,211 of 133,723 ids (26.3%) changed identity and 0 " +
+      "dangled, all of them above the tier-V boundary at person_id 98,512. Unlike " +
+      "declaration and council_vote (ON DELETE SET NULL, which at least blanks loudly) " +
+      "nothing here announces the drift and every row count still reconciles",
+  },
+  {
+    after: "db:load:person-search:pg",
+    before: "db:load:persons-browse:pg",
+    why:
+      "its public tier is built FROM person_browse_table, so building it first indexes " +
+      "the previous vintage — the route degrades a MISSING table to empty tiers but " +
+      "serves a STALE one at a 200",
+  },
+  {
     after: "db:load:council:pg",
     before: "db:load:ngo-board-links",
     why:

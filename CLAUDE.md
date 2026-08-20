@@ -762,6 +762,67 @@ join `REFRESH_GENERATORS` (and the chain) or carry the gate — it cannot quietl
 
 The data pipeline CLI (`scripts/main.ts`) accepts flags: `--all`, `--prod`, `--date`, `--election`, `--reports`, `--stats`, `--search`, `--financing`, `--parties`, `--machines`, `--candidates`.
 
+### A LOCAL `db:resolve:persons` is never one command — the repair chain it owes
+
+**`person_id` is a POSITIONAL ordinal handed out by a `DELETE FROM person` + re-COPY, so
+every resolve reassigns a large slice of them.** Measured on the 2026-08-20 local resolve by
+snapshotting all 133,723 `(person_id, slug)` pairs either side of it: **35,211 (26.3%) came
+back pointing at a DIFFERENT person, and 0 dangled.** That zero is the whole hazard — a stale
+stored `person_id` still joins cleanly, it just joins to the wrong human, so nothing errors
+and every row count reconciles.
+
+The drift has a **hard boundary at person_id 98,512** and it is not luck: ids 1..98,512 (the
+65,065 `resolved` base persons plus verified officials) were 100% STABLE, and 98,513+ were
+100% DRIFTED — that tail is the tier-V private owners, minted from the TR corpus, so it moves
+whenever `tr_person_roles` does. Consequence: `candidate_person` was 0% misattributed while
+`graph_person_node` was 42.2%, purely because candidates are low-ordinal base persons.
+
+**Two dependents announce themselves and nine do not.** `declaration` and `council_vote` are
+the only FKs to `person`, both `ON DELETE SET NULL`, so a resolve blanks them table-wide —
+measured, `declaration.person_id` went 61,743 → **0** and `council_vote.person_id` 43,168 →
+**0**. Loud, and recoverable. The silent set is every relation storing `person_id` with no FK:
+`declaration_stake_company`, `person_cohort_wealth`, `person_wealth_year`, `candidate_person`,
+`person_election_stats`, `graph_edge`, `graph_person_node`. Those keep a stale integer.
+
+⚠️ **"Nothing else is needed locally" is the wrong instruction and it is the one people are
+given.** Stopping at the resolver leaves 43,168 council votes and 61,743 filings unattributed
+at a 200. The local repair chain is `db:refresh` steps 53–65; the necessary subset, in order:
+
+```bash
+npm run db:load:declarations:pg -- --resolve   # refills declaration.person_id; rebuilds 090/096/097/159/169
+npm run db:load:person-elections:pg            # candidate_person + person_election_stats
+npm run db:load:official-candidate-links:pg
+npm run db:load:council:pg                     # re-attaches council_vote.person_id (90% floor)
+npm run db:load:persons-browse:pg
+npm run db:load:person-search:pg
+npm run db:load:graph:pg
+npm run db:load:agri-hub-stats:pg
+npm run db:load:tr-company-place:pg
+```
+
+Steps 55–57 (`mp-roster`, `rollcall`, `rollcall-derived`) are deliberately NOT in that list —
+none of them stores `person_id`, so a resolve does not invalidate them.
+
+Three things about this are easy to get backwards:
+
+- ⚠️ **`ORDER_PAIRS` STRUCTURALLY CANNOT express the declarations rule, so do not go looking
+  for the entry.** Its matcher is `steps.indexOf(name)` over `/npm run ([a-z0-9:_-]+)/`, and
+  BOTH declaration phases render as the same token `db:load:declarations:pg` — so `indexOf`
+  always resolves to phase 1 at step 49. The existing pair therefore pins phase 1 BEFORE the
+  resolver and there is no way to write "phase 2 after" without renaming a script. Phase 2 is
+  held by this section and by the loader's own header, nowhere else.
+- **A redundant slug beside the ordinal is what makes drift DETECTABLE.** `graph_person_node`
+  and `candidate_person` store `person_id` AND a slug, so misattribution is a one-line join
+  (`p.slug IS DISTINCT FROM g.slug`) — that is how the 42.2% above was measured.
+  `person_election_stats` stores the bare ordinal, so drift there is invisible from inside the
+  row. Cheapest mitigation for a NEW consumer, in order of preference: derive the person at
+  query time from a fold (`aop_expert_person_links()` in 174 does this and is immune by
+  construction); failing that, carry the slug as a tripwire.
+- **`db:resolve:persons` ANALYZEs but never VACUUMs**, so `person` / `person_role` rely on
+  autovacuum reaching them. It did on the measured run (100% `relallvisible` within a minute),
+  but that is timing, not a guarantee — see the visibility-map section for why a bare ANALYZE
+  is the disguise rather than half the fix.
+
 ### Person layer — the one step `db:refresh` cannot infer
 
 Deploying the person layer to **Cloud SQL** needs one extra command after

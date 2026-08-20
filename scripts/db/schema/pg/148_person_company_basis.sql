@@ -64,7 +64,27 @@ CREATE OR REPLACE VIEW person_company_bridge_a AS
       ON (cp.kind = 'mp' AND pr.source = 'mp'
           AND split_part(pr.ref, ':', 1) = replace(cp.ref, '/candidate/mp-', ''))
       OR (cp.kind = 'official'
-          AND pr.source IN ('official_exec', 'official_muni', 'public_sector')
+          -- ALL SIX officials sources, not the three this listed until 2026-08-20. The
+          -- officials tier is the set `person_officials_sources()` (103) names, and
+          -- company_politicians stamps kind='official' on every one of them — so with
+          -- `president`, `mep` and `diplomat` missing, a CURATED declared link on one of
+          -- those people was not reachable from Bridge A and the pair fell through to the
+          -- name-derived caveat. Measured on the corpus: Мартин Иванов Георгиев carries his
+          -- officials slug at source='mep', so his declared link on EIK 000649348 read as
+          -- Bridge B and failed tr_name_fold_people.data.test.ts's shared-fold guard, even
+          -- though the resolver had licensed it correctly (its own Bridge A matches by
+          -- name-on-linked-EIK and never looked at `source`). One pair, one person today —
+          -- but it is a WRONG-BASIS bug, not a missing row: it labels a curated link as
+          -- name-matched on a named individual.
+          --
+          -- The literal is restated rather than calling person_officials_sources(), which
+          -- would be the "name the rule once" move: 103 is applied AFTER this file in
+          -- resolve_persons.ts's SCHEMA_FILES, and load_persons_browse_pg.ts applies only
+          -- 148 + 120 — and a view body is validated at CREATE time, so the call would fail
+          -- with 42883 on exactly the cold-bootstrap path. 100 and 120 restate it for the
+          -- same reason. person_company_basis.data.test.ts pins this list against 103's.
+          AND pr.source IN ('official_exec', 'official_muni', 'public_sector',
+                            'president', 'mep', 'diplomat')
           AND pr.ref = replace(cp.ref, '/officials/', ''))
   UNION
   SELECT DISTINCT pr.person_id, mc.eik
