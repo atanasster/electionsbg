@@ -211,16 +211,19 @@ ALTER TABLE tr_person_roles ADD COLUMN IF NOT EXISTS name_fold      text GENERAT
 -- a number.
 --
 -- Two refusals, both deliberately the safe direction. ⚠️ ORDER MATTERS —
--- the sole_owner rule is evaluated FIRST and OUTRANKS the other, and 276,875
--- companies (79% of every company that gets a percentage) flow through that
+-- the sole_owner rule is evaluated FIRST and OUTRANKS the other, and 280,489
+-- companies (80% of every company that gets a percentage) flow through that
 -- precedence. So "every published percentage rests on a declared amount" is
 -- false, four times in five; the missing-amount rule governs the MULTI-owner
 -- path only.
 --   • `sole_owner` is 100% by law when it is the company's ONLY current owner
 --     row — with or without a declared amount. The count guard is what makes
---     that safe: 3,689 companies carry a sole_owner BESIDE a partner in the
+--     that safe: 65 companies carry a sole_owner BESIDE a real partner in the
 --     current vintage (a superseded ЕООД filing), and answering 100% there is
---     what produced the 200.8% totals.
+--     what produced the 200.8% totals. That count is 65 rather than thousands
+--     BECAUSE of the placeholder exclusion above — counting the deleted-fact
+--     marker as a partner made the guard fire on 4,299 companies whose lone
+--     sole owner really was the only owner.
 --   • Otherwise, ANY owner in a multi-owner current set with no share_amount
 --     → NO percentage for that company. Dropping just that row would inflate
 --     everyone else against a short denominator, which is this defect wearing
@@ -228,19 +231,16 @@ ALTER TABLE tr_person_roles ADD COLUMN IF NOT EXISTS name_fold      text GENERAT
 --     and one person's stake RESTATED in both лв and EUR inside one vintage —
 --     see the notes on the `cur` CTE for each.
 --
--- Result, measured over the whole corpus 2026-08-20: 348,367 of 356,221
+-- Result, measured over the whole corpus 2026-08-20: 351,981 of 356,209
 -- companies get a percentage, and every one sums to 100% WITHIN THE RESIDUE
--- of round(…, 4) — 345,023 land on exactly 100 and the other 3,344 inside
+-- of round(…, 4) — 348,637 land on exactly 100 and the other 3,344 inside
 -- ±0.0055pp. Three equal owners are 33.3333 × 3 = 99.9999, so assert the
 -- tolerance, NEVER equality.
 --
--- The 7,854 that get no percentage break down cleanly, and every one is
--- attributable: 7,769 a missing share_amount (7,329 with several current
--- owners, 440 with a single partner) and 85 the restated-stake refusal below.
--- None is refused for the sole_owner ambiguity alone, though 3,689 carry it
--- too. (Do not confuse that 3,689 with the 4,517 quoted for the same shape on
--- the DISPLAY dedup: different populations, and the current vintage is the
--- only one this rule sees.)
+-- The 4,228 that get no percentage break down cleanly, and every one is
+-- attributable: 4,143 a missing share_amount (3,810 with several current
+-- owners, 418 with a single partner) and 85 the restated-stake refusal below.
+-- None is refused for the sole_owner ambiguity alone.
 -- Gate: scripts/db/tests/tr_owner_share.data.test.ts.
 -- ───────────────────────────────────────────────────────────────────────────
 
@@ -313,6 +313,13 @@ WITH owner_rows AS (
          max(r.added_at) OVER (PARTITION BY r.uic) AS latest_at
   FROM tr_person_roles r
   WHERE r.role IN ('partner', 'sole_owner') AND r.erased_at IS NULL
+    -- „Заличено обстоятелство." is the register's DELETED-FACT PLACEHOLDER, not a
+    -- person: 4,356 owner rows carry it and not one has a share_amount. Counting it
+    -- as an owner makes a two-owner company out of a one-owner one, which refuses
+    -- 4,299 companies whose lone sole owner really is the only owner. ⚠️ owner_share.ts
+    -- (the TS twin) applies the same exclusion — changing one side alone makes the two
+    -- disagree about WHO the owners are, which is worse than the defect it fixes.
+    AND r.name !~* '^\s*заличено обстоятелство'
 ),
 -- One person can hold several share records in a single filing; they own the
 -- sum. Aggregating here is also what keeps the view unique on its key.

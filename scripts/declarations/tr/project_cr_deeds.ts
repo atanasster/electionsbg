@@ -24,6 +24,7 @@
 import { DatabaseSync } from "node:sqlite";
 import { normalizePersonName } from "./state_replay";
 import { parseCrDeed, type CrDeedParsed } from "./parse_cr_deeds";
+import { isDeletedFactPlaceholder, ownerSharePercents } from "./owner_share";
 import type { CrDeedsStore } from "./cr_deeds_store";
 import { allRows, withClient } from "../../db/lib/pg";
 
@@ -49,21 +50,35 @@ export type CrPersonRow = {
  * CR_F_7_L) stay distinct under the (uic, record_id, field_ident) primary key
  * without colliding with the daily feed's numeric RecordIDs.
  */
-export const deedToPersonRows = (parsed: CrDeedParsed): CrPersonRow[] =>
-  parsed.parties.map((p, i) => ({
+export const deedToPersonRows = (parsed: CrDeedParsed): CrPersonRow[] => {
+  // ⚠️ The sole-owner 100% needs the SAME guard as owner_share.ts's refusal 1: it is
+  // 100% by law only when it is the company's ONLY owner. An unconditional 100 is what
+  // published companies whose shares summed to a mean of 200.8%. The deed is a capture
+  // of the company's whole file, so its own party list is the right scope to count —
+  // and on THAT population the guard's target is 39 uics, not the 4,517 measured on the
+  // daily display dedup. CR owner fields carry no per-partner amount, so every other
+  // owner is null and the daily writer's amounts are what produce a real percentage.
+  //
+  // The placeholder exclusion is what keeps that 39 from being ~4,300: without it the
+  // register's deleted-fact marker counts as a second owner.
+  const owners = parsed.parties.filter(
+    (p) =>
+      (p.role === "partner" || p.role === "sole_owner") &&
+      !isDeletedFactPlaceholder(p.name),
+  );
+  return parsed.parties.map((p, i) => ({
     uic: parsed.uic,
     role: p.role,
     name: p.name,
     nameNorm: normalizePersonName(p.name),
     positionLabel: p.positionLabel,
     country: p.country,
-    // A sole owner is 100% by law even with no filed share; CR owner fields carry
-    // no per-partner amount, so everyone else is null (matches the daily writer).
-    sharePercent: p.role === "sole_owner" ? 100 : null,
+    sharePercent: p.role === "sole_owner" && owners.length === 1 ? 100 : null,
     recordId: `cr:${i}`,
     fieldIdent: p.fieldIdent,
     addedAt: p.entryDate,
   }));
+};
 
 /** ADD the persons_source column to a state.sqlite built before it existed. */
 const ensurePersonsSourceColumn = (db: DatabaseSync): void => {
@@ -119,6 +134,10 @@ export const projectCrDeedsToState = (
        VALUES (?, ?, ?, ?, ?, ?, ?, NULL, NULL, ?, NULL, ?, ?, NULL, 'cr')`,
     );
 
+    // Every uic whose rows this run rewrote — the re-derivation pass below reads them
+    // back with the CR rows in place.
+    const touched = new Set<string>();
+
     db.exec("BEGIN");
     try {
       for (const { uic, body, httpStatus } of store.captured()) {
@@ -147,6 +166,48 @@ export const projectCrDeedsToState = (
           stats.parties++;
         }
         stats.companies++;
+        touched.add(uic);
+      }
+
+      // ⚠️ RE-DERIVE OVER THE MERGED ROW SET. sqlite_writer.ts computed every
+      // percentage over the DAILY replay state, before these CR rows existed — but
+      // tr_owner_share partitions over daily ∪ CR, so without this pass the stored
+      // value and the served one are computed from different rows and cannot agree by
+      // construction. Measured: 28 companies carry both, and in 10 the CR row is later
+      // than every daily row, so the view's current vintage becomes the CR rows (which
+      // carry no amount, hence a refusal) while the store still published a percentage
+      // from the superseded daily vintage — /company/:eik rendering "—" while
+      // /mp-company/:eik rendered 50% / 50% for the same company.
+      const readRows = db.prepare(
+        `SELECT record_id, field_ident, name, name_norm, role, added_at, erased_at,
+                share_amount, share_currency
+           FROM company_persons WHERE uic = ?`,
+      );
+      const setPct = db.prepare(
+        `UPDATE company_persons SET share_percent = ?
+          WHERE uic = ? AND record_id = ? AND field_ident = ?`,
+      );
+      for (const uic of touched) {
+        const rows = readRows.all(uic) as Array<Record<string, unknown>>;
+        const pcts = ownerSharePercents(
+          rows.map((r) => ({
+            key: `${String(r.record_id)}|${String(r.field_ident)}`,
+            name: (r.name as string | null) ?? null,
+            nameNormalized: String(r.name_norm ?? ""),
+            role: String(r.role ?? ""),
+            addedAt: (r.added_at as string | null) ?? null,
+            erasedAt: (r.erased_at as string | null) ?? null,
+            shareAmount: r.share_amount == null ? null : Number(r.share_amount),
+            shareCurrency: (r.share_currency as string | null) ?? null,
+          })),
+        );
+        for (const r of rows)
+          setPct.run(
+            pcts.get(`${String(r.record_id)}|${String(r.field_ident)}`) ?? null,
+            uic,
+            String(r.record_id),
+            String(r.field_ident),
+          );
       }
       db.exec("COMMIT");
     } catch (err) {

@@ -15,6 +15,7 @@
 import fs from "fs";
 import { DatabaseSync } from "node:sqlite";
 import type { TrCompanyState } from "./types";
+import { ownerSharePercents } from "./owner_share";
 
 const SCHEMA = `
 PRAGMA journal_mode = WAL;
@@ -48,7 +49,7 @@ CREATE TABLE IF NOT EXISTS company_persons (
   name_norm      TEXT NOT NULL,
   position_label TEXT,
   country        TEXT,   -- jurisdiction of the person (e.g. "БЪЛГАРИЯ"); not an identifier
-  share_percent  REAL,   -- derived: amount ÷ company's total partner shares × 100
+  share_percent  REAL,   -- derived by owner_share.ts (twin of tr_owner_share, 003)
   share_amount   REAL,   -- raw declared capital share (дял), currency below
   share_currency TEXT,
   record_id      TEXT NOT NULL,
@@ -144,27 +145,31 @@ export const writeStateToSqlite = (
       );
       companies++;
 
-      // Derive each active owner's % from the company's total active partner
-      // shares (a 3825/3825 pair → 50/50). Non-owners / erased / share-less
-      // records get a null %.
-      const isOwner = (role: string): boolean =>
-        role === "partner" || role === "sole_owner";
-      let ownerTotal = 0;
-      for (const p of c.persons.values())
-        if (p.erasedAt === null && isOwner(p.role) && p.shareAmount != null)
-          ownerTotal += p.shareAmount;
+      // ⚠️ The percentage rule lives in owner_share.ts, NOT here, and it is the twin
+      // of tr_owner_share (003). Until 2026-08-20 this loop summed every non-erased
+      // owner record — but the feed re-lists the whole partner set on each capital
+      // change and never erases the prior vintage, so the denominator held a
+      // company's cap table once per filing it ever made, and after the euro
+      // changeover it added лв to EUR as bare numbers. БИЛЯНА ООД (104119056) came
+      // out at 26% + 8% against a real 75.5% + 24.5%.
+      //
+      // This value is not decorative: it reaches /mp-company/:eik through
+      // integrate.ts → companies-index.json, which renders it directly.
+      const pcts = ownerSharePercents(
+        [...c.persons.values()].map((p) => ({
+          key: `${p.recordId}|${p.fieldIdent}`,
+          name: p.name,
+          nameNormalized: p.nameNormalized,
+          role: p.role,
+          addedAt: p.addedAt,
+          erasedAt: p.erasedAt,
+          shareAmount: p.shareAmount,
+          shareCurrency: p.shareCurrency,
+        })),
+      );
 
       for (const p of c.persons.values()) {
-        // A sole owner (едноличен собственик) is 100% by definition, even when
-        // no explicit share amount is filed. Other owners: amount ÷ total.
-        const pct =
-          p.erasedAt !== null || !isOwner(p.role)
-            ? null
-            : p.role === "sole_owner"
-              ? 100
-              : p.shareAmount != null && ownerTotal > 0
-                ? (p.shareAmount / ownerTotal) * 100
-                : null;
+        const pct = pcts.get(`${p.recordId}|${p.fieldIdent}`) ?? null;
         insertPerson.run(
           c.uic,
           p.role,

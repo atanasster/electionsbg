@@ -743,3 +743,106 @@ test.skipIf(skip)(
     );
   },
 );
+
+// ── The TypeScript twin ──────────────────────────────────────────────────────
+
+test.skipIf(skip)(
+  "the STORED share_percent agrees with the served rule, in BOTH directions",
+  async (ctx) => {
+    // owner_share.ts (the SQLite writer's rule) and tr_owner_share (003) are two
+    // implementations of one rule: the serving layer cannot import TypeScript, and the
+    // SQLite corpus is written offline before Postgres exists. This is what stops them
+    // drifting — the stored value reaches /mp-company/:eik through integrate.ts →
+    // companies-index.json, which renders it directly.
+    //
+    // ⚠️ BOTH DIRECTIONS. A join on "both sides published" only compares the rows they
+    // agree to publish, so a TS side that REFUSED too much would drop out of the join
+    // and pass at zero. The three cells are: both publish (compared), store publishes /
+    // view refuses (over-publish), view publishes / store refuses (over-refuse).
+    //
+    // ⚠️ SKIPS DISTINCTLY ON A PRE-T4 CORPUS, and that must never read as "the twins
+    // agree". The writer's rule is INERT until raw_data/tr/state.sqlite is rebuilt and
+    // reloaded. The discriminator is deliberately NOT "any disagreement" — an earlier
+    // draft used that and could never run, because the CR-Deeds projection can move a
+    // company's vintage after the writer has seen it, leaving a permanent residue that
+    // no rebuild clears. It is scoped to companies where the view publishes SOMETHING,
+    // so a company the view refuses wholesale cannot suppress the whole arm.
+    const [stale] = await allRows<{ n: string }>(`
+      WITH publishing AS (
+        SELECT uic FROM tr_owner_share GROUP BY uic
+         HAVING count(*) FILTER (WHERE share_pct IS NOT NULL) > 0)
+      SELECT count(*) n
+        FROM tr_person_roles r JOIN publishing USING (uic)
+       WHERE r.share IS NOT NULL AND r.erased_at IS NULL
+         AND NOT EXISTS (SELECT 1 FROM tr_owner_share s
+                          WHERE s.uic = r.uic AND s.name_fold = r.name_fold
+                            AND s.role = r.role AND s.share_pct IS NOT NULL)`);
+    if (num(stale.n) > 0) {
+      ctx.skip(
+        `stored share_percent predates owner_share.ts (${stale.n} rows publish a percentage the current rule refuses, inside companies the view still publishes for) — ` +
+          "rebuild with npm run tr:daily-refresh then db:load:tr:pg. NOT evidence the twins agree.",
+      );
+      return;
+    }
+
+    // Direction 1 — both publish: the values must match. Tolerance, not equality: SQL
+    // numeric is exact decimal and JS is float64, so two round(…, 4) results can differ
+    // in the last place.
+    const [d] = await allRows<{ n: string; worst: string | null }>(`
+      SELECT count(*) FILTER (WHERE abs(r.share - s.share_pct) > 0.0002) AS n,
+             max(abs(r.share - s.share_pct)) AS worst
+        FROM tr_person_roles r
+        JOIN tr_owner_share s
+          ON s.uic = r.uic AND s.name_fold = r.name_fold AND s.role = r.role
+       WHERE r.erased_at IS NULL AND r.share IS NOT NULL AND s.share_pct IS NOT NULL`);
+    assert.equal(
+      num(d.n),
+      0,
+      `stored and served percentages disagree on ${d.n} rows (worst ${d.worst}) — owner_share.ts has drifted from tr_owner_share`,
+    );
+
+    // Direction 2 — the view publishes and the store does not. This is the whole
+    // `missing` family (refusals 2, 3, 4); a TS predicate that fired too often would be
+    // invisible to direction 1.
+    const [over] = await allRows<{ n: string }>(`
+      SELECT count(*) n
+        FROM tr_owner_share s
+        JOIN tr_person_roles r
+          ON r.uic = s.uic AND r.name_fold = s.name_fold AND r.role = s.role
+         AND r.erased_at IS NULL
+       WHERE s.share_pct IS NOT NULL AND r.share IS NULL`);
+    assert.equal(
+      num(over.n),
+      0,
+      `the view publishes on ${over.n} rows the store refuses — owner_share.ts refuses too much`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the deleted-fact placeholder is not counted as an owner",
+  async () => {
+    // „Заличено обстоятелство." is the register's marker for a deleted fact, not a
+    // person — 4,356 owner rows carry it and not one has an amount. Counting it makes a
+    // two-owner company out of a one-owner one, which refused 4,299 lone sole owners
+    // their correct 100%. Both implementations exclude it; this is the SQL half.
+    const [r] = await allRows<{ rows: string; in_view: string }>(`
+      SELECT count(*) AS rows,
+             count(*) FILTER (WHERE EXISTS (
+               SELECT 1 FROM tr_owner_share s
+                WHERE s.uic = t.uic AND s.name_fold = t.name_fold AND s.role = t.role))
+               AS in_view
+        FROM tr_person_roles t
+       WHERE t.role IN ('partner','sole_owner') AND t.erased_at IS NULL
+         AND t.name ~* '^\\s*заличено обстоятелство'`);
+    assert.ok(
+      num(r.rows) > 0,
+      "no placeholder rows in the corpus — the exclusion is untested",
+    );
+    assert.equal(
+      num(r.in_view),
+      0,
+      `${r.in_view} deleted-fact placeholder rows reached tr_owner_share as owners`,
+    );
+  },
+);

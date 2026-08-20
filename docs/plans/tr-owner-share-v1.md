@@ -86,17 +86,20 @@ across the re-denomination, not two holdings, and summing them publishes a
 doubled stake — the same лв+EUR addition this whole change removes, one level
 down. 161 groups over 85 companies were publishing on that basis.
 
-**Outcome:** 348,367 of 356,221 companies get a percentage, and every one sums
-to 100% **within the residue of `round(…, 4)`** — 345,023 land on exactly 100
+A fourth exclusion came out of T4: **„Заличено обстоятелство."** is the
+register's deleted-fact placeholder, not a person. 4,356 owner rows carry it and
+not one has an amount, so counting it as an owner made a two-owner company out of
+a one-owner one — refusing 4,299 companies whose lone sole owner really was the
+only owner. Both implementations exclude it.
+
+**Outcome:** 351,981 of 356,209 companies get a percentage, and every one sums
+to 100% **within the residue of `round(…, 4)`** — 348,637 land on exactly 100
 and the other 3,344 inside ±0.0055pp, because three equal owners are
 33.3333 × 3 = 99.9999. The gate asserts the tolerance, never equality.
 
-The **7,854** that get no percentage are each attributable: 7,769 a missing
-`share_amount` (7,329 with several current owners, 440 with a single partner)
-and 85 the restated-stake refusal. 3,689 also carry a `sole_owner` beside a
-partner in the current vintage, but none is refused for that alone. Note
-3,689 ≠ the 4,517 quoted above for the same shape: that one is measured on the
-display dedup, this one on the current vintage.
+The **4,228** that get no percentage are each attributable: 4,143 a missing
+`share_amount` (3,810 with several current owners, 418 with a single partner)
+and 85 the restated-stake refusal.
 
 ## Steps
 
