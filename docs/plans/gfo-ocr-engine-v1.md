@@ -782,6 +782,78 @@ the quotient.)
 
 ---
 
+## 11c. Operator decisions taken 2026-08-20 — storage, first tier, resumability
+
+Three decisions, with what was measured for each. **Nothing is built yet.**
+
+### 11c.1 The capture lives on the external drive
+
+`/Volumes/Storage` — **APFS over USB, 476 GiB free of 476** (essentially empty). Verified:
+an 8 MB write + fsync + delete round-trips, and **SQLite opens there in WAL mode** and commits
+(the usual reason to keep a SQLite index off an external volume is exFAT's absent locking;
+this volume is APFS, so that objection does not apply and the index can sit beside the PDFs).
+
+Budget against the corrected figures (§11b): tier 1 ≈ **10 GB**, all 27,531 EIKs ≈ **280 GB**
+at the pessimistic 1,728 KB mean. Both fit; the full tier would leave ~190 GB free.
+
+⚠️ **THE DRIVE-ABSENT HAZARD, and it is silent.** If the volume is not mounted, macOS lets a
+process **create `/Volumes/Storage` as an ordinary directory on the boot volume** and write
+into it. The boot disk has **28 GiB free**, so a tier-1 run would half-fill it and a full run
+would exhaust it — while every path in the code looks right and every write succeeds. The
+ingest must therefore verify the MOUNT, not the path: confirm `/Volumes/Storage` is a mount
+point on a different device from `/`, and refuse to start otherwise. A `--allow-unmounted`
+escape hatch is not wanted; there is no case where writing the capture to the boot disk is
+the intended thing.
+
+**Layout.** PDFs as ordinary files (`<drive>/gfo/pdf/<ActID>.pdf`) rather than blobs: they are
+already compressed, so a gzipped-blob store buys nothing, and the OCR step wants a path to
+hand to the model. The SQLite index (`<drive>/gfo/gfo.sqlite`) holds capture state, per-document
+metadata and — later — the extracted rows, following the `cr_deeds.sqlite` precedent of a
+durable raw store that offline projections read without re-fetching.
+
+### 11c.2 First tier: the top 1,000 contractors — 68.4% of the money
+
+Measured: the top 1,000 contractor EIKs by awarded € hold **€64.16bn of €93.67bn = 68.4%** of
+the `tag='contract'` corpus. At the corrected **1.21 documents per EIK-year** (§11b.2) and ~5
+filed years that is **~6,050 documents ≈ 3.4 h of fetching** at the safe rate, ~10 GB.
+
+That is the right first cut: two thirds of the money for 3.6% of the EIKs, and it is the tier
+where a capacity test is worth having — a shell-winner among the largest contractors is a
+finding; among the smallest it is usually a small company.
+
+### 11c.3 Resumability — the design constraints, not the code
+
+The run must survive being stopped, the drive being unplugged, the register rate-limiting, and
+a later run extending to the next tier. Four constraints follow, and the first two are
+correctness rather than convenience:
+
+- **The unit of work is a DOCUMENT (ActID), not an EIK.** An EIK-level resume marker would
+  re-fetch a partly-captured EIK's documents on every restart, and at 1.21 docs/EIK-year that
+  is mostly wasted requests against a rate-limited register.
+- ⚠️ **Four states, and they must not share a representation.** `captured` (bytes on disk whose
+  first four are `%PDF`, or a recorded non-PDF such as the OLE2 Word case in §1.2),
+  `not-yet-tried`, `retryable-failure` (the `DocumentLimit` 302, a transport error, a 5xx), and
+  `terminal-failure` (404 — the register does not have it). Collapsing retryable into terminal
+  loses documents permanently; collapsing it into not-yet-tried makes a rate-limited run spin
+  on the same ids. This is the invariant the CR Deeds capture exists for, and §11b.1 showed
+  the 302 arrives looking like success.
+- **The resume predicate is a query against the index**, not a cursor or a line number in a
+  file. Anything positional breaks when the target list grows — which it does by design, since
+  tier 2 is the same list plus more.
+- **Tier membership is a stored attribute of the target, not a filter applied at fetch time.**
+  Then "run the next batch" is additive: insert the tier-2 targets, and the existing captures
+  are already `captured` and skipped. Re-running tier 1 after tier 2 lands must be a no-op.
+
+**Two things the crawler must do that a naive one will not**, both measured in §11b.1 and §1.2:
+treat the `DocumentLimit` 302 as backoff-and-retry rather than as an answer, and sniff content
+rather than trusting the extension — 1 in 16 documents is an OLE2 Word file, and the reference
+implementation's `%PDF` guard drops it silently.
+
+**Politeness is settled by measurement, not guessed:** concurrency **3** (20/20 clean),
+never 6 (7 of 20 rate-limited).
+
+---
+
 ## 12. What I could NOT determine
 
 Listed explicitly so none of it is mistaken for measured.
@@ -834,10 +906,25 @@ Listed explicitly so none of it is mistaken for measured.
 3. **Build the capture store** (`raw_data/tr/gfo.sqlite`, §8.3) with the sync exclusions in
    place from the first commit, and the four identity checks materialised into `gfo_check`
    at ingest (§10.1).
-4. **Run the top-1,000 tier** (~5,000 documents, $80–153, ~2 h of OCR), then **hand-check 100
-   at random and publish the error rate** (§10.4).
+4. **Run the top-1,000 tier** — scope and storage now decided (§11c): ~6,050 documents,
+   ~3.4 h of fetching at concurrency 3 plus ~2 h of OCR, ~10 GB onto `/Volumes/Storage`.
+   Then **hand-check 100 at random and publish the error rate** (§10.4).
+
+   ⚠️ That single run also closes five of §12's remaining opens as a by-product, so do not
+   schedule them as separate work: the hallucination rate (#3), whether accuracy survives
+   worse scans (#4), the ОПР-presence half of the yield (#5), the чл. 38 ал. 4 opt-out rate
+   (#6), and the coded-form share (#7) all need the same thing — a few hundred more documents
+   through the model. Instrument the run to record them rather than re-deriving later.
+
 5. Only then wire the projections: the financial-capacity test, and the
    `company_public_money` denominator.
+
+**What a tier-1 run will still NOT settle**, stated so it is not assumed: the mean document
+size (§11b.1 — the two samples disagree 2.4×, and it is the difference between ~120 GB and
+~280 GB at full scope; tier 1 measures it properly), and whether the register's
+`DocumentLimit` is purely a concurrency guard or also a per-period QUOTA. ~118 documents were
+fetched across this session's probes without exhausting anything, but a 6,050-document run is
+the first real test of that, and if it is a quota the schedule in §11b.1 is optimistic.
 
 **Engine: `gemini-3.7-flash`, prompt B (capture-everything), native PDF input,
 `temperature: 0`, with an OLE2 content-sniffing pre-step.** Not `gemini-3.5-flash` — the model
