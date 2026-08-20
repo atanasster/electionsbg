@@ -172,12 +172,34 @@ are all derived server-side from the `magistrate` table (schema 069/070). So aft
 generating the JSON:
 
 ```bash
-npm run db:load:court-load:pg          # + :cloud for Cloud SQL
-npm run db:load:magistrates:pg         # + :cloud
-npm run db:load:judicial-bodies:pg     # + :cloud — MUST follow the two above
+npm run db:load:court-load:pg
+npm run db:load:magistrates:pg
+npm run db:load:judicial-bodies:pg     # MUST follow the two above
 ```
 
 (All three are wired into `db:refresh`.)
+
+**Then publish to Cloud SQL — nothing does this automatically**, and the order is the
+same. Written out rather than as a `+ :cloud` shorthand: the shorthand reads fine to a
+human and is invisible to `cloud_loader_coverage.test.ts`, which is how
+`db:load:court-load:pg:cloud` sat outside every skill's literal text while looking wired
+here. (The other two were already named in `update-persons`.)
+
+```bash
+npm run db:load:court-load:pg:cloud
+npm run db:load:magistrates:pg:cloud
+npm run db:load:judicial-bodies:pg:cloud   # MUST follow the two above
+# Verify the alias table landed BEFORE resolving — afterwards it is too late to tell:
+#   select count(*) from judicial_body_alias;   -- must be non-zero (~530)
+npm run db:resolve:persons:cloud
+```
+
+⚠️ **The fourth command is not optional, and the three above it publish nothing to
+`/person` without it.** `judicial_body` / `judicial_body_alias` are a DIMENSION: the
+resolve is what reads the alias table and rebuilds `person_role`. Stop after the third
+and the new and re-spelled magistrates have no roles on prod at all — green locally,
+missing live, every row count reconciling. `update-persons` documents the same sequence;
+if that skill is running in the same session, its resolve covers this one.
 
 **`db:load:judicial-bodies:pg` rebuilds the canonical court/прокуратура/следствен-отдел
 dimension** (migration 116) from `magistrate.court` ∪ `court_load.name`, so it has to run

@@ -14,6 +14,12 @@
 //                          watcher behind it (a rate-limited multi-hour crawl,
 //                          an operator download). Documented in CLAUDE.md
 //                          instead; the reload path is still written down.
+// ⚠️ MOVING AN ENTRY OUT OF `unreviewed` IS A TWO-FILE EDIT. Wiring a loader means
+// deleting its entry here AND lowering the exact count in cloud_loader_coverage.test.ts
+// ("reports the unreviewed backlog"). That assertion is `toBe`, not `<=`, precisely so
+// the second half cannot be forgotten: the test fails until the number matches, and its
+// message says which direction to move it.
+//
 //   • `unreviewed`      — PRE-EXISTING debt, listed so the gate is non-vacuous
 //                          for NEW loaders rather than blanket-passing. Each one
 //                          is a genuine question nobody has answered: does this
@@ -70,7 +76,6 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
     kind: "unreviewed",
     reason: "pre-existing",
   },
-  "db:load:court-load:pg:cloud": { kind: "unreviewed", reason: "pre-existing" },
   "db:load:cr-nkid:pg:cloud": { kind: "unreviewed", reason: "pre-existing" },
   "db:load:employer-links:pg:cloud": {
     kind: "unreviewed",
@@ -82,18 +87,6 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
     reason: "pre-existing",
   },
   "db:load:municipal-fiscal:pg:cloud": {
-    kind: "unreviewed",
-    reason: "pre-existing",
-  },
-  "db:load:nzok-drug-prices:pg:cloud": {
-    kind: "unreviewed",
-    reason: "pre-existing",
-  },
-  "db:load:nzok-financials:pg:cloud": {
-    kind: "unreviewed",
-    reason: "pre-existing",
-  },
-  "db:load:nzok-tariffs:pg:cloud": {
     kind: "unreviewed",
     reason: "pre-existing",
   },

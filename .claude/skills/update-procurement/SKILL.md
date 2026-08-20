@@ -93,7 +93,7 @@ The nightly `--self-heal` run (above) covers this automatically for any lag up t
 ```bash
 npx tsx scripts/procurement/ingest_eop.ts --apply --cross-source-dedup --backfill \
   --from <ocds-periodEnd+1> --to <newest-flat-day>   # only when the gap is older than 75 days
-npm run procurement:ingest                            # rebuild; then db:load:pg (+ :cloud) to publish
+npm run procurement:ingest                            # rebuild; then db:load:pg, then db:load:pg:cloud to publish
 ```
 
 It is double-count-**safe** because `ingest.ts::writeMonthShards` runs `evictSupersededEopTwins` (`content_key.ts`): when АОП's OCDS export finally publishes that fortnight, the arriving OCDS row **evicts** the `eop-` twin it stood in for (content match, OCDS authoritative — the two feeds namespace `key`s disjointly, so the key merge alone would keep both). Validated on the real 2026-05-21…06-03 fortnight: 1827/1832 flat rows twin an OCDS row. **Shipped (2026-07-26):** the nightly cadence is now `--self-heal` (implemented in `eop_window.ts` / `ingest_eop.ts`), so the covered-buyer gap self-heals without a manual recovery and the old `--only-buyers` infra step is retired from the nightly path.

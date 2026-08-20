@@ -58,7 +58,14 @@ npm run bucket:sync:paths -- budget data-changes.json
    npm run db:load:nzok-hospital:pg:cloud    # Cloud SQL via the proxy on :5434
    npm run db:dump:cloud                     # refresh the GCS snapshot
    ```
-   The loader is idempotent (TRUNCATE+reload in one txn, changelog-deduped) and applies **both** migration 045 (the table) and 047 (the `nzok_hospital_payments_trends` / `nzok_hospital_momentum_by_eik` functions that serve the momentum tile + the `/company/:eik` spend-growth percentile), so the trend endpoints refresh with the table. Skip when only `--drugs`/`--execution` changed (those stay static-JSON-served).
+   The loader is idempotent (TRUNCATE+reload in one txn, changelog-deduped) and applies **both** migration 045 (the table) and 047 (the `nzok_hospital_payments_trends` / `nzok_hospital_momentum_by_eik` functions that serve the momentum tile + the `/company/:eik` spend-growth percentile), so the trend endpoints refresh with the table. Skip when only `--execution` changed (that stays static-JSON-served). ⚠️ `--drugs` is
+NOT static any more — the per-INN quarterly series is served from Postgres, so it needs
+its own load and publish:
+
+```bash
+npm run db:load:nzok-drug-quarterly:pg
+npm run db:load:nzok-drug-quarterly:pg:cloud   # nothing does this automatically
+```
 
    Then rebuild the **hospital map geo crosswalk** (`nzok_hospital_geo`, migration 075) that the health-pack marker map at the top of `/awarder/121858220` is drawn from. It re-resolves one HQ point per hospital EIK from `awarder_seats` + `data/settlements.json`, so a new monthly БМП file (new/renamed facilities) means new points:
    ```bash
@@ -111,16 +118,25 @@ unit price is derivable — the annual "Брутни разходи по INN" fi
 column, which is why this was long recorded as blocked.
 
 Writes `data/budget/nzok/drug_unit_prices.json` (gitignored, regenerable), then
-`npm run db:load:nzok-drug-prices:pg` (+ `:cloud` to publish) loads migrations
-052, 054 **and** 060 — the loader applies all three schema files, so the serving
+`npm run db:load:nzok-drug-prices:pg` loads migrations
+052, 054, 060 **and** 065 — the loader applies all four schema files, so the serving
 functions behind the `/molecule/:inn` + pack pages (`nzok_drug_molecule_detail`,
 `nzok_drug_pack_detail`), the risk aggregates, and the **drug-savings leaderboard**
 (`nzok_drug_savings_overview`, migration 060 — the national "€X avoidable overpay
 if every hospital paid the peer median" tile) reach the DB with the corpus.
-Run the `:cloud` variant against the Cloud SQL proxy (or a surgical
-`apply_functions.ts 052_nzok_drug_unit_prices.sql 054_nzok_risk.sql` with the
-cloud `DATABASE_URL`) whenever those functions change, else the `/api/db` routes
-degrade to null in production.
+
+**Publish — nothing does this automatically:**
+
+```bash
+npm run db:load:nzok-drug-prices:pg:cloud
+```
+
+(or a surgical `apply_functions.ts 052_nzok_drug_unit_prices.sql 054_nzok_risk.sql
+060_nzok_drug_savings.sql 065_nzok_ownership.sql` with the cloud `DATABASE_URL` when
+only the FUNCTIONS changed — **060 has no other applier**, so omitting it leaves
+`nzok_drug_savings_overview()` on its previous body with nothing erroring). Skip the
+publish entirely and the `/api/db` routes degrade to null in production while local is
+correct.
 
 Compare at **pack identity** (`Национален №`), never at INN: PEMETREXED alone
 spans five packs whose per-unit medians run €17–€66. A **5-pack volume floor**
@@ -150,6 +166,16 @@ Per-patient indicators are emitted raw and are **never ranked**: a specialised
 centre spends multiples of a general hospital's per-patient figure because of its
 case mix. Ranking without a case-mix denominator (the clinical-pathway corpus,
 below) would rank specialties, not stewardship.
+
+**Publish — nothing does this automatically:**
+
+```bash
+npm run db:load:nzok-financials:pg:cloud
+```
+
+This loader is the sole applier of 051, 056 and 058, so skipping it leaves the
+report-card and decile-fan functions absent on Cloud SQL — not stale, missing —
+while every local check passes.
 
 Known gap: 8 municipal blocks (2019-Q4 → 2021-Q3) are skipped on load — a parser
 artefact collapses hospital identity to bare oblast labels in those quarters, so
@@ -189,7 +215,8 @@ couldn't be checked from the dev box (see the script header). The committed
 `procedures.json` is the full generated nomenclature (~427 names); the writer
 replaces it wholesale on each run.
 
-`npm run db:load:nzok-activities:pg` (+ `:cloud` to publish) loads migrations 053
+`npm run db:load:nzok-activities:pg` (publish with
+`npm run db:load:nzok-activities:pg:cloud`) loads migrations 053
 **and 059's serving functions** — the `nzok_activities` table +
 `nzok_activity_monthly` trend, and the jsonb fns: `nzok_activities_overview()`
 (national top procedures + trend + the cases-per-bed outlier), `nzok_activities_by_eik()`
@@ -217,7 +244,8 @@ The parser sections the contract text at the чл. 368/369/370 markers; iterate 
 # only forwards --dump/--from-dump/--bgn and rejects unknown flags:
 tsx scripts/nzok/write_pathway_tariffs.ts --annex "<contract-or-amendment-pdf-url>" --dump --nrd-year 2025 --bgn
 tsx scripts/nzok/write_pathway_tariffs.ts --from-dump --nrd-year 2025 --bgn   # iterate the parser
-npm run db:load:nzok-tariffs:pg          # (+ :cloud) applies migration 059, loads tariffs
+npm run db:load:nzok-tariffs:pg          # applies migration 059, loads tariffs
+npm run db:load:nzok-tariffs:pg:cloud    # publish — nothing does this automatically
 ```
 
 Writes `data/budget/nzok/pathway_tariffs.json` (`{ code: priceEur }`, gitignored).
