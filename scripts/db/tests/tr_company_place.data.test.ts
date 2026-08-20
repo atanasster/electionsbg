@@ -105,19 +105,78 @@ test.skipIf(skip)(
   },
 );
 
-test.skipIf(skip)("the worst-case place answers fast", async () => {
-  // Sofia (ekatte 68134) is the largest place and sits on a dashboard tile.
-  // The pre-denormalization form of this call took 979 ms locally; the ceiling
-  // is set well under that but far above the ~60 ms it actually runs in, so it
-  // catches a lost index rather than ordinary noise.
-  const t0 = Date.now();
-  await allRows("SELECT place_companies('68134', NULL, 5) AS r");
-  const ms = Date.now() - t0;
-  assert.ok(
-    ms < 400,
-    `place_companies('68134') took ${ms} ms — the ranking index is likely gone (idx_tr_company_place_ekatte_rank)`,
+// ⚠️ THE INDEX IS CHECKED STRUCTURALLY, NOT THROUGH A COST. Two earlier versions of this
+// test tried to infer "the ranking index is still there" from how expensive the call was,
+// and BOTH were wrong in the same way — a cost measurement cannot see this failure:
+//
+//   - a wall-clock budget (< 400 ms) measured 1,140 ms under the full parallel suite with
+//     the query untouched, i.e. it was reporting how busy the machine was;
+//   - a buffer ceiling looked immune to that — 19,513 buffers on three consecutive runs
+//     whose wall-clock ranged 44-61 ms — but DROPPING the index makes the call CHEAPER,
+//     not dearer. `place_companies` is LANGUAGE sql, so its body is planned with $1/$2 as
+//     parameters and the OR survives; the index is used as an unordered Bitmap Index Scan
+//     feeding a heap scan of 6,594 of the table's 6,595 pages, twice. Simulated read-only
+//     without it: 15,705 buffers, 19% BELOW the baseline. A ceiling passes through the
+//     exact failure its own message named.
+//
+// So existence is asserted against the catalog, where it is a fact rather than an
+// inference, and the buffer ceiling below keeps its job — catching a plan that blew up —
+// with a message that no longer claims something it cannot detect.
+test.skipIf(skip)("the tile's ranking indexes exist", async () => {
+  const rows = await allRows<{ indexname: string }>(
+    "SELECT indexname FROM pg_indexes WHERE tablename = 'tr_company_place'",
+  );
+  const have = new Set(rows.map((r) => r.indexname));
+  // The four the place tile sorts on — per ekatte and per obshtina, by rank and by money.
+  const want = [
+    "idx_tr_company_place_ekatte_rank",
+    "idx_tr_company_place_ekatte_money",
+    "idx_tr_company_place_obshtina_rank",
+    "idx_tr_company_place_obshtina_money",
+  ];
+  const missing = want.filter((i) => !have.has(i)).sort();
+  assert.deepEqual(
+    missing,
+    [],
+    `tr_company_place has lost ranking index(es): ${missing.join(", ")}. ` +
+      `133 recreates them; the place tile falls back to sorting the whole place.`,
   );
 });
+
+test.skipIf(skip)(
+  "the worst-case place does not blow up its plan",
+  async () => {
+    // Sofia (ekatte 68134) is the largest place and sits on a dashboard tile. This is a
+    // REGRESSION ceiling on the plan's size, not a proxy for the index above: the
+    // pre-denormalization live-join form of this call ran 979 ms locally against ~50 ms now,
+    // and prod is a db-g1-small. Buffers rather than time because they are a property of the
+    // plan — the same three runs that varied 44-61 ms in wall-clock all read 19,513.
+    //
+    // The ceiling is ~1.5x the measurement and the metric scales with total table size, so
+    // it fires at roughly 54% corpus growth. That is a re-measure, not a defect: raise it
+    // with a new number beside it.
+    type PlanNode = Record<string, number | string>;
+    const [row] = await allRows<{ "QUERY PLAN": { Plan: PlanNode }[] }>(
+      "EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) SELECT place_companies('68134', NULL, 5)",
+    );
+    const plan = row["QUERY PLAN"][0].Plan;
+    const buffers =
+      Number(plan["Shared Hit Blocks"] ?? 0) +
+      Number(plan["Shared Read Blocks"] ?? 0);
+    // A plan reporting NO buffers means EXPLAIN's output shape changed and the ceiling is
+    // being compared against zero — which passes for ever.
+    assert.ok(
+      buffers > 0,
+      "could not read buffer counts out of the EXPLAIN output; this gate is not measuring anything",
+    );
+    assert.ok(
+      buffers < 30_000,
+      `place_companies('68134') touched ${buffers.toLocaleString()} buffers against a ` +
+        `measured 19,513 — the plan changed shape (a lost denormalized column, a join that ` +
+        `came back, a matview it now reads live)`,
+    );
+  },
+);
 
 test.skipIf(skip)("the payload is shaped as the tile expects", async () => {
   const [row] = await allRows<{
