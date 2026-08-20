@@ -30,12 +30,13 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import { NATO_DEFEXP_PAGE } from "./sources";
 
+import { GEMINI_FLASH } from "../lib/gemini_models";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(HERE, "../../data/defense");
 const ENV_FILE = path.resolve(HERE, "../../.env.local");
 const FIRST_YEAR = 2014;
 const EST_YEARS = 2; // NATO flags the last two years as estimates ("e")
-const OCR_MODEL = "gemini-3.7-flash";
+const OCR_MODEL = GEMINI_FLASH;
 // A browser UA — NATO's CDN serves the report HTML shell (not the PDF bytes) to
 // unrecognised user-agents, which is why the bare-fetch download came back 0 MB.
 const UA =

@@ -21,11 +21,12 @@ import { fileURLToPath } from "node:url";
 import { createCanvas, type SKRSContext2D } from "@napi-rs/canvas";
 import sharp from "sharp";
 
+import { GEMINI_FLASH_IMAGE } from "../lib/gemini_models";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "../..");
 const OUT_DIR = resolve(ROOT, "ai/assets");
 const ENV_FILE = resolve(ROOT, ".env.local");
-const MODEL = process.env.BRAND_IMAGE_MODEL || "gemini-3.1-flash-image";
+const MODEL = process.env.BRAND_IMAGE_MODEL || GEMINI_FLASH_IMAGE;
 
 const W = 1600;
 const H = 1000;

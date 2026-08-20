@@ -23,6 +23,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { muniBudgetSignal } from "./fetch";
 
+import { GEMINI_FLASH } from "../../lib/gemini_models";
 /** Compose a call's own deadline with the open município budget, if any. */
 const withMuniBudget = (own: AbortSignal): AbortSignal => {
   const budget = muniBudgetSignal();
@@ -36,7 +37,7 @@ const ENV_FILE = resolve(__dirname, "../../../.env.local");
 // but measured on the same 10-page Sofia chunk it transcribed 401 characters
 // against 3.7's 1,584 — a 4x difference in what it actually reads off a scan,
 // which on this corpus is the whole job.
-const MODEL = "gemini-3.7-flash";
+const MODEL = GEMINI_FLASH;
 
 /**
  * .env.local loader — copy of the kazanlak_ocr helper. Deliberately

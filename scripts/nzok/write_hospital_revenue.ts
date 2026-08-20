@@ -47,6 +47,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { getPool, end } from "../db/lib/pg";
 import { loadGeminiEnv } from "../council/lib/gemini_ocr";
 
+import { GEMINI_FLASH } from "../lib/gemini_models";
 const REPO = fileURLToPath(new URL("../..", import.meta.url));
 const OUT_FILE = path.join(REPO, "data/budget/nzok/hospital_revenue.json");
 const OWNERSHIP_FILE = path.join(
@@ -56,7 +57,7 @@ const OWNERSHIP_FILE = path.join(
 const DAILY_DIR = path.join(REPO, "raw_data/tr/daily");
 const PDF_CACHE = path.join(REPO, "raw_data/nzok/gfo");
 const BGN = 1.95583;
-const MODEL = "gemini-3.7-flash";
+const MODEL = GEMINI_FLASH;
 const YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019];
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126 Safari/537.36";

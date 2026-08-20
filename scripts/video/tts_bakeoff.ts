@@ -62,6 +62,7 @@ import {
 } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { GEMINI_TTS } from "../lib/gemini_models";
 import {
   PASSAGE,
   VARIANTS,
@@ -362,7 +363,7 @@ const eleven: Provider = {
  * loses its narration while the run reports success — so it is retried, and only
  * a persistent empty is treated as a failure.
  */
-export const GEMINI_TTS_MODEL = "gemini-3.1-flash-tts-preview";
+export const GEMINI_TTS_MODEL = GEMINI_TTS;
 
 /**
  * Retries for the two transient failures seen on 2026-08-08 — the empty-candidate

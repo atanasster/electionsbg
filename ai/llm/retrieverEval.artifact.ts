@@ -23,6 +23,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
+import { GEMINI_EMBEDDING } from "../../scripts/lib/gemini_models";
 type Bi = { bg: string; en: string };
 type Recall = { 1: number; 3: number; 5: number; 8: number };
 type Row = {
@@ -99,7 +100,7 @@ const rows: Row[] = [
     declined: r(49.7, 74.8, 83.4, 88.3),
   },
   {
-    id: "gemini-embedding-001",
+    id: GEMINI_EMBEDDING,
     label: {
       bg: "gemini-embedding-001 (облак)",
       en: "gemini-embedding-001 (cloud)",

@@ -15,11 +15,12 @@ import { existsSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { GEMINI_FLASH } from "../../lib/gemini_models";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ENV_FILE = resolve(__dirname, "../../../.env.local");
 
-const MODEL = "gemini-3.7-flash";
+const MODEL = GEMINI_FLASH;
 
 const loadEnv = () => {
   if (!existsSync(ENV_FILE)) return;

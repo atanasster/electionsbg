@@ -46,6 +46,7 @@ import { fileURLToPath } from "url";
 import { toEur } from "../../src/lib/currency";
 import { loadGeminiEnv } from "../council/lib/gemini_ocr";
 
+import { GEMINI_FLASH } from "../lib/gemini_models";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const RAW_DIR = path.resolve(__dirname, "../../raw_data/nzok/annual");
@@ -55,7 +56,7 @@ const SIDECAR_FILE = path.resolve(
 );
 const BASE = "https://www.nhif.bg";
 const UA = "Mozilla/5.0 (compatible; naiasno-data/1.0)";
-const MODEL = "gemini-3.7-flash"; // newest stable flash (verified 2026-08-20)
+const MODEL = GEMINI_FLASH; // newest stable flash (verified 2026-08-20)
 
 // Human-verified column-(1) БЮДЖЕТ totals (хил. лв) from the annual "Сборен отчет
 // за касовото изпълнение" scans. See the header for the three-way cross-check.

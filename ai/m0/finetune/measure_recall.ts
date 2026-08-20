@@ -30,6 +30,7 @@ import { route } from "../../orchestrator/router";
 import { TOOLS } from "../../tools/registry";
 import type { Lang } from "../../tools/types";
 
+import { GEMINI_FLASH } from "../../../scripts/lib/gemini_models";
 const ELECTION = "2024_10_27"; // any valid election; routing barely depends on it
 
 const HERE = join(process.cwd(), "ai/m0/finetune");
@@ -41,7 +42,7 @@ const arg = (flag: string): string | undefined => {
   return i >= 0 ? process.argv[i + 1] : undefined;
 };
 const N = Number(arg("--n") ?? 3);
-const MODEL = arg("--model") ?? "gemini-3.7-flash";
+const MODEL = arg("--model") ?? GEMINI_FLASH;
 const NO_GEN = process.argv.includes("--no-gen");
 const KS = [1, 3, 5, 8] as const;
 

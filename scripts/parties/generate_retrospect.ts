@@ -24,11 +24,12 @@ import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import { command, run, option, string, optional, flag, boolean } from "cmd-ts";
 
+import { GEMINI_PRO } from "../lib/gemini_models";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PUBLIC_DIR = path.resolve(__dirname, "../../public");
 const ENV_FILE = path.resolve(__dirname, "../../.env.local");
-const MODEL = "gemini-2.5-pro";
+const MODEL = GEMINI_PRO;
 
 const loadEnv = () => {
   if (!fs.existsSync(ENV_FILE)) return;

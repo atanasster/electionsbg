@@ -20,6 +20,7 @@ import { createCanvas, loadImage, type SKRSContext2D } from "@napi-rs/canvas";
 import sharp from "sharp";
 import { FONT, THEME, drawWordmark } from "../posts/cardKit";
 
+import { GEMINI_FLASH_IMAGE } from "../lib/gemini_models";
 type Ctx = SKRSContext2D;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -27,7 +28,7 @@ const __dirname = dirname(__filename);
 const ROOT = resolve(__dirname, "../..");
 const OUT = resolve(ROOT, "brand/ads");
 const ENV_FILE = resolve(ROOT, ".env.local");
-const MODEL = process.env.BRAND_IMAGE_MODEL || "gemini-3.1-flash-image";
+const MODEL = process.env.BRAND_IMAGE_MODEL || GEMINI_FLASH_IMAGE;
 const PAL = THEME.dark; // navy #0b1224 + coral #df6b43 accent
 
 const loadGeminiEnv = (): void => {

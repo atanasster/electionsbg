@@ -16,6 +16,7 @@ import { join } from "node:path";
 import { loadGeminiEnv } from "../../../scripts/council/lib/gemini_ocr";
 import { TOOLS } from "../../tools/registry";
 
+import { GEMINI_FLASH } from "../../../scripts/lib/gemini_models";
 const HERE = join(process.cwd(), "ai/m0/finetune");
 const CACHE = join(HERE, "train_queries.json");
 const EVAL = join(HERE, "recall_queries.json");
@@ -23,7 +24,7 @@ const argv = process.argv;
 const N = Number(argv[argv.indexOf("--n") + 1] || 10);
 const MODEL = argv.includes("--model")
   ? argv[argv.indexOf("--model") + 1]
-  : "gemini-3.7-flash";
+  : GEMINI_FLASH;
 
 type ToolQueries = { en: string[]; bg: string[] };
 type Cache = Record<string, ToolQueries>;
