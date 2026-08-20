@@ -41,7 +41,7 @@ const arg = (flag: string): string | undefined => {
   return i >= 0 ? process.argv[i + 1] : undefined;
 };
 const N = Number(arg("--n") ?? 3);
-const MODEL = arg("--model") ?? "gemini-3.5-flash";
+const MODEL = arg("--model") ?? "gemini-3.7-flash";
 const NO_GEN = process.argv.includes("--no-gen");
 const KS = [1, 3, 5, 8] as const;
 

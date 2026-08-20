@@ -56,7 +56,7 @@ const OWNERSHIP_FILE = path.join(
 const DAILY_DIR = path.join(REPO, "raw_data/tr/daily");
 const PDF_CACHE = path.join(REPO, "raw_data/nzok/gfo");
 const BGN = 1.95583;
-const MODEL = "gemini-3.5-flash";
+const MODEL = "gemini-3.7-flash";
 const YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019];
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126 Safari/537.36";

@@ -35,7 +35,7 @@ const OUT_DIR = path.resolve(HERE, "../../data/defense");
 const ENV_FILE = path.resolve(HERE, "../../.env.local");
 const FIRST_YEAR = 2014;
 const EST_YEARS = 2; // NATO flags the last two years as estimates ("e")
-const OCR_MODEL = "gemini-3.5-flash";
+const OCR_MODEL = "gemini-3.7-flash";
 // A browser UA — NATO's CDN serves the report HTML shell (not the PDF bytes) to
 // unrecognised user-agents, which is why the bare-fetch download came back 0 MB.
 const UA =

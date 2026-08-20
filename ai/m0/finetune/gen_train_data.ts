@@ -23,7 +23,7 @@ const argv = process.argv;
 const N = Number(argv[argv.indexOf("--n") + 1] || 10);
 const MODEL = argv.includes("--model")
   ? argv[argv.indexOf("--model") + 1]
-  : "gemini-3.5-flash";
+  : "gemini-3.7-flash";
 
 type ToolQueries = { en: string[]; bg: string[] };
 type Cache = Record<string, ToolQueries>;

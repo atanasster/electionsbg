@@ -55,7 +55,7 @@ const SIDECAR_FILE = path.resolve(
 );
 const BASE = "https://www.nhif.bg";
 const UA = "Mozilla/5.0 (compatible; naiasno-data/1.0)";
-const MODEL = "gemini-3.6-flash"; // newest stable flash (verified 2026-07-23)
+const MODEL = "gemini-3.7-flash"; // newest stable flash (verified 2026-08-20)
 
 // Human-verified column-(1) БЮДЖЕТ totals (хил. лв) from the annual "Сборен отчет
 // за касовото изпълнение" scans. See the header for the three-way cross-check.
