@@ -115,6 +115,22 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       : `${procSpan.from}–${procSpan.to}`;
   }, [procSpan]);
 
+  // Which budget year the iceberg tile divides into. Derived from the SCOPE ALONE,
+  // deliberately not from `procSpan`: that block falls back to `model.maxYear`
+  // (the last year carrying a contract) when the window is open-ended, which is
+  // both `all` and the default newest-parliament scope — and `model` is filtered by
+  // the universe Select above, so passing it would let a content dropdown re-anchor
+  // the denominator. An open-ended window has no last year, so the tile is handed
+  // null and falls back to the newest budget on its own terms.
+  const budgetAnchorYear = useMemo(() => {
+    const to = scopeWindow?.to;
+    if (!to) return null;
+    const last = new Date(to);
+    last.setUTCDate(last.getUTCDate() - 1); // the window is half-open
+    const y = last.getUTCFullYear();
+    return Number.isFinite(y) ? y : null;
+  }, [scopeWindow]);
+
   // Drill-down links. contractsHref carries the current scope (elections + pscope)
   // onto /procurement/contracts?sector=security, plus optional overrides (cpv /
   // pscope). Same-page anchors keep the current URL.
@@ -303,7 +319,11 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           header, so the band is a bare rule + anchor (no doubled heading). The
           multi-tile "Outcomes" band keeps a group heading. */}
       <PackSection id="mvr-budget">
-        <MvrBudgetBridgeTile procEur={procValue} perYear={yearAligned} />
+        <MvrBudgetBridgeTile
+          procEur={procValue}
+          perYear={yearAligned}
+          budgetYear={budgetAnchorYear}
+        />
       </PackSection>
 
       <PackSection
