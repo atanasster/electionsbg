@@ -15,7 +15,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { PoolClient } from "pg";
-import { withClient, withTx, allRows, exec } from "../db/lib/pg";
+import { withClient, withTx, allRows, exec, execEach } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
 import {
   createStageTable,
@@ -33,6 +33,11 @@ const PAYLOADS_MERGE: StageMergeSpec = {
   cols: ["kind", "key", "payload"],
 };
 import { buildPriceIndex, type Emit } from "./build_index";
+
+const PRICES_SCHEMA = path.join(
+  path.dirname(new URL(import.meta.url).pathname),
+  "../db/schema/pg/048_prices.sql",
+);
 import { headlineIndex } from "../../src/data/prices/headline";
 import type { PricePoint } from "../../src/data/prices/usePrices";
 import { loadGridsFromPg } from "./lib/grids_pg";
@@ -126,6 +131,26 @@ const promoQualityCte = (withObshtina: boolean): string => `
   )`;
 
 export const buildPayloads = async (): Promise<void> => {
+  // Idempotent DDL, once per run — the SECOND applier of 048, beside the
+  // ingest's. It is here because this script READS a table 048 owns
+  // (price_last_seen, the retained-price fallback behind every chain page) and
+  // the ingest was its only applier, so publishing payloads to a database the
+  // daily ingest had not yet run against failed on a relation nobody knew was
+  // missing. Measured on Cloud SQL 2026-08-20: the corpus was fully loaded and
+  // current, and the rebuild still could not run.
+  //
+  // That mattered because the ingest is not a substitute here. It fetches and
+  // loads a DAY; when the feed is being held back — which is exactly when a
+  // chain has gone silent and these pages matter most — running it to obtain a
+  // CREATE TABLE is not an option.
+  //
+  // execEach, NOT exec, for the reason ingest.ts states: exec sends the file as
+  // ONE transaction, holding the AccessExclusiveLock from its no-op ALTER TABLEs
+  // until the last statement — which includes the multi-million-row seed — on
+  // tables /api/db/price-history and /api/db/price-product read. The seed itself
+  // is guarded by NOT EXISTS, so on a warm database this is a no-op.
+  await execEach(fs.readFileSync(PRICES_SCHEMA, "utf8"));
+
   const grids = await loadGridsFromPg();
   if (!grids.length) {
     console.log(
