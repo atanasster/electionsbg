@@ -37,7 +37,10 @@ import {
   agriFootnote,
 } from "@/lib/agriReferenceData";
 import { BEH_EIK } from "@/lib/energyReferenceData";
-import { TOURISM_MINISTRY_EIK } from "@/lib/tourismReferenceData";
+import {
+  TOURISM_MINISTRY_EIK,
+  TOURISM_STATE_BODY_CONTRACTORS,
+} from "@/lib/tourismReferenceData";
 import {
   MVR_EIK,
   MVR_ENTITIES,
@@ -195,6 +198,50 @@ export interface SectorDashboardConfig {
    *  which payloads they come from. Lazy so this config module, which is pulled
    *  in wherever sectorPacks is imported, does not eager-load them. */
   SearchBox?: ComponentType;
+  /** CONTRACTORS to this sector that are themselves state or municipal bodies —
+   *  not members (those are `members`, and the tile prefers the more specific
+   *  „в групата" badge for them). Passed to SectorTopContractorsTile's
+   *  `stateBodyEiks`, which badges the row „държавно", dims its bar and adds one
+   *  footnote saying the money stayed inside government. The € is never excluded.
+   *
+   *  ⚠ The tile has carried this prop all along and the generic screen never
+   *  passed it, so no `/sector/:id` had the label — only AdministrationScreen,
+   *  the one bespoke screen that renders this tile directly. Tourism is the live
+   *  case: on its DEFAULT scope most of the money goes to host cities and their
+   *  municipal foundations, topping the leaderboard, and every row read as a
+   *  private vendor winning the sector. The measurement and the curation rule live
+   *  once, on TOURISM_STATE_BODY_CONTRACTORS — do not restate the figures here.
+   *
+   *  ⚠ CURATE IT BY EIK, per sector, in that sector's reference data — never
+   *  derive it from „is this EIK an awarder somewhere". ЗОП's utilities regime
+   *  makes private regulated companies contracting authorities, so that probe
+   *  answers ЕВН, Овергаз, Софийска вода and the private Топлофикации; measured on
+   *  water, 44% of its answer was private. It under-captures too — a municipal
+   *  foundation need not be a ЗОП awarder at all, and Печатница на БНБ and ТЕРЕМ
+   *  are 100% state and are not awarders.
+   *
+   *  ⚠ It does NOT drive a market-only HHI or an `internalShare` figure. Those
+   *  live in VikContractorHhiTile, which MvrPack and SocialPack pass their own
+   *  lists to — and which the GENERIC KPI/leaderboard branch never renders,
+   *  because that branch and the pack arm are mutually exclusive (`Pack ? … : …`).
+   *  So securityReferenceData.ts's claim that such a list "ALSO drives the
+   *  market-only HHI line" is true for a pack-backed sector and not for this
+   *  field. Note what that mutual exclusion implies: /sector/security and
+   *  /sector/social DO render the HHI tile — they are generic `/sector/:id` URLs —
+   *  but through their pack, which reads its own constant and never looks at this
+   *  config.
+   *
+   *  ⚠ SO THIS FIELD IS INERT ON A PACK-BACKED SECTOR. Only three of fourteen
+   *  reach the generic branch today (tourism, energy, and edu via
+   *  `packIsThematic`); on the other eleven a list set here would be curated,
+   *  committed and never rendered. sectorDashboards.test.ts fails on that, the
+   *  same guard the sibling flags carry.
+   *
+   *  Only `tourism` is populated so far; every other eligible sector needs its own
+   *  beneficiary audit before it gets a list, since an INCOMPLETE list is worse
+   *  than none — it badges some state transfers and leaves the rest reading as
+   *  market awards, which is a claim rather than an omission. */
+  stateBodyContractors?: readonly string[];
 }
 
 // Awarder EIKs given as literals where no reference-data export exists yet.
@@ -235,6 +282,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
         },
       },
     ],
+    stateBodyContractors: TOURISM_STATE_BODY_CONTRACTORS,
     ThematicTiles: lazy(() =>
       import("./tourism/TourismThematicTiles").then((m) => ({
         default: m.TourismThematicTiles,
@@ -452,6 +500,13 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     agency: "ДФЗ",
     leadEik: AGRI_LEAD_EIK,
     browsePackId: "agri",
+    // AgriPack IS the page — deliberately NOT packIsThematic. The generic group
+    // dashboard would headline the roster's €597.0M of procurement, which is the
+    // wrong money for a sector whose tile promises €1.59bn of CAP payout; the pack
+    // leads with the payout and carries the group's procurement as one band. (Unlike
+    // MonPack, which really is a cross-buyer analysis and so IS thematic.)
+    packOwnsScope: true,
+    packRendersOwnContractsLink: true,
     footnote: { bg: agriFootnote(true), en: agriFootnote(false) },
     members: AGRI_ENTITIES.map((e) => ({
       eik: e.eik,

@@ -29,7 +29,7 @@ import { MOD_EIK, DEFENSE_SECTOR_EIKS } from "@/lib/defenseReferenceData";
 import { NAP_EIK, NAP_AWARDER_PATH } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK, CUSTOMS_AWARDER_PATH } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
-import { AGRI_SECTOR_EIKS } from "@/lib/agriReferenceData";
+import { AGRI_SECTOR_EIKS, AGRI_LEAD_EIK } from "@/lib/agriReferenceData";
 import { ENERGY_SECTOR_EIKS } from "@/lib/energyReferenceData";
 import {
   TRANSPORT_EIK,
@@ -75,9 +75,10 @@ export const MON_AWARDER_PATH = `/awarder/${MON_EIK}`;
 // note's whole job is to stop someone "fixing" the ВСС omission, so it cannot
 // rest on a consumer list that has gone stale. Both bodies graduated to their
 // own dashboards (/pensions, /sector/health), which is what orphaned them.
-// ДФ „Земеделие" has no bespoke SectorPack — its awarder page is the generic
-// awarder dashboard plus the administering-agency subsidies card (gated on
-// AGRI_PAYER_EIK in CompanyDbScreen), the entry point into the /subsidies pack.
+// ДФ „Земеделие" DOES have a SectorPack as of 2026-08-20 (AgriPack, below) — this
+// note said it did not until then. The awarder page still shows the generic awarder
+// dashboard plus the administering-agency subsidies card (gated on AGRI_PAYER_EIK in
+// CompanyDbScreen); the pack renders on /sector/agri, whose lead this EIK is.
 export const DFZ_AWARDER_PATH = `/awarder/${AGRI_PAYER_EIK}`;
 // Revenue-agency packs (НАП / Митници) — collectors, not spenders. Pack-only
 // (no standalone view yet), so the nav points straight at the awarder page.
@@ -167,7 +168,18 @@ const RegionalPack = lazy(() =>
   import("./regional/RegionalPack").then((m) => ({ default: m.RegionalPack })),
 );
 
+// No AGRI_AWARDER_PATH export (deliberately, like transport/МВР/environment): the
+// agri view's home is the /sector/agri dashboard, which the hub tile points at; the
+// ДФЗ awarder page is reached from there. The pack registers by EIK below and leads
+// with the CAP PAYOUT — the €1.59bn the hub tile promises — off the already-served
+// agri_payloads + agri_hub_stats, with the МЗХ group's procurement as one band
+// beneath it. No new ingest.
+const AgriPack = lazy(() =>
+  import("./agri/AgriPack").then((m) => ({ default: m.AgriPack })),
+);
+
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
+  [AGRI_LEAD_EIK]: AgriPack,
   [API_EIK]: RoadsPack,
   [NOI_EIK]: NoiPack,
   [NZOK_EIK]: NzokPack,

@@ -218,8 +218,60 @@ describe("the two lookups stay wired to their own concern", () => {
 // exactly this: „prose that MENTIONS a pattern is not an occurrence of it."
 
 const PACK_SRC: Record<string, string> = {
+  agri: "../components/procurement/agri/AgriPack.tsx",
   customs: "../components/procurement/customs/CustomsPack.tsx",
   revenue: "../components/procurement/nap/NapPack.tsx",
+};
+
+// TWO wirings satisfy packOwnsScope, and both are checked below — but never
+// interchangeably, because they make DIFFERENT promises about an off-list year:
+//
+//   usePackScope  (customs, revenue) — RESOLVES `?pscope` against the years the
+//     pack can serve and hands the same resolved value to the control, so an
+//     off-list year silently re-anchors to one the pack has.
+//   useAgriScope  (agri) — reads the scope UNRESOLVED, deliberately: /subsidies
+//     answers a year the CAP corpus lacks with an explicit „няма данни за 2019"
+//     and KEEPS that year in the pill rather than re-anchoring. The hook and
+//     <ScopeControl> pass the same (absent) support argument, so the pill and the
+//     numbers are still one value — which is the property packOwnsScope is about.
+//     Forcing agri onto usePackScope would delete that named-gap state.
+//
+// What both must guarantee is that the control renders in EVERY branch. The
+// usePackScope packs do it by repeating `{strip}` in each early return; AgriPack
+// does it STRUCTURALLY, by mounting <AgriScopePicker /> outside <AgriScopeFallback>,
+// which is where all three non-ready states live. Position is the assertion there.
+// ⚠ POSITION ESTABLISHES ORDERING, NOT UNCONDITIONALITY, so all five checks below
+// are load-bearing. The first cut asserted only „picker before gate" and three
+// mutations walked straight through it, each verified against the real source: a
+// picker behind a `ready`-only conditional; a SECOND uncontrolled <ScopeControl>
+// added beside it; and the picker swapped for a bare <ScopeControl />, which
+// resolves `?pscope` against every year since 2011 — verbatim the shipped customs
+// defect this whole flag exists to prevent.
+const AGRI_SCOPE_WIRED = (src: string): string[] => {
+  const bad: string[] = [];
+  if (!/useAgriScope\(/.test(src)) bad.push("does not use useAgriScope");
+  const picker = src.indexOf("<AgriScopePicker");
+  const fallback = src.indexOf("<AgriScopeFallback");
+  if (picker < 0) bad.push("never renders <AgriScopePicker />");
+  if (fallback < 0) bad.push("never renders <AgriScopeFallback>");
+  // 1. The picker sits ABOVE the gate, so the three non-ready states cannot take
+  //    the page's only time control with them.
+  if (picker >= 0 && fallback >= 0 && picker > fallback)
+    bad.push("renders its scope picker INSIDE the gate, so a failed or empty scope leaves no control"); // prettier-ignore
+  // 2. …and it is UNCONDITIONAL. `{x && <AgriScopePicker` is the same defect one
+  //    token further out: the control vanishes exactly when the payload does.
+  const line = src.split("\n").find((l) => l.includes("<AgriScopePicker"));
+  if (line && !/^\s*<AgriScopePicker/.test(line))
+    bad.push(`renders its scope picker conditionally: ${line.trim()}`);
+  // 3. Exactly one. Two controls is the state packOwnsScope exists to end.
+  const n = src.match(/<AgriScopePicker/g)?.length ?? 0;
+  if (n > 1) bad.push(`renders ${n} scope pickers`);
+  // 4. Nothing mounts a raw <ScopeControl> beside it — the usePackScope arm asserts
+  //    this too, and the `continue` below used to skip it for agri. A bare one
+  //    resolves `?pscope` against every year since 2011 instead of the CAP years.
+  if (/<ScopeControl/.test(src))
+    bad.push("mounts a ScopeControl of its own beside the picker");
+  return bad;
 };
 
 describe("packOwnsScope", () => {
@@ -275,11 +327,17 @@ describe("packOwnsScope", () => {
       .sort();
     // Floor the subject set so a config wipe cannot pass this vacuously, and
     // keep PACK_SRC in step with it.
-    expect(ids).toEqual(["customs", "revenue"]);
+    expect(ids).toEqual(["agri", "customs", "revenue"]);
     expect(Object.keys(PACK_SRC).sort()).toEqual(ids);
 
     for (const id of ids) {
       const src = readStripped(PACK_SRC[id]);
+      // agri takes the second wiring — see AGRI_SCOPE_WIRED's header for why the
+      // two are not interchangeable.
+      if (id === "agri") {
+        expect(AGRI_SCOPE_WIRED(src), `agri pack scope wiring`).toEqual([]);
+        continue;
+      }
       // Routed through the ONE hook that pairs the resolved scope with the
       // control built from it. Matching `<ScopeControl` instead would pass for a
       // bare uncontrolled one, which is the original defect.
@@ -489,5 +547,73 @@ describe("packRendersOwnContractsLink", () => {
       .filter((c) => !getSectorBrowsePack(c.browsePackId ?? c.id))
       .map((c) => c.id);
     expect(unregistered).toEqual([]);
+  });
+});
+
+// „държавно" on the leaderboard — who may carry a curated state-body list, and
+// where the screen has to hand it over.
+//
+// The field is read in exactly ONE place: the generic KPI/leaderboard branch of
+// SectorDashboardScreen. That branch is mutually exclusive with the pack arm
+// (`Pack ? … : …`), so on a pack-backed sector a list set here is curated,
+// committed and never rendered — the sibling flags above carry the same shape of
+// guard for the same reason. Only three sectors reach the branch today (tourism,
+// energy, and edu via packIsThematic), and SECURITY/SOCIAL/ADMIN all have curated
+// lists of their own already, so setting one on the wrong sector is a plausible
+// next edit rather than a hypothetical.
+describe("stateBodyContractors", () => {
+  /** The sectors whose generic KPI/leaderboard branch actually renders. */
+  const genericBranch = (c: SectorDashboardConfig) =>
+    !!c.packIsThematic || !getSectorPack(c.leadEik);
+
+  const flagged = () =>
+    Object.values(SECTOR_DASHBOARDS).filter((c) => c.stateBodyContractors);
+
+  it("is set only where the generic leaderboard actually renders", () => {
+    // Floor the subject set locally, exactly as packOwnsScope does: `[] === []`
+    // also passes when NO sector carries a list, the absence-equivalent state.
+    expect(flagged().length).toBeGreaterThan(0);
+    const inert = flagged().filter((c) => !genericBranch(c));
+    expect(inert.map((c) => c.id)).toEqual([]);
+  });
+
+  it("never names one of the sector's own members", () => {
+    // A member is a BUYER here, and the tile drops a listed EIK from its state
+    // bodies when it is also a member, preferring „в групата". So an EIK in both
+    // places is a silently unused entry. Checked against the array the SCREEN
+    // reads (sectorMemberEiks → config.members), not a reference-data roster:
+    // those are separately maintained and coincide only at one member.
+    for (const c of Object.values(SECTOR_DASHBOARDS)) {
+      const members = new Set(sectorMemberEiks(c));
+      for (const e of c.stateBodyContractors ?? [])
+        expect(
+          members.has(e),
+          `${c.id}: ${e} is both a member and a curated state body`,
+        ).toBe(false);
+    }
+  });
+
+  it("holds plain, deduped 9- or 13-digit EIKs", () => {
+    for (const c of Object.values(SECTOR_DASHBOARDS)) {
+      const list = c.stateBodyContractors;
+      if (!list) continue;
+      expect(new Set(list).size, c.id).toBe(list.length);
+      for (const e of list)
+        expect(e, `${c.id}: ${e}`).toMatch(/^(\d{9}|\d{13})$/);
+    }
+  });
+
+  it("the screen hands it to the tile from the ONE place it builds it", () => {
+    // The source-scan half. The prop list used to be written twice, once per
+    // layout arm, and only the fallback arm was covered by a render test — so the
+    // grid arm (which every sector with ≥2 years of spend renders) could have
+    // lost the prop with the whole suite green. Building the element once is what
+    // removed that class; this asserts it stays built once.
+    const src = SECTOR_SCREEN_SRC;
+    const passes = src.match(/stateBodyEiks=\{config\.stateBodyContractors\}/g);
+    expect(passes).toHaveLength(1);
+    expect(src).toContain("const topTile =");
+    // …and that neither layout arm re-inlines the tile with its own props.
+    expect(src.match(/<SectorTopContractorsTile/g)).toHaveLength(1);
   });
 });

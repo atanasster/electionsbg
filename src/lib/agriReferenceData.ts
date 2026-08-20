@@ -225,11 +225,17 @@ export const AGRI_EXTERNAL_BODIES: ReadonlyArray<{
   { eik: "000455440", name: "Университет по хранителни технологии — Пловдив", sector: "edu" }, // prettier-ignore
 ];
 
-/** Distinct LIVE bodies in the roster — EIK count minus the succeeded ones. Every
- *  reader-facing count of „how many institutions“ must use this; `AGRI_SECTOR_EIKS
- *  .length` is the query fan-out, which is a different question. The education
- *  audit's footnote said „34 държавни висши училища“ for 33 until this distinction
- *  existed. */
+/** Distinct LIVE bodies in the roster — EIK count minus the succeeded ones.
+ *
+ *  ⚠ THIS COUNTS INSTITUTIONS, AND THE NOUN BESIDE IT MUST SAY SO. `AGRI_SECTOR_EIKS
+ *  .length` counts AWARDER RECORDS, which is what the corpus groups by and what every
+ *  procurement figure fans out over; the two differ by the succeeded-body rows (НСРЗ
+ *  still holds a contract under its own EIK). Putting them in a ratio printed
+ *  „Възложители 66 … от 65 в сектора" live on /sector/agri, and calling both
+ *  „възложителя" printed 66 in one paragraph and 65 in another on the same page. So:
+ *  „възложител/awarder" always means an EIK, „институция/institution" always means a
+ *  body, and neither noun is used for the other count. The education audit records
+ *  the same distinction („34 държавни висши училища" for 33). */
 export const AGRI_BODY_COUNT = AGRI_ENTITIES.filter(
   (e) => !e.succeededBy,
 ).length;
@@ -264,8 +270,8 @@ export const agriFootnote = (bg: boolean): string => {
       ? `${names.slice(0, -1).join(", ")} ${bg ? "и" : "and"} ${last}`
       : (names[0] ?? "");
   return bg
-    ? `${n} възложителя под един бюджетен принципал — МЗХ: министерството, ДФ „Земеделие“, БАБХ с лабораториите си, изпълнителните агенции, ДП „Кабиюк“, горската администрация (ИАГ, РДГ и ${parks} дирекции на природни паркове), ${odbh} областни дирекции по безопасност на храните и ${odz} областни дирекции „Земеделие“. Числото на плочката „Земеделие“ в /governance/sectors е ИЗПЛАТЕНОТО по САР на земеделските стопани — друга основа, която не се събира със сумата на поръчките тук. Държавните горски и ловни стопанства (ТП към шестте ДП по чл. 163 ЗГ) не са включени — те са търговски предприятия, не администрация. Още ${ext.length} свързани със земеделието възложителя са в друг сектор: ${others}.`
-    : `${n} awarders under a single budget principal — the agriculture ministry: the ministry itself, the CAP paying agency, the food-safety agency with its labs, the executive agencies, the „Кабиюк“ state enterprise, the forestry administration (ИАГ, the regional directorates and ${parks} nature-park directorates), ${odbh} regional food-safety directorates and ${odz} regional agriculture directorates. The „Земеделие“ figure on /governance/sectors is CAP money PAID OUT to farmers — a different basis, which must not be added to the procurement total here. The state forestry and hunting enterprises (territorial units of the six чл. 163 ЗГ enterprises) are excluded — they are commercial undertakings, not administration. A further ${ext.length} agriculture-related awarders sit in another sector: ${others}.`;
+    ? `${n} институции под един бюджетен принципал — МЗХ: министерството, ДФ „Земеделие“, БАБХ с лабораториите си, изпълнителните агенции, ДП „Кабиюк“, горската администрация (ИАГ, РДГ и ${parks} дирекции на природни паркове), ${odbh} областни дирекции по безопасност на храните и ${odz} областни дирекции „Земеделие“. Числото на плочката „Земеделие“ в /governance/sectors е ИЗПЛАТЕНОТО по САР на земеделските стопани — друга основа, която не се събира със сумата на поръчките тук. Държавните горски и ловни стопанства (ТП към шестте ДП по чл. 163 ЗГ) не са включени — те са търговски предприятия, не администрация. Още ${ext.length} свързани със земеделието възложителя са в друг сектор: ${others}.`
+    : `${n} institutions under a single budget principal — the agriculture ministry: the ministry itself, the CAP paying agency, the food-safety agency with its labs, the executive agencies, the „Кабиюк“ state enterprise, the forestry administration (ИАГ, the regional directorates and ${parks} nature-park directorates), ${odbh} regional food-safety directorates and ${odz} regional agriculture directorates. The „Земеделие“ figure on /governance/sectors is CAP money PAID OUT to farmers — a different basis, which must not be added to the procurement total here. The state forestry and hunting enterprises (territorial units of the six чл. 163 ЗГ enterprises) are excluded — they are commercial undertakings, not administration. A further ${ext.length} agriculture-related awarders sit in another sector: ${others}.`;
 };
 
 const ENTITY_BY_EIK: Record<string, AgriEntity> = Object.fromEntries(
