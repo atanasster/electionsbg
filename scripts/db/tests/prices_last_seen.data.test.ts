@@ -280,3 +280,79 @@ test.skipIf(skip)(
     );
   },
 );
+
+// T2b. The payload is the thing a reader actually gets, and the cascade this
+// plan is about ends there: price_current drops a silent chain → the
+// chain-products query returns nothing for it → `emit` never fires → the
+// payload merge's anti-join DELETES the blob.
+//
+// ⚠️ The first cut of this test asserted `blobs >= chains that filed today`,
+// which the PRE-FIX state satisfies exactly (98 >= 98) — it passed on the very
+// defect it was written for. The assertion has to be against EVERY chain with
+// history, because that is what "a chain is never deleted" means.
+test.skipIf(skip)(
+  "every chain with history keeps a chain-products blob, dated",
+  async () => {
+    const [r] = await allRows<{
+      blobs: string;
+      with_history: string;
+      filed: string;
+      missing: string;
+      undated: string;
+      overdated: string;
+    }>(
+      `SELECT (SELECT count(*)::text FROM price_payloads WHERE kind='chain-products') AS blobs,
+              (SELECT count(DISTINCT s.eik)::text
+                 FROM price_last_seen p JOIN price_stores s USING (store_id)) AS with_history,
+              (SELECT count(DISTINCT ps.eik)::text
+                 FROM price_skus ps JOIN price_current pc ON pc.sku_id = ps.sku_id) AS filed,
+              (SELECT count(*)::text FROM price_chains c
+                WHERE NOT EXISTS (SELECT 1 FROM price_payloads pp
+                                   WHERE pp.kind='chain-products' AND pp.key = c.eik)) AS missing,
+              (SELECT count(*)::text FROM price_payloads
+                WHERE kind='chain-products' AND payload->>'asOf' IS NULL) AS undated,
+              (SELECT count(*)::text FROM price_payloads pp,
+                      LATERAL jsonb_array_elements(pp.payload->'products') e
+                WHERE pp.kind='chain-products' AND pp.payload->>'asOf' IS NOT NULL
+                  AND (e->>'asOf') > (pp.payload->>'asOf')) AS overdated`,
+    );
+
+    if (r.blobs === "0") {
+      console.warn(
+        "[prices_last_seen] no chain-products payloads built — run build_payloads",
+      );
+      return;
+    }
+
+    // THE gate. Pre-fix this read 98 blobs against 215 chains and would fail;
+    // the earlier `blobs >= filed` form read 98 >= 98 and passed.
+    assert.equal(
+      r.missing,
+      "0",
+      `${r.missing} chains have no chain-products blob — a chain has been pruned ` +
+        `out of the served layer (blobs ${r.blobs}, chains with history ${r.with_history}, ` +
+        `chains that filed today ${r.filed})`,
+    );
+
+    // A retained price with no date is strictly worse than a deleted one,
+    // because the reader cannot tell.
+    assert.equal(
+      r.undated,
+      "0",
+      `${r.undated} chain-products blobs carry no asOf, so a stale price would render as today's`,
+    );
+
+    // MIN(price) and max(as_of) are independent aggregates; pairing them wrongly
+    // dates a price fresher than it is.
+    assert.equal(
+      r.overdated,
+      "0",
+      `${r.overdated} product rows are dated after their own chain's last filing day`,
+    );
+
+    if (r.with_history === r.filed)
+      console.warn(
+        "[prices_last_seen] every chain filed on the latest day — the silent-chain arm asserted nothing",
+      );
+  },
+);

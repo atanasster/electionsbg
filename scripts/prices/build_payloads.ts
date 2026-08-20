@@ -36,6 +36,7 @@ import { buildPriceIndex, type Emit } from "./build_index";
 import { headlineIndex } from "../../src/data/prices/headline";
 import type { PricePoint } from "../../src/data/prices/usePrices";
 import { loadGridsFromPg } from "./lib/grids_pg";
+import { STALE_DAYS, isStale, beyondCeiling } from "./lib/staleness";
 
 // --- Deals quality gate (national + per-município) -------------------------
 // The КЗП feed carries both a "redovna цена" (regular) and a promo price per
@@ -394,10 +395,25 @@ export const buildPayloads = async (): Promise<void> => {
   });
 
   // `chain-products:<eik>` — a retail chain's OWN products (top 100 by product
-  // popularity) with the chain's min current price alongside the market min, for
-  // the /consumption/chain/:eik profile. Precomputed because the live per-store
-  // aggregation is ~0.8s on the biggest chain (10k SKUs) — too slow per request.
-  // One windowed pass covers every chain; grouped into a blob per EIK.
+  // popularity) with the chain's min LAST-KNOWN price alongside the market min,
+  // for the /consumption/chain/:eik profile. Precomputed because the live
+  // per-store aggregation is ~0.8s on the biggest chain (10k SKUs) — too slow
+  // per request. One windowed pass covers every chain; grouped into a blob per
+  // EIK.
+  //
+  // ⚠️ Reads `price_last_seen`, NOT `price_current`, and that is the whole point
+  // of T2b. price_current drops every row of a chain that stopped filing, so
+  // this query returned nothing for it, `emit` never fired, and the payload
+  // merge's anti-join then DELETED the chain's existing blob — the page went
+  // away rather than going stale. Measured on the corpus this was written
+  // against: 170 of 215 chains had already gone silent.
+  //
+  // The price of reading last-known is that a row may be OLD, so every row
+  // carries the day it was observed and the blob carries the chain's own last
+  // reporting day against the corpus's. Nothing here may be fed into a ranking
+  // or a cross-chain minimum — `chain-map` and `basketLevel` keep reading
+  // price_current and the day grids precisely so a stale price cannot win a
+  // "cheapest" comparison. See docs/plans/prices-chain-absence-v1.md T2c.
   const chainProductRows = await allRows<{
     eik: string;
     slug: string;
@@ -407,16 +423,54 @@ export const buildPayloads = async (): Promise<void> => {
     price: number;
     marketMin: number | null;
     pctSinceEuro: number | null;
+    asOf: string;
   }>(
-    `WITH cp AS (
-       SELECT ps.eik, pp.slug, pp.title, pp.net_qty, pp.net_unit, pp.chain_count,
-              round(MIN(COALESCE(pc.promo_eur, pc.price_eur))::numeric, 2)::float8 AS price,
-              pp.current_min_eur, pp.pct_since_euro
+    `WITH latest AS (SELECT max(day) AS d FROM price_grid_days),
+     -- Chains that filed on the latest day. For these, price_current IS the
+     -- last-known price and is 3.7x smaller, so the hot path stays exactly the
+     -- query this used to be.
+     filed AS (
+       SELECT DISTINCT ps.eik
+         FROM price_skus ps JOIN price_current pc ON pc.sku_id = ps.sku_id
+     ),
+     obs AS (
+       SELECT ps.eik, ps.product_id, pc.price_eur, pc.promo_eur, l.d AS as_of
          FROM price_skus ps
          JOIN price_current pc ON pc.sku_id = ps.sku_id
-         JOIN price_products pp ON pp.product_id = ps.product_id
-        WHERE pp.chain_count > 0
-        GROUP BY ps.eik, pp.slug, pp.title, pp.net_qty, pp.net_unit,
+        CROSS JOIN latest l
+       UNION ALL
+       -- …and ONLY the silent chains fall back to the last-known layer. This is
+       -- the arm that stops a chain's page being pruned out of existence when it
+       -- stops filing. Bounded by STALE_DAYS so a chain silent for longer drops
+       -- out rather than showing prices of unbounded age (plan T2c / Q2); the
+       -- page then says "no data since …" instead.
+       SELECT ps.eik, ps.product_id, pls.price_eur, pls.promo_eur, pls.as_of
+         FROM price_skus ps
+         JOIN price_last_seen pls ON pls.sku_id = ps.sku_id
+        CROSS JOIN latest l
+        WHERE NOT EXISTS (SELECT 1 FROM filed f WHERE f.eik = ps.eik)
+          AND pls.as_of >= l.d - $1::int
+     ),
+     cp AS (
+       SELECT o.eik, pp.slug, pp.title, pp.net_qty, pp.net_unit, pp.chain_count,
+              round(MIN(COALESCE(o.promo_eur, o.price_eur))::numeric, 2)::float8 AS price,
+              -- ⚠️ NOT max(as_of): MIN(price) and max(as_of) are independent
+              -- aggregates, so the pair can describe two different rows and date
+              -- a price fresher than it is (measured: 132 of 20,006 stale groups,
+              -- by up to 24 days). Take the as_of OF the row that supplied the
+              -- minimum.
+              (array_agg(o.as_of ORDER BY COALESCE(o.promo_eur, o.price_eur), o.as_of))[1] AS as_of,
+              pp.current_min_eur, pp.pct_since_euro
+         FROM obs o
+         JOIN price_products pp ON pp.product_id = o.product_id
+        -- WARNING: no chain_count > 0 filter here. chain_count is recomputed from
+        -- price_current, so a silent chain's EXCLUSIVE products fall to 0 the
+        -- moment it stops filing — and gating on it would delete the very pages
+        -- this arm exists to keep (measured: АПТЕКА АСПИДА, silent 2 days, 116
+        -- in-window rows → 0 surviving; GREEN DELI CAFE, 4 days, 41 → 0). The
+        -- join to price_products is what excludes unmatched SKUs; chain_count
+        -- survives only as a RANKING key below, where 0 simply sorts last.
+        GROUP BY o.eik, pp.slug, pp.title, pp.net_qty, pp.net_unit,
                  pp.chain_count, pp.current_min_eur, pp.pct_since_euro
      ),
      r AS (
@@ -428,10 +482,12 @@ export const buildPayloads = async (): Promise<void> => {
      )
      SELECT eik, slug, title,
             net_qty AS "netQty", net_unit AS "netUnit", price,
-            current_min_eur AS "marketMin", pct_since_euro AS "pctSinceEuro"
+            current_min_eur AS "marketMin", pct_since_euro AS "pctSinceEuro",
+            as_of::text AS "asOf"
        FROM r
       WHERE rn <= 100
       ORDER BY eik, rn`,
+    [STALE_DAYS],
   );
   const byChain = new Map<
     string,
@@ -441,8 +497,38 @@ export const buildPayloads = async (): Promise<void> => {
     if (!byChain.has(eik)) byChain.set(eik, []);
     byChain.get(eik)!.push(p);
   }
-  for (const [eik, products] of byChain) {
-    emit("chain-products", eik, { products });
+  // The chain's own last reporting day, from the dimension rather than from the
+  // top-100 slice — a chain can stop filing while a product it never delisted
+  // still shows a recent as_of, and the page's headline must describe the CHAIN.
+  const chainLastSeen = new Map(
+    (
+      await allRows<{ eik: string; last_seen: string }>(
+        "SELECT eik, last_seen::text AS last_seen FROM price_chains",
+      )
+    ).map((r) => [r.eik, r.last_seen]),
+  );
+  // ⚠️ Iterate every KNOWN chain, not just the ones the query returned rows for.
+  // Past STALE_DAYS the fallback arm yields nothing, and emitting nothing is a
+  // DELETE: the payload merge's anti-join prunes the blob and the chain's page
+  // disappears — the exact cascade this task exists to break, arriving one month
+  // later instead of one day. staleness.ts's header promises the opposite ("the
+  // page says 'no data since <date>' and shows no prices"), so honour it: an
+  // empty, dated blob. Measured: 3 chains are already past the ceiling, and 64
+  // share last_seen = 2026-08-08, i.e. they would all have vanished together.
+  for (const [eik, asOf] of chainLastSeen) {
+    const products = byChain.get(eik) ?? [];
+    emit("chain-products", eik, {
+      products,
+      // `asOf` is when this chain last filed; `latestDate` is the corpus's most
+      // recent day. A page comparing them can say "last filed on X" instead of
+      // presenting an old price as today's.
+      asOf,
+      latestDate: latest ?? "",
+      stale: isStale(asOf, latest ?? null),
+      // Past the display ceiling: the chain and its date are still served, the
+      // prices are not. `products` is empty here BY DESIGN, not by absence.
+      beyondCeiling: beyondCeiling(asOf, latest ?? null),
+    });
   }
 
   // `chain-map` — the CHEAPEST chain in each município, for the categorical
