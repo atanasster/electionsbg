@@ -1,5 +1,4 @@
 import { FC, Fragment, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Briefcase, ExternalLink, ArrowRightLeft } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -34,7 +33,6 @@ export const StakeRow: FC<{ stake: ConsolidatedStake; lang: string }> = ({
 }) => {
   const { t } = useTranslation();
   const Icon = stake.table === "11" ? ArrowRightLeft : Briefcase;
-  const slug = stake.companySlug;
   const subtitle = [stake.itemType, stake.registeredOffice]
     .filter(Boolean)
     .join(" · ");
@@ -43,24 +41,25 @@ export const StakeRow: FC<{ stake: ConsolidatedStake; lang: string }> = ({
     <div className="grid grid-cols-[auto_1fr] gap-3 items-start py-2 border-b last:border-b-0">
       <Icon className="h-4 w-4 text-muted-foreground mt-0.5" />
       <div className="min-w-0">
-        <div className="flex items-baseline justify-between gap-3">
-          <div className="text-sm font-medium truncate">
-            {slug ? (
-              <Link
-                to={`/mp/company/${encodeURIComponent(slug)}`}
-                className="hover:underline"
-              >
-                {stake.companyName}
-              </Link>
-            ) : (
-              stake.companyName
-            )}
-            {stake.table === "11" && (
-              <span className="ml-2 text-xs font-normal text-muted-foreground italic">
-                {t("stake_transferred") || "transferred"}
-              </span>
-            )}
-          </div>
+        {/* ⚠️ THE COMPANY NAME IS NOT A LINK HERE, and must not become one again.
+              It used to point at /mp/company/{companySlug} — a page keyed on the DECLARED
+              NAME, which is not an identity: the declaration form carries no EIK, and that
+              page attached one on a name-uniqueness check alone. The only honest link is to
+              a company migration 096 independently confirmed, and this component is not the
+              thing that knows which those are — it has a stake, not a person slug.
+              PersonCompanies renders a /company/:eik link beneath the rows in its `linked`
+              group — and ONLY those. Its other three groups (absent / unmatched / unknown)
+              deliberately carry no company link at all, because 096 declined to name one.
+              On the surfaces that render this component directly there is no verdict to
+              render either way, so the name stays text there too.
+              Plan: docs/plans/company-page-consolidation-v1.md (Tier 2). */}
+        <div className="text-sm font-medium truncate">
+          {stake.companyName}
+          {stake.table === "11" && (
+            <span className="ml-2 text-xs font-normal text-muted-foreground italic">
+              {t("stake_transferred")}
+            </span>
+          )}
         </div>
         {subtitle && (
           <div className="text-xs text-muted-foreground truncate">

@@ -40,6 +40,12 @@ const yearKey = (decl: MpDeclaration): { year: number; fromFiscal: boolean } =>
     : { year: decl.declarationYear, fromFiscal: false };
 
 const groupKey = (s: MpOwnershipStake): string => {
+  // ⚠️ `companySlug` IS LOAD-BEARING HERE, AND ONLY HERE. Nothing RENDERS it any more — the
+  // /mp/company/{slug} link it existed for is gone (Tier 2) — but it is still the preferred
+  // half of this grouping key, and it carries the `-2`, `-3`, … disambiguation that keeps two
+  // DIFFERENT companies sharing a bare name apart. Dropping the field (plan Tier 5.6 proposes
+  // exactly that) without replacing this fallback would silently fold those two into one
+  // declared holding on a person's profile. Read the plan's Tier 5.6 note before removing it.
   const company = (s.companySlug ?? s.companyName ?? "").trim().toLowerCase();
   const holder = (s.holderName ?? "").trim().toLowerCase();
   return `${s.table}|${company}|${holder}`;

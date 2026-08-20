@@ -98,13 +98,36 @@ export const AllMpCompaniesScreen: FC = () => {
           const c = row.original;
           return (
             <div className="min-w-0">
-              <Link
-                to={`/mp/company/${encodeURIComponent(c.slug)}`}
-                className="font-medium hover:underline"
-              >
-                <Briefcase className="inline h-3.5 w-3.5 mr-1 text-muted-foreground -mt-0.5" />
-                {decodeEntities(c.displayName)}
-              </Link>
+              {/* ⚠️ THIS EIK IS NOT 096-GATED, AND THE LINK IS AN INTERIM STATE. It comes
+                  from tr/integrate.ts, which attaches a UIC to a declared company NAME on a
+                  name-uniqueness check ALONE — the same weak gate the declared-stakes block
+                  on /company/:eik just stopped relying on, and one 096 declines for 1,751 of
+                  these 2,120 UICs. So the link is only as good as that match.
+                  It is sanctioned rather than correct: the alternative was leaving 2,153 rows
+                  pointing at /mp/company/{slug}, which is retired and keyed on the declared
+                  name — strictly worse. Tier 3 replaces this whole screen with a server-side
+                  table over the gated person layer, at which point this branch goes away.
+                  The 816 entries with no UIC stay TEXT: there is no company page to reach,
+                  and a link would promise one.
+                  Plan: docs/plans/company-page-consolidation-v1.md (Tier 2 → Tier 3). */}
+              {(() => {
+                const label = (
+                  <>
+                    <Briefcase className="inline h-3.5 w-3.5 mr-1 text-muted-foreground -mt-0.5" />
+                    {decodeEntities(c.displayName)}
+                  </>
+                );
+                return c.tr?.uic ? (
+                  <Link
+                    to={`/company/${encodeURIComponent(c.tr.uic)}`}
+                    className="font-medium text-primary hover:underline"
+                  >
+                    {label}
+                  </Link>
+                ) : (
+                  <span className="font-medium">{label}</span>
+                );
+              })()}
               <div className="text-xs text-muted-foreground">
                 {c.registeredOffices.length > 0 && (
                   <span>
