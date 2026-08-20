@@ -1027,6 +1027,50 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "aop_experts",
+    label: {
+      bg: "АОП · външни експерти",
+      en: "AOP · external experts",
+    },
+    detail: {
+      bg: "кой е бил одобрен да оценява поръчки",
+      en: "who was approved to evaluate tenders",
+    },
+    desc: {
+      bg: "Списъкът на АОП с външни експерти по чл. 232а, ал. 2 ЗОП — хората, които възложител може да включи в комисия. ⚠️ Регистърът е ИСТОРИЧЕСКИ: 88 експерти, нито един с валидност днес — последната изтича на 1.1.2023 г., а нов експерт не е вписван от 1.1.2020 г. Отговаря на „кой е бил одобрен между 2017 и 2023“, никога на „кой е на разположение сега“. Регистърът публикува само собствено и фамилно име, а нашият слой за самоличност държи три, така че свързването е по-слабо от всяко друго тук: 58 от 88 съвпадат с човек, но само 25 еднозначно — останалите 33 се ОТКАЗВАТ, а не се степенуват, защото да посочиш грешен човек като одобрен експерт е обвинение.",
+      en: 'The АОП list of external experts under art. 232a(2) of the Public Procurement Act — people a contracting authority may co-opt onto an evaluation committee. ⚠️ The register is HISTORICAL: 88 experts and not one still valid, the newest validity having ended 2023-01-01 with nobody added since 2020-01-01. It answers „who was approved between 2017 and 2023", never „who is available now". It publishes given + family name only while our identity layer holds three, so the link is weaker than anything else here: 58 of 88 match a person but only 25 match exactly one — the other 33 are REFUSED rather than graded, because naming the wrong individual as a state-approved expert is an accusation.',
+    },
+    url: "https://www.aop.bg/ets.php",
+    origin: "state",
+    members: ["aop_experts"],
+    skills: ["update-procurement"],
+    // "fiscal" — see the ЦПРС group above: `tags` name a VIEW of the map, and
+    // there is no "procurement" one.
+    tags: ["fiscal"],
+  },
+  {
+    id: "isun_clean_delivery",
+    label: {
+      bg: "ИСУН · без финансова корекция",
+      en: "ISUN · no financial correction",
+    },
+    detail: {
+      bg: "кои европроекти са приключили чисто",
+      en: "which EU projects ended clean",
+    },
+    desc: {
+      bg: "Двата списъка на ИСУН за европроекти, приключили без наложена финансова корекция: 9 940 проекта и 32 420 бенефициента с общо 41 530 договора, приключени В СРОК. ⚠️ Това е списък на ПОСТИЖЕНИЕ, а не допълнението на „има корекция“ — отсъствието не означава корекция: проектът може да е приключил със закъснение, да е прекратен или още да е в проверка, а индивидуалните нередности отиват в системата IMS на OLAF и не са публични. Изваждането на този списък от корпуса би приписало корекция на 41 126 проекта — обвинение срещу хиляди назовани фирми.",
+      en: "The two ИСУН lists of EU projects that ended with no financial correction imposed: 9,940 projects and 32,420 beneficiaries holding 41,530 contracts completed ON TIME. ⚠️ It is an ACHIEVEMENT list, not the complement of „was corrected\" — absence is not a correction: a project may have finished late, been terminated, or still be under verification, and individual irregularities go to OLAF's IMS, which is confidential. Subtracting this list from the corpus would assert a correction against 41,126 projects — an accusation against thousands of named companies.",
+    },
+    url: "https://2020.eufunds.bg/bg/0/0/ExecutedContracts?ShowRes=True",
+    origin: "state",
+    members: ["isun_clean_delivery"],
+    skills: ["update-funds"],
+    // "fiscal", matching the funds dataset it qualifies — `tags` are views, and
+    // there is no "funds" view either.
+    tags: ["fiscal"],
+  },
+  {
     id: "culture",
     label: { bg: "Култура · НФЦ, НФК, МК", en: "Culture · NFC, NCF, Ministry" },
     detail: {
@@ -2093,6 +2137,17 @@ export const EDGES: [string, string][] = [
   // the corpus by NAME and refuses on ambiguity, is ingested under scripts/procurement/
   // and snapshotted to data/procurement/adfi.json — inside the dataset node's own `path`.
   ["src:adfi", "ds:procurement"],
+  // The АОП experts register is a PEOPLE register attached to procurement, not a
+  // contract feed: it says who the state approved to sit on evaluation committees,
+  // which is what makes „the same expert wrote the documentation and then judged the
+  // bids" answerable. It is historical (every entry expired) and joins the person
+  // layer on a two-part name, so it refuses a shared name rather than grading it.
+  ["src:aop_experts", "ds:procurement"],
+  // ИСУН's clean-delivery lists qualify the FUNDS corpus rather than extending it:
+  // they say which of the projects we already hold ended without a financial
+  // correction. They join fund_projects on contract_number (the -C## contract-version
+  // suffix stripped — on the raw id the join matches 0 of 9,940). Never invert them.
+  ["src:isun_clean_delivery", "ds:funds"],
   // TED is the same corpus seen from the EU side rather than a second one: every
   // above-threshold Bulgarian procurement must appear in both, so it exists to make the
   // NATIONAL corpus's completeness checkable — a notice with no counterpart is a gap in

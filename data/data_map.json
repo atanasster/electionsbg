@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-20T04:03:03.393Z",
+  "generatedAt": "2026-08-20T07:45:05.666Z",
   "nodes": [
     {
       "id": "src:water",
@@ -41,7 +41,7 @@
         }
       ],
       "x": 28,
-      "y": 1550,
+      "y": 2018,
       "w": 240,
       "h": 62
     },
@@ -128,7 +128,7 @@
         }
       ],
       "x": 28,
-      "y": 3110,
+      "y": 3188,
       "w": 240,
       "h": 62
     },
@@ -181,7 +181,7 @@
         }
       ],
       "x": 28,
-      "y": 2018,
+      "y": 848,
       "w": 240,
       "h": 62
     },
@@ -259,7 +259,7 @@
         }
       ],
       "x": 28,
-      "y": 2330,
+      "y": 3032,
       "w": 240,
       "h": 62
     },
@@ -300,7 +300,7 @@
         }
       ],
       "x": 28,
-      "y": 3266,
+      "y": 3344,
       "w": 240,
       "h": 62
     },
@@ -341,7 +341,7 @@
         }
       ],
       "x": 28,
-      "y": 3188,
+      "y": 3500,
       "w": 240,
       "h": 62
     },
@@ -382,7 +382,7 @@
         }
       ],
       "x": 28,
-      "y": 3344,
+      "y": 3422,
       "w": 240,
       "h": 62
     },
@@ -483,7 +483,7 @@
         }
       ],
       "x": 28,
-      "y": 1706,
+      "y": 1940,
       "w": 240,
       "h": 62
     },
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-19T06:08:55.326Z",
+      "freshness": "2026-08-20T07:23:14.975Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-19T06:08:55.326Z"
+          "freshness": "2026-08-20T07:23:14.975Z"
         }
       ],
       "x": 28,
@@ -561,7 +561,7 @@
         }
       ],
       "x": 28,
-      "y": 2564,
+      "y": 2252,
       "w": 240,
       "h": 62
     },
@@ -607,7 +607,7 @@
         }
       ],
       "x": 28,
-      "y": 2954,
+      "y": 2564,
       "w": 240,
       "h": 62
     },
@@ -654,7 +654,7 @@
         }
       ],
       "x": 28,
-      "y": 2096,
+      "y": 2798,
       "w": 240,
       "h": 62
     },
@@ -708,7 +708,7 @@
         }
       ],
       "x": 28,
-      "y": 3032,
+      "y": 3578,
       "w": 240,
       "h": 62
     },
@@ -748,7 +748,7 @@
         }
       ],
       "x": 28,
-      "y": 1940,
+      "y": 2876,
       "w": 240,
       "h": 62
     },
@@ -785,7 +785,7 @@
         }
       ],
       "x": 28,
-      "y": 3422,
+      "y": 3266,
       "w": 240,
       "h": 62
     },
@@ -821,7 +821,7 @@
         }
       ],
       "x": 28,
-      "y": 2486,
+      "y": 3110,
       "w": 240,
       "h": 62
     },
@@ -1024,7 +1024,7 @@
         }
       ],
       "x": 28,
-      "y": 1238,
+      "y": 1160,
       "w": 240,
       "h": 62
     },
@@ -1050,7 +1050,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-18T06:08:36.914Z",
+      "freshness": "2026-08-20T07:23:14.975Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1069,7 +1069,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-08-17T06:08:34.574Z"
+          "freshness": "2026-08-20T07:23:14.975Z"
         },
         {
           "id": "municipal_naredba",
@@ -1080,7 +1080,7 @@
         }
       ],
       "x": 28,
-      "y": 1160,
+      "y": 1394,
       "w": 240,
       "h": 62
     },
@@ -1153,7 +1153,7 @@
         }
       ],
       "x": 28,
-      "y": 536,
+      "y": 692,
       "w": 240,
       "h": 62
     },
@@ -1193,7 +1193,7 @@
         }
       ],
       "x": 28,
-      "y": 926,
+      "y": 1238,
       "w": 240,
       "h": 62
     },
@@ -1232,7 +1232,7 @@
         }
       ],
       "x": 28,
-      "y": 302,
+      "y": 458,
       "w": 240,
       "h": 62
     },
@@ -1259,7 +1259,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-08-19T06:08:55.326Z",
+      "freshness": "2026-08-20T07:23:14.975Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1271,7 +1271,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-08-19T06:08:55.326Z"
+          "freshness": "2026-08-20T07:23:14.975Z"
         },
         {
           "id": "eurostat_policy",
@@ -1324,7 +1324,7 @@
         }
       ],
       "x": 28,
-      "y": 1394,
+      "y": 1550,
       "w": 240,
       "h": 62
     },
@@ -1417,7 +1417,7 @@
         }
       ],
       "x": 28,
-      "y": 1628,
+      "y": 1784,
       "w": 240,
       "h": 62
     },
@@ -1468,7 +1468,7 @@
         }
       ],
       "x": 28,
-      "y": 1784,
+      "y": 1862,
       "w": 240,
       "h": 62
     },
@@ -1514,7 +1514,7 @@
         }
       ],
       "x": 28,
-      "y": 1316,
+      "y": 1472,
       "w": 240,
       "h": 62
     },
@@ -1561,7 +1561,7 @@
         }
       ],
       "x": 28,
-      "y": 848,
+      "y": 1004,
       "w": 240,
       "h": 62
     },
@@ -1586,7 +1586,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-19T06:08:55.326Z",
+      "freshness": "2026-08-20T07:23:14.975Z",
       "skills": [
         "update-prices"
       ],
@@ -1596,11 +1596,11 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-19T06:08:55.326Z"
+          "freshness": "2026-08-20T07:23:14.975Z"
         }
       ],
       "x": 28,
-      "y": 224,
+      "y": 302,
       "w": 240,
       "h": 62
     },
@@ -1636,7 +1636,7 @@
         }
       ],
       "x": 28,
-      "y": 146,
+      "y": 224,
       "w": 240,
       "h": 62
     },
@@ -1675,7 +1675,7 @@
         }
       ],
       "x": 28,
-      "y": 614,
+      "y": 536,
       "w": 240,
       "h": 62
     },
@@ -1721,7 +1721,7 @@
         }
       ],
       "x": 28,
-      "y": 2252,
+      "y": 2174,
       "w": 240,
       "h": 62
     },
@@ -1775,7 +1775,7 @@
         }
       ],
       "x": 28,
-      "y": 1472,
+      "y": 1706,
       "w": 240,
       "h": 62
     },
@@ -1822,7 +1822,7 @@
         }
       ],
       "x": 28,
-      "y": 2408,
+      "y": 2096,
       "w": 240,
       "h": 62
     },
@@ -1859,7 +1859,7 @@
         }
       ],
       "x": 28,
-      "y": 1082,
+      "y": 926,
       "w": 240,
       "h": 62
     },
@@ -1896,7 +1896,7 @@
         }
       ],
       "x": 28,
-      "y": 1004,
+      "y": 1082,
       "w": 240,
       "h": 62
     },
@@ -1950,7 +1950,7 @@
         }
       ],
       "x": 28,
-      "y": 2174,
+      "y": 1316,
       "w": 240,
       "h": 62
     },
@@ -1997,7 +1997,7 @@
         }
       ],
       "x": 28,
-      "y": 1862,
+      "y": 1628,
       "w": 240,
       "h": 62
     },
@@ -2022,6 +2022,7 @@
       "url": "https://adfi.minfin.bg/bg/34",
       "origin": "state",
       "cadence": "weekly",
+      "freshness": "2026-08-20T07:23:14.975Z",
       "skills": [
         "update-procurement"
       ],
@@ -2030,11 +2031,12 @@
           "id": "adfi_inspections",
           "label": "АДФИ — доклади от финансови инспекции (adfi.minfin.bg)",
           "url": "https://adfi.minfin.bg/bg/34",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-08-20T07:23:14.975Z"
         }
       ],
       "x": 28,
-      "y": 2798,
+      "y": 2720,
       "w": 240,
       "h": 62
     },
@@ -2059,6 +2061,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
+      "freshness": "2026-08-20T07:23:14.975Z",
       "skills": [
         "update-procurement"
       ],
@@ -2067,11 +2070,12 @@
           "id": "ted_bg",
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
-          "cadence": "hourly"
+          "cadence": "hourly",
+          "freshness": "2026-08-20T07:23:14.975Z"
         }
       ],
       "x": 28,
-      "y": 2720,
+      "y": 2486,
       "w": 240,
       "h": 62
     },
@@ -2096,6 +2100,7 @@
       "url": "https://register.ksb.bg/",
       "origin": "state",
       "cadence": "weekly",
+      "freshness": "2026-08-20T07:23:14.975Z",
       "skills": [
         "update-procurement"
       ],
@@ -2104,11 +2109,88 @@
           "id": "cprs_register",
           "label": "ЦПРС — регистър на строителя (register.ksb.bg)",
           "url": "https://register.ksb.bg/listFirms.php",
+          "cadence": "weekly",
+          "freshness": "2026-08-20T07:23:14.975Z"
+        }
+      ],
+      "x": 28,
+      "y": 2330,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:aop_experts",
+      "kind": "source",
+      "label": {
+        "bg": "АОП · външни експерти",
+        "en": "AOP · external experts"
+      },
+      "detail": {
+        "bg": "кой е бил одобрен да оценява поръчки",
+        "en": "who was approved to evaluate tenders"
+      },
+      "desc": {
+        "bg": "Списъкът на АОП с външни експерти по чл. 232а, ал. 2 ЗОП — хората, които възложител може да включи в комисия. ⚠️ Регистърът е ИСТОРИЧЕСКИ: 88 експерти, нито един с валидност днес — последната изтича на 1.1.2023 г., а нов експерт не е вписван от 1.1.2020 г. Отговаря на „кой е бил одобрен между 2017 и 2023“, никога на „кой е на разположение сега“. Регистърът публикува само собствено и фамилно име, а нашият слой за самоличност държи три, така че свързването е по-слабо от всяко друго тук: 58 от 88 съвпадат с човек, но само 25 еднозначно — останалите 33 се ОТКАЗВАТ, а не се степенуват, защото да посочиш грешен човек като одобрен експерт е обвинение.",
+        "en": "The АОП list of external experts under art. 232a(2) of the Public Procurement Act — people a contracting authority may co-opt onto an evaluation committee. ⚠️ The register is HISTORICAL: 88 experts and not one still valid, the newest validity having ended 2023-01-01 with nobody added since 2020-01-01. It answers „who was approved between 2017 and 2023\", never „who is available now\". It publishes given + family name only while our identity layer holds three, so the link is weaker than anything else here: 58 of 88 match a person but only 25 match exactly one — the other 33 are REFUSED rather than graded, because naming the wrong individual as a state-approved expert is an accusation."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "url": "https://www.aop.bg/ets.php",
+      "origin": "state",
+      "cadence": "weekly",
+      "freshness": "2026-08-20T07:23:14.975Z",
+      "skills": [
+        "update-procurement"
+      ],
+      "sources": [
+        {
+          "id": "aop_experts",
+          "label": "АОП — списък с външни експерти по чл. 232а, ал. 2 ЗОП (aop.bg)",
+          "url": "https://www.aop.bg/ets.php",
+          "cadence": "weekly",
+          "freshness": "2026-08-20T07:23:14.975Z"
+        }
+      ],
+      "x": 28,
+      "y": 2408,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:isun_clean_delivery",
+      "kind": "source",
+      "label": {
+        "bg": "ИСУН · без финансова корекция",
+        "en": "ISUN · no financial correction"
+      },
+      "detail": {
+        "bg": "кои европроекти са приключили чисто",
+        "en": "which EU projects ended clean"
+      },
+      "desc": {
+        "bg": "Двата списъка на ИСУН за европроекти, приключили без наложена финансова корекция: 9 940 проекта и 32 420 бенефициента с общо 41 530 договора, приключени В СРОК. ⚠️ Това е списък на ПОСТИЖЕНИЕ, а не допълнението на „има корекция“ — отсъствието не означава корекция: проектът може да е приключил със закъснение, да е прекратен или още да е в проверка, а индивидуалните нередности отиват в системата IMS на OLAF и не са публични. Изваждането на този списък от корпуса би приписало корекция на 41 126 проекта — обвинение срещу хиляди назовани фирми.",
+        "en": "The two ИСУН lists of EU projects that ended with no financial correction imposed: 9,940 projects and 32,420 beneficiaries holding 41,530 contracts completed ON TIME. ⚠️ It is an ACHIEVEMENT list, not the complement of „was corrected\" — absence is not a correction: a project may have finished late, been terminated, or still be under verification, and individual irregularities go to OLAF's IMS, which is confidential. Subtracting this list from the corpus would assert a correction against 41,126 projects — an accusation against thousands of named companies."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "url": "https://2020.eufunds.bg/bg/0/0/ExecutedContracts?ShowRes=True",
+      "origin": "state",
+      "cadence": "weekly",
+      "skills": [
+        "update-funds"
+      ],
+      "sources": [
+        {
+          "id": "isun_clean_delivery",
+          "label": "ИСУН 2020 — приключени без финансова корекция (2020.eufunds.bg)",
+          "url": "https://2020.eufunds.bg/bg/0/0/ExecutedContracts?ShowRes=True",
           "cadence": "weekly"
         }
       ],
       "x": 28,
-      "y": 2876,
+      "y": 2954,
       "w": 240,
       "h": 62
     },
@@ -2133,7 +2215,7 @@
       "url": "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-18T06:08:36.914Z",
+      "freshness": "2026-08-20T07:23:14.975Z",
       "skills": [
         "update-culture"
       ],
@@ -2163,11 +2245,12 @@
           "id": "mc_dki_register",
           "label": "МК регистър на държавните културни институти (mc.government.bg)",
           "url": "https://mc.government.bg/области-на-политики/сценични-изкуства-и-художествено-обр/направление-музика-и-танц/държавни-културни-институти-в-област/",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-08-20T07:23:14.975Z"
         }
       ],
       "x": 28,
-      "y": 458,
+      "y": 146,
       "w": 240,
       "h": 62
     },
@@ -2206,7 +2289,7 @@
         }
       ],
       "x": 28,
-      "y": 692,
+      "y": 614,
       "w": 240,
       "h": 62
     },
@@ -2317,7 +2400,7 @@
       ],
       "path": "data/water/",
       "x": 378,
-      "y": 1722,
+      "y": 2012,
       "w": 240,
       "h": 62
     },
@@ -2341,7 +2424,7 @@
       ],
       "path": "public/{election}/",
       "x": 378,
-      "y": 474,
+      "y": 452,
       "w": 240,
       "h": 62
     },
@@ -2366,7 +2449,7 @@
       ],
       "path": "data/{cycle}_mi/",
       "x": 378,
-      "y": 552,
+      "y": 530,
       "w": 240,
       "h": 62
     },
@@ -2390,7 +2473,7 @@
       ],
       "path": "data/parliament/votes/",
       "x": 378,
-      "y": 2814,
+      "y": 3182,
       "w": 240,
       "h": 62
     },
@@ -2414,7 +2497,7 @@
       ],
       "path": "scripts/db/load_graph_pg.ts",
       "x": 378,
-      "y": 2658,
+      "y": 3104,
       "w": 240,
       "h": 62
     },
@@ -2439,7 +2522,7 @@
       ],
       "path": "data/officials/",
       "x": 378,
-      "y": 2346,
+      "y": 2948,
       "w": 240,
       "h": 62
     },
@@ -2463,7 +2546,7 @@
       ],
       "path": "data/financing/",
       "x": 378,
-      "y": 2424,
+      "y": 3026,
       "w": 240,
       "h": 62
     },
@@ -2487,7 +2570,7 @@
       ],
       "path": "data/procurement/",
       "x": 378,
-      "y": 2580,
+      "y": 2340,
       "w": 240,
       "h": 62
     },
@@ -2512,7 +2595,7 @@
       ],
       "path": "raw_data/tr/state.sqlite",
       "x": 378,
-      "y": 2268,
+      "y": 2418,
       "w": 240,
       "h": 62
     },
@@ -2537,7 +2620,7 @@
       ],
       "path": "data/funds/",
       "x": 378,
-      "y": 2112,
+      "y": 2870,
       "w": 240,
       "h": 62
     },
@@ -2562,7 +2645,7 @@
       ],
       "path": "data/opencalls/",
       "x": 378,
-      "y": 2736,
+      "y": 3578,
       "w": 240,
       "h": 62
     },
@@ -2585,7 +2668,7 @@
         "fiscal"
       ],
       "x": 378,
-      "y": 2898,
+      "y": 3266,
       "w": 240,
       "h": 62
     },
@@ -2609,7 +2692,7 @@
       ],
       "path": "data/judiciary/",
       "x": 378,
-      "y": 2034,
+      "y": 1700,
       "w": 240,
       "h": 62
     },
@@ -2634,7 +2717,7 @@
       ],
       "path": "data/defense/",
       "x": 378,
-      "y": 1488,
+      "y": 1856,
       "w": 240,
       "h": 62
     },
@@ -2659,7 +2742,7 @@
       ],
       "path": "data/energy/",
       "x": 378,
-      "y": 2502,
+      "y": 2096,
       "w": 240,
       "h": 62
     },
@@ -2683,7 +2766,7 @@
       ],
       "path": "data/security/",
       "x": 378,
-      "y": 1020,
+      "y": 920,
       "w": 240,
       "h": 62
     },
@@ -2707,7 +2790,7 @@
       ],
       "path": "data/transport/",
       "x": 378,
-      "y": 942,
+      "y": 1076,
       "w": 240,
       "h": 62
     },
@@ -2732,7 +2815,7 @@
       ],
       "path": "data/administration/",
       "x": 378,
-      "y": 2190,
+      "y": 1544,
       "w": 240,
       "h": 62
     },
@@ -2757,7 +2840,7 @@
       ],
       "path": "data/social/",
       "x": 378,
-      "y": 1800,
+      "y": 1778,
       "w": 240,
       "h": 62
     },
@@ -2781,7 +2864,7 @@
       ],
       "path": "data/culture/",
       "x": 378,
-      "y": 708,
+      "y": 296,
       "w": 240,
       "h": 62
     },
@@ -2805,7 +2888,7 @@
       ],
       "path": "data/budget/noi/pensions.json",
       "x": 378,
-      "y": 1410,
+      "y": 1232,
       "w": 240,
       "h": 62
     },
@@ -2829,7 +2912,7 @@
       ],
       "path": "data/budget/noi/fund_plan.json",
       "x": 378,
-      "y": 1956,
+      "y": 842,
       "w": 240,
       "h": 62
     },
@@ -2853,7 +2936,7 @@
       ],
       "path": "data/budget/noi/mod_schedule.json",
       "x": 378,
-      "y": 1878,
+      "y": 764,
       "w": 240,
       "h": 62
     },
@@ -2877,7 +2960,7 @@
       ],
       "path": "data/budget/derived/fy2026_frame.json",
       "x": 378,
-      "y": 1644,
+      "y": 1934,
       "w": 240,
       "h": 62
     },
@@ -2901,7 +2984,7 @@
         "local"
       ],
       "x": 378,
-      "y": 1176,
+      "y": 1310,
       "w": 240,
       "h": 62
     },
@@ -2925,7 +3008,7 @@
       ],
       "path": "data/budget/",
       "x": 378,
-      "y": 1566,
+      "y": 1622,
       "w": 240,
       "h": 62
     },
@@ -2950,7 +3033,7 @@
       ],
       "path": "data/macro.json",
       "x": 378,
-      "y": 1254,
+      "y": 1388,
       "w": 240,
       "h": 62
     },
@@ -2975,7 +3058,7 @@
       ],
       "path": "data/macro_fdi.json",
       "x": 378,
-      "y": 864,
+      "y": 998,
       "w": 240,
       "h": 62
     },
@@ -2999,7 +3082,7 @@
       ],
       "path": "data/schools/index.json",
       "x": 378,
-      "y": 1332,
+      "y": 1466,
       "w": 240,
       "h": 62
     },
@@ -3024,7 +3107,7 @@
       ],
       "path": "data/census/",
       "x": 378,
-      "y": 630,
+      "y": 608,
       "w": 240,
       "h": 62
     },
@@ -3048,7 +3131,7 @@
       ],
       "path": "data/local_taxes/",
       "x": 378,
-      "y": 1098,
+      "y": 1154,
       "w": 240,
       "h": 62
     },
@@ -3071,7 +3154,7 @@
         "prices"
       ],
       "x": 378,
-      "y": 396,
+      "y": 374,
       "w": 240,
       "h": 62
     },
@@ -3095,7 +3178,7 @@
       ],
       "path": "data/polls/",
       "x": 378,
-      "y": 786,
+      "y": 686,
       "w": 240,
       "h": 62
     },
@@ -3121,7 +3204,7 @@
       ],
       "path": "public/*.geojson",
       "x": 378,
-      "y": 318,
+      "y": 218,
       "w": 240,
       "h": 62
     },
@@ -3144,8 +3227,8 @@
         "fiscal"
       ],
       "route": "/water",
-      "x": 760,
-      "y": 1648,
+      "x": 736,
+      "y": 2022,
       "w": 240,
       "h": 62
     },
@@ -3168,8 +3251,8 @@
         "elections"
       ],
       "route": "/",
-      "x": 760,
-      "y": 533,
+      "x": 736,
+      "y": 514,
       "w": 240,
       "h": 62
     },
@@ -3192,8 +3275,8 @@
         "elections"
       ],
       "route": "/risk-analysis",
-      "x": 760,
-      "y": 611,
+      "x": 736,
+      "y": 592,
       "w": 240,
       "h": 62
     },
@@ -3216,8 +3299,8 @@
         "elections"
       ],
       "route": "/polls",
-      "x": 760,
-      "y": 689,
+      "x": 736,
+      "y": 676,
       "w": 240,
       "h": 62
     },
@@ -3241,8 +3324,8 @@
         "elections"
       ],
       "route": "/local/2023_10_29_mi",
-      "x": 760,
-      "y": 455,
+      "x": 736,
+      "y": 436,
       "w": 240,
       "h": 62
     },
@@ -3265,8 +3348,8 @@
         "parliament"
       ],
       "route": "/parliament",
-      "x": 760,
-      "y": 2830,
+      "x": 736,
+      "y": 3198,
       "w": 240,
       "h": 62
     },
@@ -3289,8 +3372,8 @@
         "parliament"
       ],
       "route": "/connections",
-      "x": 760,
-      "y": 2496,
+      "x": 736,
+      "y": 2964,
       "w": 240,
       "h": 62
     },
@@ -3313,8 +3396,8 @@
         "elections"
       ],
       "route": "/financing",
-      "x": 760,
-      "y": 2340,
+      "x": 736,
+      "y": 3042,
       "w": 240,
       "h": 62
     },
@@ -3337,8 +3420,8 @@
         "fiscal"
       ],
       "route": "/procurement",
-      "x": 760,
-      "y": 2574,
+      "x": 736,
+      "y": 2490,
       "w": 240,
       "h": 62
     },
@@ -3362,8 +3445,8 @@
         "parliament"
       ],
       "route": "/procurement/ngos",
-      "x": 760,
-      "y": 2262,
+      "x": 736,
+      "y": 2412,
       "w": 240,
       "h": 62
     },
@@ -3386,8 +3469,8 @@
         "fiscal"
       ],
       "route": "/funds",
-      "x": 760,
-      "y": 2418,
+      "x": 736,
+      "y": 3120,
       "w": 240,
       "h": 62
     },
@@ -3410,8 +3493,8 @@
         "fiscal"
       ],
       "route": "/subsidies",
-      "x": 760,
-      "y": 2908,
+      "x": 736,
+      "y": 3276,
       "w": 240,
       "h": 62
     },
@@ -3434,8 +3517,8 @@
         "fiscal"
       ],
       "route": "/budget",
-      "x": 760,
-      "y": 1336,
+      "x": 736,
+      "y": 1469,
       "w": 240,
       "h": 62
     },
@@ -3461,8 +3544,8 @@
         "elections"
       ],
       "route": "/governance",
-      "x": 760,
-      "y": 1088,
+      "x": 736,
+      "y": 1144,
       "w": 240,
       "h": 62
     },
@@ -3485,8 +3568,8 @@
         "fiscal"
       ],
       "route": "/judiciary",
-      "x": 760,
-      "y": 1726,
+      "x": 736,
+      "y": 1781,
       "w": 240,
       "h": 62
     },
@@ -3510,8 +3593,8 @@
         "indicators"
       ],
       "route": "/defense",
-      "x": 760,
-      "y": 1414,
+      "x": 736,
+      "y": 1625,
       "w": 240,
       "h": 62
     },
@@ -3535,8 +3618,8 @@
         "indicators"
       ],
       "route": "/sector/energy",
-      "x": 760,
-      "y": 2652,
+      "x": 736,
+      "y": 2116,
       "w": 240,
       "h": 62
     },
@@ -3560,8 +3643,8 @@
         "indicators"
       ],
       "route": "/sector/administration",
-      "x": 760,
-      "y": 2184,
+      "x": 736,
+      "y": 1547,
       "w": 240,
       "h": 62
     },
@@ -3585,8 +3668,8 @@
         "indicators"
       ],
       "route": "/sector/regional",
-      "x": 760,
-      "y": 1570,
+      "x": 736,
+      "y": 1859,
       "w": 240,
       "h": 62
     },
@@ -3610,8 +3693,8 @@
         "indicators"
       ],
       "route": "/sector/social",
-      "x": 760,
-      "y": 1804,
+      "x": 736,
+      "y": 1703,
       "w": 240,
       "h": 62
     },
@@ -3634,8 +3717,8 @@
         "fiscal"
       ],
       "route": "/culture",
-      "x": 760,
-      "y": 845,
+      "x": 736,
+      "y": 280,
       "w": 240,
       "h": 62
     },
@@ -3658,8 +3741,8 @@
         "fiscal"
       ],
       "route": "/pensions",
-      "x": 760,
-      "y": 1492,
+      "x": 736,
+      "y": 842,
       "w": 240,
       "h": 62
     },
@@ -3682,8 +3765,8 @@
         "indicators"
       ],
       "route": "/indicators",
-      "x": 760,
-      "y": 1010,
+      "x": 736,
+      "y": 1066,
       "w": 240,
       "h": 62
     },
@@ -3706,8 +3789,8 @@
         "prices"
       ],
       "route": "/prices",
-      "x": 760,
-      "y": 767,
+      "x": 736,
+      "y": 764,
       "w": 240,
       "h": 62
     },
@@ -3730,8 +3813,8 @@
         "prices"
       ],
       "route": "/consumption/products",
-      "x": 760,
-      "y": 377,
+      "x": 736,
+      "y": 358,
       "w": 240,
       "h": 62
     },
@@ -3759,8 +3842,8 @@
         "prices"
       ],
       "url": "https://ai.electionsbg.com",
-      "x": 760,
-      "y": 1258,
+      "x": 736,
+      "y": 1391,
       "w": 240,
       "h": 62
     }
@@ -4078,541 +4161,551 @@
     },
     {
       "id": "e62",
-      "from": "src:ted",
+      "from": "src:aop_experts",
       "to": "ds:procurement"
     },
     {
       "id": "e63",
-      "from": "src:isun",
+      "from": "src:isun_clean_delivery",
       "to": "ds:funds"
     },
     {
       "id": "e64",
+      "from": "src:ted",
+      "to": "ds:procurement"
+    },
+    {
+      "id": "e65",
+      "from": "src:isun",
+      "to": "ds:funds"
+    },
+    {
+      "id": "e66",
       "from": "src:opencalls",
       "to": "ds:opencalls"
     },
     {
-      "id": "e65",
+      "id": "e67",
       "from": "ds:opencalls",
       "to": "f:funds"
     },
     {
-      "id": "e66",
+      "id": "e68",
       "from": "src:keep_eu",
       "to": "ds:funds"
     },
     {
-      "id": "e67",
+      "id": "e69",
       "from": "src:dfz",
       "to": "ds:agri"
     },
     {
-      "id": "e68",
+      "id": "e70",
       "from": "src:egov",
       "to": "ds:ngo"
     },
     {
-      "id": "e69",
+      "id": "e71",
       "from": "src:ec_fts",
       "to": "ds:ngo"
     },
     {
-      "id": "e70",
+      "id": "e72",
       "from": "src:sp",
       "to": "ds:ngo"
     },
     {
-      "id": "e71",
+      "id": "e73",
       "from": "src:vss",
       "to": "ds:ngo"
     },
     {
-      "id": "e72",
+      "id": "e74",
       "from": "src:dv",
       "to": "ds:budget"
     },
     {
-      "id": "e73",
+      "id": "e75",
       "from": "src:ministries",
       "to": "ds:budget"
     },
     {
-      "id": "e74",
+      "id": "e76",
       "from": "src:ministries",
       "to": "ds:municipal_fiscal"
     },
     {
-      "id": "e75",
+      "id": "e77",
       "from": "ds:municipal_fiscal",
       "to": "f:governance"
     },
     {
-      "id": "e76",
+      "id": "e78",
       "from": "ds:municipal_fiscal",
       "to": "f:budget"
     },
     {
-      "id": "e77",
+      "id": "e79",
       "from": "ds:municipal_fiscal",
       "to": "f:indicators"
     },
     {
-      "id": "e78",
+      "id": "e80",
       "from": "src:ministries",
       "to": "ds:macro"
     },
     {
-      "id": "e79",
-      "from": "src:ministries",
-      "to": "ds:localgov"
-    },
-    {
-      "id": "e80",
-      "from": "src:municipalities",
-      "to": "ds:budget"
-    },
-    {
       "id": "e81",
-      "from": "src:municipalities",
+      "from": "src:ministries",
       "to": "ds:localgov"
     },
     {
       "id": "e82",
-      "from": "src:nsi",
-      "to": "ds:indicators"
+      "from": "src:municipalities",
+      "to": "ds:budget"
     },
     {
       "id": "e83",
-      "from": "src:nsi",
-      "to": "ds:demographics"
+      "from": "src:municipalities",
+      "to": "ds:localgov"
     },
     {
       "id": "e84",
-      "from": "src:az",
+      "from": "src:nsi",
       "to": "ds:indicators"
     },
     {
       "id": "e85",
-      "from": "src:grao",
+      "from": "src:nsi",
       "to": "ds:demographics"
     },
     {
       "id": "e86",
-      "from": "src:eurostat",
-      "to": "ds:macro"
+      "from": "src:az",
+      "to": "ds:indicators"
     },
     {
       "id": "e87",
-      "from": "src:eurostat",
-      "to": "ds:indicators"
+      "from": "src:grao",
+      "to": "ds:demographics"
     },
     {
       "id": "e88",
       "from": "src:eurostat",
-      "to": "ds:budget"
+      "to": "ds:macro"
     },
     {
       "id": "e89",
-      "from": "src:eu_policy_anchors",
-      "to": "ds:budget"
+      "from": "src:eurostat",
+      "to": "ds:indicators"
     },
     {
       "id": "e90",
-      "from": "src:bg_fiscal_anchors",
+      "from": "src:eurostat",
       "to": "ds:budget"
     },
     {
       "id": "e91",
+      "from": "src:eu_policy_anchors",
+      "to": "ds:budget"
+    },
+    {
+      "id": "e92",
+      "from": "src:bg_fiscal_anchors",
+      "to": "ds:budget"
+    },
+    {
+      "id": "e93",
       "from": "src:intl",
       "to": "ds:macro"
     },
     {
-      "id": "e92",
+      "id": "e94",
       "from": "src:bnb",
       "to": "ds:macro"
     },
     {
-      "id": "e93",
+      "id": "e95",
       "from": "src:bnb",
       "to": "ds:macro_fdi"
     },
     {
-      "id": "e94",
+      "id": "e96",
       "from": "src:kzp",
       "to": "ds:prices"
     },
     {
-      "id": "e95",
+      "id": "e97",
       "from": "src:oil_bulletin",
       "to": "ds:prices"
     },
     {
-      "id": "e96",
+      "id": "e98",
       "from": "src:tibg",
       "to": "ds:localgov"
     },
     {
-      "id": "e97",
+      "id": "e99",
       "from": "src:ipi",
       "to": "ds:localgov"
     },
     {
-      "id": "e98",
+      "id": "e100",
       "from": "src:wiki",
       "to": "ds:polls"
     },
     {
-      "id": "e99",
+      "id": "e101",
       "from": "src:wiki",
       "to": "ds:macro"
     },
     {
-      "id": "e100",
+      "id": "e102",
       "from": "src:geo",
       "to": "ds:geo"
     },
     {
-      "id": "e101",
+      "id": "e103",
       "from": "ds:elections",
       "to": "f:elections"
     },
     {
-      "id": "e102",
+      "id": "e104",
       "from": "ds:elections",
       "to": "f:risk"
     },
     {
-      "id": "e103",
+      "id": "e105",
       "from": "ds:elections",
       "to": "f:polls"
     },
     {
-      "id": "e104",
+      "id": "e106",
       "from": "ds:elections",
       "to": "f:governance"
     },
     {
-      "id": "e105",
+      "id": "e107",
       "from": "ds:local",
       "to": "f:local"
     },
     {
-      "id": "e106",
+      "id": "e108",
       "from": "ds:local",
       "to": "f:governance"
     },
     {
-      "id": "e107",
+      "id": "e109",
       "from": "ds:parliament",
       "to": "f:parliament"
     },
     {
-      "id": "e108",
+      "id": "e110",
       "from": "ds:parliament",
       "to": "f:mps"
     },
     {
-      "id": "e109",
-      "from": "ds:connections",
-      "to": "f:mps"
-    },
-    {
-      "id": "e110",
-      "from": "ds:connections",
-      "to": "f:procurement"
-    },
-    {
       "id": "e111",
-      "from": "ds:officials",
+      "from": "ds:connections",
       "to": "f:mps"
     },
     {
       "id": "e112",
+      "from": "ds:connections",
+      "to": "f:procurement"
+    },
+    {
+      "id": "e113",
+      "from": "ds:officials",
+      "to": "f:mps"
+    },
+    {
+      "id": "e114",
       "from": "ds:officials",
       "to": "f:governance"
     },
     {
-      "id": "e113",
+      "id": "e115",
       "from": "ds:financing",
       "to": "f:financing"
     },
     {
-      "id": "e114",
+      "id": "e116",
       "from": "ds:financing",
       "to": "f:mps"
     },
     {
-      "id": "e115",
+      "id": "e117",
       "from": "ds:procurement",
       "to": "f:procurement"
-    },
-    {
-      "id": "e116",
-      "from": "ds:procurement",
-      "to": "f:mps"
-    },
-    {
-      "id": "e117",
-      "from": "ds:ngo",
-      "to": "f:ngo"
     },
     {
       "id": "e118",
-      "from": "ds:ngo",
-      "to": "f:procurement"
+      "from": "ds:procurement",
+      "to": "f:mps"
     },
     {
       "id": "e119",
       "from": "ds:ngo",
-      "to": "f:mps"
+      "to": "f:ngo"
     },
     {
       "id": "e120",
-      "from": "ds:funds",
-      "to": "f:funds"
+      "from": "ds:ngo",
+      "to": "f:procurement"
     },
     {
       "id": "e121",
-      "from": "ds:funds",
+      "from": "ds:ngo",
       "to": "f:mps"
     },
     {
       "id": "e122",
       "from": "ds:funds",
-      "to": "f:governance"
+      "to": "f:funds"
     },
     {
       "id": "e123",
+      "from": "ds:funds",
+      "to": "f:mps"
+    },
+    {
+      "id": "e124",
+      "from": "ds:funds",
+      "to": "f:governance"
+    },
+    {
+      "id": "e125",
       "from": "ds:agri",
       "to": "f:agri"
     },
     {
-      "id": "e124",
+      "id": "e126",
       "from": "ds:agri",
       "to": "f:mps"
     },
     {
-      "id": "e125",
-      "from": "ds:budget",
-      "to": "f:budget"
-    },
-    {
-      "id": "e126",
-      "from": "ds:budget",
-      "to": "f:governance"
-    },
-    {
       "id": "e127",
-      "from": "ds:macro",
+      "from": "ds:budget",
       "to": "f:budget"
     },
     {
       "id": "e128",
-      "from": "ds:macro",
-      "to": "f:indicators"
+      "from": "ds:budget",
+      "to": "f:governance"
     },
     {
       "id": "e129",
       "from": "ds:macro",
-      "to": "f:prices"
+      "to": "f:budget"
     },
     {
       "id": "e130",
-      "from": "ds:macro_fdi",
+      "from": "ds:macro",
       "to": "f:indicators"
     },
     {
       "id": "e131",
+      "from": "ds:macro",
+      "to": "f:prices"
+    },
+    {
+      "id": "e132",
+      "from": "ds:macro_fdi",
+      "to": "f:indicators"
+    },
+    {
+      "id": "e133",
       "from": "ds:indicators",
       "to": "f:indicators"
     },
     {
-      "id": "e132",
+      "id": "e134",
       "from": "ds:indicators",
       "to": "f:governance"
-    },
-    {
-      "id": "e133",
-      "from": "ds:demographics",
-      "to": "f:elections"
-    },
-    {
-      "id": "e134",
-      "from": "ds:demographics",
-      "to": "f:risk"
     },
     {
       "id": "e135",
       "from": "ds:demographics",
-      "to": "f:governance"
+      "to": "f:elections"
     },
     {
       "id": "e136",
-      "from": "ds:localgov",
-      "to": "f:governance"
+      "from": "ds:demographics",
+      "to": "f:risk"
     },
     {
       "id": "e137",
-      "from": "ds:prices",
-      "to": "f:prices"
+      "from": "ds:demographics",
+      "to": "f:governance"
     },
     {
       "id": "e138",
-      "from": "ds:prices",
-      "to": "f:products"
+      "from": "ds:localgov",
+      "to": "f:governance"
     },
     {
       "id": "e139",
       "from": "ds:prices",
-      "to": "f:governance"
+      "to": "f:prices"
     },
     {
       "id": "e140",
+      "from": "ds:prices",
+      "to": "f:products"
+    },
+    {
+      "id": "e141",
+      "from": "ds:prices",
+      "to": "f:governance"
+    },
+    {
+      "id": "e142",
       "from": "ds:polls",
       "to": "f:polls"
     },
     {
-      "id": "e141",
+      "id": "e143",
       "from": "ds:polls",
       "to": "f:elections"
-    },
-    {
-      "id": "e142",
-      "from": "ds:geo",
-      "to": "f:elections"
-    },
-    {
-      "id": "e143",
-      "from": "ds:geo",
-      "to": "f:local"
     },
     {
       "id": "e144",
       "from": "ds:geo",
-      "to": "f:governance"
+      "to": "f:elections"
     },
     {
       "id": "e145",
       "from": "ds:geo",
-      "to": "f:indicators"
+      "to": "f:local"
     },
     {
       "id": "e146",
+      "from": "ds:geo",
+      "to": "f:governance"
+    },
+    {
+      "id": "e147",
+      "from": "ds:geo",
+      "to": "f:indicators"
+    },
+    {
+      "id": "e148",
       "from": "ds:administration",
       "to": "f:ai"
     },
     {
-      "id": "e147",
+      "id": "e149",
       "from": "ds:budget",
       "to": "f:ai"
     },
     {
-      "id": "e148",
+      "id": "e150",
       "from": "ds:culture",
       "to": "f:ai"
     },
     {
-      "id": "e149",
+      "id": "e151",
       "from": "ds:defense",
       "to": "f:ai"
     },
     {
-      "id": "e150",
+      "id": "e152",
       "from": "ds:demographics",
       "to": "f:ai"
     },
     {
-      "id": "e151",
+      "id": "e153",
       "from": "ds:elections",
       "to": "f:ai"
     },
     {
-      "id": "e152",
+      "id": "e154",
       "from": "ds:energy",
       "to": "f:ai"
     },
     {
-      "id": "e153",
+      "id": "e155",
       "from": "ds:financing",
       "to": "f:ai"
     },
     {
-      "id": "e154",
+      "id": "e156",
       "from": "ds:geo",
       "to": "f:ai"
     },
     {
-      "id": "e155",
+      "id": "e157",
       "from": "ds:indicators",
       "to": "f:ai"
     },
     {
-      "id": "e156",
+      "id": "e158",
       "from": "ds:judiciary",
       "to": "f:ai"
     },
     {
-      "id": "e157",
+      "id": "e159",
       "from": "ds:local",
       "to": "f:ai"
     },
     {
-      "id": "e158",
+      "id": "e160",
       "from": "ds:localgov",
       "to": "f:ai"
     },
     {
-      "id": "e159",
+      "id": "e161",
       "from": "ds:macro",
       "to": "f:ai"
     },
     {
-      "id": "e160",
+      "id": "e162",
       "from": "ds:macro_fdi",
       "to": "f:ai"
     },
     {
-      "id": "e161",
+      "id": "e163",
       "from": "ds:ngo",
       "to": "f:ai"
     },
     {
-      "id": "e162",
+      "id": "e164",
       "from": "ds:parliament",
       "to": "f:ai"
     },
     {
-      "id": "e163",
+      "id": "e165",
       "from": "ds:polls",
       "to": "f:ai"
     },
     {
-      "id": "e164",
+      "id": "e166",
       "from": "ds:prices",
       "to": "f:ai"
     },
     {
-      "id": "e165",
+      "id": "e167",
       "from": "ds:procurement",
       "to": "f:ai"
     },
     {
-      "id": "e166",
+      "id": "e168",
       "from": "ds:security",
       "to": "f:ai"
     },
     {
-      "id": "e167",
+      "id": "e169",
       "from": "ds:social",
       "to": "f:ai"
     },
     {
-      "id": "e168",
+      "id": "e170",
       "from": "ds:transport",
       "to": "f:ai"
     },
     {
-      "id": "e169",
+      "id": "e171",
       "from": "ds:water",
       "to": "f:ai"
     }
@@ -4685,7 +4778,7 @@
       "x": 0,
       "y": 0,
       "w": 296,
-      "h": 3512
+      "h": 3668
     },
     {
       "kind": "dataset",
@@ -4694,9 +4787,9 @@
         "en": "Datasets"
       },
       "x": 350,
-      "y": 250,
+      "y": 150,
       "w": 296,
-      "h": 2738
+      "h": 3518
     },
     {
       "kind": "feature",
@@ -4704,10 +4797,10 @@
         "bg": "Функции",
         "en": "Features"
       },
-      "x": 732,
-      "y": 309,
+      "x": 708,
+      "y": 212,
       "w": 296,
-      "h": 2689
+      "h": 3154
     }
   ],
   "tours": [
