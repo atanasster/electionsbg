@@ -132,27 +132,54 @@ describe.skipIf(skip)("tender dossier reconciliation", () => {
   // ---- currency ------------------------------------------------------------
 
   test("currency_code maps to a currency, so value_native is interpretable", async () => {
-    // ⚠️ `tender_contract_item.value_native` is in the CONTRACT'S OWN currency and
-    // the register identifies it only by an integer. Without this mapping the
-    // column cannot be summed or compared across rows at all — 3 is BGN and 1 is
-    // EUR, so mixing them silently inflates a total by ~1.96x.
+    // ⚠️ `tender_contract_item.value_native` is in the CONTRACT'S OWN currency and the
+    // register identifies it only by an integer. Without this mapping the column cannot be
+    // summed or compared across rows at all — 3 is BGN and 1 is EUR, so mixing them
+    // silently inflates a total by ~1.96x.
     //
-    // Joined on УНП with exactly one contract, because a multi-contract УНП can
-    // legitimately span currencies and would confound the inference.
+    // ⚠️⚠️ ANCHORED ON THE PEG, NOT ON `contracts.currency`. This test used to infer the
+    // mapping by cross-tabbing against that column and requiring 80% agreement, and it
+    // FAILED at 73.7% — which reads as "the dossier's currency_code is unreliable" and is
+    // the wrong conclusion. `value_native / contracts.amount_eur` settles it: for the rows
+    // where the two sources disagree the ratio is ~1.0, not ~1.96, so `value_native` really
+    // is in euro and `currency_code = 1 → EUR` is right. It is the CONTRACTS side that is
+    // mislabelled there (see the next test). The old comment blamed the 2026-01-01 euro
+    // adoption; the year split refutes that too — 2026 is the CLEAN part (100 EUR against
+    // 3 BGN) and the disagreement sits in 2021-2023, years with no switch in them.
+    //
+    // ⚠️ THE SHARE IS THE ASSERTION; THE MEDIAN ALONE CANNOT SEE THE FAILURE IT IS FOR.
+    // Simulated in SQL: at 49% euro contamination, code 3's median is still exactly 1.9558
+    // and a median-only test passes — it moves off the peg only past 50.0%. A code carrying
+    // a MIX of currencies is precisely the state that makes `value_native` unusable, so the
+    // test measures how many rows sit at the expected multiplier, not where the middle one
+    // lands. Both are kept: the median pins the multiplier, the share pins the mixture.
     const rows = await allRows<{
       currency_code: number;
-      currency: string;
       n: string;
+      median_ratio: string;
+      at_peg: string;
     }>(
       `WITH one AS (
          SELECT unp FROM contracts WHERE unp IS NOT NULL GROUP BY unp HAVING count(*) = 1
+       ),
+       j AS (
+         SELECT t.currency_code, t.value_native / c.amount_eur AS ratio
+           FROM tender_contract_item t
+           JOIN one USING (unp)
+           JOIN contracts c ON c.unp = t.unp
+          WHERE t.currency_code IS NOT NULL
+            AND t.value_native > 0
+            AND c.amount_eur > 0
        )
-       SELECT t.currency_code, c.currency, count(*)::text AS n
-         FROM tender_contract_item t
-         JOIN one USING (unp)
-         JOIN contracts c ON c.unp = t.unp
-        WHERE t.currency_code IS NOT NULL AND c.currency IS NOT NULL
-        GROUP BY 1, 2`,
+       SELECT currency_code,
+              count(*)::text AS n,
+              percentile_cont(0.5) WITHIN GROUP (ORDER BY ratio)::text AS median_ratio,
+              -- The share sitting within 5% of THIS code's expected multiplier.
+              (count(*) FILTER (
+                 WHERE abs(ratio - CASE currency_code WHEN 1 THEN 1.0 ELSE 1.95583 END)
+                       / CASE currency_code WHEN 1 THEN 1.0 ELSE 1.95583 END < 0.05
+               ))::text AS at_peg
+         FROM j GROUP BY 1`,
     );
     // Non-vacuity: a NULLed currency_code column would otherwise pass silently.
     expect(
@@ -160,36 +187,112 @@ describe.skipIf(skip)("tender dossier reconciliation", () => {
         "SELECT count(*)::text AS n FROM tender_contract_item WHERE currency_code IS NOT NULL",
       ),
     ).toBeGreaterThan(0);
-    if (!rows.length) return;
-    // Dominant currency per code.
-    const best = new Map<number, { cur: string; n: number; total: number }>();
+    expect(rows.length).toBeGreaterThan(0);
+
+    // Only the two codes with a FIXED multiplier can be anchored this way. Code 2 is USD
+    // and code 8 is CHF: both float, so `value_native / amount_eur` is the exchange rate on
+    // the contract's own date and no constant can be asserted. They are also tiny (13 and 1
+    // row in this join), which is why the mapping for them rests on the label cross-tab
+    // below rather than on the peg. Their absence here is a limit of the method, not an
+    // oversight — say so, or somebody will "finish the table" with a wrong constant.
+    const EXPECT: Record<number, { ratio: number; label: string }> = {
+      1: { ratio: 1.0, label: "EUR" },
+      3: { ratio: 1.95583, label: "BGN" },
+    };
+    const MIN_ROWS = 50;
+    const seen: number[] = [];
     for (const r of rows) {
-      const n = Number(r.n);
-      const cur = best.get(r.currency_code) ?? {
-        cur: r.currency,
-        n: 0,
-        total: 0,
-      };
-      cur.total += n;
-      if (n > cur.n) {
-        cur.cur = r.currency;
-        cur.n = n;
-      }
-      best.set(r.currency_code, cur);
+      const want = EXPECT[r.currency_code];
+      if (!want || Number(r.n) < MIN_ROWS) continue;
+      seen.push(r.currency_code);
+      const got = Number(r.median_ratio);
+      expect(
+        Math.abs(got - want.ratio) / want.ratio,
+        `currency_code ${r.currency_code} should mean ${want.label} ` +
+          `(value_native/amount_eur ≈ ${want.ratio}); measured median ${got} over ${r.n} rows`,
+      ).toBeLessThan(0.05);
+      // Measured 2026-08-20: 88.5% for code 1, 93.6% for code 3.
+      const share = Number(r.at_peg) / Number(r.n);
+      expect(
+        share,
+        `currency_code ${r.currency_code} carries a MIXTURE: only ${(share * 100).toFixed(1)}% ` +
+          `of ${r.n} rows sit at the ${want.label} multiplier, so value_native cannot be summed`,
+      ).toBeGreaterThan(0.8);
     }
-    // Measured 2026-08: 3→BGN (643 vs 1), 1→EUR (92 vs 7), 2→USD (1).
-    // The ~7% noise on code 1 is consistent with the 2026-01-01 euro adoption,
-    // where the two corpora disagree about a contract straddling the switch.
-    const three = best.get(3);
-    if (three && three.total >= 50) {
-      expect(three.cur).toBe("BGN");
-      expect(three.n / three.total).toBeGreaterThan(0.9);
-    }
-    const one = best.get(1);
-    if (one && one.total >= 50) {
-      expect(one.cur).toBe("EUR");
-      expect(one.n / one.total).toBeGreaterThan(0.8);
-    }
+    // Both anchorable codes must actually have been reached — otherwise a join that
+    // silently returned nothing for one of them passes this test by skipping it.
+    expect(seen.sort()).toEqual([1, 3]);
+  });
+
+  // ⚠️ `contracts.currency` IS STILL ASSERTED, and deliberately so. The peg test above
+  // dropped that column, and this file's docblock calls cross-source agreement the point of
+  // the file — verified by the mutation this repo prescribes: with `UPDATE contracts SET
+  // currency = NULL` in a rolled-back transaction, a peg-only pair of tests stays green.
+  //
+  // What is asserted is the DOMINANT label per code, not per-row agreement: the ~26% of
+  // code-1 rows the contracts side calls BGN are the contracts side being wrong, and a
+  // per-row bar would fail on somebody else's defect.
+  test("the dominant contracts.currency per code still agrees with the register", async () => {
+    const rows = await allRows<{
+      currency_code: number;
+      currency: string;
+      n: string;
+    }>(
+      `WITH one AS (
+         SELECT unp FROM contracts WHERE unp IS NOT NULL GROUP BY unp HAVING count(*) = 1
+       ),
+       tally AS (
+         SELECT t.currency_code, c.currency, count(*) AS n
+           FROM tender_contract_item t
+           JOIN one USING (unp)
+           JOIN contracts c ON c.unp = t.unp
+          WHERE t.currency_code IS NOT NULL AND c.currency IS NOT NULL
+          GROUP BY 1, 2
+       )
+       -- ⚠️ ORDER BY tally.n, not the output column: the SELECT casts n to text for the
+       -- driver, and an unqualified n binds to that OUTPUT column, so the sort becomes
+       -- LEXICOGRAPHIC — '57' sorts above '160' and the dominant label comes back wrong.
+       SELECT DISTINCT ON (currency_code) currency_code, currency, tally.n::text AS n
+         FROM tally ORDER BY currency_code, tally.n DESC`,
+    );
+    const dominant = new Map(rows.map((r) => [r.currency_code, r.currency]));
+    expect(dominant.get(1)).toBe("EUR");
+    expect(dominant.get(3)).toBe("BGN");
+    // Code 2 = USD and code 8 = CHF have no peg to check them against, so this is the ONLY
+    // evidence for what they mean. Asserted when present rather than required to exist:
+    // they are 13 and 1 row, and a partial crawl may hold neither.
+    if (dominant.has(2)) expect(dominant.get(2)).toBe("USD");
+    if (dominant.has(8)) expect(dominant.get(8)).toBe("CHF");
+  });
+
+  // The finding the peg test uncovered, recorded so it is not re-derived as a dossier
+  // defect a third time: these rows carry `currency_code = 1` (EUR) from the register while
+  // `contracts.currency` says BGN, and the ratio says the register is right. It is a
+  // CONTRACTS-side labelling problem, and it matters because `amount_eur` derives from that
+  // label.
+  //
+  // ⚠️ A RATE, NOT A COUNT. The dossier capture covers 25,244 of 134,070 УНП and grows, so
+  // an absolute ceiling would be breached by ordinary crawling with no new mislabelling —
+  // the same defect this session fixed in the fold-residue gate. Measured 2026-08-20:
+  // 57 of 217 code-1 rows, 26.3%.
+  test("the contracts-side currency mislabelling has not spread", async () => {
+    const [row] = await allRows<{ bad: string; total: string }>(
+      `WITH one AS (
+         SELECT unp FROM contracts WHERE unp IS NOT NULL GROUP BY unp HAVING count(*) = 1
+       )
+       SELECT count(*) FILTER (WHERE c.currency = 'BGN')::text AS bad,
+              count(*)::text AS total
+         FROM tender_contract_item t
+         JOIN one USING (unp)
+         JOIN contracts c ON c.unp = t.unp
+        WHERE t.currency_code = 1 AND c.currency IS NOT NULL`,
+    );
+    const total = Number(row.total);
+    expect(total).toBeGreaterThan(50);
+    expect(
+      Number(row.bad) / total,
+      `${row.bad} of ${row.total} euro-coded rows are labelled BGN by the contracts corpus`,
+    ).toBeLessThan(0.35);
   });
 
   // ---- place ---------------------------------------------------------------
