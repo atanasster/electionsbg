@@ -12,6 +12,7 @@ import { egovProcurement } from "./egov_procurement";
 import { eopProcurement } from "./eop_procurement";
 import { adfiInspections } from "./adfi_inspections";
 import { aopExperts } from "./aop_experts";
+import { isunCleanDelivery } from "./isun_clean_delivery";
 import { aopDebarred } from "./aop_debarred";
 import { ofacSanctions } from "./ofac_sanctions";
 import { comdosDs } from "./comdos_ds";
@@ -134,6 +135,7 @@ import {
 export const SOURCES: WatchSource[] = [
   adfiInspections,
   aopExperts,
+  isunCleanDelivery,
   parliamentVotes, // listed first — primary deliverable per PRD
   parliamentMps,
   ofacSanctions, // person-layer sanctions facet (→ update-persons)
