@@ -584,6 +584,14 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "МВР spends ~€2.1bn a year, but around 90% is salaries and part of its security buys are classified — visible public procurement is the tip of the iceberg. This page consolidates the tenders of 74 МВР units (police, border, fire, the Medical Institute) for the selected parliament or the full history.",
     },
   },
+  // ⚠ „около половината … по CPV", not „над половината". Advertising is 51.03% of
+  // МТ's corpus under the page's own narrow CPV definition and 73.3% under the
+  // widest defensible one (counting trade-fair stands and rented advertising
+  // space), so the share needs its basis named — and „over half" clears the bar by
+  // one point, which is a claim in an INDEXED meta description that a small corpus
+  // shift makes false with nothing failing. The band in
+  // scripts/db/tests/sector_stats_tourism.data.test.ts is what gates it.
+  // Audit 2026-08-20, docs/plans/tourism-sector-audit-v1.md.
   {
     id: "tourism",
     eik: "176789478",
@@ -594,7 +602,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
       breadcrumb: "Туризъм",
       h1: "Туризъм — обществените поръчки на МТ",
       intro:
-        "Министерството на туризма е предимно рекламодател: над половината от неговите ~27 млн. € обществени поръчки са реклама и медиа — медиа баинг, телевизионен ефир и PR. Тази страница обобщава поръчките му по избрания парламент или за цялата история.",
+        "Министерството на туризма е предимно рекламодател: около половината от неговите ~28,8 млн. € обществени поръчки са реклама и медиа по CPV — медиа баинг, телевизионен ефир и PR. Тази страница обобщава поръчките му по избрания парламент или за цялата история.",
     },
     en: {
       title: "Tourism — the Ministry of Tourism's procurement | electionsbg.com", // prettier-ignore
@@ -603,7 +611,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
       breadcrumb: "Tourism",
       h1: "Tourism — the Ministry of Tourism's procurement",
       intro:
-        "The Ministry of Tourism is mostly an advertiser: over half of its ~€27M in public procurement is advertising and media — media buying, TV air-time and PR. This page summarises its tenders for the selected parliament or the full history.",
+        "The Ministry of Tourism is mostly an advertiser: about half of its ~€28.8M in public procurement is advertising and media by CPV — media buying, TV air-time and PR. This page summarises its tenders for the selected parliament or the full history.",
     },
   },
   {

@@ -699,12 +699,19 @@ describe("tourism sector — the derived figures the copy quotes", () => {
     );
     assert.ok(byCat.size >= 5, `only ${byCat.size} buckets are populated`);
 
-    // ⚠ THE ONLY CORPUS-LEVEL GATE ON A USER-FACING SENTENCE.
-    // TourismSpendVsNightsTile's caption says „Рекламата е около половината от
-    // този разход по CPV" — prose cannot reference a comment, so if the corpus
-    // drifts to 35% or 65% that sentence goes false with nothing else failing.
-    // (Its own unit test asserts the string EXISTS, which catches a removal and
-    // not the claim becoming untrue.) 51.0% at the audit.
+    // ⚠ THE ONLY CORPUS-LEVEL GATE ON TWO USER-FACING SENTENCES, and prose cannot
+    // reference a comment, so if the corpus drifts to 35% or 65% both go false with
+    // nothing else failing:
+    //   · TourismSpendVsNightsTile's caption („Рекламата е около половината от този
+    //     разход по CPV") — its own unit test asserts the string EXISTS, which
+    //     catches a removal and not the claim becoming untrue; and
+    //   · the PRERENDERED /sector/tourism intro and meta description
+    //     (scripts/prerender/routes.ts, SECTOR_PAGES → tourism), which is the
+    //     higher-stakes one: it is server-rendered HTML that Google indexes and it
+    //     cannot self-correct client-side. It said „над половината … ~27 млн. €"
+    //     until this audit — a figure 7% stale and a claim clearing „over half" by
+    //     one point.
+    // 51.03% at the audit.
     const advShare = (byCat.get("advertising") ?? 0) / m.total;
     assert.ok(
       advShare >= 0.45 && advShare <= 0.6,
