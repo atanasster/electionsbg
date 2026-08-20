@@ -1760,16 +1760,19 @@ live-breaking deploy hazard rather than the customary staleness:**
   crawl printed „Nothing to load", applied no DDL and exited **0** — a deploy that
   looks successful and creates nothing. 147 also carries the `app_readonly` GRANTs for
   146's seven tables, which shipped with none — so applying it is also what would repair
-  a 146 that had already reached a serving database. (As of 2026-08-12 none has: the
-  whole dossier family is local-only. The hazard is real but latent, and it is
-  invisible locally because every loader and data test connects as the owner; it would
-  surface only as `/api/db` 42501 on Cloud SQL against a corpus whose row counts all
-  reconcile.)
-- **COVERAGE IS THE POINT, and it is small.** 1,861 of 237,321 procedures (0.78%) at
-  the time of writing. The arm may therefore only ever **ADD** hits — it is one OR arm
+  a 146 that had already reached a serving database. (That line said "as of 2026-08-12
+  none has: the whole dossier family is local-only" — no longer true. Checked 2026-08-20:
+  Cloud SQL holds 50,283 dossiers and 418,841 documents, and the `app_readonly` GRANTs
+  ARE present there, so the hazard did not materialise. It stays worth knowing because it
+  is invisible locally — every loader and data test connects as the owner — and would
+  surface only as `/api/db` 42501 against a corpus whose row counts all reconcile.)
+- **COVERAGE IS THE POINT, and it is PARTIAL.** 50,283 of 237,806 procedures (21.1%)
+  as of 2026-08-20 — it was 1,861 (0.78%) when this note was written, and the crawl has
+  been running since, so read the live figure from `/api/db/tender-search-coverage`
+  rather than from this line. The arm may therefore only ever **ADD** hits — it is one OR arm
   beside buyer and subject, so a missing row can fail to add a hit and never suppress
   one. It must never become a filter, a facet or a count: absence there would read as
-  „no such procedure" for the 99.2% not yet crawled. `/api/db/tender-search-coverage`
+  „no such procedure" for the ~79% not yet crawled. `/api/db/tender-search-coverage`
   returns the two live numbers any UI must cite before claiming it searched documents.
 
 Two performance rules are load-bearing and both were measured, not reasoned:
@@ -1785,7 +1788,7 @@ Two performance rules are load-bearing and both were measured, not reasoned:
 - **FTS only — deliberately NO gin_trgm index**, unlike every other fold here. The
   `%>` word-similarity arm that 009 pairs with FTS on `subject_fold` recomputes
   trigram sets over the whole body per row, and these bodies are documents: **0.073 ms
-  vs 13,490 ms** on 1,861 rows. At corpus scale that arm is minutes, i.e. past the
+  vs 13,490 ms** on the 1,861 rows the index then held. At corpus scale that arm is minutes, i.e. past the
   10 s `statement_timeout`. The cost is real — no mid-word or near-spelling matching on
   document text.
 
@@ -3006,6 +3009,24 @@ re-resolved a different number of times hand the same people different slugs; me
 (mostly `-2` collision suffixes). Every one of those 640 was in the committed manifest,
 naming a person prod cannot serve.
 
+**Re-measured 2026-08-20, and the shape is unchanged — a resolve CANNOT close it, so do
+not spend one trying.** The resolver's SOURCE tables are byte-identical on both databases
+(`tr_companies` 1,020,707 · `tr_officers` 872,202 · `tr_person_roles` 1,340,793 ·
+`tr_name_fold_people` 456,398); what differs is resolve-run HISTORY, and `person_slug_lock`
+is part of that history rather than an input — same 143,521 keys on both, but **3,115 (2.2%)
+locked to a different slug**, up from the 1,436 measured on 2026-07-31. `person_role` at
+`source='tr'` is 192,374 local against 192,369 cloud — 5 rows, 2 people, 3 companies, 5
+graph edges — and `person_slug_retired` diverges in BOTH directions: 849 slugs only local
+(28 of them `-N` collision artifacts that only ever existed on that machine), 40 only on
+cloud, and 533 shared slugs pointing at DIFFERENT targets. Since
+`db:resolve:persons:cloud` re-mints against prod's own accumulated lock table and cannot
+import local's identity decisions, running it would churn `/person` URLs without converging
+anything — at the cost of a ~37 min resolve plus the declarations phase-1/phase-2 and council
+re-attach chain, during which 090's CASCADE leaves `/persons`, `/officials/assets`,
+`/mp-assets` and `/declarations/crypto` at 500 for ~8 minutes. Prod is self-consistent on its
+own terms, which is the bar that matters: `person_slug_retired` = 24,910 rows, **0** without
+a target, **0** targets missing from `person`, **0** chains.
+
 **That is LATENT, not live** — worth stating so nobody re-derives a panic from it. Both
 consumers (`buildPersonRoutes`, the sitemap's `enumeratePersons`) filter on `prerender`, and
 that ~5,000-entry ex-officials set was identical between the local- and cloud-minted
@@ -3332,6 +3353,30 @@ reads none of `person_search`'s tables, so a database where that loader has neve
 ```bash
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql
 ```
+
+**⚠️ The search FOLD is outstanding on Cloud SQL as of 2026-08-20, and it is a two-part
+change that must not be split across deploys.** `translit_bg_latin()` (000) gained two
+fixes — `unaccent` now runs BEFORE the Cyrillic→Latin translate (it folds `ё` into a plain
+Cyrillic `е`, which used to re-enter the output afterwards), and the mapping now covers the
+Cyrillic HOMOGLYPHS that are not Bulgarian letters (`і` U+0456 alone occurs 2,155,780 times,
+because ЦАИС writes „Раздел І:" with it). Applied to LOCAL Postgres and to nothing else.
+
+Both halves go together, in one window, per database:
+
+```bash
+DATABASE_URL=… npx tsx scripts/db/apply_functions.ts 000_search_fns.sql 176_translit_homoglyph_refold.sql
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tr_person_roles, tr_officers, tr_companies, contracts, tenders, contractor_search, awarder_search, person_search;"
+DATABASE_URL=… npx tsx scripts/db/load_tender_dossier_pg.ts --refold
+```
+
+Splitting them is a REGRESSION, not merely a delay: every consumer folds the QUERY with the
+new function while the stored `*_fold` columns still hold the old output, so a reader typing
+the Cyrillic `І` stops matching the stored `і` (the query now folds to `i`) and typing `i`
+does not match it either. Measured locally: 176 is ~5 min over ~4.7M rows, the VACUUM ~1 min,
+and `--refold` **20 min** for 50,283 dossier bodies (`--dry-run` reports in 4 s). The VACUUM
+cannot live in the migration — `exec()` sends a file as one implicit transaction and Postgres
+refuses VACUUM there — so it is the step most likely to be skipped, which is why the seven
+tables it covers now have `reload_visibility_map` entries.
 
 **Three more of these are outstanding as of 2026-08-04.** Two were found because data tests kept
 timing out under load — the tests were the symptom, the serving path was the defect; the third is
