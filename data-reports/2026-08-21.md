@@ -1,4 +1,4 @@
-# Watch report — 2026-08-21 (21.08.2026 г., 09:05 Europe/Sofia)
+# Watch report — 2026-08-21 (21.08.2026 г., 09:13 Europe/Sofia)
 
 ## Manual downloads needed
 - **Финансови показатели на общините (ЗПФ чл. 130г) — предстоящо тримесечие**: 2026-Q1 is due by the calendar; the corpus holds 2025-Q3.
@@ -8,24 +8,20 @@
   - `quarterly reports Q12025-Q42025-Q12026.xlsx`
 
 ## Changed
-- **keep.eu Interreg (programme re-imports)**: 2 programme(s) re-imported: INTERREG-DANUBE-2127 2026-08-28 → 2026-12-18; INTERREG-GRBG-2127 2026-08-20 → 2026-09-04
-- **Фискален съвет — publications**: new Фискален съвет publication: fiskalen-deficit-za-mesec-iuli-kato-procent-ot-bvp — if it costs a simulator lever, refresh the benchmark table in the methodology article (public/articles/2026-06-12-tax-policy-simulator-*.md), docs/budget_simulator_grounding.md and (for dividend-style costings) the calibration target in src/lib/bgBehavioral.ts
-- **TED — обявления за България (api.ted.europa.eu)**: 126 new BG notices (19,129 this year)
+- **КЗК decisions register (решения и определения по ЗОП)**: +9 КЗК acts (422 → 431); newest АКТ-795-13.08.2026
 
 ## Unchanged
-- OFAC SDN — Bulgaria-linked designations (sanctions facet): unchanged (92 Bulgaria-linked SDN row(s))
-- BG Wikipedia governments list: unchanged (111 cabinets · tail d9a0b0b2b6b7224f)
-- НОИ STATB пенсии + НСИ заплати (policy-baseline): unchanged (STATB2/2026 current · next quarter not yet · НСИ wages updated 2025-11-28T11:00:00)
-- EC economic forecast — Bulgaria: unchanged (latest edition: spring 2026)
-- НСИ EDP notification — deficit/debt outturn: unchanged (latest GFS press release: balgariya-i-es-deficit-i-dalg-na-institucionalen-sektor-darjavno-upravlenie-prez-2025-godina-predvaritelni-danni-9533)
-- Transparency International CPI (Bulgaria): unchanged (2025 CPI = 40/100, rank 84/182 (-3 y/y))
-- Общински наредби за местни данъци: unchanged (10 município(s) wired)
+- ДФЗ — индикативен график (Стратегически план): unchanged (график 2026 · 21 KB)
+- Административен регистър — услуги (IISDA): unchanged (2671 services across 4 tiers, hash 4c118de69ed7e453)
+- State Budget Law promulgation (minfin, via Wayback): unchanged (45 budget-law file(s) cached · latest FY 2025)
+- Standard Eurobarometer (institutional trust): unchanged (latest wave: Standard Eurobarometer 105 (Spring 2026))
 
 ## Skipped (off-cadence)
 - АДФИ — доклади от финансови инспекции (adfi.minfin.bg) (weekly): 1,965 inspection reports listed · next check 2026-08-26
 - АОП — списък с външни експерти по чл. 232а, ал. 2 ЗОП (aop.bg) (weekly): 92 expert(s) — register closed since 2023-01-01 · next check 2026-08-26
 - Parliament roll-call votes (daily): no new sessions (max id 11159, 2026-07-31) · next check 2026-08-21
 - Parliament MPs (active roster) (daily): 52-ро Народно събрание — 240 MPs · next check 2026-08-21
+- OFAC SDN — Bulgaria-linked designations (sanctions facet) (weekly): 92 Bulgaria-linked SDN row(s) · next check 2026-08-27
 - Комисия по досиетата (comdos.bg) — решения (ДС facet) (monthly): 20 решение(я) on the comdos.bg archive · next check 2026-09-17
 - Регулатори / независими органи — състави (regulator facet) (monthly): Конституционен съд — състав (флагман; преглед на data/person/regulators.json) · next check 2026-09-17
 - Регистър на физическите лица в несъстоятелност (РНФЛ) (weekly): статистика: няма · дело №1: няма запис · номенклатури 4d2ef77a1a374f1e · next check 2026-08-24
@@ -34,6 +30,7 @@
 - НФК news feed (grant results, ncf.bg) (weekly): 10 posts on the feed · newest #727 · next check 2026-08-24
 - НФЦ artistic-commission appointments (nfc.bg заповеди) (monthly): 0 commission-appointment orders published · next check 2026-09-08
 - BG Wikipedia polls (2026 cycle) (daily): 113 poll table rows · next check 2026-08-21
+- BG Wikipedia governments list (weekly): 111 cabinets · tail d9a0b0b2b6b7224f · next check 2026-08-27
 - ЦПРС — регистър на строителя (register.ksb.bg) (weekly): 54 licence classes · 740 firms in the sample · next check 2026-08-26
 - Сметна палата declarations — MPs (daily): 727 MP declarations in scope for 2026, hash 46cf32bda5447c0d · next check 2026-08-21
 - Сметна палата declarations — executive (officials) (daily): 11317 declarations in scope for 2026, hash 85857c57c626707e · next check 2026-08-21
@@ -44,14 +41,12 @@
 - ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления) (daily): latest published day 2026-08-19; 11/12 recent days published, hash 19c5ecde4c043997 · next check 2026-08-21
 - АОП debarred-suppliers register (monthly): 3 entries on debarred register, hash 0f289ac0f9e9c51f · next check 2026-09-10
 - КЗК procurement-appeals register (жалби по ЗОП) (weekly): 853 complaints this year, newest 300691665 (hash 714b85d8800c1aa8) · next check 2026-08-24
-- КЗК decisions register (решения и определения по ЗОП) (weekly): 422 acts this year, newest АКТ-769-06.08.2026 (hash 17e114abc053b19d) · next check 2026-08-21
 - ИСУН EU funds (beneficiaries) (weekly): 53117 beneficiaries · 82114 contracts · €44,295,201,585 contracted · next check 2026-08-24
+- keep.eu Interreg (programme re-imports) (weekly): 11/22 programmes · newest import 2026-12-18 · next check 2026-08-27
 - Interreg — трансгранични покани (daily): 7 покани от 1 програми · недостъпни: interreg-bsb · next check 2026-08-21
 - ИСУН — отворени процедури (daily): 56 отворени · 0 за обсъждане · next check 2026-08-21
-- ДФЗ — индикативен график (Стратегически план) (weekly): график 2026 · 21 KB · next check 2026-08-21
 - Per-ministry execution reports (програмен бюджет) (weekly): 14 report(s), hash 229be231732a9226 · next check 2026-08-24
 - Доклад за състоянието на администрацията (IISDA) (weekly): 1 report(s) 2025–2025, hash 72e9a235091a22c5 · next check 2026-08-24
-- Административен регистър — услуги (IISDA) (weekly): 2671 services across 4 tiers, hash 4c118de69ed7e453 · next check 2026-08-21
 - Eurostat e-government (isoc_ciegi_ac) (monthly): isoc_ciegi_ac updated 2026-04-17T11:00:00+0200 · next check 2026-09-11
 - Eurostat digital skills (isoc_sk_dskl_i21) (monthly): isoc_sk_dskl_i21 updated 2026-04-17T11:00:00+0200 · next check 2026-09-14
 - Агенция "Митници" — Митническа хроника annual reports (weekly): 4 report(s) tracked · latest 2025 · hash 9fb6d66edb03d199 · next check 2026-08-24
@@ -69,13 +64,17 @@
 - Eurostat energy prices (BG): household electricity (nrg_pc_204) + gas (nrg_pc_202) (monthly): nrg_pc_204:2026-08-11T11:00:00+0200 · nrg_pc_202:2026-08-11T11:00:00+0200 · next check 2026-09-10
 - Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw) (weekly): tour_occ_nim:2026-08-07T23:00:00+0200 · tour_occ_ninraw:2026-07-02T23:00:00+0200 · next check 2026-08-23
 - Ember Yearly Electricity Data (generation mix, CC BY 4.0) (monthly): Ember CSV Tue, 23 Jun 2026 10:58:24 GMT (49079981 bytes) · next check 2026-09-10
+- НОИ STATB пенсии + НСИ заплати (policy-baseline) (weekly): STATB2/2026 current · next quarter not yet · НСИ wages updated 2025-11-28T11:00:00 · next check 2026-08-27
 - PwC tax summaries — EU comparator rates (monthly): VAT 27(HU)/24(EE) · CIT 9(HU) · PIT 22(EE) · 8044c4a74da0d043 · next check 2026-09-07
 - Tax Foundation — EU excise rates (fuel + cigarettes) (monthly): BG fuel 363/330 €/1000L · DE cig 196 €/1000 · 9ccbe86c9fb54ffd · next check 2026-09-11
 - EC TEDB — EU alcohol excise (spirits + wine) (monthly): BG spirits 562 · SE 4775 · IE wine 425 €/hl · f11a3384724d7009 · next check 2026-09-11
 - OECD Family DB — paid parental leave (PF2.5) (monthly): DE total 58w · SE 55.7w · EE 82.1w (paid leave) · f64a735fa3ae13e9 · next check 2026-09-11
 - NATO defence-expenditure compendium (monthly): compendium edition(s): 2025, 2026 · next check 2026-09-08
+- EC economic forecast — Bulgaria (weekly): latest edition: spring 2026 · next check 2026-08-27
+- НСИ EDP notification — deficit/debt outturn (weekly): latest GFS press release: balgariya-i-es-deficit-i-dalg-na-institucionalen-sektor-darjavno-upravlenie-prez-2025-godina-predvaritelni-danni-9533 · next check 2026-08-27
 - EC VAT gap report (monthly): latest edition: VAT Gap Report 2025 · next check 2026-09-07
 - IMF WEO — Bulgaria vintage (monthly): BGR real-growth series through 2031 (latest 2.6%) · d4d5d8a4acdd6acb · next check 2026-09-07
+- Фискален съвет — publications (weekly): 15 publication(s) · latest: fiskalen-deficit-za-mesec-iuli-kato-procent-ot-bvp · next check 2026-08-27
 - АПИ — годишни приходи от пътни такси (винетки + тол) (weekly): АПИ road-charge revenue: latest FY2025 (no revenue press release on the front page) · next check 2026-08-23
 - Eurostat regional (BG): 5 NUTS3 datasets (monthly): 5 datasets · latest update 2026-07-21T23:00:00+0200 · next check 2026-09-09
 - Eurostat rail (BG): жп пътници (rail_pa_total) (monthly): rail_pa_total · update 2026-08-07T23:00:00+0200 · next check 2026-09-12
@@ -89,14 +88,14 @@
 - Minfin government-debt bulletins (Eurobond signal, via Wayback) (monthly): 137 debt bulletin(s) cached · latest 2025-02 · next check 2026-09-17
 - Minfin programme-budget execution reports (via Wayback) (monthly): 27 report(s) cached · latest 2024-06 (H1) · next check 2026-08-21
 - МВнР programmatic execution reports (via Wayback) (monthly): 22 report(s) cached · latest 2025-12 (annual) · next check 2026-08-21
-- State Budget Law promulgation (minfin, via Wayback) (weekly): 45 budget-law file(s) cached · latest FY 2025 · next check 2026-08-21
 - AZ (Агенция по заетостта): annual unemployment reviews (daily): 18 annual reviews · latest 2025 · next check 2026-08-21
 - НСИ: население по общини (timeseries XLSX) (daily): 351945 bytes · next check 2026-08-21
 - НСИ: раждания, умирания и миграция по общини (timeseries XLSX) (daily): 568322 bytes · next check 2026-08-21
 - НСИ: Баланс на територията (LANDUSE annex) (daily): 1 upcoming · 9.06.2027: Баланс на територията на Република България по вид територии - 2026 година · next check 2026-08-21
 - ГРАО: население по постоянен и настоящ адрес (по населени места) (daily): 2026-06-15 · 505508 bytes · next check 2026-08-21
+- TED — обявления за България (api.ted.europa.eu) (hourly): 19,129 BG notices published this year · next check 2026-08-21
+- Transparency International CPI (Bulgaria) (monthly): 2025 CPI = 40/100, rank 84/182 (-3 y/y) · next check 2026-09-19
 - World Bank WGI (Bulgaria, Rule of Law canary) (monthly): 20 year(s) · latest 2024 = -0.033 (Rule of Law) · next check 2026-09-10
-- Standard Eurobarometer (institutional trust) (monthly): latest wave: Standard Eurobarometer 105 (Spring 2026) · next check 2026-08-21
 - CIK local-elections results bundles (daily): 0/2 regular bundle(s) reachable · 14 partial cycle(s) tracked · next check 2026-08-21
 - iisda.government.bg — Кметове на общини (monthly): 265 mayors registered · page-1 sample of 30 IDs · next check 2026-08-26
 - Прозрачност без граници — LISI (monthly): latest year on page: 2024 · next check 2026-08-26
@@ -104,6 +103,7 @@
 - ИВСС — декларации на магистрати (monthly): register years 2017-2026 (290 letter pages) · 4 ИВСС lists, 34 named · next check 2026-09-09
 - Council resolutions + vote tallies (daily): 16 município(s) wired, 796 session-link(s) total · 2 fetch error(s) · next check 2026-08-21
 - ИПИ — Местни данъци (265 общини) (monthly): 5/5 indicator CSVs · latest year 2025 · next check 2026-08-26
+- Общински наредби за местни данъци (weekly): 10 município(s) wired · next check 2026-08-27
 - КЗП Колко струва (retail prices, kolkostruva.bg) (daily): latest 2026-08-19 · 14 days advertised · next check 2026-08-21
 - EC Weekly Oil Bulletin: consumer fuel prices (petrol 95 & diesel) (weekly): history XLSX 906e60ca… · next check 2026-08-24
 - Eurostat price levels (BG): PPP price level indices (prc_ppp_ind_1) (monthly): PLI updated 2026-07-09T23:00:00+0200 · next check 2026-09-15
@@ -128,7 +128,7 @@
 - **data.egov.bg Commerce Registry (Търговски регистър)**: HTTP 403 Forbidden
 - **data.egov.bg АОП (Агенция по обществени поръчки)**: HTTP 403 Forbidden
 - **МОН регистър на институциите (schools/kindergartens)**: POST getResourceData → 403 Forbidden
-- **ИСУН EU funds (projects)**: The operation was aborted due to timeout
+- **ИСУН EU funds (projects)**: fetch failed
 - **ДФ Земеделие — изплатени субсидии**: POST listDatasets → 403 Forbidden
 - **data.egov.bg бюджет (изпълнение на държавния бюджет)**: HTTP 403 Forbidden
 - **data.egov.bg общински бюджети (касово изпълнение по ЕБК)**: POST listDatasets → 403 Forbidden
@@ -138,4 +138,4 @@
 - **ИАОС air quality (data.egov.bg)**: HTTP 403 Forbidden
 
 ---
-_Watcher run at 2026-08-21T06:05:13.616Z UTC._
+_Watcher run at 2026-08-21T06:13:11.722Z UTC._
