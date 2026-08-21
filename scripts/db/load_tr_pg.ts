@@ -25,6 +25,7 @@ import {
 import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
+import { OFFICIAL_DECLARATION_SOURCES } from "../../src/lib/officialSources";
 import { refreshScopedPrecomputes } from "./lib/scopedMatviews";
 
 const TR_DB = fileURLToPath(
@@ -78,7 +79,45 @@ const PERSON_API_SQL = fileURLToPath(
  *
  *  Measured 2026-08-20: 114 rows over 106 EIKs.
  */
-export const MP_ARM_SQL = `
+/** ⚠️ THE TWO ARMS ARE ONE QUERY, PARAMETERISED BY WHICH PERSON QUALIFIES — not two
+ *  near-copies. Everything that makes a row trustworthy (the fold gate, the confidence
+ *  floor, the contract restriction, the per-(person, company) dedup, the stake-kind label,
+ *  isCurrent, the money basis) is identical on both, and a repo whose two arms drifted apart
+ *  is exactly what this Tier is undoing. `armSql` takes the person predicate and the ref
+ *  shape; nothing else may differ between the arms.
+ *
+ *  `mp`       — the person holds an mp role.
+ *  `official` — the person holds a role from an OFFICIALS source. NOT „not an MP": measured,
+ *               that admitted 457 people holding no office at all (288 election candidates,
+ *               176 local-roster rows), and 112 SUMS f_mp + f_pep into the fired count, so
+ *               they inflated the contract grade shift by 38%. The set is
+ *               OFFICIAL_DECLARATION_SOURCES (src/lib/officialSources.ts) plus the
+ *               office-holding tiers that carry their own source.
+ */
+// ⚠️ IMPORTED, NOT RE-TYPED. `OFFICIAL_DECLARATION_SOURCES` is every person_role.source whose
+// `ref` IS a Court-of-Audit officials slug — which is exactly the precondition for building
+// `/officials/<ref>` out of it. There were already three hard-coded copies of this set (103,
+// officialSources.ts, 148); a fourth here would silently drop links the day a new category is
+// mapped, and it did worse than that in its first cut.
+//
+// ⚠️ magistrate AND regulator ARE NOT IN IT, and adding them minted DEAD LINKS. Neither stores
+// a slug: `magistrate.ref` is a Cyrillic full name („Аглика Величкова Адамова-Петкова") and
+// `regulator.ref` is `seat:Name` — so the arm emitted 9 refs like
+// `/officials/Атанаска Ангелова Атанасова`, every one of which fails officials_person_slug()
+// and renders a live dead <Link> on the company page.
+//
+// ⚠️ `local` IS EXCLUDED FOR CONTINUITY, NOT BECAUSE THOSE PEOPLE HOLD NO OFFICE — an earlier
+// comment here said the latter and it is false. resolve_persons mints `local` roles only for
+// election WINNERS: 168 sitting councillors, 24 village mayors, 5 mayors. They are excluded
+// because `kind='official'` has always meant the officials ROSTER (executive + municipal), and
+// widening it here would change what every consumer of this table counts. A reader who checks
+// the wrong reason would "fix" this.
+const OFFICIAL_SOURCES = [...OFFICIAL_DECLARATION_SOURCES]
+  .sort()
+  .map((x) => `'${x}'`)
+  .join(",");
+
+const armSql = (personJoin: string, refExpr: string): string => `
   WITH reg AS (
     -- ⚠️ isCurrent COMES FROM tr_person_roles.erased_at, AND NOWHERE ELSE. person_role
     -- carries an end_date that is NULL on all 199,651 tr/ngo rows, so dropping this column
@@ -142,17 +181,22 @@ export const MP_ARM_SQL = `
            CASE WHEN stake_kind = 'role' THEN 'declared_role' ELSE 'stake' END,
            jsonb_strip_nulls(jsonb_build_object(
              'kind', CASE WHEN stake_kind = 'role' THEN 'declared_role' ELSE 'stake' END,
-             'shareSize', CASE WHEN stake_kind = 'role' THEN NULL ELSE share_size END,
+             -- ⚠️ A SIZE MUST READ AS A QUANTITY. relationLabel concatenates this after
+             -- „деклариран дял", so prose in the column publishes „деклариран дял Член на
+             -- Съвета на директорите" — a sentence saying the person declared a stake OF a
+             -- directorship. 24 of 2,302 share-kind rows carry prose there, one of them an
+             -- entire explanatory paragraph about a Luxembourg fund. Digit-bearing or
+             -- nothing; the row still renders, without a false size.
+             'shareSize', CASE
+                            WHEN stake_kind = 'role' THEN NULL
+                            WHEN share_size !~ '[0-9]' THEN NULL
+                            ELSE share_size
+                          END,
              'valueEur', value_eur,
              'declarationYear', stake_year))
       FROM dec
   ),
-  -- MPs only on this arm. person_role stores an MP as one row per (mp_id, ns), so the id is
-  -- the part before the colon — reference_mp_id_not_person_key.
-  mp AS (
-    SELECT DISTINCT person_id, split_part(ref, ':', 1) AS mp_id
-      FROM person_role WHERE source = 'mp'
-  ),
+  who AS (${personJoin}),
   -- CONTRACT-RESTRICTED, and that is what keeps this table meaning what it meant.
   -- mp_connected joined the contractor rollups, so a row here has always been "a politically
   -- linked CONTRACTOR". Without the restriction the set goes 964 to 17,608 and silently
@@ -167,16 +211,33 @@ export const MP_ARM_SQL = `
          -- The NUMERICALLY smallest mp_id, not the lexicographically smallest: 4 people hold
          -- two, none reaches this arm today, and „10" < „9" as text. 077 and 028 both cast
          -- this id ::int, so a non-numeric one would fail there rather than here.
-         '/candidate/mp-' || min(m.mp_id::bigint)::text AS ref,
+         ${refExpr} AS ref,
          -- A TOTAL order, so the headline role cannot change between two loads of the same
          -- data. A declared stake outranks a registry role: it is the stronger claim.
          (array_agg(g.kind ORDER BY (g.kind = 'stake') DESC, g.kind))[1] AS role,
          min(mo.eur)::text AS total_eur,
          jsonb_agg(DISTINCT g.rel) AS relations
     FROM gated g
-    JOIN mp m ON m.person_id = g.person_id
+    JOIN who m ON m.person_id = g.person_id
     JOIN money mo ON mo.eik = g.eik
    GROUP BY g.eik, g.person_id`;
+
+/** person_role stores an MP as one row per (mp_id, ns), so the id is the part before the
+ *  colon — reference_mp_id_not_person_key. The NUMERIC min, because „10" < „9" as text. */
+export const MP_ARM_SQL = armSql(
+  `SELECT DISTINCT person_id, split_part(ref, ':', 1) AS mp_id
+     FROM person_role WHERE source = 'mp'`,
+  `'/candidate/mp-' || min(m.mp_id::bigint)::text`,
+);
+
+/** The officials arm. `ref` keeps the /officials/<slug> shape the table has always carried —
+ *  Tier 4c replaces the whole URL-string ref with a person_id, and doing it here would break
+ *  load_graph_pg's five regex sites and 112's LIKE while the other arm still used strings. */
+export const OFFICIAL_ARM_SQL = armSql(
+  `SELECT DISTINCT person_id, ref AS mp_id
+     FROM person_role WHERE source IN (${OFFICIAL_SOURCES})`,
+  `'/officials/' || min(m.mp_id)`,
+);
 
 const PERSON_BREAKDOWNS_SQL = fileURLToPath(
   new URL("./schema/pg/125_person_procurement_breakdowns.sql", import.meta.url),
@@ -184,9 +245,8 @@ const PERSON_BREAKDOWNS_SQL = fileURLToPath(
 // mp_connected.json is NO LONGER READ — see MP_ARM_SQL below. The file is still written by
 // scripts/procurement/cross_reference.ts, which Tier 5 retires; until then it is an artifact
 // with no consumer here.
-const PEP_JSON = fileURLToPath(
-  new URL("../../data/procurement/derived/pep_connected.json", import.meta.url),
-);
+// pep_connected.json is NO LONGER READ — see OFFICIAL_ARM_SQL. Tier 6 retires the file and
+// its whole producer chain (company_links.json → pep_connected.ts).
 
 const gitSha = (): string => {
   try {
@@ -612,26 +672,37 @@ export const loadTrPg = async (): Promise<{
         JSON.stringify(r.relations ?? []),
       ]);
   }
-  if (existsSync(PEP_JSON)) {
-    const pep = JSON.parse(readFileSync(PEP_JSON, "utf8")) as {
-      entries: Array<{
-        slug: string;
-        name: string;
-        contractorEik: string;
-        role?: string;
-        totalEur?: number;
-        relations?: Array<{ role?: string }>;
-      }>;
-    };
-    for (const e of pep.entries)
+  {
+    // The same refusal the mp arm carries, and it matters MORE here: this arm is 7.7x the
+    // size and is what fires f_pep on 409,644 contracts, so an empty load publishes „no
+    // office-holder is linked to any company" across the whole risk surface.
+    const [dep] = await allRows<{ officials: string }>(
+      `SELECT count(*)::text AS officials FROM person_role
+        WHERE source IN (${OFFICIAL_SOURCES})`,
+    );
+    if (Number(dep.officials) === 0) {
+      throw new Error(
+        "company_politicians official arm: person_role holds no officials rows, so the arm " +
+          "would load EMPTY. Run db:resolve:persons first.",
+      );
+    }
+    const rows = await allRows<{
+      eik: string;
+      politician: string;
+      ref: string;
+      role: string | null;
+      total_eur: string | null;
+      relations: unknown;
+    }>(OFFICIAL_ARM_SQL);
+    for (const r of rows)
       links.push([
-        e.contractorEik,
-        e.name,
-        `/officials/${e.slug}`,
+        r.eik,
+        r.politician,
+        r.ref,
         "official",
-        e.role ?? null,
-        e.totalEur ?? null,
-        JSON.stringify(e.relations ?? []),
+        r.role,
+        r.total_eur === null ? null : Number(r.total_eur),
+        JSON.stringify(r.relations ?? []),
       ]);
   }
   await exec("TRUNCATE company_politicians");

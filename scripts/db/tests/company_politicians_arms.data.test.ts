@@ -1,4 +1,4 @@
-// The `mp` arm of company_politicians, re-based onto the gated person layer (Tier 4a).
+// Both arms of company_politicians, re-based onto the gated person layer (Tier 4a + 4b).
 //
 // WHAT IS AT STAKE. Every row is "this named MP is linked to this named company", and the
 // table feeds the A-F risk grade on 409,644 contracts (112's fired-mask bits 1 and 2), the
@@ -21,7 +21,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
-import { MP_ARM_SQL } from "../load_tr_pg";
+import { MP_ARM_SQL, OFFICIAL_ARM_SQL } from "../load_tr_pg";
 
 type Row = {
   eik: string;
@@ -56,7 +56,11 @@ const reachable = async (): Promise<string | false> => {
 
 const skip = await reachable();
 let rows: Row[] = [];
-if (!skip) rows = await allRows<Row>(MP_ARM_SQL);
+let officialRows: Row[] = [];
+if (!skip) {
+  rows = await allRows<Row>(MP_ARM_SQL);
+  officialRows = await allRows<Row>(OFFICIAL_ARM_SQL);
+}
 
 afterAll(async () => {
   await end();
@@ -270,5 +274,154 @@ test.skipIf(skip)(
         `${r.eik}: total_eur is not the tag-filtered sum`,
       );
     }
+  },
+);
+
+// ── the OFFICIAL arm ────────────────────────────────────────────────────────────────────
+//
+// ⚠️ THE TWO ARMS ARE ONE QUERY, PARAMETERISED BY WHO QUALIFIES. Everything that makes a row
+// trustworthy is shared, so the invariants below are the mp arm's re-run against the other
+// person predicate — and a divergence means someone forked the builder, which is exactly
+// what this Tier is undoing.
+
+test.skipIf(skip)(
+  "the official arm is non-empty and one row per (person, company)",
+  async () => {
+    assert.ok(
+      officialRows.length > 0,
+      "the official arm produced no rows at all",
+    );
+    const seen = new Set(officialRows.map((r) => `${r.eik}|${r.ref}`));
+    assert.equal(
+      seen.size,
+      officialRows.length,
+      "an (official, company) pair repeats",
+    );
+    for (const r of officialRows)
+      // ⚠️ THE SLUG CHARSET, not `[^/]+`. The loose form accepts spaces and Cyrillic, so it
+      // was GREEN while the arm minted `/officials/Атанаска Ангелова Атанасова` — refs that
+      // fail officials_person_slug() and render a live dead <Link>. Only sources whose
+      // person_role.ref IS a Court-of-Audit slug belong here; magistrate stores a Cyrillic
+      // full name and regulator a `seat:Name`, and adding either puts 9 dead links on the
+      // company page. Mutation-checked by re-adding magistrate.
+      assert.match(
+        r.ref,
+        /^\/officials\/[a-z0-9-]+$/,
+        `ref is not an officials slug — it will 404: ${r.ref}`,
+      );
+  },
+);
+
+test.skipIf(skip)(
+  "every person on the official arm holds an OFFICE",
+  async () => {
+    // ⚠️ NOT „is not an MP". That reading admitted 457 people holding no office at all — 288
+    // election candidates and 176 local-roster rows — and 112 SUMS f_mp + f_pep into the fired
+    // count, so they inflated the contract grade shift by 38%.
+    const slugs = officialRows.map((r) => r.ref.replace("/officials/", ""));
+    const [bad] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM unnest($1::text[]) AS s(slug)
+      WHERE NOT EXISTS (
+        SELECT 1 FROM person_role pr
+         WHERE pr.ref = s.slug
+           AND pr.source IN ('official_exec','official_muni','public_sector','president',
+                             'mep','diplomat','regulator','magistrate'))`,
+      [slugs],
+    );
+    assert.equal(bad.n, "0", "someone with no office reached the official arm");
+  },
+);
+
+test.skipIf(skip)(
+  "the official arm obeys the same rules as the mp arm",
+  async () => {
+    // Contract-restricted, deduped, correctly labelled — the shared builder's guarantees.
+    const [noContracts] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM unnest($1::text[]) AS e(eik)
+      WHERE NOT EXISTS (SELECT 1 FROM contracts c WHERE c.contractor_eik = e.eik)`,
+      [officialRows.map((r) => r.eik)],
+    );
+    assert.equal(
+      noContracts.n,
+      "0",
+      "a company with no contracts reached the contractor table",
+    );
+    for (const r of officialRows) {
+      const stakes = (r.relations ?? []).filter((x) => x.kind === "stake");
+      assert.ok(
+        stakes.length <= 1,
+        `${r.eik}: ${stakes.length} stake chips — dedup is undone`,
+      );
+      for (const rel of r.relations ?? []) {
+        if (rel.kind === "stake" && rel.shareSize)
+          assert.ok(
+            /[0-9]/.test(rel.shareSize),
+            `${r.eik}: a stake chip carries a role label: ${rel.shareSize}`,
+          );
+        if (rel.kind === "stake" || rel.kind === "declared_role")
+          assert.equal(
+            rel.isCurrent,
+            undefined,
+            `${r.eik}: a filing claims currency`,
+          );
+      }
+    }
+    // isCurrent must still discriminate on this arm too.
+    assert.ok(
+      officialRows.some((r) =>
+        (r.relations ?? []).some((x) => x.isCurrent === false),
+      ),
+      "no official relation is marked former — a withdrawn registry role publishes as current",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the two arms cover different people, not the same set twice",
+  async () => {
+    // They legitimately OVERLAP on companies (an ex-minister now in the chamber), but if one
+    // arm were a subset of the other the split would be carrying no information and 112 would
+    // be double-counting one link as two fired flags.
+    const mpEiks = new Set(rows.map((r) => r.eik));
+    const offEiks = new Set(officialRows.map((r) => r.eik));
+    assert.ok(mpEiks.size > 0 && offEiks.size > 0);
+    const onlyMp = [...mpEiks].filter((e) => !offEiks.has(e));
+    const onlyOff = [...offEiks].filter((e) => !mpEiks.has(e));
+    assert.ok(
+      onlyMp.length > 0,
+      "every mp company is also an official company",
+    );
+    assert.ok(
+      onlyOff.length > 0,
+      "every official company is also an mp company",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "one person's one link never fires BOTH risk flags unboundedly",
+  async () => {
+    // ⚠️ 112 SUMS f_mp + f_pep into the fired count that becomes the A-F grade, so a person
+    // who is both an MP and an office-holder AT THE SAME COMPANY has one relationship counted
+    // as two risk signals. Pre-existing — the retired artifacts overlapped the same way — so
+    // this BOUNDS it rather than fixing it, which is what stops the re-base growing it
+    // silently. The sibling test above asserts the arms cover different COMPANIES, which is
+    // nearly tautological at 411 vs 106; this is the assertion that comment was about.
+    const byPair = new Map<string, Set<string>>();
+    for (const [arm, list] of [
+      ["mp", rows],
+      ["official", officialRows],
+    ] as const)
+      for (const r of list) {
+        const k = `${r.eik}|${r.politician}`;
+        if (!byPair.has(k)) byPair.set(k, new Set());
+        byPair.get(k)!.add(arm);
+      }
+    const both = [...byPair.values()].filter((v) => v.size === 2).length;
+    assert.ok(
+      both <= 60,
+      `${both} (person, company) pairs fire BOTH f_mp and f_pep — one relationship counted ` +
+        "as two risk signals. Was 42 when measured; a jump means an arm has widened.",
+    );
   },
 );
