@@ -83,3 +83,53 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
       "a one-off person_slug_lock reconcile, run by hand before a resolve when a local-elections RE-PARSE changes who holds a seat. Not a corpus reload; procedure in docs/plans/village-mayor-attribution-v1.md.",
   },
 };
+
+// ── Orchestrator-emission exemptions ──────────────────────────────────────────
+// CLOUD_SKILL_EXEMPTIONS above covers loaders named in NO skill. This SECOND list
+// covers loaders that ARE named in an owning skill but are legitimately NOT emitted
+// by `process-watch-report`'s Step 8 — because their trigger is not a daily watcher
+// the orchestrator acts on.
+//
+// The distinction the C1 rollcall gap exposed: "named in a skill" ≠ "emitted by the
+// orchestrator". A watcher-triggered PG loader that update-* runs but Step 8 never
+// lists leaves prod stale after an ORCHESTRATED publish, even though its own skill
+// documents the command. The orchestrator assertion in cloud_loader_coverage.test.ts
+// requires every non-exempt `:cloud` loader to appear in process-watch-report; the
+// entries here are the deliberate "not in the orchestrator, and here is why" set.
+//
+// ⚠️ Same two-file discipline as above: adding/removing an entry means changing the
+// count pinned in cloud_loader_coverage.test.ts ("the orchestrator-exemption list
+// cannot grow unnoticed"). The `toBe` is what forces the reason to be read.
+//
+// Decided 2026-08-21 (cloud-deploy-speed-v1 §v2-b). A loader whose trigger IS a daily
+// watcher does NOT belong here — it belongs in process-watch-report's Step 8.
+export const ORCHESTRATOR_EXEMPTIONS: Record<
+  string,
+  { kind: CloudExemptionKind; reason: string }
+> = {
+  "db:load:tender-dossier:pg:cloud": {
+    kind: "manual-trigger",
+    reason:
+      "publishes the ЦАИС ЕОП dossier corpus, whose input raw_data/procurement/eop_dossier.sqlite grows only via a rate-limited ~26 h operator crawl (ingest_eop_dossier.ts) with no watcher. Named in update-procurement; reload order in CLAUDE.md's tender_dossier section.",
+  },
+  "db:load:procurement-scopes:pg:cloud": {
+    kind: "manual-trigger",
+    reason:
+      "rebuilds the per-scope WINDOW SET (119/122/123/124). The daily CONTENT refresh already rides db:load:pg:cloud (load_pg calls refreshScopedPrecomputes), so this loader is needed only when the window SET changes — a new election in elections.json or the Jan-1 calendar rollover — neither a daily watcher. The rollover is the plan's A3 (a dated watcher is v2-g).",
+  },
+  "person:slug-redirects:cloud": {
+    kind: "manual-trigger",
+    reason:
+      "loads an officials re-slug map into person_slug_retired and takes the map FILE as an argument (-- raw_data/person/officials_reslug_<date>.json), so it cannot be a blind daily emit; run it when a new re-slug drop lands. Named in update-persons; procedure in CLAUDE.md's person-layer section.",
+  },
+  "person:slugs:cloud": {
+    kind: "manual-trigger",
+    reason:
+      "mints the committed /person prerender + sitemap manifest (data/person/prerender_slugs.json) FROM the serving DB (emit_prerender_slugs.ts refuses local docker). It is a build-time artifact for the NEXT `npm run build`, so its trigger is a person-page rebuild/deploy, not the daily person ingest. ⚠️ Least-certain classification (cloud-deploy-speed-v1 §v2-b): if the person prerender set widens, promote it into the person cloud chain in process-watch-report.",
+  },
+  "data:local-person-refresh:cloud": {
+    kind: "operator-tool",
+    reason:
+      "the :cloud suffix only redirects which DB it READS — it rebuilds the committed local-election JSON artifacts (rollups / place-trends / chmi-history) decorated against the person layer, and publishes NO cloud table (its output ships via bucket:sync). Trigger is a local-elections re-parse or a person-layer change; named in update-local-elections / update-persons. Same reads-only-redirect shape as build:project-members:cloud.",
+  },
+};

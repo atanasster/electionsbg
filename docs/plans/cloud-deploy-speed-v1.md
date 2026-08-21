@@ -2568,7 +2568,7 @@ The corrected picture:
 | # | dataset | verdict on re-verification | disposition |
 |---|---|---|---|
 | **C1** | roll-call corpus (`vote_*`/`mp_*`, 134/135) | **REAL gap** — hooks `useVoteDaySummary`/`useContestedVotes`/`useMpSimilarity`/`useMpDissents` hit LIVE Cloud SQL routes; `update-rollcall/SKILL.md:123` documents the pair but `process-watch-report` Step 8 had **no `update-rollcall` row**, so the tiles went stale after each session ingest. | **✅ FIXED** — commit `22c6039e07` added the Step 8 row emitting `db:load:rollcall:pg:cloud && db:load:rollcall-derived:pg:cloud`. |
-| **C2** | КЗП retail prices (048) | **NOT a gap.** Prices IS published every deploy — the F-profiles *measure* it (F55: 1,403 s, "73% of a no-contracts publish"), and `update-prices/SKILL.md:32` documents `prices:ingest:cloud` as the production path. The audit's "silently stale" was disproven by the plan's own measurements. | dropped |
+| **C2** | КЗП retail prices (048) | **Refined by v2-b: an orchestrator-EMISSION gap (same class as C1), now FIXED.** Prices IS published every deploy (F55 measures it at 1,403 s; `update-prices/SKILL.md:32` documents `prices:ingest:cloud`), so it was never *silently* stale — but it was published by operator habit from the update-prices skill, **never listed on `process-watch-report`'s Step 8 checklist**. The v2-b orchestrator gate flagged exactly this. | **✅ FIXED** — added the `update-prices` Step 8 row emitting `prices:ingest:cloud` (+ `prices:payloads:cloud` for the payload-only case). |
 | **C3** | CR-НКИД (`company_nkid`) | **NOT a daily gap.** `load_cr_nkid_pg.ts` reads the gitignored `raw_data/tr/cr_deeds.sqlite` (a manual crawl) + reseeds the crosswalk from committed `naceCpv.ts`; on a daily `tr:daily-refresh` with no new crawl it re-parses the same captures → no change. Sanctioned as `manual-trigger` in `cloud_loader_coverage.ts:75`. | dropped |
 | **C4** | CR-Deeds `company_founded` | **NOT a daily gap — deliberately.** `process-watch-report:797` explicitly forbids auto-emit ("no daily watcher … a ~14 h backfill"), and `cloud_loader_coverage.ts:70` sanctions it as `manual-trigger`. Auto-emitting it (the audit's proposed "fix") would push a 14-hour backfill into the daily loop. G19's 19,844-vs-74 divergence is real but is a manual-publish item, not a daily one. | dropped |
 
@@ -2646,9 +2646,10 @@ forward-looking (non-historical) references:
   `db-g1-small` / "minutes on a db-g1-small" perf asides (lines ~1527, 1806, 2009,
   2307, 3716) are stale as *expectations* but valid as *history* — reword to name
   the tier they measured.
-- **`process-watch-report/SKILL.md`** — the C1 rollcall emission is done
-  (`22c6039e07`); the remaining work is v2-b/v2-e: replace the hand-maintained Step-8
-  table with a resolver-driven emission and close the coverage-gate blind spot.
+- **`process-watch-report/SKILL.md`** — the C1 rollcall and C2 prices emissions are
+  done, and v2-b closed the coverage-gate blind spot (the orchestrator gate now fails
+  if a watcher-triggered loader is absent from Step 8); the remaining work is v2-e:
+  replace the hand-maintained Step-8 table with a resolver-driven emission.
 - **`update-rollcall`, `update-prices` SKILL.md** — already correct locally; the
   fix is orchestrator-side (they document the `:cloud` step; the orchestrator must
   *run* it).
@@ -2669,16 +2670,19 @@ order:
 | # | v2 item | depends on | why now |
 |---|---|---|---|
 | v2-a | ~~Emit C1-C4 cloud steps~~ → **emit C1 (rollcall)** in `process-watch-report` | none | **✅ DONE** (commit `22c6039e07`). C2/C3/C4 reconciled away (v2.3) — only rollcall was real. |
-| v2-b | **Close the completeness-gate blind spot** — the gate exists (`cloud_loader_coverage.ts`) but checks "named in a skill", not "emitted by the orchestrator's Step 8"; extend it to assert every non-exempt PG-served loader appears in `process-watch-report`'s emit table | v2-a | this is what would have caught C1 mechanically; the plan's original "build a gate" is already shipped |
+| v2-b | ~~Close the completeness-gate blind spot~~ **✅ DONE** — added an orchestrator gate: a strict assertion in `cloud_loader_coverage.test.ts` that every non-exempt `:cloud` loader appears in `process-watch-report`'s Step 8, plus an `ORCHESTRATOR_EXEMPTIONS` set (5 loaders whose trigger is manual/calendar/build-time, not a daily watcher). Flagged 7 scripts (the **prices** pair + 5 others): the prices pair (`prices:ingest:cloud` + `prices:payloads:cloud`) fixed into the orchestrator (C2 above); the other 5 exempted with reasons — `tender-dossier` (26 h crawl), `procurement-scopes` (calendar/election window-set), `person:slug-redirects` (file-arg), `data:local-person-refresh` (reads-cloud, writes committed), and `person:slugs` (build-time prerender manifest, the least-certain classification, self-flagged for promotion if the prerender set widens). | v2-a | this is what would have caught C1 mechanically |
 | v2-c | **Derived-object registry** (generalise `scopedMatviews.ts`) | none | the spine of v2.2 + v2.4 |
 | v2-d | **Deploy resolver** — minimal deploy set | v2-c | removes the ~22% double-refresh waste (F25); collapses the money-tail fan-out |
 | v2-e | **Resolver-driven Step-8 emission** | v2-c, v2-d | makes "mark all data for deployment" computed, not curated |
 | v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | default-compute-on-cloud now the instance is big; delete `buildOrShipNormalcy`/`Tender` if measured cheap. **Blocked: needs a real prod cloud build to measure.** |
 | v2-g | **A-class watchers** (dossier, cr-deeds capture, scope rollover) | none | structural coverage; A3 (Jan-1) is a dated ticking bug |
 
-v2-a is done; v2-b is now "close the gate's blind spot", not "build a gate" (the
-gate already ships — `docs/plans/cloud-loader-coverage-v1.md`). v2-c→e are the
-structural core (the chain-aware deployment the directive asks for). v2-f is
+v2-a and v2-b are done: the base gate already shipped
+(`docs/plans/cloud-loader-coverage-v1.md`), and v2-b added the *orchestrator* gate on
+top of it (strict Step-8 presence + `ORCHESTRATOR_EXEMPTIONS`), so a watcher-triggered
+loader missing from `process-watch-report` now fails a test rather than silently
+skipping prod. v2-c→e are the structural core (the chain-aware deployment the
+directive asks for). v2-f is
 *subtraction* — the tier upgrade turned "ship from local" from the plan's thesis into
 a set of hacks to measure-and-delete — but it is **blocked on a prod measurement**, so
 it cannot land unattended. The pre-upgrade Phases 2/3 narrow to the transfer-bound

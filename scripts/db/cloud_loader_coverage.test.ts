@@ -9,7 +9,10 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
-import { CLOUD_SKILL_EXEMPTIONS } from "./cloud_loader_coverage";
+import {
+  CLOUD_SKILL_EXEMPTIONS,
+  ORCHESTRATOR_EXEMPTIONS,
+} from "./cloud_loader_coverage";
 
 const ROOT = path.resolve(__dirname, "../..");
 
@@ -33,6 +36,15 @@ const skillText = (): string => {
   };
   walk(dir);
   return out.join("\n");
+};
+
+// The ORCHESTRATOR itself — the skill whose Step 8 is the operator's consolidated
+// publish checklist. "Named in some skill" (skillText) is a weaker bar than "named
+// HERE": the C1 rollcall gap was named in update-rollcall yet absent from this file,
+// so an orchestrated run never emitted it. Read separately for the orchestrator gate.
+const orchestratorText = (): string => {
+  const p = path.join(ROOT, ".claude/skills/process-watch-report/SKILL.md");
+  return fs.existsSync(p) ? fs.readFileSync(p, "utf8") : "";
 };
 
 describe("every :cloud loader is reachable from a skill", () => {
@@ -152,5 +164,84 @@ describe("every :cloud loader is reachable from a skill", () => {
       "the unreviewed backlog changed — if you WIRED one, lower this number in the " +
         "same commit; if this grew, a new loader landed unwired",
     ).toBe(0);
+  });
+
+  // ── The orchestrator gate (cloud-deploy-speed-v1 §v2-b) ──────────────────────
+  // The gap C1 exposed: a loader named in its OWN skill but absent from
+  // process-watch-report's Step 8, so an orchestrated publish never emits it and
+  // prod goes stale even though the coverage check above is green.
+  const orchestrator = orchestratorText();
+
+  // Match a script name as a whole TOKEN, not a bare substring: the name must be
+  // followed by a non-name char (or end), so a future `:cloud` script that is a
+  // prefix of a longer one cannot be masked by the longer one's presence. No such
+  // pair exists today (verified across all 76 names), but the boundary makes the
+  // invariant explicit rather than incidental.
+  const emittedIn = (s: string): boolean =>
+    new RegExp(s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?![\\w:-])").test(
+      orchestrator,
+    );
+
+  it("no non-exempt :cloud loader is missing from the ORCHESTRATOR's Step 8", () => {
+    expect(orchestrator.length).toBeGreaterThan(10_000); // non-vacuity
+    const missing = scripts.filter(
+      (s) =>
+        !emittedIn(s) &&
+        !CLOUD_SKILL_EXEMPTIONS[s] &&
+        !ORCHESTRATOR_EXEMPTIONS[s],
+    );
+    expect(
+      missing,
+      `These are watcher-triggered PG loaders that an update-* skill runs but ` +
+        `process-watch-report's Step 8 never emits, so an ORCHESTRATED publish ` +
+        `leaves prod on the previous vintage at a 200 (the C1 rollcall class). ` +
+        `Add the command to process-watch-report's Step 8 emit table, or — if its ` +
+        `trigger is manual/calendar/build-time, not a daily watcher — add it to ` +
+        `ORCHESTRATOR_EXEMPTIONS with a reason.`,
+    ).toEqual([]);
+  });
+
+  it("no STALE orchestrator-exemption — each still exists and is still absent from the orchestrator", () => {
+    const all = new Set(scripts);
+    const gone = Object.keys(ORCHESTRATOR_EXEMPTIONS).filter(
+      (s) => !all.has(s),
+    );
+    expect(
+      gone,
+      "orchestrator-exempted scripts that no longer exist in package.json",
+    ).toEqual([]);
+    const nowEmitted = Object.keys(ORCHESTRATOR_EXEMPTIONS).filter((s) =>
+      emittedIn(s),
+    );
+    expect(
+      nowEmitted,
+      "these are now emitted by process-watch-report — remove them from " +
+        "ORCHESTRATOR_EXEMPTIONS so the list keeps meaning something",
+    ).toEqual([]);
+  });
+
+  it("the orchestrator-exemption list cannot grow unnoticed", () => {
+    expect(
+      Object.keys(ORCHESTRATOR_EXEMPTIONS).length,
+      "an orchestrator-exemption was added or removed — if you EXEMPTED a loader, " +
+        "say why in ORCHESTRATOR_EXEMPTIONS and raise this number deliberately; if " +
+        "you WIRED one into process-watch-report's Step 8, lower it",
+    ).toBe(5);
+  });
+
+  it("the two exemption maps are DISJOINT — a script is exempt for exactly one reason", () => {
+    // A script in both maps has two competing reasons, and lowering one count
+    // without the other would silently re-admit it. They answer different
+    // questions (no owning skill at all vs. owning skill but not the orchestrator),
+    // so no script legitimately belongs to both.
+    const both = Object.keys(CLOUD_SKILL_EXEMPTIONS).filter(
+      (s) => ORCHESTRATOR_EXEMPTIONS[s],
+    );
+    expect(
+      both,
+      "these are in BOTH exemption maps — pick one: CLOUD_SKILL_EXEMPTIONS if no " +
+        "skill names it, ORCHESTRATOR_EXEMPTIONS if a skill does but the orchestrator " +
+        "does not",
+    ).toEqual([]);
   });
 });
