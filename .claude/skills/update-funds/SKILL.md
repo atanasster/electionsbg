@@ -236,9 +236,26 @@ npm run db:load:funds-fit:pg      # 143+144+145 — keep local in step with prod
                                   # the corpus disagree", which reads as a derivation bug
 
 # 3) Publish to PROD Cloud SQL (operator runs this — proxy on 127.0.0.1:5434, .pgpass set)
-npm run db:load:funds:pg:cloud
-npm run db:load:funds-fit:pg:cloud   # sole applier of 143 + 144 + 145 — see below
+npm run db:load:funds:pg:cloud -- --full   # the flag is REQUIRED — see the scope note
+npm run db:load:funds-fit:pg:cloud         # sole applier of 143 + 144 + 145 — see below
 ```
+
+> ⚠️ **`db:load:funds:pg:cloud` REFUSES without a scope flag — pick one deliberately.**
+> It exits 1 in 0 s with "Refusing to guess the scope of a Cloud SQL load", writing
+> nothing, so an automated chain HALTS here. The rule:
+>
+> - **`--full`** — after an ИСУН re-ingest, i.e. whenever `fund_beneficiaries` or
+>   `fund_projects` actually moved. ~4.5 min, during which `/api/db/fund-contract`
+>   and `/api/db/fund-beneficiary` return 500.
+> - **`--payloads-only`** — when only the precomputed page payloads changed.
+>   Stage-merged, seconds, never blocks a reader.
+>
+> Getting it backwards is not symmetric: `--payloads-only` after a re-ingest
+> publishes the new page payloads over an unchanged beneficiary table, which
+> reconciles perfectly while under-reporting the money. `db:load:funds:pg:cloud` is
+> one of the 7 scripts that forward argv, so `-- --full` does reach the loader.
+> (Measured 2026-08-21: the flagless form halted a deploy chain at this step —
+> `docs/plans/cloud-deploy-speed-v1.md` F34, recurred as F53.)
 
 > ⚠️ **`db:load:funds-fit:pg:cloud` is not optional.** It is the ONLY applier of
 > migrations 143 (`fund_fit`, the „финансирано ли е нещо като моето" resolver),
@@ -260,7 +277,8 @@ npm run db:load:funds-fit:pg:cloud   # sole applier of 143 + 144 + 145 — see b
 > + per-programme summaries, geo pins) is loaded verbatim into the
 > `fund_payloads(kind, key)` table; per-beneficiary rollups → `fund_beneficiaries`,
 > per-contract detail → `fund_projects`. So the prod-deploy path for funds is
-> **`db:load:funds:pg:cloud`**, NOT `bucket:sync`. The small curated globals
+> **`db:load:funds:pg:cloud -- --full`** (scope flag required — see above), NOT
+> `bucket:sync`. The small curated globals
 > (`index.json`, `derived/political_links.json`, `derived/integrity.json`,
 > `rrf_context.json`, `themes.json`, …) stay **committed** because the deploy
 > build (prerender + sitemap) reads them from the git tree — they are load
@@ -444,7 +462,9 @@ git add data/funds/
 git commit -m "funds: refresh ИСУН EU-funds beneficiaries"
 npm run db:load:funds:pg          # local PG
 npm run db:load:funds-fit:pg      # local — 143+144+145
-npm run db:load:funds:pg:cloud    # prod Cloud SQL (operator runs this)
+npm run db:load:funds:pg:cloud -- --full   # prod Cloud SQL (operator runs this).
+                                           # --full after an ИСУН re-ingest; --payloads-only
+                                           # when only payloads moved; it REFUSES with neither.
 npm run db:load:funds-fit:pg:cloud
 
 # Dry run (parse + validate, no writes)
