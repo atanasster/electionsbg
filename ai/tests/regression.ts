@@ -2864,11 +2864,25 @@ const CASES: Case[] = [
     tool: "euFoodPriceLevels",
     kind: "table",
   },
+  // ⚠️ Asserts the PROCUREMENT half, not `basket`, and that is the honest shape of
+  // this question. Метро reports to the КЗП feed (it IS in `price_chains`) but is
+  // not in the fairness-filtered comparable-basket set, so `chainProfile` emits no
+  // `basket` fact for it — the same position as Кауфланд immediately below.
+  // Measured 2026-08-21: the `chains` payload holds 54 chains at
+  // commonBasketSize=12 and is BYTE-IDENTICAL on local and Cloud SQL (6,636 B), so
+  // this is what the tool returns in production too — not a stale local corpus.
+  //
+  // Pointing the fact at `as_supplier_contracts` rather than dropping down to
+  // `chain` alone keeps the case non-vacuous: it is what the question literally
+  // asks, and it exercises the arm that resolves by EIK for every chain whether or
+  // not it prices the basket. 118 contracts / EUR 5.66m, identical on both
+  // databases. A basket assertion belongs on a chain that is in the set (Лидл,
+  // ФАНТАСТИКО) — putting it here made the gate a claim about the fairness filter.
   {
     q: "Какви обществени поръчки печели Метро?",
     tool: "chainProfile",
     kind: "table",
-    facts: { chain: /./, basket: /€|\d/ },
+    facts: { chain: /./, as_supplier_contracts: /\d/ },
   },
   // Kaufland isn't in the comparable-basket set — resolves by EIK to a table anyway.
   { q: "Профил на веригата Кауфланд", tool: "chainProfile", kind: "table" },
