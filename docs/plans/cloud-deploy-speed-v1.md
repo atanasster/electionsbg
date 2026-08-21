@@ -2671,7 +2671,7 @@ order:
 |---|---|---|---|
 | v2-a | ~~Emit C1-C4 cloud steps~~ → **emit C1 (rollcall)** in `process-watch-report` | none | **✅ DONE** (commit `22c6039e07`). C2/C3/C4 reconciled away (v2.3) — only rollcall was real. |
 | v2-b | ~~Close the completeness-gate blind spot~~ **✅ DONE** — added an orchestrator gate: a strict assertion in `cloud_loader_coverage.test.ts` that every non-exempt `:cloud` loader appears in `process-watch-report`'s Step 8, plus an `ORCHESTRATOR_EXEMPTIONS` set (5 loaders whose trigger is manual/calendar/build-time, not a daily watcher). Flagged 7 scripts (the **prices** pair + 5 others): the prices pair (`prices:ingest:cloud` + `prices:payloads:cloud`) fixed into the orchestrator (C2 above); the other 5 exempted with reasons — `tender-dossier` (26 h crawl), `procurement-scopes` (calendar/election window-set), `person:slug-redirects` (file-arg), `data:local-person-refresh` (reads-cloud, writes committed), and `person:slugs` (build-time prerender manifest, the least-certain classification, self-flagged for promotion if the prerender set widens). | v2-a | this is what would have caught C1 mechanically |
-| v2-c | **Derived-object registry** (generalise `scopedMatviews.ts`) | none | the spine of v2.2 + v2.4 |
+| v2-c | ~~Derived-object registry~~ **✅ DONE (data-only)** — `scripts/db/lib/derivedRegistry.ts`: catalogs ~22 derived objects as `{name, migration, inputs[], rebuiltBy[]}` (generalising `scopedMatviews.ts`), plus `SYNC_CLASS` (R1 MIRROR/ACCUMULATOR) + `ACCUMULATOR_TABLES` so the delta-ship knows where DELETE is forbidden. Static test (`derivedRegistry.test.ts`, 11 assertions) pins it to `scopedMatviews.ts` and asserts every rebuilder is a real npm script. **No loader rewiring** — that is v2-d/v2-e. | none | the spine of v2.2 + v2.4 |
 | v2-d | **Deploy resolver** — minimal deploy set | v2-c | removes the ~22% double-refresh waste (F25); collapses the money-tail fan-out |
 | v2-e | **Resolver-driven Step-8 emission** | v2-c, v2-d | makes "mark all data for deployment" computed, not curated |
 | v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | default-compute-on-cloud now the instance is big; delete `buildOrShipNormalcy`/`Tender` if measured cheap. **Blocked: needs a real prod cloud build to measure.** |
@@ -2681,8 +2681,9 @@ v2-a and v2-b are done: the base gate already shipped
 (`docs/plans/cloud-loader-coverage-v1.md`), and v2-b added the *orchestrator* gate on
 top of it (strict Step-8 presence + `ORCHESTRATOR_EXEMPTIONS`), so a watcher-triggered
 loader missing from `process-watch-report` now fails a test rather than silently
-skipping prod. v2-c→e are the structural core (the chain-aware deployment the
-directive asks for). v2-f is
+skipping prod. v2-c is done (the derived-object registry, data-only); v2-d (the
+resolver that reads it) and v2-e (resolver-driven emission) are the remaining
+structural core (the chain-aware deployment the directive asks for). v2-f is
 *subtraction* — the tier upgrade turned "ship from local" from the plan's thesis into
 a set of hacks to measure-and-delete — but it is **blocked on a prod measurement**, so
 it cannot land unattended. The pre-upgrade Phases 2/3 narrow to the transfer-bound
