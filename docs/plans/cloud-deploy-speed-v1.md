@@ -2510,9 +2510,26 @@ tenders publish is the confirmation — watch its log:
 npm run db:load:tenders:pg:cloud   # "built in-place on cloud" = success; a warn = fell back
 ```
 
-`procurement_normalcy` (064b) is unchanged — it was only slow, never a 53400, so its
-retire is a pure speed-neutral/coupling call for later; `company_founded`'s ship stays
-regardless (local-only input, not a compute hack).
+**`procurement_normalcy` (064b) — KEEP SHIPPING (measured 2026-08-21, prod-free).**
+The earlier assumption "it was only slow, never a 53400, so it'll build on cloud" was
+WRONG on the temp-fit axis. Run under the new tier's `temp_file_limit` (3,188,113 kB)
+at its shipped `work_mem=512MB`, 064b **fails — "temporary file size exceeds
+temp_file_limit", at 44 s.** It is the larger cache (403k rows / 376 MB) and its
+CPV-prefix-expanded intermediate spills past 3.04 GB. Raising `work_mem` is the only
+lever, but far enough to keep it resident risks OOM on the shared 16 GB instance
+(`work_mem` is per-node per-worker, and the build runs parallel), and the retire is
+**speed-neutral anyway** — so the coupling-removal benefit does not justify the
+53400/OOM risk. A fallback-guarded retire like tenders' would just hit the fallback on
+every run (a wasted 44 s + a ship), which is worse than shipping outright. **So 064b
+stays on `shipTable`** unless the query is restructured to bound its temp footprint
+(open work, not scoped here). `company_founded`'s ship stays regardless (local-only
+input, not a compute hack).
+
+**Net v2-f outcome:** tender_normalcy retired (fits cleanly), procurement_normalcy
+kept (does not fit), company_founded kept (data-provenance). The tier upgrade did NOT
+make "compute on cloud" universal for the normalcy caches — it made it true for the
+one that fits, which is the honest, measured answer rather than the blanket "retire
+everything" the pre-measurement plan implied.
 
 ### v2.2 — Deployment chain resolver (don't run N cloud loads for one dataset)
 
@@ -2726,7 +2743,7 @@ order:
 | v2-c | ~~Derived-object registry~~ **✅ DONE (data-only)** — `scripts/db/lib/derivedRegistry.ts`: catalogs ~22 derived objects as `{name, migration, inputs[], rebuiltBy[]}` (generalising `scopedMatviews.ts`), plus `SYNC_CLASS` (R1 MIRROR/ACCUMULATOR) + `ACCUMULATOR_TABLES` so the delta-ship knows where DELETE is forbidden. Static test (`derivedRegistry.test.ts`, 11 assertions) pins it to `scopedMatviews.ts` and asserts every rebuilder is a real npm script. **No loader rewiring** — that is v2-d/v2-e. | none | the spine of v2.2 + v2.4 |
 | v2-d | ~~Deploy resolver~~ **✅ DONE (pure function)** — `scripts/db/lib/deployResolver.ts`: `resolveDeploySet(changed[]) → {objects, loaders, unmappedChanges, cyclic}`. Cascades changed base tables through the v2-c registry, covers each stale object with ONE rebuilder (avoiding a heavy unrelated base reload — a kzk change picks `kzk:rejoin`, not `db:load:pg`), and topo-orders the loaders. `deployResolver.test.ts` (8 tests) verifies fan-out minimization (prices → nothing; contracts → the money tail without TR/agri reloads), ordering, and determinism. **Solves FAN-OUT** (run only stale loaders); the double-refresh elimination needs per-loader suppression = v2-e. | v2-c | collapses the money-tail fan-out (the ~22% double-refresh needs v2-e) |
 | v2-e | **Resolver-driven emission — part 1 ✅ DONE** (`npm run deploy:resolve -- <changed tables>`, `scripts/db/resolve_deploy.ts`): prints the minimal ordered `:cloud` publish commands from the v2-d resolver, routing artifact generators to `bucket:sync`; wired into `process-watch-report` Step 8 as a cross-check tool. **Part 2 (per-loader double-refresh suppression) DEFERRED** per §v2.1 — invasive (edits production loaders) and its win shrank to ~5 min of a 24-min publish on the upgraded tier. | v2-c, v2-d | makes "mark all data for deployment" computed, not curated |
-| v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | **tender ✅ retired (fallback-guarded) 2026-08-21** — `buildOrShipTenderNormalcy` builds 067b in-place on cloud (the `53400` is proven gone: fits the 3.04 GB temp limit locally, 92 s), falling back to the ship only if the 2-vCPU plan spills differently. Confirm on the next `db:load:tenders:pg:cloud`, then delete the fallback. `procurement_normalcy` deferred (was only slow, not a hard fail; speed-neutral); `company_founded` ship stays (local-only input). |
+| v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | **DONE (measured 2026-08-21).** tender ✅ **retired** — 067b builds in-place on cloud (fits the 3.04 GB temp limit, 92 s), fallback-guarded; confirm on the next `db:load:tenders:pg:cloud`, then delete the fallback. procurement_normalcy ❌ **kept** — 064b EXCEEDS the 3.04 GB temp limit at its shipped work_mem (fails at 44 s), and fitting it risks OOM for a speed-neutral retire. company_founded ❌ **kept** (local-only input). The tier upgrade made compute-on-cloud true for the cache that fits, not universally. |
 | v2-g | **A3 scope-rollover watcher ✅ DONE** — `scripts/watch/sources/procurement_scope_windows.ts`: a daily-probed, annually-publishing source whose fingerprint is the scope-window set (SCOPE_FIRST_YEAR..currentYear + elections.json), so the Jan-1 rollover / a new election now surfaces in the daily report with the exact `db:load:procurement-scopes:pg:cloud` fix. **A1/A2 reclassified: NOT watchers** — the dossier and CR-Deeds captures are operator crawls with no external change signal to poll; they are coverage-expansion tasks (tracked in CLAUDE.md), not change-driven ingests, so a `WatchSource` does not fit. | none | A3 (Jan-1) was a dated ticking bug — now watched |
 
 v2-a and v2-b are done: the base gate already shipped
