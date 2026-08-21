@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-18T14:52:58.802Z",
+  "lastSuccessfulIngest": "2026-08-21T07:11:42.053Z",
   "skill": "update-council-minutes",
-  "summary": "no-op re-run of the unstamped 2026-08-17 scrape: 0 new, 271 re-written, 11 protocols touched; SZR12 UNVERIFIED (index unreadable, not stamped, retries next run); PG 4,727 res / 46,028 named votes, 93.8% attributed"
+  "summary": "+3 new resolutions (all SOF protokol 67: r663/r664/r665); 4,598 -> 4,601 in PG, 46,028 named votes, attribution 43,168 (93.8%) unchanged vs baseline. 2 protocols touched, 1 skipped (BLG03 phase1Defer). SZR12 Kazanlak UNVERIFIED - obs.kazanlak.bg circuit breaker open, watermark frozen at 2026-08-09 (~12 days unreachable), not merged/stamped, retries next run. RSE01 2 deferred PDF-variant content skips now [given up] at attempt 9. SOF named votes NOT refreshed (needs --ocr, opt-in). Gate 12/12."
 }
