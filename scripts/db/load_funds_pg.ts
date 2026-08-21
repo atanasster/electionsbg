@@ -365,11 +365,18 @@ const waitForPg = async (): Promise<void> => {
  *   `fund_payloads`.
  *
  *   BOTH tables are stage-merged since 2026-08-21, so the flag is no longer about
- *   a lock: neither `fund_beneficiary_detail()` (/api/db/fund-beneficiary) nor
- *   `fund_contract_detail()` (/api/db/fund-contract, the /funds/contract page
- *   handler) is blocked by a reload any more. What a `--full` run still costs is
- *   real WORK for data that may not have moved — it reads ~128k shard files off
- *   disk and merges 128k rows.
+ *   the RELOAD's lock: neither `fund_beneficiary_detail()` (/api/db/fund-beneficiary)
+ *   nor `fund_contract_detail()` (/api/db/fund-contract, the /funds/contract page
+ *   handler) is blocked by one any more. What a `--full` run still costs is real
+ *   WORK for data that may not have moved — it reads ~128k shard files off disk
+ *   and merges 128k rows (250 s measured on Cloud SQL).
+ *
+ *   One lock DOES survive the migration and it is `!payloadsOnly`-gated, i.e. it
+ *   is exactly this flag's difference: the closing `REFRESH MATERIALIZED VIEW
+ *   dual_corpus_rankings_cache` below cannot be CONCURRENT (that matview has no
+ *   unique index), so it AccessExclusiveLocks it for the rebuild. Its serving
+ *   route catches the 55P03 and falls back to the live function, so the cost is a
+ *   slow tile rather than a 500.
  *
  *   So when a change adds only precomputed page payloads — a new
  *   fund_payloads kind, a re-derived shard — and the corpus itself is
@@ -658,10 +665,13 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
         "                    never blocks a reader). Correct when only precomputed\n" +
         "                    page payloads changed.\n" +
         "  --full            also reload fund_beneficiaries + fund_projects.\n" +
-        "                    Minutes of work — it re-reads ~128k shard files — but\n" +
-        "                    both tables are stage-merged, so NO reader is blocked\n" +
-        "                    and no /api/db route 500s. Required after an ИСУН\n" +
-        "                    re-ingest, when those tables actually moved.",
+        "                    Minutes of work — it re-reads ~128k shard files (250 s\n" +
+        "                    on Cloud SQL). Both tables are stage-merged, so neither\n" +
+        "                    RELOAD blocks a reader; the closing non-concurrent\n" +
+        "                    REFRESH of dual_corpus_rankings_cache still can, for up\n" +
+        "                    to the 2 s lock_timeout, and that route degrades rather\n" +
+        "                    than 500s. Required after an ИСУН re-ingest, when those\n" +
+        "                    tables actually moved.",
     );
     process.exit(1);
   }

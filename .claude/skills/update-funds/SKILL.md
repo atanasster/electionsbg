@@ -246,8 +246,13 @@ npm run db:load:funds-fit:pg:cloud         # sole applier of 143 + 144 + 145 —
 >
 > - **`--full`** — after an ИСУН re-ingest, i.e. whenever `fund_beneficiaries` or
 >   `fund_projects` actually moved. Minutes of work (it re-reads ~128k shard
->   files). Since 2026-08-21 both tables are stage-merged, so NO reader is
->   blocked and no `/api/db` route 500s — the flag is about the work, not a lock.
+>   files; 250 s measured on Cloud SQL 2026-08-21). Since then both tables are
+>   stage-merged, so neither RELOAD blocks a reader — the flag is about the work,
+>   not the reload's lock. One lock does survive: a `--full` run ends with a
+>   non-concurrent `REFRESH MATERIALIZED VIEW dual_corpus_rankings_cache` (no
+>   unique index, so `CONCURRENTLY` is impossible), which can block that matview's
+>   readers up to the 2 s `lock_timeout`; its route catches the 55P03 and falls
+>   back to the live function, so no `/api/db` route 500s.
 > - **`--payloads-only`** — when only the precomputed page payloads changed.
 >   Stage-merged, seconds, and it skips the shard read entirely.
 >
