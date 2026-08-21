@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-20T07:45:05.666Z",
+  "generatedAt": "2026-08-21T06:25:39.312Z",
   "nodes": [
     {
       "id": "src:water",
@@ -586,7 +586,7 @@
       "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-18T06:08:36.914Z",
+      "freshness": "2026-08-21T06:13:11.722Z",
       "skills": [
         "update-kzk-appeals"
       ],
@@ -603,7 +603,7 @@
           "label": "КЗК decisions register (решения и определения по ЗОП)",
           "url": "https://reg.cpc.bg/AllResolutions.aspx?dt=2&ot=2",
           "cadence": "weekly",
-          "freshness": "2026-08-15T06:07:57.069Z"
+          "freshness": "2026-08-21T06:13:11.722Z"
         }
       ],
       "x": 28,
@@ -734,7 +734,7 @@
       "url": "https://keep.eu/",
       "origin": "eu",
       "cadence": "weekly",
-      "freshness": "2026-08-14T15:05:23.140Z",
+      "freshness": "2026-08-21T06:05:13.616Z",
       "skills": [
         "update-funds"
       ],
@@ -744,7 +744,7 @@
           "label": "keep.eu Interreg (programme re-imports)",
           "url": "https://keep.eu/",
           "cadence": "weekly",
-          "freshness": "2026-08-14T15:05:23.140Z"
+          "freshness": "2026-08-21T06:05:13.616Z"
         }
       ],
       "x": 28,
@@ -1442,7 +1442,7 @@
       "url": "https://www.nsi.bg/bg/content/2432/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-08T06:08:44.721Z",
+      "freshness": "2026-08-21T06:05:13.616Z",
       "skills": [],
       "sources": [
         {
@@ -1457,7 +1457,7 @@
           "label": "Фискален съвет — publications",
           "url": "https://www.fiscal-council.bg/bg/publikacii",
           "cadence": "weekly",
-          "freshness": "2026-08-08T06:08:44.721Z"
+          "freshness": "2026-08-21T06:05:13.616Z"
         },
         {
           "id": "api_road_charges",
@@ -2061,7 +2061,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-08-20T07:23:14.975Z",
+      "freshness": "2026-08-21T06:05:13.616Z",
       "skills": [
         "update-procurement"
       ],
@@ -2071,7 +2071,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-08-20T07:23:14.975Z"
+          "freshness": "2026-08-21T06:05:13.616Z"
         }
       ],
       "x": 28,
