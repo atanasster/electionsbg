@@ -695,6 +695,21 @@ first, then re-run the orchestrator.
    | `update-budget` (state budget + the municipal side — `egov_budget_execution`, `ministry_execution_reports`, `budget_law`, `dv_investment_annex`, `minfin_program_otchet`, `municipal_fiscal_due`, `capital_programs`, `ipop_mrrb`, `egov_municipal_execution`) | `npm run db:load:place-dim:pg:cloud && npm run db:load:municipal-fiscal:pg:cloud && npm run db:load:budget:pg:cloud && npm run db:load:budget-muni:pg:cloud && npm run db:load:budget-hub:pg:cloud` — **in that order.** `place-dim` is a hard prerequisite of 149 (its serving functions JOIN it and a `LANGUAGE sql` body is validated at CREATE, so the file 42P01s and `exec()`'s single transaction leaves NO `municipal_fiscal` table at all); `budget-hub` must be LAST because 156's matview reads eleven relations produced by the four loaders before it (its twelfth, `budget_peer_band`, it fills itself). `budget:pg` and `budget-muni:pg` are different corpora — the STATE budget (152 КФП, 153 admin/programme/COFOG) versus the MUNICIPAL side (154 transfers, execution, capital + ИПОП) — and neither fills the other's tables. Until 2026-08-20 `update-budget/SKILL.md` contained zero `db:load` and zero `:cloud` strings, so the `/budget` module had no written publish path of its own — only `place-dim` was named elsewhere, which is why four exemptions lifted rather than five. |
    | `update-kzk-appeals` (`kzk_appeals`)                                            | `DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql` then the same-URL `npx tsx scripts/procurement/kzk_appeals.ts --year <YYYY> --apply`. There is no `db:load:kzk:pg:cloud` — the crawl **is** the loader, so publishing means re-crawling against the cloud URL. The DDL is idempotent; apply it every time.                                                                                                                                                                                                      |
 
+   **Cross-check the publish set with the resolver.** The table above is
+   hand-maintained; to compute the minimal, dependency-ordered `:cloud` commands for
+   the base datasets that actually changed, run:
+
+   ```bash
+   npm run deploy:resolve -- contracts tenders   # name each changed base table
+   ```
+
+   It prints the ordered `npm run …:cloud` lines (via the chain-aware resolver,
+   `scripts/db/lib/deployResolver.ts` + the v2-c registry), routes the committed-artifact
+   generators to a `bucket:sync` note, and flags any change whose base load is a manual
+   crawl. Use it as a check that the hand-emitted list is complete and correctly ordered —
+   it is not yet the source of truth (that is v2-e's remaining wiring), but a loader it
+   emits that you did not is a gap, and vice-versa.
+
    Each `db:load:*:cloud` wrapper points `DATABASE_URL` at the Cloud SQL proxy (`127.0.0.1:5434`, password read from `.pgpass`) and delegates to the base load — which reads the same fresh `data/` artifacts, reloads its table (`TRUNCATE`+COPY for most; a stage merge for the loaders that have been migrated, e.g. both funds tables), AND rebuilds the dependent matviews / `awarder_risk_grade_scoped` **on cloud** — so the served data stays self-consistent. It reads the on-disk artifacts, not local Postgres, so it's correct regardless of local PG state.
 
    ### Person layer: the whole cloud chain (emit ALL of it, in THIS order)

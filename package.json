@@ -217,6 +217,7 @@
     "db:goldens": "tsx scripts/db/snapshot_goldens.ts",
     "db:snapshot": "npm run db:manifest && npm run db:goldens",
     "db:verify": "DB_VERIFY=1 NODE_OPTIONS=--max-old-space-size=4096 vitest run scripts/db/tests",
+    "deploy:resolve": "tsx scripts/db/resolve_deploy.ts",
     "data": "tsx ./scripts/main.ts",
     "data:decorate-local-persons": "tsx ./scripts/parsers_local/decorate_local_person_links.ts",
     "culture:dki": "tsx scripts/culture/dki/ingest.ts",
