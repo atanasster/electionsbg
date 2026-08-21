@@ -2497,18 +2497,17 @@ a speed win.** The real reason to retire is **architectural, not speed**: shippi
 makes `db:load:pg:cloud` correctness depend on local PG being current and calls
 local LAST (F36) — a coupling the compute-on-cloud path removes.
 
-**✅ DONE (tender) — `buildOrShipTenderNormalcy` now builds 067b IN-PLACE on cloud**,
-with a **ship fallback** kept until a run or two confirms the 2-vCPU cloud plan does
-not spill differently: if the in-place build throws (a 53400 would mean the sort still
-exceeds `temp_file_limit` there), it falls back to the old COPY-from-local rather than
-failing the tenders load — 067b is TRUNCATE+INSERT in one implicit transaction, so a
-failed build rolls back and leaves the cache intact for the ship. The success path
-removes the F36 coupling; delete the fallback once confirmed on cloud. The next cloud
-tenders publish is the confirmation — watch its log:
-
-```bash
-npm run db:load:tenders:pg:cloud   # "built in-place on cloud" = success; a warn = fell back
-```
+**✅ DONE + CONFIRMED ON CLOUD (2026-08-21) — `buildOrShipTenderNormalcy` builds 067b
+IN-PLACE on cloud.** Confirmation was run directly against the prod instance
+(`db-perf-optimized-N-2`) by executing 067b's exact build into a throwaway TEMP table
+(so it never locked the served `tender_normalcy_cache` or committed): **it completed in
+2m36s, no 53400, no temp-limit error** — the sort fits the real 3.04 GB
+`temp_file_limit` on the 2-vCPU instance, as the local test predicted. Note the cloud
+build (2m36s) is a SLIGHT speed LOSS vs the ~1 min ship — so the retire buys the F36
+coupling removal at a small time cost, not a speed win. A **ship fallback** remains
+(fires only on a `53400`, which the confirmation shows will not happen); it is now safe
+to delete on the next real `db:load:tenders:pg:cloud`, kept one cycle longer purely as
+belt-and-braces.
 
 **`procurement_normalcy` (064b) — KEEP SHIPPING (measured 2026-08-21, prod-free).**
 The earlier assumption "it was only slow, never a 53400, so it'll build on cloud" was
