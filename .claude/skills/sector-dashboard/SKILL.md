@@ -1,6 +1,6 @@
 ---
 name: sector-dashboard
-description: Build or rework the DATA LAYER under a sector surface — the EIK register that defines who the sector is, the multi-corpus money union, the coverage declarations, the competition baselines, the people bridge and the grant→contract spine. Use when the user asks to build or fix a sector view (/culture, /judiciary, /defense, /sector/<key>, an awarder pack), to add a sector to the ?sector= filter, to work out "how much money does sector X get", to reconcile two figures about the same sector, or when a sector's headline number looks wrong. Defers to the dashboard-hub skill for the tile grid, bands, scenes, accents and search. Encodes the defect classes this layer reliably produces — a register that silently under-covers, name regexes that invert their own figure in BOTH directions, a rate compared against a baseline from a different window, an EIK filter pointed at a corpus that keys on names, a figure whose matching nobody wrote down, a register inverted into a claim its source never makes, and a corpus that loads locally while production silently keeps the previous vintage because no skill names its :cloud loader. Treats the universe rule, moving an EIK between the four principal lists, changing a headline's basis and excluding a real sector body as design decisions to confirm (presenting the € impact), and otherwise implements via /implement-plan.
+description: Build or rework the DATA LAYER under a sector surface — the EIK register that defines who the sector is, the multi-corpus money union, the coverage declarations, the competition baselines, the people bridge and the grant→contract spine. Use when the user asks to build or fix a sector view (/culture, /judiciary, /defense, /sector/<key>, an awarder pack), to add a sector to the ?sector= filter, to work out "how much money does sector X get", to reconcile two figures about the same sector, or when a sector's headline number looks wrong. Defers to the dashboard-hub skill for the tile grid, bands, scenes, accents and search. Encodes the defect classes this layer reliably produces — a register that silently under-covers, name regexes that invert their own figure in BOTH directions, a rate compared against a baseline from a different window, an EIK filter pointed at a corpus that keys on names, a figure whose matching nobody wrote down, a register inverted into a claim its source never makes, a corpus that loads locally while production silently keeps the previous vintage because no skill names its :cloud loader, and a committed artifact that is regenerated and committed but never uploaded — chain-green on disk while the bucket serves a 404 or a stale schema. Treats the universe rule, moving an EIK between the four principal lists, changing a headline's basis and excluding a real sector body as design decisions to confirm (presenting the € impact), and otherwise implements via /implement-plan.
 allowed-tools:
   - Read
   - Bash
@@ -489,10 +489,72 @@ row and a Data Map entry (`reference_migrated_family_watch_reload`).
   produced a good artifact.
 - **A committed artifact needs a gate that re-derives it**, or it serves the
   previous vintage at a 200 forever. `hub_stats.json` and `sector_stats.json`
-  drifted that way for two months.
+  drifted that way for two months. ⚠️ That is only the BUILD half — see the
+  subsection below, which is the half that shipped a 404.
 - **`vacuumAfterReload()` after any bulk rewrite**, and list the table in
   `RELOADED` — `test:data` is `db:refresh`'s last link, so an unlisted table
   fails every full refresh at the end.
+
+### A committed artifact has TWO halves, and the second one is not a `:cloud` loader
+
+**A sector's headline number lives in a committed artifact, not in a table.**
+`data/procurement/derived/sector_stats.json` — one entry per sector, written by
+`db:gen-sector-stats` — is what `/governance/sectors` renders, and it is a static
+blob fetched from GCS. So the reload path above does NOT cover it: there is no
+`:cloud` loader to name, because production reads a bucket object, not Cloud SQL.
+
+The registry is `REFRESH_GENERATORS` in `scripts/db/refresh_coverage.ts`. Adding a
+sector means the artifact must be **regenerated** (`npm run db:gen-sector-stats`,
+or a full `db:refresh`) **and published**:
+
+```bash
+npm run bucket:sync:paths -- procurement/derived/sector_stats.json
+npm run db:check-generated     # byte-compares all four against the live bucket
+```
+
+⚠️ **THE PUBLISH TRIGGER IS NOT THE OWNING SKILL'S TRIGGER, and that is what makes
+this class invisible.** Until 2026-08-21 the registry asserted only that each
+artifact was chain-built, git-tracked and referenced by its generator — all
+properties of the file on DISK. Every gate was green for
+`culture/derived/hub_stats.json` from the day it shipped while the bucket object
+returned **404 for two days**: committed, generator in the chain, and nothing had
+ever uploaded it. `/culture` rendered its tiles without numbers at a **200**,
+because the hook degrades a 404 to „no figure" on purpose.
+
+The mechanism generalises to any sector artifact. `db:gen-culture-hub-stats` reads
+contracts, tenders, fund_projects, agri_subsidies, person_role and
+interreg_partners — so it moves when **`db:refresh`** runs, i.e. under
+`update-procurement` — while the skill that owns `data/culture/` and names its sync
+is woken only by nfc/ncf/dki watcher flips. **The skill holding the PATH is never
+woken by the thing that changes the CONTENT**, so no per-skill instruction can close
+it; only an unconditional check keyed on the registry can. `process-watch-report`
+step 8 runs `db:check-generated` for exactly this reason.
+
+The sibling found the same day is the shape to fear more, because it is not an
+absence: `governance/declarations_hub_stats.json` was **4 days stale across a SCHEMA
+change** (`companies`/`companyMps` → `organisations`/`organisationPeople`), so the
+deployed bundle was reading keys the served blob did not carry. A missing blob is at
+least uniform; a stale one renders confidently and only some tiles go blank.
+
+Three rules for a NEW generated artifact:
+
+1. **Register it in `REFRESH_GENERATORS` with a `bucketPath`.** Two gates enforce
+   it: the path must COVER the artifact, and `bucket_sync_paths.isExcluded` must not
+   refuse it.
+2. **Check that second gate before choosing a home.** `funds/`, `opencalls/`,
+   `council/`, `budget/municipal_fiscal/` and all of `procurement/` bar a four-file
+   allowlist plus `procurement/projects/` are REFUSED by the scoped sync — a
+   generator writing into one of them is unpublishable by that route, and the sync
+   prints „✗ refusing" into a log nobody reads.
+   `procurement/derived/sector_stats.json` is on that allowlist; a fifth procurement
+   artifact would have to be added to it in **both** `bucket_sync_paths.ts` and the
+   `-x` regex in `package.json`, which are kept in lockstep by hand.
+3. **Do not restate the publish path in an `update-*` skill.** That is where this
+   knowledge lived when it failed. A full `npm run bucket:sync` would also have
+   caught all four (neither `culture/` nor `governance/` is excluded from it) — but
+   nobody runs the ~30-minute full-tree sync day to day, and the scoped
+   `bucket:sync:paths` argument list is assembled per skill. That assembly is the
+   gap.
 
 ### The reload path is part of the dataset, not paperwork after it
 
@@ -589,6 +651,10 @@ first two are in the diff; the third is in a file nobody re-reads.
 - Coverage is returned and rendered; reach is declared per corpus and gated both
   ways.
 - Every stored identifier is **canonical** (check width, not just shape).
+- Every committed artifact the sector's figures come from is **on the bucket and
+  byte-identical to local** — `npm run db:check-generated`. „Regenerated and
+  committed" is not „published"; `culture/derived/hub_stats.json` was both and
+  served 404 for two days (§11).
 - **Then break each gate's clauses and watch them fire.** Two gates in this run
   passed against a defect they were written to catch: one checked shape where
   width was the issue, one asserted a tautology.
@@ -639,7 +705,13 @@ Run against an existing sector surface, in order:
 10. **Reload path** (§11) — does every `:cloud` loader appear in a
     `process-watch-report` mapping row, and does its watcher exist AND resolve in
     `SOURCES` at runtime? Run `cloud_loader_coverage.test.ts`.
-11. **Source shape** (§16) — is any figure derived by INVERTING a register that
+11. **Publish path** (§11) — the half a `:cloud` loader does NOT cover. Is every
+    committed artifact this sector's figures come from registered in
+    `REFRESH_GENERATORS` with a `bucketPath`, and does the bucket currently serve
+    the same bytes? Run `npm run db:check-generated`. Do this even when the sector
+    has no artifact of its own: adding a sector moves
+    `procurement/derived/sector_stats.json`, which is one.
+12. **Source shape** (§16) — is any figure derived by INVERTING a register that
     publishes only one side? Is a suspected export cap actually a cap, per the
     source's own total?
 
