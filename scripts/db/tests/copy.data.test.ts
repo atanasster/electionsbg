@@ -266,3 +266,51 @@ test.skipIf(skip)(
     });
   },
 );
+
+// A PRE-STRINGIFIED JSON value into a jsonb column — the shape load_funds_pg's
+// `sub_units` depends on since it moved from a bound text parameter (with an
+// implicit assignment cast) to COPY text format.
+//
+// The correctness rests on WHICH branch of `render` fires: `toRow` hands over the
+// result of `JSON.stringify`, i.e. a STRING, so render takes `escapeText(String(v))`
+// and jsonb parses it once. Hand it the raw ARRAY instead and render takes the
+// object branch — `escapeText(JSON.stringify(v))` — which is byte-identical HERE
+// and diverges the moment anything nests, so the failure would be a silent
+// double-encode: one JSON string where three elements were meant.
+//
+// The values below exercise the escape path deliberately: a backslash, a tab, the
+// COPY NULL sentinel `\N`, and embedded double quotes.
+test.skipIf(skip)(
+  "a pre-stringified array COPYs into jsonb without double-encoding",
+  async () => {
+    const subUnits = ["Район \\N", "Клон\tЮг", 'кв. "Изток"'];
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      await c.query(
+        "CREATE TEMP TABLE jsonb_probe (eik text, sub_units jsonb) ON COMMIT DROP",
+      );
+      await copyRows(
+        c,
+        "jsonb_probe",
+        ["eik", "sub_units"],
+        [["203740812", JSON.stringify(subUnits)]],
+      );
+      const { rows } = await c.query<{ n: number; elems: string[] }>(
+        `SELECT jsonb_array_length(sub_units) AS n,
+                ARRAY(SELECT jsonb_array_elements_text(sub_units)) AS elems
+           FROM jsonb_probe`,
+      );
+      assert.equal(
+        rows[0].n,
+        3,
+        "jsonb holds one string, not three elements — the value was double-encoded",
+      );
+      assert.deepEqual(
+        rows[0].elems,
+        subUnits,
+        "an element did not survive the COPY escape layers intact",
+      );
+      await c.query("ROLLBACK");
+    });
+  },
+);

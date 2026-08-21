@@ -21,10 +21,12 @@ import {
   exec,
   getPool,
   withClient,
+  withTx,
   end,
   isServingDatabase,
   vacuumAfterReload,
 } from "./lib/pg";
+import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import {
   createStageTable,
@@ -49,6 +51,10 @@ const SEARCH_SCHEMA_FILE = path.join(
   SCHEMA_DIR,
   "086_search_fund_projects.sql",
 );
+/** `--allow-shrink` — the escape hatch for a corpus that genuinely got smaller. */
+const ALLOW_SHRINK = process.argv.includes("--allow-shrink");
+const SHRINK_FLOOR = 0.95;
+
 const FUNDS_DIR = path.join(PROC_DIR, "..", "funds");
 const BY_EIK_DIR = path.join(FUNDS_DIR, "beneficiaries-by-eik");
 const PROJECTS_DIR = path.join(FUNDS_DIR, "projects");
@@ -159,9 +165,6 @@ const COLS = [
   "paid_eur",
   "sub_units",
 ];
-const N = COLS.length;
-const BATCH = 1000; // 1000 × 9 cols = 9k params (< 65535)
-
 const toRow = (b: Beneficiary) => [
   b.eik,
   b.name ?? null,
@@ -329,18 +332,20 @@ const waitForPg = async (): Promise<void> => {
  * @param payloadsOnly Skip the beneficiary and project tables and rebuild only
  *   `fund_payloads`.
  *
- *   Those two are reloaded with `TRUNCATE` + insert inside one transaction,
- *   which holds an AccessExclusiveLock for the whole load. Locally that is
- *   invisible; on Cloud SQL it is minutes, and both tables are SERVED —
- *   `fund_contract_detail()` reads fund_projects (the /api/db/fund-contract
- *   route and the /funds/contract page handler), `fund_beneficiary_detail()`
- *   reads fund_beneficiaries. The serving pool's 2 s `lock_timeout` turns every
- *   reader in that window into a 55P03 → 500.
+ *   `fund_beneficiaries` is stage-merged since 2026-08-21 and no longer blocks a
+ *   reader, so the flag is NOT about its lock any more. What a `--full` run still
+ *   costs is real work for data that may not have moved: it reads ~128k shard
+ *   files off disk, and `fund_projects` is still reloaded with `TRUNCATE` +
+ *   insert inside one transaction — an AccessExclusiveLock held for the whole
+ *   load, against a SERVED table (`fund_contract_detail()` backs
+ *   /api/db/fund-contract and the /funds/contract page handler), so the serving
+ *   pool's 2 s `lock_timeout` turns every reader in that window into a
+ *   55P03 → 500.
  *
  *   So when a change adds only precomputed page payloads — a new
  *   fund_payloads kind, a re-derived shard — and the corpus itself is
- *   untouched, this publishes it without taking that outage for data that did
- *   not change. `fund_payloads` is stage-merged and never blocks a reader.
+ *   untouched, this publishes it without paying either cost. `fund_payloads` is
+ *   stage-merged and never blocks a reader.
  *
  *   It is NOT a substitute for the full load after an ИСУН re-ingest: those two
  *   tables would silently keep the previous vintage.
@@ -373,30 +378,74 @@ export const loadFundsPg = async (
     if (b?.eik) rows.push(b);
   }
 
+  // Stage-merged, NOT `TRUNCATE` + insert. This table is SERVED —
+  // `fund_beneficiary_detail()` backs /api/db/fund-beneficiary — and TRUNCATE
+  // holds an AccessExclusiveLock until COMMIT, i.e. for the whole reload, so the
+  // serving pool's 2 s `lock_timeout` (functions/index.js) turned every reader in
+  // that window into a 55P03 → 500. (The 250 s measured on prod 2026-08-21 is the
+  // WHOLE `--full` step — beneficiaries, projects and payloads — so this table's
+  // share of it was never isolated; the lock was real, its duration is unmeasured.)
+  // The merge takes RowExclusiveLock only, which does not conflict with the
+  // AccessShare a SELECT needs, so readers serve the previous vintage throughout
+  // the build and flip at the merge COMMIT. Same pattern `fund_payloads` below
+  // has always used, and the one stage_merge.ts exists for.
+  //
+  // `addStagePrimaryKey` REPLACES the old `ON CONFLICT (eik) DO NOTHING`, and the
+  // change of behaviour is deliberate: a duplicate EIK now fails the load loudly
+  // instead of being silently dropped. `eik` is read from each shard's CONTENT,
+  // not its filename, so a mis-written shard could collide — which is a corpus
+  // defect worth stopping for, not one to publish a short table over.
+  const beneficiarySpec = {
+    table: "fund_beneficiaries",
+    source: "fund_beneficiaries_stage",
+    keys: ["eik"],
+    cols: COLS,
+  };
   if (!payloadsOnly)
-    await withClient(async (c) => {
-      await c.query("BEGIN");
-      await c.query("TRUNCATE fund_beneficiaries");
-      const insertCols = COLS.join(", ");
-      for (let i = 0; i < rows.length; i += BATCH) {
-        const batch = rows.slice(i, i + BATCH);
-        const values = batch
-          .map(
-            (_, r) =>
-              `(${COLS.map((_, col) => `$${r * N + col + 1}`).join(",")})`,
+    await withTx(async (c) => {
+      // A shrink guard the TRUNCATE form never needed a NAME for, because it
+      // failed the same way: BY_EIK_DIR is gitignored host state republished by
+      // an rmSync + re-write, so a half-written tree is a normal accident. The
+      // merge's own parity check cannot catch it — after upsert-all +
+      // delete-absent, live equals staged, so an empty stage passes `0 == 0`
+      // having just deleted the served corpus. Same 0.95 floor and same escape
+      // hatch as load_budget_pg / load_budget_muni_pg / load_adfi_pg.
+      const live = Number(
+        (
+          await c.query<{ n: string }>(
+            "SELECT count(*) AS n FROM fund_beneficiaries",
           )
-          .join(",");
-        await c.query(
-          `INSERT INTO fund_beneficiaries (${insertCols}) VALUES ${values}
-         ON CONFLICT (eik) DO NOTHING`,
-          batch.flatMap(toRow),
+        ).rows[0].n,
+      );
+      if (!ALLOW_SHRINK && live > 0 && rows.length < live * SHRINK_FLOOR)
+        throw new Error(
+          `fund_beneficiaries: refusing to shrink ${live} → ${rows.length} row(s) ` +
+            `(floor ${SHRINK_FLOOR * 100}%). Usually a partial ${BY_EIK_DIR} tree; ` +
+            "pass --allow-shrink if the corpus really did shrink.",
         );
-      }
-      await c.query("COMMIT");
+      await createStageTable(c, beneficiarySpec);
+      // Lazy — copyRows consumes the iterable in order, so the corpus is never
+      // materialized a second time as rendered rows.
+      await copyRows(
+        c,
+        beneficiarySpec.source,
+        beneficiarySpec.cols,
+        (function* () {
+          for (const b of rows) yield toRow(b);
+        })(),
+      );
+      await addStagePrimaryKey(c, beneficiarySpec);
+      await mergeFromStage(c, beneficiarySpec);
+      await c.query(`DROP TABLE IF EXISTS ${beneficiarySpec.source}`);
     });
 
-  // Same single-transaction TRUNCATE shape as everything else on this path, so the
-  // same empty visibility map (see vacuumAfterReload). Vacuumed HERE, under the guard
+  // Still vacuumed after a stage MERGE, not only after a TRUNCATE: the merge's
+  // upsert and anti-join delete leave dead tuples that neither autovacuum
+  // threshold reaches (the 20% dead-tuple fraction is never crossed, and the
+  // insert-threshold pass fires mid-chain under a held-back xmin horizon, marks
+  // nothing and resets its counter). `interreg_partners` is the worked example
+  // in CLAUDE.md — 130 of 474 pages all-visible after an ordinary stage-merged
+  // load, which broke funds_fit.data.test.ts's buffer ceiling. Vacuumed HERE, under the guard
   // that actually reloaded it, rather than down in the projects block below: that
   // block additionally requires `existsSync(BY_CONTRACT_DIR)`, and by-contract is
   // gitignored — so on a fresh clone this table was emptied and never vacuumed, with
@@ -469,6 +518,12 @@ export const loadFundsPg = async (
   // the exact failure documented in scripts/db/lib/stage_merge.ts. The procedure
   // grain roughly doubled this load (2,181 → 4,318 payloads, 22 → 36 MB), which
   // doubles a window that should not exist at all.
+  //
+  // This block keeps a batched INSERT rather than the `copyRows` the
+  // beneficiaries block above uses, and the difference is deliberate: payloads
+  // are FEW and LARGE (≈3.6k rows, ~36 MB of jsonb) where beneficiaries are many
+  // and small, so the per-row framing COPY saves buys little here while a modest
+  // batch keeps any single query's parameter payload bounded.
   const payloadRows = collectPayloads();
   const PLBATCH = 200; // payloads can be tens of KB — keep the query modest
   const payloadSpec = {
@@ -485,9 +540,12 @@ export const loadFundsPg = async (
       const values = batch
         .map((_, r) => `($${r * 3 + 1},$${r * 3 + 2},$${r * 3 + 3}::jsonb)`)
         .join(",");
+      // No `ON CONFLICT DO NOTHING`: createStageTable copies no constraints, so
+      // the stage has no unique index at insert time and the clause could never
+      // fire — it read as a duplicate-tolerance guarantee it did not provide.
+      // addStagePrimaryKey below is the real (and loud) duplicate check.
       await c.query(
-        `INSERT INTO fund_payloads_stage (kind, key, payload) VALUES ${values}
-         ON CONFLICT DO NOTHING`,
+        `INSERT INTO fund_payloads_stage (kind, key, payload) VALUES ${values}`,
         batch.flatMap((p) => [p.kind, p.key, p.text]),
       );
     }
@@ -534,10 +592,12 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const payloadsOnly = process.argv.includes("--payloads-only");
   // On Cloud SQL, refuse to GUESS the scope.
   //
-  // A full load TRUNCATEs fund_beneficiaries and fund_projects inside one
-  // transaction — 273 s of AccessExclusiveLock measured on prod — and both are
-  // served, so every reader in that window gets a 55P03 and a 500. Defaulting
-  // to it is how an unnoticed flag becomes an outage: `npm run
+  // A full load re-reads ~128k shard files and still TRUNCATEs fund_projects
+  // inside one transaction — an AccessExclusiveLock held for the whole load,
+  // against a served table, so every reader in that window gets a 55P03 and a
+  // 500. (fund_beneficiaries is stage-merged since 2026-08-21 and no longer
+  // blocks; only the projects half of the old outage is left.) Defaulting to it
+  // is how an unnoticed flag becomes an outage: `npm run
   // db:load:funds:pg:cloud -- --payloads-only` used to nest a second `npm run`,
   // which swallows `--` args, so the flag vanished and the full load ran
   // anyway. The script now demands the intent in writing.
@@ -551,10 +611,12 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
         "  --payloads-only   rebuild fund_payloads only (stage-merged, seconds,\n" +
         "                    never blocks a reader). Correct when only precomputed\n" +
         "                    page payloads changed.\n" +
-        "  --full            also reload fund_beneficiaries + fund_projects. ~4.5\n" +
-        "                    minutes during which /api/db/fund-contract and\n" +
-        "                    /api/db/fund-beneficiary return 500. Required after an\n" +
-        "                    ИСУН re-ingest, when those tables actually moved.",
+        "  --full            also reload fund_beneficiaries + fund_projects.\n" +
+        "                    Minutes of shard reads; /api/db/fund-contract returns\n" +
+        "                    500 while fund_projects reloads (still TRUNCATE-based).\n" +
+        "                    fund_beneficiaries is stage-merged and does NOT block.\n" +
+        "                    Required after an ИСУН re-ingest, when those tables\n" +
+        "                    actually moved.",
     );
     process.exit(1);
   }

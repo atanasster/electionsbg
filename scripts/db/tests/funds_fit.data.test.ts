@@ -604,3 +604,42 @@ test.skipIf(skip)(
     );
   },
 );
+
+// ---------------------------------------------------------------------------
+// The fund_beneficiaries reload — stage-merged since 2026-08-21.
+//
+// `person_reload_locks.data.test.ts` keeps the NEGATIVE half of this: it fails if
+// a `TRUNCATE fund_beneficiaries` reappears without a ledger entry. Nothing
+// asserted the POSITIVE half — that the merge actually ran and cleaned up after
+// itself — and both halves of a stage merge fail quietly:
+//
+//   • a stage twin that outlives the load is an UNLOGGED table that reaches
+//     pg_dump and db:sync:cloud, carrying a stale vintage of a served table;
+//   • a merge whose DELETE half never ran, or which ran against a partial shard
+//     tree, leaves a SHORT table that still passes `mergeFromStage`'s parity
+//     check — live == staged is true of an empty build too.
+// ---------------------------------------------------------------------------
+test.skipIf(skip)(
+  "the fund_beneficiaries merge leaves no stage twin and no short table",
+  async () => {
+    const [r] = await allRows<{ leftover: string; live: string }>(
+      `SELECT (SELECT count(*) FROM pg_class
+                WHERE relkind = 'r' AND relname = 'fund_beneficiaries_stage') AS leftover,
+              (SELECT count(*) FROM fund_beneficiaries) AS live`,
+    );
+    assert.equal(
+      r.leftover,
+      "0",
+      "fund_beneficiaries_stage survived the load — an UNLOGGED twin of a served " +
+        "table that would reach pg_dump and db:sync:cloud",
+    );
+    // Not a row-count pin: the corpus grows every ingest. This is the floor the
+    // shrink guard defends, so a merge that deleted the corpus fails here even if
+    // the loader's own guard was bypassed with --allow-shrink.
+    assert.ok(
+      Number(r.live) > 40_000,
+      `fund_beneficiaries holds only ${r.live} rows — the merge's delete half ran ` +
+        "against a partial or empty stage",
+    );
+  },
+);
