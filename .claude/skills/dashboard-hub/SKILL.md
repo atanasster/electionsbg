@@ -104,6 +104,32 @@ Rules that have each been learned the hard way:
 - **Wire it into the pipeline's `--upload` branch** and gate that generically: _every file
   the generator writes appears in its upload list_. An artifact missing from it is
   regenerated locally, committed, and never uploaded — green everywhere, stale on prod.
+- ⚠️ **If the blob is generated from POSTGRES there is no `--upload` branch, and the bullet
+  above structurally cannot help you.** The `db:gen-*` family (`db:gen-hub-stats`,
+  `db:gen-sector-stats`, `db:gen-culture-hub-stats`, `db:gen-declarations-hub-stats`) writes a
+  committed file straight out of the database and uploads nothing. Its publish path is a
+  scoped `bucket:sync:paths`, declared as `bucketPath` in **`REFRESH_GENERATORS`**
+  (`scripts/db/refresh_coverage.ts`) and verified by `npm run db:check-generated`.
+
+  That registry asserted chain-membership, git-tracking and generator-references-artifact —
+  every one a property of the file on DISK — and nothing about the bucket. So all three were
+  green for `culture/derived/hub_stats.json` while the object returned **404 for two days**
+  (committed 2026-08-19, found 2026-08-21) and `/culture` drew its tiles with no numbers at a
+  **200**: §11 step 5's failure exactly, from a direction that step does not look in.
+
+  ⚠️ **The publish trigger is not the owning module's trigger**, which is why no per-module
+  instruction closes this. `db:gen-culture-hub-stats` reads contracts, tenders,
+  fund_projects, agri_subsidies, person_role and interreg_partners — so the culture hub's
+  blob moves when the PROCUREMENT pipeline runs `db:refresh`, while the skill that owns
+  `data/culture/` and names its sync wakes only on film-register flips. **A hub whose blob is
+  PG-generated does not own its own freshness.** Check it unconditionally rather than
+  reasoning about whether this hub is affected.
+
+  The sibling found the same day is the worse shape: `governance/declarations_hub_stats.json`
+  was **4 days stale across a key RENAME** (`companies`/`companyMps` →
+  `organisations`/`organisationPeople`), so the deployed hub read keys the served blob did not
+  carry. A 404 blanks every tile uniformly; a stale blob renders the ones that still match and
+  blanks the rest, which reads as a data problem rather than a publish one.
 - **A shared type gets ONE declaration.** Two hand-copied halves drifted on a nullability
   within a single review cycle. Put it on the `src/` side and import it from `scripts/`.
 
@@ -508,6 +534,7 @@ Not optional, and each exists because its absence shipped something:
 | Blob's keys == the shard files present                                                                             | A hub with tiles and no detail                                                 |
 | Every figure recomputed from its declared basis                                                                    | The six-of-six class                                                           |
 | Every written file appears in `--upload`                                                                           | Green locally, stale on prod                                                   |
+| A PG-generated blob is in `REFRESH_GENERATORS` with a `bucketPath`, and the bucket serves those bytes (`db:check-generated`) | The same defect where no `--upload` list exists to check — a committed blob that 404s, or is stale across a key rename |
 | Calendar days formatted in UTC                                                                                     | Off-by-one dates                                                               |
 | A scoped source returns out-of-scope rows for a query that has them                                                | Scope silently filtering — invisible, because the page still shows results     |
 | Each search group's cap is independent                                                                             | An in-scope group eating the out-of-scope budget                               |
@@ -583,7 +610,18 @@ does not exist; skipping 2 ships a page with no `<loc>`. Both are 200s.
 
 **Step 5 is the third.** A new bucket-served shard that has not been synced means the hub
 ships and its data-driven bands silently render nothing — the fetch 404s, the hook returns
-`undefined`, and the bands return `null`. Check the bucket before deploying.
+`undefined`, and the bands return `null`. Check the bucket before deploying, and do not infer
+it from a green build:
+
+```bash
+npm run db:check-generated     # every PG-generated hub blob, byte-compared against the bucket
+```
+
+That is not a failure mode written up in the abstract. `/culture` shipped in exactly this
+state for two days (2026-08-19 → 21): `culture/derived/hub_stats.json` committed, its
+generator in `db:refresh`, every gate green, and the bucket object **404**. The hook degrades
+a 404 to „no figure" deliberately, so the page rendered its tiles blank at a 200 with nothing
+red anywhere. See §1 for why the module's own pipeline never noticed.
 
 `npm run deploy` does **not** build. Deploying without building ships a stale `dist/`.
 

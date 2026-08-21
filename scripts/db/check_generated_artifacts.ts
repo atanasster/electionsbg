@@ -93,6 +93,16 @@ const check = async (
   // stamps a fresh date onto identical content, and `bucket:gz` re-uploads some
   // objects gzipped — so a timestamp says when something was written, never
   // whether it is the current vintage.
+  //
+  // ⚠️ THIS COMPARISON DEPENDS ON fetch() DECOMPRESSING FOR US. `bucket:sync`
+  // passes `-j json`, so every one of these objects is stored with
+  // `content-encoding: gzip` — verified 2026-08-21, the 1,507 B governance blob
+  // is 375 B on the wire. undici negotiates and decodes transparently, so
+  // `arrayBuffer()` is the plaintext. Send an explicit `Accept-Encoding`, or swap
+  // in a raw HTTP client, and every artifact turns STALE at once: the failure is
+  // uniform and total, which at least cannot be mistaken for a real one — but it
+  // would still send someone to re-publish four correct files. `curl` needs
+  // `--compressed` here for the same reason.
   const remote = Buffer.from(await res.arrayBuffer());
   if (md5(remote) === md5(buf))
     return { gen, bucketPath, verdict: "ok", detail: `${buf.length} B` };
