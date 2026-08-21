@@ -112,11 +112,6 @@ export const ORCHESTRATOR_EXEMPTIONS: Record<
     reason:
       "publishes the ЦАИС ЕОП dossier corpus, whose input raw_data/procurement/eop_dossier.sqlite grows only via a rate-limited ~26 h operator crawl (ingest_eop_dossier.ts) with no watcher. Named in update-procurement; reload order in CLAUDE.md's tender_dossier section.",
   },
-  "db:load:procurement-scopes:pg:cloud": {
-    kind: "manual-trigger",
-    reason:
-      "rebuilds the per-scope WINDOW SET (119/122/123/124). The daily CONTENT refresh already rides db:load:pg:cloud (load_pg calls refreshScopedPrecomputes), so this loader is needed only when the window SET changes — a new election in elections.json or the Jan-1 calendar rollover — neither a daily watcher. The rollover is the plan's A3 (a dated watcher is v2-g).",
-  },
   "person:slug-redirects:cloud": {
     kind: "manual-trigger",
     reason:

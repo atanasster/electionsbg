@@ -62,7 +62,14 @@ const CEILINGS: [route: string, kb: number, measuredKb: number][] = [
   ["municipal-officials-name-index", 1050, 804],
   ["municipal-officials-search-index", 1050, 791],
   ["procurement-rankings", 560, 425],
-  ["procurement-flow", 490, 375],
+  // RAISED 2026-08-21, 490→860. Not corpus drift: `procurement_flow` has no top-N cap and its
+  // graph IS `company_politicians` — 507 distinct eiks became the 507 contractor nodes, 898
+  // distinct refs the 898 politician nodes. The Tier 4-6 company-page consolidation
+  // (docs/plans/company-page-consolidation-v1.md) rebuilt both arms of that table off the gated
+  // person layer instead of mp_connected/pep_connected, taking it from ~514 rows to 982 — so the
+  // payload went 375→660 KB. Those commits should have moved this line and did not, which is why
+  // it is being moved here rather than there. Re-measured 660 KB after a full person re-resolve.
+  ["procurement-flow", 860, 660],
   // `magistrate-search` sat here at 490/374 and was briefly re-budgeted to 560/432 when the
   // magistrate roster began retaining departed magistrates. It is GONE instead: the route had
   // no caller at all since a1900e91de, so the honest fix was deleting it, not sizing it.
@@ -71,7 +78,10 @@ const CEILINGS: [route: string, kb: number, measuredKb: number][] = [
   ["cpv-catalog", 460, 355],
   ["dual-corpus-rankings", 320, 246],
   ["procurement-by-settlement", 175, 133],
-  ["procurement-scanner", 130, 99],
+  // RAISED 2026-08-21, 130→225, same cause as procurement-flow above: `procurement_scanner`
+  // emits one row per politician in `company_politicians`, so its 898 rows are that table's 898
+  // distinct refs and its size tracks the consolidation one-for-one (99→173 KB).
+  ["procurement-scanner", 225, 173],
   ["excise-warehouses", 80, 57],
   ["mp-avatars", 50, 36],
   ["procurement-overview", 35, 25],

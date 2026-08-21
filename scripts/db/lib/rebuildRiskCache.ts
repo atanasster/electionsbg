@@ -40,6 +40,38 @@ const lit = (s: string): string => `'${s.replace(/'/g, "''")}'`;
 export const rebuildRiskCacheSql = (): string =>
   `SELECT rebuild_contract_risk_cache(${lit(CATALOG_VERSION)})`;
 
+/** Advisory-lock key serialising concurrent risk-cache rebuilds. `112` is the migration.
+ *
+ *  WHY: `rebuild_contract_risk_cache()` DROPs and recreates `risk_upheld_ocid`, and it reads
+ *  `is_direct_award()`. Three data-test sites touch exactly those objects — the two in
+ *  contract_risk_meta (one RENAMEs `is_direct_award` inside a rolled-back transaction, one runs
+ *  a real rebuild) and the one in contracts_list_grant (REVOKE + rebuild). Run in parallel they
+ *  take the same catalog rows in different orders, and Postgres resolves that as `40P01`
+ *  deadlock, `XX000 tuple concurrently updated`, or — when the loser is the slow real rebuild —
+ *  a 120 s test timeout. Measured across five full `npm run test:data` runs: 1, 0, 2, 1 and 3
+ *  failures, entirely from this one contention, while every affected file passed alone.
+ *
+ *  ⚠️ A RETRY IS NOT ENOUGH AND WAS TRIED FIRST. It only re-runs the loser, so under real
+ *  contention all three shapes still get through — the run that produced 3 failures had the
+ *  retry in place and fired it. Serialising is what removes the race rather than re-rolling it.
+ *
+ *  ⚠️ TAKE IT AS THE FIRST STATEMENT IN THE TRANSACTION, before any REVOKE, RENAME or rebuild.
+ *  A lock taken after the contended object has already been locked reintroduces the ordering
+ *  problem it exists to remove.
+ *
+ *  Transaction-scoped, so it is released by COMMIT or ROLLBACK and no test can leak it — which
+ *  matters here because two of the three sites deliberately end in ROLLBACK.
+ *
+ *  This is test-only serialisation. Production has ONE rebuild caller per process
+ *  (load_pg / refresh_risk / kzk_dependents) and a real lock order between them, so it is
+ *  deliberately NOT taken there — doing so would hide a genuine production lock-order defect,
+ *  which the retry note in contracts_list_grant is careful to keep visible.
+ */
+export const RISK_CACHE_LOCK_KEY = 112112112;
+
+/** Serialise against every other risk-cache rebuild. Must run INSIDE a transaction. */
+export const RISK_CACHE_LOCK_SQL = `SELECT pg_advisory_xact_lock(${RISK_CACHE_LOCK_KEY})`;
+
 /** The bare, UNSTAMPED rebuild — the pre-T1.5 overload.
  *
  *  Reached only as a fallback on a database whose 112 predates the stamp. It

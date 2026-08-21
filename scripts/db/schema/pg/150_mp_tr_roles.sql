@@ -164,7 +164,20 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                AND os.role = t.role) AS share,
            t.added_at, t.erased_at,
            c.name AS company_name, c.legal_form, c.seat, c.status,
-           (ba.uic IS NOT NULL) AS declared
+           -- ⚠️ CORRELATED, not a LEFT JOIN — same reason as `tr_owner_share` above, and
+           -- measured on the same shape. `person_company_bridge_a` joins `company_politicians`
+           -- to `person_role` through string surgery on `ref` under an OR, so there is no
+           -- constant the planner can push into it: joined, it builds the WHOLE bridge once
+           -- per call (a Bitmap Heap Scan looping over every company_politicians row) and the
+           -- subject's own person_id never narrows anything. That is the 084 `person_connections`
+           -- defect exactly — whole-corpus work per request, paid in full by an MP with no
+           -- companies — and it scales with company_politicians, which the Tier 4-6
+           -- consolidation took from ~514 rows to 982.
+           -- Measured on the busiest MP (2670, 14 roles): 7,745 buffers / 32.5 ms joined,
+           -- 867 / 2.3 ms correlated. EXISTS rather than a scalar read because `declared` is
+           -- consumed only as a boolean.
+           EXISTS (SELECT 1 FROM person_company_bridge_a ba
+                    WHERE ba.person_id = s.person_id AND ba.uic = t.uic) AS declared
       FROM subj s
       -- Deliberate cross join, and safe ONLY because `subj` is LIMIT 1 — it carries the one
       -- subject's name_fold down to the tr_person_roles join below. If that LIMIT is ever
@@ -172,8 +185,6 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       JOIN cos ON true
       JOIN tr_person_roles t ON t.uic = cos.uic AND t.name_fold = s.name_fold
       LEFT JOIN tr_companies c ON c.uic = t.uic
-      LEFT JOIN person_company_bridge_a ba
-             ON ba.person_id = s.person_id AND ba.uic = t.uic
   )
   SELECT jsonb_build_object(
     'mpId',   p_mp_id,
@@ -209,10 +220,20 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         -- name match. Much stronger than a bare fold hit — not proof. (148, §0.2.)
         'linkBasis',     CASE WHEN r.declared THEN 'declared' ELSE 'name_match' END
       )
-      -- Currently-held first, then most recently opened. Deterministic to the last column:
-      -- an unordered jsonb_agg would let the row order change between two identical calls,
-      -- and this payload is rendered as a list a reader may screenshot.
-      ORDER BY (r.erased_at IS NULL) DESC, r.added_at DESC NULLS LAST, r.uic, r.role)
+      -- Currently-held first, then most recently opened. An unordered jsonb_agg would let
+      -- the row order change between two identical calls, and this payload is rendered as a
+      -- list a reader may screenshot.
+      -- ⚠️ `erased_at` IS PART OF THE KEY, not decoration. The four columns before it do NOT
+      -- separate every row: this CTE is one row per FILING, so a company re-listed across
+      -- vintages yields several rows sharing (uic, role) — and where `added_at` is NULL on
+      -- both, the sort was a complete tie broken by whatever order the plan emitted. MP 209
+      -- has exactly that pair (206544231/partner, both added_at NULL, erased_at 2023-06-02 vs
+      -- 2025-04-30) and its two rows swapped places when the bridge-A read above changed
+      -- shape — with the row SET identical, which is how a "deterministic" comment survived
+      -- being false. Total up to rows equal in every emitted field, which are indistinguishable
+      -- in the output anyway.
+      ORDER BY (r.erased_at IS NULL) DESC, r.added_at DESC NULLS LAST, r.uic, r.role,
+               r.erased_at DESC NULLS LAST)
       FROM roles r), '[]'::jsonb)
   )
   -- NULL, not an empty payload, when the mp_id resolves to no active person — the route

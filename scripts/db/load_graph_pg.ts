@@ -46,6 +46,7 @@ import {
   withClient,
   withTx,
   vacuumAfterReload,
+  refreshMatviewConcurrently,
   end,
 } from "./lib/pg";
 import {
@@ -147,6 +148,21 @@ const main = async (): Promise<void> => {
   // EXISTS. Statement-by-statement (execEach) so no lock spans the file.
   await execEach(readFileSync(INTERREG_DDL, "utf8"));
   await execEach(readFileSync(MONEY, "utf8"));
+
+  // ── 178 denormalizes 127's money, and only THIS loader moves 127 ──────────────────────────────
+  // `official_companies` (178) stores `money_eur` per company, read through the
+  // `company_public_money_rows()` wrapper so the DROP above cannot CASCADE it away (178's header
+  // explains that half). The wrapper protects its EXISTENCE and nothing else: the stored figures
+  // are a SNAPSHOT taken when 178 was last built, and 178's only applier is
+  // `db:load:declarations:pg --resolve`, which runs at db:refresh step 54 against the money this
+  // loader does not rebuild until step 63. So without this refresh every reload leaves
+  // /governance/companies ranking and counting the PREVIOUS vintage at a 200 — the same
+  // denormalized-column trap `tr_company_place.money_eur` documents, one matview over.
+  // Measured on the 2026-08-21 reload: 47 companies drifted.
+  // Skips when 178 has never been applied (returns false), and falls back to a blocking refresh
+  // when it exists unpopulated.
+  await refreshMatviewConcurrently("official_companies");
+
   await execEach(readFileSync(GRAPH, "utf8"));
   await execEach(readFileSync(PAYLOADS, "utf8"));
 

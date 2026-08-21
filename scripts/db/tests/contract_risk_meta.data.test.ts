@@ -26,7 +26,10 @@
 
 import { afterAll, describe, expect, test } from "vitest";
 import { allRows, dbReachable, end, exec, withClient } from "../lib/pg";
-import { rebuildRiskCacheSql } from "../lib/rebuildRiskCache";
+import {
+  rebuildRiskCacheSql,
+  RISK_CACHE_LOCK_SQL,
+} from "../lib/rebuildRiskCache";
 import { CATALOG_VERSION } from "../../../src/lib/riskFlagCatalog";
 
 const up = await dbReachable();
@@ -144,6 +147,9 @@ describe.skipIf(!up)("contract_risk_meta — the wiring", () => {
     await withClient(async (c) => {
       await c.query("BEGIN");
       try {
+        // FIRST, before the RENAME — see RISK_CACHE_LOCK_KEY. This test hides
+        // `is_direct_award`, which the OTHER files' rebuilds call.
+        await c.query(RISK_CACHE_LOCK_SQL);
         await c.query("SELECT contract_risk_stamp('0.0.1-before', 7)");
         await c.query(
           "ALTER FUNCTION is_direct_award(text,text) RENAME TO is_direct_award__hidden",
@@ -176,7 +182,20 @@ describe.skipIf(!up)("contract_risk_meta — the wiring", () => {
   // count describing the table it was written beside.
   test("a stamped rebuild records CATALOG_VERSION and the real row count", async () => {
     await stamp(null, 0); // start from "not stamped" so a pass cannot be stale
-    await exec(rebuildRiskCacheSql());
+    // Wrapped in an explicit transaction ONLY so the advisory lock has one to live in —
+    // `exec()` checks a connection out of the pool per call, so a transaction-scoped lock
+    // taken through it would be released before the rebuild ran. See RISK_CACHE_LOCK_KEY.
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      try {
+        await c.query(RISK_CACHE_LOCK_SQL);
+        await c.query(rebuildRiskCacheSql());
+        await c.query("COMMIT");
+      } catch (e) {
+        await c.query("ROLLBACK");
+        throw e;
+      }
+    });
 
     const m = await meta();
     expect(m, "no meta row after a stamped rebuild").toBeTruthy();

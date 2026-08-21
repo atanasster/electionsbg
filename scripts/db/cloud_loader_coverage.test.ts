@@ -226,7 +226,7 @@ describe("every :cloud loader is reachable from a skill", () => {
       "an orchestrator-exemption was added or removed — if you EXEMPTED a loader, " +
         "say why in ORCHESTRATOR_EXEMPTIONS and raise this number deliberately; if " +
         "you WIRED one into process-watch-report's Step 8, lower it",
-    ).toBe(5);
+    ).toBe(4);
   });
 
   it("the two exemption maps are DISJOINT — a script is exempt for exactly one reason", () => {
