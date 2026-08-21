@@ -260,9 +260,12 @@ BEGIN
     SELECT DISTINCT fold_contractor_name(name) AS fname
     FROM debarred WHERE coalesce(name, '') <> ''
   ),
+  -- `kind` alone, no ref LIKE. The LIKE was a shape test on an app ROUTE standing in for
+  -- „is this really an MP row", and it silently drops any row whose ref shape changes —
+  -- which is a re-slug away. `kind` is the column that answers the question. 008's person_id
+  -- is the identity, and a row without one is still an MP row for grading purposes.
   mp AS (
-    SELECT DISTINCT eik FROM company_politicians
-    WHERE kind = 'mp' AND ref LIKE '/candidate/mp-%'
+    SELECT DISTINCT eik FROM company_politicians WHERE kind = 'mp'
   ),
   pep AS (
     SELECT DISTINCT eik FROM company_politicians WHERE kind = 'official'

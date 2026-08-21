@@ -30,6 +30,55 @@ CREATE TABLE IF NOT EXISTS company_politicians (
 -- Upgrade path for DBs created before the relations column existed.
 ALTER TABLE company_politicians
   ADD COLUMN IF NOT EXISTS relations jsonb NOT NULL DEFAULT '[]'::jsonb;
+
+-- ⚠️ THE REAL IDENTITY, beside the URL string. `ref` is an app ROUTE, and five sites in
+-- load_graph_pg.ts plus 112's `ref LIKE '/candidate/mp-%'` recover a person from it by regex —
+-- a bridge that breaks on a roster re-slug and silently drops that person's links, which the
+-- graph loader's per-arm preflight exists to catch after the fact. `person_id` is what the
+-- rest of the person layer joins on, and it cannot be re-slugged.
+--
+-- ADDITIVE ON PURPOSE, and `ref` is NOT being retired. It is still the href the company page
+-- renders, still the per-person grouping key in 028/029, and still what 031 aggregates
+-- mp_ids out of. Dropping it would be a second, unrelated change to six migrations.
+--
+-- NULLABLE because a database whose company_politicians predates this column has no way to
+-- fill it until the next db:load:tr:pg. A consumer must therefore treat NULL as „not resolved
+-- here", never as „no such person" — the same rule person_id carries everywhere else.
+ALTER TABLE company_politicians
+  ADD COLUMN IF NOT EXISTS person_id bigint;
+CREATE INDEX IF NOT EXISTS idx_company_politicians_person
+  ON company_politicians (person_id) WHERE person_id IS NOT NULL;
+
+-- ⚠️ ONE-OFF BACKFILL, AND IT CLOSES A WINDOW THAT WOULD OTHERWISE BREAK db:load:graph:pg.
+-- The column is written by db:load:tr:pg, which is a REFRESH_EXCLUSIONS member — so on every
+-- existing database every row stays NULL until somebody runs a ~35-minute TR load by hand,
+-- while db:load:graph:pg (step ~47 of db:refresh) now reads the column and its preflight
+-- throws at 0/94 and 0/579. The chain cannot self-heal and never reaches test:data.
+--
+-- The backfill resolves the SAME regexes the graph loader just stopped using, which is safe
+-- precisely because it runs ONCE at apply time rather than on every load: verified against
+-- the corpus, the regex resolution and the arms' own person_id agree on all 982 rows, and
+-- every one of the 673 stored rows resolves.
+--
+-- Guarded on person_role so a database without a resolved person layer is a no-op rather
+-- than an error, and scoped to `person_id IS NULL` so it never overwrites a loader-written
+-- value. Idempotent.
+DO $$ BEGIN
+  IF to_regclass('public.person_role') IS NOT NULL THEN
+    UPDATE company_politicians cp
+       SET person_id = pr.person_id
+      FROM person_role pr
+     WHERE cp.person_id IS NULL
+       AND (
+         (cp.kind = 'mp' AND pr.source = 'mp'
+            AND split_part(pr.ref, ':', 1)
+                = substring(cp.ref from '^/candidate/mp-(.*)$'))
+         OR
+         (cp.kind = 'official'
+            AND pr.ref = substring(cp.ref from '^/officials/(.*)$'))
+       );
+  END IF;
+END $$;
 CREATE INDEX IF NOT EXISTS idx_company_politicians_eik ON company_politicians(eik);
 CREATE INDEX IF NOT EXISTS idx_company_politicians_ref ON company_politicians(ref);
 

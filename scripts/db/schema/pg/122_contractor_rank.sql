@@ -95,10 +95,15 @@ others AS (
     GROUP BY contractor_eik, currency
   ) q GROUP BY contractor_eik
 ),
+-- `kind` alone, matching 112's `mp` CTE. The `ref LIKE` was a shape test on an app ROUTE
+-- standing in for „is this really an MP row" — and leaving it here while 112 dropped it let
+-- this table's is_mp_tied and 112's mpConnected risk bit disagree about the same EIK. It
+-- guards no cast (031/033/077 parse the id out of `ref` and must keep theirs); the loader
+-- builds `ref` from a literal prefix, so kind='mp' implies the shape anyway.
 mp AS (
   SELECT DISTINCT cp.eik
   FROM company_politicians cp
-  WHERE cp.kind = 'mp' AND cp.ref LIKE '/candidate/mp-%'
+  WHERE cp.kind = 'mp'
 )
 SELECT
   a.eik,

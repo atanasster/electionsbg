@@ -29,6 +29,7 @@ type Row = {
   ref: string;
   role: string | null;
   total_eur: string | null;
+  person_id: string | null;
   relations: {
     kind?: string;
     isCurrent?: boolean;
@@ -422,6 +423,80 @@ test.skipIf(skip)(
       both <= 60,
       `${both} (person, company) pairs fire BOTH f_mp and f_pep — one relationship counted ` +
         "as two risk signals. Was 42 when measured; a jump means an arm has widened.",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "both arms carry a real person_id, not just a URL string",
+  async () => {
+    // ⚠️ Tier 4c. `ref` is an app ROUTE, and five sites in load_graph_pg plus 112's LIKE used
+    // to recover a person from it by regex — a bridge that breaks on a roster re-slug and
+    // silently drops that person's edges. person_id is the identity those regexes approximated.
+    //
+    // Asserted on the QUERY, not on the stored table: the column is new, so every existing row
+    // is NULL until the next db:load:tr:pg, and a test reading the table would fail for the
+    // wrong reason on a database nobody has reloaded yet.
+    for (const [arm, list] of [
+      ["mp", rows],
+      ["official", officialRows],
+    ] as const) {
+      assert.ok(list.length > 0, `${arm} arm is empty`);
+      for (const r of list)
+        assert.ok(
+          r.person_id !== null && r.person_id !== undefined,
+          `${arm}: ${r.eik} / ${r.politician} carries no person_id`,
+        );
+    }
+    // And it must be a REAL person, not a number that happens to parse.
+    const ids = [...rows, ...officialRows].map((r) => String(r.person_id));
+    const [bad] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM unnest($1::bigint[]) AS x(id)
+      WHERE NOT EXISTS (SELECT 1 FROM person p
+                         WHERE p.person_id = x.id
+                           AND p.status = 'active' AND p.is_public_figure)`,
+      [ids],
+    );
+    assert.equal(
+      bad.n,
+      "0",
+      "a person_id does not resolve to an active public figure",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the ref and the person_id name the SAME person",
+  async () => {
+    // They coexist — ref is still the href the company page renders — so they must agree.
+    // A divergence would put one person's name on another's link.
+    const mismatched: string[] = [];
+    for (const r of officialRows) {
+      const slug = r.ref.replace("/officials/", "");
+      const [ok] = await allRows<{ n: string }>(
+        `SELECT count(*) n FROM person_role pr
+        WHERE pr.ref = $1 AND pr.person_id = $2`,
+        [slug, r.person_id],
+      );
+      if (ok.n === "0") mismatched.push(`${r.ref} vs person_id ${r.person_id}`);
+    }
+    // ⚠️ THE MP ARM TOO — it was the untested half, it carries the extra
+    // `min(m.mp_id::bigint)` pick, and it is the one 031/033/077/122 all key on. A person
+    // holding two mp_ids whose min lands on the other person's id is what this catches.
+    for (const r of rows) {
+      const id = r.ref.replace("/candidate/mp-", "");
+      const [ok] = await allRows<{ n: string }>(
+        `SELECT count(*) n FROM person_role pr
+          WHERE pr.source = 'mp' AND split_part(pr.ref, ':', 1) = $1
+            AND pr.person_id = $2`,
+        [id, r.person_id],
+      );
+      if (ok.n === "0") mismatched.push(`${r.ref} vs person_id ${r.person_id}`);
+    }
+    assert.deepEqual(
+      mismatched.slice(0, 5),
+      [],
+      "ref and person_id name different people",
     );
   },
 );

@@ -181,28 +181,25 @@ const main = async (): Promise<void> => {
        ON CONFLICT DO NOTHING`,
     );
 
-    // ── EDGES 2/3: procurement (mp arm) — company_politicians.ref '/candidate/mp-<id>' → person_id via
-    // person_role source='mp' (ref = bare mp id). kind='procurement', role='' (no TR role). ──────────
+    // ── EDGES 2/3: procurement, BOTH arms, on company_politicians.person_id ──────────────────────────
+    //
+    // ⚠️ WAS TWO REGEX BRIDGES OVER THE URL STRING — `substring(cp.ref from
+    // '^/candidate/mp-(.*)$')` and the /officials/ twin — which is a join on an app ROUTE.
+    // Two things were wrong with it. A roster RE-SLUG silently drops that person's edges,
+    // which is what the per-arm preflight below exists to catch after the fact rather than
+    // prevent. And the officials arm's join carried no source filter, so it also resolved
+    // refs minted from sources whose person_role.ref is NOT a slug — the accident its own
+    // comment assumed away.
+    //
+    // 008's `person_id` is the identity those regexes were approximating, so the two arms
+    // collapse into one insert with no string parsing at all. NULL is skipped rather than
+    // guessed: on a database whose company_politicians predates the column it means „not
+    // resolved here", and the preflight below reports the shortfall.
     await c.query(
       `INSERT INTO ${EDGE.source} (person_id, eik, kind, role, is_current, confidence)
-       SELECT DISTINCT pr.person_id, cp.eik, 'procurement', '', NULL::boolean, NULL::text
+       SELECT DISTINCT cp.person_id, cp.eik, 'procurement', '', NULL::boolean, NULL::text
          FROM company_politicians cp
-         JOIN person_role pr
-           ON pr.source = 'mp'
-          AND split_part(pr.ref, ':', 1) = substring(cp.ref from '^/candidate/mp-(.*)$')
-        WHERE cp.kind = 'mp' AND cp.eik <> ''
-       ON CONFLICT DO NOTHING`,
-    );
-
-    // ── EDGES 3/3: procurement (official arm) — ref '/officials/<slug>' → person_id via person_role on
-    // the officials slug (globally unique across sources, so the ref match alone is unambiguous). ─────
-    await c.query(
-      `INSERT INTO ${EDGE.source} (person_id, eik, kind, role, is_current, confidence)
-       SELECT DISTINCT pr.person_id, cp.eik, 'procurement', '', NULL::boolean, NULL::text
-         FROM company_politicians cp
-         JOIN person_role pr
-           ON pr.ref = substring(cp.ref from '^/officials/(.*)$')
-        WHERE cp.kind = 'official' AND cp.eik <> ''
+        WHERE cp.person_id IS NOT NULL AND cp.eik <> ''
        ON CONFLICT DO NOTHING`,
     );
     // Fresh stage, no stats — the two node aggregates below read it, so plan it on real numbers.
@@ -296,9 +293,20 @@ const main = async (): Promise<void> => {
     // person_id is the fragile join; a roster re-slug silently breaks it. It has TWO independent arms
     // (mp / official) and a re-slug typically breaks only the OFFICIAL arm — so a total-count guard
     // (mapped===0) passes on a half-missing lineage. Guard EACH arm proportionally: mapped counts
-    // distinct (person_id, eik), cp counts raw rows, so the ratio is not exactly 1 even when healthy
-    // (measured mp 57/57, official 447/454); a 0.5 floor is comfortably below that and well above a
-    // one-broken-arm collapse. This is the ONLY bridge guard that runs on Cloud SQL.
+    // ⚠️ SINCE TIER 4c THIS IS A NULL DETECTOR, not a ratio check, and the old description
+    // („the ratio is not exactly 1 even when healthy — measured mp 57/57, official 447/454")
+    // no longer holds: each arm row IS a distinct (eik, person_id) pair by its own GROUP BY,
+    // and the column is written all-or-nothing by one COPY, so the ratio is exactly 1 or
+    // exactly 0. The 0.5 floor therefore fires only on „this company_politicians predates
+    // person_id" — which 008's one-off backfill closes for existing databases, leaving this
+    // as the guard for a future load that somehow writes the column empty. It is still the
+    // ONLY bridge guard that runs on Cloud SQL.
+    //
+    // ⚠️ WHAT IT GUARDS CHANGED IN TIER 4c, and it is still worth keeping. It used to catch a
+    // roster re-slug breaking the ref→person_id REGEX; person_id is now a stored column, so
+    // there is no regex to break. What it catches instead is a company_politicians written by
+    // a TR load that predates the column — every row NULL, every procurement edge silently
+    // absent — which is the same failure with a different cause.
     const { rows: bridge } = await c.query<{
       cp_mp: string;
       mapped_mp: string;
@@ -307,14 +315,11 @@ const main = async (): Promise<void> => {
     }>(
       `SELECT
          (SELECT count(*) FROM company_politicians WHERE kind='mp' AND eik<>'')       AS cp_mp,
-         (SELECT count(DISTINCT (pr.person_id, cp.eik)) FROM company_politicians cp
-            JOIN person_role pr ON pr.source='mp'
-             AND split_part(pr.ref, ':', 1) = substring(cp.ref from '^/candidate/mp-(.*)$')
-           WHERE cp.kind='mp' AND cp.eik<>'')                                          AS mapped_mp,
+         (SELECT count(DISTINCT (cp.person_id, cp.eik)) FROM company_politicians cp
+           WHERE cp.kind='mp' AND cp.eik<>'' AND cp.person_id IS NOT NULL)             AS mapped_mp,
          (SELECT count(*) FROM company_politicians WHERE kind='official' AND eik<>'')  AS cp_off,
-         (SELECT count(DISTINCT (pr.person_id, cp.eik)) FROM company_politicians cp
-            JOIN person_role pr ON pr.ref = substring(cp.ref from '^/officials/(.*)$')
-           WHERE cp.kind='official' AND cp.eik<>'')                                    AS mapped_off`,
+         (SELECT count(DISTINCT (cp.person_id, cp.eik)) FROM company_politicians cp
+           WHERE cp.kind='official' AND cp.eik<>'' AND cp.person_id IS NOT NULL)       AS mapped_off`,
     );
     const b = bridge[0];
     for (const arm of [
@@ -324,8 +329,10 @@ const main = async (): Promise<void> => {
       if (arm.cp > 0 && arm.mapped < arm.cp * 0.5)
         throw new Error(
           `graph: procurement ${arm.name} arm mapped only ${arm.mapped}/${arm.cp} ` +
-            `company_politicians → person_id — the ref→person_id bridge is broken ` +
-            `(roster re-slug? run db:resolve:persons first). Nothing merged.`,
+            `company_politicians rows carry a person_id. Since Tier 4c that column is ` +
+            `written by db:load:tr:pg directly, so a shortfall means the TR load predates ` +
+            `it (re-run db:load:tr:pg) — it is no longer a re-slug breaking a regex. ` +
+            `Nothing merged.`,
         );
 
     // ── GLOBAL BLOB (129): the down-sampled PUBLIC-figure bridge graph for /connections' overview.

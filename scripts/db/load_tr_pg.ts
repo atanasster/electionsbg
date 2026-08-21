@@ -216,6 +216,7 @@ const armSql = (personJoin: string, refExpr: string): string => `
          -- data. A declared stake outranks a registry role: it is the stronger claim.
          (array_agg(g.kind ORDER BY (g.kind = 'stake') DESC, g.kind))[1] AS role,
          min(mo.eur)::text AS total_eur,
+         g.person_id::text AS person_id,
          jsonb_agg(DISTINCT g.rel) AS relations
     FROM gated g
     JOIN who m ON m.person_id = g.person_id
@@ -625,8 +626,19 @@ export const loadTrPg = async (): Promise<{
 
   // Curated company↔politician links (from mp_connected / pep_connected) → PG,
   // so the person page's political connections come straight from the DB.
+  // eik, politician, ref, kind, role, total_eur, relations, person_id — the last is the
+  // identity the URL-string ref only approximates. See 008's note.
   const links: Array<
-    [string, string, string, string, string | null, number | null, string]
+    [
+      string,
+      string,
+      string,
+      string,
+      string | null,
+      number | null,
+      string,
+      number | null,
+    ]
   > = [];
   {
     // ⚠️ THREE HARD DEPENDENCIES THIS LOADER DOES NOT APPLY: person_role/person (081, the
@@ -659,6 +671,7 @@ export const loadTrPg = async (): Promise<{
       ref: string;
       role: string | null;
       total_eur: string | null;
+      person_id: string | null;
       relations: unknown;
     }>(MP_ARM_SQL);
     for (const r of rows)
@@ -670,6 +683,7 @@ export const loadTrPg = async (): Promise<{
         r.role,
         r.total_eur === null ? null : Number(r.total_eur),
         JSON.stringify(r.relations ?? []),
+        r.person_id === null ? null : Number(r.person_id),
       ]);
   }
   {
@@ -692,6 +706,7 @@ export const loadTrPg = async (): Promise<{
       ref: string;
       role: string | null;
       total_eur: string | null;
+      person_id: string | null;
       relations: unknown;
     }>(OFFICIAL_ARM_SQL);
     for (const r of rows)
@@ -703,13 +718,23 @@ export const loadTrPg = async (): Promise<{
         r.role,
         r.total_eur === null ? null : Number(r.total_eur),
         JSON.stringify(r.relations ?? []),
+        r.person_id === null ? null : Number(r.person_id),
       ]);
   }
   await exec("TRUNCATE company_politicians");
   if (links.length)
     await copyTable(
       "company_politicians",
-      ["eik", "politician", "ref", "kind", "role", "total_eur", "relations"],
+      [
+        "eik",
+        "politician",
+        "ref",
+        "kind",
+        "role",
+        "total_eur",
+        "relations",
+        "person_id",
+      ],
       links,
     );
 
