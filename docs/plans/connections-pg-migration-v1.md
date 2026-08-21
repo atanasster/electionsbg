@@ -5,6 +5,18 @@ proven procurement pattern (schema → loader → SQL API → `/api/db` → migr
 retire JSON). See [direct-db-ingest-v1.md](direct-db-ingest-v1.md) for the umbrella
 plan and the AI-second-consumer rule.
 
+> ⚠️ **[2026-08-21] `companies-index.json` IS DELETED, AND EVERY REFERENCE TO IT BELOW IS
+> HISTORY.** It, its three producers (`build_company_index.ts`, `augment_mp_roles.ts`,
+> `tr/integrate.ts`), the `mpRoles` field it carried, `useCompanyIndex`, the
+> `MpOwnershipStake.companySlug` field and the `/mp/company/:slug` route were retired by
+> `docs/plans/company-page-consolidation-v1.md` Tier 5 — a company page keyed on the DECLARED
+> NAME, whose registry arm attached a UIC on a name-uniqueness check alone; 096 declines 1,751
+> of its 2,120 UICs and `/company/:eik` serves all of them from the registry identity. The
+> MP↔company link set lives in Postgres: `company_politicians` at `kind='mp'`
+> (contract-restricted) or the same gate unrestricted through `scripts/lib/mp_linkage.ts`.
+> `company_links.json` is scheduled for retirement in that plan's Tier 6. Nothing below that
+> names either file is a live instruction.
+
 ## 1. What this domain is (and isn't)
 
 The **MP-declaration business-interest graph**: companies an MP/official owns or
@@ -118,8 +130,17 @@ retire them.
    seam; the force-directed `connections.json` graph may stay JSON.
 5. **Migrate the AI connections tools** to `fetchDb` (harness-verified).
 6. **Retire JSON** — once every reader (src + ai) of a connections file is on PG,
-   git-untrack it (Workstream-A treatment). KEEP `companies-index.json` +
-   `company_links.json` (load sources).
+   git-untrack it (Workstream-A treatment). ~~KEEP `companies-index.json` +
+   `company_links.json` (load sources).~~
+
+   ⚠️ **[2026-08-21] THIS "KEEP" IS SUPERSEDED, AND IT IS THE ONE EVERY OTHER PLAN CITES.**
+   `companies-index.json` is DELETED, with its three producers
+   (`build_company_index.ts`, `augment_mp_roles.ts`, `tr/integrate.ts`) — see
+   `docs/plans/company-page-consolidation-v1.md` Tier 5. Its load-source role is taken by
+   `company_politicians` (`kind='mp'`, contract-restricted) and by the same gate unrestricted
+   through `scripts/lib/mp_linkage.ts`. `company_links.json` is scheduled for retirement in
+   that plan's Tier 6. Anything below quoting this line as a live constraint —
+   `mp-tr-edges-pg-v1.md` §2(a) and Tier 3 do — is quoting a decision that no longer holds.
 
 ## 7. Effort + risk
 

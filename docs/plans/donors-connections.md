@@ -85,10 +85,17 @@ builder):
   both sides.
 - `trCompanyCount` per donor — a high count flags a common name → low
   confidence.
-- Bridge donor company UICs against `data/parliament/companies-index.json`
-  (`mpRoles` → MPs) and `data/officials/derived/company_links.json`
-  (→ officials); drop edges where the donor and the MP/official share an
-  identical normalised name (same person).
+- Bridge donor company UICs against the gated MP↔company link set and
+  `data/officials/derived/company_links.json` (→ officials); drop edges where the
+  donor and the MP/official share an identical normalised name (same person).
+  ⚠️ **[2026-08-21]** This bullet named `data/parliament/companies-index.json`
+  (`mpRoles` → MPs), which is deleted along with its producers
+  (`docs/plans/company-page-consolidation-v1.md` Tier 5) — and it was the wrong
+  source anyway: its registry arm matched an MP by NAME with no people-per-name
+  guard, the exact defect the „drop identical normalised names" clause above is
+  groping at. Use `company_politicians` at `kind='mp'` (contract-restricted) or
+  the same gate unrestricted via `scripts/lib/mp_linkage.ts`. `company_links.json`
+  is itself scheduled for retirement in that plan's Tier 6.
 - Output `data/financing/derived/donor_links.json`
   (type sketch: `DonorLinksFile` / `DonorLinksEntry` / `DonorCompanyLink` /
   `DonorMpConnection` — keyed by normalised name; carries `donations[]`,

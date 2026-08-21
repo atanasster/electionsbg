@@ -1,8 +1,13 @@
 # Company page consolidation — retire `/mp/company/:slug` and `companies-index.json`
 
-Status: PROPOSED (2026-08-20), audited 2026-08-20. Nothing here is implemented **except the
-CLAUDE.md correction in §9 G5, which is already applied** because it fixes a statement that was
-inaccurate independently of this plan.
+Status: **IN PROGRESS (2026-08-21)** — Tiers 1–5 are IMPLEMENTED and committed; Tier 6 is
+open. Each tier's "As built" note records where the plan turned out to be wrong; read those
+before acting on the prose above them, which is the 2026-08-20 design and is left unedited on
+purpose.
+
+Was: "PROPOSED (2026-08-20), audited 2026-08-20. Nothing here is implemented **except the
+CLAUDE.md correction in §9 G5**…" — true for one day, and the line eight other plans now link
+to, which is why it is the first thing corrected here.
 
 Related: `docs/plans/mp-tr-edges-pg-v1.md` (the same retirement, one layer over),
 `docs/plans/persons-pg-retirement-v1.md`, `docs/plans/connections-pg-migration-v1.md`.
@@ -420,11 +425,58 @@ it.
 7. `npm run i18n:prune` (G8) — ~10 keys orphan. It is dry-run by default and deliberately in no
    chain, so it is a named manual step. Several keys are shared (`stake_transferred` has 4 use
    sites) — do not delete blind; `key_usage.test.ts` is the gate.
-8. **Docs.** `README.md` names the file in four places — the `procurement/` and `funds/` module
+
+   **As built (2026-08-21) — and the first draft of this note got the REASON wrong twice, which
+   is worth keeping because both errors are the ones this step invites.**
+
+   The run reports `6253 keys · 5709 named · 419 built · 125 plural · 0 dead`. That is not
+   because the retired screens' keys turned out to be shared: **15 of the 26 keys those two
+   screens used are gone from the corpus**, stranded exactly as G8 predicted and deleted with
+   their screens in Tiers 2.3 and 3.3. Tier 5 removes no UI copy at all, so there was nothing
+   left here to orphan. The estimate was right; it was simply spent two tiers earlier.
+
+   ⚠️ **AND `0 dead` IS A FLOOR, NOT A PROOF.** `key_usage.ts`'s reachability check is a
+   SUBSTRING test, deliberately biased toward keeping — a key survives if its name appears
+   anywhere in the scanned sources, including inside a longer identifier or a comment. `tr_eik`
+   was kept alive for exactly that reason: the string sits inside `person_slug_tr_eiks` in a
+   data test's comment, while its last real call site died with `AllMpCompaniesScreen.tsx` in
+   Tier 3.3. It is deleted here by hand. Read the prune as "nothing is PROVABLY dead", and
+   check by hand any key a retired screen owned.
+8. **Docs.** *(Done in Tier 5.2's repair pass — the review confirmed the sweep against that
+   tree, and a confirmed finding is fixed in the step that surfaces it.)* `README.md` names the
+   file in four places — the `procurement/` and `funds/` module
    descriptions (327, 328) and the `update-procurement` / `update-funds` skill table rows (366,
    367), each saying "EIK-keyed against `companies-index.json`" (G11). Also the
    `update-connections`, `update-procurement`, `update-funds` and `dashboard-hub` SKILL.md files,
    and CLAUDE.md's `tr_owner_share` section (already corrected — see G5).
+
+   ⚠️ **The worst single line was `update-connections`'s YAML front-matter `description`** — the
+   text the skill picker shows — which said the skill "rebuilds the companies-index" and told an
+   operator to run it "after a fresh git clone if `public/parliament/companies-index.json` is
+   missing". A missing copy is now the CORRECT state, so that line sent someone to run a
+   pipeline that can no longer produce the file.
+
+   **EIGHT other plans named it as a live dependency and were corrected too (2026-08-21).** A
+   retirement is not finished while another plan still schedules work against the retired
+   thing — and the first pass here found two of the eight, which is why the review caught it.
+   ⚠️ The count and the section numbers in this table were BOTH wrong in their first draft
+   (seven, and two mis-cited sections); a citation in a plan is copied forward by whoever
+   reads it next, so grep the retirement rather than following the table:
+
+   | plan | what it said |
+   |---|---|
+   | `connections-pg-migration-v1.md` | §6's **"KEEP `companies-index.json` + `company_links.json` (load sources)"** — the ORIGINAL declaration every other plan cites. Struck, with a banner at the head of the file. |
+   | `mp-tr-edges-pg-v1.md` | §2(a) called the file a blocker and Tier 3 step 1 said to edit `augment_mp_roles.ts`; step 4 said to keep the `tr` block, which was `integrate.ts`'s last output. |
+   | `data-hub-lateral-edges-v1.md` | §11.7 step 1 ("cut the build-time loop") and §11.7 step 4's **"Keep `companies-index.json`"**; §11.8b step 7 cited it as the example of a load source. |
+   | `ngo-risk-signals-v1.md` | ⚠️ TWO sites, and only the small one was obvious. The MP-on-board bullet said the leg "still needs `companies-index.json` rebuilt via `update-connections` (a scrape)". §A2, "the critical build", is the bigger one: its whole diagnosis — that the ONLY thing starving NGOs is `buildMpConnectedFrom`'s `if (!contractor) continue` gate — was invalidated by Tier 5.1, which moved the contract restriction UPSTREAM of the linkage map. Both remedies it prescribes now reach nothing. |
+   | `direct-db-ingest-v1.md` | §4's bucket-B row listed the file under "Not-yet-in-PG — build PG tables + API, then retire JSON"; the "Source of truth today" paragraph below it named the deleted builder. |
+   | `donors-connections.md` | told a future implementer to bridge donor UICs against `companies-index.json`'s `mpRoles` — which was also the wrong source on its own terms, its registry arm being the ungated name match the bullet's own „drop identical normalised names" clause gropes at. |
+   | `persons-pg-retirement-v1.md` | THREE sites. §2 told a future implementer to MOVE the file out of `data/` to cut sync enumeration (deleting it is the cheaper outcome); Tier 3 carried a SECOND copy of connections-pg-migration §6's "declared keep", which striking the original did not reach; and its hook inventory still listed `useCompanyIndex`. |
+   | `consumption-pg-v1-implementation.md` | cited its deleted module as one of three existing slug helpers. |
+
+   ⚠️ **The lesson generalises past this file.** A stale *description* is a nuisance; a stale
+   *diagnosis* — §A2 — survives review because it reads as reasoning rather than as a fact,
+   and the next implementer spends the day discovering it is wrong.
 
 
 ### Tier 6 — retire `company_links.json`

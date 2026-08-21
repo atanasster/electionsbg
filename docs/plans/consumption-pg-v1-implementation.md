@@ -410,7 +410,9 @@ preserves the ВЕРЕЯ protection for packaged goods while restoring comparabi
 groups Defect 1 would have destroyed.
 
 `slug` via the existing `slugify` in `src/lib/slug.ts` (do not write a fourth one — the repo already
-has `src/lib/slug.ts`, `scripts/officials/shared.ts`, `scripts/declarations/build_company_index.ts`).
+has `src/lib/slug.ts`, `scripts/officials/shared.ts` and `src/lib/companyNameFold.ts`; the third
+name in this list was `scripts/declarations/build_company_index.ts`, deleted 2026-08-21 with
+`companies-index.json`, and `companyNameFold` is what carries its rule).
 
 ### 3.2 New: `data/prices/product_overrides.json` (committed)
 

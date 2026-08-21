@@ -153,10 +153,10 @@ written twice, never fork.** What each new artifact reuses or replaces:
 | Public-money tile | ✅ reuse | group the existing `ngoFunding` tile + `CompanyFundsTile` + `StatCard`s under one heading — C3 |
 | Entity grade card | ✅ reuse | `EntityRiskGradeCard` unchanged (contract-winning NGOs) |
 | Tone / grade scale | ✅ reuse | `riskGrade.ts` `GRADE_TONE` / `criColor` |
-| `ngo_board_links` matcher | ✅ reuse, don't fork | reuse `buildMpConnectedFrom` / `EikLinkageMap` (source-agnostic; param the `getContractor` gate) — A2 |
+| `ngo_board_links` matcher | ✅ reuse, don't fork | reuse `buildMpConnectedFrom` / `EikLinkageMap` — but ⚠️ **[2026-08-21] build the map at scope `all`** (`readMpLinkRows` in `scripts/lib/mp_linkage.ts`), NOT by paramming the `getContractor` gate: the contract restriction moved upstream of the map. See §A2 |
 | `ngo_signals_for()` aggregation | ✅ compose | call `procurement_overview()` + `ngo_funding_for()` + `supplier_risk_grade()` + the `fund_projects` query, not bespoke sums — B1 |
 | `ngos_list` registry base | ✅ reuse pattern | same view-as-base pattern as `contracts_list` / `tenders_list` |
-| Namesake guard | ✅ reuse | `officer_name_counts` + `COMMON_NAME_TR_ROWS` + `pep_connected` high-conf rule — B4 |
+| Namesake guard | ⚠️ **[2026-08-21] REUSE SOMETHING ELSE** | `COMMON_NAME_TR_ROWS` was DELETED, not ported — it counted officer ROWS as a proxy for "is this name one person" and is wrong in both directions (migration 150's header). `pep_connected` is retiring too (company-page-consolidation-v1 Tier 6). The guard is migration 148's `tr_name_fold_people` people-per-name fold, which REFUSES a shared name rather than scoring it — B4 |
 
 Net *genuinely* new surface: `SignalPillStrip` (shared, dedups existing), the thin
 `NgoSignalPills` wrapper, `ngo_signals_for()` + `ngo_signals` matview + `ngos_list` view,
@@ -221,14 +221,30 @@ new PG table, **high-confidence only** (declared/unique-name), each carrying a
 graph does elsewhere. This is a new loader (`scripts/ngo/load_ngo_board_links_pg.ts`), not
 a schema tweak — the plan's rev-1 "just a join" claim was wrong.
 
-**DRY: reuse the existing matcher, don't re-implement it.** The name-match + namesake guard
-already lives in `buildMpConnectedFrom(getContractor, linkageMap)` / the `EikLinkageMap`
-build (`cross_reference.ts:219`) — and it is explicitly **"source-agnostic"**, taking
-`getContractor` as a parameter. The *only* thing starving NGOs is the `if (!contractor)
-continue` gate (`:226`). So: reuse the same `EikLinkageMap` (the expensive matched part) and
-either (a) pass a `getContractor` that returns a stub rollup for NGO EIKs, or (b) add an
-opt-in `requireContractor=false` so the linkage is emitted without contract stats. Do **not**
-fork the matcher. Same for the officials/magistrate rosters via the `pep_connected` path.
+**DRY: reuse the existing matcher, don't re-implement it** — but ⚠️ **[2026-08-21] BOTH
+REMEDIES THIS PARAGRAPH PRESCRIBED NOW MISS, AND THE DIAGNOSIS IS OBSOLETE.** It said the
+only thing starving NGOs was `buildMpConnectedFrom`'s `if (!contractor) continue` gate, so
+that stubbing `getContractor` or adding `requireContractor=false` would be enough. That was
+true while `EikLinkageMap` was built from `companies-index.json`, an unfiltered name-match
+index. It is not true now: `buildEikLinkageMap()`
+([cross_reference.ts:59](../../scripts/procurement/cross_reference.ts#L59), async, no
+arguments) reads `company_politicians` at `kind='mp'`, which its loader inner-joins to
+procurement money — so **the contract restriction is upstream of the map**, and an NGO with
+no contract never enters it. Defeating the downstream gate (`:96`) reaches nothing.
+
+The right source is the one `scripts/funds/cross_reference.ts` already uses for exactly this
+reason: `readMpLinkRows(msg, "all")` in `scripts/lib/mp_linkage.ts`, which re-derives the SAME
+gate through `MP_ARM_ALL_SQL` with the money join made LEFT instead of inner. Measured on the
+funds side, the restricted set answers 43 of 303 pairs — the same shape of loss this section
+is about. Note that also replaces the namesake guard this paragraph assumed: it is migration
+148's `tr_name_fold_people` people-per-name fold now, in SQL, which REFUSES a shared name
+rather than scoring it, so `namesake_count` / `officer_name_counts` below wants re-reading
+against that. See `docs/plans/company-page-consolidation-v1.md` Tier 5.1.
+
+The DRY instruction still stands: reuse `buildMpConnectedFrom(getContractor, linkageMap)`,
+which really is source-agnostic, and pass it a linkage map built at scope `all`. Do **not**
+fork the matcher. Same for the officials/magistrate rosters via the `pep_connected` path —
+which Tier 6 of that plan is itself retiring, so check it before building on it.
 - Feeds `politician_board` (MP/official) and `magistrate_board` (magistrate-roster match —
   **rescoped**: "магистрат в ръководството по име, висока увереност", not the commercial
   `magistrate_company` holdings which have 0 NGO coverage).
@@ -300,10 +316,26 @@ query for ИСУН — the company endpoint already assembles all of these per E
 - **Stats:** add "NGOs with signals" card to `/api/db/ngo-stats` (`count WHERE signal_count>0`).
 
 ### B4. Namesake / confidence guard (mandatory, all name-matched signals)
-`politician_board`, `magistrate_board`, `debarred`, and the ABF/NED matches all run through
-the existing high-confidence rule (`pep_connected.ts:26`) + `officer_name_counts` frequency
-suppression (`008_connections.sql:238`) + `COMMON_NAME_TR_ROWS` (`integrate.ts:628`). Pills
-render a **confidence tier**; low-confidence never fires a red/violet pill unaided.
+`politician_board`, `magistrate_board`, `debarred`, and the ABF/NED matches all run through a
+people-per-name guard. Pills render a **confidence tier**; low-confidence never fires a
+red/violet pill unaided.
+
+⚠️ **[2026-08-21] THE GUARD THIS SECTION NAMED IS GONE, AND TWO OF ITS THREE PARTS WERE THE
+WRONG SHAPE.** It said "the existing high-confidence rule (`pep_connected.ts:26`) +
+`officer_name_counts` frequency suppression (`008_connections.sql:238`) +
+`COMMON_NAME_TR_ROWS` (`integrate.ts:628`)". `integrate.ts` is deleted with
+`companies-index.json` (`docs/plans/company-page-consolidation-v1.md` Tier 5), and
+`COMMON_NAME_TR_ROWS` was DELETED rather than ported — migration 150's header records why:
+it counted officer ROWS as a proxy for "is this name one person", which drops a rare-name
+MP's whole set behind one busy registered agent AND passes a name held by two people with
+six companies each. `pep_connected` is itself retiring in that plan's Tier 6.
+
+The guard to reuse is **`tr_name_fold_people` (migration 148)** — the Commerce Registry's own
+count of PEOPLE per folded name, which REFUSES a name it says belongs to more than one human
+instead of scoring it, and refuses an UNMEASURED fold too ("absent row = unmeasured, never
+unique"). It already gates `person_role` at source tr/ngo, which is what `MP_ARM_SQL` /
+`MP_ARM_ALL_SQL` read. A confidence TIER is still worth rendering, but it can no longer be
+derived from a row count.
 
 ---
 
@@ -486,8 +518,14 @@ renders.
   - *historical / divest-then-resume ties* (Hlídač): **not feasible** — the TR feed records
     only **14 erased NGO-board-role records** total (vs ~143k current), so board-departure
     history essentially doesn't exist in our data. 0 magistrate matches.
-  - *MP-on-board leg*: still needs `companies-index.json` rebuilt via `update-connections`
-    (a scrape); the loader lights it up automatically when present.
+  - *MP-on-board leg*: **[2026-08-21] the dependency named here no longer exists and cannot
+    be satisfied.** It said this leg "still needs `companies-index.json` rebuilt via
+    `update-connections` (a scrape); the loader lights it up automatically when present" —
+    that file, its three builders and the pipeline phases that wrote it are deleted
+    (`docs/plans/company-page-consolidation-v1.md` Tier 5), and a missing copy is now the
+    correct state. The MP↔company link set lives in Postgres: `company_politicians` at
+    `kind='mp'` (contract-restricted) or the same gate unrestricted through
+    `scripts/lib/mp_linkage.ts`. Re-scope this leg against one of those before costing it.
   - *sanctions signal*: near-zero BG-NGO yield + needs external data (OpenSanctions) — defer.
   - *БУЛНАО donor leg*: `data/financing` is filing-status only (no donations in PG) — needs
     a new ЕРИК donations ingest (per `update-financing`), then an NGO-board-member ↔ donor
@@ -517,7 +555,7 @@ renders.
 
 | # | Audit finding (P) | Resolution in this plan |
 |---|---|---|
-| 1 | `politician_board` fires for 5 NGOs — `getContractor` gate starves it (P0) | New ingest **A2 `ngo_board_links`** (no gate); moved to **Phase 2**, not a free join |
+| 1 | `politician_board` fires for 5 NGOs — `getContractor` gate starves it (P0). ⚠️ **[2026-08-21] the gate is no longer the cause**; see §A2 | New ingest **A2 `ngo_board_links`** (no gate); moved to **Phase 2**, not a free join |
 | 2 | `magistrate_board` = 0; `magistrate_company` is commercial holdings (P0) | **Rescoped** to a magistrate-roster *name match* on NGO board members via A2; honest label + confidence tier |
 | 3 | `new_winner` — `registered_at` absent (P0) | **A3** stores earliest `FieldEntryDate`; else **cut** (open-decision 3) |
 | 4 | Registry can't LEFT-JOIN (P1) | **B2 `ngos_list` view** as the registry base |

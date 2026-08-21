@@ -71,10 +71,13 @@ Three consequences the plan must honour:
 1. **Only files that leave `data/` on disk reduce sync time.** Retiring a served family →
    **delete it from `data/`**, don't merely exclude it.
 2. **Load sources that stay on disk keep costing enumeration time.** So `candidates.json`,
-   `companies-index.json`, `company_links.json` and the officials declaration shards should
-   **move out of `data/`** into a non-synced top-level tree (e.g. `raw_data/` or a new
-   `local_data/`) with the loaders repointed — otherwise Tier 4's ~388k candidate shards still
-   cost the full walk even after nothing serves them.
+   `company_links.json` and the officials declaration shards should **move out of `data/`**
+   into a non-synced top-level tree (e.g. `raw_data/` or a new `local_data/`) with the loaders
+   repointed — otherwise Tier 4's ~388k candidate shards still cost the full walk even after
+   nothing serves them. **[2026-08-21]** This list named `companies-index.json` too; that file
+   is DELETED rather than moved (`docs/plans/company-page-consolidation-v1.md` Tier 5), which
+   is the cheaper outcome and the one to prefer wherever a load source turns out to have no
+   remaining loader. `company_links.json` is on the same path in that plan's Tier 6.
 3. **Retired objects linger in the bucket and are served forever.** `bucket:sync` **never
    passes `-d`** (`bucket_sync_paths.ts:30-38`) — documented precedent: `data/prices/settlement/*`
    dropped out of the corpus on 2026-07-10 and was still being served. Deleting locally does
@@ -154,7 +157,7 @@ option), not addition.
 | MP roster/decl/assets | `useMpEntry`, `useMpDeclarations`, `useMpAssets`, `useMps` (index.json ~970KB), `useAssetsRankings`, `useMpCars`, `useCarMakes` | `parliament.ts:partyMps` (index.json), `people.ts` (`mpAssetsTop/ByParty`) | Yes (mp role + decl) |
 | MP bio / avatars | `useMpProfile` (bio + photo), `useMpAvatars` | — | metadata → PG; **photos stay** |
 | Connections graph | 11 hooks (Workstream B) | `people.ts:mpConnectionsTop/ByParty`, `companyConnections` | Workstream B |
-| Companies/TR | `useCompanyIndex`, `useCompanyConnections`, `useMpManagement`, `useCompaniesAtSettlement` | `people.ts:companyConnections` | Workstream B / `tr_*` |
+| Companies/TR | ~~`useCompanyIndex`~~ (deleted 2026-08-21 with `companies-index.json`), `useCompanyConnections`, `useMpManagement`, `useCompaniesAtSettlement` | `people.ts:companyConnections` | Workstream B / `tr_*` |
 | Candidate shards | `useResolvedCandidate`, `useCandidateElectionFallback` | `candidate.ts:candidateResult` (`candidates.json`, `preferences_stats.json`) | partial (`candidate_person`, `person_election_stats`) |
 | Judiciary decl list | `useDeclarations` | `judiciary.ts:judiciaryDeclarations` | partial (`magistrate-*`) |
 
@@ -428,8 +431,13 @@ Execute `connections-pg-migration-v1.md` (`041_connections.sql`, `load_connectio
 **Verify the company-connections serving path first:** `data/parliament/company-connections/` is
 gitignored **and** excluded from `bucket:sync`, yet `useCompanyConnections` +
 `people.ts:companyConnections` still fetch it — confirm whether it already 404s in prod (it
-likely must go straight to a PG route). `companies-index.json` + `company_links.json`
-stay as **load sources** (rsync-excluded), not retired.
+likely must go straight to a PG route). ~~`companies-index.json` + `company_links.json`
+stay as **load sources** (rsync-excluded), not retired.~~ ⚠️ **[2026-08-21]** the SECOND copy
+of connections-pg-migration-v1 §6's "declared keep", and superseded with it:
+`companies-index.json` is DELETED (`docs/plans/company-page-consolidation-v1.md` Tier 5) and
+`company_links.json` is scheduled for retirement in that plan's Tier 6. Striking the original
+did not reach this copy, which is the argument for grepping a retirement rather than
+following its citations.
 
 ### Tier 4 — candidate shards + council-vote data (biggest bucket win + new ingest)
 - **Candidate shards (~388k bucket files):** migrate `useResolvedCandidate`,

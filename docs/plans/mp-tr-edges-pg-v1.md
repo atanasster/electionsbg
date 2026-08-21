@@ -46,19 +46,26 @@ there.
 
 Four reasons, in descending order of how much each actually blocks.
 
-**(a) `mp-management` is a BUILD-TIME INPUT, not only a serving artifact.** This is the
-real blocker and the reason a hook repoint is not enough.
-`scripts/declarations/augment_mp_roles.ts` reads `mp-management/*.json` back off disk to
-write `mpRoles` onto `companies-index.json`, and `build_companies_by_*` then read that.
-The ordering is asserted in `scripts/declarations/index.ts`:
+**(a) `mp-management` is a BUILD-TIME INPUT, not only a serving artifact.** ⚠️
+**[2026-08-21] RESOLVED — this blocker no longer exists, and nothing in it can be acted
+on.** Every module it names is deleted: `augment_mp_roles.ts`, `integrateTr`
+(`tr/integrate.ts`), `buildCompaniesBySettlement` / `…Obshtina`, and
+`companies-index.json` itself, whose "declared keep" in connections-pg-migration-v1 §6 is
+struck through there. See `docs/plans/company-page-consolidation-v1.md` Tier 5. Kept below
+as the account of why the retirement stalled for as long as it did:
 
-```
-integrateTr  →  augmentCompaniesIndexWithMpRoles  →  buildCompaniesBySettlement / …Obshtina
-```
-
-So the files are load-bearing for a pipeline step that has nothing to do with serving.
-Deleting them breaks `companies-index.json`, which is a **declared keep** in
-connections-pg-migration-v1 §6 ("KEEP `companies-index.json` … (load sources)").
+> This is the real blocker and the reason a hook repoint is not enough.
+> `scripts/declarations/augment_mp_roles.ts` reads `mp-management/*.json` back off disk to
+> write `mpRoles` onto `companies-index.json`, and `build_companies_by_*` then read that.
+> The ordering is asserted in `scripts/declarations/index.ts`:
+>
+> ```
+> integrateTr  →  augmentCompaniesIndexWithMpRoles  →  buildCompaniesBySettlement / …Obshtina
+> ```
+>
+> So the files are load-bearing for a pipeline step that has nothing to do with serving.
+> Deleting them breaks `companies-index.json`, which is a **declared keep** in
+> connections-pg-migration-v1 §6 ("KEEP `companies-index.json` … (load sources)").
 
 **(b) Their replacements arrived from a different direction, so the plan rows were
 never ticked.** `PlaceCompaniesTile` (3560d4d420, "ask which companies are registered
@@ -219,18 +226,22 @@ place the shards serve must still be served, and no place may lose companies.
 
 The order matters; (a) is what unblocks the retirement.
 
-1. **`augment_mp_roles.ts` reads `mp_tr_role`, not the files.** It already documents
+1. ~~**`augment_mp_roles.ts` reads `mp_tr_role`, not the files.** It already documents
    that it re-derives from mp-management; swap the source to a query. `mpRoles` on
    `companies-index.json` is unchanged, so `build_companies_by_*` keep working while
-   both paths are live.
+   both paths are live.~~ ⚠️ **[2026-08-21] DONE, THEN DELETED.** The swap shipped; the
+   module, `mpRoles` and `companies-index.json` were then retired outright
+   (`docs/plans/company-page-consolidation-v1.md` Tier 5.2). There is nothing to edit here.
 2. Repoint `useMpManagement` → `/api/db/mp-management`; `useCompaniesAtSettlement` →
    `/api/db/place-mp-companies`.
 3. **Drop `useCompaniesHqSummary` from `PlaceCompaniesTile` entirely** — it is a link
    gate, and `place_mp_companies` can return the gate as a field on the tile's own call
    instead of a second fetch per dashboard.
 4. Delete `buildCompaniesBySettlement` / `buildCompaniesByObshtina` and the
-   `mp-management` write in `integrate.ts` (keep the `companies-index.json` `tr` block —
-   that output is unrelated and still consumed).
+   `mp-management` write in `integrate.ts` ~~(keep the `companies-index.json` `tr` block —
+   that output is unrelated and still consumed)~~. **[2026-08-21] The parenthesis is
+   superseded**: that `tr` block was `integrate.ts`'s LAST remaining output, so the module
+   and the file were deleted together (company-page-consolidation-v1 Tier 5.2).
 5. Add all three to `bucket_sync_paths.ts` — an `isExcluded` refusal **and** a
    `CHILD_EXCLUDES` entry each, since `parliament/` is still synced for `photos/`;
    one without the other lets `bucket:sync:paths -- parliament` re-upload them

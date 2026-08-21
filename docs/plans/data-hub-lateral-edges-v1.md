@@ -1363,18 +1363,30 @@ redundant:
 
 Order matters, and step 1 is the one that is easy to skip:
 
-1. **Cut the build-time loop first.** `augment_mp_roles.ts` reads `mp-management/*.json` back off
-   disk to write `mpRoles` onto `companies-index.json`, which `build_companies_by_*` then read
-   ([index.ts:432](../../scripts/declarations/index.ts#L432)). Repoint it at `mp_tr_role`. Until
-   this lands, deleting the files breaks a pipeline step that has nothing to do with serving.
+1. ~~**Cut the build-time loop first.** `augment_mp_roles.ts` reads `mp-management/*.json` back
+   off disk to write `mpRoles` onto `companies-index.json`, which `build_companies_by_*` then
+   read (`index.ts:432`). Repoint it at `mp_tr_role`. Until this lands, deleting the files
+   breaks a pipeline step that has nothing to do with serving.~~
+
+   ⚠️ **[2026-08-21] NOT A STEP ANY MORE — every module it names is deleted**, and the line
+   number no longer points at the phase it cited. `augment_mp_roles.ts`, `mpRoles` and
+   `companies-index.json` were retired with the name-keyed company page
+   (`docs/plans/company-page-consolidation-v1.md` Tier 5.2); the loop it describes cannot be
+   cut because it no longer runs. Kept struck rather than removed because steps 2–8 below are
+   numbered against it and step 4 refers back to it.
 2. Repoint every reader (`useMpManagement`, `useCompaniesHqSummary`, `useCompaniesHqPage`) and
    **verify on prod**, not locally.
 3. Drop the gate fetch: `PlaceCompaniesTile` calls `useCompaniesHqSummary` only to decide whether
    to render a link — one bucket round-trip on every governance dashboard. Return the gate as a
    field on the tile's own call.
 4. Delete the writers — `buildCompaniesBySettlement`, `buildCompaniesByObshtina`, and the
-   `mp-management` write in `integrate.ts`. **Keep** `companies-index.json`: it is a declared load
-   source (§6 of connections-pg-migration-v1) and its `tr` block is unrelated.
+   `mp-management` write in `integrate.ts`. ~~**Keep** `companies-index.json`: it is a declared
+   load source (§6 of connections-pg-migration-v1) and its `tr` block is unrelated.~~
+   **[2026-08-21] SUPERSEDED — it is deleted, and so is `integrate.ts`.** The `tr` block was
+   that module's last remaining output, so the two died together
+   (`docs/plans/company-page-consolidation-v1.md` Tier 5.2). Its load-source role is taken by
+   `company_politicians` / `scripts/lib/mp_linkage.ts`, and its bucket exclusion follows the
+   three-place rule in step 5 below.
 5. **Three places in lockstep, not two** (corrected in §12.4): an `isExcluded` refusal **and** a
    `CHILD_EXCLUDES` entry in `bucket_sync_paths.ts`, **and** the `-x` regex in *both*
    `bucket:sync` and `bucket:sync:dry` in `package.json`.
@@ -1484,7 +1496,8 @@ Same discipline as §11.7 — repoint every reader and verify on prod *before* a
 6. Scoped `bucket:sync:paths -- parliament --delete`, which is also what finally removes the
    frozen `company-connections/` objects.
 7. Git-untrack the 5,429 tracked files. Check first whether any is a **load source** the way
-   `companies-index.json` is — `build_company_connections.ts` and the graph loader read from
+   `companies-index.json` was (deleted 2026-08-21) — `build_company_connections.ts` and the
+   graph loader read from
    `state.sqlite` and PG respectively, so the expectation is none, but the check is cheap and the
    failure (a `db:refresh` that breaks on a fresh clone) is not.
 8. Extend the §11.7 test so it fails if **any** of these paths reappears in a sync manifest.

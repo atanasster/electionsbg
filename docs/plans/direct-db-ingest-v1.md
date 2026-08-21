@@ -256,7 +256,7 @@ Classify every file family into one of three buckets, each with a different fix:
 | Bucket | Families | Fix | Effort |
 |---|---|---|---|
 | **A. Redundant, frontend-dead** (PG already computes it) | `by_ns/*`, `derived/{pep-by-slug, pep-by-eik, by-eik, contract_index}/*`, and single-file `concentration_full, flow, flow_full, top_contractors, contractors_search, risk_feed, awarder_concentration, person_procurement_index, sector_totals, cpv_competition, ocds_party_geo_map, pep_connected` (~320 files) | **Stop generating + git-untrack.** No new PG work. | Low |
-| **B. Not-yet-in-PG** (JSON is still the only source) | all `connections*`, `companies-index`, `companies-by-ekatte/*`, `companies-by-obshtina/*`, `mp-connections/*`, `mp-management/*`, `official-connections/*`, `company-connections/*` | **Build PG tables + API + migrate hooks, then retire JSON** (the real "ingest to DB"). | High |
+| **B. Not-yet-in-PG** (JSON is still the only source) | all `connections*`, ~~`companies-index`~~, `companies-by-ekatte/*`, `companies-by-obshtina/*`, `mp-connections/*`, `mp-management/*`, `official-connections/*`, `company-connections/*` — **[2026-08-21] every one of these is now retired**, `companies-index` last (`docs/plans/company-page-consolidation-v1.md` Tier 5); the bucket is `company_politicians` / `graph_*` / `mp_tr_roles` / `place_mp_companies` | **Build PG tables + API + migrate hooks, then retire JSON** (the real "ingest to DB"). | High |
 | **C. Load source** (PG reads it) | `contracts/{year}/*`, `tenders/**` | Keep as-is, **or** optionally direct raw→PG (§4c). | — / High |
 | **D. Frontend-LIVE derived** (PG has the data/fn, hook still reads JSON) | `derived/breakdowns/{c,a}/*` (12,373 — the churn), `derived/per-mp/*` (44), `derived/mp_connected.json`, `derived/mp_party.json`; **`roads.json` stays JSON** | **Repoint hooks to `/api/db/*`** (mostly serving, fns largely exist), then retire JSON. | Low–Med |
 
@@ -310,10 +310,18 @@ the path procurement/TR/funds already took. Two distinct graphs live under
   graph → serves `/connections`, `/candidate/:id/connections`, `/mp/company/*`,
   the settlement "Companies HQ'd here" tiles.
 
-**Source of truth today:** `scripts/declarations/build_company_index.ts` +
-`build_officials_connections.ts` emit `companies-index.json` and the
-`connections*` rollups; `build_companies_by_settlement.ts` /
-`_by_obshtina.ts` shard them; per-MP/official shards come from the same build.
+**Source of truth today:** ⚠️ **[2026-08-21] none of the below still exists** —
+`build_company_index.ts` and `companies-index.json` are deleted
+(`docs/plans/company-page-consolidation-v1.md` Tier 5), the `connections*` rollups and both
+`build_companies_by_*` shard builders were retired earlier, and `/mp/company/*` named in the
+bullet above is now a `firebase.json` 301. The MP↔company link set is
+`company_politicians` / `scripts/lib/mp_linkage.ts`. Kept as the account of what this
+workstream was designed against:
+
+> `scripts/declarations/build_company_index.ts` + `build_officials_connections.ts` emit
+> `companies-index.json` and the `connections*` rollups;
+> `build_companies_by_settlement.ts` / `_by_obshtina.ts` shard them; per-MP/official shards
+> come from the same build.
 
 **Schema sketch** (`schema/pg/041_connections.sql`):
 - `decl_companies` (eik PK, name, registered_office, ekatte_hq, obshtina_hq,
