@@ -238,7 +238,21 @@ npm run db:load:funds-fit:pg      # 143+144+145 — keep local in step with prod
 # 3) Publish to PROD Cloud SQL (operator runs this — proxy on 127.0.0.1:5434, .pgpass set)
 npm run db:load:funds:pg:cloud -- --full   # the flag is REQUIRED — see the scope note
 npm run db:load:funds-fit:pg:cloud         # sole applier of 143 + 144 + 145 — see below
+npm run db:load:grant-links:pg:cloud       # the grant→procurement spine — see below
 ```
+
+> ⚠️ **`db:load:grant-links:pg:cloud` is a THIRD publish step, and its dependency on
+> this corpus is not obvious from its name.** `grant_contract_link` (166) extracts ПИИ
+> codes out of `tenders.subject` / `contracts.title` — neither of which this skill
+> touches — so it reads as somebody else's loader. But since the 2026-08-21
+> buyer-corroboration fix it joins `fund_projects.beneficiary_eik` to decide whether
+> each link is an ATTRIBUTION (`confidence = 'code_and_buyer'`) or merely a code
+> sighting (`'code_only'`). A funds reload that moves a beneficiary therefore grades
+> the whole spine against the previous vintage, at a 200, with every row count
+> reconciling — and the direction that matters is that a link can be promoted to
+> authoritative on the strength of a stale beneficiary. Cheap (≈1 s, pure
+> derivation), so run it after every funds publish rather than reasoning about
+> whether a beneficiary moved.
 
 > ⚠️ **`db:load:funds:pg:cloud` REFUSES without a scope flag — pick one deliberately.**
 > It exits 1 in 0 s with "Refusing to guess the scope of a Cloud SQL load", writing

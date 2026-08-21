@@ -1,6 +1,6 @@
 ---
 name: sector-dashboard
-description: Build or rework the DATA LAYER under a sector surface — the EIK register that defines who the sector is, the multi-corpus money union, the coverage declarations, the competition baselines, the people bridge and the grant→contract spine. Use when the user asks to build or fix a sector view (/culture, /judiciary, /defense, /sector/<key>, an awarder pack), to add a sector to the ?sector= filter, to work out "how much money does sector X get", to reconcile two figures about the same sector, or when a sector's headline number looks wrong. Defers to the dashboard-hub skill for the tile grid, bands, scenes, accents and search. Encodes the defect classes this layer reliably produces — a register that silently under-covers, name regexes that invert their own figure in BOTH directions, a rate compared against a baseline from a different window, an EIK filter pointed at a corpus that keys on names, a figure whose matching nobody wrote down, a register inverted into a claim its source never makes, a corpus that loads locally while production silently keeps the previous vintage because no skill names its :cloud loader, and a committed artifact that is regenerated and committed but never uploaded — chain-green on disk while the bucket serves a 404 or a stale schema. Treats the universe rule, moving an EIK between the four principal lists, changing a headline's basis and excluding a real sector body as design decisions to confirm (presenting the € impact), and otherwise implements via /implement-plan.
+description: Build or rework the DATA LAYER under a sector surface — the EIK register that defines who the sector is, the multi-corpus money union, the coverage declarations, the competition baselines, the people bridge and the grant→contract spine. Use when the user asks to build or fix a sector view (/culture, /judiciary, /defense, /sector/<key>, an awarder pack), to add a sector to the ?sector= filter, to work out "how much money does sector X get", to reconcile two figures about the same sector, or when a sector's headline number looks wrong. Defers to the dashboard-hub skill for the tile grid, bands, scenes, accents and search. Encodes the defect classes this layer reliably produces — a register that silently under-covers, name regexes that invert their own figure in BOTH directions, a rate compared against a baseline from a different window, an EIK filter pointed at a corpus that keys on names, an EXACT match on a registry identifier lifted out of free text that still names the wrong institution, a figure whose matching nobody wrote down, a register inverted into a claim its source never makes, a corpus that loads locally while production silently keeps the previous vintage because no skill names its :cloud loader, and a committed artifact that is regenerated and committed but never uploaded — chain-green on disk while the bucket serves a 404 or a stale schema. Treats the universe rule, moving an EIK between the four principal lists, changing a headline's basis and excluding a real sector body as design decisions to confirm (presenting the € impact), and otherwise implements via /implement-plan.
 allowed-tools:
   - Read
   - Bash
@@ -36,6 +36,14 @@ Sections 1, 2, 5 and 12 gained material the same day from four further ingests
 (ЦПРС licences, the ЦАИС dossier, TED, АДФИ) — the branch-ЕИК fold, the
 one-fold rule, the three coverage rules and the three unfailable-gate shapes.
 Each is here because it shipped or nearly shipped, per §17.
+
+**2026-08-21 — §8 was rewritten, and §2 rule 6, §11, §13, §14 and §15 amended
+with it**, after the grant→contract spine published €4.03m of procurement against
+the wrong institutions' grants on `/culture/funds`. Those figures were measured
+that day against 409,644 contracts and 237,806 tenders, so they do not share the
+2026-08-19 baseline above. §8 is worth reading even for a sector with no spine:
+its subject is any join that turns an identifier found in FREE TEXT into the name
+of an institution, which is a shape every corpus here has.
 
 Everything below is a rule **plus the measurement that produced it**. That pairing
 is the point: a rule without its number gets argued with, and every number here
@@ -256,11 +264,28 @@ careful.**
    independent register.** Require every curated member with a row in the matched
    corpus to be admitted by the matcher. No count-based or base-rate assertion
    substitutes: both defects above leave every count plausible.
-6. **Normalise, do not reject, a canonical-form variant.** Where the source is
-   hand-typed against a fixed-width register (`-30` for `-0030`), pad. Measured:
-   the strict form dropped 5 real edges, the unbounded form stored them as
-   distinct entities, padding recovered all 5. And assert the register really is
-   uniform — padding is a canonicalisation only while it is.
+6. **Normalise, do not reject, a canonical-form variant — and RECORD that you
+   did.** Where the source is hand-typed against a fixed-width register (`-30` for
+   `-0030`), pad. Measured: the strict form dropped 5 real edges, the unbounded
+   form stored them as distinct entities, padding recovered all 5. And assert the
+   register really is uniform — padding is a canonicalisation only while it is.
+
+   ⚠️ **This rule stopped there until 2026-08-21, and the missing half is that a
+   pad can land on a REAL neighbour.** The argument for padding — „the short form
+   is the same value" — silently assumes the short form WAS a short form. Two live
+   counter-examples: a contract title truncated at 367 characters mid-code
+   („… № BG-RRP-1.007-**017**") padded to `-0017`, a real project of another
+   município; and a buyer who wrote `-30` in full, padded to `-0030`, a real
+   project in another town. Both were reasoned away in a loader header on the
+   theory that a bad pad falls outside the register and stays visible in the
+   unmatched count. It does not have to.
+
+   Measured: padded links are **9 of 2,616 (0.3%)** and carry **2 of the 15**
+   cross-attributions — **22% against 0.5%**, a 45× rate. So keep the padding (it
+   recovers real edges) and store a flag saying the value was padded, then bar
+   the padded rows from any authoritative tier however plausible they look.
+   **Recovering a link and vouching for it are different acts.** A canonicalisation
+   with no provenance column cannot tell them apart afterwards.
 
 ---
 
@@ -423,19 +448,91 @@ filings, land on a buyer.
 
 ---
 
-## 8. The money spine generalises
+## 8. A JOIN KEY THAT MATCHES IS NOT AN ATTRIBUTION
 
 `fund_projects.contract_number` IS the ПИИ code, and the same code is written into
 `tenders.subject` and `contracts.title` — so grant → institution → procedure →
-contract → contractor is already joinable. 262 of 264 codes match (99.2%).
+contract → contractor is already joinable. 448 codes, 2,616 procurement links, a
+99.8% hit rate against ИСУН. Build it once as a shared object, not a per-sector
+chart.
 
-Build it once as a shared object, not a per-sector chart.
+**Every clause of that paragraph is true, and it is how this section shipped
+wrong.** It used to end „⚠️ this is the one section here that is a CAPABILITY
+rather than a defect… if it still has no consumer at the next retrofit, cut it."
+The condition fired the other way on 2026-08-21: the spine reached `/culture/funds`
+and the join rate turned out to be the wrong number to have been quoting.
 
-⚠️ **This is the one section here that is a CAPABILITY rather than a defect.**
-Nothing shipped wrong to produce it, and the table has no consumer yet. By §17's
-own standard that makes it advice; it is kept on one condition — the 99.2% join
-rate is measured, so „this is possible" is checkable rather than hopeful. If it
-still has no consumer at the next retrofit, cut it.
+§2 is about a NAME matching the wrong thing. This is the harder case and it defeats
+every instinct §2 builds — **an EXACT match on a canonical, fixed-width, registry-
+issued identifier that still names the wrong entity**, because the identifier was
+typed into free text by somebody under no obligation to be right about it. There is
+no stem to shorten, no anchor to add, no fold to write once. The regex was correct.
+
+Measured on the grant→contract spine, every row stored as `confidence = 'exact_code'`:
+
+|                                                                    | links  | codes  |
+| ------------------------------------------------------------------ | ------ | ------ |
+| the code matched **and** the buyer is the grant's beneficiary      | 2,594  | 436    |
+| the code matched and **somebody else** procured                    | **15** | **10** |
+| the code was **padded into existence** by our own canonicalisation | **9**  | 7      |
+
+Rows 2 and 3 **overlap by 2 and must not be summed** — two of the padded links also
+land on the wrong buyer, which is how the padding was noticed at all. 22 links over
+15 codes failed one corroboration or the other.
+
+€4,031,214 of procurement hanging off the wrong institution's grant — including
+three tenders worth €1.73m by ДКТ „Иван Радоев" Плевен (which holds its own grant,
+`-0005`) attributed to Държавен сатиричен театър, whose grant is one of the
+procurements in ACF's „Милиони зад кулисите". The worst possible row to get wrong,
+and it was published at a 200 with every count reconciling.
+
+### The rules
+
+1. **CORROBORATE THE IDENTIFIER AGAINST A SECOND FACT FROM A DIFFERENT CORPUS.**
+   One is available far more often than it looks: here the procuring buyer
+   (`contracts.awarder_eik` / `tenders.buyer_eik`) against the grant's
+   `beneficiary_eik`. The identifier says WHAT; the second fact says WHOSE. A join
+   that only ever checks WHAT cannot fail visibly.
+2. **The diagnostic „which key has more than one owner" MISSES most of it — by 4×
+   here.** A key whose ONLY procuring buyer is the wrong one has exactly one
+   owner and looks perfect. That query found 3 codes; the per-row buyer check
+   found 10 codes and 15 links. Always compare EVERY row against the authority,
+   never the rows against each other.
+3. **DOWNGRADE AND KEEP; do not drop — when the source publishes only ONE SIDE of
+   the relation.** ИСУН publishes the LEAD beneficiary and no partner list, so a
+   project partner procuring under the project's own code is indistinguishable
+   from a buyer citing somebody else's. `BG-RRP-8.013-0015` is titled „Устойчива
+   градска мобилност в общините Шумен и Търговище" — ИСУН names Шумен, the buyer
+   is Търговище, and the project title NAMES Търговище. Dropping deletes a link
+   the source itself asserts, and leaves no trace that it did. This is §16's
+   „before inverting a register, ask whether the source publishes the other half"
+   one step over: here the missing half is not the complement of the register, it
+   is the rest of ONE ROW.
+4. **The verdict must be DERIVED from stored evidence and enforced by the
+   database, never asserted by the writer.** Store the corroboration facts beside
+   the label, write the rule ONCE as an IMMUTABLE SQL function, and make the
+   label a CHECK against it. Then a loader bug cannot publish a row whose label
+   contradicts its own evidence, and the gate can re-derive rather than read back.
+   The precedents this repo already had: `kzk_effective_suspension()` (042),
+   `declared_label()` (089), `is_declared_holding()` (089).
+5. **NAME THE STRONG TIER AFTER THE EVIDENCE, NOT AFTER THE MATCH.** The tier was
+   called `exact_code`, which is precisely the conflation — the next person to add
+   a consumer filters on it thinking „exact code match" and is right only by
+   accident. Renamed `code_and_buyer`, which cannot be misread. Renaming a tier is
+   free while nothing consumes it and never again after; do it the day you add the
+   second tier.
+6. **Coverage now has a SECOND axis, and §5's rule applies to it.** „448 codes
+   linked" and „436 codes attributable" are both true and 12 apart; publish both,
+   named after their bases, so a surface cannot quote one meaning the other. The
+   12 codes with no citable link at all are the number a „follow the money"
+   surface must subtract before claiming a chain is complete.
+
+⚠️ **A CANONICALISATION CAN LAND ON A REAL NEIGHBOUR — see §2 rule 6, which this
+work amended.** Two of the 15 were not buyer error at all but our own zero-padding:
+a contract title truncated at 367 characters mid-code („… № BG-RRP-1.007-**017**")
+padded to `-0017`, a real project belonging to a different município. The loader's
+header had reasoned that a bad pad would fall outside the register and stay visible
+in the unmatched count. It does not have to.
 
 ---
 
@@ -494,6 +591,31 @@ row and a Data Map entry (`reference_migrated_family_watch_reload`).
 - **`vacuumAfterReload()` after any bulk rewrite**, and list the table in
   `RELOADED` — `test:data` is `db:refresh`'s last link, so an unlisted table
   fails every full refresh at the end.
+- ⚠️ **A MIGRATION THAT ADDS A CONSTRAINT MUST CLEAR THE ROWS THAT CANNOT SATISFY
+  IT — because the loader is the repair tool AND it applies the migration first.**
+  A loader's own `DELETE`/`TRUNCATE` runs inside its transaction, long after
+  `exec()` has applied the schema; so if `ADD CONSTRAINT` raises against rows an
+  earlier buggy run wrote, the file rolls back, the loader dies in the apply
+  phase, and **a fixed loader can never rebuild a table a broken one wrote**.
+  Every run fails identically, and the failure names the constraint rather than
+  the cause. Measured while testing this exact change: the table was unrecoverable
+  until the reconcile block gained
+  `DELETE … WHERE <col> IS NULL OR <label> IS DISTINCT FROM <rule>(<cols>)`.
+  Safe for any PURE DERIVATION with a loader in the chain — the next run refills
+  it, and an empty table fails its gate loudly with the loader named.
+- ⚠️ **ADDING A CORROBORATION ADDS AN INPUT, and the reload-path row that
+  describes the loader is now WRONG.** This is the sneakiest half of §11, because
+  the corroborating table was probably already read for something harmless. The
+  grant→contract spine read `fund_projects` purely as a coverage DENOMINATOR, and
+  its `process-watch-report` row said so in as many words — „the coverage
+  denominator, not an input — do not infer a funds-side trigger from it". The
+  moment `beneficiary_eik` started deciding each link's confidence that sentence
+  became a live instruction to skip the reload that keeps the verdicts honest.
+  Worse than stale: a link can be PROMOTED to authoritative on the strength of a
+  beneficiary who has since changed. **When you add a second fact to a verdict,
+  re-read every mapping row, ORDER_PAIRS entry and loader header that enumerates
+  that loader's inputs** — and add the new owning `update-*` skill to the trigger
+  list, not just the chain.
 
 ### A committed artifact has TWO halves, and the second one is not a `:cloud` loader
 
@@ -650,7 +772,11 @@ first two are in the diff; the third is in a file nobody re-reads.
   exists there.
 - Coverage is returned and rendered; reach is declared per corpus and gated both
   ways.
-- Every stored identifier is **canonical** (check width, not just shape).
+- Every stored identifier is **canonical** (check width, not just shape) — and
+  every identifier the loader CANONICALISED carries a flag saying so (§2 rule 6).
+- **No authoritative link crosses entities** — re-derived by joining back to the
+  source corpora, never by reading back the stored verdict (§8, and the fourth
+  unfailable shape below).
 - Every committed artifact the sector's figures come from is **on the bucket and
   byte-identical to local** — `npm run db:check-generated`. „Regenerated and
   committed" is not „published"; `culture/derived/hub_stats.json` was both and
@@ -676,6 +802,25 @@ as thorough:**
    one mixed case and returned silently if none existed — so „the case never
    occurs" and „the fold is correct" were indistinguishable. Assert the example
    EXISTS, then assert the behaviour.
+4. **An assertion whose predicate the SCHEMA already makes unrepresentable.** The
+   natural way to gate §8 is
+   `WHERE confidence = 'code_and_buyer' AND buyer_basis <> 'beneficiary'` — and
+   once a CHECK derives `confidence` from `buyer_basis`, that combination cannot
+   exist in ANY database. The query returns zero rows on a correct loader, on a
+   broken one, and on one that fills the column with a constant. It reads as the
+   strictest test in the file. Re-derive from the SOURCE corpora instead: join
+   back to contracts / tenders / fund_projects and ignore every stored label. The
+   tell is general — **if the assertion would still pass on an empty table, or on
+   a table whose columns were filled by `UPDATE … SET col = <constant>`, it is
+   testing the schema, not the loader.**
+
+⚠️ **Non-vacuity is a SEPARATE assertion and it needs its own measurement.** Each
+of the §8 gates is paired with „…and this check still DISCRIMINATES on today's
+corpus": the cross-buyer set is non-empty (was 15 links / 10 codes), the padded set
+is non-empty (was 9). Without them, the day the corpus stops carrying the defect is
+the day the gate stops being a gate — and it stays green either way, so nobody
+finds out. Where the pairing genuinely goes vacuous, the failure message must say
+„retire this test deliberately rather than leaving a green tautology behind".
 
 Say it as a rule: **a gate must be able to fail on today's data if you break the
 code, and you must have watched it do so.**
@@ -714,6 +859,13 @@ Run against an existing sector surface, in order:
 12. **Source shape** (§16) — is any figure derived by INVERTING a register that
     publishes only one side? Is a suspected export cap actually a cap, per the
     source's own total?
+13. **Attribution** (§8) — does any surface join on an identifier lifted out of
+    FREE TEXT (a project code, a contract number, a УНП) and then name an
+    institution? Run the per-row check: does the entity on the procurement side
+    equal the entity the register says owns that identifier? Do NOT settle for
+    „which key has more than one owner" — it missed 70% of them here. Then check
+    whether the loader CANONICALISED any of those identifiers, and whether the
+    padded ones are marked.
 
 The first three retrofits are the test of whether this skill is any good:
 `/judiciary`, `/defense`, `/sector/energy`. **If running the checklist on those
@@ -762,6 +914,12 @@ when the evidence looks one-sided:
   not answerable without it.
 - **Changing a headline's basis**, or which corpus a figure is drawn from.
 - **Excluding a body that genuinely belongs to the sector**, for any reason.
+- **DROPPING versus DOWNGRADING a link that failed corroboration** (§8). Both are
+  defensible and they fail in opposite directions: dropping cannot misattribute
+  and silently deletes real relationships the source does assert; downgrading
+  keeps everything and relies on every future consumer filtering the tier. The €
+  and row impact of each belongs IN the question — measured here, dropping was 22
+  links and 12 codes losing their only link, against 22 links changing label.
 
 ### Otherwise, proceed
 
@@ -889,3 +1047,16 @@ false „missing from the corpus" claims, and a name fold written twice that
 flagged nine correct matches as false accusations. Neither would have been here
 if the question had not been asked. The cost of the delay is not the writing; it
 is that the next reader hits the same defect with the file looking complete.
+
+**The self-destruct clause works, and it fired.** §8 shipped as the file's one
+CAPABILITY section, kept on the explicit condition „if it still has no consumer at
+the next retrofit, cut it". It got a consumer instead, and the consumer published
+€4.03m of procurement against the wrong institutions' grants — so on 2026-08-21 it
+was rewritten as a defect section with its measurement, and its old framing is
+quoted inside it as the thing that was wrong. **Prefer that shape to deleting the
+history**: „this section used to say X and here is what X cost" is the only form
+that stops the next author re-deriving X. §2 rule 6 and the
+`process-watch-report` mapping row for the spine loader were amended the same way
+in the same session — both had been CORRECT when written and were falsified by a
+later change, which is a different failure from being wrong, and the more common
+one in a file this old.

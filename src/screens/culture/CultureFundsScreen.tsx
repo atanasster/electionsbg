@@ -164,6 +164,20 @@ export const CultureFundsScreen: FC = () => {
                 ? "Кодът по ПВУ (BG-RRP-…) на един грант се записва и в текста на поръчката, която той плаща — така грантът, процедурата, договорът и изпълнителят се свързват в една верига. Спината покрива само частта по ПВУ; договорите по ЕФРР и ЕСФ не носят такъв код."
                 : "A grant's RRF code (BG-RRP-…) is written into the text of the procurement it pays for, which links grant, procedure, contract and contractor into one chain. The spine covers the RRF slice only — ЕФРР and ЕСФ contracts carry no such code."}
             </p>
+            {/* The second caveat, and it is not the same as the coverage one
+                above. A code in the text says the code was TYPED there; it does
+                not say whose money it was. Measured 2026-08-21: 15 links over 10
+                codes name a buyer that is not the grant's beneficiary, and ИСУН
+                publishes no partner list, so a mistyped code and a project
+                partner are indistinguishable. `grant_contract_link.confidence`
+                keeps the two apart — only 'code_and_buyer' is an attribution —
+                and this paragraph is what stops the page claiming otherwise
+                while no tile yet renders the split. */}
+            <p className="max-w-3xl text-sm text-muted-foreground">
+              {bg
+                ? "Самото присъствие на кода обаче не доказва кой е похарчил парите. Понякога възложителят е цитирал чужд код, а понякога поръчката е на партньор по проекта — ИСУН публикува само водещия бенефициент, така че двете не се различават отвън. Затова връзката се брои за доказана само когато възложителят съвпада с бенефициента по гранта; иначе остава само твърдението, че този код се среща в текста."
+                : "The code's presence is not by itself proof of whose money was spent. Sometimes the buyer has cited another body's code; sometimes the procurement belongs to a project partner — and ИСУН publishes the lead beneficiary only, so the two cannot be told apart from outside. A link therefore counts as an attribution only where the buyer IS the grant's beneficiary; otherwise it stands as no more than „this text names this code“."}
+            </p>
             <p className="text-sm">
               <Link to="/funds" className="text-primary hover:underline">
                 {bg ? "Виж всички еврофондове →" : "See all EU funds →"}

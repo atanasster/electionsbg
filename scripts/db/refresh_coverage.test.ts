@@ -98,6 +98,17 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     why: "the other half of the spine is contracts.title",
   },
   {
+    after: "db:load:grant-links:pg",
+    before: "db:load:funds:pg",
+    why:
+      "fund_projects.beneficiary_eik is an INPUT, not just the coverage " +
+      "denominator: it decides buyer_basis and therefore confidence, so a spine " +
+      "built before the funds reload grades every link against the previous " +
+      "vintage's beneficiaries. Against an EMPTY fund_projects every link comes " +
+      "out buyer_basis='unknown' and NOTHING is citable — the loader warns, but " +
+      "the table still loads and every row count reconciles",
+  },
+  {
     after: "db:load:employer-links:pg",
     before: "db:load:declarations:pg",
     why:
