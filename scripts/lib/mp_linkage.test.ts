@@ -35,7 +35,8 @@ vi.mock("../db/lib/pg", () => ({
   dbReachable: () => reachableMock(),
 }));
 
-const { mpLinkageAvailable, readMpLinkRows } = await import("./mp_linkage");
+const { mpLinkageAvailable, readMpLinkRows, readOfficialLinkRows } =
+  await import("./mp_linkage");
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "../..");
@@ -113,6 +114,67 @@ describe("readMpLinkRows", () => {
     expect(sql).not.toMatch(/FROM company_politicians/);
     expect(sql).toMatch(/tr_name_fold_people/);
     expect(sql).toMatch(/LEFT JOIN money/);
+  });
+});
+
+describe("readOfficialLinkRows", () => {
+  const orow = (over: Record<string, unknown> = {}) => ({
+    eik: "831646048",
+    ref: "/officials/ivan-ivanov-ab12cd",
+    politician: "Иван Иванов",
+    role: "manager",
+    source: "official_exec",
+    relations: [],
+    ...over,
+  });
+
+  it("refuses an empty set, naming what would otherwise be published", async () => {
+    rowsMock.mockResolvedValue([]);
+    await expect(
+      readOfficialLinkRows("pep_connected.json would claim nobody is tied."),
+    ).rejects.toThrow(
+      /no usable official rows.*nobody is tied.*db:load:tr:pg/s,
+    );
+  });
+
+  it("parses the slug out of /officials/<slug>", async () => {
+    rowsMock.mockResolvedValue([orow()]);
+    const [r] = await readOfficialLinkRows("…");
+    expect(r.slug).toBe("ivan-ivanov-ab12cd");
+    expect(r.name).toBe("Иван Иванов");
+  });
+
+  // ⚠️ FOUR SOURCES, TWO NAMED BUCKETS. The retired company_links.json had exactly
+  // executive/municipal; the person layer also carries public_sector and mep under this arm
+  // (measured 46 and 2), and filing a hospital director under "executive government" or an
+  // MEP under "municipal" would be a claim neither register makes.
+  it.each([
+    ["official_exec", "executive"],
+    ["official_muni", "municipal"],
+    ["public_sector", "public_sector"],
+    ["mep", "mep"],
+    [null, ""],
+  ])("maps person_role.source %s to tier %s", async (source, tier) => {
+    rowsMock.mockResolvedValue([orow({ source })]);
+    const [r] = await readOfficialLinkRows("…");
+    expect(r.tier).toBe(tier);
+  });
+
+  it("drops a ref that is not /officials/<slug> rather than coercing it", async () => {
+    rowsMock.mockResolvedValue([orow({ ref: null }), orow({ eik: "2" })]);
+    const rows = await readOfficialLinkRows("…");
+    expect(rows.map((r) => r.eik)).toEqual(["2"]);
+  });
+
+  it("reads the OFFICIAL arm, joined to person_role for the tier", async () => {
+    rowsMock.mockResolvedValue([orow()]);
+    await readOfficialLinkRows("…");
+    const sql = String(rowsMock.mock.calls[0][0]);
+    expect(sql).toMatch(/kind = 'official'/);
+    expect(sql).toMatch(/person_role/);
+    // ⚠️ There is no 'all' scope here: this arm's join population IS contractors, so the
+    // contract restriction on company_politicians costs it nothing.
+    expect(sql).toMatch(/FROM company_politicians/);
   });
 });
 
@@ -210,6 +272,8 @@ describe("every builder goes through the shared reader", () => {
   const LINKAGE_BUILDERS = [
     "scripts/procurement/cross_reference.ts",
     "scripts/funds/cross_reference.ts",
+    "scripts/procurement/pep_connected.ts",
+    "scripts/funds/political_links.ts",
   ];
   const CALLERS = [
     "scripts/procurement/rebuild_from_cache.ts",
@@ -228,10 +292,10 @@ describe("every builder goes through the shared reader", () => {
     stripComments(fs.readFileSync(path.join(REPO_ROOT, f), "utf8"));
 
   it.each(LINKAGE_BUILDERS)(
-    "%s reads the link set through readMpLinkRows",
+    "%s reads the link set through the shared reader",
     (f) => {
       const src = read(f);
-      expect(src).toMatch(/readMpLinkRows\(/);
+      expect(src).toMatch(/read(Mp|Official)LinkRows\(/);
       // A local SELECT is a second copy of the arm predicate, which is how the two builders
       // would come to disagree about which rows count.
       expect(src).not.toMatch(/FROM company_politicians/);
@@ -258,6 +322,21 @@ describe("every builder goes through the shared reader", () => {
       expect(read(f)).not.toMatch(/companies-index/);
     },
   );
+
+  // ⚠️ THE OFFICIALS BUILDERS MUST NOT RE-ACQUIRE THE FILE THEY REPLACED. Unlike
+  // companies-index.json, `company_links.json` had TWO readers outside the procurement
+  // pipeline — the funds political-economy join and the NGO board-links loader — and both
+  // were `existsSync`-guarded, so a re-introduced read would degrade silently rather than
+  // fail.
+  it.each([
+    "scripts/procurement/pep_connected.ts",
+    "scripts/funds/political_links.ts",
+    "scripts/funds/ingest.ts",
+    "scripts/ngo/load_ngo_board_links_pg.ts",
+    "scripts/db/gen_procurement/cross_reference.ts",
+  ])("%s no longer reads company_links.json", (f) => {
+    expect(read(f)).not.toMatch(/company_links/);
+  });
 
   it.each(CALLERS)("%s gates on mpLinkageAvailable, not on a file", (f) => {
     const src = read(f);

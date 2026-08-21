@@ -271,6 +271,18 @@ export const isExcluded = (rel: string): string | null => {
     return "officials/municipal/by_obshtina/ is a PG load source, served from Cloud SQL — never upload it";
   if (rel === "officials/municipal/search_index.json")
     return "officials/municipal/search_index.json is retired — the header search reads municipal_officials_table via /api/db";
+  // The officials↔company link set. DELETED from the repo in the same commit as this entry
+  // (company-page-consolidation-v1 Tier 6): 70,525 links over 9,659 officials, 85.5% of them
+  // low-confidence, graded by the one-company straitjacket migration 158's header calls wrong
+  // in both directions. Its replacement is `company_politicians` at kind='official', built
+  // from the gated person layer. No producer remains, so — as with
+  // parliament/companies-index.json — the bucket copy would be the last surviving instance of
+  // a link set nothing can correct.
+  //
+  // ⚠️ AN EXCLUSION FREEZES, IT DOES NOT RETIRE:
+  //     gsutil rm gs://<bucket>/officials/derived/company_links.json
+  if (rel === "officials/derived/company_links.json")
+    return "officials/derived/company_links.json is retired and deleted — never upload it (gsutil rm the bucket copy)";
   // Judiciary PG load sources, served from Cloud SQL, never the bucket: magistrate_holdings.json
   // → the magistrate_* routes (schema 070); declarations.json → /api/db/judiciary-declarations
   // (judiciary_payloads, schema 109, persons-pg-retirement-v1 T2.6). Their still-served siblings
@@ -312,6 +324,7 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "person/tr_name_fold_people.tsv", isDir: false },
   { path: "officials/municipal/by_obshtina", isDir: true },
   { path: "officials/municipal/search_index.json", isDir: false },
+  { path: "officials/derived/company_links.json", isDir: false },
   // Under the still-served judiciary/ parent (caseload.json etc.), so a scoped
   // `bucket:sync:paths -- judiciary` must not re-upload these PG load sources.
   { path: "judiciary/magistrate_holdings.json", isDir: false },

@@ -34,19 +34,16 @@ import { recordIngestBatch } from "../db/lib/ingest_changelog";
 const SCHEMA_SQL = fileURLToPath(
   new URL("../db/schema/pg/080_ngo_signals.sql", import.meta.url),
 );
-// The full officials universe (executive + municipal), NOT just the officials
-// that already had a company link. Every company_links.json official is a strict
-// subset of these two indexes, so the board-link roster covers e.g. a councillor
-// who sits on a читалище board but owns no company.
+// The full officials universe (executive + municipal), NOT just the officials that already
+// had a company link. Every company-linked official is a strict subset of these two indexes,
+// so the board-link roster covers e.g. a councillor who sits on a читалище board but owns no
+// company.
 const OFFICIALS_EXEC = fileURLToPath(
   new URL("../../data/officials/index.json", import.meta.url),
 );
 const OFFICIALS_MUNI = fileURLToPath(
   new URL("../../data/officials/municipal/index.json", import.meta.url),
 );
-// Kept as a robustness fallback: any company-linked official not present in the
-// two indexes above is still added (0 such today, but avoids a silent regression
-// if the officials pipeline ever diverges).
 // The per-obshtina municipal shards. Their DIRECTORY is the only place the app's
 // obshtina code and an official's slug appear together — the municipal index carries the
 // municipality's prose NAME, and the name→code join (municipality_join.ts) needs an alias
@@ -54,9 +51,6 @@ const OFFICIALS_MUNI = fileURLToPath(
 // Reading the emitted shards takes the answer the shard build already computed.
 const OFFICIALS_MUNI_SHARDS = fileURLToPath(
   new URL("../../data/officials/municipal/by_obshtina", import.meta.url),
-);
-const OFFICIALS_LINKS = fileURLToPath(
-  new URL("../../data/officials/derived/company_links.json", import.meta.url),
 );
 const MP_INDEX = fileURLToPath(
   new URL("../../data/parliament/index.json", import.meta.url),
@@ -80,13 +74,6 @@ type OfficialEntry = {
   municipality?: string;
 };
 type OfficialsIndexFile = { entries?: OfficialEntry[] };
-type OfficialLinksFile = {
-  byOfficial: Record<
-    string,
-    { name: string; slug: string; role?: string; tier?: string }
-  >;
-};
-
 type MpIndexFile = {
   mps: { id: number; name: string }[];
 };
@@ -162,7 +149,7 @@ export const loadNgoBoardLinksPg = async (): Promise<{
   await exec(readFileSync(SCHEMA_SQL, "utf8"));
 
   // Officials roster → official_roster (one row per official; dedup on slug).
-  // Union the executive index, the municipal index, and (fallback) company_links.
+  // Union the executive index and the municipal index.
   let roster = 0;
   {
     // slug → obshtina code, read from the emitted per-obshtina shards. Absent shards
@@ -270,13 +257,14 @@ export const loadNgoBoardLinksPg = async (): Promise<{
         add(e.name, e.slug, e.role ?? e.category ?? null, "municipal");
       }
     }
-    if (existsSync(OFFICIALS_LINKS)) {
-      const j = JSON.parse(
-        readFileSync(OFFICIALS_LINKS, "utf8"),
-      ) as OfficialLinksFile;
-      for (const o of Object.values(j.byOfficial))
-        add(o.name, o.slug, o.role ?? null, o.tier ?? null);
-    }
+    // A third arm used to read data/officials/derived/company_links.json as a robustness
+    // fallback — "any company-linked official not present in the two indexes above is still
+    // added (0 such today)". That file is retired with its builder
+    // (docs/plans/company-page-consolidation-v1.md Tier 6), and the arm is not re-pointed at
+    // its replacement on purpose: `company_politicians` at kind='official' is a strict SUBSET
+    // of these two indexes by construction — an official has a company link only if the
+    // person layer resolved their officials slug — so the fallback could never add a row the
+    // union above lacks. It measured 0 for the same reason.
     if (seen.size === 0)
       console.warn(
         "[ngo-board-links] officials indexes missing or empty — official leg empty",

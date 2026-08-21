@@ -3,8 +3,8 @@
 //
 // These join the SQL contractor rollups to inputs from OTHER domains, which the
 // JS builders also read as-is:
-//   • company_politicians (kind='mp')          the gated MP↔company link set
-//   • data/officials/derived/company_links.json (officials↔company graph)
+//   • company_politicians (kind='mp')       the gated MP↔company link set
+//   • company_politicians (kind='official') the gated officials↔company link set
 // So the only thing that changes vs the JS pipeline is that the contractor
 // rollups come from SQL. Rollups are round-tripped through canonicalJson to match
 // the serialized files the JS builders read.
@@ -27,7 +27,7 @@ import { PROC_DIR } from "../lib/paths";
 import { readContractsFromPg } from "../lib/rows";
 import { stripVolatile } from "../lib/canonical";
 import { buildRollupsFromRows } from "../../procurement/rollups";
-import { mpLinkageAvailable } from "../../lib/mp_linkage";
+import { mpLinkageAvailable, readOfficialLinkRows } from "../../lib/mp_linkage";
 import {
   buildEikLinkageMap,
   buildMpConnectedFrom,
@@ -36,13 +36,10 @@ import {
 import {
   buildPepConnectedFrom,
   writePepConnected,
-  type CompanyLinksFile,
 } from "../../procurement/pep_connected";
 import { rowSort, canonicalJson } from "../../procurement/validate";
 import type { Contract, ContractorRollup } from "../../procurement/types";
 
-const rel = (...p: string[]) => path.join(PROC_DIR, "..", ...p);
-const COMPANY_LINKS = rel("officials", "derived", "company_links.json");
 const DERIVED_DIR = path.join(PROC_DIR, "derived");
 
 const byteCmp = (label: string, gen: unknown, abs: string): boolean => {
@@ -95,11 +92,13 @@ const main = async (): Promise<void> => {
     results.push(false);
   }
 
-  // pep_connected — needs officials company_links.json.
-  if (fs.existsSync(COMPANY_LINKS)) {
-    const links = JSON.parse(
-      fs.readFileSync(COMPANY_LINKS, "utf8"),
-    ) as CompanyLinksFile;
+  // pep_connected — the officials arm of the same gated link set, from the same database as
+  // the rollups above. Deliberately NOT gated into a skip (see the ⚠️ in the header): an
+  // absent table is a FAIL. Probed only so the failure names the fix.
+  if (await mpLinkageAvailable()) {
+    const links = await readOfficialLinkRows(
+      "the pep_connected parity check would compare against nothing.",
+    );
     const pep = buildPepConnectedFrom(links, getContractor);
     results.push(
       byteCmp(
@@ -110,10 +109,8 @@ const main = async (): Promise<void> => {
     );
     if (write) writePepConnected(DERIVED_DIR, pep);
   } else {
-    // Not a skip: with no company_links.json there is nothing to reproduce, and reporting
-    // that as a pass would certify an arm that never ran. Tier 6 retires this arm outright.
     console.log(
-      "pep_connected: FAIL — no company_links.json to verify against",
+      "pep_connected: FAIL — company_politicians is not reachable; run db:load:tr:pg",
     );
     results.push(false);
   }

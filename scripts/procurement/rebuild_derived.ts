@@ -56,10 +56,6 @@ const AWARDERS_DIR = path.join(PROCUREMENT_DIR, "awarders");
 const DERIVED_DIR = path.join(PROCUREMENT_DIR, "derived");
 const BY_NS_DIR = path.join(PROCUREMENT_DIR, "by_ns");
 const INDEX_FILE = path.join(PROCUREMENT_DIR, "index.json");
-const OFFICIALS_COMPANY_LINKS = path.resolve(
-  __dirname,
-  "../../data/officials/derived/company_links.json",
-);
 const MP_CONNECTED_FILE = path.join(DERIVED_DIR, "mp_connected.json");
 const ELECTIONS_INDEX = path.resolve(
   __dirname,
@@ -67,10 +63,7 @@ const ELECTIONS_INDEX = path.resolve(
 );
 
 // Officials (non-MP) → procurement.
-const pepConnected = buildPepConnected(
-  OFFICIALS_COMPANY_LINKS,
-  CONTRACTORS_DIR,
-);
+const pepConnected = await buildPepConnected(CONTRACTORS_DIR);
 writePepConnected(DERIVED_DIR, pepConnected);
 console.log(
   `pep_connected.json: ${pepConnected.total} pair(s), ${pepConnected.officialCount} official(s)`,

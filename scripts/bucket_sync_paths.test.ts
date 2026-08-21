@@ -128,6 +128,32 @@ describe("the retired MP↔company shard families (mp-tr-edges-pg-v1)", () => {
   // that re-uploaded it would leave the bucket holding the last copy of an MP↔company
   // attribution set nothing else in the repo makes any more, with no producer able to
   // correct it and `rsync -x` excluding it from deletion as well as from upload.
+  // Same three-place rule, same reason (Tier 6). Its sibling officials/derived/connections.json
+  // is NOT retired, so the parent directory is still synced — which is exactly the shape that
+  // makes the CHILD_EXCLUDES half load-bearing rather than belt-and-braces.
+  describe("the retired officials/derived/company_links.json (Tier 6)", () => {
+    const FILE = "officials/derived/company_links.json";
+
+    it("is refused by isExcluded", () => {
+      expect(isExcluded(FILE)).toBeTruthy();
+    });
+
+    it("spares its sibling, which is still served", () => {
+      expect(isExcluded("officials/derived/connections.json")).toBeFalsy();
+    });
+
+    it("is in the -x regex of BOTH bucket:sync and bucket:sync:dry", () => {
+      expect(pkg["bucket:sync"]).toContain("company_links");
+      expect(pkg["bucket:sync:dry"]).toContain("company_links");
+    });
+
+    it("an officials-scoped dir sync cannot re-upload it", () => {
+      expect(childExcludeRegexes("officials")).toContain(
+        "^derived/company_links\\.json$",
+      );
+    });
+  });
+
   describe("the retired companies-index.json (company-page-consolidation-v1 Tier 5.2)", () => {
     const FILE = "parliament/companies-index.json";
 

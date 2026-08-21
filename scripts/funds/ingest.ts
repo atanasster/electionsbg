@@ -355,17 +355,16 @@ const main = async (args: {
   // The MP arm is gated on the payload step 5 WRITES, not on its source: buildPoliticalLinks
   // reads derived/mp_connected.json, so a run that skipped the cross-reference has nothing
   // for it to read either way.
-  if (
-    crossReference !== undefined ||
-    fs.existsSync(
-      path.resolve(
-        __dirname,
-        "../../data/officials/derived/company_links.json",
-      ),
-    )
-  ) {
+  //
+  // ⚠️ THE OFFICIALS HALF NO LONGER HAS A FILE TO PROBE. It read
+  // data/officials/derived/company_links.json, retired with its builder
+  // (docs/plans/company-page-consolidation-v1.md Tier 6); its replacement is
+  // company_politicians at kind='official', which is what mpLinkageAvailable() reports on —
+  // the same probe the MP half already made above, so `crossReference !== undefined` covers
+  // both legs and a second existsSync would only ever have been false.
+  if (crossReference !== undefined) {
     console.log(`→ building political-economy join layer`);
-    const data = buildPoliticalLinks();
+    const data = await buildPoliticalLinks();
     writePoliticalLinks(data);
     const t = data.index.totals;
     console.log(

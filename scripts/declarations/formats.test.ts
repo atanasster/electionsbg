@@ -42,7 +42,12 @@ const COMPACT_FILES = [
 
 const COMPACT_DIRS = ["parliament/declarations", "parliament/mp-assets"];
 
-const PRETTY_FILES = ["officials/derived/company_links.json"];
+// ⚠️ EMPTY SINCE 2026-08-21, and that is not the same as "the rule is gone". Its one member
+// was officials/derived/company_links.json, retired with its builder
+// (docs/plans/company-page-consolidation-v1.md Tier 6). The rule it locked still binds: a
+// `--prod` run once flipped that file to compact and produced 928k whitespace deletions in
+// one commit. Any future pretty-formatted artifact belongs here.
+const PRETTY_FILES: string[] = [];
 
 describe("declarations artifact formats", () => {
   it("emits the two formats the committed artifacts use", () => {

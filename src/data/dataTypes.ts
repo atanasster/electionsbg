@@ -807,7 +807,8 @@ export type MunicipalityRosterFile = {
 };
 
 /* --- Officials → company cross-reference ----------------------------------
- * Additive artifact (`data/officials/derived/company_links.json`) linking
+ * Additive artifact (retired 2026-08-21 with `data/officials/derived/company_links.json`; the
+ * shape survives for the payloads still typed against it) linking
  * executive + municipal officials to companies — via their own declared
  * ownership stakes and via a Commerce Registry (TR) officer/owner name join.
  * A stepping stone toward folding officials into the connections graph. */

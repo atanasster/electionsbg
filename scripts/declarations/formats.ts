@@ -23,7 +23,7 @@
  *             assets-rankings.json,
  *             assets-rankings-top.json, car-makes.json, mp-cars.json,
  *             data-provenance.json
- *   pretty  — data/officials/derived/company_links.json
+ *   pretty  — (none today; see formats.test.ts)
  *
  * Do NOT mass-reformat either family to unify them: each would be a
  * ~million-line no-op diff and a full re-upload of the trees that ship.

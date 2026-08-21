@@ -6,7 +6,7 @@
 // Reads (all already present after the standard ingest chain runs):
 //   - data/funds/beneficiaries/<k>.json     (EU-funds organisation rollup)
 //   - data/funds/derived/mp_connected.json  (MP cross-reference, produced earlier in this ingest)
-//   - data/officials/derived/company_links.json  (cabinet/agency/governors/mayors → companies)
+//   - company_politicians kind='official'       (cabinet/agency/governors/mayors → companies)
 //   - data/officials/index.json             (slug → role/category/tier resolution)
 //   - data/procurement/derived/top_contractors.json (slim АОП award totals)
 //   - data/procurement/debarred.json        (debarred suppliers — name-matched)
@@ -25,6 +25,7 @@
 // officials skill applies — declared + namesakeCount == 1).
 
 import fs from "fs";
+import { mpLinkageAvailable, readOfficialLinkRows } from "../lib/mp_linkage";
 import path from "path";
 import { fileURLToPath } from "url";
 import type { FundsBeneficiary } from "./types";
@@ -45,11 +46,11 @@ const MP_CONNECTED_FILE = path.join(DERIVED_DIR, "mp_connected.json");
 const POLITICAL_FILE = path.join(DERIVED_DIR, "political_links.json");
 const POLITICAL_SHARD_DIR = path.join(DERIVED_DIR, "political-by-eik");
 
-const OFFICIALS_COMPANY_LINKS = path.join(
-  ROOT,
-  "data/officials/derived/company_links.json",
-);
 const OFFICIALS_INDEX = path.join(ROOT, "data/officials/index.json");
+const OFFICIALS_MUNI_INDEX = path.join(
+  ROOT,
+  "data/officials/municipal/index.json",
+);
 const PROC_TOP_CONTRACTORS = path.join(
   ROOT,
   "data/procurement/derived/top_contractors.json",
@@ -85,29 +86,6 @@ interface MpConnectedFile {
     contractedEur: number;
     paidEur: number;
   }>;
-}
-
-interface OfficialsCompanyLinks {
-  byOfficial: Record<
-    string,
-    {
-      slug: string;
-      name: string;
-      tier: string;
-      role: string;
-      municipality: string | null;
-      links: Array<{
-        uic: string;
-        companyName: string;
-        source: "tr" | "declaration" | string;
-        trRole?: string | null;
-        shareSize?: string | null;
-        valueEur?: number | null;
-        confidence: "high" | "medium" | "low";
-        namesakeCount?: number;
-      }>;
-    }
-  >;
 }
 
 interface OfficialsIndex {
@@ -283,64 +261,99 @@ const buildMpByEik = (): Map<string, PoliticalMpLink[]> => {
   return byEik;
 };
 
-const buildOfficialsByEik = (): Map<string, PoliticalOfficialLink[]> => {
+// The officials leg, from the GATED PERSON LAYER.
+//
+// ⚠️ IT WAS `data/officials/derived/company_links.json`, AND THE THREE-CLAUSE GATE THIS
+// FUNCTION USED TO APPLY IS GONE WITH IT (2026-08-21). That file graded every link
+// high/medium/low on "the name is rare on BOTH sides — unique among officials AND mapped to a
+// single TR company", so this function then re-filtered to `confidence === "high"` and, for TR
+// roles, `namesakeCount === 1`. Migration 158's header calls that one-company straitjacket
+// wrong in both directions: it drops a rare-name official's whole set behind one busy
+// registered agent, and passes a name held by two people with six companies each.
+//
+// `company_politicians` at `kind='official'` is already through migration 148's
+// `tr_name_fold_people` fold — a name the Commerce Registry says belongs to more than one
+// human is REFUSED, and an UNMEASURED fold is refused too — so the two dropped clauses have
+// nothing left to drop. The 9-digit clause STAYS: it is a different rule (skip the 13-digit
+// BULSTAT sub-units, which are not the company this join is about).
+// Plan: docs/plans/company-page-consolidation-v1.md (Tier 6).
+const buildOfficialsByEik = async (): Promise<
+  Map<string, PoliticalOfficialLink[]>
+> => {
   const byEik = new Map<string, PoliticalOfficialLink[]>();
-  if (
-    !fs.existsSync(OFFICIALS_COMPANY_LINKS) ||
-    !fs.existsSync(OFFICIALS_INDEX)
-  ) {
+  if (!(await mpLinkageAvailable()) || !fs.existsSync(OFFICIALS_INDEX)) {
     return byEik;
   }
-  const links = JSON.parse(
-    fs.readFileSync(OFFICIALS_COMPANY_LINKS, "utf8"),
-  ) as OfficialsCompanyLinks;
+  const links = await readOfficialLinkRows(
+    "the political-economy join would publish that no public official is tied to any " +
+      "EU-funds beneficiary.",
+  );
   const idx = JSON.parse(
     fs.readFileSync(OFFICIALS_INDEX, "utf8"),
   ) as OfficialsIndex;
   const officialMeta = new Map(idx.entries.map((e) => [e.slug, e]));
 
-  // Per-EIK, dedupe officials by slug — combine multiple TR roles + declared
-  // stakes for the same person into one entry's `roles` array.
-  const perEik = new Map<string, Map<string, PoliticalOfficialLink>>();
-  for (const official of Object.values(links.byOfficial)) {
-    const meta = officialMeta.get(official.slug);
-    for (const link of official.links) {
-      // High-confidence + canonical 9-digit EIK only — same gate the officials
-      // skill applies for "declared" links. Skip 13-digit BULSTAT (sub-units)
-      // and low-confidence namesake guesses.
-      if (link.confidence !== "high") continue;
-      if (!/^\d{9}$/.test(link.uic)) continue;
-      // For TR roles, also require namesakeCount == 1 to avoid common-name
-      // collisions. Declarations are inherently high-confidence (filed by the
-      // official themselves) so no namesake gate is needed.
-      if (link.source === "tr" && (link.namesakeCount ?? 1) !== 1) continue;
+  // ⚠️ THE MUNICIPAL ROSTER IS A SECOND FILE, AND WITHOUT IT EVERY COUNCILLOR LOSES THEIR
+  // PLACE. `officials/index.json` is the EXECUTIVE index — measured 2026-08-21, it resolves
+  // 463 of 579 linked officials and **0 of the 116 municipal ones**. The retired
+  // company_links.json carried a `municipality` per official, so re-basing without this join
+  // would have taken „Общински съветник, Гоце Делчев" down to „Общински съветник, —" on every
+  // funds political-economy row, silently. Absent file → NULL, which reads as absence.
+  const muniMunicipality = new Map<string, string>();
+  if (fs.existsSync(OFFICIALS_MUNI_INDEX)) {
+    const muni = JSON.parse(fs.readFileSync(OFFICIALS_MUNI_INDEX, "utf8")) as {
+      entries?: Array<{ slug?: string; municipality?: string | null }>;
+    };
+    for (const e of muni.entries ?? [])
+      if (e.slug && e.municipality)
+        muniMunicipality.set(e.slug, e.municipality);
+  }
 
-      let byOfficial = perEik.get(link.uic);
-      if (!byOfficial) {
-        byOfficial = new Map();
-        perEik.set(link.uic, byOfficial);
-      }
-      let entry = byOfficial.get(official.slug);
-      if (!entry) {
-        entry = {
-          slug: official.slug,
-          name: official.name,
-          category: meta?.category ?? official.role,
-          tier: official.tier,
-          role: official.role,
-          institution: meta?.institution ?? null,
-          municipality: official.municipality,
-          confidence: link.confidence,
-          latestDeclarationYear: meta?.latestDeclarationYear ?? null,
-          roles: [],
-        };
-        byOfficial.set(official.slug, entry);
-      }
+  // Per-EIK, dedupe officials by slug — combine multiple registry roles + declared stakes for
+  // the same person into one entry's `roles` array.
+  const perEik = new Map<string, Map<string, PoliticalOfficialLink>>();
+  for (const link of links) {
+    // Canonical 9-digit EIK only: skip the 13-digit BULSTAT sub-units.
+    if (!/^\d{9}$/.test(link.eik)) continue;
+    const meta = officialMeta.get(link.slug);
+
+    let byOfficial = perEik.get(link.eik);
+    if (!byOfficial) {
+      byOfficial = new Map();
+      perEik.set(link.eik, byOfficial);
+    }
+    let entry = byOfficial.get(link.slug);
+    if (!entry) {
+      entry = {
+        slug: link.slug,
+        name: link.name,
+        category: meta?.category ?? link.role,
+        tier: link.tier,
+        role: link.role,
+        institution: meta?.institution ?? null,
+        municipality: muniMunicipality.get(link.slug) ?? null,
+        confidence: "high",
+        latestDeclarationYear: meta?.latestDeclarationYear ?? null,
+        roles: [],
+      };
+      byOfficial.set(link.slug, entry);
+    }
+    for (const rel of link.relations as Array<{
+      kind?: string;
+      role?: string;
+      shareSize?: string;
+      valueEur?: number;
+    }>) {
+      // ⚠️ `kind` OR `role`, and NEVER `link.role` as a fallback — that is the person's OFFICE
+      // (councillor, deputy_minister), not their relationship to this company. The stored
+      // vintage keys these `role` and the re-based arm keys them `kind`; see OfficialLinkRow.
+      const kind = rel?.kind ?? rel?.role;
+      if (!kind) continue;
       entry.roles.push({
-        source: link.source,
-        trRole: link.trRole ?? null,
-        shareSize: link.shareSize ?? null,
-        valueEur: link.valueEur ?? null,
+        source: kind === "stake" ? "declared" : "tr",
+        trRole: kind,
+        shareSize: rel?.shareSize ?? null,
+        valueEur: rel?.valueEur ?? null,
       });
     }
   }
@@ -434,10 +447,10 @@ const writeJsonIfChanged = (file: string, content: string): boolean => {
 
 // ---- Main ----
 
-export const buildPoliticalLinks = (): {
+export const buildPoliticalLinks = async (): Promise<{
   index: PoliticalIndex;
   shards: PoliticalShard[];
-} => {
+}> => {
   const rows = readBeneficiaries();
   const aggregated = aggregateByEik(rows);
   console.log(
@@ -445,7 +458,7 @@ export const buildPoliticalLinks = (): {
   );
 
   const mpByEik = buildMpByEik();
-  const officialsByEik = buildOfficialsByEik();
+  const officialsByEik = await buildOfficialsByEik();
   console.log(
     `  ${mpByEik.size} MP-linked EIK(s) · ${officialsByEik.size} official-linked EIK(s)`,
   );
@@ -620,7 +633,7 @@ const isMain =
   fileURLToPath(import.meta.url) === path.resolve(process.argv[1] ?? "");
 if (isMain) {
   console.log("→ building EU-funds political-economy join layer");
-  const data = buildPoliticalLinks();
+  const data = await buildPoliticalLinks();
   writePoliticalLinks(data);
   const t = data.index.totals;
   console.log(

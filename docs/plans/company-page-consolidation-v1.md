@@ -519,6 +519,57 @@ operator hints that name the rebuild command
 Check `bucket_sync_paths.ts` for the outputs, as in Tier 5.5 — an exclusion freezes, it does not
 retire.
 
+#### As built (2026-08-21) — and the parity check it was nearly signed off with
+
+**`pep_connected.json` is NOT deleted; it is re-based.** The plan says to delete
+"`pep_connected.ts`'s file arm" — but four artifacts read `PepConnectedFile`
+(`derived.ts`'s `buildFlow`, `by_ns.ts`, `risk_feed.ts` and the `index.json` summary), so
+cutting the arm would have left every one of them producing a half-graph at exit 0. It reads
+`company_politicians` at `kind='official'` instead, through a new `readOfficialLinkRows` in
+`scripts/lib/mp_linkage.ts` — the exact move Tier 5.1 made for the mp side. The funds
+political-economy join and the NGO board-links loader, both of which read the file and neither
+of which the plan lists, were handled the same way.
+
+**Two gates were dropped as redundant and one kept**, verified against `armSql`'s `gated` CTE:
+`confidence === "high"` and `namesakeCount === 1` have nothing left to drop, because migration
+148's `tr_name_fold_people` fold already REFUSES a shared name. The 9-digit EIK clause STAYS —
+it is a different rule (skip the 13-digit BULSTAT sub-units).
+
+⚠️ **THE FIRST PARITY CHECK WAS INVALID, AND IT LOOKED PERFECT.** Rebuilding `pep_connected`
+from Postgres reproduced the committed file at **579 pairs / 561 officials, 0 either way** —
+which review showed was the retired `company_links.json` round-tripping through a
+`company_politicians` still holding its PRE-2026-08-20 vintage, compared on PAIR IDENTITY
+only. Field-by-field the same run was `roleDiff 0 · tierDiff 48 · relDiff 579`. Three defects
+hid behind it:
+
+- **`role` is the OFFICE, and `company_politicians.role` is not it.** Every consumer contracts
+  that field as the person's office (`NsTopOfficial.role`; `PoliticalOfficialLink.category`
+  falls back to it) — `councillor`, `deputy_minister`, `state_enterprise`. It reads as right
+  today only because the stored vintage came from `pep_connected.json`, where `role` WAS the
+  office; the re-based `OFFICIAL_ARM_SQL` sets it to the COMPANY relationship, so the next
+  `db:load:tr:pg` would have flipped the vocabulary to `director 393 / manager 236 / stake 54`
+  and published "director" as a public office. The reader takes `person_role.role` from the
+  join it already had.
+- **The relation key differs by vintage.** Stored rows are `[{"role":"director"}]`; the
+  re-based arm emits `[{"kind":"manager","isCurrent":true}]`. Reading only `kind` yields
+  `undefined` on every current row — and the `?? r.role` fallback then substituted the OFFICE
+  into the relation, rendering „държавно предприятие · държавно предприятие" on `/company/:eik`
+  and the literal `tr` on the funds row. Both keys are accepted; there is no fallback to the
+  office, and a relation with neither key is DROPPED rather than invented.
+- **The soft skip was lost.** `buildPepConnected` used to return an empty payload when its
+  file was absent; five procurement CLIs call it AFTER writing the corpus, so the throw would
+  have aborted an ingest at the very end on any machine without Postgres. Restored, with the
+  absent/empty split this plan uses everywhere.
+
+**One genuine narrowing, found and closed:** `officials/index.json` is the EXECUTIVE index and
+resolves **0 of the 116 municipal** linked officials, so re-basing without a second join took
+every councillor's `municipality` to null. `data/officials/municipal/index.json` restores all
+116. `tier` legitimately differs on 48 rows: the retired file had two buckets and the person
+layer has four sources under this arm (`public_sector` 46, `mep` 2), which pass through as
+themselves rather than being filed under a government tier they are not in.
+
+---
+
 ⚠️ **`build_officials_company_links.ts` is the LAST rendering consumer of `owner_share.ts`**
 (it reads `share_percent` at line 158). Retiring it does **not** make the twin dead code — the
 twin still writes `company_persons.share_percent`, which `load_tr_pg.ts:360` COPYs into

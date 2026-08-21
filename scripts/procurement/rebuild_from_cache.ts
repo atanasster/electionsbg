@@ -52,10 +52,6 @@ const DERIVED_DIR = path.join(PROCUREMENT_DIR, "derived");
 const BY_NS_DIR = path.join(PROCUREMENT_DIR, "by_ns");
 const INDEX_FILE = path.join(PROCUREMENT_DIR, "index.json");
 const BUNDLES_FILE = path.join(PROCUREMENT_DIR, "bundles.json");
-const OFFICIALS_COMPANY_LINKS = path.resolve(
-  __dirname,
-  "../../data/officials/derived/company_links.json",
-);
 const ELECTIONS_INDEX = path.resolve(
   __dirname,
   "../../src/data/json/elections.json",
@@ -120,12 +116,11 @@ const main = async (): Promise<void> => {
   // by-settlement maps (geo-resolved awarders → settlement). Reads the awarder
   // rollups just written above; awarders with no address won't pin to an EKATTE.
 
-  // Officials (non-MP political class) → procurement. Independent of the
-  // link-set gate below (it uses the officials declarations tree).
-  const pepConnected = buildPepConnected(
-    OFFICIALS_COMPANY_LINKS,
-    CONTRACTORS_DIR,
-  );
+  // Officials (non-MP political class) → procurement. ⚠️ NO LONGER independent of the link
+  // set: since 2026-08-21 it reads the SAME `company_politicians`, at kind='official', rather
+  // than the retired data/officials/derived/company_links.json. It carries its own soft skip
+  // (see buildPepConnected) so an unreachable database still leaves the corpus written.
+  const pepConnected = await buildPepConnected(CONTRACTORS_DIR);
   writePepConnected(DERIVED_DIR, pepConnected);
   console.log(
     `  pep_connected.json: ${pepConnected.total} pair(s), ${pepConnected.officialCount} official(s)`,

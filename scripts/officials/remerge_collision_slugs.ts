@@ -247,7 +247,6 @@ const cmd = command({
 
     console.log(
       "  STILL STALE — these name the old slugs and must be regenerated:\n" +
-        "    tsx scripts/run-officials-links-only.ts   # data/officials/derived/company_links.json\n" +
         "    …then reload Postgres (db:load:declarations) and re-derive the graph (db:load:graph:pg)",
     );
   },

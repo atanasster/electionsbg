@@ -28,7 +28,6 @@ import {
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
-import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
 import { compactJson } from "./formats";
 import type { MpDeclaration } from "../../src/data/dataTypes";
 
@@ -99,11 +98,10 @@ const main = async () => {
     reparseAll();
   }
 
-  // Mirrors declarations/index.ts. Without it this runner rebuilt every
-  // parliament artifact and left data/officials/derived/company_links.json on
-  // the previous vintage — half of what an edit to the link logic moves.
-  console.log("[rebuild-all] phase 4a — buildOfficialsCompanyLinks");
-  buildOfficialsCompanyLinks();
+  // Phase 4a (buildOfficialsCompanyLinks → data/officials/derived/company_links.json) is
+  // GONE with its builder (2026-08-21) — see declarations/index.ts for why. Nothing here
+  // replaces it: the officials↔company set is `company_politicians` at `kind='official'`,
+  // rebuilt by `db:load:tr:pg` from the gated person layer.
 
   // phases 5b/5c (the per-settlement and per-municipality shard builders) are GONE —
   // /settlement/:id/companies is served live from Postgres (migration 151).

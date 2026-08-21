@@ -470,7 +470,6 @@ const cmd = command({
     console.log(
       "  STILL STALE — these read the old slugs and must be regenerated:\n" +
         "    tsx scripts/officials/build_municipal_search.ts  # municipal/search_index.json (needs PG for /person links)\n" +
-        "    tsx scripts/run-officials-links-only.ts        # data/officials/derived/company_links.json\n" +
         "    …and reload Postgres: npm run db:load:declarations (person_role.ref carries the slug); the\n" +
         "    /connections graph then re-derives via npm run db:load:graph:pg",
     );

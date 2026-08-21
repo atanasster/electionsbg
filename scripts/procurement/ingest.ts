@@ -85,10 +85,6 @@ const DERIVED_DIR = path.join(PROCUREMENT_DIR, "derived");
 const BY_NS_DIR = path.join(PROCUREMENT_DIR, "by_ns");
 const INDEX_FILE = path.join(PROCUREMENT_DIR, "index.json");
 const BUNDLES_FILE = path.join(PROCUREMENT_DIR, "bundles.json");
-const OFFICIALS_COMPANY_LINKS = path.resolve(
-  __dirname,
-  "../../data/officials/derived/company_links.json",
-);
 const ELECTIONS_INDEX = path.resolve(
   __dirname,
   "../../src/data/json/elections.json",
@@ -475,19 +471,19 @@ const main = async (args: {
 
   // 6e. Officials (non-MP political class) → procurement cross-reference. Joins
   // the officials' high-confidence company links against the contractor set.
-  // Not gated on the MP link set (this uses the officials declarations tree).
+  // ⚠️ It reads the SAME link set as the MP arm since 2026-08-21 — kind='official' rather
+  // than kind='mp' — not the retired officials declarations tree. Its own soft skip inside
+  // buildPepConnected is what keeps an unreachable database from aborting the ingest here,
+  // after every shard has already been written.
   console.log(`→ building officials→procurement cross-reference`);
-  const pepConnected = buildPepConnected(
-    OFFICIALS_COMPANY_LINKS,
-    CONTRACTORS_DIR,
-  );
+  const pepConnected = await buildPepConnected(CONTRACTORS_DIR);
   writePepConnected(DERIVED_DIR, pepConnected);
   console.log(
     `  pep_connected.json: ${pepConnected.total} pair(s), ${pepConnected.officialCount} official(s)`,
   );
   // Officials cross-reference summary for the index (full-corpus view). De-dup
   // by contractor EIK so a company tied to several officials counts its euro
-  // total once. Independent of the MP link set (officials use their own tree).
+  // total once. Reads the same link set at kind='official' (see above).
   const offSlugs = new Set<string>();
   const offByEik = new Map<string, number>();
   for (const e of pepConnected.entries) {

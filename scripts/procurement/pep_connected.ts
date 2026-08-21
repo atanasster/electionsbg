@@ -1,45 +1,33 @@
-// Officials → procurement cross-reference. Mirrors cross_reference.ts (the
-// MP-companies join) but for the rest of the political class: cabinet members,
-// deputy ministers, agency heads, regional governors, mayors, deputy-mayors,
-// council chairs, councillors and chief architects. The join key is the 9-digit
-// EIK on the official's declared / Commerce-Registry company links
-// (data/officials/derived/company_links.json, built by the connections feature).
+// Officials → procurement cross-reference. Mirrors cross_reference.ts (the MP-companies join)
+// but for the rest of the political class: cabinet members, deputy ministers, agency heads,
+// regional governors, mayors, deputy-mayors, council chairs, councillors and chief architects.
+// The join key is the 9-digit EIK on both sides.
 //
-// EDITORIAL GUARDRAIL: only HIGH-confidence links are used — a declared stake or
-// a unique-name TR officer/owner match. Medium/low links are name-only matches
-// that, for officials (unlike MPs, who are a tiny bounded set), collapse into a
-// "most common Bulgarian name" list. Dropping them keeps the signal clean — the
-// same rule the connections graph applies. See [[project-connections-expansion]].
+// EDITORIAL GUARDRAIL: only links the registry itself supports — a declared stake 096
+// confirmed against the Commerce Registry, or a registry role on a folded name migration 148
+// says belongs to exactly one human.
+//
+// ⚠️ THE SOURCE MOVED, AND WITH IT WHAT „HIGH CONFIDENCE" MEANS (2026-08-21). It was
+// `data/officials/derived/company_links.json`, which graded every link high/medium/low and
+// which this module then filtered to `high`. That grade was the discredited one — "high only
+// when the name is rare on BOTH sides: unique among officials AND mapped to a single TR
+// company" — the one-company straitjacket migration 158's header calls wrong in both
+// directions, applied to 70,525 links of which 85.5% were low. It is now the gated person
+// layer (`readOfficialLinkRows` in `scripts/lib/mp_linkage.ts`), where a shared name is
+// REFUSED rather than scored, so there is no per-row grade left to filter on: the emitted
+// `confidence: "high"` describes the SET. Plan:
+// docs/plans/company-page-consolidation-v1.md (Tier 6).
 
 import fs from "fs";
 import path from "path";
 import type { ContractorRollup } from "./types";
 import { canonicalEik } from "./eik";
 import { byEurDesc, canonicalJson, writeStableJson } from "./validate";
-
-type OfficialLink = {
-  uic: string;
-  companyName: string;
-  source: "tr" | "declared" | string;
-  trRole?: string | null;
-  shareSize?: string | null;
-  valueEur?: number | null;
-  confidence: "high" | "medium" | "low";
-  namesakeCount?: number;
-};
-
-type OfficialEntry = {
-  slug: string;
-  name: string;
-  tier: string;
-  role: string;
-  municipality?: string | null;
-  links: OfficialLink[];
-};
-
-export type CompanyLinksFile = {
-  byOfficial: Record<string, OfficialEntry>;
-};
+import {
+  mpLinkageAvailable,
+  readOfficialLinkRows,
+  type OfficialLinkRow,
+} from "../lib/mp_linkage";
 
 export type PepRelation = {
   role: string;
@@ -90,37 +78,64 @@ export type PepConnectedFile = {
   entries: PepConnectedEntry[];
 };
 
-// Source-agnostic core: join officials' high-confidence company links to
-// procurement contractors via `getContractor(eik)` (returns the rollup or null).
-// buildPepConnected below reads the on-disk rollups; the SQL generator passes a
-// lookup over its SQL-built rollups.
+// Source-agnostic core: join the gated officials link rows to procurement contractors via
+// `getContractor(eik)` (returns the rollup or null). buildPepConnected below reads the on-disk
+// rollups; the SQL generator passes a lookup over its SQL-built rollups.
+//
+// ⚠️ NO CONFIDENCE FILTER, and its absence is not an omission. The rows arrive gated (see the
+// header), so the `l.confidence !== "high"` skip this loop used to open with would drop
+// nothing — while looking like it still guarded something.
 export const buildPepConnectedFrom = (
-  links: CompanyLinksFile,
+  links: readonly OfficialLinkRow[],
   getContractor: (eik: string) => ContractorRollup | null,
 ): PepConnectedFile => {
   const entries: PepConnectedEntry[] = [];
   const officials = new Set<string>();
 
-  for (const official of Object.values(links.byOfficial ?? {})) {
-    // High-confidence links only, grouped per company EIK (an official can hold
-    // several roles in the same firm — manager + partner is common).
-    const perEik = new Map<string, PepRelation[]>();
-    for (const l of official.links ?? []) {
-      if (l.confidence !== "high") continue;
-      if (!/^\d{9,13}$/.test(l.uic)) continue;
-      // Canonicalise exactly as the contractor rollup filenames are keyed
-      // (13-digit branch → 9-digit; 10/11/12-digit BULSTAT kept as-is), so the
-      // contractors/{eik}.json lookup can't miss on a length mismatch.
-      const eik = canonicalEik(l.uic);
-      const arr = perEik.get(eik) ?? [];
+  // One row per (official, company) already, but an official can hold several roles in one
+  // firm, so the relations are folded per EIK exactly as before.
+  const byOfficial = new Map<
+    string,
+    { row: OfficialLinkRow; perEik: Map<string, PepRelation[]> }
+  >();
+  for (const r of links) {
+    if (!/^\d{9,13}$/.test(r.eik)) continue;
+    // Canonicalise exactly as the contractor rollup filenames are keyed (13-digit branch →
+    // 9-digit; 10/11/12-digit BULSTAT kept as-is), so the contractors/{eik}.json lookup
+    // cannot miss on a length mismatch.
+    const eik = canonicalEik(r.eik);
+    const g = byOfficial.get(r.slug) ?? { row: r, perEik: new Map() };
+    const arr = g.perEik.get(eik) ?? [];
+    for (const rel of r.relations as Array<{
+      kind?: string;
+      role?: string;
+      shareSize?: string;
+      valueEur?: number;
+    }>) {
+      // ⚠️ `kind` OR `role`, and NEVER the row's own `role` as a fallback. The stored vintage
+      // keys these `role` and the re-based arm keys them `kind` (see OfficialLinkRow), so
+      // reading one alone yields undefined on half the databases — and substituting the
+      // OFFICE role there would publish „държавно предприятие" as a company relationship.
+      const kind = rel?.kind ?? rel?.role;
+      if (!kind) continue;
       arr.push({
-        role: l.source === "declared" ? "stake" : (l.trRole ?? "officer"),
-        confidence: l.confidence,
-        ...(l.shareSize ? { shareSize: l.shareSize } : {}),
-        ...(typeof l.valueEur === "number" ? { valueEur: l.valueEur } : {}),
+        role: kind,
+        confidence: "high",
+        ...(rel?.shareSize ? { shareSize: rel.shareSize } : {}),
+        ...(typeof rel?.valueEur === "number"
+          ? { valueEur: rel.valueEur }
+          : {}),
       });
-      perEik.set(eik, arr);
     }
+    // No synthetic relation when the array is empty: an entry with no stated relationship is
+    // one this join cannot describe, and inventing „officer" would assert a registry role
+    // nobody filed. It still counts as a link — the official IS tied to the company — so the
+    // entry stands with an empty `relations`.
+    g.perEik.set(eik, arr);
+    byOfficial.set(r.slug, g);
+  }
+
+  for (const { row: official, perEik } of byOfficial.values()) {
     for (const [eik, relations] of perEik) {
       const c = getContractor(eik);
       if (!c) continue; // not a procurement contractor
@@ -159,11 +174,19 @@ export const buildPepConnectedFrom = (
   };
 };
 
-export const buildPepConnected = (
-  companyLinksPath: string,
+export const buildPepConnected = async (
   contractorsDir: string,
-): PepConnectedFile => {
-  if (!fs.existsSync(companyLinksPath) || !fs.existsSync(contractorsDir)) {
+): Promise<PepConnectedFile> => {
+  // ⚠️ THE SOFT SKIP IS LOAD-BEARING AND IT NEARLY DIED IN THE RE-BASE. Five procurement CLIs
+  // call this AFTER writing the contracts corpus, and the file it used to read was optional —
+  // `!fs.existsSync(companyLinksPath)` returned an empty payload rather than throwing. Its
+  // replacement lives in Postgres, so without this probe a machine with no database aborts
+  // the ingest at the very end, having already written every shard.
+  //
+  // Absent and empty stay different, as everywhere else here: UNREACHABLE (a fresh clone, no
+  // Postgres, or company_politicians never created) yields the empty payload; PRESENT and
+  // empty is a broken load and readOfficialLinkRows throws.
+  if (!fs.existsSync(contractorsDir) || !(await mpLinkageAvailable())) {
     return {
       generatedAt: new Date().toISOString(),
       total: 0,
@@ -171,9 +194,10 @@ export const buildPepConnected = (
       entries: [],
     };
   }
-  const links = JSON.parse(
-    fs.readFileSync(companyLinksPath, "utf8"),
-  ) as CompanyLinksFile;
+  const links = await readOfficialLinkRows(
+    "pep_connected.json would be rewritten empty and every surface built on it would " +
+      "report that no public official is tied to a procurement contractor.",
+  );
   return buildPepConnectedFrom(links, (eik) => {
     const f = path.join(contractorsDir, `${eik}.json`);
     return fs.existsSync(f)

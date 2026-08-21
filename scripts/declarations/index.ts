@@ -26,7 +26,6 @@ import {
   reportAutoCorrections,
   unknownRootTally,
 } from "./parse_declaration";
-import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
@@ -413,10 +412,13 @@ export const parseFinancialDeclarations = async ({
   // Deleted with them: build_company_index.ts, augment_mp_roles.ts and tr/integrate.ts, whose
   // last remaining output was that file.
 
-  // Officials → company cross-reference. Joins executive + municipal officials
-  // to companies (declared stakes + TR officer/owner name match). No-ops if
-  // data/officials/ has not been ingested.
-  buildOfficialsCompanyLinks();
+  // The officials → company cross-reference is GONE (2026-08-21). It wrote
+  // `data/officials/derived/company_links.json` — 70,525 links over 9,659 officials, 85.5%
+  // of them low-confidence — from a name match graded on "the name is rare on BOTH sides",
+  // the one-company straitjacket migration 158's header calls wrong in both directions. The
+  // officials↔company set is `company_politicians` at `kind='official'`, built from the gated
+  // person layer, where a shared name is REFUSED rather than scored. See
+  // docs/plans/company-page-consolidation-v1.md (Tier 6).
 
   // The per-settlement and per-municipality shard builders that used to run here are GONE:
   // /settlement/:id/companies is served live from Postgres (place_mp_companies, migration 151).
