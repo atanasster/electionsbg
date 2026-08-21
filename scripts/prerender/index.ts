@@ -1,10 +1,20 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { PrerenderRoute, SITE_URL, prerenderRoutes } from "./routes";
+import {
+  DEFAULT_OG_IMAGE,
+  PrerenderRoute,
+  SITE_URL,
+  prerenderRoutes,
+} from "./routes";
 import { buildDynamicRoutes } from "./dynamicRoutes";
 import { buildSiteNav } from "./bodyBuilders";
-import { RenderVariant, encodeUrlPath, renderSeoBlock } from "./seoBlock";
+import {
+  RenderVariant,
+  encodeUrlPath,
+  renderSeoBlock,
+  resolveOgImage,
+} from "./seoBlock";
 import { loadEnv } from "vite";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -54,6 +64,57 @@ const assertBaseMatchesBundle = (routes: PrerenderRoute[]) => {
   }
 };
 
+// Does dist/ hold the card a route declares? By the time this step runs both
+// producers have written: `vite build` copied public/og, and
+// scripts/og/generate.ts rendered the data-driven families into dist/og
+// immediately before. A miss is therefore a card that was never built — see
+// resolveOgImage in seoBlock.ts for why that is routine on a data-less
+// checkout and a real gap on a deploy build.
+//
+// Memoized because ~250k route variants draw on a few hundred distinct cards.
+const cardCache = new Map<string, boolean>();
+const cardExists = (rel: string): boolean => {
+  let hit = cardCache.get(rel);
+  if (hit === undefined) {
+    hit = fs.existsSync(path.join(DIST, rel));
+    cardCache.set(rel, hit);
+  }
+  return hit;
+};
+
+// The swap must not be silent. On a checkout without data/<election>/ it is
+// expected and says so; on a deploy build it is the one signal that a card
+// which SHOULD exist does not — and every other symptom of that is invisible
+// (the page still renders, and the head still carries a valid image URL).
+//
+// Counted in a second pass over the same memoized probe rather than inside
+// renderSeoBlock, so the number is per ROUTE and cannot be inflated by
+// resolveOgImage probing a path twice.
+const reportOgFallbacks = (routes: PrerenderRoute[]) => {
+  const fallen = new Map<string, number>();
+  for (const r of routes) {
+    if (!r.ogImage) continue;
+    if (resolveOgImage(r.ogImage, cardExists) !== DEFAULT_OG_IMAGE) continue;
+    const variants = r.english ? 2 : 1;
+    fallen.set(r.ogImage, (fallen.get(r.ogImage) ?? 0) + variants);
+  }
+  if (!fallen.size) return;
+  const variants = [...fallen.values()].reduce((a, b) => a + b, 0);
+  const worst = [...fallen.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([rel, n]) => `      ${rel} × ${n}`)
+    .join("\n");
+  console.warn(
+    `prerender: ${fallen.size} declared og:image card(s) are not in dist/ — ` +
+      `${variants} page variant(s) fell back to the site-wide card.\n` +
+      `    Expected on a checkout without data/<election>/: the rendered ` +
+      `og/region, og/party, og/local and og/cabinet families are built from it ` +
+      `and it is gitignored. On a DEPLOY build a card is genuinely missing — ` +
+      `re-run \`npm run og\`.\n${worst}`,
+  );
+};
+
 const renderBodyBlock = (variant: RenderVariant): string => {
   // Per-page body (may be empty for thin routes) followed by the shared
   // section navigation, so every prerendered page carries a crawlable
@@ -81,7 +142,7 @@ const writeVariant = (
   }
   let html = template.replace(
     SEO_BLOCK_RE,
-    renderSeoBlock(route, variant, DATA_BASE),
+    renderSeoBlock(route, variant, DATA_BASE, cardExists),
   );
   html = html.replace(BODY_BLOCK_RE, renderBodyBlock(variant));
   // Swap the document language attribute when emitting an English variant.
@@ -171,6 +232,7 @@ const main = async () => {
   const routes = Array.from(byPath.values());
   assertBaseMatchesBundle(routes);
   routes.forEach((route) => writeRoute(template, route));
+  reportOgFallbacks(routes);
   const englishCount = routes.filter((r) => !!r.english).length;
   console.log(
     `prerendered ${routes.length} routes (${prerenderRoutes.length} static + ${dynamic.length} dynamic, +${englishCount} English mirrors)`,

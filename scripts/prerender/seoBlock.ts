@@ -38,16 +38,55 @@ export type RenderVariant = {
   canonicalUrl?: string;
 };
 
+// Whether the card a route declares is actually on disk. `() => true` is the
+// historical behaviour — assume the generator built it — so a caller that has
+// no dist/ to look at (every unit test) reads the route as its only input.
+export type CardExists = (distRelativePath: string) => boolean;
+
+// A declared og:image is a PROMISE that a file exists at that URL, and the two
+// kinds of card fail differently. The captured ones are committed under
+// public/og. The RENDERED families — og/region, og/party, og/local, og/cabinet
+// — are written into dist/og at postbuild by scripts/og/generate.ts FROM
+// data/<election>/*.json, a tree `.gitignore` excludes (`/data/2*/*`). So on a
+// checkout without that data the generator writes nothing, silently, and every
+// page in those families used to advertise an og:image that 404s: ~208 of them
+// on CI, where the build now fails at scripts/images/optimize.ts's dangling-
+// reference gate rather than shipping the dead links.
+//
+// Falling back to the site-wide card keeps the promise. It is deliberately not
+// silent — index.ts reports what it swapped, because on a DEPLOY build (where
+// the data is present) a fallback means a card that should exist does not.
+export const resolveOgImage = (
+  ogImage: string | undefined,
+  cardExists: CardExists = () => true,
+): string => {
+  if (!ogImage) return DEFAULT_OG_IMAGE;
+  // An off-site card is somebody else's file — nothing here can check it.
+  if (ogImage.startsWith("http")) return ogImage;
+  // dist-relative, no leading slash: "og/region/RSE.png". The og/party cards
+  // are percent-encoded ON DISK, so the declared path is compared verbatim —
+  // decoding it here would miss every one of them.
+  const rel = ogImage.replace(/^\//, "");
+  if (cardExists(rel)) return `${SITE_URL}${ogImage}`;
+  // The card may already be webp: scripts/images/optimize.ts converts dist/og
+  // and DELETES the png, so a prerender re-run over an optimized dist sees no
+  // .png for a card that is plainly there. Accept the sibling and name it —
+  // that is the URL the optimize rewrite would have produced anyway, so the
+  // deployed HTML is identical either way. Without this the card would be
+  // swapped for the site-wide default, which is the silent half of the defect
+  // this function exists to end.
+  const webp = rel.replace(/\.(png|jpe?g)$/i, ".webp");
+  if (webp !== rel && cardExists(webp)) return `${SITE_URL}/${webp}`;
+  return DEFAULT_OG_IMAGE;
+};
+
 export const renderSeoBlock = (
   route: PrerenderRoute,
   variant: RenderVariant,
   dataBase: string,
+  cardExists?: CardExists,
 ): string => {
-  const ogImage = route.ogImage
-    ? route.ogImage.startsWith("http")
-      ? route.ogImage
-      : `${SITE_URL}${route.ogImage}`
-    : DEFAULT_OG_IMAGE;
+  const ogImage = resolveOgImage(route.ogImage, cardExists);
   const title = escapeHtml(variant.title);
   const description = escapeHtml(variant.description);
   // Twitter falls back to og:title / og:description when twitter-specific
