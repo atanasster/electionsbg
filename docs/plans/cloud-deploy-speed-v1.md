@@ -2471,6 +2471,42 @@ premise ("ship everything from local"): shipping is now the exception, not the
 default. Phases 2 and 3 stand only for the transfer-bound tables (the corpus COPY
 and TR), not for the compute-bound caches.
 
+**v2-f analysis (measured 2026-08-21, prod-free) — the blocking failure is GONE;
+the decision is now coupling-vs-marginal-speed, not "can it build".** The two
+`buildOrShip` branches had different justifications, and the class distinction is
+what the measurement settles:
+
+- **`tender_normalcy_cache` (067b) was a HARD failure — `53400`, the rank() sort
+  spilling past the old `temp_file_limit`.** Re-run locally under the **new tier's
+  exact `temp_file_limit` (3,188,113 kB)** at the build's own `work_mem = 512MB`, it
+  **completes — 92 s, no `53400`, peak temp under 3.04 GB.** So the failure that
+  *forced* shipping does not recur on `db-perf-optimized-N-2`. Compute-on-cloud is
+  viable without even raising `work_mem`. (This was the one branch that *couldn't*
+  build on the old box; it now can.)
+- **`procurement_normalcy_cache` (064b) was only SLOW — ~22 min REFRESH on the old
+  shared core, never a `53400`.** It builds in **>2 min locally** (8 cores, 512 MB
+  `work_mem`); on the 2-vCPU cloud, a few minutes. Never a hard failure, so no
+  temp-limit risk to clear.
+
+**What the measurement does NOT settle (the residual, genuinely operator-gated
+part):** the *cloud wall-clock* of each build on 2 dedicated vCPU, and therefore
+whether compute-on-cloud is faster or slower than the ship. The ship transfers
+~376 MB (normalcy) + ~138 MB (tender) over the proxy — order ~1–2 min — while the
+cloud build is order 2–4 min. **So retiring the ship is roughly speed-neutral, not
+a speed win.** The real reason to retire is **architectural, not speed**: shipping
+makes `db:load:pg:cloud` correctness depend on local PG being current and calls
+local LAST (F36) — a coupling the compute-on-cloud path removes. Recommendation:
+retire `tender_normalcy`'s ship first (its blocker is provably gone and the table
+is smaller), measure the actual cloud build once, and keep `company_founded`'s ship
+regardless (local-only input, not a compute hack). The one command to get the
+last number:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/load_tenders_pg.ts
+# — after temporarily editing buildOrShipTenderNormalcy to run 067b in-place on cloud;
+#   time it and confirm no 53400 (the local test predicts none).
+```
+
 ### v2.2 — Deployment chain resolver (don't run N cloud loads for one dataset)
 
 **The problem, measured.** Derived objects sit downstream of several base datasets
@@ -2683,7 +2719,7 @@ order:
 | v2-c | ~~Derived-object registry~~ **✅ DONE (data-only)** — `scripts/db/lib/derivedRegistry.ts`: catalogs ~22 derived objects as `{name, migration, inputs[], rebuiltBy[]}` (generalising `scopedMatviews.ts`), plus `SYNC_CLASS` (R1 MIRROR/ACCUMULATOR) + `ACCUMULATOR_TABLES` so the delta-ship knows where DELETE is forbidden. Static test (`derivedRegistry.test.ts`, 11 assertions) pins it to `scopedMatviews.ts` and asserts every rebuilder is a real npm script. **No loader rewiring** — that is v2-d/v2-e. | none | the spine of v2.2 + v2.4 |
 | v2-d | ~~Deploy resolver~~ **✅ DONE (pure function)** — `scripts/db/lib/deployResolver.ts`: `resolveDeploySet(changed[]) → {objects, loaders, unmappedChanges, cyclic}`. Cascades changed base tables through the v2-c registry, covers each stale object with ONE rebuilder (avoiding a heavy unrelated base reload — a kzk change picks `kzk:rejoin`, not `db:load:pg`), and topo-orders the loaders. `deployResolver.test.ts` (8 tests) verifies fan-out minimization (prices → nothing; contracts → the money tail without TR/agri reloads), ordering, and determinism. **Solves FAN-OUT** (run only stale loaders); the double-refresh elimination needs per-loader suppression = v2-e. | v2-c | collapses the money-tail fan-out (the ~22% double-refresh needs v2-e) |
 | v2-e | **Resolver-driven emission — part 1 ✅ DONE** (`npm run deploy:resolve -- <changed tables>`, `scripts/db/resolve_deploy.ts`): prints the minimal ordered `:cloud` publish commands from the v2-d resolver, routing artifact generators to `bucket:sync`; wired into `process-watch-report` Step 8 as a cross-check tool. **Part 2 (per-loader double-refresh suppression) DEFERRED** per §v2.1 — invasive (edits production loaders) and its win shrank to ~5 min of a 24-min publish on the upgraded tier. | v2-c, v2-d | makes "mark all data for deployment" computed, not curated |
-| v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | default-compute-on-cloud now the instance is big; delete `buildOrShipNormalcy`/`Tender` if measured cheap. **Blocked: needs a real prod cloud build to measure.** |
+| v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | **Analyzed 2026-08-21 (see §v2.1):** the tender `53400` hard-failure is PROVEN gone on the new tier (067b fits under the 3.04 GB temp limit locally, 92 s). Retire is now *viable*, but ~speed-neutral vs the ship — the real win is removing the F36 local-coupling. Residual block: the actual cloud wall-clock (one prod build) + the value call. Keep `company_founded`'s ship regardless. |
 | v2-g | **A3 scope-rollover watcher ✅ DONE** — `scripts/watch/sources/procurement_scope_windows.ts`: a daily-probed, annually-publishing source whose fingerprint is the scope-window set (SCOPE_FIRST_YEAR..currentYear + elections.json), so the Jan-1 rollover / a new election now surfaces in the daily report with the exact `db:load:procurement-scopes:pg:cloud` fix. **A1/A2 reclassified: NOT watchers** — the dossier and CR-Deeds captures are operator crawls with no external change signal to poll; they are coverage-expansion tasks (tracked in CLAUDE.md), not change-driven ingests, so a `WatchSource` does not fit. | none | A3 (Jan-1) was a dated ticking bug — now watched |
 
 v2-a and v2-b are done: the base gate already shipped
