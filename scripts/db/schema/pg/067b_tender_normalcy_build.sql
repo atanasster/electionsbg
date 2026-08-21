@@ -120,3 +120,11 @@ INSERT INTO tender_normalcy_cache (unp, payload)
   LEFT JOIN cohort_stats cs ON cs.len = t.len AND cs.prefix = t.prefix AND cs.tmnum = t.mnum
   LEFT JOIN member_ranks mr ON mr.unp = ba.unp AND mr.len = t.len AND mr.prefix = t.prefix AND mr.tmnum = t.mnum;
 
+-- Restore the session defaults: this file runs on a POOLED connection (exec()), so
+-- leaving work_mem=512MB set would leak the aggressive build setting onto every
+-- later query that reuses the connection. On success these run and the connection
+-- returns clean; on a failed build the whole implicit transaction rolls back and the
+-- connection is destroyed anyway.
+RESET work_mem;
+RESET maintenance_work_mem;
+

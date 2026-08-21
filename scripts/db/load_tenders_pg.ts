@@ -90,18 +90,50 @@ const TENDER_NORMALCY_BUILD_FILE = path.join(
   "067b_tender_normalcy_build.sql",
 );
 
-// Populate tender_normalcy_cache (067, a TABLE). LOCAL: run the 067b windowed
-// build in-place. CLOUD: the shared-core instance can't build it (rank() sort
-// exceeds temp_file_limit → 53400), so stream the already-computed rows from
-// local Postgres straight into the cloud table. The payload is a deterministic
-// function of `tenders`, loaded identically on both sides. The COPY pipeline +
-// emptiness guard + row-count verification live in lib/shipTable.
+// Populate tender_normalcy_cache (067, a TABLE) — v2-f: BUILD IN-PLACE, both sides.
+//
+// The 067b windowed build once needed shipping from local because the shared-core
+// db-g1-small could not build it at all: the rank() sort spilled past that tier's
+// temp_file_limit → 53400. On the upgraded db-perf-optimized-N-2 that failure is
+// gone — measured 2026-08-21, 067b completes under the new tier's 3.04 GB
+// temp_file_limit at its own work_mem=512MB (92 s locally, peak temp < 3.04 GB).
+// Building in-place removes the F36 coupling (db:load:tenders:pg:cloud no longer
+// reads local Postgres for this cache). See docs/plans/cloud-deploy-speed-v1.md §v2-f.
+//
+// SHIP FALLBACK, kept until a few cloud runs confirm the in-place build: the local
+// test ran on 8 cores; the cloud's 2-vCPU plan could parallelise differently and
+// spill more. If the in-place build throws (a 53400 would mean the sort still
+// exceeds temp_file_limit there), fall back to the old COPY-from-local rather than
+// failing the whole tenders load. 067b is `TRUNCATE … ; INSERT …` in one implicit
+// transaction, so a failed build rolls back and leaves the cache's prior rows
+// intact for shipTable to replace. Delete this fallback once the cloud build is
+// confirmed over a run or two.
 const buildOrShipTenderNormalcy = async (): Promise<void> => {
   if (!targetIsCloud()) {
     await exec(readFileSync(TENDER_NORMALCY_BUILD_FILE, "utf8"));
     return;
   }
-  await shipTable("tender_normalcy_cache");
+  try {
+    await exec(readFileSync(TENDER_NORMALCY_BUILD_FILE, "utf8"));
+    console.log(
+      "  tender normalcy: built in-place on cloud (ship retired — v2-f)",
+    );
+  } catch (e) {
+    // Fall back to the ship ONLY for the temp-spill the fallback exists for
+    // (53400 = configuration_limit_exceeded, the rank() sort exceeding
+    // temp_file_limit). Any OTHER failure — a missing function (42883), an ACL
+    // (42501), a dropped connection — is NOT ship-fixable and must fail the load
+    // loudly rather than be masked by a silent fallback (which would also hide the
+    // very signal that tells us the in-place build is confirmed).
+    const code = (e as { code?: string }).code;
+    if (code !== "53400") throw e;
+    console.warn(
+      "  tender normalcy: in-place cloud build hit 53400 (temp_file_limit) — " +
+        "falling back to ship-from-local. The v2-f retire needs a higher work_mem " +
+        "in 067b before the fallback can be removed.",
+    );
+    await shipTable("tender_normalcy_cache");
+  }
 };
 const tendersDir = path.join(PROC_DIR, "tenders");
 
@@ -273,10 +305,10 @@ export const loadTendersPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW kzk_appeals_summary_cache");
 
   // Per-tender "how typical is this tender?" payloads (067). 067 installs the fn
-  // + the empty cache TABLE (migrating the old matview if present); then LOCAL
-  // computes the windowed payloads via 067b while CLOUD ships the local-built
-  // rows by COPY — the shared-core prod instance cannot build the windowed
-  // cohort (rank() sort exceeds temp_file_limit → 53400).
+  // + the empty cache TABLE (migrating the old matview if present); then 067b
+  // computes the windowed payloads IN-PLACE on both local and cloud (v2-f — the
+  // old-tier 53400 that once forced shipping is gone on db-perf-optimized-N-2),
+  // with a ship fallback only for a residual temp-spill. See buildOrShipTenderNormalcy.
   await exec(readFileSync(TENDER_NORMALCY_FILE, "utf8"));
   await buildOrShipTenderNormalcy();
 
