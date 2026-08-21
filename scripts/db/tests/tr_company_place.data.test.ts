@@ -205,11 +205,31 @@ test.skipIf(skip)("the payload is shaped as the tile expects", async () => {
     assert.ok(Array.isArray(c.officers), "officers must be an array");
     assert.ok(Array.isArray(c.politicians), "politicians must be an array");
   }
-  // Politically-linked first, then money — the order the UI does not re-sort.
-  const keys = p.companies.map((c) => c.moneyEur);
+  // Politically-linked first, THEN money — `ORDER BY political_n DESC, money_eur DESC,
+  // name, uic` (133), matching idx_tr_company_place_{ekatte,obshtina}_rank.
+  //
+  // ⚠️ THIS USED TO ASSERT `moneyEur` ALONE WAS DESCENDING, WHICH IS A DIFFERENT AND WEAKER
+  // CLAIM — it only holds when every returned row shares a political_n, and it passed for as
+  // long as it did by coincidence. Re-basing company_politicians onto the gated person layer
+  // (company-page-consolidation-v1 Tier 4) gave НАПОИТЕЛНИ СИСТЕМИ 19 links against
+  // БЪЛГАРСКИ ЕНЕРГИЕН ХОЛДИНГ's 12, which correctly promotes the poorer company above the
+  // richer one — and broke an assertion the function had never violated. Assert the real key.
+  const rank = p.companies.map((c) => [
+    -c.politicians.length,
+    -c.moneyEur,
+    c.name,
+    c.uic,
+  ]);
   assert.deepEqual(
-    keys,
-    [...keys].sort((a, b) => b - a),
-    "companies are not returned in the documented rank order",
+    rank,
+    [...rank].sort((a, b) => {
+      for (let i = 0; i < a.length; i++) {
+        if (a[i] === b[i]) continue;
+        return a[i] < b[i] ? -1 : 1;
+      }
+      return 0;
+    }),
+    "companies are not returned in the documented rank order " +
+      "(political_n DESC, money_eur DESC, name, uic)",
   );
 });
