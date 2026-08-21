@@ -2596,11 +2596,20 @@ structural — needs a new watcher, not just a Step 8 line:**
   (C3/C4) re-derive from `raw_data/tr/cr_deeds.sqlite`, which grows only via the
   manual `tr:cr-deeds` crawl; `egov_commerce` watches daily filings, not the deeds
   capture, so new coverage is undetectable.
-- **A3. Scope calendar rollover** — `procurement_scopes` windows are enumerated
-  `SCOPE_FIRST_YEAR..currentYear`; nothing watches the Jan-1 rollover or a new
-  election window, and `db:load:procurement-scopes:pg:cloud` is unreferenced. Every
-  January the `?pscope=y:<new year>` UI option serves an empty page until an
-  operator reloads. **A time-based watcher** (a dateflip source) is the fix.
+- **A3. Scope calendar rollover — ✅ FIXED (v2-g).** `procurement_scopes` windows
+  are enumerated `SCOPE_FIRST_YEAR..currentYear`; the Jan-1 rollover / a new election
+  window used to serve an empty `?pscope=y:<new year>` page until an operator
+  remembered to reload. Now watched by `scripts/watch/sources/procurement_scope_windows.ts`
+  — a daily source whose fingerprint is the scope-window set, so the rollover surfaces
+  in the daily report with the `db:load:procurement-scopes:pg:cloud` fix named.
+
+> **A1/A2 are NOT watcher gaps (reclassified in v2-g).** Unlike A3, the tender-dossier
+> and CR-Deeds captures have no external upstream a `WatchSource` could poll — their
+> coverage advances only when an operator runs the rate-limited crawl. They are
+> coverage-expansion operator tasks (documented in CLAUDE.md), not change-driven
+> ingests; a fingerprint-diff watcher would either never fire or fire on the same
+> signal `eop_procurement` already watches. The honest fix for A1/A2 is a coverage
+> reminder, not a watcher — left as documentation, not built here.
 
 **Class B — watcher but no ingest-skill mapping:** effectively empty for *served*
 data. The detected-but-manual cluster (`wiki_governments`, `nsi_edp`, `ec_vat_gap`,
@@ -2675,7 +2684,7 @@ order:
 | v2-d | ~~Deploy resolver~~ **✅ DONE (pure function)** — `scripts/db/lib/deployResolver.ts`: `resolveDeploySet(changed[]) → {objects, loaders, unmappedChanges, cyclic}`. Cascades changed base tables through the v2-c registry, covers each stale object with ONE rebuilder (avoiding a heavy unrelated base reload — a kzk change picks `kzk:rejoin`, not `db:load:pg`), and topo-orders the loaders. `deployResolver.test.ts` (8 tests) verifies fan-out minimization (prices → nothing; contracts → the money tail without TR/agri reloads), ordering, and determinism. **Solves FAN-OUT** (run only stale loaders); the double-refresh elimination needs per-loader suppression = v2-e. | v2-c | collapses the money-tail fan-out (the ~22% double-refresh needs v2-e) |
 | v2-e | **Resolver-driven emission — part 1 ✅ DONE** (`npm run deploy:resolve -- <changed tables>`, `scripts/db/resolve_deploy.ts`): prints the minimal ordered `:cloud` publish commands from the v2-d resolver, routing artifact generators to `bucket:sync`; wired into `process-watch-report` Step 8 as a cross-check tool. **Part 2 (per-loader double-refresh suppression) DEFERRED** per §v2.1 — invasive (edits production loaders) and its win shrank to ~5 min of a 24-min publish on the upgraded tier. | v2-c, v2-d | makes "mark all data for deployment" computed, not curated |
 | v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | default-compute-on-cloud now the instance is big; delete `buildOrShipNormalcy`/`Tender` if measured cheap. **Blocked: needs a real prod cloud build to measure.** |
-| v2-g | **A-class watchers** (dossier, cr-deeds capture, scope rollover) | none | structural coverage; A3 (Jan-1) is a dated ticking bug |
+| v2-g | **A3 scope-rollover watcher ✅ DONE** — `scripts/watch/sources/procurement_scope_windows.ts`: a daily-probed, annually-publishing source whose fingerprint is the scope-window set (SCOPE_FIRST_YEAR..currentYear + elections.json), so the Jan-1 rollover / a new election now surfaces in the daily report with the exact `db:load:procurement-scopes:pg:cloud` fix. **A1/A2 reclassified: NOT watchers** — the dossier and CR-Deeds captures are operator crawls with no external change signal to poll; they are coverage-expansion tasks (tracked in CLAUDE.md), not change-driven ingests, so a `WatchSource` does not fit. | none | A3 (Jan-1) was a dated ticking bug — now watched |
 
 v2-a and v2-b are done: the base gate already shipped
 (`docs/plans/cloud-loader-coverage-v1.md`), and v2-b added the *orchestrator* gate on

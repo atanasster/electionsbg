@@ -111,6 +111,7 @@ import { mcDkiRegister } from "./mc_dki_register";
 import { nfcFilmRegister } from "./nfc_film_register";
 import { ncfGrantResults } from "./ncf_grant_results";
 import { nfcCommissions } from "./nfc_commissions";
+import { procurementScopeWindows } from "./procurement_scope_windows";
 import {
   euTaxRates,
   euExciseRates,
@@ -255,4 +256,5 @@ export const SOURCES: WatchSource[] = [
   gitInspections,
   eurostatRoadSafety,
   municipalFiscalDue,
+  procurementScopeWindows,
 ];
