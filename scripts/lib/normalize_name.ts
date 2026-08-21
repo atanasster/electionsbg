@@ -8,7 +8,6 @@
 // Imported by:
 //   - scripts/funds/parse.ts + projects_parse.ts (ИСУН XLSX rows)
 //   - scripts/procurement/normalize.ts (АОП OCDS parties)
-//   - scripts/declarations/build_company_index.ts (companies-index displayName)
 //   - scripts/financing/scrape_*.ts (party names from bulnao.government.bg)
 //   - scripts/budget/law_html.ts (definite-article stripping wrapper)
 //

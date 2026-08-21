@@ -68,17 +68,11 @@ const main = () => {
         institution: decl.institution,
         sourceUrl: decl.sourceUrl,
       });
-      // Preserve fields the parser doesn't write (e.g. companySlug stamped
-      // by a later pipeline phase) — merge re-parsed atop the original so
-      // the new `assets` array shows up but slugs survive.
-      const merged: MpDeclaration = {
-        ...decl,
-        ...reparsed,
-        ownershipStakes: reparsed.ownershipStakes.map((stake, i) => ({
-          ...stake,
-          companySlug: decl.ownershipStakes[i]?.companySlug ?? null,
-        })),
-      };
+      // Merge re-parsed atop the original so fields the parser does not write survive and
+      // the new `assets` array shows up. The stakes used to be re-mapped here to carry
+      // `companySlug` across from the previous vintage; that field is retired (Tier 5.2) and
+      // nothing else on a stake row is stamped after the parse.
+      const merged: MpDeclaration = { ...decl, ...reparsed };
       changed = true;
       declsReparsed++;
       return merged;

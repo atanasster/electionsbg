@@ -21,7 +21,7 @@ This covers the 2014-2020 cohesion operational programmes, the 2021-2027 period,
 | Daily watcher reports `ИСУН EU funds (beneficiaries)` changed | Full re-ingest (`npm run funds:ingest`) |
 | User asks to "refresh EU funds" / "update еврофондове" / "refresh ИСУН" | Same — full re-ingest |
 | `data/funds/` empty (fresh clone) | Same — the ingest is a full rebuild every run |
-| `/update-connections` refreshed `companies-index.json` | Re-run — the ingest re-joins the MP cross-reference automatically |
+| The gated MP↔company link set moved — `/update-persons` re-resolved, or `/update-connections` refreshed the declarations it folds in | Re-run — the ingest re-joins the MP cross-reference automatically |
 | Ingest aborts with "header row not found" | The eufunds.bg export schema changed — investigate `scripts/funds/parse.ts` BEFORE re-running |
 | Ingest aborts with "export looks truncated" | The download was partial or date-filtered — see "Why a full export" below |
 
@@ -37,8 +37,8 @@ This downloads the full XLSX export — fresh every run — from
 offline `--file` re-runs), parses the ~52k beneficiary rows, rebuilds
 `data/funds/` from scratch — `index.json` plus
 the sharded `beneficiaries/<0-9>.json` + `beneficiaries/_x.json` files — and,
-when `data/parliament/companies-index.json` is present, cross-references the
-beneficiaries against the MP-companies graph into `derived/mp_connected.json`.
+when the gated MP↔company link set is reachable, cross-references the
+beneficiaries against it into `derived/mp_connected.json`.
 
 Expected output on a normal run:
 
@@ -50,12 +50,20 @@ Expected output on a normal run:
       ...
 → wrote 11 beneficiary shard(s)
 → wrote 45887 per-EIK beneficiary file(s)
-→ cross-referencing beneficiaries against the MP-companies graph
-  EIK linkage map: 938 EIK(s) from 938/1110 TR-enriched companies
-  100 MP↔beneficiary pair(s) → derived/mp_connected.json (86 MP(s), 98 company(ies), €168,527,162 contracted)
+→ cross-referencing beneficiaries against the MP↔company link set
+  EIK linkage map: … EIK(s) with at least one MP link
+  303 MP↔beneficiary pair(s) → derived/mp_connected.json (… MP(s), … company(ies), €… contracted)
 ✓ index.json written
   52779 beneficiaries · 80705 contracts · €43,500,972,226 contracted · €16,494,577,249 paid · 45887 with EIK (86.9%)
 ```
+
+⚠️ **[2026-08-20] `303` is the anchor to check, and `43` is the failure it names.** The
+payload is joined at the link set's **unrestricted** scope; the contract-restricted
+`company_politicians` answers only **43** of those pairs, because every row in that table is
+a politically linked *contractor* and an MP-linked company that took EU money and never won
+a public contract is exactly the row this payload exists to report. A pair count that lands
+near 43 means the builder is reading the wrong scope — see the ⚠️ in
+`scripts/lib/mp_linkage.ts`.
 
 Flags:
 
@@ -308,33 +316,46 @@ hasn't moved.
 
 ## MP cross-reference
 
-When `data/parliament/companies-index.json` is present, the ingest joins every
-beneficiary's EIK against the MP-companies graph (built by `/update-connections`
-from Court-of-Audit declarations + Commerce Registry filings) and writes
-`data/funds/derived/mp_connected.json` — one entry per (MP, beneficiary) pair:
-the declared relations (a management role or an ownership stake) plus that
-beneficiary's contracts / contracted / paid totals. `index.json` also gains a
+The ingest joins every beneficiary's EIK against the **gated MP↔company link set**
+(`scripts/lib/mp_linkage.ts`) and writes `data/funds/derived/mp_connected.json` — one entry
+per (MP, beneficiary) pair: the declared relations (a management role or an ownership stake)
+plus that beneficiary's contracts / contracted / paid totals. `index.json` also gains a
 `crossReference` summary and an `mpTied` flag on the top-beneficiary lists.
 
-The join key is the 9-digit canonical EIK (`companies[].tr.uic` on the
-companies side). Beneficiary rows that share an EIK — a parent organisation
-and its sub-units (райони, териториални поделения, клонове), which the register
-lists separately — are aggregated before the join, so a connected beneficiary
-is counted once with summed totals. Editorial guardrail: a connection is
-flagged **only** when it is recorded in the official declarations or the
-Commerce Registry — no name-match guessing. The cross-reference **hard-fails** if `companies-index.json`
-is present but TR-enrichment is missing on >90% of entries (the silent
-"`/update-connections` TR refresh wasn't run" failure mode).
+The join key is the 9-digit canonical EIK on both sides. Beneficiary rows that share an
+EIK — a parent organisation and its sub-units (райони, териториални поделения, клонове),
+which the register lists separately — are aggregated before the join, so a connected
+beneficiary is counted once with summed totals.
 
-If `companies-index.json` is absent (fresh clone before `/update-connections`),
-the ingest still completes — the raw beneficiary data lands; only the MP-tied
-payload is skipped, with a logged hint.
+**[2026-08-20] The source is the gated person layer, not `companies-index.json`.** That
+file is deleted; its registry arm attached a company UIC to an MP on a NAME match with no
+people-per-name guard, so the EIK-keyed join then published the result as a fact about EU
+money. The gate is now migration 148's `tr_name_fold_people` fold — a name the Commerce
+Registry says belongs to more than one human is **refused**, not graded — unioned with
+096's confirmed declared stakes. Editorial guardrail unchanged and now actually true: a
+connection is flagged **only** when it is recorded in the Commerce Registry or in a
+Court-of-Audit declaration. Plan: `docs/plans/company-page-consolidation-v1.md` (Tier 5.1).
 
-**Ordering dependency.** When the orchestrator queues both `/update-connections`
-and `/update-funds`, `/update-connections` must run first — it produces
-`companies-index.json`. The watcher source list already places
-`cacbg_declarations` and `egov_commerce` (→ `update-connections`) before
-`isun_eu_funds`, so the natural source-order traversal handles this.
+⚠️ **THE SCOPE IS `all`, AND IT MUST NOT BECOME `contractors`.** `company_politicians` is
+contract-restricted — its loader inner-joins procurement money, so every row is a politically
+linked *contractor*. This join's population is ИСУН beneficiaries, where an MP-linked company
+that took EU money and never won a public contract is the whole point. Measured 2026-08-20:
+the restricted set answers **43 of this payload's 303 pairs**.
+
+**Absent vs empty are different answers, and only one is a skip.** The ingest probes
+`company_politicians` for reachability: **absent** (no Postgres, never loaded) is a fresh
+clone, so the raw beneficiary data still lands and only the MP-tied payload is skipped with a
+logged hint. A link set that **exists and yields no MP rows** is a broken load and is
+**refused** — the old `tr.uic`-coverage hard-fail, one layer over. Rewriting
+`mp_connected.json` empty would publish "no MP is linked to any beneficiary" at exit 0.
+
+**Ordering dependency.** The link set is derived in Postgres, so it is `/update-persons` —
+not a file from `/update-connections` — that makes a declaration or registry change visible
+here. `/update-connections` refreshes the declarations and the TR snapshot; `db:resolve:persons`
+plus `db:load:declarations:pg -- --resolve` fold them into `person_role` /
+`declaration_stake_company`; only then does this join see them. The watcher source list
+already places `cacbg_declarations` and `egov_commerce` before `isun_eu_funds`, so the natural
+source-order traversal keeps the chain in that order.
 
 ## Data-integrity contract
 
@@ -369,7 +390,8 @@ Surfaces that are **intentionally non-fatal**:
 | `scripts/funds/ingest.ts` | CLI entry — fetch, parse, validate, write `data/funds/` |
 | `scripts/funds/fetch.ts` | XLSX export download (always fresh) + snapshot writer |
 | `scripts/funds/parse.ts` | XLSX → `FundsBeneficiary[]` (header-schema guard, EIK extraction) |
-| `scripts/funds/cross_reference.ts` | EIK-keyed join against `companies-index.json` → `mp_connected.json` |
+| `scripts/funds/cross_reference.ts` | EIK-keyed join against the gated MP↔company link set → `mp_connected.json`. `buildEikLinkageMap()` is **async and takes no arguments** |
+| `scripts/lib/mp_linkage.ts` | The ONE reader of that link set, shared with `scripts/procurement/cross_reference.ts`. Owns the query, the absent-vs-empty availability probe and the mpId parse. ⚠️ This side passes scope `all`; the procurement side passes `contractors` |
 | `scripts/funds/political_links.ts` | Political-economy join: MP + officials + АОП overlap + debarred → `political_links.json` + per-EIK shards |
 | `scripts/funds/taxonomy.ts` | Programme-code → period + fund-family inference (CCI pattern). Used by both ingest scripts. |
 | `scripts/funds/build_taxonomy_derivatives.ts` | Builds `data/funds/taxonomy.json`, `derived/absorption.json`, `derived/sankey.json` from the projects ingest. Runs at the end of `funds:ingest-projects`. |

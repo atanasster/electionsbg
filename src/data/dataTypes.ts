@@ -512,13 +512,11 @@ export type MpOwnershipStake = {
   fundsOrigin: string | null;
   // Table 11 only — counterparty in the transfer
   transfereeName?: string | null;
-  /** Resolved companies-index slug, written by the build pipeline after
-   * companies-index.json is materialised. Encodes the `-2`, `-3`, …
-   * disambiguation that handles companies sharing a base slug, so the
-   * candidate-page link lands on the right /mp/company/{slug} entry even
-   * when names collide. Optional for backward compatibility — pre-pipeline
-   * files won't have it. */
-  companySlug?: string | null;
+  // `companySlug` is GONE (2026-08-20). It held a slug of the DECLARED NAME, stamped by a
+  // pipeline phase that read companies-index.json, and existed only to link
+  // /mp/company/{slug} — a page keyed on that name rather than on an identity. Both are
+  // retired; the declared stakes are served from declaration_stake_company (096) on
+  // /company/:eik and /person. See docs/plans/company-page-consolidation-v1.md (Tier 5).
 };
 
 export type MpIncomeRecord = {
@@ -1178,9 +1176,10 @@ export type MpAssetsRankings = {
   byNs: Record<string, { topMps: MpAssetsRankingEntry[] }>;
 };
 
-// TR (Commerce Registry) enrichment, attached to each entry in
-// public/parliament/companies-index.json when we can match the declared
-// company by name. Sourced from raw_data/tr/state.sqlite (Phase 4 output).
+// TR (Commerce Registry) enrichment. It used to be attached to each companies-index.json
+// entry whose declared name matched a registry company; both that file and the name match
+// are retired (Tier 5.2). The shape survives because raw_data/tr/state.sqlite (Phase 4
+// output) still produces it and other readers type against it.
 export type TrCompanyOfficer = {
   role: string; // see scripts/declarations/tr/types.ts → TrRole
   name: string;

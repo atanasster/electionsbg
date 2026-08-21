@@ -40,6 +40,26 @@
       ],
       "redirects": [
         {
+          "source": "/mp/company",
+          "destination": "/governance/companies",
+          "type": 301
+        },
+        {
+          "source": "/mp/company/**",
+          "destination": "/governance/companies",
+          "type": 301
+        },
+        {
+          "source": "/en/mp/company",
+          "destination": "/en/governance/companies",
+          "type": 301
+        },
+        {
+          "source": "/en/mp/company/**",
+          "destination": "/en/governance/companies",
+          "type": 301
+        },
+        {
           "source": "/mp/companies",
           "destination": "/governance/companies",
           "type": 301

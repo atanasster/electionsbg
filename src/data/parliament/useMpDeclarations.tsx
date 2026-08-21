@@ -22,7 +22,6 @@ import type {
 interface RawStake {
   tableNum: string;
   companyName: string | null;
-  companySlug: string | null;
   holderName: string | null;
   transfereeName: string | null;
   shareSize: string | null;
@@ -71,7 +70,6 @@ const reshapeStake = (st: RawStake): MpOwnershipStake => ({
   legalBasis: null,
   fundsOrigin: null,
   transfereeName: st.transfereeName,
-  companySlug: st.companySlug,
 });
 
 const reshapeIncome = (r: RawIncome): MpIncomeRecord => ({

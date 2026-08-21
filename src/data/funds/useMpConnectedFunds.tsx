@@ -3,7 +3,7 @@
 // /funds page and the per-candidate tile + page.
 //
 // If the file is absent (404) the result is empty rather than an error — the
-// /update-funds skill writes it only when companies-index.json is present.
+// /update-funds skill writes it only when the MP↔company link set is reachable.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";

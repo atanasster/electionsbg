@@ -122,10 +122,33 @@ describe("the retired MP↔company shard families (mp-tr-edges-pg-v1)", () => {
     }
   });
 
-  // The load source they were derived FROM stays: companies-index.json is still read by
-  // /mp/companies and the procurement cross-reference, and augment_mp_roles still writes it.
-  it("spares companies-index.json and the photos the parent is still synced for", () => {
-    expect(isExcluded("parliament/companies-index.json")).toBeFalsy();
+  // companies-index.json USED to be spared here, as the load source those shards were
+  // derived from. It is retired and deleted itself now (Tier 5.2), so the assertions invert
+  // — and they must cover all THREE places, exactly as for the shard trees above: a sync
+  // that re-uploaded it would leave the bucket holding the last copy of an MP↔company
+  // attribution set nothing else in the repo makes any more, with no producer able to
+  // correct it and `rsync -x` excluding it from deletion as well as from upload.
+  describe("the retired companies-index.json (company-page-consolidation-v1 Tier 5.2)", () => {
+    const FILE = "parliament/companies-index.json";
+
+    it("is refused by isExcluded", () => {
+      expect(isExcluded(FILE)).toBeTruthy();
+    });
+
+    it("is in the -x regex of BOTH bucket:sync and bucket:sync:dry", () => {
+      expect(pkg["bucket:sync"]).toContain("companies-index");
+      expect(pkg["bucket:sync:dry"]).toContain("companies-index");
+    });
+
+    it("a parliament-scoped dir sync cannot re-upload it", () => {
+      // A FILE child-exclude, so the regex is the exact path rather than a `/.*` subtree.
+      expect(childExcludeRegexes("parliament")).toContain(
+        "^companies-index\\.json$",
+      );
+    });
+  });
+
+  it("spares the photos the parent is still synced for", () => {
     expect(isExcluded("parliament/photos/1.webp")).toBeFalsy();
   });
 });

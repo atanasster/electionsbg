@@ -1,19 +1,21 @@
 /**
  * Full rebuild from cached XML — no network calls. Re-parses every cached
  * cacbg declaration with the current parser, then re-runs every downstream
- * builder so the knock-on changes (companies-index + mpRoles augmentation,
- * rankings, car makes, provenance) all stay in sync.
+ * builder so the knock-on changes (the officials↔company bridge, rankings, car
+ * makes, provenance) all stay in sync.
  *
- * Use after editing parse_declaration.ts, build_company_index.ts, or
- * augment_mp_roles.ts so we don't have to re-fetch every declaration just to
- * see the build effect.
+ * Use after editing parse_declaration.ts or one of those builders so we do not
+ * have to re-fetch every declaration just to see the build effect.
  *
  *   npx tsx scripts/declarations/rebuild_all_from_cache.ts
  *   npx tsx scripts/declarations/rebuild_all_from_cache.ts --skip-reparse
  *
- * `--skip-reparse` drops phase 1 (the whole-corpus XML re-parse), which nothing
- * downstream of the TR integration depends on — use it when the edit is to
- * tr/integrate.ts or augment_mp_roles.ts rather than to the declaration parser.
+ * `--skip-reparse` drops phase 1 (the whole-corpus XML re-parse) — use it when
+ * the edit is to a downstream builder rather than to the declaration parser.
+ *
+ * Phases 2, 3, 4 and 5 are GONE (2026-08-20): they built companies-index.json,
+ * stamped its slug onto every stake, and augmented it from Postgres. See
+ * docs/plans/company-page-consolidation-v1.md (Tier 5).
  */
 
 import fs from "fs";
@@ -23,13 +25,6 @@ import {
   parseDeclarationXml,
   reportAutoCorrections,
 } from "./parse_declaration";
-import {
-  buildCompanyIndex,
-  annotatePerMpDeclarationsWithSlugs,
-  reEnrichCompaniesIndex,
-} from "./build_company_index";
-import { integrateTr } from "./tr/integrate";
-import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
@@ -78,16 +73,11 @@ const reparseAll = () => {
       });
       changed = true;
       reparsed++;
-      // Preserve companySlug stamping (added by a later pipeline phase)
-      // since the parser doesn't write it.
-      return {
-        ...d,
-        ...r,
-        ownershipStakes: r.ownershipStakes.map((s, i) => ({
-          ...s,
-          companySlug: d.ownershipStakes[i]?.companySlug ?? null,
-        })),
-      };
+      // The re-parsed declaration merged atop the original, so fields the parser does not
+      // write survive. Its stakes used to be re-mapped here to carry `companySlug` across
+      // from the previous vintage; that field is retired (Tier 5.2) and nothing else on a
+      // stake row is stamped after the parse, so the parser's array stands as written.
+      return { ...d, ...r };
     });
     if (changed) {
       fs.writeFileSync(fp, compactJson(updated));
@@ -109,32 +99,11 @@ const main = async () => {
     reparseAll();
   }
 
-  console.log("[rebuild-all] phase 2 — buildCompanyIndex");
-  buildCompanyIndex({ publicFolder: DATA });
-
-  console.log("[rebuild-all] phase 3 — annotatePerMpDeclarationsWithSlugs");
-  annotatePerMpDeclarationsWithSlugs({ publicFolder: DATA });
-
-  console.log("[rebuild-all] phase 4 — integrateTr");
-  integrateTr({ publicFolder: DATA, rawFolder: RAW });
-
-  // Mirrors declarations/index.ts, which runs the officials bridge between
-  // integrateTr and the augment. Without it this runner rebuilt every
+  // Mirrors declarations/index.ts. Without it this runner rebuilt every
   // parliament artifact and left data/officials/derived/company_links.json on
   // the previous vintage — half of what an edit to the link logic moves.
   console.log("[rebuild-all] phase 4a — buildOfficialsCompanyLinks");
   buildOfficialsCompanyLinks();
-
-  console.log("[rebuild-all] phase 5 — augmentCompaniesIndexWithMpRoles");
-  await augmentCompaniesIndexWithMpRoles({ publicFolder: DATA });
-
-  // Phases 5a–5c mirror the tail of the real pipeline (declarations/index.ts).
-  // Without them a change to integrateTr / augment_mp_roles lands in
-  // companies-index.json while the per-place shards behind the "companies
-  // HQ'd here" tile keep serving the PREVIOUS MP↔company set — the file this
-  // script exists to keep in sync is only half of what those edits move.
-  console.log("[rebuild-all] phase 5a — reEnrichCompaniesIndex");
-  reEnrichCompaniesIndex({ publicFolder: DATA });
 
   // phases 5b/5c (the per-settlement and per-municipality shard builders) are GONE —
   // /settlement/:id/companies is served live from Postgres (migration 151).

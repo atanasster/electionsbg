@@ -346,7 +346,7 @@ export interface ProcurementIndex {
     periodStart: string;
     periodEnd: string;
   }>;
-  // MP cross-reference summary. Populated when companies-index.json is
+  // MP cross-reference summary. Populated when the MP↔company link set is
   // available; null/zero when the skill ran without it.
   crossReference?: {
     generatedAt: string;

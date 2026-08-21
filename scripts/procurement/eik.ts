@@ -1,6 +1,6 @@
 // EIK canonicalization. Bulgarian company ids come in 9-digit (parent legal
 // entity) and 13-digit (branch / clone) forms. The cross-reference against
-// data/parliament/companies-index.json joins on the 9-digit canonical, so
+// company_politicians joins on the 9-digit canonical EIK, so
 // every Contract carries that — and preserves the 13-digit form when present
 // for the source link back to АОП.
 

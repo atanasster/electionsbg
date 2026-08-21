@@ -7,7 +7,6 @@
 // Covers (one root at a time, configurable via NAME_FIELDS):
 //   data/funds/                  beneficiary + programme + project names
 //   data/procurement/            awarder + contractor names
-//   data/parliament/             companies-index displayName
 //   data/financing/              party names
 //   data/budget/                 ministry unit names (with -то article stripped)
 //

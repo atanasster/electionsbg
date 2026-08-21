@@ -87,7 +87,6 @@ const stake = (companyName: string, holderName: string | null) => ({
   companyName,
   stakeKind: "share",
   itemType: "Дялове",
-  companySlug: null,
   holderName,
   transfereeName: null,
   shareSize: "1/1",

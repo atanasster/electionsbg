@@ -109,7 +109,7 @@ export interface FundsIndex {
   byOrgForm: FundsBreakdownRow[];
   // Top beneficiaries by funds contracted.
   topByContracted: FundsTopRow[];
-  // MP cross-reference summary — present only when companies-index.json was
+  // MP cross-reference summary — present only when the MP↔company link set was
   // available at ingest time. The full payload is derived/mp_connected.json.
   crossReference?: FundsCrossRefSummary;
   // beneficiaries/<shard>.json file keys (EIK last digit, or "_x").

@@ -164,7 +164,6 @@ export type DeclarationDetail = {
   stakes: {
     tableNum: string;
     companyName: string | null;
-    companySlug: string | null;
     holderName: string | null;
     transfereeName: string | null;
     /** WHAT the row is — a shareholding, a management/board role, or a sole-tradership.

@@ -1,6 +1,5 @@
 /**
  * One-shot: re-run the post-fetch build steps without touching the network.
- *   - augmentCompaniesIndexWithMpRoles (re-derives companies-index `mpRoles` + TR-only companies)
  *   - buildAssetsRankings   (regenerates assets-rankings + mp-assets/*)
  *   - buildCarMakes         (regenerates car-makes.json)
  *   - buildDataProvenance   (regenerates data-provenance.json)
@@ -13,7 +12,6 @@
 
 import path from "path";
 import { fileURLToPath } from "url";
-import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
@@ -23,11 +21,10 @@ const __dirname = path.dirname(__filename);
 const REPO = path.resolve(__dirname, "../..");
 const DATA = path.join(REPO, "data");
 
-// Sequenced rather than fired-and-forgotten: the augment reads Postgres and is async, so a
-// bare call would let the three builders below run against a companies-index it has not
-// finished rewriting, and would swallow its rejection at exit 0.
+// Kept async and sequenced although nothing here awaits any more — the augment step that
+// needed it (augmentCompaniesIndexWithMpRoles, which rewrote companies-index.json from
+// Postgres) is retired with that file, and the three builders below are synchronous.
 const main = async (): Promise<void> => {
-  await augmentCompaniesIndexWithMpRoles({ publicFolder: DATA });
   buildAssetsRankings({ publicFolder: DATA });
   buildCarMakes({ publicFolder: DATA });
   buildDataProvenance({ publicFolder: DATA });

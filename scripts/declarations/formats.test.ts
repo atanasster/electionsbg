@@ -33,7 +33,6 @@ const isCompact = (s: string): boolean =>
 const isPretty = (s: string): boolean => /\n {2}"/.test(s);
 
 const COMPACT_FILES = [
-  "parliament/companies-index.json",
   "parliament/assets-rankings.json",
   "parliament/assets-rankings-top.json",
   "parliament/car-makes.json",

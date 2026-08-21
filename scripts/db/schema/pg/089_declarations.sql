@@ -358,15 +358,30 @@ CREATE TABLE IF NOT EXISTS declaration_income (
 
 -- ---------------------------------------------------------------------------
 -- Ownership stakes — ООД/shares held (logical table 10) and transferred (11). uic
--- is filled by the loader where the company resolves in TR; company_slug lets the
--- /person page link straight to the company page (the derived tree already carries
--- both). This is the row that makes "which officials own a stake in a company that
--- won a contract" a single join.
+-- is filled by the loader where the company resolves in TR. This is the row that
+-- makes "which officials own a stake in a company that won a contract" a single join.
 -- ---------------------------------------------------------------------------
--- company_slug is the live company link today (the MP enrichment chain resolves it;
--- officials/municipal stakes carry it once that chain is extended). uic is RESERVED
--- for a later EIK resolution (name_fold match against tr_companies) — the
--- stake↔contract join (T3.8) needs it, but the derived tree does not carry it yet.
+-- ⚠️ company_slug IS RETIRED AND GOES NULL ON THE NEXT RELOAD (2026-08-20). It held a
+-- slug of the DECLARED NAME, stamped into the shards by a pipeline phase that read
+-- data/parliament/companies-index.json, and it linked /mp/company/<slug> — a company
+-- page keyed on a typed name rather than an identity. All three are deleted
+-- (docs/plans/company-page-consolidation-v1.md Tier 5.2), so load_declarations_pg.ts
+-- no longer writes the column and every value in it is a previous vintage.
+--
+-- ⚠️ IT IS STILL DECLARED HERE, AND STILL EMITTED BY 090 AND 105, ON PURPOSE. Dropping
+-- the column forces a DROP MATERIALIZED VIEW person_wealth_year CASCADE (Postgres
+-- refuses a DROP COLUMN a matview reads), which is a measured ~8-minute outage on
+-- Cloud SQL for /persons, /officials/assets, /mp-assets and /declarations/crypto — for
+-- a field nothing renders. Retire it with the NEXT change that already re-applies 090:
+-- drop the column here, and the two payload keys in 090 and 105.
+--
+-- ⚠️ NOTHING MAY START READING IT AGAIN. It is an unmaintained snapshot of a rule
+-- whose only implementation is deleted, so it cannot be regenerated or corrected. The
+-- grouping it used to serve is done at read time now by foldCompanyName
+-- (src/lib/companyNameFold.ts).
+--
+-- uic is RESERVED for a later EIK resolution (name_fold match against tr_companies) —
+-- the stake↔contract join (T3.8) needs it, but the derived tree does not carry it yet.
 CREATE TABLE IF NOT EXISTS declaration_stake (
   declaration_id    bigint NOT NULL REFERENCES declaration (declaration_id) ON DELETE CASCADE,
   seq               int NOT NULL,
@@ -393,7 +408,7 @@ CREATE TABLE IF NOT EXISTS declaration_stake (
                                        --   over this column is the discriminator.
   value_eur         numeric,
   registered_office text,
-  company_slug      text,
+  company_slug      text,             -- RETIRED, NULL after the next reload — see above
   PRIMARY KEY (declaration_id, seq)
 );
 -- Same reason as the declaration_event CHECK below: CREATE TABLE IF NOT EXISTS is a

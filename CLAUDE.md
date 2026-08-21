@@ -3285,10 +3285,13 @@ Five things about it are easy to get backwards:
 
 - **The rule exists TWICE and the two must agree.** `owner_share.ts`
   (`scripts/declarations/tr/`) is the TypeScript twin, because the SQLite corpus is written
-  offline before Postgres exists and two BUILD-TIME artifacts render its `share_percent`
-  directly: `companies-index.json` (via `integrate.ts`, read by `/mp/company/:slug`) and
-  `data/officials/derived/company_links.json` (via `build_officials_company_links.ts`, which
-  becomes `pep_connected` → `company_politicians.relations`). ⚠️ Its change is **INERT**
+  offline before Postgres exists and a BUILD-TIME artifact renders its `share_percent`
+  directly: `data/officials/derived/company_links.json` (via
+  `build_officials_company_links.ts`, which becomes `pep_connected` →
+  `company_politicians.relations`). **[2026-08-20] There were TWO** — the other was
+  `companies-index.json`, via `integrate.ts`, read by `/mp/company/:slug`; both that file and
+  `integrate.ts` are deleted (`docs/plans/company-page-consolidation-v1.md` Tier 5.2), and
+  Tier 6 retires the survivor. ⚠️ Its change is **INERT**
   until the corpus is rebuilt — `npm run tr:daily-refresh` then `db:load:tr:pg` — and the
   gate SKIPS with a distinct reason until then, which must never read as "the twins agree".
   Note `project_cr_deeds.ts` is a SECOND writer into the same table and runs AFTER
@@ -3302,8 +3305,9 @@ Five things about it are easy to get backwards:
   `tr_share_eur`. So they are two outputs of one rule, not one value computed twice, and a
   fix applied to either alone leaves the other publishing the old answer at a 200.
   Consequence for any retirement: killing a RENDERING consumer does not make the twin dead
-  code — `tr_person_roles.share` still comes from it. (`docs/plans/company-page-consolidation-v1.md`
-  proposes retiring `companies-index.json`, i.e. the first of the two artifacts above.)
+  code — `tr_person_roles.share` still comes from it. That is no longer hypothetical: one of
+  the two renderers is already gone (above) and the plan's Tier 6 retires the other, after
+  which `tr_person_roles.share` is the twin's ONLY consumer and the rule is still live.
 
 - ⚠️ **„Заличено обстоятелство." IS NOT A PERSON.** It is the register's deleted-fact
   placeholder — 4,356 owner rows carry it, not one has an amount — and counting it as an

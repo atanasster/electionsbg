@@ -5,6 +5,7 @@
 // Refresh stays happy.
 
 import type { MpDeclaration, MpOwnershipStake } from "@/data/dataTypes";
+import { foldCompanyName } from "@/lib/companyNameFold";
 
 export type StakeYear = {
   year: number;
@@ -25,7 +26,6 @@ export type ConsolidatedStake = {
   key: string;
   table: "10" | "11";
   companyName: string;
-  companySlug: string | null;
   itemType: string | null;
   registeredOffice: string | null;
   holderName: string | null;
@@ -40,13 +40,24 @@ const yearKey = (decl: MpDeclaration): { year: number; fromFiscal: boolean } =>
     : { year: decl.declarationYear, fromFiscal: false };
 
 const groupKey = (s: MpOwnershipStake): string => {
-  // ⚠️ `companySlug` IS LOAD-BEARING HERE, AND ONLY HERE. Nothing RENDERS it any more — the
-  // /mp/company/{slug} link it existed for is gone (Tier 2) — but it is still the preferred
-  // half of this grouping key, and it carries the `-2`, `-3`, … disambiguation that keeps two
-  // DIFFERENT companies sharing a bare name apart. Dropping the field (plan Tier 5.6 proposes
-  // exactly that) without replacing this fallback would silently fold those two into one
-  // declared holding on a person's profile. Read the plan's Tier 5.6 note before removing it.
-  const company = (s.companySlug ?? s.companyName ?? "").trim().toLowerCase();
+  // ⚠️ `companySlug` IS GONE FROM THIS KEY (2026-08-20) AND `foldCompanyName` REPLACES IT —
+  // the raw name alone does NOT. The field held a slug of the group's display name, stamped
+  // by a pipeline phase that read companies-index.json; both are retired (Tier 5.2), so the
+  // folding it did has to happen here instead.
+  //
+  // The comment that used to defend it was measurably backwards. It claimed the `-2`, `-3`, …
+  // suffix kept two DIFFERENT same-named companies apart and that dropping the field would
+  // fold them into one holding. Every sampled suffixed pair is ONE company the declarant
+  // spelled two ways („Метал Инвест-Габрово ООД" / „Метал Инвест Габрово ООД"), and what the
+  // field actually did was SPLIT — only 6,114 of 18,569 rows were ever stamped, it being
+  // MP-only, so the same holding grouped under a slug in one filing and a bare name in
+  // another.
+  //
+  // ⚠️ THE NET IS NOT THE MEASUREMENT. Falling back to the bare `companyName` nets out at 22
+  // fewer groups and looks harmless; per group it merges 193 and SPLITS 159 into 330, across
+  // 85 people, because the slug folded punctuation and a raw name does not. `foldCompanyName`
+  // is measured against the slug in BOTH directions: 0 splits, 538 merges.
+  const company = foldCompanyName(s.companyName);
   const holder = (s.holderName ?? "").trim().toLowerCase();
   return `${s.table}|${company}|${holder}`;
 };
@@ -132,7 +143,6 @@ export const consolidate = (
       key,
       table: g.first.table,
       companyName: g.first.companyName ?? "—",
-      companySlug: g.first.companySlug ?? null,
       itemType: g.first.itemType,
       registeredOffice: g.first.registeredOffice,
       holderName: holder,

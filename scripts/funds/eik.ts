@@ -2,7 +2,8 @@
 // ids are 9-digit (parent legal entity); 13-digit forms carry a 4-digit
 // branch suffix. The eufunds.bg beneficiary export prefixes each org name
 // with this id — we canonicalize to the 9-digit form so a future cross-
-// reference can join against data/parliament/companies-index.json.
+// reference can join against the gated link set (scripts/lib/mp_linkage.ts, scope "all" —
+// NOT the contract-restricted company_politicians; see cross_reference.ts's ⚠️).
 
 export const canonicalEik = (raw: string): string | null => {
   const s = raw.trim();

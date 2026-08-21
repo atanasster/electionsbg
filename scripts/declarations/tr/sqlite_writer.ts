@@ -153,8 +153,13 @@ export const writeStateToSqlite = (
       // changeover it added лв to EUR as bare numbers. БИЛЯНА ООД (104119056) came
       // out at 26% + 8% against a real 75.5% + 24.5%.
       //
-      // This value is not decorative: it reaches /mp-company/:eik through
-      // integrate.ts → companies-index.json, which renders it directly.
+      // This value is not decorative. It used to have TWO rendering consumers; since
+      // 2026-08-20 it has one — `data/officials/derived/company_links.json` (via
+      // build_officials_company_links.ts, which reads share_percent), whose figures become
+      // company_politicians.relations. The other, integrate.ts → companies-index.json, is
+      // retired with the name-keyed company page (company-page-consolidation-v1 Tier 5.2).
+      // It is ALSO COPIED into tr_person_roles.share by load_tr_pg.ts, so retiring the last
+      // renderer would still not make this rule dead code.
       const pcts = ownerSharePercents(
         [...c.persons.values()].map((p) => ({
           key: `${p.recordId}|${p.fieldIdent}`,

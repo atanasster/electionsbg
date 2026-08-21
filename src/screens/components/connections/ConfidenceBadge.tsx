@@ -1,10 +1,19 @@
 // Compact "name match only" / "corroborated" badge for MP↔company links.
 //
-// Used wherever the SPA surfaces a TR-derived role or a procurement row that
-// rests on one. The link confidence comes from scripts/declarations/tr/integrate.ts
-// (high if the TR seat covers the MP region or a same-party MP also declared
-// the company; medium if it's a name match only) and is propagated through
-// companies-index.json / mp_connected.json / procurement by_ns aggregates.
+// Used wherever the SPA surfaces a TR-derived role or a procurement row that rests on one.
+//
+// ⚠️ WHERE THE GRADE COMES FROM, as of 2026-08-20. It is emitted by `MP_ARM_SQL` /
+// `MP_ARM_ALL_SQL` (`scripts/db/load_tr_pg.ts`, read through `scripts/lib/mp_linkage.ts`) into
+// `company_politicians.relations` and the two `mp_connected.json` payloads, and reaches this
+// component through those and the procurement by_ns aggregates.
+//
+// It used to come from `scripts/declarations/tr/integrate.ts` — "high if the TR seat covers
+// the MP region or a same-party MP also declared the company; medium if it is a name match
+// only" — propagated through `companies-index.json`. That computation was deleted with its
+// phase, and the file, the module and `augment_mp_roles.ts` (named below) are all gone with
+// the name-keyed company page: docs/plans/company-page-consolidation-v1.md (Tier 5.2). The
+// paragraph on the tooltip strings below is still the correct account of what the two words
+// mean; only its attribution was stale.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,11 +34,12 @@ export const ConfidenceBadge: FC<{
     reason ??
     (isHigh
       ? // ⚠️ THESE TWO STRINGS DESCRIBE THE LINK BASIS, not a confidence grade. The high/medium
-        // scale this component was built for is gone: `augment_mp_roles.ts` now maps 'declared'
-        // to "high" and everything else to "medium", so `high` means a curated register put this
-        // COMPANY on this person and `medium` means it was found by name. The old copy named the
-        // three corroboration rules (declaration, region, same-party witness) that were deleted
-        // with integrate.ts's phase 2 — it described a computation that no longer runs.
+        // scale this component was built for is gone: the arm queries map a DECLARED stake to
+        // "high" and a registry role to "medium", so `high` means a curated register put this
+        // COMPANY on this person and `medium` means it was found by name. The old copy named
+        // the three corroboration rules (declaration, region, same-party witness) that were
+        // deleted with integrate.ts's phase 2 — it described a computation that no longer runs,
+        // and integrate.ts itself is now deleted too.
         //
         // `high` is still NOT a confirmed identity: Bridge A keeps the officers on an
         // independently-linked EIK whose name matches, so the company link is register-sourced

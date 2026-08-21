@@ -425,7 +425,12 @@ const STAKE_COLS = [
   "share_size",
   "value_eur",
   "registered_office",
-  "company_slug",
+  // ⚠️ "company_slug" IS DELIBERATELY ABSENT (2026-08-20), so the column goes NULL on the
+  // next reload. It held a slug of the declared name, stamped into the shards by a phase
+  // that read companies-index.json; that file, the phase and MpOwnershipStake.companySlug
+  // are all deleted (docs/plans/company-page-consolidation-v1.md Tier 5.2). 089 keeps the
+  // column only because dropping it would force a person_wealth_year CASCADE; its header
+  // says what to do at the next 090 apply. Do not re-add it here.
 ];
 const EVENT_COLS = [
   "declaration_id",
@@ -638,7 +643,6 @@ const load = async () => {
             s.shareSize ?? null,
             s.valueEur ?? null,
             s.registeredOffice ?? null,
-            (s as { companySlug?: string }).companySlug ?? null,
           ]);
         });
 

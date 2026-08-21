@@ -186,6 +186,19 @@ export const isExcluded = (rel: string): string | null => {
     rel.startsWith("parliament/companies-by-obshtina")
   )
     return "parliament/{mp-management,companies-by-ekatte,companies-by-obshtina}/ are retired — served from Cloud SQL (migrations 150/151)";
+  // companies-index.json — the 4.16 MB name-keyed company index behind the retired
+  // /mp/company/:slug. DELETED from the repo in the same commit as this entry
+  // (company-page-consolidation-v1 Tier 5.2), so unlike the entries above this is not a
+  // "stale but harmless" case and not a load source either: no producer remains, and the
+  // bucket copy would be the last surviving instance of a set of MP↔company attributions
+  // that 096 declines to make for 1,751 of its 2,120 UICs.
+  //
+  // ⚠️ AN EXCLUSION FREEZES, IT DOES NOT RETIRE. gsutil rsync -x excludes a match from
+  // DELETION as well as upload, and syncPaths passes -x with -d, so removing the object is a
+  // separate operator action:
+  //     gsutil rm gs://<bucket>/parliament/companies-index.json
+  if (rel === "parliament/companies-index.json")
+    return "parliament/companies-index.json is retired and deleted — never upload it (gsutil rm the bucket copy)";
   // ⚠️ [2026-08-16] THESE THREE ARE GONE FROM THE BUCKET, and this note used to
   // say their removal was pending. Measured with `gsutil ls`: mp-management/,
   // companies-by-ekatte/ and companies-by-obshtina/ each return „matched no
@@ -306,6 +319,10 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // Under the still-served parliament/ parent (photos/*.webp), so a scoped
   // `bucket:sync:paths -- parliament` must not re-upload the PG-served profile shards
   // or the roster.
+  // Deleted from the repo (Tier 5.2), so a scoped `bucket:sync:paths -- parliament` cannot
+  // upload it — but the bucket copy survives an exclusion, and this twin is what stops a
+  // future re-appearance of the file being pushed back up beside it.
+  { path: "parliament/companies-index.json", isDir: false },
   { path: "parliament/mp-management", isDir: true },
   { path: "parliament/companies-by-ekatte", isDir: true },
   { path: "parliament/companies-by-obshtina", isDir: true },

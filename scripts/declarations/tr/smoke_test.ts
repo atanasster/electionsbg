@@ -21,7 +21,6 @@ import { parseTrDailyFiling } from "./parse_daily_filing";
 import { replayEvents, currentPersons } from "./state_replay";
 import { parseListingPage, findLastPage } from "./fetch_dataset_index";
 import { reconstructState } from "./reconstruct_state";
-import { integrateTr } from "./integrate";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixture = path.join(__dirname, "__fixtures__", "2026-04-29.json");
@@ -261,73 +260,15 @@ const main = async (): Promise<void> => {
 
     db.close();
 
-    // Phase 5: reuse the just-built SQLite to drive integrateTr against a
-    // temp dir that mirrors the real parliament inputs (so we don't
-    // mutate the committed files). Tests the code path even though one
-    // day's TR data is unlikely to match many of the 166 declared companies.
-    const realData = path.join(__dirname, "..", "..", "..", "data");
-    const realIndex = path.join(realData, "parliament", "index.json");
-    const realCompaniesIndex = path.join(
-      realData,
-      "parliament",
-      "companies-index.json",
-    );
-    if (fs.existsSync(realIndex) && fs.existsSync(realCompaniesIndex)) {
-      console.log(`\nTR Phase 5 integration smoke test`);
-      const tmpPublic = fs.mkdtempSync(path.join(os.tmpdir(), "tr-integrate-"));
-      const tmpParliamentDir = path.join(tmpPublic, "parliament");
-      fs.mkdirSync(tmpParliamentDir, { recursive: true });
-      fs.copyFileSync(realIndex, path.join(tmpParliamentDir, "index.json"));
-      fs.copyFileSync(
-        realCompaniesIndex,
-        path.join(tmpParliamentDir, "companies-index.json"),
-      );
-
-      const result = integrateTr({
-        publicFolder: tmpPublic,
-        rawFolder: tmpRaw,
-      });
-      assert(
-        result !== null,
-        "integrateTr returned a result (SQLite is present)",
-      );
-      if (result) {
-        assert(
-          result.companiesEnriched + result.companiesUnmatched > 0,
-          `integrateTr processed ≥1 declared company ` +
-            `(enriched=${result.companiesEnriched}, unmatched=${result.companiesUnmatched})`,
-        );
-        // The augmented companies-index.json must still be parseable JSON
-        // with the same `total` and shape as the input.
-        const augmented = JSON.parse(
-          fs.readFileSync(
-            path.join(tmpParliamentDir, "companies-index.json"),
-            "utf-8",
-          ),
-        );
-        assert(
-          Array.isArray(augmented.companies) && augmented.companies.length > 0,
-          "augmented companies-index.json still has companies[] array",
-        );
-        // Either zero matches (one-day data) or ≥1 — but every enriched entry
-        // must have a `tr` field with a uic.
-        const enriched = augmented.companies.filter(
-          (c: { tr?: { uic?: string } }) => c.tr && c.tr.uic,
-        );
-        assert(
-          enriched.length === result.companiesEnriched,
-          `every enriched company has a tr.uic field ` +
-            `(file=${enriched.length}, returned=${result.companiesEnriched})`,
-        );
-
-        // The mp-management assertions are GONE with the phase that wrote those files.
-        // /api/db/mp-management serves them from Postgres now (migration 150); the coverage
-        // moved to scripts/db/tests/mp_tr_roles.data.test.ts, which can assert what this
-        // never could — that a name the registry says belongs to two people is refused.
-      }
-
-      fs.rmSync(tmpPublic, { recursive: true, force: true });
-    }
+    // Phase 5 is GONE (2026-08-20). It drove integrateTr against a temp copy of
+    // companies-index.json — the only output that module had left — and both are retired
+    // with the name-keyed company page. /company/:eik serves the registry identity and
+    // declaration_stake_company (096) serves the declared stakes, each with its own gate and
+    // its own data test. See docs/plans/company-page-consolidation-v1.md (Tier 5).
+    //
+    // What this phase actually covered — that a fresh one-day reconstruction produces a
+    // SQLite the downstream readers can consume — is still covered above: every assertion
+    // from `db.prepare(...)` down runs against the store this smoke test just built.
 
     // Tidy up temp dir + db.
     fs.rmSync(tmpRaw, { recursive: true, force: true });

@@ -19,7 +19,6 @@ const raw: RawFiling = {
     {
       tableNum: "11", // → table
       companyName: "АКМЕ ЕООД",
-      companySlug: "akme-eood",
       holderName: "съпруга",
       transfereeName: "Петър Петров",
       shareSize: "100%",
@@ -87,7 +86,6 @@ describe("reshapeFiling", () => {
     expect(s.table).toBe("11");
     expect(s.itemType).toBeNull(); // no PG column
     expect(s.companyName).toBe("АКМЕ ЕООД");
-    expect(s.companySlug).toBe("akme-eood");
     expect(s.transfereeName).toBe("Петър Петров");
     expect(s.valueEur).toBe(5000);
   });

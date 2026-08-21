@@ -964,13 +964,6 @@ const ParliamentHubScreen = lazy(() =>
     default: m.ParliamentHubScreen,
   })),
 );
-// /mp/company/:slug is RETIRED — see MpCompanyRedirect's header. Kept as a redirect so the
-// two published articles' links, llms-full.txt and any bookmark still land somewhere real.
-const MpCompanyRedirect = lazy(() =>
-  import("./screens/MpCompanyRedirect").then((m) => ({
-    default: m.MpCompanyRedirect,
-  })),
-);
 const ConnectionsScreen = lazy(() =>
   import("./screens/ConnectionsScreen").then((m) => ({
     default: m.ConnectionsScreen,
@@ -3598,19 +3591,20 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          <Route
-            path="mp/company/:slug"
-            element={
-              // Keeps the site chrome: the redirect waits on the companies index before it
-              // can resolve, and a chrome-less blank page for the length of that fetch reads
-              // as a broken site rather than as a hop.
-              <LayoutScreen>
-                <Suspense fallback={<RouteFallback />}>
-                  <MpCompanyRedirect />
-                </Suspense>
-              </LayoutScreen>
-            }
-          />
+          {/* /mp/company/:slug is RETIRED and has no React route: firebase.json 301s
+              /mp/company/** (and the /en mirror) to /governance/companies.
+
+              ⚠️ IT USED TO BE A COMPONENT WITH THREE ARMS — the EIK, then the sole declarant,
+              then the list — and losing the first two is a DECISION, not an oversight. Every
+              arm resolved through companies-index.json, deleted here; the only way to keep
+              them would be to reproduce slugifyCompanyName in SQL against
+              declaration_stake_company.company_name — a second copy of a rule the browser
+              owns — in order to honour a name→EIK attribution that 096 declines for 1,751 of
+              the index's own 2,120 UICs. Redirecting on the strength of a refused name match
+              is the defect this plan exists to remove.
+
+              The contract that survives is the one that mattered: never a dead end. See
+              docs/plans/company-page-consolidation-v1.md (Tier 5.2). */}
           <Route
             path="connections"
             element={

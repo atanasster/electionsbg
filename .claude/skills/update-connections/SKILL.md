@@ -1,6 +1,6 @@
 ---
 name: update-connections
-description: Refresh the MP business-connections data — pulls property/interest declarations from register.cacbg.bg (Court of Audit) and Commerce Registry filings from data.egov.bg, then rebuilds the companies-index + per-MP management/declaration files under public/parliament/ (which the person-identity layer resolves into the LIVE Postgres connections graph behind /connections). Also flags unrealistic-looking declared values (cars/apartments/assets) and walks the operator through adding a typo override. Use when the user asks to refresh declarations, update business connections, add a new declaration year (e.g. 2026 filings appear in spring), rebuild the Commerce Registry SQLite, fix missing companies / management roles on candidate pages, or investigate a suspicious-looking declared value flagged by the typo checker. Also use after a fresh git clone if `public/parliament/companies-index.json` is missing. NOTE: the static person↔person connections graph (connections*.json / mp-connections/) is RETIRED — see the banner below.
+description: Refresh the MP business-connections data — pulls property/interest declarations from register.cacbg.bg (Court of Audit) and Commerce Registry filings from data.egov.bg, then rebuilds the per-MP declaration files under data/parliament/ plus the officials↔company bridge, the assets rankings, car makes and provenance (which the person-identity layer resolves into the LIVE Postgres connections graph behind /connections). Also flags unrealistic-looking declared values (cars/apartments/assets) and walks the operator through adding a typo override. Use when the user asks to refresh declarations, update business connections, add a new declaration year (e.g. 2026 filings appear in spring), rebuild the Commerce Registry SQLite, or investigate a suspicious-looking declared value flagged by the typo checker. Also use after a fresh git clone if `data/parliament/declarations/` is empty. NOTE: two families this skill used to build are RETIRED — the static person↔person connections graph (connections*.json / mp-connections/) and companies-index.json. A missing companies-index.json is now the CORRECT state; see the banner below.
 allowed-tools:
   - Read
   - Bash
@@ -16,15 +16,29 @@ allowed-tools:
 > `/connections` and the `/person` "Свързани лица" tile now read the **live Postgres graph engine**
 > (`graph_payloads` / `person_connections`, migrations 127-129 + 084 + loader `scripts/db/load_graph_pg.ts`),
 > derived from `person_role` (co-ownership) ∪ `company_politicians` (procurement). The dashboard
-> `MpConnectionsTile` was retired too. **What this skill STILL does:** refresh declarations + the
-> companies-index (incl. the `mpRoles` augmentation, now `scripts/declarations/augment_mp_roles.ts`) +
-> per-MP files — which the person-identity layer resolves. **Run `update-persons` (or its cloud chain,
-> which re-derives the graph via `db:load:graph:pg`) after this skill to publish the refreshed
-> connections.** Everything below that references `connections.json` / `connections-rankings.json` /
+> `MpConnectionsTile` was retired too. **Run `update-persons` (or its cloud chain, which re-derives
+> the graph via `db:load:graph:pg`) after this skill to publish the refreshed connections.**
+> Everything below that references `connections.json` / `connections-rankings.json` /
 > `buildConnectionsGraph` / `mp-connections` is **historical** — those files are no longer built or served.
 
-Builds the companies-index + per-MP files from two Bulgarian government sources (the person layer turns
-them into the live `/connections` graph):
+> **⚠️ SECOND RETIREMENT (2026-08-20 — `docs/plans/company-page-consolidation-v1.md`, Tier 5).**
+> `data/parliament/companies-index.json` is **DELETED**, and with it phases 2, 2.5, 5 and 5a plus the
+> `mpRoles` augment. **A missing companies-index.json is now the CORRECT state — do not run anything
+> to "restore" it.** It was a 4.16 MB name-keyed company page whose registry arm attached a company
+> UIC to an MP on a name-uniqueness check alone; migration 096 (`declaration_stake_company`) declines
+> **1,751 of its 2,120 UICs** rather than grading them, and `/company/:eik` serves every one of those
+> UICs from the registry identity instead. Deleted with it: `build_company_index.ts`,
+> `augment_mp_roles.ts` (and its `MP_ROLES_SQL`), `tr/integrate.ts`, `useCompanyIndex.tsx`,
+> `MpCompanyRedirect.tsx`, the `MpOwnershipStake.companySlug` field, and the `/mp/company/:slug`
+> route (`firebase.json` 301s `/mp/company`, `/mp/company/**` and both `/en` mirrors to
+> `/governance/companies`). **What this skill STILL does:** fetch + parse the declarations into the
+> per-MP files, then rebuild the officials↔company bridge, the assets rankings, car makes and
+> provenance — which the person-identity layer resolves. Everything below that references
+> `companies-index.json` / `buildCompanyIndex` / `mpRoles` / `companySlug` / `/mp/company` is
+> **historical**.
+
+Builds the per-MP declaration files and their downstream rollups from two Bulgarian government
+sources (the person layer turns them into the live `/connections` graph):
 
 - **register.cacbg.bg** — annual property/interest declarations (Сметна палата). Provides MP-declared ownership stakes.
 - **data.egov.bg** dataset `2df0c2af-e769-4397-be33-fcbe269806f3` — daily Commerce Registry (TR / Търговски регистър) filings. Provides company officers, owners, status, seat, and historical role changes.
@@ -33,7 +47,9 @@ Sitting MPs cannot legally hold management roles (ЗПК Art. 35), so the two so
 
 ## When to use which command
 
-The pipeline has six phases. Pick the entry point based on what changed upstream:
+The pipeline is a declarations fetch/parse (phase 1), a separate and much heavier TR-snapshot
+path (phases 3-4), and a set of downstream builders. Pick the entry point based on what changed
+upstream:
 
 | Intent | Command | Time | Network |
 |---|---|---|---|
@@ -43,7 +59,7 @@ The pipeline has six phases. Pick the entry point based on what changed upstream
 | **Rebuild every artifact from disk** (after editing a build script — no upstream fetch) | `npx tsx scripts/declarations/rebuild_all_from_cache.ts` | ~2-4 min | none |
 | **First-time bring-up** (fresh clone, no data) | TR bulk + reconstruct, then `--declarations` | ~1-2 h | full set |
 
-**`npm run data -- --declarations` is the safe default.** It fetches register.cacbg.bg incrementally (XML files cached in `raw_data/declarations/{year}/`), then re-runs phases 2 (companies-index), 5 (TR integrate), and 6 (rankings) every time. If the TR SQLite is missing, phases 5/6 run with reduced output and log a warning — `npm run prod` still succeeds.
+**`npm run data -- --declarations` is the safe default.** It fetches register.cacbg.bg incrementally (XML files cached in `raw_data/declarations/{year}/`), then re-runs every downstream builder — the officials↔company bridge, assets rankings, car makes, provenance — on each run. If the TR SQLite is missing, the officials bridge falls back to declared links only and logs a warning; `npm run prod` still succeeds.
 
 **`--prod` makes no difference to anything this skill writes, and that is deliberate.** Every
 other builder in `scripts/` takes its JSON formatter from `main.ts`'s single `stringify`, which
@@ -61,18 +77,23 @@ now produce byte-identical output; a refresh that changes nothing substantive to
 would be a ~million-line no-op diff and a full re-upload of the trees that ship).
 
 To rebuild the derived files without re-fetching declarations, use the runner rather than a
-hand-rolled one-liner — it sequences the phases correctly (`buildCompanyIndex` FIRST, since the
-augment *appends* `mpRoles` and would duplicate them against an already-augmented index) and
-writes through the fixed formatters:
+hand-rolled one-liner — it sequences the builders and writes through the fixed formatters:
 ```bash
 npx tsx scripts/declarations/rebuild_all_from_cache.ts --skip-reparse
 ```
-`--skip-reparse` drops the whole-corpus XML re-parse, which nothing downstream of the TR
-integration depends on — use it when the edit is to `tr/integrate.ts` or `augment_mp_roles.ts`
-rather than to the declaration parser. Drop the flag after editing `parse_declaration.ts`.
-Either way the per-MP `declarations/{mpId}.json` files (the slow-to-fetch part) are never
-re-fetched. To rebuild ONLY the officials cross-reference:
+`--skip-reparse` drops the whole-corpus XML re-parse — use it when the edit is to a downstream
+builder (`build_officials_company_links.ts`, `build_assets_rankings.ts`, `build_car_makes.ts`,
+`build_data_provenance.ts`) rather than to the declaration parser. Drop the flag after editing
+`parse_declaration.ts`. Either way the per-MP `declarations/{mpId}.json` files (the slow-to-fetch
+part) are never re-fetched. To rebuild ONLY the officials cross-reference:
 `npx tsx scripts/run-officials-links-only.ts`.
+
+**[2026-08-20] The runner's old ordering constraint is gone with the phases it protected.** It
+used to insist on running `buildCompanyIndex` FIRST because the `mpRoles` augment *appended* to
+`companies-index.json` and would duplicate roles against an already-augmented file. Both are
+deleted, and the re-parse no longer carries `companySlug` across from the previous vintage — the
+parser's stake array now stands as written. The runner still prints phase numbers 1, 4a, 6, 7, 8
+— the gaps are real and labelled in its source, and they do NOT line up with `index.ts`'s.
 
 ## Inputs
 
@@ -89,7 +110,7 @@ All under `public/parliament/`:
 | Path | Size (raw / gzip / brotli) | Lifecycle |
 |---|---|---|
 | `declarations/{mpId}.json` × ~600 | ~3.6 MB total | One file per MP. Carries the **full** stake schema for `MpFinancialDeclarations`. |
-| `companies-index.json` | 1.1 MB / 89 KB / 48 KB | Aggregate by company. Per-stake fields trimmed to `CompanyIndexStake` projection — see "Why two stake schemas". |
+| `companies-index.json` *(NO LONGER WRITTEN)* | — | Retired 2026-08-20 by company-page-consolidation-v1 Tier 5. A 4.16 MB company page keyed on a slug of the DECLARED NAME, whose registry arm attached a UIC on a name-uniqueness check alone; `/company/:eik` serves all 2,120 of those UICs from the registry identity, and the declared stakes come from `declaration_stake_company` (096), which REFUSES 1,751 of them. Its three builders (`build_company_index.ts`, `augment_mp_roles.ts`, `tr/integrate.ts`) are deleted |
 | `mp-management/{mpId}.json` *(NO LONGER WRITTEN)* | Retired by mp-tr-edges-pg-v1 — `/api/db/mp-management` (migration 150) serves an MP's registry roles from the gated person layer instead, refusing names the Commerce Registry records for more than one person. `integrate.ts` phase 2, which wrote these, is deleted |
 | `connections.json` | 2.5 MB / 218 KB / 136 KB | Cross-MP/company/person graph for `/connections`. Lazily fetched on that route only. |
 | `mp-connections/{mpId}.json` × ~600 | ~4.2 MB total (median ~1.8 KB / max ~190 KB raw) | Per-MP 1-hop + co-officer-2-hop subgraph. Loaded on each candidate page (`MpConnectionsMini`). MPs with no neighbourhood get no file (fetch 404 → component renders nothing). |
@@ -97,7 +118,7 @@ All under `public/parliament/`:
 | `companies-by-{ekatte,obshtina}/…` *(NO LONGER WRITTEN)* | Retired by mp-tr-edges-pg-v1 — `/api/db/place-mp-companies` (migration 151) serves these from the gated person layer, covering 1,332 settlements against the shards' 176. Both builders are deleted |
 | `company-connections/{eik}.json` *(NO LONGER WRITTEN)* | Retired 2026-08-16 — `/api/db/company-connections` (migration 158 `company_political_links`) serves this from the gated `person_role` tr/ngo set. The builder is deleted. Its reader was never `/company/:eik` as this row long claimed, but the AI chat's `companyConnections` tool. NOT a port: the shards name-matched TR officers against a power roster and graded the result `medium`/`low`; 158 lets the registry's own people-count per name fold (`tr_name_fold_people`, 148) decide and refuses an unmeasured fold. Corpus-wide that is wider — 9,982 companies with a direct link vs 3,843, 26,047 answerable vs 19,232. ⚠️ The 19,232 gitignored local files are NOT deleted and nothing rewrites them; the `bucket_sync_paths.ts` exclusions must stay so they cannot re-upload |
 
-The four aggregate files at the bottom are **regenerated end-to-end on every run** of phases 2/5/6. The per-MP declaration files are append-only (one file per MP id; rewriting one file does not affect others).
+The per-MP declaration files are append-only (one file per MP id; rewriting one file does not affect others). The aggregates the downstream builders still write — `assets-rankings.json`, `mp-assets/*`, `car-makes.json`, `mp-cars.json`, `data-provenance.json` and `data/officials/derived/company_links.json` — are **regenerated end-to-end on every run**.
 
 `raw_data/tr/` is gitignored (~12 GB extracted). `raw_data/declarations/{year}/` is **not** gitignored but intentionally not committed — the per-MP XML cache exists on whoever ran the fetcher; CI / fresh clones just re-fetch them.
 
@@ -111,30 +132,28 @@ register.cacbg.bg                    data.egov.bg dataset 2df0c2af-…
 parseFinancialDeclarations              fetchBulkZip / fetchDaily
        │                                          │
        ▼                                          ▼
-public/parliament/declarations/         [Phase 4] state.sqlite
+data/parliament/declarations/           [Phase 4] state.sqlite
 {mpId}.json                             reconstructState
        │                                          │
-       ├─[Phase 2] buildCompanyIndex              │
-       │       ▼                                  │
-       │   companies-index.json ◄─────────────────┤
-       │       │                                  │
-       │       └─[Phase 5] integrateTr ◄──────────┘
-       │              ▼
-       │          companies-index.json (enriched with `tr` field)
-       │          mp-management/{mpId}.json
-       │              │
-       └─[Phase 6] buildConnectionsGraph
-                  ▼
-              connections.json
-              mp-connections/{mpId}.json
-              connections-rankings.json
-              connections-search.json
+       ├─[Phase 4a] buildOfficialsCompanyLinks ◄──┘
+       │       ▼
+       │   data/officials/derived/company_links.json
+       │
+       ├─ buildAssetsRankings   → assets-rankings.json, mp-assets/*
+       ├─ buildCarMakes         → car-makes.json, mp-cars.json
+       └─ buildDataProvenance   → data-provenance.json
 
-              (Phase 7, buildCompanyConnections → company-connections/{eik}.json,
-               was REMOVED 2026-08-16 — served from Postgres, migration 158)
+              (buildCompanyIndex, integrateTr and the mpRoles augment —
+               companies-index.json + mp-management/ — were REMOVED
+               2026-08-20; see the second retirement banner.
+               buildConnectionsGraph went earlier, with connections-engine-v1,
+               and buildCompanyConnections → company-connections/{eik}.json
+               went 2026-08-16 — served from Postgres, migration 158.)
 ```
 
-Phases 1, 2, 5, 6 chain inside `parseFinancialDeclarations` (`scripts/declarations/index.ts`). Phases 3, 4 are kept out of `npm run prod` because they take 30-60 min and produce a 12 GB intermediate.
+Phase 1 and the downstream builders chain inside `parseFinancialDeclarations` (`scripts/declarations/index.ts`). Phases 3, 4 are kept out of `npm run prod` because they take 30-60 min and produce a 12 GB intermediate.
+
+⚠️ **Do not trust a phase NUMBER on the last three builders.** The retirements left gaps, and the two runners number what is left differently — `index.ts` calls the assets rollup "Phase 7" while `rebuild_all_from_cache.ts` calls it "phase 6". The builder names are the stable reference; the numbers are scar tissue.
 
 ## TR refresh playbook
 
@@ -173,17 +192,14 @@ npx tsx scripts/declarations/tr/cli.ts --incremental
 npx tsx scripts/declarations/tr/cli.ts --reconstruct
 
 # Then rebuild every declarations aggregate from disk (NO upstream fetch):
-# re-parse cached XML → companies-index → integrateTr → officials bridge →
-# mpRoles augment → re-enrich → rankings/car-makes/provenance. Use this
-# whenever the link logic changed (e.g. the TR-namesake fix) but
-# cacbg/data.egov is unreachable.
+# re-parse cached XML → officials bridge → rankings/car-makes/provenance.
+# Use this whenever a builder's logic changed but cacbg/data.egov is
+# unreachable.
 npx tsx scripts/declarations/rebuild_all_from_cache.ts
 ```
 
-> The runner runs `buildCompanyIndex` FIRST on purpose: the augment *appends*
-> `mpRoles`, so running it against an already-augmented `companies-index.json`
-> duplicates roles. Formats are no longer its problem — each builder owns its
-> own (`scripts/declarations/formats.ts`), so no caller can churn a file by
+> Formats are not the runner's problem — each builder owns its own
+> (`scripts/declarations/formats.ts`), so no caller can churn a file by
 > passing the wrong `stringify`. Note the data root is `./data`, not
 > `./public`.
 >
@@ -191,7 +207,8 @@ npx tsx scripts/declarations/rebuild_all_from_cache.ts
 > without updating this doc. The per-EIK `company-connections/` and the
 > retired `companies-by-ekatte`/`-obshtina` shard builders are NOT in this
 > runner, and both are now gone outright — `/company` political links are
-> served by migration 158 and `/settlement/:id/companies` by migration 151.)
+> served by migration 158 and `/settlement/:id/companies` by migration 151.
+> Neither is `buildCompanyIndex`, deleted 2026-08-20 with the file it wrote.)
 
 Use `--limit N` on `--reconstruct` for a smoke test (replays N days only).
 
@@ -225,44 +242,56 @@ When a new filing season opens (typically May for prior fiscal year):
 
 5. **Spot-check the dashboard** at `/?_=` (cache-bust) — the "Бизнес връзки на депутатите" tile should show the new year reflected in any MP whose declarations grew. The tile filters by current parliament's NS folder; switch elections to verify older NSes still populate.
 
-6. **Regenerate the declarations-hub blob** (mandatory whenever `companies-index.json` moved):
+6. **Regenerate the declarations-hub blob** (mandatory whenever the declarations moved):
    ```bash
    npm run db:gen-declarations-hub-stats
    ```
-   The `/governance/declarations` companies tile quotes THIS FILE rather than a table —
-   `data/governance/declarations_hub_stats.json` stores `companies` / `companyMps` read
-   straight out of `companies-index.json`, precisely so the tile and its destination cannot
-   disagree. Nothing else regenerates it outside a full `db:refresh`, so a rebuild that stops
-   at step 5 leaves the tile quoting the previous vintage. That is not silent — it is the one
-   drift in this skill with a red gate: `declarations_hub_stats.data.test.ts` re-reads both
-   files and fails the CI Vitest run (it needs no Postgres, so it does not skip). Caught
-   2026-08-11, when the 2015-2020 MP backfill took the index 2,761 → 3,269 and the tile stayed
-   at 2,761.
+   `data/governance/declarations_hub_stats.json` backs the whole `/governance/declarations`
+   tile grid. Nothing else regenerates it outside a full `db:refresh`, so a rebuild that stops
+   at step 5 leaves the tiles quoting the previous vintage. Caught that way 2026-08-11, when
+   the 2015-2020 MP backfill moved the companies figure 2,761 → 3,269 and the tile stayed at
+   2,761 — the mechanism is unchanged even though the relation it read is not.
 
-   The generator's other four figures come from Postgres, so it publishes whatever the local
-   database currently holds. If the person layer has not been reloaded since the declarations
-   changed, run this after `/update-persons` rather than before it.
+   ⚠️ **[2026-08-20] EVERY figure in it now comes from Postgres, the companies tile
+   included — which changes when you run this.** It used to read `companies` / `companyMps`
+   straight out of `companies-index.json`, because that WAS what `/mp/companies` rendered and
+   the rule is that a tile quotes its DESTINATION's own relation. The destination is now
+   `/governance/companies` over `official_companies` (178), so the generator reads that
+   instead. So run this **after** `/update-persons`, never before: with the person layer
+   unreloaded the generator publishes the previous vintage of every figure rather than of
+   four. An absent `official_companies` (178 unapplied) makes the tile ship with NO figure
+   rather than a „0 организации" claim.
+
+   The gate is `scripts/db/tests/declarations_hub_stats.data.test.ts`. It **needs Postgres and
+   skips when the database is unreachable**, so a green run on a checkout with no database
+   proves nothing here. Every assertion in it is written against something the generator does
+   NOT use — the destination screen's own filter, the partition structure — because its first
+   version re-ran the generator's own SQL and pinned two bugs.
 
 7. **Commit**:
    ```bash
-   git add data/parliament/declarations data/parliament/companies-index.json \
-           data/parliament/connections.json \
-           data/parliament/mp-connections data/parliament/connections-rankings.json \
+   git add data/parliament/declarations \
+           data/parliament/assets-rankings.json data/parliament/mp-assets \
+           data/parliament/car-makes.json data/parliament/mp-cars.json \
+           data/parliament/data-provenance.json \
+           data/officials/derived/company_links.json \
            data/governance/declarations_hub_stats.json
    git commit -m "Refresh declarations for 2026 filing year"
    ```
    (The tree is `data/parliament/`, not `public/parliament/` — that path holds only `votes`,
    so the older form of this block failed on its first argument.)
 
-   `data/parliament/mp-management` is deliberately NOT in that list any more: it is gitignored
-   since mp-tr-edges-pg-v1 and `git add` exits 1 on it ("paths are ignored"). Note the failure
-   mode if it comes back — the other pathspecs still stage, so the commit succeeds and only the
-   non-zero exit says anything went wrong. `/api/db/mp-management` serves that data now
-   (migration 150) and the shards are no longer written at all.
+   Two paths are deliberately NOT in that list, and both would break the command rather than
+   be no-ops. `data/parliament/mp-management` is gitignored since mp-tr-edges-pg-v1, so
+   `git add` exits 1 on it ("paths are ignored") — and the failure mode matters: the other
+   pathspecs still stage, so the commit succeeds and only the non-zero exit says anything went
+   wrong. `/api/db/mp-management` serves that data now (migration 150). And
+   `data/parliament/companies-index.json` is DELETED as of 2026-08-20, so naming it fails with
+   "did not match any files"; nothing writes it any more.
 
 ## Data-integrity contract
 
-This pipeline has two upstream stages — register.cacbg.bg (declarations XML) and data.egov.bg (Commerce Registry bulk JSON) — each with its own fail-loud surfaces. The shared rule: **never overwrite `data/parliament/{connections,companies-index,…}.json` with a partial result when an upstream stage failed mid-run**.
+This pipeline has two upstream stages — register.cacbg.bg (declarations XML) and data.egov.bg (Commerce Registry bulk JSON) — each with its own fail-loud surfaces. The shared rule: **never overwrite a committed aggregate (`assets-rankings.json`, `car-makes.json`, `data-provenance.json`, `data/officials/derived/company_links.json`) with a partial result when an upstream stage failed mid-run**.
 
 Fail-loud surfaces (a run throws and the affected output is not written):
 
@@ -280,7 +309,7 @@ Intentional non-fatal skips (logged with `[stage]` prefix, ingest continues):
 |---|---|---|
 | `raw_data/declarations/<dir>` missing | Builder for that step warns `not found — skipping` | Allows partial pipeline runs (e.g. assets rebuild without re-fetching declarations) |
 | Per-MP declaration parse returns null on a field | The field is omitted from that MP's record | Cell-level parser resilience — one bad row shouldn't reject a whole filing |
-| TR SQLite not present at integrate-time | Integration step warns and returns null; `connections.json` is built without company management metadata | Optional enrichment; `npm run prod` should still succeed without it |
+| TR SQLite not present when the officials bridge runs | `build_officials_company_links.ts` warns `no TR SQLite … — declared links only` and emits the declared-stake arm alone | Optional enrichment; `npm run prod` should still succeed without it |
 | Unmatched MP name (married, hyphen variant) | Counted in the "unmatched" tally at the end | Documented below — irreducible 1-2 per parliament |
 | Slug collision across companies | First-wins with a warning | Documented below |
 
@@ -303,22 +332,27 @@ parliament.bg's profile API returns `oldnsList: []` for some ex-MPs (e.g. Иве
 ### The parliament index `nsFolders` field is NOT auto-updated by this pipeline
 The backfill above lives in the rankings file only. `index.json` still reflects whatever parliament.bg's `oldnsList` returned. Don't add a "fix the index" step here — it would couple the connections pipeline to the parliament-scrape outputs and create a circular dependency. Leave the index as the canonical parliament view; treat the rankings nsFolders as the connections-aware view.
 
-### Slug collisions across companies
-Two distinct companies whose names differ only in casing or quote style slug to the same string (e.g. `"Хранител"` vs `"хранител"`). `build_company_index.ts` disambiguates by appending `-2`, `-3`, …. `MpCompanyScreen` decodes the slug and looks up by exact match — never assume one slug = one company without checking the index.
+### Company names are grouped by a NAME FOLD, not by a slug
+**[2026-08-20]** Slug collision used to be the hazard here: two companies differing only in
+casing or quote style slugged to one string, `build_company_index.ts` disambiguated with
+`-2` / `-3`, and `MpCompanyScreen` looked the slug up by exact match. All three are deleted
+with `companies-index.json`, along with `MpOwnershipStake.companySlug`. Client-side stake
+grouping now folds the raw declared name through `src/lib/companyNameFold.ts`
+(`src/data/parliament/consolidateStakes.ts`), so there is no slug to collide and no index to
+check against — but the underlying fact has not moved: **a declared company NAME is not an
+identity.** `/company/:eik` is keyed on the registry EIK, and 096 refuses a UIC it cannot
+confirm rather than guessing one.
 
 ### `"-"` placeholder values in declarations
-register.cacbg.bg uses `"-"` as a "no value" sentinel in `itemType`, `companyName`, `holderName`, etc. Don't treat them as real strings (e.g. don't slugify `"-"`, don't display as company name). The per-stake `companyName` on `companies-index.json` was specifically removed for this reason — the parent `displayName` is the canonical reference. `build_company_index.ts` also drops any group whose canonical display name slugifies to empty (a `"-"` only entry) so the connections graph doesn't grow a placeholder company node.
+register.cacbg.bg uses `"-"` as a "no value" sentinel in `itemType`, `companyName`, `holderName`, etc. Don't treat them as real strings (don't display one as a company name, don't let one become a group key). A name fold of `"-"` is empty, and an empty fold must not become a company — the deleted `build_company_index.ts` dropped exactly that case so the graph would not grow a placeholder company node, and any future consumer of the declared name owes the same guard.
 
 ### Decimal/thousand separator typos in declared values
 A non-trivial fraction of declared BGN values are off by 100×–1000× because the declarant typed thousand-separators where the form expected decimals (or vice versa). Without intervention these dominate the assets ranking and the per-MP wealth pages. The pipeline handles them via narrow per-row overrides plus an automated flagger — see "Typo and unrealistic-value detection" below for the override tables, the heuristic thresholds, and the decision flow.
 
 ### TR SQLite is optional
-If `raw_data/tr/state.sqlite` is missing (e.g. fresh clone before TR bulk runs), `integrateTr` and `buildConnectionsGraph` log `no TR SQLite — skipping` and produce **partial** outputs:
-- `companies-index.json` has no `tr` field on entries
-- `mp-management/` is empty
-- `connections.json` only contains MP↔company edges from declarations (no co-officers, no non-MP person nodes)
+If `raw_data/tr/state.sqlite` is missing (e.g. fresh clone before TR bulk runs), `build_officials_company_links.ts` logs `no TR SQLite at … — declared links only` and emits `data/officials/derived/company_links.json` from the declared-stake arm alone — no TR officer/owner links, so `namesakeCount`/`trNamesakeCount` never gate anything.
 
-The build still succeeds; the frontend renders an empty TR card on `/mp/company/{slug}` and the graph is sparser. Run the TR refresh playbook to fill these in.
+The build still succeeds; downstream, `pep_connected` (in `/update-procurement`) and the funds political-economy join both get a thinner high-confidence set. Run the TR refresh playbook to fill these in. **[2026-08-20]** The other two consumers this section used to name are gone: `integrateTr` and `companies-index.json`'s `tr` field, and the `mp-management/` shards — `/api/db/mp-management` (migration 150) serves an MP's registry roles from the gated person layer instead.
 
 ### TR confidence model
 TR-only matches are name-based. The integrator emits three tiers, of which only two ship:
@@ -328,18 +362,32 @@ TR-only matches are name-based. The integrator emits three tiers, of which only 
 
 The `/connections` page has a "high confidence only" filter; the dashboard tile already counts `highConfDegree` only. When investigating an MP's ties seriously, prefer the high-only view.
 
-**TR-namesake guard (name-collision fix).** On top of the tiers above, every officer→power-person name match is gated on the name being **unique to a single TR company**. A name spread across multiple companies is almost always several distinct people (common Bulgarian names recur thousands of times), so attributing all those companies to one MP/official is a false positive. Three code paths enforce this, all keyed off the same idea:
-- `build_connections_graph.ts` phase-3 — attributes a TR officer row to an MP only when the name maps to one company; otherwise it becomes a plain (non-MP) person node.
-- `build_officials_company_links.ts` — a TR link is `high` only when unique among officials AND `trNamesakeCount === 1` (see `/update-officials`).
-- ~~`tr/build_company_connections.ts`~~ — **deleted 2026-08-16.** Its successor, `company_political_links` (migration 158), enforces the same idea from a stronger source: rather than counting TR *companies* per name, it reads `tr_name_fold_people` (148) — the registry's own count of how many PEOPLE a name fold covers — and refuses any fold it has not measured. A company count was only ever a proxy, and it erred in both directions: it dropped a rare-name official's whole set behind one busy registered agent, and passed a name held by two people with several companies each.
+**TR-namesake guard (name-collision fix).** Every officer→power-person name match needs a gate: a name spread across multiple TR companies is almost always several distinct people (common Bulgarian names recur thousands of times), so attributing all those companies to one MP/official is a false positive. **The old company-count proxy survives in exactly ONE place now, and the two successors both count PEOPLE instead:**
 
-This is what keeps a Горна Малина councillor off Софарма Трейдинг's billions and a Чирпан deputy-mayor off "Автомагистрали". The procurement side mirrors it in `scripts/procurement/cross_reference.ts` (see `/update-procurement`).
+- `build_officials_company_links.ts` — the last holder of the proxy. A TR link is `high` only when unique among officials AND `trNamesakeCount === 1` (see `/update-officials`).
+- ~~`tr/build_company_connections.ts`~~ — **deleted 2026-08-16.** Its successor, `company_political_links` (migration 158), reads `tr_name_fold_people` (148) — the registry's own count of how many PEOPLE a name fold covers — and refuses any fold it has not measured.
+- ~~`build_connections_graph.ts` phase-3~~ — deleted with the static graph (see the first banner).
+- ~~`buildTrNamesakeCounts` / `buildNamesakeFilteredLinkageMap` in the two cross-reference builders~~ — **deleted 2026-08-20.** `scripts/procurement/cross_reference.ts` and `scripts/funds/cross_reference.ts` now read the gated MP↔company link set through `scripts/lib/mp_linkage.ts`, which is gated on the same `tr_name_fold_people` fold.
 
-### Why two stake schemas
-The full `MpOwnershipStake` lives in `public/parliament/declarations/{mpId}.json` — `MpFinancialDeclarations.tsx` renders all of `itemType`, `companyName`, `registeredOffice`, `holderName`, `transfereeName`. The aggregated `companies-index.json` ships only a slim `CompanyIndexStake = Pick<MpOwnershipStake, "table" | "shareSize" | "valueBgn" | "legalBasis" | "fundsOrigin">` — the dropped fields are redundant with the parent `displayName` / `registeredOffices` or unused on the company page. Don't put removed fields back into the companies-index without verifying they're actually rendered — it adds ~10 KB brotli to a file loaded on every `/mp/companies` visit. See `scripts/declarations/build_company_index.ts:121-130`.
+A company count was only ever a proxy, and it erred in both directions: it dropped a rare-name official's whole set behind one busy registered agent, and passed a name held by two people with several companies each. Either way, the point is what it keeps out — a Горна Малина councillor off Софарма Трейдинг's billions, a Чирпан deputy-mayor off „Автомагистрали".
+
+### One stake schema — `MpOwnershipStake`
+**[2026-08-20]** There used to be two. The full `MpOwnershipStake` lives in
+`data/parliament/declarations/{mpId}.json` — `MpFinancialDeclarations.tsx` renders all of
+`itemType`, `companyName`, `registeredOffice`, `holderName`, `transfereeName` — and
+`companies-index.json` shipped a slim `CompanyIndexStake` projection beside it. The index, the
+projection and the `companySlug` field the two joined on are all deleted; the 556 committed
+per-MP shards were rewritten without it. The rule that produced the split still binds any
+future aggregate: **weigh a field's cost against how often the file is loaded**, and do not add
+one back without checking it is actually rendered.
+
+⚠️ **The Postgres column `declaration_stake.company_slug` is deliberately KEPT and no longer
+written** — see its comment in `scripts/db/schema/pg/089_declarations.sql`. It is dropped from
+the declarations loader's column list, so a fresh load leaves it NULL. Do not read it, and do
+not "finish the job" by dropping it.
 
 ### Per-MP files vs aggregates
-Per-MP files (`declarations/{mpId}.json`, `mp-management/{mpId}.json`) are **lazy** — the candidate page fetches one. Aggregates (`companies-index.json`, `connections-rankings.json`) are **eager** in the routes that use them. When trimming output, weigh field cost against load frequency: trimming `connections.json` matters more than trimming `mp-management/{mpId}.json`.
+Per-MP files (`declarations/{mpId}.json`, `mp-assets/{…}.json`) are **lazy** — the candidate page fetches one. Aggregates (`assets-rankings.json`, `car-makes.json`) are **eager** in the routes that use them. When trimming output, weigh field cost against load frequency.
 
 ## Typo and unrealistic-value detection
 
@@ -509,22 +557,21 @@ For the TR side, `--limit N` on `--reconstruct` replays only the first N days (s
 
 | Path | Purpose |
 |---|---|
-| `scripts/declarations/index.ts` | Phase 1 entry. Walks register.cacbg.bg, writes per-MP JSON, then chains into phases 2/5/6. |
+| `scripts/declarations/index.ts` | Phase 1 entry. Walks register.cacbg.bg, writes per-MP JSON, then chains into the officials bridge + phases 6/7/8. |
 | `scripts/declarations/parse_declaration.ts` | XML → `MpDeclaration` (stakes + income tables). Also owns `REAL_ESTATE_VALUE_OVERRIDES` and `VEHICLE_VALUE_OVERRIDES` — narrow per-row corrections for declarant typos. |
 | `scripts/declarations/check_suspicious_values.ts` | Flagger that prints any per-row BGN value above the heuristic thresholds. Run after every declarations refresh; informational exit code only. |
 | `scripts/declarations/rebuild_all_from_cache.ts` | Re-parse every cached declaration XML and re-run every downstream builder, no network. Use after editing `parse_declaration.ts` (e.g. adding an override) so existing per-MP JSON files pick up the change. |
-| `scripts/declarations/build_company_index.ts` | Phase 2. Aggregates per-MP stakes by company name. Defines `CompanyIndexStake` projection. |
 | `scripts/declarations/tr/cli.ts` | Phase 3 + 4 entry. Bulk + incremental + reconstruct subcommands. |
-| `scripts/declarations/tr/integrate.ts` | Phase 5. Joins TR SQLite into companies-index + emits mp-management/. |
-| `scripts/declarations/build_connections_graph.ts` | Phase 6. Builds graph + per-MP neighbourhoods + rankings. Defines `nsFoldersForMp` backfill. |
-| `src/data/parliament/useCompanyIndex.tsx` | React Query hook for companies-index. Defines `CompanyIndexStake` mirror. |
+| `scripts/declarations/build_officials_company_links.ts` | Phase 4a. Officials ↔ company bridge (declared stakes + TR officer/owner name match, `trNamesakeCount`-gated) → `data/officials/derived/company_links.json`. |
+| `scripts/declarations/build_assets_rankings.ts` | Per-MP wealth rollups + the cross-MP rankings file. |
+| `scripts/declarations/build_car_makes.ts` | `car-makes.json` + `mp-cars.json`. |
+| `scripts/declarations/build_data_provenance.ts` | Per-NS declaration-year window + filing rate. |
+| `src/lib/companyNameFold.ts` | The declared-company-name fold that `src/data/parliament/consolidateStakes.ts` groups on — it replaced the `companySlug` key (2026-08-20). |
 | `src/data/parliament/useConnectionsGraph.tsx` | RQ hook for connections.json. |
 | `src/data/parliament/useConnectionsRankings.tsx` | RQ hook for rankings (dashboard tile). |
 | `src/data/parliament/useMpConnections.tsx` | RQ hook for one MP's neighbourhood. |
 | `src/data/parliament/useMpManagement.tsx` | RQ hook for one MP's management roles. |
 | `src/screens/ConnectionsScreen.tsx` | Full graph + rankings + path-finding. |
-| `src/screens/MpCompanyScreen.tsx` | Company detail page. |
-| `src/screens/AllMpCompaniesScreen.tsx` | Sortable list of all declared companies. |
 | `src/screens/dashboard/MpConnectionsTile.tsx` | Top-MPs / top-companies tile filtered by selected election. |
 | `src/screens/components/candidates/MpConnectionsMini.tsx` | Per-MP graph on the candidate page. |
 | `src/screens/components/candidates/MpFinancialDeclarations.tsx` | Per-MP declaration listing. Reads `declarations/{mpId}.json`. |
@@ -535,8 +582,7 @@ For the TR side, `--limit N` on `--reconstruct` replays only the first N days (s
 
 If you change a script's output schema, update these in lockstep:
 
-- `MpOwnershipStake`, `MpDeclaration`, `MpIncomeRecord` in `src/data/dataTypes.ts` — per-MP file shape.
-- `CompanyIndexStake`, `CompanyIndexEntry`, `CompaniesIndexFile` — split between `scripts/declarations/build_company_index.ts` and `src/data/parliament/useCompanyIndex.tsx`. **Keep both definitions in sync** (TypeScript won't flag the mismatch — they're nominally separate types pointing at the same JSON).
+- `MpOwnershipStake`, `MpDeclaration`, `MpIncomeRecord` in `src/data/dataTypes.ts` — per-MP file shape. **[2026-08-20] `MpOwnershipStake.companySlug` is gone**, from the type, from the 556 committed shards and from the declarations loader's column list; a stake is grouped client-side by folding its raw declared name through `src/lib/companyNameFold.ts`.
 - `ConnectionsNode`, `ConnectionsEdge`, `ConnectionsTopMp`, `ConnectionsTopCompany`, `ConnectionsRankings`, `ConnectionsGraph` in `src/data/dataTypes.ts` — graph + rankings shape.
 - `TrCompanyOfficer`, `TrCompanyEnrichment`, `MpManagementRole`, `MpManagementFile` in `src/data/dataTypes.ts` — TR-derived shapes.
 

@@ -30,15 +30,16 @@ vi.mock("@/data/parliament/useMpDeclarations", () => ({
 const { PersonCompanies } = await import("./PersonCompanies");
 
 // One filing declaring one stake in `company`, held by `holder` when given.
-/** `slug` defaults to null, as every pre-existing case here relies on. The two dead-link
- *  regression tests below pass a REAL one on purpose: with null, the retired
- *  /mp/company/{companySlug} branch never fired either, so the assertion would have been
- *  satisfied by the very code it exists to keep out. */
-const filing = (
-  company: string,
-  holder?: string,
-  slug: string | null = null,
-): MpDeclaration =>
+/** ⚠️ THE `slug` PARAMETER IS GONE (2026-08-20), AND WITH IT THE REASON IT EXISTED. The two
+ *  dead-link regression tests below used to pass a REAL companySlug, because with a null one
+ *  the retired /mp/company/{companySlug} branch never fired either and the assertion would
+ *  have been satisfied by the very code it exists to keep out. `MpOwnershipStake.companySlug`
+ *  is deleted (docs/plans/company-page-consolidation-v1.md Tier 5.2), so the fixture can no
+ *  longer simulate that branch — and does not need to: re-introducing the link now means
+ *  re-introducing the FIELD, a change no reviewer could miss, rather than a one-line href a
+ *  vacuous test would wave through. The assertions stay because the href they forbid can also
+ *  arrive hand-built. */
+const filing = (company: string, holder?: string): MpDeclaration =>
   ({
     declarationYear: 2023,
     fiscalYear: 2022,
@@ -47,7 +48,6 @@ const filing = (
       {
         table: "10",
         companyName: company,
-        companySlug: slug,
         itemType: "Дялове",
         registeredOffice: null,
         holderName: holder ?? null,
@@ -126,9 +126,7 @@ describe("PersonCompanies — no stake row links to a declared-NAME page", () =>
     // DECLARED NAME. The form carries no EIK, so that page attached one on a name-uniqueness
     // check alone; 096 refuses 1,751 of the 2,120 links it made. The row is text now, and the
     // ONLY company link on a stake is the one 096 resolved, rendered beneath it.
-    declRows.current = [
-      filing("Питстрой 13 ЕООД", undefined, "Питстрой-13-ЕООД"),
-    ];
+    declRows.current = [filing("Питстрой 13 ЕООД")];
     statusRows.current = [
       status("ПИТСТРОЙ 13 ЕООД", "linked", {
         eik: "204361427",
@@ -142,9 +140,7 @@ describe("PersonCompanies — no stake row links to a declared-NAME page", () =>
 
   it("a REFUSED stake gets no company link at all", () => {
     // The other half. An unconfirmed row is precisely what the retired page linked anyway.
-    declRows.current = [
-      filing("Питстрой 13 ЕООД", undefined, "Питстрой-13-ЕООД"),
-    ];
+    declRows.current = [filing("Питстрой 13 ЕООД")];
     statusRows.current = [status("ПИТСТРОЙ 13 ЕООД", "unconfirmed")];
     draw();
     expect(allHrefs().some((h) => h.startsWith("/mp/company/"))).toBe(false);

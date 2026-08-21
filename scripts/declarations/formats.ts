@@ -20,7 +20,7 @@
  * confirmed against the committed history rather than assumed:
  *
  *   compact — data/parliament/declarations/*.json, mp-assets/*.json,
- *             companies-index.json, assets-rankings.json,
+ *             assets-rankings.json,
  *             assets-rankings-top.json, car-makes.json, mp-cars.json,
  *             data-provenance.json
  *   pretty  — data/officials/derived/company_links.json

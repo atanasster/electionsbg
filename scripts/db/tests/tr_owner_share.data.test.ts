@@ -759,8 +759,11 @@ test.skipIf(skip)(
     // owner_share.ts (the SQLite writer's rule) and tr_owner_share (003) are two
     // implementations of one rule: the serving layer cannot import TypeScript, and the
     // SQLite corpus is written offline before Postgres exists. This is what stops them
-    // drifting — the stored value reaches /mp-company/:eik through integrate.ts →
-    // companies-index.json, which renders it directly.
+    // drifting — the stored value still reaches a rendered surface, via
+    // build_officials_company_links.ts → company_links.json → company_politicians.relations,
+    // and is COPIED into tr_person_roles.share by load_tr_pg.ts. (Its other renderer,
+    // integrate.ts → companies-index.json, is retired — Tier 5.2 of
+    // docs/plans/company-page-consolidation-v1.md.)
     //
     // ⚠️ BOTH DIRECTIONS. A join on "both sides published" only compares the rows they
     // agree to publish, so a TS side that REFUSED too much would drop out of the join

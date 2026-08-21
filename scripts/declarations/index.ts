@@ -26,13 +26,6 @@ import {
   reportAutoCorrections,
   unknownRootTally,
 } from "./parse_declaration";
-import {
-  buildCompanyIndex,
-  annotatePerMpDeclarationsWithSlugs,
-  reEnrichCompaniesIndex,
-} from "./build_company_index";
-import { integrateTr } from "./tr/integrate";
-import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
@@ -409,35 +402,21 @@ export const parseFinancialDeclarations = async ({
 
   if (declarationsOnly) return;
 
-  buildCompanyIndex({ publicFolder });
-
-  // Phase 2.5: stamp the resolved companies-index slug onto each ownership
-  // stake in the per-MP declaration files. Required so MpFinancialDeclarations
-  // can link to the right /mp/company/{slug} when two companies disambiguate
-  // via the `-2`/`-3` suffix.
-  annotatePerMpDeclarationsWithSlugs({ publicFolder });
-
-  // Phase 5: enrich companies-index + emit per-MP management roles from
-  // raw_data/tr/state.sqlite. No-ops with a warning if SQLite isn't present
-  // (the user has not yet run `tr/cli.ts --bulk --reconstruct`).
-  integrateTr({ publicFolder, rawFolder: dataFolder });
+  // Phases 2, 2.5, 5, 5a and the mpRoles augment are GONE (2026-08-20). They built
+  // `public/parliament/companies-index.json` — a company page keyed on a slug of the DECLARED
+  // NAME, whose registry arm attached a UIC on a name-uniqueness check alone. `/company/:eik`
+  // serves every one of its 2,120 UICs from the registry identity, and the declared stakes it
+  // added come from `declaration_stake_company` (096), which refuses 1,751 of those
+  // attributions rather than grading them. See
+  // docs/plans/company-page-consolidation-v1.md (Tier 5).
+  //
+  // Deleted with them: build_company_index.ts, augment_mp_roles.ts and tr/integrate.ts, whose
+  // last remaining output was that file.
 
   // Officials → company cross-reference. Joins executive + municipal officials
   // to companies (declared stakes + TR officer/owner name match). No-ops if
   // data/officials/ has not been ingested.
   buildOfficialsCompanyLinks();
-
-  // Augment companies-index with `mpRoles` + the registry-only company entries an MP holds but
-  // never declared. Re-derived from POSTGRES (the gated person_role tr/ngo set), not from the
-  // mp-management shards it used to read — those are retired, and reading them back was what
-  // made them a build-time input rather than merely a serving artifact. Sole writer of
-  // `mpRoles`. Needs db:resolve:persons to have run; degrades to leaving the previous vintage
-  // when Postgres is unreachable. See docs/plans/mp-tr-edges-pg-v1.md §4 Tier 3.
-  await augmentCompaniesIndexWithMpRoles({ publicFolder });
-
-  // Second-pass HQ resolution — now that `tr.seat` is on every TR-enriched
-  // entry, fall back to it for companies with no declared office string.
-  reEnrichCompaniesIndex({ publicFolder });
 
   // The per-settlement and per-municipality shard builders that used to run here are GONE:
   // /settlement/:id/companies is served live from Postgres (place_mp_companies, migration 151).
