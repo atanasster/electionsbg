@@ -1,4 +1,9 @@
-# Cloud SQL deploy speed v1 — make the post-watch-report publish minutes, not an hour
+# Cloud SQL deploy v1 — solid ingestion + chain-aware, minimal-work publish
+
+> **v1 was "make the publish minutes, not an hour" — the tier upgrade delivered
+> that (2 h 56 m → 24 m, F51). v2 (2026-08-21) widens the mission to end-to-end
+> ingestion integrity and a chain-aware minimal deploy set. Start at the
+> `## v2 (2026-08-21)` section; the F/RC/G history below is the evidence base.**
 
 ## Context
 
@@ -8,9 +13,11 @@ After a `process-watch-report` run, the procurement corpus is published to prod 
 npm run db:load:pg:cloud && npm run db:load:tenders:pg:cloud && npm run db:load:awarder-seats:pg:cloud
 ```
 
-This takes **over an hour**. It runs after every ingest day, so it is the single
-longest step in the daily publish loop and the main reason the loop is not
-automated end-to-end.
+This took **over an hour** when written (Jul 2026). It runs after every ingest
+day — the single longest step in the daily publish loop and the main reason the
+loop is not automated end-to-end. *(Historical: on the upgraded tier the same leg
+is now ~24 m — F51. The remaining problems are correctness and redundant work, not
+raw speed; see the `## v2` section.)*
 
 An earlier round of work already took the contracts leg from 4077s → 722s by
 converting `procurement_normalcy_cache` from a twice-built matview into a plain
@@ -26,6 +33,20 @@ by removing the structural sources of waste that survive it.
 the three procurement commands — `db:load:tr:pg:cloud` (~18.6 min estimated; **34.9 min measured 2026-08-07, see F11**) and the other
 30 `:cloud` scripts included. `lib/ship.ts`, `applyIfChanged` and `shipDelta` are
 shared infrastructure from day one.
+
+**Scope v2 (operator directive 2026-08-21):** this is no longer only a *speed*
+plan. The mission widens to **solid data ingestion end-to-end** — every dataset
+the site serves must be (1) detected by a watcher, (2) ingested locally by a
+mapped skill via `process-watch-report`, and (3) published to Cloud SQL through a
+**chain-aware minimal deploy set** so that changing one dataset does not trigger a
+dozen redundant cloud loads. Three things changed under the plan and are now its
+spine: the **instance was upgraded** to `db-perf-optimized-N-2` (the 2026-08-20
+profile / F48 / F51 — the whole publish fell from 2 h 56 m to 24 m), the
+**deployment chains** are now mapped as a dependency DAG (see *v2 — Deployment
+chain resolver*), and the **ingestion surface** is audited for completeness (see
+*v2 — Ingestion completeness*). The full v2 scope is specified in the
+**`## v2 (2026-08-21)`** section below; the F/RC/G findings above remain the
+evidence base it rests on.
 
 **Related:** [[reference_cloud_sql_deploy_perf]], [[reference_contracts_reload_lock]],
 [[reference_pg_bulk_load_copy]], [[reference_pg_payload_determinism]],
@@ -1134,6 +1155,165 @@ Two consequences worth carrying into Phase 4:
 
 ---
 
+## Measured deploy profile (2026-08-21) — a NO-CONTRACTS publish, 32 minutes
+
+Sixth profile, and the first with **no `contracts` step at all**. The watch-report
+run published prices, open calls, TED, council and the ИСУН beneficiaries leg;
+`egov_procurement` never moved, so the 70-minute `contracts` load and its
+`tenders` / `awarder-seats` / `procurement-scopes` tail are absent. That makes it
+the cleanest available measurement of what the person-layer chain costs when it is
+NOT queued behind the corpus load — see F54, which is the finding worth acting on.
+
+Ingest published: prices 6 days (2026-08-15…2026-08-20), ИСУН open procedures
+(56 calls), TED 2026 re-fetch (+242 notices), council +3 resolutions, and an ИСУН
+beneficiaries re-export (53,122 beneficiaries / €18.17 bn paid). КЗК and the ИСУН
+Projects export were both blocked upstream and are absent.
+
+Cloud baselines before the run: `price_grid_days` max 2026-08-14 · `open_calls` 73 ·
+`ted_notice` 217,525 · `council_resolution` 4,727 · `fund_beneficiaries` 46,171 ·
+`fund_projects` 82,011.
+
+| # | step | seconds | | vs prior runs |
+|--:|---|--:|---|---|
+| 1 | `gcs` (2 paths, 575 files / 3.9 MiB) | 46 | | ~40, 55, 180 |
+| 2 | `open-calls` | 8 | | never timed |
+| 3 | `ted` | 18 | | never timed |
+| 4 | `council` | 30 | | never timed |
+| — | `funds` (no flag) | **0** | **refused** | F34, recurring — see F53 |
+| 5 | `funds --full` | 250 | 4.2 min | 184 |
+| 6 | `funds-fit` | 8 | | 9 |
+| 7 | `persons-browse` | **33** | | 174, 137, 640 → **−81%** |
+| 8 | `person-search` | **43** | | 489, 505, 555 → **−91%** |
+| 9 | `graph` | **28** | | 224, 201, 195 → **−86%** |
+| 10 | `tr-company-place` | **66** | | 132, 78, 171 |
+| 11 | `prices` (6 days, incremental) | **1403** | **23.4 min** | 7218 (backfill, 3 d), 5377 |
+| | **total** | **1933** | **32.2 min** | vs 4 h 34 m, 5 h 13 m |
+
+Verified afterwards, cloud vs local: `price_grid_days` max **2026-08-20** ·
+`price_payloads` **673** · `open_calls` **74** · `ted_notice` **217,767** ·
+`fund_beneficiaries` **46,178** · `fund_projects` 82,011 — all equal. The single
+divergence is `council_resolution`, 4,732 cloud against 4,601 local, which is
+correct and is F56.
+
+Full-work confirmation for the four fast steps: `person_browse_table` 136,874
+persons · `person_search` 582,085 rows · `graph_edge` 200,463 edges / 87,142
+companies / 83,304 persons · `tr_company_place` 324,039 of 325,246 seated (99.6%).
+Every one is equal to or larger than the same step's output in the 2026-08-14 run
+(person_browse_table was 135,715 there), so none of them did less work.
+
+### F53 — F34 recurs, because the fix landed in this plan and not in the skill
+
+`db:load:funds:pg:cloud` refused instantly (0 s, nothing written) with "Refusing to
+guess the scope of a Cloud SQL load", exactly as F34 records for 2026-08-14. A week
+later it halted an automated chain again, at the same step, for the same reason.
+
+The reason it recurred is worth stating precisely, because it is not "the operator
+forgot": **F34's remediation was written into this document and nowhere else.** The
+`update-funds` skill's own "Quick command reference" still prints
+
+```
+npm run db:load:funds:pg:cloud    # prod Cloud SQL (operator runs this)
+```
+
+with no flag, and its Step 4 block prints the same. A deploy chain assembled by
+reading the skill — which is what a skill's command reference is *for* — therefore
+reproduces F34 every time. The plan doc is not on the path an operator or an agent
+takes to build the command.
+
+The correct call here was `--full`, and the choice was not a coin flip:
+`fund_beneficiaries` genuinely moved (46,171 → 46,178, paid €17.99 bn → €18.17 bn),
+which is the condition the refusal text names. `--payloads-only` would have
+published the new page payloads over an unchanged beneficiary table and reconciled
+perfectly while under-reporting the money.
+
+**Fix belongs in `update-funds/SKILL.md`, not here** — both the Step 4 block and the
+Quick command reference need the flag and the one-line rule for choosing it. Until
+that lands, F34 will recur on the next funds publish.
+
+### F54 — the person-layer chain is 5–11× cheaper when it does not follow `contracts`
+
+The four steps that fold the person layer ran **170 s combined** this run, against
+**900–1,050 s** in each of the three profiles that measured them:
+
+| step | 2026-08-09 | 2026-08-12 | 2026-08-14 | **2026-08-21** |
+|---|--:|--:|--:|--:|
+| `persons-browse` | 640 | 137 | 174 | **33** |
+| `person-search` | 555 | 505 | 489 | **43** |
+| `graph` | 195 | 201 | 224 | **28** |
+| `tr-company-place` | 171 | 78 | 132 | **66** |
+| combined | 1561 | 921 | 1019 | **170** |
+
+**It is not less work.** Every one of the four produced equal or larger output than
+on 2026-08-14 (row counts above), and all four are full rebuilds by construction —
+`persons-browse` is DROP+CREATE, `person-search` rebuilds 582 k rows, `graph`
+re-derives 200 k edges from scratch. The delta they folded was small, but the
+recompute they perform is not proportional to it.
+
+The one structural difference is **what ran before them**. In all three prior
+profiles they sat behind `contracts` (4,297–5,005 s) plus `tenders` (~1,160 s) and,
+on 2026-08-14, `procurement-scopes` (1,264 s) — i.e. 1.5–2 hours of heavy write on a
+0.5-vCPU instance immediately preceding them. Here the heaviest predecessor was
+`funds --full` at 250 s. The hypothesis is contention: buffer cache evicted by the
+corpus load, autovacuum still working through the churn, and the instance's small
+CPU allocation still recovering.
+
+⚠️ **Attribution is a hypothesis, not established.** F26 already records that step
+timings are not reproducible and that this cost model rests on single measurements,
+and `persons-browse` alone ranges 137–640 s across three runs with no contracts-load
+difference to explain it. What this run establishes is the *pairing* — the lowest
+combined figure yet, on the only run with no corpus load — not the mechanism.
+
+If it holds, it is directly actionable and cheap to test: the person-layer chain
+does not depend on `contracts` for correctness (its money arms read
+`fund_beneficiaries`, `agri_subsidies` and `company_public_money`, and CLAUDE.md
+already orders it after `graph` for a different reason), so **running it before the
+corpus load, or as a separate publish, would reclaim ~13 min per full deploy**. The
+test is one reordered chain on a run that does load contracts.
+
+### F55 — `prices` is 73% of a publish with no corpus load
+
+At 1,403 s of 1,933 s, `prices` is larger than everything else combined by a factor
+of 2.7. F15 first flagged it as absent from the cost model and F35 restated it
+upward at 2 h; this run refines the shape rather than the magnitude:
+
+- **It scales with DAYS, not with the corpus.** 6 incremental days cost 1,403 s
+  (234 s/day). The 2026-08-14 figure of 7,218 s was a **3-day backfill** — 2,406 s/day,
+  10× per day — so the two are not comparable and the earlier "prices is a 2 h step"
+  reading over-states the routine case. Quoting a single prices figure without its
+  day count and mode is the trap.
+- **A thinner feed is a cheaper step.** These six days carry 830 k–970 k rows against
+  the ~1.4 M of a full-coverage day, because upstream chain coverage has halved since
+  2026-08-09 (203 → 90 chains). So part of this run's speed is the upstream
+  contraction, and the per-day cost will rise again if coverage recovers.
+- It remains the only step whose cost is bounded by the number of days since the last
+  publish, which makes deferring a prices publish strictly more expensive than doing it.
+
+### F56 — cloud `council_resolution` is a SUPERSET of local, and a parity check must not assert equality
+
+Post-deploy, cloud holds **4,732** council resolutions against local's **4,601** — and
+cloud was **4,727 before** the load, i.e. it gained 5 while local gained 3.
+
+Both facts are the design working, and a naive `cloud == local` parity assertion
+would fail on a correct database:
+
+- `db:load:council:pg` is **upsert-only and never deletes**, because a council
+  resolution is a permanent public record and a parser regression on one município
+  must not erase history. Publishing local's 4,601 therefore cannot remove the 131
+  rows cloud holds and local's shard tree does not.
+- The +5/+3 asymmetry is the same mechanism: 3 rows were new to both, and 2 more
+  existed locally but were absent from cloud.
+
+So the correct parity statement for this table is **cloud ⊇ local**, not equality.
+The 131-row gap means local's committed shard tree is not a superset of what has been
+published — worth knowing before anyone treats a local count as the corpus size, and
+worth a separate look at where those rows came from, but it is not a deploy defect
+and this publish did not make it worse.
+
+Note the attribution floor held on both sides: 43,168 / 46,028 named votes (93.8%)
+before and after, on both databases.
+
+---
+
 ## Root causes
 
 ### RC1 — Five caches are built twice per load, the first time against stale data
@@ -1247,11 +1427,22 @@ A second, independent availability defect alongside RC4, on the same command.
 > RC4 — it is the same lock wait on the same command, and Phase 4 should not
 > budget separate work for it.
 
-### RC5 — The instance is the wrong size for the job, and nothing is overlapped
+### RC5 — The instance was the wrong size — RESOLVED 2026-08-20 by the tier upgrade
 
-`db-g1-small` is ~0.5 shared vCPU. Every server-side CPU step runs 10-20× slower
-than local Docker. The three loads also run strictly serially even though
-`awarder-seats` is fully independent.
+`db-g1-small` was ~0.5 shared vCPU / 1.7 GB / 128 MB `shared_buffers`; every
+server-side CPU step ran 10-20× slower than local Docker, and the working set did
+not fit in cache. **This root cause is now closed:** the instance is
+`db-perf-optimized-N-2` (2 dedicated vCPU, 16 GB RAM, `shared_buffers ≈ 5.2 GB`),
+which F51 measures at 7.3× overall and up to 11.9× on the I/O-bound steps.
+
+What survives of RC5 is narrower and still open: **nothing is overlapped** (the
+loads run strictly serially even though `awarder-seats` and the crosswalk maps are
+independent), and — the v2 reframing — **the same derived object is recomputed by
+several loaders in one publish** (F1/F8: the scoped matviews up to 3×;
+`budget_admin_procurement` up to 3×). On the old tier that waste was hidden under
+the raw slowness; on the new tier it is now a *majority* of some steps' cost (F25:
+22% of the procurement publish was refreshing matviews twice). That is what *v2 —
+Deployment chain resolver* targets.
 
 ---
 
@@ -1663,24 +1854,26 @@ already re-run idempotently precisely so either order works — and under Phase 
 those move to local anyway. Worth little until Phases 1-3 land (on 0.5 vCPU,
 overlap only helps the network-bound phases), so sequence it last.
 
-**5c. Temporary instance scale-up.** Wrap the deploy:
+**5c. Instance scale-up — DONE, permanently, and it changed the plan's shape.**
+This was written as "the biggest single lever, never actually tried". It has now
+been done: the instance is `db-perf-optimized-N-2` (2 dedicated vCPU, 16 GB RAM,
+data cache disabled; `shared_buffers ≈ 5.2 GB`, `effective_cache_size ≈ 6.25 GB`,
+8 workers, `max_connections` 500, `temp_file_limit ≈ 3 GB` — measured 2026-08-21).
+F51 records the payoff: the same 12-step procurement publish went **2 h 56 m →
+24 m (7.3×)**, `contracts` **11.8×**, `awarder-seats` **11.9×**.
 
-```bash
-gcloud sql instances patch electionsbg-pg --tier=db-custom-2-7680   # ~2 min restart
-… loaders …
-gcloud sql instances patch electionsbg-pg --tier=db-g1-small        # ~2 min restart
-```
+Two consequences fold into the plan rather than sitting as an escape hatch:
 
-Cents per hour; documented as the biggest single lever and never actually tried.
-It is a prod-DB mutation, so **the operator runs it** — the harness classifier
-blocks it (same as the `--database-flags` patch). Keep it as a documented escape
-hatch rather than a default: if Phases 1-3 land, the CPU it buys is CPU we no
-longer spend.
-
-> Note: a **permanent** RAM bump is a separate, already-justified question —
-> `shared_buffers` is 128 MB against a ~5-6 GB hot working set, which is a
-> *serving* latency problem (~480 ms cold heap reads), not a load problem. See
-> [[reference_cloud_sql_deploy_perf]]. Do not conflate the two.
+- **The permanent RAM bump this note used to defer as a *serving* fix is now
+  live** — the ~5–6 GB hot working set fits in `shared_buffers`, so the cold-heap
+  latency and the load-time `IO/DataFileRead` stalls (F51) are both gone. The old
+  `db-g1-small` / 128 MB / 0.5-vCPU framing throughout this document (RC5, the
+  pre-F48 profiles) is **historical** — see *v2 — The new instance is the
+  baseline* for what that re-decides.
+- **The temporary up-then-down dance is retired.** No `gcloud tier patch` around
+  each deploy. What survives from it is the **F48 hazard**: never resize/restart/
+  failover the instance while a publish is running — that guard is now the point,
+  not the scale-up.
 
 ---
 
@@ -2182,14 +2375,29 @@ Phases 2 and 3 are independent and can land in either order — the profile from
 gate 2 says which one to build first. Phase 5c is available at any point as a
 blunt instrument if a specific night's deploy needs to be short.
 
-**Success criterion.** The **full Cloud SQL publish** — the three procurement
-commands, the three crosswalk maps (G18), and `db:load:tr:pg:cloud` (G9) —
-completes in **under 15 minutes** on an unchanged `db-g1-small`, with zero
-`/procurement` 500s during the window —
-and (per G8) the **local** `db:refresh` leg does not grow by more than the cloud
-leg shrinks. The measured target is total daily loop time, not the cloud leg
-alone. The irreducible floor (G11) must be estimated from the Phase 0 profile
-before this number is treated as achievable.
+**Success criterion (revised for the new tier + v2 scope).** The old "under 15 min
+on `db-g1-small`" target was met by the hardware alone — the 12-step procurement
+publish is now **24 m** (F51) and its speed is no longer the binding constraint.
+The v2 criterion is therefore **correctness + minimality**, not raw wall-clock:
+
+1. **No redundant cloud work.** A publish triggered by a set of changed datasets
+   runs each derived object's rebuild **at most once** (see *v2 — Deployment chain
+   resolver*). Today a contracts change fans out to ~7 loaders re-refreshing five
+   shared caches; the target is each of those caches refreshed once.
+2. **Nothing served goes stale silently.** Every primary and derived dataset that
+   changed is *marked for deployment* at the end of `process-watch-report` (see
+   *v2 — Deploy marking*); the ingestion-completeness gaps (*v2*) are closed.
+3. **Zero reader rejection** on `tenders`/`contracts` during the window — pinned to
+   the database symptom (`55P03`/`57014`), not an HTTP status (G24 caveat), and now
+   largely delivered by the CONCURRENT matview refreshes the bigger tier affords
+   (F51 observed `REFRESH … CONCURRENTLY procurement_payloads` with no lock window).
+4. **Total daily loop time** (local `db:refresh` + cloud publish) is the measured
+   number, not the cloud leg alone (G8).
+
+The pure-speed sub-goal survives only as: the full publish (procurement + TR +
+person chain + maps) stays under **~45 min** on `db-perf-optimized-N-2` — F51's 24 m
+covers the procurement leg; the person chain (F22) and prices (F35/F37) are the
+remaining tails, and prices has its own hold logic (F50), outside this criterion.
 
 **Distance to it, measured (2026-08-07, F14).** Those exact eight steps ran in
 **8305 s = 138.4 min**, so the criterion demands a **9.2× reduction** — worth
@@ -2209,6 +2417,258 @@ criterion's *scope*, both from the same run:
   not to the HTTP status.
 
 ---
+
+## v2 (2026-08-21) — ingestion integrity + chain-aware deployment
+
+This section supersedes the parts of the pre-tier-upgrade plan it names. The
+F/RC/G findings above are the evidence base; this is the re-decided design.
+
+### v2.1 — The new instance is the baseline (and what it re-decides)
+
+**Measured 2026-08-21** on `db-perf-optimized-N-2` (via `pg_settings`):
+
+| setting | value | old `db-g1-small` |
+|---|---|---|
+| machine | 2 dedicated vCPU, 16 GB RAM, data cache disabled | 0.5 shared vCPU, 1.7 GB |
+| `shared_buffers` | 5,459,968 kB ≈ **5.2 GB** | ~128 MB |
+| `effective_cache_size` | ≈ **6.25 GB** | small |
+| `max_parallel_workers` / `_per_gather` | 8 / 2 | 8 / 2 (but no cores to use them) |
+| `max_connections` | 500 | ~25 |
+| `temp_file_limit` | ≈ **3.04 GB** | ≈ 2.5 GB |
+| `work_mem` / `maintenance_work_mem` | 16 MB / 64 MB | 4 MB / small |
+| `random_page_cost` | 1.1 | 1.1 |
+
+It is a **memory-heavy, modestly-more-CPU** box: 4× the vCPU (and dedicated, not
+burstable-throttled), ~9× the RAM, ~40× the buffers — but still only 2 cores, so
+*sequential* CPU work is ~4× faster, not 10×; the 11× speedups (F51) come from the
+working set now fitting in cache, i.e. from RAM, not cores.
+
+**What the tier re-decides — the ship-from-local compute hacks (audit of the three
+`shipTable`/`buildOrShip` branches):**
+
+| branch | why it ships from local | class | verdict on new tier |
+|---|---|---|---|
+| `procurement_normalcy_cache` (`load_pg.ts` `buildOrShipNormalcy`) | *"~40-min REFRESH on the shared-core instance"* | (b) slow, not a hard failure | **Likely retire — MEASURE.** The 40 min was RAM/CPU starvation; the build fits in 5.2 GB now. Compute on cloud, drop the local→cloud COPY, if a single measured cloud build is ≤ a couple minutes. |
+| `tender_normalcy_cache` (`load_tenders_pg.ts` `buildOrShipTenderNormalcy`) | *"shared core CANNOT build it — `rank()` sort exceeds `temp_file_limit` → 53400"* | (a) hard failure | **Probably retire via `work_mem`, not `temp_file_limit` — MEASURE.** The 53400 was a sort spill; `temp_file_limit` only rose ~17% (2.5→3 GB), but a RAM-rich box can raise the build's session `work_mem` so the sort stays resident and never spills. Confirm with one cloud build before deleting. |
+| `company_founded` (`load_company_founded_pg.ts` `shipTable`) | *"populated by a slow rate-limited scrape that only runs against LOCAL"* | **data-provenance, not compute** | **KEEP shipping regardless of tier.** The rows do not exist on cloud to compute — instance size is irrelevant. (This is G19: still a live 19,844 vs 74-row divergence; ship it.) |
+
+**Adjacent batching hacks whose *stated* limits the upgrade lifted** (not
+`targetIsCloud`-gated, but same lineage — flagged for the same measure-and-relax
+treatment): `build_product_days.ts` `PD_ROWS_CAP = 4_000_000` (justified by *"1 GB
+temp_file_limit + ~1.7 GB RAM"* — both now lifted); `load_tender_dossier_pg.ts`
+`SEARCH_TEXT_BATCH = 2_000` (justified by the old temp_file_limit — only ~17% more
+headroom, so likely still needs batching, larger slice). And the largest single
+cloud-CPU step in the repo, `mp_similarity` (744.5 s on the old tier, 11× local) —
+a quadratic matview over ~4 M casts that is the biggest beneficiary of dedicated
+cores; re-measure it on the new tier before any ship-from-local design for it.
+
+**Rule for v2:** *default to computing on cloud* now — the instance is no longer
+the bottleneck. Keep a ship-from-local branch only where (i) the input is
+local-only (`company_founded`), or (ii) a **measured** cloud build still exceeds
+its lock/temp budget. Every `if (targetIsCloud())` seam is now a candidate for
+deletion, gated on one measurement. This *reverses* the pre-upgrade Phase 2/3
+premise ("ship everything from local"): shipping is now the exception, not the
+default. Phases 2 and 3 stand only for the transfer-bound tables (the corpus COPY
+and TR), not for the compute-bound caches.
+
+### v2.2 — Deployment chain resolver (don't run N cloud loads for one dataset)
+
+**The problem, measured.** Derived objects sit downstream of several base datasets
+and are rebuilt independently by several loaders. Today:
+
+- A **contracts** change obliges ~7 cloud steps: `load_pg` → `annexes` →
+  `persons-browse` → `person-search` → `graph` → `tr-company-place` →
+  `agri-hub-stats`, several re-refreshing the same shared caches.
+- A **TR** change obliges: `tr` → `graph` → `tr-company-place` → `persons-browse`
+  → `person-search`.
+- **Any money corpus** (contracts/agri/funds/interreg) forces the whole
+  `graph → tr-company-place → persons-browse → person-search` tail, because
+  `company_public_money` (127) is the single reusable per-EIK money basis.
+
+**Shared objects rebuilt more than once per publish** (pure waste — F1/F8/F25 put
+it at ~22% of the procurement publish):
+
+| object | rebuilt by | 
+|---|---|
+| `procurement_risk_indexes_cache` (033) | `load_pg`, `load_tr_pg` |
+| `dual_corpus_rankings_cache` (077) | `load_pg`, `load_funds_pg` |
+| `funds_hub_stats_cache` (145) | `load_funds_fit_pg`, `load_interreg_pg` |
+| `awarder_risk_grade_scoped` (041) | `load_pg`, `load_tr_pg`, `kzk_appeals.ts` |
+| `budget_admin_procurement` (157) | `load_pg`, `load_tr_pg`, `load_budget_pg` |
+| scoped 119/122/123/124 | `load_pg` **and** `load_procurement_scopes_pg` (F1) |
+
+**The dependency DAG** (edge = "must run after"; derived object → base tables →
+rebuilding loaders):
+
+```
+contracts ──▶ load_pg{033,112,041,077,124,119,123, budget_admin_proc}
+          ├─▶ company_public_money(127)[load_graph] ──▶ tr_company_place(133)
+          │                                          └─▶ graph_edge/payloads(128/129)
+          └─▶ agri_hub_stats(162)
+tr ───────▶ load_tr_pg{022,071,033,041,124, company_politicians, budget_admin_proc}
+          └─▶ company_public_money(127)[load_graph]
+agri, funds, interreg ─▶ company_public_money(127)[load_graph]
+funds ────▶ dual_corpus(077), fund_fit(143), funds_hub_stats(145)
+interreg ─▶ funds_hub_stats(145)                 [BACK-EDGE: 127's interreg arm]
+awarder_seats, place_dim ─▶ scoped{119,122,123,124}
+{persons-resolve, declarations--resolve, candidate-links, judicial-bodies,
+ place-dim, contracts, tr} ─▶ person_browse_table(120) ─▶ person_search(126)
+```
+
+Two documented **cycles** make this not a pure DAG (CLAUDE.md ~2342, ~2408): the
+`graph ↔ tr_company_place ↔ interreg` loop (127's interreg arm reads
+`interreg_partners`; interreg's place cascade reads `tr_company_place`), and
+`funds_hub_stats_cache` refreshed from both ends. `db:refresh` handles these by
+running one vintage behind and closing on the next pass; the resolver must either
+accept that lag or schedule `load_graph` twice when interreg + a money corpus both
+change.
+
+**The resolver (proposed).** Generalise the model that already exists for the four
+scoped matviews — `scripts/db/lib/scopedMatviews.ts` declares each matview's
+`inputs`, and a loader refreshes only those whose inputs it touched. v2 lifts that
+to a repo-wide **derived-object registry**: `{ name, inputs[], rebuild() }` for
+*every* derived object in the table above. Then:
+
+1. Changed base datasets → dirty set of derived objects (invert the registry).
+2. Add transitive downstreams (127 pulls in graph, tr_company_place, persons-browse,
+   person-search).
+3. **Collapse duplicates**: each object appears once; assign its rebuild to the
+   **last** loader in topo order that would touch it, suppress it in earlier ones.
+   This is the main win — `budget_admin_procurement` once (after the latest of
+   contracts/tr/budget), each shared cache once.
+4. Topologically sort on the must-run-after edges; emit each step once.
+5. Handle the 127-interreg back-edge explicitly (accept lag, or double `load_graph`).
+
+Expected effect: a typical multi-source publish drops from ~15 redundant cloud
+steps to the ~8 distinct rebuilds actually required. This subsumes and formalises
+F1/F8/F20/F42 (the scoped-refresh duplication) rather than special-casing them.
+
+**Where it lives:** the registry is the single source of truth the loaders read,
+so a new migration that adds a derived object must register its `inputs` or it is
+invisible to the resolver — the same discipline `scopedMatviews.ts` already
+enforces for its four, plus the `procurement_payloads.data.test.ts` guard that a
+matview's declared `inputs` cover what its SQL actually reads (extend that gate to
+the whole registry).
+
+### v2.3 — Ingestion completeness (audited 2026-08-21)
+
+Cross-referenced the served surface (26 DbDataTable resources in
+`functions/db_table.js`, ~185 `/api/db/*` routes in `db_routes.js`) against the 110
+watcher sources in `state/watch/` and the orchestrator's Source→skill mapping.
+Three gap classes; the **C** class is the dangerous one — a working `:cloud` loader
+that the orchestrator simply never emits, so prod silently diverges from local on a
+routine trigger.
+
+**Class C — ingested locally, NO cloud-deploy emitted in `process-watch-report`
+(all verified: loader exists in `package.json`, serves live data, string count 0 in
+the orchestrator):**
+
+| # | dataset | served by | local trigger | fix |
+|---|---|---|---|---|
+| C1 | roll-call corpus (`vote_*`/`mp_*`, 134/135) | `/api/db/session`, `mp-similarity`, `mp-dissents`, `vote-day-summary`… | `parliament_votes` → `update-rollcall` | emit `db:load:rollcall:pg:cloud && db:load:rollcall-derived:pg:cloud`. `update-rollcall/SKILL.md:123` says outright *"the serving database — NOTHING runs these for you."* |
+| C2 | КЗП retail prices (048) | `price_products` resource + `price-payload`/`price-product`/`price-history`/`price-search`… | `kzp_prices` → `update-prices` | emit `prices:ingest:cloud` then `prices:payloads:cloud` (ship the bundle first per CLAUDE.md) |
+| C3 | CR-НКИД declared activity (`company_nkid`, bit-12 risk) | `/company` `nace_div` + `nkidMismatch` chip | `tr:daily-refresh` runs `db:load:cr-nkid:pg` locally | add `db:load:cr-nkid:pg:cloud` + `rebuild_contract_risk_cache()` to the TR-daily emit |
+| C4 | CR-Deeds founding dates (`company_founded`) | `/company` founding date | `tr:daily-refresh` runs `db:load:cr-founding:pg` locally | add `db:load:company-founded:pg:cloud` to the TR-daily emit (this is also G19's live 19,844-vs-74 divergence) |
+
+Latent, not yet live: `db:load:subcontractors:pg:cloud` — `tender_subcontracting`
+(171) has no `functions/` reader yet; wire its cloud step when a route is added.
+
+**Class A — served data with NO watcher source (upstream change is undetectable),
+structural — needs a new watcher, not just a Step 8 line:**
+
+- **A1. Tender dossier** (`tender_dossier`/`tender_search_text`, 146/147) — read
+  *unconditionally* by every `/procurement/tenders` search, but its input
+  (`raw_data/procurement/eop_dossier.sqlite`) grows only via a manual ~26 h crawl.
+  No watcher detects staleness; coverage (21.1%, growing) advances only when an
+  operator remembers. `db:load:tender-dossier:pg:cloud` is also absent from Step 8.
+- **A2. CR-Deeds capture inputs** (owners/founding/НКИД) — the daily projections
+  (C3/C4) re-derive from `raw_data/tr/cr_deeds.sqlite`, which grows only via the
+  manual `tr:cr-deeds` crawl; `egov_commerce` watches daily filings, not the deeds
+  capture, so new coverage is undetectable.
+- **A3. Scope calendar rollover** — `procurement_scopes` windows are enumerated
+  `SCOPE_FIRST_YEAR..currentYear`; nothing watches the Jan-1 rollover or a new
+  election window, and `db:load:procurement-scopes:pg:cloud` is unreferenced. Every
+  January the `?pscope=y:<new year>` UI option serves an empty page until an
+  operator reloads. **A time-based watcher** (a dateflip source) is the fix.
+
+**Class B — watcher but no ingest-skill mapping:** effectively empty for *served*
+data. The detected-but-manual cluster (`wiki_governments`, `nsi_edp`, `ec_vat_gap`,
+`imf_weo_bg`, `fiscal_council_bg`, `api_road_charges`, `oecd_*`) edits SPA-bundled
+constants by hand *by design* — flag only if converting any to an automated skill.
+`rnfl_insolvency` is correctly "not served".
+
+### v2.4 — Deploy marking (every dirty primary + derived dataset, once)
+
+The orchestrator's cloud-publish emission is currently **per-skill and
+hand-maintained** — each skill's Step-8 row lists its own `:cloud` commands, which
+is exactly how C1-C4 fell through (a loader with no row is never emitted) and how
+the shared caches get emitted N times (each triggering skill lists them).
+
+v2 replaces the hand list with the **derived-object registry (v2.2) driving the
+emission**. At the end of `process-watch-report`:
+
+1. Collect the **dirty base set** = every dataset whose watcher fired this run.
+2. Run the resolver (v2.2) → the minimal ordered list of loader/refresh steps that
+   rebuilds every dirty **primary and derived** object exactly once.
+3. Emit that list as the Next-steps cloud-publish block.
+
+This makes "mark all data for deployment" a *computed* property, not a checklist:
+a new served dataset is covered the moment its loader registers its `inputs`, and
+the C-class gaps become structurally impossible (an object with a served reader and
+no registry entry fails the extended `procurement_payloads.data.test.ts` sweep).
+
+**Guardrail — a completeness gate.** Add a test that every DbDataTable resource and
+every `/api/db` route's backing table/matview maps to (a) a registry entry with a
+rebuilding loader, and (b) a watcher source or an explicit `MANUAL_INGEST`/`STATIC`
+allowlist entry with a reason. This is the ingestion analogue of the deploy
+resolver: it fails when a served dataset has no path from "upstream changed" to
+"prod refreshed", catching the next C1 before it ships.
+
+### v2.5 — Documentation to update (directive: correct notes, timings, instance)
+
+The tier upgrade and the C-gaps make several docs wrong. **These are plan
+deliverables, not done here.** The forward-looking (non-historical) references:
+
+- **CLAUDE.md** — "contracts ~68 min" is now ~8 min (F51); the several
+  `db-g1-small` / "minutes on a db-g1-small" perf asides (lines ~1527, 1806, 2009,
+  2307, 3716) are stale as *expectations* but valid as *history* — reword to name
+  the tier they measured. Add the four C-gap cloud steps to the relevant skill
+  ordering notes.
+- **`process-watch-report/SKILL.md`** — add the C1-C4 emissions; then, once v2.4
+  lands, replace the hand-maintained Step-8 table with the resolver-driven emission
+  and note the completeness gate.
+- **`update-rollcall`, `update-prices` SKILL.md** — already correct locally; the
+  fix is orchestrator-side (they document the `:cloud` step; the orchestrator must
+  *run* it).
+- **Memory** — `reference_cloud_sql_deploy_perf` (the whole db-g1-small cost model,
+  contracts ~68 min, the shared_buffers-128 MB serving note), `reference_cloud_person_chain_timings`,
+  `reference_graph_cloud_deploy_prereqs`, `project_postgres_migration`,
+  `project_procurement_sigma_parity_audit` (the 52-min cais_id backfill) — each
+  carries a `db-g1-small` number that should gain a "superseded by
+  db-perf-optimized-N-2, see F51" note rather than be deleted.
+- **This plan** — the pre-F48 profiles and RC5/Phase-2/Phase-3 premises are marked
+  historical in v2.1; leave them as the evidence trail.
+
+### v2.6 — Sequencing addendum (v2 items on top of the existing gates)
+
+The existing "Sequencing and decision gates" table stands; v2 adds, in priority
+order:
+
+| # | v2 item | depends on | why now |
+|---|---|---|---|
+| v2-a | **Emit C1-C4 cloud steps** in `process-watch-report` | none | pure gap-fill; prod is silently stale on 4 routine triggers today. Ship first. |
+| v2-b | **Ingestion completeness gate** (v2.3 guardrail) | v2-a | stops the next C-gap; cheap static test |
+| v2-c | **Derived-object registry** (generalise `scopedMatviews.ts`) | none | the spine of v2.2 + v2.4 |
+| v2-d | **Deploy resolver** — minimal deploy set | v2-c | removes the ~22% double-refresh waste (F25); collapses the money-tail fan-out |
+| v2-e | **Resolver-driven Step-8 emission** + completeness gate | v2-c, v2-d | makes "mark all data for deployment" computed, not curated |
+| v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | default-compute-on-cloud now the instance is big; delete `buildOrShipNormalcy`/`Tender` if measured cheap |
+| v2-g | **A-class watchers** (dossier, cr-deeds capture, scope rollover) | none | structural coverage; A3 (Jan-1) is a dated ticking bug |
+
+v2-a/b are the highest value-per-effort (four confirmed live divergences, small).
+v2-c→e are the structural core (the chain-aware deployment the directive asks for).
+v2-f is now *subtraction* — the tier upgrade turned "ship from local" from the plan's
+thesis into a set of hacks to measure-and-delete. The pre-upgrade Phases 2/3 narrow
+to the transfer-bound tables only.
 
 ## Operational notes
 
