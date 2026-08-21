@@ -35,9 +35,11 @@ import {
 import { buildRollups, writeRollups } from "./rollups";
 import {
   buildMpConnected,
-  buildNamesakeFilteredLinkageMap,
+  buildEikLinkageMap,
   writeMpConnected,
 } from "./cross_reference";
+import { mpLinkageAvailable } from "../lib/mp_linkage";
+import { end } from "../db/lib/pg";
 import {
   buildAwarderConcentration,
   buildFlow,
@@ -83,10 +85,6 @@ const DERIVED_DIR = path.join(PROCUREMENT_DIR, "derived");
 const BY_NS_DIR = path.join(PROCUREMENT_DIR, "by_ns");
 const INDEX_FILE = path.join(PROCUREMENT_DIR, "index.json");
 const BUNDLES_FILE = path.join(PROCUREMENT_DIR, "bundles.json");
-const COMPANIES_INDEX = path.resolve(
-  __dirname,
-  "../../data/parliament/companies-index.json",
-);
 const OFFICIALS_COMPANY_LINKS = path.resolve(
   __dirname,
   "../../data/officials/derived/company_links.json",
@@ -326,7 +324,7 @@ const main = async (args: {
 
   // No new bundles: nothing to download, but we still rebuild rollups +
   // cross-reference + derived from whatever's on disk. This handles two
-  // cases: (a) a partial prior run left rollups stale; (b) companies-index.json
+  // cases: (a) a partial prior run left rollups stale; (b) the MP↔company link set
   // changed and the cross-reference needs to re-run even without new contracts.
   // The early "✓ nothing to ingest" message is preserved when the contracts/
   // tree is also empty.
@@ -477,7 +475,7 @@ const main = async (args: {
 
   // 6e. Officials (non-MP political class) → procurement cross-reference. Joins
   // the officials' high-confidence company links against the contractor set.
-  // Not gated on companies-index (uses the officials declarations tree).
+  // Not gated on the MP link set (this uses the officials declarations tree).
   console.log(`→ building officials→procurement cross-reference`);
   const pepConnected = buildPepConnected(
     OFFICIALS_COMPANY_LINKS,
@@ -489,7 +487,7 @@ const main = async (args: {
   );
   // Officials cross-reference summary for the index (full-corpus view). De-dup
   // by contractor EIK so a company tied to several officials counts its euro
-  // total once. Independent of companies-index (officials use their own tree).
+  // total once. Independent of the MP link set (officials use their own tree).
   const offSlugs = new Set<string>();
   const offByEik = new Map<string, number>();
   for (const e of pepConnected.entries) {
@@ -510,19 +508,19 @@ const main = async (args: {
         }
       : undefined;
 
-  // 7. Cross-reference against MP-companies graph + top-contractors + flow.
-  // companies-index.json is optional — if it's missing, the procurement data
-  // is still useful on its own (just without the journalism payload). The
-  // /update-procurement skill SHOULD be paired with /update-connections, but
-  // we don't hard-fail when the file is absent; we do hard-fail when it's
-  // present but unenriched (see buildEikLinkageMap).
+  // 7. Cross-reference against the MP↔company link set + top-contractors + flow.
+  // The link set is optional in ONE direction only — an UNREACHABLE one (no Postgres, or
+  // company_politicians never created) means a fresh clone, and the procurement corpus is
+  // still useful on its own, just without the journalism payload. A link set that EXISTS and
+  // is empty hard-fails instead; see buildEikLinkageMap.
   let crossRefSummary: ProcurementIndex["crossReference"] | undefined;
-  if (fs.existsSync(COMPANIES_INDEX)) {
-    console.log(`→ cross-referencing contractors against MP-companies graph`);
-    const linkageMap = buildNamesakeFilteredLinkageMap(COMPANIES_INDEX);
+  if (await mpLinkageAvailable()) {
     console.log(
-      `  EIK linkage map: ${linkageMap.byEik.size} EIK(s) from ` +
-        `${linkageMap.companiesWithUic}/${linkageMap.totalCompanies} TR-enriched companies`,
+      `→ cross-referencing contractors against the MP↔company link set`,
+    );
+    const linkageMap = await buildEikLinkageMap();
+    console.log(
+      `  EIK linkage map: ${linkageMap.byEik.size} EIK(s) with at least one MP link`,
     );
     const mpConnected = buildMpConnected(CONTRACTORS_DIR, linkageMap);
     writeMpConnected(DERIVED_DIR, mpConnected);
@@ -603,8 +601,8 @@ const main = async (args: {
     };
   } else {
     console.log(
-      `  companies-index.json missing — skipping cross-reference. ` +
-        `Run /update-connections to enable the journalism payload.`,
+      `  company_politicians unreachable — skipping cross-reference. ` +
+        `Run db:load:tr:pg to enable the journalism payload.`,
     );
   }
 
@@ -792,4 +790,7 @@ const cli = command({
     }),
 });
 
-run(cli, process.argv.slice(2));
+// These builders now touch Postgres (the gated MP↔company link set), so the module-level
+// pool must be closed or the process lingers on an idle socket after its work is done —
+// the same `await end()` every scripts/db/load_*.ts finishes with.
+run(cli, process.argv.slice(2)).finally(() => end());

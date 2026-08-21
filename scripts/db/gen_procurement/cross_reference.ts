@@ -3,12 +3,17 @@
 //
 // These join the SQL contractor rollups to inputs from OTHER domains, which the
 // JS builders also read as-is:
-//   • data/parliament/companies-index.json  (MP↔company graph, from /update-connections)
-//   • raw_data/tr/state.sqlite               (TR namesake counts, for the linkage guard)
+//   • company_politicians (kind='mp')          the gated MP↔company link set
 //   • data/officials/derived/company_links.json (officials↔company graph)
 // So the only thing that changes vs the JS pipeline is that the contractor
 // rollups come from SQL. Rollups are round-tripped through canonicalJson to match
 // the serialized files the JS builders read.
+//
+// ⚠️ AN ARM WHOSE INPUT IS MISSING FAILS — it does not skip. A skipped arm prints one line
+// and contributes no `false`, so a verifier reduced to zero arms would report on a corpus it
+// never compared. The mp arm's input moved from `companies-index.json` (deleted, Tier 5) to
+// Postgres, and the whole point of the move is that it is now ALWAYS reachable when the rest
+// of this generator is: it reads its contractor rollups from the same database.
 //
 //   npm run db:gen-xref            # verify only (default)
 //   npm run db:gen-xref -- --write # also write mp_connected / pep_connected (+ shards)
@@ -22,8 +27,9 @@ import { PROC_DIR } from "../lib/paths";
 import { readContractsFromPg } from "../lib/rows";
 import { stripVolatile } from "../lib/canonical";
 import { buildRollupsFromRows } from "../../procurement/rollups";
+import { mpLinkageAvailable } from "../../lib/mp_linkage";
 import {
-  buildNamesakeFilteredLinkageMap,
+  buildEikLinkageMap,
   buildMpConnectedFrom,
   writeMpConnected,
 } from "../../procurement/cross_reference";
@@ -36,9 +42,7 @@ import { rowSort, canonicalJson } from "../../procurement/validate";
 import type { Contract, ContractorRollup } from "../../procurement/types";
 
 const rel = (...p: string[]) => path.join(PROC_DIR, "..", ...p);
-const COMPANIES_INDEX = rel("parliament", "companies-index.json");
 const COMPANY_LINKS = rel("officials", "derived", "company_links.json");
-const TR_DB = rel("..", "raw_data", "tr", "state.sqlite");
 const DERIVED_DIR = path.join(PROC_DIR, "derived");
 
 const byteCmp = (label: string, gen: unknown, abs: string): boolean => {
@@ -73,16 +77,22 @@ const main = async (): Promise<void> => {
 
   const results: boolean[] = [];
 
-  // mp_connected — needs companies-index.json + TR namesake counts.
-  if (fs.existsSync(COMPANIES_INDEX)) {
-    const linkageMap = buildNamesakeFilteredLinkageMap(COMPANIES_INDEX, TR_DB);
+  // mp_connected — needs the gated MP↔company link set, from the same database as the
+  // rollups above. Deliberately NOT gated into a skip (see the ⚠️ in the header): an absent
+  // table is a FAIL. It is probed only so the failure names the fix, rather than surfacing
+  // `relation "company_politicians" does not exist` out of main().catch.
+  if (await mpLinkageAvailable()) {
+    const linkageMap = await buildEikLinkageMap();
     const mp = buildMpConnectedFrom(getContractor, linkageMap);
     results.push(
       byteCmp("mp_connected", mp, path.join(DERIVED_DIR, "mp_connected.json")),
     );
     if (write) writeMpConnected(DERIVED_DIR, mp);
   } else {
-    console.log("mp_connected: skipped (no companies-index.json)");
+    console.log(
+      "mp_connected: FAIL — company_politicians is not reachable; run db:load:tr:pg",
+    );
+    results.push(false);
   }
 
   // pep_connected — needs officials company_links.json.
@@ -100,7 +110,12 @@ const main = async (): Promise<void> => {
     );
     if (write) writePepConnected(DERIVED_DIR, pep);
   } else {
-    console.log("pep_connected: skipped (no company_links.json)");
+    // Not a skip: with no company_links.json there is nothing to reproduce, and reporting
+    // that as a pass would certify an arm that never ran. Tier 6 retires this arm outright.
+    console.log(
+      "pep_connected: FAIL — no company_links.json to verify against",
+    );
+    results.push(false);
   }
 
   if (write) console.log("wrote mp_connected / pep_connected (+ shards)");

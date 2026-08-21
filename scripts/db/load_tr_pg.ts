@@ -117,7 +117,11 @@ const OFFICIAL_SOURCES = [...OFFICIAL_DECLARATION_SOURCES]
   .map((x) => `'${x}'`)
   .join(",");
 
-const armSql = (personJoin: string, refExpr: string): string => `
+const armSql = (
+  personJoin: string,
+  refExpr: string,
+  { requireContracts = true }: { requireContracts?: boolean } = {},
+): string => `
   WITH reg AS (
     -- ⚠️ isCurrent COMES FROM tr_person_roles.erased_at, AND NOWHERE ELSE. person_role
     -- carries an end_date that is NULL on all 199,651 tr/ngo rows, so dropping this column
@@ -197,10 +201,20 @@ const armSql = (personJoin: string, refExpr: string): string => `
       FROM dec
   ),
   who AS (${personJoin}),
-  -- CONTRACT-RESTRICTED, and that is what keeps this table meaning what it meant.
-  -- mp_connected joined the contractor rollups, so a row here has always been "a politically
-  -- linked CONTRACTOR". Without the restriction the set goes 964 to 17,608 and silently
-  -- redefines every consumer's question, including the A-F grade on 409,644 contracts.
+  -- CONTRACT-RESTRICTED BY DEFAULT, and that is what keeps company_politicians meaning what
+  -- it meant. mp_connected joined the contractor rollups, so a row in that table has always
+  -- been "a politically linked CONTRACTOR". Without the restriction the set goes 964 to
+  -- 17,608 and silently redefines every consumer's question, including the A-F grade on
+  -- 409,644 contracts.
+  --
+  -- ⚠️ requireContracts:false IS NOT A LOOSER GATE — the gate is the "gated" CTE above and
+  -- does not move. It drops only the join to procurement MONEY, for a consumer whose join
+  -- population is NOT contractors: the ИСУН funds cross-reference, where an MP-linked
+  -- company that took EU money and never won a public contract is exactly the row to
+  -- report. Measured 2026-08-20, the restricted set answers 43 of that payload's 303 pairs.
+  -- It also NULLs total_eur, because the number that column holds is procurement money and
+  -- inventing a zero would read as "won nothing" rather than "not asked". Never use it to
+  -- fill company_politicians.
   money AS (
     SELECT contractor_eik AS eik,
            round(COALESCE(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0)) AS eur
@@ -220,7 +234,7 @@ const armSql = (personJoin: string, refExpr: string): string => `
          jsonb_agg(DISTINCT g.rel) AS relations
     FROM gated g
     JOIN who m ON m.person_id = g.person_id
-    JOIN money mo ON mo.eik = g.eik
+    ${requireContracts ? "JOIN" : "LEFT JOIN"} money mo ON mo.eik = g.eik
    GROUP BY g.eik, g.person_id`;
 
 /** person_role stores an MP as one row per (mp_id, ns), so the id is the part before the
@@ -229,6 +243,18 @@ export const MP_ARM_SQL = armSql(
   `SELECT DISTINCT person_id, split_part(ref, ':', 1) AS mp_id
      FROM person_role WHERE source = 'mp'`,
   `'/candidate/mp-' || min(m.mp_id::bigint)::text`,
+);
+
+/** The mp arm WITHOUT the procurement-money restriction — the ИСУН funds cross-reference's
+ *  source (`scripts/lib/mp_linkage.ts`). Exported from here, rather than restated there, so
+ *  the two cannot come to disagree about what „gated" means: everything above `money` is the
+ *  gate, and only the last join differs. See the ⚠️ beside `money` for why this must never
+ *  fill company_politicians. */
+export const MP_ARM_ALL_SQL = armSql(
+  `SELECT DISTINCT person_id, split_part(ref, ':', 1) AS mp_id
+     FROM person_role WHERE source = 'mp'`,
+  `'/candidate/mp-' || min(m.mp_id::bigint)::text`,
+  { requireContracts: false },
 );
 
 /** The officials arm. `ref` keeps the /officials/<slug> shape the table has always carried —

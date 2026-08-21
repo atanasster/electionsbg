@@ -24,9 +24,11 @@ import { canonicalJson, dropSyntheticLegacyTwins } from "./validate";
 import { buildRollups, writeRollups } from "./rollups";
 import {
   buildMpConnected,
-  buildNamesakeFilteredLinkageMap,
+  buildEikLinkageMap,
   writeMpConnected,
 } from "./cross_reference";
+import { mpLinkageAvailable } from "../lib/mp_linkage";
+import { end } from "../db/lib/pg";
 import {
   buildAwarderConcentration,
   buildFlow,
@@ -70,10 +72,6 @@ const DERIVED_DIR = path.join(PROCUREMENT_DIR, "derived");
 const BY_NS_DIR = path.join(PROCUREMENT_DIR, "by_ns");
 const INDEX_FILE = path.join(PROCUREMENT_DIR, "index.json");
 const BUNDLES_FILE = path.join(PROCUREMENT_DIR, "bundles.json");
-const COMPANIES_INDEX = path.resolve(
-  __dirname,
-  "../../data/parliament/companies-index.json",
-);
 const OFFICIALS_COMPANY_LINKS = path.resolve(
   __dirname,
   "../../data/officials/derived/company_links.json",
@@ -95,9 +93,8 @@ const DRY_RUN = process.argv.includes("--dry-run");
 // unrelated to this de-dup. This task only removes duplicate contracts, so we
 // keep the roster and correct the inflated euro totals.
 //
-// Pass --recompute-mp to instead recompute the roster from companies-index +
-// the current TR namesake counts (the default behaviour of ingest.ts /
-// rebuild_derived.ts).
+// Pass --recompute-mp to instead recompute the roster from the gated MP↔company
+// link set (the default behaviour of ingest.ts / rebuild_derived.ts).
 const RECOMPUTE_MP = process.argv.includes("--recompute-mp");
 
 // Phase 1 — walk every month-shard, drop synthetic `-x` twins, rewrite the
@@ -265,9 +262,11 @@ const main = async (): Promise<void> => {
     console.log(
       `  ${mpConnected.entries.length} MP↔contractor pair(s) (roster preserved; pass --recompute-mp to rebuild it)`,
     );
-  } else if (fs.existsSync(COMPANIES_INDEX)) {
-    console.log("→ cross-referencing contractors against MP-companies graph");
-    const linkageMap = buildNamesakeFilteredLinkageMap(COMPANIES_INDEX);
+  } else if (await mpLinkageAvailable()) {
+    console.log(
+      "→ cross-referencing contractors against the MP↔company link set",
+    );
+    const linkageMap = await buildEikLinkageMap();
     mpConnected = buildMpConnected(CONTRACTORS_DIR, linkageMap);
     writeMpConnected(DERIVED_DIR, mpConnected);
     console.log(`  ${mpConnected.entries.length} MP↔contractor pair(s)`);
@@ -332,7 +331,7 @@ const main = async (): Promise<void> => {
     };
   } else {
     console.log(
-      "  no MP roster to reuse and companies-index.json missing — skipping MP cross-reference",
+      "  no MP roster to reuse and no reachable link set — skipping MP cross-reference",
     );
   }
 
@@ -389,4 +388,14 @@ const main = async (): Promise<void> => {
   );
 };
 
-main();
+// These builders now touch Postgres (the gated MP↔company link set), so the module-level
+// pool must be closed or the process lingers on an idle socket after its work is done —
+// the same `await end()` every scripts/db/load_*.ts finishes with.
+// ⚠️ AND IT NOW HAS A .catch(). Bare `main()` on an async function made an ingest failure an
+// unhandled rejection, which reports the stack and still exits 0 on some Node versions.
+main()
+  .catch((err) => {
+    console.error(err);
+    process.exitCode = 1;
+  })
+  .finally(() => end());

@@ -1,15 +1,17 @@
-// Join EU-funds beneficiaries against the MP-companies graph (built by the
-// /update-connections skill from declarations + Commerce Registry filings).
+// Join EU-funds beneficiaries against the MP↔company link set.
 //
-// The join key is the 9-digit canonical EIK: the beneficiary side carries it
-// in FundsBeneficiary.eik; the companies side stores it at companies[i].tr.uic.
+// The join key is the 9-digit canonical EIK, on both sides: the beneficiary carries it in
+// FundsBeneficiary.eik and the link set is keyed on company_politicians.eik.
 //
-// Editorial guardrail: a connection is only flagged when it is recorded in the
-// official Court-of-Audit declarations (a declared stake) or the Commerce
-// Registry (a management role). There is no name-match guessing — the
-// EIK-keyed join enforces this.
+// Editorial guardrail: a connection is only flagged when it is recorded in the Commerce
+// Registry (a management or ownership role) or in a Court-of-Audit declaration (a confirmed
+// stake). Until 2026-08-20 that guardrail was HALF TRUE — the source was
+// companies-index.json, whose registry arm matched an MP by NAME with no people-per-name
+// guard, so a common name attached one MP to another person's company and the EIK-keyed join
+// then published it as a fact about EU money. The source is now the gated person layer.
 
 import fs from "fs";
+import { readMpLinkRows } from "../lib/mp_linkage";
 import path from "path";
 import type {
   FundsBeneficiary,
@@ -17,30 +19,6 @@ import type {
   FundsMpConnectedFile,
   FundsMpRelation,
 } from "./types";
-
-interface CompaniesIndex {
-  companies: CompanyEntry[];
-}
-
-interface CompanyEntry {
-  slug: string;
-  displayName: string;
-  stakes?: Array<{
-    mpId: number;
-    declarantName: string;
-    declarationYear: number;
-    fiscalYear: number;
-    stake: { shareSize?: string; valueEur?: number };
-  }>;
-  tr?: { uic: string };
-  mpRoles?: Array<{
-    mpId: number;
-    mpName: string;
-    role: string;
-    isCurrent: boolean;
-    confidence: "high" | "medium" | "low";
-  }>;
-}
 
 export interface MpLinkage {
   mpId: number;
@@ -50,88 +28,53 @@ export interface MpLinkage {
 
 export interface EikLinkageMap {
   byEik: Map<string, MpLinkage[]>;
-  totalCompanies: number;
-  companiesWithUic: number;
 }
 
 const round2 = (n: number): number => Math.round(n * 100) / 100;
 
-// Read companies-index.json into an EIK → MP-linkage map. One linkage per
-// (EIK, mpId); an MP with several roles in the same company gets one linkage
-// carrying multiple relations.
-export const buildEikLinkageMap = (
-  companiesIndexPath: string,
-): EikLinkageMap => {
-  const idx = JSON.parse(
-    fs.readFileSync(companiesIndexPath, "utf8"),
-  ) as CompaniesIndex;
-
-  // Hard-fail if TR enrichment is missing on almost every entry: without
-  // tr.uic the join key is gone and the cross-reference would silently
-  // collapse to empty — the "TR refresh wasn't run" failure mode.
-  const withUic = idx.companies.filter((c) => c.tr?.uic).length;
-  if (withUic < idx.companies.length * 0.1) {
-    throw new Error(
-      `companies-index.json has only ${withUic}/${idx.companies.length} entries ` +
-        `with tr.uic — Commerce Registry enrichment looks missing; run ` +
-        `/update-connections before re-running the funds cross-reference`,
-    );
-  }
+// EIK → MP-linkage map, from the GATED PERSON LAYER.
+//
+// Was companies-index.json — an MP NAME matched against Commerce-Registry officers with no
+// people-per-name guard. It reads the same set `company_politicians` now carries (Tier 4a):
+// `person_role` at source tr/ngo, minted through Bridge A/B and refused on a fold the
+// registry says belongs to more than one human, unioned with 096's confirmed declared
+// stakes. One linkage per (EIK, mpId), carrying every relation for that pair.
+// Plan: docs/plans/company-page-consolidation-v1.md (Tier 5.1).
+//
+// ⚠️ THE FLOOR IS KEPT, ONLY ITS SUBJECT MOVED. The old guard hard-failed when almost no
+// entry carried a `tr.uic`, because without the join key the cross-reference collapses to
+// empty SILENTLY — the „the TR refresh was not run" failure. The same hole exists on the
+// gated source: an unresolved person layer yields zero rows and the funds MP-tied payload
+// would publish „no MP is linked to any beneficiary" at exit 0. So an empty linkage set is
+// refused rather than returned.
+//
+// ⚠️ IT NO LONGER DEDUPES STAKES BY YEAR. It used to keep the latest filing per MP because
+// companies-index carried one row per declaration; `company_politicians.relations` is already
+// deduped per (person, company) by the arm query's DISTINCT ON, so re-doing it here would be
+// a second, divergent copy of that rule.
+export const buildEikLinkageMap = async (): Promise<EikLinkageMap> => {
+  // ⚠️ scope 'all', NOT the served company_politicians. That table is contract-restricted —
+  // every row in it is a politically linked CONTRACTOR — and this join's population is ИСУН
+  // beneficiaries, so using it drops every MP-linked company that took EU money and never won
+  // a public contract. Measured 2026-08-20: it answers 43 of this payload's 303 pairs.
+  const rows = await readMpLinkRows(
+    "the funds cross-reference would collapse to empty and publish that no MP is linked to " +
+      "any beneficiary.",
+    "all",
+  );
 
   const byEik = new Map<string, MpLinkage[]>();
-  for (const company of idx.companies) {
-    const uic = company.tr?.uic;
-    if (!uic) continue;
-    const perMp = new Map<number, MpLinkage>();
-
-    for (const role of company.mpRoles ?? []) {
-      let linkage = perMp.get(role.mpId);
-      if (!linkage) {
-        linkage = { mpId: role.mpId, mpName: role.mpName, relations: [] };
-        perMp.set(role.mpId, linkage);
-      }
-      linkage.relations.push({
-        kind: role.role,
-        isCurrent: role.isCurrent,
-        confidence: role.confidence,
-      });
-    }
-
-    // Keep only the latest stake filing per MP — older years are year-by-year
-    // re-declarations of the same ownership.
-    const latestStakeByMp = new Map<
-      number,
-      NonNullable<CompanyEntry["stakes"]>[number]
-    >();
-    for (const s of company.stakes ?? []) {
-      const prev = latestStakeByMp.get(s.mpId);
-      if (!prev || s.fiscalYear > prev.fiscalYear) {
-        latestStakeByMp.set(s.mpId, s);
-      }
-    }
-    for (const [mpId, s] of latestStakeByMp) {
-      let linkage = perMp.get(mpId);
-      if (!linkage) {
-        linkage = { mpId, mpName: s.declarantName, relations: [] };
-        perMp.set(mpId, linkage);
-      }
-      linkage.relations.push({
-        kind: "stake",
-        shareSize: s.stake.shareSize,
-        valueEur: s.stake.valueEur,
-        fiscalYear: s.fiscalYear,
-        declarationYear: s.declarationYear,
-      });
-    }
-
-    if (perMp.size > 0) byEik.set(uic, [...perMp.values()]);
+  for (const r of rows) {
+    const list = byEik.get(r.eik) ?? [];
+    list.push({
+      mpId: r.mpId,
+      mpName: r.mpName,
+      relations: r.relations as FundsMpRelation[],
+    });
+    byEik.set(r.eik, list);
   }
 
-  return {
-    byEik,
-    totalCompanies: idx.companies.length,
-    companiesWithUic: withUic,
-  };
+  return { byEik };
 };
 
 // Emit one entry per (mpId, beneficiary) pair whose EIK matches the linkage

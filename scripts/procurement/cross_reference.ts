@@ -1,102 +1,34 @@
-// Join procurement contractors against the MP-companies graph (built by the
-// /update-connections skill from declarations + Commerce Registry filings).
+// Join procurement contractors against the MP↔company link set.
 //
-// The join key is the 9-digit canonical EIK. The contractors side stores it
-// in `Contract.contractorEik` already; the companies side stores it at
-// `companies[i].tr.uic` — present on ~87% of entries (the rest are stake-only
-// declarations where the company couldn't be enriched from TR).
+// The join key is the 9-digit canonical EIK, on both sides: the contractor carries it in
+// `Contract.contractorEik` and the link set is keyed on `company_politicians.eik`.
 //
-// PRD editorial guardrail: conservative MP linking — only flag a connection
-// if it's recorded in the official declarations (cacbg) OR Commerce Registry.
-// Don't guess via name matching. The TR-uic-keyed join enforces this.
+// Editorial guardrail: a connection is only flagged when it is recorded in the Commerce
+// Registry (a management or ownership role) or in a Court-of-Audit declaration (a confirmed
+// stake). Until 2026-08-20 the source was `companies-index.json`, whose registry arm matched
+// an MP by NAME — guarded only by a „this name maps to exactly one company" heuristic
+// (`buildTrNamesakeCounts`, deleted with this change) that migration 148's header calls wrong
+// in both directions: it dropped a rare-name MP's whole set behind one busy registered agent,
+// and passed a name held by two people with six companies each. The source is now the gated
+// person layer, where a fold the registry says belongs to more than one human is REFUSED.
+// Plan: docs/plans/company-page-consolidation-v1.md (Tier 5.1).
+//
+// ⚠️ NOTHING HERE LOADS `company_politicians` ANY MORE — it READS it. Until Tier 4 the flow
+// ran the other way (this builder → mp_connected.json → load_tr_pg.ts → company_politicians),
+// so a change here moved the served link set. It no longer does: `mp_connected.json` is now a
+// downstream JOURNALISM payload, read by `scripts/budget/cross_reference.ts` (the per-ministry
+// MP-connected flag) and by the three `gen_procurement` parity verifiers.
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
-import { DatabaseSync } from "node:sqlite";
+import { readMpLinkRows } from "../lib/mp_linkage";
 import type {
   ContractorRollup,
   MpCompanyRelation,
-  MpCompanyRelationKind,
   MpConnectedContractor,
   MpConnectedFile,
 } from "./types";
 import { byEurDesc, canonicalJson, writeStableJson } from "./validate";
-import { normalize } from "../officials/shared";
-
-// Distinct Commerce-Registry companies (UICs) per normalised person name.
-// An MP↔company link drawn purely from a TR officer/owner record is only
-// trustworthy when the MP's name maps to a SINGLE company — a name spread
-// across several companies almost always means several distinct people
-// (common Bulgarian names recur thousands of times), so attributing all of
-// them to one MP is the classic false positive. Mirrors the officials-side
-// guard in build_officials_company_links.ts. Returns an empty map when the
-// TR SQLite is absent — no name then counts as unique, so buildEikLinkageMap
-// drops every name-matched role and only declared stakes stand. That errs
-// conservative (under- not over-linking), which is the right way to fail.
-export const buildTrNamesakeCounts = (
-  sqlitePath: string,
-): Map<string, number> => {
-  const counts = new Map<string, number>();
-  if (!fs.existsSync(sqlitePath)) return counts;
-  const uicsByName = new Map<string, Set<string>>();
-  const db = new DatabaseSync(sqlitePath, { readOnly: true });
-  db.exec("PRAGMA query_only = ON; PRAGMA cache_size = -64000;");
-  for (const row of db
-    .prepare(`SELECT uic, name FROM company_persons WHERE erased_at IS NULL`)
-    .all() as Array<{ uic: string; name: string | null }>) {
-    if (!row.name) continue;
-    const key = normalize(row.name);
-    const set = uicsByName.get(key) ?? new Set<string>();
-    set.add(row.uic);
-    uicsByName.set(key, set);
-  }
-  db.close();
-  for (const [name, set] of uicsByName) counts.set(name, set.size);
-  return counts;
-};
-
-// The TR state mirror every procurement builder reads the namesake counts from.
-// Single source of truth so no caller can quietly skip the filter.
-export const TR_SQLITE_PATH = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../../raw_data/tr/state.sqlite",
-);
-
-interface CompaniesIndex {
-  generatedAt: string;
-  total: number;
-  companies: CompanyEntry[];
-}
-
-interface CompanyEntry {
-  slug: string;
-  displayName: string;
-  stakes?: Array<{
-    mpId: number;
-    declarantName: string;
-    declarationYear: number;
-    fiscalYear: number;
-    institution: string;
-    sourceUrl: string;
-    stake: {
-      shareSize?: string;
-      valueEur?: number;
-    };
-  }>;
-  tr?: {
-    uic: string;
-    legalForm?: string;
-    status?: string;
-  };
-  mpRoles?: Array<{
-    mpId: number;
-    mpName: string;
-    role: MpCompanyRelationKind;
-    isCurrent: boolean;
-    confidence: "high" | "medium" | "low";
-  }>;
-}
 
 // Returns EIK → linkages map. Each linkage is one (mpId, relation) pair,
 // grouped by mpId so the cross-reference can emit one entry per (mpId, EIK)
@@ -105,147 +37,47 @@ export interface MpLinkage {
   mpId: number;
   mpName: string;
   relations: MpCompanyRelation[];
-  companyDisplayName: string;
 }
 
 export interface EikLinkageMap {
   byEik: Map<string, MpLinkage[]>;
-  totalCompanies: number;
-  companiesWithUic: number;
 }
 
-export const buildEikLinkageMap = (
-  companiesIndexPath: string,
-  trNamesake?: Map<string, number>,
-): EikLinkageMap => {
-  if (!fs.existsSync(companiesIndexPath)) {
-    throw new Error(
-      `companies-index.json not found at ${companiesIndexPath}. ` +
-        `Run /update-connections first to build the MP-companies graph.`,
-    );
-  }
-  const idx = JSON.parse(
-    fs.readFileSync(companiesIndexPath, "utf8"),
-  ) as CompaniesIndex;
-
-  // Hard-fail if TR enrichment is missing on almost every entry. Without
-  // tr.uic the join key doesn't exist and mp_connected.json would silently
-  // collapse to empty — exactly the "TR refresh wasn't run" failure mode the
-  // PRD's plan called out.
-  const withUic = idx.companies.filter((c) => c.tr?.uic).length;
-  if (withUic < idx.companies.length * 0.1) {
-    throw new Error(
-      `companies-index.json has only ${withUic}/${idx.companies.length} entries with tr.uic. ` +
-        `Commerce Registry (TR) enrichment looks missing — run /update-connections with TR refresh ` +
-        `before re-running the cross-reference (otherwise the EIK join key is unavailable for ${idx.companies.length - withUic} companies).`,
-    );
-  }
+// EIK → MP-linkage map, from the GATED PERSON LAYER (`company_politicians`, kind='mp').
+//
+// ⚠️ THE SANITY FLOOR IS KEPT, ONLY ITS SUBJECT MOVED. The old guard hard-failed when almost
+// no companies-index entry carried a `tr.uic`, because without the join key `mp_connected.json`
+// collapses to empty SILENTLY — the „the TR refresh was not run" failure. The same hole exists
+// on the gated source: an unresolved person layer yields zero rows, `mp_connected.json` is
+// rewritten empty, and the budget dashboard then states that no ministry awarded a contract to
+// an MP-connected company. So an empty link set is REFUSED rather than returned.
+//
+// ⚠️ IT NO LONGER DEDUPES STAKES BY YEAR. It used to keep the latest filing per MP because
+// companies-index carried one row per declaration; `company_politicians.relations` is already
+// deduped per (person, company) by the loader's arm query, so re-doing it here would be a
+// second, divergent copy of that rule.
+export const buildEikLinkageMap = async (): Promise<EikLinkageMap> => {
+  // scope 'contractors' — this builder's join population IS contractors, so the served
+  // company_politicians is the right source and its contract restriction costs nothing here.
+  // The funds sibling must NOT use it; see scripts/lib/mp_linkage.ts.
+  const rows = await readMpLinkRows(
+    "mp_connected.json would be rewritten empty and the budget dashboard would then state " +
+      "that no ministry awarded a contract to an MP-connected company.",
+    "contractors",
+  );
 
   const byEik = new Map<string, MpLinkage[]>();
-  for (const company of idx.companies) {
-    const uic = company.tr?.uic;
-    if (!uic) continue;
-    // Aggregate relations per (eik, mpId) — one MP can have multiple roles in
-    // the same company (manager + partner is common), plus separate stake
-    // declarations for different years.
-    const perMp = new Map<number, MpLinkage>();
-
-    for (const role of company.mpRoles ?? []) {
-      // mpRoles are name-matched TR officer/owner records (declared stakes
-      // come from the stakes loop below). Keep one only when the MP's name
-      // maps to a single TR company — otherwise it's a namesake collision.
-      // Skipped when no TR namesake map was supplied (TR SQLite absent).
-      if (trNamesake && (trNamesake.get(normalize(role.mpName)) ?? 0) !== 1) {
-        continue;
-      }
-      let linkage = perMp.get(role.mpId);
-      if (!linkage) {
-        linkage = {
-          mpId: role.mpId,
-          mpName: role.mpName,
-          relations: [],
-          companyDisplayName: company.displayName,
-        };
-        perMp.set(role.mpId, linkage);
-      }
-      linkage.relations.push({
-        kind: role.role,
-        isCurrent: role.isCurrent,
-        confidence: role.confidence,
-      });
-    }
-
-    // Keep only the most recent stake per (mpId). Multiple stake rows are
-    // year-by-year filings of the same ownership; the latest year is what we
-    // surface in the UI (older filings remain visible on the per-MP
-    // declarations page).
-    const latestStakeByMp = new Map<
-      number,
-      NonNullable<CompanyEntry["stakes"]>[number]
-    >();
-    for (const s of company.stakes ?? []) {
-      const prev = latestStakeByMp.get(s.mpId);
-      if (!prev || s.fiscalYear > prev.fiscalYear) {
-        latestStakeByMp.set(s.mpId, s);
-      }
-    }
-    for (const [mpId, s] of latestStakeByMp) {
-      let linkage = perMp.get(mpId);
-      if (!linkage) {
-        linkage = {
-          mpId,
-          mpName: s.declarantName,
-          relations: [],
-          companyDisplayName: company.displayName,
-        };
-        perMp.set(mpId, linkage);
-      }
-      linkage.relations.push({
-        kind: "stake",
-        shareSize: s.stake.shareSize,
-        valueEur: s.stake.valueEur,
-        fiscalYear: s.fiscalYear,
-        declarationYear: s.declarationYear,
-      });
-    }
-
-    if (perMp.size === 0) continue;
-    byEik.set(uic, [...perMp.values()]);
+  for (const r of rows) {
+    const list = byEik.get(r.eik) ?? [];
+    list.push({
+      mpId: r.mpId,
+      mpName: r.mpName,
+      relations: r.relations as MpCompanyRelation[],
+    });
+    byEik.set(r.eik, list);
   }
 
-  return {
-    byEik,
-    totalCompanies: idx.companies.length,
-    companiesWithUic: withUic,
-  };
-};
-
-// The ONLY entry point procurement builders should use to construct the linkage
-// map. It bundles the two steps that must never come apart: build the TR
-// namesake counts, then hand them to buildEikLinkageMap. Calling
-// buildEikLinkageMap directly without the counts keeps every name-only match —
-// the inflation mode that once took the headline from 38 MPs / €533M to a false
-// 55 / €711M — and it fails silently, because the map still builds. A rebuild
-// script that skipped it published the inflated figure (134 MPs / €2,964M vs the
-// correct 54 / €1,958M) until rebuild_derived happened to run afterwards.
-//
-// Degrades conservatively: with no TR mirror on disk the counts come back empty,
-// so no name reads as unique and every name-matched role is dropped — only
-// declared stakes stand. The caller is told so, because that under-links.
-export const buildNamesakeFilteredLinkageMap = (
-  companiesIndexPath: string,
-  trSqlitePath: string = TR_SQLITE_PATH,
-  log: (msg: string) => void = console.log,
-): EikLinkageMap => {
-  const trNamesake = buildTrNamesakeCounts(trSqlitePath);
-  if (trNamesake.size === 0) {
-    log(
-      `  no TR SQLite at ${path.relative(process.cwd(), trSqlitePath)} — ` +
-        `namesake counts unavailable; dropping ALL name-matched MP roles ` +
-        `(declared stakes stand)`,
-    );
-  }
-  return buildEikLinkageMap(companiesIndexPath, trNamesake);
+  return { byEik };
 };
 
 // Source-agnostic: emit (mpId, contractor) records for every linkage whose

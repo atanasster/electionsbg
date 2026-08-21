@@ -123,7 +123,8 @@ Extended the same recipe to every output that's a pure function of the contract 
 ### 2c cross-reference (mp_connected + pep_connected) ✅ SHIPPED (2026-07-01)
 
 - **Refactor:** `cross_reference.ts` → `buildMpConnectedFrom(getContractor, linkageMap)`; `pep_connected.ts` → `buildPepConnectedFrom(links, getContractor)` (both getter-based, dir functions delegate). `CompanyLinksFile` exported.
-- **Generator** — `gen_procurement/cross_reference.ts` (`npm run db:gen-xref`): SQL contractor rollups (rounded) + the external inputs the JS builders also read — `companies-index.json`, TR `state.sqlite` namesake counts (`buildTrNamesakeCounts`), `officials/…/company_links.json` — → the two joins.
+- **Generator** — `gen_procurement/cross_reference.ts` (`npm run db:gen-xref`): SQL contractor rollups (rounded) + the external inputs the JS builders also read — → the two joins.
+  ⚠️ **[2026-08-20] The mp arm's input moved into Postgres.** It was `companies-index.json` plus TR `state.sqlite` namesake counts (`buildTrNamesakeCounts`); both are gone with that file, and the arm now reads `company_politicians` at kind='mp' — the same database the rollups come from, so it can no longer be absent while the rest of the generator runs. Neither arm SKIPS any more: a missing input is a `false`, because a verifier reduced to zero arms reports on a corpus it never compared. See `docs/plans/company-page-consolidation-v1.md` (Tier 5.1).
 - **Result:** `mp_connected` + `pep_connected` **byte-identical, 0 diff**. Confirms the cross-domain joins reproduce from SQL rollups + unchanged external graphs.
 
 ### 2c index.json + risk feeds ✅ SHIPPED (2026-07-01)

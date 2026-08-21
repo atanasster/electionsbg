@@ -357,6 +357,54 @@ linkage map and the parity verifier.
    `funds/cross_reference.ts:75` both refuse/warn when too few entries carry a `tr.uic`. They are
    the only thing between a broken index and a silently empty `mp_connected`; the PG replacement
    needs an equivalent floor or that failure becomes invisible.
+
+#### As built (2026-08-20) — and the one thing item 1 got wrong
+
+**⚠️ `scripts/procurement/cross_reference.ts` is NOT deleted; it is re-based.** The diagram
+above shows `companies-index.json → procurement/cross_reference.ts → mp_connected.json →
+load_tr_pg`, and Tier 4 cut only the LAST arrow. `data/procurement/derived/mp_connected.json`
+is still a live build input — `scripts/budget/cross_reference.ts` reads it for the
+per-ministry MP-connected flag, and three `gen_procurement` verifiers read it — so deleting
+its producer would have broken the budget dashboard. Item 3 already implied this by asking for
+that file's sanity floor to be ported.
+
+**⚠️ AND THE TWO BUILDERS CANNOT SHARE A SOURCE, which item 1 assumed they could.**
+`company_politicians` is **contract-restricted** — its loader inner-joins procurement money, so
+every row is "a politically linked CONTRACTOR", which is what the A–F contract grade and every
+MP-tied procurement figure mean by it. That is right for the procurement builder, whose join
+population IS contractors. It is wrong for the funds builder, whose population is ИСУН
+beneficiaries: an MP-linked company that took EU money and never won a public contract is
+exactly the row that payload exists to report. **Measured: the restricted set answers 43 of the
+funds payload's 303 pairs.** Nor is Tier 3's `official_companies` usable — it is per-COMPANY and
+carries no person identity, so it cannot emit `(mpId, EIK)` pairs at all.
+
+So `armSql` in `load_tr_pg.ts` gained one option, `requireContracts`, and exports
+`MP_ARM_ALL_SQL` beside `MP_ARM_SQL` — the same gate, the money join `LEFT` instead of inner
+(and `total_eur` therefore NULL, because that column holds procurement money and a zero would
+read as "won nothing" rather than "not asked"). `scripts/lib/mp_linkage.ts` owns the query, the
+two-state probe and the `mpId` parse; each builder names its scope.
+
+**Measured against the committed payloads:**
+
+| payload | built | committed | only-built | only-committed |
+| --- | --- | --- | --- | --- |
+| `data/procurement/derived/mp_connected.json` (scope `contractors`) | 94 | 94 | 0 | 0 |
+| `data/funds/derived/mp_connected.json` (scope `all`) | 173 | 303 | 19 | 149 |
+
+The procurement half round-trips exactly, which is the parity proof. The funds half is Tier 4's
+accepted consequence arriving on a second surface, and the losses partition the same way T4.1b
+established: **56 of the 149 are stake-only, and of their 56 EIKs only 11 appear in
+`declaration_stake_company` at all — none with `holder_is_declarant`**, i.e. they are spouse
+holdings or stakes 096 refuses. The remaining 93 are registry roles the `tr_name_fold_people`
+fold refuses. 19 pairs are GAINED, so it is not a subtraction.
+
+**Two defects this step introduced and fixed, both worth remembering:** `Number(null)` is `0`
+and `0` is finite, so a `Number.isFinite` guard over a nullable ref accepts a ref-less row as MP
+id **0** — every entry collapses onto one id and `writeMpConnectedShards` prunes the real
+per-MP shards while writing a single `0.json`, at exit 0. And the source-scan gate initially
+failed on its own headers, because those headers NAME `companies-index.json`: it needs
+`stripComments`, per that module's rule that prose MENTIONING a pattern is not an occurrence of
+it.
 4. Delete `build_company_index.ts`, `tr/integrate.ts`'s index arm, `augment_mp_roles.ts`,
    `useCompanyIndex.tsx`, and the pipeline phases in `scripts/declarations/index.ts` (2.5, 5, the
    augment step) + `rebuild_post.ts`.

@@ -33,9 +33,11 @@ import {
 import { buildRollups, writeRollups } from "./rollups";
 import {
   buildMpConnected,
-  buildNamesakeFilteredLinkageMap,
+  buildEikLinkageMap,
   writeMpConnected,
 } from "./cross_reference";
+import { mpLinkageAvailable } from "../lib/mp_linkage";
+import { end } from "../db/lib/pg";
 import {
   buildAwarderConcentration,
   buildFlow,
@@ -80,10 +82,6 @@ const DERIVED_DIR = path.join(PROCUREMENT_DIR, "derived");
 const BY_NS_DIR = path.join(PROCUREMENT_DIR, "by_ns");
 const INDEX_FILE = path.join(PROCUREMENT_DIR, "index.json");
 const BUNDLES_FILE = path.join(PROCUREMENT_DIR, "bundles.json");
-const COMPANIES_INDEX = path.resolve(
-  __dirname,
-  "../../data/parliament/companies-index.json",
-);
 const OFFICIALS_COMPANY_LINKS = path.resolve(
   __dirname,
   "../../data/officials/derived/company_links.json",
@@ -101,7 +99,7 @@ const DRY_RUN = process.argv.includes("--dry-run");
 // (sensitive to the exact TR snapshot on disk) must stay byte-stable. We reuse
 // it and refresh each entry's contract-derived totals from the rebuilt rollups
 // (unchanged here, but kept for parity with dedup_legacy_twins.ts). Pass
-// --recompute-mp to rebuild the roster from companies-index + TR namesake counts.
+// --recompute-mp to rebuild the roster from the gated MP↔company link set.
 const RECOMPUTE_MP = process.argv.includes("--recompute-mp");
 
 // rowSort — canonical on-disk order, mirrors ingest.ts.writeMonthShards so the
@@ -292,9 +290,11 @@ const main = async (): Promise<void> => {
     mpConnected = reuseMpRosterRefreshTotals();
     writeMpConnected(DERIVED_DIR, mpConnected);
     console.log(`  ${mpConnected.entries.length} MP↔contractor pair(s)`);
-  } else if (fs.existsSync(COMPANIES_INDEX)) {
-    console.log("→ cross-referencing contractors against MP-companies graph");
-    const linkageMap = buildNamesakeFilteredLinkageMap(COMPANIES_INDEX);
+  } else if (await mpLinkageAvailable()) {
+    console.log(
+      "→ cross-referencing contractors against the MP↔company link set",
+    );
+    const linkageMap = await buildEikLinkageMap();
     mpConnected = buildMpConnected(CONTRACTORS_DIR, linkageMap);
     writeMpConnected(DERIVED_DIR, mpConnected);
     console.log(`  ${mpConnected.entries.length} MP↔contractor pair(s)`);
@@ -358,7 +358,7 @@ const main = async (): Promise<void> => {
     };
   } else {
     console.log(
-      "  no MP roster to reuse and companies-index.json missing — skipping MP cross-reference",
+      "  no MP roster to reuse and no reachable link set — skipping MP cross-reference",
     );
   }
 
@@ -420,7 +420,12 @@ const main = async (): Promise<void> => {
   );
 };
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// These builders now touch Postgres (the gated MP↔company link set), so the module-level
+// pool must be closed or the process lingers on an idle socket after its work is done —
+// the same `await end()` every scripts/db/load_*.ts finishes with.
+main()
+  .catch((err) => {
+    console.error(err);
+    process.exitCode = 1;
+  })
+  .finally(() => end());

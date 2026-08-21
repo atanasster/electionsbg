@@ -15,9 +15,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import {
   buildMpConnected,
-  buildNamesakeFilteredLinkageMap,
+  buildEikLinkageMap,
   writeMpConnected,
 } from "./cross_reference";
+import { mpLinkageAvailable } from "../lib/mp_linkage";
+import { end } from "../db/lib/pg";
 import {
   buildAwarderConcentration,
   buildFlow,
@@ -40,7 +42,7 @@ import { buildByNs } from "./by_ns";
 import type { MpConnectedFile, ProcurementIndex } from "./types";
 
 // --reuse-mp: load the existing mp_connected.json instead of recomputing it
-// from companies-index + the TR-namesake filter. Use this when ONLY the
+// from the gated MP↔company link set. Use this when ONLY the
 // officials side changed (e.g. wiring pep_connected into flow/by_ns) so the
 // published MP figures stay byte-stable and the namesake filter — which is
 // sensitive to the exact TR snapshot on disk — can't silently shift them.
@@ -54,10 +56,6 @@ const AWARDERS_DIR = path.join(PROCUREMENT_DIR, "awarders");
 const DERIVED_DIR = path.join(PROCUREMENT_DIR, "derived");
 const BY_NS_DIR = path.join(PROCUREMENT_DIR, "by_ns");
 const INDEX_FILE = path.join(PROCUREMENT_DIR, "index.json");
-const COMPANIES_INDEX = path.resolve(
-  __dirname,
-  "../../data/parliament/companies-index.json",
-);
 const OFFICIALS_COMPANY_LINKS = path.resolve(
   __dirname,
   "../../data/officials/derived/company_links.json",
@@ -79,7 +77,7 @@ console.log(
 );
 
 // MPs → procurement. Either reuse the on-disk mp_connected.json (--reuse-mp)
-// or recompute it from companies-index + the TR-namesake filter.
+// or recompute it from the gated MP↔company link set.
 let mpConnected: MpConnectedFile | null = null;
 let recomputedMp = false;
 if (REUSE_MP && fs.existsSync(MP_CONNECTED_FILE)) {
@@ -89,8 +87,8 @@ if (REUSE_MP && fs.existsSync(MP_CONNECTED_FILE)) {
   console.log(
     `mp_connected.json: reused ${mpConnected.entries.length} pair(s) from disk (--reuse-mp)`,
   );
-} else if (fs.existsSync(COMPANIES_INDEX)) {
-  const linkageMap = buildNamesakeFilteredLinkageMap(COMPANIES_INDEX);
+} else if (await mpLinkageAvailable()) {
+  const linkageMap = await buildEikLinkageMap();
   mpConnected = buildMpConnected(CONTRACTORS_DIR, linkageMap);
   writeMpConnected(DERIVED_DIR, mpConnected);
   recomputedMp = true;
@@ -188,7 +186,7 @@ if (mpConnected) {
   }
 } else {
   console.log(
-    "no mp_connected.json (reuse) and companies-index.json missing — MP cross-reference skipped",
+    "no mp_connected.json (reuse) and no reachable link set — MP cross-reference skipped",
   );
 }
 
@@ -203,3 +201,9 @@ console.log(
   `risk_feed.json: ${riskFeed.topConcentration.length} conc + ${riskFeed.topMpTied.length} mp-tied; ` +
     `concentration_full.json: ${concFull.total}; person_procurement_index.json: ${personIndex.total}`,
 );
+
+// This script now touches Postgres (the gated MP↔company link set), so the module-level pool
+// must be closed or the process lingers on an idle socket after its work is done — the same
+// `await end()` every scripts/db/load_*.ts finishes with. Top-level, because this file has no
+// main(): its body IS the script.
+await end();

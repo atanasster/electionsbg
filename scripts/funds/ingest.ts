@@ -21,6 +21,8 @@ import {
   writeMpConnected,
 } from "./cross_reference";
 import { buildPoliticalLinks, writePoliticalLinks } from "./political_links";
+import { mpLinkageAvailable } from "../lib/mp_linkage";
+import { end } from "../db/lib/pg";
 import type {
   FundsBeneficiary,
   FundsBreakdownRow,
@@ -37,11 +39,6 @@ const BENEFICIARIES_DIR = path.join(FUNDS_DIR, "beneficiaries");
 const BENEFICIARIES_BY_EIK_DIR = path.join(FUNDS_DIR, "beneficiaries-by-eik");
 const DERIVED_DIR = path.join(FUNDS_DIR, "derived");
 const INDEX_FILE = path.join(FUNDS_DIR, "index.json");
-const COMPANIES_INDEX = path.resolve(
-  __dirname,
-  "../../data/parliament/companies-index.json",
-);
-
 const SOURCE_LABEL =
   "ИСУН 2020 — публичен модул, Бенефициенти (2020.eufunds.bg)";
 const SOURCE_URL = "https://2020.eufunds.bg/bg/0/0/Beneficiary";
@@ -306,19 +303,21 @@ const main = async (args: {
   }
   console.log(`→ wrote ${aggByEik.size} per-EIK beneficiary file(s)`);
 
-  // 5. Cross-reference beneficiaries against the MP-companies graph. Optional:
-  // if companies-index.json is absent (fresh clone before /update-connections)
-  // the raw beneficiary data still lands; only the MP-tied payload is skipped.
+  // 5. Cross-reference beneficiaries against the MP↔company link set. Optional in ONE
+  // direction only: on a fresh clone the link set has not been built (no Postgres, or
+  // company_politicians absent) and the raw beneficiary data still lands, with the MP-tied
+  // payload skipped. A link set that EXISTS and is empty is refused instead — that is the
+  // „the TR refresh was not run" failure, and skipping it would publish „no MP is linked to
+  // any beneficiary" at exit 0. See buildEikLinkageMap.
   let crossReference: FundsCrossRefSummary | undefined;
   const mpTiedByEik = new Map<string, number[]>();
-  if (fs.existsSync(COMPANIES_INDEX)) {
+  if (await mpLinkageAvailable()) {
     console.log(
-      `→ cross-referencing beneficiaries against the MP-companies graph`,
+      `→ cross-referencing beneficiaries against the MP↔company link set`,
     );
-    const linkageMap = buildEikLinkageMap(COMPANIES_INDEX);
+    const linkageMap = await buildEikLinkageMap();
     console.log(
-      `  EIK linkage map: ${linkageMap.byEik.size} EIK(s) from ` +
-        `${linkageMap.companiesWithUic}/${linkageMap.totalCompanies} TR-enriched companies`,
+      `  EIK linkage map: ${linkageMap.byEik.size} EIK(s) with at least one MP link`,
     );
     const mpConnected = buildMpConnected(rows, linkageMap);
     writeMpConnected(DERIVED_DIR, mpConnected);
@@ -342,8 +341,8 @@ const main = async (args: {
     );
   } else {
     console.log(
-      `  companies-index.json missing — skipping cross-reference ` +
-        `(run /update-connections to enable the MP-tied payload)`,
+      `  company_politicians unreachable — skipping cross-reference ` +
+        `(run db:load:tr:pg to enable the MP-tied payload)`,
     );
   }
 
@@ -352,8 +351,12 @@ const main = async (args: {
   // (reads already-written files), no external fetch, so always runs after
   // the beneficiary shards land. Skipped if neither MP nor officials links
   // are present (fresh clone before /update-connections or /update-officials).
+  //
+  // The MP arm is gated on the payload step 5 WRITES, not on its source: buildPoliticalLinks
+  // reads derived/mp_connected.json, so a run that skipped the cross-reference has nothing
+  // for it to read either way.
   if (
-    fs.existsSync(COMPANIES_INDEX) ||
+    crossReference !== undefined ||
     fs.existsSync(
       path.resolve(
         __dirname,
@@ -372,7 +375,7 @@ const main = async (args: {
     );
   } else {
     console.log(
-      `  officials + companies-index missing — skipping political-economy join`,
+      `  no MP-tied payload and no officials links — skipping political-economy join`,
     );
   }
 
@@ -427,4 +430,7 @@ const cli = command({
     }),
 });
 
-run(cli, process.argv.slice(2));
+// These builders now touch Postgres (the gated MP↔company link set), so the module-level
+// pool must be closed or the process lingers on an idle socket after its work is done —
+// the same `await end()` every scripts/db/load_*.ts finishes with.
+run(cli, process.argv.slice(2)).finally(() => end());
