@@ -245,10 +245,11 @@ npm run db:load:funds-fit:pg:cloud         # sole applier of 143 + 144 + 145 —
 > nothing, so an automated chain HALTS here. The rule:
 >
 > - **`--full`** — after an ИСУН re-ingest, i.e. whenever `fund_beneficiaries` or
->   `fund_projects` actually moved. ~4.5 min, during which `/api/db/fund-contract`
->   and `/api/db/fund-beneficiary` return 500.
+>   `fund_projects` actually moved. Minutes of work (it re-reads ~128k shard
+>   files). Since 2026-08-21 both tables are stage-merged, so NO reader is
+>   blocked and no `/api/db` route 500s — the flag is about the work, not a lock.
 > - **`--payloads-only`** — when only the precomputed page payloads changed.
->   Stage-merged, seconds, never blocks a reader.
+>   Stage-merged, seconds, and it skips the shard read entirely.
 >
 > Getting it backwards is not symmetric: `--payloads-only` after a re-ingest
 > publishes the new page payloads over an unchanged beneficiary table, which

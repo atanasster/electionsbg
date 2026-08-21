@@ -102,10 +102,10 @@ const ALLOWED = new Map<string, "debt" | "accepted">([
   ["scripts/db/load_declarations_pg.ts: declaration_event", "debt"],
   ["scripts/db/load_mp_roster_pg.ts: mp_profile", "debt"],
   ["scripts/db/load_mp_roster_pg.ts: mp_car", "debt"],
-  // fund_beneficiaries was PAID OFF 2026-08-21: the TRUNCATE became an UNLOGGED
-  // stage build (copyRows) + mergeFromStage, so the reload takes RowExclusiveLock
-  // only and /api/db/fund-beneficiary no longer 55P03s during a publish.
-  ["scripts/db/load_funds_pg.ts: fund_projects", "debt"],
+  // BOTH load_funds_pg tables were PAID OFF 2026-08-21: fund_beneficiaries and
+  // fund_projects each became an UNLOGGED stage build (copyRows) + mergeFromStage,
+  // so the reloads take RowExclusiveLock only and neither /api/db/fund-beneficiary
+  // nor /api/db/fund-contract 55P03s during a publish.
   // agri_subsidies was PAID OFF 2026-08-04 (gaps plan T2): the TRUNCATE became
   // an UNLOGGED stage build + one-transaction DELETE+INSERT publish.
   // ~5.7k rows, fingerprinted and usually skipped outright — see the call site.

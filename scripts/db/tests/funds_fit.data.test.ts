@@ -620,26 +620,77 @@ test.skipIf(skip)(
 //     check — live == staged is true of an empty build too.
 // ---------------------------------------------------------------------------
 test.skipIf(skip)(
-  "the fund_beneficiaries merge leaves no stage twin and no short table",
+  "the fund_beneficiaries and fund_projects merges leave no stage twin and no short table",
   async () => {
-    const [r] = await allRows<{ leftover: string; live: string }>(
+    const [r] = await allRows<{
+      leftover: string;
+      live: string;
+      live_projects: string;
+    }>(
       `SELECT (SELECT count(*) FROM pg_class
-                WHERE relkind = 'r' AND relname = 'fund_beneficiaries_stage') AS leftover,
-              (SELECT count(*) FROM fund_beneficiaries) AS live`,
+                WHERE relkind = 'r'
+                  AND relname IN ('fund_beneficiaries_stage','fund_projects_stage')) AS leftover,
+              (SELECT count(*) FROM fund_beneficiaries) AS live,
+              (SELECT count(*) FROM fund_projects) AS live_projects`,
     );
     assert.equal(
       r.leftover,
       "0",
-      "fund_beneficiaries_stage survived the load — an UNLOGGED twin of a served " +
+      "a fund_* stage twin survived the load — an UNLOGGED copy of a served " +
         "table that would reach pg_dump and db:sync:cloud",
     );
-    // Not a row-count pin: the corpus grows every ingest. This is the floor the
-    // shrink guard defends, so a merge that deleted the corpus fails here even if
+    // Not row-count pins: both corpora grow every ingest. These are the floors the
+    // shrink guard defends, so a merge that deleted a corpus fails here even if
     // the loader's own guard was bypassed with --allow-shrink.
     assert.ok(
       Number(r.live) > 40_000,
       `fund_beneficiaries holds only ${r.live} rows — the merge's delete half ran ` +
         "against a partial or empty stage",
     );
+    assert.ok(
+      Number(r.live_projects) > 70_000,
+      `fund_projects holds only ${r.live_projects} rows — the merge's delete half ` +
+        "ran against a partial or empty stage",
+    );
+  },
+);
+
+// ---------------------------------------------------------------------------
+// The COPY column lists, pinned to the live tables.
+//
+// Under the old `TRUNCATE` + INSERT reload, a column present in the table but
+// missing from the loader's column list came back NULL — visible in the very
+// next query. Under the MERGE it is invisible and worse: the upsert only touches
+// the columns it is given, so the omitted one silently RETAINS THE PREVIOUS
+// VINTAGE'S VALUE for ever, and both `mergeFromStage`'s parity check and every
+// row count still agree. Nothing else would catch it.
+//
+// This asserts the loader's list covers every column the table actually has.
+// Extra columns in the list are already impossible — COPY would raise 42703.
+// ---------------------------------------------------------------------------
+test.skipIf(skip)(
+  "the loader's COPY column lists cover every column of the live tables",
+  async () => {
+    const { COLS, PROJ_COLS } = await import("../load_funds_pg");
+    for (const [table, cols] of [
+      ["fund_beneficiaries", COLS],
+      ["fund_projects", PROJ_COLS],
+    ] as const) {
+      const live = (
+        await allRows<{ column_name: string }>(
+          `SELECT column_name FROM information_schema.columns
+            WHERE table_schema = 'public' AND table_name = $1`,
+          [table],
+        )
+      ).map((c) => c.column_name);
+      const missing = live.filter((c) => !cols.includes(c));
+      assert.deepEqual(
+        missing,
+        [],
+        `${table} has column(s) the loader never writes: ${missing.join(", ")}. ` +
+          "Under the stage merge those keep the PREVIOUS vintage's value silently — " +
+          "add them to the loader's column list, or drop them from the table.",
+      );
+    }
   },
 );
