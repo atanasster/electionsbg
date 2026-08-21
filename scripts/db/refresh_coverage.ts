@@ -146,6 +146,31 @@ export interface RefreshGenerator {
   artifact: string;
   /** Why it must be in the chain, and what pins its position there. */
   reason: string;
+  /**
+   * The `bucket:sync:paths` argument that PUBLISHES the artifact, i.e. the
+   * second half of the contract — and the half this registry lacked until
+   * 2026-08-21, when `culture/derived/hub_stats.json` was found returning 404
+   * two days after it was committed.
+   *
+   * Chain membership only guarantees the file on DISK is current. Every one of
+   * these four is a static blob a `dataUrl()` fetch reads from GCS, so a
+   * regenerated-and-committed artifact that nobody uploaded is not stale — it
+   * is ABSENT, and the hub renders without its numbers at a 200.
+   *
+   * ⚠️ THE PUBLISH TRIGGER IS NOT THE OWNING SKILL'S TRIGGER, which is exactly
+   * how both misses happened. `db:gen-culture-hub-stats` reads contracts,
+   * tenders, fund_projects, agri_subsidies, person_role and interreg_partners —
+   * so it is `db:refresh` (i.e. update-procurement) that moves it, while the
+   * skill that owns `data/culture/` and names its sync is woken only by
+   * nfc/ncf/dki watcher flips. The skill holding the PATH is never woken by the
+   * thing that changes the CONTENT. Publishing from THIS registry, keyed on the
+   * generator that ran, is what removes that coupling; do not push it back into
+   * per-skill prose.
+   *
+   * A subtree is acceptable, but prefer the exact file: `bucket:sync:paths`
+   * takes either, and a subtree argument re-walks siblings that did not move.
+   */
+  bucketPath: string;
 }
 
 export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
@@ -153,20 +178,24 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
     artifact: "data/procurement/derived/hub_stats.json",
     reason:
       "the nine /procurement hub stat-tile numbers; five of them (tenders, appeals, ngos, flags, places) come from tables loaded across the whole chain, so it sits after db:load:ngo-funding:pg — the last of them",
+    bucketPath: "procurement/derived/hub_stats.json",
   },
   "db:gen-sector-stats": {
     artifact: "data/procurement/derived/sector_stats.json",
     reason:
       "the /governance/sectors hub headline per sector; its agri payout reads agri_payloads (db:load:agri:pg), so it must follow that loader",
+    bucketPath: "procurement/derived/sector_stats.json",
   },
   "db:gen-culture-hub-stats": {
     artifact: "data/culture/derived/hub_stats.json",
     reason:
       "the /culture hub's headline figures, which shipped as FROZEN STRINGS in the tile copy beside film figures the prerender interpolates — half the page self-updating and half not. It reads contracts, tenders, fund_projects, agri_subsidies, person_role AND interreg_partners, so its slot is after db:load:interreg:pg, the LAST loader in the chain: placed beside its two siblings (~40 steps earlier, after db:load:ngo-funding:pg) it would regenerate the ИСУН and Interreg arms from the previous vintage and commit them",
+    bucketPath: "culture/derived/hub_stats.json",
   },
   "db:gen-declarations-hub-stats": {
     artifact: "data/governance/declarations_hub_stats.json",
     reason:
       "the six /governance/declarations tile figures; its `people` field is person_browse_table's tier='P' floor (the basis /persons itself lists), so it must follow db:load:persons-browse:pg — every other field reads a matview that loader's predecessors build",
+    bucketPath: "governance/declarations_hub_stats.json",
   },
 };

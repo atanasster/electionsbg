@@ -274,6 +274,24 @@ npm run db:gen-hub-stats      # ~22 s: reads PG, writes data/procurement/derived
 npm run db:gen-sector-stats   # ~1 s: writes data/procurement/derived/sector_stats.json — per-sector all-time procurement € for the /governance/sectors + featured-sectors tiles
 ```
 
+⚠️ **`db:refresh` REWRITES TWO MORE COMMITTED ARTIFACTS, AND THEY ARE NOT UNDER
+`procurement/`.** The chain's last step is `db:gen-culture-hub-stats`
+(`data/culture/derived/hub_stats.json`) and step ~63 is `db:gen-declarations-hub-stats`
+(`data/governance/declarations_hub_stats.json`). Both are bucket-served static blobs, both
+move whenever this skill's `db:refresh` runs — and neither is mentioned by the publish
+section below, whose whole point is that `procurement/` is PG-served. That mismatch is how
+`culture/derived/hub_stats.json` served **404 for two days** (measured 2026-08-21): the
+generator was in the chain, the file was committed, and the skill that owns `data/culture/`
+is woken only by nfc/ncf/dki watcher flips, which have nothing to do with its inputs.
+
+Do not maintain that list here — read it from `REFRESH_GENERATORS`
+(`scripts/db/refresh_coverage.ts`), which carries each artifact's `bucketPath`, and verify
+with:
+
+```bash
+npm run db:check-generated
+```
+
 `sector_stats.json` is the sibling of `hub_stats.json` for the government-sector
 tiles (same committed + bucket-synced serving). Commit + `bucket:sync` both files
 with the ingest. If it goes stale the hub tiles just show older numbers (no breakage) — but it should refresh on every procurement ingest, so run it here. The two heavy counts (flags = single-supplier concentration cases via `procurement_risk_feed`; places = settlements with procurement via `procurement_by_settlement`) are computed offline here precisely because they're too expensive to query live per hub load.

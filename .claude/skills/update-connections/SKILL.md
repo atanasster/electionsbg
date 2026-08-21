@@ -285,6 +285,24 @@ When a new filing season opens (typically May for prior fiscal year):
    NOT use — the destination screen's own filter, the partition structure — because its first
    version re-ran the generator's own SQL and pinned two bugs.
 
+   ⚠️ **REGENERATING IT IS HALF THE JOB — IT IS A BUCKET-SERVED BLOB AND NOTHING HERE
+   UPLOADED IT.** `useDeclarationsHubStats` fetches `/governance/declarations_hub_stats.json`
+   from GCS, and until 2026-08-21 this skill had no sync step at all: it regenerated the file
+   in step 6, committed it in step 7, and stopped. So `/governance/declarations` was stale on
+   prod **by construction, on every run**. Measured that day: the served copy was from
+   2026-08-16 while local was 2026-08-20 — across the schema change in the ⚠️ note above, so
+   the deployed bundle was reading `organisations` / `organisationPeople` out of a blob that
+   still carried `companies` / `companyMps`. Publish it:
+
+   ```bash
+   npm run bucket:sync:paths -- governance/declarations_hub_stats.json
+   ```
+
+   Verify with `npm run db:check-generated`, which byte-compares all four
+   `REFRESH_GENERATORS` artifacts (`scripts/db/refresh_coverage.ts`) against the live bucket
+   and exits 1 on any that differ. The registry is where a NEW generated artifact declares
+   its publish path; do not re-add that knowledge as prose here.
+
 7. **Commit**:
    ```bash
    git add data/parliament/declarations \

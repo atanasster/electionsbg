@@ -22,6 +22,7 @@ import {
   REFRESH_GENERATORS,
   TOLERATED_GITIGNORED_INPUTS,
 } from "./refresh_coverage";
+import { isExcluded } from "../bucket_sync_paths";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -555,6 +556,55 @@ test("REFRESH_GENERATORS names real scripts writing real committed artifacts", (
     assert.ok(
       src.includes(spec.artifact),
       `${gen}: ${entry} never references its declared artifact ${spec.artifact} — the REFRESH_GENERATORS entry is stale`,
+    );
+  }
+});
+
+// ── the PUBLISH half (2026-08-21) ───────────────────────────────────────────
+// The three tests above are entirely about the artifact on DISK. They passed for
+// `db:gen-culture-hub-stats` from the day it shipped (2026-08-18) while
+// `culture/derived/hub_stats.json` returned 404 from the bucket — chain member,
+// git-tracked, referenced by its entry file, and never uploaded. The sibling
+// `governance/declarations_hub_stats.json` was 4 days stale on the same day,
+// across a SCHEMA change (companies/companyMps → organisations/
+// organisationPeople), so the deployed bundle was reading keys the served blob
+// did not have.
+//
+// Both are bucket-served static blobs, so "current on disk" is not the property
+// anyone cares about. These two close the other half.
+
+test("every REFRESH_GENERATORS artifact declares the bucket path that publishes it", () => {
+  for (const [gen, spec] of Object.entries(REFRESH_GENERATORS)) {
+    assert.ok(
+      spec.bucketPath,
+      `${gen}: no bucketPath — nothing states how its committed artifact reaches GCS, which is how culture/derived/hub_stats.json served 404 for two days`,
+    );
+    // The declared publish path must actually COVER the artifact, or the sync
+    // runs, reports success and uploads something else. `data/` is the sync
+    // root, so the artifact is the bucketPath with that prefix.
+    const covered =
+      spec.artifact === `data/${spec.bucketPath}` ||
+      spec.artifact.startsWith(`data/${spec.bucketPath}/`);
+    assert.ok(
+      covered,
+      `${gen}: bucketPath "${spec.bucketPath}" does not cover artifact "${spec.artifact}" — syncing it would not publish the file`,
+    );
+  }
+});
+
+test("no REFRESH_GENERATORS artifact is refused by bucket:sync:paths", () => {
+  for (const [gen, spec] of Object.entries(REFRESH_GENERATORS)) {
+    // The mirror failure: an artifact under a subtree bucket_sync_paths REFUSES
+    // (procurement/ is the live example — PG-served, with a four-file allowlist
+    // these two happen to be on). A future generator writing into funds/,
+    // council/ or opencalls/ would be un-publishable by this route, and the
+    // honest signal is a red gate here rather than a sync that prints
+    // "✗ refusing" into a log nobody reads.
+    const reason = isExcluded(spec.bucketPath);
+    assert.equal(
+      reason,
+      null,
+      `${gen}: bucket:sync:paths refuses "${spec.bucketPath}" — ${reason}. A committed, bucket-READ artifact cannot live on a path the sync excludes; either add it to that subtree's allowlist or the artifact needs a different home.`,
     );
   }
 });

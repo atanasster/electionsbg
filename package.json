@@ -205,6 +205,7 @@
     "db:gen-hub-stats": "tsx scripts/db/gen_procurement/hub_stats.ts",
     "db:gen-sector-stats": "tsx scripts/db/gen_procurement/sector_stats.ts",
     "db:gen-culture-hub-stats": "tsx scripts/db/gen_culture/hub_stats.ts",
+    "db:check-generated": "tsx scripts/db/check_generated_artifacts.ts",
     "db:gen-declarations-hub-stats": "tsx scripts/db/gen_governance/declarations_hub_stats.ts",
     "gen:shlyo-sql": "tsx scripts/db/gen_sql/shlyo_query_fold.ts",
     "gen:risk": "tsx scripts/risk/gen_risk.ts",

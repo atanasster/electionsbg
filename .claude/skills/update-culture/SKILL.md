@@ -133,8 +133,28 @@ refuses to write a partial artifact on failure.
    ```bash
    echo "was $(git show HEAD:data/culture/overview.json | grep -c '"eik"') → now $(grep -c '"eik"' data/culture/overview.json)"
    ```
-3. Commit `data/culture/*.json` and `bucket:sync data/culture/`
-   (`cp -Z` — GCS serves identity; avoid `gsutil -m` on macOS).
+3. Commit `data/culture/*.json`, then publish:
+   ```bash
+   npm run bucket:sync:paths -- culture
+   ```
+   (`cp -Z` — GCS serves identity; avoid `gsutil -m` on macOS. The older form of
+   this line read `bucket:sync data/culture/`, which is not a command: `bucket:sync`
+   is the full-tree rsync and takes no path argument.)
+
+   ⚠️ **`data/culture/derived/hub_stats.json` is NOT refreshed by this skill, and
+   this step is not what publishes it.** It is written by `db:gen-culture-hub-stats`,
+   the last step of `db:refresh`, from contracts / tenders / fund_projects /
+   agri_subsidies / person_role / interreg_partners — none of which this skill
+   touches. So the file moves when `update-procurement` runs, while the sync that
+   would ship it lives here, behind a trigger (`nfc_film_register`,
+   `ncf_grant_results`, `nfc_commissions`, `mc_dki_register`) that never fires for
+   it. Measured 2026-08-21: the blob had returned **404 for two days** — committed,
+   generator in the chain, never uploaded — and `/culture` served its tiles without
+   numbers at a 200, because the hook degrades a 404 to „no figure" on purpose.
+   The orchestrator now checks all four such artifacts unconditionally
+   (`npm run db:check-generated`, process-watch-report step 8); the sync above
+   still covers it whenever this skill runs, which is a second chance, not the
+   mechanism.
 4. Stamp the ingest state:
    ```bash
    npx tsx scripts/stamp-ingest.ts update-culture --summary "НФЦ film register: <N> films, €<X>M, <P> producers, <first>–<last>"
