@@ -1,6 +1,6 @@
 ---
 name: naiasno-post
-description: Draft a Наясно social post and save a reviewable draft (never auto-publishes). Three kinds — DATA (a number-led card grounded in the site's own data AND confirmed against a public source), FEATURE (announce a new feature / product launch, e.g. a new tool or site), and DATASET (announce newly ingested data). Checks the registry for duplicates; feature/dataset launches default to pinned for ~2 weeks. Use when the user asks to "create/draft a post", "make a Facebook card", "announce a new feature / launch", "post that we added new data", "post about <topic>", "пост за <тема>", "напиши пост", or to turn a data finding / today's watcher report into a shareable post.
+description: Draft a Наясно social post — Facebook, LinkedIn and X copy from one grounded finding — and save a reviewable draft (never auto-publishes). Three kinds — DATA (a number-led card grounded in the site's own data AND confirmed against a public source), FEATURE (announce a new feature / product launch, e.g. a new tool or site), and DATASET (announce newly ingested data). Checks the registry for duplicates; feature/dataset launches default to pinned for ~2 weeks. Use when the user asks to "create/draft a post", "make a Facebook / LinkedIn / X post", "announce a new feature / launch", "post that we added new data", "post about <topic>", "пост за <тема>", "напиши пост", or to turn a data finding / today's watcher report into a shareable post.
 allowed-tools:
   - Read
   - Grep
@@ -57,11 +57,18 @@ data/confirmation gate — see Post kinds. Rules 3–5 always apply.)_
 3. **No duplicates.** Run the dup-check before composing (step 2).
 4. **Non-partisan, no emojis, plain Bulgarian.** Let the number be the point;
    no adjectives, no outrage, no party-side framing. (User preference: no emojis.)
-5. **Link goes in the first comment, not the post body** (Facebook throttles
-   link posts). The draft states this.
-6. **End with a share CTA.** Every post body (BG and EN) closes with a one-line
-   call to share, as its last line — BG: «Споделете, за да стигне Наясно до
-   повече хора.» / EN: «Share it so Наясно reaches more people.»
+5. **Link placement is per platform** — the draft states it per section.
+   Facebook and LinkedIn: **first comment**, never the body (both demote posts
+   carrying an outbound link). X: **in the body**, because a first-comment link
+   on X is invisible.
+6. **End with a share CTA** on Facebook and LinkedIn — one line, as the last
+   line — BG: «Споделете, за да стигне Наясно до повече хора.» / EN: «Share it
+   so Наясно reaches more people.» **Not on X**: it costs ~40 of 280 characters
+   that the number and its basis need.
+7. **One finding, three rewrites — never one body pasted three times.** The
+   FIGURE and its BASIS are identical across platforms; only the framing moves.
+   A number that is „40,4%" on Facebook and „над 40%" on X is two different
+   claims, and the second is the one that gets screenshotted.
 
 ## Pipeline
 
@@ -156,6 +163,43 @@ and tell the user — do not draft an unverifiable claim.
 - **EN body (optional):** same, concise, ending with "Share it so Наясно reaches
   more people."
 
+### Step 5b — LinkedIn and X (write these, don't skip them)
+
+The spec takes `li` and `x` beside `bg`/`en`. Each is `{ bg, en? }`. Omit one and
+the draft prints „(няма — не публикувай копието за Facebook тук)" in its place,
+because a silently missing section is indistinguishable from a deliberate
+Facebook-only call, and the operator resolves that ambiguity by pasting the
+Facebook copy — the exact outcome these fields exist to prevent.
+
+**LinkedIn** — `li`
+- **The first ~200 characters are all that shows** before „…see more". The
+  NUMBER and what it is over must be inside them. A hook that defers the figure
+  to paragraph two is a hook nobody expands.
+- **Method is an asset here, not a caveat to bury.** This is the one audience
+  that rewards „both figures come from the same query on the same basis". Say
+  the denominator out loud.
+- **Write the EN.** LinkedIn is where the non-Bulgarian audience is — write it
+  even when the Facebook post ships BG-only.
+- Working range ~900–1300 characters (the cap is ~3000). Up to 3 hashtags at the
+  end, only ones a person would actually follow. Link in the first comment.
+
+**X** — `x`
+- **280 weighted characters, enforced.** `post_tool.ts save` REFUSES an
+  over-length body before it renders a card or touches the registry. A URL
+  counts 23 however long it is; Cyrillic counts 1 per character, same as Latin.
+  The draft prints the live count per language, e.g. `### BG (217/280)`.
+- **The link goes in the body** and the card image is attached — the image
+  replaces the link preview, so you get the number twice.
+- **No share CTA** (rule 6).
+- **If it does not fit, it is a thread, not a truncation.** Post 1 carries the
+  number and the link; post 2 carries the basis. Never let X cut the end — the
+  end is where the caveat lives.
+
+**The rule that outranks all of the above:** if a caveat will not fit, the POST
+does not fit. Narrow the claim until the caveat fits, rather than shipping the
+figure without it. „40,4%, при 40,9% за страната" is publishable in 280
+characters; „40,4%" alone is not, at any length.
+
 ### Card spec — prefer the infographic
 
 **Stick to characters the card font actually has.** The renderer draws with
@@ -248,8 +292,10 @@ Spec shape:
   "keyFact": "2,4 млрд. лв. обществени поръчки възложени без конкуренция през 2024",
   "link": "https://electionsbg.com/procurement",
   "sources": ["data/procurement/summary.json", "https://www.aop.bg/..."],
-  "bg": "…BG post body…",
-  "en": "…optional EN…",
+  "bg": "…BG post body (Facebook — the canonical body)…",
+  "en": "…optional EN (Facebook)…",
+  "li": { "bg": "…LinkedIn BG…", "en": "…LinkedIn EN…" },
+  "x":  { "bg": "…X BG, ≤280 weighted…", "en": "…X EN…" },
   "card": { "value": "2,4 млрд. лв.", "label": "обществени поръчки, възложени\nбез конкуренция през 2024 г.", "source": "Източник: АОП", "theme": "dark" }
 }
 ```
@@ -263,7 +309,7 @@ actually gone out, record where, so the next dup-check and the next
 back-catalogue seeding can tell "rendered" from "published":
 
 ```bash
-node_modules/.bin/tsx scripts/posts/post_tool.ts posted <slug> fb-page,fb-group [--at YYYY-MM-DD]
+node_modules/.bin/tsx scripts/posts/post_tool.ts posted <slug> fb-page,fb-group,li,x [--at YYYY-MM-DD]
 ```
 
 Channels: `fb-page`, `fb-group`, `ig`, `li`, `x`, `pinterest`, `tg`. There is
@@ -328,6 +374,8 @@ and reminds you to pin feature/dataset launches.
 
 ## Step 7 — Review
 
-Show the operator: the rendered card (Read the PNG), the BG/EN copy, the deep
-link, and the confirming sources. Remind: post the image natively, link in the
-first comment.
+Show the operator: the rendered card (Read the PNG), the copy for all three
+platforms, the deep link, and the confirming sources. Check the X counts the
+draft prints — a body at 279/280 is one edit away from being refused, so leave
+it room. Remind: image native on all three; link in the first comment on
+Facebook and LinkedIn, in the body on X.

@@ -50,6 +50,7 @@ import {
   type PlaceCardSpec,
   type VersusCardSpec,
 } from "./cardKit";
+import { X_LIMIT, X_URL_WEIGHT, xWeightedLength } from "./xLength";
 import {
   CHANNELS,
   CHANNEL_LABEL,
@@ -90,6 +91,42 @@ export type PostEntry = {
   postedTo?: Posted[];
 };
 
+/** One platform's copy. `en` is optional everywhere; on LinkedIn it is the half
+ *  that travels, so the skill asks for it there first. */
+type PlatformBody = { bg: string; en?: string };
+
+/** Render one platform's block, or say it is MISSING.
+ *
+ *  An absent section is written out rather than omitted, because the operator
+ *  reads this file to decide what to paste where. A silently missing LinkedIn
+ *  block is indistinguishable from a deliberate "Facebook only" call, and the
+ *  operator resolves that ambiguity by pasting the Facebook copy — which is the
+ *  outcome the per-platform bodies exist to prevent. */
+const platformSection = (
+  label: string,
+  body: PlatformBody | undefined,
+  suffix: (b: string) => string = () => "",
+): string[] => {
+  if (!body)
+    return [
+      `## ${label}`,
+      ``,
+      `(няма — не публикувай копието за Facebook тук)`,
+      ``,
+    ];
+  return [
+    `## ${label}`,
+    ``,
+    `### BG${suffix(body.bg)}`,
+    ``,
+    body.bg.trim(),
+    ``,
+    ...(body.en
+      ? [`### EN${suffix(body.en)}`, ``, body.en.trim(), ``]
+      : [`### EN`, ``, `(няма)`, ``]),
+  ];
+};
+
 type PostSpec = Omit<
   PostEntry,
   "kind" | "image" | "tags" | "entities" | "sources" | "pin" | "pinUntil"
@@ -101,8 +138,15 @@ type PostSpec = Omit<
   pin?: boolean; // default: false for data, true for feature/dataset
   pinUntil?: string | null; // default = date + 14 days for pinned posts
   image?: string | null; // reference an existing image (e.g. ai/assets/og.png) or null for link auto-preview
-  bg: string; // BG post body
-  en?: string; // optional EN body
+  bg: string; // BG post body — Facebook (the canonical body)
+  en?: string; // optional EN body — Facebook
+  /** Per-platform REWRITES of the Facebook body, not translations of it.
+   *  Omit one and the draft says so rather than silently reusing the FB copy:
+   *  a 280-char network and a 3000-char one cannot carry the same sentences,
+   *  and pasting the FB body into X truncates mid-number, which is the one
+   *  failure that turns a sourced figure into a wrong one. */
+  li?: PlatformBody; // LinkedIn
+  x?: PlatformBody; // X
   // Every renderer cardKit exposes, so the dispatcher's `as` casts stay honest.
   // LineCardSpec/PlaceCardSpec were missing until 2026-08-16 and compiled only
   // because they happen to overlap a listed member; VersusCardSpec does not, so
@@ -219,6 +263,23 @@ const cmdSave = (specPath: string, force: boolean): void => {
 
   // Image: (1) referenced existing file, (2) rendered card, or (3) none —
   // a post with no card relies on the link's og:image preview.
+  // X is a hard cap, checked BEFORE the card is rendered and the registry is
+  // touched — a draft that saves and then says "too long" leaves a rendered PNG
+  // and a registry row for copy nobody can post.
+  for (const [lang, body] of [
+    ["bg", spec.x?.bg],
+    ["en", spec.x?.en],
+  ] as const) {
+    if (!body) continue;
+    const n = xWeightedLength(body);
+    if (n > X_LIMIT)
+      throw new Error(
+        `x.${lang} is ${n} weighted characters, over X's ${X_LIMIT}. ` +
+          `Links count as ${X_URL_WEIGHT}. Cut the body — do not let X truncate it, ` +
+          `because what it cuts is the end, where the basis and the caveat are.`,
+      );
+  }
+
   let image: string | null;
   if (spec.image !== undefined) {
     image = spec.image; // existing path or explicit null
@@ -300,6 +361,11 @@ const cmdSave = (specPath: string, force: boolean): void => {
         : [
             `- Постни линка в текста — Facebook ще издърпа og:image автоматично: ${spec.link}`,
           ];
+  publishNote.push(
+    `- LinkedIn: линкът пак в първия коментар; първите ~200 знака се виждат преди „…още“, така че числото трябва да е в тях.`,
+    `- X: линкът Е в текста (брои се за ${X_URL_WEIGHT} знака); прикачи изображението, за да замести link preview-а.`,
+    `- Отбележи публикуването: post_tool.ts posted ${spec.slug} fb-page,li,x`,
+  );
   if (pin)
     publishNote.push(
       `- Закачи поста (Група: ⋯ → Pin to Featured; Страница: ⋯ → Feature). Откачи след ${pinUntil}.`,
@@ -321,6 +387,12 @@ const cmdSave = (specPath: string, force: boolean): void => {
     spec.bg.trim(),
     ``,
     ...(spec.en ? [`## EN`, ``, spec.en.trim(), ``] : []),
+    ...platformSection("LinkedIn", spec.li),
+    ...platformSection(
+      "X",
+      spec.x,
+      (b) => ` (${xWeightedLength(b)}/${X_LIMIT})`,
+    ),
     `## Публикуване`,
     ...publishNote,
   ].join("\n");
