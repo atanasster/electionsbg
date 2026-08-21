@@ -2559,19 +2559,30 @@ Three gap classes; the **C** class is the dangerous one — a working `:cloud` l
 that the orchestrator simply never emits, so prod silently diverges from local on a
 routine trigger.
 
-**Class C — ingested locally, NO cloud-deploy emitted in `process-watch-report`
-(all verified: loader exists in `package.json`, serves live data, string count 0 in
-the orchestrator):**
+**⚠️ RECONCILED 2026-08-21 against the live repo — only C1 was a real gap, and it
+is now FIXED.** The original Class-C table (the audit that produced it) was stale:
+the repo had moved past three of the four, and a completeness gate the plan
+proposed to *build* (v2-b) already exists and had already *decided* two of them.
+The corrected picture:
 
-| # | dataset | served by | local trigger | fix |
-|---|---|---|---|---|
-| C1 | roll-call corpus (`vote_*`/`mp_*`, 134/135) | `/api/db/session`, `mp-similarity`, `mp-dissents`, `vote-day-summary`… | `parliament_votes` → `update-rollcall` | emit `db:load:rollcall:pg:cloud && db:load:rollcall-derived:pg:cloud`. `update-rollcall/SKILL.md:123` says outright *"the serving database — NOTHING runs these for you."* |
-| C2 | КЗП retail prices (048) | `price_products` resource + `price-payload`/`price-product`/`price-history`/`price-search`… | `kzp_prices` → `update-prices` | emit `prices:ingest:cloud` then `prices:payloads:cloud` (ship the bundle first per CLAUDE.md) |
-| C3 | CR-НКИД declared activity (`company_nkid`, bit-12 risk) | `/company` `nace_div` + `nkidMismatch` chip | `tr:daily-refresh` runs `db:load:cr-nkid:pg` locally | add `db:load:cr-nkid:pg:cloud` + `rebuild_contract_risk_cache()` to the TR-daily emit |
-| C4 | CR-Deeds founding dates (`company_founded`) | `/company` founding date | `tr:daily-refresh` runs `db:load:cr-founding:pg` locally | add `db:load:company-founded:pg:cloud` to the TR-daily emit (this is also G19's live 19,844-vs-74 divergence) |
+| # | dataset | verdict on re-verification | disposition |
+|---|---|---|---|
+| **C1** | roll-call corpus (`vote_*`/`mp_*`, 134/135) | **REAL gap** — hooks `useVoteDaySummary`/`useContestedVotes`/`useMpSimilarity`/`useMpDissents` hit LIVE Cloud SQL routes; `update-rollcall/SKILL.md:123` documents the pair but `process-watch-report` Step 8 had **no `update-rollcall` row**, so the tiles went stale after each session ingest. | **✅ FIXED** — commit `22c6039e07` added the Step 8 row emitting `db:load:rollcall:pg:cloud && db:load:rollcall-derived:pg:cloud`. |
+| **C2** | КЗП retail prices (048) | **NOT a gap.** Prices IS published every deploy — the F-profiles *measure* it (F55: 1,403 s, "73% of a no-contracts publish"), and `update-prices/SKILL.md:32` documents `prices:ingest:cloud` as the production path. The audit's "silently stale" was disproven by the plan's own measurements. | dropped |
+| **C3** | CR-НКИД (`company_nkid`) | **NOT a daily gap.** `load_cr_nkid_pg.ts` reads the gitignored `raw_data/tr/cr_deeds.sqlite` (a manual crawl) + reseeds the crosswalk from committed `naceCpv.ts`; on a daily `tr:daily-refresh` with no new crawl it re-parses the same captures → no change. Sanctioned as `manual-trigger` in `cloud_loader_coverage.ts:75`. | dropped |
+| **C4** | CR-Deeds `company_founded` | **NOT a daily gap — deliberately.** `process-watch-report:797` explicitly forbids auto-emit ("no daily watcher … a ~14 h backfill"), and `cloud_loader_coverage.ts:70` sanctions it as `manual-trigger`. Auto-emitting it (the audit's proposed "fix") would push a 14-hour backfill into the daily loop. G19's 19,844-vs-74 divergence is real but is a manual-publish item, not a daily one. | dropped |
 
-Latent, not yet live: `db:load:subcontractors:pg:cloud` — `tender_subcontracting`
-(171) has no `functions/` reader yet; wire its cloud step when a route is added.
+Latent, unchanged: `db:load:subcontractors:pg:cloud` — sanctioned `manual-trigger`
+in `cloud_loader_coverage.ts:54` (no `functions/` reader yet).
+
+**Lesson for v2-b (below): the completeness gate ALREADY EXISTS but has a scope
+blind spot that let C1 through.** `cloud_loader_coverage.ts` + its test
+(`docs/plans/cloud-loader-coverage-v1.md`, shipped 2026-08-20) assert every
+`:cloud` loader is *named in some skill `.md`* or sanctioned with a reason. Rollcall
+passed that test — it is named in `update-rollcall` — yet the **orchestrator's Step 8
+Next-steps** (the operator's actual publish checklist) omitted it. "Named in a skill"
+≠ "emitted by `process-watch-report`". Closing that blind spot is the real v2-b work
+(see the reconciled v2-b row).
 
 **Class A — served data with NO watcher source (upstream change is undetectable),
 structural — needs a new watcher, not just a Step 8 line:**
@@ -2601,8 +2612,9 @@ constants by hand *by design* — flag only if converting any to an automated sk
 
 The orchestrator's cloud-publish emission is currently **per-skill and
 hand-maintained** — each skill's Step-8 row lists its own `:cloud` commands, which
-is exactly how C1-C4 fell through (a loader with no row is never emitted) and how
-the shared caches get emitted N times (each triggering skill lists them).
+is exactly how C1 fell through (a PG-served loader with no Step-8 row is never
+emitted, even though the coverage gate passed it for being named in `update-rollcall`)
+and how the shared caches get emitted N times (each triggering skill lists them).
 
 v2 replaces the hand list with the **derived-object registry (v2.2) driving the
 emission**. At the end of `process-watch-report`:
@@ -2626,17 +2638,17 @@ resolver: it fails when a served dataset has no path from "upstream changed" to
 
 ### v2.5 — Documentation to update (directive: correct notes, timings, instance)
 
-The tier upgrade and the C-gaps make several docs wrong. **These are plan
-deliverables, not done here.** The forward-looking (non-historical) references:
+The tier upgrade makes several docs wrong (the C-gaps were reconciled away — only
+C1 was real and it is fixed). **These are plan deliverables, not done here.** The
+forward-looking (non-historical) references:
 
 - **CLAUDE.md** — "contracts ~68 min" is now ~8 min (F51); the several
   `db-g1-small` / "minutes on a db-g1-small" perf asides (lines ~1527, 1806, 2009,
   2307, 3716) are stale as *expectations* but valid as *history* — reword to name
-  the tier they measured. Add the four C-gap cloud steps to the relevant skill
-  ordering notes.
-- **`process-watch-report/SKILL.md`** — add the C1-C4 emissions; then, once v2.4
-  lands, replace the hand-maintained Step-8 table with the resolver-driven emission
-  and note the completeness gate.
+  the tier they measured.
+- **`process-watch-report/SKILL.md`** — the C1 rollcall emission is done
+  (`22c6039e07`); the remaining work is v2-b/v2-e: replace the hand-maintained Step-8
+  table with a resolver-driven emission and close the coverage-gate blind spot.
 - **`update-rollcall`, `update-prices` SKILL.md** — already correct locally; the
   fix is orchestrator-side (they document the `:cloud` step; the orchestrator must
   *run* it).
@@ -2656,19 +2668,109 @@ order:
 
 | # | v2 item | depends on | why now |
 |---|---|---|---|
-| v2-a | **Emit C1-C4 cloud steps** in `process-watch-report` | none | pure gap-fill; prod is silently stale on 4 routine triggers today. Ship first. |
-| v2-b | **Ingestion completeness gate** (v2.3 guardrail) | v2-a | stops the next C-gap; cheap static test |
+| v2-a | ~~Emit C1-C4 cloud steps~~ → **emit C1 (rollcall)** in `process-watch-report` | none | **✅ DONE** (commit `22c6039e07`). C2/C3/C4 reconciled away (v2.3) — only rollcall was real. |
+| v2-b | **Close the completeness-gate blind spot** — the gate exists (`cloud_loader_coverage.ts`) but checks "named in a skill", not "emitted by the orchestrator's Step 8"; extend it to assert every non-exempt PG-served loader appears in `process-watch-report`'s emit table | v2-a | this is what would have caught C1 mechanically; the plan's original "build a gate" is already shipped |
 | v2-c | **Derived-object registry** (generalise `scopedMatviews.ts`) | none | the spine of v2.2 + v2.4 |
 | v2-d | **Deploy resolver** — minimal deploy set | v2-c | removes the ~22% double-refresh waste (F25); collapses the money-tail fan-out |
-| v2-e | **Resolver-driven Step-8 emission** + completeness gate | v2-c, v2-d | makes "mark all data for deployment" computed, not curated |
-| v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | default-compute-on-cloud now the instance is big; delete `buildOrShipNormalcy`/`Tender` if measured cheap |
+| v2-e | **Resolver-driven Step-8 emission** | v2-c, v2-d | makes "mark all data for deployment" computed, not curated |
+| v2-f | **Measure + retire ship-from-local caches** (v2.1) | one cloud build each | default-compute-on-cloud now the instance is big; delete `buildOrShipNormalcy`/`Tender` if measured cheap. **Blocked: needs a real prod cloud build to measure.** |
 | v2-g | **A-class watchers** (dossier, cr-deeds capture, scope rollover) | none | structural coverage; A3 (Jan-1) is a dated ticking bug |
 
-v2-a/b are the highest value-per-effort (four confirmed live divergences, small).
-v2-c→e are the structural core (the chain-aware deployment the directive asks for).
-v2-f is now *subtraction* — the tier upgrade turned "ship from local" from the plan's
-thesis into a set of hacks to measure-and-delete. The pre-upgrade Phases 2/3 narrow
-to the transfer-bound tables only.
+v2-a is done; v2-b is now "close the gate's blind spot", not "build a gate" (the
+gate already ships — `docs/plans/cloud-loader-coverage-v1.md`). v2-c→e are the
+structural core (the chain-aware deployment the directive asks for). v2-f is
+*subtraction* — the tier upgrade turned "ship from local" from the plan's thesis into
+a set of hacks to measure-and-delete — but it is **blocked on a prod measurement**, so
+it cannot land unattended. The pre-upgrade Phases 2/3 narrow to the transfer-bound
+tables only.
+
+### v2.7 — Reconciliation with F53-F56 (final review, 2026-08-21)
+
+The 2026-08-21 no-contracts profile added four findings; three change the v2 design
+and one confirms it. Folded here rather than left in the F-log.
+
+**R1 (BLOCKING) — F56 breaks the mirror model for an entire table class, and the
+G20 delta-DELETE would destroy it.** F56 shows cloud `council_resolution` = 4,732
+against local's 4,601 and that this is **correct**: `db:load:council:pg` is
+upsert-only and never deletes, so cloud is a permanent superset of any single
+local shard tree. This is not one table — the same "upsert-only, ACCUMULATES,
+cloud ⊇ local" contract holds for **`open_calls`** (must never anti-join delete),
+**`kzk_appeals`** (COALESCE-guarded, unregenerable outcomes), **`ted_notice`/`ted_coverage`**,
+**`price_last_seen`**, **`person_slug_retired`**, the accumulating **magistrate
+roster**, and the `shipped_digest` table Phase 3 itself proposes. Consequences the
+v2 design must absorb:
+
+- **The v2.4 completeness/parity gate must classify each served table as `MIRROR`
+  (cloud == local) or `ACCUMULATOR` (cloud ⊇ local), and assert the right relation
+  per class.** A blanket `cloud == local` or `local >= cloud` check false-fails on
+  every accumulator — exactly the "naive parity assertion would fail on a correct
+  database" F56 warns about. The registry (v2-c) is the natural home for the flag.
+- **G20's / Phase 3's anti-join DELETE must be STRUCTURALLY FORBIDDEN on
+  accumulators, not merely whitelisted.** G20 already carves out `obed-` synthetic
+  rows for a different reason; this is larger. A delta-ship that DELETEs cloud keys
+  absent from local would erase the 131 council rows (and every unregenerable
+  `kzk_appeals` outcome) on the first run. The corpus tables Phase 3 targets
+  (`contracts`, `tenders`, `tr_*`) are `MIRROR`; the accumulators must be
+  ship-upsert-only, DELETE arm disabled. Make the class the gate, so a future table
+  cannot opt into delta-DELETE by omission.
+- **The G16/G23 per-table staleness assertion inverts for accumulators.** "abort if
+  local is older than cloud" is right for a mirror and wrong for an accumulator,
+  where cloud is *expected* to lead. For accumulators the correct precondition is
+  only "local's new rows are a superset of what we're about to upsert" — never a
+  count comparison.
+
+**R2 — F53/F34 are the proof that the fix must land in the SKILLS, not the plan —
+and the 2026-08-21 reconciliation confirmed it in both directions.** F53 records
+`db:load:funds:pg:cloud` refusing its scope a *second* time in a week, because F34's
+remediation "was written into this document and nowhere else." The reconciliation
+found this cuts both ways: F34 was later fixed **in the skill** (`update-funds/SKILL.md:471`
+and `process-watch-report:688` both now carry `-- --full`), so F53 is already closed;
+and C1 was fixed the same way — **in `process-watch-report` Step 8** (commit
+`22c6039e07`), not as a plan note. The rule holds: a required cloud step lives on the
+operator's emission path or it recurs. So:
+
+- The C1 fix (and the already-landed F53 funds-`--full` fix) live in the **skills /
+  the emission table** (`process-watch-report`, `update-funds/SKILL.md`), never as a
+  plan note. F53 is the field evidence that the *hand-maintained* emission is the root
+  cause, so v2-e (resolver-driven emission) is upgraded from "structural core" to
+  **the fix for a recurring live failure** — and v2-b (the gate blind spot) is what
+  would catch the next one mechanically.
+- Add F53's funds-scope choice to the emission logic itself: emit `--full` when
+  `fund_beneficiaries` moved, `--payloads-only` when only payloads did — the resolver
+  knows which upstream changed, so it can pick the flag the skill currently asks a
+  human to pick.
+
+**R3 — F54 adds a reorder lever to v2.2, with a correctness caveat the resolver
+already half-solves.** F54 measured the person-layer chain at **170 s** when not
+queued behind `contracts`, against 900-1,050 s when it was — a hypothesised ~13 min
+reclaim per full deploy. Two ways this lands in v2:
+
+- **The resolver delivers most of it for free.** When `contracts` is NOT in the
+  dirty set, `company_public_money` (127) is not rebuilt, so the person chain is
+  never queued behind a contracts load in the first place — which is precisely the
+  cheap case F54 measured (this run had no contracts step). v2.2 should state that
+  the person-chain-behind-contracts cost only arises when contracts *is* dirty.
+- **The caveat when contracts IS dirty:** running the person chain *first* to dodge
+  the contention would make it read a **stale 127**, publishing a person layer that
+  omits the new contracts' money. So the reorder is only safe when contracts is
+  clean — which the resolver detects — and F54's contention hypothesis (F26:
+  unestablished, single measurement) is a separate, test-before-acting item, not a
+  reorder to bank. Keep it as a measurement, per F54's own ⚠️.
+
+**R4 (superseded by the 2026-08-21 reconciliation) — prices is NOT a gap; F55 is
+about cost, not staleness.** This finding originally read C2 as "prices has no
+orchestrator-emitted cloud step, and its cost compounds." The reconciliation
+disproved the premise: `prices` IS published every deploy (F55 *measures* it at
+1,403 s, and `update-prices/SKILL.md:32` documents `prices:ingest:cloud` as the daily
+production path). What survives is the cost observation, which stands on its own:
+`prices` is 73% of a no-contracts publish and its cost is bounded by *days since last
+publish*, so deferring a publish is strictly more expensive — an argument for running
+the (already-emitted) prices step promptly, not evidence of a missing emission.
+
+**One thing NOT changed:** F53-F56 do not touch the tier re-baseline (v2.1), the
+double-refresh waste (v2.2), or the ship-from-local retirement (v2-f). The person
+chain's 170 s (F54) does, however, make the earlier "person chain is the second hour"
+framing (F22) a `db-g1-small`-behind-`contracts` artifact — note it where F22 is cited.
 
 ## Operational notes
 
