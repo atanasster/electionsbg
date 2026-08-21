@@ -134,19 +134,17 @@ Add aliases to `scripts/officials/_aliases.json` (key = verbatim registry name, 
 npx tsx scripts/officials/build_municipal_shards.ts
 ```
 
-## Step 1c — Company cross-reference + connections
+## Step 1c — The officials↔company set (NOT built here any more)
 
-```bash
-npx tsx scripts/run-officials-links-only.ts        # company_links.json
-```
+**[2026-08-21] There is nothing to run in this step.** `scripts/run-officials-links-only.ts` and the builder behind it (`build_officials_company_links.ts` → `data/officials/derived/company_links.json`) are **DELETED** — `docs/plans/company-page-consolidation-v1.md` (Tier 6). That file was 70,525 links over 9,659 officials and 22,960 UICs, **85.5% of them low-confidence**, graded on the two-sided name test its own header stated — `high` only when the name is unique among officials (`namesakeCount === 1`) AND maps to a single TR company (`trNamesakeCount === 1`). Migration 158's header calls that one-company straitjacket wrong in both directions: it drops a rare-name official's whole set behind one busy registered agent, and passes a name held by two people with six companies each.
 
-The first builder joins every executive + municipal official to companies — via their own declared ownership stakes and via a Commerce Registry (TR) officer/owner name match against `raw_data/tr/state.sqlite` — and writes `data/officials/derived/company_links.json`. Each link carries a `confidence` flag. A declared stake is always `high`. A TR name-match is `high` **only when the name is rare on BOTH sides** — unique among officials (`namesakeCount === 1`) AND mapped to a single TR company (`trNamesakeCount === 1`); otherwise it is `low`. This two-sided test is what stops a common name (e.g. "Димитър Георгиев Димитров", which is an officer of ~30 distinct TR companies) from handing one councillor every company that shares the name — the high-only consumers (`pep_connected`, the connections graph) would otherwise surface false ties like a Горна Малина councillor "running" Софарма Трейдинг. Expect ~7,000 links with a large `low` share; a zero TR-link count means the SQLite is missing (run `/update-connections` first to build it).
+The officials↔company set is now **`company_politicians` at `kind='official'`**, built by `db:load:tr:pg` from the gated person layer — `person_role` at source tr/ngo through Bridge A/B, unioned with 096's confirmed declared stakes, and **REFUSED** on a `tr_name_fold_people` fold (148) the Commerce Registry says belongs to more than one human (an unmeasured fold is refused too). A shared name is refused rather than scored, so there is no per-row `confidence` grade left to filter on; what still keeps a Горна Малина councillor off Софарма Трейдинг's billions is the refusal, not a tier.
+
+⚠️ **An officials refresh alone therefore does not move that set — it needs the person layer first.** The order is Step 1d's `db:resolve:persons`, then `npm run db:load:tr:pg`. Both downstream consumers — `pep_connected` (`/update-procurement`) and the funds political-economy join (`/update-funds`) — read the table, so running either before `db:load:tr:pg` republishes the previous vintage at exit 0.
 
 (The old `run-officials-connections-only.ts` officials↔MP JSON bridge is **retired** — connections-engine-v1 §P4.3. `/connections` and the `/person` "Свързани лица" tile now read the live Postgres graph engine, which folds officials from the person layer, not this static bridge.)
 
-Re-run this builder after Step 1 / Step 1b so `company_links.json` reflects the fresh roster. It also runs automatically at the tail of the main declarations pipeline (`scripts/declarations/index.ts`), and feeds the councillor-conflicts + `company-connections/` passes there.
-
-> **After a significant officials refresh, re-derive the live connections graph.** `company_links.json` above is an input to the person layer. Once the officials roster is re-resolved (`db:resolve:persons` / its cloud chain), run `npm run db:load:graph:pg` (local) / `db:load:graph:pg:cloud` (prod) so the `/connections` graph + the `/person` tile pick up the new officials edges — the `update-persons` cloud chain already sequences this. There is no offline connections rebuild anymore.
+> **After a significant officials refresh, re-derive the live connections graph.** The refreshed roster reaches the graph through the person layer, not through any file this step writes. Once the officials roster is re-resolved (`db:resolve:persons` / its cloud chain), run `npm run db:load:graph:pg` (local) / `db:load:graph:pg:cloud` (prod) so the `/connections` graph + the `/person` tile pick up the new officials edges — the `update-persons` cloud chain already sequences this. There is no offline connections rebuild anymore.
 
 ## Step 1d — Reload Postgres, IN THIS ORDER
 
@@ -160,11 +158,22 @@ npm run db:load:declarations:pg -- --resolve   # fill person_id, REFRESH person_
 npm run db:load:employer-links:pg             # declared employer → procurement buyer (165+168)
                                               # publish: npm run db:load:employer-links:pg:cloud
 npm run db:load:person-elections:pg   # candidate_person — person_ids were just reassigned
+npm run db:load:tr:pg                 # company_politicians — see the ⚠️ below
 ```
 
 `db:load:person-elections:pg` is not optional after a re-resolve: `db:resolve:persons` mints
-new `person_id`s, so `candidate_person` goes stale and its data test fails. This is the same
-tail `npm run db:refresh` runs — reach for that when in doubt.
+new `person_id`s, so `candidate_person` goes stale and its data test fails.
+
+⚠️ **`db:load:tr:pg` IS THE ONE `npm run db:refresh` CANNOT STAND IN FOR.** The rest of this
+block is the same tail `db:refresh` runs, so reaching for that when in doubt is fine — but
+`db:load:tr:pg` is a `REFRESH_EXCLUSIONS` member (its input is the gitignored
+`raw_data/tr/state.sqlite`), so the chain skips it by design. It is what rebuilds
+`company_politicians` from the person layer this step just re-resolved, and both consumers —
+`pep_connected` (`/update-procurement`) and the funds political-economy join (`/update-funds`)
+— read that table. Skipping it republishes the previous vintage at exit 0, which is the failure
+Step 1c warns about; naming it in Step 1c and omitting it here is how an operator working
+top-to-bottom walks into it anyway. It needs the TR store on disk: run
+`npm run tr:daily-refresh` first if the clone has never had one.
 
 **The prerender slug manifest is NOT regenerated by anything above, and `npm run person:slugs`
 will not do it.** `data/person/prerender_slugs.json` feeds the production prerender + sitemap,
@@ -313,7 +322,7 @@ npx tsx scripts/officials/index.ts --year 2023
 
 Merge semantics (`scripts/officials/merge.ts`): a run is **authoritative for its target year and additive everywhere else**. It drops only the per-slug rows whose `sourceUrl` sits under the target register folder, then writes the fresh set — so re-running a year picks up upstream corrections *and* removals while leaving every other year alone, and re-running an unchanged year is a no-op. Replacement keys on the folder year in `sourceUrl`, never on `declarationYear`: the parsed year comes from inside the XML and does not track the folder (the live 2025 folder holds rows parsing to 2026 and even 2005).
 
-`index.json` accumulates — entries merge by slug with the higher `latestDeclarationYear` winning, and `years` unions. Treat it as a shared universe file: `scripts/funds/political_links.ts`, `declarations/tr/build_company_connections.ts`, `ngo/load_ngo_board_links_pg.ts` and `person/resolve_persons.ts` (`official_roster` → `/officials/<slug>`) all read it, so widening it widens the politically-exposed-person universe those builds produce. Re-run them after a backfill.
+`index.json` accumulates — entries merge by slug with the higher `latestDeclarationYear` winning, and `years` unions. Treat it as a shared universe file: `scripts/funds/political_links.ts` (which as of 2026-08-21 reads `data/officials/municipal/index.json` beside it — this file is the EXECUTIVE index and resolved 0 of the 116 municipal officials on its own), `ngo/load_ngo_board_links_pg.ts` and `person/resolve_persons.ts` (`official_roster` → `/officials/<slug>`) all read it, so widening it widens the politically-exposed-person universe those builds produce. Re-run them after a backfill.
 
 `assets-rankings.json` rebuilds from every per-slug file on disk (not just the run's year), so officials whose latest filing predates the run are kept. Per slug it rolls up `decls[0]`, which is the most recently *filed* declaration — declarations sort by `declarationYear`, then `filedAt` desc, then `entryNumber`, then `sourceUrl`. That matters for the ~111 officials who file more than once in a year (annual + exit): the exit filing is usually both later and more complete.
 

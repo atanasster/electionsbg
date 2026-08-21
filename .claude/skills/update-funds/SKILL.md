@@ -285,11 +285,26 @@ canonical.
 After the MP cross-reference runs (Step 1 above), the ingest folds in two more
 sources into a single derived shard set keyed by beneficiary EIK:
 
-- `data/officials/derived/company_links.json` (from `/update-officials`) —
-  non-MP officials with declared stakes or TR roles: cabinet, deputy ministers,
-  state-agency heads, regional governors, mayors, deputy mayors, council chairs,
-  councillors, chief architects. Only the **high-confidence** slice is used —
-  declarations and `namesakeCount == 1` TR roles.
+- `company_politicians` at `kind='official'` (Postgres — built by `db:load:tr:pg`
+  from the gated person layer, read through `readOfficialLinkRows()` in
+  `scripts/lib/mp_linkage.ts`) — non-MP officials with declared stakes or TR
+  roles: cabinet, deputy ministers, state-agency heads, regional governors,
+  mayors, deputy mayors, council chairs, councillors, chief architects.
+  **[2026-08-21]** this was `data/officials/derived/company_links.json` (from
+  `/update-officials`), of which only the **high-confidence** slice was used —
+  declarations and `namesakeCount == 1` TR roles. That file and its builder are
+  deleted (`docs/plans/company-page-consolidation-v1.md`, Tier 6): a name the
+  Commerce Registry says belongs to more than one human is now REFUSED by the
+  `tr_name_fold_people` fold (148) rather than graded, so there is no confidence
+  slice left to take. ⚠️ **The staleness trigger moved with it — `db:load:tr:pg`
+  (which needs a resolved person layer), not an `/update-officials` run.**
+  This is the OFFICIALS leg only; the MP arm above stays on the link set's
+  **unrestricted** scope, because `company_politicians` is contract-restricted
+  and this payload's join population is ИСУН beneficiaries, not contractors.
+- `data/officials/index.json` **and** `data/officials/municipal/index.json` —
+  slug → role / category / tier resolution. **Both**, since 2026-08-21: the first is
+  the EXECUTIVE index and resolves 0 of the 116 municipal officials, so on its own
+  every councillor lost their `municipality`.
 - `data/procurement/derived/top_contractors.json` + per-EIK
   `data/procurement/contractors/{eik}.json` (from `/update-procurement`) — the
   АОП award overlap per flagged EIK.

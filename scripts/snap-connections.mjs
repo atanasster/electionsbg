@@ -176,11 +176,13 @@ const SHOTS = [
   },
   {
     file: "09-all-companies.png",
-    // ⚠️ /mp/companies MOVES to /governance/companies in Tier 3, and widens from MPs to all
-    // public office-holders. Unlike a retired API this fails SILENTLY — the SPA renders its
-    // shell and this script screenshots an empty page rather than erroring — so update the
-    // URL in the same change that lands the redirect.
-    url: "/mp/companies",
+    // ⚠️ [2026-08-21] MOVED. /mp/companies is a firebase.json 301 to /governance/companies,
+    // and the page widened from MPs to all public office-holders
+    // (docs/plans/company-page-consolidation-v1.md Tier 3). The old URL was left here for a
+    // day, which is exactly the failure the note below describes: unlike a retired API this
+    // fails SILENTLY — the SPA renders its shell and this script screenshots an empty page
+    // rather than erroring — so a URL here must move in the same change as its redirect.
+    url: "/governance/companies",
     prep: async (p) => {
       await p.waitForLoadState("networkidle");
       await p.waitForTimeout(800);

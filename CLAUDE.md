@@ -2024,9 +2024,13 @@ That column counts DISTINCT public figures holding a gated registry role at each
 carries the pair, and the local chain already ordered it that way.
 
 ⚠️ **`person_link_n` is NOT `political_n` widened, despite reading like it.** `political_n`
-comes from `company_politicians` (008), which is built from `mp_connected`/`pep_connected` and
-therefore MONEY-restricted: **113 companies at 43 places**. `person_link_n` is the whole gated
-identity layer: **10,202 companies at 1,332 settlements / 260 municipalities**. Gating anything
+comes from `company_politicians` (008), whose two arms are derived in SQL from the gated person
+layer and INNER-JOIN procurement money, so it is MONEY-restricted: **135 companies at 48
+places** (re-measured 2026-08-21; it was 113 at 43 when this note was written, and the ratio,
+not the figure, is the point). (**[2026-08-21]** it used to be built FROM
+`mp_connected`/`pep_connected`; those two now read it —
+`docs/plans/company-page-consolidation-v1.md` Tiers 4-6.) `person_link_n` is the whole gated
+identity layer: **10,385 companies at 1,341 settlements / 260 municipalities**. Gating anything
 on the first while the page filters on the second is a live defect that already happened once —
 the tile's link to `/settlement/:id/companies` was hidden on 218 of 260 municipalities and
 1,290 of 1,332 settlements that HAVE a page, and one place (ekatte 80217) had a political link
@@ -3285,13 +3289,14 @@ Five things about it are easy to get backwards:
 
 - **The rule exists TWICE and the two must agree.** `owner_share.ts`
   (`scripts/declarations/tr/`) is the TypeScript twin, because the SQLite corpus is written
-  offline before Postgres exists and a BUILD-TIME artifact renders its `share_percent`
-  directly: `data/officials/derived/company_links.json` (via
-  `build_officials_company_links.ts`, which becomes `pep_connected` →
-  `company_politicians.relations`). **[2026-08-20] There were TWO** — the other was
-  `companies-index.json`, via `integrate.ts`, read by `/mp/company/:slug`; both that file and
-  `integrate.ts` are deleted (`docs/plans/company-page-consolidation-v1.md` Tier 5.2), and
-  Tier 6 retires the survivor. ⚠️ Its change is **INERT**
+  offline before Postgres exists. **[2026-08-21] It has NO rendering consumer left, and the
+  ⚠️ below is now the whole reason it is still live code.** There were two, both retired by
+  `docs/plans/company-page-consolidation-v1.md`: `companies-index.json` via `integrate.ts`,
+  read by `/mp/company/:slug` (Tier 5.2), and `data/officials/derived/company_links.json` via
+  `build_officials_company_links.ts`, which became `pep_connected` →
+  `company_politicians.relations` (Tier 6). `pep_connected` now READS `company_politicians`
+  instead of feeding it, and that table's `relations` are derived in SQL from the person layer
+  — so no committed artifact renders `share_percent` any more. ⚠️ A twin change is still **INERT**
   until the corpus is rebuilt — `npm run tr:daily-refresh` then `db:load:tr:pg` — and the
   gate SKIPS with a distinct reason until then, which must never read as "the twins agree".
   Note `project_cr_deeds.ts` is a SECOND writer into the same table and runs AFTER
@@ -3305,9 +3310,9 @@ Five things about it are easy to get backwards:
   `tr_share_eur`. So they are two outputs of one rule, not one value computed twice, and a
   fix applied to either alone leaves the other publishing the old answer at a 200.
   Consequence for any retirement: killing a RENDERING consumer does not make the twin dead
-  code — `tr_person_roles.share` still comes from it. That is no longer hypothetical: one of
-  the two renderers is already gone (above) and the plan's Tier 6 retires the other, after
-  which `tr_person_roles.share` is the twin's ONLY consumer and the rule is still live.
+  code — `tr_person_roles.share` still comes from it. **[2026-08-21] That is no longer a
+  forecast: BOTH renderers are now gone (above), so `tr_person_roles.share` is the twin's ONLY
+  consumer — and the rule is still live.**
 
 - ⚠️ **„Заличено обстоятелство." IS NOT A PERSON.** It is the register's deleted-fact
   placeholder — 4,356 owner rows carry it, not one has an amount — and counting it as an

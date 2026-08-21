@@ -153,13 +153,17 @@ export const writeStateToSqlite = (
       // changeover it added лв to EUR as bare numbers. БИЛЯНА ООД (104119056) came
       // out at 26% + 8% against a real 75.5% + 24.5%.
       //
-      // This value is not decorative. It used to have TWO rendering consumers; since
-      // 2026-08-20 it has one — `data/officials/derived/company_links.json` (via
-      // build_officials_company_links.ts, which reads share_percent), whose figures become
-      // company_politicians.relations. The other, integrate.ts → companies-index.json, is
-      // retired with the name-keyed company page (company-page-consolidation-v1 Tier 5.2).
-      // It is ALSO COPIED into tr_person_roles.share by load_tr_pg.ts, so retiring the last
-      // renderer would still not make this rule dead code.
+      // ⚠️ THIS VALUE HAS NO RENDERING CONSUMER LEFT (2026-08-21) AND THE RULE IS STILL
+      // LIVE — do not read the first half without the second. It had two: integrate.ts →
+      // companies-index.json (retired Tier 5.2) and build_officials_company_links.ts →
+      // company_links.json (retired Tier 6.1), whose figures became
+      // company_politicians.relations. Both are deleted, and company_politicians is now
+      // derived in SQL from the gated person layer instead of loaded from them.
+      //
+      // What keeps this alive is that `load_tr_pg.ts` COPYs company_persons.share_percent
+      // into `tr_person_roles.share` — 441,503 rows — which `tr_owner_share` (003) is then
+      // gated against by `tr_owner_share.data.test.ts`. Killing the last renderer did not
+      // make the rule dead code; CLAUDE.md's tr_owner_share section says the same.
       const pcts = ownerSharePercents(
         [...c.persons.values()].map((p) => ({
           key: `${p.recordId}|${p.fieldIdent}`,

@@ -1,9 +1,20 @@
 # Company page consolidation — retire `/mp/company/:slug` and `companies-index.json`
 
-Status: **IN PROGRESS (2026-08-21)** — Tiers 1–5 are IMPLEMENTED and committed; Tier 6 is
-open. Each tier's "As built" note records where the plan turned out to be wrong; read those
-before acting on the prose above them, which is the 2026-08-20 design and is left unedited on
-purpose.
+Status: **IMPLEMENTED (2026-08-21)** — all six tiers are committed. Each tier's "As built"
+note records where the plan turned out to be wrong; read those before acting on the prose
+above them, which is the 2026-08-20 design and is left unedited on purpose.
+
+⚠️ **ONE OPERATOR ACTION REMAINS, and an exclusion is not it.** Both retired artifacts are
+gone from the repo and refused by all three bucket-sync sites — but `gsutil rsync -x` excludes
+a match from DELETION as well as from upload, so the bucket copies are FROZEN, not retired:
+
+```bash
+gsutil rm gs://data-electionsbg-com/parliament/companies-index.json
+gsutil rm gs://data-electionsbg-com/officials/derived/company_links.json
+```
+
+Neither has a reader left, so nothing breaks while they sit there; what they are is the last
+surviving instance of two link sets nothing in the repo can correct any more.
 
 Was: "PROPOSED (2026-08-20), audited 2026-08-20. Nothing here is implemented **except the
 CLAUDE.md correction in §9 G5**…" — true for one day, and the line eight other plans now link

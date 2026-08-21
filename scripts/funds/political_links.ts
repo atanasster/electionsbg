@@ -19,10 +19,17 @@
 //   - data/funds/derived/political-by-eik/index.json
 //       Manifest of which EIKs have a shard.
 //
-// Editorial guardrail: a connection is only recorded when it's in the official
-// Court-of-Audit declaration OR the Commerce Registry. No name-match guessing.
-// The officials side uses the high-confidence filter (the same one the
-// officials skill applies — declared + namesakeCount == 1).
+// Editorial guardrail: a connection is only recorded when it is in the official Court-of-Audit
+// declaration OR the Commerce Registry. No name-match guessing.
+//
+// ⚠️ [2026-08-21] THE OFFICIALS SIDE NO LONGER FILTERS — IT READS A SET THAT ALREADY REFUSED.
+// This said "the high-confidence filter (the same one the officials skill applies — declared +
+// namesakeCount == 1)". That filter belonged to the retired
+// `data/officials/derived/company_links.json`, whose grade was the one-company straitjacket
+// migration 158's header calls wrong in both directions. The source is now
+// `company_politicians` at kind='official' via `readOfficialLinkRows`, gated by migration 148's
+// `tr_name_fold_people` fold: a name the Commerce Registry says covers more than one human is
+// REFUSED, and an unmeasured fold is refused too. See buildOfficialsByEik.
 
 import fs from "fs";
 import { mpLinkageAvailable, readOfficialLinkRows } from "../lib/mp_linkage";

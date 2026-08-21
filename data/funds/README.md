@@ -140,12 +140,28 @@ figures or when the deadline changes. The file is small and committed.
 
 Joins beneficiary EIK against:
 
-- `data/parliament/companies-index.json` — sitting / former MPs' declared
-  ownership stakes (Сметна палата) + Commerce Registry management roles.
-- `data/officials/derived/company_links.json` — non-MP officials with declared
-  stakes or TR roles: cabinet, deputy ministers, agency heads, regional
-  governors, mayors, deputy mayors, council chairs, councillors, chief
-  architects.
+- **the MP arm** — `company_politicians` at `kind='mp'`, read at scope `all`
+  (`scripts/lib/mp_linkage.ts`): declared ownership stakes (Сметна палата) +
+  Commerce Registry management roles. ⚠️ Scope `all`, not the served table
+  itself, which is CONTRACT-restricted — this join's population is ИСУН
+  beneficiaries, and an MP-linked company that took EU money and never won a
+  public contract is exactly the row to report. Measured 2026-08-20: the
+  restricted set answers 43 of this payload's 303 pairs.
+- **the officials arm** — `company_politicians` at `kind='official'`: non-MP
+  officials with declared stakes or registry roles — cabinet, deputy ministers,
+  agency heads, regional governors, mayors, deputy mayors, council chairs,
+  councillors, chief architects. Contract-restricted is correct here.
+- `data/officials/index.json` **and** `data/officials/municipal/index.json` —
+  the office metadata beside each linked official. Both: the first is the
+  EXECUTIVE index and resolves 0 of the 116 municipal officials, so without the
+  second every councillor loses their municipality.
+
+  ⚠️ **[2026-08-21]** These two arms were `data/parliament/companies-index.json`
+  and `data/officials/derived/company_links.json`, both DELETED with their
+  producers — see `docs/plans/company-page-consolidation-v1.md` (Tiers 5-6).
+  Their re-run trigger moved with them: it is `npm run db:load:tr:pg`, which
+  needs a resolved person layer, not an `/update-connections` or
+  `/update-officials` run.
 - `data/procurement/derived/top_contractors.json` (and per-EIK
   `data/procurement/contractors/{eik}.json` as fallback) — for the public
   procurement award overlap on the same EIK.
@@ -153,9 +169,19 @@ Joins beneficiary EIK against:
   procurement (name-matched).
 
 A beneficiary is **flagged** when at least one declared MP or non-MP-official
-linkage exists for its EIK. Editorial guardrail: only the **high-confidence**
-slice — declarations (filed by the official themselves) and TR roles with
-`namesakeCount == 1`. No name-match guessing.
+linkage exists for its EIK. Editorial guardrail: no name-match guessing — a
+link exists only where a declaration 096 confirmed against the Commerce
+Registry says so, or where the registry records a role on a folded name
+migration 148's `tr_name_fold_people` says belongs to exactly one human.
+
+⚠️ **[2026-08-21] THERE IS NO CONFIDENCE GRADE ANY MORE.** This said the join
+kept "only the high-confidence slice — declarations … and TR roles with
+`namesakeCount == 1`". That grade belonged to the retired
+`company_links.json`, and it was the one-company straitjacket migration 158's
+header calls wrong in both directions: it drops a rare-name official's whole
+set behind one busy registered agent, and passes a name held by two people with
+six companies each. A shared name is now REFUSED rather than scored, and an
+UNMEASURED fold is refused too — so there is nothing left for a filter to drop.
 
 Outputs three artifacts:
 
