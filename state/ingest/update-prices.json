@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-14T17:07:26.630Z",
+  "lastSuccessfulIngest": "2026-08-21T06:56:28.100Z",
   "skill": "update-prices",
-  "summary": "up to date — 2026-08-13 already loaded; catalogue 116,958 products, 572 payload blobs rebuilt, no new day"
+  "summary": "loaded 6 days 2026-08-15..2026-08-20 (feed advanced past the watcher's 08-19); catalog 117,155 products, 3,000 head products / 692,415 product-day rows, index 231 days, 673 payload blobs, 3,000 slugs. WARNING: upstream chain coverage halved since 2026-08-09 (203 -> 90 chains, 237 -> 170 settlements); 116 chains stopped reporting incl. Kaufland, Fresh Market, SOFARMASI, both KOOP - feed contraction, parse residue 0.5% (in tolerance)"
 }
