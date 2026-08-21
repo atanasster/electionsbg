@@ -13,6 +13,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { DatabaseSync } from "node:sqlite";
 import type { PoolClient } from "pg";
 import {
+  allRows,
   end,
   exec,
   getPool,
@@ -60,12 +61,129 @@ const PERSON_API_SQL = fileURLToPath(
 // it — same deps (tr_officers / tr_companies / contracts, all loaded here). The _slug variants
 // reference person_role (created later by resolve_persons), but the file SETs
 // check_function_bodies = off, so create-time succeeds and they resolve at call time.
+/** The `mp` arm of company_politicians, derived from the GATED PERSON LAYER (Tier 4a of
+ *  docs/plans/company-page-consolidation-v1.md).
+ *
+ *  Was mp_connected.json — an MP NAME matched against Commerce-Registry officers with no
+ *  people-per-name guard. This is `person_role` at source tr/ngo, minted through Bridge A/B
+ *  and refused on a fold `tr_name_fold_people` says belongs to more than one human, unioned
+ *  with 096's confirmed declared stakes. The same set /person, /company and
+ *  /governance/companies publish, so no two surfaces describe one person's companies
+ *  differently.
+ *
+ *  EXPORTED so its gate runs the SHIPPED query rather than a re-typed copy. That is the
+ *  MP_ROLES_SQL precedent: that query raised 0P000 on every run for two days while its
+ *  caller's catch printed "Postgres unreachable", because the unit tests mocked the database
+ *  and nothing ever parsed the SQL.
+ *
+ *  Measured 2026-08-20: 114 rows over 106 EIKs.
+ */
+export const MP_ARM_SQL = `
+  WITH reg AS (
+    -- ⚠️ isCurrent COMES FROM tr_person_roles.erased_at, AND NOWHERE ELSE. person_role
+    -- carries an end_date that is NULL on all 199,651 tr/ngo rows, so dropping this column
+    -- does not degrade the chip — it makes „(бивш)" unreachable, and 17 of the served
+    -- registry rows rest SOLELY on erased registry entries. Publishing a former partner as
+    -- current is the same class of false present-tense claim /governance/companies carries
+    -- has_current_role for.
+    SELECT ptr.ref AS eik, pe.person_id, pe.display_name, ptr.role,
+           bool_or(t.erased_at IS NULL) AS is_current
+      FROM person_role ptr
+      JOIN person pe
+        ON pe.person_id = ptr.person_id
+       AND pe.status = 'active' AND pe.is_public_figure
+      JOIN tr_person_roles t
+        ON t.uic = ptr.ref AND t.name_fold = pe.name_fold
+      JOIN tr_name_fold_people f
+        ON f.name_fold = pe.name_fold AND f.people_n = 1
+     WHERE ptr.source IN ('tr','ngo')
+       AND ptr.confidence IN ('exact_id','high','manual')
+     GROUP BY 1, 2, 3, 4
+  ),
+  -- ONE ROW PER (person, company), THE MOST RECENT. A standing holding is re-declared on
+  -- every entry into office, so the raw rows carry the same stake four years running and the
+  -- chip would print it four times — measured, 8,878 rows collapsing to 114. DISTINCT ON
+  -- with a TOTAL sort key (stake_year, declaration_id, seq), never an unordered aggregate:
+  -- 096's header records that an unresolved tie there makes the rendered value a property of
+  -- the matview's physical heap order, which every REFRESH rewrites.
+  --
+  -- AND stake_kind DECIDES THE LABEL. 089's CHECK has three values, and on a ROLE row
+  -- share_size holds the ROLE ITSELF, so labelling every row a stake publishes a board seat
+  -- as a shareholding with the job title in the size field.
+  dec AS (
+    SELECT DISTINCT ON (sc.person_id, sc.uic)
+           sc.uic AS eik, sc.person_id, pe.display_name,
+           COALESCE(sc.stake_kind, 'share') AS stake_kind,
+           sc.share_size, sc.value_eur, sc.stake_year
+      FROM declaration_stake_company sc
+      JOIN person pe
+        ON pe.person_id = sc.person_id
+       AND pe.status = 'active' AND pe.is_public_figure
+     -- The declarant's OWN holdings. A spouse's company is not the MP's, and this table
+     -- feeds every MP-tied money figure on the site.
+     WHERE sc.holder_is_declarant
+     -- 096's OWN tiebreak, restored: where one filing declares BOTH a share and a role in
+     -- one company, the SHARE wins — the heading is an ownership claim and the role is the
+     -- lesser included fact. Dropping it while citing 096 as the authority flipped 3 rows.
+     ORDER BY sc.person_id, sc.uic, sc.stake_year DESC NULLS LAST,
+              sc.declaration_id DESC,
+              (COALESCE(sc.stake_kind, 'share') = 'share') DESC, sc.seq
+  ),
+  gated AS (
+    SELECT eik, person_id, display_name, role AS kind,
+           jsonb_build_object('kind', role, 'isCurrent', is_current) AS rel
+      FROM reg
+    UNION ALL
+    SELECT eik, person_id, display_name,
+           -- 'declared_role', not 'role': relationLabel's KEY had no entry for the latter,
+           -- so both languages rendered the literal ASCII string. A declared management role
+           -- is also NOT a registry role — it is what the ИНТЕРЕСИ form says, which is a
+           -- different claim from what the Commerce Registry records.
+           CASE WHEN stake_kind = 'role' THEN 'declared_role' ELSE 'stake' END,
+           jsonb_strip_nulls(jsonb_build_object(
+             'kind', CASE WHEN stake_kind = 'role' THEN 'declared_role' ELSE 'stake' END,
+             'shareSize', CASE WHEN stake_kind = 'role' THEN NULL ELSE share_size END,
+             'valueEur', value_eur,
+             'declarationYear', stake_year))
+      FROM dec
+  ),
+  -- MPs only on this arm. person_role stores an MP as one row per (mp_id, ns), so the id is
+  -- the part before the colon — reference_mp_id_not_person_key.
+  mp AS (
+    SELECT DISTINCT person_id, split_part(ref, ':', 1) AS mp_id
+      FROM person_role WHERE source = 'mp'
+  ),
+  -- CONTRACT-RESTRICTED, and that is what keeps this table meaning what it meant.
+  -- mp_connected joined the contractor rollups, so a row here has always been "a politically
+  -- linked CONTRACTOR". Without the restriction the set goes 964 to 17,608 and silently
+  -- redefines every consumer's question, including the A-F grade on 409,644 contracts.
+  money AS (
+    SELECT contractor_eik AS eik,
+           round(COALESCE(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0)) AS eur
+      FROM contracts GROUP BY 1
+  )
+  SELECT g.eik,
+         min(g.display_name) AS politician,
+         -- The NUMERICALLY smallest mp_id, not the lexicographically smallest: 4 people hold
+         -- two, none reaches this arm today, and „10" < „9" as text. 077 and 028 both cast
+         -- this id ::int, so a non-numeric one would fail there rather than here.
+         '/candidate/mp-' || min(m.mp_id::bigint)::text AS ref,
+         -- A TOTAL order, so the headline role cannot change between two loads of the same
+         -- data. A declared stake outranks a registry role: it is the stronger claim.
+         (array_agg(g.kind ORDER BY (g.kind = 'stake') DESC, g.kind))[1] AS role,
+         min(mo.eur)::text AS total_eur,
+         jsonb_agg(DISTINCT g.rel) AS relations
+    FROM gated g
+    JOIN mp m ON m.person_id = g.person_id
+    JOIN money mo ON mo.eik = g.eik
+   GROUP BY g.eik, g.person_id`;
+
 const PERSON_BREAKDOWNS_SQL = fileURLToPath(
   new URL("./schema/pg/125_person_procurement_breakdowns.sql", import.meta.url),
 );
-const MP_JSON = fileURLToPath(
-  new URL("../../data/procurement/derived/mp_connected.json", import.meta.url),
-);
+// mp_connected.json is NO LONGER READ — see MP_ARM_SQL below. The file is still written by
+// scripts/procurement/cross_reference.ts, which Tier 5 retires; until then it is an artifact
+// with no consumer here.
 const PEP_JSON = fileURLToPath(
   new URL("../../data/procurement/derived/pep_connected.json", import.meta.url),
 );
@@ -450,25 +568,48 @@ export const loadTrPg = async (): Promise<{
   const links: Array<
     [string, string, string, string, string | null, number | null, string]
   > = [];
-  if (existsSync(MP_JSON)) {
-    const mp = JSON.parse(readFileSync(MP_JSON, "utf8")) as {
-      entries: Array<{
-        mpId: number;
-        mpName: string;
-        contractorEik: string;
-        relations?: Array<{ kind?: string }>;
-        totalEur?: number;
-      }>;
-    };
-    for (const e of mp.entries)
+  {
+    // ⚠️ THREE HARD DEPENDENCIES THIS LOADER DOES NOT APPLY: person_role/person (081, the
+    // resolver), tr_name_fold_people (148) and declaration_stake_company (096). A missing one
+    // is a 42P01 two-thirds of the way through a ~35-minute load, and an EMPTY person_role is
+    // worse — it ships a company_politicians with no MP arm at all, silently, on a run that
+    // exits 0. Preflight names which, and refuses rather than publishing a table that asserts
+    // no MP is linked to any company.
+    const [dep] = await allRows<{ missing: string | null; mps: string }>(
+      `SELECT (SELECT string_agg(rel, ', ') FROM unnest(ARRAY[
+                 'person_role','person','tr_name_fold_people','declaration_stake_company'
+               ]) AS rel WHERE to_regclass('public.' || rel) IS NULL) AS missing,
+              COALESCE((SELECT count(*) FROM person_role WHERE source = 'mp'), 0)::text AS mps`,
+    );
+    if (dep.missing) {
+      throw new Error(
+        `company_politicians mp arm: missing ${dep.missing} — run npm run db:resolve:persons ` +
+          `(and db:load:declarations:pg -- --resolve) before this loader.`,
+      );
+    }
+    if (Number(dep.mps) === 0) {
+      throw new Error(
+        "company_politicians mp arm: person_role holds no 'mp' rows, so the arm would load " +
+          "EMPTY and publish 'no MP is linked to any company'. Run db:resolve:persons first.",
+      );
+    }
+    const rows = await allRows<{
+      eik: string;
+      politician: string;
+      ref: string;
+      role: string | null;
+      total_eur: string | null;
+      relations: unknown;
+    }>(MP_ARM_SQL);
+    for (const r of rows)
       links.push([
-        e.contractorEik,
-        e.mpName,
-        `/candidate/mp-${e.mpId}`,
+        r.eik,
+        r.politician,
+        r.ref,
         "mp",
-        e.relations?.[0]?.kind ?? null,
-        e.totalEur ?? null,
-        JSON.stringify(e.relations ?? []),
+        r.role,
+        r.total_eur === null ? null : Number(r.total_eur),
+        JSON.stringify(r.relations ?? []),
       ]);
   }
   if (existsSync(PEP_JSON)) {

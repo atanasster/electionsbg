@@ -1356,10 +1356,17 @@ export type ProcurementRelationKind =
   | "branch_manager"
   | "director"
   | "actual_owner"
+  // The single owner of an ЕООД. A real person_role.role value that relationLabel never
+  // mapped, so it rendered as the raw token `sole_owner` in both languages.
+  | "sole_owner"
   | "representative"
   | "liquidator"
   | "procurator"
   | "stake"
+  // A management role the person DECLARED to the Court of Audit. Distinct from the registry
+  // roles above, which the Commerce Registry records of its own accord — 089's stake_kind
+  // has three values and conflating them publishes a board seat as a shareholding.
+  | "declared_role"
   // ЮЛНЦ governing-body roles.
   | "ngo_board"
   | "ngo_representative"
