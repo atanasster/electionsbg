@@ -85,7 +85,10 @@ describe("derived-object registry", () => {
     // pg_get_functiondef (procurement_payloads.data.test.ts). Pinning this wider
     // registry to it means the two cannot drift: an inputs edit in one that is not
     // mirrored in the other fails here.
-    const scoped = new Map(
+    // Widened to string keys deliberately: SCOPED_MATVIEWS is `as const`, so an
+    // inferred Map would key on the six literal names and `get(o.name)` — a plain
+    // string off the wider registry — would not typecheck.
+    const scoped = new Map<string, string[]>(
       SCOPED_MATVIEWS.map((m) => [m.name, [...m.inputs].sort()]),
     );
     const disagreements: string[] = [];

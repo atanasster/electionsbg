@@ -45,9 +45,18 @@ export interface SourceGroupDef {
  * the placement check — while still failing if it ALSO appears in a group, so
  * the two can never disagree.
  *
- * This list is meant to stay tiny. An entry is a statement that the source has
- * no downstream YET; the moment one exists, delete the entry and place the
- * source properly (the "also in a group" check will force the issue).
+ * This list is meant to stay tiny, and it holds TWO kinds of entry — the
+ * difference being whether the exemption is temporary:
+ *
+ *  - "no downstream YET" — the source is watched ahead of an ingest that does
+ *    not exist yet. The moment one exists, delete the entry and place the
+ *    source properly (the "also in a group" check will force the issue).
+ *  - a MAINTENANCE probe — the source watches something already on the map and
+ *    fires so an operator RE-RUNS a loader over data we already hold. It reads
+ *    no publisher, so it has no origin, no url and nothing to ingest, and it
+ *    will never acquire a dataset node. Deleting such an entry is not a
+ *    milestone to wait for; the group it would otherwise join would claim a
+ *    publisher we do not read.
  */
 export const WATCH_ONLY_SOURCES: Record<string, string> = {
   rnfl_insolvency:
@@ -57,6 +66,22 @@ export const WATCH_ONLY_SOURCES: Record<string, string> = {
     "the source maps to no skill: a flip means an operator reads " +
     "docs/plans/rnfl-insolvency-v1.md §T2 and decides. Remove this entry when " +
     "T2/T3 build the aggregate indicator the plan describes.",
+  // A MAINTENANCE probe, not an ingest — permanently exempt. It fetches nothing:
+  // the window set is a pure function of the current year and the committed
+  // elections.json, both already on the map (the procurement corpus rides
+  // src:aop/src:eop, the election calendar src:cik). A flip means the per-scope
+  // precomputes (119/122/123/124) no longer cover every window, so a `?pscope=`
+  // option serves an EMPTY page until `db:load:procurement-scopes:pg:cloud` runs
+  // — a re-derivation over data we already hold, which is exactly what has no
+  // dataset node of its own. Placing it in a source group would assert that some
+  // publisher emits it, and none does.
+  procurement_scope_windows:
+    "The Jan-1 / new-election scope rollover (cloud-deploy-speed-v1 §v2-g). " +
+    "Ingests nothing and reads no publisher — it re-derives the window set from " +
+    "the calendar and the committed src/data/json/elections.json, then names the " +
+    "loader to re-run. Its downstream, the procurement corpus, is already on the " +
+    "map under src:aop / src:eop; this source adds no data to it. Permanent — do " +
+    "not remove this entry expecting a dataset to appear.",
 };
 
 export interface DatasetDef {
