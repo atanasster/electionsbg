@@ -26,8 +26,30 @@ updated reference datasets, (c) hub stat blobs (D1).
 | 10 | T3c party_pair_breaks | `b7c7979cfa` | ✅ migration 183 — **T3c closed, see D5** |
 | 11 | T4b myarea alerts | `84199d8ebf` | ✅ migration 184 — storage only, see D6 |
 
-**Still open:** T5 (budget/schools/financing — the plan's own "opportunistic" tier), and every
-OPERATOR ACTION below.
+**Still open:** T5, and every OPERATOR ACTION below.
+
+### D7 (2026-08-22) — T5 is NOT opportunistic; both items it names carry a real blocker
+
+The tier was listed as "opportunistic". Both of the two items the plan singled out were
+investigated and neither is a route-and-hook change:
+
+- **`budget/reconciliation/` + `budget/facts/` (2.9 MB).** The data IS in Postgres —
+  `budget_admin_fact` holds 873 rows over 9 fiscal years with every column the JSON carries.
+  ⚠️ **But it stores money as `*_eur` ONLY, and the artifact's `Money` is
+  `{amountEur, amount, currency}`.** Measured across all nine years: **1,998 of 2,209 money
+  values are BGN, and 1,881 have `amount ≠ amountEur`.** A route reading the current schema
+  would publish `currency: "EUR"` and a euro `amount` against named ministries for figures the
+  source states in leva. Migrating this needs four extra columns on `budget_admin_fact` plus a
+  loader change first — a schema change with a currency-correctness risk, not a cleanup.
+
+- **`schools/index.json` (1.3 MB).** `school_payloads` already serves a per-place payload
+  carrying `rank`, `rankOf`, `above` and `avg` — but `MyAreaQualityStrip` iterates
+  `schoolsByObshtina` over EVERY municipality to compute its own national comparison
+  client-side. Moving it means switching the tile onto the precomputed rank, which is a
+  behaviour-equivalence question about a number a reader sees (is the payload's `rank` the same
+  statistic the strip computes?), not a fetch swap.
+
+Neither is blocked forever; both need a measured decision first, which is what this note is for.
 
 ### D6 (2026-08-22) — T4b moved the STORAGE, not the fold
 
