@@ -59,6 +59,7 @@ const ROOT = path.resolve(
 const SESSIONS_DIR = path.join(ROOT, "data/parliament/votes/sessions");
 const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/134_rollcall.sql");
 const BILL_SCHEMA = path.join(ROOT, "scripts/db/schema/pg/136_bill.sql");
+const DAY_SCHEMA = path.join(ROOT, "scripts/db/schema/pg/180_vote_day.sql");
 const INGEST_TRACKING = path.join(
   ROOT,
   "scripts/db/schema/pg/005_ingest_tracking.sql",
@@ -396,6 +397,11 @@ const run = async (): Promise<void> => {
   // 136 after 134: it adds the FK from vote_item.bill_id, which 134 declares without one
   // because `bill` does not exist at that point.
   await exec(readFileSync(BILL_SCHEMA, "utf8"));
+  // 180 carries the per-SITTING facts (stenogram id, scrape time, roll-call PDF URL) that
+  // vote_item has no column for. Applied here rather than by apply_functions alone because
+  // this loader is the only thing that can FILL it — the values exist solely in the day
+  // files this script already reads.
+  await exec(readFileSync(DAY_SCHEMA, "utf8"));
   await withClient(async (c) => {
     for (const r of (
       await c.query<{ bill_id: number; ns: number; stem: string }>(
@@ -583,6 +589,72 @@ const run = async (): Promise<void> => {
       // contract says so and five of its six other callers drop explicitly: left behind,
       // vote_cast_stage is a 256 MB table that pg_dump carries and db:sync:cloud pushes.
       await c.query("DROP TABLE IF EXISTS vote_item_stage, vote_cast_stage");
+
+      // vote_day (180) — the per-sitting facts vote_item has no column for. UPSERT rather
+      // than a merge: one row per sitting is ~600 rows total, and a sitting is never
+      // withdrawn, so the anti-join DELETE a merge brings is machinery with nothing to do.
+      //
+      // pdf_url AND stenogram_id are both COALESCEd, and they are the same class of value:
+      // a fact about the sitting that the scraper reads off a listing page which
+      // occasionally omits it. pdf_url is SessionScreen's only route back to the primary
+      // source, so an absent value in one scrape must not delete a URL an earlier scrape
+      // verified — and a lost stenogram id is the same loss with no visible symptom, which
+      // is why protecting only the one a reader can see would have been the wrong half.
+      // scraped_at always takes the incoming value: it describes the scrape, not the sitting.
+      //
+      // ⚠️ THE COST IS THAT A WITHDRAWAL CANNOT BE HONOURED. If parliament.bg removes a
+      // PDF, this keeps serving the dead link. That is the opposite of `price_last_seen`'s
+      // rule (a re-published day that withdraws a row DELETES it, so the table matches the
+      // corrected source) and the inversion is deliberate: there the source restates a whole
+      // day authoritatively, here an omission is far more often a flaky listing page than a
+      // retraction. Revisit if dead links are ever observed; a `--drop-missing-pdf` flag is
+      // the shape, not a change of default.
+      //
+      // ONE multi-row INSERT, not 613 round trips. This loader is round-trip-bound over the
+      // Cloud SQL proxy (CLAUDE.md measures the facts half at ~10 min, dominated by ~2,900
+      // single-row round trips before the COPY starts); adding 613 more would be +18% on
+      // exactly the wrong axis.
+      const dayRows = raw.filter((f) => f.ns && f.date);
+      if (dayRows.length) {
+        const vals: unknown[] = [];
+        const tuples = dayRows.map((f, i) => {
+          vals.push(
+            Number(f.ns),
+            f.date,
+            f.stenogramId ?? null,
+            f.scrapedAt ?? null,
+            f.pdfUrl ?? null,
+          );
+          const b = i * 5;
+          return `($${b + 1}, $${b + 2}, $${b + 3}, $${b + 4}, $${b + 5}, now())`;
+        });
+        await c.query(
+          `INSERT INTO vote_day (ns, date, stenogram_id, scraped_at, pdf_url, refreshed_at)
+                VALUES ${tuples.join(", ")}
+           ON CONFLICT (ns, date) DO UPDATE
+              SET stenogram_id = COALESCE(EXCLUDED.stenogram_id, vote_day.stenogram_id),
+                  scraped_at   = EXCLUDED.scraped_at,
+                  pdf_url      = COALESCE(EXCLUDED.pdf_url, vote_day.pdf_url),
+                  refreshed_at = now()`,
+          vals,
+        );
+      }
+
+      // Every sitting that has items must have a day row, or /api/db/session serves that
+      // sitting with no source link and nothing says why. Asserted INSIDE the transaction so
+      // a mismatch rolls the load back rather than publishing a partial dimension.
+      const [{ orphans }] = (
+        await c.query<{ orphans: string }>(
+          `SELECT count(*)::text AS orphans FROM (
+             SELECT DISTINCT ns, date FROM vote_item
+             EXCEPT SELECT ns, date FROM vote_day) x`,
+        )
+      ).rows;
+      if (Number(orphans) > 0)
+        throw new Error(
+          `vote_day: ${orphans} sitting(s) have items but no day row — the session files ` +
+            `and vote_item disagree about (ns, date). Nothing was published.`,
+        );
 
       await recordIngestBatch(c, {
         source: "rollcall_vote",

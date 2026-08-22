@@ -5024,10 +5024,37 @@ const DB_ROUTES = {
     ).catch(tableRows("vote_item", "db:load:rollcall:pg"));
     if (!rows.length) return { body: null };
     const nsSet = [...new Set(rows.map((r) => r.ns))];
+    // vote_day (180) is a SEPARATE query, deliberately — a LEFT JOIN was written first and
+    // is the wrong shape twice over:
+    //
+    //   • A database without 180 raises 42P01 for the WHOLE select, which tableRows()
+    //     degrades to [] and the guard above turns into `body: null`. Every session page
+    //     would answer "no such sitting" at a 200 — a total outage dressed as an empty
+    //     corpus — rather than losing three optional fields. Split, the failure is confined
+    //     to its own catch.
+    //   • It duplicates three day-level values onto every item row: measured on 2025-08-19,
+    //     92,289 -> 133,895 bytes (+45%) for the largest sitting, which is the date this
+    //     route exists to make cheap.
+    //
+    // Scoped to nsSet[0] rather than the bare date: (ns, date) is the key, and on a
+    // `spansNs` day two parliaments' sittings share the date. Taking whichever row came
+    // first would attach one chamber's stenogram to the other's agenda with nothing saying
+    // so — the shape `spansNs` was added to make visible, not to paper over.
+    const dayRows = await dbRows(
+      `SELECT stenogram_id, scraped_at, pdf_url
+         FROM vote_day WHERE ns = $1 AND date = $2`,
+      [nsSet[0], date],
+    ).catch((e) =>
+      e?.code === "42P01" || e?.code === "42883" ? [] : Promise.reject(e),
+    );
+    const day = dayRows[0] ?? {};
     return {
       body: {
         date,
         ns: nsSet[0],
+        stenogramId: day.stenogram_id ?? undefined,
+        scrapedAt: day.scraped_at ?? undefined,
+        pdfUrl: day.pdf_url ?? undefined,
         // Named rather than silently dropped: a day spanning two parliaments is a real
         // event this corpus has not yet seen, and the caller should know rather than be
         // handed the first one as if it were the whole story.

@@ -18,6 +18,12 @@ export interface SessionFile {
   date: string;
   stenogramId: number;
   scrapedAt: string;
+  // Absolute URL of the sitting's per-MP roll-call PDF on parliament.bg. Present in the
+  // written files since the scraper started recording it; typed here because vote_day (180)
+  // is what carries it into Postgres, and SessionScreen renders it as the page's only link
+  // back to the primary source. Optional: the listing page occasionally omits it, and the
+  // loader COALESCEs so an absent value never deletes a URL an earlier scrape verified.
+  pdfUrl?: string;
   // Optional in v0 session files; required going forward. Per-vote party
   // affiliation is the authoritative source for derived metrics — parliament
   // doesn't expose historical party assignment any other way.
