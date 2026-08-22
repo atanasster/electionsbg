@@ -108,17 +108,17 @@ back-search can only ever return "". The title lives in the контролен-�
 ```
 
 Prototyped against the live document: pairing each `РЕШЕНИЕ № N` with the nearest PRECEDING
-`К.л NNN <subject>` line pairs **23 of 23**, and the mapping is monotone with a constant
-offset —
+`К.л NNN <subject>` line pairs **23 of 23**.
 
-```
-РЕШЕНИЕ №917 <- К.л 925      РЕШЕНИЕ №920 <- К.л 928
-РЕШЕНИЕ №918 <- К.л 926      РЕШЕНИЕ №921 <- К.л 929
-РЕШЕНИЕ №919 <- К.л 927      РЕШЕНИЕ №922 <- К.л 930
-```
-
-— which is structural confirmation rather than coincidence, and gives the fix a free
-self-check: a run where the offset stops being constant within a protocol has mis-paired.
+⚠️ **CORRECTION (2026-08-22, at implementation).** This section originally claimed the
+mapping was "monotone with a constant offset", from the first six pairs — 917↔925, 918↔926,
+919↔927 — and proposed using that as a free self-check. **It is not constant.** Measured
+across the whole of prot 32 the offsets take the values **6, 8, 10 and 18**, because not
+every контролен лист reaches a vote and Ruse also takes items out of numeric order. A guard
+built on it fired on **14 of 18 protocols with nothing wrong**, and was replaced by one that
+flags a К.л titling NON-consecutive resolutions — the shape that actually indicates the
+nearest-preceding rule reached past a decision whose own К.л line is missing. That fires
+once, not fourteen times. Six pairs were not a sample.
 
 Note there are 52 `К.л` lines against 23 resolutions (the agenda lists them too), so
 "nearest preceding" is load-bearing; a naive zip would drift.

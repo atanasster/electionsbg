@@ -800,3 +800,77 @@ test("no município mixes agenda-point and resolution number bands", async (t) =
       `РЕШЕНИЕ headers at all and they merge by agenda POSITION).`,
   );
 });
+
+// 7. TITLE COVERAGE — the one thing the whole council-title-parser-v1 work bought, and
+//    nothing guarded it. A parser regression that stops finding subjects is invisible:
+//    the rows still load, the counts still reconcile, and every consumer falls back to
+//    "(no title parsed)" — which is exactly what /council/:code and the My-Area alerts
+//    feed rendered for 49% of the corpus before this.
+//
+// Per-município floors, in the TALLY_COVERAGE_FLOOR style: a declared 0 is a valid answer
+// and says "this município's protocols name no subject we can reach". An UNDECLARED
+// município fails, so a newly-wired parser has to state its coverage rather than inherit
+// silence.
+//
+// Floors are set below the measured value with headroom for ordinary corpus drift; they
+// exist to catch a collapse, not to pin a number.
+const TITLE_COVERAGE_FLOOR: Record<string, number> = {
+  // Measured 2026-08-22, floored ~10 points below with room for ordinary drift.
+  BGS01: 0.9, // 100% — ОТНОСНО clauses, lowercase spelling
+  DOB28: 0.85, //  98% — ДНЕВЕН РЕД agenda, keyed on the item number
+  GAB05: 0.9, // 100%
+  HKV09: 0.35, //  45% — mixed: some protocols carry ОТНОСНО, some do not
+  HKV34: 0.15, //  25% — same, worse
+  PDV01: 0.9, // 100%
+  PER32: 0.75, //  87% — ОТНОСНО clauses, uppercase spelling
+  PVN01: 0.0, //   2% — undiagnosed (tier A3 of the plan)
+  RAZ26: 0.05, //  13% — undiagnosed
+  RSE01: 0.75, //  85% — контролен-лист lines; the rest have none within maxBack
+  SLV01: 0.9, // 100%
+  SOF: 0.75, //  86%
+  SZR01: 0.9, //  97%
+  SZR12: 0.0, //   8% — undiagnosed
+  VAR01: 0.5, //  61%
+  VTR01: 0.8, //  91%
+};
+
+test("every município meets its declared title-coverage floor", async (t) => {
+  if (!(await dbReachable())) return t.skip();
+  const rows = await allRows<{ code: string; total: string; titled: string }>(
+    `SELECT obshtina_code AS code, count(*)::text AS total,
+            count(*) FILTER (
+              WHERE title IS NOT NULL AND btrim(title) <> ''
+                AND title <> '(no title parsed)'
+            )::text AS titled
+       FROM council_resolution GROUP BY obshtina_code ORDER BY obshtina_code`,
+  );
+  assert.ok(
+    rows.length > 0,
+    "council_resolution is empty — run db:load:council:pg",
+  );
+
+  const undeclared = rows
+    .map((r) => r.code)
+    .filter((c) => !(c in TITLE_COVERAGE_FLOOR));
+  assert.deepEqual(
+    undeclared,
+    [],
+    `${undeclared.join(", ")} has no TITLE_COVERAGE_FLOOR entry — declare one (0 is a ` +
+      `valid answer, and says the protocols name no subject this parser can reach)`,
+  );
+
+  const below = rows
+    .map((r) => ({
+      code: r.code,
+      cov: Number(r.titled) / Number(r.total),
+      floor: TITLE_COVERAGE_FLOOR[r.code],
+    }))
+    .filter((r) => r.cov < r.floor)
+    .map((r) => `${r.code} ${(r.cov * 100).toFixed(0)}% < ${r.floor * 100}%`);
+  assert.deepEqual(
+    below,
+    [],
+    `title coverage collapsed: ${below.join("; ")}. A parser stopped finding subjects — ` +
+      `the rows still load and nothing else fails, so this is the only signal.`,
+  );
+});
