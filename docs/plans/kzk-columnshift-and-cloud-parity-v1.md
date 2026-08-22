@@ -4,6 +4,13 @@
 figure below was re-measured on 2026-08-22 against the live databases and the live
 corpus, not carried over from the `/process-watch-report` run that surfaced these.
 
+**Revised 2026-08-22 — v1.1, after a full audit of this file against the code and the
+data.** The audit found **one measurement error in §2.1** (corrected in place, recorded
+as §6.1) and **six gaps**, including a **live content defect on the SERVING database**
+that v1 missed entirely because it scoped Problem 2 as a parity question and stopped at
+„detect, do not converge". **If you have read v1, read §6 and nothing else.**
+`git log -p` on this file has the superseded version.
+
 **Owner surfaces.** Problem 1: `/procurement/appeals`, the `/tenders/:unp` appeals tile,
 the `procurementAppeals` AI tool, and — the one that matters — `upheld_ocids` → the
 contract **Corruption Risk Index**. Problem 2: every `/person/:slug` page, the
@@ -535,12 +542,25 @@ Re-measured 2026-08-22, local :5433 vs Cloud SQL through the proxy on :5434.
 | shared | 62,366 | 62,366 |
 | present on this side only | 1,422 | 1,416 |
 | …of which `-N` collision-suffixed | **1,395 (98.1%)** | **2 (0.1%)** |
-| all `person.slug ~ '-[0-9]+$'` | **9,103** | **7,710** |
+| **collision-suffixed slugs** (`~ '-[0-9]+$'` AND NOT `^mp-[0-9]+$`) | **6,985** | **5,592** |
+| …of which resolver-minted (the name-hash tier) | 5,744 | 4,337 |
+| …of which officials-origin (the slug IS a `person_role.ref`) | 1,241 | 1,255 |
 
 The two databases hold **exactly the same number of public figures** and disagree about
-~1,420 of their identities. Local carries **1,393 more `-N` collision slugs** than cloud
-— which accounts for the whole gap, including the `person`, `person_slug_lock` and
-`person_slug_retired` deltas.
+~1,420 of their identities. Local carries **1,393 more collision-suffixed slugs** than
+cloud — which accounts for the whole gap, including the `person`, `person_slug_lock`
+and `person_slug_retired` deltas.
+
+⚠️ **`person.slug ~ '-[0-9]+$'` is NOT a collision test, and v1 of this plan used it as
+one.** It also matches every `mp-<id>` slug — **2,118 on each side** — so v1's
+„9,103 / 7,710" were inflated by that constant. The Δ of 1,393 is unaffected (the MP
+count is identical on both) and every conclusion drawn from the Δ stands, but any future
+probe must exclude `^mp-[0-9]+$`. Recorded as §6.1.
+
+The split by origin decides where a repair belongs: **officials-origin suffixes are
+level** (1,241 vs 1,255 — those come from the officials ingest's own
+`_slug_collisions.json`, not from the resolver). **The whole divergence sits in the
+resolver's name-hash tier**, 5,744 vs 4,337.
 
 A worked example (the first local-only slug alphabetically):
 
@@ -887,6 +907,10 @@ is reproducible offline. Out of scope.
 | 5 | Where the person-parity probe fails vs merely reports | 2.6 |
 | 6 | Whether `person:parity` joins `process-watch-report`'s person chain | 2.6 |
 | 7 | Whether the `nzok_casemix` `partial-payment-year` guard is stream-aware | 3.1 |
+| 8 | **v1.1** — whether `отказано производство` becomes an outcome or stays a surface-only label (it feeds the risk index, so this is not a free change) | 6.3 |
+| 9 | **v1.1** — the slug tiebreak's priority order, and that it must ride a cloud re-resolve happening for another reason rather than trigger one | 6.6, 6.9 |
+| 10 | **v1.1** — whether the 71 same-name multi-content families are namesakes or fragments (170 people, hand-reviewable) | 6.7 |
+| 11 | **v1.1** — whether the matcher's 1,408 party-ambiguous bucket gets its own plan, and that it must NOT land in the same rejoin as a corpus change | 6.2 |
 
 # 5. What was NOT done in this session
 
@@ -902,3 +926,273 @@ is reproducible offline. Out of scope.
 - **The parser fix in §1.5 is a proposal, not a patch.** It has not been applied and its
   regression suite has not been written.
 
+
+---
+
+# 6. v1.1 — audit of this plan (2026-08-22)
+
+Everything below was measured after v1 was committed, by auditing v1's own claims
+against the code and both databases. **Nothing here is implemented either.**
+
+The one-line verdict: **v1's Problem 1 diagnosis is correct but its harm sizing is 6×
+too small, and v1's Problem 2 recommendation („detect, do not converge") stops one
+question short of the actual defect — which is live on production and has nothing to do
+with parity.**
+
+## 6.1 CORRECTION — v1 used a regex that is not a collision test
+
+`person.slug ~ '-[0-9]+$'` also matches every `mp-<id>` slug. **2,118 on each side.**
+
+| | v1 said | correct |
+|---|---|---|
+| local „`-N` collision slugs" | 9,103 | **6,985** |
+| cloud „`-N` collision slugs" | 7,710 | **5,592** |
+| **Δ** | **1,393** | **1,393** — unchanged |
+
+The Δ is what every v1 conclusion rests on and the MP count is identical on both sides,
+so **no conclusion changes.** But the absolute numbers were wrong in a published plan,
+and the same regex appears in v1's §2.5 hand-probe — anything built from it must carry
+`AND slug !~ '^mp-[0-9]+$'`. A `regexp_replace(slug,'-[0-9]+$','')` „base" also collapses
+all 2,118 MPs into one bogus family of size 2,118, which is how this was caught.
+
+**New, and it narrows the repair:** splitting the corrected set by origin shows the
+officials-origin suffixes are **level** (local 1,241, cloud 1,255 — those are minted by
+the officials ingest's `_slug_collisions.json`, not by the resolver). **The entire
+divergence is the resolver's name-hash tier: 5,744 vs 4,337.**
+
+## 6.2 GAP — P1's harm sizing is 6× too small, and the parser is not the main lever
+
+v1 sized the damage as „363 acts loaded and unmatchable" and never asked what the total
+outcome-coverage gap is. Measured, by the register's own status:
+
+| `kzk_appeals.status` | appeals | with outcome | % |
+|---|---|---|---|
+| **приключено производство** (concluded) | **5,043** | **2,725** | **54.0** |
+| отказано производство (refused) | 1,661 | 12 | 0.7 |
+| открито производство (open) | 716 | 230 | 32.1 |
+| обединено (consolidated) | 261 | 102 | 39.1 |
+| иницииран процес | 199 | 0 | 0.0 |
+| прекратено производство | 95 | 9 | 9.5 |
+| оставено без движение | 19 | 0 | 0.0 |
+| спряно производство | 4 | 0 | 0.0 |
+
+**2,318 appeals that КЗК has CONCLUDED carry no outcome.** The 363 gutted decisions are
+at most ~15% of that. The rest sits in the matcher's own reported buckets — 1,408 parties
+with more than one candidate appeal in the year window, 43 appeals claimed by two acts,
+and name-fold misses.
+
+**What this changes about the plan.** The parser fix (§1.5 A) is still unconditionally
+right — it is cheap, offline, and stops the defect recurring. The **re-crawl (B) is now
+clearly the smaller lever**, and the honest expected value is „recovers up to 363
+decisions, of which 125 are upholds, against a 2,318-appeal gap". v1's §1.8 decision 2
+(„is the backfill worth a multi-hour headed crawl?") should be read with that
+denominator, which v1 did not supply.
+
+**The bigger lever was never scoped: the matcher's 1,408 party-ambiguous bucket.** That
+is its own piece of work and it is offline, free and re-runnable — `kzk_rejoin` exists
+precisely so a matcher fix costs no crawl. It belongs in a follow-up plan; **it does not
+belong bolted onto this one**, because a matcher change and a corpus change landing in
+the same rejoin make the ratchet's movement unattributable.
+
+## 6.3 GAP — 1,661 appeals publish a blank outcome where the register states a refusal
+
+`отказано производство` — КЗК refused to open proceedings. That is a determinate,
+published state, and the appeal surfaces render it as no outcome at all. It needs **no
+crawl and no matcher**: it is already in `kzk_appeals.status`.
+
+Whether it should become an `outcome` is a **design decision, not a bug fix**, and it
+must not be taken silently: `outcome` feeds `upheld_ocids` → the Corruption Risk Index,
+and a refusal is not a merits ruling. The safe shape is almost certainly to leave
+`outcome` NULL and have the SURFACE say „производството е отказано" rather than showing
+a blank — i.e. a UI change, not a data change. Flagged, not designed.
+
+## 6.4 INVESTIGATED AND REJECTED — `appealed_act` as an exact matcher key
+
+Worth recording so nobody re-chases it. `kzk_appeals.appealed_act` is populated on
+**7,998 of 7,998** rows (5,964 distinct, e.g. `D56292596`), and КЗК's `Произнасяне`
+quotes the annulled buyer decision by number — the very text that causes the fracture in
+§1.2. That looks like a free exact disambiguator for the 1,408 ambiguous parties.
+
+**Measured: it is not there.** Of the 100 crawled решения, **1** contains a `D`-prefixed
+act token in `pronouncement` at all, and **1** matches any appeal's `appealed_act`.
+Across all 377 crawled rows the match count is 2. The register's list-page `Произнасяне`
+mostly does not quote the act number; the определения arm (277 of 377) is a one-line
+ruling with no act reference whatsoever.
+
+Re-measure after a backfill un-truncates the legacy `pron` — it may improve — but do not
+plan around it.
+
+## 6.5 VALIDATED — the proposed regex in §1.5 (v1 shipped it unverified)
+
+v1 proposed the lookahead fix without testing it against the register's real header
+shapes. Now tested against all eight:
+
+| header shape | old | new |
+|---|---|---|
+| `1     Решение № АКТ-734-23.07.2026` (ot=2, ordinal) | 1 | **1** |
+| `2   Определение № АКТ-847-20.08.2026` (ot=6, ordinal) | 1 | **1** |
+| `Решение № АКТ-5-01.02.2026` (no ordinal) | 1 | **1** |
+| non-breaking space between `№` and the act | 1 | **1** |
+| `Акт № АКТ-1-01.01.2020` | 1 | **1** |
+| inline quote (already safe under both) | 0 | **0** |
+| **`Решение № РД-25/10.01.2026 г. на кмета`** at line start | **1** | **0** ✅ |
+| **`Решение № D48869521/03.10.2025 г.`** at line start | **1** | **0** ✅ |
+
+Preserves all six legitimate shapes; kills exactly the two fracture cases. The fix is
+sound as written.
+
+## 6.6 GAP — the live Problem-2 defect v1 missed: the canonical URL goes to the wrong person
+
+**This is the „underlying issue" the parity framing hid, and it is on PRODUCTION.**
+
+v1 asked „do the two databases agree?" and concluded „no, but cloud is correct and
+serves, so it is latent". It never asked the independent question: **on the serving
+database, is the canonical `/person/<name>-<hash>` URL held by the right human?**
+
+Measured on Cloud SQL, comparing each collision-suffixed person against the person
+holding its base slug, „content" being the manifest's own floor (a declaration, or any
+`person_role` whose source is not `candidate`):
+
+| | cloud (serving) | local |
+|---|---|---|
+| base/`-N` pairs where both are live | 197 | 1,582 |
+| **`-N` twin has content, base does NOT — the canonical URL is the empty one** | **34** | **402** |
+| base has content, `-N` does not (correct) | 24 | 204 |
+| both have content | 71 | 721 |
+| neither | 68 | 255 |
+
+**All 34 of the substantive twins on cloud are `prerender: true` and `indexable: true`,
+and all 34 of the contentless base slugs are also in the manifest.** So production ships
+two indexed pages per case, and the one with the shorter, canonical-looking URL is the
+empty namesake. Examples: `emil-denchev-enchev-196819` (empty) beside `-2` and `-3`
+(both „Емил Денчев Енчев", both with content); `emil-dimitrov-1hwpnn` beside `-3` and
+`-4` (both „Емил Сашев Димитров").
+
+### Root cause — the contest is decided by iteration order, not by claim
+
+`chooseStableSlug` (`scripts/person/slugLock.ts`) returns a person's locked slug with
+**no knowledge of whether another cluster in the same run has already claimed it**. The
+deduplication is then a bare loop in `resolve_persons.ts` (~line 1851):
+
+```js
+const seen = new Set();
+for (const b of built) {
+  let s = b.slug; let i = 2;
+  while (seen.has(s)) s = `${b.slug}-${i++}`;
+  b.slug = s; seen.add(s);
+}
+built.sort((a, b) => a.slug.localeCompare(b.slug));   // ← sorts AFTER assigning
+```
+
+Whichever cluster `built` happens to reach first keeps the base slug. `built` is not
+ordered by anything meaningful at that point — the sort runs *after* — so **the winner is
+an artifact of cluster iteration order, not a property of the data.** That is precisely
+why the same code produces 34 wrong assignments on cloud and 402 on local from
+byte-identical `tr_*` inputs.
+
+**The fix is a deterministic tiebreak**, and it should be by claim strength, in this
+order: an anchored tier (MP / officials ref) always wins; then the OLDEST lock
+(`firstSeen`, which is already carried in `SlugLock` and already the tiebreak *within* a
+cluster); then content-bearing over candidate-only; then slug for determinism. Two
+things follow that must be decided rather than assumed — see §6.9.
+
+### The retirement hazard beside it — theoretically live, empirically not observed
+
+The retirement diff a few lines below is:
+
+```js
+if (prev && prev !== b.slug && !liveSlugs.has(prev)) retired.set(prev, b.slug);
+```
+
+If cluster A held slug `X` and now gets `X-2` while cluster B takes `X`, then
+`liveSlugs.has('X')` is **true**, so **no retirement is recorded** — and `/person/X`, a
+URL that has been serving person A, silently starts serving person B at a 200 with no
+301 and no record anywhere.
+
+**Measured, and it has not happened at scale:** across the 132,305 slugs live on both
+databases, only **3** resolve to a different `display_name`, and all three are the same
+human with different casing/trailing space (`Андрей Руменов Кадишев ` vs
+`АНДРЕЙ РУМЕНОВ КАДИШЕВ`). So this is a **tripwire worth adding, not a confirmed
+defect** — but a slug tiebreak change (above) is exactly the edit that could start
+moving base slugs between clusters, so the tripwire must land **with** it, not after.
+
+## 6.7 GAP — cluster fragmentation on the serving database, unquantified by v1
+
+Same-base-slug families on cloud, excluding the bogus `mp-` family:
+
+| family size | families | all members share one name | mixed names |
+|---|---|---|---|
+| 2 | 90 | 86 | 4 |
+| 3 | 26 | 26 | 0 |
+| 4 | 9 | 9 | 0 |
+| 5 | 2 | 2 | 0 |
+| 6 | 1 | 1 | 0 |
+| 7 | 1 | 1 | 0 |
+
+**125 of the 130 families have every member under one normalised name, and 71 of those
+have two or more content-bearing members — 170 people.**
+
+**This needs a human, and it is genuinely ambiguous.** A family of three „Емил Денчев
+Енчев" rows is either (a) three real namesakes, which Bulgarian naming makes entirely
+plausible and which the resolver is right to keep apart, or (b) one human fragmented
+across three profiles by cluster drift. The resolver already carries a `namesakeRisk`
+signal per member; nothing currently reports it at family level. **170 people is a
+hand-reviewable number** — that is the cheapest way to settle whether this is a defect at
+all, and it should happen before any merge logic is written.
+
+## 6.8 VERIFIED CLEAN — so nobody re-audits these
+
+Measured on both databases and found healthy. Recorded because each is a plausible
+suspicion that costs an hour to re-check:
+
+| check | local | cloud |
+|---|---|---|
+| lock rows whose slug is neither live nor retired (dead URL, no 301) | **0** | **0** |
+| `person_slug_retired` with a NULL target | 0 | 0 |
+| `person_slug_retired` whose target is missing from `person` | 0 | 0 |
+| redirect chains (target is itself retired) | 0 | 0 |
+| a slug both retired AND live | 0 | 0 |
+| `-N` slug whose base 301s to a DIFFERENT person | — | **0** |
+| shared slugs resolving to a different human | **3, all casing-only** | |
+| untrimmed `display_name` | 0 | 0 |
+
+One more, so it is not mistaken for parity drift later: **44,957 / 44,955 `display_name`
+values are ALL-CAPS** on local/cloud respectively — a corpus-wide pre-existing condition
+inherited from the TR feed, essentially identical on both sides, and only **171** of them
+are `is_public_figure`. It is not a divergence and it is not in scope here.
+
+## 6.9 Revised recommendation for Problem 2
+
+v1 said „detect, do not converge, leave the drift alone". **That still holds for the
+drift.** It was the wrong stopping point for the defect underneath it.
+
+| | v1.1 recommendation | why |
+|---|---|---|
+| **P2-a** | **Give the slug contest a deterministic tiebreak by claim strength** (§6.6) | This is the underlying fix. It is offline, it is in one pure function plus one loop, and it is what makes the outcome a property of the data instead of of iteration order. |
+| **P2-b** | **Add the slug-changed-hands tripwire in the same change** (§6.6) | A tiebreak change is the one edit that can start moving base slugs between humans with no 301. Ship the detector with the change, not after. |
+| **P2-c** | Hand-review the 170 people in the 71 same-name multi-content families (§6.7) | Settles whether fragmentation is real before anyone writes merge logic for it. |
+| **P2-d** | The read-only parity probe from §2.3, with `AND slug !~ '^mp-[0-9]+$'` | Unchanged, minus the §6.1 error. |
+| **P2-e** | Still do NOT re-resolve cloud for parity | Unchanged. §2.4's triggers stand. |
+
+⚠️ **The ordering constraint P2-a creates, and it is the expensive one.** A tiebreak
+change only takes effect on a **re-resolve**, and a re-resolve on cloud costs the full
+§2.4 bill — ~29–37 min plus the nine-step repair chain plus an ~8-minute window at 500 on
+four pages. Worse, it will **re-slug some of the 34 affected people**, so each needs a
+`person_slug_retired` row and then `npm run person:slugs:cloud` to re-mint the manifest,
+or those pages become the soft-404s §2.1 says have so far been avoided.
+
+So P2-a is **not** a „ship it when convenient" change. It should ride the next cloud
+re-resolve that is happening for one of §2.4's own reasons, and the plan for that run must
+include the manifest re-mint. Landing it alone, to fix 34 pages, is not worth the outage.
+
+## 6.10 What the audit did NOT do
+
+- **Did not size the matcher's 1,408 party-ambiguous bucket** (§6.2). It is named as the
+  bigger lever on evidence, and left unquantified; that is a follow-up plan's job.
+- **Did not verify the §6.6 tiebreak proposal against a real resolve.** It is reasoned
+  from the code, not measured — the only way to measure it is to run a local resolve,
+  which mutates 133k rows and was out of scope for an audit.
+- **Did not hand-check any of the 71 families** (§6.7) to see whether they are namesakes
+  or fragments. That is P2-c and it needs a human who reads Bulgarian names.
+- **Did not re-run any Problem-1 command.** §1's evidence is unchanged from v1 apart from
+  the additions in §6.2–6.5.
