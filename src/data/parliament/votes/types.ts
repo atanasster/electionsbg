@@ -31,6 +31,10 @@ export interface SessionItem {
 
 export interface SessionFile {
   ns: string;
+  /** Set only when one date carries TWO parliaments' sittings — a dissolution and a first
+   *  sitting on the same day. Never seen in this corpus; reported rather than assumed away,
+   *  because `ns` alone would silently name one of them. */
+  spansNs?: string[];
   date: string;
   stenogramId: number;
   scrapedAt: string;

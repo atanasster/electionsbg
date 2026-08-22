@@ -5063,6 +5063,145 @@ const DB_ROUTES = {
       },
     };
   },
+  // THE WHOLE DAY'S PER-MP MATRIX — the other half of retiring
+  // parliament/votes/sessions/<date>.json (json-retirement-v2 Tier 1).
+  //
+  // ⚠️ WHY A WHOLE-DAY ROUTE AND NOT LAZY PER-ITEM FETCHING. The plan first proposed serving
+  // the agenda and pulling each item's votes on expand. SessionScreen cannot work that way:
+  // computeSessionMetrics, RollcallHeatmap, SessionDefections, SessionAbsentees and the
+  // focused-MP highlight each iterate EVERY item's full votes array to render the page's
+  // day-level figures. Lazy fetching would have broken five components to save bytes the
+  // page needs anyway. /api/db/session-item stays for the deep-linked single item.
+  //
+  // THE WIN IS DECODE, NOT JUST WIRE. 2025-06-19 is 5,086,380 bytes as the day file —
+  // served `identity` at that size, measured over HTTP — against 412 KB of pairs here, and
+  // ~4.85 MB of parsed JSON in a phone's heap against ~412 KB of strings.
+  //
+  // PAIRS (`<mpId><voteChar>`), NOT A POSITIONAL STRING over a fixed roster. Positional is
+  // ~4x smaller again and was measured and rejected twice over: filling the gaps needs a
+  // roster CROSS JOIN that SPILLS TO TEMP (449 blocks read, 450 written) where this form is
+  // a clean 1,378 buffers, and the alignment it depends on is not a property of the corpus —
+  // 99 of 16,741 items carry fewer casts than their own day's roster, so a positional string
+  // built from an item's own casts silently shifts every MP after the gap onto somebody
+  // else's vote. A wrong vote against a named MP is the one failure this payload must not
+  // have.
+  //
+  // NOT filtered on superseded_by, exactly like /api/db/session: this is the day's RECORD,
+  // and a motion put to the floor twice is a fact about the day. Every Tier 3 aggregate does
+  // the opposite.
+  //
+  // COST, measured on 2025-06-19 (293 items, 70,320 casts — the largest sitting in the
+  // corpus): 1,378 buffers for the aggregate + 18 for the item_no map + 141 for the roster
+  // = 1,537, with no temp spill. The per-call budget is 2,000, so this is the tightest thing
+  // in the module — re-measure before adding a column.
+  "session-casts": async (dbRows, q) => {
+    const date = s(q, "date");
+    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return { body: null };
+    const parsed = new Date(`${date}T00:00:00Z`);
+    if (
+      Number.isNaN(parsed.getTime()) ||
+      parsed.toISOString().slice(0, 10) !== date
+    ) {
+      return { body: null };
+    }
+    // `= ANY(ARRAY(SELECT …))` — an uncorrelated InitPlan, NOT a join onto vote_item. The
+    // natural join drives a Parallel Seq Scan over vote_item (2,779 buffers measured); this
+    // rides idx_vote_item_date for the id set and vote_cast_pkey for the casts, at 1,378.
+    // Same rule tender_search_text's header records.
+    //
+    // ⚠️ KEYED ON item_no, NOT item_id — and this is the difference between a correct page
+    // and a silently wrong one. `item_id` is a POSITIONAL counter assigned by iteration
+    // order over the corpus (load_rollcall_pg says so itself, and keys its own changelog on
+    // (ns, date, item_no) for exactly this reason): a re-parse that shifts one historical
+    // day's item count by one renumbers every id after it.
+    //
+    // That matters HERE and not in the loader because this payload and /api/db/session are
+    // cached INDEPENDENTLY at the edge (s-maxage=3600 + stale-while-revalidate), with
+    // nothing invalidating either on ingest. A client holding a cached agenda beside fresh
+    // casts would then render every item's row with the PREVIOUS item's per-MP votes next to
+    // its own correct tallies — undetectable downstream, because the tallies come from
+    // vote_item and still reconcile. item_no is the natural key and is stable.
+    //
+    // The mapping is a SEPARATE 18-buffer lookup rather than a join, because grouping the
+    // aggregate by item_no — or joining vote_item into it at all — forces a re-sort of all
+    // ~70,000 casts and SPILLS TO TEMP: measured 2,511 buffers + 200 temp blocks against
+    // 1,378 and none. Grouped by item_id the rows arrive in index order and the aggregate is
+    // streamed.
+    const [rows, itemNos] = await Promise.all([
+      dbRows(
+        `SELECT c.item_id,
+                string_agg(c.mp_id::text || c.vote::text, ',' ORDER BY c.mp_id) AS votes
+           FROM vote_cast c
+          WHERE c.item_id = ANY(ARRAY(SELECT item_id FROM vote_item WHERE date = $1))
+          GROUP BY c.item_id`,
+        [date],
+      ).catch(tableRows("vote_cast", "db:load:rollcall:pg")),
+      dbRows(`SELECT item_id, item_no FROM vote_item WHERE date = $1`, [
+        date,
+      ]).catch(tableRows("vote_item", "db:load:rollcall:pg")),
+    ]);
+    const noById = new Map(itemNos.map((r) => [r.item_id, r.item_no]));
+    if (!rows.length) return { body: null };
+    // The day's roster, so the client can render a name and a party chip without a second
+    // call. mp_seat is 2,366 rows total, so this is a small scan rather than a per-MP lookup.
+    //
+    // party comes from vote_cast.party_id — the affiliation AT CAST TIME, which is what the
+    // day file's mpParty map held and what every day-level metric must group on (179 of
+    // 2,366 seats change party mid-term, so mp_seat.party_id is the wrong basis per item).
+    // DISTINCT is safe here only because an MP never carries two party_ids within ONE DAY:
+    // measured 2026-08-21, 0 of 147,137 (mp, day) pairs. That is a property of when defections
+    // are recorded, not a constraint — if it ever breaks, this silently picks one of two.
+    //
+    // ⚠️ SAMPLED FROM THE DAY'S FIRST 12 ITEMS, not from all of them. Over every cast of the
+    // day this is a second 1,430-buffer pass — which would put the route at ~2,800, past the
+    // 2,000-buffer per-call budget — for a set that is 240 rows wide. Twelve items is 141.
+    //
+    // The cost is stated rather than hidden: 2 of 613 days carry an MP who voted only on a
+    // later item, so their name is absent from the roster (worst day, 238 of 240 named).
+    // Widening the sample does NOT fix it — measured identical at 5, 8 and 12 items — so it
+    // is a property of those two sittings, not of the sample size. Their VOTES are still in
+    // `items`; only the name and party chip are missing, and the client renders the mp_id.
+    // An unnamed MP is a visibly incomplete row; a MISSING one would be a silent omission,
+    // which is why the roster is never used to filter the casts.
+    const seats = await dbRows(
+      `SELECT DISTINCT c.mp_id, s.name, p.short AS party
+         FROM vote_cast c
+         JOIN mp_seat s ON s.ns = c.ns AND s.mp_id = c.mp_id
+         LEFT JOIN party_dim p ON p.party_id = c.party_id
+        WHERE c.item_id IN (
+          SELECT item_id FROM vote_item WHERE date = $1 ORDER BY item_no LIMIT 12)`,
+      [date],
+    ).catch(tableRows("mp_seat", "db:load:rollcall:pg"));
+    const mpNames = {};
+    const mpParty = {};
+    for (const r of seats) {
+      mpNames[r.mp_id] = r.name;
+      if (r.party) mpParty[r.mp_id] = r.party;
+    }
+    // ⚠️ AN EMPTY ROSTER BESIDE NON-EMPTY CASTS IS REPORTED, NOT PAPERED OVER. If mp_seat is
+    // unreadable (42P01 from a database without 134, 55P03 mid-refresh) tableRows degrades it
+    // to [] while the casts still ship — and every MP then folds into one unnamed group.
+    // Measured on 2025-06-19: the cohesion figure renders 62% against a true 96% and flips
+    // its sub-label to "cross-party splits", and the dissents count renders 0 · "none"
+    // against a true 1,913. Those are fabricated statistics about named parties, which is
+    // strictly worse than the page not rendering them at all. `rosterOk` lets the client
+    // decline the whole matrix rather than compute from it.
+    return {
+      body: {
+        date,
+        mpNames,
+        mpParty,
+        rosterOk: seats.length > 0,
+        // item_no, never item_id — see the note above. A cast set whose item_no cannot be
+        // resolved is DROPPED rather than emitted under a guessed number: an item missing
+        // from the matrix renders with no votes (visible), while one under the wrong number
+        // renders somebody else's votes (not).
+        items: rows
+          .filter((r) => noById.has(r.item_id))
+          .map((r) => ({ item: noById.get(r.item_id), votes: r.votes })),
+      },
+    };
+  },
   // The per-MP votes for ONE item — the hemicycle, fetched when a reader expands a row.
   //
   // Driven from an explicit item id rather than a join on date, because the planner gets
