@@ -23,9 +23,24 @@ updated reference datasets, (c) hub stat blobs (D1).
 | 7 | T3a attendance+cohesion | `198b04452f` | ✅ migration 181 |
 | 8 | T2 per-MP shards | `86f4523797` | ✅ migration 182, useMpShard deleted |
 | 9 | T3b topic_index fallbacks | `ee9b0b112f` | ✅ src/ readers only — file stays for `ai/` |
+| 10 | T3c party_pair_breaks | `b7c7979cfa` | ✅ migration 183 — **T3c closed, see D5** |
 
-**Still open:** T3c (party_pair_breaks, search_index, important_votes, embedding), T4b (alerts),
-T5 (budget/schools/financing), and every OPERATOR ACTION below.
+**Still open:** T4b (alerts), T5 (budget/schools/financing), and every OPERATOR ACTION below.
+
+### D5 (2026-08-22) — T3c is CLOSED at one of four, and the other three stay JSON
+
+`party_pair_breaks.json` (2.4 MB) migrated. The plan asserted the other three were "all
+derivable from `vote_item` / `vote_cast` / `mp_seat` / `party_dim`". Read against their
+builders, that is wrong for one of them and a bad trade for the other two:
+
+| artifact | size | why it stays |
+|---|---:|---|
+| `embedding.json` | 212 KB | **A UMAP projection** (`umap-js`, 2D over each member's ±1 vote vector, seeded PRNG). Not an aggregation — there is no SQL for it. "Migrating" it would mean a loader that runs UMAP offline and COPYs the points into a table: a second copy of the same numbers, plus a loader to keep in step, for 212 KB. |
+| `search_index.json` | 760 KB raw, **~80 KB gzipped** | Feeds the header search on EVERY page. This is D1's argument exactly — a small edge-cached artifact fetched once beats a Cloud Run round-trip on every page load, and worse on a cold `db-g1-small`. It is already a slim top-N projection built precisely to avoid the 580 KB `topic_index` fetch it replaced. |
+| `important_votes/{ns}.json` | 428 KB / 9 files | A **title-pattern scorer** with same-bill de-duplication (`classifyTitle`, `normalizeTitle`) — a Cyrillic text-classification heuristic, not an aggregate. Porting it means a second hand-written copy of that scorer in SQL, which is the "rule copied by hand" hazard CLAUDE.md records; the JSON is ~40 KB per parliament. |
+
+None of the three has an `ai/` reader, so all three could be excluded from the bucket the day
+a reason to move them appears. There isn't one.
 
 ### ⚠️ Operator actions this plan has NOT performed
 
