@@ -462,6 +462,13 @@ export const rebuildDerived = async (args: {
       await uploadText(
         path.join(DERIVED_DIR, f),
         `parliament/votes/derived/${f}`,
+        // Passed explicitly because FOUR of these paths (search_index, dissents,
+        // similarity, topic_index) are ALSO written by scripts/bucket_gzip.ts, which
+        // sends `public,max-age=300,must-revalidate` — as does `bucket:sync`. uploadText's
+        // default is `no-cache, max-age=0`, so without this the served header was decided
+        // by whichever uploader an operator happened to run last. On dissents.json (32.5 MB)
+        // that is the difference between one re-fetch per five minutes and one per view.
+        { cacheControl: "public,max-age=300,must-revalidate" },
       );
     }
     // Important-votes shards: one tiny file per NS under

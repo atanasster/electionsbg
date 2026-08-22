@@ -30,12 +30,30 @@ const run = (cmd: string, args: string[]): Promise<void> =>
   });
 
 // Upload one JSON/CSV/text file. gzipped in flight via -Z.
+//
+// Refuses a path `bucket:sync` excludes, for the same reason uploadTextTree does — and this
+// half was missing until 2026-08-21, which made the guard there only half a guard. An
+// exclusion in `bucket_sync_paths.ts` stops the RSYNC; it does nothing about a single-file
+// `gsutil cp -Z`, and `cp` takes no -x. So a retired artifact whose per-file uploader was
+// left in place (say `parliament/votes/derived/dissents.json` in rebuildDerived's --upload
+// list) went on being republished by the daily ingest, gzipped, indefinitely — a tree
+// "retired" everywhere except the one place that still writes it.
+//
+// Reading `isExcluded` rather than restating it is the point: a retirement lands in ONE file
+// and every uploader honours it. The skip is logged rather than silent, because a daily
+// ingest that quietly stops publishing something is its own failure mode.
 export const uploadText = async (
   localPath: string,
   remoteSubpath: string,
   opts: { cacheControl?: string } = {},
 ): Promise<void> => {
-  const remote = `${BUCKET}/${remoteSubpath.replace(/^\//, "")}`;
+  const rel = remoteSubpath.replace(/^\/|\/$/g, "");
+  const reason = isExcluded(rel);
+  if (reason) {
+    console.log(`  skip ${rel} — ${reason}`);
+    return;
+  }
+  const remote = `${BUCKET}/${rel}`;
   const cache = opts.cacheControl ?? "no-cache, max-age=0";
   await run("gsutil", [
     "-h",

@@ -12,10 +12,16 @@
 // (6.6x) and settlements.json 963 KB -> ~164 KB. Proven live on a throwaway key.
 //
 // SCOPE: this compresses the HOT large files the AI chat + main site wait on
-// (resolution indexes, per-election summaries, search indexes) — a bounded set,
-// re-uploaded every run (cheap, ~tens of MB). It does NOT compress the whole
-// 9.9 GB tree (847k files); that needs replacing rsync with an incremental,
-// gzip-aware uploader — a separate, operator-validated change. See README.
+// (resolution indexes, per-election summaries, search indexes, the roll-call day files and
+// their aggregates) — a bounded set, re-uploaded every run. It does NOT compress the whole
+// 9.9 GB tree (847k files); that needs replacing rsync with an incremental, gzip-aware
+// uploader — a separate, operator-validated change. See README.
+//
+// COST, measured 2026-08-21 — read both numbers, they differ by ~18x. The run reads and
+// gzips 402.9 MB across 765 files locally and UPLOADS 22.7 MB of that. The upload is the
+// cheap half; the local pass and the rsync churn below are not. "~tens of MB" described
+// only the upload and was read as the whole cost, so both are stated now. (Both figures
+// grow as sittings land — re-read them from `npm run bucket:gz:dry`, don't trust this line.)
 //
 // CAVEAT (ordering): `bucket:sync` (rsync) re-uploads these files UNCOMPRESSED
 // because the gzipped object differs from the local file, so it would clobber
@@ -61,6 +67,37 @@ const GLOBAL_FILES = [
   // download on /data in both languages (scripts/prerender/routes.ts).
   "parliament/votes/index.json",
   "parliament/votes/derived/search_index.json",
+  // The three big roll-call aggregates. Measured over HTTP 2026-08-21, these were the
+  // largest objects on the bucket and ALL THREE were stored `identity` — the reader really
+  // did download 32.5 MB to render a dissents section. Compressed sizes are `zlib` level 6,
+  // which is what `gsutil cp -Z` stores (NOT level 9 — see the stat line in run()):
+  //     dissents.json     32,575,807 -> 2,704,470  (12.0x)
+  //     similarity.json   12,275,762 -> 1,545,406  ( 7.9x)
+  //     topic_index.json   8,368,917 ->   634,191  (13.2x)
+  // No single ratio covers the set — it spans 7.9x here and ~24x for the session tree below,
+  // so quote the per-artifact figure rather than an average. They are absent from this list
+  // purely because it predates them, not by decision.
+  //
+  // `useMpDissents` / `useMpSimilarity` reach dissents.json + similarity.json only as their
+  // THIRD arm (Postgres → per-MP shard → aggregate), which is exactly the slow path a reader
+  // hits when the shard is missing — 36 members today.
+  //
+  // ⚠️ INTERIM. json-retirement-v2 Tier 2 removes all three from the bucket once
+  // /api/db/mp-rollcall lands; Tier 3b removes topic_index.json. Retiring them takes THREE
+  // edits, not one — a path left in ANY uploader after the exclusion defeats the exclusion,
+  // because `gsutil cp -Z` takes no -x and bucket:gz runs AFTER the sync:
+  //   1. delete these lines;
+  //   2. add the `isExcluded` entries in scripts/bucket_sync_paths.ts;
+  //   3. remove them from scripts/parliament/derived/index.ts's --upload list, which pushes
+  //      all three (plus loyalty/attendance/cohesion/embedding/party_correlation/
+  //      search_index/party_pair_breaks) on every roll-call ingest.
+  // Step 3 is now belt-and-braces rather than load-bearing: uploadText() consults
+  // isExcluded() as of this commit, so an excluded path is refused there too. Do it anyway —
+  // a silent skip in a daily ingest is worse than a list that says what it publishes.
+  // That is the trap the two retirements commented above record.
+  "parliament/votes/derived/dissents.json",
+  "parliament/votes/derived/similarity.json",
+  "parliament/votes/derived/topic_index.json",
   // officials/municipal/search_index.json retired from the bucket (persons-pg-retirement-v1
   // T1.5): the header search reads municipal_officials_table via /api/db, so the file is no
   // longer served or gzip-uploaded. It stays on disk only for the offline search harness.
@@ -92,6 +129,25 @@ const isElectionDir = (n: string): boolean => /^\d{4}_\d{2}_\d{2}/.test(n);
 // them ~6× on the wire. Threshold skips the ~1,000 tiny per-município shards.
 const SECTION_SHARD_GZIP_MIN = 120_000;
 
+// Roll-call day files (parliament/votes/sessions/YYYY-MM-DD.json). Each carries every MP's
+// vote on every item of that sitting, so the big ones are the heaviest single downloads on
+// the site — max 4.97 MB (2025-06-19) — and every one was served `identity`.
+//
+// The WHOLE tree, deliberately NOT thresholded the way SECTION_SHARD_GZIP_MIN is. Measured
+// 2026-08-21 (`zlib` level 6, what `cp -Z` uses): 613 files, 288.4 MB -> 11.9 MB (24.3x).
+// A 300 KB floor was tried and is the wrong side of the trade — it skips ~302 files that
+// still compress 15.4x, forgoing 42.2 MB of reader download to avoid 2.9 MB of upload.
+//
+// The SECTION_SHARD_GZIP_MIN precedent does not transfer: there the skipped set is ~1,000
+// shards of a few KB, where gzip framing is a real fraction of the payload and the problem
+// is object COUNT. Here the skipped files average ~150 KB, squarely in the range this
+// script exists to compress (settlements.json, already listed, is 963 KB).
+//
+// ⚠️ INTERIM, like the three aggregates above. json-retirement-v2 Tier 1 replaces this tree
+// with /api/db/session + /api/db/session-casts; delete this block and its call site in the
+// commit that adds the `isExcluded` entry for parliament/votes/sessions.
+const SESSIONS_DIR = "parliament/votes/sessions";
+
 // NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors
 // / awarders), the by_ns slices and the derived/contract_index year shards used
 // to be gzip-uploaded here. Procurement now serves from Cloud SQL (/api/db/*),
@@ -101,6 +157,13 @@ const collect = (): string[] => {
   const out: string[] = [];
   for (const rel of GLOBAL_FILES) {
     if (existsSync(join(DATA, rel))) out.push(rel);
+  }
+  const sessionsDir = join(DATA, SESSIONS_DIR);
+  if (existsSync(sessionsDir)) {
+    for (const f of readdirSync(sessionsDir)) {
+      if (!f.endsWith(".json")) continue;
+      out.push(`${SESSIONS_DIR}/${f}`);
+    }
   }
   for (const entry of readdirSync(DATA, { withFileTypes: true })) {
     if (!entry.isDirectory() || !isElectionDir(entry.name)) continue;
@@ -156,16 +219,26 @@ const run = async (): Promise<void> => {
   for (const rel of files) {
     const buf = readFileSync(join(DATA, rel));
     raw += buf.length;
-    gz += gzipSync(buf, { level: 9 }).length;
+    // Default level (6), NOT level 9 — this line reports what `gsutil cp -Z` will actually
+    // store and serve, and cp -Z uses zlib's default. At level 9 the printed figure
+    // under-reported the stored size by ~7% on the session tree (8.4 MB vs 9.0 MB), i.e. it
+    // flattered a number this file exists to state honestly.
+    gz += gzipSync(buf).length;
   }
   console.log(
     `${DRY ? "[dry-run] " : ""}${files.length} hot files — ${mb(raw)} MB raw -> ${mb(gz)} MB gzipped (${((1 - gz / raw) * 100).toFixed(0)}% smaller on the wire)`,
   );
   if (DRY) {
+    // 1 MB floor, not 100 KB: the set is ~765 files now that the session tree is in, and a
+    // ~320-line listing buries the summary line above — which is the line an operator reads.
+    const NAMED_MIN = 1_000_000;
+    let unnamed = 0;
     for (const rel of files) {
       const sz = statSync(join(DATA, rel)).size;
-      if (sz > 100_000) console.log(`  ${mb(sz).padStart(6)} MB  ${rel}`);
+      if (sz > NAMED_MIN) console.log(`  ${mb(sz).padStart(6)} MB  ${rel}`);
+      else unnamed++;
     }
+    if (unnamed) console.log(`  (+${unnamed} files under ${mb(NAMED_MIN)} MB)`);
     console.log(
       `[dry-run] would upload to ${BUCKET} with Content-Encoding: gzip. Re-run without --dry-run to upload.`,
     );

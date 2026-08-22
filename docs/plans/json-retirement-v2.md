@@ -82,7 +82,22 @@ individual items, so any aggregate over votes still groups on `vote_cast.party_i
 | `procurement/derived/hub_stats.json` | 1,156 | gzip ✅ |
 | `settlements.json` | 157,734 | gzip ✅ |
 
-`dissents.json` gzips ~5.9x (5.09 MB → 171 KB measured on the session file, same shape).
+Measured per artifact (`zlib` level 6, what `cp -Z` stores) — **no single ratio covers the
+set**, so quote the artifact, never an average:
+
+| artifact | raw | gzip | ratio |
+|---|---:|---:|---:|
+| `sessions/**` (whole tree, 613 files) | 288.4 MB | **11.9 MB** | 24.3x |
+| `sessions/2025-06-19.json` | 5,086,380 | 171,182 | 29.7x |
+| `derived/dissents.json` | 32,575,807 | 2,704,470 | 12.0x |
+| `derived/similarity.json` | 12,275,762 | 1,545,406 | 7.9x |
+| `derived/topic_index.json` | 8,368,917 | 634,191 | 13.2x |
+
+⚠️ An earlier draft of this line said "gzips ~5.9x" and derived a 300 KB session threshold
+from it. Both were wrong: 5.09 MB → 171 KB is **29.7x**, and the threshold it justified
+forgoes 42.2 MB of reader download to avoid 2.9 MB of upload. The whole tree is compressed,
+with no floor. Corrected 2026-08-21 — the figure had already propagated into two code
+comments before it was caught.
 Adding these four paths to `bucket_gzip.ts`'s list buys **~85% off the wire today**, before a
 line of migration code — and it protects the users who hit the fallback arms while Tiers 1–3
 are in flight.
