@@ -23,10 +23,20 @@ export interface HubStat {
 type HubStatsFile = Record<string, HubStat>;
 
 /** The stat block for the active ?pscope, or undefined while loading / on a
- *  scope not present in the file. */
-export const useProcurementHubStats = (): HubStat | undefined => {
+ *  scope not present in the file.
+ *
+ *  `scopeKey` FORCES a slice, for a page that has no ?pscope of its own. /governance is the
+ *  case: it is a hub of hubs with no scope selector, so without this it silently resolved to
+ *  the SELECTED PARLIAMENT and rendered €3.32bn / 3,481 / 227 / 332 under captions reading
+ *  „договори 2007–2026" — the corpus figures are €93.56bn / 29,622 / 898 / 871. Measured on
+ *  the first build of that page's KPI band, 2026-08-22. A page that quotes the corpus must
+ *  ASK for the corpus, and link with ?pscope=all so the destination agrees. */
+export const useProcurementHubStats = (
+  scopeKey?: string,
+): HubStat | undefined => {
   const { all, year, selected } = useScopeWindow();
-  const key = all ? "all" : year != null ? `y:${year}` : `ns:${selected}`;
+  const key =
+    scopeKey ?? (all ? "all" : year != null ? `y:${year}` : `ns:${selected}`);
   const { data } = useQuery({
     queryKey: ["procurement", "hub-stats"] as const,
     queryFn: async (): Promise<HubStatsFile> => {

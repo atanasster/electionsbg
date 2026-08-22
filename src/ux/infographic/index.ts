@@ -6,6 +6,8 @@ export type { TileHubSection } from "./TileHubGrid";
 export { SectionHeading } from "./SectionHeading";
 export type { SectionAction } from "./SectionHeading";
 export { FeaturedStrip } from "./FeaturedStrip";
+export { HubHead } from "./HubHead";
+export type { HubKpi, HubEvidence, HubEvidenceRow } from "./HubHead";
 export { SceneFrame, SCENE_VIEWBOX, PAPER } from "./SceneFrame";
 export { Bars, TrendLine, Donut } from "./scenePrimitives";
 export { TILE_ACCENTS } from "./tileAccents";

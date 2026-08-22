@@ -1,0 +1,208 @@
+// HubHead — the shared opening block for every module hub.
+//
+// PREVIEW (docs/plans/hub-hero-v1.md §4). Today each of the thirteen hubs composes its own
+// header out of <Title> + a loose <p> + whatever else, and no two agree: search on 6 of 13,
+// an intro sentence on 5, a breadcrumb on 9, a KPI row on 2 — both below the fold. Measured
+// 2026-08-22, NOT ONE hub makes a corpus-level statement above the fold; /governance carries
+// no number at all until 2 355 px.
+//
+// The order is fixed here so it cannot drift again:
+//   breadcrumb (the caller's, above)  →  eyebrow + freshness  →  h1  →  deck
+//   →  scope  →  search        |  evidence list
+//   →  KPI band (full width)
+//
+// It renders the page's <h1> AND its <SEO>, so a screen using it must NOT also render
+// <Title> — that would emit two h1s.
+
+import { FC, ReactNode } from "react";
+import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { SEO } from "@/ux/SEO";
+import { H1 } from "@/ux/H1";
+
+/** One figure in the KPI band. `basis` is REQUIRED and is the whole point: the band is the
+ *  largest type on the page, so it is the highest-stakes place for a number that is
+ *  arithmetically right and false as a sentence. „€3,3 млрд." needs „по 52-ро НС" under it or
+ *  it is a claim about the whole corpus. */
+export interface HubKpi {
+  /** Already formatted and localized. */
+  value: string;
+  /** What it counts. */
+  label: string;
+  /** The window / denominator, in the reader's words. */
+  basis: string;
+  /** The page that can name the rows behind the number. */
+  to?: string;
+}
+
+export interface HubEvidenceRow {
+  label: string;
+  value: string;
+  to?: string;
+}
+
+export interface HubEvidence {
+  heading: string;
+  rows: HubEvidenceRow[];
+  action?: { to: string; label: string };
+}
+
+const KpiCell: FC<{ kpi: HubKpi }> = ({ kpi }) => {
+  const body = (
+    <>
+      <span className="block text-2xl font-bold leading-none tracking-tight tabular-nums xl:text-3xl">
+        {kpi.value}
+      </span>
+      <span className="mt-2 block text-[13px] font-semibold leading-tight text-foreground/80">
+        {kpi.label}
+      </span>
+      <span className="mt-1.5 block text-[10px] font-semibold uppercase leading-tight tracking-wider text-muted-foreground">
+        {kpi.basis}
+      </span>
+    </>
+  );
+  const shell = "block bg-card px-4 py-3.5";
+  return kpi.to ? (
+    <Link
+      to={kpi.to}
+      className={cn(
+        shell,
+        "transition-colors hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
+      )}
+    >
+      {body}
+    </Link>
+  ) : (
+    <div className={shell}>{body}</div>
+  );
+};
+
+export const HubHead: FC<{
+  /** Module kicker, e.g. „ОБЩЕСТВЕНИ ПОРЪЧКИ". */
+  eyebrow: string;
+  /** „обновено 21.08" — the only "live" claim that can be made honestly. */
+  freshness?: string;
+  title: string;
+  /** <meta name="description">, NOT the deck: one is read by a crawler, the other by a human. */
+  seoDescription: string;
+  /** One sentence: what a reader can do here. */
+  deck?: string;
+  /** The hub's scope control, where it has one — beside the numbers it governs, not 448 px
+   *  above them, which is where /procurement keeps it today. */
+  scope?: ReactNode;
+  search?: ReactNode;
+  /** 3–5 figures. Read from the SAME blob the tiles read; a band that needs its own fetch has
+   *  become a sub-page. */
+  kpis?: HubKpi[];
+  /** A ranked list, deliberately not a chart: vendor-charts is ~115 KB br and lazy, the entry
+   *  budget is 56 000 B br, and a list is text — so it prerenders, translates, and is five more
+   *  internal links. See §4.2. */
+  evidence?: HubEvidence;
+  /** One line under the band when the figures must not be read as parts of one number. */
+  kpiNote?: string;
+  className?: string;
+}> = ({
+  eyebrow,
+  freshness,
+  title,
+  seoDescription,
+  deck,
+  scope,
+  search,
+  kpis,
+  evidence,
+  kpiNote,
+  className,
+}) => (
+  <div className={cn("mt-4", className)}>
+    <SEO title={title} description={seoDescription} />
+
+    {/* ONE grid, explicitly placed, so the DOM order is the MOBILE order: identity → KPI band
+        → evidence. Rendering the aside as the grid's second child put a ranked list between
+        the deck and the numbers on every phone, which is where most of this site's readers
+        are. At `lg` the aside is pulled up into column 2 and the band spans both. */}
+    <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-x-8">
+      <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+        <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[color:var(--sector,hsl(var(--primary)))]">
+          <span>{eyebrow}</span>
+          {freshness ? (
+            <span className="font-semibold normal-case tracking-normal text-muted-foreground">
+              · {freshness}
+            </span>
+          ) : null}
+        </p>
+
+        {/* The h1 is left, full-contrast and compact — the class string on <Title> renders it
+            centred in text-muted-foreground (5.20:1, the same colour as the least important
+            paragraph on the page) with 96 px of padding. See §8. */}
+        <H1 className="mt-2 py-0 text-left text-2xl text-foreground sm:text-3xl md:text-4xl md:py-0">
+          {title}
+        </H1>
+
+        {deck ? (
+          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
+            {deck}
+          </p>
+        ) : null}
+
+        {scope ? <div className="mt-4">{scope}</div> : null}
+        {search ? <div className="mt-4">{search}</div> : null}
+      </div>
+
+      {kpis && kpis.length > 0 ? (
+        <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2">
+          <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
+            {kpis.map((kpi) => (
+              <KpiCell key={kpi.label} kpi={kpi} />
+            ))}
+          </div>
+          {kpiNote ? (
+            <p className="mt-2 text-xs text-muted-foreground">{kpiNote}</p>
+          ) : null}
+        </div>
+      ) : null}
+
+      {evidence && evidence.rows.length > 0 ? (
+        <aside className="mt-6 min-w-0 self-start overflow-hidden rounded-xl border border-border bg-card lg:col-start-2 lg:row-start-1 lg:mt-0">
+          <div className="flex items-center justify-between gap-3 border-b border-border px-3.5 py-2.5">
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+              {evidence.heading}
+            </h2>
+            {evidence.action ? (
+              <Link
+                to={evidence.action.to}
+                className="whitespace-nowrap text-[11px] font-semibold text-primary hover:underline"
+              >
+                {evidence.action.label}
+              </Link>
+            ) : null}
+          </div>
+          <ul className="divide-y divide-border">
+            {evidence.rows.map((row) => (
+              <li key={row.label}>
+                {row.to ? (
+                  <Link
+                    to={row.to}
+                    className="flex items-baseline justify-between gap-3 px-3.5 py-2 text-[13px] transition-colors hover:bg-accent/40"
+                  >
+                    <span className="min-w-0 truncate">{row.label}</span>
+                    <span className="shrink-0 font-semibold tabular-nums text-muted-foreground">
+                      {row.value}
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="flex items-baseline justify-between gap-3 px-3.5 py-2 text-[13px]">
+                    <span className="min-w-0 truncate">{row.label}</span>
+                    <span className="shrink-0 font-semibold tabular-nums text-muted-foreground">
+                      {row.value}
+                    </span>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </aside>
+      ) : null}
+    </div>
+  </div>
+);

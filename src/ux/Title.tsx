@@ -12,7 +12,7 @@ export const Title: React.FC<
   const label = (
     <H1
       className={cn(
-        "text-xl md:text-4xl lg:text-3xl font-extrabold leading-tight tracking-tighter text-center py-4 md:py-12 sm:py-4 text-muted-foreground",
+        "text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight tracking-tight text-left py-3 md:py-5 text-foreground",
         className,
       )}
       {...props}

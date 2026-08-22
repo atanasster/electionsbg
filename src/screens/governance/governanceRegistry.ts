@@ -18,9 +18,18 @@ export interface GovHubTile {
   accent: string; // a TILE_ACCENTS token
 }
 
-export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
+// ⚠ `descKey` is written out, never built as `${labelKey}_desc`. A template key defeats the
+// i18n reachability analysis: `scripts/i18n/bundle_reachability.test.ts` treats a built
+// template as naming EVERY key it could match, so one `${x}_desc` here made all eight
+// deferred `budget.json` description keys "reachable from /governance" and failed the gate.
+export const GOV_HUB_CLUSTERS: {
+  labelKey: string;
+  descKey: string;
+  tiles: GovHubTile[];
+}[] = [
   {
     labelKey: "gov_hub_cluster_money",
+    descKey: "gov_hub_cluster_money_desc",
     tiles: [
       {
         id: "budget",
@@ -77,6 +86,7 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
   },
   {
     labelKey: "gov_hub_cluster_accountability",
+    descKey: "gov_hub_cluster_accountability_desc",
     tiles: [
       {
         id: "parliament",
@@ -142,7 +152,15 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
     // Показатели — the indicators feature, surfaced as its six topical domains
     // directly on the hub (was a single "Показатели" tile → /indicators). Titles
     // reuse the indicators sub-nav label keys so the pills and these tiles agree.
+    //
+    // 2026-08-22: SPLIT into two bands of four. It was one band of NINE, which at `xl`
+    // (4 columns) renders 4+4+1 and strands a tile alone on its own row — and a nine-item
+    // band is not a table of contents either. The nine tiles are all KEPT: collapsing them
+    // back to a single /indicators tile would undo the deliberate expansion this comment
+    // records. `ind_compare` moves to the last band instead, which is what lets the rest
+    // divide 4+4. See docs/plans/hub-hero-v1.md §9.5.
     labelKey: "gov_hub_cluster_indicators",
+    descKey: "gov_hub_cluster_indicators_desc",
     tiles: [
       {
         id: "overview",
@@ -172,6 +190,14 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         to: "/indicators/budgets",
         accent: TILE_ACCENTS.gold,
       },
+    ],
+  },
+  {
+    // The second half of the indicators block — the outcome side: how the country is doing
+    // rather than what it collects and spends.
+    labelKey: "gov_hub_cluster_society",
+    descKey: "gov_hub_cluster_society_desc",
+    tiles: [
       {
         id: "ind_governance",
         titleKey: "indicators_nav_governance",
@@ -207,13 +233,6 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         to: "/education",
         accent: TILE_ACCENTS.mulberry,
       },
-      {
-        id: "ind_compare",
-        titleKey: "indicators_nav_compare",
-        descKey: "gov_hub_ind_compare_desc",
-        to: "/indicators/compare",
-        accent: TILE_ACCENTS.olive,
-      },
     ],
   },
   {
@@ -224,8 +243,18 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
     // mega-menu collapsed — see reportMenus.ts governanceMenu). Kept last as a
     // footer band of hands-on tools below the read-only dashboards. Titles reuse
     // the budget page/link label keys so the hub and the pages agree.
+    // 2026-08-22: renamed from „Инструменти" and joined by `ind_compare` — the third thing
+    // on this page where the reader DOES something (picks peer countries) rather than reads.
     labelKey: "gov_hub_cluster_tools",
+    descKey: "gov_hub_cluster_tools_desc",
     tiles: [
+      {
+        id: "ind_compare",
+        titleKey: "indicators_nav_compare",
+        descKey: "gov_hub_ind_compare_desc",
+        to: "/indicators/compare",
+        accent: TILE_ACCENTS.olive,
+      },
       {
         id: "tax_calculator",
         titleKey: "budget_tax_calculator_link_label",

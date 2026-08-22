@@ -6,7 +6,7 @@ export const H1: React.FC<React.ComponentProps<"h1">> = ({
 }) => (
   <h1
     className={cn(
-      "text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl text-center py-4 md:py-12 sm:py-4 text-muted-foreground",
+      "text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl md:text-4xl text-left py-3 md:py-5 text-foreground",
       className,
     )}
     {...props}

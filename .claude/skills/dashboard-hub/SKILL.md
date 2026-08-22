@@ -1,6 +1,6 @@
 ---
 name: dashboard-hub
-description: Build or rework a module front page (a "hub") — the tile-grid landing that fronts a topic's sub-pages, like /parliament, /procurement or /governance/sectors. Covers the whole shape: the tile registry, bespoke SVG scenes, the ONE small precomputed stat blob that replaces per-tile artifact fetches, band structure and naming, destination reachability, the three artifacts every hub page and sub-page must ship (a prerendered static page, a sitemap <loc> in BOTH route_defs lists, and its own og:image screenshot of a chart or map), and the gates that keep every figure honest. Use when the user asks to build a hub / module landing / dashboard front page for a topic, to restructure an existing hub's tiles or sections, to add a tile, to cut a hub's payload, or to check a module's pages for prerender / sitemap / og:image coverage. Encodes the defect classes this pattern reliably produces — undeclared bases, figures that are arithmetically right and false as a sentence, seeded destinations, dead links, captions that describe a different chart, pages with no sitemap entry, and share cards that 404 or fall back to the site-wide default.
+description: Build or rework a module front page (a "hub") — the tile-grid landing that fronts a topic's sub-pages, like /parliament, /procurement or /governance/sectors. Covers the whole shape: the HUB HEAD (hero) — eyebrow, title, deck, scope, search, a KPI band with a declared basis per figure, and a ranked evidence list — the tile registry, bespoke SVG scenes, the ONE small precomputed stat blob that replaces per-tile artifact fetches, band structure and naming, destination reachability, the three artifacts every hub page and sub-page must ship (a prerendered static page, a sitemap <loc> in BOTH route_defs lists, and its own og:image screenshot of a chart or map), and the gates that keep every figure honest. Use when the user asks to build a hub / module landing / dashboard front page for a topic, to add a hero / header / KPI band / stat strip to a hub, to restructure an existing hub's tiles or sections, to add a tile, to cut a hub's payload, or to check a module's pages for prerender / sitemap / og:image coverage. Encodes the defect classes this pattern reliably produces — undeclared bases, figures that are arithmetically right and false as a sentence, seeded destinations, dead links, captions that describe a different chart, pages with no sitemap entry, share cards that 404 or fall back to the site-wide default, a KPI band that publishes one scope's figures under another scope's caption, and rules written here that were never turned into gates.
 allowed-tools:
   - Read
   - Bash
@@ -12,10 +12,18 @@ allowed-tools:
 
 # Dashboard hub skill
 
-A **hub** is a module's front page: a short intro, optionally a hero and a news
-band, then bands of `InfographicTile`s that front the module's sub-pages. `/parliament`
-is the worked example; `/procurement`, `/governance/sectors` and the analysis hub are the
-same shape.
+A **hub** is a module's front page: a `HubHead` — eyebrow, title, deck, scope, search, a KPI
+band and a ranked list — then bands of `InfographicTile`s that front the module's sub-pages.
+`/parliament` is the worked example for the bands; `/procurement` and `/governance` for the
+head. `/governance/sectors` and the analysis hub are the same shape.
+
+⚠️ **The head is §3.0 and it is not optional.** Measured across all 13 tile hubs on
+2026-08-22, **not one made a corpus-level statement above the fold**: the best four landed
+their first figure at 803–826 px — at the fold edge, inside a tile banner, as a preview of one
+destination — and `/governance` carried no number at all until **2 355 px** on a 2 789 px page.
+Thirteen hubs each composed their own header by hand and no two agreed: search on 6 of 13, an
+intro sentence on 5, a breadcrumb on 9, a KPI row on 2 (both below the fold). Full measurement
+and the decisions: `docs/plans/hub-hero-v1.md`.
 
 **For a SECTOR surface, read `sector-dashboard` alongside this.** That skill owns
 the data layer underneath — the EIK register that decides who the sector is, the
@@ -64,6 +72,7 @@ A figure whose basis you cannot state in one clause is not ready to ship.
 | **A ROLL-UP PARTITION inside the table** | `1 994 автомобила` on a registry of 621 — the table carries one partition per parliament PLUS an `'all'` row, so `count(*)` counts each car once per parliament its owner sat in | `GROUP BY` the partition key and READ the row; never `count(*)` a table you have not grouped            |
 | **The destination's DEFAULT SCOPE**      | Tile shows the lifetime 621; `/mp-cars` opens `scope="ns"` on the 52nd's 65 — and the tile carries `?elections` forward, guaranteeing the mismatch on every parliament           | Key the blob by the destination's scope and resolve it through the SAME helper that screen filters with |
 | **The right subject, the wrong corpus**  | **[2026-08-20]** Tile counted `company_politicians` (346) over `/mp/companies`, which rendered `companies-index.json` (2,781). Both are now retired — the tile quotes `official_companies` over `/governance/companies` — and the temptation is unchanged: `company_politicians` is still the table that is *about* the same subject | Quote the DESTINATION's own relation, whatever kind it is — a table about the same subject is a different corpus |
+| **A SCOPED hook on an UNSCOPED page** | **[2026-08-22]** `/governance` has no `?pscope`, so `useProcurementHubStats()` resolved to the SELECTED PARLIAMENT and its KPI band rendered **€3,32 млрд. · 3 481 · 227 · 332** under captions reading „договори 2007–2026". The corpus is **€93,56 млрд. · 29 622 · 898 · 871**. `tsc` was clean and 3 655 tests were green | A page with no selector must ASK for the slice it names (`useX("all")`) — never take a scope hook's default. See §3.1 rule 6 |
 
 **Corollary that has bitten twice:** if a number is computed in two places, it will drift.
 Compute it ONCE and have both consumers read that. Where two implementations are
@@ -156,11 +165,144 @@ structure (the matrix's diagonal, the strip's gaps) is worth the effort; generic
 not.
 
 **Accents are unique per PAGE.** All bands render together, so a repeat reads as "these two
-tiles are the same kind of thing". Gate it.
+tiles are the same kind of thing". Gate it — and gate it over the **composed page**, not per
+registry: on `/procurement` `#c9702f` is worn by the „Договори" tile AND by the „Пътища"
+`FeaturedStrip` tile, because the two come from different registries and neither registry's
+gate can see the other. `/consumption` has three duplicate pairs inside its own 16 tiles, i.e.
+no gate at all.
+
+⚠️ **The palette has a CEILING and it is close.** `tileAccents.ts` held 23 tokens while
+`/governance` rendered 23 tiles — exactly exhausted. It is 27 now (four added at the widest
+measured hue gaps, each ≥3.4 : 1 on cream AND navy), and **a hue gap is a candidate, not a
+licence**: three numerically-available gaps were rejected because 10° from `aqua`/`teal` reads
+as "the same colour, slightly off". Above 20 tiles a hub may declare `accentScope: "band"` and
+enforce uniqueness within a band and its neighbours instead — a repeat between band 1 and
+band 5 is not confusable, which is the thing the rule exists to prevent.
+
+⚠️ **A hub screen must not import a REGISTRY to read a constant from it.** A „Държавни сектори
+19" row derived its count from `SECTORS` — the right instinct (never a literal) applied to the
+wrong module — and pulled `sectorRegistry`'s whole reference-data closure into `/governance`'s
+static graph. That is `src/entryGraph.test.ts`'s class exactly: take a constant from an
+import-free module, or take it from the blob you already fetch.
+
+⚠️ **A registry must not BUILD its i18n keys.** `` t(`${cluster.labelKey}_desc`) `` reads to
+`scripts/i18n/bundle_reachability.test.ts` as naming every key ending `_desc`, so one template
+made all eight deferred `budget.json` description keys "reachable from `/governance`" and
+failed the gate. Write `descKey` out beside `labelKey`.
 
 ---
 
-## 3. Bands
+## 3. The head, then the bands
+
+### 3.0 The hub head
+
+One component, one order, every hub — so that "what does a hub open with" cannot drift
+thirteen ways again:
+
+```
+breadcrumb                    ← ABOVE the title. It is below it on nine hubs and absent on four
+eyebrow + freshness           „ОБЩЕСТВЕНИ ПОРЪЧКИ · обновено 21.08"
+h1                            LEFT, foreground ink, one monotonic size ladder
+deck                          one sentence: what a reader can DO here
+scope control                 where the hub has one
+search                        full width          |  evidence: a 5-row ranked list
+KPI band                      3–5 figures, full width
+──────────────────────────────────────────────────
+bands of tiles
+```
+
+At `lg` the identity column and the evidence list sit side by side and the KPI band spans
+both; below `lg` everything stacks.
+
+- ⚠️ **The DOM order IS the mobile order.** Rendering the evidence aside as the grid's second
+  child put a ranked list between the deck and the numbers on every phone — which, for a
+  Facebook-first audience, is the majority case, not an edge case. Place the grid children
+  explicitly (`lg:col-start-2 lg:row-start-1`) so the source order stays identity → KPI →
+  evidence.
+- **The head renders the page's `<h1>` AND its `<SEO>`.** A screen using it must not also
+  render `<Title>`, or the page emits two `h1`s.
+- **The deck is not the SEO description.** One is read by a crawler, the other by a human;
+  writing one and reusing it as the other gives a sentence that serves neither. §6 (language)
+  applies to the deck.
+- **Budget the head at ~420 px at `lg` and gate the budget.** A head that grows past that has
+  replaced the problem it fixes.
+- ⚠️ **The title treatment is `src/ux/Title.tsx` + `src/ux/H1.tsx`, and they move TOGETHER.**
+  Both carried `text-center … text-muted-foreground` on an inverted ladder
+  (`md:text-4xl lg:text-3xl` → 36 px on a tablet, 30 px on a desktop) with 96 px of padding:
+  measured 5.20 : 1, **the same colour as the least important paragraph on the page**, against
+  12.2 : 1 for body ink. Changing one and not the other splits the site into two title styles.
+  The one regression it produces is an **inverted axis on a centred block** — `ErrorSection` /
+  404 put a left heading over centred body copy — so sweep the handful of call sites that pass
+  a `className` and any page whose container is `text-center`.
+
+### 3.1 The KPI band
+
+The band is the largest type on the page, so it is the highest-stakes position for §0's
+failure mode — a number that is arithmetically right and, read as a sentence, false.
+
+1. **Four numbers that are the hub's THESIS**, not four counts that were handy. The test: read
+   them aloud as one sentence. If it does not describe the module, they are wrong.
+2. **Every KPI states its basis IN the tile**, under the value, in the reader's words —
+   „договори 2007–2026", „по текущия парламент", „за последните 30 дни". This is the same
+   requirement as §0's "state the denominator in one clause", done as visual design.
+3. **Read the SAME blob the tiles read. Zero new fetches.** A band that needs its own request
+   has become a sub-page. On `/procurement` every figure was already on the wire, so the band
+   costs **0 extra bytes**.
+4. **A KPI links to a page that can NAME the rows behind it** (§7's rule, loudest instance).
+5. **A KPI is never also a tile metric.** Tile metrics preview one destination; KPI figures are
+   corpus-level claims. The same number twice on one page reads as two different facts.
+6. ⚠️ **A page with no selector must ASK for the slice it names.** See the §0 trap row: the
+   first build of this band published the selected parliament under a corpus caption.
+7. **`undefined` is an answer.** A scope with no data renders the named empty state, not a row
+   of zeroes.
+
+**Figures that overlap must never be summed, and the band has to say so.** `/governance`'s four
+money corpora intersect — an ИСУН-funded contract is in `fund_projects` AND `contracts` — so
+there is no honest „total public money" on that page. Four taps, four periods, stated in the
+band's own note rather than left to be inferred.
+
+#### The evidence column is a ranked list, NOT a chart
+
+Reference portals put a chart there. For this repo that is the wrong call, for three reasons
+that are ours:
+
+- **Bytes.** `vendor-charts` is ~115 KB brotli and deliberately lazy; `tests/perf.spec.ts`
+  pins the entry chunk at **56 000 B br**. A hero chart on thirteen hubs puts that chunk on
+  thirteen more critical paths. A chart that earns its place goes BELOW the band, lazily —
+  never above the fold.
+- **Crawlers.** §5.1 requires a real `bodyHtml` and says it is the only thing a JS-less
+  crawler sees. A ranked list is text: it prerenders, it translates, and it is five more
+  internal links, which is what §4's reachability rule wants anyway.
+- **Sparklines are out** (`feedback_no_sparklines`); the sanctioned shapes are an axed chart,
+  numeric columns or a dumbbell row. Numeric columns ARE the ranked list.
+
+Where the head genuinely wants a visual, build it from `scenePrimitives` (`Bars` / `TrendLine`
+/ `Donut`) — inline SVG, zero dependencies, already themed.
+
+⚠️ **A ranked list's heading, rows and destination must be the SAME SET** — the §4 finder rule,
+one component over. „Най-големи възложители" over rows that are SECTORS is false: a sector
+contains many buyers (АПИ sits inside „Пътища"). And check it does not simply restate a
+`FeaturedStrip` further down the page.
+
+#### A HUB OF HUBS: quote the corpus, or quote what you inherit
+
+When a hub's tiles point at other SCOPED hubs and the hub itself has no selector, its figure
+and the destination's default disagree by construction — `/governance` says €93.56bn,
+`/procurement` opens on €3.32bn. The rule splits on whether a link can force the destination's
+scope:
+
+- **Forceable (`?pscope`)** — quote the CORPUS and link `?pscope=all`. `useTileHref` merges the
+  tile's own params over the preserved ones, so the tile's scope wins.
+- **NOT forceable (`?elections`)** — a link cannot clear the selected election and
+  `usePreserveParams` carries it. Quote the SELECTED parliament and let the caption name it.
+
+#### The scope control belongs IN the head
+
+Next to the numbers it governs. On `/procurement` it sat **448 px above** the first tile figure
+and had scrolled off screen by the time the number was read — so ten headline figures were
+qualified by a control nobody could see. On a phone it was ~1 000 px above.
+
+### 3.2 Naming and balancing the bands
 
 **Name a band for what is in it, then say what is in it.** The heading is a label; a hub
 needs a table of contents. Give each band a one-line description under the heading —
@@ -173,6 +315,16 @@ mattered more, so everything under it reads as offcuts.
 
 Name them for the question they answer: „В залата" / „Кой с кого гласува" / „Депутатите
 извън залата". A hub's headings are its table of contents.
+
+**Three are live as of 2026-08-22 and all three are the same mistake.** „Разгледай" on
+`/procurement` — with **eleven tiles under it**, the whole hub in one unnamed band; „Разгледай
+цените" on `/consumption`; and „Раздели" („Sections") on `/indicators`, seven tiles under a
+container word. An instruction and a container are both non-answers: neither tells a reader
+what is inside.
+
+**Seven of thirteen hubs have NO band description at all** — `/governance`, `/governance/sectors`,
+`/procurement`, `/parliamentary/analysis`, `/parliamentary/reports`, `/indicators`,
+`/consumption`. The rule above is three years old and unenforced; §9 now gates it.
 
 **Balance to the grid.** It is 4 columns at `xl`, so a five-tile band strands one tile alone
 on its own row. 4/3/4 beats 3/3/5. Check the rendered grid, not the array length.
@@ -188,6 +340,11 @@ Two rules. It must come from the **same blob** as the headline — a second figu
 a second fetch or a new derivation is a sub-page, not a tile. And prefer the one that
 **disambiguates the headline**: a mean is much safer beside its minimum, and a percentage is
 safer beside the population it is over. One line only; a third number makes it a table.
+
+⚠️ **`metricSecondary` is `hidden sm:flex` — it does NOT render on a phone.** The mobile row
+draws `metric` and `metricCaption` and drops the second figure entirely, so on the majority of
+this site's traffic the mean loses its minimum. Either render it on mobile, or do not lean on
+it to keep a headline honest — put the disambiguation in `metricCaption`, which does render.
 
 **No per-tile CTA.** The whole card is the link and already has a hover state; „разгледай →"
 repeated eleven times is one affordance restated. Keep the `cta` prop for the rare tile whose
@@ -373,7 +530,14 @@ Three producers. Pick by what the page actually has:
 
 **Prefer the screenshot.** A hub or a dashboard always has something better to show than four
 text tiles. Frame the element that IS the page's argument — the chart, the map, the
-hemicycle, the choropleth — not the KPI row and not the page header.
+hemicycle, the choropleth.
+
+**For a HUB specifically, that element is now the head.** The old advice here was "not the KPI
+row and not the page header", and it was right about a page header that carried a centred
+muted title and nothing else. A `HubHead` is the opposite: four labelled corpus figures and a
+ranked list, i.e. the page's argument in one frame. Anchor on it (`data-og` on the head) rather
+than on `h1`, and make sure the capture waits for the blob — a head shot before its numbers
+arrive is a screenshot of a skeleton, which is exactly what `waitFor` exists to prevent.
 
 Mechanics that are easy to get wrong:
 
@@ -471,6 +635,18 @@ the Bulgarian reads like a diagram label, it is a calque.
 a label and the URL it links to disagree by a day. This shipped on 613 pages and in six more
 files found by sweep. Use the shared day-label hook; keep the repo-wide grep gate.
 
+**The DOM order is the MOBILE order.** A two-column layout at `lg` is one column below it, in
+source order — so a right-hand column written as the second child of the grid renders BETWEEN
+the intro and whatever follows on every phone. Place grid children explicitly rather than
+relying on flow, and check the phone before the desktop: this site's audience arrives from
+Facebook.
+
+**A site-wide typographic default has a blast radius, and it is smaller than the import count
+suggests — check the OVERRIDES, not the imports.** `Title` is imported by 181 files and only
+four pass a `className`, none of which touched alignment or colour. What broke was not any of
+the 181 but the one page whose CONTAINER is `text-center`: the 404. A left heading over centred
+body copy is the same axis break, inverted. Grep for centred containers, not for call sites.
+
 **A caption describes what is drawn, in the mode it is drawn in.** A caption outside a
 mode branch will describe the other mode. A caption promising an interaction ("click a cell")
 must be deleted or made true.
@@ -526,10 +702,17 @@ Not optional, and each exists because its absence shipped something:
 
 | Gate                                                                                                               | Catches                                                                        |
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Every hub renders a `HubHead`                                                                                       | The thirteen-way header drift — no two hubs agreeing on what a hub opens with  |
+| Every KPI in the band has a `basis` string AND a destination                                                       | A corpus-level claim in the largest type on the page with no denominator       |
+| No KPI value equals a tile metric on the same page                                                                 | One number rendered twice, reading as two facts                                |
+| A hub with no scope selector never calls a scope hook's DEFAULT                                                    | The `/governance` €3,32bn-under-a-corpus-caption class                         |
+| Every band has a description, and no heading is an instruction or a container word                                 | „Разгледай" over 11 tiles; 7 of 13 hubs with no description at all             |
+| Every band's tile count leaves no lone tile on the last `xl` row                                                   | 9 → 4+4+1                                                                      |
+| No accent twice on the COMPOSED PAGE (not per registry)                                                            | The `/procurement` tile-band ↔ `FeaturedStrip` pair a per-registry gate cannot see |
+| No hub screen statically imports a registry, and no registry builds an i18n key by template                        | A reference-data closure in the route chunk; a template key that defeats the bundle analysis |
 | Every tile id has a scene                                                                                          | White screen                                                                   |
 | Every `to` is absolute AND in the routed list                                                                      | Dead links                                                                     |
 | Every sub-page is a hub destination                                                                                | Orphans                                                                        |
-| No accent twice on the page                                                                                        | "These are the same kind of thing"                                             |
 | Blob under its byte budget                                                                                         | Regrowth to the full artifact                                                  |
 | Blob's keys == the shard files present                                                                             | A hub with tiles and no detail                                                 |
 | Every figure recomputed from its declared basis                                                                    | The six-of-six class                                                           |
@@ -546,6 +729,12 @@ Not optional, and each exists because its absence shipped something:
 | Every sub-page carries its own `ogImage` (or is on a reasoned exemption list)                                      | A whole module sharing the site-wide default card                              |
 | Every `ogImage` path resolves to a file under `public/og/`                                                         | An `og:image` that 404s — the absolute-URL check passes                        |
 | Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route                         | A card shot and wired to nothing                                               |
+
+⚠️ **The first eight are new because the band/accent/CTA rules in §3 were ADVICE, not gates,
+and had failed on 7 of 13 hubs by the time anyone measured** — 42 redundant per-tile CTAs on
+two hubs, five hubs with duplicate accents, seven with no band description, three with a band
+named for an instruction. A rule written in this file and not in a test file is a rule the
+next hub will break. When you add a rule here, add its gate in the same turn.
 
 The last seven live in `scripts/prerender/ogAndSitemapCoverage.test.ts` — extend that file
 rather than writing a second one. They read as ceremony and are not: `tests/seo.spec.ts`
@@ -572,7 +761,12 @@ away from the right one.
 
 ## 10. Verify in the browser
 
-**Four of the last defects were found by looking at the page, not by the suite** — a missing
+**Six of six defects in the 2026-08-22 head build were found this way, five of them invisible
+to `tsc` and four invisible to the whole 3 655-test suite.** The worst — a KPI band publishing
+one parliament's figures under a corpus caption — was green everywhere and obvious on sight.
+Load the page, read the numbers, and check them against the file they came from.
+
+**Four of the earlier defects were found by looking at the page, not by the suite** — a missing
 `outcome` field rendering `votes_outcome_undefined`, two off-by-one dates, raw vote sums, and
 a state toggle that silently never applied because a formatter had reshaped the target so the
 edit matched nothing.

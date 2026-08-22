@@ -61,7 +61,17 @@ export const TILE_ACCENTS = {
   // (green/emerald 0.2°, olive/brass 0.3°). Contrast tracks `plum` almost
   // exactly — 4.87:1 on cream, 3.25:1 on navy against its 4.83/3.27 — so it
   // needs no different handling from the token it sits next to.
-  wine: "#96455f", // municipal finances — the 21st token, minted because the money
+  wine: "#96455f",
+  // Four tokens added 2026-08-22 at the four widest MEASURED hue gaps in the palette
+  // (128° / 245° / 292° / 325°), each ≥3.4:1 on BOTH grounds — better than nine of the
+  // incumbents. Three other numerically-available gaps were rejected: 165°/185° sit 10° from
+  // aqua/teal/emerald (a numeric gap in a perceptually crowded neighbourhood reads as "the
+  // same colour, slightly off"), and 72° lands in the olive/brass/gold family. A hue gap is a
+  // candidate, not a licence. See docs/plans/hub-hero-v1.md §10.
+  fern: "#2e843a", // 128° — cream 3.98, navy 3.98
+  cobalt: "#6862a7", // 245° — cream 4.58, navy 3.46
+  violet: "#a553b2", // 292° — cream 3.98, navy 3.98
+  magenta: "#b74e8b", // 325° — cream 3.98, navy 3.97 // municipal finances — the 21st token, minted because the money
   // cluster grew a 21st tile and the palette had exactly 20. A desaturated
   // red-violet. Its nearest neighbour in hue is `rose` (#c14b57) at Δh 13°,
   // which is far wider than pairs already shipping (green/emerald 0.2°,

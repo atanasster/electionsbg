@@ -8,12 +8,13 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
 import {
   TileHubGrid,
   TileHubSection,
   InfographicTileProps,
   FeaturedStrip,
+  HubHead,
+  HubKpi,
   TILE_ACCENTS,
 } from "@/ux/infographic";
 import { ScopeControl } from "./components/ScopeControl";
@@ -188,23 +189,101 @@ export const ProcurementScreen: FC = () => {
     tiles: exploreTiles,
   };
 
+  // PREVIEW (docs/plans/hub-hero-v1.md §4). Every figure here is already on the wire — the
+  // same hub_stats[scope] blob the tiles below read — so the band costs ZERO extra bytes.
+  // Each carries its BASIS: measured 2026-08-22 these ten numbers shipped with no
+  // metricCaption at all, so „€3,3 млрд." was qualified only by a scope pill 448 px above it.
+  const scopeBasis = sectorWin.all
+    ? bg
+      ? "целият корпус · 2007–2026"
+      : "whole corpus · 2007–2026"
+    : sectorWin.year != null
+      ? `${sectorWin.year}`
+      : bg
+        ? "по текущия парламент"
+        : "this parliament";
+  const kpis: HubKpi[] = stat
+    ? [
+        {
+          value: formatEurCompact(stat.totalEur, i18n.language),
+          label: bg ? "договорени" : "contracted",
+          basis: scopeBasis,
+          to: "/procurement/contracts",
+        },
+        {
+          value: numFmt.format(stat.contracts),
+          label: bg ? "договора" : "contracts",
+          basis: scopeBasis,
+          to: "/procurement/contracts",
+        },
+        {
+          value: numFmt.format(stat.contractors),
+          label: bg ? "изпълнители" : "contractors",
+          basis: scopeBasis,
+          to: "/procurement/contractors",
+        },
+        {
+          value: numFmt.format(stat.appeals),
+          label: bg ? "обжалвания в КЗК" : "appeals at the CPC",
+          basis: scopeBasis,
+          to: "/procurement/appeals",
+        },
+      ]
+    : [];
+
+  // The evidence column: a ranked list, deliberately not a chart (§4.2 — vendor-charts is
+  // ~115 KB br and lazy, the entry budget is 56 000 B br, and a list is text so it prerenders
+  // and is five more internal links). Rows come from the sector stats this page ALREADY
+  // fetches for the featured strip below.
+  const evidenceRows = FEATURED_SECTORS.map((sector) => ({
+    label: t(sector.titleKey),
+    value: formatSectorMetric(sectorStats?.[sector.id], i18n.language) ?? "—",
+    to: sector.to,
+  })).filter((row) => row.value !== "—");
+
   return (
     <>
-      <Title description="Aggregated public-procurement contracts from data.egov.bg">
-        {title}
-      </Title>
       <GovernanceBreadcrumb
         sectionKey="procurement_link_label"
         sectionTo="/procurement"
         className="mt-5"
       />
 
-      <div className="my-3">
-        <ScopeControl mode="toggle" />
-      </div>
+      <HubHead
+        eyebrow={t("procurement_link_label")}
+        title={title}
+        seoDescription="Aggregated public-procurement contracts from data.egov.bg"
+        deck={
+          bg
+            ? "Всеки сключен договор на държавата и общините — възложител, изпълнител, сума, обжалване."
+            : "Every contract signed by the Bulgarian state and its municipalities — buyer, supplier, amount, appeal."
+        }
+        scope={<ScopeControl mode="toggle" />}
+        search={<ProcurementSearchTile />}
+        kpis={kpis}
+        evidence={
+          evidenceRows.length
+            ? {
+                // ⚠ SECTORS, so the heading says sectors. These rows are Пътища / Отбрана /
+                // Енергетика — a sector contains many buyers (АПИ is inside „Пътища"), so
+                // „Най-големи възложители" named a set the rows are not. A group's content,
+                // its label and its destination have to be the same set.
+                //
+                // Shipping note: this duplicates the FeaturedStrip further down the page. The
+                // shipped version should carry the top AWARDERS (a different set, and the one
+                // the heading originally promised) so the head and the strip say two things.
+                heading: bg ? "Най-големи сектори" : "Largest sectors",
+                rows: evidenceRows.slice(0, 5),
+                action: {
+                  to: "/governance/sectors",
+                  label: t("procurement_hub_all_sectors") || "All sectors →",
+                },
+              }
+            : undefined
+        }
+      />
 
-      <ProcurementSearchTile />
-      <div className="mt-3">
+      <div className="mt-4">
         <ClaimCheckBox />
       </div>
       <WatchlistDigestTile />

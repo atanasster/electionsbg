@@ -16,7 +16,14 @@ export const ErrorSection: FC<{ title: string; description?: string }> = ({
       <Separator />
       <div className="overflow-hidden sm:rounded-lg pb-8 flex justify-center">
         <div className="text-center pt-8 w-full sm:w-9/12 px-4">
-          <Title className="text-destructive" description={description}>
+          {/* text-center is explicit here because the block IS centred — <Title> defaults to
+              left now (docs/plans/hub-hero-v1.md §8), and inheriting that would leave a
+              left-aligned heading over centred body copy and a centred button. This was the
+              one regression the site-wide change produced; found by looking at /404. */}
+          <Title
+            className="text-center text-destructive"
+            description={description}
+          >
             {title}
           </Title>
           <p className="text-lg sm:text-2xl md:text-4xl pb-8 px-2 sm:px-8 md:px-12 font-medium text-secondary-foreground">
