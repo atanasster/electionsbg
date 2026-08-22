@@ -5375,7 +5375,32 @@ const DB_ROUTES = {
         ORDER BY a.present::numeric / NULLIF(a.items, 0) DESC NULLS LAST`,
       [ns],
     ).catch(matviewRows("mp_attendance"));
-    return { body: rows };
+    // OUR clock (180), not parliament.bg's — the screen renders it as "computed at", which
+    // is what the retired attendance.json carried. Degrades to null rather than failing the
+    // route: a missing stamp renders as absent, which is honest.
+    const stamp = await dbRows(`SELECT rollcall_refreshed_at() AS at`).catch(
+      () => [],
+    );
+    // The window and the chamber-wide item count the screens print under the table. FILTERED
+    // on superseded_by, unlike /api/db/session: this is a statistic over the parliament, and
+    // the retired attendance.json was computed after dedupeRevotes — counting the 1,645
+    // re-voted items again would inflate the denominator a reader compares each member
+    // against. 5 buffers off idx_vote_item_ns_date.
+    const win = await dbRows(
+      `SELECT min(date)::text AS window_from, max(date)::text AS window_to,
+              count(*) FILTER (WHERE superseded_by IS NULL) AS total_vote_items
+         FROM vote_item WHERE ns = $1`,
+      [ns],
+    ).catch(matviewRows("vote_item"));
+    return {
+      body: {
+        rows,
+        computedAt: stamp[0]?.at ?? null,
+        windowFrom: win[0]?.window_from ?? null,
+        windowTo: win[0]?.window_to ?? null,
+        totalVoteItems: Number(win[0]?.total_vote_items ?? 0),
+      },
+    };
   },
   // Group cohesion per sitting (135 party_cohesion) — the /parliament/cohesion trend.
   //
@@ -5391,20 +5416,64 @@ const DB_ROUTES = {
     // so grouping by party_id returns 13 series for 11 groups, with two lines stopping on
     // 2024-12-20 and two more starting on 2025-01-08 and no overlapping dates between them.
     // A reader sees a group vanish and a near-identical one appear.
+    //
+    // ⚠️ TWO THINGS HERE ARE EASY TO GET WRONG AND BOTH SHIPPED ONCE.
+    //
+    //   • `c.date::text`. Without the cast node-postgres returns a Date, which serialises as
+    //     "2024-11-10T22:00:00.000Z" for the sitting of 2024-11-11 — wrong format AND the
+    //     day before, because the server process runs under TZ=Europe/Sofia. It lands
+    //     directly on the trend chart's X axis. Every other roll-call query in this file
+    //     casts; this one did not.
+    //
+    //   • THE LABEL COMES FROM party_cohesion_summary, NOT from `min(p.short)` per date.
+    //     The fold KEY is the same on both sides, but a per-date min() picks whichever
+    //     spelling that sitting happens to carry: on the 51st, `ГЕРБ - СДС` for 147 dates
+    //     and `ГЕРБ-СДС` for the other 15. The screen builds the chart's selection set from
+    //     `entries` — which carry one label per group — so those 15 sittings silently
+    //     dropped out of the two largest groups' lines. Joining the summary makes one label
+    //     per (ns, group) the only label either payload can use.
     const rows = await dbRows(
-      `SELECT c.date,
+      `SELECT c.date::text                                          AS date,
               sum(c.items)                                          AS items,
               sum(c.cohesion * c.items) / NULLIF(sum(c.items), 0)   AS cohesion,
-              min(p.short)                                          AS party
+              y.party_label                                         AS party
          FROM party_cohesion c
          JOIN party_dim p ON p.party_id = c.party_id
+         JOIN party_cohesion_summary y
+           ON y.ns = c.ns
+          AND y.party_key = upper(replace(btrim(p.short), ' ', ''))
         WHERE c.ns = $1
           AND btrim(p.short) !~* '^(НЕЗ|НЕЧЛ)'
-        GROUP BY c.date, upper(replace(btrim(p.short), ' ', ''))
+        GROUP BY c.date, y.party_label
         ORDER BY c.date, 4`,
       [ns],
     ).catch(matviewRows("party_cohesion"));
-    return { body: rows };
+    // The per-(ns, party) rollup the table and the tile render beside the series (181). It
+    // is a SEPARATE matview because two of its four columns do not survive party_cohesion's
+    // per-date fold — a median does not fold, and the member count is not a column there —
+    // and both are rendered. 69 rows for the whole corpus, so this is a full scan of nothing.
+    const entries = await dbRows(
+      `SELECT party_label AS party, items_covered, mean_cohesion,
+              median_cohesion, members_tracked
+         FROM party_cohesion_summary
+        WHERE ns = $1
+          -- The same exclusion the series applies, for the same reason: НЕЗ and НЕЧЛ В ПГ
+          -- are members WITHOUT a group, so their "cohesion" is a number about individuals.
+          -- Charting them alongside the groups made the 50th read 0.94 against a real-group
+          -- 0.973. cohesion.json did NOT exclude them — this is a deliberate divergence, and
+          -- the figures on both screens move because of it.
+          AND btrim(party_label) !~* '^(НЕЗ|НЕЧЛ)'
+        ORDER BY mean_cohesion DESC`,
+      [ns],
+    ).catch(matviewRows("party_cohesion_summary"));
+    // OUR clock, not parliament.bg's — see 180. The screens render it as "computed at",
+    // which is what the retired cohesion.json carried in its `computedAt` field.
+    const stamp = await dbRows(`SELECT rollcall_refreshed_at() AS at`).catch(
+      () => [],
+    );
+    return {
+      body: { series: rows, entries, computedAt: stamp[0]?.at ?? null },
+    };
   },
   // One MP's votes against their own group's plurality (135 mp_dissent), for the dissents
   // section on a candidate page. Replaces useMpDissents' read of dissents.json — a 31 MB

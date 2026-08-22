@@ -1,62 +1,86 @@
+// Per-MP attendance — items where a member appears in the roll call against items where
+// they were recorded absent.
+//
+// SERVED FROM POSTGRES since json-retirement-v2 Tier 3a: /api/db/mp-attendance
+// (mp_attendance, 135). It used to fetch data/parliament/votes/derived/attendance.json — the
+// whole byNs envelope, of which one slice was used.
+//
+// ⚠️ `partyShort` COMES FROM THE SEAT, and that is a MEASURED equivalence rather than an
+// approximation. The retired builder kept "the most-recently-seen party" per member, and the
+// route joins mp_seat -> party_dim. Measured 2026-08-21 across every parliament:
+// `mp_seat.party_id` equals each member's latest cast-time party for 2,366 of 2,366 seats —
+// zero drift — so the two rules pick the same label.
+//
+// That equivalence is an accident of how the loader builds mp_seat, not a constraint, and
+// reload_visibility_map's sibling gate pins it. It does NOT extend to per-ITEM grouping:
+// 179 of 2,366 seats change party mid-term, so any aggregate over individual votes must
+// group on vote_cast.party_id instead.
+
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { useMps } from "@/data/parliament/useMps";
 import { useMpProfile } from "./useMpProfile";
-import type { AttendanceEntry, AttendanceFile, AttendanceSlice } from "./types";
+import type { AttendanceEntry, AttendanceSlice } from "./types";
 
-const queryFn = async (): Promise<AttendanceFile | undefined> => {
-  const response = await fetch(
-    dataUrl(`/parliament/votes/derived/attendance.json`),
-  );
-  if (response.status === 404) return undefined;
-  if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
-  }
-  return response.json();
-};
+interface Body {
+  rows: Row[];
+  windowFrom: string | null;
+  windowTo: string | null;
+  totalVoteItems: number;
+  /** OUR clock (vote_day.refreshed_at via rollcall_refreshed_at()), not parliament.bg's —
+   *  the screen renders it as "computed at", which is what the retired attendance.json
+   *  carried in its own `computedAt` field. */
+  computedAt: string | null;
+}
 
-// Strict: return data only for the requested NS. Older elections (pre-roll-
-// call cycles) have no slice — falling back to a different NS would paint the
-// wrong people (parliament.bg recycles ids across NSes).
-const pickSlice = (
-  file: AttendanceFile | undefined,
-  ns: string | null,
-): AttendanceSlice | undefined => {
+interface Row {
+  mp_id: number;
+  items: string | number;
+  present: string | number;
+  absent: string | number;
+  name: string | null;
+  party: string | null;
+}
+
+const queryFn = async ({
+  queryKey,
+}: {
+  queryKey: readonly [string, string | null];
+}): Promise<{ slice: AttendanceSlice; computedAt?: string } | undefined> => {
+  const ns = queryKey[1];
   if (!ns) return undefined;
-  return file?.byNs?.[ns];
+  const r = await fetch(`/api/db/mp-attendance?ns=${encodeURIComponent(ns)}`);
+  if (!r.ok) throw new Error(`mp-attendance fetch failed: ${r.status}`);
+  const body = (await r.json()) as Body | null;
+  const rows = body?.rows;
+  if (!rows?.length) return undefined;
+  const entries: AttendanceEntry[] = rows.map((e) => {
+    const totalItems = Number(e.items ?? 0);
+    const presentCount = Number(e.present ?? 0);
+    return {
+      mpId: e.mp_id,
+      partyShort: e.party ?? "",
+      totalItems,
+      presentCount,
+      absentCount: Number(e.absent ?? 0),
+      // Derived here rather than in SQL: the matview stores the two counts, and a stored
+      // ratio would be a third value that can disagree with them.
+      presentPct: totalItems > 0 ? presentCount / totalItems : 0,
+    };
+  });
+  return {
+    slice: {
+      windowFrom: body?.windowFrom ?? "",
+      windowTo: body?.windowTo ?? "",
+      totalVoteItems: body?.totalVoteItems ?? 0,
+      entries,
+    },
+    computedAt: body?.computedAt ?? undefined,
+  };
 };
 
-// The fewest items a seated window must hold before a presentPct is worth
-// JUDGING — ranking a member on it, or tinting it as a concern. It is not a
-// display floor: the rate itself is true at any window size, and suppressing
-// it would hide exactly the members this metric is most asked about.
-//
-// A member sworn in for the chamber's last sitting day appears in 1 item; miss
-// it and they read 0%, which is arithmetically right and says nothing about
-// them. The 52nd holds 15 such seats at ≤9 items — the replacement MPs who
-// were seated for one day when a minister-designate gave up the bench.
-//
-// FOUR consumers, and the list is exhaustive rather than illustrative: the
-// ranking below, the /parliament/attendance table's eligibility filter, the MP
-// scorecard's amber tint and the My-Area strip's rose one. A floor that
-// differed between them would call the same member "too new to rank" on one
-// page and "a concern" on the next.
-//
-// It is the WINDOW floor only. Two things nearby are deliberately NOT covered:
-//
-//   - The THRESHOLD each surface applies once a window clears the floor stays
-//     per-surface, and the two disagree — My-Area asks "below 70%", the
-//     scorecard asks "well below this chamber's median" (median × 0.7, ≈53% on
-//     the 52nd). They answer different questions (an absolute bar vs a relative
-//     outlier test), so a member at 60% is badged on the strip and untinted on
-//     their profile. That is a live inconsistency worth settling, but settling
-//     it changes who gets flagged sitewide and is a product decision, not a
-//     refactor — do not quietly fold them together here.
-//   - The scorecard's COHORT (the median that relative test measures against)
-//     spans the whole chamber, unfloored. See the note at its call site.
 export const ATTENDANCE_MIN_ITEMS = 30;
 
 // Stable identity for the empty case, so a consumer's useMemo is not defeated by
@@ -65,9 +89,8 @@ export const ATTENDANCE_MIN_ITEMS = 30;
 // `entries` is a dependency of that hook's memo.
 const NO_ENTRIES: AttendanceEntry[] = [];
 
-// One small file (~43 KB gzipped) following the same byNs envelope as
-// loyalty.json/cohesion.json. Both the most-absent and most-present tiles
-// consume this hook; React Query dedupes the request.
+// Both the most-absent and most-present tiles consume this hook; React Query dedupes the
+// request.
 //
 // `enabled` exists for the callers that only need it as a FALLBACK — the MP
 // scorecard reads its attendance out of the per-MP shard it already has, and
@@ -75,15 +98,19 @@ const NO_ENTRIES: AttendanceEntry[] = [];
 // chamber-wide screens are unchanged.
 export const useAttendance = (enabled = true) => {
   const { selected } = useElectionContext();
+  const ns = electionToNsFolder(selected);
+  // KEYED ON ns. The retired file was one whole-corpus fetch a single cache entry could
+  // hold; this is per-parliament, so an unkeyed query would serve one parliament's members
+  // under another after a switch — the wrong-people failure pickSlice() guarded against by
+  // being STRICT about the slice.
   const { data, isLoading } = useQuery({
-    queryKey: ["rollcall_attendance"] as [string],
+    queryKey: ["rollcall_attendance", ns] as [string, string | null],
     queryFn,
     staleTime: Infinity,
-    enabled,
+    enabled: enabled && !!ns,
   });
 
-  const ns = electionToNsFolder(selected);
-  const slice = pickSlice(data, ns);
+  const slice = data?.slice;
 
   const byMpId = useMemo(() => {
     const m = new Map<number, AttendanceEntry>();

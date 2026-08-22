@@ -1,4 +1,5 @@
-// Apply 135_rollcall_derived.sql and refresh the four roll-call precomputes.
+// Apply 135_rollcall_derived.sql + 181_party_cohesion_summary.sql and refresh the six
+// roll-call precomputes.
 //
 // Run: `npm run db:load:rollcall-derived:pg` (local) / `:cloud` (Cloud SQL proxy).
 // Must run AFTER db:load:rollcall:pg — it reads vote_item and vote_cast.
@@ -18,7 +19,13 @@ const ROOT = path.resolve(
   "..",
   "..",
 );
-const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/135_rollcall_derived.sql");
+// 181 after 135: it is a sibling of party_cohesion, not a dependent, but 135 opens with
+// `DROP MATERIALIZED VIEW party_cohesion CASCADE` and applying them the other way round
+// would leave the ordering meaningful only by luck.
+const SCHEMA_FILES = [
+  path.join(ROOT, "scripts/db/schema/pg/135_rollcall_derived.sql"),
+  path.join(ROOT, "scripts/db/schema/pg/181_party_cohesion_summary.sql"),
+];
 
 const run = async (): Promise<void> => {
   // Preflight: refreshing against an absent or empty fact table produces four empty
@@ -42,7 +49,7 @@ const run = async (): Promise<void> => {
       `${Number(facts[0].casts).toLocaleString("en")} casts`,
   );
 
-  await exec(readFileSync(SCHEMA, "utf8"));
+  for (const f of SCHEMA_FILES) await exec(readFileSync(f, "utf8"));
   const refreshed = await refreshRollcallMatviews();
 
   // A freshly created matview has no planner stats until autoanalyze eventually runs, so its
@@ -79,6 +86,7 @@ const run = async (): Promise<void> => {
       [
         "mp_attendance",
         "party_cohesion",
+        "party_cohesion_summary",
         "mp_dissent",
         "mp_vote_norm",
         "mp_similarity",
@@ -89,6 +97,7 @@ const run = async (): Promise<void> => {
   const counts = await allRows<{ mv: string; n: string }>(
     `SELECT 'mp_attendance' mv, count(*)::text n FROM mp_attendance
      UNION ALL SELECT 'party_cohesion', count(*)::text FROM party_cohesion
+     UNION ALL SELECT 'party_cohesion_summary', count(*)::text FROM party_cohesion_summary
      UNION ALL SELECT 'mp_dissent', count(*)::text FROM mp_dissent
      UNION ALL SELECT 'mp_similarity', count(*)::text FROM mp_similarity`,
   );

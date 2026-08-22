@@ -36,6 +36,16 @@ export const ROLLCALL_MATVIEWS: readonly RollcallMatview[] = [
     costNote: "~2 s local / 10 s cloud (4,269 rows)",
   },
   {
+    // The per-(ns, party) rollup 181 adds. Its median and member count are the two columns
+    // party_cohesion's per-DATE grain cannot reproduce — a median does not fold — and both
+    // are rendered by /parliament/cohesion and the dashboard tile. Listed HERE and not only
+    // in 181 because a matview absent from this array is refreshed by nothing: the page it
+    // feeds simply serves the previous corpus, with nothing red anywhere.
+    name: "party_cohesion_summary",
+    inputs: ["vote_item", "vote_cast"],
+    costNote: "~6 s local (69 rows; its own per_item pass over 4M casts)",
+  },
+  {
     name: "mp_dissent",
     inputs: ["vote_item", "vote_cast"],
     // 90,542, NOT the 105,571 the plan records and this note used to print. That figure

@@ -160,6 +160,10 @@ const RELOADED: ReadonlyArray<{
   { table: "party_dim", loader: "db:load:rollcall:pg" },
   { table: "mp_attendance", loader: "db:load:rollcall-derived:pg" },
   { table: "party_cohesion", loader: "db:load:rollcall-derived:pg" },
+  {
+    table: "party_cohesion_summary",
+    loader: "db:load:rollcall-derived:pg",
+  },
   { table: "mp_dissent", loader: "db:load:rollcall-derived:pg" },
   { table: "mp_similarity", loader: "db:load:rollcall-derived:pg" },
   { table: "mp_vote_norm", loader: "db:load:rollcall-derived:pg" },
