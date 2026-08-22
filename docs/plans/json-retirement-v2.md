@@ -10,6 +10,63 @@ updated reference datasets, (c) hub stat blobs (D1).
 
 ---
 
+## Progress (2026-08-22)
+
+| step | tier | commit | state |
+|---|---|---|---|
+| 1 | P1 compression | `ff819a17da` | ✅ 765 files, 402.9 MB → 22.7 MB |
+| 2 | P2 visibility map | `8c2485dfb3` | ✅ 10 relations; person_browse_table was at 40.1% |
+| 3 | T0 sync guards | `d9a30a181a` | ✅ code only — **the `gsutil rm` is still owed** |
+| 4 | T4a place_tenders | `e31d949d2c` | ✅ 286 shards deleted, migration 179 |
+| 5 | T1a vote_day | `86430b33a4` | ✅ migration 180, 613/613 sittings |
+| 6 | T1b/c SessionScreen | `c7b201b8a4` | ✅ 5.09 MB → ~412 KB per day |
+| 7 | T3a attendance+cohesion | `198b04452f` | ✅ migration 181 |
+| 8 | T2 per-MP shards | `86f4523797` | ✅ migration 182, useMpShard deleted |
+| 9 | T3b topic_index fallbacks | `ee9b0b112f` | ✅ src/ readers only — file stays for `ai/` |
+
+**Still open:** T3c (party_pair_breaks, search_index, important_votes, embedding), T4b (alerts),
+T5 (budget/schools/financing), and every OPERATOR ACTION below.
+
+### ⚠️ Operator actions this plan has NOT performed
+
+None of the following were run — they are permanent or outward-facing, and the code changes
+above only make them correct and safe:
+
+```bash
+# 1. Compression (P1) — run AFTER a bucket:sync, per bucket_gzip.ts's ordering note
+npm run bucket:sync:all
+
+# 2. Tier 0 removals — ~1.05 GB, verified readerless
+gsutil -m rm -r gs://data-electionsbg-com/prices/_cache
+gsutil -m rm -r gs://data-electionsbg-com/officials/{declarations,municipal,derived}
+gsutil -m rm -r gs://data-electionsbg-com/parliament/{official-connections,mp-connections,by-id}
+gsutil -m rm gs://data-electionsbg-com/officials/{index,obligations,assets-rankings,assets-rankings-top}.json
+gsutil -m rm gs://data-electionsbg-com/parliament/postcode_unresolved.json
+
+# 3. The trees this plan retired — ONLY after the readers are deployed and verified on prod
+gsutil -m rm -r gs://data-electionsbg-com/myarea/place_tenders
+gsutil -m rm -r gs://data-electionsbg-com/parliament/votes/derived/per-mp
+gsutil -m rm gs://data-electionsbg-com/parliament/votes/derived/dissents.json
+gsutil -m rm -r gs://data-electionsbg-com/parliament/votes/sessions   # after T1 is verified
+
+# 4. Cloud SQL — the five new migrations, in this order
+npm run db:load:place-dim:pg:cloud        # applies 117 (seat_ekatte) + 179
+npm run db:load:rollcall:pg:cloud         # applies 180, fills vote_day
+npm run db:load:rollcall-derived:pg:cloud # applies 181 + 182 — budget ~15 min for mp_similarity
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) vote_item, vote_cast, mp_seat, party_dim, mp_attendance, party_cohesion, party_cohesion_summary, mp_dissent, mp_loyalty, mp_vote_norm, mp_similarity, person_browse_table;"
+
+# 5. Deploy — routes BEFORE hosting, since new /api/db routes are involved
+npm run deploy:db
+npm run deploy
+```
+
+⚠️ **`db:load:place-dim:pg:cloud` reloads `place_dim`, which fires its own fingerprint-gated
+refresh of three procurement matviews — minutes on a db-g1-small, with
+`/procurement/by-settlement` and every settlement page blocked for the duration.** Off-peak.
+
+⚠️ **An exclusion FREEZES, it does not retire.** Every `rm` above is owed precisely because
+the sync guards shipped without it.
+
 ## Decisions
 
 **D1 — hub stat blobs STAY as JSON.** A hub landing is the most latency-sensitive page in a
