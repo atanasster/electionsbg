@@ -1,0 +1,197 @@
+---
+name: save-news-articles
+description: Download the latest N full articles (default 100) from one or every registry site and store each as its own JSON file under news/data/{domain}/ — title, full body text, publish date, URL, plus author/topic/keywords/description when the page carries them. Use when the user asks to download, save, or archive full articles to disk, build an article corpus/dataset, or "store the latest N articles from each site". For a quick title/URL/date lookup with nothing written to disk, use fetch-news-articles instead.
+---
+
+# save-news-articles
+
+Downloads full articles — not just headlines — and persists them, one JSON
+file per article, under `news/data/<domain>/`. Built on
+[fetch-news-articles](../fetch-news-articles/SKILL.md): it shells out to
+`news/scripts/fetch_latest_articles.py` for the article LIST (same tested
+feed dispatch, date sort, dedupe), then fetches each article page itself
+and extracts the full record.
+
+## What gets stored
+
+One file per article, named `<YYYYMMDD|nodate>-<url-slug>-<md5_8>.json`
+(date from the extracted publish date; hash guarantees uniqueness). Fields,
+in priority order JSON-LD → `og:`/`article:` meta → DOM:
+
+```
+domain, url, title, published (ISO 8601, or the site's raw string if
+unparseable), author, topic, keywords, description, site_name,
+content (full body text, paragraphs joined by \n\n), content_chars,
+fetched_at
+```
+
+Extraction details that were measured, not assumed:
+
+- **windows-1251 is still alive** (moreto.net). Decode follows the
+  Content-Type charset, then a `<meta charset>` sniff, then UTF-8, then a
+  cp1251 fallback.
+- Titles get site-name suffixes stripped (`" - Новини от Dnes.bg"` → clean
+  headline) — only when the trailing segment names the site/brand or a
+  generic news-word, so legit dash endings survive.
+- Body text: `<p>` paragraphs outside junk subtrees (nav/aside/footer/
+  ad-classed boxes), preferring an `<article>` wrapper. Legacy sites with
+  no `<p>` (moreto.net) get a longest-contiguous-run fallback over free
+  text — this measured cleanly past an anti-adblock popup that duplicates
+  the lede plus every menu. Ends are trimmed of chrome (share bars,
+  calendars, "сподели…" prompts).
+- **An article GATE rejects listing/homepage pages** instead of saving
+  pseudo-articles: JSON-LD Article node, or `og:type=article`, or ≥2
+  extracted paragraphs. Rejections land in the summary's `failed` list as
+  `non_article_page`.
+- Bulgarian dates ("22 август 2026") normalize to ISO; so do RFC-822 and
+  ISO variants.
+
+## Step 1 — one site
+
+```bash
+python3 news/scripts/save_articles.py <domain> <N>
+```
+
+⚠️ **Budget generously: N=100 measured 3–6 minutes per site** (sequential
+fetches, 0.4s delay between pages — politeness, not slowness), and the
+lister stage alone can take up to 300s on multi-chunk ambiguous sitemaps
+(measured: bird.bg and economic.bg timed out at 180s and completed fine
+once the lister timeout was raised to 300s). Give the call a 10-minute
+timeout, not the default.
+
+Stdout is ONE JSON summary: `saved`, `already_present`, `failed[]` (with
+per-article reasons), `list_method`, `order_confidence`, plus the lister's
+`warning` when stale. Exit 0 = at least something saved or nothing new was
+needed; 2/3/4 = the list-stage error, propagated verbatim from
+fetch_latest_articles.py (see that skill for `needs_browser`,
+`blocked_captcha` etc.); 4 also when every article failed individually.
+
+**Incremental by design:** folders are keyed by the `url` field inside the
+files — re-running tops up with only new articles and never refetches or
+rewrites what's already on disk.
+
+## Step 2 — CHECK order_confidence before trusting the vintage
+
+This is the step that separates a useful archive from a beautifully
+formatted pile of old news. If `order_confidence` is not `date_sorted`,
+the sitemap/feed carried no dates and the "latest N" is file-order, which
+can mean the OLDEST articles (measured: fakti.bg's plain `sitemap.xml` is
+an undated sitemapindex whose leading chunks hold 2011–2024 archive URLs —
+a first run "saved 100" that were all from 2021).
+
+**The fix that worked, in order:**
+
+1. `curl -s https://<domain>/robots.txt` and read every `Sitemap:` line —
+   a `sitemapNews.xml`/`sitemap-news` Google-News sitemap (dated, titled,
+   articles-only) beats a generic sitemap for this job. fakti.bg declared
+   `sitemapNews.xml` (373 same-day articles) all along.
+2. If found, FIX THE REGISTRY ROW (feed_method → `sitemap_news`,
+   feed_url → the news sitemap, a note saying why) so the next run doesn't
+   repeat the detour — same policy fetch-news-articles states for better
+   sitemap URLs.
+3. `rm -rf news/data/<domain>` if it holds wrong-vintage articles —
+   incremental skip would otherwise keep them forever — and re-run.
+
+Do NOT paper over `stale_source_suspected` the same way: some sources are
+STRUCTURALLY stale — the sitemap generator carries years-old dates on an
+actively publishing site, consistently, and no feed swap fixes it
+(first-full-sweep measurements, all saved-old-and-flagged: bnews.bg stuck
+at 2020, iskra.bg at 2019, investor.bg at 2023, bgonair.bg at 2025-04,
+bntnews.bg at 2025-12→2026-06, plus bivol.bg from fetch-news-articles'
+list). dnes.bg is the opposite — TRANSIENT: it served fresh 2026-08-22
+headlines early in the day, then only 2018 URLs for hours afterwards; its
+folder holds flagged 2018 articles until a later run lists fresh ones.
+Report which class, same as fetch-news-articles-all teaches.
+
+Two more dead-end classes measured in that sweep, both correctly ending
+in `saved: 0` rather than garbage files:
+
+- **Client-rendered pages behind a fine sitemap** (novini.bg): a Next.js
+  app whose article URLs return an empty `NEXT_HTTP_ERROR_FALLBACK` shell
+  to a plain HTTP client — the sitemap lists dated articles perfectly,
+  the pages yield nothing. Browser tier or nothing.
+- **Broken sitemap infrastructure** (telegraph.bg: every sitemap-index
+  child returns HTTP 500 and there is no RSS; bivol.bg: the Jetpack
+  sitemap tree exceeds even a 300s lister descent).
+
+## Step 3 — the full sweep (direct tier)
+
+```bash
+bash news/scripts/save_all_direct.sh 100 news/data/_summaries_<YYYYMMDD>.jsonl
+```
+
+Every direct-method domain (rss/sitemap/robots_sitemap/sitemap_news/
+homepage_link — ~47 of 69), 6 domains in parallel (6 requests to 6
+different hosts, one per host, sequential within each). One summary JSON
+line per domain lands in the output file.
+
+⚠️ **Cost before you launch: at N=100 this is ~47 sites × 3–6 min ÷ 6
+parallel ≈ 30–50 minutes and ~4,700 page fetches.** Say the cost out loud
+before running it; for a spot-check, a handful of domains at N=5 answers
+"does this work" in two minutes. The same anti-hammering rule from
+fetch-news-articles-all applies: do not loop the sweep back-to-back.
+
+## Step 4 — report honestly, per domain
+
+The first full sweep (2026-08-22, N=100) measured the real spread: of 47
+direct-tier domains, 35 landed fresh-bulk-2026 folders, 5 saved
+structurally-stale old articles (flagged — see Step 2's list), 4 saved
+undated content (`feed_order_unconfirmed` — burgas24.bg, plovdiv24.bg,
+svobodnoslovo.eu, varna24.bg carry no dates anywhere), and 3 saved nothing
+(novini.bg, telegraph.bg, bivol.bg — the dead-end classes above). A
+handful of `date_sorted` folders legitimately span wide ranges with a few
+ancient evergreen strays (e-vestnik.bg: 89/100 from 2026, oldest 2007) —
+check the year DISTRIBUTION, not just min/max, before calling one wrong.
+Per domain state: saved / already_present / failed-with-reasons, and flag
+every non-`date_sorted` order_confidence explicitly. Known gap shapes to
+expect:
+
+- `non_article_page` on every URL (plovdiv24.bg): the recorded sitemap
+  lists only section pages. Needs a better feed_url (Step 2) or the
+  browser tier — not a bug in the saver.
+- One-off `HTTP Error 404`: sitemap entries for since-deleted articles;
+  ignore.
+- Browser-tier domains (`browser_render_scrape`, `browser_then_*`),
+  `blocked_captcha`, `portal_not_newsroom` (~22 of 69) are NOT covered by
+  the batch driver. Fetching+persisting those needs the Browser-tool
+  recipes in fetch-news-articles Steps 4a/4b, applied per domain — not
+  yet wired into saving; say so rather than approximating.
+
+## Verify
+
+```bash
+ls news/data/<domain> | wc -l          # ≈ N (minus failures)
+python3 - <<'PY'
+import json, glob
+recs = [json.load(open(f)) for f in glob.glob('news/data/<domain>/*.json')]
+dates = sorted(str(r['published'])[:10] for r in recs if r['published'])
+print(len(recs), 'files |', dates[0] if dates else '?', '->', dates[-1] if dates else '?')
+print('missing fields:', [k for k in ('title','published','content') if not all(r.get(k) for r in recs)])
+PY
+```
+
+The date RANGE is the check that matters — a folder full of complete
+records from 2021 (fakti.bg's first run) passes every field check and is
+still wrong (Step 2).
+
+## What this skill does NOT do
+
+- Does not solve CAPTCHAs or bypass active bot-detection.
+- Does not save the browser-tier domains — the summary propagates their
+  `needs_browser*` errors; wiring those into persisted saving is future
+  work.
+- Does not dedupe across outlets — the same agency story on two sites is
+  two files, keyed by their own URLs. Correct for an archive; don't
+  "clean" it.
+- Does not commit anything. `news/` is a plain data folder (no loader, no
+  build, no bucket sync); thousands of article JSONs are a local corpus —
+  ask before putting that in git.
+
+## File map
+
+| path | what |
+| --- | --- |
+| `news/scripts/save_articles.py` | the downloader — list via fetch_latest_articles.py, extract, persist (this skill) |
+| `news/scripts/save_all_direct.sh` | parallel batch over the direct tier (this skill) |
+| `news/data/<domain>/*.json` | the stored articles, incremental by URL |
+| `news/scripts/fetch_latest_articles.py` | the lister it shells out to — see fetch-news-articles |

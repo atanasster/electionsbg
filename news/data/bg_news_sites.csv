@@ -6,11 +6,11 @@ rank,tier,domain,outlet,type,scope,similarweb_visits_jul2026,semrush_visits_jul2
 5,mass,nova.bg,Нова телевизия / Нова Нюз,TV news,national,,7.73M,19160,robots_sitemap,https://nova.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
 6,mass,mediapool.bg,Mediapool,independent news,national,6.9M,5.83M,27680,robots_sitemap,https://www.mediapool.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
 7,mass,dnes.bg,Dnes.bg,news,national,6.3M,7.73M,55233,robots_sitemap,https://www.dnes.bg/sitemap/sitemap.xml,200,yes,sitemap_xml_confirmed
-8,mass,fakti.bg,Факти,news,national,5.8M,8.27M,20288,robots_sitemap,https://fakti.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
+8,mass,fakti.bg,Факти,news,national,5.8M,8.27M,20288,sitemap_news,https://fakti.bg/sitemapNews.xml,200,yes,robots.txt_declares_sitemapNews.xml_google_news_sitemap_373_dated_titled_articles_plain_sitemap.xml_is_an_undated_sitemapindex_whose_first_chunks_hold_2011_2024_archive_urls_not_the_latest_switched_during_save_articles_build
 9,mass,24chasa.bg,24 часа,newspaper,national,5.0M,6.71M,18336,robots_sitemap,https://www.24chasa.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
 10,mass,petel.bg,Петел,tabloid news,national,6.1M,,68529,sitemap,https://petel.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
 11,mass,trud.bg,Труд,newspaper,national,6.1M,,56302,blocked_captcha,https://trud.bg/,,no,cloudflare_turnstile_interactive_checkbox_shown_not_completed_per_policy
-12,mass,novini.bg,Novini.bg,aggregator,national,5.9M,,67029,robots_sitemap,https://novini.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
+12,mass,novini.bg,Novini.bg,aggregator,national,5.9M,,67029,robots_sitemap,https://novini.bg/sitemap/news/index.xml,200,yes,sitemap_news_index_xml_lists_dated_articles_correctly_but_pages_are_client_side_rendered_next_js_shells_NEXT_HTTP_ERROR_FALLBACK_no_server_html_plain_http_client_gets_nothing_saving_needs_browser_tier_headline_listing_only
 13,mass,focus-news.net,Агенция Фокус,agency,national,5.8M,,54462,sitemap,https://focus-news.net/sitemap.xml,200,yes,sitemap_xml_confirmed
 14,mass,pik.bg,ПИК,tabloid news,national,5.8M,,74622,robots_sitemap,https://pik.bg/sitemap/sitemap.xml,200,yes,sitemap_xml_confirmed
 15,mass,segabg.com,Сега,newspaper,national,5.7M,,59411,robots_sitemap,https://www.segabg.com/google-news.xml,200,yes,sitemap_xml_confirmed
@@ -25,7 +25,7 @@ rank,tier,domain,outlet,type,scope,similarweb_visits_jul2026,semrush_visits_jul2
 24,mass,marica.bg,Марица,regional newspaper,Plovdiv,3.8M,,63086,browser_then_sitemap,https://www.marica.bg/storage/google-news-sitemap.xml,200,yes,root-path_routes_serve_a_SPA_shell;_the_real_sitemap_needs_the_www_subdomain_plus_/storage/_path_from_robots.txt_and_a_bare_HTTP_client_is_403d_—_a_real_browser_reaches_it_fine
 25,mass,dariknews.bg,Дарик Нюз,radio news,national,3.7M,,58611,robots_sitemap,https://dariknews.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
 26,mass,bntnews.bg,БНТ Новини,public TV news,national,,,58109,robots_sitemap,https://bntnews.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
-27,mass,telegraph.bg,Телеграф,tabloid newspaper,national,3.1M,,279092,robots_sitemap,https://telegraph.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
+27,mass,telegraph.bg,Телеграф,tabloid newspaper,national,3.1M,,279092,robots_sitemap,https://telegraph.bg/sitemap.xml,200,yes,sitemap_index_children_return_http_500_latest_news_and_category_xxx_both_probed_directly_no_rss_feed_feed_rss_xml_404_index_root_itself_lists_only_section_urls_so_gate_rejects_all_dead_feed_as_of_2026-08-22_needs_browser_tier_or_upstream_fix
 28,mass,standartnews.com,Стандарт,newspaper,national,2.8M,,56422,robots_sitemap,https://www.standartnews.com/sitemaps/index.xml,200,yes,sitemap_xml_confirmed
 29,mass,investor.bg,Investor.bg,business,national,2.6M,,55107,robots_sitemap,https://www.investor.bg/sitemap/sitemap.xml,200,yes,sitemap_xml_confirmed
 30,mass,glasove.com,Гласове,commentary,national,2.5M,,158595,browser_render_scrape,https://glasove.com/,200,yes,no_feed_no_sitemap_confirmed_via_in_page_fetch_dom_pattern_section_slug
@@ -54,7 +54,7 @@ rank,tier,domain,outlet,type,scope,similarweb_visits_jul2026,semrush_visits_jul2
 53,long_tail,struma.bg,Струма,regional newspaper,Blagoevgrad,266K,,465682,blocked_captcha,https://struma.bg/,,no,cloudflare_turnstile_interactive_checkbox_shown_not_completed_per_policy
 54,long_tail,168chasa.bg,168 часа,weekly newspaper,national,283K,,195018,rss,https://168chasa.bg/feed,200,yes,feed_xml_confirmed
 55,long_tail,bloombergtv.bg,Bloomberg TV Bulgaria,business TV,national,285K,,247894,robots_sitemap,https://www.bloombergtv.bg/sitemap/sitemap.xml,200,yes,sitemap_xml_confirmed
-56,long_tail,forbesbulgaria.com,Forbes Bulgaria,business monthly,national,249K,,371737,robots_sitemap,https://forbesbulgaria.com/sitemap.xml,200,yes,sitemap_xml_confirmed
+56,long_tail,forbesbulgaria.com,Forbes Bulgaria,business monthly,national,249K,,371737,rss,https://forbesbulgaria.com/sitemap.rss,200,yes,robots.txt_declares_sitemap.rss_valid_rss2_50_dated_items_root_rss_plain_sitemap_xml_exceeded_180s_in_lister_switched_after_first_full_save_sweep_timeout_class_failures
 57,long_tail,chernomore.bg,Черно море,regional,Varna,174K,,302979,robots_sitemap,https://www.chernomore.bg/sitemap/sitemap.xml,200,yes,sitemap_xml_confirmed
 58,long_tail,manager.bg,Manager.bg,business,national,196K,,285572,robots_sitemap,https://manager.bg/feed/sitemap.xml,200,yes,sitemap_xml_confirmed
 59,long_tail,burgas24.bg,Burgas24,regional,Burgas,164K,,395959,sitemap,https://burgas24.bg/sitemap.xml,200,yes,sitemap_xml_confirmed

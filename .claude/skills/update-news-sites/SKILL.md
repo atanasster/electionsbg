@@ -259,4 +259,5 @@ Bulgarian reader would call a news site, and that the broadcaster rows use the n
 | --- | --- |
 | `news/data/bg_news_sites.csv` | the register — traffic ranking (this skill) + feed access method (see below) |
 | `news/scripts/fetch_latest_articles.py` | reads this CSV's `feed_method_*`/`feed_url_*`; not owned by this skill — see fetch-news-articles |
+| `news/scripts/save_articles.py`, `news/scripts/save_all_direct.sh` | full-article downloader reading the same `feed_*` columns; not owned by this skill — see save-news-articles |
 | `<scratchpad>/tranco.csv` | working copy of the Tranco top-1M (CRLF stripped), never committed |

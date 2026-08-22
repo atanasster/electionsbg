@@ -1,0 +1,55 @@
+#!/bin/bash
+# Runs save_articles.py in parallel over every domain in
+# news/data/bg_news_sites.csv whose feed_method needs no browser
+# (rss / sitemap / robots_sitemap / sitemap_news / homepage_link).
+# Writes one JSON summary line per domain to stdout or the given file —
+# success or the script's own error JSON. ALWAYS exits 0 at bash level:
+# per-domain failures live in the summaries, and xargs's own exit code
+# (1 if any invocation failed) must not masquerade as a batch failure.
+#
+# Usage: save_all_direct.sh <N> [output.jsonl]
+#
+# Measured: N=100 runs 3-6 min per domain (sequential fetches inside a
+# domain, 0.4s delay between article pages), so the per-domain timeout is
+# generous and parallelism is deliberately moderate: 6 domains at a time =
+# 6 concurrent requests to 6 DIFFERENT hosts, one request per host.
+set -uo pipefail
+N="${1:-100}"
+OUT="${2:-/dev/stdout}"
+# Resolve a relative OUT against the CALLER's cwd — the cd below would
+# otherwise reinterpret it relative to news/ (measured: a first sweep died
+# instantly writing to news/news/data/...).
+case "$OUT" in
+  /*) ;;
+  *) OUT="$(pwd)/$OUT" ;;
+esac
+cd "$(dirname "$0")/.."   # news/
+
+DIRECT_METHODS="rss|sitemap|robots_sitemap|sitemap_news|homepage_link"
+
+domains=$(python3 -c "
+import csv, re
+pat = re.compile(r'^($DIRECT_METHODS)\$')
+for r in csv.DictReader(open('data/bg_news_sites.csv', newline='', encoding='utf-8')):
+    col = next(h for h in r if h.startswith('feed_method_'))
+    if pat.match(r[col]):
+        print(r['domain'])
+")
+
+run_one() {
+  d="$1"; n="$2"
+  out=$(timeout 1200 python3 scripts/save_articles.py "$d" "$n" 2>/dev/null)
+  if [ -n "$out" ]; then
+    # the saver always prints exactly one JSON object — pass it through,
+    # whatever its exit code (exit 4 = "nothing saved this run" is a valid,
+    # reportable outcome, not a crash; measured: emitting a fallback line
+    # on nonzero exits double-wrote those domains in the first full sweep)
+    echo "$out"
+  else
+    echo "{\"domain\": \"$d\", \"error\": \"timeout_or_crash\"}"
+  fi
+}
+export -f run_one
+
+echo "$domains" | xargs -P 6 -I{} bash -c 'run_one "$@" '"$N"'' _ {} > "$OUT"
+exit 0

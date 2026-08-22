@@ -143,6 +143,9 @@ it after the list.
 - Does not solve CAPTCHAs or otherwise defeat active bot-detection.
 - Does not fetch full article body text — title + URL + date only. (The
   page is one `fetch`/navigate away if the user then asks to read one.)
+  To download full articles and store them as per-article JSON files under
+  `news/data/{domain}/`, use [save-news-articles](../save-news-articles/SKILL.md)
+  — it reuses this skill's lister and adds body/metadata extraction.
 - Does not cache results or write anything to `news/data/` — this is a
   read-only, one-off lookup. For a full-registry sweep, use
   fetch-news-articles-all instead.

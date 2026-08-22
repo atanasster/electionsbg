@@ -1,0 +1,5 @@
+# Downloaded article corpora (news/data/<domain>/) and sweep run-logs are
+# local point-in-time data, deliberately untracked — the registry CSV stays
+# tracked. See the save-news-articles skill.
+*/
+_summaries_*.jsonl

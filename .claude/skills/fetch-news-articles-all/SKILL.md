@@ -135,7 +135,10 @@ gap is named.
 - Does not retry a domain automatically on failure — one pass, reported
   honestly, is the contract. Retrying is the user's call.
 - Does not solve CAPTCHAs.
-- Does not fetch full article bodies, only title/url/published.
+- Does not fetch full article bodies, only title/url/published. To
+  download and persist full articles per site, use
+  [save-news-articles](../save-news-articles/SKILL.md) — its batch driver
+  covers this skill's direct tier with the same parallel shape.
 - Does not run unattended/on a schedule — this is a one-shot sweep invoked
   when asked, not a cron job. (If the user wants recurring collection,
   that's a different, not-yet-built capability — say so rather than
