@@ -12,21 +12,80 @@ updated reference datasets, (c) hub stat blobs (D1).
 
 ## Progress (2026-08-22)
 
-| step | tier | commit | state |
-|---|---|---|---|
-| 1 | P1 compression | `ff819a17da` | ✅ 765 files, 402.9 MB → 22.7 MB |
-| 2 | P2 visibility map | `8c2485dfb3` | ✅ 10 relations; person_browse_table was at 40.1% |
-| 3 | T0 sync guards | `d9a30a181a` | ✅ code only — **the `gsutil rm` is still owed** |
-| 4 | T4a place_tenders | `e31d949d2c` | ✅ 286 shards deleted, migration 179 |
-| 5 | T1a vote_day | `86430b33a4` | ✅ migration 180, 613/613 sittings |
-| 6 | T1b/c SessionScreen | `c7b201b8a4` | ✅ 5.09 MB → ~412 KB per day |
-| 7 | T3a attendance+cohesion | `198b04452f` | ✅ migration 181 |
-| 8 | T2 per-MP shards | `86f4523797` | ✅ migration 182, useMpShard deleted |
-| 9 | T3b topic_index fallbacks | `ee9b0b112f` | ✅ src/ readers only — file stays for `ai/` |
-| 10 | T3c party_pair_breaks | `b7c7979cfa` | ✅ migration 183 — **T3c closed, see D5** |
-| 11 | T4b myarea alerts | `84199d8ebf` | ✅ migration 184 — storage only, see D6 |
+| step | tier                      | commit       | state                                             |
+| ---- | ------------------------- | ------------ | ------------------------------------------------- |
+| 1    | P1 compression            | `ff819a17da` | ✅ 765 files, 402.9 MB → 22.7 MB                  |
+| 2    | P2 visibility map         | `8c2485dfb3` | ✅ 10 relations; person_browse_table was at 40.1% |
+| 3    | T0 sync guards            | `d9a30a181a` | ✅ code only — **the `gsutil rm` is still owed**  |
+| 4    | T4a place_tenders         | `e31d949d2c` | ✅ 286 shards deleted, migration 179              |
+| 5    | T1a vote_day              | `86430b33a4` | ✅ migration 180, 613/613 sittings                |
+| 6    | T1b/c SessionScreen       | `c7b201b8a4` | ✅ 5.09 MB → ~412 KB per day                      |
+| 7    | T3a attendance+cohesion   | `198b04452f` | ✅ migration 181                                  |
+| 8    | T2 per-MP shards          | `86f4523797` | ✅ migration 182, useMpShard deleted              |
+| 9    | T3b topic_index fallbacks | `ee9b0b112f` | ✅ src/ readers only — file stays for `ai/`       |
+| 10   | T3c party_pair_breaks     | `b7c7979cfa` | ✅ migration 183 — **T3c closed, see D5**         |
+| 11   | T4b myarea alerts         | `84199d8ebf` | ✅ migration 184 — storage only, see D6           |
 
-**Still open:** T5, and every OPERATOR ACTION below.
+| 12 | fix: zero-cast bucketing | `fe0ba4ecd6` | ✅ regression found by post-deploy parity — see below |
+
+**Still open:** T5, the bucket removals, and `bucket:gz`.
+
+### DEPLOYED to production 2026-08-22
+
+All five migrations are on Cloud SQL and all 20 routes verified live (20/20, 240-950 ms).
+
+```
+db:load:place-dim:pg:cloud    117 + 179   place_dim 5,720 rows, 3 scoped matviews refreshed
+db:load:rollcall:pg:cloud     180         613/613 sittings, md5-identical to local
+db:load:rollcall-derived:...  181+182+183 all 7 counts identical to local
+myarea:alerts:cloud           184         289 feeds / 5,547 events
+VACUUM (ANALYZE, PARALLEL 0)              vote_day was 0% visible, myarea_alerts never analyzed
+deploy:db -> deploy -> deploy:db -> SKIP_PREDEPLOY=1 deploy
+```
+
+⚠️ **The four-step deploy is not theoretical — the middle state was observed.** The bundle hash
+moved (`index-CG18vXWH` → `index-PU6G-gTo`), and after step 2 the homepage served the new hash
+while `/person/*` and `/company/*` still advertised the DELETED one. Steps 3 and 4 fixed it;
+all five surfaces now match. Measured, not inferred.
+
+**`db:load:rollcall-derived:pg:cloud` took 91 s, not the ~801 s CLAUDE.md records** —
+`mp_similarity` was 70.6 s against a documented 745 s. Worth re-measuring before anyone budgets
+a quarter of an hour for it again.
+
+**Parity verified against the live artifacts, not just row counts:**
+
+| tier | check                                                          | result                                                                                            |
+| ---- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| T1   | every per-MP vote on the largest sitting, vs the 5 MB day file | **70,320 / 70,320**, 293/293 tallies, 293/293 titles                                              |
+| T3a  | `party_cohesion_summary` ns=52 vs the payload                  | 6/6 groups exact                                                                                  |
+| T3c  | `party_pair_break` ns=52 vs the payload                        | 20/20 rows exact, including the tiebreak order                                                    |
+| T4a  | 3 surviving shards                                             | count/since identical; 1 euro differs — the documented cap-boundary tie (179's header, 43 of 286) |
+| T4b  | BGS04 feed                                                     | **30 / 30 events byte-identical**                                                                 |
+
+Wire cost, measured in the browser on `/votes/2025-06-19`: `session` 9 KB + `session-casts`
+30 KB against a 5,086,380-byte day file stored `identity`. `/votes` fetches 0.5 KB where it
+pulled 8.4 MB.
+
+### ⚠️ Regression found AFTER deploy, by the parity check — `fe0ba4ecd6`
+
+T3b's `vote-day-summary` replicated `outcomeFor()` faithfully, including its
+`cast === 0 -> contested` arm. That is the wrong specification: `topic_index.ts` drops the item
+FIRST (`if (castCount(it) === 0) continue;`), so its own `cast === 0` branch is dead code.
+
+A vote where every member is absent — a failed quorum or registration check — has
+yes+no+abstain = 0. `contested` is the segment that says the chamber was SPLIT, so the route
+published that claim about votes nobody cast: **911 of 15,096 standing items, over 598 of 613
+plenary days**, and on the 52nd all 36 days the artifact covers (artifact contested=0 on every
+one). Three further days appeared that the artifact does not have at all — sittings whose only
+items were zero-cast.
+
+**Why the gate was green:** `bill_and_topics.data.test.ts` held the route to `outcomeFor()` and
+derived its expectation the same way — two copies of one defect agreeing. Its comment even
+measured "zero-cast 911" and read it as a branch to verify rather than a population to exclude.
+Both sides now filter, and a new test asserts the EXCLUSION against a corpus fact instead of a
+second copy of the rule. Mutation-checked: without the filter, **556 days fail**.
+
+After the fix: 36/36 outcome bars and 36/36 topic chip sets identical to the artifact.
 
 ### D7 (2026-08-22) — T5 is NOT opportunistic; both items it names carry a real blocker
 
@@ -74,11 +133,11 @@ below is not a formality: run the sweep including `ai/` on every retirement, and
 derivable from `vote_item` / `vote_cast` / `mp_seat` / `party_dim`". Read against their
 builders, that is wrong for one of them and a bad trade for the other two:
 
-| artifact | size | why it stays |
-|---|---:|---|
-| `embedding.json` | 212 KB | **A UMAP projection** (`umap-js`, 2D over each member's ±1 vote vector, seeded PRNG). Not an aggregation — there is no SQL for it. "Migrating" it would mean a loader that runs UMAP offline and COPYs the points into a table: a second copy of the same numbers, plus a loader to keep in step, for 212 KB. |
-| `search_index.json` | 760 KB raw, **~80 KB gzipped** | Feeds the header search on EVERY page. This is D1's argument exactly — a small edge-cached artifact fetched once beats a Cloud Run round-trip on every page load, and worse on a cold `db-g1-small`. It is already a slim top-N projection built precisely to avoid the 580 KB `topic_index` fetch it replaced. |
-| `important_votes/{ns}.json` | 428 KB / 9 files | A **title-pattern scorer** with same-bill de-duplication (`classifyTitle`, `normalizeTitle`) — a Cyrillic text-classification heuristic, not an aggregate. Porting it means a second hand-written copy of that scorer in SQL, which is the "rule copied by hand" hazard CLAUDE.md records; the JSON is ~40 KB per parliament. |
+| artifact                    |                           size | why it stays                                                                                                                                                                                                                                                                                                                  |
+| --------------------------- | -----------------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `embedding.json`            |                         212 KB | **A UMAP projection** (`umap-js`, 2D over each member's ±1 vote vector, seeded PRNG). Not an aggregation — there is no SQL for it. "Migrating" it would mean a loader that runs UMAP offline and COPYs the points into a table: a second copy of the same numbers, plus a loader to keep in step, for 212 KB.                 |
+| `search_index.json`         | 760 KB raw, **~80 KB gzipped** | Feeds the header search on EVERY page. This is D1's argument exactly — a small edge-cached artifact fetched once beats a Cloud Run round-trip on every page load, and worse on a cold `db-g1-small`. It is already a slim top-N projection built precisely to avoid the 580 KB `topic_index` fetch it replaced.               |
+| `important_votes/{ns}.json` |               428 KB / 9 files | A **title-pattern scorer** with same-bill de-duplication (`classifyTitle`, `normalizeTitle`) — a Cyrillic text-classification heuristic, not an aggregate. Porting it means a second hand-written copy of that scorer in SQL, which is the "rule copied by hand" hazard CLAUDE.md records; the JSON is ~40 KB per parliament. |
 
 None of the three has an `ai/` reader, so all three could be excluded from the bucket the day
 a reason to move them appears. There isn't one.
@@ -88,9 +147,21 @@ a reason to move them appears. There isn't one.
 None of the following were run — they are permanent or outward-facing, and the code changes
 above only make them correct and safe:
 
+⚠️ **Sections 4 and 5 are DONE (2026-08-22) — see the deploy record above.** What is left is
+the bucket work: sections 1-3.
+
 ```bash
-# 1. Compression (P1) — run AFTER a bucket:sync, per bucket_gzip.ts's ordering note
-npm run bucket:sync:all
+# 1. Compression (P1).
+#    ⚠️ NOT `bucket:sync:all` any more. My commits added ZERO files under data/ (576 deletions,
+#    0 additions), so there is nothing to sync — and a whole-tree bucket:sync walks ~1.03M
+#    local files and ~761k bucket objects before it diffs, ~30 min, for no upload. The
+#    ordering note in bucket_gzip.ts exists because a LATER sync clobbers gzipped objects; it
+#    is not a reason to run one first.
+#    ⚠️ Retire the SESSIONS_DIR block in bucket_gzip.ts BEFORE running this — it is 76 files /
+#    288 MB of a tree that now has no reader, and collect() does NOT consult isExcluded(), so
+#    the exclusion alone will not stop it (`gsutil cp -Z` takes no -x). That is the same "half
+#    a guard" P1 fixed for uploadText().
+npm run bucket:gz
 
 # 2. Tier 0 removals — ~1.05 GB, verified readerless
 gsutil -m rm -r gs://data-electionsbg-com/prices/_cache
@@ -154,15 +225,15 @@ Postgres-first. The degrade is local-dev-only and is stated.
 
 ## Audit — what the first draft got wrong
 
-| # | finding | effect |
-|---|---|---|
-| **A1** | **T1 was materially wrong.** `SessionScreen` is not an agenda list — `computeSessionMetrics`, `RollcallHeatmap`, `SessionDefections`, `SessionAbsentees`, `SessionItemBreakdown` and the focused-MP highlight all iterate **every item's full `votes` array**. "Agenda + lazy per-item expand" breaks five components. | T1 respecified below |
-| **A2** | The day-matrix query must use the **InitPlan-array** form. Joining `vote_cast` to `vote_item` drives a Parallel Seq Scan on `vote_item`: **2,779 buffers**. `item_id = ANY(ARRAY(SELECT …))` → **1,378**. Same rule as `tender_search_text`. | query shape pinned |
-| **A3** | **Pre-existing repo defect.** `load_rollcall_pg.ts:605` runs a bare `ANALYZE`, not `vacuumAfterReload()` — the documented "disguise". None of the 8 rollcall relations are in `reload_visibility_map.data.test.ts`. Measured: `vote_item` 90.8% visible, `mp_similarity` 97.7%, and `pg_stat_user_tables` shows **no statistics at all** for `vote_item`/`vote_cast`/`mp_seat`/`party_dim`. | new **Tier P** |
-| **A4** | **T3a has two real gaps** — `membersTracked` is not in `party_cohesion` (cols: `ns date party_id items cohesion`), and `computedAt` is **rendered** (`ParliamentAttendanceScreen:203`, `ParliamentCohesionScreen:186`) with no live equivalent. | closed in T3a |
-| **A5** | **I nearly overstated T1 by ~30x.** I assumed the bucket served gzip. It does not: `gsutil stat` and a real `curl -H 'Accept-Encoding: gzip'` both return **5,086,380 bytes, `x-goog-stored-content-encoding: identity`**. The original 4.85 MB figure is right — but only because compression is *missing*, which is itself a finding. | new **Tier P** |
-| **A6** | **`tenders.publication_date` is `text`, not `date`.** A `now() - interval` bound raises 42883. Needs `to_char(…,'YYYY-MM-DD')`; lexicographic ISO then rides `idx_tenders_buyer_date`. | T4a |
-| **A7** | `place_tenders` files are keyed by **obshtina**; `readMunicipalAwardersByEkatte` selects `source='geo' AND is_local_hq AND tier='municipal'` keyed by **ekatte**. The route needs the obshtina→ekatte resolution. | T4a |
+| #      | finding                                                                                                                                                                                                                                                                                                                                                                                     | effect               |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| **A1** | **T1 was materially wrong.** `SessionScreen` is not an agenda list — `computeSessionMetrics`, `RollcallHeatmap`, `SessionDefections`, `SessionAbsentees`, `SessionItemBreakdown` and the focused-MP highlight all iterate **every item's full `votes` array**. "Agenda + lazy per-item expand" breaks five components.                                                                      | T1 respecified below |
+| **A2** | The day-matrix query must use the **InitPlan-array** form. Joining `vote_cast` to `vote_item` drives a Parallel Seq Scan on `vote_item`: **2,779 buffers**. `item_id = ANY(ARRAY(SELECT …))` → **1,378**. Same rule as `tender_search_text`.                                                                                                                                                | query shape pinned   |
+| **A3** | **Pre-existing repo defect.** `load_rollcall_pg.ts:605` runs a bare `ANALYZE`, not `vacuumAfterReload()` — the documented "disguise". None of the 8 rollcall relations are in `reload_visibility_map.data.test.ts`. Measured: `vote_item` 90.8% visible, `mp_similarity` 97.7%, and `pg_stat_user_tables` shows **no statistics at all** for `vote_item`/`vote_cast`/`mp_seat`/`party_dim`. | new **Tier P**       |
+| **A4** | **T3a has two real gaps** — `membersTracked` is not in `party_cohesion` (cols: `ns date party_id items cohesion`), and `computedAt` is **rendered** (`ParliamentAttendanceScreen:203`, `ParliamentCohesionScreen:186`) with no live equivalent.                                                                                                                                             | closed in T3a        |
+| **A5** | **I nearly overstated T1 by ~30x.** I assumed the bucket served gzip. It does not: `gsutil stat` and a real `curl -H 'Accept-Encoding: gzip'` both return **5,086,380 bytes, `x-goog-stored-content-encoding: identity`**. The original 4.85 MB figure is right — but only because compression is _missing_, which is itself a finding.                                                     | new **Tier P**       |
+| **A6** | **`tenders.publication_date` is `text`, not `date`.** A `now() - interval` bound raises 42883. Needs `to_char(…,'YYYY-MM-DD')`; lexicographic ISO then rides `idx_tenders_buyer_date`.                                                                                                                                                                                                      | T4a                  |
+| **A7** | `place_tenders` files are keyed by **obshtina**; `readMunicipalAwardersByEkatte` selects `source='geo' AND is_local_hq AND tier='municipal'` keyed by **ekatte**. The route needs the obshtina→ekatte resolution.                                                                                                                                                                           | T4a                  |
 
 **Corrected in the safe direction (A4c).** I suspected swapping `useAttendance` to the route
 would relabel the 179 seats that change party mid-term, because the JSON builder uses the
@@ -187,24 +258,24 @@ individual items, so any aggregate over votes still groups on `vote_cast.party_i
 
 `bucket:gz` covers a bounded hot-file list that **excludes every artifact in this plan**. Live:
 
-| object | served bytes | stored encoding |
-|---|---:|---|
-| `votes/derived/dissents.json` | **32,575,807** | `identity` |
-| `votes/derived/topic_index.json` | **8,368,917** | `identity` |
-| `votes/sessions/2025-06-19.json` | **5,086,380** | `identity` |
-| `procurement/derived/hub_stats.json` | 1,156 | gzip ✅ |
-| `settlements.json` | 157,734 | gzip ✅ |
+| object                               |   served bytes | stored encoding |
+| ------------------------------------ | -------------: | --------------- |
+| `votes/derived/dissents.json`        | **32,575,807** | `identity`      |
+| `votes/derived/topic_index.json`     |  **8,368,917** | `identity`      |
+| `votes/sessions/2025-06-19.json`     |  **5,086,380** | `identity`      |
+| `procurement/derived/hub_stats.json` |          1,156 | gzip ✅         |
+| `settlements.json`                   |        157,734 | gzip ✅         |
 
 Measured per artifact (`zlib` level 6, what `cp -Z` stores) — **no single ratio covers the
 set**, so quote the artifact, never an average:
 
-| artifact | raw | gzip | ratio |
-|---|---:|---:|---:|
-| `sessions/**` (whole tree, 613 files) | 288.4 MB | **11.9 MB** | 24.3x |
-| `sessions/2025-06-19.json` | 5,086,380 | 171,182 | 29.7x |
-| `derived/dissents.json` | 32,575,807 | 2,704,470 | 12.0x |
-| `derived/similarity.json` | 12,275,762 | 1,545,406 | 7.9x |
-| `derived/topic_index.json` | 8,368,917 | 634,191 | 13.2x |
+| artifact                              |        raw |        gzip | ratio |
+| ------------------------------------- | ---------: | ----------: | ----: |
+| `sessions/**` (whole tree, 613 files) |   288.4 MB | **11.9 MB** | 24.3x |
+| `sessions/2025-06-19.json`            |  5,086,380 |     171,182 | 29.7x |
+| `derived/dissents.json`               | 32,575,807 |   2,704,470 | 12.0x |
+| `derived/similarity.json`             | 12,275,762 |   1,545,406 |  7.9x |
+| `derived/topic_index.json`            |  8,368,917 |     634,191 | 13.2x |
 
 ⚠️ An earlier draft of this line said "gzips ~5.9x" and derived a 300 KB session threshold
 from it. Both were wrong: 5.09 MB → 171 KB is **29.7x**, and the threshold it justified
@@ -287,16 +358,16 @@ Expected: exactly one line, `useMunicipalContacts.tsx`. **Verified 2026-08-21.**
 
 `/api/db/session?date=` already ships and is called by nothing. But per A1 the page needs the
 **whole day's matrix**, so the design is an agenda route plus a compact full-day cast route —
-*not* lazy per-item fetching.
+_not_ lazy per-item fetching.
 
 ### The payload win is real and it is about DECODE, not just wire
 
-| form | bytes | note |
-|---|---:|---|
-| today's JSON | **5,086,380** | served `identity` (A5) |
-| today's JSON, gzipped | 171,091 | what Tier P1 gets you for free |
-| compact `mp:vote` pairs from PG | 491,520 raw | measured |
-| positional (fixed MP order, 1 char/MP) | **~82,000 raw** | 293 × 240 + roster |
+| form                                   |           bytes | note                           |
+| -------------------------------------- | --------------: | ------------------------------ |
+| today's JSON                           |   **5,086,380** | served `identity` (A5)         |
+| today's JSON, gzipped                  |         171,091 | what Tier P1 gets you for free |
+| compact `mp:vote` pairs from PG        |     491,520 raw | measured                       |
+| positional (fixed MP order, 1 char/MP) | **~82,000 raw** | 293 × 240 + roster             |
 
 Post-P1 the wire win is 171 KB → ~30 KB gzipped. The **decode** win is the bigger one:
 4.85 MB of JSON parsed into JS heap on a phone, versus ~82 KB. `CompactVote`
@@ -305,7 +376,7 @@ Post-P1 the wire win is 171 KB → ~30 KB gzipped. The **decode** win is the big
 ### Steps
 
 1. **Migration: `vote_day`** (D2) — `(ns, date) PK, stenogram_id, scraped_at, pdf_url,
-   refreshed_at`. Filled by `load_rollcall_pg.ts` from the session files it already reads.
+refreshed_at`. Filled by `load_rollcall_pg.ts` from the session files it already reads.
    Add its `app_readonly` GRANT. `refreshed_at` also serves D3's `computedAt`.
 2. **Extend `/api/db/session`** to join `vote_day` and return the three fields.
 3. **New `/api/db/session-casts?date=`** — the full-day matrix, positional encoding, using the
@@ -341,11 +412,11 @@ Post-P1 the wire win is 171 KB → ~30 KB gzipped. The **decode** win is the big
 
 # Tier 2 — `derived/{per-mp, dissents, similarity}` · 86 MB
 
-| artifact | served bytes | state |
-|---|---:|---|
-| `per-mp/**` (2,330 files) | 43 MB | **no route** — `useMpShard` backs dissents, similarity AND loyalty |
-| `dissents.json` | **32,575,807** | route is PRIMARY; shard is arm 2, this is arm 3 |
-| `similarity.json` | 12 MB | route is PRIMARY; same chain |
+| artifact                  |   served bytes | state                                                              |
+| ------------------------- | -------------: | ------------------------------------------------------------------ |
+| `per-mp/**` (2,330 files) |          43 MB | **no route** — `useMpShard` backs dissents, similarity AND loyalty |
+| `dissents.json`           | **32,575,807** | route is PRIMARY; shard is arm 2, this is arm 3                    |
+| `similarity.json`         |          12 MB | route is PRIMARY; same chain                                       |
 
 One new route kills all three.
 
@@ -380,15 +451,15 @@ Both routes are cheap: `mp-attendance` **38 buffers / 2.7 ms**, `party-cohesion`
 `useAttendance` fetches the whole `byNs` envelope (~43 KB gzipped) and uses **one** slice, so
 the swap is mostly mechanical. What is **not** mechanical:
 
-| `CohesionEntry` / `AttendanceFile` field | derivable from route? | action |
-|---|---|---|
-| `presentPct` | yes — `present / items` | compute client-side |
-| `itemsCovered` | yes — `sum(items)` over the series | compute client-side |
-| `meanCohesion` | yes — weighted mean over the series | compute client-side |
-| `medianCohesion` | yes — median over dates | compute client-side |
-| `partyShort` | **yes, exactly** — seat-join == latest cast party, 0/2,366 drift (A4c) | seat-join; **add the invariant gate** |
-| **`membersTracked`** | **NO** — `party_cohesion` is `ns date party_id items cohesion` | **add to the route**: `count(DISTINCT mp_id)` per (ns, party) from `vote_cast` |
-| **`computedAt`** | **NO** — rendered at `ParliamentAttendanceScreen:203` and `ParliamentCohesionScreen:186` | **use `vote_day.refreshed_at`** from D2's migration |
+| `CohesionEntry` / `AttendanceFile` field | derivable from route?                                                                    | action                                                                         |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `presentPct`                             | yes — `present / items`                                                                  | compute client-side                                                            |
+| `itemsCovered`                           | yes — `sum(items)` over the series                                                       | compute client-side                                                            |
+| `meanCohesion`                           | yes — weighted mean over the series                                                      | compute client-side                                                            |
+| `medianCohesion`                         | yes — median over dates                                                                  | compute client-side                                                            |
+| `partyShort`                             | **yes, exactly** — seat-join == latest cast party, 0/2,366 drift (A4c)                   | seat-join; **add the invariant gate**                                          |
+| **`membersTracked`**                     | **NO** — `party_cohesion` is `ns date party_id items cohesion`                           | **add to the route**: `count(DISTINCT mp_id)` per (ns, party) from `vote_cast` |
+| **`computedAt`**                         | **NO** — rendered at `ParliamentAttendanceScreen:203` and `ParliamentCohesionScreen:186` | **use `vote_day.refreshed_at`** from D2's migration                            |
 
 So T3a **depends on D2's migration** and is no longer free — but it is still small, and both
 gaps are closed rather than dropped, per the preserve-functionality decision.
@@ -499,18 +570,18 @@ than a gitignored tree. That secondary win is worth more than the byte count.
 
 ## Measured baselines (worst-case entity, after `ANALYZE`, local Postgres)
 
-| tier | query | worst case | buffers | ms |
-|---|---|---|---:|---:|
-| T1 | `session` agenda | 2025-06-19, 293 items | **21** | 2.1 |
-| T1 | `session-casts` — **A2 form** | 70,320 casts | **1,378** | 19.4 |
-| T1 | `session-casts` — naive join ✗ | same | 2,779 | 25.0 |
-| T1 | `session-item` | item 12696, 240 casts | **61** | 1.2 |
-| T2 | cohort medians | ns=51 | **32** | 0.4 |
-| T2 | similarity topK (one direction) | ns=51 | **210** | 4.5 |
-| T3a | `mp-attendance` | ns=51 | **38** | 2.7 |
-| T3a | `party-cohesion` | ns=51, 1,506 rows | **42** | 3.4 |
-| T4a | `myarea-place-tenders` | Sofia, 221 tenders | **212** | 2.2 |
-| — | live cast-time party ✗ **REJECTED** | ns=51 | **1,143,102** | 1,255 |
+| tier | query                               | worst case            |       buffers |    ms |
+| ---- | ----------------------------------- | --------------------- | ------------: | ----: |
+| T1   | `session` agenda                    | 2025-06-19, 293 items |        **21** |   2.1 |
+| T1   | `session-casts` — **A2 form**       | 70,320 casts          |     **1,378** |  19.4 |
+| T1   | `session-casts` — naive join ✗      | same                  |         2,779 |  25.0 |
+| T1   | `session-item`                      | item 12696, 240 casts |        **61** |   1.2 |
+| T2   | cohort medians                      | ns=51                 |        **32** |   0.4 |
+| T2   | similarity topK (one direction)     | ns=51                 |       **210** |   4.5 |
+| T3a  | `mp-attendance`                     | ns=51                 |        **38** |   2.7 |
+| T3a  | `party-cohesion`                    | ns=51, 1,506 rows     |        **42** |   3.4 |
+| T4a  | `myarea-place-tenders`              | Sofia, 221 tenders    |       **212** |   2.2 |
+| —    | live cast-time party ✗ **REJECTED** | ns=51                 | **1,143,102** | 1,255 |
 
 ## Budgets — every new route must hold these
 
@@ -576,18 +647,18 @@ a geo artifact not a stat); reference data (`settlements.json`, `municipalities.
 
 ## Sequence
 
-| # | tier | bucket bytes | effort | note |
-|---|---|---:|---|---|
-| 1 | **P1** compression | — | 0.25 d | ~85% off the wire, today |
-| 2 | **P2** visibility map | — | 0.25 d | every measurement depends on it |
-| 3 | **T0** `rm` + sync guards | **1.05 GB** | 0.5 d | no code |
-| 4 | **T4a** `place_tenders` | 1.1 MB | 0.5 d | pure PG cache; measured |
-| 5 | **T1** `vote_day` + two routes | **290 MB** | 2–3 d | D2 |
-| 6 | **T3a** attendance + cohesion | 1.1 MB | 1 d | needs D2's migration |
-| 7 | **T2** `mp-rollcall` | **86 MB** | 2–3 d | collapses 3 fallback chains |
-| 8 | **T3b/3c** topic_index + 4 migrations | 12 MB | 2–3 d | |
-| 9 | **T4b** alerts | 3.8 MB | 2 d | ends a daily 290-file rebuild |
-| 10 | **T5** stragglers | ~6 MB | opportunistic | `schools/index.json` first |
+| #   | tier                                  | bucket bytes | effort        | note                            |
+| --- | ------------------------------------- | -----------: | ------------- | ------------------------------- |
+| 1   | **P1** compression                    |            — | 0.25 d        | ~85% off the wire, today        |
+| 2   | **P2** visibility map                 |            — | 0.25 d        | every measurement depends on it |
+| 3   | **T0** `rm` + sync guards             |  **1.05 GB** | 0.5 d         | no code                         |
+| 4   | **T4a** `place_tenders`               |       1.1 MB | 0.5 d         | pure PG cache; measured         |
+| 5   | **T1** `vote_day` + two routes        |   **290 MB** | 2–3 d         | D2                              |
+| 6   | **T3a** attendance + cohesion         |       1.1 MB | 1 d           | needs D2's migration            |
+| 7   | **T2** `mp-rollcall`                  |    **86 MB** | 2–3 d         | collapses 3 fallback chains     |
+| 8   | **T3b/3c** topic_index + 4 migrations |        12 MB | 2–3 d         |                                 |
+| 9   | **T4b** alerts                        |       3.8 MB | 2 d           | ends a daily 290-file rebuild   |
+| 10  | **T5** stragglers                     |        ~6 MB | opportunistic | `schools/index.json` first      |
 
 Items 1–4 are **~1.05 GB plus the compression win in about 1.5 days**. T1 moved after T4a
 because D2's `vote_day` migration is now a shared dependency and T4a is the cheapest way to
