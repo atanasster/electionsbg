@@ -318,9 +318,12 @@ export const isExcluded = (rel: string): string | null => {
   if (
     rel === "parliament/votes/derived/per-mp" ||
     rel.startsWith("parliament/votes/derived/per-mp/") ||
-    rel === "parliament/votes/derived/dissents.json"
+    rel === "parliament/votes/derived/dissents.json" ||
+    // Tier 3c. Its only reader was usePartyPairBreaks, now on /api/db/party-pair-breaks
+    // (party_pair_break, 183); no ai/ tool touches it, checked the way the two above were.
+    rel === "parliament/votes/derived/party_pair_breaks.json"
   )
-    return "parliament/votes/derived/{per-mp,dissents.json} are retired — served from Cloud SQL (135 + 182)";
+    return "parliament/votes/derived/{per-mp,dissents,party_pair_breaks} are retired — served from Cloud SQL (135 + 182 + 183)";
   if (rel === "myarea/place_tenders" || rel.startsWith("myarea/place_tenders/"))
     return "myarea/place_tenders/ is retired — served from Cloud SQL (/api/db/myarea-place-tenders, migration 179)";
   if (rel === "parliament/postcode_unresolved.json")
@@ -426,6 +429,7 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // Under the still-served parliament/ parent (photos/, connections.json, votes/index.json).
   { path: "parliament/votes/derived/per-mp", isDir: true },
   { path: "parliament/votes/derived/dissents.json", isDir: false },
+  { path: "parliament/votes/derived/party_pair_breaks.json", isDir: false },
   // Under the still-served judiciary/ parent (caseload.json etc.), so a scoped
   // `bucket:sync:paths -- judiciary` must not re-upload these PG load sources.
   { path: "judiciary/magistrate_holdings.json", isDir: false },

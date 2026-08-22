@@ -67,6 +67,15 @@ export const ROLLCALL_MATVIEWS: readonly RollcallMatview[] = [
       "~6 s local (2,366 rows; a per-member pass over the affiliated casts)",
   },
   {
+    // No dependency on the others — it reads vote_item/vote_cast directly — but placed after
+    // the cheap ones for the reason the array's header gives: a run that dies on the
+    // quadratic mp_similarity still leaves everything before it current.
+    name: "party_pair_break",
+    inputs: ["vote_item", "vote_cast"],
+    costNote:
+      "~57 s local (4,508 rows; a per-item pass then a self-join over the groups)",
+  },
+  {
     // Must precede mp_similarity in spirit though not in dependency: the score is
     // meaningless without it, so a run that built one and not the other would serve
     // divide-by-zero.

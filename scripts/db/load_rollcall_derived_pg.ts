@@ -26,6 +26,7 @@ const SCHEMA_FILES = [
   path.join(ROOT, "scripts/db/schema/pg/135_rollcall_derived.sql"),
   path.join(ROOT, "scripts/db/schema/pg/181_party_cohesion_summary.sql"),
   path.join(ROOT, "scripts/db/schema/pg/182_mp_loyalty.sql"),
+  path.join(ROOT, "scripts/db/schema/pg/183_party_pair_breaks.sql"),
 ];
 
 const run = async (): Promise<void> => {
@@ -90,6 +91,7 @@ const run = async (): Promise<void> => {
         "party_cohesion_summary",
         "mp_dissent",
         "mp_loyalty",
+        "party_pair_break",
         "mp_vote_norm",
         "mp_similarity",
       ] as const
@@ -102,6 +104,7 @@ const run = async (): Promise<void> => {
      UNION ALL SELECT 'party_cohesion_summary', count(*)::text FROM party_cohesion_summary
      UNION ALL SELECT 'mp_dissent', count(*)::text FROM mp_dissent
      UNION ALL SELECT 'mp_loyalty', count(*)::text FROM mp_loyalty
+     UNION ALL SELECT 'party_pair_break', count(*)::text FROM party_pair_break
      UNION ALL SELECT 'mp_similarity', count(*)::text FROM mp_similarity`,
   );
   console.log(

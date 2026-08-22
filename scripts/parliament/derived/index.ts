@@ -453,8 +453,11 @@ export const rebuildDerived = async (args: {
       "party_correlation.json",
       "topic_index.json",
       "search_index.json",
-      "dissents.json",
-      "party_pair_breaks.json",
+      // dissents.json and party_pair_breaks.json were HERE until json-retirement-v2 Tiers 2
+      // and 3c retired them (served from 135 and 183). uploadText() consults isExcluded()
+      // since Tier P1, so leaving them would only have logged a skip rather than
+      // re-publishing — but a list that names what it does not publish is the shape somebody
+      // "fixes" by removing the guard. Three upload paths, all three edited.
       // The hub blob. Without this line the daily ingest refreshes eleven artifacts and
       // leaves the hub on last week's numbers — green locally, stale on prod.
       "hub_stats.json",

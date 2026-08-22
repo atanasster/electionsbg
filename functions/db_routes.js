@@ -5531,6 +5531,31 @@ const DB_ROUTES = {
   // parliament's 1.1M casts. On every candidate page. 182's header carries the rest —
   // notably that votesCast is NOT mp_attendance.present, and that the two appear together on
   // this page under different denominators.
+  // The items two parliamentary groups voted OPPOSITE ways on — the /votes/between/:pair
+  // drill-down (party_pair_break, 183). Replaces party_pair_breaks.json, 2.4 MB fetched in
+  // full to render one pair's list of twenty.
+  //
+  // ⚠️ THE PAIR IS UNORDERED and the client normalises before asking, but it is normalised
+  // HERE TOO rather than trusted: a request with the two names the other way round must find
+  // the row, not an empty list. `swapped` tells the caller whether voteA/voteB need flipping
+  // to match the order they asked in.
+  "party-pair-breaks": async (dbRows, q) => {
+    const ns = clampInt(q.ns, 0, 40, 60);
+    const a = s(q, "a");
+    const b = s(q, "b");
+    if (!ns || !a || !b) return { body: null };
+    const swapped = a > b;
+    const [pa, pb] = swapped ? [b, a] : [a, b];
+    const rows = await dbRows(
+      `SELECT rn, date::text AS date, item_no, slug, title, topic,
+              vote_a, vote_b, contest_score
+         FROM party_pair_break
+        WHERE ns = $1 AND party_a = $2 AND party_b = $3
+        ORDER BY rn`,
+      [ns, pa, pb],
+    ).catch(matviewRows("party_pair_break"));
+    return { body: { ns, partyA: pa, partyB: pb, swapped, items: rows } };
+  },
   "mp-loyalty": async (dbRows, q) => {
     const ns = clampInt(q.ns, 0, 40, 60);
     const mpId = clampInt(q.mp, 0, 1, 100000);

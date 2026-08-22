@@ -86,12 +86,57 @@ describe("rebuildDerived --upload covers everything it writes", () => {
     assert.ok(uploadedTrees.size > 0, "found no uploadTextTree calls at all");
   });
 
-  test("every written .json is uploaded", () => {
-    const missing = [...written].filter((f) => !uploadedFiles.has(f));
+  // Artifacts this runner still WRITES but deliberately does not upload, because their
+  // readers moved to Postgres. Declared with a reason rather than exempted silently: the
+  // gate's premise — "prod will serve the previous run" — is false for a file prod no
+  // longer serves at all, and an undeclared omission is indistinguishable from a forgotten
+  // upload, which is the failure this file exists to catch.
+  //
+  // They stay written because the data tests read them as parity references, and they are
+  // ALSO refused by isExcluded() (uploadText consults it since json-retirement-v2 P1), so
+  // this list and that guard have to agree.
+  const RETIRED: Record<string, string> = {
+    "dissents.json":
+      "Tier 2 — served by /api/db/mp-dissents (mp_dissent, 135). 32.5 MB, was fetched " +
+      "whenever a per-MP shard was missing.",
+    "party_pair_breaks.json":
+      "Tier 3c — served by /api/db/party-pair-breaks (party_pair_break, 183). 2.4 MB, was " +
+      "fetched whole to render one pair's list of twenty.",
+  };
+
+  test("every written .json is uploaded, or declared retired", () => {
+    const missing = [...written].filter(
+      (f) => !uploadedFiles.has(f) && !(f in RETIRED),
+    );
     assert.deepEqual(
       missing,
       [],
       `written but never uploaded — prod will serve the previous run: ${missing.join(", ")}`,
+    );
+  });
+
+  // The converse, so RETIRED cannot go stale: a name listed here that IS uploaded again is
+  // a retirement somebody reversed without removing the note.
+  test("nothing declared retired is still uploaded", () => {
+    const revived = Object.keys(RETIRED).filter((f) => uploadedFiles.has(f));
+    assert.deepEqual(
+      revived,
+      [],
+      `declared retired but still in the --upload list: ${revived.join(", ")}`,
+    );
+  });
+
+  // …and that the sync layer agrees. A file retired here but not refused by isExcluded()
+  // would still reach the bucket through `bucket:sync`, which is a different upload path.
+  test("everything declared retired is refused by the sync layer", async () => {
+    const { isExcluded } = await import("../../bucket_sync_paths");
+    const leaks = Object.keys(RETIRED).filter(
+      (f) => isExcluded(`parliament/votes/derived/${f}`) === null,
+    );
+    assert.deepEqual(
+      leaks,
+      [],
+      `retired here but NOT excluded from bucket:sync: ${leaks.join(", ")}`,
     );
   });
 
