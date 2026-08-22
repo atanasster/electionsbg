@@ -138,11 +138,11 @@ export const PersistenceScreen = () => {
         <H1 className="text-xl md:text-2xl font-bold text-foreground">
           {t("persistence_title")}
         </H1>
-        <p className="text-sm text-muted-foreground mt-1 max-w-3xl mx-auto text-center">
+        <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
           {t("persistence_description")}
         </p>
         {fromDate && toDate && (
-          <div className="mt-2 text-xs text-muted-foreground flex items-center gap-2 justify-center">
+          <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
             <span className="tabular-nums">{localDate(fromDate)}</span>
             <ArrowRight className="h-3 w-3" />
             <span className="tabular-nums">{localDate(toDate)}</span>

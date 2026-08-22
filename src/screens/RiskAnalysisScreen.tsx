@@ -67,10 +67,10 @@ export const RiskAnalysisScreen = () => {
         <H1 className="text-xl md:text-2xl font-bold text-foreground">
           {t("risk_analysis_title")}
         </H1>
-        <p className="text-sm text-muted-foreground mt-1 max-w-3xl mx-auto text-center">
+        <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
           {t("risk_analysis_description")}
         </p>
-        <p className="text-[11px] text-muted-foreground mt-1 text-center">
+        <p className="mt-1 text-[11px] text-muted-foreground">
           {t("risk_analysis_election_for", { date: localDate(selected) })}
         </p>
       </div>

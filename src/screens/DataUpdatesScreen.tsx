@@ -36,8 +36,8 @@ export const DataUpdatesScreen = () => {
       <Title description={t("data_changes_description")}>
         {t("data_recent_changes_heading")}
       </Title>
-      <div className="-mt-4 mb-6 flex flex-col items-center gap-4">
-        <p className="max-w-2xl text-center text-sm text-muted-foreground md:text-base">
+      <div className="mb-6 flex flex-col items-start gap-4">
+        <p className="max-w-2xl text-sm text-muted-foreground md:text-base">
           {t("data_changes_description")}
         </p>
         <DataNav active="updates" />

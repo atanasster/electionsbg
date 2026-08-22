@@ -730,6 +730,14 @@ Not optional, and each exists because its absence shipped something:
 | Every `ogImage` path resolves to a file under `public/og/`                                                         | An `og:image` that 404s — the absolute-URL check passes                        |
 | Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route                         | A card shot and wired to nothing                                               |
 
+**Five of the first eight are now WRITTEN**, in `src/ux/infographic/hubHead.gates.test.ts`
+(basis-year floor, band↔tile disjointness, no two KPI cells sharing a destination, no screen
+rendering both `HubHead` and `<Title>`, and no default-aligned heading over a centred sibling)
+plus `src/ux/infographic/HubHead.test.tsx` for the component contract. Each was
+mutation-checked — break the clause, watch it fire — per the rule below. Still unwritten:
+"every hub renders a `HubHead`" (only two do so far), the composed-page accent gate, and the
+band description / `xl` row-balance gate.
+
 ⚠️ **The first eight are new because the band/accent/CTA rules in §3 were ADVICE, not gates,
 and had failed on 7 of 13 hubs by the time anyone measured** — 42 redundant per-tile CTAs on
 two hubs, five hubs with duplicate accents, seven with no band description, three with a band

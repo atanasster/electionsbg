@@ -177,15 +177,15 @@ export const DataMapScreen = () => {
       <Title description={t("data_map_description")}>
         {t("data_map_title")}
       </Title>
-      <div className="-mt-4 mb-5 flex flex-col items-center gap-4">
-        <p className="max-w-2xl text-center text-sm text-muted-foreground md:text-base">
+      <div className="mb-5 flex flex-col items-start gap-4">
+        <p className="max-w-2xl text-sm text-muted-foreground md:text-base">
           {t("data_map_description")}
         </p>
         <DataNav active="map" />
         {manifest ? (
           <nav
             aria-label={t("data_map_views")}
-            className="flex flex-wrap justify-center gap-2"
+            className="flex flex-wrap gap-2"
           >
             {manifest.views.map((v) => {
               const active = v.id === viewId;

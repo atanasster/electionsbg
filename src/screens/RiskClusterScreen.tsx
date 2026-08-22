@@ -82,7 +82,7 @@ export const RiskClusterScreen: FC = () => {
         className="mt-4 mb-1"
       />
       <H1>{location}</H1>
-      <div className="flex items-center justify-center gap-2 pb-3 flex-wrap">
+      <div className="flex flex-wrap items-center gap-2 pb-3">
         <RiskBandBadge band={locus.maxBand} score={locus.maxScore} />
         <span className="text-sm text-muted-foreground">
           {t("risk_persistence_detail_summary", {

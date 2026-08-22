@@ -113,96 +113,117 @@ export const HubHead: FC<{
   evidence,
   kpiNote,
   className,
-}) => (
-  <div className={cn("mt-4", className)}>
-    <SEO title={title} description={seoDescription} />
+}) => {
+  // `basis` is typed as required, which enforces PRESENCE and not content — `basis: ""`
+  // compiles and renders an empty span, i.e. exactly the state the field exists to prevent.
+  if (import.meta.env.DEV && kpis?.some((k) => !k.basis.trim()))
+    console.error(
+      "[HubHead] a KPI has an empty `basis` — every figure in the band declares its window (SKILL.md §3.1 rule 2)",
+    );
+  return (
+    <div className={cn("mt-4", className)}>
+      <SEO title={title} description={seoDescription} />
 
-    {/* ONE grid, explicitly placed, so the DOM order is the MOBILE order: identity → KPI band
+      {/* ONE grid, explicitly placed, so the DOM order is the MOBILE order: identity → KPI band
         → evidence. Rendering the aside as the grid's second child put a ranked list between
         the deck and the numbers on every phone, which is where most of this site's readers
         are. At `lg` the aside is pulled up into column 2 and the band spans both. */}
-    <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-x-8">
-      <div className="min-w-0 lg:col-start-1 lg:row-start-1">
-        <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[color:var(--sector,hsl(var(--primary)))]">
-          <span>{eyebrow}</span>
-          {freshness ? (
-            <span className="font-semibold normal-case tracking-normal text-muted-foreground">
-              · {freshness}
-            </span>
-          ) : null}
-        </p>
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-x-8">
+        <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+          <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[color:var(--sector,hsl(var(--primary)))]">
+            <span>{eyebrow}</span>
+            {freshness ? (
+              <span className="font-semibold normal-case tracking-normal text-muted-foreground">
+                · {freshness}
+              </span>
+            ) : null}
+          </p>
 
-        {/* The h1 is left, full-contrast and compact — the class string on <Title> renders it
+          {/* The h1 is left, full-contrast and compact — the class string on <Title> renders it
             centred in text-muted-foreground (5.20:1, the same colour as the least important
             paragraph on the page) with 96 px of padding. See §8. */}
-        <H1 className="mt-2 py-0 text-left text-2xl text-foreground sm:text-3xl md:text-4xl md:py-0">
-          {title}
-        </H1>
+          {/* Only the additive bits — H1's base is already left, foreground and on the same
+            size ladder; restating it would shadow the base for this call site. */}
+          <H1 className="mt-2 py-0 md:py-0">{title}</H1>
 
-        {deck ? (
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
-            {deck}
-          </p>
-        ) : null}
-
-        {scope ? <div className="mt-4">{scope}</div> : null}
-        {search ? <div className="mt-4">{search}</div> : null}
-      </div>
-
-      {kpis && kpis.length > 0 ? (
-        <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2">
-          <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
-            {kpis.map((kpi) => (
-              <KpiCell key={kpi.label} kpi={kpi} />
-            ))}
-          </div>
-          {kpiNote ? (
-            <p className="mt-2 text-xs text-muted-foreground">{kpiNote}</p>
+          {deck ? (
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
+              {deck}
+            </p>
           ) : null}
-        </div>
-      ) : null}
 
-      {evidence && evidence.rows.length > 0 ? (
-        <aside className="mt-6 min-w-0 self-start overflow-hidden rounded-xl border border-border bg-card lg:col-start-2 lg:row-start-1 lg:mt-0">
-          <div className="flex items-center justify-between gap-3 border-b border-border px-3.5 py-2.5">
-            <h2 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-              {evidence.heading}
-            </h2>
-            {evidence.action ? (
-              <Link
-                to={evidence.action.to}
-                className="whitespace-nowrap text-[11px] font-semibold text-primary hover:underline"
-              >
-                {evidence.action.label}
-              </Link>
+          {scope ? <div className="mt-4">{scope}</div> : null}
+          {search ? <div className="mt-4">{search}</div> : null}
+        </div>
+
+        {kpis && kpis.length > 0 ? (
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2">
+            {/* The track count follows the payload. A fixed sm:grid-cols-4 paints the unused
+              tracks with the container's own bg-border — two solid slabs of divider colour
+              inside the frame — and that is not only the 404-of-a-blob case: a band fed by
+              two independent queries is short on EVERY cold load, until the second resolves. */}
+            <div
+              className={cn(
+                "mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border",
+                kpis.length >= 4
+                  ? "sm:grid-cols-4"
+                  : kpis.length === 3
+                    ? "sm:grid-cols-3"
+                    : "sm:grid-cols-2",
+              )}
+            >
+              {kpis.map((kpi) => (
+                <KpiCell key={kpi.label} kpi={kpi} />
+              ))}
+            </div>
+            {kpiNote ? (
+              <p className="mt-2 text-xs text-muted-foreground">{kpiNote}</p>
             ) : null}
           </div>
-          <ul className="divide-y divide-border">
-            {evidence.rows.map((row) => (
-              <li key={row.label}>
-                {row.to ? (
-                  <Link
-                    to={row.to}
-                    className="flex items-baseline justify-between gap-3 px-3.5 py-2 text-[13px] transition-colors hover:bg-accent/40"
-                  >
-                    <span className="min-w-0 truncate">{row.label}</span>
-                    <span className="shrink-0 font-semibold tabular-nums text-muted-foreground">
-                      {row.value}
-                    </span>
-                  </Link>
-                ) : (
-                  <div className="flex items-baseline justify-between gap-3 px-3.5 py-2 text-[13px]">
-                    <span className="min-w-0 truncate">{row.label}</span>
-                    <span className="shrink-0 font-semibold tabular-nums text-muted-foreground">
-                      {row.value}
-                    </span>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        </aside>
-      ) : null}
+        ) : null}
+
+        {evidence && evidence.rows.length > 0 ? (
+          <aside className="mt-6 min-w-0 self-start overflow-hidden rounded-xl border border-border bg-card lg:col-start-2 lg:row-start-1 lg:mt-0">
+            <div className="flex items-center justify-between gap-3 border-b border-border px-3.5 py-2.5">
+              <h2 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                {evidence.heading}
+              </h2>
+              {evidence.action ? (
+                <Link
+                  to={evidence.action.to}
+                  className="whitespace-nowrap text-[11px] font-semibold text-primary hover:underline"
+                >
+                  {evidence.action.label}
+                </Link>
+              ) : null}
+            </div>
+            <ul className="divide-y divide-border">
+              {evidence.rows.map((row) => (
+                <li key={row.label}>
+                  {row.to ? (
+                    <Link
+                      to={row.to}
+                      className="flex items-baseline justify-between gap-3 px-3.5 py-2 text-[13px] transition-colors hover:bg-accent/40"
+                    >
+                      <span className="min-w-0 truncate">{row.label}</span>
+                      <span className="shrink-0 font-semibold tabular-nums text-muted-foreground">
+                        {row.value}
+                      </span>
+                    </Link>
+                  ) : (
+                    <div className="flex items-baseline justify-between gap-3 px-3.5 py-2 text-[13px]">
+                      <span className="min-w-0 truncate">{row.label}</span>
+                      <span className="shrink-0 font-semibold tabular-nums text-muted-foreground">
+                        {row.value}
+                      </span>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        ) : null}
+      </div>
     </div>
-  </div>
-);
+  );
+};

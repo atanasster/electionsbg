@@ -50,7 +50,7 @@ export const PartyDemographicsScreen: FC = () => {
         <H1 className="text-xl md:text-2xl font-bold text-foreground">
           {title}
         </H1>
-        <p className="text-sm text-muted-foreground mt-1 max-w-3xl mx-auto text-center">
+        <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
           {t("party_demographics_description")}
         </p>
       </div>

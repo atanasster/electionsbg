@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { SEO } from "./SEO";
 import { H1 } from "./H1";
 import { ReactNode } from "react";
@@ -9,14 +8,12 @@ export const Title: React.FC<
     children: string | ReactNode;
   }
 > = ({ className, children, description, title, ...props }) => {
+  // No class string here. H1 already applies exactly these declarations as its base, and
+  // because cn()/twMerge gives the caller's classes precedence, restating them made Title
+  // SHADOW that base — so a future edit to H1 would silently not reach Title's 181
+  // importers, which is the opposite of the "they move together" property the two rely on.
   const label = (
-    <H1
-      className={cn(
-        "text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight tracking-tight text-left py-3 md:py-5 text-foreground",
-        className,
-      )}
-      {...props}
-    >
+    <H1 className={className} {...props}>
       {children}
     </H1>
   );

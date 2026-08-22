@@ -176,7 +176,7 @@ export const WastedVoteScreen = () => {
         <H1 className="text-xl md:text-2xl font-bold text-foreground">
           {t("wasted_votes_title")}
         </H1>
-        <p className="text-sm text-muted-foreground mt-1 max-w-3xl mx-auto text-center">
+        <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
           {t("wasted_votes_description")}
         </p>
       </div>

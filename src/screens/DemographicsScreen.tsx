@@ -112,7 +112,7 @@ export const DemographicsScreen = () => {
         className="mt-5"
       />
 
-      <p className="text-sm text-muted-foreground mb-6 max-w-3xl mx-auto text-center">
+      <p className="mb-6 max-w-3xl text-sm text-muted-foreground">
         {t("demographics_explainer")}
       </p>
 

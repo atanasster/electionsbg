@@ -83,7 +83,7 @@ export const ProblemSections = () => {
         keywords={["roma", "vote buying", "problem sections", "купен вот"]}
       />
       <H1>{title}</H1>
-      <p className="text-sm text-muted-foreground text-center pb-4 max-w-3xl mx-auto">
+      <p className="max-w-3xl pb-4 text-sm text-muted-foreground">
         {t("problem_sections_description")}
       </p>
       <NeighborhoodsLegend neighborhoods={data.neighborhoods} />

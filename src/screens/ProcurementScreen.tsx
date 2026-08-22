@@ -6,7 +6,7 @@
 // separate KPI cards). The deep analytics that used to live here moved to
 // /procurement/overview (reached via the "Обзор" tile). Reuses the tile-hub kit.
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   TileHubGrid,
@@ -30,19 +30,22 @@ import {
   scopeProcurementPeriod,
 } from "@/data/procurement/useSectorStats";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
+import { SCOPE_FIRST_YEAR } from "@/data/scope/constants";
 import { useWatchlist } from "@/data/procurement/useWatchlist";
 import { formatEurCompact } from "@/lib/currency";
 import { PROCUREMENT_SCENES } from "./procurement/procurementScenes";
 import { FEATURED_SECTORS } from "./governance/sectorRegistry";
 import { SECTOR_SCENES } from "./governance/sectorScenes";
 
-const numFmt = new Intl.NumberFormat("bg-BG");
-
-// One entry per procurement sub-page. `metric` names the headline number the
-// tile overlays (resolved from the overview payload / the watchlist), replacing
-// the separate KPI cards; tiles without one stay descriptor-only until their
-// count is pre-generated (tenders/appeals/NGOs/flags need the overview SQL fn
-// extended).
+// One entry per procurement sub-page. `metric` names the headline number the tile overlays,
+// resolved from the same hub_stats blob the KPI band reads.
+//
+// ⚠ A tile metric may NOT be a figure the KPI band already carries. The band publishes
+// total / contracts / contractors / appeals above the fold with a declared basis, so those
+// four tiles are deliberately descriptor-only: rendering the identical string twice on one
+// page reads as two different facts (SKILL.md §3.1 rule 5, which this file broke on the day
+// it was written). Add a metric here only after checking it against the `kpis` array below —
+// `hubHead.gates.test.ts` enforces the disjointness.
 const SUBPAGES = [
   {
     id: "analysis",
@@ -50,15 +53,15 @@ const SUBPAGES = [
     descKey: "procurement_hub_analysis_desc",
     to: "/procurement/overview",
     accent: TILE_ACCENTS.brass,
-    metric: "total",
   },
   {
     id: "contracts",
     titleKey: "procurement_index_contracts",
     descKey: "procurement_hub_contracts_desc",
     to: "/procurement/contracts",
-    accent: TILE_ACCENTS.clay,
-    metric: "contracts",
+    // magenta, not clay: the „Пътища" FeaturedStrip tile below this grid is `clay`
+    // too, and the two come from different registries so no per-registry gate sees it.
+    accent: TILE_ACCENTS.magenta,
   },
   {
     id: "contractors",
@@ -66,7 +69,6 @@ const SUBPAGES = [
     descKey: "procurement_hub_contractors_desc",
     to: "/procurement/contractors",
     accent: TILE_ACCENTS.steel,
-    metric: "contractors",
   },
   {
     id: "connected",
@@ -90,7 +92,6 @@ const SUBPAGES = [
     descKey: "procurement_hub_appeals_desc",
     to: "/procurement/appeals",
     accent: TILE_ACCENTS.plum,
-    metric: "appeals",
   },
   {
     id: "ngos",
@@ -105,7 +106,8 @@ const SUBPAGES = [
     titleKey: "procurement_by_settlement_nav",
     descKey: "procurement_hub_place_desc",
     to: "/procurement/by-settlement",
-    accent: TILE_ACCENTS.teal,
+    // fern, not teal: the „Води" FeaturedStrip tile below is `teal`.
+    accent: TILE_ACCENTS.fern,
     metric: "places",
   },
   {
@@ -135,6 +137,14 @@ export const ProcurementScreen: FC = () => {
   const watchCount = useWatchlist().length;
   const title = t("procurement_index_title") || "Public procurement";
 
+  const bg = i18n.language === "bg";
+  // Locale-aware, and derived once. Pinned to "bg-BG" it grouped with U+00A0 on the English
+  // site while the euro beside it followed the reader — two number conventions in one band.
+  const numFmt = useMemo(
+    () => new Intl.NumberFormat(bg ? "bg-BG" : "en-GB"),
+    [bg],
+  );
+
   // Numbers come from the pre-generated per-scope hub_stats.json (one fetch),
   // except the watchlist count which is local. `total` is the euro headline;
   // everything else is a plain count.
@@ -157,7 +167,6 @@ export const ProcurementScreen: FC = () => {
     return v != null ? numFmt.format(v) : undefined;
   };
 
-  const bg = i18n.language === "bg";
   const subpageTiles: InfographicTileProps[] = SUBPAGES.map((p) => ({
     to: p.to,
     title: t(p.titleKey),
@@ -193,10 +202,18 @@ export const ProcurementScreen: FC = () => {
   // same hub_stats[scope] blob the tiles below read — so the band costs ZERO extra bytes.
   // Each carries its BASIS: measured 2026-08-22 these ten numbers shipped with no
   // metricCaption at all, so „€3,3 млрд." was qualified only by a scope pill 448 px above it.
+  // ⚠ NEVER a literal window. This read „2007–2026" for one commit — against a corpus whose
+  // earliest contract is 2011-01-03 and which holds ZERO rows before 2011, so four years of
+  // the stated window contained nothing. That is §0's own failure mode (a figure that is
+  // arithmetically right and false as a sentence) in the one string that exists to prevent
+  // it. `SCOPE_FIRST_YEAR` is the corpus floor the `?pscope` year picker already uses, and
+  // the upper bound is derived the same way `defaultScopeYears()` derives it, so the caption
+  // and the selector cannot disagree.
+  const corpusYears = `${SCOPE_FIRST_YEAR}–${new Date().getFullYear()}`;
   const scopeBasis = sectorWin.all
     ? bg
-      ? "целият корпус · 2007–2026"
-      : "whole corpus · 2007–2026"
+      ? `целият корпус · ${corpusYears}`
+      : `whole corpus · ${corpusYears}`
     : sectorWin.year != null
       ? `${sectorWin.year}`
       : bg
@@ -208,7 +225,9 @@ export const ProcurementScreen: FC = () => {
           value: formatEurCompact(stat.totalEur, i18n.language),
           label: bg ? "договорени" : "contracted",
           basis: scopeBasis,
-          to: "/procurement/contracts",
+          // The money story, not the row list — two adjacent cells must not share a
+          // destination, and /procurement/contracts is the next cell's.
+          to: "/procurement/overview",
         },
         {
           value: numFmt.format(stat.contracts),

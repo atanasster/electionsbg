@@ -8,7 +8,7 @@
 // former dashboard body now lives at /governance/overview (the "Национален
 // преглед" tile), which stays the country node of the Governance place-view.
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { TileHubGrid, TileHubSection, HubHead, HubKpi } from "@/ux/infographic";
 import { GOV_HUB_CLUSTERS } from "./governance/governanceRegistry";
@@ -16,6 +16,7 @@ import { GOV_HUB_SCENES } from "./governance/governanceScenes";
 import { useProcurementHubStats } from "@/data/procurement/useProcurementHubStats";
 import { useDeclarationsHubStats } from "@/data/governance/useDeclarationsHubStats";
 import { formatEurCompact } from "@/lib/currency";
+import { SCOPE_FIRST_YEAR } from "@/data/scope/constants";
 
 // Dev-time guard for the stringly-typed tile.id ↔ GOV_HUB_SCENES contract. A tile whose
 // id has no scene key does NOT degrade to an empty vignette — InfographicTile renders
@@ -38,6 +39,10 @@ export const GovernanceScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const title = t("nav_governance") || "Governance";
   const bg = i18n.language === "bg";
+  const numFmt = useMemo(
+    () => new Intl.NumberFormat(bg ? "bg-BG" : "en-GB"),
+    [bg],
+  );
 
   // ⚠ NOTHING here may import a REGISTRY. A „Държавни сектори 19" row was drafted with the
   // count derived from SECTORS (sectorRegistry) — correct as a figure, and it pulled that
@@ -52,45 +57,47 @@ export const GovernanceScreen: FC = () => {
   // would replace, and folding four of them client-side is precisely the option §9.4 rules
   // out.
   // ⚠ "all", EXPLICITLY. This hub has no ?pscope, so the default resolves to the selected
-  // parliament and the band would publish €3,3 млрд. under „договори 2007–2026".
+  // parliament and the band would publish €3,3 млрд. under the corpus caption.
   const procurement = useProcurementHubStats("all");
   const { stats: declarations } = useDeclarationsHubStats();
 
-  const kpis: HubKpi[] = [
+  const corpusYears = `${SCOPE_FIRST_YEAR}–${new Date().getFullYear()}`;
+
+  // Declared as (HubKpi | undefined)[] rather than filtered with `as HubKpi[]`: the cast was
+  // load-bearing — `procurement && {…}` yields undefined — so it silently erased the null
+  // check from the type system, and a future falsy-but-wrong element would still compile.
+  const kpiCandidates: (HubKpi | undefined)[] = [
     procurement && {
       // ⚠ Corpus-wide, and the tile links with ?pscope=all so the destination agrees. Quoting
       // the corpus while linking to /procurement's own default (this parliament, €3.3bn) is
       // §0's "destination counts a different set", guaranteed rather than possible.
       value: formatEurCompact(procurement.totalEur, i18n.language),
       label: bg ? "обществени поръчки" : "public procurement",
-      basis: bg ? "договори 2007–2026" : "contracts 2007–2026",
+      // ⚠ DERIVED, never a literal — this said „2007–2026" against a corpus that starts
+      // 2011-01-03 with zero rows before it. See ProcurementScreen for the full note.
+      basis: bg ? `договори ${corpusYears}` : `contracts ${corpusYears}`,
       to: "/procurement/contracts?pscope=all",
     },
     procurement && {
-      value: new Intl.NumberFormat(bg ? "bg-BG" : "en-GB").format(
-        procurement.contractors,
-      ),
+      value: numFmt.format(procurement.contractors),
       label: bg ? "изпълнители" : "suppliers",
       basis: bg ? "фирми с договор" : "firms with a contract",
       to: "/procurement/contractors?pscope=all",
     },
     declarations && {
-      value: new Intl.NumberFormat(bg ? "bg-BG" : "en-GB").format(
-        declarations.people,
-      ),
+      value: numFmt.format(declarations.people),
       label: bg ? "души в публичния регистър" : "people in the public register",
       basis: bg ? "депутати, магистрати, кметове" : "MPs, judges, mayors",
       to: "/persons",
     },
     declarations && {
-      value: new Intl.NumberFormat(bg ? "bg-BG" : "en-GB").format(
-        declarations.organisations,
-      ),
+      value: numFmt.format(declarations.organisations),
       label: bg ? "организации зад тях" : "organisations behind them",
       basis: bg ? "фирми, сдружения, читалища" : "firms, associations, clubs",
       to: "/governance/companies",
     },
-  ].filter(Boolean) as HubKpi[];
+  ];
+  const kpis = kpiCandidates.filter((k): k is HubKpi => Boolean(k));
 
   const sections: TileHubSection[] = GOV_HUB_CLUSTERS.map((cluster) => ({
     heading: t(cluster.labelKey),
@@ -126,29 +133,29 @@ export const GovernanceScreen: FC = () => {
         evidence={
           procurement
             ? {
-                heading: bg ? "Къде отиват парите" : "Where the money goes",
+                // ⚠ The heading names the ROWS, and the rows are counts over the
+                // procurement corpus — not money, and „Обжалвани поръчки" is not a *where*
+                // at all. „Къде отиват парите" was the same defect this commit caught one
+                // component over on /procurement's „Най-големи възложители".
+                heading: bg
+                  ? "Какво още показват поръчките"
+                  : "What else the procurement data shows",
                 rows: [
                   {
                     label: bg ? "Свързани с политици" : "Politically connected",
-                    value: new Intl.NumberFormat(bg ? "bg-BG" : "en-GB").format(
-                      procurement.connected,
-                    ),
+                    value: numFmt.format(procurement.connected),
                     to: "/procurement/mps?pscope=all",
                   },
                   {
                     label: bg
                       ? "Населени места с поръчки"
                       : "Places with contracts",
-                    value: new Intl.NumberFormat(bg ? "bg-BG" : "en-GB").format(
-                      procurement.places,
-                    ),
+                    value: numFmt.format(procurement.places),
                     to: "/procurement/by-settlement?pscope=all",
                   },
                   {
                     label: bg ? "Обжалвани поръчки" : "Appealed procedures",
-                    value: new Intl.NumberFormat(bg ? "bg-BG" : "en-GB").format(
-                      procurement.appeals,
-                    ),
+                    value: numFmt.format(procurement.appeals),
                     to: "/procurement/appeals?pscope=all",
                   },
                 ],

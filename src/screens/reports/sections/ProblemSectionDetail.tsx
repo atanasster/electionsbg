@@ -46,7 +46,7 @@ export const ProblemSectionDetail: FC = () => {
         ]}
       />
       <H1>{title}</H1>
-      <div className="flex items-center justify-center gap-3 pb-2 text-sm text-muted-foreground">
+      <div className="flex items-center gap-3 pb-2 text-sm text-muted-foreground">
         <span>
           {neighborhood.sections.length} {t("dashboard_sections")}
         </span>
