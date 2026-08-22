@@ -907,10 +907,12 @@ is reproducible offline. Out of scope.
 | 5 | Where the person-parity probe fails vs merely reports | 2.6 |
 | 6 | Whether `person:parity` joins `process-watch-report`'s person chain | 2.6 |
 | 7 | Whether the `nzok_casemix` `partial-payment-year` guard is stream-aware | 3.1 |
-| 8 | **v1.1** — whether `отказано производство` becomes an outcome or stays a surface-only label (it feeds the risk index, so this is not a free change) | 6.3 |
-| 9 | **v1.1** — the slug tiebreak's priority order, and that it must ride a cloud re-resolve happening for another reason rather than trigger one | 6.6, 6.9 |
-| 10 | **v1.1** — whether the 71 same-name multi-content families are namesakes or fragments (170 people, hand-reviewable) | 6.7 |
-| 11 | **v1.1** — whether the matcher's 1,408 party-ambiguous bucket gets its own plan, and that it must NOT land in the same rejoin as a corpus change | 6.2 |
+| ~~8~~ | ~~whether `отказано производство` becomes an outcome~~ — **DECIDED: it is an outcome.** Derive at query time, never store (§7.1) | 6.3, 7.1 |
+| 9 | **v1.1** — the slug tiebreak's priority order, and that it must ride a cloud re-resolve happening for another reason rather than trigger one. **Downgraded by §7.2** — it is a symptom of the under-merge, not the disease | 6.6, 6.9, 7.2 |
+| ~~10~~ | ~~whether the 71 same-name families are namesakes or fragments~~ — **RESOLVED: not namesakes.** ~2,781 duplicate profiles on prod (§7.2) | 6.7, 7.2 |
+| ~~11~~ | ~~whether the party-ambiguity bucket gets its own plan~~ — **DELEGATED** to `docs/plans/kzk-matcher-ambiguity-v1.md` (§7.3) | 6.2, 7.3 |
+| **12** | **v1.2** — the reader-facing label for the refusal outcome (`отказана` as a code is fine; „отказано образуване на производство" is the honest chip text) | 7.1 |
+| **13** | **v1.2** — whether the 1,639 re-election duplicates (the safest shape) are merged as their own change, or wait for one resolver fix | 7.2 |
 
 # 5. What was NOT done in this session
 
@@ -995,6 +997,12 @@ belong bolted onto this one**, because a matcher change and a corpus change land
 the same rejoin make the ratchet's movement unattributable.
 
 ## 6.3 GAP — 1,661 appeals publish a blank outcome where the register states a refusal
+
+> **DECIDED 2026-08-22 by the repo owner: `отказано производство` IS an outcome.** The
+> filing was denied and will never be reviewed on the merits. It is a terminal state, not
+> a missing value. **How to record it is designed in §7.1 — and it must NOT be an
+> `UPDATE … SET outcome`, for a reason that is not obvious.**
+
 
 `отказано производство` — КЗК refused to open proceedings. That is a determinate,
 published state, and the appeal surfaces render it as no outcome at all. It needs **no
@@ -1196,3 +1204,220 @@ include the manifest re-mint. Landing it alone, to fix 34 pages, is not worth th
   or fragments. That is P2-c and it needs a human who reads Bulgarian names.
 - **Did not re-run any Problem-1 command.** §1's evidence is unchanged from v1 apart from
   the additions in §6.2–6.5.
+
+---
+
+# 7. v1.2 — three owner decisions taken, and what measuring them found (2026-08-22)
+
+Three items from §4 came back with rulings. Two of them turned out to change the
+diagnosis rather than merely close a question. **Still plan-only; nothing implemented.**
+
+## 7.1 DECIDED — `отказано производство` is an outcome. It must NOT be stored.
+
+**The ruling** (repo owner, 2026-08-22): `отказано производство` means the filing was
+denied and **will not be reviewed**. It is a determinate terminal state, so it is an
+outcome, not a missing value. 1,661 appeals — 20.8% of the register.
+
+**The trap, and it is the whole of this section.** The obvious implementation is
+`UPDATE kzk_appeals SET outcome = … WHERE status = 'отказано производство'`. That would
+**silently destroy the provenance guard protecting the 2,098 irreplaceable rows.**
+
+`scripts/procurement/kzk_provenance.ts` partitions on exactly one test:
+
+```
+decision_act_no IS NOT NULL  → machine-derived, re-derivable, may be overwritten
+decision_act_no IS NULL      → hand-seeded, irreplaceable, NEVER written
+```
+
+A status-derived outcome has a **third** provenance — neither hand-seeded nor
+act-derived — and it has no act number, so it lands in the protected bucket. Measured
+consequence:
+
+| | today | after a stored UPDATE |
+|---|---|---|
+| `outcome IS NOT NULL AND decision_act_no IS NULL` | **2,098** | **3,759** |
+| `HAND_SEEDED_FLOOR` assertion (`>=`, `kzk_appeals_provenance.data.test.ts:74`) | passes | **still passes** ⚠️ |
+
+The gate is a `>=` floor, so it would go green on a corpus whose hand-seeded population
+had been inflated by 79% with rows no human ever produced — precisely the laundering
+hazard `kzk_baselines.ts` warns about in its `HAND_SEEDED_FLOOR` comment
+(„the only way the observed count could rise is … a machine-derived outcome losing its
+`decision_act_no` and being re-read as hand-seeded"). It would also freeze those 1,661
+rows against every future matcher improvement, because the rule refuses to overwrite
+them.
+
+### The design: derive it at query time, exactly like `kzk_effective_suspension`
+
+042 already contains this pattern, and `CLAUDE.md` cites it as the precedent for
+`declared_label()`:
+
+```sql
+CREATE OR REPLACE FUNCTION kzk_effective_suspension(p_suspension boolean, p_status text)
+RETURNS boolean LANGUAGE sql IMMUTABLE AS $$
+  SELECT COALESCE(p_suspension, p_status ~* 'спрян');
+$$;
+```
+
+The twin, beside it in 042, and **named once so no call site restates the COALESCE**:
+
+```sql
+CREATE OR REPLACE FUNCTION kzk_effective_outcome(p_outcome text, p_status text)
+RETURNS text LANGUAGE sql IMMUTABLE AS $$
+  SELECT COALESCE(p_outcome, CASE WHEN p_status ~* 'отказано' THEN 'отказана' END);
+$$;
+```
+
+Six properties that make this the right shape, each measured or checked:
+
+- **Stores nothing**, so `decision_act_no IS NULL` keeps meaning „hand-seeded" and the
+  2,098 stays 2,098.
+- **The stored value wins.** 12 appeals carry `status = 'отказано производство'` AND a
+  merits outcome (9 `уважена`, 3 `отхвърлена`) — **all 12 hand-seeded.** Either the
+  status is stale or the seeding was wrong; either way `COALESCE` keeps the human's
+  answer, which is the same precedence `kzk_effective_suspension` uses.
+- **`upheld_ocids` cannot be polluted.** 042:201 filters `outcome = 'уважена'` and reads
+  the RAW column; a refusal is not an uphold and never becomes one. The Corruption Risk
+  Index is untouched by construction — verify that stays true if any consumer is switched
+  to the function.
+- **The ratchet does not move**, because `kzk_baselines.outcomes` counts the stored
+  column. That is correct: 1,661 outcomes appearing from a status re-reading is not the
+  matcher getting better, and letting it raise the bar would mask a later real regression.
+- **NOT STRICT, deliberately** — same reason 089's `declared_label` is not: `STRICT` would
+  return NULL for a row with a NULL `outcome`, which is every row this exists for.
+- **`IMMUTABLE`** is honest here (unlike `open_calls`' `is_current`, which cannot be a
+  generated column because `CURRENT_DATE` is not immutable) — both inputs are stored text.
+
+### Consumers that must be switched, and the two that must not
+
+Enumerated by grep; this is the `declared_label()` exhaustiveness shape and deserves the
+same treatment:
+
+| site | file | switch? |
+|---|---|---|
+| `kzk_appeals_by_unp` jsonb payload | `042:113` | **yes** |
+| `kzk_appeals_recent` | `042:142` | **yes** |
+| `kzk_appeals_list` view | `042:267` | **yes** |
+| `upheld_ocids` | `042:201` | **NO** — an uphold filter; a refusal is not an uphold |
+| `partitionByProvenance` | `kzk_provenance.ts` | **NO** — it reasons about the STORED value; feeding it a derived one would make 1,661 rows look hand-seeded, which is the defect this design avoids |
+
+Frontend labels live in `AppealChip.tsx` / `AwarderAppealsTile.tsx` /
+`AppealsBrowserDbScreen.tsx` / `TenderDetailScreen.tsx`, plus the `procurementAppeals` AI
+tool and the `db_table.js` registry facet — a new code needs a label and a chip colour in
+each, and the DbDataTable facet list will gain a value.
+
+**Needs a human (naming, not mechanism):** the code `отказана` agrees with „жалба" like
+its three siblings (`уважена | отхвърлена | прекратена`, declared at `042:42`), but the
+register's own phrase is „отказано **производство**" — the refusal is of the PROCEEDINGS,
+not of the complaint. Reader-facing copy should probably say „отказано образуване на
+производство" rather than a one-word chip. Flagged, not decided.
+
+## 7.2 RESOLVED — the same-name families are NOT namesakes, and the defect is ~40× bigger than §6.7 said
+
+§6.7 asked whether the 71 same-name multi-content families are genuine namesakes or one
+human fragmented. **Measured: overwhelmingly the latter, and the slug-collision families
+were a ~6% sample of the real population.**
+
+### What the role rows say
+
+Pulling every member's `person_role` for the ambiguous families settles it without
+leaving the database:
+
+```
+angel-angelov-1dfeea    Ангел Петров Ангелов  local/councillor@SHU23  2023_10_29_mi:SHU23:66:110   2023-10-29 →
+angel-angelov-1dfeea-2  Ангел Петров Ангелов  local/councillor@SHU23  2019_10_27_mi:SHU23:1:102    2019-10-27 → 2023-10-29
+
+ivan-petrov-26l5r0      Иван Георгиев Петров  local/councillor@SLV24  2023_10_29_mi:SLV24:23:102   2023-10-29 →
+ivan-petrov-26l5r0-2    Иван Георгиев Петров  local/councillor@SLV24  2019_10_27_mi:SLV24:67:102   2019-10-27 → 2023-10-29
+ivan-petrov-26l5r0-3    Иван Георгиев Петров  local/councillor@SLV24  2007_10_28_mi:SLV24:5:1      2007-10-28 → 2011-10-23
+```
+
+`SHU23` = Велики Преслав, `SLV24` = Твърдица. **Same municipality, same role, consecutive
+election cycles — a councillor re-elected, held as two and three separate people.** The
+other dominant shape is the same councillor appearing once from the CIK roster
+(`local`), once from the Сметна палата officials register (`official_muni`) and once from
+the CIK candidate list (`candidate`), all at the same municipality.
+
+### Web verification (as requested)
+
+- **Твърдица** — [zvanar.com's 2023 elected-councillor list](https://zvanar.com/%D0%B2%D0%B8%D0%B6%D1%82%D0%B5-%D0%B8%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%B8%D1%82%D0%B5-%D0%BE%D0%B1%D1%89%D0%B8%D0%BD%D1%81%D0%BA%D0%B8-%D1%81%D1%8A%D0%B2%D0%B5%D1%82%D0%BD%D0%B8%D1%86%D0%B8-%D0%B2/)
+  names „Иван Георгиев Петров" among the БЗНС councillors, and he is separately reported
+  as **chairman of the Твърдица municipal council** in a КПКОНПИ conflict-of-interest
+  ruling upheld by the ВАС ([Sliveninfo](https://sliveninfo.bg/%D0%BA%D0%BF%D0%BA%D0%BE%D0%BD%D0%BF%D0%B8-%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8-%D0%BA%D0%BE%D0%BD%D1%84%D0%BB%D0%B8%D0%BA%D1%82-%D0%BD%D0%B0-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81/),
+  [Zonanews](https://zonanews.bg/regioni/sliven/vas-potvardi-konflikta-na-interesi-pri-predsedatelya-na-obshtinskiya-savet-tvarditsa)).
+  One continuous public figure; our corpus holds him as **three** profiles.
+- **results.cik.bg is not fetchable** — HTTP 403, the Cloudflare Turnstile wall the repo
+  already documents for `scripts/parsers_local/cik_fetch.ts` (headed Playwright only). The
+  CIK rows are in any case already ingested and are what `person_role.ref` quotes.
+- **The negative control passes.** `emil-dimitrov-1hwpnn` holds four „Емил Сашев
+  Димитров" — two candidacies in Плевен plus councillors in **Баните (SML02)** and **Бяла
+  Слатина (VRC08)** in the SAME 2019 cycle. Nobody sits on two municipal councils at
+  once, so those two are genuinely different people — and the place-scoped rule below
+  correctly declines to merge them.
+
+### The real size, measured on Cloud SQL (the serving database)
+
+Groups of >1 `person` row sharing a normalised **3-part** display name + the same place +
+the same role:
+
+| shape | groups | person rows | **excess rows** |
+|---|---|---|---|
+| **a. one source, several election cycles** (re-elected to the same council) | 1,160 | 2,799 | **1,639** |
+| **b. several sources** (CIK roster + officials register + candidate list, same place) | 1,090 | 2,225 | **1,135** |
+| c. one source, one cycle — where true namesakes would live | **7** | 14 | **7** |
+| **total** | **2,257** | **5,038** | **2,781** |
+
+**~2,781 duplicate `/person` profiles on production**, against the 170 people §6.7 found
+via slug collisions. Only **7 groups** sit in the shape where a genuine namesake is even
+possible. The 3-part-name restriction is what makes that defensible — a shared given+
+family name is common in Bulgaria, a shared given+patronymic+family name in the same
+municipality in the same role is not.
+
+### Why this is worse than a duplicate page
+
+Each split profile carries **half a person's history**. A councillor re-elected in 2023
+has their 2019–2023 term, its declarations, its wealth series and its company links on
+one URL and their current term on another, and neither page says the other exists. The
+person layer's entire purpose is „one person_id across nine datasets"; this is that
+purpose failing on the municipal tier, which is also the tier with the least press
+scrutiny.
+
+### It also re-explains §6.6
+
+The 34 wrong canonical URLs are **a symptom of this, not a separate defect.** A
+collision-suffixed slug requires two clusters claiming one slug — which is exactly what
+under-merging produces. Fix the merge and most of the 34 stop existing, because the two
+clusters become one person. **So the §6.9 tiebreak (P2-a) is the smaller, cosmetic half;
+this is the real repair.**
+
+### What must NOT be done
+
+⚠️ **Do not write a merge rule from this section and run it.** „Same 3-part name + same
+place + same role → one person" is a strong heuristic and it is still a heuristic; the
+person layer's own rule (`CLAUDE.md`, [[feedback_name_match_not_identity]]) is that a
+name match is not an identity, and a wrong MERGE is worse than a wrong split — it
+attributes one human's declared wealth, company links and votes to another, on a page
+that names them. The 7 bucket-c groups are the proof the rule is not universal.
+
+The honest next step is a **separate plan**, sized against the resolver's existing
+machinery rather than bolted on: `resolve_persons.ts` already has cluster confidence,
+`namesakeRisk`, Bridge A/B and the `tr_name_fold_people` people-count gate. The question
+is why the municipal tier's mentions are not clustering when the officials tier's are,
+and the place + cycle evidence above is the input to that, not the answer.
+
+**Needs a human:** whether bucket **a** (re-elections, 1,639 excess rows, the safest
+shape by a distance — same council, same role, non-overlapping terms) is merged first as
+its own change, or whether the whole thing waits for one resolver fix.
+
+## 7.3 DELEGATED — the matcher's party-ambiguity bucket
+
+§6.2 named the 1,408 party-ambiguous / 43 appeal-ambiguous / 1,716 unmatched buckets as
+the larger P1 lever and deliberately left them unscoped. That analysis has been spun out
+to its own plan — `docs/plans/kzk-matcher-ambiguity-v1.md` — with the same constraints
+(2,098 untouchable, ratchet upward-only, offline, no crawl, pin the local DB) and the
+explicit brief that **a wrong outcome is worse than a missing one**, so a disambiguator
+that cannot be made safe should be recommended against rather than shipped.
+
+Its interaction with §7.1 must be stated wherever both land: the `отказано` change adds
+~1,661 EFFECTIVE outcomes without touching the matcher or the stored column, so the two
+must not be measured in the same before/after — one moves the served coverage, the other
+moves the ratchet.
