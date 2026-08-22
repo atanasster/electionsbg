@@ -196,6 +196,17 @@ test("the route's SQL outcome buckets agree with the TypeScript classification",
   // perturbing each clause in turn and checking the assertion fires. The all-abstain clause
   // is therefore carried on the strength of outcomeFor()'s own definition, not on this test.
   // If a chamber ever abstains as one, this becomes the thing that catches the drift.
+  //
+  // ⚠️ ZERO-CAST ITEMS ARE EXCLUDED ON BOTH SIDES, and this gate SHIPPED WITHOUT THAT and
+  // passed. outcomeFor() is the classification, not the POPULATION: topic_index.ts drops
+  // zero-cast items with `if (castCount(it) === 0) continue;` before ever classifying one, so
+  // its `cast === 0` arm is dead code. Holding the route to outcomeFor() alone therefore
+  // compared two implementations that shared the same defect — the route published a phantom
+  // `contested` segment on 598 of 613 plenary days (all 36 of the 52nd's, artifact
+  // contested=0 vs route 1-2) and this test was green throughout.
+  //
+  // The separate test below is the one that would have caught it: it asserts the EXCLUSION
+  // directly, against a corpus fact rather than against a second copy of the rule.
   const sql = await allRows<{
     ns: number;
     date: string;
@@ -206,7 +217,10 @@ test("the route's SQL outcome buckets agree with the TypeScript classification",
   }>(
     `WITH standing AS (
        SELECT ns, date, (yes + no + abstain) AS cast_votes, yes, no, abstain
-         FROM vote_item WHERE superseded_by IS NULL
+         FROM vote_item
+        WHERE superseded_by IS NULL
+          -- topic_index.ts:70 — the population rule, see the note above.
+          AND yes + no + abstain > 0
      ),
      bucketed AS (
        SELECT ns, date, CASE
@@ -238,7 +252,13 @@ test("the route's SQL outcome buckets agree with the TypeScript classification",
       rejected: 0,
       contested: 0,
     };
-    for (const item of session.sessions) acc[bucketOf(outcomeFor(item))] += 1;
+    for (const item of session.sessions) {
+      // Mirrors topic_index.ts:70. outcomeFor() would classify these as `contested`; the
+      // artifact never asks it to.
+      const { yes, no, abstain } = item.tallies;
+      if (yes + no + abstain === 0) continue;
+      acc[bucketOf(outcomeFor(item))] += 1;
+    }
     expected.set(key, acc);
   }
 
@@ -263,6 +283,58 @@ test("the route's SQL outcome buckets agree with the TypeScript classification",
     mismatches.slice(0, 10),
     [],
     `${mismatches.length} day(s) bucket differently in SQL and TypeScript`,
+  );
+});
+
+// The test that would have caught the phantom-`contested` regression, and the reason it is
+// separate from the one above: that one holds the route to outcomeFor(), which classifies but
+// does not decide the POPULATION. This one asserts the population directly.
+//
+// A failed quorum or registration check — every member absent — has yes+no+abstain = 0.
+// `contested` is the segment that says the chamber was SPLIT, so publishing one of those as
+// contested is a false claim about a named sitting, and it lands on almost every one of them.
+test("zero-cast items are excluded from the day summary, not bucketed as contested", async (t) => {
+  if (!(await dbReachable())) return t.skip();
+
+  // NON-VACUITY FIRST. With no zero-cast items in the corpus, everything below passes by
+  // construction and says nothing.
+  const [z] = await allRows<{ n: string; days: string }>(
+    `SELECT count(*)::text AS n, count(DISTINCT (ns, date))::text AS days
+       FROM vote_item WHERE superseded_by IS NULL AND yes + no + abstain = 0`,
+  );
+  assert.ok(
+    Number(z.n) > 0,
+    "no zero-cast items in the corpus — this exclusion is untested",
+  );
+
+  // The route's population, and the same query WITHOUT the filter. The two must differ, and
+  // the difference must be exactly the zero-cast items — that is the mutation check: an
+  // implementation that had silently stopped filtering makes these two equal and fails here.
+  const [r] = await allRows<{ filtered: string; unfiltered: string }>(
+    `SELECT (SELECT count(*)::text FROM vote_item
+              WHERE superseded_by IS NULL AND yes + no + abstain > 0) AS filtered,
+            (SELECT count(*)::text FROM vote_item
+              WHERE superseded_by IS NULL)                            AS unfiltered`,
+  );
+  assert.equal(
+    Number(r.unfiltered) - Number(r.filtered),
+    Number(z.n),
+    "the day-summary population does not differ from the unfiltered set by exactly the zero-cast items",
+  );
+
+  // And the consequence, stated as the assertion a reader cares about: no day may report a
+  // contested item that is really a no-quorum vote. Re-derived here rather than read off the
+  // route, so it is independent of how the route spells the filter.
+  const bad = await allRows<{ ns: number; date: string; n: string }>(
+    `SELECT ns, date::text AS date, count(*)::text AS n
+       FROM vote_item
+      WHERE superseded_by IS NULL AND yes + no + abstain = 0
+        AND yes = 0 AND no = 0 AND abstain = 0
+      GROUP BY ns, date HAVING count(*) > 0 ORDER BY ns, date LIMIT 5`,
+  );
+  assert.ok(
+    bad.length > 0,
+    "expected the corpus to carry no-quorum sittings — see the non-vacuity check above",
   );
 });
 

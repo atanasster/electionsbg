@@ -5241,10 +5241,26 @@ const DB_ROUTES = {
   // every bar by up to 9.8% and disagree with the item count beside it.
   //
   // The outcome buckets replicate outcomeFor() in scripts/parliament/derived/important_votes.ts,
-  // which is the only place that classification is defined. Two clauses are easy to get
-  // wrong and both are load-bearing: a zero-cast item is `contested` rather than a division
-  // by zero, and `abstain == cast` is UNANIMOUS (a chamber that abstained as one), not
-  // rejected.
+  // which is the only place that classification is defined. `abstain == cast` is UNANIMOUS (a
+  // chamber that abstained as one), not rejected — easy to get wrong, and wrong in a way that
+  // only shows up as a grey segment turning red.
+  //
+  // ⚠️ ZERO-CAST ITEMS ARE EXCLUDED, AND outcomeFor() ALONE DOES NOT TELL YOU THAT.
+  // A vote where every member is absent — a failed quorum or registration check — has
+  // yes+no+abstain = 0. outcomeFor() maps that to `contested`, and replicating it faithfully
+  // is NOT enough: topic_index.ts, the artifact this route replaces, drops those items with
+  // `if (castCount(it) === 0) continue;` BEFORE classifying, so its own `cast === 0` arm is
+  // dead code and the shipped bars never carried them.
+  //
+  // Including them is not a rounding difference — it is a false claim on almost every sitting.
+  // `contested` is the segment that says the chamber was SPLIT, and these are votes nobody
+  // cast. Measured 2026-08-22: 911 of 15,096 standing items are zero-cast, spread over 598 of
+  // 613 plenary days, and on the 52nd ALL 36 days the artifact covers gained a phantom
+  // contested segment (artifact contested=0 on every one of them, this route 1-2).
+  //
+  // The `cast_votes = 0` arm below is therefore UNREACHABLE and deliberately kept: without it
+  // a zero-cast row reaching the CASE would match `yes = cast_votes` (0 = 0) and be published
+  // as UNANIMOUS, which is worse than the bug it replaces.
   "vote-day-summary": async (dbRows, q) => {
     const ns = clampInt(q.ns, 0, 40, 60);
     if (!ns) return { body: [] };
@@ -5255,6 +5271,10 @@ const DB_ROUTES = {
                 yes, no, abstain
            FROM vote_item
           WHERE ns = $1 AND superseded_by IS NULL
+            -- topic_index.ts:70, the castCount(it) === 0 continue. See the note above:
+            -- this is the filter, not the CASE, that keeps failed-quorum votes out of the bar.
+            -- (No backticks in here: this is inside a JS template literal.)
+            AND yes + no + abstain > 0
        ),
        bucketed AS (
          SELECT date, topic,
