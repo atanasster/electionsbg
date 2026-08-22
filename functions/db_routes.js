@@ -5727,6 +5727,44 @@ const DB_ROUTES = {
   // 123/124's psp:/pp: prefixes exist — a null tile is indistinguishable from a município
   // with no procedures, so without the line the only symptom of "deploy:db shipped before
   // 179 reached Cloud SQL" is every município showing no tile, at a 200, for ever.
+  // The per-município "Recent activity" feed (myarea_alerts, 184) — the 290-file
+  // data/myarea/alerts/ tree, rebuilt and re-uploaded daily.
+  //
+  // The events are COMPOSED in TypeScript and only stored here; 184's header says why
+  // (they carry bilingual prose). This route hands the stored list back unchanged.
+  "myarea-alerts": async (dbRows, q) => {
+    const obshtina = s(q, "obshtina");
+    if (!/^[A-Za-z0-9_]{2,12}$/.test(obshtina))
+      return { status: 400, body: { error: "missing or malformed obshtina" } };
+    const rows = await dbRows(
+      `SELECT obshtina, events, refreshed_at FROM myarea_alerts_for($1)`,
+      [obshtina],
+    ).catch((e) => {
+      if (e?.code !== "42883" && e?.code !== "42P01") return Promise.reject(e);
+      logMissOnce(
+        "mya:not-built",
+        "myarea-alerts: 184_myarea_alerts.sql is not applied — every município serves an " +
+          "empty activity feed, at a 200. Run scripts/myarea/build_alerts.ts against the " +
+          "serving database.",
+      );
+      return [];
+    });
+    const r = rows[0];
+    // A município with no row has no feed — the file family expressed that by not writing
+    // one, and the hook maps a soft miss to null. Returning an empty list instead would
+    // render the tile's "nothing happened here" state, which is a different claim.
+    if (!r) return { body: null };
+    return {
+      body: {
+        obshtina: r.obshtina,
+        events: r.events ?? [],
+        // OUR write time, not an event date. The tile does not render it today; it is here
+        // so an operator can tell "quiet município" from "loader has not run" without a
+        // psql session.
+        refreshedAt: r.refreshed_at,
+      },
+    };
+  },
   "myarea-place-tenders": async (dbRows, q) => {
     const obshtina = s(q, "obshtina");
     // Same charset as council-muni's: the vocabulary spans BGS04, S2414 and SFO_CITY.

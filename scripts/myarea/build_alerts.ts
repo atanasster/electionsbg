@@ -44,6 +44,8 @@
 // Run: `npx tsx scripts/myarea/build_alerts.ts`
 
 import fs from "node:fs";
+import { readFileSync } from "node:fs";
+import { exec, withClient, end } from "../db/lib/pg";
 import path from "node:path";
 import { readMunicipalAwardersByEkatte } from "../db/lib/muni_awarders";
 import {
@@ -170,12 +172,6 @@ type AlertEvent = {
   changeType?: "new" | "modified";
 };
 
-type AlertsFile = {
-  obshtina: string;
-  generatedAt: string;
-  events: AlertEvent[];
-};
-
 const PROJECT_ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
   "../..",
@@ -201,7 +197,18 @@ const VOTES_SESSIONS = path.join(
   PROJECT_ROOT,
   "data/parliament/votes/sessions",
 );
-const OUT_DIR = path.join(PROJECT_ROOT, "data/myarea/alerts");
+// data/myarea/alerts/ IS NO LONGER WRITTEN — json-retirement-v2 Tier 4b moved the feed into
+// Postgres (myarea_alerts, migration 184). 290 files were rebuilt and re-uploaded to the
+// bucket EVERY DAY; data/myarea/ was the highest churn-per-byte tree in the repo at 14,746
+// file-touches over 300 commits, none of which anyone ever diffed.
+//
+// ⚠️ THE COMPOSITION STAYS HERE, and 184's header says why: these ten builders emit BILINGUAL
+// HEADLINES, and translated user-facing prose does not belong in a migration. Only the
+// STORAGE moved.
+const ALERTS_SCHEMA = path.join(
+  PROJECT_ROOT,
+  "scripts/db/schema/pg/184_myarea_alerts.sql",
+);
 // data/myarea/place_tenders/ IS NO LONGER WRITTEN — json-retirement-v2 Tier 4a moved the
 // tile to Postgres (migration 179, /api/db/myarea-place-tenders). This builder was
 // regenerating and re-uploading 265 files a day that were a pure cache of the `tenders`
@@ -769,7 +776,7 @@ const main = async () => {
   // an empty map on a database without the corpus, so an alerts run never
   // depends on Interreg having been loaded.
   const interregByObshtina = await readInterregByObshtina();
-  fs.mkdirSync(OUT_DIR, { recursive: true });
+  const composed: Array<{ obshtina: string; events: AlertEvent[] }> = [];
   const munis = readJson<MunicipalityInfo[]>(MUNICIPALITIES_FILE);
   // STATED, NOT SILENT: data/municipalities.json has no Sofia-city row at all —
   // only the 24 S23xx rayons — while interreg_partners places every Sofia
@@ -869,24 +876,58 @@ const main = async () => {
     if (allEvents.length === 0) continue;
     allEvents.sort((a, b) => b.date.localeCompare(a.date));
     const trimmed = allEvents.slice(0, EVENT_CAP);
-    const out: AlertsFile = {
-      obshtina: m.obshtina,
-      generatedAt: new Date().toISOString(),
-      events: trimmed,
-    };
-    fs.writeFileSync(
-      path.join(OUT_DIR, `${m.obshtina}.json`),
-      JSON.stringify(out, null, 2) + "\n",
-    );
+    // Collected for ONE upsert after the loop rather than written per município: 290 files
+    // rebuilt and re-uploaded daily was the highest churn-per-byte tree in the repo, and
+    // 290 single-row round trips over the Cloud SQL proxy is the wrong shape for the same
+    // reason vote_day's insert is batched.
+    composed.push({ obshtina: m.obshtina, events: trimmed });
     totalEvents += trimmed.length;
     municipiosWithEvents++;
   }
   console.log(
-    `Wrote ${municipiosWithEvents} per-município alerts files (${totalEvents} total events, ${councilEvents} council)`,
+    `Composed ${municipiosWithEvents} per-município feeds (${totalEvents} total events, ${councilEvents} council)`,
   );
+
+  // ⚠️ UPSERT, NEVER an anti-join merge. A município whose sources are all quiet this run
+  // legitimately composes NO events and is simply absent from `composed` — deleting its row
+  // for that would blank a feed that was correct yesterday, on the strength of one quiet
+  // day. Absence is recorded by `refreshed_at` not moving, the same rule open_calls follows.
+  //
+  // ONE statement, not 290 round trips: this loader runs over the Cloud SQL proxy, where
+  // per-row round trips are what dominate (CLAUDE.md measures the rollcall facts load at
+  // ~10 min for exactly that reason).
+  await exec(readFileSync(ALERTS_SCHEMA, "utf8"));
+  if (composed.length) {
+    const vals: unknown[] = [];
+    const tuples = composed.map((c, i) => {
+      const newest = c.events[0]?.date ?? null;
+      vals.push(c.obshtina, JSON.stringify(c.events), c.events.length, newest);
+      const b = i * 4;
+      return `($${b + 1}, $${b + 2}::jsonb, $${b + 3}, $${b + 4}::date, now())`;
+    });
+    await withClient(async (c) => {
+      await c.query(
+        `INSERT INTO myarea_alerts (obshtina, events, event_count, newest_event, refreshed_at)
+              VALUES ${tuples.join(", ")}
+         ON CONFLICT (obshtina) DO UPDATE
+            SET events = EXCLUDED.events,
+                event_count = EXCLUDED.event_count,
+                newest_event = EXCLUDED.newest_event,
+                refreshed_at = now()`,
+        vals,
+      );
+    });
+    console.log(`  ✓ upserted ${composed.length} feed(s) into myarea_alerts`);
+  }
+  await end();
 };
 
-main().catch((err) => {
+main().catch(async (err) => {
   console.error(err);
   process.exitCode = 1;
+  // Close the pool on the ERROR path too. Without this the process lingers until node's
+  // socket timeout — measured 10.7 s — which in an unattended chain reads as a hang rather
+  // than a failure. `end()` is idempotent, so this is safe after a successful main() that
+  // already called it.
+  await end().catch(() => {});
 });

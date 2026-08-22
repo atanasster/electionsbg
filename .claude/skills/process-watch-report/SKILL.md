@@ -658,10 +658,13 @@ first, then re-run the orchestrator.
 6. **Final post-step: rebuild the My-Area alerts feed.** After every queued skill has run (or the queue was empty), unconditionally run:
 
    ```bash
-   npx tsx scripts/myarea/build_alerts.ts
+   npm run myarea:alerts
+   npm run myarea:alerts:cloud
    ```
 
-   The script materialises the per-município "Последна активност" feed (`data/myarea/alerts/<obshtina>.json`) from already-ingested data — council resolutions, procurement (now tagged **announced / awarded / annex** via the rollups' `tag`), EU-fund contracts **plus snapshot-diff new/modified projects** (from `data/funds/projects/changes/`, dated by the real detection day), capital programmes, local elections, plenary keyword hits. It's cheap (<5 s) and its output is a function of whatever's now in `data/`, so running it last keeps the feed in sync with whatever the orchestrator just changed. Because `update-funds` writes the EU `changes/` artifact _inside_ its own run (before this post-step), the new/modified EU events are already on disk when this runs. Don't stamp this as a separate skill — it's a derived rebuild, not an upstream ingest.
+   ⚠️ **BOTH lines, and the second is not optional.** Since json-retirement-v2 Tier 4b the feed is stored in Postgres (`myarea_alerts`, migration 184) rather than written as 290 files under `data/myarea/alerts/` — so a local-only run leaves **prod serving the previous vintage at a 200**, with `git diff --stat data/` empty and nothing red anywhere. This is the same class as the C1 rollcall gap: the local half looks like a complete run. The builder composes the events in TypeScript (they carry bilingual prose) and only the storage moved; 184's header has the reasoning.
+
+   The script materialises the per-município "Последна активност" feed (the `myarea_alerts` table) from already-ingested data — council resolutions, procurement (now tagged **announced / awarded / annex** via the rollups' `tag`), EU-fund contracts **plus snapshot-diff new/modified projects** (from `data/funds/projects/changes/`, dated by the real detection day), capital programmes, local elections, plenary keyword hits. It's cheap (<5 s) and its output is a function of whatever's now in `data/`, so running it last keeps the feed in sync with whatever the orchestrator just changed. Because `update-funds` writes the EU `changes/` artifact _inside_ its own run (before this post-step), the new/modified EU events are already on disk when this runs. Don't stamp this as a separate skill — it's a derived rebuild, not an upstream ingest.
 
    **Specifically do NOT append for:**
    - Bootstrap stamps (option (a) from "Bootstrap" above — `"bootstrap: marker seeded, no run"`).

@@ -595,7 +595,16 @@ export const myAreaAlerts = async (
   const place = await resolvePlaceForData(q);
   if (!place) return noPlace("myAreaAlerts", q, ctx);
   const key = alertObshtina(place.obshtina);
-  const feed = await tryFetch<AlertsFeed>(`/myarea/alerts/${key}.json`);
+  // POSTGRES since json-retirement-v2 Tier 4b (/api/db/myarea-alerts, myarea_alerts in 184).
+  // This tool was the reason the 290-file tree could not simply be excluded: a `src/`-only
+  // reader sweep misses `ai/`, and an excluded-but-still-fetched tree answers from a frozen
+  // snapshot at a 200 — the company-connections failure, which this plan hit three times.
+  //
+  // Nulls rather than throws so a missing 184 reads as "no recent activity" — the same state
+  // a quiet município produces — instead of failing the whole answer.
+  const feed = await fetchDb<AlertsFeed | null>("myarea-alerts", {
+    obshtina: key,
+  }).catch(() => null);
   if (!feed || feed.events.length === 0) {
     return {
       tool: "myAreaAlerts",
@@ -606,7 +615,7 @@ export const myAreaAlerts = async (
         : `No recent activity for ${place.nameEn}`,
       viz: "none",
       facts: { place: place.name },
-      provenance: [`myarea/alerts/${key}.json`],
+      provenance: [`/api/db/myarea-alerts?obshtina=${key}`],
     };
   }
   // Count by kind + sub-type so the LLM can summarise "what's new here".
@@ -653,7 +662,7 @@ export const myAreaAlerts = async (
       eu_new: fmtInt(euNew, ctx.lang),
       eu_modified: fmtInt(euModified, ctx.lang),
     },
-    provenance: [`myarea/alerts/${key}.json`],
+    provenance: [`/api/db/myarea-alerts?obshtina=${key}`],
   };
 };
 

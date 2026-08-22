@@ -324,8 +324,17 @@ export const isExcluded = (rel: string): string | null => {
     rel === "parliament/votes/derived/party_pair_breaks.json"
   )
     return "parliament/votes/derived/{per-mp,dissents,party_pair_breaks} are retired — served from Cloud SQL (135 + 182 + 183)";
-  if (rel === "myarea/place_tenders" || rel.startsWith("myarea/place_tenders/"))
-    return "myarea/place_tenders/ is retired — served from Cloud SQL (/api/db/myarea-place-tenders, migration 179)";
+  if (
+    rel === "myarea/place_tenders" ||
+    rel.startsWith("myarea/place_tenders/") ||
+    // Tier 4b: the activity feed is myarea_alerts (184), composed by the same builder and
+    // upserted instead of written as 290 files. Deleted from git in the same commit — like
+    // place_tenders, these were TRACKED, and a tracked artifact with no producer and no
+    // reader is a file to remove rather than residue to guard.
+    rel === "myarea/alerts" ||
+    rel.startsWith("myarea/alerts/")
+  )
+    return "myarea/{place_tenders,alerts}/ are retired — served from Cloud SQL (migrations 179 + 184)";
   if (rel === "parliament/postcode_unresolved.json")
     return "parliament/postcode_unresolved.json is an ingest diagnostic with no reader — never upload it";
   // The municipal-officials roster + name/search index are served from Cloud SQL
@@ -426,6 +435,7 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "parliament/postcode_unresolved.json", isDir: false },
   // Under the still-served myarea/ parent (alerts/ is still a bucket read until Tier 4b).
   { path: "myarea/place_tenders", isDir: true },
+  { path: "myarea/alerts", isDir: true },
   // Under the still-served parliament/ parent (photos/, connections.json, votes/index.json).
   { path: "parliament/votes/derived/per-mp", isDir: true },
   { path: "parliament/votes/derived/dissents.json", isDir: false },
