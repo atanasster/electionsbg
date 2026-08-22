@@ -24,8 +24,27 @@ updated reference datasets, (c) hub stat blobs (D1).
 | 8 | T2 per-MP shards | `86f4523797` | ✅ migration 182, useMpShard deleted |
 | 9 | T3b topic_index fallbacks | `ee9b0b112f` | ✅ src/ readers only — file stays for `ai/` |
 | 10 | T3c party_pair_breaks | `b7c7979cfa` | ✅ migration 183 — **T3c closed, see D5** |
+| 11 | T4b myarea alerts | `84199d8ebf` | ✅ migration 184 — storage only, see D6 |
 
-**Still open:** T4b (alerts), T5 (budget/schools/financing), and every OPERATOR ACTION below.
+**Still open:** T5 (budget/schools/financing — the plan's own "opportunistic" tier), and every
+OPERATOR ACTION below.
+
+### D6 (2026-08-22) — T4b moved the STORAGE, not the fold
+
+The plan said "move the fold into SQL". `build_alerts.ts` is TEN heterogeneous builders and
+each composes a BILINGUAL HEADLINE — translated user-facing prose, with pluralisation and money
+formatting. That does not belong in a migration: it is the "rule copied by hand into SQL"
+hazard with the failure showing up as a sentence rather than a number.
+
+The composition stays in TypeScript; the 290 daily-rewritten files become 290 upserted rows.
+That is the win the tier was actually about — ending a daily rebuild-and-re-upload of the
+highest churn-per-byte tree in the repo.
+
+⚠️ **The `ai/` blind spot fired for the THIRD time in this plan** (company-connections, then
+loyalty/similarity, then this) — `ai/tools/profile.ts` was still fetching the tree. Rule 3
+below is not a formality: run the sweep including `ai/` on every retirement, and note that a
+`grep` for the FILENAME is not enough — the AI tools compose paths, so enumerate the
+`"/…"` literals.
 
 ### D5 (2026-08-22) — T3c is CLOSED at one of four, and the other three stay JSON
 
