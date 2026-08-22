@@ -13,13 +13,32 @@ is load-bearing.
 
 ```
 rank, tier, domain, outlet, type, scope,
-similarweb_visits_<month><year>, semrush_visits_<month><year>, tranco_rank_<month><year>
+similarweb_visits_<month><year>, semrush_visits_<month><year>, tranco_rank_<month><year>,
+feed_method_<month><year>, feed_url_<month><year>, feed_status_<month><year>,
+feed_success_<month><year>, feed_notes_<month><year>
 ```
 
 ⚠️ **The vintage lives in the COLUMN NAMES, and that is deliberate — rename them on every
 refresh.** These are traffic estimates that move monthly; a column called `visits` cannot
 go stale visibly, and a year-old figure read as current is the whole failure mode of this
 kind of list.
+
+⚠️ **The five `feed_*` columns are a SEPARATE dataset from the traffic columns, refreshed
+by a SEPARATE procedure — do not drop or silently overwrite them while refreshing traffic
+data, and do not treat a traffic-only refresh as having validated them.** They record how
+`news/scripts/fetch_latest_articles.py` reaches each site's latest articles (a feed URL, a
+sitemap, "needs a real browser first", "blocked by an interactive CAPTCHA", …), and the
+[fetch-news-articles](../fetch-news-articles/SKILL.md) and
+[fetch-news-articles-all](../fetch-news-articles-all/SKILL.md) skills read them directly —
+losing them breaks both silently (every domain looks unregistered). If you refresh the
+traffic columns only, carry the five `feed_*` columns forward unchanged by domain (a join
+on `domain`, same as the merge that first combined them); only re-probe them when the user
+specifically asks to refresh feed/article-access data, using the discovery method documented
+in those two skills (curl → curl-with-browser-headers → real browser, in that order, stopping
+at any interactive CAPTCHA). `feed_method_*` values in current use: `rss`, `sitemap`,
+`robots_sitemap`, `sitemap_news`, `homepage_link` (direct fetch); `browser_render_scrape`,
+`browser_then_rss`, `browser_then_sitemap` (need the Browser tool); `blocked_captcha`,
+`portal_not_newsroom` (unreachable — logged, not fetchable).
 
 **`tier` is not a decoration — the three tiers are measured on different bases and must
 never be sorted into one ranking:**
@@ -110,8 +129,54 @@ the list to hide it.
 - Keep portals and aggregators (abv.bg, dir.bg, novini.bg) but say so in `type` — abv.bg is
   a webmail landing page, and its 18M visits are not news readership.
 
-**Step 6 — write and verify.** Overwrite `news/data/bg_news_sites.csv` with refreshed
-column names, then run the checks below. Do not commit unless asked.
+**Step 6 — write and verify.** This skill's job is the RANKING (rank, tier, domain, outlet,
+type, scope, the three traffic columns). It must never destroy the feed-access columns —
+**read the current on-disk file's `feed_*` values FIRST, build the new ranking SECOND, join
+the two by domain, and only then write.** Never write a fresh file from the ranking alone;
+that silently blanks every `feed_*` cell, and nothing about a traffic refresh would catch it
+short of the Verify step below.
+
+```bash
+python3 - <<'PY'
+import csv
+
+OLD = "news/data/bg_news_sites.csv"   # read BEFORE this script overwrites it
+old_feed = {}
+old_headers = None
+with open(OLD, newline="", encoding="utf-8") as f:
+    r = csv.DictReader(f)
+    old_headers = r.fieldnames
+    feed_cols = [h for h in old_headers if h.startswith("feed_")]
+    for row in r:
+        old_feed[row["domain"]] = {h: row[h] for h in feed_cols}
+
+# `new_rows` is the list of dicts you built in Steps 1-5 — one per domain, keys
+# rank/tier/domain/outlet/type/scope/<the three traffic columns this run>.
+# Substitute the actual variable/list you built; this is the join+write shape,
+# not a standalone script.
+for row in new_rows:
+    feed = old_feed.get(row["domain"])
+    if feed:
+        row.update(feed)
+    else:
+        # a genuinely NEW domain this run found — no prior feed data exists.
+        # Use an explicit sentinel, never a blank cell (blank reads as "probed,
+        # found nothing" — a false claim; this domain has not been probed at all).
+        for h in feed_cols:
+            row[h] = "not_yet_probed" if h.startswith("feed_method") else ""
+
+with open(OLD, "w", newline="", encoding="utf-8") as f:
+    w = csv.DictWriter(f, fieldnames=list(new_rows[0].keys()))
+    w.writeheader()
+    w.writerows(new_rows)
+PY
+```
+
+A domain this run DROPS from the ranking (no longer news-shaped, merged into another entry,
+etc.) drops its `feed_*` data with it — that's correct, not a loss to guard against. The
+guard above is only for domains that survive into the new ranking.
+
+Then run the checks below. Do not commit unless asked.
 
 ## Traps
 
@@ -141,12 +206,32 @@ column names, then run the checks below. Do not commit unless asked.
 
 ```bash
 f=news/data/bg_news_sites.csv
-awk -F, 'NF!=9 {print "bad column count on line " NR}' "$f"
+ncol=$(head -1 "$f" | awk -F, '{print NF}')                         # dynamic — survives future column additions
+awk -F, -v n="$ncol" 'NF!=n {print "bad column count on line " NR}' "$f"
 tail -n +2 "$f" | cut -d, -f2 | sort | uniq -c                      # tier split
 tail -n +2 "$f" | cut -d, -f1 | awk 'NR>1 && $1!=p+1 {print "rank gap at " $1} {p=$1}'
 tail -n +2 "$f" | cut -d, -f3 | sort | uniq -d                      # duplicate domains
 grep -E 'sportal|gong\.bg|dsport|gol\.bg|flashscore|btvsport|topsport' "$f"   # must print nothing
 ```
+
+⚠️ **Run this BEFORE declaring the refresh done — it is the check that catches Step 6's join
+silently failing.**
+
+```bash
+python3 -c "
+import csv
+rows = list(csv.DictReader(open('news/data/bg_news_sites.csv', newline='', encoding='utf-8')))
+feed_cols = [h for h in rows[0] if h.startswith('feed_')]
+assert feed_cols, 'no feed_* columns at all — the join in Step 6 was skipped or the columns were dropped'
+blank = [r['domain'] for r in rows if not any(r[h] for h in feed_cols)]
+assert not blank, f'{len(blank)} domains have EVERY feed_* cell empty (join failed for them): {blank[:10]}'
+print(f'{len(rows)} rows, {len(feed_cols)} feed_* columns, 0 fully-blank — OK')
+"
+```
+
+A domain reporting `not_yet_probed` is fine (it is new this run and genuinely has not been
+probed); a domain with every `feed_*` cell truly EMPTY means the join lost it — that is the
+failure this whole section exists to prevent.
 
 Then eyeball two things no script can check: that every `mass` row is an outlet a
 Bulgarian reader would call a news site, and that the broadcaster rows use the news domain.
@@ -172,5 +257,6 @@ Bulgarian reader would call a news site, and that the broadcaster rows use the n
 
 | path | what |
 | --- | --- |
-| `news/data/bg_news_sites.csv` | the register — the only output |
+| `news/data/bg_news_sites.csv` | the register — traffic ranking (this skill) + feed access method (see below) |
+| `news/scripts/fetch_latest_articles.py` | reads this CSV's `feed_method_*`/`feed_url_*`; not owned by this skill — see fetch-news-articles |
 | `<scratchpad>/tranco.csv` | working copy of the Tranco top-1M (CRLF stripped), never committed |

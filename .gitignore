@@ -422,3 +422,7 @@ scratch/
 # Output of `npm run person:declared-vs-registry` — a review queue naming individuals
 # against their own declarations. Generated locally, never committed or published.
 /reports/
+
+# Python bytecode cache — news/scripts/ is plain-Python tooling, no build step.
+__pycache__/
+*.pyc
