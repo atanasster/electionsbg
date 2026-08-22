@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-21T07:05:38.879Z",
+  "lastSuccessfulIngest": "2026-08-22T19:06:11.160Z",
   "skill": "update-procurement",
-  "summary": "TED sub-step ONLY (ted_bg): 2026 re-fetched at 19,129 notices, corpus 217,525 -> 217,767 (+242); 99.8% carry a buyer EIK, 2,375 buyers, 1,789 also award in our corpus; 2015 returned 0 and was DROPPED not stored as zero; coverage 2016-2026. Gate 6/6. No AOP/EOP/CPRS/ADFI/experts re-ingest - none of those sources was due."
+  "summary": "EOP self-heal +213 rows/89 buyers; tenders 237,941 procedures; annex fold net +€2,275.1M; contracts 403,484→403,682 (€93.769→93.808bn); geo map 2,170→2,174 (Tier B МОН 403-blocked, 92 carried, 0 dropped); MP xref 85→102 MPs, officials 561→796 (stale-vintage catch-up onto company_politicians); db:refresh exit 0, test:data 1704 passed"
 }
