@@ -121,46 +121,18 @@ describe("useContestedVotes", () => {
     expect(result.current.anchor).toBe("2026-06-02");
   });
 
-  it("derives the same pair from the JSON fallback", async () => {
+  // The two JSON-fallback tests that stood here are gone with the arm they covered
+  // (json-retirement-v2 Tier 3b). Their PG twins above — "reports the window basis anchored
+  // on the newest sitting" and "reports the all-time basis when the window is thin" — assert
+  // the same two behaviours on the path that remains, so nothing lost coverage.
+  //
+  // What replaces them is the honest-empty case: with no fallback, a failed route must yield
+  // an empty tile rather than a wrong one.
+  it("renders nothing, not a stale ranking, when the route fails", async () => {
     pgStatus = 500;
-    // Pre-sorted newest-first, as the artifact is: entry 0 is the anchor.
-    jsonBody = {
-      byNs: {
-        "52": {
-          entries: [
-            entry("2026-07-24", 0.4, 1),
-            entry("2026-07-22", 0.3, 2),
-            entry("2026-07-20", 0.2, 3),
-            entry("2026-03-01", 0.9, 4),
-          ],
-        },
-      },
-    };
     const { result } = renderHook(() => useContestedVotes(7, 5), { wrapper });
-    await waitFor(() => expect(result.current.items.length).toBeGreaterThan(0));
-    expect(result.current.basis).toBe("window");
-    expect(result.current.anchor).toBe("2026-07-24");
-    // Ranked by contest score, and the March item is outside the window.
-    expect(result.current.items.map((i) => i.item)).toEqual([1, 2, 3]);
-  });
-
-  it("falls back to the whole term on the JSON path too", async () => {
-    pgStatus = 500;
-    jsonBody = {
-      byNs: {
-        "52": {
-          entries: [
-            entry("2026-07-24", 0.4, 1),
-            entry("2026-03-01", 0.9, 4),
-            entry("2026-02-01", 0.8, 5),
-          ],
-        },
-      },
-    };
-    const { result } = renderHook(() => useContestedVotes(7, 5), { wrapper });
-    await waitFor(() => expect(result.current.items.length).toBeGreaterThan(0));
-    expect(result.current.basis).toBe("allTime");
-    expect(result.current.anchor).toBe("2026-07-24");
-    expect(result.current.items.map((i) => i.item)).toEqual([4, 5, 1]);
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+    expect(result.current.items).toEqual([]);
+    expect(result.current.anchor).toBeNull();
   });
 });

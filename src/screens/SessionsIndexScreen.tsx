@@ -24,7 +24,7 @@ export const SessionsIndexScreen: FC = () => {
   const { t } = useTranslation();
   const { sessions, currentNs, isLoading } = useRollcallIndex();
   // One aggregate row per plenary day, not the whole 8 MB corpus (plan §7, P5).
-  const { byDate } = useVoteDaySummary();
+  const { byDate, isLoading: summaryLoading } = useVoteDaySummary();
   const [params, setParams] = useSearchParams();
   const topicFilter = params.get("topic") as VoteTopic | null;
   const day = useDayLabel("long");
@@ -138,7 +138,14 @@ export const SessionsIndexScreen: FC = () => {
           </div>
         )}
 
-        {isLoading ? (
+        {/* ⚠️ BOTH loading flags. `isLoading` is useRollcallIndex's — a small bucket-served
+            file that resolves well before /api/db/vote-day-summary — and a `?topic=` filter
+            reads its topics from THAT summary. Without the second flag the page renders its
+            empty state, „Все още няма импортирани поименни гласувания." plus a „(0)" count,
+            while the summary is still in flight: a confident claim that the corpus is empty,
+            on the exact URL every TopicChip links to. json-retirement-v2 Tier 3b made that
+            worse by removing the JSON fallback, which used to backfill the map. */}
+        {isLoading || (topicFilter && summaryLoading) ? (
           <div className="text-sm text-muted-foreground">
             {t("loading") || "Loading…"}
           </div>

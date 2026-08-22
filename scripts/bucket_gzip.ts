@@ -77,7 +77,10 @@ const GLOBAL_FILES = [
   // src/data/myarea/useMpSignals.ts — the `ai/`-is-not-`src/` blind spot. They are still
   // served, so they are still worth compressing.
   //
-  // topic_index.json stays until Tier 3b moves its two remaining fallback readers.
+  // ⚠️ topic_index.json STAYS. Tier 3b removed its two src/ fallback readers, which is what
+  // an earlier version of this note said would release it — but ai/tools/parliament.ts still
+  // fetches it and names it in `provenance` twice. Same ai/-is-not-src/ blind spot as
+  // similarity.json above. Releasing it means moving those tools, not discharging this line.
   // Measured 2026-08-21 (zlib level 6, what `cp -Z` stores):
   //     similarity.json   12,275,762 -> 1,545,406  ( 7.9x)
   //     topic_index.json   8,368,917 ->   634,191  (13.2x)

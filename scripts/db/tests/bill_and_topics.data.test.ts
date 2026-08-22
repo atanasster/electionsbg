@@ -23,6 +23,13 @@ import {
 } from "../../parliament/derived/hub_stats";
 import { buildRollcall } from "../load_rollcall_pg";
 import { outcomeFor } from "../../parliament/derived/important_votes";
+// The SAME function SessionOutcomeBar's classification lives in, imported rather than
+// re-written. There were THREE copies of this rule until 2026-08-22 — the SQL in
+// db_routes.js, outcomeBucket() in src/, and a local `bucketOf` here — and this gate held
+// the SQL against the local one, so src/'s copy was unheld by anything. json-retirement-v2
+// Tier 3b then removed its last caller, which is how that came to light. Two copies now,
+// with this gate between them, which is the arrangement outcomeBucket.ts's header describes.
+import { outcomeBucket } from "../../../src/data/parliament/votes/outcomeBucket";
 import type { SessionFile } from "../../parliament/derived/types";
 
 const SESSIONS = "data/parliament/votes/sessions";
@@ -33,17 +40,7 @@ const readSessions = (): SessionFile[] =>
     .sort()
     .map((f) => JSON.parse(readFileSync(`${SESSIONS}/${f}`, "utf8")));
 
-/** The same collapse SessionOutcomeBar and the route both apply. */
-const bucketOf = (o: ReturnType<typeof outcomeFor>): string =>
-  o === "passed_unanimous" ||
-  o === "rejected_unanimous" ||
-  o === "abstain_unanimous"
-    ? "unanimous"
-    : o === "passed"
-      ? "passed"
-      : o === "rejected"
-        ? "rejected"
-        : "contested";
+const bucketOf = (o: ReturnType<typeof outcomeFor>): string => outcomeBucket(o);
 
 afterAll(async () => {
   await end();
