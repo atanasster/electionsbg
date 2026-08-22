@@ -87,6 +87,21 @@ const GLOBAL_FILES = [
   //     topic_index.json   8,368,917 ->   634,191  (13.2x)
   "parliament/votes/derived/similarity.json",
   "parliament/votes/derived/topic_index.json",
+  // ⚠️ THESE THREE WERE NAMED IN THE NOTE ABOVE AND NOT IN THIS LIST, so the comment
+  // asserted a coverage the code did not provide and all three went on being served
+  // `identity`. Measured over HTTP 2026-08-22, after the rest of the set was gzipped:
+  //     attendance.json  512,061 B   cohesion.json  653,903 B   loyalty.json  423,347 B
+  // — 1.55 MB, against similarity.json and topic_index.json sitting right beside them at
+  // 8.6x and 14.1x.
+  //
+  // All three still have readers, checked the way the ai/ blind spot demands:
+  //     attendance · cohesion   ai/tools/parliament.ts only — src/ moved to /api/db in
+  //                             Tier 3a and its mentions of them are migration COMMENTS
+  //     loyalty                 ai/tools/parliament.ts, ai/render/links.harness.ts, and
+  //                             src/data/myarea/useMpSignals.ts:63 — a real browser fetch
+  "parliament/votes/derived/attendance.json",
+  "parliament/votes/derived/cohesion.json",
+  "parliament/votes/derived/loyalty.json",
   // officials/municipal/search_index.json retired from the bucket (persons-pg-retirement-v1
   // T1.5): the header search reads municipal_officials_table via /api/db, so the file is no
   // longer served or gzip-uploaded. It stays on disk only for the offline search harness.
