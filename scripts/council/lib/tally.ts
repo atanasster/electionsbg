@@ -572,6 +572,105 @@ export const extractNamedVoteBlock = (
  *   `number`, and a best-effort `title` from the nearest preceding ОТНОСНО:
  *   clause ("" when there is none).
  */
+/**
+ * The title of the decision a marker at `offset` belongs to, read from the
+ * nearest PRECEDING "ОТНОСНО:" clause — the subject line a Bulgarian council
+ * protocol puts above each agenda item.
+ *
+ * Extracted from findResolutionMarkers so a parser with its own marker scheme
+ * can reuse the rule instead of restating it. per32.ts is exactly that case:
+ * Перник's headers are letter-spaced and never start a line, so the shared
+ * marker regex finds none there — and the parser assigned the literal
+ * "(no title parsed)" to all 563 of its rows while its own source carried 116
+ * ОТНОСНО clauses per protocol.
+ *
+ * ⚠️ ONE CLAUSE LEGITIMATELY SERVES SEVERAL RESOLUTIONS, so a caller must not
+ * treat reuse as a pairing error. Measured on Перник ПРОТОКОЛ-№7: 29 real
+ * markers against 23 distinct clauses, and every reuse is one agenda item
+ * producing several decisions ("ОДОБРЯВАНЕ НА ТЕХНИЧЕСКО ЗАДАНИЕ …" → four
+ * approvals in a row). Deduplicating would silently drop real resolutions.
+ *
+ * Returns "" when there is no clause within `maxBack` — never a guess.
+ *
+ * @param text - Full protocol text.
+ * @param offset - Byte offset of the marker whose title is wanted.
+ * @param maxBack - How far back to look. 6000 spans a recorded debate.
+ */
+export const nearestOtnosnoTitle = (
+  text: string,
+  offset: number,
+  maxBack = 6000,
+): string => {
+  const back = text.slice(Math.max(0, offset - maxBack), offset);
+  // ⚠️ THE CLAUSE MUST BE THE LAST ONE IN THE WINDOW, AND IF IT DOES NOT MATCH WE
+  // RETURN "" — never the one before it. Taking "the last successful match" instead
+  // means a clause that overruns the 400-char ceiling silently hands the marker its
+  // PREDECESSOR's subject, i.e. resolution N titled with N−1's. That is a wrong
+  // title rather than a missing one, and it defeats every caller's `|| sentinel`
+  // fallback, because a wrong title is truthy.
+  // ⚠️ THE KEYWORD IS CASE-INSENSITIVE, THE TERMINATORS ARE NOT — hence the explicit
+  // class rather than an `i` flag on the whole pattern. Перник writes "ОТНОСНО" (121
+  // per protocol), Бургас writes "относно" (42), and the terminators below depend on
+  // case being meaningful. A blanket `i` would blank the second group of parsers or
+  // wreck the first; there is no single flag that serves both.
+  const starts = [...back.matchAll(/[Оо][Тт][Нн][Оо][Сс][Нн][Оо]\s*:/gu)];
+  if (starts.length === 0) return "";
+  const at = starts[starts.length - 1].index;
+  // WHERE A CLAUSE ENDS. Two shapes, four terminators.
+  //
+  // PROSE (V. Tarnovo, Бургас): the clause is a paragraph and ends at a blank line
+  // or at a "Г-н <NAME>:" speaker label.
+  //
+  // AGENDA ENUMERATION (Перник): the clause sits inside a numbered list and ends at
+  // the submitter line, or at the bare all-caps speaker label that opens the debate:
+  //
+  //     4. ДЗ ВХ.№ ОС_627/… ОТ Д. ЗАХАРИЕВ, ОТНОСНО: ИЗМЕНЕНИЕ НА НАРЕДБА № 11 …
+  //                     ВНАСЯ: СТ. ВЛАДИМИРОВ
+  //     ОТНОСНО: ОТЧЕТ ПО ИЗПЪЛНЕНИЕТО НА ГОДИШНИЯ ПЛАН ЗА МЛАДЕЖТА 2024 Г.:
+  //     ДЕНИСЛАВ ЗАХАРИЕВ: Колеги, давам Ви думата по точката от дневния ред.
+  //
+  // The "Г-?н" alternative does not reach the second one: it requires the honorific
+  // and Перник writes the name alone. Without a terminator the lazy quantifier runs
+  // to its 400-char ceiling and the match fails ENTIRELY — which is why the window
+  // looked like the culprit and was not. The failing markers sat ~935 chars from
+  // their clause, well inside maxBack.
+  //
+  // ⚠️ "NEXT NUMBERED ITEM" (\n\s*\d+\s*\.\s) WAS TRIED AND REMOVED. It fires inside
+  // any title carrying a numbered sub-list — 54 stored titles do, mostly SZR12 and
+  // BGS01 — and truncates them at the first enumerated item. The submitter and
+  // speaker-label terminators already close Перник's agenda form without it.
+  //
+  // ⚠️ A NEW TERMINATOR CAN ONLY SHORTEN AN EXISTING MATCH, so the risk is silently
+  // truncating a title that already works. Verify against a município at 0% untitled
+  // before adding one; BGS01 and GAB05 are the cheap checks (2 of the 9 callers).
+  const re =
+    /[Оо][Тт][Нн][Оо][Сс][Нн][Оо]\s*:\s*([\s\S]{5,400}?)(?:\n\s*\n|\n\s*Г-?н\s+[А-Я]|\n\s*ВНАСЯ(?!\p{L})|\n\s*Р\s*Е\s*Ш\s*Е\s*Н\s*И\s*Е(?!\p{L})|\n\s*\p{Lu}[\p{Lu}\s.-]{2,40}\s*:)/gu;
+  re.lastIndex = at;
+  const m = re.exec(back);
+  // Anchored: a match that does not START at the last clause is an earlier clause the
+  // regex happened to reach, which is exactly the substitution guarded against above.
+  if (!m || m.index !== at) return "";
+  // ⚠️ TAKE THE CAPTURE GROUP, NOT A SECOND MATCH OVER THE WHOLE HIT. The previous
+  // implementation re-matched `ОТНОСНО\s*:\s*([\s\S]+)` against the stage-1 result,
+  // and since that result INCLUDES the terminator, the greedy `+` handed it back:
+  // measured, 512 of 512 Перник titles ended with the speaker label that was supposed
+  // to end them ("…ЗА МЛАДЕЖТА 2024 Г.: ДЕНИСЛАВ ЗАХАРИЕВ:"). The two original
+  // terminators hid it — a blank line vanishes into the whitespace collapse, and the
+  // "Г-н" one was stripped by the replace below, which existed for exactly that reason.
+  // The lazy capture group already excludes the terminator; nothing needs re-matching.
+  return (
+    m[1]
+      .replace(/\s+/g, " ")
+      .replace(/\s*Г-?н\s+[А-Я].*$/u, "")
+      // The source's own trailing colon — "…ПЛАН ЗА МЛАДЕЖТА 2024 Г.:" — is the
+      // punctuation introducing the debate, not part of the subject. Distinct from
+      // the leaked speaker label above: that was OUR bug, this is the document's
+      // formatting, and it is safe to drop because a subject never ends in a colon.
+      .replace(/\s*:\s*$/u, "")
+      .trim()
+  );
+};
+
 // ONE definition of the marker vocabulary, so the two settings cannot drift.
 // Both are all-caps: case-sensitivity is the discriminator against inline
 // lowercase "Решение № N" cross-references. The letter-spaced form is how
@@ -597,25 +696,9 @@ export const findResolutionMarkers = (
   while ((m = re.exec(text)) !== null) {
     // m.index points at the (^|\n) boundary; nudge past it for the marker offset.
     const markerOffset = m.index + (text[m.index] === "\n" ? 1 : 0);
-    const back = text.slice(Math.max(0, markerOffset - 6000), markerOffset);
-    // ОТНОСНО: titles can span multiple lines until a blank line or the
-    // next "Г-н <NAME>:" speaker label. Match up to 400 chars or two
-    // newlines in a row.
-    const titleMatches = back.match(
-      /ОТНОСНО\s*:\s*([\s\S]{5,400}?)(?:\n\s*\n|\n\s*Г-?н\s+[А-Я])/giu,
-    );
-    let title = "";
-    if (titleMatches && titleMatches.length > 0) {
-      // Take the LAST ОТНОСНО: in the window (the one closest to the marker).
-      const last = titleMatches[titleMatches.length - 1];
-      const m2 = last.match(/ОТНОСНО\s*:\s*([\s\S]+)/iu);
-      if (m2) {
-        title = m2[1]
-          .replace(/\s+/g, " ")
-          .replace(/\s*Г-?н\s+[А-Я].*$/u, "")
-          .trim();
-      }
-    }
+    // The ОТНОСНО rule lives in nearestOtnosnoTitle so per32.ts — whose own
+    // marker scheme this helper cannot serve — reuses it rather than restating it.
+    const title = nearestOtnosnoTitle(text, markerOffset);
     out.push({ offset: markerOffset, number: m[1], title });
   }
   return out;

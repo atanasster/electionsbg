@@ -44,6 +44,7 @@ import { isMalformedArchiveError, extractWordText } from "../lib/docx";
 import {
   classifyResult,
   findAllTallies,
+  nearestOtnosnoTitle,
   type ParsedVoteEntry,
 } from "../lib/tally";
 import {
@@ -356,7 +357,20 @@ const parseProtokolText = (
       date: meta.date,
       session: meta.session,
       number: marker.number,
-      title: "(no title parsed)",
+      // The subject line from the nearest preceding ОТНОСНО: clause. This parser
+      // assigned the literal sentinel to all 563 of its rows while the source
+      // carried 116 ОТНОСНО clauses per protocol — the rule existed in
+      // findResolutionMarkers, which cannot serve Перник because its headers are
+      // letter-spaced and never start a line, so it was simply never called.
+      //
+      // ⚠️ ONE CLAUSE LEGITIMATELY TITLES SEVERAL RESOLUTIONS — measured 29 real
+      // markers against 23 distinct clauses, every reuse being one agenda item
+      // that produced several decisions. Do not dedupe on title.
+      //
+      // Falls back to the sentinel rather than to "": an empty title is rendered
+      // as a blank heading, whereas the sentinel is what every consumer already
+      // treats as "unlabelled".
+      title: nearestOtnosnoTitle(text, marker.offset) || "(no title parsed)",
       tally,
       result,
       sourceUrl: meta.docxUrl,

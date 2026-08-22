@@ -13,7 +13,7 @@
 // a "К.л NNN <subject>" line, and an all-caps "РЕШЕНИЕ № NNN" header on its own line.
 
 import { describe, expect, it } from "vitest";
-import { findResolutionMarkers } from "./tally";
+import { findResolutionMarkers, nearestOtnosnoTitle } from "./tally";
 
 /** Two agenda points, two resolutions — the Ruse shape. */
 const RUSE = [
@@ -114,5 +114,146 @@ describe("findResolutionMarkers — the Точка alternative is opt-in", () =>
   it("stays case-sensitive, so inline references are not markers", () => {
     const text = "текст съгласно Решение № 70 от Протокол 14 и нататък";
     expect(findResolutionMarkers(text)).toEqual([]);
+  });
+});
+
+// nearestOtnosnoTitle — extracted from findResolutionMarkers so per32.ts can reuse it.
+// Перник assigned the literal "(no title parsed)" to all 563 of its rows while its own
+// protocols carried 116 ОТНОСНО clauses each; the rule existed and was never called there,
+// because the shared marker regex finds nothing in a document whose headers are
+// letter-spaced and never start a line.
+describe("nearestOtnosnoTitle", () => {
+  const DOC = [
+    "ОТНОСНО: ПРЕДОСТАВЯНЕ НА ОБЩИНСКИ ЖИЛИЩА ЗА ОТДАВАНЕ ПОД НАЕМ",
+    "",
+    "Общинският съвет гласува и със „за“ - 30 прие",
+    "Р Е Ш Е Н И Е № 1084",
+    "тяло на решението",
+    "",
+    "ОТНОСНО: ОДОБРЯВАНЕ НА ТЕХНИЧЕСКО ЗАДАНИЕ ПО ЧЛ.125 ОТ ЗУТ",
+    "",
+    "Общинският съвет гласува и със „за“ - 28 прие",
+    "Р Е Ш Е Н И Е № 1104",
+  ].join("\n");
+
+  it("takes the clause nearest before the offset, not the first in the document", () => {
+    const second = DOC.indexOf("Р Е Ш Е Н И Е № 1104");
+    expect(nearestOtnosnoTitle(DOC, second)).toBe(
+      "ОДОБРЯВАНЕ НА ТЕХНИЧЕСКО ЗАДАНИЕ ПО ЧЛ.125 ОТ ЗУТ",
+    );
+    const first = DOC.indexOf("Р Е Ш Е Н И Е № 1084");
+    expect(nearestOtnosnoTitle(DOC, first)).toBe(
+      "ПРЕДОСТАВЯНЕ НА ОБЩИНСКИ ЖИЛИЩА ЗА ОТДАВАНЕ ПОД НАЕМ",
+    );
+  });
+
+  // ⚠️ REUSE IS CORRECT. One agenda item routinely produces several resolutions — measured
+  // 29 markers against 23 clauses on Перник ПРОТОКОЛ-№7 — so two markers under one clause
+  // must BOTH get it. A caller that deduped on title would drop real decisions.
+  it("gives the same clause to every resolution under it", () => {
+    const doc = DOC + "\nтекст\nР Е Ш Е Н И Е № 1105\n";
+    const a = nearestOtnosnoTitle(doc, doc.indexOf("№ 1104"));
+    const b = nearestOtnosnoTitle(doc, doc.indexOf("№ 1105"));
+    expect(a).toBe(b);
+    expect(a).not.toBe("");
+  });
+
+  // Never a guess: out of range returns "", which the callers turn into the sentinel.
+  it("returns empty when no clause is in range", () => {
+    expect(nearestOtnosnoTitle(DOC, 5)).toBe("");
+    expect(nearestOtnosnoTitle(DOC, DOC.length, 10)).toBe("");
+  });
+
+  // ⚠️ THE TERMINATOR MUST NOT APPEAR IN THE TITLE. The first cut re-matched
+  // `ОТНОСНО:\s*([\s\S]+)` against the stage-1 hit — which INCLUDES the terminator —
+  // so the greedy `+` handed it straight back: 512 of 512 Перник titles ended with the
+  // speaker label that was supposed to end them. The two original terminators hid it
+  // (a blank line vanishes in the whitespace collapse; the "Г-н" one was stripped by a
+  // later replace), which is why it survived until a corpus was actually inspected.
+  const PERNIK = [
+    "ОТНОСНО: ОТЧЕТ ПО ИЗПЪЛНЕНИЕТО НА ОБЩИНСКИ ГОДИШЕН ПЛАН ЗА МЛАДЕЖТА 2024 Г.:",
+    "ДЕНИСЛАВ ЗАХАРИЕВ: Колеги, давам Ви думата по точката от дневния ред.",
+    "ГЛАСУВА СЕ:",
+    "Р Е Ш Е Н И Е № 458",
+  ].join("\n");
+  it("never leaves the speaker label in the title", () => {
+    const t = nearestOtnosnoTitle(PERNIK, PERNIK.indexOf("Р Е Ш Е Н И Е"));
+    expect(t).toBe(
+      "ОТЧЕТ ПО ИЗПЪЛНЕНИЕТО НА ОБЩИНСКИ ГОДИШЕН ПЛАН ЗА МЛАДЕЖТА 2024 Г.",
+    );
+    expect(t).not.toMatch(/ЗАХАРИЕВ/);
+    expect(t.endsWith(":")).toBe(false);
+  });
+
+  it("ends the clause at the ВНАСЯ submitter line", () => {
+    const doc = [
+      "ОТНОСНО: ИЗМЕНЕНИЕ И ДОПЪЛНЕНИЕ НА НАРЕДБА № 11",
+      "                    ВНАСЯ: СТ. ВЛАДИМИРОВ",
+      "Р Е Ш Е Н И Е № 500",
+    ].join("\n");
+    expect(nearestOtnosnoTitle(doc, doc.indexOf("Р Е Ш"))).toBe(
+      "ИЗМЕНЕНИЕ И ДОПЪЛНЕНИЕ НА НАРЕДБА № 11",
+    );
+  });
+
+  // ⚠️ ВНАСЯ AND РЕШЕНИЕ NEED A (?!\p{L}) BOUNDARY. Without one "ВНАСЯНЕ" terminates
+  // at "ВНАСЯ" and cuts the title mid-word. `\b` cannot do this job — it is ASCII-only
+  // and never fires after a Cyrillic letter.
+  it("does not cut mid-word on ВНАСЯНЕ", () => {
+    const doc = [
+      "ОТНОСНО: ПРЕДЛОЖЕНИЕ ЗА",
+      "ВНАСЯНЕ НА ПРОМЕНИ В БЮДЖЕТА",
+      "",
+      "Р Е Ш Е Н И Е № 501",
+    ].join("\n");
+    expect(nearestOtnosnoTitle(doc, doc.indexOf("Р Е Ш"))).toBe(
+      "ПРЕДЛОЖЕНИЕ ЗА ВНАСЯНЕ НА ПРОМЕНИ В БЮДЖЕТА",
+    );
+  });
+
+  // ⚠️ THE KEYWORD IS CASE-INSENSITIVE, THE TERMINATORS ARE NOT. Перник writes
+  // "ОТНОСНО", Бургас writes "относно" (42 per protocol) — so dropping the `i` flag
+  // wholesale to fix \p{Lu} would have silently blanked every Burgas title.
+  it("matches both ОТНОСНО and относно", () => {
+    for (const kw of ["ОТНОСНО", "относно", "Относно"]) {
+      const doc = `${kw}: Учредяване на юридическо лице\n\nР Е Ш Е Н И Е № 7`;
+      expect(nearestOtnosnoTitle(doc, doc.indexOf("Р Е Ш"))).toBe(
+        "Учредяване на юридическо лице",
+      );
+    }
+  });
+
+  // ⚠️ THE REGEX MUST NOT CARRY `i`. `/\p{Lu}/iu.test("а")` is TRUE — under
+  // case-insensitive matching \p{Lu} case-folds and accepts lowercase — so with `i`
+  // the "bare ALL-CAPS speaker label" arm degenerates into "any line ending in a
+  // colon" and eats ordinary lowercase prose. This fixture is the discriminator: its
+  // second line is lowercase and ends in a colon, so it terminates under `i` and does
+  // not without. Case IS the signal, which is also why the keyword needs its own
+  // explicit [Оо][Тт]… class rather than a flag.
+  it("keeps lowercase prose that ends in a colon inside the title", () => {
+    const doc = [
+      "ОТНОСНО: Приемане на отчет за дейността",
+      "на комисията по следните направления:",
+      "финанси и бюджет",
+      "",
+      "Р Е Ш Е Н И Е № 5",
+    ].join("\n");
+    expect(nearestOtnosnoTitle(doc, doc.indexOf("Р Е Ш"))).toBe(
+      "Приемане на отчет за дейността на комисията по следните направления: финанси и бюджет",
+    );
+  });
+
+  // ⚠️ AN OVERLONG CLAUSE MUST YIELD NOTHING, NOT ITS PREDECESSOR'S SUBJECT. Taking
+  // "the last successful match in the window" gives resolution N the title of N-1 when
+  // N's own clause overruns the 400-char ceiling — a WRONG title, which is worse than a
+  // missing one and defeats every caller's `|| sentinel` fallback, since it is truthy.
+  it("returns empty when the nearest clause overruns, never the one before it", () => {
+    const doc = [
+      "ОТНОСНО: ПЪРВА ТОЧКА С КРАТКО ЗАГЛАВИЕ",
+      "",
+      `ОТНОСНО: ${"Я".repeat(500)}`,
+      "Р Е Ш Е Н И Е № 9",
+    ].join("\n");
+    expect(nearestOtnosnoTitle(doc, doc.indexOf("Р Е Ш"))).toBe("");
   });
 });
