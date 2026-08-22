@@ -170,14 +170,25 @@ const unlockProtokolTallies = async (
     ? await buildMuniLookup("Столична община")
     : null;
   const tallies = findAllTallies(text);
-  const markers = findResolutionMarkers(text);
+  // ⚠️ OPTS IN TO "Точка N" AS A MARKER. Gemini's re-OCR of these protocols drops the
+  // "Решение № N" headers, so the agenda markers are all that is left to pair a tally
+  // against. bgs.ts opts in too, for its own reason; the rule is "does this caller read
+  // marker.number as an agenda POSITION" — see findResolutionMarkers. Русе must NOT: it
+  // prints "Точка N" per agenda item and took on 81 phantom resolutions from this
+  // alternative while it was unconditional.
+  const markers = findResolutionMarkers(text, { agendaPoints: true });
   let joinExact = 0;
   let joinTotal = 0;
   let hasReshenieHeaders = false;
-  // Heuristic: if the OCR text has more than 20 distinct "Решение № NNN"
-  // (large-N) headers, we trust mapping by number; otherwise fall back
-  // to positional. "Точка <N>" matches are small N (1-80) so they tip
-  // the average down — count distinct numbers > 100 as the signal.
+  // Heuristic: ANY marker numbered above 100 is taken as a "Решение № NNN"
+  // header, and we then trust mapping by number; otherwise fall back to
+  // positional. The bound works because Sofia's agenda numbering has never
+  // exceeded ~80 in this corpus — so a number above 100 cannot be a "Точка N".
+  //
+  // ⚠️ That is a first-match-wins test, not a count: one stray large number
+  // flips it. An earlier comment here described a threshold of "more than 20
+  // distinct headers" tipping an average, which is not what the loop does —
+  // and a session with more than 100 agenda points would flip it silently.
   for (const m of markers) {
     if (parseInt(m.number, 10) > 100) {
       hasReshenieHeaders = true;

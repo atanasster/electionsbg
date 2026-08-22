@@ -738,3 +738,65 @@ test.skipIf(skip)("no council loses its tallies wholesale", async () => {
       `was tightened past its evidence, or the source changed shape.`,
   );
 });
+
+// 6. AGENDA POINTS SMUGGLED IN AS RESOLUTIONS — the defect that put 81 phantom rows into
+//    RSE01 and survived every existing gate here.
+//
+// `findResolutionMarkers` grew a "Точка N" alternative for Sofia, whose re-OCR'd protocols
+// lose their "Решение № N" headers. It was unconditional, under a comment asserting that no
+// other município prints bare "Точка N" on its own line. Русе does — for every agenda item —
+// so each one became a "resolution", carrying a tally lifted from the neighbouring text.
+// Nothing about the row shape gave them away: legal id, real date, plausible tally, and (as
+// it happens for RSE01) the same "(no title parsed)" every genuine row there also has.
+//
+// ⚠️ THE SIGNAL IS A GAP IN THE NUMBER BAND, NOT A SMALL NUMBER. Plenty of councils number
+// their resolutions from 1 — GAB05 runs 1..199 and DOB28 1..46, both legitimate — so "has
+// sub-100 rows" convicts the innocent. What convicts is TWO POPULATIONS: rows down at
+// agenda-point magnitude AND rows up in the hundreds-plus, with nothing in between. RSE01
+// measured 81 rows at 1..32, ZERO in 100..499, and 130 at 917..1048.
+//
+// Stated as a corpus invariant rather than a per-município allowlist, so a NEW município
+// wired with the wrong setting fails here on its first load rather than joining a list
+// nobody revisits.
+test("no município mixes agenda-point and resolution number bands", async (t) => {
+  if (!(await dbReachable())) return t.skip();
+  const rows = await allRows<{
+    code: string;
+    low: string;
+    mid: string;
+    high: string;
+    lo_max: string;
+  }>(
+    `SELECT obshtina_code AS code,
+            count(*) FILTER (WHERE number::int < 100)                  AS low,
+            count(*) FILTER (WHERE number::int BETWEEN 100 AND 499)    AS mid,
+            count(*) FILTER (WHERE number::int >= 500)                 AS high,
+            coalesce(max(number::int) FILTER (WHERE number::int < 100), 0) AS lo_max
+       FROM council_resolution
+      WHERE number ~ '^[0-9]+$'
+      GROUP BY obshtina_code
+      ORDER BY obshtina_code`,
+  );
+  assert.ok(
+    rows.length > 0,
+    "council_resolution is empty — run db:load:council:pg",
+  );
+
+  const suspect = rows
+    .filter(
+      (r) => Number(r.low) > 0 && Number(r.high) > 0 && Number(r.mid) === 0,
+    )
+    .map(
+      (r) =>
+        `${r.code}: ${r.low} rows at <=${r.lo_max}, ${r.mid} in 100..499, ${r.high} at 500+`,
+    );
+  assert.deepEqual(
+    suspect,
+    [],
+    `bimodal resolution numbering — the agenda-point signature:\n  ${suspect.join("\n  ")}\n` +
+      `A município whose real resolutions are numbered in the hundreds should have NO ` +
+      `sub-100 rows. Check whether its parser passes { agendaPoints: true } to ` +
+      `findResolutionMarkers; only sof.ts and bgs.ts may (their protocols carry no ` +
+      `РЕШЕНИЕ headers at all and they merge by agenda POSITION).`,
+  );
+});

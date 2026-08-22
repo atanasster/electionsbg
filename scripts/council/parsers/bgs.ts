@@ -253,7 +253,17 @@ const mergeProtokol = async (
     total: 0,
   };
   const tallies = findAllTallies(text);
-  const markers = findResolutionMarkers(text);
+  // ⚠️ MUST OPT IN. Burgas's full protokol carries NO "РЕШЕНИЕ" headers — measured 0
+  // against 43 "Точка N" lines in protokol-23-sayt.pdf (111 pages) — so the agenda
+  // markers are the only anchor there is, and the merge below reads marker.number as
+  // an AGENDA POSITION (byPos), never as a resolution number.
+  //
+  // Without the flag this returns 0 markers and the early return below makes the whole
+  // merge a SILENT no-op: every decision still ships from the za-sayta path, the scrape
+  // reports success and the watermark advances, but all 121 tallies and 86 named-vote
+  // blocks quietly stop being produced. Русе, which does carry РЕШЕНИЕ headers, must NOT
+  // opt in — see findResolutionMarkers for the rule and what it cost.
+  const markers = findResolutionMarkers(text, { agendaPoints: true });
   if (markers.length === 0 || tallies.length === 0) return stats;
 
   // Burgas protokol: Точка N anchors PRECEDE the tally, like Sofia.

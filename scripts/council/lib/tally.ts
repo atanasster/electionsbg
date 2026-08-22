@@ -535,23 +535,64 @@ export const extractNamedVoteBlock = (
  * all-caps РЕШЕНИЕ. Returns each marker's offset, captured number, and
  * the best-effort title pulled from the most recent preceding ОТНОСНО:
  * clause (looked back up to ~6000 chars to span a debate).
+ *
+ * ⚠️ `agendaPoints` OPTS IN TO "Точка N" AS A MARKER, AND IT DEFAULTS OFF.
+ * It was originally unconditional, under a comment asserting that "other
+ * municipalities don't use bare 'Точка N' on its own line so this alternative
+ * doesn't false-positive".
+ *
+ * That assumption was FALSE for Русе, which prints "Точка N" on its own line
+ * for every agenda item. Measured on ПРОТОКОЛ_32.docx: 23 РЕШЕНИЕ headers,
+ * 29 "Точка" lines, 51 markers returned — and the surplus reached the corpus
+ * as resolutions, carrying a real tally lifted from the neighbouring text, so
+ * nothing about the row shape gave them away. 81 of RSE01's 211 stored rows
+ * were agenda points (proven by the number band: 81 under 100, ZERO between
+ * 100 and 499, 130 above 500 — Ruse numbers its resolutions 900+).
+ *
+ * ⚠️ THE RULE FOR A CALLER IS NOT "ARE YOU SOFIA" — it is what the caller does
+ * with `number`. Opt in only where the parser reads it as an AGENDA POSITION
+ * against a separately-sourced decision list; take the default wherever
+ * `number` becomes the resolution number itself.
+ *
+ *   opt in   sof.ts  Gemini re-OCR drops the "Решение № N" headers entirely
+ *            bgs.ts  Burgas protokols carry NO РЕШЕНИЕ headers at all
+ *                    (measured: 43 "Точка" lines, 0 РЕШЕНИЕ, in a 111-page
+ *                    protokol) and it merges by `byPos`
+ *   default  pvn · vtr · szrk · gab · rse · hkv — and Русе is why
+ *
+ * An earlier draft of this header said Sofia was the only caller. That was
+ * wrong in the same shape as the assumption it replaced, and it would have
+ * cost Burgas all 121 of its tallies silently — the merge simply returns
+ * early on an empty marker list.
+ *
+ * @param text - Full protocol text (pdftotext -layout / docx / OCR output).
+ * @param opts.agendaPoints - Admit bare "Точка N" lines as markers. See the
+ *   rule above; wrong in either direction it is silent. Default: false.
+ * @returns One entry per marker in document order: byte `offset`, captured
+ *   `number`, and a best-effort `title` from the nearest preceding ОТНОСНО:
+ *   clause ("" when there is none).
  */
+// ONE definition of the marker vocabulary, so the two settings cannot drift.
+// Both are all-caps: case-sensitivity is the discriminator against inline
+// lowercase "Решение № N" cross-references. The letter-spaced form is how
+// Pleven and Haskovo inflate a title block.
+const MARKER_HEADER_ALTS = ["РЕШЕНИЕ", "Р\\s+Е\\s+Ш\\s+Е\\s+Н\\s+И\\s+Е"];
+
 export const findResolutionMarkers = (
   text: string,
+  opts: { agendaPoints?: boolean } = {},
 ): Array<{ offset: number; number: string; title: string }> => {
   const out: Array<{ offset: number; number: string; title: string }> = [];
-  // (^|\n) + optional indent + all-caps РЕШЕНИЕ (compact OR letter-spaced
-  // form "Р  Е  Ш  Е  Н  И  Е" — Pleven inflates the title block this way) +
-  // № + digits. Case-sensitivity is the discriminator vs inline lowercase
-  // "Решение № N" references, so we stay case-sensitive here.
-  //
-  // Sofia full-protocol PDFs that have been re-OCR'd via Gemini lose the
-  // "Решение № N" headers entirely and surface agenda items as
-  // "Точка <N>" / "Точка <N> (<number-as-word>)" instead — accept those
-  // as fallback markers. Other municipalities don't use bare "Точка N" on
-  // its own line so this alternative doesn't false-positive.
-  const re =
-    /(?:^|\n)[ \t]*(?:РЕШЕНИЕ|Р\s+Е\s+Ш\s+Е\s+Н\s+И\s+Е|Точка)\s*(?:№\s*)?(\d+)/gu;
+  // "Точка" is APPENDED to the shared list, never restated alongside a second
+  // copy of it — a new spelling added above therefore reaches both settings by
+  // construction. Built per call, so `lastIndex` is never shared.
+  const alts = opts.agendaPoints
+    ? [...MARKER_HEADER_ALTS, "Точка"]
+    : MARKER_HEADER_ALTS;
+  const re = new RegExp(
+    `(?:^|\\n)[ \\t]*(?:${alts.join("|")})\\s*(?:№\\s*)?(\\d+)`,
+    "gu",
+  );
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) {
     // m.index points at the (^|\n) boundary; nudge past it for the marker offset.

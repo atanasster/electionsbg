@@ -1,14 +1,19 @@
 // The My-Area alerts feed is a BUILD-TIME artifact over a corpus that moves
 // weekly, and nothing asserted the two agree.
 //
-// `data/myarea/alerts/<obshtina>.json` is 289 committed files written by
+// The feed is `myarea_alerts.events` (migration 184), 289 rows upserted by
 // `scripts/myarea/build_alerts.ts`; `council_resolution` is reloaded by
 // `db:load:council:pg` on its own schedule. When a council reload outruns the
-// alerts build, the committed feed keeps advertising decisions the corpus has
-// re-keyed or dropped — at a 200, with every row count reconciling. That is
-// structural rather than a live drift: the artifacts were fresh when this was
-// written (289 of 290 rebuilt the day after the index), which is exactly why it
-// needs a gate rather than an observation.
+// alerts build, the stored feed keeps advertising decisions the corpus has
+// re-keyed or dropped — at a 200, with every row count reconciling.
+//
+// ⚠️ IT USED TO READ `data/myarea/alerts/<obshtina>.json`, AND THAT MADE IT
+// VACUOUS. json-retirement-v2 Tier 4b moved the feed into Postgres and deleted
+// those 290 committed files, so the `existsSync(ALERTS_DIR)` arm of the skip
+// predicate silently became permanently true — the whole file reported
+// "skipped" and nobody read it as a failure. It was repointed at the table on
+// 2026-08-22, the same day 84 phantom council resolutions were purged, which is
+// precisely the event this gate exists to notice.
 //
 // Now that every council alert links to /council/resolution/:id, a stale event
 // is also a dead internal link into a function-served family that 404s nowhere
@@ -16,39 +21,49 @@
 
 import { test } from "vitest";
 import assert from "node:assert/strict";
-import { readdirSync, readFileSync, existsSync } from "node:fs";
-import { join } from "node:path";
 import { allRows, dbReachable, end } from "../lib/pg";
-
-const ALERTS_DIR = join(process.cwd(), "data", "myarea", "alerts");
 
 const skip =
   !(await dbReachable()) ||
-  !existsSync(ALERTS_DIR) ||
   (await allRows(`SELECT 1 FROM council_resolution LIMIT 1`).catch(
     () => null,
-  )) === null;
+  )) === null ||
+  (await allRows(`SELECT 1 FROM myarea_alerts LIMIT 1`).catch(() => null)) ===
+    null;
 
-type AlertEvent = { kind?: string; link?: string; date?: string };
+type AlertEvent = {
+  kind?: string;
+  link?: string;
+  date?: string;
+  detail?: string;
+};
 
-const councilEvents = (): { file: string; id: string; date: string }[] => {
-  const out: { file: string; id: string; date: string }[] = [];
-  for (const f of readdirSync(ALERTS_DIR)) {
-    if (!f.endsWith(".json")) continue;
-    let parsed: { events?: AlertEvent[] };
-    try {
-      parsed = JSON.parse(readFileSync(join(ALERTS_DIR, f), "utf8"));
-    } catch {
-      continue;
-    }
-    for (const e of parsed.events ?? []) {
+/** Every council event across all 289 stored feeds. `file` is the obshtina code —
+ *  the feed's key now that it is a row rather than a file. */
+const councilEvents = async (): Promise<
+  { file: string; id: string; date: string; detail: string }[]
+> => {
+  const rows = await allRows<{ obshtina: string; events: AlertEvent[] }>(
+    `SELECT obshtina, events FROM myarea_alerts ORDER BY obshtina`,
+  );
+  const out: { file: string; id: string; date: string; detail: string }[] = [];
+  for (const r of rows) {
+    for (const e of r.events ?? []) {
       if (e.kind !== "council_resolution") continue;
       const m = /^\/council\/resolution\/(.+)$/.exec(e.link ?? "");
       // A council event with no resolution link is itself the regression:
       // before Tier 6 these linked out to the municipality's PDF, and the
       // internal link is what makes the resolution family reachable.
-      assert.ok(m, `${f}: council event has no /council/resolution link`);
-      out.push({ file: f, id: m![1], date: e.date ?? "" });
+      assert.ok(
+        m,
+        `${r.obshtina}: council event has no /council/resolution link`,
+      );
+      out.push({
+        file: r.obshtina,
+        id: m![1],
+        date: e.date ?? "",
+        detail: e.detail ?? "",
+      });
     }
   }
   return out;
@@ -57,7 +72,7 @@ const councilEvents = (): { file: string; id: string; date: string }[] => {
 test.skipIf(skip)(
   "every committed council alert resolves to a live resolution",
   async () => {
-    const events = councilEvents();
+    const events = await councilEvents();
     assert.ok(
       events.length > 0,
       "no council alerts at all — the source has gone silent, which is the " +
@@ -76,9 +91,9 @@ test.skipIf(skip)(
     assert.deepEqual(
       orphans.map((o) => `${o.file}:${o.id}`),
       [],
-      `${orphans.length} committed council alert(s) name a resolution that is ` +
+      `${orphans.length} stored council alert(s) name a resolution that is ` +
         `no longer in the corpus. The alerts build has fallen behind a council ` +
-        `reload — re-run \`npx tsx scripts/myarea/build_alerts.ts\``,
+        `reload — re-run \`npm run myarea:alerts\` (and \`:cloud\`)`,
     );
   },
 );
@@ -90,7 +105,7 @@ test.skipIf(skip)(
     // artifact predates its own source rather than that the window changed —
     // the same staleness, visible from the other side and without needing the
     // corpus to have re-keyed anything.
-    const events = councilEvents();
+    const events = await councilEvents();
     const cutoff = new Date();
     cutoff.setUTCDate(cutoff.getUTCDate() - 120);
     const iso = cutoff.toISOString().slice(0, 10);
@@ -99,7 +114,7 @@ test.skipIf(skip)(
       stale.map((s) => `${s.file}:${s.date}`).slice(0, 10),
       [],
       `${stale.length} council alert(s) are more than 120 days old against a ` +
-        `60-day build window — the committed feed is at least one build behind`,
+        `60-day build window — the stored feed is at least one build behind`,
     );
   },
 );
@@ -111,22 +126,9 @@ test.skipIf(skip)(
     // on the list being non-empty: 11 of the 16 councils publish an aggregate
     // only, and a unanimous decision in a council that DOES publish names has
     // an empty list for a completely different reason.
-    const withDissent: string[] = [];
-    for (const f of readdirSync(ALERTS_DIR)) {
-      if (!f.endsWith(".json")) continue;
-      let parsed: { events?: (AlertEvent & { detail?: string })[] };
-      try {
-        parsed = JSON.parse(readFileSync(join(ALERTS_DIR, f), "utf8"));
-      } catch {
-        continue;
-      }
-      for (const e of parsed.events ?? []) {
-        if (e.kind !== "council_resolution") continue;
-        if (!e.detail?.includes("против:")) continue;
-        const m = /^\/council\/resolution\/(.+)$/.exec(e.link ?? "");
-        if (m) withDissent.push(m[1]);
-      }
-    }
+    const withDissent = (await councilEvents())
+      .filter((e) => e.detail.includes("против:"))
+      .map((e) => e.id);
     if (withDissent.length === 0) return; // no dissent in the window; not a defect
     const rows = await allRows<{ id: string; has_named_votes: boolean }>(
       `SELECT id, has_named_votes FROM council_resolution WHERE id = ANY($1::text[])`,

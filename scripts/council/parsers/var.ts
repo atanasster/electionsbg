@@ -101,7 +101,12 @@ const discoverSessions = async (): Promise<SessionRef[]> => {
 // `.exec()` at module scope — the persistent lastIndex would corrupt
 // subsequent session parses. matchAll() returns a fresh iterator each call.
 const RE_DECISION_HEADER = /Р\s+Е\s+Ш\s+Е\s+Н\s+И\s+[ЕЯ]\s*:?/gu;
-const RE_RESOLUTION_NUMBER = /\s(\d{2,4})\s*-\s*\d{1,3}\s*\./u;
+// ⚠️ NO LEADING ZERO. `\d{2,4}` also matched a zero-padded token — a date fragment or a
+// numbered list item like " 01-2. " — and minted VAR01-2026-prot37-r01, a "resolution"
+// with no tally sitting under a corpus whose real numbers run 1135..1209. A Varna
+// resolution number is never zero-padded, so requiring a leading 1-9 is exact rather than
+// a heuristic. Caught by the bimodal-band gate in council_corpus.data.test.ts.
+const RE_RESOLUTION_NUMBER = /\s([1-9]\d{1,3})\s*-\s*\d{1,3}\s*\./u;
 const RE_OTNOSNO =
   /ОТНОСНО\s*:\s*([\s\S]{5,400}?)(?:\n\s*\n|\n\s*Докл\.|\n\s*Общински)/iu;
 
