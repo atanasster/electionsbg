@@ -86,6 +86,19 @@ canonical on ~248k pages named a redirecting URL; see `docs/plans/parliament-hub
 `hreflang` redirects — the older test asserted only that the canonical _string_ was right, which is
 why this survived unnoticed.
 
+⚠️ **`npm run preview` INVERTS that rule, so never read a prerendered page through it.**
+`vite preview` runs the SPA fallback, so the no-slash URL — the one production serves the
+file at — falls through to `dist/index.html`, i.e. the HOMEPAGE prerender with the
+homepage's `<title>`, canonical and `<h1>`; only `/<path>/` serves the real file. Measured
+2026-08-22 on localhost:4173: `/procurement` returned „Парламентарни избори в България —
+последен вот: 19 април 2026" and `/procurement/` returned „Обществени поръчки — договори и
+народни представители", while the live site returns the latter at the no-slash URL. Read
+`dist/<path>/index.html` directly, or `curl` the deployed site;
+`scripts/prerender/distHeadings.data.test.ts` does the former for exactly this reason. It
+has already produced one false finding — „every prerendered page serves two `<h1>`s, and
+the first says it is about the April 2026 election" — against a `dist/` in which no page
+carried two and every page carried its own.
+
 **The prerender resolves `VITE_DATA_BASE_URL` a SECOND time, and it must agree with the
 bundle's copy.** A route may declare `preloadData` (`scripts/prerender/routes.ts`) — the data
 files it fetches on first render — and `scripts/prerender/index.ts` emits each as
