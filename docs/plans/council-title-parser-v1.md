@@ -123,12 +123,44 @@ once, not fourteen times. Six pairs were not a sample.
 Note there are 52 `К.л` lines against 23 resolutions (the agenda lists them too), so
 "nearest preceding" is load-bearing; a naive zip would drift.
 
-### A3 — mixed within a município · ~1,400 rows · LEAST TRACTABLE
+### A3 — mixed within a município · ~1,400 rows · DIAGNOSED 2026-08-22
 
-HKV09, HKV34, SZR12, RAZ26, PVN01, SOF, VTR01, VAR01 are partial: some protocols in each
-carry `ОТНОСНО`, others do not. Not investigated per-município. Lowest value per unit of
-effort, and the one tier where the answer may legitimately be "this protocol names no
-subject".
+Originally "not investigated per-município". It has now been probed against each
+município's own live protocol, and the tier splits three ways rather than being uniformly
+"mixed". **Two of the five have no subject anywhere in the document** — which is the answer
+this tier was always most likely to have.
+
+| município | untitled | ОТНОСНО | относно | ДНЕВЕН РЕД | verdict                                             |
+| --------- | -------- | ------- | ------- | ---------- | --------------------------------------------------- |
+| HKV09     | 335/607  | 4       | 132     | **yes**    | tractable — agenda, same shape as DOB28             |
+| SZR12     | 332/359  | 0       | 56      | **yes**    | tractable — two-hop via the `ОС_NNNN` docket        |
+| HKV34     | 292/387  | 0       | 27      | no         | **no source** — the 27 are the preposition in prose |
+| RAZ26     | 180/207  | 0       | 15      | no         | **no source** — no agenda, no `К.л` either          |
+| PVN01     | 132/135  | —       | —       | —          | **unprobeable** — its `source_url` now 404s         |
+
+**HKV09 and SZR12 (667 rows) are worth doing and are not free.** SZR12's rule is
+`marker → nearest preceding ОС_NNNN in the body → that docket's agenda subject`, a two-hop
+exact key. Prototyped against Протокол №59: **19 of 26 markers resolve**, from 21 agenda
+items parsed of ~27. Getting that to the 85–100% the four shipped municipalities reach
+needs per-document tuning of the agenda terminator — the seven unresolved markers
+(824, 825, 826, 829, 833, 834, 835) are one contiguous block, so one shape is being missed
+rather than seven separate cases. HKV09 was not prototyped; it has a `ДНЕВЕН РЕД:` block at
+line 37 and 132 lowercase `относно`, so the DOB28 agenda parser is the obvious starting
+point.
+
+**HKV34 and RAZ26 (472 rows) should not be attempted.** Neither document contains a subject
+line in any form this work has found: no `ОТНОСНО`, no agenda block, no контролен лист. The
+occurrences of `относно` are the ordinary preposition inside debate prose, the same false
+lead Добрич presented before its agenda was found. Titling them would mean synthesising a
+subject from the decision body, which is a different and much weaker claim than quoting one
+the council itself wrote.
+
+**PVN01 (132 rows) is blocked, not deferred.** Its stored `source_url`
+(`obs.pleven.bg/uploads/posts/protokol-47.docx`) returns 404, so the document cannot be
+re-read to find out what shape it has. That needs a fresh crawl before anything else.
+
+⚠️ **Do not read the remaining 32% as one problem.** 667 rows have an identified source and
+a starting point; 472 have no source and are correctly left alone; 132 cannot be looked at.
 
 ---
 
@@ -154,8 +186,16 @@ An untitled resolution is not cosmetic. It is what the reader sees:
 4. **A2 / RSE01** — 211 rows, prototyped, carries its own validation invariant.
 5. **A3** — per-município, only if the remaining ~1,400 justify it.
 
-Steps 1–4 take the corpus from 49% untitled to roughly **18%**, and remove ~84 rows that
-should never have existed.
+⚠️ **The 18% estimate was optimistic; the measured landing is 32%.** Steps 1–4 took the
+corpus from **2,232/4,601 (49%)** to **1,544/4,813 (32%)** — the denominator grew because
+the Ruse re-scrape recovered 18 protocols. Per município: BGS01 100%, GAB05 100%, PDV01
+100%, SLV01 100%, DOB28 98%, SZR01 97%, VTR01 91%, PER32 87%, SOF 86%, RSE01 85%, VAR01
+61%, HKV09 45%, HKV34 25%, RAZ26 13%, SZR12 8%, PVN01 2%. Those figures are now pinned by
+`TITLE_COVERAGE_FLOOR` in `council_corpus.data.test.ts`, so a parser that stops finding
+subjects fails a gate instead of silently serving the sentinel.
+
+The gap to 18% is entirely A3, which step 5 diagnosed rather than implemented — see that
+section for why two of its five municipalities have no subject to find at all.
 
 ## Risks
 
