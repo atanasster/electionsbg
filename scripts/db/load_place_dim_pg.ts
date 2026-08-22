@@ -52,7 +52,15 @@ const ROOT = path.resolve(
   "..",
   "..",
 );
-const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/117_place_dim.sql");
+// Applied in order. 179 rides THIS loader rather than having one of its own because it is a
+// serving FUNCTION with no data — "applied, never loaded", the 150/151 shape — and its only
+// hard dependency is the `seat_ekatte` column 117 owns and this loader fills. Without an
+// applier here, `db:refresh` fails at its final test:data step on any clean database and no
+// cloud path ships it at all, which is the migration-144 defect CLAUDE.md records.
+const SCHEMA_FILES = [
+  path.join(ROOT, "scripts/db/schema/pg/117_place_dim.sql"),
+  path.join(ROOT, "scripts/db/schema/pg/179_myarea_place_tenders.sql"),
+];
 const SETTLEMENTS = path.join(ROOT, "data/settlements.json");
 const MUNICIPALITIES = path.join(ROOT, "data/municipalities.json");
 
@@ -85,6 +93,8 @@ type MunicipalityRow = {
   obshtina: string;
   oblast?: string | null;
   loc?: string | null;
+  /** The settlement the município is administered FROM — becomes place_dim.seat_ekatte. */
+  ekatte?: string | null;
 };
 
 /** The city-wide Sofia obshtina — synthetic, so it carries the alias crosswalk. */
@@ -171,6 +181,7 @@ type Row = [
   string | null, // loc  ("lon,lat")
   string | null, // settlement_type (т.в.м.)
   string | null, // nuts3
+  string | null, // seat_ekatte (obshtina rows only — the settlement it is run FROM)
 ];
 
 export const buildPlaceDimRows = (
@@ -205,6 +216,7 @@ export const buildPlaceDimRows = (
       // Same guard as `loc`: an out-of-country ISO pseudo-settlement has no
       // Bulgarian NUTS3, and a consumer must not inherit one it cannot honour.
       r.ekatte.length === 2 ? null : r.nuts3 || null,
+      null, // seat_ekatte — obshtina rows only
     ]);
   }
   for (const s of SEEDED_SETTLEMENTS) {
@@ -225,6 +237,7 @@ export const buildPlaceDimRows = (
       s.loc,
       s.settlementType,
       s.nuts3,
+      null, // seat_ekatte — obshtina rows only
     ]);
   }
 
@@ -234,6 +247,13 @@ export const buildPlaceDimRows = (
   );
   const muniLoc = new Map<string, string | null>(
     municipalities.map((r) => [r.obshtina, r.loc ?? null]),
+  );
+  // The settlement a município is administered FROM. NOT recoverable from the settlement
+  // rows: a seat is SHARED — every Sofia/Plovdiv rayon is run from its parent city's EKATTE,
+  // and 72624 (Добрич) seats both DOB28 and DOB15 — while `obshtina_code` maps an EKATTE to
+  // exactly one município. See 117's column comment.
+  const muniSeat = new Map<string, string | null>(
+    municipalities.map((r) => [r.obshtina, r.ekatte ?? null]),
   );
   for (const [code, label] of obshtinaLabels()) {
     const raw = muniOblast.get(code) ?? null;
@@ -253,6 +273,7 @@ export const buildPlaceDimRows = (
       muniLoc.get(code) ?? null,
       null,
       null, // nuts3 — only settlements carry one
+      muniSeat.get(code) ?? null,
     ]);
   }
 
@@ -272,6 +293,7 @@ export const buildPlaceDimRows = (
       null,
       null,
       null, // nuts3 — only settlements carry one
+      null, // seat_ekatte — obshtina rows only
     ]);
   }
 
@@ -295,6 +317,7 @@ export const buildPlaceDimRows = (
       null,
       null,
       null, // nuts3 — only settlements carry one
+      null, // seat_ekatte — obshtina rows only
     ]);
   }
 
@@ -302,7 +325,7 @@ export const buildPlaceDimRows = (
 };
 
 const main = async (): Promise<void> => {
-  await exec(readFileSync(SCHEMA, "utf8"));
+  for (const f of SCHEMA_FILES) await exec(readFileSync(f, "utf8"));
 
   const settlements = readJson<SettlementRow[]>(
     SETTLEMENTS,
@@ -358,6 +381,7 @@ const main = async (): Promise<void> => {
         "loc",
         "settlement_type",
         "nuts3",
+        "seat_ekatte",
       ],
       rows,
     );

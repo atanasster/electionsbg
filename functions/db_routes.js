@@ -5373,6 +5373,62 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? empty };
   },
+  // The My-Area "открити поръчки тук" tile — replaces the 265-file
+  // data/myarea/place_tenders/<obshtina>.json shard family (json-retirement-v2 Tier 4a).
+  //
+  // DEGRADES rather than 500s: a missing 179 yields a null tile, which the hook already
+  // handles because the shards expressed "nothing here" as a 404. LOGGED for the reason
+  // 123/124's psp:/pp: prefixes exist — a null tile is indistinguishable from a município
+  // with no procedures, so without the line the only symptom of "deploy:db shipped before
+  // 179 reached Cloud SQL" is every município showing no tile, at a 200, for ever.
+  "myarea-place-tenders": async (dbRows, q) => {
+    const obshtina = s(q, "obshtina");
+    // Same charset as council-muni's: the vocabulary spans BGS04, S2414 and SFO_CITY.
+    if (!/^[A-Za-z0-9_]{2,12}$/.test(obshtina))
+      return { status: 400, body: { error: "missing or malformed obshtina" } };
+    const rows = await dbRows(
+      `SELECT obshtina, since, total_count, cancelled_count,
+              total_estimated_eur, top
+         FROM myarea_place_tenders($1)`,
+      [obshtina],
+    ).catch((e) => {
+      if (e?.code !== "42883" && e?.code !== "42P01") return Promise.reject(e);
+      logMissOnce(
+        "mpt:not-built",
+        "myarea-place-tenders: 179_myarea_place_tenders.sql is not applied — every " +
+          "município serves no tender tile, at a 200. Apply it (apply_functions.ts) on the " +
+          "serving database.",
+      );
+      return [];
+    });
+    const r = rows[0];
+    // total_count 0 IS the "no tile" case — the shard family expressed it by not writing a
+    // file at all, and the hook maps a soft miss to null. Returning a zeroed object instead
+    // would render "0 процедури" where the tile used to be absent.
+    if (!r || Number(r.total_count) === 0) return { body: null };
+    return {
+      body: {
+        obshtina: r.obshtina,
+        since: r.since,
+        count: Number(r.total_count),
+        cancelled: Number(r.cancelled_count),
+        totalEstimatedEur: Number(r.total_estimated_eur),
+        top: (r.top ?? []).map((t) => ({
+          unp: t.unp,
+          buyerName: t.buyer_name,
+          subject: t.subject,
+          // node-postgres hands a PG `double precision` back as a number, but this value
+          // arrives inside a json_agg blob, so it is already JS — coerce only the null case.
+          estimatedValueEur:
+            t.estimated_value_eur == null
+              ? undefined
+              : Number(t.estimated_value_eur),
+          publicationDate: t.publication_date,
+          isCancelled: t.is_cancelled,
+        })),
+      },
+    };
+  },
   "council-muni": async (dbRows, q) => {
     // Accepts a FRONTEND obshtina code (BGS04, S2414, SFO_CITY…) or the
     // council's own key (BGS01, SOF). The bridge is many-to-one — Sofia is 27

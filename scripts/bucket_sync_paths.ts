@@ -278,6 +278,18 @@ export const isExcluded = (rel: string): string | null => {
   // A diagnostic left over from the postcode ingest — a list of postcodes the resolver could
   // not place. No reader anywhere (verified across src/, ai/, functions/, scripts/prerender/
   // 2026-08-21); it was never a serving artifact, it was uploaded because the whole tree was.
+  // Retired 2026-08-21 (json-retirement-v2 Tier 4a): the My-Area tender tile reads
+  // /api/db/myarea-place-tenders (migration 179) and build_alerts.ts no longer writes these
+  // files. Unlike most retirements here the 286 shards were git-TRACKED rather than
+  // gitignored, so they were DELETED in the same commit — a tracked artifact with no
+  // producer and no reader is not residue to be guarded, it is a file to remove, and leaving
+  // it would have frozen a corpus-anchored snapshot in git that goes stale on the next
+  // tenders load. This entry therefore guards a working copy that predates the deletion.
+  //
+  // ⚠️ AN EXCLUSION FREEZES, IT DOES NOT RETIRE. Ship the reader, verify on prod, then:
+  //     gsutil -m rm -r gs://<bucket>/myarea/place_tenders
+  if (rel === "myarea/place_tenders" || rel.startsWith("myarea/place_tenders/"))
+    return "myarea/place_tenders/ is retired — served from Cloud SQL (/api/db/myarea-place-tenders, migration 179)";
   if (rel === "parliament/postcode_unresolved.json")
     return "parliament/postcode_unresolved.json is an ingest diagnostic with no reader — never upload it";
   // The municipal-officials roster + name/search index are served from Cloud SQL
@@ -376,6 +388,8 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "officials/assets-rankings-top.json", isDir: false },
   // Under the still-served parliament/ parent (photos/, connections.json, votes/).
   { path: "parliament/postcode_unresolved.json", isDir: false },
+  // Under the still-served myarea/ parent (alerts/ is still a bucket read until Tier 4b).
+  { path: "myarea/place_tenders", isDir: true },
   // Under the still-served judiciary/ parent (caseload.json etc.), so a scoped
   // `bucket:sync:paths -- judiciary` must not re-upload these PG load sources.
   { path: "judiciary/magistrate_holdings.json", isDir: false },

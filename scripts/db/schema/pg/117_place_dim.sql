@@ -116,6 +116,32 @@ ALTER TABLE place_dim ADD COLUMN IF NOT EXISTS settlement_type text;
 --                    (Пловдив's settlements.json row carries the shard code
 --                    PDV-00, which this table already normalises to PDV).
 ALTER TABLE place_dim ADD COLUMN IF NOT EXISTS nuts3 text;
+
+-- seat_ekatte — the EKATTE of the settlement a município is administered FROM, on
+-- `kind = 'obshtina'` rows only. Added 2026-08-21 for json-retirement-v2 Tier 4a.
+--
+-- ⚠️ IT IS NOT DERIVABLE FROM THE ROWS ALREADY HERE, which is the whole reason it is a
+-- column. Two attempts that look like they work:
+--   • obshtina_code on the settlements — WRONG DIRECTION and lossy. An EKATTE belongs to one
+--     obshtina_code, but a município's SEAT is shared: 72624 (Добрич) is the seat of BOTH
+--     DOB28 and DOB15 (Добрич-селска, the rural município administered from the city), and
+--     every Sofia/Plovdiv rayon is administered from its parent city's EKATTE. Reading the
+--     seat off the settlement gives 28 municipalities — 24 of them rayons — no seat at all.
+--   • matching an obshtina row's `loc` to a settlement's — measured, resolves 264 of 295 and
+--     is ambiguous for 2. Not a crosswalk, a coincidence that mostly holds.
+-- It comes from data/municipalities.json's own `ekatte` field, which is exactly what
+-- scripts/myarea/build_alerts.ts looks municipal awarders up by.
+ALTER TABLE place_dim ADD COLUMN IF NOT EXISTS seat_ekatte text;
+
+COMMENT ON COLUMN place_dim.seat_ekatte IS
+  'EKATTE of the settlement this município is administered from (obshtina rows only). '
+  'NOT unique: rayons share their parent city''s seat, and Добрич-град/Добрич-селска share '
+  '72624. Read it, never re-derive it from obshtina_code.';
+
+-- Serves "which municípios are seated at this EKATTE" — the direction myarea_place_tenders
+-- asks, and the one the shared seats above make a genuine fan-out rather than a lookup.
+CREATE INDEX IF NOT EXISTS idx_place_dim_seat_ekatte
+  ON place_dim (seat_ekatte) WHERE seat_ekatte IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_place_dim_nuts3
   ON place_dim (nuts3) WHERE nuts3 IS NOT NULL;
 

@@ -202,7 +202,16 @@ const VOTES_SESSIONS = path.join(
   "data/parliament/votes/sessions",
 );
 const OUT_DIR = path.join(PROJECT_ROOT, "data/myarea/alerts");
-const PLACE_TENDERS_DIR = path.join(PROJECT_ROOT, "data/myarea/place_tenders");
+// data/myarea/place_tenders/ IS NO LONGER WRITTEN — json-retirement-v2 Tier 4a moved the
+// tile to Postgres (migration 179, /api/db/myarea-place-tenders). This builder was
+// regenerating and re-uploading 265 files a day that were a pure cache of the `tenders`
+// table, with the window, the per-buyer cap and the cancelled-exclusion all reproducible in
+// SQL. `buildPlaceTenderSummary` and its `recentTenders()` read went with it.
+//
+// ⚠️ `recentTenders()` ITSELF STAYS — buildTenderEvents() below still uses it for the
+// alerts feed's "freshly announced procedure" events, which is a different artifact with a
+// different shape. Removing the file read along with the shard writer would have emptied
+// those events silently.
 
 // Per-município event cap. 30 keeps the JSON ~5 KB even for active
 // municípios; the SPA tile renders the top 20 by default.
@@ -376,66 +385,6 @@ const buildTenderEvents = (
     }
   }
   return events;
-};
-
-// Per-município tender SUMMARY for the place dashboard's "open tenders" tile
-// (the precise count/total, not the date-capped alerts feed). Same join.
-type PlaceTenderSummary = {
-  obshtina: string;
-  generatedAt: string;
-  since: string;
-  count: number;
-  cancelled: number;
-  totalEstimatedEur: number;
-  top: Array<{
-    unp: string;
-    buyerName: string;
-    subject: string;
-    estimatedValueEur?: number;
-    publicationDate: string;
-    isCancelled: boolean;
-  }>;
-};
-
-const buildPlaceTenderSummary = (
-  obshtina: string,
-  muniAwarders: ProcurementAwarder[],
-): PlaceTenderSummary | null => {
-  const recent = recentTenders();
-  if (!recent?.buyers) return null;
-  const top: PlaceTenderSummary["top"] = [];
-  let totalEstimatedEur = 0;
-  let cancelled = 0;
-  for (const aw of muniAwarders) {
-    for (const t of recent.buyers[aw.eik] ?? []) {
-      // The tile is the OPEN-tenders pipeline; a cancelled procedure is no
-      // longer a forecast spend, so it's counted separately, not in the total.
-      if (t.isCancelled) {
-        cancelled++;
-        continue;
-      }
-      top.push({
-        unp: t.unp,
-        buyerName: aw.name,
-        subject: t.subject,
-        estimatedValueEur: t.estimatedValueEur,
-        publicationDate: t.publicationDate,
-        isCancelled: t.isCancelled,
-      });
-      totalEstimatedEur += t.estimatedValueEur ?? 0;
-    }
-  }
-  if (top.length === 0) return null;
-  top.sort((a, b) => (b.estimatedValueEur ?? 0) - (a.estimatedValueEur ?? 0));
-  return {
-    obshtina,
-    generatedAt: new Date().toISOString(),
-    since: recent.since ?? "",
-    count: top.length,
-    cancelled,
-    totalEstimatedEur,
-    top: top.slice(0, 5),
-  };
 };
 
 // EU contracts don't carry per-contract dates — only a programCode whose
@@ -821,12 +770,6 @@ const main = async () => {
   // depends on Interreg having been loaded.
   const interregByObshtina = await readInterregByObshtina();
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  // Rebuild place_tenders/ from scratch so a município that dropped to zero open
-  // tenders doesn't keep (and re-upload) a stale summary (F-008; mirrors the
-  // ingest's shard-dir rebuild).
-  fs.rmSync(PLACE_TENDERS_DIR, { recursive: true, force: true });
-  fs.mkdirSync(PLACE_TENDERS_DIR, { recursive: true });
-  let placeTenderFiles = 0;
   const munis = readJson<MunicipalityInfo[]>(MUNICIPALITIES_FILE);
   // STATED, NOT SILENT: data/municipalities.json has no Sofia-city row at all —
   // only the 24 S23xx rayons — while interreg_partners places every Sofia
@@ -937,19 +880,9 @@ const main = async () => {
     );
     totalEvents += trimmed.length;
     municipiosWithEvents++;
-
-    // Per-município "open tenders" summary for the place dashboard tile.
-    const tenderSummary = buildPlaceTenderSummary(m.obshtina, muniAwarders);
-    if (tenderSummary) {
-      fs.writeFileSync(
-        path.join(PLACE_TENDERS_DIR, `${m.obshtina}.json`),
-        JSON.stringify(tenderSummary, null, 2) + "\n",
-      );
-      placeTenderFiles++;
-    }
   }
   console.log(
-    `Wrote ${municipiosWithEvents} per-município alerts files (${totalEvents} total events, ${councilEvents} council); ${placeTenderFiles} place-tender summaries`,
+    `Wrote ${municipiosWithEvents} per-município alerts files (${totalEvents} total events, ${councilEvents} council)`,
   );
 };
 
