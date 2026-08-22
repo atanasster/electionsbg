@@ -1,9 +1,10 @@
 // Guards the bucket-exclusion invariants for the scoped-sync tool (persons-pg-retirement-v1
-// T1.5). The exclusion set lives in THREE hand-maintained places — package.json's
-// `bucket:sync` and `bucket:sync:dry` -x regexes, and isExcluded() here — so this pins that
+// T1.5). The exclusion set lives in FOUR hand-maintained places — package.json's
+// `bucket:sync` and `bucket:sync:dry` -x regexes, isExcluded(), and the CHILD_EXCLUDES twin
+// (omitting THAT one is what put ~16.8k orphan shards on the bucket) — so this pins that
 // they agree on the retired officials families, that the guard is correctly scoped (spares
-// the still-served index.json / declarations), and that a parent-scoped directory sync can't
-// re-upload a retired child (FINDING-001).
+// municipal_contacts/, the one officials path with a live reader), and that a parent-scoped
+// directory sync can't re-upload a retired child (FINDING-001).
 
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -22,9 +23,41 @@ const pkg = JSON.parse(
   ),
 ).scripts as Record<string, string>;
 
+/** Paths the -x regexes must refuse. Asserted by BEHAVIOUR (compile the real regex and run
+ *  it) rather than by substring, because the arms are written as families now — a substring
+ *  check has to name whichever spelling the regex currently uses and goes stale the moment
+ *  two entries are folded into one alternation, which is exactly what happened here. */
 const RETIRED = [
-  "officials/municipal/by_obshtina/",
-  "officials/municipal/search_index",
+  "officials/municipal/by_obshtina/BGS04.json",
+  "officials/municipal/search_index.json",
+  "officials/municipal/index.json",
+  "officials/declarations/2024/x.json",
+  "officials/derived/company_links.json",
+  "officials/derived/connections.json",
+  "officials/index.json",
+  "officials/obligations.json",
+  "officials/assets-rankings.json",
+  "officials/assets-rankings-top.json",
+  "parliament/postcode_unresolved.json",
+];
+
+/** …and paths they must NOT refuse — the live readers the widening must not swallow. */
+/** The two directions of the lockstep, each of which was open until 2026-08-21 and neither
+ *  of which any hand-listed case set would have found:
+ *    prices/  was in both -x regexes and NOT in isExcluded — so `bucket:sync:paths -- prices`,
+ *             this file's own documented example, re-published a Cloud-SQL-served tree.
+ *    the .tsv was in isExcluded and NOT in the regexes — so the full sync uploaded 12 MB of
+ *             the name->people-count table, uncompressed (.tsv is not in GZIP_EXTS). */
+const LOCKSTEP_REGRESSIONS = [
+  "prices/index.json",
+  "person/tr_name_fold_people.tsv",
+];
+
+const STILL_SERVED = [
+  "officials/municipal_contacts/index.json",
+  "parliament/connections.json",
+  "parliament/photos/1.webp",
+  "parliament/votes/sessions/2025-06-19.json",
 ];
 
 describe("bucket exclusion lockstep (package.json ↔ isExcluded)", () => {
@@ -57,10 +90,23 @@ describe("bucket exclusion lockstep (package.json ↔ isExcluded)", () => {
   });
 
   it("both bucket:sync and bucket:sync:dry -x regexes exclude the officials families", () => {
-    for (const frag of RETIRED) {
-      expect(pkg["bucket:sync"]).toContain(frag);
-      expect(pkg["bucket:sync:dry"]).toContain(frag);
+    for (const k of ["bucket:sync", "bucket:sync:dry"] as const) {
+      const x = pkg[k].match(/-x '([^']*)'/)?.[1];
+      expect(x, k).toBeTruthy();
+      const re = new RegExp(x as string);
+      for (const rel of [...RETIRED, ...LOCKSTEP_REGRESSIONS])
+        expect(re.test(rel), `${k} ${rel}`).toBe(true);
+      for (const rel of STILL_SERVED)
+        expect(re.test(rel), `${k} ${rel}`).toBe(false);
     }
+  });
+
+  // The regex and isExcluded() are the two halves that must agree; asserting the same cases
+  // through both is what makes "lockstep" mean something rather than "both files mention it".
+  it("isExcluded agrees with the -x regexes on every case above", () => {
+    for (const rel of [...RETIRED, ...LOCKSTEP_REGRESSIONS])
+      expect(isExcluded(rel), rel).toBeTruthy();
+    for (const rel of STILL_SERVED) expect(isExcluded(rel), rel).toBeNull();
   });
 
   it("the two -x regexes are byte-identical (they must never drift)", () => {
@@ -78,11 +124,37 @@ describe("isExcluded", () => {
     expect(isExcluded("officials/municipal/search_index.json")).toBeTruthy();
   });
 
-  it("spares the still-served / load-source siblings", () => {
-    expect(isExcluded("officials/municipal/index.json")).toBeNull();
-    expect(isExcluded("officials/municipal/declarations/x.json")).toBeNull();
+  // WIDENED 2026-08-21 (json-retirement-v2 Tier 0). This used to spare
+  // officials/municipal/index.json and officials/municipal/declarations/, on the
+  // understanding that they were still served. They are not, and were not: enumerating
+  // every `dataUrl()` call site across src/, ai/, functions/ and scripts/prerender/ returns
+  // exactly ONE officials path, municipal_contacts/index.json. The other two were 2.5 MB and
+  // 358 MB of loader input answering 200 on the bucket with nothing fetching them.
+  //
+  // `officials` itself must stay spared — the parent still carries that one live child, which
+  // is what makes the CHILD_EXCLUDES half load-bearing rather than belt-and-braces.
+  it("spares the one officials path that still has a reader", () => {
     expect(isExcluded("officials")).toBeNull();
-    expect(isExcluded("officials/municipal")).toBeNull();
+    expect(isExcluded("officials/municipal_contacts")).toBeNull();
+    expect(isExcluded("officials/municipal_contacts/index.json")).toBeNull();
+  });
+
+  it("refuses the readerless officials families it used to spare", () => {
+    for (const rel of [
+      "officials/municipal",
+      "officials/municipal/index.json",
+      "officials/declarations",
+      "officials/declarations/2024/x.json",
+      "officials/derived",
+      // 15.6 MB, frozen at 2026-07-29, 200 on the bucket, no reader anywhere. Its producers
+      // in scripts/ read it off DISK, which a sync exclusion does not touch.
+      "officials/derived/connections.json",
+      "officials/index.json",
+      "officials/obligations.json",
+      "officials/assets-rankings.json",
+      "officials/assets-rankings-top.json",
+    ])
+      expect(isExcluded(rel), rel).toBeTruthy();
   });
 });
 
@@ -138,19 +210,26 @@ describe("the retired MP↔company shard families (mp-tr-edges-pg-v1)", () => {
       expect(isExcluded(FILE)).toBeTruthy();
     });
 
-    it("spares its sibling, which is still served", () => {
-      expect(isExcluded("officials/derived/connections.json")).toBeFalsy();
+    // Its sibling connections.json is NOT still served — that claim was stale, and this
+    // assertion used to encode it. Both are now covered by the whole-directory exclusion.
+    it("is covered along with the rest of officials/derived/", () => {
+      expect(isExcluded("officials/derived/connections.json")).toBeTruthy();
+      expect(isExcluded("officials/derived")).toBeTruthy();
     });
 
     it("is in the -x regex of BOTH bucket:sync and bucket:sync:dry", () => {
-      expect(pkg["bucket:sync"]).toContain("company_links");
-      expect(pkg["bucket:sync:dry"]).toContain("company_links");
+      // Matched by the officials/(declarations|municipal|derived)/ arm rather than by a
+      // per-file `company_links` literal, so assert the BEHAVIOUR against the real regex —
+      // a substring check would have to name whichever form the arm currently takes.
+      for (const k of ["bucket:sync", "bucket:sync:dry"] as const) {
+        const x = pkg[k].match(/-x '([^']*)'/)?.[1];
+        expect(x, k).toBeTruthy();
+        expect(new RegExp(x as string).test(FILE), k).toBe(true);
+      }
     });
 
     it("an officials-scoped dir sync cannot re-upload it", () => {
-      expect(childExcludeRegexes("officials")).toContain(
-        "^derived/company_links\\.json$",
-      );
+      expect(childExcludeRegexes("officials")).toContain("^derived/.*");
     });
   });
 
@@ -239,20 +318,24 @@ describe("childExcludeRegexes (FINDING-001: parent-scoped dir sync)", () => {
   const matchesAny = (regexes: string[], relPath: string): boolean =>
     regexes.some((r) => new RegExp(r).test(relPath));
 
-  it("excludes the retired children when the officials parent is synced", () => {
-    const rx = childExcludeRegexes("officials/municipal");
-    expect(matchesAny(rx, "by_obshtina/BGS04.json")).toBe(true);
-    expect(matchesAny(rx, "search_index.json")).toBe(true);
-    // …but never the still-served siblings under the same parent.
-    expect(matchesAny(rx, "index.json")).toBe(false);
-    expect(matchesAny(rx, "declarations/x.json")).toBe(false);
+  // officials/municipal is now excluded WHOLE, so a sync scoped INTO it has no children left
+  // to filter — the refusal happens one level up, at isExcluded, before any walk starts.
+  it("refuses officials/municipal outright rather than filtering inside it", () => {
+    expect(isExcluded("officials/municipal")).toBeTruthy();
+    expect(childExcludeRegexes("officials/municipal")).toEqual([]);
   });
 
   it("re-anchors relative to a grandparent sync", () => {
     const rx = childExcludeRegexes("officials");
     expect(matchesAny(rx, "municipal/by_obshtina/BGS04.json")).toBe(true);
     expect(matchesAny(rx, "municipal/search_index.json")).toBe(true);
-    expect(matchesAny(rx, "municipal/index.json")).toBe(false);
+    expect(matchesAny(rx, "municipal/index.json")).toBe(true);
+    expect(matchesAny(rx, "declarations/2024/x.json")).toBe(true);
+    expect(matchesAny(rx, "derived/connections.json")).toBe(true);
+    expect(matchesAny(rx, "assets-rankings.json")).toBe(true);
+    // The one live reader survives a parent-scoped sync — this is the assertion that keeps
+    // the widened exclusion from taking the whole tree with it.
+    expect(matchesAny(rx, "municipal_contacts/index.json")).toBe(false);
   });
 
   it("is officials-anchored — never touches the bucket-served parliament search_index", () => {

@@ -62,6 +62,20 @@ export const isExcluded = (rel: string): string | null => {
   // path nothing reads, i.e. a spare serving surface free to go stale.
   if (rel === "opencalls" || rel.startsWith("opencalls/"))
     return "opencalls/ is a PG load source, served from Cloud SQL (db:load:open-calls:pg:cloud)";
+  // ⚠️ PRE-EXISTING LOCKSTEP HOLE, closed 2026-08-21. `prices/` is in BOTH -x regexes and had
+  // no branch here — and `prices` is this file's own worked example, in the usage header, the
+  // dry-run line and the CLI help. So the one command the documentation tells you to run,
+  // `bucket:sync:paths -- prices`, walked straight past the guard and re-published a
+  // Cloud-SQL-served tree (migration 048: every dashboard payload is a price_payloads row
+  // behind /api/db/price-payload). Exactly the failure the SAFETY header describes, reachable
+  // from the header's own example.
+  //
+  // The two files that DO live under data/prices/ — product_slugs.json (prerender + sitemap)
+  // and product_overrides.json (an input to rebuild_catalog) — are read from the local repo
+  // path at build time and never fetched over HTTP, so refusing the whole prefix costs
+  // nothing.
+  if (rel === "prices" || rel.startsWith("prices/"))
+    return "prices/ is served from Cloud SQL (price_payloads, migration 048) — never upload it";
   // ⚠️ [2026-08-16] THE DECISION THIS BRANCH RECORDED AS OPEN HAS BEEN TAKEN: the tool moved
   // to Postgres and the bucket tree is GONE (`gsutil -m rm -r` on the same day; `gsutil ls`
   // returns „matched no objects"). It is kept as an exclusion, not deleted, so a stale local
@@ -261,28 +275,55 @@ export const isExcluded = (rel: string): string | null => {
     rel === "parliament/car-makes.json"
   )
     return "parliament/{avatars,assets-rankings*,mp-cars,car-makes}.json are PG-served — never upload them";
+  // A diagnostic left over from the postcode ingest — a list of postcodes the resolver could
+  // not place. No reader anywhere (verified across src/, ai/, functions/, scripts/prerender/
+  // 2026-08-21); it was never a serving artifact, it was uploaded because the whole tree was.
+  if (rel === "parliament/postcode_unresolved.json")
+    return "parliament/postcode_unresolved.json is an ingest diagnostic with no reader — never upload it";
   // The municipal-officials roster + name/search index are served from Cloud SQL
   // (municipal_officials_table, /api/db/table + municipal-officials-*-index) since
   // persons-pg-retirement-v1 T1.5. by_obshtina stays on disk as a PG LOAD SOURCE
   // (load_ngo_board_links_pg reads it for official_roster.obshtina; the councillor-signals
   // builders read it too) but must never re-upload to the bucket; search_index.json is a
   // retired served artifact kept on disk only for the offline search harness.
-  if (rel.startsWith("officials/municipal/by_obshtina"))
-    return "officials/municipal/by_obshtina/ is a PG load source, served from Cloud SQL — never upload it";
-  if (rel === "officials/municipal/search_index.json")
-    return "officials/municipal/search_index.json is retired — the header search reads municipal_officials_table via /api/db";
-  // The officials↔company link set. DELETED from the repo in the same commit as this entry
-  // (company-page-consolidation-v1 Tier 6): 70,525 links over 9,659 officials, 85.5% of them
-  // low-confidence, graded by the one-company straitjacket migration 158's header calls wrong
-  // in both directions. Its replacement is `company_politicians` at kind='official', built
-  // from the gated person layer. No producer remains, so — as with
-  // parliament/companies-index.json — the bucket copy would be the last surviving instance of
-  // a link set nothing can correct.
   //
-  // ⚠️ AN EXCLUSION FREEZES, IT DOES NOT RETIRE:
-  //     gsutil rm gs://<bucket>/officials/derived/company_links.json
-  if (rel === "officials/derived/company_links.json")
-    return "officials/derived/company_links.json is retired and deleted — never upload it (gsutil rm the bucket copy)";
+  // ⚠️ WIDENED 2026-08-21 from those two paths to the WHOLE of officials/municipal/ (and
+  // officials/declarations/ + officials/derived/ + the four root JSONs below). The narrow
+  // form matched what had been retired one artifact at a time and left the rest of a
+  // 510 MB tree syncing, of which — measured by enumerating every `dataUrl()` call site in
+  // src/, ai/, functions/ and scripts/prerender/ — exactly ONE file has a live reader:
+  // officials/municipal_contacts/index.json, 226 KB, which stays uploadable below.
+  //
+  // The rest is loader input and retired serving artifacts:
+  //   declarations/  252 MB  the `declaration` corpus (089); read off DISK by the loader
+  //   municipal/      49 MB  municipal_officials_table (102) + /api/db/municipal-officials-*
+  //   derived/        15 MB  connections.json + the retired company_links.json (Tier 6)
+  // Those are LOCAL sizes (23,054 files) — what a sync would stop uploading. The BUCKET holds
+  // 510 MB under officials/, so ~190 MB of it no longer exists locally at all: stale objects
+  // that only an explicit `gsutil rm` removes, since an exclusion also excludes from -d.
+  // by_obshtina stays on disk as a PG LOAD SOURCE (load_ngo_board_links_pg reads it for
+  // official_roster.obshtina; the councillor-signals builders read it too) — excluded here
+  // means "never re-upload", never "delete from disk".
+  if (
+    rel === "officials/declarations" ||
+    rel.startsWith("officials/declarations/")
+  )
+    return "officials/declarations/ is a PG load source (db:load:declarations:pg) — never upload it";
+  if (rel === "officials/municipal" || rel.startsWith("officials/municipal/"))
+    return "officials/municipal/ is a PG load source, served from Cloud SQL (municipal_officials_table, 102) — never upload it";
+  if (rel === "officials/derived" || rel.startsWith("officials/derived/"))
+    return "officials/derived/ is retired — company_links.json was deleted 2026-08-21 (company_politicians at kind='official' replaces it)";
+  // The four officials root artifacts, all replaced by officials_rankings_table (100) and
+  // the `officials_rankings` registry resource. Per-file rather than a prefix, because
+  // officials/municipal_contacts/ is a LIVE bucket read (useMunicipalContacts).
+  if (
+    rel === "officials/index.json" ||
+    rel === "officials/obligations.json" ||
+    rel === "officials/assets-rankings.json" ||
+    rel === "officials/assets-rankings-top.json"
+  )
+    return "officials/{index,obligations,assets-rankings,assets-rankings-top}.json are PG-served (officials_rankings_table, 100) — never upload them";
+
   // Judiciary PG load sources, served from Cloud SQL, never the bucket: magistrate_holdings.json
   // → the magistrate_* routes (schema 070); declarations.json → /api/db/judiciary-declarations
   // (judiciary_payloads, schema 109, persons-pg-retirement-v1 T2.6). Their still-served siblings
@@ -322,9 +363,19 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // Under the still-served person/ parent (prerender_slugs.json), so a scoped
   // `bucket:sync:paths -- person` must not carry the 12 MB load source up with it.
   { path: "person/tr_name_fold_people.tsv", isDir: false },
-  { path: "officials/municipal/by_obshtina", isDir: true },
-  { path: "officials/municipal/search_index.json", isDir: false },
-  { path: "officials/derived/company_links.json", isDir: false },
+  // WIDENED 2026-08-21 alongside isExcluded: the whole of these three, not the three
+  // individual artifacts that used to be listed. officials/ keeps ONE live reader
+  // (municipal_contacts/index.json), so the parent cannot be excluded and every scoped
+  // `bucket:sync:paths -- officials` walks straight into these subtrees without the twin.
+  { path: "officials/declarations", isDir: true },
+  { path: "officials/municipal", isDir: true },
+  { path: "officials/derived", isDir: true },
+  { path: "officials/index.json", isDir: false },
+  { path: "officials/obligations.json", isDir: false },
+  { path: "officials/assets-rankings.json", isDir: false },
+  { path: "officials/assets-rankings-top.json", isDir: false },
+  // Under the still-served parliament/ parent (photos/, connections.json, votes/).
+  { path: "parliament/postcode_unresolved.json", isDir: false },
   // Under the still-served judiciary/ parent (caseload.json etc.), so a scoped
   // `bucket:sync:paths -- judiciary` must not re-upload these PG load sources.
   { path: "judiciary/magistrate_holdings.json", isDir: false },
