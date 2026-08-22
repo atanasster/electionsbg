@@ -1,0 +1,904 @@
+# КЗК record fracture, and the local↔cloud person-layer split — v1
+
+**Status:** plan only. **Nothing implemented, nothing applied, no fix written.** Every
+figure below was re-measured on 2026-08-22 against the live databases and the live
+corpus, not carried over from the `/process-watch-report` run that surfaced these.
+
+**Owner surfaces.** Problem 1: `/procurement/appeals`, the `/tenders/:unp` appeals tile,
+the `procurementAppeals` AI tool, and — the one that matters — `upheld_ocids` → the
+contract **Corruption Risk Index**. Problem 2: every `/person/:slug` page, the
+`/person` sitemap shard, `/persons`, `/connections`, and the governance
+„фирми, регистрирани тук" tile.
+
+---
+
+## 0. What the measurement changed about the framing
+
+Both problems turned out to be **differently shaped from the symptom that surfaced
+them**, and in both cases the naive reading points at the wrong repair.
+
+| | the symptom said | the measurement says |
+|---|---|---|
+| **P1** | „~8% of crawled КЗК decisions never reach Postgres" | **0 real acts are missing.** The 429 are not acts — they are FRAGMENTS of acts that are already loaded. The real loss is **363 loaded acts silently stripped of `initiators` / `respondent` / `kzk_case_no`**, which makes them permanently unmatchable. |
+| **P2** | „local is ahead, cloud lags by 6–809 rows" | **Local is the DEGRADED copy.** 1,395 of the 1,422 local-only slugs are `-N` collision artifacts — local split ~1,393 identities that cloud keeps whole. Cloud is not behind; it is cleaner. |
+
+Neither reframing is cosmetic: P1's obvious fix (make the rejection visible) would
+document the wrong rows, and P2's obvious fix (re-resolve cloud to catch it up) would
+make cloud *worse* while churning ~1,400 live `/person` URLs.
+
+---
+
+# Problem 1 — the КЗК record fracture
+
+## 1.1 Evidence
+
+Re-measured 2026-08-22 against `data/procurement/kzk_decisions.json`
+(`generatedAt 2026-08-22T20:20:53.956Z`, 2.99 MB) and both databases.
+
+### The corpus splits three ways, not two
+
+| bucket | n | `kind` | `sourceUrl` | `fetchedAt` |
+|---|---|---|---|---|
+| legacy clean (2026-07-04 interactive crawl, ot=2 only) | **4,402** | absent | absent | absent |
+| crawler-produced clean (2026-08-02 → 2026-08-22) | **377** | 277 определения + 100 решения | present | present |
+| **rejected** | **429** | **absent** | **absent** | **absent** |
+| total on disk | 5,208 | | | |
+
+### Answer to „do the 429 skew toward определения?" — **neither. The question does not apply.**
+
+**All 429 rejected rows carry no `kind`, no `sourceUrl` and no `fetchedAt`** — i.e.
+every one of them predates the `ot` enumeration entirely. The legacy corpus's newest
+act is **2026-06-25** and the определения register (`ot=6`) was first crawled on
+**2026-08-02**, so no rejected row can have come from it. Of the 377 rows the committed
+crawler has produced across both registers, **zero** were rejected.
+
+So the determination arm is **not** losing rows to this defect, and the merits/suspension
+gap is not explained by it. That hypothesis is closed.
+
+### The rejected rows are not acts. They are fragments of acts already in the table.
+
+| field | non-empty on the 429 |
+|---|---|
+| `ddate` | **0 / 429** |
+| `pron` | **0 / 429** |
+| `kzk` | 362 / 429 |
+| `init` | 362 / 429 |
+| `resp` | 362 / 429 |
+
+And, on the other side of the same file:
+
+```
+clean rows with NULL kzk_case_no / initiators / respondent : 363
+rejected rows carrying a kzk / init / resp                 : 362
+```
+
+**362 ≈ 363 is the whole finding.** Each rejected row is the continuation of a clean
+row's record, and it carries away the three label-read fields that record should own.
+The remaining ~67 rejected rows carry nothing — they are second-order fragments (a
+record whose ruling text quotes *two* decision numbers).
+
+The year profiles corroborate it. A fragment's `no` embeds the **buyer's** decision date,
+which typically precedes the КЗК act by months, so a modest shift toward the earlier year
+is exactly what should be seen:
+
+| year | rejected rows (by embedded date) | clean rows missing `kzk` (by act date) |
+|---|---|---|
+| 2018 | 2 | — |
+| 2019 | 33 | — |
+| 2020 | 117 | 107 |
+| 2021 | 52 | 65 |
+| 2022 | 58 | 42 |
+| 2023 | 71 | 54 |
+| 2024 | 69 | 60 |
+| 2025 | 26 | 24 |
+| 2026 | 1 | 11 |
+
+### Both databases are in exact parity, and the 2,098 are intact
+
+| | local :5433 | cloud :5434 |
+|---|---|---|
+| `kzk_decisions` | 4,779 | 4,779 |
+| `max(decision_date)` | 2026-08-20 | 2026-08-20 |
+| `kind` решения / определения / NULL | 100 / 277 / 4,402 | 100 / 277 / 4,402 |
+| `kzk_case_no IS NULL` | **363** | **363** |
+| `kzk_appeals` | 7,998 | 7,998 |
+| **`outcome IS NOT NULL AND decision_act_no IS NULL`** | **2,098** ✅ | **2,098** ✅ |
+| `decision_act_no IS NOT NULL` | 987 | 987 |
+| `outcome IS NOT NULL` | 3,078 | 3,078 |
+| `suspension IS NOT NULL` | 0 | 0 |
+
+The hard constraint holds on both sides. `suspension` is fully NULL on both, so the
+`kzk_unfreeze_suspension.ts` one-off has already run everywhere and every displayed
+suspension now rides `kzk_effective_suspension(NULL, status)`.
+
+`data/procurement/derived/kzk_baselines.json` is `{outcomes: 3078, matched: 2920,
+updatedAt: 2026-08-21}` and agrees with the live table.
+
+## 1.2 Root cause — proven, not inferred
+
+`DECISION_RECORD_RE` (`scripts/procurement/kzk_decisions_store.ts:77`) is
+
+```
+/^[^\S\n]*(?:\d+[^\S\n]+)?(?:Решение|Определение|Акт)[^\S\n]*№[^\S\n]*/gm
+```
+
+It is **line-anchored** (`^` with `m`), which is why the existing test
+„does not fracture a record on 'акт' inside a field value" passes: an *inline*
+„акт № D123" does not match. But the boundary asks only for the WORD, never for what
+follows it — and КЗК's `Произнасяне` routinely **quotes the buyer's own decision
+number using the identical words**:
+
+> „ОТМЕНЯ КАТО НЕЗАКОНОСЪОБРАЗНО **Решение № F780424/02.12.2025 г.** на директора на
+> Регионалния военноисторически музей – Плевен…"
+
+Wherever the rendering puts a line break before that quotation, the record fractures.
+
+**Reproduced against the CURRENT committed parser** (not the legacy producer) —
+`parseDecisionsText` on one synthetic record whose ruling text wraps before the quote:
+
+```
+records parsed: 2
+  {"no":"АКТ-100-01.02.2026", "ddate":"2026-02-01",
+   "pron":"отменя незаконосъобразно решение(ОТМЕНЯ КАТО НЕЗАКОНОСЪОБРАЗНО",
+   "kzk":null, "init":null, "resp":null}                      ← the real act, GUTTED
+  {"no":"РД-25/10.01.2026 г. на кмета на община Х) - \"ФИРМА\" ЕООД;",
+   "pron":null, "kzk":"КЗК/999/2026", "init":"\"ФИРМА\" ЕООД", "resp":"ОБЩИНА Х"}
+                                                              ← the fragment, holding
+                                                                the parent's three fields
+clean: 1  rejected: 1  ["act number not \"АКТ-<n>-<DD.MM.YYYY>\" (column shift?)"]
+```
+
+That is the damage signature exactly: the parent keeps `no` / `ddate` / a truncated
+`pron` and loses its three label-read fields to the fragment, and the fragment is
+rejected with the message the loader prints.
+
+The label ORDER is what decides which side loses what — the register renders
+`header → Дата → Произнасяне → Номер на производството пред КЗК → Инициатор →
+Ответник`, so a split inside `Произнасяне` leaves the date with the parent and puts
+all three trailing labels in the fragment's chunk, where `afterLabel` happily finds them.
+
+### Is the live crawler affected today? Not currently — and that is luck, not design
+
+The register's `page.locator("body").innerText()` renders `Произнасяне` on **one
+line**: crawled `pron` runs to 1,860 characters and 3 of the 377 crawled rows contain
+an inline „Решение №" without fracturing. So the committed crawler has produced 0
+rejected rows and would keep doing so **for as long as the rendering does not wrap**.
+
+The legacy producer's exact rendering is not recoverable (it is gone), but its output
+is consistent with the `</td>`→newline style render that
+`DECISION_RECORD_RE`'s own header comment already warns about — the one that
+„splits the row into one field per line". The parser is one rendering change away from
+reproducing 8.9% damage on a live crawl, and the rate ceiling (15%) would not stop it.
+
+### Two secondary findings from the same measurement
+
+- **Legacy `pron` is truncated at exactly 160 characters** — 2,765 of 4,402 rows sit
+  at the cap. `classifyOutcome` reads that field. **Measured harmless so far:** on the
+  147 crawled rows whose `pron` exceeds 160 characters, truncating to 160 changed the
+  classification **0 times** (КЗК prints the most significant ruling first in practice).
+  Small sample; worth stating, not worth acting on alone.
+- `mergeWrite` is a UNION keyed on `no` and refuses to shrink. **A re-crawl therefore
+  cannot retire the 429** — a corrected re-read produces the parent under its own act
+  number and never touches the fragment's key. The 429 persist in the JSON for ever,
+  and the loader re-prints the warning on every run, unless something explicitly
+  purges them.
+
+## 1.3 The actual harm, quantified
+
+Not „429 acts missing" — **363 acts loaded and unmatchable**.
+
+`kzk_match.ts` joins on `complainant | respondent` + year window. A decision with NULL
+`initiators` and NULL `respondent` matches **nothing, by construction, for ever**. Of
+those 363:
+
+| classification of the (truncated) `pron` | n |
+|---|---|
+| **уважена** (uphold — feeds `upheld_ocids` → Corruption Risk Index) | **125** |
+| отхвърлена | 226 |
+| прекратена | 1 |
+| null (says nothing about the merits) | 11 |
+
+Distribution by act year (merits-eligible rows only):
+
+| year | unmatchable | total | share |
+|---|---|---|---|
+| 2020 | 107 | 619 | 17.3% |
+| 2021 | 65 | 685 | 9.5% |
+| 2022 | 42 | 538 | 7.8% |
+| 2023 | 54 | 701 | 7.7% |
+| 2024 | 60 | 795 | 7.5% |
+| 2025 | 24 | 733 | 3.3% |
+| 2026 | 11 | 431 | 2.6% |
+
+Against current outcome coverage (local, by complaint year):
+
+| year | complaints | with outcome | % |
+|---|---|---|---|
+| 2020 | 1,034 | 417 | 40.3 |
+| 2021 | 1,048 | 444 | 42.4 |
+| 2022 | 966 | 372 | 38.5 |
+| 2023 | 1,344 | 512 | 38.1 |
+| 2024 | 1,351 | 603 | 44.6 |
+| 2025 | 1,371 | 508 | 37.1 |
+| 2026 | 884 | 222 | 25.1 |
+
+**125 upheld procedures are invisible to the risk index** because the act that upheld
+them lost its party names to a parse fracture. That is the sentence this whole problem
+reduces to, and it is a materially different claim from „8% of rows are not loaded".
+
+Current rejoin baseline (`--dry-run`, read-only, local, 2026-08-22):
+
+```
+matching 4502 decisions against 7998 appeals…
+  matched 2920 appeals (43 appeals claimed by >1 act,
+                        1408 parties with >1 candidate appeal,
+                        1716 decisions matched nothing)
+  writable: 0 new + 984 re-derived; 1936 hand-seeded rows left untouched
+  would write: 617 отхвърлена, 356 уважена, 7 null, 4 прекратена
+  ⚠ 4 hand-seeded row(s) the matcher would classify differently (NOT written)
+```
+
+The 363 sit inside those 1,716.
+
+## 1.4 Options
+
+The prompt offers (a) fix the parser, (b) make the loss visible, (c) both. The
+measurement adds a constraint neither anticipated: **a parser fix repairs nothing
+retroactively.** The corpus is the JSON; only a re-read of the register can recover
+what the fracture ate, and that needs a headed browser and Bulgarian egress.
+
+So the real axis is *parser fix* × *re-crawl* × *purge*, and they are separable.
+
+| | option | what it costs | what it buys | what it leaves |
+|---|---|---|---|---|
+| **A** | **Tighten the boundary regex** — require the token after `№` to be `АКТ-\d+-\d{2}\.\d{2}\.\d{4}` | one regex + tests; blast radius is 5 call sites, none of them serving code | future crawls cannot fracture; the failure mode inverts to LOUD (`no records rendered within 15s`) | the 363 stay gutted, the 429 stay in the JSON |
+| **B** | **Re-crawl `--backfill --full` (ot=2, 2020→2026)** after A | a multi-hour headed crawl on BG egress; blocks on the operator | recovers `init`/`resp`/`kzk` for the 363 **and** un-truncates `pron` on 2,765 legacy rows | the 429 still sit in the JSON (union merge), so the log line persists |
+| **C** | **Purge the 429 from the JSON** (one-off, after B proves recovery) | a small script + a restore point | the loader stops printing a warning that names the wrong rows; `5,208` stops being quoted as a corpus size | nothing — but purging BEFORE B destroys the only surviving copy of those 362 party names |
+| **D** | **Reconstruct offline** — re-attach each fragment's `kzk`/`init`/`resp` to its parent without re-crawling | — | — | **Rejected.** The file is sorted by `byDateDesc`, so original adjacency is destroyed, and there is no shared key: a fragment's `no` is the *continuation* of the parent's `pron`, with no overlap to join on. Any pairing would be a heuristic guess at which named company sued which named buyer. Not implementable soundly. |
+| **E** | **Make the loss visible only** (the prompt's (b) in isolation) | a counter | — | **Insufficient alone.** The visible number would still be 429, which is the count of things that are *not* acts. Reporting it more loudly makes a misleading figure more prominent. |
+
+## 1.5 Recommendation — A, then B, then C, in that order, gated between each
+
+**A is unconditionally worth doing and is the only step that needs no operator, no
+egress and no database.** B is the only step that recovers anything. C is bookkeeping
+and must never precede B.
+
+### A — the boundary fix
+
+Change `DECISION_RECORD_RE` so the header must be followed by an act number:
+
+```
+/^[^\S\n]*(?:\d+[^\S\n]+)?(?:Решение|Определение|Акт)[^\S\n]*№[^\S\n]*(?=АКТ-\d+-\d{2}\.\d{2}\.\d{4})/gm
+```
+
+A lookahead, so the split still consumes only the header and `parseDecisionsText`'s
+`part.split(/[\n\r]/)[0]` still yields the act number unchanged.
+
+Why this discriminator and not another: **every register header carries `АКТ-…`, and
+no quoted buyer decision ever does** — the quoted references measured in the corpus are
+`РД-` (21), `РД15-` (8), `СОА19-` (7), `Р-` (9), `ОП-` (6), `ЗОП-` (2), `F…`, `Ц…`,
+`ТО-…` and bare integers. Not one is `АКТ-`-shaped.
+
+Why the failure direction is right: if КЗК ever changes the act-number format, the
+boundary matches nothing, `waitForRecords` times out and `crawlYear` throws
+`no records rendered within 15s`. That is the loud failure the file already wants —
+against today's regex, the same change would silently fracture every record instead.
+
+Blast radius (grepped, complete): `firstActNo` (store), `parseDecisionsText`,
+`waitForRecords`, `waitForTurn`, `probe` — all in the two КЗК files. **No serving
+code, no route, no migration.** The watch source
+(`scripts/watch/sources/kzk_decisions.ts`) does **not** use this regex; it scrapes
+`/АКТ-\d+-\d{2}\.\d{2}\.\d{4}/g` off the HTML directly, so it is immune and stays an
+independent check.
+
+### The gate that should have existed — and it needs no browser
+
+The watcher already proves the invariant: **the number of records parsed from a page
+must never exceed the number of `АКТ-…` tokens on it.** A fracture is precisely a
+record with no act number of its own. Add it as a pure unit assertion over the
+existing synthetic fixtures plus the one new wrapping fixture, and — cheaply — as a
+`--probe` line, so a live markup change reports it.
+
+That is the mutation check too: with the boundary reverted, the wrapping fixture
+yields 2 records against 1 act number and fails.
+
+### B — the re-crawl
+
+Only after A ships and its tests are green.
+
+### C — the purge
+
+Only after B demonstrably recovers `init`/`resp` on the 363. Needs a decision (§1.8).
+
+## 1.6 Exact command sequence
+
+Every write pins the local database explicitly. `PGPASSFILE` must be set or every
+`:cloud` command fails 28P01.
+
+```bash
+export PGPASSFILE="$PWD/.pgpass"
+export KZK_LOCAL='postgres://postgres:postgres@localhost:5433/electionsbg'
+```
+
+**Step 0 — restore point, before anything.** Non-negotiable: the JSON is gitignored and
+`kzk_decisions` is a `CRITICAL_TABLES` member with no committed generator.
+
+```bash
+npm run db:dump
+cp data/procurement/kzk_decisions.json data/procurement/kzk_decisions.json.pre-fix.bak
+```
+
+**Step 1 — A, offline.** Edit `DECISION_RECORD_RE`, add the wrapping fixture and the
+act-count invariant to `scripts/procurement/kzk_decisions.test.ts`, then:
+
+```bash
+npx vitest run scripts/procurement/kzk_decisions.test.ts scripts/procurement/kzk_decisions_store.test.ts
+npm run lint
+```
+
+Nothing has changed on disk or in any database at this point. **A parser fix ships no
+data** — same rule `CLAUDE.md` states for `kzk_match.ts`.
+
+**Step 2 — probe the register before committing to a crawl.** Needs headed browser +
+BG egress. Reports what a parser can see per `ot` variant and whether page 1 survives
+validation:
+
+```bash
+npm run kzk:decisions -- --probe
+```
+
+Read three things: `parsed N → clean C, rejected R` per variant (R must be 0), the
+label-present lines, and `oldest reachable act` (this decides whether `--backfill`
+can reach 2020 at all).
+
+**Step 3 — one year, dry, as the decisive experiment.** 2020 is the right year: it
+holds 107 of the 363 gutted rows, the highest concentration in the corpus.
+
+```bash
+npm run kzk:decisions -- --year 2020 --full --dry-run
+```
+
+Expect ~619+ acts, **0 rejected**, and the run's own completeness assertion against the
+register's „Намерени са общо N" header. A non-zero rejection count here means the fix is
+incomplete — stop and re-probe rather than proceeding.
+
+**Step 4 — the backfill.** Multi-hour, headed, BG egress, both registers, per-year
+persistence (a slow postback does not discard earlier years):
+
+```bash
+npm run kzk:decisions -- --backfill --apply
+```
+
+**Step 5 — measure the recovery before publishing anything.** Read-only:
+
+```bash
+node -e "
+const d=JSON.parse(require('fs').readFileSync('data/procurement/kzk_decisions.json','utf8'));
+const ACT=/^АКТ-\d+-\d{2}\.\d{2}\.\d{4}\$/;
+const g=d.decisions.filter(x=>ACT.test((x.no||'').trim()));
+const bad=d.decisions.length-g.length;
+console.log('clean',g.length,'rejected',bad);
+console.log('clean rows still missing init+resp:',g.filter(x=>!x.init&&!x.resp).length,'(was 363)');
+console.log('pron still capped at 160:',g.filter(x=>String(x.pron||'').length===160).length,'(was 2765)');
+"
+```
+
+**Success is `still missing init+resp` falling well below 363.** If it does not move,
+the re-crawl did not recover anything and Steps 6–8 must not run.
+
+**Step 6 — load and rejoin LOCAL, dry first.**
+
+```bash
+DATABASE_URL="$KZK_LOCAL" npm run db:load:kzk-decisions:pg
+DATABASE_URL="$KZK_LOCAL" npm run kzk:rejoin -- --dry-run     # ← compare against §1.3
+```
+
+The dry run is the comparison the prompt asks for. Against the recorded baseline:
+
+| | baseline (2026-08-22) | after |
+|---|---|---|
+| decisions matched into 1:1 | 2,920 | must be **≥ 2,920** |
+| appeals claimed by >1 act | 43 | must not rise materially |
+| parties with >1 candidate appeal | 1,408 | must not rise materially |
+| decisions matching nothing | 1,716 | expected to FALL |
+| hand-seeded rows left untouched | 1,936 | must not fall |
+| hand-seeded conflicts listed | 4 | read every new one by hand |
+
+**A rise in `ambiguous` is the failure mode to watch for**, not a fall in matches.
+Restoring 363 sets of party names introduces 363 new claimants, and an act that now
+claims an appeal another act already claims makes that appeal ambiguous — which
+*removes* an outcome. If `ambiguous` rises by more than a handful, stop: the net effect
+may be negative and the ratchet will (correctly) refuse the apply.
+
+**Step 7 — apply locally, then verify the constraint.**
+
+```bash
+DATABASE_URL="$KZK_LOCAL" npm run kzk:rejoin -- --apply
+psql "$KZK_LOCAL" -At -c \
+  "SELECT count(*) FROM kzk_appeals WHERE outcome IS NOT NULL AND decision_act_no IS NULL;"
+#  MUST print exactly 2098
+npm run test:data 2>&1 | grep -i kzk
+```
+
+**Step 8 — publish, in this order, nothing automatic.**
+
+```bash
+npm run db:load:kzk-decisions:pg:cloud
+npm run kzk:rejoin:cloud -- --apply
+psql "postgres://postgres@127.0.0.1:5434/electionsbg" -At -c \
+  "SELECT count(*) FROM kzk_appeals WHERE outcome IS NOT NULL AND decision_act_no IS NULL;"
+#  MUST print exactly 2098
+```
+
+The rejoin refreshes `upheld_ocids` through `kzk_dependents.ts`, which is what carries
+the recovered upholds into the risk index. Skipping it leaves prod grading recently
+appealed procedures cleaner than they are.
+
+**Step 9 — commit the ratchet upward only.** `recordBaselines` writes upward by
+construction; commit `data/procurement/derived/kzk_baselines.json` when the rejoin says
+it moved. **Never lower it.** If the new run scores below 3,078 / 2,920, that is Gate C
+or D failing and the answer is to revert, not to edit the file.
+
+## 1.7 Gating and rollback
+
+**Gates.**
+
+| gate | where | what it catches |
+|---|---|---|
+| act-count invariant (new) | `kzk_decisions.test.ts` | records parsed > `АКТ-…` tokens on the page — i.e. any fracture, on any rendering, offline |
+| wrapping fixture (new) | `kzk_decisions.test.ts` | this specific defect; mutation-checked by reverting the regex |
+| `validateDecisions` rate ceiling (15%) | crawler + loader | a rendering change that fractures *most* records |
+| shrink guard (95%) | `load_kzk_decisions_pg.ts` | a short or year-scoped JSON reaching the anti-join DELETE |
+| `HAND_SEEDED_FLOOR = 2098` | `kzk_baselines.ts` | the irreplaceable rows, in both directions |
+| Gates C / D (ratchet) | `kzk_baselines.json` | a matcher/parser change that loses coverage |
+| `kzk_decisions.data.test.ts` | `test:data` | a malformed act reaching the table |
+
+**Rollback.**
+
+- *After Step 1 (A only):* `git checkout` the two files. No data touched.
+- *After Step 4 (backfill written):* restore
+  `data/procurement/kzk_decisions.json.pre-fix.bak`, re-run
+  `db:load:kzk-decisions:pg`. The loader's shrink guard will refuse if the restore is
+  short — pass `--allow-shrink` **only** after confirming the row delta against the
+  backup by hand.
+- *After Step 7 (local rejoin applied):* the rejoin is idempotent and provenance-safe;
+  re-running it against a restored `kzk_decisions` re-derives the previous outcomes.
+  Rows with `decision_act_no IS NOT NULL` are re-derivable by design; the 2,098 were
+  never written.
+- *After Step 8 (cloud applied):* same, against `:5434`. If the cloud state is worse
+  than local and cannot be re-derived, `db:restore:cloud` from the Step-0 dump — but
+  note that dump is of LOCAL, so it is a restore of the corpus, not of prod.
+
+**One irreversible step exists and it is Step 4**: `--backfill --apply` overwrites the
+only copy of the corpus (union-merged, so it cannot lose acts — but it can overwrite
+field VALUES via `mergeDecisionInto`, which applies any non-null incoming value). Step 0's
+backup is what makes it reversible.
+
+## 1.8 Needs a human decision — do not decide these silently
+
+1. **Whether to purge the 429 (option C), and when.** They are inert (always rejected,
+   never loaded) but they hold the *only surviving copy* of 362 (complainant, respondent,
+   case-number) triples for acts that the corpus otherwise cannot name. Purging before
+   the backfill proves recovery destroys that. Purging after is safe and stops the loader
+   printing a misleading warning for ever. **Recommendation: purge only after Step 5
+   shows recovery, and keep the backup.**
+2. **Whether to run the backfill at all.** It is a multi-hour headed crawl of a
+   rate-limited public register on BG egress, and the payoff is bounded: at most 363
+   decisions become matchable, of which 125 are upholds, and an unknown fraction will be
+   lost again to newly-created ambiguity. **My read: worth it, because 125 missing
+   upholds are a signal defect in the risk index rather than a coverage rounding error —
+   but the decision is the operator's, and Step 3 (one year, dry) is the cheap way to
+   size it before committing.**
+3. **The 4 hand-seeded conflicts.** Three say hand=`отхвърлена` vs derived=`уважена`.
+   That is the direction that matters (an uphold recorded as a rejection), and the
+   provenance rule correctly refuses to write over them. They deserve a manual look at
+   the register — separately from this plan.
+4. **Whether the 160-char `pron` truncation is worth its own remediation.** Measured
+   harmless on the 147 rows testable today. The backfill fixes it for free as a side
+   effect; nothing else should be built for it.
+
+---
+
+# Problem 2 — local and Cloud SQL person layers have drifted
+
+## 2.1 Evidence
+
+Re-measured 2026-08-22, local :5433 vs Cloud SQL through the proxy on :5434.
+
+### The source corpus is byte-identical; the derived layer is not
+
+| table | local | cloud | Δ |
+|---|---|---|---|
+| `tr_companies` | 1,020,707 | 1,020,707 | **0** |
+| `tr_officers` | 872,202 | 872,202 | **0** |
+| `tr_person_roles` | 1,340,793 | 1,340,793 | **0** |
+| `tr_name_fold_people` | 456,398 | 456,398 | **0** |
+| `declaration` | 61,743 | 61,743 | **0** (and `person_id` 100% populated on both) |
+| `council_vote` with `person_id` | 43,261 | 43,261 | **0** |
+| `person` | 133,727 | 133,721 | +6 local |
+| `person_role` | 323,472 | 323,445 | +27 local |
+| `person_role` @ `source='tr'` | 192,398 | 192,369 | +29 local |
+| `person_slug_lock` | 144,274 | 143,521 | +753 local |
+| `person_slug_retired` | 25,719 | 24,910 | +809 local |
+| `company_politicians` | 982 | 973 | +9 local |
+| `person_browse_table` | 136,877 | 136,875 | +2 local |
+| `graph_edge` | 200,498 | 200,463 | +35 local |
+| `graph_person_node` | 83,301 | **83,304** | **−3 local** |
+
+`graph_person_node` being *higher* on cloud already rules out „local is simply ahead".
+
+### The divergence is collision splits, and local has more of them
+
+| | local | cloud |
+|---|---|---|
+| public-figure slugs (`is_public_figure AND slug IS NOT NULL`) | **63,782** | **63,782** |
+| shared | 62,366 | 62,366 |
+| present on this side only | 1,422 | 1,416 |
+| …of which `-N` collision-suffixed | **1,395 (98.1%)** | **2 (0.1%)** |
+| all `person.slug ~ '-[0-9]+$'` | **9,103** | **7,710** |
+
+The two databases hold **exactly the same number of public figures** and disagree about
+~1,420 of their identities. Local carries **1,393 more `-N` collision slugs** than cloud
+— which accounts for the whole gap, including the `person`, `person_slug_lock` and
+`person_slug_retired` deltas.
+
+A worked example (the first local-only slug alphabetically):
+
+```
+local  :5433   abidin-mehmed-hadzhimehmed-fe44ee    person_id 11   candidate
+               abidin-mehmed-hadzhimehmed-fe44ee-2  person_id 12   official_muni
+cloud  :5434   abidin-mehmed-hadzhimehmed-fe44ee    person_id 12   official_muni
+```
+
+**One human. Local publishes two profiles and splits their candidacy from their office;
+cloud publishes one.** That is the defect the collision-fold work exists to remove — so
+**local is the degraded copy**, and the „+753 / +809 local" reading in the symptom
+inverts what is actually true.
+
+### The mechanism is a ratchet, which is why re-resolving cannot converge it
+
+`person_slug_lock` accumulates per database and is never truncated. A mention whose
+preferred slug is already locked to a different person takes `-2`. So every resolve adds
+locks, more locks mint more `-N` slugs, and the two databases **diverge monotonically**.
+Local has been re-resolved more times (144,274 locks vs 143,521) and has correspondingly
+more splits. Nothing in the resolver reads the other database's lock table, so no number
+of re-resolves on either side can bring them together.
+
+### The manifest is correct, and the drift is *not* purely latent any more
+
+`data/person/prerender_slugs.json` (committed, 8.28 MB, mtime 2026-08-14): 63,782
+entries, `prerender: true` on **25,358**, `indexable: true` on **44,655**, and
+`prerender ⊆ indexable` (0 entries prerendered but not indexable).
+
+| check | result |
+|---|---|
+| manifest slugs absent from **CLOUD** `person` | **0** |
+| manifest slugs absent from **LOCAL** `person` | **1,416** |
+| …of which are in the **prerender** set | **834** |
+| …of which are `indexable` | 846 |
+| manifest `indexable` vs **CLOUD** live floor | **0 disagreements / 63,782** |
+| manifest `indexable` vs **LOCAL** live floor | **236 disagreements / 62,366 shared** |
+| …of the 236, in the **prerender** set | **181** |
+
+So: **the manifest was correctly minted from the serving database and is still exactly
+current against it.** Zero dangling `<loc>`s, zero soft-404 prerenders. `isServingDatabase()`
+did its job.
+
+But `emit_prerender_slugs.ts`'s own header says the exposure was bounded because
+„that ~5,000-entry ex-officials set was byte-identical between the local- and
+cloud-minted manifests (0 churn)". **That is superseded.** The prerender set has widened
+from ~5,000 to **25,358**, and **834 of its slugs (3.3%) now exist only on cloud**, with
+**181 more disagreeing on `indexable`**. The header predicted precisely this
+(„It stops being latent the moment the prerender set widens") — it has widened.
+
+### Answers to the four questions
+
+**1. Is the drift still latent?** **Yes for what is served; no for the safety margin.**
+Nothing reads `indexable` at runtime — grepped across `src/`, `scripts/`, `functions/`
+and `ai/`, the only readers are `emit_prerender_slugs.ts` itself and its tests. Both
+manifest consumers filter on `prerender` (`scripts/sitemap/index.ts:478`,
+`if (!e.prerender) continue;`, and `buildPersonRoutes`). And the manifest resolves 100%
+on cloud. So no wrong page is built and no wrong `<loc>` ships today.
+
+What has changed is that the single guard now stands between correct output and **834
+prerendered soft-404s plus 834 dead sitemap entries**, where the header measured 0.
+
+**And the „content disagreement" question CLAUDE.md left open is now answered: it is a
+standing split, not a temporal artifact.** The 236 flips are live *today* between two
+databases whose `declaration` corpus is identical (61,743 rows, fully resolved, both
+sides) — so the difference is entirely in `person_role`, i.e. in which identity the roles
+hang off. 212 of 236 are local-false / cloud-true: on local the role moved to the `-N`
+twin and the bare slug was left holding only a candidacy. That is the collision split
+expressing itself through the content floor, not an independent content drift.
+
+**2. Cheapest ongoing detectability.** See §2.3 — a read-only parity probe. Note the
+existing machinery cannot do it: `sync_cloud.ts`'s `parityShortfalls` runs only during a
+restore and uses a **90% floor**, which a 0.02%–3.3% drift never trips.
+
+**3. When is a cloud re-resolve justified?** See §2.4 — essentially never for *this*.
+
+**4. Is `company_politicians` a TR-vintage lag?** **No.** The diff:
+
+```
+shared 968 · local-only 14 · cloud-only 5
+```
+
+and every differing row's `ref` is a person-layer key (`/officials/<slug>`,
+`/candidate/mp-<n>`). `load_tr_pg.ts` builds both arms **from the gated person layer**
+(`person_role` ⨝ contracts), and the TR corpus is byte-identical on both sides — so a
+`db:load:tr:pg:cloud` would rebuild cloud's copy from the *same* TR rows against *cloud's*
+person layer and produce cloud's answer again. **The 9-row gap is downstream of the slug
+divergence and will not close.** Run `db:load:tr:pg:cloud` when the TR corpus moves, for
+its own reasons — not to fix this number.
+
+## 2.2 Root cause
+
+`person_slug_lock` is resolve-run **history**, not an input, and it is append-only. Two
+databases re-resolved a different number of times hand the same people different slugs,
+and the difference compounds. Cloud has been re-resolved fewer times, so it carries fewer
+locks, fewer forced collisions and fewer split identities.
+
+There is no bug to fix here. The design consequence — that the derived person layer is a
+**per-database artifact** — is already documented in `CLAUDE.md` and in the emitter's
+header. What is missing is (i) an ongoing detector, and (ii) an updated record, since the
+committed prose still says the exposure is confined to a 5,000-entry set that no longer
+exists at that size.
+
+## 2.3 Recommendation — do not converge; detect, and correct the record
+
+### R1 — a read-only parity probe (the answer to question 2)
+
+`scripts/db/person_parity.ts`, run against both databases, printing one table and exiting
+non-zero on a declared threshold breach. Everything it needs is measurable in seconds and
+every query in it appears in §2.1 above:
+
+| signal | today | why it is the right signal |
+|---|---|---|
+| public-figure slug count, both sides | 63,782 / 63,782 | a divergence here is population drift, not identity churn — a different, worse class |
+| shared / local-only / cloud-only slugs | 62,366 / 1,422 / 1,416 | the headline drift number |
+| `-N` share of the one-sided sets | 1,395 / 2 | separates collision churn (benign-ish) from real identity divergence (not) |
+| **manifest slugs absent from the SERVING db** | **0** | **the only one that is a live defect.** Non-zero = shipped soft-404s |
+| manifest `indexable` vs serving-db live floor | 0 | proves the manifest has not gone stale against the database that serves it |
+| `person_slug_retired` health, both sides | 0 / 0 / 0 / 0 | re-verified: no null targets, no missing targets, no chains, no retired-and-live |
+
+**The threshold that should fail the build is the fourth row, and only it.** The others
+are reported, not asserted — they will drift for ever by design, and an assertion on them
+would be a gate nobody can keep green.
+
+Cheapest placement, in increasing order of cost:
+
+1. **A `test:data` gate is the wrong home** — it pins the local database, so it is
+   structurally blind to cloud (the same trap `graph.data.test.ts` documents:
+   `pinLocalDatabase()` makes a cloud comparison return local's numbers twice).
+2. **A step in `process-watch-report`'s person chain** — the natural home. It already
+   opens the proxy and already runs the `:cloud` loaders; the probe is one read-only
+   command at the end.
+3. **A standalone `npm run person:parity`** the operator can run any time. This is what
+   R1 should ship as, with (2) calling it.
+
+### R2 — correct the committed record
+
+`scripts/person/emit_prerender_slugs.ts`'s „SCOPE, HONESTLY" block and the matching
+`CLAUDE.md` passage both rest on measurements that are now stale in the unsafe direction
+(„~5,000-entry set, 0 churn" → 25,358-entry set, 834 churn; „whether that was purely
+temporal is NOT established" → established, standing, and mechanistically explained).
+Update both with the 2026-08-22 figures. This is documentation, but it is the half that
+decides whether the next person reads the guard as belt-and-braces or as load-bearing.
+
+### R3 — leave the drift alone
+
+Nothing else. Local is the degraded copy and it is not what serves; cloud is
+self-consistent, and the manifest that binds them is correct.
+
+**One thing that IS worth doing when convenient**, and is unrelated to parity: local's
+9,103 `-N` slugs are 1,393 more split identities than the corpus warrants, and they
+degrade local `/persons` and `/connections` for development. The cheap repair is a local
+`person_slug_lock` truncation **followed by a full local re-resolve and the whole
+repair chain** (`CLAUDE.md`, „A LOCAL `db:resolve:persons` is never one command"). That
+is a local-hygiene task, not a parity task, and it will make the two databases *more*
+different before it makes them cleaner. Out of scope here; flagged as a decision (§2.6).
+
+## 2.4 When a cloud re-resolve IS justified (question 3)
+
+**Never for slug parity.** A cloud re-resolve re-mints against cloud's own accumulated
+lock table, so it cannot import local's identity decisions, converges nothing, and costs:
+
+- ~29–37 min of resolve (measured on the *old* `db-g1-small`; not re-measured on
+  `db-perf-optimized-N-2`, so treat as an upper bound);
+- the mandatory repair chain after it — `db:load:declarations:pg:cloud` phase 1 and
+  phase 2, `db:load:person-elections:pg:cloud`, `db:load:official-candidate-links:pg:cloud`,
+  `db:load:council:pg:cloud`, `db:load:persons-browse:pg:cloud`,
+  `db:load:person-search:pg:cloud`, `db:load:graph:pg:cloud`,
+  `db:load:agri-hub-stats:pg:cloud`, `db:load:tr-company-place:pg:cloud`;
+- an **~8-minute window** in which `/persons`, `/officials/assets`, `/mp-assets` and
+  `/declarations/crypto` serve **500** (090's `DROP MATERIALIZED VIEW … CASCADE`, and a
+  DbDataTable resource has no `missingMigration` degrade);
+- churn on ~1,400 live `/person` URLs, each needing a `person_slug_retired` row that
+  `collapseSlugRedirectChains()` then has to flatten.
+
+**The triggers that DO justify one**, all of them about content rather than parity:
+
+| trigger | why |
+|---|---|
+| a new upstream identity source lands on cloud (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `ofac_sanctions`, `comdos_ds`, `regulator_rosters`) | the resolve is the only thing that turns it into `person` / `person_role` |
+| `db:load:magistrates:pg:cloud` or `db:load:judicial-bodies:pg:cloud` ran | the resolver reads `judicial_body_alias`; a stale one publishes ~2,700 magistrate roles with no court |
+| the officials roster re-slugs | `declaration.subject_ref` and the office-period `date_basis` both depend on it |
+| a resolver **rule** change (fold, bridge gate, `date_basis`) | a rule change ships no data by itself |
+| a resolve on cloud is observed to have **aborted mid-chain** | 090's CASCADE has already committed; the survivor set dates the failure — see `collateral_drop.ts` |
+
+And one hard precondition regardless: **if a cloud re-resolve is run, `npm run
+person:slugs:cloud` MUST follow it**, or the committed manifest names slugs prod no
+longer serves. That is the step that turns a latent divergence into 834+ live soft-404s.
+
+## 2.5 Commands
+
+**The probe (read-only, safe any time):**
+
+```bash
+export PGPASSFILE="$PWD/.pgpass"
+npm run db:proxy:cloud          # if :5434 is not already up — check with: nc -z 127.0.0.1 5434
+npm run person:parity           # R1, to be built
+```
+
+Until R1 exists, the equivalent by hand — the exact queries behind §2.1:
+
+```bash
+export PGPASSFILE="$PWD/.pgpass"
+for P in 5433 5434; do
+  psql "postgres://postgres@127.0.0.1:$P/electionsbg" -At -F$'\t' \
+    -c "SELECT slug FROM person WHERE is_public_figure AND slug IS NOT NULL ORDER BY slug COLLATE \"C\"" \
+    > /tmp/person_$P.slugs
+done
+node -e "
+const fs=require('fs');
+const rd=f=>new Set(fs.readFileSync(f,'utf8').split('\n').filter(Boolean));
+const L=rd('/tmp/person_5433.slugs'), C=rd('/tmp/person_5434.slugs');
+const man=Object.values(JSON.parse(fs.readFileSync('data/person/prerender_slugs.json','utf8')));
+const onlyL=[...L].filter(s=>!C.has(s)), onlyC=[...C].filter(s=>!L.has(s));
+const isN=s=>/-[0-9]+\$/.test(s);
+console.log('public-figure slugs  local',L.size,' cloud',C.size);
+console.log('only local',onlyL.length,'(-N:',onlyL.filter(isN).length,')  only cloud',onlyC.length,'(-N:',onlyC.filter(isN).length,')');
+const miss=man.filter(e=>!C.has(e.slug));
+console.log('MANIFEST slugs absent from the SERVING db:',miss.length,'(prerender:',miss.filter(e=>e.prerender).length,') ← must be 0');
+"
+```
+
+**No write commands are proposed for Problem 2.** That is the recommendation.
+
+## 2.6 Needs a human decision
+
+1. **Whether to repair local's 1,393 excess collision splits.** It costs a local
+   `person_slug_lock` truncation + a full re-resolve + the nine-step repair chain, and it
+   will *widen* the measured slug gap before it narrows anything. It buys a local
+   `/persons` and `/connections` that match what prod shows. **Recommendation: yes, but
+   as its own task, and only when a local re-resolve is happening anyway.**
+2. **Where the parity probe should fail vs merely report.** My proposal is: fail on
+   „manifest slugs absent from the serving database > 0" and report everything else. A
+   stricter threshold (e.g. „slug divergence < 2%") would be green today at 2.2% and is
+   one resolve away from being permanently red.
+3. **Whether `person:parity` belongs in `process-watch-report`'s person chain** (adds one
+   read-only step to every person publish) or stays operator-invoked.
+
+---
+
+# 3. Lower-priority items from the same run
+
+## 3.1 `db:load:nzok-hospital:pg` — 25 skipped months, and a cloud gap nobody mentioned
+
+**The cloud gap is the newer finding and is not in the loader's own TODO:**
+
+| | local :5433 | cloud :5434 |
+|---|---|---|
+| `nzok_hospital_payments` rows | **19,109** | **18,679** |
+| distinct periods | **43** | **42** |
+| period range | 2023-01 … **2026-07** | 2023-01 … **2026-06** |
+
+`db:load:nzok-hospital:pg:cloud` **is** wired into `update-nzok` and into
+`process-watch-report`'s `nzok_hospital_bmp` row, so this is not a coverage hole in the
+skill graph — the `:cloud` half simply did not run in this session. **One command
+closes it**, and it should be run before anything else here is scoped:
+
+```bash
+export PGPASSFILE="$PWD/.pgpass"
+npm run db:load:nzok-hospital:pg:cloud
+npm run db:load:nzok-hospital-map:pg:cloud   # facility universe may have moved
+```
+
+**The skipped months are better characterised per (year, stream) than as a flat „25".**
+The loader attempts `YEARS = [2026, 2025, 2024, 2023]` × 12 × 3 streams; what actually
+landed locally:
+
+| year | stream | months present | missing |
+|---|---|---|---|
+| 2026 | bmp | 6 | 01 |
+| 2026 | **devices** | **1** | **01, 03, 04, 05, 06, 07** |
+| 2026 | drugs | 7 | — |
+| 2025 | bmp | 11 | 01 |
+| 2025 | **devices** | 8 | 01, 02, 03, 06 |
+| 2025 | drugs | 12 | — |
+| 2024 | bmp | 12 | — |
+| 2024 | **devices** | 7 | 01, 09, 10, 11, 12 |
+| 2024 | drugs | 11 | 06 |
+| 2023 | bmp | 9 | 01, 02, 03 |
+| 2023 | **devices** | 9 | 01, 06, 07 |
+| 2023 | drugs | 10 | 06, 07 |
+
+**`devices` is the whole story** — 2026 holds one month of seven. The `bmp` and `drugs`
+streams are near-complete apart from the documented early-year 3-column layout
+(2023 Jan–Mar, and January in each of 2025/2026).
+
+Scoping note, and it is the reason this is low priority rather than ignorable: a
+hospital's НЗОК income is the **sum** of the three streams, so a facility whose
+`devices` months are missing is *understated*, not absent — the same silent-partial shape
+`nzok_casemix_expected_vs_actual()`'s `partial-payment-year` guard exists for. Worth
+checking whether that guard's `fullYearMonths` denominator is derived per stream or
+across all three before treating the case-mix ratios from 2026 as sound. **Not
+investigated here.**
+
+The remediation is per-era parser work in `scripts/nzok/parse_hospital_payments.ts`,
+tracked in `scripts/nzok/README.md`. The loader's behaviour is correct as it stands:
+`NhifNetworkError` is skippable only under `--tolerate-offline`, a reconciliation failure
+skips the month rather than shipping wrong numbers, and both are reported.
+
+## 3.2 `data.egov.bg` 403s this host — Tier B of the awarder geo map
+
+Confirmed 2026-08-22:
+
+```
+https://data.egov.bg/api/listDatasets  → 403
+https://data.egov.bg/                  → 403
+```
+
+This is the egress-IP block already recorded in
+[[reference_egov_api_endpoints]] / [[reference_egov_operator_midt]], not a new outage.
+
+`scripts/procurement/awarder_geo_map.ts` handles it correctly by design: the МОН school
+register (Tier B) is fetched defensively, `down()` returns an empty index on any failure
+with an explicit `Tier B unavailable — МОН register fetch failed: …` line, and the merge
+**carries prior entries forward** (92 carried, 0 dropped on this run) with the staleness
+of a down tier's carried entries reported.
+
+**No action proposed.** What is worth writing down, because it is invisible from a green
+run: **Tier B is an intermittently-unavailable geo tier whose availability depends on the
+egress IP of whichever machine runs the ingest**, so its contribution to
+`awarder_seats` is not reproducible across machines. Two consequences to keep in mind
+rather than fix:
+
+- A machine that has *never* had egov access has no carried-forward entries to inherit,
+  so on a fresh clone Tier B contributes zero rather than 92.
+- `db:load:awarder-seats:pg:cloud` refreshes 119 + 123 + 124, so a run with Tier B down
+  publishes the carried-forward attribution — correct, but one vintage old for any
+  school whose seat changed.
+
+If this becomes a real constraint, the durable fix is the same as for every other
+egov-dependent ingest: commit the resolved crosswalk rather than the fetch, so the tier
+is reproducible offline. Out of scope.
+
+---
+
+# 4. Decisions this plan deliberately does not take
+
+| # | decision | §  |
+|---|---|---|
+| 1 | Whether to purge the 429 fragments from the corpus, and when | 1.8 |
+| 2 | Whether the multi-hour `--backfill` re-crawl is worth its cost | 1.8 |
+| 3 | What to do about the 4 hand-seeded outcome conflicts | 1.8 |
+| 4 | Whether to repair local's 1,393 excess collision splits | 2.6 |
+| 5 | Where the person-parity probe fails vs merely reports | 2.6 |
+| 6 | Whether `person:parity` joins `process-watch-report`'s person chain | 2.6 |
+| 7 | Whether the `nzok_casemix` `partial-payment-year` guard is stream-aware | 3.1 |
+
+# 5. What was NOT done in this session
+
+- **No fix applied.** No source file edited, no migration applied, no loader run, no
+  `--apply` anywhere. The only KZK command executed was `kzk:rejoin -- --dry-run`,
+  which is read-only by construction (it refuses to run without `decision_act_no`
+  present rather than applying 131).
+- **No crawl.** `--probe` was not run: it needs a headed browser and Bulgarian egress.
+  Every claim about the register's live markup in §1.2 is derived from the committed
+  corpus and from running the committed parser on synthetic input, **not** from the
+  live site.
+- **No write to either database.** All 40+ queries were `SELECT`.
+- **The parser fix in §1.5 is a proposal, not a patch.** It has not been applied and its
+  regression suite has not been written.
+
