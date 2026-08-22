@@ -28,7 +28,55 @@ updated reference datasets, (c) hub stat blobs (D1).
 
 | 12 | fix: zero-cast bucketing | `fe0ba4ecd6` | ✅ regression found by post-deploy parity — see below |
 
-**Still open:** T5, the bucket removals, and `bucket:gz`.
+| 13 | T1 sessions exclusion | `0c8e41380e` | ✅ 5 edits — and `bucket:gz` now honours `isExcluded()` |
+| 14 | gate repair | `5aacc85f81` | ✅ `COLLECTED_DIRS` emptied; the runtime filter pinned instead |
+
+**Still open:** T5, and the `gsutil rm` (blocked on operator approval — the script is
+`retire_gcs.sh`, dry-run by default, guarding 8 keepers).
+
+### The sessions exclusion — step 6 of Tier 1, done 2026-08-22
+
+`parliament/votes/sessions` was the last tree still syncing. Five edits, because an exclusion
+has to land in every uploader at once: the `isExcluded()` branch, its `CHILD_EXCLUDES` twin,
+the `-x` arm in **both** `bucket:sync` and `bucket:sync:dry`, and the `SESSIONS_DIR` block in
+`bucket_gzip.ts`. Measured: the gzip set goes **765 → 151 files**, and 765 − 613 is exactly the
+sessions tree.
+
+⚠️ **The FILES STAY ON DISK**, which is what makes this entry look like a mistake. THREE local
+consumers read the tree from `PROJECT_ROOT`, never the bucket — `load_rollcall_pg.ts` (builds
+the corpus), `scripts/prerender/votesFacts.ts` (every `/votes/<date>` body) and
+`scripts/person/mpSeats.ts` (the seat index). Only the bucket copy is retired.
+
+**It also closed a gap that would have defeated the exclusion.** `bucket_gzip`'s `collect()`
+did NOT consult `isExcluded()`, and `gsutil cp -Z` takes no `-x` — so an exclusion stopped the
+rsync and nothing else, and a retired path left in `GLOBAL_FILES` went on being republished,
+gzipped, looking healthy, with no symptom. Same "half a guard" P1 fixed for `uploadText()`.
+`collect()` now filters through the one definition and REPORTS what it skipped.
+
+`bucket_gzip.test.ts` already had the guard nobody remembered: `COLLECTED_DIRS`, pinning the
+trees `collect()` walks wholesale. Removing the block broke two of its assertions, correctly —
+its own rule is "a directory pinned in COLLECTED_DIRS that `collect()` no longer walks is dead
+config". Sessions was the only member, so emptying it would have left two green-but-empty
+loops; the runtime filter is pinned instead, which is strictly stronger (a hand-maintained list
+covers only trees somebody remembered to add). Mutation-checked.
+
+### Verifying readerless-ness — the method, because the obvious one is worthless
+
+Grepping for a path NAME returns 2,057 "refs" for `prices/_cache` and 7,120 for
+`officials/index.json`; basenames match thousands of unrelated files. The question is what
+FETCHES from the bucket, so the check is to extract the argument of every `dataUrl()` /
+`fetchData()` call across `src/`, `ai/`, `scripts/` and `functions/` — 99 distinct paths, 106
+in `ai/` alone, and the `ai/` arm asserted non-vacuous before trusting it.
+
+That found the one thing worth stopping for: **`officials/municipal_contacts/index.json` has a
+live reader and is a sibling of `officials/municipal/`**, which is on the delete list. gsutil
+treats both as directories so the prefix does not collide (tested both forms), but
+`retire_gcs.sh` guards it explicitly, and `bucket_sync_paths.test.ts` already carried it in
+`STILL_SERVED`.
+
+Two references that looked alarming and were not: `functions/db_routes.js` mentions
+`parliament/votes/sessions/` in a comment documenting what the route replaced, and
+`build_alerts.ts` reads the tree from `PROJECT_ROOT`.
 
 ### DEPLOYED to production 2026-08-22
 
@@ -174,7 +222,7 @@ gsutil -m rm gs://data-electionsbg-com/parliament/postcode_unresolved.json
 gsutil -m rm -r gs://data-electionsbg-com/myarea/place_tenders
 gsutil -m rm -r gs://data-electionsbg-com/parliament/votes/derived/per-mp
 gsutil -m rm gs://data-electionsbg-com/parliament/votes/derived/dissents.json
-gsutil -m rm -r gs://data-electionsbg-com/parliament/votes/sessions   # after T1 is verified
+gsutil -m rm -r gs://data-electionsbg-com/parliament/votes/sessions   # T1 verified + excluded (0c8e41380e)
 
 # 4. Cloud SQL — the five new migrations, in this order
 npm run db:load:place-dim:pg:cloud        # applies 117 (seat_ekatte) + 179
@@ -394,7 +442,10 @@ refreshed_at`. Filled by `load_rollcall_pg.ts` from the session files it already
    collapse into row fields — adapt the five consumers rather than rebuilding the maps.
 5. Keep `/api/db/session-item` for the per-item hemicycle if a reader deep-links one item; it
    is 61 buffers and already ships.
-6. Verify on prod → exclude (four edits) → `gsutil -m rm -r .../parliament/votes/sessions`.
+6. ✅ Verified on prod 2026-08-22 (70,320/70,320 per-MP votes on the largest sitting) →
+   excluded in `0c8e41380e` — FIVE edits, not four: the `bucket_gzip.ts` block is a fifth
+   site, and `collect()` needed the `isExcluded()` filter or the exclusion is inert there.
+   The `gsutil rm` remains, blocked on operator approval.
 
 ### Rules
 
