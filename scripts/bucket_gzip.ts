@@ -67,35 +67,20 @@ const GLOBAL_FILES = [
   // download on /data in both languages (scripts/prerender/routes.ts).
   "parliament/votes/index.json",
   "parliament/votes/derived/search_index.json",
-  // The three big roll-call aggregates. Measured over HTTP 2026-08-21, these were the
-  // largest objects on the bucket and ALL THREE were stored `identity` — the reader really
-  // did download 32.5 MB to render a dissents section. Compressed sizes are `zlib` level 6,
-  // which is what `gsutil cp -Z` stores (NOT level 9 — see the stat line in run()):
-  //     dissents.json     32,575,807 -> 2,704,470  (12.0x)
+  // dissents.json was HERE until json-retirement-v2 Tier 2 retired it (served from 135 via
+  // /api/db/mp-dissents). Removed in the same commit as its `isExcluded` entry: `gsutil cp -Z`
+  // takes no -x and bucket:gz runs AFTER the sync, so a path left here re-publishes a retired
+  // artifact — the trap the two retirements commented above record.
+  //
+  // ⚠️ similarity.json and loyalty.json STAY. Tier 2 moved the SITE off them, but both are
+  // still fetched by ai/tools/parliament.ts and loyalty.json additionally by
+  // src/data/myarea/useMpSignals.ts — the `ai/`-is-not-`src/` blind spot. They are still
+  // served, so they are still worth compressing.
+  //
+  // topic_index.json stays until Tier 3b moves its two remaining fallback readers.
+  // Measured 2026-08-21 (zlib level 6, what `cp -Z` stores):
   //     similarity.json   12,275,762 -> 1,545,406  ( 7.9x)
   //     topic_index.json   8,368,917 ->   634,191  (13.2x)
-  // No single ratio covers the set — it spans 7.9x here and ~24x for the session tree below,
-  // so quote the per-artifact figure rather than an average. They are absent from this list
-  // purely because it predates them, not by decision.
-  //
-  // `useMpDissents` / `useMpSimilarity` reach dissents.json + similarity.json only as their
-  // THIRD arm (Postgres → per-MP shard → aggregate), which is exactly the slow path a reader
-  // hits when the shard is missing — 36 members today.
-  //
-  // ⚠️ INTERIM. json-retirement-v2 Tier 2 removes all three from the bucket once
-  // /api/db/mp-rollcall lands; Tier 3b removes topic_index.json. Retiring them takes THREE
-  // edits, not one — a path left in ANY uploader after the exclusion defeats the exclusion,
-  // because `gsutil cp -Z` takes no -x and bucket:gz runs AFTER the sync:
-  //   1. delete these lines;
-  //   2. add the `isExcluded` entries in scripts/bucket_sync_paths.ts;
-  //   3. remove them from scripts/parliament/derived/index.ts's --upload list, which pushes
-  //      all three (plus loyalty/attendance/cohesion/embedding/party_correlation/
-  //      search_index/party_pair_breaks) on every roll-call ingest.
-  // Step 3 is now belt-and-braces rather than load-bearing: uploadText() consults
-  // isExcluded() as of this commit, so an excluded path is refused there too. Do it anyway —
-  // a silent skip in a daily ingest is worse than a list that says what it publishes.
-  // That is the trap the two retirements commented above record.
-  "parliament/votes/derived/dissents.json",
   "parliament/votes/derived/similarity.json",
   "parliament/votes/derived/topic_index.json",
   // officials/municipal/search_index.json retired from the bucket (persons-pg-retirement-v1

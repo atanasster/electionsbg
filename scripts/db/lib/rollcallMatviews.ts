@@ -57,6 +57,16 @@ export const ROLLCALL_MATVIEWS: readonly RollcallMatview[] = [
     costNote: "~2 s local / 30 s cloud (90,542 rows)",
   },
   {
+    // AFTER mp_dissent, and the order is a correctness requirement rather than a cost one:
+    // mp_loyalty's `with_party` is the COMPLEMENT of mp_dissent, so refreshing it first
+    // computes loyalty against the previous vintage's dissents — a wrong percentage on a
+    // named member's page, not a stale one.
+    name: "mp_loyalty",
+    inputs: ["vote_item", "vote_cast"],
+    costNote:
+      "~6 s local (2,366 rows; a per-member pass over the affiliated casts)",
+  },
+  {
     // Must precede mp_similarity in spirit though not in dependency: the score is
     // meaningless without it, so a run that built one and not the other would serve
     // divide-by-zero.

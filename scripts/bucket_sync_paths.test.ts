@@ -338,9 +338,27 @@ describe("childExcludeRegexes (FINDING-001: parent-scoped dir sync)", () => {
     expect(matchesAny(rx, "municipal_contacts/index.json")).toBe(false);
   });
 
+  // The whole point of not using a blanket `search_index.json` pattern: the officials one is
+  // retired and the parliament one is still served, and they must not be matched together.
+  //
+  // Asserted as "search_index survives", NOT as "the array is empty" — the emptiness form
+  // was what this used to check, and it went red the moment Tier 2 retired four SIBLINGS in
+  // the same directory, none of which is search_index.json. An assertion that fails on a
+  // change it does not care about is one somebody eventually deletes.
   it("is officials-anchored — never touches the bucket-served parliament search_index", () => {
-    // The whole point of not using a blanket `search_index.json` pattern.
-    expect(childExcludeRegexes("parliament/votes/derived")).toEqual([]);
+    const rx = childExcludeRegexes("parliament/votes/derived");
+    expect(matchesAny(rx, "search_index.json")).toBe(false);
+    // …while the two Tier 2 retirements in that same directory ARE matched.
+    for (const rel of ["per-mp/51/1005.json", "dissents.json"])
+      expect(matchesAny(rx, rel), rel).toBe(true);
+    // ⚠️ AND similarity.json / loyalty.json ARE NOT. Both were in the first draft of that
+    // exclusion and both still have live readers a `src/`-only grep misses:
+    // ai/tools/parliament.ts fetches each (and names loyalty.json in its `provenance`), and
+    // src/data/myarea/useMpSignals.ts fetches loyalty.json for two My-Area screens. Freezing
+    // a tree that is still fetched is the company-connections failure — a 200 served from a
+    // months-old snapshot — so this pins the exclusion's boundary, not just its contents.
+    for (const rel of ["similarity.json", "loyalty.json", "search_index.json"])
+      expect(matchesAny(rx, rel), rel).toBe(false);
     expect(childExcludeRegexes("prices")).toEqual([]);
   });
 });

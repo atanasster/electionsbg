@@ -5522,6 +5522,92 @@ const DB_ROUTES = {
   // depending on the other's id — hence the UNION rather than a single WHERE. Reading only
   // one side would silently return half of anyone's neighbours, weighted by whether their
   // id happens to be low.
+  // One member's party-line loyalty, plus the chamber medians the candidate page shows it
+  // against — the last arm of the per-MP shard tree (json-retirement-v2 Tier 2).
+  //
+  // Reads mp_loyalty (182), which is a PRECOMPUTE and not a convenience: the derivation is
+  // two lines (`withParty = votesCast - dissents`) and the first cut computed it live, at
+  // 22,899 buffers on the 51st, because votesCast needs a per-member count over the whole
+  // parliament's 1.1M casts. On every candidate page. 182's header carries the rest —
+  // notably that votesCast is NOT mp_attendance.present, and that the two appear together on
+  // this page under different denominators.
+  "mp-loyalty": async (dbRows, q) => {
+    const ns = clampInt(q.ns, 0, 40, 60);
+    const mpId = clampInt(q.mp, 0, 1, 100000);
+    if (!ns) return { body: null };
+    const rows = await dbRows(
+      `WITH loyal AS (
+         SELECT mp_id, votes_cast, with_party, loyalty_pct AS pct
+           FROM mp_loyalty WHERE ns = $1
+       )
+       SELECT (SELECT row_to_json(x) FROM (
+                 SELECT votes_cast, with_party, pct FROM loyal WHERE mp_id = $2) x) AS me,
+              -- The chamber medians the page shows a member against. Computed over the SAME
+              -- population as the member's own figures, or the comparison is against a
+              -- different chamber.
+              (SELECT row_to_json(y) FROM (
+                 SELECT count(*)                                              AS size,
+                        percentile_cont(0.5) WITHIN GROUP (ORDER BY votes_cast) AS votes_cast_median,
+                        percentile_cont(0.5) WITHIN GROUP (ORDER BY pct)        AS loyalty_pct_median
+                   FROM loyal) y) AS cohort,
+              (SELECT row_to_json(z) FROM (
+                 SELECT percentile_cont(0.5) WITHIN GROUP (
+                          ORDER BY present::numeric / NULLIF(items, 0)) AS present_pct_median
+                   FROM mp_attendance WHERE ns = $1) z) AS attendance_cohort,
+              (SELECT row_to_json(w) FROM (
+                 SELECT min(date)::text AS window_from, max(date)::text AS window_to,
+                        count(*) FILTER (WHERE superseded_by IS NULL) AS total_vote_items
+                   FROM vote_item WHERE ns = $1) w) AS window,
+              -- The whole chamber, for the most-loyal / most-independent leaderboards. ~240
+              -- rows per parliament, so this is the same PK range scan the member lookup
+              -- above already pays for rather than a second pass.
+              (SELECT json_agg(e ORDER BY e.mp_id) FROM (
+                 SELECT l.mp_id, l.votes_cast, l.with_party, l.pct,
+                        s.name, p.short AS party
+                   FROM loyal l
+                   LEFT JOIN mp_seat s ON s.ns = $1 AND s.mp_id = l.mp_id
+                   LEFT JOIN party_dim p ON p.party_id = s.party_id) e) AS entries`,
+      [ns, mpId || 0],
+    ).catch(matviewRows("mp_loyalty"));
+    const r = rows[0];
+    if (!r) return { body: null };
+    return {
+      body: {
+        ns,
+        me: r.me
+          ? {
+              votesCast: Number(r.me.votes_cast),
+              withParty: Number(r.me.with_party),
+              loyaltyPct: Number(r.me.pct ?? 0),
+            }
+          : null,
+        cohort: r.cohort
+          ? {
+              size: Number(r.cohort.size),
+              votesCastMedian: Number(r.cohort.votes_cast_median ?? 0),
+              loyaltyPctMedian: Number(r.cohort.loyalty_pct_median ?? 0),
+              presentPctMedian:
+                r.attendance_cohort?.present_pct_median == null
+                  ? undefined
+                  : Number(r.attendance_cohort.present_pct_median),
+            }
+          : null,
+        windowFrom: r.window?.window_from ?? "",
+        windowTo: r.window?.window_to ?? "",
+        totalVoteItems: Number(r.window?.total_vote_items ?? 0),
+        entries: (r.entries ?? []).map((e) => ({
+          mpId: e.mp_id,
+          partyShort: e.party ?? "",
+          name: e.name ?? null,
+          votesCast: Number(e.votes_cast),
+          withParty: Number(e.with_party),
+          // NULL means the member cast nothing while affiliated — 182 keeps it NULL rather
+          // than 0 because 0 reads as "never voted with their group". Carried through.
+          loyaltyPct: e.pct == null ? null : Number(e.pct),
+        })),
+      },
+    };
+  },
   "mp-similarity": async (dbRows, q) => {
     const ns = clampInt(q.ns, 0, 40, 60);
     const mpId = clampInt(q.mp, 0, 1, 100000);

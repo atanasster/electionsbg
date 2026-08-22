@@ -288,6 +288,39 @@ export const isExcluded = (rel: string): string | null => {
   //
   // ⚠️ AN EXCLUSION FREEZES, IT DOES NOT RETIRE. Ship the reader, verify on prod, then:
   //     gsutil -m rm -r gs://<bucket>/myarea/place_tenders
+  // The per-MP shard tree and dissents.json, retired by json-retirement-v2 Tier 2. Both are
+  // served from Postgres now — /api/db/mp-dissents (135) and /api/db/mp-loyalty (182) — and
+  // useMpShard is deleted, so nothing fetches either.
+  //
+  // dissents.json alone was 32,575,807 bytes served UNCOMPRESSED, reached whenever the
+  // per-MP shard was missing, which it was for 36 members.
+  //
+  // ⚠️ loyalty.json AND similarity.json ARE NOT HERE, and the first draft of this entry
+  // wrongly listed both. They still have LIVE READERS that a `src/`-only grep misses —
+  // exactly the blind spot CLAUDE.md records from the company-connections incident, where an
+  // excluded-but-still-fetched tree answered from a frozen snapshot at a 200 for weeks:
+  //
+  //   loyalty.json     src/data/myarea/useMpSignals.ts (two My-Area screens)
+  //                    ai/tools/parliament.ts (mpLoyalty + a per-party rollup, and it is
+  //                    named in those tools' `provenance`)
+  //   similarity.json  ai/tools/parliament.ts
+  //
+  // Retiring them means moving those readers first — the My-Area one onto /api/db/mp-loyalty,
+  // the AI tools onto the same routes — not adding a line here.
+  //
+  // The two that ARE listed stay on disk: rebuildDerived still writes them and the gates read
+  // them as parity references. What must not happen is a second copy on a bucket path nothing
+  // fetches, free to go stale — the shape that put ~16.8k orphan shards there.
+  //
+  // ⚠️ AN EXCLUSION FREEZES, IT DOES NOT RETIRE. Ship the readers, verify on prod, then:
+  //     gsutil -m rm -r gs://<bucket>/parliament/votes/derived/per-mp
+  //     gsutil rm gs://<bucket>/parliament/votes/derived/dissents.json
+  if (
+    rel === "parliament/votes/derived/per-mp" ||
+    rel.startsWith("parliament/votes/derived/per-mp/") ||
+    rel === "parliament/votes/derived/dissents.json"
+  )
+    return "parliament/votes/derived/{per-mp,dissents.json} are retired — served from Cloud SQL (135 + 182)";
   if (rel === "myarea/place_tenders" || rel.startsWith("myarea/place_tenders/"))
     return "myarea/place_tenders/ is retired — served from Cloud SQL (/api/db/myarea-place-tenders, migration 179)";
   if (rel === "parliament/postcode_unresolved.json")
@@ -390,6 +423,9 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "parliament/postcode_unresolved.json", isDir: false },
   // Under the still-served myarea/ parent (alerts/ is still a bucket read until Tier 4b).
   { path: "myarea/place_tenders", isDir: true },
+  // Under the still-served parliament/ parent (photos/, connections.json, votes/index.json).
+  { path: "parliament/votes/derived/per-mp", isDir: true },
+  { path: "parliament/votes/derived/dissents.json", isDir: false },
   // Under the still-served judiciary/ parent (caseload.json etc.), so a scoped
   // `bucket:sync:paths -- judiciary` must not re-upload these PG load sources.
   { path: "judiciary/magistrate_holdings.json", isDir: false },

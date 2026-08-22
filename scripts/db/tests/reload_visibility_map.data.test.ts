@@ -165,6 +165,7 @@ const RELOADED: ReadonlyArray<{
     loader: "db:load:rollcall-derived:pg",
   },
   { table: "mp_dissent", loader: "db:load:rollcall-derived:pg" },
+  { table: "mp_loyalty", loader: "db:load:rollcall-derived:pg" },
   { table: "mp_similarity", loader: "db:load:rollcall-derived:pg" },
   { table: "mp_vote_norm", loader: "db:load:rollcall-derived:pg" },
   // The seven tables 176 rewrites wholesale — see the note above. Named by the step that

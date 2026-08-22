@@ -20,7 +20,6 @@ import type { ReactNode } from "react";
 import type {
   AttendanceEntry,
   LoyaltyEntry,
-  MpShard,
 } from "@/data/parliament/votes/types";
 
 const loyaltyHook = vi.fn();
@@ -29,9 +28,12 @@ const attendanceHook = vi.fn();
 vi.mock("@/data/ElectionContext", () => ({
   useElectionContext: () => ({ selected: "2026_04_19" }),
 }));
+// Mutable so a test can put the member OUTSIDE the selected parliament, which is what
+// drives `servedInSelectedNs` and therefore whether the roll-call hooks fetch at all.
+let nsFolders = ["52"];
 vi.mock("@/data/candidates/CandidateMpContext", () => ({
   useMpEntryForName: () => ({
-    entry: { nsFolders: ["52"] },
+    entry: { nsFolders },
     id: 3996,
     isLoading: false,
   }),
@@ -64,31 +66,22 @@ const loyaltyEntry: LoyaltyEntry = {
   loyaltyPct: 1,
 };
 
-const shard = {
-  mpId: 3996,
-  ns: "52",
-  partyShort: "ПБ",
-  loyalty: {
-    votesCast: CAST,
-    withParty: CAST,
-    loyaltyPct: 1,
-    windowFrom: "2026-04-30",
-    windowTo: "2026-07-31",
-    totalVoteItems: CHAMBER_ITEMS,
-  },
-  attendance: {
-    totalItems: SEATED_ITEMS,
-    presentCount: CAST,
-    absentCount: SEATED_ITEMS - CAST,
-    presentPct: SEATED_PCT,
-  },
-  cohort: {
-    size: 268,
-    votesCastMedian: 913.5,
-    loyaltyPctMedian: 0.971,
-    presentPctMedian: 0.7625208681135225,
-  },
-} as MpShard;
+// The window the loyalty route reports for the parliament.
+const loyaltyFile = {
+  windowFrom: "2026-04-30",
+  windowTo: "2026-07-31",
+  totalVoteItems: CHAMBER_ITEMS,
+  entries: [],
+};
+
+// The chamber medians /api/db/mp-loyalty returns beside the member's own figures — the
+// `cohort` block the retired per-MP shard used to carry.
+const cohort = {
+  size: 268,
+  votesCastMedian: 913.5,
+  loyaltyPctMedian: 0.971,
+  presentPctMedian: 0.7625208681135225,
+};
 
 const attendanceEntry = (
   mpId: number,
@@ -103,12 +96,12 @@ const attendanceEntry = (
   presentPct: totalItems === 0 ? 0 : presentCount / totalItems,
 });
 
-const setLoyalty = (over: Record<string, unknown>) =>
+const setLoyalty = (over: Record<string, unknown> = {}) =>
   loyaltyHook.mockReturnValue({
     entry: loyaltyEntry,
     entries: [],
-    file: shard.loyalty,
-    shard: null,
+    file: loyaltyFile,
+    cohort,
     isLoading: false,
     ...over,
   });
@@ -121,7 +114,6 @@ const setAttendance = (entries: AttendanceEntry[]) =>
     entries,
     byMpId: new Map(entries.map((e) => [e.mpId, e])),
     isLoading: false,
-    // Recorded so a test can assert the aggregate stayed OFF on the shard path.
     enabled,
   }));
 
@@ -137,6 +129,7 @@ const run = () =>
     .current.scorecard;
 
 beforeEach(() => {
+  nsFolders = ["52"];
   loyaltyHook.mockReset();
   attendanceHook.mockReset();
   // Two small /api/db calls fire for the other two metrics; keep them off the network.
@@ -148,8 +141,8 @@ beforeEach(() => {
 
 describe("useMpScorecard — attendance denominator", () => {
   it("divides by the seated window, not by the chamber's item count", () => {
-    setLoyalty({ shard });
-    setAttendance([]);
+    setLoyalty();
+    setAttendance([attendanceEntry(3996, SEATED_ITEMS, CAST)]);
     const sc = run();
     expect(sc.attendance.value).toBeCloseTo(SEATED_PCT, 10);
     expect(sc.attendanceItems).toBe(SEATED_ITEMS);
@@ -158,45 +151,44 @@ describe("useMpScorecard — attendance denominator", () => {
     expect(sc.attendance.value).not.toBeCloseTo(CHAMBER_PCT, 3);
   });
 
-  it("takes the cohort median from presentPct, and never fetches the aggregate", () => {
-    setLoyalty({ shard });
+  it("falls back to the route's cohort median when no sample is loaded", () => {
+    // /api/db/mp-loyalty returns the chamber medians beside the member's own figures, so a
+    // page that has not (yet) loaded the attendance ENTRIES still has a median to show
+    // against. Preferring the local sample when it exists is what keeps the median and the
+    // rank beside it over one population.
+    setLoyalty();
     setAttendance([]);
     const sc = run();
     expect(sc.attendance.median).toBeCloseTo(0.7625208681135225, 10);
-    // The shard already carries both numbers, so the 43 KB attendance aggregate must stay
-    // disabled on the path every ns 44-52 member takes.
-    expect(attendanceHook).toHaveBeenCalledWith(false);
   });
 
-  it("reaches the aggregate for a shard that predates the attendance block", () => {
-    // The second of the two states that want the fallback, and the one the original guard
-    // could not express: `loyaltyEntries` is EMPTY here (the loyalty aggregate is held back
-    // whenever a shard exists), so an AND against it made this state resolve to `false` and
-    // dropped the metric off the scorecard entirely. All 2,330 committed shards carry the
-    // block today, which is precisely why nothing would have reported the regression.
-    setLoyalty({ shard: { ...shard, attendance: undefined } as MpShard });
-    setAttendance([attendanceEntry(3996, SEATED_ITEMS, CAST)]);
-    const sc = run();
-    expect(attendanceHook).toHaveBeenCalledWith(true);
-    expect(sc.attendance.value).toBeCloseTo(SEATED_PCT, 10);
-    expect(sc.attendanceItems).toBe(SEATED_ITEMS);
+  // The `enabled` assertions this file used to carry ("never fetches the aggregate") went
+  // with the shard. Their replacement is the gate that still matters: useAttendance must be
+  // OFF for a member who did not serve in the selected parliament — there is no attendance
+  // record to show, and firing the request would put a chamber's numbers behind a page that
+  // has no member in it.
+  it("does not query attendance for a member who did not serve this term", () => {
+    nsFolders = ["49"]; // seated in the 49th, page viewed under the 52nd
+    setLoyalty();
+    setAttendance([]);
+    run();
+    expect(attendanceHook).toHaveBeenCalledWith(false);
+    nsFolders = ["52"];
   });
 
   it("reports no rank when the cohort sample was never loaded", () => {
-    // The shard path supplies a cohort MEDIAN without a cohort SAMPLE, so the rank basis is
-    // `[]`. An empty cohort is unrankable — `rank: 1` beside `cohortSize: 268` reads as
-    // "#1 of 268" for every member of the chamber, and ScorecardMetric.rank promises null.
-    setLoyalty({ shard });
+    // The route supplies a cohort MEDIAN without a cohort SAMPLE, so the rank basis is `[]`.
+    // An empty cohort is unrankable — `rank: 1` beside `cohortSize: 268` reads as "#1 of
+    // 268" for every member of the chamber, and ScorecardMetric.rank promises null.
+    setLoyalty();
     setAttendance([]);
     const sc = run();
     expect(sc.attendance.rank).toBeNull();
     expect(sc.loyalty.rank).toBeNull();
   });
 
-  it("falls back to the attendance aggregate when the shard missed", () => {
-    // useMpLoyalty only loads the aggregate once the shard has 404'd, so a non-empty
-    // `entries` IS the shard-miss state — which is what enables the attendance fetch.
-    setLoyalty({ shard: null, entries: [loyaltyEntry] });
+  it("ranks on the rate, over the attendance entries", () => {
+    setLoyalty({ entries: [loyaltyEntry] });
     setAttendance([
       attendanceEntry(3996, SEATED_ITEMS, CAST), // 53.1%
       attendanceEntry(4001, CHAMBER_ITEMS, 1100), // 91.8%
@@ -217,7 +209,7 @@ describe("useMpScorecard — attendance denominator", () => {
   it("reports no attendance at all when neither source carries it", () => {
     // A dash under a confident label is the thing the scorecard exists not to print: the
     // metric must be ABSENT, not zero, when the seated window is unknown.
-    setLoyalty({ shard: null, entries: [loyaltyEntry] });
+    setLoyalty({ entries: [loyaltyEntry], cohort: undefined });
     setAttendance([]);
     const sc = run();
     expect(sc.attendance.value).toBeNull();

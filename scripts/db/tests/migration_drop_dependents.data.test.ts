@@ -70,6 +70,18 @@ const SANCTIONED: Record<string, { dependents: string[]; why: string }> = {
       "only applier is db:load:graph:pg, a different loader that would never rebuild 178 — " +
       "so 178 reads that one through a plpgsql wrapper instead.",
   },
+  mp_dissent: {
+    dependents: ["mp_loyalty"],
+    why:
+      "135's DROP … CASCADE takes it, and load_rollcall_derived_pg.ts — the only applier of " +
+      "135 — applies 182 immediately after on the same path (SCHEMA_FILES is 135 -> 181 -> " +
+      "182). Same shape as person_wealth_year's six. The dependency is real rather than " +
+      "incidental: mp_loyalty.with_party is the COMPLEMENT of mp_dissent, so it cannot be " +
+      "defined without reading it, and rollcallMatviews.ts orders the refresh so loyalty is " +
+      "never computed against the previous vintage's dissents. NOTE the standalone escape " +
+      "hatch is NOT safe here: `apply_functions.ts 135_rollcall_derived.sql` on its own " +
+      "deletes mp_loyalty and exits 0 — name 181 and 182 in the same command.",
+  },
   person_wealth_year: {
     dependents: [
       "officials_rankings_table",

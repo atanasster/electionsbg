@@ -8,7 +8,6 @@
 import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import type { MpShard } from "@/data/parliament/votes/types";
 
 const loyaltyHook = vi.fn();
 const attendanceHook = vi.fn();
@@ -58,24 +57,16 @@ const file = {
   entries: [],
 };
 
-const show = (seatedItems: number | null, viaShard = true) => {
-  const shard = (
-    seatedItems != null && viaShard
-      ? {
-          mpId: 3996,
-          attendance: {
-            totalItems: seatedItems,
-            presentCount: 17,
-            absentCount: seatedItems - 17,
-            presentPct: 17 / seatedItems,
-          },
-        }
-      : { mpId: 3996 }
-  ) as MpShard;
-  loyaltyHook.mockReturnValue({ entry, file, shard, isLoading: false });
+// ONE source since json-retirement-v2 Tier 2: the per-MP shard carried a mirrored
+// `attendance` block and the aggregate was a 43 KB whole-chamber JSON fetch worth avoiding.
+// Both are gone — useAttendance is /api/db/mp-attendance — so `viaShard` and the
+// "does it fetch?" assertions went with them. What stays is the invariant they existed to
+// protect: the caption divides by the member's SEATED window, never by the chamber's count.
+const show = (seatedItems: number | null) => {
+  loyaltyHook.mockReturnValue({ entry, file, isLoading: false });
   attendanceHook.mockImplementation((enabled?: boolean) => ({
     byMpId: new Map(
-      seatedItems != null && !viaShard
+      seatedItems != null
         ? [
             [
               3996,
@@ -120,16 +111,12 @@ describe("MpVotingTile — seated-window caption", () => {
     expect(caption()).not.toContain("от тях");
   });
 
-  it("recovers the window from the aggregate when the shard has none", () => {
-    // The shardless path is the one the caption fix originally missed, and the one where
-    // the misleading juxtaposition survived.
-    show(32, false);
-    expect(attendanceHook).toHaveBeenCalledWith(true);
-    expect(caption()).toContain("от тях 32 по време на мандата");
-  });
-
-  it("does not fetch the aggregate when the shard already carries the window", () => {
-    show(32);
-    expect(attendanceHook).toHaveBeenCalledWith(false);
+  it("omits the clause when attendance has no row for the member", () => {
+    // The honest state: without a seated window the tile must NOT fall back to the chamber
+    // count, which is the juxtaposition — "1198 гласувания" beside "подадени гласове 17" —
+    // this caption exists to remove.
+    show(null);
+    expect(caption()).toContain("1198");
+    expect(caption()).not.toContain("от тях");
   });
 });

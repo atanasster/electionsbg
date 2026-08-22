@@ -1,171 +1,142 @@
+// Party-line loyalty — how often a member votes with their own group's majority.
+//
+// SERVED FROM POSTGRES since json-retirement-v2 Tier 2: /api/db/mp-loyalty (mp_loyalty, 182).
+// It used to read the per-MP shard (parliament/votes/derived/per-mp/, 2,330 files / 43 MB)
+// with loyalty.json as a fallback — the last of the three hooks holding that tree alive.
+//
+// ⚠️ THE FIGURES MOVE FOR 9 OF 2,330 MEMBERS, and Postgres is the correct side. Measured
+// against loyalty.json across the whole corpus: 2,321 identical, and every difference is a
+// member of the 52nd carrying 9 DUPLICATE (item, mp) casts that the JSON counts twice and
+// vote_cast_pkey collapses. The loader reports those 84 duplicates on every run; this is
+// the first consumer that stops inheriting them.
+//
+// One call now serves what three sources did: the member's own figures, the chamber medians
+// the candidate page shows them against, the sitting window, and the whole chamber for the
+// most-loyal / most-independent leaderboards.
+//
+// ⚠️ `partyShort` IS THE SEAT'S GROUP, and it MOVES for 54 of 2,330 members against what
+// loyalty.json labelled them. Measured, every one of the 54 is a swap between near-synonymous
+// unaffiliated buckets — „НЕЗ" vs „НЕЧЛ В ПГ", or a group vs one of those — for members who
+// left their group before the end of the term. The artifact's rule was neither "the seat" nor
+// "the last affiliated cast" (both were tried; 54 and 55 differences respectively), but its
+// own fold over the day files.
+//
+// The seat is kept deliberately rather than reproduced: /api/db/mp-attendance labels from the
+// same source, and those two chips sit on ONE page. A chip that agrees with its neighbour is
+// worth more than one that agrees with a retired file, and no FIGURE is affected — only the
+// group name printed beside it.
+
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
-import { useMpProfile } from "./useMpProfile";
-import { useMpShard } from "./useMpShard";
-import type { LoyaltyEntry, LoyaltyFile, LoyaltySlice } from "./types";
+import type { LoyaltyEntry, LoyaltySlice } from "./types";
 
 // Stable identity for the empty case — see the twin in useAttendance.tsx. The MP
 // scorecard depends on BOTH arrays in one useMemo, so a fresh `[]` from either
 // recomputes it on every render.
 const NO_ENTRIES: LoyaltyEntry[] = [];
 
-const queryFn = async (): Promise<LoyaltyFile | undefined> => {
-  const response = await fetch(
-    dataUrl(`/parliament/votes/derived/loyalty.json`),
-  );
-  if (response.status === 404) return undefined;
-  if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
-  }
-  return response.json();
-};
+interface Body {
+  ns: number;
+  me: { votesCast: number; withParty: number; loyaltyPct: number } | null;
+  cohort: {
+    size: number;
+    votesCastMedian: number;
+    loyaltyPctMedian: number;
+    presentPctMedian?: number;
+  } | null;
+  windowFrom: string;
+  windowTo: string;
+  totalVoteItems: number;
+  entries: Array<
+    LoyaltyEntry & { name: string | null; loyaltyPct: number | null }
+  >;
+}
 
-// Strict: return data only for the requested NS. Older elections (pre-roll-
-// call cycles) have no slice — falling back to a different NS would paint the
-// wrong people (parliament.bg recycles ids across NSes) and the wrong party
-// affiliations.
-const pickSlice = (
-  file: LoyaltyFile | undefined,
-  ns: string | null,
-): LoyaltySlice | undefined => {
+const queryFn = async ({
+  queryKey,
+}: {
+  queryKey: readonly [string, string | null, number | null];
+}): Promise<Body | undefined> => {
+  const [, ns, mp] = queryKey;
   if (!ns) return undefined;
-  return file?.byNs?.[ns];
+  const r = await fetch(
+    `/api/db/mp-loyalty?ns=${encodeURIComponent(ns)}${mp ? `&mp=${mp}` : ""}`,
+  );
+  if (!r.ok) throw new Error(`mp-loyalty fetch failed: ${r.status}`);
+  return ((await r.json()) as Body | null) ?? undefined;
 };
 
-// Loyalty file is one slice per NS (~50 KB each). We fetch once and select
-// the slice matching the currently-selected election.
-//
-// Two-step MP lookup: pass the deduped roster id as `mpId` and the canonical
-// name as `name`. The slice is keyed by parliament.bg's per-NS CSV id, which
-// usually but not always matches the roster id (parliament.bg recycles ids
-// across parliaments). If the roster-id lookup misses, we fall back to
-// resolving the CSV id via the latest session's `mpNames` map keyed on the
-// supplied name. Without this two-step path, the candidate-votes page would
-// silently render "no roll-call record" for any MP whose roster id is from a
-// different NS than the one selected.
 export const useMpLoyalty = (
   mpId?: number | null,
   name?: string | null,
-  // When false, skip every roll-call fetch (shard, votes/index profile, and
-  // aggregate). Callers pass false for MPs who didn't serve in the selected
-  // NS — there's no loyalty record to show, so loading the ~300 KB votes
-  // index would be pure waste. Defaults true to keep chamber-browsing callers
-  // unchanged.
+  // When false, skip the fetch entirely. Callers pass false for MPs who didn't serve in the
+  // selected NS — there is no loyalty record to show. Defaults true to keep chamber-browsing
+  // callers unchanged.
   enabled = true,
 ) => {
   const { selected } = useElectionContext();
-
-  // Phase B fast-path: try the per-MP shard first. When present we avoid the
-  // ~150 KB loyalty aggregate fetch entirely on the candidate page.
-  const { shard, isLoading: shardLoading } = useMpShard(
-    mpId ?? undefined,
-    name ?? undefined,
-    enabled,
-  );
-
-  const { mpNames } = useMpProfile(enabled);
-
-  // Aggregate is still fetched when the shard misses (older NSes, fresh
-  // ingests, or chamber-browsing screens that call this hook without an
-  // mp). React Query dedupes the request across hooks. We hold off on the
-  // aggregate until the shard request resolves — otherwise both fire in
-  // parallel and we waste the download.
-  //
-  // ...but only when the MP is actually a member of the selected NS. A former
-  // MP (or any MP viewed under an election they didn't serve in) has no shard
-  // AND no slice entry, so the aggregate would only yield an empty entry and a
-  // cohort median against a chamber they're not in. Skip it. MpVotingTile
-  // hides itself when `entry` is empty, and the scorecard's loyalty/attendance
-  // metrics fall back to the shard cohort (absent here → no median, which is
-  // the correct "not in this chamber" state).
-  const browseMode = !mpId && !name;
-  const profileReady = Object.keys(mpNames).length > 0;
-  const mpInSelectedNs =
-    profileReady &&
-    ((mpId != null && mpNames[String(mpId)] != null) ||
-      (!!name &&
-        Object.values(mpNames).some(
-          (n) => n.toLocaleLowerCase("bg") === name.toLocaleLowerCase("bg"),
-        )));
-
-  const aggregateEnabled =
-    enabled && (browseMode ? true : mpInSelectedNs && !shard && !shardLoading);
-  const { data, isLoading: aggregateLoading } = useQuery({
-    queryKey: ["rollcall_loyalty"] as [string],
-    queryFn,
-    staleTime: Infinity,
-    enabled: aggregateEnabled,
-  });
-
   const ns = electionToNsFolder(selected);
-  const slice = pickSlice(data, ns);
+
+  // KEYED ON (ns, mpId). `mp` only decides the `me` arm — `entries` and `cohort` are the same
+  // for every caller in a parliament — but a shared key would serve one member's `me` under
+  // another, which is the wrong-person failure this module guards everywhere else.
+  const { data, isLoading } = useQuery({
+    queryKey: ["rollcall_loyalty", ns, mpId ?? null] as [
+      string,
+      string | null,
+      number | null,
+    ],
+    queryFn,
+    enabled: enabled && !!ns,
+    staleTime: Infinity,
+  });
 
   const byMpId = useMemo(() => {
     const m = new Map<number, LoyaltyEntry>();
-    for (const e of slice?.entries ?? []) m.set(e.mpId, e);
-    return m;
-  }, [slice]);
-
-  // CSV id resolved from the per-NS mpNames map (embedded in the rollcall
-  // index) keyed on the given name. Only used as a fallback when the supplied
-  // mpId doesn't appear in the loyalty slice.
-  const fallbackCsvId = useMemo(() => {
-    if (!name) return null;
-    const target = name.toLocaleLowerCase("bg");
-    for (const [idStr, mpName] of Object.entries(mpNames)) {
-      if (mpName.toLocaleLowerCase("bg") === target) {
-        const n = Number(idStr);
-        if (Number.isFinite(n)) return n;
-      }
+    for (const e of data?.entries ?? []) {
+      if (e.loyaltyPct == null) continue;
+      m.set(e.mpId, e as LoyaltyEntry);
     }
-    return null;
-  }, [name, mpNames]);
+    return m;
+  }, [data]);
 
-  // Synthesize a LoyaltyEntry from the shard so the consumer sees the same
-  // shape regardless of which source served the data.
-  const shardEntry: LoyaltyEntry | undefined = shard
+  // NAME FALLBACK. parliament.bg recycles CSV ids across parliaments, so a candidate page
+  // reaching this hook with a roster id that is not this NS's id resolves by name instead —
+  // the same two-step bridge useCandidateUrlForVote uses. The route supplies the names, so
+  // this no longer costs a second fetch of the votes index.
+  const fallbackEntry = useMemo(() => {
+    if (!name) return undefined;
+    const target = name.toLocaleLowerCase("bg");
+    return (data?.entries ?? []).find(
+      (e) => (e.name ?? "").toLocaleLowerCase("bg") === target,
+    ) as LoyaltyEntry | undefined;
+  }, [name, data]);
+
+  const entry: LoyaltyEntry | undefined =
+    (mpId != null ? byMpId.get(mpId) : undefined) ?? fallbackEntry;
+
+  const slice: LoyaltySlice | undefined = data
     ? {
-        mpId: shard.mpId,
-        partyShort: shard.partyShort,
-        votesCast: shard.loyalty.votesCast,
-        withParty: shard.loyalty.withParty,
-        loyaltyPct: shard.loyalty.loyaltyPct,
+        windowFrom: data.windowFrom,
+        windowTo: data.windowTo,
+        totalVoteItems: data.totalVoteItems,
+        entries: (data.entries ?? []) as LoyaltyEntry[],
       }
     : undefined;
 
-  const aggregateEntry =
-    (mpId != null ? byMpId.get(mpId) : undefined) ??
-    (fallbackCsvId != null ? byMpId.get(fallbackCsvId) : undefined);
-
-  const entry = shardEntry ?? aggregateEntry;
-
-  // Synthetic slice metadata when only the shard loaded — keeps consumers
-  // that read `file.windowFrom`/`windowTo`/`totalVoteItems` happy.
-  const effectiveSlice: LoyaltySlice | undefined =
-    slice ??
-    (shard
-      ? {
-          windowFrom: shard.loyalty.windowFrom,
-          windowTo: shard.loyalty.windowTo,
-          totalVoteItems: shard.loyalty.totalVoteItems,
-          entries: [],
-        }
-      : undefined);
-
   return {
-    file: effectiveSlice,
-    slice: effectiveSlice,
+    file: slice,
+    slice,
     ns,
-    entries: slice?.entries ?? NO_ENTRIES,
+    entries: (data?.entries as LoyaltyEntry[]) ?? NO_ENTRIES,
     entry,
     byMpId,
-    /** Per-MP shard when loaded — carries cohort stats so the scorecard
-     *  can show "vs median" context without fetching the aggregate. */
-    shard,
-    isLoading: aggregateEnabled ? aggregateLoading : false,
+    /** The chamber medians the scorecard shows a member against. Named `cohort` because that
+     *  is what the retired per-MP shard called it and what the consumers read. */
+    cohort: data?.cohort ?? undefined,
+    isLoading: enabled ? isLoading : false,
   };
 };
 

@@ -144,32 +144,21 @@ export const useMpScorecard = (
   const {
     entry: loyaltyEntry,
     entries: loyaltyEntries,
-    shard: loyaltyShard,
+    cohort: loyaltyCohort,
     isLoading: loyaltyLoading,
   } = useMpLoyalty(mpId, name, servedInSelectedNs);
 
-  // Attendance's per-MP denominator, as a FALLBACK only — TWO states want it, and they are
-  // not the same test:
-  //
-  //   1. no shard at all. useMpLoyalty holds its aggregate back until the shard has 404'd,
-  //      so a non-empty `loyaltyEntries` is exactly that state;
-  //   2. a shard that predates the `attendance` block, which `attendance.json` can still
-  //      answer for.
-  //
-  // The two must be OR'd. Written as `loyaltyEntries.length > 0 && !shard?.attendance` the
-  // second conjunct did no work at all — state 1 already implies `shard == null`, so it was
-  // trivially true — while state 2 (where `loyaltyEntries` is empty) evaluated to FALSE and
-  // dropped the metric off the scorecard entirely. All 2,330 committed shards carry the
-  // block today, which is why that was latent rather than live; one regenerated shard would
-  // have made a published metric vanish with nothing red.
-  const attendanceAggregateEnabled =
-    loyaltyEntries.length > 0 ||
-    (loyaltyShard != null && !loyaltyShard.attendance);
+  // Enabled with the loyalty fetch since json-retirement-v2 Tier 2. This used to be a
+  // two-state OR gating a 43 KB whole-chamber JSON download against the per-MP shard's own
+  // attendance block — and one of the two states had been written as an AND, which made a
+  // published metric vanish for any regenerated shard, latently, with nothing red. Both the
+  // shard and the aggregate are gone: useAttendance is /api/db/mp-attendance, one indexed
+  // read per parliament that React Query dedupes across this hook and MpVotingTile.
   const {
     byMpId: attendanceByMp,
     entries: attendanceEntries,
     isLoading: attendanceLoading,
-  } = useAttendance(attendanceAggregateEnabled);
+  } = useAttendance(servedInSelectedNs);
 
   const { rollup: assetsRollup, isLoading: assetsLoading } = useMpAssets(name);
   // The net-worth metric ranks the MP within the selected NS's assets slice — one small PG
@@ -206,17 +195,16 @@ export const useMpScorecard = (
       loyaltyEntry && loyaltyEntry.votesCast > 0
         ? loyaltyEntry.loyaltyPct
         : null;
-    // Prefer the shard's pre-computed cohort median when present (shard-only
-    // fast-path doesn't load the aggregate, so `loyaltyValues` is empty).
-    const loyaltyMedianFromAggregate = medianOf(loyaltyValues);
+    // The route's own cohort is the FALLBACK, not the primary: `loyaltyValues` is computed
+    // over the entries this page already holds, so preferring it keeps the median and the
+    // rank beside it over one population. The route's median is over mp_loyalty's full set,
+    // which is the same set — it differs only when the entries have not arrived.
     const loyaltyMedian =
-      loyaltyMedianFromAggregate ??
-      loyaltyShard?.cohort?.loyaltyPctMedian ??
-      null;
+      medianOf(loyaltyValues) ?? loyaltyCohort?.loyaltyPctMedian ?? null;
     const loyaltyCohortSize =
       loyaltyValues.length > 0
         ? loyaltyValues.length
-        : (loyaltyShard?.cohort?.size ?? 0);
+        : (loyaltyCohort?.size ?? 0);
     const loyalty: ScorecardMetric = {
       value: loyaltyValue,
       rank: rankIn(loyaltyValue, loyaltyValues),
@@ -240,19 +228,16 @@ export const useMpScorecard = (
     // computed once in scripts/parliament/derived/attendance.ts, mirrored into each shard's
     // `attendance` block and into PG's `mp_attendance`, all three agreeing.
     //
-    // Source order is shard-then-aggregate for cost, not for preference: the shard is
-    // already in hand on this page, and useAttendance is enabled only on the path where it
-    // missed. Both carry the same field.
-    const shardAttendance = loyaltyShard?.attendance;
+    // ONE source now (json-retirement-v2 Tier 2): mp_attendance via /api/db/mp-attendance.
+    // The shard's mirrored `attendance` block is gone, and with it the two-source ordering
+    // this comment used to describe.
     // Both the shard and the aggregate are keyed by parliament.bg's per-NS CSV id, which is
     // not always the roster id. `loyaltyEntry.mpId` is that id already resolved (useMpLoyalty
     // does the name fallback), so read it back rather than resolving it a second time.
     const attendanceEntry =
       loyaltyEntry != null ? attendanceByMp.get(loyaltyEntry.mpId) : undefined;
-    const attendanceValue =
-      shardAttendance?.presentPct ?? attendanceEntry?.presentPct ?? null;
-    const attendanceItems =
-      shardAttendance?.totalItems ?? attendanceEntry?.totalItems ?? null;
+    const attendanceValue = attendanceEntry?.presentPct ?? null;
+    const attendanceItems = attendanceEntry?.totalItems ?? null;
     // Ranked on the RATE now, not on raw votesCast. Those two orderings coincided only
     // because every MP shared the chamber denominator; on a seated window they do not.
     const attendancePcts = attendanceEntries
@@ -267,19 +252,19 @@ export const useMpScorecard = (
     // to change `cohortPresent` in scripts/parliament/derived/per_mp_shards.ts in the same
     // commit, or the shard and aggregate paths would answer differently by that margin.
     const attendanceMedian =
-      medianOf(attendancePcts) ??
-      loyaltyShard?.cohort?.presentPctMedian ??
-      null;
+      medianOf(attendancePcts) ?? loyaltyCohort?.presentPctMedian ?? null;
     // ⚠️ On the shard path this is the LOYALTY roster (268 on the 52nd), while `median` above
     // is over the attendance entries (270) — two populations in one metric object, because
     // the shard's `cohort` block carries no attendance-side size. Harmless while `rank` is
     // null here (rankIn refuses an empty cohort), since the tile renders "#N of SIZE" only
     // beside a rank; a consumer that renders `cohortSize` on its own would be quoting the
-    // wrong denominator. The fix is an `attendanceCohortSize` on the shard's cohort block.
+    // wrong denominator. The fix is an attendance-side size on the route's cohort block —
+    // /api/db/mp-loyalty returns the LOYALTY cohort, which is the smaller of the two (268 vs
+    // 270 on the 52nd, since a member who never voted while affiliated has no loyalty row).
     const attendanceCohortSize =
       attendancePcts.length > 0
         ? attendancePcts.length
-        : (loyaltyShard?.cohort?.size ?? 0);
+        : (loyaltyCohort?.size ?? 0);
     const attendance: ScorecardMetric = {
       value: attendanceValue,
       rank: rankIn(attendanceValue, attendancePcts),
@@ -341,7 +326,7 @@ export const useMpScorecard = (
   }, [
     loyaltyEntry,
     loyaltyEntries,
-    loyaltyShard,
+    loyaltyCohort,
     attendanceByMp,
     attendanceEntries,
     assetsRollup,
