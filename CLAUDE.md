@@ -73,6 +73,81 @@ npm run deploy:db    # Deploy the `db` Cloud Function (/api/db, the /officials 3
 npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 ```
 
+### The serving instance — and why every Cloud SQL timing below is an upper bound
+
+**Prod Cloud SQL is `electionsbg-pg` (`elections-bg:europe-west3:electionsbg-pg`, proxy
+`127.0.0.1:5434`, password in the repo-local `.pgpass`), and as of 2026-08-22 it is
+`db-perf-optimized-N-2` on the ENTERPRISE_PLUS edition** — PG16, 37 GB PD_SSD, ZONAL.
+Reported by the server: `shared_buffers` **5332 MB**, `effective_cache_size` ~6.25 GB,
+`work_mem` 16 MB.
+
+⚠️ **It was `db-g1-small` until then — a SHARED-CORE box with ~1.7 GB of RAM and
+`shared_buffers` of 128–300 MB — and essentially every Cloud SQL wall-clock figure written
+anywhere in this repo predates the upgrade.** That includes the ones in this file, in
+`.claude/skills/**`, in `docs/plans/**` and in the assistant's memory. Those numbers were
+honestly measured; they are now **upper bounds**, not predictions.
+
+Two rules follow, and the second is the one that matters:
+
+- **Never relabel an old measurement with the new tier.** A figure keeps the box it was
+  measured on ("measured 2026-08-06 on the then-current `db-g1-small`"). Restamping it
+  `db-perf-optimized-N-2` manufactures a claim nobody made — the exact defect this file
+  warns about everywhere else.
+- **The upgrade does NOT retire a single *ordering* or *locking* rule.** `shared_buffers`
+  moved from ~0.3 GB to 5.3 GB, so the RAM-starvation arguments are weaker — but an
+  AccessExclusiveLock still blocks readers, a `DROP … CASCADE` still deletes dependents, a
+  matview created `WITH NO DATA` still raises `55000`, and the `10 s` pool
+  `statement_timeout` (set by the app, not the server — the server's own is `0`) is
+  unchanged. Read a fast timing as "this window is shorter", never as "this window is gone".
+
+`docs/plans/**` deliberately keeps its original figures: those are dated design records
+whose reasoning ("we precomputed this because it was 801 ms") was correct when written, and
+rewriting them would falsify the record.
+
+**Re-measured on `db-perf-optimized-N-2`, 2026-08-22**, one clean end-to-end publish (contracts
+409,848 rows / tenders 237,941). A step absent from this table has NOT been re-measured:
+
+| step (`…:cloud`) | db-g1-small | db-perf-optimized-N-2 |
+| ---------------- | ----------- | --------------------- |
+| `db:load:pg` (contracts) | 4077 s, then 722 s after the normalcy ship | **426 s** |
+| `db:load:tenders` | 363 s | **318 s** |
+| `db:load:procurement-scopes` (30 windows, 6 matviews) | unmeasured ("expect minutes") | **87 s** |
+| `db:load:transport-project-map` | — | **210 s** |
+| `db:load:awarder-seats` | ~3 s (before it refreshed matviews) | **59 s** |
+| `db:load:persons-browse` | — | **35 s** |
+| `db:load:graph` | — | **28 s** |
+| `db:load:tr-company-place` | — | **27 s** |
+| `db:load:annexes` | — | **25 s** |
+| `myarea:alerts` | — | **22 s** |
+| `db:load:employer-links` | — | **19 s** |
+| `db:load:mvr-directorate-map` | — | **12 s** |
+| `db:load:grant-links` | — | **5 s** |
+| `db:load:water-operator-map` / `transport-facility-map` | — | **2 s / 4 s** |
+| **whole 15-step publish** | — | **21m20s** |
+| `prices:payloads` | 256 s (4m16s) | **677 s (11m17s)** ⚠️ SLOWER |
+
+⚠️ **THE UPGRADE DID NOT MAKE EVERYTHING FASTER, AND THE ONE THAT GOT SLOWER IS THE LESSON.**
+Server-side-dominated steps improved (contracts 1.7×, because its cost is matview refreshes,
+the 30-scope risk precompute and index builds). Steps that stream large RESULT SETS back
+through the proxy did not: tenders only 1.14×, and `prices:payloads` — whose
+`loadGridsFromPg` pulls millions of rows client-side — came out **2.6× slower**. The plausible
+reading is that the proxy round-trip path, not database CPU or RAM, bounds that class of work,
+and `shared_buffers` cannot help it. One sample each and the proxy had been restarted
+mid-session, so treat the direction as the finding and the ratio as provisional.
+
+**Do not use "the box is bigger now" to justify deleting a precompute or running an aggregate
+live.** Two independent facts about this run say the old shape still holds: the 6 scoped
+matviews are still refreshed on every contracts load, and the whole publish is still 21 minutes.
+The one thing that DID change is `tender_normalcy`, which used to be unbuildable on cloud
+(the rank() sort spilled past `temp_file_limit` → **53400**, so shipping from local was the only
+option) and now reports `built in-place on cloud (ship retired — v2-f)`.
+
+⚠️ **The Cloud SQL proxy is a real failure mode, and it fails as `Connection terminated
+unexpectedly`.** It died mid-run during this publish and took the chain with it (nothing was
+corrupted — the load had not committed). If a `:cloud` step dies with that message, check
+`nc -z 127.0.0.1 5434` before suspecting `temp_file_limit` or the database. Restart with
+`npm run db:proxy:cloud`.
+
 **Every URL this repo emits is the NO-slash form.** Hosting runs `"trailingSlash": false`
 (`firebase.json`, hosting.main), so `dist/<path>/index.html` serves at `/<path>` and `/<path>/`
 301s back to it. Canonicals, `og:url`, `hreflang`, sitemap `<loc>`, the ~350 `href="${SITE_URL}/…"`
@@ -1537,7 +1612,10 @@ be two separate states.
 `contractor_scope_kpis` reads `contractor_rank`, so it is refreshed after it. **Cloud SQL is
 unmeasured and will be materially slower** — the whole reason 123 exists is that the same
 per-settlement call is 401 ms locally and had not finished at the 10 s `statement_timeout`
-that aborted it on a cold `db-g1-small` — so expect minutes, not seconds. Re-run it:
+that aborted it on a cold `db-g1-small`. **Measured 2026-08-22 on `db-perf-optimized-N-2`: 87 s**
+(46 s locally), so the old "expect minutes, not seconds" warning was pessimistic — but the six
+matviews are still rebuilt and a plain `REFRESH` still takes an AccessExclusiveLock, so it is
+still a reader-visible window. Re-run it:
 
 - whenever a new election lands in `src/data/json/elections.json` (a new `ns:` window);
 - **every January** — the year windows are enumerated `SCOPE_FIRST_YEAR..currentYear`, so on
@@ -1816,7 +1894,7 @@ no item in the corpus reaches, so it rides on `outcomeFor()`'s definition alone.
 `party_cohesion`, `mp_dissent`, `mp_vote_norm` and `mp_similarity`, declared once in
 `scripts/db/lib/rollcallMatviews.ts`. ~70 s locally, dominated by the quadratic
 `mp_similarity` — **measured on Cloud SQL 2026-08-06: 801 s end to end, of which
-`mp_similarity` alone is 744.5 s (12.4 min, 11x local)** on a db-g1-small at 4,017,519
+`mp_similarity` alone is 744.5 s (12.4 min, 11x local)** on the then-current db-g1-small at 4,017,519
 casts. Budget a quarter of an hour and do not chain it behind anything urgent. The facts
 half (`db:load:rollcall:pg:cloud`) is ~10 min, dominated by ~2,900 single-row round trips
 through the proxy before the COPY starts. `/api/db/mp-dissents` and
@@ -2019,7 +2097,7 @@ npm run db:load:tr-company-place:pg:cloud
 input.** `money_eur` / `political_n` are copied from `company_public_money` (127) and
 `company_politicians` (008) so the tile's top-N is an index scan — measured on Sofia's
 110,474 companies, the live-join form of `place_companies()` ran **979 ms**, the stored form
-**57 ms**, and prod is a db-g1-small. So re-run it after `db:load:tr:pg` (which rebuilds BOTH
+**57 ms**, and prod is a shared database serving live traffic. So re-run it after `db:load:tr:pg` (which rebuilds BOTH
 tr_companies and company_politicians) **and after any contracts / agri / funds reload**.
 Skipping it is the usual silent shape: the tile keeps ranking and counting the previous
 vintage at a 200. `tr_company_place.data.test.ts` fails on an empty/stale table, on either
@@ -2317,7 +2395,8 @@ npm run db:load:place-dim:pg:cloud   # BEFORE db:load:interreg:pg:cloud
 
 Budget for it: the rows change, so its fingerprint check fires the refresh it guards and
 rebuilds `procurement_settlement_rank`, `procurement_geo_payloads` and
-`procurement_settlement_payloads` — 46 s locally, minutes on a db-g1-small, and a plain
+`procurement_settlement_payloads` — 46 s locally and 87 s on Cloud SQL (measured 2026-08-22 on
+`db-perf-optimized-N-2`; the old "minutes on a db-g1-small" figure is superseded), and a plain
 `REFRESH` takes an AccessExclusiveLock, so `/procurement/by-settlement` and every settlement
 page block for the duration.
 
@@ -3726,7 +3805,8 @@ Index-Only Scans over `idx_tenders_order`, and `db_table.js` routes them at the 
 than the `tenders_list` view as the other half of that fix. With an empty map the whole
 optimisation is given back silently — measured locally 2026-08-11 on the default scope, **5,047
 buffers with `Heap Fetches: 6088`, against 87 and `Heap Fetches: 0` after**. Prod is a
-db-g1-small reading cold over the proxy under a 10 s `statement_timeout`, so it is worse there.
+reading cold over the proxy under a 10 s `statement_timeout`, so it is worse there (that gap was
+sized on the old db-g1-small; the box is bigger now, the direction is not).
 Every `:cloud` loader run now vacuums — including the ones that publish by `shipTable()`, whose
 `company_founded` was the one destination no caller covered and which no LOCAL gate can ever see,
 because the local copy of that table is upserted rather than truncated. But a database loaded
