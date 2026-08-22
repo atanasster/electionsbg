@@ -1,4 +1,4 @@
-# Watch report — 2026-08-22 (22.08.2026 г., 19:00 Europe/Sofia)
+# Watch report — 2026-08-22 (22.08.2026 г., 19:12 Europe/Sofia)
 
 ## Manual downloads needed
 - **Финансови показатели на общините (ЗПФ чл. 130г) — предстоящо тримесечие**: 2026-Q1 is due by the calendar; the corpus holds 2025-Q3.
@@ -8,12 +8,10 @@
   - `quarterly reports Q12025-Q42025-Q12026.xlsx`
 
 ## Changed
-- **BNB monthly FDI flows**: new month 2026-06 (was 2026-05)
+_(no changes — all upstreams stable)_
 
 ## Unchanged
-- НСИ: население по общини (timeseries XLSX): unchanged (351945 bytes)
-- НСИ: раждания, умирания и миграция по общини (timeseries XLSX): unchanged (568322 bytes)
-- НСИ: Баланс на територията (LANDUSE annex): unchanged (1 upcoming · 9.06.2027: Баланс на територията на Република България по вид територии - 2026 година)
+_(none)_
 
 ## Skipped (off-cadence)
 - АДФИ — доклади от финансови инспекции (adfi.minfin.bg) (weekly): 1,965 inspection reports listed · next check 2026-08-26
@@ -85,12 +83,16 @@
 - EC EU budget per-MS spreadsheet (BG receipts/contributions) (weekly): BG receipts/contributions XLSX · years 2000-2023 · next check 2026-08-24
 - EC Financial Transparency System (EU direct funds to BG NGOs) (weekly): latest FTS dataset year 2025 · next check 2026-08-24
 - BNB domestic ДЦК auctions (weekly): 23 auction(s) in 2025-2026 · latest 2026-07-27 · next check 2026-08-24
+- BNB monthly FDI flows (monthly): latest 2026-06 · next check 2026-09-20
 - Minfin КФП monthly bulletins (via Wayback) (monthly): 371 bulletins cached · latest 2025-02 · next check 2026-09-12
 - Minfin government-debt bulletins (Eurobond signal, via Wayback) (monthly): 137 debt bulletin(s) cached · latest 2025-02 · next check 2026-09-17
 - Minfin programme-budget execution reports (via Wayback) (monthly): 27 report(s) cached · latest 2024-06 (H1) · next check 2026-09-20
 - МВнР programmatic execution reports (via Wayback) (monthly): 22 report(s) cached · latest 2025-12 (annual) · next check 2026-09-20
 - State Budget Law promulgation (minfin, via Wayback) (weekly): 45 budget-law file(s) cached · latest FY 2025 · next check 2026-08-27
 - AZ (Агенция по заетостта): annual unemployment reviews (daily): 18 annual reviews · latest 2025 · next check 2026-08-23
+- НСИ: население по общини (timeseries XLSX) (daily): 351945 bytes · next check 2026-08-23
+- НСИ: раждания, умирания и миграция по общини (timeseries XLSX) (daily): 568322 bytes · next check 2026-08-23
+- НСИ: Баланс на територията (LANDUSE annex) (daily): 1 upcoming · 9.06.2027: Баланс на територията на Република България по вид територии - 2026 година · next check 2026-08-23
 - ГРАО: население по постоянен и настоящ адрес (по населени места) (daily): 2026-06-15 · 505508 bytes · next check 2026-08-23
 - TED — обявления за България (api.ted.europa.eu) (hourly): 19,129 BG notices published this year · next check 2026-08-22
 - Transparency International CPI (Bulgaria) (monthly): 2025 CPI = 40/100, rank 84/182 (-3 y/y) · next check 2026-09-19
@@ -129,9 +131,9 @@
 - **data.egov.bg Commerce Registry (Търговски регистър)**: HTTP 403 Forbidden
 - **data.egov.bg АОП (Агенция по обществени поръчки)**: HTTP 403 Forbidden
 - **МОН регистър на институциите (schools/kindergartens)**: POST getResourceData → 403 Forbidden
-- **ИСУН EU funds (projects)**: fetch failed
-- **ДФ Земеделие — изплатени субсидии**: fetch failed
-- **data.egov.bg бюджет (изпълнение на държавния бюджет)**: fetch failed
+- **ИСУН EU funds (projects)**: The operation was aborted due to timeout
+- **ДФ Земеделие — изплатени субсидии**: POST listDatasets → 403 Forbidden
+- **data.egov.bg бюджет (изпълнение на държавния бюджет)**: HTTP 403 Forbidden
 - **data.egov.bg общински бюджети (касово изпълнение по ЕБК)**: POST listDatasets → 403 Forbidden
 - **OECD Tax DB — PIT thresholds/allowances/credits**: OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata
 - **МОН: ДЗИ резултати (data.egov.bg)**: HTTP 403 Forbidden
@@ -139,4 +141,4 @@
 - **ИАОС air quality (data.egov.bg)**: HTTP 403 Forbidden
 
 ---
-_Watcher run at 2026-08-22T16:00:48.640Z UTC._
+_Watcher run at 2026-08-22T16:12:34.705Z UTC._
