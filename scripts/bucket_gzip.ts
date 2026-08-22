@@ -31,6 +31,7 @@ import { spawn } from "node:child_process";
 import { gzipSync } from "node:zlib";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { isExcluded } from "./bucket_sync_paths";
 
 const BUCKET = "gs://data-electionsbg-com";
 const CACHE_CONTROL = "public,max-age=300,must-revalidate";
@@ -117,25 +118,6 @@ const isElectionDir = (n: string): boolean => /^\d{4}_\d{2}_\d{2}/.test(n);
 // them ~6× on the wire. Threshold skips the ~1,000 tiny per-município shards.
 const SECTION_SHARD_GZIP_MIN = 120_000;
 
-// Roll-call day files (parliament/votes/sessions/YYYY-MM-DD.json). Each carries every MP's
-// vote on every item of that sitting, so the big ones are the heaviest single downloads on
-// the site — max 4.97 MB (2025-06-19) — and every one was served `identity`.
-//
-// The WHOLE tree, deliberately NOT thresholded the way SECTION_SHARD_GZIP_MIN is. Measured
-// 2026-08-21 (`zlib` level 6, what `cp -Z` uses): 613 files, 288.4 MB -> 11.9 MB (24.3x).
-// A 300 KB floor was tried and is the wrong side of the trade — it skips ~302 files that
-// still compress 15.4x, forgoing 42.2 MB of reader download to avoid 2.9 MB of upload.
-//
-// The SECTION_SHARD_GZIP_MIN precedent does not transfer: there the skipped set is ~1,000
-// shards of a few KB, where gzip framing is a real fraction of the payload and the problem
-// is object COUNT. Here the skipped files average ~150 KB, squarely in the range this
-// script exists to compress (settlements.json, already listed, is 963 KB).
-//
-// ⚠️ INTERIM, like the three aggregates above. json-retirement-v2 Tier 1 replaces this tree
-// with /api/db/session + /api/db/session-casts; delete this block and its call site in the
-// commit that adds the `isExcluded` entry for parliament/votes/sessions.
-const SESSIONS_DIR = "parliament/votes/sessions";
-
 // NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors
 // / awarders), the by_ns slices and the derived/contract_index year shards used
 // to be gzip-uploaded here. Procurement now serves from Cloud SQL (/api/db/*),
@@ -145,13 +127,6 @@ const collect = (): string[] => {
   const out: string[] = [];
   for (const rel of GLOBAL_FILES) {
     if (existsSync(join(DATA, rel))) out.push(rel);
-  }
-  const sessionsDir = join(DATA, SESSIONS_DIR);
-  if (existsSync(sessionsDir)) {
-    for (const f of readdirSync(sessionsDir)) {
-      if (!f.endsWith(".json")) continue;
-      out.push(`${SESSIONS_DIR}/${f}`);
-    }
   }
   for (const entry of readdirSync(DATA, { withFileTypes: true })) {
     if (!entry.isDirectory() || !isElectionDir(entry.name)) continue;
@@ -173,7 +148,20 @@ const collect = (): string[] => {
       }
     }
   }
-  return out;
+  // ⚠️ THE LAST GUARD, and the one this file shipped WITHOUT. `gsutil cp -Z` takes no -x, so
+  // an exclusion in bucket_sync_paths.ts stops the rsync and nothing else — a retired path
+  // left in GLOBAL_FILES (or reachable by one of the directory walks above) goes on being
+  // republished, gzipped, looking healthy, with no symptom. That is the same "half a guard"
+  // P1 fixed for uploadText(); this closes it for the gzip uploader, so a retirement lands in
+  // ONE file and every uploader honours it. Reported rather than silently dropped: a path
+  // that is BOTH listed here and excluded there is a contradiction someone should resolve.
+  const kept: string[] = [];
+  for (const rel of out) {
+    const why = isExcluded(rel);
+    if (why) console.warn(`  skip (excluded): ${rel} — ${why}`);
+    else kept.push(rel);
+  }
+  return kept;
 };
 
 const uploadOne = (rel: string): Promise<void> =>

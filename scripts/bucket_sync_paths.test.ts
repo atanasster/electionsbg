@@ -39,6 +39,12 @@ const RETIRED = [
   "officials/assets-rankings.json",
   "officials/assets-rankings-top.json",
   "parliament/postcode_unresolved.json",
+  // json-retirement-v2 Tier 1, retired 2026-08-22. It sat in STILL_SERVED until the readers
+  // moved: SessionScreen now composes /api/db/session + /api/db/session-casts. The FILES stay
+  // on disk (load_rollcall_pg.ts builds the corpus from them and votesFacts.ts prerenders
+  // each /votes/<date> body, both from PROJECT_ROOT) — it is only the bucket copy that is
+  // retired, which is why this entry is easy to mistake for a mistake.
+  "parliament/votes/sessions/2025-06-19.json",
 ];
 
 /** …and paths they must NOT refuse — the live readers the widening must not swallow. */
@@ -57,7 +63,6 @@ const STILL_SERVED = [
   "officials/municipal_contacts/index.json",
   "parliament/connections.json",
   "parliament/photos/1.webp",
-  "parliament/votes/sessions/2025-06-19.json",
 ];
 
 describe("bucket exclusion lockstep (package.json ↔ isExcluded)", () => {

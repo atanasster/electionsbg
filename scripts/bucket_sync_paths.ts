@@ -324,6 +324,26 @@ export const isExcluded = (rel: string): string | null => {
     rel === "parliament/votes/derived/party_pair_breaks.json"
   )
     return "parliament/votes/derived/{per-mp,dissents,party_pair_breaks} are retired — served from Cloud SQL (135 + 182 + 183)";
+  // Tier 1. The 613 roll-call day files, 290 MB — the largest single tree this plan retires
+  // and the last one whose reader moved. SessionScreen now composes /api/db/session +
+  // /api/db/session-casts (vote_item/vote_cast, and vote_day for the stenogram and PDF);
+  // verified on prod 2026-08-22 against the live 2025-06-19 artifact at 70,320/70,320 per-MP
+  // votes, 293/293 tallies and 293/293 titles.
+  //
+  // ⚠️ THE FILES STAY ON DISK, and that is the difference from every other entry here. This
+  // tree is not residue: load_rollcall_pg.ts reads it to BUILD the corpus, and
+  // scripts/prerender/votesFacts.ts reads it for each /votes/<date> body. Both read
+  // PROJECT_ROOT, never the bucket. What is retired is the BUCKET COPY, which nothing fetches
+  // — checked across src/, ai/, scripts/ and functions/, including the ai/ tools, which read
+  // loyalty/similarity/topic_index/attendance/cohesion and none of these.
+  //
+  // ⚠️ AN EXCLUSION FREEZES, IT DOES NOT RETIRE:
+  //     gsutil -m rm -r gs://<bucket>/parliament/votes/sessions
+  if (
+    rel === "parliament/votes/sessions" ||
+    rel.startsWith("parliament/votes/sessions/")
+  )
+    return "parliament/votes/sessions/ is retired — served from Cloud SQL (/api/db/session + session-casts); the files stay on disk as loader + prerender input";
   if (
     rel === "myarea/place_tenders" ||
     rel.startsWith("myarea/place_tenders/") ||
@@ -438,6 +458,9 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "myarea/alerts", isDir: true },
   // Under the still-served parliament/ parent (photos/, connections.json, votes/index.json).
   { path: "parliament/votes/derived/per-mp", isDir: true },
+  // Tier 1 — the twin for the isExcluded branch above. Without it,
+  // `bucket:sync:paths -- parliament` walks straight into the subtree.
+  { path: "parliament/votes/sessions", isDir: true },
   { path: "parliament/votes/derived/dissents.json", isDir: false },
   { path: "parliament/votes/derived/party_pair_breaks.json", isDir: false },
   // Under the still-served judiciary/ parent (caseload.json etc.), so a scoped
