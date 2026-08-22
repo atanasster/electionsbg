@@ -38,7 +38,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { exec, allRows, withTx, end } from "./lib/pg";
+import { allRows, withTx, end, vacuumAfterReload } from "./lib/pg";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -211,11 +211,23 @@ const main = async (): Promise<void> => {
       );
   });
 
-  // Stats, immediately. A freshly built matview has none, and person-serving queries pick
-  // bad plans in that window — resolve_persons.ts ANALYZEs person/person_role for exactly
-  // this reason, having measured person_connections at 2.5s instead of 0.25s on stale
-  // stats. Cheap here, invisible-but-expensive if skipped.
-  await exec("ANALYZE person_browse_table");
+  // Stats AND the visibility map, immediately. A freshly built matview has neither, and
+  // person-serving queries pick bad plans in that window — resolve_persons.ts ANALYZEs
+  // person/person_role for exactly this reason, having measured person_connections at 2.5s
+  // instead of 0.25s on stale stats. Cheap here, invisible-but-expensive if skipped.
+  //
+  // ⚠️ This was a bare `ANALYZE` until 2026-08-21, which is only half the job and is the
+  // half that HIDES the other. `CREATE MATERIALIZED VIEW … AS` writes into a fresh
+  // relfilenode whose visibility map is empty, so until something vacuums it Postgres cannot
+  // plan an index-only scan — while `last_analyze` reads as freshly maintained. Measured on
+  // the state this replaced: **2,743 of 6,839 pages all-visible (40.1%)**, which is below
+  // `visibilityMapShort`'s own threshold, on the matview behind /persons — a page that sorts
+  // 56k rows by money and by company count, i.e. index-only scans or nothing.
+  //
+  // The literal below is what reload_visibility_map.data.test.ts's scan reads (string
+  // literals inside a `vacuumAfterReload(...)` argument list); the table is also registered
+  // in that file's RELOADED list. Keep the two in step.
+  await vacuumAfterReload("person_browse_table");
 
   const [stats] = await allRows<{
     rows: string;

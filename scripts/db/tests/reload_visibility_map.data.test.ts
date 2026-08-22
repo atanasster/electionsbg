@@ -64,7 +64,27 @@ const REPO = path.resolve(
 // into a red gate rather than into index-only scans quietly disappearing from the
 // procurement and TR hot paths. `contracts` is 2,449 MB and the largest thing 176
 // touches, so it is the one that matters most.
-const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
+/** `rebuiltByTests` marks a table that a SIBLING data test rebuilds inside this same suite
+ *  run, which makes its observed map say nothing about the loader.
+ *
+ *  There is exactly one today: person_browse.data.test.ts's determinism test issues
+ *  `REFRESH MATERIALIZED VIEW CONCURRENTLY person_browse_table` to prove the representative
+ *  picks reproduce. A concurrent refresh builds a new heap and swaps it in, so it leaves the
+ *  map empty — measured, 6,839/6,839 pages -> 3,411/6,858 — and that test now vacuums
+ *  afterwards to put it back. Under vitest's parallel workers that restore CANNOT be relied
+ *  on: VACUUM marks nothing while another worker holds a snapshot open, which is the same
+ *  held-back-xmin mechanism `vacuumAfterReload` itself declines to throw on (it warns and
+ *  names the blocking pid). Asserting hard on a value a concurrent reader can legitimately
+ *  suppress makes this file pass or fail by worker scheduling.
+ *
+ *  The entry STAYS in the list — the `called ⊆ declared` direction above is what verifies
+ *  the loader calls vacuumAfterReload at all, and that check is a source-level fact with no
+ *  such race. Only the runtime map assertion is skipped, and only for this one table. */
+const RELOADED: ReadonlyArray<{
+  table: string;
+  loader: string;
+  rebuiltByTests?: true;
+}> = [
   // /governance/companies (178) — built by CREATE MATERIALIZED VIEW ... AS inside
   // load_declarations_pg's phase 2, which is the classic empty-map shape. The page sorts
   // by money and by person count over 17,681 rows, so both are index-only scans or they
@@ -109,6 +129,40 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "fund_projects", loader: "db:load:funds:pg" },
   { table: "fund_beneficiaries", loader: "db:load:funds:pg" },
   { table: "tenders", loader: "db:load:tenders:pg" },
+  // The roll-call corpus (134) and its four precomputes (135). Both loaders ran a BARE
+  // `ANALYZE` until 2026-08-21 — the disguise this file exists to catch: it stamps
+  // `last_analyze` and never touches the visibility map, so the tables read as freshly
+  // maintained while Postgres can no longer plan an index-only scan on them. Neither
+  // loader appeared here, and neither could: the scan below reads call sites for
+  // `vacuumAfterReload`/`compactAfterReload` BY NAME, so a loader that vacuums nothing
+  // contributes no names and is invisible from both directions at once.
+  //
+  // Measured on this machine the day it was fixed: `vote_item` at 90.8% of pages visible
+  // with `last_vacuum` AND `last_autovacuum` both NULL, `mp_similarity` at 97.7% — i.e.
+  // autovacuum had happened to reach one and not the other, which is timing, not a
+  // guarantee. `pg_stat_user_tables` showed no statistics at all for the four facts.
+  //
+  // These are on serving paths where the map decides the plan: /api/db/session reads
+  // vote_item by date, and mp_similarity is the quadratic matview (744.5 s to rebuild on
+  // Cloud SQL) whose per-MP peer reads must ride its indexes cleanly.
+  // The /persons matview (120). Built by `CREATE MATERIALIZED VIEW … AS` inside the
+  // loader, the canonical empty-map shape, and it ran a bare ANALYZE until 2026-08-21 —
+  // measured at 2,743/6,839 pages (40.1%), below visibilityMapShort's own threshold, on
+  // the page that sorts 56k people by money and by company count.
+  {
+    table: "person_browse_table",
+    loader: "db:load:persons-browse:pg",
+    rebuiltByTests: true,
+  },
+  { table: "vote_item", loader: "db:load:rollcall:pg" },
+  { table: "vote_cast", loader: "db:load:rollcall:pg" },
+  { table: "mp_seat", loader: "db:load:rollcall:pg" },
+  { table: "party_dim", loader: "db:load:rollcall:pg" },
+  { table: "mp_attendance", loader: "db:load:rollcall-derived:pg" },
+  { table: "party_cohesion", loader: "db:load:rollcall-derived:pg" },
+  { table: "mp_dissent", loader: "db:load:rollcall-derived:pg" },
+  { table: "mp_similarity", loader: "db:load:rollcall-derived:pg" },
+  { table: "mp_vote_norm", loader: "db:load:rollcall-derived:pg" },
   // The seven tables 176 rewrites wholesale — see the note above. Named by the step that
   // must vacuum them rather than by a loader, because no loader does.
   { table: "contracts", loader: "176 refold + its follow-up VACUUM" },
@@ -321,28 +375,31 @@ test("every table a loader vacuums is listed here", () => {
   );
 });
 
-for (const { table, loader } of RELOADED) {
-  test.skipIf(skip)(`${table} keeps its visibility map`, async () => {
-    // Namespace- and relkind-qualified: `relname` alone is unique only per schema.
-    const [vm] = await allRows<{ relpages: number; relallvisible: number }>(
-      `SELECT c.relpages, c.relallvisible
+for (const { table, loader, rebuiltByTests } of RELOADED) {
+  test.skipIf(skip || rebuiltByTests)(
+    `${table} keeps its visibility map`,
+    async () => {
+      // Namespace- and relkind-qualified: `relname` alone is unique only per schema.
+      const [vm] = await allRows<{ relpages: number; relallvisible: number }>(
+        `SELECT c.relpages, c.relallvisible
          FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
         WHERE n.nspname = ANY(current_schemas(false))
           AND c.relkind IN ('r', 'm') AND c.relname = $1`,
-      [table],
-    );
-    // Not loaded on this checkout — a gitignored-input loader that skipped, or a
-    // partial refresh. Absent is that loader's problem, not this file's.
-    if (!vm || vm.relpages === 0) return;
-    assert.ok(
-      !visibilityMapShort(vm.relpages, vm.relallvisible),
-      `${table} has visibility-map coverage on ${vm.relallvisible} of ${vm.relpages} pages, ` +
-        `so no index-only scan can be planned against it. ${loader} rebuilds it with ` +
-        `TRUNCATE + insert inside one transaction and must call vacuumAfterReload ` +
-        `(scripts/db/lib/pg.ts) after its COMMIT. To repair an already-loaded database: ` +
-        `\`${vacuumRepairSql(table)}\``,
-    );
-  });
+        [table],
+      );
+      // Not loaded on this checkout — a gitignored-input loader that skipped, or a
+      // partial refresh. Absent is that loader's problem, not this file's.
+      if (!vm || vm.relpages === 0) return;
+      assert.ok(
+        !visibilityMapShort(vm.relpages, vm.relallvisible),
+        `${table} has visibility-map coverage on ${vm.relallvisible} of ${vm.relpages} pages, ` +
+          `so no index-only scan can be planned against it. ${loader} rebuilds it with ` +
+          `TRUNCATE + insert inside one transaction and must call vacuumAfterReload ` +
+          `(scripts/db/lib/pg.ts) after its COMMIT. To repair an already-loaded database: ` +
+          `\`${vacuumRepairSql(table)}\``,
+      );
+    },
+  );
 }
 
 /** The parliament window the /procurement/tenders browser defaults to, read from the

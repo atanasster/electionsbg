@@ -779,6 +779,18 @@ test.skipIf(skip)(
     );
     await allRows("REFRESH MATERIALIZED VIEW CONCURRENTLY person_browse_table");
     const after = await snap();
+    // ⚠️ DO NOT "restore" the visibility map here with a VACUUM. The refresh above does
+    // empty it — measured, 6,839/6,839 pages all-visible to 3,411/6,858 — and putting it
+    // back looks like ordinary test hygiene. It was tried and reverted: VACUUM takes a
+    // ShareUpdateExclusiveLock, and under vitest's parallel workers that DEADLOCKS against
+    // the other suites touching this matview (`error: deadlock detected` at this line). It
+    // could not have worked anyway, since VACUUM marks nothing while another worker holds a
+    // snapshot open.
+    //
+    // reload_visibility_map.data.test.ts carries `rebuiltByTests: true` on this table for
+    // exactly that reason and skips its runtime map assertion; the source-level check that
+    // db:load:persons-browse:pg calls vacuumAfterReload is unaffected and is the one that
+    // matters.
     assert.deepEqual(
       after,
       before,

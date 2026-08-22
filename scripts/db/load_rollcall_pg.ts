@@ -32,7 +32,7 @@
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec, withClient, end } from "./lib/pg";
+import { exec, withClient, end, vacuumAfterReload } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import {
   createStageTable,
@@ -601,9 +601,33 @@ const run = async (): Promise<void> => {
     }
   });
 
-  for (const t of ["vote_item", "vote_cast", "mp_seat", "party_dim"]) {
-    await exec(`ANALYZE ${t}`);
-  }
+  // vacuumAfterReload, NOT the bare ANALYZE this used to be. The two look interchangeable
+  // and are not: ANALYZE stamps `last_analyze` and never touches the VISIBILITY MAP, so the
+  // table reads as freshly maintained while Postgres can no longer plan an index-only scan
+  // on it. That is the disguise CLAUDE.md's visibility-map section is about, and ANALYZE
+  // *running* is what makes it a disguise rather than an obvious gap.
+  //
+  // ⚠️ NOT for the reason the canonical case gives. This loader is STAGE-MERGE, not
+  // TRUNCATE+COPY (see the capitalised header at the top of this file) — no new relfilenode,
+  // no empty map minted. The merge still leaves dead tuples behind that neither autovacuum
+  // threshold reaches: the dead-tuple one is a 20% fraction a few thousand changed rows out
+  // of 4M never cross, and the insert-threshold one fires mid-chain under a held-back xmin
+  // horizon, marks nothing, resets the counter and never returns. Same end state, different
+  // mechanism — the interreg tables document the identical trap, which is why "stage-merged
+  // tables are safe" is the one inference to refuse here.
+  //
+  // What actually depends on the map: `vote_cast`'s two covering indexes,
+  // idx_vote_cast_ns_mp and idx_vote_cast_mp_item, both `INCLUDE (vote, …)` precisely so a
+  // per-MP read never touches the heap — verified Index Only Scan. The day route over
+  // vote_item is NOT an example: it selects 12 columns off idx_vote_item_date and is a
+  // Bitmap Heap Scan at 21 buffers no matter what the map says.
+  //
+  // The four names are ALSO in reload_visibility_map.data.test.ts's RELOADED list, and the
+  // literals below are what that gate's scan reads — it matches string literals inside a
+  // `vacuumAfterReload(...)` argument list, so a loader calling only ANALYZE contributes no
+  // names and is invisible to it. That is exactly how these four went unnoticed. Keep the
+  // two lists in step, and do not replace these literals with a variable.
+  await vacuumAfterReload("vote_item", "vote_cast", "mp_seat", "party_dim");
 
   console.log(
     `rollcall: loaded ${build.items.length} items and ${build.casts.length} casts`,
