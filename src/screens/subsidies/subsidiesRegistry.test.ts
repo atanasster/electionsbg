@@ -26,8 +26,7 @@ import { SUBSIDIES_SCENES } from "./subsidiesScenes";
 
 /** Flattened, since the registry exports bands only. */
 const TILES = SUBSIDIES_BANDS.flatMap((b) => b.tiles);
-import bg from "@/locales/bg/translation.json";
-import en from "@/locales/en/translation.json";
+import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),

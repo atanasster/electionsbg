@@ -15,7 +15,7 @@
 
 import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import bgDict from "@/locales/bg/translation.json";
+import { bgCorpus as bgDict } from "@/locales/allKeys";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({

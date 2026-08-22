@@ -17,7 +17,7 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import bg from "@/locales/bg/translation.json";
+import { bgCorpus as bg } from "@/locales/allKeys";
 import type { ReactNode } from "react";
 import {
   disbursedShare,

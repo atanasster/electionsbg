@@ -1,5 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import { LOCALE_BUNDLES, type LocaleBundle } from "@/locales/bundles";
 
 export type AppLanguage = "bg" | "en";
 
@@ -49,6 +50,103 @@ export const loadTranslation = async (
   return mod.default as Record<string, unknown>;
 };
 
+// ---------------------------------------------------------------------------
+// Deferred bundles
+// ---------------------------------------------------------------------------
+//
+// A bundle is a slice of the SAME "translation" namespace, split out of the
+// core corpus because its keys are reachable only from the routes that load it
+// (src/locales/bundles.ts). It is merged in with addResourceBundle, so every
+// call site stays a plain t("budget_hub_title") — there is no second namespace
+// for a component to remember to declare, and therefore no way to forget.
+//
+// Vite needs literal specifiers to emit a chunk per file, hence the table
+// rather than a template literal. A missing entry is a type error.
+const BUNDLE_IMPORTS: Record<
+  LocaleBundle,
+  Record<AppLanguage, () => Promise<{ default?: Record<string, unknown> }>>
+> = {
+  budget: {
+    bg: () => import("@/locales/bg/budget.json"),
+    en: () => import("@/locales/en/budget.json"),
+  },
+  methodology: {
+    bg: () => import("@/locales/bg/methodology.json"),
+    en: () => import("@/locales/en/methodology.json"),
+  },
+};
+
+/** Bundles this SESSION has asked for, independent of language — so a language
+ *  switch can re-fetch exactly what the visitor is currently looking at. */
+const requested = new Set<LocaleBundle>();
+/** `${lang}:${bundle}` actually merged into the store. */
+const merged = new Set<string>();
+/** In flight, so N components mounting at once share one fetch. */
+const inflight = new Map<string, Promise<void>>();
+
+const mergeBundle = async (
+  bundle: LocaleBundle,
+  lang: AppLanguage,
+): Promise<void> => {
+  const id = `${lang}:${bundle}`;
+  if (merged.has(id)) return;
+  const pending = inflight.get(id);
+  if (pending) return pending;
+  const run = (async () => {
+    const mod = await BUNDLE_IMPORTS[bundle][lang]();
+    // Same reason as loadTranslation: main.tsx suppresses vite:preloadError, so
+    // a failed chunk fetch resolves to `undefined` rather than rejecting.
+    if (!mod?.default) {
+      throw new Error(
+        `Failed to fetch dynamically imported module: ${lang} ${bundle} bundle`,
+      );
+    }
+    // deep=true, overwrite=true: the core corpus never carries these keys, but
+    // a re-merge after a language switch must replace rather than lose to what
+    // is already there.
+    i18n.addResourceBundle(lang, "translation", mod.default, true, true);
+    merged.add(id);
+  })().finally(() => inflight.delete(id));
+  inflight.set(id, run);
+  return run;
+};
+
+/**
+ * Load a deferred bundle for the ACTIVE language. Awaited by the route wrapper
+ * in src/routes.tsx alongside the screen's own chunk, so the two fetch in
+ * parallel and Suspense holds the render until both land — a bundle can never
+ * be half-applied to a painted screen.
+ */
+export const loadBundle = async (bundle: LocaleBundle): Promise<void> => {
+  requested.add(bundle);
+  await mergeBundle(bundle, (i18n.language as AppLanguage) || detectLanguage());
+};
+
+/**
+ * Last resort, and it should never fire: i18next asks for a key that is in no
+ * loaded bundle. The reachability gate proves at build time that this cannot
+ * happen, but the analysis reads call sites with regexes and the cost of it
+ * being wrong is a raw identifier rendered at a 200 on a live page — so the
+ * runtime heals instead of failing. It pulls EVERY bundle rather than looking
+ * the key up in a manifest, because a key->bundle manifest in the core chunk
+ * would cost most of what the split just saved.
+ *
+ * `bindI18nStore: "added"` below is what turns the merge into a re-render;
+ * without it the heal would land in the store and never reach the screen.
+ */
+let healed = false;
+const healMissingKey = (): void => {
+  if (healed || typeof window === "undefined") return;
+  healed = true;
+  const lang = (i18n.language as AppLanguage) || detectLanguage();
+  void Promise.all(
+    LOCALE_BUNDLES.map((b) => {
+      requested.add(b);
+      return mergeBundle(b, lang).catch(() => {});
+    }),
+  );
+};
+
 /** Initialize i18next with ONLY the active language's resources. Must be
  *  awaited before the first render — see the useSuspense note below. */
 export const initI18n = async (): Promise<void> => {
@@ -70,6 +168,12 @@ export const initI18n = async (): Promise<void> => {
         escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
       },
 
+      // Every missing key is a defect — either a typo or a bundle the
+      // reachability gate should have caught — so the handler heals rather
+      // than reports. See healMissingKey.
+      saveMissing: true,
+      missingKeyHandler: healMissingKey,
+
       // Disable Suspense for translation loading. Resources are in memory
       // before the first render (main.tsx awaits this function), but
       // useSuspense=true (the react-i18next default) means useTranslation can
@@ -84,7 +188,15 @@ export const initI18n = async (): Promise<void> => {
       // This is why initI18n MUST be awaited before render: with useSuspense
       // off there is no boundary to catch a missing bundle, so an un-awaited
       // init would render raw keys instead of text.
-      react: { useSuspense: false },
+      //
+      // bindI18nStore: components re-render when a resource bundle is ADDED.
+      // Off by default in react-i18next, and load-bearing here: a deferred
+      // bundle merged by healMissingKey after the screen has painted would
+      // otherwise sit in the store while the screen keeps showing raw keys.
+      // The route path does not rely on it (Suspense holds the first render
+      // until the bundle is in), so this costs a re-render only when something
+      // has already gone wrong.
+      react: { useSuspense: false, bindI18nStore: "added" },
     });
 };
 
@@ -143,6 +255,12 @@ export const changeLanguage = async (lang: AppLanguage): Promise<void> => {
     if (!i18n.hasResourceBundle(lang, "translation")) {
       i18n.addResourceBundle(lang, "translation", await loadTranslation(lang));
     }
+    // Every deferred bundle this session has asked for, in the NEW language,
+    // BEFORE the switch. Skipping this is the one way the split can render raw
+    // keys on the happy path: the route wrapper already ran, so nothing will
+    // fetch the bundle again, and the visitor who switches language while
+    // reading /budget/execution watches the page turn into identifiers.
+    await Promise.all([...requested].map((b) => mergeBundle(b, lang)));
     await i18n.changeLanguage(lang);
   } catch (err) {
     writeStoredLanguage(previous);

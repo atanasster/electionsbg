@@ -16,7 +16,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import bg from "@/locales/bg/translation.json";
+import { bgCorpus as bg } from "@/locales/allKeys";
 import type { OfficialCompanyRow } from "./OfficialCompaniesScreen";
 
 const dict = bg as Record<string, string>;

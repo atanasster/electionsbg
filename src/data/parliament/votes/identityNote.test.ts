@@ -7,8 +7,7 @@
 // — a rule that necessarily exists twice, with a test asserting the two sides agree.
 
 import { describe, expect, it } from "vitest";
-import bg from "@/locales/bg/translation.json";
-import en from "@/locales/en/translation.json";
+import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 import {
   COALITION_COMPONENTS,
   GROUP_CONTINUATIONS,

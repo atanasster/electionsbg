@@ -20,7 +20,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import type { ReactNode } from "react";
-import bgDict from "@/locales/bg/translation.json";
+import { bgCorpus as bgDict } from "@/locales/allKeys";
 import {
   PackContractsLink,
   SectorDashboardScreen,

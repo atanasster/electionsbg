@@ -4,8 +4,7 @@ import {
   officeTermPhrases,
   type OfficeDates,
 } from "./officeTerm";
-import bg from "@/locales/bg/translation.json";
-import en from "@/locales/en/translation.json";
+import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 
 describe("officeTermPhrase", () => {
   it("phrases a closed mandate as a range", () => {

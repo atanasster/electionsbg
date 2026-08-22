@@ -17,10 +17,17 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { stripComments } from "@/../scripts/lib/strip_comments";
-
-const ROOT = process.cwd();
-const SRC = path.join(ROOT, "src");
-const EXTS = [".ts", ".tsx", ".js", ".jsx", ".json", ".css"];
+// The walk itself lives in scripts/lib/module_graph.ts, shared with
+// scripts/i18n/bundle_reachability.test.ts — see that module's header for why
+// the two gates must ask the same question.
+import {
+  CODE,
+  EDGE,
+  REPO_ROOT as ROOT,
+  SRC_DIR as SRC,
+  chainTo as chainToIn,
+  walk,
+} from "@/../scripts/lib/module_graph";
 
 /** The two sector registries. Each names a family of lazy packs, so each is a
  *  door to the same ~20 reference-data modules — and the fix that closed the
@@ -42,73 +49,6 @@ const ENGINES = ["lib/roadAttributes.ts"];
 /** The whole point of the fix: an import-free module a nav surface may name. */
 const EXEMPT = ["lib/roadsAwarder.ts"];
 
-const resolveSpec = (spec: string, from: string): string | null => {
-  let base: string;
-  if (spec.startsWith("@/")) base = path.join(SRC, spec.slice(2));
-  else if (spec.startsWith(".")) base = path.resolve(path.dirname(from), spec);
-  else return null; // bare specifier — node_modules, a vendor-* chunk's problem
-  for (const suffix of ["", ...EXTS, ...EXTS.map((e) => `/index${e}`)]) {
-    const p = base + suffix;
-    if (fs.existsSync(p) && fs.statSync(p).isFile()) return p;
-  }
-  return null;
-};
-
-// `import type` / `export type` STATEMENTS are erased before Rollup sees them
-// and are excluded here. Inline `{ type X }` specifiers are erased too but ARE
-// counted — deliberately, because separating them needs a specifier parser and
-// the error is in the safe direction: a type-only import of a forbidden module
-// fails the gate rather than passing it.
-//
-// A bare `import(...)` is the lazy boundary this gate is about and must not
-// match — hence the required `from` clause (or a side-effect `import "…"`),
-// which a call expression never has. Asserted below, since relaxing it would
-// swallow every lazy route.
-const EDGE =
-  /(?:^|[\s;}])import\s+(?!type\b)(?:[^'"();]*?\s+from\s+)?["']([^"']+)["']|(?:^|[\s;}])export\s+(?!type\b)(?:\*|\{[^}]*\})\s+from\s+["']([^"']+)["']/g;
-
-/** Comments are not edges, in either direction — and the second direction is
- *  the one that costs something. A comment that DISCUSSES the forbidden import
- *  (routes.tsx and sectorPacks.tsx both carry one, added by the very commit
- *  this gate shipped in) reads as a phantom edge and fails loudly; a trailing
- *  comment INSIDE an import's braces steals the match from the real specifier
- *  and the gate passes while the edge it exists to catch is present:
- *
- *    import {
- *      a, // from "./x"
- *    } from "./sectorPacks";      -> matched "./x", missed "./sectorPacks"
- *
- *  `trailing` is what closes that, and is safe here for a reason that does not
- *  generalise — see scripts/lib/strip_comments.ts. */
-const edgesOf = (file: string): string[] =>
-  [
-    ...stripComments(fs.readFileSync(file, "utf8"), {
-      trailing: true,
-    }).matchAll(EDGE),
-  ]
-    .map((m) => resolveSpec(m[1] ?? m[2], file))
-    .filter((p): p is string => p !== null);
-
-const CODE = /\.(ts|tsx|js|jsx)$/;
-
-/** Static closure of `seeds`, each module mapped to the one that pulled it. */
-const walk = (seeds: string[]) => {
-  const importedBy = new Map<string, string>();
-  const seen = new Set(seeds);
-  const stack = [...seeds];
-  while (stack.length) {
-    const file = stack.pop()!;
-    if (!CODE.test(file)) continue;
-    for (const dep of edgesOf(file)) {
-      if (seen.has(dep)) continue;
-      seen.add(dep);
-      importedBy.set(dep, file);
-      stack.push(dep);
-    }
-  }
-  return { seen, importedBy };
-};
-
 /** A module with no runtime export contributes no bytes — `data/budget/types.ts`
  *  is 111 KB of interfaces that erase to nothing — so naming one in the
  *  forbidden set would be a failure a reader cannot act on. */
@@ -119,15 +59,8 @@ const hasRuntimeCode = (file: string) => {
   );
 };
 
-const chainTo = (file: string, importedBy: Map<string, string>) => {
-  const chain: string[] = [];
-  let cur: string | undefined = file;
-  while (cur) {
-    chain.push(path.relative(ROOT, cur));
-    cur = importedBy.get(cur);
-  }
-  return chain.reverse().join("\n  -> ");
-};
+const chainTo = (file: string, importedBy: Map<string, string>) =>
+  chainToIn(file, importedBy);
 
 describe("the entry chunk's static import graph", () => {
   const { seen, importedBy } = walk([path.join(SRC, "main.tsx")]);

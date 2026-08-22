@@ -15,7 +15,7 @@
 //   npx tsx scripts/i18n/prune_translations.ts --apply
 import fs from "node:fs";
 import { pathToFileURL } from "node:url";
-import { analyzeKeyUsage, loadCorpus, CORPUS_PATH } from "./key_usage";
+import { analyzeKeyUsage, loadCorpus, CORPUS_PATHS } from "./key_usage";
 
 export type Corpus = Record<string, string>;
 
@@ -91,20 +91,33 @@ const main = () => {
     return;
   }
 
+  // Per FILE, never as one corpus. The corpus is partitioned across
+  // translation.json plus one file per deferred bundle (src/locales/bundles.ts),
+  // so writing the kept set to translation.json alone would fold every bundle
+  // back into the core chunk — undoing the split and handing the byte budgets
+  // back their whole overage, with the key count reconciling perfectly.
   for (const lang of ["bg", "en"] as const) {
     const before = lang === "bg" ? bg : en;
     const kept = plan.kept[lang];
-    const out = JSON.stringify(kept, null, 2) + "\n";
-    if (apply) {
-      fs.writeFileSync(CORPUS_PATH(lang), out);
-      console.log(
-        `${lang}: ${Object.keys(before).length} -> ${Object.keys(kept).length} keys written`,
+    let written = 0;
+    for (const file of CORPUS_PATHS(lang)) {
+      if (!fs.existsSync(file)) continue;
+      const current: Record<string, string> = JSON.parse(
+        fs.readFileSync(file, "utf8"),
       );
-    } else {
-      console.log(
-        `${lang}: would write ${Object.keys(kept).length} keys (${Object.keys(before).length - Object.keys(kept).length} removed)`,
+      const next = Object.fromEntries(
+        Object.entries(current).filter(([k]) => k in kept),
       );
+      written += Object.keys(next).length;
+      if (apply && Object.keys(next).length !== Object.keys(current).length) {
+        fs.writeFileSync(file, JSON.stringify(next, null, 2) + "\n");
+      }
     }
+    console.log(
+      apply
+        ? `${lang}: ${Object.keys(before).length} -> ${written} keys written`
+        : `${lang}: would write ${written} keys (${Object.keys(before).length - written} removed)`,
+    );
   }
 
   if (!apply) console.log("\ndry run — pass --apply to write");

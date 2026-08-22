@@ -13,12 +13,60 @@
 
 import { describe, test } from "vitest";
 import assert from "node:assert/strict";
-import bg from "./bg/translation.json";
-import en from "./en/translation.json";
+import fs from "node:fs";
+import path from "node:path";
+import { LOCALE_BUNDLES } from "./bundles";
+import { bgCorpus as bg, enCorpus as en } from "./allKeys";
+
+/** The corpus is authored as ONE namespace and only PARTITIONED across files —
+ *  core plus one per deferred bundle. Parity is a property of the UNION, so
+ *  every assertion below reads allKeys; the per-file split has its own
+ *  assertion. */
+const FILES = ["translation", ...LOCALE_BUNDLES];
+const readFile = (lang: "bg" | "en", file: string): Record<string, string> =>
+  JSON.parse(
+    fs.readFileSync(
+      path.join(process.cwd(), "src/locales", lang, `${file}.json`),
+      "utf8",
+    ),
+  );
 
 const keys = (bundle: Record<string, unknown>) => new Set(Object.keys(bundle));
 
 describe("locale bundles", () => {
+  // The union is only a corpus if the files PARTITION it. A key present in both
+  // translation.json and budget.json would resolve from whichever merged last —
+  // so the two copies could disagree and nothing would say which one shipped.
+  // The splitter writes each key to exactly one file; this is what keeps a
+  // hand-edit from undoing that.
+  test("each key lives in exactly one file, in both languages", () => {
+    for (const lang of ["bg", "en"] as const) {
+      const seen = new Map<string, string>();
+      const duplicated: string[] = [];
+      for (const file of FILES) {
+        for (const key of Object.keys(readFile(lang, file))) {
+          const prev = seen.get(key);
+          if (prev) duplicated.push(`${key} (${prev} + ${file})`);
+          else seen.set(key, file);
+        }
+      }
+      assert.deepEqual(duplicated, [], `${lang}: keys in two corpus files`);
+    }
+  });
+
+  // Same file set on both sides. A bundle file that exists in bg/ and not in
+  // en/ makes every one of its keys render as its own identifier in English,
+  // which the key-set parity below cannot see: loadCorpus would simply not find
+  // the file and the two unions would look equal.
+  test("both languages carry the same corpus files", () => {
+    for (const file of FILES) {
+      for (const lang of ["bg", "en"] as const) {
+        const p = path.join(process.cwd(), "src/locales", lang, `${file}.json`);
+        assert.ok(fs.existsSync(p), `${p} is missing`);
+      }
+    }
+  });
+
   test("bg and en carry the same keys", () => {
     const bgKeys = keys(bg as Record<string, unknown>);
     const enKeys = keys(en as Record<string, unknown>);

@@ -11,6 +11,21 @@ vi.mock("@/locales/bg/translation.json", () => ({
 vi.mock("@/locales/en/translation.json", () => ({
   default: { greeting: "Hello" },
 }));
+// The deferred bundles (src/locales/bundles.ts). Mocked for the same reason as
+// the corpora — what is under test is the wiring, and the wiring is what makes
+// the difference between a heading and a raw identifier.
+vi.mock("@/locales/bg/budget.json", () => ({
+  default: { budget_hub_title: "Бюджет" },
+}));
+vi.mock("@/locales/en/budget.json", () => ({
+  default: { budget_hub_title: "Budget" },
+}));
+vi.mock("@/locales/bg/methodology.json", () => ({
+  default: { meth_title: "Методология" },
+}));
+vi.mock("@/locales/en/methodology.json", () => ({
+  default: { meth_title: "Methodology" },
+}));
 
 const setPath = (pathname: string) => {
   window.history.replaceState({}, "", pathname);
@@ -135,6 +150,90 @@ describe("changeLanguage", () => {
     );
     await expect(changeLanguage("bg")).rejects.toThrow("boom");
     expect(localStorage.getItem("language")).toBe("en");
+  });
+});
+
+describe("deferred locale bundles", () => {
+  it("is absent until its route asks for it, then resolves", async () => {
+    const { initI18n, loadBundle } = await import("@/i18n");
+    const i18next = (await import("i18next")).default;
+    await initI18n();
+
+    // exists(), not t(): asking for a missing key is what arms the self-heal
+    // below, so probing with t() here would load every bundle and make the rest
+    // of this test assert nothing. The failure being avoided is t() returning
+    // the key itself, at a 200, with nothing logged.
+    expect(i18next.exists("budget_hub_title")).toBe(false);
+
+    await loadBundle("budget");
+    expect(i18next.t("budget_hub_title")).toBe("Бюджет");
+    // A bundle is a slice of the SAME namespace — merging one must not disturb
+    // the core corpus or the other bundles.
+    expect(i18next.t("greeting")).toBe("Здравей");
+    expect(i18next.exists("meth_title")).toBe(false);
+  });
+
+  it("fetches each bundle once, however many routes ask", async () => {
+    const { initI18n, loadBundle } = await import("@/i18n");
+    const i18next = (await import("i18next")).default;
+    await initI18n();
+    await loadBundle("budget");
+    const spy = vi.spyOn(i18next, "addResourceBundle");
+    // Concurrently, because N tiles mounting at once is the real shape.
+    await Promise.all([loadBundle("budget"), loadBundle("budget")]);
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it("carries a loaded bundle across a language switch", async () => {
+    // The one way the split can render raw keys on the happy path: the route
+    // wrapper has already run, so nothing will fetch the bundle again, and a
+    // visitor switching language while reading /budget/execution would watch
+    // the page turn into identifiers.
+    const { initI18n, loadBundle, changeLanguage } = await import("@/i18n");
+    const i18next = (await import("i18next")).default;
+    await initI18n();
+    await loadBundle("budget");
+
+    await changeLanguage("en");
+
+    expect(i18next.t("budget_hub_title")).toBe("Budget");
+    expect(i18next.t("greeting")).toBe("Hello");
+    // Only what was asked for: an unrequested bundle must not be dragged into
+    // the switch, or the saving is given back the first time anyone changes
+    // language.
+    expect(i18next.hasResourceBundle("en", "translation")).toBe(true);
+    expect(i18next.exists("meth_title")).toBe(false);
+  });
+
+  it("heals a key that reaches a screen with no bundle loaded", async () => {
+    // Belt to the reachability gate's braces: the gate proves at build time
+    // that this cannot happen, but it reads call sites with regexes and the
+    // cost of it being wrong is a live page rendering an identifier. Asking for
+    // a bundled key pulls every bundle in, and bindI18nStore re-renders.
+    const { initI18n } = await import("@/i18n");
+    const i18next = (await import("i18next")).default;
+    await initI18n();
+    expect(i18next.options.react?.bindI18nStore).toBe("added");
+    expect(i18next.options.saveMissing).toBe(true);
+
+    // vi.resetModules() re-creates @/i18n but NOT i18next's resource store,
+    // which is shared for the whole file — so a bundle an earlier test merged
+    // is still in it, and "the key is absent" would pass or fail on test order.
+    // Put the store back to core-only, explicitly, on the instance asserted on.
+    i18next.removeResourceBundle("bg", "translation");
+    i18next.addResourceBundle("bg", "translation", { greeting: "Здравей" });
+    expect(i18next.exists("budget_hub_title")).toBe(false);
+    expect(i18next.exists("meth_title")).toBe(false);
+
+    // NOW arm it: this miss is the one that heals.
+    expect(i18next.t("budget_hub_title")).toBe("budget_hub_title");
+    await vi.waitFor(() =>
+      expect(i18next.t("budget_hub_title")).toBe("Бюджет"),
+    );
+    // Every bundle, not just the one the key belongs to — a key->bundle
+    // manifest in the core chunk would cost most of what the split saved, so
+    // one miss pulls them all.
+    await vi.waitFor(() => expect(i18next.t("meth_title")).toBe("Методология"));
   });
 });
 

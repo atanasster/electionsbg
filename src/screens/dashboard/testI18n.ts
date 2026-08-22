@@ -9,8 +9,7 @@
 
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import bg from "@/locales/bg/translation.json";
-import en from "@/locales/en/translation.json";
+import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 
 export const initTestI18n = (lng: "bg" | "en" = "bg") =>
   i18n.use(initReactI18next).init({

@@ -20,8 +20,38 @@ import { HubBreadcrumb } from "@/screens/components/HubBreadcrumb";
 // every sector pack, so importing it here puts ~20 reference-data modules on
 // the entry chunk's critical path. Gated by src/entryGraph.test.ts.
 import { ROADS_AWARDER_PATH } from "./lib/roadsAwarder";
+import { loadBundle } from "@/i18n";
+// Import-free by construction — see the module header. routes.tsx is a static
+// import of the entry chunk, so naming a bundle must not drag anything in.
+import type { LocaleBundle } from "@/locales/bundles";
 import { CabinetAnchorProvider } from "@/data/macro/cabinetAnchorContext";
 import { AreaAnchorProvider } from "@/data/area/AreaAnchorProvider";
+
+/** React's own lazy() input type, so a tagged route accepts exactly what an
+ *  untagged one does. */
+type LazyLoader = Parameters<typeof lazy>[0];
+
+/**
+ * A lazy route that also carries a DEFERRED LOCALE BUNDLE.
+ *
+ * The translation corpus is one flat namespace every page downloads before it
+ * can paint, and it grows with every feature — so the families that only one
+ * route group can ask for are split into their own chunks
+ * (src/locales/bundles.ts). This fetches the bundle ALONGSIDE the screen's own
+ * chunk, not after it: the two are independent requests and Suspense holds the
+ * render until both land, so a screen can never paint with its own strings
+ * missing. Serialising them would trade the bytes back for a round trip.
+ *
+ * Which keys a bundle may hold is not a judgement call — it is derived from
+ * this tag by scripts/i18n/bundles.ts and held by
+ * scripts/i18n/bundle_reachability.test.ts. Tagging a route is therefore all
+ * that is needed; untagging one moves its keys back to core at the next split.
+ */
+const withBundle = (bundle: LocaleBundle, load: LazyLoader) =>
+  lazy(async () => {
+    const [mod] = await Promise.all([load(), loadBundle(bundle)]);
+    return mod;
+  });
 
 // The home screen is lazy like every other route. It used to be eager, to
 // spare the landing page a Suspense flash — but it is the ONLY static path
@@ -254,7 +284,7 @@ const DefenseScreen = lazy(() =>
     default: m.DefenseScreen,
   })),
 );
-const UnitCostMethodologyScreen = lazy(() =>
+const UnitCostMethodologyScreen = withBundle("methodology", () =>
   import("./screens/sector/UnitCostMethodologyScreen").then((m) => ({
     default: m.UnitCostMethodologyScreen,
   })),
@@ -764,7 +794,7 @@ const FundsRrfScreen = lazy(() =>
     default: m.FundsRrfScreen,
   })),
 );
-const ProcurementMethodologyScreen = lazy(() =>
+const ProcurementMethodologyScreen = withBundle("methodology", () =>
   import("./screens/procurement/ProcurementMethodologyScreen").then((m) => ({
     default: m.ProcurementMethodologyScreen,
   })),
@@ -814,107 +844,107 @@ const ContractDetailScreen = lazy(() =>
 // Sankey flow and its five drilldowns — the one thing §5 routes to
 // /budget/explorer that the explorer does not reproduce, since it renders a
 // LEVEL rather than a tree — and save the hub nothing. See the plan's T7 note.
-const BudgetScreen = lazy(() =>
+const BudgetScreen = withBundle("budget", () =>
   import("./screens/BudgetScreen").then((m) => ({
     default: m.BudgetScreen,
   })),
 );
-const BudgetMethodologyScreen = lazy(() =>
+const BudgetMethodologyScreen = withBundle("budget", () =>
   import("./screens/BudgetMethodologyScreen").then((m) => ({
     default: m.BudgetMethodologyScreen,
   })),
 );
-const BudgetExplorerScreen = lazy(() =>
+const BudgetExplorerScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetExplorerScreen").then((m) => ({
     default: m.BudgetExplorerScreen,
   })),
 );
-const BudgetMinistriesScreen = lazy(() =>
+const BudgetMinistriesScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetMinistriesScreen").then((m) => ({
     default: m.BudgetMinistriesScreen,
   })),
 );
-const BudgetRevenueScreen = lazy(() =>
+const BudgetRevenueScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetRevenueScreen").then((m) => ({
     default: m.BudgetRevenueScreen,
   })),
 );
-const BudgetSpendingScreen = lazy(() =>
+const BudgetSpendingScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetSpendingScreen").then((m) => ({
     default: m.BudgetSpendingScreen,
   })),
 );
-const BudgetDeviationsScreen = lazy(() =>
+const BudgetDeviationsScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetDeviationsScreen").then((m) => ({
     default: m.BudgetDeviationsScreen,
   })),
 );
-const BudgetLawScreen = lazy(() =>
+const BudgetLawScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetLawScreen").then((m) => ({
     default: m.BudgetLawScreen,
   })),
 );
-const BudgetExecutionScreen = lazy(() =>
+const BudgetExecutionScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetExecutionScreen").then((m) => ({
     default: m.BudgetExecutionScreen,
   })),
 );
-const BudgetFunctionalScreen = lazy(() =>
+const BudgetFunctionalScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetFunctionalScreen").then((m) => ({
     default: m.BudgetFunctionalScreen,
   })),
 );
-const BudgetPersonnelScreen = lazy(() =>
+const BudgetPersonnelScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetPersonnelScreen").then((m) => ({
     default: m.BudgetPersonnelScreen,
   })),
 );
-const BudgetInvestmentsScreen = lazy(() =>
+const BudgetInvestmentsScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetInvestmentsScreen").then((m) => ({
     default: m.BudgetInvestmentsScreen,
   })),
 );
-const BudgetSocialFundsScreen = lazy(() =>
+const BudgetSocialFundsScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetSocialFundsScreen").then((m) => ({
     default: m.BudgetSocialFundsScreen,
   })),
 );
-const BudgetMunicipalScreen = lazy(() =>
+const BudgetMunicipalScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetMunicipalScreen").then((m) => ({
     default: m.BudgetMunicipalScreen,
   })),
 );
-const BudgetMuniInvestmentsScreen = lazy(() =>
+const BudgetMuniInvestmentsScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetMuniInvestmentsScreen").then((m) => ({
     default: m.BudgetMuniInvestmentsScreen,
   })),
 );
-const BudgetMuniCapitalScreen = lazy(() =>
+const BudgetMuniCapitalScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetMuniCapitalScreen").then((m) => ({
     default: m.BudgetMuniCapitalScreen,
   })),
 );
-const BudgetHubScreen = lazy(() =>
+const BudgetHubScreen = withBundle("budget", () =>
   import("./screens/budget/BudgetHubScreen").then((m) => ({
     default: m.BudgetHubScreen,
   })),
 );
-const BudgetMinistryScreen = lazy(() =>
+const BudgetMinistryScreen = withBundle("budget", () =>
   import("./screens/BudgetMinistryScreen").then((m) => ({
     default: m.BudgetMinistryScreen,
   })),
 );
-const BudgetTaxCalculatorScreen = lazy(() =>
+const BudgetTaxCalculatorScreen = withBundle("budget", () =>
   import("./screens/BudgetTaxCalculatorScreen").then((m) => ({
     default: m.BudgetTaxCalculatorScreen,
   })),
 );
-const BudgetModScreen = lazy(() =>
+const BudgetModScreen = withBundle("budget", () =>
   import("./screens/BudgetModScreen").then((m) => ({
     default: m.BudgetModScreen,
   })),
 );
-const BudgetPolicySimulatorScreen = lazy(() =>
+const BudgetPolicySimulatorScreen = withBundle("budget", () =>
   import("./screens/BudgetPolicySimulatorScreen").then((m) => ({
     default: m.BudgetPolicySimulatorScreen,
   })),
@@ -1043,7 +1073,7 @@ const RiskScoreScreen = lazy(() =>
     default: m.RiskScoreScreen,
   })),
 );
-const RiskScoreMethodologyScreen = lazy(() =>
+const RiskScoreMethodologyScreen = withBundle("methodology", () =>
   import("./screens/RiskScoreMethodologyScreen").then((m) => ({
     default: m.RiskScoreMethodologyScreen,
   })),
@@ -1053,7 +1083,7 @@ const RiskAnalysisScreen = lazy(() =>
     default: m.RiskAnalysisScreen,
   })),
 );
-const RiskAnalysisMethodologyScreen = lazy(() =>
+const RiskAnalysisMethodologyScreen = withBundle("methodology", () =>
   import("./screens/RiskAnalysisMethodologyScreen").then((m) => ({
     default: m.RiskAnalysisMethodologyScreen,
   })),
@@ -1148,12 +1178,12 @@ const CompareScreen = lazy(() =>
     default: m.CompareScreen,
   })),
 );
-const VoteFlowMethodologyScreen = lazy(() =>
+const VoteFlowMethodologyScreen = withBundle("methodology", () =>
   import("./screens/VoteFlowMethodologyScreen").then((m) => ({
     default: m.VoteFlowMethodologyScreen,
   })),
 );
-const BenfordMethodologyScreen = lazy(() =>
+const BenfordMethodologyScreen = withBundle("methodology", () =>
   import("./screens/BenfordMethodologyScreen").then((m) => ({
     default: m.BenfordMethodologyScreen,
   })),

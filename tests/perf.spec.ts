@@ -2,6 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import fs from "node:fs";
 import { brotliCompressSync, constants } from "node:zlib";
 import { fileURLToPath } from "node:url";
+import { LOCALE_BUNDLES } from "../src/locales/bundles";
 
 // Note: `path` is deliberately NOT imported — the CLS loops below bind `path`
 // as a per-route variable and would shadow it.
@@ -67,6 +68,36 @@ const HEAVY_APP_CHUNKS = ["exportToPDF-"] as const;
 // The entry chunk's filename, from the built HTML. Throws rather than
 // returning undefined so a missing build fails at the lookup with an
 // actionable message instead of somewhere downstream.
+/** A string that occurs in a bundle's BULGARIAN corpus and nowhere in its
+ *  English one, used to tell the two emitted chunks apart — the hash changes
+ *  every build and the filename carries no language. Derived rather than
+ *  hardcoded so a reworded string cannot silently stop discriminating, and
+ *  restricted to letters and spaces because the emitted form is a JSON.parse
+ *  string literal where quotes and backslashes are escaped. */
+const bgOnlyMarker = (bundle: string): string => {
+  const read = (lang: string) =>
+    JSON.parse(
+      fs.readFileSync(
+        fileURLToPath(
+          new URL(`../src/locales/${lang}/${bundle}.json`, import.meta.url),
+        ),
+        "utf8",
+      ),
+    ) as Record<string, string>;
+  const bg = read("bg");
+  const en = read("en");
+  const enValues = new Set(Object.values(en));
+  const marker = Object.values(bg).find(
+    (v) => v.length > 24 && /^[\p{L} ]+$/u.test(v) && !enValues.has(v),
+  );
+  if (!marker) {
+    throw new Error(
+      `no Bulgarian-only marker in ${bundle}.json — the chunks cannot be told apart`,
+    );
+  }
+  return marker;
+};
+
 const entryChunk = (html: string): string => {
   const match = html.match(/assets\/index-[A-Za-z0-9_-]+\.js/);
   if (!match) {
@@ -230,6 +261,72 @@ test.describe("performance", () => {
     ).toBe(1);
   });
 
+  // The deferred bundles, end to end — the one assertion in this file that
+  // watches the browser rather than the artifact.
+  //
+  // Everything else about the split is a static proof: the reachability gate
+  // says the keys are legal to defer, the budgets say the chunks are the right
+  // size. None of that can see a route that was never tagged, a bundle whose
+  // fetch is serialised behind the screen's own chunk, or a merge that lands
+  // after the paint. The symptom of all three is the same and is invisible to
+  // every other gate here: i18next renders the key itself, at a 200.
+  const BUNDLED_ROUTES: { bundle: string; path: string; other: string }[] = [
+    // One route per bundle. Not exhaustive by design — what a second route of
+    // the same bundle would exercise is the same wrapper — but every bundle
+    // needs one, or a family can ship untested.
+    { bundle: "budget", path: "/budget", other: "methodology" },
+    { bundle: "methodology", path: "/risk-score/methodology", other: "budget" },
+  ];
+
+  for (const route of BUNDLED_ROUTES) {
+    test(`${route.path} fetches its bundle and renders no raw key`, async ({
+      page,
+    }) => {
+      const requested = await requestsFor(page, route.path);
+      const chunk = (name: string) =>
+        new Set(requested.filter((u) => u.includes(`/assets/${name}-`))).size;
+      expect(chunk("translation"), "the core corpus").toBe(1);
+      expect(chunk(route.bundle), `the ${route.bundle} bundle`).toBe(1);
+      // Only the one it declared. A route that pulled every bundle would give
+      // back most of what the split saved, and no byte budget here would move.
+      expect(chunk(route.other), "an undeclared bundle").toBe(0);
+
+      // A raw key is a lowercase identifier carrying at least two underscores,
+      // standing alone in the rendered text — 1,117 of the 1,119 deferred keys
+      // are that shape, and no Bulgarian copy is. Scoped to <main> so a class
+      // name or data attribute cannot match.
+      const { raw, length } = await page.locator("main").evaluate((el) => {
+        const text = (el as HTMLElement).innerText;
+        return {
+          raw: [...text.matchAll(/\b[a-z][a-z0-9]*(?:_[a-z0-9]+){2,}\b/g)].map(
+            (m) => m[0],
+          ),
+          length: text.length,
+        };
+      });
+      // Anchor: "no raw keys" is what an empty page says too, and these routes
+      // render through a Suspense boundary whose fallback is empty.
+      expect(length, `${route.path} rendered almost nothing`).toBeGreaterThan(
+        500,
+      );
+      expect(raw, `${route.path} rendered raw translation keys`).toEqual([]);
+    });
+  }
+
+  test("an untagged route fetches no deferred bundle", async ({ page }) => {
+    // The other half: the whole point is that a reader who never opens /budget
+    // never downloads its copy. Asserting only the presence above would pass on
+    // an implementation that loads every bundle on every page.
+    const requested = await requestsFor(page, "/");
+    const bundles = requested.filter((u) =>
+      LOCALE_BUNDLES.some((b) => u.includes(`/assets/${b}-`)),
+    );
+    expect(
+      [...new Set(bundles)],
+      "the home page downloaded a deferred bundle",
+    ).toEqual([]);
+  });
+
   // The critical path is defined by the entry chunk's STATIC imports, not by
   // the modulepreload hints the test above asserts. Those two drifted apart:
   // the hint list was filtered clean while vendor-pdf stayed a static import
@@ -258,13 +355,24 @@ test.describe("performance", () => {
   // T4 saving (1.37 MB raw / 272 KB brotli) — and every other gate here stays
   // green, because the hint count is unchanged and the ratchet above only bans
   // a fixed list of vendor-* names.
+  //
+  // The DEFERRED bundles (src/locales/bundles.ts) are the same shape one level
+  // down, and they have a second door the core corpus does not:
+  // src/locales/allKeys.ts statically imports all of them at once for the
+  // component tests. scripts/i18n/bundle_reachability.test.ts keeps that module
+  // out of the source graph in seconds; this is the check on the artifact.
   test("entry chunk does not statically import a translation bundle", () => {
     const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
     const imports = staticImportsOf(entryChunk(html));
-    expect(
-      imports.find((i) => i.startsWith("translation-")),
-      `a translation bundle re-entered the entry chunk: ${imports.join(", ")}`,
-    ).toBeUndefined();
+    for (const prefix of [
+      "translation-",
+      ...LOCALE_BUNDLES.map((b) => `${b}-`),
+    ]) {
+      expect(
+        imports.find((i) => i.startsWith(prefix)),
+        `a translation bundle re-entered the entry chunk: ${imports.join(", ")}`,
+      ).toBeUndefined();
+    }
   });
 
   // The locale hint is injected as an inline script rather than a static link
@@ -528,36 +636,36 @@ test.describe("performance", () => {
     // interleaved with the values they aliased, so nothing compressed against
     // its neighbour.
     //
-    // This is still the one budget in this test that does NOT measure chunk
-    // composition — it measures a translation corpus that grows with every
-    // feature, so it burns headroom on a schedule the others do not. Measured
-    // over the five days before the fix: bg 177_837 → 189_485, i.e. ~2.3 KB br
-    // per language per day, which eats the +5% below in about three days of
-    // shipping. Reclaiming 50 KB bought roughly four weeks; it is not a
-    // reprieve.
+    // It tripped again on 2026-08-18 (bg 149_826, en 131_349) and was paid for
+    // by deleting 486 keys nothing could ask for. EN then cleared its ceiling
+    // by 64 B — under an hour of shipping at ~1-2 KB br per language per day —
+    // and the prune is a one-off by construction, its own gate
+    // (scripts/i18n/key_usage.test.ts) now keeping the dead set at zero. This
+    // comment said the namespace split was the only lever left. It tripped
+    // again four days later, and that is what happened.
     //
-    // And there is no second trick of that kind left. When this trips again the
-    // lever is an i18next namespace split so a screen pulls only the strings it
-    // uses — bg is 790 KB raw and every page still loads all of it. Widening
-    // needs a reason as concrete as the one above.
+    // Ratcheted DOWN 2026-08-22 from 144_000 / 125_500, which the corpus had
+    // just passed at bg 147_848 / en 129_477. The corpus is now ONE flat
+    // i18next namespace PARTITIONED across files: `translation.json` is what
+    // every page downloads, and each DEFERRED BUNDLE (src/locales/bundles.ts)
+    // ships with the routes tagged `withBundle()` in src/routes.tsx. 1,119 of
+    // 6,253 keys left, and the core went bg 147_845 → 114_803, en 129_418 →
+    // 99_553 (−22%).
     //
-    // It DID trip again, five days later (2026-08-18), both languages over: bg
-    // 149_826, en 131_349. What paid for it was not a widening and not the
-    // split — it was 486 keys nothing could ask for, deleted by
-    // `npm run i18n:prune`: bg → 143_384, en → 125_436, ~6.4 KB br per
-    // language. Read the margin, not the pass: EN cleared its ceiling by 64 B,
-    // i.e. under an hour of shipping at the rate above. The prune is a one-off
-    // by construction — its own gate (scripts/i18n/key_usage.test.ts) now keeps
-    // the dead set at zero, so there is no second 486 keys to find. The
-    // namespace split is still the lever, and it is now the ONLY one.
+    // So the lever is no longer one-shot: the next trip is another bundle, and
+    // funds and procurement are the two largest measured (~7 KB br per language
+    // each). What makes it safe is scripts/i18n/bundle_reachability.test.ts —
+    // a key whose bundle is not loaded renders as its own identifier at a 200,
+    // so nothing here would see it. Widening either number still needs a reason
+    // as concrete as the three above.
     //
     // Note the loop below throws on the FIRST language over budget, and the two
     // cross at different commits, so a run that names one language is not
-    // evidence the other has room: on the CI run that prompted the fix both
-    // were over and only EN was reported.
+    // evidence the other has room: on the CI run that prompted the 2026-08-18
+    // fix both were over and only EN was reported.
     const LOCALE_BUDGETS: Record<string, number> = {
-      bg: 144_000,
-      en: 125_500,
+      bg: 120_500,
+      en: 104_500,
     };
     const locales = fs
       .readdirSync(`${DIST_DIR}/assets`)
@@ -578,6 +686,47 @@ test.describe("performance", () => {
       expect(br(f), `${lang} locale bundle`).toBeLessThanOrEqual(
         LOCALE_BUDGETS[lang],
       );
+    }
+
+    // The deferred bundles. These are NOT on every page — each ships only with
+    // the routes that declare it — so a trip here costs one route group rather
+    // than the whole site, and is correspondingly cheaper to justify widening.
+    // They are budgeted anyway because nothing else measures them: the core
+    // ceiling above cannot tell a bundle that grew from a bundle that swallowed
+    // the corpus, and the reachability gate only proves the keys are legal to
+    // defer, not that there is a sane number of them.
+    const BUNDLE_BUDGETS: Record<string, Record<string, number>> = {
+      budget: { bg: 28_600, en: 24_100 },
+      methodology: { bg: 13_800, en: 10_500 },
+    };
+    for (const bundle of LOCALE_BUNDLES) {
+      const marker = bgOnlyMarker(bundle);
+      const chunks = fs
+        .readdirSync(`${DIST_DIR}/assets`)
+        .filter((f) => new RegExp(`^${bundle}-.*\\.js$`).test(f));
+      // Same anchor as above, and it earns its place for a second reason here:
+      // a bundle whose keys all came back to core still emits a chunk, so
+      // "found 0" means the split itself stopped happening.
+      expect(
+        chunks.length,
+        `expected one ${bundle} chunk per language, found ${chunks.length}: ${chunks.join(", ")}`,
+      ).toBe(2);
+      const seen = new Set<string>();
+      for (const f of chunks) {
+        const lang = fs
+          .readFileSync(`${DIST_DIR}/assets/${f}`, "utf8")
+          .includes(marker)
+          ? "bg"
+          : "en";
+        seen.add(lang);
+        expect(br(f), `${lang} ${bundle} bundle`).toBeLessThanOrEqual(
+          BUNDLE_BUDGETS[bundle][lang],
+        );
+      }
+      expect(
+        [...seen].sort(),
+        `both ${bundle} chunks matched the same language — the marker has stopped discriminating`,
+      ).toEqual(["bg", "en"]);
     }
   });
 

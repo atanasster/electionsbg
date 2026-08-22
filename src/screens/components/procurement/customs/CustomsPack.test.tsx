@@ -12,7 +12,7 @@ import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { ReactNode } from "react";
-import bgDict from "@/locales/bg/translation.json";
+import { bgCorpus as bgDict } from "@/locales/allKeys";
 import type { CustomsBreakdownFile } from "@/data/budget/types";
 
 // The house i18n mock (BudgetMinistryScreen.test.tsx): the real corpus, pinned to

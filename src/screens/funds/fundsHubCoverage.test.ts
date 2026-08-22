@@ -10,8 +10,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { FUNDS_TILES } from "./fundsRegistry";
-import bg from "@/locales/bg/translation.json";
-import en from "@/locales/en/translation.json";
+import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),

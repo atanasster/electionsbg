@@ -20,7 +20,7 @@ import { BudgetExplorerScreen } from "./BudgetExplorerScreen";
 // The REAL Bulgarian strings, not a `t: () => ""` mock. With the mock these
 // gates asserted on hardcoded fallbacks the app never renders, so swapping the
 // two captions in translation.json left every one of them green.
-import bg from "@/locales/bg/translation.json";
+import { bgCorpus as bg } from "@/locales/allKeys";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({

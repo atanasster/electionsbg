@@ -3812,11 +3812,53 @@ opposite directions. Read that file's header before touching either.
 - `src/screens/components/` — Reusable components shared across screens
 - `src/components/ui/` — Low-level UI primitives (22 components)
 - `src/ux/` — UX utilities: data tables, tooltips, touch handling, media queries
-- `src/locales/{bg,en}/translation.json` — the ONLY i18n corpora, one chunk per
-  language via `import()` in `src/i18n.ts`. There is no `public/locales/`; this line
-  named one until 2026-08-18, which would send anyone auditing or pruning the
-  corpus to a tree that does not exist — or make them conclude a served copy had
-  been missed.
+- `src/locales/{bg,en}/` — the ONLY i18n corpora, one chunk per language via
+  `import()` in `src/i18n.ts`. There is no `public/locales/`; this line named one
+  until 2026-08-18, which would send anyone auditing or pruning the corpus to a
+  tree that does not exist — or make them conclude a served copy had been missed.
+
+  **It is ONE flat i18next namespace PARTITIONED across several files, not
+  several namespaces.** `translation.json` is the core corpus every page
+  downloads before it can paint; each of the others (`budget.json`,
+  `methodology.json` — the list is `src/locales/bundles.ts`) is a DEFERRED BUNDLE
+  that ships with the routes tagged `withBundle("<name>", …)` in `src/routes.tsx`
+  and is merged into the same namespace with `addResourceBundle`. So every call
+  site stays a plain `t("budget_hub_title")`, and there is no namespace for a
+  component to forget to declare.
+
+  Four things about it are easy to get backwards:
+
+  - **Read the UNION, never `translation.json` alone.** `loadCorpus()`
+    (`scripts/i18n/key_usage.ts`) does; so does the test-only
+    `src/locales/allKeys.ts`, which is what component tests import. Reading the
+    core file alone reports every bundled key as dead — and
+    `prune_translations.ts` would then delete them. That script writes back per
+    FILE for the same reason: writing the kept set to `translation.json` folds
+    every bundle into the core chunk, hands the byte budgets their whole overage
+    back, and every key count reconciles.
+  - **Which keys a bundle may hold is DERIVED, not curated.**
+    `scripts/i18n/bundles.ts` proves a key is named only by modules that no
+    route outside the bundle can statically reach; `split_bundles.ts --apply`
+    moves them (bidirectionally — a key that stops being exclusive comes back);
+    `bundle_reachability.test.ts` keeps it true. Adding a bundle is: name it in
+    `bundles.ts`, tag its routes, run the splitter, re-ratchet
+    `tests/perf.spec.ts`.
+  - **The failure is silent by construction.** A key whose bundle is not loaded
+    renders as its own identifier at a 200 — `budget_hub_title` where a heading
+    belongs. That is why the gate has no allowlist, why the analysis is biased
+    toward core in every ambiguous case (named outside `src/`, named by a data
+    artifact, reachable from the shell or from an untagged route → core), and why
+    `i18n.ts` heals a missing key by pulling every bundle rather than reporting.
+  - **A language switch must carry the loaded bundles over.** `changeLanguage`
+    re-merges everything this session has asked for BEFORE switching; without it
+    a visitor who switches language while reading `/budget/execution` watches the
+    page turn into identifiers, on the happy path, with nothing failing.
+
+  Measured 2026-08-22 at the split (brotli q11): core bg 147,845 → 114,785 and
+  en 129,418 → 99,559, i.e. −22% with 1,119 of 6,253 keys deferred. The corpus
+  grows ~1-2 KB br per language per day, so the budgets in `tests/perf.spec.ts`
+  will trip again; the next lever is another bundle (funds and procurement are
+  the two largest measured at ~7 KB br per language each), not a wider number.
 
 ### URL contract (cross-page state)
 

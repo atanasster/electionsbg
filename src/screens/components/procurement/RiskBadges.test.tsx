@@ -35,7 +35,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { describe, it, expect, vi, beforeAll } from "vitest";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import en from "@/locales/en/translation.json";
+import { enCorpus as en } from "@/locales/allKeys";
 import { contractRiskFromMasks } from "@/lib/contractRiskMask";
 import { RiskBadges } from "./RiskBadges";
 

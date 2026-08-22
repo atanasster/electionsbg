@@ -11,8 +11,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { FUNDS_BANDS, FUNDS_TILES } from "./fundsRegistry";
 import { FUNDS_SCENES } from "./fundsScenes";
-import bg from "@/locales/bg/translation.json";
-import en from "@/locales/en/translation.json";
+import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),

@@ -33,6 +33,7 @@
     "build": "tsc -b && vite build",
     "data:map": "tsx ./scripts/data_map/build_manifest.ts",
     "i18n:prune": "tsx ./scripts/i18n/prune_translations.ts",
+    "i18n:split": "tsx ./scripts/i18n/split_bundles.ts",
     "brand:channels": "tsx ./scripts/brand/generate_channel_art.ts",
     "postbuild": "tsx ./scripts/og/generate.ts && tsx ./scripts/prerender/index.ts && tsx ./scripts/llms/buildIndex.ts && tsx ./scripts/llms/buildFull.ts && tsx ./scripts/images/optimize.ts && find dist public -name .DS_Store -delete",
     "lint": "eslint .",

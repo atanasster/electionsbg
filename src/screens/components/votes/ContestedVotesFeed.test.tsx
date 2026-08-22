@@ -6,8 +6,7 @@
 
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import bg from "@/locales/bg/translation.json";
-import en from "@/locales/en/translation.json";
+import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 import type { TopicEntry } from "@/data/parliament/votes/types";
 import type { ContestedVotes } from "@/data/parliament/votes/useContestedVotes";
 

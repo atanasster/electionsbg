@@ -5,8 +5,7 @@
 // other spelling one click away.
 
 import { describe, it, expect } from "vitest";
-import bg from "@/locales/bg/translation.json";
-import en from "@/locales/en/translation.json";
+import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 import { COFOG_CODES, COFOG_TOTAL_CODE, cofogLabelKey } from "./cofog";
 
 describe("COFOG codes", () => {

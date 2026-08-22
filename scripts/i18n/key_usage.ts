@@ -30,6 +30,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { stripComments as sharedStripComments } from "../lib/strip_comments";
+import { LOCALE_BUNDLES } from "../../src/locales/bundles";
 
 /** Scanned for both literals and built-key patterns.
  *
@@ -66,10 +67,19 @@ const PLURAL_SUFFIX = /_(?:ordinal_)?(?:zero|one|two|few|many|other)$/;
 const CODE = /\.(ts|tsx|js|jsx|mjs)$/;
 const TEST = /\.(test|spec|harness)\.(ts|tsx|js|jsx|mjs)$/;
 
+export interface ScannedFile {
+  /** Repo-relative, POSIX separators. */
+  path: string;
+  text: string;
+  /** Tests may NAME a key but must never contribute a PATTERN — see buildScan. */
+  isTest: boolean;
+}
+
 const readCode = (
   dir: string,
-  out: { all: string[]; runtime: string[] },
-): typeof out => {
+  root: string,
+  out: ScannedFile[],
+): ScannedFile[] => {
   if (!fs.existsSync(dir)) return out;
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
@@ -85,21 +95,43 @@ const readCode = (
         // function of a developer's working tree rather than of tracked code.
         e.name.startsWith(".") ||
         SKIP_DIRS.some((d) => posix(p).endsWith(d));
-      if (!skip) readCode(p, out);
+      if (!skip) readCode(p, root, out);
     } else if (CODE.test(e.name)) {
-      const text = fs.readFileSync(p, "utf8");
-      out.all.push(text);
-      if (!TEST.test(e.name)) out.runtime.push(text);
+      out.push({
+        path: posix(path.relative(root, p)),
+        text: fs.readFileSync(p, "utf8"),
+        isTest: TEST.test(e.name),
+      });
     }
   }
   return out;
 };
 
-const readDataJson = (dir: string, out: string[]): string[] => {
+/** Every file either gate treats as a call site, read once. Shared with
+ *  scripts/i18n/bundles.ts, which asks the same question per FILE rather than
+ *  over the concatenation — so the two cannot disagree about what a call site
+ *  is. */
+export const scanFiles = (root = process.cwd()): ScannedFile[] => {
+  const out: ScannedFile[] = [];
+  for (const d of SCAN_DIRS) readCode(path.join(root, d), root, out);
+  return out;
+};
+
+/** Shallow, because data/ holds ~hundreds of thousands of generated files and
+ *  none of the deep ones carries an i18n key. A generated artifact may NAME a
+ *  key, never widen the rules — so these are read as text and never scanned for
+ *  patterns. */
+export const readDataJson = (root = process.cwd()): ScannedFile[] => {
+  const dir = path.join(root, SCAN_DATA_JSON);
+  const out: ScannedFile[] = [];
   if (!fs.existsSync(dir)) return out;
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     if (e.isFile() && e.name.endsWith(".json")) {
-      out.push(fs.readFileSync(path.join(dir, e.name), "utf8"));
+      out.push({
+        path: posix(path.join(SCAN_DATA_JSON, e.name)),
+        text: fs.readFileSync(path.join(dir, e.name), "utf8"),
+        isTest: false,
+      });
     }
   }
   return out;
@@ -172,8 +204,7 @@ interface Scan {
 }
 
 const buildScan = (root: string): Scan => {
-  const chunks = { all: [] as string[], runtime: [] as string[] };
-  for (const d of SCAN_DIRS) readCode(path.join(root, d), chunks);
+  const files = scanFiles(root);
   // Patterns come from RUNTIME code only — not from tests, and not from data.
   //
   // A test may NAME a key (deleting one then fails, loudly, which is the right
@@ -186,11 +217,13 @@ const buildScan = (root: string): Scan => {
   // scans for prefixes would otherwise keep every family it discusses,
   // including its own examples.
   return {
-    patterns: builtKeyPatterns(chunks.runtime.join("\n")),
-    withData: [
-      ...chunks.all,
-      ...readDataJson(path.join(root, SCAN_DATA_JSON), []),
-    ].join("\n"),
+    patterns: builtKeyPatterns(
+      files
+        .filter((f) => !f.isTest)
+        .map((f) => f.text)
+        .join("\n"),
+    ),
+    withData: [...files, ...readDataJson(root)].map((f) => f.text).join("\n"),
   };
 };
 
@@ -237,11 +270,26 @@ export const analyzeKeyUsage = (
   return { literal, built, plural, unused, patternCount: patterns.length };
 };
 
-export const CORPUS_PATH = (lang: "bg" | "en", root = process.cwd()) =>
-  path.join(root, `src/locales/${lang}/translation.json`);
+/** The corpus is authored as ONE flat namespace and only PARTITIONED across
+ *  files — core plus one per deferred bundle (src/locales/bundles.ts) — so
+ *  every question this module answers is asked of the union. Reading only
+ *  translation.json would report all ~1.1k bundled keys as dead the day the
+ *  split landed, and the prune would then delete them. */
+export const CORPUS_PATHS = (lang: "bg" | "en", root = process.cwd()) => [
+  path.join(root, `src/locales/${lang}/translation.json`),
+  ...LOCALE_BUNDLES.map((b) =>
+    path.join(root, `src/locales/${lang}/${b}.json`),
+  ),
+];
 
 export const loadCorpus = (
   lang: "bg" | "en",
   root = process.cwd(),
-): Record<string, string> =>
-  JSON.parse(fs.readFileSync(CORPUS_PATH(lang, root), "utf8"));
+): Record<string, string> => {
+  const all: Record<string, string> = {};
+  for (const p of CORPUS_PATHS(lang, root)) {
+    if (fs.existsSync(p))
+      Object.assign(all, JSON.parse(fs.readFileSync(p, "utf8")));
+  }
+  return all;
+};

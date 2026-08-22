@@ -11,8 +11,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import bg from "@/locales/bg/translation.json";
-import en from "@/locales/en/translation.json";
+import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 import { BUDGET_BANDS, BUDGET_TILES } from "./budgetRegistry";
 import { BUDGET_SCENES } from "./budgetScenes";
 

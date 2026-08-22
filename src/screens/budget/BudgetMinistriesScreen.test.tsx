@@ -15,7 +15,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import bg from "@/locales/bg/translation.json";
+import { bgCorpus as bg } from "@/locales/allKeys";
 import { BudgetMinistriesScreen } from "./BudgetMinistriesScreen";
 
 vi.mock("react-i18next", () => ({

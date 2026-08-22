@@ -12,7 +12,7 @@
 
 import { describe, it, expect, vi } from "vitest";
 import { render } from "@testing-library/react";
-import bgDict from "@/locales/bg/translation.json";
+import { bgCorpus as bgDict } from "@/locales/allKeys";
 import { BudgetFunctionalChart } from "./BudgetFunctionalChart";
 import { truncateTick, type FunctionalBar } from "./budgetFunctionalBars";
 

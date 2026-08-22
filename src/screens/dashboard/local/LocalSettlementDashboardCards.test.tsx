@@ -16,7 +16,7 @@ import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import bg from "@/locales/bg/translation.json";
+import { bgCorpus as bg } from "@/locales/allKeys";
 import type { LocalKmetstvoResult, LocalMayorResult } from "@/data/local/types";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 
