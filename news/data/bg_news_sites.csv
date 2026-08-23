@@ -1,6 +1,6 @@
 rank,tier,domain,outlet,type,scope,similarweb_visits_jul2026,semrush_visits_jul2026,tranco_rank_aug2026,feed_method_aug2026,feed_url_aug2026,feed_status_aug2026,feed_success_aug2026,feed_notes_aug2026
 1,mass,abv.bg,ABV (Nova/Netinfo),portal+news,national,18.3M,,7969,portal_not_newsroom,https://abv.bg/,200,no,redirects_to_home.abv.bg_webmail_login_landing_page_not_a_newsroom_no_feed_attempted
-2,mass,dir.bg,Dir.bg,portal+news,national,12.1M,20.85M,27300,browser_render_scrape,https://dir.bg/,200,yes,sitemap.xml_and_robots.txt_carry_no_article_sitemap_only_a_tiny_navigation_urlset_confirmed_via_browser_homepage_is_the_real_aggregated_headline_feed_dom_scrape_only
+2,mass,dir.bg,Dir.bg,portal+news,national,12.1M,20.85M,27300,browser_render_scrape,https://dir.bg/,200,yes,sitemap.xml_and_robots.txt_carry_no_article_sitemap_only_a_tiny_navigation_urlset_confirmed_via_browser_homepage_is_the_real_aggregated_headline_feed_dom_scrape_only_goto_failed_with_internal_webview_error_on_3_attempts_2026-08-22_both_bare_and_www_environment_failure_not_site_class
 3,mass,blitz.bg,Блиц,tabloid news,national,11.9M,8.52M,19769,browser_then_rss,https://blitz.bg/rss,200,yes,cloudflare_js_challenge_blocks_a_bare_http_client_clear_it_with_a_real_browser_first_then_fetch_the_url_column_directly_native_rss_and_sitemap_both_confirmed
 4,mass,vesti.bg,Vesti.bg (Nova),news,national,10.9M,5.76M,57839,robots_sitemap,https://www.vesti.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
 5,mass,nova.bg,Нова телевизия / Нова Нюз,TV news,national,,7.73M,19160,robots_sitemap,https://nova.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
@@ -60,7 +60,7 @@ rank,tier,domain,outlet,type,scope,similarweb_visits_jul2026,semrush_visits_jul2
 59,long_tail,burgas24.bg,Burgas24,regional,Burgas,164K,,395959,sitemap,https://burgas24.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
 60,long_tail,iskra.bg,Искра,news,national,922K*,,386417,robots_sitemap,https://www.iskra.bg/sitemap_index.xml,200,yes,sitemap_xml_confirmed
 61,long_tail,profit.bg,Profit.bg,business/markets,national,142K,,551612,robots_sitemap,https://profit.bg/api/sitemap-news.xml,200,yes,sitemap_xml_confirmed
-62,long_tail,bgnes.com,БГНЕС,agency,national,148K,,276366,browser_render_scrape,https://bgnes.com/,200,yes,feed_rss_sitemap_paths_all_200_html_spa_shell_not_real_xml_dom_scrape_only
+62,long_tail,bgnes.com,БГНЕС,agency,national,148K,,276366,browser_render_scrape,https://bgnes.com/,200,yes,default_serves_the_ENGLISH_edition_bulgarian_edition_is_separate_domain_bgnes_bg_browser_harvest_of_article_links_works_on_bgnes_bg_articles_plain_http_200_corpus_saved_under_bgnes_bg_2026-08-22
 63,editorial,bird.bg,БИРД (Bureau for Investigative Reporting and Data),investigative/data,national,165K,,250624,robots_sitemap,https://bird.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
 64,editorial,e-vestnik.bg,Е-вестник,independent commentary,national,72K,,867288,robots_sitemap,https://e-vestnik.bg/sitemap.xml,200,yes,sitemap_xml_confirmed
 65,editorial,svobodnaevropa.bg,Свободна Европа (RFE/RL),public-service intl,national,46K,,483632,rss,https://svobodnaevropa.bg/?feed=rss2,200,yes,feed_xml_confirmed

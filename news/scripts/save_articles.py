@@ -80,11 +80,24 @@ JUNK_TAGS = {"script", "style", "nav", "header", "footer", "aside", "form",
 # class=/id= fragments that mark non-body boxes (related articles, share
 # bars, comment threads, paywall promos...). Bulgarian sites mix Latin and
 # transliterated class names, hence rek(lama) and the broad fragments.
+# iubenda/cmp/consent: JS cookie-consent banners are injected into the
+# RENDERED DOM the browser tier serializes — measured on glasove.com, where
+# the iubenda vendor list swamped 100+ paragraphs of every article.
+# ⚠️ "sidebar" is deliberately NOT here: as a substring it also matches
+# layout classes like "with-sidebar container" that name the MAIN content
+# column (measured on glasove.com — it silently zeroed every article);
+# sidebar boxes are caught by the token check in class_is_junky instead.
 JUNK_CLASS_RE = re.compile(
-    r"(related|sidebar|comment|share|social|newsletter|banner|popup|modal|"
+    r"(related|comment|share|social|newsletter|banner|popup|modal|"
     r"subscribe|promo|advert|\.ad\b|rek?lama|cookie|gdpr|menu|navigation|"
     r"breadcrumb|paging|pagination|tags?-|most.?read|read.?also|see.?also|"
-    r"video.?list|gallery|autorow|hotnews|topnews)", re.I)
+    r"video.?list|gallery|autorow|hotnews|topnews|iubenda|iub|cmp|consent)", re.I)
+
+
+def class_is_junky(cls):
+    if any(tok.lower().startswith("sidebar") for tok in cls.split()):
+        return True  # sidebar, sidebar-right, sidebar_widget — but NOT with-sidebar
+    return bool(JUNK_CLASS_RE.search(cls))
 
 MIN_PARA_CHARS = 30          # shorter <p> blocks are dek/teaser/nav residue
 LINK_SOUP_RATIO = 0.6        # >60% linked text + short => "related" teaser
@@ -177,7 +190,7 @@ class BodyExtractor(HTMLParser):
         ad = dict(attrs)
         cls = f"{ad.get('class') or ''} {ad.get('id') or ''}"
         junky = (tag in JUNK_TAGS
-                 or bool(JUNK_CLASS_RE.search(cls))
+                 or class_is_junky(cls)
                  or ad.get("role") in ("navigation", "complementary",
                                        "contentinfo", "banner", "search"))
         if tag in ("h1", "h2", "h3") and not junky and self.junk == 0:
@@ -558,42 +571,83 @@ def existing_urls(folder):
 def main():
     args = list(sys.argv[1:])
     delay = DELAY_DEFAULT
+    urls_file = None
+    prefetched = None
     for a in list(args):
         if a.startswith("--delay="):
             delay = float(a.split("=", 1)[1])
             args.remove(a)
+        elif a.startswith("--urls-file="):
+            urls_file = a.split("=", 1)[1]
+            args.remove(a)
+        elif a.startswith("--prefetched="):
+            prefetched = a.split("=", 1)[1]
+            args.remove(a)
     if not args:
         print(json.dumps({"error": "usage",
-                          "detail": "save_articles.py <domain> [N] [--delay=S]"}))
+                          "detail": "save_articles.py <domain> [N] [--delay=S] "
+                                    "[--urls-file=F | --prefetched=F.jsonl]"}))
         sys.exit(1)
     domain = args[0]
     want = int(args[1]) if len(args) > 1 else 5
 
-    try:
-        proc = subprocess.run(
-            [sys.executable, str(LISTER), domain, str(want)],
-            capture_output=True, text=True, timeout=LISTER_TIMEOUT)
-    except subprocess.TimeoutExpired:
-        print(json.dumps({"domain": domain, "error": "fetch_failed",
-                          "detail": f"lister exceeded {LISTER_TIMEOUT}s"}))
-        sys.exit(4)
-    try:
-        listed = json.loads(proc.stdout)
-    except json.JSONDecodeError:
-        print(json.dumps({"domain": domain, "error": "fetch_failed",
-                          "detail": f"lister printed unparseable output: "
-                                    f"{proc.stdout[:200]} {proc.stderr[:200]}"}))
-        sys.exit(4)
-    if proc.returncode != 0 or "error" in listed:
-        # propagate the lister's own error JSON verbatim (needs_browser,
-        # blocked_captcha, domain_not_in_registry, ...) with its exit code
-        print(json.dumps(listed, ensure_ascii=False))
-        sys.exit(proc.returncode or 3)
+    html_map = {}  # url -> page HTML, when pages were prefetched via browser
+    if prefetched:
+        # Browser-fetched pages (the browser_only tier): one JSON line per
+        # article, {"url", "html"} — no network happens in this mode at all.
+        with open(prefetched, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                d = json.loads(line)
+                if d.get("url") and d.get("html"):
+                    html_map[d["url"]] = d
+        articles = [{"url": u, "title": d.get("title"),
+                     "published": d.get("published")}
+                    for u, d in html_map.items()]
+        list_method, order_confidence, listed_count, warning = (
+            "prefetched_browser", "dom_order_unconfirmed", len(articles), None)
+    elif urls_file:
+        # Browser-harvested links (homepage DOM scrape) but article pages are
+        # plain-HTTP fetchable: one URL per line, '#' comments allowed.
+        articles = []
+        for line in open(urls_file, encoding="utf-8"):
+            u = line.strip()
+            if u and not u.startswith("#"):
+                articles.append({"url": u})
+        list_method, order_confidence, listed_count, warning = (
+            "urls_file_browser_harvest", "dom_order_unconfirmed", len(articles), None)
+    else:
+        try:
+            proc = subprocess.run(
+                [sys.executable, str(LISTER), domain, str(want)],
+                capture_output=True, text=True, timeout=LISTER_TIMEOUT)
+        except subprocess.TimeoutExpired:
+            print(json.dumps({"domain": domain, "error": "fetch_failed",
+                              "detail": f"lister exceeded {LISTER_TIMEOUT}s"}))
+            sys.exit(4)
+        try:
+            listed = json.loads(proc.stdout)
+        except json.JSONDecodeError:
+            print(json.dumps({"domain": domain, "error": "fetch_failed",
+                              "detail": f"lister printed unparseable output: "
+                                        f"{proc.stdout[:200]} {proc.stderr[:200]}"}))
+            sys.exit(4)
+        if proc.returncode != 0 or "error" in listed:
+            # propagate the lister's own error JSON verbatim (needs_browser,
+            # blocked_captcha, domain_not_in_registry, ...) with its exit code
+            print(json.dumps(listed, ensure_ascii=False))
+            sys.exit(proc.returncode or 3)
+        articles = listed.get("articles", [])
+        list_method = listed.get("method")
+        order_confidence = listed.get("order_confidence")
+        listed_count = listed.get("count", 0)
+        warning = listed.get("warning")
 
     folder = DATA_DIR / domain
     have = existing_urls(folder)
     saved, failed = 0, []
-    articles = listed.get("articles", [])
     for art in articles:
         url = art.get("url")
         if not url:
@@ -604,7 +658,11 @@ def main():
             failed.append({"url": url, "detail": "non_article_page (homepage)"})
             continue
         try:
-            rec, is_article = extract_record(fetch_html(url), domain, url,
+            if html_map:
+                html_text = html_map[url]["html"]
+            else:
+                html_text = fetch_html(url)
+            rec, is_article = extract_record(html_text, domain, url,
                                              art.get("published"))
         except (urllib.error.URLError, urllib.error.HTTPError) as e:
             failed.append({"url": url, "detail": str(e)})
@@ -624,21 +682,22 @@ def main():
         (folder / article_filename(url, rec["published"])).write_text(
             json.dumps(rec, ensure_ascii=False) + "\n", encoding="utf-8")
         saved += 1
-        time.sleep(delay)
+        if not html_map:
+            time.sleep(delay)
 
     summary = {
         "domain": domain,
         "dir": str(folder.relative_to(Path.cwd())) if _under_cwd(folder) else str(folder),
         "requested": want,
-        "listed": listed.get("count", 0),
+        "listed": listed_count,
         "already_present": sum(1 for a in articles if a.get("url") in have),
         "saved": saved,
         "failed": failed,
-        "list_method": listed.get("method"),
-        "order_confidence": listed.get("order_confidence"),
+        "list_method": list_method,
+        "order_confidence": order_confidence,
     }
-    if listed.get("warning"):
-        summary["warning"] = listed["warning"]
+    if warning:
+        summary["warning"] = warning
     print(json.dumps(summary, ensure_ascii=False))
     if saved == 0 and failed:
         sys.exit(4)

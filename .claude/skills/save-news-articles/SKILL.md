@@ -151,11 +151,70 @@ expect:
   browser tier — not a bug in the saver.
 - One-off `HTTP Error 404`: sitemap entries for since-deleted articles;
   ignore.
-- Browser-tier domains (`browser_render_scrape`, `browser_then_*`),
-  `blocked_captcha`, `portal_not_newsroom` (~22 of 69) are NOT covered by
-  the batch driver. Fetching+persisting those needs the Browser-tool
-  recipes in fetch-news-articles Steps 4a/4b, applied per domain — not
-  yet wired into saving; say so rather than approximating.
+- `blocked_captcha` and `portal_not_newsroom` (~5 of 69) stay unreachable
+  — no CAPTCHA solving, ever.
+
+## Step 5 — the browser tier (17 domains), now wired
+
+For `browser_render_scrape` / `browser_then_*` domains, run the Browser
+Use skill (node REPL) and apply ONE pipeline per domain with two routing
+points. All numbers below are the 2026-08-22 first run, measured.
+
+**Harvest (every domain):** new tab → `goto(https://<domain>/)` →
+domcontentloaded → wait ~9–10s → check the title:
+
+- "Just a moment…" — Cloudflare's automatic JS challenge. blitz.bg cleared
+  in ~12s; dnevnik.bg took ~5 MINUTES of soaking; capital.bg ~10. Leave
+  the tab open and re-check later — do NOT click anything. If an
+  interactive checkbox appears, STOP: that is `blocked_captcha` territory.
+- dir.bg: `goto` failed with an internal webview error on every one of 3
+  attempts (bare and www) — an environment failure, not a site class.
+
+Then ONE read-only `evaluate` harvesting `a[href]` anchors (the a11y
+snapshot carries no hrefs), filtered in Node: same-origin, title ≥ 30
+chars, nav-word titles out, first path segment not in the junk set
+(vremeto/page/horoskop/tv/video/tag/category/search/…), dedupe, cap 100 →
+write `news/data/_browser/<domain>.urls`. Eyeball the sample: weather
+widgets and section chrome pass length filters (blitz's top 3 were
+`/vremeto/` links until the path filter; flagman's were /archives//info/
+chrome). Homepages expose 30–100 links — that IS the ceiling for this
+tier, not a failure to reach N.
+
+**Route (one curl):** plain-HTTP GET on the first article URL:
+
+- **200 → fast path**: `save_articles.py <domain> 100
+  --urls-file=news/data/_browser/<domain>.urls`. Worked for 11 of 16
+  reached domains (news.bg, marica.bg, capital.bg, epicenter.bg, flagman.bg,
+  bta.bg, haskovo.net, money.bg, faktor.bg, kmeta.bg, bgnes.bg).
+- **403 or a JS shell → browser-fetch path**: in the SAME cleared tab,
+  batch (~25–35 per REPL call, the 120s kernel cap is the budget) `goto`
+  each URL → domcontentloaded → read-only `evaluate(() =>
+  document.documentElement.outerHTML)` → append `{"url", "html"}` lines to
+  `news/data/_browser/<domain>.jsonl`, then `save_articles.py <domain> 100
+  --prefetched=<that file>`. Needed for blitz.bg (96/96), dnevnik.bg
+  (87/87), offnews.bg (88/88), glasove.com (72/72 — plain HTTP serves an
+  empty JS shell ~half the time, rendered DOM always has the article).
+- **Hybrid (capital.bg)**: fast path saved 34, then Cloudflare rate-blocked
+  the plain client (49× 403). Extract the failed URLs from the summary,
+  browser-fetch just those, re-run `--prefetched` — incremental skip keeps
+  the 34. Final: 81/83.
+
+Measured traps for the rendered DOM (both fixed in the extractor):
+
+- **Cookie-consent banners ride along** — iubenda's vendor list swamped
+  100+ paragraphs per article on glasove.com (and dnevnik/offnews). The
+  junk filter carries iubenda/cmp/consent classes now; if a corpus smells
+  of "Бисквитките…", re-run `--prefetched` after extending it.
+- **`with-sidebar` is a LAYOUT class naming the MAIN column** — a bare
+  `sidebar` substring in the junk regex zeroed every glasove article.
+  Sidebar matching is token-startswith only; keep it that way.
+
+Other measured facts: bgnes.com serves its ENGLISH edition by default —
+the Bulgarian one is a separate domain, **bgnes.bg** (harvest there);
+offnews.bg and glasove.com article pages carry NO machine dates (folders
+are honestly undated); bta.bg's corrupted-looking summary line was two
+background savers appending to ONE summaries file concurrently — one
+writer per summaries file, always.
 
 ## Verify
 
@@ -177,9 +236,6 @@ still wrong (Step 2).
 ## What this skill does NOT do
 
 - Does not solve CAPTCHAs or bypass active bot-detection.
-- Does not save the browser-tier domains — the summary propagates their
-  `needs_browser*` errors; wiring those into persisted saving is future
-  work.
 - Does not dedupe across outlets — the same agency story on two sites is
   two files, keyed by their own URLs. Correct for an archive; don't
   "clean" it.
@@ -191,7 +247,8 @@ still wrong (Step 2).
 
 | path | what |
 | --- | --- |
-| `news/scripts/save_articles.py` | the downloader — list via fetch_latest_articles.py, extract, persist (this skill) |
+| `news/scripts/save_articles.py` | the downloader — list via fetch_latest_articles.py, `--urls-file=` (browser-harvested links, plain-HTTP articles) or `--prefetched=` (browser-fetched HTML, no network), extract, persist (this skill) |
 | `news/scripts/save_all_direct.sh` | parallel batch over the direct tier (this skill) |
 | `news/data/<domain>/*.json` | the stored articles, incremental by URL |
+| `news/data/_browser/*` | browser-tier scratch: `<domain>.urls` (harvested links), `<domain>.jsonl` (prefetched rendered HTML) — reusable for re-extraction, untracked |
 | `news/scripts/fetch_latest_articles.py` | the lister it shells out to — see fetch-news-articles |
