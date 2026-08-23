@@ -12,10 +12,12 @@ everything deterministic around that:
                     flagged suspect_too_short for the quality gate.
   work item    --candidates <article-path>
                     The article's core fields plus the top candidate stories
-                    (prefilter: title-token overlap, entity mentions with
-                    word boundaries, date proximity) for the LLM's
-                    same_story/new_story decision. Empty candidate list on
-                    the first run — that is normal.
+                    (prefilter: title-token overlap, case-insensitive entity
+                    mentions over title+description+keywords+content with
+                    word boundaries, weighted by entity type and capped,
+                    date proximity) for the LLM's same_story/new_story
+                    decision. Empty candidate list on the first run — that
+                    is normal.
   save         --save-analysis <file.json|->     (one analysis object)
                --save-batch <file.json|->        (an array of them)
                     Validates the record against the schema AND the taxonomy
@@ -95,6 +97,8 @@ STOPWORDS = set(
     """на за от с без до из по и или че със в към при след преди над под обаче също само още все
     тези този тази това онзи онази както който която които ако когато защото може има няма беше ще
     са е да не как какво кой каква защо новина новини видео фото статия прочети още тук пълния
+    най повече между срещу някои всички толкова днес вчера съобщи заяви каза обяви предупреди
+    посочи коментира призова отбеляза допълни разказа
     the a an of in on for to and with after before over new says said from at by is are was were
     bta""".split()
 )
@@ -104,6 +108,23 @@ MAX_CANDIDATES = 6
 MIN_CANDIDATE_SCORE = 3  # date proximity alone (max 2) never surfaces a candidate
 ENTITY_CAP = 50  # per bucket when merging into a story
 INDEX_ENTITY_PREVIEW = 20  # index entries stay small; story files keep ENTITY_CAP
+
+# Entity-channel weights: a person/party name is strong same-event evidence;
+# an institution/company mention is weaker; a place is weakest. Without this,
+# one generic place ("Япония") + a same-day date cleared the bar and surfaced
+# topically unrelated stories (measured on the pilot index).
+ENTITY_BUCKET_WEIGHTS = {"people": 2, "parties": 2, "institutions": 1, "companies": 1, "places": 1}
+ENTITY_CONTRIBUTION_CAP = 3  # max weighted points, so entity mentions alone can't crowd the top-6
+# Names too generic to mean "same event" at all — skipped by the entity
+# channel (title tokens still carry topical similarity). Compared lowercased.
+GENERIC_ENTITY_NAMES = {
+    "сащ", "русия", "българия", "европа", "европейски съюз", "ес", "украйна",
+    "народно събрание", "софия", "бта", "дпа", "тасс", "рейтерс", "франс прес",
+    "германия", "италия", "франция", "великобритания", "гърция", "румъния",
+    "сърбия", "турция", "полша", "унгария", "северна македония", "молдова",
+    "китай", "япония", "израел", "иран",
+    "рим", "париж", "лондон", "берлин", "брюксел", "вашингтон", "москва", "киев",
+}
 
 
 def now_iso() -> str:
@@ -380,10 +401,13 @@ def tokens(text: str) -> set:
 
 
 def entity_in_text(name: str, haystack: str) -> bool:
-    """Whole-word match so 'Иван' does not hit 'Иванов' and 'ГЕРБ' misses
-    'ГЕРБОВ' — entity hits carry the heaviest prefilter weight."""
-    return re.search(r"(?<![А-Яа-яЁёA-Za-z])" + re.escape(name) + r"(?![А-Яа-яЁёA-Za-z])",
-                     haystack) is not None
+    """Case-insensitive whole-word match so 'ДАНС' hits 'данс' but 'Иван'
+    still misses 'Иванов'. Lowers its own haystack — callers pass raw text."""
+    hay = haystack.lower()
+    nl = name.lower()
+    return nl in hay and re.search(
+        r"(?<![0-9А-Яа-яЁёA-Za-z])" + re.escape(nl) + r"(?![0-9А-Яа-яЁёA-Za-z])",
+        hay) is not None
 
 
 def candidate_stories(index: dict, article: dict, limit: int = MAX_CANDIDATES):
@@ -396,6 +420,7 @@ def candidate_stories(index: dict, article: dict, limit: int = MAX_CANDIDATES):
         (article.get("title") or "").lower(),
         (article.get("description") or "").lower(),
         (article.get("keywords") or "").lower(),
+        (article.get("content") or "").lower(),
     ])
     pub = parse_iso((article.get("published") or "")[:10]) if article.get("published") else None
     scored = []
@@ -403,10 +428,15 @@ def candidate_stories(index: dict, article: dict, limit: int = MAX_CANDIDATES):
         st_tokens = tokens((entry.get("title_bg") or "") + " " + (entry.get("title_en") or ""))
         shared = sorted(art_tokens & st_tokens)
         ent_hits = []
-        for k in ("people", "parties", "institutions", "companies", "places"):
+        ent_points = 0
+        for k, weight in ENTITY_BUCKET_WEIGHTS.items():
             for name in entry.get("entities", {}).get(k, []):
+                if name.lower() in GENERIC_ENTITY_NAMES:
+                    continue
                 if entity_in_text(name, art_haystack):
                     ent_hits.append(name)
+                    ent_points += weight
+        ent_points = min(ent_points, ENTITY_CONTRIBUTION_CAP)
         date_score = 0
         if pub is not None:
             first = parse_iso((entry.get("first_published") or "")[:10])
@@ -416,7 +446,7 @@ def candidate_stories(index: dict, article: dict, limit: int = MAX_CANDIDATES):
                     date_score = 2
                 elif min(abs((pub - first).days), abs((pub - last).days)) <= 7:
                     date_score = 1
-        score = 3 * len(shared) + 2 * len(ent_hits) + date_score
+        score = 3 * len(shared) + ent_points + date_score
         if score >= MIN_CANDIDATE_SCORE:
             scored.append({
                 "story_id": sid,

@@ -310,6 +310,58 @@ class TestValidationNeverRaises(FixtureTestCase):
         self.assertIn("--rebuild", out["detail"])
 
 
+class TestPrefilterEntities(unittest.TestCase):
+    # pure function — import in-process, no CLI or fixture needed
+    def test_entity_hits_match_case_insensitive_and_word_bounded(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("analyze_mod", SCRIPT)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        self.assertTrue(mod.entity_in_text("ДАНС", "вчера ДАНС откри заглушител"))  # raw-case haystack
+        self.assertTrue(mod.entity_in_text("Капитан Андреево", "имот край Капитан Андреево е претърсен"))
+        self.assertFalse(mod.entity_in_text("Иван", "иванов е следствател"))
+        self.assertFalse(mod.entity_in_text("ГЕРБ", "гербовци реагираха"))
+        self.assertFalse(mod.entity_in_text("ГЕРБ", "герб7"))  # digit boundary
+
+
+class TestPrefilterEntityChannel(FixtureTestCase):
+    def test_body_only_entity_mention_surfaces_story(self):
+        """End-to-end pin: an entity hit found only in the article BODY (title
+        case, no title-token overlap) surfaces the story; and token overlap
+        from the body alone does NOT — art_tokens stays title-only."""
+        a1 = analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg",
+                      titles=("Разследване на Иван Кирилов", "Probe"))
+        a1["entities"]["people"] = ["Иван Кирилов"]
+        self.save(a1)
+        _, fname, rec = self.articles["a2"]
+        rec["title"] = "Напълно друга тема"
+        rec["description"], rec["keywords"] = None, None
+        rec["content"] = "Вчера Иван Кирилов проведе пресконференция. " + "текст " * 80
+        with open(os.path.join(self.root, "news", "data", "test.bg", fname), "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+        code, out, _ = self.run_cli("--candidates", self.analysis_path("a2"))
+        self.assertEqual(code, 0)
+        self.assertEqual(len(out["candidates"]), 1)
+        self.assertEqual(out["candidates"][0]["entity_hits"], ["Иван Кирилов"])
+        self.assertEqual(out["candidates"][0]["shared_title_tokens"], [])
+
+        # negative: body sharing only common words with the story TITLE must
+        # not surface it (content never feeds art_tokens)
+        _, fname3, rec3 = self.articles["a3"]
+        rec3["title"] = "Нещо трето изобщо"
+        rec3["description"], rec3["keywords"] = None, None
+        rec3["content"] = "Разследване продължава вече месеци. " + "друго " * 80
+        with open(os.path.join(self.root, "news", "data", "other.bg", fname3), "w", encoding="utf-8") as fh:
+            json.dump(rec3, fh, ensure_ascii=False)
+        code, out, _ = self.run_cli("--candidates", self.analysis_path("a3"))
+        self.assertEqual(code, 0)
+        self.assertEqual(out["candidates"], [])
+        # and a4 (no entity, body-only word overlap with nothing) stays empty
+        code, out, _ = self.run_cli("--candidates", self.analysis_path("a4"))
+        self.assertEqual(code, 0)
+        self.assertEqual(out["candidates"], [])
+
+
 class TestPrefilterDates(FixtureTestCase):
     def test_partial_and_garbage_dates_degrade_to_zero(self):
         _, fname, rec = self.articles["a1"]
