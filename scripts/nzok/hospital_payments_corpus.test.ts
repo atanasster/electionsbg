@@ -105,7 +105,6 @@ const parseAll = (): Parsed[] => {
       encoding: "utf8",
       maxBuffer: 8 * 1024 * 1024,
     });
-    if (!CACHE_PREFIX.test(file)) continue; // probe / hand-placed, not a fetched report
     if (res.status !== 0 || !res.stdout) continue; // not a readable report
     const m = res.stdout.match(/към\s+\d{1,2}\.(\d{1,2})\.(\d{4})/);
     if (!m || Number(m[2]) < FIRST_YEAR) continue; // out of the loader's scope
@@ -222,9 +221,12 @@ run("only the known facilities carry an amount inside their name", () => {
 // files — a superseded re-upload of a bad month is the same missing month, and
 // counting it twice made this number 17 where the site is missing 12.
 //
-// Every entry here is a month the site does not have. What closes them:
-//   drugs 2024-06                   RC-2  — Tier 1 item 5 (merged header total)
-//   the eleven count-assert months  Tier 2 — the per-block reconciliation
+// Every entry here is a month the site does not have, and every one of them is
+// now a COUNT-assert failure — Tier 1 closed the whole Σ-drift class, including
+// drugs 2024-06, whose rows were always right and whose header alone was misread
+// (RC-2). What is left is the count model itself, which is Tier 2's per-block
+// reconciliation: НЗОК's own printed count means different things in different
+// eras, and on some months it counts facilities it does not print.
 const REJECTED_PERIODS = [
   "bmp 2023-01",
   "bmp 2023-02",
@@ -237,7 +239,6 @@ const REJECTED_PERIODS = [
   "devices 2026-01",
   "drugs 2023-06",
   "drugs 2023-07",
-  "drugs 2024-06",
 ];
 
 run("only the known months are withheld", () => {
@@ -254,6 +255,20 @@ run("only the known months are withheld", () => {
 // A rejection is only ever one of the two completeness asserts. Anything else —
 // a TypeError, a pdftotext failure, a regex blowing up on a new layout — is a
 // crash wearing a rejection's clothes, and the ratchet above would absorb it.
+// The comment on REJECTED_PERIODS says every remaining rejection is a COUNT
+// failure — Tier 1 closed the whole Σ-drift class. Asserted rather than claimed:
+// a Σ-drift rejection reappearing means a money defect came back, which is a very
+// different event from a count-model month and must not hide among them.
+run("every remaining rejection is a count failure, not a money one", () => {
+  const drift = parsed()
+    .filter((f) => f.rejected && /reconciliation failed/.test(f.rejected))
+    .map((f) => `${f.stream} ${f.period}: ${f.rejected}`);
+  expect(
+    drift,
+    `Σ-drift rejections have returned:\n${drift.join("\n")}`,
+  ).toEqual([]);
+});
+
 run("every rejection is a completeness assert, never a crash", () => {
   const odd = parsed()
     .filter(
@@ -283,6 +298,10 @@ run("every rejection is a completeness assert, never a crash", () => {
  *  reporting month (a 3-column file carries two). */
 const SUBTOTAL =
   /^\s*(\d+)\s+РЗОК\s+(\S.*?)\s{2,}((?:-?[\d \u00a0]+\s{2,})*-?[\d \u00a0]+)\s*$/;
+// The locked BGN/EUR rate. Restated here rather than imported because the parser
+// converts through `toEur` in src/lib/currency and this test must be able to
+// DISAGREE with it — a gate that shares its constant with the code under test
+// cannot notice the constant changing.
 const PEG = 1.95583;
 
 interface Block {
@@ -348,9 +367,10 @@ const blocks = (): Block[] => {
 };
 
 /** Each row is rounded to the euro independently and the subtotal is rounded once,
- *  so a block of n rows may legitimately differ by a few euro. Measured across
- *  2,968 blocks the rounding band tops out at €7; the smallest REAL defect ever
- *  found here was €129. `max(10, rows)` sits in that gap with room either side. */
+ *  so a block of n rows may legitimately differ by a few euro. Re-measured after
+ *  Tier 1 across 3,700 blocks the rounding band tops out at €6, and the smallest
+ *  REAL defect ever found here was €129. `max(10, rows)` sits in that gap with
+ *  slack on both sides. */
 const tolerance = (rows: number) => Math.max(10, rows);
 
 run(

@@ -43,7 +43,10 @@ export interface HospitalPaymentsFile {
   month: number;
   currencyOfRecord: "BGN" | "EUR";
   /** Grand total from the "Общо РЗОК" header row (YTD), in euros. May be negative
-   *  in principle (both downstream guards take `Math.abs`); never is in practice. */
+   *  in principle (both downstream guards take `Math.abs`); never is in practice.
+   *  0 is a SENTINEL meaning "no total line in this document" — the Σ assert is
+   *  guarded on it, so a 0 here means the file loaded unverified. A total line that
+   *  exists but cannot be read throws instead of landing here. */
   totalCumulativeEur: number;
   /** Rows the parser produced — INCLUDING zero-payment facilities, which НЗОК
    *  lists but does not count. NOT the header's own figure: that is
@@ -612,34 +615,51 @@ const BREAK_RE = /Общо\s+РЗОК|^\s*\d+\s+ОБЩО(?!\p{L})|^\s*\d+\s+РЗ
 const TOTAL_RE = /(\d+)\s+(?:Общо\s+РЗОК|ОБЩО)(?!\p{L})/u;
 
 /**
- * Read the header grand-total line — the facility count and the FIRST amount after
- * the label — e.g. "381  Общо РЗОК  942 127 532  191 249 510" (2 columns) or
- * "380  Общо РЗОК  368 752 383  182 964 878  185 787 505" (3). The count leads and
- * the cumulative is the first amount after the label (the wide-gutter one), even
- * when the trailing month columns merge under a single space.
+ * Read one occurrence of the header grand-total line — the facility count and the
+ * year-to-date — e.g. "381  Общо РЗОК  942 127 532  191 249 510" (2 columns) or
+ * "380  Общо РЗОК  368 752 383  182 964 878 185 787 505" (3, where the two month
+ * columns merge under a single space and the YTD still splits off cleanly).
  *
- * Exported ONLY so it can be tested without a PDF fixture: `parseHospitalPaymentsPdf`
- * is otherwise untestable offline, and this line feeds BOTH completeness asserts, so
- * a regression here silently turns them off rather than failing.
+ * `columns` reports how many amount COLUMNS the line separated into, because that
+ * is what tells a usable rendering from a broken one — see RC-2 below.
  *
- * ⚠️ It is knowingly wrong on one real shape and the test pins that: when НЗОК emits
- * the two amount columns separated by a SINGLE space ("43  ОБЩО  644 030 052 115 383
- * 323", drugs 2024-06) the run reads as one 18-digit number and the drift assert then
- * rejects a file whose rows are perfectly correct. Fixing it is RC-2 / Tier 1 item 5
- * of docs/plans/nzok-hospital-parser-hardening-v1.md; until then the pinned
- * expectation is what makes that fix visibly flip a red test.
+ * Exported for testing: `parseHospitalPaymentsPdf` is otherwise untestable
+ * offline, and this line feeds BOTH completeness asserts, so a regression here
+ * does not fail a file — it silently turns the guards off.
  */
 export const readTotalLine = (
   line: string,
-): { count: number; cumulative: number } | null => {
+): { count: number; cumulative: number; columns: number } | null => {
   const cnt = line.match(TOTAL_RE);
   if (!cnt) return null;
   const after = line.replace(/^.*?(?:Общо\s+РЗОК|ОБЩО)(?!\p{L})/u, "");
-  const amts = [...after.matchAll(new RegExp(SIGNED_AMOUNT_RE))].map((mm) =>
-    num(mm[0]),
-  );
-  if (!amts.length) return null;
-  return { count: Number(cnt[1]), cumulative: amts[0] };
+  // The gutter between columns is a run of 2+ spaces; a single space inside a
+  // column is the thousands separator. Splitting on the gutter is therefore the
+  // only reading that can tell "644 030 052" from "644 030 052 115 383 323".
+  // ⚠️ A column must be a WELL-FORMED amount, not merely "free of letters". The
+  // first cut of this filter accepted anything without a letter, so a „-"-only
+  // or hyphen-infixed column parsed to NaN — and `Math.abs(NaN) > 0` is FALSE,
+  // which silently switches the Σ reconciliation assert OFF while
+  // `write_hospital_payments.ts` publishes the total as 0 (BGN, via `toEur`) or
+  // null (EUR, via JSON.stringify) into a committed artifact typed `number`.
+  // The token scan this replaced could not reach that state. Unobserved across
+  // 760 total-line occurrences; the MODE is the problem, not the rate.
+  const cols = after
+    .split(/\s{2,}/)
+    .map((c) => c.trim())
+    .filter((c) => /^-?[\d\s]*\d[\d\s]*$/.test(c));
+  if (!cols.length) return null;
+  const cumulative = num(cols[0]);
+  // Deliberately redundant with the predicate above — either alone stops the NaN,
+  // and the test only goes red when BOTH are removed (mutation-checked). Kept as a
+  // pair because the failure they prevent is silent: a NaN total does not throw,
+  // it switches the reconciliation assert off and publishes 0/null downstream.
+  if (!Number.isFinite(cumulative)) return null;
+  return {
+    count: Number(cnt[1]),
+    cumulative,
+    columns: cols.length,
+  };
 };
 
 /**
@@ -673,6 +693,19 @@ export const matchRowStart = (
   };
 };
 
+/**
+ * Choose which occurrence of the grand-total line to believe.
+ *
+ * НЗОК repeats it on every page, and one rendering can separate the two amount
+ * columns by a SINGLE space — so `columns` is the discriminator: a reading that
+ * separated into 2+ columns saw the year-to-date split off from the month, one
+ * that did not has them fused into a single run. Exported because this selection
+ * IS the whole of RC-2, and it is otherwise reachable only through a PDF.
+ */
+export const pickTotal = <T extends { columns: number }>(
+  totals: T[],
+): T | undefined => totals.find((t) => t.columns >= 2) ?? totals[0];
+
 export const parseHospitalPaymentsPdf = (
   pdfPath: string,
   stream: PaymentStream = "bmp",
@@ -694,13 +727,38 @@ export const parseHospitalPaymentsPdf = (
   let totalCumulativeEur = 0;
   let headerFacilityCount = 0;
 
-  // Grand total — see readTotalLine above for the shapes and the known RC-2 gap.
-  const totalLine = lines.find((l) => TOTAL_RE.test(l));
-  const total = totalLine ? readTotalLine(totalLine) : null;
+  // ── The grand total, read from the BEST occurrence rather than the first.
+  //
+  // ⚠️ RC-2: НЗОК repeats this line on every page, and one rendering of it can
+  // separate the two amount columns by a SINGLE space — drugs 2024-06 prints
+  // „43  ОБЩО  644 030 052 115 383 323" on page 1 and the same figures with a
+  // proper gutter on pages 2-5. Taking the first occurrence read that run as ONE
+  // 18-digit number, so the header total became 3.29 × 10¹⁷, the drift assert saw
+  // 100% and REJECTED a file whose rows were perfectly correct (Σ €329,287,339
+  // against a true 644,030,052 BGN — the rows and the real header agree to €2).
+  //
+  // A file that merges the columns in EVERY occurrence would still misread, and
+  // that is left alone deliberately: the drift assert then rejects the file, which
+  // is the loud failure. What is fixed here is throwing away four good readings.
+  const totals = lines
+    .filter((l) => TOTAL_RE.test(l))
+    .map(readTotalLine)
+    .filter((t): t is NonNullable<typeof t> => t !== null);
+  const total = pickTotal(totals);
   if (total) {
     headerFacilityCount = total.count;
     totalCumulativeEur = asEur(total.cumulative);
-  }
+  } else if (lines.some((l) => TOTAL_RE.test(l)))
+    // ⚠️ The line is THERE and none of its occurrences could be read. Falling
+    // through would leave `headerFacilityCount` and `totalCumulativeEur` at 0, and
+    // BOTH completeness asserts below are guarded on those being non-zero — so the
+    // file would load with no verification at all, which is worse than rejecting
+    // it. (A file carrying no total line whatsoever is a different case and still
+    // falls through; one such file is in the cache, outside the loader's YEARS.)
+    throw new Error(
+      `unreadable grand-total line in ${pdfPath}: ` +
+        `${lines.filter((l) => TOTAL_RE.test(l)).length} occurrence(s), none yielding an amount column`,
+    );
 
   // Accumulate logical rows: a row starts at a ROW_START_RE line and absorbs any
   // following continuation lines (a wrapped long name / an amount pushed to the

@@ -1,4 +1,18 @@
-// Layout-matrix test for the НЗОК БМП amount extractor — the single most
+// Unit tests for the НЗОК hospital-payment parser's four pure seams:
+//
+//   extractAmounts        the amounts and name of one row's accumulated tail
+//   repairGluedThousands  the pdftotext glue artifact (RC-1)
+//   matchRowStart         which lines start a row, and the РЗОК padding (RC-3d)
+//   readTotalLine         one occurrence of the grand-total line, and pickTotal
+//                         which of its occurrences to believe (RC-2)
+//
+// The whole-corpus counterpart is hospital_payments_corpus.test.ts, which runs the
+// real parser over every cached PDF and reconciles each РЗОК block against НЗОК's
+// own printed subtotal. Neither file replaces the other: every defect in
+// docs/plans/nzok-hospital-parser-hardening-v1.md lived in the ASSEMBLY these
+// seams sit inside, and every one of them is a specific string shape.
+//
+// Layout matrix for the amount extractor — the single most
 // bug-prone unit in the health pack (it regressed once, commit a9dfef1aa, when a
 // last-letter anchor misread a glued name+amount and dropped €201K under the
 // ±0.5% reconciliation tolerance). `extractAmounts` is pure (string in, number
@@ -30,6 +44,7 @@ import assert from "node:assert/strict";
 import {
   extractAmounts,
   matchRowStart,
+  pickTotal,
   readTotalLine,
   repairGluedThousands,
   type PaymentStream,
@@ -304,47 +319,71 @@ for (const c of CASES) {
 
 // ── The header grand-total line. It feeds BOTH completeness asserts, so a
 //    regression here does not fail a file — it silently turns the guards off.
-//    Every `line` below is copied VERBATIM out of a cached PDF, gutters included:
+//    Every `line` below except the hyphen case is copied VERBATIM out of a cached
+//    PDF, gutters included (the hyphen one is synthetic — the corpus has no such
+//    rendering, which is the point):
 //    the column widths ARE the behaviour under test, so a retyped line tests
 //    nothing — a hand-typed 3-column fixture merged all three amounts and made
 //    this suite red for the wrong reason before these were pasted from the source.
 const TOTAL_CASES: {
   label: string;
   line: string;
-  expect: { count: number; cumulative: number } | null;
+  expect: { count: number; cumulative: number; columns: number } | null;
 }[] = [
   {
     label: "2-column total (bmp 2026-05)",
     line: "                           381                    Общо РЗОК                                              942 127 532    191 249 510",
-    expect: { count: 381, cumulative: 942127532 },
+    expect: { count: 381, cumulative: 942127532, columns: 2 },
   },
   {
     label: "3-column total takes the FIRST amount, not the last (bmp 2026-02)",
     line: "                          380                    Общо РЗОК                                              368 752 383    182 964 878 185 787 505",
-    expect: { count: 380, cumulative: 368752383 },
+    expect: { count: 380, cumulative: 368752383, columns: 2 },
   },
   {
     label: "lenient label is bare ОБЩО (devices 2026-07)",
     line: "                          112                   ОБЩО                                       51 390 274        6 346 185",
-    expect: { count: 112, cumulative: 51390274 },
+    expect: { count: 112, cumulative: 51390274, columns: 2 },
   },
   {
-    // ⚠️ KNOWN-WRONG, pinned deliberately. drugs 2024-06 separates the two amount
-    // columns by a SINGLE space, so the run reads as one 18-digit number and the
-    // drift assert rejects a file whose rows are correct (Σ €329,287,339 against a
-    // true €644,030,052 BGN). This is RC-2 / Tier 1 item 5; when that lands, this
-    // expectation must flip to 644030052 and this test going red is the signal.
-    label: "RC-2: single-space column merge is misread as one 18-digit number",
+    // ⚠️ This RENDERING of the line is unreadable, and that is the fact being
+    // pinned. drugs 2024-06 prints the two amount columns separated by a SINGLE
+    // space on page 1, so the gutter split finds ONE column and the run reads as
+    // one 18-digit number. `columns: 1` is the signal the caller uses: the same
+    // line is printed with a proper gutter on pages 2-5, and the parser now takes
+    // the first occurrence that separated into 2 columns.
+    //
+    // This case used to pin the 18-digit number as the FILE's header total, with
+    // a note saying Tier 1 item 5 would flip it. It did.
+    label: "RC-2: a single-space column merge reads as one number (columns: 1)",
     line: "                           43                     ОБЩО                                                    644 030 052 115 383 323",
-    // Built from the string rather than written as a literal: 18 digits exceed
-    // Number.MAX_SAFE_INTEGER, so the literal would lose precision — which is
-    // the defect itself, and is also what `no-loss-of-precision` objects to.
-    expect: { count: 43, cumulative: Number("644030052115383323") },
+    expect: {
+      count: 43,
+      cumulative: Number("644030052115383323"),
+      columns: 1,
+    },
+  },
+  {
+    // ⚠️ A column that is not a well-formed amount must make the line UNREADABLE,
+    // not produce NaN. `Math.abs(NaN) > 0` is false, so a NaN total silently
+    // switches the Σ reconciliation assert off while the committed artifact
+    // publishes 0 or null for a field typed `number`.
+    label: "a hyphen-only column does not yield a NaN total",
+    line: "                          43                     ОБЩО                                           -   -",
+    expect: null,
   },
   {
     label: "a line that is not a total line yields null",
     line: " 01    Благоевград         1       0103211001   МБАЛ Благоевград АД   4 684 771   903 437",
     expect: null,
+  },
+  {
+    // The SAME figures as the RC-2 case, as printed on pages 2-5 of that file.
+    // This is the occurrence the parser now uses, and the pair is the whole fix:
+    // one line is unreadable, four are fine, and `columns` tells them apart.
+    label: "RC-2: the same total with a proper gutter reads correctly",
+    line: "                          43                     ОБЩО                                           644 030 052   115 383 323",
+    expect: { count: 43, cumulative: 644030052, columns: 2 },
   },
 ];
 
@@ -604,4 +643,34 @@ test("two rows, one with a short РЗОК code, stay two rows", () => {
       /[0-9]{1,3} [0-9]{3}/,
       "an amount leaked into the stored name",
     );
+});
+
+// ── RC-2's selection rule: which occurrence of the repeated grand-total line to
+//    believe. This IS the whole behaviour change of Tier 1 item 5 — `readTotalLine`
+//    reads one line and did not change per-line at all (760 occurrences, 0 moved).
+//    Pure, so it is testable without a PDF.
+test("the grand total prefers an occurrence whose columns separated", () => {
+  // drugs 2024-06: page 1 fuses the two columns, pages 2-5 do not. The fused
+  // reading is 3.29e17 and made the drift assert reject a file whose rows agree
+  // with the real header to €2.
+  const fused = {
+    count: 43,
+    cumulative: Number("644030052115383323"),
+    columns: 1,
+  };
+  const clean = { count: 43, cumulative: 644030052, columns: 2 };
+  assert.deepEqual(pickTotal([fused, clean, clean, clean, clean]), clean);
+  assert.deepEqual(pickTotal([clean, fused]), clean, "order must not matter");
+});
+
+test("a total whose every occurrence is fused is not silently preferred away", () => {
+  // Nothing to fall back to: the first occurrence is returned and the whole-file
+  // drift assert then rejects the file loudly, which is the correct failure.
+  const fused = {
+    count: 43,
+    cumulative: Number("644030052115383323"),
+    columns: 1,
+  };
+  assert.deepEqual(pickTotal([fused, fused]), fused);
+  assert.equal(pickTotal([]), undefined, "no occurrence at all yields nothing");
 });
