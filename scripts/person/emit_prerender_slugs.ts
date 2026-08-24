@@ -119,7 +119,11 @@ export type PersonSlugEntry = {
 // stale when person_source (081) gains a new source, whereas an allowlist would silently
 // drop a newly-populated source to noindex. The data-test computes indexability the same
 // way, so the two cannot disagree.
-const FLOOR_PREDICATE = `(
+// EXPORTED so scripts/db/person_parity.ts asks the live databases the same
+// question this module asks, instead of carrying a second copy that can drift
+// from it in silence. Value-imported across the scripts/person → scripts/db
+// boundary exactly as person_prerender_set.data.test.ts already does.
+export const FLOOR_PREDICATE = `(
   EXISTS (SELECT 1 FROM declaration d WHERE d.person_id = p.person_id)
   OR EXISTS (SELECT 1 FROM person_role r
               WHERE r.person_id = p.person_id AND r.source <> 'candidate')
