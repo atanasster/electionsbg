@@ -45,6 +45,19 @@ export interface ProcurementTile {
   accent: string;
   /** The hub_stats field this tile overlays, when it has one. */
   metric?: string;
+  /** HOW that figure is scoped — the caption under it says so, and getting this wrong is the
+   *  §0 defect (a number that is arithmetically right and false as a sentence).
+   *
+   *    "scope"  moves with `?pscope`; the caption names the active window
+   *    "local"  the reader's own browser state, not the corpus at all
+   *
+   *  ⚠ NOT EVERY FIELD IN A SCOPE-KEYED BLOB IS SCOPED, which is why this is declared rather
+   *  than assumed. `hub_stats.ngos` sits beside eight fields that all vary and is 331 in all
+   *  THIRTY scopes, because `procurement_hub_counts` computes it with no date predicate — so
+   *  captioning it „този парламент" would publish a whole-register count as this parliament's.
+   *  `procurementHubBands.test.ts` re-derives every "scope" claim from the blob, so a field
+   *  that stops varying fails the gate rather than quietly captioning a window it ignores. */
+  metricBasis?: "scope" | "local";
 }
 
 export interface ProcurementBand {
@@ -96,6 +109,7 @@ export const PROCUREMENT_BANDS: ProcurementBand[] = [
         // fern, not teal: the „Води" FeaturedStrip tile below is `teal`.
         accent: TILE_ACCENTS.fern,
         metric: "places",
+        metricBasis: "scope",
       },
     ],
   },
@@ -110,6 +124,7 @@ export const PROCUREMENT_BANDS: ProcurementBand[] = [
         to: "/procurement/tenders",
         accent: TILE_ACCENTS.azure,
         metric: "tenders",
+        metricBasis: "scope",
       },
       {
         id: "appeals",
@@ -125,14 +140,25 @@ export const PROCUREMENT_BANDS: ProcurementBand[] = [
         to: "/procurement/flags",
         accent: TILE_ACCENTS.rose,
         metric: "flags",
+        metricBasis: "scope",
       },
       {
+        // ⚠ NO FIGURE, deliberately. `hub_stats.ngos` is 331 — `count(DISTINCT eik) FROM
+        // ngo_funding`, i.e. organisations that received money — while /procurement/ngos
+        // OPENS on `entity_class IN (…) AND has_signal`, which is 3,984 (measured
+        // 2026-08-24). Quoting 331 over a page listing 3,984 is §0's "destination counts a
+        // different set", and the rule there is to lead with the DESTINATION's basis or show
+        // no figure. There is no destination-basis field in the blob, so: no figure.
+        //
+        // It is ALSO the one field in that scope-keyed blob that ignores the scope —
+        // procurement_hub_counts computes it with no date predicate, so it is 331 in all
+        // thirty scopes while the other eight vary. Both reasons must be fixed before a
+        // number goes back on this tile.
         id: "ngos",
         titleKey: "procurement_ngos_nav",
         descKey: "procurement_hub_ngos_desc",
         to: "/procurement/ngos",
         accent: TILE_ACCENTS.green,
-        metric: "ngos",
       },
     ],
   },
@@ -147,6 +173,7 @@ export const PROCUREMENT_BANDS: ProcurementBand[] = [
         to: "/procurement/mps",
         accent: TILE_ACCENTS.amber,
         metric: "connected",
+        metricBasis: "scope",
       },
       {
         // The project-file builder on-ramp. Bilingual-inline rather than keyed: it is the one
@@ -169,6 +196,7 @@ export const PROCUREMENT_BANDS: ProcurementBand[] = [
         to: "/procurement/watchlist",
         accent: TILE_ACCENTS.gold,
         metric: "watch",
+        metricBasis: "local",
       },
     ],
   },
@@ -178,3 +206,23 @@ export const PROCUREMENT_BANDS: ProcurementBand[] = [
 export const PROCUREMENT_TILES: ProcurementTile[] = PROCUREMENT_BANDS.flatMap(
   (b) => b.tiles,
 );
+
+/** A tile `metric` id → the `hub_stats` field it reads. ONE table: both the band gate and
+ *  `hubHead.gates.test.ts`'s band↔tile disjointness clause need it, and the second had its own
+ *  copy while the first used an identity ternary that silently skipped every id needing a
+ *  mapping — `total` → `totalEur` being the only one that does.
+ *
+ *  An empty string means "not a hub_stats field at all": `watch` is the reader's own
+ *  localStorage list. */
+export const METRIC_FIELD: Record<string, string> = {
+  total: "totalEur",
+  contracts: "contracts",
+  contractors: "contractors",
+  connected: "connected",
+  tenders: "tenders",
+  appeals: "appeals",
+  ngos: "ngos",
+  places: "places",
+  flags: "flags",
+  watch: "",
+};

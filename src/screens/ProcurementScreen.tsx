@@ -94,7 +94,7 @@ export const ProcurementScreen: FC = () => {
     : sectorWin.year != null
       ? `${sectorWin.year}`
       : bg
-        ? "по текущия парламент"
+        ? "този парламент"
         : "this parliament";
   const kpis: HubKpi[] = stat
     ? [
@@ -131,11 +131,37 @@ export const ProcurementScreen: FC = () => {
   // ~115 KB br and lazy, the entry budget is 56 000 B br, and a list is text so it prerenders
   // and is five more internal links). Rows come from the sector stats this page ALREADY
   // fetches for the featured strip below.
+  // ⚠ ONE BASIS ONLY. `sector_stats` carries a `basis` per sector — `defense` and `security`
+  // are a BUDGET line for a single year, the rest are procurement over the active window — so
+  // ranking all of them together put a 2026 appropriation above three windowed contract
+  // totals with nothing saying they answer different questions. Filtered to the procurement
+  // basis, the list is one comparable quantity and the heading is true of every row.
   const evidenceRows = FEATURED_SECTORS.map((sector) => ({
     label: t(sector.titleKey),
-    value: formatSectorMetric(sectorStats?.[sector.id], i18n.language) ?? "—",
+    stat: sectorStats?.[sector.id],
     to: sector.to,
-  })).filter((row) => row.value !== "—");
+  }))
+    .filter((row) => row.stat?.basis === "procurement")
+    .map((row) => ({
+      label: row.label,
+      value: formatSectorMetric(row.stat, i18n.language) ?? "—",
+      to: row.to,
+    }))
+    .filter((row) => row.value !== "—");
+
+  /** The caption under a tile's number. Ten of the hub's figures shipped with NO caption at
+   *  all, qualified only by a scope pill 448 px up the page which had scrolled away by the
+   *  time the number was read (§3.1 rule 2). The basis comes from the registry rather than
+   *  being assumed: not every field in a scope-keyed blob is scoped. */
+  const captionFor = (p: ProcurementTile): string | undefined => {
+    // A caption with no number above it is a floating fragment: `metricFor` returns undefined
+    // whenever the blob has not loaded, the scope is not in it, or the watchlist is empty —
+    // and the tile then renders „този парламент" under nothing.
+    if (!p.metric || !p.metricBasis || !metricFor(p.metric)) return undefined;
+    return p.metricBasis === "local"
+      ? t("procurement_basis_local")
+      : scopeBasis;
+  };
 
   const tileFor = (p: ProcurementTile): InfographicTileProps => ({
     to: p.to,
@@ -146,6 +172,7 @@ export const ProcurementScreen: FC = () => {
     accent: p.accent,
     scene: PROCUREMENT_SCENES[p.id],
     metric: metricFor(p.metric),
+    metricCaption: captionFor(p),
   });
 
   const sections: TileHubSection[] = PROCUREMENT_BANDS.map((band) => ({

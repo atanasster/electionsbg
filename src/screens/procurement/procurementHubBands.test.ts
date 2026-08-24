@@ -15,8 +15,15 @@
 // unrepresentable, and four of those clauses stop needing to exist.
 
 import { describe, expect, it } from "vitest";
-import { PROCUREMENT_BANDS, PROCUREMENT_TILES } from "./procurementRegistry";
+import {
+  METRIC_FIELD,
+  PROCUREMENT_BANDS,
+  PROCUREMENT_TILES,
+} from "./procurementRegistry";
 import { PROCUREMENT_SCENES } from "./procurementScenes";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 // The UNION, never translation.json alone: a key moved into a deferred bundle by the splitter
 // is still real copy, and reading the core chunk would report it as missing.
 import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
@@ -129,5 +136,81 @@ describe("/procurement bands", () => {
         `${b.labelKey}: ${n} tiles leaves ${n % 4} alone on a second row`,
       ).not.toBe(1);
     }
+  });
+});
+
+describe("/procurement tile figures declare their basis", () => {
+  // Resolved from this file, not from process.cwd(): the sibling repo-reading tests all do
+  // this, and a bare relative path read in the DESCRIBE body took the whole file down —
+  // "Tests: no tests", including the seven band gates that never touch the blob — under any
+  // runner whose cwd is not the repo root.
+  const REPO = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../../..",
+  );
+  const readBlob = (): Record<string, Record<string, number>> =>
+    JSON.parse(
+      readFileSync(
+        path.join(REPO, "data/procurement/derived/hub_stats.json"),
+        "utf8",
+      ),
+    );
+
+  it("gives every tile with a metric a metricBasis, and none without", () => {
+    const bare = PROCUREMENT_TILES.filter((t) => t.metric && !t.metricBasis);
+    expect(
+      bare.map((t) => t.id),
+      "tile(s) with a figure and no declared basis — the caption would be a guess",
+    ).toEqual([]);
+    const orphan = PROCUREMENT_TILES.filter((t) => !t.metric && t.metricBasis);
+    expect(
+      orphan.map((t) => t.id),
+      "metricBasis with no metric",
+    ).toEqual([]);
+  });
+
+  it("names a metric the field table knows", () => {
+    for (const t of PROCUREMENT_TILES) {
+      if (!t.metric) continue;
+      expect(
+        METRIC_FIELD,
+        `unknown tile metric "${t.metric}" — extend METRIC_FIELD`,
+      ).toHaveProperty(t.metric);
+    }
+  });
+
+  // The claim each caption makes, re-derived from the DATA rather than trusted. This is what
+  // stops „този парламент" appearing under a figure that ignores the parliament: `ngos` is 331
+  // in all thirty scopes because procurement_hub_counts computes it with no date predicate,
+  // and nothing else in that blob announces it.
+  it("proves every scope-captioned figure actually moves with the scope", () => {
+    const blob = readBlob();
+    const scopes = Object.keys(blob);
+    expect(scopes.length, "hub_stats.json has no scopes").toBeGreaterThan(5);
+
+    let checked = 0;
+    for (const t of PROCUREMENT_TILES) {
+      if (!t.metric || t.metricBasis !== "scope") continue;
+      const field = METRIC_FIELD[t.metric];
+      // An unmapped or non-blob metric is a gap in the table, not a pass — the previous
+      // version skipped silently on a missing key and on a missing field alike.
+      expect(
+        field,
+        `${t.id}: metric "${t.metric}" maps to no field`,
+      ).toBeTruthy();
+      const present = scopes.filter((s) => field in blob[s]);
+      expect(
+        present.length,
+        `${t.id}: field ${field} is absent from ${scopes.length - present.length} scope(s)`,
+      ).toBe(scopes.length);
+      const distinct = new Set(present.map((s) => blob[s][field]));
+      expect(
+        distinct.size,
+        `${t.id}: declared "scope" but ${field} is the SAME in every scope — the caption names a window the figure ignores`,
+      ).toBeGreaterThan(1);
+      checked++;
+    }
+    // Non-vacuity: if the loop checked nothing, the clause proves nothing.
+    expect(checked, "no scope-captioned tile to check").toBeGreaterThan(0);
   });
 });

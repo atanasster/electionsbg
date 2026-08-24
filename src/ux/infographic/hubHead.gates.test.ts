@@ -13,7 +13,10 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { SCOPE_FIRST_YEAR } from "@/data/scope/constants";
-import { PROCUREMENT_TILES } from "@/screens/procurement/procurementRegistry";
+import {
+  PROCUREMENT_TILES,
+  METRIC_FIELD,
+} from "@/screens/procurement/procurementRegistry";
 
 const read = (p: string) => readFileSync(p, "utf8");
 
@@ -51,18 +54,9 @@ describe("hub head — the band and the tiles are disjoint", () => {
     const src = read("src/screens/ProcurementScreen.tsx");
 
     // `metric: "x"` ids on the SUBPAGES entries → the HubStat field each resolves to.
-    const FIELD_OF: Record<string, string> = {
-      total: "totalEur",
-      contracts: "contracts",
-      contractors: "contractors",
-      connected: "connected",
-      tenders: "tenders",
-      appeals: "appeals",
-      ngos: "ngos",
-      places: "places",
-      flags: "flags",
-      watch: "", // local watchlist count, not a HubStat field
-    };
+    // The mapping lives in the registry — it was duplicated here, and the other copy was
+    // an identity ternary that skipped `total` → `totalEur` entirely.
+    const FIELD_OF = METRIC_FIELD;
     // From the REGISTRY, not a scan of the screen: the tiles moved into
     // procurementRegistry.ts and this clause silently found zero metrics the moment they did
     // — a gate that passes because it can no longer see its subject.
