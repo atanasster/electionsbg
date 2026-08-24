@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-22T18:24:10.627Z",
+  "generatedAt": "2026-08-24T22:25:55.537Z",
   "source": "ЦАИС ЕОП (storage.eop.bg) — open-data поръчки feed; pre-2020 procedures backfilled from РОП (aop.bg cases register)",
   "valueSemantics": "estimatedValueEur is a FORECAST (прогнозна стойност), not contracted spend. Never sum it into contracted totals.",
   "coverage": {
     "firstDay": "2010-01-04",
-    "lastDay": "2026-08-21",
+    "lastDay": "2026-08-23",
     "months": [
       "2010-01",
       "2010-02",
@@ -209,11 +209,11 @@
     ]
   },
   "totals": {
-    "procedures": 237941,
+    "procedures": 237942,
     "lots": 201990,
     "cancelled": 19596,
-    "withEstimate": 215349,
-    "estimatedValueEur": 143031268195.69
+    "withEstimate": 215350,
+    "estimatedValueEur": 143031333195.69
   },
   "byYear": [
     {
@@ -314,9 +314,9 @@
     },
     {
       "year": "2026",
-      "procedures": 12914,
+      "procedures": 12915,
       "cancelled": 592,
-      "estimatedValueEur": 8921568543.44
+      "estimatedValueEur": 8921633543.44
     }
   ],
   "byProcedureType": [
@@ -362,8 +362,8 @@
     },
     {
       "type": "Пряко договаряне",
-      "procedures": 7139,
-      "estimatedValueEur": 837260018.73
+      "procedures": 7140,
+      "estimatedValueEur": 837325018.73
     },
     {
       "type": "пряко договаряне",
@@ -9003,6 +9003,13 @@
       "estimatedValueEur": 1397504.23
     },
     {
+      "eik": "126152888",
+      "name": "Основно училище \"СВ.ИВАН Рилски\"",
+      "procedures": 34,
+      "cancelled": 0,
+      "estimatedValueEur": 1010010.89
+    },
+    {
       "eik": "000123704",
       "name": "Професионална гимназия по аграрни технологии \"Цанко Церковски\"",
       "procedures": 34,
@@ -9078,13 +9085,6 @@
       "procedures": 33,
       "cancelled": 1,
       "estimatedValueEur": 1091988.49
-    },
-    {
-      "eik": "126152888",
-      "name": "Основно училище \"СВ.ИВАН Рилски\"",
-      "procedures": 33,
-      "cancelled": 0,
-      "estimatedValueEur": 945010.89
     },
     {
       "eik": "000670883",

@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-21T07:11:42.053Z",
+  "lastSuccessfulIngest": "2026-08-24T22:04:02.641Z",
   "skill": "update-council-minutes",
-  "summary": "+3 new resolutions (all SOF protokol 67: r663/r664/r665); 4,598 -> 4,601 in PG, 46,028 named votes, attribution 43,168 (93.8%) unchanged vs baseline. 2 protocols touched, 1 skipped (BLG03 phase1Defer). SZR12 Kazanlak UNVERIFIED - obs.kazanlak.bg circuit breaker open, watermark frozen at 2026-08-09 (~12 days unreachable), not merged/stamped, retries next run. RSE01 2 deferred PDF-variant content skips now [given up] at attempt 9. SOF named votes NOT refreshed (needs --ocr, opt-in). Gate 12/12."
+  "summary": "0 new protocols across 16 municipalities; 2 RSE01 PDF variants still deferred (attempt 14). ANOMALY: meta.resolutionCount oscillates and disagrees with the shard tree"
 }
