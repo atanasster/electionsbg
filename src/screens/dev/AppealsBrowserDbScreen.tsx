@@ -15,12 +15,9 @@ import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
+import { outcomeTone } from "@/screens/components/procurement/appealOutcomeChip";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
-import {
-  kzkStatusLabel,
-  kzkOutcomeLabel,
-  isUpheldOutcome,
-} from "@/lib/kzkLabels";
+import { kzkStatusLabel, kzkOutcomeLabel } from "@/lib/kzkLabels";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { formatDate } from "@/lib/formatDate";
 import {
@@ -169,8 +166,11 @@ export const AppealsBrowserDbScreen: FC = () => {
             <div className="flex flex-wrap items-center gap-1">
               {row.original.suspension ? <AppealChip suspended /> : null}
               {o ? (
+                // `outcomeTone` rather than a local two-way rule: this page and
+                // the awarder tile are ONE CLICK apart (the tile links straight
+                // here), and a merits rejection was emerald there and muted here.
                 <AppealChip
-                  tone={isUpheldOutcome(o) ? "red" : "muted"}
+                  tone={outcomeTone(o)}
                   label={kzkOutcomeLabel(o, lang)}
                 />
               ) : row.original.status ? (

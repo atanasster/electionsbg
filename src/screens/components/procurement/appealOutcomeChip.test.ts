@@ -48,25 +48,37 @@ describe("outcomeChip", () => {
 });
 
 describe("outcomeTone", () => {
+  // Tone NAMES, not Tailwind classes — AppealChip owns the classes. Asserting on
+  // the name is also what makes these cases readable as claims about meaning
+  // rather than about pixels.
   it("colours an uphold red — the finding against the buyer", () => {
-    expect(outcomeTone("уважена")).toContain("red");
+    expect(outcomeTone("уважена")).toBe("red");
     // Through isUpheldOutcome, so casing and padding cannot change the colour
     // from what upheld_ocids and the risk index score.
-    expect(outcomeTone("  УВАЖЕНА ")).toContain("red");
+    expect(outcomeTone("  УВАЖЕНА ")).toBe("red");
   });
 
-  it("colours a rejection emerald", () => {
-    expect(outcomeTone("отхвърлена")).toContain("emerald");
+  it("colours a merits rejection emerald — the buyer was found for", () => {
+    expect(outcomeTone("отхвърлена")).toBe("emerald");
   });
 
   it("gives every other outcome the neutral tone", () => {
-    // A refusal is not a finding either way — it is the absence of a hearing.
-    expect(outcomeTone("отказана")).toContain("muted");
-    expect(outcomeTone("прекратена")).toContain("muted");
+    // A refusal is not a finding either way — it is the absence of a hearing,
+    // so it must NOT take the emerald a rejection gets.
+    expect(outcomeTone("отказана")).toBe("muted");
+    expect(outcomeTone("прекратена")).toBe("muted");
     // `частично` is a part-uphold that the risk index deliberately scores as a
     // full one; it is reserved and unused, so neutral here is correct until it
     // is decided (see 042's vocabulary comment).
-    expect(outcomeTone("частично")).toContain("muted");
-    expect(outcomeTone(null)).toContain("muted");
+    expect(outcomeTone("частично")).toBe("muted");
+    expect(outcomeTone(null)).toBe("muted");
+  });
+
+  it("returns amber for a row still in play", () => {
+    // The no-outcome branch, matching AppealChip's own default for an appealed
+    // procedure — so the tile and /procurement/appeals, which now share this
+    // function, agree on every tone rather than only on three of the four.
+    expect(outcomeChip(null, "открито производство", true).tone).toBe("amber");
+    expect(outcomeChip(null, null, false).tone).toBe("amber");
   });
 });

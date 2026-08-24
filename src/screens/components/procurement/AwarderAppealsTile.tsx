@@ -11,6 +11,7 @@ import { Gavel } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useAwarderAppeals } from "@/data/procurement/useAwarderAppeals";
 import { outcomeChip } from "./appealOutcomeChip";
+import { AppealChip } from "./AppealChip";
 
 export const AwarderAppealsTile: FC<{ eik: string }> = ({ eik }) => {
   const { i18n } = useTranslation();
@@ -71,11 +72,12 @@ export const AwarderAppealsTile: FC<{ eik: string }> = ({ eik }) => {
                   <span className="min-w-0 flex-1 truncate font-medium">
                     {a.complainant || a.complaintNo}
                   </span>
-                  <span
-                    className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${chip.cls}`}
-                  >
-                    {chip.text}
-                  </span>
+                  <AppealChip
+                    pill
+                    tone={chip.tone}
+                    label={chip.text}
+                    className="shrink-0"
+                  />
                 </div>
                 <div className="text-xs text-muted-foreground line-clamp-1">
                   {a.complaintDate ? `${a.complaintDate} · ` : ""}
