@@ -35,6 +35,7 @@ import { fetchText, sha256Short } from "../fingerprint";
 // if КЗК moves the register, one side cannot silently keep polling the old URL),
 // and the UA with the intake crawler.
 import {
+  ACT_NO_SRC,
   DECISIONS_LIST_URL as PAGE,
   parseRegisterTotal,
 } from "../../procurement/kzk_decisions_store";
@@ -48,8 +49,14 @@ import { UA as BROWSER_UA } from "../../procurement/kzk_appeals";
 // known to expose a per-act detail link, so the printed number is the only
 // stable identifier. It also happens to be the natural key of `kzk_decisions`,
 // which is precisely what the gate needs.
+//
+// The act-number shape comes from `ACT_NO_SRC` rather than a local literal: this
+// gate anchors on `meta.newestAct`, so a format change that reached the store's
+// copy and not this one would leave the freshness gate comparing against a null
+// act — the store's own `parseRegisterTotal` records that a second copy of a
+// shared reading has already drifted once here.
 const extractTopActs = (html: string): string[] =>
-  Array.from(html.matchAll(/АКТ-\d+-\d{2}\.\d{2}\.\d{4}/g))
+  Array.from(html.matchAll(new RegExp(ACT_NO_SRC, "g")))
     .map((m) => m[0])
     .filter((v, i, a) => a.indexOf(v) === i)
     .slice(0, 10);

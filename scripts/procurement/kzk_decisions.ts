@@ -52,6 +52,8 @@ import {
   DECISIONS_LIST_URL,
   DECISION_RECORD_RE,
   REJECT_RATE_CEILING,
+  countActNumbers,
+  countRecordHeaders,
   firstActNo,
   kindFromHeader,
   parseRegisterTotal,
@@ -378,6 +380,26 @@ const probe = async (page: Page, otValues: number[]): Promise<void> => {
       result(`   header total: ${total ?? "NOT FOUND"}`);
       result(
         `   parsed ${recs.length} → ${clean.length} clean, ${rejected.length} rejected`,
+      );
+      // BOTH DIRECTIONS, against the LIVE page — the half of the §1.5 gate the
+      // unit tests cannot cover, because they run on three static fixtures that
+      // by definition never drift. Over-parsing is a fracture; under-parsing is
+      // a header the boundary's lookahead skipped, which is silent everywhere
+      // else (see DECISION_RECORD_RE's header). Reported, never asserted: a
+      // line-start quotation legitimately raises the header count, so only a
+      // human reading the pair against this page can tell the two apart.
+      const acts = countActNumbers(text);
+      const headers = countRecordHeaders(text);
+      result(
+        `   act numbers ${acts} · headers ${headers} · parsed ${recs.length}` +
+          (recs.length > acts
+            ? "  ⚠ FRACTURE — a record carries no act number of its own"
+            : "") +
+          (recs.length < headers
+            ? `  ⚠ ${headers - recs.length} header(s) did not match the boundary` +
+              " — a quoted decision at line start (expected), or an act-number" +
+              " format drift SILENTLY dropping records (not expected)"
+            : ""),
       );
       for (const { reason, count } of summarizeRejections(rejected))
         result(`     ${count}× ${reason}`);

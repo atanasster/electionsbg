@@ -39,8 +39,23 @@
 export const DECISIONS_LIST_URL =
   "https://reg.cpc.bg/AllResolutions.aspx?dt=2&ot=2";
 
+/**
+ * The register's act-number token — "АКТ-608-25.06.2026". ONE DEFINITION.
+ *
+ * Every consumer of this shape builds from this string rather than re-typing it:
+ * `ACT_NO_RE` (anchored), `DECISION_RECORD_RE`'s lookahead, `countActNumbers`,
+ * and `extractTopActs` in scripts/watch/sources/kzk_decisions.ts. The file's own
+ * `parseRegisterTotal` records why — "a second copy already drifted once" — and
+ * the format is the single assumption the whole record boundary rests on, so a
+ * future change to it must not have five places to miss.
+ *
+ * `ACT_NO_PARTS_RE` below stays hand-written because it needs capture groups;
+ * kzk_decisions_store.test.ts asserts the two accept exactly the same strings.
+ */
+export const ACT_NO_SRC = String.raw`АКТ-\d+-\d{2}\.\d{2}\.\d{4}`;
+
 /** Act numbers are "АКТ-<seq>-<DD.MM.YYYY>" and unique in the register. */
-export const ACT_NO_RE = /^АКТ-\d+-\d{2}\.\d{2}\.\d{4}$/;
+export const ACT_NO_RE = new RegExp(`^${ACT_NO_SRC}$`);
 
 /**
  * Above this share of rejected rows, a crawl or a load treats the damage as
@@ -48,7 +63,13 @@ export const ACT_NO_RE = /^АКТ-\d+-\d{2}\.\d{2}\.\d{4}$/;
  *
  * ONE definition: the crawler and the Postgres loader must agree on what counts
  * as "too broken to keep", or one of them silently accepts what the other rejects.
- * The known-historical damage is 8.9%.
+ *
+ * ⚠️ THREE RATES APPEAR IN THIS FILE FOR THE SAME 429 ROWS, and this ceiling is
+ * compared against none of them. 8.9% is 429/4,836 — the 2026-07-04 corpus as it
+ * stood when the damage was measured; 8.2% is 429/5,208, the same rows as a share
+ * of the file today, which has grown by later crawls. Both are FILE-level rates.
+ * `validateOrThrow` evaluates this ceiling against `rejected / recs` per CRAWL
+ * BATCH, where the committed crawler's observed rate is 0%.
  */
 export const REJECT_RATE_CEILING = 0.15;
 
@@ -73,9 +94,114 @@ export const REJECT_RATE_CEILING = 0.15;
  * The gaps stay `[^\S\n]` (any whitespace EXCEPT newline): it matches the
  * non-breaking spaces the ordinal is padded with, but a record cannot swallow the
  * line above it.
+ *
+ * ⚠️ THE LOOKAHEAD IS THE WHOLE DEFENCE AGAINST A FRACTURED RECORD, and it was
+ * added after the damage it prevents had already been measured. Asking only for
+ * the WORD is not enough: КЗК's `Произнасяне` quotes the buyer's own annulled
+ * decision using the identical words —
+ *
+ *   отменя незаконосъобразно решение(ОТМЕНЯ КАТО НЕЗАКОНОСЪОБРАЗНО
+ *   Решение № РД-25/10.01.2026 г. на кмета на община Х) - "ФИРМА" ЕООД;
+ *
+ * — so wherever the rendering puts a line break before that quotation, the
+ * boundary fires INSIDE a record and splits it in two. Measured on the
+ * 2026-07-04 corpus: 429 of 5,208 rows (8.2%) are such fragments, and the damage
+ * is NOT the fragments (validateDecisions rejects them). It is that the parent
+ * loses `kzk` / `init` / `resp` to the fragment — the labels sit AFTER
+ * `Произнасяне` in the record, so they land in the fragment's chunk and
+ * `afterLabel` reads them there. 363 real acts are stored with all three NULL,
+ * which makes them permanently unmatchable by kzk_match.ts (it joins on
+ * complainant + respondent), and 125 of those carry an `уважена` that can never
+ * reach upheld_ocids or the contract Corruption Risk Index.
+ *
+ * EVERY register header carries `АКТ-<n>-<DD.MM.YYYY>` and no quoted buyer
+ * decision ever does — the references measured in the corpus are `РД-`, `РД15-`,
+ * `СОА19-`, `Р-`, `ОП-`, `ЗОП-`, `F…`, `Ц…`, `ТО-…` and bare integers, not one
+ * of them `АКТ-`-shaped. So requiring the act number is what tells a header from
+ * a quotation, and it is a LOOKAHEAD so the split still consumes only the header
+ * and parseDecisionsText's `part.split(/[\n\r]/)[0]` still yields the act number.
+ *
+ * The failure direction is deliberate: if КЗК ever changes the act-number format
+ * this matches NOTHING, `waitForRecords` times out and `crawlYear` throws
+ * "no records rendered within 15s" — loud, and the crawl stores nothing. Against
+ * the pre-lookahead regex the same change would silently fracture every record
+ * instead. See docs/plans/kzk-columnshift-and-cloud-parity-v1.md §1.2, §1.5.
+ *
+ * ⚠️ Note the line anchor is why an INLINE quotation was always safe and why the
+ * older test "does not fracture a record on 'акт' inside a field value" passed
+ * while the defect was live — it exercises the inline case, not the line-start
+ * one. `parseDecisionsText` keeps a fixture for each.
+ *
+ * ⚠️⚠️ THE LOOKAHEAD INVERTS THE FAILURE DIRECTION, and that is the cost of it.
+ * Before it, a drifting act-number format produced a FRACTURE — an extra record
+ * with no act number, visible in the rejection tally. After it, a header whose
+ * act number does not match is not a fracture but a SILENT LOSS: the boundary
+ * skips it, the previous record swallows its lines, and `afterLabel`'s
+ * first-match-wins means the swallowed act's Дата / Произнасяне / Инициатор /
+ * Ответник are discarded outright. Nothing is rejected, so nothing is reported.
+ * Measured on the committed parser with one act rendered at an unpadded day:
+ * 3 headers → 2 records, 0 rejected.
+ *
+ * `crawlYear`'s `got.length !== expected` assertion catches that on a FULL
+ * crawl — but the incremental daily path sets `earlyStopped` and skips it, and
+ * that is the path that runs every day. `countRecordHeaders` below is the
+ * tripwire for this direction; keep both, they fail on opposite drifts.
  */
-export const DECISION_RECORD_RE =
-  /^[^\S\n]*(?:\d+[^\S\n]+)?(?:Решение|Определение|Акт)[^\S\n]*№[^\S\n]*/gm;
+export const DECISION_RECORD_RE = new RegExp(
+  String.raw`^[^\S\n]*(?:\d+[^\S\n]+)?(?:Решение|Определение|Акт)[^\S\n]*№[^\S\n]*(?=${ACT_NO_SRC})`,
+  "gm",
+);
+
+/**
+ * How many DISTINCT act numbers the rendered page names.
+ *
+ * DISTINCT, not occurrences: a rendering that printed an act number twice on one
+ * record (a back-reference, a PDF link title, a repeated header cell) would
+ * otherwise raise the ceiling with no record behind it and loosen the check in
+ * silence.
+ *
+ * The invariant: a page cannot yield MORE records than it names acts. That
+ * catches a fracture whose extra record carries no `АКТ-` token of its own —
+ * the measured class, 429 of 5,208 rows in the 2026-07-04 corpus.
+ *
+ * ⚠️ TWO THINGS IT CANNOT SEE ON ITS OWN, both measured 2026-08-24. This is NOT
+ * an independent check on the boundary: it matches the SAME token the lookahead
+ * requires, so the two miss together.
+ *
+ *  - UNDER-parsing. `<=` is satisfied by zero records, and a header the
+ *    lookahead skips is absent from BOTH sides of the comparison. Use
+ *    `countRecordHeaders` for that direction.
+ *  - A quotation that is itself `АКТ-`-shaped — a КЗК act quoting another КЗК
+ *    act at the start of a line. It fractures the record AND raises this ceiling
+ *    by one, so the comparison passes. 0 of 5,208 `pron` values carry such a
+ *    reference today (only 3 quote a decision at all), so the hole is EMPTY, not
+ *    closed.
+ */
+export const countActNumbers = (text: string): number =>
+  new Set(text.match(new RegExp(ACT_NO_SRC, "g")) ?? []).size;
+
+/**
+ * How many line-start record HEADERS the page renders, whatever follows the `№`.
+ *
+ * The genuinely boundary-independent counter, and the reason it exists: it keys
+ * on the header WORD, which the register prints regardless of how it numbers
+ * acts, so it still sees a header whose act number has drifted out of
+ * `ACT_NO_SRC` — exactly the case `countActNumbers` and the lookahead miss
+ * together.
+ *
+ * ⚠️ It is an UPPER bound, not a record count: a line-start quotation
+ * ("ОТМЕНЯ …\nРешение № РД-25/…") matches it too, which is the whole reason the
+ * boundary needs the lookahead. So `records < countRecordHeaders` is normal on a
+ * page whose rulings quote a decision, and only a HUMAN reading both numbers
+ * against a live page can tell a quotation from a lost record — which is why
+ * `probe()` reports the pair rather than asserting on it.
+ */
+export const countRecordHeaders = (text: string): number =>
+  (
+    text.match(
+      /^[^\S\n]*(?:\d+[^\S\n]+)?(?:Решение|Определение|Акт)[^\S\n]*№/gm,
+    ) ?? []
+  ).length;
 
 /** The first act number rendered in `text`, or null when the page has no records. */
 export const firstActNo = (text: string): string | null => {
@@ -175,7 +301,12 @@ export const registerUrl = (ot: number): string =>
   DECISIONS_LIST_URL.replace(/([?&]ot=)\d+/, `$1${ot}`);
 
 /** Same shape, capturing the act's own date so it can be checked against `ddate`. */
-const ACT_NO_PARTS_RE = /^АКТ-\d+-(\d{2})\.(\d{2})\.(\d{4})$/;
+// EXPORTED only so kzk_decisions_store.test.ts can assert it accepts exactly what
+// ACT_NO_RE accepts. It is the one copy of the act-number shape that ACT_NO_SRC
+// could not absorb — it needs capture groups — and a drift between the two means
+// validateDecisions rejects on a shape scripts/db/tests/kzk_decisions.data.test.ts
+// (which checks stored rows against ACT_NO_RE) would accept, or vice versa.
+export const ACT_NO_PARTS_RE = /^АКТ-\d+-(\d{2})\.(\d{2})\.(\d{4})$/;
 
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 

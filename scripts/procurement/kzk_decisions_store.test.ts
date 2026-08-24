@@ -12,6 +12,9 @@ import {
   validateDecisions,
   summarizeRejections,
   ACT_NO_RE,
+  ACT_NO_PARTS_RE,
+  countActNumbers,
+  countRecordHeaders,
   type KzkDecision,
 } from "./kzk_decisions_store";
 
@@ -109,5 +112,75 @@ describe("ACT_NO_RE", () => {
     expect(ACT_NO_RE.test("AKT-608-25.06.2026")).toBe(false);
     expect(ACT_NO_RE.test("АКТ-608-2026-06-25")).toBe(false);
     expect(ACT_NO_RE.test("РОП-608-25.06.2026")).toBe(false);
+  });
+
+  // ACT_NO_SRC is the one definition; ACT_NO_PARTS_RE (used by validateDecisions
+  // for its date cross-check) stays hand-written because it needs capture groups.
+  // That is the one copy the consolidation could not remove, so it gets this
+  // agreement test instead: a drift between them means validateDecisions rejects
+  // a shape scripts/db/tests/kzk_decisions.data.test.ts — which asserts stored
+  // rows against ACT_NO_RE — would accept, or the reverse.
+  it("ACT_NO_PARTS_RE accepts exactly what ACT_NO_RE accepts", () => {
+    for (const s of [
+      "АКТ-608-25.06.2026",
+      "АКТ-1-01.01.2020",
+      "AKT-608-25.06.2026",
+      "АКТ-608-2026-06-25",
+      "АКТ-608-3.06.2026",
+      "РОП-608-25.06.2026",
+      "",
+    ])
+      expect(ACT_NO_PARTS_RE.test(s)).toBe(ACT_NO_RE.test(s));
+  });
+});
+
+// The PURE assertions on the two page counters live here, beside the functions.
+// The JOINT invariant — "a parse yields no more records than the page names
+// acts" — lives in kzk_decisions.test.ts, because it constrains the parser.
+describe("countActNumbers / countRecordHeaders", () => {
+  const PAGE = [
+    "1     Решение № АКТ-100-01.02.2026",
+    "Ответник(ници): ОБЩИНА А",
+    "2     Определение № АКТ-101-03.02.2026",
+    "Ответник(ници): ОБЩИНА Б",
+  ].join("\n");
+
+  it("counts the act numbers the page names", () => {
+    expect(countActNumbers(PAGE)).toBe(2);
+  });
+
+  it("counts DISTINCT acts, so a repeated token cannot inflate the ceiling", () => {
+    // A back-reference or a duplicated header cell would otherwise raise the
+    // count with no record behind it and loosen the invariant in silence.
+    const repeated = `${PAGE}\nПреписка по АКТ-100-01.02.2026`;
+    expect(countActNumbers(repeated)).toBe(2);
+  });
+
+  it("returns 0 for a page with no records rather than throwing", () => {
+    expect(countActNumbers("Намерени са общо 0 акта")).toBe(0);
+    expect(countRecordHeaders("Намерени са общо 0 акта")).toBe(0);
+    expect(countActNumbers("")).toBe(0);
+    expect(countRecordHeaders("")).toBe(0);
+  });
+
+  it("counts headers by the header WORD, independently of the act-number shape", () => {
+    // The property that makes it a tripwire for a drifting act number: the
+    // middle act is unpadded and matches neither ACT_NO_SRC nor the boundary,
+    // yet its header is still visible here.
+    const drifted = PAGE.replace("АКТ-101-03.02.2026", "АКТ-101-3.02.2026");
+    expect(countActNumbers(drifted)).toBe(1);
+    expect(countRecordHeaders(drifted)).toBe(2);
+  });
+
+  it("counts a line-start quotation as a header — it is an upper bound", () => {
+    const quoted = `${PAGE}\nРешение № РД-25/10.01.2026 г. на кмета`;
+    expect(countRecordHeaders(quoted)).toBe(3);
+    expect(countActNumbers(quoted)).toBe(2);
+  });
+
+  it("does not count an inline mention as a header", () => {
+    expect(
+      countRecordHeaders("отменя обжалваното Решение № РД-25 на кмета"),
+    ).toBe(0);
   });
 });
