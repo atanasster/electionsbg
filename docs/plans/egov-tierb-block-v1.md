@@ -419,7 +419,8 @@ placement is live. Step 1 fixed today's instance, step 2 bounds how long a dark 
 step 3 gives same-day notice through the daily report; between them the 16-day blind spot is closed
 from both ends. The residual gap is unchanged and structural: **nothing red ever says a rebuilt
 override map has not been published**, so the next correction depends on someone remembering
-`db:load:awarder-seats:pg:cloud`.
+`db:load:awarder-seats:pg:cloud`. That gap is now specced —
+`docs/plans/awarder-seats-freshness-gate-v1.md`, unimplemented.
 
 ## 7. ⚠ The decision that belongs to a human, not to this plan
 
