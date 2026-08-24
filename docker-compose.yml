@@ -15,6 +15,24 @@ services:
     # are actually slow). `CREATE EXTENSION pg_stat_statements` runs in
     # 000_search_fns.sql on every load.
     command: postgres -c shared_preload_libraries=pg_stat_statements
+    # Docker's default /dev/shm is 64 MB, and Postgres puts every parallel
+    # query's and parallel vacuum's dynamic-shared-memory segment there. That is
+    # far too small for this repo's workload: `npm run test:data` runs ~16
+    # concurrent vitest workers against corpora in the hundreds of thousands of
+    # rows, so the planner goes parallel on many of them at once and they
+    # exhaust it between them. Measured 2026-08-25 on the full suite — 2 tests
+    # in official_companies.data.test.ts died with
+    #   could not resize shared memory segment "/PostgreSQL.…" to 8388608 bytes:
+    #   No space left on device
+    # and both passed when the file was re-run alone. That is the trap: it looks
+    # like a data defect, it is load-dependent, and it lands on whichever test
+    # happened to be unlucky.
+    #
+    # tmpfs, so this is a CEILING and not an allocation — it consumes host RAM
+    # only as Postgres actually uses it. 1 GB against a 24 GB host is generous
+    # on purpose; the failure it prevents is expensive to diagnose and the cost
+    # of headroom is zero until it is needed.
+    shm_size: 1gb
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

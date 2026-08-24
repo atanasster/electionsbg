@@ -3899,12 +3899,25 @@ one transaction, so each of them has to vacuum it. All three do.
 
 Two things about the repair are easy to get backwards:
 
-- **`PARALLEL 0` is required on the local docker Postgres, not optional.** Parallel vacuum
-  allocates one DSM segment up front and the container's `/dev/shm` default is 64 MB, so
-  `VACUUM (ANALYZE) tenders` (14 indexes) dies with `could not resize shared memory segment …
-to 67145792 bytes`. `vacuumAfterReload` passes it for that reason. Nothing is lost: VACUUM
-  parallelises the index-vacuum phase only, and a freshly reloaded table has `n_dead_tup = 0`,
-  so that phase has no work to do.
+- **`PARALLEL 0` — KEEP IT, but the reason has changed.** It was originally required: parallel
+  vacuum allocates one DSM segment up front, Docker's `/dev/shm` default is 64 MB, and
+  `VACUUM (ANALYZE) tenders` (14 indexes) died with `could not resize shared memory segment …
+to 67145792 bytes`. **Since 2026-08-25 `docker-compose.yml` sets `shm_size: 1gb`, so that
+  specific failure is gone** — do not read an old "it dies without PARALLEL 0" note as current,
+  and do not "fix" a fresh clone by removing the flag either. It stays because nothing is lost
+  by it: VACUUM parallelises the index-vacuum phase only, and a freshly reloaded table has
+  `n_dead_tup = 0`, so that phase has no work to do. `vacuumAfterReload` passes it.
+
+  ⚠ **The 64 MB default is a REPO-WIDE trap, not a vacuum one, and raising it is what actually
+  fixed the recurring symptom.** Postgres puts every parallel query's DSM segment in `/dev/shm`
+  too, and `npm run test:data` runs ~16 concurrent vitest workers over corpora in the hundreds of
+  thousands of rows. Measured 2026-08-25 on the full suite: two tests in
+  `official_companies.data.test.ts` failed with `could not resize shared memory segment … to
+8388608 bytes: No space left on device`, and **both passed when the file was re-run alone** —
+  the [[test-data-flaky-under-load]] shape exactly. It reads as a data defect, it is
+  load-dependent, and it lands on whichever test was unlucky. A container created before that
+  commit still has 64 MB; `docker compose up -d` recreates it (the `pgdata` named volume
+  persists, so no reload is needed) and `docker exec electionsbg-pg df -h /dev/shm` confirms.
 - **A VACUUM run while any long transaction is open marks NOTHING and still reports success.**
   It is the same held-back-horizon mechanism that defeats autovacuum. Measured on a standalone
   `db:load:nzok-activities:pg` with a concurrent `db:resolve:persons` 15 minutes into one
