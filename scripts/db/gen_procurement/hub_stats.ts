@@ -32,6 +32,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { allRows, exec, end } from "../lib/pg";
+import type { HubStat } from "../../../src/data/procurement/useProcurementHubStats";
 import {
   missingRelations,
   missingFunctions,
@@ -80,17 +81,15 @@ const FUNCTIONS = [
   "procurement_by_settlement(text,text)", // 030
 ];
 
-interface HubStat {
-  totalEur: number;
-  contracts: number;
-  contractors: number;
-  connected: number;
-  tenders: number;
-  appeals: number;
-  ngos: number;
-  flags: number;
-  places: number;
-}
+// The shape lives on the src/ side and is imported here — ONE declaration, per §1 ("A shared
+// type gets ONE declaration. Put it on the `src/` side and import it from `scripts/`"). The
+// two hand-copied halves had already drifted: this one required `topAwarders`, the reader's
+// declared it optional.
+//
+// ⚠ THE COST OF `topAwarders` IS LOAD-BEARING, and the first comment here understated it by
+// ~4×. Measured: the ranked list is 13,969 B across the 30 scopes and takes the blob
+// 4,614 → 18,583 B against a 24,000 B gate. THREE rows, not five — five would be ~26.8 KB and
+// break it. Every visitor to /procurement downloads this.
 
 const one = async (
   from: string | null,
@@ -100,7 +99,10 @@ const one = async (
     from,
     to,
   ])) as {
-    r: { totals: Record<string, number> };
+    r: {
+      totals: Record<string, number>;
+      topAwarders?: { eik: string; name: string; totalEur: number }[];
+    };
   }[];
   const [hc] = (await allRows("SELECT procurement_hub_counts($1,$2) AS r", [
     from,
@@ -131,7 +133,42 @@ const one = async (
     ngos: hc.r.ngos ?? 0,
     flags: rf.r.concentrationTotal ?? 0,
     places: bs.r.settlementCount ?? 0,
+    awarderCount: t.awarderCount ?? 0,
+    // Trimmed to the three fields the head renders. The payload carries contractCount too,
+    // which nothing on the hub shows — and an unused field in a blob every visitor downloads
+    // is the regrowth the byte budget exists to stop.
+    topAwarders: (ov.r.topAwarders ?? []).slice(0, 3).map((a) => ({
+      eik: a.eik,
+      name: a.name,
+      eur: Math.round(a.totalEur ?? 0),
+    })),
   };
+};
+
+/** The name a buyer is MOST OFTEN filed under, per EIK.
+ *
+ *  ⚠ `procurement_overview()` returns `MIN(awarder_name COLLATE "C")` — an arbitrary alias,
+ *  and this corpus is full of them: EIK 000696327 (Столична община) is filed as „Район
+ *  „Банкя"", „Район витоша", „Район „Витоша"" and more, so the head published a single
+ *  district as the identity of the whole municipality. Alphabetically-first is not a name
+ *  anybody chose; the most-used one at least is.
+ *
+ *  This does NOT canonicalise the awarder side properly — 025 does that for CONTRACTORS via
+ *  `tr_companies` and leaves buyers raw, which is the real fix and a migration. Until then
+ *  the head shows the alias the register itself uses most.
+ *
+ *  One query for every EIK the fold selected, not one per scope. */
+const commonestNames = async (eiks: string[]): Promise<Map<string, string>> => {
+  if (!eiks.length) return new Map();
+  const rows = (await allRows(
+    `SELECT DISTINCT ON (awarder_eik) awarder_eik AS eik, awarder_name AS name
+       FROM contracts
+      WHERE awarder_eik = ANY($1::text[]) AND awarder_name IS NOT NULL
+      GROUP BY awarder_eik, awarder_name
+      ORDER BY awarder_eik, count(*) DESC, length(awarder_name) DESC`,
+    [eiks],
+  )) as { eik: string; name: string }[];
+  return new Map(rows.map((r) => [r.eik, r.name]));
 };
 
 const main = async (): Promise<void> => {
@@ -215,7 +252,29 @@ const main = async (): Promise<void> => {
     out[`y:${year}`] = await one(`${year}-01-01`, `${year + 1}-01-01`);
   }
 
+  // Replace the arbitrary alias `procurement_overview()` returns with the name the register
+  // uses most for that EIK. One query for every buyer any scope selected.
+  const eiks = [
+    ...new Set(
+      Object.values(out).flatMap((h) => h.topAwarders.map((a) => a.eik)),
+    ),
+  ];
+  const names = await commonestNames(eiks);
+  let renamed = 0;
+  for (const h of Object.values(out))
+    for (const a of h.topAwarders) {
+      const better = names.get(a.eik);
+      if (better && better !== a.name) {
+        a.name = better;
+        renamed++;
+      }
+    }
+
   fs.writeFileSync(OUT, JSON.stringify(out, null, 0) + "\n");
+  if (renamed)
+    console.log(
+      `  ${renamed} awarder name(s) replaced with the register's most-used alias (${eiks.length} distinct buyer(s))`,
+    );
   console.log(
     `hub_stats: ${Object.keys(out).length} scope(s) → ${path.relative(ROOT, OUT)} in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
   );

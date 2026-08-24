@@ -18,6 +18,8 @@ import {
 } from "@/ux/infographic";
 import { ScopeControl } from "./components/ScopeControl";
 import { GovernanceBreadcrumb } from "./components/GovernanceBreadcrumb";
+import { useAwarderHref } from "./components/procurement/useAwarderHref";
+import { decodeEntities } from "@/lib/decodeEntities";
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
 import { ClaimCheckBox } from "./components/procurement/ClaimCheckBox";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
@@ -45,6 +47,7 @@ export const ProcurementScreen: FC = () => {
   const stat = useProcurementHubStats();
   const sectorStats = useSectorStats();
   const sectorWin = useScopeWindow();
+  const awarderHref = useAwarderHref();
   const sectorPeriod = scopeProcurementPeriod(sectorWin);
   const watchCount = useWatchlist().length;
   const title = t("procurement_index_title") || "Public procurement";
@@ -96,63 +99,67 @@ export const ProcurementScreen: FC = () => {
       : bg
         ? "този парламент"
         : "this parliament";
-  const kpis: HubKpi[] = stat
-    ? [
-        {
-          value: formatEurCompact(stat.totalEur, i18n.language),
-          label: bg ? "договорени" : "contracted",
-          basis: scopeBasis,
-          // The money story, not the row list — two adjacent cells must not share a
-          // destination, and /procurement/contracts is the next cell's.
-          to: "/procurement/overview",
-        },
-        {
-          value: numFmt.format(stat.contracts),
-          label: bg ? "договора" : "contracts",
-          basis: scopeBasis,
-          to: "/procurement/contracts",
-        },
-        {
-          value: numFmt.format(stat.contractors),
-          label: bg ? "изпълнители" : "contractors",
-          basis: scopeBasis,
-          to: "/procurement/contractors",
-        },
-        {
-          value: numFmt.format(stat.appeals),
-          label: bg ? "обжалвания в КЗК" : "appeals at the CPC",
-          basis: scopeBasis,
-          to: "/procurement/appeals",
-        },
-      ]
-    : [];
+  // ⚠ An EMPTY WINDOW renders no band at all, not a row of zeroes. `ns:2005_06_25` is a real
+  // option in the election picker and the corpus starts 2011-01-03, so that scope has nothing
+  // — and §0 is explicit that a structural zero is hidden rather than printed. The ranked list
+  // beside it already rendered nothing there; this makes the two halves of the head agree.
+  const kpis: HubKpi[] =
+    stat && stat.contracts > 0
+      ? [
+          {
+            value: formatEurCompact(stat.totalEur, i18n.language),
+            label: bg ? "договорени" : "contracted",
+            basis: scopeBasis,
+            // The money story, not the row list — two adjacent cells must not share a
+            // destination, and /procurement/contracts is the next cell's.
+            to: "/procurement/overview",
+          },
+          {
+            value: numFmt.format(stat.contracts),
+            label: bg ? "договора" : "contracts",
+            basis: scopeBasis,
+            to: "/procurement/contracts",
+          },
+          {
+            value: numFmt.format(stat.contractors),
+            label: bg ? "изпълнители" : "contractors",
+            basis: scopeBasis,
+            to: "/procurement/contractors",
+          },
+          {
+            value: numFmt.format(stat.appeals),
+            label: bg ? "обжалвания в КЗК" : "appeals at the CPC",
+            basis: scopeBasis,
+            to: "/procurement/appeals",
+          },
+        ]
+      : [];
 
   // The evidence column: a ranked list, deliberately not a chart (§4.2 — vendor-charts is
   // ~115 KB br and lazy, the entry budget is 56 000 B br, and a list is text so it prerenders
   // and is five more internal links). Rows come from the sector stats this page ALREADY
   // fetches for the featured strip below.
-  // ⚠ ONE BASIS ONLY. `sector_stats` carries a `basis` per sector — `defense` and `security`
-  // are a BUDGET line for a single year, the rest are procurement over the active window — so
-  // ranking all of them together put a 2026 appropriation above three windowed contract
-  // totals with nothing saying they answer different questions. Filtered to the procurement
-  // basis, the list is one comparable quantity and the heading is true of every row.
-  const evidenceRows = FEATURED_SECTORS.map((sector) => ({
-    label: t(sector.titleKey),
-    stat: sectorStats?.[sector.id],
-    to: sector.to,
-  }))
-    .filter((row) => row.stat?.basis === "procurement")
-    .map((row) => ({
-      label: row.label,
-      value: formatSectorMetric(row.stat, i18n.language) ?? "—",
-      to: row.to,
-    }))
-    .filter((row) => row.value !== "—");
+  // The head's ranked list: the three biggest BUYERS in the active window.
+  //
+  // It used to be the featured SECTORS — the same four the FeaturedStrip renders 400 px
+  // below, so the head restated the grid instead of adding to it, and the sectors mixed
+  // bases besides (`defense` is a single-year budget line, the others are procurement over
+  // the window, ranked together as if comparable).
+  //
+  // These come from the SAME hub_stats blob the tiles read — folded in by the generator from
+  // `procurement_overview()`, which is the call /procurement/overview itself renders — so the
+  // list costs no extra fetch and cannot disagree with the page each row links to.
+  const evidenceRows = (stat?.topAwarders ?? []).map((a) => ({
+    id: a.eik,
+    label: decodeEntities(a.name),
+    value: formatEurCompact(a.eur, i18n.language),
+    // Never a hand-rolled /awarder/ path: the helper carries the active scope, which a bare
+    // pathname resets — so a row clicked from „целият корпус" would land on this parliament.
+    // (HubHead re-merges it anyway now, for the KPI cells and the „виж класацията" link that
+    // had exactly that defect; this keeps the row correct at source rather than by rescue.)
+    to: awarderHref(a.eik),
+  }));
 
-  /** The caption under a tile's number. Ten of the hub's figures shipped with NO caption at
-   *  all, qualified only by a scope pill 448 px up the page which had scrolled away by the
-   *  time the number was read (§3.1 rule 2). The basis comes from the registry rather than
-   *  being assumed: not every field in a scope-keyed blob is scoped. */
   const captionFor = (p: ProcurementTile): string | undefined => {
     // A caption with no number above it is a floating fragment: `metricFor` returns undefined
     // whenever the blob has not loaded, the scope is not in it, or the watchlist is empty —
@@ -204,19 +211,21 @@ export const ProcurementScreen: FC = () => {
         evidence={
           evidenceRows.length
             ? {
-                // ⚠ SECTORS, so the heading says sectors. These rows are Пътища / Отбрана /
-                // Енергетика — a sector contains many buyers (АПИ is inside „Пътища"), so
-                // „Най-големи възложители" named a set the rows are not. A group's content,
-                // its label and its destination have to be the same set.
-                //
-                // Shipping note: this duplicates the FeaturedStrip further down the page. The
-                // shipped version should carry the top AWARDERS (a different set, and the one
-                // the heading originally promised) so the head and the strip say two things.
-                heading: bg ? "Най-големи сектори" : "Largest sectors",
-                rows: evidenceRows.slice(0, 5),
+                // Literally true of the rows now: they ARE awarders. It read „Най-големи
+                // сектори" while the rows were sectors — correct then, because a sector
+                // contains many buyers (АПИ sits inside „Пътища") and the two are different
+                // sets. A group's content, its label and its destination must be one set.
+                heading: t("procurement_head_top_awarders"),
+                rows: evidenceRows,
+                // /procurement/overview is where the full ranking lives — the page these rows
+                // are folded from. It reads the scope, so the link keeps the window.
+                // The anchor, not the page top: /procurement/overview is a long analytics
+                // page and the ranking these rows come from is its „entities" section. A
+                // „see the ranking" link that lands 1 000 px above the ranking is the same
+                // broken promise as a see-all that lands on an unfiltered page.
                 action: {
-                  to: "/governance/sectors",
-                  label: t("procurement_hub_all_sectors") || "All sectors →",
+                  to: "/procurement/overview#procurement-entities",
+                  label: t("procurement_head_see_ranking"),
                 },
               }
             : undefined

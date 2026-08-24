@@ -8,6 +8,13 @@ import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
+/** The ONE declaration of the blob's shape.
+ *
+ *  It lives here, on the `src/` side, and `scripts/db/gen_procurement/hub_stats.ts` imports
+ *  it — the repo convention for a type two sides share (dashboard-hub §1: "A shared type gets
+ *  ONE declaration. Put it on the `src/` side and import it from `scripts/`"). The two
+ *  hand-copied halves had already drifted on nullability: the writer guarantees
+ *  `topAwarders` and the reader declared it optional. */
 export interface HubStat {
   totalEur: number;
   contracts: number;
@@ -18,6 +25,15 @@ export interface HubStat {
   ngos: number;
   flags: number;
   places: number;
+  /** Distinct BUYERS in this window — the exact denominator `topAwarders` is drawn from, so
+   *  a gate can tell "this window is empty" from "the fold broke" without proxying through
+   *  `contracts`, which is counted over a different, unfiltered set. */
+  awarderCount: number;
+  /** The three biggest buyers in this window — the head's ranked list. From
+   *  `procurement_overview()`, the same call the nine figures above come from and the one
+   *  /procurement/overview renders, so the list cannot disagree with the page it links to.
+   *  Empty only where the window genuinely holds no contracts. */
+  topAwarders: { eik: string; name: string; eur: number }[];
 }
 
 type HubStatsFile = Record<string, HubStat>;

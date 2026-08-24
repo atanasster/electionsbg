@@ -15,7 +15,8 @@
 // <Title> — that would emit two h1s.
 
 import { FC, ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, type To } from "react-router-dom";
+import { usePreserveParams } from "@/ux/usePreserveParams";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
@@ -31,23 +32,57 @@ export interface HubKpi {
   label: string;
   /** The window / denominator, in the reader's words. */
   basis: string;
-  /** The page that can name the rows behind the number. */
-  to?: string;
+  /** The page that can name the rows behind the number. `To`, so a caller can hand over a
+   *  scope-aware href from `useAwarderHref` / `useScopedHref`. */
+  to?: To;
 }
 
 export interface HubEvidenceRow {
+  /** Stable identity for the list key. `label` is corpus free text — two buyers can share a
+   *  name, and React then reuses the wrong row. */
+  id?: string;
   label: string;
   value: string;
-  to?: string;
+  /** `To`, not `string`: the repo's link helpers (`useAwarderHref`) return one, and they
+   *  exist because a bare pathname RESETS the active time scope on the destination. */
+  to?: To;
 }
 
 export interface HubEvidence {
   heading: string;
   rows: HubEvidenceRow[];
-  action?: { to: string; label: string };
+  /** `To` for the same reason the rows are — a bare pathname resets the scope. */
+  action?: { to: To; label: string };
 }
 
-const KpiCell: FC<{ kpi: HubKpi }> = ({ kpi }) => {
+/** Every link OUT of the head carries the active time scope, the way `InfographicTile`'s
+ *  `useTileHref` does for the grid below.
+ *
+ *  ⚠ WITHOUT THIS THE HEAD LIES ABOUT ITS OWN NUMBERS. `react-router`'s bare `Link` drops the
+ *  search, so on `?pscope=all` the band read „€93,6 млрд. · целият корпус 2011–2026" and
+ *  „виж класацията" landed on /procurement/overview at its DEFAULT scope — this parliament,
+ *  €3,3 млрд., a top-three with ZERO names in common with the rows above it. That is §0's
+ *  "destination counts a different set" on the four loudest figures on the page.
+ *
+ *  A link's OWN params win, so a caller that deliberately forces a window
+ *  (`/procurement/contracts?pscope=all` on /governance) still gets it. */
+const useHeadHref = (): ((to: To) => To) => {
+  const preserve = usePreserveParams();
+  return (to) => {
+    // An object `To` already came from a scope-aware helper (useAwarderHref); merging its
+    // search the same way is idempotent and keeps one code path.
+    const path = typeof to === "string" ? to : (to.pathname ?? "");
+    const own =
+      typeof to === "string" ? to.split("?")[1] : to.search?.replace(/^\?/, "");
+    const merged = preserve(
+      own ? Object.fromEntries(new URLSearchParams(own)) : undefined,
+    );
+    const search = merged.toString();
+    return search ? `${path}?${search}` : path;
+  };
+};
+
+const KpiCell: FC<{ kpi: HubKpi; href: (to: To) => To }> = ({ kpi, href }) => {
   const body = (
     <>
       <span className="block text-2xl font-bold leading-none tracking-tight tabular-nums xl:text-3xl">
@@ -64,7 +99,7 @@ const KpiCell: FC<{ kpi: HubKpi }> = ({ kpi }) => {
   const shell = "block bg-card px-4 py-3.5";
   return kpi.to ? (
     <Link
-      to={kpi.to}
+      to={href(kpi.to)}
       className={cn(
         shell,
         "transition-colors hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
@@ -114,6 +149,7 @@ export const HubHead: FC<{
   kpiNote,
   className,
 }) => {
+  const headHref = useHeadHref();
   // `basis` is typed as required, which enforces PRESENCE and not content — `basis: ""`
   // compiles and renders an empty span, i.e. exactly the state the field exists to prevent.
   if (import.meta.env.DEV && kpis?.some((k) => !k.basis.trim()))
@@ -173,7 +209,7 @@ export const HubHead: FC<{
               )}
             >
               {kpis.map((kpi) => (
-                <KpiCell key={kpi.label} kpi={kpi} />
+                <KpiCell key={kpi.label} kpi={kpi} href={headHref} />
               ))}
             </div>
             {kpiNote ? (
@@ -190,7 +226,7 @@ export const HubHead: FC<{
               </h2>
               {evidence.action ? (
                 <Link
-                  to={evidence.action.to}
+                  to={headHref(evidence.action.to)}
                   className="whitespace-nowrap text-[11px] font-semibold text-primary hover:underline"
                 >
                   {evidence.action.label}
@@ -199,11 +235,12 @@ export const HubHead: FC<{
             </div>
             <ul className="divide-y divide-border">
               {evidence.rows.map((row) => (
-                <li key={row.label}>
+                <li key={row.id ?? row.label}>
                   {row.to ? (
                     <Link
-                      to={row.to}
-                      className="flex items-baseline justify-between gap-3 px-3.5 py-2 text-[13px] transition-colors hover:bg-accent/40"
+                      to={headHref(row.to)}
+                      title={row.label}
+                      className="flex items-baseline justify-between gap-3 px-3.5 py-2 text-[13px] transition-colors hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                     >
                       <span className="min-w-0 truncate">{row.label}</span>
                       <span className="shrink-0 font-semibold tabular-nums text-muted-foreground">

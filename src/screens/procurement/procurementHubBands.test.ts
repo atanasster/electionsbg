@@ -28,6 +28,30 @@ import { fileURLToPath } from "node:url";
 // is still real copy, and reading the core chunk would report it as missing.
 import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 
+/** The repo root, resolved from THIS FILE rather than process.cwd(): every sibling test that
+ *  reads a repo file does the same, and a bare relative path read at collection time takes the
+ *  whole file down ("Tests: no tests") under any runner whose cwd is not the root. */
+const REPO = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../..",
+);
+
+interface BlobScope {
+  contracts: number;
+  awarderCount: number;
+  topAwarders: { eik: string; name: string; eur: number }[];
+  [field: string]: unknown;
+}
+
+/** Read lazily, inside the `it` that needs it, so a missing blob fails one clause. */
+const readBlob = (): Record<string, BlobScope> =>
+  JSON.parse(
+    readFileSync(
+      path.join(REPO, "data/procurement/derived/hub_stats.json"),
+      "utf8",
+    ),
+  );
+
 const has = (corpus: unknown, key: string): boolean =>
   Object.prototype.hasOwnProperty.call(corpus, key);
 
@@ -140,22 +164,6 @@ describe("/procurement bands", () => {
 });
 
 describe("/procurement tile figures declare their basis", () => {
-  // Resolved from this file, not from process.cwd(): the sibling repo-reading tests all do
-  // this, and a bare relative path read in the DESCRIBE body took the whole file down —
-  // "Tests: no tests", including the seven band gates that never touch the blob — under any
-  // runner whose cwd is not the repo root.
-  const REPO = path.resolve(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "../../..",
-  );
-  const readBlob = (): Record<string, Record<string, number>> =>
-    JSON.parse(
-      readFileSync(
-        path.join(REPO, "data/procurement/derived/hub_stats.json"),
-        "utf8",
-      ),
-    );
-
   it("gives every tile with a metric a metricBasis, and none without", () => {
     const bare = PROCUREMENT_TILES.filter((t) => t.metric && !t.metricBasis);
     expect(
@@ -212,5 +220,100 @@ describe("/procurement tile figures declare their basis", () => {
     }
     // Non-vacuity: if the loop checked nothing, the clause proves nothing.
     expect(checked, "no scope-captioned tile to check").toBeGreaterThan(0);
+  });
+});
+
+describe("/procurement head — the ranked list", () => {
+  it("carries three ranked awarders for every scope that has contracts", () => {
+    const b = readBlob();
+    const scopes = Object.keys(b);
+    expect(scopes.length).toBeGreaterThan(5);
+    let covered = 0;
+    for (const s of scopes) {
+      const top = b[s].topAwarders;
+      // A window BEFORE the corpus legitimately has nothing — `ns:2005_06_25` is a real
+      // option in the election picker and the corpus starts 2011-01-03, so its card renders
+      // nothing at all. That is the coverage state, not a broken fold: assert emptiness
+      // matches the contract count rather than demanding rows everywhere.
+      if (b[s].contracts === 0) {
+        expect(
+          top ?? [],
+          `${s}: no contracts but ${top?.length} awarders`,
+        ).toEqual([]);
+        continue;
+      }
+      covered++;
+      expect(top, `${s}: no topAwarders`).toBeTruthy();
+      expect(top!.length, `${s}: ${top!.length} awarders`).toBeGreaterThan(0);
+      expect(top!.length, `${s}: more than three`).toBeLessThanOrEqual(3);
+      for (const a of top!) {
+        expect(a.eik, `${s}: awarder with no eik`).toBeTruthy();
+        expect(a.name, `${s}: awarder with no name`).toBeTruthy();
+        expect(a.eur, `${s}: ${a.name} has no money`).toBeGreaterThan(0);
+      }
+      // Ranked, or the heading „Най-големи" is false.
+      const eurs = top!.map((a) => a.eur);
+      expect(
+        [...eurs].sort((x, y) => y - x),
+        `${s}: not ranked`,
+      ).toEqual(eurs);
+    }
+    // Non-vacuity: the loop must actually have checked some populated scopes, or an empty
+    // fold would satisfy every assertion above by skipping all of them.
+    expect(covered, "no scope with contracts to check").toBeGreaterThan(5);
+  });
+
+  // F-002: a fold that ignored the scope — every window copying `all`'s ranking — satisfied
+  // every clause above, because each one only ever looks at one scope at a time.
+  it("ranks a different set per window", () => {
+    const b = readBlob();
+    const populated = Object.entries(b).filter(
+      ([, v]) => v.awarderCount > 0 && v.topAwarders.length > 0,
+    );
+    expect(populated.length).toBeGreaterThan(5);
+    const signature = (v: BlobScope): string =>
+      v.topAwarders.map((a) => `${a.eik}:${a.eur}`).join("|");
+    const distinct = new Set(populated.map(([, v]) => signature(v)));
+    // Not "all different" — two adjacent parliaments can genuinely share a top three. But a
+    // scope-BLIND fold collapses every window onto one signature, which is what this catches.
+    expect(
+      distinct.size,
+      `all ${populated.length} populated scopes share one ranking — the fold is not scoped`,
+    ).toBeGreaterThan(populated.length / 3);
+  });
+
+  // F-011: the cross-field invariant the shape clauses cannot see.
+  it("keeps each ranking inside its own window's totals", () => {
+    const b = readBlob();
+    for (const [s, v] of Object.entries(b)) {
+      if (!v.topAwarders.length) continue;
+      // Nobody can have been paid more than the window contracted…
+      for (const a of v.topAwarders)
+        expect(
+          a.eur,
+          `${s}: ${a.name} has €${a.eur} against a window total of €${v.totalEur}`,
+        ).toBeLessThanOrEqual(v.totalEur as number);
+      // …and three buyers cannot outnumber the buyers the window has.
+      expect(
+        v.topAwarders.length,
+        `${s}: ${v.topAwarders.length} rows against awarderCount ${v.awarderCount}`,
+      ).toBeLessThanOrEqual(v.awarderCount);
+    }
+  });
+
+  it("keeps the blob under its byte budget", () => {
+    // Every visitor to /procurement downloads this. Measured: 4,614 B before the ranked list
+    // and 16,638 B after — bought deliberately, because the alternative is a second network
+    // round-trip on every hub view, and it still replaces the ~1.65 MB of per-tile artifact
+    // fetches this blob was created to end. FIVE rows instead of three would be ~26.8 KB and
+    // break this ceiling, which is why the generator folds three.
+    const bytes = Buffer.byteLength(
+      readFileSync(
+        path.join(REPO, "data/procurement/derived/hub_stats.json"),
+        "utf8",
+      ),
+      "utf8",
+    );
+    expect(bytes, `hub_stats.json is ${bytes} B`).toBeLessThanOrEqual(24_000);
   });
 });

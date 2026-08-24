@@ -43,6 +43,18 @@ const STAT = {
   ngos: 331,
   places: 871,
   flags: 2_766,
+  awarderCount: 4_418,
+  // The head's ranked list. Present here because the aside renders only when it is —
+  // otherwise the link-scope clause below silently checks four links instead of seven.
+  topAwarders: [
+    {
+      eik: "000695089",
+      name: 'Агенция "Пътна инфраструктура"',
+      eur: 8_822_447_923,
+    },
+    { eik: "130823243", name: "НКЖИ", eur: 3_458_624_682 },
+    { eik: "175203478", name: "Булгартрансгаз", eur: 3_127_497_219 },
+  ],
 };
 
 const mount = (search = "?pscope=all") =>
@@ -130,6 +142,35 @@ describe("/procurement tile captions", () => {
     // real English („whole corpus · …") and the two are trivially distinguishable.
     expect(watch.textContent).toMatch(/procurement_basis_local/);
     expect(watch.textContent).not.toMatch(/whole corpus/i);
+  });
+
+  it("carries the active scope on every link out of the head", async () => {
+    mount("?pscope=all");
+    await screen.findAllByText(/whole corpus/i);
+    // The two link sets the head owns: the KPI cells and the ranked list (rows + its
+    // „see the ranking" action). Collected directly rather than by walking up from the aside,
+    // which depends on wrapper markup this test should not know about.
+    const band = document.querySelector(
+      '[class*="sm:grid-cols"][class*="bg-border"]',
+    );
+    const aside = document.querySelector("aside");
+    expect(band, "KPI band not rendered").toBeTruthy();
+    expect(aside, "ranked list not rendered").toBeTruthy();
+
+    const links = [
+      ...(band as HTMLElement).querySelectorAll("a[href]"),
+      ...(aside as HTMLElement).querySelectorAll("a[href]"),
+    ].map((a) => a.getAttribute("href"));
+
+    // ⚠ THIS IS WHAT THE BAND'S OWN CAPTIONS PROMISE. react-router's bare Link drops the
+    // search, so „€93,6 млрд. · целият корпус" linked to /procurement/overview at its DEFAULT
+    // scope — this parliament, €3,3 млрд., a top three with zero names in common with the
+    // rows directly above it.
+    expect(links.length).toBeGreaterThan(4);
+    const bare = links.filter((h) => h && !h.includes("pscope=all"));
+    expect(bare, `head link(s) dropping the scope: ${bare.join(", ")}`).toEqual(
+      [],
+    );
   });
 
   it("gives the NGO tile no figure at all", async () => {

@@ -94,6 +94,27 @@ describe("HubHead", () => {
     expect(four?.className).toContain("sm:grid-cols-4");
   });
 
+  it("accepts an object `To` on an evidence row and keeps its search", () => {
+    // `useAwarderHref` returns a `To` object, not a string — and the head re-merges the
+    // active scope onto it. A string-only path would drop the search silently.
+    mount({
+      kpis: KPIS,
+      evidence: {
+        heading: "Largest buyers",
+        rows: [
+          {
+            id: "000695089",
+            label: "Агенция Пътна инфраструктура",
+            value: "€8.8 bn",
+            to: { pathname: "/awarder/000695089", search: "?pscope=all" },
+          },
+        ],
+      },
+    });
+    const row = screen.getByText("Агенция Пътна инфраструктура").closest("a");
+    expect(row).toHaveAttribute("href", "/awarder/000695089?pscope=all");
+  });
+
   it("omits the band and its note entirely rather than rendering empty cells", () => {
     const { container } = mount({ kpis: [], kpiNote: "not comparable" });
     expect(screen.queryByText("not comparable")).not.toBeInTheDocument();
