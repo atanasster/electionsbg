@@ -1,8 +1,192 @@
-export const OutletsScreen = () => (
-  <section>
-    <h1 className="font-title text-3xl">Източници</h1>
-    <p className="mt-2 text-muted-foreground">
-      Таблицата с медии и техните профили ще се появи тук.
-    </p>
-  </section>
-);
+// Outlets — the media catalogue: ranked table of every outlet in the CSV (plus
+// any data-only domains) with corpus/analysis counts and the leaning, russia
+// and AI distributions computed at build time.
+
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { Search } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { formatVisits } from "../labels";
+import { useOutlets } from "../data";
+import { LeanSpectrum, StanceSpectrum } from "../components/SpectrumBar";
+import { LoadMore } from "../components/LoadMore";
+
+const PAGE_SIZE = 20;
+
+export const OutletsScreen = () => {
+  const outlets = useOutlets();
+  const [query, setQuery] = useState("");
+  const [limit, setLimit] = useState(PAGE_SIZE);
+
+  const q = query.trim().toLowerCase();
+
+  const sorted = useMemo(() => {
+    const list = [...(outlets.data?.outlets ?? [])];
+    list.sort((a, b) => {
+      // Catalogue rank first (nulls last), then by corpus size.
+      if (a.rank == null && b.rank == null)
+        return b.article_count - a.article_count;
+      if (a.rank == null) return 1;
+      if (b.rank == null) return -1;
+      return a.rank - b.rank;
+    });
+    return list;
+  }, [outlets.data]);
+
+  const filtered = useMemo(
+    () =>
+      sorted.filter(
+        (o) => !q || `${o.outlet} ${o.domain}`.toLowerCase().includes(q),
+      ),
+    [sorted, q],
+  );
+
+  // A fresh query starts from a fresh page — an expanded limit leaking into a
+  // new search defeats the incremental reveal.
+  useEffect(() => setLimit(PAGE_SIZE), [q]);
+
+  return (
+    <div className="space-y-4">
+      <header>
+        <h1 className="font-title text-3xl">Източници</h1>
+        <p className="mt-1 max-w-2xl text-muted-foreground">
+          Каталог на българските медии в корпуса — тип, обхват, посещаемост и
+          разпределения по пристрастие, позиция спрямо Русия и ИИ-сигнали (от
+          анализираните статии).
+        </p>
+      </header>
+
+      <div className="relative max-w-sm">
+        <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+        <Input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Търсене на медия…"
+          className="pl-8"
+          aria-label="Търсене на медия"
+        />
+      </div>
+
+      {outlets.error && !outlets.data ? (
+        <Card className="p-4 text-sm text-destructive">
+          Източниците не се заредиха: {outlets.error.message}
+        </Card>
+      ) : outlets.loading && !outlets.data ? (
+        <Skeleton className="h-96 rounded-xl" />
+      ) : (
+        <Card className="overflow-x-auto p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead scope="col" className="w-10">
+                  #
+                </TableHead>
+                <TableHead>Източник</TableHead>
+                <TableHead scope="col" className="hidden md:table-cell">
+                  Тип
+                </TableHead>
+                <TableHead scope="col" className="hidden lg:table-cell">
+                  Обхват
+                </TableHead>
+                <TableHead
+                  scope="col"
+                  className="hidden lg:table-cell text-right"
+                >
+                  Посещения/мес
+                </TableHead>
+                <TableHead scope="col" className="text-right">
+                  Статии
+                </TableHead>
+                <TableHead scope="col" className="text-right">
+                  Анализ
+                </TableHead>
+                <TableHead scope="col" className="min-w-40">
+                  Пристрастие
+                </TableHead>
+                <TableHead
+                  scope="col"
+                  className="min-w-40 hidden md:table-cell"
+                >
+                  Позиция РФ
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filtered.slice(0, limit).map((o) => (
+                <TableRow key={o.domain}>
+                  <TableCell className="text-muted-foreground tabular-nums">
+                    {o.rank ?? "—"}
+                  </TableCell>
+                  <TableCell>
+                    <Link
+                      to={`/outlet/${o.domain}`}
+                      className="font-medium hover:text-primary"
+                    >
+                      {o.outlet}
+                    </Link>
+                    {o.ai_generated.likely_ai ? (
+                      <Badge
+                        variant="outline"
+                        className="ml-2 text-destructive border-destructive/40"
+                      >
+                        {o.ai_generated.likely_ai} ИИ?
+                      </Badge>
+                    ) : null}
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell text-muted-foreground">
+                    {o.type ?? "—"}
+                  </TableCell>
+                  <TableCell className="hidden lg:table-cell text-muted-foreground">
+                    {o.scope ?? "—"}
+                  </TableCell>
+                  <TableCell className="hidden lg:table-cell text-right tabular-nums text-muted-foreground">
+                    {formatVisits(o.visits)}
+                  </TableCell>
+                  <TableCell className="text-right tabular-nums">
+                    {o.article_count}
+                  </TableCell>
+                  <TableCell className="text-right tabular-nums text-muted-foreground">
+                    {o.analyzed_count || "—"}
+                  </TableCell>
+                  <TableCell>
+                    <LeanSpectrum counts={o.leaning} />
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    <StanceSpectrum counts={o.russia_stance} />
+                  </TableCell>
+                </TableRow>
+              ))}
+              {filtered.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={9}
+                    className="py-6 text-center text-muted-foreground"
+                  >
+                    Няма съвпадения.
+                  </TableCell>
+                </TableRow>
+              ) : null}
+            </TableBody>
+          </Table>
+          {filtered.length > limit ? (
+            <LoadMore
+              remaining={filtered.length - limit}
+              onMore={() => setLimit((n) => n + PAGE_SIZE)}
+            />
+          ) : null}
+        </Card>
+      )}
+    </div>
+  );
+};

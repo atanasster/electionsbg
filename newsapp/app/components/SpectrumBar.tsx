@@ -15,6 +15,39 @@ import type { Leaning, RussiaStance } from "../data";
 type LeanCounts = Partial<Record<Leaning, number>>;
 type StanceCounts = Partial<Record<RussiaStance, number>>;
 
+// Text list of the non-zero entries of a distribution — the labeled companion
+// to the bars above, for contexts where counts matter more than proportions.
+export const SpectrumLegend = ({
+  counts,
+  labels,
+}: {
+  counts: Record<string, number>;
+  labels: { [key: string]: { label: string; color: string } };
+}) => {
+  const entries = Object.entries(counts).filter(([, n]) => n > 0);
+  if (!entries.length)
+    return <p className="text-xs text-muted-foreground">—</p>;
+  return (
+    <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+      {entries
+        .sort((a, b) => b[1] - a[1])
+        .map(([key, n]) => (
+          <span
+            key={key}
+            className="flex items-center gap-1.5 text-xs text-muted-foreground"
+          >
+            <span
+              aria-hidden
+              className="inline-block size-2 rounded-sm"
+              style={{ backgroundColor: labels[key]?.color ?? "#71717a" }}
+            />
+            {labels[key]?.label ?? key} · {n}
+          </span>
+        ))}
+    </div>
+  );
+};
+
 const Segments = ({
   segments,
   empty,
@@ -56,9 +89,15 @@ const Segments = ({
   );
 };
 
-export const LeanSpectrum = ({ counts }: { counts: LeanCounts }) => (
+export const LeanSpectrum = ({
+  counts,
+  emptyLabel = "няма анализирани източници",
+}: {
+  counts: LeanCounts;
+  emptyLabel?: string;
+}) => (
   <Segments
-    empty="няма анализирани източници"
+    empty={emptyLabel}
     segments={LEANING_ORDER.map((k) => ({
       key: k,
       label: LEANING_META[k].label,
@@ -68,9 +107,15 @@ export const LeanSpectrum = ({ counts }: { counts: LeanCounts }) => (
   />
 );
 
-export const StanceSpectrum = ({ counts }: { counts: StanceCounts }) => (
+export const StanceSpectrum = ({
+  counts,
+  emptyLabel = "няма анализирани източници",
+}: {
+  counts: StanceCounts;
+  emptyLabel?: string;
+}) => (
   <Segments
-    empty="няма анализирани източници"
+    empty={emptyLabel}
     segments={RUSSIA_ORDER.map((k) => ({
       key: k,
       label: RUSSIA_META[k].label,

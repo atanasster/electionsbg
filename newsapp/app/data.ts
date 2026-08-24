@@ -220,6 +220,11 @@ export const useData = <T>(path: string | null) => {
 };
 
 // ---- typed bundle loaders -------------------------------------------------------
+//
+// Contract shared by all loaders below: on a failed refresh `data` may be
+// non-null alongside `error` (last good bundle kept, see useData) — consumers
+// guard the fatal case with `error && !data` and may keep rendering `data`
+// otherwise.
 
 export const useStats = () => useData<Stats>("/stats.json");
 export const useStories = () =>
