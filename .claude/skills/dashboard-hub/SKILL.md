@@ -72,6 +72,8 @@ A figure whose basis you cannot state in one clause is not ready to ship.
 | **A ROLL-UP PARTITION inside the table** | `1 994 автомобила` on a registry of 621 — the table carries one partition per parliament PLUS an `'all'` row, so `count(*)` counts each car once per parliament its owner sat in | `GROUP BY` the partition key and READ the row; never `count(*)` a table you have not grouped            |
 | **The destination's DEFAULT SCOPE**      | Tile shows the lifetime 621; `/mp-cars` opens `scope="ns"` on the 52nd's 65 — and the tile carries `?elections` forward, guaranteeing the mismatch on every parliament           | Key the blob by the destination's scope and resolve it through the SAME helper that screen filters with |
 | **The right subject, the wrong corpus**  | **[2026-08-20]** Tile counted `company_politicians` (346) over `/mp/companies`, which rendered `companies-index.json` (2,781). Both are now retired — the tile quotes `official_companies` over `/governance/companies` — and the temptation is unchanged: `company_politicians` is still the table that is *about* the same subject | Quote the DESTINATION's own relation, whatever kind it is — a table about the same subject is a different corpus |
+| **A serving function's DEFAULT scope** | **[2026-08-24]** `agri_hub_stats('')` returns the latest FINANCIAL YEAR — €1.59bn for 2025 — against €11.04bn all-time from `agri_hub_stats('all')`. The empty string reads like "no filter" and means "the default one" | Pass the scope you are quoting, EXPLICITLY, and link the tile with it (`?pscope=all`) |
+| **EXECUTED quoted as the budget** | `budget_hub_stats().expenditureExecutedEur` was €14.15bn on 30 June against €29.58bn planned for the year — quoting it makes the state look like it spends half what it does | A part-year figure needs the part in its caption, or quote the PLAN and name the year |
 | **A SCOPED hook on an UNSCOPED page** | **[2026-08-22]** `/governance` has no `?pscope`, so `useProcurementHubStats()` resolved to the SELECTED PARLIAMENT and its KPI band rendered **€3,32 млрд. · 3 481 · 227 · 332** under captions reading „договори 2007–2026". The corpus is **€93,56 млрд. · 29 622 · 898 · 871**. `tsc` was clean and 3 655 tests were green | A page with no selector must ASK for the slice it names (`useX("all")`) — never take a scope hook's default. See §3.1 rule 6 |
 
 **Corollary that has bitten twice:** if a number is computed in two places, it will drift.
@@ -141,6 +143,43 @@ Rules that have each been learned the hard way:
   blanks the rest, which reads as a data problem rather than a publish one.
 - **A shared type gets ONE declaration.** Two hand-copied halves drifted on a nullability
   within a single review cycle. Put it on the `src/` side and import it from `scripts/`.
+
+### 1.1 A HUB OF HUBS folds; it does not aggregate
+
+When a hub's tiles point at other HUBS — `/governance` is 21 of 23 — every figure it shows is
+already published by the page the tile opens. So the blob is a **FOLD of the destinations' own
+numbers**, never a fresh aggregate, because an aggregate that is *about* the same subject is a
+different corpus and the two hubs then disagree one click apart. Measured 2026-08-24:
+
+- `sum(amount_eur) FROM contracts WHERE tag='contract'` was **€93.81bn** on a day the committed
+  procurement blob said **€93.56bn** — same table, different vintage.
+- `funds_hub_stats().isun.contractedEur` is **€44.07bn**; `/funds` renders **€44.27bn**, from
+  `fund_payloads(kind='index').totals`. Two definitions of "contracted EU funds", ~€197m apart,
+  and only the second is what a reader clicking the tile will see.
+
+Take each figure from the first of these that exists, in this order:
+
+| | source | example |
+| - | ------ | ------- |
+| a | the destination's own serving FUNCTION | `budget_hub_stats`, `agri_hub_stats`, `council_overview` |
+| b | the destination's own PAYLOAD row | `fund_payloads(kind='index')` |
+| c | the destination's own committed BLOB | `procurement/derived/hub_stats.json` |
+| d | a direct count — ONLY where it has none of the above | `declaration`, `graph_edge` |
+
+Four consequences, each of which shipped as a rule rather than being reasoned about later:
+
+- **The fold happens in the GENERATOR, at build time.** Client-side it is four requests on the
+  one hub that previously made none, which is the thing the payload rule forbids. One blob out,
+  one fetch in the browser.
+- **Chain position is FORCED: last, after every sibling generator.** Anywhere earlier and it
+  folds the previous vintage of whichever sibling has not run yet. Say so in the
+  `REFRESH_GENERATORS` `reason`, because nothing else records it.
+- **A missing sibling is a SKIPPED FIGURE, never a zero.** The tile renders descriptor-only —
+  what it did before the blob existed. `0` is a claim („no EU funds have been contracted").
+  Carry a `sources` map in the blob so a reader of the FILE can tell the two apart.
+- **`basis` is an ENUM KEY, not prose.** The generator writes `contracted`; i18n turns it into
+  „договорени по ИСУН" / "contracted via ISUN". Prose in the blob makes the English hub the
+  Bulgarian one with English headings, and gate that both corpora carry every key it emits.
 
 ---
 
@@ -251,6 +290,10 @@ failure mode — a number that is arithmetically right and, read as a sentence, 
 4. **A KPI links to a page that can NAME the rows behind it** (§7's rule, loudest instance).
 5. **A KPI is never also a tile metric.** Tile metrics preview one destination; KPI figures are
    corpus-level claims. The same number twice on one page reads as two different facts.
+   **The resolution is to take the figure OFF the tiles, not out of the band** — the band is
+   above the fold and carries a declared basis, so it is the better position. On `/governance`
+   the four money taps are in the band and those four tiles are deliberately descriptor-only;
+   the other seven tiles keep theirs, so band and grid say different things.
 6. ⚠️ **A page with no selector must ASK for the slice it names.** See the §0 trap row: the
    first build of this band published the selected parliament under a corpus caption.
 7. **`undefined` is an answer.** A scope with no data renders the named empty state, not a row
@@ -283,6 +326,12 @@ Where the head genuinely wants a visual, build it from `scenePrimitives` (`Bars`
 one component over. „Най-големи възложители" over rows that are SECTORS is false: a sector
 contains many buyers (АПИ sits inside „Пътища"). And check it does not simply restate a
 `FeaturedStrip` further down the page.
+
+**Its rows must also be figures no tile and no KPI shows.** On a money hub the tempting list is
+money, and every money figure is already in the band directly above it. `/governance` lists
+CORPUS SIZES instead — 409,848 договора · 237,941 процедури · 2,481,857 плащания от ДФЗ ·
+82,159 проекта — under „Какво има вътре", which answers a different question with the same
+authority.
 
 #### A HUB OF HUBS: quote the corpus, or quote what you inherit
 
@@ -416,6 +465,20 @@ returns nothing but in-scope rows, the second group renders empty, and the box h
 become a filter. Each half needs its own corpus and its own cap. Server sources rank per
 group in SQL for the same reason; ranking once and splitting the result empties the narrower
 tier (measured: ZERO of a trailing week's rows appeared in a global top-200).
+
+Three rules from composing a finder over SEVERAL groups, learned building `/governance`'s:
+
+- **Two groups fed by ONE route must share ONE request.** Declaring them as two sources issues
+  the same call twice per keystroke for the same needle. Memoise the in-flight promise by
+  query — keyed by the needle, not cached across needles, so it can never answer one query
+  with another's rows.
+- **A company row needs `isLinkableCompanyKey`.** `contractor_eik` carries synthetic keys
+  (`ph-` a filler registration number, `np-` a natural person keyed by name) that render a page
+  and name nothing checkable against a register. It deliberately KEEPS `obed-` carriers, whose
+  page is the only route from a joint bid to the firms behind it.
+- **Ship a see-all only where the destination reads the param.** `/governance`'s institutions
+  group has none, because no awarders browse page reads `?q` — and a link advertising a
+  filtered destination that delivers an unfiltered one is worse than no link.
 
 Three more, each shipped once:
 
@@ -703,6 +766,11 @@ Not optional, and each exists because its absence shipped something:
 | Gate                                                                                                               | Catches                                                                        |
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
 | Every hub renders a `HubHead`                                                                                       | The thirteen-way header drift — no two hubs agreeing on what a hub opens with  |
+| A hub blob keys only tiles the registry renders                                                                    | A figure keyed to an id nothing draws — bytes on every visitor, shown to nobody |
+| A hub blob is under its byte budget                                                                                | Regrowth to the full artifact the first time somebody adds a field with detail |
+| Every `basis` the blob emits has a key in BOTH corpora                                                             | Prose in the blob, i.e. the English hub as the Bulgarian one with English headings |
+| The band's own tiles are excluded from the tile metrics                                                            | The same string rendered twice on one page                                     |
+| A `REFRESH_GENERATORS` artifact is git-tracked AND the bucket serves those bytes                                   | A committed blob that 404s (`db:check-generated` names the publish command)    |
 | Every KPI in the band has a `basis` string AND a destination                                                       | A corpus-level claim in the largest type on the page with no denominator       |
 | No KPI value equals a tile metric on the same page                                                                 | One number rendered twice, reading as two facts                                |
 | A hub with no scope selector never calls a scope hook's DEFAULT                                                    | The `/governance` €3,32bn-under-a-corpus-caption class                         |
@@ -730,13 +798,13 @@ Not optional, and each exists because its absence shipped something:
 | Every `ogImage` path resolves to a file under `public/og/`                                                         | An `og:image` that 404s — the absolute-URL check passes                        |
 | Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route                         | A card shot and wired to nothing                                               |
 
-**Five of the first eight are now WRITTEN**, in `src/ux/infographic/hubHead.gates.test.ts`
+**Ten are now WRITTEN**, in `src/ux/infographic/hubHead.gates.test.ts`
 (basis-year floor, band↔tile disjointness, no two KPI cells sharing a destination, no screen
 rendering both `HubHead` and `<Title>`, and no default-aligned heading over a centred sibling)
-plus `src/ux/infographic/HubHead.test.tsx` for the component contract. Each was
-mutation-checked — break the clause, watch it fire — per the rule below. Still unwritten:
-"every hub renders a `HubHead`" (only two do so far), the composed-page accent gate, and the
-band description / `xl` row-balance gate.
+plus the four blob gates above and `src/ux/infographic/HubHead.test.tsx` for the component
+contract. Each was mutation-checked — break the clause, watch it fire — per the rule below.
+Still unwritten: "every hub renders a `HubHead`" (only two do so far), the composed-page accent
+gate, and the band description / `xl` row-balance gate.
 
 ⚠️ **The first eight are new because the band/accent/CTA rules in §3 were ADVICE, not gates,
 and had failed on 7 of 13 hubs by the time anyone measured** — 42 redundant per-tile CTAs on
@@ -818,6 +886,12 @@ it from a green build:
 ```bash
 npm run db:check-generated     # every PG-generated hub blob, byte-compared against the bucket
 ```
+
+**A NEW blob is `MISSING`, not stale, and the check prints its own remedy** — it reports
+`404 — the artifact has NEVER been published` and the exact `bucket:sync:paths` argument.
+Two things have to happen before that check can even run: the artifact must be **git-tracked**
+(`REFRESH_GENERATORS` asserts it, and the gate fires on a generator whose output was never
+`git add`ed), and its generator must be in the chain at a position its `reason` justifies.
 
 That is not a failure mode written up in the abstract. `/culture` shipped in exactly this
 state for two days (2026-08-19 → 21): `culture/derived/hub_stats.json` committed, its

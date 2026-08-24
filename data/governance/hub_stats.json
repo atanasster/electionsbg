@@ -1,0 +1,166 @@
+{
+  "computedAt": "2026-08-24T18:32:30.572Z",
+  "tiles": {
+    "procurement": {
+      "kind": "eur",
+      "value": 93598116768,
+      "basis": "contracts"
+    },
+    "sectors": {
+      "kind": "count",
+      "value": 19,
+      "basis": "sectors"
+    },
+    "persons": {
+      "kind": "count",
+      "value": 63782,
+      "basis": "public_register"
+    },
+    "budget": {
+      "kind": "eur",
+      "value": 29577990982,
+      "basis": "planned_expenditure",
+      "year": 2026
+    },
+    "subsidies": {
+      "kind": "eur",
+      "value": 11037181927,
+      "basis": "paid"
+    },
+    "council": {
+      "kind": "count",
+      "value": 4813,
+      "basis": "resolutions",
+      "extra": 16
+    },
+    "funds": {
+      "kind": "eur",
+      "value": 44270390974,
+      "basis": "contracted"
+    },
+    "municipal-finance": {
+      "kind": "count",
+      "value": 265,
+      "basis": "municipalities"
+    },
+    "declarations": {
+      "kind": "count",
+      "value": 61743,
+      "basis": "filings"
+    },
+    "connections": {
+      "kind": "count",
+      "value": 200498,
+      "basis": "edges"
+    }
+  },
+  "byNs": {
+    "44": {
+      "parliament": {
+        "kind": "count",
+        "value": 41,
+        "basis": "sessions",
+        "extra": 1036
+      }
+    },
+    "45": {
+      "parliament": {
+        "kind": "count",
+        "value": 6,
+        "basis": "sessions",
+        "extra": 207
+      }
+    },
+    "46": {
+      "parliament": {
+        "kind": "count",
+        "value": 26,
+        "basis": "sessions",
+        "extra": 560
+      }
+    },
+    "47": {
+      "parliament": {
+        "kind": "count",
+        "value": 97,
+        "basis": "sessions",
+        "extra": 1933
+      }
+    },
+    "48": {
+      "parliament": {
+        "kind": "count",
+        "value": 52,
+        "basis": "sessions",
+        "extra": 1435
+      }
+    },
+    "49": {
+      "parliament": {
+        "kind": "count",
+        "value": 141,
+        "basis": "sessions",
+        "extra": 3855
+      }
+    },
+    "50": {
+      "parliament": {
+        "kind": "count",
+        "value": 37,
+        "basis": "sessions",
+        "extra": 685
+      }
+    },
+    "51": {
+      "parliament": {
+        "kind": "count",
+        "value": 174,
+        "basis": "sessions",
+        "extra": 4187
+      }
+    },
+    "52": {
+      "parliament": {
+        "kind": "count",
+        "value": 39,
+        "basis": "sessions",
+        "extra": 1198
+      }
+    }
+  },
+  "coverage": [
+    {
+      "id": "contracts",
+      "value": 409848,
+      "to": "/procurement/contracts?pscope=all"
+    },
+    {
+      "id": "tenders",
+      "value": 237941,
+      "to": "/procurement/tenders?pscope=all"
+    },
+    {
+      "id": "agriRows",
+      "value": 2481857,
+      "to": "/subsidies?pscope=all"
+    },
+    {
+      "id": "fundsProjects",
+      "value": 82159,
+      "to": "/funds/beneficiaries"
+    }
+  ],
+  "sources": {
+    "procurement": true,
+    "sectors": true,
+    "persons": true,
+    "parliament": true,
+    "budget": true,
+    "subsidies": true,
+    "council": true,
+    "funds": true,
+    "municipal-finance": true,
+    "declarations": true,
+    "connections": true
+  }
+}

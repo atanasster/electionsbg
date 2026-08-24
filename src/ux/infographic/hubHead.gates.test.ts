@@ -173,3 +173,81 @@ describe("H1 alignment — no left heading over a centred sibling", () => {
     ).toEqual([]);
   });
 });
+
+describe("the /governance blob", () => {
+  const BLOB = "data/governance/hub_stats.json";
+  const blob = JSON.parse(read(BLOB)) as {
+    tiles: Record<string, { basis: string; value: number }>;
+    byNs: Record<string, Record<string, { basis: string }>>;
+    coverage: { id: string; to: string }[];
+  };
+
+  // Every key is a tile the hub actually renders. A figure keyed to an id no registry
+  // carries is invisible — it costs bytes on every visitor and shows nobody anything.
+  it("keys only tiles the registry renders", () => {
+    const reg = read("src/screens/governance/governanceRegistry.ts");
+    const ids = new Set(
+      [...reg.matchAll(/^\s+id: "([^"]+)"/gm)].map((m) => m[1]),
+    );
+    expect(ids.size).toBeGreaterThan(10);
+    const orphans = [
+      ...Object.keys(blob.tiles),
+      ...Object.values(blob.byNs).flatMap((slice) => Object.keys(slice)),
+    ].filter((k) => !ids.has(k));
+    expect(orphans, `blob keys no tile renders: ${orphans.join(", ")}`).toEqual(
+      [],
+    );
+  });
+
+  // §1: budget it, and gate the budget. Without a ceiling it regrows to the full artifact
+  // the first time someone adds a field carrying detail.
+  it("stays under its byte budget", () => {
+    const bytes = Buffer.byteLength(read(BLOB), "utf8");
+    expect(bytes, `${BLOB} is ${bytes} B`).toBeLessThanOrEqual(6_000);
+  });
+
+  // Every `basis` is an ENUM KEY with a translation on BOTH sides — prose in the blob would
+  // make the English hub the Bulgarian one with English headings (§1).
+  it("uses basis keys that both corpora translate", () => {
+    const bases = new Set([
+      ...Object.values(blob.tiles).map((v) => v.basis),
+      ...Object.values(blob.byNs).flatMap((s) =>
+        Object.values(s).map((v) => v.basis),
+      ),
+    ]);
+    const covIds = blob.coverage.map((c) => c.id);
+    for (const corpus of ["bg", "en"]) {
+      const keys = JSON.parse(read(`src/locales/${corpus}/translation.json`));
+      for (const b of bases)
+        expect(keys, `${corpus}: gov_stat_${b} missing`).toHaveProperty(
+          `gov_stat_${b}`,
+        );
+      for (const c of covIds)
+        expect(keys, `${corpus}: gov_cov_${c} missing`).toHaveProperty(
+          `gov_cov_${c}`,
+        );
+    }
+  });
+
+  // The band publishes the four money taps above the fold; those tiles must therefore carry
+  // no metric, or the same string renders twice on one page (§3.1 rule 5).
+  it("excludes the band's own tiles from the tile metrics", () => {
+    const src = read("src/screens/GovernanceScreen.tsx");
+    const band =
+      [...src.matchAll(/const BAND_TILES = \[([^\]]+)\]/g)][0]?.[1] ?? "";
+    const ids = [...band.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+    expect(
+      ids.length,
+      "BAND_TILES not found in GovernanceScreen",
+    ).toBeGreaterThan(0);
+    // tileMetric() must return {} for every one of them.
+    expect(src).toMatch(
+      /if \(\(BAND_TILES as readonly string\[\]\)\.includes\(id\)\) return \{\};/,
+    );
+    for (const id of ids)
+      expect(
+        blob.tiles,
+        `blob has no figure for band tile ${id}`,
+      ).toHaveProperty(id);
+  });
+});

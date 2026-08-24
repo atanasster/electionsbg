@@ -15,12 +15,12 @@ amendment set for that skill.
 
 Stripped of their palettes, all three redesigns are the same four-part header:
 
-| part                | Kyle                                   | San José                                | King County                            |
-| ------------------- | -------------------------------------- | --------------------------------------- | -------------------------------------- |
-| **identity**        | title + one-line deck                  | title + one-line deck                   | title + one-line deck                  |
-| **the way in**      | search + 4 topic chips                 | search + „Popular:" 5 chips             | search + „Popular:" 5 chips            |
-| **live evidence**   | a revenue-vs-expense bar chart, sourced| a „Portal activity" card, LIVE badge    | a „datasets by category" ranked list   |
-| **the KPI band**    | 62 datasets · 6 departments · $78.6M   | 170 · 10 · 1020 · 9                     | 265 · 39 · 17 · 2.7M, each with a basis|
+| part              | Kyle                                    | San José                             | King County                             |
+| ----------------- | --------------------------------------- | ------------------------------------ | --------------------------------------- |
+| **identity**      | title + one-line deck                   | title + one-line deck                | title + one-line deck                   |
+| **the way in**    | search + 4 topic chips                  | search + „Popular:" 5 chips          | search + „Popular:" 5 chips             |
+| **live evidence** | a revenue-vs-expense bar chart, sourced | a „Portal activity" card, LIVE badge | a „datasets by category" ranked list    |
+| **the KPI band**  | 62 datasets · 6 departments · $78.6M    | 170 · 10 · 1020 · 9                  | 265 · 39 · 17 · 2.7M, each with a basis |
 
 Two things are worth copying and one is not.
 
@@ -47,21 +47,21 @@ pages have and the hubs lack.
 above the `<h1>` (dismissible, so a returning reader starts ~241 px higher). The fold at this
 viewport is **820 px**.
 
-| hub                        | `<h1>` y | `<h1>` px | first tile band | first figure          | doc height |
-| -------------------------- | -------- | --------- | --------------- | --------------------- | ---------- |
-| `/governance`              | 241      | 132       | 425             | **2 355** ⚠︎          | 2 789      |
-| `/parliament`              | 241      | 132       | 1 238           | 675 (prose)           | 2 954      |
-| `/procurement`             | 241      | 132       | 872             | 424 — *a date in the scope pill* | 2 400 |
-| `/budget`                  | 241      | 132       | 1 462           | 869 — *„€100" in prose*| 3 714     |
-| `/funds`                   | 241      | 132       | **2 846**       | 742 — *a timestamp*   | 4 206      |
-| `/culture`                 | 241      | 132       | 666             | 809 (tile metric)     | 2 554      |
-| `/parliamentary/analysis`  | 241      | 132       | 397             | 537 (tile metric)     | 1 689      |
-| `/parliamentary/reports`   | 241      | 132       | 397             | 537 (tile metric)     | 2 261      |
-| `/indicators`              | 241      | 132       | 1 245           | 474 (KPI tile)        | 2 114      |
-| `/governance/sectors`      | 241      | 132       | 487             | 424 — *the scope pill*| 2 740      |
-| `/governance/declarations` | 241      | 132       | 682             | 805 (tile metric)     | 1 618      |
-| `/subsidies`               | 241      | 132       | 660             | 803 (tile metric)     | 2 564      |
-| `/consumption`             | **307**  | **36**    | 712             | 826 (tile metric)     | 2 528      |
+| hub                        | `<h1>` y | `<h1>` px | first tile band | first figure                     | doc height |
+| -------------------------- | -------- | --------- | --------------- | -------------------------------- | ---------- |
+| `/governance`              | 241      | 132       | 425             | **2 355** ⚠︎                      | 2 789      |
+| `/parliament`              | 241      | 132       | 1 238           | 675 (prose)                      | 2 954      |
+| `/procurement`             | 241      | 132       | 872             | 424 — _a date in the scope pill_ | 2 400      |
+| `/budget`                  | 241      | 132       | 1 462           | 869 — _„€100" in prose_          | 3 714      |
+| `/funds`                   | 241      | 132       | **2 846**       | 742 — _a timestamp_              | 4 206      |
+| `/culture`                 | 241      | 132       | 666             | 809 (tile metric)                | 2 554      |
+| `/parliamentary/analysis`  | 241      | 132       | 397             | 537 (tile metric)                | 1 689      |
+| `/parliamentary/reports`   | 241      | 132       | 397             | 537 (tile metric)                | 2 261      |
+| `/indicators`              | 241      | 132       | 1 245           | 474 (KPI tile)                   | 2 114      |
+| `/governance/sectors`      | 241      | 132       | 487             | 424 — _the scope pill_           | 2 740      |
+| `/governance/declarations` | 241      | 132       | 682             | 805 (tile metric)                | 1 618      |
+| `/subsidies`               | 241      | 132       | 660             | 803 (tile metric)                | 2 564      |
+| `/consumption`             | **307**  | **36**    | 712             | 826 (tile metric)                | 2 528      |
 
 **Not one hub makes a corpus-level statement above the fold.** The best four land their first
 figure at 803–826 px — at the fold edge, inside a tile banner, as a preview of one destination
@@ -75,21 +75,21 @@ the tile grid starts at 2 846 — three and a half screens.
 
 ### 2.2 What each hub's header is made of
 
-| hub                        | `<Title>` | breadcrumb | search | intro | scope | KPI row | feed/strip |
-| -------------------------- | --------- | ---------- | ------ | ----- | ----- | ------- | ---------- |
-| `/parliament`              | ✓         | ✓          | ✓      | ✓     | —     | —       | ✓          |
-| `/procurement`             | ✓         | ✓          | ✓ (old)| —     | ✓     | —       | ✓          |
-| `/governance`              | ✓         | —          | —      | ✓     | —     | —       | —          |
-| `/funds`                   | ✓         | ✓          | —      | ✓     | —     | ✓ (buried) | ✓       |
-| `/budget`                  | ✓         | ✓          | ✓      | ✓     | —     | —       | —          |
-| `/culture`                 | ✓         | ✓          | ✓      | —     | —     | —       | —          |
-| `/parliamentary/analysis`  | ✓         | —          | —      | —     | —     | —       | ✓          |
-| `/parliamentary/reports`   | ✓         | —          | —      | —     | —     | —       | —          |
-| `/indicators`              | ✓         | ✓          | —      | —     | —     | ✓       | —          |
-| `/consumption`             | — (PlaceHeader) | —    | ✓ (old)| —     | —     | —       | —          |
-| `/subsidies`               | ✓         | ✓          | —      | —     | ✓     | —       | —          |
-| `/governance/sectors`      | ✓         | ✓          | —      | —     | ✓     | —       | —          |
-| `/governance/declarations` | ✓         | ✓          | ✓      | ✓     | —     | —       | —          |
+| hub                        | `<Title>`       | breadcrumb | search  | intro | scope | KPI row    | feed/strip |
+| -------------------------- | --------------- | ---------- | ------- | ----- | ----- | ---------- | ---------- |
+| `/parliament`              | ✓               | ✓          | ✓       | ✓     | —     | —          | ✓          |
+| `/procurement`             | ✓               | ✓          | ✓ (old) | —     | ✓     | —          | ✓          |
+| `/governance`              | ✓               | —          | —       | ✓     | —     | —          | —          |
+| `/funds`                   | ✓               | ✓          | —       | ✓     | —     | ✓ (buried) | ✓          |
+| `/budget`                  | ✓               | ✓          | ✓       | ✓     | —     | —          | —          |
+| `/culture`                 | ✓               | ✓          | ✓       | —     | —     | —          | —          |
+| `/parliamentary/analysis`  | ✓               | —          | —       | —     | —     | —          | ✓          |
+| `/parliamentary/reports`   | ✓               | —          | —       | —     | —     | —          | —          |
+| `/indicators`              | ✓               | ✓          | —       | —     | —     | ✓          | —          |
+| `/consumption`             | — (PlaceHeader) | —          | ✓ (old) | —     | —     | —          | —          |
+| `/subsidies`               | ✓               | ✓          | —       | —     | ✓     | —          | —          |
+| `/governance/sectors`      | ✓               | ✓          | —       | —     | ✓     | —          | —          |
+| `/governance/declarations` | ✓               | ✓          | ✓       | ✓     | —     | —          | —          |
 
 **Thirteen hubs, seven header features, and no two hubs agree.** Search on 6, an intro
 sentence on 5, a breadcrumb on 9, a KPI row on 2 (both below the fold or mid-page). There is
@@ -109,14 +109,14 @@ text-xl md:text-4xl lg:text-3xl … text-center py-4 md:py-12 … text-muted-for
 
 Measured on `/governance`:
 
-|                    |                                                          |
-| ------------------ | -------------------------------------------------------- |
-| colour             | `rgb(105 97 89)` on `rgb(241 237 228)` → **5.20 : 1**    |
-| the 14 px intro `<p>` beneath it | **5.20 : 1** — *the identical colour*      |
-| body ink would be  | `rgb(34 31 28)` → 12.2 : 1                               |
-| size ladder        | **20 px (sm) → 36 px (md) → 30 px (lg)**                 |
-| padding            | 48 px top + 48 px bottom                                 |
-| alignment          | `center`, over a page that is left-aligned throughout    |
+|                                  |                                                       |
+| -------------------------------- | ----------------------------------------------------- |
+| colour                           | `rgb(105 97 89)` on `rgb(241 237 228)` → **5.20 : 1** |
+| the 14 px intro `<p>` beneath it | **5.20 : 1** — _the identical colour_                 |
+| body ink would be                | `rgb(34 31 28)` → 12.2 : 1                            |
+| size ladder                      | **20 px (sm) → 36 px (md) → 30 px (lg)**              |
+| padding                          | 48 px top + 48 px bottom                              |
+| alignment                        | `center`, over a page that is left-aligned throughout |
 
 Three defects in one component:
 
@@ -135,21 +135,21 @@ as its own step.
 
 ### 2.4 Bands, accents and CTAs
 
-| hub                        | bands (tiles)     | bands with a description | duplicate accents | per-tile CTAs | strands a tile at `xl` |
-| -------------------------- | ----------------- | ------------------------ | ----------------- | ------------- | ---------------------- |
-| `/parliament`              | 4 / 4 / 4         | 3 of 3                   | 0                 | 0             | no                     |
-| `/budget`                  | 4 / 4 / 3 / 3     | 4 of 4                   | 0                 | 2             | no                     |
-| `/funds`                   | 3 / 4 / 3         | 3 of 3                   | 0                 | 0             | no                     |
-| `/subsidies`               | 4 / 3 / 4 / 2     | 4 of 4                   | 0                 | 0             | no                     |
-| `/culture`                 | 5 / 4 / 4         | 3 of 3                   | 0                 | 0             | **yes** (5 → 4+1)      |
-| `/governance/declarations` | 6 / 2             | 2 of 2                   | **1**             | 0             | no                     |
-| `/governance`              | 6 / 6 / **9** / 2 | **0 of 4**               | 0                 | **23**        | **yes** (9 → 4+4+1)    |
-| `/governance/sectors`      | 6 / 4 / 3 / 3 / 3 | **0 of 5**               | 0                 | **19**        | no                     |
-| `/procurement`             | **11 in one band**| **0 of 1**               | **2**             | 5             | no                     |
-| `/parliamentary/analysis`  | 6 / 3             | **0 of 2**               | **2**             | 0             | no                     |
-| `/parliamentary/reports`   | 5 / 4 / 4         | **0 of 3**               | **1**             | 0             | **yes** (5 → 4+1)      |
-| `/indicators`              | **7 in one band** | **0 of 1**               | 0                 | 0             | no                     |
-| `/consumption`             | 6 / 2 / 4 / 4     | **0 of 4**               | **3**             | 1             | no                     |
+| hub                        | bands (tiles)      | bands with a description | duplicate accents | per-tile CTAs | strands a tile at `xl` |
+| -------------------------- | ------------------ | ------------------------ | ----------------- | ------------- | ---------------------- |
+| `/parliament`              | 4 / 4 / 4          | 3 of 3                   | 0                 | 0             | no                     |
+| `/budget`                  | 4 / 4 / 3 / 3      | 4 of 4                   | 0                 | 2             | no                     |
+| `/funds`                   | 3 / 4 / 3          | 3 of 3                   | 0                 | 0             | no                     |
+| `/subsidies`               | 4 / 3 / 4 / 2      | 4 of 4                   | 0                 | 0             | no                     |
+| `/culture`                 | 5 / 4 / 4          | 3 of 3                   | 0                 | 0             | **yes** (5 → 4+1)      |
+| `/governance/declarations` | 6 / 2              | 2 of 2                   | **1**             | 0             | no                     |
+| `/governance`              | 6 / 6 / **9** / 2  | **0 of 4**               | 0                 | **23**        | **yes** (9 → 4+4+1)    |
+| `/governance/sectors`      | 6 / 4 / 3 / 3 / 3  | **0 of 5**               | 0                 | **19**        | no                     |
+| `/procurement`             | **11 in one band** | **0 of 1**               | **2**             | 5             | no                     |
+| `/parliamentary/analysis`  | 6 / 3              | **0 of 2**               | **2**             | 0             | no                     |
+| `/parliamentary/reports`   | 5 / 4 / 4          | **0 of 3**               | **1**             | 0             | **yes** (5 → 4+1)      |
+| `/indicators`              | **7 in one band**  | **0 of 1**               | 0                 | 0             | no                     |
+| `/consumption`             | 6 / 2 / 4 / 4      | **0 of 4**               | **3**             | 1             | no                     |
 
 The skill's own §3 and §9 rules fail on **7 of 13** hubs. Specifically:
 
@@ -158,10 +158,10 @@ The skill's own §3 and §9 rules fail on **7 of 13** hubs. Specifically:
   („Sections"). §3 rules all three out by name and by kind — an instruction and a container
   word, neither of which is a table of contents.
 - **The accent-uniqueness gate does not run over the composed page.** On `/procurement`
-  `#c9702f` is worn by the „Договори" tile *and* by the „Пътища" featured-sector tile, and
+  `#c9702f` is worn by the „Договори" tile _and_ by the „Пътища" featured-sector tile, and
   `#2f8fb0` by „Места" and „Води" — the tile band and the `FeaturedStrip` come from two
   registries, and the per-registry gates cannot see across them. `/consumption` has three
-  duplicate pairs *within* its own 16 tiles, i.e. no gate at all.
+  duplicate pairs _within_ its own 16 tiles, i.e. no gate at all.
 - **The palette is exactly exhausted.** `tileAccents.ts` holds **23** tokens and `/governance`
   renders **23** tiles, each with a different one. „One accent per page" is not "nearly" at its
   limit — it is at it. The next tile added to that hub cannot satisfy the rule.
@@ -173,8 +173,8 @@ The skill's own §3 and §9 rules fail on **7 of 13** hubs. Specifically:
 
 `ProcurementScreen.tsx` passes `metric` for ten tiles (`ProcurementScreen.tsx:52–124`) and
 `metricCaption` for **none** of them — while the `FeaturedStrip` sector tiles below do pass one
-(`:234`). So the hub's headline reads **„€3,3 млрд."** with nothing saying it is *this
-parliament's* contracts; the only thing that qualifies it is a scope pill 448 px above it that
+(`:234`). So the hub's headline reads **„€3,3 млрд."** with nothing saying it is _this
+parliament's_ contracts; the only thing that qualifies it is a scope pill 448 px above it that
 has scrolled away by the time the number is on screen. On mobile the pill is ~1 000 px above.
 
 That is `dashboard-hub` §0's first trap — a figure that is arithmetically right and, read as a
@@ -239,7 +239,7 @@ stacks and the evidence list keeps its five rows.
    County caption and it is the same requirement as §0's "state the denominator in one clause".
 3. **Read the SAME blob the tiles read. Zero new fetches.** On `/procurement` this is already
    on the wire: `data/procurement/derived/hub_stats.json` ships `totalEur · contracts ·
-   contractors · tenders · appeals · places · flags · connected`, keyed by scope. The KPI band
+contractors · tenders · appeals · places · flags · connected`, keyed by scope. The KPI band
    there is a presentation change costing **0 bytes**.
 4. **A KPI links to a page that can name its rows.** §7 already says a count that links
    somewhere must be nameable there; a hero KPI is the loudest instance of that.
@@ -256,7 +256,7 @@ Kyle puts a bar chart there. We should not, for three reasons that are ours and 
 
 - **Bytes.** `vendor-charts` is ~115 KB brotli and is deliberately lazy; `tests/perf.spec.ts`
   holds the entry chunk at **56 000 B br**. A Recharts hero on thirteen hubs pulls that chunk
-  onto thirteen more critical paths. If a chart earns its place it goes *below* the KPI band,
+  onto thirteen more critical paths. If a chart earns its place it goes _below_ the KPI band,
   lazily — never above the fold.
 - **Crawlers.** §5.1 requires a real `bodyHtml`, and says it is the only thing a JS-less
   crawler sees. A ranked list is text: it prerenders, it translates, it is five more internal
@@ -264,7 +264,7 @@ Kyle puts a bar chart there. We should not, for three reasons that are ours and 
   of that.
 - **The repo already forbids the cheap version.** Sparklines are out
   (`feedback_no_sparklines`); the sanctioned shapes are an axed chart, numeric columns, or a
-  dumbbell row. Numeric columns *are* the ranked list.
+  dumbbell row. Numeric columns _are_ the ranked list.
 
 Where a visual is genuinely wanted in the head, build it from `scenePrimitives`
 (`Bars` / `TrendLine` / `Donut`) — inline SVG, zero dependencies, already themed.
@@ -274,13 +274,13 @@ Where a visual is genuinely wanted in the head, build it from `scenePrimitives`
 Proposed, from data each hub already holds. Not measured against alternatives yet — that is
 §0 work and must happen before any of these ships.
 
-| hub                   | the four                                                                 | source                       |
-| --------------------- | ------------------------------------------------------------------------ | ---------------------------- |
-| `/procurement`        | договорени € · договори · изпълнители · обжалвания                       | `hub_stats[scope]` (on wire) |
-| `/funds`              | договорени € · изплатени € · бенефициенти · отворени процедури           | `funds_hub_stats()` (on wire)|
-| `/governance/declarations` | хора в регистъра · с декларация · длъжностни лица · фирми зад тях   | `declarations_hub_stats.json`|
-| `/culture`            | € поръчки · € фондове · институти · читалища €                           | `culture/derived/hub_stats.json` |
-| `/governance`         | — **needs a blob**; compose from the four sibling hubs                    | new                          |
+| hub                        | the four                                                          | source                           |
+| -------------------------- | ----------------------------------------------------------------- | -------------------------------- |
+| `/procurement`             | договорени € · договори · изпълнители · обжалвания                | `hub_stats[scope]` (on wire)     |
+| `/funds`                   | договорени € · изплатени € · бенефициенти · отворени процедури    | `funds_hub_stats()` (on wire)    |
+| `/governance/declarations` | хора в регистъра · с декларация · длъжностни лица · фирми зад тях | `declarations_hub_stats.json`    |
+| `/culture`                 | € поръчки · € фондове · институти · читалища €                    | `culture/derived/hub_stats.json` |
+| `/governance`              | — **needs a blob**; compose from the four sibling hubs            | new                              |
 
 `/governance` is the one that needs new data, and it is also the one with the worst symptom
 (no figure until 2 355 px). Its blob should be a fold over the sibling blobs rather than a
@@ -288,18 +288,18 @@ fifth query path.
 
 ### 4.4 The other fixes, independent of the head
 
-| # | fix                                                                              | scope                            |
-| - | -------------------------------------------------------------------------------- | -------------------------------- |
-| A | `Title`: left, foreground ink, monotonic ladder, ~half the padding                | **site-wide, 181 files** — own step |
-| B | `/procurement`: 11 tiles in „Разгледай" → three named bands with descriptions     | one screen                       |
-| C | `/indicators` „Раздели", `/consumption` „Разгледай цените" → named bands          | two screens                      |
-| D | band descriptions on the 7 hubs with none                                         | seven screens                    |
-| E | drop the 42 per-tile CTAs on `/governance` + `/governance/sectors`                | two screens                      |
-| F | accent gate runs over the **composed page**, not per registry                     | the gate                         |
-| G | decide the palette question before hub #14 (grow it, or scope uniqueness to bands) | design system              |
-| H | render `metricSecondary` on mobile, or stop relying on it for honesty             | `InfographicTile`                |
-| I | `/procurement` tiles get `metricCaption`                                          | one screen                       |
-| J | `/council` joins the system (or is explicitly declared not a hub)                 | one screen                       |
+| #   | fix                                                                                | scope                               |
+| --- | ---------------------------------------------------------------------------------- | ----------------------------------- |
+| A   | `Title`: left, foreground ink, monotonic ladder, ~half the padding                 | **site-wide, 181 files** — own step |
+| B   | `/procurement`: 11 tiles in „Разгледай" → three named bands with descriptions      | one screen                          |
+| C   | `/indicators` „Раздели", `/consumption` „Разгледай цените" → named bands           | two screens                         |
+| D   | band descriptions on the 7 hubs with none                                          | seven screens                       |
+| E   | drop the 42 per-tile CTAs on `/governance` + `/governance/sectors`                 | two screens                         |
+| F   | accent gate runs over the **composed page**, not per registry                      | the gate                            |
+| G   | decide the palette question before hub #14 (grow it, or scope uniqueness to bands) | design system                       |
+| H   | render `metricSecondary` on mobile, or stop relying on it for honesty              | `InfographicTile`                   |
+| I   | `/procurement` tiles get `metricCaption`                                           | one screen                          |
+| J   | `/council` joins the system (or is explicitly declared not a hub)                  | one screen                          |
 
 ---
 
@@ -356,12 +356,11 @@ Numbered against the skill's current sections.
    the site as it is.
 2. ~~**Does `/governance` get its own blob**~~ **Yes, one file — §9.** or does its head fold the four sibling blobs
    client-side? Folding costs four fetches on the one hub that currently makes none.
-3. ~~**The palette:**~~ **Both — §10.** Four new tokens (23 → 27) *and* a declared per-band
+3. ~~**The palette:**~~ **Both — §10.** Four new tokens (23 → 27) _and_ a declared per-band
    scope above 20 tiles.
 4. **`/council`:** bring it into the system, or declare it a screen rather than a hub?
 5. **How many KPIs — 3, 4 or 5?** The references use 3 (Kyle) and 4 (both others). Four fits
    our `xl` grid; three reads calmer.
-
 
 ---
 
@@ -369,12 +368,12 @@ Numbered against the skill's current sections.
 
 `src/ux/Title.tsx:16` and `src/ux/H1.tsx:9`, one class string each, changed together.
 
-| | today | proposed |
-| --- | --- | --- |
-| colour | `text-muted-foreground` — 5.20 : 1 | `text-foreground` — 12.2 : 1 |
-| alignment | `text-center` | `text-left` |
-| ladder | `text-xl md:text-4xl lg:text-3xl` → 20 / 36 / **30** px | `text-2xl sm:text-3xl md:text-4xl` → 24 / 30 / 36 px |
-| padding | `py-4 md:py-12 sm:py-4` → 96 px at md+ | `py-3 md:py-5` → 40 px at md+ |
+|           | today                                                   | proposed                                             |
+| --------- | ------------------------------------------------------- | ---------------------------------------------------- |
+| colour    | `text-muted-foreground` — 5.20 : 1                      | `text-foreground` — 12.2 : 1                         |
+| alignment | `text-center`                                           | `text-left`                                          |
+| ladder    | `text-xl md:text-4xl lg:text-3xl` → 20 / 36 / **30** px | `text-2xl sm:text-3xl md:text-4xl` → 24 / 30 / 36 px |
+| padding   | `py-4 md:py-12 sm:py-4` → 96 px at md+                  | `py-3 md:py-5` → 40 px at md+                        |
 
 **The blast radius is smaller than the 181 imports suggest.** Only **four** call sites pass a
 `className` at all — `PartiesFinancing.tsx:25` (`pt-8`), `FinancingTable.tsx:301` (`py-8`),
@@ -412,7 +411,7 @@ the first thing the design has to encode.
 ⚠️ **The four money corpora OVERLAP and must never be summed.** A contract funded from ИСУН is
 in both `fund_projects` and `contracts`; a ДФЗ payment to a município can reappear as that
 município's own procurement. So there is no honest „€X млрд. публични пари" total on this page,
-and a KPI band of four money figures must read as *four taps*, never as parts of one number.
+and a KPI band of four money figures must read as _four taps_, never as parts of one number.
 Say it in the band's own caption line rather than leaving it to be inferred.
 
 ### 9.2 The scope trap, which is specific to a hub of hubs
@@ -507,17 +506,17 @@ band strands one tile alone on its own row at `xl`.
 was deliberate — `governanceRegistry.ts` records it („was a single Показатели tile →
 /indicators") — so the fix is to SPLIT the band, not to undo the decision.
 
-| band | tiles | n | at `xl` |
-| --- | --- | --- | --- |
-| **Парите** | budget · procurement · funds · subsidies · municipal-finance · sectors | 6 | 4 + 2 |
-| **Властта и отчетността** | parliament · council · governments · declarations · persons · connections | 6 | 4 + 2 |
-| **Как се справя държавата** | overview · ind_economy · ind_fiscal · ind_budgets | 4 | 4 |
-| **Обществото и хората** | ind_governance · ind_society · demographics · schools | 4 | 4 |
-| **Сравни и пресметни** | tax_calculator · simulator · ind_compare | 3 | 3 |
+| band                        | tiles                                                                     | n   | at `xl` |
+| --------------------------- | ------------------------------------------------------------------------- | --- | ------- |
+| **Парите**                  | budget · procurement · funds · subsidies · municipal-finance · sectors    | 6   | 4 + 2   |
+| **Властта и отчетността**   | parliament · council · governments · declarations · persons · connections | 6   | 4 + 2   |
+| **Как се справя държавата** | overview · ind_economy · ind_fiscal · ind_budgets                         | 4   | 4       |
+| **Обществото и хората**     | ind_governance · ind_society · demographics · schools                     | 4   | 4       |
+| **Сравни и пресметни**      | tax_calculator · simulator · ind_compare                                  | 3   | 3       |
 
 All 23 tiles kept, nothing orphaned, no lone-tile row, and every band gets a description line.
 `ind_compare` moves out of the indicator block into the last band because it is the third thing
-on this page where the reader *does* something (picks peers) rather than reads — which is also
+on this page where the reader _does_ something (picks peers) rather than reads — which is also
 what lets the indicator block split cleanly into 4 + 4. The band is renamed from „Инструменти"
 for the same reason.
 
@@ -531,11 +530,11 @@ state.
 `tileAccents.ts` holds **23** tokens and `/governance` renders **23** tiles. Measured over all
 23 on both grounds (cream `#F1ECE0`, navy `#0B1224`):
 
-| | min | max |
-| --- | --- | --- |
+|                   | min                       | max            |
+| ----------------- | ------------------------- | -------------- |
 | contrast on cream | **2.79** (`leaf`, `aqua`) | 6.03 (`slate`) |
-| contrast on navy | **2.62** (`slate`) | 5.68 (`leaf`) |
-| lightness | 35% | 57% |
+| contrast on navy  | **2.62** (`slate`)        | 5.68 (`leaf`)  |
+| lightness         | 35%                       | 57%            |
 
 So the header's „~48–58% lightness" is a direction, not a rule (it already says so), and **3 : 1
 on both grounds is a rule the existing palette does not meet** — nine tokens are below it on one
@@ -546,12 +545,12 @@ side. State the real floor rather than a floor the palette fails.
 The gaps, largest first: **128°** (52°), **72°** (44°), **325°** (33°), **292°** (32°), **245°**
 (29°), 165° (21°), 185° (20°).
 
-| token | hex | hue | cream | navy | separation |
-| --- | --- | --- | --- | --- | --- |
-| `fern` | `#2e843a` | 128° | 3.98 | 3.98 | 26° |
-| `cobalt` | `#6862a7` | 245° | 4.58 | 3.46 | 14° |
-| `violet` | `#a553b2` | 292° | 3.98 | 3.98 | 16° |
-| `magenta` | `#b74e8b` | 325° | 3.98 | 3.97 | 16° |
+| token     | hex       | hue  | cream | navy | separation |
+| --------- | --------- | ---- | ----- | ---- | ---------- |
+| `fern`    | `#2e843a` | 128° | 3.98  | 3.98 | 26°        |
+| `cobalt`  | `#6862a7` | 245° | 4.58  | 3.46 | 14°        |
+| `violet`  | `#a553b2` | 292° | 3.98  | 3.98 | 16°        |
+| `magenta` | `#b74e8b` | 325° | 3.98  | 3.97 | 16°        |
 
 All four clear **3.4 : 1 on both grounds**, which is better than nine of the incumbents. 23 → **27**.
 
@@ -582,7 +581,6 @@ registries and neither gate can see the other. The gate must take the tile list 
 renders, not the array a registry exports. `/consumption`'s three duplicate pairs are the same
 defect with no gate at all.
 
-
 ---
 
 ## 11. The preview — built, measured, and the six defects it produced
@@ -595,15 +593,15 @@ Built 2026-08-22 against the dev server. **Nothing is committed.** `src/ux/infog
 
 Viewport 1024×820, light, Bulgarian, community band present. The fold is 820 px.
 
-| | before | after |
-| --- | --- | --- |
-| `/governance` — first corpus figure | **2 355 px** | **429 px** |
-| `/governance` — first tile band | 425 px | 582 px |
-| `/procurement` — first LABELLED corpus figure | none (a date in the scope pill at 424) | **673 px** |
-| `/procurement` — first tile band | 872 px | 998 px |
-| `<h1>` block height | 132 px | **40 px** |
-| `<h1>` contrast | 5.20 : 1 | **12.2 : 1** |
-| `<h1>` size ladder | 20 / 36 / **30** px | 24 / 30 / **36** px |
+|                                               | before                                 | after               |
+| --------------------------------------------- | -------------------------------------- | ------------------- |
+| `/governance` — first corpus figure           | **2 355 px**                           | **429 px**          |
+| `/governance` — first tile band               | 425 px                                 | 582 px              |
+| `/procurement` — first LABELLED corpus figure | none (a date in the scope pill at 424) | **673 px**          |
+| `/procurement` — first tile band              | 872 px                                 | 998 px              |
+| `<h1>` block height                           | 132 px                                 | **40 px**           |
+| `<h1>` contrast                               | 5.20 : 1                               | **12.2 : 1**        |
+| `<h1>` size ladder                            | 20 / 36 / **30** px                    | 24 / 30 / **36** px |
 
 The tile grid moves DOWN on both — 157 px and 126 px — and that is the trade being made: the
 head buys four labelled figures and a ranked list above the fold with the space the tiles used
@@ -623,7 +621,7 @@ were invisible to the whole test suite.
    `scopeKey` and linking the tiles with `?pscope=all`. **This is the strongest argument for
    §4.1 rule 6 there is: the band was designed to prevent exactly this and produced it anyway
    within twenty minutes.**
-2. **A TEMPLATE i18n key defeats the bundle analysis.** `t(`${cluster.labelKey}_desc`)` reads
+2. **A TEMPLATE i18n key defeats the bundle analysis.** `t(`${cluster.labelKey}\_desc`)` reads
    as naming every key ending `_desc`, so all eight deferred `budget.json` description keys
    became "reachable from `/governance`" and `bundle_reachability.test.ts` failed. Band
    description keys are written out in the registry now. **A hub registry must not build its
@@ -654,3 +652,55 @@ were invisible to the whole test suite.
   top AWARDERS — a different set, and the one the heading originally promised.
 - **No prerendered `bodyHtml` figures, no `preloadData`, no skeleton height** — §9.4 items 2–4.
 - **The remaining eleven hubs are untouched**, as are the band/accent/CTA fixes in §4.4 B–J.
+
+---
+
+## 12. SHIPPED — the `/governance` blob, its finder, and the tile metrics
+
+Built 2026-08-24. `/governance` is now the showcase the rest of the hubs get rebuilt against.
+
+### 12.1 What it measures
+
+|                         | before (2026-08-22) | after                                            |
+| ----------------------- | ------------------- | ------------------------------------------------ |
+| page-specific fetches   | **0**               | **1** (`governance/hub_stats.json`, 3.1 KB)      |
+| first corpus figure     | 2 355 px            | **566 px** (the band; search at 447)             |
+| first tile band         | 425 px              | 719 px                                           |
+| tiles carrying a figure | 0 of 23             | **7 of 23** (+ 4 in the band)                    |
+| a finder                | none                | 3 groups, 2 routes, **2 requests** per keystroke |
+
+### 12.2 The generator is a FOLD
+
+`scripts/db/gen_governance/hub_stats.ts` → `data/governance/hub_stats.json`, the FIFTH
+`db:gen-*`, in `REFRESH_GENERATORS` with `bucketPath: governance/hub_stats.json`, and LAST in
+the chain (after `db:gen-culture-hub-stats`) because it folds all four sibling generators.
+
+Every figure is the destination's own number — its serving function (`budget_hub_stats`,
+`agri_hub_stats`, `council_overview`), its payload row (`fund_payloads(kind='index')`), its
+committed blob (procurement, sectors, parliament, declarations), or a direct count only where
+it has none of those (`declaration`, `graph_edge`, `municipal_fiscal`). The rule is in
+`dashboard-hub` §1.1 with the two measurements that forced it: a fresh `sum()` over `contracts`
+was €93.81bn on a day the committed blob said €93.56bn, and `funds_hub_stats()` answers
+"contracted EU funds" €197m differently from what `/funds` renders.
+
+### 12.3 The band is the four taps, and the note is finally true
+
+Band: държавен бюджет €29.6bn (план 2026) · обществени поръчки €93.6bn (договори 2011–2026) ·
+европейски средства €44.3bn (договорени по ИСУН) · земеделски субсидии €11.0bn (изплатени от
+ДФЗ). Those four tiles carry **no** metric — the resolution of §3.1 rule 5 is to take the figure
+off the tile, not out of the band. The head's ranked list is corpus SIZES („Какво има вътре"),
+because every money figure is already in the band above it.
+
+`gov_hub_kpi_note` — "four separate corpora, they do not add up" — was moved off the band by
+FINDING-004 because the band was not four money corpora. It is now, so the note is back and true.
+
+### 12.4 Still open
+
+- **The artifact is not published.** `db:check-generated` reports
+  `governance/hub_stats.json  MISSING  404 — the artifact has NEVER been published`;
+  the publish is `npm run bucket:sync:paths -- governance/hub_stats.json`, an operator step.
+- No place/settlement group in the finder — there is no route for it that `/governance` can
+  reuse, and inventing one is its own piece of work.
+- `/governance` still has no `?pscope`, so the band is corpus-wide by construction; the tiles
+  whose destinations are scoped link with the scope their caption names.
+- The other eleven hubs are untouched.

@@ -192,6 +192,12 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the /culture hub's headline figures, which shipped as FROZEN STRINGS in the tile copy beside film figures the prerender interpolates — half the page self-updating and half not. It reads contracts, tenders, fund_projects, agri_subsidies, person_role AND interreg_partners, so its slot is after db:load:interreg:pg, the LAST loader in the chain: placed beside its two siblings (~40 steps earlier, after db:load:ngo-funding:pg) it would regenerate the ИСУН and Interreg arms from the previous vintage and commit them",
     bucketPath: "culture/derived/hub_stats.json",
   },
+  "db:gen-governance-hub-stats": {
+    artifact: "data/governance/hub_stats.json",
+    reason:
+      "the /governance hub's four KPI figures, seven tile metrics and four coverage rows. It is a FOLD, not an aggregate: every figure is the destination hub's OWN number, taken from that hub's serving function (budget_hub_stats, agri_hub_stats, council_overview), its payload row (fund_payloads kind='index') or its committed blob (procurement/derived/hub_stats.json, procurement/derived/sector_stats.json, parliament/votes/derived/hub_stats.json, governance/declarations_hub_stats.json). So its slot is LAST of the five generators — after db:gen-culture-hub-stats, which is itself after the final loader — because placed anywhere earlier it folds the PREVIOUS vintage of whichever sibling has not run yet, and two hubs one click apart then disagree",
+    bucketPath: "governance/hub_stats.json",
+  },
   "db:gen-declarations-hub-stats": {
     artifact: "data/governance/declarations_hub_stats.json",
     reason:
