@@ -42,6 +42,41 @@ export interface MagistrateFiling {
   /** Входящ номер, e.g. „4352/22.04.2026". Null where the register published none. */
   ref: string | null;
   sourceUrl: string;
+  /** The declaration's own type — annual | entry | exit | post-exit | interests | unknown —
+   *  read from the document. Null until the operator crawl has reached this filing.
+   *  ⚠️ It decides what Таблица 1 MEANS: a year's acquisitions on an annual, the WHOLE estate
+   *  on an entry filing. A surface showing those rows must have it. */
+  kind?: string | null;
+}
+
+/** One property row declared in a filing (schema 185), exactly as the magistrate wrote it. */
+export interface MagistrateFilingAsset {
+  /** ⚠️ '1' and '2' are DIFFERENT CLAIMS and must never be totalled together.
+   *  '1' — property ACQUIRED during the declared period. Except on an ENTRY filing, where
+   *        Таблица 1 is the whole estate at the date of taking office; only the filing's
+   *        `kind` separates the two.
+   *  '2' — property TRANSFERRED AWAY during the period. */
+  tableNum: "1" | "2";
+  /** The ordinal the FORM prints. Gaps are legitimate — the form prints numbered but
+   *  unfilled slots — so this is not a dense index. */
+  ord: number;
+  kind: string | null;
+  location: string | null;
+  municipality: string | null;
+  area: string | null;
+  builtArea: string | null;
+  /** „Цена на сделката", in лв. Null where the cell is blank, which is common and real:
+   *  property received under a marriage contract or a gift declares no price. */
+  priceLv: number | null;
+  acquiredYear: number | null;
+  holderName: string | null;
+  share: string | null;
+  legalBasis: string | null;
+  fundsOrigin: string | null;
+  /** ⚠️ FALSE means the row was sparse and its cells were placed by nearest column header
+   *  rather than positionally, which can merge two adjacent cells into one. A surface that
+   *  publishes VALUES off this row should say so or withhold them. */
+  exact: boolean;
 }
 
 export interface MagistrateHolding {
@@ -174,4 +209,30 @@ export const useMagistratePoliticianLinks = (
     staleTime: Infinity,
   });
   return data ?? [];
+};
+
+/** The property rows declared in ONE filing.
+ *
+ *  Fetched per filing rather than folded into `usePersonMagistrateHoldings`, because a
+ *  magistrate can have 72 filings and almost every reader opens none of them. `enabled` is
+ *  the caller's disclosure state, so nothing is requested until a row is expanded.
+ *
+ *  ⚠️ AN EMPTY ARRAY IS NOT „declared no property". It is also what a filing the operator
+ *  crawl has not reached yet returns, and what a document the parser REFUSED returns — the
+ *  pre-v3.0 form is refused wholesale. The caller must render nothing in that case rather
+ *  than an emptiness claim; `magistrate_filing.table1_refused` is where the reason lives. */
+export const useMagistrateFilingAssets = (
+  sourceUrl: string | undefined,
+  enabled: boolean,
+): MagistrateFilingAsset[] | undefined => {
+  const { data } = useQuery({
+    queryKey: ["judiciary", "magistrate_filing_assets", sourceUrl] as const,
+    queryFn: () =>
+      fetchJson<MagistrateFilingAsset[]>(
+        `/api/db/magistrate-filing-assets?url=${encodeURIComponent(sourceUrl ?? "")}`,
+      ),
+    enabled: !!sourceUrl && enabled,
+    staleTime: Infinity,
+  });
+  return data;
 };

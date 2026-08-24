@@ -171,7 +171,12 @@ CREATE OR REPLACE FUNCTION magistrate_filings_json(p_name text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   SELECT COALESCE(jsonb_agg(jsonb_build_object(
     'year', year, 'registerDir', register_dir, 'ref', NULLIF(ref, ''),
-    'sourceUrl', source_url
+    'sourceUrl', source_url,
+    -- The declaration's own type, from the document (185). NULL until the operator crawl has
+    -- reached this filing. It decides what Таблица 1 MEANS — a year's acquisitions on an
+    -- annual, the whole estate on an entry filing — so a consumer rendering those rows needs
+    -- it alongside them.
+    'kind', kind
   ) ORDER BY ord), '[]'::jsonb)
   FROM magistrate_filing WHERE magistrate_name = p_name;
 $$;

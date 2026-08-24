@@ -55,6 +55,11 @@ const holdingMock = vi.hoisted(() => ({
 
 vi.mock("@/data/judiciary/useMagistrateHoldings", () => ({
   usePersonMagistrateHoldings: () => holdingMock.current,
+  // The tile now renders MagistrateFilingProperties per filing row, which calls this. A
+  // partial module mock leaves it undefined and every render throws — so it is stubbed to
+  // the "nothing yet" state, which is what an unexpanded row sees anyway. The block's own
+  // behaviour is covered by MagistrateFilingProperties.test.tsx.
+  useMagistrateFilingAssets: () => undefined,
 }));
 
 // Imported after the mocks so the component picks them up.

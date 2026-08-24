@@ -4907,6 +4907,23 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // The property rows declared in ONE filing (schema 185) → the expandable filing row on the
+  // /person magistrate tile. Fetched per filing rather than folded into `magistrate-by-name`,
+  // because a magistrate can have 72 filings and almost every reader opens none of them.
+  //
+  // Degrades to an empty list on a missing migration: the corpus behind it is a ~3.5-hour
+  // operator crawl, so a database that has never run it is a normal state and the section
+  // simply does not appear. `[]` is safe here in a way it is not for a count — the UI shows
+  // the section only when rows come back, so an empty answer renders nothing rather than
+  // „this magistrate declared no property".
+  "magistrate-filing-assets": async (dbRows, q) => {
+    const url = s(q, "url");
+    if (!url) return { body: [] };
+    const rows = await dbRows("SELECT magistrate_filing_assets_json($1) AS r", [
+      url,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
   // Magistrates who declared a company by EIK → the /company/:eik tile.
   "magistrate-by-company": async (dbRows, q) => {
     const eik = s(q, "eik");

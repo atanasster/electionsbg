@@ -1,0 +1,168 @@
+// Component guard for the per-filing property rows.
+//
+// Three things are worth locking, and all three are about what the block must NOT say:
+//
+//  1. Таблица 1 means different things on different filings. On an ANNUAL declaration it is
+//     property ACQUIRED during the period; on an ENTRY declaration it is the WHOLE estate at
+//     the date of taking office. Same table, same columns — only the filing's `kind` tells
+//     them apart, and heading an entry filing „Придобито през периода" would turn a career's
+//     holdings into one year's purchases.
+//  2. An empty answer is not „declared nothing". It is also a filing the operator crawl has
+//     not reached, and a document the parser REFUSED — the pre-v3.0 form is refused
+//     wholesale, 61% of filings. So an empty result renders nothing at all.
+//  3. Money only from a positionally-exact row. A sparse row is placed by nearest column
+//     header and can merge two cells, so its price is exactly the figure not to publish
+//     against a named judge.
+//
+// Hermetic: the data hook is mocked (vitest.setup throws on an unstubbed fetch).
+
+import "@testing-library/jest-dom/vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
+import { render, screen } from "@testing-library/react";
+import type { MagistrateFilingAsset } from "@/data/judiciary/useMagistrateHoldings";
+
+const langMock = vi.hoisted(() => ({ current: "bg" }));
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (k: string) => k,
+    i18n: { language: langMock.current },
+  }),
+}));
+
+const assetsMock = vi.hoisted(() => ({
+  current: undefined as MagistrateFilingAsset[] | undefined,
+}));
+vi.mock("@/data/judiciary/useMagistrateHoldings", () => ({
+  useMagistrateFilingAssets: (_url: string, enabled: boolean) =>
+    enabled ? assetsMock.current : undefined,
+}));
+
+const { MagistrateFilingProperties } =
+  await import("./MagistrateFilingProperties");
+
+// Адалберт Кръстев's 2026 annual, as the serving function actually returns it.
+const asset = (
+  over: Partial<MagistrateFilingAsset> = {},
+): MagistrateFilingAsset => ({
+  tableNum: "1",
+  ord: 1,
+  kind: "Апартамент",
+  location: "гр.София",
+  municipality: "Столична",
+  area: "86",
+  builtArea: "86",
+  priceLv: 448863,
+  acquiredYear: 2025,
+  holderName: "Адалберт Живков Кръстев",
+  share: "СИО",
+  legalBasis: "покупко-продажба",
+  fundsOrigin: "заеми и заплата",
+  exact: true,
+  ...over,
+});
+
+const renderProps = (
+  rows: MagistrateFilingAsset[] | undefined,
+  kind?: string | null,
+  expanded = true,
+) => {
+  assetsMock.current = rows;
+  return render(
+    <MagistrateFilingProperties
+      sourceUrl="http://62.176.124.194/images/declaracii/2026/x.pdf"
+      kind={kind}
+      expanded={expanded}
+    />,
+  );
+};
+
+afterEach(() => {
+  langMock.current = "bg";
+});
+
+describe("MagistrateFilingProperties", () => {
+  it("renders a declared property with what the document says", () => {
+    renderProps([asset()]);
+    expect(screen.getByText("Апартамент")).toBeInTheDocument();
+    expect(screen.getByText(/гр.София/)).toBeInTheDocument();
+    expect(screen.getByText("2025")).toBeInTheDocument();
+    expect(screen.getByText("СИО")).toBeInTheDocument();
+    expect(screen.getByText(/448\s?863 лв/)).toBeInTheDocument();
+  });
+
+  it("heads an ANNUAL filing as acquisitions in the period", () => {
+    renderProps([asset()], "annual");
+    expect(screen.getByText("Придобито през периода")).toBeInTheDocument();
+    expect(
+      screen.queryByText(/Имущество към встъпване/),
+    ).not.toBeInTheDocument();
+  });
+
+  it("heads an ENTRY filing as the estate held on taking office", () => {
+    // ⚠️ The same table with the same columns. Calling it „придобито" here would say a
+    // magistrate bought their whole estate in one year — Цацаров's entry filing lists 11
+    // properties acquired between 2003 and 2018.
+    renderProps([asset()], "entry");
+    expect(
+      screen.getByText("Имущество към встъпване в длъжност"),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Придобито през периода"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("keeps acquisitions and transfers in separate, separately-headed lists", () => {
+    // They are opposite claims about the same person and must never sit in one list.
+    renderProps(
+      [
+        asset(),
+        asset({ tableNum: "2", ord: 1, kind: "вила", priceLv: 120000 }),
+      ],
+      "annual",
+    );
+    expect(screen.getByText("Придобито през периода")).toBeInTheDocument();
+    expect(screen.getByText("Прехвърлено през периода")).toBeInTheDocument();
+  });
+
+  it("withholds the price on a row the parser could not place exactly", () => {
+    // A sparse row is assigned by nearest header and can merge two cells — measured, a year
+    // and an owner arriving together. Its description is still worth showing; its money is not.
+    renderProps([asset({ exact: false })]);
+    expect(screen.getByText("Апартамент")).toBeInTheDocument();
+    expect(screen.queryByText(/448/)).not.toBeInTheDocument();
+  });
+
+  it("renders nothing at all when the filing yields no rows", () => {
+    // ⚠️ NOT „declared no property". Also a filing the crawl has not reached, and a document
+    // the parser refused — 61% of filings are pre-v3.0 and refused wholesale.
+    const { container } = renderProps([]);
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it("fetches nothing until the reader expands the filing", () => {
+    // A magistrate can have 72 filings and most readers open none.
+    const { container } = renderProps([asset()], "annual", false);
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it("renders nothing while the request is still in flight", () => {
+    const { container } = renderProps(undefined);
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it("does not render the register's placeholder punctuation as a place", () => {
+    // The form's empty cells come through as „:" and „…"; printed as a location they read
+    // as a real place the magistrate declared.
+    renderProps([asset({ location: ":", municipality: "…" })]);
+    expect(screen.queryByText(/[:…]/)).not.toBeInTheDocument();
+  });
+
+  it("renders the same block in English", () => {
+    langMock.current = "en";
+    renderProps([asset()], "annual");
+    expect(screen.getByText("Acquired during the period")).toBeInTheDocument();
+    expect(
+      screen.getByText(/Extracted from the declaration itself/),
+    ).toBeInTheDocument();
+  });
+});

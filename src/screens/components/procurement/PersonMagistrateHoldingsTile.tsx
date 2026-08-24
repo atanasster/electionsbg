@@ -29,6 +29,7 @@ import {
   usePersonMagistrateHoldings,
   type MagistrateFiling,
 } from "@/data/judiciary/useMagistrateHoldings";
+import { MagistrateFilingProperties } from "./MagistrateFilingProperties";
 
 /** How many filings to show before „виж всички" — the top-N + see-all house rule this
  *  tile's /judiciary sibling already follows. A magistrate can have 72. */
@@ -70,6 +71,10 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
   const lang = i18n.language;
   const bg = lang === "bg";
   const [allFilings, setAllFilings] = useState(false);
+  // ONE filing open at a time — an accordion rather than independent toggles. Several open at
+  // once turns the card into a wall of property rows with no indication which document each
+  // belongs to, which is the opposite of what the per-filing grouping is for.
+  const [openFiling, setOpenFiling] = useState<string | null>(null);
   // The tile sits at a fixed position in PersonProfileScreen with no `key`, so navigating
   // magistrate → magistrate re-renders this instance with a new `name`. Without the reset an
   // expanded 72-row list stays expanded for the next person, applying one reader's "show me
@@ -78,6 +83,7 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
   if (shownFor !== name) {
     setShownFor(name);
     setAllFilings(false);
+    setOpenFiling(null);
   }
   const { holding, year } = usePersonMagistrateHoldings(name);
   if (!holding) return null;
@@ -252,6 +258,34 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
                     )}
                     <ExternalLink className="h-3 w-3 opacity-50" />
                   </RegisterLink>
+                  {/* The properties declared IN this filing, fetched only on expand — a
+                    magistrate can have 72 filings and most readers open none. The toggle
+                    self-hides when the filing has nothing to show, so it never advertises
+                    detail that turns out to be absent (a filing the crawl has not reached,
+                    or a pre-v3.0 form the parser refuses, both return nothing). */}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setOpenFiling((v) =>
+                        v === f.sourceUrl ? null : f.sourceUrl,
+                      )
+                    }
+                    aria-expanded={openFiling === f.sourceUrl}
+                    className="ml-1.5 text-[11px] text-muted-foreground hover:text-foreground hover:underline"
+                  >
+                    {openFiling === f.sourceUrl
+                      ? bg
+                        ? "скрий имотите"
+                        : "hide property"
+                      : bg
+                        ? "имоти"
+                        : "property"}
+                  </button>
+                  <MagistrateFilingProperties
+                    sourceUrl={f.sourceUrl}
+                    kind={f.kind}
+                    expanded={openFiling === f.sourceUrl}
+                  />
                 </li>
               ))}
             </ul>
