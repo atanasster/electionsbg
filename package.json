@@ -67,6 +67,8 @@
     "db:pg:down": "docker compose down",
     "db:proxy:cloud": "./cloud-sql-proxy --port 5434 elections-bg:europe-west3:electionsbg-pg",
     "db:load:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_pg.ts",
+    "proc:verify-seats": "tsx scripts/procurement/verify_awarder_seats.ts",
+    "proc:verify-seats:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run proc:verify-seats",
     "proc:reconcile": "tsx scripts/procurement/reconcile_cross_source.ts",
     "proc:reconcile:apply": "tsx scripts/procurement/reconcile_cross_source.ts --apply",
     "proc:backfill-unp:apply": "tsx scripts/procurement/backfill_unp.ts --apply",

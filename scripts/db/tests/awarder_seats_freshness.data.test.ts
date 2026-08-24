@@ -21,15 +21,17 @@
 // The rule itself is `compareSeatsToMap`, pure and unit-tested next to the
 // merge; this file is the thin Postgres caller.
 
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { afterAll, describe, expect, it } from "vitest";
 import { allRows, dbReachable, end, pinLocalDatabase, withTx } from "../lib/pg";
+import { compareSeatsToMap } from "../../procurement/awarder_geo_merge";
 import {
-  compareSeatsToMap,
-  type GeoEntry,
-} from "../../procurement/awarder_geo_merge";
+  CHECKED_FLOOR,
+  loadMap,
+  MAP_FILE,
+  SEATS_SQL,
+  toSeats,
+  type SeatRow,
+} from "../../procurement/awarder_seats_check";
 
 // LOCAL, always. `scripts/db/lib/pg.ts` documents the recurring hazard of a
 // Cloud SQL proxy target left in the shell, and graph.data.test.ts has already
@@ -40,57 +42,12 @@ import {
 // relied upon while LOOKING like production coverage.
 pinLocalDatabase();
 
-const ROOT = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../../..",
-);
-const MAP_FILE = path.join(ROOT, "data/procurement/awarder_geo_overrides.json");
-
-// A floor rather than an equality — see the contract on SeatsDrift.checked for
-// why `checked === Object.keys(map).length` is the wrong assertion (it is
-// 0 === 0 on an empty map, the one state this guards).
-//
-// Deliberately FAR below the 2,174 the map holds, and matching the sibling
-// artifact gate's own `> 1000`. This exists to separate "nothing was compared"
-// from "nothing is wrong" — it is not a size ratchet, and must not become one:
-// SHRINK_TOLERANCE lets a single build lose 5% of the map legitimately, so a
-// floor set just under today's count would fail on ordinary churn while adding
-// nothing to the vacuity guarantee.
-const CHECKED_FLOOR = 1_000;
-
-const loadMap = (): Record<string, GeoEntry> => {
-  const j = JSON.parse(fs.readFileSync(MAP_FILE, "utf8")) as {
-    awarders?: Record<string, GeoEntry>;
-  };
-  // Named rather than left to `Object.keys(undefined)`, whose TypeError is the
-  // least informative possible failure for the one scenario this file is about.
-  if (!j.awarders || typeof j.awarders !== "object")
-    throw new Error(
-      `${MAP_FILE} has no \`awarders\` block — the artifact's shape changed, or ` +
-        `the file is truncated. Re-run: npx tsx scripts/procurement/awarder_geo_map.ts`,
-    );
-  return j.awarders;
-};
-
 // The repo's convention for a rollback sentinel (db_table_sort_indexes.data.test.ts),
 // preferred over a string message: this callback writes to a REAL serving table,
 // and an `e.message === "rollback"` comparison silently stops matching the day
 // anyone rewords it — at which point the throw propagates as a genuine failure
 // or, worse, a refactor turns it into a clean return and the tx COMMITS.
 class Rollback extends Error {}
-
-// ONE definition of the query the gate actually runs. The mutation check below
-// must execute it on its own transaction client, so without this it would be a
-// second copy — and a later narrowing of the real query (a `source` arm, a join)
-// would leave the mutation check exercising a shape that no longer ships, which
-// is exactly the "two implementations that both forgot the filter" trap.
-const SEATS_SQL =
-  "SELECT eik, ekatte FROM awarder_seats WHERE eik = ANY($1::text[])";
-
-type SeatRow = { eik: string; ekatte: string | null };
-
-const toSeats = (rows: SeatRow[]): Map<string, string | null> =>
-  new Map(rows.map((r) => [r.eik, r.ekatte]));
 
 /** eik → ekatte for exactly the buyers the map names. Restricted in SQL rather
  *  than in JS so the ~1,707 address-derived / curated / name-parsed rows never
@@ -105,17 +62,28 @@ afterAll(async () => {
   await end();
 });
 
+// OUTSIDE the skipIf on purpose. It reads only the committed artifact, so it is
+// answerable with no database — and inside the skip it would vanish on exactly
+// the machines (fresh clone, CI without Postgres) where a truncated or
+// shape-drifted map is most likely to go unnoticed. It is also strictly weaker
+// than the floor asserted inside the gate below, so leaving it there would only
+// ever add a second failure line to the same defect.
+describe("the committed override map is readable and non-trivial", () => {
+  it("has an awarders block with enough entries to compare", () => {
+    // Both arms of the comparison come back empty for a map that failed to
+    // load, so without this the gate reports a clean bill of health on a file
+    // it never read.
+    expect(
+      Object.keys(loadMap()).length,
+      `${MAP_FILE} holds at most ${CHECKED_FLOOR} entries — the gate below ` +
+        `would pass vacuously. Re-run: npx tsx scripts/procurement/awarder_geo_map.ts`,
+    ).toBeGreaterThan(CHECKED_FLOOR);
+  });
+});
+
 describe.skipIf(!up)(
   "awarder_seats agrees with the committed override map",
   () => {
-    it("compared the whole map — not a map that failed to load", () => {
-      // Arm 3, and the one that keeps the other two honest. Both arms come back
-      // empty for an empty or unparseable map, so without a floor here the gate
-      // reports a clean bill of health on a file it never read.
-      const map = loadMap();
-      expect(Object.keys(map).length).toBeGreaterThan(CHECKED_FLOOR);
-    });
-
     it("publishes every buyer the map names, at the EKATTE the map names", async () => {
       const map = loadMap();
       const drift = compareSeatsToMap(map, await seatsFor(Object.keys(map)));
