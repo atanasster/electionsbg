@@ -107,7 +107,26 @@ npx tsx scripts/procurement/build_ocds_party_geo.ts      # Tier E: OCDS обяв
 npx tsx scripts/procurement/build_tender_oblast_map.ts   # Tier D: поръчки executionPlaceNuts → buyer oblast (--backfill for full history)
 npx tsx scripts/procurement/awarder_geo_map.ts           # combines tiers → data/procurement/awarder_geo_overrides.json
 npm run procurement:ingest                                # rebuild applies the overrides to by_settlement
+npm run db:load:awarder-seats:pg                          # PUBLISH — the rebuild alone reaches no database
+npm run proc:verify-seats                                 # confirm it landed
 ```
+
+⚠ **The map is not the site, and nothing red says so.** Rebuilding
+`awarder_geo_overrides.json` changes nothing a reader sees until `buildRollups` bakes it into the
+awarder rollups AND `db:load:awarder-seats:pg[:cloud]` publishes those — the contracts loader
+carries no `ekatte` at all, so reaching for `db:load:pg` here reloads the entire contracts corpus
+on a table that cannot hold a placement (426 s on Cloud SQL, measured 2026-08-22 on
+`db-perf-optimized-N-2`; the seats loader is 55 s on the same box). A map rebuilt and never published is invisible: the artifact's own gate passes, every tier
+says `ok`, row counts reconcile, and the site keeps the previous placements at a 200. Measured
+2026-08-24 — prod kept ЕИК `106633686` in Дърманци for hours after the map said Мездра.
+
+`npm run proc:verify-seats` (and `:cloud`) answers it for whichever database you point it at:
+read-only, one SELECT, safe on the serving database. Exit 1 on drift **and** on "cannot conclude"
+— it refuses to report a clean bill of health for a map that failed to load, since both arms of the
+comparison come back empty for one. The local half is also a
+gate — `scripts/db/tests/awarder_seats_freshness.data.test.ts`, which rides `test:data` — but
+**nothing automatic ever checks prod**, which is why the `:cloud` run belongs in the publish path
+below. See `docs/plans/awarder-seats-freshness-gate-v1.md`.
 
 Tiers, in resolution order (most authoritative first; see `docs/plans/procurement-awarder-geo-v2.md`). `awarder_geo_map.ts` reads them all and the first that resolves wins:
 - **Tier R — МОН institution register crosswalk** (`derived/mon_ri_eik_crosswalk.json`, built by the SEPARATE headed-Playwright crawl `scripts/procurement/mon_ri_crawl.ts` — see below). Exact ЕИК→EKATTE from each institution's own registry card; **the top lever for schools/kindergartens — resolves ~1,285 buyers**, incl. the ambiguous shared-name schools (Паисий Хилендарски, Св. св. Кирил и Методий) no other tier can pin. Optional; skipped if the crosswalk file is absent.
@@ -304,6 +323,7 @@ Procurement is served from **Postgres**, so publishing means reloading the Cloud
 npm run db:load:pg:cloud            # contracts
 npm run db:load:tenders:pg:cloud    # tenders
 npm run db:load:awarder-seats:pg:cloud
+npm run proc:verify-seats:cloud           # confirms the override map reached prod; exit 1 on drift
 npm run db:load:tender-dossier:pg:cloud   # ЦАИС ЕОП dossier + tender search — see below
 npm run db:load:persons-browse:pg:cloud   # /persons money column — see below
 npm run db:load:graph:pg:cloud            # /connections company money — see below
@@ -509,6 +529,27 @@ Surfaces that are **intentionally non-fatal**:
 
 ## Common pitfalls
 
+### `proc:verify-seats` fails
+
+Two different failures wear the same exit code, and the message says which.
+
+**„published at a DIFFERENT place" / „not published at all"** — the committed override map and
+`awarder_seats` disagree. Almost always the map was rebuilt and never loaded. Fix in order, on the
+database the command named (it prints the URL it dialled, and flags the serving one):
+
+```bash
+npx tsx scripts/procurement/awarder_geo_map.ts && npx tsx scripts/procurement/rebuild_from_cache.ts
+npm run db:load:awarder-seats:pg          # or :cloud — the command tells you which
+```
+
+The reverse direction produces the same output: an ingest that gave a buyer a real OCDS address
+moves `awarder_seats` while the map keeps its now-superseded entry. Same fix — rebuilding the map
+retires that entry — which is why the message does not try to guess which side moved.
+
+**„cannot conclude anything"** — the map is empty, truncated or shape-drifted, so there was nothing
+to compare and a clean result would have been meaningless. This is NOT a publish problem: re-run
+`awarder_geo_map.ts` and look at whether the artifact came back with its ~2,174 entries.
+
 ### Canary mismatch
 The canary bundle is re-normalized at the start of every run. If the output bytes drift from the committed fixture, the parser regressed. Steps:
 
@@ -604,6 +645,8 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance M
 | `scripts/procurement/normalize_eop_tender.ts` | Flat `поръчки` records → `Tender[]` (one per УНП, nested lots, ocid lineage); raw shape in `eop_tender_types.ts` |
 | `src/lib/tenderTopics.ts` | Shared topic-alias map (slug→regex+CPV set) for the FE tender search + the `openTenders` AI tool — robust phrasing match (e.g. `guardrails` → мантинели) |
 | `scripts/procurement/awarder_geo_map.ts` | EKATTE override builder for address-less buyers — combines Tier B (МОН) + E (OCDS party-geo) + D (tenders oblast) + A (name-parse) |
+| `scripts/procurement/verify_awarder_seats.ts` | Read-only check that the committed override map is PUBLISHED to a given database (`npm run proc:verify-seats[:cloud]`); exit 1 on drift or on "cannot conclude" |
+| `scripts/procurement/awarder_seats_check.ts` | The artifact path, seats query, `CHECKED_FLOOR` and vacuity rule shared by that CLI and the `awarder_seats_freshness` data test — single-sourced so the local and prod halves cannot drift |
 | `scripts/procurement/awarder_geo_merge.ts` | The merge half of the above: carries a prior entry when its tier could not run, drops it only when the tier ran and no longer resolves it. Pure + tested — an unreachable tier must not shrink the committed map |
 | `scripts/procurement/build_ocds_party_geo.ts` | Tier E — harvests OCDS обявления party addresses (storage.eop.bg, 2026+) → `derived/ocds_party_geo_map.json` (eik→locality+NUTS) |
 | `scripts/procurement/build_tender_oblast_map.ts` | Tier D — harvests поръчки `executionPlaceNuts` → `derived/buyer_oblast_map.json` (eik→modal oblast) |
@@ -636,6 +679,7 @@ npm run procurement:ingest
 npm run procurement:ingest
 npm run db:refresh                  # local PG (Step 2b)
 npm run db:load:pg:cloud && npm run db:load:tenders:pg:cloud && npm run db:load:awarder-seats:pg:cloud   # prod
+npm run proc:verify-seats:cloud     # the override map really is published — nothing else checks prod
 # …and the derived loaders that go stale with the corpus — the full list is Step 3:
 npm run db:load:annexes:pg:cloud          # MANDATORY (CLAUDE.md) — orphaned annex rows
 npm run db:load:employer-links:pg:cloud   # also needs declarations PHASE 1

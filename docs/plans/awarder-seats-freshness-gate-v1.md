@@ -1,8 +1,22 @@
 # A gate for "the override map was rebuilt and never published" — v1
 
-**Status:** SPEC, not implemented. Sizing and design only; nothing in this document has been built.
-Successor to `docs/plans/egov-tierb-block-v1.md`, which closed the *tier-goes-dark* half of this
-problem (§6.2 ratchet, §6.3 watcher) and left this half open in its own closing paragraph.
+**Status:** IMPLEMENTED 2026-08-25. All four pieces landed — the pure comparator, the local data
+test, the `proc:verify-seats[:cloud]` CLI and the runbook wiring. Successor to
+`docs/plans/egov-tierb-block-v1.md`, which closed the *tier-goes-dark* half of this problem
+(§6.2 ratchet, §6.3 watcher) and left this half open in its own closing paragraph.
+
+Four things moved during implementation, corrected in place below:
+
+- **§3.2 arm 3 was wrong twice over** and both the assertion and its floor are fixed (see the ⚠).
+- **The shared I/O helpers are their own module**, `scripts/procurement/awarder_seats_check.ts`,
+  rather than duplicated across the test and the CLI: a divergence would be invisible in the one
+  direction that matters, since only the CLI ever looks at production.
+- **`SeatsDrift` gained a NULL semantics decision the spec did not anticipate.**
+  `awarder_seats.ekatte` is NULLable, and a published-but-unplaced buyer is reported as `missing`
+  rather than as a disagreement reading „seats: null" — `missing`'s remedy (re-run the loader) is
+  the one that matches.
+- **`vacuityReason()` guards the all-clear**, because the CLI as first written reported
+  `✓ published` at exit 0 for a map that failed to load.
 
 ## 1. The gap
 
@@ -92,8 +106,11 @@ has already produced one false "prod is broken" reading from exactly that.
 Assertions:
 1. `drift.missing` is empty.
 2. `drift.disagreeing` is empty.
-3. `drift.checked` clears a **floor** (`> 2_000`; the committed map holds 2,174 and the sibling
-   `awarder_geo_overrides.test.ts` already asserts `> 1000`).
+3. `drift.checked` clears a **floor** — shipped as `CHECKED_FLOOR = 1_000`, matching the sibling
+   `awarder_geo_overrides.test.ts`. ⚠ The first draft said `> 2_000`, which is wrong: the map holds
+   2,174 and `SHRINK_TOLERANCE` lets a single build lose 5% of it legitimately (→ 2,065), so a floor
+   that close would fire on ordinary churn. The floor separates "nothing was compared" from "nothing
+   is wrong"; it is not a size ratchet and must not become one.
 
 ⚠ **Arm 3 said `checked === Object.keys(map).length` in the first draft of this spec, and that is
 wrong twice over** — corrected here so step 2 is not written against it. It is `0 === 0` on an empty
@@ -117,7 +134,10 @@ and for production: npm run db:load:awarder-seats:pg:cloud
 
 ### 3.3 The cloud half — `npm run proc:verify-seats[:cloud]`
 
-The local gate cannot see prod, and **prod is where the 16-day incident lived**. So the same pure
+The local gate cannot see prod, and **prod is where the incident lived** — the 2026-08-24 one in §1,
+where the map said Мездра for hours while the served table still said Дърманци. (The *16-day*
+outage belongs to the predecessor plan and is a different defect: a tier that could not run, not a
+table that was never loaded.) So the same pure
 comparator gets a thin CLI, `scripts/procurement/verify_awarder_seats.ts`, read-only, exiting
 non-zero on drift:
 
@@ -198,3 +218,13 @@ read-only and the test needs no fixtures. Half a day including the mutation chec
 Sequence: pure function + unit tests → data test (verify it is green on today's corpus, §2) →
 mutation check → CLI → wire into the skill. The gate can land before anyone decides §7 of the
 Tier B plan.
+
+**As built** (2026-08-25), four commits: `197accb91c` the comparator, `e66369f518` the data test,
+`cfa6365591` the CLI + `awarder_seats_check.ts`, and the runbook wiring. It came in larger than the
+§8 estimate — the comparator and its tests alone are roughly what was budgeted for the whole thing,
+and `awarder_seats_check.ts` was not foreseen at all — but the shape held and no migration, schema
+change or deploy was needed, which is what the estimate was really about.
+
+The one thing the spec did not anticipate is the finding that mattered most: the CLI reported
+`✓ published` at **exit 0** for a map that failed to load, because both arms of the comparison come
+back empty — the vacuity vector §3.2 names, reappearing in the half that runs where CI does not.
