@@ -33,6 +33,13 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
     reason:
       "multi-hour load of ~1.02M companies; the TR corpus itself is not committed",
   },
+  "db:load:magistrate-filing-assets:pg": {
+    axes: ["uncommitted-input"],
+    ranBy:
+      "npx tsx scripts/judiciary/crawl_declarations.ts, by hand (docs/plans/magistrate-declaration-detail-v1.md, Tier 3b)",
+    reason:
+      "reads the gitignored raw_data/judiciary/filing_cache.json — absent on a fresh clone, and re-earning it is a ~3.5h crawl of 51,040 PDFs from a rate-limited public register. The loader applies its schema and skips-and-warns when the cache is missing, so a clone still gets the tables.",
+  },
   "db:load:tender-dossier:pg": {
     axes: ["uncommitted-input"],
     ranBy:
