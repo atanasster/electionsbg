@@ -1,8 +1,9 @@
 # Tier B (МОН open-data register) has been dark since 2026-08-06 — v1
 
-**Status:** investigated 2026-08-24. Tier B **re-run and restamped `ok` the same day** (§2i) — the
-block was intermittent and has cleared. §6.2 is implemented; §6.1 is re-run but **not yet applied
-downstream**; §6.3 and §6.5 follow in this same run. Carries one decision for a human (§7).
+**Status:** implemented 2026-08-24. Tier B re-run and restamped `ok` (§2i); §6.2 (the staleness
+ratchet), §6.3 (the watcher relabel) and §6.5 (the memory amendment) are all landed. **One thing is
+deliberately NOT done and no gate covers it:** §6.1's corrected placement reaches `by_settlement`
+only when someone runs the full current-value chain. Carries one decision for a human (§7).
 
 ## 1. The symptom
 
@@ -24,7 +25,9 @@ line and a field in a committed JSON nobody reads.
 ## 2. Evidence
 
 All figures measured **2026-08-24** from this host (macOS, egress `92.247.49.124`) against the
-committed corpus at `7cc349a84c`. Replay scripts were read-only; nothing in the repo was written.
+committed corpus at `7cc349a84c`. §2a–§2h are pure investigation — the replay scripts were
+read-only and wrote nothing. §2i is the exception and is a WRITE: it re-runs the builder, changes
+the committed artifact and was committed as `497670d3f4`.
 
 ### 2a. The block is intermittent, and it is NOT a geo-block
 
@@ -56,7 +59,7 @@ resolution is `2026-08-06T21:22:19Z` (`f4b608948`, `mon 38 + monOblast 59`, no n
 
 | measured from | to the 2026-08-22 build | to 2026-08-24 |
 |---|---|---|
-| stamped `lastFreshAt` 2026-08-09 | 13.5 d | 15.7 d |
+| stamped `lastFreshAt` 2026-08-09 | 13.5 d | 14.7 d |
 | **true last-fresh 2026-08-06** | **15.9 d** | **17.1 d** |
 
 A one-off, non-recurring 3-day optimism (it only ever fires on the bootstrap), but any age-based
@@ -246,7 +249,7 @@ So the signal existed and fired. Three things stopped it landing:
 |---|---|---|
 | **Repairable?** | **Already working.** Nothing to repair — HTTP 200 today (§2a). | §2a |
 | **Workaroundable?** | **N/A, and the documented workaround is a red herring.** Already on BG residential egress; the VPN is not the lever and its cost need not be paid. | §2a |
-| **Retirable?** | **No — not today**, for two reasons. It exclusively holds 92 placements (€17.9m, 776 contracts, 38 settlements) no other tier can produce (Tier R covers 0.4% of kindergartens); and it is the only tier that resolves **branch-vs-seat** names, where Tier A silently mis-places the buyer in a филиал's village. | §2c, §2g, §2i |
+| **Retirable?** | **No — not today**, for two reasons. Since the §2i re-run it labels **95** placements, **92 of them exclusively** — no other tier resolves those at all (Tier R covers 0.4% of kindergartens), and they carry €17.9m over 776 contracts in 38 settlements. The other 3 would fall back to Tier A, and that is the second reason: Tier B is the only tier that resolves **branch-vs-seat** names, and on one of those 3 the Tier A fallback puts the buyer in a филиал's village. | §2c, §2g, §2i |
 | **Urgent?** | **Low, not nil.** A fresh run adds **0 new placements** — but it also corrected one buyer that Tier A had mis-placed for the whole outage. Re-run promptly; no emergency. | §2e, §2i |
 | **Trending toward retirement?** | **Yes, slowly.** 306 → 92 since Tier R; ~1/fortnight via Tier E. Years away. | §2f |
 
@@ -370,11 +373,18 @@ retirement means deciding what happens to those 92 placements — see §7.
    instruction was written anyway. All four surfaces now point at the update-procurement runbook
    rather than half-quoting a five-step chain, which also collapses four copies to one.
 4. **Do not** retire Tier B, chase the VPN, or touch the merge, the shrink guard or `readTierJson`.
-5. Amend `reference_egov_api_endpoints` in memory: a 403 from data.egov.bg is **not** proof of a
-   foreign egress IP — this host was on A1 Bulgaria residential throughout.
+5. ✅ **Amended `reference_egov_api_endpoints`** in memory. Its standing advice was that a BG
+   *residential* endpoint was the untried fix (the 2026-08-10 update had ruled out a BG datacenter
+   VPN). This outage tries it and the answer is no: the host was on A1 Bulgaria residential
+   (AS29580) for all 16 days and was blocked anyway, then cleared on 2026-08-24 with nothing
+   changed. The note now says a 403 is not proof of a foreign egress IP, that a BG residential
+   answer does not end the diagnosis, that the endpoint is not dead, and that the correct response
+   to a 403 you cannot clear is to let the pipeline carry and re-run — pointing here for the worked
+   example. The `MEMORY.md` pointer was reworded off "403 = egress IP", which was the over-confident
+   half.
 
-Steps 2 and 3 have landed; step 5 follows in the same run. Step 1 fixed today's instance, step 2
-bounds how long a dark tier may ride, and step 3 gives same-day notice through the daily report —
+Steps 2, 3 and 5 have all landed. Step 1 fixed today's instance, step 2 bounds how long a dark tier
+may ride, and step 3 gives same-day notice through the daily report —
 between them the 16-day blind spot is closed from both ends. What no gate covers is the downstream
 apply noted in §6.1: the corrected placement reaches `by_settlement` only when someone runs the
 full current-value chain, and nothing red will ever say so.
@@ -382,8 +392,10 @@ full current-value chain, and nothing red will ever say so.
 ## 7. ⚠ The decision that belongs to a human, not to this plan
 
 **Retiring a geo tier changes which buyers appear on `/procurement/by-settlement` and the place /
-My-Area tiles.** Concretely, retiring Tier B puts 92 placements — €17.9m across 776 contracts, 91
-kindergartens, 38 settlements in 20 oblasti — into one of two states, and **neither is neutral**:
+My-Area tiles.** Concretely, retiring Tier B puts the 92 placements it holds exclusively — €17.9m
+across 776 contracts, 91 kindergartens, 38 settlements in 20 oblasti — into one of two states, and
+**neither is neutral** (the other 3 of its 95 would fall back to Tier A, one of them to the wrong
+settlement):
 
 - **carried as unrecognised labels forever** (what happens by default, §2h): the buyers stay on
   the map, permanently unverifiable, with a red gate in `awarder_geo_overrides.test.ts`; or
