@@ -107,8 +107,14 @@ const parseAsOf = (
 // That is the better trade — negatives are 42 of 41,495 row tails — but it is a
 // trade, and only reading the amounts from the header's COLUMN POSITIONS closes
 // both (Tier 1 item 3 of the hardening plan).
-const SIGNED_AMOUNT_RE =
-  /(?:(?<![\p{L}\p{N}])-)?\d{1,3}(?:[ \t\u00a0]\d{3})+|(?:(?<![\p{L}\p{N}])-)?\d+/gu;
+/** The sign half of the amount grammar. Kept separate so the three regexes below
+ *  cannot drift: they were three verbatim copies for one commit, and the comment
+ *  above records what the LAST divergence cost (an unsigned copy that declined to
+ *  repair a clawback, and a separator class that was a plain space written twice). */
+const SIGN = String.raw`(?:(?<![\p{L}\p{N}])-)?`;
+const AMOUNT_SRC = String.raw`${SIGN}\d{1,3}(?:[ \t\u00a0]\d{3})+|${SIGN}\d+`;
+
+const SIGNED_AMOUNT_RE = new RegExp(AMOUNT_SRC, "gu");
 
 /**
  * Which of the three monthly per-hospital reports a file is. НЗОК publishes them
@@ -143,28 +149,126 @@ const isLenient = (s: PaymentStream): boolean => s !== "bmp";
 // and `pdftotext -layout` then drops the amount's LEADING thousands group inside
 // the name:
 //
-//   layout: "… УМБАЛ ТОКУДА6EАД        735 587    0"
-//   raw:    "… УМБАЛ ТОКУДА EАД  6 735 587  0"      ← the truth
+//   layout: "… УМБАЛ ТОКУДА6EАД        735 587"
+//   raw:    "… УМБАЛ ТОКУДА EАД  6 735 587"      ← the truth
 //
 // `-raw` has the right reading but collapses the two amount columns into one
 // ambiguous run ("1 562 275 488 147 886 902"), so it cannot replace `-layout`.
-// Instead we move a digit run that sits GLUED BETWEEN TWO LETTERS back onto the
-// front of the row's next amount. The pattern requires letters on both sides with
-// no space, so a legitimate name numeral ("МБАЛ 2", "149 СУ") can never match —
-// verified zero hits across the `bmp` and `drugs` reports. Any mistake here is
-// caught by the whole-file reconciliation assert below, which is why the repair
-// is safe to apply unconditionally on the lenient streams.
-const repairGluedThousands = (tail: string): string =>
-  tail.replace(
-    // Group 5 is SIGNED and the separator class carries the NBSP, both to match
-    // SIGNED_AMOUNT_RE: the class here was a plain space written twice (verified
-    // in hex), so an NBSP-grouped amount tokenised as one figure for the extractor
-    // and was invisible to this repair, and an unsigned group 5 silently declined
-    // to fire on a glued row whose amount is a clawback — the two conditions that
-    // co-occur most easily on exactly the lenient streams this runs on.
-    /(\p{L})(\d{1,3})(\p{L}+)(\s+)((?:(?<![\p{L}\p{N}])-)?\d{1,3}(?:[ \t\u00a0]\d{3})+|(?:(?<![\p{L}\p{N}])-)?\d+)/u,
-    "$1$3$4$2 $5",
-  );
+// Instead we move the orphaned digit run back onto the front of the row's next
+// amount.
+//
+// ⚠️ THE SPACING VARIES MONTH TO MONTH AND ONE PATTERN DOES NOT COVER IT. This
+// was a single rule until 2026-08-24 and it silently missed 12 of the 40 affected
+// files — every one of them the SAME row, Рег.№ 2201211067 (Аджибадем Сити Клиник
+// УМБАЛ Токуда) — 35 files carry the glue, 12 of them in a spacing the single
+// rule missed — each losing exactly one leading thousands group, i.e. a round
+// million: €2,000,001 on devices 2026-07 alone. Four spacings occur:
+//
+//   ТОКУДА6EАД        735 587     welded both sides           → A
+//   ТОКУДА 2EАД       953 094     space before the digit      → A
+//   ТОКУДА 4      EАД376 725      digit free, letters glued
+//                                 to the amount               → B
+//   ТОКУДА 5     EАД⏎  245 651    digit free, amount wrapped  → B
+//
+// ⚠️ DO NOT "SIMPLIFY" THESE INTO ONE `\s*`-EVERYWHERE PATTERN. Allowing
+// whitespace on BOTH sides of the digit run matches genuine facility names:
+// measured, it newly touches „ДКЦ 1 Добрич" and „ДКЦ 2 Добрич" (0828134001 /
+// 0828134002, 90 rows) and would move their „1"/„2" onto the amount — publishing
+// two different Dobrich clinics under one name „ДКЦ Добрич". What separates the
+// two cases is that the ТОКУДА digit is welded to something (the letters after
+// it, in A; the amount, in B) while a real name digit is free on both sides and
+// followed by an ordinary wide gutter.
+//
+// Any mistake here is caught by the whole-file reconciliation assert, which is
+// why the repair is safe to apply unconditionally on the lenient streams — and
+// measured over every cached row tail, A and B together add exactly the 12
+// missing ТОКУДА rows and touch nothing else.
+
+/** A — the digit run is welded to the letters that follow it, with at most one
+ *  space in front of it. This is the shape the original single pattern covered,
+ *  plus the one-space-before variant it did not.
+ *
+ *  ⚠️ NOT a strict superset of that pattern, and a draft of this comment claimed it
+ *  was. The original gap was `(\s+)`, which includes a newline; this is
+ *  `[ \t\u00a0]+`. So "digit welded to the fragment AND amount wrapped to the next
+ *  line" is now covered by NEITHER rule — 0 occurrences today, and the ТОКУДА row
+ *  exhibits each condition separately, so the conjunction is possible. It fails
+ *  LOUDLY if it happens (a ~4% drift rejects the file) rather than publishing a
+ *  wrong number, which is why it is left uncovered rather than guessed at. */
+const GLUE_WELDED_TO_NAME = new RegExp(
+  String.raw`(\p{L})[ \t\u00a0]?(\d{1,3})(\p{L}+)([ \t\u00a0]+)(${AMOUNT_SRC})`,
+  "u",
+);
+
+/** B — the digit run stands free, and the name fragment after it is welded to the
+ *  amount (or the amount wrapped to the next physical line).
+ *
+ *  ⚠️ B's regex CANNOT discriminate on its own, and the earlier comment here
+ *  claimed it could. It requires the digit free on both sides — which is exactly
+ *  what a real name digit („ДКЦ 1 Добрич") looks like — so the only structural
+ *  difference left is how the month happened to render the separator after the
+ *  fragment, and that is a property of `pdftotext`, not of the facility. Measured
+ *  against the shipped function before the guards below existed:
+ *
+ *    "ДКЦ 2 Добрич⏎   905 100  40 000" → { name: "ДКЦ Добрич", cum: 2 905 100 }
+ *
+ *  — a fabricated €2,000,000 AND two different Dobrich clinics (0828134001 /
+ *  0828134002) published under one name. The guards in `repairGluedThousands` are
+ *  what make this rule safe; the regex is only half of it.
+ *
+ *  ⚠️ B collapses the whitespace it consumes, because for the wrapped variant the
+ *  whole point is to move the digit ACROSS the newline to its amount. Tier 1 item 3
+ *  of the hardening plan wants amounts read from the header's COLUMN POSITIONS, and
+ *  this repair runs first — so the gutter it destroys is exactly the one those rows
+ *  would need. Resolve that interaction there; it cannot be resolved here. */
+const GLUE_ORPHANED_DIGIT = new RegExp(
+  String.raw`(\p{L})[ \t\u00a0]+(\d{1,3})[ \t\u00a0]+(\p{L}+)(?:|\n[ \t]*)(${AMOUNT_SRC})`,
+  "u",
+);
+
+/** A splice is only ever correct when the orphaned digit run is the amount's
+ *  dropped LEADING thousands group — so re-joining the two must yield ONE
+ *  well-formed grouped amount. „ДКЦ 1 Добрич  25 382" fails this in every
+ *  rendering (`1 25 382` is not grouped), and so does a small amount that would
+ *  otherwise strand a digit in the name („ТОКУДА6EАД 58" → `6 58`). */
+const GROUPED_AMOUNT = /^-?\d{1,3}(?:[ \t\u00a0]\d{3})+$/u;
+
+/** …and for rule B, which cannot discriminate structurally, the fragment must also
+ *  be short. What a glue leaves behind is the tail of a legal form — every one
+ *  observed across the cache is „EАД" — whereas a real free-standing name digit is
+ *  followed by a word („Добрич", 6 letters). This is an EMPIRICAL bound, not a
+ *  proof; the structural answer is the plan's block-driven repair (Tier 2), which
+ *  attempts a splice only when the block fails to reconcile and keeps it only when
+ *  the block then reconciles exactly. */
+const MAX_GLUE_FRAGMENT = 4;
+
+/** Exported for testing: this is the unit RC-1 lives in, and its four spacings
+ *  are only visible at the string level — `extractAmounts` sees the repaired
+ *  tail, so a test written against that cannot tell a repair from a no-op. */
+export const repairGluedThousands = (tail: string): string =>
+  tail
+    .replace(
+      GLUE_WELDED_TO_NAME,
+      (
+        m,
+        lead: string,
+        digits: string,
+        frag: string,
+        gap: string,
+        amt: string,
+      ) =>
+        GROUPED_AMOUNT.test(`${digits} ${amt}`)
+          ? `${lead} ${frag}${gap}${digits} ${amt}`
+          : m,
+    )
+    .replace(
+      GLUE_ORPHANED_DIGIT,
+      (m, lead: string, digits: string, frag: string, amt: string) =>
+        frag.length <= MAX_GLUE_FRAGMENT &&
+        GROUPED_AMOUNT.test(`${digits} ${amt}`)
+          ? `${lead} ${frag} ${digits} ${amt}`
+          : m,
+    );
 
 /** Pull the amounts off a row's accumulated tail (text after the reg number,
  *  possibly spanning wrapped lines).
@@ -335,7 +439,7 @@ export const readTotalLine = (
 ): { count: number; cumulative: number } | null => {
   const cnt = line.match(TOTAL_RE);
   if (!cnt) return null;
-  const after = line.replace(/^.*?(?:Общо\s+РЗОК|ОБЩО)/, "");
+  const after = line.replace(/^.*?(?:Общо\s+РЗОК|ОБЩО)(?!\p{L})/u, "");
   const amts = [...after.matchAll(new RegExp(SIGNED_AMOUNT_RE))].map((mm) =>
     num(mm[0]),
   );

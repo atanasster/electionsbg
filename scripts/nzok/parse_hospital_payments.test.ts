@@ -13,10 +13,10 @@
 // round figures in "УМБАЛ Пловдив АД" are INVENTED (12 500 000 has 0 hits
 // corpus-wide) — worth knowing before treating any of them as evidence.
 //
-// ⚠️ The four Токуда glue spacings (RC-1) are NOT covered here. That is Tier 1
-// item 2 of docs/plans/nzok-hospital-parser-hardening-v1.md and is still open;
-// this header used to claim they were covered, which is the same fixture-list
-// over-claim the plan itself warns about.
+// The four Токуда glue spacings (RC-1) ARE covered, as of Tier 1 item 2 — all
+// four transcribed verbatim from the devices reports that carry them. They are
+// the reason this header used to over-claim: a fixture list that says it covers
+// a shape, and does not, is worse than one that admits the gap.
 //
 //   npm run test:nzok
 //
@@ -30,6 +30,7 @@ import assert from "node:assert/strict";
 import {
   extractAmounts,
   readTotalLine,
+  repairGluedThousands,
   type PaymentStream,
 } from "./parse_hospital_payments";
 
@@ -235,3 +236,137 @@ for (const c of TOTAL_CASES) {
     assert.deepEqual(readTotalLine(c.line), c.expect);
   });
 }
+
+// ── RC-1, the glue. ONE row — Рег.№ 2201211067, Аджибадем Сити Клиник УМБАЛ
+//    Токуда, devices — in four different spacings across 40 files. `pdftotext
+//    -layout` welds the amount's leading thousands group into the name, so each
+//    of these loses exactly one round million; a single pattern covered two of
+//    the four and silently missed 12 files.
+//
+//    Tested at the STRING level on purpose. The repair runs in the parser's
+//    `flush()`, before `extractAmounts` ever sees the tail, so a test written
+//    against the extractor cannot tell a working repair from a no-op — which is
+//    how the two uncovered spacings survived. All five tails are verbatim.
+const GLUE_CASES: { label: string; tail: string; expect: string }[] = [
+  {
+    label:
+      "A — digit welded between the name and its fragment (devices 2025-11)",
+    tail: "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА6EАД           735 587           618 585",
+    expect:
+      "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА EАД           6 735 587           618 585",
+  },
+  {
+    label: "A — one space before the digit (devices 2026-07)",
+    tail: "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА 2EАД   953 094          295 550",
+    expect:
+      "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА EАД   2 953 094          295 550",
+  },
+  {
+    label: "B — digit free, fragment welded to the amount (devices 2024-09)",
+    tail: "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА 4           EАД376 725          589 225",
+    expect:
+      "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА EАД 4 376 725          589 225",
+  },
+  {
+    label: "B — digit free, amount wrapped to the next line (devices 2024-11)",
+    tail:
+      "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА 5     EАД\n" +
+      "                                                     245 651           367 666",
+    expect:
+      "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА EАД 5 245 651           367 666",
+  },
+  // ── The false positives. „ДКЦ 1 Добрич" and „ДКЦ 2 Добрич" are two DIFFERENT
+  //    clinics (0828134001 / 0828134002, 90 rows between them) whose real name
+  //    digit is free on both sides — structurally indistinguishable from rule B's
+  //    target. All three renderings must be refused; the first is the easy one
+  //    (no rule can match it), and the WRAPPED two are the ones that decide,
+  //    because rule B's regex DOES match them and only the guards refuse them.
+  {
+    label: "a real name digit is left alone — wide gutter (ДКЦ 1 Добрич)",
+    tail: "   ДКЦ 1 Добрич                                         25 382       3 619",
+    expect:
+      "   ДКЦ 1 Добрич                                         25 382       3 619",
+  },
+  {
+    // Refused by MAX_GLUE_FRAGMENT — „Добрич" is 6 letters — because
+    // GROUPED_AMOUNT alone cannot save this one: "1 250 382" IS well-formed.
+    // Without the guards this returned { name: "ДКЦ Добрич", cum: 1250382 }.
+    label: "a real name digit is left alone — amount wrapped (ДКЦ 1 Добрич)",
+    tail: "   ДКЦ 1 Добрич\n                       250 382       3 619",
+    expect: "   ДКЦ 1 Добрич\n                       250 382       3 619",
+  },
+  {
+    // The one the review demonstrated against the unguarded function: a
+    // fabricated round €2,000,000 — { name: "ДКЦ Добрич", cum: 2905100 } against
+    // a true 905,100 — with both clinics merged into one published name.
+    label:
+      "a real name digit is left alone — wrapped, grouped splice (ДКЦ 2 Добрич)",
+    tail: "   ДКЦ 2 Добрич\n                       905 100       40 000",
+    expect: "   ДКЦ 2 Добрич\n                       905 100       40 000",
+  },
+  {
+    // GROUPED_AMOUNT's other job: a small amount would otherwise strand the digit
+    // in the stored name („ТОКУДАEАД   6 58"), where the corpus gate's
+    // amount-in-name fingerprint cannot see it.
+    label: "a splice that would not form a grouped amount is refused",
+    tail: "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА6EАД   58   10",
+    expect: "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА6EАД   58   10",
+  },
+];
+
+for (const c of GLUE_CASES) {
+  test(`repairGluedThousands: ${c.label}`, () => {
+    assert.equal(repairGluedThousands(c.tail), c.expect);
+  });
+}
+
+// ── What the repair is FOR: the euro figure it recovers. GLUE_CASES pins the
+//    mechanism at string level; this pins the consequence, so a rewrite that
+//    produces a differently-spaced but wrong tail cannot pass both. Values
+//    verified against НЗОК's own per-РЗОК subtotal for София град.
+const GLUE_VALUE_CASES: { label: string; tail: string; cumulative: number }[] =
+  [
+    {
+      label: "A recovers €6,735,587 (devices 2025-11)",
+      tail: "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА6EАД           735 587           618 585",
+      cumulative: 6735587,
+    },
+    {
+      label: "A recovers €2,953,094 (devices 2026-07)",
+      tail: "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА 2EАД   953 094          295 550",
+      cumulative: 2953094,
+    },
+    {
+      label: "B recovers €4,376,725 (devices 2024-09)",
+      tail: "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА 4           EАД376 725          589 225",
+      cumulative: 4376725,
+    },
+    {
+      label: "B recovers €5,245,651 (devices 2024-11)",
+      tail:
+        "   АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА 5     EАД\n" +
+        "                                                     245 651           367 666",
+      cumulative: 5245651,
+    },
+  ];
+
+for (const c of GLUE_VALUE_CASES) {
+  test(`glue → euro: ${c.label}`, () => {
+    const parsed = extractAmounts(repairGluedThousands(c.tail), "devices");
+    assert.equal(parsed?.cumulative, c.cumulative);
+  });
+}
+
+// The two rules run as sequential replaces over one string, so they must not
+// co-fire, and a second pass must be a no-op — otherwise a tail satisfying both
+// would have its digit moved twice.
+test("the glue rules are disjoint and the repair is idempotent", () => {
+  for (const c of [...GLUE_CASES, ...GLUE_VALUE_CASES]) {
+    const once = repairGluedThousands(c.tail);
+    assert.equal(
+      repairGluedThousands(once),
+      once,
+      `not idempotent: ${c.label}`,
+    );
+  }
+});

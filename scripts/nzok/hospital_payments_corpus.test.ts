@@ -12,8 +12,8 @@
 // It reads `raw_data/nzok/bmp/` (gitignored — the loader's download cache) and
 // SKIPS when that is absent, the same bargain the `scripts/db/tests/*.data.test.ts`
 // gates strike with Postgres: a fresh clone stays green, a machine that has run
-// the loader gets the real check. ~17 s over 176 files, inside the node project's
-// 120 s budget.
+// the loader gets the real check. ~48 s over ~170 files (the parse is shared across
+// all four tests; pdftotext dominates), inside the node project's 120 s budget.
 
 import { test, expect } from "vitest";
 import fs from "node:fs";
@@ -45,26 +45,37 @@ const streamOf = (head: string): PaymentStream =>
 interface Parsed {
   file: string;
   stream: PaymentStream;
+  /** "YYYY-MM", read off the report's own „към DD.MM.YYYY" title. Available even
+   *  when the parse throws, which is what lets a rejection be identified by the
+   *  MONTH it withholds rather than by which cache file happened to hold it. */
+  period: string;
   rows: { regNo: string; name: string; cumulativeEur: number }[];
   rejected: string | null;
 }
 
 /** The scope is the loader's, not the directory's. `raw_data/nzok/bmp/` also holds
- *  a `probe_*.pdf` and a handful of ≤2022 files kept from backfill attempts; the
- *  loader's `YEARS` is 2023-2026 and the ≤2022 era is a documented, unhardened
- *  naming/format shift (scripts/nzok/README.md). Judging the parser on files it
- *  does not claim to read would make this gate fail for a reason that is not a
- *  defect — so a file earns its way in by carrying a "към DD.MM.YYYY" period of
- *  2023 or later, which is exactly the set the loader would attempt. It is WIDER
- *  than the 127 links the listing pages currently offer (172 files), because
- *  superseded re-uploads stay in the cache and are perfectly good reports. */
+ *  `probe_*.pdf` files and a handful of ≤2022 reports kept from backfill attempts.
+ *
+ *  ⚠️ A year filter alone does NOT exclude the probes — `probe_2023/2024/2025`
+ *  carry a 2023+ „към" date and two of them were contributing to the fingerprint
+ *  counts below. The honest discriminator is the loader's own cache-key prefix:
+ *  `fetchToCache` writes every file it fetches as `clean_<hash>.pdf`, so anything
+ *  else in this directory is something a human put there. */
+const CACHE_PREFIX = /^clean_[0-9a-f]+\.pdf$/;
 const FIRST_YEAR = 2023;
+
+/** The cache is a machine-local download cache, so "it has some PDFs in it" is not
+ *  the same as "it is usable". Below this many in-scope reports the assertions
+ *  below would be measuring an interrupted download rather than the parser, so the
+ *  file skips instead — a red gate that says "new defect" and means "different
+ *  cache" is worse than no gate. Today's cache holds ~165. */
+const MIN_USABLE = 100;
 
 const cached = (): string[] =>
   fs.existsSync(RAW)
     ? fs
         .readdirSync(RAW)
-        .filter((f) => f.endsWith(".pdf"))
+        .filter((f) => CACHE_PREFIX.test(f))
         .sort()
     : [];
 
@@ -76,25 +87,34 @@ const parseAll = (): Parsed[] => {
       encoding: "utf8",
       maxBuffer: 8 * 1024 * 1024,
     });
+    if (!CACHE_PREFIX.test(file)) continue; // probe / hand-placed, not a fetched report
     if (res.status !== 0 || !res.stdout) continue; // not a readable report
-    const period = res.stdout.match(/към\s+\d{1,2}\.\d{1,2}\.(\d{4})/);
-    if (!period || Number(period[1]) < FIRST_YEAR) continue; // out of the loader's scope
+    const m = res.stdout.match(/към\s+\d{1,2}\.(\d{1,2})\.(\d{4})/);
+    if (!m || Number(m[2]) < FIRST_YEAR) continue; // out of the loader's scope
+    const period = `${m[2]}-${m[1].padStart(2, "0")}`;
     const stream = streamOf(res.stdout.slice(0, 600));
     try {
       const f = parseHospitalPaymentsPdf(p, stream);
-      out.push({ file, stream, rows: f.rows, rejected: null });
+      out.push({ file, stream, period, rows: f.rows, rejected: null });
     } catch (e) {
-      out.push({ file, stream, rows: [], rejected: (e as Error).message });
+      out.push({
+        file,
+        stream,
+        period,
+        rows: [],
+        rejected: (e as Error).message,
+      });
     }
   }
   return out;
 };
 
 const FILES = cached();
-const run = FILES.length ? test : test.skip;
-if (!FILES.length)
+const run = FILES.length >= MIN_USABLE ? test : test.skip;
+if (FILES.length < MIN_USABLE)
   console.warn(
-    "[nzok corpus] raw_data/nzok/bmp is empty — skipping. Run `npm run db:load:nzok-hospital:pg` to populate it.",
+    `[nzok corpus] only ${FILES.length} cached reports (need ${MIN_USABLE}) — skipping. ` +
+      "Run `npm run db:load:nzok-hospital:pg` to populate raw_data/nzok/bmp.",
   );
 
 // Parsed once and shared: 176 spawns of pdftotext is the whole cost of this file.
@@ -123,72 +143,78 @@ run("no parsed facility name ends in a stray sign", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Fingerprint 2 — an AMOUNT captured into the name. RATCHET.
+// Fingerprint 2 — an AMOUNT captured into the name.
 //
 // „МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ, 1 022 653 ПРОДЪЛЖИТЕЛНО" is a
 // stored facility name, and the row it belongs to carries €47 against a true
-// €522,872. Wherever a thousands-grouped run survives inside a name, the row's
+// €522,872. Wherever a thousands-grouped run survives inside a name, that row's
 // amount extraction went somewhere else.
 //
-// Counted over the cache (172 in-scope files), so a defect present in both a file
-// and its superseded re-upload counts twice — see the note on REJECTED below.
+// ⚠️ Asserted as an IDENTITY SET, not a count. A count over this directory is a
+// count over a machine-local download cache that grows every time НЗОК publishes
+// a month — so each new December re-renders the same МИ-МВР row and turns the
+// gate red on `db:load:nzok-hospital:pg` rather than on a commit. The set of
+// FACILITIES affected is the stable fact; a new month with the same defect adds
+// nothing, and a new kind of failure names itself.
 //
-// ⚠️ This is a RATCHET, asserted by EQUALITY rather than "≤", so a step that
-// improves the parser has to come here and lower the number — which puts the
-// improvement in the diff instead of leaving a slack ceiling that quietly absorbs
-// a future regression. It is NOT zero yet:
-//
-//   Tier 1 item 2 (RC-1, the four Токуда glue spacings)  — open
-//   Tier 1 item 3 (RC-4 ii/iii, wrapped rows / split amounts) — open
-//
-// Both are in docs/plans/nzok-hospital-parser-hardening-v1.md. When they land
-// this expectation becomes 0 and the ratchet is retired into a hard zero.
-const AMOUNT_IN_NAME = 14;
+// Not empty yet — Tier 1 item 3 (RC-4 ii/iii, wrapped rows and amounts split
+// across the line break) is what empties it:
+//   0306253028  МИ-МВР-ФИЛИАЛ ВАРНА — three-line wrapped name
+//   1319391019  ДЪЧМЕД ДИАЛИЗА — amount split across the break
+//   0306211013  МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВАРНА
+const AMOUNT_IN_NAME_REGNOS = ["0306211013", "0306253028", "1319391019"];
 
-run("an amount captured into a facility name stays at its known count", () => {
-  const hits = parsed().flatMap((f) =>
-    f.rows
-      // Escaped rather than literal: an NBSP in source is invisible, which is
-      // how repairGluedThousands ended up with a plain space written twice.
-      .filter((r) => /\d{1,3}[ \u00a0]\d{3}/.test(r.name))
-      .map((r) => `${f.stream} ${f.file} ${r.regNo} ${JSON.stringify(r.name)}`),
-  );
-  expect(
-    hits.length,
-    `amount-in-name rows (expected ${AMOUNT_IN_NAME}):\n${hits.join("\n")}`,
-  ).toBe(AMOUNT_IN_NAME);
+run("only the known facilities carry an amount inside their name", () => {
+  const hits = [
+    ...new Set(
+      parsed().flatMap((f) =>
+        f.rows
+          .filter((r) => /\d{1,3}[ \u00a0]\d{3}/.test(r.name))
+          .map((r) => r.regNo),
+      ),
+    ),
+  ].sort();
+  expect(hits).toEqual(AMOUNT_IN_NAME_REGNOS);
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Fingerprint 3 — files the completeness asserts reject. RATCHET.
+// Fingerprint 3 — the months the completeness asserts withhold.
 //
 // A rejected month is a month ABSENT from nzok_hospital_payments: the loader
 // catches the throw, logs one truncated line and carries on at exit 0. That is
-// why this number belongs in a test rather than in a console — the loader
-// currently withholds 24 of the 127 (stream, period) files the listing pages
-// offer, the devices stream alone is missing 16 months, and nothing fails.
+// why this belongs in a test rather than in a console.
 //
-// ⚠️ The number here is 29, not 24, and the two are not in conflict: this walks
-// the CACHE (172 in-scope files) rather than the current links, so a superseded
-// re-upload carrying the same defect is counted again. Read 29 as "files on
-// disk", 24 as "months the site is missing" — quoting either as the other is the
-// mistake this note exists to prevent.
+// ⚠️ Identity, not a count, and keyed on (stream, PERIOD) rather than on cache
+// files — a superseded re-upload of a bad month is the same missing month, and
+// counting it twice made this number 17 where the site is missing 12.
 //
-// Equality again, for the same reason as above. Tier 1 recovers most of these and
-// Tier 2 the rest; a NEW rejection appearing here is a new defect, not noise.
-const REJECTED = 29;
+// Every entry here is a month the site does not have. What closes them:
+//   drugs 2024-06                   RC-2  — Tier 1 item 5 (merged header total)
+//   the eleven count-assert months  Tier 2 — the per-block reconciliation
+const REJECTED_PERIODS = [
+  "bmp 2023-01",
+  "bmp 2023-02",
+  "bmp 2023-03",
+  "bmp 2025-01",
+  "bmp 2026-01",
+  "devices 2023-06",
+  "devices 2023-07",
+  "devices 2025-01",
+  "devices 2026-01",
+  "drugs 2023-06",
+  "drugs 2023-07",
+  "drugs 2024-06",
+];
 
-run("the parser rejects only its known-bad files", () => {
-  const rejected = parsed()
-    .filter((f) => f.rejected)
-    .map(
-      (f) => `${f.stream} ${f.file}: ${f.rejected?.split(":").pop()?.trim()}`,
-    )
-    .sort();
-  expect(
-    rejected.length,
-    `rejected files (expected ${REJECTED}):\n${rejected.join("\n")}`,
-  ).toBe(REJECTED);
+run("only the known months are withheld", () => {
+  const rejected = [
+    ...new Set(
+      parsed()
+        .filter((f) => f.rejected)
+        .map((f) => `${f.stream} ${f.period}`),
+    ),
+  ].sort();
+  expect(rejected).toEqual(REJECTED_PERIODS);
 });
 
 // A rejection is only ever one of the two completeness asserts. Anything else —
