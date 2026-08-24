@@ -270,6 +270,14 @@ const RELOADED: ReadonlyArray<{
   { table: "magistrate", loader: "db:load:magistrates:pg" },
   { table: "magistrate_company", loader: "db:load:magistrates:pg" },
   { table: "magistrate_filing", loader: "db:load:magistrates:pg" },
+  // The per-filing property rows, TRUNCATE + COPY in one transaction like their siblings.
+  // Loaded by a DIFFERENT script (load_magistrate_filing_assets_pg.ts), whose input is a
+  // gitignored operator crawl — so on most machines this table is empty and the per-table
+  // assertion skips, while the call-site scan still holds.
+  {
+    table: "magistrate_filing_asset",
+    loader: "load_magistrate_filing_assets_pg.ts",
+  },
   // The ДФЗ family — THREE different reload shapes, listed together because one
   // loader owns them all. `agri_subsidies` is DELETE + INSERT in one transaction
   // (the canonical map-losing shape); `agri_payloads` is stage-merged, so it

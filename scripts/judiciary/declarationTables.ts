@@ -157,7 +157,16 @@ export const tableRows = (
   for (const r of rows) {
     if (r[0] == null || r[0].y >= map.y) continue; // above the header
     const flat = text(r);
-    if (stopAt.test(flat) && !/^\d+\.\s/.test(flat)) break;
+    // ⚠️ NO ESCAPE HATCH FOR A ROW THAT MERELY STARTS WITH AN ORDINAL. An earlier version
+    // read `stopAt.test(flat) && !/^\d+\.\s/.test(flat)`, meaning a row beginning „3. " was
+    // never a stop even when it also contained „Таблица № 3" — so the form's own furniture
+    // („Нямам нищо за деклариране", the next table's caption, a bare „:") was admitted as
+    // data. Measured: 36 such rows across 2,457, carrying no property type and no price.
+    //
+    // The hatch was meant to protect the table's OWN caption row („1. Право на собственост…"),
+    // which does begin with an ordinal — but that row sits ABOVE the header and is already
+    // excluded by the `r[0].y >= map.y` test above. It protected nothing and admitted junk.
+    if (stopAt.test(flat)) break;
     const m = /^(\d+)\.$/.exec(r[0].s);
     if (!m) continue;
     if (r.length < 2) continue; // empty form slot
