@@ -29,6 +29,7 @@ import { test } from "vitest";
 import assert from "node:assert/strict";
 import {
   extractAmounts,
+  matchRowStart,
   readTotalLine,
   repairGluedThousands,
   type PaymentStream,
@@ -488,10 +489,14 @@ test("the glue rules are disjoint and the repair is idempotent", () => {
 });
 
 // ⚠️ A bare run of 5+ digits is a Рег.№ ЛЗ that arrived inside an ABSORBED line,
-// not money — these reports space-group every amount above 999. Asserted as a
-// PROPERTY rather than a full expectation, because the row below is also wrong
-// for a different, separate reason (the line was absorbed at all — a row-matching
-// defect), and pinning its value would read as endorsing that.
+// not money — these reports space-group every amount above 999.
+//
+// This tail is now SYNTHETIC: RC-3d fixed the row-matching gap that produced it
+// (the ХИПОКРАТ line starts its own row since ROW_START_RE went `\d{1,2}`), so no
+// cached file absorbs it any more. Kept because the property must hold for ANY
+// future absorption — a Рег.№ leaking into the amount scan published МБАЛ-Девня
+// at €156,655,247. Asserted as a property rather than a value: pinning the number
+// would read as endorsing the absorption.
 test("a registration number in an absorbed line is never read as an amount", () => {
   const r = extractAmounts(
     "   МБАЛ- Девня ЕООД                     255       255\n" +
@@ -516,4 +521,87 @@ test("two complete same-line amounts are not fused into one", () => {
     cumulative: 255,
     month: 255,
   });
+});
+
+// ── RC-3d: the РЗОК code rendered without its leading zero.
+//
+// One row in the whole cache does it (bmp 2023-01), and under the old `\d{2}`
+// row-start it did not begin a row — so it was appended to the PREVIOUS row's
+// tail as a wrapped continuation, and МБАЛ-Девня published ХИПОКРАТ's 4,277 BGN
+// instead of its own 255 while ДЦ ХИПОКРАТ vanished from the report. The file's Σ
+// moved by 255 BGN (0.0001%), far under the reconciliation tolerance, so only the
+// facility-count assert ever saw it.
+//
+// ⚠️ Asserted through the EXPORTED `matchRowStart`, not a locally rebuilt regex.
+// The first version of this test rebuilt it, and both halves of the fix survived
+// mutation: reverting to `\d{2}` and deleting the `padStart` each left the whole
+// file green. Nothing in the repo failed if the fix was reverted.
+test("a РЗОК code without its leading zero still starts a row", () => {
+  const row = matchRowStart(
+    " 3     Варна                 23       0306391032   ДЦ ХИПОКРАТ ЕООД        4 277       4 277",
+  );
+  assert.ok(row, "the line must start a row");
+  assert.equal(row.rzokCode, "03", "the code is padded back to two digits");
+  assert.equal(row.rzokName, "Варна");
+  assert.equal(row.regNo, "0306391032");
+  assert.deepEqual(extractAmounts(row.tail), {
+    name: "ДЦ ХИПОКРАТ ЕООД",
+    cumulative: 4277,
+    month: 4277,
+  });
+});
+
+// An ordinary two-digit row is unaffected, and — FINDING-002 — the widening must
+// not turn a SUBTOTAL, a grand total or a page header into a facility row. None
+// carries ten contiguous digits, which is what `\d{10}` requires; these pin that.
+test("the widened row-start still refuses every non-facility line", () => {
+  assert.equal(
+    matchRowStart(
+      "                         13                    РЗОК Пазарджик        6 419 791        6 419 791",
+    ),
+    null,
+  );
+  assert.equal(
+    matchRowStart(
+      "                        381                    Общо РЗОК             942 127 532      191 249 510",
+    ),
+    null,
+  );
+  assert.equal(
+    matchRowStart("РЗОК                     Рег.№ ЛЗ          ЛЗ за БМП"),
+    null,
+  );
+  const ok = matchRowStart(
+    " 01    Благоевград         1       0103211001   МБАЛ Благоевград АД   4 684 771   903 437",
+  );
+  assert.equal(ok?.rzokCode, "01");
+  assert.equal(ok?.regNo, "0103211001");
+});
+
+// The corpus gate cannot see this. bmp 2023-01 is rejected by the count assert
+// under BOTH the old and the new row-start, so its rows never reach the gate's
+// fingerprint assertions — its stored name was literally
+// "МБАЛ- Девня ЕООД 255 255 3 Варна 23 0306391032 ДЦ ХИПОКРАТ ЕООД", a textbook
+// match for the amount-in-name fingerprint, discarded before anything looked. The
+// unit seam is the only guard for this class.
+test("two rows, one with a short РЗОК code, stay two rows", () => {
+  const rows = [
+    " 03    Варна   22   0314211005   МБАЛ- Девня ЕООД        255       255",
+    " 3     Варна   23   0306391032   ДЦ ХИПОКРАТ ЕООД      4 277     4 277",
+  ].map(matchRowStart);
+  assert.ok(
+    rows.every(Boolean),
+    "both lines must start their own row — otherwise the second is absorbed",
+  );
+  assert.deepEqual(
+    rows.map((r) => r?.rzokCode),
+    ["03", "03"],
+    "both group under one РЗОК",
+  );
+  for (const r of rows)
+    assert.doesNotMatch(
+      extractAmounts(r!.tail)!.name,
+      /[0-9]{1,3} [0-9]{3}/,
+      "an amount leaked into the stored name",
+    );
 });

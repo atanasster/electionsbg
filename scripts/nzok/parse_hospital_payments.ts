@@ -45,7 +45,18 @@ export interface HospitalPaymentsFile {
   /** Grand total from the "Общо РЗОК" header row (YTD), in euros. May be negative
    *  in principle (both downstream guards take `Math.abs`); never is in practice. */
   totalCumulativeEur: number;
+  /** Rows the parser produced — INCLUDING zero-payment facilities, which НЗОК
+   *  lists but does not count. NOT the header's own figure: that is
+   *  `headerFacilityCount`, which means "facilities paid this period" and is what
+   *  the count assert compares against. On bmp 2026-06 the two are 392 and 381,
+   *  and `write_hospital_payments.ts` publishes THIS one into a committed
+   *  artifact — so a consumer diffing it against НЗОК's printed header will see a
+   *  gap, by design. */
   facilityCount: number;
+  /** The count НЗОК prints on its own grand-total line ("facilities paid this
+   *  period"), or 0 when the line could not be read. Returned beside the parsed
+   *  count precisely because the two mean different things. */
+  headerFacilityCount: number;
   rows: HospitalPaymentRow[];
 }
 
@@ -566,7 +577,29 @@ export const extractAmounts = (
 // Whitespace separates the ordinal from the reg number and `\d{10}` needs ten
 // CONTIGUOUS digits, so an ordinal can never be mistaken for one; the optional
 // group is unambiguous in both directions.
-const ROW_START_RE = /^\s*(\d{2})\s+(\S[^\d]*?)\s+(?:\d+\s+)?(\d{10})\b(.*)$/;
+// ⚠️ The РЗОК code is `\d{1,2}`, NOT `\d{2}`, and the difference is one row of
+// real money. НЗОК renders the code with its leading zero in every line but one:
+// bmp 2023-01 prints „ 3     Варна   23   0306391032   ДЦ ХИПОКРАТ ЕООД   4 277"
+// with the zero dropped. Under `\d{2}` that line does not start a row — so it is
+// treated as a wrapped CONTINUATION and appended to its predecessor's tail, which
+// is the corruption the note above describes: МБАЛ-Девня ЕООД (0314211005) would
+// publish ХИПОКРАТ's 4,277 BGN instead of its own 255, and ДЦ ХИПОКРАТ disappears
+// from the report entirely. The whole-file Σ moves by 255 BGN — 0.0001% — so only
+// the facility-count assert ever saw it.
+//
+// Measured across the cache: widening to `\d{1,2}` newly matches that row and
+// nothing else — 3 occurrences, being two byte-identical copies of bmp 2023-01
+// plus a probe file the loader's YEARS excludes. No line stops matching. The code
+// is padded back to two digits in `matchRowStart` so a short-rendered row still
+// groups with its own РЗОК.
+//
+// ⚠️ This does NOT put ДЦ ХИПОКРАТ on the site. bmp 2023-01 is still rejected —
+// the facility-count assert now reads 364 paid against a header of 373 — so the
+// served corpus is unchanged and this is a PRE-CONDITION for Tier 2 rather than a
+// corpus repair. What it does change is that the file's blocks now reconcile to
+// НЗОК's own subtotals exactly, so when Tier 2 admits the month it admits a
+// correct one.
+const ROW_START_RE = /^\s*(\d{1,2})\s+(\S[^\d]*?)\s+(?:\d+\s+)?(\d{10})\b(.*)$/;
 // `bmp` labels its grand total "Общо РЗОК"; `drugs`/`devices` label theirs
 // "ОБЩО" (all-caps, no "РЗОК"). Both are followed by the per-РЗОК subtotals,
 // which carry no 10-digit reg number and so can never match ROW_START_RE.
@@ -607,6 +640,37 @@ export const readTotalLine = (
   );
   if (!amts.length) return null;
   return { count: Number(cnt[1]), cumulative: amts[0] };
+};
+
+/**
+ * Does this line START a facility row, and if so what are its four fields?
+ *
+ * Exported for testing: RC-3d lives in WHICH LINES START A ROW and in the
+ * zero-padding of the captured code, and neither is visible to `extractAmounts`,
+ * which only ever sees the tail. A test that rebuilds the regex locally instead
+ * of calling this passes with the fix REVERTED — measured, both halves survived
+ * that mutation.
+ */
+export const matchRowStart = (
+  line: string,
+): {
+  rzokCode: string;
+  rzokName: string;
+  regNo: string;
+  tail: string;
+} | null => {
+  const m = line.match(ROW_START_RE);
+  if (!m) return null;
+  const [, code, name, regNo, rest] = m;
+  return {
+    // Padded: the code is a 2-digit РЗОК identifier and one line in the corpus
+    // renders it without its leading zero. Storing "3" beside "03" would split
+    // one region's facilities across two codes in every rollup.
+    rzokCode: code.padStart(2, "0"),
+    rzokName: name.trim(),
+    regNo,
+    tail: rest,
+  };
 };
 
 export const parseHospitalPaymentsPdf = (
@@ -667,11 +731,10 @@ export const parseHospitalPaymentsPdf = (
   };
 
   for (const line of lines) {
-    const start = line.match(ROW_START_RE);
+    const start = matchRowStart(line);
     if (start) {
       flush();
-      const [, rzokCode, rzokNameRaw, regNo, rest] = start;
-      pending = { rzokCode, rzokName: rzokNameRaw.trim(), regNo, tail: rest };
+      pending = { ...start };
       continue;
     }
     if (BREAK_RE.test(line) || line.trim() === "") {
@@ -728,6 +791,7 @@ export const parseHospitalPaymentsPdf = (
     currencyOfRecord: currency,
     totalCumulativeEur,
     facilityCount: rows.length,
+    headerFacilityCount,
     rows,
   };
 };

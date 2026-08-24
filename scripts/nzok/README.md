@@ -20,17 +20,17 @@ served from the GCS bucket, not the deploy.
 
 ## Files (all committed under `data/budget/nzok/`)
 
-| File | Generator | Source (nhif.bg) | Notes |
-|---|---|---|---|
-| `budget.json` | `scripts/budget/nzok/__write_budget.ts` | ЗБНЗОК law (hard-keyed) | 2026 draft (EUR) + 2025 law (BGN→EUR). Reserve = residual to headline. Add a year by appending to `YEARS`. |
-| `hospital_payments.json` | `write_hospital_payments.ts` | `/bg/hospitals/bmp/{year}` PDF | Latest monthly per-hospital БМП. `pdftotext -layout`, wrap-tolerant, reconciliation+count assert. Each row carries `eik` from the crosswalk. **Now the crosswalk universe + parity net — the tile is PG-served** (see Shipped below). ~90 KB (381 facilities). |
-| `drug_reimbursement.json` | `write_drug_reimbursement.ts` | `/bg/medicine_food/quarter-payments/{year}` XLS | Annual gross reimbursement → top-25 INN + ATC groups. BGN→EUR; Cyrillic/Latin INN homoglyphs normalized. |
-| `execution.json` | `write_execution.ts` | `/bg/nzok/financial_report/quarter` B1_5600 XLS | Latest monthly cash execution (revenue + expenditure YTD). EBK `Sheet1`, EUR-native from 2026. |
-| `execution_annual.json` | `write_execution_annual.ts` | annual „Сборен отчет за касовото изпълнение“ scans on `/bg/nzok/financial_report/{year}` | Hand-verified **full-year (December) points for 2022-2024** — the years the `/quarter` B1 feed lists only through month 11, so their `y:<year>` hub scopes were ~8-11% understated. Column (1) БЮДЖЕТ (5600 basis), хил. лв → EUR. Values are pinned (the scans are fixed audited reports), self-checked by the EBK identity А−Б+В=Г and the next-year report's prior-year column; `--ocr-crosscheck` warns on drift. `write_execution.ts` merges these month-12 points into `execution_history.json`, and a real December B1 on `/quarter` supersedes them automatically. |
-| `hospital_eik.json` | `write_hospital_eik.ts` (`--crosswalk`) | НЗОК договорни партньори + Търговски регистър (PG) | The **Рег.№ ЛЗ → EIK crosswalk**. One entry per facility with `eik` (null when unmatched) + match `method`. 265/381 matched = **93% of YTD €** (verified: 0 false positives). Needs local PG. |
-| `hospital_reimbursement_by_eik.json` | `write_hospital_payments.ts` | (derived) | Reverse index keyed by EIK (~256 companies) summing each company's ЛЗ facilities. Feeds the reimbursement tile on `/company/:eik`. |
-| `hospital_revenue.json` | `write_hospital_revenue.ts` (`--revenue`) | Търговски регистър ГФО (`portal.registryagency.bg`) via the TR daily open-data feed + Gemini OCR | Private-hospital **annual revenue** (2019–2024), recovered from each hospital's filed ГФО (state/municipal file ЕЕОФ instead). 127 hospitals, ~611 hospital-years. Resumable (only fills empty cells). Needs `GEMINI_API_KEY` + local PG. See below. |
-| `public_private.json` | `write_public_private.ts` (`--revenue`) | (derived) | The **public-vs-private band** blob: ownership split of НЗОК money + the 50%-threshold stats + who runs ЗОП tenders. Joins ownership + reimbursement-by-EIK + revenue + the PG contracts corpus. |
+| File                                 | Generator                                 | Source (nhif.bg)                                                                                 | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------------------------------ | ----------------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `budget.json`                        | `scripts/budget/nzok/__write_budget.ts`   | ЗБНЗОК law (hard-keyed)                                                                          | 2026 draft (EUR) + 2025 law (BGN→EUR). Reserve = residual to headline. Add a year by appending to `YEARS`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `hospital_payments.json`             | `write_hospital_payments.ts`              | `/bg/hospitals/bmp/{year}` PDF                                                                   | Latest monthly per-hospital БМП. `pdftotext -layout`, wrap-tolerant, reconciliation+count assert. Each row carries `eik` from the crosswalk. **Now the crosswalk universe + parity net — the tile is PG-served** (see Shipped below). ~90 KB (381 facilities).                                                                                                                                                                                                                                                                                                             |
+| `drug_reimbursement.json`            | `write_drug_reimbursement.ts`             | `/bg/medicine_food/quarter-payments/{year}` XLS                                                  | Annual gross reimbursement → top-25 INN + ATC groups. BGN→EUR; Cyrillic/Latin INN homoglyphs normalized.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `execution.json`                     | `write_execution.ts`                      | `/bg/nzok/financial_report/quarter` B1_5600 XLS                                                  | Latest monthly cash execution (revenue + expenditure YTD). EBK `Sheet1`, EUR-native from 2026.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `execution_annual.json`              | `write_execution_annual.ts`               | annual „Сборен отчет за касовото изпълнение“ scans on `/bg/nzok/financial_report/{year}`         | Hand-verified **full-year (December) points for 2022-2024** — the years the `/quarter` B1 feed lists only through month 11, so their `y:<year>` hub scopes were ~8-11% understated. Column (1) БЮДЖЕТ (5600 basis), хил. лв → EUR. Values are pinned (the scans are fixed audited reports), self-checked by the EBK identity А−Б+В=Г and the next-year report's prior-year column; `--ocr-crosscheck` warns on drift. `write_execution.ts` merges these month-12 points into `execution_history.json`, and a real December B1 on `/quarter` supersedes them automatically. |
+| `hospital_eik.json`                  | `write_hospital_eik.ts` (`--crosswalk`)   | НЗОК договорни партньори + Търговски регистър (PG)                                               | The **Рег.№ ЛЗ → EIK crosswalk**. One entry per facility with `eik` (null when unmatched) + match `method`. 265/381 matched = **93% of YTD €** (verified: 0 false positives). Needs local PG.                                                                                                                                                                                                                                                                                                                                                                              |
+| `hospital_reimbursement_by_eik.json` | `write_hospital_payments.ts`              | (derived)                                                                                        | Reverse index keyed by EIK (~256 companies) summing each company's ЛЗ facilities. Feeds the reimbursement tile on `/company/:eik`.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `hospital_revenue.json`              | `write_hospital_revenue.ts` (`--revenue`) | Търговски регистър ГФО (`portal.registryagency.bg`) via the TR daily open-data feed + Gemini OCR | Private-hospital **annual revenue** (2019–2024), recovered from each hospital's filed ГФО (state/municipal file ЕЕОФ instead). 127 hospitals, ~611 hospital-years. Resumable (only fills empty cells). Needs `GEMINI_API_KEY` + local PG. See below.                                                                                                                                                                                                                                                                                                                       |
+| `public_private.json`                | `write_public_private.ts` (`--revenue`)   | (derived)                                                                                        | The **public-vs-private band** blob: ownership split of НЗОК money + the 50%-threshold stats + who runs ЗОП tenders. Joins ownership + reimbursement-by-EIK + revenue + the PG contracts corpus.                                                                                                                                                                                                                                                                                                                                                                           |
 
 `parse_hospital_payments.ts` is the shared, reconciliation-asserted PDF parser.
 
@@ -78,7 +78,7 @@ the Рег.№). So the crosswalk is a **high-precision verified match**, not a 
 - **xlsx**: the bundled build has file access disabled — read with
   `xlsx.read(fs.readFileSync(path), { type: "buffer", codepage: 1251 })`, never
   `xlsx.readFile`.
-- **B1 layout**: НЗОК's B1 (fund 5600) uses `Sheet1`/`INF`/`list` — a *different*
+- **B1 layout**: НЗОК's B1 (fund 5600) uses `Sheet1`/`INF`/`list` — a _different_
   template from NSSI's B1 (`OTCHET-agregirani`), so the NOI parser is **not**
   reusable; `write_execution.ts` reads the EBK section totals directly.
 - Raw downloads cache under `raw_data/nzok/` (gitignored).
@@ -92,34 +92,44 @@ the Рег.№). So the crosswalk is a **high-precision verified match**, not a 
   Cloud SQL. The static `hospital_payments.json` / `hospital_reimbursement_by_eik.json`
   are now the **crosswalk universe + parity net**, not the serving path.
 - **Watcher + skill** — three watch sources (`scripts/watch/sources/nzok_*.ts`)
-  + the `update-nzok` skill refresh these on the daily watcher (the skill wires
-  the PG reload; see FINDING-001 in the review).
+  - the `update-nzok` skill refresh these on the daily watcher (the skill wires
+    the PG reload; see FINDING-001 in the review).
 
 ## Not yet built (the roadmap)
 
 - **Crosswalk tail** — 111 small facilities (6.9% of YTD €) stay `eik: null`;
   extend `MANUAL_OVERRIDES` or the matcher to chip away at them. Re-run
   `--crosswalk` and re-audit (0 false positives is the bar) before shipping.
-- **Backfill status** (2026-07-07): **2023-2026 loaded** into `nzok_hospital_payments`
-  — 35 months / 13,296 rows (the loader's `YEARS`, reconciliation-asserted per
-  month). Remaining tail:
+- **Backfill status** (2026-08-25): **2023-2026 loaded** into `nzok_hospital_payments`
+  — bmp 38 / drugs 40 / devices 25 months, 19,109 rows (the loader's `YEARS`,
+  reconciliation-asserted per month). Remaining tail:
   - **3-column early-year files — SOLVED** (2026-07-07). `extractAmounts` reads
     cumulative as `max(first-amount-after-the-last-name-letter, second-to-last-
-    amount)` — the cumulative YTD is the largest money figure in a row, so the max
+amount)` — the cumulative YTD is the largest money figure in a row, so the max
     unifies the 3-column merge, a name glued to the amount, a wrapped trailing
-    name fragment, and a name-index digit. Feb files parse. **Residual**: Jan
-    files fail a *count* check (8 facility rows don't match `ROW_START_RE` — a
-    row-matching issue) and 4 mid-2024 months drift ~0.54% (just over the 0.5%
-    reconciliation tolerance, systematic — not one bad row). Assert-rejected (no
-    wrong data); each needs its own per-file look.
-  - **Assert-tolerance gap (lesson)**: the reconciliation assert is ±0.5%, which
-    can't go lower without rejecting the legitimately-drifting 2024 files — so a
-    sub-0.5% per-row misparse (a €201K/€942M = 0.02% cumulative regression from an
-    earlier parser rev) shipped and was only caught by a manual total check. A
-    stronger guard (per-row sanity, or cumulative-monotonic-vs-prior-period) would
-    catch that class; TODO.
+    name fragment, and a name-index digit. Feb files parse.
+  - **Row-matching residual — SOLVED** (2026-08-25). The "8 January facility rows
+    don't match `ROW_START_RE`" figure that stood here predated both the optional
+    ordinal (`d2edc80b73`) and RC-3d, and is no longer a row-matching problem at
+    all: bmp 2023-01 now matches **373 of the 373 rows it lists**. What still
+    rejects it is the _count model_ — 364 rows carry money against a header of 373
+    — which is RC-3(a)/(c) in
+    `docs/plans/nzok-hospital-parser-hardening-v1.md` §3, closed by that plan's
+    Tier 2 rather than by the parser.
+  - **The mid-2024 drift — SOLVED** (2026-08-25). It was never "systematic, not one
+    bad row": it was exactly one row per file, a wrapped МИ-МВР / ДЪЧМЕД name
+    whose amount the extractor read out of a name fragment (RC-4 ii/iii). Every
+    published block's YTD now reconciles to НЗОК's own per-РЗОК subtotal exactly.
+  - **Assert-tolerance gap (lesson, now closed at the gate)**: the reconciliation
+    assert is ±0.5%, and a sub-tolerance per-row misparse shipped repeatedly — a
+    €201K/€942M (0.02%) regression caught only by a manual total check, and later
+    €1.67M across 11 loaded months that nothing caught at all. The stronger guard
+    this entry asked for exists: `hospital_payments_corpus.test.ts` reconciles
+    every РЗОК block against the subtotal НЗОК prints above it, in both the YTD and
+    the month arm. That is what a per-file drift number cannot do — a block sum
+    localises the bad row instead of averaging it away.
   - **≤2022** — naming shifts mid-2022 ("по реда на НРД"), 2020-2021 use
-    "Заплатени средства за БМП (КП, КПр и АПр)" with the period in the *filename*
+    "Заплатени средства за БМП (КП, КПр и АПр)" with the period in the _filename_
     not the PDF text, and 2019- differ further. Each era needs its own link
     pattern + a period-from-filename fallback + the 2022 wrap-drop fix. Add years
     to the loader's `YEARS` as each era is hardened.
