@@ -11,6 +11,7 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import {
   clearDeclarationDetailCache,
+  clearPersonDeclarationsCache,
   type DeclarationListItem,
 } from "./usePersonDeclarations";
 
@@ -70,11 +71,13 @@ const stub = (rows: DeclarationListItem[]) =>
       }) as unknown as Response) as unknown as typeof fetch,
   );
 
-afterEach(() =>
-  // useDeclarationDetail caches per filing id at MODULE scope, so without this a later
-  // case asking for the same id reads the first case's payload.
-  clearDeclarationDetailCache(),
-);
+afterEach(() => {
+  // Both hooks in this module cache at MODULE scope, so without this a later case asking
+  // for the same id — or the same slug, and several cases below share `slug="x"` — reads
+  // the first case's payload.
+  clearDeclarationDetailCache();
+  clearPersonDeclarationsCache();
+});
 
 describe("PersonDeclarations", () => {
   it("headlines the first ASSET-BEARING row of the server's byRecency order", async () => {

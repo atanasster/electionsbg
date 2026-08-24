@@ -24,6 +24,7 @@ import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
 import { PersonMpSections } from "./PersonMpSections";
 import { useMpOwnsDeclarations } from "./useMpOwnsDeclarations";
 import { PersonDeclarations } from "./PersonDeclarations";
+import { PersonDeclarationTimeline } from "./PersonDeclarationTimeline";
 import { PersonNoDeclarationNote } from "./PersonNoDeclarationNote";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { PersonProcurementSection } from "./PersonProcurementSection";
@@ -621,6 +622,15 @@ const PersonDashboardBody: FC<{ p: PersonProfile; mpId: number | null }> = ({
             when nothing matches. */}
           {p.roles.some((r) => r.source === "magistrate") && (
             <PersonMagistrateHoldingsTile name={p.name} />
+          )}
+
+          {/* …and when the SAME person also filed with the Сметна палата, the two registers
+            interleaved chronologically so a career that crossed between them reads as one.
+            Measured: 59 people have filings in both — a magistrate who was an MP, a minister
+            who returned to the bench. Self-hides unless both are non-empty, and deliberately
+            never sums them: the two are kept on different bases. */}
+          {p.roles.some((r) => r.source === "magistrate") && (
+            <PersonDeclarationTimeline slug={p.slug} name={p.name} />
           )}
 
           {/* Companies (TR registry footprint) with the MP's declared ownership stakes folded in. */}

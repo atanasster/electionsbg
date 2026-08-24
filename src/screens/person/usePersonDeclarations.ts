@@ -58,6 +58,32 @@ export type DeclarationListItem = {
   usedContractEur: number;
 };
 
+// One in-flight promise per slug, shared by every component that asks in the same session.
+//
+// The same shape and the same reason as `detailCache` below: TWO blocks on /person now read
+// this list — `PersonDeclarations` and `PersonDeclarationTimeline` — and without a cache each
+// pays its own round trip for a byte-identical payload, on all 3,594 magistrate profiles, of
+// which 3,535 render the timeline as nothing. Caches the PROMISE rather than the value so two
+// components mounting in the same tick share one request instead of racing two.
+const listCache = new Map<string, Promise<DeclarationListItem[]>>();
+
+/** Drop every cached list. Exists for TESTS — module scope outlives `vi.unstubAllGlobals()`,
+ *  so a second case asking for the same slug would silently receive the first case's payload.
+ *  Nothing in the app calls it: a published filing does not change. */
+export const clearPersonDeclarationsCache = (): void => listCache.clear();
+
+const fetchList = (slug: string): Promise<DeclarationListItem[]> => {
+  let p = listCache.get(slug);
+  if (!p) {
+    p = fetch(`/api/db/person-declarations?slug=${encodeURIComponent(slug)}`)
+      .then((r) => r.json())
+      .then((j: DeclarationListItem[]) => (Array.isArray(j) ? j : []))
+      .catch(() => []);
+    listCache.set(slug, p);
+  }
+  return p;
+};
+
 export const usePersonDeclarations = (
   slug: string,
 ): DeclarationListItem[] | undefined => {
@@ -71,12 +97,9 @@ export const usePersonDeclarations = (
       setRows([]);
       return;
     }
-    fetch(`/api/db/person-declarations?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
-      .then((j: DeclarationListItem[]) => {
-        if (live) setRows(Array.isArray(j) ? j : []);
-      })
-      .catch(() => live && setRows([]));
+    fetchList(slug).then((j) => {
+      if (live) setRows(j);
+    });
     return () => {
       live = false;
     };
