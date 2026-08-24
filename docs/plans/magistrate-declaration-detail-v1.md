@@ -377,18 +377,76 @@ a flow-basis table is kept out of a stock-basis net worth.
 
 ### Tier 3 — the backfill (operator run, after Tier 2 lands)
 
-**3a — measure the baseline coverage first.** Per Finding 0b, whether a holdings figure is
-publishable for a given magistrate turns on whether a **stock snapshot** (entry or leaving
-declaration) exists inside the 2017+ window, and the type is only readable from the PDF. A
-cheap stratified pass — page 2 only, type marker + period line, ~0.7 s per filing — answers
-"for how many of the 5,579 do we have a baseline?" before committing to the full crawl. If
-the answer is a small minority, the estate model is a per-magistrate capability, not a
+**3a — measure the baseline coverage first. BUILT:**
+`scripts/judiciary/measure_declaration_kinds.ts`.
+
+Per Finding 0b, whether a holdings figure is publishable for a given magistrate turns on
+whether a **stock snapshot** (entry or leaving declaration) exists inside the 2017+ window,
+and the kind is readable only from the PDF — the register's index carries nothing that
+distinguishes an entry filing from an annual, and its `batch` field is the directory, which
+the ИВСС does not use consistently. So the script opens documents, but **page 2 only**, where
+the form prints both the kind and the covered period.
+
+It samples at the grain the question is actually asked at: `--magistrates N` picks N *people*
+and reads **all** of their filings, because „does THIS person have a snapshot" is not
+answerable from a share of filings. `--all` is the full-corpus operator run — 51,040 filings,
+roughly 20 hours of polite fetching.
+
+If the answer is a small minority, the estate model is a per-magistrate capability, not a
 corpus-wide feature, and the UI must say which magistrates it can and cannot answer for.
 
-**3b — the full crawl: ALL 51,040 filings, every magistrate, every year, both batches.**
+#### Baseline-coverage result — 2026-08-25, 40 magistrates / 355 filings, seed 7
+
+**It IS a small minority. ⭐ 4 of 40 sampled magistrates have a stock snapshot — a point
+estimate of 10%, 95% CI [2.8%, 23.7%]**, i.e. somewhere between ~156 and ~1,322 of the 5,579.
+
+| | |
+|---|---|
+| filings read | 355 / 355, none unreadable |
+| kind, per filing | annual **63.9%** · unknown **34.6%** · entry **1.4%** |
+| covered period printed | 217 / 355 (61.1%) |
+| **magistrates with an entry or exit filing** | **4 / 40** — 10%, CI [2.8%, 23.7%] |
+
+⚠️ **Quote the interval, not the 10%.** The design conclusion below holds across the *whole*
+interval — even at the optimistic end, three magistrates in four have no baseline — which is
+what makes a 40-magistrate sample adequate for the decision while being far too small for the
+headline. Two biases also run in opposite directions and are not corrected for: the script
+samples NAMES, and Tier 1 measured 7.3% of names as provably covering more than one human,
+which biases the share **up**; while a filing whose kind is unreadable cannot be counted as a
+snapshot, which biases it **down**. On that second point the 34.6% `unknown` is not a
+"second, independent ceiling" as an earlier draft of this section called it — it is
+measurement error *inside* the same number.
+
+So for most magistrates the register holds acquisitions and disposals with **no opening
+balance**, and no arithmetic over them yields an estate. That settles the design question
+Finding 0b left open:
+
+- **„What this magistrate owns" is not a corpus-wide feature and must never be presented as
+  one.** Where it can be computed at all it is a per-person capability, and the surface has
+  to say which people it can answer for — an estate figure shown for the 10% and silently
+  absent for the rest reads as „this judge owns nothing".
+- **The per-filing corpus is still worth building for everything else.** Acquisitions,
+  disposals, the declared period and the property detail on `/person` are all per-filing facts
+  that need no baseline. Only the *net estate* needs one.
+- **34.6% of filings state no kind at all** — mostly older forms whose marker row the ИВСС
+  does not print. For those the pipeline cannot tell whether it is looking at a snapshot, so
+  they can only ever count against the share.
+
+⚠️ Sample, not a census — 40 of 5,579 magistrates. The `--all` run settles it exactly, and is
+the same crawl Tier 3b needs, so the two should be paid for once.
+
+**3b — the full crawl: ALL 51,040 filings, every magistrate, every year, both batches.
+BUILT: `scripts/judiciary/crawl_declarations.ts`.**
+
 Target state is one parsed record per *filing*, not per magistrate — 51,040 records over
-5,579 people, 2017–2026 — of which 3,596 are already cached, leaving **~47,400 to fetch**
-(~7 h at CONC=4).
+5,579 people, 2017–2026.
+
+⚠️ **The existing 3,596-entry holdings cache does NOT carry over, and an earlier draft of this
+line said it did** ("leaving ~47,400 to fetch"). That cache is keyed by NAME and holds one
+parse per magistrate; this corpus is keyed by the register's pdf path and holds one per
+filing. Nothing is shared, so the crawl fetches all 51,040. Measured live at **~3.8
+filings/s** with CONC=4 — about **3.5 hours**, and it is resumable per filing, so an
+interruption costs only the current checkpoint interval.
 
 ⚠️ **This is not "run the existing crawler longer".** Four structures in the current
 pipeline forbid it, and all four have to be lifted first — they are the actual work of
@@ -417,10 +475,12 @@ from this source reaches their `/person` page at all. That is a fifth of a perce
 register getting no ИВСС surface, for a reason that is purely an artifact of how the roster
 is built.
 
-Sizing to settle when scoping: per-filing extracted rows are ~2–4 KB, so the corpus is
-~100–200 MB — too large for the current single committed JSON. Either per-magistrate
-shards or PG-only (loaded from the gitignored cache, `REFRESH_EXCLUSIONS`-style, as the
-CR-deeds and dossier corpora already are).
+Sizing, now MEASURED rather than estimated: the per-filing cache runs **~529 B/record**, so
+the full 51,040-filing corpus is **~27 MB**, not the ~100-200 MB an earlier draft of this
+line guessed. (For scale, the existing per-magistrate `holdings_cache.json` is 1.6 MB.) That
+is small enough that the shards-vs-PG question does not force itself — PG-only, loaded from
+the gitignored cache `REFRESH_EXCLUSIONS`-style like the CR-deeds and dossier corpora, is the
+straightforward choice rather than a size-driven one.
 
 Sequencing note: only worth spending once Tier 2 can extract something per filing worth
 storing. Before that, Tier 1 already gives every year a link **without fetching anything** —
