@@ -39,7 +39,19 @@ CREATE TABLE IF NOT EXISTS kzk_appeals (
   subject         text,                  -- Предмет
   match           text NOT NULL DEFAULT 'exact',  -- exact | unresolved (unp not in tenders)
   -- tier-2 outcome (from Решения/Определения; null until backfilled)
-  outcome         text,                  -- уважена | отхвърлена | прекратена | частично
+  -- уважена | отхвърлена | прекратена  — the only codes classifyOutcome emits,
+  -- and measured, the only three ever stored (983 / 2,091 / 4).
+  --
+  -- `частично` is RESERVED and deliberately unreachable: kzk_match.ts's
+  -- classifyOutcome header explains that scoring a part-uphold as `уважена` is
+  -- what keeps a part-upheld procedure INSIDE the risk index, so using the code
+  -- would change what the index measures rather than fix anything.
+  -- `без разглеждане` is mapped in src/lib/kzkLabels.ts but no writer produces it.
+  --
+  -- ⚠️ `отказана` is NOT in this list and must never be written here: it is
+  -- DERIVED from `status` by kzk_effective_outcome() and deliberately not stored.
+  -- See that function for why storing it would break 131's provenance rule.
+  outcome         text,
   decision_date   text,
   suspension      boolean,               -- спиране temporary measure granted
   source_url      text NOT NULL,
@@ -96,6 +108,75 @@ CREATE OR REPLACE FUNCTION kzk_effective_suspension(
   SELECT COALESCE(p_suspension, p_status ~* 'спрян');
 $$;
 
+-- The effective OUTCOME. Same shape, same reason, one register field over.
+--
+-- `отказано производство` — КЗК refused to open proceedings — is a DETERMINATE
+-- TERMINAL STATE, not a missing value: the filing was denied and will never be
+-- reviewed on the merits. 1,661 of 7,998 appeals (20.8%) carry it, and every
+-- surface rendered them as a blank outcome.
+--
+-- ⚠️⚠️ THIS IS DERIVED AT QUERY TIME AND MUST NEVER BE STORED, and the reason is
+-- not obvious. The obvious implementation — `UPDATE kzk_appeals SET outcome = …
+-- WHERE status = 'отказано производство'` — SILENTLY DESTROYS THE PROVENANCE
+-- GUARD that protects the ~2,098 irreplaceable hand-seeded rows. 131's rule is
+-- the ONLY test of provenance:
+--
+--     decision_act_no IS NOT NULL  → machine-derived, may be overwritten
+--     decision_act_no IS NULL      → hand-seeded, NEVER written
+--
+-- A status-derived outcome has a THIRD provenance — neither hand-made nor
+-- act-derived — and carries no act number, so it lands in the protected bucket.
+-- Measured: the guarded population would go 2,098 → 3,759, and
+-- kzk_appeals_provenance.data.test.ts would STAY GREEN, because its floor is a
+-- `>=`. That is exactly the laundering hazard kzk_baselines.ts's
+-- HAND_SEEDED_FLOOR comment describes. It would also freeze those 1,661 rows
+-- against every future matcher improvement, since the rule refuses to overwrite
+-- them.
+--
+-- Deriving it stores nothing, so `decision_act_no IS NULL` keeps meaning what it
+-- has always meant, and `kzk_baselines.outcomes` (which counts the stored column)
+-- does not move — correct, because 1,661 outcomes appearing from a re-reading of
+-- `status` is not the matcher getting better, and letting it raise the ratchet
+-- would mask a later real regression.
+--
+-- THE STORED VALUE WINS. 12 appeals carry BOTH this status and a merits outcome
+-- (9 уважена, 3 отхвърлена) — all 12 hand-seeded. Either the status is stale or
+-- the seeding was wrong; either way COALESCE keeps the human's answer, the same
+-- precedence kzk_effective_suspension uses.
+--
+-- ⚠️ WHAT MUST *NOT* USE THIS, and why each one:
+--
+--   * `upheld_ocids` (below) and `buyer_appeal_stats` — they filter `outcome =
+--     'уважена'` on the RAW column. A refusal is not an uphold, and that matview
+--     feeds the contract Corruption Risk Index.
+--   * `partitionByProvenance()` (kzk_provenance.ts) — it reasons about the
+--     STORED value; feeding it a derived one would make 1,661 rows look
+--     hand-seeded, which is the defect this whole design avoids.
+--   * `kzk_appeals_summary()`'s `upheld` / `rejected` counters (044) — merits
+--     verdicts, same reason as upheld_ocids. Its `with_outcome` DOES use this
+--     one: that counter asks "has a published ending", which a refusal is.
+--     ⚠️ 044 was missed on the first pass of this change and answered 3,078
+--     where /procurement/appeals published 4,727; it has a TypeScript twin in
+--     build_kzk_summary.ts that must move with it.
+--
+-- No writer reads `kzk_appeals_list`, so the derived value cannot launder itself
+-- back into storage: kzk_rejoin.ts, kzk_appeals.ts, kzk_dependents.ts and the
+-- provenance rule all select FROM kzk_appeals. Keep it that way.
+--
+-- NOT STRICT, for the reason declared_label() in 089 is not: STRICT returns NULL
+-- for a NULL first argument, which is every row this exists for.
+--
+-- Plan: docs/plans/kzk-columnshift-and-cloud-parity-v1.md §7.1.
+CREATE OR REPLACE FUNCTION kzk_effective_outcome(
+  p_outcome text,
+  p_status  text
+) RETURNS text LANGUAGE sql IMMUTABLE AS $$
+  SELECT COALESCE(
+    p_outcome,
+    CASE WHEN p_status ~* 'отказано' THEN 'отказана' END
+  );
+$$;
+
 -- Appeals for one procedure (by УНП; the tender page passes its unp). Ordered
 -- newest complaint first.
 DROP FUNCTION IF EXISTS tender_appeals(text);
@@ -110,7 +191,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'vmRequested', vm_requested,
     'status', status,
     'subject', subject,
-    'outcome', outcome,
+    -- Effective outcome, NOT the raw column: a refused proceeding is a terminal
+    -- state the register publishes, and rendering it blank hid it on 1,661 rows.
+    'outcome', kzk_effective_outcome(outcome, status),
     'decisionDate', decision_date,
     -- Effective suspended state: the `suspension` column is TIER-2-ONLY (the
     -- decisions register); intake writes NULL. Fall back to the fresh intake
@@ -139,7 +222,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
            a.subject,
            a.vm_requested AS "vmRequested",
            a.status,
-           a.outcome,
+           -- effective outcome (tier-2 column OR a refused proceeding) — see
+           -- kzk_effective_outcome.
+           kzk_effective_outcome(a.outcome, a.status) AS outcome,
            -- effective suspended (tier-2 column OR fresh intake status) — see
            -- tender_appeals above.
            kzk_effective_suspension(a.suspension, a.status) AS suspension,
@@ -264,7 +349,11 @@ SELECT a.complaint_no,
        a.complainant,
        a.subject,
        a.status,
-       a.outcome,
+       -- The effective outcome, NOT the raw column — the same rule as
+       -- `suspension` below, and this view is where that one was got wrong once.
+       -- /procurement/appeals filters `outcome` as a facet, so a refused
+       -- proceeding must be a value there rather than an empty cell.
+       kzk_effective_outcome(a.outcome, a.status) AS outcome,
        a.decision_date,
        -- WHICH act produced that outcome (131). Exposed so a classification can be
        -- traced back to its ruling from /procurement/appeals rather than only from

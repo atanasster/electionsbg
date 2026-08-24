@@ -10,28 +10,7 @@ import { useTranslation } from "react-i18next";
 import { Gavel } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useAwarderAppeals } from "@/data/procurement/useAwarderAppeals";
-
-const outcomeChip = (
-  outcome: string | null,
-  status: string | null,
-  bg: boolean,
-) => {
-  if (outcome === "уважена")
-    return {
-      text: bg ? "уважена" : "upheld",
-      cls: "bg-red-500/15 text-red-700 dark:text-red-300",
-    };
-  if (outcome === "отхвърлена")
-    return {
-      text: bg ? "отхвърлена" : "rejected",
-      cls: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
-    };
-  if (outcome) return { text: outcome, cls: "bg-muted text-muted-foreground" };
-  return {
-    text: status || (bg ? "в производство" : "pending"),
-    cls: "bg-amber-500/15 text-amber-700 dark:text-amber-400",
-  };
-};
+import { outcomeChip } from "./appealOutcomeChip";
 
 export const AwarderAppealsTile: FC<{ eik: string }> = ({ eik }) => {
   const { i18n } = useTranslation();

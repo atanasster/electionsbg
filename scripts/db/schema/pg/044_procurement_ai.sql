@@ -143,6 +143,14 @@ CREATE OR REPLACE FUNCTION kzk_appeals_summary()
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH base AS (
     SELECT a.complaint_date, a.match, a.outcome,
+           -- ⚠️ TWO outcome columns on purpose, and the pairing below is the
+           -- point. `outcome` (raw) counts UPHELD and REJECTED, which are merits
+           -- verdicts; `eff_outcome` counts WITH_OUTCOME, which asks "does this
+           -- appeal have a published ending at all" — and a refused proceeding
+           -- does. This CTE adopted kzk_effective_suspension and left
+           -- with_outcome raw, so the AI tool answered 3,078 while
+           -- /procurement/appeals published 4,727 for the same question.
+           kzk_effective_outcome(a.outcome, a.status) AS eff_outcome,
            kzk_effective_suspension(a.suspension, a.status) AS suspended,
            a.buyer_eik,
            -- canonical buyer name preferred (tenders corpus), else КЗК respondent.
@@ -153,7 +161,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   totals AS (
     SELECT count(*)                                           AS complaints,
            count(*) FILTER (WHERE match = 'exact')            AS resolved,
-           count(*) FILTER (WHERE outcome IS NOT NULL)        AS with_outcome,
+           count(*) FILTER (WHERE eff_outcome IS NOT NULL)    AS with_outcome,
+           -- Raw, deliberately: these two are MERITS verdicts and a refusal is
+           -- not one. Keeping them on the raw column is also what stops the
+           -- derived value reaching anything that counts upholds.
            count(*) FILTER (WHERE outcome = 'уважена')        AS upheld,
            count(*) FILTER (WHERE outcome = 'отхвърлена')     AS rejected,
            count(*) FILTER (WHERE suspended)                  AS suspended

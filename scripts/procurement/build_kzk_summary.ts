@@ -68,11 +68,16 @@ const main = () => {
     // Effective suspended = tier-2 column OR fresh intake status (спрян…) —
     // mirrors tender_appeals / kzk_recent_appeals; intake no longer stores a bool.
     if (a.suspension || (a.status && /спрян/i.test(a.status))) suspended++;
-    if (a.outcome) {
-      withOutcome++;
-      if (a.outcome === "уважена") upheld++;
-      else if (a.outcome === "отхвърлена") rejected++;
-    }
+    // ⚠️ TWO questions, two columns — the SQL twin in 044 pairs these the same
+    // way and must move with this block. "Has a published ending" includes a
+    // REFUSED proceeding (kzk_effective_outcome in 042: status ~* 'отказано'),
+    // which is 1,661 appeals; "was upheld / rejected" are merits verdicts and a
+    // refusal is neither, so those two stay on the raw value. Counting
+    // withOutcome raw is what made the AI answer 3,078 where the site published
+    // 4,727.
+    if (a.outcome || /отказано/i.test(a.status ?? "")) withOutcome++;
+    if (a.outcome === "уважена") upheld++;
+    else if (a.outcome === "отхвърлена") rejected++;
     // Most-appealed buyers (resolved to a tender buyer only).
     if (a.buyerEik) {
       const e = buyer.get(a.buyerEik) ?? {
