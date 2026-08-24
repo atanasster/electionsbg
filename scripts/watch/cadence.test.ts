@@ -104,6 +104,32 @@ describe("SOURCES cadence vs. upstream publication", () => {
     },
   );
 
+  it("keeps the МОН register daily — it is Tier B's only liveness probe", () => {
+    // NOT a publication-frequency rule, and cadenceViolation() cannot express
+    // it: `publishes: "irregular"` short-circuits that check entirely, so this
+    // source is exempt from the only generic gate on its cadence. Daily is
+    // chosen because awarder_geo_map.ts's Tier B reads the SAME data.egov.bg
+    // resource, making this fingerprint that tier's only liveness probe —
+    // without it, an outage's first notice is awarder_geo_overrides.test.ts
+    // going red after MAX_UNAVAILABLE_DAYS. Reverting to weekly on the old
+    // "openings are rare" reasoning reopens the 16-day blind spot with nothing
+    // else failing. See docs/plans/egov-tierb-block-v1.md §6.3.
+    const src = SOURCES.find((s) => s.id === "mon_ri_register");
+    expect(src, "mon_ri_register missing from SOURCES").toBeDefined();
+    expect(src!.cadence).toBe("daily");
+  });
+
+  it("keeps Tier B named in the МОН register's label — it is all a 403 shows", () => {
+    // report.ts renders `- **<label>**: <error>` and describe() never runs on
+    // the error path, so this string is the ENTIRE diagnostic a reader gets when
+    // data.egov.bg 403s. The 2026-08 outage went 16 days unconnected to the geo
+    // map precisely because the label named only the Tier R crawl; a routine
+    // "this label is long" tidy-up would undo that silently.
+    const src = SOURCES.find((s) => s.id === "mon_ri_register");
+    expect(src, "mon_ri_register missing from SOURCES").toBeDefined();
+    expect(src!.label).toMatch(/Tier B/);
+  });
+
   it("keeps HICP on a cadence that catches a monthly release", () => {
     // Pinned by name, not just by the generic rule above: this is the bundle
     // that actually went stale, and it is the one whose freshness the
@@ -121,7 +147,7 @@ describe("SOURCES cadence vs. upstream publication", () => {
     // so nothing stops a NEW source shipping without one — which re-opens the
     // exact hole this file exists to close. Bump this upward as sources are
     // annotated; never downward.
-    const DECLARED_FLOOR = 20;
+    const DECLARED_FLOOR = 29;
     const declaredNow = SOURCES.filter((s) => s.publishes).length;
     expect(
       declaredNow,

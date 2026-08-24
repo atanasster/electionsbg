@@ -300,9 +300,14 @@ network call:
 - extend `describe()` to name **both** downstreams — `mon_ri_crawl` (Tier R) *and*
   `awarder_geo_map.ts` (Tier B, which reads this resource directly);
 - consider `cadence: "daily"`. It is one 2.2 MB POST; the current weekly cadence is tuned to
-  school openings, and `cadence.test.ts` enforces only a *floor* (sample at least twice per
-  publication period), so tightening is permitted. Daily makes an outage visible the next morning
-  instead of up to a week later.
+  school openings. Daily makes an outage visible the next morning instead of up to a week later.
+
+  ⚠ Written before `publishes` was declared on this source, and the reasoning changed on contact:
+  the plan assumed `cadence.test.ts`'s sampling invariant would keep the cadence honest. It will
+  not — `publishes: "irregular"` (the accurate declaration for a register that moves when an
+  institution opens) short-circuits `cadenceViolation()` entirely, so the generic gate is silent
+  here. The cadence is load-bearing for a reason the invariant does not model, which is why it
+  ended up pinned **by name** in `cadence.test.ts` instead.
 
 ### Option 4 — Widen Tier R to cover kindergartens (removes the need for Tier B)
 The register lists 4,512 institutions; the crawl yields 2,667, dropping cards without
@@ -341,16 +346,38 @@ retirement means deciding what happens to those 92 placements — see §7.
    `docs/testing-standards.md` §Determinism now records the **staleness-ratchet exception** and names
    its two members (`degraded.test.ts` and this gate); the rule there was previously unqualified, so
    both files were asserting a sanction the standard did not actually grant.
-3. **Relabel the watcher** (Option 3) so the daily `## Errors` line names the downstream that
-   actually broke; tighten to daily if the extra request is acceptable.
+3. ✅ **Relabelled the watcher** (Option 3). `mon_ri_register`'s **label** now names Tier B as well
+   as the Tier R crawl — that is the field that matters, because on a 403 the report prints the
+   label above the error and `describe()` never runs on the error path. Its header records the
+   direct Tier B dependency (same resource id, same helper, every build) and the 2026-08 outage;
+   `describe()` names both downstreams and the `procurement:ingest` half. Cadence weekly → **daily**,
+   explicitly *not* because the register changes faster: it is Tier B's only liveness probe, and
+   without it an outage's first notice is the §6.2 ratchet going red a fortnight later.
+   `publishes: "irregular"` is now declared — the honest reading of a register that moves when an
+   institution opens or closes, and not a dodge, since `daily` satisfies the sampling invariant
+   under every declaration but `daily` itself. Because `irregular` exempts the source from
+   `cadenceViolation()`, both the cadence and the Tier B mention in the label are pinned **by name**
+   in `cadence.test.ts`, and both were mutation-checked: reverting to `weekly`, or tidying Tier B
+   out of the label, each fails exactly one test.
+
+   ⚠ **The defect this step nearly shipped is worth more than the step.** Two of these surfaces —
+   the ratchet's failure message from §6.2 and this `describe()` — were first written ending
+   `… && npm run procurement:ingest`, and the orchestrator runbook already said the same in two
+   places. That instruction is actively wrong: a bare ingest re-runs base normalization, which
+   recomputes `amountEur = toEur(amount)` and drops the post-annex current-value fold (~€1.75bn) —
+   silently, at exit 0, with the euro-peg canary still green because it checks
+   `signingAmountEur ?? amountEur`. §2i of this very plan says so 130 lines above, and the
+   instruction was written anyway. All four surfaces now point at the update-procurement runbook
+   rather than half-quoting a five-step chain, which also collapses four copies to one.
 4. **Do not** retire Tier B, chase the VPN, or touch the merge, the shrink guard or `readTierJson`.
 5. Amend `reference_egov_api_endpoints` in memory: a 403 from data.egov.bg is **not** proof of a
    foreign egress IP — this host was on A1 Bulgaria residential throughout.
 
-Step 2 has landed; step 3 remains open. Step 1 fixed today's instance and step 2 removes the
-blindness that let it run for 16 days — the next outage announces itself within
-`MAX_UNAVAILABLE_DAYS`. What is still missing is same-day notice (step 3) and the downstream apply
-noted in §6.1, which no gate covers.
+Steps 2 and 3 have landed; step 5 follows in the same run. Step 1 fixed today's instance, step 2
+bounds how long a dark tier may ride, and step 3 gives same-day notice through the daily report —
+between them the 16-day blind spot is closed from both ends. What no gate covers is the downstream
+apply noted in §6.1: the corrected placement reaches `by_settlement` only when someone runs the
+full current-value chain, and nothing red will ever say so.
 
 ## 7. ⚠ The decision that belongs to a human, not to this plan
 

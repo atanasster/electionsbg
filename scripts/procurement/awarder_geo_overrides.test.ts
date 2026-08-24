@@ -198,10 +198,13 @@ describe("awarder_geo_overrides.json", () => {
         // and invites someone to loosen the comparison.
         `tiers.${key} has been unavailable for ${ageDays.toFixed(1)}d ` +
           `(${t.reason ?? "no reason recorded"}). Its entries are being carried ` +
-          `forward unverified. Re-run:\n` +
-          `  npx tsx scripts/procurement/awarder_geo_map.ts && npm run procurement:ingest\n` +
-          `(the second half is not optional — the map alone does not reach ` +
-          `by_settlement or the place tiles.)\n` +
+          `forward unverified. Rebuild the map:\n` +
+          `  npx tsx scripts/procurement/awarder_geo_map.ts\n` +
+          `That restamps this gate but does NOT reach by_settlement or the place ` +
+          `tiles — for that the map needs an ingest, and it must be the FULL ` +
+          `current-value chain from the update-procurement skill. A bare ` +
+          `procurement:ingest recomputes amountEur = toEur(amount) and silently ` +
+          `drops the post-annex fold.\n` +
           `If the upstream is still blocked after ${MAX_UNAVAILABLE_DAYS}d, read ` +
           `docs/plans/egov-tierb-block-v1.md — the tier may need repairing or ` +
           `retiring rather than another re-run.`,
