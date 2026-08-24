@@ -2944,6 +2944,74 @@ deleted (it is scheduled to die when the определения arm lands), the 
 row is suspended without a `спрян` status, which is exactly what
 `kzk_suspension.data.test.ts` asserts.
 
+**`kzk_effective_outcome(outcome, status)` (042) — the ONE definition of whether an
+appeal has a published ending.** `отказано производство` (КЗК refused to open
+proceedings) is a DETERMINATE TERMINAL STATE, not a missing value: the filing was
+denied and will never be reviewed on the merits. **1,661 of 7,998 appeals (20.8%)**
+carry it, and every surface rendered them as a blank outcome until 2026-08-25.
+
+⚠️⚠️ **IT IS DERIVED AT QUERY TIME AND MUST NEVER BE STORED, and the reason is not
+obvious.** The obvious implementation — `UPDATE kzk_appeals SET outcome = … WHERE
+status = 'отказано производство'` — **silently destroys the provenance guard on the
+~2,098 irreplaceable hand-seeded rows.** 131's rule is the only test of provenance:
+`decision_act_no IS NOT NULL` means machine-derived and overwritable, NULL means
+hand-seeded and protected. A status-derived outcome has a THIRD provenance and no act
+number, so it lands in the protected bucket. Measured: the guarded population goes
+**2,098 → 3,759**, and `kzk_appeals_provenance.data.test.ts` **stays GREEN**, because
+its floor is a `>=` — exactly the laundering hazard `kzk_baselines.ts`'s
+`HAND_SEEDED_FLOOR` comment describes. It would also freeze those 1,661 rows against
+every future matcher improvement, since the rule refuses to overwrite them.
+
+Deriving stores nothing, so `decision_act_no IS NULL` keeps its meaning and
+`kzk_baselines.outcomes` does not move — correct, because 1,661 outcomes appearing
+from a re-reading of `status` is not the matcher getting better, and letting it raise
+the ratchet would mask a later real regression.
+
+**Cloud SQL needs it by hand, 042 BEFORE 044** (044's `kzk_appeals_summary()` calls
+both effective-value functions, and `exec()` validates a `LANGUAGE sql` body at CREATE):
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql 044_procurement_ai.sql
+```
+
+**Applied to Cloud SQL 2026-08-25** — 1.35 s, and the reader-visible window is real but
+small: 042 DROPs `tenders_list`, `kzk_appeals_list CASCADE`, `appealed_ocids CASCADE`
+and `upheld_ocids CASCADE` in one transaction, so those pages block on an
+AccessExclusiveLock until it commits (the matviews are only 4,883 and 752 rows; 042
+recreates `risk_upheld_ocid` itself). Measured either side: blank outcomes 4,920 →
+**3,271**, `withOutcome` 3,078 → **4,727**, and everything that must not move did not —
+hand-seeded 2,098, stored outcomes 3,078, stored `отказана` **0**, `upheld_ocids` 752,
+`summary.upheld` 983.
+
+Four things are easy to get backwards:
+
+- **THE STORED VALUE WINS.** 12 appeals carry BOTH this status and a merits outcome
+  (9 `уважена`, 3 `отхвърлена`) — all 12 hand-seeded. Either the status is stale or the
+  seeding was wrong; either way `COALESCE` keeps the human's answer, the same precedence
+  `kzk_effective_suspension` uses.
+- ⚠️ **WHAT MUST NOT USE IT.** `upheld_ocids` and `buyer_appeal_stats` filter
+  `outcome = 'уважена'` on the RAW column — a refusal is not an uphold, and that matview
+  feeds the contract Corruption Risk Index. `partitionByProvenance()` reasons about the
+  STORED value. And `kzk_appeals_summary()`'s `upheld` / `rejected` counters stay raw for
+  the same reason its `with_outcome` does not.
+- ⚠️ **044 WAS MISSED ON THE FIRST PASS**, and the shape is worth knowing: it had already
+  adopted `kzk_effective_suspension` and left `with_outcome` on the raw column, so the AI
+  tool answered **3,078** while `/procurement/appeals` published **4,727** for the same
+  question — and quoted the lower figure as a grounded fact. It has a TypeScript twin,
+  `build_kzk_summary.ts`, that must move with it.
+- **The code is `отказана`; the LABEL is „отказано производство".** The code is ours, not
+  a word the register prints, so `src/lib/kzkLabels.ts` carries a BG override — the only
+  entry in that map, because every other outcome IS a register term. **Until hosting ships
+  that bundle, prod renders the bare code** in both languages (the old `kzkOutcomeLabel`
+  falls through to the raw term), including in the `/procurement/appeals` outcome facet,
+  whose options ARE the column's distinct values. Harmless and visible; `npm run deploy`
+  closes it.
+
+The gate is `scripts/db/tests/kzk_effective_outcome.data.test.ts` (6 tests) — the
+never-stored invariant, that a stored outcome wins, that the CASE fills exactly the
+refused population and nothing else, that the derived value cannot reach an uphold
+count, plus a mutation check that the serving view really publishes it.
+
 `contractor_rank` (migration 122) is the same first-deploy shape as `cpv_catalog`: the
 `contractor_rankings` DbDataTable resource + the `/api/db/contractor-scope-kpis` route read
 it and do NOT degrade a missing matview to an empty result, so on the FIRST cloud deploy the
