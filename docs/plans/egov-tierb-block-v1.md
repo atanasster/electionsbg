@@ -1,9 +1,9 @@
 # Tier B (МОН open-data register) has been dark since 2026-08-06 — v1
 
-**Status:** implemented 2026-08-24. Tier B re-run and restamped `ok` (§2i); §6.2 (the staleness
-ratchet), §6.3 (the watcher relabel) and §6.5 (the memory amendment) are all landed. **One thing is
-deliberately NOT done and no gate covers it:** §6.1's corrected placement reaches `by_settlement`
-only when someone runs the full current-value chain. Carries one decision for a human (§7).
+**Status:** COMPLETE 2026-08-24. Tier B re-run and restamped `ok` (§2i); §6.2 (the staleness
+ratchet), §6.3 (the watcher relabel) and §6.5 (the memory amendment) are landed; and the current-value
+chain has been run, so §6.1's corrected placement is **live on prod** (§2j). Carries one decision for
+a human (§7).
 
 ## 1. The symptom
 
@@ -212,14 +212,45 @@ The class is *branch-vs-seat* — awarder names carrying `филиал` / `из�
 settlement token — and Tier B is the only tier that resolves it, because it is the only one that
 matches the **institution** rather than the **string**.
 
-⚠ **This is not yet live.** The builder writes the override map; `by_settlement` and the place /
-My-Area tiles only move on `npm run procurement:ingest` — and per the update-procurement skill a
-plain ingest resets `amountEur` to the signing value, so the current-value fold chain
-(`anexi_current_value --apply` → `backfill_unp --apply` → `reconcile_cross_source --apply` →
-`rebuild_from_cache` → `rebuild_derived`) and then `db:load:pg` + `db:load:annexes:pg` must follow
-it. For a three-entry change that is an operator decision about timing, not an automatic
-consequence — fold it into the next scheduled procurement ingest rather than running the chain for
-this alone.
+**Applied 2026-08-24 — see §2j.**
+
+### 2j. Applying it: the chain ran as a clean no-op on money, and the loader is not the obvious one
+
+The map is not the site. `by_settlement` and the place / My-Area tiles move only after an ingest,
+and a plain `procurement:ingest` resets `amountEur` to the signing value — so the documented
+current-value chain is what has to run. Executed in order, on a corpus already annex-folded:
+
+| step | result |
+| ---- | ------ |
+| `ingest_anexi` | 30 published days, 734 annex records, **3 newly fetched** |
+| `anexi_current_value --apply` | 6,928 contracts carry a current value ≠ signing; **set/updated 0, wrote 0 shards** — idempotent, as its header promises. Net fold €2,275.1M |
+| `backfill_unp --apply` | 407,170 rows, 290,723 with a УНП (71.4%); **0 filled** |
+| `reconcile_cross_source --apply` | **0 evicted**, 407,170 → 407,170 rows, € unchanged. The 2 ambiguous + 4 blocked groups are the documented permanent residue |
+| `rebuild_from_cache` | rollups rebuilt — this is the step that applies the override map (`rollups.ts` `loadGeoOverrides`) |
+| `rebuild_derived` | link-dependent files refreshed |
+
+**Money did not move, and that is the check.** `index.json` came back **byte-identical to HEAD** —
+403,682 contracts, €93,808,179,010.2 — and Postgres `SUM(amount_eur) WHERE tag='contract'` equals it
+**to the euro**. 0 orphaned `procurement_annexes` rows, so `db:load:annexes:pg` was not needed either.
+
+⚠ **`db:load:pg` is NOT the loader that publishes a placement, and reaching for it wastes ~90
+minutes on the wrong table.** The contracts loader carries no `ekatte` at all; the buyer→settlement
+mapping is `awarder_seats`, so the publish is one command per side:
+
+```bash
+npm run db:load:awarder-seats:pg          # local
+npm run db:load:awarder-seats:pg:cloud    # prod — nothing runs this automatically
+```
+
+It refreshes matviews 119/123/124 itself. Measured: **526.8 s local, 54.9 s on Cloud SQL** — the
+local box is an order of magnitude slower here, the reverse of the usual direction, so do not size
+the cloud window from a local run.
+
+Verified live afterwards: `/api/db/procurement-settlement?ekatte=47714` returns Мездра with
+„ДЕТСКА ГРАДИНА СЛЪНЧИЦЕ с ФИЛИАЛ с.ДЪРМАНЦИ €71,341" among its awarders, and `?ekatte=24668`
+(Дърманци) now returns **`null`** — that kindergarten was the village's only procuring buyer, so
+the page correctly goes from €71,341 to nothing. Worth stating plainly: the correction **empties a
+settlement page**, which is the right outcome and still a visible change to it.
 
 ## 3. Why the signal was missed — and the finding that reframes the fix
 
@@ -383,11 +414,12 @@ retirement means deciding what happens to those 92 placements — see §7.
    example. The `MEMORY.md` pointer was reworded off "403 = egress IP", which was the over-confident
    half.
 
-Steps 2, 3 and 5 have all landed. Step 1 fixed today's instance, step 2 bounds how long a dark tier
-may ride, and step 3 gives same-day notice through the daily report —
-between them the 16-day blind spot is closed from both ends. What no gate covers is the downstream
-apply noted in §6.1: the corrected placement reaches `by_settlement` only when someone runs the
-full current-value chain, and nothing red will ever say so.
+All of steps 1, 2, 3 and 5 have landed, and the downstream apply is done too (§2j) — the corrected
+placement is live. Step 1 fixed today's instance, step 2 bounds how long a dark tier may ride, and
+step 3 gives same-day notice through the daily report; between them the 16-day blind spot is closed
+from both ends. The residual gap is unchanged and structural: **nothing red ever says a rebuilt
+override map has not been published**, so the next correction depends on someone remembering
+`db:load:awarder-seats:pg:cloud`.
 
 ## 7. ⚠ The decision that belongs to a human, not to this plan
 
