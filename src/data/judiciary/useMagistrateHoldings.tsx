@@ -23,6 +23,10 @@ export interface MagistrateFinancials {
   bankCashLv: number;
   securitiesLv: number;
   realEstateCount: number;
+  /** The same count from the structured reader. `null` means it has no answer for this
+   *  filing — the operator crawl has not reached it, or the document is on a form version the
+   *  parser refuses. NOT zero: zero is the reader saying the filing lists no property. */
+  realEstateCountParsed?: number | null;
 }
 
 /** One declaration the ИВСС register lists under this magistrate's NAME.
@@ -236,3 +240,26 @@ export const useMagistrateFilingAssets = (
   });
   return data;
 };
+
+/**
+ * How many properties a magistrate's own declaration lists — THE one place that choice is
+ * made, because two payload fields carry two different answers and both are facts.
+ *
+ * ⚠️ The structured reader wins wherever it has an answer, and this is not a preference for
+ * the newer code: the original heuristic is wrong in BOTH directions, adjudicated against the
+ * documents themselves. It counted a row whenever some cell parsed above 2,000 — which the
+ * control number stamped on every page satisfies — so it invents property against magistrates
+ * who declared none (Димо Николов Николов: 6, on a filing carrying „Нямам нищо за
+ * деклариране" five times and not one property noun over 11 pages) and misses it wholesale
+ * where it exists (Иво Веселинов Радев: 0, on a filing carrying 20 declared properties).
+ *
+ * ⚠️ `??`, never `||`. `0` is the reader's own answer — this filing lists no property — and
+ * must not fall through to the heuristic's guess. `null` is the ABSENCE of an answer, and is
+ * the only thing that falls back.
+ */
+export const declaredPropertyCount = (
+  f: Pick<
+    MagistrateFinancials,
+    "realEstateCount" | "realEstateCountParsed"
+  > | null,
+): number => (f ? (f.realEstateCountParsed ?? f.realEstateCount) : 0);

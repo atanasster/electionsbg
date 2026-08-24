@@ -63,6 +63,35 @@ CREATE TABLE IF NOT EXISTS magistrate (
 ALTER TABLE magistrate ADD COLUMN IF NOT EXISTS source_url text;
 ALTER TABLE magistrate
   ADD COLUMN IF NOT EXISTS filings_name_ambiguous boolean NOT NULL DEFAULT false;
+-- The same count as `real_estate_count`, from the STRUCTURED reader instead of the original
+-- heuristic — and it is here rather than beside the asset table because this file's
+-- `magistrate_by_name()` reads it, so 185 could not own it without a magistrates-only reload
+-- raising 42703.
+--
+-- ⚠️ NULL IS NOT ZERO AND MUST NEVER BE COALESCED TO IT. NULL means the structured reader has
+-- no answer for this record's own filing — the operator crawl has not reached it, or the
+-- document is on a form version the parser refuses (it accepts v3.0 only, and refuses in
+-- BOTH directions — see 185 on the v4.0 gap). Zero is the
+-- reader's own answer: this filing lists no property. Rendering NULL as 0 would publish „this
+-- judge declared no property" about a document nobody has read.
+--
+-- Why a SECOND column rather than correcting the first: the heuristic is wrong in BOTH
+-- directions, so no scaling could repair it. Over 3,497 records it agrees on 2,562, finds MORE
+-- on 528 (450 of them scored 0 against real property) and FEWER on 407 (360 of them claiming
+-- property the document does not carry). Adjudicated against eight re-fetched documents by
+-- scanning every page: Иво Радев 0 vs 20 — 13 pages, 24 property nouns, parser right; Димо
+-- Николов 6 vs 0 — 11 pages, ZERO property nouns and „Нямам нищо за деклариране" five times,
+-- parser right. That document's control number 95991190 is stamped on every page and clears
+-- the heuristic's „a cell over 2,000" test, which is the likeliest source of its phantom 6.
+-- Overwriting would leave `real_estate_count` a MIX of two counting methods, which the
+-- /judiciary aggregate then sums into one plausible, unfalsifiable integer. Two columns keep
+-- the basis visible; see docs/plans/magistrate-declaration-detail-v1.md, Finding 4.
+--
+-- Filled by scripts/db/load_magistrate_filing_assets_pg.ts, which runs AFTER the magistrates
+-- loader has TRUNCATEd and reloaded this table — so a standalone `db:load:magistrates:pg`
+-- leaves it NULL until that loader runs again. Degrading to the heuristic, which is the
+-- correct direction.
+ALTER TABLE magistrate ADD COLUMN IF NOT EXISTS real_estate_count_parsed int;
 
 CREATE INDEX IF NOT EXISTS idx_magistrate_name_norm ON magistrate (name_norm);
 -- The /judiciary tile is ranked by declared-company count.
@@ -165,6 +194,16 @@ CREATE TABLE IF NOT EXISTS magistrate_filing (
 );
 CREATE INDEX IF NOT EXISTS idx_magistrate_filing_mag
   ON magistrate_filing (magistrate_name, ord);
+-- ⚠️ THIS ALTER MUST STAY ABOVE magistrate_filings_json(), for the reason the source_url one
+-- above states — and it is here rather than only in 185 because of WHO APPLIES WHAT. 185's
+-- sole applier is db:load:magistrate-filing-assets:pg, a REFRESH_EXCLUSIONS member whose
+-- input is a gitignored operator crawl, so on a fresh clone it never runs; 070 is applied by
+-- db:load:magistrates:pg, which is in the chain. With the column owned only by 185, applying
+-- 070 into a virgin schema raises 42703 on the function below, and exec() sends this file as
+-- ONE transaction — so db:refresh aborts at the magistrates step on any machine that has not
+-- run the crawl. (Measured: it does.) Both files declare it IF NOT EXISTS, so whichever runs
+-- first wins and the other is a no-op. 185 owns the column's meaning and documents it.
+ALTER TABLE magistrate_filing ADD COLUMN IF NOT EXISTS kind text;
 
 -- Filings of one magistrate, newest first.
 CREATE OR REPLACE FUNCTION magistrate_filings_json(p_name text)
@@ -212,7 +251,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'sourceUrl', m.source_url,
     'financials', jsonb_build_object(
       'bankCashLv', m.bank_cash_lv, 'securitiesLv', m.securities_lv,
-      'realEstateCount', m.real_estate_count),
+      'realEstateCount', m.real_estate_count,
+      -- NULL where the structured reader has no answer — NOT zero. See the column comment.
+      'realEstateCountParsed', m.real_estate_count_parsed),
     'companies', magistrate_companies_json(m.name),
     -- Every declaration the register lists under this NAME, newest first. A list of
     -- documents, never a claim that any but `sourceUrl` has been read — and, when
@@ -317,7 +358,18 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'name', t.name, 'position', t.position, 'court', t.court,
       'financials', jsonb_build_object(
         'bankCashLv', t.bank_cash_lv, 'securitiesLv', t.securities_lv,
-        'realEstateCount', t.real_estate_count),
+        -- ⚠️ THE SAME TWO FIELDS AS magistrate_by_name(), WITH THE SAME MEANINGS. Both are
+        -- facts — the heuristic's count and the reader's — and the CHOICE between them is
+        -- made once, in the UI, by declaredPropertyCount(). Resolving it here instead would
+        -- make `realEstateCount` mean „the heuristic" in one function and „the resolved
+        -- value" in the other, which is a worse defect than the one being fixed: same name,
+        -- two meanings, no way for a consumer to tell which it received.
+        --
+        -- (Nothing renders these on /judiciary today — MagistrateHoldingsTile shows only the
+        -- declared companies. This is contract consistency for whatever reads it next, not a
+        -- fix to a visible number.)
+        'realEstateCount', t.real_estate_count,
+        'realEstateCountParsed', t.real_estate_count_parsed),
       'companies', magistrate_companies_json(t.name)
     ) ORDER BY t.company_count DESC, t.name) FROM top t), '[]'::jsonb)
   );

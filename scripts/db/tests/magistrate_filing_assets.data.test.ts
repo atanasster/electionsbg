@@ -228,3 +228,104 @@ test("the reference filing still reads what an independent source reported", asy
     `2025 acquisitions total ${total}, expected ~452,865`,
   );
 });
+
+// ---------------------------------------------------------- the headline count's provenance --
+// `magistrate.real_estate_count_parsed` is the structured reader's answer for a record's OWN
+// filing, and the tile prefers it over the original heuristic. See 070's column comment and
+// docs/plans/magistrate-declaration-detail-v1.md, Finding 4.
+
+test("the parsed count equals the table-1 rows of that record's own filing", async () => {
+  if (skip) return;
+  const [bad] = await allRows<{ name: string; stored: number; actual: string }>(
+    `SELECT m.name, m.real_estate_count_parsed stored,
+            (SELECT count(*) FROM magistrate_filing_asset a
+              WHERE a.source_url = m.source_url AND a.table_num = '1')::text actual
+       FROM magistrate m
+      WHERE m.real_estate_count_parsed IS NOT NULL
+        AND m.real_estate_count_parsed <> (
+              SELECT count(*) FROM magistrate_filing_asset a
+               WHERE a.source_url = m.source_url AND a.table_num = '1')
+      LIMIT 1`,
+  );
+  assert.equal(
+    bad,
+    undefined,
+    bad &&
+      `${bad.name} carries ${bad.stored} but its own filing has ${bad.actual} table-1 row(s)`,
+  );
+});
+
+test("a filing the reader has NOT read leaves the count NULL, never 0", async () => {
+  if (skip) return;
+  // ⚠️ The failure this exists to catch is silent and one-directional: writing 0 where the
+  // answer is unknown publishes „this judge declared no property" about a document nobody has
+  // read. It is reachable by deriving the column from magistrate_filing.table1_refused, which
+  // is NULL both for „read, not refused" and for „never crawled".
+  // ⚠️ `f.kind IS NULL` is the load-bearing arm and the one a first cut omitted. The loader
+  // writes kind/form_version/table1_refused ONLY for filings it parsed, so an UNCRAWLED filing
+  // has table1_refused = NULL — indistinguishable, on that column alone, from „read and not
+  // refused". Without this arm the assertion is green under exactly the broken derivation the
+  // comment above forbids: mutation-tested in a rolled-back transaction, the
+  // table1_refused-driven version writes 6 fabricated zeros and still passes.
+  const [leak] = await allRows<{ name: string; why: string }>(
+    `SELECT m.name,
+            CASE WHEN f.source_url IS NULL THEN 'not in the roster'
+                 WHEN f.kind IS NULL THEN 'never crawled'
+                 ELSE f.table1_refused END why
+       FROM magistrate m
+       LEFT JOIN magistrate_filing f
+              ON f.source_url = m.source_url AND f.magistrate_name = m.name
+      WHERE m.real_estate_count_parsed IS NOT NULL
+        AND (f.source_url IS NULL OR f.kind IS NULL OR f.table1_refused IS NOT NULL)
+      LIMIT 1`,
+  );
+  assert.equal(
+    leak,
+    undefined,
+    leak && `${leak.name} has a parsed count but its filing was ${leak.why}`,
+  );
+
+  // …and the column must still DISCRIMINATE. An implementation that simply never writes it
+  // passes the assertion above vacuously.
+  const [{ filled }] = await allRows<{ filled: string }>(
+    `SELECT count(*)::text filled FROM magistrate
+      WHERE real_estate_count_parsed IS NOT NULL`,
+  );
+  const [{ readable }] = await allRows<{ readable: string }>(
+    `SELECT count(DISTINCT f.magistrate_name)::text readable
+       FROM magistrate_filing f JOIN magistrate m
+         ON m.source_url = f.source_url AND m.name = f.magistrate_name
+      WHERE f.table1_refused IS NULL AND f.form_version IS NOT NULL`,
+  );
+  if (Number(readable) > 0)
+    assert.ok(
+      Number(filled) >= Number(readable) * 0.9,
+      `only ${filled} record(s) carry a parsed count against ${readable} readable filing(s) — ` +
+        `the derivation has stopped running`,
+    );
+});
+
+test("the form-version refusal does not quietly become the majority answer", async () => {
+  if (skip) return;
+  // ⚠️ The parser accepts form v3.0 and refuses everything else, in BOTH directions. The
+  // pre-v3.0 backlog is static; the FORWARD half is not — the ИВСС began issuing v4.0 in
+  // 2026, and refusing is the DESIGNED behaviour, so the share can climb to 100% with every
+  // other gate green and nothing rendering a wrong number. This gate is the only thing that
+  // notices. When it fails, the fix is to MAP the new form (plan, Tier-2 validation), never
+  // to raise the threshold.
+  const rows = await allRows<{ v: string; n: string }>(
+    `SELECT COALESCE(form_version, '(none)') v, count(*)::text n
+       FROM magistrate_filing WHERE kind IS NOT NULL GROUP BY 1`,
+  );
+  const total = rows.reduce((s, r) => s + Number(r.n), 0);
+  if (total < 500) return; // too little crawled to say anything
+  const refused = rows
+    .filter((r) => r.v !== "3.0")
+    .reduce((s, r) => s + Number(r.n), 0);
+  const pct = (100 * refused) / total;
+  assert.ok(
+    pct < 25,
+    `${refused}/${total} (${pct.toFixed(1)}%) of crawled filings are on a form version the ` +
+      `parser refuses — ${rows.map((r) => `${r.v}:${r.n}`).join(" ")}. Map the new form.`,
+  );
+});

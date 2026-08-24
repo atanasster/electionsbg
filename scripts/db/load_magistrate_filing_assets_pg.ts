@@ -133,12 +133,20 @@ const run = async (): Promise<void> => {
   const records = Object.values(cache);
 
   // Only filings the published roster carries — see the header.
-  const known = new Set(
+  //
+  // ⚠️ THE ROSTER'S NAME WINS, NOT THE CRAWL'S. The two spell the same person differently:
+  // the register's index writes „Ана Иванова Методиева Конялъ" where the roster writes
+  // „Ана Иванова Методиева-Конялъ", one of the hyphen/space splits this repo's name fold
+  // exists for. Storing the crawl's spelling breaks the (source_url, magistrate_name) join
+  // every consumer makes against magistrate_filing — measured, 3 rows — and, worse, names a
+  // judge one way on their property rows and another everywhere else. `source_url` is the
+  // real key here and is unambiguous, so the name is simply read off the roster.
+  const known = new Map(
     (
-      await allRows<{ source_url: string }>(
-        "SELECT source_url FROM magistrate_filing",
+      await allRows<{ source_url: string; magistrate_name: string }>(
+        "SELECT source_url, magistrate_name FROM magistrate_filing",
       )
-    ).map((r) => r.source_url),
+    ).map((r) => [r.source_url, r.magistrate_name] as const),
   );
   const urlOf = (r: FilingRecord): string => `${REGISTER}${r.pdf}`;
   const usable = records.filter((r) => known.has(urlOf(r)));
@@ -215,7 +223,8 @@ const run = async (): Promise<void> => {
               assetRows++;
               yield [
                 url,
-                r.name,
+                // The roster's spelling, never the crawl's — see `known` above.
+                known.get(url) ?? r.name,
                 tableNum,
                 row.ord,
                 kindCell,
@@ -265,10 +274,55 @@ const run = async (): Promise<void> => {
              form_version = m.form_version,
              table1_refused = m.t1, table2_refused = m.t2
         FROM _mf_meta m WHERE m.source_url = f.source_url`);
+    // The headline count on the magistrate tile, re-derived from the rows just stored.
+    //
+    // ⚠️ ONLY where THIS record's own filing was read and NOT refused. `magistrate.source_url`
+    // is the provenance of every other figure on that record, so counting some other filing's
+    // properties would put a number from one document beside money from another. And a
+    // refused document must stay NULL rather than 0: a pre-v3.0 form yields no rows because
+    // the parser declines to read it, not because the magistrate declared nothing.
+    //
+    // Everything else is reset to NULL first, so a record whose filing has since been refused
+    // — or dropped from the roster — cannot keep a count derived from a corpus it left.
+    await client.query(`UPDATE magistrate SET real_estate_count_parsed = NULL
+                         WHERE real_estate_count_parsed IS NOT NULL`);
+    // ⚠️ DRIVEN FROM `_mf_meta`, NOT from magistrate_filing.table1_refused. That column is
+    // NULL for a filing this run READ without refusing it AND for a filing the crawl has
+    // never reached — the loader only ever writes meta for filings it parsed. Keying on it
+    // would therefore write `0` for every uncrawled filing, which is precisely the „no
+    // property declared" claim about an unread document that the NULL/0 distinction exists
+    // to prevent. `_mf_meta` holds exactly the filings parsed in this run.
+    await client.query(`
+      UPDATE magistrate m
+         SET real_estate_count_parsed = (
+               SELECT count(*) FROM magistrate_filing_asset a
+                WHERE a.source_url = m.source_url AND a.table_num = '1')
+        FROM _mf_meta mm
+       WHERE mm.source_url = m.source_url
+         AND mm.t1 IS NULL`);
     await client.query("COMMIT");
   });
 
   await vacuumAfterReload("magistrate_filing_asset", "magistrate_filing");
+
+  // What the two counting methods say, so a shift in either is visible in the run's own
+  // output rather than only on a page. See 070's real_estate_count_parsed comment.
+  const [counts] = await allRows<{
+    records: string;
+    disagree: string;
+    heuristic: string;
+    parsed: string;
+  }>(`SELECT count(*) records,
+               count(*) FILTER (WHERE real_estate_count IS DISTINCT FROM real_estate_count_parsed) disagree,
+               COALESCE(sum(real_estate_count), 0) heuristic,
+               COALESCE(sum(real_estate_count_parsed), 0) parsed
+          FROM magistrate WHERE real_estate_count_parsed IS NOT NULL`);
+  if (counts && Number(counts.records) > 0)
+    console.log(
+      `  headline counts re-derived for ${counts.records} record(s): ` +
+        `${counts.parsed} propert(ies) read vs ${counts.heuristic} by the old heuristic, ` +
+        `${counts.disagree} record(s) differ`,
+    );
 
   console.log(
     `magistrate-filing-assets: ${usable.length} filing(s) parsed, ` +

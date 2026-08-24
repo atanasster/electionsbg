@@ -317,6 +317,25 @@ softer — **4,703 of 5,579 (84%)** have at least one v3.0 filing — which is t
 matters for a `/person` page. Mapping the older form is deliberate future work with its own
 evidence, not a loosened guard.
 
+⚠️ **THE REFUSAL RUNS IN BOTH DIRECTIONS, AND THE FORWARD ONE WAS MISSED UNTIL 2026-08-25.**
+The guard accepts v3.0 and nothing else, so it refuses the ИВСС's NEW form as firmly as its
+old ones — and the ИВСС began issuing **v4.0 during 2026**. Measured over the 9,124 filings
+the crawl had loaded at the time: **every one of the 201 form-version refusals is v4.0, and
+every one is from 2026** — 5.5% of that year's filings, against 100% v3.0 in 2024 and 2025 —
+with **90 magistrates having their OWN record's filing refused** on this basis.
+
+That is the opposite risk profile from the pre-v3.0 backlog, and worse. A legacy gap is
+static and shrinks in relevance; this one **grows with every filing season** and lands on the
+most current declarations — the ones a reader is most likely to want. Left alone it ends with
+the register fully migrated and the parser reading none of it, while every gate stays green,
+because refusing is the designed behaviour.
+
+Mapping v4.0 is therefore the highest-value parser work outstanding, ahead of the pre-v3.0
+backlog. It needs the same treatment v3.0 got: a column-map verified against a sample, a
+positional/nearest-header `exact` flag, and `validate_declaration_parse.ts` re-run per form
+version rather than in aggregate — an aggregate pass rate hides a version that is 5% of the
+corpus today and a majority next year.
+
 Also corrected in the reader while establishing this: `isRefusal` was typed so narrowly that
 every `readTable` call site was a `tsc` error — 22 green Vitest tests and a clean lint on top
 of a broken `npm run build`, because Vitest never typechecks. And the period regex, anchored
@@ -486,40 +505,62 @@ Sequencing note: only worth spending once Tier 2 can extract something per filin
 storing. Before that, Tier 1 already gives every year a link **without fetching anything** —
 which is why Tier 1 is not blocked on any of this.
 
-### Finding 4 — the tile's own headline count is wrong, and the new corpus proves it
+### Finding 4 — the tile's headline count is wrong in BOTH directions
 
 Found while verifying Tier 2 against local Postgres. The card reads „N имота в
-декларацията" from `magistrate.real_estate_count`, which the ORIGINAL heuristic extractor
-produced. Expanding the same filing now lists the properties the STRUCTURED reader found —
-and the two sit inches apart on one card disagreeing.
+декларацията" from `magistrate.real_estate_count`, produced by the ORIGINAL heuristic
+extractor. Expanding the same filing now lists the properties the STRUCTURED reader found —
+two numbers about one document, inches apart, disagreeing.
 
-Measured over the 492 records whose own `source_url` filing the crawl has reached so far:
+⚠️ **A first draft of this finding said the heuristic under-reports ~3× (319 against 1,009).
+That figure is withdrawn.** It was measured over the records that HAVE parsed property rows,
+which excludes by construction every record where the parser found nothing — i.e. it
+conditioned on one of the two directions of disagreement. Over all records with a parsed
+count it is not a one-directional undercount at all.
 
-| | |
+Measured over the 3,497 records the partial crawl has reached, no subsetting:
+
+| | records |
 |---|---|
-| records where the two counts disagree | **392 of 492 (80%)** |
-| properties found by the heuristic | **319** |
-| properties found by the structured reader | **1,009** |
+| the two counts agree | **2,562 (73.3%)** |
+| parser finds MORE | **528** — of which **450** the heuristic scored 0 |
+| parser finds FEWER | **407** — of which **360** the parser scores 0 |
+| properties, parser vs heuristic | **1,901 vs 1,653** |
 
-The heuristic counted a row only when some cell parsed as a number **over 2,000**, so every
-property declared at 0 лв — inherited, gifted, taken into marriage, or acquired by a
-contract with no price stated — was invisible to it. It under-reports by roughly 3×, and
-Адалберт Кръстев is the worked example the screenshot caught: headline **1**, document
-**3**.
+**Which side is right was settled against the documents, not by preferring the newer code.**
+Eight filings were re-fetched and their full text scanned for property nouns across every
+page — the earlier two-page probe was itself too narrow and produced one false reading, which
+is how the check earned its own correction:
 
-⚠️ **The fix is NOT to update `real_estate_count` mid-crawl.** That column also feeds the
-`/judiciary` aggregate, so updating the reached records and not the rest makes that
-aggregate a mix of two counting methods — worse than either alone, and invisible, because
-both are plausible integers. It waits for the completed crawl, and then it is one change:
-derive the column from `magistrate_filing_asset` where the record's own filing was parsed,
-leave the heuristic where it was not, and report the split so a partial corpus cannot
-masquerade as a whole one.
+- **Иво Веселинов Радев** — heuristic **0**, parser **20**. 13 pages, 24 property nouns,
+  the parsed rows carrying coherent detail („предварителен договор за покупка на имот
+  Апартамент в незавършен вид", Плевен, 62 m², 65,000 лв, 1/2). **Parser right.**
+- **Димо Николов Николов** — heuristic **6**, parser **0**. 11 pages, **zero** property
+  nouns, „Нямам нищо за деклариране" printed five times; he declares one car. **Parser
+  right.** Its control number `95991190` is stamped on every page and clears the heuristic's
+  „a cell over 2,000" test, which is the likeliest source of the fabricated 6.
+- **Four more** at heuristic 6 / parser 0 — all zero property nouns. **Parser right.**
 
-Two things follow. The count is a **claim about a named judge's property**, so the
-under-count is the safe direction and this is not urgent — but „1 имот" against a document
-listing three is still false. And the heuristic's rule is worth retiring rather than
-tuning: the threshold was never a property test, it was a "does this row look like it has
-money in it" test, and the answer to a row with no price is that it is still a property.
+So the heuristic both **invents** property against magistrates who declared none and
+**misses** it wholesale where it exists, and its errors are not a bias that could be
+corrected by scaling. The structured reader wins wherever it has an answer.
+
+**Shipped as a SECOND column, `magistrate.real_estate_count_parsed`, not as a correction of
+the first.** Overwriting would leave `real_estate_count` a mix of two counting methods, which
+the `/judiciary` aggregate then sums into one plausible, unfalsifiable integer. Two columns
+keep the basis visible.
+
+⚠️ **NULL is not zero, and the loader must not derive it from `table1_refused`.** That column
+is NULL both for a filing read without refusal AND for one the crawl has never reached — the
+loader only ever writes meta for filings it parsed — so keying on it writes `0`, i.e. „this
+judge declared no property", against unread documents. The derivation is driven from the
+run's own parsed set instead.
+
+**What this says about the tile's OTHER figures is not yet established, and is the reason
+item 5 stays uncleared.** `bankCashLv` and `securitiesLv` come from the same heuristic
+extractor, are published on the same card, and have had no equivalent adjudication. That the
+property count fails in both directions is evidence about the extractor, not only about one
+of its fields.
 
 ### Tier 4 — one career, one timeline
 

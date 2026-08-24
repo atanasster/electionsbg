@@ -9,7 +9,8 @@
 //
 // ⚠️ AND AN EMPTY RESULT IS NOT „declared nothing". It is also what a filing the operator
 // crawl has not reached returns, and what a document the parser REFUSED returns — the
-// pre-v3.0 form is refused wholesale, which is 61% of filings. So nothing renders on an empty
+// parser accepts form v3.0 ONLY, and refuses in both directions — the register's older years
+// are largely pre-v3.0, and the ИВСС began issuing v4.0 in 2026. So nothing renders on an empty
 // answer: a reader is shown property or shown nothing, never „no property" as a claim.
 //
 // Prices are shown only on rows the parser placed POSITIONALLY (`exact`). A sparse row is

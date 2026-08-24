@@ -53,7 +53,14 @@ const holdingMock = vi.hoisted(() => ({
   current: { holding: null, year: null } as HookResult,
 }));
 
-vi.mock("@/data/judiciary/useMagistrateHoldings", () => ({
+vi.mock("@/data/judiciary/useMagistrateHoldings", async (importOriginal) => ({
+  // ⚠️ Spread the REAL module first. Only the two data HOOKS are stubbed; everything else —
+  // notably declaredPropertyCount, the rule deciding which of the two counts a reader sees —
+  // must be the genuine implementation, or the count assertions below would be testing a
+  // mock's opinion instead of the shipped rule.
+  ...(await importOriginal<
+    typeof import("@/data/judiciary/useMagistrateHoldings")
+  >()),
   usePersonMagistrateHoldings: () => holdingMock.current,
   // The tile now renders MagistrateFilingProperties per filing row, which calls this. A
   // partial module mock leaves it undefined and every render throws — so it is stubbed to
@@ -102,6 +109,75 @@ describe("PersonMagistrateHoldingsTile", () => {
     // properties. This is the exact string the tile shipped before 2026-08-24.
     expect(screen.queryByText(/^недвижими имота$/)).not.toBeInTheDocument();
     expect(screen.getByText(/имота в декларацията/)).toBeInTheDocument();
+  });
+
+  it("prefers the structured reader's count over the old heuristic", () => {
+    // The two describe ONE document and sit inches apart on the card. The heuristic errs in
+    // BOTH directions — it invents property against magistrates who declared none and misses
+    // it wholesale where it exists — so adjudication against the documents, not recency,
+    // is what puts the structured reader ahead. See the tile's own comment.
+    renderTile(
+      holding({
+        financials: {
+          bankCashLv: 0,
+          securitiesLv: 0,
+          realEstateCount: 1,
+          realEstateCountParsed: 3,
+        },
+      }),
+    );
+    expect(screen.getByText("3")).toBeInTheDocument();
+    expect(screen.queryByText("1")).not.toBeInTheDocument();
+  });
+
+  it("falls back to the heuristic when the reader has no answer, but NOT when it answers zero", () => {
+    // ⚠️ null and 0 are different facts. null = the crawl has not reached this filing, or it
+    // is on a form version the parser refuses (v3.0 only). 0 = the reader read it and it
+    // lists no property. Coalescing 0 to the heuristic republishes the defect on exactly the
+    // filings we can actually read.
+    const { unmount } = renderTile(
+      holding({
+        financials: {
+          bankCashLv: 0,
+          securitiesLv: 0,
+          realEstateCount: 2,
+          realEstateCountParsed: null,
+        },
+      }),
+    );
+    expect(screen.getByText("2")).toBeInTheDocument();
+    unmount();
+
+    renderTile(
+      holding({
+        financials: {
+          bankCashLv: 0,
+          securitiesLv: 0,
+          realEstateCount: 2,
+          realEstateCountParsed: 0,
+        },
+      }),
+    );
+    expect(screen.queryByText("2")).not.toBeInTheDocument();
+  });
+
+  it("still shows the financials row when ONLY the reader found property", () => {
+    // ⚠️ The guard that decides whether the row renders at all must use the RESOLVED count.
+    // 450 records carry a heuristic 0 against real declared property; guarding on the raw
+    // field suppresses the whole row for every one of them — the card silently loses the very
+    // figure it just learned. Reverting the guard to `f.realEstateCount > 0` must fail here.
+    renderTile(
+      holding({
+        financials: {
+          bankCashLv: 0,
+          securitiesLv: 0,
+          realEstateCount: 0,
+          realEstateCountParsed: 20,
+        },
+      }),
+    );
+    expect(screen.getByText("20")).toBeInTheDocument();
+    expect(screen.getByText("имота в декларацията")).toBeInTheDocument();
   });
 
   it("counts in grammatical Bulgarian", () => {

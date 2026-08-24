@@ -134,7 +134,7 @@ describe("MagistrateFilingProperties", () => {
 
   it("renders nothing at all when the filing yields no rows", () => {
     // ⚠️ NOT „declared no property". Also a filing the crawl has not reached, and a document
-    // the parser refused — 61% of filings are pre-v3.0 and refused wholesale.
+    // the parser refused — it accepts form v3.0 only, in both directions.
     const { container } = renderProps([]);
     expect(container).toBeEmptyDOMElement();
   });

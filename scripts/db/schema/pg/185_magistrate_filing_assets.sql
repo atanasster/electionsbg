@@ -21,6 +21,15 @@
 -- register holds movements with no opening balance and NO arithmetic over these rows yields
 -- an estate. See docs/plans/magistrate-declaration-detail-v1.md, Findings 0 and 0b.
 --
+-- ⚠️ THE FORM-VERSION GUARD REFUSES FORWARD AS WELL AS BACK, and the forward half is the one
+-- that grows. declarationTables.ts accepts v3.0 and nothing else. The register's older years
+-- are largely pre-v3.0 (61% of the 51,040-filing index) — a static backlog — but the ИВСС
+-- began issuing **v4.0 in 2026**, and measured over the first 9,124 loaded filings ALL 201
+-- form-version refusals are v4.0 and ALL are from 2026: 5.5% of that year against 0% in 2024
+-- and 2025, with 90 magistrates' own records refused. That share rises every filing season,
+-- it lands on the most current declarations, and nothing goes red when it does — refusing is
+-- the designed behaviour. See the plan's Tier-2 validation section.
+--
 -- Nothing serves these rows yet. This is storage; what may be PUBLISHED about a named judge
 -- is a separate, evidence-led decision recorded in that plan.
 
