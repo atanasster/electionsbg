@@ -49,7 +49,17 @@ interface Parsed {
    *  when the parse throws, which is what lets a rejection be identified by the
    *  MONTH it withholds rather than by which cache file happened to hold it. */
   period: string;
-  rows: { regNo: string; name: string; cumulativeEur: number }[];
+  /** Needed by the block reconciliation below: the subtotal lines live in the raw
+   *  text, and the peg conversion needs to know which currency the file is in. */
+  text: string;
+  currency: "BGN" | "EUR";
+  rows: {
+    regNo: string;
+    name: string;
+    rzokName: string;
+    cumulativeEur: number;
+    monthEur: number;
+  }[];
   rejected: string | null;
 }
 
@@ -79,6 +89,14 @@ const cached = (): string[] =>
         .sort()
     : [];
 
+/** The full text, not just page 1 — the per-РЗОК subtotal lines are spread through
+ *  the document. Page 1 alone is enough for the title and period sniff above. */
+const full = (p: string): string =>
+  spawnSync("pdftotext", ["-layout", p, "-"], {
+    encoding: "utf8",
+    maxBuffer: 64 * 1024 * 1024,
+  }).stdout ?? "";
+
 const parseAll = (): Parsed[] => {
   const out: Parsed[] = [];
   for (const file of cached()) {
@@ -95,12 +113,22 @@ const parseAll = (): Parsed[] => {
     const stream = streamOf(res.stdout.slice(0, 600));
     try {
       const f = parseHospitalPaymentsPdf(p, stream);
-      out.push({ file, stream, period, rows: f.rows, rejected: null });
+      out.push({
+        file,
+        stream,
+        period,
+        text: full(p),
+        currency: f.currencyOfRecord,
+        rows: f.rows,
+        rejected: null,
+      });
     } catch (e) {
       out.push({
         file,
         stream,
         period,
+        text: "",
+        currency: "BGN",
         rows: [],
         rejected: (e as Error).message,
       });
@@ -157,11 +185,17 @@ run("no parsed facility name ends in a stray sign", () => {
 // FACILITIES affected is the stable fact; a new month with the same defect adds
 // nothing, and a new kind of failure names itself.
 //
-// Not empty yet — Tier 1 item 3 (RC-4 ii/iii, wrapped rows and amounts split
-// across the line break) is what empties it:
-//   0306253028  МИ-МВР-ФИЛИАЛ ВАРНА — three-line wrapped name
-//   1319391019  ДЪЧМЕД ДИАЛИЗА — amount split across the break
-//   0306211013  МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВАРНА
+// ⚠️ Tier 1 item 3 (RC-4 ii/iii) fixed the MONEY on every one of these rows —
+// verified against НЗОК's own per-РЗОК subtotals, which now disagree on nothing
+// but bmp 2023-01 — and did NOT empty this set. The three facilities still carry
+// an amount inside the stored NAME on 8 rows, because the name is bounded by
+// where the cumulative was found and a wrapped row leaves fragments on both
+// sides of it. That is a presentation defect on a published facility name, not a
+// euro one, and it is deliberately left rather than papered over: the fingerprint
+// is the only thing that keeps these rows visible.
+//   0306253028  МИ-МВР-ФИЛИАЛ ВАРНА — name wraps across three physical lines
+//   1319391019  ДЪЧМЕД ДИАЛИЗА — amount welded to „ЕООД", name continues after it
+//   0306211013  МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВАРНА (single-line glue)
 const AMOUNT_IN_NAME_REGNOS = ["0306211013", "0306253028", "1319391019"];
 
 run("only the known facilities carry an amount inside their name", () => {
@@ -230,3 +264,128 @@ run("every rejection is a completeness assert, never a crash", () => {
     .map((f) => `${f.file}: ${f.rejected}`);
   expect(odd, `unexpected parse failures:\n${odd.join("\n")}`).toEqual([]);
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// The reconciliation the fingerprints cannot do.
+//
+// Every fingerprint above asks "does this row LOOK misparsed". None of them asks
+// "does the money ADD UP", and that is the check that actually decides. НЗОК
+// prints its own subtotal above each РЗОК block — count, year-to-date and month —
+// so each block is an independent statement of what the rows beneath it must sum
+// to, and it is the only ground truth available offline.
+//
+// ⚠️ Both arms, deliberately. The first cut of the wrapped-row work reconciled the
+// CUMULATIVE only, called it verified, and shipped a MONTH that published „366"
+// against a true 45 366 on 31 files — €1,245,472. A one-armed reconciliation is
+// how that passed.
+
+/** Every amount on a block subtotal line: count, then YTD, then one column per
+ *  reporting month (a 3-column file carries two). */
+const SUBTOTAL =
+  /^\s*(\d+)\s+РЗОК\s+(\S.*?)\s{2,}((?:-?[\d \u00a0]+\s{2,})*-?[\d \u00a0]+)\s*$/;
+const PEG = 1.95583;
+
+interface Block {
+  file: string;
+  stream: PaymentStream;
+  period: string;
+  rzok: string;
+  subCum: number;
+  subMonth: number;
+  gotCum: number;
+  gotMonth: number;
+  rows: number;
+}
+
+const blocks = (): Block[] => {
+  const out: Block[] = [];
+  for (const f of parsed()) {
+    if (f.rejected) continue; // a withheld month publishes nothing to reconcile
+    const eur = f.currency === "EUR";
+    const conv = (x: string) => {
+      const n = Number(x.replace(/[\s\u00a0]/g, ""));
+      return eur ? n : Math.round(n / PEG);
+    };
+    const subs = new Map<string, { cum: number; month: number }>();
+    for (const line of f.text.split(/\r?\n/)) {
+      const m = line.match(SUBTOTAL);
+      if (!m || subs.has(m[2].trim())) continue;
+      const cols = m[3]
+        .split(/\s{2,}/)
+        .map((c) => c.trim())
+        .filter(Boolean);
+      subs.set(m[2].trim(), {
+        cum: conv(cols[0]),
+        // The FIRST month column, which is what `monthEur` carries — a 3-column
+        // file prints two and the parser has always taken the earlier one.
+        month: conv(cols[1] ?? cols[cols.length - 1]),
+      });
+    }
+    const got = new Map<string, { cum: number; month: number; n: number }>();
+    for (const r of f.rows) {
+      const c = got.get(r.rzokName) ?? { cum: 0, month: 0, n: 0 };
+      c.cum += r.cumulativeEur;
+      c.month += r.monthEur;
+      c.n++;
+      got.set(r.rzokName, c);
+    }
+    for (const [rzok, sub] of subs) {
+      const g = got.get(rzok) ?? { cum: 0, month: 0, n: 0 };
+      out.push({
+        file: f.file,
+        stream: f.stream,
+        period: f.period,
+        rzok,
+        subCum: sub.cum,
+        subMonth: sub.month,
+        gotCum: g.cum,
+        gotMonth: g.month,
+        rows: g.n,
+      });
+    }
+  }
+  return out;
+};
+
+/** Each row is rounded to the euro independently and the subtotal is rounded once,
+ *  so a block of n rows may legitimately differ by a few euro. Measured across
+ *  2,968 blocks the rounding band tops out at €7; the smallest REAL defect ever
+ *  found here was €129. `max(10, rows)` sits in that gap with room either side. */
+const tolerance = (rows: number) => Math.max(10, rows);
+
+run(
+  "every published block's year-to-date reconciles to НЗОК's own subtotal",
+  () => {
+    const off = blocks()
+      .filter((b) => Math.abs(b.subCum - b.gotCum) > tolerance(b.rows))
+      .map(
+        (b) =>
+          `${b.stream} ${b.period} ${b.rzok}: НЗОК €${b.subCum.toLocaleString()} vs parsed €${b.gotCum.toLocaleString()}`,
+      );
+    expect(
+      off,
+      `blocks whose YTD does not reconcile:\n${off.join("\n")}`,
+    ).toEqual([]);
+  },
+);
+
+// The month arm is ONE-SIDED on purpose. A wrapped row whose month column was cut
+// in half around the year-to-date records 0 ("unknown") rather than publishing a
+// fragment, so a block's month sum is legitimately SHORT — 33 files, and that
+// under-reporting is the fix, not the defect. What must never happen is the other
+// direction: a block that publishes MORE month money than НЗОК says it paid can
+// only mean a figure was invented or double-counted.
+run(
+  "no published block overstates its month against НЗОК's own subtotal",
+  () => {
+    const over = blocks()
+      .filter((b) => b.gotMonth - b.subMonth > tolerance(b.rows))
+      .map(
+        (b) =>
+          `${b.stream} ${b.period} ${b.rzok}: parsed €${b.gotMonth.toLocaleString()} vs НЗОК €${b.subMonth.toLocaleString()}`,
+      );
+    expect(over, `blocks overstating the month:\n${over.join("\n")}`).toEqual(
+      [],
+    );
+  },
+);

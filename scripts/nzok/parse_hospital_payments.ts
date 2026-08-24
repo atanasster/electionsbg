@@ -285,6 +285,64 @@ export const repairGluedThousands = (tail: string): string =>
  *     lands on a fragment, not the cumulative).
  *  A merged/again-wrapped month reads > cumulative and is recorded 0 (unknown)
  *  rather than a wrong figure. */
+/**
+ * A wrapped row's amount tokens, with any amount SPLIT ACROSS THE LINE BREAK
+ * rejoined. Returns each candidate with the index it starts at, so the caller can
+ * still bound the facility name.
+ *
+ * `pdftotext -layout` emits a wrapped row in reading order, which interleaves the
+ * amount columns with the name fragments that wrapped — and it can cut one amount
+ * in half, leaving its leading group on one line and its trailing group on the
+ * next („…ЕООД279" then „464"). Two bare runs are rejoined only when the result is
+ * ONE well-formed grouped amount, which is what keeps this off the far more common
+ * case of two complete amounts sitting next to each other: „1 853 500" and
+ * „146 500" would concatenate into a perfectly grouped 1 853 500 146 500, so the
+ * first fragment must carry no internal separator of its own.
+ */
+const joinSplitGroups = (
+  matches: RegExpMatchArray[],
+  tail: string,
+): { value: number; index: number; bare: boolean; raw: string }[] => {
+  const out: { value: number; index: number; bare: boolean; raw: string }[] =
+    [];
+  for (let i = 0; i < matches.length; i++) {
+    const cur = matches[i][0];
+    const next = matches[i + 1]?.[0];
+    // The two halves must be separated by an actual LINE BREAK. Without that,
+    // a wrapped row whose YTD and month are both bare 3-digit runs („…ЕООД  255
+    // 255") joins them into 255 255 — two complete columns fused into one figure.
+    const between =
+      next === undefined
+        ? ""
+        : tail.slice(
+            (matches[i].index ?? 0) + cur.length,
+            matches[i + 1].index ?? 0,
+          );
+    if (
+      next !== undefined &&
+      between.includes("\n") &&
+      !/[ \t\u00a0]/.test(cur) &&
+      /^\d{3}$/.test(next) &&
+      GROUPED_AMOUNT.test(`${cur} ${next}`)
+    ) {
+      out.push({
+        value: num(`${cur} ${next}`),
+        index: matches[i].index ?? -1,
+        bare: false,
+        raw: `${cur} ${next}`,
+      });
+      i++;
+    } else
+      out.push({
+        value: num(cur),
+        index: matches[i].index ?? -1,
+        bare: !/[ \t\u00a0]/.test(cur),
+        raw: cur,
+      });
+  }
+  return out;
+};
+
 export const extractAmounts = (
   tail: string,
   stream: PaymentStream = "bmp",
@@ -294,7 +352,21 @@ export const extractAmounts = (
   // regex, so every scan gets its own copy rather than sharing mutable state with
   // the module constant. Kept deliberately, not a leftover from the two-regex fork.
   const re = () => new RegExp(SIGNED_AMOUNT_RE);
-  const all = [...tail.matchAll(re())];
+  // ⚠️ A BARE run of 5+ digits is not money, on any path. These reports are Excel
+  // exports and space-group every amount above 999, so an ungrouped long run is a
+  // 10-digit Рег.№ ЛЗ that arrived inside an ABSORBED line — which is what a
+  // row-matching defect produces (a line the row regex fails to recognise is
+  // appended to its predecessor's tail). Measured: „0306391032" was read as an
+  // amount and would publish МБАЛ-Девня at €156,655,247. Dropping it here rather
+  // than in one branch keeps the candidate rule and the wrapped reconstruction
+  // from disagreeing about what counts as an amount.
+  //
+  // The bound is 999, not a looser round number, because it IS the invariant: the
+  // only bare runs above 999 anywhere in the cache are the name years „2012" (×90)
+  // and „2003" (×50), never an amount.
+  const isAmountToken = (t: string): boolean =>
+    /[ \t\u00a0]/.test(t) || Math.abs(num(t)) <= 999;
+  const all = [...tail.matchAll(re())].filter((m) => isAmountToken(m[0]));
   // `bmp` always prints both columns. `drugs`/`devices` leave the month blank
   // when nothing moved, so one amount is a complete row there, not a dropped one.
   if (all.length < (lenient ? 1 : 2)) return null;
@@ -314,7 +386,9 @@ export const extractAmounts = (
     for (const m of tail.matchAll(/\p{L}/gu))
       lastLetter = m.index ?? lastLetter;
     const region = lastLetter >= 0 ? tail.slice(lastLetter + 1) : "";
-    const rm = [...region.matchAll(re())];
+    // Candidate A rescans a slice, so it must apply the same token filter or a
+    // Рег.№ from an absorbed line re-enters through this path alone.
+    const rm = [...region.matchAll(re())].filter((m) => isAmountToken(m[0]));
     const aVal = rm.length ? num(rm[0][0]) : NaN;
     const aIdx = rm.length ? lastLetter + 1 + (rm[0].index ?? 0) : -1;
 
@@ -361,6 +435,94 @@ export const extractAmounts = (
       (!lenient && cumulative >= 0 && month > cumulative)
     )
       month = 0;
+  }
+
+  // ── A WRAPPED row: the candidate rule above reads a name fragment as the amount.
+  //
+  // The two candidates are "first amount after the last name letter" and
+  // "second-to-last amount of the row". Both assume the amounts come LAST. When a
+  // row wraps, `pdftotext -layout` emits it in reading order and interleaves the
+  // amount columns with the name text that wrapped, so both land on a fragment:
+  // „МИ-МВР-ФИЛИАЛ ВАРНА …" published €47 against a true €522,872 for 2024-12 and
+  // €36 against €545,021 for 2025-12, with the amount baked into the stored name.
+  //
+  // ⚠️ The plan (Tier 1 item 3) prescribes reading the amounts from the header's
+  // COLUMN POSITIONS. That is only PARTLY unavailable, and the first draft of this
+  // comment overstated it. Re-measured across 302 wrapped rows: 86.6% of amount
+  // tokens do land exactly on a right-edge column derived from the file's own
+  // ordinary rows. What breaks an exact read is the minority where the YTD's
+  // leading digit collides with the wrapped name and is pushed LEFT (bmp 2024-12
+  // and 2025-12: column 110 → 103) — which is precisely the shape this branch
+  // exists for. A right-edge-NEAREST column read would cover both and is the
+  // better fix; it is not what ships here, and that is a deliberate deferral
+  // rather than an impossibility.
+  //
+  // What IS invariant without any column: the year-to-date is the LARGEST figure
+  // in the row — ≥ its own month, ≥ each month of a 3-column file, and ≥ any
+  // name-fragment digit. Verified against НЗОК's own per-РЗОК subtotals across the
+  // whole cache.
+  //
+  // Four conditions keep it narrow, and each is load-bearing:
+  //  · only on a row that actually wrapped — a single-line row is what the
+  //    candidate rule was built and tested for;
+  //  · only on `bmp`. The clamp above is `!lenient`-gated because a lenient month
+  //    legitimately exceeds its own YTD when an earlier clawback dragged the YTD
+  //    down (devices 2023-02, УМБАЛ Александровска). "Largest is the YTD" is the
+  //    same assumption, so it must carry the same gate — without it a wrapped
+  //    Александровска has its two figures SWAPPED;
+  //  · only when no token is negative — "largest" is the wrong comparison for a
+  //    clawback (−50 > −100), and no wrapped row in the cache carries one;
+  //  · only when the largest figure is a real amount rather than a stray digit
+  //    (> 999). A wrapped €0 facility whose name carries a „2" would otherwise be
+  //    published at €2 and counted as PAID.
+  if (
+    !lenient &&
+    tail.includes("\n") &&
+    all.length >= 2 &&
+    all.every((m) => num(m[0]) >= 0)
+  ) {
+    const cands = joinSplitGroups(all, tail);
+    const top = cands.reduce((a, b) => (b.value > a.value ? b : a));
+    if (top.value > 999) {
+      if (top.value > cumulative) {
+        cumulative = top.value;
+        cumIdx = top.index;
+      }
+      // ⚠️ The MONTH must be recomputed even when the cumulative was already
+      // right, and this branch used to be skipped entirely in that case. On 31 of
+      // the 33 cached МИ-МВР months the YTD sits BETWEEN the two halves of the
+      // split month („…ПРОДЪЛЖИТЕЛНО 45 ⏎ 133 792 ЛЕЧЕНИЕ ⏎ 366 И РЕХА"), so the
+      // candidate rule reads the YTD correctly and the month published as 366
+      // against a true 45 366 — €1,245,472 across the loaded months. Reconciling
+      // the cumulative against the per-РЗОК subtotals is structurally blind to it,
+      // which is why it survived the first cut of this change.
+      //
+      // `joinSplitGroups` cannot rescue those: it only fuses ADJACENT tokens, and
+      // here the YTD is in between. Rather than guess which fragments pair up, a
+      // row that still carries a loose bare fragment records the month as 0
+      // ("unknown") — the same choice the merged-column clamp makes, and the only
+      // one that cannot publish a wrong figure about a named facility.
+      // The month is the FIRST figure after the year-to-date, not the largest —
+      // matching what the candidate rule does on an ordinary row. A 3-column file
+      // prints YTD, then the first month, then the second, and this field has
+      // always carried the FIRST of them; taking the largest instead made a
+      // wrapped row report February while every ordinary row in the same file
+      // reported January.
+      //
+      // (Whether this field SHOULD be the first month or the report month is a
+      // separate, pre-existing question — the header says „в т.ч. касово
+      // изпълнение за месец", and 3-column files name two. Not decided here; what
+      // matters is that one file does not answer it two ways.)
+      const rest = cands.filter(
+        (c) => c !== top && c.index > top.index && c.value <= cumulative,
+      );
+      // "Loose fragment" means a bare run of EXACTLY three digits — the shape of a
+      // thousands group that lost its leading part („366" out of „45 366"). A
+      // shorter bare run is an ordinary name-index digit („…заведение 48") and
+      // must not cost that row its perfectly good month.
+      const fragmented = rest.some((c) => c.bare && c.raw.length === 3);
+      month = fragmented || !rest.length ? 0 : rest[0].value;
+    }
   }
 
   // Keep zero-payment facilities (cumulative 0) — they're counted in the facility

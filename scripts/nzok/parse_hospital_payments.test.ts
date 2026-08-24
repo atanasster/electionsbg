@@ -177,6 +177,122 @@ const CASES: {
     tail: "Болница ЕООД   -55 394",
     expect: null,
   },
+  // ── RC-4(ii)/(iii), wrapped rows. `pdftotext -layout` emits a wrapped row in
+  //    reading order, interleaving the amount columns with the name fragments that
+  //    wrapped — and it can cut one amount in half across the break. The candidate
+  //    rule assumes the amounts come last, so on these it reads a name fragment:
+  //    МИ-МВР-ФИЛИАЛ ВАРНА published €47 against a true €522,872.
+  //
+  //    All four tails are verbatim. Note the cumulative sits on a DIFFERENT
+  //    physical line in each, which is why no column rule can find it — measured,
+  //    `-layout` does not preserve the columns for a wrapped row (an ordinary
+  //    row's YTD ends at column 118 on bmp 2024-12; this row's at 103).
+  {
+    label:
+      "wrapped — cumulative on the first line, month split across the rest",
+    tail:
+      "   МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ, 1 022 653\n" +
+      "                       ПРОДЪЛЖИТЕЛНО 91ЛЕЧЕНИЕ\n" +
+      "                             063 ИР",
+    expect: {
+      name: "МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ,",
+      cumulative: 1022653,
+      month: 91063,
+    },
+  },
+  {
+    // 3-column file (YTD, January, February): the YTD is on L1 and the January
+    // column is split across L0 and L2. 57 404 + 31 022 = 88 426 — the row
+    // reconciles with itself, which is how the reading was verified.
+    //
+    // ⚠️ The month is 0 (unknown) even though February's 31 022 IS present and
+    // correct. A loose „404" remains after the YTD is taken, and nothing local can
+    // tell a stray half („366" out of „45 366") from a whole column — so the row
+    // withholds rather than risk publishing half of one. Recovering it needs the
+    // column read deferred in extractAmounts' comment.
+    label:
+      "wrapped — cumulative on the SECOND line, a column split across L0/L2",
+    tail:
+      "   МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ,     ПРОДЪЛЖИТЕЛНО 57\n" +
+      "                                   88 426    ЛЕЧЕНИЕ\n" +
+      "                                        404 И   РЕХАБИЛИТАЦИЯ\n" +
+      "                                             31 022",
+    expect: {
+      name: "МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ, ПРОДЪЛЖИТЕЛНО 57",
+      cumulative: 88426,
+      month: 0,
+    },
+  },
+  {
+    // The amount itself is cut in half: „…ЕООД279" on L0, „464" on L1, with a
+    // name fragment („гр.") between them in reading order. Rejoining is allowed
+    // only because neither half carries a separator of its own and the result is
+    // one grouped amount — „1 853 500" + „146 500" would also concatenate
+    // cleanly, and must not.
+    label: "wrapped — the cumulative is split across the line break",
+    tail:
+      "    ДЪЧМЕД ДИАЛИЗА БЪЛГАРИЯ - ДИАЛИЗЕН ЦЕНТЪР ЕООД279    гр.\n" +
+      "464          68 000",
+    expect: {
+      name: "ДЪЧМЕД ДИАЛИЗА БЪЛГАРИЯ - ДИАЛИЗЕН ЦЕНТЪР ЕООД",
+      cumulative: 279464,
+      month: 68000,
+    },
+  },
+  {
+    // ⚠️ Two COMPLETE amounts side by side must never be rejoined — the guard is
+    // that the first fragment carries no separator of its own. Without it this
+    // reads 1 853 500 146 500.
+    label: "wrapped — two complete amounts are never rejoined",
+    tail:
+      '   "НефроЛайф България - Специализирани центрове по хемодиализа"ООД\n' +
+      "                          1 853 500         146 500",
+    expect: {
+      name: '"НефроЛайф България - Специализирани центрове по хемодиализа"ООД',
+      cumulative: 1853500,
+      month: 146500,
+    },
+  },
+  {
+    // ⚠️ The shape the review found: on 31 of 33 cached МИ-МВР months the YTD sits
+    // BETWEEN the two halves of the split month, so the candidate rule reads the
+    // YTD correctly, the reconstruction used to be skipped entirely, and the month
+    // published as „366" against a true 45 366 — €1,245,472 across loaded months.
+    // Reconciling only the CUMULATIVE against НЗОК's subtotals is blind to it.
+    label:
+      "wrapped — a month split AROUND the cumulative is withheld, not halved",
+    tail:
+      "   МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ,      ПРОДЪЛЖИТЕЛНО 45\n" +
+      "                                   133 792     ЛЕЧЕНИЕ\n" +
+      "                                        366 И РЕХА",
+    expect: {
+      name: "МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ, ПРОДЪЛЖИТЕЛНО 45",
+      cumulative: 133792,
+      month: 0,
+    },
+  },
+  {
+    // ⚠️ "Largest is the YTD" is the clamp's assumption, so it carries the clamp's
+    // `!lenient` gate. Without it a WRAPPED УМБАЛ Александровска has its two
+    // figures swapped — devices 2023-02 legitimately prints a month above its YTD.
+    label: "lenient + wrapped: the two figures are NOT swapped",
+    tail:
+      "   УМБАЛ Александровска - ЕАД гр. София\n" +
+      "                                      43 388            47 073",
+    stream: "devices",
+    expect: {
+      name: "УМБАЛ Александровска - ЕАД гр. София",
+      cumulative: 43388,
+      month: 47073,
+    },
+  },
+  {
+    // ⚠️ A wrapped €0 facility whose name carries a digit would be published at €2
+    // and counted as PAID. The reconstruction only overrides above 999.
+    label: "wrapped — a zero-payment row is not raised by a name digit",
+    tail: "   МБАЛ 2 ЕООД\n                          0            0",
+    expect: { name: "МБАЛ 2 ЕООД", cumulative: 0, month: 0 },
+  },
 ];
 
 for (const c of CASES) {
@@ -369,4 +485,35 @@ test("the glue rules are disjoint and the repair is idempotent", () => {
       `not idempotent: ${c.label}`,
     );
   }
+});
+
+// ⚠️ A bare run of 5+ digits is a Рег.№ ЛЗ that arrived inside an ABSORBED line,
+// not money — these reports space-group every amount above 999. Asserted as a
+// PROPERTY rather than a full expectation, because the row below is also wrong
+// for a different, separate reason (the line was absorbed at all — a row-matching
+// defect), and pinning its value would read as endorsing that.
+test("a registration number in an absorbed line is never read as an amount", () => {
+  const r = extractAmounts(
+    "   МБАЛ- Девня ЕООД                     255       255\n" +
+      " 3     Варна    23   0306391032   ДЦ ХИПОКРАТ ЕООД        4 277       4 277",
+  );
+  assert.ok(r, "row should still parse");
+  assert.ok(
+    Math.abs(r.cumulative) < 1_000_000,
+    `read ${r.cumulative} — a Рег.№ leaked into the amount scan`,
+  );
+});
+
+// Two COMPLETE amounts on one line are never fused, even when both are bare
+// 3-digit runs and their concatenation is well-formed. The rejoin needs a real
+// line break between the halves.
+test("two complete same-line amounts are not fused into one", () => {
+  const r = extractAmounts(
+    "   МБАЛ- Девня ЕООД                     255       255",
+  );
+  assert.deepEqual(r, {
+    name: "МБАЛ- Девня ЕООД",
+    cumulative: 255,
+    month: 255,
+  });
 });
