@@ -22,6 +22,14 @@ export interface MagistrateCompany {
 export interface MagistrateFinancials {
   bankCashLv: number;
   securitiesLv: number;
+  /** ⚠️ THE ORIGINAL HEURISTIC'S COUNT — DELIBERATELY NOT RENDERED ANYWHERE, by any surface.
+   *  It invents property against magistrates who declared none and misses it where it exists,
+   *  so it is not a rougher version of the real number and is never a fallback for one.
+   *  declaredPropertyCount() below is the only thing a surface may call.
+   *
+   *  It stays on the wire because `magistrate_by_name()` returns it and the asset loader
+   *  reports the two side by side when it runs, which is how a drift in either is noticed.
+   *  Nothing else reads it. */
   realEstateCount: number;
   /** The same count from the structured reader. `null` means it has no answer for this
    *  filing — the operator crawl has not reached it, or the document is on a form version the
@@ -242,24 +250,29 @@ export const useMagistrateFilingAssets = (
 };
 
 /**
- * How many properties a magistrate's own declaration lists — THE one place that choice is
- * made, because two payload fields carry two different answers and both are facts.
+ * How many properties a magistrate's own declaration lists — or `null` when we do not know.
+ * THE one place that choice is made, because the payload carries two different answers.
  *
- * ⚠️ The structured reader wins wherever it has an answer, and this is not a preference for
- * the newer code: the original heuristic is wrong in BOTH directions, adjudicated against the
- * documents themselves. It counted a row whenever some cell parsed above 2,000 — which the
- * control number stamped on every page satisfies — so it invents property against magistrates
- * who declared none (Димо Николов Николов: 6, on a filing carrying „Нямам нищо за
- * деклариране" five times and not one property noun over 11 pages) and misses it wholesale
- * where it exists (Иво Веселинов Радев: 0, on a filing carrying 20 declared properties).
+ * ⚠️ THE HEURISTIC IS NEVER A FALLBACK. It is not a rougher version of the same number; it is
+ * wrong in BOTH directions, adjudicated against the documents themselves. It counted a row
+ * whenever some cell parsed above 2,000 — which the control number stamped on every page
+ * satisfies — so it INVENTS property against magistrates who declared none (Димо Николов
+ * Николов: 6, on a filing carrying „Нямам нищо за деклариране" five times and not one property
+ * noun over 11 pages) and MISSES it wholesale where it exists (Иво Веселинов Радев: 0, on a
+ * filing declaring 20). Publishing it where the reader is silent would put a fabricated
+ * property count beside a named judge's name, which is the one failure this card exists to
+ * end. So `null` in, `null` out: the caller renders nothing.
  *
- * ⚠️ `??`, never `||`. `0` is the reader's own answer — this filing lists no property — and
- * must not fall through to the heuristic's guess. `null` is the ABSENCE of an answer, and is
- * the only thing that falls back.
+ * `null` means the structured reader has no answer — the operator crawl has not reached this
+ * filing, or it is on a form version the parser refuses (v3.0 only; the ИВСС began issuing
+ * v4.0 in 2026). `0` is an ANSWER — this filing lists no property — and renders as such.
+ *
+ * Measured when this shipped: 3,497 of 3,594 roster records already had a read answer, and
+ * exactly 40 were showing a heuristic count that this withholds.
  */
 export const declaredPropertyCount = (
   f: Pick<
     MagistrateFinancials,
     "realEstateCount" | "realEstateCountParsed"
   > | null,
-): number => (f ? (f.realEstateCountParsed ?? f.realEstateCount) : 0);
+): number | null => f?.realEstateCountParsed ?? null;

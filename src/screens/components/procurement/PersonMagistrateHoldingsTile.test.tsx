@@ -78,7 +78,14 @@ const holding = (over: Partial<MagistrateHolding> = {}): MagistrateHolding => ({
   position: "прокурор",
   court: "Върховна касационна прокуратура",
   companies: [],
-  financials: { bankCashLv: 18268, securitiesLv: 0, realEstateCount: 4 },
+  // A rendered count now requires the structured reader's answer — the heuristic alone
+  // renders nothing, deliberately. Цацаров's 2026 annual declares four properties.
+  financials: {
+    bankCashLv: 18268,
+    securitiesLv: 0,
+    realEstateCount: 4,
+    realEstateCountParsed: 4,
+  },
   ...over,
 });
 
@@ -130,11 +137,11 @@ describe("PersonMagistrateHoldingsTile", () => {
     expect(screen.queryByText("1")).not.toBeInTheDocument();
   });
 
-  it("falls back to the heuristic when the reader has no answer, but NOT when it answers zero", () => {
-    // ⚠️ null and 0 are different facts. null = the crawl has not reached this filing, or it
-    // is on a form version the parser refuses (v3.0 only). 0 = the reader read it and it
-    // lists no property. Coalescing 0 to the heuristic republishes the defect on exactly the
-    // filings we can actually read.
+  it("shows NO count when the reader has no answer — it never falls back to the heuristic", () => {
+    // ⚠️ The heuristic is not a rougher version of the same number, so it is not a fallback.
+    // It fabricates: Димо Николов Николов scored 6 on a filing carrying „Нямам нищо за
+    // деклариране" five times and not one property noun over 11 pages. Publishing that where
+    // the reader is silent puts an invented property count beside a named judge.
     const { unmount } = renderTile(
       holding({
         financials: {
@@ -145,9 +152,12 @@ describe("PersonMagistrateHoldingsTile", () => {
         },
       }),
     );
-    expect(screen.getByText("2")).toBeInTheDocument();
+    expect(screen.queryByText("2")).not.toBeInTheDocument();
+    expect(screen.queryByText(/имот/)).not.toBeInTheDocument();
     unmount();
 
+    // …and 0 is an ANSWER — this filing lists no property — not an absence of one. It renders
+    // as "no count" too, but for the opposite reason, and must not resurrect the heuristic.
     renderTile(
       holding({
         financials: {
@@ -185,7 +195,12 @@ describe("PersonMagistrateHoldingsTile", () => {
     // 2 up. The card shipped it, on every magistrate who declared exactly one property.
     renderTile(
       holding({
-        financials: { bankCashLv: 0, securitiesLv: 0, realEstateCount: 1 },
+        financials: {
+          bankCashLv: 0,
+          securitiesLv: 0,
+          realEstateCount: 1,
+          realEstateCountParsed: 1,
+        },
       }),
     );
     expect(screen.getByText("имот в декларацията")).toBeInTheDocument();

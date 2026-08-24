@@ -11,6 +11,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  allRows,
   end,
   exec,
   refreshMatviewConcurrently,
@@ -282,6 +283,27 @@ const run = async (): Promise<void> => {
       "  ⚠️  no filings in the artifact — rebuild it with " +
         "scripts/judiciary/__write_magistrate_holdings.ts, or the person page ships " +
         "without declaration links.",
+    );
+
+  // ⚠️ THIS RELOAD JUST BLANKED THE PROPERTY COUNT ON EVERY MAGISTRATE CARD, and nothing
+  // else will say so. The TRUNCATE above clears magistrate.real_estate_count_parsed and the
+  // magistrate_filing.kind metadata its derivation needs; only
+  // db:load:magistrate-filing-assets:pg can refill them, and that loader is a
+  // REFRESH_EXCLUSIONS member, so db:refresh does NOT run it. The card renders no count
+  // rather than falling back to the old heuristic — deliberate, since that heuristic
+  // fabricates property — which makes the failure invisible unless it is announced here.
+  // to_regclass rather than a plain count: 185 is applied only by the asset loader, so on a
+  // database that has never run the crawl the table does not exist and a bare count is 42P01.
+  const probe = await allRows<{ assets: string }>(
+    `SELECT (SELECT count(*) FROM magistrate_filing_asset)::text AS assets
+      WHERE to_regclass('public.magistrate_filing_asset') IS NOT NULL`,
+  );
+  const assets = probe.length ? probe[0].assets : "0";
+  if (Number(assets) > 0)
+    console.warn(
+      `  ⚠️  ${assets} parsed property row(s) are still loaded, but this reload cleared the ` +
+        `per-magistrate counts derived from them — every card now shows NO property count. ` +
+        `Re-run: npm run db:load:magistrate-filing-assets:pg`,
     );
   await end();
 };

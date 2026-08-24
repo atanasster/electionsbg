@@ -96,10 +96,11 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
     !!f &&
     (f.bankCashLv > 0 ||
       f.securitiesLv > 0 ||
-      // ⚠️ The RESOLVED count, not the heuristic one. 450 records have a heuristic 0 against
-      // real declared property; guarding on the raw field suppresses the whole financials row
-      // for every one of them, so the card silently loses the figure it just learned.
-      declaredPropertyCount(f) > 0);
+      // ⚠️ The READ count, not the heuristic one. 450 records have a heuristic 0 against real
+      // declared property; guarding on the raw field suppresses the whole financials row for
+      // every one of them, so the card silently loses the figure it just learned. `?? 0`
+      // because an unknown count is not a reason to show the row.
+      (declaredPropertyCount(f) ?? 0) > 0);
   // Drop anything not on the register's own origin rather than rendering it — see
   // REGISTER_ORIGIN. Measured over the committed artifact all 37,023 are on it, so this
   // removes nothing today; it is the assertion at the render site.
@@ -169,10 +170,12 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
               )}
               {/* The count of the very rows this card lists when a reader expands the
                 filing — two numbers about one document, inches apart, must not disagree.
-                Which of the two payload fields wins, and why, is declaredPropertyCount(). */}
+                ⚠️ NULL renders NOTHING rather than falling back to the heuristic, which
+                fabricates property against magistrates who declared none. See
+                declaredPropertyCount(). */}
               {(() => {
                 const n = declaredPropertyCount(f);
-                if (!(n > 0)) return null;
+                if (n == null || n <= 0) return null;
                 return (
                   <span>
                     <span className="font-semibold tabular-nums">{n}</span>{" "}

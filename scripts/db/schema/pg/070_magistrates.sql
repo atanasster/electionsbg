@@ -89,8 +89,15 @@ ALTER TABLE magistrate
 --
 -- Filled by scripts/db/load_magistrate_filing_assets_pg.ts, which runs AFTER the magistrates
 -- loader has TRUNCATEd and reloaded this table — so a standalone `db:load:magistrates:pg`
--- leaves it NULL until that loader runs again. Degrading to the heuristic, which is the
--- correct direction.
+-- leaves it NULL until that loader runs again.
+--
+-- ⚠️ AND NULL MEANS THE CARD SHOWS NO COUNT AT ALL — it does NOT fall back to
+-- `real_estate_count`. That was the behaviour for one commit and was changed deliberately
+-- (2026-08-25): the heuristic is not a rougher version of this number, it is one that INVENTS
+-- property against magistrates who declared none, so publishing it where this column is
+-- silent is the exact false claim the card exists to end. The consequence to plan for is that
+-- a magistrates reload makes the count DISAPPEAR site-wide until the asset loader re-runs —
+-- visibly absent rather than quietly wrong, which is the right way round.
 ALTER TABLE magistrate ADD COLUMN IF NOT EXISTS real_estate_count_parsed int;
 
 CREATE INDEX IF NOT EXISTS idx_magistrate_name_norm ON magistrate (name_norm);
@@ -358,12 +365,12 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'name', t.name, 'position', t.position, 'court', t.court,
       'financials', jsonb_build_object(
         'bankCashLv', t.bank_cash_lv, 'securitiesLv', t.securities_lv,
-        -- ⚠️ THE SAME TWO FIELDS AS magistrate_by_name(), WITH THE SAME MEANINGS. Both are
-        -- facts — the heuristic's count and the reader's — and the CHOICE between them is
-        -- made once, in the UI, by declaredPropertyCount(). Resolving it here instead would
-        -- make `realEstateCount` mean „the heuristic" in one function and „the resolved
-        -- value" in the other, which is a worse defect than the one being fixed: same name,
-        -- two meanings, no way for a consumer to tell which it received.
+        -- ⚠️ THE SAME TWO FIELDS AS magistrate_by_name(), WITH THE SAME MEANINGS — and this
+        -- is NOT a choice between two renderable numbers. `real_estate_count` is the original
+        -- heuristic's, which FABRICATES property against magistrates who declared none, so no
+        -- surface may render it: declaredPropertyCount() in the UI publishes the reader's
+        -- answer or nothing at all. Both ride here so the two stay comparable and so this
+        -- function cannot disagree with magistrate_by_name() about what a field name means.
         --
         -- (Nothing renders these on /judiciary today — MagistrateHoldingsTile shows only the
         -- declared companies. This is contract consistency for whatever reads it next, not a

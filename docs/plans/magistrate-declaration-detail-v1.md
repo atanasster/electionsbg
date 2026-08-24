@@ -550,6 +550,21 @@ the first.** Overwriting would leave `real_estate_count` a mix of two counting m
 the `/judiciary` aggregate then sums into one plausible, unfalsifiable integer. Two columns
 keep the basis visible.
 
+**And the heuristic is NOT a fallback — decided 2026-08-25, after one commit that made it
+one.** Where the structured reader has no answer the card shows no count at all. The
+reasoning: a fallback is only honest when the fallback value is a rougher version of the same
+quantity, and this one is not — it fabricates. 3,497 of the 3,594 roster records already
+carried a read answer when this shipped, so withholding affected exactly **40 records**, and
+every magistrate's own filing is 2024-or-later, which means the pre-v3.0 backlog never
+reaches this figure at all; the residual NULLs are the v4.0 refusals.
+
+⚠️ **The operational consequence, stated rather than discovered later:** `magistrate` is
+TRUNCATEd and reloaded by `db:load:magistrates:pg`, which does not fill this column, and the
+asset loader that does is a `REFRESH_EXCLUSIONS` member. So a magistrates reload makes the
+count vanish from every card until `db:load:magistrate-filing-assets:pg` runs again. That is
+the intended direction — visibly absent beats quietly wrong — but it means the two loaders
+travel together on both sides, and the cloud publish order is magistrates → assets → deploy.
+
 ⚠️ **NULL is not zero, and the loader must not derive it from `table1_refused`.** That column
 is NULL both for a filing read without refusal AND for one the crawl has never reached — the
 loader only ever writes meta for filings it parsed — so keying on it writes `0`, i.e. „this

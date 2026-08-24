@@ -231,7 +231,8 @@ test("the reference filing still reads what an independent source reported", asy
 
 // ---------------------------------------------------------- the headline count's provenance --
 // `magistrate.real_estate_count_parsed` is the structured reader's answer for a record's OWN
-// filing, and the tile prefers it over the original heuristic. See 070's column comment and
+// filing, and it is the ONLY count any surface renders — the original heuristic is never a
+// fallback for it, because it fabricates. See 070's column comment and
 // docs/plans/magistrate-declaration-detail-v1.md, Finding 4.
 
 test("the parsed count equals the table-1 rows of that record's own filing", async () => {
@@ -327,5 +328,30 @@ test("the form-version refusal does not quietly become the majority answer", asy
     pct < 25,
     `${refused}/${total} (${pct.toFixed(1)}%) of crawled filings are on a form version the ` +
       `parser refuses — ${rows.map((r) => `${r.v}:${r.n}`).join(" ")}. Map the new form.`,
+  );
+});
+
+test("a corpus with property rows also carries the counts derived from them", async () => {
+  if (skip) return;
+  // ⚠️ THE HOLE THIS COVERS IS GUARANTEED, NOT HYPOTHETICAL. `db:load:magistrates:pg` is in
+  // db:refresh and TRUNCATEs `magistrate` (and `magistrate_filing` with it), clearing both
+  // real_estate_count_parsed and the `kind` metadata the derivation needs — while the loader
+  // that refills them is a REFRESH_EXCLUSIONS member. So every full refresh blanks the
+  // property count on every magistrate card until db:load:magistrate-filing-assets:pg is run
+  // again. That direction is deliberate (absent beats fabricated), but it must not be
+  // SILENT, and ORDER_PAIRS structurally cannot express it — the asset loader is not in the
+  // chain, so there is no pair to declare.
+  const [{ assets }] = await allRows<{ assets: string }>(
+    "SELECT count(*)::text assets FROM magistrate_filing_asset",
+  );
+  if (Number(assets) === 0) return; // no crawl on this database — nothing to derive from
+  const [{ counted }] = await allRows<{ counted: string }>(
+    `SELECT count(*)::text counted FROM magistrate
+      WHERE real_estate_count_parsed IS NOT NULL`,
+  );
+  assert.ok(
+    Number(counted) > 0,
+    `${assets} property row(s) are loaded but NO magistrate carries a parsed count — the ` +
+      `roster was reloaded after the assets were. Re-run db:load:magistrate-filing-assets:pg.`,
   );
 });
