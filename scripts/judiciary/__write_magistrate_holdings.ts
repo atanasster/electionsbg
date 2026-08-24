@@ -116,8 +116,18 @@ const pageRows = async (page: any): Promise<Item[][]> => {
 //     IS the лв amount). Bounded to before Вземания (Table 12) so receivables/
 //     liabilities never leak in.
 //   - securitiesLv — value of shares/дялове (the лв figure after an emitter name).
-//   - realEstateCount — OWNED properties only (Table 1), bounded before the
-//     agricultural / transferred-property tables.
+//   - realEstateCount — rows in Таблица 1 („Право на собственост и ограничени вещни
+//     права"), bounded before the agricultural / transferred-property tables.
+//     ⚠️ ON THE ANNUAL FILING THAT TABLE IS A FLOW — property ACQUIRED during the
+//     declared period — NOT a count of what the magistrate owns. Verified across
+//     three of Цацаров's filings: his 2024 annual reads „Нямам нищо за деклариране"
+//     while he demonstrably owned the 620,088 лв apartment bought in 2022, and every
+//     row in the other two carries a Година на придобиване equal to the declared
+//     year. (An ENTRY declaration — column 1, „към датата на встъпване в длъжност" —
+//     IS a stock snapshot; his July 2022 one lists 11 properties acquired 2003-2018.
+//     Nothing here distinguishes the two yet, which is why no surface may present
+//     this as holdings.) Any surface rendering it must say so — see
+//     PersonMagistrateHoldingsTile.tsx and its test.
 // Income and liabilities are deliberately NOT extracted — the sample showed them
 // unreliable, and a wrong figure on a named judge is not worth it.
 const CUR = /^(BGN|EUR|USD|GBP|CHF)$/i;
@@ -172,7 +182,9 @@ const extractFinancials = (
       }
     }
   }
-  // Owned real estate (Table 1 only), bounded before agricultural / transferred.
+  // Real estate — Table 1 rows only, bounded before agricultural / transferred.
+  // NOT a holdings count on an annual filing: see the realEstateCount note in the
+  // module header for why this is a FLOW (acquisitions in the declared period).
   if (/Право на собственост и ограничени вещни права/i.test(flat)) {
     const top =
       headerY(/Право на собственост и ограничени вещни права/i) ?? Infinity;

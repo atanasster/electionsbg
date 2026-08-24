@@ -76,7 +76,7 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
                   <span className="font-semibold tabular-nums">
                     {f.realEstateCount}
                   </span>{" "}
-                  {bg ? "недвижими имота" : "properties"}
+                  {bg ? "имота в декларацията" : "properties in this filing"}
                 </span>
               )}
             </div>
@@ -107,10 +107,15 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
             );
           })}
         </div>
-        <p className="mt-2 text-[11px] text-muted-foreground/80">
+        {/* Full opacity, not the house `/80`: this caption is the mechanism that keeps
+          the real-estate count honest, and `text-muted-foreground/80` measures 3.16:1
+          on the light theme — below AA for 11px text. The base token clears it at
+          4.55:1. The terminator sits OUTSIDE the year conditional in both languages,
+          so a null year leaves a well-formed sentence rather than fusing two. */}
+        <p className="mt-2 text-[11px] text-muted-foreground">
           {bg
-            ? `Данни от декларацията по чл. 175а ЗСВ за ${year ?? ""} г. Финансовите суми са ориентировъчни (извлечени автоматично от декларацията), а дружествата — разпознати по име. Следа, не доказателство; магистратите не са изборни лица.`
-            : `From the person's art. 175a ЗСВ declaration for ${year ?? ""}. The financial amounts are approximate (auto-extracted from the declaration) and companies are name-matched. A lead, not proof; magistrates are not elected officials.`}
+            ? `Данни от декларация по чл. 175а ЗСВ${year ? `, подадена през ${year} г` : ""}. Таблица 1 на годишната декларация изброява имотите, ПРИДОБИТИ през декларирания период — това не е броят на притежаваните имоти. Финансовите суми са ориентировъчни (извлечени автоматично от декларацията), а дружествата — разпознати по име. Следа, не доказателство; магистратите не са изборни лица.`
+            : `From the person's art. 175a ЗСВ declaration${year ? `, filed in ${year}` : ""}. Table 1 of the annual declaration lists property ACQUIRED during the declared period — it is not a count of what they own. The financial amounts are approximate (auto-extracted from the declaration) and companies are name-matched. A lead, not proof; magistrates are not elected officials.`}
         </p>
       </CardContent>
     </Card>
