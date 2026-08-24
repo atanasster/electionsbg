@@ -25,8 +25,12 @@
 //     PREVIOUS complaint year. The window is now `year | year - 1`.
 //  3. AMBIGUITY WAS DROPPED SILENTLY. Keys non-unique on either side were
 //     discarded with no counter, so a shrinking match rate looked like a quiet
-//     data trend. Ambiguity and misses are now RETURNED as data — gate D in T6
-//     asserts they do not rise.
+//     data trend. Ambiguity and misses are now RETURNED as data, so every rejoin
+//     reports them.
+//     ⚠️ Gate D ratchets `matches` ONLY — it does not assert the other three do
+//     not rise, and must not: corpus growth legitimately raises collisions, so
+//     such a gate would fail on every healthy crawl. This header claimed
+//     otherwise until 2026-08-24. `KzkBaselines` has no field for them.
 //
 // Combined effect, MEASURED on that corpus (2026-08-02) with no new crawl —
 // 4,407 decisions × 7,886 appeals:

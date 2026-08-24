@@ -35,10 +35,17 @@ export type KzkBaselines = {
   /**
    * Appeals the matcher resolved 1:1 against the stored corpus. Gate D.
    *
-   * Recorded SEPARATELY from `outcomes` because they fail differently: outcomes
-   * can only be written, never cleared, so `count(outcome)` is non-decreasing by
-   * construction and cannot detect a matcher that got WORSE. Re-running the
-   * matcher and comparing to this number can.
+   * Recorded SEPARATELY from `outcomes` because they fail differently — though
+   * NOT for the reason this comment gave until 2026-08-24. Outcomes are not
+   * append-only: `partitionByProvenance` puts a match with a NULL outcome into
+   * `writable` whenever the row is already machine-owned, and the writer assigns
+   * it unconditionally, so a re-derivation CAN clear a value.
+   *
+   * What `count(outcome)` actually misses is the row that stops being matched at
+   * all — it is simply absent from `writable`, so its stale outcome survives
+   * untouched and the count does not move. That is why it cannot detect a matcher
+   * that got WORSE, and why re-running the matcher and comparing to this number
+   * can. The twin of this note lives in kzk_appeals_provenance.data.test.ts.
    */
   matched: number;
   /** ISO date of the run that last raised any of the above. */

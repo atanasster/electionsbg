@@ -15,6 +15,9 @@ import {
   ACT_NO_PARTS_RE,
   countActNumbers,
   countRecordHeaders,
+  setsMeritsOutcome,
+  kindFromHeader,
+  MERITS_ELIGIBLE_SQL,
   type KzkDecision,
 } from "./kzk_decisions_store";
 
@@ -131,6 +134,42 @@ describe("ACT_NO_RE", () => {
       "",
     ])
       expect(ACT_NO_PARTS_RE.test(s)).toBe(ACT_NO_RE.test(s));
+  });
+});
+
+// The rule Gate D's corpus filter depends on. Its only runtime call site is
+// kzk_appeals_provenance.data.test.ts, so without these a "tidy-up" of the
+// expression would break no test while handing that gate 20 matches of slack —
+// and its SQL twin MERITS_ELIGIBLE_SQL decides what kzk_rejoin actually writes.
+describe("setsMeritsOutcome", () => {
+  it("excludes only a KNOWN определения", () => {
+    expect(setsMeritsOutcome("определения")).toBe(false);
+    expect(setsMeritsOutcome("решения")).toBe(true);
+  });
+
+  it("treats a legacy NULL/undefined kind as ELIGIBLE", () => {
+    // Counter-intuitive and load-bearing: the ~4,402 rows of the 2026-07-04
+    // corpus predate the column and are where every outcome served today comes
+    // from. Treating unknown as ineligible would drop ~2,860 matches.
+    expect(setsMeritsOutcome(null)).toBe(true);
+    expect(setsMeritsOutcome(undefined)).toBe(true);
+  });
+
+  it("agrees with kindFromHeader() end to end", () => {
+    expect(setsMeritsOutcome(kindFromHeader("1  Определение № 5"))).toBe(false);
+    expect(setsMeritsOutcome(kindFromHeader("1  Решение № 5"))).toBe(true);
+    // An unrecognised header yields null → eligible. That is why the corpus's
+    // kind labels need their own assertion in the data gate: a register re-skin
+    // would silently re-admit every определение.
+    expect(setsMeritsOutcome(kindFromHeader("1  Акт № 5"))).toBe(true);
+  });
+
+  it("MERITS_ELIGIBLE_SQL uses IS DISTINCT FROM, not <>", () => {
+    // `<>` is NULL-false, so it would drop the entire legacy corpus — the twin
+    // would then disagree with setsMeritsOutcome() on 4,402 rows.
+    expect(MERITS_ELIGIBLE_SQL).toMatch(/IS DISTINCT FROM/);
+    expect(MERITS_ELIGIBLE_SQL).not.toMatch(/<>/);
+    expect(MERITS_ELIGIBLE_SQL).toContain("определения");
   });
 });
 

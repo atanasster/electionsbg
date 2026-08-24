@@ -266,6 +266,23 @@ export const setsMeritsOutcome = (kind: string | null | undefined): boolean =>
   kind !== "определения";
 
 /**
+ * The SQL twin of `setsMeritsOutcome`, for callers that filter in the database.
+ *
+ * ONE definition, for the reason `parseRegisterTotal` gives about its own reading:
+ * `kzk_rejoin.ts` selects the merits-eligible corpus in SQL while
+ * `kzk_appeals_provenance.data.test.ts` filters the same rows in TypeScript, and
+ * for the gate to mean anything the two populations must be identical. They were
+ * two independent copies until 2026-08-24, and the gate's copy was simply absent
+ * — it measured 4,779 rows against the writer's 4,502, handing the ratchet 20
+ * matches of slack.
+ *
+ * ⚠️ `IS DISTINCT FROM`, never `<>`. A plain `<>` is NULL-false, so it would drop
+ * the entire legacy corpus — the ~4,402 rows with no `kind`, which are where
+ * every outcome served today comes from.
+ */
+export const MERITS_ELIGIBLE_SQL = "kind IS DISTINCT FROM 'определения'";
+
+/**
  * Read the register's authoritative "Намерени са общо N …" completeness target.
  *
  * VERIFIED live: "Намерени са общо 401 решения по ЗОП за 2026 година." and

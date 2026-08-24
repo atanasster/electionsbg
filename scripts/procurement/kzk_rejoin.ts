@@ -42,6 +42,7 @@ import type { MatchableDecision } from "./kzk_match";
 import { refreshAppealDependents } from "./kzk_dependents";
 import { partitionByProvenance, type ProvenanceRow } from "./kzk_provenance";
 import { recordBaselines } from "./kzk_baselines";
+import { MERITS_ELIGIBLE_SQL } from "./kzk_decisions_store";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..", "..");
@@ -116,7 +117,7 @@ const main = async (apply: boolean): Promise<void> => {
     `SELECT act_no AS no, decision_date AS ddate, pronouncement AS pron,
             initiators AS init, respondent AS resp
        FROM kzk_decisions
-      WHERE kind IS DISTINCT FROM 'определения'`,
+      WHERE ${MERITS_ELIGIBLE_SQL}`,
   );
   if (decisions.length === 0) {
     throw new Error(
