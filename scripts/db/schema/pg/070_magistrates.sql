@@ -3,7 +3,9 @@
 -- magistrate_holdings.json (scripts/judiciary/__write_magistrate_holdings.ts); loaded
 -- by scripts/db/load_magistrates_pg.ts. Replaces shipping the 123 KB holdings + 67 KB
 -- company-index + 33 KB search JSON — the person page fetches ONE magistrate by name,
--- the company page fetches by EIK, both ~1 KB.
+-- the company page fetches by EIK. Measured 2026-08-24, after the filing history landed:
+-- the magistrate_by_name payload averages 2.0 KB and peaks at 12.5 KB (72 filings on one
+-- magistrate, 10.3 on average). Still a good trade, but no longer the "~1 KB" this said.
 
 CREATE TABLE IF NOT EXISTS magistrate (
   name              text PRIMARY KEY,
@@ -23,8 +25,45 @@ CREATE TABLE IF NOT EXISTS magistrate (
   -- Informational financial figures (лв), best-effort from the declaration.
   bank_cash_lv      numeric,
   securities_lv     numeric,
-  real_estate_count int
+  real_estate_count int,
+  -- ⚠️ TRUE when this NAME provably covers more than one human, so `magistrate_filing`
+  -- below is a name's history rather than a person's. The ИВСС register is indexed by name
+  -- and publishes no court or id beside it, so namesakes are indistinguishable in it and
+  -- their filings fold together.
+  --
+  -- The rule is TWO PROVABLE SHAPES — two annual declarations filed on the SAME DAY (257
+  -- names; one person cannot), or four or more in a single year (15 names; beyond annual +
+  -- встъпване + напускане). Together 262 of 3,594 (7.3%).
+  --
+  -- It is deliberately NOT the obvious „more than one annual in a year" (956 names, 26.6%):
+  -- the `annual` directory holds entry and leaving declarations too, so that fires for any
+  -- magistrate who changed post — Цацаров's 2022 pair is his own annual and his встъпване,
+  -- four months apart — and a caveat wrong three times in four trains readers past it.
+  --
+  -- Any surface rendering the filing history MUST say „подадени под това име" when this is
+  -- true, rather than attributing the list to the person whose page it is. Publishing one
+  -- judge's declarations as another's is the harm this column exists to prevent.
+  filings_name_ambiguous boolean NOT NULL DEFAULT false,
+  -- The register URL of the declaration THESE FIGURES WERE PARSED FROM — provenance, so a
+  -- reader can check them against the document. NOT necessarily the newest filing on
+  -- record: for a magistrate off the current bench the writer keeps an older parse it will
+  -- not refresh, and naming the newest filing here would send the reader to a document that
+  -- does not contain the numbers shown. „The newest declaration" is magistrate_filing's
+  -- first row. NULL on rows loaded before this column existed.
+  source_url        text
 );
+-- ⚠️ THIS ALTER MUST STAY ABOVE EVERY FUNCTION THAT READS THE COLUMN, not at the foot of
+-- the file with the other reconcile. `CREATE TABLE IF NOT EXISTS` is a no-op on a warm
+-- database, so the column reaches one only here — and `magistrate_by_name()` below is
+-- LANGUAGE sql, whose body is validated at CREATE time. Ordered the other way it raises
+-- 42703, and since exec() sends this file as ONE transaction that rolls back the whole
+-- migration, on every database except the one that wrote it. (Measured: it did.)
+-- Unguarded and idempotent, unlike the SET NOT NULL at the foot: adding a NULLable column
+-- cannot fail on existing rows.
+ALTER TABLE magistrate ADD COLUMN IF NOT EXISTS source_url text;
+ALTER TABLE magistrate
+  ADD COLUMN IF NOT EXISTS filings_name_ambiguous boolean NOT NULL DEFAULT false;
+
 CREATE INDEX IF NOT EXISTS idx_magistrate_name_norm ON magistrate (name_norm);
 -- The /judiciary tile is ranked by declared-company count.
 CREATE INDEX IF NOT EXISTS idx_magistrate_company_count
@@ -85,6 +124,58 @@ CREATE INDEX IF NOT EXISTS idx_magistrate_company_eik
 CREATE INDEX IF NOT EXISTS idx_magistrate_company_mag
   ON magistrate_company (magistrate_name);
 
+-- ==========================================================================
+-- THE FILING HISTORY — every declaration the ИВСС register lists for this person.
+--
+-- One row per FILING, against `magistrate`'s one row per PERSON. The register publishes
+-- ~10 filings per magistrate across 2017-2026 and the pipeline parses exactly ONE of them,
+-- so this table is a list of documents a reader can open — never a claim that we have read
+-- them. `magistrate.source_url` names the single one we did.
+--
+-- Why it exists: the ИВСС annual declaration's Таблица 1 is a FLOW (property acquired
+-- during the declared period), so no single filing answers „what does this magistrate
+-- own" — only the series does, and until it is parsed the honest offer is the documents
+-- themselves. See docs/plans/magistrate-declaration-detail-v1.md.
+CREATE TABLE IF NOT EXISTS magistrate_filing (
+  magistrate_name text NOT NULL REFERENCES magistrate (name) ON DELETE CASCADE,
+  -- The register's page-heading year for the filing. NOT the period the declaration
+  -- covers: an annual filed in 2026 covers 01.01-31.12.2025, and the form states its own
+  -- period on page 2. Nothing here reads that page, so no consumer may present this as
+  -- „данни за <year>".
+  year            int NOT NULL,
+  -- ⚠️ THE REGISTER'S DIRECTORY, NOT THE DECLARATION TYPE. `annual` = /declaracii/<year>/,
+  -- `change` = /declaracii/<year>-1/. The ИВСС files some ANNUAL declarations into the
+  -- `-1` directory — Цацаров's from `2025-1` is stamped „ЕЖЕГОДНА" on its own page 2 and
+  -- covers 2024 — so rendering this as „Годишна / За промяна" states something the
+  -- document contradicts. The real type is readable only from the PDF.
+  register_dir    text NOT NULL,
+  -- Входящ номер, e.g. „4352/22.04.2026". May be '' — a handful of filings carry none.
+  ref             text NOT NULL DEFAULT '',
+  source_url      text NOT NULL,
+  -- Newest first, as emitted by the writer (year desc, then the date inside `ref`).
+  -- Contiguous from 0 per magistrate. Neither property is constrainable here — `ord` is
+  -- unique by construction, so a PK on it would enforce nothing — so both are held by
+  -- magistrate_filings.data.test.ts instead.
+  ord             int NOT NULL,
+  -- The PK is (name, source_url), NOT (name, ord): `ord` is a loop counter and unique by
+  -- construction, so it would constrain nothing, and it would MASK the one corruption that
+  -- matters — the same document listed twice, which would load cleanly and render the same
+  -- PDF twice in the history.
+  PRIMARY KEY (magistrate_name, source_url)
+);
+CREATE INDEX IF NOT EXISTS idx_magistrate_filing_mag
+  ON magistrate_filing (magistrate_name, ord);
+
+-- Filings of one magistrate, newest first.
+CREATE OR REPLACE FUNCTION magistrate_filings_json(p_name text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  SELECT COALESCE(jsonb_agg(jsonb_build_object(
+    'year', year, 'registerDir', register_dir, 'ref', NULLIF(ref, ''),
+    'sourceUrl', source_url
+  ) ORDER BY ord), '[]'::jsonb)
+  FROM magistrate_filing WHERE magistrate_name = p_name;
+$$;
+
 -- Companies of one magistrate, in declaration order.
 CREATE OR REPLACE FUNCTION magistrate_companies_json(p_name text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
@@ -111,10 +202,20 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   SELECT jsonb_build_object(
     'name', m.name, 'position', m.position, 'court', m.court,
     'year', m.decl_year,
+    -- Provenance for the figures below — see magistrate.source_url for why this is not
+    -- necessarily `filings[0]`.
+    'sourceUrl', m.source_url,
     'financials', jsonb_build_object(
       'bankCashLv', m.bank_cash_lv, 'securitiesLv', m.securities_lv,
       'realEstateCount', m.real_estate_count),
-    'companies', magistrate_companies_json(m.name)
+    'companies', magistrate_companies_json(m.name),
+    -- Every declaration the register lists under this NAME, newest first. A list of
+    -- documents, never a claim that any but `sourceUrl` has been read — and, when
+    -- `filingsNameAmbiguous` is true, not necessarily all by the same person.
+    'filings', magistrate_filings_json(m.name),
+    -- Ships BESIDE `filings` so a consumer cannot render the list without receiving the
+    -- caveat. See magistrate.filings_name_ambiguous.
+    'filingsNameAmbiguous', m.filings_name_ambiguous
   )
   FROM magistrate m WHERE m.name_norm = p_norm
   ORDER BY m.decl_year DESC NULLS LAST, m.name

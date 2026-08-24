@@ -259,6 +259,17 @@ const RELOADED: ReadonlyArray<{
   { table: "council_muni_code", loader: "db:load:council:pg" },
   { table: "council_resolution", loader: "db:load:council:pg" },
   { table: "council_vote", loader: "db:load:council:pg" },
+  // The ИВСС magistrate family — TRUNCATE … CASCADE + three COPYs in one transaction,
+  // the canonical map-losing shape. The loader had no vacuum call at all until
+  // 2026-08-24, and because this gate is one-directional (it reads call sites and
+  // checks they are listed here) it could never have caught that: no call, no name,
+  // nothing to check. Measured before the fix, `magistrate_company` sat at 0%
+  // all-visible while its two siblings were healthy purely because autovacuum had
+  // happened to reach them. `magistrate_filing` is the one that costs something —
+  // 37k rows read on every /person page that renders a magistrate.
+  { table: "magistrate", loader: "db:load:magistrates:pg" },
+  { table: "magistrate_company", loader: "db:load:magistrates:pg" },
+  { table: "magistrate_filing", loader: "db:load:magistrates:pg" },
   // The ДФЗ family — THREE different reload shapes, listed together because one
   // loader owns them all. `agri_subsidies` is DELETE + INSERT in one transaction
   // (the canonical map-losing shape); `agri_payloads` is stage-merged, so it

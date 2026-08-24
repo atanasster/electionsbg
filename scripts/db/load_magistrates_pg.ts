@@ -10,7 +10,13 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { end, exec, refreshMatviewConcurrently, withClient } from "./lib/pg";
+import {
+  end,
+  exec,
+  refreshMatviewConcurrently,
+  vacuumAfterReload,
+  withClient,
+} from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 // Shared with the client hook (usePersonMagistrateHoldings) so the /person lookup key
@@ -47,16 +53,37 @@ interface Financials {
   securitiesLv: number;
   realEstateCount: number;
 }
+/** One declaration the register lists under this NAME — NOT one we have parsed, and not
+ *  necessarily one this person filed (see `Magistrate.filingsNameAmbiguous`). */
+interface Filing {
+  year: number;
+  /** The register's DIRECTORY, not the declaration type — see 070's column comment. */
+  registerDir: string;
+  ref: string;
+  sourceUrl: string;
+}
+
 interface Magistrate {
   name: string;
   /** Year of the filing this record was parsed from. The roster spans years (a magistrate
    *  who left the bench keeps their last filing), so the file-level `year` — the register's
    *  latest — is not a truthful stand-in. Optional: older artifacts predate the field. */
   declYear?: number;
+  /** The document the figures were parsed from. Optional: older artifacts predate it. */
+  sourceUrl?: string;
   position: string | null;
   court: string | null;
   companies: Company[];
   financials?: Financials;
+  /** Every declaration the register lists under this NAME, newest first. Optional for the
+   *  same reason — an artifact written before 2026-08-24 carries none, and the loader must
+   *  degrade to an empty history rather than throwing on a stale checkout. */
+  filings?: Filing[];
+  /** Whether this NAME provably covers more than one human, so `filings` is a name's
+   *  history rather than a person's — see 070's column comment. Optional for the same
+   *  reason as `filings`; absent means the artifact predates the check, and `false` is the
+   *  safe default only because the history it qualifies is absent too. */
+  filingsNameAmbiguous?: boolean;
 }
 
 const run = async (): Promise<void> => {
@@ -92,6 +119,12 @@ const run = async (): Promise<void> => {
   };
   const ms = file.magistrates;
 
+  // Collected during the COPY generators (which cannot log usefully mid-stream) and
+  // reported after the commit. Both are silent data loss otherwise: rows the artifact
+  // carried and the table does not.
+  const duplicateFilings: string[] = [];
+  const malformedFilings: string[] = [];
+
   await withClient(async (client) => {
     await client.query("BEGIN");
     await client.query("TRUNCATE magistrate CASCADE");
@@ -108,6 +141,8 @@ const run = async (): Promise<void> => {
         "bank_cash_lv",
         "securities_lv",
         "real_estate_count",
+        "source_url",
+        "filings_name_ambiguous",
       ],
       (function* () {
         for (const m of ms)
@@ -121,6 +156,8 @@ const run = async (): Promise<void> => {
             m.financials?.bankCashLv ?? null,
             m.financials?.securitiesLv ?? null,
             m.financials?.realEstateCount ?? null,
+            m.sourceUrl ?? null,
+            m.filingsNameAmbiguous ?? false,
           ];
       })(),
     );
@@ -134,6 +171,55 @@ const run = async (): Promise<void> => {
             const c = m.companies[i];
             yield [m.name, c.name, c.stakePct, c.eik, c.eikAmbiguous, i];
           }
+      })(),
+    );
+    // The filing history. TRUNCATE magistrate CASCADE above already emptied this table.
+    //
+    // De-duplicated on (name, sourceUrl), which is the table's PK: a magistrate re-spelled
+    // by the register has their history folded across spellings by the writer, and although
+    // the index is deduped on pdf path, folding is exactly the operation that could bring
+    // the same document in twice. COPY does not enforce the PK mid-stream, so a duplicate
+    // would abort the whole load at COMMIT with a constraint violation naming a URL rather
+    // than a cause.
+    await copyRows(
+      client,
+      "magistrate_filing",
+      ["magistrate_name", "year", "register_dir", "ref", "source_url", "ord"],
+      (function* () {
+        for (const m of ms) {
+          const seen = new Set<string>();
+          let ord = 0;
+          for (const f of m.filings ?? []) {
+            // Every NOT NULL column is defended, not just `ref`. copyRows renders
+            // `undefined` as \N, so ONE malformed filing raises 23502 and rolls back the
+            // whole transaction — roster and companies with it — behind an error naming a
+            // column rather than a cause. Skip the row and name the magistrate instead.
+            if (
+              f?.sourceUrl == null ||
+              f.year == null ||
+              f.registerDir == null
+            ) {
+              malformedFilings.push(`${m.name} (${f?.sourceUrl ?? "no url"})`);
+              continue;
+            }
+            if (seen.has(f.sourceUrl)) {
+              duplicateFilings.push(`${m.name} → ${f.sourceUrl}`);
+              continue;
+            }
+            seen.add(f.sourceUrl);
+            // `ref` is NOT NULL DEFAULT '' and '' MEANS „the register published no входящ
+            // номер" (334 real cases). A missing field is a different thing — a writer
+            // regression — so it is reported above rather than silently folded into ''.
+            yield [
+              m.name,
+              f.year,
+              f.registerDir,
+              f.ref ?? "",
+              f.sourceUrl,
+              ord++,
+            ];
+          }
+        }
       })(),
     );
     await recordIngestBatch(client, {
@@ -151,12 +237,52 @@ const run = async (): Promise<void> => {
     await client.query("COMMIT");
   });
 
+  // Count what was WRITTEN, not what the artifact offered — the two differ by whatever the
+  // generators skipped, and reporting the artifact's number would hide exactly that.
+  const filingsOffered = ms.reduce((s, m) => s + (m.filings?.length ?? 0), 0);
+  const filingsLoaded =
+    filingsOffered - duplicateFilings.length - malformedFilings.length;
   console.log(
     `magistrate: loaded ${ms.length} magistrates, ${ms.reduce(
       (s, m) => s + m.companies.length,
       0,
-    )} companies`,
+    )} companies, ${filingsLoaded} filings listed`,
   );
+  for (const [label, rows] of [
+    ["duplicate", duplicateFilings],
+    ["malformed", malformedFilings],
+  ] as const)
+    if (rows.length)
+      console.warn(
+        `  ⚠️  ${rows.length} ${label} filing row(s) skipped:\n    ` +
+          rows.slice(0, 5).join("\n    "),
+      );
+
+  // TRUNCATE + COPY inside one transaction mints a new relfilenode whose visibility map is
+  // EMPTY, and every page is written by a transaction that has not committed — so nothing
+  // can be marked all-visible and no index-only scan is plannable on these tables again.
+  // The insert-threshold autovacuum that follows runs under a held-back xmin horizon, marks
+  // nothing, resets its counter and never returns. Outside `withTx`, because VACUUM cannot
+  // run in a transaction block.
+  //
+  // This loader had no such call at all: measured before adding it, `magistrate_company`
+  // sat at 0% all-visible, and the other two were healthy only because autovacuum happened
+  // to reach them. `magistrate_filing` is 37k rows read on the /person path, so it is the
+  // one that would have cost something.
+  await vacuumAfterReload(
+    "magistrate",
+    "magistrate_company",
+    "magistrate_filing",
+  );
+  // An artifact predating the filing history loads cleanly and serves an empty list, which
+  // is correct but silent — and the /person tile then shows no source link at all. Say so
+  // rather than leaving the operator to notice a missing section.
+  if (!filingsLoaded)
+    console.warn(
+      "  ⚠️  no filings in the artifact — rebuild it with " +
+        "scripts/judiciary/__write_magistrate_holdings.ts, or the person page ships " +
+        "without declaration links.",
+    );
   await end();
 };
 

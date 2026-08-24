@@ -225,10 +225,17 @@ a single extra PDF.
   While there: take `magistrate_by_name` a `person_id`/ref rather than a name, per the
   namesake note above.
 - **Loader** (`load_magistrates_pg.ts`): COPY both, same pattern as `magistrate_company`.
-- **UI**: „Виж декларацията" `ExternalLink`; a filing-history list (year · Годишна/За
-  промяна · ref · link) capped with a „виж всички" toggle, matching the top-N + see-all
-  house rule this tile's `/judiciary` sibling already follows. Reuse
-  `PersonDeclarations.tsx`'s citation-line *format*, not its component.
+- **UI**: „Виж декларацията" `ExternalLink`; a filing-history list (year · ref · link)
+  capped with a „виж всички" toggle, matching the top-N + see-all house rule this tile's
+  `/judiciary` sibling already follows. Reuse `PersonDeclarations.tsx`'s citation-line
+  *format*, not its component.
+  ⚠️ **Do NOT render `registerDir` as „Годишна / За промяна"** — an earlier draft of this
+  bullet said to, contradicting Finding 0b two sections above. It is the register's
+  DIRECTORY, and the ИВСС files some annual declarations into the `-1` ("change") one.
+  ⚠️ **When `filingsNameAmbiguous` is true the list must be headed „подадени под това име",
+  never attributed to the person.** The register is indexed by name with no court or id
+  beside it, so namesakes fold together: 956 of 3,594 rostered names (26.6%) carry more
+  than one annual declaration in a single year, and 256 have two filed on the SAME DAY.
 - **Gate**: `scripts/db/tests/magistrate_filings.data.test.ts` — every magistrate has a
   non-null `source_url`; filings newest-first; no duplicate `(name, source_url)`; sample
   count matches the raw index (Цацаров = **14**).

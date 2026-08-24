@@ -19,11 +19,14 @@
 //     than tracking the current bench, so the ИВСС register's yearly turnover cannot
 //     delete a person page (see the `byName` comment below for the whole argument).
 //     Fetching stays latest-year only; earlier years survive from the cache;
-//   - PLUS, since 2026-08-24, each magistrate's full FILING HISTORY — every declaration
-//     the register lists for that PERSON (folded across the spellings it uses for them),
-//     all years, both directories, as `{year, registerDir, ref, sourceUrl}` newest first,
-//     and a `sourceUrl` on the record itself pointing at the document the figures were
-//     parsed from.
+//   - PLUS, since 2026-08-24, the full FILING HISTORY UNDER THAT NAME — every declaration
+//     the register lists for it (folded across the spellings it uses), all years, both
+//     directories, as `{year, registerDir, ref, sourceUrl}` newest first, and a `sourceUrl`
+//     on the record itself pointing at the document the figures were parsed from.
+//     ⚠️ A NAME'S HISTORY, NOT A PERSON'S: the register is indexed by name and carries no
+//     court or id, so namesakes fold together — 26.6% of rostered names provably cover more
+//     than one human. `filingsNameAmbiguous` marks those and every consumer must surface
+//     it. See the block that computes it.
 //     ⚠️ This is a projection of `declarations_index.json` and opens NO PDF: it costs no
 //     fetch and adds no parsed content. Only ONE filing per magistrate is ever read, so
 //     `filings` is a list of documents a reader can open, never a claim that we have
@@ -539,6 +542,49 @@ const main = async (): Promise<void> => {
         a.sourceUrl.localeCompare(b.sourceUrl),
     );
 
+  // ⚠️⚠️ THE REGISTER IS INDEXED BY NAME AND NOTHING ELSE, SO A HISTORY IS A NAME'S, NOT A
+  // PERSON'S. The letter pages carry (name, входящ номер, pdf) — no court, no id, no
+  // discriminator of any kind — so two magistrates who share a name are indistinguishable
+  // in it, and their filings fold into one list.
+  //
+  // It is not a rare edge: 956 of 3,594 rostered names (26.6%) carry MORE THAN ONE annual
+  // declaration in a single year, and 256 of those have two annuals filed on the SAME DAY,
+  // which one person cannot do. „Борис Константинов Динев" holds 72 filings, 7 in one year.
+  //
+  // We cannot split them — the source has nothing to split on — so we MARK them instead,
+  // and every consumer must say „подадени под това име" rather than attribute the list to
+  // the person whose page it is.
+  //
+  // ⚠️ THE RULE IS NOT „more than one annual in a year", WHICH IS THE OBVIOUS ONE AND IS
+  // MOSTLY WRONG. The `annual` directory holds entry and leaving declarations too, so any
+  // magistrate who changed post that year files two — Цацаров's 2022 pair is his own
+  // annual (24.03) and his встъпване on returning to ВКП (11.07), four months apart. That
+  // rule flags 956 names (26.6%), the large majority for a post change rather than a
+  // namesake, and a caveat that fires mostly on the wrong cause trains readers past it.
+  //
+  // These two are PROVABLE instead, and together flag 262 (7.3%):
+  //   - two annuals filed on the SAME DAY — one person cannot do that (257 names);
+  //   - four or more in a single year — beyond annual + встъпване + напускане (15 names).
+  // The residual risk (two same-name magistrates who never collide on a day) is covered by
+  // the tile's standing „разпознати по име … следа, не доказателство" framing, not by a
+  // per-page alarm that would be wrong three times in four.
+  const nameMayCoverSeveralPeople = new Map<string, boolean>();
+  for (const [key, list] of filingsByNorm) {
+    const perYear = new Map<number, number>();
+    const perDay = new Map<string, number>();
+    for (const f of list) {
+      if (f.registerDir !== "annual") continue;
+      perYear.set(f.year, (perYear.get(f.year) ?? 0) + 1);
+      const d = /(\d{2}\.\d{2}\.\d{4})/.exec(f.ref)?.[1];
+      if (d) perDay.set(d, (perDay.get(d) ?? 0) + 1);
+    }
+    nameMayCoverSeveralPeople.set(
+      key,
+      [...perDay.values()].some((n) => n > 1) ||
+        [...perYear.values()].some((n) => n >= 4),
+    );
+  }
+
   // …but a RETAINED record whose normalised name is already on the current bench is not a
   // departure at all — it is the same serving magistrate under a second spelling, and it must
   // be dropped.
@@ -719,10 +765,15 @@ const main = async (): Promise<void> => {
         court: cleanCourt(c.court),
         companies,
         financials: c.financials ?? emptyFinancials(),
-        // Every filing the register lists for this person, newest first — including the
-        // years we never parsed, and including the ones filed under a different spelling
-        // of their name. Only `sourceUrl` above is the source of the figures.
+        // Every filing the register lists under this NAME, newest first — including the
+        // years we never parsed, and the ones filed under a different spelling of it.
+        // Only `sourceUrl` above is the source of the figures.
         filings: filingsByNorm.get(normName(r.name)) ?? [],
+        // …and whether that name provably covers more than one human — see the block that
+        // computes it. A consumer rendering `filings` MUST surface this; the list is
+        // otherwise read as one person's record.
+        filingsNameAmbiguous:
+          nameMayCoverSeveralPeople.get(normName(r.name)) ?? false,
       };
     })
     .filter(Boolean) as Array<{
@@ -744,6 +795,7 @@ const main = async (): Promise<void> => {
       ref: string;
       sourceUrl: string;
     }>;
+    filingsNameAmbiguous: boolean;
   }>;
   magistrates.sort((a, b) => a.name.localeCompare(b.name, "bg"));
 
@@ -821,6 +873,13 @@ const main = async (): Promise<void> => {
       // reassuring 0 no matter what went wrong.
       magistratesWithFoldedSpellings: magistrates.filter(
         (m) => (spellingsByNorm.get(normName(m.name))?.size ?? 1) > 1,
+      ).length,
+      // Names whose filing history provably spans more than one human — a year with two
+      // annual declarations. Reported so the share is visible rather than inferred: at
+      // ~27% this is a property of the register, not an anomaly, and any surface rendering
+      // `filings` has to be built for it.
+      magistratesWithAmbiguousFilingName: magistrates.filter(
+        (m) => m.filingsNameAmbiguous,
       ).length,
     },
     magistrates,
