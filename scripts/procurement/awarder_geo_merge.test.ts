@@ -1,17 +1,19 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
+  compareSeatsToMap,
   countSources,
   mergeGeoOverrides,
   producibleSources,
-  shrinkVerdict,
   SHRINK_TOLERANCE,
+  shrinkVerdict,
   SOURCE_RANK,
   TIER_KEYS,
   TIER_LABELS,
+  tierAgeDays,
   type GeoEntry,
   type MergeReport,
   type TierInputs,
-  tierAgeDays,
 } from "./awarder_geo_merge";
 
 const ALL_UP: TierInputs = {
@@ -395,5 +397,162 @@ describe("tierAgeDays", () => {
     // A clock-skewed stamp must not silently read as ancient; the gate's `<`
     // then passes it, which is the safe direction for a skew we cannot judge.
     expect(tierAgeDays(daysAgo(-2), NOW)).toBeCloseTo(-2, 10);
+  });
+});
+
+describe("compareSeatsToMap", () => {
+  // The published table is what a reader sees; the committed map is what we
+  // decided. These are the four shapes that tell them apart.
+  const geo = (ekatte: string) => ({ ekatte, source: "mon", confidence: "x" });
+
+  it("reports no drift when every map entry is published at the same EKATTE", () => {
+    const drift = compareSeatsToMap(
+      { "1": geo("47714"), "2": geo("39921") },
+      new Map([
+        ["1", "47714"],
+        ["2", "39921"],
+      ]),
+    );
+    expect(drift).toEqual({ missing: [], disagreeing: [], checked: 2 });
+  });
+
+  it("names the buyer, both EKATTE and which side each came from", () => {
+    // The real 2026-08-24 drift: the map said Мездра, prod still said Дърманци.
+    // The message has to carry all three or an operator cannot tell which side
+    // is stale.
+    const drift = compareSeatsToMap(
+      { "106633686": geo("47714") },
+      new Map([["106633686", "24668"]]),
+    );
+    expect(drift.disagreeing).toEqual([
+      { eik: "106633686", map: "47714", seats: "24668" },
+    ]);
+    expect(drift.missing).toEqual([]);
+    expect(drift.checked).toBe(1);
+  });
+
+  it("separates a never-published buyer from a moved one", () => {
+    // Different causes, different fixes: `missing` is usually a loader that
+    // never ran or a half-built awarders dir; `disagreeing` is one side moving.
+    const drift = compareSeatsToMap(
+      { a: geo("111"), b: geo("222") },
+      new Map([["b", "999"]]),
+    );
+    expect(drift.missing).toEqual(["a"]);
+    expect(drift.disagreeing).toEqual([{ eik: "b", map: "222", seats: "999" }]);
+  });
+
+  it("ignores seats rows the map does not name", () => {
+    // `awarder_seats` holds ~1,707 buyers the override map never speaks for —
+    // 1,657 address-derived, 41 name-parsed and 9 curated — because the map is
+    // applied FILL-MISSING. Reporting them would make the gate fire on every
+    // healthy corpus.
+    const drift = compareSeatsToMap(
+      { a: geo("111") },
+      new Map([
+        ["a", "111"],
+        ["zzz", "888"],
+      ]),
+    );
+    expect(drift).toEqual({ missing: [], disagreeing: [], checked: 1 });
+  });
+
+  it("counts nothing for an empty map, which is what makes `checked` load-bearing", () => {
+    // ⚠ THE VACUITY VECTOR, and it is the map rather than the seats. An empty
+    // SEATS table is loud — every map entry lands in `missing`. An empty or
+    // unparseable MAP is silent: both arms come back empty and the gate reports
+    // success. `checked` is the only field that distinguishes "nothing is wrong"
+    // from "nothing was compared", which is why a consumer must assert a FLOOR
+    // on it and never `checked === Object.keys(map).length` — that equality is
+    // 0 === 0 here. The contract is on the field itself in awarder_geo_merge.ts.
+    expect(compareSeatsToMap({}, new Map([["a", "1"]]))).toEqual({
+      missing: [],
+      disagreeing: [],
+      checked: 0,
+    });
+    const empty = compareSeatsToMap(
+      { a: geo("111"), b: geo("222") },
+      new Map(),
+    );
+    expect(empty.missing).toEqual(["a", "b"]);
+    expect(empty.checked).toBe(2);
+  });
+
+  it("skips a malformed map entry rather than reporting it as unpublished", () => {
+    // A map entry with no ekatte is a corrupt artifact, not an undeployed one,
+    // and awarder_geo_overrides.test.ts already fails on it. Counting it here
+    // would point the operator at the loader for a problem in the file.
+    const drift = compareSeatsToMap(
+      { a: geo("111"), bad: { ekatte: "", source: "mon", confidence: "x" } },
+      new Map([["a", "111"]]),
+    );
+    expect(drift).toEqual({ missing: [], disagreeing: [], checked: 1 });
+  });
+
+  it("orders both arms deterministically", () => {
+    // The gate's failure message is read by a human and diffed across runs; an
+    // unordered Object.entries walk would reshuffle it for no reason.
+    const drift = compareSeatsToMap(
+      { c: geo("3"), a: geo("1"), b: geo("2") },
+      new Map([
+        ["a", "9"],
+        ["c", "9"],
+      ]),
+    );
+    expect(drift.missing).toEqual(["b"]);
+    expect(drift.disagreeing.map((d) => d.eik)).toEqual(["a", "c"]);
+  });
+});
+
+describe("compareSeatsToMap — the properties a mutant would otherwise survive", () => {
+  const geo = (ekatte: string) => ({ ekatte, source: "mon", confidence: "x" });
+
+  it("sorts `missing` by ЕИК, which JS object order does NOT do for real keys", () => {
+    // Deleting `drift.missing.sort()` passed every other test in this file,
+    // because their fixtures use keys already in insertion order. Real ЕИК are
+    // not: JS enumerates index-like integer keys FIRST and in numeric order, so
+    // an unsorted walk over the committed map starts at `101005300` while the
+    // sorted one starts at `000000210`. This fixture reproduces that shape.
+    const drift = compareSeatsToMap(
+      {
+        "101005300": geo("1"),
+        "000000210": geo("2"),
+        "175076479999": geo("3"),
+      },
+      new Map(),
+    );
+    expect(drift.missing).toEqual(["000000210", "101005300", "175076479999"]);
+  });
+
+  it("treats a published-but-unplaced buyer as missing, not as a null disagreement", () => {
+    // `awarder_seats.ekatte` is NULLable (021) and the loader writes `?? null`.
+    // Under `seat === undefined` such a row falls through to the else branch and
+    // publishes „seats: null" as a disagreement — a correct verdict with a
+    // message that reads as a data-shape bug. `missing` is the arm whose remedy
+    // (re-run the loader) actually matches.
+    const drift = compareSeatsToMap(
+      { a: geo("111"), b: geo("222") },
+      new Map<string, string | null>([
+        ["a", null],
+        ["b", "222"],
+      ]),
+    );
+    expect(drift.missing).toEqual(["a"]);
+    expect(drift.disagreeing).toEqual([]);
+  });
+
+  it("is a pure module — no filesystem, no network, no argv", () => {
+    // The reason every rule in this family lives here rather than in its
+    // consumer. An import added to this file makes the merge, the ratchet and
+    // the seats comparison untestable in the same breath, and the failure is
+    // silent: the tests keep passing while the module stops being the thing
+    // they were split out to test.
+    const src = readFileSync(
+      new URL("./awarder_geo_merge.ts", import.meta.url),
+      "utf8",
+    );
+    expect(src).not.toMatch(/^\s*import\s/m);
+    expect(src).not.toMatch(/\brequire\(/);
+    expect(src).not.toMatch(/\bprocess\.(argv|env)\b/);
   });
 });

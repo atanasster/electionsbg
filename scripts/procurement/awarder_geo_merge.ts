@@ -21,6 +21,14 @@
 // The rule, in one sentence: keep a prior entry when the tier that produced it
 // could NOT run this time; drop it only when that tier ran and no longer
 // resolves the awarder.
+//
+// It has since become the home for every PURE rule in this family, because
+// purity is the property that makes them testable at all — the builder, the
+// gate and the CLI that consume them are I/O from end to end. Three now live
+// here, and they are about three different hops and three different incidents:
+// `mergeGeoOverrides` (the map itself, the 2026-08-10 tier-blocked shrink),
+// `tierAgeDays` (how long a dark tier may ride, the 2026-08 Tier B outage), and
+// `compareSeatsToMap` (whether the map was ever PUBLISHED, 2026-08-24).
 
 export interface GeoEntry {
   ekatte: string;
@@ -237,19 +245,96 @@ export const countSources = (
 // arithmetically incapable of seeing it.
 export const SHRINK_TOLERANCE = 0.05;
 
+/** What `compareSeatsToMap` found. The two arms are reported separately because
+ *  they have different causes: `missing` is "the loader never ran, or ran against
+ *  a half-built awarders dir"; `disagreeing` is "one side moved and the other did
+ *  not". Lumping them into a count loses that. */
+export interface SeatsDrift {
+  /** Map ЕИК with no `awarder_seats` row at all. */
+  missing: string[];
+  /** Present on both sides, different EKATTE. */
+  disagreeing: { eik: string; map: string; seats: string }[];
+  /** Map entries actually examined — every entry carrying an `ekatte`.
+   *  Malformed entries are SKIPPED (see `compareSeatsToMap`), so this is
+   *  `Object.keys(map).length` MINUS them, not equal to it.
+   *
+   *  ⚠ A consumer must assert a FLOOR (`checked > 2_000`), never
+   *  `checked === Object.keys(map).length`. That equality is `0 === 0` on an
+   *  empty or unparseable map — the one vacuity vector this field exists for,
+   *  since an empty SEATS table is loud (every entry lands in `missing`) while
+   *  an empty MAP is silent (both arms come back clean). It also breaks the
+   *  first time a malformed entry appears, blaming the loader for a defect in
+   *  the file. The vacuity fixture is in awarder_geo_merge.test.ts. */
+  checked: number;
+}
+
 /**
- * Should the run refuse to write? The merge makes an unavailable tier
- * non-shrinking by construction, so this is a BACKSTOP for the shapes it cannot
- * model — a resolver regression that drops entries across several live tiers,
- * or a half-rebuilt awarders dir.
+ * Does the served `awarder_seats` table still agree with the committed override
+ * map about where each address-less buyer sits?
  *
- * It measures GROSS loss of prior entries, never the net map size. Net would
- * let growth mask loss: the candidate pool grows every ingest (2,753 → 2,758
- * between two committed builds), so a run that resolves N new awarders and
- * drops N old ones reads as flat. Gross also makes the operator's message
- * reconcile — every prior entry missing from the output is in exactly one of
- * these four counters.
+ * WHY THIS EXISTS. The map reaches the site through three hops and only the
+ * first two are gated: `awarder_geo_map.ts` writes the committed JSON (gated by
+ * awarder_geo_overrides.test.ts), `buildRollups` bakes it fill-missing into the
+ * gitignored awarder rollups, and `db:load:awarder-seats:pg[:cloud]` publishes
+ * those to Postgres. A map rebuilt and never published is therefore invisible —
+ * every existing gate passes, row counts reconcile, and the site keeps serving
+ * the previous placements at a 200. Measured 2026-08-24: prod kept ЕИК
+ * 106633686 in Дърманци for hours after the map said Мездра.
+ * Plan: docs/plans/awarder-seats-freshness-gate-v1.md.
+ *
+ * It is an EQUALITY check, not a statistical one. Measured on a freshly
+ * published corpus, all 2,174 map entries have a seats row and all 2,174 agree —
+ * so a single disagreement is a real defect, and that stale prod state would
+ * have surfaced as exactly one.
+ *
+ * @param map    the committed `awarders` block
+ * @param seats  eik → ekatte, restricted to eiks the map names. Rows outside the
+ *               map are address-derived, curated or name-parsed buyers the map
+ *               never speaks for (the override is applied FILL-MISSING), so
+ *               passing them in would be harmless but pointless. The value is
+ *               `string | null` because `awarder_seats.ekatte` is NULLable
+ *               (021) and the loader writes `?? null` — a published-but-unplaced
+ *               row is reported as `missing`, not as a disagreement reading
+ *               „seats: null", because `missing`'s remedy (re-run the loader) is
+ *               the one that matches. 0 of 3,881 rows are NULL today, so this is
+ *               latent rather than live.
+ *
+ * ⚠ A caller cannot narrow this to "override-derived rows only" using
+ * `awarder_seats` columns. `source` is the SEATS loader's own provenance
+ * (geo/name/curated) and `tier` is the buyer TYPE (school/hospital/…); every map
+ * ЕИК lands under `source = 'geo'`, indistinguishable from the ~1,657
+ * address-derived rows that share it.
  */
+export const compareSeatsToMap = (
+  map: Record<string, GeoEntry>,
+  seats: Map<string, string | null>,
+): SeatsDrift => {
+  const drift: SeatsDrift = { missing: [], disagreeing: [], checked: 0 };
+  for (const [eik, entry] of Object.entries(map)) {
+    // A map entry with no ekatte is malformed rather than undeployed, and
+    // awarder_geo_overrides.test.ts already fails on it. Skipping it here keeps
+    // this function's two arms about publication only, and keeps `checked`
+    // honest about what was actually compared.
+    if (!entry?.ekatte) continue;
+    drift.checked += 1;
+    const seat = seats.get(eik);
+    // `== null` covers both absent and published-with-no-placement.
+    if (seat == null) drift.missing.push(eik);
+    else if (seat !== entry.ekatte)
+      drift.disagreeing.push({ eik, map: entry.ekatte, seats: seat });
+  }
+  // Both arms sorted, and by the SAME comparator. The order is load-bearing:
+  // JS enumerates index-like ЕИК numerically before the rest, so an unsorted
+  // walk starts at `101005300` rather than `000000210` and the failure message
+  // reshuffles between runs for no reason. Plain `<`/`>` rather than
+  // `localeCompare`, which reads the runtime's default locale — an environment
+  // input this function otherwise has none of.
+  const byEik = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0);
+  drift.missing.sort(byEik);
+  drift.disagreeing.sort((a, b) => byEik(a.eik, b.eik));
+  return drift;
+};
+
 /**
  * Age, in days, of a tier's last FRESH resolution — the input to the staleness
  * ratchet in `awarder_geo_overrides.test.ts`.
@@ -272,6 +357,19 @@ export const tierAgeDays = (
   now: number,
 ): number => (now - Date.parse(lastFreshAt ?? "")) / 86_400_000;
 
+/**
+ * Should the run refuse to write? The merge makes an unavailable tier
+ * non-shrinking by construction, so this is a BACKSTOP for the shapes it cannot
+ * model — a resolver regression that drops entries across several live tiers,
+ * or a half-rebuilt awarders dir.
+ *
+ * It measures GROSS loss of prior entries, never the net map size. Net would
+ * let growth mask loss: the candidate pool grows every ingest (2,753 → 2,758
+ * between two committed builds), so a run that resolves N new awarders and
+ * drops N old ones reads as flat. Gross also makes the operator's message
+ * reconcile — every prior entry missing from the output is in exactly one of
+ * these four counters.
+ */
 export const shrinkVerdict = (
   priorCount: number,
   report: MergeReport,

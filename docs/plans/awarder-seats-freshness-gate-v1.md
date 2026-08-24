@@ -92,9 +92,17 @@ has already produced one false "prod is broken" reading from exactly that.
 Assertions:
 1. `drift.missing` is empty.
 2. `drift.disagreeing` is empty.
-3. `drift.checked === Object.keys(map).length` — so a query that silently returned nothing cannot
-   pass by vacuity. This is the one that matters: without it, an empty `awarder_seats` makes both
-   arms trivially empty and the gate reports success on the worst possible state.
+3. `drift.checked` clears a **floor** (`> 2_000`; the committed map holds 2,174 and the sibling
+   `awarder_geo_overrides.test.ts` already asserts `> 1000`).
+
+⚠ **Arm 3 said `checked === Object.keys(map).length` in the first draft of this spec, and that is
+wrong twice over** — corrected here so step 2 is not written against it. It is `0 === 0` on an empty
+or unparseable map, i.e. it passes vacuously on the exact state it exists to catch; and
+`compareSeatsToMap` SKIPS entries with no `ekatte`, so the equality also breaks the first time a
+malformed entry appears, blaming the loader for a defect in the file. Note the vacuity vector is the
+**map**, not the seats: an empty `awarder_seats` is loud (every entry lands in `missing`), an empty
+map is silent (both arms come back clean). The contract now lives on the `checked` field itself,
+where the skip is known.
 
 The failure message names the fix and both halves of it:
 
