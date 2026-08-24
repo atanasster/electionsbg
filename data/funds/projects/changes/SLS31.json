@@ -1,7 +1,19 @@
 {
   "obshtina": "SLS31",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
+    {
+      "contractNumber": "BG05SFPR001-1.010-0270",
+      "title": "Превенция и предотвратяване на тормоза и насилието и намаляване агресията в училищата",
+      "type": "new",
+      "totalEur": 155016.3,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Природоматематическа гимназия „Свети Климент Охридски“",
+      "detectedAt": "2026-08-24"
+    },
     {
       "contractNumber": "BG-RRP-11.018-0043",
       "title": "Изграждане и оборудване на нови социални услуги на територията на Община Силистра, с. Айдемир",
@@ -11,28 +23,148 @@
       ],
       "prevTotalEur": 3887061.4,
       "totalEur": 3887061.4,
-      "paidEur": 1957148.25,
+      "paidEur": 2405906.47,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Силистра",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0688",
-      "title": "Енергийно обновяване на жилищна сграда бл. \"Хавана\", ул. „Капитан Кръстев“ № 4, гр. Силистра",
+      "contractNumber": "BG-RRP-4.023-0681",
+      "title": "Енергийно обновяване на жилищна сграда бл. \"Одрин\", ул. \"Никола Йонков Вапцаров\" № 53, гр. Силистра",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 628446.97,
-      "totalEur": 628446.97,
-      "paidEur": 577325.71,
+      "prevTotalEur": 1117017.15,
+      "totalEur": 1117017.15,
+      "paidEur": 1108978.81,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Силистра",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0261",
+      "title": "Интегрирани мерки за енергийно обновяване в \"Хром\" АД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 467976.82,
+      "totalEur": 467976.82,
+      "paidEur": 255487.64,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Хром АД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0039",
+      "title": "ПОДКРЕПА ЗА ЕНЕРГИЙНО ОБНОВЯВАНЕ НА СГРАДА НА ТУКАЙ БЪЛГАРИЯ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 261787.08,
+      "totalEur": 261787.08,
+      "paidEur": 117344.01,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Тукаи българия ЕООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1543",
+      "title": "Подкрепа за подобряване на производствения капацитет на семейно предприятие \"ДКВ-Д\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 101491.44,
+      "paidEur": 76118.58,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ДКВ-Д ООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0355",
+      "title": "Изграждане на фотоволтаична система с батерии за собствено потребление в „ИВИС ГАРДЪН“ ЕООД за повишаване на енергийната ефективност и намаляване на въглеродния отпечатък.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 76690.89,
+      "totalEur": 41831.4,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Ивис гардън ЕООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0504",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 29569.03,
+      "totalEur": 29569.03,
+      "paidEur": 20698.32,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"ВИП\" ЕООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0631",
+      "title": "Изграждане на Дигитален клуб в Силистра при НЧ\"Доростол -1870\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 23516.36,
+      "totalEur": 23516.36,
+      "paidEur": 19655.36,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Доростол-1870\"",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0070",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 32947.65,
+      "totalEur": 23325.14,
+      "paidEur": 14228.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Еликом електроник - Георгиев КД",
+      "detectedAt": "2026-08-24"
     },
     {
       "contractNumber": "BG-RRP-1.024-1033",
@@ -43,60 +175,12 @@
       ],
       "prevTotalEur": 17369.19,
       "totalEur": 17369.19,
-      "paidEur": 16788.76,
+      "paidEur": 17369.19,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"Родолюбие - 2006\" , с. Айдемир, Област: Силистра, Община: Силистра",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0187",
-      "title": "изграждане на дигитален клуб в НЧ \"Просвета-1907\" - с.Професор Иширков",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 14242.25,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета-1907\"",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0957",
-      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище - \"Светлина-1906-Смилец\" , село Смилец , община Силистра, област Силистра.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 13554.86,
-      "totalEur": 13554.86,
-      "paidEur": 11476.29,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище - \"Светлина-1906-Смилец\" , село Смилец , община Силистра, област Силистра.",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0735",
-      "title": "Изграждане на дигитален клуб в ПАИСИЙ ХИЛЕНДАРСКИ - 2006 в гр./с. Айдемир",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 10788.26,
-      "totalEur": 10788.26,
-      "paidEur": 9069.66,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Паисий Хилендарски - 2006",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     }
   ]
 }

@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-21T07:20:22.990Z",
-  "lastIngest": "2026-08-21T07:20:22.990Z",
+  "generatedAt": "2026-08-24T23:37:53.813Z",
+  "lastIngest": "2026-08-24T23:37:53.813Z",
   "source": {
     "label": "ИСУН 2020 — публичен модул, Бенефициенти (2020.eufunds.bg)",
     "url": "https://2020.eufunds.bg/bg/0/0/Beneficiary"
   },
   "totals": {
     "beneficiaries": 53122,
-    "contractCount": 82159,
-    "contractedEur": 44270390973.7,
-    "paidEur": 18174058619.37,
+    "contractCount": 82162,
+    "contractedEur": 44015477336.13,
+    "paidEur": 18209693782.83,
     "withEik": 46231
   },
   "byOrgType": [
@@ -17,43 +17,43 @@
       "key": "Държавна администрация",
       "beneficiaries": 554,
       "contractCount": 10615,
-      "contractedEur": 28147884023.79,
-      "paidEur": 11531741859.78
+      "contractedEur": 27893240805.45,
+      "paidEur": 11557766901.28
     },
     {
       "key": "Компания",
       "beneficiaries": 38835,
       "contractCount": 55622,
-      "contractedEur": 13666755351.73,
-      "paidEur": 5088856937.72
+      "contractedEur": 13666209495.96,
+      "paidEur": 5098042346.61
     },
     {
       "key": "Друга",
       "beneficiaries": 9168,
       "contractCount": 9687,
-      "contractedEur": 948209082.44,
-      "paidEur": 665997004.27
+      "contractedEur": 948355694.86,
+      "paidEur": 666017987.21
     },
     {
       "key": "Учебно заведение",
       "beneficiaries": 2319,
-      "contractCount": 2945,
-      "contractedEur": 876703992.3,
-      "paidEur": 574850461.79
+      "contractCount": 2947,
+      "contractedEur": 876820034.32,
+      "paidEur": 574943837.06
     },
     {
       "key": "Нестопанска организация",
       "beneficiaries": 2115,
-      "contractCount": 3067,
-      "contractedEur": 471959566.26,
-      "paidEur": 255733886.65
+      "contractCount": 3068,
+      "contractedEur": 471972348.36,
+      "paidEur": 255737992.66
     },
     {
       "key": "Научноизследователска организация",
       "beneficiaries": 38,
       "contractCount": 116,
       "contractedEur": 76900242.35,
-      "paidEur": 18168449.58
+      "paidEur": 18474698.43
     },
     {
       "key": "Медицинско заведение",
@@ -81,16 +81,16 @@
     {
       "key": "Публично правна",
       "beneficiaries": 7527,
-      "contractCount": 21001,
-      "contractedEur": 35942796274.73,
-      "paidEur": 15411641999.93
+      "contractCount": 21004,
+      "contractedEur": 35688274341.36,
+      "paidEur": 15440723967.41
     },
     {
       "key": "Частно правна",
       "beneficiaries": 45595,
       "contractCount": 61158,
-      "contractedEur": 8327594698.99,
-      "paidEur": 2762416619.44
+      "contractedEur": 8327202994.79,
+      "paidEur": 2768969815.42
     }
   ],
   "topByContracted": [
@@ -140,7 +140,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 37,
       "contractedEur": 1721896066.87,
-      "paidEur": 1017215592.58,
+      "paidEur": 1025003118.05,
       "mpTied": false,
       "mpIds": []
     },
@@ -173,17 +173,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 32,
       "contractedEur": 1388419092.22,
-      "paidEur": 127736921.71,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "000695388",
-      "name": "Министерство на транспорта и съобщенията, Дирекция \"Координация на програми и проекти\", УО на оперативна програма \"Транспорт и транспортна инфраструктура\" 2014-2020",
-      "orgType": "Държавна администрация",
-      "contractCount": 33,
-      "contractedEur": 1114403610.38,
-      "paidEur": 385573453.69,
+      "paidEur": 127763840.81,
       "mpTied": false,
       "mpIds": []
     },
@@ -193,7 +183,17 @@
       "orgType": "Компания",
       "contractCount": 10,
       "contractedEur": 917831040.48,
-      "paidEur": 679821845.98,
+      "paidEur": 681876276.52,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "000695388",
+      "name": "Министерство на транспорта и съобщенията, Дирекция \"Координация на програми и проекти\", УО на оперативна програма \"Транспорт и транспортна инфраструктура\" 2014-2020",
+      "orgType": "Държавна администрация",
+      "contractCount": 33,
+      "contractedEur": 885972804.13,
+      "paidEur": 385573453.69,
       "mpTied": false,
       "mpIds": []
     },
@@ -203,7 +203,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 37,
       "contractedEur": 767970882.4,
-      "paidEur": 496514086.94,
+      "paidEur": 505327225.65,
       "mpTied": false,
       "mpIds": []
     },
@@ -223,7 +223,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 78,
       "contractedEur": 502181248.59,
-      "paidEur": 323845737.47,
+      "paidEur": 324272860.32,
       "mpTied": false,
       "mpIds": []
     },
@@ -253,7 +253,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 27,
       "contractedEur": 367905509.19,
-      "paidEur": 300724859.54,
+      "paidEur": 301348894.55,
       "mpTied": false,
       "mpIds": []
     },
@@ -263,7 +263,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 90,
       "contractedEur": 358967146.13,
-      "paidEur": 173957177.48,
+      "paidEur": 173960735.42,
       "mpTied": false,
       "mpIds": []
     },
@@ -282,7 +282,7 @@
       "name": "Община Бургас",
       "orgType": "Държавна администрация",
       "contractCount": 153,
-      "contractedEur": 303351420.69,
+      "contractedEur": 303508460.18,
       "paidEur": 195278737.44,
       "mpTied": false,
       "mpIds": []
@@ -351,7 +351,7 @@
     }
   ],
   "crossReference": {
-    "generatedAt": "2026-08-21T07:20:22.289Z",
+    "generatedAt": "2026-08-24T23:37:53.204Z",
     "mpCount": 148,
     "beneficiaryCount": 166,
     "pairCount": 173,

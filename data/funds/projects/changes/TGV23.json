@@ -1,106 +1,70 @@
 {
   "obshtina": "TGV23",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0250",
-      "title": "Топъл обяд в Община Опака",
+      "contractNumber": "BG16FFPR002-2.003-0005",
+      "title": "Надграждане на капацитета на компостираща инсталация за разделно събрани биоразградими битови отпадъци за нуждите на РСУО за Регион Борово (Бяла, Област Русе)",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 622934.77,
-      "totalEur": 854673.97,
-      "paidEur": 517786.25,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 1805179.9,
+      "totalEur": 1805179.9,
+      "paidEur": 432307.05,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Бяла",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.010-0006",
+      "title": "Изграждане и доставка на оборудване и обзавеждане на център за резидентна грижа за възрастни хора в надтрудоспособна възраст без увреждания в с.Гърчиново, община Опака",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1262065.12,
+      "totalEur": 1262065.12,
+      "paidEur": 923131.1,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Опака",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0275",
-      "title": "Изграждане на дигитален клуб в село Горско Абланово",
+      "contractNumber": "BG-RRP-1.024-0454",
+      "title": "Изграждане на дигитален клуб в ПРОБУДА - 1922 в гр./с. Опака",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 13253.28,
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 17360.29,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо Ботев - 1929\"",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Народно читалище Пробуда - 1922",
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1283",
-      "title": "Изграждане на дигитален клуб в Народно читалище ИЗГРЕВ-1954 в с. Крепча",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 12593.85,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ИЗГРЕВ-1954",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1178",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"ОТЕЦ ПАИСИЙ-1928\" в с. Гърчиново",
+      "contractNumber": "BG-RRP-1.024-1151",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"ПРОСВЕТА-1959\" в с. Люблен",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 13510.15,
+      "paidEur": 11470.93,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Отец ПАИСИЙ-1928\"",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1233",
-      "title": "Изграждане на дигитален клуб в Народно читалище ХРИСТО БОТЕВ-1966 в гр. Голямо градище",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 6180.92,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Христо БОТЕВ-1966",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1499",
-      "title": "Подобряване на основната дейност на \"Фъц -ММ\", чрез придобиване на активи за качествено предоставяне на услуги на крайните потребители.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 74793.22,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Фъц - ММ ЕООД",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Народно Читалище \"ПРОСВЕТА-1959\"",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

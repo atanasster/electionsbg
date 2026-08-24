@@ -1,22 +1,18 @@
 {
   "obshtina": "VRC27",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-0853",
-      "title": "Енергийно обновяване на МЖС - гр. Мездра, ул. \"Св. Патриарх Евтимий\" № 4",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 393900.25,
-      "totalEur": 393900.25,
-      "paidEur": 393276.48,
+      "contractNumber": "BG16RFPR001-1.008-0041",
+      "title": "Дигитален преход към Индустрия 4.0 в „Техкерамик-М“ АД",
+      "type": "new",
+      "totalEur": 1204259.06,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Мездра",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ТЕХКЕРАМИК-М АД",
+      "detectedAt": "2026-08-24"
     },
     {
       "contractNumber": "BG-RRP-13.009-0043",
@@ -27,12 +23,28 @@
       ],
       "prevTotalEur": 296008.86,
       "totalEur": 296008.86,
-      "paidEur": 46884.36,
+      "paidEur": 122168.64,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Мездра",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0023",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социалните услуги в Община Мездра",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 88143.29,
+      "totalEur": 88143.29,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Мездра",
+      "detectedAt": "2026-08-24"
     },
     {
       "contractNumber": "BG-RRP-1.024-0295",
@@ -43,28 +55,64 @@
       ],
       "prevTotalEur": 14316.18,
       "totalEur": 14316.18,
-      "paidEur": 12145.41,
+      "paidEur": 12485.08,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"СВЕТЛИНА-2007\"",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0679",
-      "title": "Изграждане на дигитален клуб в Народно читалище - \"Съзнание -1899\" в село Типченица , община Мездра, област Враца.",
+      "contractNumber": "BG-RRP-1.024-0651",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ХРИСТО БОТЕВ-1927- с.ЕЛИСЕЙНА",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 12191.81,
-      "totalEur": 12191.81,
-      "paidEur": 11575.99,
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 13363.23,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Съзнание-1899\"",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Народно читалище христо БОТЕВ-1927",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0068",
+      "title": "Представяне пред българската публика в Северозападна България на филмите \"Хвърчащите\" и \"Подир сенките на облаците\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9089.24,
+      "totalEur": 9071.41,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АРТ Асоциация водолей Сдружение",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0103",
+      "title": "\"Ева\" - в подкрепа на донорството",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 8925.62,
+      "totalEur": 8804.24,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АРТ Будилник Сдружение",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

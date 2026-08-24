@@ -1,122 +1,130 @@
 {
   "obshtina": "VTR06",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
+    {
+      "contractNumber": "BG16RFPR001-1.008-0323",
+      "title": "Въвеждане на Киберфизична система и Индустриален интернет на нещата в \"Мирвана\" ООД",
+      "type": "new",
+      "totalEur": 868597.98,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Мирвана\" ООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.008-0371",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в Соларен дом ООД",
+      "type": "new",
+      "totalEur": 460004.19,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Соларен дом ООД",
+      "detectedAt": "2026-08-24"
+    },
     {
       "contractNumber": "BG-RRP-11.018-0008",
       "title": "„Изграждане на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани услуги за лица с увреждания“",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 5818432.59,
+      "prevTotalEur": 7107498.55,
       "totalEur": 7107498.55,
-      "paidEur": 555100.32,
+      "paidEur": 1519716.58,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Горна оряховица",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2803",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Горна Оряховица, ул.\"Борима\" №8-10",
+      "contractNumber": "BG-RRP-4.020-0287",
+      "title": "Енергийно обновяване на сграда на НЧ \"Напредък 1869\" гр.Горна Оряховица",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1319714.3,
+      "totalEur": 1260289.26,
+      "paidEur": 1225659.51,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Горна оряховица",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0515",
+      "title": "Подобряване здравословните и безопасни условия на труд в ПРИНТ-ПРЕС ООД с цел адаптиране към промените в работната среда",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1136866.1,
-      "totalEur": 1136866.1,
-      "paidEur": 1134130.88,
+      "prevTotalEur": 170863.51,
+      "totalEur": 170863.51,
+      "paidEur": 159332.76,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Горна оряховица",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1643",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Горна Оряховица, ул.\"Марин Дринов\" №40",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 766642.21,
-      "totalEur": 766642.21,
-      "paidEur": 763006.02,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Горна оряховица",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1659",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр.Горна Оряховица, ул.\"Осъм\" №1",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 625556.68,
-      "totalEur": 625556.68,
-      "paidEur": 623176.27,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Горна оряховица",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ПРИНТ-ПРЕС ООД",
+      "detectedAt": "2026-08-24"
     },
     {
       "contractNumber": "BG-RRP-13.011-0001",
       "title": "Закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги в Община Горна Оряховица",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
       "prevTotalEur": 88442.76,
       "totalEur": 88442.76,
-      "paidEur": 53636.57,
+      "paidEur": 83632.18,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Горна оряховица",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-13.009-0131",
-      "title": "Зелена трансформация на социалните услуги чрез електрическа мобилност",
+      "contractNumber": "BG-RRP-1.024-0847",
+      "title": "Изграждане на дигитален клуб в село Поликраище",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 0,
+      "prevTotalEur": 17383.93,
+      "totalEur": 17383.93,
+      "paidEur": 12892.03,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Горна оряховица",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Народно читалище \"Развитие 1884\"",
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1347",
-      "title": "Подобряване на производствения капацитет на \"Моллови 85 ООД\"",
+      "contractNumber": "BG16RFPR001-1.012-0736",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 48785.43,
-      "totalEur": 48765,
-      "paidEur": 36573.75,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 31139.21,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Моллови 85 ООД",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Меркурий Агро и Ко ЕООД",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

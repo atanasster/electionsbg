@@ -1,22 +1,38 @@
 {
   "obshtina": "VAR08",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0199",
-      "title": "Изграждане на дигитален клуб в читалище \"Просвета - 1904\" село Млада гвардия",
+      "contractNumber": "BG-RRP-11.010-0071",
+      "title": "„Реконструкция, реновиране и пристройка на съществуващ Дом за стари хора, с.Ветрино“",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14015.84,
-      "totalEur": 14015.84,
-      "paidEur": 10957.69,
+      "prevTotalEur": 802753.28,
+      "totalEur": 802753.28,
+      "paidEur": 481880.71,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Народна Просвета - 1904\"",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Община Ветрино",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0200",
+      "title": "Топъл обяд в община Ветрино",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 186351.53,
+      "totalEur": 186351.53,
+      "paidEur": 125924.23,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Ветрино",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

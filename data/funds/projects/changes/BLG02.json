@@ -1,22 +1,58 @@
 {
   "obshtina": "BLG02",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0134",
-      "title": "\"Инсталиране на фотоволтаична система на сграда, в която се предоставят три вида социални услуги, закупуване на електрически автомобил и монтаж на зарядна станция в община Белица\"",
+      "contractNumber": "BG-RRP-4.020-0251",
+      "title": "Енергийно обновяване на административна делова сграда в гр. Белица с идентификатор 03504.403.365.1 и 03504.403.365.2",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 843978.35,
+      "totalEur": 750799.48,
+      "paidEur": 623249.53,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Белица",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0061",
+      "title": "Дигитален клуб - Народно Читалище „Зора 2011“ с. Краище",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 107759.17,
-      "totalEur": 107759.17,
-      "paidEur": 87489.48,
+      "prevTotalEur": 17375.74,
+      "totalEur": 17375.74,
+      "paidEur": 17370.19,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Белица",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Народно Читалище \"Зора 2011\" с. Краище",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0002",
+      "title": "\"Културни мостове в Югозападна България: Достъп и приобщаване чрез театър\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9089.75,
+      "totalEur": 9089.26,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Драматичен театър \"Никола Вапцаров\" - Благоевград",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

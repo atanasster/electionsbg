@@ -1,22 +1,156 @@
 {
   "obshtina": "VAR16",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-2874",
-      "title": "„Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда с идентификатор 24565.502.606.1 по КККР на гр. Дългопол, общ. Дългопол“",
+      "contractNumber": "BG-RRP-4.020-0096",
+      "title": "Въвеждане на мерки за енергийна ефективност в сградата на читалище \"Н. Й. Вапцаров\" в гр. Дългопол, Община Дългопол",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 644990.24,
+      "totalEur": 415518.17,
+      "paidEur": 389535.57,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Дългопол",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2920",
+      "title": "\"Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда с идентификатор 24565.502.1722.1 по КККР на град Дългопол, община Дългопол\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 405707.13,
+      "totalEur": 404752.26,
+      "paidEur": 404752.26,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Дългопол",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0215",
+      "title": "Енергийно обновяване на сграда на \"Гермето\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 124201.52,
+      "totalEur": 122008.16,
+      "paidEur": 78724.43,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Гермето ООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0540",
+      "title": "изграждане на дигитален клуб в Народно читалище Н.Й.Вапцаров - 1896 г. - гр.Дългопол",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 248573.84,
-      "totalEur": 248573.84,
-      "paidEur": 247708.99,
+      "prevTotalEur": 17383.93,
+      "totalEur": 17383.93,
+      "paidEur": 14298.51,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Дългопол",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Народно читалище Н.Й.Вапцаров - 1896 г. - гр.Дългопол",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0498",
+      "title": "Изграждане на Дигитален клуб в читалище \"Кирил и Методий -1934\", с. Цонево",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17342,
+      "totalEur": 17342,
+      "paidEur": 14719.41,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Кирил и Методий - 1934",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0551",
+      "title": "изграждане на дигитален клуб в Народно читалище Добри Иванов - 1894г - с.Аспарухово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 11602.95,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Добри Иванов - 1894г - с.Аспарухово",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0542",
+      "title": "изграждане на дигитален клуб в НЧ Светлина 1928г - с.Рояк",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 11803.76,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Светлина 1928г - с.Рояк",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1047",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"АСЕН ЗЛАТАРОВ - 1909г.\" в с. Партизани",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 12426.63,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Асен Златаров - 1909г.\"",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1074",
+      "title": "Изграждане на дигитален клуб в Народно Читалище\"ЛИЛЯНА ДИМИТРОВА-1927\" в с. Поляците",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 13402.29,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище\"ЛИЛЯНА ДИМИТРОВА-1927\"",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

@@ -1,23 +1,75 @@
 {
   "obshtina": "VTR13",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0207",
-      "title": "Изграждане на фотоволтаична централа и закупуване на електрическо превозно средство, включително свързана зарядна станция за нуждите на специализирани центрове на територията на община Елена",
+      "contractNumber": "BG-RRP-4.020-0026",
+      "title": "Внедряване на мерки за енергийна ефективност и осигуряване на достъпност в сградата на общинска администрация Елена",
       "type": "modified",
       "changedFields": [
-        "paidEur",
-        "durationMonths"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 132680.78,
-      "totalEur": 132680.78,
-      "paidEur": 11657.46,
+      "prevTotalEur": 1151733.43,
+      "totalEur": 1147551.84,
+      "paidEur": 1018422.89,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Елена",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.028-0058",
+      "title": "Модернизация на системите за улично осветление в населени места в община Елена.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 482001.45,
+      "totalEur": 482001.45,
+      "paidEur": 453955.3,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Елена",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0111",
+      "title": "Международен Пленер по скулптура и живопис Раювци 2025",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 80678.55,
+      "totalEur": 79464.29,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Звезди под звездите Фондация",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2852",
+      "title": "Подобряване на производствения капацитет на \"Лимпо 2021\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 45893.56,
+      "totalEur": 45893.56,
+      "paidEur": 34420.17,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Лимпо 2021 ЕООД",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

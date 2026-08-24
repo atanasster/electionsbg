@@ -1,22 +1,40 @@
 {
   "obshtina": "PVN21",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG14MFPR001-3.002-0021",
-      "title": "Изпълнение на Стратегия за Водено от общностите местно развитие на \"Местна инициативна рибарска група Никопол-Белене-Гулянци\"",
+      "contractNumber": "BG16FFPR002-2.005-0001",
+      "title": "Рекултивация на клетка 1 на регионално депо за битови отпадъци на Регион Левски (Никопол)",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 499690.98,
-      "totalEur": 499690.98,
-      "paidEur": 88990.2,
+      "prevTotalEur": 1116848.1,
+      "totalEur": 1116848.1,
+      "paidEur": 211013.71,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG14MFPR001",
-      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
-      "beneficiaryName": "Местна инициативна Рибарска група \"НИКОПОЛ-БЕЛЕНЕ-ГУЛЯНЦИ\"",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Никопол",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG16FFPR003-2.006-0027",
+      "title": "Единно здраве за Северозападен регион",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 2188.33,
+      "totalEur": 2186.01,
+      "paidEur": 2186.01,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Никопол",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

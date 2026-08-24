@@ -1,55 +1,70 @@
 {
   "obshtina": "JAM07",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG65BVPR001-1.009-0001",
-      "title": "Назначаване на допълнителен срочно нает персонал",
+      "contractNumber": "BG-RRP-4.023-0098",
+      "title": "Енергийно обновяване на жилищна сграда в град Елхово, ул. Витоша № 20",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 10466111.58,
-      "totalEur": 10466111.58,
-      "paidEur": 3692246.09,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG65BVPR001",
-      "programName": "Програма на Република България по Инструмента за финансова подкрепа за управлението на границите и визовата политика",
-      "beneficiaryName": "Главна дирекция \"Гранична полиция\" - МВР",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0643",
-      "title": "Енергийно обновяване на жилищна сграда в град Елхово, ул. Търговска № 99",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 431058.93,
-      "totalEur": 431058.93,
-      "paidEur": 431058.79,
+      "prevTotalEur": 414529.69,
+      "totalEur": 414529.69,
+      "paidEur": 411490.07,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Елхово",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0651",
-      "title": "Фотоволтаична електроцентрала за собствено потребление за нуждите на магазина за строителни материали на Фаворит 3003 ЕООД",
+      "contractNumber": "BG-RRP-4.023-0257",
+      "title": "Енергийно обновяване на жилищна сграда в град Елхово, ул. Трети март № 106",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 55775.2,
-      "totalEur": 41831.4,
-      "paidEur": 0,
+      "prevTotalEur": 347418.77,
+      "totalEur": 347418.77,
+      "paidEur": 333930.88,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Фаворит 3003 ЕООД",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Елхово",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.012-0172",
+      "title": "Иновативни здравно-социални услуги в община Елхово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 224232.21,
+      "totalEur": 224232.21,
+      "paidEur": 166982.43,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Елхово",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1089",
+      "title": "Дигитални пространства",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 79360.68,
+      "totalEur": 79360.68,
+      "paidEur": 59661.78,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Специализирани бизнес системи АД",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

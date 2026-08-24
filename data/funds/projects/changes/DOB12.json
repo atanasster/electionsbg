@@ -1,22 +1,22 @@
 {
   "obshtina": "DOB12",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-3.009-0020",
-      "title": "Център за иновативно професионално образование, сигурна и устойчива зелена кариера",
+      "contractNumber": "BG05SFPR002-2.012-0199",
+      "title": "Иновативни здравно-социални услуги в община Генерал Тошево",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1039577.32,
-      "totalEur": 1039577.32,
-      "paidEur": 207915.46,
+      "prevTotalEur": 244820.24,
+      "totalEur": 244820.24,
+      "paidEur": 186095.23,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Професионална гимназия по земеделие „Тодор Рачински“",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Генерал тошево",
+      "detectedAt": "2026-08-24"
     },
     {
       "contractNumber": "BG-RRP-1.015-0958",
@@ -27,28 +27,46 @@
       ],
       "prevTotalEur": 97800.49,
       "totalEur": 97800.49,
-      "paidEur": 87922.7,
+      "paidEur": 95802.92,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Средно училище \"Никола Йонков Вапцаров\"",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-1.015-0829",
-      "title": "Училищен STEM център \"Природни науки\"",
+      "contractNumber": "BG-RRP-1.015-1747",
+      "title": "Училищна STEM среда",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 30736.5,
-      "totalEur": 30736.5,
-      "paidEur": 28372.43,
+      "prevTotalEur": 92278.5,
+      "totalEur": 92278.5,
+      "paidEur": 91440.01,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Основно училище \"Йордан Йовков\"",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-3411",
+      "title": "Модернизация на земеделското стопанство на КСИНТО ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 356881.32,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Ксинто ООД",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

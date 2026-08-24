@@ -1,70 +1,52 @@
 {
   "obshtina": "RSE04",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0019",
-      "title": "Изграждане на нов дом за стари хора в град Бяла",
+      "contractNumber": "BG16RFPR001-1.008-0207",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в малко предприятие",
+      "type": "new",
+      "totalEur": 456900.65,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Белсистемс ООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG16FFPR002-2.003-0005",
+      "title": "Надграждане на капацитета на компостираща инсталация за разделно събрани биоразградими битови отпадъци за нуждите на РСУО за Регион Борово (Бяла, Област Русе)",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 2637897.98,
-      "totalEur": 2637897.98,
-      "paidEur": 2632614.23,
+      "prevTotalEur": 1805179.9,
+      "totalEur": 1805179.9,
+      "paidEur": 432307.05,
       "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Бяла",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0070",
+      "title": "„Бяла – култура, памет и бъдеще“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 107043.17,
+      "totalEur": 107043.14,
+      "paidEur": 17126.91,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Бяла",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0308",
-      "title": "Изграждане на дигитален клуб в гр.Бяла",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 20451.68,
-      "totalEur": 20451.68,
-      "paidEur": 16501.23,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Трудолюбие 1884",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0898",
-      "title": "Изграждане на дигитален клуб в село Босилковци",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 10130.01,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета 1919\"",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0322",
-      "title": "Изграждане на дигитален клуб в село Полско Косово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 11479,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище НЧ\"Развитие 1899\"",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     }
   ]
 }

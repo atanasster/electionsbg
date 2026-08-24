@@ -1,22 +1,82 @@
 {
   "obshtina": "VRC08",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.004-0006",
-      "title": "\"Да се научим да живеем заедно\"",
+      "contractNumber": "BG16RFPR001-1.008-0073",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в предприятията",
+      "type": "new",
+      "totalEur": 229058.76,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Гарант АД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.010-0005",
+      "title": "Реформиране на Дом за стари хора с. Попица",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 160773.47,
-      "totalEur": 160773.47,
-      "paidEur": 76378.91,
+      "prevTotalEur": 1422346.66,
+      "totalEur": 1422346.66,
+      "paidEur": 1228652.93,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бяла Слатина",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0181",
+      "title": "Превенция и предотвратяване на агресията в ПАГ \"Никола Йонков Вапцаров\" гр. Бяла Слатина",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 65067.44,
+      "totalEur": 65067.44,
+      "paidEur": 13013.49,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Сдружение \"У.Т.Р.Е. - уважение, толератност, разбирателство , единство\"",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Професионална агротехническа гимназия „Никола Йонков Вапцаров“, гр. Бяла Слатина",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0194",
+      "title": "Изграждане на дигитален клуб в село Соколаре",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 12002.54,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Н.Й.Вапцаров - 1920",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0446",
+      "title": "изграждане на дигитален клуб в Народни читалище Напредък 1897 - с.Попица",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 13295.5,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Напредък 1897 - с.Попица",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

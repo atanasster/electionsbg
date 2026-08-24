@@ -1,38 +1,58 @@
 {
   "obshtina": "BLG49",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0098",
-      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги и закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги на територията на община Струмяни\"",
+      "contractNumber": "BG-RRP-4.020-0289",
+      "title": "Въвеждане на мерки за енергийна ефективност за административната сграда на община Струмяни",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 259307.07,
-      "totalEur": 259307.07,
-      "paidEur": 199974.92,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 752171.32,
+      "totalEur": 744127.96,
+      "paidEur": 423035.06,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "община Струмяни",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG05SFPR001-1.004-0016",
-      "title": "Споделяме общи мечти и успехи в мултикултурна среда",
+      "contractNumber": "BG-RRP-11.025-0006",
+      "title": "Неделски игри пред българска публика",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "status"
       ],
-      "prevTotalEur": 200646.87,
-      "totalEur": 200646.87,
-      "paidEur": 125551.71,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Община Петрич",
-      "detectedAt": "2026-08-03"
+      "prevTotalEur": 8998.74,
+      "totalEur": 8998.74,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"Танцов ансамбъл средец\" Сдружение",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0068",
+      "title": "\"Айвар или лютеница\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9058.56,
+      "totalEur": 8992.6,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Организация за съвременно алтернативно изкуство и култура - 36 маймуни",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

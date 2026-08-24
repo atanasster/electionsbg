@@ -1,54 +1,58 @@
 {
   "obshtina": "PVN39",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-2666",
-      "title": "Устойчиво енергийно обновяване на блок \"Септемврийци\", Община Кнежа",
+      "contractNumber": "BG-RRP-4.020-0016",
+      "title": "Енергийно обновяване на сграда на Районно управление - Кнежа към ОД МВР Плевен, находяща се на ул. \"Димитър Бутански\" №111, град Кнежа, община Кнежа",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 733523.73,
-      "totalEur": 733523.73,
-      "paidEur": 729781.04,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 254101.62,
+      "totalEur": 248707.97,
+      "paidEur": 238768.57,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кнежа",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Областна дирекция на Министерство на вътрешните работи - Плевен",
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2632",
-      "title": "Устойчиво енергийно обновяване на блок \"Младост\", Община Кнежа",
+      "contractNumber": "BG05SFPR002-2.012-0006",
+      "title": "Иновативни здравно-социални услуги в община Кнежа",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 414978.57,
-      "totalEur": 414978.57,
-      "paidEur": 412964.03,
+      "prevTotalEur": 226121.64,
+      "totalEur": 226121.64,
+      "paidEur": 167101.43,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Община Кнежа",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-4.023-3014",
-      "title": "Устойчиво енергийно обновяване на блок \"Средна гора\", Община Кнежа",
+      "contractNumber": "BG-RRP-4.024-0086",
+      "title": "\"Устойчиво енергийно обновяване на блок \"Хибрид\", гр.Кнежа",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 359923.43,
-      "totalEur": 359923.43,
-      "paidEur": 358119.25,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 649901.28,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кнежа",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     }
   ]
 }

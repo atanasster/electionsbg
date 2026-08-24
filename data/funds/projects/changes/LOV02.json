@@ -1,22 +1,40 @@
 {
   "obshtina": "LOV02",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0585",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"СВЕТЛИНА - 1894 Г.\" в гр./с. Априлци",
+      "contractNumber": "BG-RRP-11.010-0042",
+      "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане на Център за резидентна грижа за възрастни хора в надтрудоспособна възраст без увреждания",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 13977.67,
+      "prevTotalEur": 1702912.86,
+      "totalEur": 1702912.86,
+      "paidEur": 1542846.03,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Светлина - 1894 г.\"",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Община Априлци",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0072",
+      "title": "\"Устойчиво енергийно обновяване на общинска административна сграда гр. Априлци\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1022173.35,
+      "totalEur": 695817.27,
+      "paidEur": 615802.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Априлци",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

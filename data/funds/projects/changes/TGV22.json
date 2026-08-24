@@ -1,38 +1,104 @@
 {
   "obshtina": "TGV22",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-1979",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: обл. Търговище, общ. Омуртаг, ул. Цар Освободител № 4“",
+      "contractNumber": "BG05SFPR003-1.001-0204",
+      "title": "Топъл обяд в община Омуртаг",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 570780.33,
-      "totalEur": 570780.33,
-      "paidEur": 569492.28,
+      "prevTotalEur": 2083957.8,
+      "totalEur": 2083957.8,
+      "paidEur": 1518652.33,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Омуртаг",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.007-0188",
+      "title": "„Обновяване на инфраструктурата и мерки за повишаване на енергийната ефективност, ремонт и доставка на оборудване и обзавеждане на сградата на ОУ „Акад. Даки Йорданов“ – гр. Омуртаг“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1278216.75,
+      "totalEur": 1278216.75,
+      "paidEur": 1276618.63,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Омуртаг",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0544",
-      "title": "Изграждане на дигитален клуб в село Обител",
+      "contractNumber": "BG-RRP-4.020-0162",
+      "title": "„Енергийно обновяване на спортна зала УПИ I, кв. 132, ПИ 53535.501.5.1, гр. Омуртаг“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 830315.42,
+      "totalEur": 804503.06,
+      "paidEur": 496586.75,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Омуртаг",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1600",
+      "title": "STEM откриватели и дигитални създатели",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 12847.03,
+      "prevTotalEur": 92852.85,
+      "totalEur": 92852.85,
+      "paidEur": 91899.27,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Култура 1940\"",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Основно училище \"Георги Бенковски\"",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.013-0022",
+      "title": "Насърчаване на социалната икономика в община Омуртаг",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 89310.12,
+      "totalEur": 89310.12,
+      "paidEur": 17862.02,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Омуртаг",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0781",
+      "title": "Изграждане на дигитален клуб в гр. Омуртаг",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 20451.68,
+      "totalEur": 20451.68,
+      "paidEur": 15833.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Отец ПАИСИЙ-1870\"",
+      "detectedAt": "2026-08-24"
     },
     {
       "contractNumber": "BG-RRP-1.024-0584",
@@ -43,28 +109,12 @@
       ],
       "prevTotalEur": 14316.18,
       "totalEur": 14316.18,
-      "paidEur": 9384.51,
+      "paidEur": 13550.39,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище Светлина - 1927",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0555",
-      "title": "Изграждане на дигитален клуб в село Врани кон",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 13588.67,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Народно читалище \"ТРУД-1950\"-С.ВРАНИ КОН\"",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     }
   ]
 }

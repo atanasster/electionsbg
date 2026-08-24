@@ -1,22 +1,40 @@
 {
   "obshtina": "PDV41",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0224",
-      "title": "Иновативни здравно-социални услуги в община Стамболийски.",
+      "contractNumber": "BG05SFPR003-1.001-0245",
+      "title": "Топъл обяд на територията на община Стамболийски",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 268799.74,
-      "totalEur": 268799.74,
-      "paidEur": 128406.9,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "prevTotalEur": 340573.67,
+      "totalEur": 340573.67,
+      "paidEur": 239358.78,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Стамболийски",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0023",
+      "title": "„Разговор безкраен. Проектът: Македония“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9084.63,
+      "totalEur": 8964.75,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Арт Бюро Фондация",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

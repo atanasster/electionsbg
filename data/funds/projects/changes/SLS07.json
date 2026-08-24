@@ -1,55 +1,56 @@
 {
   "obshtina": "SLS07",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-2.004-0902",
-      "title": "Повишаване на енергийна ефективност на ЗАФИРА-БЕН ООД чрез използване на енергияот възобновяеми източници в предприятията",
+      "contractNumber": "BG05SFPR003-1.001-0015",
+      "title": "Топъл обяд в Община Главиница",
       "type": "modified",
       "changedFields": [
-        "paidEur",
+        "paidEur"
+      ],
+      "prevTotalEur": 796673.05,
+      "totalEur": 796673.05,
+      "paidEur": 554963.85,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Главиница",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.003-0042",
+      "title": "Бъдеще за децата в община Главиница",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
         "status"
       ],
-      "prevTotalEur": 55775.2,
-      "totalEur": 55775.2,
-      "paidEur": 27887.6,
+      "prevTotalEur": 199997.05,
+      "totalEur": 186174.55,
+      "paidEur": 186174.52,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЗАФИРА-БЕН ООД",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Главиница",
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1175",
-      "title": "Изграждане на дигитален клуб в село Коларово.",
+      "contractNumber": "BG05SFPR002-2.012-0196",
+      "title": "Иновативни здравно-социални услуги в община Главиница",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 13356.42,
+      "prevTotalEur": 181194.34,
+      "totalEur": 181194.34,
+      "paidEur": 64689.11,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно ЧИТАЛИЩЕ\"СВЕТИ свети кирил и МЕТОДИЙ-1942\"",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0566",
-      "title": "Изграждане на мрежа от дигитални клубове в Народно читалище \"Светлина-1960\" в с.Звенимир , община Главиница.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14315.46,
-      "totalEur": 14315.46,
-      "paidEur": 13952.81,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Светлина-1960\" в с.Звенимир , община Главиница.",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Главиница",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

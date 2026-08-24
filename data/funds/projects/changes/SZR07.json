@@ -1,30 +1,72 @@
 {
   "obshtina": "SZR07",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.002-0047",
-      "title": "Подкрепа за работещите в ТЕЦ “БРИКЕЛ” ЕАД чрез специфични професионални обучения за работещи в неравностойно положение",
-      "type": "new",
-      "totalEur": 2713100.5,
-      "paidEur": 0,
+      "contractNumber": "BG05SFPR001-1.004-0076",
+      "title": "Интеркултурно образование – толерантни заедно",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 115991.07,
+      "totalEur": 115991.07,
+      "paidEur": 52345.14,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Брикел АД",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Първо основно училище \"Свети Паисий Хилендарски\"",
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG16FFPR003-4.002-0048",
-      "title": "Подкрепа за работещите в ТЕЦ “БРИКЕЛ” ЕАД чрез специфични професионални обучения",
-      "type": "new",
-      "totalEur": 1381645,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-1.024-0721",
+      "title": "Изграждане на дигитален клуб в Народно Читалище “Христо Ботев-1907\" в с. Мъдрец",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 12306.99,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Брикел АД",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище “Христо Ботев-1907г.„",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0809",
+      "title": "Дигитален клуб с. Главан",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 13600.36,
+      "totalEur": 13600.36,
+      "paidEur": 11731.17,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Георги Сава Раковски - 1921г.\"",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0877",
+      "title": "„Подобряване на енергийната ефективност на многофамилна жилищна сграда, Блок №18 – гр. Гълъбово“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 248304.29,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Гълъбово",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

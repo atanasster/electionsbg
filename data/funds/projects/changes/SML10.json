@@ -1,25 +1,90 @@
 {
   "obshtina": "SML10",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-1040",
-      "title": "Повишаване на производствения капацитет на СИ АЙ ДЖИ БЪЛГАРИЯ ООД",
+      "contractNumber": "BG-RRP-1.015-0678",
+      "title": "Изграждане на училищна STEM среда и ВОСКС в Средно училище \"Димитър Благоев\", град Доспат",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 101890,
-      "paidEur": 76417.5,
+      "prevTotalEur": 97524.19,
+      "totalEur": 97915.91,
+      "paidEur": 97524.19,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Средно училище \"Д.БЛАГОЕВ\"",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.012-0082",
+      "title": "Осигуряване на устойчива заетост на хора в неравностойно положение",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 80815.41,
+      "totalEur": 80815.41,
+      "paidEur": 76357.68,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЛАГУНА-2006 ЕООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1287",
+      "title": "изграждане на дигитален клуб в Народно читалище \"ХР. БОТЕВ-1950\" - с.Змеица",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 12035.01,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ХР. БОТЕВ-1950\" - с.Змеица",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0140",
+      "title": "Културни срещи в Доспат – филм, музика и кино под знака на памет и съвременност",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 9131.67,
+      "totalEur": 9131.67,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "СИ АЙ ДЖИ България ООД",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация „Беглика“",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0140",
+      "title": "Зелена енергия: ESG умения за устойчиво бъдеще",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 75429.36,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Национална Електрическа компания ЕАД (НЕК)",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

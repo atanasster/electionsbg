@@ -1,98 +1,92 @@
 {
   "obshtina": "SML27",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0184",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"НАТАЛИ КЛИМА\" ООД",
-      "type": "new",
-      "totalEur": 459242.37,
+      "contractNumber": "BG-RRP-4.034-0140",
+      "title": "Изграждане и въвеждане в експлоатация на самостоятелни съоръжения за съхранение на електрическа енергия от възобновяеми източници",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 10035168,
+      "totalEur": 10035168,
+      "paidEur": 3174111.29,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Скилас ЕООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0180",
+      "title": "\"Eнергийно обновяване на културна инфраструктура в община Рудозем\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 633817.56,
+      "totalEur": 614645.05,
+      "paidEur": 491413.47,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Рудозем",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0223",
+      "title": "\"Eнергийно обновяване на Спортна зала в община Рудозем\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 511221.94,
+      "totalEur": 501366.22,
+      "paidEur": 501366.21,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Рудозем",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1453",
+      "title": "„Подкрепа за устойчиво енергийно обновяване на блок \"10\", ул. \"Васил Левски\", гр. Рудозем\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 210903.68,
+      "totalEur": 210903.68,
+      "paidEur": 210233.85,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Рудозем",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0046",
+      "title": "Музикално-драматичния спектакъл \" Малкият принц “",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9070.32,
+      "totalEur": 8712.41,
       "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Натали клима ООД",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0772",
-      "title": "„Подкрепа за устойчиво енергийно обновяване на блок \"38\" ул. \"Кап.Петко войвода\", гр. Рудозем\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 598788.17,
-      "totalEur": 598788.17,
-      "paidEur": 596964.68,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Рудозем",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1761",
-      "title": "„Подкрепа за устойчиво енергийно обновяване на блок \"4\", ул. \"Стефан Стамболов\", гр. Рудозем\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 481550.01,
-      "totalEur": 481550.01,
-      "paidEur": 479867.91,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Рудозем",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0666",
-      "title": "„Подкрепа за устойчиво енергийно обновяване на блок \"20\", ул. \"Атанас Буров\", гр. Рудозем\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 313102.63,
-      "totalEur": 313102.63,
-      "paidEur": 312560.02,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Рудозем",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1239",
-      "title": "„Подкрепа за устойчиво енергийно обновяване на блок \"14\", ул. \"Васил Левски\", гр. Рудозем\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 222267.67,
-      "totalEur": 222267.67,
-      "paidEur": 221602.28,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Рудозем",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0673",
-      "title": "„Подкрепа за устойчиво енергийно обновяване на блок \"17\", ул. \"Атанас Буров\", гр. Рудозем\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 152395.15,
-      "totalEur": 152395.15,
-      "paidEur": 152025.53,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Рудозем",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Софийски музикален театър ЕООД",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

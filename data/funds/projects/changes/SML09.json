@@ -1,52 +1,58 @@
 {
   "obshtina": "SML09",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR002-4.006-0008",
-      "title": "„Природосъобразни мерки за превенция и управление на риска от наводнения в община Девин“",
-      "type": "new",
-      "totalEur": 769005.19,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Девин",
-      "detectedAt": "2026-08-03"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0146",
-      "title": "Иновативни здравно-социални услуги в община Девин",
+      "contractNumber": "BG05SFPR003-1.001-0184",
+      "title": "Топъл обяд в Община Девин",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 204145.23,
-      "totalEur": 204145.23,
-      "paidEur": 97623.18,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "prevTotalEur": 399636.88,
+      "totalEur": 399636.88,
+      "paidEur": 272068.56,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Девин",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-4.024-0184",
-      "title": "Подкрепа за устойчиво енергийно обновяване на Блок „Подвис“, с. Триград, община Девин",
+      "contractNumber": "BG-RRP-1.024-0166",
+      "title": "Изграждане на дигитален клуб НЧ \"Родопска просвета - 1923\" град Девин",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 202171.35,
+      "prevTotalEur": 17383.92,
+      "totalEur": 34687.58,
+      "paidEur": 17343.79,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ \"Родопска просвета - 1923\" град Девин",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2745",
+      "title": "Подобряване на производствения капацитет на \"Евро Болкан\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 36996.06,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Девин",
-      "detectedAt": "2026-08-03"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Евро болкан ЕООД",
+      "detectedAt": "2026-08-24"
     }
   ]
 }

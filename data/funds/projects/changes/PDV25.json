@@ -1,54 +1,110 @@
 {
   "obshtina": "PDV25",
-  "generatedAt": "2026-08-03T00:22:18.465Z",
+  "generatedAt": "2026-08-24T23:39:53.733Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0176",
-      "title": "Иновативни здравно-социални услуги в община Раковски",
+      "contractNumber": "BG-RRP-4.032-0263",
+      "title": "\"Изграждане на локална система за съхранение на енергията (ЛСС) с инсталирана мощност 0,7 MW и капацитет на съхранение 1,4 MWh към фотоволтаична централа с инсталирана мощност 2 MW\".",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 334409.75,
-      "totalEur": 334409.75,
-      "paidEur": 188622.98,
+      "prevTotalEur": 308002.22,
+      "totalEur": 308002.23,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ПВ Раковски ЕООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0197",
+      "title": "Внедряване на енергийно-ефективни мерки в Народно Читалище „Христо Ботев – 1999 г.“ село Болярино, община Раковски, област Пловдив, на основание чл. 21, ал. 1, т. 23 и ал. 2 от ЗМСМА.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 221962.12,
+      "totalEur": 212025.77,
+      "paidEur": 176377.56,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Раковски",
-      "detectedAt": "2026-08-03"
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0921",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ХР. БОТЕВ 1930 г. - с. СТРЯМА",
+      "contractNumber": "BG-RRP-1.015-1032",
+      "title": "Изграждане на STEM център и ВОСКС в училище",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 138662.81,
+      "totalEur": 139427.24,
+      "paidEur": 138662.82,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Основно училище \"Христо Смирненски\"",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0258",
+      "title": "\"Изграждане на локална система за съхранение на енергията (ЛСС) с инсталирана мощност 0,3 MW и капацитет на съхранение 0,6 MWh към фотоволтаична централа с инсталирана мощност 0,9 MW\".",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 132000.24,
+      "totalEur": 132000.22,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ПВ Раковски ЕООД",
+      "detectedAt": "2026-08-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0422",
+      "title": "Изграждане на дигитален клуб в Народно читалище Петко Мандажиев - 1928",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 16196.68,
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 13137.05,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище ХР. Ботев 1930 г. - с. Стряма",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Народно читалище Петко Мандажиев - 1928",
+      "detectedAt": "2026-08-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0724",
-      "title": "Изграждане на дигитален клуб НЧ РОДНО ЧИТАЛИЩЕ ХРИСТО БОТЕВ - СЕЛО БОЛЯРИНО -1999 Г.",
+      "contractNumber": "BG-RRP-11.025-0124",
+      "title": "Дългия път",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 11408.68,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 7675.51,
+      "totalEur": 7634.12,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Народно читалище христо Ботев - село болярино -1999 г.\" НЧ",
-      "detectedAt": "2026-08-03"
+      "beneficiaryName": "Младежко сдружение-България",
+      "detectedAt": "2026-08-24"
     }
   ]
 }
