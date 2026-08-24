@@ -104,6 +104,18 @@ describe("PersonMagistrateHoldingsTile", () => {
     expect(screen.getByText(/имота в декларацията/)).toBeInTheDocument();
   });
 
+  it("counts in grammatical Bulgarian", () => {
+    // „1 имота" is ungrammatical — Bulgarian is singular at 1 and takes the count form from
+    // 2 up. The card shipped it, on every magistrate who declared exactly one property.
+    renderTile(
+      holding({
+        financials: { bankCashLv: 0, securitiesLv: 0, realEstateCount: 1 },
+      }),
+    );
+    expect(screen.getByText("имот в декларацията")).toBeInTheDocument();
+    expect(screen.queryByText("имота в декларацията")).not.toBeInTheDocument();
+  });
+
   it("states the flow caveat in words, so the count cannot be read as an estate", () => {
     renderTile(holding());
     // The caveat has to name what Table 1 actually contains. Without it the two

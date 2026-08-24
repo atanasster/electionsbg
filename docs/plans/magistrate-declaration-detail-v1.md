@@ -486,6 +486,41 @@ Sequencing note: only worth spending once Tier 2 can extract something per filin
 storing. Before that, Tier 1 already gives every year a link **without fetching anything** —
 which is why Tier 1 is not blocked on any of this.
 
+### Finding 4 — the tile's own headline count is wrong, and the new corpus proves it
+
+Found while verifying Tier 2 against local Postgres. The card reads „N имота в
+декларацията" from `magistrate.real_estate_count`, which the ORIGINAL heuristic extractor
+produced. Expanding the same filing now lists the properties the STRUCTURED reader found —
+and the two sit inches apart on one card disagreeing.
+
+Measured over the 492 records whose own `source_url` filing the crawl has reached so far:
+
+| | |
+|---|---|
+| records where the two counts disagree | **392 of 492 (80%)** |
+| properties found by the heuristic | **319** |
+| properties found by the structured reader | **1,009** |
+
+The heuristic counted a row only when some cell parsed as a number **over 2,000**, so every
+property declared at 0 лв — inherited, gifted, taken into marriage, or acquired by a
+contract with no price stated — was invisible to it. It under-reports by roughly 3×, and
+Адалберт Кръстев is the worked example the screenshot caught: headline **1**, document
+**3**.
+
+⚠️ **The fix is NOT to update `real_estate_count` mid-crawl.** That column also feeds the
+`/judiciary` aggregate, so updating the reached records and not the rest makes that
+aggregate a mix of two counting methods — worse than either alone, and invisible, because
+both are plausible integers. It waits for the completed crawl, and then it is one change:
+derive the column from `magistrate_filing_asset` where the record's own filing was parsed,
+leave the heuristic where it was not, and report the split so a partial corpus cannot
+masquerade as a whole one.
+
+Two things follow. The count is a **claim about a named judge's property**, so the
+under-count is the safe direction and this is not urgent — but „1 имот" against a document
+listing three is still false. And the heuristic's rule is worth retiring rather than
+tuning: the threshold was never a property test, it was a "does this row look like it has
+money in it" test, and the answer to a row with no price is that it is still a property.
+
 ### Tier 4 — one career, one timeline
 
 Once magistrates have filings with dates, interleave the two registers chronologically on

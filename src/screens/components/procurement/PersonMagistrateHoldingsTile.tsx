@@ -165,7 +165,15 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
                   <span className="font-semibold tabular-nums">
                     {f.realEstateCount}
                   </span>{" "}
-                  {bg ? "имота в декларацията" : "properties in this filing"}
+                  {/* Bulgarian counts singular at 1 („1 имот") and takes the count form
+                    from 2 up („2 имота"). „1 имота" is simply ungrammatical. */}
+                  {bg
+                    ? f.realEstateCount === 1
+                      ? "имот в декларацията"
+                      : "имота в декларацията"
+                    : f.realEstateCount === 1
+                      ? "property in this filing"
+                      : "properties in this filing"}
                 </span>
               )}
             </div>
