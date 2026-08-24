@@ -273,6 +273,101 @@ verdict — *"a wrong 'declared wealth' on a NAMED judge is a serious integrity/
 risk"* — still governs. The bar to clear is not "it parsed", it is "we can tell when it
 didn't".
 
+#### Validation result — 2026-08-24/25, n=60, seed 7
+
+`scripts/judiciary/validate_declaration_parse.ts`, stratified across all 10 years and both
+register directories.
+
+⚠️ **The first run of this harness reported "100% agreement" and that number, recorded here,
+was measuring the wrong thing.** It compared parsed row COUNTS against an independent count
+from the raw text layer — good evidence about row *segmentation*, and none at all about
+extraction, because no cell value was ever compared. A column SHIFT leaves every count
+identical. Constructed against a header whose digits are printed CENTRED in their columns —
+the ordinary way to typeset `1 | 2 | … | 12` — the reader put the acquisition year in „Цена
+на сделката" and the location in „Вид на имота", and the harness scored it 100%. That is
+precisely the Phase 6 failure the whole design is meant to prevent, and the evidence was
+blind to it.
+
+Two things came out of fixing that, and the second is the substantive finding:
+
+**1. Column assignment is now alignment-independent.** When a row carries one run per column
+the k-th run *is* column k, whatever the alignment; only sparse rows fall back to
+nearest-header, and those are flagged `exact: false` so a consumer that publishes values can
+require the unambiguous path. Pinned by a test that runs left-, centre- and right-aligned
+headers through the same fixture.
+
+**2. ⚠️ THE PRE-v3.0 FORM HAS THE SAME TWELVE COLUMNS IN A DIFFERENT ORDER.** With cell-shape
+checks added, the harness immediately found 14 mis-shaped cells across 8 declarations —
+„година на придобиване" holding the declarant's *name*, „цена на сделката" holding
+„1997 Радослав Петров Маринов". Diffing an old filing against a new one:
+
+```
+old (≤2022):  … 7 година | 8 собственик | 9 идеална част | 10 цена …
+v3.0 (2023+): … 7 цена   | 8 година     | 9 собственик   | 10 идеална част …
+```
+
+Twelve columns either way — so the column-COUNT guard passes and every value lands under the
+wrong heading, with the row count unchanged. The discriminator is the form-version string
+„v.3.0 / 22.11.2022 г." on page 1, absent from every older filing. `readTable` now refuses
+anything that is not v3.0, because only the v3.0 map has been verified.
+
+**The coverage that buys is a real cost, stated rather than buried:** 31,256 of 51,040
+filings (**61%**) are pre-v3.0 and are now refused outright. Per *magistrate* it is much
+softer — **4,703 of 5,579 (84%)** have at least one v3.0 filing — which is the number that
+matters for a `/person` page. Mapping the older form is deliberate future work with its own
+evidence, not a loosened guard.
+
+Also corrected in the reader while establishing this: `isRefusal` was typed so narrowly that
+every `readTable` call site was a `tsc` error — 22 green Vitest tests and a clean lint on top
+of a broken `npm run build`, because Vitest never typechecks. And the period regex, anchored
+on „31.12" over the flattened page, pulled a year across a row boundary out of a money
+table's „към 31.12." header — inventing a covered period for exactly the entry/exit filings
+that leave it blank by design.
+
+**Status of the five items.** 1-3 have a verified mechanism on v3.0 forms. **Item 4 (Table 1
+prices) is NOT cleared** — the claim that it was is withdrawn; row-count agreement never
+supported it, and the shape checks that would support it are new. **Item 5 (money tables
+10/11/13) is NOT cleared** and was never in this harness; its precondition is unchanged —
+re-run Phase 6's own hand-checked magistrates (Kovachev, Shutova) plus Цацаров before any
+stored money figure moves.
+
+**Where it landed, same sample, after all of the above:**
+
+| | result |
+|---|---|
+| declarations read | **60 / 60**, none unreadable |
+| **Таблица 1** on v3.0 forms | **25 / 25 agree**, 0 disagree, **0 mis-shaped cells** |
+| **Таблица 2** on v3.0 forms | **24 / 25 agree**, 1 disagree, 0 mis-shaped cells |
+
+The single Table-2 disagreement reads 0 rows where the raw text has 1 — an **under**-read, so
+it withholds a row rather than inventing one. That is the direction to fail in, and it is the
+one case the sample leaves for a human.
+
+| declined as pre-v3.0 | 35 of 60, by design |
+| declaration kind | 44 annual · 14 unknown · 2 entry |
+| covered period printed | 38 / 60 |
+
+Two corpus properties worth carrying forward, neither of them a parser defect:
+
+- **23% of declarations state no kind** (14 of 60 `unknown`) — older filings whose marker row
+  the ИВСС does not print. `unknown` is the document's answer and must not be rounded to
+  `annual`; doing so was a live defect in the first cut, which read „ежегодна" out of the
+  form's own **footnote** and reported every filing, entry declarations included, as annual.
+- **37% print no covered period** (22 of 60). Entry and exit filings are anchored to a date
+  and leave it blank by design; plenty of annuals leave it blank too. So the period is
+  available for under two thirds of filings and **the filing year may never be substituted
+  for it** — which is why the tile still labels only what it can defend.
+
+One property of the harness is worth keeping in view: `rawRowCount` is independent of the
+header detection and the column map, but shares `toRows` and the ordinal predicate with the
+reader. It is a strong check on segmentation and a *partial* one on geometry. The cell-shape
+assertions, not the count, are what make it evidence about extraction.
+
+And one thing it cannot be: the form's „Нямам нищо за деклариране" is **not** usable as a
+third reading. It is the static label of a checkbox printed above every table, and the tick
+is a graphic rather than text — Цацаров's 2026 filing prints it directly above four declared
+properties. Used as evidence it manufactured five false alarms in this very sample.
+
 **Do not unify into `declaration`/`declaration_asset` (tier `'magistrate'`) in this
 tier.** The schema reserves it and `PersonDeclarations.tsx` already renders it, which
 makes it tempting — but the FLOW/STOCK mismatch (Finding 0) and the 59-person arbitration
