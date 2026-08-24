@@ -15,7 +15,6 @@ import {
   FeaturedStrip,
   HubHead,
   HubKpi,
-  TILE_ACCENTS,
 } from "@/ux/infographic";
 import { ScopeControl } from "./components/ScopeControl";
 import { GovernanceBreadcrumb } from "./components/GovernanceBreadcrumb";
@@ -34,99 +33,12 @@ import { SCOPE_FIRST_YEAR } from "@/data/scope/constants";
 import { useWatchlist } from "@/data/procurement/useWatchlist";
 import { formatEurCompact } from "@/lib/currency";
 import { PROCUREMENT_SCENES } from "./procurement/procurementScenes";
+import {
+  PROCUREMENT_BANDS,
+  type ProcurementTile,
+} from "./procurement/procurementRegistry";
 import { FEATURED_SECTORS } from "./governance/sectorRegistry";
 import { SECTOR_SCENES } from "./governance/sectorScenes";
-
-// One entry per procurement sub-page. `metric` names the headline number the tile overlays,
-// resolved from the same hub_stats blob the KPI band reads.
-//
-// ⚠ A tile metric may NOT be a figure the KPI band already carries. The band publishes
-// total / contracts / contractors / appeals above the fold with a declared basis, so those
-// four tiles are deliberately descriptor-only: rendering the identical string twice on one
-// page reads as two different facts (SKILL.md §3.1 rule 5, which this file broke on the day
-// it was written). Add a metric here only after checking it against the `kpis` array below —
-// `hubHead.gates.test.ts` enforces the disjointness.
-const SUBPAGES = [
-  {
-    id: "analysis",
-    titleKey: "procurement_overview_nav",
-    descKey: "procurement_hub_analysis_desc",
-    to: "/procurement/overview",
-    accent: TILE_ACCENTS.brass,
-  },
-  {
-    id: "contracts",
-    titleKey: "procurement_index_contracts",
-    descKey: "procurement_hub_contracts_desc",
-    to: "/procurement/contracts",
-    // magenta, not clay: the „Пътища" FeaturedStrip tile below this grid is `clay`
-    // too, and the two come from different registries so no per-registry gate sees it.
-    accent: TILE_ACCENTS.magenta,
-  },
-  {
-    id: "contractors",
-    titleKey: "procurement_index_contractors",
-    descKey: "procurement_hub_contractors_desc",
-    to: "/procurement/contractors",
-    accent: TILE_ACCENTS.steel,
-  },
-  {
-    id: "connected",
-    titleKey: "procurement_index_connected",
-    descKey: "procurement_hub_connected_desc",
-    to: "/procurement/mps",
-    accent: TILE_ACCENTS.amber,
-    metric: "connected",
-  },
-  {
-    id: "tenders",
-    titleKey: "procurement_tenders_nav",
-    descKey: "procurement_hub_tenders_desc",
-    to: "/procurement/tenders",
-    accent: TILE_ACCENTS.azure,
-    metric: "tenders",
-  },
-  {
-    id: "appeals",
-    titleKey: "procurement_appeals_nav",
-    descKey: "procurement_hub_appeals_desc",
-    to: "/procurement/appeals",
-    accent: TILE_ACCENTS.plum,
-  },
-  {
-    id: "ngos",
-    titleKey: "procurement_ngos_nav",
-    descKey: "procurement_hub_ngos_desc",
-    to: "/procurement/ngos",
-    accent: TILE_ACCENTS.green,
-    metric: "ngos",
-  },
-  {
-    id: "place",
-    titleKey: "procurement_by_settlement_nav",
-    descKey: "procurement_hub_place_desc",
-    to: "/procurement/by-settlement",
-    // fern, not teal: the „Води" FeaturedStrip tile below is `teal`.
-    accent: TILE_ACCENTS.fern,
-    metric: "places",
-  },
-  {
-    id: "risk",
-    titleKey: "flags_nav",
-    descKey: "procurement_hub_risk_desc",
-    to: "/procurement/flags",
-    accent: TILE_ACCENTS.rose,
-    metric: "flags",
-  },
-  {
-    id: "watch",
-    titleKey: "watchlist_nav",
-    descKey: "procurement_hub_watch_desc",
-    to: "/procurement/watchlist",
-    accent: TILE_ACCENTS.gold,
-    metric: "watch",
-  },
-] as const;
 
 export const ProcurementScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -167,41 +79,6 @@ export const ProcurementScreen: FC = () => {
     return v != null ? numFmt.format(v) : undefined;
   };
 
-  const subpageTiles: InfographicTileProps[] = SUBPAGES.map((p) => ({
-    to: p.to,
-    title: t(p.titleKey),
-    desc: t(p.descKey),
-    accent: p.accent,
-    scene: PROCUREMENT_SCENES[p.id],
-    metric: metricFor("metric" in p ? p.metric : undefined),
-  }));
-  // The project-file builder on-ramp (§4.3b). Bilingual-inline (no i18n key);
-  // reuses the document "досие" scene, a distinct accent, no headline number.
-  const projectsTile: InfographicTileProps = {
-    to: "/procurement/project",
-    title: bg ? "Проектни досиета" : "Project files",
-    desc: bg
-      ? "Проследи един проект през поръчките"
-      : "Track one project across procurement",
-    accent: TILE_ACCENTS.indigo,
-    scene: PROCUREMENT_SCENES.contracts,
-  };
-  // Slot it just before "Моят списък" (the watchlist, always the last SUBPAGE).
-  const exploreTiles: InfographicTileProps[] = [
-    ...subpageTiles.slice(0, -1),
-    projectsTile,
-    ...subpageTiles.slice(-1),
-  ];
-
-  const exploreSection: TileHubSection = {
-    heading: t("procurement_hub_explore") || "Explore",
-    tiles: exploreTiles,
-  };
-
-  // PREVIEW (docs/plans/hub-hero-v1.md §4). Every figure here is already on the wire — the
-  // same hub_stats[scope] blob the tiles below read — so the band costs ZERO extra bytes.
-  // Each carries its BASIS: measured 2026-08-22 these ten numbers shipped with no
-  // metricCaption at all, so „€3,3 млрд." was qualified only by a scope pill 448 px above it.
   // ⚠ NEVER a literal window. This read „2007–2026" for one commit — against a corpus whose
   // earliest contract is 2011-01-03 and which holds ZERO rows before 2011, so four years of
   // the stated window contained nothing. That is §0's own failure mode (a figure that is
@@ -260,6 +137,23 @@ export const ProcurementScreen: FC = () => {
     to: sector.to,
   })).filter((row) => row.value !== "—");
 
+  const tileFor = (p: ProcurementTile): InfographicTileProps => ({
+    to: p.to,
+    // Exactly one of `titleKey` / `title` is set — the registry's type says so and
+    // procurementHubBands.test.ts asserts it, so the fallbacks here can never both miss.
+    title: p.titleKey ? t(p.titleKey) : (p.title?.[bg ? "bg" : "en"] ?? ""),
+    desc: p.descKey ? t(p.descKey) : p.desc?.[bg ? "bg" : "en"],
+    accent: p.accent,
+    scene: PROCUREMENT_SCENES[p.id],
+    metric: metricFor(p.metric),
+  });
+
+  const sections: TileHubSection[] = PROCUREMENT_BANDS.map((band) => ({
+    heading: t(band.labelKey),
+    description: t(band.descKey),
+    tiles: band.tiles.map(tileFor),
+  }));
+
   return (
     <>
       <GovernanceBreadcrumb
@@ -308,7 +202,7 @@ export const ProcurementScreen: FC = () => {
       <WatchlistDigestTile />
 
       <div data-og="procurement-hub">
-        <TileHubGrid sections={[exploreSection]} className="mt-6" />
+        <TileHubGrid sections={sections} className="mt-6" />
       </div>
 
       {/* Featured sectors — the highest-spend entities surfaced directly, with a

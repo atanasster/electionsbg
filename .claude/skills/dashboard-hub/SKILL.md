@@ -803,8 +803,22 @@ Not optional, and each exists because its absence shipped something:
 rendering both `HubHead` and `<Title>`, and no default-aligned heading over a centred sibling)
 plus the four blob gates above and `src/ux/infographic/HubHead.test.tsx` for the component
 contract. Each was mutation-checked — break the clause, watch it fire — per the rule below.
-Still unwritten: "every hub renders a `HubHead`" (only two do so far), the composed-page accent
-gate, and the band description / `xl` row-balance gate.
+The band gates — description present, no instruction/container heading, scene coverage, unique
+accents, `xl` row balance — are written for `/procurement` in
+`src/screens/procurement/procurementHubBands.test.ts`, beside the funds/parliament/budget
+registry gates it copies. Still unwritten: "every hub renders a `HubHead`" (only two do so
+far), and the COMPOSED-PAGE accent gate (each hub's is per-registry, which is exactly the
+blind spot `/procurement`'s `clay`/`teal` collisions sat in).
+
+⚠️ **Write those gates against a REGISTRY, never against the screen's source.** A first cut of
+the `/procurement` one regex-scanned `ProcurementScreen.tsx` and was quietly almost vacuous: it
+read the other bands' i18n keys as tile ids, counted quoted strings rather than tiles (so a
+band holding an inline tile read one short), could not see that tile at all, and broke on a
+code comment — which §3.2 encourages. Five sibling hubs already declare `*_BANDS` with the
+tiles NESTED and derive `*_TILES = BANDS.flatMap(b => b.tiles)`, which makes an orphan or a
+duplicate unrepresentable rather than merely detectable. Extracting the registry retired nine
+findings at once, and the rewritten gate immediately caught a real regression the source-scan
+could not: the project-file tile had lost its scene in the move.
 
 ⚠️ **The first eight are new because the band/accent/CTA rules in §3 were ADVICE, not gates,
 and had failed on 7 of 13 hubs by the time anyone measured** — 42 redundant per-tile CTAs on

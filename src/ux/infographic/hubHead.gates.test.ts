@@ -13,6 +13,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { SCOPE_FIRST_YEAR } from "@/data/scope/constants";
+import { PROCUREMENT_TILES } from "@/screens/procurement/procurementRegistry";
 
 const read = (p: string) => readFileSync(p, "utf8");
 
@@ -62,8 +63,11 @@ describe("hub head — the band and the tiles are disjoint", () => {
       flags: "flags",
       watch: "", // local watchlist count, not a HubStat field
     };
-    const tileMetrics = [...src.matchAll(/metric: "([a-z]+)"/g)].map(
-      (m) => m[1],
+    // From the REGISTRY, not a scan of the screen: the tiles moved into
+    // procurementRegistry.ts and this clause silently found zero metrics the moment they did
+    // — a gate that passes because it can no longer see its subject.
+    const tileMetrics = PROCUREMENT_TILES.map((t) => t.metric).filter(
+      (m): m is string => !!m,
     );
     expect(tileMetrics.length).toBeGreaterThan(0);
     for (const m of tileMetrics)

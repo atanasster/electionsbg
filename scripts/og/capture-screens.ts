@@ -313,10 +313,15 @@ const captures: Capture[] = [
   {
     slug: "procurement",
     routePath: "procurement?pscope=all",
-    // The redesigned hub is a tile grid (no more stat cards). Anchor on the
-    // explore-tiles wrapper and top-align, so the card leads with the colourful
-    // sub-page tiles + their headline numbers. ?pscope=all so the tiles carry
-    // the full-corpus figures (the default `ns` scope is only weeks old).
+    // The redesigned hub is a tile grid (no more stat cards). Anchor on the tiles wrapper
+    // and top-align. ?pscope=all so the tiles carry the full-corpus figures (the default
+    // `ns` scope is only weeks old).
+    //
+    // Since the hub grew three NAMED bands, the card leads with the first band's heading and
+    // its description rather than straight into tiles — checked by eye, and kept: the heading
+    // tells a reader what they are looking at, and two full rows of tiles with their headline
+    // numbers still fit under it. Re-shoot and LOOK at the PNG if the band structure changes
+    // again; a taller description would start pushing the second row out of the crop.
     waitFor: '[data-og="procurement-hub"] a',
     anchor: '[data-og="procurement-hub"]',
     leftAlign: true,

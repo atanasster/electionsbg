@@ -258,4 +258,10 @@ export const PROCUREMENT_SCENES: Record<string, FC> = {
   place: Place,
   risk: Risk,
   watch: Watch,
+  // The project-file on-ramp deliberately REUSES the contracts vignette (a document „досие").
+  // Declared here rather than left to the screen: the screen used to pass
+  // `PROCUREMENT_SCENES.contracts` inline for it, which put the tile outside the id→scene
+  // contract entirely — so the gate that exists to prevent a white page could not see the one
+  // tile most likely to lose its scene.
+  projects: Contracts,
 };
