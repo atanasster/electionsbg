@@ -25,9 +25,10 @@
 
 import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type {
+  MagistrateFiling,
   MagistrateHolding,
   usePersonMagistrateHoldings,
 } from "@/data/judiciary/useMagistrateHoldings";
@@ -206,5 +207,203 @@ describe("PersonMagistrateHoldingsTile", () => {
       screen.queryByRole("link", { name: /БЕТА ООД/ }),
     ).not.toBeInTheDocument();
     expect(screen.getByText(/БЕТА ООД/)).toBeInTheDocument();
+  });
+});
+
+// ---------------------------------------------------------------- filings --
+
+const filing = (
+  year: number,
+  ref: string | null,
+  registerDir = "annual",
+): MagistrateFiling => ({
+  year,
+  registerDir,
+  ref,
+  sourceUrl: `http://62.176.124.194/images/declaracii/${year}/f${year}${registerDir}.pdf`,
+});
+
+const SEVEN = [
+  filing(2026, "4352/22.04.2026"),
+  filing(2025, "4013/24.04.2025", "change"),
+  filing(2024, "2991/01.04.2024"),
+  filing(2023, "4449/26.04.2023"),
+  filing(2022, "2947/24.03.2022"),
+  filing(2019, "5190/23.04.2019"),
+  filing(2017, null),
+];
+
+describe("PersonMagistrateHoldingsTile — filing history", () => {
+  it("links the declaration the figures were actually parsed from", () => {
+    renderTile(
+      holding({ sourceUrl: "http://62.176.124.194/images/declaracii/x.pdf" }),
+    );
+    expect(
+      screen.getByRole("link", { name: /Виж декларацията/ }),
+    ).toHaveAttribute("href", "http://62.176.124.194/images/declaracii/x.pdf");
+  });
+
+  it("lists the filings newest-first, capped, with a see-all toggle", () => {
+    renderTile(holding({ filings: SEVEN }));
+    // Capped at 5 of 7 — a magistrate can have 72.
+    expect(screen.getByText("2026")).toBeInTheDocument();
+    expect(screen.getByText("2022")).toBeInTheDocument();
+    expect(screen.queryByText("2019")).not.toBeInTheDocument();
+
+    const toggle = screen.getByRole("button", { name: /Виж всички \(7\)/ });
+    fireEvent.click(toggle);
+    expect(screen.getByText("2019")).toBeInTheDocument();
+    expect(screen.getByText("2017")).toBeInTheDocument();
+  });
+
+  it("never renders registerDir as a declaration type", () => {
+    // `registerDir` is the register's DIRECTORY. The ИВСС files some ANNUAL declarations
+    // into the `-1` ("change") one — the 2025 fixture above is exactly that case — so
+    // „За промяна" would state something the document contradicts. The plan's own first
+    // draft told the UI to render it; this is the assertion that stops it coming back.
+    renderTile(holding({ filings: SEVEN }));
+    expect(screen.queryByText(/За промяна/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Годишна/)).not.toBeInTheDocument();
+  });
+
+  it("attributes the list to the PERSON only when the name is unambiguous", () => {
+    renderTile(holding({ filings: SEVEN, filingsNameAmbiguous: false }));
+    expect(
+      screen.getByText(/Декларации в регистъра на ИВСС/),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/подадени под това име/)).not.toBeInTheDocument();
+  });
+
+  it("heads the list as filed-under-this-name when it covers several people", () => {
+    // 262 of 3,594 rostered names provably do: two annual declarations filed on the SAME
+    // DAY (257) or four-plus in one year (15). Publishing one judge's declarations as
+    // another's is the harm this caveat exists to prevent.
+    renderTile(holding({ filings: SEVEN, filingsNameAmbiguous: true }));
+    expect(
+      screen.getByText(/Декларации, подадени под това име/),
+    ).toBeInTheDocument();
+    // The caveat must state the EVIDENCE, not just assert doubt — that is what makes it
+    // checkable by the reader rather than a hedge. WHICH evidence, and why it is worded to
+    // cover both arms of the flag, is pinned separately below.
+    expect(screen.getByText(/съименниците се сливат/)).toBeInTheDocument();
+  });
+
+  it("shows a history even when there are no figures and no company", () => {
+    // The filings are displayable content in their own right — a magistrate whose PDF
+    // never parsed still has declarations a reader can open, which is the point.
+    renderTile(
+      holding({
+        court: null,
+        position: null,
+        companies: [],
+        financials: { bankCashLv: 0, securitiesLv: 0, realEstateCount: 0 },
+        filings: SEVEN,
+      }),
+    );
+    expect(
+      screen.getByText(/Декларации в регистъра на ИВСС/),
+    ).toBeInTheDocument();
+  });
+
+  it("renders no history section at all when the register lists nothing", () => {
+    renderTile(holding({ filings: [] }));
+    expect(screen.queryByText(/Декларации/)).not.toBeInTheDocument();
+  });
+
+  it("marks which listed filing the figures actually came from", () => {
+    // NOT always the newest: on 421 of 3,594 records the parsed filing sits further down,
+    // because a magistrate off the current bench keeps a parse the pipeline does not
+    // refresh. Without the marker a reader cannot tell which document backs the numbers.
+    renderTile(holding({ filings: SEVEN, sourceUrl: SEVEN[2].sourceUrl }));
+    const marks = screen.getAllByText(/данните тук/);
+    expect(marks).toHaveLength(1);
+    // …and it is on the 2024 row, not the 2026 one at the top.
+    expect(marks[0].closest("a")).toHaveAttribute("href", SEVEN[2].sourceUrl);
+  });
+
+  it("renders the whole history block in English too", () => {
+    // /en/person/* is prerendered and indexed. The block carries four independent EN
+    // literals plus a translated entry-number string; a BG-pinned suite would let any of
+    // them rot unnoticed.
+    langMock.current = "en";
+    renderTile(holding({ filings: SEVEN, sourceUrl: SEVEN[0].sourceUrl }));
+    expect(
+      screen.getByRole("link", { name: /View the declaration/ }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Declarations in the ИВСС register/),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/figures shown/)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /View all \(7\)/ }),
+    ).toBeInTheDocument();
+    // „вх. №" was hard-coded once; the house key renders "entry no." on /en.
+    expect(screen.queryByText(/вх\. №/)).not.toBeInTheDocument();
+  });
+
+  it("states the shared evidence, never the same-day arm alone", () => {
+    // The flag is set by EITHER two same-day annuals OR four-plus in one year. Naming only
+    // the first made the caveat FALSE for the 5 magistrates flagged solely by the second.
+    renderTile(holding({ filings: SEVEN, filingsNameAmbiguous: true }));
+    expect(screen.queryByText(/в един и същи ден/)).not.toBeInTheDocument();
+    expect(
+      screen.getByText(/повече годишни декларации в една и съща година/),
+    ).toBeInTheDocument();
+  });
+
+  it("renders a filing that carries no входящ номер", () => {
+    // 334 filings corpus-wide have none — the register published no ref. The row must still
+    // be a working link, not a blank or a crash.
+    renderTile(holding({ filings: [filing(2017, null)] }));
+    expect(screen.getByText("2017").closest("a")).toHaveAttribute(
+      "href",
+      SEVEN[6].sourceUrl,
+    );
+  });
+
+  it("opens every register link safely and drops anything off-origin", () => {
+    // The register is plain HTTP on a bare IP with a documented trust boundary. Missing
+    // `noopener` on a target=_blank link hands the opened page a handle on this one.
+    renderTile(
+      holding({
+        sourceUrl: SEVEN[0].sourceUrl,
+        filings: [
+          SEVEN[0],
+          {
+            ...filing(2020, "1/01.01.2020"),
+            sourceUrl: "https://evil.test/x.pdf",
+          },
+        ],
+      }),
+    );
+    for (const a of screen.getAllByRole("link")) {
+      expect(a).toHaveAttribute("target", "_blank");
+      expect(a).toHaveAttribute("rel", expect.stringContaining("noopener"));
+      expect(a.getAttribute("href")).toMatch(/^http:\/\/62\.176\.124\.194\//);
+    }
+    // The off-origin row is dropped, and the heading count follows the filtered list.
+    expect(screen.queryByText("2020")).not.toBeInTheDocument();
+    expect(
+      screen.getByText(/Декларации в регистъра на ИВСС \(1\)/),
+    ).toBeInTheDocument();
+  });
+
+  it("collapses the list again, and does not carry the toggle to the next person", () => {
+    const { rerender } = renderTile(holding({ filings: SEVEN }));
+    fireEvent.click(screen.getByRole("button", { name: /Виж всички \(7\)/ }));
+    expect(screen.getByText("2017")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /Покажи по-малко/ }));
+    expect(screen.queryByText("2017")).not.toBeInTheDocument();
+
+    // The tile has no `key` in PersonProfileScreen, so a new person re-renders this same
+    // instance. An expanded 72-row list must not follow them there.
+    fireEvent.click(screen.getByRole("button", { name: /Виж всички \(7\)/ }));
+    expect(screen.getByText("2017")).toBeInTheDocument();
+    rerender(
+      <MemoryRouter>
+        <PersonMagistrateHoldingsTile name="Друг Магистрат" />
+      </MemoryRouter>,
+    );
+    expect(screen.queryByText("2017")).not.toBeInTheDocument();
   });
 });

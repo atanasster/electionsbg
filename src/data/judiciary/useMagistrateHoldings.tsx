@@ -25,6 +25,25 @@ export interface MagistrateFinancials {
   realEstateCount: number;
 }
 
+/** One declaration the ИВСС register lists under this magistrate's NAME.
+ *
+ *  A document a reader can open — never a claim that we have parsed it. Exactly one filing
+ *  per magistrate is parsed, and `MagistrateHolding.sourceUrl` names that one. */
+export interface MagistrateFiling {
+  /** The register's page-heading year — the year the declaration was FILED, NOT the period
+   *  it covers. An annual filed in 2026 covers 01.01–31.12.2025 and states that on its own
+   *  page 2, which nothing here reads. Never render this as „данни за <year>". */
+  year: number;
+  /** ⚠️ The register's DIRECTORY, not the declaration type: `annual` = /declaracii/<year>/,
+   *  `change` = /declaracii/<year>-1/. The ИВСС files some ANNUAL declarations into the
+   *  `-1` one — Цацаров's from 2025-1 is stamped „ЕЖЕГОДНА" and covers 2024 — so rendering
+   *  this as „Годишна / За промяна" states something the document contradicts. */
+  registerDir: string;
+  /** Входящ номер, e.g. „4352/22.04.2026". Null where the register published none. */
+  ref: string | null;
+  sourceUrl: string;
+}
+
 export interface MagistrateHolding {
   name: string;
   position: string | null;
@@ -32,6 +51,20 @@ export interface MagistrateHolding {
   companies: MagistrateCompany[];
   /** Present for records written after the financials ingest; may be absent. */
   financials?: MagistrateFinancials;
+  /** The declaration the figures above were parsed FROM — provenance, so a reader can
+   *  check them. NOT necessarily the newest filing: for a magistrate off the current bench
+   *  the pipeline keeps an older parse it does not refresh. Null on pre-2026-08-24 rows. */
+  sourceUrl?: string | null;
+  /** Every declaration the register lists under this name, newest first. */
+  filings?: MagistrateFiling[];
+  /** ⚠️ TRUE when this NAME provably covers more than one human, so `filings` is a name's
+   *  history rather than a person's. The register is indexed by name with no court or id
+   *  beside it, so namesakes are indistinguishable in it: 26.6% of rostered names carry
+   *  more than one annual declaration in a single year, and 256 have two filed on the same
+   *  day. A surface rendering `filings` MUST say „подадени под това име" when this is set —
+   *  attributing another judge's declarations to this one is the harm it exists to
+   *  prevent. */
+  filingsNameAmbiguous?: boolean;
 }
 
 export interface MagistrateOverview {
