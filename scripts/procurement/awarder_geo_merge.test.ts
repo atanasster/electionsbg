@@ -11,6 +11,7 @@ import {
   type GeoEntry,
   type MergeReport,
   type TierInputs,
+  tierAgeDays,
 } from "./awarder_geo_merge";
 
 const ALL_UP: TierInputs = {
@@ -354,5 +355,45 @@ describe("countSources", () => {
       { ...ALL_UP, mon: false },
     );
     expect(countSources(awarders)).toEqual({ ri: 1, mon: 1, "mon+oblast": 1 });
+  });
+});
+
+describe("tierAgeDays", () => {
+  // The staleness ratchet in awarder_geo_overrides.test.ts can only read the
+  // committed artifact from a fixed path, so before this helper existed the only
+  // way to exercise its branches was to MUTATE that git-tracked file and restore
+  // it — unsafe in a repo where another process commits to `main`. `now` is
+  // injected, so these need no fake timers.
+  const NOW = Date.parse("2026-08-24T00:00:00Z");
+  const daysAgo = (d: number): string =>
+    new Date(NOW - d * 86_400_000).toISOString();
+
+  it("measures whole days back from the injected clock", () => {
+    expect(tierAgeDays(daysAgo(3), NOW)).toBeCloseTo(3, 10);
+    expect(tierAgeDays(daysAgo(14.1), NOW)).toBeCloseTo(14.1, 10);
+  });
+
+  it("straddles the ratchet's 14-day threshold in both directions", () => {
+    // The pair the gate actually turns on: 13.9 rides, 14.1 fires. Both render
+    // as "14" under toFixed(0), which is why the message uses one decimal.
+    expect(tierAgeDays(daysAgo(13.9), NOW)).toBeLessThan(14);
+    expect(tierAgeDays(daysAgo(14.1), NOW)).toBeGreaterThan(14);
+  });
+
+  it("returns NaN for a missing or unparseable stamp, never 0 or Infinity", () => {
+    // NaN fails every `<` comparison, so the gate refuses rather than passing an
+    // un-ageable tier. 0 would read as "fresh today" — the dangerous direction.
+    for (const bad of [undefined, "", "not a date", "2026-13-45"]) {
+      expect(tierAgeDays(bad, NOW), `stamp ${JSON.stringify(bad)}`).toBeNaN();
+      expect(tierAgeDays(bad, NOW) < 14, `stamp ${JSON.stringify(bad)}`).toBe(
+        false,
+      );
+    }
+  });
+
+  it("goes negative on a future stamp rather than clamping", () => {
+    // A clock-skewed stamp must not silently read as ancient; the gate's `<`
+    // then passes it, which is the safe direction for a skew we cannot judge.
+    expect(tierAgeDays(daysAgo(-2), NOW)).toBeCloseTo(-2, 10);
   });
 });

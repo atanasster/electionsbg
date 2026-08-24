@@ -1,8 +1,8 @@
 # Tier B (МОН open-data register) has been dark since 2026-08-06 — v1
 
-**Status:** investigated 2026-08-24. Tier B **re-run and restamped `ok` the same day** (§2i) —
-the block was intermittent and has cleared. The durable problem (nobody could tell for 16 days) is
-**still open**: §6.2 and §6.3 are unimplemented. Carries one decision for a human (§7).
+**Status:** investigated 2026-08-24. Tier B **re-run and restamped `ok` the same day** (§2i) — the
+block was intermittent and has cleared. §6.2 is implemented; §6.1 is re-run but **not yet applied
+downstream**; §6.3 and §6.5 follow in this same run. Carries one decision for a human (§7).
 
 ## 1. The symptom
 
@@ -324,17 +324,33 @@ retirement means deciding what happens to those 92 placements — see §7.
    run corrected one placement (§2i). The map change is written but **not yet applied to
    `by_settlement`**; fold `npm run procurement:ingest` + the current-value chain into the next
    scheduled procurement ingest.
-2. **Add the `lastFreshAt` ratchet** (Option 2) to `awarder_geo_overrides.test.ts`, aged from
-   `tiers[key].lastFreshAt`, threshold ~14 days, modelled on `degraded.test.ts`. This is the piece
-   that makes the next outage announce itself, and it covers **every** tier, not just Tier B.
+2. ✅ **`lastFreshAt` ratchet** (Option 2) — landed in `awarder_geo_overrides.test.ts` as
+   *"carries no tier that has been unavailable longer than the ratchet allows"*.
+   `MAX_UNAVAILABLE_DAYS = 14`, aged from `tiers[key].lastFreshAt`, covering **every** tier rather
+   than Tier B alone. Mutation-checked three ways against the real artifact (restored byte-identical
+   afterwards): 20 days unavailable **fails** with the re-run command in the message, 3 days
+   **passes** so an ordinary blip stays quiet, and `unavailable` with no `lastFreshAt` **fails**
+   rather than skipping. It is vacuous while every tier is healthy — the intended resting state, and
+   the comment says so, because the obvious "add a non-vacuity assertion" instinct would require the
+   file to demand that some tier be down.
+
+   Two supporting changes went with it. The age rule is a pure `tierAgeDays(lastFreshAt, now)` in
+   `awarder_geo_merge.ts` with `now` injected, so the ratchet's branches are unit-tested from frozen
+   inputs instead of by mutating the committed artifact — which is the procedure §6.2 originally
+   implied and is unsafe in a repo where another process commits to `main`. And
+   `docs/testing-standards.md` §Determinism now records the **staleness-ratchet exception** and names
+   its two members (`degraded.test.ts` and this gate); the rule there was previously unqualified, so
+   both files were asserting a sanction the standard did not actually grant.
 3. **Relabel the watcher** (Option 3) so the daily `## Errors` line names the downstream that
    actually broke; tighten to daily if the extra request is acceptable.
 4. **Do not** retire Tier B, chase the VPN, or touch the merge, the shrink guard or `readTierJson`.
 5. Amend `reference_egov_api_endpoints` in memory: a 403 from data.egov.bg is **not** proof of a
    foreign egress IP — this host was on A1 Bulgaria residential throughout.
 
-Steps 2 and 3 are the actual deliverable and **remain open** — step 1 fixed today's instance, not
-the blindness that let it run for 16 days. The next outage is silent again until the ratchet lands.
+Step 2 has landed; step 3 remains open. Step 1 fixed today's instance and step 2 removes the
+blindness that let it run for 16 days — the next outage announces itself within
+`MAX_UNAVAILABLE_DAYS`. What is still missing is same-day notice (step 3) and the downstream apply
+noted in §6.1, which no gate covers.
 
 ## 7. ⚠ The decision that belongs to a human, not to this plan
 

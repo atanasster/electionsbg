@@ -158,6 +158,17 @@ Sort before asserting on collection order unless order is itself the guarantee
 (then assert it explicitly). This mirrors the pipeline's own determinism rules
 (rounded sort keys, eik tiebreaks) — see the PG payload-determinism note.
 
+**Exception — staleness ratchets.** A gate whose entire purpose is to bound how
+long a committed artifact may ride a carried-forward vintage must read the real
+clock: pinning it is precisely what stops it ever firing. Two files are the
+sanctioned members, and the list is exhaustive —
+`scripts/macro/degraded.test.ts` (the macro artifacts' `degraded` marker) and
+`scripts/procurement/awarder_geo_overrides.test.ts` (an awarder-geo tier stuck
+`unavailable`). Each carries a comment saying why it is a ratchet rather than a
+unit test. Do not "fix" either onto `vi.setSystemTime`, and do not add a third
+without recording it here — the rule above is otherwise unqualified, so an
+unlisted wall-clock test is indistinguishable from a defect.
+
 ## Assertions
 
 New tests use Vitest's `expect`. The `*.data.test.ts` gates and other files

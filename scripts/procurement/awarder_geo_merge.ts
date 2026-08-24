@@ -250,6 +250,28 @@ export const SHRINK_TOLERANCE = 0.05;
  * reconcile — every prior entry missing from the output is in exactly one of
  * these four counters.
  */
+/**
+ * Age, in days, of a tier's last FRESH resolution — the input to the staleness
+ * ratchet in `awarder_geo_overrides.test.ts`.
+ *
+ * Lives here, beside `shrinkVerdict`, for the reason this module exists at all:
+ * it is pure, so it can be tested directly. The gate that consumes it can only
+ * read the committed artifact from a hard-coded path, so without this split the
+ * only way to exercise the ratchet's branches is to MUTATE a git-tracked file —
+ * unsafe in a repo where another process commits to `main`.
+ *
+ * `now` is a parameter rather than a `Date.now()` call so the unit tests need no
+ * fake timers; the caller supplies the real clock, and only the caller is the
+ * sanctioned wall-clock reader (see docs/testing-standards.md §Determinism).
+ *
+ * An absent or unparseable stamp yields NaN, which fails every `<` comparison —
+ * the safe direction, and deliberately not 0 or Infinity.
+ */
+export const tierAgeDays = (
+  lastFreshAt: string | undefined,
+  now: number,
+): number => (now - Date.parse(lastFreshAt ?? "")) / 86_400_000;
+
 export const shrinkVerdict = (
   priorCount: number,
   report: MergeReport,
