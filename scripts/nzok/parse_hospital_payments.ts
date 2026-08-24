@@ -29,9 +29,10 @@ export interface HospitalPaymentRow {
    *  ИАМН facility register (→ EIK). NOT an EIK itself. */
   regNo: string;
   name: string;
-  /** Cumulative year-to-date paid, in euros. */
+  /** Cumulative year-to-date paid, in euros. NEGATIVE when the period nets to a
+   *  clawback — real on ALL THREE streams since 2026-08-24; see SIGNED_AMOUNT_RE. */
   cumulativeEur: number;
-  /** Paid in the report month, in euros. */
+  /** Paid in the report month, in euros. Negative on a reversal, as above. */
   monthEur: number;
 }
 
@@ -41,7 +42,8 @@ export interface HospitalPaymentsFile {
   year: number;
   month: number;
   currencyOfRecord: "BGN" | "EUR";
-  /** Grand total from the "Общо РЗОК" header row (YTD), in euros. */
+  /** Grand total from the "Общо РЗОК" header row (YTD), in euros. May be negative
+   *  in principle (both downstream guards take `Math.abs`); never is in practice. */
   totalCumulativeEur: number;
   facilityCount: number;
   rows: HospitalPaymentRow[];
@@ -65,46 +67,75 @@ const parseAsOf = (
   return { year, month, iso };
 };
 
-// A space-grouped Bulgarian amount ("4 684 771", "903 437") or a bare integer.
-// Used to pull the trailing two amounts (cumulative YTD, then in-month) off a
-// row's accumulated text. The thousands-separator class is space, tab or NBSP —
-// non-newline space — deliberately: when a very long facility name wraps, a
-// stray name-fragment digit can sit at the end of one physical line and the real
-// amount start the next; joining rows with "\n" (below) then keeps them as two
-// separate tokens instead of merging "48" + "230 716" into a bogus "48 230 716".
-const AMOUNT_RE = /\d{1,3}(?:[ \t\u00a0]\d{3})+|\d+/g;
-
-// Same, but keeping a leading minus. The \u041b\u041f / \u041c\u0418 reports carry NEGATIVE figures
-// (a reversal or a clawback nets a facility's month, and occasionally its YTD,
-// below zero) which the \u0411\u041c\u041f report never does. Only used in lenient mode: a bare
-// `-?` in the \u0411\u041c\u041f path would let a hyphen inside a facility name ("\u041a\u041e\u0426 - \u0411\u0443\u0440\u0433\u0430\u0441")
-// swallow the following digit. Here the minus must sit immediately before a digit,
-// so "- \u0411\u0443\u0440\u0433\u0430\u0441" cannot match while "-4 680" does.
-const SIGNED_AMOUNT_RE = /-?\d{1,3}(?:[ \t\u00a0]\d{3})+|-?\d+/g;
+// A space-grouped Bulgarian amount ("4 684 771", "903 437", "-10 180") or a bare
+// integer. Used to pull the trailing two amounts (cumulative YTD, then in-month)
+// off a row's accumulated text.
+//
+// The thousands-separator class is space, tab or NBSP — non-newline space —
+// deliberately: when a very long facility name wraps, a stray name-fragment digit
+// can sit at the end of one physical line and the real amount start the next;
+// joining rows with "\n" (below) then keeps them as two separate tokens instead of
+// merging "48" + "230 716" into a bogus "48 230 716".
+//
+// ⚠️ IT IS SIGNED ON EVERY STREAM, and until 2026-08-24 it was not. This file's
+// stated premise was that the ЛП / МИ reports carry negatives "which the БМП
+// report never does". That is FALSE: НЗОК files a clawback in БМП too, and the
+// unsigned reader published the reversal as INCOME against a named facility —
+// „ДКЦ Св. София ЕООД  -10 180" read as +10,180 BGN for six consecutive months
+// (2023-07..12, a €10,410 error each on the София-град block), with the minus
+// swallowed into the NAME, so the stored name ended in " -" and that was the only
+// visible trace. Measured over the cached corpus: 8 БМП files carry a negative,
+// 7 of them loaded. See docs/plans/nzok-hospital-parser-hardening-v1.md §3 RC-4.
+//
+// A minus is read as a SIGN only when it sits immediately before a digit AND does
+// not immediately follow a letter or digit. Both halves are needed and the second
+// is not cosmetic: `pdftotext -layout` welds an amount onto the end of a name when
+// the glyph boxes overlap (RC-1 — "…ЕООД242 730", "…EАД376 725"), so a name ending
+// in a hyphen would hand the amount a minus it does not have and publish a payment
+// as a clawback — the exact failure this constant exists to end, mirrored. Measured
+// on the current corpus: "МБАЛ Девин ЕООД-1 500 000" read −1,500,000 without the
+// guard and +1,500,000 with it, while all 42 real negatives are preceded by
+// whitespace and are unaffected.
+//
+// ⚠️ The lookbehind guards the MINUS, never the digits. Anchoring the whole token
+// (`(?<![\p{L}\p{N}])-?\d…`) looks equivalent and is not: it also refuses a digit
+// run welded to a name, so "…ЕООД242 730" reads as "730" and €242,730 vanishes —
+// verified, and it is what the review of this change originally proposed.
+//
+// This makes the guard EMPIRICAL, not a proof. The residual is its mirror: a
+// genuinely negative amount welded to a name ("…ЕООД-10 180") now reads positive.
+// That is the better trade — negatives are 42 of 41,495 row tails — but it is a
+// trade, and only reading the amounts from the header's COLUMN POSITIONS closes
+// both (Tier 1 item 3 of the hardening plan).
+const SIGNED_AMOUNT_RE =
+  /(?:(?<![\p{L}\p{N}])-)?\d{1,3}(?:[ \t\u00a0]\d{3})+|(?:(?<![\p{L}\p{N}])-)?\d+/gu;
 
 /**
- * Which of the three monthly per-hospital reports a file is. \u041d\u0417\u041e\u041a publishes them
+ * Which of the three monthly per-hospital reports a file is. НЗОК publishes them
  * side by side on the same `bmp/{year}` listing page, one per money stream, and a
- * hospital's total \u041d\u0417\u041e\u041a income is the sum of all three. Parsing only `bmp` \u2014 as
- * this module did originally \u2014 understates every facility.
+ * hospital's total НЗОК income is the sum of all three. Parsing only `bmp` — as
+ * this module did originally — understates every facility.
  *
- *   bmp      "\u0417\u0430\u043f\u043b\u0430\u0442\u0435\u043d\u0438 \u0437\u0434\u0440\u0430\u0432\u043d\u043e\u043e\u0441\u0438\u0433\u0443\u0440\u0438\u0442\u0435\u043b\u043d\u0438 \u043f\u043b\u0430\u0449\u0430\u043d\u0438\u044f \u0437\u0430 \u0411\u041c\u041f \u043f\u043e \u041b\u0417"
- *   drugs    "\u0417\u0430\u043f\u043b\u0430\u0442\u0435\u043d\u0438 \u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0430 \u0437\u0430 \u041b\u041f \u0432 \u0443\u0441\u043b\u043e\u0432\u0438\u044f\u0442\u0430 \u043d\u0430 \u0411\u041c\u041f \u043f\u043e \u041b\u0417"   (\u043b\u0435\u043a\u0430\u0440\u0441\u0442\u0432\u0435\u043d\u0438 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0438)
- *   devices  "\u0417\u0430\u043f\u043b\u0430\u0442\u0435\u043d\u0438 \u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0430 \u0437\u0430 \u041c\u0418 \u043f\u0440\u0438\u043b\u0430\u0433\u0430\u043d\u0438 \u0432 \u0411\u041c\u041f \u043f\u043e \u041b\u0417"      (\u043c\u0435\u0434\u0438\u0446\u0438\u043d\u0441\u043a\u0438 \u0438\u0437\u0434\u0435\u043b\u0438\u044f)
+ *   bmp      "Заплатени здравноосигурителни плащания за БМП по ЛЗ"
+ *   drugs    "Заплатени средства за ЛП в условията на БМП по ЛЗ"   (лекарствени продукти)
+ *   devices  "Заплатени средства за МИ прилагани в БМП по ЛЗ"      (медицински изделия)
  */
 export type PaymentStream = "bmp" | "drugs" | "devices";
 
 /**
- * The `drugs` / `devices` reports differ from `bmp` in three ways that would
+ * The `drugs` / `devices` reports differ from `bmp` in two ways that would
  * otherwise silently drop rows:
  *
- *  1. Their grand total is labelled "\u041e\u0411\u0429\u041e", not "\u041e\u0431\u0449\u043e \u0420\u0417\u041e\u041a".
- *  2. A facility may report a single amount \u2014 the month column is left blank when
- *     nothing moved that month \u2014 so the two-amount minimum drops the row.
- *  3. Amounts can be negative.
+ *  1. Their grand total is labelled "ОБЩО", not "Общо РЗОК".
+ *  2. A facility may report a single amount — the month column is left blank when
+ *     nothing moved that month — so the two-amount minimum drops the row.
  *
- * `bmp` keeps the strict reading, unchanged, so the shipped corpus and
- * parse_hospital_payments.test.ts stay byte-identical.
+ * ⚠️ "Amounts can be negative" used to be listed here as a THIRD difference and is
+ * not one: every stream is read signed (see SIGNED_AMOUNT_RE). Leaving that claim
+ * in place is how the same premise elsewhere in this file published a БМП clawback
+ * as income for six months. What `bmp` still keeps is the strict two-amount
+ * minimum and the merged-month clamp; the corpus and this file's test fixtures are
+ * NOT byte-identical across that change — 42 rows moved, all of them sign fixes.
  */
 const isLenient = (s: PaymentStream): boolean => s !== "bmp";
 
@@ -125,7 +156,13 @@ const isLenient = (s: PaymentStream): boolean => s !== "bmp";
 // is safe to apply unconditionally on the lenient streams.
 const repairGluedThousands = (tail: string): string =>
   tail.replace(
-    /(\p{L})(\d{1,3})(\p{L}+)(\s+)(\d{1,3}(?:[ \t ]\d{3})+|\d+)/u,
+    // Group 5 is SIGNED and the separator class carries the NBSP, both to match
+    // SIGNED_AMOUNT_RE: the class here was a plain space written twice (verified
+    // in hex), so an NBSP-grouped amount tokenised as one figure for the extractor
+    // and was invisible to this repair, and an unsigned group 5 silently declined
+    // to fire on a glued row whose amount is a clawback — the two conditions that
+    // co-occur most easily on exactly the lenient streams this runs on.
+    /(\p{L})(\d{1,3})(\p{L}+)(\s+)((?:(?<![\p{L}\p{N}])-)?\d{1,3}(?:[ \t\u00a0]\d{3})+|(?:(?<![\p{L}\p{N}])-)?\d+)/u,
     "$1$3$4$2 $5",
   );
 
@@ -149,7 +186,10 @@ export const extractAmounts = (
   stream: PaymentStream = "bmp",
 ): { name: string; cumulative: number; month: number } | null => {
   const lenient = isLenient(stream);
-  const re = () => new RegExp(lenient ? SIGNED_AMOUNT_RE : AMOUNT_RE);
+  // One reader, but still a factory: `matchAll` reads `lastIndex` off the source
+  // regex, so every scan gets its own copy rather than sharing mutable state with
+  // the module constant. Kept deliberately, not a leftover from the two-regex fork.
+  const re = () => new RegExp(SIGNED_AMOUNT_RE);
   const all = [...tail.matchAll(re())];
   // `bmp` always prints both columns. `drugs`/`devices` leave the month blank
   // when nothing moved, so one amount is a complete row there, not a dropped one.
@@ -191,19 +231,45 @@ export const extractAmounts = (
         ? num(rm[1][0])
         : NaN
       : num(all[all.length - 1][0]);
-    // The `month > cumulative` guard is a bmp-only heuristic for a merged column.
-    // On the lenient streams both figures can be negative (a clawback), where
-    // `month > cumulative` is true for a perfectly valid month closer to zero
-    // (−50 > −100) — so it must not fire there and discard a real negative.
-    if (!Number.isFinite(month) || (!lenient && month > cumulative)) month = 0;
+    // The `month > cumulative` guard is a heuristic for a MERGED month column:
+    // a year-to-date figure cannot be smaller than its own month's flow, so a
+    // month that reads larger means the column wrapped or merged, and 0
+    // ("unknown") is recorded rather than a wrong figure.
+    //
+    // ⚠️ `cumulative >= 0` is the load-bearing clause and it has its own test:
+    // `month > cumulative` is trivially true whenever the YTD is negative, so
+    // without it a real positive month on a clawed-back facility is zeroed
+    // (ДКЦ Св. София, −10 180 YTD against a +200 month, is such a row). A
+    // `month >= 0` clause used to sit beside it and was provably unreachable —
+    // given `cumulative >= 0` and `month > cumulative`, month is already > 0.
+    //
+    // ⚠️ It must not fire on a NEGATIVE figure, on any stream. Once a clawback is
+    // readable, `month > cumulative` is true for a perfectly valid month closer to
+    // zero (−50 > −100). It also stays БМП-only, and that is measured rather than
+    // inherited: on the lenient streams a positive month legitimately exceeds a
+    // YTD that an earlier clawback dragged down — devices 2023-02 is the whole
+    // national file (month 5,385,156 BGN against a YTD of 5,381,471), and УМБАЛ
+    // Александровска's real 47,073 BGN month sits inside it. Applying the clamp
+    // there would zero a real figure on a named hospital, so the plan's
+    // "make it lenient-independent" is deliberately NOT what ships here.
+    if (
+      !Number.isFinite(month) ||
+      (!lenient && cumulative >= 0 && month > cumulative)
+    )
+      month = 0;
   }
 
   // Keep zero-payment facilities (cumulative 0) — they're counted in the facility
-  // total and contribute 0 to the sum; only a non-finite reading is a genuine
-  // drop. A negative cumulative is real in `drugs`/`devices` (a net clawback) and
-  // impossible in `bmp`, where it still means a misparse.
+  // total and contribute 0 to the sum; only a non-finite reading is a genuine drop.
+  //
+  // A negative cumulative is REAL on every stream — a net clawback — and the
+  // `!lenient && cumulative < 0 → null` rejection that used to sit here was the
+  // second half of the false "БМП never carries negatives" premise. It never
+  // actually fired, because the unsigned reader could not produce a negative in
+  // the first place; had the sign been readable it would have DROPPED
+  // „ДКЦ Св. София ЕООД -10 180" instead of inverting it. Dropping is the better
+  // of the two failures and is still the wrong answer.
   if (!Number.isFinite(cumulative)) return null;
-  if (!lenient && cumulative < 0) return null;
 
   const name = tail
     .slice(0, cumIdx >= 0 ? cumIdx : (all[0].index ?? 0))
@@ -246,6 +312,37 @@ const ROW_START_RE = /^\s*(\d{2})\s+(\S[^\d]*?)\s+(?:\d+\s+)?(\d{10})\b(.*)$/;
 const BREAK_RE = /Общо\s+РЗОК|^\s*\d+\s+ОБЩО(?!\p{L})|^\s*\d+\s+РЗОК\s+\S/u;
 const TOTAL_RE = /(\d+)\s+(?:Общо\s+РЗОК|ОБЩО)(?!\p{L})/u;
 
+/**
+ * Read the header grand-total line — the facility count and the FIRST amount after
+ * the label — e.g. "381  Общо РЗОК  942 127 532  191 249 510" (2 columns) or
+ * "380  Общо РЗОК  368 752 383  182 964 878  185 787 505" (3). The count leads and
+ * the cumulative is the first amount after the label (the wide-gutter one), even
+ * when the trailing month columns merge under a single space.
+ *
+ * Exported ONLY so it can be tested without a PDF fixture: `parseHospitalPaymentsPdf`
+ * is otherwise untestable offline, and this line feeds BOTH completeness asserts, so
+ * a regression here silently turns them off rather than failing.
+ *
+ * ⚠️ It is knowingly wrong on one real shape and the test pins that: when НЗОК emits
+ * the two amount columns separated by a SINGLE space ("43  ОБЩО  644 030 052 115 383
+ * 323", drugs 2024-06) the run reads as one 18-digit number and the drift assert then
+ * rejects a file whose rows are perfectly correct. Fixing it is RC-2 / Tier 1 item 5
+ * of docs/plans/nzok-hospital-parser-hardening-v1.md; until then the pinned
+ * expectation is what makes that fix visibly flip a red test.
+ */
+export const readTotalLine = (
+  line: string,
+): { count: number; cumulative: number } | null => {
+  const cnt = line.match(TOTAL_RE);
+  if (!cnt) return null;
+  const after = line.replace(/^.*?(?:Общо\s+РЗОК|ОБЩО)/, "");
+  const amts = [...after.matchAll(new RegExp(SIGNED_AMOUNT_RE))].map((mm) =>
+    num(mm[0]),
+  );
+  if (!amts.length) return null;
+  return { count: Number(cnt[1]), cumulative: amts[0] };
+};
+
 export const parseHospitalPaymentsPdf = (
   pdfPath: string,
   stream: PaymentStream = "bmp",
@@ -267,19 +364,12 @@ export const parseHospitalPaymentsPdf = (
   let totalCumulativeEur = 0;
   let headerFacilityCount = 0;
 
-  // Grand total, e.g. "381  Общо РЗОК  942 127 532  191 249 510" (2 columns) or
-  // "380  Общо РЗОК  368 752 383  182 964 878  185 787 505" (3). Facility count
-  // leads; cumulative is the FIRST amount after the label (the wide-gutter one),
-  // even when the trailing month columns merge under a single space.
+  // Grand total — see readTotalLine above for the shapes and the known RC-2 gap.
   const totalLine = lines.find((l) => TOTAL_RE.test(l));
-  if (totalLine) {
-    const cnt = totalLine.match(TOTAL_RE);
-    if (cnt) headerFacilityCount = Number(cnt[1]);
-    const after = totalLine.replace(/^.*?(?:Общо\s+РЗОК|ОБЩО)/, "");
-    const amts = [
-      ...after.matchAll(isLenient(stream) ? SIGNED_AMOUNT_RE : AMOUNT_RE),
-    ].map((mm) => num(mm[0]));
-    if (amts.length >= 1) totalCumulativeEur = asEur(amts[0]);
+  const total = totalLine ? readTotalLine(totalLine) : null;
+  if (total) {
+    headerFacilityCount = total.count;
+    totalCumulativeEur = asEur(total.cumulative);
   }
 
   // Accumulate logical rows: a row starts at a ROW_START_RE line and absorbs any
@@ -324,7 +414,7 @@ export const parseHospitalPaymentsPdf = (
     }
     // Continuation of the current row's wrapped name / amount. Joined with "\n"
     // (not a space) so a name-fragment digit ending one line can't merge with an
-    // amount group starting the next (see AMOUNT_RE).
+    // amount group starting the next (see SIGNED_AMOUNT_RE).
     if (pending) pending.tail += "\n" + line;
   }
   flush();
@@ -354,8 +444,9 @@ export const parseHospitalPaymentsPdf = (
   // Count paid rows instead. That is what the header means, and it keeps the
   // guard sharp rather than blunting it: a parser that dropped a genuinely paid
   // facility still fails here, however many zero rows the month carries. `!== 0`
-  // rather than `> 0` because the lenient streams (drugs/devices) legitimately
-  // carry negative clawbacks — a facility НЗОК transacted with, not a gap.
+  // rather than `> 0` because ALL THREE streams legitimately carry negative
+  // clawbacks (see SIGNED_AMOUNT_RE) — a facility НЗОК transacted with, not a
+  // gap. Narrowing this to `> 0` on бмп would drop ДКЦ Св. София from the count.
   const paidRows = rows.filter((r) => r.cumulativeEur !== 0).length;
   if (headerFacilityCount && Math.abs(paidRows - headerFacilityCount) > 2)
     throw new Error(
