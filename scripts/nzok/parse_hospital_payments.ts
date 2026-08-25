@@ -14,9 +14,13 @@
 // "(в евро)"); earlier years are in BGN and get converted at the fixed rate.
 //
 // The file opens with a grand-total row ("381  Общо РЗОК  942 127 532  …") and a
-// per-РЗОК subtotal row before each region's facilities — we use the grand total
-// as a completeness assert (Σ facility YTD must reconcile to it) and skip the
-// subtotals from the facility list.
+// per-РЗОК subtotal row before each region's facilities. Both are completeness
+// asserts and NEITHER is skipped: since 2026-08-25 the per-block subtotals are the
+// PRIMARY check — an absolute band, so a €129 error inside a €51m block is visible,
+// and a failure names the block rather than handing back a whole document — the
+// grand total is cross-checked against Σ of the blocks, and the old whole-file
+// 0.5% ratio is kept only as a backstop for a document whose block structure did
+// not parse at all. Neither subtotal nor total ever enters the facility list.
 
 import { spawnSync } from "child_process";
 import { toEur } from "../../src/lib/currency";
@@ -44,9 +48,11 @@ export interface HospitalPaymentsFile {
   currencyOfRecord: "BGN" | "EUR";
   /** Grand total from the "Общо РЗОК" header row (YTD), in euros. May be negative
    *  in principle (both downstream guards take `Math.abs`); never is in practice.
-   *  0 is a SENTINEL meaning "no total line in this document" — the Σ assert is
-   *  guarded on it, so a 0 here means the file loaded unverified. A total line that
-   *  exists but cannot be read throws instead of landing here. */
+   *  0 is a SENTINEL meaning "no total line in this document" — so a 0 here means
+   *  the file loaded without the header cross-check or the whole-file backstop. It
+   *  is NOT unverified: the per-block reconciliation runs regardless, and it is the
+   *  stronger of the two. A total line that exists but cannot be read throws
+   *  instead of landing here. */
   totalCumulativeEur: number;
   /** Rows the parser produced — INCLUDING zero-payment facilities, which НЗОК
    *  lists but does not count. NOT the header's own figure: that is
@@ -56,6 +62,14 @@ export interface HospitalPaymentsFile {
    *  artifact — so a consumer diffing it against НЗОК's printed header will see a
    *  gap, by design. */
   facilityCount: number;
+  /** Blocks НЗОК printed no subtotal for, so their rows are NOT block-reconciled —
+   *  only the whole-file ratio covers them. Empty is the normal case (125 of 127
+   *  cached files); drugs 2023-03 prints one only for its single-facility blocks.
+   *  Tier 0's coverage row stores this, so "loaded with partial verification"
+   *  becomes a queryable fact rather than a line on stdout. */
+  unreconciledBlocks: string[];
+  /** The money inside `unreconciledBlocks`, in euros. */
+  unreconciledEur: number;
   /** The count НЗОК prints on its own grand-total line ("facilities paid this
    *  period"), or 0 when the line could not be read. Returned beside the parsed
    *  count precisely because the two mean different things. */
@@ -702,6 +716,67 @@ export const matchRowStart = (
  * that did not has them fused into a single run. Exported because this selection
  * IS the whole of RC-2, and it is otherwise reachable only through a PDF.
  */
+/** A per-РЗОК subtotal line: the block's own count, name and amounts. НЗОК prints
+ *  one above every block, e.g.
+ *
+ *    "                    83                   РЗОК София град      18 472 390    3 917 276"
+ *
+ *  This is the SECOND, finer copy of the same truth as the grand total, and it is
+ *  the only ground truth available offline for WHICH rows are wrong rather than
+ *  merely that some are. Measured across the cache: Σ of the block subtotals
+ *  equals the header total in 127 of 127 files (±€3), and Σ of the block counts
+ *  equals the header count in 125 of 127. */
+const SUBTOTAL_RE = /^\s*(\d+)\s+РЗОК\s+(\S.*?)\s{2,}(.*)$/;
+
+/** Read one block subtotal line. Same gutter rule as `readTotalLine` — a run of
+ *  2+ spaces separates columns, a single space is the thousands separator. */
+export const readSubtotalLine = (
+  line: string,
+): {
+  count: number;
+  name: string;
+  cumulative: number;
+  columns: number;
+} | null => {
+  const m = line.match(SUBTOTAL_RE);
+  if (!m) return null;
+  const cols = m[3]
+    .split(/\s{2,}/)
+    .map((c) => c.trim())
+    .filter((c) => /^-?[\d\s]*\d[\d\s]*$/.test(c));
+  if (!cols.length) return null;
+  const cumulative = num(cols[0]);
+  if (!Number.isFinite(cumulative)) return null;
+  // `columns` for the same reason `readTotalLine` reports it: these subtotals come
+  // from the SAME renderer as the grand total, whose columns can fuse under a
+  // single space (RC-2) — and the subtotal columns are narrower, so they have less
+  // margin, not more. Zero fused occurrences in the cache today; the caller
+  // prefers a 2+-column rendering so a fused one cannot win first-occurrence.
+  return {
+    count: Number(m[1]),
+    name: m[2].trim(),
+    cumulative,
+    columns: cols.length,
+  };
+};
+
+/** How far a summed figure may sit from the single rounded figure НЗОК printed.
+ *
+ *  Each summand is rounded to the euro independently and the printed figure is
+ *  rounded once, so the drift grows with the NUMBER OF SUMMANDS — which is why
+ *  this takes a count rather than being a constant, and why the same helper serves
+ *  both a block (summands = its rows) and the whole-file cross-check (summands =
+ *  its blocks).
+ *
+ *  ⚠️ ABSOLUTE, never proportional. That is the entire reason this check exists:
+ *  a 0.5% ratio over a €182m file cannot see €129, and every one of the eleven
+ *  months that shipped €1,672,123 of wrong money passed it. Measured across 3,700
+ *  blocks the legitimate band tops out at €6 and the worst diff/tolerance ratio is
+ *  0.273; the smallest REAL defect ever caught this way was €129 on a 23-row
+ *  block. `max(10, n)` sits in that gap with slack on both sides. */
+export const blockTolerance = (summands: number): number =>
+  Math.max(10, summands);
+
 export const pickTotal = <T extends { columns: number }>(
   totals: T[],
 ): T | undefined => totals.find((t) => t.columns >= 2) ?? totals[0];
@@ -806,9 +881,120 @@ export const parseHospitalPaymentsPdf = (
   }
   flush();
 
-  // Completeness assert — Σ facility YTD must reconcile to the header grand
-  // total within a small rounding tolerance (the euro conversion + the
-  // per-facility rounding). A large drift means the parser dropped rows.
+  // ── Completeness, per РЗОК BLOCK.
+  //
+  // The whole-file Σ assert below is kept, but it is the backstop rather than the
+  // check. It is a RATIO over the whole document, so a single wrong row averages
+  // away: measured, 11 loaded months carried €1,672,123 of wrong money — including
+  // МИ-МВР-ФИЛИАЛ ВАРНА at €47 against a true €522,872 — every one of them under
+  // the 0.5% band. And a ratio cannot say WHICH row is wrong, so a failure is a
+  // whole file to hand-inspect.
+  //
+  // НЗОК prints a subtotal above each block, so each block is an independent
+  // statement of what its rows must sum to. That localises a defect to ~20 rows
+  // and, being absolute rather than proportional, sees a €129 error inside a €51m
+  // block — which the ratio never could.
+  const subtotalReadings = new Map<
+    string,
+    ReturnType<typeof readSubtotalLine>[]
+  >();
+  for (const line of lines) {
+    const sub = readSubtotalLine(line);
+    // The subtotal repeats on every page the block spans, so collect them all and
+    // let `pickTotal` choose — first-occurrence-wins would have no defence if one
+    // rendering fused its columns, which is exactly what RC-2 was.
+    if (sub)
+      subtotalReadings.set(sub.name, [
+        ...(subtotalReadings.get(sub.name) ?? []),
+        sub,
+      ]);
+  }
+  const subtotals = new Map<string, { count: number; cumulative: number }>();
+  for (const [name, readings] of subtotalReadings) {
+    const best = pickTotal(readings.filter((r) => r !== null));
+    if (best)
+      // `count` is НЗОК's own per-block figure. Unused by the money arm here; it
+      // is what the count model (Tier 2 step 2) reconciles the ordinals against.
+      subtotals.set(name, {
+        count: best.count,
+        cumulative: asEur(best.cumulative),
+      });
+  }
+
+  const perBlock = new Map<string, { cum: number; rows: number }>();
+  for (const r of rows) {
+    const b = perBlock.get(r.rzokName) ?? { cum: 0, rows: 0 };
+    b.cum += r.cumulativeEur;
+    b.rows++;
+    perBlock.set(r.rzokName, b);
+  }
+
+  const offBlocks = [...subtotals]
+    .map(([name, sub]) => {
+      const got = perBlock.get(name) ?? { cum: 0, rows: 0 };
+      return { name, sub, got, diff: sub.cumulative - got.cum };
+    })
+    .filter((b) => Math.abs(b.diff) > blockTolerance(b.got.rows));
+  if (offBlocks.length)
+    throw new Error(
+      `block reconciliation failed for ${pdfPath}: ` +
+        offBlocks
+          .map(
+            (b) =>
+              `РЗОК ${b.name} — НЗОК €${b.sub.cumulative} vs Σ ${b.got.rows} parsed row(s) €${b.got.cum} (off €${b.diff})`,
+          )
+          .join("; "),
+    );
+
+  // The other direction: Σ of the blocks against the header's own grand total.
+  // This catches a MISREAD HEADER, which no per-block check can see — RC-2's
+  // single-space column merge made the header 3.29 × 10¹⁷ while every block
+  // reconciled perfectly.
+  //
+  // ⚠️ Only when the subtotals COVER every block that has rows. A partial set is
+  // not a smaller version of the total, it is a different quantity: drugs 2023-03
+  // prints a subtotal only for its single-facility blocks, so 9 of its 16 blocks
+  // have none — and comparing those 9 against the header reported €104,587,839
+  // "missing" from a file whose Σ matches its header to the euro. Where coverage
+  // is partial the per-block checks above still run on the blocks that do have
+  // one; it is only this whole-file identity that becomes meaningless.
+  //
+  // ⚠️ And it is REPORTED rather than applied silently. Where a block prints no
+  // subtotal its rows are reconciled by nothing but the whole-file ratio, and on
+  // drugs 2023-03 that is 32 of 41 rows — 84.5% of the file's money. A guard that
+  // switches itself off without saying so is the shape this whole plan is about.
+  const uncovered = [...new Set(rows.map((r) => r.rzokName))].filter(
+    (n) => !subtotals.has(n),
+  );
+  const unreconciledEur = rows
+    .filter((r) => uncovered.includes(r.rzokName))
+    .reduce((sum, r) => sum + r.cumulativeEur, 0);
+  if (uncovered.length)
+    console.warn(
+      `[nzok] ${pdfPath}: ${uncovered.length} block(s) print no subtotal ` +
+        `(${uncovered.join(", ")}) — €${unreconciledEur} across ` +
+        `${rows.filter((r) => uncovered.includes(r.rzokName)).length} row(s) ` +
+        `is reconciled only by the whole-file ratio`,
+    );
+  // `rows.length > 0` because `every` on an empty set is vacuously true, and an
+  // empty parse must not read as "fully covered".
+  const covered = rows.length > 0 && !uncovered.length;
+  if (covered && subtotals.size && Math.abs(totalCumulativeEur) > 0) {
+    const blockSum = [...subtotals.values()].reduce(
+      (a, b) => a + b.cumulative,
+      0,
+    );
+    const drift = Math.abs(blockSum - totalCumulativeEur);
+    if (drift > blockTolerance(subtotals.size))
+      throw new Error(
+        `header total disagrees with its own blocks for ${pdfPath}: ` +
+          `header €${totalCumulativeEur} vs Σ ${subtotals.size} block subtotal(s) €${blockSum} (off €${drift})`,
+      );
+  }
+
+  // Backstop — the whole-file ratio. It costs nothing and it is the only thing
+  // left for a document whose block structure did not parse at all (no subtotal
+  // line matched), where every check above is vacuous.
   if (Math.abs(totalCumulativeEur) > 0) {
     const sum = rows.reduce((s, r) => s + r.cumulativeEur, 0);
     const drift =
@@ -849,6 +1035,8 @@ export const parseHospitalPaymentsPdf = (
     currencyOfRecord: currency,
     totalCumulativeEur,
     facilityCount: rows.length,
+    unreconciledBlocks: uncovered,
+    unreconciledEur,
     headerFacilityCount,
     rows,
   };

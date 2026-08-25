@@ -42,9 +42,11 @@
 import { test } from "vitest";
 import assert from "node:assert/strict";
 import {
+  blockTolerance,
   extractAmounts,
   matchRowStart,
   pickTotal,
+  readSubtotalLine,
   readTotalLine,
   repairGluedThousands,
   type PaymentStream,
@@ -673,4 +675,124 @@ test("a total whose every occurrence is fused is not silently preferred away", (
   };
   assert.deepEqual(pickTotal([fused, fused]), fused);
   assert.equal(pickTotal([]), undefined, "no occurrence at all yields nothing");
+});
+
+// ── The per-РЗОК subtotal line, which Tier 2 makes the PRIMARY completeness
+//    check. НЗОК prints one above each block, so each block is an independent
+//    statement of what its rows must sum to — and unlike the whole-file ratio it
+//    is absolute, so it sees a €129 error inside a €51m block, and it localises
+//    the defect to ~20 rows instead of handing back a whole document.
+const SUBTOTAL_CASES: {
+  label: string;
+  line: string;
+  expect: {
+    count: number;
+    name: string;
+    cumulative: number;
+    columns: number;
+  } | null;
+}[] = [
+  {
+    label: "ordinary block subtotal (devices 2026-07)",
+    line: "                         27                   РЗОК София град                        28 377 129        3 444 961",
+    expect: {
+      count: 27,
+      name: "София град",
+      cumulative: 28377129,
+      columns: 2,
+    },
+  },
+  {
+    label: "a single-facility block (drugs 2023-03)",
+    line: "                            1                     РЗОК Благоевград                                          1 654 209           576 669",
+    expect: { count: 1, name: "Благоевград", cumulative: 1654209, columns: 2 },
+  },
+  {
+    // Two-word region names must survive the name/amount split.
+    label: "a two-word region name (drugs 2023-03)",
+    line: "                            1                      РЗОК Велико Търново                                      2 423 411           802 057",
+    expect: {
+      count: 1,
+      name: "Велико Търново",
+      cumulative: 2423411,
+      columns: 2,
+    },
+  },
+  {
+    label: "the grand-total line is NOT a block subtotal",
+    line: "                           381                    Общо РЗОК                                              942 127 532    191 249 510",
+    expect: null,
+  },
+  {
+    label: "a facility row is NOT a block subtotal",
+    line: " 01    Благоевград         1       0103211001   МБАЛ Благоевград АД   4 684 771   903 437",
+    expect: null,
+  },
+  {
+    // Same NaN mode as the grand total: a column that is not a well-formed amount
+    // must make the line unreadable rather than reconcile against NaN, because
+    // `Math.abs(NaN) > tolerance` is FALSE — the block would silently pass.
+    label: "a hyphen-only column does not yield a NaN subtotal",
+    line: "                         27                   РЗОК София град                               -    -",
+    expect: null,
+  },
+];
+
+for (const c of SUBTOTAL_CASES) {
+  test(`readSubtotalLine: ${c.label}`, () => {
+    assert.deepEqual(readSubtotalLine(c.line), c.expect);
+  });
+}
+
+// The band is ABSOLUTE, not proportional, and that is the whole point: a 0.5%
+// ratio over a €182m file cannot see €129, and every one of the eleven months
+// that shipped €1,672,123 of wrong money passed it.
+test("the block tolerance is absolute and sits in the measured gap", () => {
+  // Rounding: each row is rounded to the euro independently, the subtotal once.
+  // Measured across 3,700 blocks the band tops out at €6.
+  assert.ok(blockTolerance(1) >= 6, "must admit the rounding band");
+  assert.ok(blockTolerance(83) >= 83, "…and it grows with the rows");
+  // The smallest REAL defect ever found this way was €129, on a 23-row block.
+  assert.ok(
+    blockTolerance(23) < 129,
+    "must still reject the smallest defect this check has ever caught",
+  );
+  // A €10,410 sign inversion on София град (83 rows) — invisible to the 0.5%
+  // ratio for six consecutive months — is far outside it.
+  assert.ok(blockTolerance(83) < 10410);
+});
+
+// The block arm rests on two properties that nothing else asserts, and both are
+// invisible at the file level — a break in either makes the reconciliation pass
+// over the wrong set rather than fail.
+test("a subtotal's region name matches the name rows carry", () => {
+  // The `got` side of the reconciliation groups rows by `rzokName` from
+  // matchRowStart; the `sub` side keys on the name in the subtotal line. If those
+  // two ever spell a region differently, the block silently reconciles €0 against
+  // its whole subtotal — or, worse, against nothing at all.
+  const sub = readSubtotalLine(
+    "                         27                   РЗОК София град                        28 377 129        3 444 961",
+  );
+  const row = matchRowStart(
+    " 22    София град        1       2201211001   МБАЛ Св. Анна - София АД   3 772 977   601 536",
+  );
+  assert.equal(sub?.name, row?.rzokName);
+});
+
+test("a fused subtotal rendering cannot win first-occurrence", () => {
+  // Same defence RC-2 gave the grand total. These columns are NARROWER than the
+  // grand total's, so they have less margin against fusing, not more.
+  const fused = {
+    count: 27,
+    name: "София град",
+    cumulative: 283771293444961,
+    columns: 1,
+  };
+  const clean = {
+    count: 27,
+    name: "София град",
+    cumulative: 28377129,
+    columns: 2,
+  };
+  assert.deepEqual(pickTotal([fused, clean]), clean);
 });

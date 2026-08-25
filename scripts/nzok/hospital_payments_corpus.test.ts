@@ -49,6 +49,8 @@ interface Parsed {
    *  when the parse throws, which is what lets a rejection be identified by the
    *  MONTH it withholds rather than by which cache file happened to hold it. */
   period: string;
+  /** Blocks the parser could not block-reconcile (НЗОК printed no subtotal). */
+  unreconciled: string[];
   /** Needed by the block reconciliation below: the subtotal lines live in the raw
    *  text, and the peg conversion needs to know which currency the file is in. */
   text: string;
@@ -118,6 +120,7 @@ const parseAll = (): Parsed[] => {
         period,
         text: full(p),
         currency: f.currencyOfRecord,
+        unreconciled: f.unreconciledBlocks,
         rows: f.rows,
         rejected: null,
       });
@@ -128,6 +131,7 @@ const parseAll = (): Parsed[] => {
         period,
         text: "",
         currency: "BGN",
+        unreconciled: [],
         rows: [],
         rejected: (e as Error).message,
       });
@@ -260,8 +264,18 @@ run("only the known months are withheld", () => {
 // a Σ-drift rejection reappearing means a money defect came back, which is a very
 // different event from a count-model month and must not hide among them.
 run("every remaining rejection is a count failure, not a money one", () => {
+  // ⚠️ `/reconciliation failed/` alone is wrong now: Tier 2 added
+  // "block reconciliation failed for …", which that pattern absorbs — so a BLOCK
+  // failure would be announced as the whole-file ratio returning, naming the
+  // backstop instead of the check that actually fired.
   const drift = parsed()
-    .filter((f) => f.rejected && /reconciliation failed/.test(f.rejected))
+    .filter(
+      (f) =>
+        f.rejected &&
+        /block reconciliation failed|header total disagrees|(?<!block )reconciliation failed/.test(
+          f.rejected,
+        ),
+    )
     .map((f) => `${f.stream} ${f.period}: ${f.rejected}`);
   expect(
     drift,
@@ -274,7 +288,13 @@ run("every rejection is a completeness assert, never a crash", () => {
     .filter(
       (f) =>
         f.rejected &&
-        !/reconciliation failed|facility-count mismatch/.test(f.rejected),
+        // Every assert the parser can throw, by message. A NEW one must be added
+        // here or it reports as a crash — which is exactly what happened to
+        // "header total disagrees with its own blocks" before this was updated,
+        // and it is the one distinction this test exists to draw.
+        !/reconciliation failed|facility-count mismatch|header total disagrees|unreadable grand-total line/.test(
+          f.rejected,
+        ),
     )
     .map((f) => `${f.file}: ${f.rejected}`);
   expect(odd, `unexpected parse failures:\n${odd.join("\n")}`).toEqual([]);
@@ -293,6 +313,24 @@ run("every rejection is a completeness assert, never a crash", () => {
 // CUMULATIVE only, called it verified, and shipped a MONTH that published „366"
 // against a true 45 366 on 31 files — €1,245,472. A one-armed reconciliation is
 // how that passed.
+//
+// ⚠️ DUPLICATED ON PURPOSE. The parser performs this reconciliation too, and the
+// two copies are the point rather than an oversight — see below.
+//
+// ⚠️ Since Tier 2 the PARSER performs this reconciliation too and throws on a
+// block that does not balance, so a file that fails it never reaches here — and
+// the YTD arm below is, for every ACCEPTED file, mathematically implied. Stating
+// that plainly rather than defending it: it is kept for one specific failure it
+// can still see, and the MONTH arm is the honest reason this file earns its keep.
+//
+// What the YTD arm still catches: the parser's subtotal matching silently finding
+// FEWER blocks. Its assert would then pass over a smaller set while this file's
+// independent regex still finds them — the `unreconciledBlocks` field reports the
+// same thing from inside, but only for blocks that HAVE rows.
+//
+// What it does NOT have, contrary to an earlier draft of this note: its own
+// grouping. The `got` side groups on the parser's own `rzokName`, so a
+// mis-captured region name moves rows on both sides together and neither notices.
 
 /** Every amount on a block subtotal line: count, then YTD, then one column per
  *  reporting month (a 3-column file carries two). */
@@ -366,7 +404,11 @@ const blocks = (): Block[] => {
   return out;
 };
 
-/** Each row is rounded to the euro independently and the subtotal is rounded once,
+/** Deliberately RESTATED rather than importing `blockTolerance`, for the same
+ *  reason as PEG above: a gate that shares its band with the code under test
+ *  cannot notice the band changing.
+ *
+ *  Each row is rounded to the euro independently and the subtotal is rounded once,
  *  so a block of n rows may legitimately differ by a few euro. Re-measured after
  *  Tier 1 across 3,700 blocks the rounding band tops out at €6, and the smallest
  *  REAL defect ever found here was €129. `max(10, rows)` sits in that gap with
@@ -409,3 +451,23 @@ run(
     );
   },
 );
+
+// ⚠️ The `covered` guard's own regression is otherwise uncovered: it turns the
+// whole-file cross-check OFF for a file whose blocks are only partly printed, and
+// a bug that turned it off for EVERY file would look identical from outside. So
+// pin both halves — that partial coverage is ACCEPTED (the file's data is fine;
+// drugs 2023-03's Σ matches its header to the euro), and that it stays confined
+// to the one file that actually does this.
+const PARTIAL_COVERAGE = ["drugs 2023-03"];
+
+run("only the known file loads with partial block coverage", () => {
+  const partial = parsed()
+    .filter((f) => !f.rejected && f.unreconciled.length)
+    .map((f) => `${f.stream} ${f.period}`)
+    .sort();
+  expect(
+    [...new Set(partial)],
+    "a file whose blocks stopped printing subtotals — or a regression that " +
+      "disabled the coverage check everywhere",
+  ).toEqual(PARTIAL_COVERAGE);
+});
