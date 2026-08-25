@@ -11,9 +11,22 @@
 // becomes monotonic by construction: a matcher change that silently loses
 // outcomes fails, and one that gains them raises the bar it will be held to.
 //
-// MONOTONIC ON PURPOSE — `recordBaselines` only ever writes UPWARD. A run against
-// a half-loaded database, or with the decisions corpus missing, must not be able
-// to lower the bar and thereby launder a regression into the new normal.
+// ⚠️ "MONOTONIC BY CONSTRUCTION" IS A PROPERTY OF THE QUANTITY, NOT OF THE
+// RATCHET, and picking the wrong quantity is how Gate D spent 2026-08-25 telling
+// an operator to audit an untouched matcher. `matched` is not monotone: the
+// appeal corpus only grows, growth creates ambiguity, and the matcher's CORRECT
+// response to ambiguity is to withdraw a match. Growth and regression are
+// therefore indistinguishable in it. Gate D's bar is now `reached`, which no
+// growth on either side can shrink. Before adding a field here, ask what corpus
+// growth does to it — see docs/plans/kzk-gate-d-ambiguity-v1.md §3.
+//
+// MONOTONIC ON PURPOSE — `recordBaselines` only ever moves a BAR upward. A run
+// against a half-loaded database, or with the decisions corpus missing, must not
+// be able to lower one and thereby launder a regression into the new normal. That
+// rule covers `outcomes` and `reached` and nothing else: `matched` is an
+// OBSERVATION and is written as last-seen, so it may go down, and a fall in it is
+// a fact about the corpus rather than a regression. Which fields are bars is
+// declared once, in RATCHETED.
 //
 // The file is COMMITTED (unlike the two corpora, which are gitignored), so the
 // ratchet travels with the repo and a fresh clone inherits the real bar rather
@@ -46,10 +59,67 @@ export type KzkBaselines = {
    * untouched and the count does not move. That is why it cannot detect a matcher
    * that got WORSE, and why re-running the matcher and comparing to this number
    * can. The twin of this note lives in kzk_appeals_provenance.data.test.ts.
+   *
+   * ⚠️ SINCE 2026-08-25 THIS IS AN OBSERVATION, NOT A BAR — Gate D asserts on
+   * `reached` instead, and this may go DOWN. It is recorded from whatever run
+   * last wrote the file, with NO completeness check, unlike the bars: the header
+   * rule that a half-loaded run must not move the bar does not apply here, so a
+   * partial-corpus run leaves a low number. Gate D quotes it as labelled context
+   * and nothing asserts on it. Read it as "what the last writer saw", never as
+   * "what the matcher can do" — and never re-arm a ratchet on it.
    */
   matched: number;
-  /** ISO date of the run that last raised any of the above. */
+  /**
+   * Appeals some act's `(party, respondent)` key named inside the year window —
+   * `MatchReport.reached`. **Gate D's bar since 2026-08-25.**
+   *
+   * `matched` above was the bar until then, and it was the wrong quantity: it is
+   * NOT monotone under corpus growth. A new complaint joining a matched appeal's
+   * group makes that group ambiguous, the matcher correctly withdraws the match,
+   * and the count falls on a healthy crawl — measured, 2,920 → 2,918 on nine real
+   * complaints, halting a publish in which nothing served would have changed. The
+   * decisions side does the same when a second act claims an already-matched
+   * appeal. `reached` cannot fall that way, because an appeal only ever JOINS a
+   * group and an act only ever POINTS AT more groups.
+   *
+   * ⚠️ NULL MEANS "NEVER MINTED", AND IT IS NOT ZERO. A ratchet of 0 passes
+   * forever, which is exactly the "cannot tell healthy from frozen" failure this
+   * file was written to end — so the absence of a bar has to be distinguishable
+   * from a bar of nothing, and Gate D FAILS on null with the mint command rather
+   * than sailing through. That state is reachable: the file is committed, so a
+   * checkout predating the swap has no such field.
+   * Plan: docs/plans/kzk-gate-d-ambiguity-v1.md §4.1, §8.1.
+   */
+  reached: number | null;
+  /** ISO date of the run that last raised a RATCHETED field (never `matched`). */
   updatedAt: string;
+};
+
+/**
+ * The fields that are BARS. `matched` is deliberately absent: it is kept as an
+ * observation so the rejoin can print the delta and a reader can see growth
+ * withdrawing matches, but nothing asserts on it and nothing may — re-arming a
+ * `matched` ratchet reinstates the false positive of 2026-08-25.
+ */
+const RATCHETED = ["outcomes", "reached"] as const;
+
+/**
+ * What `recordBaselines` did, so the caller can tell the operator.
+ *
+ * ⚠️ `raised` AND `wrote` ARE DIFFERENT QUESTIONS, and collapsing them loses the
+ * common case. The file is COMMITTED, and after the Gate D swap its steady state
+ * is a bar that holds while the `matched` observation drifts — so a run that
+ * raises nothing still changes a tracked file. Reporting only `raised` leaves
+ * `data/procurement/derived/kzk_baselines.json` modified with the operator told
+ * nothing, in a repo whose SKILL.md says to commit it "when the rejoin says it
+ * moved". A silently-dirty committed file is how a ratchet ends up carried into
+ * an unrelated commit, or reverted by someone tidying their tree.
+ */
+export type BaselineWrite = {
+  /** BARS that moved UP. Empty when the run merely held the line. */
+  raised: Array<(typeof RATCHETED)[number]>;
+  /** True when the committed file changed on disk, for ANY reason. */
+  wrote: boolean;
 };
 
 /**
@@ -68,6 +138,9 @@ export const HAND_SEEDED_FLOOR = 2098;
 const FLOOR: KzkBaselines = {
   outcomes: 2098,
   matched: 0,
+  // NOT 0 — see the field's note. A clone that predates the Gate D swap has no
+  // bar, and "no bar" must fail loudly rather than pass at zero forever.
+  reached: null,
   updatedAt: "2026-08-02",
 };
 
@@ -80,6 +153,10 @@ export const readBaselines = (): KzkBaselines => {
     return {
       outcomes: Number(raw.outcomes ?? FLOOR.outcomes),
       matched: Number(raw.matched ?? FLOOR.matched),
+      // `?? FLOOR.reached` would be right but reads as an oversight next to the
+      // two Number() casts, so the null case is spelled out: an absent or
+      // non-numeric `reached` is NO BAR, never a bar of zero.
+      reached: typeof raw.reached === "number" ? raw.reached : FLOOR.reached,
       updatedAt: String(raw.updatedAt ?? FLOOR.updatedAt),
     };
   } catch {
@@ -89,27 +166,57 @@ export const readBaselines = (): KzkBaselines => {
 };
 
 /**
- * Raise the ratchet to `observed`, field by field. Never lowers anything.
+ * Raise the ratchet to `observed`, field by field. Never lowers a BAR.
  *
- * Returns the fields that actually moved, so the caller can tell the operator to
- * commit the file — and say nothing when the run merely held the line.
+ * Returns which bars moved AND whether the committed file changed — see
+ * `BaselineWrite` for why those cannot be one answer. The caller uses the pair to
+ * tell the operator what to commit, and to say nothing only when the file really
+ * did not move.
  */
 export const recordBaselines = (
-  observed: Pick<KzkBaselines, "outcomes" | "matched">,
+  observed: Pick<KzkBaselines, "outcomes" | "matched" | "reached">,
   today: string,
-): Array<keyof KzkBaselines> => {
+): BaselineWrite => {
   const prev = readBaselines();
+  // ⚠️ FINITE OR IT DOES NOT COUNT. `??` catches null and undefined; NaN sails
+  // straight through `Math.max`, and `JSON.stringify(NaN)` is `null` — so a
+  // non-finite observation does not merely fail to raise the bar, it DESTROYS
+  // it, and Gate D's own recovery (re-mint from the current corpus) would then
+  // launder whatever regression is live into the new normal. Ratchets fail
+  // closed, in every direction.
+  const seen =
+    typeof observed.reached === "number" && Number.isFinite(observed.reached)
+      ? observed.reached
+      : null;
   const next: KzkBaselines = {
     outcomes: Math.max(prev.outcomes, observed.outcomes),
-    matched: Math.max(prev.matched, observed.matched),
+    // OBSERVATION, not a bar: stored as LAST SEEN rather than as a running max.
+    // A max here would leave the file asserting 2,920 for ever while the matcher
+    // reports 2,918 — a committed number describing nothing. Nothing reads it as
+    // a threshold, so it is free to go down, and going down is the point: it is
+    // how a reader sees corpus growth withdrawing matches.
+    matched: observed.matched,
+    reached:
+      prev.reached == null
+        ? seen
+        : Math.max(prev.reached, seen ?? prev.reached),
     updatedAt: prev.updatedAt,
   };
-  const raised = (["outcomes", "matched"] as const).filter(
-    (k) => next[k] > prev[k],
-  );
-  if (raised.length === 0) return [];
-  next.updatedAt = today;
+  const raised = RATCHETED.filter((k) => {
+    const before = prev[k];
+    const after = next[k];
+    // A first mint (null → number) counts as raised: it is the transition that
+    // arms Gate D, and §8.1's operator instruction depends on it being reported.
+    if (before == null) return after != null;
+    return after != null && after > before;
+  });
+  // The observation moves far more often than a bar does. Writing for it keeps
+  // the committed file honest without letting it move `updatedAt`, which means
+  // "when a bar last rose" and is quoted in both gates' failure messages.
+  if (raised.length === 0 && next.matched === prev.matched)
+    return { raised, wrote: false };
+  if (raised.length > 0) next.updatedAt = today;
   fs.mkdirSync(path.dirname(BASELINES_FILE), { recursive: true });
   fs.writeFileSync(BASELINES_FILE, `${JSON.stringify(next, null, 2)}\n`);
-  return raised;
+  return { raised, wrote: true };
 };

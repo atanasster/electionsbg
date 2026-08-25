@@ -34,6 +34,16 @@ import { setsMeritsOutcome } from "../../procurement/kzk_decisions_store";
 // cannot tell healthy from frozen. The ratchet is raised by every successful
 // `kzk:rejoin --apply` and only ever upward, so coverage is monotonic by
 // construction and a matcher change that silently loses outcomes fails here.
+//
+// ⚠️ THAT ARGUMENT ONLY HOLDS FOR A QUANTITY CORPUS GROWTH CANNOT SHRINK, and
+// Gate D spent 2026-08-25 proving it. It ratcheted `matched`, which growth DOES
+// shrink — a new complaint ambiguates an old group and the matcher withdraws the
+// match — so it failed a correct ingest and told the operator to audit a matcher
+// with nothing wrong with it. Gate D's bar is `reached`; Gate C's `outcomes` is
+// genuinely append-only today and stays. See §5 of the plan for the one thing
+// that would break Gate C the same way (revoking a derived outcome whose match
+// disappeared, `kzk-matcher-ambiguity-v1.md` §11.4) — that change must move Gate
+// C onto the reason-based footing below in the SAME commit.
 const baselines = readBaselines();
 
 const haveDb = await dbReachable();
@@ -103,7 +113,7 @@ test.skipIf(skip)("Gate C — outcome coverage has not regressed", async () => {
   );
   assert.ok(
     Number(r.n) >= baselines.outcomes,
-    `${r.n} outcomes, below the ratchet's ${baselines.outcomes} (set ${baselines.updatedAt}). ` +
+    `${r.n} outcomes, below the ratchet's ${baselines.outcomes} (last bar change ${baselines.updatedAt}). ` +
       "Coverage went DOWN. Either the matcher lost ground (check " +
       "scripts/procurement/kzk_match.ts against its unit tests) or the decisions " +
       "corpus shrank (check the loader's anti-shrink guard). Do not lower the " +
@@ -141,7 +151,7 @@ test.skipIf(skipDecisions)(
 );
 
 test.skipIf(skipDecisions)(
-  "Gate D — the matcher still resolves at least as many appeals",
+  "Gate D — the matcher still reaches at least as many appeals",
   async () => {
     // ⚠️ Gate C CANNOT cover this — though NOT for the reason this comment gave
     // until 2026-08-24. `outcome` is not append-only: partitionByProvenance()
@@ -238,12 +248,61 @@ test.skipIf(skipDecisions)(
     );
 
     const report = matchDecisions(appeals, merits);
+
+    // ⚠️ THE BAR IS `reached`, NOT `matches`, AND THE SWAP IS THE WHOLE POINT.
+    // This gate ratcheted `report.matches.length` until 2026-08-25 and asserted
+    // in its own failure text that the number "only moves upward by design". It
+    // does not. A new complaint joining a matched appeal's (complainant,
+    // respondent) group makes that group ambiguous; `matchDecisions` then refuses
+    // to guess which of the two a ruling decides — the refusal that stops a
+    // ruling being attributed to the wrong named firm — and the count FALLS.
+    //
+    // That fired on a routine ingest of nine real complaints (2,920 → 2,918) and
+    // sent the operator after an untouched matcher whose 21 unit tests passed.
+    // Worse, it was a false NEGATIVE too: breaking a name fold destroys
+    // COLLISIONS faster than matches, so two of four injected fold regressions
+    // RAISE the count (quote fold → 2,934) and sailed straight through.
+    //
+    // `reached` — the coarse candidate union, before the 1:1 test — is monotone
+    // under growth of EITHER corpus (0 violations over 122 corpus sizes, against
+    // 3 for `matches`) and catches all four regressions. Full argument and
+    // measurements: docs/plans/kzk-gate-d-ambiguity-v1.md §2–§4.
     assert.ok(
-      report.matches.length >= baselines.matched,
-      `the matcher now resolves ${report.matches.length} appeals, below the ratchet's ` +
-        `${baselines.matched} (set ${baselines.updatedAt}). Match quality REGRESSED — ` +
-        "check scripts/procurement/kzk_match.ts against kzk_match.test.ts. Do not lower " +
-        "the ratchet to make this pass; it only moves upward by design.",
+      baselines.reached != null,
+      "the ratchet carries no `reached` bar, so Gate D has nothing to assert. " +
+        "This checkout predates the 2026-08-25 swap, or the mint never ran. Fix:\n" +
+        "  DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' \\\n" +
+        "    npm run kzk:rejoin -- --apply\n" +
+        "then commit data/procurement/derived/kzk_baselines.json. It MUST be minted " +
+        "from LOCAL Postgres — kzk:rejoin:cloud deliberately refuses, because a bar " +
+        "local cannot reach turns every local run red with no available fix. Reading " +
+        "an absent bar as 0 would pass forever, which is the failure the ratchet " +
+        "replaced.",
+    );
+    assert.ok(
+      report.reached >= baselines.reached,
+      `the matcher now reaches ${report.reached} appeals, below the ratchet's ` +
+        `${baselines.reached} (last bar change ${baselines.updatedAt}). Unlike ` +
+        "the old `matched` bar this cannot be caused by corpus GROWTH — an appeal " +
+        "only joins a candidate group and an act only points at more of them. " +
+        "Four causes, in the order worth checking:\n" +
+        "  1. the matcher stopped reaching appeals it used to reach — check " +
+        "scripts/procurement/kzk_match.ts against kzk_match.test.ts: " +
+        "normalizeParty's folds, splitInitiators' ';' split, then the " +
+        "`c.y === y || c.y === y - 1` window;\n" +
+        "  2. a candidate-NARROWING rule (R1, R2/kzk_case_no) was added ABOVE the " +
+        "`reached.add` loop — not a regression, move it below the loop;\n" +
+        "  3. the DECISIONS corpus shrank — the loader's anti-join DELETE tolerates " +
+        "5% silently, so check its shrink guard rather than the matcher (this is " +
+        "the cause Gate C's message names, and it lands here identically);\n" +
+        "  4. a corpus CORRECTION — a re-spelled party, or legacy acts newly " +
+        "labelled определения.\n" +
+        "Only 3 and 4 are legitimate; verify, then re-mint with " +
+        "`npm run kzk:rejoin -- --apply` against LOCAL Postgres. Do not lower the " +
+        "ratchet by hand.\n" +
+        `  matched, for context: ${report.matches.length} against the last ` +
+        `observed ${baselines.matched} — this is NOT a bar and a fall in it ` +
+        "alone is a healthy crawl, not a defect.",
     );
   },
 );

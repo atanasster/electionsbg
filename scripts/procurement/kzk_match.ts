@@ -27,15 +27,14 @@
 //     discarded with no counter, so a shrinking match rate looked like a quiet
 //     data trend. Ambiguity and misses are now RETURNED as data, so every rejoin
 //     reports them.
-//     ⚠️ Gate D ratchets `matches` TODAY, and that is the defect being fixed:
-//     corpus growth withdraws matches, so the gate cannot tell a worse matcher
-//     from a bigger corpus and is currently RED for that reason. It is being
-//     moved onto `reached` (docs/plans/kzk-gate-d-ambiguity-v1.md Tier 1) — see
-//     that field's note. Until `kzk_baselines.ts` carries the field and
-//     `kzk_appeals_provenance.data.test.ts` asserts on it, `reached` is computed
-//     and NOT yet ratcheted. The other three counters are never ratcheted and
-//     must not be: corpus growth legitimately raises collisions, so such a gate
-//     would fail on every healthy crawl. `KzkBaselines` has no field for them.
+//     ⚠️ Gate D ratchets `reached`, NOT `matches` — see that field's note.
+//     `matches` was the bar until 2026-08-25, and it was the wrong quantity:
+//     corpus growth withdraws matches, so the gate could not tell a worse matcher
+//     from a bigger corpus and failed a correct ingest
+//     (docs/plans/kzk-gate-d-ambiguity-v1.md). The other three counters are never
+//     ratcheted and must not be: corpus growth legitimately raises collisions, so
+//     such a gate would fail on every healthy crawl. `KzkBaselines` has no field
+//     for them.
 //
 // Combined effect, MEASURED on that corpus (2026-08-02) with no new crawl —
 // 4,407 decisions × 7,886 appeals:
@@ -91,8 +90,7 @@ export type MatchReport = {
    * DISTINCT APPEALS some act's `(party, respondent)` key named inside the year
    * window — the union of every candidate set below, taken BEFORE the 1:1 test.
    *
-   * This is the quantity Gate D is being moved onto (Tier 1 of the plan below),
-   * and `matches` is not, because
+   * This is the quantity Gate D ratchets, and `matches` is not, because
    * `matches` IS NOT MONOTONE UNDER CORPUS GROWTH and this is. A new complaint
    * joining a matched appeal's group makes the group ambiguous, so the matcher
    * correctly withdraws a match and the count FALLS on a healthy crawl — that

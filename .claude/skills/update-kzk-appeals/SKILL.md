@@ -138,13 +138,26 @@ Four gates run here, and they replaced a check that could never fail. The old on
 | **A** | the register's newest act (from the committed `state/watch/kzk_decisions.json`) is present in `kzk_decisions` — **DISARMS itself with a `console.warn` when that file is absent**, so check stderr for `GATE A DISARMED` rather than trusting a green run | `kzk_decisions.data.test.ts` |
 | **B** | *(not a test — read Step 1's output)* the intake crawl prints the tier-2 watermark on every `--apply` and warns past 45 days | `kzk_appeals.ts` |
 | **C** | outcome coverage has not dropped below the ratchet | `kzk_appeals_provenance.data.test.ts` |
-| **D** | re-running the matcher still resolves at least as many appeals | `kzk_appeals_provenance.data.test.ts` |
+| **D** | re-running the matcher still **reaches** at least as many appeals | `kzk_appeals_provenance.data.test.ts` |
 
-Gate C's bar is `data/procurement/derived/kzk_baselines.json`, raised by every successful
-`kzk:rejoin --apply` and **only ever upward** — commit it when the rejoin says it moved.
-Gate D exists separately because `outcome` is only ever written, never cleared, so
-`count(outcome)` is non-decreasing by construction and cannot detect a matcher that got
-worse.
+Both bars live in `data/procurement/derived/kzk_baselines.json`, raised by every successful
+`kzk:rejoin --apply` and **only ever upward** — commit it when the rejoin says it moved
+(it also says so when only the `matched` observation drifted, which still rewrites the file).
+
+Gate D exists separately because Gate C cannot see a row that stops being matched: it is
+simply absent from `writable`, so its stale outcome survives untouched and `count(outcome)`
+does not move. The only way to see that is to re-run the matcher and compare.
+
+⚠️ **Gate D's bar is `reached`, not `matched`, since 2026-08-25 — and any older note saying
+otherwise is describing the defect.** `matched` is NOT monotone under corpus growth: a new
+complaint by a firm that already has a live complaint against the same buyer makes that pair
+ambiguous, the matcher correctly refuses to guess which one a ruling decides, and the count
+FALLS on a perfectly healthy crawl. It did, on nine real complaints (2,920 → 2,918), halting
+a publish in which nothing served would have changed — and it was blind in the other
+direction too, since breaking a name fold RAISES the count. `reached` (the candidate union,
+taken before the 1:1 test) is what growth cannot shrink. `matched` is still recorded beside
+it as an observation and may go DOWN; nothing asserts on it, so a fall in it alone is not a
+defect. Full argument and measurements: `docs/plans/kzk-gate-d-ambiguity-v1.md`.
 
 The ~2,098 rows with a **NULL `decision_act_no`** are still irreplaceable — produced
 interactively before any generator existed — and are protected by a fixed floor, not the

@@ -141,6 +141,14 @@ const main = async (apply: boolean): Promise<void> => {
       `${report.partyAmbiguous} parties with >1 candidate appeal, ` +
       `${report.unmatched} decisions matched nothing)`,
   );
+  // `reached` is Gate D's bar, so it belongs in the output an operator reads
+  // before deciding whether a run went well. `matched` falling while `reached`
+  // holds is the SIGNATURE OF A HEALTHY CRAWL — new complaints ambiguating old
+  // groups — and is exactly what the old gate misread as a matcher regression.
+  console.log(
+    `  reached ${report.reached} appeals (Gate D's bar; ` +
+      `${report.reached - report.matches.length} reached but unresolved)`,
+  );
   console.log(
     `  writable: ${part.fillNew} new + ${part.refreshDerived} re-derived; ` +
       `${part.protectedHand} hand-seeded rows left untouched`,
@@ -265,16 +273,32 @@ const main = async (apply: boolean): Promise<void> => {
   if (isServingDatabase()) {
     console.log(
       `→ ratchet not updated (serving database). Observed ${after.n} outcomes / ` +
-        `${report.matches.length} matched; raise the ratchet from a LOCAL run.`,
+        `${report.reached} reached / ${report.matches.length} matched; ` +
+        "raise the ratchet from a LOCAL run.",
     );
   } else {
     const raised = recordBaselines(
-      { outcomes: Number(after.n), matched: report.matches.length },
+      {
+        outcomes: Number(after.n),
+        matched: report.matches.length,
+        reached: report.reached,
+      },
       new Date().toISOString().slice(0, 10),
     );
-    if (raised.length)
+    if (raised.raised.length)
       console.log(
-        `→ raised the coverage ratchet (${raised.join(", ")}) — commit ` +
+        `→ raised the coverage ratchet (${raised.raised.join(", ")}) — commit ` +
+          "data/procurement/derived/kzk_baselines.json",
+      );
+    // A bar holding while the `matched` OBSERVATION drifts is the steady state
+    // after the Gate D swap, and it still rewrites a COMMITTED file. Reporting
+    // only raises leaves that file modified with nobody told — and this repo has
+    // a concurrent auto-committer, so an unannounced tracked change is liable to
+    // ride into somebody else's commit.
+    else if (raised.wrote)
+      console.log(
+        `→ ratchet held; refreshed the \`matched\` observation to ` +
+          `${report.matches.length} — commit ` +
           "data/procurement/derived/kzk_baselines.json",
       );
   }
