@@ -25,7 +25,7 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 import fs from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { exec, withClient, end } from "./lib/pg";
+import { exec, withClient, end, vacuumAfterReload } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import { appendDataChange } from "../lib/data-changes";
 import {
@@ -793,6 +793,24 @@ const main = async (): Promise<void> => {
     await c.query("COMMIT");
     return d;
   });
+
+  // ⚠️ AFTER the COMMIT, never inside it — VACUUM cannot run in a transaction
+  // block. Both tables are TRUNCATE + INSERT inside ONE transaction, which is the
+  // shape that leaves `relallvisible = 0` PERMANENTLY: TRUNCATE mints a new
+  // relfilenode with an empty map, every page is then written by a transaction
+  // that has not committed so nothing can be marked all-visible, and the
+  // insert-threshold autovacuum that follows runs where a concurrent step can hold
+  // back the xmin horizon — it marks nothing, resets `n_ins_since_vacuum`, and with
+  // `n_dead_tup` also 0 never revisits.
+  //
+  // This loader had no such call until 2026-08-25, and it was invisible to
+  // `reload_visibility_map.data.test.ts`: that gate derives its file list by
+  // globbing the loaders for `vacuumAfterReload` call sites, so a loader that
+  // vacuums NOTHING contributes no names and is never checked. Locally it looked
+  // healthy (456/456 pages) purely because autovacuum happened to reach it —
+  // `last_vacuum` was null and `last_autovacuum` was not — which is timing, not a
+  // guarantee, and Cloud SQL serves traffic continuously.
+  await vacuumAfterReload("nzok_hospital_payments", "nzok_payment_coverage");
 
   const months = new Set(rows.map((r) => r.period)).size;
   const matched = rows.filter((r) => r.eik).length;

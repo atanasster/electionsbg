@@ -93,6 +93,20 @@ const RELOADED: ReadonlyArray<{
     table: "official_companies",
     loader: "npm run db:load:declarations:pg -- --resolve",
   },
+  // The НЗОК hospital-payment corpus and its coverage twin — both TRUNCATE +
+  // INSERT inside ONE transaction, in the same loader. Added 2026-08-25, when the
+  // loader gained its first `vacuumAfterReload`: until then it vacuumed nothing at
+  // all, so it contributed no names to the scan below and this gate could not see
+  // it. The payments table read 456/456 pages locally on the strength of an
+  // autovacuum that happened to land, with `last_vacuum` null.
+  {
+    table: "nzok_hospital_payments",
+    loader: "npm run db:load:nzok-hospital:pg",
+  },
+  {
+    table: "nzok_payment_coverage",
+    loader: "npm run db:load:nzok-hospital:pg",
+  },
   // ⚠️ THE SCAN BELOW CANNOT SEE THESE TWO. Their vacuum lives in
   // `scripts/prices/load_day.ts`, and neither LOADER_FILES (a glob over
   // `scripts/db/load_*.ts`) nor DELEGATE_FILES (their escaping imports) reaches
