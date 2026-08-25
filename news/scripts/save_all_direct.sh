@@ -9,6 +9,10 @@
 #
 # Usage: save_all_direct.sh <N> [output.jsonl]
 #
+# The LAST line of the output is an --intake-report object (mode:
+# "intake-report") rather than a per-domain summary — that is the sweep's
+# verdict, and `alerts` is the part worth reading.
+#
 # Measured: N=100 runs 3-6 min per domain (sequential fetches inside a
 # domain, 0.4s delay between article pages), so the per-domain timeout is
 # generous and parallelism is deliberately moderate: 6 domains at a time =
@@ -39,6 +43,21 @@ for r in csv.DictReader(open('data/bg_news_sites.csv', newline='', encoding='utf
 run_one() {
   d="$1"; n="$2"
   out=$(timeout 1200 python3 scripts/save_articles.py "$d" "$n" 2>/dev/null)
+  rc=$?
+  if [ "$rc" -eq 124 ] && [ -z "$out" ]; then
+    # A shell-level kill: the saver never reached its own state write, so the
+    # failure would go unrecorded and --intake-report would show the domain as
+    # healthy. Record it here instead.
+    python3 - "$d" <<'PYEOF' 2>/dev/null || true
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path("scripts").resolve()))
+import save_articles as sa
+domain = sys.argv[1]
+st = sa.load_state(domain)
+sa.record_domain_failure(domain, st, "timeout_or_crash",
+                         "killed by the sweep's 1200s timeout")
+PYEOF
+  fi
   if [ -n "$out" ]; then
     # the saver always prints exactly one JSON object — pass it through,
     # whatever its exit code (exit 4 = "nothing saved this run" is a valid,
@@ -52,4 +71,16 @@ run_one() {
 export -f run_one
 
 echo "$domains" | xargs -P 6 -I{} bash -c 'run_one "$@" '"$N"'' _ {} > "$OUT"
+
+# The sweep's own verdict. Nobody is watching a nightly run, so it has to say
+# what it did: which sources are failing, which have gone stale without being
+# quarantined, and which have a retry queue that is not draining. Reads only
+# the per-domain state files and the stored corpus — no network — so it cannot
+# itself fail the sweep. One JSON object, appended as the last line so a
+# consumer can take it with `tail -1`.
+if ! python3 scripts/save_articles.py --intake-report >> "$OUT" 2>/dev/null; then
+  # The verdict is the whole point of an unattended run; losing it silently
+  # would leave the sweep looking complete with nothing to read.
+  echo '{"domain": null, "mode": "intake-report", "error": "report_failed"}' >> "$OUT"
+fi
 exit 0

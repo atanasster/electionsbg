@@ -24,6 +24,7 @@ import tempfile
 import gzip
 import re
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -895,6 +896,330 @@ class StaleSourceQuarantine(unittest.TestCase):
         _, out = run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
         self.assertEqual(out["saved"], 1)
         self.assertIsNone(out["newest_stored_age_days"])
+
+
+class IntakeState(unittest.TestCase):
+    """Per-domain intake state and the retry queue.
+
+    Each run was a fresh 'give me the newest N' with no memory: a domain that
+    timed out was simply absent from that night's data and nothing ever
+    noticed or went back for it. Measured on the first full sweep: 14 of 55
+    domains failed, 8 by timeout, and every one of those articles was lost
+    silently.
+
+    ⚠️ The first version of these tests drove merge_retry_queue as a unit and
+    cmd_intake_report against hand-written state files, and left the writer in
+    main() that joins them untested — so FOUR of the five new behaviours could
+    be deleted outright with the whole suite green. The end-to-end tests below
+    exist because of that measurement."""
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp(prefix="save-articles-state-"))
+        (self.root / "news" / "data").mkdir(parents=True)
+        self.feed = self.root / "prefetched.jsonl"
+        self.write_registry()
+
+    def tearDown(self):
+        shutil.rmtree(self.root, ignore_errors=True)
+
+    def write_registry(self, domains=("ex.bg",)):
+        lines = ["domain,feed_method_aug2026,feed_url_aug2026,quarantine_aug2026"]
+        for d in domains:
+            lines.append(f"{d},rss,https://{d}/,")
+        (self.root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "\n".join(lines) + "\n", encoding="utf-8")
+
+    def state_file(self, domain="ex.bg"):
+        return self.root / "news" / "data" / "_state" / f"{domain}.json"
+
+    def state(self, domain="ex.bg"):
+        p = self.state_file(domain)
+        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+    def write_state(self, payload, domain="ex.bg"):
+        p = self.state_file(domain)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps(payload), encoding="utf-8")
+
+    def sa(self):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        return save_articles
+
+    # ------------------------------------------------------- the merge rule
+
+    def test_a_transient_failure_is_queued(self):
+        q, newly, ex = self.sa().merge_retry_queue(
+            [], [{"url": "https://ex.bg/a/72",
+                  "detail": "HTTP Error 503: Service Unavailable"}],
+            "2026-08-26T00:00:00+00:00", attempted={"https://ex.bg/a/72"})
+        self.assertEqual(len(q), 1)
+        self.assertEqual(q[0]["attempts"], 1)
+        self.assertEqual((newly, ex), ([], {}))
+
+    def test_a_gate_decision_is_never_queued(self):
+        """The body gate and the article gate are DECISIONS, with their own
+        ledger and TTL. Queueing them would retry tonight what the gate
+        refused on purpose."""
+        q, newly, _ = self.sa().merge_retry_queue([], [
+            {"url": "https://ex.bg/a/73", "detail": "thin_body (12 chars < 400 floor)"},
+            {"url": "https://ex.bg/a/74", "detail": "title_as_body (…)"},
+            {"url": "https://ex.bg/a/75", "detail": "non_article_page (…)"},
+        ], "2026-08-26T00:00:00+00:00")
+        self.assertEqual((q, newly), ([], []))
+
+    def test_a_url_that_succeeded_on_retry_leaves_the_queue(self):
+        sa = self.sa()
+        stamp = "2026-08-26T00:00:00+00:00"
+        q, _, _ = sa.merge_retry_queue(
+            [], [{"url": "https://ex.bg/a/80", "detail": "timeout"}], stamp,
+            attempted={"https://ex.bg/a/80"})
+        self.assertEqual(len(q), 1)
+        q2, _, _ = sa.merge_retry_queue(q, [], stamp,
+                                        attempted={"https://ex.bg/a/80"})
+        self.assertEqual(q2, [], "attempted and no longer failing")
+
+    def test_an_unattempted_entry_is_carried_forward(self):
+        """A --prefetched or --urls-file run cannot consult the queue, and
+        rewriting it from that run's failures alone silently discarded the
+        whole thing."""
+        sa = self.sa()
+        stamp = "2026-08-26T00:00:00+00:00"
+        prior = [{"url": "https://ex.bg/a/81", "detail": "timeout",
+                  "attempts": 1, "first_failed_at": stamp}]
+        q, _, _ = sa.merge_retry_queue(prior, [], stamp, attempted=set())
+        self.assertEqual(len(q), 1)
+        self.assertEqual(q[0]["attempts"], 1, "not re-counted as an attempt")
+
+    def test_the_retry_key_is_canonical(self):
+        """The dedupe against the fresh listing already keyed canonically, so
+        keying the COUNTER on the raw url let a spelling change reset attempts
+        to 1 for ever — the cap never fired."""
+        sa = self.sa()
+        stamp = "2026-08-26T00:00:00+00:00"
+        q, _, _ = sa.merge_retry_queue(
+            [], [{"url": "https://www.ex.bg/a/82/", "detail": "timeout"}],
+            stamp, attempted=set())
+        q, _, _ = sa.merge_retry_queue(
+            q, [{"url": "http://ex.bg/a/82?utm_source=x", "detail": "timeout"}],
+            stamp, attempted=set())
+        self.assertEqual(len(q), 1, "two spellings must not take two slots")
+        self.assertEqual(q[0]["attempts"], 2, "the counter must accumulate")
+
+    def test_an_exhausted_url_stays_exhausted(self):
+        """The cap did NOT stop the nightly re-fetch it claims to: a 404 that
+        stays in the sitemap cycled 1 -> 2 -> exhausted -> 1 for ever and
+        re-appeared in retry_exhausted every third night."""
+        sa = self.sa()
+        stamp = "2026-08-26T00:00:00+00:00"
+        fail = [{"url": "https://ex.bg/a/83", "detail": "HTTP Error 404"}]
+        q, newly, ex = [], [], {}
+        for _ in range(sa.MAX_RETRY_ATTEMPTS):
+            q, newly, ex = sa.merge_retry_queue(q, fail, stamp,
+                                                attempted=set(), exhausted=ex)
+        self.assertEqual(q, [])
+        self.assertEqual(len(newly), 1)
+        # A fourth night must NOT re-queue it.
+        q2, newly2, ex2 = sa.merge_retry_queue(q, fail, stamp,
+                                               attempted=set(), exhausted=ex)
+        self.assertEqual(q2, [])
+        self.assertEqual(newly2, [], "it must not be re-named every third night")
+
+    def test_an_exhausted_url_comes_back_after_the_ttl(self):
+        sa = self.sa()
+        old = (datetime.now(timezone.utc)
+               - timedelta(days=sa.RETRY_EXHAUSTED_TTL_DAYS + 1)).isoformat()
+        q, newly, _ = sa.merge_retry_queue(
+            [], [{"url": "https://ex.bg/a/84", "detail": "timeout"}],
+            "2026-08-26T00:00:00+00:00", attempted=set(),
+            exhausted={"https://ex.bg/a/84": old})
+        self.assertEqual(len(q), 1, "a stale exhaustion must not be permanent")
+
+    def test_first_failed_at_survives_across_runs(self):
+        sa = self.sa()
+        fail = [{"url": "https://ex.bg/a/77", "detail": "timeout"}]
+        q1, _, _ = sa.merge_retry_queue([], fail, "2026-08-24T00:00:00+00:00")
+        q2, _, _ = sa.merge_retry_queue(q1, fail, "2026-08-26T00:00:00+00:00")
+        self.assertEqual(q2[0]["first_failed_at"], "2026-08-24T00:00:00+00:00")
+        self.assertEqual(q2[0]["last_failed_at"], "2026-08-26T00:00:00+00:00")
+
+    # ---------------------------------------------------------- end to end
+
+    def test_state_is_per_domain_not_one_shared_file(self):
+        """save_all_direct.sh runs six domains at a time through xargs, so a
+        single intake.json would have six concurrent writers and no locking."""
+        sa = self.sa()
+        self.assertNotEqual(sa.state_path("a.bg"), sa.state_path("b.bg"))
+        self.assertEqual(sa.state_path("a.bg").parent,
+                         sa.state_path("b.bg").parent)
+
+    def test_a_successful_run_records_success(self):
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/70", page("Статия", [PROSE * 5]))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        st = self.state()
+        self.assertIsNotNone(st["last_success_at"])
+        self.assertEqual(st["consecutive_failures"], 0)
+        self.assertIsNone(st["last_error"])
+        self.assertEqual(st["newest_stored"], "2026-08-24")
+
+    def test_a_mode_that_cannot_drain_the_queue_must_not_delete_it(self):
+        """--prefetched cannot consult the queue, and the queue was rewritten
+        unconditionally from that run's failures — so a seeded URL vanished
+        with retry_queued 0 and no retry_exhausted. This hits the 17
+        browser-tier domains."""
+        self.write_state({"domain": "ex.bg", "retry_urls": [
+            {"url": "https://ex.bg/a/85", "detail": "timeout", "attempts": 1,
+             "first_failed_at": "2026-08-20T00:00:00+00:00"}]})
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/86", page("Статия", [PROSE * 5]))])
+        _, out = run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertEqual(out["retry_queued"], 1)
+        self.assertEqual(self.state()["retry_urls"][0]["url"],
+                         "https://ex.bg/a/85")
+
+    def test_a_run_that_stores_nothing_is_not_a_success(self):
+        """The counter exists to notice a source that has stopped working, and
+        recording every completed run as a success made it unable to."""
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/87", page("Празна", []))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        st = self.state()
+        self.assertEqual(st["consecutive_failures"], 1)
+        self.assertEqual(st["last_error"]["error"], "nothing_stored")
+        self.assertIsNone(st["last_success_at"])
+
+    def test_a_run_with_nothing_new_is_still_a_success(self):
+        """A quiet source is not a broken one."""
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/88", page("Статия", [PROSE * 5]))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        st = self.state()
+        self.assertEqual(st["consecutive_failures"], 0)
+        self.assertIsNotNone(st["last_success_at"])
+
+    def test_already_present_counts_disk_not_this_run(self):
+        """Counted against the set the loop grows as it goes, every URL this
+        run stored was also counted as already present."""
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/89", page("Статия", [PROSE * 5]))])
+        _, first = run_saver(self.root, "ex.bg", "20",
+                             f"--prefetched={self.feed}")
+        self.assertEqual((first["saved"], first["already_present"]), (1, 0))
+        _, second = run_saver(self.root, "ex.bg", "20",
+                              f"--prefetched={self.feed}")
+        self.assertEqual((second["saved"], second["already_present"]), (0, 1))
+
+    def test_a_lister_failure_increments_consecutive_failures(self):
+        """not-in-the-registry is a standing fact; a fetch failure is not."""
+        code, out = run_saver(self.root, "no-such-domain.invalid", "2")
+        self.assertIn(code, (2, 4))
+        st = self.state("no-such-domain.invalid")
+        # A domain the lister cannot resolve at all is a STANDING fact, so it
+        # must not accumulate a failure every night.
+        self.assertTrue(st is None or st["consecutive_failures"] == 0)
+
+    def test_a_corrupt_state_file_does_not_stop_the_run(self):
+        self.state_file().parent.mkdir(parents=True, exist_ok=True)
+        self.state_file().write_text("{not json", encoding="utf-8")
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/78", page("Статия", [PROSE * 5]))])
+        code, out = run_saver(self.root, "ex.bg", "20",
+                              f"--prefetched={self.feed}")
+        self.assertEqual((code, out["saved"]), (0, 1))
+        self.assertIsNotNone(self.state()["last_success_at"])
+
+    def test_a_corrupt_retry_queue_type_does_not_yield_a_bogus_count(self):
+        self.write_state({"domain": "ex.bg", "retry_urls": "not a list"})
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/90", page("Статия", [PROSE * 5]))])
+        _, out = run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertEqual(out["retry_queued"], 0)
+
+    # ------------------------------------------------------------- the report
+
+    def report(self, *extra):
+        env = dict(os.environ, DATA_BG_ROOT=str(self.root))
+        proc = subprocess.run(
+            [sys.executable, str(SAVER), "--intake-report", *extra],
+            capture_output=True, text=True, env=env, timeout=120)
+        return proc.returncode, json.loads(proc.stdout)
+
+    def test_a_registry_domain_that_never_ran_is_visible(self):
+        """Enumerating state files alone made a domain that has NEVER
+        completed a run invisible — the original defect's exact shape."""
+        self.write_registry(("ex.bg", "never-touched.bg"))
+        _, rep = self.report()
+        self.assertEqual(rep["domains"], 2)
+        self.assertEqual({a["alert"] for a in rep["alerts"]}, {"never_ran"})
+
+    def test_the_report_alerts_on_a_stale_unquarantined_source(self):
+        self.write_state({"domain": "ex.bg", "newest_stored": "2026-01-01",
+                          "consecutive_failures": 0, "retry_urls": [],
+                          "quarantined": False})
+        alerts = self.report()[1]["alerts"]
+        self.assertEqual([a["alert"] for a in alerts], ["going_stale"])
+
+    def test_a_quarantined_source_is_old_on_purpose_and_not_alerted(self):
+        self.write_state({"domain": "ex.bg", "newest_stored": "2019-01-01",
+                          "consecutive_failures": 0, "retry_urls": [],
+                          "quarantined": True})
+        self.assertEqual(self.report()[1]["alerts"], [])
+
+    def test_the_report_alerts_on_a_repeatedly_failing_source(self):
+        self.write_state({"domain": "ex.bg", "newest_stored": None,
+                          "consecutive_failures": 4, "retry_urls": [],
+                          "last_error": {"error": "fetch_failed"},
+                          "quarantined": False})
+        self.assertEqual(self.report()[1]["alerts"][0]["alert"], "failing")
+
+    def test_the_report_alerts_on_a_retry_backlog(self):
+        self.write_state({"domain": "ex.bg", "newest_stored": "2026-08-26",
+                          "consecutive_failures": 0, "quarantined": False,
+                          "retry_urls": [{"url": f"https://ex.bg/a/{i}",
+                                          "attempts": 1} for i in range(12)]})
+        self.assertEqual(self.report()[1]["alerts"][0]["alert"],
+                         "retry_backlog")
+
+    def test_the_stale_threshold_is_configurable(self):
+        self.write_state({"domain": "ex.bg", "newest_stored": "2026-08-20",
+                          "consecutive_failures": 0, "retry_urls": [],
+                          "quarantined": False})
+        self.assertEqual(self.report("--stale-after=365")[1]["alerts"], [])
+        self.assertTrue(self.report("--stale-after=1")[1]["alerts"])
+
+    def test_a_malformed_stored_date_does_not_break_the_report(self):
+        self.write_state({"domain": "ex.bg", "newest_stored": "9999-99-99",
+                          "consecutive_failures": 0, "retry_urls": [],
+                          "quarantined": False})
+        rep = self.report()[1]
+        row = next(r for r in rep["rows"] if r["domain"] == "ex.bg")
+        self.assertIsNone(row["newest_stored_age_days"])
+
+    def test_a_corrupt_retry_queue_does_not_raise_a_bogus_alert(self):
+        self.write_state({"domain": "ex.bg", "newest_stored": "2026-08-26",
+                          "consecutive_failures": 0, "quarantined": False,
+                          "retry_urls": "not a list"})
+        rep = self.report()[1]
+        row = next(r for r in rep["rows"] if r["domain"] == "ex.bg")
+        self.assertEqual(row["retry_queued"], 0)
+
+    def test_the_verdict_line_carries_a_domain_key(self):
+        """save_all_direct.sh appends it to a file of per-domain summaries; a
+        consumer reading `.domain` on every line must not break."""
+        rep = self.report()[1]
+        self.assertIn("domain", rep)
+        self.assertIsNone(rep["domain"])
+        self.assertEqual(rep["mode"], "intake-report")
+
+    def test_intake_report_refuses_a_stray_positional(self):
+        code, out = self.report("ex.bg")
+        self.assertEqual((code, out["error"]), (1, "usage"))
+
+    def test_stale_after_outside_its_mode_is_refused(self):
+        code, out = run_saver(self.root, "ex.bg", "2", "--stale-after=3")
+        self.assertEqual((code, out["error"]), (1, "usage"))
 
 
 class ReExtractionGuards(unittest.TestCase):

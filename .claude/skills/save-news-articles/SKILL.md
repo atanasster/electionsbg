@@ -371,6 +371,68 @@ before running it; for a spot-check, a handful of domains at N=5 answers
 "does this work" in two minutes. The same anti-hammering rule from
 fetch-news-articles-all applies: do not loop the sweep back-to-back.
 
+## Step 3b — read the sweep's own verdict
+
+`save_all_direct.sh` appends one `--intake-report` object as the LAST line of
+its output (`tail -1`). Run it any time on its own — it reads only the
+per-domain state files and the stored corpus, no network:
+
+```bash
+python3 news/scripts/save_articles.py --intake-report [--stale-after=N]
+```
+
+Every run now persists per-domain state to `news/data/_state/<domain>.json`
+(one file per domain, because the sweep runs six at a time through `xargs` and
+a single shared file would have six concurrent writers): last success, last
+error, `consecutive_failures`, `newest_stored`, and a **retry queue**.
+
+⚠️ **Before this, each run was a fresh "give me the newest N" with no memory** —
+a domain that timed out was simply absent from that night's data and nothing
+ever noticed or went back for it. 14 of 55 domains failed the first full
+sweep, 8 by timeout, and every one of those articles was lost silently.
+
+Transient per-article failures (HTTP errors, timeouts) are queued and retried
+FIRST on the next run, deduped against the fresh listing so a URL that
+reappeared in the feed is not fetched twice. A URL that burns
+`MAX_RETRY_ATTEMPTS` (3) is dropped, NAMED in `retry_exhausted`, and then
+stays exhausted for 30 days — **both halves are needed**: the cap alone only
+empties the queue, so a 404 that stays in the sitemap is re-queued by the next
+run's failures and cycles 1 → 2 → exhausted → 1 for ever, re-naming the same
+URLs every third night. Gate DECISIONS (`thin_body`, `title_as_body`,
+`non_article_page`) are never queued: they have the rejection ledger and its
+own TTL.
+
+⚠️ **`--prefetched` and `--urls-file` cannot drain the queue** — their article
+list comes from a browser capture or a file, not from the feed — so those runs
+CARRY IT FORWARD untouched rather than rewriting it from their own failures.
+That distinction matters for the 17 browser-tier domains in Step 5, which are
+served entirely by those two modes; without it a prefetched run silently
+discarded the whole queue.
+
+Keying is CANONICAL throughout. Keying the attempt counter on the raw URL
+while the listing dedupe used the canonical one let a spelling change reset
+`attempts` to 1 for ever, so the cap never fired.
+
+**A run that lists articles and stores none of them is not a success** — it
+increments `consecutive_failures` and records `nothing_stored`. Recording every
+completed run as a success made the counter unable to notice a source that had
+stopped working. A run with nothing NEW is still a success: a quiet source is
+not a broken one.
+
+`alerts` is what a human reads:
+
+| alert | means |
+| --- | --- |
+| `failing` | 3+ consecutive failed runs |
+| `going_stale` | newest stored article older than the threshold **and not quarantined** — a quarantined source is old on purpose |
+| `retry_backlog` | 10+ URLs queued and not draining |
+| `never_ran` | in the registry, but no run has ever completed for it |
+
+The report enumerates the REGISTRY as well as the state files. Enumerating
+state files alone made a domain that has never completed a run invisible —
+which is the original defect's exact shape, since the sweep silently dropped
+14 of 55 domains and nothing noticed.
+
 ## Step 4 — report honestly, per domain
 
 The first full sweep (2026-08-22, N=100) measured the real spread: of 47
@@ -492,6 +554,7 @@ still wrong (Step 2).
 | `news/scripts/capture_fixtures.py` | freezes one real page per known failure class into `tests/fixtures/*.html.gz` + `expectations.json`. `--list` shows what is frozen, `--refresh` re-fetches. |
 | `news/scripts/tests/fixtures/` | 18 gzipped real pages (1.0 MB, COMMITTED) + `expectations.json` (GENERATED — edit the seed) + a README on provenance. The only thing standing between an extractor change and a 4,700-page sweep. |
 | `news/data/_rejected/<domain>.jsonl` | body-gate rejection ledger: url, reason, chars, title, timestamp. Untracked; entries expire after 30 days. |
+| `news/data/_state/<domain>.json` | intake state: last success/error, consecutive failures, newest stored day, retry queue. One file per domain — the sweep has six concurrent writers. |
 | `news/scripts/save_all_direct.sh` | parallel batch over the direct tier (this skill) |
 | `news/data/<domain>/*.json` | the stored articles, incremental by CANONICAL url |
 | `news/data/_quarantine/<domain>/*.json` | articles from a structurally stale source — same shape, kept out of the corpus so they cannot read as current reporting |

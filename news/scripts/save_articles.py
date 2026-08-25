@@ -74,8 +74,8 @@ Prints ONE JSON summary object to stdout:
     {"domain","dir","dir_exists","requested","listed","already_present",
      "saved","rejected","skipped_rejected","rejected_ledger","min_body",
      "quarantined","quarantine_reason","newest_stored",
-     "newest_stored_age_days","failed":[{"url","detail"}],"list_method",
-     "order_confidence"}
+     "newest_stored_age_days","retry_queued","retry_exhausted",
+     "failed":[{"url","detail"}],"list_method","order_confidence"}
 plus the lister's "warning" when it flagged a stale/unconfirmed source.
 Note "rejected" is a strict SUBSET of "failed" — a body-gate rejection is
 counted in both — so the outcome counts do not sum to "listed".
@@ -95,6 +95,7 @@ import json
 import gzip
 import time
 import hashlib
+import csv
 import subprocess
 import urllib.request
 import urllib.error
@@ -1002,6 +1003,163 @@ def quarantine_decision(domain, order_confidence):
     return False, ""
 
 
+# ------------------------------------------------------------- intake state
+
+STATE_DIR_NAME = "_state"
+
+# A URL that has failed this many times stops being retried, and then stays
+# exhausted for RETRY_EXHAUSTED_TTL_DAYS. Both halves are needed: the cap alone
+# only empties the queue, so a 404 that stays in the sitemap is re-queued by
+# the next run's failures and cycles 1 -> 2 -> exhausted -> 1 for ever. The
+# first full sweep produced 24 such 404s in one run.
+MAX_RETRY_ATTEMPTS = 3
+
+# Lister outcomes that are STANDING FACTS about an outlet rather than failures
+# to count. A browser-tier domain would otherwise accumulate a failure every
+# night for ever and alert as `failing` when nothing is wrong. Everything else
+# — including a lister error this code has not seen yet — counts, which is the
+# safe direction: a new transient error should raise an alert, not be silently
+# excused.
+STANDING_LISTER_FACTS = frozenset({
+    "needs_browser", "needs_browser_then_fetch", "blocked_captcha",
+    "portal_not_newsroom",
+    "domain_not_in_registry_and_quick_probe_failed",
+})
+
+# Per-article failures that are DECISIONS, not transient errors. These already
+# go to the rejection ledger with its own TTL; queueing them here too would
+# retry tonight what the gate refused on purpose.
+_TERMINAL_FAILURE_RE = re.compile(
+    r"^(non_article_page|title_as_body|thin_body|no title and no content)")
+
+
+def state_path(domain):
+    """One file PER DOMAIN, not one shared file.
+
+    save_all_direct.sh runs six domains at a time through xargs, so a single
+    intake.json would have six concurrent writers and no locking — the same
+    reason the rejection ledger is per-domain. Lives under news/data/_state/,
+    which is already gitignored, already redirected by DATA_BG_ROOT, and
+    already skipped by analyze_articles' corpus_domains() (it ignores
+    _-prefixed directories)."""
+    return DATA_DIR / STATE_DIR_NAME / f"{domain}.json"
+
+
+def load_state(domain):
+    """This domain's intake state, or a fresh one. Never raises: a corrupt
+    state file must not stop the run that would have repaired it."""
+    path = state_path(domain)
+    if path.exists():
+        try:
+            d = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(d, dict):
+                d.setdefault("retry_urls", [])
+                return d
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {"domain": domain, "last_attempt_at": None, "last_success_at": None,
+            "consecutive_failures": 0, "last_error": None,
+            "newest_stored": None, "retry_urls": []}
+
+
+def save_state(domain, state):
+    """Persist atomically. Never raises, for the same reason record_rejection
+    does not: this runs after the articles are already on disk, and an escaping
+    OSError would print no summary at all."""
+    try:
+        path = state_path(domain)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(state, ensure_ascii=False, indent=1) + "\n",
+                       encoding="utf-8")
+        tmp.replace(path)
+        return True
+    except OSError:
+        return False
+
+
+def record_domain_failure(domain, state, error, detail):
+    """A domain-level failure, persisted so a nightly report can see a source
+    that has been down for a week rather than one that was down tonight."""
+    state["last_attempt_at"] = now_iso()
+    state["consecutive_failures"] = state.get("consecutive_failures", 0) + 1
+    state["last_error"] = {"error": error, "detail": (detail or "")[:400],
+                           "at": state["last_attempt_at"]}
+    save_state(domain, state)
+
+
+def now_iso():
+    return datetime.now(timezone.utc).isoformat()
+
+
+# How long an exhausted URL stays exhausted. Without this the cap does NOT
+# stop the nightly re-fetch it exists to stop: a 404 that stays in the sitemap
+# cycles 1 -> 2 -> exhausted -> 1 for ever and re-appears in retry_exhausted
+# every third night. Long enough that a permanently dead URL costs one fetch a
+# month; short enough that a page fixed at the source comes back on its own.
+RETRY_EXHAUSTED_TTL_DAYS = 30
+
+
+def merge_retry_queue(existing, failures, stamp, attempted=None,
+                      exhausted=None):
+    """Next run's retry queue, plus the URLs that have given up.
+
+    Keys on the CANONICAL url throughout. The dedupe against the fresh listing
+    already did, so keying the attempt COUNTER on the raw one let a spelling
+    change reset `attempts` to 1 for ever — the cap never fired — and let two
+    spellings of one article take two queue slots.
+
+    `attempted` is the set of canonical keys this run actually tried. A prior
+    entry that was NOT attempted is carried forward unchanged: a --prefetched
+    or --urls-file run cannot consult the queue, and rewriting it from that
+    run's failures alone silently discarded the whole thing (measured: a
+    seeded URL vanished with retry_queued 0 and no retry_exhausted). A prior
+    entry that WAS attempted and is absent from `failures` succeeded, and
+    leaves.
+
+    A per-article failure that is a DECISION (the body gate, the article gate)
+    is never queued — those have the rejection ledger and its own TTL.
+
+    Returns (queue, newly_exhausted, exhausted_index)."""
+    attempted = attempted if attempted is not None else set()
+    exhausted = dict(exhausted or {})
+    cutoff = (datetime.now(timezone.utc)
+              - timedelta(days=RETRY_EXHAUSTED_TTL_DAYS)).isoformat()
+    exhausted = {k: v for k, v in exhausted.items() if v >= cutoff}
+
+    prior = {}
+    for e in existing:
+        if isinstance(e, dict) and e.get("url"):
+            prior[canonical_url(e["url"])] = e
+
+    queue, newly = {}, []
+    for f in failures:
+        url, detail = f.get("url"), f.get("detail") or ""
+        if not url or _TERMINAL_FAILURE_RE.match(detail):
+            continue
+        key = canonical_url(url)
+        if key in exhausted or key in queue:
+            continue
+        was = prior.get(key)
+        attempts = (was.get("attempts", 0) if was else 0) + 1
+        entry = {"url": url, "detail": detail, "attempts": attempts,
+                 "first_failed_at": (was or {}).get("first_failed_at", stamp),
+                 "last_failed_at": stamp}
+        if attempts >= MAX_RETRY_ATTEMPTS:
+            exhausted[key] = stamp
+            newly.append(entry)
+        else:
+            queue[key] = entry
+
+    # Carry forward anything this run never got to.
+    for key, entry in prior.items():
+        if key in queue or key in exhausted or key in attempted:
+            continue
+        queue[key] = entry
+
+    return list(queue.values()), newly, exhausted
+
+
 REJECT_DIR_NAME = "_rejected"
 
 
@@ -1586,6 +1744,84 @@ def cmd_apply_quarantine(domain, apply_changes):
     return out
 
 
+def cmd_intake_report(stale_after_days=7):
+    """One JSON object describing every domain's intake health.
+
+    This is the artifact that makes an unattended run trustworthy: nobody is
+    watching, so the run has to say what it did. Reads only the per-domain
+    state files and the stored corpus — no network, no listing — so it is safe
+    to run at any time and cannot itself fail a sweep.
+
+    `alerts` is the part worth reading. A domain is flagged when it has failed
+    repeatedly, when its newest stored article has aged past the threshold
+    while it is NOT quarantined (a quarantined source is old on purpose), or
+    when it has a retry queue that is not draining."""
+    state_dir = DATA_DIR / STATE_DIR_NAME
+    # p.stem drops only the LAST suffix, so "x.json.tmp" has stem "x.json" and
+    # never matched the *.json glob anyway — but a half-written temp file must
+    # not become a domain, so filter on the full name.
+    seen = {p.name[:-len(".json")] for p in state_dir.glob("*.json")
+            if p.name.endswith(".json")} if state_dir.is_dir() else set()
+    # ⚠️ The registry too. Enumerating state files alone made a domain that has
+    # NEVER completed a run invisible — which is the original defect's exact
+    # shape: the sweep silently dropped 14 of 55 domains and nothing noticed.
+    registry = set()
+    try:
+        with open(DATA_DIR / "bg_news_sites.csv", newline="",
+                  encoding="utf-8") as f:
+            registry = {r["domain"] for r in csv.DictReader(f) if r.get("domain")}
+    except (OSError, csv.Error, KeyError):
+        pass
+    domains = sorted(seen | registry)
+    today = datetime.now(timezone.utc).date()
+    rows, alerts = [], []
+    for domain in domains:
+        st = load_state(domain)
+        never_ran = domain not in seen
+        corpus, quarantine = domain_folders(domain)
+        stored = (len(list(corpus.glob("*.json")))
+                  + len(list(quarantine.glob("*.json")))
+                  if corpus.is_dir() or quarantine.is_dir() else 0)
+        age = None
+        if st.get("newest_stored"):
+            try:
+                age = (today - datetime.fromisoformat(
+                    st["newest_stored"]).date()).days
+            except ValueError:
+                age = None
+        row = {"domain": domain, "never_ran": never_ran, "stored": stored,
+               "newest_stored": st.get("newest_stored"),
+               "newest_stored_age_days": age,
+               "quarantined": bool(st.get("quarantined")),
+               "consecutive_failures": st.get("consecutive_failures", 0),
+               "last_success_at": st.get("last_success_at"),
+               "last_error": st.get("last_error")}
+        queued = st.get("retry_urls")
+        row["retry_queued"] = len(queued) if isinstance(queued, list) else 0
+        rows.append(row)
+        if never_ran:
+            alerts.append({"domain": domain, "alert": "never_ran",
+                           "detail": "in the registry, but no run has ever "
+                                     "completed for it"})
+        elif row["consecutive_failures"] >= 3:
+            alerts.append({"domain": domain, "alert": "failing",
+                           "detail": f"{row['consecutive_failures']} runs in a "
+                                     f"row; last: "
+                                     f"{(st.get('last_error') or {}).get('error')}"})
+        elif age is not None and age > stale_after_days and not row["quarantined"]:
+            alerts.append({"domain": domain, "alert": "going_stale",
+                           "detail": f"newest stored article is {age} days old "
+                                     f"and this source is not quarantined"})
+        if row["retry_queued"] >= 10:
+            alerts.append({"domain": domain, "alert": "retry_backlog",
+                           "detail": f"{row['retry_queued']} URLs queued for "
+                                     f"retry and not draining"})
+    return {"domain": None, "mode": "intake-report",
+            "generated_at": now_iso(),
+            "domains": len(rows), "stale_after_days": stale_after_days,
+            "alerts": alerts, "rows": rows}
+
+
 # --------------------------------------------------------------------- main
 
 def main():
@@ -1602,6 +1838,9 @@ def main():
     prune_cache = False
     dedupe = False
     no_quarantine = False
+    intake_report = False
+    stale_after_days = 7
+    stale_after_cli = False
     apply_quarantine = False
     apply_changes = False
     floor_from_cli = False
@@ -1634,6 +1873,19 @@ def main():
             args.remove(a)
         elif a == "--no-quarantine":
             no_quarantine = True
+            args.remove(a)
+        elif a == "--intake-report":
+            intake_report = True
+            args.remove(a)
+        elif a.startswith("--stale-after="):
+            raw = a.split("=", 1)[1]
+            if not raw.isdigit():
+                print(json.dumps({"error": "usage", "detail":
+                                  f"--stale-after needs a non-negative "
+                                  f"integer, got {raw!r}"}))
+                sys.exit(1)
+            stale_after_days = int(raw)
+            stale_after_cli = True
             args.remove(a)
         elif a == "--apply-quarantine":
             apply_quarantine = True
@@ -1669,6 +1921,19 @@ def main():
         elif a == "--no-cache":
             cache_html = False
             args.remove(a)
+    if intake_report:
+        if args:
+            print(json.dumps({"error": "usage", "detail":
+                              "--intake-report covers every domain and takes "
+                              f"no positional argument (got {args[0]!r})"}))
+            sys.exit(1)
+        print(json.dumps(cmd_intake_report(stale_after_days),
+                         ensure_ascii=False))
+        sys.exit(0)
+    if stale_after_cli and not intake_report:
+        print(json.dumps({"error": "usage", "detail":
+                          "--stale-after only applies to --intake-report"}))
+        sys.exit(1)
     if not args:
         print(json.dumps({"error": "usage",
                           "detail": "save_articles.py <domain> [N] [--delay=S] "
@@ -1680,7 +1945,9 @@ def main():
                                     "[--prune-cache] [--dedupe] [--no-cache] "
                                     "[--min-body=N] [--delay=S] | "
                                     "save_articles.py <domain> "
-                                    "--apply-quarantine [--apply]"}))
+                                    "--apply-quarantine [--apply] | "
+                                    "save_articles.py --intake-report "
+                                    "[--stale-after=N]"}))
         sys.exit(1)
     domain = args[0]
     if len(args) > 1 and not args[1].isdigit():
@@ -1723,6 +1990,7 @@ def main():
                                             "duplicates_removed"))
         sys.exit(4 if summary["failed"] and not did_work else 0)
 
+    state = load_state(domain)
     html_map = {}  # url -> page HTML, when pages were prefetched via browser
     if prefetched:
         # Browser-fetched pages (the browser_only tier): one JSON line per
@@ -1765,27 +2033,60 @@ def main():
         list_method, order_confidence, listed_count, warning = (
             "urls_file_browser_harvest", "dom_order_unconfirmed", len(articles), None)
     else:
+        # Last run's transient failures, retried FIRST. Without this a domain
+        # that timed out is simply absent from that night's data and nothing
+        # ever notices or goes back for it — 14 of 55 domains failed the first
+        # full sweep, and every one of those articles was lost silently.
+        retry_first = [{"url": e["url"]} for e in state.get("retry_urls", [])
+                       if isinstance(e, dict) and e.get("url")]
         try:
             proc = subprocess.run(
                 [sys.executable, str(LISTER), domain, str(want)],
                 capture_output=True, text=True, timeout=LISTER_TIMEOUT)
         except subprocess.TimeoutExpired:
+            record_domain_failure(domain, state, "fetch_failed",
+                                  f"lister exceeded {LISTER_TIMEOUT}s")
             print(json.dumps({"domain": domain, "error": "fetch_failed",
-                              "detail": f"lister exceeded {LISTER_TIMEOUT}s"}))
+                              "detail": f"lister exceeded {LISTER_TIMEOUT}s",
+                              "consecutive_failures":
+                                  state["consecutive_failures"]}))
             sys.exit(4)
         try:
             listed = json.loads(proc.stdout)
+            if not isinstance(listed, dict):
+                # Valid JSON that is not an object — `null`, `[]` — raises past
+                # a JSONDecodeError guard on the very next .get().
+                raise json.JSONDecodeError("not a JSON object", "", 0)
         except json.JSONDecodeError:
+            detail = (f"lister printed unparseable output: "
+                      f"{proc.stdout[:200]} {proc.stderr[:200]}")
+            record_domain_failure(domain, state, "fetch_failed", detail)
             print(json.dumps({"domain": domain, "error": "fetch_failed",
-                              "detail": f"lister printed unparseable output: "
-                                        f"{proc.stdout[:200]} {proc.stderr[:200]}"}))
+                              "detail": detail, "consecutive_failures":
+                                  state["consecutive_failures"]}))
             sys.exit(4)
         if proc.returncode != 0 or "error" in listed:
             # propagate the lister's own error JSON verbatim (needs_browser,
-            # blocked_captcha, domain_not_in_registry, ...) with its exit code
+            # blocked_captcha, domain_not_in_registry, ...) with its exit code.
+            # needs_browser and friends are STANDING facts about the outlet,
+            # not failures to count — a browser-tier domain would otherwise
+            # accumulate a failure every night for ever.
+            err = listed.get("error", "fetch_failed")
+            if err not in STANDING_LISTER_FACTS:
+                record_domain_failure(domain, state, err,
+                                      listed.get("detail"))
+                listed["consecutive_failures"] = state["consecutive_failures"]
             print(json.dumps(listed, ensure_ascii=False))
             sys.exit(proc.returncode or 3)
         articles = listed.get("articles", [])
+        # Retried URLs go FIRST and are deduped against the fresh listing by
+        # canonical key, so a URL that reappeared in the feed is not fetched
+        # twice in one run.
+        if retry_first:
+            listed_keys = {canonical_url(a["url"]) for a in articles
+                           if a.get("url")}
+            articles = [r for r in retry_first
+                        if canonical_url(r["url"]) not in listed_keys] + articles
         list_method = listed.get("method")
         order_confidence = listed.get("order_confidence")
         listed_count = listed.get("count", 0)
@@ -1800,6 +2101,7 @@ def main():
     # BOTH sides: a domain that was quarantined yesterday and is fresh today
     # must not re-fetch what it already holds, and vice versa.
     have, _ = scan_stored(corpus_folder, quarantine_folder)
+    on_disk = frozenset(have)  # snapshot BEFORE the loop starts adding to it
     skip_rejected = set() if retry_rejected else rejected_urls(domain)
     # A URL rejected earlier in THIS run must not be appended twice, and with
     # --retry-rejected the ledger's own entries are re-appended every run --
@@ -1808,6 +2110,7 @@ def main():
     # URL regardless of which flags are in play.
     ledgered = rejected_urls(domain, max_age_days=None)
     saved, rejected, skipped_rejected, failed = 0, 0, 0, []
+    attempted = set()  # canonical keys this run actually tried to fetch
     echo_slack = echo_slack_for(min_body)
 
     def _reject(url, rec, reason, detail):
@@ -1835,7 +2138,10 @@ def main():
         # one article in the SAME listing store one file rather than two — a
         # sitemap that lists both the www. and bare form would otherwise
         # produce exactly the duplicate this canonicalisation exists to end.
+        # Counted separately from `have` so already_present stays a count of
+        # what was on DISK, not of what this loop added as it went.
         have.add(key)
+        attempted.add(key)
         if urlsplit(url).path in ("", "/"):
             failed.append({"url": url, "detail": "non_article_page (homepage)"})
             continue
@@ -1891,13 +2197,19 @@ def main():
         if not html_map:
             time.sleep(delay)
 
+    # Counted against a SNAPSHOT of the disk taken before the loop, not the
+    # set the loop grows as it goes — otherwise every URL this run stored is
+    # also counted as already present, and the two are equal on a first run.
+    summary_already_present = len({canonical_url(a["url"]) for a in articles
+                                   if a.get("url")} & on_disk)
     summary = {
         "domain": domain,
         "dir": str(folder.relative_to(Path.cwd())) if _under_cwd(folder) else str(folder),
         "requested": want,
+        # `listed` is what the SOURCE offered. Retried URLs are prepended to
+        # `articles` but not counted here, so the two bases stay distinct.
         "listed": listed_count,
-        "already_present": sum(1 for a in articles if a.get("url")
-                               and canonical_url(a["url"]) in have),
+        "already_present": summary_already_present,
         "quarantined": quarantined,
         "dir_exists": folder.is_dir(),
         "saved": saved,
@@ -1915,6 +2227,45 @@ def main():
         "list_method": list_method,
         "order_confidence": order_confidence,
     }
+    stamp = now_iso()
+    prior_queue = state.get("retry_urls", [])
+    if not isinstance(prior_queue, list):
+        prior_queue = []  # a corrupt state file must not yield a bogus count
+    queue, dropped, exhausted = merge_retry_queue(
+        prior_queue, failed, stamp, attempted=attempted,
+        exhausted=state.get("retry_exhausted_at") or {})
+    # A run that listed articles and stored none of them is NOT a success. The
+    # counter exists to notice a source that has stopped working, and
+    # recording every completed run as a success made it unable to.
+    productive = bool(saved or not articles or
+                      len(articles) == summary_already_present)
+    state.update({
+        "domain": domain,
+        "last_attempt_at": stamp,
+        "consecutive_failures": (0 if productive
+                                 else state.get("consecutive_failures", 0) + 1),
+        "quarantined": quarantined,
+        "retry_urls": queue,
+        "retry_exhausted_at": exhausted,
+    })
+    if productive:
+        state["last_success_at"] = stamp
+        state["last_error"] = None
+    else:
+        state["last_error"] = {
+            "error": "nothing_stored",
+            "detail": f"listed {len(articles)}, saved 0, rejected {rejected}, "
+                      f"{len(failed)} per-article failures",
+            "at": stamp}
+    summary["retry_queued"] = len(queue)
+    if dropped:
+        # Named, not silently forgotten: a URL that has burned every attempt
+        # is a permanent gap in the corpus, and the run that gives up on it is
+        # the only place that can say so. It then stays exhausted for
+        # RETRY_EXHAUSTED_TTL_DAYS, or the cap would not stop the nightly
+        # re-fetch it exists to stop.
+        summary["retry_exhausted"] = [d["url"] for d in dropped]
+
     if quarantine_reason:
         summary["quarantine_reason"] = quarantine_reason
     # The nightly report's freshness assertion reads this: a live source whose
@@ -1933,6 +2284,8 @@ def main():
             # summary at all, breaking the one-JSON-object contract after the
             # work is done.
             summary["newest_stored_age_days"] = None
+    state["newest_stored"] = newest
+    save_state(domain, state)
     if warning:
         summary["warning"] = warning
     print(json.dumps(summary, ensure_ascii=False))
