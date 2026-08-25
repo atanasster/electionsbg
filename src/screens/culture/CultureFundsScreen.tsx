@@ -7,10 +7,16 @@
 // NOTHING ON THIS PAGE MAY BE SUMMED, and the copy says so in the first sentence.
 // The arms are not comparable quantities:
 //
-//   ИСУН by EIK    — the register's own 45 bodies. Reproducible, and a strict
-//                    SUBSET of the name-matched figure.
-//   ИСУН by name   — a floor with a fuzzy edge: 1,559 beneficiaries, mostly
-//                    читалища. 56% above the EIK-exact figure, and BOTH are true.
+//   ИСУН by EIK    — the register's own bodies. Reproducible, and ALMOST — not
+//                    quite — a subset of the name-matched figure: measured
+//                    2026-08-25, 46 of its 47 projects are also name-matched.
+//                    The 47th is ЕИК 000669802, Национална професионална
+//                    гимназия по полиграфия и фотография, a national art school
+//                    whose NAME carries no culture stem. This header said
+//                    „a strict SUBSET" until then and was wrong; the two figures
+//                    overlap heavily and neither contains the other.
+//   ИСУН by name   — a floor with a fuzzy edge: ~1,560 projects, mostly
+//                    читалища. Well above the EIK-exact figure, and BOTH true.
 //   ДФЗ читалища   — a farm-subsidy corpus. No state cultural institution has
 //                    ever received one; the culture presence here is читалища and
 //                    is reachable only by NAME (0 rows by EIK).
@@ -38,6 +44,65 @@ export const CultureFundsScreen: FC = () => {
   const eur = (v: number) => formatEurCompact(v, lang);
   const { data: s, isLoading } = useCultureHubStats();
 
+  // ── the EIK↔name relationship, and why none of it is a literal ─────────────
+  //
+  // `eikExactAlsoByName` is OPTIONAL on the wire (see its field comment): the
+  // blob ships via `bucket:sync`, on a different command from the bundle, so a
+  // page can load against one minted before the field existed. Absent → the two
+  // rows keep their own true sentences and say NOTHING about how they relate,
+  // which is the only honest degrade; a guessed relationship is the defect this
+  // whole block exists to end.
+  //
+  // ⚠️ The WORDS are derived from the number too. „почти, но не изцяло" beside a
+  // live figure is the same frozen-string defect one layer up: the day the
+  // corpus makes the arms agree — one register body gaining a culture word is
+  // enough — a hard-coded clause would publish „47 of these 47 … almost, but not
+  // quite, a subset", which contradicts itself in one sentence.
+  const alsoByName = s?.funds.eikExactAlsoByName;
+  const overlapKnown = typeof alsoByName === "number";
+  const missed = overlapKnown
+    ? (s?.funds.eikExactProjects ?? 0) - alsoByName
+    : null;
+  const isSubset = overlapKnown && missed === 0;
+
+  const overlapBg = !overlapKnown
+    ? ""
+    : ` ${formatInt(alsoByName, lang)} от ${formatInt(s?.funds.eikExactProjects, lang)} от тези проекта се хващат и по име — ${
+        isSubset ? "подмножество" : "почти, но не изцяло подмножество"
+      } на реда отдолу.`;
+  const overlapEn = !overlapKnown
+    ? ""
+    : ` ${formatInt(alsoByName, lang)} of these ${formatInt(s?.funds.eikExactProjects, lang)} projects are also name-matched — ${
+        isSubset ? "a subset" : "almost, but not quite, a subset"
+      } of the row below.`;
+
+  // The by-name row's half of the same relationship. Guarded on `missed > 0` so
+  // the „does not contain it" clause disappears together with its own evidence,
+  // and special-cased at ONE because neither language pluralises by template:
+  // Bulgarian needs „1 проект … няма" (not the бройна форма „проекта … нямат"),
+  // English needs „carries … its". Today the value IS one — the whole finding is
+  // a single row — so this is the sentence a reader will actually meet.
+  //
+  // The „does not contain it" clause is conditional for the SAME reason: at
+  // `missed === 0` the arms really would be nested, and a hard-coded denial
+  // beside „0 projects carry no culture word" contradicts itself.
+  const missedBg =
+    missed === null
+      ? ""
+      : missed <= 0
+        ? " Съдържа изцяло реда отгоре."
+        : missed === 1
+          ? " Не го съдържа изцяло: един проект от списъка по ЕИК няма културна дума в името си."
+          : ` Не го съдържа изцяло: ${formatInt(missed, lang)} проекта от списъка по ЕИК нямат културна дума в името си.`;
+  const missedEn =
+    missed === null
+      ? ""
+      : missed <= 0
+        ? " It contains the row above entirely."
+        : missed === 1
+          ? " It does not contain it entirely: one EIK-listed project carries no culture word in its name."
+          : ` It does not contain it entirely: ${formatInt(missed, lang)} of the EIK-listed projects carry no culture word in their name.`;
+
   const rows = s
     ? [
         {
@@ -49,9 +114,17 @@ export const CultureFundsScreen: FC = () => {
           sub: bg
             ? `${formatInt(s.funds.eikExactProjects, lang)} проекта на институциите от регистъра`
             : `${formatInt(s.funds.eikExactProjects, lang)} projects, the register's own institutions`,
+          // ⚠️ THIS SENTENCE USED TO SAY „Подмножество на реда отдолу" — a
+          // subset of the row below — AND THAT WAS FALSE. Measured 2026-08-25:
+          // 46 of the 47 EIK-matched projects are also name-matched, and one is
+          // not, because its name carries no culture stem. „A subset" is the
+          // claim that lets a reader reason about €106m and €147m together at
+          // all, so an off-by-one there is not a rounding error in the copy; it
+          // is the wrong relationship. Both the figure AND the clause are
+          // derived above so neither can freeze.
           basis: bg
-            ? "Възпроизводимо: точно съвпадение по ЕИК срещу списъка на сектора. Подмножество на реда отдолу."
-            : "Reproducible: an exact EIK match against the sector register. A subset of the row below.",
+            ? `Възпроизводимо: точно съвпадение по ЕИК срещу списъка на сектора.${overlapBg}`
+            : `Reproducible: an exact EIK match against the sector register.${overlapEn}`,
         },
         {
           key: "isun-name",
@@ -63,8 +136,8 @@ export const CultureFundsScreen: FC = () => {
             ? `${formatInt(s.funds.byNameProjects, lang)} проекта, предимно читалища`
             : `${formatInt(s.funds.byNameProjects, lang)} projects, mostly читалища`,
           basis: bg
-            ? "Долна граница с размита граница: съвпадение по име, с изключенията срещу „аквакултури“ и „изкуствен интелект“. 56% над реда отгоре — и двете са верни."
-            : "A floor with a fuzzy edge: a name match, guarded against „аквакултури“ and „изкуствен интелект“. 56% above the row above — both are true.",
+            ? `Долна граница с размита граница: съвпадение по име, с изключенията срещу „аквакултури“ и „изкуствен интелект“. Много над реда отгоре — и двете са верни.${missedBg}`
+            : `A floor with a fuzzy edge: a name match, guarded against „аквакултури“ and „изкуствен интелект“. Well above the row above — both are true.${missedEn}`,
         },
         {
           key: "interreg",

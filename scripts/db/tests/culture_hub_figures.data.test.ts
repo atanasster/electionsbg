@@ -196,13 +196,18 @@ test.skipIf(skip)("the two funds bases match, and stay distinct", async () => {
   );
   near(Number(exact.eur), b.funds.eikExactEur, "ИСУН EIK-exact money");
   near(Number(byName.eur), b.funds.byNameEur, "ИСУН name-matched money");
-  // The EIK-exact set is a strict SUBSET. If that inverts, one of the two is
-  // being computed over the wrong population and a surface will render one as
-  // the other — they are ~56% apart.
+  // ⚠️ NOT a subset relation, and this comment claimed it was until 2026-08-25.
+  // Measured, 46 of the EIK arm's 47 projects are also name-matched — the 47th
+  // (ЕИК 000669802, a national art school whose name carries no culture stem) is
+  // in the register and outside the name rule. So the assertion below is about
+  // MAGNITUDE only: the name arm is much the larger of two heavily-overlapping
+  // populations, and an inversion means one of them is being computed over the
+  // wrong rows. `culture_fund_sources.data.test.ts` owns the overlap itself.
   assert.ok(
     b.funds.eikExactEur < b.funds.byNameEur,
     `the EIK-exact ИСУН figure (${b.funds.eikExactEur}) is no longer below the ` +
-      `name-matched one (${b.funds.byNameEur}) — it must be a subset`,
+      `name-matched one (${b.funds.byNameEur}) — the name arm reaches a far ` +
+      `wider population and should dominate it`,
   );
 });
 

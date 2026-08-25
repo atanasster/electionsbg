@@ -51,10 +51,13 @@ import { cultureSearchSources } from "./cultureSearch";
  * number, which is the honest state; a `0` would be a claim.
  *
  * EVERY FIGURE IS THE DESTINATION'S OWN, per the dashboard-hub rule. The funds
- * tile is the one that can go wrong quietly: `/culture/funds` will rank the
- * NAME-matched population, so this quotes `byNameEur` (€147.1m) and carries the
- * EIK-exact figure as the secondary rather than the other way round — the two
- * are 56% apart and both true.
+ * tile is the one that can go wrong quietly: `/culture/funds` ranks the
+ * NAME-matched population, so this quotes `byNameEur` and carries the EIK-exact
+ * figure as the secondary rather than the other way round — the two are far
+ * apart and both true. ⚠️ This comment carried „€147.1m … 56% apart" until
+ * 2026-08-25; the register has since widened and the gap is 38.8%. Read the
+ * current figures from the blob, never from here — and note the two arms are NOT
+ * nested either, which `hubStats.ts`'s `eikExactAlsoByName` measures.
  */
 const tileMetric = (
   id: string,

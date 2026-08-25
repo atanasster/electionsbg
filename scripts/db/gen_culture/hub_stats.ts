@@ -47,6 +47,7 @@ import {
   chitalishteNameSql,
   interregThemeSql,
 } from "../../../src/lib/cultureMatch";
+import type { CultureHubStats } from "../../../src/data/culture/hubStats";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -79,44 +80,17 @@ const INPUTS: Record<string, string> = {
 // now genuinely PINS this generator after db:load:interreg:pg rather than merely
 // making the slot safe.
 
-export interface CultureHubStats {
-  /** ISO date the figures were derived. A reader of the JSON can tell its age. */
-  generatedAt: string;
-  procurement: {
-    contracts: number;
-    eur: number;
-    buyers: number;
-    suppliers: number;
-    singleBid: number;
-    bidKnown: number;
-    /** The whole-corpus rate, carried BESIDE the sector's — the tile's claim is
-     *  „typical, not exceptional", which is a comparison and not a number. */
-    nationalSingleBid: number;
-    nationalBidKnown: number;
-    firstDate: string | null;
-  };
-  risk: { grades: Record<string, number> };
-  funds: {
-    /** EIK-exact over the register. Reproducible; a strict subset of `byName`. */
-    eikExactEur: number;
-    eikExactProjects: number;
-    /** Name-matched via cultureMatch — a floor with a fuzzy edge. */
-    byNameEur: number;
-    byNameProjects: number;
-    chitalishtaEur: number;
-  };
-  agri: { chitalishtaEur: number; chitalishtaRows: number };
-  /** THEMATIC — joined through the operation's title. A different question from
-   *  „culture bodies doing Interreg", and ~4.4x apart from it. */
-  interreg: {
-    thematicEur: number;
-    partnerRows: number;
-    partners: number;
-    /** Of `partnerRows`. ~21%: an EIK-keyed surface answers only for these. */
-    rowsWithEik: number;
-  };
-  people: { culturalInstituteRoles: number };
-}
+// ⚠️ THE SHAPE IS DEFINED ONCE, IN `src/data/culture/hubStats.ts`, AND IMPORTED.
+// This file carried its own hand-maintained copy until 2026-08-25, so adding one
+// field meant editing two interfaces that nothing compared. The failure modes are
+// asymmetric and the second is the dangerous one: a field added to the generator
+// only is inert, while a field added to the FRONTEND only compiles cleanly and
+// reaches production as `undefined` — a render throw with no error boundary
+// behind it. `culture_hub_figures.data.test.ts` already imports the same type
+// from `src/`, so the direction is established and works under tsx via `@/*`.
+//
+// What each field IS lives on that interface; what each field is DERIVED FROM
+// lives at its query below.
 
 const num = (v: unknown): number => Number(v ?? 0);
 
@@ -178,6 +152,22 @@ const main = async () => {
     `SELECT count(*) n, round(sum(grant_eur)::numeric, 0) eur
        FROM fund_projects WHERE ${cultureNameSql("beneficiary_name")}`,
   );
+  // The overlap — measured rather than assumed, because the two arms are NOT
+  // nested and every surface used to say they were. Measured 2026-08-25: 46 of
+  // 47. The 47th is ЕИК 000669802, Национална професионална гимназия по
+  // полиграфия и фотография — in the register as a national art school, and its
+  // NAME carries no culture stem, so `cultureNameSql` correctly cannot reach it.
+  //
+  // ⚠️ Do NOT close the gap by adding a stem to cultureMatch.ts. That file's
+  // header records four measured ways a widened stem inverts a figure, and
+  // „полиграф" would be a fifth candidate nobody has measured. The roster is the
+  // right identity for this school; the name rule is right to miss it.
+  const [fundsBoth] = await allRows<Record<string, string>>(
+    `SELECT count(*) n
+       FROM fund_projects
+      WHERE beneficiary_eik = ANY($1) AND ${cultureNameSql("beneficiary_name")}`,
+    [eiks],
+  );
   const [fundsChit] = await allRows<Record<string, string>>(
     `SELECT round(sum(grant_eur)::numeric, 0) eur
        FROM fund_projects WHERE ${chitalishteNameSql("beneficiary_name")}`,
@@ -231,6 +221,7 @@ const main = async () => {
       byNameEur: num(fundsName.eur),
       byNameProjects: num(fundsName.n),
       chitalishtaEur: num(fundsChit.eur),
+      eikExactAlsoByName: num(fundsBoth.n),
     },
     agri: { chitalishtaEur: num(agri.eur), chitalishtaRows: num(agri.n) },
     interreg: {
@@ -264,6 +255,17 @@ const main = async () => {
       "risk grades",
       Object.keys(out.risk.grades).length,
       "db:load:pg (contract_risk_cache)",
+    ],
+    // Both ИСУН arms, not just the name one. A zeroed EIK arm — a regression in
+    // CULTURE_GROUP_EIKS, or in fund_projects.beneficiary_eik — would otherwise
+    // write a blob whose overlap sentence reads „0 от 0 … се хващат и по име",
+    // which is a claim rather than an absence. The OVERLAP itself stays out: it
+    // is bounded by this arm, so guarding the denominator guards it too, and a
+    // legitimately disjoint pair must be reportable.
+    [
+      "ИСУН EIK-exact",
+      out.funds.eikExactProjects,
+      "db:load:funds:pg + the culture register",
     ],
     ["ИСУН name-matched", out.funds.byNameProjects, "db:load:funds:pg"],
     ["ДФЗ читалища", out.agri.chitalishtaRows, "db:load:agri:pg"],

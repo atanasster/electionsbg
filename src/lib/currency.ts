@@ -287,6 +287,22 @@ export const formatPct = (
         maximumFractionDigits: digits,
       }) + "%";
 
-/** A count as a localised integer (BG groups with a space above 4 digits). */
-export const formatInt = (v: number, lang: string): string =>
-  v.toLocaleString(lang);
+/** A count as a localised integer (BG groups with a space above 4 digits).
+ *
+ *  ⚠️ ACCEPTS null/undefined ON PURPOSE, like `formatCount` and
+ *  `formatEurCompact` above. It took a bare `number` and called
+ *  `.toLocaleString()` on it unguarded, which is a `TypeError` — and this
+ *  function is called from dozens of screens that read fields off blobs served
+ *  from a SEPARATE bucket (`dataUrl`), shipped by `bucket:sync` rather than by
+ *  `npm run deploy`. A bundle landing ahead of its blob hands a screen a field
+ *  the served JSON does not carry yet, and with no error boundary anywhere in
+ *  `src/` an uncaught render throw unmounts the React root — a white screen for
+ *  the whole SPA, not a broken card. „—" is the same absent-value marker the
+ *  siblings use; it is never a zero, which would be a claim. */
+export const formatInt = (
+  v: number | null | undefined,
+  lang: string,
+): string =>
+  v === null || v === undefined || Number.isNaN(v)
+    ? "—"
+    : v.toLocaleString(lang);

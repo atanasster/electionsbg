@@ -65,6 +65,7 @@ const STATS: CultureHubStats = {
     byNameEur: 147_100_000,
     byNameProjects: 1559,
     chitalishtaEur: 22_100_000,
+    eikExactAlsoByName: 46,
   },
   agri: { chitalishtaEur: 18_300_000, chitalishtaRows: 264 },
   interreg: {
@@ -76,8 +77,14 @@ const STATS: CultureHubStats = {
   people: { culturalInstituteRoles: 59 },
 };
 
+/** The stats the mocked hook returns. Mutable so a test can drive the two states
+ *  the component branches on that `STATS` alone cannot reach: a blob minted
+ *  before `eikExactAlsoByName` existed, and an overlap gap above one. Reset in
+ *  `beforeEach` below, so a test that swaps it cannot leak into the next. */
+let statsFixture: CultureHubStats = STATS;
+
 vi.mock("@/data/culture/hubStats", () => ({
-  useCultureHubStats: () => ({ data: STATS, isLoading: false }),
+  useCultureHubStats: () => ({ data: statsFixture, isLoading: false }),
 }));
 
 const { CultureFundsScreen } = await import("./CultureFundsScreen");
@@ -168,5 +175,169 @@ describe("CultureFundsScreen — the spine attribution caveat", () => {
       "the one-chain claim is no longer on the page, so the inverse gate above " +
         "guards nothing — re-point COPY.claim at the current wording",
     ).toMatch(COPY.en.claim);
+  });
+});
+
+// ── the EIK↔name relationship the page states in words ───────────────────────
+//
+// Until 2026-08-25 the ИСУН-by-EIK row said „Подмножество на реда отдолу" / „A
+// subset of the row below". Measured, it is 46 of 47 — one register body (a
+// national art school whose name carries no culture stem) sits outside the name
+// rule. „A subset" is the sentence that lets a reader reason about €106m and
+// €147m together, so getting it wrong is not a copy nit; it is the wrong
+// relationship between the page's two largest numbers.
+//
+// BOTH the figures and the RELATIONSHIP CLAUSE are derived from the blob, so
+// these assert the composed sentence rather than re-freezing „46 of 47" here.
+describe("CultureFundsScreen — the EIK↔name overlap claim", () => {
+  const rowsText = (): string =>
+    Array.from(document.querySelectorAll("li"))
+      .map((li) => li.textContent ?? "")
+      .join("\n");
+
+  beforeEach(() => {
+    lang = "en";
+    statsFixture = STATS;
+  });
+
+  it.each(["en", "bg"] as const)(
+    "never calls the EIK arm a plain subset in %s",
+    (locale) => {
+      lang = locale;
+      mount();
+      const text = rowsText();
+      // The bare claim, with no qualifier. `almost`/„почти" is what makes the
+      // sentence true, so its absence beside the word is the regression.
+      const bare =
+        locale === "en"
+          ? /(?<!almost, but not quite, )a subset of the row below/i
+          : /(?<!почти, но не изцяло )подмножество на реда отдолу/i;
+      expect(
+        text,
+        "the ИСУН-by-EIK row calls itself a subset of the name-matched row " +
+          "with no qualifier — measured, one of its projects is outside the " +
+          "name rule, so the two arms overlap heavily and neither contains " +
+          "the other",
+      ).not.toMatch(bare);
+    },
+  );
+
+  it("keeps the subset wording under test actually present — the gate is not vacuous", () => {
+    // The companion the spine block above already carries: an inverse gate whose
+    // antecedent never fires is green for ever. If the copy stops using the word
+    // „subset" at all, the lookbehind above guards nothing and needs re-pointing
+    // rather than silently passing.
+    mount();
+    expect(
+      rowsText(),
+      'the ИСУН-by-EIK row no longer uses the word "subset" at all, so the ' +
+        "un-qualified-subset gate above guards nothing — re-point it at the " +
+        "current wording",
+    ).toMatch(/a subset of the row below/i);
+  });
+
+  it.each(["en", "bg"] as const)(
+    "renders the measured overlap as a composed phrase in %s",
+    (locale) => {
+      lang = locale;
+      mount();
+      // ⚠️ NOT `toContain("47")`. `rowsText()` joins every row, and the fixture's
+      // byNameEur renders as „€147.1M" / „€147,1 млн." — so a bare substring
+      // check on the denominator passes in both locales even with the figure
+      // deleted from the EIK row entirely. The phrase is what carries „46 OF 47".
+      const c = STATS.funds;
+      const phrase =
+        locale === "en"
+          ? new RegExp(
+              `${c.eikExactAlsoByName} of these ${c.eikExactProjects} projects are also name-matched`,
+            )
+          : new RegExp(
+              `${c.eikExactAlsoByName} от ${c.eikExactProjects} от тези проекта се хващат и по име`,
+            );
+      expect(rowsText()).toMatch(phrase);
+    },
+  );
+
+  it.each(["en", "bg"] as const)(
+    "names the single missed project in the singular, in %s",
+    (locale) => {
+      lang = locale;
+      mount();
+      // 47 − 46 = 1, which is the value the page carries today and the one the
+      // whole finding is about. Neither language pluralises by template:
+      // Bulgarian would give „1 проекта … нямат" (бройна форма plus a plural
+      // verb) and English „1 … projects carry".
+      const phrase =
+        locale === "en"
+          ? /does not contain it entirely: one EIK-listed project carries no culture word in its name/
+          : /Не го съдържа изцяло: един проект от списъка по ЕИК няма културна дума в името си/;
+      expect(rowsText()).toMatch(phrase);
+      expect(rowsText()).not.toMatch(
+        locale === "en" ? /1 of the EIK-listed projects carry/ : /1 проекта/,
+      );
+    },
+  );
+
+  it.each(["en", "bg"] as const)(
+    "switches to the plural when more than one project is missed, in %s",
+    (locale) => {
+      lang = locale;
+      statsFixture = {
+        ...STATS,
+        funds: { ...STATS.funds, eikExactAlsoByName: 44 },
+      };
+      mount();
+      const phrase =
+        locale === "en"
+          ? /3 of the EIK-listed projects carry no culture word in their name/
+          : /3 проекта от списъка по ЕИК нямат културна дума в името си/;
+      expect(rowsText()).toMatch(phrase);
+    },
+  );
+
+  it("drops the relationship entirely when the arms turn out to be nested", () => {
+    // The state the frozen clause could not survive: one register body gaining a
+    // culture word makes the overlap complete, and „47 of these 47 … almost, but
+    // not quite, a subset" contradicts itself in one sentence.
+    statsFixture = {
+      ...STATS,
+      funds: {
+        ...STATS.funds,
+        eikExactAlsoByName: STATS.funds.eikExactProjects,
+      },
+    };
+    mount();
+    const text = rowsText();
+    expect(text).toMatch(/are also name-matched — a subset of the row below/);
+    expect(text).not.toMatch(/almost, but not quite/);
+    expect(text).toMatch(/It contains the row above entirely/);
+  });
+
+  it("renders without the overlap clause when the served blob predates the field", () => {
+    // Not hypothetical: the blob ships via `bucket:sync`, a different command
+    // from `npm run deploy`, so a bundle can load against a blob minted before
+    // the field existed. It must not throw — there is no error boundary in
+    // `src/`, so an uncaught render throw unmounts the React root and blanks the
+    // whole SPA rather than one card.
+    statsFixture = {
+      ...STATS,
+      funds: { ...STATS.funds, eikExactAlsoByName: undefined },
+    };
+    lang = "bg";
+    expect(() => mount()).not.toThrow();
+    const text = rowsText();
+    expect(text).not.toMatch(/NaN|undefined/);
+    // The row keeps its own true sentence and says NOTHING about the
+    // relationship — asserted as the whole basis paragraph, not as a substring,
+    // because the failure being pinned is a trailing clause. („—" would be
+    // `formatInt`'s absent marker, but it cannot be checked for on its own: the
+    // em-dash is ordinary punctuation everywhere else on this page.)
+    const eikBasis = Array.from(
+      document.querySelectorAll("li")[0]?.querySelectorAll("p") ?? [],
+    ).at(-1)?.textContent;
+    expect(eikBasis).toBe(
+      "Възпроизводимо: точно съвпадение по ЕИК срещу списъка на сектора.",
+    );
+    expect(text).not.toMatch(/подмножество/);
   });
 });
