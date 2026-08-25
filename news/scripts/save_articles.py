@@ -33,7 +33,18 @@ Pipeline:
        restatement of its own headline is REJECTED rather than saved:
            title_as_body | thin_body
     4. Writes one JSON file per article, named
-       <YYYYMMDD|nodate>-<url-slug>-<md5_8>.json
+       <YYYYMMDD|nodate>-<url-slug>-<md5_8>.json, where the day is the
+       PUBLICATION day in Europe/Sofia (the newsroom's own clock) while the
+       stored `published` stays UTC — one is a calendar day, the other an
+       instant, and deriving the bucket from UTC filed everything published
+       00:00-02:59 local under the previous day.
+
+    Identity is the CANONICAL url (canonical_url): scheme, host case, `www.`,
+    port, trailing slash, fragment and tracking parameters are normalised away
+    before anything is compared, while the stored `url` stays the real
+    fetchable one. Publish dates with no offset are read as Europe/Sofia, not
+    UTC, and a date more than a day in the future is refused rather than
+    stored.
     5. Caches the page HTML, gzipped, under news/data/_html/<domain>/ keyed by
        a hash of the URL — written BEFORE the gates, so a rejected page is
        recoverable too.
@@ -84,8 +95,9 @@ import urllib.request
 import urllib.error
 from html.parser import HTMLParser
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 # DATA_BG_ROOT overrides the repository root, matching analyze_articles.py and
@@ -466,22 +478,83 @@ BG_MONTHS = {
 }
 
 
-def normalize_date(raw):
+# Bulgarian newsrooms publish in local time and frequently emit a timestamp
+# with no offset at all. Reading those as UTC shifts every one of them by the
+# 2-3 hours Sofia is ahead, which moves anything published after 21:00 local
+# onto the PREVIOUS day — including in article_filename, which is what the
+# whole date-bucketing scheme keys on. Measured before this: 4,354 of 4,925
+# stored records carried "+00:00".
+SOFIA_TZ = ZoneInfo("Europe/Sofia")
+
+# A publish date this far ahead of now is not a timezone artifact, it is a
+# broken feed or a scheduled-publication placeholder. Measured: 5 stored
+# records were future-dated, capital.bg by nearly two months.
+MAX_FUTURE_SKEW = timedelta(days=1)
+
+# A value with no wall clock states a DAY. parse_dt resolves it to naive
+# MIDNIGHT, which in Sofia is 21:00 UTC the day BEFORE — the same off-by-one
+# the timezone fix exists to end, and the reason the Cyrillic branch anchors at
+# noon. Both parse paths must use the same anchor, or a sitemap <lastmod>
+# (routinely date-only, and the lister's own list_published source) files under
+# the previous day. A WRITTEN-OUT midnight ("2026-08-06T00:00:00") is
+# deliberately left alone: the site stated a time, and we do not overrule it.
+_DAY_ONLY_RE = re.compile(r"^\s*(\d{4}-\d{2}-\d{2}|\d{8})\s*$")
+
+# RFC 5322: a -0000 offset means "UTC, sender withholding their local time".
+# parsedate_to_datetime returns it NAIVE, so without this it would be read as
+# Sofia local and shifted by three hours.
+_RFC2822_MINUS_ZERO_RE = re.compile(r"-0000\s*$")
+
+
+def normalize_date(raw, now=None):
+    """Normalise a publish date to a UTC ISO-8601 string.
+
+    Returns the site's own string unchanged when it cannot be parsed (better
+    than losing it), and None when the value is a date we refuse to store."""
     if not raw:
         return None
     dt = fla.parse_dt(raw)
+    naive = dt is not None and dt.tzinfo is None
     if dt is None:
         m = re.search(r"(\d{1,2})\s+([а-яё]+)\s+(\d{4})", raw.strip().lower())
         if m and m.group(2) in BG_MONTHS:
             try:
+                # Anchored at NOON, not midnight. A Bulgarian date-only value
+                # ("24 август 2026") states a DAY and carries no wall clock;
+                # midnight Sofia converts to 21:00 UTC the day BEFORE, so the
+                # article would file under the wrong day in article_filename —
+                # the same off-by-one the timezone fix exists to end. Noon is
+                # the only anchor for which the UTC day equals the stated day
+                # in both EET and EEST.
                 dt = datetime(int(m.group(3)), BG_MONTHS[m.group(2)],
-                              int(m.group(1)), tzinfo=timezone.utc)
+                              int(m.group(1)), 12, 0)
+                naive = True
             except ValueError:
                 pass
     if dt is None:
         return raw.strip()  # keep the site's own string rather than losing it
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
+    if naive:
+        if _RFC2822_MINUS_ZERO_RE.search(raw):
+            dt = dt.replace(tzinfo=timezone.utc)
+        else:
+            if (_DAY_ONLY_RE.match(raw)
+                    and (dt.hour, dt.minute, dt.second) == (0, 0, 0)):
+                dt = dt.replace(hour=12)
+            # The publisher's own wall clock, not UTC. ZoneInfo handles the
+            # EET/EEST switch, so a fixed +02:00 (wrong all summer) is not an
+            # option either. A DST fold or a nonexistent local hour is
+            # resolved by ZoneInfo's default (fold=0) — an hour either way on
+            # two nights a year, which no consumer here can tell apart from
+            # ordinary publishing.
+            dt = dt.replace(tzinfo=SOFIA_TZ)
+    now = now or datetime.now(timezone.utc)
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=timezone.utc)
+    if dt.astimezone(timezone.utc) - now > MAX_FUTURE_SKEW:
+        # Refuse rather than store. A future publish date sorts an article to
+        # the top of every "latest" view for as long as it stays in the
+        # future, and the ordering is what every consumer here trusts.
+        return None
     return dt.astimezone(timezone.utc).isoformat()
 
 
@@ -537,11 +610,18 @@ def extract_record(html_text, domain, url, list_published=None):
                  fla.extract_title_from_html(html_text.encode("utf-8")) or "")
              or None)
     title = strip_site_suffix(title, site_name, domain)
-    published = normalize_date(
-        _jsonld_str(ld.get("datePublished"))
-        or metas.get("article:published_time")
-        or metas.get("datepublished")
-        or list_published)
+    # Per SOURCE, first that survives — not `a or b or c` then normalise. A
+    # future JSON-LD date is refused (returns None), and with the `or` chain
+    # resolving first, that refusal also discarded a perfectly good
+    # article:published_time and dropped the article out of every "latest"
+    # view. The bad value on the page is bad; the next one may not be.
+    published = next(
+        (d for d in (normalize_date(src) for src in (
+            _jsonld_str(ld.get("datePublished")),
+            metas.get("article:published_time"),
+            metas.get("datepublished"),
+            list_published) if src) if d),
+        None)
     author = (_jsonld_str(ld.get("author"))
               or metas.get("article:author") or metas.get("author"))
     topic = (_jsonld_str(ld.get("articleSection"))
@@ -639,6 +719,48 @@ def fetch_html(url):
 
 # ------------------------------------------------------------------- files
 
+# ⚠️ `ref`, `source` and `amp` are the risky three: on some sites they could
+# in principle address content rather than track a referral. They are stripped
+# because in THIS corpus they are measurably referral markers — capital.bg
+# appends `?ref=` to in-site links — and because the identity check below is
+# one-sided: the only param whose removal could merge two real articles is one
+# that carries the article id, and every such site in the registry uses a
+# name outside this list (moreto.net's `n=`, which is kept). Re-measure before
+# adding a name here; a wrong entry silently merges two articles into one.
+_TRACKING_PARAM_RE = re.compile(
+    r"^(utm_[a-z_]+|fbclid|gclid|msclkid|yclid|igshid|mc_[ce]id|_ga|"
+    r"ref|referrer|source|amp)$", re.I)
+
+
+def canonical_url(url):
+    """The identity this pipeline dedupes on.
+
+    The raw URL is not it: the same article arrives as http/https, with and
+    without `www.`, with and without a trailing slash, and with whatever
+    tracking parameters the referring link carried. Measured on the first
+    corpus: 20 groups of stored records were the same article under two
+    spellings, and 53 records carried a query string into the key.
+
+    Deliberately conservative — it normalises SPELLING, never meaning. A
+    non-tracking query parameter is kept, because plenty of Bulgarian sites
+    still address an article as `novini.php?n=534254` (moreto.net), where
+    dropping the query would collapse every article on the site into one."""
+    parts = urlsplit(url.strip())
+    scheme = "https" if parts.scheme in ("http", "https", "") else parts.scheme
+    host = parts.netloc.lower()
+    if host.startswith("www."):
+        host = host[4:]
+    if host.endswith(":80") or host.endswith(":443"):
+        host = host.rsplit(":", 1)[0]
+    path = parts.path or "/"
+    if len(path) > 1 and path.endswith("/"):
+        path = path.rstrip("/") or "/"
+    kept = [(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
+            if not _TRACKING_PARAM_RE.match(k)]
+    query = urlencode(kept)
+    return urlunsplit((scheme, host, path, query, ""))
+
+
 def article_filename(url, published):
     seg = [s for s in re.split(r"/+", urlsplit(url).path) if s]
     slug = seg[-1] if seg else ""
@@ -646,23 +768,42 @@ def article_filename(url, published):
     slug = re.sub(r"[_+]", "-", slug)
     slug = re.sub(r"[^0-9A-Za-zА-Яа-яЁё\-]", "", slug)
     slug = re.sub(r"-{2,}", "-", slug).strip("-")[:60]
-    h = hashlib.md5(url.encode()).hexdigest()[:8]
-    m = re.search(r"(\d{4})-(\d{2})-(\d{2})", published or "")
-    date = m.group(0).replace("-", "") if m else "nodate"
+    h = hashlib.md5(canonical_url(url).encode()).hexdigest()[:8]
+    # The DAY bucket is the publication day in the newsroom's own timezone, not
+    # the UTC day. `published` itself stays UTC — it is an instant — but this is
+    # a calendar day, and Bulgaria is +02:00/+03:00, so a UTC-derived bucket
+    # files everything published 00:00-02:59 local under the previous day
+    # (measured: 143 of 4,361 stored records sit in that window).
+    date = "nodate"
+    dt = fla.parse_dt(published or "")
+    if dt is not None:
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=SOFIA_TZ)
+        date = dt.astimezone(SOFIA_TZ).strftime("%Y%m%d")
+    elif published:
+        m = re.search(r"(\d{4})-(\d{2})-(\d{2})", published)
+        date = m.group(0).replace("-", "") if m else "nodate"
     return f"{date}-{slug or 'article'}-{h}.json"
 
 
 def existing_urls(folder):
+    """CANONICAL keys of everything already stored.
+
+    Keyed canonically, not on the raw `url` field: the same article arrives as
+    http/https, with and without www., with and without a trailing slash, and
+    with whatever tracking parameters the referring link carried — 20 groups
+    of the first corpus were one article stored twice under two spellings. The
+    stored `url` stays the real fetchable one; only the KEY is normalised."""
     urls = set()
     if not folder.exists():
         return urls
     for p in folder.glob("*.json"):
         try:
             d = json.loads(p.read_text(encoding="utf-8"))
-            if d.get("url"):
-                urls.add(d["url"])
         except (json.JSONDecodeError, OSError):
             continue
+        if d.get("url"):
+            urls.add(canonical_url(d["url"]))
     return urls
 
 
@@ -770,6 +911,17 @@ def rejected_path(domain):
 REJECTED_TTL_DAYS = 30
 
 
+def rejected_url_map(domain, max_age_days=REJECTED_TTL_DAYS):
+    """canonical key -> the RAW ledgered URL.
+
+    --reextract pass 2 promotes a rejection by re-extracting its page, and the
+    record it writes must name a URL a reader (and --allow-fetch) can actually
+    open. The canonical form normalises SPELLING for dedupe and is not
+    guaranteed fetchable — a site that 301s the bare host, or serves only the
+    www. form, would be handed a URL that does not resolve."""
+    return _read_ledger(domain, max_age_days)
+
+
 def rejected_urls(domain, max_age_days=REJECTED_TTL_DAYS):
     """URLs a previous run's body gate turned away. Skipping them keeps a
     nightly run from re-fetching the same dead page every night.
@@ -782,8 +934,12 @@ def rejected_urls(domain, max_age_days=REJECTED_TTL_DAYS):
     from an over-firing gate on its own. Pass max_age_days=None to skip every
     ledgered URL regardless of age; --retry-rejected skips the ledger
     entirely, which is the right tool immediately after an extractor fix."""
+    return set(_read_ledger(domain, max_age_days))
+
+
+def _read_ledger(domain, max_age_days):
     path = rejected_path(domain)
-    urls = set()
+    urls = {}
     if not path.exists():
         return urls
     cutoff = (datetime.now(timezone.utc) - timedelta(days=max_age_days)
@@ -797,9 +953,10 @@ def rejected_urls(domain, max_age_days=REJECTED_TTL_DAYS):
                 d = json.loads(line)
             except json.JSONDecodeError:
                 continue  # a torn line must not hide the rest of the ledger
-            url = d.get("url")
-            if not url:
+            raw = d.get("url")
+            if not raw:
                 continue
+            url = canonical_url(raw)
             if cutoff is not None:
                 at = d.get("at")
                 try:
@@ -813,11 +970,11 @@ def rejected_urls(domain, max_age_days=REJECTED_TTL_DAYS):
                         # A stale rejection: let this run try the page again.
                         # discard() rather than skipping the line, because a
                         # later entry for the same URL may still be fresh.
-                        urls.discard(url)
+                        urls.pop(url, None)
                         continue
-            urls.add(url)
+            urls[url] = raw
     except OSError:
-        return set()
+        return {}
     return urls
 
 
@@ -850,11 +1007,19 @@ def record_rejection(domain, url, reason, chars, title):
 HTML_CACHE_DIR_NAME = "_html"
 
 
-def html_cache_path(domain, url):
-    """Keyed by a hash of the URL, NOT by the article filename: the filename
-    embeds the publish date, which can change between extractions, while the
-    URL is the identity every other part of this pipeline already dedupes on."""
-    h = hashlib.md5(url.encode()).hexdigest()[:16]
+def html_cache_path(domain, url, _raw_key=False):
+    """Keyed by a hash of the CANONICAL url, NOT by the article filename: the
+    filename embeds the publish date, which can change between extractions,
+    while the URL is the identity every other part of this pipeline dedupes on.
+
+    _raw_key reproduces the PRE-canonicalisation key. It exists only so
+    read_html_cache and the prune can still see entries written before the key
+    changed — 207 of 208 live entries at the moment it changed, and the cache
+    is the artifact whose whole purpose is recovering articles a structurally
+    stale source can never list again. Never used for WRITING: an entry read
+    through it is re-keyed on its next write."""
+    key = url if _raw_key else canonical_url(url)
+    h = hashlib.md5(key.encode()).hexdigest()[:16]
     return DATA_DIR / HTML_CACHE_DIR_NAME / domain / f"{h}.json.gz"
 
 
@@ -882,18 +1047,22 @@ def write_html_cache(domain, url, html_text):
 
 
 def read_html_cache(domain, url):
-    """The cached page, or None when it was never cached or is unreadable. A
-    corrupt entry reads as absent rather than raising -- a half-written gzip
-    from an interrupted run must not stop a whole re-extraction."""
-    path = html_cache_path(domain, url)
-    if not path.exists():
-        return None
-    try:
-        with gzip.open(path, "rt", encoding="utf-8") as f:
-            d = json.loads(f.read())
-    except (OSError, EOFError, json.JSONDecodeError, gzip.BadGzipFile):
-        return None
-    return d.get("html")
+    """The cached page, or None when it was never cached or is unreadable.
+
+    Tries the canonical key, then the legacy raw-URL key, so entries written
+    before the key changed stay reachable with no migration step. A corrupt
+    entry reads as absent rather than raising — a half-written gzip from an
+    interrupted run must not stop a whole re-extraction."""
+    for path in (html_cache_path(domain, url),
+                 html_cache_path(domain, url, _raw_key=True)):
+        if not path.exists():
+            continue
+        try:
+            with gzip.open(path, "rt", encoding="utf-8") as f:
+                return json.loads(f.read()).get("html")
+        except (OSError, EOFError, json.JSONDecodeError, gzip.BadGzipFile):
+            continue
+    return None
 
 
 # ------------------------------------------------------------- re-extraction
@@ -912,7 +1081,8 @@ def stored_records(folder):
 
 
 def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
-                  cache_html=True, floor_from_cli=False, prune_cache=False):
+                  cache_html=True, floor_from_cli=False, prune_cache=False,
+                  dedupe=False):
     """Rebuild stored records from CACHED HTML, with no network.
 
     This is the mode that makes extractor work compounding instead of
@@ -939,6 +1109,10 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
       cache_html      persist pages fetched under --allow-fetch.
       prune_cache     delete cache entries for URLs that are in neither the
                       corpus nor the ledger.
+      dedupe          collapse records that are the same article under two
+                      spellings. REPORTED by default (duplicates_found) and
+                      only removed with this flag — consistent with every
+                      other destructive path in this module.
 
     Exit-code semantics live in main(): 0 whenever the pass completed, 4 only
     when it could not do anything AND something failed. Demotions and prunes
@@ -963,6 +1137,7 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
            "records": 0, "from_cache": 0, "fetched": 0, "no_html": 0,
            "rewritten": 0, "unchanged": 0, "shrunk_refused": 0,
            "identity_refused": 0, "promoted": 0, "demoted": 0,
+           "duplicates_found": 0, "duplicates_removed": 0,
            "cache_pruned": 0, "failed": []}
 
     def html_for(url):
@@ -998,14 +1173,15 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
         ledger write actually landed. Unlinking first loses the URL from the
         corpus AND the ledger at once, orphaning its cached HTML with nothing
         left that knows the page was ever seen."""
-        if url not in ledgered:
+        key = canonical_url(url)
+        if key not in ledgered:
             if not record_rejection(domain, url, reason,
                                     rec.get("content_chars") or 0,
                                     rec.get("title")):
                 out["failed"].append({"url": url, "detail":
                                       "ledger write failed; record kept"})
                 return False
-            ledgered.add(url)
+            ledgered.add(key)
         try:
             path.unlink()
             analysis_sidecar(domain, path.name).unlink(missing_ok=True)
@@ -1016,6 +1192,36 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
 
     ledgered = rejected_urls(domain, max_age_days=None)
     demoted_urls = set()
+
+    # --- pass 0: collapse records that are the same article under two
+    #     spellings. canonical_url stops NEW duplicates; nothing collapsed the
+    #     ones already stored, and --reextract would otherwise rewrite both
+    #     members independently. Measured on the live corpus: 19 canonical keys
+    #     held more than one stored URL, all same-title.
+    by_key = {}
+    for path, rec in stored_records(folder):
+        if not rec.get("url"):
+            continue
+        by_key.setdefault(canonical_url(rec["url"]), []).append((path, rec))
+    for key, members in by_key.items():
+        if len(members) < 2:
+            continue
+        # Keep the fullest body; tie-break on the canonical spelling, so the
+        # survivor is the one a re-fetch would produce.
+        members.sort(key=lambda pr: (
+            -(pr[1].get("content_chars") or 0),
+            pr[1]["url"] != key,
+            pr[0].name))
+        out["duplicates_found"] += len(members) - 1
+        if not dedupe:
+            continue
+        for path, _rec in members[1:]:
+            try:
+                path.unlink()
+                analysis_sidecar(domain, path.name).unlink(missing_ok=True)
+                out["duplicates_removed"] += 1
+            except OSError as e:
+                out["failed"].append({"url": key, "detail": f"dedupe: {e}"})
 
     # --- pass 1: every stored record
     for path, old_rec in list(stored_records(folder)):
@@ -1064,7 +1270,7 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
             # when each article happened to be fetched.
             if ledger_then_unlink(url, f"reextract_{reason}", rec, path):
                 out["demoted"] += 1
-                demoted_urls.add(url)
+                demoted_urls.add(canonical_url(url))
             continue
         # Both timestamps move on every extraction, so compare on what a
         # consumer actually reads. Excluding only fetched_at is not enough:
@@ -1102,9 +1308,11 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
     # max_age_days=None is load-bearing: a rejection older than the ledger's
     # 30-day TTL is exactly the one most likely to predate the extractor fix
     # being applied, and reading the ledger through the TTL would skip it.
-    stored_urls = {r.get("url") for _, r in stored_records(folder)}
-    for url in sorted(rejected_urls(domain, max_age_days=None)
-                      - stored_urls - demoted_urls):
+    stored_urls = {canonical_url(r["url"]) for _, r in stored_records(folder)
+                   if r.get("url")}
+    raw_for = rejected_url_map(domain, max_age_days=None)
+    for key in sorted(set(raw_for) - stored_urls - demoted_urls):
+        url = raw_for[key]
         html_text = html_for(url)
         if html_text is None:
             continue
@@ -1129,10 +1337,16 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
     # --- optional: drop cache entries nothing refers to any more
     if prune_cache:
         keep = set()
-        for u in {r.get("url") for _, r in stored_records(folder)} | \
-                 rejected_urls(domain, max_age_days=None):
-            if u:
-                keep.add(html_cache_path(domain, u).name)
+        referenced = {r.get("url") for _, r in stored_records(folder)}
+        referenced |= set(rejected_url_map(domain, max_age_days=None).values())
+        for u in referenced:
+            if not u:
+                continue
+            # BOTH keys: an entry written before the key changed is still the
+            # only cached copy of that page, and pruning it would delete the
+            # recovery path this cache exists to provide.
+            keep.add(html_cache_path(domain, u).name)
+            keep.add(html_cache_path(domain, u, _raw_key=True).name)
         cache_dir = DATA_DIR / HTML_CACHE_DIR_NAME / domain
         if cache_dir.is_dir():
             for entry in cache_dir.glob("*.json.gz"):
@@ -1164,6 +1378,7 @@ def main():
     allow_shrink = False
     cache_html = True
     prune_cache = False
+    dedupe = False
     floor_from_cli = False
     for a in list(args):
         if a.startswith("--delay="):
@@ -1188,6 +1403,9 @@ def main():
             args.remove(a)
         elif a == "--prune-cache":
             prune_cache = True
+            args.remove(a)
+        elif a == "--dedupe":
+            dedupe = True
             args.remove(a)
         elif a.startswith("--min-body="):
             raw = a.split("=", 1)[1]
@@ -1225,7 +1443,7 @@ def main():
                                     "[--urls-file=F | --prefetched=F.jsonl] | "
                                     "save_articles.py <domain> --reextract "
                                     "[--allow-fetch] [--allow-shrink] "
-                                    "[--prune-cache] [--no-cache] "
+                                    "[--prune-cache] [--dedupe] [--no-cache] "
                                     "[--min-body=N] [--delay=S]"}))
         sys.exit(1)
     domain = args[0]
@@ -1245,15 +1463,16 @@ def main():
         summary = cmd_reextract(domain, min_body, allow_fetch, allow_shrink,
                                 delay, cache_html=cache_html,
                                 floor_from_cli=floor_from_cli,
-                                prune_cache=prune_cache)
+                                prune_cache=prune_cache, dedupe=dedupe)
         print(json.dumps(summary, ensure_ascii=False))
         # 0 whenever the pass COMPLETED, which an all-unchanged re-run does.
         # Counting only rewrites as progress made the code flip between two
         # identical runs; every outcome below is work the pass performed.
         did_work = any(summary[k] for k in ("rewritten", "promoted", "demoted",
                                             "unchanged", "shrunk_refused",
-                                            "identity_refused",
-                                            "cache_pruned"))
+                                            "identity_refused", "cache_pruned",
+                                            "duplicates_found",
+                                            "duplicates_removed"))
         sys.exit(4 if summary["failed"] and not did_work else 0)
 
     html_map = {}  # url -> page HTML, when pages were prefetched via browser
@@ -1340,21 +1559,28 @@ def main():
         """One body-gate rejection: ledger it once, count it, and report it in
         failed[] like every other per-article outcome."""
         nonlocal rejected
-        if url not in ledgered:
+        key = canonical_url(url)
+        if key not in ledgered:
             record_rejection(domain, url, reason,
                              rec["content_chars"], rec["title"])
-            ledgered.add(url)
+            ledgered.add(key)
         rejected += 1
         failed.append({"url": url, "detail": detail})
     for art in articles:
         url = art.get("url")
         if not url:
             continue
-        if url in have:
+        key = canonical_url(url)
+        if key in have:
             continue
-        if url in skip_rejected:
+        if key in skip_rejected:
             skipped_rejected += 1
             continue
+        # `have` is seeded from disk and updated as we go, so two spellings of
+        # one article in the SAME listing store one file rather than two — a
+        # sitemap that lists both the www. and bare form would otherwise
+        # produce exactly the duplicate this canonicalisation exists to end.
+        have.add(key)
         if urlsplit(url).path in ("", "/"):
             failed.append({"url": url, "detail": "non_article_page (homepage)"})
             continue
@@ -1415,7 +1641,8 @@ def main():
         "dir": str(folder.relative_to(Path.cwd())) if _under_cwd(folder) else str(folder),
         "requested": want,
         "listed": listed_count,
-        "already_present": sum(1 for a in articles if a.get("url") in have),
+        "already_present": sum(1 for a in articles if a.get("url")
+                               and canonical_url(a["url"]) in have),
         "dir_exists": folder.is_dir(),
         "saved": saved,
         # `rejected` is a strict SUBSET of `failed` -- both gate call sites

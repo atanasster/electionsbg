@@ -66,7 +66,34 @@ Extraction details that were measured, not assumed:
   storing records that cost a judgement call and can only come back "not an
   article".
 - Bulgarian dates ("22 август 2026") normalize to ISO; so do RFC-822 and
-  ISO variants.
+  ISO variants. ⚠️ **A timestamp with NO offset is read as Europe/Sofia, not
+  UTC** — Bulgarian newsrooms publish in local time (+02:00/+03:00), and
+  stamping those UTC shifted 4,354 of 4,925 stored records by 2-3 hours and
+  filed anything published after 21:00 local under the previous day. A
+  date-only value ("2026-08-24", a sitemap `<lastmod>`) is anchored at NOON so
+  its day survives the conversion; a written-out midnight is left alone. Each
+  date source is normalised in turn and the first that survives wins, so a
+  future JSON-LD date does not also discard a sane `article:published_time`.
+- **A publish date more than a day in the future is REFUSED**, not stored — it
+  would sort the article to the top of every "latest" view for as long as it
+  stayed in the future (measured: 5 records, capital.bg by nearly two months).
+- **Identity is the CANONICAL url**, not the raw one: scheme, host case,
+  `www.`, port, trailing slash, fragment and tracking parameters are
+  normalised away before anything is compared — by `existing_urls`, the
+  rejection ledger, the HTML-cache key and the filename hash alike. The stored
+  `url` field stays the real fetchable one. Measured: 19 canonical keys held
+  more than one stored record, all same-title (haskovo.net `#comments`,
+  capital.bg `?ref=`, focus-news.net trailing-slash). A non-tracking query is
+  KEPT — moreto.net addresses every article as `novini.php?n=NNNN`, so
+  dropping the query would collapse the whole site into one key.
+  `--reextract` reports pre-existing duplicates as `duplicates_found` and
+  collapses them only with `--dedupe`, keeping the fullest body and removing
+  the loser's analysis sidecar with it.
+- **The filename's day bucket is the Sofia day; `published` stays UTC.** One
+  is a calendar day, the other an instant. A UTC-derived bucket filed
+  everything published 00:00-02:59 local under the previous day (143 of 4,361
+  records). Re-filing an existing corpus is a `--reextract` pass, which
+  already moves the analysis sidecar with the rename.
 
 ## Step 1 — one site
 
@@ -126,6 +153,7 @@ rewrites what's already on disk.
 python3 news/scripts/save_articles.py <domain> --reextract               # cache only, no network
 python3 news/scripts/save_articles.py <domain> --reextract --allow-fetch # fill the cache first
 python3 news/scripts/save_articles.py <domain> --reextract --prune-cache # drop orphaned cache entries
+python3 news/scripts/save_articles.py <domain> --reextract --dedupe      # collapse duplicate spellings
 ```
 
 ⚠️ **"Incremental by design" is also why an extractor fix used to be

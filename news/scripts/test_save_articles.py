@@ -452,6 +452,132 @@ class ReExtraction(unittest.TestCase):
         self.assertEqual(len(self.records()), 1, "the record survives")
 
 
+class CanonicalDedupeEndToEnd(unittest.TestCase):
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp(prefix="save-articles-canon-"))
+        (self.root / "news" / "data").mkdir(parents=True)
+        self.feed = self.root / "prefetched.jsonl"
+
+    def tearDown(self):
+        shutil.rmtree(self.root, ignore_errors=True)
+
+    def test_the_same_article_under_two_spellings_is_stored_once(self):
+        html = page("Една статия", [PROSE * 5])
+        write_prefetched(self.feed, [("https://www.ex.bg/a/1/", html)])
+        _, first = run_saver(self.root, "ex.bg", "20",
+                             f"--prefetched={self.feed}")
+        self.assertEqual(first["saved"], 1)
+        write_prefetched(self.feed, [("http://ex.bg/a/1?utm_source=fb", html)])
+        _, second = run_saver(self.root, "ex.bg", "20",
+                              f"--prefetched={self.feed}")
+        self.assertEqual(second["saved"], 0)
+        self.assertEqual(second["already_present"], 1)
+        self.assertEqual(
+            len(list((self.root / "news" / "data" / "ex.bg").glob("*.json"))), 1)
+
+    def test_the_stored_url_stays_the_real_fetchable_one(self):
+        """Only the KEY is normalised — the record must still name a URL a
+        reader (and --allow-fetch) can actually open."""
+        write_prefetched(self.feed, [
+            ("https://www.ex.bg/a/2/", page("Статия", [PROSE * 5]))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        rec = json.loads(next((self.root / "news" / "data" / "ex.bg")
+                              .glob("*.json")).read_text(encoding="utf-8"))
+        self.assertEqual(rec["url"], "https://www.ex.bg/a/2/")
+
+    def test_two_spellings_in_ONE_run_store_one_file(self):
+        """Canonicalisation must dedupe within a run too, not only against
+        disk — a sitemap listing both the www. and bare form would otherwise
+        produce exactly the duplicate it exists to end."""
+        html = page("Една статия", [PROSE * 5])
+        write_prefetched(self.feed, [
+            ("https://www.ex.bg/a/9/", html),
+            ("http://ex.bg/a/9?utm_source=fb", html),
+        ])
+        _, out = run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertEqual(out["saved"], 1)
+        self.assertEqual(
+            len(list((self.root / "news" / "data" / "ex.bg").glob("*.json"))), 1)
+
+    def test_a_future_date_falls_back_to_a_sane_source(self):
+        """A refused future date must not also discard a usable
+        article:published_time and drop the article out of every latest view."""
+        html = ('<html><head><title>x</title>'
+                '<meta property="og:type" content="article">'
+                '<meta property="article:published_time" '
+                'content="2020-05-05T10:00:00+03:00">'
+                '<script type="application/ld+json">'
+                + json.dumps({"@type": "NewsArticle", "headline": "Статия",
+                              "datePublished": "2099-01-01T00:00:00+02:00"})
+                + f'</script></head><body><article><p>{PROSE * 5}</p>'
+                '</article></body></html>')
+        write_prefetched(self.feed, [("https://ex.bg/a/10", html)])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        rec = json.loads(next((self.root / "news" / "data" / "ex.bg")
+                              .glob("*.json")).read_text(encoding="utf-8"))
+        self.assertTrue(rec["published"].startswith("2020-05-05"),
+                        rec["published"])
+
+    def test_a_legacy_cache_entry_is_still_reachable(self):
+        """207 of 208 live entries were written under the pre-canonicalisation
+        key. The cache is the artifact whose whole purpose is recovering
+        articles a structurally stale source can never list again."""
+        import gzip as gz
+        url = "https://www.ex.bg/a/11/"
+        html = page("Статия", [PROSE * 5])
+        cache = self.root / "news" / "data" / "_html" / "ex.bg"
+        cache.mkdir(parents=True)
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles as sa  # noqa: E402
+        legacy = cache / sa.html_cache_path("ex.bg", url,
+                                            _raw_key=True).name
+        with gz.open(legacy, "wt", encoding="utf-8") as fh:
+            fh.write(json.dumps({"url": url, "html": html}))
+        art = self.root / "news" / "data" / "ex.bg"
+        art.mkdir(parents=True)
+        (art / "20260824-x-deadbeef.json").write_text(
+            json.dumps({"domain": "ex.bg", "url": url, "title": "Статия",
+                        "content": "x" * 500, "content_chars": 500,
+                        "published": None}), encoding="utf-8")
+        _, rx = run_saver(self.root, "ex.bg", "--reextract")
+        self.assertEqual(rx["no_html"], 0, "the legacy entry was not found")
+        self.assertEqual(rx["from_cache"], 1)
+
+    def test_prune_keeps_a_legacy_cache_entry(self):
+        import gzip as gz
+        url = "https://www.ex.bg/a/12/"
+        cache = self.root / "news" / "data" / "_html" / "ex.bg"
+        cache.mkdir(parents=True)
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles as sa  # noqa: E402
+        legacy = cache / sa.html_cache_path("ex.bg", url, _raw_key=True).name
+        with gz.open(legacy, "wt", encoding="utf-8") as fh:
+            fh.write(json.dumps({"url": url, "html": page("S", [PROSE * 5])}))
+        art = self.root / "news" / "data" / "ex.bg"
+        art.mkdir(parents=True)
+        (art / "20260824-x-deadbeef.json").write_text(
+            json.dumps({"domain": "ex.bg", "url": url, "title": "S",
+                        "content": "x" * 500, "content_chars": 500,
+                        "published": None}), encoding="utf-8")
+        run_saver(self.root, "ex.bg", "--reextract", "--prune-cache")
+        self.assertTrue(legacy.exists(),
+                        "the prune deleted the only cached copy of a stored "
+                        "article")
+
+    def test_the_html_cache_hits_across_spellings(self):
+        write_prefetched(self.feed, [
+            ("https://www.ex.bg/a/3/", page("Статия", [PROSE * 5]))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        cache = self.root / "news" / "data" / "_html" / "ex.bg"
+        self.assertEqual(len(list(cache.glob("*.json.gz"))), 1)
+        write_prefetched(self.feed, [
+            ("http://ex.bg/a/3", page("Статия", [PROSE * 5]))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertEqual(len(list(cache.glob("*.json.gz"))), 1,
+                         "a spelling variant must not mint a second entry")
+
+
 class ReExtractionGuards(unittest.TestCase):
     """The three ways --reextract could destroy a corpus, each pinned.
 
@@ -618,6 +744,60 @@ class ReExtractionGuards(unittest.TestCase):
         self.assertEqual(second["rewritten"], 0)
         self.assertEqual(second["unchanged"], 1)
 
+    def test_pre_existing_duplicates_are_reported_then_collapsed(self):
+        """canonical_url stops NEW duplicates; nothing collapsed the 19 groups
+        already stored. Reported by default, removed only with --dedupe —
+        consistent with every other destructive path here."""
+        art = self.data_dir()
+        art.mkdir(parents=True)
+        for name, url, chars in (
+                ("20260824-a-1111.json", "https://www.ex.bg/a/30/", 900),
+                ("20260824-a-2222.json", "http://ex.bg/a/30?ref=home", 400)):
+            (art / name).write_text(json.dumps({
+                "domain": "ex.bg", "url": url, "title": "Една статия",
+                "content": "x" * chars, "content_chars": chars,
+                "published": "2026-08-24T09:00:00+00:00"}), encoding="utf-8")
+        side = (self.root / "news" / "data" / "analysis" / "articles"
+                / "ex.bg" / "20260824-a-2222.json")
+        side.parent.mkdir(parents=True, exist_ok=True)
+        side.write_text("{}", encoding="utf-8")
+
+        _, dry = run_saver(self.root, "ex.bg", "--reextract")
+        self.assertEqual(dry["duplicates_found"], 1)
+        self.assertEqual(dry["duplicates_removed"], 0, "dry by default")
+        self.assertEqual(len(list(art.glob("*.json"))), 2)
+
+        _, wet = run_saver(self.root, "ex.bg", "--reextract", "--dedupe")
+        self.assertEqual(wet["duplicates_removed"], 1)
+        survivors = list(art.glob("*.json"))
+        self.assertEqual(len(survivors), 1)
+        rec = json.loads(survivors[0].read_text(encoding="utf-8"))
+        self.assertEqual(rec["content_chars"], 900,
+                         "the fullest body must be the survivor")
+        self.assertFalse(side.exists(),
+                         "the loser's analysis sidecar is an orphan")
+
+    def test_a_promoted_rejection_keeps_the_raw_fetchable_url(self):
+        """The canonical form normalises SPELLING for dedupe and is not
+        guaranteed fetchable — a site serving only the www. form would be
+        handed a URL that does not resolve."""
+        url = "https://www.ex.bg/b/20/"
+        buried = ('<html><head><title>Заровена</title>'
+                  '<meta property="og:type" content="article">'
+                  '<script type="application/ld+json">'
+                  + json.dumps({"@type": "NewsArticle", "headline": "Заровена"})
+                  + f'</script></head><body><aside><p>{PROSE * 5}</p>'
+                  '</aside></body></html>')
+        write_prefetched(self.feed, [(url, buried)])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.rewrite_cache(lambda h: h.replace("<aside>", "<article>")
+                                      .replace("</aside>", "</article>"))
+        _, rx = run_saver(self.root, "ex.bg", "--reextract")
+        self.assertEqual(rx["promoted"], 1)
+        rec = json.loads(next(self.data_dir().glob("*.json"))
+                         .read_text(encoding="utf-8"))
+        self.assertEqual(rec["url"], url)
+
     def test_promotes_a_rejection_older_than_the_ledger_ttl(self):
         """A rejection older than the 30-day TTL is exactly the one most
         likely to predate the extractor fix being applied, so pass 2 must read
@@ -770,6 +950,149 @@ class CharsetDecoding(unittest.TestCase):
         self.assertEqual(
             self.sa.decode_html(raw, "text/html; charset=x-nonexistent"),
             self.BG)
+
+
+class PublishDates(unittest.TestCase):
+    """normalize_date — the timezone the corpus is actually published in."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+        from datetime import datetime, timezone
+        cls.now = datetime(2026, 8, 25, 12, 0, tzinfo=timezone.utc)
+
+    def norm(self, raw):
+        return self.sa.normalize_date(raw, now=self.now)
+
+    def test_a_naive_timestamp_is_sofia_local_not_utc(self):
+        """Bulgarian newsrooms publish in local time and frequently emit no
+        offset. Reading those as UTC shifted 4,354 of 4,925 stored records by
+        2-3 hours and filed anything after 21:00 local under the previous
+        day — including in the filename the whole date-bucketing keys on."""
+        self.assertEqual(self.norm("2026-08-24T22:30:00"),
+                         "2026-08-24T19:30:00+00:00")
+
+    def test_summer_uses_eest_not_a_fixed_offset(self):
+        """+03:00 in August, +02:00 in January. A fixed offset is wrong for
+        half the year, which is why this goes through ZoneInfo."""
+        self.assertEqual(self.norm("2026-08-24T12:00:00"),
+                         "2026-08-24T09:00:00+00:00")
+        self.assertEqual(self.norm("2026-01-24T12:00:00"),
+                         "2026-01-24T10:00:00+00:00")
+
+    def test_an_explicit_offset_is_respected(self):
+        self.assertEqual(self.norm("2026-08-24T22:30:00+03:00"),
+                         "2026-08-24T19:30:00+00:00")
+        self.assertEqual(self.norm("2026-08-24T22:30:00Z"),
+                         "2026-08-24T22:30:00+00:00")
+
+    def test_a_bulgarian_date_only_value_keeps_its_own_day(self):
+        """'24 август 2026' states a DAY and no wall clock. Midnight Sofia is
+        21:00 UTC the day BEFORE, which would file it under the 23rd."""
+        got = self.norm("24 август 2026")
+        self.assertTrue(got.startswith("2026-08-24"), got)
+
+    def test_a_future_date_is_refused_not_stored(self):
+        """A future publish date sorts an article to the top of every 'latest'
+        view for as long as it stays in the future. Measured: 5 stored
+        records, capital.bg by nearly two months."""
+        self.assertIsNone(self.norm("2026-10-13T09:00:00+03:00"))
+
+    def test_a_few_hours_ahead_is_tolerated(self):
+        """Clock skew and an editor's near-future scheduling are ordinary; the
+        refusal is for a broken feed, not for every timestamp past 'now'."""
+        self.assertIsNotNone(self.norm("2026-08-25T20:00:00+03:00"))
+
+    def test_an_iso_date_only_value_keeps_its_own_day(self):
+        """parse_dt SUCCEEDS on '2026-08-24' and returns naive MIDNIGHT, which
+        in Sofia is 21:00 UTC the day before. Sitemap <lastmod> — the lister's
+        own list_published source — is routinely date-only, so this path is
+        the common one, not an edge case."""
+        for raw in ("2026-08-24", "20260824"):
+            with self.subTest(raw=raw):
+                got = self.norm(raw)
+                self.assertTrue(got.startswith("2026-08-24"), got)
+
+    def test_a_written_out_midnight_is_left_alone(self):
+        """The site stated a time. We convert it; we do not overrule it."""
+        self.assertEqual(self.norm("2026-08-06T00:00:00"),
+                         "2026-08-05T21:00:00+00:00")
+
+    def test_rfc2822_minus_zero_means_utc_not_sofia(self):
+        """RFC 5322: -0000 is 'UTC, sender withholding local time', and
+        parsedate_to_datetime returns it NAIVE — so the Sofia branch would
+        shift it three hours."""
+        self.assertEqual(self.norm("Mon, 24 Aug 2026 22:30:00 -0000"),
+                         "2026-08-24T22:30:00+00:00")
+        self.assertEqual(self.norm("Mon, 24 Aug 2026 22:30:00 +0000"),
+                         "2026-08-24T22:30:00+00:00")
+
+    def test_a_naive_now_does_not_raise(self):
+        from datetime import datetime
+        self.assertIsNotNone(
+            self.sa.normalize_date("2026-08-24", now=datetime(2026, 8, 25)))
+
+    def test_an_unparseable_value_is_kept_verbatim(self):
+        self.assertEqual(self.norm("вчера следобед"), "вчера следобед")
+        self.assertIsNone(self.norm(""))
+        self.assertIsNone(self.norm(None))
+
+
+class CanonicalUrls(unittest.TestCase):
+    """canonical_url — the identity this pipeline dedupes on."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+
+    def test_spelling_variants_collapse_to_one_key(self):
+        """20 groups of the first corpus were one article stored twice."""
+        base = "https://dnes.bg/a/1"
+        for variant in ("https://www.dnes.bg/a/1/", "http://dnes.bg/a/1",
+                        "https://DNES.bg/a/1", "https://dnes.bg:443/a/1",
+                        "https://dnes.bg/a/1#comments",
+                        "https://dnes.bg/a/1?utm_source=fb&utm_medium=social",
+                        "https://dnes.bg/a/1?fbclid=xyz"):
+            with self.subTest(variant=variant):
+                self.assertEqual(self.sa.canonical_url(variant), base)
+
+    def test_a_meaningful_query_is_kept(self):
+        """moreto.net addresses every article as novini.php?n=NNNN — dropping
+        the query would collapse the whole site into one key."""
+        self.assertEqual(
+            self.sa.canonical_url("https://www.moreto.net/novini.php?n=534254"),
+            "https://moreto.net/novini.php?n=534254")
+
+    def test_distinct_articles_stay_distinct(self):
+        self.assertNotEqual(self.sa.canonical_url("https://dnes.bg/a/1"),
+                            self.sa.canonical_url("https://dnes.bg/a/2"))
+        self.assertNotEqual(
+            self.sa.canonical_url("https://moreto.net/novini.php?n=1"),
+            self.sa.canonical_url("https://moreto.net/novini.php?n=2"))
+
+    def test_the_filename_day_is_the_sofia_day_not_the_utc_day(self):
+        """The stored `published` is an instant (UTC); the filename prefix is a
+        publication DAY, and Bulgaria is +02:00/+03:00 — so a UTC-derived
+        bucket files everything published 00:00-02:59 local under the previous
+        day (143 of 4,361 stored records sit in that window)."""
+        # 2026-08-24T00:30 Sofia == 2026-08-23T21:30 UTC
+        name = self.sa.article_filename("https://ex.bg/a/1",
+                                        "2026-08-23T21:30:00+00:00")
+        self.assertTrue(name.startswith("20260824"), name)
+
+    def test_the_filename_key_is_canonical(self):
+        """Two spellings of one article must not mint two filenames."""
+        a = self.sa.article_filename("https://www.ex.bg/a/1/", None)
+        b = self.sa.article_filename("http://ex.bg/a/1?utm_source=x", None)
+        self.assertEqual(a, b)
+
+    def test_a_bare_host_keeps_a_root_path(self):
+        self.assertEqual(self.sa.canonical_url("https://dnes.bg"),
+                         "https://dnes.bg/")
 
 
 class ExtractionFixtures(unittest.TestCase):
