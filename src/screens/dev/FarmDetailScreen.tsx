@@ -147,7 +147,20 @@ export const FarmDetailScreen: FC = () => {
       ) : (
         <section aria-label={title} className="my-4">
           <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-            <StatCard label={bg ? "Общо получено" : "Total received"}>
+            {/* ⚠️ „ЗА ЦЕЛИЯ ПЕРИОД" IS NOT DECORATION. This page has no scope control and
+                `useAgriRecipient` returns the ALL-TIME total, but every route into it carries
+                `?pscope` — /subsidies' evidence aside and /subsidies/recipients both link
+                scoped amounts here. Measured: the aside shows Златия Агро at €7,9 млн. on the
+                default (2025) scope and this card reads €38,6 млн., ~5× apart, with the URL
+                still saying `?pscope=y:2025`. Naming the window is what stops the two reading
+                as a contradiction; it does not make the page scoped. */}
+            <StatCard
+              label={
+                bg
+                  ? "Общо получено · за целия период"
+                  : "Total received · over the whole period"
+              }
+            >
               <div className="flex items-baseline gap-2">
                 <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
                 <span className="text-2xl font-bold tabular-nums">

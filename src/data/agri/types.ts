@@ -46,7 +46,14 @@ export interface AgriTopRecipient {
   eik: string;
   name: string;
   oblast: string;
+  /** ⚠️ SCOPED — this is the money in the payload's own scope. */
   totalEur: number;
+  /** ⚠️⚠️ NOT SCOPED. `firstYear` / `lastYear` / `yearCount` describe the recipient's whole
+   *  presence in the corpus regardless of which scope this payload is for — measured on
+   *  Златия Агро: the 2025 payload carries €7.9m beside „2015-2025, 8 years", while its
+   *  all-scope row carries €38.6m beside the identical three. Rendering the money and the
+   *  span together therefore reads „€7.9m over eight years" on every year scope, which is
+   *  wrong by ~5×. Show one or the other, or say which is which. */
   firstYear: number;
   lastYear: number;
   yearCount: number;

@@ -59,6 +59,8 @@ import {
 import { AGRI_FINANCIAL_YEARS, agriScopeToKey } from "@/data/agri/constants";
 import {
   subsidiesHubKpis,
+  subsidiesHubEvidence,
+  subsidiesWindow,
   promotedTiles,
 } from "@/screens/subsidies/subsidiesHubFigures";
 import { agriLabel, numberLocale } from "@/data/agri/labels";
@@ -362,6 +364,24 @@ export const SubsidiesDashboardScreen: FC = () => {
   // is a plain array literal.
   const promoted = useMemo(() => promotedTiles(kpis), [kpis]);
 
+  /** The largest recipients, by name — from the overview payload the scope gate already
+   *  holds, so the aside costs no extra fetch. See `subsidiesHubEvidence` for why its
+   *  caption has to disclaim the untraceable half. */
+  const evidence = useMemo(
+    () =>
+      hub
+        ? subsidiesHubEvidence(
+            data?.topRecipients,
+            hub.noEikPctOfTotalEur,
+            subsidiesWindow(hub, AGRI_FINANCIAL_YEARS, L, t),
+            L,
+            bg,
+            t,
+          )
+        : undefined,
+    [hub, data?.topRecipients, L, bg, t],
+  );
+
   // Band 3's two fetched sources. Both are small and both are ANNUAL — they do not take the
   // scope, and their tiles say which year they are for.
   const rail = useRailSubsidy();
@@ -507,6 +527,7 @@ export const SubsidiesDashboardScreen: FC = () => {
         // that can legitimately be un-servable.
         kpisPending={payloadKey !== null && hub === undefined ? 4 : undefined}
         kpiNote={kpis.length ? t("subsidies_kpi_note") : undefined}
+        evidence={evidence}
       />
       {/* GovernanceBreadcrumb, not SectorBreadcrumb — plan §7a.
           SectorBreadcrumb's trail is a FIXED „Управление › Обществени поръчки ›

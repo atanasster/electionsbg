@@ -13,7 +13,10 @@ import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
-import { AGRI_STATS_FIXTURE } from "./subsidiesHubStats.fixture";
+import {
+  AGRI_STATS_FIXTURE,
+  AGRI_TOP_RECIPIENTS_FIXTURE,
+} from "./subsidiesHubStats.fixture";
 
 /** `undefined` = still loading; `null` = the route answered with no figures. */
 let hubData: unknown = AGRI_STATS_FIXTURE;
@@ -30,7 +33,7 @@ const OVERVIEW = {
   byOblast: [],
   byScheme: [],
   totalsByYear: [],
-  topRecipients: [],
+  topRecipients: AGRI_TOP_RECIPIENTS_FIXTURE,
 };
 
 vi.mock("@/data/agri/useAgriOverview", () => ({
@@ -152,5 +155,33 @@ describe("the /subsidies head", () => {
     expect(bgCorpus.subsidies_kpi_note).toMatch(
       /двата процента не се сравняват/,
     );
+  });
+
+  it("renders the evidence aside, wired to the screen", () => {
+    // Same class as the band: the aside reaches the DOM only through `evidence={evidence}`,
+    // and nothing else on the page names a recipient.
+    hubData = AGRI_STATS_FIXTURE;
+    at("/subsidies");
+    const aside = head()?.querySelector("aside");
+    expect(
+      aside,
+      "no evidence aside — is `evidence` still passed to <HubHead>?",
+    ).toBeTruthy();
+    expect(aside!.textContent).toContain("Златия Агро ЕООД");
+    expect(
+      aside!.querySelector('a[href^="/farm/111560777"]'),
+      "the row does not link to its own farm page",
+    ).toBeTruthy();
+  });
+
+  it("shows NO aside when the payload cannot state what it leaves out", () => {
+    // `noEikPctOfTotalEur` is the share the caption disclaims. Without it the list would be
+    // „най-големи получатели" over a corpus where half the money is unattributable, with
+    // nothing saying so.
+    hubData = { ...AGRI_STATS_FIXTURE, noEikPctOfTotalEur: null };
+    at("/subsidies");
+    expect(head()?.querySelector("aside")).toBeFalsy();
+    // The band still renders — this is the aside being refused, not a dead page.
+    expect(headText()).toContain("subsidies_kpi_paid");
   });
 });

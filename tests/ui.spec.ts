@@ -606,8 +606,11 @@ const HUB_HEAD_BUDGETS: {
   // against €11.04bn all-time), so the window is repeated on all four cells rather than
   // stated once and left to be inferred.
   //
+  // 554 with the band alone; 570 once the evidence aside landed (the aside sits beside the
+  // identity column at `lg`, so it does not drive the height — the caption's extra line does).
+  //
   // ⚠️ If this trips, do NOT shorten the captions first — check whether a fifth cell arrived.
-  { path: "/subsidies", maxPx: 620, measured: 554, cells: 4 },
+  { path: "/subsidies", maxPx: 620, measured: 570, cells: 4 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {
