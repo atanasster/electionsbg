@@ -60,11 +60,10 @@ export type DeclarationListItem = {
 
 // One in-flight promise per slug, shared by every component that asks in the same session.
 //
-// The same shape and the same reason as `detailCache` below: TWO blocks on /person now read
-// this list — `PersonDeclarations` and `PersonDeclarationTimeline` — and without a cache each
-// pays its own round trip for a byte-identical payload, on all 3,594 magistrate profiles, of
-// which 3,535 render the timeline as nothing. Caches the PROMISE rather than the value so two
-// components mounting in the same tick share one request instead of racing two.
+// The same shape and the same reason as `detailCache` below: PersonDeclarations itself can
+// re-request the same slug across a fast remount (e.g. a person→person navigation before
+// React Query-style caching would apply), so this caches the PROMISE rather than the value —
+// two callers asking in the same tick share one request instead of racing two.
 const listCache = new Map<string, Promise<DeclarationListItem[]>>();
 
 /** Drop every cached list. Exists for TESTS — module scope outlives `vi.unstubAllGlobals()`,

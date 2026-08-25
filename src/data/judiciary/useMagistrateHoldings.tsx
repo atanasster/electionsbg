@@ -8,6 +8,17 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchJson } from "./fetchJson";
 import { normName } from "./normName";
 
+/** The ИВСС register's origin. Every outbound link built from `MagistrateHolding`/
+ *  `MagistrateFiling` data must be checked against this before rendering: the register is
+ *  plain HTTP on a bare IP with a documented trust boundary (scripts/judiciary/sources.ts),
+ *  and the guarantee that an href cannot be attacker-controlled otherwise lives three files
+ *  upstream, in the scraper's href pattern. A URL that is not on this origin must be
+ *  dropped rather than rendered. Shared by every consumer of this hook — a second copy of
+ *  the origin string is a second place to forget the check. */
+export const REGISTER_ORIGIN = "http://62.176.124.194";
+export const onRegister = (url: string | null | undefined): url is string =>
+  typeof url === "string" && url.startsWith(`${REGISTER_ORIGIN}/`);
+
 export interface MagistrateCompany {
   name: string;
   stakePct: number | null;
@@ -282,3 +293,19 @@ export const declaredPropertyCount = (
     "realEstateCount" | "realEstateCountParsed"
   > | null,
 ): number | null => f?.realEstateCountParsed ?? null;
+
+/** The ONE rule for "does this filing's informational financials block have anything to
+ *  show" — cash, securities, or a positive declared property count (never the heuristic;
+ *  see `declaredPropertyCount`). Two surfaces render this block with different shells (a
+ *  standalone card, an inline filing panel), but the underlying rule — which fields count
+ *  and how the property count is read — must stay one definition rather than two that can
+ *  drift apart. Plain function, not a hook: it derives synchronously from its argument and
+ *  reads no React state, so it carries no `use` prefix. */
+export const magistrateFinancialsSummary = (
+  f: MagistrateFinancials | undefined,
+): { hasFinancials: boolean; propertyCount: number | null } => {
+  const propertyCount = f ? declaredPropertyCount(f) : null;
+  const hasFinancials =
+    !!f && (f.bankCashLv > 0 || f.securitiesLv > 0 || (propertyCount ?? 0) > 0);
+  return { hasFinancials, propertyCount };
+};

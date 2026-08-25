@@ -8,7 +8,15 @@
 
 import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  type RenderResult,
+} from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MemoryRouter } from "react-router-dom";
+import type { ReactElement } from "react";
 import {
   clearDeclarationDetailCache,
   clearPersonDeclarationsCache,
@@ -20,6 +28,22 @@ vi.mock("react-i18next", () => ({
 }));
 
 import { PersonDeclarations } from "./PersonDeclarations";
+
+// PersonDeclarations now also calls usePersonMagistrateHoldings (react-query) even for a
+// non-magistrate slug, where it stays `enabled: false` and issues no request — but the
+// hook still needs a QueryClientProvider ancestor to be called at all. MemoryRouter is for
+// the ИВСС lane's company chips (<Link to="/company/:eik">), unused by these cases but
+// harmless to include everywhere rather than keeping two render helpers.
+const renderPD = (el: ReactElement): RenderResult =>
+  render(
+    <QueryClientProvider
+      client={
+        new QueryClient({ defaultOptions: { queries: { retry: false } } })
+      }
+    >
+      <MemoryRouter>{el}</MemoryRouter>
+    </QueryClientProvider>,
+  );
 
 const filing = (
   o: Partial<DeclarationListItem> & { id: number },
@@ -104,7 +128,7 @@ describe("PersonDeclarations", () => {
         assetCount: 1,
       }),
     ]);
-    render(<PersonDeclarations slug="mp-5104" />);
+    renderPD(<PersonDeclarations slug="mp-5104" />);
     await waitFor(() =>
       expect(screen.getByText("mp_section_assets")).toBeInTheDocument(),
     );
@@ -139,7 +163,7 @@ describe("PersonDeclarations", () => {
         sourceUrl: "https://register.cacbg.bg/2017/pick-me.xml",
       }),
     ]);
-    render(<PersonDeclarations slug="mp-1588" />);
+    renderPD(<PersonDeclarations slug="mp-1588" />);
     await waitFor(() =>
       expect(screen.getByText("mp_section_assets")).toBeInTheDocument(),
     );
@@ -161,7 +185,7 @@ describe("PersonDeclarations", () => {
 
   it("self-hides when no filing bears assets (the D2 empty-block case)", async () => {
     stub([filing({ id: 1, type: "Other", assetCount: 0 })]);
-    const { container } = render(<PersonDeclarations slug="x" />);
+    const { container } = renderPD(<PersonDeclarations slug="x" />);
     await waitFor(() =>
       expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/db/")),
     );
@@ -170,7 +194,7 @@ describe("PersonDeclarations", () => {
 
   it("self-hides for a person with no declarations", async () => {
     stub([]);
-    const { container } = render(<PersonDeclarations slug="x" />);
+    const { container } = renderPD(<PersonDeclarations slug="x" />);
     await waitFor(() =>
       expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/db/")),
     );
@@ -195,7 +219,7 @@ describe("PersonDeclarations", () => {
         assetCount: 28,
       }),
     ]);
-    render(<PersonDeclarations slug="mp-868" />);
+    renderPD(<PersonDeclarations slug="mp-868" />);
     await waitFor(() =>
       expect(screen.getByText("mp_section_assets")).toBeInTheDocument(),
     );

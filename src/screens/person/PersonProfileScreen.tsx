@@ -24,7 +24,6 @@ import { PersonElectoralSection } from "./PersonElectoralSection";
 import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
 import { PersonMpSections } from "./PersonMpSections";
 import { PersonDeclarations } from "./PersonDeclarations";
-import { PersonDeclarationTimeline } from "./PersonDeclarationTimeline";
 import { PersonNoDeclarationNote } from "./PersonNoDeclarationNote";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { PersonProcurementSection } from "./PersonProcurementSection";
@@ -40,7 +39,6 @@ import {
   PersonConnections,
   type PersonConnectionsData,
 } from "./PersonConnections";
-import { PersonMagistrateHoldingsTile } from "@/screens/components/procurement/PersonMagistrateHoldingsTile";
 import { usePersonLabels } from "@/lib/personLabels";
 import { useTranslation } from "react-i18next";
 import {
@@ -595,14 +593,24 @@ const PersonDashboardBody: FC<{
             />
           )}
 
-          {/* Declared assets (Court of Audit), the UNIFIED block (audit T3.3): one PG-backed
-            component spanning every tier the person filed in — MP, executive, municipal,
-            magistrate alike — replacing the three divergent per-tier renderers and the D2
-            "empty latest filing" bug. It reads person_declarations(slug) directly, so it
-            needs no per-slug shard list, and self-hides on its own when the person has no
-            asset-bearing filing — no external gate needed here to keep `#declarations` to
+          {/* Declared assets (Court of Audit +, for a magistrate, ИВСС), the UNIFIED block
+            (audit T3.3, extended by the ИВСС merge): one PG-backed component spanning every
+            tier the person filed in — MP, executive, municipal, magistrate alike — replacing
+            the three divergent per-tier renderers, the D2 "empty latest filing" bug, and (for
+            magistrates) the three overlapping ИВСС renderings that used to sit below this
+            section on their own. `magistrateName` is name-keyed and safe to pass for every
+            role (usePersonMagistrateHoldings stays disabled without a `source: "magistrate"`
+            role); self-hides on its own when the person has no asset-bearing СП filing AND
+            no ИВСС filing either — no external gate needed here to keep `#declarations` to
             exactly one section. */}
-          <PersonDeclarations slug={p.slug} />
+          <PersonDeclarations
+            slug={p.slug}
+            magistrateName={
+              p.roles.some((r) => r.source === "magistrate")
+                ? p.name
+                : undefined
+            }
+          />
 
           {/* …and when that block finds nothing because the office is not IN the register,
             say so. Every declarations component above self-hides when empty, which renders
@@ -612,22 +620,6 @@ const PersonDashboardBody: FC<{
             CONSTRUCTION: its allowlist of exempt offices (village mayors) can never also
             have an asset-bearing filing to headline. */}
           <PersonNoDeclarationNote roles={p.roles} />
-
-          {/* Magistrate: the ИВСС declaration (court/position, declared wealth + companies) — the
-            judiciary counterpart to the officials' assets block. Name-matched, so it self-hides
-            when nothing matches. */}
-          {p.roles.some((r) => r.source === "magistrate") && (
-            <PersonMagistrateHoldingsTile name={p.name} />
-          )}
-
-          {/* …and when the SAME person also filed with the Сметна палата, the two registers
-            interleaved chronologically so a career that crossed between them reads as one.
-            Measured: 59 people have filings in both — a magistrate who was an MP, a minister
-            who returned to the bench. Self-hides unless both are non-empty, and deliberately
-            never sums them: the two are kept on different bases. */}
-          {p.roles.some((r) => r.source === "magistrate") && (
-            <PersonDeclarationTimeline slug={p.slug} name={p.name} />
-          )}
 
           {/* Companies (TR registry footprint) with the MP's declared ownership stakes folded in. */}
           <PersonCompanies

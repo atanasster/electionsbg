@@ -12,11 +12,12 @@
 // folded into the declarant's own holding (family-data parity, T3.0).
 
 import { FC, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExternalLink, ChevronDown, ChevronRight } from "lucide-react";
 import { DeclarationsSection } from "./DeclarationsSection";
 import { StatCard } from "@/screens/dashboard/StatCard";
-import { formatEur, formatEurCompact } from "@/lib/currency";
+import { formatEur, formatEurCompact, BGN_PER_EUR } from "@/lib/currency";
 import { isSpouseHolder } from "@/lib/declarations";
 import { summariseProperties } from "@/lib/propertyKind";
 import { HolderChip } from "./HolderChip";
@@ -30,6 +31,14 @@ import {
   CATEGORY_FALLBACKS,
   CATEGORY_ORDER,
 } from "@/lib/assetCategoryIcons";
+import {
+  usePersonMagistrateHoldings,
+  magistrateFinancialsSummary,
+  onRegister,
+  type MagistrateFiling,
+  type MagistrateHolding,
+} from "@/data/judiciary/useMagistrateHoldings";
+import { MagistrateFilingProperties } from "@/screens/components/procurement/MagistrateFilingProperties";
 import {
   usePersonDeclarations,
   useDeclarationDetail,
@@ -53,10 +62,25 @@ const declTypeKey = (type: string): string =>
 
 export const PersonDeclarations: FC<{
   slug: string;
-}> = ({ slug }) => {
+  /** Set only for a person who holds a `source: "magistrate"` role — enables the ИВСС
+   *  (чл. 175а ЗСВ) lane below the Сметна-палата one. `usePersonMagistrateHoldings` is
+   *  name-keyed and safe to call with `undefined` for everyone else (its own `enabled`
+   *  guard skips the request), so PersonProfileScreen passes the name unconditionally
+   *  rather than this component re-deriving "is this person a magistrate" itself. */
+  magistrateName?: string;
+}> = ({ slug, magistrateName }) => {
   const { t, i18n } = useTranslation();
   const locale = i18n.language === "bg" ? "bg-BG" : "en-US";
   const rows = usePersonDeclarations(slug);
+  const { holding } = usePersonMagistrateHoldings(magistrateName);
+  // Every ИВСС row cited MUST resolve to the register's own origin — see onRegister's
+  // header. Filtered once, here, so every consumer below (the count that decides whether
+  // the lane renders at all, and the rows themselves) reads the same filtered list.
+  const ivssFilings = useMemo(
+    () => (holding?.filings ?? []).filter((f) => onRegister(f.sourceUrl)),
+    [holding],
+  );
+  const hasIvss = ivssFilings.length > 0;
 
   const summary = useMemo(() => {
     if (!rows || rows.length === 0) return null;
@@ -148,108 +172,126 @@ export const PersonDeclarations: FC<{
     return byCat;
   }, [headlineDetail]);
 
-  // Narrowed ONCE, above the exit, so FilingList doesn't need a non-null assertion to
-  // receive `rows`. (Could lean on "summary != null implies rows is non-empty", but that
-  // invariant lives fifty lines away and survives refactors that break it.)
-  if (!rows || rows.length === 0) return null;
-  if (!summary) return null;
-  const { latest } = summary;
+  // Narrowed ONCE, above the exit, so the render below doesn't need a non-null assertion
+  // to receive `rows`. (Could lean on "summary != null implies rows is non-empty", but
+  // that invariant lives fifty lines away and survives refactors that break it.)
+  if (!rows) return null;
+  // Self-hides only when there is truly nothing to show in EITHER register — an
+  // asset-bearing СП filing to headline, or an ИВСС citation to list. A magistrate whose
+  // only СП filings are assetless (an incompatibility shell, the D2 case) and who has no
+  // ИВСС match still self-hides, matching the pre-merge behaviour exactly; one who ALSO
+  // has ИВСС filings now renders — the "magistrate-only" gap this merge exists to close.
+  if (!summary && !hasIvss) return null;
+  const latest = summary?.latest ?? null;
 
   return (
     <DeclarationsSection
       subtitle={
-        <a
-          href={latest.sourceUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-0.5 text-xs text-primary hover:underline"
-        >
-          register.cacbg.bg · {latest.periodYear}
-          <ExternalLink className="h-3 w-3" />
-        </a>
+        latest ? (
+          <a
+            href={latest.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-0.5 text-xs text-primary hover:underline"
+          >
+            register.cacbg.bg · {latest.periodYear}
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        ) : undefined
       }
     >
-      <div
-        className={cn(
-          "grid grid-cols-2 gap-3 sm:grid-cols-3",
-          // A conditional 4th card gives 3+1 at sm/md — a lone card under a full
-          // row. At grid-cols-2 it is 2+2 and fine either way.
-          propertySummary && "lg:grid-cols-4",
-        )}
-      >
-        <StatCard label={t("officials_net_worth") || "Net worth"}>
-          <div className="text-2xl font-bold text-foreground">
-            {formatEurCompact(summary.net, locale)}
-            <IncompleteMark row={latest} />
-          </div>
-          {summary.deltaNet != null &&
-            summary.priorYear != null &&
-            summary.priorYear !== latest.periodYear && (
-              <div
-                className={cn(
-                  "mt-0.5 text-xs",
-                  summary.deltaNet >= 0
-                    ? "text-emerald-600 dark:text-emerald-400"
-                    : "text-red-600 dark:text-red-400",
-                )}
-              >
-                {summary.deltaNet >= 0 ? "+" : "−"}
-                {formatEurCompact(Math.abs(summary.deltaNet), locale)}{" "}
-                {t("dashboard_vs")} {summary.priorYear}
-              </div>
-            )}
-        </StatCard>
-        <StatCard label={t("officials_col_assets") || "Assets (€)"}>
-          <div className="text-2xl font-bold text-foreground">
-            {formatEurCompact(latest.assetsEur, locale)}
-          </div>
-        </StatCard>
-        <StatCard label={t("mp_decl_debts") || "Debts"}>
-          <div className="text-2xl font-bold text-foreground">
-            {formatEurCompact(latest.debtsEur, locale)}
-          </div>
-        </StatCard>
-        {/* WHAT THE HOLDING IS, beside what it is worth. The € cards answer „how much" and
-            for property they frequently answer €0 — 38.6% of declared properties carry no
-            stated price — so a declarant with nine ниви and a house can headline as almost
-            nothing owned. The count and the kind are known regardless, and they are the
-            part a reader came for.
-
-            Same fold as the comparison card (`summariseProperties`): two surfaces counting
-            one person's properties must not answer differently.
-
-            ⚠️ Rows, not buildings. A house filed as dwelling + terrace + basement + garage
-            is four, and the register carries nothing that folds them back — hence
-            „декларирани имота", which must not be shortened to „имота". Rented (чуждо)
-            property is excluded: it is not the declarant's to hold.
-
-            ⚠️ And rows, not only properties: 1,520 owned real-estate rows corpus-wide are
-            RIGHTS rather than things — „право на строеж" (667), „право на ползване" (471)
-            — which propertyKind.ts's own header calls out as not properties at all. They
-            are counted here, deliberately: the register files them under real estate, they
-            surface honestly as „N други имота" in the breakdown, and dropping them would
-            make the headline disagree with the rows a reader can expand and count. */}
-        {propertySummary && (
-          <StatCard label={t("pp_decl_prop_card")}>
+      {latest && summary && (
+        <div
+          className={cn(
+            "grid grid-cols-2 gap-3 sm:grid-cols-3",
+            // A conditional 4th card gives 3+1 at sm/md — a lone card under a full
+            // row. At grid-cols-2 it is 2+2 and fine either way.
+            propertySummary && "lg:grid-cols-4",
+          )}
+        >
+          <StatCard label={t("officials_net_worth") || "Net worth"}>
             <div className="text-2xl font-bold text-foreground">
-              {propertySummary.total}
+              {formatEurCompact(summary.net, locale)}
+              <IncompleteMark row={latest} />
             </div>
-            <div className="mt-0.5 text-xs leading-snug text-muted-foreground">
-              {/* Through `t`, keyed on the KIND — never `part.label`. PROPERTY_KIND_LABEL
-                  is Bulgarian by design (it was written for the BG-only social card), so
-                  reading it here printed „9 земеделски имота" under an English „Declared
-                  properties", one line above sibling rows that translate correctly via
-                  `asset_category_*`. The kind is the translation seam; the label stays the
-                  script side's constant. */}
-              {propertySummary.parts
-                .map((p) => t(`pp_prop_kind_${p.kind}`, { count: p.n }))
-                .join(" · ")}
+            {summary.deltaNet != null &&
+              summary.priorYear != null &&
+              summary.priorYear !== latest.periodYear && (
+                <div
+                  className={cn(
+                    "mt-0.5 text-xs",
+                    summary.deltaNet >= 0
+                      ? "text-emerald-600 dark:text-emerald-400"
+                      : "text-red-600 dark:text-red-400",
+                  )}
+                >
+                  {summary.deltaNet >= 0 ? "+" : "−"}
+                  {formatEurCompact(Math.abs(summary.deltaNet), locale)}{" "}
+                  {t("dashboard_vs")} {summary.priorYear}
+                </div>
+              )}
+          </StatCard>
+          <StatCard label={t("officials_col_assets") || "Assets (€)"}>
+            <div className="text-2xl font-bold text-foreground">
+              {formatEurCompact(latest.assetsEur, locale)}
             </div>
           </StatCard>
-        )}
-      </div>
+          <StatCard label={t("mp_decl_debts") || "Debts"}>
+            <div className="text-2xl font-bold text-foreground">
+              {formatEurCompact(latest.debtsEur, locale)}
+            </div>
+          </StatCard>
+          {/* WHAT THE HOLDING IS, beside what it is worth. The € cards answer „how much" and
+              for property they frequently answer €0 — 38.6% of declared properties carry no
+              stated price — so a declarant with nine ниви and a house can headline as almost
+              nothing owned. The count and the kind are known regardless, and they are the
+              part a reader came for.
 
-      {categoryBreakdown.size > 0 && (
+              Same fold as the comparison card (`summariseProperties`): two surfaces counting
+              one person's properties must not answer differently.
+
+              ⚠️ Rows, not buildings. A house filed as dwelling + terrace + basement + garage
+              is four, and the register carries nothing that folds them back — hence
+              „декларирани имота", which must not be shortened to „имота". Rented (чуждо)
+              property is excluded: it is not the declarant's to hold.
+
+              ⚠️ And rows, not only properties: 1,520 owned real-estate rows corpus-wide are
+              RIGHTS rather than things — „право на строеж" (667), „право на ползване" (471)
+              — which propertyKind.ts's own header calls out as not properties at all. They
+              are counted here, deliberately: the register files them under real estate, they
+              surface honestly as „N други имота" in the breakdown, and dropping them would
+              make the headline disagree with the rows a reader can expand and count. */}
+          {propertySummary && (
+            <StatCard label={t("pp_decl_prop_card")}>
+              <div className="text-2xl font-bold text-foreground">
+                {propertySummary.total}
+              </div>
+              <div className="mt-0.5 text-xs leading-snug text-muted-foreground">
+                {/* Through `t`, keyed on the KIND — never `part.label`. PROPERTY_KIND_LABEL
+                    is Bulgarian by design (it was written for the BG-only social card), so
+                    reading it here printed „9 земеделски имота" under an English „Declared
+                    properties", one line above sibling rows that translate correctly via
+                    `asset_category_*`. The kind is the translation seam; the label stays the
+                    script side's constant. */}
+                {propertySummary.parts
+                  .map((p) => t(`pp_prop_kind_${p.kind}`, { count: p.n }))
+                  .join(" · ")}
+              </div>
+            </StatCard>
+          )}
+        </div>
+      )}
+
+      {/* No СП asset-bearing filing to headline, but the ИВСС lane below still has
+          something to show — say so rather than leaving a blank space where the stat
+          cards would have been. */}
+      {!summary && hasIvss && (
+        <p className="text-xs text-muted-foreground">
+          {t("pp_decl_ivss_only_note")}
+        </p>
+      )}
+
+      {latest && categoryBreakdown.size > 0 && (
         <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {CATEGORY_ORDER.filter(
             (c) => (categoryBreakdown.get(c)?.count ?? 0) > 0,
@@ -299,12 +341,57 @@ export const PersonDeclarations: FC<{
         </div>
       )}
 
-      <PersonCryptoHoldings filing={latest} />
+      {latest && <PersonCryptoHoldings filing={latest} />}
 
-      <FilingList rows={rows} locale={locale} />
+      <ul className="mt-4 divide-y divide-border rounded-md border border-border">
+        {holding && ivssFilings.length > 0 ? (
+          <>
+            {rows.length > 0 && (
+              <>
+                <LaneLabel label={t("pp_decl_lane_cac")} />
+                {rows.map((r) => (
+                  <FilingRow key={r.id} row={r} locale={locale} />
+                ))}
+              </>
+            )}
+            <LaneLabel label={t("pp_decl_lane_ivss")} />
+            {/* Keyed on the magistrate's name so a client-side navigation to a different
+                magistrate remounts this whole subtree — resetting `showAll`, every row's
+                `open`, and every open row's `showProps` — rather than carrying one reader's
+                "show me less"/expanded-property state onto the next magistrate's page.
+                Mirrors PersonMagistrateHoldingsTile's own `shownFor` reset-on-prop-change
+                guard, which documents the same failure mode this lane would otherwise
+                repeat. */}
+            <IvssFilings
+              key={magistrateName}
+              holding={holding}
+              filings={ivssFilings}
+            />
+          </>
+        ) : (
+          rows.map((r) => <FilingRow key={r.id} row={r} locale={locale} />)
+        )}
+      </ul>
+      {latest && (
+        <p className="mt-2 text-xs text-muted-foreground">
+          {t("pp_wealth_caveat")}
+        </p>
+      )}
     </DeclarationsSection>
   );
 };
+
+/** A section header WITHIN the filing list — money above ("Пред Сметната палата"),
+ *  citation-only below ("Пред ИВСС"). Structural separation, not just a per-row chip: a
+ *  blank amount can never sit beside a filled one in the same visual run of rows, which a
+ *  chip alone does not guarantee for a reader skimming the column rather than each row.
+ *  Rendered only when BOTH registers are in play — everyone else (the overwhelming
+ *  majority of declarants) sees the plain flat list exactly as before this merge. */
+const LaneLabel: FC<{ label: string }> = ({ label }) => (
+  <li className="bg-muted/60 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+    {label}
+  </li>
+);
 
 /** The "this total is known to be incomplete" marker. 090 drops any asset row above
  *  `asset_row_ceiling_eur()` (€50m) out of the sums rather than publishing an obvious typo
@@ -318,11 +405,7 @@ export const PersonDeclarations: FC<{
 const IncompleteMark: FC<{ row: DeclarationListItem }> = ({ row }) => {
   const { t } = useTranslation();
   if (!row.excludedAssetRows) return null;
-  const label = t("pp_decl_excluded_rows", {
-    count: row.excludedAssetRows,
-    defaultValue:
-      "{{count}} декларирани позиции с неправдоподобна стойност не са включени в сбора.",
-  });
+  const label = t("pp_decl_excluded_rows", { count: row.excludedAssetRows });
   return (
     <span className="align-super text-xs text-muted-foreground" title={label}>
       *<span className="sr-only">{label}</span>
@@ -330,25 +413,215 @@ const IncompleteMark: FC<{ row: DeclarationListItem }> = ({ row }) => {
   );
 };
 
-/** Every filing on record, newest first, each expandable to its detail. Shared by every
- *  tier — MP, executive, municipal, magistrate — so an MP and an official see one list
- *  built by one renderer, the divergence this component was created to end (audit T3.3). */
-const FilingList: FC<{ rows: DeclarationListItem[]; locale: string }> = ({
-  rows,
-  locale,
-}) => {
+/** How many ИВСС filings to show before „виж всички" — the same top-N + see-all rule
+ *  PersonMagistrateHoldingsTile uses; a magistrate can have 72. */
+const IVSS_FILINGS_SHOWN = 5;
+
+/** The ИВСС lane's rows, plus its own pagination and ambiguity note — both scoped to
+ *  exactly this lane rather than the whole section, since neither statement is true of
+ *  the Сметна-палата rows above them. */
+const IvssFilings: FC<{
+  holding: MagistrateHolding;
+  filings: MagistrateFiling[];
+}> = ({ holding, filings }) => {
   const { t } = useTranslation();
+  const [showAll, setShowAll] = useState(false);
+  const shown = showAll ? filings : filings.slice(0, IVSS_FILINGS_SHOWN);
   return (
     <>
-      <ul className="mt-4 divide-y divide-border rounded-md border border-border">
-        {rows.map((r) => (
-          <FilingRow key={r.id} row={r} locale={locale} />
-        ))}
-      </ul>
-      <p className="mt-2 text-xs text-muted-foreground">
-        {t("pp_wealth_caveat")}
-      </p>
+      {shown.map((f) => (
+        <IvssFilingRow key={f.sourceUrl} filing={f} holding={holding} />
+      ))}
+      {filings.length > IVSS_FILINGS_SHOWN && (
+        <li className="px-3 py-2">
+          <button
+            type="button"
+            onClick={() => setShowAll((v) => !v)}
+            aria-expanded={showAll}
+            className="text-xs text-primary hover:underline"
+          >
+            {showAll
+              ? t("pp_decl_ivss_show_less")
+              : t("pp_decl_ivss_show_all", { count: filings.length })}
+          </button>
+        </li>
+      )}
+      {/* ⚠️ The register is indexed by NAME with no court or id beside it — 26.6% of
+          names provably cover more than one human. Scoped to the lane, not the section,
+          because it says something about the ИВСС rows specifically, not the СП ones
+          above them. */}
+      {holding.filingsNameAmbiguous && (
+        <li className="border-t border-dashed border-border bg-muted/50 px-3 py-2 text-[11px] leading-snug text-muted-foreground">
+          {t("pp_decl_ivss_ambiguous")}
+        </li>
+      )}
     </>
+  );
+};
+
+const IvssFilingRow: FC<{
+  filing: MagistrateFiling;
+  holding: MagistrateHolding;
+}> = ({ filing, holding }) => {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  // The declaration the card's informational financials/companies were actually parsed
+  // FROM — NOT always the newest filing (a magistrate off the current bench keeps a
+  // parse the pipeline does not refresh). Every other row is a citation only.
+  const isParsed = filing.sourceUrl === holding.sourceUrl;
+  const panelId = `ivss-filing-${filing.sourceUrl}`;
+
+  return (
+    <li>
+      <div className="flex items-center hover:bg-muted/40">
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={panelId}
+          onClick={() => setOpen((o) => !o)}
+          className="flex flex-1 items-center gap-2 px-3 py-2 text-left text-sm"
+        >
+          {open ? (
+            <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+          ) : (
+            <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+          )}
+          <span className="w-12 shrink-0 font-semibold tabular-nums">
+            {filing.year}
+          </span>
+          <span className="flex-1 truncate text-muted-foreground">
+            {filing.ref ? t("pp_decl_cite_entry", { entry: filing.ref }) : null}
+          </span>
+          {isParsed && (
+            <span className="shrink-0 rounded bg-primary/10 px-1.5 py-0.5 text-[10px] text-foreground">
+              {t("pp_decl_ivss_parsed")}
+            </span>
+          )}
+        </button>
+        <a
+          href={filing.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          title={filing.sourceUrl}
+          aria-label={filing.sourceUrl}
+          className="shrink-0 px-3 py-2 text-muted-foreground hover:text-primary"
+        >
+          <ExternalLink className="h-3.5 w-3.5" />
+        </a>
+      </div>
+      {open && (
+        <div id={panelId}>
+          <IvssFilingDetail
+            filing={filing}
+            holding={holding}
+            isParsed={isParsed}
+          />
+        </div>
+      )}
+    </li>
+  );
+};
+
+const IvssFilingDetail: FC<{
+  filing: MagistrateFiling;
+  holding: MagistrateHolding;
+  isParsed: boolean;
+}> = ({ filing, holding, isParsed }) => {
+  const { t, i18n } = useTranslation();
+  const [showProps, setShowProps] = useState(false);
+  const f = isParsed ? holding.financials : undefined;
+  const eur = (lv: number) => formatEurCompact(lv / BGN_PER_EUR, i18n.language);
+  const { hasFinancials, propertyCount } = magistrateFinancialsSummary(f);
+  const companies = isParsed ? (holding.companies ?? []) : [];
+
+  return (
+    <div className="space-y-2 bg-muted/20 px-9 py-3 text-xs">
+      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 border-b border-border pb-2 text-[11px] text-muted-foreground">
+        <span className="font-medium text-foreground">
+          {t("pp_decl_ivss_cite")}
+        </span>
+        <a
+          href={filing.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-primary hover:underline"
+        >
+          {t("pp_decl_ivss_source")}
+          <ExternalLink className="h-3 w-3" />
+        </a>
+      </div>
+      {/* Informational figures — cash/securities are a STOCK, the property count comes
+          from the SAME table 1 that lists ACQUISITIONS during the period, and both sit
+          only on the one filing this holding was actually parsed from. */}
+      {f && hasFinancials && (
+        <div className="flex flex-wrap gap-x-4 gap-y-1">
+          {f.bankCashLv > 0 && (
+            <span>
+              {t("pp_decl_ivss_cash")}:{" "}
+              <span className="font-semibold tabular-nums">
+                {eur(f.bankCashLv)}
+              </span>
+            </span>
+          )}
+          {f.securitiesLv > 0 && (
+            <span>
+              {t("pp_decl_ivss_securities")}:{" "}
+              <span className="font-semibold tabular-nums">
+                {eur(f.securitiesLv)}
+              </span>
+            </span>
+          )}
+          {propertyCount != null && propertyCount > 0 && (
+            <span>{t("pp_decl_ivss_property", { count: propertyCount })}</span>
+          )}
+        </div>
+      )}
+      {companies.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {companies.map((c, i) =>
+            c.eik ? (
+              <Link
+                key={`${c.name}-${i}`}
+                to={`/company/${c.eik}`}
+                className="inline-flex items-center gap-1 rounded-md border border-primary/40 bg-primary/10 px-2 py-0.5 text-[11px] text-foreground hover:bg-primary/20"
+              >
+                {c.name}
+                {c.stakePct != null ? ` · ${c.stakePct}%` : ""}
+              </Link>
+            ) : (
+              <span
+                key={`${c.name}-${i}`}
+                className="inline-flex items-center rounded-md border border-border px-2 py-0.5 text-[11px] text-muted-foreground"
+              >
+                {c.name}
+                {c.stakePct != null ? ` · ${c.stakePct}%` : ""}
+              </span>
+            ),
+          )}
+        </div>
+      )}
+      {/* The property LIST (not just the count above) is per-filing, not just per-parsed —
+          any filing can be opened to see what it declared, fetched lazily on demand. */}
+      <button
+        type="button"
+        onClick={() => setShowProps((s) => !s)}
+        aria-expanded={showProps}
+        className="text-[11px] text-muted-foreground hover:text-foreground hover:underline"
+      >
+        {showProps
+          ? t("pp_decl_ivss_properties_hide")
+          : t("pp_decl_ivss_properties_show")}
+      </button>
+      <MagistrateFilingProperties
+        sourceUrl={filing.sourceUrl}
+        kind={filing.kind}
+        expanded={showProps}
+      />
+      <p className="text-[11px] leading-snug text-muted-foreground">
+        {t("pp_decl_ivss_note")}
+      </p>
+    </div>
   );
 };
 

@@ -29,22 +29,14 @@ import {
   usePersonMagistrateHoldings,
   type MagistrateFiling,
   type MagistrateHolding,
-  declaredPropertyCount,
+  magistrateFinancialsSummary,
+  onRegister,
 } from "@/data/judiciary/useMagistrateHoldings";
 import { MagistrateFilingProperties } from "./MagistrateFilingProperties";
 
 /** How many filings to show before „виж всички" — the top-N + see-all house rule this
  *  tile's /judiciary sibling already follows. A magistrate can have 72. */
 const FILINGS_SHOWN = 5;
-
-/** The ИВСС register's origin. Declared here so the render site states what every link on
- *  this card points at: the register is plain HTTP on a bare IP with a documented trust
- *  boundary (scripts/judiciary/sources.ts), and the guarantee that a href cannot be
- *  attacker-controlled otherwise lives three files upstream, in the scraper's href pattern.
- *  A URL that is not on this origin is dropped rather than rendered. */
-const REGISTER_ORIGIN = "http://62.176.124.194";
-const onRegister = (url: string | null | undefined): url is string =>
-  typeof url === "string" && url.startsWith(`${REGISTER_ORIGIN}/`);
 
 /** The one place `target`/`rel` are written for this card's outbound links. Two hand-rolled
  *  anchors meant two independent chances to omit `noopener`. */
@@ -93,15 +85,11 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
   // nothing displayable (no company, no non-zero financial, no recoverable court).
   // Don't render an all-but-empty card in that case.
   const f = holding.financials;
-  const hasFinancials =
-    !!f &&
-    (f.bankCashLv > 0 ||
-      f.securitiesLv > 0 ||
-      // ⚠️ The READ count, not the heuristic one. 450 records have a heuristic 0 against real
-      // declared property; guarding on the raw field suppresses the whole financials row for
-      // every one of them, so the card silently loses the figure it just learned. `?? 0`
-      // because an unknown count is not a reason to show the row.
-      (declaredPropertyCount(f) ?? 0) > 0);
+  // ⚠️ Reads the ONE shared rule (declaredPropertyCount underneath) — not the heuristic
+  // count. 450 records have a heuristic 0 against real declared property; guarding on the
+  // raw field suppresses the whole financials row for every one of them, so the card
+  // silently loses the figure it just learned.
+  const { hasFinancials, propertyCount } = magistrateFinancialsSummary(f);
   // Drop anything not on the register's own origin rather than rendering it — see
   // REGISTER_ORIGIN. Measured over the committed artifact all 37,023 are on it, so this
   // removes nothing today; it is the assertion at the render site.
@@ -154,7 +142,7 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
         )}
 
         {(() => {
-          if (!hasFinancials) return null;
+          if (!f || !hasFinancials) return null;
           const eur = (lv: number) => formatEurCompact(lv / BGN_PER_EUR, lang);
           return (
             <div className="mb-2 flex flex-wrap gap-x-4 gap-y-1 rounded-md bg-muted/40 px-2.5 py-1.5 text-xs">
@@ -180,7 +168,7 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
                 fabricates property against magistrates who declared none. See
                 declaredPropertyCount(). */}
               {(() => {
-                const n = declaredPropertyCount(f);
+                const n = propertyCount;
                 if (n == null || n <= 0) return null;
                 return (
                   <span>

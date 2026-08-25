@@ -16,8 +16,16 @@
 
 import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  type RenderResult,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MemoryRouter } from "react-router-dom";
+import type { ReactElement } from "react";
 import {
   clearDeclarationDetailCache,
   type DeclarationListItem,
@@ -32,6 +40,22 @@ vi.mock("react-i18next", () => ({
 }));
 
 import { PersonDeclarations } from "./PersonDeclarations";
+
+// PersonDeclarations now also calls usePersonMagistrateHoldings (react-query) even for a
+// non-magistrate slug, where it stays `enabled: false` and issues no request — but the
+// hook still needs a QueryClientProvider ancestor to be called at all. MemoryRouter is for
+// the ИВСС lane's company chips (<Link to="/company/:eik">), unused by these cases but
+// harmless to include everywhere rather than keeping two render helpers.
+const renderPD = (el: ReactElement): RenderResult =>
+  render(
+    <QueryClientProvider
+      client={
+        new QueryClient({ defaultOptions: { queries: { retry: false } } })
+      }
+    >
+      <MemoryRouter>{el}</MemoryRouter>
+    </QueryClientProvider>,
+  );
 
 const DECLARANT = "Николай Иванов Копринков";
 const SPOUSE = "Теодора Стоянова Копринкова";
@@ -137,7 +161,7 @@ afterEach(() => {
 describe("expanded filing — whose stake it is", () => {
   it("names the holder when the stake is not the declarant's", async () => {
     stubWith(baseDetail({ stakes: [stake("Дийонима ЕООД", SPOUSE)] }));
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await expand();
     // The company still renders; what changes is that it no longer reads as HIS.
     expect(await screen.findByText(/Дийонима ЕООД/)).toBeInTheDocument();
@@ -146,7 +170,7 @@ describe("expanded filing — whose stake it is", () => {
 
   it("adds nothing when the declarant holds it themselves", async () => {
     stubWith(baseDetail({ stakes: [stake("Дийонима ЕООД", DECLARANT)] }));
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await expand();
     expect(await screen.findByText(/Дийонима ЕООД/)).toBeInTheDocument();
     // Marking every row would make the marker meaningless — it has to discriminate.
@@ -162,7 +186,7 @@ describe("expanded filing — whose stake it is", () => {
         stakes: [stake("Дийонима ЕООД", "  николай  иванов копринков ")],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await expand();
     await screen.findByText(/Дийонима ЕООД/);
     expect(
@@ -181,7 +205,7 @@ describe("expanded filing — property summary", () => {
         ],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     // The card sits in the KPI row: a reader must not have to open a year to learn this.
     expect(await screen.findByText("pp_decl_prop_card")).toBeInTheDocument();
     expect(await screen.findByText("10")).toBeInTheDocument();
@@ -197,7 +221,7 @@ describe("expanded filing — property summary", () => {
     // In the KPI row a lone „1 апартамент" is the answer, not noise — unlike the
     // per-filing line this replaced, where it merely restated the row underneath.
     stubWith(baseDetail({ assets: [prop("апартамент")] }));
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     expect(
       await screen.findByText("pp_prop_kind_apartment:1"),
     ).toBeInTheDocument();
@@ -205,7 +229,7 @@ describe("expanded filing — property summary", () => {
 
   it("renders no card at all when nothing is declared", async () => {
     stubWith(baseDetail({ assets: [] }));
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await screen.findByRole("button", { name: /Началник/ });
     await waitFor(() =>
       expect(screen.queryByText("pp_decl_prop_card")).not.toBeInTheDocument(),
@@ -224,7 +248,7 @@ describe("expanded filing — property summary", () => {
         ],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     expect(
       await screen.findByText(
         "pp_prop_kind_apartment:1 · pp_prop_kind_house:1",
@@ -244,7 +268,7 @@ describe("structure, not just presence", () => {
         stakes: [stake("Многосрично дружество за строителство ЕООД", SPOUSE)],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await expand();
     const chip = await screen.findByText(SPOUSE);
     expect(chip.closest(".truncate")).toBeNull();
@@ -255,7 +279,7 @@ describe("structure, not just presence", () => {
     // inside MpAssetsSummary's own KPI row — now goes through the one standalone render,
     // so the property card's detail request always fires for the headline filing.
     stubWith(baseDetail({ assets: [prop("апартамент")] }));
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     expect(
       await screen.findByText("pp_prop_kind_apartment:1"),
     ).toBeInTheDocument();
@@ -305,7 +329,7 @@ const bankAbroad = () => ({
 describe("expanded filing — the abroad block is a lens over the asset list", () => {
   it("keeps an abroad row in the plain asset list as well as the abroad block", async () => {
     stubWith(baseDetail({ assets: [bankAbroad()] }));
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await expand();
     // Four times: the category-breakdown tile's bank total (the fixture's only bank row),
     // the plain asset list, the block's total, and the block's own row. If a future change
@@ -328,7 +352,7 @@ describe("category breakdown (ported from MpAssetsSummary, every tier)", () => {
         ],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     expect(await screen.findByText("asset_category_bank")).toBeInTheDocument();
     expect(screen.getByText(/8[  ]?000/)).toBeInTheDocument();
     expect(screen.getByText(/2\s/)).toBeInTheDocument();
@@ -343,7 +367,7 @@ describe("category breakdown (ported from MpAssetsSummary, every tier)", () => {
         ],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     expect(await screen.findByText("asset_category_bank")).toBeInTheDocument();
     // Total is the ONE valued row; the unvalued one is called out separately rather
     // than silently vanishing from the count.
@@ -368,7 +392,7 @@ describe("category breakdown (ported from MpAssetsSummary, every tier)", () => {
         ],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await screen.findByRole("button", { name: /Началник/ });
     expect(
       screen.queryByText("asset_category_vehicle"),
@@ -389,7 +413,7 @@ describe("income (Table 12, ported from MpAssetsSummary, every tier)", () => {
         ],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await expand();
     expect(await screen.findByText("Работна заплата")).toBeInTheDocument();
     expect(screen.getByText(/24[  ]?000/)).toBeInTheDocument();
@@ -402,7 +426,7 @@ describe("income (Table 12, ported from MpAssetsSummary, every tier)", () => {
         income: [{ category: "Наем", eurDeclarant: 0, eurSpouse: 0 }],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await expand();
     expect(screen.queryByText("Наем")).not.toBeInTheDocument();
   });
@@ -416,7 +440,7 @@ describe("income (Table 12, ported from MpAssetsSummary, every tier)", () => {
         income: [{ category: "Наем", eurDeclarant: null, eurSpouse: 500 }],
       }),
     );
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await expand();
     expect(await screen.findByText("Наем")).toBeInTheDocument();
     expect(screen.getByText("—")).toBeInTheDocument();
@@ -425,7 +449,7 @@ describe("income (Table 12, ported from MpAssetsSummary, every tier)", () => {
 
   it("self-hides the heading entirely when the filing declares no income", async () => {
     stubWith(baseDetail({ income: [] }));
-    render(<PersonDeclarations slug="x" />);
+    renderPD(<PersonDeclarations slug="x" />);
     await expand();
     expect(screen.queryByText("mp_income_heading")).not.toBeInTheDocument();
   });
