@@ -21,14 +21,18 @@
 -- register holds movements with no opening balance and NO arithmetic over these rows yields
 -- an estate. See docs/plans/magistrate-declaration-detail-v1.md, Findings 0 and 0b.
 --
--- ⚠️ THE FORM-VERSION GUARD REFUSES FORWARD AS WELL AS BACK, and the forward half is the one
--- that grows. declarationTables.ts accepts v3.0 and nothing else. The register's older years
--- are largely pre-v3.0 (61% of the 51,040-filing index) — a static backlog — but the ИВСС
--- began issuing **v4.0 in 2026**, and measured over the first 9,124 loaded filings ALL 201
--- form-version refusals are v4.0 and ALL are from 2026: 5.5% of that year against 0% in 2024
--- and 2025, with 90 magistrates' own records refused. That share rises every filing season,
--- it lands on the most current declarations, and nothing goes red when it does — refusing is
--- the designed behaviour. See the plan's Tier-2 validation section.
+-- ⚠️ THE FORM-VERSION GUARD REFUSES FORWARD AS WELL AS BACK. declarationTables.ts maps v3.0
+-- and v4.0; the register's older years are largely pre-v3.0 (61% of the 51,040-filing index),
+-- order their same 12 columns differently, and stay refused — a static backlog.
+--
+-- **v4.0 was the FORWARD half and is now mapped (2026-08-25).** It is not a new layout: it is
+-- v3.0 re-denominated for Bulgaria's 2026-01-01 euro adoption, verified across 6 v4.0 and 2
+-- v3.0 filings as the same 12 columns at the same x-positions, with „Цена на сделката /лева/"
+-- becoming „…/евро/" on both tables 1 and 2. Mapping it took the refusals from 21,589 to
+-- 21,388 and the magistrates carrying a read property count from 3,497 to 3,587.
+--
+-- The lesson it leaves is the one in price_currency below: a version guard protects the
+-- COLUMN ORDER and says nothing about what the numbers MEAN. Sharing a map was the easy half.
 --
 -- Nothing serves these rows yet. This is storage; what may be PUBLISHED about a named judge
 -- is a separate, evidence-led decision recorded in that plan.
@@ -78,7 +82,12 @@ CREATE TABLE IF NOT EXISTS magistrate_filing_asset (
   municipality     text,
   area            text,    -- kept as TEXT: the column mixes кв.м. and декара across tables
   built_area      text,
-  price_lv         numeric, -- „Цена на сделката /лева/"; NULL when the cell is blank
+  -- ⚠️ THE AMOUNT AS WRITTEN, AND NOT ALWAYS IN LEVA — read price_currency beside it.
+  -- The column keeps its name for continuity, but „лв" is no longer implied: Bulgaria adopted
+  -- the euro on 2026-01-01 and the ИВСС reissued the form as v4.0 with „Цена на сделката
+  -- /евро/". Nothing is converted at ingest, deliberately — the figure a row shows must be
+  -- the figure printed on the document it links to.
+  price_lv         numeric, -- the price as written; NULL when the cell is blank
   acquired_year    int,
   holder_name      text,   -- „Собственик" — often the declarant, sometimes a spouse
   share            text,   -- идеална част: „1/1", „1/2", „СИО", „Изцяло", „6,448"
@@ -92,14 +101,58 @@ CREATE TABLE IF NOT EXISTS magistrate_filing_asset (
   exact           boolean NOT NULL DEFAULT false,
   PRIMARY KEY (source_url, table_num, ord)
 );
+
+-- The unit `price_lv` is denominated in, read from the price column's OWN header on each
+-- document — never inferred from the form version and above all never from the year.
+--
+-- ⚠️ 2026 CARRIES BOTH FORMS. Measured on the full corpus: 3,483 of that year's filings are
+-- v3.0 in лева beside 201 v4.0 in евро. A year-based rule would restate 3,483 filings' prices
+-- at 1.95583× against named judges, and a version-based one is right today and one reissue
+-- from being wrong. declarationTables.priceCurrency() reads the label, and readTable REFUSES
+-- a document that states no unit — so a stored row always knows what its number means.
+--
+-- Nullable only because a row loaded before this column existed cannot know; the loader
+-- always writes it, and magistrate_filing_assets.data.test.ts fails on a NULL.
+--
+-- ⚠️⚠️ THERE IS A THIRD DENOMINATION AND IT IS NOT EXPRESSIBLE HERE — DELIBERATELY.
+-- Bulgaria redenominated the lev on 1999-07-05 at 1000:1, and declarations list property
+-- acquired long before that under a header that says only „лева". Measured on the full
+-- corpus: **42 positionally-exact rows are pre-1999 acquisitions priced at 100,000 or more,
+-- 13 of them above a million** — an apartment bought in 1997 for „241 872", another in 1996
+-- for „450 600". Those are almost certainly OLD leva, and they render today as modern ones.
+--
+-- The CHECK admits only BGN and EUR because the unit of those rows is genuinely UNKNOWABLE
+-- per row: the header states „лева" either way, and declarants split between writing the
+-- historical figure and restating it in modern leva. Adding a 'BGL' value would create a
+-- slot that only a guess could ever fill — and a guessed 1000× is far worse than a visible
+-- oddity. The acquisition YEAR is not evidence: a restating declarant and a historical one
+-- produce the same row.
+--
+-- So this is recorded, not resolved — the same treatment as the „Площ /декара/" ambiguity in
+-- the Сметна палата corpus. Any future surface that AGGREGATES these prices (a total, a
+-- ranking, an average) must exclude or flag pre-1999 acquisitions first; rendering a single
+-- row as the document wrote it is honest, summing it is not.
+ALTER TABLE magistrate_filing_asset
+  ADD COLUMN IF NOT EXISTS price_currency text
+    CHECK (price_currency IN ('BGN', 'EUR'));
 CREATE INDEX IF NOT EXISTS idx_mfa_magistrate
   ON magistrate_filing_asset (magistrate_name, table_num);
 
 -- Warm databases get the columns only through the ALTERs above; CREATE TABLE IF NOT EXISTS is
--- a no-op there. Placed at the TOP of the file for the same reason 070's `source_url` ALTER is
--- — a LANGUAGE sql body below would be validated at CREATE time against a table that does not
--- yet have them, raising 42703 and rolling the whole file back on every database except the
--- one that wrote it.
+-- a no-op there.
+--
+-- ⚠️ EACH ALTER SITS BETWEEN ITS OWN TABLE'S CREATE AND THE FIRST FUNCTION THAT READS IT —
+-- NOT „at the top of the file", which an earlier version of this note claimed and which would
+-- break the file in the other direction. Both bounds bind, and they bind on opposite sides:
+--   • BELOW its CREATE TABLE, or on a cold database the ALTER hits a table that does not
+--     exist yet (42P01). `magistrate_filing_asset` is created in THIS file, so its
+--     `price_currency` ALTER must follow it — putting that one at the top fails every fresh
+--     clone while passing on the machine that wrote it.
+--   • ABOVE any LANGUAGE sql body that selects the column, which Postgres validates at CREATE
+--     time (42703).
+-- exec() sends this file as ONE transaction, so either mistake rolls back the whole
+-- migration. `magistrate_filing`'s ALTERs are near the top because 070 creates that table;
+-- `magistrate_filing_asset`'s is at line ~113 because this file creates it at ~63.
 
 -- What a filing actually yielded, per filing. The refusal reasons ride along so a caller can
 -- tell „no property declared" from „this document could not be read" without a second query.
@@ -109,7 +162,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'tableNum', table_num, 'ord', ord,
     'kind', kind_of_property, 'location', location, 'municipality', municipality,
     'area', area, 'builtArea', built_area,
-    'priceLv', price_lv, 'acquiredYear', acquired_year,
+    'priceLv', price_lv, 'priceCurrency', price_currency,
+    'acquiredYear', acquired_year,
     'holderName', holder_name, 'share', share,
     'legalBasis', legal_basis, 'fundsOrigin', funds_origin,
     'exact', exact

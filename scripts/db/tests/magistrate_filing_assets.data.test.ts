@@ -148,6 +148,13 @@ test("an unreadable table is recorded as refused, never as empty", async () => {
   //
   // Every pre-v3.0 filing is refused wholesale, so the two populations are large and the
   // assertion is that they stay disjoint and correctly labelled.
+  //
+  // ⚠️ THE MAPPED SET IS ('3.0','4.0') AND MUST TRACK declarationTables.SUPPORTED_FORMS.
+  // v4.0 is the euro reissue — the same 12 columns at the same positions, with „/лева/"
+  // becoming „/евро/" — so it is mapped and therefore must NOT be refused. Everything else
+  // (v2.0/2.1/2.2 and the versionless older forms) orders the same 12 columns differently
+  // and stays refused. SQL cannot import the TS set, so a future version added there must be
+  // added here too; until it is, this gate fails loudly rather than silently widening.
   const [r] = await allRows<{
     refused_with_rows: string;
     old_form_unrefused: string;
@@ -159,7 +166,7 @@ test("an unreadable table is recorded as refused, never as empty", async () => {
                         WHERE a.source_url = f.source_url AND a.table_num = '1'))::text
          AS refused_with_rows,
        (SELECT count(*) FROM magistrate_filing
-         WHERE form_version IS NOT NULL AND form_version <> '3.0'
+         WHERE form_version IS NOT NULL AND form_version NOT IN ('3.0', '4.0')
            AND table1_refused IS DISTINCT FROM 'form-version')::text
          AS old_form_unrefused`,
   );
@@ -373,4 +380,57 @@ test("a corpus with property rows also carries the counts derived from them", as
     `${assets} property row(s) are loaded but NO magistrate carries a parsed count — the ` +
       `roster was reloaded after the assets were. Re-run db:load:magistrate-filing-assets:pg.`,
   );
+});
+
+// ------------------------------------------------------------- the price's unit is READ --
+// v4.0 is v3.0 re-denominated for Bulgaria's 2026-01-01 euro changeover: same 12 columns at
+// the same positions, and „Цена на сделката /лева/" becomes „…/евро/". Both are current, in
+// the SAME year, so the unit is a property of the document and of nothing else.
+
+test("a stored price always knows what unit it is in", async () => {
+  if (skip) return;
+  // ⚠️ A unitless amount is worse than no amount: it renders under whichever unit a consumer
+  // assumes, off by 1.95583 against a named judge, in a figure that looks entirely ordinary.
+  // readTable refuses a document that states no unit, so every row the loader stores has one
+  // — a NULL here means a corpus crawled before the unit was read, and the repair is
+  // `npx tsx scripts/judiciary/crawl_declarations.ts --backfill-currency`.
+  const [{ n }] = await allRows<{ n: string }>(
+    `SELECT count(*)::text n FROM magistrate_filing_asset
+      WHERE price_lv IS NOT NULL AND price_currency IS NULL`,
+  );
+  assert.equal(
+    Number(n),
+    0,
+    `${n} stored price(s) carry no unit — re-read those filings with --backfill-currency`,
+  );
+});
+
+test("the unit tracks the DOCUMENT, not the year — 2026 carries both", async () => {
+  if (skip) return;
+  // ⚠️ The trap is a year rule, and this is the measurement that kills it: 2026 holds v3.0
+  // filings in лева beside v4.0 in евро. Anything keyed on the year restates thousands of
+  // prices. Anything keyed on the version is right today and one reissue from being wrong.
+  const rows = await allRows<{ v: string; cur: string; n: string }>(
+    `SELECT f.form_version v, COALESCE(a.price_currency,'(none)') cur, count(*)::text n
+       FROM magistrate_filing_asset a
+       JOIN magistrate_filing f ON f.source_url = a.source_url
+      WHERE a.price_lv IS NOT NULL
+      GROUP BY 1, 2`,
+  );
+  if (!rows.length) return;
+  // Each mapped version is internally consistent…
+  for (const r of rows)
+    assert.ok(
+      (r.v === "3.0" && r.cur === "BGN") || (r.v === "4.0" && r.cur === "EUR"),
+      `form v${r.v} stored ${r.n} price(s) as ${r.cur} — the map and the unit disagree`,
+    );
+  // …and the corpus really does contain both, so this gate is not passing vacuously on a
+  // single-currency corpus that would hide a hard-coded unit.
+  const eur = rows.filter((r) => r.cur === "EUR").length;
+  const bgn = rows.filter((r) => r.cur === "BGN").length;
+  if (eur > 0)
+    assert.ok(
+      bgn > 0,
+      "only euro prices are stored — the лева arm is unexercised and could be broken",
+    );
 });

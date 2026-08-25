@@ -40,6 +40,7 @@ export type TableRefusal =
   | { kind: "no-header"; detail: string }
   | { kind: "column-count"; expected: number; got: number; detail: string }
   | { kind: "form-version"; got: string | null; detail: string }
+  | { kind: "currency"; detail: string }
   | { kind: "no-rows"; detail: string };
 
 export interface ColumnMap {
@@ -335,7 +336,46 @@ export const formVersion = (pages: Row[][]): string | null => {
  *  against BIRD's independent reporting of the same four properties), so anything else is
  *  REFUSED. Adding the older map is a deliberate piece of work with its own evidence, not a
  *  loosened guard. */
-const SUPPORTED_FORM = "3.0";
+/** The money unit Таблица 1 and 2 are denominated in, read from the price column's own
+ *  header — „Цена на сделката /лева/" on v3.0, „…/евро/" on v4.0.
+ *
+ *  ⚠️ READ, NEVER INFERRED — not from the form version and above all not from the YEAR.
+ *  Bulgaria adopted the euro on 2026-01-01 and the ИВСС reissued the form for it, so 2026
+ *  carries BOTH: measured on the full corpus, 3,483 of that year's filings are v3.0 in лева
+ *  beside 201 v4.0 in евро. Keying the unit on the year would restate 3,483 filings' prices
+ *  at 1.95583× against named judges. Keying it on the version would be right today and is
+ *  one reissue away from being wrong; the label is the document's own answer. */
+export const priceCurrency = (pages: Row[][]): "BGN" | "EUR" | null => {
+  // ⚠️ SCOPED TO THE PRICE COLUMN'S OWN HEADER, not to the page. The unit is a slash-delimited
+  // token — „/лева/", „/евро/" — and the form is full of others („/правото/", „/кв.м./",
+  // „/декара/", „/подпис/"), while the declarant's own free text is right there too. A
+  // page-wide search lets anything that happens to say „евро" anywhere in the first pages
+  // decide what a judge's declared prices are denominated in.
+  //
+  // The label wraps across rows exactly as the header does — „Цена на" / „сделката" /
+  // „/лева/" are three separate visual rows in the PDF — so the anchor is the caption and the
+  // window is the few rows under it.
+  const UNIT = /\/\s*(лева|лв\.?|евро|eur)\s*\//i;
+  for (const rows of pages.slice(0, 4))
+    for (let i = 0; i < rows.length; i++) {
+      if (!/Цена\s+на/i.test(text(rows[i]))) continue;
+      for (let j = i; j < Math.min(i + 5, rows.length); j++) {
+        const m = UNIT.exec(text(rows[j]));
+        if (m) return /евро|eur/i.test(m[1]) ? "EUR" : "BGN";
+      }
+    }
+  return null;
+};
+
+/** ⚠️ v4.0 IS v3.0 RE-DENOMINATED, NOT A NEW LAYOUT — verified before it was admitted here.
+ *  Across 6 v4.0 and 2 v3.0 filings the header declares the same 12 columns at the same
+ *  x-positions (39, 88, 163, 231, 282, 327, 374, 421, 519, 618, 686, 767) in the same order;
+ *  the sole difference in the whole table is the price column's unit label. Both tables 1 and
+ *  2 move together. So they share ONE map, and what varies is `priceCurrency`.
+ *
+ *  That is the opposite of the pre-v3.0 case below, where the count is also 12 and the ORDER
+ *  differs — which is why version alone can never stand in for either check. */
+const SUPPORTED_FORMS = new Set(["3.0", "4.0"]);
 
 export const readTable = (
   pages: Row[][],
@@ -343,13 +383,26 @@ export const readTable = (
   expectedColumns: number,
 ): { rows: DataRow[]; map: ColumnMap } | TableRefusal => {
   const version = formVersion(pages);
-  if (version !== SUPPORTED_FORM)
+  if (version === null || !SUPPORTED_FORMS.has(version))
     return {
       kind: "form-version",
       got: version,
       detail:
         `form version ${version ?? "(unstated — pre-v3.0)"} has a different column ` +
-        `ORDER for the same column COUNT; only v${SUPPORTED_FORM} is mapped`,
+        `ORDER for the same column COUNT; mapped: ${[...SUPPORTED_FORMS]
+          .map((v) => `v${v}`)
+          .join(", ")}`,
+    };
+  // ⚠️ A PRICE WITH NO UNIT IS THE ONE THING WORSE THAN NO PRICE. The two mapped versions
+  // are denominated differently, so a document whose label we cannot read would have its
+  // prices stored under whichever unit the consumer happens to assume — off by 1.95583
+  // against a named judge, in a figure that looks entirely ordinary. Refuse instead.
+  if (priceCurrency(pages) === null)
+    return {
+      kind: "currency",
+      detail:
+        `v${version} states no /лева/ or /евро/ unit on the price column; refusing rather ` +
+        `than storing an amount whose unit is a guess`,
     };
   const pageIdx = pages.findIndex(
     (rows) => !isRefusal(columnMapFor(rows, caption, expectedColumns)),

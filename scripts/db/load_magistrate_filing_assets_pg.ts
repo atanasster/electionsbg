@@ -50,6 +50,9 @@ interface FilingRecord {
   year: number;
   registerDir: string;
   formVersion: string | null;
+  /** The unit both price columns are denominated in, read from the document's own header.
+   *  Null on a corpus crawled before the euro reissue was mapped. */
+  priceCurrency?: "BGN" | "EUR" | null;
   kind: string;
   periodYear: number | null;
   table1: DataRow[] | { refused: string };
@@ -176,6 +179,7 @@ const run = async (): Promise<void> => {
         "area",
         "built_area",
         "price_lv",
+        "price_currency",
         "acquired_year",
         "holder_name",
         "share",
@@ -233,6 +237,12 @@ const run = async (): Promise<void> => {
                 txt(row.cells[c.area]),
                 txt(row.cells[c.built]),
                 priceCell,
+                // ⚠️ The unit the DOCUMENT states, carried from the parse. Never derived here
+                // from the year or the form version: 2026 carries v3.0 in лева and v4.0 in
+                // евро side by side, so either would restate thousands of prices at 1.95583×.
+                // A readable filing always has one — readTable refuses a unitless document —
+                // so a null here means a corpus parsed before the column existed.
+                priceCell == null ? null : (r.priceCurrency ?? null),
                 c.acquired == null ? null : year(row.cells[c.acquired]),
                 txt(row.cells[c.holder]),
                 txt(row.cells[c.share]),

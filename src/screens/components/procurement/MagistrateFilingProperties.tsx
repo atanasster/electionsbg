@@ -25,11 +25,31 @@ import {
   type MagistrateFilingAsset,
 } from "@/data/judiciary/useMagistrateHoldings";
 
-/** лв → a plain grouped figure. Deliberately NOT converted to EUR: the form's column is
- *  „Цена на сделката /лева/" and a converted number is no longer the one printed on the
- *  document the row links to. */
-const lv = (n: number, lang: string): string =>
-  `${new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB").format(n)} лв`;
+/**
+ * The declared price, in the unit the DOCUMENT states.
+ *
+ * ⚠️ NOT CONVERTED, IN EITHER DIRECTION. The figure a row shows must be the figure printed on
+ * the declaration it links to, so a лева price stays лева and a евро price stays евро — even
+ * though the two now sit side by side in the same year. Bulgaria adopted the euro on
+ * 2026-01-01 and the ИВСС reissued the form as v4.0 („Цена на сделката /евро/"); 2026 carries
+ * 3,483 filings still on v3.0 in лева beside 201 on v4.0.
+ *
+ * ⚠️ A NULL UNIT PRINTS NO UNIT. Defaulting it to „лв" is a 1.95583× misstatement waiting for
+ * a euro-denominated row whose unit was never recorded — against a named judge, in a number
+ * that looks entirely ordinary. Bare is worse-looking and honest.
+ */
+const price = (
+  n: number,
+  currency: "BGN" | "EUR" | null | undefined,
+  lang: string,
+): string => {
+  const num = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB").format(
+    n,
+  );
+  if (currency === "EUR") return `${num} €`;
+  if (currency === "BGN") return `${num} лв`;
+  return num;
+};
 
 /** The register's own placeholder for a cell it does not publish. Kept when it TRAILS a real
  *  place — „Балчик - …" is the document saying „somewhere in Балчик, street not published",
@@ -88,7 +108,7 @@ const Row: FC<{ a: MagistrateFilingAsset; bg: boolean; lang: string }> = ({
       {/* Money only from a positionally-exact row — see the module header. */}
       {a.priceLv != null && a.exact && (
         <span className="font-semibold tabular-nums">
-          {lv(a.priceLv, lang)}
+          {price(a.priceLv, a.priceCurrency, lang)}
         </span>
       )}
       {a.legalBasis && (
@@ -112,23 +132,40 @@ export const MagistrateFilingProperties: FC<{
 
   const acquired = assets.filter((a) => a.tableNum === "1");
   const transferred = assets.filter((a) => a.tableNum === "2");
-  // An entry (or exit) filing's Таблица 1 is a snapshot of the whole estate, not a year's
-  // movements. Naming it „придобити" there would turn a career's holdings into one year's
-  // purchases.
+  // What Таблица 1 MEANS is a property of the filing's kind, and there are THREE answers, not
+  // two:
+  //   entry/exit → a snapshot of the whole estate at that date
+  //   annual     → property acquired during the declared period
+  //   unknown    → ⚠️ WE DO NOT KNOW, and it is 34.6% of filings. The ИВСС does not print the
+  //                marker row on the older layouts, so the kind is genuinely absent.
+  //
+  // ⚠️ `unknown` MUST NOT BE ROUNDED TO `annual` — a binary snapshot/not-snapshot test does
+  // exactly that, and it publishes a false sentence about a named judge. Measured: Дияна
+  // Пенчовска's filing is `unknown` and lists five properties acquired between 1991 and 2021;
+  // headed „Придобито през периода" it states she acquired a 1991 apartment during 2025.
+  // 330 filings carry a table-1 span of more than five years.
+  //
+  // So an unknown kind gets a heading that asserts neither: the rows are what the declaration
+  // lists, which is true whichever kind it turns out to be.
   const snapshot = kind === "entry" || kind === "exit";
+  const acquiredHeading = snapshot
+    ? bg
+      ? "Имущество към встъпване в длъжност"
+      : "Property held on taking office"
+    : kind === "annual"
+      ? bg
+        ? "Придобито през периода"
+        : "Acquired during the period"
+      : bg
+        ? "Имоти, описани в декларацията"
+        : "Property listed in this filing";
 
   return (
     <div className="mt-1 space-y-2 border-l-2 border-border pl-2.5">
       {acquired.length > 0 && (
         <div>
           <div className="mb-0.5 text-[11px] font-semibold text-muted-foreground">
-            {snapshot
-              ? bg
-                ? "Имущество към встъпване в длъжност"
-                : "Property held on taking office"
-              : bg
-                ? "Придобито през периода"
-                : "Acquired during the period"}
+            {acquiredHeading}
           </div>
           <ul className="space-y-0.5">
             {acquired.map((a) => (
@@ -149,10 +186,14 @@ export const MagistrateFilingProperties: FC<{
           </ul>
         </div>
       )}
+      {/* ⚠️ THE CAPTION MUST NOT NAME A UNIT. It sits under rows that can be лева, евро or —
+        where the corpus predates the unit being read — bare, and a fixed „в лева" re-asserts
+        for the whole block exactly what price() refuses to assert per row. It said „в лева"
+        for one commit while the euro rows rendered „€" directly above it. */}
       <p className="text-[10px] text-muted-foreground/80">
         {bg
-          ? "Извлечено от самата декларация. Сумите са цената на сделката в лева, както е записана в документа."
-          : "Extracted from the declaration itself. Amounts are the transaction price in лв, as written in the document."}
+          ? "Извлечено от самата декларация. Сумите са цената на сделката, както е записана в документа — в валутата, посочена в самия формуляр."
+          : "Extracted from the declaration itself. Amounts are the transaction price as written in the document, in the currency the form itself states."}
       </p>
     </div>
   );

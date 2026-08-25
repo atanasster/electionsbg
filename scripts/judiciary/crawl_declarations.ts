@@ -39,6 +39,7 @@ import { fileURLToPath } from "url";
 import {
   declarationMeta,
   formVersion,
+  priceCurrency,
   isRefusal,
   readTable,
   toRows,
@@ -103,6 +104,12 @@ export interface FilingRecord {
   kind: string;
   /** The calendar year the filing COVERS, or null where the form leaves it blank. */
   periodYear: number | null;
+  /** The unit BOTH price columns are denominated in, read from the column's own header —
+   *  „Цена на сделката /лева/" on v3.0, „…/евро/" on v4.0 after Bulgaria's 2026-01-01 euro
+   *  changeover. NEVER derived from the version or the year: 2026 carries both forms, so the
+   *  year would restate 3,483 filings' prices at 1.95583×. Null only where the document
+   *  states none, in which case the tables are refused rather than stored unitless. */
+  priceCurrency: "BGN" | "EUR" | null;
   /** Таблица 1 — property ACQUIRED in the period (or, on an ENTRY filing, the whole estate).
    *  A refusal reason instead of rows when the document could not be mapped. */
   table1: DataRow[] | { refused: string };
@@ -151,11 +158,22 @@ const parse = (
     year: e.year,
     registerDir: e.batch,
     formVersion: formVersion(pages),
+    priceCurrency: priceCurrency(pages),
     kind: meta.kind,
     periodYear: meta.periodYear,
     table1: readOne(pages, /Право на собственост и ограничени вещни права/, 12),
     table2: readOne(pages, /Прехвърляне на имоти през предходната година/, 10),
   };
+};
+
+/** A string flag's value, or null. Mirrors `arg` above, which is numeric-only. */
+const strArg = (flag: string): string | null => {
+  const i = process.argv.indexOf(flag);
+  if (i < 0) return null;
+  const raw = process.argv[i + 1];
+  if (!raw || raw.startsWith("--"))
+    throw new Error(`${flag} needs a value, e.g. ${flag} 4.0`);
+  return raw;
 };
 
 const main = async (): Promise<void> => {
@@ -177,7 +195,48 @@ const main = async (): Promise<void> => {
 
   // ALL filings — every year, BOTH directories. That is the whole difference from the old
   // roster, which took one annual per magistrate.
+  //
+  // `--reparse <version>` re-fetches ONLY the filings a previous run refused as that form
+  // version, so newly mapping a form costs its own filings rather than the whole 51,040-PDF
+  // register (~3.5 h against ~1 min for v4.0's 201). The refusal the cache already stores
+  // names the version it saw, so the set needs no network and no database to compute.
+  //
+  // ⚠️ It re-fetches rather than re-reading, because the cache stores the PARSE and not the
+  // document — there is no stored text to re-run a new map over.
+  // `--backfill-currency` re-reads every filing that HAS rows but no recorded price unit —
+  // i.e. anything parsed before the euro reissue was mapped. It is deliberately not a
+  // version rule: inferring „v3.0 means лева" is the exact shortcut priceCurrency() exists to
+  // refuse, and it would bake an assumption into 11,584 stored prices. Refused filings are
+  // skipped because they store no price to attach a unit to.
+  const backfillCurrency = process.argv.includes("--backfill-currency");
+  const reparse = strArg("--reparse");
   let todo = index.filter((e) => !cache[e.pdf]);
+  if (backfillCurrency) {
+    const wanted = index.filter((e) => {
+      const r = cache[e.pdf];
+      if (!r || r.priceCurrency) return false;
+      return Array.isArray(r.table1) || Array.isArray(r.table2);
+    });
+    console.log(
+      `--backfill-currency: ${wanted.length} filing(s) hold rows with no recorded price unit`,
+    );
+    todo = wanted;
+  } else if (reparse) {
+    const wanted = index.filter((e) => {
+      const r = cache[e.pdf];
+      if (!r) return false;
+      const t1 = r.table1 as { refused?: string };
+      return (
+        !Array.isArray(r.table1) &&
+        typeof t1.refused === "string" &&
+        r.formVersion === reparse
+      );
+    });
+    console.log(
+      `--reparse v${reparse}: ${wanted.length} previously-refused filing(s) to re-read`,
+    );
+    todo = wanted;
+  }
   if (probe) todo = todo.slice(0, 8);
   else if (Number.isFinite(limit)) todo = todo.slice(0, limit);
 

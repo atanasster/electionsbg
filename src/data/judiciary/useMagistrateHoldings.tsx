@@ -80,6 +80,12 @@ export interface MagistrateFilingAsset {
   /** „Цена на сделката", in лв. Null where the cell is blank, which is common and real:
    *  property received under a marriage contract or a gift declares no price. */
   priceLv: number | null;
+  /** ⚠️ THE UNIT `priceLv` IS IN, AND IT IS NOT ALWAYS ЛЕВА. Bulgaria adopted the euro on
+   *  2026-01-01 and the ИВСС reissued the declaration as v4.0 with „Цена на сделката /евро/";
+   *  v3.0 says /лева/. Both are current — 2026 carries 3,483 v3.0 filings beside 201 v4.0 —
+   *  so this is read from each document and never derived from its year or version.
+   *  `null` means the corpus predates that reading; render no unit rather than guessing. */
+  priceCurrency?: "BGN" | "EUR" | null;
   acquiredYear: number | null;
   holderName: string | null;
   share: string | null;

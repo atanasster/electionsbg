@@ -52,6 +52,7 @@ const asset = (
   area: "86",
   builtArea: "86",
   priceLv: 448863,
+  priceCurrency: "BGN",
   acquiredYear: 2025,
   holderName: "Адалберт Живков Кръстев",
   share: "СИО",
@@ -171,6 +172,54 @@ describe("MagistrateFilingProperties", () => {
   it("still shows both when they are genuinely different places", () => {
     renderProps([asset({ location: "гр. София", municipality: "Столична" })]);
     expect(screen.getByText("гр. София · Столична")).toBeInTheDocument();
+  });
+
+  it("asserts NEITHER meaning when the filing's kind is unknown", () => {
+    // ⚠️ 34.6% of filings state no kind — the ИВСС does not print the marker row on the older
+    // layouts. Rounding that to `annual` publishes a false sentence: Дияна Пенчовска's
+    // `unknown` filing lists five properties acquired 1991-2021, so „Придобито през периода"
+    // claims she acquired a 1991 apartment during 2025. 330 filings span over five years.
+    renderProps([asset()], "unknown");
+    expect(
+      screen.getByText("Имоти, описани в декларацията"),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Придобито през периода"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Имущество към встъпване/),
+    ).not.toBeInTheDocument();
+  });
+
+  it("asserts neither for a missing kind either", () => {
+    renderProps([asset()], null);
+    expect(
+      screen.getByText("Имоти, описани в декларацията"),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Придобито през периода"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows a euro price in euro, not silently as leva", () => {
+    // ⚠️ v4.0 is the euro reissue of the same form, so 2026 carries both units side by side —
+    // 3,483 v3.0 filings in лева against 201 v4.0 in евро. Printing a евро figure as „лв"
+    // understates a named judge's declared price by 1.95583×, in a number that looks
+    // completely ordinary.
+    renderProps([asset({ priceLv: 20196, priceCurrency: "EUR" })]);
+    expect(screen.getByText(/20\s?196\s?€/)).toBeInTheDocument();
+    // ⚠️ `/лв/` alone is VACUOUS here — the block's caption says „лева", and „лв" is not a
+    // substring of „лева", so the original assertion passed while the caption asserted leva
+    // directly above a euro figure. Match both spellings.
+    expect(screen.queryByText(/\bлв\b|лева/)).not.toBeInTheDocument();
+  });
+
+  it("prints NO unit when the document's unit was never recorded", () => {
+    // Bare looks worse and is honest. Defaulting to „лв" is the same 1.95583× misstatement,
+    // waiting for the first euro row whose unit the corpus predates.
+    renderProps([asset({ priceLv: 20196, priceCurrency: null })]);
+    expect(screen.getByText(/20\s?196/)).toBeInTheDocument();
+    expect(screen.queryByText(/\bлв\b|лева|€/)).not.toBeInTheDocument();
   });
 
   it("renders the same block in English", () => {

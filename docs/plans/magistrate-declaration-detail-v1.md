@@ -330,7 +330,11 @@ most current declarations — the ones a reader is most likely to want. Left alo
 the register fully migrated and the parser reading none of it, while every gate stays green,
 because refusing is the designed behaviour.
 
-Mapping v4.0 is therefore the highest-value parser work outstanding, ahead of the pre-v3.0
+**[DONE 2026-08-25 — see „Mapping v4.0" below.** It turned out to be the euro changeover
+rather than a new layout: same map, different money. The forward gap is closed and the
+pre-v3.0 backlog is what remains.]**
+
+Mapping v4.0 was therefore the highest-value parser work outstanding, ahead of the pre-v3.0
 backlog. It needs the same treatment v3.0 got: a column-map verified against a sample, a
 positional/nearest-header `exact` flag, and `validate_declaration_parse.ts` re-run per form
 version rather than in aggregate — an aggregate pass rate hides a version that is 5% of the
@@ -615,6 +619,87 @@ matters and is silent about the one that does not.
 properties against the heuristic's 1,653, 935 disagreeing — because every roster record's own
 filing is 2024-or-later, so the whole pre-v3.0 backlog is invisible to that figure. Predicted
 before the reload and confirmed after.
+
+### Mapping v4.0 — it is the euro changeover, not a new layout (2026-08-25)
+
+The forward-compat gap is closed, and what it actually was is worth stating plainly, because
+the obvious reading was wrong.
+
+**v4.0 is v3.0 re-denominated.** Verified before anything was admitted, across 6 v4.0 and 2
+v3.0 filings: the header declares the same **12 columns at the same x-positions** (39, 88,
+163, 231, 282, 327, 374, 421, 519, 618, 686, 767) in the same order. The sole difference in
+the entire table is the price column's unit — „Цена на сделката **/лева/**" becomes
+„…**/евро/**". Таблица 2 moves with it. The ИВСС reissued the form for Bulgaria's 2026-01-01
+euro adoption; nothing about the layout changed.
+
+So the fix is NOT "allow another version". Sharing the map is the easy half; the load-bearing
+half is that **column 7 now means different money on different documents**.
+
+⚠️ **THE UNIT IS READ FROM THE DOCUMENT, NEVER INFERRED — and the trap is the YEAR, not the
+version.** 2026 carries BOTH forms: **3,483 filings still on v3.0 in лева beside 201 on v4.0
+in евро**. A year rule would restate 3,483 filings' prices at 1.95583× against named judges. A
+version rule is right today and one reissue from being wrong. `priceCurrency()` reads the
+label, `readTable` **refuses a mapped document that states no unit at all** — a price stored
+under a guessed unit is worse than no price, being off by a factor of two in a figure that
+looks entirely ordinary — and `magistrate_filing_asset.price_currency` carries it per row.
+Nothing is converted at ingest or at render: the number shown must be the number printed on
+the document the row links to.
+
+**What it bought**, measured on the reload:
+
+| | before | after |
+|---|---|---|
+| magistrates with a read property count | 3,497 | **3,587** (+90) |
+| property rows | 11,584 | **11,862** (+278) |
+| Таблица 1 refusals | 21,589 | **21,388** (−201) |
+
+The +90 is exactly the population sized when the gap was found — every magistrate whose own
+record's filing was v4.0.
+
+**Re-reading cost 52 seconds, not 3.5 hours.** `crawl_declarations.ts --reparse 4.0` re-fetches
+only the filings a previous run refused at that version (the cached refusal names it, so the
+set needs neither network nor database to compute). A second selector,
+`--backfill-currency`, re-fetches every filing that HAS rows but no recorded unit —
+**19,773 filings**, ~80 minutes. That one is deliberately not a version rule: stamping „v3.0
+means лева" onto 11,584 stored prices is the exact shortcut the refusal exists to prevent.
+
+⚠️ **Three different populations appear in this section and they are NOT the same set** — an
+earlier draft quoted them as if they were:
+
+| figure | population |
+|---|---|
+| **15,409** v3.0 filings | of the **36,995** loaded into Postgres, i.e. names the published roster carries |
+| **19,773** to re-fetch | of the **51,005** in the CACHE, which spans every name in the register index |
+| **11,862** property rows | rows, not filings — several per filing, roster-scoped |
+
+The cache is wider than the roster by design (14,010 crawled filings belong to names the
+roster does not carry), so a cache-scoped count will always exceed a Postgres-scoped one.
+Quoting one as the other overstates coverage.
+
+⚠️ **A defect this surfaced in the Tier-2 renderer, unrelated to currency.** The heading was
+binary — snapshot for entry/exit, „Придобито през периода" for everything else — which rounds
+`unknown` to `annual`, the one thing 185's header says must never happen. Дияна Пенчовска's
+filing is `unknown` and lists five properties acquired **1991-2021**; headed „Придобито през
+периода" it states she acquired a 1991 apartment during 2025. **330 filings carry a table-1
+span of more than five years.** The heading is now three-way, and an unknown kind asserts
+neither meaning.
+
+⚠️⚠️ **A THIRD DENOMINATION EXISTS AND IS NOT RESOLVED.** Found in review of this change,
+not by it. Bulgaria redenominated the lev on **1999-07-05 at 1000:1**, and the register lists
+property acquired long before that under a header saying only „лева". Measured on the full
+corpus: **42 positionally-exact rows are pre-1999 acquisitions priced at ≥100,000, 13 of them
+above a million** — an apartment bought in 1997 for „241 872", another in 1996 for „450 600".
+They render today as modern leva.
+
+It is left unresolved on purpose. The unit is **unknowable per row**: the header says „лева"
+either way, and declarants split between writing the historical figure and restating it. The
+acquisition year is not evidence, because both kinds of declarant produce the same row. So
+`price_currency` admits only BGN and EUR — a `BGL` slot could only ever be filled by a guess,
+and a guessed 1000× is worse than a visible oddity.
+
+**The rule that follows:** rendering one row as the document wrote it is honest; SUMMING
+these is not. Any future surface that aggregates declared prices — a total, an average, a
+ranking — must exclude or flag pre-1999 acquisitions first.
 
 ### Tier 4 — one career, one timeline
 

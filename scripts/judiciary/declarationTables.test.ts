@@ -21,6 +21,7 @@ import {
   toRows,
   type Item,
   type Row,
+  priceCurrency,
 } from "./declarationTables";
 
 /** Build a row at baseline `y` from [x, text] pairs. */
@@ -207,8 +208,31 @@ describe("tableRows", () => {
   });
 });
 
-/** Page 1 of a v3.0 form — `readTable` refuses a document without it. */
-const VERSION_PAGE: Row[] = [row(760, [[400, "v.3.0 / 22.11.2022 г."]])];
+/** Page 1 of a v3.0 form — `readTable` refuses a document without it.
+ *
+ *  It carries the price column's unit as well as the version, because a real form always
+ *  prints one and `readTable` now refuses a document whose unit it cannot read: the two
+ *  mapped versions are denominated differently (v3.0 лева, v4.0 евро), so an amount with no
+ *  unit is a figure off by 1.95583 waiting for a consumer to assume one. */
+const VERSION_PAGE: Row[] = [
+  row(760, [[400, "v.3.0 / 22.11.2022 г."]]),
+  // The unit as the form actually prints it: the price column's label wraps across three
+  // visual rows, and priceCurrency() anchors on „Цена на" rather than scanning the page —
+  // the document is full of other slash-delimited tokens („/правото/", „/кв.м./"), and the
+  // declarant's own free text sits nearby.
+  row(752, [[361, "Цена на"]]),
+  row(746, [[359, "сделката"]]),
+  row(740, [[365, "/лева/"]]),
+];
+
+/** The same page as the ИВСС reissued it for the euro: v4.0, identical column map, and the
+ *  one thing that actually changed. */
+const VERSION_PAGE_V4: Row[] = [
+  row(760, [[400, "v.4.0 / 15.01.2026 г."]]),
+  row(752, [[361, "Цена на"]]),
+  row(746, [[359, "сделката"]]),
+  row(740, [[365, "/евро/"]]),
+];
 
 describe("readTable across pages", () => {
   it("refuses a pre-v3.0 form, whose columns are the same COUNT in a different ORDER", () => {
@@ -233,6 +257,57 @@ describe("readTable across pages", () => {
     );
     expect(isRefusal(t)).toBe(false);
     if (!isRefusal(t)) expect(t.rows).toHaveLength(4);
+  });
+
+  it("accepts v4.0, which is v3.0 re-denominated rather than re-laid-out", () => {
+    // Verified against 6 v4.0 and 2 v3.0 filings before it was admitted: the header declares
+    // the same 12 columns at the same x-positions in the same order, and the ONLY difference
+    // in the table is the price column's unit. So they share one map.
+    const t = readTable(
+      [VERSION_PAGE_V4, TABLE1_PAGE],
+      /Право на собственост/,
+      12,
+    );
+    expect(isRefusal(t)).toBe(false);
+    if (!isRefusal(t)) expect(t.rows).toHaveLength(4);
+  });
+
+  it("reads the price unit off the document, and does not infer it from the version", () => {
+    // ⚠️ The trap this closes is the YEAR heuristic, not the version one. 2026 carries BOTH
+    // forms — 3,483 v3.0 filings in лева beside 201 v4.0 in евро — so anything keyed on the
+    // year restates thousands of prices at 1.95583× against named judges.
+    expect(priceCurrency([VERSION_PAGE])).toBe("BGN");
+    expect(priceCurrency([VERSION_PAGE_V4])).toBe("EUR");
+    // …and a version-shaped guess is refused: a v4.0 page that actually says лева is лева.
+    const mixed: Row[] = [
+      row(760, [[400, "v.4.0 / 15.01.2026 г."]]),
+      row(752, [[361, "Цена на"]]),
+      row(740, [[365, "/лева/"]]),
+    ];
+    expect(priceCurrency([mixed])).toBe("BGN");
+  });
+
+  it("does not let stray slash-delimited text elsewhere decide the unit", () => {
+    // ⚠️ The form prints „/правото/", „/кв.м./", „/декара/", „/подпис/" — and the declarant's
+    // own free text sits on the same pages. A page-wide search lets any of it decide what a
+    // judge's declared prices are denominated in.
+    const decoy: Row[] = [
+      row(760, [[400, "v.4.0 / 15.01.2026 г."]]),
+      row(700, [[100, "Вид на имота /правото/"]]),
+      row(690, [[100, "получено в /евро/ по банков път"]]), // declarant free text
+      row(652, [[361, "Цена на"]]),
+      row(640, [[365, "/лева/"]]),
+    ];
+    expect(priceCurrency([decoy])).toBe("BGN");
+  });
+
+  it("refuses a mapped form whose price column states no unit at all", () => {
+    // A price with no unit is worse than no price: it is stored under whichever unit the
+    // consumer assumes, and looks entirely ordinary while being off by a factor of two.
+    const noUnit: Row[] = [row(760, [[400, "v.4.0 / 15.01.2026 г."]])];
+    const t = readTable([noUnit, TABLE1_PAGE], /Право на собственост/, 12);
+    expect(isRefusal(t)).toBe(true);
+    if (isRefusal(t)) expect(t.kind).toBe("currency");
   });
 
   it("follows a table onto a continuation page that has no caption or header", () => {
