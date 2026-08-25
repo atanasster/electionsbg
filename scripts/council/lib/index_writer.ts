@@ -539,8 +539,19 @@ export type MergeOptions = {
   /** Allow the votes shard to lose entries. Escape hatch only — see
    *  VOTES_SHRINK_TOLERANCE. */
   allowShrink?: boolean;
-  /** Allow an implausibly large index prune. Escape hatch only — see
-   *  shouldRefusePrune. */
+  /**
+   * Allow an implausibly large index prune. Escape hatch only — see
+   * shouldRefusePrune.
+   *
+   * ⚠️ DELIBERATELY NOT EXPOSED BY `scrape.ts`, and this is not an unfinished
+   * job to finish. The daily writer never needs it: `rebuild_shards.ts
+   * --allow-prune` is the unblock path, and once that has dropped the rows the
+   * next scrape sees `pruned === 0` and returns before the ceiling is
+   * consulted at all. Exposing it on the scrape would put a corpus-wide
+   * guard-disable on the UNATTENDED path, where a refusal already costs one
+   * município (scrape.ts catches per município and correctly holds the
+   * watermark). `allowShrink` is unexposed for the same reason.
+   */
   allowPrune?: boolean;
 };
 
@@ -697,10 +708,36 @@ export const mergeMuniResult = async (
  * write, while reporting success. Reading the durable tree makes it mean what
  * its name says, and makes it the repair tool for a shard that has fallen
  * behind (which is how the 2026-05 corpus is recovered).
+ *
+ * It ALSO prunes the index window, through the same `pruneToDurable` the merge
+ * writer uses. Resyncing `meta.resolutionCount` alone was only half a repair,
+ * and the half that was missing is the one that mattered: `cbbcd220e4` ran
+ * this tool after purging 84 phantom shards and reported "the shards and index
+ * rebuilt to match", but the counts it fixed were re-broken by the next scrape
+ * while the 84 ROWS were never touched at all. Measured on the real corpus
+ * before this: counts corrected, all 84 rows still present, and PVN01 left at
+ * indexRows=137 against resolutionCount=135.
+ *
+ * ON A REFUSAL the index is left ENTIRELY unwritten — `writeIndex` runs after
+ * the loop — so there is no half-written index and no partial prune. Votes
+ * shards for municipalities processed BEFORE the refusal HAVE been written;
+ * that is safe (each is derived from that município's own durable tree and
+ * merged additively) and a re-run completes the rest. What IS lost is the
+ * prune and the `meta.resolutionCount` resync for every other município in the
+ * run — which is why refusals are collected and reported together rather than
+ * thrown from inside the loop: an operator repairing sixteen municipalities
+ * should not discover the second broken one only after fixing the first.
+ *
+ * `allowPrune` takes a SET of município codes as well as a bare `true`. The
+ * scoped form is the one to reach for: the bare flag disarms the ceiling for
+ * every município in the run, including the broken one whose window then goes
+ * to zero in the same commit.
  */
 export const rebuildShardsFromDurable = async (
   opts: {
     allowShrink?: boolean;
+    /** `true` disarms the ceiling corpus-wide; a Set scopes it to named codes. */
+    allowPrune?: boolean | Set<string>;
   } = {},
 ): Promise<{
   munis: number;
@@ -709,12 +746,21 @@ export const rebuildShardsFromDurable = async (
   resolutionsWithVotes: number;
   /** Individual per-councillor vote rows — ~25x the figure above. */
   voteRows: number;
+  /** Index rows dropped for having no durable shard. */
+  rowsPruned: number;
 }> => {
   const idx = await readIndex();
   const before = JSON.stringify(idx);
   let shardsWritten = 0;
   let resolutionsWithVotes = 0;
   let voteRows = 0;
+  let rowsPruned = 0;
+  // Collected rather than thrown from inside the loop — see the doc comment.
+  // The all-or-nothing property is preserved by rethrowing BEFORE writeIndex.
+  const refusals: string[] = [];
+  const prunePermitted = (code: string): boolean =>
+    opts.allowPrune === true ||
+    (opts.allowPrune instanceof Set && opts.allowPrune.has(code));
 
   // Drive the loop from the union of the index's municipalities and the
   // directories actually on disk. Iterating the index alone would let the tool
@@ -738,6 +784,37 @@ export const rebuildShardsFromDurable = async (
         voteRows += r.tally?.perCouncillor?.length ?? 0;
       }
     }
+    // Prune the window to the durable tree, by the SAME rule the merge writer
+    // uses — one definition, so the repair tool and the scrape cannot converge
+    // on two different windows.
+    //
+    // The survivors are NOT topped back up to PER_MUNI_LIMIT from the tree,
+    // and that is deliberate rather than an omission: `writeIndex` strips
+    // `perCouncillor` while `durable.rows` carry it, so seeding the slot from
+    // the tree would make `JSON.stringify(idx) !== before` true on every run
+    // even where the written FILE is byte-identical — defeating the no-op
+    // guard below, whose whole purpose is that a moved mtime on an unchanged
+    // corpus is the signal that hid the 2026-05 freeze. A short window costs
+    // nothing: `mergeMuniResult` unions it with `durable.rows` anyway, so once
+    // it is a subset of the tree it contributes nothing the tree lacks, and
+    // the next scrape re-fills it.
+    //
+    // Only touch an existing slot. A município with a durable tree and no
+    // index slot is a real state this loop is built to find; giving it an
+    // empty array here would invent a slot the merge writer never made.
+    const slot = idx.resolutionsByObshtina[code];
+    if (slot) {
+      try {
+        const kept = pruneToDurable(code, slot, durable.ids, durable.ids.size, {
+          allowPrune: prunePermitted(code),
+        });
+        rowsPruned += slot.length - kept.length;
+        idx.resolutionsByObshtina[code] = kept;
+      } catch (err) {
+        refusals.push(err instanceof Error ? err.message : String(err));
+      }
+    }
+
     // Resync meta.resolutionCount from the durable shard tree. The slim index
     // slot is capped at PER_MUNI_LIMIT and under-reports any município whose
     // history exceeds the cap; counting shards restores the true total.
@@ -747,10 +824,29 @@ export const rebuildShardsFromDurable = async (
     }
   }
 
+  // Rethrow BEFORE writeIndex, so a refused município still costs the whole
+  // run its index write — the property that keeps a repair all-or-nothing —
+  // while every offender is named in one pass instead of the first one only.
+  if (refusals.length > 0) {
+    throw new Error(
+      `${refusals.join("\n")}\n` +
+        `[council] ${refusals.length} município(s) refused; index NOT written. ` +
+        `Check the shard tree is where you expect before overriding, then pass ` +
+        `--allow-prune=<CODE>[,<CODE>] to scope the override to the ones you ` +
+        `have inspected.`,
+    );
+  }
+
   // Don't dirty the committed index on a no-op repair. Same reasoning as the
   // votes shard's own equality short-circuit: a moved mtime on an unchanged
   // corpus is the signal that hid the 2026-05 freeze.
   if (JSON.stringify(idx) !== before) await writeIndex(idx);
 
-  return { munis: codes.size, shardsWritten, resolutionsWithVotes, voteRows };
+  return {
+    munis: codes.size,
+    shardsWritten,
+    resolutionsWithVotes,
+    voteRows,
+    rowsPruned,
+  };
 };

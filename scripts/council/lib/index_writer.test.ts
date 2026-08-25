@@ -603,6 +603,111 @@ describe("rebuildShardsFromDurable", () => {
 
     const r = await writer.rebuildShardsFromDurable();
     expect(r.resolutionsWithVotes).toBe(1);
+    // The prune must not INVENT a slot the merge writer never made. An empty
+    // key here would make `JSON.stringify(idx) !== before` true, so a no-op
+    // repair would dirty the committed index — the exact "moved mtime on an
+    // unchanged corpus" signal that hid the 2026-05 freeze for ten weeks.
+    // (`?? []` in place of the `if (slot)` guard is the mutation that does
+    // this; a bare delete TypeErrors inside .filter and is caught anyway.)
+    expect((await readIndexFile()).resolutionsByObshtina).toEqual({});
+    expect(r.rowsPruned).toBe(0);
+  });
+
+  it("prunes shard-less index rows, not just meta.resolutionCount", async () => {
+    // The repair tool must be able to perform the one-off correction, which is
+    // what `cbbcd220e4` believed it had done. Measured on the real corpus
+    // before this: counts fixed, all 84 rows still there, and PVN01 left at
+    // indexRows=137 against resolutionCount=135 — an artifact whose window is
+    // larger than the history it claims.
+    const rows = await seedHistory(10);
+    const purged = resolution(`${CODE}-2026-prot9-r001`, "2026-07-01");
+    await putIndex([purged, ...rows]);
+
+    const r = await writer.rebuildShardsFromDurable();
+
+    expect(r.rowsPruned).toBe(1);
+    const idx = await readIndexFile();
+    expect(idx.meta?.[CODE].resolutionCount).toBe(10);
+    const ids = idx.resolutionsByObshtina[CODE].map((x) => x.id);
+    expect(ids).not.toContain(purged.id);
+    expect(ids).toHaveLength(10);
+  });
+
+  it("refuses the same implausible prune the merge writer refuses", async () => {
+    // One rule, both writers. A repair tool that pruned unconditionally would
+    // be the easier way to wipe a município's window, since it is reached by
+    // hand rather than through scrape.ts's per-município catch.
+    //
+    // Delete the ceiling and this fails. Delete the `allowPrune` pass-through
+    // and it still PASSES — the unwired code refuses too, by defaulting to
+    // false — which is why the two arms below exist.
+    const rows = Array.from({ length: 20 }, (_, i) =>
+      resolution(
+        `${CODE}-2025-prot1-r${String(i).padStart(3, "0")}`,
+        "2025-06-01",
+      ),
+    );
+    await putIndex(rows); // NO putDurable — the tree is absent
+
+    await expect(writer.rebuildShardsFromDurable()).rejects.toThrow(
+      /refusing to prune/,
+    );
+    expect((await readIndexFile()).resolutionsByObshtina[CODE]).toHaveLength(
+      20,
+    );
+  });
+
+  it("allowPrune is the deliberate override, and it reaches the repair tool", async () => {
+    // The WIRING, not the rule: `shouldRefusePrune(…, true)` is unit-tested
+    // above, but with `{ allowPrune: … }` dropped from the call site in
+    // `rebuildShardsFromDurable` the whole suite still passed (verified) — the
+    // flag would be inert, and an operator pulling a last-resort switch on a
+    // corpus they have just decided is fine would see the identical refusal
+    // and go hunting the wrong problem.
+    const rows = Array.from({ length: 20 }, (_, i) =>
+      resolution(
+        `${CODE}-2025-prot1-r${String(i).padStart(3, "0")}`,
+        "2025-06-01",
+      ),
+    );
+    await putIndex(rows); // NO putDurable — the tree is absent
+
+    const r = await writer.rebuildShardsFromDurable({ allowPrune: true });
+
+    expect(r.rowsPruned).toBe(20);
+    const idx = await readIndexFile();
+    // Overriding a guard whose whole job is to refuse this shape EMPTIES the
+    // window. That is the intended effect — hence "deliberate", and hence the
+    // scoped `--allow-prune=<CODE>` form being the one the CLI recommends.
+    expect(idx.resolutionsByObshtina[CODE]).toHaveLength(0);
+    expect(idx.meta?.[CODE].resolutionCount).toBe(0);
+  });
+
+  it("scopes the override to named municipalities, and names every refusal", async () => {
+    // A corpus-wide flag is the wrong shape for the situation it is reached in:
+    // one broken município blocks the other fifteen, and the only recourse
+    // disarms the ceiling for the broken one too, in the same commit.
+    const rows = Array.from({ length: 20 }, (_, i) =>
+      resolution(
+        `${CODE}-2025-prot1-r${String(i).padStart(3, "0")}`,
+        "2025-06-01",
+      ),
+    );
+    await putIndex(rows);
+
+    // Scoped to a DIFFERENT município — the ceiling must still fire here.
+    await expect(
+      writer.rebuildShardsFromDurable({ allowPrune: new Set(["ZZZ99"]) }),
+    ).rejects.toThrow(/refusing to prune/);
+    expect((await readIndexFile()).resolutionsByObshtina[CODE]).toHaveLength(
+      20,
+    );
+
+    // Scoped to THIS one — permitted.
+    const r = await writer.rebuildShardsFromDurable({
+      allowPrune: new Set([CODE]),
+    });
+    expect(r.rowsPruned).toBe(20);
   });
 
   it("does not rewrite index.json on a no-op repair", async () => {
