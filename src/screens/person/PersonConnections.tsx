@@ -10,9 +10,8 @@
 import { FC, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Users, Building2, ArrowRight } from "lucide-react";
+import { Building2, ArrowRight } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card, CardContent } from "@/ux/Card";
 import { PartyBadge } from "@/screens/components/PartyBadge";
 import { decodeEntities } from "@/lib/decodeEntities";
@@ -102,15 +101,16 @@ export const PersonConnections: FC<{ data: PersonConnectionsData }> = ({
   const { t } = useTranslation();
   const direct = data.related ?? [];
   const indirect = data.indirect ?? [];
+  // Self-hides its BODY only. The „Връзки" section itself is owned by the page, which
+  // also renders the connection CHECK — and the check must survive an empty result set,
+  // since a person with no connections we found is exactly the person a reader wants to
+  // check a specific name against. Owning the section here took the search box down with
+  // it (measured on /person/mp-5254, whose related and indirect are both empty).
   if (direct.length === 0 && indirect.length === 0) return null;
   const subj = data.subject;
 
   return (
-    <DashboardSection
-      id="person-connections"
-      title={t("pp_connections")}
-      icon={Users}
-    >
+    <>
       <Card>
         <CardContent className="space-y-4 pt-6 text-sm">
           {direct.length > 0 && (
@@ -189,6 +189,6 @@ export const PersonConnections: FC<{ data: PersonConnectionsData }> = ({
           </Fragment>
         </CardContent>
       </Card>
-    </DashboardSection>
+    </>
   );
 };

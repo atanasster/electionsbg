@@ -44,6 +44,7 @@ import {
   PersonConnections,
   type PersonConnectionsData,
 } from "./PersonConnections";
+import { PersonConnectionCheck } from "@/screens/components/procurement/PersonConnectionCheck";
 import { usePersonLabels } from "@/lib/personLabels";
 import { useTranslation } from "react-i18next";
 import {
@@ -54,6 +55,7 @@ import {
   Landmark,
   Scale,
   ShieldAlert,
+  Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -715,8 +717,28 @@ const PersonDashboardBody: FC<{
               for why a board seat must carry the SAME mark a company does. */}
           <PersonNgoSeats ngos={p.ngos} foldPeopleN={blockFoldPeopleN(p)} />
 
-          {/* Connected people (§8) — the unified connections view (direct + indirect paths). */}
-          {conn && <PersonConnections data={conn} />}
+          {/* ВРЪЗКИ — the connections we FOUND, plus the check a reader runs themselves.
+              The section is owned here rather than by PersonConnections, because that
+              component self-hides on an empty result and used to take the search box with
+              it: /person/mp-5254 returns no direct and no indirect ties, so the page
+              offered no way to check a specific name — which is precisely the page where
+              a reader most wants to. The check is always available; the found-ties block
+              still hides when there is nothing to show.
+              ⚠️ The two rest on DIFFERENT evidence and the check says so: the found ties
+              are EIK-exact through person_id, while `connection_between` matches BOTH
+              sides by name — hence `strictIdentity`. */}
+          <DashboardSection
+            id="person-connections"
+            title={t("pp_connections")}
+            icon={Users}
+          >
+            {conn && <PersonConnections data={conn} />}
+            <PersonConnectionCheck
+              personName={p.name}
+              strictIdentity
+              bg={i18n.language === "bg"}
+            />
+          </DashboardSection>
 
           {/* Donations */}
           {donations.length > 0 && (

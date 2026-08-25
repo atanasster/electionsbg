@@ -15,7 +15,7 @@
 // Vite plugin in dev, the `db` Cloud Function (hosting rewrite) in prod.
 // See docs/plans/postgres-migration-v1.md.
 
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
@@ -28,22 +28,18 @@ import {
   FileText,
   Info,
   Landmark,
-  Link2,
   MapPin,
   PieChart,
-  Search,
   Users,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { ScopeControl } from "@/screens/components/ScopeControl";
 import { useNoindex } from "@/lib/useNoindex";
 import { useScope } from "@/data/scope/useScope";
 import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import { trRoleLabel, trRoleList } from "@/lib/trRole";
+import { trRoleLabel } from "@/lib/trRole";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { cn } from "@/lib/utils";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
@@ -62,6 +58,7 @@ import {
   type Associate,
 } from "../components/procurement/PersonAssociatesTile";
 import { EvidenceBasis } from "../components/procurement/EvidenceBasis";
+import { PersonConnectionCheck } from "../components/procurement/PersonConnectionCheck";
 import {
   foldParticipations,
   participationTag,
@@ -102,13 +99,6 @@ interface PoliticianRow {
   via_eik: string;
   via_company: string | null;
   total_eur: number | null;
-}
-interface ConnRow {
-  uic: string;
-  company: string | null;
-  status: string | null;
-  a_roles: string | null;
-  b_roles: string | null;
 }
 // Portfolio breakdown rows (migration 125) — reconcile with the procurement headline.
 interface CompanyCut {
@@ -603,32 +593,6 @@ export const PersonScreen: FC = () => {
     byCompany.length > 0 ||
     bySettlement.length > 0;
 
-  // Custom connection check.
-  const [other, setOther] = useState("");
-  const [conn, setConn] = useState<ConnRow[] | null>(null);
-  const [connLoading, setConnLoading] = useState(false);
-  /** The name the LAST completed check actually queried — trimmed, and frozen at
-   *  submit. The result copy names both people, and a result must name what was
-   *  searched rather than what the box currently holds: rendering `other` puts the
-   *  user's stray whitespace inside the quotes of a sentence about a named individual,
-   *  and keeps re-labelling a settled result as they type the next query. Same reason
-   *  `CompanyConnectionCheck` keeps its own `queried`. */
-  const [queried, setQueried] = useState("");
-  const checkConnection = useCallback(() => {
-    const b = other.trim();
-    if (!b) return;
-    setConnLoading(true);
-    setConn(null);
-    setQueried(b);
-    fetch(
-      `/api/db/connection?a=${encodeURIComponent(person)}&b=${encodeURIComponent(b)}`,
-    )
-      .then((r) => r.json())
-      .then((j) => setConn(j.shared ?? []))
-      .catch(() => setConn([]))
-      .finally(() => setConnLoading(false));
-  }, [other, person]);
-
   return (
     <div className="w-full px-4 py-6 md:px-6">
       <GovernanceBreadcrumb
@@ -1005,101 +969,15 @@ export const PersonScreen: FC = () => {
             <PersonAssociatesTile associates={associates} />
 
             {/* The connection check — same edge as the tile above, for one typed name,
-                and WITHOUT its two exclusions (no mega-hub cut, no entity-name filter). */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Link2 className="h-4 w-4" /> Проверка на връзка
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {/* Bilingual, unlike the rest of this legacy screen's hardcoded
-                    Bulgarian, because the three basis lines exist specifically to be
-                    COMPARED with one another and PersonAssociatesTile's is already
-                    bg/en — so on /en a monolingual line here would put the comparison
-                    half in each language and defeat the section's whole point. */}
-                <EvidenceBasis>
-                  {bg
-                    ? "Търси същото, което стои зад „Кръг от партньори“ — съвместно вписване в Търговския регистър — но за име по ваш избор и без изключенията там."
-                    : "Searches the same edge as “Inner circle” — co-entry in the Commerce Registry — but for a name you choose, and without the exclusions applied there."}
-                </EvidenceBasis>
-                <div className="mb-3 flex gap-2">
-                  <Input
-                    value={other}
-                    onChange={(e) => setOther(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && checkConnection()}
-                    placeholder="друго име (напр. политик или лице)…"
-                    className="h-9 max-w-md"
-                  />
-                  <Button onClick={checkConnection} disabled={connLoading}>
-                    <Search className="mr-1 h-4 w-4" /> Провери
-                  </Button>
-                </div>
-                {conn !== null &&
-                  (conn.length === 0 ? (
-                    /* The correctness fix of this tier. „Няма общи фирми" reads as
-                       „these two are not connected", which this query cannot
-                       establish — and the gap is far wider than it looks. TWO things
-                       make a miss weak, and the SMALLER one is the tempting one to
-                       name: a declared stake is invisible here (96 rows), but our
-                       `tr_officers` copy of the registry carries officers for only
-                       419,660 of 1,022,592 companies (41%, measured 2026-08-25), so
-                       for the MAJORITY of firms this query is structurally incapable
-                       of finding a co-entry that exists in the real register. Hence
-                       „в нашите данни", not „в Търговския регистър".
-
-                       ⚠️ No percentage in the copy, deliberately. Nothing serves that
-                       ratio, so a figure written here could only be a literal — and
-                       the „над 300 фирми" line one card up is this tier's own proof
-                       that a hard-coded number in prose goes stale into a false claim.
-                       Give it a served figure before giving it a number. */
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      <div>
-                        В нашите данни от Търговския регистър „{person}“ и „
-                        {queried}“ не се срещат заедно в нито една фирма.
-                      </div>
-                      <div>
-                        Това не значи, че връзка няма. Разполагаме с вписани
-                        лица за част от фирмите, а декларирани дялове и
-                        длъжности регистърът невинаги отразява. Виж{" "}
-                        <a
-                          href="#person-political-links"
-                          className="text-accent underline hover:text-foreground"
-                        >
-                          „Политически връзки“
-                        </a>{" "}
-                        по-долу, което ги обхваща.
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="text-sm">
-                      <div className="mb-1 text-muted-foreground">
-                        Общи фирми ({num.format(conn.length)}):
-                      </div>
-                      <ul className="space-y-1">
-                        {conn.map((c, i) => (
-                          <li key={`${c.uic}-${i}`}>
-                            <Link
-                              to={`/company/${c.uic}`}
-                              className="text-accent hover:underline"
-                            >
-                              {decodeEntities(c.company) || c.uic}
-                            </Link>
-                            <span className="text-muted-foreground">
-                              {" "}
-                              {/* `|| "—"` because trRoleList returns "" for no roles
-                                  and leaves the choice to the caller — interpolated
-                                  bare, that renders a dangling „Иван“:  · here. */}
-                              — „{person}“: {trRoleList(c.a_roles, t) || "—"} ·
-                              „{queried}“: {trRoleList(c.b_roles, t) || "—"}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-              </CardContent>
-            </Card>
+                and WITHOUT its two exclusions (no mega-hub cut, no entity-name filter).
+                Shared with the resolved /person/:slug profile, which had no way to check
+                a connection at all until this was extracted; see the component's header
+                for why the basis line is stronger there. */}
+            <PersonConnectionCheck
+              personName={person}
+              politicalAnchor="#person-political-links"
+              bg={bg}
+            />
 
             {/* Political connections. `id` is the anchor the negative result above
                 points at, so it must not be renamed without following that link.

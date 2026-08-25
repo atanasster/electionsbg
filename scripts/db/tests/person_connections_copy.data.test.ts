@@ -75,6 +75,14 @@ const basisText = (rel: string): string => {
   return found.join("\n");
 };
 
+/** Every surface that can render the connection check's MISS. Both are real render sites:
+ *  the name-matched portfolio page and the resolved profile, which share one component.
+ *  A new consumer belongs here — the gate is about the claim, not about one file. */
+const MISS_COPY_FILES = [
+  "screens/components/procurement/PersonConnectionCheck.tsx",
+  "screens/dev/PersonScreen.tsx",
+];
+
 /** The mega-hub cut in `person_associates` (024). Kept in one place so the two tests
  *  below cannot come to disagree about which threshold the copy is being judged against. */
 const MEGA_HUB_CUT = 300;
@@ -144,9 +152,13 @@ test.skipIf(skip)(
     assert.ok(total > 0, "tr_companies is empty");
     const coverage = Number(row.with_officers) / total;
 
-    // The whole (comment-stripped) file: unlike the basis lines, the miss message is
-    // rendered in the result branch, not inside an <EvidenceBasis>.
-    const screen = src("screens/dev/PersonScreen.tsx");
+    // ⚠️ Read EVERY file that can render the miss, not one named path. This arm hard-coded
+    // `dev/PersonScreen.tsx` and went red the moment the check was extracted into a shared
+    // component — failing with a message blaming a copy regression that had not happened,
+    // and aborting `db:refresh` at its final `test:data` step. The union is what makes the
+    // assertion about the CLAIM rather than about where the claim currently lives; a file
+    // that stops existing fails loudly here rather than silently narrowing the gate.
+    const screen = MISS_COPY_FILES.map(src).join("\n");
     // Below near-complete coverage, `connection_between` cannot support a claim about
     // the Commerce Registry — only about our extract of it. Measured 2026-08-25: 41%.
     if (coverage < 0.95) {
