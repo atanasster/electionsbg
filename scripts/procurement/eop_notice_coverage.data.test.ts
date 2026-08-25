@@ -45,6 +45,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
 import { EopDossierStore } from "./eop_dossier_store";
+import { strideSample } from "./eop_coverage_sample";
 import {
   parseNoticePairs,
   noticeFields,
@@ -210,6 +211,10 @@ const rel = path.relative(process.cwd(), STORE);
 
 if (!fs.existsSync(STORE)) {
   skip = `${rel} absent — run npx tsx scripts/procurement/ingest_eop_dossier.ts (rate-limited crawl, not a pipeline step)`;
+} else if (!FULL && (!Number.isInteger(SAMPLE_ROWS) || SAMPLE_ROWS < 1)) {
+  // Checked HERE rather than left to strideSample's throw, which the catch below
+  // would report as "unreadable" and blame the store for an env-var typo.
+  skip = `EOP_COVERAGE_SAMPLE=${process.env.EOP_COVERAGE_SAMPLE} is not a positive integer — refusing to sample nothing and call it a pass`;
 } else {
   // ⚠️ OPENING THE STORE CAN THROW, AND AN UNCAUGHT THROW HERE IS THE ORIGINAL BUG
   // IN ITS OTHER FORM. This runs at module scope, so anything raised kills
@@ -227,9 +232,11 @@ if (!fs.existsSync(STORE)) {
     } else if (FULL) {
       detailIds = all;
     } else {
-      // Stride, not a prefix — see `dossiers()`.
-      const stride = Math.max(1, Math.floor(all.length / SAMPLE_ROWS));
-      detailIds = all.filter((_, i) => i % stride === 0).slice(0, SAMPLE_ROWS);
+      // Stride, not a prefix — see `dossiers()` and `strideSample`'s own header.
+      // It lives in a separate module so the rule can be unit-tested without
+      // opening this 1.8 GB store; `eop_coverage_sample.test.ts` is what makes the
+      // "just LIMIT it" edit fail.
+      detailIds = strideSample(all, SAMPLE_ROWS);
     }
   } catch (e) {
     skip = `${rel} unreadable — ${e instanceof Error ? e.message : String(e)}`;
