@@ -5,9 +5,19 @@
 //
 // Run with the dev server up:
 //   npm run dev    # in another shell
-//   npx tsx scripts/og/screenshot_funds.ts
+//   npx tsx scripts/og/screenshot_funds.ts            # all four
+//   npx tsx scripts/og/screenshot_funds.ts funds-political   # one, by stem
 //
-// Output: public/og/funds.png + per-subpage variants.
+// Output: the per-subpage variants ONLY.
+//
+// ⚠ `funds.png` — the module's own hub card — is NOT produced here any more. It moved to
+// scripts/og/capture-screens.ts, which hides the site chrome and anchors the clip; this
+// script clips {x:0, y:0}, so its card led with the nav bar and the page started below the
+// fold. See that file's `slug: "funds"` entry for the measurements.
+//
+// The same objection applies to the four specs still below. They are left here because each
+// needs its own framing decision against its current page, not because this script is the
+// right producer for them.
 
 import fs from "fs";
 import path from "path";
@@ -38,13 +48,6 @@ interface Spec {
 }
 
 const specs: Spec[] = [
-  {
-    route: "/funds?elections=2026_04_19",
-    file: "funds.png",
-    // Wait for the choropleth tile + KPI strip.
-    waitFor: 'h1, [class*="text-base"]:has(svg)',
-    settleMs: 1500,
-  },
   {
     route: "/funds/political?elections=2026_04_19",
     file: "funds-political.png",

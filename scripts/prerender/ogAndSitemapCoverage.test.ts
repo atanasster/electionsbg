@@ -840,11 +840,7 @@ describe("a hub's og capture anchors on its head", () => {
 
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
-  const NOT_YET: Record<string, string> = {
-    funds:
-      "produced by scripts/og/screenshot_funds.ts, which clips {0,0} and hides no chrome — " +
-      "needs moving into capture-screens.ts before it can anchor on anything",
-  };
+  const NOT_YET: Record<string, string> = {};
 
   /** One capture entry's text, by slug. */
   const entryFor = (slug: string): string | null => {
@@ -877,6 +873,7 @@ describe("a hub's og capture anchors on its head", () => {
   });
 
   it("a hub's capture clips at OG_CLIP_VIEWPORT, so the card is not silently shrunk", () => {
+    const checked: string[] = [];
     // Playwright CLAMPS the clip to the viewport, so a width below OG_W (1200) emits a
     // smaller card with nothing failing — measured, a hand-picked 1180 gave 2360×1260 where
     // the corpus norm is 2400, and two of these three had been 2400 the day before.
@@ -887,6 +884,39 @@ describe("a hub's og capture anchors on its head", () => {
         /viewport:\s*OG_CLIP_VIEWPORT/.test(entry),
         `${slug}: uses a hand-written viewport instead of OG_CLIP_VIEWPORT`,
       ).toBe(true);
+      checked.push(slug);
+    }
+    // The same floor its sibling above carries. Without it, an exemption list that grew to
+    // cover every hub would leave this clause asserting nothing while still reading green —
+    // and `NOT_YET` is empty today, which is exactly when the floor is free to add.
+    expect(checked.length, "no hub viewport was checked").toBeGreaterThan(1);
+  });
+
+  it("every hub card is the corpus's size, read from the PNG itself", () => {
+    // ⚠ THE CLAUSES ABOVE READ THE CONFIG; this one reads the OUTPUT. That gap shipped a
+    // defect earlier the same day: a hand-picked `viewport.width: 1180` is below OG_W (1200),
+    // Playwright CLAMPS the clip to the viewport, and three cards were written at 2360×1260
+    // against a corpus norm of 2400 — with the config looking deliberate and every
+    // config-reading assertion green.
+    //
+    // PNG dimensions come from the IHDR chunk: bytes 16-23 of the file, big-endian width then
+    // height. No image library needed, and nothing here decodes pixels — this asserts the
+    // frame, not the picture. Looking at the picture is still a human step (§10).
+    const dims = (rel: string) => {
+      const b = fs.readFileSync(path.join(REPO, rel));
+      return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
+    };
+    for (const slug of Object.keys(HUB_CAPTURES)) {
+      const rel = `public/og/${slug}.png`;
+      expect(
+        fs.existsSync(path.join(REPO, rel)),
+        `${rel} is referenced by a capture entry but not on disk`,
+      ).toBe(true);
+      const { w, h } = dims(rel);
+      expect(
+        `${w}x${h}`,
+        `${rel} is ${w}x${h} — a viewport narrower than OG_W silently clamps the clip`,
+      ).toBe("2400x1260");
     }
   });
 
@@ -916,6 +946,10 @@ describe("a hub's og capture anchors on its head", () => {
         /<HubHead\b/.test(stripJsxComments(read(file))),
         `${slug} is mapped to ${file}, which no longer renders a HubHead`,
       ).toBe(true);
+    // ⚠ EMPTY TODAY, so this loop runs zero times — deliberately kept rather than deleted.
+    // `NOT_YET` is the documented mechanism for the next hub that cannot yet frame its head,
+    // and a typed map with a live validation loop is what stops the next person adding an
+    // exemption with no reason. If it is still empty a year from now, delete both.
     for (const slug of Object.keys(NOT_YET)) {
       expect(
         HUB_CAPTURES,

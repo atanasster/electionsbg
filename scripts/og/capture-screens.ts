@@ -292,6 +292,52 @@ const captures: Capture[] = [
     extraCss: "[data-og-chrome]{display:none!important;}",
   },
   {
+    slug: "funds",
+    routePath: "funds",
+    // MOVED HERE from scripts/og/screenshot_funds.ts, which is why this entry exists at all.
+    // That script clips {x:0, y:0} and hides no chrome, so the card it produced led with the
+    // nav bar, the election picker and the search box, and the page began below them. It had
+    // also not been re-shot since 2026-05-27, so it depicted a layout this module no longer
+    // has — a centred muted title, a buried StatCard strip and a choropleth — and every
+    // figure on it was stale: 52 780 beneficiaries against 53 122, €16.49bn paid against
+    // €18.58bn (11% low) and 89 MPs against 148 (40% low).
+    //
+    // `capture-screens.ts` drops the site chrome and anchors the clip, which is the whole
+    // difference. Same shape as its three sibling hubs: anchor the head, wait on the BAND's
+    // figures (the head mounts before the payload, so waiting on the container shoots a
+    // skeleton), clip at OG_CLIP_VIEWPORT.
+    // ⚠ BOTH KPI SOURCES, not just one — and /funds is the only one of the four hubs that
+    // needs this. `kpisFor` builds its band from TWO independent queries: `useFundsIndex`
+    // feeds cells 1 and 4, `useFundsHubStats` cells 2, 3 and every row of the aside. HubHead
+    // renders the real band as soon as EITHER lands, and both hooks document `null` as a
+    // legitimate ANSWER rather than an error, so a bare `.tabular-nums` is satisfied by a
+    // TWO-cell band — and the runner then overwrites a good card with a half-empty one and
+    // reports success. Measured: with `fund-payload?kind=index` nulled the bare selector
+    // resolved and a 2-cell card was written; this one times out, the capture fails, and the
+    // previous card survives, which is the right failure. The siblings are all-or-nothing
+    // from one hook, so they do not need the `:has()`.
+    //
+    // /funds/political is cell 4's destination (index); /funds/absorption is cell 3's
+    // (hubStats). Requiring one from each source is what makes the band provably whole.
+    waitFor:
+      '[data-hub-head]:has(a[href*="/funds/political"]):has(a[href*="/funds/absorption"]) .tabular-nums',
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 3000,
+    // ⚠ RE-SHOOT THIS AFTER AN OPEN-CALLS CRAWL. The head is ~495 px and the clip is 630, so
+    // ~135 px of whatever follows it is in frame — here the OpenCallsTile, whose first line is
+    // a TIMESTAMPED freshness notice. When the crawl is behind, that line turns amber and
+    // reads „Последна проверка <time> — списъкът може да не е актуален", and a card shot in
+    // that state carries the warning for as long as the card is served. It is true of the live
+    // page and false of a permanent artifact, which is the whole failure mode this file keeps
+    // finding.
+    //
+    // Suppressing it was considered and rejected twice over: hiding the notice alone leaves
+    // „ОТВОРЕНИ 46" with no freshness qualifier, which is exactly what OpenCallsTile's own
+    // invariant 3 forbids; and hiding the tile only pulls the next one into the same 135 px.
+    // Something always fills a short anchor's remainder, so the fix is a fresh crawl, not CSS.
+  },
+  {
     slug: "parliament",
     routePath: "parliament",
     // ANCHOR ON THE HEAD, not the tile grid. §5.3's rule for a hub: the head IS the page's
@@ -1165,6 +1211,9 @@ const captures: Capture[] = [
   // ---------------------------------------------------------------------------
 
   // --- /funds sub-pages -------------------------------------------------------
+  // (the /funds HUB card itself is the `funds` entry near the top of this table, beside its
+  //  three sibling hubs — they share a framing rule, which is a stronger grouping than the
+  //  module clustering this block follows.)
   {
     slug: "funds-places",
     routePath: "funds/places",
