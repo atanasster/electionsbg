@@ -17,14 +17,14 @@
 import { FC, useCallback, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Receipt } from "lucide-react";
-import { Title } from "@/ux/Title";
+import { HubHead } from "@/ux/infographic";
 import {
   DbDataTable,
   type DbColumnFilter,
   type DbTableResponse,
 } from "@/ux/data_table/DbDataTable";
-import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
+import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import { getSectorBrowsePack } from "@/screens/components/procurement/sectorPacks";
 import { SectorBrowseSlot } from "@/screens/components/procurement/SectorBrowseSlot";
 import { ContractsAnalysisStrip } from "@/screens/components/procurement/ContractsAnalysisStrip";
@@ -42,13 +42,15 @@ import {
 import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
 import { useUrlProcurementFilters } from "@/data/procurement/useUrlProcurementFilters";
 import { ContractsDossierRoute } from "@/screens/procurement/DossierContractsView";
+import { formatEurCompact, formatInt } from "@/lib/currency";
+import { contractsKpis } from "@/screens/components/procurement/contractsKpiBasis";
 import type { ProcurementContract } from "@/data/dataTypes";
 
 // The full-corpus contracts browse (server-paginated over the whole `contracts`
 // table). Rendered when NOT in dossier mode — see ContractsBrowserDbScreen.
 const CorpusContractsBrowse: FC = () => {
-  const { t } = useTranslation();
-  const { from, to, all, year } = useScopeWindow();
+  const { t, i18n } = useTranslation();
+  const { from, to, all } = useScopeWindow();
   // ?q= deep link (combined-search "see all" footer) seeds the search box.
   // ?cpv= deep link (from /procurement/sectors) seeds the CPV division filter
   // below — the cpv column is registered with filter:"prefix", so this value
@@ -173,12 +175,26 @@ const CorpusContractsBrowse: FC = () => {
   // Reactive headline aggregates (Σ €, count) for the whole FILTERED set —
   // DbDataTable computes them server-side (exact, since the resource declares
   // aggregates) and hands them back via onData. No extra request.
-  const [agg, setAgg] = useState<{ sumAmountEur?: number; count?: number }>({});
+  const [agg, setAgg] = useState<{
+    sumAmountEur?: number;
+    count?: number;
+    /** The DEBOUNCED term the aggregates above were computed under.
+     *
+     *  Read back out of the request rather than lifted into this screen, because the table
+     *  owns the debounce and a second copy here would disagree with it for 250 ms on every
+     *  keystroke — long enough to caption a figure with a term that did not produce it. */
+    term?: string;
+  }>({});
   const handleData = useCallback(
-    (resp: DbTableResponse<ProcurementContract>) => {
+    (
+      resp: DbTableResponse<ProcurementContract>,
+      request: Record<string, unknown>,
+    ) => {
+      const filters = request.filters as { global?: string } | undefined;
       setAgg({
         sumAmountEur: resp.aggregates?.sumAmountEur,
         count: resp.aggregates?.count ?? resp.total,
+        term: filters?.global,
       });
     },
     [],
@@ -210,26 +226,49 @@ const CorpusContractsBrowse: FC = () => {
     titleClamp: "sm",
   });
 
+  /* The band's rule lives in `contractsKpiBasis.ts` — four figures answering over four
+     different sets, which is a truth table rather than a layout decision. See that file. */
+  const kpis = contractsKpis({
+    sumAmountEur: agg.sumAmountEur,
+    count: agg.count,
+    term: agg.term,
+    singleBidPct,
+    directPct,
+    cpvActive: cpvDiv !== CPV_ALL,
+    procActive: !!procBucket,
+    singleActive: singleBidder,
+    gradeActive: grades.length > 0,
+    fmtEur: (n) => formatEurCompact(n, i18n.language),
+    fmtInt: (n) => formatInt(n, i18n.language),
+    t,
+  });
+
   return (
     <>
-      <Title description="Public-procurement contracts, searchable across the whole corpus.">
-        {t("procurement_contracts_title") || "Contracts"}
-      </Title>
-      <ProcurementSectionHeader
-        current="procurement_index_contracts"
-        scopeMode="toggle"
+      {/* ABOVE the title, per the head's own order — it was below it here, which is the drift
+          §3.0 exists to end. */}
+      <ProcurementBreadcrumb
+        currentKey="procurement_index_contracts"
+        className="my-3"
+      />
+      <HubHead
+        eyebrow={
+          t("procurement_contracts_head_eyebrow") ||
+          "PUBLIC PROCUREMENT · CONTRACTS"
+        }
+        title={t("procurement_contracts_title") || "Contracts"}
+        seoDescription="Public-procurement contracts, searchable across the whole corpus."
+        deck={
+          t("procurement_contracts_head_deck") ||
+          "Every signed contract in the register."
+        }
+        // IN the head, beside the figures it governs. It sat in ProcurementSectionHeader above
+        // the title, which on a phone is ~400 px from the first number it qualifies.
+        scope={<ScopeControl mode="toggle" />}
+        kpis={kpis}
+        kpisPending={4}
       />
       <section aria-label="contracts" className="my-4">
-        <div className="mb-3 flex items-center gap-2 text-sm text-muted-foreground">
-          <Receipt className="h-4 w-4 shrink-0" />
-          {all
-            ? t("procurement_scope_all") || "Full corpus, all years."
-            : year != null
-              ? t("procurement_scope_year", { year }) ||
-                `Showing contracts signed in ${year}.`
-              : `${from ?? ""}${to ? ` → ${to}` : " → …"}`}
-        </div>
-
         {browsePack && (
           <SectorBrowseSlot pack={browsePack} scope={{ from, to }} />
         )}
@@ -244,6 +283,7 @@ const CorpusContractsBrowse: FC = () => {
             procBucket={procBucket}
             onSelectBucket={setProcBucket}
             countLabel={t("company_contracts") || "Договори"}
+            showKpis={false}
           />
         )}
 

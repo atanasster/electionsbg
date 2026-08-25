@@ -32,6 +32,14 @@ export const ContractsAnalysisStrip: FC<{
   onSelectBucket: (b: ProcedureBucket | null) => void;
   /** The count card's label (e.g. "Договори" or "Анекси"). */
   countLabel: ReactNode;
+  /** Render the four KPI cards, or the mix bar alone.
+   *
+   *  `false` on /procurement/contracts, whose HubHead publishes these same four figures in its
+   *  band — with a declared basis each, which the cards here do not carry. §3.1 rule 5: the
+   *  same number twice on one page reads as two different facts, and the resolution is to drop
+   *  it from the lower position, not from the band. The per-entity /company and /awarder
+   *  screens have no head band and keep the cards. */
+  showKpis?: boolean;
 }> = ({
   sumAmountEur,
   count,
@@ -41,6 +49,7 @@ export const ContractsAnalysisStrip: FC<{
   procBucket,
   onSelectBucket,
   countLabel,
+  showKpis = true,
 }) => {
   const { t, i18n } = useTranslation();
   return (
@@ -48,55 +57,57 @@ export const ContractsAnalysisStrip: FC<{
       {/* Reactive headline KPIs (Σ€/count follow the filters AND the free-text
           search) + integrity KPIs (single-bidder / direct-award share; facet-
           based, so they don't move with the search box). */}
-      <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StatCard label={t("contracts_kpi_total") || "Обща стойност"}>
-          <div className="flex items-baseline gap-2">
-            <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
-            <span
-              className="text-lg font-bold tabular-nums md:text-xl"
-              title={formatEur(sumAmountEur ?? 0, i18n.language)}
-            >
-              {formatEurCompact(sumAmountEur ?? 0, i18n.language)}
-            </span>
-          </div>
-        </StatCard>
-        <StatCard label={countLabel}>
-          <div className="flex items-baseline gap-2">
-            <FileText className="h-5 w-5 shrink-0 text-muted-foreground" />
-            <span className="text-lg font-bold tabular-nums md:text-xl">
-              {(count ?? 0).toLocaleString("bg-BG")}
-            </span>
-          </div>
-        </StatCard>
-        <StatCard
-          label={t("contracts_stat_single_bid") || "1 оферта"}
-          hint={
-            t("contracts_stat_single_bid_hint") ||
-            "Дял от договорите с известен брой оферти, спечелени с една оферта."
-          }
-        >
-          <div className="flex items-baseline gap-2">
-            <Users className="h-5 w-5 shrink-0 text-muted-foreground" />
-            <span className="text-lg font-bold tabular-nums md:text-xl">
-              {singleBidPct == null ? "—" : `${singleBidPct.toFixed(0)}%`}
-            </span>
-          </div>
-        </StatCard>
-        <StatCard
-          label={t("contracts_stat_direct") || "Пряко възлагане"}
-          hint={
-            t("contracts_stat_direct_hint") ||
-            "Дял от договорите с посочена процедура, възложени пряко / без обявление."
-          }
-        >
-          <div className="flex items-baseline gap-2">
-            <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
-            <span className="text-lg font-bold tabular-nums md:text-xl">
-              {directPct == null ? "—" : `${directPct.toFixed(0)}%`}
-            </span>
-          </div>
-        </StatCard>
-      </div>
+      {showKpis ? (
+        <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <StatCard label={t("contracts_kpi_total") || "Обща стойност"}>
+            <div className="flex items-baseline gap-2">
+              <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
+              <span
+                className="text-lg font-bold tabular-nums md:text-xl"
+                title={formatEur(sumAmountEur ?? 0, i18n.language)}
+              >
+                {formatEurCompact(sumAmountEur ?? 0, i18n.language)}
+              </span>
+            </div>
+          </StatCard>
+          <StatCard label={countLabel}>
+            <div className="flex items-baseline gap-2">
+              <FileText className="h-5 w-5 shrink-0 text-muted-foreground" />
+              <span className="text-lg font-bold tabular-nums md:text-xl">
+                {(count ?? 0).toLocaleString("bg-BG")}
+              </span>
+            </div>
+          </StatCard>
+          <StatCard
+            label={t("contracts_stat_single_bid") || "1 оферта"}
+            hint={
+              t("contracts_stat_single_bid_hint") ||
+              "Дял от договорите с известен брой оферти, спечелени с една оферта."
+            }
+          >
+            <div className="flex items-baseline gap-2">
+              <Users className="h-5 w-5 shrink-0 text-muted-foreground" />
+              <span className="text-lg font-bold tabular-nums md:text-xl">
+                {singleBidPct == null ? "—" : `${singleBidPct.toFixed(0)}%`}
+              </span>
+            </div>
+          </StatCard>
+          <StatCard
+            label={t("contracts_stat_direct") || "Пряко възлагане"}
+            hint={
+              t("contracts_stat_direct_hint") ||
+              "Дял от договорите с посочена процедура, възложени пряко / без обявление."
+            }
+          >
+            <div className="flex items-baseline gap-2">
+              <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
+              <span className="text-lg font-bold tabular-nums md:text-xl">
+                {directPct == null ? "—" : `${directPct.toFixed(0)}%`}
+              </span>
+            </div>
+          </StatCard>
+        </div>
+      ) : null}
 
       {/* Procedure-mix overview — filter-scoped and clickable: a segment/chip
           toggles the same bucket filter that narrows the table. */}
