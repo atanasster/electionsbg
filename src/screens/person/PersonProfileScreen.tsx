@@ -14,6 +14,7 @@ import {
   PersonProfile,
   usePersonProfileState,
   isSharedNameIdentity,
+  blockFoldPeopleN,
 } from "./usePersonProfile";
 import { officeTermPhrases } from "./officeTerm";
 import { foldOffices } from "./offices";
@@ -34,6 +35,7 @@ import { PersonStakeProcurement } from "./PersonStakeProcurement";
 import { PersonCohortBenchmark } from "./PersonCohortBenchmark";
 import { PersonFollowButton } from "./PersonFollowButton";
 import { PersonCompanies } from "./PersonCompanies";
+import { PersonNgoSeats } from "./PersonNgoSeats";
 import {
   PersonConnections,
   type PersonConnectionsData,
@@ -45,7 +47,6 @@ import {
   Coins,
   ExternalLink,
   FileWarning,
-  HeartHandshake,
   Info,
   Landmark,
   Scale,
@@ -55,10 +56,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
-import { trRoleLabel } from "@/lib/trRole";
 import { magistrateRoleKey } from "@/lib/magistrateRole";
 import { formatEurCompact } from "@/lib/currency";
-import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
 import { CandidateMpProvider } from "@/data/candidates/CandidateMpContext";
 import { useMpEntry } from "@/data/parliament/useMpEntry";
@@ -640,7 +639,7 @@ const PersonDashboardBody: FC<{
                private (Tier-V) people; public figures never see it, and they are exactly the
                Bridge-B population this sentence is for — so between the two, every page that
                should carry the count carries it, and none carries it twice. */
-            foldPeopleN={p.isPublicFigure === false ? undefined : p.foldPeopleN}
+            foldPeopleN={blockFoldPeopleN(p)}
           />
 
           {/* Money vs power — the person's company procurement bucketed by cabinet (lazy). */}
@@ -650,37 +649,10 @@ const PersonDashboardBody: FC<{
               browser link. Self-hides when the person has no procurement. */}
           {p.procuredEur > 0 && <PersonProcurementSection slug={p.slug} />}
 
-          {/* NGO board seats (ЮЛНЦ) — the civic-board facet, distinct from business companies */}
-          {p.ngos.length > 0 && (
-            <DashboardSection
-              id="person-ngos"
-              title={t("pp_ngos")}
-              icon={HeartHandshake}
-            >
-              <Card>
-                <CardContent className="space-y-2 pt-6">
-                  {p.ngos.map((n) => (
-                    <div
-                      key={n.eik}
-                      className="border-b border-border/50 pb-2 last:border-0 last:pb-0"
-                    >
-                      <span className="text-sm">
-                        <Link
-                          to={`/company/${n.eik}`}
-                          className="font-medium text-primary hover:underline"
-                        >
-                          {n.name ? decodeEntities(n.name) : n.eik}
-                        </Link>
-                        <span className="block text-xs text-muted-foreground">
-                          {n.roles.map((r) => trRoleLabel(r, t)).join(", ")}
-                        </span>
-                      </span>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            </DashboardSection>
-          )}
+          {/* NGO board seats (ЮЛНЦ) — the civic-board facet, distinct from business
+              companies. Its own component so the basis-mark rule is testable; see its header
+              for why a board seat must carry the SAME mark a company does. */}
+          <PersonNgoSeats ngos={p.ngos} foldPeopleN={blockFoldPeopleN(p)} />
 
           {/* Connected people (§8) — the unified connections view (direct + indirect paths). */}
           {conn && <PersonConnections data={conn} />}

@@ -10,7 +10,7 @@
 //   npm run test:unit
 
 import { describe, it, expect } from "vitest";
-import { isSharedNameIdentity } from "./usePersonProfile";
+import { isSharedNameIdentity, blockFoldPeopleN } from "./usePersonProfile";
 
 describe("isSharedNameIdentity", () => {
   it("is true when either signal says shared, and false only when neither does", () => {
@@ -44,5 +44,44 @@ describe("isSharedNameIdentity", () => {
     expect(isSharedNameIdentity({})).toBe(false);
     expect(isSharedNameIdentity({ foldPeopleN: null })).toBe(false);
     expect(isSharedNameIdentity({ foldPeopleN: undefined })).toBe(false);
+  });
+});
+
+// `blockFoldPeopleN` — the sibling rule that decides WHICH surface states the count, so the
+// profile never states it twice. It is tested here rather than at a call site because it broke
+// as a call-site ternary: the NGO block was added beside the companies one passing the raw
+// value, and the "none carries it twice" invariant became false for any private person holding
+// a board seat, with nothing failing (that population is empty today, so nothing was live).
+describe("blockFoldPeopleN", () => {
+  it("withholds the count from the blocks when the identity card already states it", () => {
+    // A private (Tier-V) person is the only one who sees the amber card, and the card carries
+    // the same sentence — so the blocks below it must stay silent.
+    expect(
+      blockFoldPeopleN({ isPublicFigure: false, foldPeopleN: 3 }),
+    ).toBeUndefined();
+  });
+
+  it("gives the count to the blocks for a public figure — the card never renders for them", () => {
+    // The Bridge-B population this sentence exists for: identity resolved across sources, so
+    // the card would be false about them, and only the per-block footer can say it.
+    expect(blockFoldPeopleN({ isPublicFigure: true, foldPeopleN: 3 })).toBe(3);
+  });
+
+  it("passes an UNMEASURED fold through as null, never as 1 and never as withheld", () => {
+    // The three states must stay three. Collapsing null to `undefined` here would be
+    // indistinguishable from "the card said it", and collapsing it to a number would turn
+    // missing evidence into a clean bill — the distinction isSharedNameIdentity guards above.
+    expect(blockFoldPeopleN({ isPublicFigure: true, foldPeopleN: null })).toBe(
+      null,
+    );
+    expect(
+      blockFoldPeopleN({ isPublicFigure: true, foldPeopleN: undefined }),
+    ).toBe(undefined);
+  });
+
+  it("does NOT withhold when public-figure status is unknown", () => {
+    // Only an explicit `false` means "the card is showing". An absent flag — an older payload,
+    // a partial fixture — must not silently suppress the caveat on every block at once.
+    expect(blockFoldPeopleN({ foldPeopleN: 4 })).toBe(4);
   });
 });

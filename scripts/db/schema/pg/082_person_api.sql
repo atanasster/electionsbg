@@ -183,7 +183,16 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'ngos', COALESCE((
       SELECT jsonb_agg(jsonb_build_object(
         'eik', ng.ref, 'name', c.name, 'legalForm', c.legal_form,
-        'seat', c.seat, 'roles', ng.roles
+        'seat', c.seat, 'roles', ng.roles,
+        -- SAME RULE, SAME VIEW, SAME VALUES as the `companies` arm above — see its comment
+        -- for what 'declared' does and does not claim. It is spelled here because an NGO
+        -- board seat bridges exactly like a company officership (person_resolve.data.test.ts
+        -- carries one licensing invariant for both facets), so a block that renders one
+        -- without the basis and the other with it publishes two different confidences for
+        -- one rule. Measured 2026-08-25 before this shipped: 5,670 of 5,727 seats (4,887 of
+        -- 4,927 people) rest on a folded name and carried no mark at all, beneath a companies
+        -- list that marked every row of its own.
+        'linkBasis', CASE WHEN ba.uic IS NOT NULL THEN 'declared' ELSE 'name_match' END
       ) ORDER BY c.name NULLS LAST, ng.ref)
       FROM (
         SELECT r.ref, jsonb_agg(DISTINCT r.role ORDER BY r.role) AS roles
@@ -191,7 +200,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         WHERE r.person_id = pick.person_id AND r.source = 'ngo'
           AND r.confidence IN ('exact_id', 'high', 'manual')
         GROUP BY r.ref
-      ) ng LEFT JOIN tr_companies c ON c.uic = ng.ref
+      ) ng
+      LEFT JOIN tr_companies c ON c.uic = ng.ref
+      LEFT JOIN person_company_bridge_a ba
+             ON ba.person_id = pick.person_id AND ba.uic = ng.ref
     ), '[]'::jsonb),
     -- The person's total public-contract take across ALL their companies (EIK-deduped so a
     -- manager+owner double role can't double-count).

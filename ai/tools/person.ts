@@ -11,6 +11,7 @@
 // association-noise companies, and the disclaimer rides IN the payload — so the tool can't
 // surface a private co-owner or a review-status link and never invents an edge.
 
+import { isNameMatch } from "../../src/screens/components/linkBasis";
 import { isOfficialSource } from "../../src/lib/officialSources";
 import { fetchDb } from "./dataClient";
 import { officeLabel } from "./officeLabel";
@@ -33,7 +34,14 @@ type ProfileRole = {
   placeLabelEn: string | null;
   judicialKind: string | null;
 };
-type ProfileCompany = { eik: string; name: string | null; roles: string[] };
+type ProfileCompany = {
+  eik: string;
+  name: string | null;
+  roles: string[];
+  /** 082's basis for the link. Optional because a serving database on an older 082 omits it —
+   *  and, exactly as in the UI, ABSENT must read as a name match, never as declared. */
+  linkBasis?: "declared" | "name_match";
+};
 type PersonProfilePayload = {
   slug: string;
   name: string;
@@ -41,7 +49,11 @@ type PersonProfilePayload = {
   facets: string[];
   roles: ProfileRole[];
   companies: ProfileCompany[];
-  ngos: { eik: string; name: string | null }[];
+  ngos: {
+    eik: string;
+    name: string | null;
+    linkBasis?: "declared" | "name_match";
+  }[];
   procuredEur: number;
   fundsEur: number;
   subsidiesEur: number;
@@ -132,6 +144,20 @@ export const personProfile = async (
     .map((c) => c.name ?? c.eik)
     .filter(Boolean) as string[];
 
+  // THE BASIS TRAVELS WITH THE NAMES, because this is the surface whose output a model turns
+  // into a SENTENCE about a named person. /person marks each name-matched row „по име" and
+  // caveats the block; the same rows reached the chat as bare grounded facts, so the model
+  // could assert "X sits on the board of Y" from an attribution the page itself hedges.
+  // Measured 2026-08-25: 5,670 of 5,727 board seats rest on a folded name.
+  //
+  // Same rule as the UI, read from the same helper — absent means name match, so an older
+  // 082 annotates everything rather than nothing. Annotating the KEY rather than each value
+  // keeps the fact verbatim: the names stay exactly what the register holds.
+  const nameMatched = (
+    rows: { linkBasis?: "declared" | "name_match" }[],
+  ): boolean => rows.some((r) => isNameMatch(r.linkBasis));
+  const byName = bg ? " — по съвпадение на име" : " — matched by name";
+
   const facts: Record<string, string | number> = {
     [bg ? "име" : "name"]: p.name,
   };
@@ -161,15 +187,18 @@ export const personProfile = async (
     facts[bg ? "длъжности" : "positions"] = officeLabels.join(", ");
   if (companyNames.length) {
     facts[bg ? "фирми (брой)" : "companies"] = companyNames.length;
-    facts[bg ? "фирми" : "company names"] = companyNames.slice(0, 8).join(", ");
+    facts[
+      (bg ? "фирми" : "company names") +
+        (nameMatched(p.companies) ? byName : "")
+    ] = companyNames.slice(0, 8).join(", ");
   }
-  const ngoNames = (p.ngos ?? [])
-    .map((n) => n.name ?? n.eik)
-    .filter(Boolean) as string[];
+  const ngos = p.ngos ?? [];
+  const ngoNames = ngos.map((n) => n.name ?? n.eik).filter(Boolean) as string[];
   if (ngoNames.length)
-    facts[bg ? "управа на ЮЛНЦ (НПО)" : "NGO board seats"] = ngoNames
-      .slice(0, 6)
-      .join(", ");
+    facts[
+      (bg ? "управа на ЮЛНЦ (НПО)" : "NGO board seats") +
+        (nameMatched(ngos) ? byName : "")
+    ] = ngoNames.slice(0, 6).join(", ");
   if (candidacies)
     facts[bg ? "кандидатури (брой)" : "candidacies"] = candidacies;
   if (donations)

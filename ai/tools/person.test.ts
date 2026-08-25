@@ -174,16 +174,68 @@ describe("personProfile run()", () => {
     expect(String(env.facts["регулаторни органи"])).toContain(
       "Конституционен съд",
     );
-    expect(String(env.facts["фирми"])).toContain("СПАК ИНВЕСТ");
+    // THE BASIS RIDES ON THE KEY, and that is the assertion — not an incidental rename.
+    // The fixture's company and board seat carry no `linkBasis`, which is what a serving
+    // database on an older 082 sends, and absent must read as a name match. So the model
+    // sees „фирми — по съвпадение на име: СПАК ИНВЕСТ" rather than a bare claim it can
+    // assert. Looking the value up under the qualified key is what pins that: the plain key
+    // must NOT exist, or the caveat could be detached from the names by any consumer that
+    // asks for the short one.
+    expect(String(env.facts["фирми — по съвпадение на име"])).toContain(
+      "СПАК ИНВЕСТ",
+    );
+    expect(env.facts).not.toHaveProperty("фирми");
     // Office labels use the ROLE for local (Кмет), not the generic source label.
     expect(String(env.facts["длъжности"])).toContain("Народни представители");
     expect(String(env.facts["длъжности"])).toContain("Кмет");
-    // NGO board seats are narrated (were previously dropped by the tool).
+    // NGO board seats are narrated (were previously dropped by the tool), and carry the same
+    // qualifier for the same reason — this is the surface a model turns into a sentence about
+    // a named person, and 5,670 of 5,727 seats in the corpus rest on a folded name.
+    expect(
+      String(env.facts["управа на ЮЛНЦ (НПО) — по съвпадение на име"]),
+    ).toContain("СЪЮЗ НА ВЕТЕРАНИТЕ");
+    expect(env.facts).not.toHaveProperty("управа на ЮЛНЦ (НПО)");
+    // The identity disclaimer must always travel with the profile.
+    expect(String(env.facts["бележка"])).toMatch(/насока/);
+  });
+
+  it("does NOT qualify a register-confirmed footprint", async () => {
+    // The mutation guard on the case above: if the qualifier were unconditional, both tests
+    // would pass while the annotation said nothing. A curated (Bridge-A) link is one a
+    // register put on this person, so it earns the plain key — and the reassurance has to be
+    // earned, exactly as the „по име" chip's absence does on /person. Note this is not the
+    // same as "confirmed identity": the officer row inside a declared company is still a name
+    // match, which is why the always-on „бележка" disclaimer below still travels with it.
+    setDbFetcher(async () => ({
+      ...payload,
+      companies: [{ ...payload.companies[0], linkBasis: "declared" as const }],
+      ngos: [{ ...payload.ngos[0], linkBasis: "declared" as const }],
+    }));
+    const env = await personProfile({ name: "Юруков" }, ctx);
+    expect(String(env.facts["фирми"])).toContain("СПАК ИНВЕСТ");
     expect(String(env.facts["управа на ЮЛНЦ (НПО)"])).toContain(
       "СЪЮЗ НА ВЕТЕРАНИТЕ",
     );
-    // The identity disclaimer must always travel with the profile.
+    expect(env.facts).not.toHaveProperty("фирми — по съвпадение на име");
+    // The blanket identity disclaimer is NOT the per-link basis and must survive either way.
     expect(String(env.facts["бележка"])).toMatch(/насока/);
+  });
+
+  it("qualifies a MIXED footprint — one name-matched row is enough", async () => {
+    // Mirrors PersonCompanies' per-row mark: a block-level qualifier that fired only when
+    // EVERY row rested on a name would leave the mixed case — the common one — unqualified.
+    setDbFetcher(async () => ({
+      ...payload,
+      companies: [
+        { ...payload.companies[0], linkBasis: "declared" as const },
+        { eik: "111", name: "ВТОРА", roles: ["manager"] },
+      ],
+    }));
+    const env = await personProfile({ name: "Юруков" }, ctx);
+    expect(String(env.facts["фирми — по съвпадение на име"])).toContain(
+      "ВТОРА",
+    );
+    expect(env.facts).not.toHaveProperty("фирми");
   });
 
   it("returns a clean not-found for an unknown name", async () => {

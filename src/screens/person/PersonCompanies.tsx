@@ -32,7 +32,8 @@ import { FC, Fragment, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LinkBasisMark } from "@/screens/components/LinkBasisMark";
-import { isNameMatch } from "@/screens/components/linkBasis";
+import { isNameMatch, NAMESAKE_FALLBACK } from "@/screens/components/linkBasis";
+import { NameMatchDisclosure } from "@/screens/components/NameMatchDisclosure";
 import { Building2, ExternalLink } from "lucide-react";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import {
@@ -162,6 +163,13 @@ export const PersonCompanies: FC<{
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
+  // Hoisted above the map rather than resolved per row, and identical to the sentence
+  // PersonNgoSeats puts on its own rows — both read NAMESAKE_FALLBACK so the two blocks'
+  // tooltips cannot drift apart while the shared footer below stays in step.
+  const namesake = t("person_namesake_disclosure", {
+    defaultValue: NAMESAKE_FALLBACK,
+  });
+
   // Declared stakes are MP-only + name-keyed; undefined name → the hook skips the fetch.
   const { declarations } = useMpDeclarations(mpId != null ? name : undefined);
   // MP-gated for the same reason the declarations are: the remainder this explains comes from
@@ -289,16 +297,7 @@ export const PersonCompanies: FC<{
                         profile there is no source line either; adding one for the non-MP
                         registers is open work, tracked in the plan.) */}
                     {isNameMatchCompany(c) && (
-                      <LinkBasisMark
-                        label={t("person_namesake_disclosure", {
-                          // A defaultValue so a dropped or renamed key shows a SENTENCE rather than
-                          // the bare identifier — on the one line whose job is to qualify a claim
-                          // about a named person. src/locales/*/translation.json stays the source
-                          // translators edit; this is the last-resort fallback.
-                          defaultValue:
-                            "Лицата в Търговския регистър се идентифицират тук по име — регистърът публикува и идентификатор от ЕГН, но ние не го използваме, затова тези записи може да обединяват различни хора с еднакво име.",
-                        })}
-                      />
+                      <LinkBasisMark label={namesake} />
                     )}
                     <span className="block text-xs text-muted-foreground">
                       {c.roles.map((r) => trRoleLabel(r, t)).join(", ")}
@@ -457,35 +456,7 @@ export const PersonCompanies: FC<{
               that their own declared interests might belong to somebody else. Now it appears
               only when at least one company on this page actually rests on a name. */}
           {companies.some(isNameMatchCompany) && (
-            <div className="mt-3 space-y-1 border-t pt-3 text-xs text-muted-foreground">
-              <div>
-                {t("person_namesake_disclosure", {
-                  // A defaultValue so a dropped or renamed key shows a SENTENCE rather than
-                  // the bare identifier — on the one line whose job is to qualify a claim
-                  // about a named person. src/locales/*/translation.json stays the source
-                  // translators edit; this is the last-resort fallback.
-                  defaultValue:
-                    "Лицата в Търговския регистър се идентифицират тук по име — регистърът публикува и идентификатор от ЕГН, но ние не го използваме, затова тези записи може да обединяват различни хора с еднакво име.",
-                })}
-              </div>
-              {/* The registry's own count, when we have it. This is the difference between
-                  "we could not verify" and "the register itself lists N people under this
-                  name" — the second is a fact a reader can act on. Rendered ONLY for >1:
-                  null means unmeasured (see PersonProfile.foldPeopleN) and 1 needs no
-                  sentence. */}
-              {foldPeopleN != null && foldPeopleN > 1 && (
-                <div className="font-medium text-amber-700 dark:text-amber-400">
-                  {/* `n`, not i18next's `count`: passing `count` switches the lookup to the
-                      plural key family (…_one / …_other) and the defaultValue below stops
-                      being used, which renders the bare key to the reader. */}
-                  {t("pp_fold_people_n", {
-                    n: foldPeopleN,
-                    defaultValue:
-                      "Търговският регистър съдържа поне {{n}} различни лица с това име.",
-                  })}
-                </div>
-              )}
-            </div>
+            <NameMatchDisclosure foldPeopleN={foldPeopleN} />
           )}
         </CardContent>
       </Card>

@@ -21,9 +21,17 @@ export const LinkBasisMark: FC<{
 }> = ({ label }) => {
   const { t } = useTranslation();
   return (
+    // `aria-label` beside `title`, not instead of it: `title` is the mouse affordance and is
+    // not reliably surfaced by screen readers, unreachable by keyboard and absent on touch.
+    // „по име" on its own is two words with no explanation, on the one element whose job is to
+    // qualify a claim about a named individual — so the sentence has to be its accessible name
+    // as well as its tooltip. `role="note"` keeps it announced as an annotation on the link it
+    // follows rather than as an unlabelled fragment.
     <span
       className="ml-1 shrink-0 whitespace-nowrap rounded-full bg-amber-100 px-1.5 py-0.5 align-middle text-[10px] text-amber-800 dark:bg-amber-950 dark:text-amber-300"
       title={label}
+      aria-label={label}
+      role="note"
     >
       {t("pp_link_name_match", { defaultValue: "по име" })}
     </span>

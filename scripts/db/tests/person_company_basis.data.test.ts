@@ -1,6 +1,7 @@
 // Gate for person_company_bridge_a (148) — the ONE definition of "this person↔company link
-// came from a curated register", read by 082's per-company `linkBasis` on /person and by
-// 120's `tr_link_basis` on /persons.
+// came from a curated register", read by 082's per-company `linkBasis` on /person, by 082's
+// per-SEAT `linkBasis` on the same page's „Управа на ЮЛНЦ" block, and by 120's
+// `tr_link_basis` on /persons.
 //
 //   npm run test:data
 //
@@ -146,6 +147,61 @@ test.skipIf(skip)(
       Number(c.declared) > 0 && Number(c.name_match) > 0,
       `linkBasis is constant across the sample (declared=${c.declared}, ` +
         `name_match=${c.name_match}) — it is not classifying anything`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "082's per-seat ngos linkBasis agrees with the view, for every seat",
+  async () => {
+    // THE ASYMMETRY THIS EXISTS FOR. The client is armoured against an ABSENT basis —
+    // `isNameMatch` reads undefined as a name match, so an older 082 over-caveats and nothing
+    // is over-claimed. Nothing is armoured against a WRONG one: invert the CASE in 082 and
+    // 5,670 name-matched board seats render as register-confirmed, with no mark and no
+    // caveat, on pages naming real individuals beside real organisations. The component is
+    // right to trust the server, so only a database-side gate can catch that direction.
+    //
+    // Whole-population rather than sampled, unlike the companies arm above: the seat corpus
+    // is ~5.7k rows against ~86k people with companies, so this costs seconds.
+    const [r] = await allRows<{ bad: string; n: string; declared: string }>(
+      `SELECT count(*) FILTER (WHERE mismatch) AS bad,
+              count(*) AS n,
+              count(*) FILTER (WHERE basis = 'declared') AS declared
+         FROM (
+           SELECT e ->> 'linkBasis' AS basis,
+                  (e ->> 'linkBasis' = 'declared')
+                    IS DISTINCT FROM (ba.uic IS NOT NULL) AS mismatch
+             FROM person p
+             CROSS JOIN LATERAL jsonb_array_elements(
+                          COALESCE(person_by_slug(p.slug) -> 'ngos', '[]'::jsonb)) e
+             LEFT JOIN person_company_bridge_a ba
+                    ON ba.person_id = p.person_id AND ba.uic = e ->> 'eik'
+            WHERE EXISTS (SELECT 1 FROM person_role r2
+                           WHERE r2.person_id = p.person_id AND r2.source = 'ngo')
+         ) x`,
+    );
+    assert.equal(
+      Number(r.bad),
+      0,
+      `${r.bad} of ${r.n} NGO board seats carry a linkBasis that disagrees with ` +
+        `person_company_bridge_a. A seat wrongly marked 'declared' renders with NO „по име" ` +
+        `chip and NO block caveat — an unqualified attribution of an organisation to a named ` +
+        `person, which is the one direction the client cannot fail safe on.`,
+    );
+    // Non-vacuity, BOTH ways. An empty seat corpus satisfies "0 mismatches" — and so does an
+    // implementation that collapsed every seat to 'name_match', which reads as "more caveat,
+    // therefore harmless" and is not: it strips the 57 genuinely register-confirmed seats of
+    // a distinction the register earned. The declared floor is well under today's 57 so
+    // ordinary corpus movement does not fail it.
+    assert.ok(
+      Number(r.n) > 1000,
+      `only ${r.n} NGO seats were compared — the assertion above is near-vacuous. ` +
+        `Load the person layer (db:resolve:persons) before reading this gate.`,
+    );
+    assert.ok(
+      Number(r.declared) > 0,
+      `no NGO seat is classified 'declared' (of ${r.n}) — the basis is a constant on this ` +
+        `arm and is classifying nothing, even though the companies arm discriminates.`,
     );
   },
 );

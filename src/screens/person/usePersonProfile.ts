@@ -86,6 +86,10 @@ export type NgoSeat = {
   legalForm: string | null;
   seat: string | null;
   roles: string[];
+  /** Same three-state contract as ProfileCompany.linkBasis above, and the same rule behind
+   *  it (082 reads one view for both arms). Optional for the same reason: a payload older
+   *  than this change omits it, and absent must read as 'name_match', never as 'declared'. */
+  linkBasis?: "declared" | "name_match";
 };
 export type PersonProfile = {
   slug: string;
@@ -133,6 +137,31 @@ export const isSharedNameIdentity = (p: {
   identityConfidence?: string;
 }): boolean =>
   p.identityConfidence === "shared_name" || (p.foldPeopleN ?? 0) > 1;
+
+/** The registry people-count a per-block caveat may state — the ONE rule, for every block.
+ *
+ *  The profile can say „Търговският регистър съдържа поне N различни лица с това име." in
+ *  three places: the amber identity card at the top, the „Фирми" block, and the „Управа на
+ *  ЮЛНЦ" block. It must say it exactly ONCE. The identity card renders only for a PRIVATE
+ *  (Tier-V) person — a public figure's identity is cross-source resolved, so that card would
+ *  be a false statement about them — which is why the blocks withhold the count precisely
+ *  when the card is showing it.
+ *
+ *  ⚠️ IT IS A FUNCTION RATHER THAN A COMMENT ON ONE CALL SITE BECAUSE THAT IS HOW IT BROKE.
+ *  The rule lived as a ternary inline on the PersonCompanies call site with a comment saying
+ *  "none carries it twice"; the NGO block was added beside it passing `foldPeopleN` raw, and
+ *  the invariant was silently false for any private person holding a board seat. That
+ *  population is empty today (measured 2026-08-25: 0 of 4,927 seat-holders are private), so
+ *  nothing was live — but it is reachable by either of two ordinary corpus movements, and a
+ *  fourth block would have re-decided it again.
+ *
+ *  `undefined` withholds; `null` passes an UNMEASURED fold through as unmeasured, which the
+ *  disclosure renders as silence rather than as "1 person". */
+export const blockFoldPeopleN = (p: {
+  isPublicFigure?: boolean;
+  foldPeopleN?: number | null;
+}): number | null | undefined =>
+  p.isPublicFigure === false ? undefined : p.foldPeopleN;
 
 /** The four states a profile lookup can be in. `missing` and `failed` are DELIBERATELY
  *  distinct, and conflating them is what this type exists to prevent.

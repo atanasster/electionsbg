@@ -20,3 +20,16 @@ export type LinkBasis = "declared" | "name_match";
  *  confirmed a company belongs to a named person when we did not. */
 export const isNameMatch = (linkBasis?: string | null): boolean =>
   linkBasis !== "declared";
+
+/** Last-resort fallback for the `person_namesake_disclosure` key.
+ *
+ *  ONE copy. src/locales/{bg,en}/translation.json stays the source translators edit; this is
+ *  what renders if that key is ever dropped or renamed — i.e. the exact scenario in which
+ *  hand-copied duplicates go stale unnoticed, since a `defaultValue` is invisible until the
+ *  key is gone. It lived in four files (both profile blocks' tooltips, the shared footer, and
+ *  the /persons money cell) before this was extracted.
+ *
+ *  It belongs beside `isNameMatch` for the same reason that predicate does: this module
+ *  renders nothing, so any surface can reach the one sentence without importing a component. */
+export const NAMESAKE_FALLBACK =
+  "Лицата в Търговския регистър се идентифицират тук по име — регистърът публикува и идентификатор от ЕГН, но ние не го използваме, затова тези записи може да обединяват различни хора с еднакво име.";

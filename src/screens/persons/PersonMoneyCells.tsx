@@ -6,6 +6,7 @@
 
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { NAMESAKE_FALLBACK } from "@/screens/components/linkBasis";
 import { formatEurCompact, formatEur } from "@/lib/currency";
 import type { PersonBrowseRow } from "@/data/persons/personBrowseTypes";
 
@@ -174,8 +175,7 @@ export const PersonMoneyCell: FC<{ row: PersonBrowseRow }> = ({ row }) => {
         // The only string here that lives in another feature's key space. Without a
         // fallback, dropping or renaming it renders the literal key to the reader — on the
         // one tooltip whose whole job is to qualify a claim about a named person.
-        defaultValue:
-          "Лицата в Търговския регистър се идентифицират тук по име — регистърът публикува и идентификатор от ЕГН, но ние не го използваме, затова тези записи може да обединяват различни хора с еднакво име.",
+        defaultValue: NAMESAKE_FALLBACK,
       })}`
     : base;
 
