@@ -154,6 +154,9 @@ const present = async (): Promise<boolean> =>
   (await allRows(`SELECT 1 FROM council_muni LIMIT 1`).catch(() => null)) !==
   null;
 
+const skipDb = !(await dbReachable()) ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skipDb);
+
 test.skipIf(skip)(
   "Postgres matches the durable shard tree, both directions",
   async () => {
@@ -766,16 +769,17 @@ test.skipIf(skip)("no council loses its tallies wholesale", async () => {
 // Stated as a corpus invariant rather than a per-município allowlist, so a NEW município
 // wired with the wrong setting fails here on its first load rather than joining a list
 // nobody revisits.
-test("no município mixes agenda-point and resolution number bands", async (t) => {
-  if (!(await dbReachable())) return t.skip();
-  const rows = await allRows<{
-    code: string;
-    low: string;
-    mid: string;
-    high: string;
-    lo_max: string;
-  }>(
-    `SELECT obshtina_code AS code,
+test.skipIf(skipDb)(
+  "no município mixes agenda-point and resolution number bands",
+  async () => {
+    const rows = await allRows<{
+      code: string;
+      low: string;
+      mid: string;
+      high: string;
+      lo_max: string;
+    }>(
+      `SELECT obshtina_code AS code,
             count(*) FILTER (WHERE number::int < 100)                  AS low,
             count(*) FILTER (WHERE number::int BETWEEN 100 AND 499)    AS mid,
             count(*) FILTER (WHERE number::int >= 500)                 AS high,
@@ -784,30 +788,31 @@ test("no município mixes agenda-point and resolution number bands", async (t) =
       WHERE number ~ '^[0-9]+$'
       GROUP BY obshtina_code
       ORDER BY obshtina_code`,
-  );
-  assert.ok(
-    rows.length > 0,
-    "council_resolution is empty — run db:load:council:pg",
-  );
-
-  const suspect = rows
-    .filter(
-      (r) => Number(r.low) > 0 && Number(r.high) > 0 && Number(r.mid) === 0,
-    )
-    .map(
-      (r) =>
-        `${r.code}: ${r.low} rows at <=${r.lo_max}, ${r.mid} in 100..499, ${r.high} at 500+`,
     );
-  assert.deepEqual(
-    suspect,
-    [],
-    `bimodal resolution numbering — the agenda-point signature:\n  ${suspect.join("\n  ")}\n` +
-      `A município whose real resolutions are numbered in the hundreds should have NO ` +
-      `sub-100 rows. Check whether its parser passes { agendaPoints: true } to ` +
-      `findResolutionMarkers; only sof.ts and bgs.ts may (their protocols carry no ` +
-      `РЕШЕНИЕ headers at all and they merge by agenda POSITION).`,
-  );
-});
+    assert.ok(
+      rows.length > 0,
+      "council_resolution is empty — run db:load:council:pg",
+    );
+
+    const suspect = rows
+      .filter(
+        (r) => Number(r.low) > 0 && Number(r.high) > 0 && Number(r.mid) === 0,
+      )
+      .map(
+        (r) =>
+          `${r.code}: ${r.low} rows at <=${r.lo_max}, ${r.mid} in 100..499, ${r.high} at 500+`,
+      );
+    assert.deepEqual(
+      suspect,
+      [],
+      `bimodal resolution numbering — the agenda-point signature:\n  ${suspect.join("\n  ")}\n` +
+        `A município whose real resolutions are numbered in the hundreds should have NO ` +
+        `sub-100 rows. Check whether its parser passes { agendaPoints: true } to ` +
+        `findResolutionMarkers; only sof.ts and bgs.ts may (their protocols carry no ` +
+        `РЕШЕНИЕ headers at all and they merge by agenda POSITION).`,
+    );
+  },
+);
 
 // 7. TITLE COVERAGE — the one thing the whole council-title-parser-v1 work bought, and
 //    nothing guarded it. A parser regression that stops finding subjects is invisible:
@@ -842,43 +847,45 @@ const TITLE_COVERAGE_FLOOR: Record<string, number> = {
   VTR01: 0.8, //  91%
 };
 
-test("every município meets its declared title-coverage floor", async (t) => {
-  if (!(await dbReachable())) return t.skip();
-  const rows = await allRows<{ code: string; total: string; titled: string }>(
-    `SELECT obshtina_code AS code, count(*)::text AS total,
+test.skipIf(skipDb)(
+  "every município meets its declared title-coverage floor",
+  async () => {
+    const rows = await allRows<{ code: string; total: string; titled: string }>(
+      `SELECT obshtina_code AS code, count(*)::text AS total,
             count(*) FILTER (
               WHERE title IS NOT NULL AND btrim(title) <> ''
                 AND title <> '(no title parsed)'
             )::text AS titled
        FROM council_resolution GROUP BY obshtina_code ORDER BY obshtina_code`,
-  );
-  assert.ok(
-    rows.length > 0,
-    "council_resolution is empty — run db:load:council:pg",
-  );
+    );
+    assert.ok(
+      rows.length > 0,
+      "council_resolution is empty — run db:load:council:pg",
+    );
 
-  const undeclared = rows
-    .map((r) => r.code)
-    .filter((c) => !(c in TITLE_COVERAGE_FLOOR));
-  assert.deepEqual(
-    undeclared,
-    [],
-    `${undeclared.join(", ")} has no TITLE_COVERAGE_FLOOR entry — declare one (0 is a ` +
-      `valid answer, and says the protocols name no subject this parser can reach)`,
-  );
+    const undeclared = rows
+      .map((r) => r.code)
+      .filter((c) => !(c in TITLE_COVERAGE_FLOOR));
+    assert.deepEqual(
+      undeclared,
+      [],
+      `${undeclared.join(", ")} has no TITLE_COVERAGE_FLOOR entry — declare one (0 is a ` +
+        `valid answer, and says the protocols name no subject this parser can reach)`,
+    );
 
-  const below = rows
-    .map((r) => ({
-      code: r.code,
-      cov: Number(r.titled) / Number(r.total),
-      floor: TITLE_COVERAGE_FLOOR[r.code],
-    }))
-    .filter((r) => r.cov < r.floor)
-    .map((r) => `${r.code} ${(r.cov * 100).toFixed(0)}% < ${r.floor * 100}%`);
-  assert.deepEqual(
-    below,
-    [],
-    `title coverage collapsed: ${below.join("; ")}. A parser stopped finding subjects — ` +
-      `the rows still load and nothing else fails, so this is the only signal.`,
-  );
-});
+    const below = rows
+      .map((r) => ({
+        code: r.code,
+        cov: Number(r.titled) / Number(r.total),
+        floor: TITLE_COVERAGE_FLOOR[r.code],
+      }))
+      .filter((r) => r.cov < r.floor)
+      .map((r) => `${r.code} ${(r.cov * 100).toFixed(0)}% < ${r.floor * 100}%`);
+    assert.deepEqual(
+      below,
+      [],
+      `title coverage collapsed: ${below.join("; ")}. A parser stopped finding subjects — ` +
+        `the rows still load and nothing else fails, so this is the only signal.`,
+    );
+  },
+);

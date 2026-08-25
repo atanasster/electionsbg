@@ -40,6 +40,7 @@ import {
   type RouteDefs,
 } from "../sitemap/route_defs";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
+import { reportSkip } from "../lib/report_skip";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -960,7 +961,13 @@ describe("a hub's og capture anchors on its head", () => {
     // rendered and vitest prints „✓ passed" — a clause that never runs in CI reporting as one
     // that did. Measured under this repo's vitest: the assertion form prints ✓, this prints
     // „↓ skipped [shallow clone …]". The file's whole doctrine is that a skip must say why.
-    if (shallow) return ctx.skip("shallow clone — card freshness unverifiable");
+    if (shallow) {
+      reportSkip(
+        import.meta.url,
+        "shallow clone — card freshness unverifiable",
+      );
+      return ctx.skip();
+    }
 
     // The head COMPONENT counts too, not only the screen. Excluding it was the first draft's
     // trade — „a shared-component edit reddens all four at once, and a gate that annoys people

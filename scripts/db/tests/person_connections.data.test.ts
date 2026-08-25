@@ -133,7 +133,13 @@ test.skipIf(skip)(
     SELECT eik AS ref, public_officer_count AS n
       FROM graph_company_node ORDER BY public_officer_count DESC, eik LIMIT 1`);
     if (!big || Number(big.n) <= 6) {
-      ctx.skip("no company exceeds 6 public officers — guard not exercisable");
+      {
+        reportSkip(
+          import.meta.url,
+          "no company exceeds 6 public officers — guard not exercisable",
+        );
+        ctx.skip();
+      }
       return;
     }
     const slug = await pickSlug(
@@ -336,9 +342,13 @@ test.skipIf(skip)(
        WHERE coowner_count > 6 AND public_officer_count <= 6
        ORDER BY coowner_count DESC, eik LIMIT 1`);
     if (!big) {
-      ctx.skip(
-        "no few-public-officer mass-ownership company — over-link not exercisable",
-      );
+      {
+        reportSkip(
+          import.meta.url,
+          "no few-public-officer mass-ownership company — over-link not exercisable",
+        );
+        ctx.skip();
+      }
       return;
     }
     // A public member of that company, so the default path can reach it as a subject.
@@ -350,9 +360,13 @@ test.skipIf(skip)(
       [big.eik],
     );
     if (!slug) {
-      ctx.skip(
-        `mass-ownership company ${big.eik} has no public member to query from`,
-      );
+      {
+        reportSkip(
+          import.meta.url,
+          `mass-ownership company ${big.eik} has no public member to query from`,
+        );
+        ctx.skip();
+      }
       return;
     }
     for (const priv of [false, true]) {

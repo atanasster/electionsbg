@@ -206,7 +206,10 @@ describe("tourism sector — hub headline", () => {
   });
 
   test("value + year + unavailable reconcile EXACTLY to the МТ budget node", (t) => {
-    if (!exists(NODE)) return t.skip("МТ budget node absent");
+    if (!exists(NODE)) {
+      reportSkip(import.meta.url, "МТ budget node absent");
+      return t.skip();
+    }
     const stats = readJson<SectorStats>(STATS);
     const node = readJson<{
       eik?: string;

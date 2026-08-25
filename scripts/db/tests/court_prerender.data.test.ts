@@ -19,6 +19,7 @@ import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { readSeoCourts } from "../lib/seo_courts";
 import { buildCourtRoutes } from "../../prerender/dynamicRoutes";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const bodies = haveDb
@@ -54,8 +55,12 @@ const surfaces = (r: (typeof routes)[number]): string[] => [
   JSON.stringify(r.english?.jsonLd ?? []),
 ];
 
-test("one page per enumerated body, BG and EN", async (t) => {
-  if (!bodies) return t.skip();
+const skipBodies = !bodies
+  ? "Postgres unreachable, or judicial_body is empty — run npm run db:load:judicial-bodies:pg"
+  : false;
+reportSkip(import.meta.url, skipBodies);
+
+test.skipIf(skipBodies)("one page per enumerated body, BG and EN", async () => {
   assert.equal(routes.length, bodies, "a body lost its page");
   for (const r of routes) {
     assert.ok(
@@ -72,25 +77,26 @@ test("one page per enumerated body, BG and EN", async (t) => {
   }
 });
 
-test("never tells a COURT that the statistics cover the courts", async (t) => {
-  if (!bodies) return t.skip();
-  for (const r of routes) {
-    const kind = kindOf.get(r.path);
-    const bg = /статистиката обхваща съдилищата/.test(r.bodyHtml ?? "");
-    const en = /the statistics cover the courts/.test(
-      r.english?.bodyHtml ?? "",
-    );
-    if (bg || en) {
-      assert.ok(
-        kind === "prosecution" || kind === "investigation",
-        `${r.path} (${kind}) carries the prosecution/investigation exclusion clause — on a court it is self-contradicting`,
+test.skipIf(skipBodies)(
+  "never tells a COURT that the statistics cover the courts",
+  async () => {
+    for (const r of routes) {
+      const kind = kindOf.get(r.path);
+      const bg = /статистиката обхваща съдилищата/.test(r.bodyHtml ?? "");
+      const en = /the statistics cover the courts/.test(
+        r.english?.bodyHtml ?? "",
       );
+      if (bg || en) {
+        assert.ok(
+          kind === "prosecution" || kind === "investigation",
+          `${r.path} (${kind}) carries the prosecution/investigation exclusion clause — on a court it is self-contradicting`,
+        );
+      }
     }
-  }
-});
+  },
+);
 
-test("no count disagrees with its noun", async (t) => {
-  if (!bodies) return t.skip();
+test.skipIf(skipBodies)("no count disagrees with its noun", async () => {
   const bad =
     /\b1 (магистрати|съдии|magistrates|judges|declaring magistrates)\b|\b1 магистрати подават\b/;
   for (const r of routes) {
@@ -101,59 +107,65 @@ test("no count disagrees with its noun", async (t) => {
   }
 });
 
-test("meta text is pre-escape — the emitter escapes it again", async (t) => {
-  if (!bodies) return t.skip();
-  // An HTML entity reaching `title`/`description` ships as `&amp;amp;` in the
-  // <meta>, and inside a JSON-LD string it is simply wrong text.
-  const entity = /&(amp|lt|gt|quot|#\d+);/;
-  for (const r of routes) {
-    for (const [label, s] of [
-      ["title", r.title],
-      ["description", r.description],
-      ["jsonLd", JSON.stringify(r.jsonLd ?? [])],
-      ["en.title", r.english?.title ?? ""],
-      ["en.description", r.english?.description ?? ""],
-      ["en.jsonLd", JSON.stringify(r.english?.jsonLd ?? [])],
-    ] as const) {
-      assert.ok(!entity.test(s), `${r.path}: HTML entity in ${label}`);
+test.skipIf(skipBodies)(
+  "meta text is pre-escape — the emitter escapes it again",
+  async () => {
+    // An HTML entity reaching `title`/`description` ships as `&amp;amp;` in the
+    // <meta>, and inside a JSON-LD string it is simply wrong text.
+    const entity = /&(amp|lt|gt|quot|#\d+);/;
+    for (const r of routes) {
+      for (const [label, s] of [
+        ["title", r.title],
+        ["description", r.description],
+        ["jsonLd", JSON.stringify(r.jsonLd ?? [])],
+        ["en.title", r.english?.title ?? ""],
+        ["en.description", r.english?.description ?? ""],
+        ["en.jsonLd", JSON.stringify(r.english?.jsonLd ?? [])],
+      ] as const) {
+        assert.ok(!entity.test(s), `${r.path}: HTML entity in ${label}`);
+      }
     }
-  }
-});
+  },
+);
 
-test("the EN page localises the seat and never links a slashed /en/", async (t) => {
-  if (!bodies) return t.skip();
-  for (const r of routes) {
-    const enLd = JSON.stringify(r.english?.jsonLd ?? []);
-    assert.ok(
-      !/"https:\/\/electionsbg\.com\/en\/"/.test(enLd),
-      `${r.path}: JSON-LD names /en/, which 301s to /en`,
-    );
-  }
-  // Cyrillic in EN prose is expected for the body's NAME (there is no official
-  // English register) but not for the seat, which place_dim carries.
-  const sofia = routes.find((r) => r.path === "court/sgs");
-  if (sofia) {
-    assert.match(
-      sofia.english?.bodyHtml ?? "",
-      /seated in Sofia/,
-      "the EN page still prints the Bulgarian seat name",
-    );
-  }
-});
-
-test("no page links a magistrate roster it has no magistrates for", async (t) => {
-  if (!bodies) return t.skip();
-  const byPath = new Map(
-    (await readSeoCourts()).map((b) => [`court/${b.bodyCode}`, b]),
-  );
-  for (const r of routes) {
-    const b = byPath.get(r.path)!;
-    const linksRoster = /\/persons\?court=/.test(r.bodyHtml ?? "");
-    if (!b.sourcesBuilt || b.magistrates === 0) {
+test.skipIf(skipBodies)(
+  "the EN page localises the seat and never links a slashed /en/",
+  async () => {
+    for (const r of routes) {
+      const enLd = JSON.stringify(r.english?.jsonLd ?? []);
       assert.ok(
-        !linksRoster,
-        `${r.path}: links a roster filter that returns no rows`,
+        !/"https:\/\/electionsbg\.com\/en\/"/.test(enLd),
+        `${r.path}: JSON-LD names /en/, which 301s to /en`,
       );
     }
-  }
-});
+    // Cyrillic in EN prose is expected for the body's NAME (there is no official
+    // English register) but not for the seat, which place_dim carries.
+    const sofia = routes.find((r) => r.path === "court/sgs");
+    if (sofia) {
+      assert.match(
+        sofia.english?.bodyHtml ?? "",
+        /seated in Sofia/,
+        "the EN page still prints the Bulgarian seat name",
+      );
+    }
+  },
+);
+
+test.skipIf(skipBodies)(
+  "no page links a magistrate roster it has no magistrates for",
+  async () => {
+    const byPath = new Map(
+      (await readSeoCourts()).map((b) => [`court/${b.bodyCode}`, b]),
+    );
+    for (const r of routes) {
+      const b = byPath.get(r.path)!;
+      const linksRoster = /\/persons\?court=/.test(r.bodyHtml ?? "");
+      if (!b.sourcesBuilt || b.magistrates === 0) {
+        assert.ok(
+          !linksRoster,
+          `${r.path}: links a roster filter that returns no rows`,
+        );
+      }
+    }
+  },
+);

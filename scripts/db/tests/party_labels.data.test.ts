@@ -33,6 +33,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -66,90 +67,113 @@ const canonicalIds = (): Set<string> => {
   return new Set(j.parties.map((p) => p.id));
 };
 
-test("every party_primary on /persons resolves to a canonical label", async (t) => {
-  if (!haveDb || !browseReady) return t.skip();
+const skipCandidateLink =
+  !haveDb || !(await tableExists("official_candidate_link"))
+    ? "Postgres unreachable, or official_candidate_link is absent — run npm run db:load:official-candidate-links:pg"
+    : false;
+const skipBrowse =
+  !haveDb || !browseReady
+    ? "Postgres unreachable, or person_browse_table is absent — run npm run db:load:persons-browse:pg"
+    : false;
+reportSkip(import.meta.url, skipCandidateLink);
+reportSkip(import.meta.url, skipBrowse);
 
-  const ids = canonicalIds();
-  // Floor first: an empty canonical set would make the assertion below fail for
-  // the wrong reason, and an empty matview would make it pass vacuously.
-  assert.ok(ids.size > 100, `only ${ids.size} canonical parties loaded`);
+test.skipIf(skipBrowse)(
+  "every party_primary on /persons resolves to a canonical label",
+  async () => {
+    const ids = canonicalIds();
+    // Floor first: an empty canonical set would make the assertion below fail for
+    // the wrong reason, and an empty matview would make it pass vacuously.
+    assert.ok(ids.size > 100, `only ${ids.size} canonical parties loaded`);
 
-  const rows = await allRows<{ party_primary: string; n: string }>(
-    `SELECT party_primary, count(*)::text AS n
+    const rows = await allRows<{ party_primary: string; n: string }>(
+      `SELECT party_primary, count(*)::text AS n
        FROM person_browse_table
       WHERE party_primary IS NOT NULL
       GROUP BY 1 ORDER BY count(*) DESC`,
-  );
-  assert.ok(rows.length > 0, "no party_primary values — matview not populated");
+    );
+    assert.ok(
+      rows.length > 0,
+      "no party_primary values — matview not populated",
+    );
 
-  const unlabelled = rows.filter((r) => !ids.has(r.party_primary));
-  assert.deepEqual(
-    unlabelled.map((r) => `${r.party_primary} (${r.n} people)`),
-    [],
-    "party ids with no entry in canonical_parties.json — these render as a raw " +
-      "latin token with no colour dot in the ПАРТИЯ column AND in the facet dropdown",
-  );
-});
+    const unlabelled = rows.filter((r) => !ids.has(r.party_primary));
+    assert.deepEqual(
+      unlabelled.map((r) => `${r.party_primary} (${r.n} people)`),
+      [],
+      "party ids with no entry in canonical_parties.json — these render as a raw " +
+        "latin token with no colour dot in the ПАРТИЯ column AND in the facet dropdown",
+    );
+  },
+);
 
-test("party_codes carries no id the canonical table cannot label", async (t) => {
-  if (!haveDb || !browseReady) return t.skip();
-
-  const ids = canonicalIds();
-  // party_codes is the FILTER target (`?party=` matches it), so an id that only
-  // ever appears here is still user-visible: it is selectable in the dropdown
-  // even when it is nobody's representative party. Checking party_primary alone
-  // would miss it.
-  const rows = await allRows<{ code: string; n: string }>(
-    `SELECT code, count(*)::text AS n
+test.skipIf(skipBrowse)(
+  "party_codes carries no id the canonical table cannot label",
+  async () => {
+    const ids = canonicalIds();
+    // party_codes is the FILTER target (`?party=` matches it), so an id that only
+    // ever appears here is still user-visible: it is selectable in the dropdown
+    // even when it is nobody's representative party. Checking party_primary alone
+    // would miss it.
+    const rows = await allRows<{ code: string; n: string }>(
+      `SELECT code, count(*)::text AS n
        FROM person_browse_table b,
             LATERAL unnest(string_to_array(btrim(b.party_codes), ' ')) AS code
       WHERE b.party_codes IS NOT NULL AND code <> ''
       GROUP BY 1`,
-  );
-  assert.ok(rows.length > 0, "no party_codes values — matview not populated");
+    );
+    assert.ok(rows.length > 0, "no party_codes values — matview not populated");
 
-  const unlabelled = rows.filter((r) => !ids.has(r.code));
-  assert.deepEqual(
-    unlabelled.map((r) => `${r.code} (${r.n} people)`),
-    [],
-    "party ids in party_codes with no canonical entry",
-  );
-});
+    const unlabelled = rows.filter((r) => !ids.has(r.code));
+    assert.deepEqual(
+      unlabelled.map((r) => `${r.code} (${r.n} people)`),
+      [],
+      "party ids in party_codes with no canonical entry",
+    );
+  },
+);
 
 // The sentinel's own shape (label + empty history) is asserted in
 // scripts/parsers/manualCanonicals.test.ts — deliberately NOT here. It reads
 // two files and no database, so behind this file's Postgres skip it would never
 // run in CI, which provisions none.
 
-test("official_candidate_link names no party the canonical table cannot label", async (t) => {
-  if (!haveDb || !(await tableExists("official_candidate_link")))
-    return t.skip();
+test.skipIf(skipCandidateLink)(
+  "official_candidate_link names no party the canonical table cannot label",
+  async (t) => {
+    // The surface that was actually broken. `person_browse_table` is rebuilt from
+    // `person_role` by a resolve, so fixing the ingest rule cleans it on the next
+    // pass — but `official_candidate_link` is loaded independently
+    // (db:load:official-candidate-links:pg) and keeps whatever id it was given
+    // until THAT loader re-runs. Measured before this gate: 27 rows still carried
+    // the invented "vmro" while person_browse_table was already clean, so a gate
+    // on the browse matview alone was guarding a door that had already shut.
+    //
+    // It feeds the party colour and councillor avatars on the governance and
+    // My-Area tiles, so a dangling id there is a colourless chip, not an error.
+    const ids = canonicalIds();
+    assert.ok(ids.size > 100, `only ${ids.size} canonical parties loaded`);
 
-  // The surface that was actually broken. `person_browse_table` is rebuilt from
-  // `person_role` by a resolve, so fixing the ingest rule cleans it on the next
-  // pass — but `official_candidate_link` is loaded independently
-  // (db:load:official-candidate-links:pg) and keeps whatever id it was given
-  // until THAT loader re-runs. Measured before this gate: 27 rows still carried
-  // the invented "vmro" while person_browse_table was already clean, so a gate
-  // on the browse matview alone was guarding a door that had already shut.
-  //
-  // It feeds the party colour and councillor avatars on the governance and
-  // My-Area tiles, so a dangling id there is a colourless chip, not an error.
-  const ids = canonicalIds();
-  assert.ok(ids.size > 100, `only ${ids.size} canonical parties loaded`);
-
-  const rows = await allRows<{ party_canonical_id: string; n: string }>(
-    `SELECT party_canonical_id, count(*)::text AS n
+    const rows = await allRows<{ party_canonical_id: string; n: string }>(
+      `SELECT party_canonical_id, count(*)::text AS n
        FROM official_candidate_link
       WHERE party_canonical_id IS NOT NULL
       GROUP BY 1`,
-  );
-  if (rows.length === 0) return t.skip(); // table present but not loaded
+    );
+    if (rows.length === 0) {
+      // present but not loaded — a different fix from an absent table.
+      reportSkip(
+        import.meta.url,
+        "official_candidate_link is present but empty — run npm run db:load:official-candidate-links:pg",
+      );
+      return t.skip();
+    }
 
-  const unlabelled = rows.filter((r) => !ids.has(r.party_canonical_id));
-  assert.deepEqual(
-    unlabelled.map((r) => `${r.party_canonical_id} (${r.n} rows)`),
-    [],
-    "party ids in official_candidate_link with no canonical entry — re-run db:load:official-candidate-links:pg after an override fix",
-  );
-});
+    const unlabelled = rows.filter((r) => !ids.has(r.party_canonical_id));
+    assert.deepEqual(
+      unlabelled.map((r) => `${r.party_canonical_id} (${r.n} rows)`),
+      [],
+      "party ids in official_candidate_link with no canonical entry — re-run db:load:official-candidate-links:pg after an override fix",
+    );
+  },
+);

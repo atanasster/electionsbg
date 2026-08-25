@@ -327,7 +327,10 @@ test.skipIf(skip)(
     // A genuinely absent company is a legitimate skip; a WRONG SHAPE is not — that is a
     // key or grouping regression, which is exactly what the first two tests are about.
     if (view.length === 0) {
-      ctx.skip(`${BILYANA} is not in this corpus`);
+      {
+        reportSkip(import.meta.url, `${BILYANA} is not in this corpus`);
+        ctx.skip();
+      }
       return;
     }
     assert.equal(
@@ -399,7 +402,10 @@ test.skipIf(skip)(
       [MIXED_CURRENCY],
     );
     if (rows.length === 0) {
-      ctx.skip(`${MIXED_CURRENCY} is not in this corpus`);
+      {
+        reportSkip(import.meta.url, `${MIXED_CURRENCY} is not in this corpus`);
+        ctx.skip();
+      }
       return;
     }
     assert.equal(
@@ -453,9 +459,13 @@ test.skipIf(skip)(
          AND abs(r.share - s.share_pct) > 1
        ORDER BY r.uic LIMIT 1`);
     if (!c) {
-      ctx.skip(
-        "stored and derived shares agree everywhere — nothing to discriminate",
-      );
+      {
+        reportSkip(
+          import.meta.url,
+          "stored and derived shares agree everywhere — nothing to discriminate",
+        );
+        ctx.skip();
+      }
       return;
     }
     const rows = await allRows<{
@@ -707,7 +717,13 @@ test.skipIf(skip)(
        GROUP BY name_fold HAVING count(*) BETWEEN 2 AND 8
        ORDER BY name_fold LIMIT 1`);
     if (!p) {
-      ctx.skip("no owner holds 2-8 companies — plan fixture is empty");
+      {
+        reportSkip(
+          import.meta.url,
+          "no owner holds 2-8 companies — plan fixture is empty",
+        );
+        ctx.skip();
+      }
       return;
     }
     const plan = await allRows<{ "QUERY PLAN": string }>(
@@ -790,10 +806,14 @@ test.skipIf(skip)(
                           WHERE s.uic = r.uic AND s.name_fold = r.name_fold
                             AND s.role = r.role AND s.share_pct IS NOT NULL)`);
     if (num(stale.n) > 0) {
-      ctx.skip(
-        `stored share_percent predates owner_share.ts (${stale.n} rows publish a percentage the current rule refuses, inside companies the view still publishes for) — ` +
-          "rebuild with npm run tr:daily-refresh then db:load:tr:pg. NOT evidence the twins agree.",
-      );
+      {
+        reportSkip(
+          import.meta.url,
+          `stored share_percent predates owner_share.ts (${stale.n} rows publish a percentage the current rule refuses, inside companies the view still publishes for) — ` +
+            "rebuild with npm run tr:daily-refresh then db:load:tr:pg. NOT evidence the twins agree.",
+        );
+        ctx.skip();
+      }
       return;
     }
 

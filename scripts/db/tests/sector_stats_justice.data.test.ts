@@ -159,8 +159,13 @@ describe("justice sector — hub headline", () => {
 
   test("value + year + unavailable reconcile EXACTLY to the съдебна власт node", (t) => {
     const state = nodeState();
-    if (state === "no-tree")
-      return t.skip("data/budget/ministries/ absent (gitignored tree)");
+    if (state === "no-tree") {
+      reportSkip(
+        import.meta.url,
+        "data/budget/ministries/ absent (gitignored tree)",
+      );
+      return t.skip();
+    }
     assert.notEqual(
       state,
       "renamed",
@@ -220,14 +225,22 @@ describe("justice sector — hub headline", () => {
   // agree. They read DIFFERENT FILES, so nothing but this makes them.
   test("the per-body artifact sums to the node, year by year", (t) => {
     const state = nodeState();
-    if (state === "no-tree")
-      return t.skip("data/budget/ministries/ absent (gitignored tree)");
+    if (state === "no-tree") {
+      reportSkip(
+        import.meta.url,
+        "data/budget/ministries/ absent (gitignored tree)",
+      );
+      return t.skip();
+    }
     assert.notEqual(
       state,
       "renamed",
       `${NODE} is missing — VSS_BUDGET_NODE is stale`,
     );
-    if (!exists(VSS_BUDGET)) return t.skip("vss/budget.json absent");
+    if (!exists(VSS_BUDGET)) {
+      reportSkip(import.meta.url, "vss/budget.json absent");
+      return t.skip();
+    }
     const byYear = nodeSeries();
     const vss = readJson<{
       years: Array<{

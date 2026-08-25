@@ -17,6 +17,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end, withTx } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 
@@ -32,58 +33,69 @@ afterAll(async () => {
   if (haveDb) await end();
 });
 
-test("every judicial body resolves to a servable /court page", async (t) => {
-  if (!bodiesLoaded) return t.skip();
-  const [row] = await allRows<{ total: string; servable: string }>(`
+const skipBodies = !bodiesLoaded
+  ? "Postgres unreachable, or judicial_body is empty — run npm run db:load:judicial-bodies:pg"
+  : false;
+reportSkip(import.meta.url, skipBodies);
+
+test.skipIf(skipBodies)(
+  "every judicial body resolves to a servable /court page",
+  async () => {
+    const [row] = await allRows<{ total: string; servable: string }>(`
     SELECT count(*) AS total,
            count(*) FILTER (WHERE judicial_body_detail(body_code) IS NOT NULL)
              AS servable
     FROM judicial_body`);
-  assert.equal(
-    row.servable,
-    row.total,
-    `${Number(row.total) - Number(row.servable)} of ${row.total} bodies are unservable`,
-  );
-});
+    assert.equal(
+      row.servable,
+      row.total,
+      `${Number(row.total) - Number(row.servable)} of ${row.total} bodies are unservable`,
+    );
+  },
+);
 
-test("all three kinds are covered, not just the courts", async (t) => {
-  if (!bodiesLoaded) return t.skip();
-  // §9.4: prosecution offices and investigation services get pages too — they
-  // are exactly what a reader types. A regression that quietly restricted this
-  // to `kind = 'court'` would drop ~97 bodies and look like a tidy-up.
-  const rows = await allRows<{ kind: string; n: string }>(
-    "SELECT kind, count(*) AS n FROM judicial_body GROUP BY kind",
-  );
-  const kinds = new Set(rows.map((r) => r.kind));
-  for (const k of ["court", "prosecution", "investigation"])
-    assert.ok(kinds.has(k), `no ${k} bodies in the dimension`);
-});
+test.skipIf(skipBodies)(
+  "all three kinds are covered, not just the courts",
+  async () => {
+    // §9.4: prosecution offices and investigation services get pages too — they
+    // are exactly what a reader types. A regression that quietly restricted this
+    // to `kind = 'court'` would drop ~97 bodies and look like a tidy-up.
+    const rows = await allRows<{ kind: string; n: string }>(
+      "SELECT kind, count(*) AS n FROM judicial_body GROUP BY kind",
+    );
+    const kinds = new Set(rows.map((r) => r.kind));
+    for (const k of ["court", "prosecution", "investigation"])
+      assert.ok(kinds.has(k), `no ${k} bodies in the dimension`);
+  },
+);
 
-test("an unknown body code resolves to NULL", async (t) => {
-  if (!bodiesLoaded) return t.skip();
+test.skipIf(skipBodies)("an unknown body code resolves to NULL", async () => {
   const [row] = await allRows<{ d: unknown }>(
     "SELECT judicial_body_detail('not-a-real-body') AS d",
   );
   assert.equal(row.d, null);
 });
 
-test("the source-name bridge covers every body", async (t) => {
-  if (!bodiesLoaded) return t.skip();
-  // The bridge is what lets SQL join court_load without re-implementing
-  // foldJudicialName. A body with no source name can never show a workload.
-  const [row] = await allRows<{ orphans: string }>(`
+test.skipIf(skipBodies)(
+  "the source-name bridge covers every body",
+  async () => {
+    // The bridge is what lets SQL join court_load without re-implementing
+    // foldJudicialName. A body with no source name can never show a workload.
+    const [row] = await allRows<{ orphans: string }>(`
     SELECT count(*) AS orphans FROM judicial_body b
     WHERE NOT EXISTS (
       SELECT 1 FROM judicial_body_source_name s WHERE s.body_code = b.body_code)`);
-  assert.equal(row.orphans, "0", "bodies with no source name in the bridge");
-});
+    assert.equal(row.orphans, "0", "bodies with no source name in the bridge");
+  },
+);
 
-test("a body never reports two rows for one year", async (t) => {
-  if (!bodiesLoaded) return t.skip();
-  // 28 administrative courts fold two court_load spellings onto one body. Their
-  // year ranges are disjoint today, so a duplicate is latent — one overlapping
-  // year would double the series and collide on the React key.
-  const [row] = await allRows<{ dupes: string }>(`
+test.skipIf(skipBodies)(
+  "a body never reports two rows for one year",
+  async () => {
+    // 28 administrative courts fold two court_load spellings onto one body. Their
+    // year ranges are disjoint today, so a duplicate is latent — one overlapping
+    // year would double the series and collide on the React key.
+    const [row] = await allRows<{ dupes: string }>(`
     SELECT count(*) AS dupes FROM (
       SELECT b.body_code, (y->>'year')::int AS yr, count(*) AS n
       FROM judicial_body b,
@@ -97,39 +109,42 @@ test("a body never reports two rows for one year", async (t) => {
                   THEN judicial_body_detail(b.body_code)->'load'
                   ELSE '[]'::jsonb END) y
       GROUP BY 1, 2 HAVING count(*) > 1) d`);
-  assert.equal(row.dupes, "0", "a body reports the same year twice");
-});
+    assert.equal(row.dupes, "0", "a body reports the same year twice");
+  },
+);
 
-test("sourcesBuilt tells an unloaded bridge apart from a quiet body", async (t) => {
-  if (!bodiesLoaded) return t.skip();
-  // THE point of the flag. Emptying the bridge must flip it to false — if it
-  // stayed true, every court page would assert "no published workload" about a
-  // court, at a 200, indistinguishably from the truth.
-  await withTx(async (c) => {
-    const before = await c.query(
-      "SELECT judicial_body_detail('as-plovdiv') AS d",
-    );
-    assert.equal(
-      before.rows[0].d.sourcesBuilt,
-      true,
-      "sourcesBuilt is false on a loaded database",
-    );
-    await c.query("DELETE FROM judicial_body_source_name");
-    const after = await c.query(
-      "SELECT judicial_body_detail('as-plovdiv') AS d",
-    );
-    assert.equal(
-      after.rows[0].d.sourcesBuilt,
-      false,
-      "an empty bridge still reports sourcesBuilt: true — every court page " +
-        "would then claim the ВСС publishes no workload for it",
-    );
-    assert.equal(after.rows[0].d.load, null);
-    throw new Error("rollback");
-  }).catch((e: Error) => {
-    if (e.message !== "rollback") throw e;
-  });
-});
+test.skipIf(skipBodies)(
+  "sourcesBuilt tells an unloaded bridge apart from a quiet body",
+  async () => {
+    // THE point of the flag. Emptying the bridge must flip it to false — if it
+    // stayed true, every court page would assert "no published workload" about a
+    // court, at a 200, indistinguishably from the truth.
+    await withTx(async (c) => {
+      const before = await c.query(
+        "SELECT judicial_body_detail('as-plovdiv') AS d",
+      );
+      assert.equal(
+        before.rows[0].d.sourcesBuilt,
+        true,
+        "sourcesBuilt is false on a loaded database",
+      );
+      await c.query("DELETE FROM judicial_body_source_name");
+      const after = await c.query(
+        "SELECT judicial_body_detail('as-plovdiv') AS d",
+      );
+      assert.equal(
+        after.rows[0].d.sourcesBuilt,
+        false,
+        "an empty bridge still reports sourcesBuilt: true — every court page " +
+          "would then claim the ВСС publishes no workload for it",
+      );
+      assert.equal(after.rows[0].d.load, null);
+      throw new Error("rollback");
+    }).catch((e: Error) => {
+      if (e.message !== "rollback") throw e;
+    });
+  },
+);
 
 // The dimension must hold one row per INSTITUTION, not one per spelling.
 //
@@ -170,60 +185,65 @@ const LEGITIMATE = new Set([
   "as-sofia-grad|as-sofia-oblast",
 ]);
 
-test("no two bodies are the same institution written two ways", async (t) => {
-  if (!bodiesLoaded) return t.skip();
-  const rows = await allRows<{ pair: string; codes: string }>(
-    DUPLICATE_GROUPS_SQL,
-  );
-  const unexpected = rows.filter((r) => !LEGITIMATE.has(r.codes));
-  assert.deepEqual(
-    unexpected.map((r) => `${r.codes} (${r.pair})`),
-    [],
-    "two bodies share a kind, tier and seat — one institution folded into two, splitting its magistrates from its workload",
-  );
-});
+test.skipIf(skipBodies)(
+  "no two bodies are the same institution written two ways",
+  async () => {
+    const rows = await allRows<{ pair: string; codes: string }>(
+      DUPLICATE_GROUPS_SQL,
+    );
+    const unexpected = rows.filter((r) => !LEGITIMATE.has(r.codes));
+    assert.deepEqual(
+      unexpected.map((r) => `${r.codes} (${r.pair})`),
+      [],
+      "two bodies share a kind, tier and seat — one institution folded into two, splitting its magistrates from its workload",
+    );
+  },
+);
 
-test("the duplicate gate fires on the shape it was written for", async (t) => {
-  if (!bodiesLoaded) return t.skip();
-  // Pinned the way sourcesBuilt is pinned above: restore the defect inside a
-  // rolled-back transaction and assert the gate sees it. Without this the gate
-  // passes vacuously the moment its key stops discriminating — which is how the
-  // first version shipped, blind to the very pair its own header cites.
-  await withTx(async (tx) => {
-    // The twin the ВСС's abbreviated spelling used to mint: same kind, tier and
-    // seat as as-sofia-grad, different code, and the qualified place NAME that
-    // defeated the previous key.
-    await tx.query(
-      `INSERT INTO judicial_body (body_code, name, kind, tier, place, place_code)
+test.skipIf(skipBodies)(
+  "the duplicate gate fires on the shape it was written for",
+  async () => {
+    // Pinned the way sourcesBuilt is pinned above: restore the defect inside a
+    // rolled-back transaction and assert the gate sees it. Without this the gate
+    // passes vacuously the moment its key stops discriminating — which is how the
+    // first version shipped, blind to the very pair its own header cites.
+    await withTx(async (tx) => {
+      // The twin the ВСС's abbreviated spelling used to mint: same kind, tier and
+      // seat as as-sofia-grad, different code, and the qualified place NAME that
+      // defeated the previous key.
+      await tx.query(
+        `INSERT INTO judicial_body (body_code, name, kind, tier, place, place_code)
        SELECT 'as-sofiya-grad', 'Административен съд — София-град', kind, tier,
               'София-град', place_code
          FROM judicial_body WHERE body_code = 'as-sofia-grad'`,
-    );
-    const { rows } = await tx.query<{ codes: string }>(DUPLICATE_GROUPS_SQL);
-    assert.ok(
-      rows
-        .filter((r) => !LEGITIMATE.has(r.codes))
-        .some((r) => r.codes.includes("as-sofiya-grad")),
-      "the gate did not notice a re-introduced АдмС twin — its grouping key no longer discriminates",
-    );
-    // withTx COMMITS on a clean return, so the throw is what undoes the insert.
-    // Same shape as the sourcesBuilt test above.
-    throw new Error("rollback");
-  }).catch((e: Error) => {
-    if (e.message !== "rollback") throw e;
-  });
-});
+      );
+      const { rows } = await tx.query<{ codes: string }>(DUPLICATE_GROUPS_SQL);
+      assert.ok(
+        rows
+          .filter((r) => !LEGITIMATE.has(r.codes))
+          .some((r) => r.codes.includes("as-sofiya-grad")),
+        "the gate did not notice a re-introduced АдмС twin — its grouping key no longer discriminates",
+      );
+      // withTx COMMITS on a clean return, so the throw is what undoes the insert.
+      // Same shape as the sourcesBuilt test above.
+      throw new Error("rollback");
+    }).catch((e: Error) => {
+      if (e.message !== "rollback") throw e;
+    });
+  },
+);
 
-test("the ВСС workload series attaches to the court that has the magistrates", async (t) => {
-  if (!bodiesLoaded) return t.skip();
-  // The symptom the fold bug produced: a court with magistrates and no workload
-  // sitting next to a twin with the workload and no magistrates. Neither half is
-  // wrong on its own — 69 prosecution offices legitimately have magistrates and
-  // no workload — so this asserts the PAIRING is gone, not the shape.
-  //
-  // Same place_code key as the gate above, and for the same reason: on the
-  // display name the two `АдмС` halves never met.
-  const orphans = await allRows<{ body_code: string; name: string }>(`
+test.skipIf(skipBodies)(
+  "the ВСС workload series attaches to the court that has the magistrates",
+  async () => {
+    // The symptom the fold bug produced: a court with magistrates and no workload
+    // sitting next to a twin with the workload and no magistrates. Neither half is
+    // wrong on its own — 69 prosecution offices legitimately have magistrates and
+    // no workload — so this asserts the PAIRING is gone, not the shape.
+    //
+    // Same place_code key as the gate above, and for the same reason: on the
+    // display name the two `АдмС` halves never met.
+    const orphans = await allRows<{ body_code: string; name: string }>(`
     WITH stats AS (
       SELECT b.body_code, b.name, b.kind, b.tier, b.place_code,
              (SELECT count(*) FROM judicial_body_source_name s
@@ -239,12 +259,13 @@ test("the ВСС workload series attaches to the court that has the magistrates"
      AND a.place_code IS NOT DISTINCT FROM z.place_code
      AND a.body_code <> z.body_code
     WHERE a.mags > 0 AND a.load = 0 AND z.mags = 0 AND z.load > 0`);
-  assert.deepEqual(
-    orphans.map((o) => `${o.body_code} (${o.name})`),
-    [],
-    "a court's magistrates and its workload are on two different bodies",
-  );
-});
+    assert.deepEqual(
+      orphans.map((o) => `${o.body_code} (${o.name})`),
+      [],
+      "a court's magistrates and its workload are on two different bodies",
+    );
+  },
+);
 
 // THE BASIS OF THE „Магистрати" STAT CARD, pinned.
 //
@@ -259,13 +280,14 @@ test("the ВСС workload series attaches to the court that has the magistrates"
 // Asserted against the CURRENT BENCH rather than against a fixed number, so the next roster
 // widening cannot move it silently either. judicial_body_index() shares the predicate and
 // uses the count as its search ranking; the second assertion keeps the two in step.
-test("the /court magistrate count is the current bench, not the whole roster", async (t) => {
-  if (!bodiesLoaded) return t.skip();
-  const drift = await allRows<{
-    body_code: string;
-    served: number;
-    cur: number;
-  }>(`
+test.skipIf(skipBodies)(
+  "the /court magistrate count is the current bench, not the whole roster",
+  async () => {
+    const drift = await allRows<{
+      body_code: string;
+      served: number;
+      cur: number;
+    }>(`
     WITH cur AS (
       SELECT s.body_code, count(*)::int AS n
         FROM judicial_body_source_name s
@@ -281,16 +303,16 @@ test("the /court magistrate count is the current bench, not the whole roster", a
      WHERE (judicial_body_detail(b.body_code) ->> 'magistrates')::int
              IS DISTINCT FROM COALESCE(cur.n, 0)
      LIMIT 5`);
-  assert.deepEqual(
-    drift.map(
-      (d) => `${d.body_code}: serves ${d.served}, current bench ${d.cur}`,
-    ),
-    [],
-    "the /court Магистрати card is not counting the current bench — it has absorbed the " +
-      "retained half of the roster, which reads as current staffing on a card with no year",
-  );
+    assert.deepEqual(
+      drift.map(
+        (d) => `${d.body_code}: serves ${d.served}, current bench ${d.cur}`,
+      ),
+      [],
+      "the /court Магистрати card is not counting the current bench — it has absorbed the " +
+        "retained half of the roster, which reads as current staffing on a card with no year",
+    );
 
-  const rank = await allRows<{ body_code: string }>(`
+    const rank = await allRows<{ body_code: string }>(`
     WITH idx AS (
       SELECT (e ->> 'bodyCode') AS body_code, (e ->> 'magistrates')::int AS n
         FROM jsonb_array_elements(judicial_body_index()) e
@@ -299,10 +321,11 @@ test("the /court magistrate count is the current bench, not the whole roster", a
      WHERE idx.n IS DISTINCT FROM
            (judicial_body_detail(idx.body_code) ->> 'magistrates')::int
      LIMIT 5`);
-  assert.deepEqual(
-    rank.map((r) => r.body_code),
-    [],
-    "judicial_body_index() and judicial_body_detail() disagree on the magistrate count — " +
-      "the index drives /court search ranking, so the two must share one basis",
-  );
-});
+    assert.deepEqual(
+      rank.map((r) => r.body_code),
+      [],
+      "judicial_body_index() and judicial_body_detail() disagree on the magistrate count — " +
+        "the index drives /court search ranking, so the two must share one basis",
+    );
+  },
+);

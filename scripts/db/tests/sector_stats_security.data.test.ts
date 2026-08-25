@@ -107,8 +107,10 @@ describe("security sector — hub headline", () => {
   });
 
   test("value + year + unavailable reconcile EXACTLY to the МВР budget node", (t) => {
-    if (!exists(NODE))
-      return t.skip("МВР budget node absent (gitignored tree)");
+    if (!exists(NODE)) {
+      reportSkip(import.meta.url, "МВР budget node absent (gitignored tree)");
+      return t.skip();
+    }
     const stats = readJson<SectorStats>(STATS);
     const node = readJson<{
       years?: Array<{

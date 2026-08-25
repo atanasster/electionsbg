@@ -29,6 +29,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 
@@ -49,36 +50,60 @@ afterAll(async () => {
   await end();
 });
 
-test("the ref format is exactly one of the two documented shapes", async (t) => {
-  if (!haveDb || !haveRoles) return t.skip();
+const skipProfile = !(await tableExists("mp_profile"))
+  ? "Postgres unreachable, or mp_profile is absent — run npm run db:load:mp-roster:pg"
+  : false;
+const skipPoliticians =
+  !haveDb || !(await tableExists("company_politicians"))
+    ? "Postgres unreachable, or company_politicians is absent — run npm run db:load:tr:pg"
+    : false;
+const skipMpLink =
+  !haveDb || !(await tableExists("mp_person_link"))
+    ? "Postgres unreachable, or mp_person_link is absent — run npm run db:resolve:persons"
+    : false;
+const skipBrowse =
+  !haveDb || !(await tableExists("person_browse_table"))
+    ? "Postgres unreachable, or person_browse_table is absent — run npm run db:load:persons-browse:pg"
+    : false;
+const skipRoles =
+  !haveDb || !haveRoles
+    ? "Postgres unreachable, or person_role is absent — run npm run db:resolve:persons"
+    : false;
+reportSkip(import.meta.url, skipProfile);
+reportSkip(import.meta.url, skipPoliticians);
+reportSkip(import.meta.url, skipMpLink);
+reportSkip(import.meta.url, skipBrowse);
+reportSkip(import.meta.url, skipRoles);
 
-  // '<mpId>' for an MP with no roll-call coverage, '<mpId>:<ns>' for one with
-  // it. Anything else means a writer invented a third shape, and every consumer
-  // below reads the id with split_part on the assumption there are only two.
-  const bad = await allRows<{ ref: string }>(
-    `SELECT ref FROM person_role
+test.skipIf(skipRoles)(
+  "the ref format is exactly one of the two documented shapes",
+  async () => {
+    // '<mpId>' for an MP with no roll-call coverage, '<mpId>:<ns>' for one with
+    // it. Anything else means a writer invented a third shape, and every consumer
+    // below reads the id with split_part on the assumption there are only two.
+    const bad = await allRows<{ ref: string }>(
+      `SELECT ref FROM person_role
       WHERE source = 'mp' AND ref !~ '^[0-9]+(:[0-9]+)?$'
       LIMIT 20`,
-  );
-  assert.deepEqual(
-    bad.map((r) => r.ref),
-    [],
-    "unexpected mp ref shape",
-  );
+    );
+    assert.deepEqual(
+      bad.map((r) => r.ref),
+      [],
+      "unexpected mp ref shape",
+    );
 
-  // …and the widening actually happened: at least some rows carry an NS.
-  const [{ n }] = await allRows<{ n: string }>(
-    `SELECT count(*) n FROM person_role WHERE source = 'mp' AND ref LIKE '%:%'`,
-  );
-  assert.ok(
-    Number(n) >= 1_450,
-    `only ${n} per-NS mp ref(s) — expected ~1,522 (measured 2026-08-09)`,
-  );
-});
+    // …and the widening actually happened: at least some rows carry an NS.
+    const [{ n }] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM person_role WHERE source = 'mp' AND ref LIKE '%:%'`,
+    );
+    assert.ok(
+      Number(n) >= 1_450,
+      `only ${n} per-NS mp ref(s) — expected ~1,522 (measured 2026-08-09)`,
+    );
+  },
+);
 
-test("5.6 — mp_person_link is not empty", async (t) => {
-  if (!haveDb || !(await tableExists("mp_person_link"))) return t.skip();
-
+test.skipIf(skipMpLink)("5.6 — mp_person_link is not empty", async () => {
   const [{ n }] = await allRows<{ n: string }>(
     `SELECT count(*) n FROM mp_person_link`,
   );
@@ -99,96 +124,103 @@ test("5.6 — mp_person_link is not empty", async (t) => {
   assert.equal(Number(dupes), 0, "mp_person_link has duplicate mp_id rows");
 });
 
-test("5.6 — every MP still has a photo on /persons", async (t) => {
-  if (!haveDb || !(await tableExists("person_browse_table"))) return t.skip();
-  if (!(await tableExists("mp_profile"))) return t.skip();
+test.skipIf(skipBrowse || skipProfile)(
+  "5.6 — every MP still has a photo on /persons",
+  async () => {
+    // 120's photo CTE joins mp_profile on the ref. Measured 2,174 people with a
+    // photo before T3; the MP arm is almost all of it.
+    const [{ n }] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM person_browse_table WHERE is_mp AND photo_url IS NOT NULL`,
+    );
+    // 2,120 correct / 1,558 broken.
+    assert.ok(
+      Number(n) >= 2_000,
+      `only ${n} MPs carry a photo, expected ~2,120 — 120's photo join is matching ` +
+        `only the bare-ref MPs (1,558 when broken)`,
+    );
+  },
+);
 
-  // 120's photo CTE joins mp_profile on the ref. Measured 2,174 people with a
-  // photo before T3; the MP arm is almost all of it.
-  const [{ n }] = await allRows<{ n: string }>(
-    `SELECT count(*) n FROM person_browse_table WHERE is_mp AND photo_url IS NOT NULL`,
-  );
-  // 2,120 correct / 1,558 broken.
-  assert.ok(
-    Number(n) >= 2_000,
-    `only ${n} MPs carry a photo, expected ~2,120 — 120's photo join is matching ` +
-      `only the bare-ref MPs (1,558 when broken)`,
-  );
-});
-
-test("5.6 — the MP arm of the company bridge still resolves", async (t) => {
-  if (!haveDb || !(await tableExists("company_politicians"))) return t.skip();
-
-  // 120's bridge_a joins `pr.ref = replace(cp.ref, '/candidate/mp-', '')`.
-  const [{ n }] = await allRows<{ n: string }>(
-    `SELECT count(*) n
+test.skipIf(skipPoliticians)(
+  "5.6 — the MP arm of the company bridge still resolves",
+  async () => {
+    // 120's bridge_a joins `pr.ref = replace(cp.ref, '/candidate/mp-', '')`.
+    const [{ n }] = await allRows<{ n: string }>(
+      `SELECT count(*) n
        FROM company_politicians cp
        JOIN person_role pr
          ON cp.kind = 'mp' AND pr.source = 'mp'
         AND split_part(pr.ref, ':', 1) = replace(cp.ref, '/candidate/mp-', '')`,
-  );
-  // 155 correct / 35 broken — `> 0` passed with the bug present.
-  assert.ok(
-    Number(n) >= 100,
-    `the MP arm of the company bridge matches ${n} rows, expected ~155 (35 when ` +
-      `the ref join is broken) — MP company links are dropping out of /persons`,
-  );
-});
+    );
+    // 155 correct / 35 broken — `> 0` passed with the bug present.
+    assert.ok(
+      Number(n) >= 100,
+      `the MP arm of the company bridge matches ${n} rows, expected ~155 (35 when ` +
+        `the ref join is broken) — MP company links are dropping out of /persons`,
+    );
+  },
+);
 
-test("5.5 — parties_n and roles_n stay consistent with their padded sets", async (t) => {
-  if (!haveDb || !(await tableExists("person_browse_table"))) return t.skip();
-
-  // T3 multiplies an MP's rows, so `roles_n` (a count(*) over roles) rises for
-  // every multi-term member — a visible column on /persons. It must still agree
-  // with `role_codes`, which is DISTINCT, so the two legitimately differ; what
-  // must hold is that neither is empty while the other is populated.
-  const [{ n }] = await allRows<{ n: string }>(
-    `SELECT count(*) n FROM person_browse_table
+test.skipIf(skipBrowse)(
+  "5.5 — parties_n and roles_n stay consistent with their padded sets",
+  async () => {
+    // T3 multiplies an MP's rows, so `roles_n` (a count(*) over roles) rises for
+    // every multi-term member — a visible column on /persons. It must still agree
+    // with `role_codes`, which is DISTINCT, so the two legitimately differ; what
+    // must hold is that neither is empty while the other is populated.
+    const [{ n }] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM person_browse_table
       WHERE (role_codes IS NULL) <> (roles_n IS NULL OR roles_n = 0)`,
-  );
-  assert.equal(Number(n), 0, "roles_n and role_codes disagree about emptiness");
+    );
+    assert.equal(
+      Number(n),
+      0,
+      "roles_n and role_codes disagree about emptiness",
+    );
 
-  const [{ p }] = await allRows<{ p: string }>(
-    `SELECT count(*) p FROM person_browse_table
+    const [{ p }] = await allRows<{ p: string }>(
+      `SELECT count(*) p FROM person_browse_table
       WHERE party_codes IS NOT NULL
         AND parties_n <> array_length(string_to_array(btrim(party_codes), ' '), 1)`,
-  );
-  assert.equal(Number(p), 0, "parties_n disagrees with party_codes");
-});
+    );
+    assert.equal(Number(p), 0, "parties_n disagrees with party_codes");
+  },
+);
 
-test("5.5 — start_date is filled and orders MP careers correctly", async (t) => {
-  if (!haveDb || !haveRoles) return t.skip();
-
-  // The dead tiebreaker (§0c-4): `top_party` orders by `start_date DESC` over a
-  // column that was 100% NULL, so it was really ordering lexicographically on an
-  // opaque ref. Per-NS rows only produce the RIGHT representative party if the
-  // dates are real.
-  const [row] = await allRows<{ withns: string; dated: string }>(
-    `SELECT count(*) FILTER (WHERE ref LIKE '%:%')::text AS withns,
+test.skipIf(skipRoles)(
+  "5.5 — start_date is filled and orders MP careers correctly",
+  async () => {
+    // The dead tiebreaker (§0c-4): `top_party` orders by `start_date DESC` over a
+    // column that was 100% NULL, so it was really ordering lexicographically on an
+    // opaque ref. Per-NS rows only produce the RIGHT representative party if the
+    // dates are real.
+    const [row] = await allRows<{ withns: string; dated: string }>(
+      `SELECT count(*) FILTER (WHERE ref LIKE '%:%')::text AS withns,
             count(*) FILTER (WHERE ref LIKE '%:%' AND start_date IS NOT NULL)::text AS dated
        FROM person_role WHERE source = 'mp'`,
-  );
-  assert.equal(
-    row.dated,
-    row.withns,
-    "a per-NS MP row has no start_date — top_party would fall back to ref order",
-  );
+    );
+    assert.equal(
+      row.dated,
+      row.withns,
+      "a per-NS MP row has no start_date — top_party would fall back to ref order",
+    );
 
-  // And the dates come from the ELECTION CALENDAR, not the votes. NS 44's first
-  // roll-call is 2020-10-28 but the 44th convened 2017-03-26; deriving from
-  // `vote_item` would date every NS-44 seat three years late.
-  // NOTE the ref is '<mpId>:<ns>', so the NS is the SECOND field — `split_part`,
-  // not a `LIKE '44:%'` that would match mp id 44 instead.
-  const [row2] = await allRows<{ n44: string; bad: string }>(
-    `SELECT count(*)::text AS n44,
+    // And the dates come from the ELECTION CALENDAR, not the votes. NS 44's first
+    // roll-call is 2020-10-28 but the 44th convened 2017-03-26; deriving from
+    // `vote_item` would date every NS-44 seat three years late.
+    // NOTE the ref is '<mpId>:<ns>', so the NS is the SECOND field — `split_part`,
+    // not a `LIKE '44:%'` that would match mp id 44 instead.
+    const [row2] = await allRows<{ n44: string; bad: string }>(
+      `SELECT count(*)::text AS n44,
             count(*) FILTER (WHERE start_date <> DATE '2017-03-26')::text AS bad
        FROM person_role
       WHERE source = 'mp' AND split_part(ref, ':', 2) = '44'`,
-  );
-  assert.ok(Number(row2.n44) > 0, "no NS-44 rows — nothing to check");
-  assert.equal(
-    Number(row2.bad),
-    0,
-    "NS-44 rows are not dated from the 2017-03-26 election — start_date came from the votes",
-  );
-});
+    );
+    assert.ok(Number(row2.n44) > 0, "no NS-44 rows — nothing to check");
+    assert.equal(
+      Number(row2.bad),
+      0,
+      "NS-44 rows are not dated from the 2017-03-26 election — start_date came from the votes",
+    );
+  },
+);

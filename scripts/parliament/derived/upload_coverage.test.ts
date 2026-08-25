@@ -14,6 +14,7 @@ import { describe, test } from "vitest";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
+import { reportSkip } from "../../lib/report_skip";
 
 const SRC = readFileSync("scripts/parliament/derived/index.ts", "utf8");
 const DERIVED = "data/parliament/votes/derived";
@@ -52,31 +53,38 @@ const uploadedTrees = new Set(
  *  so it is the one artifact the parser cannot see. Named, not silently tolerated. */
 const PARSER_BLIND = ["per-mp"];
 
+const skipDerived = !existsSync(DERIVED)
+  ? "data/parliament/votes/derived absent — it is committed, so this is a sparse checkout"
+  : false;
+reportSkip(import.meta.url, skipDerived);
+
 describe("rebuildDerived --upload covers everything it writes", () => {
-  test("the parser sees every artifact that actually exists on disk", (t) => {
-    // GROUND TRUTH instead of a magic floor. The first version asserted `written.size >= 8`
-    // and `writtenTrees.size >= 2` — satisfied by exactly today's artifacts, so a third
-    // shard tree written through a non-literal path (a helper, a variable directory) would
-    // be invisible to the regex, the floor would still pass at 2, and the new tree would
-    // never be required to upload. That is the original silent failure, reintroduced inside
-    // the gate built to stop it. derived/ is committed, so it can be the oracle.
-    if (!existsSync(DERIVED)) return t.skip();
-    const entries = readdirSync(DERIVED, { withFileTypes: true });
-    const missedFiles = entries
-      .filter((e) => e.isFile() && e.name.endsWith(".json"))
-      .map((e) => e.name)
-      .filter((f) => !written.has(f));
-    const missedTrees = entries
-      .filter((e) => e.isDirectory())
-      .map((e) => e.name)
-      .filter((d) => !writtenTrees.has(d) && !PARSER_BLIND.includes(d));
-    assert.deepEqual(
-      [...missedFiles, ...missedTrees],
-      [],
-      "the write-call regex no longer finds a writer for these — the gate below is now " +
-        "checking a subset of reality",
-    );
-  });
+  test.skipIf(skipDerived)(
+    "the parser sees every artifact that actually exists on disk",
+    () => {
+      // GROUND TRUTH instead of a magic floor. The first version asserted `written.size >= 8`
+      // and `writtenTrees.size >= 2` — satisfied by exactly today's artifacts, so a third
+      // shard tree written through a non-literal path (a helper, a variable directory) would
+      // be invisible to the regex, the floor would still pass at 2, and the new tree would
+      // never be required to upload. That is the original silent failure, reintroduced inside
+      // the gate built to stop it. derived/ is committed, so it can be the oracle.
+      const entries = readdirSync(DERIVED, { withFileTypes: true });
+      const missedFiles = entries
+        .filter((e) => e.isFile() && e.name.endsWith(".json"))
+        .map((e) => e.name)
+        .filter((f) => !written.has(f));
+      const missedTrees = entries
+        .filter((e) => e.isDirectory())
+        .map((e) => e.name)
+        .filter((d) => !writtenTrees.has(d) && !PARSER_BLIND.includes(d));
+      assert.deepEqual(
+        [...missedFiles, ...missedTrees],
+        [],
+        "the write-call regex no longer finds a writer for these — the gate below is now " +
+          "checking a subset of reality",
+      );
+    },
+  );
 
   test("the upload-side regexes still match something", () => {
     // The write side is anchored on disk above; this side has no such oracle, and an
@@ -155,9 +163,20 @@ describe("rebuildDerived --upload covers everything it writes", () => {
 describe("the committed hub_feed shards", () => {
   const dir = path.join(DERIVED, "hub_feed");
   const have = existsSync(dir);
+  const skipShards = !have
+    ? "data/parliament/votes/derived/hub_feed absent — it is committed, so this is a sparse checkout"
+    : false;
+  const skipShardBlob =
+    skipShards || !existsSync(path.join(DERIVED, "hub_stats.json"))
+      ? "hub_feed or the committed hub_stats.json is absent — sparse checkout"
+      : false;
+  // Two DIFFERENT causes, so both are reported. (An earlier draft guarded the second with
+  // `!== skipShards`, copying the de-dup used where a derived gate can equal its parent —
+  // here they never can, because they carry different sentences, so the guard was dead.)
+  reportSkip(import.meta.url, skipShards);
+  reportSkip(import.meta.url, skipShards ? false : skipShardBlob);
 
-  test("each is under the 12 KB budget", (t) => {
-    if (!have) return t.skip();
+  test.skipIf(skipShards)("each is under the 12 KB budget", () => {
     const over = readdirSync(dir)
       .filter((f) => f.endsWith(".json"))
       .map((f) => [f, statSync(path.join(dir, f)).size] as const)
@@ -170,22 +189,24 @@ describe("the committed hub_feed shards", () => {
     );
   });
 
-  test("every shard the stats blob names exists, and vice versa", (t) => {
-    const blob = path.join(DERIVED, "hub_stats.json");
-    if (!have || !existsSync(blob)) return t.skip();
-    const byNs = Object.keys(
-      (
-        JSON.parse(readFileSync(blob, "utf8")) as {
-          byNs: Record<string, unknown>;
-        }
-      ).byNs,
-    ).sort();
-    const shards = readdirSync(dir)
-      .filter((f) => f.endsWith(".json"))
-      .map((f) => f.replace(/\.json$/, ""))
-      .sort();
-    // A parliament in the blob with no shard renders a hub with tiles and no rail; a shard
-    // with no blob entry is dead weight in the bucket. Both are silent.
-    assert.deepEqual(shards, byNs);
-  });
+  test.skipIf(skipShardBlob)(
+    "every shard the stats blob names exists, and vice versa",
+    () => {
+      const blob = path.join(DERIVED, "hub_stats.json");
+      const byNs = Object.keys(
+        (
+          JSON.parse(readFileSync(blob, "utf8")) as {
+            byNs: Record<string, unknown>;
+          }
+        ).byNs,
+      ).sort();
+      const shards = readdirSync(dir)
+        .filter((f) => f.endsWith(".json"))
+        .map((f) => f.replace(/\.json$/, ""))
+        .sort();
+      // A parliament in the blob with no shard renders a hub with tiles and no rail; a shard
+      // with no blob entry is dead weight in the bucket. Both are silent.
+      assert.deepEqual(shards, byNs);
+    },
+  );
 });

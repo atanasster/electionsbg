@@ -127,11 +127,14 @@ describe("vacuumAfterReload", () => {
 
   test.skipIf(skip)("stays silent when the map fills", async (ctx) => {
     const blocked = await horizonHolder();
-    if (blocked !== null)
-      return ctx.skip(
+    if (blocked !== null) {
+      reportSkip(
+        import.meta.url,
         `pid ${blocked} is holding the xmin horizon, so VACUUM cannot mark anything ` +
           `on this database right now — the sibling test covers that case`,
       );
+      return ctx.skip();
+    }
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     try {
       await withClient(async (c) => {

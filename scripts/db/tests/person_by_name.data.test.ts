@@ -81,7 +81,10 @@ test.skipIf(skip)("an ambiguous fold returns null", async (ctx) => {
       GROUP BY name_fold HAVING count(*) > 1
       ORDER BY name_fold LIMIT 1`,
   );
-  if (!amb) return ctx.skip("no namesake collision in this corpus");
+  if (!amb) {
+    reportSkip(import.meta.url, "no namesake collision in this corpus");
+    return ctx.skip();
+  }
   assert.equal(await byName(amb.name), null);
 });
 
@@ -103,7 +106,10 @@ test.skipIf(skip)(
        HAVING count(DISTINCT p.person_id) = 1
         ORDER BY a.alias_raw LIMIT 1`,
     );
-    if (!pick) return ctx.skip("no alias-only fold in this corpus");
+    if (!pick) {
+      reportSkip(import.meta.url, "no alias-only fold in this corpus");
+      return ctx.skip();
+    }
     assert.equal((await byName(pick.alias))?.slug, pick.want);
   },
 );
@@ -135,8 +141,13 @@ test.skipIf(skip)(
                             AND r.status='active' AND r.is_public_figure)
         ORDER BY a.alias_raw LIMIT 1`,
     );
-    if (!pick)
-      return ctx.skip("every alias in this corpus belongs to a public figure");
+    if (!pick) {
+      reportSkip(
+        import.meta.url,
+        "every alias in this corpus belongs to a public figure",
+      );
+      return ctx.skip();
+    }
     assert.equal(await byName(pick.alias), null, "leaked a private person");
   },
 );
@@ -193,8 +204,13 @@ test.skipIf(skip)(
     );
     // Explicit skip, not a silent pass: the fixture pool is ONE row today, so a corpus change
     // that loses it must show up as lost coverage in the reporter rather than as a green run.
-    if (!pick)
-      return ctx.skip("no public/private fold collision in this corpus");
+    if (!pick) {
+      reportSkip(
+        import.meta.url,
+        "no public/private fold collision in this corpus",
+      );
+      return ctx.skip();
+    }
     assert.equal(
       (await byName(pick.name))?.slug,
       pick.want,

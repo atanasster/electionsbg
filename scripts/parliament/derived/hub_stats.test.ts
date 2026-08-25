@@ -14,10 +14,16 @@ import {
   RANKED_GROUP_CAP,
 } from "./hub_stats";
 import type { SessionFile } from "./types";
+import { reportSkip } from "../../lib/report_skip";
 
 const BLOB = "data/parliament/votes/derived/hub_stats.json";
 const haveBlob = existsSync(BLOB);
 const read = <T>(p: string): T => JSON.parse(readFileSync(p, "utf8")) as T;
+
+const skipBlob = !haveBlob
+  ? "data/parliament/votes/derived/hub_stats.json absent — it is committed, so this is a sparse checkout"
+  : false;
+reportSkip(import.meta.url, skipBlob);
 
 describe("secondReadingBills", () => {
   const session = (titles: string[]): SessionFile =>
@@ -396,8 +402,7 @@ describe("computeHubNsStats", () => {
 });
 
 describe("the committed hub_stats.json", () => {
-  test("stays under its byte budget, PER PARLIAMENT", (t) => {
-    if (!haveBlob) return t.skip();
+  test.skipIf(skipBlob)("stays under its byte budget, PER PARLIAMENT", () => {
     const bytes = readFileSync(BLOB).length;
     const blob = read<{ byNs: Record<string, unknown> }>(BLOB);
     const nsCount = Object.keys(blob.byNs).length;
@@ -422,37 +427,44 @@ describe("the committed hub_stats.json", () => {
     assert.ok(bytes < 56_000, `hub_stats.json is ${bytes} bytes in total`);
   });
 
-  test("names only parliaments that have roll-call data, and marks the partial one", (t) => {
-    if (!haveBlob) return t.skip();
-    const blob = read<{
-      byNs: Record<string, { coverage: string; coveredFrom: string }>;
-    }>(BLOB);
-    assert.deepEqual(Object.keys(blob.byNs).sort(), [
-      "44",
-      "45",
-      "46",
-      "47",
-      "48",
-      "49",
-      "50",
-      "51",
-      "52",
-    ]);
-    // The 44th sat four years and we hold its last five months; the 45th sat 17 days and we
-    // hold all of them. Indistinguishable from the sittings alone, which is why coverage is
-    // measured against the ELECTION that seated each parliament.
-    const partial = Object.entries(blob.byNs)
-      .filter(([, v]) => v.coverage === "partial")
-      .map(([k]) => k);
-    assert.deepEqual(partial, ["44"]);
-  });
+  test.skipIf(skipBlob)(
+    "names only parliaments that have roll-call data, and marks the partial one",
+    () => {
+      const blob = read<{
+        byNs: Record<string, { coverage: string; coveredFrom: string }>;
+      }>(BLOB);
+      assert.deepEqual(Object.keys(blob.byNs).sort(), [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+      ]);
+      // The 44th sat four years and we hold its last five months; the 45th sat 17 days and we
+      // hold all of them. Indistinguishable from the sittings alone, which is why coverage is
+      // measured against the ELECTION that seated each parliament.
+      const partial = Object.entries(blob.byNs)
+        .filter(([, v]) => v.coverage === "partial")
+        .map(([k]) => k);
+      assert.deepEqual(partial, ["44"]);
+    },
+  );
 
   test("reproduces attendance.json's weighted rate for the current parliament", (t) => {
     if (
       !haveBlob ||
       !existsSync("data/parliament/votes/derived/attendance.json")
-    )
+    ) {
+      reportSkip(
+        import.meta.url,
+        "hub_stats.json or attendance.json absent under data/parliament/votes/derived — both are committed, so this is a sparse checkout",
+      );
       return t.skip();
+    }
     const blob = read<{
       byNs: Record<
         string,

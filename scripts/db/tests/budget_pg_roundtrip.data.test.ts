@@ -519,9 +519,10 @@ test.skipIf(stateSkip || !rollcallApplied)(
       "SELECT count(*)::text n FROM budget_document WHERE adopted_by_item_id IS NOT NULL",
     );
     if (Number(resolved.n) === 0) {
-      skip(
-        "0 of 33 budget_document rows resolve an adopted_by_item_id — the rule above is real but has nothing to check yet",
-      );
+      const why =
+        "no budget_document row resolves an adopted_by_item_id — the rule above is real but has nothing to check yet";
+      reportSkip(import.meta.url, why);
+      skip(why);
     }
   },
 );

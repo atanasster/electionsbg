@@ -14,7 +14,11 @@ export interface Gate {
   declEnd: number;
 }
 
-export type ViolationKind = "unreported" | "ordering" | "literal-label";
+export type ViolationKind =
+  | "unreported"
+  | "ordering"
+  | "literal-label"
+  | "silent-inline-skip";
 
 export interface Violation {
   kind: ViolationKind;
@@ -133,8 +137,69 @@ export const assignmentsTo = (
  * earlier draft accepted `/\.skip\(/`, which also matched `describe.skip("some title")` and
  * read the prose title as an argument list.
  */
-export const scanSource = (src: string): Violation[] => {
+/**
+ * A bare `return t.skip()` inside a test body, with no reason reported near it.
+ *
+ * ⚠️ THIS CLASS IS WORSE THAN AN UNREPORTED GATE, WHICH IS WHY IT HAS ITS OWN RULE.
+ * `skipIf` at least leaves the FILE counted as skipped; a `t.skip()` inside the body
+ * leaves it counted as **passed**. Measured before Tier 3a: 23 files, 115 tests standing
+ * down, `Test Files 23 passed (23)`, one reason printed between them — a population the
+ * §6 acceptance count could not even see, because it counts skipped files.
+ *
+ * Prefer hoisting the probe to a module-scope gate and using `test.skipIf`. When the
+ * condition depends on a value computed INSIDE the test it cannot be hoisted, and then the
+ * rule is simply: say why before standing down.
+ *
+ * ⚠️ IT MATCHES `.skip(` WITH ANY ARGUMENTS, NOT JUST EMPTY PARENS. The first cut required
+ * `\(\s*\)`, so `return t.skip("a reason")` was invisible — 30 occurrences across 8 tracked
+ * files, with the corpus gate green. A note passed to `ctx.skip` is NOT reporting: §1.1
+ * measured that the default reporter does not render it, which is this tier's whole premise.
+ *
+ * The receiver must be a vitest CONTEXT, never `describe`/`test`/`it` — `describe.skip("a
+ * prose title")` is a suite marker, not a gate standing down. And the reportSkip must be
+ * NEARBY: one elsewhere in the file says nothing about this branch.
+ */
+const inlineSkips = (src: string): Violation[] => {
   const out: Violation[] = [];
+  const reported = new Set(
+    reportCalls(src).flatMap(
+      (c) => c.args.match(/\b[A-Za-z_$][\w$]*\b/g) ?? [],
+    ),
+  );
+  // ⚠️ TWO CALL SHAPES. `t.skip(…)` and the DESTRUCTURED `async ({ skip }) => skip(…)`,
+  // which reads as a bare `skip(` and was invisible to the first rule — with a live
+  // instance in budget_pg_roundtrip standing down for a real reason that reached nothing.
+  const sites = [
+    ...src.matchAll(/\b(\w+)\.skip\(/g),
+    ...(/async\s*\(\s*\{[^}]*\bskip\b[^}]*\}\s*\)/.test(src)
+      ? [...src.matchAll(/(?<![.\w])(skip)\(/g)]
+      : []),
+  ].sort((a, b) => (a.index ?? 0) - (b.index ?? 0));
+  for (const m of sites) {
+    const name = m[1];
+    if (name === "describe" || name === "test" || name === "it") continue;
+    const open = (m.index ?? 0) + m[0].length;
+    const arg = src.slice(open, closeParen(src, open)).trim();
+    // `return t.skip(gate)` where `gate` is already reported at module scope is fine: the
+    // reason reached stderr once, and repeating it per test would read as several separate
+    // gates standing down for one cause.
+    if (/^[A-Za-z_$][\w$]*$/.test(arg) && reported.has(arg)) continue;
+    // Otherwise PROXIMITY, not the whole file — a reportSkip elsewhere says nothing about
+    // THIS branch. 400 chars covers the guard block that precedes a self-skip.
+    const before = src.slice(Math.max(0, (m.index ?? 0) - 400), m.index ?? 0);
+    if (!/reportSkip\s*\(/.test(before))
+      out.push({
+        kind: "silent-inline-skip",
+        // The destructured form is a bare `skip(` — calling it "skip.skip()" would send a
+        // reader looking for a receiver that is not there.
+        gate: `${m[0].startsWith("skip(") ? "skip" : `${name}.skip`}(${arg ? "…" : ""})`,
+      });
+  }
+  return out;
+};
+
+export const scanSource = (src: string): Violation[] => {
+  const out: Violation[] = [...inlineSkips(src)];
   const calls = reportCalls(src);
 
   for (const c of calls)

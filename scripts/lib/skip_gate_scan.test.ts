@@ -119,6 +119,89 @@ describe("ordering", () => {
   });
 });
 
+// ⚠️ The 3a class: a bare `t.skip()` in a test body leaves the FILE counted as PASSED, so
+// it is invisible in both the reason channel and the skip tally. Measured before the fix:
+// 23 files, 115 tests standing down, "Test Files 23 passed (23)", 1 reason between them.
+describe("inline self-skip", () => {
+  test("a bare t.skip() with no reason is flagged", () => {
+    const src = `test("t", async (t) => { if (!row) return t.skip(); });`;
+    expect(kinds(src)).toEqual(["silent-inline-skip:t.skip()"]);
+  });
+
+  test("a reported one is clean", () => {
+    const src = `test("t", async (t) => { if (!row) { reportSkip(import.meta.url, "no row"); return t.skip(); } });`;
+    expect(kinds(src)).toEqual([]);
+  });
+
+  test("describe.skip is not an inline self-skip", () => {
+    expect(kinds(`describe.skip("a suite", () => {});`)).toEqual([]);
+  });
+
+  // ⚠️ A NOTE IS NOT A REPORT. §1.1 measured that the default reporter does not render
+  // ctx.skip's note, which is this tier's whole premise — so `t.skip("reason")` is exactly
+  // as invisible as `t.skip()`. An earlier detector required EMPTY parens and therefore
+  // missed 30 occurrences across 8 tracked files while the corpus gate stayed green.
+  test("a NOTED skip is still silent", () => {
+    const src = `test("t", async (t) => { if (!row) return t.skip("no row here"); });`;
+    expect(kinds(src)).toEqual(["silent-inline-skip:t.skip(…)"]);
+  });
+
+  // …but re-stating an ALREADY-REPORTED module gate is not a second gate standing down.
+  //
+  // ⚠️ THE PADDING IS THE TEST. Without it the reportSkip sits inside the proximity window
+  // and this case passes whether or not the exemption exists — which is exactly how review
+  // found it: deleting the exemption left the whole harness green.
+  test("t.skip(gate) is clean when that gate is reported, however far away", () => {
+    const src = [
+      `const skip = !db ? "Postgres unreachable" : false;`,
+      `reportSkip(import.meta.url, skip);`,
+      "z".repeat(600),
+      `test("t", async (t) => { if (skip) return t.skip(skip); });`,
+    ].join("\n");
+    expect(kinds(src)).toEqual([]);
+  });
+
+  // ⚠️ THESE PIN THE RULE AGAINST WIDENING, WHICH IS THE DIRECTION THAT HIDES A SKIP.
+  // Review mutation-tested the detector and found four widenings that left the harness
+  // green: dropping the reported-gate exemption, widening proximity to the whole file,
+  // accepting any argument containing a reported word, and a 100k-char window. Every case
+  // above only pinned a tightening, so the clause each was NAMED for went unexercised.
+
+  test("a reportSkip far away does NOT excuse a later silent skip", () => {
+    const src = [
+      `const skip = !db ? "reason" : false;`,
+      `reportSkip(import.meta.url, skip);`,
+      "x".repeat(600), // push the guard well beyond the proximity window
+      `test("t", async (t) => { if (!row) return t.skip(); });`,
+    ].join("\n");
+    expect(kinds(src)).toEqual(["silent-inline-skip:t.skip()"]);
+  });
+
+  test("the exemption needs the WHOLE argument to be the reported gate", () => {
+    const src = [
+      `const skip = !db ? "reason" : false;`,
+      `reportSkip(import.meta.url, skip);`,
+      "y".repeat(600),
+      // mentions `skip`, but is not it — an arg-contains rule would wave this through
+      `test("t", async (t) => { return t.skip(\`no \${skip} here\`); });`,
+    ].join("\n");
+    expect(kinds(src)).toEqual(["silent-inline-skip:t.skip(…)"]);
+  });
+
+  test("the destructured form is seen", () => {
+    const src = `test("t", async ({ skip }) => { if (!row) skip("no row"); });`;
+    expect(kinds(src)).toEqual(["silent-inline-skip:skip(…)"]);
+  });
+
+  test("t.skip(unreportedGate) is NOT clean", () => {
+    const src = [
+      `const other = !db ? "something else" : false;`,
+      `test("t", async (t) => { if (other) return t.skip(other); });`,
+    ].join("\n");
+    expect(kinds(src)).toContain("silent-inline-skip:t.skip(…)");
+  });
+});
+
 describe("label", () => {
   test("a derived label is clean", () => {
     expect(kinds(`reportSkip(import.meta.url, false);`)).toEqual([]);

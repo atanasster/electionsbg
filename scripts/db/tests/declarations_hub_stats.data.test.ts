@@ -14,6 +14,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const BLOB = "data/governance/declarations_hub_stats.json";
 
@@ -36,12 +37,30 @@ afterAll(async () => {
   await end();
 });
 
-test("the two MP registries are partitioned by ns — a whole-table count is never a figure", async (t) => {
-  if (!(await dbReachable())) return t.skip();
-  const blob = load();
-  if (!blob) return t.skip();
+const skipDb = !(await dbReachable()) ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skipDb);
+// Hoisted so the FILE reports as skipped rather than passed — `load()` is pure and
+// module-scope-safe, so there was no reason for these five to stay in-body.
+const skipBlob =
+  skipDb ||
+  (!load()
+    ? "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats"
+    : false);
+reportSkip(import.meta.url, skipBlob !== skipDb ? skipBlob : false);
 
-  const [row] = await allRows<Record<string, string>>(`
+test.skipIf(skipBlob)(
+  "the two MP registries are partitioned by ns — a whole-table count is never a figure",
+  async (t) => {
+    const blob = load();
+    if (!blob) {
+      reportSkip(
+        import.meta.url,
+        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+      );
+      return t.skip();
+    }
+
+    const [row] = await allRows<Record<string, string>>(`
     SELECT (SELECT count(*) FROM mp_cars_table)                       AS cars_all_partitions,
            (SELECT count(*) FROM mp_cars_table WHERE ns = 'all')      AS cars_registry,
            (SELECT count(DISTINCT ns) FROM mp_cars_table)             AS car_partitions,
@@ -49,107 +68,137 @@ test("the two MP registries are partitioned by ns — a whole-table count is nev
            (SELECT count(DISTINCT mp_id) FROM mp_assets_rankings_table
              WHERE ns = 'all')                                        AS asset_registry`);
 
-  // The structural fact the first draft missed. If this ever stops holding, the partitioning
-  // changed and every figure below needs re-deriving — which is what the assert says.
-  assert.ok(
-    Number(row.car_partitions) > 1,
-    "mp_cars_table is no longer partitioned by ns — re-derive the blob's grain",
-  );
-  assert.ok(
-    Number(row.cars_all_partitions) > Number(row.cars_registry),
-    "the per-ns partitions no longer duplicate the roll-up; this gate is now blind",
-  );
-
-  assert.equal(
-    blob.byNs.all.cars,
-    Number(row.cars_registry),
-    "the 'all' slice must be the ns='all' partition, not the table",
-  );
-  assert.notEqual(
-    blob.byNs.all.cars,
-    Number(row.cars_all_partitions),
-    "cars is the whole-table count again — that counts a car once per parliament",
-  );
-  assert.equal(blob.byNs.all.mpsWithAssets, Number(row.asset_registry));
-  assert.notEqual(
-    blob.byNs.all.mpsWithAssets,
-    Number(row.asset_all_partitions),
-    "mpsWithAssets is the whole-table count again",
-  );
-});
-
-test("every ns partition present in Postgres is present in the blob", async (t) => {
-  if (!(await dbReachable())) return t.skip();
-  const blob = load();
-  if (!blob) return t.skip();
-
-  const rows = await allRows<{ ns: string; mps: string }>(
-    `SELECT ns, count(DISTINCT mp_id)::text AS mps
-       FROM mp_assets_rankings_table GROUP BY ns`,
-  );
-  for (const r of rows) {
-    // A missing key would leave that parliament's tile bare — an honest render, but for the
-    // wrong reason, and invisible unless someone selects that election.
+    // The structural fact the first draft missed. If this ever stops holding, the partitioning
+    // changed and every figure below needs re-deriving — which is what the assert says.
     assert.ok(
-      blob.byNs[r.ns],
-      `blob is missing the ns='${r.ns}' slice — regenerate it`,
+      Number(row.car_partitions) > 1,
+      "mp_cars_table is no longer partitioned by ns — re-derive the blob's grain",
     );
-    assert.equal(blob.byNs[r.ns].mpsWithAssets, Number(r.mps));
-  }
-});
+    assert.ok(
+      Number(row.cars_all_partitions) > Number(row.cars_registry),
+      "the per-ns partitions no longer duplicate the roll-up; this gate is now blind",
+    );
 
-test("people and officials quote their DESTINATION's filter, not their table", async (t) => {
-  if (!(await dbReachable())) return t.skip();
-  const blob = load();
-  if (!blob) return t.skip();
+    assert.equal(
+      blob.byNs.all.cars,
+      Number(row.cars_registry),
+      "the 'all' slice must be the ns='all' partition, not the table",
+    );
+    assert.notEqual(
+      blob.byNs.all.cars,
+      Number(row.cars_all_partitions),
+      "cars is the whole-table count again — that counts a car once per parliament",
+    );
+    assert.equal(blob.byNs.all.mpsWithAssets, Number(row.asset_registry));
+    assert.notEqual(
+      blob.byNs.all.mpsWithAssets,
+      Number(row.asset_all_partitions),
+      "mpsWithAssets is the whole-table count again",
+    );
+  },
+);
 
-  const [row] = await allRows<Record<string, string>>(`
+test.skipIf(skipBlob)(
+  "every ns partition present in Postgres is present in the blob",
+  async (t) => {
+    const blob = load();
+    if (!blob) {
+      reportSkip(
+        import.meta.url,
+        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+      );
+      return t.skip();
+    }
+
+    const rows = await allRows<{ ns: string; mps: string }>(
+      `SELECT ns, count(DISTINCT mp_id)::text AS mps
+       FROM mp_assets_rankings_table GROUP BY ns`,
+    );
+    for (const r of rows) {
+      // A missing key would leave that parliament's tile bare — an honest render, but for the
+      // wrong reason, and invisible unless someone selects that election.
+      assert.ok(
+        blob.byNs[r.ns],
+        `blob is missing the ns='${r.ns}' slice — regenerate it`,
+      );
+      assert.equal(blob.byNs[r.ns].mpsWithAssets, Number(r.mps));
+    }
+  },
+);
+
+test.skipIf(skipBlob)(
+  "people and officials quote their DESTINATION's filter, not their table",
+  async (t) => {
+    const blob = load();
+    if (!blob) {
+      reportSkip(
+        import.meta.url,
+        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+      );
+      return t.skip();
+    }
+
+    const [row] = await allRows<Record<string, string>>(`
     SELECT (SELECT count(*) FROM person_browse_table WHERE tier LIKE '%P%') AS listed,
            (SELECT count(*) FROM person_browse_table)                       AS browse_rows,
            (SELECT count(*) FROM person)                                    AS identity_rows,
            (SELECT count(*) FROM officials_rankings_table WHERE is_exec)    AS exec_officials,
            (SELECT count(*) FROM officials_rankings_table)                  AS official_rows`);
 
-  assert.equal(blob.people, Number(row.listed));
-  // Both alternatives named explicitly, because both are defensible answers to "how many
-  // people" and either would pass a bare equality against itself.
-  assert.notEqual(blob.people, Number(row.browse_rows));
-  assert.notEqual(blob.people, Number(row.identity_rows));
+    assert.equal(blob.people, Number(row.listed));
+    // Both alternatives named explicitly, because both are defensible answers to "how many
+    // people" and either would pass a bare equality against itself.
+    assert.notEqual(blob.people, Number(row.browse_rows));
+    assert.notEqual(blob.people, Number(row.identity_rows));
 
-  assert.equal(blob.officials, Number(row.exec_officials));
-  assert.notEqual(
-    blob.officials,
-    Number(row.official_rows),
-    "officials dropped the is_exec filter — /officials/assets lists fewer than that",
-  );
+    assert.equal(blob.officials, Number(row.exec_officials));
+    assert.notEqual(
+      blob.officials,
+      Number(row.official_rows),
+      "officials dropped the is_exec filter — /officials/assets lists fewer than that",
+    );
 
-  assert.ok(blob.peopleWithDeclaration < blob.people);
-});
+    assert.ok(blob.peopleWithDeclaration < blob.people);
+  },
+);
 
-test("the organisations figure comes from what /companies?political=1 renders", async (t) => {
-  // ⚠️ THE TILE QUOTES ITS DESTINATION'S OWN RELATION. It used to quote
-  // data/parliament/companies-index.json because that WAS what /mp/companies rendered; the
-  // destination is now /companies?political=1 over `company_browse_table` (188) WHERE
-  // is_official_linked, formerly official_companies' (178) whole relation. The rule did not
-  // change — only which relation satisfies it.
-  if (!(await dbReachable())) return t.skip();
-  const blob = load();
-  if (!blob) return t.skip();
-  const [row] = await allRows<Record<string, string>>(
-    `SELECT count(*)::text AS n FROM company_browse_table WHERE is_official_linked`,
-  ).catch(() => [undefined as unknown as Record<string, string>]);
-  if (!row) return t.skip();
-  assert.equal(
-    blob.organisations,
-    Number(row.n),
-    "organisations drifted from company_browse_table — the tile and its destination disagree",
-  );
-  // ⚠️ THE EXACT RECOUNT, carrying 178's TWO registry guards. The first version asserted
-  // only `< sum(person_count)` (21,207), which admits anything in [0, 21206] — and that is
-  // precisely how a 6-person overstatement shipped green: re-deriving from person_role alone
-  // drops the tr_person_roles name_fold join and the tr_name_fold_people fold gate.
-  const [people] = await allRows<Record<string, string>>(
-    `SELECT count(DISTINCT person_id)::text AS n FROM (
+test.skipIf(skipBlob)(
+  "the organisations figure comes from what /companies?political=1 renders",
+  async (t) => {
+    // ⚠️ THE TILE QUOTES ITS DESTINATION'S OWN RELATION. It used to quote
+    // data/parliament/companies-index.json because that WAS what /mp/companies rendered; the
+    // destination is now /companies?political=1 over `company_browse_table` (188) WHERE
+    // is_official_linked, formerly official_companies' (178) whole relation. The rule did not
+    // change — only which relation satisfies it.
+    const blob = load();
+    if (!blob) {
+      reportSkip(
+        import.meta.url,
+        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+      );
+      return t.skip();
+    }
+    const [row] = await allRows<Record<string, string>>(
+      `SELECT count(*)::text AS n FROM company_browse_table WHERE is_official_linked`,
+    ).catch(() => [undefined as unknown as Record<string, string>]);
+    if (!row) {
+      reportSkip(
+        import.meta.url,
+        "company_browse_table is absent — run npm run db:load:declarations:pg -- --resolve",
+      );
+      return t.skip();
+    }
+    assert.equal(
+      blob.organisations,
+      Number(row.n),
+      "organisations drifted from company_browse_table — the tile and its destination disagree",
+    );
+    // ⚠️ THE EXACT RECOUNT, carrying 178's TWO registry guards. The first version asserted
+    // only `< sum(person_count)` (21,207), which admits anything in [0, 21206] — and that is
+    // precisely how a 6-person overstatement shipped green: re-deriving from person_role alone
+    // drops the tr_person_roles name_fold join and the tr_name_fold_people fold gate.
+    const [people] = await allRows<Record<string, string>>(
+      `SELECT count(DISTINCT person_id)::text AS n FROM (
        SELECT ptr.person_id
          FROM person_role ptr
          JOIN person pe ON pe.person_id = ptr.person_id
@@ -163,33 +212,42 @@ test("the organisations figure comes from what /companies?political=1 renders", 
          FROM declaration_stake_company sc
          JOIN person pe ON pe.person_id = sc.person_id
         WHERE pe.status = 'active' AND pe.is_public_figure) z`,
-  );
-  assert.equal(
-    blob.organisationPeople,
-    Number(people.n),
-    "organisationPeople drifted from the gated recount — check the fold gate is still joined",
-  );
-  // And still not a SUM: people repeat across organisations.
-  const [sum] = await allRows<Record<string, string>>(
-    `SELECT coalesce(sum(person_count),0)::text AS s
+    );
+    assert.equal(
+      blob.organisationPeople,
+      Number(people.n),
+      "organisationPeople drifted from the gated recount — check the fold gate is still joined",
+    );
+    // And still not a SUM: people repeat across organisations.
+    const [sum] = await allRows<Record<string, string>>(
+      `SELECT coalesce(sum(person_count),0)::text AS s
        FROM company_browse_table WHERE is_official_linked`,
-  );
-  assert.ok(
-    blob.organisationPeople < Number(sum.s),
-    "organisationPeople equals the SUM of person_count — it must be a DISTINCT recount",
-  );
-});
+    );
+    assert.ok(
+      blob.organisationPeople < Number(sum.s),
+      "organisationPeople equals the SUM of person_count — it must be a DISTINCT recount",
+    );
+  },
+);
 
-test("the companies figure is NOT company_politicians", async (t) => {
-  if (!(await dbReachable())) return t.skip();
-  const blob = load();
-  if (!blob) return t.skip();
+test.skipIf(skipBlob)(
+  "the companies figure is NOT company_politicians",
+  async (t) => {
+    const blob = load();
+    if (!blob) {
+      reportSkip(
+        import.meta.url,
+        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+      );
+      return t.skip();
+    }
 
-  // The corpus the first draft used. Kept as an explicit negative because the two are about
-  // the same subject and the mistake is a one-word edit away.
-  const [row] = await allRows<Record<string, string>>(`
+    // The corpus the first draft used. Kept as an explicit negative because the two are about
+    // the same subject and the mistake is a one-word edit away.
+    const [row] = await allRows<Record<string, string>>(`
     SELECT (SELECT count(DISTINCT eik) FROM company_politicians)  AS cp_companies,
            (SELECT count(*) FROM company_politicians)             AS cp_links`);
-  assert.notEqual(blob.organisations, Number(row.cp_companies));
-  assert.notEqual(blob.organisationPeople, Number(row.cp_links));
-});
+    assert.notEqual(blob.organisations, Number(row.cp_companies));
+    assert.notEqual(blob.organisationPeople, Number(row.cp_links));
+  },
+);

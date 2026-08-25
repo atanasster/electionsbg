@@ -24,6 +24,7 @@ import { dbReachable, end } from "../db/lib/pg";
 import { readSeoCourts } from "../db/lib/seo_courts";
 import { readSeoPensionFunds } from "../prerender/kfnFunds";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
+import { reportSkip } from "../lib/report_skip";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -71,6 +72,13 @@ const asFilePath = (loc: string): string => {
     return loc;
   }
 };
+
+const skipDb = !haveDb ? "Postgres unreachable" : false;
+const skipDist = !haveDist
+  ? "dist/ absent — run npm run build first; this gate compares the sitemap against built pages"
+  : false;
+reportSkip(import.meta.url, skipDb);
+reportSkip(import.meta.url, skipDist);
 
 test("the sitemap names every gated family in both languages", () => {
   // A guard on the guards: if the enumerators regress to emitting nothing, the
@@ -138,32 +146,42 @@ for (const family of [
   //     file and was already being crawled. This gate is what found it.
   "/budget/",
 ]) {
-  test(`every ${family} <loc> has a dist/<path>/index.html`, (t) => {
-    if (!haveDist) return t.skip();
-    const missing = inFamily(family).filter(
-      (p) => !fs.existsSync(path.join(DIST, asFilePath(p), "index.html")),
-    );
-    assert.deepEqual(
-      missing.slice(0, 10),
-      [],
-      `${missing.length} sitemap URL(s) have no prerendered file — a crawler finds these as soft-404s`,
-    );
-  });
+  test.skipIf(skipDist)(
+    `every ${family} <loc> has a dist/<path>/index.html`,
+    () => {
+      const missing = inFamily(family).filter(
+        (p) => !fs.existsSync(path.join(DIST, asFilePath(p), "index.html")),
+      );
+      assert.deepEqual(
+        missing.slice(0, 10),
+        [],
+        `${missing.length} sitemap URL(s) have no prerendered file — a crawler finds these as soft-404s`,
+      );
+    },
+  );
 }
 
-test("the committed sitemap lists exactly the enumerable courts", async (t) => {
-  if (!haveDb) return t.skip();
-  const expected = (await readSeoCourts()).map((b) => b.bodyCode);
-  if (!expected.length) return t.skip(); // dimension not loaded here
-  const actual = inFamily("/court/")
-    .filter((p) => !p.startsWith("/en/"))
-    .map((p) => p.replace("/court/", ""));
-  assert.deepEqual(
-    [...actual].sort(),
-    [...expected].sort(),
-    "the sitemap and the reader disagree — re-run `npm run sitemap`",
-  );
-});
+test.skipIf(skipDb)(
+  "the committed sitemap lists exactly the enumerable courts",
+  async (t) => {
+    const expected = (await readSeoCourts()).map((b) => b.bodyCode);
+    if (!expected.length) {
+      reportSkip(
+        import.meta.url,
+        "the judicial dimension is not loaded — run npm run db:load:judicial-bodies:pg",
+      );
+      return t.skip();
+    }
+    const actual = inFamily("/court/")
+      .filter((p) => !p.startsWith("/en/"))
+      .map((p) => p.replace("/court/", ""));
+    assert.deepEqual(
+      [...actual].sort(),
+      [...expected].sort(),
+      "the sitemap and the reader disagree — re-run `npm run sitemap`",
+    );
+  },
+);
 
 test("the committed sitemap lists exactly the enumerable funds", () => {
   const expected = readSeoPensionFunds(PROJECT_ROOT).map((f) => f.slug);

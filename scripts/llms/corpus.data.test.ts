@@ -25,6 +25,7 @@ import { fileURLToPath } from "node:url";
 import { allRows, dbReachable, end } from "../db/lib/pg";
 import { readSeoCourts } from "../db/lib/seo_courts";
 import { readSeoPensionFunds } from "../prerender/kfnFunds";
+import { reportSkip } from "../lib/report_skip";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -147,47 +148,65 @@ for (const f of CORPORA) {
   });
 }
 
-test("the judiciary intro's claim about load-less courts matches the table", async (t) => {
-  if (!haveDb) return t.skip();
-  // The intro is HAND-WRITTEN above a GENERATED table, so the two drift
-  // independently — and did: after the duplicate-fold fix took the load-less
-  // courts from six to two, both corpora still told an answer engine that some
-  // courts' series sit under "a second, duplicate entry for the same court".
-  const [row] = await allRows<{ n: string }>(`
+const skipDb = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skipDb);
+
+test.skipIf(skipDb)(
+  "the judiciary intro's claim about load-less courts matches the table",
+  async () => {
+    // The intro is HAND-WRITTEN above a GENERATED table, so the two drift
+    // independently — and did: after the duplicate-fold fix took the load-less
+    // courts from six to two, both corpora still told an answer engine that some
+    // courts' series sit under "a second, duplicate entry for the same court".
+    const [row] = await allRows<{ n: string }>(`
     SELECT count(*) AS n FROM judicial_body b
      WHERE b.kind = 'court'
        AND NOT EXISTS (SELECT 1 FROM judicial_body_source_name s
                          JOIN court_load c ON c.name = s.source_name
                         WHERE s.body_code = b.body_code)`);
-  const loadless = Number(row?.n ?? 0);
-  assert.equal(
-    loadless,
-    2,
-    "the number of load-less courts moved — the hand-written judiciary intro in buildFull.ts names ВКС and ВАС explicitly and must be re-checked",
-  );
-  for (const f of CORPORA) {
-    const corpus = read(f);
-    assert.ok(
-      !/дублиращо се вписване|duplicate entry for the same court/.test(corpus),
-      `${f}: the intro still describes the dimension as double-counted`,
+    const loadless = Number(row?.n ?? 0);
+    assert.equal(
+      loadless,
+      2,
+      "the number of load-less courts moved — the hand-written judiciary intro in buildFull.ts names ВКС and ВАС explicitly and must be re-checked",
     );
-  }
-});
+    for (const f of CORPORA) {
+      const corpus = read(f);
+      assert.ok(
+        !/дублиращо се вписване|duplicate entry for the same court/.test(
+          corpus,
+        ),
+        `${f}: the intro still describes the dimension as double-counted`,
+      );
+    }
+  },
+);
 
-test("the corpus lists exactly the enumerable courts and funds", async (t) => {
-  if (!haveDb) return t.skip();
-  const courts = await readSeoCourts();
-  if (!courts.length) return t.skip();
-  const corpus = read("llms-full.txt");
-  const rows = tableUnder(corpus, HEADINGS["llms-full.txt"].judiciary).slice(2);
-  assert.equal(rows.length, courts.length, "corpus and reader disagree");
+test.skipIf(skipDb)(
+  "the corpus lists exactly the enumerable courts and funds",
+  async (t) => {
+    const courts = await readSeoCourts();
+    if (!courts.length) {
+      reportSkip(
+        import.meta.url,
+        "the judicial dimension is not loaded — run npm run db:load:judicial-bodies:pg",
+      );
+      return t.skip();
+    }
+    const corpus = read("llms-full.txt");
+    const rows = tableUnder(corpus, HEADINGS["llms-full.txt"].judiciary).slice(
+      2,
+    );
+    assert.equal(rows.length, courts.length, "corpus and reader disagree");
 
-  const funds = readSeoPensionFunds(PROJECT_ROOT);
-  const fundRows = tableUnder(corpus, HEADINGS["llms-full.txt"].pensions).slice(
-    2,
-  );
-  assert.equal(fundRows.length, funds.length);
-});
+    const funds = readSeoPensionFunds(PROJECT_ROOT);
+    const fundRows = tableUnder(
+      corpus,
+      HEADINGS["llms-full.txt"].pensions,
+    ).slice(2);
+    assert.equal(fundRows.length, funds.length);
+  },
+);
 
 test("a build without Postgres refuses to rewrite the corpus shorter", () => {
   // The whole point of the guard: these are COMMITTED files whose sources

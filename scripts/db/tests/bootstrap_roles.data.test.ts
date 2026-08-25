@@ -24,6 +24,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Client } from "pg";
 import { allRows, dbReachable, end, LOCAL_DATABASE_URL } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const VIRGIN = "zz_bootstrap_roles_probe";
@@ -56,105 +57,113 @@ afterAll(async () => {
   }
 });
 
-test("roles_readonly.sql applies to a VIRGIN database (no extensions)", async (t) => {
-  if (!haveDb) return t.skip();
+const skipDb = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skipDb);
 
-  await onMaintenance(`DROP DATABASE IF EXISTS ${VIRGIN}`);
-  await onMaintenance(`CREATE DATABASE ${VIRGIN}`);
+test.skipIf(skipDb)(
+  "roles_readonly.sql applies to a VIRGIN database (no extensions)",
+  async () => {
+    await onMaintenance(`DROP DATABASE IF EXISTS ${VIRGIN}`);
+    await onMaintenance(`CREATE DATABASE ${VIRGIN}`);
 
-  const sql = readFileSync(SCHEMA, "utf8").replace(
-    /GRANT CONNECT ON DATABASE \w+/,
-    `GRANT CONNECT ON DATABASE ${VIRGIN}`,
-  );
-
-  const c = new Client({ connectionString: virginUrl() });
-  await c.connect();
-  try {
-    // Guard against a vacuous pass: if pg_trgm were somehow present, this test would prove
-    // nothing about the cold case it exists for.
-    const { rows: ext } = await c.query(
-      `SELECT count(*)::int n FROM pg_extension WHERE extname = 'pg_trgm'`,
-    );
-    assert.equal(
-      ext[0].n,
-      0,
-      "the probe database already has pg_trgm — this test is not exercising a cold start",
+    const sql = readFileSync(SCHEMA, "utf8").replace(
+      /GRANT CONNECT ON DATABASE \w+/,
+      `GRANT CONNECT ON DATABASE ${VIRGIN}`,
     );
 
-    // The applier's own shape: a raw query, NOT exec(). If someone "tidies" bootstrap_roles.ts
-    // back to exec(), this is the line whose equivalent there starts failing.
-    await c.query(sql);
-
-    const { rows } = await c.query(
-      `SELECT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') AS ok`,
-    );
-    assert.ok(
-      rows[0].ok,
-      "app_readonly does not exist after applying roles_readonly.sql",
-    );
-  } finally {
-    await c.end();
-  }
-});
-
-test("exec() is NOT usable here — the reason bootstrap_roles.ts uses a raw query", async (t) => {
-  if (!haveDb) return t.skip();
-  // Non-vacuity for the test above. Without this, a future change making exec() safe on a
-  // cold database would leave the comment in bootstrap_roles.ts stating a constraint that no
-  // longer exists, and nobody would know. If THIS test starts failing, exec() has become
-  // safe and that comment (and possibly the raw-query workaround) should be revisited.
-  await onMaintenance(`DROP DATABASE IF EXISTS ${VIRGIN}`);
-  await onMaintenance(`CREATE DATABASE ${VIRGIN}`);
-
-  const prev = process.env.DATABASE_URL;
-  process.env.DATABASE_URL = virginUrl();
-  try {
-    // exec() reads the module-level DATABASE_URL captured at import, so drive a fresh client
-    // through the same preflight instead of relying on the env change landing.
     const c = new Client({ connectionString: virginUrl() });
     await c.connect();
     try {
-      await assert.rejects(
-        () => c.query("SELECT similarity('', '')"),
-        /similarity/,
-        "similarity() resolved on a virgin database — exec()'s preflight is no longer a " +
-          "cold-start hazard, so bootstrap_roles.ts's raw-query comment is now stale",
+      // Guard against a vacuous pass: if pg_trgm were somehow present, this test would prove
+      // nothing about the cold case it exists for.
+      const { rows: ext } = await c.query(
+        `SELECT count(*)::int n FROM pg_extension WHERE extname = 'pg_trgm'`,
+      );
+      assert.equal(
+        ext[0].n,
+        0,
+        "the probe database already has pg_trgm — this test is not exercising a cold start",
+      );
+
+      // The applier's own shape: a raw query, NOT exec(). If someone "tidies" bootstrap_roles.ts
+      // back to exec(), this is the line whose equivalent there starts failing.
+      await c.query(sql);
+
+      const { rows } = await c.query(
+        `SELECT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') AS ok`,
+      );
+      assert.ok(
+        rows[0].ok,
+        "app_readonly does not exist after applying roles_readonly.sql",
       );
     } finally {
       await c.end();
     }
-  } finally {
-    if (prev === undefined) delete process.env.DATABASE_URL;
-    else process.env.DATABASE_URL = prev;
-  }
-});
+  },
+);
 
-test("the bootstrap grants what the loaders actually need", async (t) => {
-  if (!haveDb) return t.skip();
-  // TEST-003: "the role exists" is not the property that matters — db:load:pg's bare GRANTs
-  // need it to exist, and every /api/db endpoint needs it to be able to READ. Asserted
-  // against the real database, where the loaders have run.
-  const [row] = await allRows<{ can_connect: boolean; usage: boolean }>(
-    `SELECT has_database_privilege('app_readonly', current_database(), 'CONNECT') AS can_connect,
+test.skipIf(skipDb)(
+  "exec() is NOT usable here — the reason bootstrap_roles.ts uses a raw query",
+  async () => {
+    // Non-vacuity for the test above. Without this, a future change making exec() safe on a
+    // cold database would leave the comment in bootstrap_roles.ts stating a constraint that no
+    // longer exists, and nobody would know. If THIS test starts failing, exec() has become
+    // safe and that comment (and possibly the raw-query workaround) should be revisited.
+    await onMaintenance(`DROP DATABASE IF EXISTS ${VIRGIN}`);
+    await onMaintenance(`CREATE DATABASE ${VIRGIN}`);
+
+    const prev = process.env.DATABASE_URL;
+    process.env.DATABASE_URL = virginUrl();
+    try {
+      // exec() reads the module-level DATABASE_URL captured at import, so drive a fresh client
+      // through the same preflight instead of relying on the env change landing.
+      const c = new Client({ connectionString: virginUrl() });
+      await c.connect();
+      try {
+        await assert.rejects(
+          () => c.query("SELECT similarity('', '')"),
+          /similarity/,
+          "similarity() resolved on a virgin database — exec()'s preflight is no longer a " +
+            "cold-start hazard, so bootstrap_roles.ts's raw-query comment is now stale",
+        );
+      } finally {
+        await c.end();
+      }
+    } finally {
+      if (prev === undefined) delete process.env.DATABASE_URL;
+      else process.env.DATABASE_URL = prev;
+    }
+  },
+);
+
+test.skipIf(skipDb)(
+  "the bootstrap grants what the loaders actually need",
+  async () => {
+    // TEST-003: "the role exists" is not the property that matters — db:load:pg's bare GRANTs
+    // need it to exist, and every /api/db endpoint needs it to be able to READ. Asserted
+    // against the real database, where the loaders have run.
+    const [row] = await allRows<{ can_connect: boolean; usage: boolean }>(
+      `SELECT has_database_privilege('app_readonly', current_database(), 'CONNECT') AS can_connect,
             has_schema_privilege('app_readonly', 'public', 'USAGE')               AS usage`,
-  );
-  assert.ok(
-    row.can_connect,
-    "app_readonly cannot CONNECT — /api/db would fail to log in",
-  );
-  assert.ok(
-    row.usage,
-    "app_readonly has no USAGE on public — every query would 42501",
-  );
+    );
+    assert.ok(
+      row.can_connect,
+      "app_readonly cannot CONNECT — /api/db would fail to log in",
+    );
+    assert.ok(
+      row.usage,
+      "app_readonly has no USAGE on public — every query would 42501",
+    );
 
-  // NO re-apply here, deliberately. An earlier draft ended with `exec(roles_readonly.sql)` to
-  // assert idempotence, and that made this file both a victim and a CAUSE of the repo's known
-  // "test:data flaky under load" shape: the file's `GRANT SELECT ON ALL TABLES IN SCHEMA
-  // public` touches every relation in the schema, which in a 152-file parallel suite contends
-  // with everything. It passed alone and failed in the full run.
-  //
-  // Nothing is lost. Idempotence is covered where it is cheap and deterministic: the
-  // virgin-database test above applies the file end to end, and `db:refresh` runs
-  // `db:pg:bootstrap` on every invocation rather than only the first — so a non-idempotent
-  // file would break the chain immediately, loudly, and outside the test suite.
-});
+    // NO re-apply here, deliberately. An earlier draft ended with `exec(roles_readonly.sql)` to
+    // assert idempotence, and that made this file both a victim and a CAUSE of the repo's known
+    // "test:data flaky under load" shape: the file's `GRANT SELECT ON ALL TABLES IN SCHEMA
+    // public` touches every relation in the schema, which in a 152-file parallel suite contends
+    // with everything. It passed alone and failed in the full run.
+    //
+    // Nothing is lost. Idempotence is covered where it is cheap and deterministic: the
+    // virgin-database test above applies the file end to end, and `db:refresh` runs
+    // `db:pg:bootstrap` on every invocation rather than only the first — so a non-idempotent
+    // file would break the chain immediately, loudly, and outside the test suite.
+  },
+);
