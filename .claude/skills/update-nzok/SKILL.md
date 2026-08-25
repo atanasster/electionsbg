@@ -73,6 +73,19 @@ npm run db:load:nzok-drug-quarterly:pg:cloud   # nothing does this automatically
    npm run db:load:nzok-hospital-map:pg:cloud  # Cloud SQL via the proxy on :5434
    ```
    Must run **after** `db:load:nzok-hospital:pg` (it reads `nzok_hospital_payments`) and after `db:load:awarder-seats:pg` (the geo bridge). The metric fold (`nzok_hospital_map()`) is live over the payments / drug-overpay / activities tables, so the crosswalk only needs a re-run when the facility universe or its seats change — not when a metric moves.
+   **If the loader reports RESTATED rows it has already written `data-changes.json` — commit and sync it.** This is the one thing `recordIngestBatch` cannot do: it keys on `(reg_no, period)`, so a TRUNCATE+reload of months already in `ingest_first_seen` itemises **nothing** — the rows are not new — and `/data/updates` shows silence while published per-hospital euros change. The loader diffs the previous vintage inside its own transaction and, when anything moved, appends the entry itself (`dedupeSameDay`, so a re-run replaces rather than duplicates).
+
+   ⚠️ It writes the entry rather than printing a command because the signal is **one-shot**: once the load commits, the corrected figures ARE the previous vintage and the next run reports nothing. `db:refresh` runs this loader with `--tolerate-offline`, so the run that consumes a correction may be unattended.
+
+   `data/data-changes.json` is git-tracked **and** bucket-served, so it needs both:
+
+   ```bash
+   git add data/data-changes.json          # commit it with the rest of step 4
+   npm run bucket:sync:paths -- budget data-changes.json
+   ```
+
+   ⚠️ The FIRST load after the parser-hardening work will report a large restatement — the Tier 1 corrections were measured at ~€1.67M across 11 months, including a sign flip on ДКЦ Св. София ЕООД that published a clawback as income for six months, plus ~33 rows whose month figure becomes 0 ("unknown") instead of a fabricated fragment. Expect a large `added` count too: the 24 months the old asserts withheld now load. That is the correction landing, not a defect — see `docs/plans/nzok-hospital-parser-hardening-v1.md`. (The loader counts ROWS, not months; the month figures here come from the plan.)
+
 3. Sanity-check the console output: hospital payments print the facility count + national total that must reconcile to the file's own "Общо РЗОК" grand total; drugs print the €total + top INN + oncology group L; execution prints revenue + expenditure YTD.
 4. Commit the changed `data/budget/nzok/*.json` (+ `data/db/procurement.lock.json` if you pushed).
 5. **`bucket:sync data/budget/nzok/`** — the budget/drug/execution JSONs are served from the GCS bucket; without the sync those tiles aren't live.

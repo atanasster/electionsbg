@@ -12,7 +12,12 @@
 // it is pure — no PDF, no database.
 
 import { describe, expect, it } from "vitest";
-import { republishedMonths, type Row } from "./load_nzok_hospital_pg";
+import {
+  diffAgainstPrevious,
+  republishedMonths,
+  rowKey,
+  type Row,
+} from "./load_nzok_hospital_pg";
 
 const row = (
   stream: Row["stream"],
@@ -170,5 +175,189 @@ describe("republishedMonths", () => {
         row("devices", "2026-04-01", 50, 0, "0000000002"),
       ]),
     ).toEqual([]);
+  });
+});
+
+// §9-2 — a RESTATEMENT is invisible to the changelog, and this is what makes it
+// visible. `recordIngestBatch` keys on (reg_no, period), so a TRUNCATE+reload of
+// months already in `ingest_first_seen` itemises nothing: the rows are not new.
+// Eleven months and €1,672,123 moved that way in the Tier 1 work — including a
+// sign flip on a named Sofia clinic — and `/data/updates` would have shown silence.
+describe("diffAgainstPrevious", () => {
+  const prev = (key: string, cum: number, month: number) => {
+    const [reg_no, period, stream] = key.split("|");
+    return { reg_no, period, stream, cumulative_eur: cum, month_eur: month };
+  };
+  const inc = (
+    reg: string,
+    period: string,
+    cum: number,
+    month: number,
+    stream: Row["stream"] = "bmp",
+  ): Row => ({
+    reg_no: reg,
+    period,
+    stream,
+    eik: null,
+    name: "Тест",
+    rzok_code: "22",
+    rzok_name: "София град",
+    cumulative_eur: cum,
+    month_eur: month,
+    currency: "EUR",
+    ownership: null,
+  });
+
+  it("counts a changed value as a restatement, not as new", () => {
+    // The real case: ДКЦ Св. София published at +€5,205 for six months against a
+    // true −€5,205. The row is not new, so nothing else in the pipeline sees it.
+    const d = diffAgainstPrevious(
+      [prev("2217134501|2023-09-01|bmp", 5205, 0)],
+      [inc("2217134501", "2023-09-01", -5205, 0)],
+    );
+    expect(d.restatedRows).toBe(1);
+    expect(d.addedRows).toBe(0);
+    // ⚠️ ABSOLUTE movement: a sign flip from −5,205 to +5,205 is €10,410 of
+    // restated money, which is what a reader comparing the two vintages sees.
+    // Reporting the signed net would show 0 for a pair of offsetting corrections.
+    expect(d.restatedEur).toBe(10410);
+  });
+
+  it("does not count an unchanged row", () => {
+    const d = diffAgainstPrevious(
+      [prev("0103211001|2026-07-01|bmp", 100, 10)],
+      [inc("0103211001", "2026-07-01", 100, 10)],
+    );
+    expect(d).toEqual({
+      restatedRows: 0,
+      restatedMonthOnly: 0,
+      restatedEur: 0,
+      addedRows: 0,
+      removedRows: 0,
+    });
+  });
+
+  it("counts a month-only change, which moves no cumulative", () => {
+    // The Tier 1 month work replaced 33 fabricated month figures with 0. The
+    // cumulative did not move, so an amount-only diff would report nothing —
+    // but the published month DID change and a reader would see it.
+    const d = diffAgainstPrevious(
+      [prev("0306253028|2026-07-01|bmp", 327640, 462)],
+      [inc("0306253028", "2026-07-01", 327640, 0)],
+    );
+    expect(d.restatedRows).toBe(1);
+    // …and counted as month-only, so a euro total alone cannot report it as
+    // nothing. 33 of the Tier 1 corrections are exactly this shape.
+    expect(d.restatedMonthOnly).toBe(1);
+    expect(d.restatedEur).toBe(0);
+  });
+
+  it("separates added and removed rows from restated ones", () => {
+    // Tier 1 recovered ДЦ ХИПОКРАТ as its own row; a re-key or a dropped facility
+    // is a different event from a value moving and must not be folded in.
+    const d = diffAgainstPrevious(
+      [prev("0314211005|2023-01-01|bmp", 2187, 2187)],
+      [
+        inc("0314211005", "2023-01-01", 130, 130),
+        inc("0306391032", "2023-01-01", 2187, 2187),
+      ],
+    );
+    expect(d).toEqual({
+      restatedRows: 1,
+      restatedMonthOnly: 0,
+      restatedEur: 2057,
+      addedRows: 1,
+      removedRows: 0,
+    });
+  });
+
+  it("keys on the stream too — the three reports share reg numbers and periods", () => {
+    // ⚠️ Without `stream` in the key, a facility's devices row would be compared
+    // against its bmp row for the same month and every load would report the whole
+    // corpus as restated.
+    const d = diffAgainstPrevious(
+      [prev("2201211067|2026-07-01|bmp", 37398035, 5445972)],
+      [inc("2201211067", "2026-07-01", 2953094, 295550, "devices")],
+    );
+    expect(d).toEqual({
+      restatedRows: 0,
+      restatedMonthOnly: 0,
+      restatedEur: 0,
+      addedRows: 1,
+      removedRows: 1,
+    });
+  });
+
+  it("reports nothing on a first load", () => {
+    const d = diffAgainstPrevious(
+      [],
+      [inc("0103211001", "2026-07-01", 100, 10)],
+    );
+    expect(d).toEqual({
+      restatedRows: 0,
+      restatedMonthOnly: 0,
+      restatedEur: 0,
+      addedRows: 1,
+      removedRows: 0,
+    });
+  });
+  it("ACCUMULATES across every row, not just the last of a bucket", () => {
+    // ⚠️ Every fixture above puts at most one row in each bucket, so a mutation
+    // replacing the accumulators with plain assignments passed all of them —
+    // and the sum is the number the operator publishes. Three restatements.
+    const d = diffAgainstPrevious(
+      [
+        prev("0000000001|2026-07-01|bmp", 100, 10),
+        prev("0000000002|2026-07-01|bmp", 200, 20),
+        prev("0000000003|2026-07-01|bmp", 300, 30),
+      ],
+      [
+        inc("0000000001", "2026-07-01", 150, 10),
+        inc("0000000002", "2026-07-01", 260, 20),
+        inc("0000000003", "2026-07-01", 300, 30),
+      ],
+    );
+    expect(d.restatedRows).toBe(2);
+    expect(d.restatedEur).toBe(110);
+  });
+
+  it("counts every added and removed row, not one", () => {
+    const d = diffAgainstPrevious(
+      [
+        prev("0000000001|2026-07-01|bmp", 100, 10),
+        prev("0000000002|2026-07-01|bmp", 200, 20),
+      ],
+      [
+        inc("0000000003", "2026-07-01", 300, 30),
+        inc("0000000004", "2026-07-01", 400, 40),
+      ],
+    );
+    expect(d.addedRows).toBe(2);
+    expect(d.removedRows).toBe(2);
+  });
+});
+
+// The key is ONE definition used by both sides of the diff. It was a SQL
+// expression and a template literal, and a drift between them is the worst
+// possible failure here: every row reads as added+removed, no row as restated,
+// and the changelog says nothing — the exact silence the diff exists to break.
+describe("rowKey", () => {
+  it("includes all three identity columns", () => {
+    const k = rowKey({
+      reg_no: "2201211067",
+      period: "2026-07-01",
+      stream: "devices",
+    });
+    expect(k).toBe("2201211067|2026-07-01|devices");
+    // Each column must move the key on its own.
+    expect(k).not.toBe(
+      rowKey({ reg_no: "2201211067", period: "2026-07-01", stream: "bmp" }),
+    );
+    expect(k).not.toBe(
+      rowKey({ reg_no: "2201211067", period: "2026-06-01", stream: "devices" }),
+    );
+    expect(k).not.toBe(
+      rowKey({ reg_no: "2201211001", period: "2026-07-01", stream: "devices" }),
+    );
   });
 });

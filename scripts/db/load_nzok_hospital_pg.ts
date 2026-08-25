@@ -27,6 +27,7 @@ import fs from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { exec, withClient, end } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
+import { appendDataChange } from "../lib/data-changes";
 import {
   parseHospitalPaymentsPdf,
   type PaymentStream,
@@ -339,6 +340,89 @@ export const republishedMonths = (
   );
 };
 
+/**
+ * What this load CHANGES about rows the table already held.
+ *
+ * ⚠️ This exists because `recordIngestBatch` cannot see a correction. Its natural
+ * key is `(reg_no, period)`, so a TRUNCATE+reload of months that are already in
+ * `ingest_first_seen` itemises nothing — the rows are not new. That is right for an
+ * ordinary reload and wrong for the case that matters: when a parser fix RESTATES
+ * published money, `/data/updates` shows silence. Eleven months and €1,672,123
+ * moved that way in the Tier 1 work (docs/plans/nzok-hospital-parser-hardening-v1.md
+ * §9-2), including a sign flip on a named Sofia clinic, and nothing would have said so.
+ *
+ * Diffing the previous vintage inside the load's own transaction makes the
+ * correction a MEASURED fact the operator can put in `data-changes.json`, rather
+ * than a number somebody has to remember to write down. It also catches the next
+ * one, which is the half that keeps working after this plan is forgotten.
+ */
+/** The identity of one published figure. Written ONCE and used on both sides of
+ *  the diff — it was a SQL expression and a template literal, and a drift between
+ *  them reports every row as added+removed and no row as restated, i.e. exactly the
+ *  silence this diff exists to break. */
+export const rowKey = (r: {
+  reg_no: string;
+  period: string;
+  stream: string;
+}): string => `${r.reg_no}|${r.period}|${r.stream}`;
+
+export const diffAgainstPrevious = (
+  previous: {
+    reg_no: string;
+    period: string;
+    stream: string;
+    cumulative_eur: number;
+    month_eur: number;
+  }[],
+  incoming: Row[],
+): {
+  restatedRows: number;
+  /** Of `restatedRows`, those whose CUMULATIVE did not move — a month figure
+   *  changed and nothing else. Sized €0 by construction, so a euro total alone
+   *  reports them as nothing: 33 of the Tier 1 corrections are exactly this shape
+   *  (a fabricated month fragment replaced by 0, "unknown"). Counted separately so
+   *  the changelog entry can say so instead of implying no row moved. */
+  restatedMonthOnly: number;
+  restatedEur: number;
+  addedRows: number;
+  removedRows: number;
+} => {
+  const before = new Map(previous.map((r) => [rowKey(r), r]));
+  const seen = new Set<string>();
+  let restatedRows = 0;
+  let restatedMonthOnly = 0;
+  let restatedEur = 0;
+  let addedRows = 0;
+  for (const r of incoming) {
+    const key = rowKey(r);
+    seen.add(key);
+    const was = before.get(key);
+    if (!was) {
+      addedRows++;
+      continue;
+    }
+    // A restatement is a row that existed and now says something different. The
+    // € figure is the ABSOLUTE movement of the cumulative — a sign flip from
+    // −€5,205 to +€5,205 is €10,410 of restated money, which is what a reader
+    // comparing the two vintages would see.
+    if (
+      was.cumulative_eur !== r.cumulative_eur ||
+      was.month_eur !== r.month_eur
+    ) {
+      restatedRows++;
+      if (was.cumulative_eur === r.cumulative_eur) restatedMonthOnly++;
+      restatedEur += Math.abs(r.cumulative_eur - was.cumulative_eur);
+    }
+  }
+  return {
+    restatedRows,
+    restatedMonthOnly,
+    restatedEur,
+    addedRows,
+    removedRows: previous.filter((r) => !seen.has(rowKey(r))).length,
+  };
+};
+
 const main = async (): Promise<void> => {
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
   await exec(readFileSync(TRENDS_SCHEMA_FILE, "utf8"));
@@ -380,8 +464,23 @@ const main = async (): Promise<void> => {
 
   const N = COLS.length;
   const BATCH = 800; // 800 × 10 = 8k params (< 65535)
-  await withClient(async (c) => {
+  const delta = await withClient(async (c) => {
     await c.query("BEGIN");
+    // Read the previous vintage BEFORE replacing it — see `diffAgainstPrevious`.
+    // Inside the transaction, so what is compared is exactly what is replaced.
+    const { rows: prevRows } = await c.query<{
+      reg_no: string;
+      period: string;
+      stream: string;
+      cumulative_eur: number;
+      month_eur: number;
+    }>(
+      // The columns, never a pre-joined key — `rowKey` is the single definition
+      // and both sides must go through it. `period::text` is the `YYYY-MM-DD` the
+      // incoming rows also carry.
+      `SELECT reg_no, period::text AS period, stream, cumulative_eur, month_eur
+         FROM nzok_hospital_payments`,
+    );
     await c.query("TRUNCATE nzok_hospital_payments");
     for (let i = 0; i < rows.length; i += BATCH) {
       const batch = rows.slice(i, i + BATCH);
@@ -439,7 +538,9 @@ const main = async (): Promise<void> => {
       amountExpr: "t.cumulative_eur::double precision",
       rowsTotal: rows.length,
     });
+    const d = diffAgainstPrevious(prevRows, rows);
     await c.query("COMMIT");
+    return d;
   });
 
   const months = new Set(rows.map((r) => r.period)).size;
@@ -462,6 +563,49 @@ const main = async (): Promise<void> => {
 
     monthsSkipped.forEach((m) => console.log(`  - ${m}`));
   }
+
+  // ⚠️ A RESTATEMENT is not a new row and `/data/updates` cannot see it — see
+  // `diffAgainstPrevious`.
+  //
+  // ⚠️⚠️ AND THE SIGNAL IS ONE-SHOT. Once this load commits, the corrected figures
+  // ARE the previous vintage, so the next run reports nothing — the window is open
+  // for exactly one execution and then closes permanently. That matters because
+  // this loader runs UNATTENDED: `db:refresh` invokes it with `--tolerate-offline`,
+  // so the run that consumes a €1.67M correction may be one nobody is watching, and
+  // a message printed to a console nobody reads is the same as no message.
+  //
+  // So it writes the entry ITSELF rather than printing a command for a human to
+  // run — the `update-prices` pattern, `dedupeSameDay` so a same-day re-run (or the
+  // orchestrator's generic gate, which fires because this write flips
+  // `git diff data/`) replaces rather than duplicates. `data/data-changes.json` is
+  // git-tracked AND bucket-served, so it still has to be committed and synced; the
+  // banner says so.
+  if (delta.restatedRows > 0) {
+    const eur = Math.round(delta.restatedEur).toLocaleString("en-US");
+    const valueOnly = delta.restatedRows - delta.restatedMonthOnly;
+    const summary =
+      `НЗОК hospital payments restated: ${delta.restatedRows} row(s) changed value ` +
+      `(${valueOnly} in the cumulative, €${eur}; ${delta.restatedMonthOnly} in the ` +
+      `month only), ${delta.addedRows} added, ${delta.removedRows} removed`;
+    appendDataChange({
+      skill: "update-nzok",
+      summary,
+      source: "НЗОК болнични плащания (БМП/ЛП/МИ)",
+      dedupeSameDay: true,
+    });
+    console.log(
+      `⚠️ ${delta.restatedRows} row(s) RESTATED — money already published has ` +
+        `changed value, and ingest_first_seen cannot itemise it (the rows are not ` +
+        `new). Wrote data/data-changes.json:\n    ${summary}\n` +
+        `    COMMIT it and include it in the bucket sync, or the corrected figures ` +
+        `publish while the note explaining them does not:\n` +
+        `      npm run bucket:sync:paths -- budget data-changes.json`,
+    );
+  } else if (delta.addedRows || delta.removedRows)
+    console.log(
+      `   ${delta.addedRows} row(s) added, ${delta.removedRows} removed; no ` +
+        `published figure changed value.`,
+    );
 
   // RC-5 — published as filed, and named. See `republishedMonths` for why.
   const republished = republishedMonths(rows);

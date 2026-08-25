@@ -664,6 +664,38 @@ a standing TODO banner.
    would be invisible on `/data/updates`. Eleven months of published per-hospital
    euros are changing, including a sign flip on a named clinic. Recommendation: a
    one-line `data-changes.json` entry naming the correction and its size.
+
+   > **DECIDED 2026-08-25 — the recommendation is taken, but NOT by writing the
+   > entry now.** No loader has been run, so the corrected figures are not in any
+   > served table: an entry today would tell `/data/updates` that published money
+   > changed on a day it did not. What ships instead makes the entry both TRUE when
+   > it lands and unavoidable:
+   >
+   > - `diffAgainstPrevious` reads the previous vintage inside the load's own
+   >   transaction and reports how many rows were RESTATED and by how much, with
+   >   the `append-data-change` command pre-filled. The €1.67M figure stops being
+   >   something someone has to remember and becomes something the load measures.
+   > - the loader APPENDS the entry itself (`appendDataChange`, `dedupeSameDay` —
+   >   the `update-prices` pattern) rather than printing a command. Review caught
+   >   why that matters: the signal is ONE-SHOT — once the load commits, the
+   >   corrected figures are the previous vintage and the next run reports nothing —
+   >   and `db:refresh` runs this loader with `--tolerate-offline`, so the run that
+   >   consumes a correction may be unattended. A message printed to a console
+   >   nobody reads is the same as no message.
+   > - `update-nzok` gains a step: commit `data/data-changes.json` and include it in
+   >   the bucket sync — it is git-tracked AND bucket-served, so the corrected
+   >   figures otherwise publish while the note explaining them does not.
+   >
+   > This closes the general case rather than this instance. §9-2's mechanism —
+   > `recordIngestBatch` keys on `(reg_no, period)`, so a reload of months already
+   > in `ingest_first_seen` itemises nothing — is a permanent property of the
+   > loader, and the NEXT silent restatement is caught by the same code.
+   >
+   > ⚠️ Follow-through: the entry is still owed, and it is owed at the moment
+   > `npm run db:load:nzok-hospital:pg[:cloud]` is next run. The load will report
+   > ~11 restated months / ~€1.67M plus ~4,000 new rows from the 24 months the old
+   > asserts withheld.
+
 3. **How hard the ordinal shortfall should be.** Tier 2 reports rather than throws
    when ordinals are missing but money reconciles. That is right for (b)/(c) — but it
    means a future parser regression that drops a genuinely €0 facility will be
