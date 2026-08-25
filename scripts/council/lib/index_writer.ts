@@ -17,7 +17,20 @@
 //
 // Per-resolution shards aren't read directly by the frontend yet — they're
 // the durable history for backfills, summary regeneration, and audit
-// trails. The index gives the UI its small page-level snapshot.
+// trails.
+//
+// ⚠️ `index.json` IS NO LONGER READER-FACING, and the two mentions of "the
+// React hook" and "the UI" above are historical. Every consumer moved to
+// Postgres in council-hub-v1 (migrations 160/161, `/api/db/council-*`; see
+// `src/data/council/useCouncilHub.tsx`), and the whole `council/` tree is
+// excluded from bucket sync as "a PG load source, served from Cloud SQL"
+// (`scripts/bucket_sync_paths.ts`). What the index still IS: this writer's
+// merge window, `meta.lastIngest` / `protocolsIngested` for the ingest
+// ledger, and the display names + lastIngest that `load_council_pg.ts` reads
+// (it takes `resolution_count` from the shard tree, never from here).
+//
+// That bounds a bad write to git rather than to readers — but `data/council/**`
+// is COMMITTED, so a bad write is still a committed corpus change.
 //
 // ⚠️ THE INDEX IS NOT A ROUND-TRIPPABLE STORE, and two rules here exist
 // because it was treated as one until 2026-08-16:
@@ -409,6 +422,23 @@ const writeResolutionShard = async (
   r: CouncilResolution,
   obshtina: string,
 ): Promise<void> => {
+  // A bad date collapses the year segment: `join(dataDir(), obshtina, "")` is
+  // the município ROOT, where `listDurableShardPaths` cannot see the file (it
+  // only descends directories). The id would then reach the index with no
+  // discoverable shard — and the prune below drops that row on the very next
+  // run. Before the prune such a row merely persisted; now it is silent data
+  // loss, so the write is the place to refuse.
+  //
+  // Currently unreachable (all 17 parsers derive `date` from a matched
+  // pattern), and deliberately the same shape `load_council_pg.ts` validates
+  // on READ — note `readDurableResolutions`'s `typeof date === "string"` check
+  // is satisfied by "".
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(r.date)) {
+    throw new Error(
+      `[council] ${obshtina}/${r.id}: refusing to write a shard with date ` +
+        `${JSON.stringify(r.date)} — it would land outside the year tree`,
+    );
+  }
   const year = r.date.slice(0, 4);
   const dir = join(dataDir(), obshtina, year);
   await mkdir(dir, { recursive: true });
@@ -419,15 +449,109 @@ const writeResolutionShard = async (
   );
 };
 
+/** A prune is expected to be a purge residue — a minority of one município's
+ *  window. Wiping most of it is what an ABSENT or misdirected shard tree looks
+ *  like, and `listDurableShardPaths` returns an empty set for both that and a
+ *  legitimately empty município. Same tripwire shape as VOTES_SHRINK_TOLERANCE
+ *  twenty lines up, and needed more: that guard protects against a regression
+ *  its own comment says can never fire, while this path deletes routinely. */
+const PRUNE_MIN_ROWS = 5;
+const PRUNE_MAX_FRACTION = 0.5;
+
+/**
+ * Should a run that drops `pruned` of `indexRows` index rows be refused?
+ *
+ * Exported for testing, and pure, for the same reason `shouldRefuseShrink` is:
+ * the arming semantics are the whole point and are otherwise only reachable
+ * through a fixture that has to fake a missing corpus.
+ *
+ * Calibrated against the real 2026-08-22 purge residue, which it must NOT
+ * refuse: RSE01 81 of 200 (40.5%), PVN01 2 of 137, VAR01 1 of 81. It refuses
+ * the measured failure case, an absent tree taking 300 of 300.
+ */
+export const shouldRefusePrune = (
+  indexRows: number,
+  pruned: number,
+  allowPrune = false,
+): boolean =>
+  !allowPrune &&
+  pruned >= PRUNE_MIN_ROWS &&
+  pruned > Math.floor(indexRows * PRUNE_MAX_FRACTION);
+
+/**
+ * Drop index rows whose id has no durable shard, refusing rather than
+ * publishing an implausibly large drop.
+ *
+ * ⚠️ ONE definition, shared by both index writers. The defect this whole
+ * change fixes was two writers holding two definitions of one field; a second
+ * hand-written copy of this loop would reproduce that shape one field over.
+ *
+ * The prune is safe because a shard-less index row is UNREACHABLE, not merely
+ * unobserved. Four properties, all in this file:
+ *   1. `mergeMuniResult` is the ONLY writer of `resolutionsByObshtina`, and it
+ *      writes a durable shard for everything it adds (`toPersist`).
+ *   2. Shards are written BEFORE the index, so an interruption leaves orphan
+ *      SHARDS, never orphan ROWS.
+ *   3. `rebuildShardsFromDurable`, the only other index writer, patches `meta`
+ *      and the window and never invents a row.
+ *   4. Every id embeds its own year (`<CODE>-<yyyy>-prot…`, yyyy ===
+ *      date.slice(0,4) in all 17 parsers) and `writeResolutionShard` now
+ *      refuses a date that could decouple the two.
+ *
+ * Break any one of those and this deletes data, which is why the drop is
+ * COUNTED and reported rather than silent, and why it is bounded above.
+ */
+const pruneToDurable = (
+  obshtinaCode: string,
+  indexRows: CouncilResolution[],
+  durableIds: Set<string>,
+  durableCount: number,
+  opts: { allowPrune?: boolean } = {},
+): CouncilResolution[] => {
+  const kept = indexRows.filter((r) => durableIds.has(r.id));
+  const pruned = indexRows.length - kept.length;
+  if (pruned === 0) return kept;
+  if (shouldRefusePrune(indexRows.length, pruned, opts.allowPrune)) {
+    throw new Error(
+      `[council] refusing to prune ${obshtinaCode}: ${pruned} of ` +
+        `${indexRows.length} index row(s) have no durable shard, against ` +
+        `${durableCount} shard(s) on disk. That is a missing or misdirected ` +
+        `shard tree, not a purge residue. Pass allowPrune to override.`,
+    );
+  }
+  // Report what was OBSERVED, not what it means: an absent tree produces the
+  // same event as a purge, so naming only the benign causes would tell an
+  // operator a misconfigured run had deleted rows on purpose. The two counts
+  // are what separate the cases.
+  console.warn(
+    `[council] ${obshtinaCode}: dropped ${pruned} of ${indexRows.length} ` +
+      `index row(s) with no durable shard (${durableCount} shard(s) on disk). ` +
+      `Expected after a purge or an id-scheme change; a large fraction here ` +
+      `means the shard tree is missing or unreadable, not that the rows were ` +
+      `withdrawn.`,
+  );
+  return kept;
+};
+
 export type MergeOptions = {
   /** Limit resolutions per município in the index. Defaults to PER_MUNI_LIMIT (200). */
   perMuniLimit?: number;
-  /** Skip per-resolution shard writes (faster dry runs). */
-  skipShards?: boolean;
   /** Allow the votes shard to lose entries. Escape hatch only — see
    *  VOTES_SHRINK_TOLERANCE. */
   allowShrink?: boolean;
+  /** Allow an implausibly large index prune. Escape hatch only — see
+   *  shouldRefusePrune. */
+  allowPrune?: boolean;
 };
+
+// `skipShards` used to live here ("skip per-resolution shard writes, faster dry
+// runs"). It was REMOVED on 2026-08-25, not merely unused: measured,
+// `scrape.ts` passes no options at all, no other caller exists, and
+// `git log -S"skipShards: true"` is empty — it was never once passed. Under
+// the prune below it is also no longer safe. A run that wrote index rows
+// without their shards would have those rows deleted by the very next merge,
+// so the flag's only remaining effect would be to lose data quietly. `--dry`
+// already covers the dry-run case, in scrape.ts, by not merging at all.
 
 /**
  * Fold one município's scrape result into the global index + shards.
@@ -444,20 +568,43 @@ export const mergeMuniResult = async (
 
   // Previous state, lowest-fidelity first so the better source wins:
   //
-  //   1. the index slot — STRIPPED of perCouncillor, and capped, but it is the
-  //      only record of a resolution whose durable shard was never written
-  //      (an older --skip-shards run);
-  //   2. the durable shard tree — unstripped and uncapped, so it restores the
-  //      named votes the index cannot carry.
+  //   1. the index slot — STRIPPED of perCouncillor, and capped, so it can
+  //      only ever contribute the fields the tree already has;
+  //   2. the durable shard tree — unstripped and uncapped, and the ONE source
+  //      of truth for which resolutions this município has.
   //
-  // Taking (1) alone is the defect this ordering exists to fix; taking (2)
-  // alone would silently drop shard-less rows out of the index.
+  // Taking (1) alone is the defect this ordering exists to fix.
   const indexRows = idx.resolutionsByObshtina[result.obshtinaCode] ?? [];
   const durable = await readDurableResolutions(result.obshtinaCode);
 
-  // Merge by id. New records overwrite previous ones with the same id.
+  // ⚠️ PRUNE (see pruneToDurable): an index row whose id has no durable shard
+  // is DROPPED.
+  //
+  // Such a row used to be kept, on the reasoning that it was "the only record
+  // of a resolution whose durable shard was never written (an older
+  // --skip-shards run)". Measured 2026-08-25, that shape does not exist and
+  // never did: the flag had no call site and was never passed (MergeOptions
+  // above).
+  //
+  // What the shard-less set actually contains is the opposite — records a
+  // purge WITHDREW. `cbbcd220e4` deleted 84 phantom shards on 2026-08-22 and
+  // left their index rows behind; because `byId` is seeded from the window and
+  // the capped result is written back to it, each one re-entered the merge on
+  // every subsequent run. RSE01's 81 sat among the NEWEST rows of a 200-row
+  // date-desc window, and PVN01/VAR01 are under the cap entirely, so they
+  // could never age out either. Keeping them meant `resolutionCount` published
+  // 507 against 426 shards and the index carried, indefinitely, 84 readings of
+  // sittings the tree already holds correctly under the right ids.
   const byId = new Map<string, CouncilResolution>();
-  for (const r of indexRows) byId.set(r.id, r);
+  for (const r of pruneToDurable(
+    result.obshtinaCode,
+    indexRows,
+    durable.ids,
+    durable.ids.size,
+    { allowPrune: opts.allowPrune },
+  )) {
+    byId.set(r.id, r);
+  }
   for (const r of durable.rows) byId.set(r.id, r);
   let added = 0;
   let updated = 0;
@@ -478,13 +625,26 @@ export const mergeMuniResult = async (
   const capped = merged.slice(0, limit);
   idx.resolutionsByObshtina[result.obshtinaCode] = capped;
 
-  // True historical total = every distinct id this município is known by, i.e.
-  // `byId` = index ∪ durable ∪ this scrape. It must NOT be `capped.length`,
-  // which is truncated to PER_MUNI_LIMIT and would collapse to the cap on the
-  // six municipalities with more history than that. Counting `byId` also
-  // includes index-only rows that never got a durable shard — which a walk of
-  // the shard tree misses, and which the merge above exists to preserve.
-  const resolutionCount = byId.size;
+  // True historical total = the DURABLE SHARD TREE, plus whatever this run is
+  // about to add to it. One definition, shared with
+  // `rebuildShardsFromDurable` below and with `load_council_pg.ts`
+  // (`resolution_count: rows.length`), which is what Postgres serves.
+  //
+  // It must NOT be `capped.length`, which is truncated to PER_MUNI_LIMIT and
+  // would collapse to the cap on the six municipalities with more history than
+  // that. Nor `byId.size`: that was the second of two definitions of one
+  // field, and between 2026-08-22 and 2026-08-25 the value alternated run by
+  // run depending on which writer touched it last.
+  //
+  // With the prune above in place the two are now equal — `byId` is exactly
+  // `durable ∪ toPersist`. Deriving it from the tree anyway is deliberate: it
+  // makes this line's correctness independent of the prune's, so removing one
+  // cannot quietly re-break the other. `toPersist` is unioned because the
+  // shards are written AFTER this point, so `durable.ids` alone under-reports
+  // every fresh resolution by exactly the batch size.
+  const knownIds = new Set(durable.ids);
+  for (const r of toPersist) knownIds.add(r.id);
+  const resolutionCount = knownIds.size;
 
   idx.meta = idx.meta ?? {};
   idx.meta[result.obshtinaCode] = {
@@ -514,10 +674,8 @@ export const mergeMuniResult = async (
   // the index window keeps its named votes on disk rather than being dropped.
   // (Everything beyond the window is in the durable tree regardless, which is
   // what the Postgres loader reads.)
-  if (!opts.skipShards) {
-    for (const r of toPersist) {
-      await writeResolutionShard(r, result.obshtinaCode);
-    }
+  for (const r of toPersist) {
+    await writeResolutionShard(r, result.obshtinaCode);
   }
   await writeVotesShard(result.obshtinaCode, muniName, capped, {
     allowShrink: opts.allowShrink,

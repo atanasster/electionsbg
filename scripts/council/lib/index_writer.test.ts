@@ -12,7 +12,14 @@
 // extraction — the obvious one-line fix — would have overwritten each shard
 // with a single resolution.
 
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import {
+  mkdir,
+  mkdtemp,
+  readFile,
+  readdir,
+  rm,
+  writeFile,
+} from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
@@ -317,12 +324,47 @@ describe("shrink guard", () => {
     const one = resolution(`${CODE}-2026-p9-r900`, "2026-08-01", { named: 3 });
     await putDurable(one);
 
-    await writer.mergeMuniResult(scrape([one]), MUNI, { perMuniLimit: 1 });
+    // `allowPrune` is REQUIRED here and is not a weakening of this assertion.
+    // Deleting the tree under a populated index is precisely what the prune
+    // ceiling refuses, so without the override this fixture now throws before
+    // `writeVotesShard` is ever reached — i.e. the guard makes the input
+    // unreachable through the public API, while the property being asserted
+    // (the shard merges rather than replaces) is still worth pinning. Do not
+    // remove the flag to "make it realistic": the realistic version of this
+    // input is the one `prune ceiling` below asserts we refuse.
+    await writer.mergeMuniResult(scrape([one]), MUNI, {
+      perMuniLimit: 1,
+      allowPrune: true,
+    });
     expect(Object.keys(await readVotes())).toHaveLength(21);
   });
 });
 
 describe("corrupt and malformed input", () => {
+  it("refuses to write a shard whose date cannot form a year directory", async () => {
+    // `join(dataDir(), obshtina, "")` is the município ROOT, and
+    // listDurableShardPaths only descends DIRECTORIES — so a shard landing
+    // there is invisible to the tree walk. Its id would still reach the index,
+    // and the prune would then delete that row on the very next run. Before
+    // the prune existed such a row merely persisted; now it is silent data
+    // loss, which is why the refusal is at the write.
+    await seedHistory(3);
+    const bad = {
+      ...resolution(`${CODE}-2026-p9-r900`, "2026-08-01"),
+      date: "",
+    };
+
+    await expect(writer.mergeMuniResult(scrape([bad]), MUNI)).rejects.toThrow(
+      /refusing to write a shard with date/,
+    );
+
+    // Nothing at the município root, and the index is untouched — shards are
+    // written BEFORE the index, so the throw persists neither.
+    const rootEntries = await readdir(join(dir, CODE), { withFileTypes: true });
+    expect(rootEntries.filter((e) => e.isFile())).toHaveLength(0);
+    expect((await readIndexFile()).resolutionsByObshtina[CODE]).toHaveLength(3);
+  });
+
   it("refuses to rebuild a votes shard that exists but does not parse", async () => {
     await seedHistory(20);
     await writer.rebuildShardsFromDurable();
@@ -371,6 +413,163 @@ describe("meta.resolutionCount", () => {
     const idx = await readIndexFile();
     expect(idx.meta?.[CODE].resolutionCount).toBe(21);
     expect(idx.resolutionsByObshtina[CODE]).toHaveLength(5);
+  });
+
+  /**
+   * The test above CANNOT fail on the drift these two close, and that is why
+   * they exist. `seedHistory` puts every row in both the durable tree and the
+   * index slot, so |index ∪ durable| == |durable| and the assertion passes
+   * whichever of the two the implementation counts.
+   *
+   * The real corpus stopped satisfying that on 2026-08-22, when `cbbcd220e4`
+   * purged 84 phantom resolutions: it deleted their durable shards and left
+   * their rows in `resolutionsByObshtina`. From then on the two writers
+   * disagreed by exactly that residue — `mergeMuniResult` (union) published
+   * RSE01 at 507 against 426 shards, `rebuildShardsFromDurable` (tree) at 426
+   * — and the field alternated between them, run by run, for three days.
+   *
+   * Which mutation kills which arm, verified rather than assumed:
+   *   - delete the PRUNE  → the row arm fails (the withdrawn row survives in
+   *     the window); the count arm still passes, held up by the tree-derived
+   *     count alone.
+   *   - delete the prune AND revert the count to `byId.size` → both fail.
+   * The two fixes are deliberately layered: with the prune in place the index
+   * window is a subset of the tree, so `byId.size` happens to be right again
+   * — deriving the count from the tree anyway is what stops that correctness
+   * being a side effect of somebody else's line.
+   */
+  it("counts the durable tree, not the stale index window", async () => {
+    const rows = await seedHistory(10);
+    // A resolution a purge withdrew: its row is still in the index slot, its
+    // shard is gone. No `putDurable`, deliberately.
+    const purged = resolution(`${CODE}-2026-prot9-r001`, "2026-07-01");
+    await putIndex([purged, ...rows]);
+
+    // A zero-resolution run — the 2026-08-24 shape. Nothing is scraped,
+    // nothing is written to the tree, and the count still moved by +84.
+    const out = await writer.mergeMuniResult(scrape([]), MUNI);
+
+    expect(out.total).toBe(10);
+    const idx = await readIndexFile();
+    expect(idx.meta?.[CODE].resolutionCount).toBe(10);
+
+    // Not merely uncounted — GONE. Leaving it in the window would keep it as
+    // the merge basis for every future run, so it re-enters `byId` forever.
+    const ids = idx.resolutionsByObshtina[CODE].map((r) => r.id);
+    expect(ids).not.toContain(purged.id);
+    expect(ids).toHaveLength(10);
+  });
+
+  it("agrees with rebuildShardsFromDurable on the same corpus", async () => {
+    const rows = await seedHistory(10);
+    const purged = resolution(`${CODE}-2026-prot9-r001`, "2026-07-01");
+    await putIndex([purged, ...rows]);
+
+    await writer.mergeMuniResult(scrape([]), MUNI);
+    const afterMerge = (await readIndexFile()).meta?.[CODE].resolutionCount;
+    await writer.rebuildShardsFromDurable();
+    const afterRebuild = (await readIndexFile()).meta?.[CODE].resolutionCount;
+
+    // The alternation itself, asserted as an equality rather than inferred
+    // from two separate expectations that could both drift.
+    expect(afterMerge).toBe(afterRebuild);
+    expect(afterMerge).toBe(10);
+  });
+
+  it("a resolution scraped in this run counts before its shard is read back", async () => {
+    // The count is computed BEFORE `writeResolutionShard` runs, so a
+    // tree-derived count has to union this run's own persisted ids or it
+    // under-reports every fresh resolution by exactly the batch size.
+    //
+    // "does not collapse to the index cap" above also fails on that mutation,
+    // incidentally — its name does not say so, and narrowing it would remove
+    // the coverage silently. This is the arm that states the property.
+    await seedHistory(10);
+    const fresh = resolution(`${CODE}-2026-prot9-r900`, "2026-08-01");
+
+    const out = await writer.mergeMuniResult(scrape([fresh]), MUNI);
+
+    expect(out.total).toBe(11);
+    expect((await readIndexFile()).meta?.[CODE].resolutionCount).toBe(11);
+  });
+
+  it("derives the count from the tree even where the prune already makes byId right", async () => {
+    // NOT a behaviour test, and it cannot be one: with the prune in place
+    // `byId` IS `durable ∪ toPersist`, so the two expressions are equal by
+    // construction and reverting the count to `byId.size` passes all the
+    // black-box arms above (verified — 25/25).
+    //
+    // What B1 buys is that the count's correctness does not DEPEND on the
+    // prune's, so removing one cannot quietly re-break the other. That is a
+    // property of the shape, so the shape is what is asserted. Same class of
+    // gate as `src/entryGraph.test.ts` and `reload_visibility_map.data.test.ts`
+    // — invisible in review, expensive to catch any other way.
+    const src = await readFile(
+      new URL("./index_writer.ts", import.meta.url),
+      "utf8",
+    );
+    const body = src.slice(src.indexOf("export const mergeMuniResult"));
+    expect(body).toMatch(/const knownIds = new Set\(durable\.ids\)/);
+    expect(body).not.toMatch(/resolutionCount = byId\.size/);
+  });
+});
+
+describe("prune ceiling", () => {
+  it("refuses to prune a município whose durable tree has gone missing", async () => {
+    // ENOENT on the shard dir is indistinguishable from "no shards yet", so an
+    // absent tree presents as "every row was purged". Measured before the
+    // guard: 300 of 300 rows deleted, resolutionCount published as 0, exit 0.
+    const rows = Array.from({ length: 20 }, (_, i) =>
+      resolution(
+        `${CODE}-2025-prot1-r${String(i).padStart(3, "0")}`,
+        "2025-06-01",
+      ),
+    );
+    await putIndex(rows); // NO putDurable — the tree is absent
+
+    await expect(writer.mergeMuniResult(scrape([]), MUNI)).rejects.toThrow(
+      /refusing to prune/,
+    );
+    // The index is written LAST, so a throw must persist nothing.
+    expect((await readIndexFile()).resolutionsByObshtina[CODE]).toHaveLength(
+      20,
+    );
+    expect((await readIndexFile()).meta?.[CODE].resolutionCount).toBe(20);
+  });
+
+  it("still prunes a purge residue that is large but a minority of the window", async () => {
+    // Non-vacuity: the ceiling must not disarm the prune it protects. This is
+    // RSE01's real shape — well past the absolute floor, well under the
+    // fraction (81 of 200 = 40.5%).
+    const rows = await seedHistory(12);
+    const purged = Array.from({ length: 8 }, (_, i) =>
+      resolution(
+        `${CODE}-2026-prot9-r${String(i).padStart(3, "0")}`,
+        "2026-07-01",
+      ),
+    );
+    await putIndex([...purged, ...rows]);
+
+    await writer.mergeMuniResult(scrape([]), MUNI);
+
+    const idx = await readIndexFile();
+    expect(idx.resolutionsByObshtina[CODE]).toHaveLength(12);
+    expect(idx.meta?.[CODE].resolutionCount).toBe(12);
+  });
+
+  it("arms on a floor and a fraction, and allowPrune is the deliberate override", () => {
+    expect(writer.shouldRefusePrune(300, 300)).toBe(true);
+    // Under the absolute floor — PVN01 (2 of 137) and VAR01 (1 of 81).
+    expect(writer.shouldRefusePrune(137, 2)).toBe(false);
+    expect(writer.shouldRefusePrune(81, 1)).toBe(false);
+    // Over the floor, under the fraction — RSE01 (81 of 200).
+    expect(writer.shouldRefusePrune(200, 81)).toBe(false);
+    // Over both.
+    expect(writer.shouldRefusePrune(200, 101)).toBe(true);
+    // A tiny município losing everything stays under the floor deliberately:
+    // 4 of 4 is not distinguishable from a genuinely small purge.
+    expect(writer.shouldRefusePrune(4, 4)).toBe(false);
+    expect(writer.shouldRefusePrune(300, 300, true)).toBe(false);
   });
 });
 
