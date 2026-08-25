@@ -3,7 +3,7 @@
 **Analysed:** 2026-08-25 at `cd1a438461` — local Postgres on 5433, Cloud SQL proxy on 5434, so
 production was measured directly rather than inferred. Every baseline figure below is as of that
 tree.
-**Implemented:** 2026-08-25 — A `8d2654bc67`, B `fc9840c7f7`, C `779b06e4a3`, D `148fbf3ca7`,
+**Implemented:** 2026-08-25 — A `8d2654bc67`, B `fc9840c7f7`, C `779b06e4a3`, D `cab89faa40`,
 E data-only (no commit; the plan correction is this file). The reproduction command below now
 reports **5 files / 80 tests passed**.
 
@@ -28,7 +28,7 @@ The ten failures are **not** ten problems. They are:
 | 1 | `/governance/mayor-pay` read as a place anchor | **live UI defect — fix the code** | ✅ `8d2654bc67` |
 | 2a | `db:load:magistrate-filing-assets:pg:cloud` unwired | **wire it — exempting would hide a real publish gap** | ✅ `fc9840c7f7` |
 | 2b | `proc:verify-seats:cloud` not in the orchestrator | **exempt — it is a read-only verifier, not a publish** | ✅ `fc9840c7f7` |
-| 3a/b | `/governance/mayor-pay` undeclared for prerender+sitemap | **declare it — do not exempt** | ✅ `148fbf3ca7` |
+| 3a/b | `/governance/mayor-pay` undeclared for prerender+sitemap | **declare it — do not exempt** | ✅ `cab89faa40` |
 | 3c/d | `companies` + 2 funds procedures have no `<loc>` | **regenerate the artifact** | ✅ `779b06e4a3` |
 | 3e | `BudgetHubScreen` renders an unlisted `HubHead` | **⚠ NOT A FAILURE ON `main` — another session's uncommitted work** | ✅ closed by that session |
 | 4 | 52 graph nodes drifted | **stale data — no code change** | ✅ data repair, §6 |
