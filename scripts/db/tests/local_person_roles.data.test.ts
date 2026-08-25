@@ -20,6 +20,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const LOCAL_MAYOR_ROLES = ["village_mayor", "rayon_mayor"];
 
@@ -49,6 +50,7 @@ const roleCount = async (): Promise<number> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / person layer unloaded";
+reportSkip(import.meta.url, skip);
 const nLocalMayors = haveDb ? await roleCount() : 0;
 // Skips on a DB resolved BEFORE Phase 1 (no such roles yet) — the plan's verification re-runs
 // db:resolve:persons, after which this becomes a live existence assertion.
@@ -58,6 +60,14 @@ const skipExistence =
     ? "no village/район-mayor roles yet (resolve not re-run)"
     : false);
 
+// Reported only when it differs from `skip` — the file-level call above already
+// said that one, and repeating it would read as two separate gates standing down.
+reportSkip(
+  import.meta.url,
+  skipExistence !== skip && skipExistence
+    ? `existence arm — ${skipExistence}`
+    : false,
+);
 afterAll(async () => {
   await end();
 });

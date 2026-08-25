@@ -21,6 +21,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 // The seat key, restated in SQL. It deliberately MIRRORS `localSeatKey`
 // (scripts/parsers_local/localPersonRefs.ts) rather than importing it — the point of a data
@@ -46,6 +47,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / no local person roles";
+reportSkip(import.meta.url, skip);
 
 // A person may legitimately hold two roles that share a seat AND a cycle — but only when
 // some OTHER corroborant merged them, since `sameLocalSeat` refuses any mention whose

@@ -29,6 +29,7 @@ import {
   personGuidFromSourceUrl,
 } from "../../officials/slug_identity";
 import { REGISTER_GUID_SOURCE_SQL } from "../../person/resolve_persons";
+import { reportSkip } from "../../lib/report_skip";
 
 type Row = { source_url: string; sql_guid: string | null };
 
@@ -56,6 +57,7 @@ const rows = await load();
 // empty table would otherwise sail through every assertion below as a pass.
 const skip =
   rows.length > 0 ? false : "Postgres unreachable / declarations not loaded";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

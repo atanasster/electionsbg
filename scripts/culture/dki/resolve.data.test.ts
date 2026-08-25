@@ -23,6 +23,7 @@ import { dbReachable, end } from "../../db/lib/pg";
 import { DKI_PAGES } from "./sources";
 import { parseDkiPage, type DkiEntry } from "./parse";
 import { loadBuyerCandidates, resolveEntry } from "./resolve";
+import { reportSkip } from "../../lib/report_skip";
 
 const RAW = path.resolve(__dirname, "../../../raw_data/culture/dki");
 
@@ -35,6 +36,7 @@ const skip = !haveDb
   : !haveCache
     ? "no raw_data/culture/dki cache — run `npm run culture:dki` once"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

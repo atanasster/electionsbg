@@ -30,6 +30,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 /** Populated at all? ABSENT is not EMPTY — see the header. */
@@ -46,6 +47,7 @@ const skip = !haveDb
   : !haveEmployers
     ? "declaration.filed_institution is empty — it comes from a crawl or ship_filed_position.ts, never from db:refresh"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

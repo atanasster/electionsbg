@@ -25,9 +25,11 @@ import assert from "node:assert/strict";
 import type { PoolClient } from "pg";
 import { allRows, dbReachable, end, withClient } from "../lib/pg";
 import { sumExecutionBuffers } from "../lib/explain_buffers";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

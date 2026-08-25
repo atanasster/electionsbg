@@ -34,6 +34,7 @@ import {
   setsMeritsOutcome,
   MERITS_ELIGIBLE_SQL,
 } from "../../procurement/kzk_decisions_store";
+import { reportSkip } from "../../lib/report_skip";
 
 // Gates C + D. NOT a hardcoded constant: the skill's original `>= 2098` floor
 // protected the irreplaceable rows and also passed forever — it would have stayed
@@ -68,6 +69,7 @@ const skip = !haveDb
   : !appealsLoaded
     ? "kzk_appeals is empty — run the КЗК intake crawl first"
     : false;
+reportSkip(import.meta.url, skip);
 
 // Hoisted: the same to_regclass round trip ran once per kzk_decisions-shaped test.
 // As a skipIf it also promotes "130 was never applied here" from a silent green
@@ -83,6 +85,14 @@ const hasDecisions =
 const skipDecisions =
   skip || (!hasDecisions && "kzk_decisions absent (130 not applied here)");
 
+// Reported only when it differs from `skip` — the file-level call above already
+// said that one, and repeating it would read as two separate gates standing down.
+reportSkip(
+  import.meta.url,
+  skipDecisions !== skip && skipDecisions
+    ? `decisions arm — ${skipDecisions}`
+    : false,
+);
 // `to_regclass` proves the TABLE, not the COLUMN, and MERITS_ELIGIBLE_SQL reads
 // `kind`. Gates D/E hard-fail on a kind-less corpus deliberately — they measure
 // the matcher, and measuring it over the wrong population is the defect

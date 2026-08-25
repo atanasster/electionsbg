@@ -5,6 +5,7 @@
 
 import { afterAll, describe, expect, test } from "vitest";
 import { allRows, end, dbReachable } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const built = haveDb
@@ -31,6 +32,7 @@ const skip = !haveDb
     : !populated
       ? "party_cohesion_summary is WITH NO DATA — run db:load:rollcall-derived:pg"
       : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();
@@ -159,6 +161,14 @@ describe("party_cohesion_summary", () => {
 // attendance route's party labels on any database where 181 merely had not been refreshed.
 const seatSkip = !haveDb ? "Postgres unreachable" : false;
 
+// Reported only when it differs from `skip` — the file-level call above already
+// said that one, and repeating it would read as two separate gates standing down.
+reportSkip(
+  import.meta.url,
+  seatSkip !== skip && seatSkip
+    ? `mp_seat party labelling — ${seatSkip}`
+    : false,
+);
 describe("mp_seat party labelling", () => {
   test.skipIf(seatSkip)(
     "equals each member's latest cast-time party",

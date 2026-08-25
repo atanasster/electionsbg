@@ -31,6 +31,7 @@ import { test, describe, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { isPlaceholderId } from "../../procurement/eik";
+import { reportSkip } from "../../lib/report_skip";
 
 // ⚠ THE SKIP MUST COVER `tr_companies`, NOT JUST `contracts`. Test 2 reads it, and
 // `db:load:tr:pg` is a REFRESH_EXCLUSIONS member — CLAUDE.md says the table "can be
@@ -53,6 +54,7 @@ const haveDb = await reachable();
 const skip = haveDb
   ? false
   : "Postgres unreachable / contracts or tr_companies absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

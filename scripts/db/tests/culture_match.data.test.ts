@@ -39,9 +39,11 @@ import {
   INTERREG_CULTURE_THEME_INCLUDE,
 } from "@/lib/cultureMatch";
 import { STATE_CULTURE_INSTITUTE_EIKS } from "@/lib/kulturaReferenceData";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

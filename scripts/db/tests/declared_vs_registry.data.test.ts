@@ -24,6 +24,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -40,6 +41,7 @@ const haveDb = await reachable();
 const skip = haveDb
   ? false
   : "Postgres unreachable / declaration_stake_company empty";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

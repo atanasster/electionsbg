@@ -20,6 +20,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 type Casemix = {
   eik: string;
@@ -48,6 +49,7 @@ const skip = !haveDb
   : !tariffed
     ? "nzok_pathway_tariffs is empty"
     : false;
+reportSkip(import.meta.url, skip);
 
 const all = async (): Promise<Casemix[]> =>
   (

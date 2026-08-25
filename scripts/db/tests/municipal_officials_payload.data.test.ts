@@ -29,6 +29,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 // functions/ is CommonJS and outside the SPA's module graph.
 const require_ = createRequire(import.meta.url);
@@ -65,6 +66,7 @@ const haveDb = await reachable();
 const skip = haveDb
   ? false
   : "Postgres unreachable / municipal_officials_table empty";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

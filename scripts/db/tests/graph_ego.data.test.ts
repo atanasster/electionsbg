@@ -9,6 +9,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, withClient, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 type Ego = {
   subject: {
@@ -53,6 +54,7 @@ const haveDb = await reachable();
 const skip = haveDb
   ? false
   : "Postgres unreachable / graph or person layer absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

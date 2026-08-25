@@ -36,6 +36,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, withClient, end } from "../lib/pg";
 import { sumExecutionBuffers } from "../lib/explain_buffers";
+import { reportSkip } from "../../lib/report_skip";
 
 /** The report that opened docs/plans/tr-owner-share-v1.md — the VINTAGE defect. */
 const BILYANA = "104119056";
@@ -63,6 +64,7 @@ const skip = !haveDb
   : ownerRows === 0
     ? "TR corpus not loaded (no active owner rows)"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

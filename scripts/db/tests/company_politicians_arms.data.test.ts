@@ -22,6 +22,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { MP_ARM_SQL, OFFICIAL_ARM_SQL } from "../load_tr_pg";
+import { reportSkip } from "../../lib/report_skip";
 
 type Row = {
   eik: string;
@@ -56,6 +57,7 @@ const reachable = async (): Promise<string | false> => {
 };
 
 const skip = await reachable();
+reportSkip(import.meta.url, skip);
 let rows: Row[] = [];
 let officialRows: Row[] = [];
 if (!skip) {

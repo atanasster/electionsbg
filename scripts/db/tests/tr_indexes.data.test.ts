@@ -26,6 +26,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { LOAD_INDEXES } from "../load_tr_pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 
@@ -59,6 +60,7 @@ const skip = !haveDb
   : !loaded
     ? "no TR corpus — run npm run db:load:tr:pg"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

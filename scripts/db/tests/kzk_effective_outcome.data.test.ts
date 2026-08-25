@@ -16,6 +16,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const appealsLoaded =
@@ -32,6 +33,7 @@ const skip = !haveDb
   : !appealsLoaded
     ? "kzk_appeals is empty — run the КЗК intake crawl first"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

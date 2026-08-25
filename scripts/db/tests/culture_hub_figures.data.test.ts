@@ -31,6 +31,7 @@ import {
   interregThemeSql,
 } from "@/lib/cultureMatch";
 import type { CultureHubStats } from "@/data/culture/hubStats";
+import { reportSkip } from "../../lib/report_skip";
 
 const ARTIFACT = path.resolve(
   process.cwd(),
@@ -44,6 +45,7 @@ const skip = !haveDb
   : !haveFile
     ? "data/culture/derived/hub_stats.json absent — run db:gen-culture-hub-stats"
     : false;
+reportSkip(import.meta.url, skip);
 
 const blob = (): CultureHubStats =>
   JSON.parse(readFileSync(ARTIFACT, "utf8")) as CultureHubStats;

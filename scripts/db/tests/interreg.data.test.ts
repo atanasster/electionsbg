@@ -26,6 +26,7 @@ import {
 import type { InterregIndex } from "../../funds/interreg/types";
 import { INTERREG_PROGRAMMES } from "../../funds/interreg/programmes";
 import { BUDGET_BASES, PLACE_BASES } from "../../funds/interreg/types";
+import { reportSkip } from "../../lib/report_skip";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -44,6 +45,7 @@ const floor = (n: number): number => Math.floor(n * 0.95);
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

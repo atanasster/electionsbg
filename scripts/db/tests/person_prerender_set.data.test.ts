@@ -30,6 +30,7 @@ import {
   computePersonSlugs,
   type PersonSlugEntry,
 } from "../../person/emit_prerender_slugs";
+import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -57,6 +58,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / officials_rankings empty";
+reportSkip(import.meta.url, skip);
 
 // skipIf prints a bare `↓` with no reason, so a gate that can never run here reads exactly
 // like a passing one. Name it. The continuity + cap invariants are ALSO enforced as

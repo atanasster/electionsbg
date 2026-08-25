@@ -15,6 +15,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { PROC_DIR, GOLDEN_DIR } from "../lib/paths";
 import { walkJsonFiles, canonicalObject } from "../lib/canonical";
+import { reportSkip } from "../../lib/report_skip";
 
 const verify = process.env.DB_VERIFY === "1";
 const haveGoldens = existsSync(GOLDEN_DIR);
@@ -27,6 +28,7 @@ const skip = !verify
     : !haveGoldens
       ? "no golden fixtures — run npm run db:goldens"
       : false;
+reportSkip(import.meta.url, skip);
 
 test.skipIf(skip)("live procurement files match golden fixtures", () => {
   const goldens = haveGoldens ? walkJsonFiles(GOLDEN_DIR) : [];

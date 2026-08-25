@@ -19,9 +19,11 @@ import { allRows, dbReachable, withClient, end } from "../lib/pg";
 import type { OpenCallsSnapshot } from "../../opencalls/types";
 // The PRODUCTION predicate, so a gate cannot pass against a query nothing runs.
 import { OPEN_CALLS_BY_OBSHTINA_SQL } from "../lib/opencalls_alerts";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 const REPO = path.join(
   path.dirname(fileURLToPath(import.meta.url)),

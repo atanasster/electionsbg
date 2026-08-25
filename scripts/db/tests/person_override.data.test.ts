@@ -25,6 +25,7 @@ import {
   type OvMention,
   type OGroup,
 } from "../../person/overrides";
+import { reportSkip } from "../../lib/report_skip";
 
 const SCHEMA_081 = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -48,6 +49,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / override table absent";
+reportSkip(import.meta.url, skip);
 
 beforeAll(async () => {
   if (!haveDb) return;

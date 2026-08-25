@@ -19,6 +19,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const haveLinks = haveDb
@@ -33,6 +34,7 @@ const skip = !haveDb
   : !haveLinks
     ? "declaration_employer_link is empty — filed_institution comes from a crawl, not from db:refresh"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

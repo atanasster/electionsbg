@@ -12,6 +12,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, withClient, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const rows = async <T = Record<string, unknown>>(
   sql: string,
@@ -37,6 +38,7 @@ const probe = async (): Promise<string | false> => {
 };
 
 const skip = await probe();
+reportSkip(import.meta.url, skip);
 afterAll(async () => {
   await end();
 });

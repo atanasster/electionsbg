@@ -12,9 +12,11 @@
 import { test } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 const one = async <T>(sql: string, params?: unknown[]): Promise<T> => {
   const rows = await allRows<T>(sql, params);

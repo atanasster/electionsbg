@@ -24,6 +24,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { AWARD_CRITERION_BUCKETS } from "../../../src/data/procurement/useAwardCriteria";
+import { reportSkip } from "../../lib/report_skip";
 
 type Row = {
   total: number;
@@ -63,6 +64,7 @@ const skip = !haveDb
   : !criteriaLoaded
     ? "tender corpus carries no award_method"
     : false;
+reportSkip(import.meta.url, skip);
 
 const payload = async (): Promise<Payload> =>
   (await allRows<{ r: Payload }>("SELECT procurement_award_criteria() AS r"))[0]

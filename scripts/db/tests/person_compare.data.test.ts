@@ -27,6 +27,7 @@ import {
 } from "../../person/compare_declarations";
 import { VERSUS_METRICS } from "../../posts/cardKit";
 import { propertyKind, type PropertyKind } from "../../../src/lib/propertyKind";
+import { reportSkip } from "../../lib/report_skip";
 
 /** The fixture pair the whole skill was designed against: Бойко Рашков and Иван Демерджиев.
  *  Both are MPs, so their slugs are stable `mp-*` ids rather than name-derived hashes. */
@@ -62,6 +63,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / fixture people absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

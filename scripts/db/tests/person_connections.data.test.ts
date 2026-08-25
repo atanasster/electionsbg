@@ -19,6 +19,7 @@ import assert from "node:assert/strict";
 import type { PoolClient } from "pg";
 import { allRows, withClient, end } from "../lib/pg";
 import { sumExecutionBuffers } from "../lib/explain_buffers";
+import { reportSkip } from "../../lib/report_skip";
 
 type Edge = {
   slug: string;
@@ -63,6 +64,7 @@ const haveDb = await reachable();
 const skip = haveDb
   ? false
   : "Postgres unreachable / graph or person layer absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

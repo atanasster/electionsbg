@@ -22,6 +22,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { BRIDGE_B_CTE, FOOTPRINT_CAP } from "../../person/bridgeB";
+import { reportSkip } from "../../lib/report_skip";
 
 // Gated on Postgres being REACHABLE, not on migration 103 having been applied. Folding
 // "table missing" into the skip — the obvious shape — makes a never-applied migration
@@ -38,6 +39,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / person layer empty";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

@@ -20,6 +20,7 @@ import assert from "node:assert/strict";
 import type { PoolClient } from "pg";
 import { allRows, withClient, end } from "../lib/pg";
 import { sumExecutionBuffers } from "../lib/explain_buffers";
+import { reportSkip } from "../../lib/report_skip";
 
 const byName = (name: string): Promise<{ slug?: string } | null> =>
   allRows<{ r: { slug?: string } | null }>("SELECT person_by_name($1) AS r", [
@@ -43,6 +44,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / person layer empty";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

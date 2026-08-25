@@ -22,14 +22,20 @@
 import { test } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
-const skip =
-  !(await dbReachable()) ||
-  (await allRows(`SELECT 1 FROM council_resolution LIMIT 1`).catch(
-    () => null,
-  )) === null ||
-  (await allRows(`SELECT 1 FROM myarea_alerts LIMIT 1`).catch(() => null)) ===
-    null;
+const skip = !(await dbReachable())
+  ? "Postgres unreachable"
+  : (await allRows(`SELECT 1 FROM council_resolution LIMIT 1`).catch(
+        () => null,
+      )) === null
+    ? "council_resolution is absent — run db:load:council:pg"
+    : (await allRows(`SELECT 1 FROM myarea_alerts LIMIT 1`).catch(
+          () => null,
+        )) === null
+      ? "myarea_alerts is absent — run npm run myarea:alerts"
+      : false;
+reportSkip(import.meta.url, skip);
 
 type AlertEvent = {
   kind?: string;

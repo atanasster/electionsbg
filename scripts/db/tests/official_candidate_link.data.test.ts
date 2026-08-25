@@ -14,6 +14,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 // Gated on the table EXISTING, not on rows (a silently-empty load must FAIL, not skip green).
 const reachable = async (): Promise<boolean> => {
@@ -29,6 +30,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / table absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

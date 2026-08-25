@@ -42,6 +42,7 @@ import {
   isDeclaredHolding,
 } from "../../../src/lib/declarations";
 import { isCarDescription } from "../../declarations/build_car_makes";
+import { reportSkip } from "../../lib/report_skip";
 
 const require_ = createRequire(import.meta.url);
 const { DB_ROUTES } = require_("../../../functions/db_routes.js") as {
@@ -78,6 +79,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / mp_assets_rankings empty";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

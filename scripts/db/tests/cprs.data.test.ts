@@ -8,6 +8,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const [{ n } = { n: "0" }] = haveDb
@@ -20,6 +21,7 @@ const skip = !haveDb
   : n === "0"
     ? "cprs_licence is empty — run npm run db:load:cprs:pg"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

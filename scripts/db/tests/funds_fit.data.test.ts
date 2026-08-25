@@ -37,9 +37,11 @@ import { sumExecutionBuffers } from "../lib/explain_buffers";
 // The canonical oblast namespace, imported rather than re-typed — the whole point of the gate
 // below is that the two namespaces must not drift.
 import { OBLAST_NAME } from "../../../src/lib/regionalOblast";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();

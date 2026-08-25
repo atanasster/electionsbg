@@ -20,6 +20,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, withClient, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -36,6 +37,7 @@ const reachable = await allRows("SELECT 1")
   .then(() => true)
   .catch(() => false);
 const skip = reachable ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

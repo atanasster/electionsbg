@@ -27,6 +27,7 @@ import type { PoolClient } from "pg";
 import { allRows, withClient, end } from "../lib/pg";
 import { sumExecutionBuffers } from "../lib/explain_buffers";
 import { LOCAL_ROLE_LABEL } from "../../../ai/tools/officeLabel";
+import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -43,6 +44,7 @@ const reachable = await allRows("SELECT 1")
   .then(() => true)
   .catch(() => false);
 const skip = reachable ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

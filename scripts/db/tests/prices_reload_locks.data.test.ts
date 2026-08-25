@@ -37,13 +37,15 @@ import {
   mergeFromStage,
   type StageMergeSpec,
 } from "../lib/stage_merge";
+import { reportSkip } from "../../lib/report_skip";
 
 afterAll(async () => {
   await end();
 });
 
 const haveDb = await dbReachable();
-const skip = !haveDb;
+const skip = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 // Locks that block a plain SELECT (AccessShareLock). ShareUpdateExclusive and
 // below do not; AccessExclusive is the one TRUNCATE/DROP/plain-REFRESH take.

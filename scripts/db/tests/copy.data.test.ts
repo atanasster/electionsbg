@@ -16,6 +16,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end, withClient } from "../lib/pg";
 import { copyRows } from "../lib/copy";
+import { reportSkip } from "../../lib/report_skip";
 
 // Needs a live Postgres (`npm run db:pg:up`); auto-skips when it is unreachable,
 // exactly like the other *.data.test.ts files. Only temp tables are touched, so
@@ -30,6 +31,7 @@ const reachable = async (): Promise<boolean> => {
 };
 
 const skip = (await reachable()) ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

@@ -46,9 +46,11 @@ import {
   VERIFY_PRINCIPAL_EIKS,
   DKI_CONFIRMED_INSTITUTES,
 } from "@/lib/kulturaReferenceData";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

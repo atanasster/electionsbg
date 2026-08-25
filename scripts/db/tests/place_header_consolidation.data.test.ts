@@ -23,6 +23,7 @@ import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -78,6 +79,7 @@ const ok = await reachable();
 const skip = ok
   ? false
   : "Postgres unreachable / place_dim (117) or awarder_seats corpus not loaded";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

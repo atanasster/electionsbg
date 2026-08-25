@@ -20,6 +20,7 @@ import { allRows, end } from "../lib/pg";
 import { rowToContract } from "../lib/procurement_schema";
 import { canonicalObject } from "../lib/canonical";
 import type { Contract } from "../../procurement/types";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveData = existsSync(path.join(PROC_DIR, "index.json"));
 const probe = async (): Promise<string | false> => {
@@ -40,6 +41,7 @@ const probe = async (): Promise<string | false> => {
 };
 
 const skip = await probe();
+reportSkip(import.meta.url, skip);
 afterAll(async () => {
   await end();
 });

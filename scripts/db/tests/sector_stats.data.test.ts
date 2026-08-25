@@ -190,6 +190,7 @@ import {
   parliamentWindow,
   type ElectionRef,
 } from "@/data/scope/windows";
+import { reportSkip } from "../../lib/report_skip";
 
 // Anchor to the module, not the cwd, so a read failure can't escape the PG-skip.
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
@@ -210,6 +211,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / contracts table absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

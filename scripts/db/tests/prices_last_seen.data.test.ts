@@ -23,6 +23,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end, withClient } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 
@@ -56,6 +57,7 @@ const skip = !haveDb
     : loadedDays === 0
       ? "no day loaded"
       : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();

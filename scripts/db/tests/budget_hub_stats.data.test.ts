@@ -11,6 +11,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { loadBudgetCorpus, measureHubLedger } from "../../budget/hub_ledger";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const applied = haveDb
@@ -28,6 +29,7 @@ const skip = !haveDb
   : !applied
     ? "156 not applied here — run npm run db:load:budget-hub:pg"
     : false;
+reportSkip(import.meta.url, skip);
 
 // APPLIED is not LOADED: the state corpus's filler is in REFRESH_EXCLUSIONS, so
 // a fresh clone has the matview with zero rows and no defect at all.
@@ -43,6 +45,12 @@ const stateSkip =
     ? "the cache is empty — db:load:budget:pg is in REFRESH_EXCLUSIONS"
     : false);
 
+// Reported only when it differs from `skip` — the file-level call above already
+// said that one, and repeating it would read as two separate gates standing down.
+reportSkip(
+  import.meta.url,
+  stateSkip !== skip && stateSkip ? `state-corpus arm — ${stateSkip}` : false,
+);
 afterAll(async () => {
   await end();
 });

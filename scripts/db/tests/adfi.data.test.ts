@@ -7,6 +7,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { adfiNameFold } from "../../procurement/adfi/parse";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const [{ n } = { n: "0" }] = haveDb
@@ -19,6 +20,7 @@ const skip = !haveDb
   : n === "0"
     ? "adfi_inspection is empty — run npm run db:load:adfi:pg"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

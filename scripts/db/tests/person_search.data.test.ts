@@ -23,6 +23,7 @@ import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end, pinLocalDatabase } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 pinLocalDatabase();
 
@@ -50,6 +51,7 @@ const state = async (): Promise<"ok" | "no-server" | "missing" | "empty"> => {
 
 const dbState = await state();
 const skip = dbState === "no-server" ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 const count = async (sql: string, params: unknown[] = []): Promise<number> => {
   const [r] = await allRows<{ n: string }>(sql, params);

@@ -25,6 +25,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import fxTable from "../../../data/declarations/fx_year_end.json";
+import { reportSkip } from "../../lib/report_skip";
 
 const RATES = fxTable as Record<string, Record<string, number>>;
 
@@ -94,6 +95,7 @@ const skip = !haveDb
   : !haveBasis
     ? "declaration_asset.value_basis is entirely NULL — run scripts/declarations/backfill_asset_fx.ts --apply, then reload"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

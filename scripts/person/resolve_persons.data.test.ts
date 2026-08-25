@@ -22,6 +22,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, end } from "../db/lib/pg";
 import { PERSON_GUID_SQL_PATTERN } from "../officials/slug_identity";
+import { reportSkip } from "../lib/report_skip";
 
 // The register stamps MOST filings `<person GUID><filing sequence>.xml` — but not all, and
 // the difference is the whole point of importing this rather than restating it. In the
@@ -46,6 +47,7 @@ const reachable = async (): Promise<boolean> => {
 const skip = (await reachable())
   ? false
   : "Postgres unreachable / declarations not resolved";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

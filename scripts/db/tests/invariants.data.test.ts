@@ -21,12 +21,14 @@ import {
   centsEqual,
 } from "../lib/contracts_aggregate";
 import { canonicalObject } from "../lib/canonical";
+import { reportSkip } from "../../lib/report_skip";
 
 const indexPath = path.join(PROC_DIR, "index.json");
 // index.json is committed but the month shards are gitignored, so a plain CI
 // checkout has the index and no corpus — both must be present to aggregate.
 const haveData = existsSync(indexPath) && existsSync(CONTRACT_SHARD_DIR);
 const skip = haveData ? false : "no procurement data on disk";
+reportSkip(import.meta.url, skip);
 
 interface IndexTotals {
   contracts: number;

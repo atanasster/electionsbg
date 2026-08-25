@@ -35,6 +35,7 @@ import {
   COUNCIL_VOTING_ROLES,
   VOTE_LABEL_SOURCE,
 } from "../../council/lib/tally";
+import { reportSkip } from "../../lib/report_skip";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const COUNCIL_DIR = resolve(__dirname, "../../../data/council");
@@ -42,6 +43,7 @@ const ROLES = [...COUNCIL_VOTING_ROLES];
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

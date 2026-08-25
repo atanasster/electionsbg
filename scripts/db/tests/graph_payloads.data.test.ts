@@ -8,6 +8,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end, pinLocalDatabase } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 pinLocalDatabase();
 
@@ -47,7 +48,11 @@ const load = async (): Promise<Blob | null> => {
 };
 
 const blob = await load();
-const skip = blob === null;
+const skip =
+  blob === null
+    ? "Postgres unreachable, or graph_payloads holds no 'global' scope — run db:load:graph:pg"
+    : false;
+reportSkip(import.meta.url, skip);
 
 const count = async (sql: string, params?: unknown[]): Promise<number> => {
   const [r] = await allRows<{ n: string }>(sql, params);

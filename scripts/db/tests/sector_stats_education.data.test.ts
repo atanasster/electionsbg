@@ -50,6 +50,7 @@ import {
   EDU_BUDGET_NODE,
 } from "@/lib/educationReferenceData";
 import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
+import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 const readJson = <T>(rel: string): T =>
@@ -70,6 +71,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / contracts table absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

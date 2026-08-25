@@ -19,6 +19,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end, getPool } from "../lib/pg";
 import type { PoolClient } from "pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -31,6 +32,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / person layer empty";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

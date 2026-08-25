@@ -41,19 +41,32 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { MP_ARM_SQL, MP_ARM_ALL_SQL } from "../load_tr_pg";
+import { reportSkip } from "../../lib/report_skip";
 
-const reachable = async (): Promise<boolean> => {
+// ⚠️ TRI-STATE, and collapsing it is the defect this file is ABOUT. The header above
+// records that the bug it was written for ran red for two days while being reported as
+// "Postgres unreachable" — the one warning an operator is trained to ignore. A probe
+// returning a bare boolean makes the skip say exactly that for the OTHER branch too,
+// where the server is fine and the person layer has simply never been resolved.
+const state = async (): Promise<"ok" | "no-server" | "no-mp-roles"> => {
   try {
     const [c] = await allRows<{ n: string }>(
       "SELECT count(*) n FROM person_role WHERE source = 'mp'",
     );
-    return Number(c.n) > 0;
+    return Number(c.n) > 0 ? "ok" : "no-mp-roles";
   } catch {
-    return false;
+    return "no-server";
   }
 };
 
-const skip = !(await reachable());
+const dbState = await state();
+const skip =
+  dbState === "no-server"
+    ? "Postgres unreachable"
+    : dbState === "no-mp-roles"
+      ? "person_role holds no source='mp' rows — run npm run db:resolve:persons"
+      : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

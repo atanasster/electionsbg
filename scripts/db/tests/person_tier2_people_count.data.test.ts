@@ -34,6 +34,7 @@ import { describe, it, expect, afterAll } from "vitest";
 import { allRows, end } from "../lib/pg";
 import { PERSON_GUID_SQL_PATTERN } from "../../officials/slug_identity";
 import { OFFICIAL_DECLARATION_SOURCES } from "../../../src/lib/officialSources";
+import { reportSkip } from "../../lib/report_skip";
 
 // The officials half of Tier 2b's counted sources, read from the one set that already
 // answers "whose ref is a declaration slug" — so a new dedicated source (the way
@@ -78,6 +79,7 @@ const probe = async (): Promise<boolean> => {
 const skip = (await probe())
   ? false
   : "Postgres unreachable / declarations not loaded+resolved";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

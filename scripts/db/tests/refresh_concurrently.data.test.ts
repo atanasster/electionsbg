@@ -20,11 +20,13 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, exec, end, refreshMatviewConcurrently } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const reachable = await allRows<{ ok: number }>("SELECT 1 AS ok")
   .then(() => true)
   .catch(() => false);
 const skip = reachable ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await exec("DROP MATERIALIZED VIEW IF EXISTS rmc_probe").catch(() => {});

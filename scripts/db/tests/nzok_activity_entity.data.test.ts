@@ -23,6 +23,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 // Mirrors ENTITY_CHURN_CEILING in ../load_nzok_activities_pg.ts — the loader
 // throws above it; this locks the loaded corpus to the same bound so a hand-run
@@ -47,6 +48,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / nzok_activities empty";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

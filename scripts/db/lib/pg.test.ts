@@ -27,6 +27,7 @@ import {
   visibilityMapShort,
   withClient,
 } from "./pg";
+import { reportSkip } from "../../lib/report_skip";
 
 describe("visibilityMapShort", () => {
   // Every number here was measured on the local corpus (2026-08-11), so a future
@@ -83,6 +84,7 @@ describe("vacuumRepairSql", () => {
 
 const haveDb = await dbReachable();
 const skip = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();

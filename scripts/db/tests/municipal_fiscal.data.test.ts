@@ -31,10 +31,12 @@ import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, dbReachable, end, withTx } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

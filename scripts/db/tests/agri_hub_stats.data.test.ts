@@ -14,6 +14,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 // ../../.. — this file is scripts/db/tests/, so two levels up is `scripts/`, not the
 // repo root. The sector_stats read below is relative to this, and got it wrong once.
@@ -51,6 +52,7 @@ const skip = !haveDb
     : !corpusLoaded
       ? "agri corpus not loaded"
       : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();

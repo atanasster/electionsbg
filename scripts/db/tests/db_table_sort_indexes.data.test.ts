@@ -86,6 +86,7 @@ import assert from "node:assert/strict";
 import { allRows, withTx, dbReachable, end } from "../lib/pg";
 import { createRequire } from "node:module";
 import path from "node:path";
+import { reportSkip } from "../../lib/report_skip";
 
 // The SERVING registry and the SERVING order builder, read rather than restated.
 // `functions/` is a separate CJS package, so a plain import will not do.
@@ -185,6 +186,7 @@ const PLAN_EXCEPTIONS: Record<string, string> = {
 };
 
 const skip = (await dbReachable()) ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

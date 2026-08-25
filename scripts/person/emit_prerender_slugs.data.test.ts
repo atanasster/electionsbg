@@ -14,6 +14,7 @@ import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end, isServingDatabase } from "../db/lib/pg";
+import { reportSkip } from "../lib/report_skip";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -38,6 +39,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / person table empty";
+reportSkip(import.meta.url, skip);
 
 // vitest's skipIf prints a bare `↓` with no reason, so a permanently-skipped gate reads
 // exactly like a passing one. Say it out loud instead — see emit_prerender_slugs.ts for why

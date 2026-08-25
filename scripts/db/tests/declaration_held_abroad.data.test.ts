@@ -30,6 +30,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { classifyHeldPlace } from "../../declarations/held_abroad";
+import { reportSkip } from "../../lib/report_skip";
 
 const n = (v: unknown): number => Number(v ?? 0);
 
@@ -67,6 +68,7 @@ const skip = !haveDb
   : !haveProvenance
     ? "declaration_asset.held_scope is entirely NULL — run scripts/declarations/backfill_asset_held_abroad.ts --apply, then db:load:declarations:pg"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

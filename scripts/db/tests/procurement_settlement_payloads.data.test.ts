@@ -20,6 +20,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { SCOPED_MATVIEWS } from "../lib/scopedMatviews";
+import { reportSkip } from "../../lib/report_skip";
 
 // SKIP ON THE SOURCE, NEVER ON THE TARGET. Probing procurement_settlement_payloads to
 // decide whether to run would make this gate skip green in the three states it exists to
@@ -45,6 +46,7 @@ const skip = !haveDb
   : !corpusLoaded
     ? "no contracts / scopes / awarder_seats loaded"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

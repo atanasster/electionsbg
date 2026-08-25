@@ -45,6 +45,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { allRows, withClient, dbReachable, end } from "../lib/pg";
 import { REPO_ROOT } from "../lib/paths";
+import { reportSkip } from "../../lib/report_skip";
 
 const SCHEMA_077 = path.join(
   REPO_ROOT,
@@ -70,6 +71,7 @@ const skip = !haveDb
   : !(await present("dual_corpus_rankings_cache"))
     ? "dual_corpus_rankings_cache absent — run npm run db:load:pg"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

@@ -12,6 +12,7 @@ import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, end, dbReachable } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -23,6 +24,7 @@ const SHARD_DIR = path.join(REPO, "data/myarea/place_tenders");
 
 const haveDb = await dbReachable();
 const skip = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();

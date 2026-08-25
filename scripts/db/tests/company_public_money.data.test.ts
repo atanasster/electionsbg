@@ -13,6 +13,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end, pinLocalDatabase } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 pinLocalDatabase();
 
@@ -32,7 +33,13 @@ const state = async (): Promise<"ok" | "no-server" | "missing" | "empty"> => {
 };
 
 const dbState = await state();
-const skip = dbState === "no-server" || dbState === "missing" ? true : false;
+const skip =
+  dbState === "no-server"
+    ? "Postgres unreachable"
+    : dbState === "missing"
+      ? "company_public_money is absent — run db:load:graph:pg (127's only applier)"
+      : false;
+reportSkip(import.meta.url, skip);
 
 const count = async (sql: string, params: unknown[] = []): Promise<number> => {
   const [r] = await allRows<{ n: string }>(sql, params);

@@ -18,6 +18,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 // The route's fold + matched CTE, verbatim, exposed as a reusable prefix so each assertion
 // queries the same resolution the route serves.
@@ -55,6 +56,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / matview absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

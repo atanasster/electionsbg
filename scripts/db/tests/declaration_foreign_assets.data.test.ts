@@ -27,6 +27,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { isDeclaredHolding } from "../../../src/lib/declarations";
+import { reportSkip } from "../../lib/report_skip";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -62,6 +63,7 @@ const skip = !haveDb
   : !haveProvenance
     ? "declaration_asset.table_num is entirely NULL — run scripts/declarations/backfill_asset_table_num.ts --apply, then reload"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

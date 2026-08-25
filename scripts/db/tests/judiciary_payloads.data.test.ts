@@ -19,6 +19,7 @@ import { createRequire } from "node:module";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const require = createRequire(import.meta.url);
 const { DB_ROUTES } = require("../../../functions/db_routes.js") as {
@@ -56,6 +57,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / judiciary_payloads empty";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

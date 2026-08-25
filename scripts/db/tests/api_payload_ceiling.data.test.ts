@@ -32,6 +32,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const require_ = createRequire(import.meta.url);
 const { DB_ROUTES } = require_("../../../functions/db_routes.js") as {
@@ -107,6 +108,7 @@ const skip = !haveDb
   : !corpusLoaded
     ? "contracts corpus empty — every ceiling would pass vacuously"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

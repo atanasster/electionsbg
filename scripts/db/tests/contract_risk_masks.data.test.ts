@@ -29,6 +29,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 // Skip ONLY for "there is no database" or "the corpus was never loaded". A
 // reachable database that HAS contracts but is missing contracts_list is a broken
@@ -49,6 +50,7 @@ const skip = !haveDb
   : !corpusLoaded
     ? "contracts corpus empty"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

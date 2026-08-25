@@ -33,6 +33,7 @@ import {
 } from "../../procurement/build_project_members";
 import { computeCorpusEurPerKm } from "@/data/procurement/projectRoadBenchmark";
 import { usesCorpusTotal } from "@/data/procurement/projectFile";
+import { reportSkip } from "../../lib/report_skip";
 
 // The real /api/db/table engine — driven directly to prove the globalFtsOnly
 // seed flag at the corpus level (see the trigram-pollution audit).
@@ -72,6 +73,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / contracts table absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

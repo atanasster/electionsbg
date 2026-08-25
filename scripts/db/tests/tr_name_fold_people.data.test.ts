@@ -14,6 +14,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const one = async <T extends Record<string, unknown>>(
   sql: string,
@@ -23,6 +24,7 @@ const reachable = await allRows("SELECT 1")
   .then(() => true)
   .catch(() => false);
 const skip = reachable ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

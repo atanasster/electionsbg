@@ -20,6 +20,7 @@ import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, dbReachable, end, withTx } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 
@@ -50,6 +51,7 @@ const skip = !haveDb
   : !applied
     ? "155 not applied here — run npm run db:load:budget-muni:pg"
     : false;
+reportSkip(import.meta.url, skip);
 
 /**
  * APPLIED is not LOADED, and T3 is the change that decoupled them.
@@ -79,6 +81,12 @@ const stateSkip =
       "REFRESH_EXCLUSIONS, so a fresh clone has the tables and no rows"
     : false);
 
+// Reported only when it differs from `skip` — the file-level call above already
+// said that one, and repeating it would read as two separate gates standing down.
+reportSkip(
+  import.meta.url,
+  stateSkip !== skip && stateSkip ? `state-corpus arm — ${stateSkip}` : false,
+);
 afterAll(async () => {
   await end();
 });

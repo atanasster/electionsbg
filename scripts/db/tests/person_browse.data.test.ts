@@ -33,6 +33,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end, pinLocalDatabase } from "../lib/pg";
 import { OFFICIAL_DECLARATION_SOURCES } from "@/lib/officialSources";
+import { reportSkip } from "../../lib/report_skip";
 
 // Test 11 REFRESHes the matview, so this file must never run against a Cloud SQL proxy URL
 // left in the shell by db:dump:cloud — lib/pg.ts documents that as a real recurring state.
@@ -66,6 +67,7 @@ const state = async (): Promise<"ok" | "no-server" | "missing" | "empty"> => {
 
 const dbState = await state();
 const skip = dbState === "no-server" ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 // Not skipped, and deliberately outside the skipIf guard above: if Postgres is up and the
 // matview is absent or empty, that is the FINDING, not a reason to stand down.

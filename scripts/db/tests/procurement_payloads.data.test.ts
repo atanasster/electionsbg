@@ -17,6 +17,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, withClient, end } from "../lib/pg";
 import { SCOPED_MATVIEWS, SCOPED_INPUTS } from "../lib/scopedMatviews";
+import { reportSkip } from "../../lib/report_skip";
 
 // The six aggregates 124 unnests, and the kind each is stored under.
 const KINDS = {
@@ -53,6 +54,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / procurement_scopes empty";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

@@ -23,6 +23,7 @@ import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const SHARD_DIR = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -46,6 +47,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / official_roster empty";
+reportSkip(import.meta.url, skip);
 const haveShards = existsSync(SHARD_DIR);
 
 afterAll(async () => {

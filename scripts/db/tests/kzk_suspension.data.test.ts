@@ -31,6 +31,7 @@ import {
   withClient,
   end,
 } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 // Deliberately NOT `.catch(() => 0)`: swallowing a real error here would turn a
@@ -46,6 +47,7 @@ const skip = !haveDb
   : appealCount === 0
     ? "kzk_appeals is empty — run the КЗК intake crawl first"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

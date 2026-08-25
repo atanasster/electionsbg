@@ -9,6 +9,7 @@
 
 import { afterAll, describe, expect, test } from "vitest";
 import { allRows, end, dbReachable } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const populated =
@@ -25,6 +26,7 @@ const skip = !haveDb
   : !populated
     ? "myarea_alerts is absent or empty — run scripts/myarea/build_alerts.ts"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();

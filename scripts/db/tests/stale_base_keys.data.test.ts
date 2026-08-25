@@ -61,6 +61,7 @@ import {
   type StaleAnalysis,
 } from "../../procurement/stale_base_keys";
 import type { Contract, ContractTag } from "../../procurement/types";
+import { reportSkip } from "../../lib/report_skip";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -76,6 +77,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / contracts table absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

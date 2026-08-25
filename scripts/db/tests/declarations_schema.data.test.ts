@@ -15,6 +15,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 // The two unions the columns mirror, transcribed from src/data/dataTypes.ts.
 // Kept here as literals on purpose: if someone edits the union, this list must
@@ -61,6 +62,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / 089 not migrated";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

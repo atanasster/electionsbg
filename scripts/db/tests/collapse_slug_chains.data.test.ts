@@ -19,6 +19,7 @@ import { test, afterAll, beforeEach } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, exec, end } from "../lib/pg";
 import { collapseSlugRedirectChains } from "../../person/collapse_slug_chains";
+import { reportSkip } from "../../lib/report_skip";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -33,6 +34,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 // A real servable person and a real unservable one, so the fixtures exercise the
 // actual §6 predicate rather than a stand-in.

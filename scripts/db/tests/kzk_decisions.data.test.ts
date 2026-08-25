@@ -28,9 +28,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, dbReachable, withClient, end } from "../lib/pg";
 import { ACT_NO_RE } from "../../procurement/kzk_decisions_store";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
@@ -149,10 +151,13 @@ const anchorSkip = skip
       : false;
 
 // ⚠️ `test.skipIf(reason)` NEVER RENDERS THE STRING — vitest prints a bare `↓`,
-// so a disarmed gate is visually identical to a passing one. Say it out loud, the
-// way person_prerender_set.data.test.ts does for the same reason.
-if (anchorSkip && anchorSkip !== skip)
-  console.warn(`[kzk_decisions.data.test] GATE A ${anchorSkip}`);
+// so a disarmed gate is visually identical to a passing one. Say it out loud —
+// through reportSkip, NOT console.warn, which the default reporter intercepts and
+// drops whenever stdout is piped (i.e. exactly in CI).
+reportSkip(
+  import.meta.url,
+  anchorSkip !== skip && anchorSkip ? `GATE A — ${anchorSkip}` : false,
+);
 
 test.skipIf(anchorSkip)(
   "Gate A — the register's newest act is in our corpus",

@@ -34,6 +34,7 @@ import {
   measureHubLedger,
   ledgerYears,
 } from "../../budget/hub_ledger";
+import { reportSkip } from "../../lib/report_skip";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, "../../..");
@@ -76,6 +77,7 @@ const skip = !haveDb
     ? "152/153 not applied here — a complete db:refresh applies them via " +
       "db:load:budget-muni:pg, so this means a partial or hand-built database"
     : false;
+reportSkip(import.meta.url, skip);
 
 /**
  * APPLIED is not LOADED, and T3 is the change that decoupled them.
@@ -100,6 +102,12 @@ const stateSkip =
       "a fresh clone has the tables (applied by db:load:budget-muni:pg) and no rows"
     : false);
 
+// Reported only when it differs from `skip` — the file-level call above already
+// said that one, and repeating it would read as two separate gates standing down.
+reportSkip(
+  import.meta.url,
+  stateSkip !== skip && stateSkip ? `state-corpus arm — ${stateSkip}` : false,
+);
 /** The gitignored half. Absent on CI and on a fresh clone, by design. */
 const haveShards = existsSync(resolve(REPO, "data/budget/reconciliation"));
 const shardSkip =
@@ -110,6 +118,12 @@ const shardSkip =
       "`npm run data -- --all` to regenerate it."
     : false);
 
+// Reported only when it differs from `skip` — the file-level call above already
+// said that one, and repeating it would read as two separate gates standing down.
+reportSkip(
+  import.meta.url,
+  shardSkip !== skip && shardSkip ? `shard-parity arm — ${shardSkip}` : false,
+);
 afterAll(async () => {
   await end();
 });

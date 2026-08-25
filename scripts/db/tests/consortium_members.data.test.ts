@@ -28,6 +28,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const UNP = "00042-2024-0005";
 const AWARD_EUR = 451_500_000;
@@ -46,6 +47,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / contracts table absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

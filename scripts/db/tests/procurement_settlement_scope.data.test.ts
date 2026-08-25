@@ -23,6 +23,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const contractsLoaded =
@@ -39,6 +40,7 @@ const skip = !haveDb
   : !contractsLoaded
     ? "awarder_seats has no local-tier geo rows"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

@@ -41,6 +41,7 @@ import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { allRows, dbReachable, end, withClient } from "../lib/pg";
 import { sumExecutionBuffers } from "../lib/explain_buffers";
+import { reportSkip } from "../../lib/report_skip";
 
 const require_ = createRequire(import.meta.url);
 const { runDbTable, SEARCH_MIN_CHARS } = require_(
@@ -81,6 +82,11 @@ else
   } catch (e) {
     skip = `contractor_rank is unreadable (${(e as Error).message}) — apply migration 122`;
   }
+// ⚠️ AFTER the block above, not beside the declaration. `skip` is filled in
+// imperatively here rather than by a ternary, so reporting it at the `let` reads the
+// initialiser — always `false` — and this gate, which has the richest three-state
+// reason in the suite, would print nothing in any state.
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

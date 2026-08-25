@@ -14,6 +14,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { PROC_DIR, MANIFEST_FILE } from "../lib/paths";
 import { computeManifest, type ProcurementManifest } from "../manifest";
+import { reportSkip } from "../../lib/report_skip";
 
 const verify = process.env.DB_VERIFY === "1";
 const haveData = existsSync(path.join(PROC_DIR, "index.json"));
@@ -26,6 +27,7 @@ const skip = !verify
     : !haveBaseline
       ? "no committed manifest — run npm run db:manifest"
       : false;
+reportSkip(import.meta.url, skip);
 
 test.skipIf(skip)("live corpus matches the committed manifest", () => {
   const baseline = JSON.parse(

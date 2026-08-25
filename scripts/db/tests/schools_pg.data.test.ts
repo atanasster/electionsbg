@@ -17,6 +17,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, end } from "../lib/pg";
 import { MIN_RANK_COHORT } from "../lib/school_stats";
+import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -69,6 +70,7 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / schools table absent";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
