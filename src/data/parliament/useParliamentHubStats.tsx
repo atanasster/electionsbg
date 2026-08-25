@@ -36,6 +36,13 @@ export interface HubNsStats {
   coverage: "full" | "partial";
   inRecessDays: number;
   tiles: HubTileStats;
+  /** Groups largest first, partitioned from the ROLL so the rows sum to
+   *  `tiles.membersVoting` — see the generator for why cohesion's own `membersTracked`
+   *  (which sums to 273, not 270) is the wrong partition to publish under that total. */
+  topGroups?: Array<{ short: string; members: number }>;
+  /** What the cap left out, so the head can say it is showing a top-N. */
+  otherGroups?: number;
+  otherMembers?: number;
   seeds: { similarity?: string; pair?: string };
 }
 

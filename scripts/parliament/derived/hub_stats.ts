@@ -72,6 +72,20 @@ export interface HubNsStats {
    *  reader's today; this is here so a prerendered body can state it. */
   inRecessDays: number;
   tiles: HubTileStats;
+  /** The largest parliamentary groups — the head's ranked list. Capped at RANKED_GROUP_CAP.
+   *
+   *  ⚠ PARTITIONED FROM THE ROLL, NOT FROM COHESION, and the two disagree. `cohesion.json`
+   *  carries `membersTracked`, its own population (party-at-time, per item), which sums to 273
+   *  on the 52nd; this counts attendance entries by last-seen party, the same population as
+   *  `tiles.membersVoting` (270). The head prints that figure directly above the list, so the
+   *  rows must come from the same count or the page shows a total its own breakdown argues
+   *  with. Measured 2026-08-25: ГЕРБ - СДС is 43 here and 41 there, ДБ 28 against 33. */
+  topGroups: Array<{ short: string; members: number }>;
+  /** How many real groups the cap left out, and how many members they hold — so the head can
+   *  SAY it is showing a top-N. The cut hides a group in eight of nine parliaments, and on
+   *  the 51st it hides 95 of 309 members. */
+  otherGroups: number;
+  otherMembers: number;
   seeds: { similarity?: string; pair?: string };
 }
 
@@ -262,6 +276,74 @@ const spanOf = (sessions: SessionFile[]): { from: string; to: string } => {
   return { from: dates[0], to: dates[dates.length - 1] };
 };
 
+/** The largest groups, counted off the ROLL.
+ *
+ *  One entry per MP, keyed by the party the attendance pass last saw them under — the same
+ *  population as `tiles.membersVoting`, so a row is always a subset of the figure the head
+ *  prints above the list. Not EQUAL to it: the cap means four of the nine parliaments have
+ *  groups below the cut, which is what the „всички групи" link exists for.
+ *
+ *  ⚠ THE CAP IS 5 BECAUSE THE BUDGET SAYS SO, and the numbers are worth writing down since
+ *  the obvious instinct is to carry all of them: measured 2026-08-25 the file is 6 256 BYTES
+ *  with no list, 10 001 at five, 10 685 at six and 11 360 at eight (UTF-8 bytes, not
+ *  characters — Cyrillic group names make the two differ by ~35, and an earlier draft of this
+ *  comment quoted the character counts). „Carry them all" is therefore past the budget on a
+ *  blob that exists because the page it feeds used to pull 1.65 MB, and the head draws five
+ *  rows either way.
+ *
+ *  An MP who changed group is counted once, under their last one. That is a real limitation —
+ *  it is not a seat count and must never be captioned as one — and it is the only partition
+ *  this artifact supports without re-reading every session file.
+ */
+export const RANKED_GROUP_CAP = 5;
+
+export const rankGroupsByRoll = (
+  entries: Array<{ partyShort: string }>,
+): {
+  top: Array<{ short: string; members: number }>;
+  otherGroups: number;
+  otherMembers: number;
+} => {
+  const byParty = new Map<string, number>();
+  for (const e of entries) {
+    const short = e.partyShort?.trim();
+    if (!short) continue;
+    // ⚠ THE SAME FILTER `realGroups` APPLIES THIRTY LINES ABOVE. „НЕЗ" and „НЕЧЛ В ПГ" are
+    // the register's buckets for members belonging to NO group, and this file already
+    // documents them twice as not groups. Publishing them under a heading reading
+    // „Парламентарни групи" made „НЕЧЛ В ПГ" the 50th's third-largest (40 members) and „НЕЗ"
+    // the 44th's fifth (19) — each displacing a real group — and `/parliament/cohesion`, the
+    // list's own see-all, filters them out in SQL, so the link led to a page that omits
+    // exactly the rows the reader clicked.
+    if (NON_GROUP.test(short)) continue;
+    byParty.set(short, (byParty.get(short) ?? 0) + 1);
+  }
+  const all = [...byParty.entries()]
+    .map(([short, members]) => ({ short, members }))
+    // Ties broken by NAME, never left to Map insertion order: an unstable rank would make
+    // two runs of the generator produce different committed bytes for the same corpus.
+    .sort((a, b) => b.members - a.members || a.short.localeCompare(b.short));
+  const rest = all.slice(RANKED_GROUP_CAP);
+  // NOT A SILENT CAP. Measured 2026-08-25 the cut hides at least one real group in eight of
+  // the nine parliaments, and on the 51st the five shown hold 214 of 309 members — 69% of a
+  // figure the head prints directly above the list. Two integers cost ~20 bytes per NS and
+  // let the page say „и още N групи" rather than dropping them without saying so.
+  return {
+    top: all.slice(0, RANKED_GROUP_CAP),
+    otherGroups: rest.length,
+    otherMembers: rest.reduce((n, g) => n + g.members, 0),
+  };
+};
+
+const groupRanking = (entries: Array<{ partyShort: string }>) => {
+  const r = rankGroupsByRoll(entries);
+  return {
+    topGroups: r.top,
+    otherGroups: r.otherGroups,
+    otherMembers: r.otherMembers,
+  };
+};
+
 export const computeHubNsStats = (input: HubStatsInput): HubNsStats | null => {
   if (input.sessions.length === 0) return null;
   const { from, to } = spanOf(input.sessions);
@@ -304,6 +386,7 @@ export const computeHubNsStats = (input: HubStatsInput): HubNsStats | null => {
           DAY_MS,
       ),
     ),
+    ...groupRanking(attendanceEntries),
     tiles: {
       sessions: days,
       items: input.attendance?.totalVoteItems ?? 0,

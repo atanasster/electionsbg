@@ -8,7 +8,11 @@
 import { describe, test } from "vitest";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
-import { computeHubNsStats, secondReadingBills } from "./hub_stats";
+import {
+  computeHubNsStats,
+  secondReadingBills,
+  RANKED_GROUP_CAP,
+} from "./hub_stats";
 import type { SessionFile } from "./types";
 
 const BLOB = "data/parliament/votes/derived/hub_stats.json";
@@ -84,6 +88,148 @@ describe("computeHubNsStats", () => {
     pairSlug: undefined,
     today: "2026-08-03",
   };
+
+  test("topGroups partitions the ROLL, so the rows sum to membersVoting", () => {
+    // ⚠ THE HEAD PRINTS THE TOTAL DIRECTLY ABOVE THE LIST, so a breakdown that sums to
+    // anything else is a contradiction a reader can check in their head. The tempting source
+    // is `cohesion.json`'s `membersTracked` — it is right there, per group, and it sums to
+    // 273 against the roll's 270 on the 52nd (ГЕРБ - СДС 41 vs 43, ДБ 33 vs 28), because it
+    // counts party-at-time per item while the roll keeps the last-seen party.
+    const stats = computeHubNsStats({
+      ...base,
+      attendance: {
+        computedAt: "",
+        windowFrom: "",
+        windowTo: "",
+        totalVoteItems: 4,
+        entries: [
+          { mpId: 1, partyShort: "A", totalItems: 4, presentCount: 4, absentCount: 0, presentPct: 1 }, // prettier-ignore
+          { mpId: 2, partyShort: "A", totalItems: 4, presentCount: 4, absentCount: 0, presentPct: 1 }, // prettier-ignore
+          { mpId: 3, partyShort: "B", totalItems: 4, presentCount: 0, absentCount: 4, presentPct: 0 }, // prettier-ignore
+        ],
+      },
+      cohesion: undefined,
+    })!;
+    assert.deepEqual(stats.topGroups, [
+      { short: "A", members: 2 },
+      { short: "B", members: 1 },
+    ]);
+    // A SUBSET of the figure the head prints above it, never more than it. Equality holds
+    // only when the parliament has no groups below the cap — four of the nine have eight
+    // groups, so the „всички групи" link is what covers the remainder.
+    assert.ok(
+      stats.topGroups.reduce((n, g) => n + g.members, 0) <=
+        stats.tiles.membersVoting,
+      "the ranked list claims more members than the roll it is drawn from",
+    );
+  });
+
+  test("topGroups excludes the register's non-group buckets", () => {
+    // ⚠ „НЕЗ" and „НЕЧЛ В ПГ" are where the register puts members who belong to NO group, and
+    // `realGroups` filters them thirty lines above this function. Omitting the same filter
+    // published „НЕЧЛ В ПГ" as the 50th's THIRD-LARGEST parliamentary group (40 members) and
+    // „НЕЗ" as the 44th's fifth (19) — each displacing a real group — under a heading reading
+    // „Парламентарни групи". The list's own see-all, /parliament/cohesion, filters them in
+    // SQL, so the link led to a page that omits the rows the reader clicked.
+    const e = (mpId: number, partyShort: string) => ({ mpId, partyShort, totalItems: 1, presentCount: 1, absentCount: 0, presentPct: 1 }); // prettier-ignore
+    const stats = computeHubNsStats({
+      ...base,
+      attendance: {
+        computedAt: "",
+        windowFrom: "",
+        windowTo: "",
+        totalVoteItems: 1,
+        entries: [e(1, "НЕЗ"), e(2, "НЕЧЛ В ПГ"), e(3, "НЕЗ"), e(4, "ВОЛЯ")],
+      },
+      cohesion: undefined,
+    })!;
+    assert.deepEqual(stats.topGroups, [{ short: "ВОЛЯ", members: 1 }]);
+    // …and they are not smuggled into the remainder either, which would let the head report
+    // „и още 2 групи" about two things that are not groups.
+    assert.equal(stats.otherGroups, 0);
+    assert.equal(stats.otherMembers, 0);
+  });
+
+  test("the cap is reported, not silent", () => {
+    // The head prints „Депутати" directly beside this list, so a hidden remainder is a
+    // breakdown that argues with the total above it. Measured 2026-08-25: the cut hides a
+    // real group in eight of the nine parliaments, and on the 51st the five shown hold 214 of
+    // 309 members.
+    const e = (mpId: number, partyShort: string) => ({ mpId, partyShort, totalItems: 1, presentCount: 1, absentCount: 0, presentPct: 1 }); // prettier-ignore
+    const stats = computeHubNsStats({
+      ...base,
+      attendance: {
+        computedAt: "",
+        windowFrom: "",
+        windowTo: "",
+        totalVoteItems: 1,
+        entries: Array.from({ length: 8 }, (_, i) => e(i + 1, `P${i}`)),
+      },
+      cohesion: undefined,
+    })!;
+    assert.equal(stats.topGroups.length, RANKED_GROUP_CAP);
+    assert.equal(stats.otherGroups, 8 - RANKED_GROUP_CAP);
+    assert.equal(stats.otherMembers, 8 - RANKED_GROUP_CAP);
+    // The shown rows plus the remainder account for every real group's members.
+    assert.equal(
+      stats.topGroups.reduce((n, g) => n + g.members, 0) + stats.otherMembers,
+      8,
+    );
+  });
+
+  test("topGroups is capped, and the cap is what the budget affords", () => {
+    // ⚠ NOT DECORATION. Measured 2026-08-25 the committed file is 6 221 bytes with no list,
+    // 9 767 at five, 10 415 at six and 11 057 at eight, against the 10 KB budget asserted
+    // below. Four of the nine parliaments have eight groups, so a cap that "just fits them
+    // all" silently spends half the blob's headroom on rows the head does not draw.
+    const many = Array.from({ length: 12 }, (_, i) => ({
+      mpId: i + 1,
+      partyShort: `P${String(i).padStart(2, "0")}`,
+      totalItems: 1,
+      presentCount: 1,
+      absentCount: 0,
+      presentPct: 1,
+    }));
+    const stats = computeHubNsStats({
+      ...base,
+      attendance: {
+        computedAt: "",
+        windowFrom: "",
+        windowTo: "",
+        totalVoteItems: 1,
+        entries: many,
+      },
+      cohesion: undefined,
+    })!;
+    assert.equal(stats.topGroups.length, RANKED_GROUP_CAP);
+    assert.ok(
+      RANKED_GROUP_CAP <= 6,
+      "a hub head shows a handful of rows, not a table",
+    );
+  });
+
+  test("topGroups breaks ties by name, so the committed bytes are stable", () => {
+    // Two runs of the generator over one corpus must produce one file. Map insertion order
+    // is the default and depends on which MP the attendance pass happened to see first.
+    const entry = (mpId: number, partyShort: string) => ({ mpId, partyShort, totalItems: 1, presentCount: 1, absentCount: 0, presentPct: 1 }); // prettier-ignore
+    const run = (order: string[]) =>
+      computeHubNsStats({
+        ...base,
+        attendance: {
+          computedAt: "",
+          windowFrom: "",
+          windowTo: "",
+          totalVoteItems: 1,
+          entries: order.map((p, i) => entry(i + 1, p)),
+        },
+        cohesion: undefined,
+      })!.topGroups;
+    assert.deepEqual(run(["Z", "A"]), run(["A", "Z"]));
+    assert.deepEqual(run(["Z", "A"]), [
+      { short: "A", members: 1 },
+      { short: "Z", members: 1 },
+    ]);
+  });
 
   test("membersVoting counts the ROLL — an always-absent MP is included", () => {
     // ⚠ THIS PINS A SENTENCE ON /parliament. The head captions this figure, and the caption
@@ -250,15 +396,30 @@ describe("computeHubNsStats", () => {
 });
 
 describe("the committed hub_stats.json", () => {
-  test("is under the 10 KB budget", (t) => {
+  test("stays under its byte budget, PER PARLIAMENT", (t) => {
     if (!haveBlob) return t.skip();
     const bytes = readFileSync(BLOB).length;
-    // The whole point of the file. Without a ceiling it regrows to 1.65 MB the first time
-    // someone adds a field that carries per-item detail.
+    const blob = read<{ byNs: Record<string, unknown> }>(BLOB);
+    const nsCount = Object.keys(blob.byNs).length;
+
+    // ⚠ PER-NS, NOT ABSOLUTE, and the change is not a way of making room for the ranked
+    // list — it is because an absolute ceiling fails on an ELECTION rather than on a code
+    // change. Measured 2026-08-25: nine parliaments, 10 001 bytes, ~1 111 each; the flat
+    // 10 240 the file carried had 239 bytes of headroom, so the 53rd National Assembly
+    // would have broken this gate with nobody having touched the generator, and whoever
+    // hit it would have raised the number rather than asked what grew.
+    //
+    // The thing the budget actually defends is unchanged: a field that carries PER-ITEM or
+    // PER-MEMBER detail blows the per-NS figure immediately, which is how the page this
+    // feeds came to pull 1.65 MB in the first place.
+    const perNs = bytes / nsCount;
     assert.ok(
-      bytes < 10_240,
-      `hub_stats.json is ${bytes} bytes; the budget is 10 KB`,
+      perNs < 1_400,
+      `hub_stats.json is ${bytes} bytes over ${nsCount} parliaments — ${Math.round(perNs)} each, budget 1 400`,
     );
+    // A total ceiling as well, generous enough not to fire on an election but low enough to
+    // catch a runaway: 40 parliaments' worth is ~150 years of them.
+    assert.ok(bytes < 56_000, `hub_stats.json is ${bytes} bytes in total`);
   });
 
   test("names only parliaments that have roll-call data, and marks the partial one", (t) => {

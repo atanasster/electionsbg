@@ -3749,6 +3749,7 @@
   "gov_hub_governments_desc": "Кабинети и мандати",
   "gov_hub_declarations_desc": "Имущество и връзки на властта",
   "gov_hub_persons_desc": "Всички хора във властта на едно място",
+  "gov_hub_companies_desc": "Търси всяка фирма по име или ЕИК",
   "gov_hub_ind_economy_desc": "БВП, инфлация, доходи",
   "gov_hub_ind_fiscal_desc": "Дефицит, дълг, резерв",
   "gov_hub_ind_budgets_desc": "Разходи по кабинети",
@@ -5206,5 +5207,7 @@
   "nsh_metric_bills_other": "законопроекта на второ четене",
   "nsh_evidence_groups": "Парламентарни групи",
   "nsh_evidence_groups_basis": "по последна група в поименните списъци",
-  "nsh_evidence_groups_all": "всички групи"
+  "nsh_evidence_groups_all": "всички групи",
+  "nsh_evidence_groups_more_one": "още {{count}} група",
+  "nsh_evidence_groups_more_other": "още {{count}} групи"
 }

@@ -3749,6 +3749,7 @@
   "gov_hub_governments_desc": "Cabinets and their terms",
   "gov_hub_declarations_desc": "Assets and ties of those in power",
   "gov_hub_persons_desc": "Everyone in public life, one place",
+  "gov_hub_companies_desc": "Search any company by name or EIK",
   "gov_hub_ind_economy_desc": "GDP, inflation, incomes",
   "gov_hub_ind_fiscal_desc": "Deficit, debt, reserves",
   "gov_hub_ind_budgets_desc": "Spending by cabinet",
@@ -5206,5 +5207,7 @@
   "nsh_metric_bills_other": "bills at second reading",
   "nsh_evidence_groups": "Parliamentary groups",
   "nsh_evidence_groups_basis": "by last group on the roll-call lists",
-  "nsh_evidence_groups_all": "all groups"
+  "nsh_evidence_groups_all": "all groups",
+  "nsh_evidence_groups_more_one": "{{count}} more group",
+  "nsh_evidence_groups_more_other": "{{count}} more groups"
 }

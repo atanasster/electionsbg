@@ -1,12 +1,36 @@
 {
-  "computedAt": "2026-08-11T18:25:57.064Z",
+  "computedAt": "2026-08-25T08:15:12.665Z",
   "byNs": {
     "44": {
       "lastDate": "2021-03-25",
       "coveredFrom": "2020-10-28",
       "coveredTo": "2021-03-25",
       "coverage": "partial",
-      "inRecessDays": 1965,
+      "inRecessDays": 1979,
+      "topGroups": [
+        {
+          "short": "ГЕРБ",
+          "members": 96
+        },
+        {
+          "short": "БСП",
+          "members": 71
+        },
+        {
+          "short": "ДПС",
+          "members": 25
+        },
+        {
+          "short": "ОП",
+          "members": 22
+        },
+        {
+          "short": "ВОЛЯ",
+          "members": 12
+        }
+      ],
+      "otherGroups": 0,
+      "otherMembers": 0,
       "tiles": {
         "sessions": 41,
         "items": 1036,
@@ -29,7 +53,31 @@
       "coveredFrom": "2021-04-21",
       "coveredTo": "2021-05-07",
       "coverage": "full",
-      "inRecessDays": 1922,
+      "inRecessDays": 1936,
+      "topGroups": [
+        {
+          "short": "ГЕРБ-СДС",
+          "members": 75
+        },
+        {
+          "short": "ИТН",
+          "members": 51
+        },
+        {
+          "short": "БСП",
+          "members": 43
+        },
+        {
+          "short": "ДПС",
+          "members": 30
+        },
+        {
+          "short": "ДБ",
+          "members": 28
+        }
+      ],
+      "otherGroups": 1,
+      "otherMembers": 14,
       "tiles": {
         "sessions": 6,
         "items": 207,
@@ -52,7 +100,31 @@
       "coveredFrom": "2021-07-21",
       "coveredTo": "2021-09-15",
       "coverage": "full",
-      "inRecessDays": 1791,
+      "inRecessDays": 1805,
+      "topGroups": [
+        {
+          "short": "ИТН",
+          "members": 65
+        },
+        {
+          "short": "ГЕРБ-СДС",
+          "members": 63
+        },
+        {
+          "short": "БСП",
+          "members": 36
+        },
+        {
+          "short": "ДБ",
+          "members": 34
+        },
+        {
+          "short": "ДПС",
+          "members": 29
+        }
+      ],
+      "otherGroups": 1,
+      "otherMembers": 13,
       "tiles": {
         "sessions": 26,
         "items": 560,
@@ -75,7 +147,31 @@
       "coveredFrom": "2021-12-03",
       "coveredTo": "2022-07-29",
       "coverage": "full",
-      "inRecessDays": 1474,
+      "inRecessDays": 1488,
+      "topGroups": [
+        {
+          "short": "ПП",
+          "members": 83
+        },
+        {
+          "short": "ГЕРБ-СДС",
+          "members": 59
+        },
+        {
+          "short": "ДПС",
+          "members": 34
+        },
+        {
+          "short": "БСП",
+          "members": 30
+        },
+        {
+          "short": "ИТН",
+          "members": 25
+        }
+      ],
+      "otherGroups": 2,
+      "otherMembers": 30,
       "tiles": {
         "sessions": 97,
         "items": 1933,
@@ -98,7 +194,31 @@
       "coveredFrom": "2022-10-19",
       "coveredTo": "2023-02-02",
       "coverage": "full",
-      "inRecessDays": 1286,
+      "inRecessDays": 1300,
+      "topGroups": [
+        {
+          "short": "ГЕРБ-СДС",
+          "members": 67
+        },
+        {
+          "short": "ПП",
+          "members": 53
+        },
+        {
+          "short": "ДПС",
+          "members": 36
+        },
+        {
+          "short": "ВЪЗРАЖДАНЕ",
+          "members": 27
+        },
+        {
+          "short": "БСП",
+          "members": 24
+        }
+      ],
+      "otherGroups": 2,
+      "otherMembers": 32,
       "tiles": {
         "sessions": 52,
         "items": 1435,
@@ -121,7 +241,31 @@
       "coveredFrom": "2023-04-12",
       "coveredTo": "2024-06-02",
       "coverage": "full",
-      "inRecessDays": 800,
+      "inRecessDays": 814,
+      "topGroups": [
+        {
+          "short": "ГЕРБ-СДС",
+          "members": 75
+        },
+        {
+          "short": "ПП-ДБ",
+          "members": 73
+        },
+        {
+          "short": "ВЪЗРАЖДАНЕ",
+          "members": 40
+        },
+        {
+          "short": "ДПС",
+          "members": 37
+        },
+        {
+          "short": "БСП",
+          "members": 24
+        }
+      ],
+      "otherGroups": 1,
+      "otherMembers": 11,
       "tiles": {
         "sessions": 141,
         "items": 3855,
@@ -144,7 +288,31 @@
       "coveredFrom": "2024-06-19",
       "coveredTo": "2024-09-26",
       "coverage": "full",
-      "inRecessDays": 684,
+      "inRecessDays": 698,
+      "topGroups": [
+        {
+          "short": "ГЕРБ-СДС",
+          "members": 69
+        },
+        {
+          "short": "ДПС",
+          "members": 46
+        },
+        {
+          "short": "ПП-ДБ",
+          "members": 40
+        },
+        {
+          "short": "ВЪЗРАЖДАНЕ",
+          "members": 38
+        },
+        {
+          "short": "БСП",
+          "members": 19
+        }
+      ],
+      "otherGroups": 2,
+      "otherMembers": 25,
       "tiles": {
         "sessions": 37,
         "items": 685,
@@ -167,7 +335,31 @@
       "coveredFrom": "2024-11-11",
       "coveredTo": "2026-04-01",
       "coverage": "full",
-      "inRecessDays": 132,
+      "inRecessDays": 146,
+      "topGroups": [
+        {
+          "short": "ГЕРБ - СДС",
+          "members": 79
+        },
+        {
+          "short": "ПП - ДБ",
+          "members": 38
+        },
+        {
+          "short": "ВЪЗРАЖДАНЕ",
+          "members": 36
+        },
+        {
+          "short": "ДПС - НН",
+          "members": 32
+        },
+        {
+          "short": "БСП - ОЛ",
+          "members": 29
+        }
+      ],
+      "otherGroups": 5,
+      "otherMembers": 78,
       "tiles": {
         "sessions": 174,
         "items": 4187,
@@ -190,7 +382,31 @@
       "coveredFrom": "2026-04-30",
       "coveredTo": "2026-07-31",
       "coverage": "full",
-      "inRecessDays": 11,
+      "inRecessDays": 25,
+      "topGroups": [
+        {
+          "short": "ПБ",
+          "members": 143
+        },
+        {
+          "short": "ГЕРБ - СДС",
+          "members": 43
+        },
+        {
+          "short": "ДБ",
+          "members": 28
+        },
+        {
+          "short": "ПП",
+          "members": 23
+        },
+        {
+          "short": "ДПС",
+          "members": 21
+        }
+      ],
+      "otherGroups": 1,
+      "otherMembers": 12,
       "tiles": {
         "sessions": 39,
         "items": 1198,

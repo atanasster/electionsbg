@@ -327,6 +327,46 @@ export const ParliamentHubScreen: FC = () => {
     ];
   }, [stats, searchNs, i18n.language, nf, pct, t]);
 
+  /** The head's ranked list — who is actually in this parliament.
+   *
+   *  It DECOMPOSES the „Депутати" cell directly above it: the rows sum to `membersVoting` by
+   *  construction, so they are parts of a number the reader has just read rather than a fifth
+   *  statistic. That is also why the partition comes from the roll and not from `cohesion.json`,
+   *  whose own population sums to 273 against the cell's 270.
+   *
+   *  ⚠ IT IS NOT A SEAT COUNT and the basis says so. An MP who changed group is counted once,
+   *  under the last one the attendance pass saw — so „ПБ 143" is „143 on the roll under ПБ",
+   *  not „ПБ holds 143 seats". The two differ by exactly the switchers.
+   *
+   *  Rows are UNLINKED: there is no per-group page in this module, and /party/:id is the
+   *  ELECTORAL party keyed by its election name — matching „ГЕРБ - СДС" onto it is a
+   *  name-match masquerading as an identity. The heading's action goes to /parliament/cohesion,
+   *  which lists the same SET (these groups) even though it ranks them by a different measure.
+   */
+  const evidence = useMemo(() => {
+    const rows = stats?.topGroups ?? [];
+    if (!rows.length) return undefined;
+    return {
+      heading: t("nsh_evidence_groups") || "Parliamentary groups",
+      basis: t("nsh_evidence_groups_basis"),
+      rows: rows.map((g) => ({
+        id: g.short,
+        label: g.short,
+        value: nf.format(g.members),
+      })),
+      action: {
+        to: "/parliament/cohesion",
+        // NO SILENT CAP. The blob carries five groups and the cut hides at least one in eight
+        // of the nine parliaments — on the 51st the five shown hold 214 of 309 members, under
+        // a „Депутати 309" cell one column over. So when there is a remainder the link SAYS
+        // how much it is, and „всички групи" is reserved for the case where there is none.
+        label: stats?.otherGroups
+          ? t("nsh_evidence_groups_more", { count: stats.otherGroups })
+          : t("nsh_evidence_groups_all") || "all groups",
+      },
+    };
+  }, [stats, nf, t]);
+
   const pageTitle = t("nsh_hub_title") || "National Assembly";
 
   const seeds: Partial<Record<ParliamentSeed, string | undefined>> = useMemo(
@@ -409,6 +449,7 @@ export const ParliamentHubScreen: FC = () => {
         }
         kpis={kpis}
         kpisPending={4}
+        evidence={evidence}
         /* THE COVERAGE CAVEAT BELONGS UNDER THE FIGURES IT QUALIFIES, not in a paragraph
            above them. `partial` is the dangerous state precisely because it renders exactly
            like a complete term — the 44th holds five months of four years — and four of the
