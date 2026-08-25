@@ -276,9 +276,13 @@ const main = async (apply: boolean): Promise<void> => {
   // every local run red with a message that forbids the only available fix.
   if (isServingDatabase()) {
     console.log(
+      // The corpus sizes are what make a cloud/local comparison interpretable:
+      // without them, `reached 4880` against a local bar of 4932 cannot be told
+      // apart from a stale cloud corpus.
       `→ ratchet not updated (serving database). Observed ${after.n} outcomes / ` +
-        `${report.reached} reached / ${report.matches.length} matched; ` +
-        "raise the ratchet from a LOCAL run.",
+        `${report.reached} reached / ${report.matches.length} matched over ` +
+        `${appeals.length} appeals × ${decisions.length} merits-eligible ` +
+        "decisions; raise the ratchet from a LOCAL run.",
     );
   } else {
     const raised = recordBaselines(
@@ -286,6 +290,11 @@ const main = async (apply: boolean): Promise<void> => {
         outcomes: Number(after.n),
         matched: report.matches.length,
         reached: report.reached,
+        // Diagnostics — what corpus these numbers were measured on, so a later
+        // gate failure can say "the corpus grew" instead of leaving the operator
+        // to guess. `decisions` here is already the merits-eligible set.
+        appeals: appeals.length,
+        decisionsMerits: decisions.length,
       },
       new Date().toISOString().slice(0, 10),
     );
@@ -300,9 +309,11 @@ const main = async (apply: boolean): Promise<void> => {
     // a concurrent auto-committer, so an unannounced tracked change is liable to
     // ride into somebody else's commit.
     else if (raised.wrote)
+      // Name the fields that actually moved. Saying "the `matched` observation"
+      // unconditionally is how the run that introduced `appeals`/`decisionsMerits`
+      // announced a refresh of the one field that had NOT changed.
       console.log(
-        `→ ratchet held; refreshed the \`matched\` observation to ` +
-          `${report.matches.length} — commit ` +
+        `→ ratchet held; refreshed ${raised.refreshed.join(", ")} — commit ` +
           "data/procurement/derived/kzk_baselines.json",
       );
   }

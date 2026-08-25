@@ -26,7 +26,10 @@
 // rule covers `outcomes` and `reached` and nothing else: `matched` is an
 // OBSERVATION and is written as last-seen, so it may go down, and a fall in it is
 // a fact about the corpus rather than a regression. Which fields are bars is
-// declared once, in RATCHETED.
+// declared in RATCHETED and which are observations in OBSERVED, side by side —
+// ⚠️ but the `next` object literal in recordBaselines independently spells each
+// one as a Math.max or a last-seen read, so the two CAN drift on a one-word edit
+// that typechecks. The "raises each field" unit test is what catches that.
 //
 // The file is COMMITTED (unlike the two corpora, which are gitignored), so the
 // ratchet travels with the repo and a fresh clone inherits the real bar rather
@@ -91,6 +94,37 @@ export type KzkBaselines = {
    * Plan: docs/plans/kzk-gate-d-ambiguity-v1.md §4.1, §8.1.
    */
   reached: number | null;
+  /**
+   * The corpus THE LAST RECORDED RUN saw — appeals, and MERITS-ELIGIBLE
+   * decisions.
+   *
+   * ⚠️ LAST-SEEN, LIKE `matched` — NOT a snapshot of the run that set the bar.
+   * A bar-holding run refreshes these while leaving `updatedAt` alone, so the two
+   * legitimately describe different runs, and a message must not say "the corpus
+   * the bar was measured against". `corpusDelta()` phrases it as "the last
+   * recorded run" for that reason.
+   *
+   * ⚠️ DIAGNOSTIC, AND IT MUST NEVER DECIDE WHETHER A GATE PASSES. Read it, print
+   * it, and let it decide whether the FILE is rewritten — that branch is
+   * `refreshed` below and it is intended. What it must never become is
+   * "only ratchet when the corpus is unchanged", which is a gate that stops
+   * asserting the moment data lands, i.e. the "passes forever" failure this whole
+   * file replaced. Its job is one sentence: "the appeals corpus grew 7,998 →
+   * 8,007 since the last recorded run" — the sentence whose absence sent an
+   * operator after an untouched matcher on 2026-08-25.
+   *
+   * Null on a file written before 2026-08-25, so a consumer must render the delta
+   * conditionally rather than printing "grew from null".
+   */
+  appeals: number | null;
+  /**
+   * Merits-eligible decisions ONLY — the `MERITS_ELIGIBLE_SQL` / `setsMeritsOutcome`
+   * population, NEVER `count(*) FROM kzk_decisions`. The two differ by the
+   * определения (4,502 against 4,779 today) and every gate uses the former, so a
+   * raw count here would misreport the delta by ~277 in the operator's face. See
+   * the note on `appeals` above for the rest.
+   */
+  decisionsMerits: number | null;
   /** ISO date of the run that last raised a RATCHETED field (never `matched`). */
   updatedAt: string;
 };
@@ -102,6 +136,37 @@ export type KzkBaselines = {
  * `matched` ratchet reinstates the false positive of 2026-08-25.
  */
 const RATCHETED = ["outcomes", "reached"] as const;
+
+/**
+ * The fields that are OBSERVATIONS — last-seen, free to go DOWN, asserted on by
+ * nothing. Declared beside `RATCHETED` so "which fields are bars" is answerable
+ * by reading two lines, and so `recordBaselines` can report which of them moved
+ * instead of guessing (it announced a `matched` refresh on the very run that
+ * introduced the other two, when `matched` was the one field that had not moved).
+ */
+const OBSERVED = ["matched", "appeals", "decisionsMerits"] as const;
+
+/**
+ * Every field of `KzkBaselines` except `updatedAt` must be declared as a BAR or as
+ * an OBSERVATION. A field in neither is computed into `next` and then DROPPED:
+ * `raised` and `refreshed` never mention it, so `wrote` is false and the file is
+ * not rewritten at all — the new value simply never lands. Verified with the
+ * sibling plan's own next field (`upheld`, kzk-matcher-ambiguity-v1 §8): added to
+ * the type, to FLOOR, to readBaselines and to `next` but not to RATCHETED, it
+ * persists at its old value with every unit test green.
+ *
+ * This alias makes that a COMPILE error instead. It cannot go stale, and it costs
+ * nothing at runtime.
+ */
+type _AllFieldsDeclared =
+  Exclude<
+    keyof KzkBaselines,
+    (typeof RATCHETED)[number] | (typeof OBSERVED)[number] | "updatedAt"
+  > extends never
+    ? true
+    : ["field declared in neither RATCHETED nor OBSERVED", never];
+const _allFieldsDeclared: _AllFieldsDeclared = true;
+void _allFieldsDeclared;
 
 /**
  * What `recordBaselines` did, so the caller can tell the operator.
@@ -118,8 +183,75 @@ const RATCHETED = ["outcomes", "reached"] as const;
 export type BaselineWrite = {
   /** BARS that moved UP. Empty when the run merely held the line. */
   raised: Array<(typeof RATCHETED)[number]>;
+  /** OBSERVATIONS that changed. `wrote` is true iff this or `raised` is non-empty. */
+  refreshed: Array<(typeof OBSERVED)[number]>;
   /** True when the committed file changed on disk, for ANY reason. */
   wrote: boolean;
+};
+
+/**
+ * Render "and the corpus moved since then" for a gate's failure text.
+ *
+ * ⚠️ MESSAGE ONLY. Nothing branches on the result and nothing may — see the note
+ * on `appeals`. It exists because a gate that says only "4,166 is below 4,932"
+ * leaves the operator to guess whether the corpus moved underneath it, which is
+ * the guess that went wrong on 2026-08-25.
+ *
+ * Takes the baseline explicitly rather than closing over `readBaselines()` so it
+ * is unit-testable, and takes nullable counts so a caller that can see only one
+ * side of the corpus (Gate C, which runs without kzk_decisions) can still render
+ * half of it.
+ */
+export const corpusDelta = (
+  base: Pick<KzkBaselines, "appeals" | "decisionsMerits">,
+  nowAppeals: number | null,
+  nowMerits: number | null,
+  /**
+   * The bar the CALLING gate asserts on — `reached` for Gate D, `outcomes` for
+   * Gate C. The tail is a claim about MONOTONICITY, and the two bars are monotone
+   * for different reasons, so it must never name the other gate's quantity.
+   */
+  bar: "reached" | "outcomes",
+): string => {
+  const parts: string[] = [];
+  if (base.appeals != null && nowAppeals != null && base.appeals !== nowAppeals)
+    parts.push(`appeals ${base.appeals} → ${nowAppeals}`);
+  if (
+    base.decisionsMerits != null &&
+    nowMerits != null &&
+    base.decisionsMerits !== nowMerits
+  )
+    parts.push(
+      `merits-eligible decisions ${base.decisionsMerits} → ${nowMerits}`,
+    );
+  if (parts.length === 0) return "";
+
+  // ⚠️ THE DIRECTION DECIDES WHAT THIS MEANS, and a single closing sentence gets
+  // it wrong. GROWTH cannot lower a bar — that is the whole reason these are the
+  // bars — so there it really is context and not an excuse. A SHRINK on EITHER
+  // side can lower one legitimately (an appeal that is gone cannot be reached; an
+  // act that is gone reaches nothing), and that is Gate D's own cause 3, so
+  // dismissing it would have the message contradict the evidence it just
+  // produced. Both sides are tested, because the ratchet is COMMITTED while both
+  // corpora are gitignored — a fresh clone legitimately holds fewer of each.
+  const shrank: string[] = [];
+  if (base.appeals != null && nowAppeals != null && nowAppeals < base.appeals)
+    shrank.push("APPEALS");
+  if (
+    base.decisionsMerits != null &&
+    nowMerits != null &&
+    nowMerits < base.decisionsMerits
+  )
+    shrank.push("DECISIONS");
+  const tail = shrank.length
+    ? `The ${shrank.join(" and ")} corpus SHRANK — that is cause 3, and it CAN ` +
+      `lower \`${bar}\` legitimately: an appeal that is gone cannot be reached, ` +
+      "and an act that is gone reaches nothing. Check the loader's anti-shrink " +
+      "guard, and whether this database simply holds an older corpus than the " +
+      "committed ratchet, before suspecting the matcher."
+    : `Growth alone cannot lower \`${bar}\` — that is why it is the bar — so ` +
+      "this is context, not an excuse.";
+  return `\n  the corpus moved since the last recorded run: ${parts.join(", ")}. ${tail}`;
 };
 
 /**
@@ -141,8 +273,15 @@ const FLOOR: KzkBaselines = {
   // NOT 0 — see the field's note. A clone that predates the Gate D swap has no
   // bar, and "no bar" must fail loudly rather than pass at zero forever.
   reached: null,
+  // Diagnostic, and absent on any pre-2026-08-25 file — see the fields' note.
+  appeals: null,
+  decisionsMerits: null,
   updatedAt: "2026-08-02",
 };
+
+/** A finite number, or null. Shared so "ratchets fail closed" is one rule, not three. */
+const finite = (n: unknown): number | null =>
+  typeof n === "number" && Number.isFinite(n) ? n : null;
 
 export const readBaselines = (): KzkBaselines => {
   if (!fs.existsSync(BASELINES_FILE)) return FLOOR;
@@ -156,7 +295,9 @@ export const readBaselines = (): KzkBaselines => {
       // `?? FLOOR.reached` would be right but reads as an oversight next to the
       // two Number() casts, so the null case is spelled out: an absent or
       // non-numeric `reached` is NO BAR, never a bar of zero.
-      reached: typeof raw.reached === "number" ? raw.reached : FLOOR.reached,
+      reached: finite(raw.reached) ?? FLOOR.reached,
+      appeals: finite(raw.appeals) ?? FLOOR.appeals,
+      decisionsMerits: finite(raw.decisionsMerits) ?? FLOOR.decisionsMerits,
       updatedAt: String(raw.updatedAt ?? FLOOR.updatedAt),
     };
   } catch {
@@ -174,7 +315,10 @@ export const readBaselines = (): KzkBaselines => {
  * did not move.
  */
 export const recordBaselines = (
-  observed: Pick<KzkBaselines, "outcomes" | "matched" | "reached">,
+  observed: Pick<
+    KzkBaselines,
+    "outcomes" | "matched" | "reached" | "appeals" | "decisionsMerits"
+  >,
   today: string,
 ): BaselineWrite => {
   const prev = readBaselines();
@@ -184,22 +328,37 @@ export const recordBaselines = (
   // it, and Gate D's own recovery (re-mint from the current corpus) would then
   // launder whatever regression is live into the new normal. Ratchets fail
   // closed, in every direction.
-  const seen =
-    typeof observed.reached === "number" && Number.isFinite(observed.reached)
-      ? observed.reached
-      : null;
+  const seen = finite(observed.reached);
   const next: KzkBaselines = {
-    outcomes: Math.max(prev.outcomes, observed.outcomes),
+    // ⚠️ BOTH BARS FAIL CLOSED, not just `reached` — the header's "in every
+    // direction" covers this one too, and the first cut of the finite() refactor
+    // missed it. A NaN here does not merely fail to raise `outcomes`: it writes
+    // JSON `null`, which readBaselines() maps to FLOOR.outcomes, dropping Gate C
+    // back to the 2,098 HARDCODED FLOOR the ratchet exists to replace — in a
+    // committed file, on a run that had some other reason to rewrite it.
+    outcomes: Math.max(
+      prev.outcomes,
+      finite(observed.outcomes) ?? prev.outcomes,
+    ),
     // OBSERVATION, not a bar: stored as LAST SEEN rather than as a running max.
     // A max here would leave the file asserting 2,920 for ever while the matcher
     // reports 2,918 — a committed number describing nothing. Nothing reads it as
     // a threshold, so it is free to go down, and going down is the point: it is
     // how a reader sees corpus growth withdrawing matches.
-    matched: observed.matched,
+    // An observation is free to go DOWN, never to go non-numeric: a NaN is stored
+    // as null and read back as 0, so `refreshed` would report a move to garbage
+    // as a legitimate refresh.
+    matched: finite(observed.matched) ?? prev.matched,
     reached:
       prev.reached == null
         ? seen
         : Math.max(prev.reached, seen ?? prev.reached),
+    // Diagnostics follow the observation, not the bars: LAST SEEN, never a max,
+    // because the question they answer is "what corpus were the bars measured
+    // on". A max would make them lie in exactly the case they exist to explain —
+    // a shrinking corpus.
+    appeals: finite(observed.appeals) ?? prev.appeals,
+    decisionsMerits: finite(observed.decisionsMerits) ?? prev.decisionsMerits,
     updatedAt: prev.updatedAt,
   };
   const raised = RATCHETED.filter((k) => {
@@ -213,10 +372,11 @@ export const recordBaselines = (
   // The observation moves far more often than a bar does. Writing for it keeps
   // the committed file honest without letting it move `updatedAt`, which means
   // "when a bar last rose" and is quoted in both gates' failure messages.
-  if (raised.length === 0 && next.matched === prev.matched)
-    return { raised, wrote: false };
+  const refreshed = OBSERVED.filter((k) => next[k] !== prev[k]);
+  if (raised.length === 0 && refreshed.length === 0)
+    return { raised, refreshed, wrote: false };
   if (raised.length > 0) next.updatedAt = today;
   fs.mkdirSync(path.dirname(BASELINES_FILE), { recursive: true });
   fs.writeFileSync(BASELINES_FILE, `${JSON.stringify(next, null, 2)}\n`);
-  return { raised, wrote: true };
+  return { raised, refreshed, wrote: true };
 };

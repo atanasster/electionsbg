@@ -22,6 +22,7 @@ import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
 import {
   readBaselines,
+  corpusDelta,
   HAND_SEEDED_FLOOR,
 } from "../../procurement/kzk_baselines";
 import { matchDecisions } from "../../procurement/kzk_match";
@@ -29,7 +30,10 @@ import type {
   MatchableDecision,
   MatchReport,
 } from "../../procurement/kzk_match";
-import { setsMeritsOutcome } from "../../procurement/kzk_decisions_store";
+import {
+  setsMeritsOutcome,
+  MERITS_ELIGIBLE_SQL,
+} from "../../procurement/kzk_decisions_store";
 
 // Gates C + D. NOT a hardcoded constant: the skill's original `>= 2098` floor
 // protected the irreplaceable rows and also passed forever — it would have stayed
@@ -78,6 +82,20 @@ const hasDecisions =
     .catch(() => false));
 const skipDecisions =
   skip || (!hasDecisions && "kzk_decisions absent (130 not applied here)");
+
+// `to_regclass` proves the TABLE, not the COLUMN, and MERITS_ELIGIBLE_SQL reads
+// `kind`. Gates D/E hard-fail on a kind-less corpus deliberately — they measure
+// the matcher, and measuring it over the wrong population is the defect
+// b73abee164 fixed. Gate C does NOT measure the matcher, so the same state must
+// cost it the decisions half of its DIAGNOSTIC and never its assertion.
+const hasKindColumn =
+  hasDecisions &&
+  (await allRows<{ ok: boolean }>(
+    `SELECT true AS ok FROM information_schema.columns
+      WHERE table_name = 'kzk_decisions' AND column_name = 'kind'`,
+  )
+    .then((r) => r.length === 1)
+    .catch(() => false));
 
 afterAll(async () => {
   await end();
@@ -193,13 +211,31 @@ test.skipIf(skip)("Gate C — outcome coverage has not regressed", async () => {
   const [r] = await allRows<{ n: string }>(
     "SELECT count(outcome) n FROM kzk_appeals",
   );
+  // The corpus delta belongs here MORE than on Gate D: this message names "the
+  // decisions corpus shrank" as a cause, and `decisionsMerits` is the number that
+  // settles it. Gate C runs under `skipIf(skip)` rather than `skipIf(skipDecisions)`,
+  // so it cannot use matchRun() — it counts both sides itself, and renders the
+  // decisions half only when the table exists (corpusDelta takes nulls for that).
+  const [a] = await allRows<{ n: string }>(
+    "SELECT count(*) n FROM kzk_appeals",
+  );
+  const nowMerits = hasKindColumn
+    ? Number(
+        (
+          await allRows<{ n: string }>(
+            `SELECT count(*) n FROM kzk_decisions WHERE ${MERITS_ELIGIBLE_SQL}`,
+          )
+        )[0].n,
+      )
+    : null;
   assert.ok(
     Number(r.n) >= baselines.outcomes,
     `${r.n} outcomes, below the ratchet's ${baselines.outcomes} (last bar change ${baselines.updatedAt}). ` +
       "Coverage went DOWN. Either the matcher lost ground (check " +
       "scripts/procurement/kzk_match.ts against its unit tests) or the decisions " +
       "corpus shrank (check the loader's anti-shrink guard). Do not lower the " +
-      "ratchet to make this pass — it only moves upward by design.",
+      "ratchet to make this pass — it only moves upward by design." +
+      corpusDelta(baselines, Number(a.n), nowMerits, "outcomes"),
   );
 });
 
@@ -246,8 +282,17 @@ test.skipIf(skipDecisions)(
     // is simply absent from `writable`, so its stale outcome survives untouched
     // and the count does not move. The only way to see that is to re-run the
     // matcher and compare — which is cheap, because it is pure.
-    const { decisions, merits, report } = await matchRun();
-    if (decisions.length === 0) return;
+    const { appeals, decisions, merits, report } = await matchRun();
+    if (decisions.length === 0) {
+      // NOT a green pass. `skipDecisions` only proves the TABLE exists, so this
+      // is the aborted-rejoin state Gate E names — and returning here also skips
+      // the three mutation checks below, so nothing at all was verified.
+      console.warn(
+        "GATE D DISARMED: kzk_decisions is EMPTY on this database — run " +
+          "`npm run db:load:kzk-decisions:pg`. Nothing was checked.",
+      );
+      return;
+    }
 
     // MUTATION CHECK. Two reachable regressions put the 20 matches of slack back
     // with nothing red: setsMeritsOutcome() ceasing to discriminate (this file is
@@ -332,7 +377,8 @@ test.skipIf(skipDecisions)(
         "ratchet by hand.\n" +
         `  matched, for context: ${report.matches.length} against the last ` +
         `observed ${baselines.matched} — this is NOT a bar and a fall in it ` +
-        "alone is a healthy crawl, not a defect.",
+        "alone is a healthy crawl, not a defect." +
+        corpusDelta(baselines, appeals.length, merits.length, "reached"),
     );
   },
 );
