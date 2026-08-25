@@ -47,18 +47,7 @@ const declTypeKey = (type: string): string =>
 
 export const PersonDeclarations: FC<{
   slug: string;
-  /** Mounted INSIDE the MP assets section, which already owns the `#declarations`
-   *  heading, the register link and the net-worth headline. Renders the filing list
-   *  alone — no `DeclarationsSection`, no stat cards — so an MP gets one section rather
-   *  than two with the same DOM id. The caveat rides WITH the list, which is where it
-   *  belongs; the MP section above carries a different, source-level note
-   *  (`mp_assets_source_note`), so no text is repeated.
-   *
-   *  It also drops the asset-bearing requirement: bare mode's job is the LIST, and a
-   *  person whose only filings are assetless (an incompatibility shell) still has a
-   *  record worth showing under a headline somebody else supplied. */
-  bare?: boolean;
-}> = ({ slug, bare }) => {
+}> = ({ slug }) => {
   const { t, i18n } = useTranslation();
   const locale = i18n.language === "bg" ? "bg-BG" : "en-US";
   const rows = usePersonDeclarations(slug);
@@ -106,7 +95,7 @@ export const PersonDeclarations: FC<{
   // The property summary needs the ROWS, and only declaration_detail carries them — the
   // filing list has assetCount and no breakdown. Unlike the crypto block, which gates on
   // `cryptoCount` off the list and so costs ~56.8k people nothing, this asks for the detail
-  // on every non-bare render. Two things make that acceptable rather than merely admitted:
+  // on every render. Two things make that acceptable rather than merely admitted:
   // `useDeclarationDetail` now shares one promise per filing id, so this is the SAME request
   // the expander and the crypto block make rather than a third; and it is a
   // single-declaration join.
@@ -115,14 +104,8 @@ export const PersonDeclarations: FC<{
   // property at all (measured: 9,622 of 19,188), for whom the card never renders. Making
   // that free needs a property count on the LIST payload (090) — a migration, not a client
   // change.
-  //
-  // NOT rendered in bare mode, because the MP path already has it: MpAssetsSummary sits
-  // directly above and now prints the same breakdown inside its real-estate tile, off rows
-  // it had already fetched. Rendering here too would say it twice. Both use
-  // `summariseProperties`, so they cannot disagree — that shared fold is the only reason
-  // two surfaces answering the same question is acceptable.
   const headlineDetail = useDeclarationDetail(
-    !bare && summary ? summary.latest.id : null,
+    summary ? summary.latest.id : null,
   );
   const propertySummary = useMemo(() => {
     const owned = (headlineDetail?.assets ?? []).filter(
@@ -132,23 +115,10 @@ export const PersonDeclarations: FC<{
     return summariseProperties(owned.map((a) => a.description));
   }, [headlineDetail]);
 
-  // Narrowed ONCE, above both exits, so neither branch needs a non-null assertion to hand
-  // `rows` to FilingList. (The standalone path could lean on "summary != null implies rows
-  // is non-empty", but that invariant lives fifty lines away and survives refactors that
-  // break it.)
+  // Narrowed ONCE, above the exit, so FilingList doesn't need a non-null assertion to
+  // receive `rows`. (Could lean on "summary != null implies rows is non-empty", but that
+  // invariant lives fifty lines away and survives refactors that break it.)
   if (!rows || rows.length === 0) return null;
-
-  // The crypto block rides BOTH branches. Bare mode is the MP path, and MPs are not a
-  // special case here — Борис Михайлов is the largest declared crypto holding in the
-  // corpus. It hangs off `summary.latest` in both, so the coins shown are always the
-  // filing whose € the section headlines.
-  if (bare)
-    return (
-      <>
-        {summary && <PersonCryptoHoldings filing={summary.latest} />}
-        <FilingList rows={rows} locale={locale} />
-      </>
-    );
   if (!summary) return null;
   const { latest } = summary;
 
@@ -277,9 +247,9 @@ const IncompleteMark: FC<{ row: DeclarationListItem }> = ({ row }) => {
   );
 };
 
-/** Every filing on record, newest first, each expandable to its detail. Shared by the
- *  standalone block and by `bare` mode, so an MP and an official see one list built by one
- *  renderer — the divergence this component was created to end (audit T3.3). */
+/** Every filing on record, newest first, each expandable to its detail. Shared by every
+ *  tier — MP, executive, municipal, magistrate — so an MP and an official see one list
+ *  built by one renderer, the divergence this component was created to end (audit T3.3). */
 const FilingList: FC<{ rows: DeclarationListItem[]; locale: string }> = ({
   rows,
   locale,
@@ -307,8 +277,7 @@ const FilingRow: FC<{ row: DeclarationListItem; locale: string }> = ({
   const [open, setOpen] = useState(false);
   // The row is a disclosure widget: the button mounts/unmounts FilingDetail below. Without
   // the pair a screen reader announces only "button" — no indication that a panel exists,
-  // opened or collapsed — and in `bare` mode this list is the ONLY route to per-filing
-  // detail for an MP.
+  // opened or collapsed.
   const panelId = `filing-${row.id}`;
 
   return (

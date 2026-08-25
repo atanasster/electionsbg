@@ -1,7 +1,7 @@
-// The ONE declarations section shell. Three components can open the person page's
-// declarations block — PersonMpSections (MP snapshot + filing list), PersonDeclarations
-// (the standalone PG list) and PersonNoDeclarationNote ("this office does not file") — and
-// the page must show exactly one of them, never two and never zero.
+// The ONE declarations section shell. Two components can open the person page's
+// declarations block — PersonDeclarations (the standalone PG list, every tier including
+// MPs) and PersonNoDeclarationNote ("this office does not file") — and the page must show
+// exactly one of them, never two and never zero.
 //
 // Before this module each wrote its own `<DashboardSection id="declarations" …>`, so the
 // invariant lived only in prose and in a predicate two of the three consulted. That is how

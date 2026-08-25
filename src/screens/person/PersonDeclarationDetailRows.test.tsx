@@ -250,17 +250,21 @@ describe("structure, not just presence", () => {
     expect(chip.closest(".truncate")).toBeNull();
   });
 
-  it("bare mode renders no property card and issues no detail fetch", async () => {
-    // Both halves matter: the MP path has its own KPI row (MpAssetsSummary), and the gate
-    // must also not pay for a request whose result nothing renders.
+  it("fetches the headline filing's detail unconditionally (bare mode retired)", async () => {
+    // Every tier — including MPs, who used to skip this via a `bare` prop that mounted
+    // inside MpAssetsSummary's own KPI row — now goes through the one standalone render,
+    // so the property card's detail request always fires for the headline filing.
     stubWith(baseDetail({ assets: [prop("апартамент")] }));
-    render(<PersonDeclarations slug="x" bare />);
-    await screen.findByRole("button", { name: /Началник/ });
-    expect(screen.queryByText("pp_decl_prop_card")).not.toBeInTheDocument();
+    render(<PersonDeclarations slug="x" />);
+    expect(
+      await screen.findByText("pp_prop_kind_apartment:1"),
+    ).toBeInTheDocument();
     const calls = (
       globalThis.fetch as unknown as { mock: { calls: [string][] } }
     ).mock.calls;
-    expect(calls.filter(([u]) => u.includes("declaration-detail"))).toEqual([]);
+    expect(
+      calls.filter(([u]) => u.includes("declaration-detail")).length,
+    ).toBeGreaterThan(0);
   });
 });
 

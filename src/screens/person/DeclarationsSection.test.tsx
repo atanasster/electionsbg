@@ -1,16 +1,21 @@
 // The `#declarations` anchor is a deep-link target (MpScorecardTile's net-worth metric
-// drills to it) and the person page must carry exactly one element bearing it. Three
-// components can open that section, which is how a duplicate shipped once already.
+// drills to it) and the person page must carry exactly one element bearing it. Two
+// components can open that section today (PersonDeclarations, PersonNoDeclarationNote);
+// a third used to (PersonMpSections), which is how a duplicate shipped once already.
 //
 // What this file guards, and what it does NOT:
 //
 //   • STRUCTURAL (below): no component may write the anchor itself — DeclarationsSection is
-//     the only site of the id and the heading. This is what stops a FOURTH opener appearing
+//     the only site of the id and the heading. This is what stops a new opener appearing
 //     and quietly reintroducing the duplicate, and it is a real guard because it reads the
 //     source of every sibling rather than a list someone has to remember to update.
-//   • DECISION-LAYER: which of the openers claims the section is one boolean,
-//     `useMpOwnsDeclarations`, covered exhaustively in its own test — including the roster
-//     window where it used to answer false for an MP who owns the section.
+//   • DECISION-LAYER: retired. A coordination predicate, `useMpOwnsDeclarations`, used to
+//     arbitrate which of two competing pipelines (the MP roster JSON vs. the PG
+//     `person_declarations`) opened the section for an MP. Both openers now read the SAME
+//     PG pipeline and each self-hides unconditionally, so they are disjoint by
+//     construction — `PersonNoDeclarationNote`'s exempt-office allowlist (village mayors
+//     only) can never include an MP or any other role that actually files — with no shared
+//     boolean left to get out of step.
 //
 // It does not render the whole dashboard and count the elements. That would be the direct
 // statement of the invariant; it needs a full PersonProfile fixture plus ~10 fetch-driven
