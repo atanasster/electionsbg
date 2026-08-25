@@ -22,6 +22,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { SCOPE_FIRST_YEAR } from "@/data/scope/constants";
+import { stripJsxComments } from "./stripJsxComments";
 import {
   PROCUREMENT_TILES,
   METRIC_FIELD,
@@ -33,25 +34,14 @@ import {
 import { kpisFor, tileMetric } from "@/screens/funds/fundsHubFigures";
 import { FUNDS_BANDS } from "@/screens/funds/fundsRegistry";
 
-/** i18n stand-in: the key IS the string, so a clash below is a clash of FIGURES rather than of
- *  translated captions. */
 const read = (p: string) => readFileSync(p, "utf8");
 
-/** Comment-blind scanning is how the h1 clause below produced its first FALSE POSITIVE: a
- *  prose comment naming the component read as a render of it, and the gate went red on a
- *  screen that renders exactly one heading.
- *
- *  `stripComments` (scripts/lib/strip_comments.ts) cannot be reused here — it is line-anchored
- *  and leaves a JSX brace-star block intact, which is the form these screens' comments take
- *  almost exclusively. So this gate strips its own, JSX first: a JSX comment is a brace around
- *  a block comment, and removing the block halves first would strand the braces.
- */
-const stripJsx = (src: string) =>
-  src
-    .replace(/\{\s*\/\*[\s\S]*?\*\/\s*\}/g, "")
-    .replace(/\/\*[\s\S]*?\*\//g, "")
-    .replace(/^[ \t]*\/\/.*$/gm, "");
+/** Shared with the contracts band gate. `stripJsxComments.ts` records why the repo-wide
+ *  `stripComments` cannot do this job, and why its line-comment rule is not start-anchored. */
+const stripJsx = stripJsxComments;
 
+/** i18n stand-in: the key IS the string, so a clash below is a clash of FIGURES rather than of
+ *  translated captions. */
 const id = (k: string): string => k;
 
 import {
@@ -63,6 +53,17 @@ const HUB_SCREENS = [
   "src/screens/ProcurementScreen.tsx",
   "src/screens/GovernanceScreen.tsx",
   "src/screens/FundsScreen.tsx",
+  // A REGISTRY BROWSER, not a tile hub. The head pattern splits for one: it takes the
+  // identity, the deck, the scope control and the KPI band, and takes NEITHER a search slot
+  // (the table owns its own, correctly placed above the rows it filters) NOR an evidence list
+  // (the table IS the ranked list).
+  //
+  // ⚠ THIS LIST HAS ONE CONSUMER — the basis-year scan below — so that is all the entry buys.
+  // The one-h1 clause globs `grep -rl 'HubHead' src/screens` and already covered this file;
+  // the RENDERED one-h1 check iterates `HUB_HEAD_BUDGETS` in tests/ui.spec.ts. Listing three
+  // clauses here would have been the „a gate that cannot see its subject" claim inverted:
+  // crediting this entry with work two other clauses were already doing.
+  "src/screens/dev/ContractsBrowserDbScreen.tsx",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source

@@ -533,6 +533,11 @@ test.describe("Charts render at a real viewport", () => {
 // corpus-level figure at ~2 600 px; a head that swells to a screen and a half is the same
 // defect wearing better type.
 //
+// Every `measured` below is taken at the DESKTOP project's 1280 viewport — the one CI runs —
+// rather than at the 1024 `lg` breakpoint where these heads are first designed. The two differ
+// by ~10 px and the gate compares against the former, so recording the latter would make a
+// future failure read as growth that had not happened.
+//
 // This lives in Playwright and not in a unit test because it is a claim about LAYOUT. jsdom
 // reports 0 for every box, so the gate would pass on a head of any size — the vacuity this
 // file's siblings keep re-learning. Each budget below carries the value measured when it was
@@ -546,6 +551,16 @@ const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
   // tile, not an input. That is the trade docs/plans/funds-module-v2.md §5.2 asks for — look-up
   // before read — so the allowance is declared here rather than the head being trimmed.
   { path: "/funds", maxPx: 600, measured: 531 },
+  // A registry BROWSER, and the narrowest head in the tree because of it: no search slot (the
+  // table owns its own) and no evidence aside (the table is the ranked list), so the head is
+  // identity + scope + band and nothing else.
+  //
+  // ⚠ 360, not 400. At CI's 1280 viewport this head is 304 px, and a 400 ceiling left 96 px
+  // of room — enough to quietly acquire the search slot the line above says it deliberately
+  // omits, which is the growth this budget exists to catch. 360 is ~18% slack, the same band
+  // the three entries above sit in (13% / 10% / 18%). If it ever trips, the question is
+  // whether the new thing belongs on the TABLE rather than in the head.
+  { path: "/procurement/contracts", maxPx: 360, measured: 304 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {

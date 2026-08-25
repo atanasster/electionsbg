@@ -6,6 +6,8 @@
 // facets route to reach any of these states.
 
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
+import { stripJsxComments } from "@/ux/infographic/stripJsxComments";
 import { contractsKpis, TERM_MAX } from "./contractsKpiBasis";
 
 /** The key IS the string, so an assertion below is about WHICH basis was chosen rather than
@@ -143,5 +145,73 @@ describe("what each cell says it is over", () => {
           k.basis.trim(),
           `${k.label} under ${JSON.stringify(over)}`,
         ).not.toBe("");
+  });
+});
+
+describe("the band and the strip are disjoint", () => {
+  // §3.1 rule 5, and the gate this page most needs: `ContractsAnalysisStrip` renders the SAME
+  // four figures as StatCards directly under the head, and the strip is shared with /company
+  // and /awarder, which legitimately keep them. So the browser has to opt out — and an opt-out
+  // is exactly the prop a refactor drops with nothing failing: the page would then render
+  // „€3,4 млрд." twice, once with a declared basis and once without, reading as two facts.
+  //
+  // A SOURCE scan, because the alternative is mounting a DbDataTable against a live facets
+  // route. Comments are stripped through the SHARED `stripJsxComments` — a prose mention of
+  // the prop must not satisfy it, and (measured) a TRAILING `// contractsKpis(old)` must not
+  // falsely trip the occurrence count either.
+  const SCREEN = "src/screens/dev/ContractsBrowserDbScreen.tsx";
+  // Read INSIDE each test. At describe scope a moved file turns two gate failures into
+  // fourteen, because the throw happens during collection and takes the truth table with it.
+  const code = () => stripJsxComments(readFileSync(SCREEN, "utf8"));
+
+  /** The `<ContractsAnalysisStrip …>` opening tag, and nothing else.
+   *
+   *  ⚠ THE ASSERTION MUST BE BOUND TO THE ELEMENT. Searching the whole file for
+   *  `showKpis={false}` passes when the prop is moved to a DIFFERENT component — measured, put
+   *  it on `<SectorBrowseSlot>` and the unbound form stayed green while the strip rendered its
+   *  four cards again. */
+  const stripTag = (src: string): string => {
+    const i = src.indexOf("<ContractsAnalysisStrip");
+    if (i === -1) return "";
+    const end = src.indexOf("/>", i);
+    return end === -1 ? "" : src.slice(i, end + 2);
+  };
+
+  it("renders the strip with its KPI cards suppressed", () => {
+    const tag = stripTag(code());
+    expect(tag, `${SCREEN} no longer renders the strip`).not.toBe("");
+    expect(
+      /showKpis=\{false\}/.test(tag),
+      "the strip would render the head band's four figures a second time, without their bases",
+    ).toBe(true);
+  });
+
+  it("keeps the head as the only place those figures carry a basis", () => {
+    // The screen must not hand-roll a second band either.
+    const c = code();
+    expect(c).toContain("contractsKpis(");
+    expect(
+      (c.match(/contractsKpis\(/g) ?? []).length,
+      "more than one band is being built on this page",
+    ).toBe(1);
+  });
+
+  it("strips comments, so prose can neither satisfy nor break these clauses", () => {
+    // The stripper is what both clauses above rest on, and it has failed in both directions.
+    const withTrailing = stripJsxComments(
+      "a\n<ContractsAnalysisStrip x /> // TODO restore showKpis={false}\n",
+    );
+    expect(/showKpis=\{false\}/.test(withTrailing)).toBe(false);
+    expect(
+      (
+        stripJsxComments("contractsKpis(a) // contractsKpis(old)").match(
+          /contractsKpis\(/g,
+        ) ?? []
+      ).length,
+    ).toBe(1);
+    // …and a URL keeps its tail.
+    expect(stripJsxComments("const u = 'https://x.bg/a';")).toContain(
+      "https://x.bg/a",
+    );
   });
 });
