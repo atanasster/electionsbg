@@ -22,9 +22,12 @@
 // anything already in the cache, so an interrupted crawl costs only what it had not reached.
 //
 // ⚠️ THIS IS AN OPERATOR RUN, NOT A PIPELINE STEP. 51,040 filings against a rate-limited
-// public register on plain HTTP at a bare IP (see sources.ts) — roughly 7 hours at the
+// public register on plain HTTP at a bare IP (see sources.ts). Budget ~3.5 hours at the
 // default concurrency, which is the same 4 the index crawler in __write_declarations.ts
-// already uses. Do not put it in any chain, and do not raise the concurrency to be quicker:
+// already uses — MEASURED on the full 2026-08-25 run: 51,005 of 51,040 cached in 202.8
+// minutes at ~4.2/s (the 35 misses are HTTP 404s the register's own index lists but does
+// not serve). This line read "roughly 7 hours" until that run; it was a pre-run estimate,
+// and it disagreed with the three other statements of the same figure in this repo. Do not put it in any chain, and do not raise the concurrency to be quicker:
 // the register is somebody else's server and this repo's whole relationship with it is that
 // it stays polite.
 //

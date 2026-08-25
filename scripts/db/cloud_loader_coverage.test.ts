@@ -38,10 +38,19 @@ const skillText = (): string => {
   return out.join("\n");
 };
 
-// The ORCHESTRATOR itself — the skill whose Step 8 is the operator's consolidated
+// The ORCHESTRATOR itself — the skill whose Step 9 is the operator's consolidated
 // publish checklist. "Named in some skill" (skillText) is a weaker bar than "named
 // HERE": the C1 rollcall gap was named in update-rollcall yet absent from this file,
 // so an orchestrated run never emitted it. Read separately for the orchestrator gate.
+//
+// ⚠️ THIS IS THE WHOLE FILE, NOT THE STEP 9 SECTION, and that is deliberate. Most
+// judiciary/persons/procurement loaders are named in their WATCHER-MAPPING row rather
+// than in the emit table — measured, four of the judiciary commands passed this gate off
+// the `ivss_declarations` row alone, with no update-judiciary row in the emit table at
+// all — so slicing to the emit section would fail a large set of correctly-documented
+// loaders. The cost of the wider match is real and worth naming: the gate cannot tell
+// "listed in the emit table" from "mentioned anywhere in the file", including inside a
+// caveat. Narrowing it is a change to the ORCHESTRATOR's shape, not to this gate.
 const orchestratorText = (): string => {
   const p = path.join(ROOT, ".claude/skills/process-watch-report/SKILL.md");
   return fs.existsSync(p) ? fs.readFileSync(p, "utf8") : "";
@@ -51,6 +60,15 @@ describe("every :cloud loader is reachable from a skill", () => {
   const scripts = cloudScripts();
   const skills = skillText();
   const named = new Set(scripts.filter((s) => skills.includes(s)));
+
+  it("the emit table the failure messages name actually exists", () => {
+    // A gate whose remedy text points at a numbered section can drift from that
+    // section indefinitely — this file said "Step 8" nine times while the emit
+    // table was Procedure step 9. Anchor the number to the orchestrator itself.
+    expect(orchestratorText()).toContain(
+      "9. **Sync Cloud SQL for the PG-backed datasets that changed.**",
+    );
+  });
 
   it("finds the scripts and the skills at all (non-vacuity)", () => {
     expect(scripts.length).toBeGreaterThan(50);
@@ -68,6 +86,37 @@ describe("every :cloud loader is reachable from a skill", () => {
         `firing would leave prod on the previous vintage at a 200. Add the command ` +
         `to the owning update-* skill (and to the process-watch-report mapping row ` +
         `for its watcher), or add it to CLOUD_SKILL_EXEMPTIONS with a reason.`,
+    ).toEqual([]);
+  });
+
+  it("a skill naming X:pg:cloud also names the LOCAL X:pg, when db:refresh will not", () => {
+    // Every other assertion here is about the `:cloud` half, and a loader can be wired on
+    // the cloud side ONLY while its local counterpart is silently owed. That is not
+    // hypothetical: db:load:magistrate-filing-assets:pg is a REFRESH_EXCLUSIONS member
+    // REPAIRING what db:load:magistrates:pg (which IS in db:refresh) truncates — so every
+    // local `npm run db:refresh` blanked the magistrate property count, and this suite was
+    // green throughout.
+    //
+    // Scoped to loaders db:refresh does NOT run: if the chain runs the local half, a skill
+    // repeating it earns nothing. Those are exactly the ones a human has to remember.
+    const pkg = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "package.json"), "utf8"),
+    ) as { scripts: Record<string, string> };
+    const refresh = pkg.scripts["db:refresh"] ?? "";
+    const missing = Object.keys(pkg.scripts)
+      .filter((k) => k.endsWith(":pg:cloud"))
+      .map((k) => k.replace(/:cloud$/, ""))
+      .filter(
+        (local) =>
+          skills.includes(`${local}:cloud`) &&
+          !new RegExp(`${local}(?![\\w:-])`).test(refresh) &&
+          !new RegExp(`${local}(?![\\w:-])`).test(skills),
+      );
+    expect(
+      missing,
+      "these are published to PROD by a skill, but their LOCAL half is neither in " +
+        "db:refresh nor named in any skill — so local silently keeps the pre-load state " +
+        "and every gate stays green. Name the local command in the owning skill.",
     ).toEqual([]);
   });
 
@@ -168,7 +217,7 @@ describe("every :cloud loader is reachable from a skill", () => {
 
   // ── The orchestrator gate (cloud-deploy-speed-v1 §v2-b) ──────────────────────
   // The gap C1 exposed: a loader named in its OWN skill but absent from
-  // process-watch-report's Step 8, so an orchestrated publish never emits it and
+  // process-watch-report's Step 9, so an orchestrated publish never emits it and
   // prod goes stale even though the coverage check above is green.
   const orchestrator = orchestratorText();
 
@@ -182,7 +231,7 @@ describe("every :cloud loader is reachable from a skill", () => {
       orchestrator,
     );
 
-  it("no non-exempt :cloud loader is missing from the ORCHESTRATOR's Step 8", () => {
+  it("no non-exempt :cloud loader is missing from the ORCHESTRATOR's Step 9", () => {
     expect(orchestrator.length).toBeGreaterThan(10_000); // non-vacuity
     const missing = scripts.filter(
       (s) =>
@@ -193,9 +242,9 @@ describe("every :cloud loader is reachable from a skill", () => {
     expect(
       missing,
       `These are watcher-triggered PG loaders that an update-* skill runs but ` +
-        `process-watch-report's Step 8 never emits, so an ORCHESTRATED publish ` +
+        `process-watch-report's Step 9 never emits, so an ORCHESTRATED publish ` +
         `leaves prod on the previous vintage at a 200 (the C1 rollcall class). ` +
-        `Add the command to process-watch-report's Step 8 emit table, or — if its ` +
+        `Add the command to process-watch-report's Step 9 emit table, or — if its ` +
         `trigger is manual/calendar/build-time, not a daily watcher — add it to ` +
         `ORCHESTRATOR_EXEMPTIONS with a reason.`,
     ).toEqual([]);
@@ -225,8 +274,8 @@ describe("every :cloud loader is reachable from a skill", () => {
       Object.keys(ORCHESTRATOR_EXEMPTIONS).length,
       "an orchestrator-exemption was added or removed — if you EXEMPTED a loader, " +
         "say why in ORCHESTRATOR_EXEMPTIONS and raise this number deliberately; if " +
-        "you WIRED one into process-watch-report's Step 8, lower it",
-    ).toBe(4);
+        "you WIRED one into process-watch-report's Step 9, lower it",
+    ).toBe(5);
   });
 
   it("the two exemption maps are DISJOINT — a script is exempt for exactly one reason", () => {

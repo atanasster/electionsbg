@@ -174,10 +174,16 @@ generating the JSON:
 ```bash
 npm run db:load:court-load:pg
 npm run db:load:magistrates:pg
-npm run db:load:judicial-bodies:pg     # MUST follow the two above
+npm run db:load:magistrate-filing-assets:pg   # REPAIRS what the line above wipes — see below
+npm run db:load:judicial-bodies:pg            # MUST follow court-load AND magistrates
 ```
 
-(All three are wired into `db:refresh`.)
+⚠️ **Three of those four are wired into `db:refresh`; `db:load:magistrate-filing-assets:pg`
+is a `REFRESH_EXCLUSIONS` member (`scripts/db/refresh_coverage.ts`), and that asymmetry is
+the trap.** `npm run db:refresh` therefore runs the magistrates loader — which wipes the
+per-filing declaration metadata, see below — and never the repair, so the property count is
+blank after every full local reload even on a machine that has the crawl cache. Run the
+third command by hand after any `db:refresh` that touched magistrates.
 
 **Then publish to Cloud SQL — nothing does this automatically**, and the order is the
 same. Written out in full rather than as a bare-suffix shorthand: that form reads fine to a
@@ -188,15 +194,55 @@ here. (The other two were already named in `update-persons`.)
 ```bash
 npm run db:load:court-load:pg:cloud
 npm run db:load:magistrates:pg:cloud
-npm run db:load:judicial-bodies:pg:cloud   # MUST follow the two above
+npm run db:load:magistrate-filing-assets:pg:cloud   # MUST follow magistrates — see below
+npm run db:load:judicial-bodies:pg:cloud   # MUST follow court-load AND magistrates
 # Verify the alias table landed BEFORE resolving — afterwards it is too late to tell:
 #   select count(*) from judicial_body_alias;   -- must be non-zero (~530)
 npm run db:resolve:persons:cloud
 ```
 
-⚠️ **The fourth command is not optional, and the three above it publish nothing to
-`/person` without it.** `judicial_body` / `judicial_body_alias` are a DIMENSION: the
-resolve is what reads the alias table and rebuilds `person_role`. Stop after the third
+⚠️ **`db:load:magistrate-filing-assets:pg[:cloud]` is a REPAIR, not an optional extra, and
+the magistrates loader is what makes it necessary. This paragraph is the ONE home for that
+rule — `process-watch-report` points here rather than restating it.**
+
+`db:load:magistrates:pg`'s load transaction opens with `TRUNCATE magistrate CASCADE`.
+⚠️ `TRUNCATE … CASCADE` keys on the mere EXISTENCE of a foreign key, **not** on its
+`ON DELETE` action — verified: a child with `ON DELETE RESTRICT` is truncated just the same.
+So `magistrate_filing`, which references `magistrate(name)`, is emptied and reloaded
+**without** the facts only the document carries: `kind`, `period_year`, `form_version` and
+the two `table*_refused` flags, plus `magistrate.real_estate_count_parsed`, which comes back
+NULL. Measured on the current corpus, local and prod alike: `kind` on **36,995 of 37,023
+filings** and a parsed property count on **3,587 of 3,594 magistrates**.
+
+`070_magistrates.sql` records that the card then shows **no count at all** rather than
+falling back to the heuristic one, deliberately: the heuristic invents property against
+magistrates who declared none. So every `ivss_declarations` flip that runs the magistrates
+loader takes the count off every card site-wide until this repair runs — on BOTH sides, and
+including every local `npm run db:refresh` (see the local block above).
+
+`magistrate_filing_asset` itself has no foreign key and survives the CASCADE, which is why
+the row count reconciles while the cards are blank.
+
+**It needs no new crawl.** It re-derives from the already-cached
+`raw_data/judiciary/filing_cache.json` (the ~3.5 h operator crawl in
+`scripts/judiciary/crawl_declarations.ts`). ⚠️ That file is **gitignored**, so on a machine
+that has never run the crawl this loader applies its schema, prints that it has nothing to
+load and exits **0** — a safe no-op, but "it ran and printed nothing" is NOT "the count is
+back". Check both arms before trusting it:
+
+```sql
+SELECT count(*) FROM magistrate WHERE real_estate_count_parsed IS NOT NULL;  -- ~3,587 of 3,594
+--   the ~7 shortfall is CORRECT, not a partial repair: those records' Таблица 1 was refused,
+--   and NULL there means "not read" rather than "declared nothing".
+SELECT count(*) FROM magistrate_filing WHERE kind IS NOT NULL;               -- ~36,995 of 37,023
+```
+
+Plan: `docs/plans/magistrate-declaration-detail-v1.md`.
+
+⚠️ **`db:resolve:persons:cloud` is not optional, and every loader above it publishes
+nothing to `/person` without it.** `judicial_body` / `judicial_body_alias` are a DIMENSION:
+the resolve is what reads the alias table and rebuilds `person_role`. Stop at
+`db:load:judicial-bodies:pg:cloud`
 and the new and re-spelled magistrates have no roles on prod at all — green locally,
 missing live, every row count reconciling. `update-persons` documents the same sequence;
 if that skill is running in the same session, its resolve covers this one.

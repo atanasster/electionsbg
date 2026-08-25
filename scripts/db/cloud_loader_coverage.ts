@@ -9,7 +9,11 @@
 // ⚠️ THE ENTRIES BELOW ARE NOT ALL EQUAL. Two kinds live here:
 //
 //   • `operator-tool`   — not a corpus reload at all (a proxy, a restore, a
-//                          one-off repair). These will never belong to a skill.
+//                          one-off repair, a read-only verifier). ⚠️ The kind is SHARED with
+//                          ORCHESTRATOR_EXEMPTIONS below, and the two maps have OPPOSITE
+//                          entrance conditions: here it also implies "no skill names it",
+//                          while THERE a skill must name it or the "no UNWIRED" assertion
+//                          would fail first. Read the kind as "not a corpus reload" only.
 //   • `manual-trigger`  — a real loader whose trigger is a human action with no
 //                          watcher behind it (a rate-limited multi-hour crawl,
 //                          an operator download). Documented in CLAUDE.md
@@ -87,11 +91,11 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
 // ── Orchestrator-emission exemptions ──────────────────────────────────────────
 // CLOUD_SKILL_EXEMPTIONS above covers loaders named in NO skill. This SECOND list
 // covers loaders that ARE named in an owning skill but are legitimately NOT emitted
-// by `process-watch-report`'s Step 8 — because their trigger is not a daily watcher
+// by `process-watch-report`'s Step 9 — because their trigger is not a daily watcher
 // the orchestrator acts on.
 //
 // The distinction the C1 rollcall gap exposed: "named in a skill" ≠ "emitted by the
-// orchestrator". A watcher-triggered PG loader that update-* runs but Step 8 never
+// orchestrator". A watcher-triggered PG loader that update-* runs but Step 9 never
 // lists leaves prod stale after an ORCHESTRATED publish, even though its own skill
 // documents the command. The orchestrator assertion in cloud_loader_coverage.test.ts
 // requires every non-exempt `:cloud` loader to appear in process-watch-report; the
@@ -102,7 +106,7 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
 // cannot grow unnoticed"). The `toBe` is what forces the reason to be read.
 //
 // Decided 2026-08-21 (cloud-deploy-speed-v1 §v2-b). A loader whose trigger IS a daily
-// watcher does NOT belong here — it belongs in process-watch-report's Step 8.
+// watcher does NOT belong here — it belongs in process-watch-report's Step 9.
 export const ORCHESTRATOR_EXEMPTIONS: Record<
   string,
   { kind: CloudExemptionKind; reason: string }
@@ -121,6 +125,21 @@ export const ORCHESTRATOR_EXEMPTIONS: Record<
     kind: "manual-trigger",
     reason:
       "mints the committed /person prerender + sitemap manifest (data/person/prerender_slugs.json) FROM the serving DB (emit_prerender_slugs.ts refuses local docker). It is a build-time artifact for the NEXT `npm run build`, so its trigger is a person-page rebuild/deploy, not the daily person ingest. ⚠️ Least-certain classification (cloud-deploy-speed-v1 §v2-b): if the person prerender set widens, promote it into the person cloud chain in process-watch-report.",
+  },
+  // ── decided 2026-08-25 (red-gates-repair-v1) ──────────────────────────────
+  "proc:verify-seats:cloud": {
+    kind: "operator-tool",
+    reason:
+      "a READ-ONLY verifier, not a publish: verify_awarder_seats.ts issues one SELECT and writes " +
+      "nothing, so it cannot leave prod on the previous vintage at a 200 — the harm this gate exists " +
+      "to catch. It IS named in update-procurement, as the last line of the publish path, which is " +
+      "exactly where its own plan (docs/plans/awarder-seats-freshness-gate-v1.md §3.3) says to wire " +
+      "it; that plan's §6 then states deliberately that nothing in this repo runs a :cloud " +
+      "verification on a schedule. Emitting it blindly would also risk a false alarm: §4 documents a " +
+      "BENIGN divergence (an awarder gaining a real OCDS address) on which it would correctly exit 1 " +
+      "— not yet observed firing, since the one measured occurrence resolved to the same ekatte and " +
+      "true divergence is 0/2,174 — so an orchestrated run could read an expected event as a failed " +
+      "publish. The exemption stands on the read-only argument alone regardless.",
   },
   "data:local-person-refresh:cloud": {
     kind: "operator-tool",

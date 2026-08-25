@@ -349,6 +349,15 @@ about it differ from every other line above:
   crawl of a shared public register, an operator action, not part of this ingest). It is
   therefore only useful on a machine that has earned that capture; elsewhere it applies
   the DDL and exits 0, which is the intended outcome rather than a failure.
+- **The LOCAL half needs naming too, because no chain runs it.** `npm run db:load:tender-dossier:pg`
+  is a `REFRESH_EXCLUSIONS` member, so `db:refresh` never runs it and a machine that has
+  earned the capture still serves an empty `tender_dossier` locally until it is run by
+  hand. Run it after every `ingest_eop_dossier.ts` / `ingest_eop_spec_text.ts` pass, before
+  the `:cloud` publish above:
+
+  ```bash
+  npm run db:load:tender-dossier:pg          # local — nothing in db:refresh does this
+  ```
 - **It is safe to run even when you have no capture, and worth running once anyway**:
   147 carries the `app_readonly` GRANTs for 146's seven tables, which shipped with none.
   Missing grants are invisible locally (the loader connects as the owner) and would
