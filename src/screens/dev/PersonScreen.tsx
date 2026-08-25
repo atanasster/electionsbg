@@ -157,6 +157,17 @@ type DbRollup = Pick<
 const PARTICIPATIONS_SHOWN = 12;
 
 const num = new Intl.NumberFormat("bg-BG");
+/** Below this share of the money carrying a `procurement_method` at all, „печели пряко"
+ *  is withheld. Same number and same reason as `ProcurementBreakdownTile`'s EU-funding
+ *  line, which is the precedent this follows rather than a fresh judgement. */
+const PROC_COVERAGE_FLOOR = 0.6;
+
+/** One decimal, so „95,6%" does not round to a flat „96%" — the point of the headline is
+ *  how close to total the figure is, and that last digit is where it reads. */
+const pctFmt = new Intl.NumberFormat("bg-BG", {
+  style: "percent",
+  maximumFractionDigits: 1,
+});
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
 
 // At-a-glance signal chips (person-shaped analogue of CompanyRiskChips).
@@ -456,6 +467,45 @@ export const PersonScreen: FC = () => {
       proc: [...byBucket].map(([b, v]) => ({ b, eur: v.eur, n: v.n })),
     };
   }, [procurement]);
+
+  /** „Печели пряко" — the share of KNOWN-procedure money won without an open advert.
+   *
+   *  ⚠️ COVERAGE-GATED, and that is the whole difficulty with promoting this number to a
+   *  headline. `procurement_method` is absent on a large part of the corpus — measured
+   *  2026-08-26 over `contracts` at `tag='contract'`: **54.8% of rows and 60.3% of the
+   *  money** carry one — so `direct / procKnown` is a share of a SUBSET. Printed bare in
+   *  a stat card it reads as a claim about everything the person's companies won.
+   *
+   *  The threshold and its rationale are not invented here: `ProcurementBreakdownTile`
+   *  already withholds its EU-funding share below `euCoverage >= 0.6`, for the same
+   *  reason in the same card. Below the gate this returns null and the card says the
+   *  procedure is unknown rather than showing a number over too little of the money;
+   *  above it, `coverage` rides along so the sub-line can name the basis. */
+  const directShare = useMemo(() => {
+    if (!breakdown || breakdown.totalEur <= 0) return null;
+    const coverage = breakdown.procKnownEur / breakdown.totalEur;
+    if (coverage < PROC_COVERAGE_FLOOR) return null;
+    const known = breakdown.proc.reduce((sum, p) => sum + p.eur, 0);
+    if (known <= 0) return null;
+    const direct = breakdown.proc.find((p) => p.b === "direct")?.eur ?? 0;
+    return { share: direct / known, coverage };
+  }, [breakdown]);
+
+  /** How much of the portfolio actually wins public work — or null when unanswerable.
+   *
+   *  `byCompany` (migration 125) ships the FULL per-company cut with no LIMIT, so its
+   *  length is exactly "companies with contracts", and the denominator is the same
+   *  `summary.companies` the Участия heading counts, so the two sections agree.
+   *
+   *  ⚠️ AN EMPTY ARRAY IS NOT A ZERO, and reading it as one publishes a card that
+   *  contradicts the card beside it. 125 and 024 do not agree on their population — 125
+   *  excludes the TR sentinel „Заличено обстоятелство." and 024 does not — and the route
+   *  additionally degrades a missing 125 to `[]` rather than erroring. Rendered live
+   *  before this guard: „Общо възложени €3,4 млрд. · Договори 24 381 · Фирми с поръчки
+   *  0 от 4383". Whenever there IS procurement and 125 returned nothing, the honest
+   *  answer is „—", the same shape `directShare` uses one card over. */
+  const winningCompanies =
+    byCompany.length === 0 && contractCount > 0 ? null : byCompany.length;
 
   // Person signal chips.
   const chips = useMemo(() => {
@@ -787,24 +837,53 @@ export const PersonScreen: FC = () => {
                     </span>
                   </div>
                 </StatCard>
-                <StatCard label="Възложители">
+                {/* „Възложители" moved out of the headline: it duplicated a number the
+                    awarders tile below now states with its own cap („Топ 10 / 270"), and
+                    beside „Договори" it read as a designed pairing when the two matching
+                    is a coincidence of the data. What replaces it is the more telling
+                    figure — how much of this money never met an open advert.
+                    ⚠️ NOT „Печели пряко", which the plan proposed. Measured over the
+                    `direct` bucket corpus-wide, only 9.6% of that money (€660M of
+                    €6.90bn) is literally „пряко договаряне"; 78.1% is „договаряне без
+                    предварително обявление" and 12.3% is the OCDS `limited` code. And
+                    much of it is LAWFUL sole-sourcing under чл. 79, so a bold
+                    person-level „печели пряко" reads as an integrity finding the number
+                    does not support. „Без открита процедура" is true of all five raw
+                    strings that reach the bucket and accuses nobody. */}
+                <StatCard label="Без открита процедура">
                   <div className="flex items-baseline gap-2">
-                    <Building2 className="h-5 w-5 text-muted-foreground shrink-0" />
+                    <Crosshair className="h-5 w-5 text-muted-foreground shrink-0" />
                     <span className="text-2xl font-bold tabular-nums">
-                      {num.format(
-                        rollup.awarderCount ?? rollup.byAwarder.length,
-                      )}
+                      {directShare
+                        ? `${pctFmt.format(directShare.share)}`
+                        : "—"}
                     </span>
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    Брой държавни институции
+                    {directShare
+                      ? `от сумата с известна процедура (${pctFmt.format(directShare.coverage)} от общата; видът е записан главно след 2020 г.)`
+                      : "процедурата е известна за твърде малка част от сумата"}
                   </div>
                 </StatCard>
-                <StatCard label="Фирми в портфейла">
+                {/* „Фирми в портфейла" answered a Фирми-section question from inside
+                    the procurement section, and the Участия heading above already counts
+                    the same companies. Framed as a RATIO it becomes a procurement fact:
+                    how concentrated this money is across the portfolio. */}
+                <StatCard label="Фирми с поръчки">
                   <div className="flex items-baseline gap-2">
                     <Users className="h-5 w-5 text-muted-foreground shrink-0" />
+                    {/* The leading space is in the STRING, not only in the flex gap: a
+                        gap is invisible to textContent, so „1 от 2" was reaching the
+                        clipboard and the accessible name as „1от 2" — the same defect
+                        the participation tags carry a note about. */}
                     <span className="text-2xl font-bold tabular-nums">
-                      {num.format(summary.companies)}
+                      {winningCompanies === null
+                        ? "—"
+                        : num.format(winningCompanies)}
+                    </span>
+                    <span className="text-sm text-muted-foreground tabular-nums">
+                      {" "}
+                      от {num.format(summary.companies)}
                     </span>
                   </div>
                   <div className="text-xs text-muted-foreground">

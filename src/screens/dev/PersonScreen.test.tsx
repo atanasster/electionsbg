@@ -108,7 +108,19 @@ const payload = (over: Record<string, unknown> = {}) => ({
   procurement: procurement(),
   cabinets: [],
   associates: [],
-  byCompany: [],
+  // ⚠️ NOT `[]`. An empty byCompany beside a non-zero contractCount is the „unanswerable"
+  // state (migration 125 disagreeing with 024, or degrading to []), which renders „—".
+  // Shipping it as the DEFAULT meant most tests here silently exercised that branch and
+  // a `/от 2/` assertion matched „—от 2" without anyone noticing.
+  byCompany: [
+    {
+      eik: "123456789",
+      name: "АКМЕ ООД",
+      totalEur: 1000,
+      contractCount: 2,
+      awarderCount: 1,
+    },
+  ],
   bySettlement: [],
   ...over,
 });
@@ -256,9 +268,13 @@ describe("PersonScreen — Участия is one row per company", () => {
       expect(sectionText("person-portfolio")).toContain("Участия (2)"),
     );
     expect(rowsIn("person-portfolio")).toHaveLength(2);
-    // The stat card, in the procurement section, counts the same 2 companies.
+    // The stat card, in the procurement section, uses the same 2 as its DENOMINATOR.
+    // (Tier 5 relabelled this card „Фирми с поръчки N от M"; M is `summary.companies`,
+    // which is the invariant this test exists for — the Участия heading and this card
+    // must not come to disagree about how many companies the person is in.)
     const proc = sectionText("person-procurement");
-    expect(proc).toContain("Фирми в портфейла");
+    expect(proc).toContain("Фирми с поръчки");
+    expect(proc).toMatch(/от 2/);
     // ...while its sub-line's two figures OVERLAP and do not sum to it: company 1 is
     // both owned and managed, so владее(2) + управлява(1) = 3 over 2 companies. That is
     // the same one-company-two-roles shape the fold exists for, seen from the other end
@@ -434,6 +450,190 @@ describe("PersonScreen — Участия is one row per company", () => {
       expect(sectionText("person-portfolio")).toContain("Хронология"),
     );
     expect(sectionText("person-portfolio")).not.toContain("дата на вписване");
+  });
+});
+
+describe("PersonScreen — the headline stat cards", () => {
+  /** A breakdown with a chosen procedure coverage and direct-award split. */
+  const withProcurement = (over: {
+    totalEur: number;
+    procKnownEur: number;
+    procRaw: { method: string; eur: number; n: number }[];
+  }) =>
+    payload({
+      procurement: {
+        ...procurement(),
+        totalEur: over.totalEur,
+        breakdown: {
+          totalEur: over.totalEur,
+          cpvKnownEur: over.totalEur,
+          procKnownEur: over.procKnownEur,
+          euEur: 0,
+          euKnownEur: 0,
+          cpvRaw: [{ d: "45", eur: over.totalEur, n: 2 }],
+          procRaw: over.procRaw,
+        },
+      },
+      byCompany: [
+        {
+          eik: "1",
+          name: "А",
+          totalEur: over.totalEur,
+          contractCount: 2,
+          awarderCount: 1,
+        },
+      ],
+      roles: [
+        role({ uic: "1", company: "А" }),
+        role({ uic: "2", company: "Б" }),
+      ],
+    });
+
+  it("states the direct-award share WITH the coverage it rests on", async () => {
+    // 900 of 1000 carries a procedure (90% coverage, above the floor); of that, 860 is
+    // direct. Both numbers must be on the card: the share alone reads as a claim about
+    // everything the person's companies won.
+    stub(
+      withProcurement({
+        totalEur: 1000,
+        procKnownEur: 900,
+        procRaw: [
+          { method: "договаряне без обявление", eur: 860, n: 8 },
+          { method: "открита процедура", eur: 40, n: 1 },
+        ],
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-procurement")).toContain(
+        "Без открита процедура",
+      ),
+    );
+    const text = sectionText("person-procurement");
+    expect(text).toMatch(/95,6\s*%/);
+    expect(text).toContain("от сумата с известна процедура");
+    expect(text).toMatch(/90\s*%\s*от общата/);
+  });
+
+  it("WITHHOLDS the share when procedure coverage is too thin", async () => {
+    // Corpus-wide only ~60% of contract money carries a procurement_method at all, so a
+    // percentage over a small known subset, printed bare, is a claim the data cannot
+    // support. Same floor and same reason as ProcurementBreakdownTile's EU-funding line.
+    stub(
+      withProcurement({
+        totalEur: 1000,
+        procKnownEur: 100,
+        procRaw: [{ method: "договаряне без обявление", eur: 100, n: 1 }],
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-procurement")).toContain(
+        "Без открита процедура",
+      ),
+    );
+    const text = sectionText("person-procurement");
+    expect(text).toContain("твърде малка част");
+    // ...and no percentage is published for it.
+    expect(text).not.toMatch(/100\s*%/);
+  });
+
+  it("pins the coverage floor at 0.6, not merely 'some threshold'", async () => {
+    // 0.59 must withhold and 0.61 must publish, so the floor cannot drift: without both
+    // sides, any threshold between 0.1 and 0.9 passes the withholding test alone. The
+    // value is not a fresh judgement — it is ProcurementBreakdownTile's existing
+    // euCoverage gate, in the same card, for the same reason.
+    stub(
+      withProcurement({
+        totalEur: 1000,
+        procKnownEur: 590,
+        procRaw: [{ method: "договаряне без обявление", eur: 590, n: 1 }],
+      }),
+    );
+    const below = show();
+    await waitFor(() =>
+      expect(sectionText("person-procurement")).toContain("твърде малка част"),
+    );
+    below.unmount();
+    vi.restoreAllMocks();
+
+    stub(
+      withProcurement({
+        totalEur: 1000,
+        procKnownEur: 610,
+        procRaw: [{ method: "договаряне без обявление", eur: 610, n: 1 }],
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-procurement")).toContain(
+        "от сумата с известна процедура",
+      ),
+    );
+  });
+
+  it("says — not 0 when the per-company cut cannot answer", async () => {
+    // The critical defect this tier shipped and the review caught. Migration 125
+    // excludes the TR sentinel that 024 includes, and the route degrades a missing 125
+    // to []. Rendered live: „Общо възложени €3,4 млрд. · Договори 24 381 · Фирми с
+    // поръчки 0 от 4383" — a card contradicting the one beside it.
+    stub(payload({ byCompany: [] }));
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-procurement")).toContain("Фирми с поръчки"),
+    );
+    const proc = sectionText("person-procurement");
+    expect(proc).toContain("—");
+    expect(proc).not.toMatch(/0\s*от/);
+  });
+
+  it("does say 0 when there is genuinely no procurement to explain", async () => {
+    // The guard must not swallow a real zero: with no contracts the whole section is
+    // gated away, so the only way to be sure is that the guard keys on contractCount.
+    stub(payload({ byCompany: [], procurement: null }));
+    show();
+    await waitFor(() =>
+      expect(sectionIds()).not.toContain("person-procurement"),
+    );
+  });
+
+  it("keeps a readable space between the numerator and the denominator", async () => {
+    // The two halves sit in separate flex spans, so the gap is invisible to textContent
+    // — „1от 2" reached the clipboard and the accessible name before the explicit space.
+    stub(payload());
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-procurement")).toContain("Фирми с поръчки"),
+    );
+    expect(sectionText("person-procurement")).toMatch(/1\s+от\s+1/);
+  });
+
+  it("counts companies that actually won work, out of the portfolio", async () => {
+    // The denominator is the same `summary.companies` the Участия heading uses, so the
+    // two sections cannot disagree about how many companies this person is in.
+    stub(
+      withProcurement({
+        totalEur: 1000,
+        procKnownEur: 900,
+        procRaw: [{ method: "открита процедура", eur: 900, n: 2 }],
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-procurement")).toContain("Фирми с поръчки"),
+    );
+    // byCompany has 1 entry; roles span 2 companies.
+    expect(sectionText("person-procurement")).toMatch(/1\s*от 2/);
+    expect(sectionText("person-portfolio")).toContain("Участия (2)");
+  });
+
+  it("drops the awarder COUNT from the headline, since the tile below states it", async () => {
+    stub(withProcurement({ totalEur: 1000, procKnownEur: 900, procRaw: [] }));
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-procurement")).toContain("Договори"),
+    );
+    expect(sectionText("person-procurement")).not.toContain("Възложители");
   });
 });
 
