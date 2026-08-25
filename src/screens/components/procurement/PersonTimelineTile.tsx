@@ -1,8 +1,9 @@
 // Career-arc timeline for the DB person page — each role rendered as a
 // horizontal span from added_at → erased_at (or "now" if active), so the
 // person's entry/exit across companies reads at a glance. Replaces the flat
-// text chronology. Dependency-free (positioned divs, no chart lib). Roles
-// without a start date are dropped (can't be placed). Name-only match — a lead.
+// text chronology. Dependency-free (positioned divs, no chart lib). Roles this
+// tile cannot place are dropped — see `isPlottableRole`, which the CALLER also reads
+// so it can say how many. Name-only match — a lead.
 
 import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
@@ -11,6 +12,7 @@ import { Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { trRoleLabel } from "@/lib/trRole";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { isPlottableRole } from "./plottableRole";
 
 export interface TimelineRole {
   uic: string;
@@ -23,22 +25,30 @@ export interface TimelineRole {
 
 const YEAR_MS = 365.25 * 24 * 3600 * 1000;
 
-export const PersonTimelineTile: FC<{ roles: TimelineRole[] }> = ({
-  roles,
-}) => {
+export const PersonTimelineTile: FC<{
+  roles: TimelineRole[];
+  /** One line under the heading tying this card to the list it repeats.
+   *
+   *  Two cards showing the same ten facts, with nothing saying so, read as two datasets
+   *  that ought to agree — and this one plots fewer rows than the list above it, because
+   *  a role this tile cannot place is silently dropped (`isPlottableRole`). The caller
+   *  knows both counts and passes them; the tile does not compute them, because the
+   *  number the reader is comparing against is the one the LIST shows, which is per
+   *  company after folding rather than per role. */
+  note?: string;
+}> = ({ roles, note }) => {
   const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
 
   const model = useMemo(() => {
     const now = Date.now();
     const rows = roles
-      .filter((r) => r.added_at)
+      .filter(isPlottableRole)
       .map((r) => {
         const start = Date.parse(String(r.added_at));
         const end = r.erased_at ? Date.parse(String(r.erased_at)) : now;
         return { r, start, end: Math.max(end, start) };
       })
-      .filter((x) => Number.isFinite(x.start))
       .sort((a, b) => a.start - b.start);
     if (rows.length === 0) return null;
     const min = Math.min(...rows.map((x) => x.start));
@@ -70,6 +80,11 @@ export const PersonTimelineTile: FC<{ roles: TimelineRole[] }> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
+        {note && (
+          <p className="mb-3 border-l-2 border-border bg-muted/40 px-2.5 py-1.5 text-[11px] leading-relaxed text-muted-foreground">
+            {note}
+          </p>
+        )}
         <div className="space-y-1.5">
           {rows.map(({ r, start, end }, i) => {
             const left = posLeft(start);

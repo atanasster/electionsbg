@@ -25,6 +25,7 @@ const TR_ROLE_LABELS: Record<string, string> = {
   tr_role_partner: "съдружник",
   tr_role_actual_owner: "действителен собственик",
   tr_role_manager: "управител",
+  tr_role_sole_owner: "едноличен собственик",
 };
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
@@ -58,7 +59,7 @@ vi.mock("@/screens/components/ScopeControl", () => ({
 import { PersonScreen } from "./PersonScreen";
 
 /** A role with a start date, so PersonTimelineTile has something to plot. */
-const role = () => ({
+const role = (over: Record<string, unknown> = {}) => ({
   uic: "123456789",
   company: "АКМЕ ООД",
   status: null,
@@ -69,6 +70,7 @@ const role = () => ({
   active: true,
   contracts: "2",
   contracts_eur: 1000,
+  ...over,
 });
 
 const procurement = () => ({
@@ -199,6 +201,239 @@ describe("PersonScreen — section structure", () => {
       expect(sectionText("person-connections")).toContain("Политически връзки"),
     );
     expect(sectionText("person-connections")).toContain("Проверка на връзка");
+  });
+});
+
+describe("PersonScreen — Участия is one row per company", () => {
+  const rowsIn = (id: string): HTMLElement[] => [
+    ...document.querySelectorAll<HTMLElement>(
+      `[data-dashboard-section="${id}"] tbody tr`,
+    ),
+  ];
+
+  it("merges two roles at one company into a single row", async () => {
+    // The correctness fix. `person_roles` repeats a PER-COMPANY `contracts_eur` on every
+    // role row, so the old two-table split printed one company's money twice — under
+    // Собственост and again under Управление — with nothing saying it was one company.
+    stub(
+      payload({
+        roles: [
+          role({ role: "sole_owner", share: "100" }),
+          role({ role: "manager", share: null, added_at: "2021-03-03" }),
+        ],
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-portfolio")).toContain("Участия"),
+    );
+    expect(rowsIn("person-portfolio")).toHaveLength(1);
+    // Both roles are still visible, as tags on that one row.
+    const text = sectionText("person-portfolio");
+    expect(text).toContain("едноличен собственик");
+    expect(text).toContain("управител");
+    // The heading counts COMPANIES, so it agrees with „Фирми в портфейла" above.
+    expect(text).toContain("Участия (1)");
+  });
+
+  it("agrees with the portfolio-companies stat card", async () => {
+    // A load-bearing invariant, not a coincidence: `summary.companies` is
+    // `new Set(roles.map(uic))`, so re-basing the Участия heading on COMPANIES is only
+    // safe while the two stay equal. Two roles at one company plus a second company must
+    // read „Участия (2)" beside a card showing 2 — the old per-role heading would have
+    // said 3 and contradicted the card one section below it.
+    stub(
+      payload({
+        roles: [
+          role({ uic: "1", company: "А", role: "sole_owner" }),
+          role({ uic: "1", company: "А", role: "manager" }),
+          role({ uic: "2", company: "Б" }),
+        ],
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-portfolio")).toContain("Участия (2)"),
+    );
+    expect(rowsIn("person-portfolio")).toHaveLength(2);
+    // The stat card, in the procurement section, counts the same 2 companies.
+    const proc = sectionText("person-procurement");
+    expect(proc).toContain("Фирми в портфейла");
+    // ...while its sub-line's two figures OVERLAP and do not sum to it: company 1 is
+    // both owned and managed, so владее(2) + управлява(1) = 3 over 2 companies. That is
+    // the same one-company-two-roles shape the fold exists for, seen from the other end
+    // — worth pinning so nobody "fixes" the sub-line into a partition.
+    expect(proc).toMatch(/владее\s*2/);
+    expect(proc).toMatch(/управлява\s*1/);
+  });
+
+  it("does not fold two different companies together", async () => {
+    stub(
+      payload({
+        roles: [
+          role({ uic: "1", company: "А" }),
+          role({ uic: "2", company: "Б" }),
+        ],
+      }),
+    );
+    show();
+    await waitFor(() => expect(rowsIn("person-portfolio")).toHaveLength(2));
+    expect(sectionText("person-portfolio")).toContain("Участия (2)");
+  });
+
+  it("caps the list and discloses the cap", async () => {
+    // A mass filer runs to hundreds of rows, which buries every section below this one.
+    stub(
+      payload({
+        roles: Array.from({ length: 20 }, (_, i) =>
+          role({ uic: String(i), company: `ФИРМА ${i}` }),
+        ),
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-portfolio")).toContain("Участия (20)"),
+    );
+    expect(rowsIn("person-portfolio")).toHaveLength(12);
+    // The count in the toggle is the FULL one, so the cap is never silent.
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: /Покажи всички 20/ }));
+    expect(rowsIn("person-portfolio")).toHaveLength(20);
+    await user.click(screen.getByRole("button", { name: /Покажи по-малко/ }));
+    expect(rowsIn("person-portfolio")).toHaveLength(12);
+  });
+
+  it("shows no toggle when the list fits", async () => {
+    stub(payload({ roles: [role()] }));
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-portfolio")).toContain("Участия"),
+    );
+    expect(screen.queryByRole("button", { name: /Покажи/ })).toBeNull();
+  });
+
+  it("ties the timeline to the list and explains why it can have more bars", async () => {
+    // Two cards of the same facts with nothing saying so read as two datasets that ought
+    // to agree — and they legitimately differ: the list is per COMPANY, the timeline is
+    // per ROLE. Verified live at 7 companies / 8 bars.
+    stub(
+      payload({
+        roles: [
+          role({ role: "sole_owner" }),
+          role({ role: "manager", added_at: "2021-03-03" }),
+        ],
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-portfolio")).toContain("Хронология"),
+    );
+    const text = sectionText("person-portfolio");
+    // „Същите 1 фирма, подредени" was pinned here and is UNGRAMMATICAL — „Същите" and
+    // „подредени" are both plural, and this is the commonest person shape. Bulgarian
+    // also does not count to one out loud in this construction.
+    expect(text).toContain("Същата фирма, подредена във времето");
+    expect(text).not.toContain("Същите 1");
+    expect(text).toContain("всяка роля има своя лента");
+  });
+
+  it("says X от N rather than same-N when a company has no bar at all", async () => {
+    // PersonTimelineTile drops a role with no `added_at`, so a company whose roles are
+    // ALL undated is absent from the chart entirely — measured 2026-08-25, 73,156
+    // (person, company) pairs over 63,686 people. Asserting „същите N фирми" there is a
+    // correspondence that does not hold.
+    stub(
+      payload({
+        roles: [
+          role({ uic: "1", company: "А" }),
+          role({ uic: "2", company: "Б", added_at: null }),
+        ],
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-portfolio")).toContain("Хронология"),
+    );
+    const text = sectionText("person-portfolio");
+    expect(text).toContain("1 от 2 фирми, подредени във времето");
+    expect(text).not.toContain("Същите 2");
+  });
+
+  it("marks an ENDED role as former even when the ROW is still active", async () => {
+    // The critical finding. The row-level status is an OR across roles, so a company
+    // whose ownership ended while the management continues correctly reads „активен" —
+    // and without a per-tag marker the ended съдружник tag is drawn exactly like a live
+    // one, asserting a holding the person no longer has. Fixture is in the query's own
+    // order (`ORDER BY active DESC`), so a last-wins fold cannot pass it.
+    stub(
+      payload({
+        roles: [
+          role({ role: "manager", active: true, erased_at: null }),
+          role({
+            role: "partner",
+            share: "35",
+            active: false,
+            erased_at: "2021-09-02",
+          }),
+        ],
+      }),
+    );
+    show();
+    await waitFor(() => expect(rowsIn("person-portfolio")).toHaveLength(1));
+    const text = sectionText("person-portfolio");
+    // The ROW stays active — the person is still there.
+    expect(text).toContain("активен");
+    // ...but the ended role is struck through and dated. Scoped to the row: the timeline
+    // below renders each role's label too, so an unscoped query matches twice.
+    const tags = [
+      ...rowsIn("person-portfolio")[0].querySelectorAll<HTMLElement>(
+        "td:nth-child(2) span > span",
+      ),
+    ];
+    const partner = tags.find((el) => el.textContent?.includes("съдружник"))!;
+    const manager = tags.find((el) => el.textContent?.includes("управител"))!;
+    // The strike sits on the inner span wrapping the ROLE TEXT only — a descendant
+    // cannot cancel an inherited text-decoration, so putting it on the tag paints the
+    // date struck too (caught by screenshot, after the computed style said otherwise).
+    expect(partner.querySelector(".line-through")?.textContent).toContain(
+      "съдружник",
+    );
+    expect(partner.querySelector(".line-through")?.textContent).not.toContain(
+      "2021-09-02",
+    );
+    expect(partner.textContent).toContain("до 2021-09-02");
+    // ...while the live one is not struck at all.
+    expect(manager.querySelector(".line-through")).toBeNull();
+    expect(text).toContain("съдружник 35%");
+  });
+
+  it("counts the roles the timeline silently drops", async () => {
+    // PersonTimelineTile filters on `added_at`, so an undated role is dropped with no
+    // trace — a person could show 10 участия above 6 bars and nothing explained the gap.
+    stub(
+      payload({
+        roles: [
+          role({ uic: "1", company: "А" }),
+          role({ uic: "2", company: "Б", added_at: null }),
+        ],
+      }),
+    );
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-portfolio")).toContain("Хронология"),
+    );
+    expect(sectionText("person-portfolio")).toContain(
+      "1 роля няма дата на вписване",
+    );
+  });
+
+  it("says nothing about dropped roles when every role is dated", async () => {
+    stub(payload({ roles: [role()] }));
+    show();
+    await waitFor(() =>
+      expect(sectionText("person-portfolio")).toContain("Хронология"),
+    );
+    expect(sectionText("person-portfolio")).not.toContain("дата на вписване");
   });
 });
 
@@ -349,7 +584,10 @@ describe("PersonScreen — Връзки reads by evidence, not by topic", () => 
     );
 
     const user = userEvent.setup();
-    await user.type(screen.getByPlaceholderText(/друго име/), "  Иван Петров  ");
+    await user.type(
+      screen.getByPlaceholderText(/друго име/),
+      "  Иван Петров  ",
+    );
     await user.click(screen.getByRole("button", { name: /Провери/ }));
 
     // The query is `other.trim()`, so the message must name that — otherwise a result

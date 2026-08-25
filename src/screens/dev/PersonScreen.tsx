@@ -5,7 +5,8 @@
 //   • portfolio procurement rollup — top awarders / top contracts / sectors /
 //     by-cabinet / by-year, aggregated over every company the person runs/owns
 //     (person_procurement, person_by_cabinet), reusing the company-page tiles;
-//   • Участия split into ownership vs management, with a portfolio value bar;
+//   • Участия — ONE row per company, every registry role on it as a tag, with a
+//     portfolio value bar (see personParticipations.ts for why per-company);
 //   • inner circle — the people co-appearing across the person's companies;
 //   • political connections; a visual tenure timeline; a connection check.
 // A person is identified only by folded name (TR has no person id), so rows may
@@ -44,6 +45,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { trRoleLabel, trRoleList } from "@/lib/trRole";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { cn } from "@/lib/utils";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 import { StatCard } from "../dashboard/StatCard";
 import { DashboardSection } from "../dashboard/DashboardSection";
@@ -60,7 +62,14 @@ import {
   type Associate,
 } from "../components/procurement/PersonAssociatesTile";
 import { EvidenceBasis } from "../components/procurement/EvidenceBasis";
+import {
+  foldParticipations,
+  participationTag,
+  OWNS,
+  type ParticipationRow,
+} from "./personParticipations";
 import { PersonTimelineTile } from "../components/procurement/PersonTimelineTile";
+import { isPlottableRole } from "../components/procurement/plottableRole";
 import {
   PersonProcurementBreakdownTile,
   type PersonBreakdownRow,
@@ -71,7 +80,6 @@ import type {
   ProcurementContractorRollup,
   ProcurementBreakdown,
 } from "@/data/dataTypes";
-import { formatOwnerShare } from "@/lib/ownerShare";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 
 interface RoleRow {
@@ -143,8 +151,10 @@ type DbRollup = Pick<
   };
 };
 
-// Ownership roles (vs management) — the split that makes Участия meaningful.
-const OWNS = new Set(["sole_owner", "partner", "actual_owner"]);
+/** Companies shown before the „покажи всички" toggle. A mass filer runs to hundreds of
+ *  rows, which buries every section below this one; the toggle discloses the cap rather
+ *  than truncating silently, and only appears when it binds. */
+const PARTICIPATIONS_SHOWN = 12;
 
 const num = new Intl.NumberFormat("bg-BG");
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
@@ -184,84 +194,145 @@ const politicianRoleLabel = (
   return trRoleLabel(role, t);
 };
 
-/** Shared row renderer for the owns/manages participations tables.
+/** The participations table — ONE row per company, every role on it as a tag.
+ *
+ *  This replaced two tables („Собственост" / „Управление"). They were the same
+ *  relationship to the same company split across the page, so answering "what is this
+ *  person to ИНВЕНТИКС" meant scanning both — and, worse, `person_roles` repeats a
+ *  PER-COMPANY `contracts_eur` on every role row, so a company appearing in both tables
+ *  printed its money twice. See `foldParticipations`' header for the measurement (the
+ *  majority of people in the corpus are in that shape) and for why the fold takes a max
+ *  rather than a sum.
  *
  *  MODULE scope, not declared inside PersonScreen: a component defined in a render body
  *  is a new component TYPE on every render, so React unmounts and remounts the whole
  *  subtree instead of updating it — and this page re-renders on every ScopeControl
- *  interaction and every fetch settle. What it used to read from the closure
+ *  interaction and every fetch settle. What it would otherwise read from the closure
  *  (`maxRoleEur`, `t`, `i18n.language`) is passed in instead. */
-const RoleRows: FC<{
-  rows: RoleRow[];
+const ParticipationRows: FC<{
+  rows: ParticipationRow[];
   maxRoleEur: number;
   t: TFunction;
   lang: string;
 }> = ({ rows, maxRoleEur, t, lang }) => (
-  <table className="w-full text-sm [&_td]:px-2 [&_td]:first:pl-0 [&_th]:px-2 [&_th]:first:pl-0">
-    <thead className="text-left text-xs text-muted-foreground">
-      <tr>
-        <th className="py-1">Фирма</th>
-        <th className="py-1">Роля</th>
-        <th className="py-1 text-right">Дял</th>
-        <th className="py-1">От</th>
-        <th className="py-1">Статус</th>
-        <th className="py-1 text-right">Стойност</th>
-      </tr>
-    </thead>
-    <tbody>
-      {rows.map((r, i) => (
-        <tr key={`${r.uic}-${r.role}-${i}`} className="border-t border-border">
-          <td className="py-1">
-            <Link
-              to={`/company/${r.uic}`}
-              className="text-accent hover:underline"
-            >
-              {decodeEntities(r.company) || r.uic}
-            </Link>
-          </td>
-          <td className="py-1 text-muted-foreground">
-            {trRoleLabel(r.role, t)}
-          </td>
-          <td className="py-1 text-right tabular-nums">
-            {formatOwnerShare(r.share)}
-          </td>
-          <td className="py-1 tabular-nums text-muted-foreground">
-            {day(r.added_at)}
-          </td>
-          <td className="py-1">
-            {r.active ? (
-              <span className="text-emerald-600">активен</span>
-            ) : (
-              <span className="text-muted-foreground">
-                бивш · {day(r.erased_at)}
-              </span>
-            )}
-          </td>
-          <td className="py-1">
-            <div className="flex items-center justify-end gap-2">
-              {r.contracts_eur ? (
-                <>
-                  <span className="h-1.5 w-12 shrink-0 overflow-hidden rounded bg-muted md:w-20">
-                    <span
-                      className="block h-full rounded bg-primary/60"
-                      style={{
-                        width: `${Math.max(3, (r.contracts_eur / maxRoleEur) * 100)}%`,
-                      }}
-                    />
-                  </span>
-                  <span className="w-16 text-right tabular-nums md:w-20">
-                    {formatEurCompact(r.contracts_eur, lang)}
-                  </span>
-                </>
-              ) : (
-                <span className="text-muted-foreground">—</span>
-              )}
-            </div>
-          </td>
+  // The table is wider than a phone-width card, and without this it was simply CLIPPED —
+  // measured at a 318px viewport, a 359px table inside a 253px card with `overflow-x:
+  // visible`, and the page itself does not scroll horizontally, so „Стойност" was
+  // unreachable rather than merely off-screen. The repo's rule is that wide content
+  // scrolls inside its own container instead of pushing the page.
+  <div className="overflow-x-auto">
+    <table className="w-full min-w-[34rem] text-sm [&_td]:px-2 [&_td]:first:pl-0 [&_th]:px-2 [&_th]:first:pl-0">
+      <thead className="text-left text-xs text-muted-foreground">
+        <tr>
+          <th className="py-1">Фирма</th>
+          <th className="py-1">Роля</th>
+          <th className="py-1">От</th>
+          <th className="py-1">Статус</th>
+          <th className="py-1 text-right">Стойност</th>
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr
+            key={r.uic}
+            className={cn(
+              "border-t border-border align-top",
+              // Dimmed only when EVERY role has ended — a former partner who is still the
+              // manager has not left the company.
+              !r.active && "opacity-60",
+            )}
+          >
+            <td className="py-1.5">
+              <Link
+                to={`/company/${r.uic}`}
+                className="text-accent hover:underline"
+              >
+                {decodeEntities(r.company) || r.uic}
+              </Link>
+            </td>
+            <td className="py-1.5">
+              <span className="flex flex-wrap gap-1">
+                {r.roles.map((role, i) => (
+                  <span
+                    key={`${role.role}-${i}`}
+                    className={cn(
+                      "rounded px-1.5 py-0.5 text-xs",
+                      // An ENDED role must not be drawn like a live one. The row-level
+                      // status is an OR across roles, so a company whose ownership ended
+                      // while the management continues correctly reads „активен" — and
+                      // without this the ended съдружник tag beside it would assert a
+                      // holding the person no longer has. Struck through rather than
+                      // hidden: the role is historical, not absent.
+                      !role.active
+                        ? "bg-muted text-muted-foreground"
+                        : OWNS.has(role.role ?? "")
+                          ? "bg-primary/10 text-primary"
+                          : "bg-muted text-muted-foreground",
+                    )}
+                    title={role.active ? undefined : `до ${day(role.erasedAt)}`}
+                  >
+                    {/* ⚠️ The strike is on THIS inner span, not on the tag, and that is a
+                      CSS constraint rather than a preference: text-decoration propagates
+                      to descendants and a descendant CANNOT cancel it — `no-underline`
+                      on the date reports `text-decoration-line: none` in the computed
+                      style and still paints struck, which is what a screenshot caught
+                      after the computed style said it was fine. Scoping the strike to the
+                      role text is the only way to keep the date legible. */}
+                    <span
+                      className={cn(
+                        !role.active && "line-through decoration-1",
+                      )}
+                    >
+                      {participationTag(role, t)}
+                    </span>
+                    {/* The leading space is in the STRING, not only in `ml-1`: a margin is
+                      invisible to textContent, so without it the accessible name and
+                      every copied selection read „съдружник· до …". */}
+                    {!role.active && (
+                      <span className="ml-1"> · до {day(role.erasedAt)}</span>
+                    )}
+                  </span>
+                ))}
+              </span>
+            </td>
+            <td className="py-1.5 tabular-nums text-muted-foreground">
+              {day(r.addedAt)}
+            </td>
+            <td className="py-1.5">
+              {r.active ? (
+                <span className="text-emerald-600">активен</span>
+              ) : (
+                <span className="text-muted-foreground">
+                  бивш · {day(r.erasedAt)}
+                </span>
+              )}
+            </td>
+            <td className="py-1.5">
+              <div className="flex items-center justify-end gap-2">
+                {r.contractsEur ? (
+                  <>
+                    <span className="h-1.5 w-12 shrink-0 overflow-hidden rounded bg-muted md:w-20">
+                      <span
+                        className="block h-full rounded bg-primary/60"
+                        style={{
+                          width: `${Math.max(3, (r.contractsEur / maxRoleEur) * 100)}%`,
+                        }}
+                      />
+                    </span>
+                    <span className="w-16 text-right tabular-nums md:w-20">
+                      {formatEurCompact(r.contractsEur, lang)}
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-muted-foreground">—</span>
+                )}
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 );
 
 export const PersonScreen: FC = () => {
@@ -281,6 +352,7 @@ export const PersonScreen: FC = () => {
   const [associates, setAssociates] = useState<Associate[]>([]);
   const [byCompany, setByCompany] = useState<CompanyCut[]>([]);
   const [bySettlement, setBySettlement] = useState<SettlementCut[]>([]);
+  const [allParticipations, setAllParticipations] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   // The shared URL-backed scope (?pscope), same control as every procurement page. INCLUSIVE
@@ -431,8 +503,45 @@ export const PersonScreen: FC = () => {
     () => Math.max(1, ...roles.map((r) => r.contracts_eur ?? 0)),
     [roles],
   );
-  const ownsRoles = roles.filter((r) => OWNS.has(r.role ?? ""));
-  const managesRoles = roles.filter((r) => !OWNS.has(r.role ?? ""));
+  /** One row per COMPANY. Note this is shorter than `roles` whenever the person holds
+   *  more than one role somewhere — the ordinary ЕООД case — which is exactly why the
+   *  card's heading counts these and not the raw rows. */
+  const participations = useMemo(() => foldParticipations(roles), [roles]);
+  const shownParticipations = allParticipations
+    ? participations
+    : participations.slice(0, PARTICIPATIONS_SHOWN);
+  /** Roles the timeline cannot plot, because they carry no `added_at`.
+   *
+   *  Counted per ROLE, not per company, because the timeline draws one bar PER ROLE
+   *  („Периоди на роля по фирми") while the list above it is now one row per company.
+   *  Those two counts genuinely differ — verified live: 7 companies, 8 bars, because
+   *  one firm carries both съдружник and действителен собственик. */
+  const undatedRoles = useMemo(
+    () => roles.filter((r) => !isPlottableRole(r)).length,
+    [roles],
+  );
+  /** Companies the timeline can actually draw.
+   *
+   *  ⚠️ DERIVED, never assumed equal to `participations.length`. A company ALL of whose
+   *  roles lack `added_at` gets no bar at all — measured 2026-08-25, 73,156 (person,
+   *  company) pairs over 63,686 people are in that shape — so „Същите N фирми" would be
+   *  a false correspondence. Stating „X от N" whenever they differ makes the note
+   *  self-correcting instead, and keeps the headline count in ONE unit: the caveat
+   *  beside it counts ROLES, and two adjacent numbers in different units invite a
+   *  subtraction that is right only by luck. */
+  const timelineCompanies = useMemo(
+    () => new Set(roles.filter(isPlottableRole).map((r) => r.uic)).size,
+    [roles],
+  );
+  /** True when at least one company contributes more than one bar.
+   *
+   *  The caveat it gates says „няколко роли … повече от веднъж" rather than naming two:
+   *  21,378 (person, company) pairs over 18,990 people carry three or more roles, up to
+   *  five, so „appears twice" is simply wrong for them. */
+  const multiRoleCompany = useMemo(
+    () => participations.some((p) => p.merged),
+    [participations],
+  );
 
   // Whether the "Профил на възлагането" grid has a tile that will actually render.
   // All three tiles inside it self-hide on an EMPTY ARRAY, and DashboardSection
@@ -547,59 +656,96 @@ export const PersonScreen: FC = () => {
             icon={Briefcase}
             headingLevel={2}
           >
-            {/* Participations — ownership vs management */}
-            <div className="flex items-center gap-2">
-              <h3 className="text-base font-semibold">
-                Участия ({num.format(roles.length)})
-              </h3>
-            </div>
             {roles.length === 0 ? (
               <div className="text-sm text-muted-foreground">
                 Няма намерени участия за това име.
               </div>
             ) : (
-              <div className="grid gap-4 xl:grid-cols-2">
-                {ownsRoles.length > 0 && (
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="flex items-center gap-2 text-base">
-                        <Coins className="h-4 w-4" /> Собственост (
-                        {num.format(ownsRoles.length)})
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <RoleRows
-                        rows={ownsRoles}
-                        maxRoleEur={maxRoleEur}
-                        t={t}
-                        lang={i18n.language}
-                      />
-                    </CardContent>
-                  </Card>
-                )}
-                {managesRoles.length > 0 && (
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="flex items-center gap-2 text-base">
-                        <Building2 className="h-4 w-4" /> Управление (
-                        {num.format(managesRoles.length)})
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <RoleRows
-                        rows={managesRoles}
-                        maxRoleEur={maxRoleEur}
-                        t={t}
-                        lang={i18n.language}
-                      />
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Coins className="h-4 w-4" /> Участия (
+                    {num.format(participations.length)})
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ParticipationRows
+                    rows={shownParticipations}
+                    maxRoleEur={maxRoleEur}
+                    t={t}
+                    lang={i18n.language}
+                  />
+                  {/* The cap exists because a mass filer runs to hundreds of rows and
+                      the section below it then never gets seen. It is a DISCLOSURE
+                      whenever it binds, never a silent truncation.
+                      ⚠️ The order is the QUERY's (active, then newest), not by money —
+                      so the biggest earner can sit behind the toggle while the visible
+                      twelve show short bars against a maximum scaled over ALL rows. The
+                      label says the hidden rows are older rather than smaller, so the
+                      bars cannot be read as „these are the big ones". */}
+                  {participations.length > PARTICIPATIONS_SHOWN && (
+                    <button
+                      type="button"
+                      onClick={() => setAllParticipations((v) => !v)}
+                      aria-expanded={allParticipations}
+                      className="mt-2 text-sm text-accent hover:underline"
+                    >
+                      {allParticipations
+                        ? "Покажи по-малко"
+                        : `Покажи всички ${num.format(participations.length)} фирми`}
+                    </button>
+                  )}
+                  {participations.length > PARTICIPATIONS_SHOWN &&
+                    !allParticipations && (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        Подредени по актуалност, не по стойност — най-голямата
+                        по пари фирма може да е сред скритите.
+                      </p>
+                    )}
+                </CardContent>
+              </Card>
             )}
-            {/* The same participations on a time axis. Self-hides when no role
-                carries a start date. */}
-            <PersonTimelineTile roles={roles} />
+            {/* The SAME participations on a time axis, said in words — otherwise two
+                cards of the same ten facts read as two datasets that ought to agree.
+                It plots `added_at`, so roles without one are dropped; that omission was
+                invisible (10 участия, 6 bars, nothing explaining the gap) and is now
+                counted in `undatedRoles` and stated. Self-hides when NO role is dated. */}
+            {roles.length > 0 && (
+              <PersonTimelineTile
+                roles={roles}
+                note={[
+                  // ⚠️ „Същите" and „подредени" are BOTH plural — inflecting only the
+                  // noun emits „Същите 1 фирма, подредени", which is ungrammatical and
+                  // fires for every person with exactly one company, the commonest
+                  // shape. Bulgarian also does not count to one out loud here.
+                  timelineCompanies !== participations.length
+                    ? bg
+                      ? `${num.format(timelineCompanies)} от ${num.format(participations.length)} фирми, подредени във времето.`
+                      : `${num.format(timelineCompanies)} of ${num.format(participations.length)} companies, laid out over time.`
+                    : participations.length === 1
+                      ? bg
+                        ? "Същата фирма, подредена във времето."
+                        : "The same company, laid out over time."
+                      : bg
+                        ? `Същите ${num.format(participations.length)} фирми, подредени във времето.`
+                        : `The same ${num.format(participations.length)} companies, laid out over time.`,
+                  multiRoleCompany &&
+                    (bg
+                      ? "Тук всяка роля има своя лента, затова фирма с няколко роли се появява повече от веднъж."
+                      : "Each role gets its own bar here, so a company with more than one role appears more than once."),
+                  undatedRoles > 0 &&
+                    (bg
+                      ? `${num.format(undatedRoles)} ${
+                          undatedRoles === 1 ? "роля няма" : "роли нямат"
+                        } дата на вписване и не ${
+                          undatedRoles === 1 ? "се показва" : "се показват"
+                        } тук.`
+                      : `${num.format(undatedRoles)} ${undatedRoles === 1 ? "role has" : "roles have"} no start date and ${undatedRoles === 1 ? "is" : "are"} not shown here.`),
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+              />
+            )}
           </DashboardSection>
 
           {/* ОБЩЕСТВЕНИ ПОРЪЧКИ — the headline and the biggest contracts. The whole
