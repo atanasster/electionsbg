@@ -22,8 +22,19 @@
 -- star join would emit it twice and break the DbDataTable column contract — and,
 -- as for the two ИСУН views, a star view pins every column it expanded against
 -- ALTER TYPE and DROP COLUMN.
-CREATE OR REPLACE VIEW culture_interreg_thematic AS
-  SELECT p.keep_id,
+DROP VIEW IF EXISTS culture_interreg_thematic;
+CREATE VIEW culture_interreg_thematic AS
+  SELECT
+         -- ⚠️ THE PAGING TIEBREAK, AND IT HAS TO BE SYNTHETIC. buildOrder uses
+         -- the "key" column when a resource declares one and select[0]
+         -- otherwise, and select[0] here would be keep_id — the OPERATION id,
+         -- 144 distinct over 202 partner rows. Under the default budget sort
+         -- that leaves rows in unordered tie groups, so a page turn can repeat
+         -- or skip a partner. (keep_id, partner_seq) is unique 202/202, but the
+         -- tiebreak is ONE column, so it is composed here rather than declared
+         -- as a pair.
+         p.keep_id || ':' || p.partner_seq AS key,
+         p.keep_id,
          p.partner_seq,
          p.is_lead,
          p.country_department,
@@ -36,7 +47,9 @@ CREATE OR REPLACE VIEW culture_interreg_thematic AS
          p.budget_basis,
          p.ekatte,
          p.obshtina,
-         p.oblast,
+         -- A CODE, and its Sofia spelling diverges from the ИСУН arms' — see
+         -- FUND_PROJECT_COLS. Named for the vocabulary it carries.
+         p.oblast AS oblast_code,
          o.programme_code,
          o.period,
          o.title_en,

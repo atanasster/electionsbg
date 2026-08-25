@@ -17,16 +17,17 @@
 -- cultural institution receives one: culture's presence in this corpus is народни
 -- читалища, and it is reachable only by NAME (an EIK filter over the register
 -- finds one music school on „Училищни схеми", €5,416 — see sectorPacks.ts).
-CREATE OR REPLACE VIEW culture_agri_chitalishta AS
+DROP VIEW IF EXISTS culture_agri_chitalishta;
+CREATE VIEW culture_agri_chitalishta AS
   SELECT
          id,
          year,
          eik,
          name,
-         oblast,
+         oblast AS oblast_name,
          scheme,
          scheme_desc,
-         total_eur
+         total_eur AS subsidy_eur
     FROM agri_subsidies
    WHERE (name ~* 'читалищ');
 

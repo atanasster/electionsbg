@@ -114,7 +114,20 @@ const FUND_PROJECT_COLS = [
   "duration_months",
   "status",
   "org_type",
-  "oblast",
+  // ⚠️ ALIASED, and the alias is the point. Measured, the four culture arms carry
+  // THREE incompatible oblast vocabularies under what was one column name: ИСУН
+  // codes (S22, BGS), Interreg codes with a divergent Sofia (SOFIA_CITY beside
+  // SFO), and ДФЗ Bulgarian NAMES („София (област)"). A facet over the bare name
+  // therefore offered „S22" as a place to filter by on three of the four pages,
+  // and a shared `?oblast=BGS` link matched nothing on the fourth — silently, at
+  // a 200. Naming the column for the vocabulary it carries is the convention
+  // db_table.js already sets with persons.oblast_code and companies.oblast_name.
+  //
+  // Deliberately NOT resolved to one vocabulary by joining place_dim: that table
+  // is owned by db:load:place-dim:pg, and a view resolving against a relation
+  // another loader owns is exactly the cross-corpus precondition this file was
+  // split three ways to avoid.
+  "oblast AS oblast_code",
 ] as const;
 
 /** The columns /culture/funds/dfz renders. Same rule as above. */
@@ -123,10 +136,18 @@ const AGRI_COLS = [
   "year",
   "eik",
   "name",
-  "oblast",
+  // Bulgarian NAMES here, codes on the other three arms — see FUND_PROJECT_COLS.
+  "oblast AS oblast_name",
   "scheme",
   "scheme_desc",
-  "total_eur",
+  // ⚠️ NOT `total_eur`. This is a ДФЗ farm SUBSIDY; on the two ИСУН arms
+  // `total_eur` is a CONTRACT VALUE. The engine camelCases every column into the
+  // payload and derives each aggregate key from it, so sharing the name shares
+  // `row.totalEur` and `aggregates.sumTotalEur` — and a shared row renderer, CSV
+  // export or tile keyed on that is the realistic route to the cross-arm addition
+  // this whole design forbids. The Interreg arm already gets this right by
+  // accident of vocabulary (`budget_eur`); this makes it deliberate everywhere.
+  "total_eur AS subsidy_eur",
 ] as const;
 
 const cols = (list: readonly string[]): string =>
@@ -147,6 +168,27 @@ const eikArray = (): string => {
   return rows.join(",\n");
 };
 
+/**
+ * ⚠️ WHY EACH FILE DROPS ITS OWN VIEW FIRST, when a DROP in a loader-applied
+ * migration is normally the silent-data-loss shape (003_tr_search.sql deleted
+ * three matviews on every TR load, exit 0).
+ *
+ * `CREATE OR REPLACE VIEW` can only APPEND columns — it refuses to rename or
+ * reorder one ("cannot change name of view column"). These views deliberately
+ * alias their columns (`oblast AS oblast_code`, `total_eur AS subsidy_eur`, a
+ * synthetic `key`), so on any warm database a replace is rejected outright and
+ * the migration fails.
+ *
+ * The DROP is safe here for three reasons that do NOT hold for 003's case, and a
+ * future edit must keep all three: the target is a VIEW and carries no data; the
+ * SAME file recreates it unconditionally a line later; and `exec()` sends the
+ * file as ONE transaction, so the drop and the create commit together and no
+ * reader ever observes the view missing. It is deliberately NOT `CASCADE` — if
+ * something ever depends on one of these, the DROP must fail loudly (2BP01)
+ * rather than delete the dependent at exit 0. `culture_match.test.ts` asserts
+ * both halves, and `migration_drop_dependents.data.test.ts` covers the generic
+ * rule repo-wide.
+ */
 const banner = (source: string, applier: string, body: string): string =>
   `-- GENERATED FILE — DO NOT EDIT.
 -- Source: ${source}
@@ -183,7 +225,8 @@ export const buildSql = (): Record<string, string> => ({
 -- culture_isun_by_eik — reached by the sector register's EIKs. Reproducible, and
 -- ALMOST but not quite a subset of the row below: measured 2026-08-25, 46 of its
 -- 47 projects are also name-matched. See hub_stats' eikExactAlsoByName.
-CREATE OR REPLACE VIEW culture_isun_by_eik AS
+DROP VIEW IF EXISTS culture_isun_by_eik;
+CREATE VIEW culture_isun_by_eik AS
   SELECT
 ${cols(FUND_PROJECT_COLS)}
     FROM fund_projects
@@ -192,7 +235,8 @@ ${eikArray()}
   ]);
 
 -- culture_isun_by_name — a floor with a fuzzy edge; mostly народни читалища.
-CREATE OR REPLACE VIEW culture_isun_by_name AS
+DROP VIEW IF EXISTS culture_isun_by_name;
+CREATE VIEW culture_isun_by_name AS
   SELECT
 ${cols(FUND_PROJECT_COLS)}
     FROM fund_projects
@@ -208,7 +252,8 @@ ${grant(["culture_isun_by_eik", "culture_isun_by_name"])}`,
 -- cultural institution receives one: culture's presence in this corpus is народни
 -- читалища, and it is reachable only by NAME (an EIK filter over the register
 -- finds one music school on „Училищни схеми", €5,416 — see sectorPacks.ts).
-CREATE OR REPLACE VIEW culture_agri_chitalishta AS
+DROP VIEW IF EXISTS culture_agri_chitalishta;
+CREATE VIEW culture_agri_chitalishta AS
   SELECT
 ${cols(AGRI_COLS)}
     FROM agri_subsidies
@@ -229,8 +274,19 @@ ${grant(["culture_agri_chitalishta"])}`,
 -- star join would emit it twice and break the DbDataTable column contract — and,
 -- as for the two ИСУН views, a star view pins every column it expanded against
 -- ALTER TYPE and DROP COLUMN.
-CREATE OR REPLACE VIEW culture_interreg_thematic AS
-  SELECT p.keep_id,
+DROP VIEW IF EXISTS culture_interreg_thematic;
+CREATE VIEW culture_interreg_thematic AS
+  SELECT
+         -- ⚠️ THE PAGING TIEBREAK, AND IT HAS TO BE SYNTHETIC. buildOrder uses
+         -- the "key" column when a resource declares one and select[0]
+         -- otherwise, and select[0] here would be keep_id — the OPERATION id,
+         -- 144 distinct over 202 partner rows. Under the default budget sort
+         -- that leaves rows in unordered tie groups, so a page turn can repeat
+         -- or skip a partner. (keep_id, partner_seq) is unique 202/202, but the
+         -- tiebreak is ONE column, so it is composed here rather than declared
+         -- as a pair.
+         p.keep_id || ':' || p.partner_seq AS key,
+         p.keep_id,
          p.partner_seq,
          p.is_lead,
          p.country_department,
@@ -243,7 +299,9 @@ CREATE OR REPLACE VIEW culture_interreg_thematic AS
          p.budget_basis,
          p.ekatte,
          p.obshtina,
-         p.oblast,
+         -- A CODE, and its Sofia spelling diverges from the ИСУН arms' — see
+         -- FUND_PROJECT_COLS. Named for the vocabulary it carries.
+         p.oblast AS oblast_code,
          o.programme_code,
          o.period,
          o.title_en,

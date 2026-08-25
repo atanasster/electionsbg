@@ -67,9 +67,9 @@ describe("189_culture_match.sql", () => {
       [FILES.isun, FILES.agri, FILES.interreg].sort(),
     );
     const viewsIn = (f: string) =>
-      (
-        stripSqlComments(files[f]).match(/CREATE OR REPLACE VIEW (\w+)/g) ?? []
-      ).map((m) => m.replace("CREATE OR REPLACE VIEW ", ""));
+      (stripSqlComments(files[f]).match(/CREATE VIEW (\w+)/g) ?? []).map((m) =>
+        m.replace("CREATE VIEW ", ""),
+      );
     expect(viewsIn(FILES.isun)).toEqual([
       "culture_isun_by_eik",
       "culture_isun_by_name",
@@ -161,25 +161,95 @@ describe("189_culture_match.sql", () => {
     // budget; a UNION here would put a summable relation one step from a page
     // whose whole thesis is that they do not sum.
     const sql = sqlBody();
-    const views = sql.match(/CREATE OR REPLACE VIEW (\w+)/g) ?? [];
+    const views = sql.match(/CREATE VIEW (\w+)/g) ?? [];
     expect(views).toEqual([
-      "CREATE OR REPLACE VIEW culture_isun_by_eik",
-      "CREATE OR REPLACE VIEW culture_isun_by_name",
-      "CREATE OR REPLACE VIEW culture_agri_chitalishta",
-      "CREATE OR REPLACE VIEW culture_interreg_thematic",
+      "CREATE VIEW culture_isun_by_eik",
+      "CREATE VIEW culture_isun_by_name",
+      "CREATE VIEW culture_agri_chitalishta",
+      "CREATE VIEW culture_interreg_thematic",
     ]);
     expect(sql).not.toMatch(/\bUNION\b/i);
   });
 
-  it("never DROPs, and never emits a table, matview or index", () => {
-    // CREATE OR REPLACE only: a DROP in a file two LOADERS apply is the silent
-    // data-loss shape 003_tr_search.sql shipped (three matviews deleted on every
-    // TR load, exit 0). And a matview or stored column here would reintroduce the
-    // staleness the measured EXPLAIN in the generator's header rules out.
+  it("every DROP is a non-CASCADE view drop the same file recreates", () => {
+    // ⚠️ A DROP in a loader-applied migration is normally the silent data-loss
+    // shape 003_tr_search.sql shipped — three matviews deleted on every TR load,
+    // exit 0. It is admissible here for three reasons that must ALL hold, and
+    // this asserts each: the target is a VIEW (no data), the SAME file recreates
+    // it, and there is no CASCADE, so a future dependent makes the drop fail
+    // loudly (2BP01) instead of being deleted silently.
+    //
+    // It exists because `CREATE OR REPLACE VIEW` can only APPEND columns — it
+    // refuses to rename one ("cannot change name of view column") — and these
+    // views deliberately alias theirs (`oblast AS oblast_code`,
+    // `total_eur AS subsidy_eur`, a synthetic `key`).
+    for (const [name, raw] of Object.entries(buildSql())) {
+      const sql = stripSqlComments(raw);
+      const drops = [
+        ...sql.matchAll(
+          /DROP\s+(\w+)(?:\s+IF\s+EXISTS)?\s+([a-z0-9_]+)([^;]*);/gi,
+        ),
+      ];
+      expect(drops.length, `${name} emits no DROP`).toBeGreaterThan(0);
+      for (const [, kind, target, tail] of drops) {
+        expect(kind.toUpperCase(), `${name}: only a VIEW may be dropped`).toBe(
+          "VIEW",
+        );
+        expect(
+          tail.toUpperCase().includes("CASCADE"),
+          `${name}: DROP VIEW ${target} CASCADE would delete a dependent at exit 0`,
+        ).toBe(false);
+        expect(sql, `${name} drops ${target} without recreating it`).toMatch(
+          new RegExp(`CREATE\\s+VIEW\\s+${target}\\b`),
+        );
+      }
+    }
+  });
+
+  it("never emits a table, matview or index", () => {
+    // A matview or a stored column would reintroduce the staleness the measured
+    // EXPLAIN in the generator's header rules out.
     const sql = sqlBody();
-    expect(sql).not.toMatch(/\bDROP\b/i);
     expect(sql).not.toMatch(/CREATE (TABLE|MATERIALIZED VIEW|INDEX)/i);
     expect(sql).not.toMatch(/ALTER TABLE|GENERATED ALWAYS AS/);
+  });
+
+  it("gives the Interreg view a composed, unique paging key", () => {
+    // buildOrder appends ONE tiebreak. select[0] there would be keep_id — the
+    // OPERATION id, 144 distinct over 202 partner rows — so a page turn repeats
+    // or skips a partner. (keep_id, partner_seq) is unique, and the view has to
+    // compose it because the tiebreak cannot be a pair.
+    const sql = stripSqlComments(buildSql()[FILES.interreg]);
+    expect(sql).toMatch(
+      /p\.keep_id\s*\|\|\s*':'\s*\|\|\s*p\.partner_seq\s+AS\s+key/,
+    );
+  });
+
+  it("names each oblast column for the vocabulary it carries", () => {
+    // Three incompatible vocabularies across the arms — ИСУН codes, Interreg
+    // codes with a divergent Sofia, ДФЗ Bulgarian names. Under one bare `oblast`
+    // a facet offered „S22" as a place to filter by. Convention:
+    // persons.oblast_code / companies.oblast_name.
+    const files = buildSql();
+    expect(stripSqlComments(files[FILES.isun])).toContain(
+      "oblast AS oblast_code",
+    );
+    expect(stripSqlComments(files[FILES.interreg])).toContain(
+      "p.oblast AS oblast_code",
+    );
+    expect(stripSqlComments(files[FILES.agri])).toContain(
+      "oblast AS oblast_name",
+    );
+  });
+
+  it("aliases the ДФЗ money away from the ИСУН arms' column name", () => {
+    // The engine camelCases every column into the payload and derives each
+    // aggregate key from it, so a shared `total_eur` hands a client one
+    // `row.totalEur` over an ИСУН contract value and a ДФЗ farm subsidy — the
+    // realistic route to the cross-arm addition this design forbids.
+    expect(stripSqlComments(buildSql()[FILES.agri])).toContain(
+      "total_eur AS subsidy_eur",
+    );
   });
 
   it("guards its GRANT on the role existing", () => {
@@ -218,7 +288,7 @@ describe("189_culture_match.sql", () => {
     // Nothing contains one today; this asserts a future rule cannot break out of
     // its literal and turn a rule edit into an injection into our own migration.
     const all = sqlBody();
-    const body = all.slice(all.indexOf("CREATE OR REPLACE VIEW"));
+    const body = all.slice(all.indexOf("CREATE VIEW"));
     expect((body.match(/'/g) ?? []).length % 2).toBe(0);
   });
 });

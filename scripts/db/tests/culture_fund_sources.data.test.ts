@@ -560,3 +560,121 @@ test.skipIf(skipAgri)(
     );
   },
 );
+
+// ── 7. EVERY ARM'S PAGING TIEBREAK IS UNIQUE ────────────────────────────────
+//
+// `buildOrder` appends ONE tiebreak column — `key` when the resource declares
+// one, else `select[0]`. If it is not unique the sort leaves rows in unordered
+// tie groups and a page turn repeats or skips them, silently, at a 200.
+// `functions/db_table.culture.test.js` asserts which column each arm DECLARES;
+// only a query can assert that the column is actually unique in the corpus.
+//
+// ⚠️ The Interreg arm is why this exists. Its select[0] was `keep_id` — the
+// OPERATION id, 144 distinct over 202 partner rows — so the view now composes
+// `keep_id || ':' || partner_seq`.
+
+test.skipIf(skip)(
+  "the ИСУН arms page on a unique contract_number",
+  async () => {
+    for (const v of ["culture_isun_by_eik", "culture_isun_by_name"]) {
+      const [r] = await allRows<Record<string, string>>(
+        `SELECT count(*) n, count(DISTINCT contract_number) d FROM ${v}`,
+      );
+      assert.equal(
+        num(r.d),
+        num(r.n),
+        `${v} has ${num(r.n)} rows but only ${num(r.d)} distinct contract_number — ` +
+          `the paging tiebreak is no longer unique, so page turns repeat or skip rows`,
+      );
+    }
+  },
+);
+
+test.skipIf(skipAgri)("the ДФЗ arm pages on a unique id", async () => {
+  const [r] = await allRows<Record<string, string>>(
+    `SELECT count(*) n, count(DISTINCT id) d FROM culture_agri_chitalishta`,
+  );
+  assert.equal(num(r.d), num(r.n));
+});
+
+test.skipIf(skipInterreg)(
+  "the Interreg arm pages on a unique composed key, and keep_id alone is not",
+  async () => {
+    const [r] = await allRows<Record<string, string>>(
+      `SELECT count(*) n, count(DISTINCT key) d, count(DISTINCT keep_id) ops
+       FROM culture_interreg_thematic`,
+    );
+    assert.equal(
+      num(r.d),
+      num(r.n),
+      `culture_interreg_thematic has ${num(r.n)} rows but only ${num(r.d)} distinct ` +
+        `keys — the composed tiebreak has stopped being unique`,
+    );
+    // Non-vacuity: if keep_id were unique the composed key would be machinery for
+    // nothing, and the assertion above would pass either way.
+    assert.ok(
+      num(r.ops) < num(r.n),
+      `keep_id is now unique (${num(r.ops)} of ${num(r.n)}), so the composed key ` +
+        `guards nothing — either the corpus changed shape or partner_seq is gone`,
+    );
+  },
+);
+
+// ── 8. NO TWO ARMS SHARE A MONEY COLUMN NAME ────────────────────────────────
+
+test.skipIf(skip)(
+  "each arm's euro columns are named for what they measure",
+  async () => {
+    // The engine camelCases every column into the payload and derives each
+    // aggregate key from it, so two arms sharing a money column name hand a
+    // client ONE `row.totalEur` over two incomparable quantities — the realistic
+    // route to the cross-arm addition /culture/funds exists to forbid. Asserted
+    // against the VIEWS rather than the registry, because the aliases live in the
+    // generated SQL (the registry's `select` projects physical columns verbatim).
+    const money = new Map<string, string[]>();
+    for (const v of [
+      "culture_isun_by_eik",
+      "culture_isun_by_name",
+      "culture_agri_chitalishta",
+      "culture_interreg_thematic",
+    ]) {
+      const rows = await allRows<{ column_name: string }>(
+        `SELECT column_name FROM information_schema.columns
+          WHERE table_name = $1 AND column_name LIKE '%eur'
+            AND column_name ~ '_eur$'
+          ORDER BY column_name`,
+        [v],
+      );
+      money.set(
+        v,
+        rows.map((r) => r.column_name),
+      );
+    }
+    // The two ИСУН arms SHARE their names deliberately — same quantity, two
+    // overlapping populations. Every other pair must be disjoint.
+    const arms = [
+      "culture_isun_by_eik",
+      "culture_agri_chitalishta",
+      "culture_interreg_thematic",
+    ];
+    for (let i = 0; i < arms.length; i++)
+      for (let j = i + 1; j < arms.length; j++) {
+        const shared = (money.get(arms[i]) ?? []).filter((c) =>
+          (money.get(arms[j]) ?? []).includes(c),
+        );
+        assert.deepEqual(
+          shared,
+          [],
+          `${arms[i]} and ${arms[j]} share the euro column(s) ${shared.join(", ")}. ` +
+            `They measure a contract value, a farm subsidy and a published budget — ` +
+            `three different things that would collide on one API key.`,
+        );
+      }
+    assert.deepEqual(
+      money.get("culture_isun_by_eik"),
+      money.get("culture_isun_by_name"),
+      "the two ИСУН arms must expose the SAME money columns — they are one " +
+        "quantity over two populations",
+    );
+  },
+);

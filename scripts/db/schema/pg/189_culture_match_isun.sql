@@ -16,7 +16,8 @@
 -- culture_isun_by_eik — reached by the sector register's EIKs. Reproducible, and
 -- ALMOST but not quite a subset of the row below: measured 2026-08-25, 46 of its
 -- 47 projects are also name-matched. See hub_stats' eikExactAlsoByName.
-CREATE OR REPLACE VIEW culture_isun_by_eik AS
+DROP VIEW IF EXISTS culture_isun_by_eik;
+CREATE VIEW culture_isun_by_eik AS
   SELECT
          contract_number,
          beneficiary_eik,
@@ -31,7 +32,7 @@ CREATE OR REPLACE VIEW culture_isun_by_eik AS
          duration_months,
          status,
          org_type,
-         oblast
+         oblast AS oblast_code
     FROM fund_projects
    WHERE beneficiary_eik = ANY (ARRAY[
     '000695160', '000695833', '130418031', '201570119', '000670748', '000670805',
@@ -48,7 +49,8 @@ CREATE OR REPLACE VIEW culture_isun_by_eik AS
   ]);
 
 -- culture_isun_by_name — a floor with a fuzzy edge; mostly народни читалища.
-CREATE OR REPLACE VIEW culture_isun_by_name AS
+DROP VIEW IF EXISTS culture_isun_by_name;
+CREATE VIEW culture_isun_by_name AS
   SELECT
          contract_number,
          beneficiary_eik,
@@ -63,7 +65,7 @@ CREATE OR REPLACE VIEW culture_isun_by_name AS
          duration_months,
          status,
          org_type,
-         oblast
+         oblast AS oblast_code
     FROM fund_projects
    WHERE (beneficiary_name ~* 'читалищ|музе|теат|галери|библиотек|филхармони|ансамб|художествен|изкуств|\yопера\y|\yоперен|\yоперна|\yкино\y|\yкинот|култур' AND beneficiary_name !~* 'аквакултур|агр[иоа]култур|фуражн|полск(и|а) култур|земеделск(и|а) култур|растителн|култури\y|изкуствен|оператор|операц|оператив|кооперат');
 

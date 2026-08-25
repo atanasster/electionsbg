@@ -47,6 +47,96 @@ class DbRequestError extends Error {
   }
 }
 
+/**
+ * The two ИСУН arms of /culture/funds — `culture_isun_eik` (the sector
+ * register's own EIKs) and `culture_isun_name` (the cultureMatch name rule).
+ *
+ * ONE descriptor, spread into the registry, rather than two copies. They read the
+ * SAME physical table (`fund_projects`) through two views and front two arms of
+ * one page family, so every column contract must be identical — and the
+ * copy-pasted first cut had already drifted: `program_code` was `eq` on one and
+ * `in` on the other, which meant a shared component sending an array of
+ * programmes to the EIK arm hit buildFilter's `eq` branch, bound the JS array as
+ * a Postgres array literal against a text column, and returned zero rows with an
+ * exact count of 0 at a 200. A silent empty set under a heading is the failure
+ * this engine's own semijoin guard refuses to ship.
+ *
+ * ⚠️ WHAT IS NOT SHARED IS THE BASE RELATION, and that is the point of the two
+ * arms: their euro figures are the same QUANTITY over two overlapping
+ * populations that neither contains, so they are separately countable and never
+ * addable.
+ */
+const isunCultureArms = () => {
+  const columns = {
+    // The deep-link key: /funds/contract/:contractNumber. Unique on both arms
+    // (47/47 and 1560/1560), so it also serves as buildOrder's paging tiebreak
+    // via select[0]. `in` so a caller can pull a named set, mirroring the
+    // unp/key spine on contracts/tenders.
+    contract_number: { type: "text", filter: "in" },
+    beneficiary_eik: { type: "text", filter: "in" },
+    beneficiary_name: {
+      type: "text",
+      sort: true,
+      filter: "text",
+      search: true,
+    },
+    // `in` on BOTH arms. It is a strict superset of `eq` for this engine (a
+    // scalar is wrapped into an array), so nothing regresses, and with 16
+    // distinct programmes a multi-select is the shape the facet wants.
+    program_code: { type: "text", filter: "in" },
+    program_name: { type: "text", sort: true, filter: "in", search: true },
+    title: { type: "text", filter: "text", search: true },
+    // An ИСУН CONTRACT value — the grant plus the beneficiary's own co-finance.
+    total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+    grant_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+    own_cofinance_eur: { type: "number", sort: true, filter: "range" },
+    paid_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+    duration_months: { type: "int", sort: true, filter: "range" },
+    status: { type: "text", sort: true, filter: "in" },
+    org_type: { type: "text", filter: "in" },
+    // CODES (S22, BGS) — see the oblast note in the block below. 39 of the EIK
+    // arm's 47 rows carry one, so a facet here has a real „no oblast" bucket and
+    // a page must name it rather than let 8 projects vanish from a filtered view.
+    oblast_code: { type: "text", filter: "in" },
+  };
+  const select = Object.keys(columns);
+  const arm = (base) => ({
+    base,
+    // Declared empty, never omitted — see the block comment below.
+    scopeCols: [],
+    columns,
+    select,
+    // grant_eur, not total_eur: the page's headline is the GRANT (what the public
+    // purse paid), while total_eur includes the beneficiary's own co-finance.
+    // Heading with one and ranking by the other makes a tile's top row disagree
+    // with its own number.
+    defaultSort: [["grant_eur", "desc"]],
+    aggregates: [
+      { fn: "count" },
+      { fn: "sum", col: "total_eur" },
+      { fn: "sum", col: "grant_eur" },
+      { fn: "sum", col: "paid_eur" },
+    ],
+    maxPageSize: 100,
+  });
+  return {
+    // ИСУН, EIK-exact over the sector register: 47 projects, €105.9m grant. The
+    // reproducible arm — anyone with the register and the corpus derives it.
+    culture_isun_eik: arm("culture_isun_by_eik"),
+    // ИСУН, name-matched via cultureMatch: 1,560 projects, €147.0m grant, 1,475
+    // distinct beneficiary NAMES (1,365 by EIK-or-name — a name-distinct count
+    // splits re-spellings of one читалище into two recipients).
+    //
+    // ⚠️ ONE PROGRAMME IS 82.8% OF THE ROWS AND 79.8% OF THE GRANT — 2021BG-RRP,
+    // the Recovery and Resilience Facility, 1,292 rows / €117.3m. (The row share
+    // and the money share are different numbers; a page quoting one must say
+    // which.) 1,332 of the rows are читалища. A page that does not show the
+    // programme split leaves a reader thinking „European culture funding" where
+    // the answer is „the RRF, mostly to читалища".
+    culture_isun_name: arm("culture_isun_by_name"),
+  };
+};
+
 // ---- resource registry -------------------------------------------------------
 // Per dataset: base table, allowed scope columns, and a column whitelist. Each
 // column flags what the client may do with it: sort, filter (+ how), search
@@ -1866,6 +1956,188 @@ const REGISTRY = {
   // `is_official_linked`, ONE filter on the FULL tr_companies corpus (~1.02M rows) rather than
   // a separate ~17.6k-row matview and a separate page. Plan:
   // docs/plans/company-browse-dashboard-v1.md.
+  // ── /culture/funds source pages — FOUR arms, on FOUR bases ─────────────────
+  //
+  // ⚠️⚠️ THESE MAY NEVER BE SUMMED, AND THE REGISTRY IS WHERE THAT IS EASIEST TO
+  // BREAK. One is an ИСУН contract value reached by the sector register's EIKs,
+  // one is the SAME contract value reached by a name rule (the two overlap
+  // heavily and NEITHER contains the other — 46 of 47 as measured 2026-08-25),
+  // one is a ДФЗ farm SUBSIDY and one is an Interreg partner's published BUDGET.
+  //
+  // Four separate resources, deliberately, rather than one with a `source`
+  // discriminator: a unioned relation with a euro column puts `SUM()` across the
+  // four one keystroke away from a page whose entire thesis is that they do not
+  // sum. ⚠️ THE SUBTLER ROUTE TO THE SAME PLACE IS A SHARED COLUMN NAME — the
+  // engine camelCases each column into the payload and derives every aggregate
+  // key from it, so two arms both calling their money `total_eur` hand a shared
+  // renderer, CSV export or tile one `row.totalEur` / `aggregates.sumTotalEur`
+  // over two incomparable quantities. Each arm's money is therefore named for
+  // what it IS: `grant_eur` + `total_eur` (ИСУН contract), `subsidy_eur` (ДФЗ),
+  // `budget_eur` (Interreg). The aliases live in the generated views (pg/189,
+  // 190, 191) because `select` projects physical columns verbatim — `col:`
+  // rewrites filters and facets only.
+  //
+  // Each `base` is a VIEW generated from src/lib/cultureMatch.ts by
+  // `npm run gen:culture-sql`. ⚠️ NO `missingMigration` DEGRADE EXISTS FOR A
+  // DbDataTable RESOURCE — the engine reads the base relation unconditionally and
+  // db_routes' badRequest() rethrows anything that is not a DbRequestError — so
+  // the migration MUST reach a target before the deploy:db that ships these. Same
+  // first-deploy rule as cpv_catalog, contractor_rank and company_browse_table.
+  //
+  // ⚠️ `oblast_code` vs `oblast_name` is NOT cosmetic. Measured, the arms carry
+  // three incompatible vocabularies: ИСУН codes (S22, BGS), Interreg codes whose
+  // Sofia spelling diverges (SOFIA_CITY beside SFO), and ДФЗ Bulgarian names
+  // („София (област)"). Under one bare `oblast` id a facet offered „S22" as a
+  // place to filter by, and a shared `?oblast=BGS` link matched nothing on the
+  // ДФЗ arm — silently, at a 200. Naming the column for its vocabulary is the
+  // convention persons.oblast_code / companies.oblast_name already set.
+  //
+  // scopeCols is declared EMPTY on all four, never omitted: buildWhere
+  // dereferences it unguarded, so a scoped request against a resource that omits
+  // it is an uncaught TypeError — a 500 where the engine promises a 400. Empty is
+  // right here for two different reasons, not one: the ИСУН arms carry no date
+  // column at all (fund_projects publishes none), while the ДФЗ (`year`) and
+  // Interreg (`start_date`/`end_date`) arms carry time as an ordinary
+  // sortable/range-filterable column rather than as a page scope.
+
+  // The two ИСУН arms are the SAME columns over the same physical table, read
+  // through two different views. Built from one descriptor rather than copied:
+  // the copy-pasted first cut had already drifted (program_code was `eq` on one
+  // and `in` on the other, so a shared component sending an array to the first
+  // bound it as a PG array literal and returned zero rows at a 200).
+  ...isunCultureArms(),
+
+  // ДФЗ, народни читалища: 264 payments, €18.3m, 2015-2025. A farm SUBSIDY —
+  // never a contract value, and not comparable with the ИСУН arms.
+  culture_agri_chitalishta: {
+    base: "culture_agri_chitalishta",
+    scopeCols: [],
+    columns: {
+      // The paging tiebreak (buildOrder appends select[0] when no `key` column
+      // is declared). total_eur ties are common across identical scheme amounts,
+      // so the unique id is what keeps paging deterministic.
+      id: { type: "int" },
+      year: { type: "int", sort: true, filter: "in" },
+      // 237 of 264 rows carry one; the other 27 render as plain text rather than
+      // a link to a /farm page that cannot resolve.
+      eik: { type: "text", filter: "in" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      // Bulgarian NAMES — see the oblast note above.
+      oblast_name: { type: "text", sort: true, filter: "in" },
+      // A bare code („322"). Useless as a facet label without scheme_desc beside
+      // it, which is why both are selected.
+      scheme: { type: "text", filter: "in" },
+      // ⚠️ NOT search:true, and the reason is inherited from the agri_subsidies
+      // resource: scheme_desc has no trigram index, so OR-ing it into the global
+      // search would force a full scan of the 2.48M-row BASE table per keystroke.
+      // Narrowing the rows with a view does not narrow the index the search uses.
+      scheme_desc: { type: "text", filter: "text" },
+      // ⚠️ NOT `total_eur` — see the shared-column-name note above.
+      subsidy_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+    },
+    select: [
+      "id",
+      "year",
+      "eik",
+      "name",
+      "oblast_name",
+      "scheme",
+      "scheme_desc",
+      "subsidy_eur",
+    ],
+    defaultSort: [["subsidy_eur", "desc"]],
+    aggregates: [{ fn: "count" }, { fn: "sum", col: "subsidy_eur" }],
+    maxPageSize: 100,
+  },
+
+  // Interreg, THEMATIC: 202 Bulgarian partner rows across 144 operations, €48.8m
+  // of published partner budget.
+  //
+  // ⚠️ TWO THINGS A CONSUMER MUST CARRY. The money is a partner's PUBLISHED
+  // BUDGET, not a contract value. And the join is through the OPERATION's THEME,
+  // not through a set of culture bodies — „Interreg culture money reaching
+  // Bulgaria" and „culture institutions doing Interreg" are different questions
+  // ~4.4x apart, and only the first is answerable when 37 of 202 rows carry an
+  // EIK at all.
+  culture_interreg: {
+    base: "culture_interreg_thematic",
+    scopeCols: [],
+    columns: {
+      // ⚠️ THE PAGING TIEBREAK, and it has to be this synthetic composite.
+      // buildOrder uses `key` when a resource declares one and select[0]
+      // otherwise — and select[0] here would be keep_id, the OPERATION id, which
+      // is 144 distinct over 202 partner rows. Under the default budget sort that
+      // leaves rows in unordered tie groups, so a page turn repeats or skips a
+      // partner. (keep_id, partner_seq) is unique 202/202; the view composes it
+      // because the tiebreak is one column.
+      key: { type: "text" },
+      // The deep-link key: /funds/interreg/:keepId. Every row carries one,
+      // unlike eik — but it is NOT unique, so it is not the tiebreak.
+      keep_id: { type: "int", filter: "in" },
+      partner_seq: { type: "int" },
+      is_lead: { type: "bool", filter: "eq" },
+      country_department: { type: "text", filter: "in" },
+      partner_name: { type: "text", sort: true, filter: "text", search: true },
+      partner_name_en: { type: "text", filter: "text" },
+      eik: { type: "text", filter: "in" },
+      org_type: { type: "text", filter: "in" },
+      budget_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      eu_funding_eur: {
+        type: "number",
+        sort: true,
+        filter: "range",
+        agg: "sum",
+      },
+      // 'published' | 'published_zero' | 'unpublished'. 199 of 202 are published;
+      // the three that are not are a real state, not a zero.
+      budget_basis: { type: "text", filter: "in" },
+      ekatte: { type: "text", filter: "in" },
+      obshtina: { type: "text", filter: "in" },
+      // CODES, and the Sofia spelling diverges from the ИСУН arms' — see above.
+      oblast_code: { type: "text", sort: true, filter: "in" },
+      programme_code: { type: "text", sort: true, filter: "in" },
+      period: { type: "text", filter: "in" },
+      // keep.eu publishes 86% of these titles in English only, which is why the
+      // English one is the searchable column and title_bg is display-only.
+      title_en: { type: "text", sort: true, filter: "text", search: true },
+      title_bg: { type: "text" },
+      status: { type: "text", filter: "in" },
+      start_date: { type: "date", sort: true, filter: "range" },
+      end_date: { type: "date", sort: true, filter: "range" },
+    },
+    select: [
+      "key",
+      "keep_id",
+      "partner_seq",
+      "is_lead",
+      "country_department",
+      "partner_name",
+      "partner_name_en",
+      "eik",
+      "org_type",
+      "budget_eur",
+      "eu_funding_eur",
+      "budget_basis",
+      "ekatte",
+      "obshtina",
+      "oblast_code",
+      "programme_code",
+      "period",
+      "title_en",
+      "title_bg",
+      "status",
+      "start_date",
+      "end_date",
+    ],
+    defaultSort: [["budget_eur", "desc"]],
+    aggregates: [
+      { fn: "count" },
+      { fn: "sum", col: "budget_eur" },
+      { fn: "sum", col: "eu_funding_eur" },
+    ],
+    maxPageSize: 100,
+  },
+
   companies: {
     base: "company_browse_table",
     // ⚠️ DECLARED EMPTY, NEVER OMITTED. buildWhere dereferences scopeCols unguarded, so a
