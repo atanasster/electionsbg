@@ -2573,6 +2573,41 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "governance/mayor-pay",
+    ogImage: "/og/governance-mayor-pay.png",
+    title:
+      "Заплати на кметовете — деклариран доход по общини | electionsbg.com",
+    description:
+      "Декларираният годишен доход от трудово възнаграждение на кметовете на българските общини, съпоставен с населението на всяка община — по подадените имуществени декларации пред Сметната палата.",
+    breadcrumbName: "Заплати на кметовете",
+    // NO figures in the prerendered body, deliberately — the same rule as
+    // governance/municipal-finance above. Every number here moves with each
+    // year's filings while this HTML is rebuilt only on deploy, so a static
+    // „€X" would be a wrong figure served under a correct canonical. What the
+    // body carries is what the page MEANS, which is the part that does not go
+    // stale and the part a crawler can use.
+    bodyHtml: `
+<h1>Заплати на кметовете — какво декларират и как се сравнява</h1>
+<p>Кметовете подават имуществена декларация пред Сметната палата. Тази страница изважда от нея едно число — <strong>годишния доход от трудово възнаграждение</strong> — и го поставя до населението на общината, за да е сравнимо през общини от много различен размер. Колко общини попадат в справката се изписва на самата страница: то зависи от това за колко кметове има разчетена декларация и се променя с всяка нова година, затова тук не е записано число.</p>
+<h2>Какво НЕ е това число</h2>
+<ul>
+<li><strong>Не е домакински доход.</strong> Не включва наем, дивиденти, лихви или доходите на съпруг/а — те се декларират отделно и се виждат в профила на самия човек.</li>
+<li><strong>Не е разход на общината за заплати.</strong> Това е доходът на един човек, а не ведомостта на администрацията.</li>
+<li><strong>Не е за всички.</strong> За част от общините няма разчетен деклариран доход — няма подадена декларация, декларацията е подадена, но таблицата за доходите не е разчетена, или общината временно няма еднозначно установен настоящ кмет. Тези редове се показват с тире, а не с нула: липсата на декларация и декларираната нула са различни неща.</li>
+</ul>
+<h2>Как да се чете класирането</h2>
+<p>Подредбата по подразбиране е <strong>на 1000 жители</strong>. По абсолютна сума подредбата почти не се движи и не казва нищо за това дали една малка община плаща много или малко — на жител е съпоставката, която го показва. Редовете без деклариран доход се подреждат последни и в двете посоки, така че да не се четат като „най-евтините кметове“.</p>
+<p>Годината не е една и съща за всички: таблицата взима най-новата декларация на всеки кмет, а редовете, чиято декларация е от по-стара година, са отбелязани.</p>
+<p>Виж и <a href="${SITE_URL}/governance/municipal-finance">финансовото състояние на общините</a> и <a href="${SITE_URL}/governance">управленското табло</a> на всяка община.</p>`.trim(),
+    english: {
+      title:
+        "Mayor pay — declared income across municipalities | electionsbg.com",
+      description:
+        "The declared annual salary income of Bulgaria's municipal mayors, set against each municipality's population — from the asset declarations filed with the National Audit Office.",
+      breadcrumbName: "Mayor pay",
+    },
+  }),
+  staticPage({
     path: "governance/sectors",
     title:
       "Държавни сектори — пари, договори и институции по сектори | electionsbg.com",

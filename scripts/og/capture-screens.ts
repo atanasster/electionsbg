@@ -677,19 +677,24 @@ const captures: Capture[] = [
   {
     slug: "budget",
     routePath: "budget",
-    // Was anchored on BudgetFlowTile's `budget-flow`, which LEFT this page when
-    // /budget became a tile hub — the anchor still exists in that component,
-    // just not here, so the capture timed out and the card stayed frozen at
-    // 15 May. That anchor now captures `budget-deep-dive` above, which is the
-    // page the tile moved to.
+    // ⚠ TWICE MIS-ANCHORED, and both times the card kept being written. First on
+    // BudgetFlowTile's `budget-flow`, which LEFT this page when /budget became a tile hub —
+    // the capture timed out and the card stayed frozen at 15 May. Then on `h1`, which framed
+    // title → intro → the first band of TILES: correct for a tile hub, and wrong the moment
+    // the head acquired a KPI band and an evidence aside, since the clip then led with the
+    // page's chrome and cut its only figures. §5.3: a hub's card frames its HEAD.
     //
-    // Now the hub's own anchor, and top-aligned on `h1` rather than centred on
-    // the tile grid: centring on a 2,000px-tall hub lands the clip mid-grid,
-    // with the first tile column sliced off the left and the fourth off the
-    // right and no title anywhere in frame. Top-aligned it reads title → intro
-    // → the first band of tiles, which is what a hub is.
-    waitFor: '[data-og="budget-hub"]',
-    anchor: "h1",
+    // ⚠ THE WAIT IS `:has()`-QUALIFIED, like /funds and for a related reason. This head draws
+    // from ONE blob, so the band is all-or-nothing — but the ASIDE is not: it renders only
+    // when `adminTotalPlannedEur` and `adminUnitCount` are both present, which is exactly the
+    // state a database without the gitignored ministry grain produces. A bare `.tabular-nums`
+    // is satisfied by the band alone, and the runner would then overwrite a good card with
+    // one whose right-hand column is empty and report success. Requiring a `/budget/ministry/`
+    // link makes the aside provably present; requiring `/budget/spending` (the band's first
+    // cell) makes the band provably rendered rather than skeletal.
+    waitFor:
+      '[data-hub-head]:has(a[href^="/budget/spending"]):has(a[href^="/budget/ministry/"]) .tabular-nums',
+    anchor: "[data-hub-head]",
     viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
@@ -1494,6 +1499,18 @@ const captures: Capture[] = [
   },
 
   // --- registers and rankings whose hero is their table ------------------------
+  {
+    slug: "governance-mayor-pay",
+    routePath: "governance/mayor-pay",
+    // The hero is the top-20 ranked bar chart, not the table beneath it — but the
+    // chart only paints once rows arrive, so WAIT on the table body (which is why
+    // it sits in this section) and ANCHOR on the heading, which is what frames
+    // chart + title together.
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
   {
     slug: "governance-municipal-finance",
     routePath: "governance/municipal-finance",

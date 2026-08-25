@@ -57,6 +57,7 @@ export const ENGLISH_STATIC_PAGES = [
   "governance/overview",
   "governance/declarations",
   "governance/municipal-finance",
+  "governance/mayor-pay",
   "governance/sectors",
   "parliament/attendance",
   "demographics/regions",
@@ -357,6 +358,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "governance/municipal-finance",
     file: `src/screens/governance/GovernanceMunicipalFinanceScreen.tsx`,
+  },
+  {
+    path: "governance/mayor-pay",
+    file: `src/screens/governance/GovernanceMayorPayScreen.tsx`,
   },
   // The sectors hub. It is prerendered in both languages and had no <loc> in
   // either — a hub fronting 20+ sector dashboards, discoverable only by crawl.
