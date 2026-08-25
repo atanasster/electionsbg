@@ -8,7 +8,7 @@
 // miss falls back to the legacy portfolio screen (PersonScreen) so no inbound link breaks.
 // Only active + public-safe roles reach the payload (person_by_slug enforces §3/§6).
 
-import { FC, ReactNode, useEffect, useMemo, useState } from "react";
+import { FC, Fragment, ReactNode, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   PersonProfile,
@@ -24,6 +24,10 @@ import { PersonElectoralSection } from "./PersonElectoralSection";
 import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
 import { PersonMpSections } from "./PersonMpSections";
 import { PersonCouncilVoting } from "./PersonCouncilVoting";
+import { PersonMpVoting } from "./PersonMpVoting";
+import { VotingTrackHeader } from "./VotingTrackHeader";
+import { votingTracks, showTrackHeaders } from "./votingTracks";
+import { useRenderedVotingTracks } from "./useRenderedVotingTracks";
 import { PersonDeclarations } from "./PersonDeclarations";
 import { PersonNoDeclarationNote } from "./PersonNoDeclarationNote";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
@@ -182,6 +186,21 @@ const PersonDashboardBody: FC<{
       })),
     [p.roles, i18n.language],
   );
+
+  // Which voting records this person has, earliest first. `mpId != null` rather than an
+  // mp-role check is deliberate — it is the SAME condition the national card is gated on
+  // below, so a track can never exist without its card being able to mount. See
+  // votingTracks' own header.
+  const tracks = useMemo(
+    () => votingTracks(p.roles, mpId != null),
+    [p.roles, mpId],
+  );
+  // …and which of them will actually put a card on the page. The headers are gated on THAT,
+  // not on the roles: both cards self-hide when their own corpus has nothing attributed, and
+  // the council corpus covers 16 of 265 municipalities, so "sat on a council" and "has a
+  // council voting record to show" are very different sets. See useRenderedVotingTracks.
+  const renderedTracks = useRenderedVotingTracks(tracks, p.slug, p.name, mpId);
+  const trackHeaders = showTrackHeaders(renderedTracks);
   // The caveats for the bases actually on display, deduped and in list order. `term` is
   // excluded on purpose (officeTerm.ts gives it a note key, but a mandate needs no
   // qualifying — the note exists for `election` and `filing`, where the visible string is
@@ -480,16 +499,37 @@ const PersonDashboardBody: FC<{
           one small query's latency on a page that is DB-driven end to end. */}
       {!electoralPending && (
         <>
-          {/* MP-only: voting scorecard + roll-call (no PG equivalent). Rendered FIRST in
-            this gated fragment — immediately after the electoral results it explains —
+          {/* THE VOTING RECORD(S), immediately after the electoral results they explain —
             rather than after five unrelated analytical blocks: a reader who just learned
             how this person got elected shouldn't have to scroll past wealth trajectory,
             the accumulation gap, cohort benchmark, stake procurement and declaration
             events to see how they then voted. Still inside the electoralPending gate: the
             gate exists to stop the electoral skeleton collapsing under already-painted
-            sections (CLS 0.32), which applies to this block exactly as it did before the
-            move. Declared assets is NOT rendered here any more — see PersonMpSections's
-            module header. */}
+            sections (CLS 0.32), which applies here exactly as it did before the move.
+
+            SEQUENCED, never merged. Someone who served on a municipal council AND in the
+            National Assembly has two records measured against two different reference
+            frames — a councillor's against their council's own majority (that corpus
+            carries no party at all), an MP's against their parliamentary group — so they
+            render earliest-first under their own labelled headers rather than as one
+            continuous history. The headers appear only when BOTH tracks will actually put
+            a card on the page (renderedTracks, not tracks); for the overwhelming majority
+            — one body, or neither — the page looks exactly as it did.
+
+            ⚠️ The header is PASSED DOWN, never rendered here, and that is the whole
+            reason it is a prop. Each card self-hides when its own corpus has nothing
+            attributed for this person — so a header rendered at this level sits above
+            nothing and labels a record that is not on the page. Observed live before the
+            fix: a former MP the roll-call corpus does not reach got a "Народно събрание"
+            pill with no card under it. Rendering it inside each card's own success path
+            makes the two inseparable.
+
+            The MP SCORECARD is deliberately above the tracks, not inside the national one:
+            its four KPIs summarise the person, and while it lived inside PersonMpSections it
+            rendered between the local card and the national header — i.e. parliamentary
+            numbers under the „МЕСТНА ВЛАСТ" pill for anyone who sat on a council first.
+
+            Declared assets is NOT rendered in either — see PersonMpSections's header. */}
           {mpId != null && (
             <PersonMpSections
               name={p.name}
@@ -497,16 +537,26 @@ const PersonDashboardBody: FC<{
               hasMoneyTimeline={p.procuredEur > 0}
             />
           )}
-
-          {/* Councillor-only: the общински съвет analogue of the block above, off
-            161_council_serving.sql. Gated on the role (rather than always mounting,
-            the way the magistrate hook does) for the same reason mpId gates
-            PersonMpSections above it — avoiding a council fetch for the ~99% of
-            people who were never on a council. Self-hides on its own when this
-            person's council votes have not been attributed (see the component). */}
-          {p.roles.some((r) => r.role === "councillor") && (
-            <PersonCouncilVoting slug={p.slug} />
-          )}
+          {tracks.map((track) => {
+            const header = trackHeaders ? (
+              <VotingTrackHeader kind={track.kind} since={track.start} />
+            ) : undefined;
+            return (
+              <Fragment key={track.kind}>
+                {track.kind === "national" ? (
+                  /* `mpId != null` is redundant at RUNTIME — the national track exists only
+                     when it was true — and is kept to NARROW `number | null` to the `number`
+                     PersonMpVoting requires. Do not replace it with `mpId!`: the assertion
+                     would survive a future change to `hasNational` that this catches. */
+                  mpId != null && (
+                    <PersonMpVoting name={p.name} mpId={mpId} header={header} />
+                  )
+                ) : (
+                  <PersonCouncilVoting slug={p.slug} header={header} />
+                )}
+              </Fragment>
+            );
+          })}
 
           {/* WHO THIS IS, before what they are worth. The page used to open on the wealth
             trajectory and reach "Длъжности" only after five analytical blocks, so the one

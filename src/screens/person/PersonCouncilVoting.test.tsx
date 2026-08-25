@@ -7,6 +7,7 @@ import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import type { ReactNode } from "react";
 import type { CouncilCouncillor } from "@/data/council/useCouncilHub";
 
 const councillorHook = vi.fn();
@@ -57,12 +58,14 @@ const councillor = (
   ...over,
 });
 
-const renderTile = () =>
+const renderTile = (header?: ReactNode) =>
   render(
     <MemoryRouter>
-      <PersonCouncilVoting slug="anton-brankov" />
+      <PersonCouncilVoting slug="anton-brankov" header={header} />
     </MemoryRouter>,
   );
+
+const trackHeader = <div data-testid="track-header" />;
 
 beforeEach(() => councillorHook.mockReset());
 
@@ -110,6 +113,27 @@ describe("PersonCouncilVoting", () => {
     expect(
       screen.queryByText("pp_council_voting_with_majority"),
     ).not.toBeInTheDocument();
+  });
+
+  it("renders NOTHING, track header included, when there is no record", () => {
+    // The mutation check for the header-threading fix: rendered by the parent instead,
+    // the pill would sit above nothing — observed live before the fix.
+    councillorHook.mockReturnValue({ data: null, isLoading: false });
+    const { container } = renderTile(trackHeader);
+    expect(container).toBeEmptyDOMElement();
+    expect(screen.queryByTestId("track-header")).not.toBeInTheDocument();
+  });
+
+  it("withholds the track header while loading", () => {
+    councillorHook.mockReturnValue({ data: undefined, isLoading: true });
+    renderTile(trackHeader);
+    expect(screen.queryByTestId("track-header")).not.toBeInTheDocument();
+  });
+
+  it("renders the track header together with the card when there IS a record", () => {
+    councillorHook.mockReturnValue({ data: councillor(), isLoading: false });
+    renderTile(trackHeader);
+    expect(screen.getByTestId("track-header")).toBeInTheDocument();
   });
 
   it("lists recent resolutions linking to /council/resolution/:id", () => {

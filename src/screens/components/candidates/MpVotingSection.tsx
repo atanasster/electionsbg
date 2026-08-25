@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Vote } from "lucide-react";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
@@ -21,7 +21,18 @@ export const MpVotingSection: FC<{
   name: string;
   linkSlug: string;
   mpId: number | null;
-}> = ({ name, linkSlug, mpId }) => {
+  /** The track header for a person who ALSO has a municipal-council voting record —
+   *  rendered here, inside this component's own success path, rather than by the parent.
+   *  That is the whole point: this section self-hides for an MP the roll-call corpus does
+   *  not reach, and a header rendered by the parent would then sit above nothing, labelling
+   *  a record that is not on the page. Undefined for everyone else.
+   *
+   *  ⚠️ Withheld WHILE LOADING too, matching PersonCouncilVoting's own choice and for its
+   *  reason: for a former MP outside the roll-call corpus `null` is the common outcome, so a
+   *  pill that appears and then vanishes with its section is the MORE common shift, not the
+   *  rarer one. The section's own title reserves the skeleton's space either way. */
+  header?: ReactNode;
+}> = ({ name, linkSlug, mpId, header }) => {
   const { t } = useTranslation();
 
   const { entry: loyalty, isLoading: loyaltyLoading } = useMpLoyalty(
@@ -43,13 +54,16 @@ export const MpVotingSection: FC<{
   if (!loading && !hasVoting && !hasTwins) return null;
 
   return (
-    <DashboardSection
-      id="parliament"
-      title={t("mp_section_voting") || "Voting & similarity"}
-      icon={Vote}
-    >
-      <MpVotingTile name={name} linkSlug={linkSlug} />
-      <MpTwinsTile name={name} />
-    </DashboardSection>
+    <>
+      {!loading && header}
+      <DashboardSection
+        id="parliament"
+        title={t("mp_section_voting") || "Voting & similarity"}
+        icon={Vote}
+      >
+        <MpVotingTile name={name} linkSlug={linkSlug} />
+        <MpTwinsTile name={name} />
+      </DashboardSection>
+    </>
   );
 };

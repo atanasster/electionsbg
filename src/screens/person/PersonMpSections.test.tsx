@@ -24,6 +24,11 @@ vi.mock("@/data/parliament/useMpEntry", () => ({
 vi.mock("@/screens/components/candidates/MpScorecardTile", () => ({
   MpScorecardTile: () => <div data-testid="scorecard" />,
 }));
+// Deliberately still mocked though this component no longer renders it: if a future change
+// puts the roll-call section back in here it would show up as a `voting` testid, and the
+// last case below fails. That is the point — the section belongs to the sequenced track
+// (PersonMpVoting), so that the scorecard can sit ABOVE both tracks rather than between the
+// local track's card and the national track's header.
 vi.mock("@/screens/components/candidates/MpVotingSection", () => ({
   MpVotingSection: () => <div data-testid="voting" />,
 }));
@@ -38,12 +43,20 @@ describe("PersonMpSections", () => {
     expect(container.querySelector("#declarations")).toBeNull();
   });
 
-  it("renders only the scorecard, the voting section and the no-rollcall note", () => {
+  it("renders only the scorecard and the no-rollcall note", () => {
     render(<PersonMpSections name="Иван Иванов" mpId={1} />);
     expect(screen.getByTestId("scorecard")).toBeInTheDocument();
-    // Nothing beyond those three: no stray heading, no "mp_section_assets" title, no
+    // Nothing beyond those two: no stray heading, no "mp_section_assets" title, no
     // "mp_assets_title" — the strings the retired declarations branch would have printed.
     expect(screen.queryByText("mp_section_assets")).not.toBeInTheDocument();
     expect(screen.queryByText("mp_assets_title")).not.toBeInTheDocument();
+  });
+
+  it("does NOT render the roll-call section — that is a sequenced track now", () => {
+    // While it lived here the scorecard rendered between the local track's card and the
+    // national track's header, putting parliamentary KPIs under the „МЕСТНА ВЛАСТ" pill
+    // for anyone who sat on a council first.
+    render(<PersonMpSections name="Иван Иванов" mpId={1} />);
+    expect(screen.queryByTestId("voting")).not.toBeInTheDocument();
   });
 });

@@ -4,15 +4,16 @@
 // header: keyed on person_id (via the slug adapter, council_councillor_by_slug) rather
 // than an officials slug, so it survives a re-slug.
 //
-// Self-hides entirely — no empty section header — when the person has no council
-// votes attributed to them, exactly like MpVotingSection does for a person with no
-// roll-call record. There is no separate "is this person a councillor" gate before
-// the fetch: council_councillor_by_slug() is a cheap, index-served lookup for
-// everyone (same shape as usePersonMagistrateHoldings), so a person who was never
-// on a council simply gets a fast null back rather than needing this component to
-// re-derive "councillor-ness" from person_role itself.
+// Self-hides entirely — no empty section header, and no orphaned TRACK header either
+// (see the `header` prop) — when the person has no council votes attributed to them,
+// exactly like MpVotingSection does for a person with no roll-call record. There is no
+// separate "is this person a councillor" gate before the fetch:
+// council_councillor_by_slug() is a cheap, index-served lookup for everyone (same shape
+// as usePersonMagistrateHoldings), so a person who was never on a council simply gets a
+// fast null back rather than needing this component to re-derive "councillor-ness" from
+// person_role itself.
 
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -48,7 +49,15 @@ const VOTE_CLASS: Record<CouncilCouncillorVote["vote"], string> = {
 
 const RECENT_SHOWN = 8;
 
-export const PersonCouncilVoting: FC<{ slug: string }> = ({ slug }) => {
+export const PersonCouncilVoting: FC<{
+  slug: string;
+  /** The "Местна власт" track header, for a person who ALSO has a National Assembly
+   *  voting record. Rendered HERE, inside this component's own success path, rather than
+   *  by the parent — this card self-hides whenever the corpus has not attributed this
+   *  person's council votes, and a header rendered by the parent would then sit above
+   *  nothing, labelling a record that is not on the page. Undefined for everyone else. */
+  header?: ReactNode;
+}> = ({ slug, header }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const { data: entry, isLoading } = useCouncilCouncillor(slug);
@@ -88,118 +97,121 @@ export const PersonCouncilVoting: FC<{ slug: string }> = ({ slug }) => {
   const recent = entry.recent.slice(0, RECENT_SHOWN);
 
   return (
-    <DashboardSection
-      id="person-council-voting"
-      title={t("pp_council_voting_title")}
-      icon={Landmark}
-    >
-      <Card className="my-4">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base flex items-center gap-2 flex-wrap">
-            <Landmark className="h-4 w-4" />
-            {t("pp_council_voting_title")}
-            <span className="text-xs text-muted-foreground font-normal">
-              · {entry.councilName}
-            </span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground mb-4">
-            {t("pp_council_voting_intro")}
-          </p>
+    <>
+      {header}
+      <DashboardSection
+        id="person-council-voting"
+        title={t("pp_council_voting_title")}
+        icon={Landmark}
+      >
+        <Card className="my-4">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base flex items-center gap-2 flex-wrap">
+              <Landmark className="h-4 w-4" />
+              {t("pp_council_voting_title")}
+              <span className="text-xs text-muted-foreground font-normal">
+                · {entry.councilName}
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground mb-4">
+              {t("pp_council_voting_intro")}
+            </p>
 
-          <div className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
-            {withMajorityPct != null && (
+            <div className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
+              {withMajorityPct != null && (
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                    {t("pp_council_voting_with_majority")}
+                  </div>
+                  <div className="text-3xl font-bold tabular-nums">
+                    {formatPct(withMajorityPct, lang)}
+                  </div>
+                </div>
+              )}
               <div>
                 <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
-                  {t("pp_council_voting_with_majority")}
+                  {t("pp_council_voting_votes_cast")}
                 </div>
-                <div className="text-3xl font-bold tabular-nums">
-                  {formatPct(withMajorityPct, lang)}
+                <div className="text-2xl font-semibold tabular-nums">
+                  {formatInt(entry.votes, lang)}
                 </div>
               </div>
-            )}
-            <div>
-              <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
-                {t("pp_council_voting_votes_cast")}
-              </div>
-              <div className="text-2xl font-semibold tabular-nums">
-                {formatInt(entry.votes, lang)}
-              </div>
-            </div>
-            <div>
-              <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
-                {t("council_vote_for")}
-              </div>
-              <div className="text-2xl font-semibold tabular-nums">
-                {formatInt(entry.for, lang)}
-              </div>
-            </div>
-            <div>
-              <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
-                {t("council_vote_against")}
-              </div>
-              <div className="text-2xl font-semibold tabular-nums">
-                {formatInt(entry.against, lang)}
-              </div>
-            </div>
-            <div>
-              <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
-                {t("council_vote_abstain")}
-              </div>
-              <div className="text-2xl font-semibold tabular-nums">
-                {formatInt(entry.abstain, lang)}
-              </div>
-            </div>
-            {entry.againstMajority > 0 && (
               <div>
                 <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
-                  {t("pp_council_voting_against_majority")}
+                  {t("council_vote_for")}
                 </div>
-                <div className="text-2xl font-semibold tabular-nums text-amber-600 dark:text-amber-400">
-                  {formatInt(entry.againstMajority, lang)}
+                <div className="text-2xl font-semibold tabular-nums">
+                  {formatInt(entry.for, lang)}
                 </div>
               </div>
-            )}
-          </div>
+              <div>
+                <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                  {t("council_vote_against")}
+                </div>
+                <div className="text-2xl font-semibold tabular-nums">
+                  {formatInt(entry.against, lang)}
+                </div>
+              </div>
+              <div>
+                <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                  {t("council_vote_abstain")}
+                </div>
+                <div className="text-2xl font-semibold tabular-nums">
+                  {formatInt(entry.abstain, lang)}
+                </div>
+              </div>
+              {entry.againstMajority > 0 && (
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                    {t("pp_council_voting_against_majority")}
+                  </div>
+                  <div className="text-2xl font-semibold tabular-nums text-amber-600 dark:text-amber-400">
+                    {formatInt(entry.againstMajority, lang)}
+                  </div>
+                </div>
+              )}
+            </div>
 
-          <div className="text-xs text-muted-foreground mt-4 pt-3 border-t">
-            {entry.attendanceBasis}
-          </div>
-          <div className="text-xs text-muted-foreground mt-1">
-            {entry.dissentBasis}
-          </div>
+            <div className="text-xs text-muted-foreground mt-4 pt-3 border-t">
+              {entry.attendanceBasis}
+            </div>
+            <div className="text-xs text-muted-foreground mt-1">
+              {entry.dissentBasis}
+            </div>
 
-          {recent.length > 0 && (
-            <div className="mt-5 pt-4 border-t">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-                {t("pp_council_voting_recent")}
-              </h3>
-              <ul className="divide-y">
-                {recent.map((r) => (
-                  <li key={r.id}>
-                    <Link
-                      to={`/council/resolution/${r.id}`}
-                      underline={false}
-                      className="flex items-baseline gap-2 py-2 text-sm hover:text-primary"
-                    >
-                      <span className="tabular-nums text-xs text-muted-foreground shrink-0">
-                        {r.decidedOn}
-                      </span>
-                      <span
-                        className={`shrink-0 text-xs font-medium ${VOTE_CLASS[r.vote]}`}
+            {recent.length > 0 && (
+              <div className="mt-5 pt-4 border-t">
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
+                  {t("pp_council_voting_recent")}
+                </h3>
+                <ul className="divide-y">
+                  {recent.map((r) => (
+                    <li key={r.id}>
+                      <Link
+                        to={`/council/resolution/${r.id}`}
+                        underline={false}
+                        className="flex items-baseline gap-2 py-2 text-sm hover:text-primary"
                       >
-                        {t(VOTE_KEY[r.vote])}
-                      </span>
-                      <span className="line-clamp-1 flex-1">{r.title}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </DashboardSection>
+                        <span className="tabular-nums text-xs text-muted-foreground shrink-0">
+                          {r.decidedOn}
+                        </span>
+                        <span
+                          className={`shrink-0 text-xs font-medium ${VOTE_CLASS[r.vote]}`}
+                        >
+                          {t(VOTE_KEY[r.vote])}
+                        </span>
+                        <span className="line-clamp-1 flex-1">{r.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </DashboardSection>
+    </>
   );
 };

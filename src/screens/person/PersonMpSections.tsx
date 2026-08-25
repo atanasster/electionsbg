@@ -19,6 +19,13 @@
 // Mounted only for a (former/sitting) MP. The CandidateMpProvider that hands the known mpId
 // to the per-MP hooks (so they skip the ~950 KB parliament roster) is NOT here — it wraps the
 // whole dashboard in PersonProfileScreen.
+//
+// THE ROLL-CALL SECTION MOVED OUT (person-election-voting-redesign-v1 T4): it is now
+// PersonMpVoting, a sequenced voting TRACK. This component keeps the parts that belong to the
+// PERSON rather than to a body — the scorecard and the no-roll-call note — and renders ABOVE
+// both tracks. While the section lived here, the scorecard rendered between the local track's
+// card and the national track's header, putting parliamentary KPIs under the „МЕСТНА ВЛАСТ"
+// pill for anyone who sat on a council first.
 
 import { FC } from "react";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -27,7 +34,6 @@ import { rollcallCoverage } from "@/data/parliament/rollcallCoverage";
 import { PersonNoRollcallNote } from "./PersonNoRollcallNote";
 import { useMpEntry } from "@/data/parliament/useMpEntry";
 import { MpScorecardTile } from "@/screens/components/candidates/MpScorecardTile";
-import { MpVotingSection } from "@/screens/components/candidates/MpVotingSection";
 import { DECLARATIONS_ANCHOR } from "./DeclarationsSection";
 
 export const PersonMpSections: FC<{
@@ -39,7 +45,6 @@ export const PersonMpSections: FC<{
 }> = ({ name, mpId, hasMoneyTimeline }) => {
   const { selected } = useElectionContext();
   const { entry } = useMpEntry(mpId);
-  const linkSlug = `mp-${mpId}`;
 
   // Roll-call only exists for the parliament the MP actually sat in; skip the block (and its
   // ~300 KB roll-call fetch) only when the roster entry POSITIVELY lists the NSes served and
@@ -73,9 +78,12 @@ export const PersonMpSections: FC<{
           connectedContracts: hasMoneyTimeline ? "#person-money" : undefined,
         }}
       />
-      {maybeServedInSelectedNs && (
-        <MpVotingSection name={name} linkSlug={linkSlug} mpId={mpId} />
-      )}
+      {/* The roll-call SECTION is no longer rendered here — it is a sequenced voting TRACK
+          (PersonMpVoting), so that this scorecard can sit above both tracks instead of
+          between the local one's card and the national one's header. `maybeServedInSelectedNs`
+          is still computed here because it decides whether the two KPI links above may point
+          at `#parliament`; PersonMpVoting derives the same predicate from the same deduped
+          hooks rather than being handed it, so neither is coupled to the other's position. */}
       {/* …and when there is no voting record to show because the corpus does not reach this
           MP, SAY so rather than leaving a blank. Self-hides on anything short of a proven
           negative — see the component. */}

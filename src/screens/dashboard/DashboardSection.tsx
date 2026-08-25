@@ -114,6 +114,17 @@ type Props = {
   className?: string;
 };
 
+/** The decorative rule that trails a section label — or a voting-track pill, which is
+ *  styled to echo this header row. Exported so VotingTrackHeader draws the SAME line
+ *  rather than restating the class string: the two are expected to move together, and a
+ *  copied class string is the one form of coupling nothing checks. */
+export const SectionRule: FC = () => (
+  <span
+    aria-hidden
+    className="hidden h-px flex-1 bg-gradient-to-r from-foreground/20 via-foreground/10 to-transparent sm:block"
+  />
+);
+
 const isRenderable = (node: ReactNode): boolean => {
   if (node === null || node === undefined || node === false) return false;
   if (Array.isArray(node)) return node.some(isRenderable);
@@ -145,12 +156,7 @@ export const DashboardSection: FC<PropsWithChildren<Props>> = ({
     <div className="shrink-0 text-xs text-muted-foreground/80">{subtitle}</div>
   ) : null;
 
-  const rule = (
-    <span
-      aria-hidden
-      className="hidden h-px flex-1 bg-gradient-to-r from-foreground/20 via-foreground/10 to-transparent sm:block"
-    />
-  );
+  const rule = <SectionRule />;
 
   const headerEl =
     title || subtitle ? (
