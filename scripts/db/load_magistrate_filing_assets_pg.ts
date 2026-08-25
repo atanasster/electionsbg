@@ -25,6 +25,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, end, exec, vacuumAfterReload, withClient } from "./lib/pg";
 import { copyRows } from "./lib/copy";
+import {
+  TABLE_COLUMNS,
+  formEra,
+  LEGACY_UNVERSIONED,
+} from "../judiciary/declarationTables";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -50,6 +55,8 @@ interface FilingRecord {
   year: number;
   registerDir: string;
   formVersion: string | null;
+  /** Which 12-column layout the document uses; decides the map above. */
+  formEra?: "legacy" | "modern" | null;
   /** The unit both price columns are denominated in, read from the document's own header.
    *  Null on a corpus crawled before the euro reissue was mapped. */
   priceCurrency?: "BGN" | "EUR" | null;
@@ -89,34 +96,10 @@ const txt = (s: string | undefined): string | null => {
 //                        6 разгъната · 7 цена · 8 прехвърлител · 9 идеална част ·
 //                        10 правно основание   ← no „произход", and every column after 7
 //                        sits one place earlier than in table 1.
-const COLS = {
-  "1": {
-    kind: 2,
-    location: 3,
-    muni: 4,
-    area: 5,
-    built: 6,
-    price: 7,
-    acquired: 8,
-    holder: 9,
-    share: 10,
-    basis: 11,
-    origin: 12,
-  },
-  "2": {
-    kind: 2,
-    location: 3,
-    muni: 4,
-    area: 5,
-    built: 6,
-    price: 7,
-    acquired: null,
-    holder: 8,
-    share: 9,
-    basis: 10,
-    origin: null,
-  },
-} as const;
+// ⚠️ ONE DEFINITION, IMPORTED — the era maps live in declarationTables.ts beside the parser
+// that verifies them against each document's own header labels. A private copy here would
+// drift silently: every row still loads, just under the wrong headings.
+const COLS = TABLE_COLUMNS;
 
 const run = async (): Promise<void> => {
   await exec(readFileSync(SCHEMA, "utf8"));
@@ -158,6 +141,8 @@ const run = async (): Promise<void> => {
   let assetRows = 0;
   let refusedT1 = 0;
   let emptyRows = 0;
+  let noEra = 0;
+  let unmerged = 0;
   const duplicateOrds: string[] = [];
 
   await withClient(async (client) => {
@@ -198,7 +183,24 @@ const run = async (): Promise<void> => {
               if (tableNum === "1") refusedT1++;
               continue;
             }
-            const c = COLS[tableNum];
+            // ⚠️ THE ERA DECIDES THE COLUMN MAP, and getting it wrong is a SHIFTED row, not
+            // a missing one — legacy puts година at 7 and цена at 10 where modern puts цена
+            // at 7 and година at 8, so the price cell would hold a year and the year cell a
+            // name.
+            //
+            // DERIVED, not read from the record: `formEra` is a pure function of the form
+            // revision, so a stored copy is redundant and — worse — is absent on every record
+            // crawled before the field existed. Depending on it would silently drop all
+            // 19,781 modern filings the moment the legacy ones were re-parsed. What makes
+            // deriving it SAFE is that the proof lives at parse time: readTable checks the
+            // era's layout against the document's own header labels and REFUSES on
+            // disagreement, so a record carrying rows at all has already been verified.
+            const era = formEra(r.formVersion ?? LEGACY_UNVERSIONED);
+            if (!era) {
+              noEra++;
+              continue;
+            }
+            const c = COLS[era][tableNum];
             // The PK is (source_url, table_num, ord) and COPY does not enforce it mid-stream,
             // so a duplicate ordinal aborts the WHOLE load at COMMIT behind a constraint name
             // rather than a cause. Post-fix the parser cannot emit one — a row bearing the
@@ -218,7 +220,30 @@ const run = async (): Promise<void> => {
               // defence; this is the one at the database boundary, because the alternative is
               // publishing a blank row against a named judge's name. Measured before both
               // fixes: 36 such rows across 2,457.
-              const kindCell = txt(row.cells[c.kind]);
+              // ⚠️ THE KIND OFTEN MERGES INTO THE ORDINAL CELL, and un-merging it is the
+              // difference between storing this row and losing it. On a row whose run count
+              // does not match the header (`exact === false`) each run is placed by NEAREST
+              // column edge — and because the header digits are printed CENTRED, the kind's
+              // text can sit closer to the ordinal's edge than to its own. Both then land in
+              // column 1: „1. апартамент с прилежащи 1.734 % ид.ч.".
+              //
+              // Reversing it is safe SPECIFICALLY here and nowhere else: column 1's only
+              // neighbour is column 2, so whatever follows the ordinal in that cell can only
+              // be the kind. Measured across the corpus, 8,251 rows carrying real property
+              // are recovered this way and 3 remain unmappable.
+              //
+              // The rest of the row stays as parsed — its price is already withheld by the
+              // `exact` flag, which is the right treatment for a row whose columns merged.
+              let kindCell = txt(row.cells[c.kind]);
+              if (kindCell == null) {
+                const merged = String(row.cells[1] ?? "")
+                  .replace(/^\s*\d+\.\s*/, "")
+                  .trim();
+                if (txt(merged) != null) {
+                  kindCell = merged;
+                  unmerged++;
+                }
+              }
               const priceCell = money(row.cells[c.price]);
               if (kindCell == null && priceCell == null) {
                 emptyRows++;
@@ -337,7 +362,11 @@ const run = async (): Promise<void> => {
   console.log(
     `magistrate-filing-assets: ${usable.length} filing(s) parsed, ` +
       `${assetRows} property row(s), ${refusedT1} table-1 refusal(s)` +
-      (emptyRows ? `, ${emptyRows} empty row(s) dropped` : ""),
+      (emptyRows ? `, ${emptyRows} empty row(s) dropped` : "") +
+      (noEra ? `, ${noEra} table(s) on an unmapped form revision` : "") +
+      (unmerged
+        ? `, ${unmerged} kind(s) recovered from a merged ordinal cell`
+        : ""),
   );
   if (duplicateOrds.length)
     console.warn(

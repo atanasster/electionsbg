@@ -58,6 +58,38 @@ const propertyRow = (
     [480, "продажба имот, наеми"],
   ]);
 
+/** Таблица 1 as the pre-v3.0 form lays it out: година at 7, собственик at 8, идеална част at
+ *  9, цена at 10 — the same twelve columns as v3.0 in a different order. */
+const LEGACY_PAGE: Row[] = [
+  row(700, [
+    [40, "1. Право на собственост и ограничени вещни права:"],
+    [400, "Таблица № 1"],
+  ]),
+  row(690, [
+    [40, "Ном."],
+    [280, "Година"],
+    [320, "Собственик"],
+    [400, "Цена на"],
+  ]),
+  row(685, [[400, "придоби-"]]),
+  row(682, [[400, "/лева/"]]),
+  HDR_12(660),
+  row(640, [
+    [40, "1."],
+    [80, "апартамент"],
+    [120, "гр. Плевен"],
+    [160, "Плевен"],
+    [200, "72"],
+    [240, "72"],
+    [280, "1993"],
+    [320, "Иван Радков Диков"],
+    [360, "1/1"],
+    [400, "48000"],
+    [440, "покупко-продажба"],
+    [480, "заплата"],
+  ]),
+];
+
 const TABLE1_PAGE: Row[] = [
   row(700, [
     [40, "1. Право на собственост и ограничени вещни права:"],
@@ -235,7 +267,7 @@ const VERSION_PAGE_V4: Row[] = [
 ];
 
 describe("readTable across pages", () => {
-  it("refuses a pre-v3.0 form, whose columns are the same COUNT in a different ORDER", () => {
+  it("refuses an unversioned document laid out the MODERN way", () => {
     // ⚠️ THE FINDING THIS GATE EXISTS FOR. The old Таблица 1 runs
     // „… 7 година | 8 собственик | 9 идеална част | 10 цена …" where v3.0 runs
     // „… 7 цена | 8 година | 9 собственик | 10 идеална част …" — twelve columns either way,
@@ -244,9 +276,52 @@ describe("readTable across pages", () => {
     // declarant's NAME on five of them, and „цена на сделката" holding
     // „1997 Радослав Петров Маринов". The row count is identical, so the count-based half
     // of the validation harness reported 100% agreement on exactly those documents.
-    const t = readTable([TABLE1_PAGE], /Право на собственост/, 12);
-    expect(isRefusal(t) && t.kind).toBe("form-version");
-    if (isRefusal(t) && t.kind === "form-version") expect(t.got).toBeNull();
+    // The pre-v3.0 form IS mapped now, and a document printing no revision is assumed to be
+    // it — the 2017-2020 form states none. But that assumption is only safe because the
+    // labels then have to agree: here „Цена на" sits at column 7, where v3.0 puts it and the
+    // legacy layout does not, so reading it as legacy would put the price under „идеална
+    // част". Refused instead.
+    //
+    // (This is the reachable half of `requireProof`. A document with NO price label at all is
+    // already refused one step earlier as `currency`, since the unit is read from that same
+    // header — so „unversioned and completely unlabelled" never gets this far.)
+    const modernLaidOut: Row[] = [
+      row(695, [[280, "Цена на"]]),
+      row(692, [[280, "/лева/"]]),
+      ...TABLE1_PAGE,
+    ];
+    const t = readTable([modernLaidOut], /Право на собственост/, 12);
+    expect(isRefusal(t) && t.kind).toBe("column-role");
+  });
+
+  it("reads the legacy layout, putting each value under its own heading", () => {
+    // ⚠️ The whole point. Verified against real v2.0/2.1/2.2 and unversioned filings: all four
+    // run „… 7 година | 8 собственик | 9 идеална част | 10 цена …". Read with the modern map
+    // the year lands in the price column and the declarant's NAME in the year column — both
+    // look like data, which is why the count-based harness reported 100% agreement on exactly
+    // these documents.
+    const t = readTable([LEGACY_PAGE], /Право на собственост/, 12);
+    expect(isRefusal(t)).toBe(false);
+    if (!isRefusal(t)) {
+      const c = t.rows[0].cells;
+      expect(c[7]).toBe("1993"); // година, NOT the price
+      expect(c[8]).toBe("Иван Радков Диков"); // собственик
+      expect(c[10]).toBe("48000"); // цена, at 10 and not 7
+    }
+  });
+
+  it("refuses a document whose labels contradict its declared era", () => {
+    // The era comes from the revision string, which is an assumption from one sample per
+    // bucket; the labels are the document's own answer. When they disagree the document wins
+    // — every value would otherwise be shifted by one heading.
+    const mismatched: Row[] = [
+      row(760, [[400, "v.3.0 / 22.11.2022 г."]]),
+      row(752, [[361, "Цена на"]]),
+      row(740, [[365, "/лева/"]]),
+      ...LEGACY_PAGE, // …but laid out the OLD way
+    ];
+    const t = readTable([mismatched], /Право на собственост/, 12);
+    expect(isRefusal(t) && t.kind).toBe("column-role");
   });
 
   it("accepts the v3.0 form it has a verified map for", () => {

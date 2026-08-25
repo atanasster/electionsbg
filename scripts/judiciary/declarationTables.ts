@@ -41,6 +41,7 @@ export type TableRefusal =
   | { kind: "column-count"; expected: number; got: number; detail: string }
   | { kind: "form-version"; got: string | null; detail: string }
   | { kind: "currency"; detail: string }
+  | { kind: "column-role"; detail: string }
   | { kind: "no-rows"; detail: string };
 
 export interface ColumnMap {
@@ -310,6 +311,10 @@ export const declarationMeta = (rows: Row[]): DeclarationMeta => {
  *  numbered table further on cannot be absorbed. */
 /** The form revision the document was printed from — „v.3.0 / 22.11.2022 г." on page 1.
  *  Null on every pre-v3.0 filing, which simply does not print one. */
+/** The 2017-2020 form prints no revision string at all. A sentinel rather than `null` so the
+ *  era map can name it, and so "unversioned" and "unrecognised" stay different answers. */
+export const LEGACY_UNVERSIONED = "legacy-unversioned";
+
 export const formVersion = (pages: Row[][]): string | null => {
   for (const rows of pages.slice(0, 2))
     for (const r of rows) {
@@ -375,15 +380,206 @@ export const priceCurrency = (pages: Row[][]): "BGN" | "EUR" | null => {
  *
  *  That is the opposite of the pre-v3.0 case below, where the count is also 12 and the ORDER
  *  differs — which is why version alone can never stand in for either check. */
-const SUPPORTED_FORMS = new Set(["3.0", "4.0"]);
+const SUPPORTED_FORMS = new Set([
+  "3.0",
+  "4.0",
+  "2.0",
+  "2.1",
+  "2.2",
+  LEGACY_UNVERSIONED,
+]);
+
+/** Which column LAYOUT a form revision uses.
+ *
+ *  ⚠️ TWO LAYOUTS, TWELVE COLUMNS EACH, AND THE COUNT CANNOT TELL THEM APART — that is the
+ *  whole hazard. Verified by reading the header labels off one sample of every bucket
+ *  (v2.0, v2.1, v2.2 and the unversioned 2017-2020 form): all four order Таблица 1 as
+ *
+ *      … 7 година | 8 собственик | 9 идеална част | 10 цена …
+ *
+ *  while v3.0/v4.0 run … 7 цена | 8 година | 9 собственик | 10 идеална част … So an
+ *  `expectedColumns: 12` check passes on both and every value lands one heading out: measured
+ *  before the guard existed, „година на придобиване" came back holding a declarant's NAME.
+ *  Таблица 2 diverges too, at 10 columns — legacy puts цена at 9, modern at 7.
+ *
+ *  A version this does not know is REFUSED, so a future reissue cannot be silently mapped by
+ *  the wrong layout. */
+export type FormEra = "legacy" | "modern";
+export const formEra = (version: string | null): FormEra | null => {
+  const v = version ?? LEGACY_UNVERSIONED;
+  if (v === "3.0" || v === "4.0") return "modern";
+  if (v === "2.0" || v === "2.1" || v === "2.2" || v === LEGACY_UNVERSIONED)
+    return "legacy";
+  return null;
+};
+
+/** Semantic role → column ordinal, per table and per era. ONE definition, imported by the
+ *  loader — the two must never drift, because a drift is silent: every row still loads. */
+export const TABLE_COLUMNS = {
+  modern: {
+    "1": {
+      kind: 2,
+      location: 3,
+      muni: 4,
+      area: 5,
+      built: 6,
+      price: 7,
+      acquired: 8,
+      holder: 9,
+      share: 10,
+      basis: 11,
+      origin: 12,
+    },
+    "2": {
+      kind: 2,
+      location: 3,
+      muni: 4,
+      area: 5,
+      built: 6,
+      price: 7,
+      acquired: null,
+      holder: 8,
+      share: 9,
+      basis: 10,
+      origin: null,
+    },
+  },
+  legacy: {
+    "1": {
+      kind: 2,
+      location: 3,
+      muni: 4,
+      area: 5,
+      built: 6,
+      price: 10,
+      acquired: 7,
+      holder: 8,
+      share: 9,
+      basis: 11,
+      origin: 12,
+    },
+    "2": {
+      kind: 2,
+      location: 3,
+      muni: 4,
+      area: 5,
+      built: 6,
+      price: 9,
+      acquired: null,
+      holder: 7,
+      share: 8,
+      basis: 10,
+      origin: null,
+    },
+  },
+} as const;
+
+/** Which column a header LABEL sits in, by nearest ordinal — or null when the label is absent
+ *  or straddles two columns.
+ *
+ *  The label block wraps across several visual rows („Цена на" / „придоби-" / „ване" /
+ *  „/лева/"), so every fragment between the caption and the ordinal row is a candidate and
+ *  they must agree. Disagreement returns null, which the caller treats as "cannot verify". */
+const columnOfLabel = (
+  rows: Row[],
+  capIdx: number,
+  hdrIdx: number,
+  kw: RegExp,
+  edges: number[],
+): number | null => {
+  const hits = new Set<number>();
+  for (let i = capIdx; i < hdrIdx; i++)
+    for (const it of rows[i])
+      if (kw.test(it.s)) {
+        let col = 1;
+        let best = Infinity;
+        for (let c = 0; c < edges.length; c++) {
+          const d = Math.abs(it.x - edges[c]);
+          if (d < best) {
+            best = d;
+            col = c + 1;
+          }
+        }
+        hits.add(col);
+      }
+  return hits.size === 1 ? [...hits][0] : null;
+};
+
+/**
+ * Prove the era's assumed layout against the document's OWN header labels.
+ *
+ * ⚠️ THIS IS THE GUARD THAT MAKES MAPPING THE OLD FORM SAFE AT ALL. The era map is an
+ * assumption derived from one sample per bucket; this checks it on every document, and the
+ * two columns it checks are the two whose confusion is worst — the MONEY and the YEAR, which
+ * the two layouts swap. A legacy document read with the modern map puts a year where the
+ * price belongs and a name where the year belongs; both look entirely plausible in a cell.
+ *
+ * Absent labels verify nothing and pass: a wrapped or missing header is common and is not
+ * evidence of the wrong layout. A label that is PRESENT and in the WRONG column is, and
+ * refuses the table rather than publishing a shifted row against a named judge.
+ */
+export const verifyColumnRoles = (
+  rows: Row[],
+  capIdx: number,
+  hdrIdx: number,
+  edges: number[],
+  expected: { price: number; acquired: number | null },
+  /** When true the labels must POSITIVELY confirm the layout; absent is a refusal.
+   *  Used for a document that states no form revision at all — there is then no independent
+   *  evidence of its era, so „the labels are missing too" must not resolve to „assume
+   *  legacy". A document that DOES state its revision has already supplied that evidence. */
+  requireProof = false,
+): TableRefusal | null => {
+  // ⚠️ PREFIX-ANCHORED, NOT WHOLE-TOKEN. The form emits the label as a wrapped fragment —
+  // „Цена на" then „сделката" (or „придоби-" / „ване") on later rows, „Година" then „на" then
+  // „придо-" / „биване". An exact `/^Цена$/` matches NONE of them, which does not fail loudly:
+  // columnOfLabel returns null, and null means „cannot verify", so the whole guard silently
+  // passes on every versioned document while refusing every unversioned one. It shipped that
+  // way for one commit.
+  //
+  // ⚠️ AND THE BOUNDARY IS `(?![\p{L}\p{N}])`, NEVER `\b`. JavaScript's `\b` is ASCII-only, so
+  // it does not exist between the Cyrillic „а" of „Цена" and the following space — `/^Цена\b/`
+  // matches „Цена на" NOT AT ALL. That failure is silent in exactly the same way as the one
+  // above: no match reads as „cannot verify", so the guard passes on every versioned document
+  // and refuses every unversioned one. Both regexes shipped wrong, in both forms, before this
+  // was measured against a real 2017 filing whose labels were plainly present.
+  const checks: Array<[string, RegExp, number | null]> = [
+    ["цена", /^Цена(?![\p{L}\p{N}])/iu, expected.price],
+    ["година", /^Година(?![\p{L}\p{N}])/iu, expected.acquired],
+  ];
+  for (const [name, kw, want] of checks) {
+    if (want == null) continue;
+    const got = columnOfLabel(rows, capIdx, hdrIdx, kw, edges);
+    if (got == null && requireProof)
+      return {
+        kind: "column-role",
+        detail:
+          `this document states no form revision, and its „${name}" header label could not ` +
+          `be located either — nothing independently confirms the column layout, so the ` +
+          `table is refused rather than read on an assumed one`,
+      };
+    if (got != null && got !== want)
+      return {
+        kind: "column-role",
+        detail:
+          `header label „${name}" sits in column ${got}, but this form's layout puts it in ` +
+          `${want} — the document does not match the era map, so every value would be ` +
+          `shifted; refusing rather than publishing it`,
+      };
+  }
+  return null;
+};
 
 export const readTable = (
   pages: Row[][],
   caption: RegExp,
   expectedColumns: number,
 ): { rows: DataRow[]; map: ColumnMap } | TableRefusal => {
-  const version = formVersion(pages);
-  if (version === null || !SUPPORTED_FORMS.has(version))
+  // A document that prints no revision is the 2017-2020 form, which IS mapped — but it must
+  // prove its layout from the header labels below, since its era rests on no other evidence.
+  const stated = formVersion(pages);
+  const version = stated ?? LEGACY_UNVERSIONED;
+  if (!SUPPORTED_FORMS.has(version))
     return {
       kind: "form-version",
       got: version,
@@ -423,6 +619,32 @@ export const readTable = (
     caption,
     expectedColumns,
   ) as ColumnMap;
+
+  // ⚠️ PROVE THE LAYOUT ON THIS DOCUMENT BEFORE READING A SINGLE VALUE. The era is derived
+  // from the form revision, which is an assumption from one sample per bucket; the header
+  // labels are the document's own answer. Checking the MONEY and the YEAR specifically,
+  // because those are the two the legacy and modern layouts swap, and a swap is invisible in
+  // the result — a year in a price cell and a name in a year cell both look like data.
+  const era = formEra(version);
+  if (era) {
+    const table = expectedColumns === 12 ? "1" : "2";
+    const cap = pages[pageIdx].findIndex((r) => caption.test(text(r)));
+    const hdr = pages[pageIdx].findIndex(
+      (r, i) => i > cap && i <= cap + 12 && isHeaderRow(r),
+    );
+    if (cap >= 0 && hdr > cap) {
+      const bad = verifyColumnRoles(
+        pages[pageIdx],
+        cap,
+        hdr,
+        map.edges,
+        TABLE_COLUMNS[era][table],
+        stated === null,
+      );
+      if (bad) return bad;
+    }
+  }
+
   const rows = tableRows(pages[pageIdx], map);
   for (let p = pageIdx + 1; p < pages.length; p++) {
     const last = rows[rows.length - 1]?.ord ?? 0;

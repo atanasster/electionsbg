@@ -701,6 +701,64 @@ and a guessed 1000× is worse than a visible oddity.
 these is not. Any future surface that aggregates declared prices — a total, an average, a
 ranking — must exclude or flag pre-1999 acquisitions first.
 
+### Mapping the pre-v3.0 form (2026-08-25) — one layout, not four
+
+The backlog is closed. It is **one** legacy layout, not four: v2.0, v2.1, v2.2 and the
+unversioned 2017-2020 form all order Таблица 1 the same way, and it is the order the Tier-2
+note predicted.
+
+| | modern (v3.0/v4.0) | legacy (v2.x + unversioned) |
+|---|---|---|
+| Таблица 1 | 7 цена · 8 година · 9 собственик · 10 идеална | 7 година · 8 собственик · 9 идеална · **10 цена** |
+| Таблица 2 | 7 цена · 8 собственик · 9 идеална | 7 собственик · 8 идеална · **9 цена** |
+
+⚠️ **THE MAP IS NOT THE SAFETY — THE PROOF IS.** A version-keyed map is still an assumption
+drawn from one sample per bucket, and its failure mode is a SHIFTED row, which no row count
+can see. So `readTable` now verifies the era against each document's **own header labels**
+before reading a value, checking the two columns whose confusion is worst — the money and the
+year. Measured against real PDFs, every document accepts only its own era and refuses the
+other, in both directions. Over the full re-parse of **31,224 legacy filings there were ZERO
+`column-role` refusals**, so the layout derived from four samples was confirmed by 31,224
+documents.
+
+An **unversioned** document is held to a stricter rule: its era rests on no revision string,
+so the labels must positively confirm it. One laid out the modern way is refused rather than
+read as legacy.
+
+**Result** — the corpus roughly doubled:
+
+| | before | after |
+|---|---|---|
+| filings with a readable Таблица 1 | 13,135 | **32,648** |
+| property rows | 11,862 | **26,142** |
+| Таблица 1 refusals | 21,388 | **53** |
+
+Headline per-magistrate counts did **not** move (3,587), and that is correct: every roster
+record's own filing is 2024-or-later, so the legacy corpus is entirely historical. What it
+adds is depth — a magistrate's earlier filings, not their current figure.
+
+⚠️ **A 24% loss hid behind the word „empty", and it was NOT a legacy defect.** After the
+re-parse the loader reported 5,384 „empty rows dropped" against 109 before. They were not
+empty: 8,254 rows carried real property whose KIND had merged into the ordinal cell —
+„1. апартамент с прилежащи 1.734 % ид.ч." — because on a row whose run count does not match
+the header, each run is placed by nearest edge, and the header digits are printed CENTRED.
+The same defect affects 1,196 MODERN rows and predates this work; the legacy corpus merely
+made it six times bigger.
+
+Un-merging is safe **specifically** for column 1, whose only neighbour is column 2, so
+whatever follows the ordinal there can only be the kind. It recovers **8,251 of 8,254**; the
+remaining 3 are reported. The rest of such a row is left as parsed and its price stays
+withheld by the `exact` flag, which is the right treatment for a row whose columns merged.
+
+⚠️ **A cold-database test destroyed three live functions, and the technique is the lesson.**
+To prove 070/185 apply to a virgin schema I ran them with
+`PGOPTIONS="--search_path=vp2,public"`. 070 contains three UNQUALIFIED drops
+(`DROP FUNCTION IF EXISTS magistrate_by_name(text)` and two more); an unqualified DROP
+resolves through the search path, found nothing in `vp2`, and dropped the **public** ones —
+then created the replacements in `vp2`. `/person` pages lost the whole ИВСС card while every
+row of data stayed intact. **A search-path sandbox is not a sandbox for a file containing
+unqualified DROPs; use a separate DATABASE.** Local only; production was never on that path.
+
 ### Tier 4 — one career, one timeline
 
 Once magistrates have filings with dates, interleave the two registers chronologically on

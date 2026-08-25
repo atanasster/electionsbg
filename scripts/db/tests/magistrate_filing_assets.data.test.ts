@@ -151,12 +151,12 @@ test("an unreadable table is recorded as refused, never as empty", async () => {
   // Every pre-v3.0 filing is refused wholesale, so the two populations are large and the
   // assertion is that they stay disjoint and correctly labelled.
   //
-  // ⚠️ THE MAPPED SET IS ('3.0','4.0') AND MUST TRACK declarationTables.SUPPORTED_FORMS.
-  // v4.0 is the euro reissue — the same 12 columns at the same positions, with „/лева/"
-  // becoming „/евро/" — so it is mapped and therefore must NOT be refused. Everything else
-  // (v2.0/2.1/2.2 and the versionless older forms) orders the same 12 columns differently
-  // and stays refused. SQL cannot import the TS set, so a future version added there must be
-  // added here too; until it is, this gate fails loudly rather than silently widening.
+  // ⚠️ EVERY KNOWN REVISION IS NOW MAPPED, in two layouts — modern (v3.0/v4.0) and legacy
+  // (v2.0/v2.1/v2.2 and the unversioned 2017-2020 form, which share one column order). So
+  // this no longer asserts „the old form is refused"; it asserts that a revision the parser
+  // does NOT know is refused, which is what keeps a future reissue from being read under a
+  // borrowed layout. SQL cannot import declarationTables.SUPPORTED_FORMS, so a version added
+  // there must be added here too — until it is, this fails loudly rather than widening.
   const [r] = await allRows<{
     refused_with_rows: string;
     old_form_unrefused: string;
@@ -168,7 +168,8 @@ test("an unreadable table is recorded as refused, never as empty", async () => {
                         WHERE a.source_url = f.source_url AND a.table_num = '1'))::text
          AS refused_with_rows,
        (SELECT count(*) FROM magistrate_filing
-         WHERE form_version IS NOT NULL AND form_version NOT IN ('3.0', '4.0')
+         WHERE form_version IS NOT NULL
+           AND form_version NOT IN ('3.0', '4.0', '2.0', '2.1', '2.2')
            AND table1_refused IS DISTINCT FROM 'form-version')::text
          AS old_form_unrefused`,
   );
@@ -420,11 +421,14 @@ test("the unit tracks the DOCUMENT, not the year — 2026 carries both", async (
       GROUP BY 1, 2`,
   );
   if (!rows.length) return;
-  // Each mapped version is internally consistent…
+  // ⚠️ EURO IS v4.0 AND NOTHING ELSE. The euro reissue is the ONLY form denominated in it;
+  // v3.0 and all four legacy buckets print „/лева/". Measured across the whole corpus:
+  // 20,725 BGN rows spread over v2.0/2.1/2.2/(none)/3.0, and 278 EUR rows all on v4.0. A
+  // legacy row appearing as EUR would mean the unit was inferred rather than read.
   for (const r of rows)
     assert.ok(
-      (r.v === "3.0" && r.cur === "BGN") || (r.v === "4.0" && r.cur === "EUR"),
-      `form v${r.v} stored ${r.n} price(s) as ${r.cur} — the map and the unit disagree`,
+      r.v === "4.0" ? r.cur === "EUR" : r.cur === "BGN",
+      `form v${r.v} stored ${r.n} price(s) as ${r.cur} — the unit does not match the form`,
     );
   // …and the corpus really does contain both, so this gate is not passing vacuously on a
   // single-currency corpus that would hide a hard-coded unit.

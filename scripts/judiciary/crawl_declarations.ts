@@ -39,6 +39,8 @@ import { fileURLToPath } from "url";
 import {
   declarationMeta,
   formVersion,
+  formEra,
+  LEGACY_UNVERSIONED,
   priceCurrency,
   isRefusal,
   readTable,
@@ -110,6 +112,11 @@ export interface FilingRecord {
    *  year would restate 3,483 filings' prices at 1.95583×. Null only where the document
    *  states none, in which case the tables are refused rather than stored unitless. */
   priceCurrency: "BGN" | "EUR" | null;
+  /** Which of the two 12-column LAYOUTS this document uses — `legacy` (v2.x and the
+   *  unversioned 2017-2020 form) or `modern` (v3.0/v4.0). The loader picks its column map
+   *  from this; the two orders differ in where the MONEY and the YEAR sit, so a wrong era is
+   *  a shifted row rather than a missing one. Null for a revision the parser does not map. */
+  formEra: "legacy" | "modern" | null;
   /** Таблица 1 — property ACQUIRED in the period (or, on an ENTRY filing, the whole estate).
    *  A refusal reason instead of rows when the document could not be mapped. */
   table1: DataRow[] | { refused: string };
@@ -159,6 +166,7 @@ const parse = (
     registerDir: e.batch,
     formVersion: formVersion(pages),
     priceCurrency: priceCurrency(pages),
+    formEra: formEra(formVersion(pages) ?? LEGACY_UNVERSIONED),
     kind: meta.kind,
     periodYear: meta.periodYear,
     table1: readOne(pages, /Право на собственост и ограничени вещни права/, 12),
@@ -226,14 +234,17 @@ const main = async (): Promise<void> => {
       const r = cache[e.pdf];
       if (!r) return false;
       const t1 = r.table1 as { refused?: string };
-      return (
-        !Array.isArray(r.table1) &&
-        typeof t1.refused === "string" &&
-        r.formVersion === reparse
-      );
+      if (Array.isArray(r.table1) || typeof t1.refused !== "string")
+        return false;
+      // `--reparse legacy` covers all four pre-v3.0 buckets at once — v2.0, v2.1, v2.2 and
+      // the unversioned 2017-2020 form, which share one column layout. Naming versions one
+      // at a time would mean four crawls over the same refused population.
+      if (reparse === "legacy")
+        return formEra(r.formVersion ?? LEGACY_UNVERSIONED) === "legacy";
+      return r.formVersion === reparse;
     });
     console.log(
-      `--reparse v${reparse}: ${wanted.length} previously-refused filing(s) to re-read`,
+      `--reparse ${reparse}: ${wanted.length} previously-refused filing(s) to re-read`,
     );
     todo = wanted;
   }
