@@ -458,6 +458,24 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   ) END
 $$;
 
+-- ---------------------------------------------------------------------------
+-- council_councillor_by_slug(slug) — the /person-page adapter
+-- ---------------------------------------------------------------------------
+-- council_councillor() takes a numeric person_id, but no person-page payload
+-- (082 person_by_slug) exposes one — every other person-facing function in this
+-- repo resolves slug -> person_id internally rather than putting an internal id
+-- on a public API (person_declarations, person_connections, person_elections,
+-- person_stake_procurement, …all take p_slug and do exactly this lookup). Same
+-- gate as those: active public figures only, so a private/retired/unresolved
+-- slug answers NULL rather than a councillor record nobody can attribute.
+CREATE OR REPLACE FUNCTION council_councillor_by_slug(p_slug text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  SELECT council_councillor(person_id)
+    FROM person
+   WHERE slug = p_slug AND status = 'active' AND is_public_figure
+   LIMIT 1
+$$;
+
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
@@ -468,6 +486,7 @@ BEGIN
     GRANT EXECUTE ON FUNCTION council_muni_detail(text, int, int)      TO app_readonly;
     GRANT EXECUTE ON FUNCTION council_resolution_detail(text)          TO app_readonly;
     GRANT EXECUTE ON FUNCTION council_councillor(bigint)               TO app_readonly;
+    GRANT EXECUTE ON FUNCTION council_councillor_by_slug(text)         TO app_readonly;
   ELSE
     RAISE WARNING '[161] app_readonly absent — council serving functions carry no ACL.';
   END IF;

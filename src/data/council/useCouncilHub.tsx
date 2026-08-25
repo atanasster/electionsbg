@@ -208,3 +208,63 @@ export const useCouncilResolution = (id: string | null | undefined) =>
     staleTime: Infinity,
     retry: 2,
   });
+
+/** One resolution this councillor voted on, newest first — the `recent` array,
+ *  capped at 20 server-side (161's `council_councillor`). */
+export type CouncilCouncillorVote = {
+  id: string;
+  decidedOn: string;
+  title: string;
+  vote: "for" | "against" | "abstain";
+};
+
+/** A person's council voting record — the /person-page analogue of
+ *  `useMpLoyalty`/`useMpDissents` for the National Assembly, but over a
+ *  DIFFERENT reference frame: this corpus carries no party affiliation, so
+ *  every "against"/"abstained" figure here is measured against the COUNCIL's
+ *  own majority on each resolution, never a party. See `dissentBasis`. */
+export type CouncilCouncillor = {
+  personId: number;
+  councilCode: string;
+  councilName: string;
+  name: string;
+  votes: number;
+  for: number;
+  against: number;
+  abstain: number;
+  /** Denominator for "участие" — resolutions THIS council published a named
+   *  vote for, whether or not this councillor is in it. */
+  ofNamedVoteResolutions: number;
+  /** An EXPLICIT vote against the resolution's majority (never an
+   *  abstention — see `abstainedFromMajority`). */
+  againstMajority: number;
+  abstainedFromMajority: number;
+  /** The denominator `againstMajority`/`abstainedFromMajority` are shares OF:
+   *  this councillor's own votes on resolutions that HAD a majority. */
+  ofScoredVotes: number;
+  /** Resolutions this councillor voted on that ended in a TIE — scored
+   *  nothing above, since a tie has no majority to agree or dissent from. */
+  noMajorityResolutions: number;
+  recent: CouncilCouncillorVote[];
+  /** Rendered verbatim — see 161_council_serving.sql's header on why a
+   *  participation/dissent figure here is defamatory in the wrong direction
+   *  without its basis attached. */
+  attendanceBasis: string;
+  dissentBasis: string;
+};
+
+/** `null` means this person has no council votes attributed to them — either
+ *  they never sat on a council, or (161's own scope note) the corpus simply
+ *  has not attributed any of their votes yet. Either way: self-hide, don't
+ *  render an empty card. */
+export const useCouncilCouncillor = (slug: string | null | undefined) =>
+  useQuery({
+    queryKey: ["council", "councillor", slug ?? ""] as const,
+    queryFn: () =>
+      getJson<CouncilCouncillor>(
+        `/api/db/council-councillor-by-slug?slug=${encodeURIComponent(slug as string)}`,
+      ),
+    enabled: !!slug,
+    staleTime: Infinity,
+    retry: 2,
+  });

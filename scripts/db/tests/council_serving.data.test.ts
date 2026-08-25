@@ -504,6 +504,52 @@ test.skipIf(skip)(
 );
 
 test.skipIf(skip)(
+  "council_councillor_by_slug reproduces council_councillor exactly, for an active public-figure slug only",
+  async () => {
+    assert.ok(await present(), "council_* absent — run db:load:council:pg");
+    // The /person-page adapter: same reason every other slug-keyed function
+    // here resolves internally (person_declarations, person_connections, …)
+    // rather than putting person_id on a public API.
+    const [p] = await allRows<{ pid: string; slug: string }>(
+      `SELECT v.person_id::text AS pid, per.slug AS slug
+         FROM council_vote v
+         JOIN person per ON per.person_id = v.person_id
+        WHERE v.person_id IS NOT NULL
+          AND per.status = 'active' AND per.is_public_figure
+        LIMIT 1`,
+    );
+    assert.ok(p, "no attributed vote to a servable /person page to test with");
+
+    const bySlug = await one<unknown>(
+      "SELECT council_councillor_by_slug($1) AS r",
+      [p.slug],
+    );
+    const byId = await one<unknown>("SELECT council_councillor($1) AS r", [
+      Number(p.pid),
+    ]);
+    assert.ok(bySlug, "council_councillor_by_slug returned nothing");
+    assert.deepEqual(
+      bySlug,
+      byId,
+      "council_councillor_by_slug must reproduce council_councillor's payload " +
+        "exactly for the person its slug resolves to — it is a slug adapter, " +
+        "not a second definition",
+    );
+
+    // An unknown slug, and a real person with no page (private, retired, or
+    // simply unresolved) both answer null — never the raw person_id's record,
+    // which would either be nonsensical (no such slug) or leak a councillor
+    // record for a person this site does not serve a page for.
+    assert.equal(
+      await one<unknown>("SELECT council_councillor_by_slug($1) AS r", [
+        "this-slug-does-not-exist",
+      ]),
+      null,
+    );
+  },
+);
+
+test.skipIf(skip)(
   "personSlug is present only for a servable /person page",
   async () => {
     assert.ok(await present(), "council_* absent — run db:load:council:pg");

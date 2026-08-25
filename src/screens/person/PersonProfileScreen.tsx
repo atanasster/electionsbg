@@ -23,6 +23,7 @@ import { PersonHeader } from "./PersonHeader";
 import { PersonElectoralSection } from "./PersonElectoralSection";
 import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
 import { PersonMpSections } from "./PersonMpSections";
+import { PersonCouncilVoting } from "./PersonCouncilVoting";
 import { PersonDeclarations } from "./PersonDeclarations";
 import { PersonNoDeclarationNote } from "./PersonNoDeclarationNote";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
@@ -495,6 +496,16 @@ const PersonDashboardBody: FC<{
               mpId={mpId}
               hasMoneyTimeline={p.procuredEur > 0}
             />
+          )}
+
+          {/* Councillor-only: the общински съвет analogue of the block above, off
+            161_council_serving.sql. Gated on the role (rather than always mounting,
+            the way the magistrate hook does) for the same reason mpId gates
+            PersonMpSections above it — avoiding a council fetch for the ~99% of
+            people who were never on a council. Self-hides on its own when this
+            person's council votes have not been attributed (see the component). */}
+          {p.roles.some((r) => r.role === "councillor") && (
+            <PersonCouncilVoting slug={p.slug} />
           )}
 
           {/* WHO THIS IS, before what they are worth. The page used to open on the wealth

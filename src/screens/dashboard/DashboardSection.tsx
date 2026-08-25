@@ -91,6 +91,7 @@ type Props = {
     | "person-electoral"
     | "person-geography"
     | "person-offices"
+    | "person-council-voting"
     | "person-regulators"
     | "person-business"
     | "person-ngos"
