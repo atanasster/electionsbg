@@ -149,6 +149,19 @@ const collectRows = async (): Promise<{
   rows: Row[];
   monthsOk: number;
   monthsSkipped: string[];
+  /** Per accepted month: what the parser could NOT verify. Carried out of the
+   *  parse so a RISING figure is visible at load time — the whole point of §9-3 is
+   *  that these are reported rather than thrown, and a report nobody surfaces is
+   *  the same as no report. This is also the shape Tier 0's coverage row stores. */
+  notVerified: {
+    stream: PaymentStream;
+    period: string;
+    countMismatchBlocks: number;
+    missingOrdinals: number;
+    extraOrdinals: number;
+    unreconciledBlocks: number;
+    unreconciledEur: number;
+  }[];
 }> => {
   const eikMap: Record<string, string | null> = {};
   const eikFile = JSON.parse(readFileSync(EIK_FILE, "utf8"));
@@ -177,6 +190,15 @@ const collectRows = async (): Promise<{
 
   const rows: Row[] = [];
   const monthsSkipped: string[] = [];
+  const notVerified: {
+    stream: PaymentStream;
+    period: string;
+    countMismatchBlocks: number;
+    missingOrdinals: number;
+    extraOrdinals: number;
+    unreconciledBlocks: number;
+    unreconciledEur: number;
+  }[] = [];
   // Page order is newest-first, so the FIRST link resolving to a period is the
   // newest file. nhif.bg periodically re-issues a corrected month as a new
   // /upload/<id> while the superseded one lingers — dedup to one link per
@@ -226,15 +248,44 @@ const collectRows = async (): Promise<{
               currency: f.currencyOfRecord,
               ownership: ownMap[r.regNo] ?? null,
             });
+          if (f.countMismatches.length || f.unreconciledBlocks.length)
+            notVerified.push({
+              stream,
+              period,
+              countMismatchBlocks: f.countMismatches.length,
+              missingOrdinals: f.countMismatches.reduce(
+                (n, m) => n + m.missingOrdinals.length,
+                0,
+              ),
+              // A block can also carry MORE ordinals than it counts — bmp 2026-06's
+              // Русе prints 7 and numbers an 8th. Without this the line reads
+              // "1 block(s) miscounted, 0 ordinal(s) absent", which names a
+              // disagreement and then says nothing disagrees.
+              extraOrdinals: f.countMismatches.reduce(
+                (n, m) => n + m.extraOrdinals.length,
+                0,
+              ),
+              unreconciledBlocks: f.unreconciledBlocks.length,
+              unreconciledEur: f.unreconciledEur,
+            });
           monthsOk++;
         } catch (e) {
+          // ⚠️ NOT truncated, and the repo prefix is stripped. This used to be
+          // `.slice(0, 70)` against a message that LEADS with a ~70-character
+          // absolute pdfPath, so every line read
+          // "block reconciliation failed for /Users/…/raw_data/nzo" and the
+          // operator never reached the part that says which block or by how much.
+          // §1 of docs/plans/nzok-hospital-parser-hardening-v1.md names this exact
+          // truncation as the reason the original investigation had to bypass the
+          // loader and parse the PDFs directly. A skip is now expected to be rare
+          // (0 today), so there is nothing left to keep the output short for.
           monthsSkipped.push(
-            `${stream} ${period || link.slice(-24)}: ${(e as Error).message.slice(0, 70)}`,
+            `${stream} ${period || link.slice(-24)}: ${(e as Error).message.split(`${REPO}/`).join("")}`,
           );
         }
       }
   }
-  return { rows, monthsOk, monthsSkipped };
+  return { rows, monthsOk, monthsSkipped, notVerified };
 };
 
 const COLS = [
@@ -458,7 +509,7 @@ const main = async (): Promise<void> => {
     }
     throw e;
   }
-  const { rows, monthsOk, monthsSkipped } = collected;
+  const { rows, monthsOk, monthsSkipped, notVerified } = collected;
   if (rows.length === 0)
     throw new Error("no НЗОК hospital-payment rows collected");
 
@@ -606,6 +657,56 @@ const main = async (): Promise<void> => {
       `   ${delta.addedRows} row(s) added, ${delta.removedRows} removed; no ` +
         `published figure changed value.`,
     );
+
+  // §9-3 — what loaded but could not be fully verified.
+  //
+  // REPORTED, never thrown: НЗОК's printed facility count means four different
+  // things across this corpus, so no rule separates its bookkeeping from a real
+  // drop by counting. What makes that safe is the Рег.№ universe assert in the
+  // parser — every facility the document prints must reach a row — which throws.
+  //
+  // ⚠️ ONE LINE, not a per-month list. The count is stable at ~14 months and does
+  // not clear, so an itemised ⚠️ block on every load is a standing banner nobody
+  // reads — the exact shape this plan opens by blaming ("Skipped 25 months (parser
+  // hardening TODO)"). What matters here is the TREND, so print the totals against
+  // the measured baseline and let a DIFFERENCE be the thing that draws the eye.
+  if (notVerified.length) {
+    const blocks = notVerified.reduce((n, m) => n + m.countMismatchBlocks, 0);
+    const ords = notVerified.reduce(
+      (n, m) => n + m.missingOrdinals + m.extraOrdinals,
+      0,
+    );
+    const unrec = notVerified.filter((m) => m.unreconciledBlocks);
+    const unrecEur = unrec.reduce((n, m) => n + m.unreconciledEur, 0);
+    // Measured 2026-08-25 over the cached corpus. A figure ABOVE this means НЗОК's
+    // documents changed shape; the corpus gate is what actually fails on it
+    // (hospital_payments_corpus.test.ts, keyed on (stream, block)).
+    // Measured 2026-08-25 under this loader's own dedup semantics (127 distinct
+    // (stream, period) pairs). `ordinals` counts absent AND extra: bmp 2026-06's
+    // Русе prints 7 and numbers an 8th, so a missing-only figure would report that
+    // block as disagreeing about nothing.
+    const BASELINE = { months: 14, blocks: 27, ordinals: 143 };
+    const same =
+      notVerified.length === BASELINE.months &&
+      blocks === BASELINE.blocks &&
+      ords === BASELINE.ordinals;
+    console.log(
+      `   count model: ${notVerified.length} month(s) / ${blocks} block(s) / ` +
+        `${ords} ordinal(s) disagree with НЗОК's own printed counts` +
+        (same
+          ? " — unchanged from baseline."
+          : ` — BASELINE IS ${BASELINE.months}/${BASELINE.blocks}/${BASELINE.ordinals}; ` +
+            `a rise means the documents changed shape. Run \`npm run test:unit -- scripts/nzok\`.`),
+    );
+    if (unrec.length)
+      console.log(
+        `   ⚠️ ${unrec.length} month(s) contain block(s) that print NO subtotal — ` +
+          `€${Math.round(unrecEur).toLocaleString("en-US")} is NOT block-reconciled ` +
+          `and rests on the whole-file 0.5% ratio, the check that let €1,672,123 ` +
+          `through before this work: ` +
+          unrec.map((m) => `${m.stream} ${m.period.slice(0, 7)}`).join(", "),
+      );
+  }
 
   // RC-5 — published as filed, and named. See `republishedMonths` for why.
   const republished = republishedMonths(rows);

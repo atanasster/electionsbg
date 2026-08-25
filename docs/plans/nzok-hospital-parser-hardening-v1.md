@@ -1,8 +1,25 @@
 # НЗОК hospital-payment parser hardening — v1
 
-**Status:** investigation complete, nothing applied. Written 2026-08-24 after the
-2026-08-22 `/process-watch-report` run surfaced the loader's standing
-`Skipped 25 months (parser hardening TODO)` banner.
+**Status:** **IMPLEMENTED 2026-08-25 — Tiers 1, 2 and 3, nine commits.** Written
+2026-08-24 after the 2026-08-22 `/process-watch-report` run surfaced the loader's
+standing `Skipped 25 months (parser hardening TODO)` banner.
+
+Where it landed: **0 of 127 files rejected** (from 24), per-block money drift
+against НЗОК's own subtotals **€0** (from €21,170,591), and the €1,672,123 of
+wrong money in 11 already-loaded months corrected. The investigation below (§1-§4)
+is left at its original figures as the record of what was found; each tier's own
+section carries a SHIPPED note where what shipped differs from what was planned.
+
+⚠️ **Nothing is loaded or deployed.** All of it is verified against the cached
+PDFs; `db:load:nzok-hospital:pg` has not been run, so the served table is still on
+the old vintage. The publish path is §8, and the first load will report the
+restatement (§9-2) and add ~4,000 rows.
+
+⚠️ **Tier 0 is NOT built** — the coverage table and the `periodByStream` tile
+footnote. The fields it needs now exist and are carried through the loader, so it
+is wiring rather than design; but until it lands, everything Tiers 1-3 made
+visible is visible to the OPERATOR only, and the devices stream being five months
+stale stays invisible to a reader.
 
 **Scope:** `scripts/nzok/parse_hospital_payments.ts` (the parser),
 `scripts/db/load_nzok_hospital_pg.ts` (the loader), and the `nzok_hospital_payments`
@@ -413,7 +430,7 @@ Tier 0.
 
 ## 6. Recommendation — four tiers, each shippable alone
 
-### Tier 0 — make the hole visible (do this first, independent of any parser change)
+### Tier 0 — make the hole visible (NOT BUILT; independent of any parser change)
 
 The corpus is missing five months of one stream and every surface says nothing.
 Two changes, both additive:
@@ -435,7 +452,7 @@ Two changes, both additive:
 Rationale for ordering: Tier 0 turns a silent 1.72 % understatement into a stated
 one, and it is the only tier that is safe to ship without touching a single number.
 
-### Tier 1 — the four parser defects (recovers 13 files and repairs €1.67M)
+### Tier 1 — the four parser defects (recovers 13 files and repairs €1.67M) — SHIPPED 2026-08-25
 
 1. **RC-4(i) sign** — read signed amounts on **all three streams**, not only the
    lenient ones, and delete the "БМП never carries negatives" premise from the header
@@ -494,7 +511,7 @@ one, and it is the only tier that is safe to ship without touching a single numb
    If the header total disagrees with Σ subtotals by more than the rounding band, the
    _header_ is the suspect value, not the rows.
 
-### Tier 2 — replace the two asserts (recovers the remaining 11 files)
+### Tier 2 — replace the two asserts (recovers the remaining 11 files) — SHIPPED 2026-08-25
 
 Per §5-O3. Concretely, in `parseHospitalPaymentsPdf`:
 
@@ -513,7 +530,7 @@ Per §5-O3. Concretely, in `parseHospitalPaymentsPdf`:
 Expected outcome after Tiers 1+2: **0 of 127 files rejected**, ~4,031 rows added
 (19,109 → ~23,140), devices current to 2026-07, and the €1.67M corrected.
 
-### Tier 3 — decide RC-5 and the residue (see §9)
+### Tier 3 — decide RC-5 and the residue (see §9) — SHIPPED 2026-08-25
 
 ---
 
@@ -542,8 +559,12 @@ Add three layers:
    - the number of REJECTED files is ≤ a committed ceiling (0 after Tier 2), so a
      regression that starts skipping months fails rather than logging.
      This is the gate that would have caught all four causes, and it needs no network.
-3. **Data gate — `scripts/db/tests/nzok_hospital_payments.data.test.ts`** (new; the
-   `nzok_*` family has four siblings already and this table has none). Assert
+3. **Data gate — `scripts/db/tests/nzok_hospital_payments.data.test.ts`** — ⚠️ **NOT
+   BUILT.** It needs the table to be loaded, which has not happened, and the coverage
+   table it would assert against is Tier 0's. Left open deliberately; what shipped
+   instead is `scripts/nzok/hospital_payments_corpus.test.ts` (the corpus gate, which
+   needs no database) and `scripts/db/load_nzok_hospital_pg.test.ts` (the loader's
+   pure helpers). It would assert
    - each stream's `max(period)` is within N months of the newest coverage row (i.e.
      a stream cannot silently fall five months behind again),
    - `nzok_payment_coverage` has a row for every published month and no
@@ -568,7 +589,9 @@ npm run db:pg:up
 Diagnose / verify at any point without writing anything:
 
 ```bash
-npx tsx scripts/nzok/parse_hospital_payments.ts --audit raw_data/nzok/bmp   # to be added in Tier 2
+npm run test:unit -- scripts/nzok   # the corpus gate; NOT the `--audit` CLI this
+                                   # line first proposed, which was never built —
+                                   # hospital_payments_corpus.test.ts does the job
 npm run test:unit -- scripts/nzok
 ```
 
@@ -702,6 +725,39 @@ a standing TODO banner.
    reported, not caught. The alternative (throw, with an allowlist of the known
    source-side files) is stricter and higher-maintenance. Recommendation: report, and
    put the count in the coverage row so a _rising_ count is visible.
+
+   > **DECIDED 2026-08-25 — report, and the premise that made this a hard call is
+   > gone.** This item worried that leniency would let a dropped €0 facility through
+   > uncaught, since such a row moves no money and is invisible to every
+   > reconciliation. **Tier 2 step 2 NARROWED that**: the parser asserts the Рег.№
+   > UNIVERSE — every facility the document prints must reach a row — and it is a
+   > throw, not a report. Mutation-checked: making `extractAmounts` drop zero-value
+   > rows now fails, naming the six Рег.№.
+   >
+   > ⚠️ NARROWED, not closed, and an earlier draft of this note said closed. The
+   > universe is built from the SAME `matchRowStart` that builds the rows, so it is
+   > blind to a RECOGNISER regression — a line that stops starting a row disappears
+   > from both sides at once. That is RC-3d's class, and for a €0 facility the block
+   > money, the count report and the corpus gate are blind to it too. What guards it
+   > is the unit test on `matchRowStart` and nothing else.
+   >
+   > The alternative this item weighed ("throw on a count mismatch with an
+   > allowlist") would still have been worse: the count means four different things
+   > across the corpus and the allowlist would have grown every January.
+   >
+   > So what is left for the count is a TREND, and the loader now prints it: per
+   > accepted month, how many blocks disagree with their printed count, how many
+   > ordinals are absent, and how many blocks print no subtotal at all — whose money
+   > rests on the whole-file ratio, the check that let €1,672,123 through. The
+   > coverage ROW this item asks for is Tier 0's; the fields it needs
+   > (`countMismatches`, `unreconciledBlocks`, `unreconciledEur`) exist on the parsed
+   > file and are carried through the loader, so Tier 0 is wiring rather than design.
+   >
+   > ⚠️ Until Tier 0 lands this is visible to the OPERATOR only. What actually fails
+   > on a rise is the corpus gate's identity set — `hospital_payments_corpus.test.ts`
+   > keys on (stream, BLOCK), so a new January adds no noise and a new region names
+   > itself.
+
 4. **Whether to widen `YEARS` afterwards.** The parser work in Tier 1 (column-position
    amounts, signed amounts, flexible РЗОК code) is most of what `scripts/nzok/README.md`
    lists as blocking ≤2022. Out of scope here; worth a follow-up once the block
