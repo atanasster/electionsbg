@@ -51,6 +51,23 @@ export interface CultureHubStats {
      *  the EIK-exact figure. Never render one as the other. */
     byNameEur: number;
     byNameProjects: number;
+    /** Distinct beneficiary NAMES on the name arm — NOT organisations. 1,475
+     *  names over 1,365 EIK-or-name identities, because two spellings of one
+     *  читалище are two names. The key says which basis, per the rule
+     *  `useFundsHubStats` states at length. Optional on the wire (see
+     *  `eikExactAlsoByName`). */
+    byNameNames?: number;
+    /** The single programme that dominates the name arm — 2021BG-RRP, the
+     *  Recovery and Resilience Facility, at ~83% of its ROWS and ~80% of its
+     *  GRANT (two different numbers; a consumer showing one must say which).
+     *  Without it a reader takes „European culture funding" for a broad mix
+     *  where it is mostly one instrument paying читалища. Optional on the wire. */
+    byNameTopProgram?: {
+      code: string;
+      name: string;
+      projects: number;
+      eur: number;
+    };
     chitalishtaEur: number;
     /** How many of `eikExactProjects` the NAME arm also reaches — 46 of 47 as
      *  measured 2026-08-25, NOT all of them. The EIK arm is therefore ALMOST a

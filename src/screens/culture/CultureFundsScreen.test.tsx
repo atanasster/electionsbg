@@ -332,9 +332,9 @@ describe("CultureFundsScreen — the EIK↔name overlap claim", () => {
     // because the failure being pinned is a trailing clause. („—" would be
     // `formatInt`'s absent marker, but it cannot be checked for on its own: the
     // em-dash is ordinary punctuation everywhere else on this page.)
-    const eikBasis = Array.from(
-      document.querySelectorAll("li")[0]?.querySelectorAll("p") ?? [],
-    ).at(-1)?.textContent;
+    const eikBasis = document.querySelector(
+      '[data-basis="isun-eik"]',
+    )?.textContent;
     expect(eikBasis).toBe(
       "Възпроизводимо: точно съвпадение по ЕИК срещу списъка на сектора.",
     );

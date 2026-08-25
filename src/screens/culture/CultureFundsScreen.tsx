@@ -36,6 +36,7 @@ import { Title } from "@/ux/Title";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { formatEurCompact, formatInt } from "@/lib/currency";
 import { useCultureHubStats } from "@/data/culture/hubStats";
+import { cultureFundSource, eikNameMissed } from "./cultureFundSources";
 
 export const CultureFundsScreen: FC = () => {
   const { i18n } = useTranslation();
@@ -60,10 +61,11 @@ export const CultureFundsScreen: FC = () => {
   // quite, a subset", which contradicts itself in one sentence.
   const alsoByName = s?.funds.eikExactAlsoByName;
   const overlapKnown = typeof alsoByName === "number";
-  const missed = overlapKnown
-    ? (s?.funds.eikExactProjects ?? 0) - alsoByName
-    : null;
-  const isSubset = overlapKnown && missed === 0;
+  // ONE derivation, shared with the registry that builds the detail page's limit
+  // sentence — two derivations of one relationship is how the parent and the
+  // child end up saying different things about the same two numbers.
+  const missed = s ? eikNameMissed(s) : null;
+  const isSubset = missed === 0;
 
   const overlapBg = !overlapKnown
     ? ""
@@ -153,7 +155,11 @@ export const CultureFundsScreen: FC = () => {
             : `A partner's published BUDGET, not a contract value — not comparable with the rows above. Joined through the operation's THEME rather than a beneficiary set, and only ${formatInt(s.interreg.rowsWithEik, lang)} of ${formatInt(s.interreg.partnerRows, lang)} participations carry an EIK, so an EIK-keyed filter answers about a fifth of the question.`,
         },
         {
-          key: "chitalishta",
+          // ⚠️ The registry id is `dfz`, not `chitalishta`. The two читалища
+          // populations are DIFFERENT — 1,332 ИСУН projects and 264 ДФЗ payments
+          // — so the arm is named for its register rather than for the group,
+          // which appears on two of the four arms.
+          key: "dfz",
           label: bg ? "ДФЗ — народни читалища" : "ДФЗ — народни читалища",
           eur: s.agri.chitalishtaEur,
           sub: bg
@@ -203,18 +209,51 @@ export const CultureFundsScreen: FC = () => {
       {s && (
         <div className="mt-4 space-y-6">
           <ul className="space-y-3">
-            {rows.map((r) => (
-              <li key={r.key} className="rounded-xl border bg-card p-4">
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="font-medium">{r.label}</span>
-                  <span className="shrink-0 text-xl font-bold tabular-nums">
-                    {eur(r.eur)}
-                  </span>
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">{r.sub}</p>
-                <p className="mt-2 text-xs text-muted-foreground">{r.basis}</p>
-              </li>
-            ))}
+            {rows.map((r) => {
+              // Every row now names the records behind its number. The row keeps
+              // its figure, its sub-line and its basis paragraph exactly as they
+              // were — it only gains a destination.
+              const to = cultureFundSource(r.key)?.to;
+              return (
+                <li key={r.key} className="rounded-xl border bg-card p-4">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <span className="font-medium">
+                      {to ? (
+                        <Link to={to} className="text-primary hover:underline">
+                          {r.label}
+                        </Link>
+                      ) : (
+                        r.label
+                      )}
+                    </span>
+                    <span className="shrink-0 text-xl font-bold tabular-nums">
+                      {eur(r.eur)}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-muted-foreground">{r.sub}</p>
+                  {/* Hooked for the test that pins the degrade when the served
+                      blob predates `eikExactAlsoByName`: that assertion is about
+                      a trailing CLAUSE, so it has to read the WHOLE basis
+                      paragraph and cannot depend on DOM order — the row gained a
+                      second <p> the moment it gained a link. */}
+                  <p
+                    data-basis={r.key}
+                    className="mt-2 text-xs text-muted-foreground"
+                  >
+                    {r.basis}
+                  </p>
+                  {to ? (
+                    <p className="mt-2 text-sm">
+                      <Link to={to} className="text-primary hover:underline">
+                        {bg
+                          ? "Виж кои са тези редове →"
+                          : "See the records behind this →"}
+                      </Link>
+                    </p>
+                  ) : null}
+                </li>
+              );
+            })}
           </ul>
 
           <section id="chitalishta" className="scroll-mt-20 space-y-2">
@@ -225,6 +264,25 @@ export const CultureFundsScreen: FC = () => {
               {bg
                 ? `Читалищата са най-широкият културен поток по брой получатели: ${eur(s.funds.chitalishtaEur)} по ИСУН и ${eur(s.agri.chitalishtaEur)} по ДФЗ. Те са самостоятелни юридически лица с общинско делегиране — около 3 000 на брой, с текучество — затова групата се определя по ИМЕ, а не със списък с ЕИК, и затова не влиза в заглавната цифра на сектора.`
                 : `Читалища are culture's widest stream by recipient count: ${eur(s.funds.chitalishtaEur)} from ИСУН and ${eur(s.agri.chitalishtaEur)} from ДФЗ. They are independent legal entities with municipal delegation — about 3,000 of them, with turnover — so the group is defined by NAME rather than by an EIK list, and stays out of the sector's headline figure.`}
+            </p>
+            {/* Both figures above are quoted from two DIFFERENT registers, and
+                until now neither had a destination. They are separate
+                populations — 1,332 ИСУН projects and 264 ДФЗ payments — so they
+                get separate links rather than one. */}
+            <p className="text-sm">
+              <Link
+                to="/culture/funds/isun-name"
+                className="text-primary hover:underline"
+              >
+                {bg ? "Читалищата в ИСУН →" : "Читалища in ИСУН →"}
+              </Link>
+              <span className="mx-2 text-muted-foreground">·</span>
+              <Link
+                to="/culture/funds/dfz"
+                className="text-primary hover:underline"
+              >
+                {bg ? "Читалищата в ДФЗ →" : "Читалища in ДФЗ →"}
+              </Link>
             </p>
           </section>
 

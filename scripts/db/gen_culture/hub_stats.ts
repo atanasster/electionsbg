@@ -148,9 +148,30 @@ const main = async () => {
        FROM fund_projects WHERE beneficiary_eik = ANY($1)`,
     [eiks],
   );
+  // `names` is a NAME-distinct recipient count, and the key says so: on this arm
+  // 1,475 distinct names sit over 1,365 EIK-or-name identities, because two
+  // spellings of one читалище are two names. `useFundsHubStats`' rule — a key
+  // called `beneficiaryCount` invites a consumer to pick a denominator by
+  // accident — applies verbatim.
   const [fundsName] = await allRows<Record<string, string>>(
-    `SELECT count(*) n, round(sum(grant_eur)::numeric, 0) eur
+    `SELECT count(*) n, round(sum(grant_eur)::numeric, 0) eur,
+            count(DISTINCT beneficiary_name) names
        FROM fund_projects WHERE ${cultureNameSql("beneficiary_name")}`,
+  );
+  // The single programme that dominates the name arm. Measured 2026-08-25 it is
+  // 2021BG-RRP (the Recovery and Resilience Facility) at 1,292 of 1,560 rows and
+  // €117.3m of €147.0m — so „European culture funding" is, on this arm, mostly
+  // one instrument paying читалища. A page that does not show this leaves the
+  // reader with the wrong subject.
+  //
+  // ⚠️ THE ROW SHARE AND THE MONEY SHARE ARE DIFFERENT NUMBERS (82.8% vs 79.8%),
+  // so BOTH ride here rather than one being derived from the other by a consumer
+  // that then labels it whichever way reads better.
+  const [topProg] = await allRows<Record<string, string>>(
+    `SELECT program_code code, max(program_name) name,
+            count(*) n, round(sum(grant_eur)::numeric, 0) eur
+       FROM fund_projects WHERE ${cultureNameSql("beneficiary_name")}
+      GROUP BY program_code ORDER BY sum(grant_eur) DESC NULLS LAST LIMIT 1`,
   );
   // The overlap — measured rather than assumed, because the two arms are NOT
   // nested and every surface used to say they were. Measured 2026-08-25: 46 of
@@ -220,6 +241,13 @@ const main = async () => {
       eikExactProjects: num(fundsEik.n),
       byNameEur: num(fundsName.eur),
       byNameProjects: num(fundsName.n),
+      byNameNames: num(fundsName.names),
+      byNameTopProgram: {
+        code: topProg?.code ?? "",
+        name: topProg?.name ?? "",
+        projects: num(topProg?.n),
+        eur: num(topProg?.eur),
+      },
       chitalishtaEur: num(fundsChit.eur),
       eikExactAlsoByName: num(fundsBoth.n),
     },

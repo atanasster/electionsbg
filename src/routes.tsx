@@ -348,6 +348,16 @@ const CultureFundsScreen = lazy(() =>
     default: m.CultureFundsScreen,
   })),
 );
+// The four /culture/funds source pages share ONE component, selected by a prop.
+// Four STATIC routes rather than /culture/funds/:source — cultureRegistry.ts's
+// rule — because each needs its own sitemap <loc>, its own prerendered body and
+// its own og:image, and a param route turns each of those from a list entry into
+// an enumeration problem.
+const CultureFundsSourceScreen = lazy(() =>
+  import("./screens/culture/CultureFundsSourceScreen").then((m) => ({
+    default: m.CultureFundsSourceScreen,
+  })),
+);
 const CultureInstitutionsScreen = lazy(() =>
   import("./screens/culture/CultureInstitutionsScreen").then((m) => ({
     default: m.CultureInstitutionsScreen,
@@ -2104,6 +2114,38 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <CultureFundsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/funds/isun-eik"
+            element={
+              <LayoutScreen>
+                <CultureFundsSourceScreen sourceId="isun-eik" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/funds/isun-name"
+            element={
+              <LayoutScreen>
+                <CultureFundsSourceScreen sourceId="isun-name" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/funds/interreg"
+            element={
+              <LayoutScreen>
+                <CultureFundsSourceScreen sourceId="interreg" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/funds/dfz"
+            element={
+              <LayoutScreen>
+                <CultureFundsSourceScreen sourceId="dfz" />
               </LayoutScreen>
             }
           />
