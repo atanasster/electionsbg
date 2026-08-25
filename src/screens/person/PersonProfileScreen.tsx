@@ -479,6 +479,24 @@ const PersonDashboardBody: FC<{
           one small query's latency on a page that is DB-driven end to end. */}
       {!electoralPending && (
         <>
+          {/* MP-only: voting scorecard + roll-call (no PG equivalent). Rendered FIRST in
+            this gated fragment — immediately after the electoral results it explains —
+            rather than after five unrelated analytical blocks: a reader who just learned
+            how this person got elected shouldn't have to scroll past wealth trajectory,
+            the accumulation gap, cohort benchmark, stake procurement and declaration
+            events to see how they then voted. Still inside the electoralPending gate: the
+            gate exists to stop the electoral skeleton collapsing under already-painted
+            sections (CLS 0.32), which applies to this block exactly as it did before the
+            move. Declared assets is NOT rendered here any more — see PersonMpSections's
+            module header. */}
+          {mpId != null && (
+            <PersonMpSections
+              name={p.name}
+              mpId={mpId}
+              hasMoneyTimeline={p.procuredEur > 0}
+            />
+          )}
+
           {/* WHO THIS IS, before what they are worth. The page used to open on the wealth
             trajectory and reach "Длъжности" only after five analytical blocks, so the one
             section that says what the person actually DID was last. Identity leads; the
@@ -582,16 +600,6 @@ const PersonDashboardBody: FC<{
           {/* Disposals + third-party expenses (T3.4) — register facts that are NOT part of
             the estate, which is exactly why they are interesting. Self-hides when empty. */}
           <PersonDeclarationEvents slug={p.slug} />
-
-          {/* MP-only: voting scorecard + roll-call (no PG equivalent). Declared assets is
-            NOT rendered here any more — see PersonMpSections's module header. */}
-          {mpId != null && (
-            <PersonMpSections
-              name={p.name}
-              mpId={mpId}
-              hasMoneyTimeline={p.procuredEur > 0}
-            />
-          )}
 
           {/* Declared assets (Court of Audit +, for a magistrate, ИВСС), the UNIFIED block
             (audit T3.3, extended by the ИВСС merge): one PG-backed component spanning every

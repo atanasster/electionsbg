@@ -90,7 +90,7 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
 
         <div className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
               {t("mp_voting_loyalty") || "With party"}
             </div>
             <div className="text-3xl font-bold tabular-nums">
@@ -98,7 +98,7 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
             </div>
           </div>
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
               {t("mp_voting_votes_cast") || "Votes cast"}
             </div>
             <div className="text-2xl font-semibold tabular-nums">
@@ -106,7 +106,7 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
             </div>
           </div>
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
               {t("mp_voting_with_party") || "With group"}
             </div>
             <div className="text-2xl font-semibold tabular-nums">
@@ -114,7 +114,7 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
             </div>
           </div>
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
               {t("mp_voting_dissents") || "Against party"}
             </div>
             <div
