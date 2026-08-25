@@ -292,13 +292,28 @@ const run = async (): Promise<void> => {
   // REFRESH_EXCLUSIONS member, so db:refresh does NOT run it. The card renders no count
   // rather than falling back to the old heuristic — deliberate, since that heuristic
   // fabricates property — which makes the failure invisible unless it is announced here.
-  // to_regclass rather than a plain count: 185 is applied only by the asset loader, so on a
-  // database that has never run the crawl the table does not exist and a bare count is 42P01.
-  const probe = await allRows<{ assets: string }>(
-    `SELECT (SELECT count(*) FROM magistrate_filing_asset)::text AS assets
-      WHERE to_regclass('public.magistrate_filing_asset') IS NOT NULL`,
+  // ⚠️ TWO STATEMENTS, NOT ONE GUARDED BY to_regclass. 185 is applied only by the asset
+  // loader, so on a database that has never run the operator crawl the table does not exist —
+  // and a `WHERE to_regclass(...) IS NOT NULL` guard does NOT save a query that names it,
+  // because Postgres resolves every relation at PARSE time, before any predicate runs. The
+  // guarded single-statement form raises 42P01 exactly where it is supposed to be safe.
+  // (Measured on Cloud SQL: the reload itself committed and this threw afterwards, so the
+  // loader exited non-zero on a successful load.)
+  //
+  // ⚠️ SECOND OCCURRENCE — load_grant_links_pg.ts's `relationExists` already documents this
+  // exact trap, file-locally. Two loaders having learned it independently is the argument for
+  // lifting that helper into scripts/db/lib/pg.ts; until someone does, this comment is what
+  // stops a third.
+  const [{ present }] = await allRows<{ present: boolean }>(
+    "SELECT to_regclass('public.magistrate_filing_asset') IS NOT NULL AS present",
   );
-  const assets = probe.length ? probe[0].assets : "0";
+  const assets = present
+    ? (
+        await allRows<{ assets: string }>(
+          "SELECT count(*)::text AS assets FROM magistrate_filing_asset",
+        )
+      )[0].assets
+    : "0";
   if (Number(assets) > 0)
     console.warn(
       `  ⚠️  ${assets} parsed property row(s) are still loaded, but this reload cleared the ` +
