@@ -28,6 +28,16 @@
 -- dropping a code it contains would re-open the byte-identity gap this table closes — and
 -- they carry a NULL oblast_code and mir_code.
 --
+-- A consumer that wants REAL municipalities only — the 264 EKATTE-coded ones plus Sofia
+-- city-wide, and NOT Sofia's 24 within-city districts (`S2xxx`) or the 6 continent
+-- placeholders above — filters on the code SHAPE, since `kind` alone does not separate
+-- them. `SFO_CITY` is not EKATTE-shaped (it is synthetic, minted by
+-- scripts/officials/municipality_join.ts), so it needs its own clause rather than matching
+-- the regex: `code ~ '^[A-Z]{3}[0-9]{2}$' OR code = 'SFO_CITY'` — 264 + 1 = the 265 real
+-- municipalities. `186_mayor_pay.sql`'s `mayor_pay_ranking()` is a worked example — a naive
+-- `count(*) WHERE kind = 'obshtina'` there would have returned 295, not ~265, silently
+-- counting continents and districts as municipalities.
+--
 -- The JUDICIAL namespace stays in judicial_body (116): it carries kind/tier/geo this table
 -- has no column for, and person_role already joins it by body_code. 082_person_api.sql
 -- resolves 'mir'/'obshtina' labels from here and 'judicial' from judicial_body.

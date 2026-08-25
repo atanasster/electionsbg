@@ -189,15 +189,31 @@ standalone feature people will scrutinize; skippable if it's just one more tile.
 
 ---
 
-## T3 — `place_dim.kind='obshtina'` hygiene (separate, small, not blocking)
+## T3 — `place_dim.kind='obshtina'` hygiene (DONE, and smaller than planned)
 
-Not required for T1/T2 (T1's resolver can filter on the EKATTE code shape
-`^[A-Z]{3}[0-9]{2}$` and work around the conflation without touching the shared table), but worth
-flagging as its own tiny follow-up given it's a shared dimension table other things fan out from:
+**⚠️ Re-scoped on implementation: half of the conflation this section flags was already
+documented, just not by me.** `117_place_dim.sql`'s own header (lines 24-29) explains in
+detail why the 6 continent placeholders share `kind='obshtina'` with real municipalities —
+deliberate, so `person_role`'s labels stay byte-identical to the source file. It does NOT
+give the same explicit rationale for Sofia's 24 within-city district codes; those are only
+exemplified once, in passing, at line 15 ("the app's obshtina code (BLG11, S2309)"), which
+is a much thinner form of documentation than the continents get. My first (wrong) count of
+295 was still mostly a symptom of not having read the file yet, not of a genuine
+undocumented gap — but "already documented" overstates it for the district half. A
+`kind`-value split was never warranted and was not attempted — it would touch a shared
+dimension table with consumers this plan never audited (`budget_muni_list()`,
+`municipal_officials_table`, the council corpus, …), for a real-vs-not distinction the header
+already explains for one of its two components.
 
-- Either split Sofia's districts and the continent placeholders into their own `kind` values, or
-- At minimum, add a schema comment documenting the code-shape discriminator, so the next person
-  writing `WHERE kind = 'obshtina'` doesn't reproduce my first (wrong) count of 295.
+**What shipped instead**: one paragraph added to `117_place_dim.sql`'s header giving the
+actual gap — not "why does the mixing exist" (already answered, at least for the continents)
+but "how do I filter to real EKATTE municipalities only", since nothing stated the
+shape-based recipe (`code ~ '^[A-Z]{3}[0-9]{2}$' OR code = 'SFO_CITY'`) before
+`186_mayor_pay.sql` had to work it
+out independently. The new paragraph names `186_mayor_pay.sql` as a worked example; the
+reverse link does not exist — `186_mayor_pay.sql` itself was not touched in this step, so
+the cross-reference runs one direction only. No schema or data change; no
+`kind`-value split.
 
 ---
 
