@@ -49,7 +49,65 @@ export interface DbTableResponse<T> {
   aggregates: Record<string, number>;
 }
 
-interface Props<T> {
+/** The free-text search seam, as a DISCRIMINATED UNION rather than four independent
+ *  optionals — because three of the eight combinations are wrong and two of the three are
+ *  silent at runtime. A flat interface can only express the rules as a DEV `console.error`,
+ *  which a production build does not enforce and a caller who never opens the console never
+ *  sees. The arms below make the wrong combinations fail to compile:
+ *
+ *    1. UNCONTROLLED — this component owns the term. `initialSearch` seeds it once. This is
+ *       what every registry resource but /persons passes (i.e. nothing at all).
+ *    2. CONTROLLED, input hidden — the page renders its own field. The /persons shape.
+ *    3. CONTROLLED, input visible — then `onSearchChange` is REQUIRED, because the input's
+ *       value comes from the parent, so that callback is the ONLY channel by which a
+ *       keystroke can reach anything. Without it the box silently swallows every character
+ *       at a 200, which is the wrong-answer-served-quietly shape this file exists to avoid.
+ *
+ *  ⚠️ `undefined` IS THE MODE, not an empty term. A controlled parent passes `""` for an
+ *  absent term — never `?? undefined`, which is the idiom a URL-owned term invites
+ *  (`params.get("q") ?? undefined`) and which would flip the component to uncontrolled the
+ *  moment the reader clears the box. The mode is pinned at mount and DEV-logged if it moves. */
+type SearchProps =
+  | {
+      search?: undefined;
+      /** Seed the free-text search box (e.g. from a ?q= deep link). Read ONCE at
+       *  mount — a later change to this prop is ignored, so it must not clobber
+       *  what the user typed. Deep links that need a fresh seed must remount the
+       *  page (every current "see all" entry point does). */
+      initialSearch?: string;
+      /** Reports the term back on every edit of the built-in input. Optional here —
+       *  the component's own state already keeps the box working without it. */
+      onSearchChange?: (term: string) => void;
+      /** Hiding the input uncontrolled would leave a term nobody can type or clear. */
+      hideSearchInput?: false;
+    }
+  | {
+      /** CONTROLLED free-text search — the page owns the term (typically in the URL).
+       *
+       *  ⚠️ THE 250 ms DEBOUNCE AND THE `SEARCH_MIN_CHARS` FLOOR STAY HERE IN BOTH MODES,
+       *  and that is the whole point of controlling the VALUE rather than the request: the
+       *  engine refuses a sub-floor term with a 400, so its client-side guard must have
+       *  exactly one home. A page that debounced and floored the term itself and handed
+       *  over a finished request would be a second implementation of a contract that is
+       *  already easy to get wrong (see `termLength` — `String.length` sends "👍👍" and
+       *  collects the 400). */
+      search: string;
+      /** A seed the controlled parent does not hold is a term the reader cannot clear. */
+      initialSearch?: never;
+      /** The page renders its own search field. */
+      hideSearchInput: true;
+      onSearchChange?: (term: string) => void;
+    }
+  | {
+      search: string;
+      initialSearch?: never;
+      hideSearchInput?: false;
+      /** REQUIRED in this arm: the input is fully controlled by the parent's value, so
+       *  this is the ONLY way a keystroke can reach it. */
+      onSearchChange: (term: string) => void;
+    };
+
+interface BaseProps<T> {
   resource: string;
   columns: DataTableColumnDef<T, unknown>[];
   scope?: { col: string; val: string };
@@ -60,11 +118,6 @@ interface Props<T> {
   defaultSort?: SortingState;
   pageSize?: number;
   searchPlaceholder?: string;
-  /** Seed the free-text search box (e.g. from a ?q= deep link). Read ONCE at
-   *  mount — a later change to this prop is ignored, so it must not clobber
-   *  what the user typed. Deep links that need a fresh seed must remount the
-   *  page (every current "see all" entry point does). */
-  initialSearch?: string;
   /** Restrict the global free-text search to these logical columns (engine
    *  `filters.globalCols`) — e.g. a dossier seed-repro searches contract TITLE
    *  only, so a landmark term isn't also matched against awarder/contractor name.
@@ -98,6 +151,8 @@ interface Props<T> {
    *  drops whatever the user typed. Existing callers may ignore it. */
   onData?: (resp: DbTableResponse<T>, request: Record<string, unknown>) => void;
 }
+
+type Props<T> = BaseProps<T> & SearchProps;
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
@@ -140,6 +195,9 @@ export const DbDataTable = <T,>({
   pageSize = 25,
   searchPlaceholder,
   initialSearch,
+  search,
+  onSearchChange,
+  hideSearchInput,
   globalCols,
   globalFtsOnly,
   searchMinChars = SEARCH_MIN_CHARS,
@@ -150,23 +208,80 @@ export const DbDataTable = <T,>({
   const { t } = useTranslation();
   const [sorting, setSorting] = useState<SortingState>(defaultSort);
   const [pageIndex, setPageIndex] = useState(0);
-  const [search, setSearch] = useState(initialSearch ?? "");
-  const [debounced, setDebounced] = useState(initialSearch ?? "");
+  // CONTROLLED when `search` is passed, else this component's own state. One `term` feeds
+  // the debounce below either way, so the floor, the page reset and the request shape are
+  // identical in both modes — there is no second code path to keep in step.
+  //
+  // ⚠️ THE MODE IS PINNED AT MOUNT. `inner` can only be seeded once, so a parent that moved
+  // `search` between a string and `undefined` would flip modes with no recovery: going
+  // uncontrolled the reader's term falls back to an `inner` frozen at "" since mount and the
+  // built-in box reappears under a page rendering its own. The idiom that produces it is the
+  // natural one for a URL-owned term — `params.get("q") ?? undefined`, which is `undefined`
+  // exactly when the deep link carries no `?q=`. The type forbids it; this makes a JS caller
+  // that does it anyway loud rather than silently wrong.
+  const controlledAtMount = useRef(search !== undefined);
+  const controlled = controlledAtMount.current;
+  const [inner, setInner] = useState(controlled ? "" : (initialSearch ?? ""));
+  const term = controlled ? (search ?? "") : inner;
+  const [debounced, setDebounced] = useState(
+    controlled ? (search ?? "") : (initialSearch ?? ""),
+  );
+
+  // DEV mis-wiring guards, in an EFFECT rather than in render. A controlled table re-renders
+  // on every keystroke of the parent's field, so an in-render guard emits one console.error
+  // per character (doubled again by StrictMode) — the signal that should make the mistake
+  // obvious becomes a wall the developer scrolls past. The union type already refuses each of
+  // these from TypeScript; these are the backstop for a JS caller and for a prop spread.
+  useEffect(() => {
+    if (!import.meta.env.DEV) return;
+    if (controlledAtMount.current !== (search !== undefined))
+      console.error(
+        "[DbDataTable] `search` switched between controlled and uncontrolled. The mode is " +
+          'pinned at mount; pass `search={q ?? ""}` (never `?? undefined`), or remount the table.',
+      );
+    if (controlled && initialSearch !== undefined)
+      console.error(
+        "[DbDataTable] `search` and `initialSearch` are mutually exclusive — `search` wins. A seed the controlled parent does not hold is a term the reader cannot clear.",
+      );
+    if (hideSearchInput && !controlled)
+      console.error(
+        "[DbDataTable] `hideSearchInput` without `search` hides the only way to type or clear the term.",
+      );
+    if (controlled && !hideSearchInput && !onSearchChange)
+      console.error(
+        "[DbDataTable] `search` with a visible built-in input needs `onSearchChange` — the " +
+          "parent owns the value, so without it the box discards every keystroke.",
+      );
+  }, [controlled, search, initialSearch, hideSearchInput, onSearchChange]);
 
   useEffect(() => {
-    const id = setTimeout(() => setDebounced(search), 250);
+    const id = setTimeout(() => setDebounced(term), 250);
     return () => clearTimeout(id);
-  }, [search]);
+  }, [term]);
 
   // Any change to the query shape (filters/search/sort) returns to page 0.
-  useEffect(() => setPageIndex(0), [debounced, extraFilters, sorting, scope]);
+  //
+  // ⚠️ KEYED ON CONTENT, NOT IDENTITY. `extraFilters` and `scope` are routinely passed as
+  // inline object literals (`scope={{ col: "scope", val }}` in ten screens), so their identity
+  // changes on every PARENT render — which would send a reader who has paged deep back to
+  // page 1 for a re-render that changed nothing about the query. A controlled parent makes
+  // that constant: it re-renders on every keystroke of its own field, and during the 250 ms
+  // debounce `debounced` has not moved. React Query's own key is hashed structurally for the
+  // same reason (see the `globalCols` note above).
+  const shapeKey = JSON.stringify([extraFilters ?? null, scope ?? null]);
+  useEffect(() => setPageIndex(0), [debounced, shapeKey, sorting]);
 
   // A term the engine would refuse (see SEARCH_MIN_CHARS). Note this reads `debounced`,
-  // not `search`: the hint must not flicker on while someone is mid-word, and the request
+  // not `term`: the hint must not flicker on while someone is mid-word, and the request
   // it guards is built from the debounced value anyway.
-  const tooShort =
-    debounced.trim().length > 0 &&
-    termLength(debounced.trim()) < searchMinChars;
+  //
+  // TRIMMED ONCE and used for BOTH the floor and the request. Measuring one string and
+  // sending a different one makes "апи" and "апи " two React Query entries, two onData
+  // notifications and two exporter re-issues for one identical server-side query — and sends
+  // a whitespace-only term in full, which matches everything. A URL-owned term makes stray
+  // whitespace likelier, not rarer.
+  const trimmed = debounced.trim();
+  const tooShort = trimmed.length > 0 && termLength(trimmed) < searchMinChars;
 
   const request = useMemo(
     () => ({
@@ -179,7 +294,7 @@ export const DbDataTable = <T,>({
         // Suppress the TERM, not the request — the unfiltered page is what a reader
         // should see while still typing, and it keeps the footer's aggregates matching
         // the rows above them.
-        global: tooShort ? undefined : debounced || undefined,
+        global: tooShort ? undefined : trimmed || undefined,
         globalCols,
         globalFtsOnly,
         columns: [...(fixedFilters ?? []), ...(extraFilters ?? [])],
@@ -191,7 +306,7 @@ export const DbDataTable = <T,>({
       pageIndex,
       pageSize,
       sorting,
-      debounced,
+      trimmed,
       tooShort,
       fixedFilters,
       extraFilters,
@@ -249,28 +364,40 @@ export const DbDataTable = <T,>({
 
   return (
     <div className="space-y-2">
-      <div className="flex flex-wrap items-center gap-2 py-1">
-        <Input
-          className="w-auto"
-          type="search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder={searchPlaceholder ?? `${t("filter")}...`}
-        />
-        {toolbar}
-        <span className="ml-auto text-xs text-muted-foreground tabular-nums">
-          {/* Suppressed while the term is below the floor: `total` is then the UNFILTERED
+      {/* Skipped entirely when it would be empty — with the input hidden, no toolbar and a
+          below-floor term, the row is a stray `py-1` gap between the page's own search field
+          and the table. */}
+      {!hideSearchInput || toolbar || !tooShort ? (
+        <div className="flex flex-wrap items-center gap-2 py-1">
+          {hideSearchInput ? null : (
+            <Input
+              className="w-auto"
+              type="search"
+              value={term}
+              onChange={(e) => {
+                // Controlled: report ONLY — the parent owns the value, so writing `inner`
+                // here would fork the two and let the input drift from the URL.
+                if (!controlled) setInner(e.target.value);
+                onSearchChange?.(e.target.value);
+              }}
+              placeholder={searchPlaceholder ?? `${t("filter")}...`}
+            />
+          )}
+          {toolbar}
+          <span className="ml-auto text-xs text-muted-foreground tabular-nums">
+            {/* Suppressed while the term is below the floor: `total` is then the UNFILTERED
               count, so printing it beside a two-letter query states a number that answers
               a question the reader did not ask. The body carries the hint. */}
-          {tooShort ? null : (
-            <>
-              {data?.totalExact === false ? "≈" : ""}
-              {numFmt.format(total)} {t("db_table_rows") || "rows"}
-              {isFetching ? " · …" : ""}
-            </>
-          )}
-        </span>
-      </div>
+            {tooShort ? null : (
+              <>
+                {data?.totalExact === false ? "≈" : ""}
+                {numFmt.format(total)} {t("db_table_rows") || "rows"}
+                {isFetching ? " · …" : ""}
+              </>
+            )}
+          </span>
+        </div>
+      ) : null}
 
       <div className="rounded-xl border bg-card text-card-foreground shadow-sm overflow-x-auto">
         <Table className="table-auto">
