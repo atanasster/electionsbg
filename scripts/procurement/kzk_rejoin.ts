@@ -145,9 +145,13 @@ const main = async (apply: boolean): Promise<void> => {
   // before deciding whether a run went well. `matched` falling while `reached`
   // holds is the SIGNATURE OF A HEALTHY CRAWL — new complaints ambiguating old
   // groups — and is exactly what the old gate misread as a matcher regression.
+  // `unresolved.length`, not `reached - matches.length`: by the partition the two
+  // are equal, so printing the subtraction would make a broken partition invisible
+  // — the number and the list would disagree with nothing saying so. Reading the
+  // list makes the equality an assertion rather than a definition.
   console.log(
     `  reached ${report.reached} appeals (Gate D's bar; ` +
-      `${report.reached - report.matches.length} reached but unresolved)`,
+      `${report.unresolved.length} reached but unresolved)`,
   );
   console.log(
     `  writable: ${part.fillNew} new + ${part.refreshDerived} re-derived; ` +

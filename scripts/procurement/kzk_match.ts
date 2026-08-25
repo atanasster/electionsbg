@@ -76,12 +76,39 @@ export type DecisionMatch = {
 };
 
 /**
- * The four counters have DIFFERENT UNITS and do not sum to anything meaningful —
+ * Why the matcher reached an appeal and still refused to resolve it.
+ *
+ * Both values mean "a 1:N key collision", which is the shape corpus GROWTH
+ * produces and a matcher regression does not. There is deliberately no
+ * `"not-reached"` member: an appeal nothing pointed at is absent from
+ * `unresolved` entirely, because the whole point of this list is that presence
+ * on it is an EXPLANATION. A reason for every failure would explain a regression
+ * away too.
+ */
+export type UnresolvedReason =
+  /** The same party sued the same buyer twice in the window — which complaint the act decides is unknowable. */
+  | "party-collision"
+  /** Two different acts both resolve to this appeal. */
+  | "act-collision";
+
+export type UnresolvedAppeal = {
+  complaintNo: string;
+  reason: UnresolvedReason;
+};
+
+/**
+ * The counters have DIFFERENT UNITS and do not sum to anything meaningful —
  * `matches` can even exceed `decisions.length`, since one consolidated act
- * resolves several complaints. `reached` is the one honest denominator for a
- * coverage rate (`matches / reached`), and the only field measured in the same
- * unit as `matches`: DISTINCT APPEALS. `ambiguous` counts appeals,
- * `partyAmbiguous` counts PARTIES and `unmatched` counts DECISION ROWS.
+ * resolves several complaints. Six fields, three units:
+ *
+ *   DISTINCT APPEALS  `matches`, `reached`, `unresolved`, `ambiguous`
+ *   PARTIES           `partyAmbiguous`
+ *   DECISION ROWS     `unmatched`
+ *
+ * `reached` is the one honest denominator for a coverage rate
+ * (`matches / reached`), and `matches ⊎ unresolved` partitions it exactly — one
+ * entry per appeal, the two lists disjoint. Anything else added together mixes
+ * units.
  */
 export type MatchReport = {
   /** One entry per APPEAL resolved 1:1. May exceed the number of decisions. */
@@ -108,6 +135,17 @@ export type MatchReport = {
    * whitespace fold → 2,926) and sail past a `matches` ratchet. All four lower
    * `reached` (4,914 / 4,911 / 4,166 / 4,131 against 4,932).
    *
+   * ⚠️ IT IS ONE-SIDED, LIKE EVERY RATCHET, and "strictly better" above is
+   * measured against LOSS-shaped regressions only. A fold that over-MERGES
+   * reaches MORE: an act naming „АЛФА" АД newly reaching appeal „АЛФА" ЕООД
+   * raises `reached`, raises `matches`, and leaves the appeal accounted for by
+   * the reason-based gate — three green gates while a ruling is published
+   * against the wrong company, the one harm this matcher's refusal exists to
+   * prevent. The only thing guarding that direction is `normalizeParty`'s
+   * refusal to fold legal-form suffixes, pinned by ONE unit test. Any NEW fold
+   * rule (digits, `И`/`&`, abbreviation expansion) needs its own test, because
+   * neither gate will see it.
+   *
    * ⚠️ TAKEN AT THE COARSE LEVEL, AND IT MUST STAY THERE. Any future
    * candidate-NARROWING rule — R1 "an act cannot predate its complaint",
    * R2 `kzk_case_no` (docs/plans/kzk-matcher-ambiguity-v1.md §4) — must be
@@ -126,6 +164,21 @@ export type MatchReport = {
    * `reached === 0`, and the predating-act fixture asserts `reached === 2`.
    */
   reached: number;
+  /**
+   * WHY each reached-but-unresolved appeal was refused, one entry per appeal.
+   *
+   * The counters below say HOW MANY; this says WHICH, and that difference is
+   * what lets a gate separate the two things `matches` conflates. An appeal that
+   * loses its match because a sibling complaint arrived is a **1:N key
+   * collision** and is named here; one that loses it because a fold regressed
+   * simply stops being reached and is absent from BOTH this list and `matches`.
+   * So "every appeal we once resolved is still matched or still explained" is a
+   * check on the matcher that needs no baseline at all — see the reason-based
+   * gate in kzk_appeals_provenance.data.test.ts.
+   *
+   * Sorted by `complaintNo`, like `matches`, so two runs diff cleanly.
+   */
+  unresolved: UnresolvedAppeal[];
   /** APPEALS claimed by more than one act — unresolvable act-side collisions. */
   ambiguous: number;
   /**
@@ -284,6 +337,9 @@ export const matchDecisions = (
   // `inWindow` BEFORE the 1:1 test, so ambiguity neither adds to it nor takes
   // from it; a candidate-narrowing rule must go below the `reached.add` loop.
   const reached = new Set<string>();
+  // The APPEALS behind `partyAmbiguous`, which counts (act × party) EVENTS and so
+  // cannot be turned back into a set of appeals by any caller.
+  const partyCollided = new Set<string>();
   let unmatched = 0;
   let partyAmbiguous = 0;
 
@@ -305,6 +361,7 @@ export const matchDecisions = (
         // two-party act can resolve one side cleanly and leave the other
         // ambiguous, and `hit` would then mask the unresolved half entirely.
         partyAmbiguous++;
+        for (const c of inWindow) partyCollided.add(c.no);
         continue;
       }
       hit = true;
@@ -318,12 +375,14 @@ export const matchDecisions = (
   }
 
   const matches: DecisionMatch[] = [];
+  const actCollided = new Set<string>();
   let ambiguous = 0;
   for (const [complaintNo, acts] of claims) {
     if (acts.size !== 1) {
       // Two different acts both resolve to this complaint — we cannot say which
       // is its outcome, so it gets none. Counted, never guessed.
       ambiguous++;
+      actCollided.add(complaintNo);
       continue;
     }
     const d = [...acts.values()][0];
@@ -339,9 +398,42 @@ export const matchDecisions = (
   // `< ? -1 : 1` comparator) because that one never returns 0, so equal keys sort
   // inconsistently by argument order — defeating the stability it is here for.
   matches.sort((a, b) => a.complaintNo.localeCompare(b.complaintNo));
+
+  // ⚠️ TWO RULES HERE, WITH TWO DIFFERENT MECHANISMS — do not collapse them.
+  //
+  //  1. A MATCH WINS over either collision, enforced by `!matched.has(no)` — and
+  //     `matched` is computed before both loops, so the loop ORDER has nothing to
+  //     do with this one. An appeal can be collided by act A and cleanly resolved
+  //     by act B: two complaints by one party against one buyer in December and
+  //     February collide for a 2026 act while a 2025 act sees only the first.
+  //     Listing such an appeal as unresolved as well would make the two lists
+  //     OVERLAP, and any consumer taking their union as "appeals accounted for"
+  //     would double-count. The reason-based gate is exactly that consumer.
+  //  2. ACT-COLLISION WINS over party-collision when an appeal is both, enforced
+  //     by this loop ORDER together with `!actCollided.has(no)` — which is also
+  //     what keeps one appeal to one entry. A real decision, not an accident: a
+  //     second act claiming the appeal is a decisions-side event, and that is the
+  //     one an operator should chase first.
+  //
+  // Both guards are pinned by fixtures that construct the overlap through the
+  // YEAR WINDOW. Without it neither is reachable, and the suite stays green at
+  // 36/36 with either deleted — measured.
+  const matched = new Set(matches.map((m) => m.complaintNo));
+  const unresolved: UnresolvedAppeal[] = [];
+  for (const no of actCollided)
+    // No `!matched.has(no)` here: `actCollided` and `matched` are populated on
+    // complementary branches of the same `claims` walk, so they are disjoint by
+    // construction and such a guard could never fire.
+    unresolved.push({ complaintNo: no, reason: "act-collision" });
+  for (const no of partyCollided)
+    if (!matched.has(no) && !actCollided.has(no))
+      unresolved.push({ complaintNo: no, reason: "party-collision" });
+  unresolved.sort((a, b) => a.complaintNo.localeCompare(b.complaintNo));
+
   return {
     matches,
     reached: reached.size,
+    unresolved,
     ambiguous,
     partyAmbiguous,
     unmatched,

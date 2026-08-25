@@ -259,6 +259,7 @@ describe("matchDecisions", () => {
     expect(matchDecisions([], [])).toEqual({
       matches: [],
       reached: 0,
+      unresolved: [],
       ambiguous: 0,
       partyAmbiguous: 0,
       unmatched: 0,
@@ -414,5 +415,167 @@ describe("matchDecisions — reached", () => {
       ],
     );
     expect(r.reached).toBe(1);
+  });
+});
+
+// `unresolved` is what lets a gate ask WHY a match went away rather than only how
+// many did — the per-row half of the Gate D fix, and the one that needs no
+// baseline because the database's own `decision_act_no` is the snapshot.
+// Plan: docs/plans/kzk-gate-d-ambiguity-v1.md §4.2.
+describe("matchDecisions — unresolved", () => {
+  it("names both appeals of a party collision, with the reason", () => {
+    const r = matchDecisions(
+      [
+        appeal("ВХР-1", "А ЕООД", "ОБЩИНА Б", "2026-01-10"),
+        appeal("ВХР-2", "А ЕООД", "ОБЩИНА Б", "2026-02-10"),
+      ],
+      [decision("АКТ-5-15.06.2026", "2026-06-15", "А ЕООД", "ОБЩИНА Б")],
+    );
+    expect(r.unresolved).toEqual([
+      { complaintNo: "ВХР-1", reason: "party-collision" },
+      { complaintNo: "ВХР-2", reason: "party-collision" },
+    ]);
+  });
+
+  it("names an act collision as such, not as a party collision", () => {
+    // The two reasons are not interchangeable: this one is a DECISIONS-side
+    // event, so an operator chasing it looks at the merits crawl rather than at
+    // the intake register.
+    const r = matchDecisions(
+      [appeal("ВХР-1", "А ЕООД", "ОБЩИНА Б", "2026-01-10")],
+      [
+        decision("АКТ-5-15.06.2026", "2026-06-15", "А ЕООД", "ОБЩИНА Б"),
+        decision("АКТ-6-16.06.2026", "2026-06-16", "А ЕООД", "ОБЩИНА Б"),
+      ],
+    );
+    expect(r.unresolved).toEqual([
+      { complaintNo: "ВХР-1", reason: "act-collision" },
+    ]);
+  });
+
+  it("is EMPTY when nothing reached the appeal — absence is not an explanation", () => {
+    // The load-bearing negative. If an unreached appeal were listed with some
+    // reason, the reason-based gate would accept a fold regression as
+    // "explained" and go vacuous — it exists precisely to catch the appeals that
+    // fall out of `reached`.
+    const r = matchDecisions(
+      [appeal("ВХР-1", "А ЕООД", "ОБЩИНА Б", "2026-01-10")],
+      [decision("АКТ-5-15.06.2026", "2026-06-15", "Я ЕООД", "ОБЩИНА Я")],
+    );
+    expect(r.reached).toBe(0);
+    expect(r.matches).toHaveLength(0);
+    expect(r.unresolved).toEqual([]);
+  });
+
+  it("A MATCH WINS over a party collision on the SAME key — via the year window", () => {
+    // ⚠️ A DIFFERENT-KEY FIXTURE CANNOT REACH THIS GUARD. `partyCollided` is
+    // populated one key at a time, so an appeal under another respondent never
+    // enters it and `!matched.has(no)` is never evaluated false — measured,
+    // deleting the match-wins rule then leaves the whole suite green at 36/36.
+    // The year window is what makes the overlap constructible: X and Y share a
+    // key, АКТ-A (2026) sees both and collides them, АКТ-B (2025) sees only X and
+    // claims it cleanly. Without the guard X appears in BOTH lists.
+    const r = matchDecisions(
+      [
+        appeal("X", "А ЕООД", "ОБЩИНА Б", "2025-12-01"),
+        appeal("Y", "А ЕООД", "ОБЩИНА Б", "2026-02-01"),
+      ],
+      [
+        decision("АКТ-A", "2026-06-15", "А ЕООД", "ОБЩИНА Б"),
+        decision("АКТ-B", "2025-12-20", "А ЕООД", "ОБЩИНА Б"),
+      ],
+    );
+    expect(r.matches.map((m) => m.complaintNo)).toEqual(["X"]);
+    expect(r.unresolved).toEqual([
+      { complaintNo: "Y", reason: "party-collision" },
+    ]);
+    expect(r.matches.length + r.unresolved.length).toBe(r.reached);
+  });
+
+  it("reports ONE reason when an appeal is both act- and party-collided", () => {
+    // Pins `!actCollided.has(no)`, the other guard no ordinary fixture reaches —
+    // measured, dropping it leaves the suite green at 36/36 while pushing X
+    // TWICE, which breaks the partition the reason-based gate rests on. That gate
+    // cannot see it itself: it folds both lists into a Set.
+    //
+    // Act-collision WINS, and that is a decision rather than an accident: a
+    // second act claiming the appeal is a decisions-side event, so it is the one
+    // an operator should chase first.
+    const r = matchDecisions(
+      [
+        appeal("X", "А ЕООД", "ОБЩИНА Б", "2025-12-01"),
+        appeal("Y", "А ЕООД", "ОБЩИНА Б", "2026-02-01"),
+      ],
+      [
+        decision("АКТ-A", "2026-06-15", "А ЕООД", "ОБЩИНА Б"), // collides X and Y
+        decision("АКТ-B", "2025-12-20", "А ЕООД", "ОБЩИНА Б"), // claims X
+        decision("АКТ-C", "2025-12-21", "А ЕООД", "ОБЩИНА Б"), // claims X again
+      ],
+    );
+    expect(r.unresolved).toEqual([
+      { complaintNo: "X", reason: "act-collision" },
+      { complaintNo: "Y", reason: "party-collision" },
+    ]);
+    expect(r.matches).toHaveLength(0);
+    expect(r.matches.length + r.unresolved.length).toBe(r.reached);
+  });
+
+  it("A MATCH WINS on a different key too — the multi-respondent case", () => {
+    const r = matchDecisions(
+      [
+        appeal("ВХР-1", "А ЕООД", "ОБЩИНА Б", "2026-01-10"),
+        appeal("ВХР-2", "А ЕООД", "ОБЩИНА Б", "2026-02-10"),
+        appeal("ВХР-3", "А ЕООД", "ОБЩИНА В", "2026-02-11"),
+      ],
+      [
+        decision("АКТ-5-15.06.2026", "2026-06-15", "А ЕООД", "ОБЩИНА Б"),
+        decision("АКТ-6-16.06.2026", "2026-06-16", "А ЕООД", "ОБЩИНА В"),
+      ],
+    );
+    expect(r.matches.map((m) => m.complaintNo)).toEqual(["ВХР-3"]);
+    expect(r.unresolved.map((u) => u.complaintNo)).toEqual(["ВХР-1", "ВХР-2"]);
+  });
+
+  it("accounts for every reached appeal exactly once", () => {
+    // matches ⊎ unresolved partitions `reached`. The reason-based gate treats an
+    // appeal outside that union as a regression, so a gap here would make it fire
+    // on healthy data and an overlap would make it miss a real one.
+    const r = matchDecisions(
+      [
+        appeal("ВХР-1", "А ЕООД", "ОБЩИНА Б", "2026-01-10"),
+        appeal("ВХР-2", "А ЕООД", "ОБЩИНА Б", "2026-02-10"),
+        appeal("ВХР-3", "Б ЕООД", "ОБЩИНА Б", "2026-02-11"),
+      ],
+      [
+        decision(
+          "АКТ-5-15.06.2026",
+          "2026-06-15",
+          "А ЕООД; Б ЕООД",
+          "ОБЩИНА Б",
+        ),
+      ],
+    );
+    const union = new Set([
+      ...r.matches.map((m) => m.complaintNo),
+      ...r.unresolved.map((u) => u.complaintNo),
+    ]);
+    expect(union.size).toBe(r.reached);
+    expect(r.matches.length + r.unresolved.length).toBe(r.reached);
+  });
+
+  it("is sorted, so two runs diff cleanly", () => {
+    const r = matchDecisions(
+      [
+        appeal("ВХР-9", "А ЕООД", "ОБЩИНА Б", "2026-01-10"),
+        appeal("ВХР-1", "А ЕООД", "ОБЩИНА Б", "2026-02-10"),
+        appeal("ВХР-5", "А ЕООД", "ОБЩИНА Б", "2026-03-10"),
+      ],
+      [decision("АКТ-5-15.06.2026", "2026-06-15", "А ЕООД", "ОБЩИНА Б")],
+    );
+    expect(r.unresolved.map((u) => u.complaintNo)).toEqual([
+      "ВХР-1",
+      "ВХР-5",
+      "ВХР-9",
+    ]);
   });
 });

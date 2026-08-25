@@ -25,7 +25,10 @@ import {
   HAND_SEEDED_FLOOR,
 } from "../../procurement/kzk_baselines";
 import { matchDecisions } from "../../procurement/kzk_match";
-import type { MatchableDecision } from "../../procurement/kzk_match";
+import type {
+  MatchableDecision,
+  MatchReport,
+} from "../../procurement/kzk_match";
 import { setsMeritsOutcome } from "../../procurement/kzk_decisions_store";
 
 // Gates C + D. NOT a hardcoded constant: the skill's original `>= 2098` floor
@@ -79,6 +82,85 @@ const skipDecisions =
 afterAll(async () => {
   await end();
 });
+
+/**
+ * The corpus + one matcher run, shared by Gates D and E.
+ *
+ * Memoised for two reasons and the second is load-bearing: it saves a second
+ * round trip over ~8k appeals and ~4.8k decisions, and it makes it IMPOSSIBLE for
+ * the two gates to measure different populations. They assert different things
+ * about the same run — an aggregate bar and a per-row explanation — and a gate
+ * pair that silently drifted onto two corpora is the defect `b73abee164` fixed
+ * here once already.
+ */
+type MatchRun = {
+  appeals: Array<{
+    complaintNo: string;
+    complainant: string | null;
+    respondent: string | null;
+    complaintDate: string | null;
+    /** NOT read by matchDecisions — the provenance stamp Gate E snapshots. */
+    decisionActNo: string | null;
+  }>;
+  decisions: Array<MatchableDecision & { kind: string | null }>;
+  merits: Array<MatchableDecision & { kind: string | null }>;
+  report: MatchReport;
+};
+
+const loadMatchRun = async (): Promise<MatchRun> => {
+  // ⚠️ THE `kind` FILTER IS LOAD-BEARING, and this gate ran without it until
+  // 2026-08-24. kzk_rejoin.ts selects `WHERE ${MERITS_ELIGIBLE_SQL}` — an
+  // определение must never claim an appeal, or the решение that decides the same
+  // case reads as a second claimant and the appeal is dropped as ambiguous.
+  // Reading the whole table here measured the matcher over a corpus the writer
+  // never uses: 4,779 rows against the writer's 4,502, and 2,940 matches against
+  // a ratchet of 2,920 — 20 matches of slack, enough to stay green through a real
+  // regression. Pre-flighted rather than left to the driver, so a database that
+  // predates the определения arm gets the command that fixes it instead of a bare
+  // 42703, twice over.
+  //
+  // ⚠️ When the plan's kzk_case_no arm lands (kzk-matcher-ambiguity-v1 §10.1),
+  // the decisions SELECT below must gain that column too — the writer would raise
+  // the ratchet with it while these gates ran a degraded matcher against it. The
+  // failure direction is safe (fewer matches → loud), but it is a real coupling,
+  // and it is further from the gates now that the SELECT lives here.
+  const hasKind = await allRows<{ ok: boolean }>(
+    `SELECT true AS ok FROM information_schema.columns
+      WHERE table_name = 'kzk_decisions' AND column_name = 'kind'`,
+  ).then((r) => r.length === 1);
+  assert.ok(
+    hasKind,
+    "kzk_decisions.kind is MISSING — this database predates the определения " +
+      "arm. Run `npm run db:load:kzk-decisions:pg`, which re-applies 130. " +
+      "Without the column these gates would measure 4,779 rows against a writer " +
+      "that sees 4,502.",
+  );
+
+  const appeals = await allRows<MatchRun["appeals"][number]>(
+    `SELECT complaint_no AS "complaintNo", complainant, respondent,
+            complaint_date  AS "complaintDate",
+            decision_act_no AS "decisionActNo" FROM kzk_appeals`,
+  );
+  const decisions = await allRows<MatchRun["decisions"][number]>(
+    `SELECT act_no AS no, decision_date AS ddate, pronouncement AS pron,
+            initiators AS init, respondent AS resp, kind FROM kzk_decisions`,
+  );
+  const merits = decisions.filter((d) => setsMeritsOutcome(d.kind));
+  return {
+    appeals,
+    decisions,
+    merits,
+    report: matchDecisions(appeals, merits),
+  };
+};
+
+// The PROMISE is memoised, not the value. A future `test.concurrent` would
+// otherwise double the round trip silently — identical results, so nothing fails
+// and nobody notices — and on a query error a value-memo leaves `cached` null, so
+// both gates repeat the failing query and the operator reads the same driver
+// error twice.
+let cached: Promise<MatchRun> | null = null;
+const matchRun = (): Promise<MatchRun> => (cached ??= loadMatchRun());
 
 test.skipIf(skip)("the provenance column exists", async () => {
   const rows = await allRows<{ ok: boolean }>(
@@ -164,58 +246,8 @@ test.skipIf(skipDecisions)(
     // is simply absent from `writable`, so its stale outcome survives untouched
     // and the count does not move. The only way to see that is to re-run the
     // matcher and compare — which is cheap, because it is pure.
-    const appeals = await allRows<{
-      complaintNo: string;
-      complainant: string | null;
-      respondent: string | null;
-      complaintDate: string | null;
-    }>(
-      `SELECT complaint_no AS "complaintNo", complainant, respondent,
-              complaint_date AS "complaintDate" FROM kzk_appeals`,
-    );
-    // ⚠️ THE `kind` FILTER IS LOAD-BEARING, and this gate ran without it until
-    // 2026-08-24. kzk_rejoin.ts selects `WHERE ${MERITS_ELIGIBLE_SQL}` — an
-    // определение must never claim an appeal, or the решение that decides the
-    // same case reads as a second claimant and the appeal is dropped as
-    // ambiguous. Reading the whole table here measured the matcher over a corpus
-    // the writer never uses: 4,779 rows against the writer's 4,502, and 2,940
-    // matches against a ratchet of 2,920 — 20 matches of slack, enough to stay
-    // green through a real regression.
-    //
-    // Filtered through setsMeritsOutcome(), whose SQL twin MERITS_ELIGIBLE_SQL
-    // the writer now uses, so "one definition" is a fact rather than a hope.
-    //
-    // ⚠️ DRIFT IS DETECTED IN ONE DIRECTION ONLY. A writer that WIDENS its filter
-    // raises the ratchet past what this gate can reach and fails here; one that
-    // NARROWS it lowers its own output, the monotonic ratchet does not follow,
-    // and this gate stays green. The mutation check below pins the excluded set;
-    // a narrowing on some other column is still invisible.
-    //
-    // ⚠️ When the plan's kzk_case_no arm lands (kzk-matcher-ambiguity-v1 §10.1),
-    // this SELECT must gain that column too — the writer would raise the ratchet
-    // with it while this gate ran a degraded matcher against it. The failure
-    // direction is safe (fewer matches → loud), but it is a real coupling.
-    const hasKind = await allRows<{ ok: boolean }>(
-      `SELECT true AS ok FROM information_schema.columns
-        WHERE table_name = 'kzk_decisions' AND column_name = 'kind'`,
-    ).then((r) => r.length === 1);
-    assert.ok(
-      hasKind,
-      "kzk_decisions.kind is MISSING — this database predates the определения " +
-        "arm. Run `npm run db:load:kzk-decisions:pg`, which re-applies 130. " +
-        "Without the column this gate would measure 4,779 rows against a writer " +
-        "that sees 4,502.",
-    );
-
-    const decisions = await allRows<
-      MatchableDecision & { kind: string | null }
-    >(
-      `SELECT act_no AS no, decision_date AS ddate, pronouncement AS pron,
-              initiators AS init, respondent AS resp, kind FROM kzk_decisions`,
-    );
+    const { decisions, merits, report } = await matchRun();
     if (decisions.length === 0) return;
-
-    const merits = decisions.filter((d) => setsMeritsOutcome(d.kind));
 
     // MUTATION CHECK. Two reachable regressions put the 20 matches of slack back
     // with nothing red: setsMeritsOutcome() ceasing to discriminate (this file is
@@ -246,8 +278,6 @@ test.skipIf(skipDecisions)(
         "problem, not a matcher one. Re-run `npm run db:load:kzk-decisions:pg` " +
         "(решения is ot=2). kzk_rejoin.ts refuses the same state.",
     );
-
-    const report = matchDecisions(appeals, merits);
 
     // ⚠️ THE BAR IS `reached`, NOT `matches`, AND THE SWAP IS THE WHOLE POINT.
     // This gate ratcheted `report.matches.length` until 2026-08-25 and asserted
@@ -303,6 +333,103 @@ test.skipIf(skipDecisions)(
         `  matched, for context: ${report.matches.length} against the last ` +
         `observed ${baselines.matched} — this is NOT a bar and a fall in it ` +
         "alone is a healthy crawl, not a defect.",
+    );
+  },
+);
+
+test.skipIf(skipDecisions)(
+  "Gate E — every published outcome is still derivable, or explained by a collision",
+  async () => {
+    // Gate D is an aggregate bar; this is PER-ROW, and it needs no baseline, no
+    // snapshot file and no committed number, because the DATABASE is the
+    // snapshot. `decision_act_no IS NOT NULL` marks the rows the matcher actually
+    // resolved at some point, and the column is monotone once set — the writer
+    // only ever assigns a non-null act, and the JSON write-back carries it — so
+    // that set only grows and this check only strengthens.
+    //
+    // ⚠️ IT COVERS ABOUT A THIRD OF MATCHES (987 of 2,918 today) AND DOES NOT
+    // REPLACE GATE D. A match onto one of the ~1,934 protected hand-seeded rows
+    // never sets `decision_act_no`, so the database cannot snapshot it. Gate D's
+    // aggregate bar is what covers that population.
+    //
+    // ⚠️ A SEPARATE `test()` FROM GATE D ON PURPOSE. Written as a trailing
+    // assertion inside Gate D it never ran on the case it exists for: a real
+    // regression trips the ratchet first, `assert.ok` throws, and this is
+    // skipped — verified with a ';'-split mutant, which reported only "reaches
+    // 4166, below 4932" and never mentioned the 482 rows it had orphaned.
+    const { appeals, merits, report } = await matchRun();
+
+    // The partition is what makes `accounted` below meaningful, and a Set hides
+    // its failure — a duplicated or overlapping entry folds away silently. Real
+    // corpus scale reaches states hand-made fixtures cannot.
+    assert.equal(
+      report.matches.length + report.unresolved.length,
+      report.reached,
+      "matches ⊎ unresolved no longer partitions reached, so this gate's " +
+        "`accounted` set would absorb a duplicate or an overlap without " +
+        "noticing. Check the two guards at the foot of matchDecisions.",
+    );
+
+    const meritsActs = new Set(merits.map((d) => d.no));
+    const published = appeals.filter((a) => a.decisionActNo != null);
+    if (published.length === 0) {
+      // NOT a green pass. No writer has ever run here, so this gate has no
+      // snapshot and has verified nothing — the "cannot tell healthy from frozen"
+      // shape this file's header exists to end. Reachable from an aborted
+      // `kzk:rejoin --apply`, which applies 131 BEFORE it throws on an empty
+      // kzk_decisions.
+      console.warn(
+        "GATE E DISARMED: no machine-derived outcomes on this database — " +
+          "run `npm run kzk:rejoin -- --apply`. Nothing was checked.",
+      );
+      return;
+    }
+
+    // The two corpus-side escapes, subtracted first, or a legitimate act
+    // withdrawal reads as a matcher defect: an act deleted by a re-crawl (the
+    // orphan test above owns that), and an act RE-LABELLED as an определение,
+    // which leaves the merits-eligible set without leaving kzk_decisions.
+    // Bounded, because the amount they may swallow is otherwise unlimited and
+    // invisible — a corpus-wide re-labelling would narrow this gate toward
+    // vacuity with nothing saying so. Measured today: 0 of 987 swallowed.
+    const checked = published.filter((a) => meritsActs.has(a.decisionActNo!));
+    assert.ok(
+      checked.length >= published.length * 0.9,
+      `Gate E is checking only ${checked.length} of ${published.length} published ` +
+        `rows — ${published.length - checked.length} cite an act that has left ` +
+        "the merits-eligible corpus. Legitimate at small scale and a silently " +
+        "narrowing gate at this one; check kindFromHeader() and the loader.",
+    );
+
+    const accounted = new Set([
+      ...report.matches.map((m) => m.complaintNo),
+      ...report.unresolved.map((u) => u.complaintNo),
+    ]);
+    const unexplained = checked.filter((a) => !accounted.has(a.complaintNo));
+    const CAP = 20;
+    assert.equal(
+      unexplained.length,
+      0,
+      `${unexplained.length} appeal(s) carry a machine-derived outcome the ` +
+        "matcher can no longer derive OR explain — e.g. " +
+        unexplained
+          .slice(0, CAP)
+          .map((a) => `${a.complaintNo} → ${a.decisionActNo}`)
+          .join(", ") +
+        (unexplained.length > CAP
+          ? ` … and ${unexplained.length - CAP} more`
+          : "") +
+        ". Their citing act is still merits-eligible, and they are neither " +
+        "matched nor reported as a key collision. Two causes: the matcher " +
+        "stopped REACHING them (folds, ';' split, year window — check those " +
+        "first, in that order), or the register RE-SPELLED a party on one side, " +
+        "which is Gate D's cause 4 — the intake upsert COALESCEs only against " +
+        "NULL, so a corrected spelling overwrites and moves the key. There is " +
+        "nothing to re-mint for the second: the stored outcome is now " +
+        "unattributable, and the resolution is revocation " +
+        "(kzk-matcher-ambiguity-v1.md §11.4), never an allowlist. Note these " +
+        "rows keep SERVING their stale outcome — the writer only UPDATEs rows " +
+        "it matched — so nothing looks broken on the site while this is red.",
     );
   },
 );
