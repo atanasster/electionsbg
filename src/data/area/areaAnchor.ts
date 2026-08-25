@@ -62,9 +62,10 @@ export const GOVERNANCE_NON_PLACE_SEGMENTS = [
   "overview",
   "declarations",
   "municipal-finance",
-  // /governance/companies — the all-office-holder companies list (Tier 3 of the
-  // company-page consolidation). Without this, AREA_PATH_RE reads "companies" as a place id
-  // and the page anchors the whole My-Area context to a município that does not exist.
+  // /governance/companies — RETIRED as a real page (188) but still a React route rendering a
+  // client-side redirect to /companies?political=1, so this stays. Without it, AREA_PATH_RE
+  // reads "companies" as a place id and the page anchors the whole My-Area context to a
+  // município that does not exist.
   "companies",
 ] as const;
 

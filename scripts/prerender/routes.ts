@@ -4652,7 +4652,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <ul>
 <li>Графика на връзките с разцветяване по партийна група.</li>
 <li>Откриване на пътища между двама конкретни депутати.</li>
-<li><a href="${SITE_URL}/governance/companies">Списък на всички фирми</a> с поне един депутат-собственик или ръководител.</li>
+<li><a href="${SITE_URL}/companies?political=1">Списък на всички фирми</a> с поне един депутат-собственик или ръководител.</li>
 <li><a href="${SITE_URL}/mp-assets">Класиране на депутатите</a> по декларирани активи.</li>
 <li><a href="${SITE_URL}/mp-cars">Декларирани коли</a> на народните представители.</li>
 <li><a href="${SITE_URL}/declarations/crypto">Декларирани криптоактиви</a> — монета, количество и стойност, за всички власти.</li>
@@ -4671,7 +4671,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <ul>
 <li>Network graph coloured by parliamentary group.</li>
 <li>Path-finding between any two named MPs.</li>
-<li><a href="${SITE_URL}/en/governance/companies">List of all companies</a> with at least one MP owner or director.</li>
+<li><a href="${SITE_URL}/en/companies?political=1">List of all companies</a> with at least one MP owner or director.</li>
 <li><a href="${SITE_URL}/en/mp-assets">MPs ranked</a> by declared assets.</li>
 <li><a href="${SITE_URL}/en/mp-cars">Cars declared</a> by MPs.</li>
 <li><a href="${SITE_URL}/en/declarations/crypto">Declared crypto assets</a> — coin, quantity and value, across every tier.</li>
@@ -4681,27 +4681,26 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
-    path: "governance/companies",
-    title:
-      "Фирми и организации, свързани с лица на публична длъжност | electionsbg.com",
+    path: "companies",
+    title: "Търсене на фирми — Търговски регистър | electionsbg.com",
     description:
-      "Списък на фирмите и организациите, в които лица на публична длъжност — народни представители, министри, кметове, общински съветници, магистрати и членове на регулаторни органи — фигурират като собственици или в управлението, или са декларирали дял. Данни от Търговския регистър и декларациите пред Сметната палата.",
-    breadcrumbName: "Фирми на публични лица",
+      "Търсене на всяка фирма или организация в Търговския регистър по име или ЕИК — над милион вписвания, с публични средства, връзки с лица на публична длъжност и данни за обществени поръчки където има такива.",
+    breadcrumbName: "Фирми",
     ogImage: "/og/official-companies.png",
     bodyHtml: `
-<h1>Фирми и организации, свързани с лица на публична длъжност</h1>
-<p>Фирмите, сдруженията, читалищата и фондациите, в които лице на публична длъжност — народен представител, министър, кмет, общински съветник, магистрат или член на регулаторен орган — фигурира като собственик или в управлението според Търговския регистър, или е декларирало дял пред Сметната палата. Народните представители са малка част от списъка.</p>
-<p>Свързването е по идентичност, а не по съвпадение на име: име, което Търговският регистър приписва на повече от един човек, се отхвърля. Където всички вписвания на лицето при дадена организация са заличени, ролята е отбелязана като бивша.</p>
+<h1>Фирми</h1>
+<p>Търсене на всяка фирма, сдружение, читалище или фондация, вписани в Търговския регистър, по име или ЕИК. По подразбиране списъкът показва фирмите с някаква обществена следа — публични средства, връзка с лице на публична длъжност, спечелена обществена поръчка или НПО статут — но търсенето обхваща целия регистър.</p>
+<p>Отделен филтър показва само фирмите и организациите, в които лице на публична длъжност — народен представител, министър, кмет, общински съветник, магистрат или член на регулаторен орган — фигурира като собственик или в управлението според Търговския регистър, или е декларирало дял пред Сметната палата. Свързването е по идентичност, а не по съвпадение на име: име, което Търговският регистър приписва на повече от един човек, се отхвърля. Където всички вписвания на лицето при дадена организация са заличени, ролята е отбелязана като бивша.</p>
 <p>За мрежовия изглед виж <a href="${SITE_URL}/connections">Бизнес-връзки между депутатите</a>.</p>`.trim(),
     english: {
-      title: "Companies Linked to Public Office-Holders | electionsbg.com",
+      title: "Company Search — Bulgarian Commerce Registry | electionsbg.com",
       description:
-        "Every company, association, chitalishte and foundation in which a Bulgarian public office-holder — MP, minister, mayor, councillor, magistrate or regulator — is an owner or in management, or has declared a stake. Sourced from the Commerce Registry and Court of Audit declarations.",
-      breadcrumbName: "Office-holder companies",
+        "Search every company or organisation in the Bulgarian Commerce Registry by name or EIK — over a million entries, with public money, links to public office-holders, and procurement data where it exists.",
+      breadcrumbName: "Companies",
       bodyHtml: `
-<h1>Companies and organisations linked to public office-holders</h1>
-<p>The companies, associations, chitalishta and foundations in which a public office-holder — an MP, minister, mayor, councillor, magistrate or regulator — figures as an owner or in management per the Commerce Registry, or has declared a stake to the Court of Audit. MPs are a small part of the list.</p>
-<p>Linking is by identity rather than by matching names: a name the Commerce Registry attributes to more than one person is refused. Where every entry for that person at an organisation has been withdrawn, the role is marked as former.</p>
+<h1>Companies</h1>
+<p>Search any company, association, chitalishte or foundation recorded in the Bulgarian Commerce Registry, by name or EIK. The default view shows companies with some public footprint — public money, a link to a public office-holder, a won procurement contract, or NGO status — but the search box reaches the whole registry.</p>
+<p>A separate filter shows only companies and organisations in which a public office-holder — an MP, minister, mayor, councillor, magistrate or regulator — figures as an owner or in management per the Commerce Registry, or has declared a stake to the Court of Audit. Linking is by identity rather than by matching names: a name the Commerce Registry attributes to more than one person is refused. Where every entry for that person at an organisation has been withdrawn, the role is marked as former.</p>
 <p>For the network view see <a href="${SITE_URL}/en/connections">MP business connections</a>.</p>`.trim(),
     },
   }),
@@ -5701,7 +5700,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/parliament/attendance">Присъствие</a> — кой депутат участва в гласуванията и кой отсъства, претеглено спрямо точките, в които е могъл да гласува.</li>
 <li><a href="${SITE_URL}/persons?role=mp">Депутати</a> — всички народни представители от 44-то НС насам.</li>
 </ul>
-<p>Извън залата: <a href="${SITE_URL}/governance/declarations">декларациите</a> пред Сметната палата, <a href="${SITE_URL}/mp-assets">декларираното имущество</a>, <a href="${SITE_URL}/governance/companies">фирмите, свързани с депутати</a>, и <a href="${SITE_URL}/connections">графът на връзките</a>.</p>`.trim(),
+<p>Извън залата: <a href="${SITE_URL}/governance/declarations">декларациите</a> пред Сметната палата, <a href="${SITE_URL}/mp-assets">декларираното имущество</a>, <a href="${SITE_URL}/companies?political=1">фирмите, свързани с депутати</a>, и <a href="${SITE_URL}/connections">графът на връзките</a>.</p>`.trim(),
     // extraJsonLd, not jsonLd: staticPage composes WebPage + BreadcrumbList itself.
     // The hub described itself less than any record page beneath it — WebPage plus a
     // breadcrumb, while every /votes/<date> also carries a Dataset. Dataset is what makes
@@ -5787,7 +5786,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/parliament/attendance">Attendance</a> — which MPs take part in votes and which do not, weighted by the items they could have voted on.</li>
 <li><a href="${SITE_URL}/en/persons?role=mp">MPs</a> — every member of parliament since the 44th National Assembly.</li>
 </ul>
-<p>Outside the chamber: <a href="${SITE_URL}/en/governance/declarations">declarations</a> filed with the Court of Audit, <a href="${SITE_URL}/en/mp-assets">declared assets</a>, <a href="${SITE_URL}/en/governance/companies">companies linked to MPs</a>, and the <a href="${SITE_URL}/en/connections">connections graph</a>.</p>`.trim(),
+<p>Outside the chamber: <a href="${SITE_URL}/en/governance/declarations">declarations</a> filed with the Court of Audit, <a href="${SITE_URL}/en/mp-assets">declared assets</a>, <a href="${SITE_URL}/en/companies?political=1">companies linked to MPs</a>, and the <a href="${SITE_URL}/en/connections">connections graph</a>.</p>`.trim(),
       extraJsonLd: [
         buildFaqLd([
           {

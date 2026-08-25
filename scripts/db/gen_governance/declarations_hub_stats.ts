@@ -80,8 +80,9 @@ export interface DeclarationsHubStats {
   officials: number;
   /** Companies /mp/companies LISTS, from that page's own index, and the MPs attached to
    *  them. Deliberately not company_politicians — different corpus, 8x smaller. */
-  /** Organisations /governance/companies LISTS — its own relation, `official_companies`
-   *  (178). NOT „companies": 5,200 of them are сдружения, читалища, фондации, кооперации or
+  /** Organisations the destination's `?political=1` filter LISTS — `company_browse_table`
+   *  (188) WHERE is_official_linked, formerly official_companies' (178) whole population.
+   *  NOT „companies": some of them are сдружения, читалища, фондации, кооперации or
    *  държавни предприятия, and the tile's own copy names them. */
   organisations: number;
   /** DISTINCT people in public life attached to those organisations. Renamed from
@@ -150,22 +151,23 @@ const run = async (): Promise<void> => {
 
   // ⚠️ THE TILE QUOTES ITS DESTINATION'S OWN RELATION, and that is the whole rule here.
   // It used to read data/parliament/companies-index.json because that WAS what
-  // /mp/companies rendered; the destination is now /governance/companies over
-  // `official_companies` (178), so this reads that. Reading anything else — company_politicians
-  // is the standing temptation — would be counting a different corpus that happens to be about
-  // the same subject, which is the trap the previous comment here was written for.
+  // /mp/companies rendered; the destination is now /companies?political=1 over
+  // `company_browse_table` (188) WHERE is_official_linked, so this reads that. Reading
+  // anything else — company_politicians is the standing temptation — would be counting a
+  // different corpus that happens to be about the same subject, which is the trap the
+  // previous comment here was written for.
   //
   // person_count is per organisation and people repeat across them, so the headline needs a
   // DISTINCT recount over the two arms rather than a SUM of the column.
   let organisations = 0;
   let organisationPeople = 0;
-  const ocMissing = await missingRelations(["official_companies"]);
+  const ocMissing = await missingRelations(["company_browse_table"]);
   if (ocMissing.length) {
-    // Absent on a database that has not applied 178. Both figures stay 0 and the hook OMITS
+    // Absent on a database that has not applied 188. Both figures stay 0 and the hook OMITS
     // the tile's metric rather than rendering „0 организации", which would be a claim.
     warnSkip(
       "declarations_hub_stats",
-      "official_companies absent — companies tile ships without a figure",
+      "company_browse_table absent — companies tile ships without a figure",
       "run npm run db:load:declarations:pg -- --resolve",
     );
   } else {
@@ -196,7 +198,7 @@ const run = async (): Promise<void> => {
                    FROM declaration_stake_company sc
                    JOIN person pe ON pe.person_id = sc.person_id
                   WHERE pe.status = 'active' AND pe.is_public_figure) z) AS people
-         FROM official_companies`,
+         FROM company_browse_table WHERE is_official_linked`,
     );
     organisations = Number(oc.n);
     organisationPeople = Number(oc.people);
@@ -204,7 +206,7 @@ const run = async (): Promise<void> => {
       // Applied but never built. Distinct from absent, and silent before this.
       warnSkip(
         "declarations_hub_stats",
-        "official_companies is EMPTY — companies tile ships without a figure",
+        "company_browse_table is EMPTY — companies tile ships without a figure",
         "run npm run db:load:declarations:pg -- --resolve",
       );
     }

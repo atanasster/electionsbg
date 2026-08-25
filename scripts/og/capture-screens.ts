@@ -884,7 +884,9 @@ const captures: Capture[] = [
   },
   {
     slug: "official-companies",
-    routePath: "governance/companies?elections=2026_04_19",
+    // Retired /governance/companies redirects here — same share-card identity (slug), wider
+    // scope (188): ?political=1 reproduces the old officials-linked population.
+    routePath: "companies?political=1&elections=2026_04_19",
     // MP-connected companies (most MPs first) — company rows with their linked-MP
     // avatars. (Was a rendered text card — job removed from generate.ts.)
     // ⚠️ `tr.group`, NOT a bare `tbody tr`. DbDataTable puts a TableRow in its LOADING,

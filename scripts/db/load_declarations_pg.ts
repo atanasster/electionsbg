@@ -110,32 +110,33 @@ const COMPANY_STAKES_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/177_company_declared_stakes.sql",
 );
-// The national companies-attached-to-an-office-holder relation behind /governance/companies.
-// Phase 2, because its declared arm reads 096's matview and its registry arm reads the
-// resolved person_role. Its other three inputs (tr_companies, tr_company_place,
-// company_public_money) are LEFT JOINs owned by loaders earlier in db:refresh — but a
-// CREATE MATERIALIZED VIEW resolves its whole query at creation, so an ABSENT one is a hard
-// failure rather than a NULL column, and this is preflighted rather than assumed.
-// Plan: docs/plans/company-page-consolidation-v1.md (Tier 3).
-const OFFICIAL_COMPANIES_SCHEMA = path.join(
+// The general company registry browse behind /companies — the full tr_companies corpus, with
+// "attached to an office-holder" (178's old official_companies population) as one filter
+// column (is_official_linked). Phase 2, because its declared arm reads 096's matview and its
+// registry arm reads the resolved person_role. Its other inputs (tr_companies,
+// tr_company_place, company_public_money, contractor_rank) are LEFT JOINs owned by loaders
+// earlier in db:refresh — but a CREATE MATERIALIZED VIEW resolves its whole query at
+// creation, so an ABSENT one is a hard failure rather than a NULL column, and this is
+// preflighted rather than assumed.
+// Plan: docs/plans/company-browse-dashboard-v1.md.
+const COMPANY_BROWSE_SCHEMA = path.join(
   ROOT,
-  "scripts/db/schema/pg/178_official_companies.sql",
+  "scripts/db/schema/pg/188_company_browse.sql",
 );
-/** Every relation 178's query names. A matview cannot be created against a missing one. */
-const OFFICIAL_COMPANIES_DEPS = [
+/** Every relation 188's query names. A matview cannot be created against a missing one. */
+const COMPANY_BROWSE_DEPS = [
   "person_role",
   "person",
   "tr_person_roles",
   "tr_companies",
   "tr_company_place",
   "company_public_money",
+  "contractor_rank",
   "declaration_stake_company",
   "tr_name_fold_people",
 ];
-/** The FUNCTIONS 178 names. The relation preflight is blind to these, and a missing one
- *  aborts the whole --resolve chain instead of skipping — `translit_bg_latin` is 000's and
- *  `gin_trgm_ops` needs the pg_trgm extension, neither of which this loader owns. */
-const OFFICIAL_COMPANIES_FN_DEPS = ["translit_bg_latin(text)"];
+/** pg_trgm backs 188's trigram search indexes; not owned by this loader. */
+const COMPANY_BROWSE_FN_DEPS: string[] = [];
 // Peer benchmarks (T3.9). Reads person_wealth_year (090) and person_role, so it must be
 // applied after 090 and after the resolve — its matview is built by its own CREATE ... AS.
 const COHORT_SCHEMA = path.join(
@@ -910,7 +911,7 @@ const resolve = async () => {
     // rolls the whole thing back. The 081→082 trap. It is a lone function over 096's matview,
     // so it carries no data of its own and this is its only applier.
     await exec(fs.readFileSync(COMPANY_STAKES_SCHEMA, "utf-8"));
-    // 178 — skip-and-warn rather than abort. Its inputs span four other loaders, and on a
+    // 188 — skip-and-warn rather than abort. Its inputs span five other loaders, and on a
     // fresh clone one of them can legitimately not have run yet; failing here would take the
     // whole declarations load with it and leave the corpus on its previous vintage. An absent
     // matview degrades the page to empty, which is visible; a failed load is not.
@@ -925,23 +926,23 @@ const resolve = async () => {
            UNION ALL
            SELECT 'pg_trgm' WHERE NOT EXISTS (
              SELECT 1 FROM pg_extension WHERE extname = 'pg_trgm')`,
-          [OFFICIAL_COMPANIES_DEPS, OFFICIAL_COMPANIES_FN_DEPS],
+          [COMPANY_BROWSE_DEPS, COMPANY_BROWSE_FN_DEPS],
         )
       ).map((r) => r.rel);
       if (missing.length) {
         console.warn(
-          `[declarations] skipping 178_official_companies — missing ${missing.join(", ")}. ` +
+          `[declarations] skipping 188_company_browse — missing ${missing.join(", ")}. ` +
             `Run npm run db:refresh (or the loader that owns the named relation).`,
         );
       } else {
-        await exec(fs.readFileSync(OFFICIAL_COMPANIES_SCHEMA, "utf-8"));
+        await exec(fs.readFileSync(COMPANY_BROWSE_SCHEMA, "utf-8"));
         // CREATE MATERIALIZED VIEW ... AS is a bulk write in one transaction, so every page
         // is written by a transaction that has not committed and the visibility map comes
         // out EMPTY — permanently, since the insert-threshold autovacuum that follows runs
         // mid-chain under a held-back xmin horizon, marks nothing, and never revisits.
-        // /governance/companies sorts and counts over this, so an index-only scan is the
-        // whole point. Outside any withTx: VACUUM cannot run in a transaction block.
-        await vacuumAfterReload("official_companies");
+        // /companies sorts over this, so an index-only scan is the whole point. Outside any
+        // withTx: VACUUM cannot run in a transaction block.
+        await vacuumAfterReload("company_browse_table");
       }
     }
     await exec("REFRESH MATERIALIZED VIEW person_wealth_year");

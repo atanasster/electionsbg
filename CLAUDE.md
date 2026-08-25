@@ -2128,6 +2128,69 @@ the tile's link to `/settlement/:id/companies` was hidden on 218 of 260 municipa
 with an empty page. `place_companies()` therefore returns BOTH counts and the tile reads
 `personLinkCount`.
 
+`company_browse_table` (migration 188, `db:load:declarations:pg -- --resolve`) is the general
+company registry browse behind `/companies` — one row per `tr_companies.uic`, the FULL Commerce
+Registry corpus (~1.02M rows), superseding `official_companies` (178, now a tombstone). The old
+page's whole population — "linked to a person in public life" — is one boolean column here
+(`is_official_linked`, the `?political=1` filter `/governance/companies` 301s into), not a
+separate matview and a separate page. Plan: `docs/plans/company-browse-dashboard-v1.md`.
+
+**`has_signal` is a DEFAULT-VIEW FLOOR, never a population cut.** Every company is in the
+table; `db_table.js`'s `companies` resource applies `has_signal=true` as a client-side
+`extraFilters` entry (the `ngos` resource's own pattern — no server-side `defaultFilters`,
+since overriding one is more fragile than a client simply omitting it), so an exact name/EIK
+search always finds a row and the "show all" toggle is just not sending the filter.
+`has_signal := public_money_eur > 0 OR is_official_linked OR contract_count > 0 OR
+entity_class IN ('ngo_assoc','ngo_found','chitalishte')` — roughly 10% of the corpus.
+
+**FOUR loaders touch it, each for a different staleness reason, and none of the three refresh
+call sites is redundant:**
+
+```bash
+npm run db:load:declarations:pg:cloud -- --resolve   # the ONLY create path (person layer)
+npm run db:load:graph:pg:cloud                       # public_money_eur (127)
+npm run db:load:tr-company-place:pg:cloud            # settlement/obshtina/oblast (133)
+npm run db:load:pg:cloud                              # contractor_total_eur/contract_count (122)
+```
+
+Two of its LEFT JOIN sources are read through plpgsql wrapper functions
+(`company_public_money_rows()`, `contractor_rank_all_rows()`) for the usual 077/145/178 reason:
+`company_public_money` and `contractor_rank` are each DROPped and rebuilt by a DIFFERENT
+loader, and a direct read (or a `LANGUAGE sql`/`BEGIN ATOMIC` wrapper, both parsed at CREATE)
+would record a `pg_depend` edge that CASCADEs `company_browse_table` away on every one of
+those OTHER loaders' runs, exiting 0 with nothing to show for it — caught live by
+`migration_drop_dependents.data.test.ts` during this table's own construction, on
+`contractor_rank`. `declaration_stake_company` (096) is read directly and is SANCTIONED in
+that gate instead, the same shape 178 had: `load_declarations_pg.ts` applies 096 then 188 a
+few statements later on the same path, so the CASCADE and the rebuild always travel together.
+
+⚠️ **First-bootstrap ordering is BACKWARDS, and `load_tr_company_place_pg.ts` self-heals it.**
+`db:refresh`'s chain runs `db:load:declarations:pg -- --resolve` — 188's only CREATE path —
+**before** `db:load:graph:pg` and `db:load:tr-company-place:pg`, the loaders that build two of
+its own dependencies. So on a genuinely fresh database the preflight there finds
+`company_public_money`/`tr_company_place` missing and skips (skip-and-warn, not abort — same
+as 178's own preflight always did), and nothing later in the chain would ever create the
+matview, since the other three loaders only REFRESH an existing one
+(`refreshMatviewConcurrently` returns `false` for an absent relation and does nothing).
+`load_tr_company_place_pg.ts` runs LAST of the three dependency-providers in `db:refresh`'s
+order, so it carries a FALLBACK CREATE: if the plain refresh reports the matview absent, it
+re-checks all of 188's dependencies (now guaranteed present) and applies the migration itself.
+A standalone `db:load:tr-company-place:pg:cloud` on a database that has never run the other two
+still skip-and-warns, correctly.
+
+**Place coverage is ~32%, same shape as `tr_company_place` above and for the same reason** —
+`oblast_name` is a NAME (133 has no oblast CODE), NULL for the ~68% of the corpus with no
+resolved seat, and the `?oblast=` picker facets that same column so counts stay exact. Never
+read `oblast_name IS NOT NULL` as "this company has no place" — it means "the seat did not
+resolve," which is the majority case for the wide corpus this table now covers (178's
+officials-linked population had ~60% place coverage; the full registry does not).
+
+The route (`companies` DbDataTable resource) has no `missingMigration` degrade, so a
+`deploy:db` shipping it before this loader first reaches the target 500s `/companies`
+outright — same ordering rule as `cpv_catalog` / `contractor_rank`. `company_browse.data.test.ts`
+fails on an empty/stale table, on `is_official_linked` disagreeing with an independent recount
+of 178's old two-arm union, and on either plpgsql wrapper drifting from its source.
+
 ### The two MP↔company serving functions, and the shard families they retired
 
 `mp_tr_roles(mp_id)` (migration 150, `/api/db/mp-management`) and

@@ -68,8 +68,8 @@ const PERSON_API_SQL = fileURLToPath(
  *  Was mp_connected.json — an MP NAME matched against Commerce-Registry officers with no
  *  people-per-name guard. This is `person_role` at source tr/ngo, minted through Bridge A/B
  *  and refused on a fold `tr_name_fold_people` says belongs to more than one human, unioned
- *  with 096's confirmed declared stakes. The same set /person, /company and
- *  /governance/companies publish, so no two surfaces describe one person's companies
+ *  with 096's confirmed declared stakes. The same set /person, /company and /companies
+ *  (is_official_linked) publish, so no two surfaces describe one person's companies
  *  differently.
  *
  *  EXPORTED so its gate runs the SHIPPED query rather than a re-typed copy. That is the
@@ -127,7 +127,7 @@ const armSql = (
     -- carries an end_date that is NULL on all 199,651 tr/ngo rows, so dropping this column
     -- does not degrade the chip — it makes „(бивш)" unreachable, and 17 of the served
     -- registry rows rest SOLELY on erased registry entries. Publishing a former partner as
-    -- current is the same class of false present-tense claim /governance/companies carries
+    -- current is the same class of false present-tense claim /companies carries
     -- has_current_role for.
     SELECT ptr.ref AS eik, pe.person_id, pe.display_name, ptr.role,
            bool_or(t.erased_at IS NULL) AS is_current

@@ -5146,7 +5146,6 @@
   "companies_browse_search": "Search company or EIK…",
   "companies_col_contracts": "Contracts",
   "companies_filter_political": "Linked to a public office-holder",
-  "oc_title": "Companies and organisations linked to public office-holders",
   "oc_col_company": "Company",
   "oc_col_evidence": "Basis",
   "oc_col_oblast": "Oblast",
@@ -5154,7 +5153,6 @@
   "oc_evidence_registry": "Commerce Registry",
   "oc_evidence_declared": "Declared",
   "oc_evidence_former": "former",
-  "oc_search": "Search organisation or UIC…",
   "oc_agg_over": "across",
   "oc_agg_companies": "organisations",
   "oc_kind_ngo_assoc": "association",
@@ -5162,6 +5160,7 @@
   "oc_kind_chitalishte": "chitalishte",
   "oc_kind_coop": "cooperative",
   "oc_kind_state_enterprise": "state enterprise",
+  "oc_kind_foreign_branch": "foreign branch",
   "oc_kind_company": "company",
   "procurement_rel_declared_role": "declared management role",
   "budget_doc_extra_sources_one": "{{count}} more source",
@@ -5204,5 +5203,8 @@
   "nsh_kpi_attendance_basis": "weighted by item, not averaged over MPs",
   "nsh_kpi_note_partial": "The data for the {{assembly}} Assembly covers only {{from}} – {{to}}, so every figure here is for that stretch rather than the whole term.",
   "nsh_metric_bills_one": "bill at second reading",
-  "nsh_metric_bills_other": "bills at second reading"
+  "nsh_metric_bills_other": "bills at second reading",
+  "nsh_evidence_groups": "Parliamentary groups",
+  "nsh_evidence_groups_basis": "by last group on the roll-call lists",
+  "nsh_evidence_groups_all": "all groups"
 }

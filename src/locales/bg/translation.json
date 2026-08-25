@@ -5146,7 +5146,6 @@
   "companies_browse_search": "Търси фирма или ЕИК…",
   "companies_col_contracts": "Поръчки",
   "companies_filter_political": "Свързана с публично лице",
-  "oc_title": "Фирми и организации, свързани с лица на публична длъжност",
   "oc_col_company": "Фирма",
   "oc_col_evidence": "Основание",
   "oc_col_oblast": "Област",
@@ -5154,7 +5153,6 @@
   "oc_evidence_registry": "Търговски регистър",
   "oc_evidence_declared": "Декларирано",
   "oc_evidence_former": "бивше",
-  "oc_search": "Търси организация или ЕИК…",
   "oc_agg_over": "в",
   "oc_agg_companies": "организации",
   "oc_kind_ngo_assoc": "сдружение",
@@ -5162,6 +5160,7 @@
   "oc_kind_chitalishte": "читалище",
   "oc_kind_coop": "кооперация",
   "oc_kind_state_enterprise": "държавно предприятие",
+  "oc_kind_foreign_branch": "клон на чуждестранно лице",
   "oc_kind_company": "фирма",
   "procurement_rel_declared_role": "декларирана ръководна длъжност",
   "budget_doc_extra_sources_one": "още {{count}} източник",
@@ -5204,5 +5203,8 @@
   "nsh_kpi_attendance_basis": "претеглено по точки, не средно по депутати",
   "nsh_kpi_note_partial": "Данните за {{assembly}} НС покриват само {{from}} – {{to}}, така че всяка цифра тук е за този отрязък, не за целия мандат.",
   "nsh_metric_bills_one": "законопроект на второ четене",
-  "nsh_metric_bills_other": "законопроекта на второ четене"
+  "nsh_metric_bills_other": "законопроекта на второ четене",
+  "nsh_evidence_groups": "Парламентарни групи",
+  "nsh_evidence_groups_basis": "по последна група в поименните списъци",
+  "nsh_evidence_groups_all": "всички групи"
 }

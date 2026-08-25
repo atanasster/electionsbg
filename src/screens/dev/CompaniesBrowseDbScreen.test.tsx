@@ -1,23 +1,24 @@
-// /governance/companies — what each row CLAIMS about a company.
+// /companies — what each row CLAIMS about a company.
 //
-// The retired /mp/companies had one decision worth testing (is the name a link) and this page
-// has three, all of which are assertions about named companies and the people attached to them:
+// Three assertions carried over from the retired OfficialCompaniesScreen's own test (same
+// `cell` logic, ported into this screen's compound name/evidence/money cells):
 //
-//   • a company reached only through WITHDRAWN registry filings must read as FORMER. 2,342 of
-//     17,608 are in that state, and /person already renders the same pair that way — a page
-//     that prints them unlabelled says a sitting official is currently a director.
-//   • the two arms are different evidence and must be distinguishable, not merged.
-//   • the money column is a broad basis, and €0 must read as "none", never as "unknown".
+//   • a company reached only through WITHDRAWN registry filings must read as FORMER.
+//   • the registry and declared-stake arms are different evidence and must be
+//     distinguishable, not merged — and the whole evidence cell must render "—" for a
+//     company that isn't officially-linked at all (this screen's population is far wider
+//     than the retired page's, so "no evidence" is now the common case, not the exception).
+//   • the money column is a broad basis, and €0 must read as "none", never as blank/unknown.
 //
-// `DbDataTable` is stubbed rather than exercised: it is separately tested, it fetches, and what
-// this file is about is the column definitions the screen hands it. The stub renders every row
-// through those definitions, so a broken `cell` still fails here.
+// `DbDataTable` is stubbed rather than exercised: it is separately tested, it fetches, and
+// what this file is about is the column definitions the screen hands it. The stub renders
+// every row through those definitions, so a broken `cell` still fails here.
 
 import { describe, expect, it, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { bgCorpus as bg } from "@/locales/allKeys";
-import type { OfficialCompanyRow } from "./OfficialCompaniesScreen";
+import type { CompanyBrowseRow } from "./CompaniesBrowseDbScreen";
 
 const dict = bg as Record<string, string>;
 
@@ -36,11 +37,9 @@ const AGG = vi.hoisted(() => ({
 }));
 
 // A stub that honours the contract the screen depends on: it receives `columns` and renders
-// each row's cells. Anything the screen gets wrong in a `cell` shows up in the DOM.
-// ⚠️ THE STUB MUST RENDER renderAggregates TOO. Its first version rendered only the column
-// cells, and that omission is precisely why the footer shipped reading a key the engine never
-// emits: it reported €0 against a true €12.18bn and no test could see it. A stub that
-// exercises fewer props than the component uses is a test that certifies the untested half.
+// each row's cells. Anything the screen gets wrong in a `cell` shows up in the DOM. The stub
+// MUST render renderAggregates too — see OfficialCompaniesScreen's own history, where a stub
+// exercising fewer props than the component uses certified the untested half.
 vi.mock("@/ux/data_table/DbDataTable", () => ({
   DbDataTable: ({
     columns,
@@ -77,9 +76,9 @@ vi.mock("@/ux/data_table/DbDataTable", () => ({
   ),
 }));
 
-const { OfficialCompaniesScreen } = await import("./OfficialCompaniesScreen");
+const { CompaniesBrowseDbScreen } = await import("./CompaniesBrowseDbScreen");
 
-const row = (over: Partial<OfficialCompanyRow>): OfficialCompanyRow => ({
+const row = (over: Partial<CompanyBrowseRow>): CompanyBrowseRow => ({
   uic: "204361427",
   name: "ПРИМЕР ООД",
   legalForm: "OOD",
@@ -87,36 +86,57 @@ const row = (over: Partial<OfficialCompanyRow>): OfficialCompanyRow => ({
   status: "active",
   entityClass: "company",
   oblastName: "София (столица)",
-  personCount: 1,
-  hasRegistryLink: true,
+  obshtinaCode: "SFO",
+  publicMoneyEur: 0,
+  contractorTotalEur: null,
+  contractCount: 0,
+  isMpTied: false,
+  personCount: 0,
+  hasRegistryLink: false,
   hasDeclaredStake: false,
-  hasCurrentRole: true,
-  moneyEur: 0,
+  hasCurrentRole: false,
+  isOfficialLinked: false,
+  hasSignal: false,
   ...over,
 });
 
-const draw = (data: OfficialCompanyRow[]) => {
+const draw = (data: CompanyBrowseRow[]) => {
   rows.current = data;
   return render(
     <MemoryRouter>
-      <OfficialCompaniesScreen />
+      <CompaniesBrowseDbScreen />
     </MemoryRouter>,
   );
 };
 
 const evidence = () => screen.getByTestId("cell-evidence");
 
-describe("OfficialCompaniesScreen — the evidence a row claims", () => {
-  it("reads the rows from the server-side resource, not a client blob", () => {
+describe("CompaniesBrowseDbScreen — the server-side resource", () => {
+  it("reads rows from the `companies` resource, not the retired official_companies one", () => {
     draw([row({})]);
     expect(screen.getByTestId("table")).toHaveAttribute(
       "data-resource",
-      "official_companies",
+      "companies",
     );
+  });
+});
+
+describe("CompaniesBrowseDbScreen — the evidence a row claims", () => {
+  it("renders — for a company that is not officially-linked at all", () => {
+    // The common case on this wider browse: most companies carry no political-link evidence.
+    draw([row({ isOfficialLinked: false })]);
+    expect(evidence().textContent).toBe("—");
   });
 
   it("labels a registry link and a declared stake separately", () => {
-    draw([row({ hasRegistryLink: true, hasDeclaredStake: true })]);
+    draw([
+      row({
+        isOfficialLinked: true,
+        hasRegistryLink: true,
+        hasDeclaredStake: true,
+        hasCurrentRole: true,
+      }),
+    ]);
     const cell = evidence();
     expect(
       within(cell).getByText(dict.oc_evidence_registry),
@@ -127,26 +147,35 @@ describe("OfficialCompaniesScreen — the evidence a row claims", () => {
   });
 
   it("marks a company whose every registry filing was withdrawn as FORMER", () => {
-    // The one that matters. Without it, 2,342 companies read as current attachments.
-    draw([row({ hasRegistryLink: true, hasCurrentRole: false })]);
+    draw([
+      row({
+        isOfficialLinked: true,
+        hasRegistryLink: true,
+        hasCurrentRole: false,
+      }),
+    ]);
     expect(
       within(evidence()).getByText(dict.oc_evidence_former),
     ).toBeInTheDocument();
   });
 
   it("does NOT mark a current registry role as former", () => {
-    draw([row({ hasRegistryLink: true, hasCurrentRole: true })]);
+    draw([
+      row({
+        isOfficialLinked: true,
+        hasRegistryLink: true,
+        hasCurrentRole: true,
+      }),
+    ]);
     expect(
       within(evidence()).queryByText(dict.oc_evidence_former),
     ).not.toBeInTheDocument();
   });
 
-  it("never marks a stake-only company former — a filing cannot be withdrawn", () => {
-    // has_current_role is false for a stake-only row by construction (a declaration carries
-    // no erasure date), so gating the chip on hasRegistryLink is what stops it printing
-    // „бивше" against a company nobody ever held a registry role in.
+  it("never marks a stake-only company former — a declaration cannot be withdrawn", () => {
     draw([
       row({
+        isOfficialLinked: true,
         hasRegistryLink: false,
         hasDeclaredStake: true,
         hasCurrentRole: false,
@@ -162,10 +191,8 @@ describe("OfficialCompaniesScreen — the evidence a row claims", () => {
   });
 });
 
-describe("OfficialCompaniesScreen — what kind of organisation each row is", () => {
+describe("CompaniesBrowseDbScreen — what kind of organisation each row is", () => {
   it("names a non-company kind rather than calling it a фирма", () => {
-    // 5,200 of 17,608 rows are not companies. „Сдружение Български Червен кръст" (€15.7m)
-    // rendered as an office-holder's фирма is a different and wrong claim.
     draw([row({ entityClass: "ngo_assoc", name: "БЪЛГАРСКИ ЧЕРВЕН КРЪСТ" })]);
     expect(
       within(screen.getByTestId("cell-name")).getByText(dict.oc_kind_ngo_assoc),
@@ -173,15 +200,23 @@ describe("OfficialCompaniesScreen — what kind of organisation each row is", ()
   });
 
   it("does not label an ordinary company with a kind", () => {
-    // The label exists to mark the exception; printing „фирма" on 12,408 rows is noise.
     draw([row({ entityClass: "company" })]);
     expect(
       within(screen.getByTestId("cell-name")).queryByText(dict.oc_kind_company),
     ).not.toBeInTheDocument();
   });
+
+  it("translates a foreign_branch entity class rather than printing the raw code", () => {
+    draw([row({ entityClass: "foreign_branch" })]);
+    const cell = screen.getByTestId("cell-name");
+    expect(
+      within(cell).getByText(dict.oc_kind_foreign_branch),
+    ).toBeInTheDocument();
+    expect(cell.textContent).not.toMatch(/foreign_branch/);
+  });
 });
 
-describe("OfficialCompaniesScreen — the row's other columns", () => {
+describe("CompaniesBrowseDbScreen — the row's other columns", () => {
   it("links the company by EIK and prints the identifier beside it", () => {
     draw([row({ uic: "204361427", name: "ПРИМЕР ООД" })]);
     const cell = screen.getByTestId("cell-name");
@@ -192,36 +227,41 @@ describe("OfficialCompaniesScreen — the row's other columns", () => {
     expect(within(cell).getByText("204361427")).toBeInTheDocument();
   });
 
-  it("renders €0 as none, not as an amount", () => {
-    // The money column is a broad basis over four corpora; 14,577 of 17,608 rows are at zero.
-    // Printing „€0,00" reads as a measurement where „—" reads as the absence it is.
-    draw([row({ moneyEur: 0 })]);
-    expect(screen.getByTestId("cell-money_eur").textContent).toBe("—");
+  it("renders €0 public money as none, not as an amount", () => {
+    draw([row({ publicMoneyEur: 0 })]);
+    expect(screen.getByTestId("cell-public_money_eur").textContent).toBe("—");
   });
 
-  it("renders an unresolved seat as — rather than blank", () => {
-    // 40% of the population has no resolved oblast. A blank cell reads as a rendering bug.
+  it("renders a zero contract count as — rather than 0", () => {
+    draw([row({ contractCount: 0 })]);
+    expect(screen.getByTestId("cell-contract_count").textContent).toBe("—");
+  });
+
+  it("renders an unresolved oblast as — rather than blank", () => {
     draw([row({ oblastName: null })]);
     expect(screen.getByTestId("cell-oblast_name").textContent).toBe("—");
   });
 
   it("never prints a raw i18n key", () => {
-    const { container } = draw([row({}), row({ hasDeclaredStake: true })]);
+    const { container } = draw([
+      row({}),
+      row({ isOfficialLinked: true, hasDeclaredStake: true }),
+    ]);
     expect(container.textContent).not.toMatch(/\boc_[a-z_]+\b/);
+    expect(container.textContent).not.toMatch(/\bcompanies_[a-z_]+\b/);
   });
 });
 
-describe("OfficialCompaniesScreen — the footer total", () => {
+describe("CompaniesBrowseDbScreen — the footer total", () => {
   it("reads the aggregate under the camelCase key the engine emits", () => {
-    // buildAggSelect emits `sum${Camel}`, so `sum_money_eur` is always undefined. Read
-    // wrongly the footer said €0 against €12.18bn, on every page, for every filter.
-    AGG.current = { sumMoneyEur: 12175105352, countAll: 17608 };
-    AGG.total = 17608;
+    // buildAggSelect emits `sum${Camel}`, so a snake_case read is always undefined —
+    // OfficialCompaniesScreen shipped exactly this regression once.
+    AGG.current = { sumPublicMoneyEur: 12175105352, countAll: 100000 };
+    AGG.total = 100000;
     draw([row({})]);
     const footer = screen.getByTestId("footer").textContent ?? "";
     expect(footer).not.toMatch(/^\s*0\b/);
     expect(footer).toMatch(/12/);
-    expect(footer).toContain("17 608".replace(/ /g, "\u00a0"));
   });
 
   it("does not invent a total when the aggregate is absent", () => {
@@ -229,19 +269,5 @@ describe("OfficialCompaniesScreen — the footer total", () => {
     AGG.total = 0;
     draw([row({})]);
     expect(screen.getByTestId("footer").textContent).toMatch(/0/);
-  });
-});
-
-describe("OfficialCompaniesScreen — the copy", () => {
-  it("does not call the population MPs", () => {
-    // The page covers every public office-holder; MPs are a minority of 17,608 companies.
-    // The retired page's title said „народни представители" and would have been wrong here.
-    for (const k of ["oc_title", "oc_intro", "oc_col_people", "oc_footnote"])
-      expect(dict[k]).not.toMatch(/народни представители/);
-  });
-
-  it("states what the money column combines and what an absent oblast means", () => {
-    expect(dict.oc_footnote).toMatch(/обществени поръчки/);
-    expect(dict.oc_footnote).toMatch(/40%/);
   });
 });

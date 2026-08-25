@@ -176,13 +176,13 @@ const SHOTS = [
   },
   {
     file: "09-all-companies.png",
-    // ⚠️ [2026-08-21] MOVED. /mp/companies is a firebase.json 301 to /governance/companies,
-    // and the page widened from MPs to all public office-holders
-    // (docs/plans/company-page-consolidation-v1.md Tier 3). The old URL was left here for a
-    // day, which is exactly the failure the note below describes: unlike a retired API this
-    // fails SILENTLY — the SPA renders its shell and this script screenshots an empty page
-    // rather than erroring — so a URL here must move in the same change as its redirect.
-    url: "/governance/companies",
+    // ⚠️ [2026-08-25] MOVED AGAIN. /governance/companies (and /mp/companies before it) is now
+    // a firebase.json 301 to /companies?political=1 — the general company registry browse
+    // (company_browse_table, 188) filtered to the old officials-linked population
+    // (docs/plans/company-browse-dashboard-v1.md). Unlike a retired API this fails SILENTLY —
+    // the SPA renders its shell and this script screenshots an empty page rather than
+    // erroring — so a URL here must move in the same change as its redirect.
+    url: "/companies?political=1",
     prep: async (p) => {
       await p.waitForLoadState("networkidle");
       await p.waitForTimeout(800);

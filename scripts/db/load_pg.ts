@@ -18,6 +18,7 @@ import {
   withClient,
   withTx,
   vacuumAfterReload,
+  refreshMatviewConcurrently,
   end,
 } from "./lib/pg";
 import { copyRows } from "./lib/copy";
@@ -567,6 +568,13 @@ export const loadPg = async (): Promise<{
   // The list, its order and the refresh semantics live in lib/scopedMatviews, not here: a
   // second copy is how a future migration ends up in one list and not the other.
   await refreshScopedPrecomputes();
+  // company_browse_table (188) reads contractor_rank's scope_key='all' rows through a
+  // plpgsql wrapper (so the DROP inside 122_contractor_rank.sql — just refreshed above —
+  // cannot CASCADE it away), which means nothing else re-derives its contractor columns from
+  // a fresh contracts publish. Without this a STANDALONE db:load:pg run leaves /companies'
+  // "won a contract" signal and contractor totals on the previous vintage. Skips when 188 has
+  // never been applied (returns false), same contract as load_graph_pg.ts's money refresh.
+  await refreshMatviewConcurrently("company_browse_table");
   // Cross-corpus leaderboard cache (077). Both source relations exist (015/016
   // applied above), so this refresh always succeeds; the intersection is empty
   // until funds are loaded, at which point load_funds_pg re-refreshes it. Must

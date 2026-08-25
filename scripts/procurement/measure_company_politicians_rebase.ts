@@ -4,7 +4,7 @@
 // the `mp` arm is fed by companies-index.json (a name match with no people-per-name guard)
 // and the `official` arm by data/officials/derived/company_links.json (the same method, with
 // an `isUniqueName` proxy its own header calls wrong in both directions). Both become the
-// gated `person_role` set that /person, /company and /governance/companies already publish.
+// gated `person_role` set that /person, /company and /companies already publish.
 //
 // ⚠️ WHY THIS SCRIPT EXISTS RATHER THAN A ROW COUNT. `company_politicians` is read by 24
 // migrations, and two of them decide what a reader SEES about a named contract:

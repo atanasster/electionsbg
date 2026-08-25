@@ -1861,33 +1861,34 @@ const REGISTRY = {
     // is the 'all'/'ALL' leaderboard (~29.5k rows); MAX_OFFSET still caps deep paging.
     maxPageSize: 1000,
   },
-  // Companies attached to a person in public life (matview official_companies, 178) — the
-  // /governance/companies browser, replacing the MP-name-matched companies-index.json that
-  // /mp/companies read. 17,608 rows against that artifact's 2,969, on the gated person layer.
-  // Plan: docs/plans/company-page-consolidation-v1.md (Tier 3).
-  official_companies: {
-    base: "official_companies",
+  // The general company registry browse (matview company_browse_table, 188) — the /companies
+  // browser. Supersedes official_companies (178): "linked to a person in public life" is now
+  // `is_official_linked`, ONE filter on the FULL tr_companies corpus (~1.02M rows) rather than
+  // a separate ~17.6k-row matview and a separate page. Plan:
+  // docs/plans/company-browse-dashboard-v1.md.
+  companies: {
+    base: "company_browse_table",
     // ⚠️ DECLARED EMPTY, NEVER OMITTED. buildWhere dereferences scopeCols unguarded, so a
     // request carrying a scope against a resource that omits it is an uncaught TypeError —
     // a 500 where the engine's contract promises a 400. This relation is genuinely
     // unscoped: it is the whole corpus, with no ?pscope analogue.
     scopeCols: [],
     columns: {
-      // The paging tiebreak AND the deep-link key. Searchable for the same reason
-      // contractor_rankings' eik is: the page PRINTS it beside every name, so pasting one
-      // back must find the row. Routed by SHAPE rather than OR'd into the name arm — an EIK
-      // never matches a name, and OR-ing costs the name search its trigram index.
-      // 8..14 rather than 9|13: the corpus reaches this matview through person_role.ref,
-      // which carries the same synthetic carriers supplier_identity mints.
+      // The paging tiebreak AND the deep-link key. Routed by SHAPE (searchWhen) rather than
+      // OR'd into the name arm — an EIK never matches a name, and OR-ing costs the name
+      // search its trigram index. Unlike official_companies' uic (sourced from
+      // person_role.ref, which can carry supplier_identity's synthetic obed-/ph-/np-
+      // carriers), this column is tr_companies.uic directly — always a plain Commerce
+      // Registry EIK — so the regex needs no alternation.
       uic: {
         type: "text",
         sort: true,
         filter: "eq",
         search: true,
         searchEq: true,
-        searchWhen: "[0-9]{8,14}|(obed|ph|np)-[0-9a-f]{6,32}",
+        searchWhen: "[0-9]{8,14}",
       },
-      // Global search hits the transliterated fold (gin_trgm-indexed in 178), so Latin
+      // Global search hits the transliterated fold (gin_trgm-indexed in 188), so Latin
       // "sofarma" matches „СОФАРМА"; the raw name column is indexed too but the fold is what
       // makes a Latin query work at all.
       name: {
@@ -1900,26 +1901,48 @@ const REGISTRY = {
       legal_form: { type: "text", filter: "in" },
       seat: { type: "text" },
       status: { type: "text", filter: "in" },
-      entity_class: { type: "text", filter: "in" },
-      // ⚠️ THE OBLAST FILTER CARRIES A NAME, NOT A CODE, and the column says so. 178's
+      // PROJECTED, not merely filterable: ~3% of the corpus are сдружения, читалища,
+      // фондации, кооперации or държавни предприятия, and a page that calls them all
+      // „фирми" makes a different and wrong claim about each.
+      entity_class: { type: "text", sort: true, filter: "in" },
+      // ⚠️ THE OBLAST FILTER CARRIES A NAME, NOT A CODE, and the column says so. 133's
       // source has no oblast code and deriving one from the obshtina prefix is unsafe here
       // (project_oblast_code_shard_mismatch). The picker facets this same column, so its
       // counts are exact and no code→name dictionary is needed — the `?court` pattern on
-      // /persons, deliberately NOT the `?oblast=VAR` one.
+      // /persons, deliberately NOT the `?oblast=VAR` one. NULL for the ~68% of the corpus
+      // with no resolved seat, same as official_companies before it.
       oblast_name: { type: "text", filter: "in" },
       obshtina_code: { type: "text", filter: "eq" },
+      // 127's broad basis (contracts ∪ subsidies ∪ funds ∪ interreg). Backs the footer sum
+      // and the default sort — one row per uic, verified against the source relations in
+      // company_browse.data.test.ts, so unlike person_browse_table's public_money_eur (which
+      // duplicates a company's money onto every co-officer's row) a SUM here is safe.
+      public_money_eur: {
+        type: "number",
+        sort: true,
+        filter: "range",
+        agg: "sum",
+      },
+      // The corpus-wide (all scopes, all CPV divisions) contractor_rank figures — "won a
+      // contract, ever". No ?pscope analogue on this browse.
+      contractor_total_eur: { type: "number", sort: true, filter: "range" },
+      contract_count: { type: "int", sort: true, filter: "range" },
+      is_mp_tied: { type: "bool", filter: "eq" },
       // How many DISTINCT people in public life are attached. Not a sum over the two arms —
       // a person the registry AND their own filing both place here is one person.
-      person_count: { type: "number", sort: true, filter: "range" },
+      person_count: { type: "int", sort: true, filter: "range" },
       // WHICH evidence, so the page can label rather than imply. `has_current_role` is the
-      // one that keeps the 2,342 companies whose every registry filing has been WITHDRAWN
-      // (2,106 with no declared stake either) from being published present-tense.
+      // one that keeps a company whose every registry filing has been WITHDRAWN from being
+      // published present-tense.
       has_registry_link: { type: "bool", filter: "eq" },
       has_declared_stake: { type: "bool", filter: "eq" },
       has_current_role: { type: "bool", filter: "eq" },
-      // 127's broad basis (contracts ∪ subsidies ∪ funds ∪ interreg). Backs the footer sum
-      // and the in-cell magnitude bar's max.
-      money_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      // official_companies' (178) old population, as one filter — the `?political=1` toggle
+      // that replaces the retired /governance/companies page.
+      is_official_linked: { type: "bool", filter: "eq" },
+      // The default-view floor (money/political-link/contractor/NGO) — see the matview's own
+      // header. A `?scope=all` control clears it client-side; never a population cut.
+      has_signal: { type: "bool", filter: "eq" },
     },
     select: [
       "uic",
@@ -1927,29 +1950,34 @@ const REGISTRY = {
       "legal_form",
       "seat",
       "status",
-      // PROJECTED, not merely filterable: 5,200 of 17,608 rows are сдружения, читалища,
-      // фондации, кооперации or държавни предприятия, and a page that calls them all
-      // „фирми" makes a different and wrong claim about each.
       "entity_class",
       "oblast_name",
+      "obshtina_code",
+      "public_money_eur",
+      "contractor_total_eur",
+      "contract_count",
+      "is_mp_tied",
       "person_count",
       "has_registry_link",
       "has_declared_stake",
       "has_current_role",
-      "money_eur",
+      "is_official_linked",
+      "has_signal",
     ],
-    // uic is the tiebreak, not decoration: money_eur alone is not a total order (14,577 rows
-    // sit at exactly 0), and 178's composite index trails with uic so this stays index-served.
+    // Matches idx_company_browse_default / idx_company_browse_money exactly (188): money is
+    // not a total order (most of the corpus sits at exactly €0), so the sort trails with
+    // name then uic.
     defaultSort: [
-      ["money_eur", "desc"],
+      ["public_money_eur", "desc"],
+      ["name", "asc"],
       ["uic", "asc"],
     ],
-    aggregates: [
-      { fn: "count" },
-      { fn: "sum", col: "money_eur" },
-      { fn: "max", col: "money_eur" },
-    ],
-    maxPageSize: 1000,
+    // NO server-side defaultFilters on has_signal — same shape as `ngos` (has_signal, above).
+    // The CLIENT sends `{id:"has_signal", value:true}` by default and drops it for a "show
+    // all" toggle; a server-side default would need overriding rather than merely omitting,
+    // which `in`-vs-`eq` filter semantics make more fragile than just not declaring one.
+    aggregates: [{ fn: "count" }, { fn: "sum", col: "public_money_eur" }],
+    maxPageSize: 50,
   },
 };
 

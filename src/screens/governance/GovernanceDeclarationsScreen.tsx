@@ -74,7 +74,7 @@ export const GovernanceDeclarationsScreen: FC = () => {
     };
 
     // ⚠️ OMITTED AT ZERO, never rendered as „0 организации". The generator ships 0 when
-    // official_companies (178) is absent or unbuilt — a state its own warning calls "ships
+    // company_browse_table (188) is absent or unbuilt — a state its own warning calls "ships
     // without a figure" — and a tile printing that zero would turn "we have not built this
     // yet" into "no office-holder is attached to any organisation", about every named person
     // at once. Same rule the per-parliament tiles below already follow for an empty slice.

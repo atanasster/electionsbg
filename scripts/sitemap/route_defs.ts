@@ -137,7 +137,7 @@ export const ENGLISH_STATIC_PAGES = [
   "wasted-vote/regions",
   "where-did-votes-go/methodology",
   "connections",
-  "governance/companies",
+  "companies",
   "mp-assets",
   "mp-cars",
   "declarations/crypto",
@@ -548,8 +548,8 @@ export const routeDefs = (year: string): RouteDefs => [
   // MP-declaration dashboards.
   { path: "connections", file: `src/screens/ConnectionsScreen.tsx` },
   {
-    path: "governance/companies",
-    file: `src/screens/OfficialCompaniesScreen.tsx`,
+    path: "companies",
+    file: `src/screens/dev/CompaniesBrowseDbScreen.tsx`,
   },
   { path: "mp-assets", file: `src/screens/AllMpAssetsScreen.tsx` },
   { path: "mp-cars", file: `src/screens/MpCarsScreen.tsx` },

@@ -42,11 +42,13 @@ import path from "node:path";
 import type { PoolClient } from "pg";
 import { allRows, withClient, dbReachable, end } from "../lib/pg";
 import { REPO_ROOT } from "../lib/paths";
+import { reportSkip } from "../../lib/report_skip";
 
 const SCHEMA_DIR = path.join(REPO_ROOT, "scripts/db/schema/pg");
 
 const haveDb = await dbReachable();
 const skip = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
@@ -61,14 +63,16 @@ afterAll(async () => {
 // of these still fails.
 const SANCTIONED: Record<string, { dependents: string[]; why: string }> = {
   declaration_stake_company: {
-    dependents: ["official_companies"],
+    dependents: ["company_browse_table"],
     why:
       "096's DROP … CASCADE takes it, and load_declarations_pg.ts — the only applier of 096 " +
-      "— applies 178 a few statements later on the same path, with a comment at the constant " +
-      "saying that is why it is applied there. Same shape as person_wealth_year's six. NOTE " +
-      "178's OTHER input, company_public_money (127), is NOT sanctionable this way: 127's " +
-      "only applier is db:load:graph:pg, a different loader that would never rebuild 178 — " +
-      "so 178 reads that one through a plpgsql wrapper instead.",
+      "— applies 188 a few statements later on the same path, with a comment at the constant " +
+      "saying that is why it is applied there. Same shape as person_wealth_year's six. This " +
+      "is the same relationship 178 (now a tombstone) had under its old name official_companies " +
+      "— 188 widened the population, not the dependency shape. NOTE 188's OTHER inputs, " +
+      "company_public_money (127) and contractor_rank (122), are NOT sanctionable this way: " +
+      "each is applied by a DIFFERENT loader that would never rebuild 188 (db:load:graph:pg " +
+      "and db:load:pg respectively) — so 188 reads both through a plpgsql wrapper instead.",
   },
   mp_dissent: {
     dependents: ["mp_loyalty"],

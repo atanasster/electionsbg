@@ -126,22 +126,23 @@ test("people and officials quote their DESTINATION's filter, not their table", a
   assert.ok(blob.peopleWithDeclaration < blob.people);
 });
 
-test("the organisations figure comes from what /governance/companies renders", async (t) => {
+test("the organisations figure comes from what /companies?political=1 renders", async (t) => {
   // ⚠️ THE TILE QUOTES ITS DESTINATION'S OWN RELATION. It used to quote
   // data/parliament/companies-index.json because that WAS what /mp/companies rendered; the
-  // destination is now /governance/companies over `official_companies` (178). The rule did
-  // not change — only which relation satisfies it.
+  // destination is now /companies?political=1 over `company_browse_table` (188) WHERE
+  // is_official_linked, formerly official_companies' (178) whole relation. The rule did not
+  // change — only which relation satisfies it.
   if (!(await dbReachable())) return t.skip();
   const blob = load();
   if (!blob) return t.skip();
   const [row] = await allRows<Record<string, string>>(
-    `SELECT count(*)::text AS n FROM official_companies`,
+    `SELECT count(*)::text AS n FROM company_browse_table WHERE is_official_linked`,
   ).catch(() => [undefined as unknown as Record<string, string>]);
   if (!row) return t.skip();
   assert.equal(
     blob.organisations,
     Number(row.n),
-    "organisations drifted from official_companies — the tile and its destination disagree",
+    "organisations drifted from company_browse_table — the tile and its destination disagree",
   );
   // ⚠️ THE EXACT RECOUNT, carrying 178's TWO registry guards. The first version asserted
   // only `< sum(person_count)` (21,207), which admits anything in [0, 21206] — and that is
@@ -170,7 +171,8 @@ test("the organisations figure comes from what /governance/companies renders", a
   );
   // And still not a SUM: people repeat across organisations.
   const [sum] = await allRows<Record<string, string>>(
-    `SELECT coalesce(sum(person_count),0)::text AS s FROM official_companies`,
+    `SELECT coalesce(sum(person_count),0)::text AS s
+       FROM company_browse_table WHERE is_official_linked`,
   );
   assert.ok(
     blob.organisationPeople < Number(sum.s),

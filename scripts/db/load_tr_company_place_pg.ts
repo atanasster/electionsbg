@@ -38,7 +38,14 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec, allRows, withClient, withTx, end } from "./lib/pg";
+import {
+  exec,
+  allRows,
+  withClient,
+  withTx,
+  end,
+  refreshMatviewConcurrently,
+} from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import {
   createStageTable,
@@ -62,6 +69,22 @@ const SERVING_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/151_place_mp_companies.sql",
 );
+// company_browse_table (188) — see the FALLBACK CREATE note at its refresh call site below.
+const COMPANY_BROWSE_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/188_company_browse.sql",
+);
+const COMPANY_BROWSE_DEPS = [
+  "person_role",
+  "person",
+  "tr_person_roles",
+  "tr_companies",
+  "tr_company_place",
+  "company_public_money",
+  "contractor_rank",
+  "declaration_stake_company",
+  "tr_name_fold_people",
+];
 
 const SPEC: StageMergeSpec = {
   table: "tr_company_place",
@@ -213,6 +236,45 @@ export const loadTrCompanyPlacePg = async (): Promise<{
     await mergeFromStage(c, SPEC);
   });
   await exec(`DROP TABLE IF EXISTS ${SPEC.source}`);
+
+  // company_browse_table (188) LEFT JOINs this table for settlement/obshtina/oblast — a
+  // standalone run of THIS loader (the documented routine publish after any place-affecting
+  // reload) would otherwise leave /companies place filters and the oblast facet on the
+  // previous vintage until the next full declarations resolve.
+  //
+  // ⚠️ FALLBACK CREATE, not merely a refresh. 188's ONLY create path is inside
+  // `db:load:declarations:pg -- --resolve`, gated on a preflight that requires
+  // company_public_money (127) and tr_company_place (this table) to already exist — but
+  // db:refresh's own chain runs that resolve step BEFORE db:load:graph:pg (which builds 127)
+  // and before THIS loader. So on a genuinely fresh bootstrap the preflight there finds both
+  // missing and skips, and company_browse_table is never built during that pass — a plain
+  // refresh below would silently do nothing forever (refreshMatviewConcurrently returns
+  // false for a relation that does not exist). By the time this loader finishes, every
+  // dependency 188 reads is guaranteed present (contractor_rank from the earlier
+  // procurement-scopes step, company_public_money from the earlier db:load:graph:pg, and
+  // tr_company_place from this run) — this loader is the last of the three in db:refresh's
+  // order, so it is the correct place to self-heal a bootstrap that skipped the create.
+  const refreshedCompanyBrowse = await refreshMatviewConcurrently(
+    "company_browse_table",
+  );
+  if (!refreshedCompanyBrowse) {
+    const missing = (
+      await allRows<{ rel: string }>(
+        `SELECT rel FROM unnest($1::text[]) AS rel
+          WHERE to_regclass('public.' || rel) IS NULL`,
+        [COMPANY_BROWSE_DEPS],
+      )
+    ).map((r) => r.rel);
+    if (missing.length) {
+      console.warn(
+        `[tr-company-place] company_browse_table still missing dependencies: ` +
+          `${missing.join(", ")} — skipping create. Run npm run db:refresh (or the loader ` +
+          `that owns the named relation) then re-run this loader.`,
+      );
+    } else {
+      await exec(readFileSync(COMPANY_BROWSE_SCHEMA, "utf8"));
+    }
+  }
 
   return { rows: rows.length, seated: companies.length, unresolved };
 };

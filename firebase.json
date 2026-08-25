@@ -41,42 +41,62 @@
       "redirects": [
         {
           "source": "/mp/company",
-          "destination": "/governance/companies",
+          "destination": "/companies?political=1",
           "type": 301
         },
         {
           "source": "/mp/company/**",
-          "destination": "/governance/companies",
+          "destination": "/companies?political=1",
           "type": 301
         },
         {
           "source": "/en/mp/company",
-          "destination": "/en/governance/companies",
+          "destination": "/en/companies?political=1",
           "type": 301
         },
         {
           "source": "/en/mp/company/**",
-          "destination": "/en/governance/companies",
+          "destination": "/en/companies?political=1",
           "type": 301
         },
         {
           "source": "/mp/companies",
-          "destination": "/governance/companies",
+          "destination": "/companies?political=1",
           "type": 301
         },
         {
           "source": "/mp/companies/",
-          "destination": "/governance/companies",
+          "destination": "/companies?political=1",
           "type": 301
         },
         {
           "source": "/en/mp/companies",
-          "destination": "/en/governance/companies",
+          "destination": "/en/companies?political=1",
           "type": 301
         },
         {
           "source": "/en/mp/companies/",
-          "destination": "/en/governance/companies",
+          "destination": "/en/companies?political=1",
+          "type": 301
+        },
+        {
+          "source": "/governance/companies",
+          "destination": "/companies?political=1",
+          "type": 301
+        },
+        {
+          "source": "/governance/companies/",
+          "destination": "/companies?political=1",
+          "type": 301
+        },
+        {
+          "source": "/en/governance/companies",
+          "destination": "/en/companies?political=1",
+          "type": 301
+        },
+        {
+          "source": "/en/governance/companies/",
+          "destination": "/en/companies?political=1",
           "type": 301
         },
         {

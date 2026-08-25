@@ -35,9 +35,10 @@ export interface DeclarationsHubStats {
   peopleWithDeclaration: number;
   /** What /officials/assets opens on — its is_exec filter, not the table's 19,036. */
   officials: number;
-  /** What /governance/companies LISTS, from that page's own relation (official_companies,
-   *  178). NOT „companies": 5,200 of the 17,608 are сдружения, читалища, фондации,
-   *  кооперации or държавни предприятия. */
+  /** What /companies?political=1 LISTS — company_browse_table (188) WHERE
+   *  is_official_linked, formerly official_companies' (178) whole relation. NOT
+   *  „companies": some are сдружения, читалища, фондации, кооперации or държавни
+   *  предприятия. */
   organisations: number;
   /** DISTINCT people in public life attached to them. Renamed from `companyMps` when the
    *  destination stopped being MP-only — a field keeping that name lies by name. */

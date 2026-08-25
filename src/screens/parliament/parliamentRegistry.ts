@@ -174,7 +174,7 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
         id: "companies",
         titleKey: "nsh_tile_companies",
         descKey: "nsh_tile_companies_desc",
-        to: "/governance/companies",
+        to: "/companies?political=1",
         accent: TILE_ACCENTS.moss,
       },
       {

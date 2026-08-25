@@ -1004,11 +1004,13 @@ const ConnectionsScreen = lazy(() =>
     default: m.ConnectionsScreen,
   })),
 );
-// /mp/companies is RENAMED to /governance/companies in the next step; the screen is already
-// the all-office-holder one, served from Postgres. Plan: company-page-consolidation-v1 Tier 3.
-const OfficialCompaniesScreen = lazy(() =>
-  import("./screens/OfficialCompaniesScreen").then((m) => ({
-    default: m.OfficialCompaniesScreen,
+// /companies — the general company registry browse (company_browse_table, 188). Supersedes
+// /governance/companies (OfficialCompaniesScreen, retired below): "linked to a person in
+// public life" is now one filter (?political=1) on the FULL corpus instead of a separate
+// page. Plan: docs/plans/company-browse-dashboard-v1.md.
+const CompaniesBrowseDbScreen = lazy(() =>
+  import("./screens/dev/CompaniesBrowseDbScreen").then((m) => ({
+    default: m.CompaniesBrowseDbScreen,
   })),
 );
 const AllMpAssetsScreen = lazy(() =>
@@ -3555,15 +3557,26 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          {/* Renamed from /mp/companies: the population is all public office-holders now,
-              not MPs. firebase.json 301s the four old spellings.
-              Plan: docs/plans/company-page-consolidation-v1.md (Tier 3). */}
+          {/* /companies — the general company registry browse. */}
+          <Route
+            path="companies"
+            element={
+              <LayoutScreen>
+                <CompaniesBrowseDbScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* Retired (188): official_companies' old population is now ?political=1 on the
+              wider /companies browse. firebase.json 301s this at the edge; this client-side
+              redirect covers in-app navigation and local dev, which the edge rule does not
+              reach. Plan: docs/plans/company-browse-dashboard-v1.md. */}
           <Route
             path="governance/companies"
             element={
-              <LayoutScreen>
-                <OfficialCompaniesScreen />
-              </LayoutScreen>
+              <Navigate
+                to={{ pathname: "/companies", search: "?political=1" }}
+                replace
+              />
             }
           />
           <Route
@@ -3638,7 +3651,7 @@ export const AuthRoutes = () => {
             }
           />
           {/* /mp/company/:slug is RETIRED and has no React route: firebase.json 301s
-              /mp/company/** (and the /en mirror) to /governance/companies.
+              /mp/company/** (and the /en mirror) to /companies?political=1 (188).
 
               ⚠️ IT USED TO BE A COMPONENT WITH THREE ARMS — the EIK, then the sole declarant,
               then the list — and losing the first two is a DECISION, not an oversight. Every

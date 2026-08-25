@@ -39,6 +39,7 @@ import {
   vacuumRepairSql,
   visibilityMapShort,
 } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -85,12 +86,12 @@ const RELOADED: ReadonlyArray<{
   loader: string;
   rebuiltByTests?: true;
 }> = [
-  // /governance/companies (178) — built by CREATE MATERIALIZED VIEW ... AS inside
-  // load_declarations_pg's phase 2, which is the classic empty-map shape. The page sorts
-  // by money and by person count over 17,681 rows, so both are index-only scans or they
-  // are nothing.
+  // /companies (188, formerly 178's narrower official_companies) — built by
+  // CREATE MATERIALIZED VIEW ... AS inside load_declarations_pg's phase 2, which is the
+  // classic empty-map shape. The default page sorts by money over the has_signal-true slice
+  // of ~1.02M rows, so that is an index-only scan or it is nothing.
   {
-    table: "official_companies",
+    table: "company_browse_table",
     loader: "npm run db:load:declarations:pg -- --resolve",
   },
   // The НЗОК hospital-payment corpus and its coverage twin — both TRUNCATE +
@@ -375,6 +376,7 @@ const SCANNED_FILES = [...LOADER_FILES, ...DELEGATE_FILES];
 
 const haveDb = await dbReachable();
 const skip = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();
