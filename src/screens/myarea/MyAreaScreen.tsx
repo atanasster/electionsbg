@@ -28,6 +28,7 @@ import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaMunicipalBudgetTile } from "./MyAreaMunicipalBudgetTile";
 import { MyAreaMunicipalFiscalTile } from "./MyAreaMunicipalFiscalTile";
+import { MyAreaMayorPayTile } from "./MyAreaMayorPayTile";
 import { MyAreaProcurementTile } from "./MyAreaProcurementTile";
 import { MyAreaTendersTile } from "./MyAreaTendersTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
@@ -290,6 +291,12 @@ export const MyAreaScreen: FC = () => {
             also suits it: three bars at one scale read better wide than in a
             half column. Self-hides when the município has no МФ return. */}
         <MyAreaMunicipalFiscalTile obshtina={area.obshtina} />
+        {/* Declared mayor pay vs. the município's own population — a separate
+            corpus (declarations, not budget execution) from the fiscal tile
+            above, so it is its own tile rather than a row inside it.
+            Self-hides for a район with no city-wide mayor of its own and for
+            the rare município mid-way through an unresolved mayor change. */}
+        <MyAreaMayorPayTile obshtina={area.obshtina} />
         {/* Interreg — separate from the EU-projects tile above BECAUSE it is a
             separate corpus (ИСУН holds none of it), and pinned here because
             cross-border money lands almost entirely on border municipalities,
