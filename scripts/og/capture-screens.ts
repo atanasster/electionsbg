@@ -1211,6 +1211,72 @@ const captures: Capture[] = [
   // ---------------------------------------------------------------------------
 
   // --- /funds sub-pages -------------------------------------------------------
+  // MOVED HERE from scripts/og/screenshot_funds.ts, which is now deleted. That script clipped
+  // {x:0, y:0} and hid no chrome, so all four cards led with the nav bar, the election picker
+  // and the search box — roughly a tenth of the frame — and the page began below them. None
+  // had been re-shot since 2026-05-27, so each also carried the pre-rework centred, muted
+  // title this site no longer uses.
+  //
+  // These are SUB-PAGES, not hubs, so `[data-hub-head]` does not exist on them. `anchor: "h1"`
+  // is the recipe for exactly this shape: HIDE_CHROME_CSS drops the site header, so the h1 IS
+  // the top of the page and the clip reads title → intro → the first figures. It pairs with
+  // OG_CLIP_VIEWPORT and never with leftAlign, which would pin the clip to the h1's own left
+  // edge rather than the content column's.
+  //
+  // ⚠ `waitFor` IS A ROW LINK, NOT THE `h1`, ON THE FIRST THREE. All three screens render
+  // `<Title>` in their ERROR branch as well as their loaded one, so an `h1` wait cannot tell
+  // the two apart — and `networkidle` does not close the gap either: it covers the skeleton
+  // race (a 20 s artificial delay still produced a correct card) but a FAILED request settles
+  // the network immediately. Reproduced by aborting /api/db/fund-payload and replaying the
+  // capture: it wrote a funds-political card whose entire body reads „няма сигнализирани
+  // бенефициенти", against a true 279 beneficiaries and €7.46bn — a false claim about named
+  // politicians, published as the module's share image. funds-integrity and funds-rrf came
+  // back carrying the untranslated „Run the funds:ingest-projects pipeline".
+  //
+  // A `/company/` row link exists only in the success branch (50 / 20 / 10 rows measured), so
+  // it fails loudly and the previous card survives, which is the right failure.
+  //
+  // `settleMs: 2500` is the family's number rather than a measured one — these four carry no
+  // charts and settle ~1 s after networkidle — kept for consistency, and harmless.
+  {
+    slug: "funds-political",
+    routePath: "funds/political",
+    waitFor: 'a[href^="/company/"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "funds-integrity",
+    routePath: "funds/integrity",
+    waitFor: 'a[href^="/company/"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "funds-rrf",
+    routePath: "funds/rrf",
+    waitFor: 'a[href^="/company/"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    // A dossier page, so the card is one worked example rather than the module — the same
+    // `/funds/focus/<slug>` card every child of that family points at.
+    //
+    // ⚠ `h1` IS SAFE HERE ONLY BY ACCIDENT, which is worth writing down because the accident
+    // is one edit from ending. Unlike its three siblings this screen renders NO `<Title>`
+    // while loading or when empty, so an `h1` wait already means „loaded". Add a heading to
+    // the empty state — a natural, obviously-good change — and this entry starts shooting it.
+    slug: "funds-focus",
+    routePath: "funds/focus/guest-houses",
+    waitFor: "h1",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
   // (the /funds HUB card itself is the `funds` entry near the top of this table, beside its
   //  three sibling hubs — they share a framing rule, which is a stronger grouping than the
   //  module clustering this block follows.)
@@ -1270,8 +1336,8 @@ const captures: Capture[] = [
   {
     slug: "funds-focus-index",
     routePath: "funds/focus",
-    // NOT `funds-focus` — that slug is the per-THEME card (screenshot_funds.ts
-    // shoots it off /funds/focus/guest-houses) which every /funds/focus/<slug>
+    // NOT `funds-focus` — that slug is the per-THEME card, shot off
+    // /funds/focus/guest-houses a few entries above, which every /funds/focus/<slug>
     // child already references. The index had no card of its own: the children
     // were shareable and the page they hang off was not.
     waitFor: 'a[href^="/funds/focus/"]',
@@ -1283,10 +1349,10 @@ const captures: Capture[] = [
     slug: "funds-calls",
     routePath: "funds/calls",
     // /funds/calls was the one route in the repo whose declared ogImage pointed
-    // at a file that had never been written: screenshot_funds.ts carried the
-    // spec and nobody had run it, so both language variants shipped an og:image
-    // that 404s. That spec is gone — it clipped {x:0,y:0} with the site header
-    // still in the DOM, so its card was chrome down to the fold.
+    // at a file that had never been written: the old scripts/og/screenshot_funds.ts
+    // carried the spec and nobody had run it, so both language variants shipped an
+    // og:image that 404s. That script is now deleted — it clipped {x:0,y:0} with the
+    // site header still in the DOM, so every card it made was chrome down to the fold.
     // The rows arrive from /api/db/table after the shell paints, so wait on a
     // row and not on the heading.
     waitFor: "table tbody tr",
