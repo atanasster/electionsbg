@@ -24,7 +24,7 @@ import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import fs from "node:fs";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { exec, withClient, end } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import {
@@ -99,7 +99,7 @@ const STREAMS: { stream: PaymentStream; links: (html: string) => string[] }[] =
     { stream: "devices", links: devicesPaymentLinks },
   ];
 
-interface Row {
+export interface Row {
   reg_no: string;
   period: string; // YYYY-MM-01
   stream: PaymentStream;
@@ -250,6 +250,95 @@ const COLS = [
   "ownership",
 ] as const;
 
+/**
+ * Months НЗОК published that repeat their predecessor's year-to-date with NO flow
+ * of their own — the same corpus figures under a later „към" date and a month
+ * column of zero.
+ *
+ * ⚠️ These are PUBLISHED as filed, deliberately (RC-5 / §9-1 of
+ * docs/plans/nzok-hospital-parser-hardening-v1.md). A zero month is a fact НЗОК
+ * put its name to, and withholding it creates a hole in the series that reads as
+ * our defect rather than theirs — the reader cannot tell "we refused this month"
+ * from "the parser broke". What is NOT acceptable is publishing it silently: on a
+ * page that shows a per-hospital € beside a date, April carrying March's figures
+ * is a claim about named hospitals, and a reader comparing the two months would
+ * conclude nothing was paid in April.
+ *
+ * So the decision is: publish, and say so. This is the fact Tier 0's coverage row
+ * records; until that exists it is a line in the loader's output, which is the
+ * same bargain `unreconciledBlocks` strikes inside the parser.
+ *
+ * ONE month in the cache does this — devices 2026-04, whose €31,273,942 is
+ * March's to the euro. It is not a parser artifact: both files parse cleanly, and
+ * the April document's own month column is zero throughout.
+ */
+export const republishedMonths = (
+  rows: Row[],
+): {
+  stream: PaymentStream;
+  period: string;
+  prior: string;
+  cumulativeEur: number;
+}[] => {
+  const totals = new Map<
+    string,
+    { cum: number; month: number; zeroRows: boolean }
+  >();
+  for (const r of rows) {
+    const k = `${r.stream}|${r.period}`;
+    const t = totals.get(k) ?? { cum: 0, month: 0, zeroRows: true };
+    t.cum += r.cumulative_eur;
+    t.month += r.month_eur;
+    // ⚠️ EVERY row's month must be zero, not merely their sum. A month whose
+    // per-facility flows offset to zero is a different fact, and the banner this
+    // drives says "no payments at all in the later one" — which would then be
+    // false about named hospitals. Negatives are real here: devices 2025-12 nets
+    // −€2,127 across its rows.
+    if (r.month_eur !== 0) t.zeroRows = false;
+    totals.set(k, t);
+  }
+
+  /** The calendar month before `YYYY-MM-01`, or null across a year boundary.
+   *
+   *  ⚠️ Null in January BY DESIGN. These reports are YEAR-TO-DATE, so a January
+   *  cumulative RESETS — comparing it against December asks whether two figures on
+   *  different bases happen to be equal, which is not a question about the data.
+   *  (It also cannot currently fire, because a zero-month January has a zero
+   *  cumulative too and is excluded below; that is an accident of the arithmetic
+   *  and not something to rely on.) */
+  const priorMonth = (period: string): string | null => {
+    const [y, m] = period.split("-").map(Number);
+    return m === 1 ? null : `${y}-${String(m - 1).padStart(2, "0")}-01`;
+  };
+
+  const out: {
+    stream: PaymentStream;
+    period: string;
+    prior: string;
+    cumulativeEur: number;
+  }[] = [];
+  for (const [k, t] of totals) {
+    const [stream, period] = k.split("|") as [PaymentStream, string];
+    // A zero month is the entry condition. An ordinary month has a flow, and a
+    // January legitimately has month == YTD.
+    if (!t.zeroRows || t.cum === 0) continue;
+    // …and it is only a REPUBLICATION if the month immediately before it carries
+    // the same year-to-date.
+    //
+    // ⚠️ The IMMEDIATELY preceding calendar month, never "the nearest earlier file
+    // we happen to hold". The devices stream has real gaps — there is no 2024-01 —
+    // so "nearest earlier" would compare 2024-02 against 2023-12, across both a gap
+    // and the year-to-date reset, and the banner would name a month that is not the
+    // previous one.
+    const prior = priorMonth(period);
+    if (prior && totals.get(`${stream}|${prior}`)?.cum === t.cum)
+      out.push({ stream, period, prior, cumulativeEur: t.cum });
+  }
+  return out.sort((a, b) =>
+    `${a.stream}|${a.period}`.localeCompare(`${b.stream}|${b.period}`),
+  );
+};
+
 const main = async (): Promise<void> => {
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
   await exec(readFileSync(TRENDS_SCHEMA_FILE, "utf8"));
@@ -373,11 +462,36 @@ const main = async (): Promise<void> => {
 
     monthsSkipped.forEach((m) => console.log(`  - ${m}`));
   }
+
+  // RC-5 — published as filed, and named. See `republishedMonths` for why.
+  const republished = republishedMonths(rows);
+  if (republished.length) {
+    console.log(
+      `⚠️ ${republished.length} month(s) repeat the immediately preceding month's ` +
+        `year-to-date, with EVERY facility's month column at zero. PUBLISHED as ` +
+        `НЗОК filed them — the figures are the source's, not a parse artifact — ` +
+        `but a reader comparing the two months sees no payments at all in the later:`,
+    );
+    republished.forEach((r) =>
+      console.log(
+        `  - ${r.stream} ${r.period.slice(0, 7)} repeats ${r.prior.slice(0, 7)} ` +
+          `(€${Math.round(r.cumulativeEur).toLocaleString("en-US")} YTD, €0 for the month)`,
+      ),
+    );
+  }
   await end();
 };
 
-main().catch(async (e) => {
-  console.error(e);
-  await end();
-  process.exit(1);
-});
+// Run only when invoked as the script, so the pure helpers above can be imported
+// and tested. Same guard as `load_open_calls_pg.ts`; without it a test import runs
+// the whole load, which is why this loader had no tests.
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  main().catch(async (e) => {
+    console.error(e);
+    await end();
+    process.exit(1);
+  });
+}

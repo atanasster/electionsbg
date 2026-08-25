@@ -39,7 +39,8 @@ Everything below is derived from the PDFs already cached under `raw_data/nzok/bm
 (176 files) plus the four `nhif.bg/bg/hospitals/bmp/{2023..2026}` listing pages,
 which are only needed to enumerate the links the loader would walk.
 
-The loader truncates each error at 70 characters (`load_nzok_hospital_pg.ts:223`),
+The loader truncates each error at 70 characters (`load_nzok_hospital_pg.ts`, in
+`collectRows`' catch),
 so the drift percentages and row counts never reach the console. The first step was
 to replay `collectRows()` with the truncation removed, then re-run the parser with
 its two `throw`s replaced by a diagnostics array so a failing file still yields its
@@ -612,6 +613,51 @@ a standing TODO banner.
    a zero month is a fact НЗОК published and withholding it creates a hole that looks
    like our defect rather than theirs. But this is a judgement call about a named
    number and should not be made silently.
+
+   > **DECIDED 2026-08-25 — the recommendation was taken: PUBLISH, and name it.**
+   > `republishedMonths` in `scripts/db/load_nzok_hospital_pg.ts` reports every month
+   > that repeats its predecessor's year-to-date with a zero month column, and the
+   > loader prints it as its own banner rather than folding it into the skip list —
+   > the two are opposite facts (one is absent, one is present and identical to the
+   > month before). Re-measured over the whole cache: **devices 2026-04 is the only
+   > instance**, and both files parse cleanly, so it is the source's figure and not
+   > a parse artifact.
+   >
+   > Two euro figures appear for this month and both are right: **€31,273,944** is
+   > what the file's own grand-total line prints (quoted in §3 RC-5 and the table in
+   > §2), and **€31,273,942** is the sum of its 109 facility rows, which is what
+   > `republishedMonths` compares. They differ by €2 of per-row rounding — the same
+   > band every block tolerance in this plan is sized against.
+   >
+   > What made this safe to decide rather than escalate is that the alternative was
+   > measurably worse. Withholding it puts a hole in the devices series one month
+   > after the five Tier 1 recovered, and a reader cannot tell "we refused this
+   > month" from "the parser broke again" — the exact confusion this plan exists to
+   > end.
+   >
+   > ⚠️ **"Labelled" currently means labelled to the OPERATOR, not to the reader.**
+   > The banner is a line in the loader's output; `nzok_payment_coverage` does not
+   > exist yet and no component reads `periodByStream`. So as things stand a visitor
+   > to `/awarder/121858220` sees April's figures with nothing marking them, and the
+   > only person who learns of the repetition is whoever runs the load. That is the
+   > honest state of this decision and it is Tier 0's job to close — this entry
+   > should not be read as "the reader is informed".
+   >
+   > ⚠️ The detection needs BOTH halves. A zero month total alone is an ordinary
+   > "nothing was paid" report, which is a different fact and must not carry this
+   > warning; the prior period's year-to-date must be identical. Both directions are
+   > pinned in `load_nzok_hospital_pg.test.ts`, along with the two boundaries a
+   > year-to-date series makes load-bearing: the rule must NOT fire across a
+   > December→January boundary (January's cumulative resets, so equality there means
+   > nothing) and must compare the IMMEDIATELY preceding calendar month rather than
+   > the nearest earlier file held — the devices stream has real gaps, so "nearest
+   > earlier" would pair 2024-02 with 2023-12, across both the gap and the reset.
+   > All four clauses are mutation-checked.
+   >
+   > That test file also exists because this loader had NO tests at all: `main()`
+   > ran at import, so nothing in it could be imported without starting a load. It
+   > is now behind the same entrypoint guard `load_open_calls_pg.ts` uses.
+
 2. **Whether the €1.67M correction gets a changelog entry.** The loader already writes
    `ingest_first_seen` via `recordIngestBatch`, keyed on `(reg_no, period)`, so a
    TRUNCATE+reload of corrected months will not itemise them as new — the correction
