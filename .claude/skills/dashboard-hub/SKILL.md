@@ -60,21 +60,21 @@ A figure whose basis you cannot state in one clause is not ready to ship.
 
 ### The specific traps, all of which have shipped
 
-| Trap                                     | What it looks like                                                                                                                                                               | The rule                                                                                                |
-| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| **Corpus total on a scoped hub**         | `613 заседания` on a page scoped to one parliament (real answer: 39)                                                                                                             | Scope every figure to the page's selector                                                               |
-| **Destination counts a different set**   | Tile says `240` and lands on a page listing 2,120                                                                                                                                | Lead with the DESTINATION's basis, or show no figure                                                    |
-| **Sums of votes read as headcounts**     | `за 15 961` in a chamber of 240 — votes summed over 219 items                                                                                                                    | Express as SHARES, from the same function that draws the pixels                                         |
-| **A mean labelled as a minimum**         | `0,94 средна кохезия` where 0.94 was the min and the mean was 0.970                                                                                                              | Two numbers, two labels; never one number wearing both                                                  |
-| **A projection quoted as the roll**      | Map tile says 270 members; the map plots 255                                                                                                                                     | Quote what the destination DRAWS                                                                        |
-| **Structural zero**                      | `Общини 0` under an MP filter                                                                                                                                                    | Hide a figure that cannot vary; do not print 0                                                          |
-| **Undeclared "not derivable"**           | `0% присъствие` on a day with no roll call                                                                                                                                       | NULL means "cannot derive"; render it as absent, never as 0                                             |
-| **A ROLL-UP PARTITION inside the table** | `1 994 автомобила` on a registry of 621 — the table carries one partition per parliament PLUS an `'all'` row, so `count(*)` counts each car once per parliament its owner sat in | `GROUP BY` the partition key and READ the row; never `count(*)` a table you have not grouped            |
-| **The destination's DEFAULT SCOPE**      | Tile shows the lifetime 621; `/mp-cars` opens `scope="ns"` on the 52nd's 65 — and the tile carries `?elections` forward, guaranteeing the mismatch on every parliament           | Key the blob by the destination's scope and resolve it through the SAME helper that screen filters with |
-| **The right subject, the wrong corpus**  | **[2026-08-20]** Tile counted `company_politicians` (346) over `/mp/companies`, which rendered `companies-index.json` (2,781). Both are now retired — the tile quotes `official_companies` over `/governance/companies` — and the temptation is unchanged: `company_politicians` is still the table that is *about* the same subject | Quote the DESTINATION's own relation, whatever kind it is — a table about the same subject is a different corpus |
-| **A serving function's DEFAULT scope** | **[2026-08-24]** `agri_hub_stats('')` returns the latest FINANCIAL YEAR — €1.59bn for 2025 — against €11.04bn all-time from `agri_hub_stats('all')`. The empty string reads like "no filter" and means "the default one" | Pass the scope you are quoting, EXPLICITLY, and link the tile with it (`?pscope=all`) |
-| **EXECUTED quoted as the budget** | `budget_hub_stats().expenditureExecutedEur` was €14.15bn on 30 June against €29.58bn planned for the year — quoting it makes the state look like it spends half what it does | A part-year figure needs the part in its caption, or quote the PLAN and name the year |
-| **A SCOPED hook on an UNSCOPED page** | **[2026-08-22]** `/governance` has no `?pscope`, so `useProcurementHubStats()` resolved to the SELECTED PARLIAMENT and its KPI band rendered **€3,32 млрд. · 3 481 · 227 · 332** under captions reading „договори 2007–2026". The corpus is **€93,56 млрд. · 29 622 · 898 · 871**. `tsc` was clean and 3 655 tests were green | A page with no selector must ASK for the slice it names (`useX("all")`) — never take a scope hook's default. See §3.1 rule 6 |
+| Trap                                     | What it looks like                                                                                                                                                                                                                                                                                                                   | The rule                                                                                                                     |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| **Corpus total on a scoped hub**         | `613 заседания` on a page scoped to one parliament (real answer: 39)                                                                                                                                                                                                                                                                 | Scope every figure to the page's selector                                                                                    |
+| **Destination counts a different set**   | Tile says `240` and lands on a page listing 2,120                                                                                                                                                                                                                                                                                    | Lead with the DESTINATION's basis, or show no figure                                                                         |
+| **Sums of votes read as headcounts**     | `за 15 961` in a chamber of 240 — votes summed over 219 items                                                                                                                                                                                                                                                                        | Express as SHARES, from the same function that draws the pixels                                                              |
+| **A mean labelled as a minimum**         | `0,94 средна кохезия` where 0.94 was the min and the mean was 0.970                                                                                                                                                                                                                                                                  | Two numbers, two labels; never one number wearing both                                                                       |
+| **A projection quoted as the roll**      | Map tile says 270 members; the map plots 255                                                                                                                                                                                                                                                                                         | Quote what the destination DRAWS                                                                                             |
+| **Structural zero**                      | `Общини 0` under an MP filter                                                                                                                                                                                                                                                                                                        | Hide a figure that cannot vary; do not print 0                                                                               |
+| **Undeclared "not derivable"**           | `0% присъствие` on a day with no roll call                                                                                                                                                                                                                                                                                           | NULL means "cannot derive"; render it as absent, never as 0                                                                  |
+| **A ROLL-UP PARTITION inside the table** | `1 994 автомобила` on a registry of 621 — the table carries one partition per parliament PLUS an `'all'` row, so `count(*)` counts each car once per parliament its owner sat in                                                                                                                                                     | `GROUP BY` the partition key and READ the row; never `count(*)` a table you have not grouped                                 |
+| **The destination's DEFAULT SCOPE**      | Tile shows the lifetime 621; `/mp-cars` opens `scope="ns"` on the 52nd's 65 — and the tile carries `?elections` forward, guaranteeing the mismatch on every parliament                                                                                                                                                               | Key the blob by the destination's scope and resolve it through the SAME helper that screen filters with                      |
+| **The right subject, the wrong corpus**  | **[2026-08-20]** Tile counted `company_politicians` (346) over `/mp/companies`, which rendered `companies-index.json` (2,781). Both are now retired — the tile quotes `official_companies` over `/governance/companies` — and the temptation is unchanged: `company_politicians` is still the table that is _about_ the same subject | Quote the DESTINATION's own relation, whatever kind it is — a table about the same subject is a different corpus             |
+| **A serving function's DEFAULT scope**   | **[2026-08-24]** `agri_hub_stats('')` returns the latest FINANCIAL YEAR — €1.59bn for 2025 — against €11.04bn all-time from `agri_hub_stats('all')`. The empty string reads like "no filter" and means "the default one"                                                                                                             | Pass the scope you are quoting, EXPLICITLY, and link the tile with it (`?pscope=all`)                                        |
+| **EXECUTED quoted as the budget**        | `budget_hub_stats().expenditureExecutedEur` was €14.15bn on 30 June against €29.58bn planned for the year — quoting it makes the state look like it spends half what it does                                                                                                                                                         | A part-year figure needs the part in its caption, or quote the PLAN and name the year                                        |
+| **A SCOPED hook on an UNSCOPED page**    | **[2026-08-22]** `/governance` has no `?pscope`, so `useProcurementHubStats()` resolved to the SELECTED PARLIAMENT and its KPI band rendered **€3,32 млрд. · 3 481 · 227 · 332** under captions reading „договори 2007–2026". The corpus is **€93,56 млрд. · 29 622 · 898 · 871**. `tsc` was clean and 3 655 tests were green        | A page with no selector must ASK for the slice it names (`useX("all")`) — never take a scope hook's default. See §3.1 rule 6 |
 
 **Corollary that has bitten twice:** if a number is computed in two places, it will drift.
 Compute it ONCE and have both consumers read that. Where two implementations are
@@ -141,6 +141,7 @@ Rules that have each been learned the hard way:
   `organisations`/`organisationPeople`), so the deployed hub read keys the served blob did not
   carry. A 404 blanks every tile uniformly; a stale blob renders the ones that still match and
   blanks the rest, which reads as a data problem rather than a publish one.
+
 - **A shared type gets ONE declaration.** Two hand-copied halves drifted on a nullability
   within a single review cycle. Put it on the `src/` side and import it from `scripts/`.
 
@@ -148,7 +149,7 @@ Rules that have each been learned the hard way:
 
 When a hub's tiles point at other HUBS — `/governance` is 21 of 23 — every figure it shows is
 already published by the page the tile opens. So the blob is a **FOLD of the destinations' own
-numbers**, never a fresh aggregate, because an aggregate that is *about* the same subject is a
+numbers**, never a fresh aggregate, because an aggregate that is _about_ the same subject is a
 different corpus and the two hubs then disagree one click apart. Measured 2026-08-24:
 
 - `sum(amount_eur) FROM contracts WHERE tag='contract'` was **€93.81bn** on a day the committed
@@ -159,12 +160,12 @@ different corpus and the two hubs then disagree one click apart. Measured 2026-0
 
 Take each figure from the first of these that exists, in this order:
 
-| | source | example |
-| - | ------ | ------- |
-| a | the destination's own serving FUNCTION | `budget_hub_stats`, `agri_hub_stats`, `council_overview` |
-| b | the destination's own PAYLOAD row | `fund_payloads(kind='index')` |
-| c | the destination's own committed BLOB | `procurement/derived/hub_stats.json` |
-| d | a direct count — ONLY where it has none of the above | `declaration`, `graph_edge` |
+|     | source                                               | example                                                  |
+| --- | ---------------------------------------------------- | -------------------------------------------------------- |
+| a   | the destination's own serving FUNCTION               | `budget_hub_stats`, `agri_hub_stats`, `council_overview` |
+| b   | the destination's own PAYLOAD row                    | `fund_payloads(kind='index')`                            |
+| c   | the destination's own committed BLOB                 | `procurement/derived/hub_stats.json`                     |
+| d   | a direct count — ONLY where it has none of the above | `declaration`, `graph_edge`                              |
 
 Four consequences, each of which shipped as a rule rather than being reasoned about later:
 
@@ -224,7 +225,7 @@ wrong module — and pulled `sectorRegistry`'s whole reference-data closure into
 static graph. That is `src/entryGraph.test.ts`'s class exactly: take a constant from an
 import-free module, or take it from the blob you already fetch.
 
-⚠️ **A registry must not BUILD its i18n keys.** `` t(`${cluster.labelKey}_desc`) `` reads to
+⚠️ **A registry must not BUILD its i18n keys.** ``t(`${cluster.labelKey}_desc`)`` reads to
 `scripts/i18n/bundle_reachability.test.ts` as naming every key ending `_desc`, so one template
 made all eight deferred `budget.json` description keys "reachable from `/governance`" and
 failed the gate. Write `descKey` out beside `labelKey`.
@@ -350,6 +351,69 @@ scope:
 Next to the numbers it governs. On `/procurement` it sat **448 px above** the first tile figure
 and had scrolled off screen by the time the number was read — so ten headline figures were
 qualified by a control nobody could see. On a phone it was ~1 000 px above.
+
+### 3.1b A REGISTRY BROWSER takes half the head — and the half it drops matters
+
+`/procurement/contracts` is a `DbDataTable` over a corpus, not a tile grid. The head still
+applies, but two slots are **deliberately empty**, and both omissions are the same argument:
+
+- **No search slot.** The table owns its own search box, directly above the rows it filters.
+  Lifting it into the head puts it ~300 px from its own results.
+- **No evidence list.** The table IS the ranked list. An aside ranking the same rows restates
+  the page's body.
+
+So a browser's head is identity + deck + scope + KPI band, and it is the narrowest in the
+tree: 304 px at 1280 against 442–507 for the three tile hubs.
+
+**The band is REACTIVE here, and that inverts §3.1's usual reading.** On a hub the band is a
+corpus-level claim; on a browser the most useful headline is „what am I looking at right now".
+That is correct — and it is why the basis line stops being good practice and becomes the
+thing holding the page up.
+
+⚠️ **THE DEFECT THIS PRODUCES IS THE SHARPEST INSTANCE OF §0 IN THE REPO, because the figures
+that do NOT react sit in identical cards beside ones that do.** Measured on
+`/procurement/contracts`, 2026-08-25:
+
+| card            | idle       | after typing „пътища" |
+| --------------- | ---------- | --------------------- |
+| Обща стойност   | €3,4 млрд. | **€59,3 млн.**        |
+| Договори        | 13 819     | **89**                |
+| 1 оферта        | 47%        | **47%**               |
+| Пряко възлагане | 18%        | **18%**               |
+
+The page read „89 contracts worth €59,3 млн., 47% of them single-bidder". The 47% was over all
+13 819. Two causes, and neither is a bug in the thing causing it:
+
+- **`/api/db/facets` has no free-text parameter at all**, so a facet-derived figure structurally
+  cannot follow a search box.
+- **A facet EXCLUDES the dimension it enumerates** — correct, so the reader can still see the
+  other options — which means „Пряко възлагане" holds at 18% under `?proc=direct` over a table
+  that is 100% direct awards.
+
+Two different fixes, because they are not the same question:
+
+- **Diverges on SEARCH, or on the OTHER dimension → say so.** „47%, over the period rather than
+  over your search" is still worth reading; it is a benchmark to filter against.
+- **Diverges on its OWN dimension → WITHHOLD the cell.** Once a reader has filtered to
+  single-bidder rows, „47% са с една оферта" answers a question they have already answered,
+  over a set that is 100% by construction. No caption rescues that.
+
+Withholding also **surfaces figures the constant was masking**: with the procedure filter on,
+„1 оферта" reads **92%** (direct awards are overwhelmingly single-bid) instead of 47%, and with
+the single-bidder filter on, „Пряко възлагане" reads **35%** instead of 18%.
+
+**Write the divergence as a truth table in a pure module, and execute it.** The rule is four
+figures × four dimensions; that is not reviewable by reading the JSX
+(`contractsKpiBasis.ts` / `.test.ts` are the worked example). And **gate the shared strip**:
+`ContractsAnalysisStrip` renders the same four figures for `/company` and `/awarder`, so the
+browser opts out with `showKpis={false}` — a prop a refactor drops with nothing failing.
+
+⚠️ **The scope control is the page's other sentence, and it published an internal key.** The
+default pill read „Този парламент · 2026-04-19" — the election FOLDER ID with underscores
+swapped for hyphens — on all 31 surfaces that mount `ScopeControl`. It sits directly above the
+band, so it is what says which window those figures cover. Route it through `formatDate`, which
+pins a date-only value to UTC; a bare `Intl` call prints the 18th for every reader west of
+Greenwich.
 
 ### 3.2 Naming and balancing the bands
 
@@ -763,40 +827,50 @@ If a tile's destination or the hub itself reads `/api/db/*`:
 
 Not optional, and each exists because its absence shipped something:
 
-| Gate                                                                                                               | Catches                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| Every hub renders a `HubHead`                                                                                       | The thirteen-way header drift — no two hubs agreeing on what a hub opens with  |
-| A hub blob keys only tiles the registry renders                                                                    | A figure keyed to an id nothing draws — bytes on every visitor, shown to nobody |
-| A hub blob is under its byte budget                                                                                | Regrowth to the full artifact the first time somebody adds a field with detail |
-| Every `basis` the blob emits has a key in BOTH corpora                                                             | Prose in the blob, i.e. the English hub as the Bulgarian one with English headings |
-| The band's own tiles are excluded from the tile metrics                                                            | The same string rendered twice on one page                                     |
-| A `REFRESH_GENERATORS` artifact is git-tracked AND the bucket serves those bytes                                   | A committed blob that 404s (`db:check-generated` names the publish command)    |
-| Every KPI in the band has a `basis` string AND a destination                                                       | A corpus-level claim in the largest type on the page with no denominator       |
-| No KPI value equals a tile metric on the same page                                                                 | One number rendered twice, reading as two facts                                |
-| A hub with no scope selector never calls a scope hook's DEFAULT                                                    | The `/governance` €3,32bn-under-a-corpus-caption class                         |
-| Every band has a description, and no heading is an instruction or a container word                                 | „Разгледай" over 11 tiles; 7 of 13 hubs with no description at all             |
-| Every band's tile count leaves no lone tile on the last `xl` row                                                   | 9 → 4+4+1                                                                      |
-| No accent twice on the COMPOSED PAGE (not per registry)                                                            | The `/procurement` tile-band ↔ `FeaturedStrip` pair a per-registry gate cannot see |
-| No hub screen statically imports a registry, and no registry builds an i18n key by template                        | A reference-data closure in the route chunk; a template key that defeats the bundle analysis |
-| Every tile id has a scene                                                                                          | White screen                                                                   |
-| Every `to` is absolute AND in the routed list                                                                      | Dead links                                                                     |
-| Every sub-page is a hub destination                                                                                | Orphans                                                                        |
-| Blob under its byte budget                                                                                         | Regrowth to the full artifact                                                  |
-| Blob's keys == the shard files present                                                                             | A hub with tiles and no detail                                                 |
-| Every figure recomputed from its declared basis                                                                    | The six-of-six class                                                           |
-| Every written file appears in `--upload`                                                                           | Green locally, stale on prod                                                   |
+| Gate                                                                                                                         | Catches                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Every hub renders a `HubHead`                                                                                                | The thirteen-way header drift — no two hubs agreeing on what a hub opens with                                          |
+| A reactive band's cells each declare the dimensions they follow, as an executed truth table                                  | „89 contracts, 47% of them single-bidder" where the 47% is over 13 819 (§3.1b)                                         |
+| A browser's shared analysis strip does not re-render the head band's figures                                                 | The same €-figure twice on one page, once with a basis and once without                                                |
+| The head's height budget, measured at CI's viewport, with ≤20% slack                                                         | A head quietly acquiring the slot its own comment says it omits                                                        |
+| A hub blob keys only tiles the registry renders                                                                              | A figure keyed to an id nothing draws — bytes on every visitor, shown to nobody                                        |
+| A hub blob is under its byte budget                                                                                          | Regrowth to the full artifact the first time somebody adds a field with detail                                         |
+| Every `basis` the blob emits has a key in BOTH corpora                                                                       | Prose in the blob, i.e. the English hub as the Bulgarian one with English headings                                     |
+| The band's own tiles are excluded from the tile metrics                                                                      | The same string rendered twice on one page                                                                             |
+| A `REFRESH_GENERATORS` artifact is git-tracked AND the bucket serves those bytes                                             | A committed blob that 404s (`db:check-generated` names the publish command)                                            |
+| Every KPI in the band has a `basis` string AND a destination                                                                 | A corpus-level claim in the largest type on the page with no denominator                                               |
+| No KPI value equals a tile metric on the same page                                                                           | One number rendered twice, reading as two facts                                                                        |
+| A hub with no scope selector never calls a scope hook's DEFAULT                                                              | The `/governance` €3,32bn-under-a-corpus-caption class                                                                 |
+| Every band has a description, and no heading is an instruction or a container word                                           | „Разгледай" over 11 tiles; 7 of 13 hubs with no description at all                                                     |
+| Every band's tile count leaves no lone tile on the last `xl` row                                                             | 9 → 4+4+1                                                                                                              |
+| No accent twice on the COMPOSED PAGE (not per registry)                                                                      | The `/procurement` tile-band ↔ `FeaturedStrip` pair a per-registry gate cannot see                                     |
+| No hub screen statically imports a registry, and no registry builds an i18n key by template                                  | A reference-data closure in the route chunk; a template key that defeats the bundle analysis                           |
+| Every tile id has a scene                                                                                                    | White screen                                                                                                           |
+| Every `to` is absolute AND in the routed list                                                                                | Dead links                                                                                                             |
+| Every sub-page is a hub destination                                                                                          | Orphans                                                                                                                |
+| Blob under its byte budget                                                                                                   | Regrowth to the full artifact                                                                                          |
+| Blob's keys == the shard files present                                                                                       | A hub with tiles and no detail                                                                                         |
+| Every figure recomputed from its declared basis                                                                              | The six-of-six class                                                                                                   |
+| Every written file appears in `--upload`                                                                                     | Green locally, stale on prod                                                                                           |
 | A PG-generated blob is in `REFRESH_GENERATORS` with a `bucketPath`, and the bucket serves those bytes (`db:check-generated`) | The same defect where no `--upload` list exists to check — a committed blob that 404s, or is stale across a key rename |
-| Calendar days formatted in UTC                                                                                     | Off-by-one dates                                                               |
-| A scoped source returns out-of-scope rows for a query that has them                                                | Scope silently filtering — invisible, because the page still shows results     |
-| Each search group's cap is independent                                                                             | An in-scope group eating the out-of-scope budget                               |
-| Every see-all param is read by its destination                                                                     | A link advertising a filtered page and delivering an unfiltered one            |
-| Every routed sub-page of the module has a `staticPage` entry                                                       | The shell served to crawlers as a homepage duplicate                           |
-| Every routed sub-page has a BG `routeDefs` entry, and an `ENGLISH_STATIC_PAGES` one iff it has an `english:` block | The `/sofia/*` + `/consumption/*` class — the mirror indexed, the original not |
-| Every `routeDefs` `file:` exists on disk                                                                           | The silent skip that costs a page its `<loc>`                                  |
-| Every prerendered path in the module has a `<loc>` in the COMMITTED sitemap                                        | Both entries present, `npm run sitemap` never re-run                           |
-| Every sub-page carries its own `ogImage` (or is on a reasoned exemption list)                                      | A whole module sharing the site-wide default card                              |
-| Every `ogImage` path resolves to a file under `public/og/`                                                         | An `og:image` that 404s — the absolute-URL check passes                        |
-| Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route                         | A card shot and wired to nothing                                               |
+| Calendar days formatted in UTC                                                                                               | Off-by-one dates                                                                                                       |
+| A scoped source returns out-of-scope rows for a query that has them                                                          | Scope silently filtering — invisible, because the page still shows results                                             |
+| Each search group's cap is independent                                                                                       | An in-scope group eating the out-of-scope budget                                                                       |
+| Every see-all param is read by its destination                                                                               | A link advertising a filtered page and delivering an unfiltered one                                                    |
+| Every routed sub-page of the module has a `staticPage` entry                                                                 | The shell served to crawlers as a homepage duplicate                                                                   |
+| Every routed sub-page has a BG `routeDefs` entry, and an `ENGLISH_STATIC_PAGES` one iff it has an `english:` block           | The `/sofia/*` + `/consumption/*` class — the mirror indexed, the original not                                         |
+| Every `routeDefs` `file:` exists on disk                                                                                     | The silent skip that costs a page its `<loc>`                                                                          |
+| Every prerendered path in the module has a `<loc>` in the COMMITTED sitemap                                                  | Both entries present, `npm run sitemap` never re-run                                                                   |
+| Every sub-page carries its own `ogImage` (or is on a reasoned exemption list)                                                | A whole module sharing the site-wide default card                                                                      |
+| Every `ogImage` path resolves to a file under `public/og/`                                                                   | An `og:image` that 404s — the absolute-URL check passes                                                                |
+| Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route                                   | A card shot and wired to nothing                                                                                       |
+
+A source-scanning gate strips comments through **`src/ux/infographic/stripJsxComments.ts`**,
+never a hand-rolled regex: the repo-wide `stripComments` is line-anchored and leaves a JSX
+brace-star block intact, and a start-anchored `//` rule breaks a scan in BOTH directions — a
+trailing `// TODO restore showKpis={false}` satisfied a clause that should have failed, and a
+trailing `// contractsKpis(old)` failed one that should have passed. There were three copies of
+that stripper before it had a file.
 
 **Ten are now WRITTEN**, in `src/ux/infographic/hubHead.gates.test.ts`
 (basis-year floor, band↔tile disjointness, no two KPI cells sharing a destination, no screen
