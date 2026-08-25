@@ -7,11 +7,15 @@ import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 
-const TOP_N = 10;
+// The on-page summary card shows a HANDFUL of rows and links to the full
+// /candidate/:slug/regions table for the rest — a person who ran in many provinces
+// should not turn this card into a dense spreadsheet; the drill-down screen (a separate
+// component, CandidateRegionsScreen) is where the complete, uncapped list lives.
+const TOP_N = 5;
 
 const DeltaBadge: FC<{ delta?: number }> = ({ delta }) => {
   if (delta === undefined)
-    return <span className="text-xs text-muted-foreground">—</span>;
+    return <span className="text-sm text-muted-foreground">—</span>;
   const sign = delta > 0 ? "+" : delta < 0 ? "−" : "";
   const color =
     delta > 0
@@ -20,7 +24,7 @@ const DeltaBadge: FC<{ delta?: number }> = ({ delta }) => {
         ? "text-negative"
         : "text-muted-foreground";
   return (
-    <span className={`tabular-nums text-xs font-medium ${color}`}>
+    <span className={`tabular-nums text-sm font-medium ${color}`}>
       {sign}
       {formatThousands(Math.abs(delta))}
     </span>
@@ -99,29 +103,37 @@ export const CandidateRegionsTile: FC<Props> = ({
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_auto_auto] sm:grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1.5fr)_auto_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+      {/* The explicit `0` floor on the first track (rather than a bare `1fr`, whose
+          implicit min-width is the content's own natural size) is what lets the first
+          column's `truncate` span actually clip instead of forcing the track wider than
+          the row has room for — the fix for a header-label overlap at narrow widths just
+          under `sm`. Don't simplify this to a bare `1fr`. */}
+      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_auto_auto] sm:grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1.5fr)_auto_auto] gap-x-3 gap-y-2.5 items-center mt-2 text-sm">
+        <span className="truncate text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("region")}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("preferences")}
+        <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+          <span className="hidden sm:inline">{t("preferences")}</span>
+          <span className="sm:hidden">
+            {t("dashboard_col_preferences_short")}
+          </span>
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+        <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           <span className="hidden sm:inline">
             {t("dashboard_ballot_short")}
           </span>
           <span className="sm:hidden">#</span>
         </span>
-        <span className="hidden sm:inline text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+        <span className="hidden sm:inline text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_share_of_party_prefs")}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+        <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           <span className="hidden sm:inline">
             {t("dashboard_pct_of_region")}
           </span>
           <span className="sm:hidden">%</span>
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+        <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           <span className="hidden sm:inline">
             {t("dashboard_change_votes")}
           </span>
@@ -142,13 +154,13 @@ export const CandidateRegionsTile: FC<Props> = ({
             className="contents"
           >
             <span className="truncate font-medium">{r.name}</span>
-            <span className="tabular-nums text-xs text-muted-foreground text-right">
+            <span className="tabular-nums text-sm text-muted-foreground text-right">
               {formatThousands(r.totalVotes)}
             </span>
-            <span className="tabular-nums text-xs text-muted-foreground text-right">
+            <span className="tabular-nums text-sm text-muted-foreground text-right">
               #{r.pref}
             </span>
-            <div className="hidden sm:block h-2 rounded-full bg-muted overflow-hidden">
+            <div className="hidden sm:block h-2.5 rounded-full bg-muted overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{
@@ -157,7 +169,7 @@ export const CandidateRegionsTile: FC<Props> = ({
                 }}
               />
             </div>
-            <span className="tabular-nums text-xs font-semibold text-right">
+            <span className="tabular-nums text-sm font-semibold text-right">
               {r.pctOfRegion !== undefined ? formatPct(r.pctOfRegion, 2) : "—"}
             </span>
             <span className="justify-self-end">

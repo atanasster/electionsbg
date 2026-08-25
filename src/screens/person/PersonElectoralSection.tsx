@@ -138,8 +138,16 @@ export const PersonElectoralSection: FC<Props> = ({
       .map((r) => r.history)
       .filter((h) => (h?.length ?? 0) > 0)
       .sort((a, b) => b.length - a.length)[0];
-    return longest ?? [];
-  }, [rows]);
+    // The chart is highlighted by `selectedCycle` below, which relies on the longest
+    // history being a SUPERSET containing every cycle — true today because each row
+    // accumulates cycles up to its own election, but not an enforced invariant. If a
+    // future data shape ever breaks it, fall back to the selected row's OWN history
+    // (which contains its own cycle by construction) rather than silently highlighting
+    // nothing.
+    if (longest?.some((h) => h.elections_date === selectedCycle))
+      return longest;
+    return row?.history?.length ? row.history : (longest ?? []);
+  }, [rows, selectedCycle, row]);
 
   // No election with actual results → no electoral section (a candidacy role alone isn't
   // enough to show a dashboard of empty cards). But while the async fetch is still in flight
@@ -237,6 +245,7 @@ export const PersonElectoralSection: FC<Props> = ({
           data={
             fullHistory.length ? { ...summary, history: fullHistory } : summary
           }
+          highlightDate={selectedCycle}
         />
       </DashboardSection>
 

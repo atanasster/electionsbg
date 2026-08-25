@@ -6,9 +6,15 @@ import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 import { CandidateHistoryChart } from "@/screens/components/candidates/CandidateHistoryChart";
 
-type Props = { data: CandidateDashboardSummary };
+type Props = {
+  data: CandidateDashboardSummary;
+  // The cycle the selector pills above this card currently show — see
+  // CandidateHistoryChart's own doc on the prop. Undefined on the legacy single-snapshot
+  // path, which has no selector.
+  highlightDate?: string;
+};
 
-export const CandidateTrajectoryTile: FC<Props> = ({ data }) => {
+export const CandidateTrajectoryTile: FC<Props> = ({ data, highlightDate }) => {
   const { t } = useTranslation();
   if (!data.history || data.history.length < 2) return null;
   return (
@@ -24,7 +30,10 @@ export const CandidateTrajectoryTile: FC<Props> = ({ data }) => {
       className="overflow-hidden"
     >
       <div className="w-full mt-2">
-        <CandidateHistoryChart stats={data.history} />
+        <CandidateHistoryChart
+          stats={data.history}
+          highlightDate={highlightDate}
+        />
       </div>
     </StatCard>
   );

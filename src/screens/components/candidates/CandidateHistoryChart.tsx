@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { formatThousands, localDate } from "@/data/utils";
 import { useRegions } from "@/data/regions/useRegions";
 import { CandidateStatsYearly } from "@/data/dataTypes";
+import { barCellStyle } from "./candidateHistoryChartStyle";
 
 const CustomTooltip: FC<{
   active?: boolean;
@@ -50,7 +51,13 @@ const CustomTooltip: FC<{
 
 export const CandidateHistoryChart: FC<{
   stats: CandidateStatsYearly[];
-}> = ({ stats }) => {
+  // The cycle the pills above this chart currently have selected ("YYYY_MM_DD",
+  // CandidateStatsYearly.elections_date) — ties the chart back to the selector instead of
+  // rendering every cycle at equal visual weight. Undefined (the legacy /candidate/:id
+  // single-snapshot path, which has no cycle selector) draws every bar at full opacity,
+  // matching this component's pre-existing behaviour exactly.
+  highlightDate?: string;
+}> = ({ stats, highlightDate }) => {
   const { i18n } = useTranslation();
   const { findRegion } = useRegions();
 
@@ -127,7 +134,7 @@ export const CandidateHistoryChart: FC<{
               <Cell
                 key={`cell-${index}`}
                 fill={entry.color}
-                fillOpacity={n === 0 ? 1 : 0.55}
+                {...barCellStyle(n, entry.name, entry.color, highlightDate)}
               />
             ))}
           </Bar>

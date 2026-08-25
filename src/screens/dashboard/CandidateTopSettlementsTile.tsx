@@ -8,7 +8,11 @@ import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 
-const TOP_N = 15;
+// The on-page summary card shows a HANDFUL of rows and links to the full
+// /candidate/:slug/settlements table for the rest — a broadly-run candidate can carry
+// dozens of settlements, and this card should stay spacious rather than becoming a dense
+// spreadsheet; CandidateSettlementsScreen is where the complete, uncapped list lives.
+const TOP_N = 5;
 
 type Props = {
   data: CandidateDashboardSummary;
@@ -95,20 +99,24 @@ export const CandidateTopSettlementsTile: FC<Props> = ({
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(64px,1fr)_auto_auto_auto_auto] gap-x-1.5 sm:gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+      {/* The 64px floor on the first track (instead of a bare `1fr`, whose implicit
+          min-width is the content's own natural size) is what lets the first column's
+          `truncate` span actually clip a long place name rather than forcing the track
+          wider than the row has room for. Don't simplify this to a bare `1fr`. */}
+      <div className="grid grid-cols-[minmax(64px,1fr)_auto_auto_auto_auto] gap-x-1.5 sm:gap-x-3 gap-y-2.5 items-center mt-2 text-sm">
+        <span className="truncate text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_col_place_short")}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+        <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_col_preferences_short")}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+        <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_pct_of_party")}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+        <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_pct_local")}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+        <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_change_votes")}
         </span>
         {rows.map((r) => (
@@ -126,21 +134,21 @@ export const CandidateTopSettlementsTile: FC<Props> = ({
             className="contents"
           >
             <span className="truncate font-medium">{r.name}</span>
-            <span className="tabular-nums text-xs text-muted-foreground text-right">
+            <span className="tabular-nums text-sm text-muted-foreground text-right">
               {formatThousands(r.totalVotes)}
             </span>
-            <span className="tabular-nums text-xs font-semibold text-right">
+            <span className="tabular-nums text-sm font-semibold text-right">
               {r.pctOfPartyPrefs !== undefined
                 ? formatPct(r.pctOfPartyPrefs, 2)
                 : "—"}
             </span>
-            <span className="tabular-nums text-xs text-muted-foreground text-right">
+            <span className="tabular-nums text-sm text-muted-foreground text-right">
               {r.pctOfSettlement !== undefined
                 ? formatPct(r.pctOfSettlement, 2)
                 : "—"}
             </span>
             <span
-              className={`tabular-nums text-xs font-medium text-right ${
+              className={`tabular-nums text-sm font-medium text-right ${
                 r.deltaVotes === undefined
                   ? "text-muted-foreground"
                   : r.deltaVotes > 0
