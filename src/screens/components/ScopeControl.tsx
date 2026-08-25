@@ -28,6 +28,7 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { formatDate } from "@/lib/formatDate";
 import { CalendarRange } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -80,7 +81,7 @@ export const ScopeControl: FC<Props> = ({
   nsLabelOverride,
   allowAll = true,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { selected } = useElectionContext();
   const yearList = years ?? YEARS;
   const url = useScope();
@@ -99,7 +100,20 @@ export const ScopeControl: FC<Props> = ({
   const active = value ?? url.scope;
   const scope: Scope = active === "all" && !allowAll ? "ns" : active;
   const setScope = onChange ?? url.setScope;
-  const electionLabel = selected?.replace(/_/g, "-");
+  /** „19.04.2026 г.", not „2026-04-19".
+   *
+   *  This is the label a reader sees on the scope pill of every procurement surface, and it
+   *  was the election-folder id with its underscores swapped for hyphens — an internal key
+   *  rendered as prose. It sits directly beside the KPI band on /procurement/contracts, so it
+   *  is the sentence that says which window those figures cover.
+   *
+   *  Through `formatDate`, which pins a DATE-ONLY value to UTC: `new Date("2026-04-19")` is
+   *  UTC midnight, so formatting it in the viewer's zone prints 18 April for everyone west of
+   *  Greenwich — the off-by-one §7 names, on the one string that qualifies every figure here. */
+  const electionLabel =
+    selected && !nsLabelOverride
+      ? formatDate(selected.replace(/_/g, "-"), i18n.language)
+      : undefined;
 
   if (mode === "corpus") {
     return (

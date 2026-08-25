@@ -1,7 +1,13 @@
 // Date-only localized format shared across procurement surfaces (tender detail,
-// the recent-appeals tile, the appeals browser). Renders a raw ISO date
-// ("2024-03-14") as "14 март 2024" (bg) / "14 Mar 2024" (en). Falls back to the
+// the recent-appeals tile, the appeals browser, the scope pill). Renders a raw ISO date
+// ("2024-03-14") as "14.03.2024 г." (bg) / "14 Mar 2024" (en). Falls back to the
 // raw string on an unparseable input rather than printing "Invalid Date".
+//
+// ⚠ THE BULGARIAN SHORT FORM IS NUMERIC, and the two functions below differ in it. `month:
+// "short"` yields a numeric civil date in bg-BG ("14.03.2024 г.") while the English side
+// abbreviates the month name ("14 Mar 2024") — so the bg outputs of the two functions are NOT
+// the same string, which is what the docstrings claimed until 2026-08-25. Measured; the
+// English halves were correct and the Bulgarian ones had been copied between them.
 //
 // A DATE-ONLY input is formatted in UTC, and that is load-bearing rather than tidy:
 // `new Date("2021-04-15")` is parsed as UTC midnight, so formatting it in the VIEWER's zone
@@ -31,10 +37,10 @@ const fmt = (iso: string, lang: string, month: "short" | "long"): string => {
   }).format(d);
 };
 
-/** "14 март 2024" (bg) / "14 Mar 2024" (en). */
+/** "14.03.2024 г." (bg — numeric) / "14 Mar 2024" (en). */
 export const formatDate = (iso: string, lang: string): string =>
   fmt(iso, lang, "short");
 
-/** "14 март 2024" (bg) / "14 March 2024" (en) — the spelled-out month. */
+/** "14 март 2024 г." (bg) / "14 March 2024" (en) — the spelled-out month. */
 export const formatDateLong = (iso: string, lang: string): string =>
   fmt(iso, lang, "long");
