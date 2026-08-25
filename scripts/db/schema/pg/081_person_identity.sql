@@ -276,6 +276,150 @@ DO $$ BEGIN
   ALTER TABLE person_role VALIDATE CONSTRAINT person_role_date_basis_check;
 EXCEPTION WHEN undefined_object THEN NULL; END $$;
 
+-- WHICH LICENCE a tr/ngo role was attached under, and the footprint the cap was measured
+-- against WHEN IT WAS ATTACHED. Plan: docs/plans/person-role-unlicensed-bridge-v1.md.
+--
+-- ⚠️ THE POINT IS THE TENSE. A tr/ngo role attributes a COMPANY to a NAMED INDIVIDUAL, and
+-- three bridges exist so that attribution is never made on a name alone (see
+-- person_resolve.data.test.ts for what each licenses). Until now the licence was never
+-- recorded — the gate RE-DERIVED it at test time from `tr_officers`, `tr_person_roles`,
+-- `contracts`, `agri_subsidies`, `fund_beneficiaries`, `company_politicians` and
+-- `magistrate_company`, every one of which is reloaded on its own schedule, independently of
+-- `person_role`. So the gate was not asserting an invariant; it was asserting that two
+-- corpora were the same vintage, which is false on any machine that has run
+-- `tr:daily-refresh` since its last resolve.
+--
+-- Measured 2026-08-25: `person_role` was written 2026-08-22 18:56, `db:load:tr:pg` reloaded
+-- the TR corpus 2026-08-24 22:20 (1,885 new companies), and 443 roles across 63 people —
+-- every one of them attached under a footprint of 2..5, i.e. inside the cap — came back
+-- "unlicensed" because their folds had since grown to 6..11. The resolver was blameless:
+-- across the whole non-Bridge-A tr/ngo layer (82,247 people) NO person holds more than 5
+-- distinct EIKs, so the cap has never once been exceeded at attach time.
+--
+--   'A'  curated company link — magistrate_company (NOT eik_ambiguous) ∪ company_politicians
+--   'B'  people-unique public 3-part fold, ≤ FOOTPRINT_CAP companies, exact entity match
+--   'V'  money-linked private owner (Tier V), name-only identity, ≤ FOOTPRINT_CAP companies
+--
+-- `bridge_footprint` is the distinct-company count the resolver measured for that person's
+-- fold in the run that attached the row. It is what turns "how stale is this?" into a
+-- subtraction against the CURRENT count rather than a recomputation — and it is NULL for
+-- 'A', which is not capped on a footprint at all.
+--
+-- ⚠️ IT IS ONE COLUMN OVER TWO DIFFERENT BASE TABLES, and a consumer that re-derives it must
+-- use the same one the resolver did. Bridge B counts `tr_person_roles` (bridgeB.ts's `hits`
+-- CTE, the full-history officer/owner table); Tier V counts `tr_officers` (its mint's
+-- `count(DISTINCT o.uic) <= 5`). The two agree on all 68,662 Tier-V folds today (measured
+-- 2026-08-25, 0 where `tr_person_roles` exceeds `tr_officers`), which is exactly why a
+-- divergence would be invisible — nothing fails while they match.
+--
+-- ⚠️ NO UPPER BOUND ON PURPOSE. The cap is `FOOTPRINT_CAP`, which lives once — in
+-- scripts/person/bridgeB.ts, imported by both the resolver and the gate. A literal 5 here
+-- would be a SECOND definition of a calibrated threshold, the class CLAUDE.md records
+-- COMMON_NAME_TR_ROWS = 11 being deleted rather than ported for. The cap is asserted by the
+-- gate, not by the schema. The LOWER bound is not arbitrary either: Bridge B's `footprint`
+-- CTE is implicitly >= 1 (a person with no match never reaches `hits`) and Tier V's HAVING
+-- group cannot be empty, so 0 is unreachable by construction and a stored 0 means a bug.
+--
+-- ⚠️ NULL IS "ATTACHED BEFORE THIS COLUMN EXISTED", NEVER "UNLICENSED". There is deliberately
+-- NO BACKFILL: the licence is a fact about the corpus the resolver SAW, and that vintage is
+-- not recoverable — `tr_officers` is TRUNCATE-and-reload with no history, and
+-- `ingest_first_seen` records new COMPANIES so it is blind to a fold gaining an officer row
+-- at a company that already existed (the ordinary way a footprint grows). Reconstructing the
+-- value from today's tables would store a number nobody observed and then let a gate assert
+-- it as an observation. So the column stays NULL until the next `db:resolve:persons`.
+--
+-- What reads it, and when: the licence gate WILL skip on an all-NULL corpus with a distinct
+-- reason, and a freshness gate WILL carry the signal in the meantime — steps 4 and 5 of the
+-- plan, NEITHER YET WRITTEN. Until they are, `person_resolve.data.test.ts` keeps re-deriving
+-- the licence from the seven tables and stays red at 443. Flip this paragraph's tense when
+-- they land; a schema comment asserting a gate nobody built is the defect class this repo
+-- calls "rules written here that were never turned into gates".
+--
+-- ⚠️ AND IT MUST BE IN resolve_persons.ts's `copyRows` LIST. `person` and `person_role` are
+-- DELETEd and rebuilt every run, so a column dropped from that list comes back NULL for every
+-- row with nothing failing — the `date_basis` failure class this file documents above, and
+-- the reason the gate asserts `bridge IS NOT NULL` over the WHOLE tr/ngo set rather than a
+-- sample.
+--
+-- Same three lock defences as the date_basis block: skip in the steady state, fail fast
+-- rather than head a lock queue, and add the CHECK NOT VALID so it does not scan while
+-- holding an AccessExclusiveLock.
+--
+-- ⚠️ `SET LOCAL` IS TRANSACTION-SCOPED, NOT BLOCK-SCOPED, and on a warm database this is the
+-- FIRST statement in the file to set it — the date_basis block above RETURNs before its own
+-- `SET LOCAL` once its column exists. So on that one upgrade run everything below inherits
+-- the 3 s timeout: both VALIDATE blocks, the CREATE INDEXes, and the person_link_override
+-- ALTERs at the foot of the file. That is the desirable direction (fail fast, and `exec()`
+-- rolls the whole file back atomically) and it is left set deliberately — but an operator
+-- debugging a 55P03 raised near the end of 081 needs to know it was armed up here.
+--
+-- ⚠️ THE GUARD TESTS BOTH COLUMNS, AND THE STATEMENTS ARE IDEMPOTENT. No applier can
+-- currently produce a half-added state — all four send 081 through `exec()` as one
+-- transaction, and a DO block is atomic even under `execEach` — but two quiet routes into it
+-- exist: someone "completing" the date_basis convention by declaring `bridge` in the CREATE
+-- TABLE above and stopping there (a FRESH database then mints one column, this block RETURNs,
+-- and the other is never created), or a hand-run ALTER while debugging against Cloud SQL.
+-- With a plain `ADD COLUMN`, the re-run that should repair it instead raises 42701 and rolls
+-- back the whole file — aborting db:resolve:persons, add_override.ts and agri:ingest, all of
+-- which apply 081. The outer guard still earns its place: a no-op `ADD COLUMN IF NOT EXISTS`
+-- takes an AccessExclusiveLock anyway, so IF NOT EXISTS is not a substitute for skipping.
+-- ⚠️ THE GUARD ALSO TESTS THE CONSTRAINT'S DEFINITION, not just the columns, and that is what
+-- lets a TIGHTENING converge. A columns-only guard returns early on every warm database, so
+-- the `IS TRUE` fix below would have reached fresh clones and nothing else — the change would
+-- look landed, and the databases that already had the loose constraint would keep it for ever.
+-- Matching on `pg_get_constraintdef` text is coarse (it can only tell "not yet tightened" from
+-- "tightened"), so it is a convergence aid, not the assertion: the SEMANTICS are pinned by
+-- inserting each row shape in scripts/db/tests/person_role_bridge.data.test.ts, which is what
+-- would catch a guard that false-passes.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns
+              WHERE table_schema = 'public' AND table_name = 'person_role'
+                AND column_name = 'bridge')
+ AND EXISTS (SELECT 1 FROM information_schema.columns
+              WHERE table_schema = 'public' AND table_name = 'person_role'
+                AND column_name = 'bridge_footprint')
+ AND EXISTS (SELECT 1 FROM pg_constraint
+              WHERE conrelid = 'public.person_role'::regclass
+                AND conname = 'person_role_bridge_footprint_check'
+                AND pg_get_constraintdef(oid) LIKE '%IS TRUE%')
+  THEN RETURN; END IF;
+
+  SET LOCAL lock_timeout = '3s';
+  ALTER TABLE person_role ADD COLUMN IF NOT EXISTS bridge text;
+  ALTER TABLE person_role ADD COLUMN IF NOT EXISTS bridge_footprint int;
+  -- Postgres has no ADD CONSTRAINT IF NOT EXISTS, so DROP+ADD — the pattern this file already
+  -- uses for person_identity_confidence_check. It is also what makes a TIGHTENING of either
+  -- expression reach a warm database at all: a plain ADD is skipped for ever once the
+  -- constraint exists, so the fix below would have landed only on fresh clones.
+  ALTER TABLE person_role DROP CONSTRAINT IF EXISTS person_role_bridge_check;
+  ALTER TABLE person_role ADD  CONSTRAINT person_role_bridge_check
+    CHECK (bridge IS NULL OR bridge IN ('A', 'B', 'V')) NOT VALID;
+  -- A footprint only means something beside a cap, and only B and V are capped. Storing one
+  -- on an 'A' row would invite a consumer to compare it against FOOTPRINT_CAP and call a
+  -- curated link over-sized; storing one with NO bridge at all asserts a measurement against
+  -- a licence nobody recorded.
+  --
+  -- ⚠️ `IS TRUE` IS LOAD-BEARING — without it this constraint FAILS OPEN on exactly the row
+  -- shape the header calls out. `bridge IN ('B','V')` is NULL when bridge is NULL, so
+  -- `FALSE OR (NULL AND TRUE)` is NULL, and a CHECK accepts NULL: (bridge NULL, footprint 5)
+  -- was admitted, verified by insert. `IS TRUE` forces two-valued logic. That shape is not
+  -- hypothetical — the resolver stamps 'B'/'V' on two INSERTs and back-fills 'A' in a final
+  -- UPDATE, so a mis-scoped predicate leaves a measured footprint on an unlicensed row.
+  ALTER TABLE person_role DROP CONSTRAINT IF EXISTS person_role_bridge_footprint_check;
+  ALTER TABLE person_role ADD  CONSTRAINT person_role_bridge_footprint_check
+    CHECK (bridge_footprint IS NULL
+           OR (bridge IN ('B', 'V') IS TRUE AND bridge_footprint >= 1))
+    NOT VALID;
+END $$;
+
+DO $$ BEGIN
+  ALTER TABLE person_role VALIDATE CONSTRAINT person_role_bridge_check;
+EXCEPTION WHEN undefined_object THEN NULL; END $$;
+DO $$ BEGIN
+  ALTER TABLE person_role VALIDATE CONSTRAINT person_role_bridge_footprint_check;
+EXCEPTION WHEN undefined_object THEN NULL; END $$;
+
 -- Reverse lookup: which person owns a given source record (source native key -> person).
 -- The leading `source` column also serves facet filtering; person-scoped lookups
 -- ("everything for person N") ride the PK's leading person_id.
