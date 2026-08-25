@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-22T20:27:38.968Z",
+  "lastSuccessfulIngest": "2026-08-25T03:51:01.543Z",
   "skill": "kzk_appeals",
-  "summary": "КЗК 2026 intake: 65 new complaints, 7,998 total (local+cloud in parity); tier-2 through 2026-08-20, intake through 2026-08-21 (1d behind)"
+  "summary": "КЗК 2026 intake: 9 new complaints (filed 2026-08-24), 8,007 total, 893 this year; intake through 2026-08-24, tier-2 attached through 2026-08-13 (decisions corpus holds acts to 2026-08-20). LOCAL ONLY — Cloud SQL NOT published this run, so prod is still at 7,998. Gate D failed this ingest on a false positive (the matched ratchet cannot tell corpus growth from a matcher regression); fixed and green, see docs/plans/kzk-gate-d-ambiguity-v1.md."
 }
