@@ -219,7 +219,7 @@ that works today: the rewrite would route every contract and company URL to a fu
 with no handler for it. `deploy:db` first, then `deploy`.
 
 **`/council/resolution/**`is a fifth member, and the only one that is function-served for a
-CONTENT reason rather than a file-count one.** 4,676 resolutions (9,352 with the EN mirror)
+CONTENT reason rather than a file-count one.** 4,813 resolutions as of 2026-08-25 (9,626 with the EN mirror)
 would fit under the Firebase ceiling comfortably — but each body is one title and a vote
 table, the shape that earns a thin-content penalty rather than traffic. So they get a real
 head from the function and deliberately **no sitemap`<loc>`and no prerender**: discoverable
@@ -241,7 +241,7 @@ Two things about it are easy to get backwards, and both shipped once:
   through `council_muni_code` only, and eight of the sixteen council keys are not frontend
   codes — three (BGS01, PDV01, VAR01) are OTHER municipalities' codes. Linking the internal
   key put "we do not track this council" one click from that council's own decision, for
-  1,768 of 4,727 resolutions. `council_resolution_detail()` therefore returns
+  1,980 of 4,813 resolutions (measured 2026-08-25). `council_resolution_detail()` therefore returns
   `councilFrontendCode` beside `councilCode`, and a NULL there means render plain text.
 
 **`/person/*` is a sixth member of that family, and the one easiest to get wrong.** The
@@ -2249,12 +2249,13 @@ npm run db:load:council:pg:cloud
 ```
 
 **Its input is the DURABLE per-resolution shard tree** (`data/council/<code>/<YYYY>/<id>.json`,
-4,676 files, COMMITTED) — deliberately not `index.json` (capped at 200 rows per município, and six
-of sixteen exceed it) nor `votes/*.json` (rebuilt from that capped, `perCouncillor`-stripped index
-until 2026-08-16, which left 530 resolutions and 10,754 named-vote rows on disk and unserved). The
-tree being committed is why this loader is in the chain proper rather than `REFRESH_EXCLUSIONS`.
+4,813 files as of 2026-08-25, COMMITTED) — deliberately not `index.json` (capped at 200 rows per
+município, and eleven of sixteen exceed it) nor `votes/*.json` (rebuilt from that capped,
+`perCouncillor`-stripped index until 2026-08-16, which left 530 resolutions and 10,754 named-vote
+rows on disk and unserved). The tree being committed is why this loader is in the chain proper
+rather than `REFRESH_EXCLUSIONS`.
 
-Four things about it are easy to get backwards:
+Five things about it are easy to get backwards:
 
 - **It is UPSERT-ONLY and must stay that way.** A council resolution is a permanent public record,
   so a scrape that misses a protocol — or a parser regression on one município — must not erase
@@ -2271,8 +2272,23 @@ Four things about it are easy to get backwards:
   both sides must use it. It was briefly written twice — TS on the vote side, `lower(split_part(…))`
   in SQL on the roster side — and the two diverged on `й`→`и` (NFD) and on hyphens, costing 4,899 of
   28,214 votes their attribution AND evaluating the "refuse a shared name" guard over a different
-  equivalence class than the join used, which can attach a vote to the wrong person. Attribution is
-  **94.1%**; a run reporting ~77% means the folds have drifted apart again.
+  equivalence class than the join used, which can attach a vote to the wrong person (that count is
+  the 2026-08 corpus; it is 46,121 now). Attribution is **93.8%** — 43,261 of 46,121, measured
+  2026-08-25; it was 94.1% of 28,214 when the single fold landed, and the gate's floor is 90%
+  rather than a ratchet on either. A run reporting ~77% means the folds have drifted apart again.
+- ⚠️ **`meta.resolutionCount` in `index.json` counts the SHARD TREE, and it had two definitions
+  until 2026-08-25.** `mergeMuniResult` counted `|index-window ∪ durable ∪ this scrape|` while
+  `rebuildShardsFromDurable` counted `|durable|`. They were equal on every município until
+  `cbbcd220e4` purged 84 phantom resolutions — deleting their shards and leaving their rows in
+  `resolutionsByObshtina` — after which the value ALTERNATED run to run (RSE01 published 507
+  against 426 shards) and a scrape that wrote zero shards still moved it. Nothing reader-facing
+  was wrong: this loader takes `resolution_count` from the tree (`rows.length`) and reads
+  `index.json` only for `meta.name` / `meta.lastIngest`, and the whole `council/` tree is excluded
+  from bucket sync. What DID read the bad number was the `update-council-minutes` verification
+  step and the ingest ledger. Repair with `npm run council:rebuild-shards` — which now prunes the
+  ROWS as well as resyncing the count, the half whose absence made the 2026-08-22 purge look
+  complete when it was not. `scripts/council/lib/index_corpus.test.ts` gates the invariant in both
+  directions.
 - **`db:resolve:persons` nulls `council_vote.person_id` table-wide** (ON DELETE SET NULL, because
   `person_id` is a positional ordinal and the resolver does DELETE + re-COPY), so this loader must
   run AFTER it and is what re-attaches attribution — the declarations `--resolve` trap, one table

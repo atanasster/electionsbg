@@ -1,7 +1,7 @@
 // Recent municipal-council decisions per município, read from Postgres.
 //
 // The My-Area alert builder used to read data/council/index.json for this.
-// That file is CAPPED at 200 resolutions per município (six of sixteen exceed
+// That file is CAPPED at 200 resolutions per município (eleven of sixteen exceed
 // it) and STRIPPED of per-councillor votes, so an alert built from it could
 // only ever say "the council voted on X" — the most valuable event this feed
 // could carry, "your councillor voted against X", was not expressible at all.

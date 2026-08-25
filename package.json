@@ -257,6 +257,7 @@
     "rollcall:scrape": "tsx ./scripts/parliament/scrape_rollcall.ts",
     "council:discover": "tsx ./scripts/council/discover.ts",
     "council:scrape": "tsx ./scripts/council/scrape.ts",
+    "council:rebuild-shards": "tsx ./scripts/council/rebuild_shards.ts",
     "derived:rebuild": "tsx ./scripts/parliament/derived/index.ts",
     "procurement:ingest": "tsx ./scripts/procurement/ingest.ts",
     "kzk:summary": "tsx ./scripts/procurement/build_kzk_summary.ts",

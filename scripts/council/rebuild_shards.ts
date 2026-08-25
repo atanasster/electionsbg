@@ -19,7 +19,7 @@
 // — the counts were then re-broken by the next scrape and the 84 rows survived
 // in the committed artifact for three days.
 //
-// Run with: tsx scripts/council/rebuild_shards.ts [--allow-shrink] [--allow-prune]
+// Run with: npm run council:rebuild-shards -- [--allow-shrink] [--allow-prune[=CODE,CODE]]
 //
 // --allow-shrink overrides the votes-shard shrink guard. Needed only when a
 // município's named-vote history has legitimately been reduced; a healthy

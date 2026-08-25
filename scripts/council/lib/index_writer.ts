@@ -273,7 +273,7 @@ const readVotesShard = async (
     throw new Error(
       `[council] ${p} exists but does not parse (${String(err)}). ` +
         `Refusing to rebuild it from the index window — run ` +
-        `\`tsx scripts/council/rebuild_shards.ts\` to restore it from the durable tree.`,
+        `\`npm run council:rebuild-shards\` to restore it from the durable tree.`,
     );
   }
 };
@@ -379,7 +379,7 @@ const writeVotesShard = async (
       `[council] refusing to shrink ${obshtinaCode} votes shard: ` +
         `${before} → ${kept} named-vote resolutions ` +
         `(>${VOTES_SHRINK_TOLERANCE * 100}% drop). ` +
-        `Pass --allow-shrink (rebuild_shards.ts) or allowShrink to override.`,
+        `Pass --allow-shrink (npm run council:rebuild-shards) or allowShrink to override.`,
     );
   }
 
@@ -649,8 +649,8 @@ export const mergeMuniResult = async (
   // (`resolution_count: rows.length`), which is what Postgres serves.
   //
   // It must NOT be `capped.length`, which is truncated to PER_MUNI_LIMIT and
-  // would collapse to the cap on the six municipalities with more history than
-  // that. Nor `byId.size`: that was the second of two definitions of one
+  // would collapse to the cap on the eleven municipalities with more history
+  // than that. Nor `byId.size`: that was the second of two definitions of one
   // field, and between 2026-08-22 and 2026-08-25 the value alternated run by
   // run depending on which writer touched it last.
   //

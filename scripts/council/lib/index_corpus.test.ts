@@ -157,12 +157,12 @@ describe.skipIf(!present)(
         .filter((id) => !ids.has(id));
       // Name them. A bare count cannot tell a purge residue from an id-scheme
       // change, and those want opposite responses — the first is repaired with
-      // `tsx scripts/council/rebuild_shards.ts`, the second means a parser moved
+      // `npm run council:rebuild-shards`, the second means a parser moved
       // every id in a protocol and the tree is the thing to look at.
       expect(
         orphans,
         `${code}: index rows with no durable shard — repair with ` +
-          `\`tsx scripts/council/rebuild_shards.ts\``,
+          `\`npm run council:rebuild-shards\``,
       ).toEqual([]);
     });
 

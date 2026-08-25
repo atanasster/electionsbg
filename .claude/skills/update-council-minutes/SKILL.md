@@ -123,6 +123,22 @@ console.log('first:', rs[0]?.id, '|', rs[0]?.title?.slice(0, 60));
 " VTR01
 ```
 
+`resolutionCount` is the count of the DURABLE SHARD TREE
+(`data/council/<code>/<YYYY>/<id>.json`) — the same number
+`load_council_pg.ts` loads and `/api/db/council-muni` serves. It is NOT the
+length of `resolutionsByObshtina[<code>]`, which is capped at 200 rows per
+município (11 of 16 exceed it), so a município showing fewer rows than
+resolutions is normal. RSE01 is currently short for a second reason and it is
+benign: the 2026-08-25 repair pruned 81 rows and does not top the window back
+up, so it reads 119 of 426 until its next scrape refills it.
+
+⚠️ Until 2026-08-25 that field was not a reliable count of anything: two
+writers held two definitions of it and the value alternated run to run
+(RSE01 published 507 against 426 shards on disk). If it ever disagrees with
+`find data/council/<CODE> -name '*.json' | wc -l` again, that is a defect —
+`scripts/council/lib/index_corpus.test.ts` gates it, and
+`npm run council:rebuild-shards` repairs it.
+
 Spot-check: open the most recent resolution's `sourceUrl` in a browser and confirm the tally numbers match the document. Drift here usually means the source CMS changed the protocol format — fix the per-município parser, don't fix the regex globally.
 
 ## Step 4.5 — Publish the corpus to Postgres
@@ -154,7 +170,9 @@ Expected output — the two numbers to read:
 [council] person_id attached to 26550/28214 named votes (94.1%)
 ```
 
-**94.1% is the number.** A drop to ~77% means the two sides of `councilNameKey`
+**~94% is the number** (93.8% = 43,261 of 46,121, measured 2026-08-25; the
+94.1% in the sample output above is from the smaller 2026-08 corpus). A drop to
+~77% means the two sides of `councilNameKey`
 have drifted apart again (see Troubleshooting). The loader refuses rather than
 publishing a collapse: if attribution would fall below 90% of what is already
 live it throws, naming `db:load:ngo-board-links` — the only writer of
@@ -246,13 +264,45 @@ See `data/council/sources.json` for the authoritative list. As of 2026-05-29:
 
 Total: 16 of 16 wired. Per-councillor coverage surfaces in the unified "Общински съвет" MyArea tile (`MyAreaCouncilTile`) + on the public `/local/:cycle/:obshtinaCode` page + on each `/officials/<slug>` profile.
 
-### One-shot: rebuild shards after pipeline change
+### One-shot: repair the index + votes shards from the durable tree
 
-`scripts/council/rebuild_shards.ts` regenerates the slim index + every per-município votes shard from whatever is currently on disk. Run after a `lib/index_writer.ts` shape change so the on-disk artefacts catch up without re-scraping every município:
+`npm run council:rebuild-shards` rebuilds every per-município votes shard from
+the durable per-resolution tree, resyncs `meta.resolutionCount` to it, and
+PRUNES index rows that have no durable shard. Run it after a
+`lib/index_writer.ts` shape change so the on-disk artefacts catch up without
+re-scraping, and after any purge of shards.
 
 ```bash
-npx tsx scripts/council/rebuild_shards.ts
+npm run council:rebuild-shards
 ```
+
+⚠️ **The prune is the half that used to be missing, and its absence is what
+made a purge look complete when it was not.** `cbbcd220e4` deleted 84 phantom
+shards, ran this tool, and recorded "the shards and index rebuilt to match" —
+it resynced the counts and never touched `resolutionsByObshtina`, so the 84
+rows stayed in the committed artifact and the counts were re-broken by the
+next scrape. Always read the diff to `data/council/index.json` before
+committing; the tool prints how many rows it dropped.
+
+Two escape hatches, both parsed by this command ONLY. `council:scrape` does
+not merely ignore them — cmd-ts REJECTS them (`Unknown arguments`), which is
+the right failure: the daily writer never needs the override, because once the
+repair tool has dropped the rows the next scrape sees `pruned === 0` and never
+consults the ceiling. See `MergeOptions.allowPrune`.
+
+```bash
+npm run council:rebuild-shards -- --allow-prune=RSE01,PVN01   # scoped
+npm run council:rebuild-shards -- --allow-shrink
+```
+
+`--allow-prune` overrides the ceiling that refuses a drop which is both large
+and a majority of a município's window — the shape a missing or misdirected
+shard tree produces (measured: an absent tree took 300 of 300 rows and exited
+0). **Prefer the scoped form.** The bare flag disarms the ceiling for every
+município in the run, including whichever one is genuinely broken, whose
+window then goes to zero in the same commit. A refusal is far more often a
+wrong `COUNCIL_DATA_DIR` or a partial checkout than a real purge, so check the
+tree is where you think it is before overriding.
 
 ## Troubleshooting
 
@@ -272,12 +322,26 @@ npx tsx scripts/council/rebuild_shards.ts
   divergences that have happened are `й`→`и` (the parser's NFD strip) and
   hyphen collapse — 4,899 votes between them. Both sides must call that one
   function; `council_corpus.data.test.ts` gates it.
+- **`refusing to prune <code>`**: the run would have dropped a large majority
+  of that município's index window for having no durable shard. That is what an
+  absent or misdirected shard tree looks like, not a purge residue — check
+  `find data/council/<CODE> -name '*.json' | wc -l` before reaching for
+  `--allow-prune`, and prefer the scoped `--allow-prune=<CODE>` form so the
+  override does not cover the other fifteen municipalities.
+  ⚠️ A refusal leaves the INDEX untouched — `writeIndex` runs after the loop,
+  so there is no half-written index and no partial prune — but every município
+  reached BEFORE the refusal has already had its votes shard rewritten. That is
+  safe and idempotent (each is derived from that município's own durable tree
+  and merged additively) and a re-run completes the rest.
+- **`meta.resolutionCount` disagrees with the shard count**: run
+  `npm run council:rebuild-shards`. `index_corpus.test.ts` gates the invariant
+  in both directions and names the offending ids.
 - **`refusing to shrink <code> votes shard`**: a run would have published fewer
   named-vote resolutions than are already on disk. That cannot happen through
   the additive merge, so it means something upstream changed shape. Investigate
-  before overriding. Note `--allow-shrink` is parsed by `rebuild_shards.ts`
+  before overriding. Note `--allow-shrink` is parsed by `council:rebuild-shards`
   ONLY — `council:scrape` ignores it, so the override belongs on the repair
-  command (`npx tsx scripts/council/rebuild_shards.ts --allow-shrink`), not on
+  command (`npm run council:rebuild-shards -- --allow-shrink`), not on
   the scrape that raised the error.
 - **`person attribution collapsed`**: `official_roster` is empty or partial.
   Re-run `db:load:ngo-board-links`, then this loader.

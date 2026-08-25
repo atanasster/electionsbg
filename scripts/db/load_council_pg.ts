@@ -6,7 +6,7 @@
 //
 // THE INPUT IS THE DURABLE SHARD TREE — data/council/<code>/<YYYY>/<id>.json —
 // and deliberately NOT index.json or votes/*.json. Both of those are lossy
-// derivatives: index.json is capped at 200 rows per município (six of sixteen
+// derivatives: index.json is capped at 200 rows per município (eleven of sixteen
 // exceed it) and stripped of tally.perCouncillor, and the votes shard was
 // rebuilt from that stripped index until 2026-08-16, which left 530
 // resolutions and 10,754 named-vote rows on disk and unserved. The durable

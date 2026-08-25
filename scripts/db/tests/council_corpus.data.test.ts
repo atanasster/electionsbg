@@ -6,13 +6,14 @@
 //      Both directions matter: the loader is upsert-only and never deletes, so
 //      a `councilNameKey` change re-keys every row, orphans the old set and
 //      DOUBLES the corpus. index.json cannot be the reference — it is capped at
-//      200 rows per município and six of sixteen exceed it.
+//      200 rows per município and eleven of sixteen exceed it.
 //   2. WRONG PERSON — a named vote attributed to someone who did not cast it.
 //      The corpus's central safety property: a fold held by two officials SLUGS
 //      in one município must resolve to nobody.
 //   3. FOLD DRIFT — the identity fold is used on the vote side and the roster
 //      side. Written twice, the two diverged on `й`→`и` and on hyphens, costing
-//      4,899 of 28,214 attributions AND evaluating the shared-name guard over a
+//      4,899 of 28,214 attributions (the corpus was that size then; 46,121 now)
+//      AND evaluating the shared-name guard over a
 //      different equivalence class than the join used.
 //   4. POLLUTED KEYS — the PER32 parser absorbs the vote label into the name.
 //      Every value is legal, so no CHECK sees it.
@@ -274,11 +275,16 @@ test.skipIf(skip)("attribution has not collapsed", async () => {
     "council_vote is empty — run db:load:council:pg. This is NOT a fold-drift failure",
   );
   const pct = (Number(row.attached) / Number(row.total)) * 100;
-  // 94.1% when the single fold landed. A drop to ~77% is the signature of the
-  // vote-side and roster-side folds diverging again (й / hyphens).
+  // 94.1% of 28,214 when the single fold landed; 93.8% of 46,121 measured
+  // 2026-08-25 — the corpus grew, the rate did not move materially. A drop to
+  // ~77% is the signature of the vote-side and roster-side folds diverging
+  // again (й / hyphens). The floor below is 90% and is deliberately NOT a
+  // ratchet on the measured value: those are different claims, and ratcheting
+  // one to the other would fail on ordinary corpus growth.
   assert.ok(
     pct > 90,
-    `only ${pct.toFixed(1)}% of named votes carry a person_id (was 94.1%) — ` +
+    `only ${pct.toFixed(1)}% of named votes carry a person_id (93.8% on the ` +
+      `2026-08-25 corpus) — ` +
       `the two sides of councilNameKey have probably drifted apart`,
   );
 });
