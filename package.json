@@ -222,6 +222,7 @@
     "db:gen-declarations-hub-stats": "tsx scripts/db/gen_governance/declarations_hub_stats.ts",
     "db:gen-governance-hub-stats": "tsx scripts/db/gen_governance/hub_stats.ts",
     "gen:shlyo-sql": "tsx scripts/db/gen_sql/shlyo_query_fold.ts",
+    "gen:culture-sql": "tsx scripts/db/gen_sql/culture_match.ts",
     "gen:risk": "tsx scripts/risk/gen_risk.ts",
     "db:build": "tsx scripts/db/build.ts",
     "db:dump": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/dump.ts",

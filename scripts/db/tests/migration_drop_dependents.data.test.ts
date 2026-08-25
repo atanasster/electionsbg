@@ -399,3 +399,63 @@ test.skipIf(skip)(
     );
   },
 );
+
+// ── the CASCADE that this file's own scanner cannot see ─────────────────────
+//
+// `dropsByFile` matches `DROP TABLE|VIEW|MATERIALIZED VIEW`. That is the whole
+// scanner, and it is blind to a second statement with identical consequences:
+//
+//     ALTER TABLE t DROP COLUMN c CASCADE;
+//
+// A view that projects `c` is a COLUMN dependent, so this deletes it — silently,
+// at exit 0, with no row count moving, because the counts that would move belong
+// to a relation that no longer exists. It is the exact failure mode the header
+// above describes for `DROP … CASCADE`, reached through a statement the regex
+// does not match.
+//
+// This became reachable when 189/190/191 (the generated culture-match views)
+// started projecting columns of `fund_projects` and `agri_subsidies` — tables
+// whose own migrations are applied by loaders. Without the arm below, retiring a
+// column with CASCADE would delete a serving view and every gate here would stay
+// green.
+test("no migration drops a column with CASCADE", () => {
+  const offenders: string[] = [];
+  for (const f of readdirSync(SCHEMA_DIR).filter((n) => n.endsWith(".sql"))) {
+    const code = readFileSync(path.join(SCHEMA_DIR, f), "utf8")
+      .split("\n")
+      .map((l) => l.replace(/--.*$/, ""))
+      .join("\n");
+    for (const m of code.matchAll(
+      /ALTER\s+TABLE\s+(?:IF\s+EXISTS\s+)?(?:public\.)?([a-z0-9_]+)[\s\S]{0,400}?DROP\s+COLUMN\s+(?:IF\s+EXISTS\s+)?([a-z0-9_]+)\s+CASCADE/gi,
+    ))
+      offenders.push(`${f}: ALTER TABLE ${m[1]} DROP COLUMN ${m[2]} CASCADE`);
+  }
+  assert.deepEqual(
+    offenders,
+    [],
+    "a column dropped with CASCADE deletes every view that projects it, at exit 0 " +
+      "and with no row count moving:\n  " +
+      offenders.join("\n  ") +
+      "\n\nDrop the CASCADE and let Postgres refuse, then re-point the dependent " +
+      "views first. For the generated culture views that means editing " +
+      "scripts/db/gen_sql/culture_match.ts's column lists and re-running " +
+      "npm run gen:culture-sql.",
+  );
+});
+
+test("the CASCADE-column scanner is not vacuous", () => {
+  // §13: a scanner whose pattern never matches anything is green for ever. This
+  // proves the regex still fires, without needing a real offender in the tree.
+  const sample = `
+    ALTER TABLE fund_projects
+      DROP COLUMN IF EXISTS some_old_col CASCADE;
+  `;
+  const hits = [
+    ...sample.matchAll(
+      /ALTER\s+TABLE\s+(?:IF\s+EXISTS\s+)?(?:public\.)?([a-z0-9_]+)[\s\S]{0,400}?DROP\s+COLUMN\s+(?:IF\s+EXISTS\s+)?([a-z0-9_]+)\s+CASCADE/gi,
+    ),
+  ];
+  assert.equal(hits.length, 1);
+  assert.equal(hits[0][1], "fund_projects");
+  assert.equal(hits[0][2], "some_old_col");
+});

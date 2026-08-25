@@ -360,31 +360,6 @@ const waitForPg = async (): Promise<void> => {
   throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
 };
 
-/**
- * @param payloadsOnly Skip the beneficiary and project tables and rebuild only
- *   `fund_payloads`.
- *
- *   BOTH tables are stage-merged since 2026-08-21, so the flag is no longer about
- *   the RELOAD's lock: neither `fund_beneficiary_detail()` (/api/db/fund-beneficiary)
- *   nor `fund_contract_detail()` (/api/db/fund-contract, the /funds/contract page
- *   handler) is blocked by one any more. What a `--full` run still costs is real
- *   WORK for data that may not have moved — it reads ~128k shard files off disk
- *   and merges 128k rows (250 s measured on Cloud SQL).
- *
- *   One lock DOES survive the migration and it is `!payloadsOnly`-gated, i.e. it
- *   is exactly this flag's difference: the closing `REFRESH MATERIALIZED VIEW
- *   dual_corpus_rankings_cache` below cannot be CONCURRENT (that matview has no
- *   unique index), so it AccessExclusiveLocks it for the rebuild. Its serving
- *   route catches the 55P03 and falls back to the live function, so the cost is a
- *   slow tile rather than a 500.
- *
- *   So when a change adds only precomputed page payloads — a new
- *   fund_payloads kind, a re-derived shard — and the corpus itself is
- *   untouched, this publishes it without paying that cost.
- *
- *   It is NOT a substitute for the full load after an ИСУН re-ingest: those two
- *   tables would silently keep the previous vintage.
- */
 export const loadFundsPg = async (
   payloadsOnly = false,
 ): Promise<{
@@ -400,6 +375,16 @@ export const loadFundsPg = async (
   // Changelog tracking tables (idempotent; also present via load_pg's 005).
   await exec(
     readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
+  );
+  // 189 is GENERATED (npm run gen:culture-sql) — the two ИСУН serving views behind
+  // /culture/funds/isun-eik and /culture/funds/isun-name. It is applied HERE and
+  // nowhere else: a view's query resolves at CREATE time, so the file must be
+  // applied by the loader that owns its base table, in the same run that created
+  // it. That is why the culture views are split across three migrations by corpus
+  // rather than shipped as one — see the generator's header for the fresh-clone
+  // abort the monolithic version caused.
+  await exec(
+    readFileSync(path.join(SCHEMA_DIR, "189_culture_match_isun.sql"), "utf8"),
   );
 
   const files = payloadsOnly

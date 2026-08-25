@@ -7,14 +7,21 @@
 // headline figures whose matching was never written down, and re-deriving them
 // showed the largest one was mostly false positives.
 //
-// WHY THIS IS TYPESCRIPT AND NOT SQL: nothing that serves a request needs it.
-// The EIK-keyed sector filter (`SECTOR_BROWSE_PACKS`, `?sector=`) is what
-// `db_table.js` and the `/api/db` routes use, and that is a set of digits, not a
-// name match. These matchers are for LOADERS, GENERATORS and DATA TESTS — all of
-// which run under tsx and can import this file — so there is deliberately no SQL
-// twin to drift from it. Render them into SQL with the helpers at the foot.
-// (Contrast `asset_share_multiplier`, which needs a TS+SQL pair precisely
-// because a Cloud Function route cannot import TypeScript.)
+// WHY THIS IS TYPESCRIPT: loaders, generators and data tests all run under tsx
+// and can import it, and the EIK-keyed sector filter (`SECTOR_BROWSE_PACKS`,
+// `?sector=`) that `db_table.js` uses is a set of digits rather than a name match.
+//
+// ⚠️ THERE IS NOW A SQL TWIN, AND IT IS GENERATED — this paragraph said „there is
+// deliberately no SQL twin to drift from it" until 2026-08-25. The /culture/funds
+// source pages page through the name- and theme-matched rows at request time, and
+// a Cloud Function route cannot import TypeScript, so the predicates below are
+// rendered into three serving migrations by `npm run gen:culture-sql`
+// (`scripts/db/gen_sql/culture_match.ts` → pg/189, 190, 191). GENERATED, never
+// hand-written: a hand-copied SQL form is the „computed in two places" case whose
+// failure nobody can see, and `gen_sql/culture_match.test.ts` fails the moment the
+// committed SQL stops matching what this file renders. Render with the helpers at
+// the foot; never restate a pattern in SQL. (Contrast `asset_share_multiplier`,
+// whose twin is hand-written and therefore needs a data test to compare the two.)
 //
 // ⚠️ It is NOT the only definition of "which bodies are culture" in this repo,
 // and must not be read as one. `kulturaReferenceData.ts` holds the curated EIK
@@ -191,8 +198,13 @@ export const CHITALISHTE_NAME_INCLUDE = "читалищ";
 // ── SQL rendering ────────────────────────────────────────────────────────────
 
 /** Postgres string literal — doubles any single quote. The patterns above are
- *  compile-time constants, so this is hygiene rather than injection defence. */
-const lit = (s: string): string => `'${s.replace(/'/g, "''")}'`;
+ *  compile-time constants, so this is hygiene rather than injection defence.
+ *
+ *  EXPORTED because `scripts/db/gen_sql/culture_match.ts` renders the register's
+ *  EIKs into the same migration these predicates go into, and had a byte-identical
+ *  private copy. One escaping routine, in the module that owns SQL rendering, so
+ *  the two cannot diverge and both are covered by this file's own tests. */
+export const lit = (s: string): string => `'${s.replace(/'/g, "''")}'`;
 
 /** Callers pass a column reference, sometimes qualified (`o.title_en`). It is
  *  always a literal at the call site today, so this is a typo guard rather than

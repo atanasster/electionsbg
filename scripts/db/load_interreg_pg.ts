@@ -71,11 +71,20 @@ const SCHEMA_DIR = path.join(ROOT, "scripts/db/schema/pg");
 // is invisible to every row count and prod runs the previous body indefinitely.
 // 139 must follow 137 (its view reads interreg_partners) and can be applied to
 // any database that has fund_payloads, which every funds-serving database does.
+// 191 is GENERATED (npm run gen:culture-sql) — the culture_interreg_thematic
+// serving view behind /culture/funds/interreg. Applied here because this loader
+// owns both tables it reads: a view's query resolves at CREATE time, so it must
+// be applied by the loader that created its base tables, in the same run. The
+// culture views are split across three migrations by corpus for exactly that
+// reason; the monolithic first cut, applied from here on the premise that all
+// three corpora exist by this point, aborted db:refresh on any fresh clone
+// (raw_data/agri/ is gitignored, so agri_subsidies never exists there).
 const SCHEMA_FILES = [
   "005_ingest_tracking.sql",
   "137_interreg.sql",
   "138_interreg_serving.sql",
   "139_funds_muni_combined.sql",
+  "191_culture_match_interreg.sql",
 ];
 
 /** Below this the corpus is treated as damaged and nothing is written. Same

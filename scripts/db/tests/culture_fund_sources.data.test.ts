@@ -32,14 +32,22 @@
 //      exercised: `chitalishteNameSql` takes no `MatchOpts` and has none by
 //      design (cultureMatch.ts — the stem „читалищ" has no known collision).
 //
-// SKIPS have three causes, each named separately. Postgres being down is the
-// obvious one; the other two are fresh-clone states rather than failures. The
-// ДФЗ arm reads `agri_subsidies`, whose loader input is the GITIGNORED
-// `raw_data/agri/` cache, and the Interreg arms read tables built from a keep.eu
-// import that is not committed either — so on a clean clone with Postgres up and
-// `db:refresh` run, both are legitimately empty and a red test there would name a
-// remedy nobody can follow. The two ИСУН arms have no such excuse: `fund_projects`
-// is loaded from a committed corpus, so an empty result there IS a failure.
+// SKIPS have three causes, each named separately and each REPORTED (see
+// `skipReasons` below — a skip nobody prints is the silence report_skip.ts exists
+// to end). Postgres being down is the obvious one; the other two are fresh-clone
+// states rather than failures. The ДФЗ arm reads `agri_subsidies`, whose loader
+// input is the GITIGNORED `raw_data/agri/` cache, and the Interreg arms read
+// tables built from a keep.eu import that is not committed either — so on a clean
+// clone with Postgres up and `db:refresh` run, both are legitimately empty and a
+// red test there would name a remedy nobody can follow.
+//
+// ⚠️ THE TWO ИСУН ARMS HAVE NO SUCH EXCUSE, AND EVERY ИСУН ASSERTION MUST RIDE
+// PLAIN `skip`. `fund_projects` is loaded from a committed corpus and 189 is
+// applied by that same loader, so on a fresh clone the ИСУН views exist and an
+// empty result IS a failure. Three assertions were behind `skipAgri` /
+// `skipInterreg` at first — including the buffer ceiling whose own comment says
+// the whole design rests on it — so they stood down on exactly the databases
+// where they were the only cover.
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -64,8 +72,13 @@ const rowCount = async (rel: string): Promise<number | null> => {
       `SELECT count(*) n FROM ${rel}`,
     );
     return Number(r.n ?? 0);
-  } catch {
-    return null;
+  } catch (e) {
+    // ⚠️ ONLY 42P01 means „absent". A 42501 (the failure the role-guarded GRANT
+    // in 189-191 exists to prevent), a 55P03 during a concurrent load, or a plain
+    // syntax error would otherwise all print „does not exist — apply the
+    // migration", which is the wrong remedy for each of them.
+    if ((e as { code?: string }).code === "42P01") return null;
+    throw e;
   }
 };
 
@@ -86,7 +99,17 @@ const skipInterreg = skip
     ? "interreg_partners is empty — db:load:interreg:pg needs a keep.eu import (npm run funds:crawl-interreg)"
     : false;
 
-reportSkip(import.meta.url, skip);
+// ⚠️ ALL THREE causes are reported, not just the first. Without this, 6 of the
+// tests below stand down with no output at all whenever a gitignored corpus is
+// absent — the silence `scripts/lib/report_skip.ts` exists to end. `reportSkip`
+// takes one reason, so a composed sentence is what carries the other two.
+const skipReasons = [skip, skipAgri, skipInterreg].filter(
+  (r, i, a): r is string => typeof r === "string" && a.indexOf(r) === i,
+);
+reportSkip(
+  import.meta.url,
+  skipReasons.length ? skipReasons.join(" · ") : false,
+);
 
 afterAll(async () => {
   await end();
@@ -114,13 +137,16 @@ interface Blob {
   };
 }
 
-const blob = (): Blob =>
-  JSON.parse(
-    fs.readFileSync(
-      path.join(ROOT, "data/culture/derived/hub_stats.json"),
-      "utf8",
-    ),
-  ) as Blob;
+/** Read ONCE. Called from ~10 assertions; re-reading meant two of them could in
+ *  principle compare against two different versions of the file. */
+const BLOB: Blob = JSON.parse(
+  fs.readFileSync(
+    path.join(ROOT, "data/culture/derived/hub_stats.json"),
+    "utf8",
+  ),
+) as Blob;
+
+const blob = (): Blob => BLOB;
 
 const eiks = [...CULTURE_GROUP_EIKS];
 const num = (v: unknown): number => Number(v ?? 0);
@@ -331,54 +357,206 @@ test.skipIf(skipAgri)(
 );
 
 // ── 4. THE GUARDS STILL GUARD, BY MAGNITUDE ─────────────────────────────────
+//
+// ⚠️ ONE TEST PER ARM, EACH BEHIND ITS OWN CORPUS'S SKIP. These were one test
+// behind `skipInterreg`, which meant the ИСУН check — that „аквакултури",
+// „изкуствен интелект" and the опер- family are still excluded — silently never
+// ran on any database without a keep.eu import, i.e. every fresh clone and CI.
+// That is the guard whose absence lets one grid operator's two rows
+// (€189,443,288) outweigh the entire true sector.
+//
+// ⚠️ A MAGNITUDE FLOOR, NOT `open > guarded`. An exclusion list gutted down to
+// one near-inert term („оператив" alone) still removes a row or two, so a
+// strict-inequality assertion is satisfied by exactly the regression it is
+// supposed to catch. The floors sit well under the measured effects (ИСУН ~5%,
+// Interreg ~12% of rows) so ordinary corpus drift cannot trip them.
+//
+// `chitalishteNameSql` is absent from this section on purpose: it takes no
+// `MatchOpts` and has no exclusion half — the stem „читалищ" has no known
+// collision, so there is nothing to remove and nothing to assert.
 
-test.skipIf(skipInterreg)(
-  "each name arm's exclusions still move its number materially",
+const countRows = async (sql: string): Promise<number> =>
+  num((await allRows<Record<string, string>>(sql))[0].n);
+
+test.skipIf(skip)(
+  "the ИСУН exclusions still move the ИСУН figure materially",
   async () => {
-    const count = async (sql: string) =>
-      num((await allRows<Record<string, string>>(sql))[0].n);
-
-    // ⚠️ A MAGNITUDE FLOOR, NOT `open > guarded`. An exclusion list gutted down
-    // to one near-inert term („оператив" alone) still removes a row or two, so a
-    // strict-inequality assertion is satisfied by exactly the regression it is
-    // supposed to catch. `culture_match.data.test.ts` uses a 10% floor against
-    // its own pinned constants; these floors are set well under the measured
-    // effects (ИСУН ~5%, Interreg ~12% of rows) so ordinary corpus drift cannot
-    // trip them while a hollowed-out guard still does.
-    const isunGuarded = await count(
+    const guarded = await countRows(
       `SELECT count(*) n FROM fund_projects WHERE ${cultureNameSql("beneficiary_name")}`,
     );
-    const isunOpen = await count(
+    const open = await countRows(
       `SELECT count(*) n FROM fund_projects
         WHERE ${cultureNameSql("beneficiary_name", { withExclusions: false })}`,
     );
-    const isunMove = isunOpen / Math.max(isunGuarded, 1) - 1;
+    const move = open / Math.max(guarded, 1) - 1;
     assert.ok(
-      isunMove >= 0.03,
-      `the ИСУН exclusions moved the number by ${(isunMove * 100).toFixed(1)}% ` +
-        `(${isunOpen} vs ${isunGuarded}). Measured, they remove ~5% — „аквакултури", ` +
+      move >= 0.03,
+      `the ИСУН exclusions moved the number by ${(move * 100).toFixed(1)}% ` +
+        `(${open} vs ${guarded}). Measured, they remove ~5% — „аквакултури", ` +
         `„изкуствен интелект" and the опер- family. A guard that barely moves its ` +
         `own figure has effectively stopped guarding.`,
     );
+  },
+);
 
-    const irGuarded = await count(
+test.skipIf(skipInterreg)(
+  "the Interreg exclusions still move the Interreg figure materially",
+  async () => {
+    const guarded = await countRows(
       `SELECT count(*) n FROM interreg_partners p
          JOIN interreg_operations o USING (keep_id)
         WHERE p.country = 'Bulgaria' AND ${interregThemeSql("o.title_en")}`,
     );
-    const irOpen = await count(
+    const open = await countRows(
       `SELECT count(*) n FROM interreg_partners p
          JOIN interreg_operations o USING (keep_id)
         WHERE p.country = 'Bulgaria'
           AND ${interregThemeSql("o.title_en", { withExclusions: false })}`,
     );
-    const irMove = irOpen / Math.max(irGuarded, 1) - 1;
+    const move = open / Math.max(guarded, 1) - 1;
     assert.ok(
-      irMove >= 0.05,
-      `the Interreg exclusions moved the number by ${(irMove * 100).toFixed(1)}% ` +
-        `(${irOpen} vs ${irGuarded}). „cultur" cannot be word-anchored, so ` +
+      move >= 0.05,
+      `the Interreg exclusions moved the number by ${(move * 100).toFixed(1)}% ` +
+        `(${open} vs ${guarded}). „cultur" cannot be word-anchored, so ` +
         `agriculture/aquaculture/viticulture come in on that stem alone — ` +
         `measured, ~12% of the rows.`,
+    );
+  },
+);
+
+// ── 5. THE VIEWS ARE THE PREDICATES ─────────────────────────────────────────
+//
+// 189_culture_match.sql is GENERATED from `cultureMatch.ts`, and
+// `gen_sql/culture_match.test.ts` proves the committed FILE matches the
+// generator. What that cannot prove is that the DATABASE is running it: a view
+// is applied by a loader, so a database whose 189 predates a rule change keeps
+// serving the old population with every row count reconciling. These re-derive
+// each view's rows from the TypeScript and compare.
+
+/** Present-and-populated, per view. A view can be absent (189 never applied
+ *  here) or empty (its corpus never loaded), and only the first is a defect. */
+const viewRows = async (v: string): Promise<number | null> => rowCount(v);
+
+const missingView = (n: number | null, v: string) =>
+  n === null
+    ? `${v} does not exist — apply 189: npx tsx scripts/db/apply_functions.ts 189_culture_match.sql`
+    : false;
+
+test.skipIf(skip)(
+  "the ИСУН views serve exactly what the TypeScript predicates select",
+  async () => {
+    const eikN = await viewRows("culture_isun_by_eik");
+    const nameN = await viewRows("culture_isun_by_name");
+    assert.ok(
+      !missingView(eikN, "culture_isun_by_eik"),
+      String(missingView(eikN, "culture_isun_by_eik")),
+    );
+    assert.ok(
+      !missingView(nameN, "culture_isun_by_name"),
+      String(missingView(nameN, "culture_isun_by_name")),
+    );
+
+    const [ref] = await allRows<Record<string, string>>(
+      `SELECT count(*) FILTER (WHERE beneficiary_eik = ANY($1)) eik_n,
+              count(*) FILTER (WHERE ${cultureNameSql("beneficiary_name")}) name_n
+         FROM fund_projects`,
+      [eiks],
+    );
+    assert.equal(
+      eikN,
+      num(ref.eik_n),
+      `culture_isun_by_eik serves ${eikN} rows, the register selects ${num(ref.eik_n)}. ` +
+        `The applied view predates the current CULTURE_GROUP_EIKS — re-apply 189.`,
+    );
+    assert.equal(
+      nameN,
+      num(ref.name_n),
+      `culture_isun_by_name serves ${nameN} rows, cultureNameSql selects ${num(ref.name_n)}. ` +
+        `The applied view predates the current rule — run npm run gen:culture-sql ` +
+        `and re-apply 189.`,
+    );
+  },
+);
+
+test.skipIf(skipAgri)(
+  "the ДФЗ view serves exactly what chitalishteNameSql selects",
+  async () => {
+    const n = await viewRows("culture_agri_chitalishta");
+    assert.ok(
+      !missingView(n, "culture_agri_chitalishta"),
+      String(missingView(n, "culture_agri_chitalishta")),
+    );
+    const [ref] = await allRows<Record<string, string>>(
+      `SELECT count(*) n FROM agri_subsidies WHERE ${chitalishteNameSql("name")}`,
+    );
+    assert.equal(n, num(ref.n));
+  },
+);
+
+test.skipIf(skipInterreg)(
+  "the Interreg view serves exactly what interregThemeSql selects",
+  async () => {
+    const n = await viewRows("culture_interreg_thematic");
+    assert.ok(
+      !missingView(n, "culture_interreg_thematic"),
+      String(missingView(n, "culture_interreg_thematic")),
+    );
+    const [ref] = await allRows<Record<string, string>>(
+      `SELECT count(*) n FROM interreg_partners p
+         JOIN interreg_operations o USING (keep_id)
+        WHERE p.country = 'Bulgaria' AND ${interregThemeSql("o.title_en")}`,
+    );
+    assert.equal(n, num(ref.n));
+  },
+);
+
+// ── 6. THE VIEWS STAY CHEAP ENOUGH TO SERVE LIVE ────────────────────────────
+//
+// ⚠️ THE WHOLE DESIGN RESTS ON THESE TWO. 189/190 are plain VIEWs rather than
+// matviews because both name predicates are index-served — measured 2026-08-25,
+// agri 370 buffers / 1.8 ms over 2.48M rows and funds 1,525 / 13.7 ms over 82k. A
+// rule change that defeats pg_trgm (a leading wildcard, a term with no
+// extractable trigram) turns every page of every browse table into a seq scan,
+// and the only symptom is a slow page nobody times — so an UNRUN gate here is
+// indistinguishable from a passing one. That is why they are two tests behind two
+// skips rather than one behind `skipAgri`: the ИСУН half was silently never
+// running on any database without the gitignored agri cache.
+//
+// Ceilings are ~2x the measurement, so ordinary corpus growth cannot trip them.
+
+const bufsFor = async (sql: string): Promise<number> => {
+  const rows = await allRows<Record<string, string>>(
+    `EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) ${sql}`,
+  );
+  const plan = rows[0]["QUERY PLAN"] as unknown as {
+    Plan: Record<string, number>;
+  }[];
+  const p0 = plan[0].Plan;
+  return (p0["Shared Hit Blocks"] ?? 0) + (p0["Shared Read Blocks"] ?? 0);
+};
+
+test.skipIf(skip)(
+  "the ИСУН name predicate still rides idx_fund_projects_bname",
+  async () => {
+    const bufs = await bufsFor("SELECT count(*) FROM culture_isun_by_name");
+    assert.ok(
+      bufs <= 4000,
+      `culture_isun_by_name cost ${bufs} buffers (ceiling 4000, measured 1525). ` +
+        `idx_fund_projects_bname has stopped serving the culture pattern — every ` +
+        `page of /culture/funds/isun-name is now a scan of the whole corpus.`,
+    );
+  },
+);
+
+test.skipIf(skipAgri)(
+  "the ДФЗ name predicate still rides idx_agri_name_trgm",
+  async () => {
+    const bufs = await bufsFor("SELECT count(*) FROM culture_agri_chitalishta");
+    assert.ok(
+      bufs <= 1500,
+      `culture_agri_chitalishta cost ${bufs} buffers (ceiling 1500, measured 370). ` +
+        `idx_agri_name_trgm has stopped serving „читалищ" — this is a 2.48M-row ` +
+        `seq scan behind every page of /culture/funds/dfz.`,
     );
   },
 );

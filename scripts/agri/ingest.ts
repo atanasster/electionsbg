@@ -204,6 +204,23 @@ export const runAgriIngest = async ({
     readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
   );
 
+  // 190 is GENERATED (npm run gen:culture-sql) — the culture_agri_chitalishta
+  // serving view behind /culture/funds/dfz. Applied HERE, immediately after 046,
+  // because this is the only path in the repo that creates `agri_subsidies`: a
+  // view's query resolves at CREATE time, so the file has to be applied by the
+  // code that owns its base table, in the same run.
+  //
+  // ⚠️ That is why the culture views are three migrations rather than one. The
+  // monolithic first cut was applied from db:load:interreg:pg on the premise that
+  // all three corpora exist by that point in db:refresh — false on a fresh clone,
+  // where raw_data/agri/ is gitignored and load_agri_pg.ts returns BEFORE this
+  // function, so `agri_subsidies` never exists and the apply 42P01'd the whole
+  // chain. Split per corpus, the precondition holds by construction and a clone
+  // without the cache simply has no ДФЗ view.
+  await exec(
+    readFileSync(path.join(SCHEMA_DIR, "190_culture_match_agri.sql"), "utf8"),
+  );
+
   // ── the /subsidies hub stat cache (162) ─────────────────────────────────────
   // `CREATE MATERIALIZED VIEW` RESOLVES ITS QUERY at creation — check_function_bodies
   // does not help — so every relation 162 reads must already exist. It reads four this
