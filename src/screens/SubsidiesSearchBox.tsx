@@ -23,7 +23,15 @@ import { Link } from "react-router-dom";
 import { HubSearch } from "@/ux/search/HubSearch";
 import { subsidiesSearchSources } from "./subsidies/subsidiesSearch";
 
-export const SubsidiesSearchBox: FC = () => {
+/** ⚠️ `noEikPct` IS THE LIVE FIGURE AND THE CONSTANT WAS WRONG AT MOST SCOPES. This box
+ *  moved INTO the head, so its „около 40%" now sits ~40 px above the band cell measuring
+ *  the same quantity at the ACTIVE scope — and „40%" is the all-time value: measured,
+ *  49,3% on the default year and 31,8% on 2016, gaps of 9,5 and 8,2 points against a
+ *  rounded constant. The prose fallback stays for the case the blob is absent, and it now
+ *  says what it is measured over. */
+export const SubsidiesSearchBox: FC<{ noEikPct?: number | null }> = ({
+  noEikPct,
+}) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   // A factory call, not a constant: the see-all label needs the language, and re-minting the
@@ -60,8 +68,11 @@ export const SubsidiesSearchBox: FC = () => {
       <p className="mt-1 max-w-2xl text-[11px] text-muted-foreground">
         {bg ? (
           <>
-            Около 40% от парите отиват към редове без ЕИК, които не могат да
-            бъдат приписани на получател —{" "}
+            {noEikPct != null
+              ? `${new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 1 }).format(noEikPct)}% от парите`
+              : "Около 40% от парите за целия период"}{" "}
+            отиват към редове без ЕИК, които не могат да бъдат приписани на
+            получател —{" "}
             <Link
               to="/subsidies/untraceable"
               className="text-primary hover:underline"
@@ -72,8 +83,11 @@ export const SubsidiesSearchBox: FC = () => {
           </>
         ) : (
           <>
-            Around 40% of the money sits on rows with no EIK, which cannot be
-            attributed to a recipient —{" "}
+            {noEikPct != null
+              ? `${new Intl.NumberFormat("en-GB", { maximumFractionDigits: 1 }).format(noEikPct)}% of the money`
+              : "Around 40% of the money over the whole period"}{" "}
+            sits on rows with no EIK, which cannot be attributed to a recipient
+            —{" "}
             <Link
               to="/subsidies/untraceable"
               className="text-primary hover:underline"

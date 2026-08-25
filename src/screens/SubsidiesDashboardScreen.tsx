@@ -46,13 +46,21 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { CalendarRange } from "lucide-react";
-import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
-import { Title } from "@/ux/Title";
+import {
+  TileHubGrid,
+  HubHead,
+  type HubKpi,
+  type TileHubSection,
+} from "@/ux/infographic";
 import {
   useAgriHubStats,
   type AgriHubStats,
 } from "@/data/agri/useAgriHubStats";
 import { AGRI_FINANCIAL_YEARS, agriScopeToKey } from "@/data/agri/constants";
+import {
+  subsidiesHubKpis,
+  promotedTiles,
+} from "@/screens/subsidies/subsidiesHubFigures";
 import { agriLabel, numberLocale } from "@/data/agri/labels";
 import { formatEurCompact, formatInt } from "@/lib/currency";
 import { scopeYear } from "@/data/scope/useScope";
@@ -97,6 +105,13 @@ const tileMetric = (
   lang: string,
   bg: boolean,
   t: (k: string, o?: Record<string, unknown>) => string,
+  /** The band took this tile's HEADLINE figure (§3.1 rule 5). The tile then shows its
+   *  SECOND figure instead of nothing — blanking the whole `Metric` removed three numbers
+   *  the band never carried, and one of them (`entityEurExPayer`) is the denominator the
+   *  „към топ 100" cell's own basis names, so the head stated a share of a quantity the
+   *  page no longer printed anywhere. Handled per case because each secondary needs its
+   *  own caption: promoting it under the headline's caption would mislabel it. */
+  demoted = false,
 ): Metric | undefined => {
   const nloc = numberLocale(bg);
   const int = (n: number | null | undefined) =>
@@ -128,11 +143,16 @@ const tileMetric = (
       // EX-PAYER, like the page. ДФЗ's own ЕИК appears in the corpus as a recipient of
       // technical-assistance money; counting the paying agency among the recipients it pays
       // would put it at the top of its own ranking.
-      return m(
-        int(s?.entityCountExPayer),
-        t("subsidies_m_firms"),
-        eur(s?.entityEurExPayer),
-      );
+      return demoted
+        ? m(
+            eur(s?.entityEurExPayer),
+            bg ? "към фирми с ЕИК" : "to companies with an EIK",
+          )
+        : m(
+            int(s?.entityCountExPayer),
+            t("subsidies_m_firms"),
+            eur(s?.entityEurExPayer),
+          );
     case "schemes":
       // The second figure NAMES the scheme. A bare „€382,7 млн" under „281 схеми" reads as the
       // money across all 281 — which is €1.59bn, a 4.2x understatement. `metricSecondary`'s own
@@ -169,23 +189,31 @@ const tileMetric = (
           : null,
       );
     case "untraceable":
-      return m(
-        pct(s?.noEikPctOfTotalEur),
-        t("subsidies_m_no_eik"),
-        eur(s?.noEikEur),
-      );
+      // Demoted, the money IS the figure and the existing caption still fits it.
+      return demoted
+        ? m(eur(s?.noEikEur), t("subsidies_m_no_eik"))
+        : m(
+            pct(s?.noEikPctOfTotalEur),
+            t("subsidies_m_no_eik"),
+            eur(s?.noEikEur),
+          );
 
     // ── Band 2 ───────────────────────────────────────────────────────────────
     case "concentration":
       // OF LEGAL-ENTITY money, which is the basis the page uses and roughly double the
       // share-of-everything figure. The key names its basis for exactly this reason.
-      return m(
-        pct(s?.top100PctOfEntityEur),
-        t("subsidies_m_top100"),
-        s?.top1000PctOfEntityEur != null
-          ? `${pct(s.top1000PctOfEntityEur)} ${bg ? "за топ 1000" : "to the top 1000"}`
-          : null,
-      );
+      return demoted
+        ? m(
+            pct(s?.top1000PctOfEntityEur),
+            bg ? "за топ 1000" : "to the top 1000",
+          )
+        : m(
+            pct(s?.top100PctOfEntityEur),
+            t("subsidies_m_top100"),
+            s?.top1000PctOfEntityEur != null
+              ? `${pct(s.top1000PctOfEntityEur)} ${bg ? "за топ 1000" : "to the top 1000"}`
+              : null,
+          );
     case "political":
       // NULL, never 0, when the person layer had not been resolved when the cache was built —
       // „0 свързани фирми" is a claim, and an unbuilt basis cannot support it.
@@ -318,6 +346,22 @@ export const SubsidiesDashboardScreen: FC = () => {
   const payloadKey = agriScopeToKey(scope);
   const { data: hub } = useAgriHubStats(payloadKey);
 
+  /** The head's four figures — see `subsidiesHubFigures.ts` for why every caption is built
+   *  from the same blob that carried its number. */
+  const kpis: HubKpi[] = useMemo(
+    () => subsidiesHubKpis(hub, AGRI_FINANCIAL_YEARS, L, bg, t),
+    [hub, L, bg, t],
+  );
+  // ⚠️ Derived from the cells that RENDERED, never a constant list: this blob withholds a
+  // figure rather than publishing a zero, so a cell can legitimately be absent and blanking
+  // its tile anyway would take the number off the page entirely.
+  // ⚠️ MEMOIZED. `promotedTiles` returns a new Set, and this value is a dependency of the
+  // `sections` memo below — un-memoized it churns identity every render and rebuilds all 13
+  // tiles (5 `t()` calls each plus scene lookups), which is exactly the work that memo
+  // exists to avoid. /consumption gets away with the bare call only because its `sections`
+  // is a plain array literal.
+  const promoted = useMemo(() => promotedTiles(kpis), [kpis]);
+
   // Band 3's two fetched sources. Both are small and both are ANNUAL — they do not take the
   // scope, and their tiles say which year they are for.
   const rail = useRailSubsidy();
@@ -374,10 +418,23 @@ export const SubsidiesDashboardScreen: FC = () => {
           accent: tile.accent,
           scene: SUBSIDIES_SCENES[tile.id],
           // NO `cta`. „разгледай →" on every tile restates an affordance the card already has.
-          ...(tileMetric(tile.id, hub, band3, L, bg, t) ?? {}),
+          //
+          // ⚠️ §3.1 rule 5 — a figure is never in the band AND on a tile. Resolved by
+          // demoting the TILE, which is the rule's own remedy: the band is where a figure
+          // gets a stated basis, and on this page the basis is the whole difficulty (the
+          // scope moves every number by up to 7×). A tile caption has no room for it.
+          ...(tileMetric(
+            tile.id,
+            hub,
+            band3,
+            L,
+            bg,
+            t,
+            promoted.has(tile.id),
+          ) ?? {}),
         })),
       })),
-    [t, hub, band3, L, bg],
+    [t, hub, band3, L, bg, promoted],
   );
 
   // ⚠️ THE GATE WATCHES THE OVERVIEW PAYLOAD, NOT THE FIGURES. Every band-1/2/4 metric comes
@@ -406,7 +463,51 @@ export const SubsidiesDashboardScreen: FC = () => {
 
   return (
     <>
-      <Title description={description}>{title}</Title>
+      {/* `HubHead` renders the h1 AND the SEO tags, so `<Title>` is gone — a second
+          <h1> is what the pattern's rendered gate exists to catch.
+
+          ⚠️ THE BAND IS INSIDE THE HEAD AND THE SCOPE CONTROL IS ITS SLOT, which is the
+          whole point on this page: every figure in the band moves by up to 7× with the
+          scope (€1.59bn on the default year against €11.04bn all-time), so the control that
+          changes them has to sit beside them rather than below a title. */}
+      <HubHead
+        eyebrow={t("subsidies_head_eyebrow")}
+        title={title}
+        seoDescription={description}
+        // ⚠️ NOT „по Общата селскостопанска политика". The title note forty lines up
+        // argues the h1 must stay „Субсидии" because band 3 fronts the municipal
+        // transfers, the railway, НФЦ film money and the ЗПП party envelope — a quarter of
+        // the page's own tiles. A deck naming only CAP does exactly what the title was
+        // forbidden from doing, and the deck is the sentence a human reads.
+        deck={t("subsidies_hub_deck")}
+        scope={
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-sm text-muted-foreground inline-flex items-center gap-1.5">
+              <CalendarRange className="h-3.5 w-3.5" />
+              {agriLabel.scope(bg)}
+            </span>
+            <ScopeControl
+              years={AGRI_FINANCIAL_YEARS}
+              nsLabelOverride={agriLabel.latestYear(bg)}
+            />
+          </div>
+        }
+        search={<SubsidiesSearchBox noEikPct={hub?.noEikPctOfTotalEur} />}
+        kpis={kpis}
+        // ⚠️ `kpisPending` RESERVES HEIGHT WHILE FIGURES ARE IN FLIGHT — it is not a default.
+        // On this page the query can be permanently disabled: `agriScopeToKey` returns null
+        // for a year the CAP corpus does not cover, so `useAgriHubStats` never runs and
+        // `data` stays `undefined` for ever. Passed unconditionally, `?pscope=y:2019` stood
+        // four skeleton cells that would never resolve DIRECTLY ABOVE the card saying „Няма
+        // данни за субсидии за 2019" — measured, 12 pulse nodes inside the head. That is
+        // verbatim the bug this screen's test file says it was written for. A route failure
+        // (`hub === null`) is the same class, above the amber „не се заредиха" banner.
+        //
+        // The siblings pass it unconditionally and are right to: none of them has a scope
+        // that can legitimately be un-servable.
+        kpisPending={payloadKey !== null && hub === undefined ? 4 : undefined}
+        kpiNote={kpis.length ? t("subsidies_kpi_note") : undefined}
+      />
       {/* GovernanceBreadcrumb, not SectorBreadcrumb — plan §7a.
           SectorBreadcrumb's trail is a FIXED „Управление › Обществени поръчки ›
           Държавни сектори › X", and all three levels were wrong here:
@@ -428,18 +529,6 @@ export const SubsidiesDashboardScreen: FC = () => {
           disagreed. /budget and /funds use exactly this component. */}
       <GovernanceBreadcrumb sectionKey="subsidies_nav" sectionTo="/subsidies" />
 
-      {/* The finder, above the tiles. */}
-      <SubsidiesSearchBox />
-      <div className="flex flex-wrap items-center gap-2 mb-3">
-        <span className="text-sm text-muted-foreground inline-flex items-center gap-1.5">
-          <CalendarRange className="h-3.5 w-3.5" />
-          {agriLabel.scope(bg)}
-        </span>
-        <ScopeControl
-          years={AGRI_FINANCIAL_YEARS}
-          nsLabelOverride={agriLabel.latestYear(bg)}
-        />
-      </div>
       {/* The skeleton is one block rather than four cards: the grid it stands in for is
           thirteen tiles, so four card-shaped pulses would misdescribe what is coming. */}
       <AgriScopeFallback

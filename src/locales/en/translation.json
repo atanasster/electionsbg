@@ -5256,5 +5256,17 @@
   "cons_kpi_note": "The basket is the shelf price level against the day the euro came in; the inflation rate is Eurostat's official measure and trails by a quarter. Different measures over different periods — which is why one sits below zero and the other above it.",
   "cons_evidence_heading": "Cheapest basket",
   "cons_evidence_basis": "a comparable basket of {{products}} products, priced on {{asOf}} · {{ranked}} of {{total}} chains ranked — the rest did not file a price for every item",
-  "cons_evidence_action": "all chains"
+  "cons_evidence_action": "all chains",
+  "subsidies_head_eyebrow": "SUBSIDIES · STATE FUND AGRICULTURE",
+  "subsidies_kpi_window_year": "financial year {{year}}",
+  "subsidies_kpi_window_all": "{{count}} financial years between {{first}} and {{last}}",
+  "subsidies_kpi_paid": "Paid out",
+  "subsidies_kpi_firms": "Companies",
+  "subsidies_kpi_firms_basis": "recipients with an EIK, the Fund excluded · {{window}}",
+  "subsidies_kpi_no_eik": "No EIK",
+  "subsidies_kpi_no_eik_basis": "share of everything paid · {{window}}",
+  "subsidies_kpi_top100": "To the top 100",
+  "subsidies_kpi_top100_basis": "share of money to companies · {{window}}",
+  "subsidies_kpi_note": "„No EIK“ is a share of ALL the money, while „to the top 100“ is a share of the money going to companies alone — the two are not comparable with each other. The tiles under „Other public support“ are annual and each names its own year.",
+  "subsidies_hub_deck": "Who receives public farm money — by scheme, province, year and recipient, plus municipal transfers, the railway, film funding and the party envelope."
 }

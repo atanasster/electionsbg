@@ -134,10 +134,6 @@ vi.mock("@/data/culture/useCulture", () => ({
 // links where is the whole substance of this change, and a stub would have made
 // that unassertable. (The mock this replaces stubbed SectorBreadcrumb, which the
 // screen imported until this same change; both went together.)
-vi.mock("@/ux/Title", () => ({
-  Title: ({ children }: { children: ReactNode }) => <h1>{children}</h1>,
-}));
-
 const { SubsidiesDashboardScreen } = await import("./SubsidiesDashboardScreen");
 
 // The KPI cards carry Radix tooltips; main.tsx mounts the provider app-wide.
@@ -150,7 +146,18 @@ const at = (url: string) =>
     ),
   });
 
-const skeletons = () => document.querySelectorAll(".animate-pulse").length;
+/** The PAGE-level skeleton — `AgriScopeFallback`'s, which is what this file's four state
+ *  tests are about.
+ *
+ *  ⚠️ SCOPED OUT OF THE HEAD. `HubHead` renders `kpisPending` skeleton cells of its own
+ *  while the band loads, and `useAgriHubStats` is mocked to `undefined` here, so the band
+ *  is ALWAYS pending in these tests — 4 cells × 3 pulses = 12. Counting document-wide made
+ *  „the tile grid rendered" fail on a skeleton belonging to a different, correctly-behaving
+ *  component. */
+const skeletons = () =>
+  Array.from(document.querySelectorAll(".animate-pulse")).filter(
+    (el) => !el.closest("[data-hub-head]"),
+  ).length;
 
 beforeEach(() => {
   hook.mode = "ok";

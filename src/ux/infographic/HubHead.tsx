@@ -103,9 +103,15 @@ const KpiCell: FC<{ kpi: HubKpi; href: (to: To) => To }> = ({ kpi, href }) => {
       </span>
     </>
   );
+  // ⚠️ `data-kpi-cell` IS A GATE'S ANCHOR, not decoration. `tests/ui.spec.ts` bounds each
+  // head's HEIGHT, and a head that lost its band entirely is comfortably INSIDE its budget
+  // — measured on /subsidies, 528 px against a 620 ceiling with the band deleted and every
+  // assertion green. A ceiling cannot tell „fits" from „gone", so the same loop counts
+  // cells, and it needs something to count that a class rename cannot silently break.
   const shell = "block bg-card px-4 py-3.5";
   return kpi.to ? (
     <Link
+      data-kpi-cell=""
       to={href(kpi.to)}
       className={cn(
         shell,
@@ -115,7 +121,9 @@ const KpiCell: FC<{ kpi: HubKpi; href: (to: To) => To }> = ({ kpi, href }) => {
       {body}
     </Link>
   ) : (
-    <div className={shell}>{body}</div>
+    <div data-kpi-cell="" className={shell}>
+      {body}
+    </div>
   );
 };
 

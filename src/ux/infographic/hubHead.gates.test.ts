@@ -54,6 +54,12 @@ import {
   promotedTiles,
 } from "@/screens/consumption/consumptionHubFigures";
 import { CONSUMPTION_STATS_FIXTURE } from "@/screens/consumption/consumptionHubStats.fixture";
+import {
+  subsidiesHubKpis,
+  promotedTiles as subsidiesPromotedTiles,
+} from "@/screens/subsidies/subsidiesHubFigures";
+import { AGRI_STATS_FIXTURE } from "@/screens/subsidies/subsidiesHubStats.fixture";
+import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
 
 const HUB_SCREENS = [
@@ -79,6 +85,8 @@ const HUB_SCREENS = [
   "src/screens/budget/budgetHubFigures.ts",
   "src/screens/ConsumptionScreen.tsx",
   "src/screens/consumption/consumptionHubFigures.ts",
+  "src/screens/SubsidiesDashboardScreen.tsx",
+  "src/screens/subsidies/subsidiesHubFigures.ts",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
@@ -297,6 +305,51 @@ describe("hub head — the band and the tiles are disjoint", () => {
     expect(
       new Set(tos).size,
       `duplicate /consumption KPI destination in ${tos.join(", ")}`,
+    ).toBe(tos.length);
+  });
+
+  it("no /subsidies KPI figure is also a tile metric", () => {
+    // Like the /consumption arm, this compares over the DISPLACED SET rather than the
+    // rendered strings: the band and the tiles read the same blob fields, so a field-level
+    // clash is the design. What must not happen is the same figure rendering twice.
+    const kpis = subsidiesHubKpis(
+      AGRI_STATS_FIXTURE,
+      AGRI_FINANCIAL_YEARS,
+      "bg",
+      true,
+      id,
+    );
+    expect(kpis.length, "the subsidies fixture produced no KPI cells").toBe(4);
+
+    // Three of the four displace a tile; „изплатени" displaces none because `totalEur` is
+    // on no tile at all — it was the module's headline with nowhere prominent to live.
+    const promoted = subsidiesPromotedTiles(kpis);
+    expect(promoted.size).toBe(3);
+    for (const c of kpis)
+      if (String(c.to) !== "/subsidies/browse")
+        expect(
+          subsidiesPromotedTiles([c]).size,
+          `${c.to} (${c.value}) displaces no tile`,
+        ).toBe(1);
+
+    expect(
+      new Set(kpis.map((k) => k.value)).size,
+      "two /subsidies KPI cells render the same string",
+    ).toBe(kpis.length);
+  });
+
+  it("no two /subsidies KPI cells share a destination", () => {
+    const tos = subsidiesHubKpis(
+      AGRI_STATS_FIXTURE,
+      AGRI_FINANCIAL_YEARS,
+      "bg",
+      true,
+      id,
+    ).map((k) => k.to);
+    expect(tos.length).toBe(4);
+    expect(
+      new Set(tos).size,
+      `duplicate /subsidies KPI destination in ${tos.join(", ")}`,
     ).toBe(tos.length);
   });
 

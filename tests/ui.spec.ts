@@ -542,15 +542,24 @@ test.describe("Charts render at a real viewport", () => {
 // reports 0 for every box, so the gate would pass on a head of any size — the vacuity this
 // file's siblings keep re-learning. Each budget below carries the value measured when it was
 // set, so a future failure says whether the head grew or the ceiling was always too tight.
-const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
+const HUB_HEAD_BUDGETS: {
+  path: string;
+  maxPx: number;
+  measured: number;
+  /** How many KPI cells the band must carry. ⚠️ A CEILING CANNOT SEE A MISSING BAND: a head
+   *  that lost its figures entirely is comfortably INSIDE its budget — measured on
+   *  /subsidies, 528 px against a 620 ceiling with `kpis` unwired and every assertion here
+   *  green. The height and the count together are what make this gate non-vacuous. */
+  cells: number;
+}[] = [
   // Eyebrow + h1 + deck + a one-line search + a 4-cell band + the evidence aside.
-  { path: "/governance", maxPx: 500, measured: 430 },
+  { path: "/governance", maxPx: 500, measured: 430, cells: 4 },
   // The same, plus a scope control.
-  { path: "/procurement", maxPx: 540, measured: 477 },
+  { path: "/procurement", maxPx: 540, measured: 477, cells: 4 },
   // The widest head in the tree, and deliberately so: its search slot is the whole FundsFinder
   // tile, not an input. That is the trade docs/plans/funds-module-v2.md §5.2 asks for — look-up
   // before read — so the allowance is declared here rather than the head being trimmed.
-  { path: "/funds", maxPx: 600, measured: 531 },
+  { path: "/funds", maxPx: 600, measured: 531, cells: 4 },
   // A registry BROWSER, and the narrowest head in the tree because of it: no search slot (the
   // table owns its own) and no evidence aside (the table is the ranked list), so the head is
   // identity + scope + band and nothing else.
@@ -560,11 +569,11 @@ const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
   // omits, which is the growth this budget exists to catch. 360 is ~18% slack, the same band
   // the three entries above sit in (13% / 10% / 18%). If it ever trips, the question is
   // whether the new thing belongs on the TABLE rather than in the head.
-  { path: "/procurement/contracts", maxPx: 360, measured: 304 },
+  { path: "/procurement/contracts", maxPx: 360, measured: 304, cells: 4 },
   // Identity + deck + a full HubSearch in the slot + a 4-cell band. The search is why this
   // one is wider than /procurement's: the same trade /funds makes, and for the same reason —
   // a reader who arrives knowing the MP or the bill they want should not have to guess a tile.
-  { path: "/parliament", maxPx: 520, measured: 443 },
+  { path: "/parliament", maxPx: 520, measured: 443, cells: 4 },
   // The same shape as /parliament — identity + deck + a full HubSearch + a 4-cell band —
   // plus an evidence aside and a one-line note bridging the band's envelope to the tiles'
   // execution.
@@ -579,7 +588,7 @@ const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
   //
   // 479 with the band alone; 491 once the aside landed — the aside is 322 px and does not
   // drive the height, since at `lg` it sits beside the identity column rather than under it.
-  { path: "/budget", maxPx: 560, measured: 491 },
+  { path: "/budget", maxPx: 560, measured: 491, cells: 4 },
   // Takes /funds' trade — a whole search TILE in the slot rather than an input — so it
   // sits with /budget and /funds rather than with the compact heads.
   //
@@ -590,7 +599,15 @@ const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
   //
   // ⚠️ If this trips, do NOT reach for the captions first: the two basis lines are the
   // only thing keeping „−0,5%" and „+3,8%" from reading as a contradiction.
-  { path: "/consumption", maxPx: 600, measured: 495 },
+  { path: "/consumption", maxPx: 600, measured: 495, cells: 4 },
+  // Identity + deck + a scope control + a full search box + a 4-cell band + a two-clause
+  // note. The band's captions are the longest in the tree after /budget's, and for the same
+  // reason: every figure here moves by up to 7× with the scope (€1.59bn on the default year
+  // against €11.04bn all-time), so the window is repeated on all four cells rather than
+  // stated once and left to be inferred.
+  //
+  // ⚠️ If this trips, do NOT shorten the captions first — check whether a fifth cell arrived.
+  { path: "/subsidies", maxPx: 620, measured: 554, cells: 4 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {
@@ -601,7 +618,7 @@ test.describe("hub head — the §3.0 height budget", () => {
     "the budget is a claim about the lg layout",
   );
 
-  for (const { path, maxPx, measured } of HUB_HEAD_BUDGETS) {
+  for (const { path, maxPx, measured, cells } of HUB_HEAD_BUDGETS) {
     test(`${path} head fits its budget`, async ({ page }) => {
       await page.goto(path, { waitUntil: "networkidle" });
       const head = page.locator("[data-hub-head]");
@@ -614,6 +631,11 @@ test.describe("hub head — the §3.0 height budget", () => {
         h,
         `${path} head is ${h}px, over its ${maxPx}px budget (was ${measured}px when set)`,
       ).toBeLessThanOrEqual(maxPx);
+      // …and the band is still there. See `cells` for why the ceiling alone is not enough.
+      await expect(
+        head.locator("[data-kpi-cell]"),
+        `${path}: the band rendered the wrong number of cells`,
+      ).toHaveCount(cells);
     });
   }
 

@@ -107,6 +107,14 @@ describe("the module leaves no sediment", () => {
       .filter((f) => !f.includes(".test."))
       .map(read)
       .join("\n");
+    // ⚠️ A `*.fixture.ts` IS TEST DATA and can never appear in that corpus — tests are
+    // excluded from it on purpose, so the rule above would report every fixture as
+    // sediment. It is still held to a rule, just the matching one: some TEST must import
+    // it, so an orphaned fixture fails exactly as an orphaned screen does. (Same treatment
+    // as `budgetHubCoverage.test.ts`.)
+    const testCorpus = globSync("src/**/*.test.{ts,tsx}", { cwd: REPO })
+      .map(read)
+      .join("\n");
     const orphans = MODULE_FILES.filter((f) => {
       const stem = f
         .split("/")
@@ -118,9 +126,10 @@ describe("the module leaves no sediment", () => {
       // scenes and search module use the static form from their siblings.
       // `import type` counts too — it is still a reference, and a file used only for its
       // types is not sediment.
-      return !new RegExp(
+      const ref = new RegExp(
         `(?:from|import\\(|import type[^"]*from)\\s*"[^"]*${stem}"`,
-      ).test(all);
+      );
+      return f.includes(".fixture.") ? !ref.test(testCorpus) : !ref.test(all);
     });
     expect(
       orphans,
