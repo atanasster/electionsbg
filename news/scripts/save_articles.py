@@ -5,8 +5,10 @@ files under news/data/<domain>/.
 
 Usage:
     python3 save_articles.py <domain> [N] [--delay=SECONDS] [--min-body=N]
-                             [--retry-rejected]
+                             [--retry-rejected] [--no-cache]
                              [--urls-file=F | --prefetched=F.jsonl]
+    python3 save_articles.py <domain> --reextract [--allow-fetch]
+                             [--allow-shrink] [--min-body=N] [--delay=S]
 
 Pipeline:
     1. Runs fetch_latest_articles.py as a SUBPROCESS and parses its stdout
@@ -32,6 +34,20 @@ Pipeline:
            title_as_body | thin_body
     4. Writes one JSON file per article, named
        <YYYYMMDD|nodate>-<url-slug>-<md5_8>.json
+    5. Caches the page HTML, gzipped, under news/data/_html/<domain>/ keyed by
+       a hash of the URL — written BEFORE the gates, so a rejected page is
+       recoverable too.
+
+Exit codes for --reextract: 0 whenever the pass completed (an all-unchanged
+re-run included), 4 only when it could do nothing and something failed.
+
+--reextract rebuilds stored records from that cache with NO network, and
+promotes any ledgered rejection whose page now yields a real body. It is what
+makes an extractor fix reach the articles it was written for: dedupe is by
+stored URL, so before the cache existed every improvement to BodyExtractor
+reached only articles saved after it, and the only documented remedy — delete
+the folder and re-fetch — destroys articles a structurally stale source can
+never list again. --allow-fetch fills the cache for records that predate it.
 
 Files already present (matched by the "url" field inside them) are never
 refetched or rewritten — re-running tops a folder up incrementally with
@@ -544,6 +560,25 @@ def extract_record(html_text, domain, url, list_published=None):
     return rec, is_article
 
 
+def analysis_sidecar(domain, filename):
+    """The analysis record analyze_articles.py stores 1:1 with a corpus file,
+    keyed by the SAME filename. Any corpus file this script deletes or renames
+    has to take its sidecar with it, or the analysis tree accumulates records
+    for articles the corpus no longer holds."""
+    return DATA_DIR / "analysis" / "articles" / domain / filename
+
+
+def write_record(path, rec):
+    """Write a record atomically. A record half-written by an interrupted run
+    is worse than one not written at all: every reader here (existing_urls,
+    stored_records, the analysis queue) treats an unparseable file as absent,
+    so a torn write silently drops the article AND leaves a file behind that
+    nothing will ever clean up."""
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(rec, ensure_ascii=False) + "\n", encoding="utf-8")
+    tmp.replace(path)
+
+
 # ------------------------------------------------------------------- fetch
 
 def decode_html(body, content_type=""):
@@ -635,6 +670,39 @@ def _norm_for_compare(s):
     real quotation marks before either side is compared."""
     s = _ZERO_WIDTH_RE.sub("", html_unescape2(s or ""))
     return _NORM_RE.sub(" ", s).strip(_EDGE_PUNCT).casefold()
+
+
+def titles_match(stored, fresh):
+    """Whether a re-fetched page is still the article the stored record names.
+
+    A URL can be recycled, redirected, or answer 200 with an error page, and a
+    character count alone cannot tell "the extractor improved" from "this is a
+    different article" -- measured, a 'Страницата не е намерена' page replaced
+    a good record because it happened to be longer. Compared on the same
+    normalised form the echo gate uses, and forgiving of a site renaming its
+    own brand tail: one being a prefix of the other is a match."""
+    a, b = _norm_for_compare(stored), _norm_for_compare(fresh)
+    if not a or not b:
+        return True  # nothing to compare on; other guards still apply
+    return a == b or a.startswith(b) or b.startswith(a)
+
+
+def gate_reason(rec, is_article, min_body, slack):
+    """None when the record clears the body gate, else the ledger reason.
+
+    THE ONE DEFINITION. The save path, --reextract pass 1 and --reextract
+    pass 2 all ask the same question and must not restate it — the repo's own
+    convention (kzk_effective_suspension, declared_label, is_declared_holding:
+    name the rule once, never restate it at a call site). Three hand-written
+    copies had already diverged: the two re-extraction copies collapsed both
+    reasons into one, losing the forensic breadcrumb the ledger exists for."""
+    if not is_article:
+        return "non_article_page"
+    if body_is_title(rec.get("content"), rec.get("title"), slack=slack):
+        return "title_as_body"
+    if (rec.get("content_chars") or 0) < min_body:
+        return "thin_body"
+    return None
 
 
 def echo_slack_for(min_body):
@@ -759,6 +827,311 @@ def record_rejection(domain, url, reason, chars, title):
         return False
 
 
+# ------------------------------------------------------------- the HTML cache
+
+HTML_CACHE_DIR_NAME = "_html"
+
+
+def html_cache_path(domain, url):
+    """Keyed by a hash of the URL, NOT by the article filename: the filename
+    embeds the publish date, which can change between extractions, while the
+    URL is the identity every other part of this pipeline already dedupes on."""
+    h = hashlib.md5(url.encode()).hexdigest()[:16]
+    return DATA_DIR / HTML_CACHE_DIR_NAME / domain / f"{h}.json.gz"
+
+
+def write_html_cache(domain, url, html_text):
+    """Persist the page as fetched, gzipped, self-describing.
+
+    This runs BEFORE the body gate, deliberately: a page the gate turns away
+    is exactly the page a future extractor fix is meant to rescue, and without
+    its HTML on disk the only recovery is another trip to the network -- which
+    for a structurally stale source means the article can never be listed
+    again. Never raises, for the same reason record_rejection does not: this
+    sits in the per-article loop and an escaping OSError would break the
+    one-JSON-object-on-stdout contract."""
+    try:
+        path = html_cache_path(domain, url)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        payload = json.dumps({"url": url, "html": html_text,
+                              "cached_at": datetime.now(timezone.utc).isoformat()},
+                             ensure_ascii=False)
+        with gzip.open(path, "wt", encoding="utf-8") as f:
+            f.write(payload)
+        return True
+    except OSError:
+        return False
+
+
+def read_html_cache(domain, url):
+    """The cached page, or None when it was never cached or is unreadable. A
+    corrupt entry reads as absent rather than raising -- a half-written gzip
+    from an interrupted run must not stop a whole re-extraction."""
+    path = html_cache_path(domain, url)
+    if not path.exists():
+        return None
+    try:
+        with gzip.open(path, "rt", encoding="utf-8") as f:
+            d = json.loads(f.read())
+    except (OSError, EOFError, json.JSONDecodeError, gzip.BadGzipFile):
+        return None
+    return d.get("html")
+
+
+# ------------------------------------------------------------- re-extraction
+
+def stored_records(folder):
+    """Every stored record in a domain folder, as (path, dict). A file that
+    will not parse is skipped rather than raising -- one torn record must not
+    stop a whole domain's re-extraction."""
+    if not folder.exists():
+        return
+    for path in sorted(folder.glob("*.json")):
+        try:
+            yield path, json.loads(path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+
+
+def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
+                  cache_html=True, floor_from_cli=False, prune_cache=False):
+    """Rebuild stored records from CACHED HTML, with no network.
+
+    This is the mode that makes extractor work compounding instead of
+    one-shot. Dedupe is by the `url` field inside stored files, so before this
+    existed a stored article was never re-fetched or re-extracted -- every
+    improvement to BodyExtractor reached only articles saved after it, and the
+    documented remedy ("rm -rf the folder and re-run") re-fetches from the
+    network, which for a structurally stale source destroys articles that can
+    never be listed again. Measured on two stored URLs at the time this was
+    written: e-vestnik.bg 87 chars stored against 5,545 from the same page
+    under the current extractor, novavarna.net 73 against 936.
+
+    Parameters
+      min_body        the gate floor for records that carry no floor of their
+                      own (the pre-gate corpus). A record saved under an
+                      explicit --min-body carries it as `gate_min_body` and is
+                      re-judged against THAT, unless floor_from_cli says the
+                      operator named a floor on this invocation.
+      floor_from_cli  True when --min-body was passed explicitly, which makes
+                      min_body authoritative for every record.
+      allow_fetch     fill the cache from the network for records that predate
+                      it. Rate-limited by `delay`, and identity-guarded.
+      allow_shrink    permit replacing a good body with a shorter one.
+      cache_html      persist pages fetched under --allow-fetch.
+      prune_cache     delete cache entries for URLs that are in neither the
+                      corpus nor the ledger.
+
+    Exit-code semantics live in main(): 0 whenever the pass completed, 4 only
+    when it could not do anything AND something failed. Demotions and prunes
+    count as work, so an identical re-run does not change the code.
+
+    Two guards, both deliberate:
+      * a record whose body would SHRINK is left alone (`shrunk_refused`)
+        unless allow_shrink -- a re-extraction runs the CURRENT extractor and a
+        regression in it would otherwise overwrite a corpus that was fine;
+      * under --allow-fetch a re-fetched page whose headline no longer matches
+        the stored one is refused (`identity_refused`). A URL can be recycled,
+        redirected, or answer with a 200 error page, and a character count
+        alone cannot tell "the extractor improved" from "this is a different
+        article" -- measured, a 'Страницата не е намерена' page replaced a good
+        record because it happened to be longer.
+
+    Pass 2 revisits the rejection ledger, promoting any page that now yields a
+    real body -- the whole point of caching the HTML before the gate."""
+    folder = DATA_DIR / domain
+    out = {"domain": domain, "mode": "reextract", "min_body": min_body,
+           "floor_from_cli": floor_from_cli,
+           "records": 0, "from_cache": 0, "fetched": 0, "no_html": 0,
+           "rewritten": 0, "unchanged": 0, "shrunk_refused": 0,
+           "identity_refused": 0, "promoted": 0, "demoted": 0,
+           "cache_pruned": 0, "failed": []}
+
+    def html_for(url):
+        """Cached HTML, or a fresh fetch under --allow-fetch. The pre-cache
+        corpus has no entries, so without that flag a re-extraction over it
+        reports no_html rather than quietly reaching for the network."""
+        cached = read_html_cache(domain, url)
+        if cached is not None:
+            out["from_cache"] += 1
+            return cached
+        if not allow_fetch:
+            out["no_html"] += 1
+            return None
+        try:
+            fresh = fetch_html(url)
+        except (urllib.error.URLError, urllib.error.HTTPError, OSError) as e:
+            out["failed"].append({"url": url, "detail": str(e)})
+            return None
+        if cache_html:
+            write_html_cache(domain, url, fresh)
+        out["fetched"] += 1
+        time.sleep(delay)
+        return fresh
+
+    def floor_for(old_rec):
+        if floor_from_cli:
+            return min_body
+        stored = old_rec.get("gate_min_body")
+        return stored if isinstance(stored, int) and stored >= 0 else min_body
+
+    def ledger_then_unlink(url, reason, rec, path):
+        """Ledger the URL BEFORE removing the record, and only remove it if the
+        ledger write actually landed. Unlinking first loses the URL from the
+        corpus AND the ledger at once, orphaning its cached HTML with nothing
+        left that knows the page was ever seen."""
+        if url not in ledgered:
+            if not record_rejection(domain, url, reason,
+                                    rec.get("content_chars") or 0,
+                                    rec.get("title")):
+                out["failed"].append({"url": url, "detail":
+                                      "ledger write failed; record kept"})
+                return False
+            ledgered.add(url)
+        try:
+            path.unlink()
+            analysis_sidecar(domain, path.name).unlink(missing_ok=True)
+        except OSError as e:
+            out["failed"].append({"url": url, "detail": f"unlink: {e}"})
+            return False
+        return True
+
+    ledgered = rejected_urls(domain, max_age_days=None)
+    demoted_urls = set()
+
+    # --- pass 1: every stored record
+    for path, old_rec in list(stored_records(folder)):
+        out["records"] += 1
+        url = old_rec.get("url")
+        if not url:
+            out["failed"].append({"url": None, "detail":
+                                  f"stored record has no url: {path.name}"})
+            continue
+        html_text = html_for(url)
+        if html_text is None:
+            continue
+        try:
+            rec, is_article = extract_record(html_text, domain, url,
+                                             old_rec.get("published"))
+        except Exception as e:  # a malformed page must not sink the pass
+            out["failed"].append({"url": url,
+                                  "detail": f"{type(e).__name__}: {e}"})
+            continue
+        record_floor = floor_for(old_rec)
+        rec["gate_min_body"] = record_floor
+        old_chars = old_rec.get("content_chars") or 0
+        new_chars = rec.get("content_chars") or 0
+
+        # Identity guard, --allow-fetch only: a cached page is by construction
+        # the page this record came from, but a freshly fetched one is only
+        # whatever the URL serves today.
+        if allow_fetch and old_rec.get("title") and rec.get("title"):
+            if not titles_match(old_rec["title"], rec["title"]):
+                out["identity_refused"] += 1
+                out["failed"].append({"url": url, "detail":
+                                      "identity_refused (re-fetched page has a "
+                                      f"different headline: {rec['title']!r} vs "
+                                      f"stored {old_rec['title']!r})"})
+                continue
+
+        if new_chars < old_chars and not allow_shrink:
+            out["shrunk_refused"] += 1
+            continue
+        reason = gate_reason(rec, is_article, record_floor,
+                             echo_slack_for(record_floor))
+        if reason:
+            # The record no longer clears the gate. Ledger it and drop the
+            # file, so the corpus never keeps a record the current rules would
+            # refuse to create -- otherwise "what is in the corpus" depends on
+            # when each article happened to be fetched.
+            if ledger_then_unlink(url, f"reextract_{reason}", rec, path):
+                out["demoted"] += 1
+                demoted_urls.add(url)
+            continue
+        # Both timestamps move on every extraction, so compare on what a
+        # consumer actually reads. Excluding only fetched_at is not enough:
+        # the stored record carries reextracted_at and a freshly extracted one
+        # does not, so every re-run reported every record as rewritten.
+        volatile = ("fetched_at", "reextracted_at")
+        comparable = {k: v for k, v in rec.items() if k not in volatile}
+        old_comparable = {k: v for k, v in old_rec.items()
+                          if k not in volatile}
+        if comparable == old_comparable:
+            out["unchanged"] += 1
+            continue
+        rec["fetched_at"] = old_rec.get("fetched_at") or rec["fetched_at"]
+        rec["reextracted_at"] = datetime.now(timezone.utc).isoformat()
+        new_path = folder / article_filename(url, rec["published"])
+        try:
+            write_record(new_path, rec)
+            if new_path != path:
+                # The publish date changed, so the filename did. Move the
+                # analysis sidecar with it or the analysis tree keeps a record
+                # under a corpus name that no longer exists.
+                old_side = analysis_sidecar(domain, path.name)
+                if old_side.exists():
+                    new_side = analysis_sidecar(domain, new_path.name)
+                    new_side.parent.mkdir(parents=True, exist_ok=True)
+                    old_side.replace(new_side)
+                path.unlink()
+        except OSError as e:
+            out["failed"].append({"url": url, "detail": f"write: {e}"})
+            continue
+        out["rewritten"] += 1
+
+    # --- pass 2: ledgered rejections whose page may now yield a body
+    #
+    # max_age_days=None is load-bearing: a rejection older than the ledger's
+    # 30-day TTL is exactly the one most likely to predate the extractor fix
+    # being applied, and reading the ledger through the TTL would skip it.
+    stored_urls = {r.get("url") for _, r in stored_records(folder)}
+    for url in sorted(rejected_urls(domain, max_age_days=None)
+                      - stored_urls - demoted_urls):
+        html_text = html_for(url)
+        if html_text is None:
+            continue
+        try:
+            rec, is_article = extract_record(html_text, domain, url, None)
+        except Exception as e:
+            out["failed"].append({"url": url,
+                                  "detail": f"{type(e).__name__}: {e}"})
+            continue
+        rec["gate_min_body"] = min_body
+        if gate_reason(rec, is_article, min_body, echo_slack_for(min_body)):
+            continue
+        rec["promoted_from_rejection_at"] = datetime.now(timezone.utc).isoformat()
+        folder.mkdir(parents=True, exist_ok=True)
+        try:
+            write_record(folder / article_filename(url, rec["published"]), rec)
+        except OSError as e:
+            out["failed"].append({"url": url, "detail": f"write: {e}"})
+            continue
+        out["promoted"] += 1
+
+    # --- optional: drop cache entries nothing refers to any more
+    if prune_cache:
+        keep = set()
+        for u in {r.get("url") for _, r in stored_records(folder)} | \
+                 rejected_urls(domain, max_age_days=None):
+            if u:
+                keep.add(html_cache_path(domain, u).name)
+        cache_dir = DATA_DIR / HTML_CACHE_DIR_NAME / domain
+        if cache_dir.is_dir():
+            for entry in cache_dir.glob("*.json.gz"):
+                if entry.name not in keep:
+                    try:
+                        entry.unlink()
+                        out["cache_pruned"] += 1
+                    except OSError as e:
+                        out["failed"].append({"url": entry.name,
+                                              "detail": f"prune: {e}"})
+
+    out["dir"] = (str(folder.relative_to(Path.cwd()))
+                  if _under_cwd(folder) else str(folder))
+    out["dir_exists"] = folder.is_dir()
+    return out
+
+
 # --------------------------------------------------------------------- main
 
 def main():
@@ -768,6 +1141,12 @@ def main():
     prefetched = None
     min_body = MIN_BODY_CHARS
     retry_rejected = False
+    reextract = False
+    allow_fetch = False
+    allow_shrink = False
+    cache_html = True
+    prune_cache = False
+    floor_from_cli = False
     for a in list(args):
         if a.startswith("--delay="):
             raw = a.split("=", 1)[1]
@@ -789,6 +1168,9 @@ def main():
         elif a.startswith("--prefetched="):
             prefetched = a.split("=", 1)[1]
             args.remove(a)
+        elif a == "--prune-cache":
+            prune_cache = True
+            args.remove(a)
         elif a.startswith("--min-body="):
             raw = a.split("=", 1)[1]
             # .isdigit() rejects the empty string and negatives alike, so
@@ -800,18 +1182,61 @@ def main():
                                   f"got {raw!r}"}))
                 sys.exit(1)
             min_body = int(raw)
+            floor_from_cli = True
             args.remove(a)
         elif a == "--retry-rejected":
             retry_rejected = True
+            args.remove(a)
+        elif a == "--reextract":
+            reextract = True
+            args.remove(a)
+        elif a == "--allow-fetch":
+            allow_fetch = True
+            args.remove(a)
+        elif a == "--allow-shrink":
+            allow_shrink = True
+            args.remove(a)
+        elif a == "--no-cache":
+            cache_html = False
             args.remove(a)
     if not args:
         print(json.dumps({"error": "usage",
                           "detail": "save_articles.py <domain> [N] [--delay=S] "
                                     "[--min-body=N] [--retry-rejected] "
-                                    "[--urls-file=F | --prefetched=F.jsonl]"}))
+                                    "[--no-cache] "
+                                    "[--urls-file=F | --prefetched=F.jsonl] | "
+                                    "save_articles.py <domain> --reextract "
+                                    "[--allow-fetch] [--allow-shrink] "
+                                    "[--prune-cache] [--no-cache] "
+                                    "[--min-body=N] [--delay=S]"}))
         sys.exit(1)
     domain = args[0]
+    if len(args) > 1 and not args[1].isdigit():
+        print(json.dumps({"error": "usage", "detail":
+                          f"N must be a non-negative integer, got {args[1]!r}"}))
+        sys.exit(1)
     want = int(args[1]) if len(args) > 1 else 5
+
+    if reextract:
+        if urls_file or prefetched:
+            print(json.dumps({"error": "usage", "detail":
+                              "--reextract reads the stored corpus and its HTML "
+                              "cache; it cannot be combined with --urls-file or "
+                              "--prefetched"}))
+            sys.exit(1)
+        summary = cmd_reextract(domain, min_body, allow_fetch, allow_shrink,
+                                delay, cache_html=cache_html,
+                                floor_from_cli=floor_from_cli,
+                                prune_cache=prune_cache)
+        print(json.dumps(summary, ensure_ascii=False))
+        # 0 whenever the pass COMPLETED, which an all-unchanged re-run does.
+        # Counting only rewrites as progress made the code flip between two
+        # identical runs; every outcome below is work the pass performed.
+        did_work = any(summary[k] for k in ("rewritten", "promoted", "demoted",
+                                            "unchanged", "shrunk_refused",
+                                            "identity_refused",
+                                            "cache_pruned"))
+        sys.exit(4 if summary["failed"] and not did_work else 0)
 
     html_map = {}  # url -> page HTML, when pages were prefetched via browser
     if prefetched:
@@ -920,6 +1345,11 @@ def main():
                 html_text = html_map[url]["html"]
             else:
                 html_text = fetch_html(url)
+            # Cache BEFORE the gates: a page the body gate turns away is
+            # precisely the page a future extractor fix is meant to rescue,
+            # and --reextract can only reach it if the HTML is on disk.
+            if cache_html:
+                write_html_cache(domain, url, html_text)
             rec, is_article = extract_record(html_text, domain, url,
                                              art.get("published"))
         except (urllib.error.URLError, urllib.error.HTTPError) as e:
@@ -951,9 +1381,13 @@ def main():
                     f"thin_body ({rec['content_chars']} chars < "
                     f"{min_body} floor)")
             continue
+        # Persist the floor this record was judged against. Without it a bare
+        # --reextract re-judges a corpus deliberately saved at a lowered
+        # --min-body against the DEFAULT 400 and demotes all of it -- both
+        # halves being documented workflows.
+        rec["gate_min_body"] = min_body
         folder.mkdir(parents=True, exist_ok=True)
-        (folder / article_filename(url, rec["published"])).write_text(
-            json.dumps(rec, ensure_ascii=False) + "\n", encoding="utf-8")
+        write_record(folder / article_filename(url, rec["published"]), rec)
         saved += 1
         if not html_map:
             time.sleep(delay)

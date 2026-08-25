@@ -114,6 +114,77 @@ article here is now ledgered as dead".
 files — re-running tops up with only new articles and never refetches or
 rewrites what's already on disk.
 
+## Step 1b — after an extractor fix, RE-EXTRACT rather than re-fetch
+
+```bash
+python3 news/scripts/save_articles.py <domain> --reextract               # cache only, no network
+python3 news/scripts/save_articles.py <domain> --reextract --allow-fetch # fill the cache first
+python3 news/scripts/save_articles.py <domain> --reextract --prune-cache # drop orphaned cache entries
+```
+
+⚠️ **"Incremental by design" is also why an extractor fix used to be
+unreachable.** Dedupe is by stored URL, so a stored article was never
+re-fetched OR re-extracted: every improvement to `BodyExtractor` reached only
+articles saved after it, and Step 2's remedy below (`rm -rf` the folder and
+re-run) re-fetches from the network — which for a structurally stale source
+destroys articles that can never be listed again. Measured on two stored URLs:
+e-vestnik.bg held 87 chars against 5,545 from the same page under the fixed
+extractor; novavarna.net 73 against 936.
+
+Every fetched page is now cached gzipped under `news/data/_html/<domain>/`,
+keyed by a hash of the URL and written **before** the gates — so a rejected
+page is cached too, which is what lets `--reextract` promote it later.
+~15 KB per page measured (≈75 MB for a 5,000-article corpus). `--no-cache`
+opts a run out.
+
+`--reextract` rebuilds every stored record from that cache with no network,
+and makes a second pass over the rejection ledger promoting any page that now
+yields a real body. Measured on e-vestnik.bg: **100 records at a median of 78
+chars → 96 records at a median of 5,185, none under the floor**, with 4
+demoted (photo-gallery stubs that genuinely carry no body). Re-running is a
+no-op.
+
+Three guards, all deliberate, and all three were live defects first:
+
+- **It refuses to replace a good body with a worse one** (`shrunk_refused`)
+  unless `--allow-shrink`. A re-extraction runs the CURRENT extractor, and a
+  regression in it would otherwise quietly overwrite a corpus that was fine.
+- **Under `--allow-fetch` it refuses a page that is no longer the same
+  article** (`identity_refused`). A URL can be recycled, redirected, or answer
+  200 with an error page, and a character count alone cannot tell "the
+  extractor improved" from "this is a different article" — measured, a
+  „Страницата не е намерена" page replaced a good record because it happened
+  to be longer. The check is on the headline, and it forgives a brand-tail
+  change.
+- ⚠️ **It re-judges each record against the floor THAT RECORD was saved
+  under**, which every record now carries as `gate_min_body`. Both halves are
+  documented workflows — save a briefs source at `--min-body=100`, then
+  re-extract after an extractor fix — and re-judging against the default 400
+  deleted the whole corpus at exit 0. Passing `--min-body` explicitly on the
+  re-extraction overrides the stored floor for every record, which is how you
+  deliberately re-tighten a domain.
+
+**A record that no longer clears the gate is DEMOTED** — ledgered, then
+deleted, in that order, and kept if the ledger write fails. Otherwise "what is
+in the corpus" would depend on when each article happened to be fetched rather
+than on the current rules. Demotion also removes the record's analysis sidecar
+under `news/data/analysis/articles/<domain>/`, and a rename moves it, since
+that tree is keyed by the corpus filename.
+
+`--allow-fetch` fills the cache for records that predate it, at the same
+polite delay as a normal run. That is the one-off pass for the existing
+corpus; afterwards `--reextract` alone is free and offline.
+
+**Exit codes:** `0` whenever the pass completed — including an all-unchanged
+re-run — and `4` only when it could do nothing at all and something failed.
+Demotions, prunes and refusals all count as work, so an identical re-run does
+not change the code.
+
+**Cache lifecycle:** nothing prunes it automatically, on purpose — a rejected
+page's HTML is exactly what a future extractor fix needs, so age is the wrong
+axis. `--prune-cache` drops entries whose URL is in neither the corpus nor the
+ledger (orphans from a `rm -rf` of a domain folder). Budget ~15 KB per page.
+
 ## Step 2 — CHECK order_confidence before trusting the vintage
 
 This is the step that separates a useful archive from a beautifully
@@ -292,9 +363,10 @@ still wrong (Step 2).
 | path | what |
 | --- | --- |
 | `news/scripts/save_articles.py` | the downloader — list via fetch_latest_articles.py, `--urls-file=` (browser-harvested links, plain-HTTP articles) or `--prefetched=` (browser-fetched HTML, no network), extract, gate, persist (this skill). `DATA_BG_ROOT` overrides the repo root. |
-| `news/scripts/test_save_articles.py` | regression suite for the saver — body gate, ledger, CLI contract, extraction fixtures. Run it after touching the script. |
+| `news/scripts/test_save_articles.py` | regression suite for the saver — body gate, rejection ledger, HTML cache, `--reextract` and its three guards, CLI contract. Run it after touching the script. |
 | `news/data/_rejected/<domain>.jsonl` | body-gate rejection ledger: url, reason, chars, title, timestamp. Untracked; entries expire after 30 days. |
 | `news/scripts/save_all_direct.sh` | parallel batch over the direct tier (this skill) |
 | `news/data/<domain>/*.json` | the stored articles, incremental by URL |
 | `news/data/_browser/*` | browser-tier scratch: `<domain>.urls` (harvested links), `<domain>.jsonl` (prefetched rendered HTML) — reusable for re-extraction, untracked |
+| `news/data/_html/<domain>/*.json.gz` | the page-HTML cache `--reextract` reads: gzipped `{url, html, cached_at}`, keyed by URL hash, written before the gates. Untracked, ~15 KB/page. |
 | `news/scripts/fetch_latest_articles.py` | the lister it shells out to — see fetch-news-articles |
