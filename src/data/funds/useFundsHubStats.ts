@@ -70,9 +70,23 @@ export interface FundsHubTileStats {
   dualCorpusCompanies: number | null;
 }
 
+/** One row of the head's ranked list. Capped at FIVE by 145, and the only array the blob
+ *  carries — see that file's `top_programmes` CTE for why the cap is the licence. */
+export interface FundsHubProgrammeRow {
+  code: string;
+  name: string;
+  /** A share of `isun.contractedEur`, on the SAME basis: `sum(total_eur)` over the whole table
+   *  IS that figure, so these rows decompose the cell above them rather than adding a fifth
+   *  unrelated statistic. */
+  eur: number;
+}
+
 export interface FundsHubStats {
   isun: FundsHubIsunStats;
   tiles: FundsHubTileStats;
+  /** Empty on a database whose 145 predates the ranked list — the head then renders no aside,
+   *  which is the honest state. Never absent-as-zero: there is no „0 programmes" to report. */
+  topProgrammes?: FundsHubProgrammeRow[];
   rrf: {
     contractCount: number;
     contractedEur: number;

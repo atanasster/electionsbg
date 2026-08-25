@@ -62,7 +62,16 @@ const shows = (text: string) =>
 
 /** The tiles paint before the stub resolves, so every assertion has to wait for it. Without
  *  this the file asserts against the first render and passes on nothing. */
-const untilLoaded = () => waitFor(() => expect(shows("47")).toBe(true));
+const untilLoaded = () =>
+  // The EVIDENCE ASIDE, not a number. „47" is a substring of half the figures on this page —
+  // 47 617, 44 015 477 336 — so waiting on it resolved on the pre-fetch render often enough
+  // that the clauses below were asserting against a page the stub had not reached yet.
+  waitFor(() =>
+    expect(
+      document.querySelector("[data-hub-head] aside"),
+      "the stubbed payload never rendered",
+    ).toBeTruthy(),
+  );
 
 /** Both lookups are SCOPED TO THE TILE GRID. An unscoped `a[href]` query also sees the head:
  *  its first KPI cell links to /funds/beneficiaries and renders the same 53 122 the tile must
@@ -141,6 +150,37 @@ describe("/funds tile captions", () => {
         `the tile captioned ${key} does not print ${figure}`,
       ).toContain(figure);
     }
+  });
+
+  it("ranks programmes in the head, each row to its own page", async () => {
+    mount();
+    await untilLoaded();
+
+    const aside = document.querySelector("[data-hub-head] aside");
+    expect(aside, "the head renders no evidence aside").toBeTruthy();
+    const links = [...aside!.querySelectorAll("a[href]")];
+
+    // FIVE distinct destinations, one per programme — not five links to /funds/programmes.
+    // That is the defect the sibling hub's band shipped, and it is invisible in a screenshot.
+    const rowHrefs = links
+      .map((a) => (a.getAttribute("href") ?? "").split("?")[0])
+      .filter((h) => h.startsWith("/funds/programme/"));
+    expect(rowHrefs.length, "no programme rows in the head").toBe(
+      STATS.topProgrammes!.length,
+    );
+    expect(
+      new Set(rowHrefs).size,
+      `rows share a destination: ${rowHrefs.join(", ")}`,
+    ).toBe(rowHrefs.length);
+
+    // The code is URL-ENCODED into the path. `2021BG-RRP` survives it unchanged, so a fixture
+    // of only safe codes could not tell an encoded builder from a raw one — assert the shape
+    // rather than a literal.
+    expect(rowHrefs).toContain("/funds/programme/2021BG-RRP");
+
+    // The list DECOMPOSES the band's contracted cell, so its top row must carry that cell's
+    // basis — a euro figure, not a project count.
+    expect(aside!.textContent ?? "").toMatch(/€/);
   });
 
   it("gives the beneficiaries tile no figure, because the head already has it", async () => {

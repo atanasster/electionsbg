@@ -192,6 +192,58 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
       -- direct read it degrades to NULL on an unpopulated cache (55000) instead of taking the
       -- whole refresh down. Full account in 077's header.
       dual_corpus_company_count()                                    AS dual_companies
+  ), top_programmes AS (
+    -- ── THE HEAD'S RANKED LIST ────────────────────────────────────────────────────────────
+    --
+    -- The ONLY array this payload carries, and it is capped at FIVE rows of three scalars. That
+    -- cap is the whole licence: the flat-scalars rule exists because this blob is fetched on
+    -- every view and a hub blob that grows detail turns back into the 390 KB artifact the
+    -- rework removed. A bounded top-N is not that shape — measured 2026-08-25 it is 516 bytes
+    -- of a 1 303-byte payload, and it CANNOT grow with the corpus — so
+    -- `fundsHubCoverage.test.ts`'s aggregate ban allows exactly one and asserts the LIMIT
+    -- rather than trusting it.
+    --
+    -- It decomposes the head's own „Договорени" cell: `sum(total_eur)` over the whole table is
+    -- 44 015 477 336, to the cent the figure that cell prints, so the rows are parts of a number
+    -- the reader has just read rather than a fifth unrelated statistic. Measured 2026-08-25 the
+    -- top five hold 64.3% of it and the Recovery Plan alone holds 39.9%.
+    --
+    -- ⚠ `total_eur` IS THE CONTRACT VALUE, INCLUDING THE BENEFICIARY'S OWN CO-FINANCE — not the
+    -- EU grant, which is `grant_eur` and 24% smaller. Any surface rendering these rows has to
+    -- say „договорени", never „грант": „largest programmes" invites the grant reading, and the
+    -- two are a different ranking as well as a different number.
+    --
+    -- ⚠ THE FILTER DROPS NOTHING TODAY — `program_code` is NOT NULL on all 82 162 rows — so the
+    -- decomposition is exact rather than approximate. If that ever stops being true these rows
+    -- decompose a SUBSET of the cell, which is the safe direction: never more than it.
+    --
+    -- `min(program_name)` is safe because no code carries a second spelling: measured, 0 of 47.
+    -- It is a fold over a denormalised column, not a choice between candidates, and
+    -- `funds_hub_stats.data.test.ts` pins that property so a future re-import cannot quietly
+    -- make this an arbitrary pick between two names.
+    -- ⚠ THE OUTER SELECT IS AN UNGROUPED AGGREGATE ON PURPOSE, and that is what makes the
+    -- cross join at the foot of this file safe. An ungrouped aggregate returns exactly ONE row
+    -- — NULL over an empty set, which the `coalesce(…, '[]')` in the projection absorbs. Add a
+    -- GROUP BY here and an empty corpus returns ZERO rows, the cross join collapses,
+    -- `funds_hub_stats_cache` is empty and `funds_hub_stats()` returns NULL: every figure on
+    -- the hub goes, not just the list. CLAUDE.md records the same mechanism from the other
+    -- side, where `tender_subcontracting_for()` GROUPs BY deliberately so an unknown key
+    -- returns no rows instead of one row of nulls.
+    SELECT jsonb_agg(jsonb_build_object(
+             'code', t.program_code,
+             'name', t.program_name,
+             'eur',  round(t.eur::numeric, 2)
+           ) ORDER BY t.eur DESC) AS rows
+    FROM (
+      SELECT program_code,
+             min(program_name) AS program_name,
+             sum(total_eur)    AS eur
+      FROM fund_projects
+      WHERE program_code IS NOT NULL
+      GROUP BY program_code
+      ORDER BY sum(total_eur) DESC
+      LIMIT 5
+    ) t
   )
   -- `k` exists ONLY to carry the unique index: an expression index does not qualify a matview
   -- for REFRESH … CONCURRENTLY, so a constant column is the cheapest thing that does.
@@ -234,6 +286,9 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
       'focusDossiers',            x.focus_dossiers,
       'dualCorpusCompanies',      x.dual_companies
     ),
+    -- Capped at five, and the ONLY array here. See `top_programmes` above for why that is
+    -- allowed and what enforces the cap.
+    'topProgrammes',              coalesce(p.rows, '[]'::jsonb),
     'interreg', jsonb_build_object(
       'operationCount',           n.operation_count,
       'bgOperationCount',         n.bg_operation_count,
@@ -242,7 +297,7 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
       'bgBudgetEur',              round(n.bg_budget_eur::numeric, 2)
     )
   ) AS payload
-  FROM isun i, rrf r, interreg n, tiles x;
+  FROM isun i, rrf r, interreg n, tiles x, top_programmes p;
 
 -- ON A PLAIN COLUMN (`k`), NOT an expression. This is the whole reason `k` exists.
 --

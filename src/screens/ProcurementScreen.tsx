@@ -216,6 +216,13 @@ export const ProcurementScreen: FC = () => {
                 // contains many buyers (АПИ sits inside „Пътища") and the two are different
                 // sets. A group's content, its label and its destination must be one set.
                 heading: t("procurement_head_top_awarders"),
+                // „Най-големи" by WHAT. This corpus answers it at least three ways — contract
+                // value, contract count, appeals — and the rows show a bare €, so nothing
+                // beside them says which. The sibling /funds head carries the same line for the
+                // same reason; fixing one hub and not the other is how a pattern stops being
+                // one. The window is the reader's own `?pscope`, which the scope pill above
+                // already states, so the basis names the measure and not the years.
+                basis: t("procurement_head_top_awarders_basis"),
                 rows: evidenceRows,
                 // /procurement/overview is where the full ranking lives — the page these rows
                 // are folded from. It reads the scope, so the link keeps the window.

@@ -76,11 +76,46 @@ describe("the hub's stat call stays small", () => {
     // Postgres: every key the function emits, counted. A new key is cheap; a new ARRAY is not,
     // and that is the shape this catches.
     const sql = read("scripts/db/schema/pg/145_funds_hub_stats.sql");
-    const arrays = sql.match(/jsonb_agg|json_agg|array_agg/g) ?? [];
+    // ⚠ EXACTLY ONE AGGREGATE IS ALLOWED, AND ONLY BECAUSE IT IS CAPPED. `top_programmes` is
+    // the head's ranked list: five rows of three scalars, ~300 bytes, and it CANNOT grow with
+    // the corpus. That last clause is the whole licence — the ban exists because a blob fetched
+    // on every view regrows into the 390 KB artifact this rework removed, and a bounded top-N
+    // is not that shape.
+    //
+    // So the cap is asserted rather than trusted: an aggregate with no LIMIT beneath it, or a
+    // LIMIT someone quietly raised, fails here. Without that second half this exception would
+    // just be the ban deleted.
+    // ANY aggregate, matched by SHAPE. The first cut enumerated three names, so
+    // `jsonb_object_agg` and `string_agg` — both of which embed unbounded detail just as
+    // effectively — walked straight through a ban written to stop exactly that.
+    const arrays = sql.match(/\b\w+_agg\s*\(/g) ?? [];
     expect(
-      arrays,
-      "145 has grown an aggregate — the hub blob must stay a flat set of scalars, or it is on its way back to being the full artifact",
-    ).toEqual([]);
+      arrays.length,
+      `145 has ${arrays.length} aggregates — the hub blob carries exactly one, the capped top-N; anything else is on its way back to being the full artifact`,
+    ).toBe(1);
+    // Scoped to the aggregate's own subquery, not the file: `funds_hub_stats()` ends with a
+    // `LIMIT 1` over the single-row matview, and counting that as the cap would let an
+    // UNCAPPED aggregate pass on the serving function's coincidence.
+    const aggAt = sql.search(/\b\w+_agg\s*\(/);
+    const projAt = sql.indexOf("SELECT 1 AS k", aggAt);
+    // ⚠ THE ANCHOR MUST BE FOUND, and this is not defensive padding: `slice(aggAt, -1)` is
+    // „everything but the last character", so an aggregate moved BELOW the projection — or a
+    // renamed anchor — silently widened the slice to include the serving function's own
+    // `LIMIT 1`. That is the precise hole the scoping was introduced to close, re-opened, and
+    // it passes as a cap of 1.
+    expect(
+      projAt,
+      "the projection anchor moved — the LIMIT scan would fall back to the whole file",
+    ).toBeGreaterThan(aggAt);
+    const cte = sql.slice(aggAt, projAt);
+    const limits = [...cte.matchAll(/\bLIMIT\s+(\d+)/g)].map((m) =>
+      Number(m[1]),
+    );
+    expect(limits.length, "the one aggregate has no LIMIT under it").toBe(1);
+    expect(
+      limits[0],
+      `the ranked list's LIMIT is ${limits[0]} — a hub head shows a handful of rows, not a table`,
+    ).toBeLessThanOrEqual(8);
     // `[a-zA-Z_0-9]+`, not `[a-zA-Z]+`: the first draft's class excluded `_` and digits, so
     // forty added snake_case keys left the count unmoved and the ceiling was decorative.
     const keys = sql.match(/^\s+'[a-zA-Z_0-9]+',\s/gm) ?? [];
@@ -92,7 +127,10 @@ describe("the hub's stat call stays small", () => {
     // An array can also arrive by selecting a jsonb ARRAY straight out of a payload, with no
     // `*_agg` anywhere. `focus_dossiers` takes the LENGTH of one, which is why the guard is on
     // the projection rather than on the whole file.
-    const projection = sql.slice(sql.indexOf("jsonb_build_object"));
+    // Anchored on the PROJECTION, which is what it is about. It used to start at the first
+    // `jsonb_build_object` in the file — fine until a CTE above the projection contained one,
+    // which `top_programmes` now does, so the slice quietly began covering CTE bodies too.
+    const projection = sql.slice(projAt);
     expect(
       projection.match(/->\s*'themes'(?!\))/g) ?? [],
       "a raw jsonb array is being embedded in the hub payload",

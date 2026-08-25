@@ -12,7 +12,11 @@
 import type { FundsHubStats } from "@/data/funds/useFundsHubStats";
 import type { FundsIndexFile } from "@/data/funds/types";
 
-/** `funds_hub_stats()` against local Postgres, 2026-08-25. Every field distinct, so a caption
+/** `funds_hub_stats()` against local Postgres, 2026-08-25.
+ *
+ *  ⚠ `satisfies`, NOT `as unknown as`. The cast silences the one check that makes a shared
+ *  fixture safe: with it, renaming a field on `FundsHubStats` leaves all three gates green
+ *  against an object that no longer matches the type they are testing against. Every field distinct, so a caption
  *  attached to the wrong figure shows up in an assertion rather than hiding behind two equal
  *  numbers — the reason `registerBeneficiaries` (53 122) and `beneficiaryCount` (47 617) are
  *  both here and must stay different. */
@@ -44,6 +48,36 @@ export const FUNDS_STATS_FIXTURE = {
     contractedEur: 17572344268.62,
     absorptionPctOfGrant: 33.5,
   },
+  /** The head's ranked list, as 145 emits it. Five DISTINCT programme codes, because the head
+   *  links each row to its own page and „five rows, one destination" is the defect the sibling
+   *  hub's band shipped — a fixture with a repeated code could not fail that clause. */
+  topProgrammes: [
+    {
+      code: "2021BG-RRP",
+      name: "Национален план за възстановяване и устойчивост",
+      eur: 17572344268.62,
+    },
+    {
+      code: "2014BG16M1OP001",
+      name: "Транспорт и транспортна инфраструктура",
+      eur: 3322166303.93,
+    },
+    {
+      code: "2021BG16FFPR001",
+      name: 'Програма "Транспортна свързаност" 2021-2027',
+      eur: 2695196833.27,
+    },
+    {
+      code: "2021BG16FFPR003",
+      name: 'Програма "Развитие на регионите" 2021-2027',
+      eur: 2504678005.93,
+    },
+    {
+      code: "2014BG16RFOP002",
+      name: "Иновации и конкурентоспособност",
+      eur: 2229078481.2,
+    },
+  ],
   interreg: {
     operationCount: 1958,
     bgOperationCount: 1117,
@@ -51,7 +85,7 @@ export const FUNDS_STATS_FIXTURE = {
     bgPartnerOrgCount: 985,
     bgBudgetEur: 401768494.91,
   },
-} as unknown as FundsHubStats;
+} satisfies FundsHubStats;
 
 /** `fund_payloads` kind='index', same vintage. Its `paidEur` DELIBERATELY disagrees with
  *  `isun.paidEur` above by €367M — that is the real 2.0% gap between the two sources, and the

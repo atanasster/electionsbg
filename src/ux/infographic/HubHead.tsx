@@ -50,6 +50,13 @@ export interface HubEvidenceRow {
 
 export interface HubEvidence {
   heading: string;
+  /** „по договорени средства" — WHAT the list is ranked by, in the same role `HubKpi.basis`
+   *  plays for the band. A heading alone cannot carry it: „Най-големи програми" is answerable
+   *  four ways in this corpus (contract value, grant, paid, count), and the rows show a bare €
+   *  that reads as the EU grant when it is the contract value including the beneficiary's own
+   *  co-finance — a different number AND a different ranking. Optional so a list whose basis is
+   *  genuinely unambiguous need not invent one. */
+  basis?: string;
   rows: HubEvidenceRow[];
   /** `To` for the same reason the rows are — a bare pathname resets the scope. */
   action?: { to: To; label: string };
@@ -243,9 +250,16 @@ export const HubHead: FC<{
         {evidence && evidence.rows.length > 0 ? (
           <aside className="mt-6 min-w-0 self-start overflow-hidden rounded-xl border border-border bg-card lg:col-start-2 lg:row-start-1 lg:mt-0">
             <div className="flex items-center justify-between gap-3 border-b border-border px-3.5 py-2.5">
-              <h2 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                {evidence.heading}
-              </h2>
+              <div className="min-w-0">
+                <h2 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                  {evidence.heading}
+                </h2>
+                {evidence.basis ? (
+                  <p className="mt-0.5 text-[10px] font-medium leading-tight text-muted-foreground/80">
+                    {evidence.basis}
+                  </p>
+                ) : null}
+              </div>
               {evidence.action ? (
                 <Link
                   to={headHref(evidence.action.to)}

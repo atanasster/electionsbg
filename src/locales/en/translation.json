@@ -5188,5 +5188,9 @@
   "proc_meth_src_indicators_other": "{{count}} indicators",
   "proc_meth_caveat_shortTenderPeriod": "⚠️ Currently inert: the tender-window fields are unpopulated across the corpus (none of 20,000 sampled). The check neither fires nor passes — it is excluded from the denominator.",
   "proc_meth_caveat_shortDecisionPeriod": "⚠️ Direction unsettled. The check scores a SHORT decision period, but the source itself justifies risk through the opposite mechanism — a long period leaves room for repeated challenges until the award reaches a chosen company. An inconsistency in the source, recorded rather than hidden.",
-  "funds_head_eyebrow": "EU FUNDS · ISUN 2020"
+  "funds_head_eyebrow": "EU FUNDS · ISUN 2020",
+  "funds_head_evidence": "Largest programmes",
+  "funds_head_evidence_all": "all programmes",
+  "funds_head_evidence_basis": "by contracted value",
+  "procurement_head_top_awarders_basis": "by contracted value"
 }

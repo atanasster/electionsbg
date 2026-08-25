@@ -23,6 +23,7 @@ import { FUNDS_BANDS } from "./funds/fundsRegistry";
 import { kpisFor, tileMetric } from "./funds/fundsHubFigures";
 import { FUNDS_SCENES } from "./funds/fundsScenes";
 import { useFundsHubStats } from "@/data/funds/useFundsHubStats";
+import { formatEurCompact } from "@/lib/currency";
 
 // Compact one-row breakdown strip — chips for the largest by-type buckets
 // plus a trailing "by legal form" mini-summary. Replaces the tall two-axis
@@ -95,6 +96,43 @@ export const FundsScreen: FC = () => {
      `kpisPending` stands its own cells in its own slot until `index` lands. */
   const kpis = kpisFor(index, hubStats, i18n.language, t);
 
+  /* THE HEAD'S RANKED LIST — where the „Договорени" cell's €44 млрд. actually sits.
+   *
+   * It DECOMPOSES a figure the reader has read in the same head — beside the band at `lg`,
+   * beneath it on a phone — rather than adding a fifth statistic:
+   * `sum(total_eur)` over the whole corpus IS `isun.contractedEur`, so these five rows are
+   * parts of that number. Measured 2026-08-25 they hold 68% of it, and the Recovery Plan alone
+   * holds 40% — which is the finding, and it is invisible on a page that only prints the total.
+   *
+   * Each row links to its OWN programme page, not all five to /funds/programmes: five links to
+   * one destination is the defect the /procurement band shipped. The heading's action carries
+   * the „see all" case.
+   *
+   * `?? []` and not a zero row: a database whose 145 predates the list has nothing to say here,
+   * and HubHead renders no aside for an empty list. „0" would be a claim.
+   */
+  const evidence = useMemo(() => {
+    const rows = hubStats?.topProgrammes ?? [];
+    if (!rows.length) return undefined;
+    return {
+      heading: t("funds_head_evidence"),
+      // „Най-големи" is answerable four ways here. The euro is `sum(total_eur)` — the contract
+      // value INCLUDING the beneficiary's own co-finance — not the EU grant, which is 24%
+      // smaller and ranks the programmes differently.
+      basis: t("funds_head_evidence_basis"),
+      rows: rows.map((p) => ({
+        id: p.code,
+        label: p.name,
+        value: formatEurCompact(p.eur, i18n.language),
+        to: `/funds/programme/${encodeURIComponent(p.code)}`,
+      })),
+      action: {
+        to: "/funds/programmes",
+        label: t("funds_head_evidence_all"),
+      },
+    };
+  }, [hubStats, t, i18n.language]);
+
   return (
     <>
       <GovernanceBreadcrumb
@@ -120,6 +158,7 @@ export const FundsScreen: FC = () => {
           search={<FundsHeadSearch />}
           kpis={kpis}
           kpisPending={4}
+          evidence={evidence}
         />
 
         {/* BAND 1, second half. The finder answers „намери нещо конкретно"; this answers

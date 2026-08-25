@@ -20,6 +20,7 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { allRows, dbReachable, end } from "../lib/pg";
 
 const haveDb = await dbReachable();
@@ -52,6 +53,7 @@ interface Stats {
     focusDossiers: number | null;
     dualCorpusCompanies: number | null;
   };
+  topProgrammes?: { code: string; name: string; eur: number }[];
   rrf: {
     contractCount: number;
     contractedEur: number;
@@ -442,5 +444,159 @@ test.skipIf(skip)(
     assert.equal(typeof s.isun.placedContractedEur, "number");
     assert.equal(typeof s.interreg.bgBudgetEur, "number");
     assert.equal(typeof s.rrf.contractedEur, "number");
+  },
+);
+
+test.skipIf(skip)(
+  "the head's ranked list is capped, distinct, ordered, and part of the whole",
+  async () => {
+    // The ONE array 145 emits. Every property here is load-bearing for how the head renders it:
+    // the cap is what licenses the array at all (see `top_programmes`), the DISTINCT codes are
+    // what let each row link to its own page, and the ordering is the claim the list makes.
+    const s = await stats();
+    const rows = s.topProgrammes ?? [];
+    assert.ok(
+      rows.length > 0,
+      "topProgrammes is empty — has the matview been refreshed?",
+    );
+
+    // ⚠ THE EXPECTED COUNT COMES FROM 145, NOT FROM `rows.length`. Every assertion below scopes
+    // itself to what was published, which is blind to the list SHRINKING: a `LIMIT 5` quietly
+    // changed to 1 leaves one row that IS correctly the largest programme, and a self-scoped
+    // truth query agrees with it. Reading the cap out of the migration is what makes „the head
+    // renders five rows" checkable at all — and it keeps the cap in ONE place, rather than the
+    // four copies (5 / <=8 / <=5 / ===5) this list briefly had across three files.
+    const sql = readFileSync(
+      "scripts/db/schema/pg/145_funds_hub_stats.sql",
+      "utf8",
+    );
+    const aggAt = sql.search(/\b\w+_agg\s*\(/);
+    const cap = Number(
+      /\bLIMIT\s+(\d+)/.exec(
+        sql.slice(aggAt, sql.indexOf("SELECT 1 AS k", aggAt)),
+      )?.[1],
+    );
+    assert.ok(cap > 0 && cap <= 8, `145's ranked-list cap reads as ${cap}`);
+    assert.equal(
+      rows.length,
+      cap,
+      `topProgrammes has ${rows.length} rows against 145's cap of ${cap} — the corpus has 47 programmes, so a short list is a defect, not a small corpus`,
+    );
+
+    assert.equal(
+      new Set(rows.map((r) => r.code)).size,
+      rows.length,
+      "two rows share a programme code — the head would link both to one page",
+    );
+    for (const r of rows) {
+      assert.ok(r.code && r.code.trim(), "a row has no code to link to");
+      assert.ok(r.name && r.name.trim(), `programme ${r.code} has no name`);
+      // Numbers, not node-postgres numeric strings — the blank-money-cell trap above.
+      assert.equal(typeof r.eur, "number", `${r.code}.eur is ${typeof r.eur}`);
+      assert.ok(r.eur > 0, `${r.code} carries ${r.eur}`);
+    }
+
+    const eurs = rows.map((r) => r.eur);
+    assert.deepEqual(
+      eurs,
+      [...eurs].sort((a, b) => b - a),
+      "the ranked list is not in descending order",
+    );
+
+    // ⚠ PARTS OF THE WHOLE. The head prints these in the same block as its „Договорени" cell
+    // — beside it at `lg`, beneath it on a phone — so they have to be on that cell's basis — `sum(total_eur)` over the corpus IS `isun.contractedEur`.
+    // A list summing to more than the total it decomposes would be a visible contradiction on
+    // the first screen, and it is the shape a change of source column would produce.
+    const sum = eurs.reduce((a, b) => a + b, 0);
+    assert.ok(
+      sum <= s.isun.contractedEur,
+      `the top ${rows.length} sum to ${sum}, more than the corpus total ${s.isun.contractedEur}`,
+    );
+    // ⚠ AND RE-DERIVED FROM SOURCE, because „is it a plausible share of the total" cannot tell
+    // one money column from another. Measured: swapping `total_eur` for `paid_eur` still sums
+    // to 42% of the contracted total and passed a ratio floor — so the same aggregate is
+    // recomputed here and compared row for row. A gate that a wrong column survives is not one.
+    // `expected`, not `truth` — the module already has a `truth()` helper and shadowing it
+    // inside one clause makes the two impossible to tell apart when reading either.
+    const expected = await allRows<{
+      code: string;
+      name: string;
+      eur: number;
+    }>(
+      `SELECT program_code AS code, min(program_name) AS name, sum(total_eur) AS eur
+         FROM fund_projects
+        WHERE program_code IS NOT NULL
+        GROUP BY program_code
+        ORDER BY sum(total_eur) DESC
+        LIMIT $1`,
+      [cap],
+    );
+    assert.deepEqual(
+      rows.map((r) => r.code),
+      expected.map((r) => r.code),
+      "the published ranking is not the corpus's own by contracted value",
+    );
+    for (const [i, r] of rows.entries()) {
+      assert.ok(
+        Math.abs(r.eur - Number(expected[i].eur)) < 0.02,
+        `${r.code} publishes ${r.eur} against ${expected[i].eur}`,
+      );
+      // ⚠ THE LABEL, NOT ONLY THE KEY. The head renders `name` beside the euro and links on
+      // `code`, so a wrong NAME column is invisible to every code-and-money assertion —
+      // measured, swapping `min(program_name)` for `min(beneficiary_name)` publishes
+      // „Автоцентър Тим ЕООД · €2,7 млрд." as a programme with every other assertion green.
+      assert.equal(
+        r.name,
+        expected[i].name,
+        `${r.code} is published as „${r.name}" against „${expected[i].name}"`,
+      );
+    }
+
+    // ⚠ EVERY ROW IS A LINK, so every code needs a page behind it. The head promises five
+    // destinations; a code with no `program-summary` payload renders as a live link to a
+    // not-found page, which is worse than showing no list. Checked against the payload the
+    // /funds/programme/:code screen reads, not against the route pattern — the route matches
+    // any string, so it can never fail.
+    const unservable = await allRows<{ code: string }>(
+      `SELECT r.value->>'code' AS code
+         FROM jsonb_array_elements(funds_hub_stats()->'topProgrammes') r
+        WHERE NOT EXISTS (
+                SELECT 1 FROM fund_payloads p
+                 WHERE p.kind = 'program-summary' AND p.key = r.value->>'code')`,
+    );
+    assert.deepEqual(
+      unservable.map((r) => r.code),
+      [],
+      "the head links to programme pages that have no payload behind them",
+    );
+
+    // The property that licenses `min(program_name)`: a FOLD over a denormalised column rather
+    // than a pick between candidates. 0 of 47 codes carry a second spelling today; if a
+    // re-import breaks that, `min` starts choosing and the head shows whichever sorts first,
+    // with nothing else here able to tell.
+    const ambiguous = await allRows<{ code: string }>(
+      `SELECT program_code AS code
+         FROM fund_projects
+        WHERE program_code IS NOT NULL
+        GROUP BY program_code
+       HAVING count(DISTINCT program_name) > 1`,
+    );
+    assert.deepEqual(
+      ambiguous.map((r) => r.code),
+      [],
+      "a programme code carries more than one name — min() is now an arbitrary pick",
+    );
+
+    // The decomposition above is EXACT only while the CTE's `program_code IS NOT NULL` filter
+    // drops nothing. If that changes, the rows decompose a SUBSET of the „Договорени" cell —
+    // the safe direction, never more than it — but the comments claiming equality go stale.
+    const orphaned = await allRows<{ n: number }>(
+      `SELECT count(*)::int AS n FROM fund_projects WHERE program_code IS NULL`,
+    );
+    assert.equal(
+      Number(orphaned[0].n),
+      0,
+      `${orphaned[0].n} projects carry no programme code — the rows now decompose a subset of the cell`,
+    );
   },
 );
