@@ -11,7 +11,11 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { TileHubGrid, TileHubSection, HubHead, HubKpi } from "@/ux/infographic";
-import { GOV_HUB_CLUSTERS } from "./governance/governanceRegistry";
+import {
+  GOV_HUB_CLUSTERS,
+  BAND_TILES,
+  BAND_TO,
+} from "./governance/governanceRegistry";
 import { GOV_HUB_SCENES } from "./governance/governanceScenes";
 import { HubSearch } from "@/ux/search/HubSearch";
 import { governanceSearchSources } from "./governance/governanceSearch";
@@ -25,25 +29,6 @@ import { SCOPE_FIRST_YEAR } from "@/data/scope/constants";
 // The four money taps, in the KPI band. Their tiles therefore carry NO metric: the band
 // publishes those figures above the fold with a declared basis, and the same number twice on
 // one page reads as two different facts (SKILL.md §3.1 rule 5).
-// Exported for hubHead.gates.test.ts, which checks destination-uniqueness over the
-// REGISTRY: these cells build `to` from the map below rather than from literals, so a source
-// scan of the component reads zero destinations and passes on nothing.
-export const BAND_TILES = [
-  "budget",
-  "procurement",
-  "funds",
-  "subsidies",
-] as const;
-
-/** Where each band figure sends the reader, carrying the scope its caption names. A tile
- *  whose destination is scoped by `?pscope` must FORCE it, or the reader lands on that hub's
- *  own default and sees a different number (hub-hero-v1 §9.2). */
-export const BAND_TO: Record<string, string> = {
-  budget: "/budget",
-  procurement: "/procurement/contracts?pscope=all",
-  funds: "/funds/beneficiaries",
-  subsidies: "/subsidies?pscope=all",
-};
 
 // Dev-time guard for the stringly-typed tile.id ↔ GOV_HUB_SCENES contract. A tile whose
 // id has no scene key does NOT degrade to an empty vignette — InfographicTile renders

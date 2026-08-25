@@ -6,8 +6,17 @@
 //   • the rule "a screen using HubHead must not also render <Title>" living only in a comment;
 //   • ten screens left with a left-aligned <h1> over a centred deck by the H1 alignment flip.
 //
-// These are source scans on purpose: the first two are properties of what a page CLAIMS, which
-// no render test can see, and the last two are properties of the tree rather than of a module.
+// Some clauses scan SOURCE and some call the REGISTRY or the rendered figures, and which one a
+// clause uses is decided by where the fact lives — not by preference. A text scan is the only
+// way to see a property of the TREE (does any screen render two headings?) or of what a page
+// CLAIMS in a string literal. It is the wrong tool the moment a value is computed: /governance
+// builds each cell's `to` from a map and /funds from a pure function, so the scan read zero
+// destinations on both and passed. That is the failure mode to watch for here — a green clause
+// that can no longer see its subject — which is why every clause below asserts non-vacuity
+// before it asserts anything else.
+//
+// The height budget is the one property none of this can reach; it is gated in tests/ui.spec.ts,
+// where there is a layout engine.
 
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
@@ -20,15 +29,15 @@ import {
 import {
   BAND_TILES as GOV_BAND_TILES,
   BAND_TO as GOV_BAND_TO,
-} from "@/screens/GovernanceScreen";
-import { kpisFor, tileMetric } from "@/screens/FundsScreen";
+} from "@/screens/governance/governanceRegistry";
+import { kpisFor, tileMetric } from "@/screens/funds/fundsHubFigures";
 import { FUNDS_BANDS } from "@/screens/funds/fundsRegistry";
 import type { FundsHubStats } from "@/data/funds/useFundsHubStats";
 import type { FundsIndexFile } from "@/data/funds/types";
 
 /** i18n stand-in: the key IS the string, so a clash below is a clash of FIGURES rather than of
  *  translated captions. */
-const id = (k: string) => k;
+const id = (k: string): string => k;
 
 /** Measured against local Postgres 2026-08-25, so the clauses compare the strings the page
  *  actually renders. The two beneficiary counts are the point: 53 122 in `tiles` and 47 617 in
@@ -378,13 +387,13 @@ describe("the /governance blob", () => {
   // no metric, or the same string renders twice on one page (§3.1 rule 5).
   it("excludes the band's own tiles from the tile metrics", () => {
     const src = read("src/screens/GovernanceScreen.tsx");
-    const band =
-      [...src.matchAll(/const BAND_TILES = \[([^\]]+)\]/g)][0]?.[1] ?? "";
-    const ids = [...band.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
-    expect(
-      ids.length,
-      "BAND_TILES not found in GovernanceScreen",
-    ).toBeGreaterThan(0);
+    // The IDS come from the imported REGISTRY, not from a scan of the screen. They used to be
+    // a literal in GovernanceScreen and the scan read them from there — so moving them into
+    // governanceRegistry.ts (which react-refresh/only-export-components asks for) took this
+    // clause to zero ids, and only its own non-vacuity assert caught it. The SUPPRESSION is
+    // still a source match, because it is a property of the screen's code rather than of data.
+    const ids: readonly string[] = GOV_BAND_TILES;
+    expect(ids.length, "BAND_TILES is empty").toBeGreaterThan(0);
     // tileMetric() must return {} for every one of them.
     expect(src).toMatch(
       /if \(\(BAND_TILES as readonly string\[\]\)\.includes\(id\)\) return \{\};/,

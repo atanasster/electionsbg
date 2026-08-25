@@ -525,3 +525,60 @@ test.describe("Charts render at a real viewport", () => {
     ).toBe(true);
   });
 });
+
+// ─── the hub head's height budget ────────────────────────────────────────────
+//
+// docs/plans/hub-hero-v1.md §3.0 budgets the head at ~420 px at `lg`: "a head that grows past
+// that has replaced the problem it fixes." The head exists because /funds put its first
+// corpus-level figure at ~2 600 px; a head that swells to a screen and a half is the same
+// defect wearing better type.
+//
+// This lives in Playwright and not in a unit test because it is a claim about LAYOUT. jsdom
+// reports 0 for every box, so the gate would pass on a head of any size — the vacuity this
+// file's siblings keep re-learning. Each budget below carries the value measured when it was
+// set, so a future failure says whether the head grew or the ceiling was always too tight.
+const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
+  // Eyebrow + h1 + deck + a one-line search + a 4-cell band + the evidence aside.
+  { path: "/governance", maxPx: 500, measured: 430 },
+  // The same, plus a scope control.
+  { path: "/procurement", maxPx: 540, measured: 477 },
+  // The widest head in the tree, and deliberately so: its search slot is the whole FundsFinder
+  // tile, not an input. That is the trade docs/plans/funds-module-v2.md §5.2 asks for — look-up
+  // before read — so the allowance is declared here rather than the head being trimmed.
+  { path: "/funds", maxPx: 600, measured: 531 },
+];
+
+test.describe("hub head — the §3.0 height budget", () => {
+  // Desktop only: the budget is stated at `lg`, and on Pixel 7 the same head is legitimately
+  // taller because every column stacks.
+  test.skip(
+    ({ viewport }) => (viewport?.width ?? 0) < 1024,
+    "the budget is a claim about the lg layout",
+  );
+
+  for (const { path, maxPx, measured } of HUB_HEAD_BUDGETS) {
+    test(`${path} head fits its budget`, async ({ page }) => {
+      await page.goto(path, { waitUntil: "networkidle" });
+      const head = page.locator("[data-hub-head]");
+      // Non-vacuity: a renamed attribute would otherwise make every budget pass on nothing.
+      await expect(head).toHaveCount(1);
+      const box = await head.boundingBox();
+      expect(box, `${path}: the head has no box`).not.toBeNull();
+      const h = Math.round(box!.height);
+      expect(
+        h,
+        `${path} head is ${h}px, over its ${maxPx}px budget (was ${measured}px when set)`,
+      ).toBeLessThanOrEqual(maxPx);
+    });
+  }
+
+  // One h1 per page is gated statically in hubHead.gates.test.ts, but that gate reads SOURCE.
+  // This is the rendered half: a screen could still mount a second heading through a shared
+  // component the scan cannot follow.
+  test("a hub renders exactly one h1", async ({ page }) => {
+    for (const { path } of HUB_HEAD_BUDGETS) {
+      await page.goto(path, { waitUntil: "domcontentloaded" });
+      await expect(page.locator("h1"), `${path}`).toHaveCount(1);
+    }
+  });
+});

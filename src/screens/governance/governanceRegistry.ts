@@ -272,3 +272,28 @@ export const GOV_HUB_CLUSTERS: {
     ],
   },
 ];
+
+/** The four tiles the /governance KPI band promotes, and where each cell links.
+ *
+ *  They live in the registry rather than in the screen for the reason every other list here
+ *  does — a gate can read them. `hubHead.gates.test.ts` checks destination-uniqueness over
+ *  THIS map: the cells build `to` from it rather than from literals, so a source scan of the
+ *  component reads zero destinations and passes on nothing, which is exactly what it did until
+ *  a non-vacuity assert caught it.
+ */
+export const BAND_TILES = [
+  "budget",
+  "procurement",
+  "funds",
+  "subsidies",
+] as const;
+
+/** Where each band figure sends the reader, carrying the scope its caption names. A tile
+ *  whose destination is scoped by `?pscope` must FORCE it, or the reader lands on that hub's
+ *  own default and sees a different number (hub-hero-v1 §9.2). */
+export const BAND_TO: Record<string, string> = {
+  budget: "/budget",
+  procurement: "/procurement/contracts?pscope=all",
+  funds: "/funds/beneficiaries",
+  subsidies: "/subsidies?pscope=all",
+};
