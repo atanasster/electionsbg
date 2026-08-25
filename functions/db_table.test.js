@@ -13,6 +13,7 @@ const {
   runDbFacets,
   buildAggSelect,
   SEARCH_MIN_CHARS,
+  MAX_SEARCH_WORDS,
   SHLYO_TRIGGER_RAW,
 } = require("./db_table.js");
 
@@ -851,6 +852,176 @@ test("persons searches the name FOLD, with the term folded too", () => {
     n.searchFold,
     true,
     "name targets name_fold without folding the search term — every Cyrillic search returns 0 rows",
+  );
+});
+
+// ── searchFoldTokens: multi-word name search (docs/plans/person-search-token-match-v1.md) ──
+// name_fold holds the FULL "First Patronymic Family" name, so a plain searchFold match
+// (the whole query as one contiguous substring) never matched "Явор Чавдаров Стефанов"
+// when searched as "явор стефанов" — the patronymic sitting in between breaks contiguity —
+// while it accidentally matched anyone whose PATRONYMIC happened to literally be
+// "Стефанов". searchFoldTokens ANDs one fold arm per query word instead.
+
+test("persons.name is the ONLY column opted into searchFoldTokens", () => {
+  // Scoped on purpose: every other searchFold consumer (contractor_rank, procurement_
+  // settlements, tenders, …) is pinned to a hand-measured plan shape documented in
+  // db_table.js, and this flag changes selectivity in a way that would need
+  // re-measuring each of them before it could be turned on there too.
+  assert.equal(REGISTRY.persons.columns.name.searchFoldTokens, true);
+  for (const [rname, r] of Object.entries(REGISTRY))
+    for (const [cname, d] of Object.entries(r.columns))
+      if (d.searchFoldTokens)
+        assert.ok(
+          rname === "persons" && cname === "name",
+          `${rname}.${cname} unexpectedly carries searchFoldTokens`,
+        );
+});
+
+test("a two-word persons search ANDs one fold arm per word, skipping the patronymic", () => {
+  const { whereSql, params } = buildWhere(REGISTRY.persons, {
+    filters: { global: "явор стефанов" },
+  });
+  const foldArms = whereSql.match(/translit_bg_latin\(\$\d+\)/g) || [];
+  assert.equal(foldArms.length, 2, "one fold arm per word");
+  assert.ok(whereSql.includes(" AND "), "the two arms are ANDed together");
+  assert.ok(params.includes("явор"), "the first word is bound on its own");
+  assert.ok(params.includes("стефанов"), "the second word is bound on its own");
+  assert.ok(
+    !params.includes("явор стефанов"),
+    "the whole phrase is never bound as one contiguous-substring param",
+  );
+});
+
+test("a two-word persons search ANDs — not ORs — the per-word fold arms", () => {
+  // On REGISTRY.persons, `whereSql.includes(" AND ")` is true regardless of how the two
+  // word-arms are joined — `defaultFilters: [{ col: "tier", val: "P" }]` (persons' own
+  // registry entry) injects an unrelated " AND " ahead of the search predicate. A resource
+  // with NO defaultFilters is what makes " OR "/" AND " unambiguous evidence about the
+  // feature under test rather than about the tier filter.
+  const bare = {
+    base: "person_browse_table",
+    columns: {
+      name: {
+        type: "text",
+        search: true,
+        searchCol: "name_fold",
+        searchFold: true,
+        searchFoldTokens: true,
+      },
+    },
+    select: ["slug"],
+    defaultSort: [["slug", "asc"]],
+  };
+  const { whereSql } = buildWhere(bare, {
+    filters: { global: "явор стефанов" },
+  });
+  assert.ok(
+    !whereSql.includes(" OR "),
+    "a two-word AND-arm query must not contain an OR at all",
+  );
+  const arms = whereSql.match(/name_fold ILIKE/g) || [];
+  assert.equal(arms.length, 2);
+  assert.equal(
+    (whereSql.match(/ AND /g) || []).length,
+    1,
+    "the two arms must be joined by exactly one AND",
+  );
+});
+
+test("a two-word query defers shliokavitsa — no shlyo_query_fold arm in the AND path", () => {
+  // "9нко" is letter-adjacent-digit (SHLYO_TRIGGER_RAW-triggering) and clears
+  // SEARCH_MIN_CHARS; paired with a second qualifying word this exercises the >=2-words
+  // branch, which `continue`s before the shliokavitsa rewrite below it ever runs. Pins the
+  // documented deferral (db_table.js: "Shliokavitsa stays scoped to the single-arm path
+  // below") against a future edit moving or deleting that `continue`.
+  const { whereSql } = buildWhere(REGISTRY.persons, {
+    filters: { global: "9нко стефанов" },
+  });
+  assert.ok(
+    !whereSql.includes("shlyo_query_fold"),
+    "the multi-word AND path must not also add the shliokavitsa rewrite arm",
+  );
+  // ...and the single-word path still gets it, so this is deferral, not breakage.
+  assert.ok(
+    buildWhere(REGISTRY.persons, { filters: { global: "9нко" } }).whereSql.includes(
+      "shlyo_query_fold",
+    ),
+    "the single-word path still applies the shliokavitsa rewrite",
+  );
+});
+
+test("a single-word persons search is byte-identical to the un-tokenized path", () => {
+  // Pins the common case (search by one surname) against a throwaway resource identical
+  // except for the flag, so a future edit to the multi-word branch cannot silently change
+  // single-word behavior without failing this test.
+  const withTokens = {
+    base: "person_browse_table",
+    columns: {
+      name: {
+        type: "text",
+        search: true,
+        searchCol: "name_fold",
+        searchFold: true,
+        searchFoldTokens: true,
+      },
+    },
+    select: ["slug"],
+    defaultSort: [["slug", "asc"]],
+  };
+  const withoutTokens = {
+    ...withTokens,
+    columns: {
+      name: { ...withTokens.columns.name, searchFoldTokens: false },
+    },
+  };
+  const a = buildWhere(withTokens, { filters: { global: "стефанов" } });
+  const b = buildWhere(withoutTokens, { filters: { global: "стефанов" } });
+  assert.equal(a.whereSql, b.whereSql);
+  assert.deepEqual(a.params, b.params);
+});
+
+test("a second word below the floor falls back to the single-arm path on the WHOLE term", () => {
+  // "ст" alone would be refused by the length floor, but the whole query "явор ст" clears
+  // it — so this must not probe the trigram index on the 2-character fragment; it must
+  // fall back to matching "явор ст" as one contiguous substring, same as before the flag.
+  const { whereSql, params } = buildWhere(REGISTRY.persons, {
+    filters: { global: "явор ст" },
+  });
+  const foldArms = whereSql.match(/translit_bg_latin\(\$\d+\)/g) || [];
+  // A single fold arm is only reachable through the fallback branch (the AND path always
+  // produces 2+) — persons also carries `defaultFilters: [{ col: "tier", val: "P" }]`, so
+  // an unrelated " AND " between that and the search predicate is expected and not a signal
+  // either way here.
+  assert.equal(foldArms.length, 1, "no multi-arm AND on a sub-floor fragment");
+  assert.ok(
+    params.includes("явор ст"),
+    "the whole term is bound, not the individual words",
+  );
+});
+
+test("multi-word persons search still ORs against the institution arm, untouched", () => {
+  const { whereSql } = buildWhere(REGISTRY.persons, {
+    filters: { global: "явор стефанов" },
+  });
+  assert.ok(whereSql.includes("institution ILIKE"), "institution arm present");
+  assert.ok(whereSql.includes("name_fold ILIKE"), "name arm present");
+  assert.ok(whereSql.includes(" OR "), "the two columns' arms are OR'd");
+});
+
+test("a persons query's word count is capped at MAX_SEARCH_WORDS", () => {
+  // Generated relative to the exported constant (not a hardcoded literal) so a future
+  // retune of MAX_SEARCH_WORDS cannot silently desync this test from the cap it checks.
+  const words = Array.from({ length: MAX_SEARCH_WORDS + 3 }, (_, i) =>
+    String.fromCharCode(0x430 + i).repeat(3),
+  ).join(" ");
+  const { whereSql } = buildWhere(REGISTRY.persons, {
+    filters: { global: words },
+  });
+  const foldArms = whereSql.match(/translit_bg_latin\(\$\d+\)/g) || [];
+  assert.equal(
+    foldArms.length,
+    MAX_SEARCH_WORDS,
+    `capped at ${MAX_SEARCH_WORDS}, not all ${MAX_SEARCH_WORDS + 3}`,
   );
 });
 

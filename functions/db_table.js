@@ -1118,6 +1118,13 @@ const REGISTRY = {
       // searchCol WITHOUT searchFold matches a Cyrillic query against Latin text and
       // returns nothing, forever, while looking like a working query. Both flags or
       // neither. idx_person_browse_name_trgm backs it.
+      //
+      // searchFoldTokens: a Bulgarian full name is First + Patronymic + Family, and a
+      // plain searchFold match requires the whole query to be one contiguous substring
+      // of it — so "явор стефанов" (first + family, skipping the patronymic) never
+      // matched "явор чавдаров стефанов" while it accidentally matched anyone whose
+      // patronymic happened to literally BE "стефанов". This ANDs one fold arm per
+      // query word instead (see docs/plans/person-search-token-match-v1.md).
       name: {
         type: "text",
         sort: true,
@@ -1125,6 +1132,7 @@ const REGISTRY = {
         search: true,
         searchCol: "name_fold",
         searchFold: true,
+        searchFoldTokens: true,
       },
       photo_url: { type: "text" },
       namesake_risk: { type: "int" },
@@ -2088,6 +2096,12 @@ const SHLYO_TRIGGER_RAW = /[qjwx]|[469](?=\p{L})|(?<=\p{L})[469]/iu;
 // pattern with nested quantifiers would turn it into CPU burn inside the 10 s
 // statement_timeout budget. No legitimate search term is anywhere near this long.
 const MAX_SEARCH_TERM = 200;
+
+// Cap on how many space-separated words a `searchFoldTokens` column ANDs together
+// (see that flag's own comment). A Bulgarian full name is at most ~4 parts; this
+// only bounds the worst case of a pasted sentence.
+const MAX_SEARCH_WORDS = 5;
+
 const clampInt = (v, def, lo, hi) => {
   const n = Number(v);
   return Number.isFinite(n) ? Math.min(Math.max(Math.trunc(n), lo), hi) : def;
@@ -2513,6 +2527,56 @@ const buildWhere = (r, req, opts = {}) => {
             `${target} ILIKE '%' || replace(replace(replace(` +
             `${inner},` +
             ` '\\', '\\\\'), '%', '\\%'), '_', '\\_') || '%'`;
+
+          // ── MULTI-WORD NAMES (searchFoldTokens) ──────────────────────────────
+          // Opt-in and scoped to this one column on purpose — every OTHER searchFold
+          // consumer below (contractor_rank, procurement_settlements, tenders, …) is
+          // pinned to a hand-measured plan shape documented elsewhere in this file,
+          // and ANDing multiple arms changes selectivity in a way that would need
+          // re-measuring each of them. `person_browse_table.name_fold` carries its
+          // own gin_trgm index (120), so this ANDs two-plus bitmap index scans on
+          // the SAME column — a BitmapAnd, no less indexed than the single-arm case.
+          //
+          // Below the floor per word (not per query): a query that clears
+          // SEARCH_MIN_CHARS only by spanning several sub-floor words (e.g. "яв ст")
+          // must not probe the trigram index on either fragment — same hazard the
+          // floor above exists for. Fewer than 2 qualifying words (the ordinary case
+          // of searching by one surname, or a second word too short to use) falls
+          // through to the single-arm path below UNCHANGED — byte-identical SQL to
+          // before this flag existed.
+          // Dedup on a lowercased/NFC key — translit_bg_latin lowercases on the SQL
+          // side regardless (see the shliokavitsa comment below), so two spellings of
+          // the same word differing only in case ("Стефанов стефанов") would otherwise
+          // survive as two distinct arms and AND a word against itself for nothing.
+          const words = [];
+          if (d.searchFoldTokens) {
+            const seenWords = new Set();
+            for (const w of g.split(/\s+/)) {
+              if (termLength(w) < SEARCH_MIN_CHARS) continue;
+              const key = w.normalize("NFC").toLowerCase();
+              if (seenWords.has(key)) continue;
+              seenWords.add(key);
+              words.push(w);
+              if (words.length === MAX_SEARCH_WORDS) break;
+            }
+          }
+
+          if (words.length >= 2) {
+            // Word order is irrelevant by construction — a bonus, not a design goal.
+            // Shliokavitsa stays scoped to the single-arm path below (its own
+            // comment); a query needing both is deferred rather than risking the
+            // multi-token interaction on the first pass.
+            ors.push(
+              `(${words
+                .map((w) => {
+                  params.push(w);
+                  return foldArm(`translit_bg_latin($${params.length})`);
+                })
+                .join(" AND ")})`,
+            );
+            continue;
+          }
+
           const gi = gParam();
           ors.push(foldArm(`translit_bg_latin($${gi})`));
 
@@ -2849,6 +2913,9 @@ module.exports = {
   // require() this (separate CJS package) and keeps its own copy — see the constant's
   // header for why that mirror is the design rather than a duplication bug.
   SEARCH_MIN_CHARS,
+  // Same reason as SEARCH_MIN_CHARS above — the searchFoldTokens cap test references
+  // this rather than restating the literal, so a retune cannot silently desync the test.
+  MAX_SEARCH_WORDS,
   // db_routes.js reads this for the SAME gate on its own shliokavitsa probe. It lives
   // here because that module require()s this one, never the reverse.
   SHLYO_TRIGGER_RAW,
