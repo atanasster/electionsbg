@@ -29,6 +29,7 @@ import { exec, withClient, end } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import { appendDataChange } from "../lib/data-changes";
 import {
+  HospitalPaymentsRefusal,
   parseHospitalPaymentsPdf,
   type PaymentStream,
 } from "../nzok/parse_hospital_payments";
@@ -75,6 +76,13 @@ const OWNERSHIP_FILE = path.join(
   REPO,
   "data/budget/nzok/hospital_ownership.json",
 );
+// 187 is the COVERAGE table — one row per (stream, period) the listing offered,
+// published or not. Applied here because this loader is its only writer; a month
+// is only known to be missing by the process that tried to load it.
+const COVERAGE_SCHEMA_FILE = path.join(
+  REPO,
+  "scripts/db/schema/pg/187_nzok_payment_coverage.sql",
+);
 // Overridable so the --tolerate-offline path can be exercised deterministically
 // (point it at an unroutable address); production never sets it.
 const BASE = process.env.NZOK_BASE_URL ?? "https://www.nhif.bg";
@@ -99,6 +107,24 @@ const STREAMS: { stream: PaymentStream; links: (html: string) => string[] }[] =
     { stream: "drugs", links: drugsPaymentLinks },
     { stream: "devices", links: devicesPaymentLinks },
   ];
+
+/** A row of `nzok_payment_coverage` (migration 187). */
+export interface CoverageRow {
+  stream: PaymentStream;
+  period: string;
+  status: "loaded" | "refused";
+  header_facility_count: number | null;
+  header_total_eur: number | null;
+  rows_loaded: number;
+  rows_total_eur: number;
+  reason: string | null;
+  /** NULL on a refused month: nothing was checked, and 0 would claim it was. */
+  count_mismatch_blocks: number | null;
+  count_mismatch_ordinals: number | null;
+  unreconciled_blocks: number | null;
+  unreconciled_eur: number | null;
+  republishes_period: string | null;
+}
 
 export interface Row {
   reg_no: string;
@@ -145,10 +171,76 @@ const fetchToCache = async (link: string): Promise<string> => {
   return p;
 };
 
+/** The coverage row for a month that PUBLISHED. */
+export const loadedCoverageRow = (
+  stream: PaymentStream,
+  period: string,
+  f: {
+    headerFacilityCount: number;
+    totalCumulativeEur: number;
+    rows: { cumulativeEur: number }[];
+    countMismatches: { missingOrdinals: number[]; extraOrdinals: number[] }[];
+    unreconciledBlocks: string[];
+    unreconciledEur: number;
+  },
+): CoverageRow => ({
+  stream,
+  period,
+  status: "loaded",
+  // 0 means "unreadable", which is not a count of zero facilities.
+  header_facility_count: f.headerFacilityCount || null,
+  header_total_eur: f.totalCumulativeEur || null,
+  rows_loaded: f.rows.length,
+  rows_total_eur: Math.round(f.rows.reduce((a, r) => a + r.cumulativeEur, 0)),
+  reason: null,
+  count_mismatch_blocks: f.countMismatches.length,
+  count_mismatch_ordinals: f.countMismatches.reduce(
+    (n, m) => n + m.missingOrdinals.length + m.extraOrdinals.length,
+    0,
+  ),
+  unreconciled_blocks: f.unreconciledBlocks.length,
+  unreconciled_eur: Math.round(f.unreconciledEur),
+  // Stamped after the whole walk — a republication is only knowable against the
+  // month before it, which may not be parsed yet.
+  republishes_period: null,
+});
+
+/** The coverage row for a month that was REFUSED — carrying what НЗОК said it was
+ *  worth, which is the whole reason the refusal is a typed error.
+ *
+ *  ⚠️ The four "not verified" counters are NULL here, not 0. Zero means "checked
+ *  and clean"; nothing was checked, because the refusal fired first. Publishing 0
+ *  would say a withheld month's blocks all reconcile. */
+export const refusedCoverageRow = (
+  stream: PaymentStream,
+  period: string,
+  reason: string,
+  facts: { headerFacilityCount: number; totalCumulativeEur: number },
+): CoverageRow => ({
+  stream,
+  period,
+  status: "refused",
+  header_facility_count: facts.headerFacilityCount || null,
+  header_total_eur: facts.totalCumulativeEur || null,
+  rows_loaded: 0,
+  rows_total_eur: 0,
+  reason,
+  count_mismatch_blocks: null,
+  count_mismatch_ordinals: null,
+  unreconciled_blocks: null,
+  unreconciled_eur: null,
+  republishes_period: null,
+});
+
 const collectRows = async (): Promise<{
   rows: Row[];
   monthsOk: number;
   monthsSkipped: string[];
+  /** One row per (stream, period) the listing offered, published or not — see
+   *  migration 187. Built here because this is the only place that knows a month
+   *  was OFFERED and refused; downstream, a refused month is indistinguishable
+   *  from one НЗОК never published. */
+  coverage: CoverageRow[];
   /** Per accepted month: what the parser could NOT verify. Carried out of the
    *  parse so a RISING figure is visible at load time — the whole point of §9-3 is
    *  that these are reported rather than thrown, and a report nobody surfaces is
@@ -190,6 +282,7 @@ const collectRows = async (): Promise<{
 
   const rows: Row[] = [];
   const monthsSkipped: string[] = [];
+  const coverage: CoverageRow[] = [];
   const notVerified: {
     stream: PaymentStream;
     period: string;
@@ -248,6 +341,15 @@ const collectRows = async (): Promise<{
               currency: f.currencyOfRecord,
               ownership: ownMap[r.regNo] ?? null,
             });
+          // ⚠️ ONE dedup guard for BOTH outcomes, keyed the same way the
+          // payments dedup is. Guarding only the refused push left the loaded one
+          // free to add a second row for a (stream, period) the other outcome had
+          // already claimed — and the listing DOES serve a period under two hrefs
+          // (three today). That is a primary-key violation mid-transaction, which
+          // rolls back the entire load: the coverage table would have taken the
+          // corpus down with it.
+          if (!coverage.some((c) => c.stream === stream && c.period === period))
+            coverage.push(loadedCoverageRow(stream, period, f));
           if (f.countMismatches.length || f.unreconciledBlocks.length)
             notVerified.push({
               stream,
@@ -279,13 +381,33 @@ const collectRows = async (): Promise<{
           // truncation as the reason the original investigation had to bypass the
           // loader and parse the PDFs directly. A skip is now expected to be rare
           // (0 today), so there is nothing left to keep the output short for.
+          const reason = (e as Error).message.split(`${REPO}/`).join("");
           monthsSkipped.push(
-            `${stream} ${period || link.slice(-24)}: ${(e as Error).message.split(`${REPO}/`).join("")}`,
+            `${stream} ${period || link.slice(-24)}: ${reason}`,
           );
+          // ⚠️ A refusal still knows which month it refused and what НЗОК said it
+          // was worth — see `HospitalPaymentsRefusal`. Without this the coverage
+          // table would record only the months that loaded, which is precisely the
+          // silence it exists to break. A document that is not a report at all
+          // (pdftotext failed, no „към" period) has no month to key on and is
+          // reported in the console only.
+          if (e instanceof HospitalPaymentsRefusal) {
+            const p = `${e.facts.asOf.slice(0, 7)}-01`;
+            if (!coverage.some((c) => c.stream === stream && c.period === p))
+              coverage.push(refusedCoverageRow(stream, p, reason, e.facts));
+          }
         }
       }
   }
-  return { rows, monthsOk, monthsSkipped, notVerified };
+  // RC-5 — a republication is only knowable against the month before it, so it is
+  // stamped after the whole walk rather than per file.
+  for (const r of republishedMonths(rows)) {
+    const c = coverage.find(
+      (x) => x.stream === r.stream && x.period === r.period,
+    );
+    if (c) c.republishes_period = r.prior;
+  }
+  return { rows, monthsOk, monthsSkipped, notVerified, coverage };
 };
 
 const COLS = [
@@ -482,6 +604,9 @@ const main = async (): Promise<void> => {
   await exec(readFileSync(STREAMS_SCHEMA_FILE, "utf8"));
   // 065 adds the ownership column + the byOwnership split (supersedes 050's fns).
   await exec(readFileSync(OWNERSHIP_SCHEMA_FILE, "utf8"));
+  // 187 — the coverage table. Independent of the payments schema above; applied
+  // before the load so a refusal recorded below has somewhere to go.
+  await exec(readFileSync(COVERAGE_SCHEMA_FILE, "utf8"));
 
   // Unlike its nzok siblings this loader has no committed corpus file — it
   // re-derives the corpus from the nhif.bg listing pages every run (the PDF
@@ -509,7 +634,7 @@ const main = async (): Promise<void> => {
     }
     throw e;
   }
-  const { rows, monthsOk, monthsSkipped, notVerified } = collected;
+  const { rows, monthsOk, monthsSkipped, notVerified, coverage } = collected;
   if (rows.length === 0)
     throw new Error("no НЗОК hospital-payment rows collected");
 
@@ -589,6 +714,81 @@ const main = async (): Promise<void> => {
       amountExpr: "t.cumulative_eur::double precision",
       rowsTotal: rows.length,
     });
+    // ── Coverage, replaced wholesale in the same transaction as the payments.
+    //
+    // ⚠️ It MUST be the same transaction. Coverage is the claim "this is what the
+    // payments table contains and what it is missing", so a window where the two
+    // disagree is a window in which the site can state a falsehood about its own
+    // completeness — and the payments write is a TRUNCATE, so that window would be
+    // the whole load.
+    await c.query("TRUNCATE nzok_payment_coverage");
+    for (const cov of coverage)
+      await c.query(
+        `INSERT INTO nzok_payment_coverage
+           (stream, period, status, header_facility_count, header_total_eur,
+            rows_loaded, rows_total_eur, reason, count_mismatch_blocks,
+            count_mismatch_ordinals, unreconciled_blocks, unreconciled_eur,
+            republishes_period)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
+        [
+          cov.stream,
+          cov.period,
+          cov.status,
+          cov.header_facility_count,
+          cov.header_total_eur,
+          cov.rows_loaded,
+          cov.rows_total_eur,
+          cov.reason,
+          cov.count_mismatch_blocks,
+          cov.count_mismatch_ordinals,
+          cov.unreconciled_blocks,
+          cov.unreconciled_eur,
+          cov.republishes_period,
+        ],
+      );
+    // ── The two must agree, in BOTH directions and per month.
+    //
+    // Coverage is the claim "this is what the payments table contains and what it
+    // is missing", so a disagreement is the table stating a falsehood about its own
+    // completeness. Checked three ways, because each is a different lie:
+    //   · a `loaded` month with no rows          — claims a month we do not have;
+    //   · rows with no coverage row              — a month present and unaccounted,
+    //                                              which is the original silence;
+    //   · a row COUNT that differs               — the coverage figure a surface
+    //                                              would quote is not the corpus.
+    // The months are NAMED: a bare count sends the next reader back to the corpus
+    // to work out which, and this fires inside a transaction that is about to roll
+    // back, so the message is all they get.
+    const { rows: disagree } = await c.query<{ kind: string; detail: string }>(
+      `SELECT 'coverage says loaded, corpus has no rows' AS kind,
+              c.stream || ' ' || c.period::text AS detail
+         FROM nzok_payment_coverage c
+        WHERE c.status = 'loaded'
+          AND NOT EXISTS (SELECT 1 FROM nzok_hospital_payments p
+                           WHERE p.stream = c.stream AND p.period = c.period)
+        UNION ALL
+       SELECT 'corpus has rows, coverage has no row',
+              p.stream || ' ' || p.period::text
+         FROM (SELECT DISTINCT stream, period FROM nzok_hospital_payments) p
+        WHERE NOT EXISTS (SELECT 1 FROM nzok_payment_coverage c
+                           WHERE c.stream = p.stream AND c.period = p.period)
+        UNION ALL
+       SELECT 'row count differs',
+              c.stream || ' ' || c.period::text || ': coverage ' || c.rows_loaded
+                || ' vs corpus ' || count(p.*)
+         FROM nzok_payment_coverage c
+         JOIN nzok_hospital_payments p
+           ON p.stream = c.stream AND p.period = c.period
+        WHERE c.status = 'loaded'
+        GROUP BY c.stream, c.period, c.rows_loaded
+       HAVING count(p.*) <> c.rows_loaded`,
+    );
+    if (disagree.length)
+      throw new Error(
+        `coverage disagrees with the corpus:\n` +
+          disagree.map((d) => `  ${d.kind}: ${d.detail}`).join("\n"),
+      );
+
     const d = diffAgainstPrevious(prevRows, rows);
     await c.query("COMMIT");
     return d;

@@ -14,6 +14,8 @@
 import { describe, expect, it } from "vitest";
 import {
   diffAgainstPrevious,
+  loadedCoverageRow,
+  refusedCoverageRow,
   republishedMonths,
   rowKey,
   type Row,
@@ -359,5 +361,111 @@ describe("rowKey", () => {
     expect(k).not.toBe(
       rowKey({ reg_no: "2201211001", period: "2026-07-01", stream: "devices" }),
     );
+  });
+});
+
+// ── Tier 0: the coverage row builders.
+//
+// ⚠️ These assert against the EXPORTED builders. The first version of this block
+// defined its own `wellFormed` helper and checked local object literals — it could
+// not fail, because nothing it touched was the code under test. `collectRows` is
+// not exported and cannot be, so the builders were lifted out instead; that is
+// what makes the rules below checkable at all.
+//
+// The database is still the authority: migration 187 carries the same rules as
+// CHECK constraints, and a violation there aborts the load's transaction. What
+// these catch is a loader change that stops satisfying them, before it gets that far.
+describe("coverage row builders", () => {
+  const parsed = {
+    headerFacilityCount: 382,
+    totalCumulativeEur: 1326051421,
+    rows: [{ cumulativeEur: 1000 }, { cumulativeEur: 2000 }],
+    countMismatches: [
+      { missingOrdinals: [5], extraOrdinals: [] },
+      { missingOrdinals: [64, 66], extraOrdinals: [8] },
+    ],
+    unreconciledBlocks: ["Пловдив", "Бургас"],
+    unreconciledEur: 104587839,
+  };
+
+  it("a loaded row states what was published and what went unverified", () => {
+    const r = loadedCoverageRow("bmp", "2026-07-01", parsed);
+    expect(r.status).toBe("loaded");
+    expect(r.reason).toBeNull();
+    expect(r.rows_loaded).toBe(2);
+    expect(r.rows_total_eur).toBe(3000);
+    expect(r.header_total_eur).toBe(1326051421);
+    // Ordinals are summed across blocks AND include the extras — bmp 2026-06's
+    // Русе prints 7 and numbers an 8th, so a missing-only count would report that
+    // block as disagreeing about nothing.
+    expect(r.count_mismatch_blocks).toBe(2);
+    expect(r.count_mismatch_ordinals).toBe(4);
+    expect(r.unreconciled_blocks).toBe(2);
+    expect(r.unreconciled_eur).toBe(104587839);
+  });
+
+  it("an unreadable header is NULL, not a count of zero", () => {
+    // ⚠️ 0 would say НЗОК published a month with no facilities worth nothing.
+    const r = loadedCoverageRow("drugs", "2026-07-01", {
+      ...parsed,
+      headerFacilityCount: 0,
+      totalCumulativeEur: 0,
+    });
+    expect(r.header_facility_count).toBeNull();
+    expect(r.header_total_eur).toBeNull();
+  });
+
+  it("a refused row publishes nothing and still sizes the hole", () => {
+    // The whole reason the refusal is a typed error: a withheld month is
+    // "we are missing €31.3m of devices", not "we are missing something".
+    const r = refusedCoverageRow(
+      "devices",
+      "2026-04-01",
+      "block reconciliation failed",
+      {
+        headerFacilityCount: 109,
+        totalCumulativeEur: 31273944,
+      },
+    );
+    expect(r.status).toBe("refused");
+    expect(r.reason).toBe("block reconciliation failed");
+    expect(r.rows_loaded).toBe(0);
+    expect(r.rows_total_eur).toBe(0);
+    expect(r.header_total_eur).toBe(31273944);
+  });
+
+  it("a refused row leaves the verification counters UNKNOWN, not clean", () => {
+    // ⚠️ 0 means "checked and clean". Nothing was checked — the refusal fired
+    // first — so a 0 here would state that a withheld month's blocks reconcile.
+    // Migration 187's `nzok_payment_coverage_verification_known` CHECK enforces
+    // the same thing from the other side.
+    const r = refusedCoverageRow(
+      "bmp",
+      "2023-01-01",
+      "facility-count mismatch",
+      {
+        headerFacilityCount: 373,
+        totalCumulativeEur: 101555155,
+      },
+    );
+    expect(r.count_mismatch_blocks).toBeNull();
+    expect(r.count_mismatch_ordinals).toBeNull();
+    expect(r.unreconciled_blocks).toBeNull();
+    expect(r.unreconciled_eur).toBeNull();
+  });
+
+  it("neither builder stamps republishes_period", () => {
+    // A republication is only knowable against the month BEFORE it, which may not
+    // be parsed yet — it is stamped after the whole walk. A builder that filled it
+    // would be guessing from one file.
+    expect(
+      loadedCoverageRow("bmp", "2026-07-01", parsed).republishes_period,
+    ).toBeNull();
+    expect(
+      refusedCoverageRow("bmp", "2026-07-01", "x", {
+        headerFacilityCount: 1,
+        totalCumulativeEur: 1,
+      }).republishes_period,
+    ).toBeNull();
   });
 });

@@ -813,6 +813,38 @@ export const pickTotal = <T extends { columns: number }>(
   totals: T[],
 ): T | undefined => totals.find((t) => t.columns >= 2) ?? totals[0];
 
+/**
+ * A completeness assert refusing a month — carrying what НЗОК itself said about it.
+ *
+ * The point is that a refusal is not an absence of information. Every one of these
+ * fires AFTER the period and the grand-total line have been read, so the coverage
+ * row for a withheld month can still state which month it is and what НЗОК says it
+ * was worth — measured, the header total parses correctly in 23 of the 24 files the
+ * old asserts rejected. Without this the loader catches a bare Error, and a
+ * withheld month becomes a string in a log rather than a queryable fact.
+ *
+ * Only the COMPLETENESS asserts throw this. A document that is not a report at all
+ * — pdftotext failing, no „към DD.MM.YYYY" period — throws a plain Error, because
+ * there are no facts to carry and inventing a shape for them would be worse.
+ */
+export class HospitalPaymentsRefusal extends Error {
+  constructor(
+    message: string,
+    readonly facts: {
+      asOf: string;
+      headerFacilityCount: number;
+      /** НЗОК's own grand total for the month, in euros. 0 when unreadable. */
+      totalCumulativeEur: number;
+      currencyOfRecord: "BGN" | "EUR";
+      /** Rows the parser did produce, before it refused to publish them. */
+      rowsParsed: number;
+    },
+  ) {
+    super(message);
+    this.name = "HospitalPaymentsRefusal";
+  }
+}
+
 export const parseHospitalPaymentsPdf = (
   pdfPath: string,
   stream: PaymentStream = "bmp",
@@ -833,6 +865,26 @@ export const parseHospitalPaymentsPdf = (
   const rows: HospitalPaymentRow[] = [];
   let totalCumulativeEur = 0;
   let headerFacilityCount = 0;
+
+  // Every completeness refusal carries the month's own figures — see
+  // `HospitalPaymentsRefusal`.
+  //
+  // Declared HIGH, immediately after the period is parsed and the accumulators
+  // exist, because the earliest refusal (an unreadable grand-total line) fires
+  // before a single row is read. It closes over the accumulators, so each refusal
+  // reports the state AT THE MOMENT IT FIRED — zeros for the early one, the full
+  // header and row count for the late ones. That is the honest reading: a month
+  // refused before its total could be read genuinely has no total to report, and a
+  // coverage row saying so is still worth more than no row at all.
+  const refuse = (message: string): never => {
+    throw new HospitalPaymentsRefusal(message, {
+      asOf: iso,
+      headerFacilityCount,
+      totalCumulativeEur,
+      currencyOfRecord: currency,
+      rowsParsed: rows.length,
+    });
+  };
 
   // ── The grand total, read from the BEST occurrence rather than the first.
   //
@@ -862,7 +914,7 @@ export const parseHospitalPaymentsPdf = (
     // file would load with no verification at all, which is worse than rejecting
     // it. (A file carrying no total line whatsoever is a different case and still
     // falls through; one such file is in the cache, outside the loader's YEARS.)
-    throw new Error(
+    refuse(
       `unreadable grand-total line in ${pdfPath}: ` +
         `${lines.filter((l) => TOTAL_RE.test(l)).length} occurrence(s), none yielding an amount column`,
     );
@@ -987,7 +1039,7 @@ export const parseHospitalPaymentsPdf = (
     })
     .filter((b) => Math.abs(b.diff) > blockTolerance(b.got.rows));
   if (offBlocks.length)
-    throw new Error(
+    refuse(
       `block reconciliation failed for ${pdfPath}: ` +
         offBlocks
           .map(
@@ -1037,7 +1089,7 @@ export const parseHospitalPaymentsPdf = (
     );
     const drift = Math.abs(blockSum - totalCumulativeEur);
     if (drift > blockTolerance(subtotals.size))
-      throw new Error(
+      refuse(
         `header total disagrees with its own blocks for ${pdfPath}: ` +
           `header €${totalCumulativeEur} vs Σ ${subtotals.size} block subtotal(s) €${blockSum} (off €${drift})`,
       );
@@ -1051,7 +1103,7 @@ export const parseHospitalPaymentsPdf = (
     const drift =
       Math.abs(sum - totalCumulativeEur) / Math.abs(totalCumulativeEur);
     if (drift > 0.005)
-      throw new Error(
+      refuse(
         `reconciliation failed for ${pdfPath}: Σ facilities €${sum} vs header €${totalCumulativeEur} (drift ${(drift * 100).toFixed(2)}%, ${rows.length} rows parsed vs ${headerFacilityCount} expected)`,
       );
   }
@@ -1078,7 +1130,7 @@ export const parseHospitalPaymentsPdf = (
   const emitted = new Set(rows.map((r) => r.regNo));
   const lost = [...printedRegNos].filter((r) => !emitted.has(r));
   if (lost.length)
-    throw new Error(
+    refuse(
       `dropped facility row(s) in ${pdfPath}: Рег.№ ${lost.join(", ")} ` +
         `start a row but produced none (${printedRegNos.size} printed, ${emitted.size} emitted)`,
     );
