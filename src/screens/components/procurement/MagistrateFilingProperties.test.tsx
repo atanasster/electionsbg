@@ -157,6 +157,22 @@ describe("MagistrateFilingProperties", () => {
     expect(screen.queryByText(/[:…]/)).not.toBeInTheDocument();
   });
 
+  it("does not print the same place twice", () => {
+    // The settlement cell and the municipality cell frequently agree — measured, 2,552 of
+    // 11,584 rows — so a blind join renders „Балчик - … · Балчик", which reads as two places.
+    // The elision marker is kept: it is the register saying the street is not published.
+    renderProps([asset({ location: "Балчик - …", municipality: "Балчик" })]);
+    expect(screen.getByText("Балчик - …")).toBeInTheDocument();
+    expect(
+      screen.queryByText(/Балчик · Балчик|Балчик - … · Балчик/),
+    ).not.toBeInTheDocument();
+  });
+
+  it("still shows both when they are genuinely different places", () => {
+    renderProps([asset({ location: "гр. София", municipality: "Столична" })]);
+    expect(screen.getByText("гр. София · Столична")).toBeInTheDocument();
+  });
+
   it("renders the same block in English", () => {
     langMock.current = "en";
     renderProps([asset()], "annual");

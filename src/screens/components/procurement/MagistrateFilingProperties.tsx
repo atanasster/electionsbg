@@ -31,14 +31,46 @@ import {
 const lv = (n: number, lang: string): string =>
   `${new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB").format(n)} лв`;
 
+/** The register's own placeholder for a cell it does not publish. Kept when it TRAILS a real
+ *  place — „Балчик - …" is the document saying „somewhere in Балчик, street not published",
+ *  which is a fact worth showing — and dropped when it is the whole cell, where it would
+ *  print as a place the magistrate declared. */
+const PLACEHOLDER = /^[\s.,;:–—-]*(?:…|\.\.\.)?[\s.,;:–—-]*$/;
+/** The trailing elision, for comparison only — never stripped from what is rendered. */
+const stripElision = (s: string): string =>
+  s.replace(/[\s.,;:–—-]*(?:…|\.\.\.)[\s.]*$/, "").trim();
+
+/**
+ * Where the property is, as one line.
+ *
+ * ⚠️ The two source columns frequently say the SAME thing — measured, 2,552 of 11,584 rows —
+ * because the settlement cell and the municipality cell both read „Балчик". Joining them
+ * blindly prints „Балчик - … · Балчик", which reads as two places. When they agree the
+ * location wins, since it is the one carrying the elision marker.
+ *
+ * Module-private on purpose: exporting a non-component from a component file breaks React
+ * fast refresh. It is covered through the rendered output instead.
+ */
+const placeOf = (
+  a: Pick<MagistrateFilingAsset, "location" | "municipality">,
+): string => {
+  const parts = [a.location, a.municipality]
+    .map((s) => (s ?? "").trim())
+    .filter((s) => s !== "" && !PLACEHOLDER.test(s));
+  if (
+    parts.length === 2 &&
+    stripElision(parts[0]).toLowerCase() === parts[1].toLowerCase()
+  )
+    return parts[0];
+  return parts.join(" · ");
+};
+
 const Row: FC<{ a: MagistrateFilingAsset; bg: boolean; lang: string }> = ({
   a,
   bg,
   lang,
 }) => {
-  const where = [a.location, a.municipality]
-    .filter((s) => s && s !== "…" && s !== ":")
-    .join(" · ");
+  const where = placeOf(a);
   const size = a.builtArea ?? a.area;
   return (
     <li className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-xs">
