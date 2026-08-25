@@ -9,6 +9,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { PieChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { TileTopNNote } from "./TileTopNNote";
 import type { ProcurementBreakdown } from "@/data/dataTypes";
 import {
   cpvDivisionName,
@@ -23,6 +24,9 @@ const pct = (v: number, lang: string) =>
 // A labelled share row with a thin proportion bar. The label narrows on mobile
 // and the amount is compact + auto-width (was a fixed w-12 that a long euro
 // figure overflowed, leaking left over the bar on narrow screens).
+/** CPV divisions shown before TileTopNNote discloses the rest. */
+const CPV_ROWS = 6;
+
 const Bar: FC<{ label: string; share: number; amount: string }> = ({
   label,
   share,
@@ -57,7 +61,7 @@ export const ProcurementBreakdownTile: FC<{
 
   const cpvTotal = b.cpvKnownEur || 1;
   const procTotal = b.proc.reduce((s, p) => s + p.eur, 0) || 1;
-  const cpvTop = b.cpv.slice(0, 6);
+  const cpvTop = b.cpv.slice(0, CPV_ROWS);
   const cpvCoverage = b.totalEur > 0 ? b.cpvKnownEur / b.totalEur : 0;
   const euCoverage = b.totalEur > 0 ? b.euKnownEur / b.totalEur : 0;
   const euShare = b.euKnownEur > 0 ? b.euEur / b.euKnownEur : 0;
@@ -82,10 +86,26 @@ export const ProcurementBreakdownTile: FC<{
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
+        {/* `flex-wrap` matches the other three tiles: without it the note is
+            `whitespace-nowrap` inside a non-wrapping row, so on a narrow card the title
+            compresses instead of the note moving to a second line. */}
+        <CardTitle className="text-base flex flex-wrap items-center gap-2">
           <PieChart className="h-4 w-4" />
           {sectorsTitle}
           <span className="text-xs text-muted-foreground font-normal">CPV</span>
+          {/* The divisions were sliced to six with NO disclosure, under a heading
+              („В кои сектори печели" / „Какво купува") that is itself a claim about the
+              whole set — so a buyer active in twenty divisions read as active in six.
+              ⚠️ NOT `ml-auto` here, unlike the other three: this card holds THREE
+              sections and only the first is capped (the procedure mix below is complete),
+              so pushing the note to the far right of the header detaches it from the
+              „CPV" chip it qualifies and invites the reader to apply the cap to the whole
+              card. Kept adjacent to that chip instead. */}
+          <TileTopNNote
+            shown={cpvTop.length}
+            total={b.cpv.length}
+            className="ml-0"
+          />
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">

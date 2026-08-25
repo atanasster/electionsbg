@@ -9,6 +9,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { TileTopNNote } from "./TileTopNNote";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
@@ -45,11 +46,10 @@ export const PersonProcurementBreakdownTile: FC<{
         <CardTitle className="flex items-center gap-2 text-base">
           <Icon className="h-4 w-4" />
           {title}
-          {rows.length > TOP_ROWS ? (
-            <span className="ml-auto text-xs font-normal text-muted-foreground">
-              {t("pp_breakdown_top_n", { n: TOP_ROWS }) || `Топ ${TOP_ROWS}`}
-            </span>
-          ) : null}
+          {/* This tile's own chip was the only one of the five that got the disclosure
+              right; TileTopNNote is that pattern, shared, and now also carries the total
+              so the reader sees how much is hidden rather than only that something is. */}
+          <TileTopNNote shown={shown.length} total={rows.length} />
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2 pt-1">

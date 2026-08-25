@@ -1313,7 +1313,12 @@ export const CompanyDbScreen: FC = () => {
                   eik={eik}
                   rollup={awarderContractsRollup}
                   partyHref={(e) => `/company/${e}`}
-                  seeAllHref={`/awarder/${eik}`}
+                  // ⚠️ `/awarder/:eik/contracts`, NOT `/awarder/:eik` — the latter is
+                  // routed to THIS screen (routes.tsx), so the see-all was a self-link
+                  // back to the same ten-row tile, on 1,900 awarder pages. Harmless-
+                  // looking until the note started carrying a count, at which point it
+                  // promises N contracts and lands on a page showing ten.
+                  seeAllHref={`/awarder/${eik}/contracts`}
                 />
                 <AwarderTopContractorsTile
                   eik={eik}

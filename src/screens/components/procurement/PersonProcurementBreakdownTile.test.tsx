@@ -61,8 +61,15 @@ describe("PersonProcurementBreakdownTile", () => {
     // rows 0..7 render, 8..10 do not
     expect(queryByText("Фирма 7")).not.toBeNull();
     expect(queryByText("Фирма 8")).toBeNull();
-    // The "Top N" badge is present (asserted structurally, i18n-agnostic).
-    expect(container.querySelector(".ml-auto")).not.toBeNull();
+    // The cap badge names BOTH numbers. Asserting only its PRESENCE was blind to the
+    // change that added the total: it passed when the chip said „Топ 8", passes now that
+    // it says „Топ 8 / 11", and would pass if `total` were wired to `shown`.
+    // This file's `t` mock echoes keys, so the cap reads „pp_breakdown_top_n" rather
+    // than „Топ 8" — the TOTAL is the part that is i18n-free and the part the change
+    // added, so that is what is asserted.
+    const badge = container.querySelector(".ml-auto")?.textContent ?? "";
+    expect(badge).toContain("pp_breakdown_top_n");
+    expect(badge).toMatch(/\/\s*11/);
 
     // ≤ 8 rows → no badge
     const { container: c2 } = renderTile(many.slice(0, 3));

@@ -4,6 +4,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { TileTopNNote } from "./TileTopNNote";
 import { useTranslation } from "react-i18next";
 import { Receipt } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -40,14 +41,15 @@ export const AwarderTopContractorsTile: FC<{
             {t("awarder_top_contractors_subtitle") ||
               "Companies ranked by total amount received from this awarder."}
           </span>
-          {(rollup.contractorCount ?? rollup.byContractor.length) > TOP_ROWS ? (
-            <Link
-              to={seeAllHref ?? `/awarder/${eik}/contractors`}
-              className="ml-auto text-[10px] normal-case text-primary hover:underline"
-            >
-              {t("procurement_tile_see_all") || "See all"} →
-            </Link>
-          ) : null}
+          {/* `contractorCount` shares `byContractor`'s member-excluded basis (023), so
+              unlike CompanyTopContractsTile this one CAN state a total. The old guard
+              compared against TOP_ROWS rather than against what is rendered, which
+              differ whenever the rollup ships fewer rows than the cap. */}
+          <TileTopNNote
+            shown={rows.length}
+            total={rollup.contractorCount ?? rollup.byContractor.length}
+            seeAllHref={seeAllHref ?? `/awarder/${eik}/contractors`}
+          />
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4">

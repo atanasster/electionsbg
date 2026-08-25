@@ -9,6 +9,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { TileTopNNote } from "./TileTopNNote";
 import { useTranslation } from "react-i18next";
 import { Receipt, ExternalLink, Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -52,14 +53,23 @@ export const CompanyTopContractsTile: FC<{
           <span className="text-xs text-muted-foreground font-normal ml-1">
             {t("company_top_contracts_subtitle") || "Largest by signed amount."}
           </span>
-          {hrefSeeAll && (
-            <Link
-              to={hrefSeeAll}
-              className="ml-auto text-[10px] normal-case text-primary hover:underline"
-            >
-              {t("procurement_tile_see_all") || "See all"} →
-            </Link>
-          )}
+          {/* ⚠️ NO `total`, deliberately — this tile is the one that cannot know it.
+              `contractCount` counts a DIFFERENT population from `topContracts`: it
+              excludes the €0 consortium-member rows (011/023/024) that this list both
+              includes and renders as „участник". Wiring it as the denominator made
+              `total < shown` reachable and the note went SILENT on 146 entities that had
+              more to show (/company/206773326 ships 25 rows against a contractCount of
+              4). A link with no number is honest; a link with the wrong number is not.
+              The guard is the union of the two things that ARE evidence of more: the
+              rollup shipped more rows than we render, or the corpus count exceeds them. */}
+          <TileTopNNote
+            shown={top.length}
+            hasMore={
+              (data.topContracts?.length ?? 0) > top.length ||
+              (data.contractCount ?? 0) > top.length
+            }
+            seeAllHref={hrefSeeAll}
+          />
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4">

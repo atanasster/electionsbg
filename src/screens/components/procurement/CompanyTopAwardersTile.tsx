@@ -4,6 +4,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { TileTopNNote } from "./TileTopNNote";
 import { useTranslation } from "react-i18next";
 import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -43,15 +44,16 @@ export const CompanyTopAwardersTile: FC<{
             {t("company_top_awarders_subtitle") ||
               "State buyers that paid this company."}
           </span>
-          {hrefSeeAll &&
-          (rollup.awarderCount ?? rollup.byAwarder.length) > TOP_ROWS ? (
-            <Link
-              to={hrefSeeAll}
-              className="ml-auto text-[10px] normal-case text-primary hover:underline"
-            >
-              {t("procurement_tile_see_all") || "See all"} →
-            </Link>
-          ) : null}
+          {/* ⚠️ `awarderCount`, not `byAwarder.length`: the rollup ships an already
+              truncated array, so reading it would report the cap as the total. And a
+              null href is NOT a reason to say nothing — see TileTopNNote; on the person
+              page there is no per-person awarders route, and ten of forty presented as
+              „state buyers that paid this company" reads as the whole list. */}
+          <TileTopNNote
+            shown={rows.length}
+            total={rollup.awarderCount ?? rollup.byAwarder.length}
+            seeAllHref={hrefSeeAll}
+          />
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
