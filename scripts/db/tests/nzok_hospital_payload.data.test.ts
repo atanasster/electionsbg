@@ -152,23 +152,62 @@ test.skipIf(skip)(
 );
 
 test.skipIf(skip)(
-  "the streams really do disagree, so the footnote is not decorative",
+  "the coverage table and the payments table agree about which months exist",
   async () => {
-    // ⚠️ Non-vacuity for the TILE. If every stream shared one month, the caveat it
-    // renders would never fire and the component test would be exercising a case
-    // the corpus does not contain. Measured 2026-08-25: bmp/drugs at 2026-07 and
-    // devices at 2026-02. If this ever fails because the reports have converged,
-    // that is good news and the assertion should be relaxed deliberately — not
-    // because the field stopped being emitted.
-    const rows = await allRows<{ stream: string; p: string }>(
-      `SELECT stream, to_char(max(period), 'YYYY-MM') p
-         FROM nzok_hospital_payments GROUP BY stream`,
+    // ⚠️ The two are written by ONE loader in ONE transaction, so a disagreement
+    // means the coverage table is lying about what was published — the precise
+    // failure the table exists to prevent, since its whole job is to make an
+    // omission a queryable fact rather than a line in a log. Checked from outside
+    // the loader deliberately: the loader's own three-way check cannot fire on a
+    // database where the loader was never run, or was run partially.
+    const [pay, cov] = await Promise.all([
+      allRows<{ k: string }>(
+        `SELECT stream || ' ' || to_char(period,'YYYY-MM') k
+           FROM nzok_hospital_payments GROUP BY 1 ORDER BY 1`,
+      ),
+      allRows<{ k: string }>(
+        `SELECT stream || ' ' || to_char(period,'YYYY-MM') k
+           FROM nzok_payment_coverage WHERE status = 'loaded' ORDER BY 1`,
+      ),
+    ]);
+    assert.ok(pay.length > 0, "no payment months — the gate would be vacuous");
+    assert.deepEqual(
+      cov.map((r) => r.k),
+      pay.map((r) => r.k),
+      "nzok_payment_coverage's 'loaded' months differ from the months that actually have rows",
     );
-    assert.ok(rows.length >= 2, "fewer than two streams are loaded");
-    const months = new Set(rows.map((r) => r.p));
-    assert.ok(
-      months.size > 1,
-      `all streams are at ${[...months][0]} — the mixed-months caveat is currently unreachable`,
+    // …and a refused month must publish nothing, which is the other half of the
+    // claim. (187 has a CHECK for it; this proves the CHECK is doing its job on
+    // real data rather than on a shape no row reaches.)
+    const leaked = await allRows<{ k: string }>(
+      `SELECT c.stream || ' ' || to_char(c.period,'YYYY-MM') k
+         FROM nzok_payment_coverage c
+         JOIN nzok_hospital_payments h
+           ON h.stream = c.stream AND h.period = c.period
+        WHERE c.status = 'refused' GROUP BY 1`,
+    );
+    assert.deepEqual(
+      leaked.map((r) => r.k),
+      [],
+      "a month marked refused has per-facility rows published anyway",
     );
   },
 );
+
+// ⚠️ WHAT IS DELIBERATELY *NOT* ASSERTED HERE, and why.
+//
+// An earlier cut of this file required the three streams to sit at DIFFERENT
+// months, as non-vacuity for the tile's mixed-months caveat. On 2026-08-25 that
+// assertion failed — for the good reason. Before the parser work devices stopped
+// at 2026-02 while bmp/drugs ran to 2026-07, because the five 2026-03..07 devices
+// files were among the 24 the old completeness asserts rejected; loading them
+// brought all three streams to 2026-07 and recovered €32,312,938. The caveat is
+// therefore currently UNREACHABLE on this corpus, and re-asserting divergence
+// would now be asserting that the defect is still present.
+//
+// It is not re-armed as an inverse ("the streams agree") either: a lag is
+// LEGITIMATE — НЗОК publishes the three reports on their own schedules — so a
+// future divergence is normal operation, not a regression. The tile's caveat is
+// guarded by NzokHospitalReimbursementTile.test.tsx, which supplies its own
+// fixtures for both directions and is mutation-checked, so it needs no support
+// from whatever the corpus happens to hold today.
