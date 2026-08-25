@@ -23,7 +23,7 @@
 // seam ITSELF (see the avatar cell): the index hook resolves photo paths at ingest, and
 // skipping the index means skipping that too.
 
-import { FC, useCallback, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Users } from "lucide-react";
@@ -301,6 +301,24 @@ export const PersonsBrowserScreen: FC = () => {
       })).filter((o) => o.count > 0),
     [facets, t],
   );
+
+  // Keep ?facet valid for the active ?sector. A magistrate can never be tier='V' (the
+  // private/name-fold arm only ever sets is_company), so ?facet=magistrate&sector=private
+  // is a structurally empty intersection — every dependent facet (role/party/oblast/court)
+  // then collapses to nothing, the "Общини" KPI hides, and the stale code sits unreadable
+  // in the Група dropdown (PersonFilterSelect's synthetic-item fallback has no label for a
+  // value not in its own options). Rather than render that wreckage, drop back to "all
+  // groups" the moment the current facet stops being one of the sector-scoped options —
+  // gated on the groups facet having actually resolved, so this cannot fire against the
+  // momentarily-empty groupOptions of a request still in flight (which would otherwise
+  // reset a perfectly valid ?facet on every load or sector switch).
+  const groupsLoaded = facets.is_company !== undefined;
+  useEffect(() => {
+    if (!groupsLoaded) return;
+    if (facet === PERSON_FILTER_ALL) return;
+    if (groupOptions.some((o) => o.value === facet)) return;
+    setFacet(PERSON_FILTER_ALL);
+  }, [groupsLoaded, facet, groupOptions, setFacet]);
 
   // NO COUNTS on role/party, deliberately. The facet groups `primary_role` /
   // `party_primary` (the representative seat) while the filter matches `role_codes` /
@@ -753,18 +771,25 @@ export const PersonsBrowserScreen: FC = () => {
                   <SelectItem value="all">{isBg ? "Всички" : "All"}</SelectItem>
                 </SelectContent>
               </Select>
-              <PersonFilterSelect
-                value={facet}
-                onChange={setFacet}
-                options={groupOptions}
-                allLabel={t("persons_filter_all_facets", {
-                  defaultValue: "Всички групи",
-                })}
-                label={t("persons_filter_group_label", {
-                  defaultValue: "Група",
-                })}
-                locale={isBg ? "bg-BG" : "en-GB"}
-              />
+              {/* At most one group (today, only under sector=private — every tier='V' row
+                  is is_company=true by construction, per personGroups.ts's header) means
+                  picking it can never narrow the set: "Бизнес" and "Всички групи" return the
+                  identical row count. Offering that choice reads as though it does something
+                  it doesn't, so the control only renders once there is a REAL choice to make. */}
+              {groupOptions.length > 1 ? (
+                <PersonFilterSelect
+                  value={facet}
+                  onChange={setFacet}
+                  options={groupOptions}
+                  allLabel={t("persons_filter_all_facets", {
+                    defaultValue: "Всички групи",
+                  })}
+                  label={t("persons_filter_group_label", {
+                    defaultValue: "Група",
+                  })}
+                  locale={isBg ? "bg-BG" : "en-GB"}
+                />
+              ) : null}
               <PersonFilterSelect
                 value={role}
                 onChange={setRole}
