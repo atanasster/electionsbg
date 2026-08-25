@@ -148,7 +148,8 @@ const BLOB: Blob = JSON.parse(
 
 const blob = (): Blob => BLOB;
 
-const eiks = [...CULTURE_GROUP_EIKS];
+const eiks_ALL = [...CULTURE_GROUP_EIKS];
+const eiks = eiks_ALL;
 const num = (v: unknown): number => Number(v ?? 0);
 
 /** 2%, matching `culture_hub_figures.data.test.ts` — the gate that makes the SAME
@@ -675,6 +676,147 @@ test.skipIf(skip)(
       money.get("culture_isun_by_name"),
       "the two ИСУН arms must expose the SAME money columns — they are one " +
         "quantity over two populations",
+    );
+  },
+);
+
+// ── 9. THE SECOND ARTIFACT — fund_sources.json ──────────────────────────────
+//
+// ⚠️ IT WAS OUTSIDE EVERY GATE. The per-arm chart data went into
+// `hub_stats.json` first and took it from 789 B to 4,498 B, past the 4 KB budget
+// `culture_hub_figures.data.test.ts` holds — that gate is what caught it, and
+// splitting the payload into its own file moved it out from under the only byte
+// check in the family and into none. This file (despite its name) read only the
+// hub blob until now.
+
+interface Sources {
+  generatedAt: string;
+  eikBodyCount: number;
+  eikByBeneficiary: {
+    eik: string;
+    name: string;
+    eur: number;
+    projects: number;
+  }[];
+  byNameByProgram: {
+    code: string;
+    name: string;
+    eur: number;
+    projects: number;
+  }[];
+  interregByProgramme: { code: string; eur: number; rows: number }[];
+  agriByYear: { year: number; eur: number; rows: number }[];
+}
+
+const SOURCES_PATH = path.join(ROOT, "data/culture/derived/fund_sources.json");
+const sources = (): Sources =>
+  JSON.parse(fs.readFileSync(SOURCES_PATH, "utf8")) as Sources;
+
+test.skipIf(skip)(
+  "the breakdown artifact stays a breakdown, not a corpus",
+  () => {
+    // Four bounded lists (10 / 12 / 12 / ~8 rows). It is fetched by four sub-pages
+    // rather than by the hub, which is why it may be larger than the hub blob —
+    // but „larger" is not „unbounded": past this, someone has dropped a LIMIT.
+    const bytes = fs.statSync(SOURCES_PATH).size;
+    assert.ok(
+      bytes < 12_288,
+      `${bytes} B — data/culture/derived/fund_sources.json has grown past its ` +
+        `budget. It carries four capped lists; anything larger means a LIMIT was ` +
+        `dropped and a whole arm is being shipped to the browser.`,
+    );
+    const d = sources();
+    assert.ok(d.eikByBeneficiary.length <= 10);
+    assert.ok(d.byNameByProgram.length <= 12);
+    assert.ok(d.interregByProgramme.length <= 12);
+  },
+);
+
+test.skipIf(skip)(
+  "the ИСУН-by-EIK chart groups by EIK, not by spelling",
+  async () => {
+    // ⚠️ THIS ARM'S WHOLE VALUE IS THAT ITS IDENTITY IS EXACT. Measured, its
+    // EIKs sit under MORE names — six bodies are spelled two or three ways in
+    // ИСУН — so a name grouping split Министерство на културата across ranks 2
+    // and 9 of one top ten, understating it and pushing two smaller institutions
+    // off the chart. A chart that splits one institution in two, on the arm
+    // whose point is the exact identity, contradicts the page it sits on.
+    const d = sources();
+    const eiks = d.eikByBeneficiary.map((r) => r.eik);
+    assert.equal(
+      new Set(eiks).size,
+      eiks.length,
+      "the EIK chart repeats an EIK — it is grouped on something else",
+    );
+    for (const e of eiks) assert.ok(/^\d{9,13}$/.test(e), `not an EIK: ${e}`);
+
+    const [r] = await allRows<Record<string, string>>(
+      `SELECT count(DISTINCT beneficiary_eik) eiks,
+              count(DISTINCT beneficiary_name) names
+         FROM fund_projects WHERE beneficiary_eik = ANY($1)`,
+      [eiks_ALL],
+    );
+    assert.equal(
+      num(r.eiks),
+      d.eikBodyCount,
+      "the chart's body count disagrees with the corpus",
+    );
+    // Non-vacuity: if every body were spelled one way, grouping on the name
+    // would be harmless and this gate would be guarding nothing.
+    assert.ok(
+      num(r.names) > num(r.eiks),
+      `every body is spelled exactly one way (${num(r.names)} names over ` +
+        `${num(r.eiks)} EIKs), so the EIK-vs-name grouping no longer differs — ` +
+        `re-point this gate rather than letting it pass vacuously`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "each breakdown reconciles with its own arm, and none with another's",
+  async () => {
+    const d = sources();
+    // Every bar is a real slice of its arm: the shown rows can never exceed the
+    // arm's total, and the top row can never exceed it either.
+    const b = blob();
+    const sum = (xs: { eur: number }[]) => xs.reduce((a, x) => a + x.eur, 0);
+    assert.ok(
+      sum(d.eikByBeneficiary) <= b.funds.eikExactEur * 1.001,
+      "the EIK chart's bars sum to more than the arm they slice",
+    );
+    assert.ok(
+      sum(d.byNameByProgram) <= b.funds.byNameEur * 1.001,
+      "the name chart's bars sum to more than the arm they slice",
+    );
+    // The ДФЗ and Interreg charts are COMPLETE partitions of their arms (no cap
+    // reached), so they must reconcile exactly rather than merely fit.
+    assert.ok(
+      Math.abs(sum(d.agriByYear) - b.agri.chitalishtaEur) <=
+        b.agri.chitalishtaEur * 0.001,
+      `the ДФЗ year chart sums to ${sum(d.agriByYear)} against the arm's ` +
+        `${b.agri.chitalishtaEur} — it is a partition by year and must be whole`,
+    );
+  },
+);
+
+test.skipIf(skipAgri)(
+  "the ДФЗ chart is a whole partition, in year order",
+  async () => {
+    const d = sources();
+    const years = d.agriByYear.map((r) => r.year);
+    assert.deepEqual(
+      years,
+      [...years].sort((a, b) => a - b),
+      "the ДФЗ chart is a TIME series and must arrive in year order — sorted by " +
+        "size it draws a ranking that looks like a trend",
+    );
+    const [r] = await allRows<Record<string, string>>(
+      `SELECT count(DISTINCT year) n FROM culture_agri_chitalishta`,
+    );
+    assert.equal(
+      d.agriByYear.length,
+      num(r.n),
+      "the ДФЗ chart is missing a year — it is a partition, not a top-N",
     );
   },
 );

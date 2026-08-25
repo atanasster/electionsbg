@@ -44,6 +44,7 @@
 import { TILE_ACCENTS } from "@/ux/infographic";
 import { formatEurCompact, formatInt, formatPct } from "@/lib/currency";
 import type { CultureHubStats } from "@/data/culture/hubStats";
+import type { CultureFundSourceBreakdowns } from "@/data/culture/fundSources";
 
 /**
  * How many EIK-arm projects the NAME arm does NOT reach — the one derivation of
@@ -137,6 +138,33 @@ export interface CultureFundSource {
     s: CultureHubStats,
     lang: string,
   ) => { value: string; label: string; basis: string }[];
+  /** The arm's ONE chart — a bar list, from the blob's own per-arm breakdown.
+   *
+   *  ⚠️ Returns null when the blob cannot support it, never an empty frame: an
+   *  empty chart reads as „this arm has no breakdown", which is a claim.
+   *
+   *  Each arm's is a different question, which is why this is a per-entry
+   *  builder rather than one shared shape:
+   *    isun-eik   concentration — 47 projects over 31 bodies
+   *    isun-name  the programme split, where one instrument is ~80%
+   *    interreg   the programme split across 14 cross-border programmes
+   *    dfz        a TIME series, because the arm is front-loaded in 2015-2016
+   *               and a flat total hides that
+   */
+  breakdown?: (
+    s: CultureHubStats,
+    /** From `fund_sources.json` — a SEPARATE artifact from the hub blob, so
+     *  /culture does not pay for four sub-pages' per-row payloads. `null` when
+     *  it has not loaded or the checkout never ran the generator. */
+    d: CultureFundSourceBreakdowns | null,
+    lang: string,
+  ) => {
+    heading: string;
+    basis: string;
+    rows: { id: string; label: string; eur: number; count?: number }[];
+    countNoun?: string;
+    note?: string;
+  } | null;
   /** One sentence naming the shape a reader would otherwise mis-take from this
    *  arm — the finding the page exists to surface, as opposed to `limit`, which
    *  is what the arm cannot answer. Optional: only the name arm has one today.
@@ -242,6 +270,38 @@ export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
             ]),
       ];
     },
+    breakdown: (s, d, lang) => {
+      const rows = d?.eikByBeneficiary ?? [];
+      if (!rows.length) return null;
+      const b = lang === "bg";
+      // The distinct bodies this arm actually has, and what the visible bars
+      // carry of its money — both derived, so the note cannot describe a
+      // different chart from the one above it.
+      const shown = d?.eikBodyCount ?? rows.length;
+      const shownEur = rows.reduce((a, r) => a + r.eur, 0);
+      return {
+        heading: b
+          ? "Кой получава — институциите от регистъра"
+          : "Who receives it — the register's institutions",
+        basis: b ? "по безвъзмездна помощ" : "by grant",
+        countNoun: b ? "проекта" : "projects",
+        rows: rows.map((r) => ({
+          // ⚠️ The EIK, never the name: this arm's value is that its identity is
+          // exact, and six of its bodies are spelled two or three ways in ИСУН.
+          id: r.eik,
+          label: r.name,
+          eur: r.eur,
+          count: r.projects,
+        })),
+        // ⚠️ DESCRIBES WHAT THE CHART SHOWS, not the arm. The chips sum to the
+        // TOP TEN's projects, not to the arm's 47, so quoting the arm's total
+        // here put a number over bars that visibly do not add to it. Both
+        // figures are derived, so neither can go stale.
+        note: b
+          ? `Показани са ${formatInt(rows.length, lang)} от общо ${formatInt(shown, lang)} институции с проекти — те носят ${formatPct(shownEur / Math.max(s.funds.eikExactEur, 1), lang)} от помощта по този ред.`
+          : `Showing ${formatInt(rows.length, lang)} of the ${formatInt(shown, lang)} institutions with projects — they carry ${formatPct(shownEur / Math.max(s.funds.eikExactEur, 1), lang)} of this arm's grant.`,
+      };
+    },
     metric: (s) => ({
       eur: s.funds.eikExactEur,
       rows: s.funds.eikExactProjects,
@@ -325,6 +385,34 @@ export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
           basis: b ? "същият ред, подгрупа" : "same arm, a sub-group",
         },
       ];
+    },
+    breakdown: (_s, d, lang) => {
+      const rows = d?.byNameByProgram ?? [];
+      if (!rows.length) return null;
+      const b = lang === "bg";
+      return {
+        heading: b
+          ? "Откъде идват парите — по програма"
+          : "Which programme pays",
+        basis: b ? "по безвъзмездна помощ" : "by grant",
+        countNoun: b ? "проекта" : "projects",
+        rows: rows.map((r) => ({
+          id: r.code,
+          label: r.name || r.code,
+          eur: r.eur,
+          count: r.projects,
+        })),
+        // The chart exists for this sentence: the first bar dwarfs the rest, and
+        // without seeing that a reader takes the arm for a broad mix.
+        //
+        // ⚠️ THE COUNT IS DERIVED FROM THE ROWS. It said „петнайсет" as a
+        // literal — frozen, which this file's header forbids, and wrong twice
+        // over: the chart is capped at twelve bars, and the corpus has sixteen
+        // programmes. A note must describe the chart above it.
+        note: b
+          ? `Първата лента е почти целият ред: останалите ${formatInt(rows.length - 1, lang)} показани програми заедно носят по-малко от нея.`
+          : `The first bar is nearly the whole arm: the other ${formatInt(rows.length - 1, lang)} programmes shown carry less than it does between them.`,
+      };
     },
     metric: (s) => ({
       eur: s.funds.byNameEur,
@@ -417,6 +505,34 @@ export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
         },
       ];
     },
+    breakdown: (_s, d, lang) => {
+      const rows = d?.interregByProgramme ?? [];
+      if (!rows.length) return null;
+      const b = lang === "bg";
+      return {
+        heading: b
+          ? "По коя трансгранична програма"
+          : "Which cross-border programme",
+        basis: b
+          ? "по публикуван бюджет на партньора"
+          : "by the partner's published budget",
+        countNoun: b ? "участия" : "participations",
+        rows: rows.map((r) => ({
+          id: r.code,
+          label: r.code,
+          eur: r.eur,
+          count: r.rows,
+        })),
+        // ⚠️ „ВСЯКА ПРОГРАМА Е ЕДНА ГРАНИЦА" WAS FALSE for four of them —
+        // Danube (twice), Interreg Europe and Black Sea Basin are multi-country
+        // programmes, not bilateral borders, and they carry ~a quarter of the
+        // participations. The claim that survives is the one the arm is for:
+        // these partners are municipalities and NGOs, not state institutes.
+        note: b
+          ? "Повечето от тези програми са двустранни — една граница всяка; няколко (Дунав, Черноморски басейн, Interreg Europe) обхващат по-широк регион. Общото е кой получава парите: предимно общини и НПО, а не държавни културни институти."
+          : "Most of these are bilateral — one border each; a few (Danube, Black Sea Basin, Interreg Europe) span a wider region. What they share is who receives the money: mostly municipalities and NGOs rather than state culture institutes.",
+      };
+    },
     metric: (s) => ({
       eur: s.interreg.thematicEur,
       rows: s.interreg.partnerRows,
@@ -474,6 +590,29 @@ export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
             : "another register — do not sum",
         },
       ];
+    },
+    breakdown: (_s, d, lang) => {
+      const rows = d?.agriByYear ?? [];
+      if (!rows.length) return null;
+      const b = lang === "bg";
+      const top = [...rows].sort((x, y) => y.eur - x.eur)[0];
+      return {
+        heading: b ? "Кога са изплатени" : "When they were paid",
+        // ⚠️ A TIME series, so the caption says „по година" and the rows arrive
+        // in YEAR order from the blob. Sorted by size this would draw a ranking
+        // that looks like a trend.
+        basis: b ? "по година, изплатена субсидия" : "by year, subsidy paid",
+        countNoun: b ? "плащания" : "payments",
+        rows: rows.map((r) => ({
+          id: String(r.year),
+          label: String(r.year),
+          eur: r.eur,
+          count: r.rows,
+        })),
+        note: b
+          ? `Редът не е равномерен поток: най-голямата година е ${top.year}. Схемите 321 и 322 по Програмата за развитие на селските райони приключиха, така че това е предимно история, а не текущо финансиране.`
+          : `This arm is not a steady flow: its largest year is ${top.year}. The 321 and 322 rural-development schemes have closed, so it is mostly history rather than current funding.`,
+      };
     },
     metric: (s) => ({
       eur: s.agri.chitalishtaEur,

@@ -31,7 +31,9 @@ import { DbDataTable } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { formatEur, formatEurCompact, formatInt } from "@/lib/currency";
 import { useCultureHubStats } from "@/data/culture/hubStats";
+import { useCultureFundSources } from "@/data/culture/fundSources";
 import { CULTURE_FUND_SOURCES, cultureFundSource } from "./cultureFundSources";
+import { CultureFundsBreakdown } from "./CultureFundsBreakdown";
 
 /** Row shapes, one per arm. The engine camelCases every column, and each arm's
  *  money is deliberately named for what it measures — never a shared `totalEur`
@@ -115,11 +117,17 @@ export const CultureFundsSourceScreen: FC<{ sourceId: string }> = ({
   // blanks the whole SPA rather than one page.
   const source = cultureFundSource(sourceId);
   const { data: s } = useCultureHubStats();
+  // A SECOND, smaller artifact fetched only by these four pages — see its hook.
+  const { data: breakdowns } = useCultureFundSources();
 
   const pick = (t: { bg: string; en: string }) => (bg ? t.bg : t.en);
   const metric = s && source ? source.metric(s) : null;
   const limit = s && source ? source.limit(s, lang) : null;
   const finding = s && source?.finding ? source.finding(s, lang) : null;
+  const breakdown =
+    s && source?.breakdown
+      ? source.breakdown(s, breakdowns ?? null, lang)
+      : null;
   /** „проекта" — the бройна форма, the noun AFTER A NUMERAL. */
   const rowNoun = metric?.rowsLabel ?? { bg: "реда", en: "rows" };
   /** „проекти" — the plain plural, the noun after an ARTICLE. Bulgarian
@@ -449,6 +457,17 @@ export const CultureFundsSourceScreen: FC<{ sourceId: string }> = ({
         <p className="mt-3 max-w-3xl rounded-xl border border-primary/30 bg-muted/40 p-3 text-sm">
           {pick(finding)}
         </p>
+      ) : null}
+
+      {breakdown ? (
+        <CultureFundsBreakdown
+          heading={breakdown.heading}
+          basis={breakdown.basis}
+          rows={breakdown.rows}
+          countNoun={breakdown.countNoun}
+          note={breakdown.note}
+          accent={source.accent}
+        />
       ) : null}
 
       <div className="mt-4">

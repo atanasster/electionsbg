@@ -118,6 +118,18 @@ vi.mock("@/data/culture/hubStats", () => ({
   useCultureHubStats: () => ({ data: statsFixture, isLoading: false }),
 }));
 
+/** The per-arm chart data — a SECOND artifact, fetched only by these four pages
+ *  (it was split out of the hub blob, which /culture downloads on every view).
+ *  Mocked separately for that reason: it is a separate `useQuery`, and leaving
+ *  it real throws „No QueryClient set" in this provider-less harness. Default
+ *  `null` = the ordinary first-paint state, so every test that does not opt in
+ *  exercises the page WITHOUT its chart. */
+let breakdownsFixture: unknown = null;
+
+vi.mock("@/data/culture/fundSources", () => ({
+  useCultureFundSources: () => ({ data: breakdownsFixture }),
+}));
+
 const { CultureFundsSourceScreen } = await import("./CultureFundsSourceScreen");
 
 const mount = (sourceId: string) =>
@@ -134,6 +146,7 @@ describe("CultureFundsSourceScreen", () => {
     lang = "en";
     statsFixture = STATS;
     tableResponse = null;
+    breakdownsFixture = null;
   });
 
   it.each(ARMS)("renders all three basis lines for %s", (id) => {
@@ -392,5 +405,68 @@ describe("CultureFundsSourceScreen", () => {
     // „Най-големите" alone is answerable three ways on this arm (grant,
     // contracted, paid).
     expect(text).toContain("по безвъзмездна помощ");
+  });
+
+  // ── the one chart per arm ────────────────────────────────────────────────
+
+  it("renders no chart until its own artifact loads", () => {
+    // `fund_sources.json` is a SEPARATE fetch from the hub blob, so this is the
+    // ordinary state on every first paint — and a checkout that never ran the
+    // generator gets a 404 → null for ever. An empty frame would read as „this
+    // arm has no breakdown", which is a claim.
+    lang = "bg";
+    const text = mount("dfz").container.textContent ?? "";
+    expect(text).not.toContain("Кога са изплатени");
+    // The rest of the page is unaffected.
+    expect(text).toContain("Основа");
+  });
+
+  it("renders the arm's chart, with its axis named, once the artifact is there", () => {
+    breakdownsFixture = {
+      generatedAt: "2026-08-25",
+      eikByBeneficiary: [],
+      byNameByProgram: [],
+      interregByProgramme: [],
+      agriByYear: [
+        { year: 2015, eur: 5_721_900, rows: 76 },
+        { year: 2016, eur: 9_300_953, rows: 74 },
+      ],
+    };
+    lang = "bg";
+    const text = mount("dfz").container.textContent ?? "";
+    expect(text).toContain("Кога са изплатени");
+    // ⚠️ „Най-големите" over bars is answerable three ways on the ИСУН arms
+    // alone, so every chart names what its bars measure.
+    expect(text).toContain("по година, изплатена субсидия");
+    expect(text).toContain("2015");
+    expect(text).toContain("2016");
+    // The note names the largest YEAR, derived from the rows — 2016 here, which
+    // is not the first row, so a "take the first" implementation would fail.
+    expect(text).toContain("най-голямата година е 2016");
+  });
+
+  it("draws no bar wider than the largest, and none at NaN", () => {
+    // Every euro column in this corpus is nullable, so an all-zero arm would
+    // divide by zero and paint every bar at NaN% — which CSS renders as FULL
+    // width, i.e. every row looking maximal.
+    breakdownsFixture = {
+      generatedAt: "2026-08-25",
+      eikByBeneficiary: [],
+      byNameByProgram: [],
+      interregByProgramme: [],
+      agriByYear: [
+        { year: 2015, eur: 0, rows: 1 },
+        { year: 2016, eur: 0, rows: 1 },
+      ],
+    };
+    const { container } = mount("dfz");
+    const widths = [...container.querySelectorAll("[style*='width']")].map(
+      (el) => (el as HTMLElement).style.width,
+    );
+    expect(widths.length).toBeGreaterThan(0);
+    for (const w of widths) {
+      expect(w).not.toContain("NaN");
+      expect(parseFloat(w)).toBeLessThanOrEqual(100);
+    }
   });
 });

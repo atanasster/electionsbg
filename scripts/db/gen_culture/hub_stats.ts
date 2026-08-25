@@ -48,12 +48,16 @@ import {
   interregThemeSql,
 } from "../../../src/lib/cultureMatch";
 import type { CultureHubStats } from "../../../src/data/culture/hubStats";
+import type { CultureFundSourceBreakdowns } from "../../../src/data/culture/fundSources";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
   "../../..",
 );
 const OUT = path.join(ROOT, "data/culture/derived/hub_stats.json");
+/** The /culture/funds detail pages' per-arm breakdowns — a SECOND artifact, so
+ *  the hub blob every /culture view downloads stays at its ~800 B. */
+const OUT_SOURCES = path.join(ROOT, "data/culture/derived/fund_sources.json");
 
 /** Every relation a figure below reads, and the db:refresh step that fills it —
  *  the machine-readable form of the placement note in the header. */
@@ -215,6 +219,68 @@ const main = async () => {
       WHERE p.country = 'Bulgaria' AND ${interregThemeSql("o.title_en")}`,
   );
 
+  // ── the four per-arm breakdowns the DETAIL PAGES chart ────────────────────
+  //
+  // ⚠️ THEIR OWN ARTIFACT, NOT THE HUB BLOB. They went into hub_stats.json first
+  // and took it from 789 B to 4,498 B, past the 4 KB budget
+  // `culture_hub_figures.data.test.ts` holds — and that gate is right: /culture
+  // downloads the hub blob on every view and uses none of this. A second file
+  // that only /culture/funds/<arm> fetches keeps the hub's payload where it was.
+  //
+  // ⚠️ ONE BREAKDOWN PER ARM, NEVER A SHARED SHAPE. Each is a different quantity
+  // over a different population, so they are four arrays rather than one keyed
+  // by arm — a shared shape with an `eur` field is one a consumer can
+  // concatenate, which is the cross-arm addition this whole family forbids.
+  // Each is small and bounded (10 / 12 / 12 / 8 rows).
+  // ⚠️⚠️ GROUPED BY EIK, NOT BY NAME, and on THIS arm the distinction is its
+  // whole value: it is the reproducible one, reached by an exact EIK match
+  // against the register. Measured 2026-08-26, its 31 EIKs sit under 38 NAMES —
+  // six bodies are spelled two or three ways in ИСУН — so a name grouping split
+  // Министерство на културата across ranks 2 and 9 of the top ten, understating
+  // it by €357,777 and pushing two genuinely smaller institutions off the chart.
+  // A chart that splits one institution in two, on the arm whose point is that
+  // the identity is exact, contradicts the page it sits on.
+  //
+  // `max(beneficiary_name)` is a REPRESENTATIVE label, deliberately arbitrary
+  // among the spellings and never an identity — the EIK is the identity, and it
+  // is what the row is keyed and linked on.
+  const eikByBeneficiary = await allRows<Record<string, string>>(
+    `SELECT beneficiary_eik eik, max(beneficiary_name) name,
+            round(sum(grant_eur)::numeric, 0) eur, count(*) n
+       FROM fund_projects WHERE beneficiary_eik = ANY($1)
+      GROUP BY 1 ORDER BY sum(grant_eur) DESC NULLS LAST LIMIT 10`,
+    [eiks],
+  );
+  // The arm's distinct-body count, so the chart's note can say „10 of N" rather
+  // than quoting the arm's PROJECT total over bars whose chips visibly do not
+  // add to it.
+  const [eikBodies] = await allRows<Record<string, string>>(
+    `SELECT count(DISTINCT beneficiary_eik) n FROM fund_projects
+      WHERE beneficiary_eik = ANY($1)`,
+    [eiks],
+  );
+  const nameByProgram = await allRows<Record<string, string>>(
+    `SELECT program_code code, max(program_name) name,
+            round(sum(grant_eur)::numeric, 0) eur, count(*) n
+       FROM fund_projects WHERE ${cultureNameSql("beneficiary_name")}
+      GROUP BY 1 ORDER BY sum(grant_eur) DESC NULLS LAST LIMIT 12`,
+  );
+  const interregByProgramme = await allRows<Record<string, string>>(
+    `SELECT o.programme_code code, round(sum(p.budget_eur)::numeric, 0) eur,
+            count(*) n
+       FROM interreg_partners p JOIN interreg_operations o USING (keep_id)
+      WHERE p.country = 'Bulgaria' AND ${interregThemeSql("o.title_en")}
+      GROUP BY 1 ORDER BY sum(p.budget_eur) DESC NULLS LAST LIMIT 12`,
+  );
+  // ⚠️ ORDERED BY YEAR, not by money — this one is a TIME series and sorting it
+  // by size would draw a ranking that looks like a trend. The ДФЗ arm is heavily
+  // front-loaded (2015-2016), which is the shape a flat total hides.
+  const agriByYear = await allRows<Record<string, string>>(
+    `SELECT year, round(sum(total_eur)::numeric, 0) eur, count(*) n
+       FROM agri_subsidies WHERE ${chitalishteNameSql("name")}
+      GROUP BY 1 ORDER BY year`,
+  );
+
   const [people] = await allRows<Record<string, string>>(
     `SELECT count(DISTINCT person_id) n FROM person_role
       WHERE role = 'cultural_institute'`,
@@ -316,9 +382,45 @@ const main = async () => {
     process.exit(0);
   }
 
+  // ⚠️ ANNOTATED, for the reason the header states about `out`: an untyped
+  // object literal is a second, unchecked copy of a shape, and a field renamed
+  // on the consumer's interface would compile here and reach production as
+  // `undefined`.
+  const sources: CultureFundSourceBreakdowns = {
+    generatedAt: out.generatedAt,
+    eikBodyCount: num(eikBodies.n),
+    eikByBeneficiary: eikByBeneficiary.map((r) => ({
+      eik: r.eik ?? "",
+      name: r.name ?? "",
+      eur: num(r.eur),
+      projects: num(r.n),
+    })),
+    byNameByProgram: nameByProgram.map((r) => ({
+      code: r.code ?? "",
+      name: r.name ?? "",
+      eur: num(r.eur),
+      projects: num(r.n),
+    })),
+    interregByProgramme: interregByProgramme.map((r) => ({
+      code: r.code ?? "",
+      eur: num(r.eur),
+      rows: num(r.n),
+    })),
+    agriByYear: agriByYear.map((r) => ({
+      year: num(r.year),
+      eur: num(r.eur),
+      rows: num(r.n),
+    })),
+  };
+
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(out, null, 0) + "\n");
+  fs.writeFileSync(OUT_SOURCES, JSON.stringify(sources, null, 0) + "\n");
   const bytes = fs.statSync(OUT).size;
+  console.log(
+    `culture fund_sources: ${fs.statSync(OUT_SOURCES).size} B → ` +
+      `${path.relative(ROOT, OUT_SOURCES)}`,
+  );
   console.log(
     `culture hub_stats: ${bytes} B → ${path.relative(ROOT, OUT)} in ${(
       (Date.now() - t0) /

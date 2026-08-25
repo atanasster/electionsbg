@@ -17,6 +17,7 @@ import {
 } from "./cultureFundSources";
 import { readFileSync } from "node:fs";
 import type { CultureHubStats } from "@/data/culture/hubStats";
+import type { CultureFundSourceBreakdowns } from "@/data/culture/fundSources";
 
 const STATS = {
   generatedAt: "2026-08-25",
@@ -56,6 +57,60 @@ const STATS = {
   },
   people: { culturalInstituteRoles: 224 },
 } satisfies CultureHubStats;
+
+/** The four per-arm breakdowns, from the SECOND artifact (`fund_sources.json`)
+ *  — split out of the hub blob because /culture downloads that on every view and
+ *  uses none of this. */
+const BREAKDOWNS: CultureFundSourceBreakdowns = {
+  generatedAt: "2026-08-25",
+  eikBodyCount: 31,
+  // ⚠️ Keyed by EIK. This arm's whole value is that its identity is exact, and
+  // six of its bodies are spelled two or three ways in ИСУН — grouping on the
+  // name split Министерство на културата across two rows of one top ten.
+  eikByBeneficiary: [
+    {
+      eik: "130418031",
+      name: 'Национален фонд "Култура"',
+      eur: 41_607_879,
+      projects: 3,
+    },
+    {
+      eik: "000695160",
+      name: "Министерство на културата",
+      eur: 37_570_072,
+      projects: 2,
+    },
+  ],
+  byNameByProgram: [
+    {
+      code: "2021BG-RRP",
+      name: "Национален план за възстановяване и устойчивост",
+      eur: 117_274_067,
+      projects: 1292,
+    },
+    {
+      code: "2021BG16FFPR003",
+      name: 'Програма "Развитие на регионите" 2021-2027',
+      eur: 11_398_832,
+      projects: 4,
+    },
+  ],
+  interregByProgramme: [
+    { code: "INTERREG-ROBG-1420", eur: 20_786_884, rows: 44 },
+    { code: "INTERREG-GRBG-1420", eur: 9_000_000, rows: 29 },
+  ],
+  // ⚠️ The REAL series, so the year-order check below has something to bite on:
+  // 2016 is LARGER than 2015, so year order and money order genuinely differ. A
+  // fixture that happened to be monotonically decreasing could not tell a
+  // year-sorted implementation from a size-sorted one.
+  agriByYear: [
+    { year: 2015, eur: 5_721_900, rows: 76 },
+    { year: 2016, eur: 9_300_953, rows: 74 },
+    { year: 2017, eur: 1_731, rows: 4 },
+    { year: 2021, eur: 1_762_179, rows: 21 },
+    { year: 2025, eur: 616_427, rows: 34 },
+  ],
+};
 
 describe("CULTURE_FUND_SOURCES", () => {
   it("covers the four arms /culture/funds publishes, and nothing else", () => {
@@ -408,5 +463,159 @@ describe("CULTURE_FUND_SOURCES", () => {
     expect(cultureFundSource("isun-name")!.searchPlaceholder.bg).toContain(
       "програма",
     );
+  });
+
+  // ── the one chart per arm ────────────────────────────────────────────────
+
+  it("every arm builds a breakdown, and every one names its axis", () => {
+    // ⚠️ „Най-големите" over bars is answerable three ways on the ИСУН arms
+    // alone (grant, contracted, paid), so the caption is as load-bearing here as
+    // `HubKpi.basis` is in the band.
+    for (const src of CULTURE_FUND_SOURCES)
+      for (const lang of ["bg", "en"]) {
+        const b = src.breakdown!(STATS, BREAKDOWNS, lang);
+        expect(b, `${src.id} builds no breakdown in ${lang}`).not.toBeNull();
+        expect(b!.heading.trim()).not.toBe("");
+        expect(
+          b!.basis.trim(),
+          `${src.id}/${lang}: bars with no declared axis`,
+        ).not.toBe("");
+        expect(b!.rows.length).toBeGreaterThan(0);
+        for (const r of b!.rows) {
+          expect(r.id.trim(), `${src.id}: a bar with no stable id`).not.toBe(
+            "",
+          );
+          expect(r.label.trim(), `${src.id}: a bar with no label`).not.toBe("");
+          expect(Number.isFinite(r.eur)).toBe(true);
+        }
+        // Ids must be unique — React keys them, and a repeat reuses the wrong row.
+        const ids = b!.rows.map((r) => r.id);
+        expect(new Set(ids).size, `${src.id} repeats a bar id`).toBe(
+          ids.length,
+        );
+      }
+  });
+
+  it("returns null rather than an empty chart when the breakdowns are absent", () => {
+    // An empty frame reads as „this arm has no breakdown", which is a claim.
+    // `fund_sources.json` is a SEPARATE fetch from the hub blob, so „loaded the
+    // page, chart data not here yet" is an ordinary state on every first paint —
+    // and a checkout that never ran the generator gets a 404 → null for ever.
+    for (const src of CULTURE_FUND_SOURCES)
+      expect(
+        src.breakdown!(STATS, null, "bg"),
+        `${src.id} drew an empty chart`,
+      ).toBeNull();
+  });
+
+  it("keeps the ДФЗ breakdown in YEAR order, not in size order", () => {
+    // ⚠️ It is a TIME series. Sorted by size it would draw a ranking that looks
+    // like a trend — and this arm is heavily front-loaded, which is the shape a
+    // flat total hides and the chart exists to show.
+    const rows = cultureFundSource("dfz")!.breakdown!(
+      STATS,
+      BREAKDOWNS,
+      "bg",
+    )!.rows;
+    const years = rows.map((r) => Number(r.id));
+    expect(years).toEqual([...years].sort((a, b) => a - b));
+    // Non-vacuity: if the corpus were already ascending by money the assertion
+    // above would pass on a size-sorted implementation too.
+    const eur = rows.map((r) => r.eur);
+    expect(eur).not.toEqual([...eur].sort((a, b) => b - a));
+  });
+
+  it("keeps the money breakdowns in DESCENDING money order", () => {
+    // The other three are rankings, and a ranking out of order is not one.
+    for (const id of ["isun-eik", "isun-name", "interreg"]) {
+      const eur = cultureFundSource(id)!.breakdown!(
+        STATS,
+        BREAKDOWNS,
+        "bg",
+      )!.rows.map((r) => r.eur);
+      expect(eur, `${id} is not ranked`).toEqual(
+        [...eur].sort((a, b) => b - a),
+      );
+    }
+  });
+
+  // ── the chart's NOTE describes the chart above it ────────────────────────
+  //
+  // ⚠️ NOTHING ASSERTED ANYTHING ABOUT `note` AT FIRST, and all three shipped
+  // wrong: „Останалите петнайсет програми" over eleven visible bars (a frozen
+  // literal in a file whose header forbids them, and wrong against BOTH the cap
+  // and the corpus), „Всяка програма е една граница" over four programmes that
+  // are multi-country regions, and „47 проекта" over count chips totalling 18.
+  // A note is a claim about the bars beside it, so it gets the same treatment as
+  // a basis line.
+
+  it("every note is present and carries no frozen figure", () => {
+    for (const src of CULTURE_FUND_SOURCES)
+      for (const lang of ["bg", "en"]) {
+        const note = src.breakdown!(STATS, BREAKDOWNS, lang)!.note ?? "";
+        expect(note.trim(), `${src.id}/${lang} has no note`).not.toBe("");
+        expect(note).not.toMatch(/NaN|undefined/);
+        // Bulgarian number-words are the shape the „петнайсет" defect took: a
+        // count spelled out cannot track the rows beside it.
+        expect(
+          note,
+          `${src.id}/${lang}: a spelled-out count cannot follow the chart`,
+        ).not.toMatch(
+          /петнайсет|петнадесет|шестнайсет|четиринайсет|fifteen|sixteen|fourteen/i,
+        );
+      }
+  });
+
+  it("a note that counts the bars counts THESE bars", () => {
+    // The name arm's note says how many programmes are shown. Drive it with a
+    // different row count and it must follow — a literal would not.
+    const three = {
+      ...BREAKDOWNS,
+      byNameByProgram: BREAKDOWNS.byNameByProgram.slice(0, 2),
+    };
+    const note = cultureFundSource("isun-name")!.breakdown!(
+      STATS,
+      three,
+      "bg",
+    )!.note!;
+    // 2 rows → „останалите 1 показани програми".
+    expect(note).toContain("1");
+    const many = {
+      ...BREAKDOWNS,
+      byNameByProgram: [
+        ...BREAKDOWNS.byNameByProgram,
+        { code: "X", name: "X", eur: 1, projects: 1 },
+        { code: "Y", name: "Y", eur: 1, projects: 1 },
+      ],
+    };
+    expect(
+      cultureFundSource("isun-name")!.breakdown!(STATS, many, "bg")!.note!,
+    ).toContain("3");
+  });
+
+  it("the EIK note counts the BODIES shown, against the arm's own total", () => {
+    // It quoted the arm's 47 PROJECTS over a top-ten whose chips sum to far
+    // less — a number over bars that visibly do not add to it.
+    const note = cultureFundSource("isun-eik")!.breakdown!(
+      STATS,
+      BREAKDOWNS,
+      "bg",
+    )!.note!;
+    expect(note).toContain(String(BREAKDOWNS.eikByBeneficiary.length));
+    expect(note).toContain(String(BREAKDOWNS.eikBodyCount));
+    expect(note).not.toContain(String(STATS.funds.eikExactProjects));
+  });
+
+  it("the Interreg note does not claim every programme is one border", () => {
+    // Four of them are multi-country regions (Danube ×2, Interreg Europe, Black
+    // Sea Basin) carrying about a quarter of the participations.
+    const note = cultureFundSource("interreg")!.breakdown!(
+      STATS,
+      BREAKDOWNS,
+      "bg",
+    )!.note!;
+    expect(note).not.toMatch(/Всяка програма е една граница/);
+    // What survives is the claim the arm is actually for.
+    expect(note).toMatch(/общини|НПО/);
   });
 });
