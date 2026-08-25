@@ -82,10 +82,12 @@ export const TILE_ACCENTS = {
   // /procurement wore `clay` on both the „Договори" tile and the „Пътища" FeaturedStrip tile,
   // and `teal` on both „Места" and „Води" — pairs no per-registry gate can see, because the
   // tile band and the strip come from different registries.
-  // `cobalt` / `violet` are RESERVED HEADROOM for the eleven hubs still to get a head —
-  // deliberately unused, not dead. Give each one its provenance line when it is spent.
+  // `violet` is RESERVED HEADROOM for the eleven hubs still to get a head — deliberately
+  // unused, not dead. Give it a provenance line when it is spent.
   fern: "#2e843a", // 128° — cream 3.98, navy 3.98 · /procurement „Места"
-  cobalt: "#6862a7", // 245° — cream 4.58, navy 3.46
+  cobalt: "#6862a7", // 245° — cream 4.58, navy 3.46 · /governance „Фирми" (188) — the page's
+  // own widest remaining gap (indigo 230° → iris 259°); reused from RESERVED HEADROOM rather
+  // than `fern`, which is already spent on a DIFFERENT page's tile.
   violet: "#a553b2", // 292° — cream 3.98, navy 3.98
   magenta: "#b74e8b", // 325° — cream 3.98, navy 3.97 · /procurement „Договори"
 } as const;

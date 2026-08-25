@@ -1,11 +1,9 @@
 # Company browse dashboard — v1
 
-Status: Tiers 0–3, 6 and 7 SHIPPED 2026-08-25 (the matview, loader wiring, server registry,
-client screen, retirement of `/governance/companies`, and the CLAUDE.md documentation
-paragraph). Tier 4 (a tile on the top-level `/governance` hub itself — today `/companies` is
-reachable from the `/governance/declarations` and `/parliament` sub-hubs, not from
-`/governance` directly) and Tier 5 (the `/company/:eik` breadcrumb fix) are the remaining
-open work. Brainstormed 2026-08-25 per user request: "Companies
+Status: Tiers 0–4, 6 and 7 SHIPPED 2026-08-25 (the matview, loader wiring, server registry,
+client screen, retirement of `/governance/companies`, the top-level `/governance` hub tile,
+and the CLAUDE.md documentation paragraph). Tier 5 (the `/company/:eik` breadcrumb fix) is
+the remaining open work. Brainstormed 2026-08-25 per user request: "Companies
 should have a dashboard like persons — to search companies with criteria. We
 should add it as a tile to the governance dashboard." Also folds in a follow-up
 ask from the same conversation: the generic `/company/:eik` page should carry a
@@ -257,7 +255,8 @@ Every touch point the research found, all need updating together:
   titleKey: "companies_browse_title",
   descKey: "gov_hub_companies_desc",
   to: "/companies",
-  accent: TILE_ACCENTS.<pick an unused token>,
+  accent: TILE_ACCENTS.cobalt,   // SHIPPED: RESERVED HEADROOM, not `fern` (spent on
+                                  // /procurement's "Места" tile) — see the tile's own comment.
 },
 ```
 
@@ -356,9 +355,11 @@ recurring failure mode in this repo.
 
 ## Open questions to settle before Tier 0 starts
 
-1. Exact accent token for the new governance tile (pick an unused
-   `TILE_ACCENTS` value — check `governanceRegistry.ts` for what's already
-   claimed across all clusters).
+1. ~~Exact accent token for the new governance tile~~ RESOLVED: `TILE_ACCENTS.cobalt`
+   (RESERVED HEADROOM, sits on this page's own widest remaining hue gap). The first
+   pass picked `fern` on the reasoning that per-page uniqueness alone made it safe to
+   reuse; review caught that `fern` is already SPENT on /procurement's "Места" tile,
+   which the per-page gate cannot see but a reader moving between pages can.
 2. Whether `SCOPED_MATVIEWS` (`scripts/db/lib/scopedMatviews.ts`) is the right
    place to declare `company_browse_table`'s dependency on `contractor_rank`,
    or whether a standalone refresh call in `db:load:pg` is cleaner — needs a

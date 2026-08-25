@@ -650,6 +650,43 @@ const Schools: FC = () => (
   </SceneFrame>
 );
 
+// Фирми — an office-registry facade: a grid of windows over a doorway, the general
+// company-registry browse (188).
+const Companies: FC = () => (
+  <SceneFrame>
+    <rect
+      x={96}
+      y={16}
+      width={108}
+      height={84}
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <g fill="var(--sector)" opacity=".85">
+      {[0, 1, 2].map((row) =>
+        [0, 1, 2].map((col) => (
+          <rect
+            key={`${row}-${col}`}
+            x={108 + col * 30}
+            y={28 + row * 22}
+            width={16}
+            height={14}
+          />
+        )),
+      )}
+    </g>
+    <rect
+      x={134}
+      y={84}
+      width={24}
+      height={16}
+      fill="currentColor"
+      opacity=".55"
+    />
+  </SceneFrame>
+);
+
 export const GOV_HUB_SCENES: Record<string, FC> = {
   "municipal-finance": MunicipalFinance,
   persons: PersonsScene,
@@ -658,6 +695,7 @@ export const GOV_HUB_SCENES: Record<string, FC> = {
   budget: Budget,
   subsidies: Subsidies,
   connections: ConnectionsScene,
+  companies: Companies,
   procurement: Procurement,
   funds: Funds,
   sectors: Sectors,

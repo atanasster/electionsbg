@@ -146,6 +146,25 @@ export const GOV_HUB_CLUSTERS: {
         to: "/connections",
         accent: TILE_ACCENTS.emerald,
       },
+      {
+        // The general company registry browse (188) — the third "who/what is in the
+        // registry" tool beside persons/connections. Points at the UNFILTERED /companies,
+        // unlike the narrower ?political=1 tile the declarations and parliament sub-hubs
+        // carry for the same destination (each answers a more contextual question there).
+        //
+        // accent: `cobalt`, not `fern` — `fern` is already SPENT on /procurement's „Места"
+        // tile (tileAccents.ts), and per-page uniqueness alone doesn't rule out the visual
+        // confusion of the same accent meaning two different things on two pages a reader
+        // moves between. `cobalt` was minted as RESERVED HEADROOM for exactly this — a new
+        // tile needing a colour with nothing already spent to reuse — and its 245° hue lands
+        // almost exactly on this page's own widest remaining gap (indigo 230° → iris 259°,
+        // midpoint 244.5°), so it reads as distinct from its neighbours here too.
+        id: "companies",
+        titleKey: "companies_browse_title",
+        descKey: "gov_hub_companies_desc",
+        to: "/companies",
+        accent: TILE_ACCENTS.cobalt,
+      },
     ],
   },
   {
