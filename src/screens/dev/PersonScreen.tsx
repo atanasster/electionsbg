@@ -68,6 +68,7 @@ import type {
   ProcurementBreakdown,
 } from "@/data/dataTypes";
 import { formatOwnerShare } from "@/lib/ownerShare";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 
 interface RoleRow {
   uic: string;
@@ -416,6 +417,12 @@ export const PersonScreen: FC = () => {
 
   return (
     <div className="w-full px-4 py-6 md:px-6">
+      <GovernanceBreadcrumb
+        sectionKey="persons_title"
+        sectionTo="/persons"
+        current={person}
+        className="mb-3"
+      />
       <div className="mb-6">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
           Лице (Търговски регистър)
