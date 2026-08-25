@@ -32,7 +32,13 @@ Extraction details that were measured, not assumed:
   cp1251 fallback.
 - Titles get site-name suffixes stripped (`" - Новини от Dnes.bg"` → clean
   headline) — only when the trailing segment names the site/brand or a
-  generic news-word, so legit dash endings survive.
+  generic news-word, so legit dash endings survive. ⚠️ That claim was FALSE in
+  both directions until the fixtures caught it: the match ran leftmost-first,
+  so `Трансферите в Първа лига - лято 2026 г. - Новини СЕГА` lost the
+  legitimate `- лято 2026 г.` along with the brand; and the separator class
+  omitted the **em-dash**, so every offnews.bg headline kept `— OFFNews`. Both
+  are pinned per-page (`expect_title`) and as an invariant (no extracted title
+  may end in a separator followed by the domain's brand).
 - Body text: `<p>` paragraphs outside junk subtrees (nav/aside/footer/
   ad-classed boxes), preferring an `<article>` wrapper. Legacy sites with
   no `<p>` (moreto.net) get a longest-contiguous-run fallback over free
@@ -184,6 +190,51 @@ not change the code.
 page's HTML is exactly what a future extractor fix needs, so age is the wrong
 axis. `--prune-cache` drops entries whose URL is in neither the corpus nor the
 ledger (orphans from a `rm -rf` of a domain folder). Budget ~15 KB per page.
+
+## Step 1c — before changing the extractor, run the fixtures
+
+```bash
+python3 news/scripts/test_save_articles.py
+```
+
+`BodyExtractor` is ~150 lines of heuristics and every rule in it was learned
+from one specific page — windows-1251 on moreto.net, the iubenda cookie banner
+in glasove.com's rendered DOM, the `with-sidebar` class that names the MAIN
+column and once silently zeroed every article on that domain. None of it was
+pinned, so the only way to find out whether a change broke something was a
+4,700-page sweep that reports a number moved and cannot say which edge did it.
+
+18 real pages are now frozen under `news/scripts/tests/fixtures/` (see the
+README there for provenance), one per class. Each expectation is a **two-sided
+band on characters AND paragraphs, plus the gate verdict and the extracted
+title** — never an exact character count, which breaks on any cosmetic change
+to the page and teaches people to re-baseline without reading. Paragraph count
+is the sensitive axis: it is what catches a tightened `LINK_SOUP_RATIO` or a
+`trim_junk` that started dropping middle paragraphs, both of which shrink a
+body by less than a character band can safely allow.
+
+21 mutants of the extractor, the gate and the title rule have been tried and
+all 21 are caught — including four real historical bugs (the `sidebar`
+substring, the missing cookie-banner classes, and both title-stripping
+defects). That is not saturation; it is the set that has been tried.
+
+⚠️ **Edit `MANIFEST_SEED` in `capture_fixtures.py`, never
+`expectations.json`** — the manifest is GENERATED and the next capture run
+overwrites an edit made there. A test asserts the two agree.
+
+Three fixtures are marked `known_gap` and pin behaviour we consider WRONG — a
+terms-of-use page, a donation page and a section listing are each stored as a
+long "article", because the article gate passes on paragraph count alone. The
+obvious discriminator (no Article JSON-LD **and** no publish date) is NOT safe:
+svobodnoslovo.eu carries no dates anywhere and its articles are real, so that
+rule would delete a whole domain. Whoever narrows the gate should make those
+three flip and update the seed deliberately.
+
+Add a class with `capture_fixtures.py` — it prefers `news/data/_browser/` and
+the HTML cache over the network, so a `browser_render_scrape` domain (which a
+plain HTTP client cannot fetch at all) can still be frozen. `--refresh`
+re-captures from the SAME source tier for that reason; `--refresh-network`
+forces the network and is unsafe for those domains.
 
 ## Step 2 — CHECK order_confidence before trusting the vintage
 
@@ -363,7 +414,9 @@ still wrong (Step 2).
 | path | what |
 | --- | --- |
 | `news/scripts/save_articles.py` | the downloader — list via fetch_latest_articles.py, `--urls-file=` (browser-harvested links, plain-HTTP articles) or `--prefetched=` (browser-fetched HTML, no network), extract, gate, persist (this skill). `DATA_BG_ROOT` overrides the repo root. |
-| `news/scripts/test_save_articles.py` | regression suite for the saver — body gate, rejection ledger, HTML cache, `--reextract` and its three guards, CLI contract. Run it after touching the script. |
+| `news/scripts/test_save_articles.py` | regression suite for the saver — body gate, rejection ledger, HTML cache, `--reextract` and its three guards, charset decoding, CLI contract, and extraction against the frozen fixtures. Run it after touching the script. |
+| `news/scripts/capture_fixtures.py` | freezes one real page per known failure class into `tests/fixtures/*.html.gz` + `expectations.json`. `--list` shows what is frozen, `--refresh` re-fetches. |
+| `news/scripts/tests/fixtures/` | 18 gzipped real pages (1.0 MB, COMMITTED) + `expectations.json` (GENERATED — edit the seed) + a README on provenance. The only thing standing between an extractor change and a 4,700-page sweep. |
 | `news/data/_rejected/<domain>.jsonl` | body-gate rejection ledger: url, reason, chars, title, timestamp. Untracked; entries expire after 30 days. |
 | `news/scripts/save_all_direct.sh` | parallel batch over the direct tier (this skill) |
 | `news/data/<domain>/*.json` | the stored articles, incremental by URL |

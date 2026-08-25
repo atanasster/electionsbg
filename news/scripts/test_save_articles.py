@@ -8,9 +8,10 @@ a throwaway tree, so nothing here touches the real corpus, and nothing here
 touches the network — the saver's `--prefetched` mode takes page HTML from a
 file, which is exactly the seam a test needs.
 
-The suite covers the BODY GATE, its rejection ledger, the page-HTML cache and
---reextract. Extraction is exercised through synthesised pages here; frozen
-real-page fixtures are a separate concern.
+The suite covers the BODY GATE, its rejection ledger, the page-HTML cache,
+--reextract, and EXTRACTION against frozen real pages — one per failure class
+this repo has actually met (see scripts/capture_fixtures.py for what each is
+and why it is there).
 """
 from __future__ import annotations
 
@@ -20,11 +21,14 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import gzip
+import re
 import unittest
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 SAVER = SCRIPT_DIR / "save_articles.py"
+FIXTURE_DIR = SCRIPT_DIR / "tests" / "fixtures"
 
 
 def run_saver(root: Path, domain: str, *args: str):
@@ -721,6 +725,347 @@ class CliContract(unittest.TestCase):
         ])
         run_saver(self.root, "ex.bg", "5", f"--prefetched={feed}")
         self.assertTrue((self.root / "news" / "data" / "ex.bg").is_dir())
+
+
+class CharsetDecoding(unittest.TestCase):
+    """decode_html against real byte sequences.
+
+    The fixture files are stored DECODED, so nothing in ExtractionFixtures can
+    reach this function — a mutation replacing the cp1251 fallback with utf-8
+    survived the whole fixture suite. Mojibake passes every length check and
+    every field check while being unreadable, so it needs its own test on
+    bytes."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+
+    BG = "Общинският съвет прие решението с 34 гласа „за“"
+
+    def test_cp1251_body_with_no_declared_charset(self):
+        """moreto.net: windows-1251 is still alive. Undeclared, so only the
+        decode fallback saves it."""
+        raw = self.BG.replace("„", '"').replace("“", '"').encode("cp1251")
+        self.assertIn("Общинският", self.sa.decode_html(raw))
+
+    def test_content_type_charset_wins(self):
+        raw = "Здравей".encode("cp1251")
+        self.assertEqual(
+            self.sa.decode_html(raw, "text/html; charset=windows-1251"),
+            "Здравей")
+
+    def test_meta_charset_sniff(self):
+        raw = (b'<html><head><meta charset="windows-1251"></head><body>'
+               + "Здравей".encode("cp1251") + b"</body></html>")
+        self.assertIn("Здравей", self.sa.decode_html(raw))
+
+    def test_utf8_is_preferred_when_valid(self):
+        raw = self.BG.encode("utf-8")
+        self.assertEqual(self.sa.decode_html(raw), self.BG)
+
+    def test_a_bogus_declared_charset_falls_through(self):
+        raw = self.BG.encode("utf-8")
+        self.assertEqual(
+            self.sa.decode_html(raw, "text/html; charset=x-nonexistent"),
+            self.BG)
+
+
+class ExtractionFixtures(unittest.TestCase):
+    """BodyExtractor against frozen REAL pages, one per failure class.
+
+    Every heuristic in that extractor was learned from a specific page —
+    windows-1251 on moreto.net, the iubenda cookie banner in glasove.com's
+    rendered DOM, the `with-sidebar` class that names the MAIN column and once
+    silently zeroed every article on that domain. None of it was pinned, so
+    the only way to learn whether a change broke something was a 4,700-page
+    sweep that reports a number moved and cannot say which edge did it.
+
+    The expectations are BANDS plus the gate verdict, not exact character
+    counts: an exact count breaks on any cosmetic change to the page and
+    teaches people to re-baseline without reading. What the pipeline acts on
+    is which side of the gate a page lands, and roughly how much body came
+    out."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+        manifest = FIXTURE_DIR / "expectations.json"
+        if not manifest.exists():  # pragma: no cover - fresh clone
+            raise unittest.SkipTest(
+                "no fixtures — run python3 news/scripts/capture_fixtures.py")
+        cls.manifest = json.loads(manifest.read_text(encoding="utf-8"))
+
+    def fixture_html(self, name):
+        path = FIXTURE_DIR / f"{name}.html.gz"
+        self.assertTrue(path.exists(), f"missing fixture {path}")
+        with gzip.open(path, "rt", encoding="utf-8") as fh:
+            return fh.read()
+
+    def extract(self, entry):
+        html = self.fixture_html(entry["name"])
+        rec, is_article = self.sa.extract_record(html, entry["domain"],
+                                                 entry["url"])
+        floor = self.sa.MIN_BODY_CHARS
+        reason = self.sa.gate_reason(rec, is_article, floor,
+                                     self.sa.echo_slack_for(floor))
+        return rec, is_article, reason
+
+    def test_the_manifest_agrees_with_its_own_source(self):
+        """expectations.json is GENERATED from MANIFEST_SEED in
+        capture_fixtures.py. Nothing cross-checked them, so editing the
+        generated file — which both the docs and the failure messages tell you
+        to do — was silently reverted by the next capture run."""
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import capture_fixtures  # noqa: E402
+        seed = {e["name"]: e for e in capture_fixtures.MANIFEST_SEED}
+        declared = {e["name"]: e for e in self.manifest["fixtures"]}
+        self.assertEqual(set(seed), set(declared),
+                         "the seed and expectations.json name different "
+                         "fixtures — re-run capture_fixtures.py")
+        for name, entry in declared.items():
+            for key in ("gate", "min_chars", "max_chars", "min_paras",
+                        "max_paras", "expect_title", "known_gap",
+                        "expect_is_article", "domain", "url"):
+                self.assertEqual(entry.get(key), seed[name].get(key),
+                                 f"{name}.{key} differs between the seed and "
+                                 f"the generated manifest — edit the SEED")
+
+    def test_every_fixture_extracts_its_expected_title(self):
+        """`title` is a stored corpus field that feeds the LLM prompts and the
+        story-clustering keys, and it was captured from 18 real pages and
+        asserted by nothing — which froze two OPPOSITE strip_site_suffix
+        defects into committed fixtures: segabg lost a legitimate
+        '- лято 2026 г.' to a leftmost separator match, and offnews kept
+        '— OFFNews' because the separator class omitted the em-dash."""
+        for entry in self.manifest["fixtures"]:
+            if "expect_title" not in entry:
+                continue
+            with self.subTest(fixture=entry["name"]):
+                rec, _, _ = self.extract(entry)
+                self.assertEqual(rec["title"], entry["expect_title"])
+
+    def test_no_extracted_title_keeps_a_brand_tail(self):
+        """The other direction of the same rule, stated as an invariant rather
+        than a per-page string, so a NEW fixture is covered the day it lands."""
+        for entry in self.manifest["fixtures"]:
+            with self.subTest(fixture=entry["name"]):
+                rec, _, _ = self.extract(entry)
+                title = (rec.get("title") or "").lower()
+                brand = entry["domain"].split(".")[0].lower()
+                if len(brand) < 4 or not title:
+                    continue
+                # A brand may legitimately appear INSIDE a headline; what must
+                # not survive is a separator followed by the brand at the end.
+                self.assertNotRegex(
+                    title, r"\s+[-–—|·]\s+[^-–—|·]*" + re.escape(brand) + r"[^-–—|·]*$",
+                    f"{entry['name']}: the brand tail was not stripped")
+
+    def test_every_fixture_yields_its_expected_paragraph_count(self):
+        """Paragraph COUNT is far more sensitive to a junk-filter change than
+        character count and far more stable against a copy edit — it is what
+        catches a tightened LINK_SOUP_RATIO or a trim_junk that started
+        dropping middle paragraphs, both of which shrink bodies by less than
+        the character bands allow."""
+        for entry in self.manifest["fixtures"]:
+            if "min_paras" not in entry:
+                continue
+            with self.subTest(fixture=entry["name"]):
+                html = self.fixture_html(entry["name"])
+                paras, _ = self.sa.extract_body(html)
+                self.assertGreaterEqual(
+                    len(paras), entry["min_paras"],
+                    f"{entry['name']}: paragraphs DROPPED to {len(paras)} — a "
+                    f"junk rule started eating real prose")
+                self.assertLessEqual(
+                    len(paras), entry["max_paras"],
+                    f"{entry['name']}: paragraphs grew to {len(paras)} — junk "
+                    f"started leaking in")
+
+    def test_every_fixture_has_a_two_sided_band(self):
+        """A lower bound alone lets 47-98% of a body vanish silently."""
+        for entry in self.manifest["fixtures"]:
+            with self.subTest(fixture=entry["name"]):
+                self.assertIsNotNone(entry.get("min_chars"))
+                self.assertIsNotNone(entry.get("max_chars"))
+
+    def test_every_fixture_decodes_to_readable_text(self):
+        """A fixture that is mojibake on disk makes every assertion over it
+        meaningless while still passing length checks.
+
+        Measured on the extracted BODY and by DENSITY, not by absence in the
+        raw HTML: minified jQuery ships a literal U+FFFD ('\\0' -> the
+        replacement character), so 'no U+FFFD anywhere' fails on a perfectly
+        decoded page. A genuine cp1251-read-as-utf8 body is saturated with
+        them."""
+        for entry in self.manifest["fixtures"]:
+            with self.subTest(fixture=entry["name"]):
+                html = self.fixture_html(entry["name"])
+                self.assertGreater(len(html), 2000)
+                rec, _, _ = self.extract(entry)
+                body = rec.get("content") or ""
+                if len(body) < 200:
+                    continue  # the empty-body fixtures have nothing to judge
+                bad = body.count("\ufffd") / len(body)
+                self.assertLess(bad, 0.005,
+                                f"{bad:.1%} of the body is replacement "
+                                f"characters — the capture decoded with the "
+                                f"wrong charset")
+
+    def test_manifest_covers_every_frozen_fixture(self):
+        """A fixture on disk with no expectation is a page nothing asserts
+        anything about — it looks like coverage and is not."""
+        on_disk = {p.name[:-len(".html.gz")]
+                   for p in FIXTURE_DIR.glob("*.html.gz")}
+        declared = {e["name"] for e in self.manifest["fixtures"]}
+        self.assertEqual(on_disk, declared)
+        self.assertGreaterEqual(len(declared), 18)
+
+    def test_every_fixture_lands_on_the_expected_side_of_the_gate(self):
+        for entry in self.manifest["fixtures"]:
+            with self.subTest(fixture=entry["name"]):
+                rec, is_article, reason = self.extract(entry)
+                self.assertEqual(
+                    reason, entry.get("gate"),
+                    f"{entry['name']}: gate said {reason!r}, manifest expects "
+                    f"{entry.get('gate')!r} — {entry.get('why', '')}")
+
+    def test_every_fixture_extracts_within_its_band(self):
+        for entry in self.manifest["fixtures"]:
+            with self.subTest(fixture=entry["name"]):
+                rec, _, _ = self.extract(entry)
+                chars = rec["content_chars"]
+                if entry.get("min_chars") is not None:
+                    self.assertGreaterEqual(
+                        chars, entry["min_chars"],
+                        f"{entry['name']}: extraction REGRESSED to {chars} "
+                        f"chars — {entry.get('why', '')}")
+                if entry.get("max_chars") is not None:
+                    self.assertLessEqual(
+                        chars, entry["max_chars"],
+                        f"{entry['name']}: extraction grew to {chars} chars, "
+                        f"which usually means junk leaked in — "
+                        f"{entry.get('why', '')}")
+
+    def test_the_empty_body_class_is_still_caught(self):
+        """The defect the body gate exists for. If any of these three starts
+        passing the gate, either the extractor genuinely improved (update the
+        manifest) or the gate stopped discriminating."""
+        empties = [e for e in self.manifest["fixtures"]
+                   if e["name"].startswith("jsonld_empty_body__")]
+        self.assertEqual(len(empties), 3)
+        for entry in empties:
+            with self.subTest(fixture=entry["name"]):
+                rec, is_article, reason = self.extract(entry)
+                self.assertTrue(is_article,
+                                "these pages DO pass the article gate — that "
+                                "is precisely why the body gate is needed")
+                self.assertIn(reason, ("title_as_body", "thin_body"))
+
+    def test_the_article_gate_still_rejects(self):
+        """The gate's REJECT direction. Without a fixture here, replacing the
+        whole listing/homepage protection with `is_article = True` passed the
+        entire suite — the one documented failure class the set did not
+        cover."""
+        rejecting = [e for e in self.manifest["fixtures"]
+                     if e.get("expect_is_article") is False]
+        self.assertGreaterEqual(len(rejecting), 1,
+                                "at least one fixture must exercise the "
+                                "article gate's reject direction")
+        for entry in rejecting:
+            with self.subTest(fixture=entry["name"]):
+                _, is_article, reason = self.extract(entry)
+                self.assertFalse(is_article, entry.get("why", ""))
+                self.assertEqual(reason, "non_article_page")
+
+    def test_every_gate_verdict_is_represented(self):
+        """All three of gate_reason's outcomes, so none can quietly stop being
+        reachable."""
+        verdicts = {e.get("gate") for e in self.manifest["fixtures"]}
+        self.assertEqual(verdicts,
+                         {None, "thin_body", "title_as_body",
+                          "non_article_page"})
+
+    def test_healthy_articles_are_never_rejected(self):
+        """The other direction, and the one that matters more: a change to the
+        junk filter that starts eating real bodies must fail here rather than
+        in a sweep three weeks later."""
+        healthy = [e for e in self.manifest["fixtures"]
+                   if e.get("gate") is None and not e.get("known_gap")]
+        self.assertGreaterEqual(len(healthy), 8)
+        for entry in healthy:
+            with self.subTest(fixture=entry["name"]):
+                _, _, reason = self.extract(entry)
+                self.assertIsNone(reason, entry.get("why", ""))
+
+    def test_cp1251_page_decodes_to_bulgarian(self):
+        """windows-1251 is still alive (moreto.net) and a mojibake body passes
+        every length check while being unreadable."""
+        entry = next(e for e in self.manifest["fixtures"]
+                     if e["name"] == "cp1251__moreto")
+        rec, _, _ = self.extract(entry)
+        body = rec["content"]
+        cyrillic = sum(1 for ch in body if "\u0400" <= ch <= "\u04FF")
+        self.assertGreater(cyrillic / max(len(body), 1), 0.5,
+                           "body is not predominantly Cyrillic — mojibake")
+
+    def test_no_fixture_yields_a_raw_html_entity(self):
+        """JSON-LD lives in a <script>, so the HTML parser never decodes it —
+        197 stored records carried '&#8222;' verbatim into the LLM prompts and
+        the story-clustering keys, where such a headline is a different string
+        for every comparison. Free to assert on all 18."""
+        for entry in self.manifest["fixtures"]:
+            with self.subTest(fixture=entry["name"]):
+                rec, _, _ = self.extract(entry)
+                for field in ("title", "description", "content", "author",
+                              "topic", "keywords"):
+                    value = rec.get(field) or ""
+                    for bad in ("&#", "&amp;", "&quot;", "&lt;", "&gt;",
+                                "&nbsp;"):
+                        self.assertNotIn(
+                            bad, value,
+                            f"{entry['name']}.{field} carries a raw {bad!r}")
+
+    def test_no_fixture_body_carries_cookie_banner_text(self):
+        """The iubenda vendor list swamped 100+ paragraphs per article on the
+        browser tier until the junk filter learned iubenda/cmp/consent.
+
+        Applied to EVERY fixture, not just the ones named `rendered__`: the
+        dnevnik fixture is itself an iubenda page and a filename-prefix
+        selector excluded it, so deleting that arm of the junk regex grew its
+        body from 10,500 to 23,771 chars with 'бисквитки' in it and nothing on
+        that page failed."""
+        for entry in self.manifest["fixtures"]:
+            with self.subTest(fixture=entry["name"]):
+                rec, _, _ = self.extract(entry)
+                body = (rec["content"] or "").lower()
+                for marker in ("бисквитки", "iubenda", "съгласие за обработка",
+                               "cookie policy"):
+                    self.assertNotIn(marker, body,
+                                     f"cookie-consent text leaked into the "
+                                     f"body via {marker!r}")
+
+    def test_known_gaps_are_declared_not_silent(self):
+        """A fixture marked known_gap pins behaviour we consider WRONG. It is
+        here so a future narrowing of the article gate flips it visibly rather
+        than being discovered in production — and so nobody reads its passing
+        expectation as approval."""
+        gaps = [e for e in self.manifest["fixtures"] if e.get("known_gap")]
+        self.assertGreaterEqual(len(gaps), 2)
+        for entry in gaps:
+            with self.subTest(fixture=entry["name"]):
+                self.assertIn("KNOWN GAP", entry.get("why", "").upper(),
+                              "a known_gap fixture must say what is wrong "
+                              "with it and why it has not been fixed")
+                _, is_article, reason = self.extract(entry)
+                self.assertTrue(is_article)
+                self.assertIsNone(reason,
+                                  "this page still passes every gate — if it "
+                                  "no longer does, the gap was closed: update "
+                                  "the manifest and delete the known_gap flag")
 
 
 if __name__ == "__main__":

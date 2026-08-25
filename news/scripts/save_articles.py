@@ -485,21 +485,39 @@ def normalize_date(raw):
     return dt.astimezone(timezone.utc).isoformat()
 
 
+# The separators a Bulgarian newsroom puts between a headline and its brand
+# tail. The EM-DASH is load-bearing: offnews.bg uses it exclusively, and
+# without it every offnews headline kept "— OFFNews" (frozen in the
+# rendered__offnews fixture, which is what surfaced it).
+_TITLE_SEP_RE = re.compile(r"^(.*)\s+[-–—|·]\s+(.{1,45})$")
+_TITLE_TAIL_STRIP = " -–—|·"
+_NEWSWORD_RE = re.compile(
+    r"(новини|news|вестник|портал|press|медиа|джърнал|portal)")
+
+
 def strip_site_suffix(title, site_name, domain):
     """Drop trailing ' - SiteName' / ' | Новини от X' decorations. Only strips
     when the trailing segment names the site/brand (or a generic news-word
-    segment), so a headline that legitimately ends with a dash phrase is kept."""
+    segment), so a headline that legitimately ends with a dash phrase is kept.
+
+    ⚠️ The match must be RIGHTMOST-first, one segment at a time. A leftmost
+    `re.search` grabs the first separator whose tail merely FITS the 45-char
+    window, so on 'Трансферите в Първа лига - лято 2026 г. - Новини СЕГА' the
+    segment was the whole 'лято 2026 г. - Новини СЕГА', which contains
+    'новини', and the legitimate '- лято 2026 г.' was deleted along with the
+    brand. Frozen in the healthy__segabg fixture. The greedy `^(.*)` is what
+    anchors each pass to the LAST separator instead."""
     if not title:
         return title
     brands = {b.lower() for b in (site_name or "", domain.split(".")[0] if domain else "")
               if b and len(b) >= 3}
-    m = re.search(r"\s+[-–|·]\s+(.{1,45})$", title)
-    while m:
-        seg = m.group(1).lower()
-        if any(b in seg for b in brands) or re.search(
-                r"(новини|news|вестник|портал|press|медиа|джърнал|portal)", seg):
-            title = title[:m.start()].rstrip(" -–|·")
-            m = re.search(r"\s+[-–|·]\s+(.{1,45})$", title)
+    while True:
+        m = _TITLE_SEP_RE.match(title)
+        if not m:
+            break
+        seg = m.group(2).lower()
+        if any(b in seg for b in brands) or _NEWSWORD_RE.search(seg):
+            title = m.group(1).rstrip(_TITLE_TAIL_STRIP)
         else:
             break
     return title
