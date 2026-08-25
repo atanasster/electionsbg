@@ -1,7 +1,10 @@
 # Making a skipped data gate say why — v1
 
-**Status:** Tier 1 IN PROGRESS. Step 1 (`f9e9fdba63`) shipped `scripts/lib/report_skip.ts`;
-step 2 migrated the pre-existing emitters. Tier 2 remains unbuilt.
+**Status:** Tier 1 DONE. `f9e9fdba63` shipped `scripts/lib/report_skip.ts`; `178a02f1aa`
+migrated the pre-existing emitters; `e2134727da` swept the remaining 165 gates; the §6 gate
+is `scripts/lib/report_skip_coverage.test.ts`. **Acceptance met: a database-less
+`npm run test:unit` prints 165 skip reasons across 163 skipped files, against 0 before.**
+Tier 2 remains unbuilt and is still not recommended — see §5.
 
 **⚠️ Two numbers in this plan were wrong and are corrected in place:** the emitting/silent
 split is **3 / 167**, not 5 / 165 (see §4's box), and §4's original code sketch showed an API
@@ -41,7 +44,7 @@ skips on every push. Measured in the database-less run:
 
 > **162 test files / 1,565 tests skipped. Skip reasons printed: 0.**
 
-Zero includes the 5 that call `console.warn`, because the default reporter intercepts console
+Zero includes the 3 that call `console.warn`, because the default reporter intercepts console
 output and does not print it when piped. CI's log says `1565 skipped` and nothing else.
 
 **⚠️ THE EXPENSIVE FIX IS NOT THE FIRST THING TO DO, AND THE REVIEW SUGGESTS THE EXPENSIVE
@@ -81,7 +84,7 @@ Three independent facts, each measured, that compose into total silence:
    produced no output under the default reporter, and all three appeared under
    `--reporter=verbose`.
 
-Fact 3 is why the 5 emitters emit nothing in CI — and it is a fact about `console`, not about
+Fact 3 is why the 3 emitters emit nothing in CI — and it is a fact about `console`, not about
 the stream. `process.stderr.write` sidesteps it with no configuration, which is what §4 is
 built on.
 
@@ -284,6 +287,28 @@ of which exist because the failure they catch is invisible in review:
 Without that gate Tier 1 decays the moment the next data gate is written, and it decays
 silently — which is how the 167 got here.
 
+**Built as `scripts/lib/report_skip_coverage.test.ts`**, with three assertions the sketch
+above did not anticipate, each added because a mutation proved the gate blind without it:
+
+- **The label must be derived.** A hand-typed one is caught, closing the defect review
+  killed in step 1 rather than leaving it to discipline.
+- **The call must follow the last assignment to its gate.** `contractor_search_arms`
+  declares `let skip: string | false = false` and fills it imperatively below; a call beside
+  the declaration reads the initialiser and prints nothing in any state.
+- ⚠️ **"Carries a reason" cannot be judged from the declaration alone**, and getting that
+  wrong made the first cut exempt the very file it was written about — the declaration above
+  holds no string LITERAL, so it classified as a Tier-3 boolean gate and every assertion
+  skipped it. It now also reads the declared TYPE and every later assignment.
+
+It scans **tracked** files only. An untracked file is work in progress, and failing on one
+makes one session's half-finished edit another session's red build — which happened during
+step 3, when the codemod swept a concurrent session's untracked `company_browse.data.test.ts`
+and had to be backed out. That file is, as of this writing, the only one in the repo
+declaring a skip it does not report — and that claim was FALSE when first written: review
+found `scripts/parsers_local/local_bundles.data.test.ts`, a tracked file with a three-way
+reason declared inside a `describe`, which the column-anchored first cut of the gate could not
+see. It is fixed and the gate now catches that shape.
+
 ---
 
 ## 7. What this plan does not fix
@@ -295,8 +320,12 @@ silently — which is how the 167 got here.
   class.
 - **Why so much skips at all.** 162 files skipping in CI is the designed behaviour of a repo
   whose corpora are gitignored crawls; this plan makes the silence legible, not smaller.
-- **CI is currently red for unrelated reasons** — measured in the same database-less run,
-  4 files fail without a database: `bootstrap_roles`, `cloud_loader_coverage`,
-  `ogAndSitemapCoverage`, `governanceNonPlace`. The last two are the `/governance/mayor-pay`
-  route (commit `1f196d41fb`) not yet registered in `GOVERNANCE_NON_PLACE_SEGMENTS` nor in the
-  sitemap. Out of scope here, but any acceptance run above will show them.
+- **CI is currently red for unrelated reasons** — measured database-less, **6** files fail
+  without a database: `bootstrap_roles`, `cloud_loader_coverage`, `ogAndSitemapCoverage`,
+  `governanceNonPlace`, plus a rotating tail (`hospital_payments_corpus`,
+  `migrate_slug_normalisation.apply`, `parliament/derived/hub_stats` have each appeared). `ogAndSitemapCoverage` and `governanceNonPlace` are the
+  `/governance/mayor-pay` route (commit `1f196d41fb`) not yet registered in
+  `GOVERNANCE_NON_PLACE_SEGMENTS` nor in the sitemap; the last two pass in isolation and are
+  load-flake ([[reference_test_data_flaky_under_load]]). It was 4 when this plan was written —
+  the list moves, so re-measure rather than trusting it. Out of scope here, but any acceptance
+  run above will show them.

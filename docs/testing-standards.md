@@ -152,7 +152,7 @@ test.skipIf(skip)("…", async () => { … });
 ```
 
 ⚠️ **`test.skipIf()` takes a CONDITION and records nothing.** A reason passed to it
-alone works correctly as a truthy value and is then discarded — which is how ~165 of
+alone works correctly as a truthy value and is then discarded — which is how ~167 of
 these files came to compute a precise sentence and emit it nowhere. And `console.warn`
 is not a substitute: Vitest's default reporter intercepts `console.*` and prints none
 of it when piped, which is every CI run. `reportSkip` writes to `process.stderr`, which
@@ -162,7 +162,10 @@ derived so it cannot drift from the file it names.
 Why it matters here specifically: CI runs `test:unit` with no database and no
 gitignored corpora, so **every** one of these gates skips on every push — measured
 2026-08-25, 162 files and 1,565 tests. Without the report, the log says `1565 skipped`
-and nothing else. Plan: `docs/plans/data-gate-skip-visibility-v1.md`.
+and nothing else. `scripts/lib/report_skip_coverage.test.ts` enforces this — it also
+fails a hand-typed label, and a `reportSkip` call placed ABOVE the block that fills
+an imperatively-assigned `skip` (where it would read the initialiser and print
+nothing). Plan: `docs/plans/data-gate-skip-visibility-v1.md`.
 
 ## Fixtures
 

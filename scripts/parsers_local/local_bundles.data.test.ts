@@ -12,6 +12,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { describe, it, expect } from "vitest";
+import { reportSkip } from "../lib/report_skip";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -58,6 +59,9 @@ describe.each(CYCLES)("%s", (cycle) => {
       : !reparsed
         ? "cycle predates the oblast-aware resolver — re-parse pending (plan §T1 step 1)"
         : false;
+  // Named per cycle: this runs once per local-election cycle, so the file label alone
+  // would not say WHICH one stood down.
+  reportSkip(import.meta.url, skip && `${cycle} — ${skip}`);
 
   it.skipIf(skip)("emits exactly one município bundle per tur1 page", () => {
     expect(bundleCount(cycle)).toBe(pageCount(cycle));
