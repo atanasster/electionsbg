@@ -17,7 +17,9 @@
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import {
+  Briefcase,
   Building2,
   Coins,
   Crosshair,
@@ -44,6 +46,7 @@ import { trRoleLabel } from "@/lib/trRole";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 import { StatCard } from "../dashboard/StatCard";
+import { DashboardSection } from "../dashboard/DashboardSection";
 import { CompanyTopContractsTile } from "../components/procurement/CompanyTopContractsTile";
 import { CompanyTopAwardersTile } from "../components/procurement/CompanyTopAwardersTile";
 import { CompanyByYearChart } from "../components/procurement/CompanyByYearChart";
@@ -154,6 +157,86 @@ const chipTone = {
     "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
   muted: "bg-muted text-muted-foreground",
 } as const;
+
+/** Shared row renderer for the owns/manages participations tables.
+ *
+ *  MODULE scope, not declared inside PersonScreen: a component defined in a render body
+ *  is a new component TYPE on every render, so React unmounts and remounts the whole
+ *  subtree instead of updating it — and this page re-renders on every ScopeControl
+ *  interaction and every fetch settle. What it used to read from the closure
+ *  (`maxRoleEur`, `t`, `i18n.language`) is passed in instead. */
+const RoleRows: FC<{
+  rows: RoleRow[];
+  maxRoleEur: number;
+  t: TFunction;
+  lang: string;
+}> = ({ rows, maxRoleEur, t, lang }) => (
+  <table className="w-full text-sm [&_td]:px-2 [&_td]:first:pl-0 [&_th]:px-2 [&_th]:first:pl-0">
+    <thead className="text-left text-xs text-muted-foreground">
+      <tr>
+        <th className="py-1">Фирма</th>
+        <th className="py-1">Роля</th>
+        <th className="py-1 text-right">Дял</th>
+        <th className="py-1">От</th>
+        <th className="py-1">Статус</th>
+        <th className="py-1 text-right">Стойност</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r, i) => (
+        <tr key={`${r.uic}-${r.role}-${i}`} className="border-t border-border">
+          <td className="py-1">
+            <Link
+              to={`/company/${r.uic}`}
+              className="text-accent hover:underline"
+            >
+              {decodeEntities(r.company) || r.uic}
+            </Link>
+          </td>
+          <td className="py-1 text-muted-foreground">
+            {trRoleLabel(r.role, t)}
+          </td>
+          <td className="py-1 text-right tabular-nums">
+            {formatOwnerShare(r.share)}
+          </td>
+          <td className="py-1 tabular-nums text-muted-foreground">
+            {day(r.added_at)}
+          </td>
+          <td className="py-1">
+            {r.active ? (
+              <span className="text-emerald-600">активен</span>
+            ) : (
+              <span className="text-muted-foreground">
+                бивш · {day(r.erased_at)}
+              </span>
+            )}
+          </td>
+          <td className="py-1">
+            <div className="flex items-center justify-end gap-2">
+              {r.contracts_eur ? (
+                <>
+                  <span className="h-1.5 w-12 shrink-0 overflow-hidden rounded bg-muted md:w-20">
+                    <span
+                      className="block h-full rounded bg-primary/60"
+                      style={{
+                        width: `${Math.max(3, (r.contracts_eur / maxRoleEur) * 100)}%`,
+                      }}
+                    />
+                  </span>
+                  <span className="w-16 text-right tabular-nums md:w-20">
+                    {formatEurCompact(r.contracts_eur, lang)}
+                  </span>
+                </>
+              ) : (
+                <span className="text-muted-foreground">—</span>
+              )}
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
 
 export const PersonScreen: FC = () => {
   const { name = "" } = useParams();
@@ -325,6 +408,16 @@ export const PersonScreen: FC = () => {
   const ownsRoles = roles.filter((r) => OWNS.has(r.role ?? ""));
   const managesRoles = roles.filter((r) => !OWNS.has(r.role ?? ""));
 
+  // Whether the "Профил на възлагането" grid has a tile that will actually render.
+  // All three tiles inside it self-hide on an EMPTY ARRAY, and DashboardSection
+  // cannot see that — `isRenderable` returns true for any valid element, including
+  // one that renders null — so the wrapper must be conditional or the layout div
+  // alone would keep that section's own self-hiding from ever firing.
+  const hasAwardingCuts =
+    (rollup?.byAwarder.length ?? 0) > 0 ||
+    byCompany.length > 0 ||
+    bySettlement.length > 0;
+
   // Custom connection check (unchanged).
   const [other, setOther] = useState("");
   const [conn, setConn] = useState<ConnRow[] | null>(null);
@@ -342,78 +435,6 @@ export const PersonScreen: FC = () => {
       .catch(() => setConn([]))
       .finally(() => setConnLoading(false));
   }, [other, person]);
-
-  // Shared row renderer for the owns/manages participations tables.
-  const RoleRows: FC<{ rows: RoleRow[] }> = ({ rows }) => (
-    <table className="w-full text-sm [&_td]:px-2 [&_td]:first:pl-0 [&_th]:px-2 [&_th]:first:pl-0">
-      <thead className="text-left text-xs text-muted-foreground">
-        <tr>
-          <th className="py-1">Фирма</th>
-          <th className="py-1">Роля</th>
-          <th className="py-1 text-right">Дял</th>
-          <th className="py-1">От</th>
-          <th className="py-1">Статус</th>
-          <th className="py-1 text-right">Стойност</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((r, i) => (
-          <tr
-            key={`${r.uic}-${r.role}-${i}`}
-            className="border-t border-border"
-          >
-            <td className="py-1">
-              <Link
-                to={`/company/${r.uic}`}
-                className="text-accent hover:underline"
-              >
-                {decodeEntities(r.company) || r.uic}
-              </Link>
-            </td>
-            <td className="py-1 text-muted-foreground">
-              {trRoleLabel(r.role, t)}
-            </td>
-            <td className="py-1 text-right tabular-nums">
-              {formatOwnerShare(r.share)}
-            </td>
-            <td className="py-1 tabular-nums text-muted-foreground">
-              {day(r.added_at)}
-            </td>
-            <td className="py-1">
-              {r.active ? (
-                <span className="text-emerald-600">активен</span>
-              ) : (
-                <span className="text-muted-foreground">
-                  бивш · {day(r.erased_at)}
-                </span>
-              )}
-            </td>
-            <td className="py-1">
-              <div className="flex items-center justify-end gap-2">
-                {r.contracts_eur ? (
-                  <>
-                    <span className="h-1.5 w-12 shrink-0 overflow-hidden rounded bg-muted md:w-20">
-                      <span
-                        className="block h-full rounded bg-primary/60"
-                        style={{
-                          width: `${Math.max(3, (r.contracts_eur / maxRoleEur) * 100)}%`,
-                        }}
-                      />
-                    </span>
-                    <span className="w-16 text-right tabular-nums md:w-20">
-                      {formatEurCompact(r.contracts_eur, i18n.language)}
-                    </span>
-                  </>
-                ) : (
-                  <span className="text-muted-foreground">—</span>
-                )}
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
 
   return (
     <div className="w-full px-4 py-6 md:px-6">
@@ -480,17 +501,85 @@ export const PersonScreen: FC = () => {
               companies over the officer graph. Renders nothing unless a link exists. */}
           <PersonMagistratePoliticianLinks name={person} />
 
-          {/* Portfolio procurement */}
-          {rollup && rollup.contractCount > 0 && (
-            <>
-              <div className="flex flex-wrap items-center gap-2">
-                <Building2 className="h-5 w-5 text-muted-foreground" />
-                <h2 className="text-lg font-semibold">
-                  Обществени поръчки (портфейл)
-                </h2>
-                <ScopeControl mode="toggle" className="ml-2" />
+          {/* ФИРМИ — who this person is in business terms, before what those
+              companies won. Leads the page for the same reason the modern dashboard
+              leads with offices rather than wealth: identity first, analysis after.
+              Участия and the timeline are the SAME `person_roles` rows in two views,
+              which is why they now share one section instead of sitting ~90 lines
+              apart with the whole procurement block between them. */}
+          <DashboardSection
+            id="person-portfolio"
+            title="Фирми"
+            icon={Briefcase}
+            headingLevel={2}
+          >
+            {/* Participations — ownership vs management */}
+            <div className="flex items-center gap-2">
+              <h3 className="text-base font-semibold">
+                Участия ({num.format(roles.length)})
+              </h3>
+            </div>
+            {roles.length === 0 ? (
+              <div className="text-sm text-muted-foreground">
+                Няма намерени участия за това име.
               </div>
-              <p className="text-xs text-muted-foreground -mt-4">
+            ) : (
+              <div className="grid gap-4 xl:grid-cols-2">
+                {ownsRoles.length > 0 && (
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="flex items-center gap-2 text-base">
+                        <Coins className="h-4 w-4" /> Собственост (
+                        {num.format(ownsRoles.length)})
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <RoleRows
+                        rows={ownsRoles}
+                        maxRoleEur={maxRoleEur}
+                        t={t}
+                        lang={i18n.language}
+                      />
+                    </CardContent>
+                  </Card>
+                )}
+                {managesRoles.length > 0 && (
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="flex items-center gap-2 text-base">
+                        <Building2 className="h-4 w-4" /> Управление (
+                        {num.format(managesRoles.length)})
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <RoleRows
+                        rows={managesRoles}
+                        maxRoleEur={maxRoleEur}
+                        t={t}
+                        lang={i18n.language}
+                      />
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            )}
+            {/* The same participations on a time axis. Self-hides when no role
+                carries a start date. */}
+            <PersonTimelineTile roles={roles} />
+          </DashboardSection>
+
+          {/* ОБЩЕСТВЕНИ ПОРЪЧКИ — the headline and the biggest contracts. The whole
+              section is gated on there being procurement at all, so the heading can
+              never render above nothing. */}
+          {rollup && rollup.contractCount > 0 && (
+            <DashboardSection
+              id="person-procurement"
+              title="Обществени поръчки"
+              icon={Building2}
+              headingLevel={2}
+              subtitle={<ScopeControl mode="toggle" />}
+            >
+              <p className="text-xs text-muted-foreground">
                 Сумарно за всички фирми, в които лицето е (или е било) вписано.
               </p>
 
@@ -545,58 +634,84 @@ export const PersonScreen: FC = () => {
                 </StatCard>
               </div>
 
-              <div className="grid gap-4 xl:grid-cols-2">
-                <CompanyTopContractsTile
-                  eik=""
-                  rollup={rollup}
-                  partyHref={(e) => `/company/${e}`}
-                  contractorHref={(e) => `/company/${e}`}
-                  seeAllHref={`/person/${encodeURIComponent(person)}/contracts`}
-                />
-                {rollup.byAwarder.length > 0 && (
-                  <CompanyTopAwardersTile
-                    eik=""
-                    rollup={rollup}
-                    awarderHref={(e) => `/company/${e}`}
-                    seeAllHref={null}
-                    showBars
-                  />
-                )}
-              </div>
+              <CompanyTopContractsTile
+                eik=""
+                rollup={rollup}
+                partyHref={(e) => `/company/${e}`}
+                contractorHref={(e) => `/company/${e}`}
+                seeAllHref={`/person/${encodeURIComponent(person)}/contracts`}
+              />
+            </DashboardSection>
+          )}
 
-              {/* The two portfolio cuts — по фирма / по населено място (migration 125). Both
-                  reconcile with the headline above. */}
-              <div className="grid gap-4 xl:grid-cols-2">
-                <PersonProcurementBreakdownTile
-                  title={t("pp_by_company") || "По фирма"}
-                  icon={Building2}
-                  rows={byCompany.map<PersonBreakdownRow>((c) => ({
-                    id: c.eik,
-                    // TR names can carry HTML entities (like every company name in this file).
-                    label: decodeEntities(c.name) || c.eik,
-                    href: `/company/${c.eik}`,
-                    totalEur: c.totalEur,
-                    contractCount: c.contractCount,
-                  }))}
-                />
-                <PersonProcurementBreakdownTile
-                  title={t("pp_by_settlement") || "По населено място"}
-                  icon={MapPin}
-                  rows={bySettlement.map<PersonBreakdownRow>((sx) => ({
-                    id: sx.ekatte ?? "national",
-                    // Settlement names are canonical place-dim strings — no entity decode needed
-                    // (unlike the TR company names above).
-                    label:
-                      sx.settlement ??
-                      (t("pp_national_buyers") || "Национални възложители"),
-                    href: sx.ekatte
-                      ? `/procurement/settlement/${sx.ekatte}`
-                      : null,
-                    totalEur: sx.totalEur,
-                    contractCount: sx.contractCount,
-                  }))}
-                />
-              </div>
+          {/* ПРОФИЛ НА ВЪЗЛАГАНЕТО — the analytical cuts: who pays, where, in what,
+              and when. Split off the headline section above so the page's opening
+              answer ("how much, and the biggest contracts") is not buried under six
+              breakdown tiles.
+
+              No extra gate beyond the rollup, and the reason is an SQL invariant
+              rather than a JSX one: `byaw` (024_person_api.sql) carries
+              `HAVING COUNT(*) FILTER (WHERE tag = 'contract') > 0`, so `byAwarder`
+              is non-empty whenever `contractCount > 0` — and CompanyTopAwardersTile
+              hides only on an empty `byAwarder`. The section therefore always has one
+              visible child. Every child below is individually gated on the array its
+              tile hides on, so if that HAVING is ever removed DashboardSection's own
+              self-hiding takes over rather than leaving a heading above nothing. */}
+          {rollup && rollup.contractCount > 0 && (
+            <DashboardSection
+              id="person-procurement-profile"
+              title="Профил на възлагането"
+              icon={PieChart}
+              headingLevel={2}
+            >
+              {hasAwardingCuts && (
+                <div className="grid gap-4 xl:grid-cols-2">
+                  {rollup.byAwarder.length > 0 && (
+                    <CompanyTopAwardersTile
+                      eik=""
+                      rollup={rollup}
+                      awarderHref={(e) => `/company/${e}`}
+                      seeAllHref={null}
+                      showBars
+                    />
+                  )}
+                  {/* The two portfolio cuts — по фирма / по населено място (migration 125).
+                      Both reconcile with the headline above. */}
+                  {byCompany.length > 0 && (
+                    <PersonProcurementBreakdownTile
+                      title={t("pp_by_company") || "По фирма"}
+                      icon={Building2}
+                      rows={byCompany.map<PersonBreakdownRow>((c) => ({
+                        id: c.eik,
+                        // TR names can carry HTML entities (like every company name in this file).
+                        label: decodeEntities(c.name) || c.eik,
+                        href: `/company/${c.eik}`,
+                        totalEur: c.totalEur,
+                        contractCount: c.contractCount,
+                      }))}
+                    />
+                  )}
+                  {bySettlement.length > 0 && (
+                    <PersonProcurementBreakdownTile
+                      title={t("pp_by_settlement") || "По населено място"}
+                      icon={MapPin}
+                      rows={bySettlement.map<PersonBreakdownRow>((sx) => ({
+                        id: sx.ekatte ?? "national",
+                        // Settlement names are canonical place-dim strings — no entity decode
+                        // needed (unlike the TR company names above).
+                        label:
+                          sx.settlement ??
+                          (t("pp_national_buyers") || "Национални възложители"),
+                        href: sx.ekatte
+                          ? `/procurement/settlement/${sx.ekatte}`
+                          : null,
+                        totalEur: sx.totalEur,
+                        contractCount: sx.contractCount,
+                      }))}
+                    />
+                  )}
+                </div>
+              )}
 
               {breakdown && (
                 <ProcurementBreakdownTile kind="c" breakdown={breakdown} />
@@ -607,149 +722,119 @@ export const PersonScreen: FC = () => {
               {rollup.byYear.length > 0 && (
                 <CompanyByYearChart rows={rollup.byYear} />
               )}
-            </>
+            </DashboardSection>
           )}
 
-          {/* Participations — ownership vs management */}
-          <div className="flex items-center gap-2 pt-2">
-            <Users className="h-5 w-5 text-muted-foreground" />
-            <h2 className="text-lg font-semibold">
-              Участия ({num.format(roles.length)})
-            </h2>
-          </div>
-          {roles.length === 0 ? (
-            <div className="text-sm text-muted-foreground">
-              Няма намерени участия за това име.
-            </div>
-          ) : (
-            <div className="grid gap-4 xl:grid-cols-2">
-              {ownsRoles.length > 0 && (
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Coins className="h-4 w-4" /> Собственост (
-                      {num.format(ownsRoles.length)})
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <RoleRows rows={ownsRoles} />
-                  </CardContent>
-                </Card>
-              )}
-              {managesRoles.length > 0 && (
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Building2 className="h-4 w-4" /> Управление (
-                      {num.format(managesRoles.length)})
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <RoleRows rows={managesRoles} />
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-          )}
+          {/* ВРЪЗКИ — the three blocks that answer "who is this person connected to".
+              One section, because a reader asks that as one question. Tier 3 of the
+              plan gives each block the line stating WHICH evidence it rests on: they
+              read different tables and can disagree about the same named person, which
+              is invisible while they sit apart and obvious once they are adjacent. */}
+          <DashboardSection
+            id="person-connections"
+            title="Връзки"
+            icon={Users}
+            headingLevel={2}
+          >
+            {/* Inner circle */}
+            <PersonAssociatesTile associates={associates} />
 
-          {/* Inner circle */}
-          <PersonAssociatesTile associates={associates} />
-
-          {/* Political connections */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Landmark className="h-4 w-4" /> Политически връзки (
-                {num.format(politicians.length)})
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {politicians.length === 0 ? (
-                <div className="text-sm text-muted-foreground">
-                  Няма установени връзки с политици през общите фирми.
-                </div>
-              ) : (
-                <ul className="space-y-2">
-                  {politicians.map((p, i) => (
-                    <li key={`${p.ref}-${i}`} className="text-sm">
-                      <Link
-                        to={p.ref}
-                        className="font-medium text-accent hover:underline"
-                      >
-                        {p.politician}
-                      </Link>
-                      <span className="text-muted-foreground">
-                        {" "}
-                        · {p.kind === "mp" ? "депутат" : "служител"}
-                        {p.role ? ` · ${p.role}` : ""} · през{" "}
-                        <Link
-                          to={`/company/${p.via_eik}`}
-                          className="hover:underline"
-                        >
-                          {decodeEntities(p.via_company) || p.via_eik}
-                        </Link>
-                        {p.total_eur ? ` · ${formatEur(p.total_eur)}` : ""}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Visual tenure timeline */}
-          <PersonTimelineTile roles={roles} />
-
-          {/* Custom connection check */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Link2 className="h-4 w-4" /> Проверка на връзка
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="mb-3 flex gap-2">
-                <Input
-                  value={other}
-                  onChange={(e) => setOther(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && checkConnection()}
-                  placeholder="друго име (напр. политик или лице)…"
-                  className="h-9 max-w-md"
-                />
-                <Button onClick={checkConnection} disabled={connLoading}>
-                  <Search className="mr-1 h-4 w-4" /> Провери
-                </Button>
-              </div>
-              {conn !== null &&
-                (conn.length === 0 ? (
+            {/* Political connections */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Landmark className="h-4 w-4" /> Политически връзки (
+                  {num.format(politicians.length)})
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {politicians.length === 0 ? (
                   <div className="text-sm text-muted-foreground">
-                    Няма общи фирми между „{person}“ и „{other}“.
+                    Няма установени връзки с политици през общите фирми.
                   </div>
                 ) : (
-                  <div className="text-sm">
-                    <div className="mb-1 text-muted-foreground">
-                      Общи фирми ({num.format(conn.length)}):
-                    </div>
-                    <ul className="space-y-1">
-                      {conn.map((c, i) => (
-                        <li key={`${c.uic}-${i}`}>
+                  <ul className="space-y-2">
+                    {politicians.map((p, i) => (
+                      <li key={`${p.ref}-${i}`} className="text-sm">
+                        <Link
+                          to={p.ref}
+                          className="font-medium text-accent hover:underline"
+                        >
+                          {p.politician}
+                        </Link>
+                        <span className="text-muted-foreground">
+                          {" "}
+                          · {p.kind === "mp" ? "депутат" : "служител"}
+                          {p.role ? ` · ${p.role}` : ""} · през{" "}
                           <Link
-                            to={`/company/${c.uic}`}
-                            className="text-accent hover:underline"
+                            to={`/company/${p.via_eik}`}
+                            className="hover:underline"
                           >
-                            {decodeEntities(c.company) || c.uic}
+                            {decodeEntities(p.via_company) || p.via_eik}
                           </Link>
-                          <span className="text-muted-foreground">
-                            {" "}
-                            — „{person}“: {c.a_roles} · „{other}“: {c.b_roles}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-            </CardContent>
-          </Card>
+                          {p.total_eur ? ` · ${formatEur(p.total_eur)}` : ""}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Custom connection check. Sits with the two blocks above because a
+                reader asks one question here; the timeline that used to separate
+                them now lives in the Фирми section with the participations it
+                plots. */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Link2 className="h-4 w-4" /> Проверка на връзка
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-3 flex gap-2">
+                  <Input
+                    value={other}
+                    onChange={(e) => setOther(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && checkConnection()}
+                    placeholder="друго име (напр. политик или лице)…"
+                    className="h-9 max-w-md"
+                  />
+                  <Button onClick={checkConnection} disabled={connLoading}>
+                    <Search className="mr-1 h-4 w-4" /> Провери
+                  </Button>
+                </div>
+                {conn !== null &&
+                  (conn.length === 0 ? (
+                    <div className="text-sm text-muted-foreground">
+                      Няма общи фирми между „{person}“ и „{other}“.
+                    </div>
+                  ) : (
+                    <div className="text-sm">
+                      <div className="mb-1 text-muted-foreground">
+                        Общи фирми ({num.format(conn.length)}):
+                      </div>
+                      <ul className="space-y-1">
+                        {conn.map((c, i) => (
+                          <li key={`${c.uic}-${i}`}>
+                            <Link
+                              to={`/company/${c.uic}`}
+                              className="text-accent hover:underline"
+                            >
+                              {decodeEntities(c.company) || c.uic}
+                            </Link>
+                            <span className="text-muted-foreground">
+                              {" "}
+                              — „{person}“: {c.a_roles} · „{other}“: {c.b_roles}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+              </CardContent>
+            </Card>
+          </DashboardSection>
         </div>
       )}
     </div>

@@ -92,6 +92,10 @@ type Props = {
     | "person-geography"
     | "person-offices"
     | "person-council-voting"
+    // The legacy name-matched portfolio page (dev/PersonScreen): the companies a
+    // person is entered in, and the shape of what those companies won.
+    | "person-portfolio"
+    | "person-procurement-profile"
     | "person-regulators"
     | "person-business"
     | "person-ngos"
@@ -112,6 +116,15 @@ type Props = {
   hint?: ReactNode;
   articleTopic?: DashboardSectionId;
   className?: string;
+  /** Render the title as a real heading at this level instead of a plain `<span>`.
+   *
+   *  Opt-in rather than default because this component has ~186 call sites at several
+   *  nesting depths, so a blanket `<h2>` would be wrong somewhere — but a page whose
+   *  sections ARE the top-level structure under its `<h1>` should pass 2, or its
+   *  section titles are invisible to heading navigation and its outline skips a level.
+   *  The `<section>` is named via `aria-labelledby` either way, so it is exposed as a
+   *  landmark even when the title stays a span. */
+  headingLevel?: 2 | 3;
 };
 
 /** The decorative rule that trails a section label — or a voting-track pill, which is
@@ -125,6 +138,18 @@ export const SectionRule: FC = () => (
   />
 );
 
+/** Whether a child can contribute anything to the section.
+ *
+ *  ⚠️ This CANNOT see through a component boundary: `<SomeTile />` is a valid element
+ *  and returns `true` here even when SomeTile renders `null` for the current data. A
+ *  section whose children ALL self-hide therefore renders its heading above nothing —
+ *  the orphaned-header shape. Such callers must gate the whole `<DashboardSection>`
+ *  themselves, on the same predicate the tiles hide on — which is an empty ARRAY,
+ *  usually, and not merely a non-null container.
+ *
+ *  The null/undefined/false branch is belt-and-braces: `Children.toArray` has already
+ *  stripped those before this runs, so do not "simplify" the filter on the assumption
+ *  that this is what does the stripping. */
 const isRenderable = (node: ReactNode): boolean => {
   if (node === null || node === undefined || node === false) return false;
   if (Array.isArray(node)) return node.some(isRenderable);
@@ -140,15 +165,31 @@ export const DashboardSection: FC<PropsWithChildren<Props>> = ({
   hint,
   articleTopic,
   className,
+  headingLevel,
   children,
 }) => {
   const renderable = Children.toArray(children).filter(isRenderable);
   if (renderable.length === 0) return null;
 
+  // The section's accessible name. Derived from `id` so it is unique per page without a
+  // second prop, and emitted only when there is a title to point at — an aria-labelledby
+  // referencing a missing node names the section "" rather than leaving it unnamed.
+  const titleId = title ? `${id}-title` : undefined;
+  const Heading =
+    headingLevel === 2 ? "h2" : headingLevel === 3 ? "h3" : "span";
+
   const titleRow = title ? (
     <div className="flex shrink-0 items-center gap-2 text-sm font-semibold uppercase tracking-[0.12em] text-muted-foreground">
       {Icon ? <Icon className="h-4 w-4" /> : null}
-      <span>{title}</span>
+      {/* `font-sans` is load-bearing, not decorative: src/index.css styles `h1,h2,h3`
+          with the DISPLAY serif, so promoting this span to a heading would silently
+          switch every section kicker on the site from Inter to Fraunces. Tailwind's
+          preflight already resets a heading's size/weight/margin to inherit, so the
+          wrapper keeps owning the rest of the type scale and opting into a heading
+          changes semantics ONLY. */}
+      <Heading id={titleId} className="font-sans">
+        {title}
+      </Heading>
     </div>
   ) : null;
 
@@ -171,6 +212,7 @@ export const DashboardSection: FC<PropsWithChildren<Props>> = ({
     <section
       id={id}
       data-dashboard-section={id}
+      aria-labelledby={titleId}
       // scroll-mt-20 keeps the heading clear of the sticky page header when
       // the section is scrolled into view via a `#anchor` deep link (see
       // useHashScroll). Without it the section title sits behind the header.
