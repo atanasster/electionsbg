@@ -577,6 +577,45 @@ extractor, are published on the same card, and have had no equivalent adjudicati
 property count fails in both directions is evidence about the extractor, not only about one
 of its fields.
 
+### The backfill, as it actually landed (2026-08-25)
+
+The crawl ran to completion: **51,005 of 51,040 filings cached in 202.8 minutes** at ~4.2/s,
+concurrency 4. **35 failures, every one an HTTP 404** — files the register's own index lists
+but does not serve, clustered in 2017-2019 (the acceleration in the failure rate around
+filing 37,000 is the crawl reaching those years, not the register degrading; a mid-run probe
+returned a known PDF at 200 in 1.6 s).
+
+| | |
+|---|---|
+| filings parsed into Postgres | **36,995** of the 37,023 the roster publishes |
+| property rows stored | **11,584** — 9,398 acquisitions, 2,186 disposals |
+| positionally exact (may show a price) | **10,489 (90.5%)** |
+| magistrates with at least one property row | **2,488** |
+| magistrates with ≥1 readable filing | **3,593 of 3,594** |
+| Таблица 1 refusals | 21,589 |
+
+**The form-version split, now measured rather than estimated.** The Tier-2 note put the
+pre-v3.0 share at 61% from a stratified sample; the full corpus gives the breakdown:
+
+| version | filings | |
+|---|---|---|
+| **3.0** | 15,409 | supported |
+| 2.2 / 2.1 / 2.0 | 18,021 | backlog — different column order, deliberately unmapped |
+| none detected | 3,364 | backlog |
+| **4.0** | **201** | **forward gap — 5.5% of 2026, growing** |
+
+⚠️ **A gate written against the COMBINED refusal share is worthless, and the first cut of one
+was.** It bounded total refusals at 25% and fired at 58.3% the moment the full corpus landed —
+on a corpus with no forward problem at all, because the static backlog dominates the ratio. It
+now bounds the NEWEST season's share of filings on a version *newer* than supported: 5.5%
+today, 100% under a simulated completed migration, so it discriminates in the direction that
+matters and is silent about the one that does not.
+
+**Nothing about the headline counts moved.** Still 3,497 records with a read answer, 1,901
+properties against the heuristic's 1,653, 935 disagreeing — because every roster record's own
+filing is 2024-or-later, so the whole pre-v3.0 backlog is invisible to that figure. Predicted
+before the reload and confirmed after.
+
 ### Tier 4 — one career, one timeline
 
 Once magistrates have filings with dates, interleave the two registers chronologically on

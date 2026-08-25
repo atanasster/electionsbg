@@ -306,28 +306,47 @@ test("a filing the reader has NOT read leaves the count NULL, never 0", async ()
     );
 });
 
-test("the form-version refusal does not quietly become the majority answer", async () => {
+test("the parser does not fall behind a NEWER form the register has started issuing", async () => {
   if (skip) return;
-  // ⚠️ The parser accepts form v3.0 and refuses everything else, in BOTH directions. The
-  // pre-v3.0 backlog is static; the FORWARD half is not — the ИВСС began issuing v4.0 in
-  // 2026, and refusing is the DESIGNED behaviour, so the share can climb to 100% with every
-  // other gate green and nothing rendering a wrong number. This gate is the only thing that
-  // notices. When it fails, the fix is to MAP the new form (plan, Tier-2 validation), never
-  // to raise the threshold.
+  // ⚠️ THIS MEASURES THE FORWARD DIRECTION ONLY, AND THE DISTINCTION IS THE WHOLE POINT.
+  // declarationTables.ts accepts v3.0 and refuses everything else, which covers two
+  // completely different populations:
+  //
+  //   BACKWARD — v2.0/2.1/2.2 and the versionless older forms. Measured on the full corpus:
+  //     18,021 + 3,364 versionless of 36,995. A known, STATIC backlog whose column order is
+  //     different and deliberately unmapped (plan, Tier-2 validation). It shrinks in relevance
+  //     every year and no magistrate's own record depends on it — every roster record's own
+  //     filing is 2024-or-later.
+  //   FORWARD — v4.0, which the ИВСС began issuing during 2026: 201 filings, 5.5% of that
+  //     year. This one GROWS every filing season and lands on the most current declarations.
+  //
+  // An assertion over the COMBINED share is dominated by the backlog and says nothing about
+  // the gap that matters — a first cut of this gate did exactly that and fired at 58.3% on a
+  // corpus with no forward problem at all. So the bound is on the NEWEST year: if a majority
+  // of the latest season is on a form we refuse, the register has migrated and we have not.
+  // The fix when it fails is to MAP the new form, never to raise the threshold.
   const rows = await allRows<{ v: string; n: string }>(
     `SELECT COALESCE(form_version, '(none)') v, count(*)::text n
-       FROM magistrate_filing WHERE kind IS NOT NULL GROUP BY 1`,
+       FROM magistrate_filing
+      WHERE kind IS NOT NULL
+        AND year = (SELECT max(year) FROM magistrate_filing WHERE kind IS NOT NULL)
+      GROUP BY 1`,
   );
   const total = rows.reduce((s, r) => s + Number(r.n), 0);
-  if (total < 500) return; // too little crawled to say anything
-  const refused = rows
-    .filter((r) => r.v !== "3.0")
+  if (total < 200) return; // too little of the latest season crawled to say anything
+
+  // Newer than the supported version — a versionless or older form is the backlog, not this.
+  const SUPPORTED = 3.0;
+  const ahead = rows
+    .filter((r) => r.v !== "(none)" && Number(r.v) > SUPPORTED)
     .reduce((s, r) => s + Number(r.n), 0);
-  const pct = (100 * refused) / total;
+  const pct = (100 * ahead) / total;
   assert.ok(
-    pct < 25,
-    `${refused}/${total} (${pct.toFixed(1)}%) of crawled filings are on a form version the ` +
-      `parser refuses — ${rows.map((r) => `${r.v}:${r.n}`).join(" ")}. Map the new form.`,
+    pct < 50,
+    `${ahead}/${total} (${pct.toFixed(1)}%) of the newest season's filings are on a form ` +
+      `version NEWER than the supported v${SUPPORTED.toFixed(1)} — ` +
+      `${rows.map((r) => `${r.v}:${r.n}`).join(" ")}. The register has moved on; map the ` +
+      `new form (plan, Tier-2 validation) rather than loosening this bound.`,
   );
 });
 
