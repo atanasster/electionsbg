@@ -21,7 +21,11 @@ export const TileHubGrid: FC<{
   sections: TileHubSection[];
   className?: string;
 }> = ({ sections, className }) => (
-  <div className={className}>
+  // `data-hub-grid` is a TEST HANDLE, and it earns its place: a hub's head and its grid both
+  // render links to the same destinations, so a gate asking „what does the tile for /x say"
+  // needs to exclude the head or it asserts against a KPI cell instead — silently, and while
+  // passing. See FundsHubCaptions.test.tsx.
+  <div className={className} data-hub-grid="">
     <div className="flex flex-col gap-7 sm:gap-10">
       {sections.map((section, i) => {
         const headingId = `tilehub-section-${i}`;

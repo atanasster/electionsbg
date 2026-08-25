@@ -32,68 +32,9 @@ import {
 } from "@/screens/governance/governanceRegistry";
 import { kpisFor, tileMetric } from "@/screens/funds/fundsHubFigures";
 import { FUNDS_BANDS } from "@/screens/funds/fundsRegistry";
-import type { FundsHubStats } from "@/data/funds/useFundsHubStats";
-import type { FundsIndexFile } from "@/data/funds/types";
 
 /** i18n stand-in: the key IS the string, so a clash below is a clash of FIGURES rather than of
  *  translated captions. */
-const id = (k: string): string => k;
-
-/** Measured against local Postgres 2026-08-25, so the clauses compare the strings the page
- *  actually renders. The two beneficiary counts are the point: 53 122 in `tiles` and 47 617 in
- *  `isun` are different fields for the same word, and it was the FORMER that appeared twice. */
-const FUNDS_STATS_FIXTURE = {
-  isun: {
-    contractCount: 82162,
-    beneficiaryCount: 47617,
-    beneficiaryCountEikOnly: 46192,
-    programmeCount: 47,
-    contractedEur: 44015477336.12,
-    grantEur: 33547016715.94,
-    paidEur: 18576652667.17,
-    absorptionPctOfGrant: 55.4,
-    absorptionPctOfContracted: 42.2,
-    placedContractedEur: 21991155879.58,
-    placedMoneyPct: 50.0,
-    oblastCount: 28,
-    settlementCount: 3279,
-  },
-  tiles: {
-    registerBeneficiaries: 53122,
-    highConcentrationProgrammes: 18,
-    politicalEiks: 279,
-    focusDossiers: 5,
-    dualCorpusCompanies: 5693,
-  },
-  rrf: {
-    contractCount: 14180,
-    contractedEur: 17572344268.62,
-    absorptionPctOfGrant: 33.5,
-  },
-  interreg: {
-    operationCount: 1958,
-    bgOperationCount: 1117,
-    bgPartnerRowCount: 1494,
-    bgPartnerOrgCount: 985,
-    bgBudgetEur: 401768494.91,
-  },
-} as unknown as FundsHubStats;
-
-const FUNDS_INDEX_FIXTURE = {
-  totals: {
-    beneficiaries: 53122,
-    withEik: 46231,
-    contractCount: 82162,
-    contractedEur: 44015477336.13,
-    paidEur: 18209693782.83,
-  },
-  crossReference: {
-    mpCount: 148,
-    beneficiaryCount: 331,
-    contractedEur: 1210000000,
-  },
-} as unknown as FundsIndexFile;
-
 const read = (p: string) => readFileSync(p, "utf8");
 
 /** Comment-blind scanning is how the h1 clause below produced its first FALSE POSITIVE: a
@@ -110,6 +51,13 @@ const stripJsx = (src: string) =>
     .replace(/\{\s*\/\*[\s\S]*?\*\/\s*\}/g, "")
     .replace(/\/\*[\s\S]*?\*\//g, "")
     .replace(/^[ \t]*\/\/.*$/gm, "");
+
+const id = (k: string): string => k;
+
+import {
+  FUNDS_STATS_FIXTURE,
+  FUNDS_INDEX_FIXTURE,
+} from "@/screens/funds/fundsHubStats.fixture";
 
 const HUB_SCREENS = [
   "src/screens/ProcurementScreen.tsx",

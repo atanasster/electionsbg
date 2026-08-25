@@ -10,6 +10,8 @@ import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { FUNDS_TILES } from "./fundsRegistry";
+import { tileMetric } from "./fundsHubFigures";
+import { FUNDS_STATS_FIXTURE as TILE_STATS } from "./fundsHubStats.fixture";
 import { bgCorpus as bg, enCorpus as en } from "@/locales/allKeys";
 
 const REPO = path.resolve(
@@ -137,6 +139,87 @@ describe("every money figure declares its basis", () => {
     expect((en as Record<string, string>)["funds_m_bg_projects"]).toMatch(
       /Bulgarian/,
     );
+  });
+
+  it("no metric caption merely restates its tile's own title, or is a bare noun", () => {
+    // A caption's job is the DENOMINATOR. „Програми" over „програми" is the degenerate case: it
+    // looked like a labelled figure and told a reader nothing — 47 is every ИСУН programme,
+    // including the Recovery Plan this same hub fronts as its own tile.
+    //
+    // ⚠ THE CAPTION KEY IS DERIVED FROM `tileMetric` ITSELF, not from a hand-written map. With
+    // a map, a tile id absent from it was silently `continue`d and the clause simply checked
+    // one thing fewer — the „green because it can no longer see its subject" failure, and the
+    // `>10` floor could not tell the difference. Calling the real function with an identity `t`
+    // returns the KEY, so the pairing cannot drift from what the screen renders.
+    //
+    // ⚠ WHAT THIS CANNOT DO: judge whether a multi-word caption names the RIGHT basis.
+    // „фирми в двата корпуса" was three words and still ambiguous (on this page „двата корпуса"
+    // reads as ИСУН + Interreg, which is what the head's own band distinguishes). That is a
+    // reading, not a rule; the clauses below cover the two cases that ARE mechanical.
+    const checked: string[] = [];
+    for (const tile of FUNDS_TILES) {
+      const capKey = tileMetric(
+        tile.id,
+        TILE_STATS,
+        "bg",
+        (k) => k,
+      )?.metricCaption;
+      // `beneficiaries` deliberately carries NO metric — its figure is in the head's KPI band —
+      // so it yields no caption here rather than needing an exemption by name.
+      if (!capKey) continue;
+      for (const [lang, bundle] of [
+        ["bg", bg],
+        ["en", en],
+      ] as const) {
+        const b = bundle as Record<string, string>;
+        const title = (b[tile.titleKey] ?? "").trim().toLowerCase();
+        const cap = (b[capKey] ?? "").trim().toLowerCase();
+        expect(title, `${lang} is missing ${tile.titleKey}`).toBeTruthy();
+        expect(cap, `${lang} is missing ${capKey}`).toBeTruthy();
+        expect(
+          cap,
+          `${lang}: tile „${title}" is captioned „${cap}" — the caption restates the title and names no basis`,
+        ).not.toBe(title);
+        // A single word cannot carry a denominator. „досиета" and „програми" both shipped.
+        expect(
+          cap.split(/\s+/).length,
+          `${lang}.${capKey} = „${cap}" is one word — a bare noun names no basis`,
+        ).toBeGreaterThan(1);
+        checked.push(`${lang}.${tile.id}`);
+      }
+    }
+    // Every tile that HAS a metric, in both languages. Derived, so this floor moves with the
+    // registry instead of having to be remembered.
+    const withMetric = FUNDS_TILES.filter(
+      (t) => tileMetric(t.id, TILE_STATS, "bg", (k) => k)?.metricCaption,
+    ).length;
+    expect(withMetric, "no tile produced a metric").toBeGreaterThan(5);
+    expect(checked.length).toBe(withMetric * 2);
+  });
+
+  it("no link figure is captioned as an allegation", () => {
+    // `politicalEiks` counts companies with a DECLARED link to a public figure — a fact about
+    // the registers. It was captioned „фирми със сигнал"; „сигнал" is an alert, i.e. a claim
+    // about conduct that no field in this corpus supports, printed against a count of named
+    // companies. The figure was right and the sentence was not.
+    const ALLEGATION =
+      /сигнал|нередност|нарушени|flag|irregular|suspect|alert/i;
+    for (const [lang, bundle] of [
+      ["bg", bg],
+      ["en", en],
+    ] as const) {
+      const v = (bundle as Record<string, string>)["funds_m_flagged"];
+      expect(v, `${lang} is missing funds_m_flagged`).toBeTruthy();
+      expect(
+        ALLEGATION.test(v),
+        `${lang}.funds_m_flagged = „${v}" reads as an allegation; the corpus records a link, not a finding`,
+      ).toBe(false);
+      // …and it must still say WHAT is counted, or it is a bare number.
+      expect(
+        /фигура|политик|public figure|politician/i.test(v),
+        `${lang}.funds_m_flagged = „${v}" names no basis for the count`,
+      ).toBe(true);
+    }
   });
 
   it("the places caption names that it is a SUBSET", () => {
