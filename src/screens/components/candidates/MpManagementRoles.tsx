@@ -1,5 +1,6 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { trRoleLabel } from "@/lib/trRole";
 import { ShieldCheck, ExternalLink, CheckCircle2, Circle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpManagement } from "@/data/parliament/useMpManagement";
@@ -22,12 +23,6 @@ const trStatusLabel = (status: string, t: (k: string) => string): string => {
     default:
       return status;
   }
-};
-
-const trRoleLabel = (role: string, t: (k: string) => string): string => {
-  const key = `tr_role_${role}`;
-  const translated = t(key);
-  return translated && translated !== key ? translated : role;
 };
 
 type GroupedRole = {

@@ -42,7 +42,7 @@ import { useScope } from "@/data/scope/useScope";
 import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import { trRoleLabel } from "@/lib/trRole";
+import { trRoleLabel, trRoleList } from "@/lib/trRole";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 import { StatCard } from "../dashboard/StatCard";
@@ -59,6 +59,7 @@ import {
   PersonAssociatesTile,
   type Associate,
 } from "../components/procurement/PersonAssociatesTile";
+import { EvidenceBasis } from "../components/procurement/EvidenceBasis";
 import { PersonTimelineTile } from "../components/procurement/PersonTimelineTile";
 import {
   PersonProcurementBreakdownTile,
@@ -157,6 +158,31 @@ const chipTone = {
     "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
   muted: "bg-muted text-muted-foreground",
 } as const;
+
+/** The politician's role in the shared company, rendered for a reader.
+ *
+ *  `company_politicians.role` mixes TWO vocabularies, because the table has two arms
+ *  (see `armSql` in load_tr_pg.ts): registry codes from `person_role` (`manager`,
+ *  `partner`, `director`, …), which `trRoleLabel` already translates, and the two
+ *  DECLARATION codes `stake` / `declared_role`, which it does not — they are not
+ *  Търговски регистър roles at all, so giving them `tr_role_*` keys would file them
+ *  under the wrong vocabulary. Before this, those fell through `trRoleLabel`'s
+ *  raw-code fallback and showed a Bulgarian reader an English token — 96 of the
+ *  table's 982 rows (measured 2026-08-25: stake 74, declared_role 22).
+ *
+ *  Naming the declaration arm explicitly also earns its keep here specifically: a
+ *  declared stake is exactly the edge the card's basis line says the registry check
+ *  above cannot see, so labelling it makes that difference visible per row rather than
+ *  only in the caveat. */
+const politicianRoleLabel = (
+  role: string | null,
+  t: TFunction,
+): string | null => {
+  if (!role) return null;
+  if (role === "stake") return "декларирано дялово участие";
+  if (role === "declared_role") return "декларирана длъжност";
+  return trRoleLabel(role, t);
+};
 
 /** Shared row renderer for the owns/manages participations tables.
  *
@@ -418,15 +444,23 @@ export const PersonScreen: FC = () => {
     byCompany.length > 0 ||
     bySettlement.length > 0;
 
-  // Custom connection check (unchanged).
+  // Custom connection check.
   const [other, setOther] = useState("");
   const [conn, setConn] = useState<ConnRow[] | null>(null);
   const [connLoading, setConnLoading] = useState(false);
+  /** The name the LAST completed check actually queried — trimmed, and frozen at
+   *  submit. The result copy names both people, and a result must name what was
+   *  searched rather than what the box currently holds: rendering `other` puts the
+   *  user's stray whitespace inside the quotes of a sentence about a named individual,
+   *  and keeps re-labelling a settled result as they type the next query. Same reason
+   *  `CompanyConnectionCheck` keeps its own `queried`. */
+  const [queried, setQueried] = useState("");
   const checkConnection = useCallback(() => {
     const b = other.trim();
     if (!b) return;
     setConnLoading(true);
     setConn(null);
+    setQueried(b);
     fetch(
       `/api/db/connection?a=${encodeURIComponent(person)}&b=${encodeURIComponent(b)}`,
     )
@@ -736,55 +770,17 @@ export const PersonScreen: FC = () => {
             icon={Users}
             headingLevel={2}
           >
-            {/* Inner circle */}
+            {/* Ordered by EVIDENCE, not by topic. The first two blocks read the same
+                edge — co-entry in tr_officers — so they sit adjacent and the check
+                below reads as "the same question, for a name you choose". Политически
+                връзки reads a different table with a different population, so it comes
+                last and says so, rather than looking like a third view of one dataset.
+                (The timeline that used to separate these three now lives in the Фирми
+                section, beside the participations it plots.) */}
             <PersonAssociatesTile associates={associates} />
 
-            {/* Political connections */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Landmark className="h-4 w-4" /> Политически връзки (
-                  {num.format(politicians.length)})
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {politicians.length === 0 ? (
-                  <div className="text-sm text-muted-foreground">
-                    Няма установени връзки с политици през общите фирми.
-                  </div>
-                ) : (
-                  <ul className="space-y-2">
-                    {politicians.map((p, i) => (
-                      <li key={`${p.ref}-${i}`} className="text-sm">
-                        <Link
-                          to={p.ref}
-                          className="font-medium text-accent hover:underline"
-                        >
-                          {p.politician}
-                        </Link>
-                        <span className="text-muted-foreground">
-                          {" "}
-                          · {p.kind === "mp" ? "депутат" : "служител"}
-                          {p.role ? ` · ${p.role}` : ""} · през{" "}
-                          <Link
-                            to={`/company/${p.via_eik}`}
-                            className="hover:underline"
-                          >
-                            {decodeEntities(p.via_company) || p.via_eik}
-                          </Link>
-                          {p.total_eur ? ` · ${formatEur(p.total_eur)}` : ""}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Custom connection check. Sits with the two blocks above because a
-                reader asks one question here; the timeline that used to separate
-                them now lives in the Фирми section with the participations it
-                plots. */}
+            {/* The connection check — same edge as the tile above, for one typed name,
+                and WITHOUT its two exclusions (no mega-hub cut, no entity-name filter). */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-base">
@@ -792,6 +788,16 @@ export const PersonScreen: FC = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
+                {/* Bilingual, unlike the rest of this legacy screen's hardcoded
+                    Bulgarian, because the three basis lines exist specifically to be
+                    COMPARED with one another and PersonAssociatesTile's is already
+                    bg/en — so on /en a monolingual line here would put the comparison
+                    half in each language and defeat the section's whole point. */}
+                <EvidenceBasis>
+                  {bg
+                    ? "Търси същото, което стои зад „Кръг от партньори“ — съвместно вписване в Търговския регистър — но за име по ваш избор и без изключенията там."
+                    : "Searches the same edge as “Inner circle” — co-entry in the Commerce Registry — but for a name you choose, and without the exclusions applied there."}
+                </EvidenceBasis>
                 <div className="mb-3 flex gap-2">
                   <Input
                     value={other}
@@ -806,8 +812,39 @@ export const PersonScreen: FC = () => {
                 </div>
                 {conn !== null &&
                   (conn.length === 0 ? (
-                    <div className="text-sm text-muted-foreground">
-                      Няма общи фирми между „{person}“ и „{other}“.
+                    /* The correctness fix of this tier. „Няма общи фирми" reads as
+                       „these two are not connected", which this query cannot
+                       establish — and the gap is far wider than it looks. TWO things
+                       make a miss weak, and the SMALLER one is the tempting one to
+                       name: a declared stake is invisible here (96 rows), but our
+                       `tr_officers` copy of the registry carries officers for only
+                       419,660 of 1,022,592 companies (41%, measured 2026-08-25), so
+                       for the MAJORITY of firms this query is structurally incapable
+                       of finding a co-entry that exists in the real register. Hence
+                       „в нашите данни", not „в Търговския регистър".
+
+                       ⚠️ No percentage in the copy, deliberately. Nothing serves that
+                       ratio, so a figure written here could only be a literal — and
+                       the „над 300 фирми" line one card up is this tier's own proof
+                       that a hard-coded number in prose goes stale into a false claim.
+                       Give it a served figure before giving it a number. */
+                    <div className="space-y-1 text-sm text-muted-foreground">
+                      <div>
+                        В нашите данни от Търговския регистър „{person}“ и „
+                        {queried}“ не се срещат заедно в нито една фирма.
+                      </div>
+                      <div>
+                        Това не значи, че връзка няма. Разполагаме с вписани
+                        лица за част от фирмите, а декларирани дялове и
+                        длъжности регистърът невинаги отразява. Виж{" "}
+                        <a
+                          href="#person-political-links"
+                          className="text-accent underline hover:text-foreground"
+                        >
+                          „Политически връзки“
+                        </a>{" "}
+                        по-долу, което ги обхваща.
+                      </div>
                     </div>
                   ) : (
                     <div className="text-sm">
@@ -825,13 +862,83 @@ export const PersonScreen: FC = () => {
                             </Link>
                             <span className="text-muted-foreground">
                               {" "}
-                              — „{person}“: {c.a_roles} · „{other}“: {c.b_roles}
+                              {/* `|| "—"` because trRoleList returns "" for no roles
+                                  and leaves the choice to the caller — interpolated
+                                  bare, that renders a dangling „Иван“:  · here. */}
+                              — „{person}“: {trRoleList(c.a_roles, t) || "—"} ·
+                              „{queried}“: {trRoleList(c.b_roles, t) || "—"}
                             </span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   ))}
+              </CardContent>
+            </Card>
+
+            {/* Political connections. `id` is the anchor the negative result above
+                points at, so it must not be renamed without following that link.
+                `tabIndex={-1}` makes following it move FOCUS as well as scroll —
+                without it a keyboard or screen-reader user is jumped to a position
+                with no reading point, which is the half of an in-page anchor that is
+                easy to ship untested. */}
+            <Card
+              id="person-political-links"
+              tabIndex={-1}
+              className="scroll-mt-20"
+            >
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Landmark className="h-4 w-4" /> Политически връзки (
+                  {num.format(politicians.length)})
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/* „и длъжности" is not padding: the declaration arm emits TWO codes
+                    (`stake` 74, `declared_role` 22 — load_tr_pg.ts's `stake_kind`
+                    CASE), and `politicianRoleLabel` renders both, so a basis naming
+                    only stakes leaves „декларирана длъжност" rows unexplained.
+                    „невинаги отразява" rather than „не се вписват" because an ООД
+                    съдружник's stake IS in the register — it is АД shareholdings and
+                    declared positions that reliably are not. */}
+                <EvidenceBasis>
+                  {bg
+                    ? "Различна основа от двата блока по-горе. Обхваща и декларирани дялове и длъжности, които регистърът невинаги отразява — но само за фирми, спечелили обществени поръчки."
+                    : "A different basis from the two blocks above. It also covers declared holdings and positions, which the registry does not always record — but only for companies that have won public contracts."}
+                </EvidenceBasis>
+                {politicians.length === 0 ? (
+                  <div className="text-sm text-muted-foreground">
+                    Няма установени връзки с политици през общите фирми.
+                  </div>
+                ) : (
+                  <ul className="space-y-2">
+                    {politicians.map((p, i) => {
+                      const roleLabel = politicianRoleLabel(p.role, t);
+                      return (
+                        <li key={`${p.ref}-${i}`} className="text-sm">
+                          <Link
+                            to={p.ref}
+                            className="font-medium text-accent hover:underline"
+                          >
+                            {p.politician}
+                          </Link>
+                          <span className="text-muted-foreground">
+                            {" "}
+                            · {p.kind === "mp" ? "депутат" : "служител"}
+                            {roleLabel ? ` · ${roleLabel}` : ""} · през{" "}
+                            <Link
+                              to={`/company/${p.via_eik}`}
+                              className="hover:underline"
+                            >
+                              {decodeEntities(p.via_company) || p.via_eik}
+                            </Link>
+                            {p.total_eur ? ` · ${formatEur(p.total_eur)}` : ""}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </CardContent>
             </Card>
           </DashboardSection>

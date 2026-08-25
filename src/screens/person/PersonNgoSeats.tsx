@@ -26,7 +26,7 @@ import { NameMatchDisclosure } from "@/screens/components/NameMatchDisclosure";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card, CardContent } from "@/ux/Card";
 import { decodeEntities } from "@/lib/decodeEntities";
-import { trRoleLabel } from "@/lib/trRole";
+import { trRoleList } from "@/lib/trRole";
 import type { NgoSeat } from "./usePersonProfile";
 
 export const PersonNgoSeats: FC<{
@@ -72,7 +72,7 @@ export const PersonNgoSeats: FC<{
                     row inside it is still matched on name. */}
                 {isNameMatch(n.linkBasis) && <LinkBasisMark label={namesake} />}
                 <span className="block text-xs text-muted-foreground">
-                  {n.roles.map((r) => trRoleLabel(r, t)).join(", ")}
+                  {trRoleList(n.roles, t)}
                 </span>
               </span>
             </div>

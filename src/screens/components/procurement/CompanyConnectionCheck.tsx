@@ -11,7 +11,7 @@ import { Link2, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { trRoleLabel } from "@/lib/trRole";
+import { trRoleList } from "@/lib/trRole";
 import { decodeEntities } from "@/lib/decodeEntities";
 
 interface DirectRow {
@@ -51,13 +51,6 @@ export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
   const [result, setResult] = useState<ConnResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [queried, setQueried] = useState("");
-
-  const rolesLabel = (roles: string | null): string =>
-    (roles ?? "")
-      .split(",")
-      .map((r) => trRoleLabel(r.trim(), t))
-      .filter(Boolean)
-      .join(", ");
 
   const check = useCallback(() => {
     const person = name.trim();
@@ -136,7 +129,7 @@ export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
                 </Link>
                 “ {t("company_conn_check_direct") || "е"}{" "}
                 <span className="text-foreground">
-                  {rolesLabel(result.direct[0].roles)}
+                  {trRoleList(result.direct[0].roles, t)}
                 </span>{" "}
                 {t("company_conn_check_here") || "в тази фирма"}
                 {result.direct[0].active ? "" : " (бивш)"}.

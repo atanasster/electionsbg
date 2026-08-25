@@ -48,7 +48,7 @@ import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card, CardContent } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
-import { trRoleLabel } from "@/lib/trRole";
+import { trRoleList } from "@/lib/trRole";
 import type { ProfileCompany } from "./usePersonProfile";
 import {
   useDeclaredStakeStatus,
@@ -300,7 +300,7 @@ export const PersonCompanies: FC<{
                       <LinkBasisMark label={namesake} />
                     )}
                     <span className="block text-xs text-muted-foreground">
-                      {c.roles.map((r) => trRoleLabel(r, t)).join(", ")}
+                      {trRoleList(c.roles, t)}
                     </span>
                   </span>
                   <CompanyMoney c={c} />

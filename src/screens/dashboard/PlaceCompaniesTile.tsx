@@ -22,6 +22,7 @@ import {
   type PlaceCompany,
 } from "@/data/parliament/usePlaceCompanies";
 import { formatEurCompact } from "@/lib/currency";
+import { trRoleList } from "@/lib/trRole";
 import { decodeEntities } from "@/lib/decodeEntities";
 
 const SOFIA_EKATTE = "68134";
@@ -43,12 +44,6 @@ const SkeletonState: FC = () => (
     </CardContent>
   </Card>
 );
-
-const trRoleLabel = (role: string, t: (k: string) => string): string => {
-  const key = `tr_role_${role.trim()}`;
-  const translated = t(key);
-  return translated && translated !== key ? translated : role.trim();
-};
 
 const CompanyRow: FC<{ row: PlaceCompany }> = ({ row }) => {
   const { t, i18n } = useTranslation();
@@ -79,13 +74,7 @@ const CompanyRow: FC<{ row: PlaceCompany }> = ({ row }) => {
                   {i > 0 && " · "}
                   {o.name}
                   {o.roles && (
-                    <span className="italic">
-                      {" "}
-                      {o.roles
-                        .split(",")
-                        .map((r) => trRoleLabel(r, t))
-                        .join(", ")}
-                    </span>
+                    <span className="italic"> {trRoleList(o.roles, t)}</span>
                   )}
                 </span>
               ))}
