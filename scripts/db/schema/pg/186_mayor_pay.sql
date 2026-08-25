@@ -61,13 +61,23 @@
 -- a rendered label — see `mayor_pay_ranking`'s entry in
 -- `LISTING_LABEL_EXCEPTIONS` (scripts/db/tests/declaration_filed_position.data.test.ts) for
 -- why this does not route through `declared_label()`.
+--
+-- `declaration_id` is cast to `int`, not left as `declaration.declaration_id`'s native
+-- `bigint` — node-postgres parses a PG bigint (OID 20) as a JS STRING to avoid precision
+-- loss, and this pool registers no OID-20 type-parser override, so an uncast bigint here
+-- would serve as `"12345"` while every TS consumer declares `number`. `declaration_id` is a
+-- `bigserial` handed out well within int4 range, so the cast is lossless.
 
+-- DROP before CREATE: this function's OUT columns changed (declaration_id bigint -> int),
+-- and CREATE OR REPLACE cannot change a function's OUT-parameter row type (42P13) — see
+-- municipal_fiscal_ranking's identical note in 149_municipal_fiscal.sql.
+DROP FUNCTION IF EXISTS mayor_pay_ranking(int);
 CREATE OR REPLACE FUNCTION mayor_pay_ranking(
   p_limit int DEFAULT 300
 ) RETURNS TABLE (
   obshtina text, name_bg text, name_en text, oblast_code text,
   mayor_name text, mayor_slug text,
-  declaration_id bigint, fiscal_year int, source_url text,
+  declaration_id int, fiscal_year int, source_url text,
   income_eur double precision,
   population int,
   -- Deliberately INVERTED from every other per-capita figure on the site: a SMALL
@@ -94,7 +104,7 @@ CREATE OR REPLACE FUNCTION mayor_pay_ranking(
            di.eur_declarant AS income_eur
     FROM candidates c
     LEFT JOIN LATERAL (
-      SELECT d2.declaration_id, d2.fiscal_year, d2.source_url
+      SELECT d2.declaration_id::int AS declaration_id, d2.fiscal_year, d2.source_url
       FROM declaration d2
       WHERE d2.subject_ref = c.official_slug AND d2.tier = 'muni'
         AND d2.position_title = 'Кмет' AND d2.declaration_type = 'Annualy'

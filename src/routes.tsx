@@ -101,6 +101,11 @@ const GovernanceMunicipalFinanceScreen = lazy(() =>
     default: m.GovernanceMunicipalFinanceScreen,
   })),
 );
+const GovernanceMayorPayScreen = lazy(() =>
+  import("@/screens/governance/GovernanceMayorPayScreen").then((m) => ({
+    default: m.GovernanceMayorPayScreen,
+  })),
+);
 
 const AnalysisHubScreen = lazy(() =>
   import("@/screens/analysis/AnalysisHubScreen").then((m) => ({
@@ -1815,6 +1820,17 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <GovernanceMunicipalFinanceScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* Same static-path-above-the-catch-all reasoning as
+              governance/municipal-finance immediately above — without it,
+              governance/:id would swallow this path as an obshtina code. */}
+          <Route
+            path="governance/mayor-pay"
+            element={
+              <LayoutScreen>
+                <GovernanceMayorPayScreen />
               </LayoutScreen>
             }
           />
