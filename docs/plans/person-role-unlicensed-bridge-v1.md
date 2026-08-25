@@ -1,7 +1,13 @@
 # 443 unlicensed tr/ngo roles — the licence decayed under a correct attachment
 
-**Status:** **step 1 applied 2026-08-25** (082 `ngos.linkBasis` + `PersonNgoSeats` + the AI
-tool's fact qualifier). Steps 2–5 are still proposal — see §5/§6.
+**Status:** **implemented 2026-08-25, all five steps.** §5's recommendation (option A + B) is
+built: the licence is recorded on the role at attach time, the gate checks the stored fact,
+and a separate freshness gate reports the drift. §7 stands — no data repair was needed.
+
+The one thing that remains OPEN and is nobody's default: **the columns are NULL until the
+next `db:resolve:persons`**, because 081 ships no backfill by design. Until then the licence
+gate SKIPS (with a distinct, actionable reason) and the freshness gate carries the signal from
+the attached footprint instead. On Cloud SQL nothing has been applied at all.
 **Gate:** `scripts/db/tests/person_resolve.data.test.ts` → `every tr/ngo role is a licensed bridge (A, B or V)`
 **Measured:** 2026-08-25, local Postgres (5433), `main` at `2d91593523`.
 
@@ -26,9 +32,26 @@ It fails **safe** while unapplied (absent basis → `isNameMatch` → every seat
 caveated), so the cost of forgetting is that the 57 genuinely register-confirmed seats stay
 wrongly caveated — not that anything is over-claimed.
 
+### What landed, step by step
+
+| step | commit | what |
+| --- | --- | --- |
+| 1 | `db83ea49` | 082 emits `linkBasis` for `ngos`; `PersonNgoSeats` + shared `NameMatchDisclosure`; the AI tool qualifies its fact key |
+| 2 | `623d45c0` | `person_role.bridge` / `bridge_footprint` (081), no backfill; constraint semantics gated by insertion |
+| 3 | `b7447a5b` | all three writers stamp the licence at attach time; static copyRows gate (the only CI-visible one) |
+| 4 | `8106e014` | the licence gate reads the stored fact + the same-vintage identity-class half; skips on an unstamped corpus |
+| 5 | `—` | `person_role_bridge_freshness.data.test.ts` — the drift measurement, thresholded on the share over the cap |
+
+**The `FOOTPRINT_CAP` was not touched**, and neither bridge was widened. Nothing was repaired
+in the data: every one of the 443 roles was correctly licensed when attached, and re-resolving
+would DELETE the 58 Tier-V people behind most of them (their folds now measure 6–11, so they
+would not be minted), which is a worse outcome than the drift.
+
 ```bash
 PGPASSFILE=$PWD/.pgpass npx vitest run scripts/db/tests/person_resolve.data.test.ts
 ```
+
+**As first observed on 2026-08-25, before step 4:**
 
 ```
 AssertionError: found an unlicensed tr/ngo role
@@ -36,6 +59,11 @@ AssertionError: found an unlicensed tr/ngo role
 ```
 
 Consistent — alone and in the full suite. Not the load-flakiness class.
+
+⚠️ **That is a historical transcript, not the gate's current output.** Since step 4 the licence
+gate reads the stored fact and SKIPS on a corpus no resolve has stamped, and the drift it used
+to mis-report as 443 red roles is published by the freshness gate instead: *82,247 licensed
+people; 687 drifted upward; 63 now over FOOTPRINT_CAP=5 (0.077%, threshold 1.0%)*.
 
 ---
 
@@ -474,13 +502,22 @@ people affected                                                → M
 max drift (current − stored)                                   → K
 ```
 
-Fail only when this exceeds a bound argued from the data. A defensible bound: **`K` (max
-drift) rather than `N`.** Today `N = 443` and `K = 6` (Радев 5→6 is K=1; the worst is a fold
-at 11 against a stored 5). `N` scales with corpus size and with how long since the last
-resolve, so a threshold on it is a threshold on operational tempo. `K` scales with *how wrong
-a single attribution could be* — a fold that has doubled is a different claim from one that
-gained a company — which is the thing worth gating. Whatever bound is chosen, the plan should
-state what it makes true, not what it makes green.
+Fail only when this exceeds a bound argued from the data. `N` scales with corpus size and with
+how long since the last resolve, so a threshold on it is a threshold on operational tempo.
+`K` scales with *how wrong a single attribution could be*, which is closer to the thing worth
+gating.
+
+**⚠️ SHIPPED WITH A THIRD STATISTIC, AND THE REASON IS WORTH RECORDING.** Neither `N` nor `K`
+is what the failure sentence is about. `K` is a MAX — a single-row order statistic that one
+outlier pins, so it says nothing about how much of the layer is affected (today `K = 7`, set
+by one person). What the gate actually needs to assert is "the person layer is now too far
+behind its licensing inputs to trust", and the quantity that means is **the SHARE of the layer
+whose licence premise no longer holds** — i.e. people now over `FOOTPRINT_CAP`. That is a
+population statistic, it is the precise event that invalidates a licence, and it is
+insensitive to the benign drift that dominates (642 of 687 drifted people gained exactly one
+company). Threshold 1%, against 0.077% measured — argued in full in the gate's own header,
+including what the number makes TRUE: roughly a fortnight of daily TR refreshes before a
+re-resolve is demanded.
 
 **Gate 3 — the caveat gap (§3.2), separately.** Assert that a person whose tr/ngo roles are
 all `bridge IN ('B','V')` renders an identity caveat. Today a Bridge-B public figure renders

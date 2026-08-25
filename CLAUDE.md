@@ -3882,18 +3882,23 @@ is TRUNCATE-and-reload with no history, and `ingest_first_seen` records new COMP
 is blind to a fold gaining an officer row at one that already existed). So the columns stay
 NULL until the next `db:resolve:persons`.
 
-⚠️ **NOTHING READS THEM YET.** `person_resolve.data.test.ts` is UNCHANGED and still
-re-derives each licence at test time, so it is **still red at 443** — rewriting it to read
-the stored value is step 4 of the plan and is not written. Do not read this section as
-describing a working gate; the columns are the substrate for one. Why they exist at all:
-that gate re-derives from seven tables which reload independently of `person_role`, so it
-asserts that two corpora are the same vintage rather than an invariant — and it went red
-purely because `db:load:tr:pg` ran two days after the last resolve, with the resolver
-blameless (no person in the whole layer has ever held more than `FOOTPRINT_CAP` distinct
-EIKs). Plan: `docs/plans/person-role-unlicensed-bridge-v1.md`. The one gate that exists
-today is `person_role_bridge.data.test.ts` (schema + constraint semantics, pinned by
-inserting each row shape — a CHECK that fails open on NULL looks identical to a correct one
-in review) plus `resolve_persons_bridge_columns.test.ts` (the copyRows list, in CI).
+**Why they exist, and the two questions they separate.** `person_resolve.data.test.ts` used
+to re-derive each licence from seven tables that reload independently of `person_role`, so it
+asserted that two corpora were the same vintage rather than an invariant — and went red at
+443 roles purely because `db:load:tr:pg` ran two days after the last resolve, with the
+resolver blameless (no person in the whole layer has ever held more than `FOOTPRINT_CAP`
+distinct EIKs). It now asks "was this licensed WHEN ATTACHED?" against the stored value, and
+skips with its own reason on a corpus no resolve has stamped.
+`person_role_bridge_freshness.data.test.ts` asks the other half — "do those licences still
+rest on premises that hold?" — prints the drift on every run, and fails only past a share
+argued from the measured distribution. It needs no stamped column (it falls back to the
+attached footprint), so the signal survives the gap before the first resolve.
+
+Four gates, and only one runs in CI: `person_resolve` (stored licence + identity class),
+`person_role_bridge` (schema + constraint semantics, pinned by inserting each row shape — a
+CHECK that fails open on NULL looks identical to a correct one in review),
+`person_role_bridge_freshness` (drift), and `resolve_persons_bridge_columns.test.ts` — the
+copyRows list, static over the source, and the only one that needs no Postgres.
 
 ### The visibility map a TRUNCATE-reload throws away — and the one cloud repair it needs
 

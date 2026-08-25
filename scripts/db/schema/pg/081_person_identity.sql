@@ -328,13 +328,12 @@ EXCEPTION WHEN undefined_object THEN NULL; END $$;
 -- value from today's tables would store a number nobody observed and then let a gate assert
 -- it as an observation. So the column stays NULL until the next `db:resolve:persons`.
 --
--- What reads it, and when: `person_resolve.data.test.ts` checks the stored licence and SKIPS
--- on an all-NULL corpus with its own distinct reason (step 4, landed 2026-08-25). The
--- freshness gate that measures how far the corpus has moved UNDER those licences —
--- `person_role_bridge_freshness.data.test.ts`, step 5 — is NOT YET WRITTEN, so until it lands
--- nothing reports the drift this plan diagnosed. Flip this sentence when it does; a schema
--- comment asserting a gate nobody built is the defect class this repo calls "rules written
--- here that were never turned into gates".
+-- What reads it: `person_resolve.data.test.ts` checks the stored licence and SKIPS on an
+-- all-NULL corpus with its own distinct reason, and `person_role_bridge_freshness.data.test.ts`
+-- measures how far the corpus has moved UNDER those licences. The second deliberately does NOT
+-- require these columns — it prefers the stored footprint and falls back to the attached one —
+-- because a drift gate that could not run until the first resolve would leave the signal this
+-- whole plan is about carried by nothing.
 --
 -- ⚠️ AND IT MUST BE IN resolve_persons.ts's `copyRows` LIST. `person` and `person_role` are
 -- DELETEd and rebuilt every run, so a column dropped from that list comes back NULL for every

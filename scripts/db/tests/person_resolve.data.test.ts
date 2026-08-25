@@ -147,8 +147,9 @@ test.skipIf(skip)(
 // the role by the writer that makes the attachment (081 person_role.bridge /
 // bridge_footprint) and checked here as a stored fact, which is time-invariant. Whether the
 // corpus has since MOVED under those licences is a different question, and a different gate:
-// person_role_bridge_freshness.data.test.ts — step 5 of the plan, NOT YET WRITTEN. Until it
-// lands, NOTHING carries the drift signal that this file used to report as 443 red roles.
+// person_role_bridge_freshness.data.test.ts, which reports the drift this file used to report
+// as 443 red roles — 82,247 licensed people, 63 of them now over the cap (0.077%) as of
+// 2026-08-25 — and fails only when the layer is too far behind to trust.
 //
 // ⚠️ IT SKIPS ON A CORPUS THAT HAS NOT BEEN RE-RESOLVED, with its own distinct reason. 081
 // ships no backfill (the vintage the resolver saw is unrecoverable), so `bridge` is NULL
