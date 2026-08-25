@@ -112,6 +112,19 @@ const KpiCell: FC<{ kpi: HubKpi; href: (to: To) => To }> = ({ kpi, href }) => {
   );
 };
 
+/** The band's own cell, with the figures not yet in. It is NOT a generic card: it reuses
+ *  KpiCell's `shell` and reserves the height its three lines occupy, so the band does not
+ *  change size when the payload lands. A skeleton rendered as a SIBLING of HubHead cannot do
+ *  that — the band lives in `lg:row-start-2` of the head's own grid, so an outside stand-in
+ *  sits somewhere else on lg and reserves the wrong space at every breakpoint. */
+const KpiCellSkeleton: FC = () => (
+  <div className="block bg-card px-4 py-3.5" aria-hidden>
+    <span className="block h-6 w-24 animate-pulse rounded bg-muted xl:h-7" />
+    <span className="mt-2 block h-3.5 w-20 animate-pulse rounded bg-muted" />
+    <span className="mt-1.5 block h-2.5 w-28 animate-pulse rounded bg-muted" />
+  </div>
+);
+
 export const HubHead: FC<{
   /** Module kicker, e.g. „ОБЩЕСТВЕНИ ПОРЪЧКИ". */
   eyebrow: string;
@@ -129,6 +142,9 @@ export const HubHead: FC<{
   /** 3–5 figures. Read from the SAME blob the tiles read; a band that needs its own fetch has
    *  become a sub-page. */
   kpis?: HubKpi[];
+  /** How many placeholder cells to stand in the band's slot while `kpis` is still loading.
+   *  Pass the count the loaded band will have, so the height reserved is the real one. */
+  kpisPending?: number;
   /** A ranked list, deliberately not a chart: vendor-charts is ~115 KB br and lazy, the entry
    *  budget is 56 000 B br, and a list is text — so it prerenders, translates, and is five more
    *  internal links. See §4.2. */
@@ -145,6 +161,7 @@ export const HubHead: FC<{
   scope,
   search,
   kpis,
+  kpisPending,
   evidence,
   kpiNote,
   className,
@@ -152,12 +169,13 @@ export const HubHead: FC<{
   const headHref = useHeadHref();
   // `basis` is typed as required, which enforces PRESENCE and not content — `basis: ""`
   // compiles and renders an empty span, i.e. exactly the state the field exists to prevent.
+  const bandCells = kpis && kpis.length > 0 ? kpis.length : (kpisPending ?? 0);
   if (import.meta.env.DEV && kpis?.some((k) => !k.basis.trim()))
     console.error(
       "[HubHead] a KPI has an empty `basis` — every figure in the band declares its window (SKILL.md §3.1 rule 2)",
     );
   return (
-    <div className={cn("mt-4", className)}>
+    <div className={cn("mt-4", className)} data-hub-head="">
       <SEO title={title} description={seoDescription} />
 
       {/* ONE grid, explicitly placed, so the DOM order is the MOBILE order: identity → KPI band
@@ -192,7 +210,7 @@ export const HubHead: FC<{
           {search ? <div className="mt-4">{search}</div> : null}
         </div>
 
-        {kpis && kpis.length > 0 ? (
+        {(kpis && kpis.length > 0) || kpisPending ? (
           <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2">
             {/* The track count follows the payload. A fixed sm:grid-cols-4 paints the unused
               tracks with the container's own bg-border — two solid slabs of divider colour
@@ -201,16 +219,20 @@ export const HubHead: FC<{
             <div
               className={cn(
                 "mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border",
-                kpis.length >= 4
+                bandCells >= 4
                   ? "sm:grid-cols-4"
-                  : kpis.length === 3
+                  : bandCells === 3
                     ? "sm:grid-cols-3"
                     : "sm:grid-cols-2",
               )}
             >
-              {kpis.map((kpi) => (
-                <KpiCell key={kpi.label} kpi={kpi} href={headHref} />
-              ))}
+              {kpis && kpis.length > 0
+                ? kpis.map((kpi) => (
+                    <KpiCell key={kpi.label} kpi={kpi} href={headHref} />
+                  ))
+                : Array.from({ length: bandCells }, (_, i) => (
+                    <KpiCellSkeleton key={i} />
+                  ))}
             </div>
             {kpiNote ? (
               <p className="mt-2 text-xs text-muted-foreground">{kpiNote}</p>
