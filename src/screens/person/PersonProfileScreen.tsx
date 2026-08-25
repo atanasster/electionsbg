@@ -8,7 +8,7 @@
 // miss falls back to the legacy portfolio screen (PersonScreen) so no inbound link breaks.
 // Only active + public-safe roles reach the payload (person_by_slug enforces §3/§6).
 
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   PersonProfile,
@@ -64,6 +64,7 @@ import { PersonScreen } from "@/screens/dev/PersonScreen";
 import { CandidateMpProvider } from "@/data/candidates/CandidateMpContext";
 import { useMpEntry } from "@/data/parliament/useMpEntry";
 import { useNoindex } from "@/lib/useNoindex";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
 const fmtElection = (d: string): string => {
@@ -87,7 +88,10 @@ const fmtElection = (d: string): string => {
 //
 // `null` for a non-MP is exactly the old no-provider behaviour, and any hook called with a
 // name that does not match `p.name` still falls back to the roster as before.
-export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
+export const PersonDashboard: FC<{ p: PersonProfile; breadcrumb?: ReactNode }> = ({
+  p,
+  breadcrumb,
+}) => {
   // The MP id (for the avatar photo + party ring) from an mp role, else a mp-{id} candidacy.
   //
   // The ref is '<mpId>' for an MP with no roll-call coverage and '<mpId>:<ns>'
@@ -117,15 +121,16 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         mpId != null ? { id: mpId, name: p.name, entry: mpEntry ?? null } : null
       }
     >
-      <PersonDashboardBody p={p} mpId={mpId} />
+      <PersonDashboardBody p={p} mpId={mpId} breadcrumb={breadcrumb} />
     </CandidateMpProvider>
   );
 };
 
-const PersonDashboardBody: FC<{ p: PersonProfile; mpId: number | null }> = ({
-  p,
-  mpId,
-}) => {
+const PersonDashboardBody: FC<{
+  p: PersonProfile;
+  mpId: number | null;
+  breadcrumb?: ReactNode;
+}> = ({ p, mpId, breadcrumb }) => {
   const { t, i18n } = useTranslation();
 
   // NOINDEX the non-public served pages (S5). A verified private owner (is_public_figure=false,
@@ -297,6 +302,11 @@ const PersonDashboardBody: FC<{ p: PersonProfile; mpId: number | null }> = ({
 
   return (
     <div className="w-full px-3 py-3 space-y-4">
+      {/* Hierarchy breadcrumb — only set on the canonical /person/:slug entry route
+          (PersonProfileScreen). /candidate/:id renders this same shared dashboard
+          under an elections-framed URL and passes none, so it stays unbreadcrumbed
+          rather than misleadingly claiming a governance parent. */}
+      {breadcrumb}
       {/* Header — identity, party badge, compact MP bio */}
       <PersonHeader p={p} mpId={mpId} />
 
@@ -754,5 +764,16 @@ export const PersonProfileScreen: FC = () => {
   // Legacy name-keyed links (magistrate holdings, connection checks, associates) fall
   // through to the portfolio dashboard so nothing breaks.
   if (state.status === "missing") return <PersonScreen />;
-  return <PersonDashboard p={state.profile} />;
+  return (
+    <PersonDashboard
+      p={state.profile}
+      breadcrumb={
+        <GovernanceBreadcrumb
+          sectionKey="persons_title"
+          sectionTo="/persons"
+          current={state.profile.name}
+        />
+      }
+    />
+  );
 };
