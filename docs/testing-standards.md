@@ -6,10 +6,10 @@ subsystem tests the same way.
 
 ## The two layers
 
-| Layer | Runner | Scope | Command |
-| --- | --- | --- | --- |
-| Unit + component | **Vitest** | pure functions, data transforms, resolver/matching logic, SQL-payload shape, React hooks/tiles | `npm run test:unit` |
-| End-to-end / SEO / perf | **Playwright** | prerendered HTML, route smoke, resource budgets, responsive layout | `npm test` |
+| Layer                   | Runner         | Scope                                                                                          | Command             |
+| ----------------------- | -------------- | ---------------------------------------------------------------------------------------------- | ------------------- |
+| Unit + component        | **Vitest**     | pure functions, data transforms, resolver/matching logic, SQL-payload shape, React hooks/tiles | `npm run test:unit` |
+| End-to-end / SEO / perf | **Playwright** | prerendered HTML, route smoke, resource budgets, responsive layout                             | `npm test`          |
 
 Vitest is the unit/component runner because it is Vite-native: it reuses the
 `@/*` alias (via `vite-tsconfig-paths`, reading the same tsconfig the app build
@@ -119,9 +119,10 @@ so a test that forgets to stub fails loudly instead of hitting GCS.
 Stub `fetch` per case and drive hooks through a real `QueryClientProvider`:
 
 ```ts
-vi.spyOn(globalThis, "fetch").mockResolvedValue(
-  { ok: true, json: async () => ({ id: "42" }) } as Response,
-);
+vi.spyOn(globalThis, "fetch").mockResolvedValue({
+  ok: true,
+  json: async () => ({ id: "42" }),
+} as Response);
 ```
 
 See `src/data/fetchJson.test.tsx` for the full `renderHook` + `QueryClientProvider`
@@ -133,6 +134,35 @@ probe feeds `test.skipIf`), so `npm run test:unit` stays green on a fresh clone
 or in CI with no database. When Postgres is up they run for real. Run them on
 purpose with `npm run test:data`, or the golden/manifest comparisons with
 `npm run db:verify` (`DB_VERIFY=1`).
+
+**A gate that stands down must SAY SO — `reportSkip` is not optional decoration.**
+Compute the reason as a value, then report it:
+
+```ts
+import { reportSkip } from "../../lib/report_skip";
+
+const skip = !haveDb
+  ? "Postgres unreachable"
+  : n === "0"
+    ? "adfi_inspection is empty — run npm run db:load:adfi:pg"
+    : false;
+reportSkip(import.meta.url, skip);
+
+test.skipIf(skip)("…", async () => { … });
+```
+
+⚠️ **`test.skipIf()` takes a CONDITION and records nothing.** A reason passed to it
+alone works correctly as a truthy value and is then discarded — which is how ~165 of
+these files came to compute a precise sentence and emit it nowhere. And `console.warn`
+is not a substitute: Vitest's default reporter intercepts `console.*` and prints none
+of it when piped, which is every CI run. `reportSkip` writes to `process.stderr`, which
+is not intercepted. Pass `import.meta.url`, never a hand-typed filename — the label is
+derived so it cannot drift from the file it names.
+
+Why it matters here specifically: CI runs `test:unit` with no database and no
+gitignored corpora, so **every** one of these gates skips on every push — measured
+2026-08-25, 162 files and 1,565 tests. Without the report, the log says `1565 skipped`
+and nothing else. Plan: `docs/plans/data-gate-skip-visibility-v1.md`.
 
 ## Fixtures
 
