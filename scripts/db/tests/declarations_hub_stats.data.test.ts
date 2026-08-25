@@ -15,6 +15,7 @@ import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const BLOB = "data/governance/declarations_hub_stats.json";
 
@@ -47,6 +48,10 @@ const skipBlob =
     ? "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats"
     : false);
 reportSkip(import.meta.url, skipBlob !== skipDb ? skipBlob : false);
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/governance/declarations_hub_stats.json");
 
 test.skipIf(skipBlob)(
   "the two MP registries are partitioned by ns — a whole-table count is never a figure",

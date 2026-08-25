@@ -70,6 +70,7 @@ import {
   type ElectionRef,
 } from "@/data/scope/windows";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 const readJson = <T>(rel: string): T =>
@@ -137,6 +138,10 @@ const NS_FROM = NS.from;
 // stand-in for „unbounded because something failed".
 const NS_TO = NS.to ?? "9999-12-31";
 if (!NS_FROM) throw new Error(`parliamentWindow could not date ${NS_ELECTION}`);
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/procurement/derived/sector_stats.json");
 
 describe("tourism sector — hub headline", () => {
   test("basis is 'budget' at every scope", () => {

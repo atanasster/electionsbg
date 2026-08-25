@@ -43,6 +43,7 @@ import {
 } from "../../../src/lib/declarations";
 import { isCarDescription } from "../../declarations/build_car_makes";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const require_ = createRequire(import.meta.url);
 const { DB_ROUTES } = require_("../../../functions/db_routes.js") as {
@@ -109,6 +110,14 @@ interface JsonDeclaration {
 // (1) The wealth figures reconcile to the SAME filing in the JSON shard once company
 // shares are excluded — i.e. the only difference between PG and the retiring JSON is the
 // documented table-10 fold, not an arithmetic or currency error.
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted(
+  "data/parliament/by-id",
+  "data/parliament/declarations",
+  "data/parliament/mp-assets",
+);
+
 test.skipIf(skip)(
   "leaderboard figures reconcile to the source filing, minus the table-10 stake fold",
   async () => {

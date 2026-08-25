@@ -47,6 +47,7 @@ import {
 } from "@/lib/regionalReferenceData";
 import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 const readJson = <T>(rel: string): T =>
@@ -97,6 +98,14 @@ const INVISIBLE = /[\p{Cf}͏︀-️]/gu;
 const HAS_INVISIBLE = /[\p{Cf}͏︀-️]/u;
 
 // ── the hub headline ───────────────────────────────────────────────────────
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted(
+  "data/budget/classification/admin.json",
+  "data/budget/classification/program.json",
+  "data/procurement/derived/sector_stats.json",
+);
 
 describe("regional sector — the hub headline is a BUDGET", () => {
   // No PG skip in this block: it reads the COMMITTED artifact, and a stale

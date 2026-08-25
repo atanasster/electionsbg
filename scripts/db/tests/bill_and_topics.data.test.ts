@@ -32,6 +32,7 @@ import { outcomeFor } from "../../parliament/derived/important_votes";
 import { outcomeBucket } from "../../../src/data/parliament/votes/outcomeBucket";
 import type { SessionFile } from "../../parliament/derived/types";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const SESSIONS = "data/parliament/votes/sessions";
 
@@ -53,6 +54,10 @@ const skipSessions = !existsSync(SESSIONS)
   : false;
 reportSkip(import.meta.url, skipDb);
 reportSkip(import.meta.url, skipSessions);
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/parliament/votes/sessions");
 
 test.skipIf(skipDb || skipSessions)(
   "bill holds exactly the set the /parliament tile counts",

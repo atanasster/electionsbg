@@ -32,6 +32,7 @@ import {
 } from "@/lib/cultureMatch";
 import type { CultureHubStats } from "@/data/culture/hubStats";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ARTIFACT = path.resolve(
   process.cwd(),
@@ -71,6 +72,10 @@ const near = (actual: number, stored: number, what: string) => {
 };
 
 const eiks = () => [...CULTURE_GROUP_EIKS];
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/culture/derived/hub_stats.json");
 
 test.skipIf(skip)("the procurement figures match the corpus", async () => {
   const b = blob();

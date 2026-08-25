@@ -9,6 +9,7 @@ import { describe, it, expect } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -22,6 +23,10 @@ const HEX64 = /\b[0-9a-f]{64}\b/;
 const H = (n: number): string => String(n).padStart(64, "0");
 const party = (name: string, hash: string, type: string): string =>
   `"Indent":[{"_":"${hash}"}],"Name":[{"_":"${name}"}],"IndentType":[{"_":"${type}"}]`;
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/person/tr_name_fold_people.tsv");
 
 describe("parties() counts people and only people", () => {
   it("takes EGN and ЛНЧ, and refuses UIC", async () => {

@@ -63,6 +63,7 @@ import { SECTOR_BROWSE_PACKS } from "@/screens/components/procurement/sectorPack
 import { NAP_EIK, TAX_REVENUE_GROUP, TAX_TYPES } from "@/lib/napReferenceData";
 import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { stripComments } from "../../lib/strip_comments";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 /** Read a TRACKED input, failing loudly if it is gone.
@@ -144,6 +145,15 @@ const agencyYears = (): BudgetYear[] =>
   );
 
 // ── the hub headline ───────────────────────────────────────────────────────
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy. Partly redundant with this file's own readTracked(), which also
+// throws on absence: kept so the rule stays total, and the two fail differently.
+assertCommitted(
+  "data/budget/agencies/nap.json",
+  "data/budget/kfp.json",
+  "data/procurement/derived/sector_stats.json",
+);
 
 describe("revenue sector — the hub headline is НАП's OWN agency budget", () => {
   // No PG skip: this reads committed artifacts, and a stale artifact is one of

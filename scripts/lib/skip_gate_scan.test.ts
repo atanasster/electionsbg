@@ -202,6 +202,50 @@ describe("inline self-skip", () => {
   });
 });
 
+// Tier 3c (plan §8.3): a COMMITTED artifact is not a reason to stand down. CI does a full
+// checkout, so its absence is a broken working copy — a defect, not a supported state.
+describe("committed inputs", () => {
+  const tracked = (p: string) => p === "data/parliament/index.json";
+  const scan = (src: string) =>
+    scanSource(src, tracked).map((v) => `${v.kind}:${v.gate}`);
+
+  test("a tracked path gating a skip, with no assertion, is flagged", () => {
+    const src = [
+      `const skip = !existsSync("data/parliament/index.json") ? "absent" : false;`,
+      `reportSkip(import.meta.url, skip);`,
+      `test.skipIf(skip)("t", () => {});`,
+    ].join("\n");
+    expect(scan(src)).toEqual([
+      "unasserted-committed-input:data/parliament/index.json",
+    ]);
+  });
+
+  test("asserting its presence clears it", () => {
+    const src = [
+      `const skip = !existsSync("data/parliament/index.json") ? "absent" : false;`,
+      `reportSkip(import.meta.url, skip);`,
+      `assertCommitted("data/parliament/index.json");`,
+      `test.skipIf(skip)("t", () => {});`,
+    ].join("\n");
+    expect(scan(src)).toEqual([]);
+  });
+
+  // ⚠️ The rule must NOT fire on a gitignored input — a crawl output or bucket-shipped tree
+  // is legitimately absent, and asserting on one turns a supported state into a red build.
+  test("an untracked path is left alone", () => {
+    const src = [
+      `const skip = !existsSync("raw_data/procurement/eop_dossier.sqlite") ? "absent" : false;`,
+      `reportSkip(import.meta.url, skip);`,
+      `test.skipIf(skip)("t", () => {});`,
+    ].join("\n");
+    expect(scan(src)).toEqual([]);
+  });
+
+  test("a file with no skip gate is not in scope at all", () => {
+    expect(scan(`const p = "data/parliament/index.json";`)).toEqual([]);
+  });
+});
+
 describe("label", () => {
   test("a derived label is clean", () => {
     expect(kinds(`reportSkip(import.meta.url, false);`)).toEqual([]);

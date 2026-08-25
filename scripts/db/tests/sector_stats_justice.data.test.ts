@@ -65,6 +65,7 @@ import {
 } from "@/lib/vssReferenceData";
 import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 const readJson = <T>(rel: string): T =>
@@ -139,6 +140,13 @@ const nodeState = (): "ok" | "no-tree" | "renamed" => {
   if (!exists(MINISTRIES_DIR)) return "no-tree";
   return exists(NODE) ? "ok" : "renamed";
 };
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted(
+  "data/budget/vss/budget.json",
+  "data/procurement/derived/sector_stats.json",
+);
 
 describe("justice sector — hub headline", () => {
   test("basis is 'budget' at every scope", () => {

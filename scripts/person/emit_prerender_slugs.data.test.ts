@@ -15,6 +15,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end, isServingDatabase } from "../db/lib/pg";
 import { reportSkip } from "../lib/report_skip";
+import { assertCommitted } from "../lib/assert_committed";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -56,6 +57,10 @@ afterAll(async () => {
 });
 
 // A person whose ONLY role is a candidacy is the thin tail — must be noindex.
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/person/prerender_slugs.json");
+
 test.skipIf(skip)("a candidate-only person is not indexable", async () => {
   const rows = await allRows<{ slug: string; indexable: boolean }>(
     `SELECT p.slug,

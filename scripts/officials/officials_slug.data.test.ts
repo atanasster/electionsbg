@@ -19,6 +19,7 @@ import { describe, expect, it } from "vitest";
 import { officialSlug, ROOT, slugify } from "./shared";
 import { aliasedDeclarantName } from "./declarant_aliases";
 import { personGuidFromSourceUrl } from "./slug_identity";
+import { assertCommitted } from "../lib/assert_committed";
 
 type Tree = {
   label: string;
@@ -254,3 +255,11 @@ for (const tree of TREES) {
     },
   );
 }
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted(
+  "data/officials/index.json",
+  "data/officials/municipal/index.json",
+  "data/officials/declarations",
+  "data/officials/municipal/declarations",
+);

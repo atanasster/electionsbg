@@ -20,6 +20,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseStructureCounts } from "./doklad";
+import { assertCommitted } from "../lib/assert_committed";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -39,6 +40,10 @@ const REAL_TABLE = [
   "                       Общински администрации на райони         35        35",
   "  Поради спецификата на своята дейност",
 ].join("\n");
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/budget/personnel.json");
 
 describe("parseStructureCounts — the wrapped left gutter", () => {
   const out = parseStructureCounts(REAL_TABLE);

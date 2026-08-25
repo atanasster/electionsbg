@@ -15,6 +15,7 @@ import assert from "node:assert/strict";
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const SRC = readFileSync("scripts/parliament/derived/index.ts", "utf8");
 const DERIVED = "data/parliament/votes/derived";
@@ -57,6 +58,10 @@ const skipDerived = !existsSync(DERIVED)
   ? "data/parliament/votes/derived absent — it is committed, so this is a sparse checkout"
   : false;
 reportSkip(import.meta.url, skipDerived);
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/parliament/votes/derived");
 
 describe("rebuildDerived --upload covers everything it writes", () => {
   test.skipIf(skipDerived)(

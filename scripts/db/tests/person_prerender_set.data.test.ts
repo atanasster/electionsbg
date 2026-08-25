@@ -31,6 +31,7 @@ import {
   type PersonSlugEntry,
 } from "../../person/emit_prerender_slugs";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -89,6 +90,13 @@ const prerenderSlugs = (): Set<string> => {
 // person_slug_lock is per-database, so against local Postgres the two name different people
 // and every divergent slug reads as a dropped continuity target. See "WHICH DATABASE MAY
 // WRITE THIS FILE" in emit_prerender_slugs.ts.
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+// `data/officials/assets-rankings.json` is deliberately NOT asserted: line ~103 of
+// this file documents its absence as a planned post-T1.5 state, so it is a gate,
+// not a broken tree.
+assertCommitted("data/person/prerender_slugs.json");
+
 test.skipIf(skip || !isServingDatabase())(
   "the prerender set covers every person the retired officials top-N mapped to",
   async () => {

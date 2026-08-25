@@ -11,6 +11,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { dbReachable, end } from "../lib/pg";
 import { readHubStatsFromPg } from "../gen_parliament/hub_stats_pg";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const BLOB = "data/parliament/votes/derived/hub_stats.json";
 const haveDb = await dbReachable();
@@ -24,6 +25,10 @@ const skipBlob =
     ? "Postgres unreachable, or data/parliament/votes/derived/hub_stats.json absent — it is committed, so this is a sparse checkout"
     : false;
 reportSkip(import.meta.url, skipBlob);
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/parliament/votes/derived/hub_stats.json");
 
 test.skipIf(skipBlob)(
   "Postgres reproduces every hub tile figure",

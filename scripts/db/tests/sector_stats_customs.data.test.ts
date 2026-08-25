@@ -55,6 +55,7 @@ import { SECTOR_BROWSE_PACKS } from "@/screens/components/procurement/sectorPack
 import { CUSTOMS_EIK, CUSTOMS_YEARS } from "@/lib/customsReferenceData";
 import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { stripComments } from "../../lib/strip_comments";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 
@@ -154,6 +155,15 @@ const agencyYears = (): BudgetYear[] =>
   );
 
 // ── the hub headline ───────────────────────────────────────────────────────
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy. Partly redundant with this file's own readTracked(), which also
+// throws on absence: kept so the rule stays total, and the two fail differently.
+assertCommitted(
+  "data/budget/agencies/customs.json",
+  "data/customs/excise_register.json",
+  "data/procurement/derived/sector_stats.json",
+);
 
 describe("customs sector — the hub headline is АМ's OWN agency budget", () => {
   test("basis is 'budget' with the 'adjusted' qualifier", () => {

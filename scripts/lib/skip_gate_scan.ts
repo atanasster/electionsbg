@@ -18,7 +18,8 @@ export type ViolationKind =
   | "unreported"
   | "ordering"
   | "literal-label"
-  | "silent-inline-skip";
+  | "silent-inline-skip"
+  | "unasserted-committed-input";
 
 export interface Violation {
   kind: ViolationKind;
@@ -198,8 +199,50 @@ const inlineSkips = (src: string): Violation[] => {
   return out;
 };
 
-export const scanSource = (src: string): Violation[] => {
-  const out: Violation[] = [...inlineSkips(src)];
+/**
+ * A COMMITTED artifact used to gate a skip, with no presence assertion beside it.
+ *
+ * ⚠️ Tier 3c (plan §8.3): absence of a tracked file is a broken working copy, not a
+ * supported state — CI does a full `actions/checkout`. Standing down for it hides a defect
+ * as a `+1` on a skip count where 160-odd data gates already skip for want of a database.
+ * `assertCommitted()` states it as an assertion instead, OUTSIDE the gate.
+ *
+ * `isTracked` is injected rather than shelling out to git here, so the rule stays a pure
+ * function the synthetic harness can drive.
+ */
+const committedInputs = (
+  src: string,
+  isTracked: (p: string) => boolean,
+): Violation[] => {
+  // ⚠️ ANCHORED ON `existsSync`, NOT ON `skipIf(` — requiring the latter re-introduced
+  // exactly the usage-anchoring `gatesOf` carries a ⚠️ against, and it had a live escapee:
+  // `sector_stats_tourism` stands down through `return t.skip(skip)` and contains no
+  // `skipIf(` at all, so it was exempt while eight sibling files on the same archetype
+  // were covered.
+  if (!/existsSync\s*\(/.test(src)) return [];
+  const asserted = new Set(
+    (src.match(/assertCommitted\(([\s\S]*?)\)/)?.[1] ?? "").match(
+      /"([^"]+)"/g,
+    ) ?? [],
+  );
+  const out: Violation[] = [];
+  for (const m of src.matchAll(/"((?:data|raw_data|public)\/[^"]+)"/g)) {
+    if (!isTracked(m[1])) continue;
+    if (asserted.has(`"${m[1]}"`)) continue;
+    if (out.some((v) => v.gate === m[1])) continue;
+    out.push({ kind: "unasserted-committed-input", gate: m[1] });
+  }
+  return out;
+};
+
+export const scanSource = (
+  src: string,
+  isTracked: (p: string) => boolean = () => false,
+): Violation[] => {
+  const out: Violation[] = [
+    ...inlineSkips(src),
+    ...committedInputs(src, isTracked),
+  ];
   const calls = reportCalls(src);
 
   for (const c of calls)

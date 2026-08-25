@@ -19,6 +19,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, test } from "vitest";
+import { assertCommitted } from "../lib/assert_committed";
 
 const ROOT = path.resolve(__dirname, "../..");
 const DOC = path.join(ROOT, "METHODOLOGY.md");
@@ -46,6 +47,10 @@ const repoLinks = (): string[] => {
   }
   return [...new Set(out)];
 };
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("public/risk-flags.json");
 
 describe("METHODOLOGY.md stays a usable index", () => {
   test("every repo-relative link resolves, except the declared-forthcoming ones", () => {

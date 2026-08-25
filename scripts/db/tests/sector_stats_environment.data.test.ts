@@ -75,6 +75,7 @@ import {
 } from "@/lib/environmentReferenceData";
 import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 const readJson = <T>(rel: string): T =>
@@ -113,6 +114,10 @@ const STATS = "data/procurement/derived/sector_stats.json";
 const MINISTRY_NODE = `data/budget/ministries/${MOSV_BUDGET_NODE}.json`;
 
 // ── the hub headline ───────────────────────────────────────────────────────
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/procurement/derived/sector_stats.json");
 
 describe("environment sector — the hub headline is a BUDGET", () => {
   // No PG skip: this reads the committed artifact, and a stale artifact is one

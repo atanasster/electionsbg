@@ -30,7 +30,14 @@ const REPO = path.resolve(
  * Deliberate omissions, keyed by path. A file listed here must STILL be in violation — a
  * stale entry fails, so an exemption cannot outlive its reason.
  */
-const EXEMPT: Record<string, string> = {};
+const EXEMPT: Record<string, string> = {
+  // `data/officials/assets-rankings.json` is a CONTINUITY source the plan retires: this
+  // file's own body documents its absence as an expected post-T1.5 state and returns
+  // early for it. Asserting on it would turn a planned state into a red build.
+  "scripts/db/tests/person_prerender_set.data.test.ts":
+    "gates on data/officials/assets-rankings.json, whose absence is a documented " +
+    "post-T1.5 state rather than a broken tree",
+};
 
 /**
  * ⚠️ TRACKED FILES ONLY, and that is a scope decision rather than a convenience. The gate
@@ -52,8 +59,33 @@ const sourceOf = (rel: string): string =>
 
 let gitless: string | false = false;
 let files: string[] = [];
+/** Every tracked path, so the committed-input rule can tell a crawl output from a corpus. */
+let tracked = new Set<string>();
+let trackedFiles: string[] = [];
+let trackedDirs = new Set<string>();
 try {
   files = trackedTests();
+  // ⚠️ maxBuffer, and it is not padding: the repo tracks 127,291 files (~6 MB of paths)
+  // and execFileSync's default is 1 MB. Overflowing it throws, which this file would then
+  // report as "git unavailable" and SKIP — the gate quietly standing down on a healthy
+  // machine, which is precisely the failure it exists to catch.
+  trackedFiles = execFileSync(
+    "git",
+    ["ls-files", "data", "raw_data", "public"],
+    { cwd: REPO, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 },
+  ).split("\n");
+  tracked = new Set(trackedFiles);
+  // ⚠️ `git ls-files` never emits DIRECTORIES, so a gate on a tracked TREE
+  // (`data/parliament/votes/sessions`, 613 files) looks untracked and escapes the rule.
+  // Two files asserted only half their gate before this.
+  trackedDirs = new Set<string>();
+  for (const f of trackedFiles) {
+    let i = f.indexOf("/");
+    while (i !== -1) {
+      trackedDirs.add(f.slice(0, i));
+      i = f.indexOf("/", i + 1);
+    }
+  }
 } catch (e) {
   gitless = `git ls-files failed (${(e as Error).message}) — cannot enumerate tracked tests`;
 }
@@ -68,7 +100,10 @@ describe("every gate that computes a skip reason reports it", () => {
     const offenders: string[] = [];
     for (const rel of files) {
       if (SELF.test(rel)) continue;
-      for (const v of scanSource(sourceOf(rel)))
+      for (const v of scanSource(
+        sourceOf(rel),
+        (p) => tracked.has(p) || trackedDirs.has(p),
+      ))
         if (!(rel in EXEMPT)) offenders.push(`${rel} → ${v.kind}: ${v.gate}`);
     }
     expect(
@@ -80,6 +115,26 @@ describe("every gate that computes a skip reason reports it", () => {
     ).toEqual([]);
   });
 
+  // The check `assert_committed.ts`'s header promises. Asserting on a GITIGNORED path turns
+  // a supported state — an uncrawled corpus, a bucket-shipped tree, an unbuilt dist — into a
+  // red build, so the tracked/untracked distinction must not rot into a guess.
+  test.skipIf(gitless)("every asserted path is genuinely committed", () => {
+    const bad: string[] = [];
+    for (const rel of files) {
+      const src = sourceOf(rel);
+      for (const m of src.matchAll(/assertCommitted\(([\s\S]*?)\)/g))
+        for (const q of m[1].match(/"([^"]+)"/g) ?? []) {
+          const p = q.slice(1, -1);
+          if (!tracked.has(p) && !trackedDirs.has(p)) bad.push(`${rel} → ${p}`);
+        }
+    }
+    expect(
+      bad,
+      "assertCommitted() names a path git does not track. A gitignored input is " +
+        "legitimately absent — gate on it, do not assert it.",
+    ).toEqual([]);
+  });
+
   test.skipIf(gitless)("no exemption outlives its reason", () => {
     const stale: string[] = [];
     for (const [rel, why] of Object.entries(EXEMPT)) {
@@ -87,7 +142,10 @@ describe("every gate that computes a skip reason reports it", () => {
         stale.push(`${rel} (file is gone) — ${why}`);
         continue;
       }
-      if (scanSource(sourceOf(rel)).length === 0)
+      if (
+        scanSource(sourceOf(rel), (p) => tracked.has(p) || trackedDirs.has(p))
+          .length === 0
+      )
         stale.push(`${rel} (no longer in violation) — ${why}`);
     }
     expect(stale, "remove these from EXEMPT").toEqual([]);
@@ -111,5 +169,22 @@ describe("every gate that computes a skip reason reports it", () => {
     expect(files.length).toBeGreaterThan(400);
     expect(gates, "gatesOf stopped matching").toBeGreaterThan(150);
     expect(reasoned, "carriesReason stopped matching").toBeGreaterThan(140);
+    // ⚠️ The committed-input rule needs its OWN floor. With the tracked set empty and every
+    // assertCommitted deleted it reports 0 violations and nothing goes red — the counters
+    // above are blind to it, because they only exercise gatesOf/carriesReason.
+    expect(tracked.size, "git ls-files returned nothing").toBeGreaterThan(1000);
+    expect(trackedDirs.size, "no tracked directories derived").toBeGreaterThan(
+      50,
+    );
+    const assertedPaths = files.flatMap(
+      (rel) =>
+        (sourceOf(rel).match(/assertCommitted\(([\s\S]*?)\)/)?.[1] ?? "").match(
+          /"([^"]+)"/g,
+        ) ?? [],
+    );
+    expect(
+      assertedPaths.length,
+      "no assertCommitted calls found — Tier 3c has been undone",
+    ).toBeGreaterThan(25);
   });
 });

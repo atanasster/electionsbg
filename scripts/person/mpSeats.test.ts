@@ -19,6 +19,7 @@ import {
 } from "./mpSeats";
 import { groupShortToCanonical, loadCanonicalIndex } from "./partyGroups";
 import { INDEPENDENT_CANONICAL_ID } from "@/data/parties/parliamentGroupAliases";
+import { assertCommitted } from "../lib/assert_committed";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -27,6 +28,10 @@ const REPO_ROOT = path.resolve(
 const haveCorpus =
   fs.existsSync(path.join(REPO_ROOT, "data/parliament/index.json")) &&
   fs.existsSync(path.join(REPO_ROOT, "data/parliament/votes/sessions"));
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/parliament/index.json", "data/parliament/votes/sessions");
 
 describe.skipIf(!haveCorpus)("mpSeats", () => {
   const index = buildMpSeatIndex();

@@ -20,6 +20,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const require = createRequire(import.meta.url);
 const { DB_ROUTES } = require("../../../functions/db_routes.js") as {
@@ -86,6 +87,10 @@ interface DeclarationsBlob {
   integrity: IntegrityList[];
   totals: { declarations: number };
 }
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/judiciary/declarations.json");
 
 test.skipIf(skip)(
   "judiciary-declarations serves the register blob, semantically identical to the artifact",

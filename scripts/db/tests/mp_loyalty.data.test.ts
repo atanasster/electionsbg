@@ -9,6 +9,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, end, dbReachable } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -41,6 +42,10 @@ reportSkip(import.meta.url, skip);
 afterAll(async () => {
   if (haveDb) await end();
 });
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/parliament/votes/derived/loyalty.json");
 
 describe("mp_loyalty", () => {
   test.skipIf(skip)("covers the chamber and stays in range", async () => {

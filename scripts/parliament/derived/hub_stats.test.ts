@@ -15,6 +15,7 @@ import {
 } from "./hub_stats";
 import type { SessionFile } from "./types";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const BLOB = "data/parliament/votes/derived/hub_stats.json";
 const haveBlob = existsSync(BLOB);
@@ -24,6 +25,13 @@ const skipBlob = !haveBlob
   ? "data/parliament/votes/derived/hub_stats.json absent — it is committed, so this is a sparse checkout"
   : false;
 reportSkip(import.meta.url, skipBlob);
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted(
+  "data/parliament/votes/derived/attendance.json",
+  "data/parliament/votes/derived/hub_stats.json",
+);
 
 describe("secondReadingBills", () => {
   const session = (titles: string[]): SessionFile =>

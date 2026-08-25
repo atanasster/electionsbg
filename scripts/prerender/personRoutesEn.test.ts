@@ -21,6 +21,7 @@ import os from "os";
 import path from "path";
 import { buildCandidateRoutes, buildPersonRoutes } from "./dynamicRoutes";
 import { transliterateName } from "@/data/candidates/transliterateName";
+import { assertCommitted } from "../lib/assert_committed";
 
 const ROOT = path.resolve(__dirname, "../..");
 const CYRILLIC = /[Ѐ-ӿ]/;
@@ -42,6 +43,10 @@ const cardBySlug = new Map(
 
 const routes = buildPersonRoutes(ROOT);
 const h1 = (html: string) => /<h1>([^<]*)<\/h1>/.exec(html)?.[1] ?? "";
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/person/prerender_slugs.json");
 
 describe("buildPersonRoutes — the /en half", () => {
   it("emits a route for every prerendered person", () => {
