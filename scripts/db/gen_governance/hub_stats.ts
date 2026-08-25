@@ -245,7 +245,8 @@ const run = async (): Promise<void> => {
     // and it is the same pick /budget makes, so the two hubs cannot disagree.
     const pick = ((p: number | null, j: number | null) => {
       if (p != null) return { value: p, basis: "planned_expenditure" as const };
-      if (j != null) return { value: j, basis: "projected_expenditure" as const };
+      if (j != null)
+        return { value: j, basis: "projected_expenditure" as const };
       return null;
     })(num(r?.p), num(r?.j));
     if (pick) {
