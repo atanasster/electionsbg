@@ -306,11 +306,10 @@ const captures: Capture[] = [
     // skeleton, which is the failure `waitFor` exists to prevent.
     waitFor: "[data-hub-head] .tabular-nums",
     anchor: "[data-hub-head]",
-    // Below `xl`, so the explore band is three full-width tiles rather than four
-    // that the 1200px clip would cut through. §9.4 of the plan exists because the
-    // previous card was a crop taken mid-card; reproducing that with a different
-    // tile would have missed the point.
-    viewport: { width: 1180, height: 1100 },
+    // OG_CLIP_VIEWPORT — see the sibling entries: a width below OG_W (1200) makes Playwright
+    // clamp the clip and quietly emit a 2360-wide card where the corpus norm is 2400. The
+    // head is narrower than the clip either way, so nothing is cut.
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -331,12 +330,16 @@ const captures: Capture[] = [
     // waiting on the wrapper shoots a skeleton.
     waitFor: "[data-hub-head] .tabular-nums",
     anchor: "[data-hub-head]",
-    // BELOW 1280, so the content column fits inside the 1200 clip. A head spans the full
-    // column — identity plus the evidence aside — so at the default viewport a CENTRED clip
-    // shaves both edges: measured, /governance came back reading „правление" and „29,6 млрд."
-    // with the ranked list's figures cut off at „409 8". /parliament's entry already carried
-    // a narrow viewport, which is the only reason its card was whole.
-    viewport: { width: 1180, height: 1100 },
+    // OG_CLIP_VIEWPORT, the constant that exists for exactly this. A head spans the full
+    // content column — identity plus the evidence aside — so at the default 1280 a CENTRED
+    // 1200 clip shaves both edges: measured, /governance came back reading „правление" and
+    // „29,6 млрд." with the ranked list cut off at „409 8".
+    //
+    // ⚠ NOT a hand-picked 1180. Playwright CLAMPS the clip to the viewport, so any width
+    // below OG_W (1200) silently shrinks the card — measured, 1180 produced 2360×1260 cards
+    // against the corpus norm of 2400, and procurement and governance had both been 2400
+    // before this entry was touched.
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -1053,12 +1056,16 @@ const captures: Capture[] = [
     // waiting on the wrapper shoots a skeleton.
     waitFor: "[data-hub-head] .tabular-nums",
     anchor: "[data-hub-head]",
-    // BELOW 1280, so the content column fits inside the 1200 clip. A head spans the full
-    // column — identity plus the evidence aside — so at the default viewport a CENTRED clip
-    // shaves both edges: measured, /governance came back reading „правление" and „29,6 млрд."
-    // with the ranked list's figures cut off at „409 8". /parliament's entry already carried
-    // a narrow viewport, which is the only reason its card was whole.
-    viewport: { width: 1180, height: 1100 },
+    // OG_CLIP_VIEWPORT, the constant that exists for exactly this. A head spans the full
+    // content column — identity plus the evidence aside — so at the default 1280 a CENTRED
+    // 1200 clip shaves both edges: measured, /governance came back reading „правление" and
+    // „29,6 млрд." with the ranked list cut off at „409 8".
+    //
+    // ⚠ NOT a hand-picked 1180. Playwright CLAMPS the clip to the viewport, so any width
+    // below OG_W (1200) silently shrinks the card — measured, 1180 produced 2360×1260 cards
+    // against the corpus norm of 2400, and procurement and governance had both been 2400
+    // before this entry was touched.
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 2500,
   },
   {

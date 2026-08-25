@@ -27,6 +27,7 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import { execSync } from "node:child_process";
+import { stripJsxComments } from "../../src/ux/infographic/stripJsxComments";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { prerenderRoutes } from "./routes";
@@ -811,13 +812,33 @@ describe("every prerendered page is in the committed sitemap", () => {
 //
 // Measured 2026-08-25: /parliament's card was captured on 14 August, anchored on the tile-grid
 // wrapper, and showed a session strip and three tile fronts with NO NUMBER ON IT — a share
-// card for a roll-call module that published no figure. Nothing failed, because
-// `tests/seo.spec.ts` only asserts the og:image URL is absolute.
+// card for a roll-call module that published no figure. /procurement's and /governance's were
+// the same shape. Nothing failed, because `tests/seo.spec.ts` only asserts the og:image URL is
+// absolute.
 describe("a hub's og capture anchors on its head", () => {
-  const CAPTURES = read("scripts/og/capture-screens.ts");
+  const CAPTURES = stripJsxComments(read("scripts/og/capture-screens.ts"));
 
-  /** Hubs whose card does NOT yet frame the head, with the reason. Each is a real debt, not a
-   *  decision — they are listed so the gate stays green while naming what is owed, and so the
+  /** Every module front page that renders a `HubHead`, and the screen that renders it.
+   *
+   *  ⚠ BOTH HALVES ARE ASSERTED, and the first draft of this gate asserted neither usefully:
+   *  it grepped for HubHead screens, DISCARDED the result, and looped over a hard-coded pair
+   *  — so it checked two slugs, and reverting /governance's anchor passed it. A gate that
+   *  cannot see its subject is this file's own recurring failure.
+   *
+   *  A plain grep cannot replace this map, either: it returns a comment-only match and
+   *  `ContractsBrowserDbScreen`, which is a genuine HubHead on a SUB-PAGE and has no hub card.
+   *  So the map is explicit and the clauses below make it impossible to leave stale. */
+  const HUB_CAPTURES: Record<string, string> = {
+    parliament: "src/screens/ParliamentHubScreen.tsx",
+    procurement: "src/screens/ProcurementScreen.tsx",
+    governance: "src/screens/GovernanceScreen.tsx",
+    funds: "src/screens/FundsScreen.tsx",
+  };
+
+  /** HubHead call sites that are NOT module front pages, so they ship no hub card. */
+  const SUB_PAGE_HEADS = ["src/screens/dev/ContractsBrowserDbScreen.tsx"];
+
+  /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
   const NOT_YET: Record<string, string> = {
     funds:
@@ -825,50 +846,81 @@ describe("a hub's og capture anchors on its head", () => {
       "needs moving into capture-screens.ts before it can anchor on anything",
   };
 
-  it("every hub with a HubHead frames it, or is named as owing one", () => {
-    // The hubs are DERIVED — a screen that renders HubHead is a hub, so a new one joins this
-    // gate the day it is written rather than when somebody remembers to list it.
-    const screens = execSync("grep -rl 'HubHead' src/screens --include=*.tsx", {
-      encoding: "utf8",
-    })
-      .trim()
-      .split("\n")
-      .filter(Boolean);
-    expect(screens.length, "no screen renders HubHead").toBeGreaterThan(2);
+  /** One capture entry's text, by slug. */
+  const entryFor = (slug: string): string | null => {
+    const at = CAPTURES.indexOf(`slug: "${slug}"`);
+    if (at === -1) return null;
+    const next = CAPTURES.indexOf('slug: "', at + `slug: "${slug}"`.length);
+    return CAPTURES.slice(at, next === -1 ? undefined : next);
+  };
 
-    // slug ← the capture entry whose routePath is the hub's own path.
-    const anchored = [...CAPTURES.matchAll(/slug:\s*"([^"]+)"/g)].map(
-      (m) => m[1],
-    );
-    expect(anchored.length, "no capture slugs found").toBeGreaterThan(10);
-
+  it("every hub's capture frames its head", () => {
+    const checked: string[] = [];
     const offenders: string[] = [];
-    for (const slug of ["parliament", "procurement", ...Object.keys(NOT_YET)]) {
+    for (const slug of Object.keys(HUB_CAPTURES)) {
       if (NOT_YET[slug]) continue;
-      const at = CAPTURES.indexOf(`slug: "${slug}"`);
-      if (at === -1) {
+      const entry = entryFor(slug);
+      if (!entry) {
         offenders.push(`${slug}: no capture entry`);
         continue;
       }
-      // The entry runs to the next `slug:` or the end.
-      const next = CAPTURES.indexOf('slug: "', at + 10);
-      const entry = CAPTURES.slice(at, next === -1 ? undefined : next);
       if (!/anchor:\s*"\[data-hub-head\]"/.test(entry))
         offenders.push(`${slug}: anchors on something other than the head`);
+      checked.push(slug);
     }
+    // Non-vacuity: if the exemption list ever swallowed the map this would check nothing.
+    expect(checked.length, "no hub card was checked").toBeGreaterThan(1);
     expect(
       offenders,
       `hub cards not framing their head: ${offenders.join("; ")}`,
     ).toEqual([]);
   });
 
-  it("the exemption list names only real hubs, so it cannot go stale", () => {
-    for (const slug of Object.keys(NOT_YET)) {
-      const screen = `src/screens/${slug === "governance" ? "GovernanceScreen" : "FundsScreen"}.tsx`;
+  it("a hub's capture clips at OG_CLIP_VIEWPORT, so the card is not silently shrunk", () => {
+    // Playwright CLAMPS the clip to the viewport, so a width below OG_W (1200) emits a
+    // smaller card with nothing failing — measured, a hand-picked 1180 gave 2360×1260 where
+    // the corpus norm is 2400, and two of these three had been 2400 the day before.
+    for (const slug of Object.keys(HUB_CAPTURES)) {
+      if (NOT_YET[slug]) continue;
+      const entry = entryFor(slug) ?? "";
       expect(
-        read(screen).includes("HubHead"),
-        `${slug} is exempted but no longer renders a HubHead — drop the entry`,
+        /viewport:\s*OG_CLIP_VIEWPORT/.test(entry),
+        `${slug}: uses a hand-written viewport instead of OG_CLIP_VIEWPORT`,
       ).toBe(true);
+    }
+  });
+
+  it("the map names every HubHead screen, so a new hub cannot slip past", () => {
+    const screens = execSync("grep -rl 'HubHead' src/screens --include=*.tsx", {
+      encoding: "utf8",
+    })
+      .trim()
+      .split("\n")
+      .filter(Boolean)
+      // A screen that only MENTIONS HubHead in prose is not a call site.
+      .filter((f) => /<HubHead\b/.test(stripJsxComments(read(f))));
+    expect(screens.length, "no screen renders HubHead").toBeGreaterThan(2);
+
+    const known = new Set([...Object.values(HUB_CAPTURES), ...SUB_PAGE_HEADS]);
+    const unlisted = screens.filter((f) => !known.has(f));
+    expect(
+      unlisted,
+      `these render a HubHead but are in neither HUB_CAPTURES nor SUB_PAGE_HEADS — decide ` +
+        `which, so the card gate can see them: ${unlisted.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  it("every mapped screen still renders a head, and every exemption still earns it", () => {
+    for (const [slug, file] of Object.entries(HUB_CAPTURES))
+      expect(
+        /<HubHead\b/.test(stripJsxComments(read(file))),
+        `${slug} is mapped to ${file}, which no longer renders a HubHead`,
+      ).toBe(true);
+    for (const slug of Object.keys(NOT_YET)) {
+      expect(
+        HUB_CAPTURES,
+        `${slug} is exempted but is not a hub — drop the entry`,
+      ).toHaveProperty(slug);
       expect(NOT_YET[slug].length, `${slug} needs a reason`).toBeGreaterThan(
         20,
       );
