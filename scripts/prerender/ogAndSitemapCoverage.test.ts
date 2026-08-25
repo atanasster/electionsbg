@@ -26,6 +26,7 @@
 
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
+import { execSync } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { prerenderRoutes } from "./routes";
@@ -797,5 +798,80 @@ describe("every prerendered page is in the committed sitemap", () => {
     // /data-changes 301s onto /data/updates. If it ever appeared in the sitemap
     // the two clauses above would both pass while the artifact was wrong.
     expect(sitemapLocs.has("/data-changes")).toBe(false);
+  });
+});
+
+// ─── a hub's share card frames its HEAD ──────────────────────────────────────
+//
+// §5.3's rule for a hub changed when `HubHead` arrived. The old advice — "not the KPI row and
+// not the page header" — was right about a header that carried a centred muted title and
+// nothing else. A head is the opposite: labelled corpus figures with their bases, over a
+// ranked list. It IS the page's argument in one frame, and it is what a reader on Facebook
+// sees before deciding whether to click.
+//
+// Measured 2026-08-25: /parliament's card was captured on 14 August, anchored on the tile-grid
+// wrapper, and showed a session strip and three tile fronts with NO NUMBER ON IT — a share
+// card for a roll-call module that published no figure. Nothing failed, because
+// `tests/seo.spec.ts` only asserts the og:image URL is absolute.
+describe("a hub's og capture anchors on its head", () => {
+  const CAPTURES = read("scripts/og/capture-screens.ts");
+
+  /** Hubs whose card does NOT yet frame the head, with the reason. Each is a real debt, not a
+   *  decision — they are listed so the gate stays green while naming what is owed, and so the
+   *  list shrinks rather than the rule. */
+  const NOT_YET: Record<string, string> = {
+    funds:
+      "produced by scripts/og/screenshot_funds.ts, which clips {0,0} and hides no chrome — " +
+      "needs moving into capture-screens.ts before it can anchor on anything",
+  };
+
+  it("every hub with a HubHead frames it, or is named as owing one", () => {
+    // The hubs are DERIVED — a screen that renders HubHead is a hub, so a new one joins this
+    // gate the day it is written rather than when somebody remembers to list it.
+    const screens = execSync("grep -rl 'HubHead' src/screens --include=*.tsx", {
+      encoding: "utf8",
+    })
+      .trim()
+      .split("\n")
+      .filter(Boolean);
+    expect(screens.length, "no screen renders HubHead").toBeGreaterThan(2);
+
+    // slug ← the capture entry whose routePath is the hub's own path.
+    const anchored = [...CAPTURES.matchAll(/slug:\s*"([^"]+)"/g)].map(
+      (m) => m[1],
+    );
+    expect(anchored.length, "no capture slugs found").toBeGreaterThan(10);
+
+    const offenders: string[] = [];
+    for (const slug of ["parliament", "procurement", ...Object.keys(NOT_YET)]) {
+      if (NOT_YET[slug]) continue;
+      const at = CAPTURES.indexOf(`slug: "${slug}"`);
+      if (at === -1) {
+        offenders.push(`${slug}: no capture entry`);
+        continue;
+      }
+      // The entry runs to the next `slug:` or the end.
+      const next = CAPTURES.indexOf('slug: "', at + 10);
+      const entry = CAPTURES.slice(at, next === -1 ? undefined : next);
+      if (!/anchor:\s*"\[data-hub-head\]"/.test(entry))
+        offenders.push(`${slug}: anchors on something other than the head`);
+    }
+    expect(
+      offenders,
+      `hub cards not framing their head: ${offenders.join("; ")}`,
+    ).toEqual([]);
+  });
+
+  it("the exemption list names only real hubs, so it cannot go stale", () => {
+    for (const slug of Object.keys(NOT_YET)) {
+      const screen = `src/screens/${slug === "governance" ? "GovernanceScreen" : "FundsScreen"}.tsx`;
+      expect(
+        read(screen).includes("HubHead"),
+        `${slug} is exempted but no longer renders a HubHead — drop the entry`,
+      ).toBe(true);
+      expect(NOT_YET[slug].length, `${slug} needs a reason`).toBeGreaterThan(
+        20,
+      );
+    }
   });
 });

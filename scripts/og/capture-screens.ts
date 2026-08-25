@@ -294,15 +294,18 @@ const captures: Capture[] = [
   {
     slug: "parliament",
     routePath: "parliament",
-    // The rebuilt hub is a session strip over a tile grid. This entry used to wait
-    // for `div[title*="↔"]` — a cell inside the party-correlation heatmap tile,
-    // which the rebuild removes — so it would have waited the full 60 s and failed
-    // with nothing on the page to explain why. Anchor on the hub wrapper and
-    // left-align, mirroring the procurement entry, so the card leads with the strip
-    // and the first tiles rather than a crop of one card's interior.
-    waitFor: '[data-og="parliament-hub"] a',
-    anchor: '[data-og="parliament-hub"]',
-    leftAlign: true,
+    // ANCHOR ON THE HEAD, not the tile grid. §5.3's rule for a hub: the head IS the page's
+    // argument now — four labelled corpus figures, each with its basis, over a ranked list of
+    // the parliamentary groups. The previous anchor was `[data-og="parliament-hub"]`, the
+    // strip-and-grid wrapper, which framed a session strip and three tile fronts and showed
+    // no number at all; before that it waited on `div[title*="↔"]`, a heatmap cell the
+    // rebuild had already deleted, and would have timed out at 60 s.
+    //
+    // `waitFor` names the BAND rather than the head, because the head mounts immediately and
+    // its figures arrive with the blob — anchoring the wait on the container would shoot a
+    // skeleton, which is the failure `waitFor` exists to prevent.
+    waitFor: "[data-hub-head] .tabular-nums",
+    anchor: "[data-hub-head]",
     // Below `xl`, so the explore band is three full-width tiles rather than four
     // that the 1200px clip would cut through. §9.4 of the plan exists because the
     // previous card was a crop taken mid-card; reproducing that with a different
@@ -322,9 +325,18 @@ const captures: Capture[] = [
     // tells a reader what they are looking at, and two full rows of tiles with their headline
     // numbers still fit under it. Re-shoot and LOOK at the PNG if the band structure changes
     // again; a taller description would start pushing the second row out of the crop.
-    waitFor: '[data-og="procurement-hub"] a',
-    anchor: '[data-og="procurement-hub"]',
-    leftAlign: true,
+    // ANCHOR ON THE HEAD (§5.3). The tile-grid wrapper framed tile fronts and no figure —
+    // a share card for a data module that published no number. `waitFor` names the BAND, not
+    // the container: the head mounts immediately and its figures arrive with the blob, so
+    // waiting on the wrapper shoots a skeleton.
+    waitFor: "[data-hub-head] .tabular-nums",
+    anchor: "[data-hub-head]",
+    // BELOW 1280, so the content column fits inside the 1200 clip. A head spans the full
+    // column — identity plus the evidence aside — so at the default viewport a CENTRED clip
+    // shaves both edges: measured, /governance came back reading „правление" and „29,6 млрд."
+    // with the ranked list's figures cut off at „409 8". /parliament's entry already carried
+    // a narrow viewport, which is the only reason its card was whole.
+    viewport: { width: 1180, height: 1100 },
     settleMs: 3000,
   },
   {
@@ -1035,9 +1047,18 @@ const captures: Capture[] = [
     routePath: "governance",
     // /governance is now the Управление tile-hub — lead the card with the first
     // cluster of sub-hub tiles (like the sectors hub), not the old dashboard.
-    waitFor: '[data-og="governance-hub"] a',
-    anchor: '[data-og="governance-hub"]',
-    leftAlign: true,
+    // ANCHOR ON THE HEAD (§5.3). The tile-grid wrapper framed tile fronts and no figure —
+    // a share card for a data module that published no number. `waitFor` names the BAND, not
+    // the container: the head mounts immediately and its figures arrive with the blob, so
+    // waiting on the wrapper shoots a skeleton.
+    waitFor: "[data-hub-head] .tabular-nums",
+    anchor: "[data-hub-head]",
+    // BELOW 1280, so the content column fits inside the 1200 clip. A head spans the full
+    // column — identity plus the evidence aside — so at the default viewport a CENTRED clip
+    // shaves both edges: measured, /governance came back reading „правление" and „29,6 млрд."
+    // with the ranked list's figures cut off at „409 8". /parliament's entry already carried
+    // a narrow viewport, which is the only reason its card was whole.
+    viewport: { width: 1180, height: 1100 },
     settleMs: 2500,
   },
   {
