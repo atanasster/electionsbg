@@ -1,6 +1,6 @@
 # НЗОК hospital-payment parser hardening — v1
 
-**Status:** **IMPLEMENTED 2026-08-25 — Tiers 1, 2 and 3, nine commits.** Written
+**Status:** **IMPLEMENTED 2026-08-25 — Tiers 0, 1, 2 and 3, eleven commits.** Written
 2026-08-24 after the 2026-08-22 `/process-watch-report` run surfaced the loader's
 standing `Skipped 25 months (parser hardening TODO)` banner.
 
@@ -430,7 +430,7 @@ Tier 0.
 
 ## 6. Recommendation — four tiers, each shippable alone
 
-### Tier 0 — make the hole visible (NOT BUILT; independent of any parser change)
+### Tier 0 — make the hole visible — SHIPPED 2026-08-25
 
 The corpus is missing five months of one stream and every surface says nothing.
 Two changes, both additive:
@@ -451,6 +451,42 @@ Two changes, both additive:
 
 Rationale for ordering: Tier 0 turns a silent 1.72 % understatement into a stated
 one, and it is the only tier that is safe to ship without touching a single number.
+
+> **SHIPPED 2026-08-25, both bullets — `0217ea8f08` (coverage) and `d89fec3bcb`
+> (tile). Three deviations worth carrying:**
+>
+> 1. **The coverage table is its own migration, `187_nzok_payment_coverage.sql`,
+>    not "045-adjacent"**, and it carries FOUR columns this section did not
+>    anticipate: `count_mismatch_blocks` / `count_mismatch_ordinals` /
+>    `unreconciled_blocks` / `unreconciled_eur`. `status = 'loaded'` turned out
+>    not to mean "verified" — a month can load with blocks НЗОК prints no subtotal
+>    for, whose money is reconciled by nothing but the whole-file 0.5 % ratio, the
+>    check that let €1,672,123 through. A consumer reading only `status` would
+>    call those months clean. They are NULL on a refused month, because 0 there
+>    would state that a withheld month's blocks all reconcile.
+> 2. **The footnote fires in BOTH directions, and the one-directional version this
+>    section describes („по-стар отчет") was a live gap.** The headline is the БМП
+>    anchor — `max(period)` over LOADED bmp rows — so a REFUSED bmp month leaves
+>    drugs/devices AHEAD of it. Five periods in this corpus carry drugs and/or
+>    devices rows and no bmp row at all (2023-01/02/03, 2025-01, 2026-01), and
+>    2026-01 is row #5 of this plan's own rejection table. Testing `p < headline`
+>    would render every hospital's newer money under an older date with both
+>    caveats silent — this defect, mirrored. The rule is `p !== headline`, and the
+>    label picks „по-стар" / „по-нов" from the direction.
+> 3. **The per-EIK `periodByStream` is CORPUS-WIDE months, not the company's own.**
+>    `nzok_hospital_payments_latest_rows` pins every stream to its global
+>    `max(period)`, so a stream missing from the payload means "no rows in that
+>    stream's latest month" — 159 EIKs have devices history and no `devices` key —
+>    not "no rows at all". Both readings suppress the footnote, which is why the
+>    behaviour was right while the comment was wrong; the comment is now correct,
+>    because it is what the next person acts on.
+>
+> Measured on the local corpus at ship time: **95 of 258** hospital company pages
+> carry the note, over **€18,816,902** of devices money that was presented as July's
+> and is February's. The national pack on `/awarder/121858220` is NOT covered — it
+> reads a different payload whose `periodByStream` still has no reader, and
+> `NzokHospitalPaymentsFile`'s type comment now says so instead of claiming
+> otherwise. That is open work, not done.
 
 ### Tier 1 — the four parser defects (recovers 13 files and repairs €1.67M) — SHIPPED 2026-08-25
 
