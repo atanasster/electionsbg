@@ -1,9 +1,10 @@
 # Company browse dashboard — v1
 
-Status: Tiers 0–4, 6 and 7 SHIPPED 2026-08-25 (the matview, loader wiring, server registry,
-client screen, retirement of `/governance/companies`, the top-level `/governance` hub tile,
-and the CLAUDE.md documentation paragraph). Tier 5 (the `/company/:eik` breadcrumb fix) is
-the remaining open work. Brainstormed 2026-08-25 per user request: "Companies
+Status: Tiers 0–7 SHIPPED 2026-08-25 (the matview, loader wiring, server registry, client
+screen, retirement of `/governance/companies`, the top-level `/governance` hub tile, the
+`/company/:eik` breadcrumb fix, and the CLAUDE.md documentation paragraph). Tier 8 was
+always explicitly deferred (NKID/founding-date facets, director-name search, money-sum
+aggregates), not open work left behind. Brainstormed 2026-08-25 per user request: "Companies
 should have a dashboard like persons — to search companies with criteria. We
 should add it as a tile to the governance dashboard." Also folds in a follow-up
 ask from the same conversation: the generic `/company/:eik` page should carry a
