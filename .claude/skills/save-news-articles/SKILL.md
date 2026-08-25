@@ -43,13 +43,29 @@ Extraction details that were measured, not assumed:
   pseudo-articles: JSON-LD Article node, or `og:type=article`, or ≥2
   extracted paragraphs. Rejections land in the summary's `failed` list as
   `non_article_page`.
+- **A body GATE then rejects headline-only records**, because the article
+  gate above is satisfied by a JSON-LD node ALONE — so a page with valid
+  JSON-LD, a real headline and zero extracted paragraphs used to be stored as
+  a complete-looking article. Measured on the first full sweep: 1,284 of
+  4,925 records had a body under 400 chars, 600 of them holding nothing but
+  their own headline, whole domains at 100% (24chasa.bg, iskra.bg, toest.bg,
+  e-vestnik.bg, novavarna.net, narod.bg, svobodnoslovo.eu,
+  forbesbulgaria.com). Two reasons, both in `failed[]` and both counted in
+  `rejected`: `title_as_body` (the body is the headline, allowing a trailing
+  brand tail) and `thin_body` (under `--min-body`, default 400).
+  ⚠️ **400 is the same number as `analyze_articles.py`'s `MIN_CONTENT_CHARS`
+  and they are two copies with no gate keeping them equal** — a record under
+  the floor is one the analysis layer flags `suspect_too_short` and the LLM
+  judges `too_short`, so the two must move together or the saver starts
+  storing records that cost a judgement call and can only come back "not an
+  article".
 - Bulgarian dates ("22 август 2026") normalize to ISO; so do RFC-822 and
   ISO variants.
 
 ## Step 1 — one site
 
 ```bash
-python3 news/scripts/save_articles.py <domain> <N>
+python3 news/scripts/save_articles.py <domain> <N> [--min-body=N] [--retry-rejected]
 ```
 
 ⚠️ **Budget generously: N=100 measured 3–6 minutes per site** (sequential
@@ -59,12 +75,40 @@ lister stage alone can take up to 300s on multi-chunk ambiguous sitemaps
 once the lister timeout was raised to 300s). Give the call a 10-minute
 timeout, not the default.
 
-Stdout is ONE JSON summary: `saved`, `already_present`, `failed[]` (with
-per-article reasons), `list_method`, `order_confidence`, plus the lister's
-`warning` when stale. Exit 0 = at least something saved or nothing new was
+Stdout is ONE JSON summary: `saved`, `rejected`, `skipped_rejected`,
+`min_body`, `already_present`, `dir_exists`, `rejected_ledger`, `failed[]`
+(with per-article reasons), `list_method`, `order_confidence`, plus the
+lister's `warning` when stale. Note `rejected` is a strict SUBSET of
+`failed` — a body-gate rejection is counted in both — so the outcome counts
+do not sum to `listed`. Exit 0 = at least something saved or nothing new was
 needed; 2/3/4 = the list-stage error, propagated verbatim from
 fetch_latest_articles.py (see that skill for `needs_browser`,
 `blocked_captcha` etc.); 4 also when every article failed individually.
+
+⚠️ **Body-gate rejections push exit 4 from rare to ordinary.** "Nothing
+saved and something failed" is now the normal outcome for a domain whose
+extractor is broken — a fully-rejected `--retry-rejected` run exits 4 where
+the identical nightly run exits 0, because the nightly one skips the ledger
+and saves nothing without failing. Benign in the sweep, which discards the
+code and forces `exit 0`, but do not read a 4 as a crash.
+
+**Two flags and a ledger, all new with the body gate:**
+
+- `--min-body=N` lowers (or with `0` disables) the length floor for a source
+  that genuinely publishes briefs. The title-echo slack scales with it, so a
+  lowered floor does not then lose the briefs to the echo rule instead.
+- Rejected URLs are remembered in `news/data/_rejected/<domain>.jsonl`, so a
+  nightly run does not re-fetch the same dead page for ever. The ledger is
+  append-only, deduped per URL, and entries **expire after 30 days** — the
+  sweep passes no flags, so without that TTL it could never recover from an
+  over-firing gate on its own.
+- `--retry-rejected` ignores the ledger for one run. **This is the tool to
+  reach for immediately after an extractor fix**, rather than waiting out the
+  TTL or deleting the folder.
+
+`skipped_rejected` is the number to watch in a sweep log: it is what tells
+"this source published nothing new" apart from "the extractor broke and every
+article here is now ledgered as dead".
 
 **Incremental by design:** folders are keyed by the `url` field inside the
 files — re-running tops up with only new articles and never refetches or
@@ -247,7 +291,9 @@ still wrong (Step 2).
 
 | path | what |
 | --- | --- |
-| `news/scripts/save_articles.py` | the downloader — list via fetch_latest_articles.py, `--urls-file=` (browser-harvested links, plain-HTTP articles) or `--prefetched=` (browser-fetched HTML, no network), extract, persist (this skill) |
+| `news/scripts/save_articles.py` | the downloader — list via fetch_latest_articles.py, `--urls-file=` (browser-harvested links, plain-HTTP articles) or `--prefetched=` (browser-fetched HTML, no network), extract, gate, persist (this skill). `DATA_BG_ROOT` overrides the repo root. |
+| `news/scripts/test_save_articles.py` | regression suite for the saver — body gate, ledger, CLI contract, extraction fixtures. Run it after touching the script. |
+| `news/data/_rejected/<domain>.jsonl` | body-gate rejection ledger: url, reason, chars, title, timestamp. Untracked; entries expire after 30 days. |
 | `news/scripts/save_all_direct.sh` | parallel batch over the direct tier (this skill) |
 | `news/data/<domain>/*.json` | the stored articles, incremental by URL |
 | `news/data/_browser/*` | browser-tier scratch: `<domain>.urls` (harvested links), `<domain>.jsonl` (prefetched rendered HTML) — reusable for re-extraction, untracked |

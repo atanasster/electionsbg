@@ -4,7 +4,9 @@ Save the latest N full articles from one registry domain as individual JSON
 files under news/data/<domain>/.
 
 Usage:
-    python3 save_articles.py <domain> [N] [--delay=SECONDS]
+    python3 save_articles.py <domain> [N] [--delay=SECONDS] [--min-body=N]
+                             [--retry-rejected]
+                             [--urls-file=F | --prefetched=F.jsonl]
 
 Pipeline:
     1. Runs fetch_latest_articles.py as a SUBPROCESS and parses its stdout
@@ -22,23 +24,40 @@ Pipeline:
     3. Applies an ARTICLE GATE so listing/homepage pages are rejected rather
        than saved as pseudo-articles:
            JSON-LD Article node | og:type=article | >= 2 extracted paragraphs
+       ...and then a BODY GATE, because the article gate alone is satisfied by
+       a page with valid JSON-LD, a real headline and NO extracted body at all
+       (measured: 26% of the first full sweep's corpus, whole domains at 100%).
+       A record whose body is missing, shorter than --min-body, or merely a
+       restatement of its own headline is REJECTED rather than saved:
+           title_as_body | thin_body
     4. Writes one JSON file per article, named
        <YYYYMMDD|nodate>-<url-slug>-<md5_8>.json
 
 Files already present (matched by the "url" field inside them) are never
 refetched or rewritten — re-running tops a folder up incrementally with
-only the new articles.
+only the new articles. URLs the body gate rejected are remembered too, in
+news/data/_rejected/<domain>.jsonl, so a nightly run does not re-fetch the
+same dead page for ever; --retry-rejected ignores that ledger for one run
+(use it after an extractor fix).
 
 Prints ONE JSON summary object to stdout:
-    {"domain","dir","requested","listed","already_present","saved",
+    {"domain","dir","dir_exists","requested","listed","already_present",
+     "saved","rejected","skipped_rejected","rejected_ledger","min_body",
      "failed":[{"url","detail"}],"list_method","order_confidence"}
 plus the lister's "warning" when it flagged a stale/unconfirmed source.
+Note "rejected" is a strict SUBSET of "failed" — a body-gate rejection is
+counted in both — so the outcome counts do not sum to "listed".
+
+DATA_BG_ROOT overrides the repository root (same convention as
+analyze_articles.py and build_app_data.py); the regression suite is
+scripts/test_save_articles.py.
 
 Stdlib only. Exit codes: 0 success (partial per-article failures live in
 the summary); 2/3/4 propagate the lister's meaning for the list stage; 4
 also when nothing could be saved this run.
 """
 import sys
+import os
 import re
 import json
 import gzip
@@ -48,18 +67,33 @@ import subprocess
 import urllib.request
 import urllib.error
 from html.parser import HTMLParser
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-DATA_DIR = SCRIPT_DIR.parent / "data"
+# DATA_BG_ROOT overrides the repository root, matching analyze_articles.py and
+# build_app_data.py — it is what lets the regression suite point this script at
+# a throwaway tree instead of the real corpus. LISTER is code rather than data,
+# so it stays beside this file whatever the data root is.
+REPO_ROOT = Path(os.environ.get("DATA_BG_ROOT") or SCRIPT_DIR.parents[1])
+DATA_DIR = REPO_ROOT / "news" / "data"
 LISTER = SCRIPT_DIR / "fetch_latest_articles.py"
 
 sys.path.insert(0, str(SCRIPT_DIR))
 import fetch_latest_articles as fla  # noqa: E402 - shared fetch/parse/date helpers
 
 DELAY_DEFAULT = 0.4  # seconds between article-page fetches, same host
+
+# The BODY GATE floor. Deliberately the same number as analyze_articles.py's
+# MIN_CONTENT_CHARS: below it the analysis layer flags a record
+# suspect_too_short and the LLM judges it `too_short`, so anything this saver
+# writes under the floor is a record that costs a judgement call and can only
+# ever come back "this is not an article". Measured on the first full sweep:
+# 1,284 of 4,925 stored records sat under it, 600 of them holding nothing but
+# their own headline. Override per run with --min-body=N for a source that
+# genuinely publishes briefs.
+MIN_BODY_CHARS = 400
 # Multi-chunk ambiguous sitemaps (measured: bird.bg, bivol.bg, bnews.bg,
 # economic.bg, iskra.bg in the first full sweep) legitimately exceed 180s
 # in the lister's careful candidate-by-candidate descent — 300s keeps them
@@ -346,7 +380,15 @@ def _jsonld_str(v):
     if v is None:
         return None
     if isinstance(v, str):
-        return v.strip() or None
+        # JSON-LD lives inside a <script> block, so the HTML parser never
+        # decodes it. <meta> values already go through html_unescape2 in
+        # parse_metas and body paragraphs through convert_charrefs — this is
+        # the third path, and it was the only one left raw. Measured before
+        # the fix: 197 of 4,929 stored records (78 titles, 138 bodies) carried
+        # entities like "&#8222;Ергенът&#8220;" verbatim into the LLM prompts,
+        # the story-clustering keys and the app-data build, where a headline
+        # spelled that way is a different string for every comparison.
+        return html_unescape2(v).strip() or None
     if isinstance(v, (int, float)):
         return str(v)
     if isinstance(v, dict):
@@ -452,9 +494,14 @@ def extract_record(html_text, domain, url, list_published=None):
     metas = parse_metas(html_text)
     site_name = metas.get("og:site_name")
 
+    # The 4th source is the lister's raw <title>/og:title reader, which cannot
+    # unescape on its own (it shadows the stdlib `html` module with a local),
+    # so it is wrapped here — same convention as the three sources above it.
     title = (_jsonld_str(ld.get("headline")) or _jsonld_str(ld.get("name"))
              or metas.get("og:title")
-             or fla.extract_title_from_html(html_text.encode("utf-8")))
+             or html_unescape2(
+                 fla.extract_title_from_html(html_text.encode("utf-8")) or "")
+             or None)
     title = strip_site_suffix(title, site_name, domain)
     published = normalize_date(
         _jsonld_str(ld.get("datePublished"))
@@ -566,6 +613,152 @@ def existing_urls(folder):
     return urls
 
 
+# ------------------------------------------------------------- the body gate
+
+# \\s is Unicode-aware for str patterns, so it already covers NBSP (U+00A0).
+# What it does NOT cover is the zero-width family Bulgarian CMS templates
+# inject -- a single U+200B between two otherwise identical strings is enough
+# to defeat a function whose whole job is exact-shape matching.
+_ZERO_WIDTH_RE = re.compile("[\u200b-\u200f\ufeff\u00ad]")
+_NORM_RE = re.compile(r"\s+")
+_EDGE_PUNCT = " \t\r\n.,;:!?-\u2013\u2014|\u00b7\"'\u00ab\u00bb\u201e\u201c\u201d()[]"
+
+# How much text may trail the headline before the body stops reading as an echo
+# of it. A brand tail (" - \u041d\u043e\u0432\u0438\u043d\u0438 \u0412\u0430\u0440\u043d\u0430") is short; a lede is not.
+TITLE_ECHO_SLACK = 60
+
+
+def _norm_for_compare(s):
+    """Both sides of the echo comparison must use ONE escaping convention: the
+    body arrives decoded (HTMLParser(convert_charrefs=True)) while a JSON-LD or
+    <title>-derived headline does not, so "&#8222;X&#8220;" has to fold to the
+    real quotation marks before either side is compared."""
+    s = _ZERO_WIDTH_RE.sub("", html_unescape2(s or ""))
+    return _NORM_RE.sub(" ", s).strip(_EDGE_PUNCT).casefold()
+
+
+def echo_slack_for(min_body):
+    """The echo slack must never approach the length floor the operator chose:
+    at --min-body=80 a fixed 60 would reject a brief consisting of a headline
+    plus 59 characters of real prose."""
+    return min(TITLE_ECHO_SLACK, max(0, min_body // 4))
+
+
+def body_is_title(content, title, slack=TITLE_ECHO_SLACK):
+    """True when the extracted "body" is really just the headline -- the shape
+    a page produces when the paragraph extractor found nothing and the only
+    text left standing was the <title> or og:title. Measured across whole
+    domains (24chasa.bg, novavarna.net, narod.bg, toest.bg, e-vestnik.bg):
+    600 of 4,925 stored records.
+
+    The comparison allows a trailing site decoration, because the title on the
+    record has been through strip_site_suffix and the body has not -- so a body
+    reading "Headline - \u041d\u043e\u0432\u0438\u043d\u0438 \u0412\u0430\u0440\u043d\u0430" must still match a title of "Headline".
+    A real article whose lede repeats its own headline is NOT caught: the
+    remainder after the headline is then prose, i.e. far longer than a brand
+    tail.
+
+    At the DEFAULT floor this rule changes the recorded reason and never the
+    outcome -- all 606 echoes in the live corpus are also under 400 chars. Its
+    only load-bearing job is the LOWERED-floor case, which is exactly where a
+    fixed slack misfires: a genuine brief is its headline plus a sentence, so
+    callers scale `slack` down with --min-body (see echo_slack_for) rather than
+    swallowing the very population that flag exists to admit."""
+    c, t = _norm_for_compare(content), _norm_for_compare(title)
+    if not c or not t:
+        return False
+    if c == t:
+        return True
+    # Only ever a suffix: a body that merely STARTS with its headline and then
+    # continues for a paragraph is an ordinary article, not a title echo.
+    return c.startswith(t) and len(c) - len(t) <= slack
+
+
+REJECT_DIR_NAME = "_rejected"
+
+
+def rejected_path(domain):
+    return DATA_DIR / REJECT_DIR_NAME / f"{domain}.jsonl"
+
+
+REJECTED_TTL_DAYS = 30
+
+
+def rejected_urls(domain, max_age_days=REJECTED_TTL_DAYS):
+    """URLs a previous run's body gate turned away. Skipping them keeps a
+    nightly run from re-fetching the same dead page every night.
+
+    Rejection is deliberately NOT permanent. A page can legitimately gain a
+    body later -- a paywall lifted, a wire story fleshed out, a CMS template
+    fixed, or (most often) this repo's own extractor improved -- so an entry
+    older than max_age_days stops being skipped and the URL is tried again.
+    Without that the nightly sweep, which passes no flags, could never recover
+    from an over-firing gate on its own. Pass max_age_days=None to skip every
+    ledgered URL regardless of age; --retry-rejected skips the ledger
+    entirely, which is the right tool immediately after an extractor fix."""
+    path = rejected_path(domain)
+    urls = set()
+    if not path.exists():
+        return urls
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=max_age_days)
+              if max_age_days is not None else None)
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                d = json.loads(line)
+            except json.JSONDecodeError:
+                continue  # a torn line must not hide the rest of the ledger
+            url = d.get("url")
+            if not url:
+                continue
+            if cutoff is not None:
+                at = d.get("at")
+                try:
+                    stamped = datetime.fromisoformat(at) if at else None
+                except (TypeError, ValueError):
+                    stamped = None
+                if stamped is not None:
+                    if stamped.tzinfo is None:
+                        stamped = stamped.replace(tzinfo=timezone.utc)
+                    if stamped < cutoff:
+                        # A stale rejection: let this run try the page again.
+                        # discard() rather than skipping the line, because a
+                        # later entry for the same URL may still be fresh.
+                        urls.discard(url)
+                        continue
+            urls.add(url)
+    except OSError:
+        return set()
+    return urls
+
+
+def record_rejection(domain, url, reason, chars, title):
+    """Append one rejection to the domain ledger. `reason` and `title` are
+    forensic breadcrumbs for a human reading the .jsonl -- only `url` and `at`
+    are read back by rejected_urls().
+
+    Never raises: this runs inside the per-article loop, and an unguarded
+    OSError here would escape before the JSON summary is printed, breaking the
+    module's one-object-on-stdout contract. save_all_direct.sh reads empty
+    stdout as "skip this domain silently", so a permissions problem would make
+    a whole domain vanish from the sweep log with no diagnostic anywhere. A
+    failed ledger write costs a re-fetch next run; a failed summary costs the
+    run's observability."""
+    entry = {"url": url, "reason": reason, "content_chars": chars,
+             "title": title, "at": datetime.now(timezone.utc).isoformat()}
+    try:
+        path = rejected_path(domain)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        return True
+    except OSError:
+        return False
+
+
 # --------------------------------------------------------------------- main
 
 def main():
@@ -573,9 +766,22 @@ def main():
     delay = DELAY_DEFAULT
     urls_file = None
     prefetched = None
+    min_body = MIN_BODY_CHARS
+    retry_rejected = False
     for a in list(args):
         if a.startswith("--delay="):
-            delay = float(a.split("=", 1)[1])
+            raw = a.split("=", 1)[1]
+            try:
+                delay = float(raw)
+            except ValueError:
+                print(json.dumps({"error": "usage", "detail":
+                                  f"--delay needs a number of seconds, "
+                                  f"got {raw!r}"}))
+                sys.exit(1)
+            if delay < 0:
+                print(json.dumps({"error": "usage", "detail":
+                                  "--delay cannot be negative"}))
+                sys.exit(1)
             args.remove(a)
         elif a.startswith("--urls-file="):
             urls_file = a.split("=", 1)[1]
@@ -583,9 +789,25 @@ def main():
         elif a.startswith("--prefetched="):
             prefetched = a.split("=", 1)[1]
             args.remove(a)
+        elif a.startswith("--min-body="):
+            raw = a.split("=", 1)[1]
+            # .isdigit() rejects the empty string and negatives alike, so
+            # --min-body=0 stays the explicit "disable the length floor"
+            # spelling and a typo cannot silently disable it instead.
+            if not raw.isdigit():
+                print(json.dumps({"error": "usage", "detail":
+                                  f"--min-body needs a non-negative integer, "
+                                  f"got {raw!r}"}))
+                sys.exit(1)
+            min_body = int(raw)
+            args.remove(a)
+        elif a == "--retry-rejected":
+            retry_rejected = True
+            args.remove(a)
     if not args:
         print(json.dumps({"error": "usage",
                           "detail": "save_articles.py <domain> [N] [--delay=S] "
+                                    "[--min-body=N] [--retry-rejected] "
                                     "[--urls-file=F | --prefetched=F.jsonl]"}))
         sys.exit(1)
     domain = args[0]
@@ -595,14 +817,22 @@ def main():
     if prefetched:
         # Browser-fetched pages (the browser_only tier): one JSON line per
         # article, {"url", "html"} — no network happens in this mode at all.
-        with open(prefetched, encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if not line:
-                    continue
-                d = json.loads(line)
-                if d.get("url") and d.get("html"):
-                    html_map[d["url"]] = d
+        try:
+            with open(prefetched, encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        d = json.loads(line)
+                    except json.JSONDecodeError:
+                        continue  # one torn line must not sink the file
+                    if d.get("url") and d.get("html"):
+                        html_map[d["url"]] = d
+        except OSError as e:
+            print(json.dumps({"error": "usage",
+                              "detail": f"--prefetched unreadable: {e}"}))
+            sys.exit(1)
         articles = [{"url": u, "title": d.get("title"),
                      "published": d.get("published")}
                     for u, d in html_map.items()]
@@ -612,10 +842,16 @@ def main():
         # Browser-harvested links (homepage DOM scrape) but article pages are
         # plain-HTTP fetchable: one URL per line, '#' comments allowed.
         articles = []
-        for line in open(urls_file, encoding="utf-8"):
-            u = line.strip()
-            if u and not u.startswith("#"):
-                articles.append({"url": u})
+        try:
+            with open(urls_file, encoding="utf-8") as fh:
+                for line in fh:
+                    u = line.strip()
+                    if u and not u.startswith("#"):
+                        articles.append({"url": u})
+        except OSError as e:
+            print(json.dumps({"error": "usage",
+                              "detail": f"--urls-file unreadable: {e}"}))
+            sys.exit(1)
         list_method, order_confidence, listed_count, warning = (
             "urls_file_browser_harvest", "dom_order_unconfirmed", len(articles), None)
     else:
@@ -647,12 +883,34 @@ def main():
 
     folder = DATA_DIR / domain
     have = existing_urls(folder)
-    saved, failed = 0, []
+    skip_rejected = set() if retry_rejected else rejected_urls(domain)
+    # A URL rejected earlier in THIS run must not be appended twice, and with
+    # --retry-rejected the ledger's own entries are re-appended every run --
+    # measured 2 -> 4 -> 6 over three passes on the same input. Seeding the
+    # guard with what the ledger already holds makes the append idempotent per
+    # URL regardless of which flags are in play.
+    ledgered = rejected_urls(domain, max_age_days=None)
+    saved, rejected, skipped_rejected, failed = 0, 0, 0, []
+    echo_slack = echo_slack_for(min_body)
+
+    def _reject(url, rec, reason, detail):
+        """One body-gate rejection: ledger it once, count it, and report it in
+        failed[] like every other per-article outcome."""
+        nonlocal rejected
+        if url not in ledgered:
+            record_rejection(domain, url, reason,
+                             rec["content_chars"], rec["title"])
+            ledgered.add(url)
+        rejected += 1
+        failed.append({"url": url, "detail": detail})
     for art in articles:
         url = art.get("url")
         if not url:
             continue
         if url in have:
+            continue
+        if url in skip_rejected:
+            skipped_rejected += 1
             continue
         if urlsplit(url).path in ("", "/"):
             failed.append({"url": url, "detail": "non_article_page (homepage)"})
@@ -678,6 +936,21 @@ def main():
         if not rec["title"] and not rec["content"]:
             failed.append({"url": url, "detail": "no title and no content extracted"})
             continue
+        # The BODY GATE. The article gate above is satisfied by JSON-LD alone,
+        # so it passes a page whose body the extractor never found — the
+        # single largest defect in the first sweep's corpus. Reject rather
+        # than store: a headline-only record looks complete to every consumer
+        # and to every field check.
+        if body_is_title(rec["content"], rec["title"], slack=echo_slack):
+            _reject(url, rec, "title_as_body",
+                    "title_as_body (extracted body is the headline, "
+                    "not article text)")
+            continue
+        if rec["content_chars"] < min_body:
+            _reject(url, rec, "thin_body",
+                    f"thin_body ({rec['content_chars']} chars < "
+                    f"{min_body} floor)")
+            continue
         folder.mkdir(parents=True, exist_ok=True)
         (folder / article_filename(url, rec["published"])).write_text(
             json.dumps(rec, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -691,7 +964,18 @@ def main():
         "requested": want,
         "listed": listed_count,
         "already_present": sum(1 for a in articles if a.get("url") in have),
+        "dir_exists": folder.is_dir(),
         "saved": saved,
+        # `rejected` is a strict SUBSET of `failed` -- both gate call sites
+        # append to each -- so listed != saved + already_present + rejected +
+        # len(failed). `skipped_rejected` is the number the sweep log needs to
+        # tell "this source published nothing new" apart from "the extractor
+        # broke and every article here is now ledgered as dead".
+        "rejected": rejected,
+        "skipped_rejected": skipped_rejected,
+        "rejected_ledger": (str(rejected_path(domain))
+                            if rejected or skipped_rejected else None),
+        "min_body": min_body,
         "failed": failed,
         "list_method": list_method,
         "order_confidence": order_confidence,
