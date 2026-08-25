@@ -407,6 +407,13 @@ const LISTING_LABEL_EXCEPTIONS: Record<string, string> = {
   // true. See 168's header.
   awarder_declared_officers:
     "renders the declarant's OWN words; the listing fallback would attribute a group label to a named person (168 header)",
+  // 186: `position_title = 'Кмет'` is an exact-match FILTER key selecting the register's
+  // own listing value, not a rendered label — the person_browse_table (120) shape, not a
+  // call site declared_label() belongs on. filed_position has no equivalent vocabulary to
+  // filter on for this: it is 563 free-text spellings for the muni tier, sometimes naming
+  // the body instead of the role. See 186's header.
+  mayor_pay_ranking:
+    "position_title is an exact-match filter key selecting the register's own 'Кмет' listing, not a rendered label (186 header)",
 };
 
 test.skipIf(skip)(

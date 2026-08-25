@@ -4649,6 +4649,46 @@ const DB_ROUTES = {
     });
     return { body: rows };
   },
+  // Declared mayor pay vs. município population (migration 186) — the ranked
+  // browse behind /governance/mayor-pay. `income_eur` is a LABOR-INCOME figure
+  // only (never the household's full declared income), and NULL is a real
+  // answer ("not on file"), not €0 — see the migration header before touching
+  // either row.
+  "mayor-pay-ranking": async (dbRows, q) => {
+    const limit = clampInt(q.limit, 300, 1, 1000);
+    const rows = await dbRows("SELECT * FROM mayor_pay_ranking($1::int)", [
+      limit,
+    ]).catch((e) => {
+      if (e?.code === "42883" || e?.code === "42P01") {
+        logMissOnce(
+          "mp:not-built:ranking",
+          "mayor_pay_ranking is absent — serving an empty ranking. Run apply_functions.ts 186_mayor_pay.sql.",
+        );
+        return [];
+      }
+      return Promise.reject(e);
+    });
+    return { body: rows };
+  },
+  // One município's mayor-pay detail, for the /governance/:id stat tile.
+  "mayor-pay": async (dbRows, q) => {
+    const obshtina = s(q, "obshtina").trim().toUpperCase();
+    if (!/^[A-Z0-9_]{3,10}$/.test(obshtina))
+      return { status: 400, body: { error: "missing or malformed obshtina" } };
+    const rows = await dbRows("SELECT mayor_pay_by_obshtina($1) AS r", [
+      obshtina,
+    ]).catch((e) => {
+      if (e?.code === "42883" || e?.code === "42P01") {
+        logMissOnce(
+          "mp:not-built",
+          "mayor_pay_by_obshtina is absent — serving no tile. Run apply_functions.ts 186_mayor_pay.sql.",
+        );
+        return [{ r: null }];
+      }
+      return Promise.reject(e);
+    });
+    return { body: rows[0]?.r ?? null };
+  },
   // Companies REGISTERED at a place → the "фирми, регистрирани тук" tile on the
   // settlement / municipality governance pages (schema 133). Takes exactly one
   // of ?ekatte= (settlement) or ?obshtina= (municipality code); passing both
