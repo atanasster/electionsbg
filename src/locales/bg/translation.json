@@ -5133,6 +5133,12 @@
   "council_resolution_untitled": "Решение № {{number}} от {{date}}",
   "council_tile_aggregate_only": "Този съвет публикува само общ сбор „за/против/въздържал се“ — няма запис кой съветник как е гласувал.",
   "council_tile_no_tally": "Този съвет публикува решенията си, но не и как е гласувано по тях.",
+  "pp_council_voting_title": "Гласуване в общинския съвет",
+  "pp_council_voting_intro": "Спрямо мнозинството в съвета на всяко решение — този регистър не съдържа партийна принадлежност.",
+  "pp_council_voting_with_majority": "С мнозинството",
+  "pp_council_voting_votes_cast": "Подадени гласове",
+  "pp_council_voting_against_majority": "Против мнозинството",
+  "pp_council_voting_recent": "Скорошни решения",
   "unit_cost_hub_heading": "Цена за единица резултат",
   "unit_cost_hub_blurb": "Разход за свършено дело, цена на километър, разход за болничен случай — едно и също по вид число на три места. Какво измерва и какво не.",
   "unit_cost_hub_cta": "Методология",
@@ -5227,5 +5233,10 @@
   "nsh_evidence_groups_basis": "по последна група в поименните списъци",
   "nsh_evidence_groups_all": "всички групи",
   "nsh_evidence_groups_more_one": "още {{count}} група",
-  "nsh_evidence_groups_more_other": "още {{count}} групи"
+  "nsh_evidence_groups_more_other": "още {{count}} групи",
+  "budget_kpi_plan_basis": "план по закона за бюджета за {{year}} г.",
+  "budget_kpi_programs_basis": "в програмния бюджет за {{year}}",
+  "budget_kpi_projection_basis": "прогноза за {{year}} г. по профила на {{basisYear}} г.",
+  "budget_kpi_share_plan_basis": "разходен план по КФП спрямо БВП за {{year}} г.",
+  "budget_kpi_share_projection_basis": "прогнозни разходи по КФП спрямо прогнозен БВП за {{year}} г."
 }

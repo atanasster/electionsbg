@@ -26,11 +26,38 @@ export interface BudgetHubStats {
    *  FY2021 is 6 with complete: true, because the feed is cumulative and its
    *  December row is the whole year. Never render this as coverage. */
   monthsAvailable: number;
+  /** ⚠️ NOT ALWAYS MEASURED. Eurostat publishes a year ~18 months late, so
+   *  `buildGdpByYear` extrapolates the in-progress year from the geometric mean
+   *  of the last three YoY rates. `projectionBasisYear != null` is the tell: the
+   *  same years that need a projected numerator have an extrapolated denominator.
+   *  ⚠️ Perimeter is the КФП state budget, NOT the ESA general government that
+   *  `peerBands` and /budget/execution use — they differ by ~18 points of GDP. */
   gdpEur: number | null;
   revenueExecutedEur: number | null;
+  /** МФ's OWN budget-law column off the КФП report — what the Assembly
+   *  appropriated. NULL until МФ publishes it, which for a running year it
+   *  often has not. ⚠️ NOT interchangeable with `revenueProjectedEur`. */
+  revenuePlannedEur: number | null;
+  /** OURS: this year's actuals scaled through `projectionBasisYear`'s monthly
+   *  profile. A forecast. Labelling it „план" asserts the Assembly voted a
+   *  figure we computed — the defect this pair of keys exists to keep apart. */
   revenueProjectedEur: number | null;
   expenditureExecutedEur: number | null;
+  /** The budget law's column — see `revenuePlannedEur`. */
+  expenditurePlannedEur: number | null;
+  /** Our seasonal forecast — see `revenueProjectedEur`. */
   expenditureProjectedEur: number | null;
+  /** The prior complete year whose monthly shape every `*Projected*` figure here
+   *  was scaled through. NULL on a complete year, where nothing is projected. */
+  projectionBasisYear: number | null;
+  /** Expenditure as a share of the same year's GDP, ALREADY DIVIDED — one per
+   *  numerator, because a single share would leave its basis to be guessed. The
+   *  division is a basis change, which `budgetBasis.test.ts` §7.1 keeps out of
+   *  the screens: one implementation, in migration 156, over one
+   *  `budget_fiscal_year` row so numerator and denominator share a year. */
+  expenditurePlannedPctGdp: number | null;
+  /** ⚠️ A forecast over a forecast — see `gdpEur`. A caption must say so. */
+  expenditureProjectedPctGdp: number | null;
   euContributionExecutedEur: number | null;
   balanceExecutedEur: number | null;
   balanceProjectedEur: number | null;

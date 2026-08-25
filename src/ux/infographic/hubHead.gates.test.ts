@@ -48,6 +48,8 @@ import {
   FUNDS_STATS_FIXTURE,
   FUNDS_INDEX_FIXTURE,
 } from "@/screens/funds/fundsHubStats.fixture";
+import { budgetHubKpis } from "@/screens/budget/budgetHubFigures";
+import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
 
 const HUB_SCREENS = [
   "src/screens/ProcurementScreen.tsx",
@@ -65,6 +67,11 @@ const HUB_SCREENS = [
   // crediting this entry with work two other clauses were already doing.
   "src/screens/dev/ContractsBrowserDbScreen.tsx",
   "src/screens/ParliamentHubScreen.tsx",
+  // Its band lives in `budgetHubFigures.ts` — extracted for the /funds reason, so the
+  // plan-vs-forecast rule could be asserted rather than commented. Both files are listed:
+  // the screen still carries the head's own copy, and a basis window can be typed in either.
+  "src/screens/budget/BudgetHubScreen.tsx",
+  "src/screens/budget/budgetHubFigures.ts",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
@@ -177,6 +184,80 @@ describe("hub head — the band and the tiles are disjoint", () => {
       clash,
       `tile metric(s) also in the /funds KPI band: ${clash.join(", ")}`,
     ).toEqual([]);
+  });
+
+  it("no /budget KPI field is also a tile metric field", () => {
+    // FIELD-level, unlike the /funds arm above, and the difference is forced rather than
+    // chosen: /budget's tile metrics are built inline in a `useMemo` in the screen, so there
+    // is no pure builder to call. Both sides are read out of SOURCE the way the /procurement
+    // arm is — the band from its extracted module, the tiles from the one contiguous block
+    // that builds them.
+    //
+    // The rendered-string half of this rule lives in `budgetHubFigures.test.ts`, which
+    // compares the band against the executed figures the tiles carry. Neither is redundant:
+    // this one sees every tile, that one sees formatting collisions between different fields.
+    const band = read("src/screens/budget/budgetHubFigures.ts");
+    const screen = read("src/screens/budget/BudgetHubScreen.tsx");
+
+    const tileBlock = screen.slice(
+      screen.indexOf("const metrics = useMemo"),
+      screen.indexOf("const searchSources"),
+    );
+    expect(
+      tileBlock.length,
+      "the /budget tile-metric block moved — this clause is reading nothing",
+    ).toBeGreaterThan(500);
+
+    const fieldsOf = (src: string) =>
+      new Set(
+        [...stripJsx(src).matchAll(/stats\.([A-Za-z]+)/g)].map((m) => m[1]),
+      );
+
+    const bandFields = fieldsOf(band);
+    const tileFields = fieldsOf(tileBlock);
+    expect(
+      bandFields.size,
+      "the /budget band reads no stats field",
+    ).toBeGreaterThan(3);
+    expect(
+      tileFields.size,
+      "the /budget tiles read no stats field",
+    ).toBeGreaterThan(3);
+
+    // `fiscalYear` is the WINDOW both sides label with, not a figure either publishes, and
+    // `complete` is a guard. A shared label is the point of a basis line; a shared FIGURE is
+    // the defect.
+    const LABELS = new Set([
+      "fiscalYear",
+      "complete",
+      "latestKfpPeriod",
+      "asOf",
+    ]);
+    const clash = [...bandFields].filter(
+      (f) => tileFields.has(f) && !LABELS.has(f),
+    );
+    expect(
+      clash,
+      `field(s) in both the /budget band and its tiles: ${clash.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  it("no two /budget KPI cells share a destination", () => {
+    const tos = budgetHubKpis(
+      BUDGET_STATS_FIXTURE,
+      "bg-BG",
+      new Intl.NumberFormat("bg-BG"),
+      new Intl.NumberFormat("bg-BG", {
+        style: "percent",
+        maximumFractionDigits: 1,
+      }),
+      id,
+    ).map((k) => k.to);
+    expect(tos.length).toBe(4);
+    expect(
+      new Set(tos).size,
+      `duplicate /budget KPI destination in ${tos.join(", ")}`,
+    ).toBe(tos.length);
   });
 
   it("no two /funds KPI cells share a destination", () => {

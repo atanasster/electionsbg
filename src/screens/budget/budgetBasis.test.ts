@@ -10,6 +10,8 @@
 // What they can do is make the next reader declare their intent.
 
 import { describe, it, expect } from "vitest";
+import { BUDGET_BASIS_KEYS } from "./budgetHubFigures";
+import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -223,5 +225,89 @@ describe("§2.2 — months_available is never rendered as coverage", () => {
     expect(suite).toMatch(/monthsAvailable: 6/);
     expect(suite).toMatch(/not\.toContain\("6 месечни снимки"\)/);
     expect(suite).toMatch(/not\.toContain\("годината не е приключила"\)/);
+  });
+});
+
+describe("§2.3 — a basis caption names the basis of the figure beside it", () => {
+  /** ⚠️⚠️ `budget_fiscal_year_figure.basis` HAS THREE VALUES AND TWO OF THEM ARE NOT THE LAW.
+   *
+   *    actual    — executed so far. The tiles' job; never a headline (six months of FY2026 is
+   *                €14,15 млрд. against €29,58 млрд. for the year).
+   *    planned   — МФ's own budget-law column off the КФП report. What the Assembly voted.
+   *    projected — OURS. This year's actuals scaled through a prior year's monthly profile
+   *                (`scripts/budget/kfp.ts`, projectFigures).
+   *
+   *  Captioning a `projected` figure „план" asserts that parliament appropriated a number we
+   *  forecast. It shipped: the /budget head published €29,58 млрд. under „ПЛАН ЗА 2026" with a
+   *  note reading „Числата горе са планът по закона за бюджета", for a fiscal year that
+   *  carries NO `planned` row at all. Arithmetically right, false as a sentence — the class
+   *  this whole file defends.
+   *
+   *  The gate reads the PAIRING REGISTRY the builder resolves through, not the builder's
+   *  source: a grep for „план" near a ternary goes vacuous the moment the ternary moves into
+   *  a map, which is exactly the refactor this rule invites. */
+  const PLAN_WORDS =
+    /план|закона за бюджета|budget act|appropriation|\bplan(ned)?\b/i;
+  const FORECAST_WORDS = /прогноз|project(ed|ion)/i;
+
+  const corpora = { bg: bgCorpus, en: enCorpus };
+
+  it("puts no plan word on a projected figure", () => {
+    for (const [lang, corpus] of Object.entries(corpora))
+      for (const [kind, byBasis] of Object.entries(BUDGET_BASIS_KEYS)) {
+        const key = byBasis.projected;
+        const text = corpus[key];
+        expect(text, `${lang}: ${key} is missing from the corpus`).toBeTruthy();
+        expect(
+          text,
+          `${lang}: ${key} (${kind}) captions OUR forecast as the budget law`,
+        ).not.toMatch(PLAN_WORDS);
+      }
+  });
+
+  it("says so on a projected figure, rather than leaving the basis unstated", () => {
+    // The complement, and it is not redundant: „разходи за 2026" contains no plan word and
+    // is still an unlabelled forecast presented as a fact.
+    for (const [lang, corpus] of Object.entries(corpora))
+      for (const byBasis of Object.values(BUDGET_BASIS_KEYS))
+        expect(
+          corpus[byBasis.projected],
+          `${lang}: ${byBasis.projected} does not say the figure is a forecast`,
+        ).toMatch(FORECAST_WORDS);
+  });
+
+  it("names the seasonal anchor on the money forecast", () => {
+    // „прогноза за 2026" alone is a forecast from nowhere. `projectionBasisYear` is on the
+    // wire precisely so the caption can say whose profile produced it.
+    for (const [lang, corpus] of Object.entries(corpora))
+      expect(
+        corpus[BUDGET_BASIS_KEYS.money.projected],
+        `${lang}: the money forecast caption drops {{basisYear}}`,
+      ).toContain("{{basisYear}}");
+  });
+
+  it("puts no forecast word on the budget-law figure", () => {
+    for (const [lang, corpus] of Object.entries(corpora))
+      for (const byBasis of Object.values(BUDGET_BASIS_KEYS)) {
+        const text = corpus[byBasis.planned];
+        expect(
+          text,
+          `${lang}: ${byBasis.planned} is missing from the corpus`,
+        ).toBeTruthy();
+        expect(
+          text,
+          `${lang}: ${byBasis.planned} calls the budget law a forecast`,
+        ).not.toMatch(FORECAST_WORDS);
+      }
+  });
+
+  it("names the КФП perimeter on the GDP share, in both bases", () => {
+    // /budget/execution renders 41,7% of GDP one click away — Eurostat, general government —
+    // against this cell's ~23-27% on the КФП state budget. Both are right, and a caption
+    // naming neither invites the reader to conclude one of the pages is broken.
+    for (const basis of ["planned", "projected"] as const) {
+      expect(bgCorpus[BUDGET_BASIS_KEYS.share[basis]]).toContain("КФП");
+      expect(enCorpus[BUDGET_BASIS_KEYS.share[basis]]).toContain("CFP");
+    }
   });
 });

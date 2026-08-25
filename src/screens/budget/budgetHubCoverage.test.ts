@@ -127,12 +127,36 @@ const reachable = (): Set<string> => {
   return seen;
 };
 
+/** A `*.fixture.ts` is TEST DATA and can never be reachable from a route — by design, since
+ *  the app importing one would put a committed snapshot on a live page. It is still held to a
+ *  rule, just a different one: at least one test in the directory must import it, so an
+ *  orphaned fixture is sediment here exactly as an orphaned screen is. */
+const fixtureOrphans = (dir: string, names: string[]): string[] => {
+  const tests = readdirSync(dir)
+    .filter((f) => f.includes(".test."))
+    .map((f) => readFileSync(join(dir, f), "utf8"))
+    .concat(
+      // hubHead.gates.test.ts lives outside the module and imports these by alias.
+      readdirSync(join(SRC, "ux/infographic"))
+        .filter((f) => f.includes(".test."))
+        .map((f) => readFileSync(join(SRC, "ux/infographic", f), "utf8")),
+    );
+  return names.filter(
+    (f) => !tests.some((t) => t.includes(f.replace(/\.tsx?$/, ""))),
+  );
+};
+
 const deadIn = (rel: string): string[] => {
   const seen = reachable();
   const dir = join(SRC, rel);
-  return readdirSync(dir)
-    .filter((f) => /\.tsx?$/.test(f) && !f.includes(".test."))
-    .filter((f) => !seen.has(join(dir, f)));
+  const files = readdirSync(dir).filter(
+    (f) => /\.tsx?$/.test(f) && !f.includes(".test."),
+  );
+  const fixtures = files.filter((f) => f.includes(".fixture."));
+  return [
+    ...files.filter((f) => !f.includes(".fixture.") && !seen.has(join(dir, f))),
+    ...fixtureOrphans(dir, fixtures),
+  ];
 };
 
 describe("no sediment in the budget module", () => {

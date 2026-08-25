@@ -1049,6 +1049,21 @@ it — so it does not gate the deploy, but a cloud database that has never run i
 `/budget/municipal` with the panel silently absent. Its own loader also depends on `place-dim`,
 so 0a genuinely comes first.
 
+**[2026-08-25] Step 1c is what the /budget HEAD needs, and skipping it costs cells rather
+than a page.** The head's band reads four keys 156 gained with the hub-head work —
+`expenditurePlannedEur` / `revenuePlannedEur` (МФ's budget-law column), `projectionBasisYear`
+and `expenditurePlannedPctGdp`. Until 156 reaches the serving database they are `undefined`,
+so on a CLOSED fiscal year the band falls from four cells to one (nothing is `projected` once
+a year completes) and on a running one it loses the GDP share. Green locally, short on prod,
+nothing logged, `kpisPending={4}` still reserving four skeletons.
+
+⚠️ **`apply_functions.ts 156_budget_hub_stats.sql` is NOT the free swap the escape hatch
+usually is.** The edit is inside `budget_hub_stats()` (`CREATE OR REPLACE`), but the FILE opens
+with `DROP MATERIALIZED VIEW IF EXISTS budget_hub_stats_cache`, and `exec()` sends a migration
+as one implicit transaction — so it rebuilds the matview under an AccessExclusiveLock. Six rows,
+so the window is short; `db:load:budget-hub:pg:cloud` is still strictly better, because it
+refreshes CONCURRENTLY and vacuums afterwards.
+
 No bucket step: this migration moves data **off** files. `data/budget/**` stays on disk and on the
 bucket for the ingest and for the pages not yet migrated; retiring any of it is a separate decision
 needing both a `bucket_sync_paths.ts` refusal **and** a `CHILD_EXCLUDES` entry — one without the

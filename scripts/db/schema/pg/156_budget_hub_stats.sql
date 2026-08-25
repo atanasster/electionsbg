@@ -56,11 +56,28 @@ SELECT
   y.complete,
   y.months_available,
   y.gdp_eur,
+  -- The seasonal anchor behind every `*_projected_*` column below: the prior
+  -- complete fiscal year whose monthly cumulative shape was used to scale this
+  -- year's actuals forward (`kfp.ts` projectFigures). NULL on a complete year,
+  -- which is the same thing as „the projected columns are NULL here".
+  y.projection_basis,
   -- Money, each key naming its basis. NULL where the corpus withholds rather
   -- than reports zero.
+  --
+  -- ⚠️⚠️ `planned` AND `projected` ARE NOT THE SAME CLAIM AND MUST NEVER BE
+  -- FOLDED INTO ONE COLUMN. `basis = 'planned'` is МФ's own budget-law column
+  -- off the КФП report (`kfp.ts` header.lawCol) — what the National Assembly
+  -- appropriated. `basis = 'projected'` is OURS: this year's actuals scaled
+  -- through `projection_basis`'s monthly profile. Publishing the second under
+  -- the first's name asserts the Assembly voted a figure we forecast, which is
+  -- exactly what the /budget head shipped for one review cycle. A consumer
+  -- picking between them must carry the pick and the label together — see
+  -- `src/screens/budget/budgetHubFigures.ts`.
   max(f.amount_eur) FILTER (WHERE f.series = 'revenue'        AND f.basis = 'actual')    AS revenue_executed_eur,
+  max(f.amount_eur) FILTER (WHERE f.series = 'revenue'        AND f.basis = 'planned')   AS revenue_planned_eur,
   max(f.amount_eur) FILTER (WHERE f.series = 'revenue'        AND f.basis = 'projected') AS revenue_projected_eur,
   max(f.amount_eur) FILTER (WHERE f.series = 'expenditure'    AND f.basis = 'actual')    AS expenditure_executed_eur,
+  max(f.amount_eur) FILTER (WHERE f.series = 'expenditure'    AND f.basis = 'planned')   AS expenditure_planned_eur,
   max(f.amount_eur) FILTER (WHERE f.series = 'expenditure'    AND f.basis = 'projected') AS expenditure_projected_eur,
   max(f.amount_eur) FILTER (WHERE f.series = 'euContribution' AND f.basis = 'actual')    AS eu_contribution_executed_eur,
   max(f.amount_eur) FILTER (WHERE f.series = 'balance'        AND f.basis = 'actual')    AS balance_executed_eur,
@@ -104,7 +121,8 @@ SELECT
   (SELECT max(published_on) FROM budget_document)               AS latest_document_on
 FROM budget_fiscal_year y
 LEFT JOIN budget_fiscal_year_figure f ON f.fiscal_year = y.fiscal_year
-GROUP BY y.fiscal_year, y.as_of, y.complete, y.months_available, y.gdp_eur;
+GROUP BY y.fiscal_year, y.as_of, y.complete, y.months_available, y.gdp_eur,
+         y.projection_basis;
 
 -- A PLAIN COLUMN, so REFRESH … CONCURRENTLY can actually succeed.
 CREATE UNIQUE INDEX IF NOT EXISTS ux_budget_hub_stats_cache_fy
@@ -212,9 +230,51 @@ CREATE OR REPLACE FUNCTION budget_hub_stats(
            p.months_available             AS "monthsAvailable",
            p.gdp_eur                      AS "gdpEur",
            p.revenue_executed_eur         AS "revenueExecutedEur",
+           p.revenue_planned_eur          AS "revenuePlannedEur",
            p.revenue_projected_eur        AS "revenueProjectedEur",
            p.expenditure_executed_eur     AS "expenditureExecutedEur",
+           p.expenditure_planned_eur      AS "expenditurePlannedEur",
            p.expenditure_projected_eur    AS "expenditureProjectedEur",
+           -- The seasonal anchor year behind the `*Projected*` keys, so a consumer
+           -- rendering one can say WHOSE profile it was scaled through instead of
+           -- presenting a forecast as a bare fact.
+           p.projection_basis             AS "projectionBasisYear",
+           -- ⚠️ THE BASIS CHANGE HAPPENS HERE, not in the screen. `budgetBasis.test.ts`
+           -- §7.1 forbids a client-side division by GDP or population for a stated reason:
+           -- a basis change done twice is the same question with two implementations, and
+           -- they drift. The gate caught the /budget head computing this inline.
+           --
+           -- TWO shares, not one, for the same reason there are two numerators: folding
+           -- them would produce a percentage whose basis the consumer has to guess.
+           --
+           -- The two operands come from DIFFERENT base tables — `gdp_eur` from
+           -- `budget_fiscal_year`, the numerator from `budget_fiscal_year_figure` through the
+           -- LEFT JOIN above — but they are folded into ONE `budget_hub_stats_cache` row keyed
+           -- on `fiscal_year`, so numerator and denominator cannot be different years. That is
+           -- the other half of why this belongs on the server: a screen holding two figures has
+           -- no way to prove it. NULL when either side is missing, so a consumer renders
+           -- nothing rather than a share of an unknown economy.
+           --
+           -- ⚠️ THE DENOMINATOR IS NOT ALWAYS MEASURED. `gdp_eur` comes from macro.json's
+           -- Eurostat nominalGdp series, which ends ~18 months behind — `buildGdpByYear`
+           -- extrapolates the in-progress year from the geometric mean of the last three
+           -- YoY rates. So on a running year this is a forecast over a forecast, and a
+           -- caption that says only „спрямо БВП" overstates what is known. Any year with a
+           -- non-NULL `projection_basis` has an extrapolated denominator too.
+           --
+           -- ⚠️ AND THE PERIMETER IS THE КФП STATE BUDGET, not ESA general government.
+           -- `budget_peer_band` fifty lines above carries the OTHER one (TE = 41.7% of GDP
+           -- for 2025), and /budget/execution renders it one click away. The two differ by
+           -- ~18 points because they measure different governments; a caption naming neither
+           -- invites a reader to conclude one of the pages is wrong.
+           round(
+             (100 * p.expenditure_planned_eur / nullif(p.gdp_eur, 0))::numeric,
+             1
+           )                              AS "expenditurePlannedPctGdp",
+           round(
+             (100 * p.expenditure_projected_eur / nullif(p.gdp_eur, 0))::numeric,
+             1
+           )                              AS "expenditureProjectedPctGdp",
            p.eu_contribution_executed_eur AS "euContributionExecutedEur",
            p.balance_executed_eur         AS "balanceExecutedEur",
            p.balance_projected_eur        AS "balanceProjectedEur",

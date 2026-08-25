@@ -5133,6 +5133,12 @@
   "council_resolution_untitled": "Decision no. {{number}} of {{date}}",
   "council_tile_aggregate_only": "This council publishes only a for/against/abstained total — there is no record of how each councillor voted.",
   "council_tile_no_tally": "This council publishes its decisions, but not the votes on them.",
+  "pp_council_voting_title": "Council voting",
+  "pp_council_voting_intro": "Measured against the council's own majority on each resolution — this register carries no party affiliation.",
+  "pp_council_voting_with_majority": "With majority",
+  "pp_council_voting_votes_cast": "Votes cast",
+  "pp_council_voting_against_majority": "Against the majority",
+  "pp_council_voting_recent": "Recent resolutions",
   "unit_cost_hub_heading": "Cost per unit of service",
   "unit_cost_hub_blurb": "Cost per resolved case, per kilometre, per hospital case — the same kind of number in three places. What it measures and what it does not.",
   "unit_cost_hub_cta": "Methodology",
@@ -5227,5 +5233,10 @@
   "nsh_evidence_groups_basis": "by last group on the roll-call lists",
   "nsh_evidence_groups_all": "all groups",
   "nsh_evidence_groups_more_one": "{{count}} more group",
-  "nsh_evidence_groups_more_other": "{{count}} more groups"
+  "nsh_evidence_groups_more_other": "{{count}} more groups",
+  "budget_kpi_plan_basis": "budget act appropriation for {{year}}",
+  "budget_kpi_programs_basis": "in the {{year}} programme budget",
+  "budget_kpi_projection_basis": "projected for {{year}} on {{basisYear}}'s profile",
+  "budget_kpi_share_plan_basis": "CFP expenditure plan against {{year}} GDP",
+  "budget_kpi_share_projection_basis": "projected CFP expenditure against projected {{year}} GDP"
 }

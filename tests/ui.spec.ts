@@ -565,6 +565,16 @@ const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
   // one is wider than /procurement's: the same trade /funds makes, and for the same reason —
   // a reader who arrives knowing the MP or the bill they want should not have to guess a tile.
   { path: "/parliament", maxPx: 520, measured: 443 },
+  // The same shape as /parliament — identity + deck + a full HubSearch + a 4-cell band —
+  // plus a one-line note bridging the band's envelope to the tiles' execution.
+  //
+  // ⚠ Its basis lines are the longest in the tree („прогнозни разходи по КФП спрямо
+  // прогнозен БВП за 2026 г."), and deliberately: this is the one band whose cells change
+  // basis with the fiscal year, and the caption is what keeps a forecast from reading as the
+  // budget law. So the allowance is declared here rather than the caption being trimmed —
+  // if this trips, check whether a cell was added before shortening the words that make the
+  // existing ones true.
+  { path: "/budget", maxPx: 560, measured: 479 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {

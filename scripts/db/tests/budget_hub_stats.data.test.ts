@@ -243,3 +243,120 @@ test.skipIf(stateSkip)(
     );
   },
 );
+
+test.skipIf(stateSkip)(
+  "the two GDP shares are DERIVED, each from its own numerator",
+  async () => {
+    // ⚠️⚠️ The point is not that a percentage is plausible — it is WHICH numerator produced
+    // it. A share computed off `expenditureExecutedEur` is also a plausible percentage
+    // (11.0 at six months of FY2026 against 23.1), and it would satisfy any range assertion
+    // while captioning half a year's spending as the year's envelope.
+    //
+    // The division lives in 156 because `budgetBasis.test.ts` §7.1 keeps basis changes off
+    // the client. This is the other half of that rule: a server-side basis change nobody
+    // checks is the same defect one layer down.
+    const [r] = await allRows<{
+      pctPlanned: number | null;
+      pctProjected: number | null;
+      planned: number | null;
+      projected: number | null;
+      executed: number | null;
+      gdp: number | null;
+    }>(`
+      WITH s AS (SELECT budget_hub_stats(NULL) AS j)
+      SELECT (j ->> 'expenditurePlannedPctGdp')::numeric   AS "pctPlanned",
+             (j ->> 'expenditureProjectedPctGdp')::numeric AS "pctProjected",
+             (j ->> 'expenditurePlannedEur')::numeric      AS planned,
+             (j ->> 'expenditureProjectedEur')::numeric    AS projected,
+             (j ->> 'expenditureExecutedEur')::numeric     AS executed,
+             (j ->> 'gdpEur')::numeric                     AS gdp
+        FROM s`);
+
+    assert.ok(
+      r.gdp,
+      "no GDP on the newest year — the shares cannot be checked",
+    );
+    const share = (n: number | null) =>
+      n == null ? null : Math.round(((100 * n) / Number(r.gdp)) * 10) / 10;
+
+    assert.equal(Number(r.pctPlanned ?? NaN) || null, share(r.planned));
+    assert.equal(Number(r.pctProjected ?? NaN) || null, share(r.projected));
+
+    // At least one of the two must exist, or the head's third cell never renders.
+    assert.ok(
+      r.pctPlanned != null || r.pctProjected != null,
+      "neither GDP share is populated on the newest year",
+    );
+
+    // The mutation check: whichever share exists is NOT the executed one.
+    const executedShare = share(r.executed);
+    for (const pct of [r.pctPlanned, r.pctProjected])
+      if (pct != null && executedShare != null)
+        assert.notEqual(
+          Number(pct),
+          executedShare,
+          "a GDP share equals the EXECUTED-so-far share — the year is being " +
+            "published at the fraction of itself that has elapsed",
+        );
+  },
+);
+
+test.skipIf(stateSkip)(
+  "`planned` and `projected` are kept apart, and the anchor year travels with the forecast",
+  async () => {
+    // ⚠️⚠️ `basis='planned'` is МФ's budget-law column; `basis='projected'` is OUR seasonal
+    // extrapolation (kfp.ts projectFigures). The /budget head published the second under the
+    // first's name for one review cycle — a claim about what the National Assembly voted,
+    // made out of arithmetic we did ourselves. 156 must expose both so a consumer can pick
+    // knowingly rather than receive one column and guess.
+    const rows = await allRows<{
+      fy: number;
+      complete: boolean;
+      planned: number | null;
+      projected: number | null;
+      basisYear: number | null;
+    }>(`
+      SELECT (j ->> 'fiscalYear')::int              AS fy,
+             (j ->> 'complete')::boolean            AS complete,
+             (j ->> 'expenditurePlannedEur')::numeric   AS planned,
+             (j ->> 'expenditureProjectedEur')::numeric AS projected,
+             (j ->> 'projectionBasisYear')::int      AS "basisYear"
+        FROM budget_hub_stats_cache c,
+             LATERAL budget_hub_stats(c.fiscal_year) AS j`);
+
+    assert.ok(rows.length > 0, "no fiscal years in the cache");
+
+    for (const r of rows) {
+      // A forecast without its anchor is a forecast from nowhere — the caption on the head
+      // names the anchor year, so the wire has to carry it.
+      if (r.projected != null)
+        assert.ok(
+          r.basisYear != null && r.basisYear < r.fy,
+          `FY${r.fy} carries a projection with no prior anchor year`,
+        );
+      // And nothing is projected once the year is closed, which is why exposing `planned`
+      // is what stops the band emptying itself the day a fiscal year ends.
+      if (r.complete)
+        assert.equal(
+          r.projected,
+          null,
+          `FY${r.fy} is complete and still projected`,
+        );
+      assert.ok(
+        r.planned != null || r.projected != null || !r.complete,
+        `FY${r.fy} has neither a plan nor a projection — the head would show no money`,
+      );
+    }
+
+    // Non-vacuity, in both directions: an assertion set that never sees a plan, or never
+    // sees a forecast, is satisfied by a payload that dropped one of the two columns.
+    assert.ok(
+      rows.some((r) => r.planned != null),
+      "no fiscal year carries a budget-law plan",
+    );
+    assert.ok(
+      rows.some((r) => r.projected != null),
+      "no fiscal year carries a projection",
+    );
+  },
+);

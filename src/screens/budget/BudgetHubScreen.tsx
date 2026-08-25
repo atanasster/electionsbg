@@ -21,10 +21,16 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Scale, ArrowRight } from "lucide-react";
-import { Title } from "@/ux/Title";
-import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
+import {
+  HubHead,
+  TileHubGrid,
+  type HubKpi,
+  type TileHubSection,
+} from "@/ux/infographic";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { formatEurCompact, formatEurCompactSigned } from "@/lib/currency";
+import { budgetHubKpis } from "./budgetHubFigures";
+import { formatDate } from "@/lib/formatDate";
 import { BUDGET_BANDS } from "./budgetRegistry";
 import { BUDGET_SCENES } from "./budgetScenes";
 import { HubSearch } from "@/ux/search/HubSearch";
@@ -47,6 +53,16 @@ export const BudgetHubScreen: FC = () => {
   // beside counts that localised correctly.
   const moneyLocale = i18n.language === "bg" ? "bg-BG" : "en-GB";
   const nf = useMemo(() => new Intl.NumberFormat(moneyLocale), [moneyLocale]);
+  /** One decimal, localised separator, and the „%" from Intl rather than concatenated. */
+  const pctFmt = useMemo(
+    () =>
+      new Intl.NumberFormat(moneyLocale, {
+        style: "percent",
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
+      }),
+    [moneyLocale],
+  );
   const { stats } = useBudgetHubStats();
   // The ALLOWLIST form, not the raw `search` the pre-migration card passed on.
   //
@@ -240,38 +256,77 @@ export const BudgetHubScreen: FC = () => {
     [stats?.fiscalYear, i18n.language],
   );
 
+  /** Extracted to `budgetHubFigures.ts` — see that file for the plan-vs-forecast rule the
+   *  band turns on. A band built inline is unreachable from `hubHead.gates.test.ts`. */
+  const kpis: HubKpi[] = useMemo(
+    () => budgetHubKpis(stats, moneyLocale, nf, pctFmt, t),
+    [stats, moneyLocale, nf, pctFmt, t],
+  );
+
+  /** The bridge between the band's envelope and the tiles' execution. Rendered only while the
+   *  year is still running — on a closed year the two describe the same window and the
+   *  sentence would be noise.
+   *
+   *  ⚠ IT SAYS NOTHING ABOUT WHAT THE BAND IS. It used to open „Числата горе са планът по
+   *  закона за бюджета", which was false on FY2026: no `planned` row exists for that year, so
+   *  every money cell above was our own seasonal forecast. Whether a cell is the law or our
+   *  projection now varies per year, so only the per-cell basis line can carry it; a fixed
+   *  sentence here can only be right by luck.
+   *
+   *  ⚠ IT DOES NOT SAY „6 ОТ 12 МЕСЕЦА", and the first draft did. `monthsAvailable` counts
+   *  КФП observations CAPTURED, not months covered — migration 152's own column comment says
+   *  a renderer treating it as coverage „states something false about a complete year", and
+   *  FY2021 is `complete` with SIX because the feed is cumulative year-to-date and its
+   *  December row is the whole year. `budgetBasis.test.ts` caught the draft and would have
+   *  admitted it behind an allowlist entry; not reading the column at all is better than
+   *  being listed as a safe reader of it.
+   *
+   *  `asOf` is a real date and needs no such caveat. Through `formatDate`, because
+   *  `latestKfpPeriod` is „2026-06" — an internal key, not prose. */
+  const kpiNote = useMemo(() => {
+    if (!stats || stats.complete) return undefined;
+    if (stats.expenditureExecutedEur == null || !stats.asOf) return undefined;
+    return t("budget_kpi_note", {
+      executed: formatEurCompact(stats.expenditureExecutedEur, moneyLocale),
+      asOf: formatDate(stats.asOf, i18n.language),
+    });
+  }, [stats, moneyLocale, i18n.language, t]);
+
   const pageTitle = t("budget_hub_title");
 
   return (
     <>
-      <Title description={t("budget_hub_description")}>{pageTitle}</Title>
       <GovernanceBreadcrumb
         sectionKey="budget_link_label"
         sectionTo="/budget"
         className="mt-5"
       />
-
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-        {t("budget_hub_intro")}
-      </p>
-
-      {/* Directly under the intro and above the first band: the fastest route
-          to a destination, where the tiles are the slow one. A reader who
-          arrives knowing „Министерство на отбраната" or „Пловдив" should not
-          have to work out which of fourteen tiles contains it. */}
-      <HubSearch
-        sources={searchSources}
-        idPrefix="budget-search"
-        className="mt-4 max-w-2xl"
-        title={{ bg: "Търсене в бюджета", en: "Search the budget" }}
-        placeholder={{
-          bg: "разпоредител или община…",
-          en: "a spending unit or a municipality…",
-        }}
-        hint={{
-          bg: "Първостепенните разпоредители и всички 265 общини.",
-          en: "First-level spending units and all 265 municipalities.",
-        }}
+      <HubHead
+        eyebrow={t("budget_head_eyebrow")}
+        title={pageTitle}
+        seoDescription={t("budget_hub_description")}
+        deck={t("budget_hub_intro")}
+        search={
+          /* IN the head's slot now, otherwise unchanged: still above the bands, still the
+             fastest route for a reader who arrives knowing „Министерство на отбраната" or
+             „Пловдив" rather than which of fourteen tiles contains it. */
+          <HubSearch
+            sources={searchSources}
+            idPrefix="budget-search"
+            title={{ bg: "Търсене в бюджета", en: "Search the budget" }}
+            placeholder={{
+              bg: "разпоредител или община…",
+              en: "a spending unit or a municipality…",
+            }}
+            hint={{
+              bg: "Първостепенните разпоредители и всички 265 общини.",
+              en: "First-level spending units and all 265 municipalities.",
+            }}
+          />
+        }
+        kpis={kpis}
+        kpisPending={4}
+        kpiNote={kpiNote}
       />
 
       {/* THE LEAD, above the tiles: the one thing on this page that answers
