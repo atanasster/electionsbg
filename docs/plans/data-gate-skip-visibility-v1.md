@@ -4,7 +4,9 @@
 migrated the pre-existing emitters; `e2134727da` swept the remaining 165 gates; the §6 gate
 is `scripts/lib/report_skip_coverage.test.ts`. **Acceptance met: a database-less
 `npm run test:unit` prints 165 skip reasons across 163 skipped files, against 0 before.**
-Tier 2 remains unbuilt and is still not recommended — see §5.
+Tier 2 remains unbuilt and is still not recommended — see §5. **Tier 3 is scoped in §8**
+(2026-08-25) and is not built; scoping it found that §6's acceptance number undercounts,
+because 23 files whose tests all self-skip report as PASSED rather than skipped.
 
 **⚠️ Two numbers in this plan were wrong and are corrected in place:** the emitting/silent
 split is **3 / 167**, not 5 / 165 (see §4's box), and §4's original code sketch showed an API
@@ -313,11 +315,10 @@ see. It is fixed and the gate now catches that shape.
 
 ## 7. What this plan does not fix
 
-- **Bare-boolean skips with no reason at all** (`test.skipIf(!hasStore)`, `!RUN`, `!built`).
-  Emitting for these requires _inventing_ a reason per site, which is authorship, not a
-  sweep. Tier 3, unscoped.
-- **`return t.skip()` with no note** (`bill_and_topics.data.test.ts` and neighbours) — same
-  class.
+- **Bare-boolean skips and per-test self-skips** — deferred as "Tier 3, unscoped" when this
+  plan was written, on the premise that a reason would have to be _invented_. **Scoped in §8;
+  that premise turns out to be mostly wrong**, and one third of the population should not be
+  reported at all.
 - **Why so much skips at all.** 162 files skipping in CI is the designed behaviour of a repo
   whose corpora are gitignored crawls; this plan makes the silence legible, not smaller.
 - **CI is currently red for unrelated reasons** — measured database-less, **6** files fail
@@ -329,3 +330,124 @@ see. It is fixed and the gate now catches that shape.
   load-flake ([[reference_test_data_flaky_under_load]]). It was 4 when this plan was written —
   the list moves, so re-measure rather than trusting it. Out of scope here, but any acceptance
   run above will show them.
+
+---
+
+## 8. Tier 3 — scoped (2026-08-25)
+
+**Measured** against the working tree at `003fe27699`: 867 tracked test files, 1,395 `skipIf`
+call sites across 210 files, plus 128 bare `.skip()` calls in 23 files.
+
+### 8.0 The deferral premise was wrong, and the population splits three ways
+
+§7 deferred this class because "emitting for these requires _inventing_ a reason per site,
+which is authorship, not a sweep". Reading the probes, that is not what they look like — the
+cause is **recoverable from the probe itself** in almost every case:
+
+```
+const RUN     = process.env.DB_VERIFY === "1";     → "DB_VERIFY is not set — opt-in gate"
+const up      = await dbReachable();               → "Postgres unreachable"
+const present = existsSync(INDEX);                 → "<path> absent"
+const ok      = await reachable();                 → whatever reachable() actually probes
+```
+
+But it is **not one class with one answer**. It is three, and the third one's correct fix is
+_not to report_:
+
+|                                          |           population | right answer                                  |
+| ---------------------------------------- | -------------------: | --------------------------------------------- |
+| **3a** per-test `return t.skip()`        | 23 files / 115 tests | hoist to a reported file-level gate           |
+| **3b** bare-boolean gate variables       | 54 files / 29 shapes | author the reason — after splitting the probe |
+| **3c** presence gates on COMMITTED paths |             20 sites | **assert, do not skip**                       |
+
+### 8.1 (3a) The worst class, and the one the Tier 1 metric hides
+
+23 files never declare a gate variable at all. They probe inline, per test:
+
+```ts
+test("bill holds exactly the set the /parliament tile counts", async (t) => {
+  if (!(await dbReachable())) return t.skip();
+  if (!existsSync(SESSIONS)) return t.skip();
+```
+
+Tier 1's sweep is declaration-anchored, so it never saw them: all 23 carry **zero**
+`reportSkip` calls today.
+
+⚠️ **AND THEY REPORT AS PASSED.** Measured database-less over exactly those 23 files:
+
+> `Test Files 23 passed (23)` · `Tests 46 passed | 115 skipped (161)` · **1 reason printed**
+
+A `t.skip()` inside a test body leaves the FILE counted as passed, so this class is strictly
+worse than the one Tier 1 fixed — those at least appeared in the skip tally. It also means
+**§6's acceptance number undercounts**: "163 skipped files" excludes 23 files whose tests all
+stood down, and the 165 reasons are measured against the smaller denominator. Nothing in this
+plan was wrong about what it measured; it was measuring a population that quietly excluded the
+worst offenders.
+
+Fix: hoist each file's probe to a module-scope gate with a reason, report it, and use
+`test.skipIf`. That is the shape `docs/testing-standards.md` already prescribes, and its own
+stated reason applies verbatim — an early `return` inside a test body scores as a PASS.
+
+### 8.2 (3b) Not a rename — a probe split
+
+54 files gate on a boolean. Authoring the sentence is cheap; the work is that **19 of their
+probes conflate two different causes**, which is the defect Tier 1 hit in `mp_arm_sql`:
+
+```ts
+const reachable = async (): Promise<boolean> => {
+  try {
+    const [c] = await allRows("SELECT count(*) n FROM contractor_rank");
+    return Number(c.n) > 0; // ← relation EMPTY
+  } catch {
+    return false; // ← server DOWN
+  }
+};
+```
+
+Both return `false`, so a single authored reason is false half the time — and the half it gets
+wrong is "Postgres unreachable", which `mp_arm_sql`'s header records as _the one warning an
+operator is trained to ignore_, after it hid a two-day outage. So 3b is 19 probe splits plus
+35 straightforward sentences, not 54 renames. The tri-state shape `company_public_money`,
+`graph` and `mp_arm_sql` now use is the template.
+
+### 8.3 (3c) Twenty gates that should not be gates
+
+20 sites skip on the absence of a **committed** artifact — `data/procurement/derived/sector_stats.json`
+(8 sites), `data/parliament/index.json`, `data/person/prerender_slugs.json`, `data/officials/index.json`
+and others. CI does a full `actions/checkout`, so absence is a **broken tree, not a supported
+state**, and a prettier skip message would entrench the wrong behaviour.
+
+The repo already contains the better answer, with the argument written out — `scripts/council/lib/index_corpus.test.ts`:
+
+> ⚠️ OUTSIDE the skipped describe, deliberately. `data/council/` is committed (4,820 tracked
+> files) and CI does a full `actions/checkout`, so absence is a broken tree rather than a
+> supported state — and a skip is invisible in the aggregate CI summary, where every
+> `*.data.test.ts` also skips without Postgres.
+
+It asserts presence in a test outside the skipped suite, so absence is a red line rather than
+a silent `+1` on the skip count. **Do that, and report nothing.** Distinguishing 3c from 3b is
+computable and needs no judgement: ask `git ls-files` whether the guarded path is tracked.
+
+### 8.4 What the existing gate does not cover
+
+`report_skip_coverage.test.ts` is declaration-anchored and only inspects gates that already
+carry a reason, so it is blind to all three sub-classes by construction. Tier 3 needs it
+extended with, in order of value:
+
+- **a bare `.skip()` / `return t.skip()` detector** — the 3a class, and the only one that is
+  currently invisible in BOTH the reason channel and the file tally;
+- **a committed-path rule**: a `skipIf` guarded by `existsSync` on a git-tracked path is a 3c
+  violation, not a missing reason;
+- **a conflation heuristic**: a probe whose `catch` and whose content check both return the
+  same falsy value, feeding a gate with one authored reason.
+
+### 8.5 Recommendation
+
+**3a first, then 3c, then 3b.** 3a is the largest honesty gap and the most mechanical; 3c is
+20 sites and removes gates rather than adding text; 3b is the long tail and the only one
+needing per-probe judgement. Each is independently shippable and none blocks the others.
+
+⚠️ **Do not do 3b as a codemod.** Its 19 conflated probes are exactly the shape that produces
+a confidently-worded false reason, which is worse than the silence Tier 1 set out to fix —
+`mp_arm_sql` shipped one during Tier 1 and review caught it. If only part of Tier 3 is ever
+done, 3a alone is a coherent stopping point.
