@@ -197,6 +197,27 @@ describe("the two lookups stay wired to their own concern", () => {
   });
 });
 
+describe("the generic company breadcrumb is not a dead end", () => {
+  // Same rationale as the lookup-wiring block above: rendering CompanyDbScreen to catch a
+  // one-token revert would mean standing up ~40 self-fetching tiles, so this asserts against
+  // source instead. Before this branch existed, a plain /company/:eik page with no sector
+  // pack rendered NO breadcrumb at all — the third arm was a bare `SectorPack && <...>`,
+  // which is `false` (nothing) for every unpacked company. `/person/:slug` never has this
+  // gap; this guards the fix that brought /company/:eik to parity with it.
+  it("the third ternary branch is GovernanceBreadcrumb, not a bare boolean", () => {
+    expect(SCREEN_SRC).toMatch(
+      /\) : SectorPack \? \(\s*<SectorBreadcrumb current=\{displayName\} \/>\s*\) : \(\s*<GovernanceBreadcrumb/,
+    );
+    // The swap that would silently drop the breadcrumb for every unpacked company again.
+    expect(SCREEN_SRC).not.toMatch(/SectorPack && <SectorBreadcrumb/);
+  });
+
+  it("the generic branch points at the general company registry browse", () => {
+    expect(SCREEN_SRC).toMatch(/sectionKey="companies_browse_title"/);
+    expect(SCREEN_SRC).toMatch(/sectionTo="\/companies"/);
+  });
+});
+
 // ---------------------------------------------------------------------------
 // packOwnsScope — the flag that decides who renders the page's time control.
 //

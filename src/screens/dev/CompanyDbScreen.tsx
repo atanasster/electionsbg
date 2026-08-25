@@ -57,6 +57,7 @@ import { canonicalAwarderName } from "@/lib/awarderNameOverrides";
 import { sigmaAuthorityUrl, sigmaCompanyUrl } from "@/lib/sigma";
 import { AwarderBreadcrumb } from "../components/procurement/AwarderBreadcrumb";
 import { SectorBreadcrumb } from "../components/procurement/SectorBreadcrumb";
+import { GovernanceBreadcrumb } from "../components/GovernanceBreadcrumb";
 import {
   sectorDashboardForLeadEik,
   sectorDashboardForMemberEik,
@@ -922,13 +923,23 @@ export const CompanyDbScreen: FC = () => {
           )}
           {/* Hierarchy breadcrumb. On an awarder page (/awarder/:eik) the trail
               is Управление › Обществени поръчки › Възложители › <name>. On a
-              company page it stays sector-scoped and only shows for the packed
-              sector awarder seats (АПИ / НОИ / НЗОК / МОН / НАП / Митници),
-              linking up to the sectors hub; generic company pages skip it. */}
+              company page it stays sector-scoped for the packed sector
+              awarder seats (АПИ / НОИ / НЗОК / МОН / НАП / Митници), linking
+              up to the sectors hub. Every other company — the common case —
+              gets the generic Управление › Фирми › <name> trail, the same
+              breadcrumb /person/:slug always carries; `displayName` falls
+              back to the bare EIK, so this renders safely even on the
+              corpusOnly branch above (procurement-only, no TR record). */}
           {isAwarderRoute ? (
             <AwarderBreadcrumb current={displayName} />
+          ) : SectorPack ? (
+            <SectorBreadcrumb current={displayName} />
           ) : (
-            SectorPack && <SectorBreadcrumb current={displayName} />
+            <GovernanceBreadcrumb
+              sectionKey="companies_browse_title"
+              sectionTo="/companies"
+              current={displayName}
+            />
           )}
           {sectorCrossLink}
           {/* Entity-graph identity — this EIK is a school (schools.eik join).
