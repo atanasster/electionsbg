@@ -3,6 +3,7 @@
 import { describe, it, expect } from "vitest";
 import {
   consumptionHubKpis,
+  consumptionHubEvidence,
   promotedTiles,
   CONSUMPTION_BAND_TILES,
 } from "./consumptionHubFigures";
@@ -196,5 +197,83 @@ describe("consumptionHubKpis", () => {
     // bg groups thousands with a non-breaking space — normalise both sides so the
     // assertion is about the digits, not about which space Intl chose.
     expect(build()[3].value.replace(/[\u202f\u00a0]/g, " ")).toBe("48 427");
+  });
+});
+
+describe("consumptionHubEvidence", () => {
+  const evidence = (stats: HubStats = S, lang: "bg" | "en" = "bg") =>
+    consumptionHubEvidence(
+      stats,
+      lang,
+      new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB"),
+      tFor(lang === "bg" ? bgCorpus : enCorpus),
+    );
+
+  it("ranks the cheapest chains, each row to its own chain page", () => {
+    const e = evidence()!;
+    expect(e.rows).toHaveLength(5);
+    expect(e.rows[0].label).toBe("ЖИЗЕЛ");
+    // `fmtEur` — bg puts the symbol AFTER, which is what /consumption/chains renders.
+    // `fmtEur` — bg puts the symbol AFTER, which is what /consumption/chains renders,
+    // separated by a non-breaking space.
+    expect(e.rows[0].value.replace(/[\u202f\u00a0]/g, " ")).toBe(
+      "14,54 \u20ac",
+    );
+    expect(evidence(S, "en")!.rows[0].value).toBe("€14.54");
+    // Ascending, or it is not a ranking.
+    const amounts = S.cheapestChains!.map((c) => c.basket);
+    expect([...amounts].sort((a, b) => a - b)).toEqual(amounts);
+    for (const r of e.rows)
+      expect(String(r.to)).toMatch(/^\/consumption\/chain\/\d+$/);
+    // Keyed on EIK — two chains can share a name, and React then reuses the wrong row.
+    expect(new Set(e.rows.map((r) => r.id)).size).toBe(5);
+  });
+
+  it("states the basket size AND how many chains could be ranked, in the right ROLES", () => {
+    // ⚠️⚠️ BOTH, and neither is decoration. The underlying ranking sums whatever subset a
+    // chain priced, so without „съпоставима кошница от 12 продукта" the reader cannot know
+    // the rows are comparable at all; and without „28 от 94" they read a ranking of under
+    // a third of the market as the market.
+    //
+    // ⚠️ ROLES, NOT PRESENCE — the band's own test learned this and the aside did not
+    // inherit it. Asserting the three numbers merely APPEAR passes „класирани са 94 от 28
+    // вериги", which is impossible, and „кошница от 28 продукта". So each is pinned to its
+    // own clause: the basket size before the „·", the two counts after it and in order.
+    const e = evidence()!;
+    const [basket, ranked] = e.basis!.split("·");
+    expect(basket).toMatch(/12 продукта/);
+    expect(basket).not.toMatch(/\b(28|94)\b/);
+    expect(ranked).toMatch(/класирани са 28 от 94 вериги/);
+    // The ranked count can never exceed the reporting one — the impossible caption above.
+    const [a, b] = [...ranked.matchAll(/\d+/g)].map((m) => Number(m[0]));
+    expect(a).toBeLessThanOrEqual(b);
+    expect(basket).toMatch(/24\.08\.2026 г\./);
+    expect(e.basis).toMatch(/не са подали цени за цялата кошница/);
+    expect(evidence(S, "en")!.basis).toMatch(
+      /28 of 94 chains ranked — the rest did not file a price for every item/,
+    );
+  });
+
+  it("REFUSES the list when either denominator is missing", () => {
+    // A fragment of an unstated whole is the one thing this aside must never be.
+    for (const missing of [
+      "comparableChainCount",
+      "rankedChainCount",
+      "commonBasketSize",
+      "basketPricedOn",
+    ])
+      expect(
+        evidence({ ...S, [missing]: null } as HubStats),
+        `${missing} missing must withhold the whole aside`,
+      ).toBeUndefined();
+    expect(evidence({ ...S, cheapestChains: [] } as HubStats)).toBeUndefined();
+  });
+
+  it("shares no row with the band", () => {
+    // §3.1 rule 5 across the two halves of the head: the band carries rates and a corpus
+    // size, the aside carries basket prices. Nothing may render the same string twice.
+    const bandValues = new Set(build().map((k) => k.value));
+    for (const r of evidence()!.rows)
+      expect(bandValues.has(r.value)).toBe(false);
   });
 });

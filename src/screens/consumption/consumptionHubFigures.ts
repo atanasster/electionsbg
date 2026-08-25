@@ -5,8 +5,8 @@
 // compares band values against tile metrics AS RENDERED STRINGS. The /consumption arm of
 // that clause lives there; without it this extraction would buy nothing.
 
-import type { HubKpi } from "@/ux/infographic/HubHead";
-import type { HubStats } from "@/data/prices/usePrices";
+import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
+import { fmtEur, type HubStats } from "@/data/prices/usePrices";
 import { formatDate } from "@/lib/formatDate";
 
 type T = (key: string, opts?: Record<string, unknown>) => string;
@@ -138,4 +138,59 @@ export const consumptionHubKpis = (
     });
 
   return out;
+};
+
+/** The head's evidence aside: which shop is actually cheapest, by name.
+ *
+ *  ⚠️⚠️ THE CAPTION IS THE MITIGATION, and here it carries two separate warnings.
+ *
+ *  The rows are the cheapest chains over the WHOLE common basket — `cheapestChains` is
+ *  pre-filtered to `comparable` rows, because the underlying ranking sums whatever subset
+ *  each chain priced and therefore rewards NOT pricing things: measured 2026-08-25, the
+ *  five cheapest rows overall priced 7-10 of 12 products and АНЕТ 4 led at €8.85 against
+ *  ЖИЗЕЛ's €14.54 over the full basket. So the caption states the basket size.
+ *
+ *  And it states the denominator: 28 chains of 57 could be ranked at all. Without that a
+ *  reader takes „най-евтини вериги" for a ranking of the market, when half the market
+ *  priced too little of the basket to appear. That is the same rule the /budget aside
+ *  follows — a fragment of an unstated whole is the one thing an evidence list must not be
+ *  — so the list is REFUSED outright when the denominators are missing. */
+export const consumptionHubEvidence = (
+  stats: HubStats | null | undefined,
+  lang: string,
+  nf: Intl.NumberFormat,
+  t: T,
+): HubEvidence | undefined => {
+  const rows = stats?.cheapestChains;
+  if (!stats || !rows?.length) return undefined;
+  if (
+    !stats.comparableChainCount ||
+    !stats.rankedChainCount ||
+    !stats.commonBasketSize ||
+    !stats.basketPricedOn
+  )
+    return undefined;
+
+  return {
+    heading: t("cons_evidence_heading"),
+    basis: t("cons_evidence_basis", {
+      products: nf.format(stats.commonBasketSize),
+      ranked: nf.format(stats.comparableChainCount),
+      total: nf.format(stats.rankedChainCount),
+      asOf: formatDate(stats.basketPricedOn, lang),
+    }),
+    rows: rows.map((r) => ({
+      // The EIK, not the name: chain names are corpus free text and two can collide, at
+      // which point React reuses the wrong row.
+      id: r.eik,
+      label: r.chain,
+      // ⚠️ `fmtEur`, the PRICES module's own formatter — not a local `Intl` currency call.
+      // It renders „14,54 €" in bg and „€14.54" in en, and /consumption/chains (this
+      // aside's destination) uses it for the same figure. A second formatter here would
+      // eventually disagree with the page the rows link into about the same number.
+      value: fmtEur(r.basket, lang === "bg" ? "bg" : "en"),
+      to: `/consumption/chain/${r.eik}`,
+    })),
+    action: { to: "/consumption/chains", label: t("cons_evidence_action") },
+  };
 };

@@ -398,6 +398,28 @@ export interface HubStats {
    *  for one scalar AND re-laid the band out from 3 cells to 4 when the file landed. */
   euPriceLevel?: number | null;
   euPriceLevelYear?: number | null;
+  /** The five cheapest chains over the WHOLE common basket, ascending — the head's
+   *  evidence aside.
+   *
+   *  ⚠️⚠️ ALREADY FILTERED TO `comparable` ROWS. The `chains` blob ranks on a SUM over
+   *  whatever subset each chain priced, so its cheapest rows are the ones that priced
+   *  LEAST: measured, the top five overall covered 7-10 of 12 products and the leader sat
+   *  39% under the cheapest chain that priced the whole basket. Never re-derive this from
+   *  `chains.national` without re-applying the filter. */
+  cheapestChains?: { eik: string; chain: string; basket: number }[] | null;
+  /** The aside's denominator — how many chains could be ranked, out of how many REPORTED
+   *  on the latest day, over how many products, priced on which day. Render the rows only
+   *  with these: a reader cannot otherwise tell that the unranked chains are missing from
+   *  the COMPARISON rather than from the market.
+   *
+   *  ⚠️ `rankedChainCount` is the REPORTING set (94), not the length of `chains.national`
+   *  (57) — that list is already filtered to chains pricing half the basket, so quoting it
+   *  would understate the exclusion by more than half AND contradict the `chains` tile on
+   *  the same page, which publishes 94. */
+  comparableChainCount?: number | null;
+  rankedChainCount?: number | null;
+  commonBasketSize?: number | null;
+  basketPricedOn?: string | null;
 }
 export const useHubStats = () =>
   useQuery({

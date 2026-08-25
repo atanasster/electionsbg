@@ -5253,5 +5253,8 @@
   "cons_kpi_eu_level_basis": "overall consumption, EU = 100, {{year}} · Eurostat",
   "cons_kpi_products": "Products",
   "cons_kpi_products_basis": "tracked by the CPC",
-  "cons_kpi_note": "The basket is the shelf price level against the day the euro came in; the inflation rate is Eurostat's official measure and trails by a quarter. Different measures over different periods — which is why one sits below zero and the other above it."
+  "cons_kpi_note": "The basket is the shelf price level against the day the euro came in; the inflation rate is Eurostat's official measure and trails by a quarter. Different measures over different periods — which is why one sits below zero and the other above it.",
+  "cons_evidence_heading": "Cheapest basket",
+  "cons_evidence_basis": "a comparable basket of {{products}} products, priced on {{asOf}} · {{ranked}} of {{total}} chains ranked — the rest did not file a price for every item",
+  "cons_evidence_action": "all chains"
 }

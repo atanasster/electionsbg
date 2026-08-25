@@ -32,6 +32,24 @@ export const CONSUMPTION_STATS_FIXTURE = {
   foodInflationQuarter: 2,
   euPriceLevel: 60,
   euPriceLevelYear: 2025,
+  // ⚠️ The five cheapest chains that priced the WHOLE 12-product basket. The raw `chains`
+  // blob's five cheapest rows are different companies entirely — АНЕТ 4 at €8.85 on 7 of
+  // 12 products, then Б 2006 at €11.34 on 8 — i.e. the ones that priced LEAST. That gap is
+  // the reason the aside exists in this shape.
+  cheapestChains: [
+    { eik: "111017831", chain: "ЖИЗЕЛ", basket: 14.54 },
+    { eik: "131071587", chain: "Лидл България", basket: 14.98 },
+    { eik: "127585839", chain: "BulMag", basket: 15.25 },
+    { eik: "104643653", chain: "АБСОЛЮТ +", basket: 15.6 },
+    { eik: "117650936", chain: "ПАЦОНИ", basket: 16.61 },
+  ],
+  comparableChainCount: 28,
+  // ⚠️ 94 = the chains that REPORTED on the latest day, not the 57 rows `chains.national`
+  // holds — that list is already filtered to chains pricing half the basket, so quoting it
+  // would understate the exclusion by more than half.
+  rankedChainCount: 94,
+  commonBasketSize: 12,
+  basketPricedOn: "2026-08-24",
   fuelGapPct: -23.5,
   electricityGapPct: -53.2,
   gasGapPct: -47.2,

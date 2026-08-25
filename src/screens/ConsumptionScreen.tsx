@@ -25,6 +25,7 @@ import {
 import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
 import {
   consumptionHubKpis,
+  consumptionHubEvidence,
   promotedTiles,
 } from "@/screens/consumption/consumptionHubFigures";
 import { ConsumptionSearchTile } from "@/screens/components/consumption/ConsumptionSearchTile";
@@ -130,6 +131,14 @@ export const ConsumptionScreen = () => {
   const kpis: HubKpi[] = useMemo(
     () =>
       consumptionHubKpis(s, loc, i18n.language, new Intl.NumberFormat(loc), t),
+    [s, loc, i18n.language, t],
+  );
+
+  /** The cheapest chains, by name — see `consumptionHubEvidence` for why its caption's two
+   *  denominators are load-bearing rather than decorative. */
+  const evidence = useMemo(
+    () =>
+      consumptionHubEvidence(s, i18n.language, new Intl.NumberFormat(loc), t),
     [s, loc, i18n.language, t],
   );
 
@@ -335,6 +344,7 @@ export const ConsumptionScreen = () => {
         kpis={kpis}
         kpisPending={4}
         kpiNote={kpis.length ? t("cons_kpi_note") : undefined}
+        evidence={evidence}
       />
 
       <ConsumptionAreaBanner />

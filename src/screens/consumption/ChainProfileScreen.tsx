@@ -37,10 +37,25 @@ export const ChainProfileScreen: FC = () => {
 
   const info = useMemo(() => {
     if (!data) return null;
-    const sorted = [...data.national].sort((a, b) => a.basket - b.basket);
+    // ⚠️⚠️ RANKED AMONG `comparable` CHAINS ONLY, and the label beside it already promised
+    // that: „съпоставима кошница". `basket` is a SUM over whatever subset of the common
+    // basket a chain priced, so ranking the raw list puts the chains that priced LEAST at
+    // the top — the payload's own `note` says „a partial basket is a smaller number, not a
+    // cheaper shop". Measured 2026-08-25: ЖИЗЕЛ is the cheapest chain that priced all 12
+    // products and this page showed it „8/57", because seven chains with 7-10 priced items
+    // sorted above it. The /consumption head's evidence aside publishes the comparable
+    // order, so the two disagreed about the same chain one click apart.
+    //
+    // A chain that is not comparable gets `rank: null` rather than a place in a ranking it
+    // is excluded from; the „no comparable basket" branch below already handles that.
+    const comparable = data.national.filter((c) => c.comparable);
+    const sorted = [...comparable].sort(
+      (a, b) => a.basket - b.basket || (a.eik < b.eik ? -1 : 1),
+    );
     const idx = sorted.findIndex((c) => c.eik === eik);
+    const row = data.national.find((c) => c.eik === eik) ?? null;
     return idx < 0
-      ? { row: null, rank: null, total: sorted.length }
+      ? { row, rank: null, total: sorted.length }
       : { row: sorted[idx], rank: idx + 1, total: sorted.length };
   }, [data, eik]);
 

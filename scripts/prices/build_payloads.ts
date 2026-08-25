@@ -310,6 +310,32 @@ export const buildPayloads = async (): Promise<void> => {
   // counts come from the payloads just built (index/verdict/deals), the three
   // macro/fuel numbers are folded in from the small committed reference JSONs at
   // build time (read best-effort so a missing file just omits that stat).
+  // ── The head's EVIDENCE ASIDE: the cheapest chains, by name ────────────────────────
+  //
+  // ⚠️⚠️ RANKED ON `comparable` ROWS ONLY, and this is the whole difficulty. The `chains`
+  // blob is sorted ascending by `basket`, which is a SUM over whatever subset of the common
+  // basket each chain actually priced — so its own `note` says in the payload: „a partial
+  // basket is a smaller number, not a cheaper shop." Measured 2026-08-25, the five cheapest
+  // rows overall priced 7-10 of 12 products and АНЕТ 4 heads the list at €8.85, 39% under
+  // the cheapest chain that priced the whole basket (ЖИЗЕЛ, €14.54). Publishing that as
+  // „най-евтина верига" names a real company as cheapest on the strength of the items it
+  // did not price.
+  const chainsPayload = rows.find((r) => r[0] === "chains");
+  const chainsBlob = chainsPayload
+    ? (JSON.parse(chainsPayload[2]) as {
+        commonBasketSize?: number;
+        latestDate?: string;
+        national?: {
+          eik: string;
+          chain: string;
+          basket: number;
+          comparable: boolean;
+        }[];
+      })
+    : null;
+  const chainRows = chainsBlob?.national ?? [];
+  const comparableChains = chainRows.filter((c) => c.comparable);
+
   const idxPayload = rows.find((r) => r[0] === "index");
   const idx = idxPayload
     ? (JSON.parse(idxPayload[2]) as {
@@ -481,6 +507,27 @@ export const buildPayloads = async (): Promise<void> => {
     /** See above — folded in so the band is one query rather than two. */
     euPriceLevel,
     euPriceLevelYear,
+    /** The five cheapest chains over the WHOLE common basket — see above for why the
+     *  `comparable` filter is not optional. Already sorted ascending by `basket`. */
+    cheapestChains: comparableChains.slice(0, 5).map((c) => ({
+      eik: c.eik,
+      chain: c.chain,
+      basket: c.basket,
+    })),
+    /** The denominator the caption needs: how many chains could be ranked at all, out of
+     *  how many REPORTED, over a basket of how many products. Five rows without these are
+     *  a fragment of an unstated whole.
+     *
+     *  ⚠️⚠️ THE DENOMINATOR IS THE REPORTING SET, NOT `chainRows.length`. `chains.national`
+     *  is ALREADY filtered by `build_index` to chains pricing at least half the basket, so
+     *  it holds 57 of the 94 that filed on the latest day. Captioning „28 of 57" therefore
+     *  understates the exclusion by more than half — 66 chains are outside the comparison,
+     *  not 29 — and the `chains` TILE on the same page publishes 94 against the same
+     *  destination, so the two would contradict each other. */
+    comparableChainCount: comparableChains.length,
+    rankedChainCount: idx?.coverage?.chains ?? null,
+    commonBasketSize: chainsBlob?.commonBasketSize ?? null,
+    basketPricedOn: chainsBlob?.latestDate ?? null,
   });
 
   // `chain-products:<eik>` — a retail chain's OWN products (top 100 by product

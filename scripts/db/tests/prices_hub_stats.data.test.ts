@@ -26,6 +26,14 @@ const rows = haveDb
 const hub = rows[0]?.hub ?? null;
 const idx = rows[0]?.idx ?? null;
 
+type Row = { eik: string; basket: number; comparable: boolean };
+const chainRows = haveDb
+  ? await allRows<{ b: Blob | null }>(
+      "SELECT payload AS b FROM price_payloads WHERE kind = 'chains' LIMIT 1",
+    )
+  : [];
+const idx0 = chainRows[0]?.b ?? null;
+
 const skip = !haveDb
   ? "Postgres unreachable"
   : !hub
@@ -158,5 +166,88 @@ test.skipIf(skip)(
     const food = peers.pricePli!.values!.BG!.A0101;
     if (food != null && food !== peers.pricePli!.values!.BG!.A01)
       assert.notEqual(num(hub!.euPriceLevel), food);
+  },
+);
+
+test.skipIf(skip)(
+  "the cheapest-chains aside ranks COMPARABLE chains only",
+  () => {
+    // ⚠️⚠️ THE DEFECT THIS FILTER EXISTS FOR. `chains.national` is sorted ascending by
+    // `basket`, which is a SUM over whatever subset of the common basket each chain
+    // actually priced — so its cheapest rows are the chains that priced the FEWEST items.
+    // The blob says so in its own `note`: „a partial basket is a smaller number, not a
+    // cheaper shop." Measured 2026-08-25: the raw leader is АНЕТ 4 at €8.85 on 7 of 12
+    // products, 39% under ЖИЗЕЛ's €14.54 over the whole basket. Publishing the raw order
+    // names a real company as Bulgaria's cheapest on the strength of what it did not price.
+    const chains = (idx0 as { national?: Row[] } | null)?.national ?? [];
+    assert.ok(chains.length, "the chains blob carries no national rows");
+
+    const comparable = chains.filter((c) => c.comparable);
+    const shown = (hub!.cheapestChains ?? []) as {
+      eik: string;
+      basket: number;
+    }[];
+    assert.ok(shown.length, "the aside carries no rows");
+
+    const expected = [...comparable]
+      .sort((a, b) => a.basket - b.basket || (a.eik < b.eik ? -1 : 1))
+      .slice(0, shown.length);
+    assert.deepEqual(
+      shown.map((c) => c.eik),
+      expected.map((c) => c.eik),
+      "the aside is not the cheapest COMPARABLE chains",
+    );
+
+    // Every published row priced the whole basket.
+    const byEik = new Map(chains.map((c) => [c.eik, c]));
+    for (const r of shown)
+      assert.equal(
+        byEik.get(r.eik)?.comparable,
+        true,
+        `${r.eik} is published as cheapest without pricing the whole basket`,
+      );
+
+    // The denominators the caption states must be the real ones.
+    assert.equal(num(hub!.comparableChainCount), comparable.length);
+
+    // ⚠️ THE REPORTING SET, NOT `chains.length`. `chains.national` is already filtered by
+    // build_index to chains pricing half the basket — 57 of the 94 that filed — so
+    // captioning „28 of 57" understates the exclusion by more than half and contradicts
+    // the `chains` tile on the same page, which publishes 94.
+    const reported = num(
+      (idx?.coverage as { chains?: number } | undefined)?.chains,
+    );
+    assert.equal(num(hub!.rankedChainCount), reported);
+    assert.ok(
+      reported! > chains.length,
+      "the reporting set is not wider than the scored list — this distinction has gone away",
+    );
+
+    // The other two interpolated values, which nothing else asserted: a builder taking the
+    // basket size from `categories` (14) or the day from `coverage.headlineDate` would
+    // otherwise ship a caption nobody checked.
+    assert.equal(
+      num(hub!.commonBasketSize),
+      num((idx0 as { commonBasketSize?: number } | null)?.commonBasketSize),
+    );
+    assert.equal(
+      hub!.basketPricedOn,
+      (idx0 as { latestDate?: string } | null)?.latestDate,
+    );
+
+    // ⚠️ THE MUTATION CHECK: the filter must actually CHANGE the answer on this corpus,
+    // or the assertions above are satisfied by an implementation that never filtered.
+    const unfiltered = [...chains]
+      .sort((a, b) => a.basket - b.basket || (a.eik < b.eik ? -1 : 1))
+      .slice(0, shown.length);
+    assert.notDeepEqual(
+      shown.map((c) => c.eik),
+      unfiltered.map((c) => c.eik),
+      "filtering on `comparable` changes nothing here — this gate cannot discriminate",
+    );
+    assert.ok(
+      comparable.length < chains.length,
+      "every chain is comparable — this gate cannot discriminate",
+    );
   },
 );
