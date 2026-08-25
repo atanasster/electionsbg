@@ -896,6 +896,7 @@ describe("a hub's og capture anchors on its head", () => {
     governance: "src/screens/GovernanceScreen.tsx",
     funds: "src/screens/FundsScreen.tsx",
     budget: "src/screens/budget/BudgetHubScreen.tsx",
+    consumption: "src/screens/ConsumptionScreen.tsx",
   };
 
   /** HubHead call sites that are NOT module front pages, so they ship no hub card. */
@@ -1051,6 +1052,7 @@ describe("a hub's og capture anchors on its head", () => {
     const FIGURES: Record<string, string> = {
       budget: "src/screens/budget/budgetHubFigures.ts",
       funds: "src/screens/funds/fundsHubFigures.ts",
+      consumption: "src/screens/consumption/consumptionHubFigures.ts",
     };
 
     const stale: string[] = [];

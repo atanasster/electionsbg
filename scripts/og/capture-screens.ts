@@ -877,13 +877,80 @@ const captures: Capture[] = [
   },
   {
     slug: "consumption",
-    routePath: "consumption?elections=2026_04_19",
-    // The Потребление hub is a launcher (product search + a grid of coloured
-    // section tiles). Top-aligned on the tile grid so the clip shows the view's
-    // breadth. (Was a rendered text card — job removed from generate.ts.)
-    waitFor: '[data-og="consumption-hub"]',
-    anchor: '[data-og="consumption-hub"]',
-    settleMs: 1500,
+    // No `?elections=` — the head reads only the prices blob, and the frame no longer
+    // contains anything the election context feeds.
+    routePath: "consumption",
+    // ⚠️ RE-ANCHORED ON THE HEAD (§5.3). It framed `[data-og="consumption-hub"]` — the
+    // tile grid — which was right while the hub was a launcher and wrong the moment it
+    // acquired a KPI band and an evidence aside: the card led with coloured tiles and cut
+    // every figure on the page.
+    //
+    // ⚠️ THE WAIT NAMES EVERY CELL, not just two. This head draws from ONE blob, but its
+    // four cells are guarded on four INDEPENDENT field groups fed by four different
+    // upstreams in `build_payloads.ts` — the КЗП index, macro.json's Eurostat CPI, the PPP
+    // block folded out of macro_peers.json, and the product count — and each is withheld
+    // rather than captioned vaguely when its window is missing. So a blob short of any one
+    // arm still renders a band, and a guard naming two cells is satisfied by it: the runner
+    // then overwrites a good card with a three-cell one and reports success. Measured on a
+    // cloned head with the non-basket cells removed, the two-arm form still resolved.
+    //
+    // One arm per destination, plus a chain row for the aside — which is refused outright
+    // when its denominators are missing, so it needs its own proof of presence.
+    waitFor:
+      '[data-hub-head]:has(a[href^="/prices"]):has(a[href^="/consumption/overview"])' +
+      ':has(a[href^="/consumption/eu"]):has(a[href^="/consumption/products"])' +
+      ':has(a[href^="/consumption/chain/"]) .tabular-nums',
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 3000,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    // ⚠️ THREE CARDS THAT ONLY EXIST BECAUSE /consumption's WAS RE-ANCHORED. All six
+    // consumption launcher pages shared `/og/consumption.png`, which used to be the hub's
+    // TILE GRID — topic-neutral, so sharing it everywhere cost nothing. It is now the
+    // hub's own argument (a price band and a cheapest-basket ranking), which improved
+    // /consumption/chains and /consumption/products (the card names both) and left these
+    // three advertising a picture about neither. That is the exact defect the
+    // `budget-deep-dive` entry above was created to fix; leaving it would have been the
+    // same mistake with the blame moved.
+    slug: "consumption-categories",
+    routePath: "consumption/categories",
+    // Anchor on the section so the clip leads with the title and the ranked list — the
+    // page IS the list. The wait is a ROW LINK rather than the section: the section
+    // renders before its data lands, so waiting on it shoots an empty card.
+    waitFor: 'a[href^="/consumption/category/"]',
+    anchor: 'section[aria-label="Категории"]',
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2000,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "consumption-deals",
+    routePath: "consumption/deals",
+    // ⚠️ THE ONE CARD ON THIS PAGE THAT GOES STALE BY DESIGN. Its subtitle is „…днес" over
+    // a dated promo set, so a card shot today asserts today's cuts for as long as it is
+    // served. That is inherent to a deals page rather than fixable by CSS — re-shoot it
+    // whenever the picture matters, and prefer never quoting its figures elsewhere.
+    // A CHAIN link inside the section — the deal rows name the shop, and this page has no
+    // per-product route. Waiting on the section alone shoots an empty card: it renders
+    // before its data lands.
+    waitFor: 'section[aria-label="Промоции"] a[href^="/consumption/chain/"]',
+    anchor: 'section[aria-label="Промоции"]',
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "consumption-unit-prices",
+    routePath: "consumption/unit-prices",
+    // No `aria-label`ed section and no per-product route on this page, so the wait is a
+    // priced cell INSIDE `main` — `.tabular-nums` alone is satisfied by the site header's
+    // election dates, which render before any of this page's data.
+    waitFor: "main .tabular-nums",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
