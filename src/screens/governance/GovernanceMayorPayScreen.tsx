@@ -129,10 +129,17 @@ export const GovernanceMayorPayScreen: FC = () => {
       </p>
       {rows.length > 0 && latestYear != null && (
         <p className="text-xs text-muted-foreground mt-1">
+          {/* No `year` here on purpose. The sentence used to read „N of M
+              municipalities have a declaration for <latestYear>", which is false
+              whenever a filing season has only just opened: latestYear is a MAX
+              over fiscal_year, so a couple of early filers move it while almost
+              every row is still on the previous year. Measured 2026-08-25 — 249
+              rows at 2025, 2 at 2026, and the sentence claimed 249 for 2026. The
+              per-row year is carried by the „(<year>)" marker beside each amount,
+              which is the only place it can be said truthfully. */}
           {t("mp_page_coverage", {
             withIncome: withRatio.length,
             total: rows.length,
-            year: latestYear,
           })}
         </p>
       )}
