@@ -249,34 +249,45 @@ export const HubHead: FC<{
 
         {evidence && evidence.rows.length > 0 ? (
           <aside className="mt-6 min-w-0 self-start overflow-hidden rounded-xl border border-border bg-card lg:col-start-2 lg:row-start-1 lg:mt-0">
-            <div className="flex items-center justify-between gap-3 border-b border-border px-3.5 py-2.5">
-              <div className="min-w-0">
-                <h2 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                  {evidence.heading}
-                </h2>
-                {/* ⚠️ NO `/80`, AND 11px NOT 10px — both measured, not preference. At
-                    `text-[10px] text-muted-foreground/80` this line composites to
-                    3.15:1 against `--card` in the light theme (105,97,89 at 80% on
-                    230,221,209), under the 4.5:1 WCAG AA floor for text below 18.66px.
-                    Dark was fine at 5.36:1, which is why it went unnoticed. It is the
-                    smallest text in the head and on /budget it carries a DISCLAIMER —
-                    the sentence that stops five ministry rows being read as a breakdown
-                    of the band above them — so it is the last line on the page that may
-                    be hard to read. Re-measured after: 4.52:1 light, 6.5:1 dark. That
-                    light figure is THIN — it is `--muted-foreground` on `--card` at full
-                    opacity, i.e. the repo's standard muted pairing with nothing left to
-                    give — so any future opacity modifier on this line puts it back under
-                    the floor. Darken the token, not this call site. */}
-                {evidence.basis ? (
-                  <p className="mt-0.5 text-[11px] font-medium leading-tight text-muted-foreground">
-                    {evidence.basis}
-                  </p>
-                ) : null}
-              </div>
+            {/* ⚠️ A GRID WITH EXPLICIT PLACEMENT, not a flex row, and both halves are the
+                point.
+                  · FULL-WIDTH BASIS. It used to share the heading's flex cell with the action
+                    link, which is `whitespace-nowrap` — so a two-word label („всички
+                    разпоредители") took its width out of the caption's and left /budget's
+                    three-clause disclaimer wrapping into a ~50%-wide column six lines deep.
+                    Visible only in the shot card; /procurement and /funds carry three-word
+                    bases that fit either way.
+                  · DOM ORDER heading → basis → action. Moving the basis to a plain third row
+                    fixed the width and put the navigation link BETWEEN a heading and the
+                    caption that says what it is ranked by — which a screen reader and a
+                    linearised mobile reflow both read in that order. Explicit row/column
+                    placement gives the full width without the reordering. */}
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 border-b border-border px-3.5 py-2.5">
+              <h2 className="col-start-1 row-start-1 text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                {evidence.heading}
+              </h2>
+              {/* ⚠️ NO `/80`, AND 11px NOT 10px — both measured, not preference. At
+                  `text-[10px] text-muted-foreground/80` this line composites to 3.15:1
+                  against `--card` in the light theme (105,97,89 at 80% on 230,221,209),
+                  under the 4.5:1 WCAG AA floor for text below 18.66px. Dark was fine at
+                  5.36:1, which is why it went unnoticed. It is the smallest text in the
+                  head and on /budget it carries a DISCLAIMER — the sentence that stops five
+                  ministry rows being read as a breakdown of the band above them — so it is
+                  the last line on the page that may be hard to read. Re-measured after:
+                  4.52:1 light, 6.5:1 dark. That light figure is THIN — it is
+                  `--muted-foreground` on `--card` at full opacity, i.e. the repo's standard
+                  muted pairing with nothing left to give — so any future opacity modifier on
+                  this line puts it back under the floor. Darken the token, not this call
+                  site. */}
+              {evidence.basis ? (
+                <p className="col-span-2 row-start-2 mt-1 text-[11px] font-medium leading-tight text-muted-foreground">
+                  {evidence.basis}
+                </p>
+              ) : null}
               {evidence.action ? (
                 <Link
                   to={headHref(evidence.action.to)}
-                  className="whitespace-nowrap text-[11px] font-semibold text-primary hover:underline"
+                  className="col-start-2 row-start-1 whitespace-nowrap text-[11px] font-semibold text-primary hover:underline"
                 >
                   {evidence.action.label}
                 </Link>

@@ -895,6 +895,7 @@ describe("a hub's og capture anchors on its head", () => {
     procurement: "src/screens/ProcurementScreen.tsx",
     governance: "src/screens/GovernanceScreen.tsx",
     funds: "src/screens/FundsScreen.tsx",
+    budget: "src/screens/budget/BudgetHubScreen.tsx",
   };
 
   /** HubHead call sites that are NOT module front pages, so they ship no hub card. */
@@ -1039,6 +1040,19 @@ describe("a hub's og capture anchors on its head", () => {
     const headAt = at(HEAD);
     expect(headAt, `no commit found for ${HEAD}`).toBeGreaterThan(0);
 
+    // ⚠ AND THE FIGURE BUILDER, where the hub has one. Two hubs build their band and their
+    // aside in a SEPARATE module — extracted precisely so gates could see them
+    // (`budgetHubFigures.ts`'s header: „a band built inline is unreachable from
+    // hubHead.gates.test.ts") — and those files own every value, label, basis and evidence
+    // row the card shows. Without this, a change moving every number on the budget card
+    // reddens nothing. PER-HUB rather than global, so an unrelated hub is not reddened by a
+    // sibling's edit; the same measurement the HubHead line above rests on applies here too:
+    // folding both in reddens zero additional cards today.
+    const FIGURES: Record<string, string> = {
+      budget: "src/screens/budget/budgetHubFigures.ts",
+      funds: "src/screens/funds/fundsHubFigures.ts",
+    };
+
     const stale: string[] = [];
     for (const [slug, screen] of Object.entries(HUB_CAPTURES)) {
       const card = at(`public/og/${slug}.png`);
@@ -1047,8 +1061,16 @@ describe("a hub's og capture anchors on its head", () => {
         0,
       );
       expect(page, `no commit found for ${screen}`).toBeGreaterThan(0);
-      const newest = Math.max(page, headAt);
-      const src = page >= headAt ? screen : HEAD;
+      const extra = FIGURES[slug];
+      const extraAt = extra ? at(extra) : 0;
+      if (extra)
+        expect(extraAt, `no commit found for ${extra}`).toBeGreaterThan(0);
+      const sources: [string, number][] = [
+        [screen, page],
+        [HEAD, headAt],
+        ...(extra ? ([[extra, extraAt]] as [string, number][]) : []),
+      ];
+      const [src, newest] = sources.reduce((a, b) => (b[1] > a[1] ? b : a));
       if (card < newest)
         stale.push(
           `${slug}: card ${new Date(card * 1000).toISOString().slice(0, 10)} < ` +

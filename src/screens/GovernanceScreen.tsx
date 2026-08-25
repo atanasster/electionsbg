@@ -87,6 +87,8 @@ export const GovernanceScreen: FC = () => {
       year: s.year,
       years: corpusYears,
       n: s.extra != null ? numFmt.format(s.extra) : "",
+      // RAW, unlike `n`: a year through `numFmt` prints „2 025".
+      basisYear: s.basisYear ?? "",
     });
 
   const kpiCandidates: (HubKpi | undefined)[] = BAND_TILES.map((id) => {

@@ -23,6 +23,10 @@ export interface GovTileStat {
   basis: string;
   year?: number;
   extra?: number;
+  /** A YEAR the caption names beside `year` — today the seasonal anchor a forecast was scaled
+   *  through, so „прогноза за 2026" is not a forecast from nowhere. ⚠️ Its own field rather
+   *  than `extra`, which is rendered through `Intl.NumberFormat` and would print „2 025". */
+  basisYear?: number;
 }
 
 export interface GovernanceHubStats {

@@ -414,6 +414,66 @@ describe("the /governance blob", () => {
     }
   });
 
+  // ⚠️⚠️ A FORECAST CAPTION MUST SAY SO, AND A PLAN CAPTION MUST NOT. This hub FOLDS
+  // /budget's expenditure figure, and `budget_fiscal_year_figure.basis` carries three values
+  // of which two are not the law: `planned` is МФ's budget-law column, `projected` is OUR
+  // seasonal extrapolation. The generator read the second and stamped `planned_expenditure`
+  // on it, so /governance published „€29,6 млрд. · разходи · план 2026" for a fiscal year
+  // that carries no planned row at all — a claim about what the National Assembly
+  // appropriated, made out of arithmetic we did ourselves.
+  //
+  // The clause above could not see it: it asserts only that `gov_stat_${basis}` EXISTS, which
+  // is true of both keys, so it stayed green throughout. This is the /budget twin's §2.3 rule
+  // (`budgetBasis.test.ts`) applied to the hub that folds the same number.
+  it("says it is a forecast on a forecast basis, and never on the budget law", () => {
+    const FORECAST = /прогноз|project(ed|ion)|forecast/i;
+    const PLAN = /план|plan(ned)?|budget act|appropriation|закона за бюджета/i;
+    for (const corpus of ["bg", "en"]) {
+      const keys = JSON.parse(read(`src/locales/${corpus}/translation.json`));
+      expect(
+        keys.gov_stat_projected_expenditure,
+        `${corpus}: the forecast caption does not say it is one`,
+      ).toMatch(FORECAST);
+      expect(
+        keys.gov_stat_projected_expenditure,
+        `${corpus}: the forecast caption calls itself the budget law`,
+      ).not.toMatch(PLAN);
+      expect(
+        keys.gov_stat_planned_expenditure,
+        `${corpus}: the budget-law caption calls itself a forecast`,
+      ).not.toMatch(FORECAST);
+    }
+    // And the anchor, for the reason `budgetBasis.test.ts` gives about this exact number:
+    // „прогноза за 2026" alone is a forecast from nowhere, and /budget names the profile
+    // one click away.
+    expect(
+      JSON.parse(read("src/locales/bg/translation.json"))
+        .gov_stat_projected_expenditure,
+    ).toContain("{{basisYear}}");
+  });
+
+  it("stamps the budget basis the committed figure actually came from", () => {
+    // The blob is COMMITTED, so this needs no Postgres: the generator writes `basisYear` only
+    // on the forecast arm, which is the discriminator a caption cannot fake. Reverting the
+    // generator's pick puts a `planned_expenditure` basis on a row that still carries an
+    // anchor year, or a forecast with none.
+    const b = blob.tiles.budget as
+      | { basis: string; value: number; basisYear?: number }
+      | undefined;
+    if (!b) return; // a database with no budget corpus writes no tile — see note("budget", …)
+    expect(["planned_expenditure", "projected_expenditure"]).toContain(b.basis);
+    if (b.basis === "projected_expenditure")
+      expect(
+        b.basisYear,
+        "a forecast with no seasonal anchor — the caption interpolates an empty year",
+      ).toBeTypeOf("number");
+    else
+      expect(
+        b.basisYear,
+        "the budget law carries a seasonal anchor — it was not scaled through anything",
+      ).toBeUndefined();
+  });
+
   // The band publishes the four money taps above the fold; those tiles must therefore carry
   // no metric, or the same string renders twice on one page (§3.1 rule 5).
   it("excludes the band's own tiles from the tile metrics", () => {

@@ -19,9 +19,12 @@
 //
 //   • `sum(amount_eur) FROM contracts WHERE tag='contract'` was €93.81bn on the day the
 //     committed procurement blob said €93.56bn — same table, different vintage.
-//   • `funds_hub_stats().isun.contractedEur` is €44.07bn; /funds renders €44.27bn, from
-//     `fund_payloads(kind='index').totals`. Two definitions of "contracted EU funds", ~€197m
-//     apart, and only the second is what a reader clicking the tile will see.
+//   • `funds_hub_stats().isun.contractedEur` and `fund_payloads(kind='index').totals` were
+//     €44.07bn and €44.27bn — two definitions of "contracted EU funds", ~€197m apart, and
+//     only the second is what a reader clicking the tile sees. ⚠️ RE-MEASURED 2026-08-25:
+//     they now agree to the cent (44,015,477,336.12 vs .13), which is the reason the rule is
+//     a RULE and not a one-off comparison. Two sources that happen to agree today have not
+//     stopped being two sources, and nothing about this run makes the next one agree.
 //
 // So each figure comes from ONE of four kinds of source, in this order of preference:
 //
@@ -85,6 +88,10 @@ export interface GovTileStat {
   year?: number;
   /** A second figure worth one short line under the caption, already a number. */
   extra?: number;
+  /** A YEAR the caption names beside `year` — today the seasonal anchor a forecast was scaled
+   *  through. ⚠️ Its own field rather than `extra`, because `extra` is rendered through
+   *  `numFmt` and would print 2025 as „2 025". */
+  basisYear?: number;
 }
 
 export interface GovernanceHubStats {
@@ -205,21 +212,57 @@ const run = async (): Promise<void> => {
   ]);
 
   if (!fnMissing.includes("budget_hub_stats(integer)")) {
-    const [r] = await allRows<{ v: string | null; y: string | null }>(
-      // PROJECTED, not executed. `expenditureExecutedEur` is the year to date — 6 of 12
-      // months on the day this was written — so quoting it makes the state look like it
-      // spends half what it does. The tile answers "how big is the budget", which is the
-      // plan; the caption names the year.
-      `SELECT (budget_hub_stats()->>'expenditureProjectedEur') AS v,
-              (budget_hub_stats()->>'fiscalYear') AS y`,
+    const [r] = await allRows<{
+      p: string | null;
+      j: string | null;
+      y: string | null;
+      b: string | null;
+    }>(
+      // NEVER `expenditureExecutedEur`: it is the year to date — 6 of 12 months on the day
+      // this was written — so quoting it makes the state look like it spends half what it
+      // does. The tile answers „how big is the budget", which is the year's ENVELOPE.
+      //
+      // ⚠️⚠️ AND THE ENVELOPE IS TWO DIFFERENT CLAIMS, so the basis follows the pick rather
+      // than being fixed. `expenditurePlannedEur` is МФ's budget-law column — what the
+      // Assembly appropriated. `expenditureProjectedEur` is OURS: this year's actuals scaled
+      // through a prior year's monthly profile. This arm read the second and stamped
+      // `planned_expenditure` on it, so /governance published „€29,6 млрд. · разходи · план
+      // 2026" for a fiscal year that carries NO planned row at all — the same false sentence
+      // the /budget head shipped, one hub up, and the reason a hub of hubs must fold the
+      // destination's BASIS along with its number.
+      `SELECT (budget_hub_stats()->>'expenditurePlannedEur')   AS p,
+              (budget_hub_stats()->>'expenditureProjectedEur') AS j,
+              (budget_hub_stats()->>'fiscalYear')              AS y,
+              (budget_hub_stats()->>'projectionBasisYear')     AS b`,
     );
-    const v = num(r?.v);
-    if (v) {
+    // ⚠️ ONE PICK RETURNING THE FIGURE AND ITS BASIS TOGETHER, exactly as
+    // `budgetHubFigures.ts` does — whose header says why: „two separate chains, one choosing
+    // the number and one choosing the string, is the shape that desyncs, and it desyncs
+    // silently because both halves stay individually plausible." A first cut here chose the
+    // value with `??` and the label with a truthiness test, which differ at `planned === 0`.
+    //
+    // The law first wherever it exists — external and checkable, unlike our own forecast —
+    // and it is the same pick /budget makes, so the two hubs cannot disagree.
+    const pick = ((p: number | null, j: number | null) => {
+      if (p != null) return { value: p, basis: "planned_expenditure" as const };
+      if (j != null) return { value: j, basis: "projected_expenditure" as const };
+      return null;
+    })(num(r?.p), num(r?.j));
+    if (pick) {
       tiles.budget = {
         kind: "eur",
-        value: Math.round(v),
-        basis: "planned_expenditure",
+        value: Math.round(pick.value),
+        basis: pick.basis,
         year: num(r?.y) ?? undefined,
+        // The seasonal anchor, so the caption is „прогноза за 2026 по профила на 2025" rather
+        // than „прогноза за 2026" — which `budgetBasis.test.ts` calls a forecast from nowhere,
+        // about this very number. /budget names it one click away; a hub of hubs that folds
+        // the figure and drops half its basis is the softer version of the disagreement this
+        // generator exists to prevent.
+        basisYear:
+          pick.basis === "projected_expenditure"
+            ? (num(r?.b) ?? undefined)
+            : undefined,
       };
       note("budget", true);
     } else note("budget", false, "budget_hub_stats() has no expenditure");

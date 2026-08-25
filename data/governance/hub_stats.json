@@ -1,9 +1,9 @@
 {
-  "computedAt": "2026-08-24T18:32:30.572Z",
+  "computedAt": "2026-08-25T14:58:29.518Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
-      "value": 93598116768,
+      "value": 93598306669,
       "basis": "contracts"
     },
     "sectors": {
@@ -19,8 +19,9 @@
     "budget": {
       "kind": "eur",
       "value": 29577990982,
-      "basis": "planned_expenditure",
-      "year": 2026
+      "basis": "projected_expenditure",
+      "year": 2026,
+      "basisYear": 2025
     },
     "subsidies": {
       "kind": "eur",
@@ -35,7 +36,7 @@
     },
     "funds": {
       "kind": "eur",
-      "value": 44270390974,
+      "value": 44015477336,
       "basis": "contracted"
     },
     "municipal-finance": {
@@ -131,12 +132,12 @@
   "coverage": [
     {
       "id": "contracts",
-      "value": 409848,
+      "value": 409851,
       "to": "/procurement/contracts?pscope=all"
     },
     {
       "id": "tenders",
-      "value": 237941,
+      "value": 237942,
       "to": "/procurement/tenders?pscope=all"
     },
     {
@@ -146,7 +147,7 @@
     },
     {
       "id": "fundsProjects",
-      "value": 82159,
+      "value": 82162,
       "to": "/funds/beneficiaries"
     }
   ],
