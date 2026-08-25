@@ -10,6 +10,14 @@
 // the writer no longer applies — or, as happened here, go RED against a rule the writer
 // applies deliberately.
 //
+// ⚠️ WHICH CLAUSE CONSUMES IT CHANGED ON 2026-08-25, and the reason is worth knowing. The
+// gate used to RE-DERIVE the whole Tier-V predicate at test time, including this list; the
+// licence is now recorded on the role at attach time (081 person_role.bridge), so what the
+// gate reads this list for is narrower and sharper — that a role stamped 'V' sits on a person
+// whose identity_confidence is one of these. That is the half of the old predicate which
+// never decayed (`person` is rebuilt in the SAME transaction as `person_role`), so it stayed.
+// Adding a value here still says those people may hold companies on a public page.
+//
 // WHAT WENT WRONG ONCE. Tier V minted every person 'verified' until 2026-08-12, when
 // 'shared_name' was added for a fold the REGISTRY itself records as several people
 // (tr-attribution-basis-v1 §2.6). §2.6 chose to KEEP those people and LABEL them rather

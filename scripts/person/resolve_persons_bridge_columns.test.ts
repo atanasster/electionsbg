@@ -22,8 +22,8 @@
 // no database at all: it reads the resolver's own source.
 //
 // ⚠️ IT CANNOT PROVE THE VALUES ARE RIGHT, only that the writers still name both columns.
-// Correctness of the stamped values is the data gate's job (and, until step 4, nobody's).
-// A static gate that pretended otherwise would be worse than none.
+// Correctness of the stamped values belongs to `person_resolve.data.test.ts`, which reads
+// them from the database. A static gate that pretended otherwise would be worse than none.
 //
 //   npm run test:unit
 

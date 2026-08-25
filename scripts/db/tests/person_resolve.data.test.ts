@@ -12,7 +12,12 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
-import { BRIDGE_B_CTE, FOOTPRINT_CAP } from "../../person/bridgeB";
+// BRIDGE_B_CTE is gone: this file no longer re-derives a footprint from the seven-table join
+// the resolver attaches through — see the note below for why that question was unanswerable
+// here. FOOTPRINT_CAP and TIER_V_SERVED_IDENTITIES_SQL stay, and both are THRESHOLDS/VOCABULARIES
+// with one home: the stored footprint is still checked against the cap, and the identity-class
+// test below is the second consumer tierV.ts exists to keep in step with the resolver.
+import { FOOTPRINT_CAP } from "../../person/bridgeB";
 import { TIER_V_SERVED_IDENTITIES_SQL } from "../../person/tierV";
 import { reportSkip } from "../../lib/report_skip";
 
@@ -94,98 +99,302 @@ test.skipIf(skip)(
   },
 );
 
-// Every TR bridge is LICENSED by exactly one of the three safe mechanisms, never a bare
-// name guess:
-//   Bridge A (shared company) — the EIK is one the person is genuinely linked to via a
-//     curated source (magistrate holdings / company_politicians); the match is the strong
-//     shared-uic corroborant.
-//   Bridge B (people-unique full name) — the person has a 3-part name, is a public figure,
-//     and their full-name fold maps to exactly ONE known person (no second person on the
-//     fold); their whole SMALL TR footprint (≤ FOOTPRINT_CAP companies under the fold) is
-//     attached, matched ON THAT EXACT entity. The people-uniqueness guard + footprint cap
-//     make a handful of firms under a globally-unique 3-part name unambiguously that one
-//     person (superseding the old company-count proxy that capped a real footprint at 1).
-//     Spelled with the SAME CTEs the resolver attaches through (./bridgeB.ts), imported
-//     rather than restated — this file carried a third hand-written copy of the rule until
-//     2026-08-11, and a near-copy on a defamation-sensitive guard can go on passing against
-//     a rule the writer no longer applies, i.e. measure a bridge nobody built. `licensed`
-//     is `hits` capped by `footprint`, which is exactly what resolve_persons.ts INSERTs.
-//   Bridge V (money-linked private owner, TIER-V) — a person-shaped fold that was NOT already
-//     a person, is money-linked (contracts ∪ subsidies ∪ funds), and holds ≤5 firms in total.
-//     These people are minted PRIVATE (is_public_figure=false) with a NAME-ONLY identity, and
-//     get their whole footprint attached on the exact entity — see the TIER-V block in
-//     scripts/person/resolve_persons.ts. The identity values that licence the attachment are
-//     IMPORTED from ./tierV rather than spelled here, because this clause has already been
-//     wrong once in exactly that way: the mint gained 'shared_name' beside 'verified' (a fold
-//     the REGISTRY records as several people — kept and labelled per §2.6, not excluded), the
-//     resolver's role INSERT was widened with it, and this hand-written 'verified' then read
-//     20,399 deliberate attachments across 4,405 people as unlicensed. Same failure shape as
-//     the Bridge B copy this file used to carry, and the same fix.
-// A tr/ngo role satisfying NONE of the three is an unlicensed attribution and must never exist.
-// (NGO board seats bridge exactly like company officerships — same shared-uic / unique-name
-// mechanism — so both facets carry the same licensing invariant.)
+// Every tr/ngo role is LICENSED by exactly one of three safe mechanisms, never a bare name
+// guess — and since 2026-08-25 the licence is a STORED FACT rather than something this gate
+// re-derives. Plan: docs/plans/person-role-unlicensed-bridge-v1.md.
 //
-// ⚠️ Bridge V was MISSING from this gate until 2026-08-02, and the omission is instructive:
-// Tier-V is licensed by `identity_confidence='verified'` and is deliberately NOT a public
-// figure, so every one of its 125,724 roles (52,814 people) failed the `p.is_public_figure`
-// clause of Bridge B and the gate had been red — not flaky, not stale, just wrong — since
-// Tier-V shipped. A red gate nobody can fix is a gate nobody reads, which is the real danger
-// here: this is the defamation-sensitive invariant on the whole TR layer.
+//   Bridge A (curated company link) — the EIK is one a curated source genuinely links the
+//     person to (magistrate_company / company_politicians). Written by the roleRows COPY,
+//     which is the only path such a mention takes into person_role.
+//   Bridge B (people-unique public 3-part fold) — a public figure whose fold maps to exactly
+//     ONE known person AND which the Commerce Registry itself records as one person, whose
+//     whole SMALL footprint (≤ FOOTPRINT_CAP) is attached on the exact entity.
+//   Bridge V (money-linked private owner, TIER-V) — a person-shaped fold that was not already
+//     a person, is money-linked, and holds ≤ FOOTPRINT_CAP firms. Minted PRIVATE with a
+//     NAME-ONLY identity.
 //
-// Two details below are easy to get subtly wrong, and both would widen the licence:
-//   • the ≤5 cap for Bridge V counts `tr_officers`, NOT `tr_person_roles` — the resolver caps
-//     on the officer table (its `count(DISTINCT o.uic) <= 5`), and the two differ because
-//     tr_person_roles is the full-history table. Capping the wrong one admits folds the
-//     resolver would have rejected. That is why Bridge V stays spelled out here while Bridge B
-//     is imported: they are different rules over different tables, and only Bridge B's is the
-//     one `./bridgeB.ts` owns.
-//   • money-linkage is part of the licence, not a performance detail. Without it the gate
-//     would wave through the entire footprint of any private 3-part name in the registry.
-test.skipIf(skip)(
-  "every tr/ngo role is a licensed bridge (A, B or V)",
+// ⚠️ WHY THIS STOPPED RE-DERIVING, AND WHY THAT IS THE WHOLE POINT.
+//
+// Until 2026-08-25 this test recomputed each licence at TEST time from seven tables —
+// tr_officers, tr_person_roles, contracts, agri_subsidies, fund_beneficiaries,
+// company_politicians, magistrate_company — every one of which is reloaded on its own
+// schedule, independently of person_role.
+//
+// ⚠️ BUT ONLY ONE OF THE SIX CLAUSES WAS ACTUALLY TIME-DEPENDENT, and conflating them is how
+// a fix becomes a regression. The identity-SHAPE clauses (3-part fold, public/private,
+// identity_confidence) read `person`, which is DELETEd and re-COPYd in the SAME TRANSACTION
+// as person_role — same vintage by construction, incapable of the decay diagnosed here. The
+// registry-uniqueness clause reads a COMMITTED, git-tracked TSV. All four failed 0 roles.
+// What failed 409 was the FOOTPRINT, alone. So the footprint became a stored fact and the
+// same-vintage clauses were KEPT, below — retiring them too would have traded a red gate for
+// a quiet one, and a B↔V swap would sit 28,329 roles' worth of private, name-only licence on
+// public figures with nothing failing.
+//
+// For that one clause the old form was not asserting an invariant. It was asserting that two
+// corpora were the same vintage, which is FALSE on any machine that has run tr:daily-refresh
+// since its last resolve — i.e. every machine following the documented daily pipeline, every
+// day.
+//
+// Measured 2026-08-25: person_role was written 2026-08-22 18:56; db:load:tr:pg reloaded the
+// TR corpus 2026-08-24 22:20 with 1,885 new companies; and 443 roles across 63 people came
+// back "unlicensed". Every one of them had been attached under a footprint of 2..5 — inside
+// the cap — and their folds had since grown to 6..11. The resolver was blameless: across the
+// whole non-Bridge-A tr/ngo layer (82,247 people) NO person holds more than FOOTPRINT_CAP
+// distinct EIKs, so the cap has never once been exceeded at attach time.
+//
+// A gate that is red-by-default is a gate nobody reads — the danger this file's own Bridge-V
+// note already warned about, now describing its steady state. So the licence is recorded ON
+// the role by the writer that makes the attachment (081 person_role.bridge /
+// bridge_footprint) and checked here as a stored fact, which is time-invariant. Whether the
+// corpus has since MOVED under those licences is a different question, and a different gate:
+// person_role_bridge_freshness.data.test.ts — step 5 of the plan, NOT YET WRITTEN. Until it
+// lands, NOTHING carries the drift signal that this file used to report as 443 red roles.
+//
+// ⚠️ IT SKIPS ON A CORPUS THAT HAS NOT BEEN RE-RESOLVED, with its own distinct reason. 081
+// ships no backfill (the vintage the resolver saw is unrecoverable), so `bridge` is NULL
+// everywhere until the next db:resolve:persons. "The corpus carries no licences yet" must
+// never read as "the licences are enforced" — hence a separate skip string, not the
+// database-absent one.
+// ⚠️ TRY/CATCH, like `reachable()` above, and for a case that guard does not cover: a
+// database that is perfectly REACHABLE and simply has no `bridge` column — which is every
+// serving database, including Cloud SQL, until 081 is applied there. An unguarded
+// module-scope query raises 42703 during COLLECTION, so the file does not skip, it fails to
+// load — and a suite that cannot collect a gate reports differently from one that skips it.
+const licenceCount = async (): Promise<number | null> => {
+  try {
+    const [r] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM person_role
+        WHERE source IN ('tr', 'ngo') AND bridge IS NOT NULL`,
+    );
+    return Number(r.n);
+  } catch {
+    return null; // 42703 — 081's bridge block has not reached this database
+  }
+};
+const lic = haveDb ? await licenceCount() : 0;
+const skipLicence = !haveDb
+  ? skip
+  : lic === null
+    ? "person_role has no `bridge` column — apply 081_person_identity.sql to this database."
+    : lic > 0
+      ? false
+      : "person_role.bridge is entirely NULL — no resolve has run since 081 added it. " +
+        "Run `npm run db:resolve:persons` (and its repair chain) to populate the licences.";
+// `haveDb &&` so the database-absent case is announced ONCE, by line 39, rather than twice
+// under two different strings for one cause.
+reportSkip(import.meta.url, haveDb && skipLicence);
+
+test.skipIf(skipLicence)(
+  "every tr/ngo role carries the licence it was attached under",
   async () => {
-    const [r] = await allRows<{ bad: string }>(
-      `WITH money_eik AS (   -- the Tier-V money basis, mirroring resolve_persons.ts
-         SELECT DISTINCT eik FROM (
-           SELECT contractor_eik AS eik FROM contracts
-            WHERE contractor_eik <> '' AND tag = 'contract'
-              AND consortium_role IS DISTINCT FROM 'member' AND amount_eur IS NOT NULL
-           UNION ALL SELECT eik FROM agri_subsidies     WHERE eik IS NOT NULL AND total_eur IS NOT NULL
-           UNION ALL SELECT eik FROM fund_beneficiaries WHERE eik IS NOT NULL AND paid_eur  IS NOT NULL
-         ) x
-       ),
-       ${BRIDGE_B_CTE},
-       licensed AS (   -- Bridge B: exactly the (person, company) pairs the resolver attaches
-         SELECT h.person_id, h.uic
-           FROM hits h JOIN footprint f USING (person_id)
-          WHERE f.n_uic <= $1
-       )
-       SELECT count(*) bad
-       FROM person_role r JOIN person p USING (person_id)
-      WHERE r.source IN ('tr', 'ngo')
-        AND r.ref NOT IN (   -- Bridge A: curated company link
-          SELECT eik FROM magistrate_company WHERE eik IS NOT NULL AND NOT eik_ambiguous
-          UNION SELECT eik FROM company_politicians)
-        AND NOT EXISTS (     -- Bridge B: people-unique public 3-part fold, ≤ FOOTPRINT_CAP, exact entity
-          SELECT 1 FROM licensed l
-           WHERE l.person_id = p.person_id AND l.uic = r.ref)
-        AND NOT (            -- Bridge V: money-linked private owner, name-only identity
-          p.name_parts = 3 AND NOT p.is_public_figure
-          AND p.identity_confidence IN (${TIER_V_SERVED_IDENTITIES_SQL})
-          AND p.name_fold ~ '^[a-z]+ [a-z]+ [a-z]+$'
-          AND (SELECT count(DISTINCT o.uic) FROM tr_officers o
-                WHERE o.name_fold = p.name_fold) BETWEEN 1 AND 5
-          AND EXISTS (
-            SELECT 1 FROM tr_officers o2 JOIN money_eik m ON m.eik = o2.uic
-             WHERE o2.name_fold = p.name_fold)
-          AND EXISTS (
-            SELECT 1 FROM tr_person_roles t
-             WHERE t.uic = r.ref AND t.name_fold = p.name_fold))`,
+    const [r] = await allRows<{
+      unlicensed: string;
+      bad_footprint: string;
+      total: string;
+      stray: string;
+    }>(
+      `SELECT
+         count(*) FILTER (WHERE source IN ('tr', 'ngo') AND bridge IS NULL) AS unlicensed,
+         count(*) FILTER (WHERE source IN ('tr', 'ngo') AND bridge IN ('B', 'V')
+                            AND (bridge_footprint IS NULL
+                                 OR bridge_footprint NOT BETWEEN 1 AND $1)) AS bad_footprint,
+         count(*) FILTER (WHERE source IN ('tr', 'ngo'))                    AS total,
+         count(*) FILTER (WHERE source NOT IN ('tr', 'ngo')
+                            AND (bridge IS NOT NULL
+                                 OR bridge_footprint IS NOT NULL))          AS stray
+        FROM person_role`,
       [FOOTPRINT_CAP],
     );
-    assert.equal(Number(r.bad), 0, "found an unlicensed tr/ngo role");
+    assert.equal(
+      Number(r.unlicensed),
+      0,
+      `${r.unlicensed} of ${r.total} tr/ngo roles carry no bridge. Each attributes a COMPANY ` +
+        `to a NAMED INDIVIDUAL, so an unlicensed one is an attribution nobody can account ` +
+        `for. Either a writer in resolve_persons.ts stopped stamping (see ` +
+        `resolve_persons_bridge_columns.test.ts) or the column was dropped from its copyRows ` +
+        `list, which blanks the whole corpus at once.`,
+    );
+    // The converse, which 081's header states and the resolver implements as a ternary but
+    // nothing gated: a licence belongs ONLY on a company attribution. An mp seat, a candidacy
+    // or a filing is the person's own record — a bridge stamped there is meaningless, and
+    // 081's CHECK permits it because the vocabulary is closed but the SCOPE is not.
+    assert.equal(
+      Number(r.stray),
+      0,
+      `${r.stray} non-tr/ngo roles carry a bridge. Only a company attribution is licensed; ` +
+        `a licence on an mp/candidate/official row is a category error the CHECK cannot see.`,
+    );
+    // ⚠️ The cap is read from bridgeB.ts, never restated. It has ONE home precisely so the
+    // resolver and this gate cannot disagree about it — the COMMON_NAME_TR_ROWS class.
+    assert.equal(
+      Number(r.bad_footprint),
+      0,
+      `${r.bad_footprint} B/V roles carry a footprint outside 1..${FOOTPRINT_CAP}. A stored ` +
+        `footprint IS the number the cap was compared against, so one outside the cap means ` +
+        `a writer recorded a measurement no cap ever accepted.`,
+    );
   },
 );
+
+// Bridge A is the one licence whose evidence is CHECKABLE at any time, so it is re-derived
+// here deliberately, unlike B and V.
+//
+// ⚠️ IT DOES DECAY, and an earlier draft of this comment claimed it did not.
+// `company_politicians` is TRUNCATE+rebuilt by db:load:tr:pg from `person_role` INNER JOIN
+// procurement money, so it moves with BOTH the person layer and the contracts corpus — 505 of
+// the 756 curated EIKs come from it alone. This arm therefore carries a bounded amount of the
+// same cross-vintage coupling the rest of the file just retired, which is why the failure
+// message leads with decay rather than with a bad stamp. It is kept because the population is
+// small (~2,644 roles) and the evidence is the strongest of the three: a register named this
+// company for this person. Step 5 reports the drift; this only fails if a link is gone.
+test.skipIf(skipLicence)("every Bridge-A role is still curated", async () => {
+  const [r] = await allRows<{ bad: string; total: string }>(
+    `SELECT count(*) FILTER (WHERE NOT EXISTS (
+              SELECT 1 FROM (
+                SELECT eik FROM magistrate_company
+                 WHERE eik IS NOT NULL AND NOT eik_ambiguous
+                UNION SELECT eik FROM company_politicians) a
+               WHERE a.eik = r.ref)) AS bad,
+            count(*) AS total
+       FROM person_role r
+      WHERE r.source IN ('tr', 'ngo') AND r.bridge = 'A'`,
+  );
+  assert.equal(
+    Number(r.bad),
+    0,
+    `${r.bad} of ${r.total} roles are stamped Bridge A but their EIK is no longer in ` +
+      `magistrate_company ∪ company_politicians. ⚠️ THE STAMP IS NOT THE LIKELY CULPRIT. ` +
+      `company_politicians is TRUNCATE+rebuilt by db:load:tr:pg from person_role INNER JOIN ` +
+      `contracts money, so a curated link leaves the set when the person layer or the ` +
+      `contracts corpus moves — decay, not a bad stamp. Re-run \`npm run db:resolve:persons\` ` +
+      `to re-derive the stamps against the current curated set. Only if the person layer is ` +
+      `already current is the stamp itself wrong. (Measured propagation ceiling on the ` +
+      `2026-08-25 corpus: 19 rows / 17 EIKs.)`,
+  );
+});
+
+// THE IDENTITY-SHAPE HALF OF THE LICENCE, which never decayed and must not have been retired
+// with the footprint. `person` is DELETEd and re-COPYd in the SAME TRANSACTION as person_role,
+// so every column read here is the resolver's own vintage — there is no cross-corpus coupling
+// to remove, and no reading of these clauses can go stale between two loaders.
+//
+// What it catches that the stored licence alone cannot: a B↔V SWAP. Both values are legal, both
+// carry a footprint inside the cap, and every other assertion in this file passes — while 28,329
+// roles would be publishing the PRIVATE, name-only licence on public figures and 168,585 the
+// public-figure licence on private owners. The licence has to sit on the class that earned it.
+test.skipIf(skipLicence)(
+  "each licence sits on the identity class it licenses",
+  async () => {
+    const [r] = await allRows<{
+      v_public: string;
+      b_private: string;
+      bad_shape: string;
+      v_identity: string;
+      b_shared: string;
+    }>(
+      `SELECT
+         count(*) FILTER (WHERE r.bridge = 'V' AND p.is_public_figure)       AS v_public,
+         count(*) FILTER (WHERE r.bridge = 'B' AND NOT p.is_public_figure)   AS b_private,
+         count(*) FILTER (WHERE r.bridge IN ('B','V') AND p.name_parts <> 3) AS bad_shape,
+         count(*) FILTER (WHERE r.bridge = 'V'
+                            AND p.identity_confidence
+                                NOT IN (${TIER_V_SERVED_IDENTITIES_SQL}))    AS v_identity,
+         -- Registry-uniqueness, the guard bridgeB.ts calls out as having admitted 1,995 folds
+         -- the registry says are 2+ people. Its source is a COMMITTED, git-tracked TSV, so it
+         -- is static — re-reading it here couples this gate to nothing.
+         count(*) FILTER (WHERE r.bridge = 'B'
+                            AND NOT EXISTS (SELECT 1 FROM tr_name_fold_people f
+                                             WHERE f.name_fold = p.name_fold
+                                               AND f.people_n = 1))          AS b_shared
+        FROM person_role r JOIN person p USING (person_id)
+       WHERE r.source IN ('tr', 'ngo')`,
+    );
+    assert.equal(
+      Number(r.v_public),
+      0,
+      `${r.v_public} roles carry the Tier-V licence on a PUBLIC figure. Bridge V mints a person ` +
+        `PRIVATE with a name-only identity, so on a public figure it is not the licence that ` +
+        `was earned — and the profile renders a different caveat for each.`,
+    );
+    assert.equal(
+      Number(r.b_private),
+      0,
+      `${r.b_private} roles carry Bridge B on a non-public person. BRIDGE_B_CTE's \`elig\` ` +
+        `requires is_public_figure, so this licence could not have been issued.`,
+    );
+    assert.equal(
+      Number(r.bad_shape),
+      0,
+      `${r.bad_shape} B/V roles sit on a person without a 3-part name — both bridges require ` +
+        `one, because a 2-part fold is far too common to identify anybody.`,
+    );
+    assert.equal(
+      Number(r.v_identity),
+      0,
+      `${r.v_identity} Tier-V roles sit on a person outside the served identity list ` +
+        `(${TIER_V_SERVED_IDENTITIES_SQL}). That list is the LICENCE — it says whose companies ` +
+        `may appear on a public page — and it lives once, in scripts/person/tierV.ts.`,
+    );
+    assert.equal(
+      Number(r.b_shared),
+      0,
+      `${r.b_shared} Bridge-B roles sit on a fold the Commerce Registry does NOT record as one ` +
+        `person. That guard demands POSITIVE evidence (people_n = 1); an unmeasured fold is not ` +
+        `evidence of uniqueness, and this is the bridge where being wrong puts a stranger's ` +
+        `companies on a named public figure's page.`,
+    );
+  },
+);
+
+// NON-VACUITY, and it is not optional. Every assertion above is satisfied by a corpus in
+// which every tr/ngo role carries the same constant licence — which is exactly what a writer
+// that stamped one value for everything would produce. All three bridges must actually occur,
+// and the two that are footprint-capped must actually carry footprints.
+test.skipIf(skipLicence)("all three bridges still occur", async () => {
+  const rows = await allRows<{
+    bridge: string;
+    n: string;
+    fps: string;
+    distinct_fp: string;
+  }>(
+    `SELECT bridge, count(*)::text n,
+            count(bridge_footprint)::text fps,
+            count(DISTINCT bridge_footprint)::text distinct_fp
+       FROM person_role WHERE source IN ('tr', 'ngo') AND bridge IS NOT NULL
+      GROUP BY bridge ORDER BY bridge`,
+  );
+  assert.deepEqual(
+    rows.map((r) => r.bridge),
+    ["A", "B", "V"],
+    `the licence column is not discriminating — found ${JSON.stringify(
+      rows.map((r) => `${r.bridge}=${r.n}`),
+    )}. A single constant across the corpus satisfies every assertion above while recording ` +
+      `nothing.`,
+  );
+  for (const r of rows.filter((x) => x.bridge !== "A")) {
+    assert.equal(
+      r.n,
+      r.fps,
+      `${r.bridge}: ${r.fps} of ${r.n} roles carry a footprint. A licence without the ` +
+        `measurement it rests on passes 081's CHECK (the constraint is ` +
+        `\`footprint IS NULL OR …\`) and silently costs the freshness gate its baseline.`,
+    );
+    // A footprint is a MEASUREMENT, so it must VARY. One value across a whole bridge is what
+    // a writer stamping a literal produces, and it passes every other assertion here: a
+    // constant inside the cap is in range, present on every row, and self-consistent. It is
+    // also the baseline the freshness gate subtracts from, so a constant makes every future
+    // drift reading wrong — uniformly, plausibly, with nothing red. Measured on a realistic
+    // stamp both B and V span several distinct values, so > 1 is a floor with no flake risk.
+    assert.ok(
+      Number(r.distinct_fp) > 1,
+      `${r.bridge}: all ${r.n} roles store the SAME bridge_footprint. A constant is not a ` +
+        `measurement — check the writer stamps f.n_uic / v.n_uic rather than a literal.`,
+    );
+  }
+  // Bridge A must carry NONE — it is not footprint-capped, and 081's CHECK refuses one.
+  const a = rows.find((x) => x.bridge === "A");
+  if (a) assert.equal(Number(a.fps), 0, "a Bridge-A role carries a footprint");
+});
 
 // The two defamation-sensitive curated sources carry the STRICTEST attach rule, and it must
 // be enforced, not just intended:
