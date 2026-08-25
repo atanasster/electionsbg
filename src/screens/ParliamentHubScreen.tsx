@@ -14,13 +14,19 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
-import { TileHubGrid, TileHubSection } from "@/ux/infographic";
+import {
+  HubHead,
+  TileHubGrid,
+  TileHubSection,
+  type HubKpi,
+} from "@/ux/infographic";
 import { HubSearch } from "@/ux/search/HubSearch";
 import { parliamentSearchSources } from "./parliament/parliamentSearch";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
+import { nsOrdinal } from "@/data/parliament/nsOrdinal";
+import { formatDate } from "@/lib/formatDate";
 import { LeadCard, NewsRail } from "@/ux/feed";
 import type { NewsCardProps } from "@/ux/feed";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
@@ -118,14 +124,17 @@ export const ParliamentHubScreen: FC = () => {
     if (!stats) return out;
     const tiles = stats.tiles;
     Object.assign(out, {
+      // ⚠ NO `metric` — the head's band publishes `sessions` now, with a declared basis and
+      // above the fold. §3.1 rule 5: the same number twice on one page reads as two facts,
+      // and the resolution is to drop it from the LOWER position. What survives here is the
+      // figure the band does NOT carry: „законопроекти на второ четене", NOT „приети закони",
+      // because the corpus has no adoption marker (§4.2) — so the phrase names the READING
+      // rather than an outcome.
       votes: {
-        metric: nf.format(tiles.sessions),
-        caption: t("nsh_metric_sessions") || "sittings",
-        // „законопроекти на второ четене", NOT „приети закони". The corpus has no adoption
-        // marker (§4.2), which is why the phrase names the READING rather than an outcome.
-        secondary: t("nsh_metric2_bills", {
-          count: tiles.billsSecondReading,
-        }),
+        metric: nf.format(tiles.billsSecondReading),
+        // `count` drives the plural. Bulgarian's бройна форма („законопроекта") is wrong at
+        // n = 1, and n = 1 is reachable — the 45th sat 17 days.
+        caption: t("nsh_metric_bills", { count: tiles.billsSecondReading }),
       },
       embedding: {
         metric: nf.format(tiles.membersProjected),
@@ -152,16 +161,16 @@ export const ParliamentHubScreen: FC = () => {
       // destination shows every member since the 44th, a number this corpus cannot
       // produce. Printing the chamber's roll beside a link to 2,120 rows is the
       // "show one window, count another" failure; an absent figure is honest.
-      attendance: {
-        metric: pct.format(tiles.attendanceWeighted),
-        caption: t("nsh_metric_attendance") || "attendance (weighted)",
-        // The DENOMINATOR's population, so the weighted percentage above it has a stated
-        // basis on the tile rather than only in the caption.
-        secondary: t("nsh_metric2_voting", { count: tiles.membersVoting }),
-      },
+      // ⚠ NO metric — both this tile's figure AND its secondary (`attendanceWeighted` and
+      // `membersVoting`) are now the head's third and fourth KPI cells. Rule 5 again: this
+      // tile keeps its description and stops restating the band.
+      //
+      // It is deliberately NOT given a substitute figure. `inRecessDays` is the only
+      // unclaimed number in the blob and it describes the CALENDAR, not attendance — a
+      // number under „Присъствие" that measures something else is worse than none.
     });
     return out;
-  }, [stats, nf, pct, dec2, t]);
+  }, [stats, nf, dec2, t]);
 
   // BAND 2 — one card per kind, topped up from the leftovers.
   //
@@ -246,6 +255,78 @@ export const ParliamentHubScreen: FC = () => {
     [railItems, t, pct],
   );
 
+  /** The head's four figures — the module's thesis, read as one sentence: „39 sittings,
+   *  1 198 votes, 270 MPs, 73% attendance".
+   *
+   *  ⚠ THREE OF THE FOUR HAVE MORE THAN ONE DEFENSIBLE ANSWER, and this hub is where a draft
+   *  once got six of six wrong, each for a different reason. It happened again in this very
+   *  step — „депутати" was captioned „гласували поне веднъж" and the figure counts the roll,
+   *  absences included. The basis line is what picks one, and it is only worth anything when
+   *  somebody has checked which one the field actually holds:
+   *
+   *    гласувания   1 198 post-dedupe · 1 263 raw · 1 157 titled
+   *    присъствие   73.2% weighted · 70.2% simple mean · 73.6% over full-term members
+   *    депутати     270 on the roll · 255 the projection places · 240 seats
+   *
+   *  So „точки, след обединяване на прегласуванията" and „претеглено по точки" are not
+   *  hedges — each is the one clause that makes its number checkable.
+   *
+   *  ⚠ NO `to` ON THESE CELLS. §3.1 rule 4 wants a KPI to link somewhere that can name the
+   *  rows behind it, and for three of these that page does not exist: /persons?role=mp is not
+   *  NS-scoped and cannot be (person_role rows for `mp` carry ref = mpId with no term
+   *  column), so it answers with every member since the 44th. A cell linking to a page that
+   *  counts a different set is the failure rule 4 exists to prevent; an unlinked cell is
+   *  merely quiet. The `votes` and `attendance` TILES below still link, scoped correctly.
+   *
+   *  ⚠ SCOPE IS `?elections`, WHICH A LINK CANNOT CLEAR. §3.1's „not forceable" case: quote
+   *  the SELECTED parliament and let the caption name it, which is what `{{ns}}` does. */
+  const kpis: HubKpi[] = useMemo(() => {
+    if (!stats) return [];
+    // ⚠ `assembly`, NOT `ns`. `ns` is a RESERVED i18next option meaning NAMESPACE, so
+    // `t(key, { ns })` sends the lookup to a namespace named „52-ро НС", finds nothing and
+    // returns the KEY — which renders as „NSH_KPI_SESSIONS_BASIS" under a figure, uppercased
+    // by the cell's own styling. Invisible to tsc and to every unit test in this repo, and
+    // caught only by loading the page. The same trap hit `nsh_kpi_note_partial`, which is
+    // the coverage caveat — the one string that must not fail silently.
+    const assembly = nsOrdinal(searchNs ?? "", i18n.language);
+    const tiles = stats.tiles;
+    return [
+      {
+        value: nf.format(tiles.sessions),
+        label: t("nsh_kpi_sessions") || "Sittings",
+        basis: t("nsh_kpi_sessions_basis", { assembly }) || "plenary days",
+        // The ONE cell that can link honestly. /votes is strictly NS-scoped
+        // (`useRollcallIndex` filters `s.ns === ns`) and `useHeadHref` carries `?elections`
+        // forward, so the page it opens lists exactly these sittings — verified equal to
+        // `tiles.sessions` for all nine parliaments. The other three stay unlinked, and
+        // /parliament/attendance is NOT the exception it looks like: it filters rows by
+        // ATTENDANCE_MIN_ITEMS and isSeatedNow, so it counts a different set.
+        to: "/votes",
+      },
+      {
+        value: nf.format(tiles.items),
+        label: t("nsh_kpi_items") || "Votes",
+        basis: t("nsh_kpi_items_basis") || "items, after folding re-votes",
+      },
+      {
+        // ⚠ NOT „гласували поне веднъж". `membersVoting` is `attendanceEntries.length`, and
+        // `computeAttendance` opens an entry on `vote === "absent"` too — so it counts every
+        // MP who appears in a roll call, cast or not. Measured across the corpus: 2 of the
+        // 52nd's 270 never cast a vote, and 24 of the 50th's 289 (8.3%). „Voted at least
+        // once" would have contradicted the absence card three rows below it, which reads
+        // „50 от 240 депутати не гласуваха по нито една точка".
+        value: nf.format(tiles.membersVoting),
+        label: t("nsh_kpi_members") || "MPs",
+        basis: t("nsh_kpi_members_basis") || "on the roll-call lists",
+      },
+      {
+        value: pct.format(tiles.attendanceWeighted),
+        label: t("nsh_kpi_attendance") || "Attendance",
+        basis: t("nsh_kpi_attendance_basis") || "weighted by item",
+      },
+    ];
+  }, [stats, searchNs, i18n.language, nf, pct, t]);
+
   const pageTitle = t("nsh_hub_title") || "National Assembly";
 
   const seeds: Partial<Record<ParliamentSeed, string | undefined>> = useMemo(
@@ -294,51 +375,56 @@ export const ParliamentHubScreen: FC = () => {
 
   return (
     <>
-      <Title description={t("nsh_hub_description") || pageTitle}>
-        {pageTitle}
-      </Title>
       <GovernanceBreadcrumb
         sectionKey="gov_hub_parliament_title"
         sectionTo="/parliament"
         className="mt-5"
       />
-
-      {/* THE THREE COVERAGE STATES (§2.3). `undefined` is not "still loading" — four of the
-          thirteen elections in the picker map to a parliament that published no roll-call
-          votes, and ?elections= is preserved across navigation, so arriving here from a
-          2009 page is an ordinary path. `partial` is the dangerous one: it renders exactly
-          like a complete term unless the page says otherwise. */}
-      {stats?.coverage === "partial" ? (
-        <p className="mt-3 rounded-lg border border-border bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
-          {t("nsh_coverage_partial", {
-            from: stats.coveredFrom,
-            to: stats.coveredTo,
-          })}
-        </p>
-      ) : null}
-
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-        {t("nsh_hub_intro") ||
-          "Roll-call voting in the Bulgarian National Assembly — every sitting, every item, and how each MP voted."}
-      </p>
-
-      {/* Directly under the intro and above the first band: the fastest route to a
-          destination, where the tiles are the slow one. The roster is fetched only once the
-          reader signals intent — a visitor who never searches pays nothing for it. */}
-      <HubSearch
-        sources={searchSources}
-        idPrefix="parliament-search"
-        className="mt-4 max-w-2xl"
-        onArm={() => setSearchArmed(true)}
-        title={{ bg: "Търсене в парламента", en: "Search parliament" }}
-        placeholder={{
-          bg: "депутат или тема на гласуване…",
-          en: "an MP or a voted item…",
-        }}
-        hint={{
-          bg: "Депутати и гласувани теми — в избраното НС и в останалите.",
-          en: "MPs and voted items — in the selected Assembly and the others.",
-        }}
+      <HubHead
+        eyebrow={t("nsh_head_eyebrow") || "NATIONAL ASSEMBLY"}
+        title={pageTitle}
+        seoDescription={t("nsh_hub_description") || pageTitle}
+        deck={
+          t("nsh_hub_intro") ||
+          "Roll-call voting in the Bulgarian National Assembly — every sitting, every item, and how each MP voted."
+        }
+        search={
+          /* IN the head's slot now, but unchanged in every other respect: still directly
+             above the bands, still arming its roster only on intent, so a visitor who never
+             searches pays nothing for the ~2 120 rows. */
+          <HubSearch
+            sources={searchSources}
+            idPrefix="parliament-search"
+            onArm={() => setSearchArmed(true)}
+            title={{ bg: "Търсене в парламента", en: "Search parliament" }}
+            placeholder={{
+              bg: "депутат или тема на гласуване…",
+              en: "an MP or a voted item…",
+            }}
+            hint={{
+              bg: "Депутати и гласувани теми — в избраното НС и в останалите.",
+              en: "MPs and voted items — in the selected Assembly and the others.",
+            }}
+          />
+        }
+        kpis={kpis}
+        kpisPending={4}
+        /* THE COVERAGE CAVEAT BELONGS UNDER THE FIGURES IT QUALIFIES, not in a paragraph
+           above them. `partial` is the dangerous state precisely because it renders exactly
+           like a complete term — the 44th holds five months of four years — and four of the
+           thirteen elections in the picker map to a parliament with no roll-call votes at
+           all, reachable by ordinary navigation since `?elections` is preserved. */
+        kpiNote={
+          stats?.coverage === "partial"
+            ? t("nsh_kpi_note_partial", {
+                assembly: nsOrdinal(searchNs ?? "", i18n.language),
+                // Localized, not raw ISO. `formatDate` also pins a date-only value to UTC,
+                // so the window cannot shift a day west of Greenwich.
+                from: formatDate(stats.coveredFrom, i18n.language),
+                to: formatDate(stats.coveredTo, i18n.language),
+              })
+            : undefined
+        }
       />
 
       {/* data-og is the OG capture's anchor (scripts/og/capture-screens.ts). The previous

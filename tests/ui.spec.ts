@@ -561,6 +561,10 @@ const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
   // the three entries above sit in (13% / 10% / 18%). If it ever trips, the question is
   // whether the new thing belongs on the TABLE rather than in the head.
   { path: "/procurement/contracts", maxPx: 360, measured: 304 },
+  // Identity + deck + a full HubSearch in the slot + a 4-cell band. The search is why this
+  // one is wider than /procurement's: the same trade /funds makes, and for the same reason —
+  // a reader who arrives knowing the MP or the bill they want should not have to guess a tile.
+  { path: "/parliament", maxPx: 520, measured: 443 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {

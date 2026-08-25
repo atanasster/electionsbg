@@ -36,7 +36,17 @@ export interface HubTileStats {
   /** Bills reaching a second reading, by title-stem grouping. NOT "laws passed" — the
    *  corpus has no whole-bill adoption marker, so the pass/fail split is not derivable. */
   billsSecondReading: number;
-  /** Members who cast at least one vote. Exceeds the seat count, because substitutions. */
+  /** ⚠ MEMBERS WHO APPEAR IN A ROLL CALL — cast OR absent — not „who cast at least one
+   *  vote", which is what this comment said until 2026-08-25 and is false. It is
+   *  `attendanceEntries.length`, and `computeAttendance` opens an entry on
+   *  `vote === "absent"` too. Measured across the corpus: 2 of the 52nd's 270 never cast a
+   *  vote, and 24 of the 50th's 289 (8.3%).
+   *
+   *  The distinction is not academic — the /parliament head quotes this figure, and the
+   *  absence card on the same page reads „50 от 240 депутати не гласуваха по нито една
+   *  точка", so a „voted at least once" caption contradicts the page one screenful down.
+   *
+   *  It exceeds the 240 seats because of substitutions. */
   membersVoting: number;
   /** Members the UMAP actually placed. Fewer than membersVoting — the projection drops
    *  members with too little signal — so the map's own tile must not quote the roll. */

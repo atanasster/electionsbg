@@ -64,6 +64,7 @@ const HUB_SCREENS = [
   // clauses here would have been the „a gate that cannot see its subject" claim inverted:
   // crediting this entry with work two other clauses were already doing.
   "src/screens/dev/ContractsBrowserDbScreen.tsx",
+  "src/screens/ParliamentHubScreen.tsx",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source

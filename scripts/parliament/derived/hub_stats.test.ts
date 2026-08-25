@@ -85,6 +85,53 @@ describe("computeHubNsStats", () => {
     today: "2026-08-03",
   };
 
+  test("membersVoting counts the ROLL — an always-absent MP is included", () => {
+    // ⚠ THIS PINS A SENTENCE ON /parliament. The head captions this figure, and the caption
+    // „гласували поне веднъж" / "who voted at least once" shipped in the step that added the
+    // band — false, because `computeAttendance` opens an entry on `vote === "absent"` too.
+    //
+    // Two members here, one of whom cast nothing. „Voted at least once" is 1; the roll is 2.
+    // Measured on the real corpus the two differ in 7 of 9 parliaments — 2 of the 52nd's 270
+    // and 24 of the 50th's 289 — and the page contradicts itself when the wrong one is
+    // captioned: its own absence card reads „50 от 240 депутати не гласуваха по нито една
+    // точка".
+    const stats = computeHubNsStats({
+      ...base,
+      attendance: {
+        computedAt: "",
+        windowFrom: "",
+        windowTo: "",
+        totalVoteItems: 10,
+        entries: [
+          {
+            mpId: 1,
+            partyShort: "A",
+            totalItems: 10,
+            presentCount: 10,
+            absentCount: 0,
+            presentPct: 1,
+          },
+          {
+            // Never cast anything. On the roll all ten times, absent all ten.
+            mpId: 2,
+            partyShort: "A",
+            totalItems: 10,
+            presentCount: 0,
+            absentCount: 10,
+            presentPct: 0,
+          },
+        ],
+      },
+      cohesion: undefined,
+    })!;
+    assert.equal(
+      stats.tiles.membersVoting,
+      2,
+      "membersVoting dropped an always-absent member — it is the ROLL, and the caption on " +
+        "/parliament says so; change the caption before changing this",
+    );
+  });
+
   test("attendance is WEIGHTED, not a mean of the per-member rates", () => {
     // The two differ by 3 percentage points on the real corpus, because a simple mean
     // over-weights a member who sat for nine items. One member here voted on 10 of 10, the
@@ -269,4 +316,59 @@ describe("the committed hub_stats.json", () => {
     );
     assert.equal(blob.byNs["52"].tiles.items, att.totalVoteItems);
   });
+
+  test.skipIf(!haveBlob)(
+    "membersVoting counts the ROLL, not the members who voted",
+    () => {
+      // ⚠ THE BASIS THIS PINS IS A SENTENCE ON THE PAGE. /parliament's head captions this
+      // figure, and the caption „гласували поне веднъж" shipped in the same step that added
+      // the band — false, because `computeAttendance` opens an entry on `vote === "absent"`
+      // too, so an MP who was absent from every item is still counted.
+      //
+      // The page contradicts itself when that caption is used: its own absence card reads
+      // „50 от 240 депутати не гласуваха по нито една точка".
+      const blob = read<{
+        byNs: Record<string, { tiles: { membersVoting: number } }>;
+      }>(BLOB);
+      const att = read<{
+        byNs: Record<
+          string,
+          {
+            entries: Array<{ totalItems: number; absentCount: number }>;
+          }
+        >;
+      }>("data/parliament/votes/derived/attendance.json");
+
+      let everSilent = 0;
+      for (const ns of Object.keys(blob.byNs)) {
+        const entries = att.byNs[ns]?.entries;
+        if (!entries) continue;
+        // The field IS the entry count — every MP on the roll, cast or absent.
+        assert.equal(
+          blob.byNs[ns].tiles.membersVoting,
+          entries.length,
+          `${ns}: membersVoting is no longer the attendance entry count`,
+        );
+        // …and it is NOT the count who cast something, which is the caption that shipped.
+        const cast = entries.filter(
+          (e) => e.totalItems - e.absentCount > 0,
+        ).length;
+        assert.ok(
+          cast <= entries.length,
+          `${ns}: more members cast a vote than appear on the roll`,
+        );
+        everSilent += entries.length - cast;
+      }
+
+      // NON-VACUITY, and it is the whole point: if the two populations were always equal the
+      // caption would have been harmless and this gate would prove nothing. Measured
+      // 2026-08-25 they differ in 7 of 9 parliaments — 2 of the 52nd's 270, and 24 of the
+      // 50th's 289 (8.3%).
+      assert.ok(
+        everSilent > 0,
+        "no MP anywhere appears on the roll without casting a vote — the distinction this " +
+          "gate defends has stopped existing, so re-check the caption on /parliament",
+      );
+    },
+  );
 });
