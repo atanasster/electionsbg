@@ -18,13 +18,6 @@ import { createContext, useContext } from "react";
 
 export const AREA_ANCHOR_PARAM = "area";
 
-/** What kind of geographic entity the user picked. Three values today:
- *  settlement (EKATTE 5-digit numeric), municipality (obshtina alphanumeric
- *  like BLG52), Sofia район (alphanumeric SOF NN sub-code). The Sofia район
- *  case is not yet emitted by the resolver in Phase 1 — placeholder for
- *  Phase 2's райони drill-in. */
-export type AreaKind = "settlement" | "municipality" | "raion";
-
 export type AreaAnchor = {
   /** Raw id from the URL. */
   id: string;
@@ -67,10 +60,31 @@ export const GOVERNANCE_NON_PLACE_SEGMENTS = [
   // reads "companies" as a place id and the page anchors the whole My-Area context to a
   // município that does not exist.
   "companies",
+  // /governance/mayor-pay — a ranked chart + table of mayoral pay across ~259 municipalities
+  // (added 2026-08-25). Without it AREA_PATH_RE reads "mayor-pay" as a place id: the resolver
+  // returns kind:"unknown", so the pill falls back to the raw segment as its display name, a
+  // reader's real `?area=` is MASKED for as long as they are on the page (path wins over
+  // query), and the pill's × sees onPlaceNode() === true and navigates them away to /my-area.
+  "mayor-pay",
 ] as const;
 
+/** Make a segment literal when spliced into the pattern below. Every entry is
+ *  `[a-z-]+` today, so this changes nothing — but a future route segment carrying
+ *  `.`, `+` or `(` would otherwise alter the pattern's MEANING rather than being
+ *  matched, and the symptom would be the same silent one this list prevents. */
+const escapeRe = (s: string): string =>
+  s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 export const AREA_PATH_RE = new RegExp(
-  `^(?:/en)?/governance/(?!(?:${GOVERNANCE_NON_PLACE_SEGMENTS.join("|")})(?:/|$))([^/?#]+)`,
+  // The lookahead's boundary must match the capture group's own exclusion set
+  // (`[^/?#]`). With a bare `(?:/|$)` a pathname carrying `?` or `#` slips past
+  // EVERY entry above — `/governance/mayor-pay?area=68134` was read as the place
+  // „mayor-pay", i.e. the exact shape this list exists to protect. Not reachable
+  // from today's two call sites (both pass `location.pathname`), but `onPlaceNode`
+  // is exported and its signature accepts any string.
+  `^(?:/en)?/governance/(?!(?:${GOVERNANCE_NON_PLACE_SEGMENTS.map(
+    escapeRe,
+  ).join("|")})(?:[/?#]|$))([^/?#]+)`,
 );
 
 /** True when this path IS the place node — i.e. the anchor is path-derived and

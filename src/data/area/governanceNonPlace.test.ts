@@ -109,6 +109,37 @@ describe("onPlaceNode", () => {
     expect(onPlaceNode("/governance/region/BLG")).toBe(false);
   });
 
+  it("still excludes a non-place page when the path carries a query or hash", () => {
+    // The capture group already excludes `?#`; the lookahead's BOUNDARY must too.
+    // With a bare `(?:/|$)` it did not, so `/governance/mayor-pay?area=68134` — the
+    // very shape this list exists to protect, a reader arriving with a real anchor —
+    // was read as the place „mayor-pay" and MASKED it. Neither call site passes a
+    // query today, so nothing but this test stands between the list and that.
+    for (const seg of GOVERNANCE_NON_PLACE_SEGMENTS) {
+      expect(
+        onPlaceNode(`/governance/${seg}?area=68134`),
+        `${seg} ?query`,
+      ).toBe(false);
+      expect(onPlaceNode(`/governance/${seg}#top`), `${seg} #hash`).toBe(false);
+      expect(
+        onPlaceNode(`/en/governance/${seg}?area=68134`),
+        `/en ${seg} ?query`,
+      ).toBe(false);
+    }
+    // …and a real place code is still a place with a query attached, so the
+    // widened boundary cannot have been satisfied by excluding everything.
+    expect(onPlaceNode("/governance/BLG18?area=68134")).toBe(true);
+    expect(onPlaceNode("/governance/68134#top")).toBe(true);
+  });
+
+  it("keeps every segment regex-inert, since the list is spliced into a RegExp", () => {
+    // `escapeRe` makes this safe rather than merely lucky, but the charset is
+    // still worth pinning: a segment needing an escape is also a segment whose
+    // route path is worth a second look.
+    for (const seg of GOVERNANCE_NON_PLACE_SEGMENTS)
+      expect(seg, seg).toMatch(/^[a-z0-9-]+$/);
+  });
+
   it("does not match a prefix of a non-place segment", () => {
     // `sectors` must not shield `sectorsomething` — the lookahead is anchored
     // on a segment boundary, and a sloppier one would hide a real place whose
