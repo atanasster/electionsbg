@@ -1033,6 +1033,65 @@ const captures: Capture[] = [
     settleMs: 2500,
     extraCss: "[data-community-banner]{display:none!important;}",
   },
+  // ── the four /culture/funds source pages ─────────────────────────────────
+  //
+  // Each shoots its OWN chart. The sibling culture sub-pages share
+  // /og/culture.png with a comment saying to give them their own „once a capture
+  // entry and a `data-og` anchor land together" — which is what these are: the
+  // bar list is distinctive per arm and self-explanatory in a preview (a
+  // heading, a declared axis, named bars).
+  //
+  // ⚠️ WAIT ON A BAR, NOT ON THE SECTION. The section renders as soon as the
+  // page does; its rows arrive with `fund_sources.json`, a SEPARATE fetch from
+  // the hub blob. Anchoring on the container alone would shoot an empty frame
+  // and exit 0 — the same trap the officials-companies capture above documents
+  // for DbDataTable's loading branch.
+  //
+  // ⚠️ `viewport: OG_CLIP_VIEWPORT`, NOT `leftAlign`. These shipped leftAlign at
+  // the shared 1280 first, and the 1200 clip sliced the section's right edge:
+  // culture-funds-dfz rendered „това е предимно исто" — „рия, а" gone, the
+  // sentence destroyed — culture-funds-interreg lost „ава" from „получава", and
+  // all four dropped the per-row count noun, leaving bare integers whose unit
+  // differs per arm. The section is full-width, so the fix is the reports
+  // family's: narrow the VIEWPORT so the layout fits the clip, rather than
+  // cropping a layout that does not. Nothing caught it — the viewport, dimension
+  // and freshness clauses of the card gate all iterate HUB_CAPTURES only.
+  {
+    slug: "culture-funds-isun-eik",
+    routePath: "culture/funds/isun-eik",
+    waitFor: '[data-og="culture-funds-breakdown"] li',
+    anchor: '[data-og="culture-funds-breakdown"]',
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2000,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "culture-funds-isun-name",
+    routePath: "culture/funds/isun-name",
+    waitFor: '[data-og="culture-funds-breakdown"] li',
+    anchor: '[data-og="culture-funds-breakdown"]',
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2000,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "culture-funds-interreg",
+    routePath: "culture/funds/interreg",
+    waitFor: '[data-og="culture-funds-breakdown"] li',
+    anchor: '[data-og="culture-funds-breakdown"]',
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2000,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "culture-funds-dfz",
+    routePath: "culture/funds/dfz",
+    waitFor: '[data-og="culture-funds-breakdown"] li',
+    anchor: '[data-og="culture-funds-breakdown"]',
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2000,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
   {
     slug: "officials-assets",
     routePath: "officials/assets?elections=2026_04_19",
@@ -1134,34 +1193,31 @@ const captures: Capture[] = [
   {
     slug: "subsidies",
     routePath: "subsidies",
-    // /subsidies is now a TILE HUB (plan step 7), so the card leads with the first band of
-    // tiles — the same shape as /governance and /governance/declarations below.
+    // ⚠️ RE-ANCHORED ON THE HEAD (§5.3), and this is the THIRD anchor this entry has had.
+    // It was `[data-og="subsidies-hero"]` (a KPI strip that was deleted), then
+    // `[data-og="subsidies-hub"]` (the tile grid), and the grid was right for a tile hub and
+    // wrong the moment the page grew a band and an evidence aside: the card led with tile
+    // fronts and cut every figure. The `main{max-width:1216px}` cap went with it — it existed
+    // to make the FOUR-column tile grid fit the 1200 crop, and the head is a two-column
+    // layout that needs no such help.
     //
-    // The anchor MOVED: it was `[data-og="subsidies-hero"]`, the KPI strip step 7 removed
-    // because every figure it carried became a tile metric. That capture would have FAILED
-    // loudly — `waitForSelector` times out at 30s, throws, and the run exits 1 under the
-    // „⚠ N FAILED" banner — but a failed capture leaves the PREVIOUS png untouched, so the
-    // card on disk would have kept depicting a deleted dashboard until someone re-ran it.
+    // ⚠️ THE WAIT NAMES A CELL AND A ROW, not `.tabular-nums`. Both halves of this head can
+    // legitimately be absent: the band is withheld cell-by-cell when the blob lacks a window,
+    // and the aside is refused outright when it cannot state the untraceable share. A bare
+    // numeric selector is satisfied by a partial band, and the runner would then overwrite a
+    // good card with a short one and report success. `/subsidies/browse` is the paid cell's
+    // destination and `/farm/` a recipient row, so requiring both makes each half provably
+    // present.
     //
-    // `waitFor` names a tile's link rather than the container. Note this buys less than it
-    // looks: `InfographicTile`'s root element IS the `<Link>`, so the anchor and the links
-    // appear in the same commit and the ` a` cannot catch a grid that has rendered without
-    // its metrics. What actually covers that is `networkidle` plus `settleMs`. The real
-    // hazard is documented at SubsidiesDashboardScreen.tsx's `hubFailed` — a card shot while
-    // /api/db/agri-hub-stats is down shows thirteen tiles with no numbers — and the only
-    // guard against it is reading the png, which §8 requires anyway.
-    //
-    // STAYS AT THE SHARED 1280 — deliberately, against the plan's own advice to drop below it.
-    // The bands are sized 4/3/4/2 precisely so none strands a tile on a second row of the xl
-    // FOUR-column grid; at three columns band 1's fourth tile wraps alone and the card is a
-    // third empty. Instead the fix is the one the previous entry used for the same clip: cap
-    // <main> at 1216px (the 1200 grid plus its 2x8px padding) so four columns fit the crop
-    // edge to edge rather than being sliced.
-    waitFor: '[data-og="subsidies-hub"] a',
-    anchor: '[data-og="subsidies-hub"]',
-    settleMs: 2500,
-    extraCss:
-      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+    // ⚠️ AND THE FIGURES CAN BE ABSENT WITHOUT THE PAGE FAILING — see `hubFailed` on the
+    // screen: with /api/db/agri-hub-stats down the tiles render with no numbers at all. That
+    // is what §10's „look at the png" is for; no selector catches it.
+    waitFor:
+      '[data-hub-head]:has(a[href^="/subsidies/browse"]):has(a[href^="/farm/"]) [data-kpi-cell]',
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 3000,
+    extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
     slug: "governance",

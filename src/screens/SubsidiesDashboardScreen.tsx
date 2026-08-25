@@ -490,6 +490,27 @@ export const SubsidiesDashboardScreen: FC = () => {
           whole point on this page: every figure in the band moves by up to 7× with the
           scope (€1.59bn on the default year against €11.04bn all-time), so the control that
           changes them has to sit beside them rather than below a title. */}
+      {/* GovernanceBreadcrumb, not SectorBreadcrumb — plan §7a.
+          SectorBreadcrumb's trail is a FIXED „Управление › Обществени поръчки ›
+          Държавни сектори › X", and all three levels were wrong here:
+
+            • /subsidies is NOT in the sector registry (verified: zero matches for
+              `/subsidies` in src/screens/governance/sectorRegistry.ts), so
+              „Държавни сектори" named a parent that does not contain this page.
+              Following it landed the reader on a hub whose agriculture tile goes to
+              /sector/agri — a different page, about ДФЗ as a procurement BUYER
+              rather than as the agency paying the subsidies out.
+            • „Обществени поръчки" asserted that CAP subsidies are procurement. They
+              are the opposite leg of the money map: no tender, no contract.
+            • it has no section slot at all, so every sub-page below would have
+              rendered „… › Държавни сектори › По област" and lost the one crumb a
+              sub-page actually needs — the link back to this hub.
+
+          The governance hub's money band, the header menu and governanceRegistry's
+          own comment all already call this „a whole money vertical"; only the crumb
+          disagreed. /budget and /funds use exactly this component. */}
+      <GovernanceBreadcrumb sectionKey="subsidies_nav" sectionTo="/subsidies" />
+
       <HubHead
         eyebrow={t("subsidies_head_eyebrow")}
         title={title}
@@ -529,26 +550,6 @@ export const SubsidiesDashboardScreen: FC = () => {
         kpiNote={kpis.length ? t("subsidies_kpi_note") : undefined}
         evidence={evidence}
       />
-      {/* GovernanceBreadcrumb, not SectorBreadcrumb — plan §7a.
-          SectorBreadcrumb's trail is a FIXED „Управление › Обществени поръчки ›
-          Държавни сектори › X", and all three levels were wrong here:
-
-            • /subsidies is NOT in the sector registry (verified: zero matches for
-              `/subsidies` in src/screens/governance/sectorRegistry.ts), so
-              „Държавни сектори" named a parent that does not contain this page.
-              Following it landed the reader on a hub whose agriculture tile goes to
-              /sector/agri — a different page, about ДФЗ as a procurement BUYER
-              rather than as the agency paying the subsidies out.
-            • „Обществени поръчки" asserted that CAP subsidies are procurement. They
-              are the opposite leg of the money map: no tender, no contract.
-            • it has no section slot at all, so every sub-page below would have
-              rendered „… › Държавни сектори › По област" and lost the one crumb a
-              sub-page actually needs — the link back to this hub.
-
-          The governance hub's money band, the header menu and governanceRegistry's
-          own comment all already call this „a whole money vertical"; only the crumb
-          disagreed. /budget and /funds use exactly this component. */}
-      <GovernanceBreadcrumb sectionKey="subsidies_nav" sectionTo="/subsidies" />
 
       {/* The skeleton is one block rather than four cards: the grid it stands in for is
           thirteen tiles, so four card-shaped pulses would misdescribe what is coming. */}

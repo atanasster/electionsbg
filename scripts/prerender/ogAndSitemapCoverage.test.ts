@@ -897,10 +897,18 @@ describe("a hub's og capture anchors on its head", () => {
     funds: "src/screens/FundsScreen.tsx",
     budget: "src/screens/budget/BudgetHubScreen.tsx",
     consumption: "src/screens/ConsumptionScreen.tsx",
+    subsidies: "src/screens/SubsidiesDashboardScreen.tsx",
   };
 
   /** HubHead call sites that are NOT module front pages, so they ship no hub card. */
-  const SUB_PAGE_HEADS = ["src/screens/dev/ContractsBrowserDbScreen.tsx"];
+  const SUB_PAGE_HEADS = [
+    "src/screens/dev/ContractsBrowserDbScreen.tsx",
+    // The four /culture/funds source pages share ONE screen. They are sub-pages
+    // of the culture module, not module front pages, so they ship no HUB card —
+    // they carry their own per-arm og capture entries instead
+    // (`culture-funds-<arm>` in scripts/og/capture-screens.ts).
+    "src/screens/culture/CultureFundsSourceScreen.tsx",
+  ];
 
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
@@ -1053,6 +1061,7 @@ describe("a hub's og capture anchors on its head", () => {
       budget: "src/screens/budget/budgetHubFigures.ts",
       funds: "src/screens/funds/fundsHubFigures.ts",
       consumption: "src/screens/consumption/consumptionHubFigures.ts",
+      subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
     };
 
     const stale: string[] = [];
@@ -1097,6 +1106,10 @@ describe("a hub's og capture anchors on its head", () => {
       .trim()
       .split("\n")
       .filter(Boolean)
+      // ⚠️ TESTS ARE NOT SCREENS. `stripJsxComments` removes comments, not STRING literals,
+      // so a test whose assertion message reads „is `evidence` still passed to <HubHead>?"
+      // matched the call-site filter and was demanded as a hub — which it can never be.
+      .filter((f) => !f.includes(".test."))
       // A screen that only MENTIONS HubHead in prose is not a call site.
       .filter((f) => /<HubHead\b/.test(stripJsxComments(read(f))));
     expect(screens.length, "no screen renders HubHead").toBeGreaterThan(2);
@@ -1127,6 +1140,123 @@ describe("a hub's og capture anchors on its head", () => {
       ).toHaveProperty(slug);
       expect(NOT_YET[slug].length, `${slug} needs a reason`).toBeGreaterThan(
         20,
+      );
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+
+describe("the /culture/funds bodies quote no figure", () => {
+  // ⚠️ WHY THIS FILE AND NOT A DATA TEST. These five bodies (the parent and its
+  // four source arms) describe figures that live in `hub_stats.json`, which the
+  // PRERENDER DOES NOT READ — so anything numeric here is a frozen string beside
+  // a page whose every rendered figure self-updates, and the two drift with
+  // nothing red. `culture_hub_figures.data.test.ts` guards the blob and never
+  // opens routes.ts; `cultureFundSources.test.ts` guards the registry's chart
+  // notes and never opens it either. Nothing looked at the bodies.
+  //
+  // It shipped: „един проект" / „one listed project" in four places, four lines
+  // below the banner forbidding exactly that — and a spelled-out count is a
+  // figure. That one is `eikExactProjects − eikExactAlsoByName`, the value
+  // `eikNameMissed()` exists to derive ONCE, and a frozen body cannot express
+  // its other two branches (at zero the claim inverts; with the field missing
+  // from the blob nothing may be said at all).
+  const CULTURE_FUNDS_PATHS = [
+    "culture/funds",
+    "culture/funds/isun-eik",
+    "culture/funds/isun-name",
+    "culture/funds/interreg",
+    "culture/funds/dfz",
+  ];
+
+  /** Bulgarian and English number-words up to twenty, plus the ordinals a count
+   *  hides behind. „първата лента" is fine — it points at a position, not a
+   *  quantity — so only cardinals are refused. */
+  const NUMBER_WORDS =
+    /\b(един|една|едно|два|две|три|четири|пет|шест|седем|осем|девет|десет|единайсет|единадесет|дванайсет|дванадесет|тринайсет|тринадесет|четиринайсет|четиринадесет|петнайсет|петнадесет|шестнайсет|шестнадесет|двайсет|двадесет|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|twenty)\b/i;
+
+  const bodiesFor = (path: string): [string, string][] => {
+    const r = prerenderRoutes.find((x) => x.path === path);
+    if (!r) return [];
+    const out: [string, string][] = [[`${path} (bg)`, r.bodyHtml ?? ""]];
+    if (r.english?.bodyHtml) out.push([`${path} (en)`, r.english.bodyHtml]);
+    return out;
+  };
+
+  it("every /culture/funds body exists in both languages", () => {
+    // Non-vacuity: the loops below are green over an empty list.
+    for (const p of CULTURE_FUNDS_PATHS)
+      expect(bodiesFor(p).length, `${p} has no prerendered body`).toBe(2);
+  });
+
+  it("no body quotes a euro figure, a percentage or a digit run", () => {
+    for (const p of CULTURE_FUNDS_PATHS)
+      for (const [name, html] of bodiesFor(p)) {
+        // Strip hrefs — a URL may legitimately carry digits (none do today).
+        const prose = html.replace(/href="[^"]*"/g, "");
+        expect(prose, `${name} quotes a euro figure`).not.toMatch(/€/);
+        expect(prose, `${name} quotes a percentage`).not.toMatch(/\d\s*%/);
+        // A run of digits is a corpus figure. Scheme codes („321 и 322") are
+        // stable programme identifiers rather than measurements, and the ИСУН
+        // programme codes are names — both are allowed by the exemption below.
+        // ⚠️ Strip the surrounding punctuation before testing: „ИСУН 2020,"
+        // matches as „2020, " and would fail an exemption list of bare numbers.
+        const digits = (prose.match(/\b\d[\d\s.,]*\b/g) ?? [])
+          .map((d) => d.replace(/[^\d]/g, ""))
+          // Register and programme NAMES, not measurements: „ИСУН 2020" is what
+          // the register is called, and 321/322 are scheme codes. Neither moves
+          // with the corpus, which is the whole test.
+          .filter((d) => !/^(321|322|2020|2014|2021|2027|1420|2127)$/.test(d));
+        expect(
+          digits,
+          `${name} quotes the figure(s) ${digits.join(", ")}`,
+        ).toEqual([]);
+      }
+  });
+
+  it("no body spells a count out in words", () => {
+    // The form the defect actually took. „първата лента" (an ordinal) is fine;
+    // „един проект" is a measurement written as a word.
+    for (const p of CULTURE_FUNDS_PATHS)
+      for (const [name, html] of bodiesFor(p)) {
+        const m = html
+          .replace(/href="[^"]*"/g, "")
+          // ⚠️ ONE NAMED EXEMPTION, and it is a claim about the arm's SHAPE
+          // rather than a count of its rows: „предимно по една програма" / „mostly
+          // one programme" says a single programme dominates the name arm, which
+          // the PAGE then quantifies from the blob (~83% of rows, ~80% of grant).
+          // It stays true across any plausible corpus move; a row count does not.
+          .replace(
+            /(предимно по една|mostly one) програма|(mostly one) programme/gi,
+            "",
+          )
+          .match(NUMBER_WORDS);
+        expect(
+          m?.[0] ?? null,
+          `${name} spells out a count („${m?.[0]}") — it is a corpus figure the ` +
+            `prerender cannot refresh, and the page beside it derives the same ` +
+            `number from the blob`,
+        ).toBeNull();
+      }
+  });
+
+  it("every source body states its own basis and its own limit", () => {
+    // A crawler — and a reader arriving from one — never sees the parent's
+    // „these do not sum" sentence, so each arm carries the rule itself.
+    for (const p of CULTURE_FUNDS_PATHS.slice(1)) {
+      const [[, bg], [, en]] = bodiesFor(p);
+      expect(bg, `${p} (bg) states no limit`).toMatch(/НЕ отговаря/);
+      expect(en, `${p} (en) states no limit`).toMatch(/does NOT answer/);
+      // Case-insensitive: the parent shouts it („НЕ се събират") and the arms
+      // say it in running prose („не се събират с този").
+      expect(bg, `${p} (bg) does not say the arms do not sum`).toMatch(
+        /не се събират/i,
+      );
+      // Case-insensitive on both sides: the parent shouts it and the arms say
+      // it in running prose.
+      expect(en, `${p} (en) does not say the arms do not sum`).toMatch(
+        /do not add|does not add/i,
       );
     }
   });
