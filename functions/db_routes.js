@@ -5788,11 +5788,7 @@ const DB_ROUTES = {
       councils: [],
     };
     const rows = await dbRows("SELECT council_overview() AS r").catch(
-      missingMigrationLogged(
-        "council-overview",
-        "cc:not-built",
-        "db:load:council:pg",
-      ),
+      missingMigrationLogged("council-overview", empty, "db:load:council:pg"),
     );
     return { body: rows[0]?.r ?? empty };
   },
@@ -5903,11 +5899,7 @@ const DB_ROUTES = {
       clampInt(q.limit, 20, 1, 200),
       clampInt(q.offset, 0, 0, 100_000),
     ]).catch(
-      missingMigrationLogged(
-        "council-muni",
-        "cc:not-built",
-        "db:load:council:pg",
-      ),
+      missingMigrationLogged("council-muni", null, "db:load:council:pg"),
     );
     // null = this place has no council coverage, which the tile renders as
     // "not covered" — distinct from "covered but publishes no named votes".
@@ -5923,11 +5915,7 @@ const DB_ROUTES = {
     const rows = await dbRows("SELECT council_resolution_detail($1) AS r", [
       id,
     ]).catch(
-      missingMigrationLogged(
-        "council-resolution",
-        "cc:not-built",
-        "db:load:council:pg",
-      ),
+      missingMigrationLogged("council-resolution", null, "db:load:council:pg"),
     );
     return { body: rows[0]?.r ?? null };
   },
@@ -5939,9 +5927,23 @@ const DB_ROUTES = {
     const rows = await dbRows("SELECT council_councillor($1) AS r", [
       personId,
     ]).catch(
+      missingMigrationLogged("council-councillor", null, "db:load:council:pg"),
+    );
+    return { body: rows[0]?.r ?? null };
+  },
+  // The /person-page adapter: council_councillor() takes a person_id, but the
+  // profile payload only carries a slug (same reason as person-declarations
+  // and every other slug-keyed route here — an internal id has no business on
+  // a public request).
+  "council-councillor-by-slug": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: null };
+    const rows = await dbRows("SELECT council_councillor_by_slug($1) AS r", [
+      slug,
+    ]).catch(
       missingMigrationLogged(
-        "council-councillor",
-        "cc:not-built",
+        "council-councillor-by-slug",
+        null,
         "db:load:council:pg",
       ),
     );
