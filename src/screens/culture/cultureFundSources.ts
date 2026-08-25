@@ -42,7 +42,7 @@
 // nobody else can reuse.
 
 import { TILE_ACCENTS } from "@/ux/infographic";
-import { formatInt, formatPct } from "@/lib/currency";
+import { formatEurCompact, formatInt, formatPct } from "@/lib/currency";
 import type { CultureHubStats } from "@/data/culture/hubStats";
 
 /**
@@ -72,7 +72,19 @@ export type CultureFundMetric = (s: CultureHubStats) => {
   eur: number;
   /** Its row count, and what a row IS. */
   rows: number;
+  /** ⚠️ THE COUNTING FORM (бройна форма) — the noun as it appears AFTER A
+   *  NUMERAL: „47 проекта". */
   rowsLabel: { bg: string; en: string };
+  /** ⚠️ THE PLAIN PLURAL — the noun as it appears after an article or an
+   *  adjective: „най-големите проекти".
+   *
+   *  Bulgarian distinguishes the two and English does not, so a single field
+   *  reads correctly in one language and wrong in the other: „Най-големите
+   *  проекта" is the бройна форма with no numeral in front of it, which is the
+   *  same class of error as „1 проекта". Only the ИСУН arms differ (проекта /
+   *  проекти); участия and плащания are identical in both forms, which is
+   *  exactly why one field looked sufficient. */
+  rowsPlural: { bg: string; en: string };
 };
 
 export interface CultureFundSource {
@@ -97,6 +109,34 @@ export interface CultureFundSource {
   /** ⚠️ What this arm CANNOT answer. Required. See the header. */
   limit: (s: CultureHubStats, lang: string) => { bg: string; en: string };
   metric: CultureFundMetric;
+  /** WHAT the head's evidence list is ranked by — the same role `HubKpi.basis`
+   *  plays for the band. „Най-големите" is answerable three ways on the ИСУН
+   *  arms alone (grant, contracted, paid).
+   *
+   *  Paired with `rankColumn` so the SENTENCE and the ORDER BY cannot drift: the
+   *  list is only the top N while the table is in its default sort, and
+   *  `rankColumn` is the camelCased money column that sort produces. */
+  evidenceBasis: { bg: string; en: string };
+  rankColumn: string;
+  /** What this arm's global search ACTUALLY reaches (functions/db_table.js). A
+   *  placeholder that under-states the reach makes a reader stop typing the term
+   *  that would have worked. */
+  searchPlaceholder: { bg: string; en: string };
+  /** The KPI band, 3 per arm.
+   *
+   *  ⚠️ `basis` IS REQUIRED BY `HubKpi` AND THAT IS THE POINT OF THE COMPONENT:
+   *  the band is the largest type on the page, so it is the highest-stakes place
+   *  for a number that is arithmetically right and false as a sentence. On this
+   *  page family it does double duty — the four arms measure four different
+   *  things, so the basis is also what stops a reader carrying one arm's figure
+   *  onto another.
+   *
+   *  Every figure comes from the blob; a `null` field yields no cell rather than
+   *  a zero, which would be a claim. */
+  kpis: (
+    s: CultureHubStats,
+    lang: string,
+  ) => { value: string; label: string; basis: string }[];
   /** One sentence naming the shape a reader would otherwise mis-take from this
    *  arm — the finding the page exists to surface, as opposed to `limit`, which
    *  is what the arm cannot answer. Optional: only the name arm has one today.
@@ -110,6 +150,12 @@ export interface CultureFundSource {
 export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
   {
     id: "isun-eik",
+    evidenceBasis: { bg: "по безвъзмездна помощ", en: "by grant" },
+    rankColumn: "grantEur",
+    searchPlaceholder: {
+      bg: "Търси бенефициент, програма или проект…",
+      en: "Search a beneficiary, programme or project…",
+    },
     to: "/culture/funds/isun-eik",
     resource: "culture_isun_eik",
     accent: TILE_ACCENTS.indigo,
@@ -164,14 +210,53 @@ export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
         en: `Only the institutions whose EIK is in the register. Читалища — culture's widest stream by recipient count — carry no EIK in that list and are absent: they are reachable only by NAME, on the neighbouring arm.${tailEn}`,
       };
     },
+    kpis: (s, lang) => {
+      const b = lang === "bg";
+      // The blob's own figure, not `eikExactProjects - missed` — that reaches
+      // the same number by subtracting the difference back out, and is one
+      // refactor of `eikNameMissed` away from being silently wrong.
+      const also = s.funds.eikExactAlsoByName;
+      return [
+        {
+          value: formatEurCompact(s.funds.eikExactEur, lang),
+          label: b ? "безвъзмездна помощ" : "grant",
+          basis: b ? "по ИСУН, ЕИК-точно съвпадение" : "ИСУН, exact EIK match",
+        },
+        {
+          value: formatInt(s.funds.eikExactProjects, lang),
+          label: b ? "проекта" : "projects",
+          basis: b ? "един ред = един проект" : "one row = one project",
+        },
+        // The overlap, as a figure rather than only as prose — and absent
+        // entirely when the blob cannot support it (see `eikNameMissed`).
+        ...(also == null
+          ? []
+          : [
+              {
+                value: formatInt(also, lang),
+                label: b ? "и по име" : "also by name",
+                basis: b
+                  ? `от ${formatInt(s.funds.eikExactProjects, lang)} — не всички`
+                  : `of ${formatInt(s.funds.eikExactProjects, lang)} — not all`,
+              },
+            ]),
+      ];
+    },
     metric: (s) => ({
       eur: s.funds.eikExactEur,
       rows: s.funds.eikExactProjects,
       rowsLabel: { bg: "проекта", en: "projects" },
+      rowsPlural: { bg: "проекти", en: "projects" },
     }),
   },
   {
     id: "isun-name",
+    evidenceBasis: { bg: "по безвъзмездна помощ", en: "by grant" },
+    rankColumn: "grantEur",
+    searchPlaceholder: {
+      bg: "Търси бенефициент, програма или проект…",
+      en: "Search a beneficiary, programme or project…",
+    },
     to: "/culture/funds/isun-name",
     resource: "culture_isun_name",
     accent: TILE_ACCENTS.violet,
@@ -210,10 +295,42 @@ export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
         en: `One organisation can be spelled two ways, so these ${formatInt(s.funds.byNameProjects, lang)} projects sit ${namesEn}. Conversely, an institution with no culture word in its name is absent here even though it is in the register.`,
       };
     },
+    kpis: (s, lang) => {
+      const b = lang === "bg";
+      return [
+        {
+          value: formatEurCompact(s.funds.byNameEur, lang),
+          label: b ? "безвъзмездна помощ" : "grant",
+          basis: b ? "по ИСУН, съвпадение по име" : "ИСУН, name match",
+        },
+        {
+          value: formatInt(s.funds.byNameProjects, lang),
+          label: b ? "проекта" : "projects",
+          basis: b ? "един ред = един проект" : "one row = one project",
+        },
+        // ⚠️ NAME-distinct, and the basis says so: two spellings of one
+        // читалище are two names, so this is an upper bound on organisations.
+        ...(s.funds.byNameNames == null
+          ? []
+          : [
+              {
+                value: formatInt(s.funds.byNameNames, lang),
+                label: b ? "различни имена" : "distinct names",
+                basis: b ? "не организации — виж по-долу" : "not organisations",
+              },
+            ]),
+        {
+          value: formatEurCompact(s.funds.chitalishtaEur, lang),
+          label: b ? "от тях към читалища" : "of it to читалища",
+          basis: b ? "същият ред, подгрупа" : "same arm, a sub-group",
+        },
+      ];
+    },
     metric: (s) => ({
       eur: s.funds.byNameEur,
       rows: s.funds.byNameProjects,
       rowsLabel: { bg: "проекта", en: "projects" },
+      rowsPlural: { bg: "проекти", en: "projects" },
     }),
     // ⚠️ „European culture funding" is, on this arm, mostly ONE instrument
     // paying читалища — and a reader who does not see that takes the €147m for a
@@ -239,6 +356,15 @@ export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
   },
   {
     id: "interreg",
+    evidenceBasis: {
+      bg: "по публикуван бюджет на партньора",
+      en: "by the partner's published budget",
+    },
+    rankColumn: "budgetEur",
+    searchPlaceholder: {
+      bg: "Търси партньор или операция…",
+      en: "Search a partner or an operation…",
+    },
     to: "/culture/funds/interreg",
     resource: "culture_interreg",
     accent: TILE_ACCENTS.teal,
@@ -263,14 +389,46 @@ export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
       bg: `Само ${formatInt(s.interreg.rowsWithEik, lang)} от ${formatInt(s.interreg.partnerRows, lang)} участия носят ЕИК изобщо, така че филтър или връзка по ЕИК отговаря на около една пета от въпроса. Партньорите тук са предимно общини и НПО, а не държавни културни институти.`,
       en: `Only ${formatInt(s.interreg.rowsWithEik, lang)} of ${formatInt(s.interreg.partnerRows, lang)} participations carry an EIK at all, so an EIK-keyed filter or link answers about a fifth of the question. The partners here are mostly municipalities and NGOs rather than state culture institutes.`,
     }),
+    kpis: (s, lang) => {
+      const b = lang === "bg";
+      return [
+        {
+          value: formatEurCompact(s.interreg.thematicEur, lang),
+          label: b ? "публикуван бюджет" : "published budget",
+          basis: b
+            ? "на партньора — не договор"
+            : "of the partner — not a contract",
+        },
+        {
+          value: formatInt(s.interreg.partnerRows, lang),
+          label: b ? "участия" : "participations",
+          basis: b
+            ? `на ${formatInt(s.interreg.partners, lang)} партньора`
+            : `by ${formatInt(s.interreg.partners, lang)} partners`,
+        },
+        // The coverage figure, in the band rather than only in the basis card:
+        // an EIK-keyed surface answers for these rows and no others.
+        {
+          value: formatInt(s.interreg.rowsWithEik, lang),
+          label: b ? "с ЕИК" : "carry an EIK",
+          basis: b
+            ? `от ${formatInt(s.interreg.partnerRows, lang)} — ~една пета`
+            : `of ${formatInt(s.interreg.partnerRows, lang)} — about a fifth`,
+        },
+      ];
+    },
     metric: (s) => ({
       eur: s.interreg.thematicEur,
       rows: s.interreg.partnerRows,
       rowsLabel: { bg: "участия", en: "participations" },
+      rowsPlural: { bg: "участия", en: "participations" },
     }),
   },
   {
     id: "dfz",
+    evidenceBasis: { bg: "по изплатена субсидия", en: "by subsidy paid" },
+    rankColumn: "subsidyEur",
+    searchPlaceholder: { bg: "Търси читалище…", en: "Search a читалище…" },
     to: "/culture/funds/dfz",
     resource: "culture_agri_chitalishta",
     accent: TILE_ACCENTS.amber,
@@ -292,10 +450,36 @@ export const CULTURE_FUND_SOURCES: readonly CultureFundSource[] = [
       bg: "Достига се САМО по име. Филтър по ЕИК срещу регистъра на сектора връща практически нищо — единственото съвпадение е едно национално музикално училище по „Училищни схеми“ (€5 416 за 2016-2017, измерено 2026-08-19), което е училищна помощ, администрирана от ДФЗ, а не земеделска субсидия за културен институт. Тоест: присъствието на културата тук са читалищата, и никой друг.",
       en: "Reachable ONLY by name. An EIK filter against the sector register returns essentially nothing — the sole match is one national music school on „Училищни схеми“ (€5,416 across 2016-2017, measured 2026-08-19), which is school-food aid ДФЗ merely administers rather than a farm subsidy to a cultural institution. Culture's presence here is читалища and nobody else.",
     }),
+    kpis: (s, lang) => {
+      const b = lang === "bg";
+      return [
+        {
+          value: formatEurCompact(s.agri.chitalishtaEur, lang),
+          label: b ? "изплатени субсидии" : "subsidies paid",
+          basis: b ? "по схеми на ДФЗ" : "under ДФЗ schemes",
+        },
+        {
+          value: formatInt(s.agri.chitalishtaRows, lang),
+          label: b ? "плащания" : "payments",
+          basis: b ? "един ред = едно плащане" : "one row = one payment",
+        },
+        // The same population, one arm over — the two читалища figures are from
+        // DIFFERENT registers and this is where a reader most wants to compare
+        // them, so the basis says which is which.
+        {
+          value: formatEurCompact(s.funds.chitalishtaEur, lang),
+          label: b ? "същите по ИСУН" : "the same, in ИСУН",
+          basis: b
+            ? "друг регистър — не се събират"
+            : "another register — do not sum",
+        },
+      ];
+    },
     metric: (s) => ({
       eur: s.agri.chitalishtaEur,
       rows: s.agri.chitalishtaRows,
       rowsLabel: { bg: "плащания", en: "payments" },
+      rowsPlural: { bg: "плащания", en: "payments" },
     }),
   },
 ];

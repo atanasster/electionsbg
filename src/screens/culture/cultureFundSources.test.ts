@@ -37,6 +37,13 @@ const STATS = {
     eikExactProjects: 47,
     byNameEur: 147_024_687,
     byNameProjects: 1560,
+    byNameNames: 1475,
+    byNameTopProgram: {
+      code: "2021BG-RRP",
+      name: "Национален план за възстановяване и устойчивост",
+      projects: 1292,
+      eur: 117_274_067,
+    },
     chitalishtaEur: 22_080_751,
     eikExactAlsoByName: 46,
   },
@@ -171,6 +178,27 @@ describe("CULTURE_FUND_SOURCES", () => {
     expect(nouns).toEqual(["проекта", "проекта", "участия", "плащания"]);
   });
 
+  it("carries the бройна форма and the plain plural separately", () => {
+    // ⚠️ Bulgarian distinguishes the noun AFTER A NUMERAL („47 проекта") from
+    // the one after an article („най-големите проекти"); English does not. One
+    // field therefore reads correctly in one language and wrong in the other —
+    // the head's evidence heading shipped „Най-големите проекта", which is the
+    // same class of error as „1 проекта". Only the ИСУН arms differ, which is
+    // exactly why one field looked sufficient.
+    const isun = cultureFundSource("isun-eik")!.metric(STATS);
+    expect(isun.rowsLabel.bg).toBe("проекта");
+    expect(isun.rowsPlural.bg).toBe("проекти");
+    // Every arm declares both, and English is the same word in both roles.
+    for (const src of CULTURE_FUND_SOURCES) {
+      const m = src.metric(STATS);
+      expect(
+        m.rowsPlural.bg.length,
+        `${src.id} has no plural form`,
+      ).toBeGreaterThan(2);
+      expect(m.rowsPlural.en).toBe(m.rowsLabel.en);
+    }
+  });
+
   it("resolves an arm by id and refuses an unknown one", () => {
     expect(cultureFundSource("dfz")?.resource).toBe("culture_agri_chitalishta");
     expect(cultureFundSource("chitalishta")).toBeUndefined();
@@ -258,6 +286,127 @@ describe("CULTURE_FUND_SOURCES", () => {
       ).toBeDefined();
     expect(new Set(keys)).toEqual(
       new Set(CULTURE_FUND_SOURCES.map((s) => s.id)),
+    );
+  });
+
+  // ── the KPI band, this tier's central artifact ────────────────────────────
+
+  it("every arm builds a band, and every figure declares its basis", () => {
+    // ⚠️ `HubKpi.basis` is typed as REQUIRED, which enforces PRESENCE and not
+    // content — `basis: ""` compiles and renders an empty span, i.e. exactly the
+    // state the field exists to prevent. HubHead guards it only with a DEV
+    // console.error, which no test reads. This is the check with teeth.
+    for (const src of CULTURE_FUND_SOURCES)
+      for (const lang of ["bg", "en"]) {
+        const band = src.kpis(STATS, lang);
+        expect(
+          band.length,
+          `${src.id} builds no band in ${lang}`,
+        ).toBeGreaterThanOrEqual(3);
+        for (const k of band) {
+          expect(k.value.trim(), `${src.id}/${lang}: empty KPI value`).not.toBe(
+            "",
+          );
+          expect(k.label.trim(), `${src.id}/${lang}: empty KPI label`).not.toBe(
+            "",
+          );
+          expect(
+            k.basis.trim(),
+            `${src.id}/${lang}: a figure with no declared basis — the band is the ` +
+              `largest type on the page and these four arms measure four different ` +
+              `things, so the basis is what stops a reader carrying one arm's ` +
+              `figure onto another`,
+          ).not.toBe("");
+          expect(k.value).not.toMatch(/NaN|undefined/);
+        }
+        const labels = band.map((k) => k.label);
+        expect(
+          new Set(labels).size,
+          `${src.id}/${lang} repeats a KPI label`,
+        ).toBe(labels.length);
+      }
+  });
+
+  it("the band's headline figure is the arm's own", () => {
+    for (const lang of ["bg", "en"]) {
+      const values = CULTURE_FUND_SOURCES.map(
+        (s) => s.kpis(STATS, lang)[0].value,
+      );
+      expect(
+        new Set(values).size,
+        `two arms lead with the same figure in ${lang}`,
+      ).toBe(values.length);
+    }
+  });
+
+  it("drops the cells the blob cannot support, rather than showing a zero", () => {
+    // `byNameNames`, `byNameTopProgram` and `eikExactAlsoByName` are all optional
+    // on the wire — the blob ships via bucket:sync, a different command from the
+    // bundle. A 0 in any of those cells would be a claim.
+    const bare = {
+      ...STATS,
+      funds: {
+        ...STATS.funds,
+        byNameNames: undefined,
+        byNameTopProgram: undefined,
+        eikExactAlsoByName: undefined,
+      },
+    } as CultureHubStats;
+
+    const eik = cultureFundSource("isun-eik")!;
+    expect(eik.kpis(bare, "bg").length).toBe(2);
+    expect(eik.kpis(STATS, "bg").length).toBe(3);
+
+    const name = cultureFundSource("isun-name")!;
+    expect(name.kpis(bare, "bg").length).toBe(3);
+    expect(name.kpis(STATS, "bg").length).toBe(4);
+    expect(name.finding!(bare, "bg")).toBeNull();
+    expect(name.finding!(STATS, "bg")).not.toBeNull();
+  });
+
+  it("the overlap KPI shows the blob's own figure", () => {
+    // Not `eikExactProjects - missed`, which reaches the same number by
+    // subtracting the difference back out and is one refactor away from being
+    // silently wrong.
+    const band = cultureFundSource("isun-eik")!.kpis(STATS, "bg");
+    const cell = band.find((k) => k.label.includes("и по име"));
+    expect(cell?.value).toBe(String(STATS.funds.eikExactAlsoByName));
+  });
+
+  // ── the ranking sentence and the ORDER BY are one entry ──────────────────
+
+  it("every arm names what its evidence list is ranked by, and the column", () => {
+    // The list is only a top-N while the table is in its DEFAULT sort, and
+    // `rankColumn` is the camelCased money column that sort produces. Paired so
+    // the sentence and the ORDER BY cannot drift.
+    const cols = new Set<string>();
+    for (const src of CULTURE_FUND_SOURCES) {
+      expect(src.evidenceBasis.bg.trim().length).toBeGreaterThan(5);
+      expect(src.evidenceBasis.en.trim().length).toBeGreaterThan(5);
+      expect(src.rankColumn).toMatch(/^[a-z][A-Za-z]*Eur$/);
+      cols.add(src.rankColumn);
+    }
+    // The two ИСУН arms rank by the same column deliberately — same quantity,
+    // two populations. The other two must not.
+    expect(cols).toEqual(new Set(["grantEur", "budgetEur", "subsidyEur"]));
+  });
+
+  it("each search placeholder names what that arm's search actually reaches", () => {
+    // A placeholder that under-states the reach makes a reader stop typing the
+    // term that would have worked. ДФЗ genuinely searches the name ONLY
+    // (scheme_desc has no trigram index), so it is the one that may be narrow.
+    for (const src of CULTURE_FUND_SOURCES) {
+      expect(src.searchPlaceholder.bg).toMatch(/…$/);
+      expect(src.searchPlaceholder.en).toMatch(/…$/);
+    }
+    expect(cultureFundSource("dfz")!.searchPlaceholder.bg).toContain(
+      "читалище",
+    );
+    expect(cultureFundSource("interreg")!.searchPlaceholder.bg).toContain(
+      "операция",
+    );
+    expect(cultureFundSource("isun-name")!.searchPlaceholder.bg).toContain(
+      "програма",
     );
   });
 });

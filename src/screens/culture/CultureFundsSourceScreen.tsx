@@ -22,10 +22,10 @@
 // aggregate over the arm's own view (the table footer). No literal on this page
 // is a number.
 
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Title } from "@/ux/Title";
+import { HubHead, type HubEvidenceRow } from "@/ux/infographic";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { DbDataTable } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
@@ -120,10 +120,58 @@ export const CultureFundsSourceScreen: FC<{ sourceId: string }> = ({
   const metric = s && source ? source.metric(s) : null;
   const limit = s && source ? source.limit(s, lang) : null;
   const finding = s && source?.finding ? source.finding(s, lang) : null;
-  /** „проекта" / „плащания" / „участия". From the registry when the blob is
-   *  loaded, and a neutral fallback while it is not — the table's footer must
-   *  still read as a sentence before the blob arrives. */
+  /** „проекта" — the бройна форма, the noun AFTER A NUMERAL. */
   const rowNoun = metric?.rowsLabel ?? { bg: "реда", en: "rows" };
+  /** „проекти" — the plain plural, the noun after an ARTICLE. Bulgarian
+   *  distinguishes the two and English does not, so „Най-големите проекта" is
+   *  wrong the same way „1 проекта" is. ⚠️ The fallback is the plural too:
+   *  „редове", never „реда". */
+  const rowNounPlural = metric?.rowsPlural ?? { bg: "редове", en: "rows" };
+
+  /** The ranked list in the head. ⚠️ Derived from the table's FIRST PAGE rather
+   *  than from a second query: the table is already sorted by this arm's money
+   *  descending, so page 0 IS the top N. A separate request would be a second
+   *  producer of the same ranking, free to disagree with the rows below it.
+   *
+   *  ⚠️⚠️ IT IS ONLY THE TOP N IN THE DEFAULT STATE, which is why `onData` below
+   *  refuses every other one. The heading says „Най-големите" and `basis` names
+   *  the money column, so a reader-applied sort, search or filter makes both
+   *  false while the list quietly re-ranks underneath them — and sorting by a
+   *  column the server cannot sort (title, scheme) falls through to the bare
+   *  paging tiebreak, publishing five arbitrary rows as „the largest". */
+  /** ⚠️ RAW, not formatted. Storing „€39,2 млн." would freeze the list in the
+   *  locale active when the response arrived — and i18n initialises
+   *  ASYNCHRONOUSLY, so the language flips from `en` to `bg` AFTER the first
+   *  fetch resolves on an ordinary load. React Query holds that response for
+   *  ever (`staleTime: Infinity`), so there is no second `onData` to correct it:
+   *  the list would either show the wrong locale's money or, if cleared on the
+   *  switch, never come back at all. Formatting at RENDER time makes a language
+   *  change an ordinary re-render. */
+  const [top, setTop] = useState<
+    { id: string; label: string; eur: number | null; to?: string }[]
+  >([]);
+
+  /** ⚠️ RESET DURING RENDER, NOT IN AN EFFECT, and the ordering is the reason.
+   *
+   *  WHAT it guards: React Router does NOT remount across the four sibling
+   *  static routes, so `useState` survives the navigation — and the table's
+   *  `keepPreviousData` holds the old rows for the whole of the next fetch.
+   *  Without a reset, the strip on /culture/funds/dfz shows the ИСУН arm's
+   *  projects under the ДФЗ heading and basis: one arm's figures presented as
+   *  another's, which is the single thing this page family exists to prevent.
+   *  (Language is NOT in this key: the rows are stored raw and formatted at
+   *  render, so a switch needs no reset — see the `top` declaration.)
+   *
+   *  WHY NOT `useEffect`: child effects run BEFORE parent effects, so the
+   *  table's own mount-time `onData` populated the list and this then cleared
+   *  it — the aside was empty on every first paint. This is React's documented
+   *  „adjust state when a prop changes" pattern: it re-renders immediately, in
+   *  the same pass, and cannot race the child. */
+  const [topKey, setTopKey] = useState(sourceId);
+  if (topKey !== sourceId) {
+    setTopKey(sourceId);
+    setTop([]);
+  }
 
   const columns = useMemo(() => {
     if (sourceId === "dfz")
@@ -256,16 +304,24 @@ export const CultureFundsSourceScreen: FC<{ sourceId: string }> = ({
     ]);
   }, [sourceId, bg, lang]);
 
+  // ⚠️ HubHead HERE TOO, NOT <Title>. The two branches are mutually exclusive at
+  // runtime, but `hubHead.gates.test.ts` is a static scan over the source and
+  // cannot see that — and its rule is right in general: a file that references
+  // both is one refactor away from emitting two h1s. HubHead also gives this
+  // body the <SEO> a real URL needs, which a bare heading would not.
   if (!source)
     return (
       <>
-        <Title
-          description={
+        <HubHead
+          eyebrow={bg ? "Култура · Еврофондове" : "Culture · EU funds"}
+          title={bg ? "Непознат източник" : "Unknown source"}
+          seoDescription={
             bg ? "Няма такъв източник на средства." : "No such funding source."
           }
-        >
-          {bg ? "Непознат източник" : "Unknown source"}
-        </Title>
+          deck={
+            bg ? "Няма такъв източник на средства." : "No such funding source."
+          }
+        />
         <p className="mt-4 text-sm">
           <Link to="/culture/funds" className="text-primary hover:underline">
             {bg ? "Обратно към прегледа →" : "Back to the overview →"}
@@ -276,13 +332,74 @@ export const CultureFundsSourceScreen: FC<{ sourceId: string }> = ({
 
   return (
     <>
-      <Title description={pick(source.deck)}>{pick(source.title)}</Title>
       <SectorBreadcrumb
         parent={{
           label: bg ? "Еврофондове" : "EU funds",
           to: "/culture/funds",
         }}
         current={pick(source.short)}
+      />
+
+      {/* ⚠️ HubHead RENDERS THE <h1> AND THE <SEO>, so this screen must NOT also
+          render <Title> — that emits two h1s. The band's `basis` per figure is
+          why this component rather than a hand-rolled header: on this page family
+          the four arms measure four different things, so the basis is what stops
+          a reader carrying one arm's figure onto another. */}
+      <HubHead
+        eyebrow={bg ? "Култура · Еврофондове" : "Culture · EU funds"}
+        freshness={
+          s?.generatedAt
+            ? bg
+              ? `данни към ${s.generatedAt}`
+              : `data as of ${s.generatedAt}`
+            : undefined
+        }
+        title={pick(source.title)}
+        seoDescription={pick(source.deck)}
+        deck={pick(source.deck)}
+        kpis={s && source ? source.kpis(s, lang) : undefined}
+        // The count the loaded band will actually have, so the reserved height is
+        // the real one. The name arm renders FOUR against the production blob
+        // (it carries `byNameNames`), and a fixed 3 leaves the layout jumping on
+        // every cold load of the busiest of the four pages.
+        kpisPending={sourceId === "isun-name" ? 4 : 3}
+        kpiNote={
+          bg
+            ? "Тези числа не се събират с числата на другите три реда — всеки е от различен регистър, на различна основа."
+            : "These figures do not add to the other three arms' — each comes from a different register on a different basis."
+        }
+        evidence={
+          top.length
+            ? {
+                // ⚠️ THE HEADING NAMES WHAT A ROW IS. „Най-големите" over rows
+                // labelled with beneficiary names reads as a RECIPIENT ranking,
+                // and this is a ranking of PROJECTS — Национален фонд „Култура"
+                // appears twice in the top five with two different figures,
+                // which under a recipient heading is a visible contradiction and
+                // under a project heading is just two projects.
+                heading: bg
+                  ? `Най-големите ${pick(rowNounPlural)}`
+                  : `The largest ${pick(rowNounPlural)}`,
+                // From the REGISTRY, beside the `rankColumn` it describes — one
+                // entry states both, so the sentence and the ORDER BY cannot
+                // drift. It was a three-way ternary here, which put per-arm copy
+                // in two files.
+                basis: pick(source.evidenceBasis),
+                // ⚠️ Formatted HERE, at render, from the raw figures — see the
+                // `top` declaration. „—" and never „€0": a zero is a claim that
+                // the amount was zero, and the table renders a dash for the same
+                // cell.
+                rows: top.map(
+                  (r): HubEvidenceRow => ({
+                    id: r.id,
+                    label: r.label,
+                    value: r.eur == null ? "—" : formatEurCompact(r.eur, lang),
+                    to: r.to,
+                  }),
+                ),
+              }
+            : undefined
+        }
       />
 
       {/* ── the basis card ─────────────────────────────────────────────────
@@ -319,29 +436,12 @@ export const CultureFundsSourceScreen: FC<{ sourceId: string }> = ({
         </dl>
       </section>
 
-      {/* ⚠️ THE HEADLINE AND THE TABLE FOOTER PRINT THE SAME QUANTITY FROM TWO
-          SOURCES — this one from the committed blob, the footer from a live
-          aggregate over the arm's own view — so each says WHICH. Rendered as one
-          sentence they read as a contradiction the day the blob goes a vintage
-          behind a corpus reload, and as a redundancy every other day. */}
-      {metric ? (
-        <p className="mt-4 text-sm text-muted-foreground">
-          <span className="text-2xl font-bold tabular-nums text-foreground">
-            {formatEurCompact(metric.eur, lang)}
-          </span>{" "}
-          {bg ? "по" : "across"}{" "}
-          <span className="font-semibold tabular-nums text-foreground">
-            {formatInt(metric.rows, lang)}
-          </span>{" "}
-          {pick(metric.rowsLabel)}
-          <span className="ml-2 text-xs">
-            {bg
-              ? `(целият ред, към ${s?.generatedAt ?? ""})`
-              : `(the whole arm, as of ${s?.generatedAt ?? ""})`}
-          </span>
-        </p>
-      ) : null}
-
+      {/* ⚠️ NO STANDALONE „€X across N rows" LINE HERE. Tier 3 had one; the
+          HubHead band above now states the same figure WITH its basis, and a
+          second copy underneath was the third rendering of one number on one
+          screen (band, this line, the active strip card). The table's footer is
+          the one other place it appears, and that one says „the current
+          selection" because it counts what the filters left. */}
       {/* The shape a reader would otherwise mis-take from this arm. Distinct
           from the basis card's „what this cannot answer": that is a limit, this
           is a finding. */}
@@ -356,25 +456,89 @@ export const CultureFundsSourceScreen: FC<{ sourceId: string }> = ({
           resource={source.resource}
           columns={columns}
           pageSize={25}
-          searchPlaceholder={
-            // What each arm's search ACTUALLY reaches (functions/db_table.js):
-            // ИСУН searches beneficiary, programme and project title; Interreg
-            // searches the partner and the operation's English title; ДФЗ
-            // searches the читалище name only, because scheme_desc has no
-            // trigram index. A placeholder that under-states the reach makes a
-            // reader stop typing the term that would have worked.
-            sourceId === "dfz"
-              ? bg
-                ? "Търси читалище…"
-                : "Search a читалище…"
-              : sourceId === "interreg"
-                ? bg
-                  ? "Търси партньор или операция…"
-                  : "Search a partner or an operation…"
-                : bg
-                  ? "Търси бенефициент, програма или проект…"
-                  : "Search a beneficiary, programme or project…"
-          }
+          onData={(resp, request) => {
+            // ⚠️ THE DEFAULT STATE ONLY — see the `top` declaration. `request` is
+            // the exact body that produced `resp`, so this can check the whole
+            // claim rather than just the page:
+            //   · page 0, because the list is a top-N;
+            //   · NO client sort — an empty `sort` means the server applied its
+            //     own defaultSort, which IS this arm's money descending;
+            //   · no search term and no filters, because the heading is
+            //     unqualified („Най-големите", not „най-големите сред
+            //     намерените").
+            // In any other state the list is withdrawn rather than relabelled:
+            // an aside that disappears when a reader sorts is legible; one that
+            // silently re-ranks under a heading claiming otherwise is not.
+            const req = request as {
+              sort?: unknown[];
+              filters?: { global?: string; columns?: unknown[] };
+            };
+            const isDefaultView =
+              resp.page === 0 &&
+              !(req.sort ?? []).length &&
+              !req.filters?.global &&
+              !(req.filters?.columns ?? []).length;
+            if (!isDefaultView) {
+              setTop([]);
+              return;
+            }
+            setTop(
+              resp.rows.slice(0, 5).map((r, idx) => {
+                const row = r as CultureFundRow;
+                if (sourceId === "dfz") {
+                  const a = row as AgriRow;
+                  return {
+                    id: String(a.id ?? idx),
+                    label: a.name ?? "—",
+                    // ⚠️ NOT `?? 0`. „€0" is a claim that the payment was zero;
+                    // the table renders „—" for the same cell, and on Interreg
+                    // the source distinguishes a published zero from an absence
+                    // (`budget_basis`). formatEurCompact returns "" for null, so
+                    // the fallback is explicit here.
+                    eur: a.subsidyEur,
+                    to: a.eik ? `/farm/${a.eik}` : undefined,
+                  };
+                }
+                if (sourceId === "interreg") {
+                  const i = row as InterregRow;
+                  return {
+                    id: i.key ?? String(idx),
+                    // A participation is (partner × operation): one partner can
+                    // appear several times, so the partner alone would repeat.
+                    label: [i.partnerName, i.titleEn]
+                      .filter(Boolean)
+                      .join(" — "),
+                    eur: i.budgetEur,
+                    to: `/funds/interreg/${i.keepId}`,
+                  };
+                }
+                const p = row as IsunRow;
+                return {
+                  // ⚠️ A STABLE id, not the label: two beneficiaries can share a
+                  // name in this corpus, and React then reuses the wrong row.
+                  // ⚠️ Index-suffixed, because the two fallbacks can BOTH be
+                  // null and "" then repeats — which is the key collision the
+                  // stable id exists to prevent, arrived at one step later.
+                  id:
+                    p.contractNumber ?? `${p.beneficiaryName ?? "row"}#${idx}`,
+                  // The PROJECT, with its beneficiary after it — the row is a
+                  // project, so labelling it with the beneficiary alone made one
+                  // body appear twice in five rows under two different figures.
+                  label: [p.title, p.beneficiaryName]
+                    .filter(Boolean)
+                    .join(" — "),
+                  eur: p.grantEur,
+                  // Links to the PROJECT for the same reason. /company/:eik is
+                  // the beneficiary's page and would answer a question this row
+                  // is not asking.
+                  to: p.contractNumber
+                    ? `/funds/contract/${p.contractNumber}`
+                    : undefined,
+                };
+              }),
+            );
+          }}
+          searchPlaceholder={pick(source.searchPlaceholder)}
           renderAggregates={(agg, total) => (
             // ⚠️ ONE arm's money, and the ?? chain is safe precisely because no
             // two arms share a money column name (functions/db_table.js): exactly
