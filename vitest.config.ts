@@ -53,11 +53,19 @@ export default defineConfig({
           // easy to leave uncollected here — and per the note above that means a
           // test passing by never running. Only its pure logic is tested; the
           // compositions are verified by rendering and reading frames.
+          // news/scripts/** is the news-intake pipeline. Its Python halves
+          // have their own suites (run by `npm run news:test`); the ONE
+          // JavaScript half is harvest_browser.mjs, the headless browser
+          // tier. Its test file matched no include pattern at all — neither
+          // the directory nor the .mjs extension — so it was exactly the
+          // "collected by no project and passing vacuously by never running"
+          // case this comment block warns about, two paragraphs above.
           include: [
             "scripts/**/*.test.ts",
             "ai/**/*.test.ts",
             "vite/**/*.test.ts",
             "video/**/*.test.ts",
+            "news/scripts/**/*.test.mjs",
           ],
           testTimeout: 120_000,
           hookTimeout: 120_000,

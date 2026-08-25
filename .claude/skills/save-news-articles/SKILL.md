@@ -511,7 +511,91 @@ expect:
 - `blocked_captcha` and `portal_not_newsroom` (~5 of 70) stay unreachable
   — no CAPTCHA solving, ever.
 
-## Step 5 — the browser tier (17 domains), now wired
+## Step 5 — the browser tier, HEADLESS
+
+```bash
+node news/scripts/harvest_browser.mjs <domain> [--n=100] [--timeout=600] [--route]
+bash news/scripts/save_all_browser.sh 100 news/data/_summaries_browser_<YYYYMMDD>.jsonl
+```
+
+⚠️ **This tier used to be a Claude session driving a Browser tool by hand, so
+a cron job skipped all 18 domains** — four of them in the top twenty (dir.bg
+#2, blitz.bg #3, offnews.bg #16, dnevnik.bg #18), plus bta.bg, the national
+agency, and capital.bg. `harvest_browser.mjs` does the same work with
+Playwright, which the repo already depends on.
+
+Three shapes, chosen from the registry's own `feed_method`:
+
+| shape | what the browser is for | hand-off |
+| --- | --- | --- |
+| `browser_then_rss` / `browser_then_sitemap` | a real feed exists; the browser only clears the JS challenge for the ORIGIN, then fetches the feed from the page's own JS context | `save_articles.py <domain> N --stdin-list=rss` (or `sitemap`) — the SAME tested parser the direct tier uses |
+| `browser_render_scrape`, articles plain-HTTP fetchable | harvest article links from the rendered homepage | `--urls-file=` |
+| `browser_render_scrape`, articles blocked too | harvest links, then fetch each page's rendered HTML | `--prefetched=` |
+
+`--route` probes the first article and picks between the last two itself.
+
+⚠️ **It never clicks anything.** Cloudflare's ordinary JS challenge is cleared
+by a genuine browser by design and waiting it out is not evasion; an
+INTERACTIVE checkbox is a different thing, and the script stops with
+`blocked_captcha` rather than solving it. That line is the whole reason this
+tier is allowed to be automated at all.
+
+⚠️ **The sweep is SEQUENTIAL, not parallel.** Each domain runs a real
+Chromium and the challenge is waited out — measured ~12s for blitz.bg, ~5 min
+for dnevnik.bg, ~10 min for capital.bg. Six browsers at once compete for the
+same CPU and make every one of them slower. Budget an hour. A domain whose
+challenge does not clear inside `--timeout` reports exactly that and names the
+fix, rather than reporting the source as empty.
+
+⚠️ **WHERE TO NAVIGATE is the thing this gets wrong.** Three bugs, each of
+which silently emptied a whole outlet while reporting success:
+
+- **`browser_then_*` must render the SITE, not the feed.** `feed_url` there is
+  an XML document, and Chrome renders XML with zero `<a href>` — so the "the
+  page has links" clear-condition can never be met. All five domains burned
+  their full timeout and reported *"the JS challenge did not clear"* against a
+  feed that has no challenge. It must be the feed's ORIGIN, not
+  `https://<domain>/`: capital.bg and marica.bg serve from `www.`, and a
+  bare→www `fetch()` from the page context is cross-origin.
+- **An outlet's own SUBDOMAINS are the outlet.** dir.bg's homepage carries 378
+  links to `dnes.dir.bg`, 274 to `impressio.dir.bg`, 242 to
+  `business.dir.bg`, 223 to `corner.dir.bg`. Rejecting them left the **#2
+  outlet with 2 links** — a topic index and a film page.
+- **A bare → www redirect defeated the same-origin filter.** bta.bg serves
+  from www.bta.bg, so every harvested link failed `startsWith(origin)`.
+- **For `browser_render_scrape` the entry IS the registry's `feed_url`**, not
+  the bare origin: bta.bg serves its Bulgarian edition at `/bg`.
+
+`settle()` reports "the challenge cleared but the page rendered nothing"
+separately from "the challenge did not clear", because conflating them is what
+sent the first bug above to the wrong diagnosis for a whole session — the
+conclusion written here was "blitz.bg and offnews.bg need a longer timeout",
+and it was false.
+
+And one temptation to resist: **do not widen the junk-segment filter.**
+Several outlets put real articles under `/novini/` (glasove.com) and `/video/`
+(a video report is still a report), so adding those drops the very content
+this tier exists to collect. `harvest_browser.test.mjs` pins all of it,
+including a source-level assertion that the script contains no `.click(`,
+`.type(`, `mouse.` or `keyboard.` call at all — the one property this tier's
+licence to be automated rests on.
+
+Measured 2026-08-26: 20/20 links for bta.bg, news.bg, epicenter.bg,
+flagman.bg, haskovo.net, faktor.bg, lupa.bg, glasove.com, money.bg, bgnes.bg,
+bgnes.com and dir.bg; blitz.bg's feed pulled in seconds (193 KB) where it had
+burned 600s; kmeta.bg 5 articles saved through `--stdin-list`; money.bg 14
+saved / 0 rejected / 0 failed through `--urls-file`; and a whole-tier sweep of
+all 18 domains from a repo path containing a space, on bash 3.2.
+
+### The hand-driven notes this replaced
+
+The recipe below is what the script now does. It is kept because the measured
+observations in it — which domains clear in seconds and which in minutes, the
+cookie-banner and `with-sidebar` traps, which outlet serves its English
+edition by default — are still the facts, and because a human still has to
+fall back to them when a site changes shape.
+
+
 
 For `browser_render_scrape` / `browser_then_*` domains, run the Browser
 Use skill (node REPL) and apply ONE pipeline per domain with two routing
@@ -607,6 +691,9 @@ still wrong (Step 2).
 | `news/scripts/save_articles.py` | the downloader — list via fetch_latest_articles.py, `--urls-file=` (browser-harvested links, plain-HTTP articles) or `--prefetched=` (browser-fetched HTML, no network), extract, gate, persist (this skill). `DATA_BG_ROOT` overrides the repo root. |
 | `news/scripts/test_save_articles.py` | regression suite for the saver — body gate, rejection ledger, HTML cache, `--reextract` and its three guards, charset decoding, CLI contract, and extraction against the frozen fixtures. Run it after touching the script. |
 | `news/scripts/capture_fixtures.py` | freezes one real page per known failure class into `tests/fixtures/*.html.gz` + `expectations.json`. `--list` shows what is frozen, `--refresh` re-fetches. |
+| `news/scripts/harvest_browser.mjs` | the browser tier, headless: clears the JS challenge (never clicks), harvests links or pulls the feed from the page's JS context |
+| `news/scripts/harvest_browser.test.mjs` | its decision logic — registry reader, robots parser, same-site rule, link filter, and the never-click guard. Runs under vitest (`npm run news:test`) |
+| `news/scripts/save_all_browser.sh` | the browser-tier sweep: harvest → save → intake report. SEQUENTIAL; budget an hour |
 | `news/scripts/tests/fixtures/` | 18 gzipped real pages (1.0 MB, COMMITTED) + `expectations.json` (GENERATED — edit the seed) + a README on provenance. The only thing standing between an extractor change and a 4,700-page sweep. |
 | `news/data/_rejected/<domain>.jsonl` | body-gate rejection ledger: url, reason, chars, title, timestamp. Untracked; entries expire after 30 days. |
 | `news/data/_state/<domain>.json` | intake state: last success/error, consecutive failures, newest stored day, retry queue. One file per domain — the sweep has six concurrent writers. |

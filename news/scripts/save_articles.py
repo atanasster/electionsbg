@@ -1848,6 +1848,7 @@ def main():
     delay = DELAY_DEFAULT
     urls_file = None
     prefetched = None
+    stdin_list = None
     min_body = MIN_BODY_CHARS
     retry_rejected = False
     reextract = False
@@ -1883,6 +1884,14 @@ def main():
             args.remove(a)
         elif a.startswith("--prefetched="):
             prefetched = a.split("=", 1)[1]
+            args.remove(a)
+        elif a.startswith("--stdin-list="):
+            stdin_list = a.split("=", 1)[1]
+            if stdin_list not in ("rss", "sitemap"):
+                print(json.dumps({"error": "usage", "detail":
+                                  "--stdin-list must be rss or sitemap, got "
+                                  f"{stdin_list!r}"}))
+                sys.exit(1)
             args.remove(a)
         elif a == "--prune-cache":
             prune_cache = True
@@ -2015,7 +2024,7 @@ def main():
     # every night is worse than not recording it: the sweep hammers a source
     # that said no AND raises a permanent `failing` alert about it.
     if registry_flag(domain, "bot_policy_") == "bot_refused" and not (
-            urls_file or prefetched):
+            urls_file or prefetched or stdin_list):
         print(json.dumps({
             "domain": domain, "error": "bot_refused",
             "detail": "this site refuses an identified bot (403 to our "
@@ -2071,6 +2080,56 @@ def main():
             sys.exit(1)
         list_method, order_confidence, listed_count, warning = (
             "urls_file_browser_harvest", "dom_order_unconfirmed", len(articles), None)
+    elif stdin_list:
+        # The browser tier's `browser_then_*` shape: harvest_browser.mjs
+        # cleared the challenge and fetched the feed from the page's own JS
+        # context, and that XML arrives here on stdin. It goes through the
+        # SAME tested parser the direct tier uses — feed dispatch, sitemapindex
+        # descent, date sort, dedupe, staleness — rather than a second,
+        # divergent implementation for the 5 domains that need it.
+        raw = sys.stdin.buffer.read()
+        if not raw.strip():
+            print(json.dumps({"domain": domain, "error": "fetch_failed",
+                              "detail": "--stdin-list got an empty document"}))
+            sys.exit(4)
+        try:
+            proc = subprocess.run(
+                [sys.executable, str(LISTER), f"--stdin={stdin_list}",
+                 domain, str(want)],
+                input=raw, capture_output=True, timeout=LISTER_TIMEOUT)
+            listed = json.loads(proc.stdout.decode("utf-8", errors="replace"))
+            if not isinstance(listed, dict):
+                raise json.JSONDecodeError("not a JSON object", "", 0)
+        except (subprocess.TimeoutExpired, json.JSONDecodeError) as e:
+            detail = f"--stdin-list lister failed: {type(e).__name__}: {e}"
+            record_domain_failure(domain, state, "fetch_failed", detail)
+            print(json.dumps({"domain": domain, "error": "fetch_failed",
+                              "detail": detail}))
+            sys.exit(4)
+        if proc.returncode != 0 or "error" in listed:
+            err = listed.get("error", "fetch_failed")
+            if err not in STANDING_LISTER_FACTS:
+                # The one branch that never counted a failure, so the five
+                # browser_then_* domains could never go `failing` however long
+                # their feed stayed broken.
+                record_domain_failure(domain, state, err, listed.get("detail"))
+                listed["consecutive_failures"] = state["consecutive_failures"]
+            print(json.dumps(listed, ensure_ascii=False))
+            sys.exit(proc.returncode or 3)
+        articles = listed.get("articles", [])
+        # F18: this is the ONE browser mode where the retry queue can be
+        # drained — the article pages are fetched over plain HTTP from here.
+        retry_first = [{"url": e["url"]} for e in state.get("retry_urls", [])
+                       if isinstance(e, dict) and e.get("url")]
+        if retry_first:
+            listed_keys = {canonical_url(a["url"]) for a in articles
+                           if a.get("url")}
+            articles = [r for r in retry_first
+                        if canonical_url(r["url"]) not in listed_keys] + articles
+        list_method = f"browser_then_{stdin_list}"
+        order_confidence = listed.get("order_confidence")
+        listed_count = listed.get("count", 0)
+        warning = listed.get("warning")
     else:
         # Last run's transient failures, retried FIRST. Without this a domain
         # that timed out is simply absent from that night's data and nothing

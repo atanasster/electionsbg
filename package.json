@@ -338,7 +338,8 @@
     "video:data-inflation": "tsx scripts/video/build_inflation.ts",
     "video:data-risk": "tsx scripts/video/build_risk.ts",
     "video:gate1": "tsx scripts/video/gate1.ts",
-    "video:screens": "tsx scripts/video/capture_screens.ts"
+    "video:screens": "tsx scripts/video/capture_screens.ts",
+    "news:test": "python3 news/scripts/test_save_articles.py && python3 news/scripts/test_analyze_articles.py && python3 news/scripts/test_build_app_data.py && vitest run news/scripts"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
