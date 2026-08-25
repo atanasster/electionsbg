@@ -578,6 +578,325 @@ class CanonicalDedupeEndToEnd(unittest.TestCase):
                          "a spelling variant must not mint a second entry")
 
 
+class StaleSourceQuarantine(unittest.TestCase):
+    """A structurally stale source publishes actively while its sitemap
+    carries years-old dates. The lister already DETECTED this and the saver
+    stored the articles anyway, where they sat indistinguishable from fresh
+    content and entered the analysis queue at the same priority — measured:
+    dnes.bg stuck at 2018, iskra.bg 2019, bnews.bg 2020, investor.bg 2023.
+
+    Every test here seeds its OWN registry in the throwaway tree. Driving a
+    domain that happens to be flagged in the committed CSV would pass for an
+    incidental reason, and two earlier versions of these tests did exactly
+    that — one of them reporting `movable: 0` because it seeded one domain and
+    drove another."""
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp(prefix="save-articles-quar-"))
+        (self.root / "news" / "data").mkdir(parents=True)
+        self.feed = self.root / "prefetched.jsonl"
+
+    def tearDown(self):
+        shutil.rmtree(self.root, ignore_errors=True)
+
+    def write_registry(self, rows, quarantine_col="quarantine_aug2026"):
+        """A minimal registry with the dated column names the real one uses."""
+        header = ["domain", "feed_method_aug2026", "feed_url_aug2026"]
+        if quarantine_col:
+            header.append(quarantine_col)
+        lines = [",".join(header)]
+        for domain, method, verdict in rows:
+            cells = [domain, method, f"https://{domain}/"]
+            if quarantine_col:
+                cells.append(verdict)
+            lines.append(",".join(cells))
+        (self.root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "\n".join(lines) + "\n", encoding="utf-8")
+
+    def corpus(self, domain="ex.bg"):
+        return self.root / "news" / "data" / domain
+
+    def quarantine(self, domain="ex.bg"):
+        return self.root / "news" / "data" / "_quarantine" / domain
+
+    def sidecar(self, name, domain="ex.bg", quarantined=False):
+        parts = (("_quarantine", domain) if quarantined else (domain,))
+        return (self.root / "news" / "data" / "analysis" / "articles"
+                ).joinpath(*parts, name)
+
+    def seed_record(self, folder, name, url, with_sidecar=False,
+                    quarantined=False):
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / name).write_text(json.dumps({
+            "domain": "ex.bg", "url": url, "title": "Стара",
+            "content": "x" * 500, "content_chars": 500,
+            "published": "2019-03-26T09:00:00+00:00"}), encoding="utf-8")
+        if with_sidecar:
+            side = self.sidecar(name, quarantined=quarantined)
+            side.parent.mkdir(parents=True, exist_ok=True)
+            side.write_text("{}", encoding="utf-8")
+
+    # ---------------------------------------------------------- the decision
+
+    def decision(self, domain, order_confidence):
+        """quarantine_decision through a subprocess, so it reads the TEST
+        tree's registry via DATA_BG_ROOT rather than the committed one."""
+        code = (
+            "import sys, json, os;"
+            f"sys.path.insert(0, {str(SCRIPT_DIR)!r});"
+            "import save_articles as sa;"
+            f"print(json.dumps(sa.quarantine_decision({domain!r},"
+            f" {order_confidence!r})))")
+        env = dict(os.environ, DATA_BG_ROOT=str(self.root))
+        out = subprocess.run([sys.executable, "-c", code], capture_output=True,
+                             text=True, env=env, timeout=60)
+        return json.loads(out.stdout)
+
+    def test_a_curated_stale_source_is_quarantined_whatever_the_run_says(self):
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        for oc in ("date_sorted", "stale_source_suspected",
+                   "feed_order_unconfirmed"):
+            with self.subTest(order_confidence=oc):
+                q, why = self.decision("ex.bg", oc)
+                self.assertTrue(q)
+                self.assertIn("registry", why)
+
+    def test_never_beats_the_runtime_signal(self):
+        """dnes.bg's staleness is TRANSIENT — it served fresh headlines early
+        one day and 2018 URLs for hours after — so a runtime-only rule would
+        shuttle its articles between two folders run to run."""
+        self.write_registry([("ex.bg", "rss", "never")])
+        q, why = self.decision("ex.bg", "stale_source_suspected")
+        self.assertFalse(q)
+        self.assertIn("never", why)
+
+    def test_an_empty_verdict_follows_the_runtime_signal(self):
+        self.write_registry([("ex.bg", "rss", "")])
+        self.assertTrue(self.decision("ex.bg", "stale_source_suspected")[0])
+        self.assertFalse(self.decision("ex.bg", "date_sorted")[0])
+
+    def test_an_unrecognised_verdict_is_reported_not_swallowed(self):
+        """A typo would otherwise look identical to an empty cell."""
+        self.write_registry([("ex.bg", "rss", "quarrantine")])
+        q, why = self.decision("ex.bg", "stale_source_suspected")
+        self.assertTrue(q, "still follows the lister")
+        self.assertIn("unrecognised", why)
+        self.assertIn("quarrantine", why)
+
+    def test_a_missing_quarantine_column_is_not_an_error(self):
+        """update-news-sites carries forward only feed_* columns, so a refresh
+        can drop the curated column entirely."""
+        self.write_registry([("ex.bg", "rss", "")], quarantine_col=None)
+        q, why = self.decision("ex.bg", "date_sorted")
+        self.assertFalse(q)
+        self.assertEqual(why, "")
+
+    def test_an_unknown_domain_follows_the_runtime_signal(self):
+        """Absent from the registry is not the same as 'never quarantine' —
+        the runtime detector must still apply."""
+        self.write_registry([("other.bg", "rss", "")])
+        self.assertFalse(self.decision("ex.bg", "date_sorted")[0])
+        self.assertTrue(self.decision("ex.bg", "stale_source_suspected")[0])
+
+    # ------------------------------------------------------------ the paths
+
+    def test_existing_urls_reads_both_sides(self):
+        """A domain quarantined yesterday and fresh today must not re-fetch
+        what it already holds, and vice versa."""
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles as sa  # noqa: E402
+        self.seed_record(self.corpus(), "a.json", "https://ex.bg/a/1")
+        self.seed_record(self.quarantine(), "b.json", "https://ex.bg/a/2")
+        keys = sa.existing_urls(self.corpus(), self.quarantine())
+        self.assertEqual(keys, {"https://ex.bg/a/1", "https://ex.bg/a/2"})
+
+    def test_a_stale_run_writes_into_the_quarantine(self):
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/50", page("Статия", [PROSE * 5]))])
+        _, out = run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertTrue(out["quarantined"])
+        self.assertEqual(out["saved"], 1)
+        self.assertEqual(len(list(self.quarantine().glob("*.json"))), 1)
+        self.assertFalse(self.corpus().exists())
+
+    def test_no_quarantine_overrides_the_decision(self):
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/51", page("Статия", [PROSE * 5]))])
+        _, out = run_saver(self.root, "ex.bg", "20", "--no-quarantine",
+                           f"--prefetched={self.feed}")
+        self.assertFalse(out["quarantined"])
+        self.assertEqual(out["quarantine_reason"], "--no-quarantine")
+        self.assertEqual(len(list(self.corpus().glob("*.json"))), 1)
+        self.assertFalse(self.quarantine().exists())
+
+    # ------------------------------------------------------- the relocation
+
+    def test_apply_quarantine_is_dry_by_default(self):
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        self.seed_record(self.corpus(), "20190326-y-beef.json",
+                         "https://ex.bg/a/1")
+        _, dry = run_saver(self.root, "ex.bg", "--apply-quarantine")
+        self.assertEqual((dry["movable"], dry["moved"]), (1, 0))
+        self.assertTrue((self.corpus() / "20190326-y-beef.json").exists())
+        _, wet = run_saver(self.root, "ex.bg", "--apply-quarantine", "--apply")
+        self.assertEqual(wet["moved"], 1)
+        self.assertTrue((self.quarantine() / "20190326-y-beef.json").exists())
+
+    def test_relocating_removes_the_stale_analysis_sidecar(self):
+        """corpus_domains() skips _-prefixed directories, so the analysis
+        layer cannot reach a quarantined article — its sidecar is an analysis
+        of something no longer in the analysable corpus. The previous 'move'
+        computed the same path twice and silently did nothing."""
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        name = "20190326-z-cafe.json"
+        self.seed_record(self.corpus(), name, "https://ex.bg/a/2",
+                         with_sidecar=True)
+        self.assertTrue(self.sidecar(name).exists())
+        _, out = run_saver(self.root, "ex.bg", "--apply-quarantine", "--apply")
+        self.assertEqual(out["sidecars_removed"], 1)
+        self.assertFalse(self.sidecar(name).exists(),
+                         "an analysis for an unanalysable article is an orphan")
+
+    def test_an_uncurated_domain_is_left_alone(self):
+        """This mode reads no feed, so it cannot see the runtime signal main()
+        also routes on — acting on a blank verdict would drag records back OUT
+        of quarantine on a domain the lister had flagged."""
+        self.write_registry([("ex.bg", "rss", "")])
+        self.seed_record(self.quarantine(), "20190326-q-1.json",
+                         "https://ex.bg/a/3")
+        _, out = run_saver(self.root, "ex.bg", "--apply-quarantine", "--apply")
+        self.assertEqual(out["moved"], 0)
+        self.assertIn("no curated verdict", out["direction"])
+        self.assertTrue((self.quarantine() / "20190326-q-1.json").exists())
+
+    def test_never_moves_records_back_to_the_corpus(self):
+        self.write_registry([("ex.bg", "rss", "never")])
+        self.seed_record(self.quarantine(), "20190326-b-1.json",
+                         "https://ex.bg/a/4")
+        _, out = run_saver(self.root, "ex.bg", "--apply-quarantine", "--apply")
+        self.assertEqual(out["direction"], "quarantine -> corpus")
+        self.assertEqual(out["moved"], 1)
+        self.assertTrue((self.corpus() / "20190326-b-1.json").exists())
+
+    def test_a_differing_record_on_the_far_side_is_refused(self):
+        """The filename embeds a hash of the canonical URL, so a collision is
+        the same article — but discarding the source without comparing throws
+        away a newer re-extraction."""
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        name = "20190326-c-1.json"
+        self.seed_record(self.corpus(), name, "https://ex.bg/a/5")
+        self.quarantine().mkdir(parents=True, exist_ok=True)
+        (self.quarantine() / name).write_text(
+            json.dumps({"domain": "ex.bg", "url": "https://ex.bg/a/5",
+                        "title": "Друга версия", "content": "y" * 900,
+                        "content_chars": 900, "published": None}),
+            encoding="utf-8")
+        _, out = run_saver(self.root, "ex.bg", "--apply-quarantine", "--apply")
+        self.assertEqual(out["moved"], 0)
+        self.assertTrue((self.corpus() / name).exists(), "source survives")
+        self.assertIn("DIFFERENT", out["failed"][0]["detail"])
+
+    def test_an_identical_record_on_the_far_side_is_discarded(self):
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        name = "20190326-d-1.json"
+        self.seed_record(self.corpus(), name, "https://ex.bg/a/6")
+        self.quarantine().mkdir(parents=True, exist_ok=True)
+        (self.quarantine() / name).write_bytes(
+            (self.corpus() / name).read_bytes())
+        _, out = run_saver(self.root, "ex.bg", "--apply-quarantine", "--apply")
+        self.assertEqual(out["moved"], 1)
+        self.assertFalse((self.corpus() / name).exists())
+
+    def test_an_unreadable_record_is_reported_not_silently_skipped(self):
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        self.corpus().mkdir(parents=True, exist_ok=True)
+        (self.corpus() / "20190326-e-1.json").write_text("{not json",
+                                                         encoding="utf-8")
+        _, out = run_saver(self.root, "ex.bg", "--apply-quarantine", "--apply")
+        self.assertEqual(out["unreadable"], 1)
+        self.assertTrue(out["failed"])
+
+    def test_an_emptied_corpus_folder_is_removed(self):
+        """build_app_data lists a domain directory whether or not it holds
+        anything, so an emptied one renders as a ghost outlet."""
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        self.seed_record(self.corpus(), "20190326-f-1.json",
+                         "https://ex.bg/a/7")
+        run_saver(self.root, "ex.bg", "--apply-quarantine", "--apply")
+        self.assertFalse(self.corpus().exists())
+
+    def test_apply_outside_its_mode_is_refused(self):
+        self.write_registry([("ex.bg", "rss", "")])
+        code, out = run_saver(self.root, "ex.bg", "5", "--apply")
+        self.assertEqual((code, out["error"]), (1, "usage"))
+
+    # -------------------------------------------------- reextract interplay
+
+    def test_reextract_reaches_quarantined_records(self):
+        """The mode exists to reach articles a structurally stale source can
+        never list again — which after relocation are exactly the quarantined
+        ones. Resolving only the corpus made it report `records: 0`."""
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/60", page("Статия", [PROSE * 5]))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertEqual(len(list(self.quarantine().glob("*.json"))), 1)
+        _, rx = run_saver(self.root, "ex.bg", "--reextract")
+        self.assertEqual(rx["records"], 1)
+        self.assertEqual(rx["from_cache"], 1)
+
+    def test_prune_cache_keeps_a_quarantined_article_s_html(self):
+        """Deleting it destroys the recovery path the cache exists to provide,
+        for the one population that cannot be re-listed."""
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/61", page("Статия", [PROSE * 5]))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        cache = self.root / "news" / "data" / "_html" / "ex.bg"
+        self.assertEqual(len(list(cache.glob("*.json.gz"))), 1)
+        _, rx = run_saver(self.root, "ex.bg", "--reextract", "--prune-cache")
+        self.assertEqual(rx["cache_pruned"], 0)
+        self.assertEqual(len(list(cache.glob("*.json.gz"))), 1)
+
+    def test_reextract_does_not_promote_a_quarantined_record(self):
+        self.write_registry([("ex.bg", "rss", "stale_source")])
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/62", page("Статия", [PROSE * 5]))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        run_saver(self.root, "ex.bg", "--reextract")
+        self.assertEqual(len(list(self.quarantine().glob("*.json"))), 1)
+        self.assertFalse(self.corpus().exists(),
+                         "a re-extraction must not move an article out of "
+                         "quarantine")
+
+    def test_the_summary_reports_freshness(self):
+        """The number a nightly report needs to tell a quiet source from a
+        dead one — a run that saved nothing does not itself distinguish them."""
+        self.write_registry([("ex.bg", "rss", "")])
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/63", page("Статия", [PROSE * 5]))])
+        _, out = run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertEqual(out["newest_stored"], "2026-08-24")
+        self.assertIsInstance(out["newest_stored_age_days"], int)
+
+    def test_a_malformed_stored_date_does_not_break_the_summary(self):
+        """Raising here would print no summary at all — after every article
+        has already been saved."""
+        self.write_registry([("ex.bg", "rss", "")])
+        self.corpus().mkdir(parents=True, exist_ok=True)
+        (self.corpus() / "nodate-x-1.json").write_text(json.dumps({
+            "domain": "ex.bg", "url": "https://ex.bg/a/64", "title": "T",
+            "content": "x" * 500, "content_chars": 500,
+            "published": "9999-99-99T00:00:00+00:00"}), encoding="utf-8")
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/65", page("Статия", [PROSE * 5]))])
+        _, out = run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertEqual(out["saved"], 1)
+        self.assertIsNone(out["newest_stored_age_days"])
+
+
 class ReExtractionGuards(unittest.TestCase):
     """The three ways --reextract could destroy a corpus, each pinned.
 

@@ -6,9 +6,12 @@ files under news/data/<domain>/.
 Usage:
     python3 save_articles.py <domain> [N] [--delay=SECONDS] [--min-body=N]
                              [--retry-rejected] [--no-cache]
+                             [--no-quarantine]
                              [--urls-file=F | --prefetched=F.jsonl]
+    python3 save_articles.py <domain> --apply-quarantine [--apply]
     python3 save_articles.py <domain> --reextract [--allow-fetch]
-                             [--allow-shrink] [--min-body=N] [--delay=S]
+                             [--allow-shrink] [--prune-cache] [--dedupe]
+                             [--min-body=N] [--delay=S]
 
 Pipeline:
     1. Runs fetch_latest_articles.py as a SUBPROCESS and parses its stdout
@@ -70,7 +73,9 @@ same dead page for ever; --retry-rejected ignores that ledger for one run
 Prints ONE JSON summary object to stdout:
     {"domain","dir","dir_exists","requested","listed","already_present",
      "saved","rejected","skipped_rejected","rejected_ledger","min_body",
-     "failed":[{"url","detail"}],"list_method","order_confidence"}
+     "quarantined","quarantine_reason","newest_stored",
+     "newest_stored_age_days","failed":[{"url","detail"}],"list_method",
+     "order_confidence"}
 plus the lister's "warning" when it flagged a stale/unconfirmed source.
 Note "rejected" is a strict SUBSET of "failed" — a body-gate rejection is
 counted in both — so the outcome counts do not sum to "listed".
@@ -658,12 +663,19 @@ def extract_record(html_text, domain, url, list_published=None):
     return rec, is_article
 
 
-def analysis_sidecar(domain, filename):
-    """The analysis record analyze_articles.py stores 1:1 with a corpus file,
-    keyed by the SAME filename. Any corpus file this script deletes or renames
-    has to take its sidecar with it, or the analysis tree accumulates records
-    for articles the corpus no longer holds."""
-    return DATA_DIR / "analysis" / "articles" / domain / filename
+def analysis_sidecar(domain, filename, quarantined=False):
+    """The analysis record analyze_articles.py stores 1:1 with a corpus file.
+
+    Keyed by the corpus file's path RELATIVE TO news/data (that module's
+    analysis_path_for), so a quarantined record's sidecar would sit under
+    _quarantine/<domain>/. In practice it never does: corpus_domains() skips
+    _-prefixed directories, so the analysis layer cannot reach a quarantined
+    article at all. That is why relocating one DELETES its sidecar rather than
+    moving it — the analysis is of an article no longer in the analysable
+    corpus, and a "move" between two paths that are the same path was a silent
+    no-op."""
+    parts = ((QUARANTINE_DIR_NAME, domain) if quarantined else (domain,))
+    return DATA_DIR.joinpath("analysis", "articles", *parts, filename)
 
 
 def write_record(path, rec):
@@ -786,25 +798,46 @@ def article_filename(url, published):
     return f"{date}-{slug or 'article'}-{h}.json"
 
 
-def existing_urls(folder):
-    """CANONICAL keys of everything already stored.
+def scan_stored(*folders):
+    """One walk over the stored records: (canonical keys, newest publish day).
 
-    Keyed canonically, not on the raw `url` field: the same article arrives as
-    http/https, with and without www., with and without a trailing slash, and
-    with whatever tracking parameters the referring link carried — 20 groups
-    of the first corpus were one article stored twice under two spellings. The
-    stored `url` stays the real fetchable one; only the KEY is normalised."""
-    urls = set()
-    if not folder.exists():
-        return urls
-    for p in folder.glob("*.json"):
-        try:
-            d = json.loads(p.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
+    Both facts come off the same read because they were two identical walks
+    over the same files — at 100 files per domain per run that is a needless
+    doubling, and the two could drift on what counts as a record.
+
+    The newest day is deliberately taken over the STORED corpus rather than
+    over this run's listing: a run that saved nothing does not itself
+    distinguish a quiet day from a dead feed. It is a UTC day (the stored
+    `published` is an instant), unlike the filename bucket, which is a Sofia
+    calendar day — the two can differ by one for anything published
+    00:00-02:59 local."""
+    urls, newest = set(), None
+    for folder in folders:
+        if not folder.exists():
             continue
-        if d.get("url"):
-            urls.add(canonical_url(d["url"]))
-    return urls
+        for p in folder.glob("*.json"):
+            try:
+                d = json.loads(p.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+            if d.get("url"):
+                urls.add(canonical_url(d["url"]))
+            pub = d.get("published")
+            if isinstance(pub, str) and len(pub) >= 10:
+                day = pub[:10]
+                if day[:4].isdigit() and day[4:5] == "-" and (
+                        newest is None or day > newest):
+                    newest = day
+    return urls, newest
+
+
+def existing_urls(*folders):
+    """CANONICAL keys of everything already stored, across every folder given.
+
+    Takes several folders because a domain's articles can live in two places:
+    the corpus and the quarantine. Reading only one would re-fetch the other's
+    articles on every run, for ever."""
+    return scan_stored(*folders)[0]
 
 
 # ------------------------------------------------------------- the body gate
@@ -899,6 +932,74 @@ def body_is_title(content, title, slack=TITLE_ECHO_SLACK):
     # Only ever a suffix: a body that merely STARTS with its headline and then
     # continues for a paragraph is an ordinary article, not a title echo.
     return c.startswith(t) and len(c) - len(t) <= slack
+
+
+QUARANTINE_DIR_NAME = "_quarantine"
+
+
+def domain_folders(domain):
+    """(corpus, quarantine) — the two places a domain's articles can live.
+
+    Reconstructed at four call sites before this existed, and one of them
+    (cmd_reextract) had only the corpus half, which made --reextract report
+    `records: 0` for every quarantined domain and made --prune-cache unlink
+    every one of their cached pages."""
+    return DATA_DIR / domain, DATA_DIR / QUARANTINE_DIR_NAME / domain
+
+
+def registry_flag(domain, prefix):
+    """One dated column from the registry row, matched by PREFIX — the columns
+    are timestamped and renamed on each refresh (feed_method_aug2026,
+    quarantine_aug2026), so nothing here may hard-code a vintage."""
+    # fla resolves the registry from its OWN file location, so a test tree
+    # pointed at by DATA_BG_ROOT would silently read the real committed CSV.
+    csv_path = DATA_DIR / "bg_news_sites.csv"
+    try:
+        original, fla.CSV_PATH = fla.CSV_PATH, csv_path
+        try:
+            row, _, _ = fla.load_row(domain)
+        finally:
+            fla.CSV_PATH = original
+    except (OSError, RuntimeError):
+        return ""
+    if not row:
+        return ""
+    col = next((h for h in row if h.startswith(prefix)), None)
+    return (row.get(col) or "").strip() if col else ""
+
+
+def quarantine_decision(domain, order_confidence):
+    """Where this run's articles belong, and why.
+
+    A structurally stale source publishes actively while its sitemap carries
+    years-old dates — measured: dnes.bg stuck at 2018, iskra.bg 2019,
+    bnews.bg 2020, investor.bg 2023, bgonair.bg 2025-04, bntnews.bg 2025-12.
+    The lister already DETECTS this and the saver stored the articles anyway,
+    where they sit indistinguishable from fresh content and enter the analysis
+    queue at the same priority.
+
+    Two inputs, deliberately: the runtime signal catches a source that goes
+    stale tomorrow, and the curated registry flag settles the cases the runtime
+    signal gets wrong in either direction — dnes.bg's staleness is TRANSIENT
+    (it served fresh headlines early one day and 2018 URLs for hours after),
+    so a runtime-only rule would shuttle its articles between two folders run
+    to run."""
+    flag = registry_flag(domain, "quarantine_")
+    runtime = order_confidence == "stale_source_suspected"
+    if flag == "never":
+        return False, "registry says never quarantine"
+    if flag == "stale_source":
+        return True, "registry marks this source structurally stale"
+    if flag:
+        # An unrecognised verdict is a typo or a convention this code has not
+        # learned. Falling through silently would look identical to an empty
+        # cell, so the run says so and follows the runtime signal.
+        reason = (f"unrecognised registry verdict {flag!r}; following the "
+                  f"lister ({order_confidence})")
+        return runtime, reason
+    if runtime:
+        return True, "the lister flagged stale_source_suspected this run"
+    return False, ""
 
 
 REJECT_DIR_NAME = "_rejected"
@@ -1067,17 +1168,23 @@ def read_html_cache(domain, url):
 
 # ------------------------------------------------------------- re-extraction
 
-def stored_records(folder):
-    """Every stored record in a domain folder, as (path, dict). A file that
-    will not parse is skipped rather than raising -- one torn record must not
-    stop a whole domain's re-extraction."""
-    if not folder.exists():
-        return
-    for path in sorted(folder.glob("*.json")):
-        try:
-            yield path, json.loads(path.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
+def stored_records(*folders, on_unreadable=None):
+    """Every stored record across the given folders, as (path, dict).
+
+    A file that will not parse is skipped rather than raising — one torn
+    record must not stop a whole domain's re-extraction — but the caller may
+    pass on_unreadable to be TOLD, so a skipped record is reported rather than
+    vanishing from every count the caller then prints."""
+    for folder in folders:
+        if not folder.exists():
             continue
+        for path in sorted(folder.glob("*.json")):
+            try:
+                yield path, json.loads(path.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError) as e:
+                if on_unreadable is not None:
+                    on_unreadable(path, e)
+                continue
 
 
 def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
@@ -1131,7 +1238,13 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
 
     Pass 2 revisits the rejection ledger, promoting any page that now yields a
     real body -- the whole point of caching the HTML before the gate."""
-    folder = DATA_DIR / domain
+    # BOTH folders. A quarantined article is precisely the article a
+    # structurally stale source can never list again — the population this
+    # mode exists for — and resolving only the corpus made --reextract report
+    # `records: 0` for all six quarantined domains while --prune-cache
+    # unlinked every one of their cached pages.
+    folder, quarantine_folder = domain_folders(domain)
+    scan_folders = (folder, quarantine_folder)
     out = {"domain": domain, "mode": "reextract", "min_body": min_body,
            "floor_from_cli": floor_from_cli,
            "records": 0, "from_cache": 0, "fetched": 0, "no_html": 0,
@@ -1184,7 +1297,9 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
             ledgered.add(key)
         try:
             path.unlink()
-            analysis_sidecar(domain, path.name).unlink(missing_ok=True)
+            analysis_sidecar(domain, path.name,
+                             path.parent == quarantine_folder
+                             ).unlink(missing_ok=True)
         except OSError as e:
             out["failed"].append({"url": url, "detail": f"unlink: {e}"})
             return False
@@ -1199,7 +1314,7 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
     #     members independently. Measured on the live corpus: 19 canonical keys
     #     held more than one stored URL, all same-title.
     by_key = {}
-    for path, rec in stored_records(folder):
+    for path, rec in stored_records(*scan_folders):
         if not rec.get("url"):
             continue
         by_key.setdefault(canonical_url(rec["url"]), []).append((path, rec))
@@ -1218,13 +1333,15 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
         for path, _rec in members[1:]:
             try:
                 path.unlink()
-                analysis_sidecar(domain, path.name).unlink(missing_ok=True)
+                analysis_sidecar(domain, path.name,
+                                 path.parent == quarantine_folder
+                                 ).unlink(missing_ok=True)
                 out["duplicates_removed"] += 1
             except OSError as e:
                 out["failed"].append({"url": key, "detail": f"dedupe: {e}"})
 
     # --- pass 1: every stored record
-    for path, old_rec in list(stored_records(folder)):
+    for path, old_rec in list(stored_records(*scan_folders)):
         out["records"] += 1
         url = old_rec.get("url")
         if not url:
@@ -1285,16 +1402,20 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
             continue
         rec["fetched_at"] = old_rec.get("fetched_at") or rec["fetched_at"]
         rec["reextracted_at"] = datetime.now(timezone.utc).isoformat()
-        new_path = folder / article_filename(url, rec["published"])
+        # Back into the folder this record came from: a quarantined article
+        # must not be promoted into the corpus by a re-extraction.
+        new_path = path.parent / article_filename(url, rec["published"])
         try:
             write_record(new_path, rec)
             if new_path != path:
                 # The publish date changed, so the filename did. Move the
                 # analysis sidecar with it or the analysis tree keeps a record
                 # under a corpus name that no longer exists.
-                old_side = analysis_sidecar(domain, path.name)
+                in_quarantine = path.parent == quarantine_folder
+                old_side = analysis_sidecar(domain, path.name, in_quarantine)
                 if old_side.exists():
-                    new_side = analysis_sidecar(domain, new_path.name)
+                    new_side = analysis_sidecar(domain, new_path.name,
+                                                in_quarantine)
                     new_side.parent.mkdir(parents=True, exist_ok=True)
                     old_side.replace(new_side)
                 path.unlink()
@@ -1308,8 +1429,8 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
     # max_age_days=None is load-bearing: a rejection older than the ledger's
     # 30-day TTL is exactly the one most likely to predate the extractor fix
     # being applied, and reading the ledger through the TTL would skip it.
-    stored_urls = {canonical_url(r["url"]) for _, r in stored_records(folder)
-                   if r.get("url")}
+    stored_urls = {canonical_url(r["url"])
+                   for _, r in stored_records(*scan_folders) if r.get("url")}
     raw_for = rejected_url_map(domain, max_age_days=None)
     for key in sorted(set(raw_for) - stored_urls - demoted_urls):
         url = raw_for[key]
@@ -1337,7 +1458,7 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
     # --- optional: drop cache entries nothing refers to any more
     if prune_cache:
         keep = set()
-        referenced = {r.get("url") for _, r in stored_records(folder)}
+        referenced = {r.get("url") for _, r in stored_records(*scan_folders)}
         referenced |= set(rejected_url_map(domain, max_age_days=None).values())
         for u in referenced:
             if not u:
@@ -1361,6 +1482,107 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
     out["dir"] = (str(folder.relative_to(Path.cwd()))
                   if _under_cwd(folder) else str(folder))
     out["dir_exists"] = folder.is_dir()
+    out["quarantine_dir_exists"] = quarantine_folder.is_dir()
+    return out
+
+
+def cmd_apply_quarantine(domain, apply_changes):
+    """Move a domain's ALREADY-STORED records to whichever side of the
+    quarantine the registry now says they belong on.
+
+    The routing in main() only decides where a run's NEW articles land.
+    Without this, flagging a source structurally stale leaves its existing
+    records — 592 across six domains at the time this was written — sitting in
+    the corpus indistinguishable from fresh content and entering the analysis
+    queue at the same priority, which is the whole condition the flag exists
+    to end.
+
+    ⚠️ CURATED VERDICTS ONLY. main() routes on the registry flag OR the
+    runtime staleness signal; this mode reads no feed, so it cannot see the
+    runtime half — and acting on its absence would drag records back OUT of
+    quarantine on a domain the lister had flagged but nobody had curated. An
+    uncurated domain is therefore reported and left alone.
+
+    A relocation to quarantine DELETES the record's analysis sidecar rather
+    than moving it: corpus_domains() skips _-prefixed directories, so the
+    analysis layer cannot reach a quarantined article at all, and the sidecar
+    is an analysis of something no longer in the analysable corpus. (The
+    previous "move" was a no-op — both paths it computed were the same path.)
+
+    Dry by default."""
+    flag = registry_flag(domain, "quarantine_")
+    corpus, quarantine = domain_folders(domain)
+    out = {"domain": domain, "mode": "apply-quarantine",
+           "registry_flag": flag or None, "direction": None,
+           "movable": 0, "moved": 0, "sidecars_removed": 0,
+           "unreadable": 0, "applied": apply_changes, "failed": []}
+
+    if flag == "stale_source":
+        src, dst, to_quarantine = corpus, quarantine, True
+    elif flag == "never":
+        src, dst, to_quarantine = quarantine, corpus, False
+    else:
+        out["direction"] = "none (no curated verdict)"
+        out["detail"] = (
+            "this mode reads no feed, so it cannot see the runtime staleness "
+            "signal main() also routes on. Acting on a blank verdict would "
+            "drag records out of quarantine on a domain the lister had "
+            "flagged. Set quarantine_<vintage> to stale_source or never.")
+        out["corpus_dir_exists"] = corpus.is_dir()
+        out["quarantine_dir_exists"] = quarantine.is_dir()
+        return out
+
+    out["direction"] = ("corpus -> quarantine" if to_quarantine
+                        else "quarantine -> corpus")
+
+    def _unreadable(path, exc):
+        out["unreadable"] += 1
+        out["failed"].append({"path": path.name,
+                              "detail": f"unreadable, left in place: {exc}"})
+
+    for path, _rec in list(stored_records(src, on_unreadable=_unreadable)):
+        out["movable"] += 1
+        if not apply_changes:
+            continue
+        try:
+            dst.mkdir(parents=True, exist_ok=True)
+            target = dst / path.name
+            if target.exists():
+                # Same filename on the far side. The name embeds a hash of the
+                # canonical URL, so this is the same article — but only
+                # DISCARD the source when the two are byte-identical, or a
+                # newer re-extraction is silently thrown away.
+                if path.read_bytes() == target.read_bytes():
+                    path.unlink()
+                else:
+                    out["failed"].append({
+                        "path": path.name,
+                        "detail": "a DIFFERENT record already exists on the "
+                                  "far side; left in place for a human"})
+                    continue
+            else:
+                path.replace(target)
+            # The sidecar belongs to the side the record just LEFT.
+            removed = analysis_sidecar(domain, path.name,
+                                       quarantined=not to_quarantine)
+            if removed.exists():
+                removed.unlink()
+                out["sidecars_removed"] += 1
+            out["moved"] += 1
+        except OSError as e:
+            out["failed"].append({"path": path.name, "detail": str(e)})
+
+    if apply_changes and src.is_dir() and not any(src.iterdir()):
+        # An emptied corpus folder is a ghost outlet: build_app_data lists a
+        # domain directory whether or not it holds anything, so six of them
+        # would render with article_count 0.
+        try:
+            src.rmdir()
+        except OSError:
+            pass
+
+    out["corpus_dir_exists"] = corpus.is_dir()
+    out["quarantine_dir_exists"] = quarantine.is_dir()
     return out
 
 
@@ -1379,6 +1601,9 @@ def main():
     cache_html = True
     prune_cache = False
     dedupe = False
+    no_quarantine = False
+    apply_quarantine = False
+    apply_changes = False
     floor_from_cli = False
     for a in list(args):
         if a.startswith("--delay="):
@@ -1406,6 +1631,15 @@ def main():
             args.remove(a)
         elif a == "--dedupe":
             dedupe = True
+            args.remove(a)
+        elif a == "--no-quarantine":
+            no_quarantine = True
+            args.remove(a)
+        elif a == "--apply-quarantine":
+            apply_quarantine = True
+            args.remove(a)
+        elif a == "--apply":
+            apply_changes = True
             args.remove(a)
         elif a.startswith("--min-body="):
             raw = a.split("=", 1)[1]
@@ -1439,12 +1673,14 @@ def main():
         print(json.dumps({"error": "usage",
                           "detail": "save_articles.py <domain> [N] [--delay=S] "
                                     "[--min-body=N] [--retry-rejected] "
-                                    "[--no-cache] "
+                                    "[--no-cache] [--no-quarantine] "
                                     "[--urls-file=F | --prefetched=F.jsonl] | "
                                     "save_articles.py <domain> --reextract "
                                     "[--allow-fetch] [--allow-shrink] "
                                     "[--prune-cache] [--dedupe] [--no-cache] "
-                                    "[--min-body=N] [--delay=S]"}))
+                                    "[--min-body=N] [--delay=S] | "
+                                    "save_articles.py <domain> "
+                                    "--apply-quarantine [--apply]"}))
         sys.exit(1)
     domain = args[0]
     if len(args) > 1 and not args[1].isdigit():
@@ -1452,6 +1688,18 @@ def main():
                           f"N must be a non-negative integer, got {args[1]!r}"}))
         sys.exit(1)
     want = int(args[1]) if len(args) > 1 else 5
+
+    if apply_changes and not apply_quarantine:
+        print(json.dumps({"error": "usage", "detail":
+                          "--apply only applies to --apply-quarantine; every "
+                          "other destructive path has its own flag "
+                          "(--dedupe, --prune-cache, --allow-shrink)"}))
+        sys.exit(1)
+
+    if apply_quarantine:
+        summary = cmd_apply_quarantine(domain, apply_changes)
+        print(json.dumps(summary, ensure_ascii=False))
+        sys.exit(4 if summary["failed"] else 0)
 
     if reextract:
         if urls_file or prefetched:
@@ -1543,8 +1791,15 @@ def main():
         listed_count = listed.get("count", 0)
         warning = listed.get("warning")
 
-    folder = DATA_DIR / domain
-    have = existing_urls(folder)
+    quarantined, quarantine_reason = quarantine_decision(domain,
+                                                         order_confidence)
+    if no_quarantine:
+        quarantined, quarantine_reason = False, "--no-quarantine"
+    corpus_folder, quarantine_folder = domain_folders(domain)
+    folder = quarantine_folder if quarantined else corpus_folder
+    # BOTH sides: a domain that was quarantined yesterday and is fresh today
+    # must not re-fetch what it already holds, and vice versa.
+    have, _ = scan_stored(corpus_folder, quarantine_folder)
     skip_rejected = set() if retry_rejected else rejected_urls(domain)
     # A URL rejected earlier in THIS run must not be appended twice, and with
     # --retry-rejected the ledger's own entries are re-appended every run --
@@ -1643,6 +1898,7 @@ def main():
         "listed": listed_count,
         "already_present": sum(1 for a in articles if a.get("url")
                                and canonical_url(a["url"]) in have),
+        "quarantined": quarantined,
         "dir_exists": folder.is_dir(),
         "saved": saved,
         # `rejected` is a strict SUBSET of `failed` -- both gate call sites
@@ -1659,6 +1915,24 @@ def main():
         "list_method": list_method,
         "order_confidence": order_confidence,
     }
+    if quarantine_reason:
+        summary["quarantine_reason"] = quarantine_reason
+    # The nightly report's freshness assertion reads this: a live source whose
+    # newest stored article is weeks old is either broken or quarantined, and
+    # the two must be told apart by something other than silence.
+    _, newest = scan_stored(corpus_folder, quarantine_folder)
+    summary["newest_stored"] = newest
+    if newest:
+        try:
+            summary["newest_stored_age_days"] = (
+                datetime.now(timezone.utc).date()
+                - datetime.fromisoformat(newest).date()).days
+        except ValueError:
+            # A malformed stored date must not raise HERE — every article has
+            # already been saved, and an exception at this point would print no
+            # summary at all, breaking the one-JSON-object contract after the
+            # work is done.
+            summary["newest_stored_age_days"] = None
     if warning:
         summary["warning"] = warning
     print(json.dumps(summary, ensure_ascii=False))

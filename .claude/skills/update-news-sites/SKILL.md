@@ -9,6 +9,26 @@ Produces **`news/data/bg_news_sites.csv`** — every Bulgarian news domain worth
 ranked, with three independent measurements beside each so no single vendor's estimate
 is load-bearing.
 
+## ⚠️ Carry the curated columns forward
+
+The `feed_*` columns are re-probed and renamed on every refresh. **The
+`quarantine_*` column is NOT re-derivable — it is a human verdict** about a
+source whose sitemap carries years-old dates while the site publishes
+actively, and `save-news-articles` routes a flagged outlet's articles to
+`news/data/_quarantine/` instead of the corpus.
+
+A refresh that writes only the `feed_*` columns silently drops every pin. The
+failure is invisible: `registry_flag` returns `""` for an absent column, so all
+of them revert to runtime-only detection, dnes.bg resumes shuttling its
+articles between two folders run to run (its staleness is TRANSIENT), and every
+run summary still reads healthy.
+
+**Copy the existing `quarantine_*` cells across by domain before writing the
+new CSV**, under the new vintage's name. As of 2026-08-26 seven are set:
+bgonair.bg, bivol.bg, bnews.bg, bntnews.bg, dnes.bg, investor.bg, iskra.bg —
+all `stale_source`. Values are `stale_source`, `never`, or empty; anything else
+is reported as unrecognised at runtime and falls back to the lister.
+
 ## What the file is
 
 ```

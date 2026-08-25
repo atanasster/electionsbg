@@ -285,6 +285,52 @@ a first run "saved 100" that were all from 2021).
    sitemap URLs.
 3. `rm -rf news/data/<domain>` if it holds wrong-vintage articles —
    incremental skip would otherwise keep them forever — and re-run.
+   ⚠️ **Since the quarantine landed, that is `rm -rf` on BOTH folders**:
+   `existing_urls` reads the corpus and `news/data/_quarantine/<domain>/`
+   together, so clearing one leaves the other still suppressing the re-fetch.
+
+**Since 2026-08-26 a stale source is QUARANTINED, not stored beside fresh
+content.** The lister had detected this all along and the saver stored the
+articles anyway, where they were indistinguishable from current reporting and
+entered the analysis queue at the same priority. Articles from a stale source
+now land in `news/data/_quarantine/<domain>/`, and every run reports
+`quarantined`, `quarantine_reason`, `newest_stored` and
+`newest_stored_age_days`.
+
+Two inputs decide it, deliberately: the RUNTIME `stale_source_suspected`
+signal catches a source that goes stale tomorrow, and a curated
+`quarantine_<vintage>` column in the registry settles the cases the runtime
+signal gets wrong in either direction — `dnes.bg`'s staleness is TRANSIENT, so
+a runtime-only rule would shuttle its articles between two folders run to run.
+Values: `stale_source` (always quarantine), `never` (never), empty (follow the
+runtime signal). `--no-quarantine` overrides for one run.
+
+`existing_urls` reads BOTH folders, so a domain that moves between them does
+not re-fetch what it already holds. Relocating an EXISTING corpus is a
+separate, registry-driven, dry-by-default pass that needs no network:
+
+```bash
+python3 news/scripts/save_articles.py <domain> --apply-quarantine          # report
+python3 news/scripts/save_articles.py <domain> --apply-quarantine --apply  # move
+```
+
+Run 2026-08-26: 592 records moved across six domains (bnews.bg 100, iskra.bg
+100, investor.bg 100, dnes.bg 98, bntnews.bg 98, bgonair.bg 96). A relocation
+DELETES the record's analysis sidecar rather than moving it — `corpus_domains()`
+skips `_`-prefixed directories, so the analysis layer cannot reach a
+quarantined article at all, and the sidecar is an analysis of something no
+longer in the analysable corpus.
+
+⚠️ **The mode acts on the CURATED verdict only.** It reads no feed, so it
+cannot see the runtime signal `main()` also routes on — acting on a blank
+verdict would drag records back OUT of quarantine on a domain the lister had
+flagged. An uncurated domain is reported and left alone.
+
+⚠️ **`--reextract` reads BOTH folders**, and must: a quarantined article is
+precisely the one a structurally stale source can never list again, which is
+the population that mode exists for. A record is rewritten into its own
+folder, so a re-extraction never promotes an article out of quarantine, and
+`--prune-cache` keeps quarantined articles' cached HTML.
 
 Do NOT paper over `stale_source_suspected` the same way: some sources are
 STRUCTURALLY stale — the sitemap generator carries years-old dates on an
@@ -447,7 +493,8 @@ still wrong (Step 2).
 | `news/scripts/tests/fixtures/` | 18 gzipped real pages (1.0 MB, COMMITTED) + `expectations.json` (GENERATED — edit the seed) + a README on provenance. The only thing standing between an extractor change and a 4,700-page sweep. |
 | `news/data/_rejected/<domain>.jsonl` | body-gate rejection ledger: url, reason, chars, title, timestamp. Untracked; entries expire after 30 days. |
 | `news/scripts/save_all_direct.sh` | parallel batch over the direct tier (this skill) |
-| `news/data/<domain>/*.json` | the stored articles, incremental by URL |
+| `news/data/<domain>/*.json` | the stored articles, incremental by CANONICAL url |
+| `news/data/_quarantine/<domain>/*.json` | articles from a structurally stale source — same shape, kept out of the corpus so they cannot read as current reporting |
 | `news/data/_browser/*` | browser-tier scratch: `<domain>.urls` (harvested links), `<domain>.jsonl` (prefetched rendered HTML) — reusable for re-extraction, untracked |
 | `news/data/_html/<domain>/*.json.gz` | the page-HTML cache `--reextract` reads: gzipped `{url, html, cached_at}`, keyed by URL hash, written before the gates. Untracked, ~15 KB/page. |
 | `news/scripts/fetch_latest_articles.py` | the lister it shells out to — see fetch-news-articles |

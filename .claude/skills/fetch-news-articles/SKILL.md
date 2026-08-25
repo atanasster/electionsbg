@@ -10,7 +10,11 @@ site, using `news/scripts/fetch_latest_articles.py` — a tested Python
 script that reads `news/data/bg_news_sites.csv`, dispatches by the site's
 recorded `feed_method_*`, and returns clean JSON. Read that CSV's header
 once to get the current `feed_method_*`/`feed_url_*` column names (they're
-timestamped and renamed on refresh — see the update-news-sites skill).
+timestamped and renamed on refresh — see the update-news-sites skill). A
+`quarantine_*` column carries a curated staleness verdict per outlet
+(`stale_source` / `never` / empty); this skill does not act on it, but
+save-news-articles routes a flagged source's articles to
+`news/data/_quarantine/` rather than the corpus.
 
 ## Step 1 — resolve the domain
 
