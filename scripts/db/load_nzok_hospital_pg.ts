@@ -10,8 +10,15 @@
 // (data/budget/nzok/hospital_eik.json). We load only the months that PARSE +
 // RECONCILE cleanly — currently 2023-2026 (see YEARS). Any month the parser
 // can't reconcile is skipped, not shipped wrong; the remaining backfill tail
-// (a few early-year files + ≤2022's shifted naming/format) is tracked in
-// scripts/nzok/README.md and loads into the same table as each era is hardened.
+// (≤2022's shifted naming/format) is tracked in scripts/nzok/README.md and loads
+// into the same table as each era is hardened.
+//
+// ⚠️ Within YEARS the expected skip count is ZERO. It was 24 of 127 until the
+// completeness work in docs/plans/nzok-hospital-parser-hardening-v1.md: 14 files
+// were withheld over money the parser was reading wrong, and 10 over НЗОК's own
+// facility count, which means different things in different eras and is now
+// REPORTED (`countMismatches`) rather than asserted. A skip printed today is a
+// month the site does not have.
 
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -73,11 +80,12 @@ const BASE = process.env.NZOK_BASE_URL ?? "https://www.nhif.bg";
 const UA = "electionsbg.com data pipeline";
 
 // Years whose monthly files we attempt. 2023-2026 use the "Заплатени
-// здравноосигурителни плащания за БМП" naming + the 2-column monthly layout the
-// parser reconciles cleanly (early-year Jan/Feb files are 3-column and get
-// skipped by the reconciliation assert). 2022-and-earlier shift naming/format
-// (period-in-filename, wrap-drops) and need per-era link+parser work — tracked
-// in scripts/nzok/README.md.
+// здравноосигурителни плащания за БМП" naming, in both the 2- and 3-column
+// monthly layouts — the January/February files are 3-column and DO load; the note
+// here said they were "skipped by the reconciliation assert", which was true only
+// while the January files were failing НЗОК's facility count. 2022-and-earlier
+// shift naming/format (period-in-filename, wrap-drops) and need per-era
+// link+parser work — tracked in scripts/nzok/README.md.
 const YEARS = [2026, 2025, 2024, 2023];
 
 // The three money streams NHIF publishes per month on the same listing page. A
@@ -352,8 +360,15 @@ const main = async (): Promise<void> => {
     `Loaded ${rows.length} rows · ${months} periods · ${monthsOk} months OK · ${matched} rows w/ eik (${((100 * matched) / rows.length).toFixed(0)}%)`,
   );
   if (monthsSkipped.length) {
+    // ⚠️ NOT "parser hardening TODO" any more, which is what this said while 24 of
+    // 127 files were withheld and the banner read as a standing chore. Since the
+    // Tier 2 completeness work (docs/plans/nzok-hospital-parser-hardening-v1.md)
+    // the expected count here is ZERO, so anything printed is a month the site is
+    // MISSING and a regression to investigate — not a backlog item.
     console.log(
-      `Skipped ${monthsSkipped.length} months (parser hardening TODO):`,
+      `⚠️ Skipped ${monthsSkipped.length} month(s) — these are ABSENT from ` +
+        `nzok_hospital_payments. Expected 0; each line is a file whose ` +
+        `completeness assert fired:`,
     );
 
     monthsSkipped.forEach((m) => console.log(`  - ${m}`));

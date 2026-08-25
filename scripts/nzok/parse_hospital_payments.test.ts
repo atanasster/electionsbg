@@ -796,3 +796,35 @@ test("a fused subtotal rendering cannot win first-occurrence", () => {
   };
   assert.deepEqual(pickTotal([fused, clean]), clean);
 });
+
+// ── The „№ по ред" ordinal, which Tier 2 turns from a discarded group into the
+//    count model. It restarts per РЗОК block, so a block's ordinals should run
+//    1..n against the count its subtotal prints — and a gap names WHICH facility
+//    is absent rather than how many, which is the difference between a fact and a
+//    discrepancy.
+test("the row ordinal is captured, and its absence is not a zero", () => {
+  const numbered = matchRowStart(
+    " 01    Благоевград         3       0103211001   МБАЛ Благоевград АД   4 684 771   903 437",
+  );
+  assert.equal(numbered?.ordinal, 3);
+
+  // ⚠️ НЗОК leaves „№ по ред" BLANK on some zero-payment rows. That must read as
+  // null, never 0: an unnumbered row can account for any one absent ordinal, and
+  // treating it as ordinal 0 would both miss that and invent a gap at 1.
+  const unnumbered = matchRowStart(
+    " 22    София град          2201211096   МБАЛ Болница Европа ООД   0   0",
+  );
+  assert.equal(unnumbered?.ordinal, null);
+  assert.equal(unnumbered?.regNo, "2201211096", "the reg number still parses");
+});
+
+test("an ordinal is never confused with the reg number", () => {
+  // `\d{10}` needs ten CONTIGUOUS digits and whitespace separates the two, so the
+  // optional ordinal group is unambiguous in both directions — a 10-digit ordinal
+  // cannot exist and a reg number cannot be read as one.
+  const r = matchRowStart(
+    " 16    Пловдив              12      1622334019   КОЦ Пловдив ЕООД   16 837 889   5 627 354",
+  );
+  assert.equal(r?.ordinal, 12);
+  assert.equal(r?.regNo, "1622334019");
+});

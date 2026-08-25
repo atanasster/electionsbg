@@ -22,6 +22,7 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import {
   parseHospitalPaymentsPdf,
+  type CountMismatch,
   type PaymentStream,
 } from "./parse_hospital_payments";
 
@@ -51,6 +52,8 @@ interface Parsed {
   period: string;
   /** Blocks the parser could not block-reconcile (НЗОК printed no subtotal). */
   unreconciled: string[];
+  /** Blocks whose printed count disagrees with the ordinals actually seen. */
+  countMismatches: CountMismatch[];
   /** Needed by the block reconciliation below: the subtotal lines live in the raw
    *  text, and the peg conversion needs to know which currency the file is in. */
   text: string;
@@ -121,6 +124,7 @@ const parseAll = (): Parsed[] => {
         text: full(p),
         currency: f.currencyOfRecord,
         unreconciled: f.unreconciledBlocks,
+        countMismatches: f.countMismatches,
         rows: f.rows,
         rejected: null,
       });
@@ -132,6 +136,7 @@ const parseAll = (): Parsed[] => {
         text: "",
         currency: "BGN",
         unreconciled: [],
+        countMismatches: [],
         rows: [],
         rejected: (e as Error).message,
       });
@@ -215,72 +220,107 @@ run("only the known facilities carry an amount inside their name", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Fingerprint 3 — the months the completeness asserts withhold.
+// Fingerprint 3 — the months the parser withholds.
 //
 // A rejected month is a month ABSENT from nzok_hospital_payments: the loader
 // catches the throw, logs one truncated line and carries on at exit 0. That is
 // why this belongs in a test rather than in a console.
 //
-// ⚠️ Identity, not a count, and keyed on (stream, PERIOD) rather than on cache
-// files — a superseded re-upload of a bad month is the same missing month, and
-// counting it twice made this number 17 where the site is missing 12.
+// ⚠️ It is now EMPTY, and that is Tier 2's whole point rather than a gate going
+// slack. 24 of 127 files were withheld when this work started — 14 for money and
+// 10 over a count that means different things in different eras. Tier 1 fixed the
+// money; Tier 2 replaced the count ASSERT with a count REPORT, because no rule
+// can tell НЗОК's own bookkeeping from a real drop by counting. The strong check
+// is the per-block reconciliation, which the parser now performs and which this
+// file re-performs independently below.
 //
-// Every entry here is a month the site does not have, and every one of them is
-// now a COUNT-assert failure — Tier 1 closed the whole Σ-drift class, including
-// drugs 2024-06, whose rows were always right and whose header alone was misread
-// (RC-2). What is left is the count model itself, which is Tier 2's per-block
-// reconciliation: НЗОК's own printed count means different things in different
-// eras, and on some months it counts facilities it does not print.
-const REJECTED_PERIODS = [
-  "bmp 2023-01",
-  "bmp 2023-02",
-  "bmp 2023-03",
-  "bmp 2025-01",
-  "bmp 2026-01",
-  "devices 2023-06",
-  "devices 2023-07",
-  "devices 2025-01",
-  "devices 2026-01",
-  "drugs 2023-06",
-  "drugs 2023-07",
-];
+// A NEW entry here is a real regression: it means a file that used to publish
+// stopped, and the message says which of the four asserts fired.
+const REJECTED_PERIODS: string[] = [];
 
-run("only the known months are withheld", () => {
+run("no month is withheld", () => {
   const rejected = [
     ...new Set(
       parsed()
         .filter((f) => f.rejected)
-        .map((f) => `${f.stream} ${f.period}`),
+        .map((f) => `${f.stream} ${f.period}: ${f.rejected}`),
     ),
   ].sort();
-  expect(rejected).toEqual(REJECTED_PERIODS);
+  expect(rejected.map((r) => r.split(":")[0])).toEqual(REJECTED_PERIODS);
 });
 
-// A rejection is only ever one of the two completeness asserts. Anything else —
-// a TypeError, a pdftotext failure, a regex blowing up on a new layout — is a
-// crash wearing a rejection's clothes, and the ratchet above would absorb it.
-// The comment on REJECTED_PERIODS says every remaining rejection is a COUNT
-// failure — Tier 1 closed the whole Σ-drift class. Asserted rather than claimed:
-// a Σ-drift rejection reappearing means a money defect came back, which is a very
-// different event from a count-model month and must not hide among them.
-run("every remaining rejection is a count failure, not a money one", () => {
-  // ⚠️ `/reconciliation failed/` alone is wrong now: Tier 2 added
-  // "block reconciliation failed for …", which that pattern absorbs — so a BLOCK
-  // failure would be announced as the whole-file ratio returning, naming the
-  // backstop instead of the check that actually fired.
-  const drift = parsed()
-    .filter(
-      (f) =>
-        f.rejected &&
-        /block reconciliation failed|header total disagrees|(?<!block )reconciliation failed/.test(
-          f.rejected,
-        ),
-    )
-    .map((f) => `${f.stream} ${f.period}: ${f.rejected}`);
+// ─────────────────────────────────────────────────────────────────────────────
+// Fingerprint 4 — blocks whose printed count and „№ по ред" ordinals disagree.
+//
+// This REPLACES the old facility-count assert, and the difference is what makes
+// it usable: the assert said "364 paid vs a header of 373" about a whole file,
+// which is a discrepancy; this says „Бургас printed 27, ordinal 5 is absent",
+// which is a fact about one facility. Every entry below is НЗОК's own bookkeeping
+// — a count of rows it did not print, or (devices 2023-06/07) София град's count
+// given as 83, which is the БМП report's Sofia figure and not this report's 27.
+//
+// Asserted as an identity set for the same reason as the others: a new KIND of
+// disagreement names itself, while a new month with a known one adds no noise.
+// ⚠️ Keyed on (stream, BLOCK), not (stream, period). The mechanism is per-block
+// and RECURS: НЗОК's January files count facilities they do not print, so 6 of the
+// 13 affected months are Januaries and a period-keyed set turns red every January
+// on an ordinary cache refresh — the trap this file's own fingerprint-2 comment
+// documents. A block-keyed set absorbs the next January silently and still names a
+// NEW region the day one appears.
+const COUNT_MISMATCH_BLOCKS = [
+  "bmp Бургас",
+  "bmp Кюстендил",
+  "bmp Пазарджик",
+  "bmp Плевен",
+  "bmp Русе",
+  "bmp София град",
+  "devices Бургас",
+  "devices Варна",
+  "devices Пазарджик",
+  "devices Пловдив",
+  "devices Сливен",
+  "devices София град",
+  "devices Стара Загора",
+  "drugs Русе",
+  "drugs София град",
+  "drugs Хасково",
+  "drugs Шумен",
+];
+
+run("only the known blocks disagree with their printed count", () => {
+  const mismatched = [
+    ...new Set(
+      parsed().flatMap((f) =>
+        f.countMismatches.map((m) => `${f.stream} ${m.block}`),
+      ),
+    ),
+  ].sort();
+  expect(mismatched).toEqual(COUNT_MISMATCH_BLOCKS);
+});
+
+// ⚠️ The ordinal capture, asserted directly. An earlier test here claimed to catch
+// it breaking and could not: it asserted that every mismatch names an absent
+// ordinal, which the report's own emit condition makes unfalsifiable. If the
+// capture broke, EVERY row would read as unnumbered — so assert the opposite from
+// the data side, where it is a real measurement.
+run("the row ordinal is actually being captured across the corpus", () => {
+  const files = parsed().filter((f) => !f.rejected);
+  const unnumbered = files.reduce(
+    (n, f) => n + f.countMismatches.reduce((m, c) => m + c.unnumbered, 0),
+    0,
+  );
+  const numbered = files.reduce(
+    (n, f) => n + f.countMismatches.reduce((m, c) => m + c.numbered, 0),
+    0,
+  );
   expect(
-    drift,
-    `Σ-drift rejections have returned:\n${drift.join("\n")}`,
-  ).toEqual([]);
+    numbered,
+    "no ordinals seen at all — the capture group has broken",
+  ).toBeGreaterThan(0);
+  expect(
+    numbered,
+    `ordinals collapsed: ${numbered} numbered against ${unnumbered} unnumbered`,
+  ).toBeGreaterThan(unnumbered);
 });
 
 run("every rejection is a completeness assert, never a crash", () => {

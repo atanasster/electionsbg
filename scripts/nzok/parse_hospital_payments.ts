@@ -40,6 +40,22 @@ export interface HospitalPaymentRow {
   monthEur: number;
 }
 
+/** A block where НЗОК's printed facility count and the „№ по ред" ordinals we
+ *  actually saw disagree. Descriptive, not an error — see `countMismatches`. */
+export interface CountMismatch {
+  block: string;
+  /** The count НЗОК printed on this block's subtotal line. */
+  printed: number;
+  /** Distinct ordinals seen in this block. */
+  numbered: number;
+  /** Rows НЗОК listed without an ordinal — each can account for one absentee. */
+  unnumbered: number;
+  /** Ordinals in 1..printed that no row carried. */
+  missingOrdinals: number[];
+  /** Ordinals beyond `printed` — the block lists more than it counts. */
+  extraOrdinals: number[];
+}
+
 export interface HospitalPaymentsFile {
   /** ISO end-of-period date the report is "към", e.g. "2026-05-31". */
   asOf: string;
@@ -68,6 +84,12 @@ export interface HospitalPaymentsFile {
    *  Tier 0's coverage row stores this, so "loaded with partial verification"
    *  becomes a queryable fact rather than a line on stdout. */
   unreconciledBlocks: string[];
+  /** Blocks whose row count disagrees with the count НЗОК printed for them, WITH
+   *  the ordinals that are absent. Reported, never thrown: the money is guarded by
+   *  the per-block reconciliation, and this figure means different things in
+   *  different eras (see the comment beside `countMismatches` in the parser). This
+   *  is what Tier 0's coverage row records as `countMismatch`. */
+  countMismatches: CountMismatch[];
   /** The money inside `unreconciledBlocks`, in euros. */
   unreconciledEur: number;
   /** The count НЗОК prints on its own grand-total line ("facilities paid this
@@ -616,7 +638,8 @@ export const extractAmounts = (
 // corpus repair. What it does change is that the file's blocks now reconcile to
 // НЗОК's own subtotals exactly, so when Tier 2 admits the month it admits a
 // correct one.
-const ROW_START_RE = /^\s*(\d{1,2})\s+(\S[^\d]*?)\s+(?:\d+\s+)?(\d{10})\b(.*)$/;
+const ROW_START_RE =
+  /^\s*(\d{1,2})\s+(\S[^\d]*?)\s+(?:(\d+)\s+)?(\d{10})\b(.*)$/;
 // `bmp` labels its grand total "Общо РЗОК"; `drugs`/`devices` label theirs
 // "ОБЩО" (all-caps, no "РЗОК"). Both are followed by the per-РЗОК subtotals,
 // which carry no 10-digit reg number and so can never match ROW_START_RE.
@@ -690,13 +713,22 @@ export const matchRowStart = (
 ): {
   rzokCode: string;
   rzokName: string;
+  /** НЗОК's „№ по ред" for this facility within its РЗОК block, or null where the
+   *  row is listed without one. The numbering restarts per block, so a block's
+   *  ordinals should run 1..n against the count its subtotal prints — which is a
+   *  far sharper completeness statement than any total, because it names WHICH
+   *  facility is missing rather than how many. НЗОК leaves it blank on some
+   *  zero-payment rows, which is why it is nullable and why an unnumbered row is
+   *  counted separately rather than treated as a gap. */
+  ordinal: number | null;
   regNo: string;
   tail: string;
 } | null => {
   const m = line.match(ROW_START_RE);
   if (!m) return null;
-  const [, code, name, regNo, rest] = m;
+  const [, code, name, ord, regNo, rest] = m;
   return {
+    ordinal: ord === undefined ? null : Number(ord),
     // Padded: the code is a 2-digit РЗОК identifier and one line in the corpus
     // renders it without its leading zero. Storing "3" beside "03" would split
     // one region's facilities across two codes in every rollup.
@@ -725,7 +757,7 @@ export const matchRowStart = (
  *  the only ground truth available offline for WHICH rows are wrong rather than
  *  merely that some are. Measured across the cache: Σ of the block subtotals
  *  equals the header total in 127 of 127 files (±€3), and Σ of the block counts
- *  equals the header count in 125 of 127. */
+ *  equals the header count in 126 of 127. */
 const SUBTOTAL_RE = /^\s*(\d+)\s+РЗОК\s+(\S.*?)\s{2,}(.*)$/;
 
 /** Read one block subtotal line. Same gutter rule as `readTotalLine` — a run of
@@ -842,16 +874,34 @@ export const parseHospitalPaymentsPdf = (
   let pending: {
     rzokCode: string;
     rzokName: string;
+    ordinal: number | null;
     regNo: string;
     tail: string;
   } | null = null;
+  /** Per block: the „№ по ред" ordinals seen, and how many rows carried none. */
+  const seenOrdinals = new Map<string, Set<number>>();
+  const unnumberedRows = new Map<string, number>();
   const flush = () => {
     if (!pending) return;
     const tail = isLenient(stream)
       ? repairGluedThousands(pending.tail)
       : pending.tail;
     const parsed = extractAmounts(tail, stream);
-    if (parsed)
+    // ⚠️ Ordinals are recorded here, at row EMIT, not where the row STARTS. A row
+    // whose amounts do not parse produces nothing, and counting its ordinal there
+    // would report a facility as present that never reached the corpus — the
+    // report would then be describing the document rather than the data.
+    if (parsed) {
+      if (pending.ordinal === null)
+        unnumberedRows.set(
+          pending.rzokName,
+          (unnumberedRows.get(pending.rzokName) ?? 0) + 1,
+        );
+      else
+        (
+          seenOrdinals.get(pending.rzokName) ??
+          seenOrdinals.set(pending.rzokName, new Set()).get(pending.rzokName)!
+        ).add(pending.ordinal);
       rows.push({
         rzokCode: pending.rzokCode,
         rzokName: pending.rzokName,
@@ -860,6 +910,7 @@ export const parseHospitalPaymentsPdf = (
         cumulativeEur: asEur(parsed.cumulative),
         monthEur: asEur(parsed.month),
       });
+    }
     pending = null;
   };
 
@@ -1004,29 +1055,87 @@ export const parseHospitalPaymentsPdf = (
         `reconciliation failed for ${pdfPath}: Σ facilities €${sum} vs header €${totalCumulativeEur} (drift ${(drift * 100).toFixed(2)}%, ${rows.length} rows parsed vs ${headerFacilityCount} expected)`,
       );
   }
-  // НЗОК's own facility count covers only the facilities it actually PAID in the
-  // period. The table still LISTS zero-payment ones — some carrying a sequence
-  // number (so they parse as ordinary rows), some not — and how many appear
-  // varies month to month. Comparing against rows.length therefore drifts by
-  // whatever that month happens to carry: 2026-06 listed 11 zero rows, 5 of them
-  // seq-numbered, so the parser produced 381 + 5 = 386 and tripped the old ±2
-  // window while every euro reconciled to the header (the extras are €0, so they
-  // are invisible to the Σ assert above — this guard is the only one that sees
-  // them).
+  // ── Every facility НЗОК printed must have reached a row.
   //
-  // Count paid rows instead. That is what the header means, and it keeps the
-  // guard sharp rather than blunting it: a parser that dropped a genuinely paid
-  // facility still fails here, however many zero rows the month carries. `!== 0`
-  // rather than `> 0` because ALL THREE streams legitimately carry negative
-  // clawbacks (see SIGNED_AMOUNT_RE) — a facility НЗОК transacted with, not a
-  // gap. Narrowing this to `> 0` on бмп would drop ДКЦ Св. София from the count.
-  const paidRows = rows.filter((r) => r.cumulativeEur !== 0).length;
-  if (headerFacilityCount && Math.abs(paidRows - headerFacilityCount) > 2)
+  // ⚠️ This is what replaces the deleted facility-count assert, and it is not the
+  // same guard — it is a stronger one. The count assert was the ONLY thing that
+  // could see a dropped ZERO-payment facility: such a row moves no money, so the
+  // block reconciliation is blind to it, and it leaves no ordinal gap either.
+  // Measured, a printed €0 row never carries a distinct in-range ordinal — it is
+  // unnumbered (660 rows), shares its paid neighbour's number (4 blocks in bmp
+  // 2026-06), or trails past the printed count (Русе #8 against printed=7). So
+  // dropping one would have been invisible to everything below.
+  //
+  // The Рег.№ is the honest universe: ten contiguous digits, one per facility the
+  // document prints. Anything that starts a row and does not finish as one is a
+  // drop, whatever it was worth. Measured clean on 168 of 168 cached files, which
+  // is why it can be an assert rather than a report.
+  const printedRegNos = new Set(
+    lines
+      .map((l) => matchRowStart(l)?.regNo)
+      .filter((r): r is string => r !== undefined),
+  );
+  const emitted = new Set(rows.map((r) => r.regNo));
+  const lost = [...printedRegNos].filter((r) => !emitted.has(r));
+  if (lost.length)
     throw new Error(
-      `facility-count mismatch for ${pdfPath}: parsed ${paidRows} paid row(s) ` +
-        `(${rows.length} total, incl. ${rows.length - paidRows} zero-payment), ` +
-        `header says ${headerFacilityCount}`,
+      `dropped facility row(s) in ${pdfPath}: Рег.№ ${lost.join(", ")} ` +
+        `start a row but produced none (${printedRegNos.size} printed, ${emitted.size} emitted)`,
     );
+
+  // ── The COUNT, reported and never thrown.
+  //
+  // НЗОК's own facility count used to be an assert here, with a ±2 window, and it
+  // is the reason 11 of 127 files were withheld from the site while every euro in
+  // them reconciled. It cannot be an assert, because the number does not mean one
+  // thing:
+  //
+  //  · in 2023 it counts the facilities LISTED (paid plus zero-payment);
+  //  · from 2024 it counts the facilities PAID, and the table still lists unpaid
+  //    ones — 2026-06 lists 11, five of them numbered;
+  //  · devices 2023-06/07 print София град's count as 83, which is the БМП
+  //    report's Sofia count, not this report's 27 — НЗОК's own typo, and the money
+  //    reconciles to the euro either way;
+  //  · bmp 2026-01 counts 388 facilities and PRINTS 380 — the other 8 appear in no
+  //    extraction mode, so they are counted and never rendered.
+  //
+  // Only the last two are НЗОК's bookkeeping rather than ours, and no rule can
+  // separate them from a real drop by counting. What CAN: the „№ по ред" ordinal,
+  // which restarts per block — a block whose subtotal says 8 and whose ordinals
+  // are {1,2,3,4,6,7,8} is missing #5 by name, and that is a fact rather than a
+  // discrepancy. The money is guarded by the block reconciliation above, which is
+  // the strong check; this one exists to say WHAT is absent when nothing is wrong.
+  //
+  // ⚠️ A block with no subtotal line is NOT checked here, and that is reported
+  // rather than passed over: `unreconciledBlocks` already names them for the money
+  // arm and the same blocks are uncounted. On drugs 2023-03 that is 7 of 16 blocks
+  // and 32 of 41 rows — an empty `countMismatches` there means "nothing checked",
+  // not "nothing wrong", and the two must never read the same.
+  const countMismatches: CountMismatch[] = [];
+  for (const [name, sub] of subtotals) {
+    const seen = seenOrdinals.get(name) ?? new Set<number>();
+    const unnumbered = unnumberedRows.get(name) ?? 0;
+    const missing: number[] = [];
+    for (let i = 1; i <= sub.count; i++) if (!seen.has(i)) missing.push(i);
+    const extra = [...seen].filter((o) => o > sub.count).sort((a, b) => a - b);
+    // ⚠️ An unnumbered row is NOT evidence that a particular ordinal is present, and
+    // an earlier version cancelled one missing ordinal per unnumbered row on the
+    // premise that НЗОК blanks „№ по ред" on zero-payment rows. That premise is
+    // false: 23 unnumbered rows carry money, including МБАЛ Болница Европа at
+    // €1.19m–€1.93m across six bmp months. The rule also fired in 0 of 4,116
+    // blocks, so it was untested cancellation logic guarding nothing. `unnumbered`
+    // is REPORTED beside the gap instead — a reader can see both facts, and the
+    // parser asserts nothing it cannot support.
+    if (missing.length || extra.length)
+      countMismatches.push({
+        block: name,
+        printed: sub.count,
+        numbered: seen.size,
+        unnumbered,
+        missingOrdinals: missing,
+        extraOrdinals: extra,
+      });
+  }
 
   return {
     asOf: iso,
@@ -1036,6 +1145,7 @@ export const parseHospitalPaymentsPdf = (
     totalCumulativeEur,
     facilityCount: rows.length,
     unreconciledBlocks: uncovered,
+    countMismatches,
     unreconciledEur,
     headerFacilityCount,
     rows,
