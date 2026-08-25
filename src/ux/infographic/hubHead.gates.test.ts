@@ -17,13 +17,108 @@ import {
   PROCUREMENT_TILES,
   METRIC_FIELD,
 } from "@/screens/procurement/procurementRegistry";
+import {
+  BAND_TILES as GOV_BAND_TILES,
+  BAND_TO as GOV_BAND_TO,
+} from "@/screens/GovernanceScreen";
+import { kpisFor, tileMetric } from "@/screens/FundsScreen";
+import { FUNDS_BANDS } from "@/screens/funds/fundsRegistry";
+import type { FundsHubStats } from "@/data/funds/useFundsHubStats";
+import type { FundsIndexFile } from "@/data/funds/types";
+
+/** i18n stand-in: the key IS the string, so a clash below is a clash of FIGURES rather than of
+ *  translated captions. */
+const id = (k: string) => k;
+
+/** Measured against local Postgres 2026-08-25, so the clauses compare the strings the page
+ *  actually renders. The two beneficiary counts are the point: 53 122 in `tiles` and 47 617 in
+ *  `isun` are different fields for the same word, and it was the FORMER that appeared twice. */
+const FUNDS_STATS_FIXTURE = {
+  isun: {
+    contractCount: 82162,
+    beneficiaryCount: 47617,
+    beneficiaryCountEikOnly: 46192,
+    programmeCount: 47,
+    contractedEur: 44015477336.12,
+    grantEur: 33547016715.94,
+    paidEur: 18576652667.17,
+    absorptionPctOfGrant: 55.4,
+    absorptionPctOfContracted: 42.2,
+    placedContractedEur: 21991155879.58,
+    placedMoneyPct: 50.0,
+    oblastCount: 28,
+    settlementCount: 3279,
+  },
+  tiles: {
+    registerBeneficiaries: 53122,
+    highConcentrationProgrammes: 18,
+    politicalEiks: 279,
+    focusDossiers: 5,
+    dualCorpusCompanies: 5693,
+  },
+  rrf: {
+    contractCount: 14180,
+    contractedEur: 17572344268.62,
+    absorptionPctOfGrant: 33.5,
+  },
+  interreg: {
+    operationCount: 1958,
+    bgOperationCount: 1117,
+    bgPartnerRowCount: 1494,
+    bgPartnerOrgCount: 985,
+    bgBudgetEur: 401768494.91,
+  },
+} as unknown as FundsHubStats;
+
+const FUNDS_INDEX_FIXTURE = {
+  totals: {
+    beneficiaries: 53122,
+    withEik: 46231,
+    contractCount: 82162,
+    contractedEur: 44015477336.13,
+    paidEur: 18209693782.83,
+  },
+  crossReference: {
+    mpCount: 148,
+    beneficiaryCount: 331,
+    contractedEur: 1210000000,
+  },
+} as unknown as FundsIndexFile;
 
 const read = (p: string) => readFileSync(p, "utf8");
+
+/** Comment-blind scanning is how the h1 clause below produced its first FALSE POSITIVE: a
+ *  prose comment naming the component read as a render of it, and the gate went red on a
+ *  screen that renders exactly one heading.
+ *
+ *  `stripComments` (scripts/lib/strip_comments.ts) cannot be reused here — it is line-anchored
+ *  and leaves a JSX brace-star block intact, which is the form these screens' comments take
+ *  almost exclusively. So this gate strips its own, JSX first: a JSX comment is a brace around
+ *  a block comment, and removing the block halves first would strand the braces.
+ */
+const stripJsx = (src: string) =>
+  src
+    .replace(/\{\s*\/\*[\s\S]*?\*\/\s*\}/g, "")
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/^[ \t]*\/\/.*$/gm, "");
 
 const HUB_SCREENS = [
   "src/screens/ProcurementScreen.tsx",
   "src/screens/GovernanceScreen.tsx",
+  "src/screens/FundsScreen.tsx",
 ];
+
+/** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
+ *  slice can read the destinations. It is ONE screen, and the other two are covered by
+ *  registry/rendered clauses below — /governance builds `to` from `BAND_TO[id]` and /funds from
+ *  the exported pure `kpisFor`, neither of which a text scan can see.
+ *
+ *  Splitting the list is what keeps this from going quiet, and it is not hypothetical: adding
+ *  the non-vacuity assert below immediately failed /governance, which had been iterated by this
+ *  clause for its whole life and checked exactly zero destinations. `indexOf("const kpi")` does
+ *  the same on /funds, matching `kpisFor` and slicing an empty block. A gate green because it
+ *  can no longer see its subject is the failure this file has already shipped once. */
+const SOURCE_KPI_SCREENS = ["src/screens/ProcurementScreen.tsx"];
 
 describe("hub head — the basis line", () => {
   // The band's whole thesis is that a figure without its denominator is a false sentence, so
@@ -89,8 +184,55 @@ describe("hub head — the band and the tiles are disjoint", () => {
     ).toEqual([]);
   });
 
+  it("no two /governance KPI cells share a destination", () => {
+    // Over the REGISTRY, because these cells build `to` from the map rather than from literals.
+    const tos = GOV_BAND_TILES.map((id) => GOV_BAND_TO[id]);
+    expect(tos.filter(Boolean).length, "no governance destinations").toBe(
+      tos.length,
+    );
+    expect(tos.length).toBeGreaterThan(0);
+    expect(
+      new Set(tos).size,
+      `duplicate governance KPI destination in ${tos.join(", ")}`,
+    ).toBe(tos.length);
+  });
+
+  it("no /funds KPI figure is also a tile metric", () => {
+    // Over the RENDERED STRINGS, which is stronger than comparing field names: the defect this
+    // catches shipped as two DIFFERENT fields that format identically — `totals.beneficiaries`
+    // in the band and `tiles.registerBeneficiaries` on the tile, both „53 122".
+    const kpis = kpisFor(FUNDS_INDEX_FIXTURE, FUNDS_STATS_FIXTURE, "bg", id);
+    expect(kpis.length, "the funds fixture produced no KPI cells").toBe(4);
+
+    const values = new Set(kpis.map((k) => k.value));
+    const tileMetrics = FUNDS_BANDS.flatMap((b) => b.tiles)
+      .map((t) => tileMetric(t.id, FUNDS_STATS_FIXTURE, "bg", id)?.metric)
+      .filter((m): m is string => !!m);
+    expect(
+      tileMetrics.length,
+      "the funds fixture produced no tile metrics",
+    ).toBeGreaterThan(0);
+
+    const clash = tileMetrics.filter((m) => values.has(m));
+    expect(
+      clash,
+      `tile metric(s) also in the /funds KPI band: ${clash.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  it("no two /funds KPI cells share a destination", () => {
+    const tos = kpisFor(FUNDS_INDEX_FIXTURE, FUNDS_STATS_FIXTURE, "bg", id).map(
+      (k) => k.to,
+    );
+    expect(tos.length).toBe(4);
+    expect(
+      new Set(tos).size,
+      `duplicate /funds KPI destination in ${tos.join(", ")}`,
+    ).toBe(tos.length);
+  });
+
   it("no two KPI cells share a destination", () => {
-    for (const f of HUB_SCREENS) {
+    for (const f of SOURCE_KPI_SCREENS) {
       const src = read(f);
       // Bounded to the KPI array literal itself — the next top-level `const` in the
       // component. A wider slice swallows the evidence rows, whose `to:` values are a
@@ -99,6 +241,11 @@ describe("hub head — the band and the tiles are disjoint", () => {
       const end = src.indexOf("\n  const ", start + 1);
       const block = src.slice(start, end === -1 ? undefined : end);
       const tos = [...block.matchAll(/^\s+to: "([^"]+)"/gm)].map((m) => m[1]);
+      // Non-vacuity, per screen. An empty `tos` satisfies the uniqueness assert trivially.
+      expect(
+        tos.length,
+        `${f}: found no KPI destinations to check`,
+      ).toBeGreaterThan(0);
       expect(
         new Set(tos).size,
         `${f}: duplicate KPI destination in ${tos.join(", ")}`,
@@ -116,7 +263,7 @@ describe("hub head — one h1 per page", () => {
       .split("\n")
       .filter(Boolean);
     expect(files.length).toBeGreaterThan(0);
-    const both = files.filter((f) => /<Title\b/.test(read(f)));
+    const both = files.filter((f) => /<Title\b/.test(stripJsx(read(f))));
     expect(
       both,
       `HubHead renders the page's h1, so these would emit two: ${both.join(", ")}`,

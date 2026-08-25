@@ -7,49 +7,27 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { Banknote, Building2, Coins, ExternalLink, Users } from "lucide-react";
-import { Title } from "@/ux/Title";
-import { StatCard } from "./dashboard/StatCard";
+import { ExternalLink } from "lucide-react";
 import { useFundsIndex } from "@/data/funds/useFundsIndex";
+import type { FundsIndexFile } from "@/data/funds/types";
 import { FundsFinder } from "./funds/FundsFinder";
 import { OpenCallsTile } from "./funds/OpenCallsTile";
 import { FitResolverTile } from "./funds/FitResolverTile";
 import { FundsWireLine, FundsNewsRail } from "./funds/FundsWire";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
-import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
+import {
+  HubHead,
+  TileHubGrid,
+  type HubKpi,
+  type TileHubSection,
+} from "@/ux/infographic";
 import { FUNDS_BANDS } from "./funds/fundsRegistry";
 import { FUNDS_SCENES } from "./funds/fundsScenes";
 import {
   useFundsHubStats,
   type FundsHubStats,
 } from "@/data/funds/useFundsHubStats";
-import { formatEur, formatInt } from "@/lib/currency";
-
-const numFmt = new Intl.NumberFormat("bg-BG");
-
-const SkeletonCard: FC = () => (
-  <div className="h-[140px] animate-pulse rounded-xl border bg-card p-4 shadow-sm">
-    <div className="mb-3 h-3 w-24 rounded bg-muted" />
-    <div className="h-7 w-32 rounded bg-muted" />
-  </div>
-);
-
-// KPI strip — each card links to its drilldown. We render the underlying
-// StatCard (visual) inside a Link so the whole tile reads as clickable.
-const KpiLink: FC<{
-  to: string;
-  ariaLabel: string;
-  children: React.ReactNode;
-}> = ({ to, ariaLabel, children }) => (
-  <Link
-    to={to}
-    aria-label={ariaLabel}
-    className="group block rounded-xl transition-transform hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-  >
-    {children}
-  </Link>
-);
+import { formatEur, formatEurCompact, formatInt } from "@/lib/currency";
 
 // Compact one-row breakdown strip — chips for the largest by-type buckets
 // plus a trailing "by legal form" mini-summary. Replaces the tall two-axis
@@ -82,7 +60,7 @@ const SourceFooter: FC = () => {
  * `undefined` when the figure is absent — a cold database, an unapplied migration. The tile then
  * renders with no number, which is the honest state; a `0` would be a claim.
  */
-const tileMetric = (
+export const tileMetric = (
   id: string,
   s: FundsHubStats | null | undefined,
   lang: string,
@@ -118,8 +96,14 @@ const tileMetric = (
 
   switch (id) {
     case "beneficiaries":
-      // The REGISTER count — what /funds/beneficiaries ranks.
-      return m(int(s.tiles.registerBeneficiaries), t("funds_m_orgs"));
+      // DELIBERATELY NO METRIC. `tiles.registerBeneficiaries` is 53 122 and so is the head's
+      // first KPI cell — same number, same destination, one screen apart. §3.1 rule 5 resolves
+      // that by taking the figure off the TILE, not out of the band: the band is where a
+      // corpus-level figure earns its size, and a tile whose number the reader has just read
+      // teaches them the grid repeats itself. The other candidate, `isun.beneficiaryCount`
+      // (47 617), is the CONTRACT-derived count on a card captioned „организации в регистъра" —
+      // a second denominator for the same word, which is worse than no number.
+      return undefined;
     case "programmes":
       return m(int(s.isun.programmeCount), t("funds_m_programmes"));
     case "places":
@@ -170,9 +154,120 @@ const tileMetric = (
   }
 };
 
+type TFn = (k: string, o?: Record<string, unknown>) => string;
+
+/** The head's search slot: the wire line over the finder.
+ *
+ *  Written ONCE, so `hub_finder_single_render.test.ts` — a SOURCE scan counting
+ *  `<FundsFinder />` — cannot be defeated by a second copy in a loading branch.
+ */
+const FundsHeadSearch: FC = () => (
+  <>
+    <FundsWireLine className="mb-3" />
+    <FundsFinder />
+  </>
+);
+
+/** The head's four corpus figures, as a PURE function of the two payloads.
+ *
+ *  ⚠ EVERY MONEY CELL READS `hubStats`, THE SAME OBJECT THE TILES READ. The band was built
+ *  from `useFundsIndex` (`fund_payloads` kind='index') while every tile metric and every
+ *  destination reads `funds_hub_stats()`, and the two disagree: measured 2026-08-25,
+ *  `contractedEur` matches to the cent but `paidEur` is 18 209 693 782.83 against
+ *  18 576 652 667.17 — €367M, 2.0% apart. So the page printed „Изплатени €18,2 млрд." in its
+ *  largest type and „€18 576 652 667" on the tile a screen below. §3.1 rule 3 („read the SAME
+ *  blob the tiles read") exists for exactly this.
+ *
+ *  ⚠ THE RATIO IS THE BLOB'S OWN FIELD, not paid/contracted recomputed here. Recomputing gave
+ *  41% against the blob's 42.2%, and the page the cell links to prints 55.4% —
+ *  `absorptionPctOfGrant`, a different denominator. CLAUDE.md's funds section is explicit that
+ *  both are true and ~12.7 points apart, which is why every basis names its own.
+ *
+ *  ⚠ EVERY CELL DECLARES ITS DENOMINATOR, and they are four different kinds: organisations in
+ *  a register, a sum over signed contracts, that sum's disbursed share, and a count of PEOPLE.
+ *
+ *  ⚠ FOUR DISTINCT DESTINATIONS. „Договорени" and „Изплатени" both used to link to
+ *  /funds/absorption, so two adjacent cells sent a reader to one page.
+ *
+ *  A cell whose source is absent is OMITTED rather than zeroed (§3.1 rule 7).
+ *
+ *  Lifted out of the component so a gate can compare the RENDERED STRINGS against the tile
+ *  metrics. A field-name comparison could not catch two different fields that happen to format
+ *  alike — which is the shape that shipped once: `totals.beneficiaries` and
+ *  `tiles.registerBeneficiaries` are different fields and both render „53 122".
+ */
+export const kpisFor = (
+  index: FundsIndexFile | null | undefined,
+  hubStats: FundsHubStats | null | undefined,
+  lang: string,
+  t: TFn,
+): HubKpi[] => {
+  const totals = index?.totals;
+  const cr = index?.crossReference;
+  const isun = hubStats?.isun;
+  const eikPct =
+    totals && totals.beneficiaries > 0
+      ? Math.round((totals.withEik / totals.beneficiaries) * 100)
+      : 0;
+  // Locale-aware. Pinned to "bg-BG" it grouped with U+00A0 on the English site while the euro
+  // beside it followed the reader — two number conventions in one band.
+  const numFmt = new Intl.NumberFormat(lang === "en" ? "en-GB" : "bg-BG");
+  return [
+    ...(totals
+      ? [
+          {
+            value: numFmt.format(totals.beneficiaries),
+            label: t("funds_index_beneficiaries") || "Beneficiaries",
+            // Keeps the caveat the old card carried: 13% of the register's beneficiaries have
+            // no EIK, so they cannot be joined to any company record.
+            basis: t("funds_kpi_basis_register", { pct: eikPct }),
+            to: "/funds/beneficiaries",
+          },
+        ]
+      : []),
+    ...(isun
+      ? [
+          {
+            // COMPACT in the band. `formatEur` renders „€44 015 477 336" — 15 characters in a
+            // cell sized for a headline, which wraps and shrinks the number it exists to make
+            // loud. The exact figure is on the page the cell links to.
+            value: formatEurCompact(isun.contractedEur, lang),
+            label: t("funds_index_contracted") || "Funds contracted",
+            basis: t("funds_kpi_basis_signed"),
+            to: "/funds/programmes",
+          },
+          {
+            value: formatEurCompact(isun.paidEur, lang),
+            label: t("funds_index_paid") || "Funds paid",
+            basis: t("funds_kpi_basis_disbursed", {
+              pct: Math.round(isun.absorptionPctOfContracted),
+            }),
+            to: "/funds/absorption",
+          },
+        ]
+      : []),
+    ...(cr
+      ? [
+          {
+            value: numFmt.format(cr.mpCount),
+            label: t("funds_index_mp_tied") || "MP-connected",
+            // Names the DENOMINATOR — how many companies those MPs are tied to and for how
+            // much — rather than restating the label. „148 депутати" under „Свързани с НП"
+            // said the same thing twice.
+            basis: t("funds_kpi_basis_mps", {
+              companies: numFmt.format(cr.beneficiaryCount),
+              eur: formatEurCompact(cr.contractedEur, lang),
+            }),
+            to: "/funds/political",
+          },
+        ]
+      : []),
+  ];
+};
+
 export const FundsScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const { data: index, isLoading } = useFundsIndex();
+  const { data: index } = useFundsIndex();
   const { data: hubStats } = useFundsHubStats();
 
   // The tile grid. Metrics come from ONE fetch (migration 145), and each is read from the same
@@ -200,60 +295,40 @@ export const FundsScreen: FC = () => {
   const description =
     "EU-funds beneficiaries from the ИСУН 2020 public register — funds contracted and paid, the political-economy cross-reference, and per-programme concentration metrics.";
 
-  if (isLoading) {
-    return (
-      <>
-        <Title description={description}>{title}</Title>
-        <section aria-label={title} className="my-4">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </div>
-        </section>
-      </>
-    );
-  }
-
-  if (!index) return null;
-
-  const { totals } = index;
-  const cr = index.crossReference;
-  const absorption =
-    totals.contractedEur > 0
-      ? Math.round((totals.paidEur / totals.contractedEur) * 100)
-      : 0;
-  const eikPct =
-    totals.beneficiaries > 0
-      ? Math.round((totals.withEik / totals.beneficiaries) * 100)
-      : 0;
+  /* ONE HEAD, ONE RETURN. This screen used to early-return a whole second page shape for the
+     loading state, which duplicated the identity and — because it returned — suppressed five
+     modules that need no payload at all: the open calls, the fit resolver, the news rail, the
+     tile grid and the source footer. A reader on a cold load saw four grey boxes where an
+     entire page could already have rendered. The band is the ONLY part that waits, and
+     `kpisPending` stands its own cells in its own slot until `index` lands. */
+  const kpis = kpisFor(index, hubStats, i18n.language, t);
 
   return (
     <>
-      <Title description={description}>{title}</Title>
       <GovernanceBreadcrumb
         sectionKey="funds_index_title"
         sectionTo="/funds"
         className="mt-5"
       />
-      <section aria-label={title} className="my-4">
-        <p className="mb-4 text-sm text-muted-foreground">
-          {t("funds_index_intro") ||
-            "Every organisation that has signed an EU-funds contract recorded in ИСУН 2020 — the 2014-2020 and 2021-2027 programmes plus the Recovery Plan."}
-        </p>
+      <section aria-label={title}>
+        {/* THE FOUR CORPUS FIGURES USED TO SIT AT ~2 600 px, below the wire, the finder, the
+            open calls, the resolver and the news rail — on a page whose tile grid started at
+            2 846 px. This hub was the extreme case in docs/plans/hub-hero-v1.md 2.1: nothing on
+            it made a corpus-level statement until a reader had scrolled three screens.
 
-        {/* LOOK-UP BEFORE READ. The finder sits above the KPI strip deliberately: most
-            arrivals want to find a thing (their company, their town, a contract), and an
-            aggregate is a destination you reach AFTER the look-up, not an entry point. The
-            KPI strip below used to be the first thing on the page — that ordering is what
-            docs/plans/funds-module-v2.md §5.2 calls out as analysis-first. */}
-        {/* BAND 0 — the wire. One line, above everything, because a returning reader's first
-            question is „did anything happen". It renders nothing on a failure: a wire is itself
-            a claim that the page is current. */}
-        <FundsWireLine className="mb-3" />
-
-        <FundsFinder className="mb-4" />
+            LOOK-UP STILL COMES BEFORE READ. The finder sits INSIDE the head, above the band, so
+            the ordering docs/plans/funds-module-v2.md 5.2 argued for is kept: an aggregate is
+            where you arrive after a look-up, not an entry point. What changed is that the
+            aggregate is now on the first screen instead of the fourth. */}
+        <HubHead
+          eyebrow={t("funds_head_eyebrow")}
+          title={title}
+          seoDescription={description}
+          deck={t("funds_head_deck")}
+          search={<FundsHeadSearch />}
+          kpis={kpis}
+          kpisPending={4}
+        />
 
         {/* BAND 1, second half. The finder answers „намери нещо конкретно"; this answers
             „какво мога да подам сега" — the question ~68% of the measured demand actually asks.
@@ -272,126 +347,6 @@ export const FundsScreen: FC = () => {
             парите" band. What is open and whether anything like mine was funded both outrank
             what merely changed. */}
         <FundsNewsRail />
-
-        {/* HERO: 4 clickable KPI cards then the choropleth map. */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {/* PAGES, not fragments. These three used to target #top-beneficiaries, #money-flow
-              and #absorption — sections this rework moved onto their own pages, so all three
-              cards silently did nothing when clicked. A same-page anchor is exactly the link
-              that rots when a hub is reorganised.
-
-              THE STRIP AND THE GRID NOW OVERLAP, and that is a deliberate trade rather than an
-              oversight: this card and the „Бенефициенти" tile a screen below read the same
-              `fund_payloads` field, so they cannot disagree. The strip is the corpus at a
-              glance, the tile is a destination — the duplication is one number, and removing
-              the card would leave the strip with a hole where the module's headline count goes.
-              Worth revisiting if the strip grows. */}
-          <KpiLink
-            to="/funds/beneficiaries"
-            ariaLabel={t("funds_index_beneficiaries") || "Beneficiaries"}
-          >
-            <StatCard
-              label={t("funds_index_beneficiaries") || "Beneficiaries"}
-              hint={
-                t("funds_index_beneficiaries_hint") ||
-                "Distinct organisations with at least one EU-funds contract."
-              }
-              className="h-full transition-shadow group-hover:shadow-md"
-            >
-              <div className="flex items-baseline gap-2">
-                <Building2 className="h-5 w-5 shrink-0 text-muted-foreground" />
-                <span className="text-2xl font-bold tabular-nums">
-                  {numFmt.format(totals.beneficiaries)}
-                </span>
-              </div>
-              <div className="text-xs text-muted-foreground tabular-nums">
-                {numFmt.format(totals.contractCount)}{" "}
-                {t("funds_index_contracts") || "contracts"} · {eikPct}%{" "}
-                {t("funds_index_with_eik") || "with EIK"}
-              </div>
-            </StatCard>
-          </KpiLink>
-
-          <KpiLink
-            to="/funds/absorption"
-            ariaLabel={t("funds_index_contracted") || "Funds contracted"}
-          >
-            <StatCard
-              label={t("funds_index_contracted") || "Funds contracted"}
-              hint={
-                t("funds_index_contracted_hint") ||
-                "Total value of signed EU-funds contracts (Договорени средства)."
-              }
-              className="h-full transition-shadow group-hover:shadow-md"
-            >
-              <div className="flex items-baseline gap-2">
-                <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
-                <span className="break-words text-base font-bold tabular-nums md:text-lg">
-                  {formatEur(totals.contractedEur)}
-                </span>
-              </div>
-            </StatCard>
-          </KpiLink>
-
-          <KpiLink
-            to="/funds/absorption"
-            ariaLabel={t("funds_index_paid") || "Funds paid"}
-          >
-            <StatCard
-              label={t("funds_index_paid") || "Funds paid"}
-              hint={
-                t("funds_index_paid_hint") ||
-                "Total actually disbursed to beneficiaries (Реално изплатени суми)."
-              }
-              className="h-full transition-shadow group-hover:shadow-md"
-            >
-              <div className="flex items-baseline gap-2">
-                <Banknote className="h-5 w-5 shrink-0 text-muted-foreground" />
-                <span className="break-words text-base font-bold tabular-nums md:text-lg">
-                  {formatEur(totals.paidEur)}
-                </span>
-              </div>
-              <div className="text-xs text-muted-foreground tabular-nums">
-                {absorption}% {t("funds_index_disbursed") || "of contracted"}
-              </div>
-            </StatCard>
-          </KpiLink>
-
-          <KpiLink
-            to="/funds/political"
-            ariaLabel={t("funds_index_mp_tied") || "MP-connected"}
-          >
-            <StatCard
-              label={t("funds_index_mp_tied") || "MP-connected"}
-              hint={
-                t("funds_index_mp_hint") ||
-                "MPs whose declared business interests intersect EU-funds beneficiaries."
-              }
-              className="h-full ring-1 ring-amber-200/60 transition-shadow dark:ring-amber-800/40 group-hover:shadow-md"
-            >
-              <div className="flex items-baseline gap-2">
-                <Users className="h-5 w-5 shrink-0 text-amber-600" />
-                <span className="text-2xl font-bold tabular-nums">
-                  {cr ? numFmt.format(cr.mpCount) : "—"}
-                </span>
-                <span className="text-sm text-muted-foreground">
-                  {t("funds_index_mp_count") || "MPs"}
-                </span>
-              </div>
-              {cr ? (
-                <>
-                  <div className="text-xs text-muted-foreground tabular-nums">
-                    {numFmt.format(cr.beneficiaryCount)}{" "}
-                    {t("funds_index_mp_companies") || "companies"}
-                  </div>
-                  <div className="text-xs font-medium tabular-nums">
-                    {formatEur(cr.contractedEur)}
-                  </div>
-                </>
-              ) : null}
-            </StatCard>
-          </KpiLink>
-        </div>
 
         {/* THE MAP, THE BREAKDOWN STRIP AND THE „Кой получи парите" BAND ARE GONE FROM HERE.
             All five tiles they held now live on /funds/places, /funds/beneficiaries and
