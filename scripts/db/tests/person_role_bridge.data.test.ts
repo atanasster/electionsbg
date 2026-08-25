@@ -21,9 +21,9 @@
 //   - THE CHECK THAT FAILS OPEN. `bridge IN ('B','V')` is NULL when bridge is NULL, so the
 //     obvious spelling of the footprint constraint evaluates to NULL for (NULL, 5) and a CHECK
 //     ACCEPTS NULL. That admitted a measured footprint on a row carrying no licence — the one
-//     contradictory shape the column's own header calls out, and the one a step-3 bug
-//     produces, since the resolver stamps 'B'/'V' on two INSERTs and back-fills 'A' after.
-//     `IS TRUE` closes it. A constraint that fails open looks identical to one that does not
+//     contradictory shape the column's own header calls out, and one that three independent
+//     writers can each produce (the roleRows COPY for 'A', the Bridge-B INSERT, the Tier-V
+//     INSERT — each supplies both columns on its own). `IS TRUE` closes it. A constraint that fails open looks identical to one that does not
 //     in review, so this is pinned by INSERTING each row shape, never by string-matching
 //     `pg_get_constraintdef` — that would pass on any expression containing the right tokens,
 //     including the broken one.
@@ -116,7 +116,8 @@ const SHAPES: {
     legal: false,
     why:
       "a measurement against a licence nobody recorded — the CHECK failed OPEN on this " +
-      "before `IS TRUE`, because `bridge IN ('B','V')` is NULL when bridge is NULL",
+      "before `IS TRUE`, because `bridge IN ('B','V')` is NULL when bridge is NULL. Any of " +
+      "the resolver's three writers can produce it by supplying one column and not the other",
   },
   {
     bridge: "A",

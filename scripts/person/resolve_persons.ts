@@ -2114,6 +2114,30 @@ async function main(): Promise<void> {
                   ? "filing" // a declaration's filing date, up to ~30 days late (T2)
                   : null,
           b.confidence,
+          // WHICH LICENCE this attribution rests on (081 person_role.bridge). Written HERE,
+          // by the writer that makes the attachment, for the reason date_basis above is:
+          // this rebuild DELETEs person_role and re-COPYs it, so a value that came from
+          // anywhere else would be dropped on every resolve — and because 081 ships no
+          // backfill (the corpus vintage is unrecoverable), it would come back NULL for the
+          // whole corpus with nothing failing.
+          //
+          // A tr/ngo mention reaches this COPY only through `linkedEiks` — the curated
+          // magistrate_company ∪ company_politicians set — so it is Bridge A by
+          // construction. Every other source is a person's own record (an mp seat, a
+          // candidacy, a filing) and is not a company attribution at all, so it carries no
+          // licence rather than a weaker one.
+          //
+          // ⚠️ THE ORDER OF THE THREE WRITERS IS THE PRECEDENCE. This COPY runs first, and
+          // the Bridge-B and Tier-V INSERTs below both carry ON CONFLICT DO NOTHING — so a
+          // (person, company, role) a curated register already licensed keeps 'A' rather
+          // than being relabelled by the name-based bridge that also happens to match it.
+          // That is the right way round: A is the only one of the three that does not rest
+          // on a name.
+          m.source === "tr" || m.source === "ngo" ? "A" : null,
+          // Bridge A is not capped on a footprint — a curated link is licensed by the
+          // register that made it, however many companies the person's name matches — so it
+          // records none. 081's CHECK enforces that a footprint may only sit on B or V.
+          null,
           m.raw.sourceRow == null ? null : JSON.stringify(m.raw.sourceRow),
         ]);
       }
@@ -2295,6 +2319,15 @@ async function main(): Promise<void> {
         "end_date",
         "date_basis",
         "confidence",
+        // ⚠️ BOTH MUST STAY IN THIS LIST. person_role is DELETEd and re-COPYd every run, so a
+        // column dropped from here comes back NULL for every row with nothing failing — the
+        // date_basis failure class 081 documents. Worse here, because `date_basis` at least
+        // has 081's backfill to carry a warm database across the gap and this has none by
+        // design (the corpus vintage is unrecoverable), so the value would simply be gone.
+        // `resolve_persons_bridge_columns.test.ts` asserts this list statically — no
+        // Postgres, so it is the one gate in this family that runs in CI.
+        "bridge",
+        "bridge_footprint",
         "source_row",
       ],
       roleRows,
@@ -2385,10 +2418,17 @@ async function main(): Promise<void> {
     // estimate harmless rather than catastrophic.
     const bridgeB = await c.query(
       `WITH ${BRIDGE_B_CTE}
-       INSERT INTO person_role (person_id, source, ref, role, confidence)
+       INSERT INTO person_role (person_id, source, ref, role, confidence,
+                                bridge, bridge_footprint)
        SELECT DISTINCT h.person_id,
               CASE WHEN h.role IN ('ngo_board','ngo_representative') THEN 'ngo' ELSE 'tr' END,
-              h.uic, h.role, 'high'
+              h.uic, h.role, 'high',
+              -- The licence, recorded WITH the row it licenses. f.n_uic is the number the
+              -- cap was actually compared against in THIS run — over tr_person_roles, which
+              -- is the table the hits CTE joins; Tier V's is over tr_officers. Storing it is
+              -- what turns "has this decayed?" into a subtraction against the current count
+              -- instead of a re-derivation over seven independently-reloaded tables.
+              'B', f.n_uic
          FROM hits h
          JOIN footprint f ON f.person_id = h.person_id
         WHERE f.n_uic <= $1
@@ -2415,10 +2455,20 @@ async function main(): Promise<void> {
     // is_public_figure=false; 082 serves them on /person via the identity_confidence='verified'
     // gate; person_search folds them into its V (money) tier by real slug.
     await c.query(
-      `CREATE TEMP TABLE tmp_tierv (name_fold text PRIMARY KEY, name text) ON COMMIT DROP`,
+      // `n_uic` is the fold's distinct-company count over tr_officers — the number the
+      // HAVING below compares against FOOTPRINT_CAP. Carried through to person_role.bridge_
+      // footprint so the licence records what was measured rather than leaving a later
+      // reader to re-measure it against a corpus that has since moved.
+      // n_uic is NOT NULL because 081's CHECK cannot catch its absence: the footprint
+      // constraint is `bridge_footprint IS NULL OR (…)`, so ('V', NULL) — a licence with no
+      // measurement — is accepted (verified by insert). The column that can refuse it is
+      // this one, at the point the number is produced.
+      `CREATE TEMP TABLE tmp_tierv (name_fold text PRIMARY KEY, name text,
+                                    n_uic int NOT NULL)
+         ON COMMIT DROP`,
     );
     await c.query(
-      `INSERT INTO tmp_tierv (name_fold, name)
+      `INSERT INTO tmp_tierv (name_fold, name, n_uic)
        WITH money_eik AS (
          SELECT eik, sum(eur) AS eur FROM (
            SELECT contractor_eik AS eik, amount_eur AS eur FROM contracts
@@ -2430,7 +2480,7 @@ async function main(): Promise<void> {
        -- LEFT JOIN + bool_or(money): the fold must be money-linked, but the ≤5 cap is on TOTAL
        -- firms (matching 120's browse companies_n ≤ 5 = the verified subset), NOT just the
        -- money-linked ones — a person with 3 money firms and 20 dormant ones is not "verified".
-       SELECT o.name_fold, min(o.name)
+       SELECT o.name_fold, min(o.name), count(DISTINCT o.uic)
          FROM tr_officers o
          LEFT JOIN money_eik m ON m.eik = o.uic
         WHERE o.name_fold NOT IN (SELECT name_fold FROM person WHERE name_fold IS NOT NULL)
@@ -2496,8 +2546,22 @@ async function main(): Promise<void> {
     // 'high' so 120's roles CTE (confidence IN exact_id/high/manual) surfaces them. tr_person_roles
     // is the full-history officer/owner table (same fold as tr_officers).
     await c.query(
-      `INSERT INTO person_role (person_id, source, ref, role, confidence)
-       SELECT DISTINCT p.person_id, 'tr', t.uic, t.role, 'high'
+      `INSERT INTO person_role (person_id, source, ref, role, confidence,
+                                bridge, bridge_footprint)
+       SELECT DISTINCT p.person_id, 'tr', t.uic, t.role, 'high',
+              -- ⚠️ v.n_uic IS OVER tr_officers, NOT over the tr_person_roles this INSERT
+              -- joins — because the tr_officers count is what the mint's HAVING actually
+              -- capped. Storing the join's own count instead would record a number no cap
+              -- was ever compared against. The two tables agree on all 68,662 Tier-V folds
+              -- today, which is exactly why getting it wrong would be invisible.
+              --
+              -- The ON CONFLICT precedence that protects 'A' from Bridge B is STRUCTURALLY
+              -- VACUOUS here and should not be read as doing work: Tier-V people are minted
+              -- AFTER the public COPY, so their person_ids cannot collide with it. What DOES
+              -- happen — 1,090 of them hold a role at an EIK that is in the curated set — is
+              -- correct as 'V': that register linked the company to a DIFFERENT person, so
+              -- this attachment rests on the fold and must say so.
+              'V', v.n_uic
          FROM person p
          JOIN tmp_tierv v ON v.name_fold = p.name_fold
          JOIN tr_person_roles t ON t.name_fold = v.name_fold
@@ -2525,6 +2589,19 @@ async function main(): Promise<void> {
   // and in that window person-serving queries pick bad plans — person_connections ran at
   // ~2.5s instead of ~0.25s on a freshly re-resolved prod DB. ANALYZE here so the layer is
   // fast the moment the rebuild finishes.
+  // The licence mix, because "the resolve ran" and "the resolve recorded a licence" are
+  // different facts and only the second is checkable later. A run that stamped nothing is
+  // otherwise indistinguishable from a healthy one until the next gate.
+  const mix = await allRows<{ bridge: string | null; n: string }>(
+    `SELECT bridge, count(*)::text n FROM person_role
+      WHERE source IN ('tr', 'ngo') GROUP BY bridge ORDER BY bridge NULLS LAST`,
+  );
+  console.log(
+    `  tr/ngo licences: ${mix
+      .map((r) => `${r.bridge ?? "UNLICENSED"}=${Number(r.n).toLocaleString()}`)
+      .join(", ")}`,
+  );
+
   await exec("ANALYZE person");
   await exec("ANALYZE person_role");
   await exec("ANALYZE person_alias");

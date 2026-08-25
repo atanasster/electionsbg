@@ -3860,6 +3860,41 @@ a dated role with no basis, on the mp count collapsing, and on `person_by_slug` 
 MP's terms in a tie order (the profile keeps the first row of a deduped seat, so an
 unordered `jsonb_agg` would let the term shown change between two resolves of the same data).
 
+**`person_role.bridge` / `bridge_footprint` (081) carry the SAME `copyRows` hazard with a
+worse consequence, and unlike `date_basis` there is NO backfill to soften it.** They record
+WHICH of the three licences a tr/ngo role was attached under (`'A'` curated ∪ `'B'`
+people-unique public fold ∪ `'V'` money-linked private owner) and the footprint the cap was
+measured against AT ATTACH TIME. Three writers, all in `resolve_persons.ts`, and all three
+must stay: the `roleRows` COPY stamps `'A'` (a tr/ngo mention reaches it only through the
+curated `linkedEiks`), and the Bridge-B and Tier-V INSERTs stamp `'B'`/`'V'` with their own
+footprint. Both INSERTs carry `ON CONFLICT DO NOTHING`, so **the COPY running first is the
+precedence rule** — a pair a register already licensed keeps `'A'` rather than being
+relabelled by a name-based bridge that also matches it.
+
+⚠️ **`bridge_footprint` is one column over TWO base tables.** Bridge B counts
+`tr_person_roles` (`bridgeB.ts`'s `hits` CTE); Tier V counts `tr_officers` (its mint's
+`count(DISTINCT o.uic) <= 5`). They agree on all 68,662 Tier-V folds today, which is exactly
+why writing the wrong one would be invisible.
+
+⚠️ **NULL means "attached before the columns existed", never "unlicensed", and 081 ships no
+backfill on purpose** — the corpus vintage the resolver saw is unrecoverable (`tr_officers`
+is TRUNCATE-and-reload with no history, and `ingest_first_seen` records new COMPANIES so it
+is blind to a fold gaining an officer row at one that already existed). So the columns stay
+NULL until the next `db:resolve:persons`.
+
+⚠️ **NOTHING READS THEM YET.** `person_resolve.data.test.ts` is UNCHANGED and still
+re-derives each licence at test time, so it is **still red at 443** — rewriting it to read
+the stored value is step 4 of the plan and is not written. Do not read this section as
+describing a working gate; the columns are the substrate for one. Why they exist at all:
+that gate re-derives from seven tables which reload independently of `person_role`, so it
+asserts that two corpora are the same vintage rather than an invariant — and it went red
+purely because `db:load:tr:pg` ran two days after the last resolve, with the resolver
+blameless (no person in the whole layer has ever held more than `FOOTPRINT_CAP` distinct
+EIKs). Plan: `docs/plans/person-role-unlicensed-bridge-v1.md`. The one gate that exists
+today is `person_role_bridge.data.test.ts` (schema + constraint semantics, pinned by
+inserting each row shape — a CHECK that fails open on NULL looks identical to a correct one
+in review) plus `resolve_persons_bridge_columns.test.ts` (the copyRows list, in CI).
+
 ### The visibility map a TRUNCATE-reload throws away — and the one cloud repair it needs
 
 A loader that rebuilds a table with `TRUNCATE` + `INSERT`/`COPY` inside ONE transaction leaves

@@ -404,8 +404,9 @@ BEGIN
   -- shape the header calls out. `bridge IN ('B','V')` is NULL when bridge is NULL, so
   -- `FALSE OR (NULL AND TRUE)` is NULL, and a CHECK accepts NULL: (bridge NULL, footprint 5)
   -- was admitted, verified by insert. `IS TRUE` forces two-valued logic. That shape is not
-  -- hypothetical — the resolver stamps 'B'/'V' on two INSERTs and back-fills 'A' in a final
-  -- UPDATE, so a mis-scoped predicate leaves a measured footprint on an unlicensed row.
+  -- hypothetical: the resolver has THREE writers of this pair (the roleRows COPY for 'A',
+  -- the Bridge-B INSERT, the Tier-V INSERT), each supplying both columns independently, so
+  -- any one of them setting a footprint without its licence produces exactly this shape.
   ALTER TABLE person_role DROP CONSTRAINT IF EXISTS person_role_bridge_footprint_check;
   ALTER TABLE person_role ADD  CONSTRAINT person_role_bridge_footprint_check
     CHECK (bridge_footprint IS NULL
