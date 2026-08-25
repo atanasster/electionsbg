@@ -80,6 +80,19 @@ const skipDist = !haveDist
 reportSkip(import.meta.url, skipDb);
 reportSkip(import.meta.url, skipDist);
 
+test("the two sitemap index copies are identical", () => {
+  // `sitemap.xml` is a deliberate back-compat copy of `sitemap_index.xml` for
+  // crawlers that probe the conventional path — written from the same string two
+  // lines apart, so they cannot diverge today. They are still two committed
+  // artifacts with nothing binding them: an edit that gave one a self-reference or
+  // a differing lastmod would publish two indexes that disagree, silently.
+  assert.equal(
+    fs.readFileSync(path.join(PUBLIC, "sitemap.xml"), "utf-8"),
+    fs.readFileSync(path.join(PUBLIC, "sitemap_index.xml"), "utf-8"),
+    "sitemap.xml and sitemap_index.xml have diverged",
+  );
+});
+
 test("the sitemap names every gated family in both languages", () => {
   // A guard on the guards: if the enumerators regress to emitting nothing, the
   // parity assertions below would pass vacuously.
@@ -89,6 +102,31 @@ test("the sitemap names every gated family in both languages", () => {
     "no /pension-fund <loc> in the sitemap",
   );
   assert.ok(inFamily("/votes/").length > 0, "no /votes <loc> in the sitemap");
+  // The DEGRADE-TO-EMPTY envelope. /court/ and /pension-fund/ above are two of the
+  // three families the sitemap enumerates through a reader that returns [] on ANY
+  // failure; /procurement/settlement/ is the third and had no floor at all, so a
+  // mint on a machine with Postgres down would drop all ~870 URLs, write the shard
+  // and exit 0. Because the artifact is COMMITTED, that loss is indistinguishable
+  // in review from a legitimate corpus shrink — and the two already co-occur: the
+  // 2026-08-25 mint legitimately dropped exactly one settlement (ekatte 24668,
+  // с. Дърманци, which has no rows in procurement_settlement_rank on local OR prod).
+  //
+  // A FLOOR rather than `> 0`: a partial result is the harder case to spot, and the
+  // corpus has been 870 on both databases. Set well below it so ordinary corpus
+  // movement never trips this, while a collapse does.
+  assert.ok(
+    inFamily("/procurement/settlement/").length >= 700,
+    `only ${inFamily("/procurement/settlement/").length} /procurement/settlement <loc>s ` +
+      "— Postgres was likely down or partial when `npm run sitemap` last ran",
+  );
+  // Same shape, file-enumerated rather than PG: index.ts silently `return`s when
+  // data/prices/product_slugs.json is missing or unparseable. Capped at 3,000 per
+  // language by design, so 6,000 is the ceiling and the floor is deliberately loose.
+  assert.ok(
+    inFamily("/product/").length >= 1000,
+    `only ${inFamily("/product/").length} /product <loc>s — product_slugs.json was ` +
+      "likely missing or unparseable when the sitemap was minted",
+  );
   // NOT `inFamily("/budget/").length > 0` — that is satisfied by the dynamic
   // /budget/ministry/* family alone (108 of the 144 budget <loc>s), so it would
   // survive the loss of every one of the module's hand-listed sub-pages, which

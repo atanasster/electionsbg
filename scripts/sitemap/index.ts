@@ -93,6 +93,23 @@ const urlEntry = (url: string, lastmod: string): string => {
 // mtime is by definition not in the future — it is `today` with extra steps. That
 // is the behaviour 21 call sites here were written against, so it is left alone;
 // use fileMod() below when a family's lastmod should be the source's real date.
+//
+// MIGRATION STATUS — 20 of 21 call sites still use safeFileMod; only kfnFunds has
+// moved, which is why sitemap_pensions.xml carries a stable real date and is one of
+// the shards that does not churn. MEASURED COST, 2026-08-25: one regeneration after
+// a 5-day gap re-stamped **64,626 URLs that did not change** — 48,993 in
+// sitemap_static.xml, 10,449 in _2, 3,126 local, 1,104 funds, 560 judiciary, 108
+// budget (whose URL set was byte-identical, yet every line moved on the date alone).
+// Two costs: Google says it will disregard lastmod from a site that reports it
+// unreliably, and 3 real URL changes arrive inside a ~65,000-line diff, so the
+// artifact can only be reviewed by set-differencing rather than reading.
+//
+// ⚠️ Migrating is NOT a pure win and is why this is recorded rather than done:
+// fileMod reads the SOURCE FILE's mtime, which on a fresh clone is the checkout
+// time — a different arbitrary date, not a truer one. It is right where the source
+// moves on its own cadence and is written by an ingest (the КФН archive); decide it
+// per family. electionAwareMod is the third option and already pins the four
+// election families to the election date, which is why those never churn.
 const safeFileMod = (file: string): string => {
   try {
     const m = fs.statSync(file).mtime.toISOString().slice(0, 10);

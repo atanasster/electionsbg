@@ -65,5 +65,9 @@ Allow: /
 User-agent: DiffbotBot
 Allow: /
 
+# ONE index, submitted once. `public/sitemap.xml` is a byte-identical back-compat
+# copy so /sitemap.xml resolves for a crawler that probes the conventional path —
+# it needs to EXIST there, not to be announced. Advertising both handed every
+# crawler the same 16-shard index under two URLs, with no way to tell they are the
+# same document, so every shard was discovered twice.
 Sitemap: https://electionsbg.com/sitemap_index.xml
-Sitemap: https://electionsbg.com/sitemap.xml
