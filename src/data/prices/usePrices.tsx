@@ -366,6 +366,38 @@ export interface HubStats {
   electricityGapPct: number | null;
   gasGapPct: number | null;
   foodInflationPct: number | null;
+  /** The basket index's base day — where the series is 100 (euro adoption). */
+  basketFrom?: string | null;
+  /** The day `basketChangePct`'s headline window ENDS on. ⚠️ NOT the corpus's newest
+   *  day: `headlineIndex` reaches back past days with incomplete chain coverage, so on
+   *  the 2026-08 reporter collapse the headline day trailed the newest by over a week.
+   *  A caption that omits it claims the figure is current. */
+  basketAsOf?: string | null;
+  /** ⚠️⚠️ `basketChangePct` IS A TRAILING MEAN, NOT A READING ON `basketAsOf`, and its
+   *  window is wider than „N days" suggests: withheld days are reached back past.
+   *  Measured 2026-08-25 — 7 usable days spanning SEVENTEEN calendar days
+   *  (2026-08-08 → 2026-08-24), where one pre-collapse day supplies 0.3 of the 0.5
+   *  printed points and 24 August alone reads −0.8%. Any caption naming only the end
+   *  date describes a figure that day did not produce. */
+  basketWindowFrom?: string | null;
+  basketWindowDays?: number | null;
+  /** The quarter `foodInflationPct` covers, e.g. „2026-Q2".
+   *
+   *  ⚠️⚠️ `basketChangePct` AND `foodInflationPct` ARE DIFFERENT QUESTIONS and read as a
+   *  contradiction when shown together unnamed — measured, −0.5% against +3.8%. The
+   *  first is a LEVEL change in the КЗП basket since `basketFrom`; the second is a
+   *  YEAR-ON-YEAR rate for ONE QUARTER over Eurostat's food aggregate. Any surface
+   *  showing both must name both windows. */
+  foodInflationPeriod?: string | null;
+  /** The quarter's parts, so prose need not print the machine token „2026-Q2". */
+  foodInflationYear?: number | null;
+  foodInflationQuarter?: number | null;
+  /** BG's OVERALL consumption price level, EU27 = 100 (Eurostat PPP, category A01 —
+   *  „Потребление (общо)", NOT the food division). Folded into this blob so the
+   *  /consumption band is ONE query: read straight from macro_peers.json it cost 794 kB
+   *  for one scalar AND re-laid the band out from 3 cells to 4 when the file landed. */
+  euPriceLevel?: number | null;
+  euPriceLevelYear?: number | null;
 }
 export const useHubStats = () =>
   useQuery({

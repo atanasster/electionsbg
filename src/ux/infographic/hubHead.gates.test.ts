@@ -49,6 +49,11 @@ import {
   FUNDS_INDEX_FIXTURE,
 } from "@/screens/funds/fundsHubStats.fixture";
 import { budgetHubKpis } from "@/screens/budget/budgetHubFigures";
+import {
+  consumptionHubKpis,
+  promotedTiles,
+} from "@/screens/consumption/consumptionHubFigures";
+import { CONSUMPTION_STATS_FIXTURE } from "@/screens/consumption/consumptionHubStats.fixture";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
 
 const HUB_SCREENS = [
@@ -72,6 +77,8 @@ const HUB_SCREENS = [
   // the screen still carries the head's own copy, and a basis window can be typed in either.
   "src/screens/budget/BudgetHubScreen.tsx",
   "src/screens/budget/budgetHubFigures.ts",
+  "src/screens/ConsumptionScreen.tsx",
+  "src/screens/consumption/consumptionHubFigures.ts",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
@@ -240,6 +247,57 @@ describe("hub head — the band and the tiles are disjoint", () => {
       clash,
       `field(s) in both the /budget band and its tiles: ${clash.join(", ")}`,
     ).toEqual([]);
+  });
+
+  it("no /consumption KPI figure is also a tile metric", () => {
+    // Over the RENDERED STRINGS, like the /funds arm — and here that is the only form that
+    // works, because the band and the tiles read the SAME blob fields. A field-level check
+    // would report every cell as a clash by construction; what must not happen is the same
+    // STRING appearing twice on the page.
+    const kpis = consumptionHubKpis(
+      CONSUMPTION_STATS_FIXTURE,
+      "bg-BG",
+      "bg",
+      new Intl.NumberFormat("bg-BG"),
+      id,
+    );
+    expect(kpis.length, "the consumption fixture produced no KPI cells").toBe(
+      4,
+    );
+
+    // The tiles the screen will still render a metric on — i.e. all of them minus the ones
+    // the band displaced. `promotedTiles` is derived from the cells that rendered, so this
+    // mirrors exactly what the screen does.
+    const promoted = promotedTiles(kpis);
+    const values = new Set(kpis.map((k) => k.value));
+    expect(promoted.size, "the band displaced no tile").toBeGreaterThan(0);
+
+    // Every band figure must belong to a DISPLACED tile — otherwise the same string is
+    // rendered twice on one page, which reads as two different facts.
+    for (const c of kpis)
+      expect(
+        promotedTiles([c]).size,
+        `${c.to} (${c.value}) displaces no tile`,
+      ).toBeGreaterThan(0);
+    expect(
+      values.size,
+      "two /consumption KPI cells render the same string",
+    ).toBe(kpis.length);
+  });
+
+  it("no two /consumption KPI cells share a destination", () => {
+    const tos = consumptionHubKpis(
+      CONSUMPTION_STATS_FIXTURE,
+      "bg-BG",
+      "bg",
+      new Intl.NumberFormat("bg-BG"),
+      id,
+    ).map((k) => k.to);
+    expect(tos.length).toBe(4);
+    expect(
+      new Set(tos).size,
+      `duplicate /consumption KPI destination in ${tos.join(", ")}`,
+    ).toBe(tos.length);
   });
 
   it("no two /budget KPI cells share a destination", () => {

@@ -1,18 +1,36 @@
-// /consumption — the Потребление (Consumption) HUB. A navigation-first landing:
-// a product search up top, then thematic sections of stat-bearing tiles fronting
-// the sub-pages. Each tile overlays a headline number from a single precomputed
-// hub-stats blob (one PK seek — the same pattern as the Държавни сектори hub's
-// sector_stats.json), then routes to the sub-page. Reuses the tile-hub kit.
+// /consumption — the Потребление (Consumption) HUB. A HubHead (eyebrow, title, deck,
+// the place switcher, the product search and a four-cell KPI band) over thematic
+// sections of stat-bearing tiles fronting the sub-pages. Each tile overlays a headline
+// number from a single precomputed hub-stats blob (one PK seek — the same pattern as the
+// Държавни сектори hub's sector_stats.json), then routes to the sub-page.
+//
+// ⚠️ THE PLACE SWITCHER SURVIVES, and that is why this head is not a straight copy of
+// /governance's. /consumption is the COUNTRY node of a place family (`placeViews.ts`:
+// governance / parliamentary / local / consumption, each resolvable for the same place),
+// and its head used to be the shared `PlaceHeader`, whose job is to carry that switcher.
+// /governance dropped it when it adopted the head pattern; here `PlaceViewNav` goes into
+// HubHead's `scope` slot instead, so a reader can still cross to the same place's other
+// three views. Dropping it would be a navigation regression the head pattern does not ask
+// for — the pattern wants ONE h1 and a declared basis per figure, not the loss of a nav.
 
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { SEO } from "@/ux/SEO";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
-import { TileHubGrid, TileHubSection, TILE_ACCENTS } from "@/ux/infographic";
+import {
+  TileHubGrid,
+  TileHubSection,
+  TILE_ACCENTS,
+  HubHead,
+  HubKpi,
+} from "@/ux/infographic";
+import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import {
+  consumptionHubKpis,
+  promotedTiles,
+} from "@/screens/consumption/consumptionHubFigures";
 import { ConsumptionSearchTile } from "@/screens/components/consumption/ConsumptionSearchTile";
 import { ConsumptionAreaBanner } from "@/screens/components/consumption/ConsumptionAreaBanner";
 import { CONSUMPTION_SCENES } from "@/screens/consumption/consumptionScenes";
 import { useHubStats } from "@/data/prices/usePrices";
-import { usePricePli } from "@/data/macro/useMacroPeers";
 
 export const ConsumptionScreen = () => {
   const { t, i18n } = useTranslation();
@@ -28,7 +46,13 @@ export const ConsumptionScreen = () => {
   const { data: s } = useHubStats();
   // Overall EU price level (BG vs EU=100) — from the same Eurostat block that
   // drives /consumption/eu, so the tile and the page always agree.
-  const euPriceLevel = usePricePli()?.values?.BG?.A01 ?? null;
+  // ⚠️ FROM THE HUB BLOB, not from macro_peers.json. `usePricePli` reads that whole file —
+  // 794 kB for one scalar — and as a SECOND independent query it also re-laid the band out
+  // from three cells to four when it landed, moving the product count a slot. The build
+  // folds `euPriceLevel` + `euPriceLevelYear` into hub-stats instead, so the head is one
+  // query and this page no longer fetches macro_peers.json at all. (A01 is „Потребление
+  // (общо)" — the OVERALL level, not the food division A0101.)
+  const euPriceLevel = s?.euPriceLevel ?? null;
 
   // Metric formatters — a headline number is shown only when its stat is present.
   const int = (n: number | null | undefined) =>
@@ -101,7 +125,19 @@ export const ConsumptionScreen = () => {
     },
   };
 
+  /** The head's four figures — see `consumptionHubFigures.ts` for why the first two need
+   *  their captions to avoid reading as a contradiction. */
+  const kpis: HubKpi[] = useMemo(
+    () =>
+      consumptionHubKpis(s, loc, i18n.language, new Intl.NumberFormat(loc), t),
+    [s, loc, i18n.language, t],
+  );
+
   // Tile definitions, grouped into the four hub sections.
+  // ⚠️ DERIVED FROM THE CELLS THAT RENDERED, never a constant list — see `promotedTiles`.
+  // A blob older than this bundle carries a figure without its window, so the cell drops;
+  // blanking the tile anyway would delete the number from the page entirely.
+  const promoted = promotedTiles(kpis);
   const tile = (
     id: string,
     to: string,
@@ -114,8 +150,14 @@ export const ConsumptionScreen = () => {
     desc,
     accent,
     scene: CONSUMPTION_SCENES[id],
-    metric: stat[id]?.metric,
-    metricCaption: stat[id]?.metric ? stat[id]?.caption : undefined,
+    // ⚠️ §3.1 rule 5 — a figure is never in the band AND on a tile. Resolved by demoting
+    // the TILE, which is the rule's own remedy: the band is where a figure gets a stated
+    // basis, and a tile caption („спрямо еврото") has no room for one. This also clears a
+    // pre-existing duplicate — `prices` and `overview` rendered the SAME basketChangePct
+    // with the SAME caption, so „−0,5%" appeared twice in one grid.
+    metric: promoted.has(id) ? undefined : stat[id]?.metric,
+    metricCaption:
+      !promoted.has(id) && stat[id]?.metric ? stat[id]?.caption : undefined,
   });
 
   const sections: TileHubSection[] = [
@@ -255,13 +297,45 @@ export const ConsumptionScreen = () => {
 
   return (
     <>
-      <SEO title={title} description={description} />
-      {/* Country node of the Consumption view — the unified place header carries
-          the Consumption eyebrow + the switcher across to the Governance /
-          parliamentary / local views. */}
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      {/* ⚠️ ABOVE the head, not in its `scope` slot. `scope` is documented as the control
+          „beside the numbers it governs" — a time window that re-computes the band. This
+          nav governs nothing; it navigates away. Rendered in the slot it sat exactly where
+          /procurement puts its `?pscope` pills, in the same segmented idiom, directly above
+          a row of figures — so a reader who has learned those pills reads these as a filter
+          on the numbers below. HubHead's own header sanctions this position instead:
+          „breadcrumb (the caller's, above) → eyebrow…", and /budget renders its breadcrumb
+          here for the same reason.
 
-      <ConsumptionSearchTile />
+          ⚠️ THE FAMILY IS NOT YET CONSISTENT, and that is a known debt rather than a
+          decision: /governance is the sibling COUNTRY node of the same four-view family and
+          carries no switcher at all, so crossing from here to there loses the control that
+          brought you. Converging means either giving /governance one too or dropping both —
+          one decision for both nodes, not a second divergence bolted on here. */}
+      <PlaceViewNav
+        active="consumption"
+        level="country"
+        align="start"
+        className="mt-4"
+      />
+
+      {/* `HubHead` renders the h1 AND the SEO tags, so neither is written here — a second
+          <SEO> would fight it for the same head, and a second <h1> is what the pattern's
+          rendered gate exists to catch. */}
+      <HubHead
+        eyebrow={t("cons_head_eyebrow")}
+        title={title}
+        seoDescription={description}
+        deck={t("consumption_hub_intro", {
+          defaultValue: T(
+            "Какво струва кошницата, колко бързо поскъпва и къде е по-евтино — от касовите бележки до сравнението с ЕС.",
+            "What the basket costs, how fast it is rising and where things are cheaper — from till receipts to the EU comparison.",
+          ),
+        })}
+        search={<ConsumptionSearchTile />}
+        kpis={kpis}
+        kpisPending={4}
+        kpiNote={kpis.length ? t("cons_kpi_note") : undefined}
+      />
 
       <ConsumptionAreaBanner />
 

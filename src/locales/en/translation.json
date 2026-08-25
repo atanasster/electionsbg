@@ -5243,5 +5243,15 @@
   "budget_kpi_projection_basis": "projected for {{year}} on {{basisYear}}'s profile",
   "budget_kpi_share_plan_basis": "CFP expenditure plan against {{year}} GDP",
   "budget_kpi_share_projection_basis": "projected CFP expenditure against projected {{year}} GDP",
-  "budget_evidence_basis": "by {{year}} appropriation — {{total}} in total across {{units}} first-level spending units. This is not a breakdown of the CFP expenditure shown above."
+  "budget_evidence_basis": "by {{year}} appropriation — {{total}} in total across {{units}} first-level spending units. This is not a breakdown of the CFP expenditure shown above.",
+  "cons_head_eyebrow": "CONSUMPTION · CPC AND EUROSTAT",
+  "cons_kpi_basket": "The basket",
+  "cons_kpi_basket_basis": "level against {{from}} · CPC, {{days}}-day mean to {{asOf}}",
+  "cons_kpi_food_cpi": "Food inflation",
+  "cons_kpi_food_cpi_basis": "{{year}} Q{{quarter}} · mean of the quarter's three months, year on year · Eurostat",
+  "cons_kpi_eu_level": "Price level",
+  "cons_kpi_eu_level_basis": "overall consumption, EU = 100, {{year}} · Eurostat",
+  "cons_kpi_products": "Products",
+  "cons_kpi_products_basis": "tracked by the CPC",
+  "cons_kpi_note": "The basket is the shelf price level against the day the euro came in; the inflation rate is Eurostat's official measure and trails by a quarter. Different measures over different periods — which is why one sits below zero and the other above it."
 }

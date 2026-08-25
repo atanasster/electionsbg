@@ -580,6 +580,17 @@ const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
   // 479 with the band alone; 491 once the aside landed — the aside is 322 px and does not
   // drive the height, since at `lg` it sits beside the identity column rather than under it.
   { path: "/budget", maxPx: 560, measured: 491 },
+  // Takes /funds' trade — a whole search TILE in the slot rather than an input — so it
+  // sits with /budget and /funds rather than with the compact heads.
+  //
+  // 545 with the place switcher INSIDE the head; 495 once it moved above, where a
+  // cross-view nav belongs (it navigates away rather than governing the band — see the
+  // screen's header). The ceiling keeps /funds-like room because the search tile is the
+  // half most likely to grow.
+  //
+  // ⚠️ If this trips, do NOT reach for the captions first: the two basis lines are the
+  // only thing keeping „−0,5%" and „+3,8%" from reading as a contradiction.
+  { path: "/consumption", maxPx: 600, measured: 495 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {

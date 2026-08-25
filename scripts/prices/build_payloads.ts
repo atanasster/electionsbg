@@ -328,8 +328,14 @@ export const buildPayloads = async (): Promise<void> => {
   // blob drives the /consumption hub tile one click away, and while the rule
   // was hand-copied the two read −1.3% and +1.3%: the same measure with the
   // same caption, disagreeing about its sign.
-  const basketLast =
-    headlineIndex(natIndex as PricePoint[], idx?.coverage)?.v ?? null;
+  // ⚠️ `.d` IS NOT DISCARDABLE. `headlineIndex`'s own contract calls it „the day the
+  // window ENDS on — what a caption must name", and it is NOT the corpus's last day:
+  // incomplete days are reached back past, so on the 2026-08 collapse the headline day
+  // was well behind the newest one. A hub captioning „−0,5% от еврото" with no end date
+  // silently claims the figure is current.
+  const basketHeadline = headlineIndex(natIndex as PricePoint[], idx?.coverage);
+  const basketLast = basketHeadline?.v ?? null;
+
   const num = (v: unknown): number | null => {
     const n = typeof v === "number" ? v : parseFloat(String(v));
     return Number.isFinite(n) ? n : null;
@@ -401,11 +407,35 @@ export const buildPayloads = async (): Promise<void> => {
   const electricityGapPct = energyGapPct("data/energy/prices.json");
   const gasGapPct = energyGapPct("data/energy/gas_prices.json");
 
+  // BG's OVERALL consumption price level, EU27 = 100 (Eurostat PPP programme, category
+  // A01 — „Потребление (общо)", NOT the food division A0101, which reads far lower).
+  //
+  // ⚠️ FOLDED IN HERE SO THE /consumption BAND IS **ONE** QUERY. The head used to read this
+  // scalar straight from macro_peers.json — 794 kB fetched for one number — and because
+  // that is a second independent query the band rendered THREE cells and then re-laid out
+  // to four when the file landed, moving the product count from slot 3 to slot 4 on the
+  // largest element in the head. Whichever query wins the race decided the shape.
+  const peers = readJson<{
+    pricePli?: { year?: number; values?: { BG?: { A01?: number } } };
+  }>("data/macro_peers.json");
+  const euPriceLevel = peers?.pricePli?.values?.BG?.A01 ?? null;
+  const euPriceLevelYear = peers?.pricePli?.year ?? null;
+
   const macro = readJson<{
-    series?: { inflationFood?: { value: number }[] };
+    // `period` too — the caption needs the quarter, not just the rate.
+    series?: {
+      // `year`/`quarter` too — prose names „второто тримесечие на 2026", not „2026-Q2".
+      inflationFood?: {
+        value: number;
+        period?: string;
+        year?: number;
+        quarter?: number;
+      }[];
+    };
   }>("data/macro.json");
   const infF = macro?.series?.inflationFood;
-  const foodInflationPct = infF?.length ? infF[infF.length - 1].value : null;
+  const foodInflationLast = infF?.length ? infF[infF.length - 1] : null;
+  const foodInflationPct = foodInflationLast?.value ?? null;
 
   emit("hub-stats", "", {
     products: total,
@@ -421,6 +451,36 @@ export const buildPayloads = async (): Promise<void> => {
     electricityGapPct,
     gasGapPct,
     foodInflationPct,
+    // ── The WINDOWS, so a consumer can caption these figures instead of guessing.
+    //
+    // ⚠️⚠️ THE BASKET AND THE FOOD CPI ARE NOT THE SAME QUESTION, and side by side
+    // without their windows they read as a contradiction: measured 2026-08-25, the
+    // basket is −0.5% and food inflation +3.8%. The first is a LEVEL change in the
+    // КЗП basket since the euro; the second is a YEAR-ON-YEAR rate for one quarter
+    // over Eurostat's food aggregate. Different corpus, different measure, different
+    // window — and a reader shown both with neither named concludes one is wrong.
+    /** The basket index's own base day — where the series is 100 (euro adoption). */
+    basketFrom: (natIndex[0] as PricePoint | undefined)?.d ?? null,
+    /** The day the headline window ENDS on. ⚠️ NOT the corpus's newest day, and NOT a
+     *  point reading either — see `basketWindowFrom`. */
+    basketAsOf: basketHeadline?.d ?? null,
+    /** ⚠️⚠️ THE HEADLINE IS A TRAILING MEAN, AND ITS WINDOW IS WIDER THAN IT LOOKS.
+     *  `headlineIndex` averages the last N USABLE days and reaches back PAST days with
+     *  incomplete chain coverage, so the span is not `asOf` minus N. Measured 2026-08-25:
+     *  7 usable days spanning SEVENTEEN calendar days (2026-08-08 → 2026-08-24, with
+     *  08-09…08-18 withheld), and the single pre-collapse day at 101.4 supplies 0.3 of the
+     *  0.5 printed points — 24 August alone reads −0.8%. A caption saying only „към
+     *  24.08" therefore describes a number that day did not produce. */
+    basketWindowFrom: basketHeadline?.from ?? null,
+    basketWindowDays: basketHeadline?.days ?? null,
+    /** The quarter `foodInflationPct` covers, as its parts — prose should not have to
+     *  print the machine token „2026-Q2". */
+    foodInflationPeriod: foodInflationLast?.period ?? null,
+    foodInflationYear: foodInflationLast?.year ?? null,
+    foodInflationQuarter: foodInflationLast?.quarter ?? null,
+    /** See above — folded in so the band is one query rather than two. */
+    euPriceLevel,
+    euPriceLevelYear,
   });
 
   // `chain-products:<eik>` — a retail chain's OWN products (top 100 by product
