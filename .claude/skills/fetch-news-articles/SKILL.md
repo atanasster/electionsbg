@@ -1,6 +1,6 @@
 ---
 name: fetch-news-articles
-description: Fetch the latest N articles (default 5) from ONE named news website — title, URL, and publish date where available. Works for any of the 69 Bulgarian outlets in news/data/bg_news_sites.csv (uses its recorded feed method) and, via a lightweight inline probe, for other sites too. Use when the user names a specific outlet and asks for its latest / recent articles, headlines, or news — e.g. "get me the latest 5 from Дневник", "what's on mediapool.bg right now", "pull the top 3 headlines from blitz.bg".
+description: Fetch the latest N articles (default 5) from ONE named news website — title, URL, and publish date where available. Works for any of the 70 Bulgarian outlets in news/data/bg_news_sites.csv (uses its recorded feed method) and, via a lightweight inline probe, for other sites too. Use when the user names a specific outlet and asks for its latest / recent articles, headlines, or news — e.g. "get me the latest 5 from Дневник", "what's on mediapool.bg right now", "pull the top 3 headlines from blitz.bg".
 ---
 
 # fetch-news-articles
@@ -44,6 +44,10 @@ nonzero code (see below) — never both success and error.
 **Exit 0 — success.** The JSON has `method`, `count`, `order_confidence`,
 and `articles: [{title, url, published}]`.
 
+- `order_confidence: "not_modified"` — the source answered **304**: nothing
+  has changed since the last run, `articles` is empty, and that is a success.
+  The lister sends `If-None-Match`/`If-Modified-Since` from the validators the
+  saver stores per domain.
 - `order_confidence: "date_sorted"` — trust the ordering.
 - `order_confidence: "feed_order_unconfirmed"` — the source carries no
   per-article dates (a bare sitemap with no `<lastmod>`/`<news:title>`);
@@ -73,6 +77,7 @@ speculatively) or report that this outlet isn't reachable this way.
 | `needs_browser_then_fetch` | a real feed/sitemap exists but a bare HTTP client is blocked (Cloudflare JS challenge or similar) | go to Step 4b — clear it with the Browser tool, then re-run the SAME parser via `--stdin` |
 | `blocked_captcha` | an *interactive* CAPTCHA (Cloudflare Turnstile checkbox) stands in the way | **stop. Do not attempt it** — solving bot-detection challenges is off-limits regardless of how trivial the click looks. Tell the user this outlet isn't automatable right now. |
 | `portal_not_newsroom` | e.g. abv.bg redirects to a webmail login page | tell the user this isn't actually a newsroom |
+| `robots_disallowed` | the site's robots.txt forbids this URL for `NaiasnoBot` | **respect it.** A policy statement, not a failure — do not retry and do not count it as a broken source |
 
 **Exit 4 — fetch_failed.** A real HTTP/XML error (a source-side bug, a
 transient block, a timeout). Safe to retry once; if it fails twice, report

@@ -1222,6 +1222,505 @@ class IntakeState(unittest.TestCase):
         self.assertEqual((code, out["error"]), (1, "usage"))
 
 
+class CrawlPoliteness(unittest.TestCase):
+    """Identity, robots.txt and conditional requests.
+
+    Before this the crawler sent a spoofed Chrome 124 user-agent and a
+    fabricated `Referer: https://www.google.com/`, read robots.txt only to
+    scrape its Sitemap: line — never Disallow — and re-downloaded every feed
+    in full every night. For a public-interest project that publishes its
+    methodology, impersonating a reader arriving from a search result is not
+    something to do, and measured across all 47 direct-tier domains it was not
+    buying anything: 45 answer the honest identity exactly as they answered
+    the spoofed one."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import fetch_latest_articles  # noqa: E402
+        import save_articles  # noqa: E402
+        cls.fla = fetch_latest_articles
+        cls.sa = save_articles
+
+    def setUp(self):
+        self.fla._ROBOTS_CACHE.clear()
+
+    def tearDown(self):
+        self.fla._ROBOTS_CACHE.clear()
+
+    def seed_robots(self, host, body):
+        rp = self.fla.urllib.robotparser.RobotFileParser()
+        rp.parse(body.splitlines())
+        self.fla._ROBOTS_CACHE[("https", host)] = rp
+
+    # --------------------------------------------------------------- identity
+
+    def test_the_user_agent_names_the_bot_and_where_to_complain(self):
+        ua = self.fla.UA
+        self.assertIn(self.fla.BOT_NAME, ua)
+        self.assertIn("http", ua, "a contact URL, so a webmaster can object")
+        for impersonation in ("Mozilla", "Chrome", "Safari", "AppleWebKit"):
+            self.assertNotIn(impersonation, ua)
+
+    def test_no_fabricated_referer_is_sent(self):
+        """The spoof claimed every request arrived from a Google result.
+
+        Checked against CODE, not the whole file: both modules now carry a
+        comment explaining what was removed and why, and prose that MENTIONS a
+        pattern is not an occurrence of it — the trap this repo's own
+        strip_comments helper exists for."""
+        for module in (self.fla, self.sa):
+            src = Path(module.__file__).read_text(encoding="utf-8")
+            code = "\n".join(
+                line for line in src.splitlines()
+                if not line.lstrip().startswith("#"))
+            self.assertNotIn('"Referer"', code)
+            self.assertNotIn("'Referer'", code)
+
+    # ---------------------------------------------------------------- robots
+
+    def test_a_disallowed_path_is_refused(self):
+        self.seed_robots("ex.bg", "User-agent: *\nDisallow: /private/")
+        self.assertFalse(self.fla.robots_allows("https://ex.bg/private/a"))
+        self.assertTrue(self.fla.robots_allows("https://ex.bg/news/a"))
+
+    def test_a_rule_naming_this_bot_is_honoured(self):
+        self.seed_robots(
+            "ex.bg",
+            f"User-agent: {self.fla.BOT_NAME}\nDisallow: /\n\n"
+            "User-agent: *\nAllow: /")
+        self.assertFalse(self.fla.robots_allows("https://ex.bg/news/a"),
+                         "a rule addressed to us by name must bind")
+
+    def test_an_unreadable_robots_txt_means_allowed(self):
+        """None means UNKNOWN, and unknown is allowed — the convention
+        robots.txt itself specifies. A host that 404s it is not asking for
+        anything."""
+        self.fla._ROBOTS_CACHE[("https", "ex.bg")] = None
+        self.assertTrue(self.fla.robots_allows("https://ex.bg/anything"))
+
+    def test_robots_is_fetched_once_per_host(self):
+        """A sweep fetches dozens of pages from one host; re-reading robots.txt
+        per request would be rude in itself."""
+        calls = []
+        real = self.fla.urllib.request.urlopen
+
+        def counting(req, *a, **kw):
+            calls.append(req.full_url)
+            raise OSError("no network in tests")
+
+        self.fla.urllib.request.urlopen = counting
+        try:
+            for path in ("a", "b", "c"):
+                self.fla.robots_allows(f"https://ex.bg/{path}")
+        finally:
+            self.fla.urllib.request.urlopen = real
+        self.assertEqual(len(calls), 1, calls)
+
+    def test_a_robots_refusal_is_terminal_never_retried(self):
+        """It is a standing policy statement, not a transient failure."""
+        q, newly, _ = self.sa.merge_retry_queue(
+            [], [{"url": "https://ex.bg/private/a",
+                  "detail": "robots_disallowed (robots.txt forbids …)"}],
+            "2026-08-26T00:00:00+00:00")
+        self.assertEqual((q, newly), ([], []))
+
+    def test_a_robots_refusal_is_not_counted_as_a_broken_source(self):
+        self.assertIn("robots_disallowed", self.sa.STANDING_LISTER_FACTS)
+
+    # ---------------------------------------------------- conditional fetches
+
+    def test_validators_are_sent_when_given(self):
+        sent = {}
+        real = self.fla.urllib.request.urlopen
+
+        def capture(req, *a, **kw):
+            sent.update(req.headers)
+            raise OSError("no network in tests")
+
+        self.fla._ROBOTS_CACHE[("https", "ex.bg")] = None
+        self.fla.urllib.request.urlopen = capture
+        try:
+            with self.assertRaises(OSError):
+                self.fla.fetch("https://ex.bg/feed", etag='W/"abc"',
+                               last_modified="Mon, 25 Aug 2026 12:00:00 GMT")
+        finally:
+            self.fla.urllib.request.urlopen = real
+        self.assertEqual(sent.get("If-none-match"), 'W/"abc"')
+        self.assertEqual(sent.get("If-modified-since"),
+                         "Mon, 25 Aug 2026 12:00:00 GMT")
+
+    def test_no_validators_are_sent_when_none_are_stored(self):
+        sent = {}
+        real = self.fla.urllib.request.urlopen
+
+        def capture(req, *a, **kw):
+            sent.update(req.headers)
+            raise OSError("no network in tests")
+
+        self.fla._ROBOTS_CACHE[("https", "ex.bg")] = None
+        self.fla.urllib.request.urlopen = capture
+        try:
+            with self.assertRaises(OSError):
+                self.fla.fetch("https://ex.bg/feed")
+        finally:
+            self.fla.urllib.request.urlopen = real
+        self.assertNotIn("If-none-match", sent)
+        self.assertNotIn("If-modified-since", sent)
+
+    def test_a_304_raises_NotModified_rather_than_an_http_error(self):
+        real = self.fla.urllib.request.urlopen
+
+        def not_modified(req, *a, **kw):
+            raise self.fla.urllib.error.HTTPError(
+                req.full_url, 304, "Not Modified", {}, None)
+
+        self.fla._ROBOTS_CACHE[("https", "ex.bg")] = None
+        self.fla.urllib.request.urlopen = not_modified
+        try:
+            with self.assertRaises(self.fla.NotModified):
+                self.fla.fetch("https://ex.bg/feed", etag='"x"')
+        finally:
+            self.fla.urllib.request.urlopen = real
+
+    def test_a_real_http_error_is_still_an_http_error(self):
+        real = self.fla.urllib.request.urlopen
+
+        def gone(req, *a, **kw):
+            raise self.fla.urllib.error.HTTPError(
+                req.full_url, 404, "Not Found", {}, None)
+
+        self.fla._ROBOTS_CACHE[("https", "ex.bg")] = None
+        self.fla.urllib.request.urlopen = gone
+        try:
+            with self.assertRaises(self.fla.urllib.error.HTTPError):
+                self.fla.fetch("https://ex.bg/feed")
+        finally:
+            self.fla.urllib.request.urlopen = real
+
+    # ------------------------------------- the production paths, over a socket
+    #
+    # Three mutations survived the first version of these tests with 159/159
+    # green: deleting the robots guard from BOTH fetch() and fetch_html(),
+    # making the 7-day unconditional refresh never fire, and never persisting
+    # a validator. Those tests exercised the predicate against a hand-seeded
+    # cache and asserted a constant's range; they never went through a fetch.
+    # These use a throwaway local http.server so the real code path runs.
+
+    def serve(self, handler_cls):
+        import http.server, threading
+        srv = http.server.HTTPServer(("127.0.0.1", 0), handler_cls)
+        t = threading.Thread(target=srv.serve_forever, daemon=True)
+        t.start()
+        self.addCleanup(srv.shutdown)
+        self.addCleanup(srv.server_close)
+        return f"http://127.0.0.1:{srv.server_port}"
+
+    def test_robots_is_actually_consulted_by_fetch(self):
+        import http.server
+        seen = []
+
+        class H(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *a):
+                pass
+
+            def do_GET(self):
+                seen.append(self.path)
+                if self.path == "/robots.txt":
+                    body = b"User-agent: *\nDisallow: /private/\n"
+                else:
+                    body = b"<html><title>x</title></html>"
+                self.send_response(200)
+                self.send_header("Content-Type", "text/plain")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+        base = self.serve(H)
+        self.fla._ROBOTS_CACHE.clear()
+        with self.assertRaises(self.fla.RobotsDisallowed):
+            self.fla.fetch(f"{base}/private/x")
+        self.assertIn("/robots.txt", seen)
+        self.assertNotIn("/private/x", seen, "the forbidden URL was fetched")
+        self.assertTrue(self.fla.fetch(f"{base}/allowed"))
+
+    def test_robots_is_actually_consulted_by_fetch_html(self):
+        import http.server
+
+        class H(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *a):
+                pass
+
+            def do_GET(self):
+                body = (b"User-agent: *\nDisallow: /private/\n"
+                        if self.path == "/robots.txt"
+                        else b"<html><title>x</title></html>")
+                self.send_response(200)
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+        base = self.serve(H)
+        self.fla._ROBOTS_CACHE.clear()
+        with self.assertRaises(self.fla.RobotsDisallowed):
+            self.sa.fetch_html(f"{base}/private/x")
+
+    def test_the_honest_identity_is_what_reaches_the_wire(self):
+        import http.server
+        agents = []
+
+        class H(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *a):
+                pass
+
+            def do_GET(self):
+                agents.append(self.headers.get("User-Agent"))
+                self.send_response(200)
+                self.send_header("Content-Length", "2")
+                self.end_headers()
+                self.wfile.write(b"ok")
+
+        base = self.serve(H)
+        self.fla._ROBOTS_CACHE.clear()
+        self.fla.fetch(f"{base}/x")
+        self.assertTrue(agents)
+        for ua in agents:
+            self.assertIn(self.fla.BOT_NAME, ua)
+            self.assertNotIn("Mozilla", ua)
+
+    def test_a_validator_belongs_to_the_url_it_came_from(self):
+        """fetch()'s validators used to be function-attribute globals, so a
+        sitemapindex's CHILD fetches overwrote the feed's with the last
+        article page's. The next run then sent an article page's ETag for the
+        feed and the server 304'd a sitemap that HAD changed."""
+        import http.server
+
+        class H(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *a):
+                pass
+
+            def do_GET(self):
+                body = b"ok"
+                self.send_response(200)
+                self.send_header("ETag", f'"etag-for{self.path}"')
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+        base = self.serve(H)
+        self.fla._ROBOTS_CACHE[("http", base.split("//")[1])] = None
+        parent, child = {}, {}
+        self.fla.fetch(f"{base}/feed.xml", meta=parent)
+        self.fla.fetch(f"{base}/article", meta=child)
+        self.assertEqual(parent["etag"], '"etag-for/feed.xml"')
+        self.assertEqual(parent["url"], f"{base}/feed.xml")
+        self.assertEqual(child["etag"], '"etag-for/article"',
+                         "the child must not have mutated the parent's")
+
+    def test_a_304_is_reported_not_treated_as_an_empty_feed(self):
+        import http.server
+
+        class H(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *a):
+                pass
+
+            def do_GET(self):
+                if self.headers.get("If-None-Match"):
+                    self.send_response(304)
+                    self.end_headers()
+                    return
+                body = b"ok"
+                self.send_response(200)
+                self.send_header("ETag", '"v1"')
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+        base = self.serve(H)
+        self.fla._ROBOTS_CACHE[("http", base.split("//")[1])] = None
+        meta = {}
+        self.fla.fetch(f"{base}/feed.xml", meta=meta)
+        self.assertEqual(meta["etag"], '"v1"')
+        with self.assertRaises(self.fla.NotModified):
+            self.fla.fetch(f"{base}/feed.xml", etag=meta["etag"])
+
+    def test_one_forbidden_child_sitemap_does_not_discard_the_outlet(self):
+        """The ranking tries the most-likely-fresh child FIRST, so a Disallow
+        on exactly that one used to abort the descent and report the source as
+        empty — permanently and silently."""
+        import http.server
+        INDEX = (b'<?xml version="1.0"?><sitemapindex '
+                 b'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                 b"<sitemap><loc>%s/private/news9.xml</loc></sitemap>"
+                 b"<sitemap><loc>%s/ok/news1.xml</loc></sitemap>"
+                 b"</sitemapindex>")
+        URLSET = (b'<?xml version="1.0"?><urlset '
+                  b'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                  b"<url><loc>%s/a/1</loc><lastmod>2026-08-25</lastmod></url>"
+                  b"</urlset>")
+
+        class H(http.server.BaseHTTPRequestHandler):
+            base = ""
+
+            def log_message(self, *a):
+                pass
+
+            def do_GET(self):
+                b = H.base.encode()
+                if self.path == "/robots.txt":
+                    body = b"User-agent: *\nDisallow: /private/\n"
+                elif self.path == "/index.xml":
+                    body = INDEX % (b, b)
+                elif self.path.startswith("/ok/"):
+                    body = URLSET % b
+                else:
+                    body = b"<html><title>t</title></html>"
+                self.send_response(200)
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+        base = self.serve(H)
+        H.base = base
+        self.fla._ROBOTS_CACHE.clear()
+        refused = []
+        items = self.fla.parse_sitemap(
+            self.fla.fetch(f"{base}/index.xml"), 5, refused=refused)
+        self.assertEqual(len(items), 1, "the allowed child must still be read")
+        self.assertEqual(len(refused), 1)
+        self.assertIn("/private/", refused[0])
+
+    def test_backfill_skips_titles_for_urls_the_caller_already_has(self):
+        """~95% of the lister's fetches were of already-stored pages, each then
+        fetched a SECOND time by the saver in the same night."""
+        import http.server
+        seen = []
+
+        class H(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *a):
+                pass
+
+            def do_GET(self):
+                seen.append(self.path)
+                body = b"<html><title>t</title></html>"
+                self.send_response(200)
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+        base = self.serve(H)
+        self.fla._ROBOTS_CACHE[("http", base.split("//")[1])] = None
+        items = [{"title": None, "url": f"{base}/a/1"},
+                 {"title": None, "url": f"{base}/a/2"}]
+        self.fla.backfill_titles(items, 2, known={f"{base}/a/1".replace(
+            "http://", "https://")})
+        self.assertEqual(seen, ["/a/2"], seen)
+
+    def test_the_saver_persists_and_re_sends_a_validator(self):
+        """End to end through the real lister subprocess and the real state
+        writer — the two halves the predicate tests never reach. Deleting the
+        persistence left the whole suite green before this existed."""
+        import http.server
+        conditional_hits = []
+        FEED = ('<?xml version="1.0"?><rss><channel>'
+                '<item><title>Zaglavie</title><link>{base}/a/1</link>'
+                '<pubDate>Mon, 24 Aug 2026 09:00:00 +0300</pubDate></item>'
+                '</channel></rss>')
+
+        class H(http.server.BaseHTTPRequestHandler):
+            base = ""
+
+            def log_message(self, *a):
+                pass
+
+            def do_GET(self):
+                if self.path == "/robots.txt":
+                    body = b"User-agent: *\nAllow: /\n"
+                elif self.path == "/feed.xml":
+                    if self.headers.get("If-None-Match"):
+                        conditional_hits.append(1)
+                        self.send_response(304)
+                        self.end_headers()
+                        return
+                    body = FEED.format(base=H.base).encode()
+                else:
+                    body = (b"<html><head><title>t</title>"
+                            b'<meta property="og:type" content="article">'
+                            b"</head><body><article><p>"
+                            + ("Tekst na statiyata. " * 60).encode()
+                            + b"</p></article></body></html>")
+                self.send_response(200)
+                self.send_header("ETag", '"feed-v1"')
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+        base = self.serve(H)
+        H.base = base
+        root = Path(tempfile.mkdtemp(prefix="save-articles-cond-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "news" / "data").mkdir(parents=True)
+        (root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            f"ex.bg,rss,{base}/feed.xml\n", encoding="utf-8")
+
+        _, first = run_saver(root, "ex.bg", "5")
+        self.assertEqual(first["saved"], 1)
+        st = json.loads((root / "news" / "data" / "_state" / "ex.bg.json")
+                        .read_text(encoding="utf-8"))
+        self.assertEqual(st["etag"], '"feed-v1"',
+                         "the feed's validator must be persisted")
+        self.assertEqual(st["validator_url"], f"{base}/feed.xml",
+                         "and must record WHICH document it belongs to")
+
+        _, second = run_saver(root, "ex.bg", "5")
+        self.assertEqual(second["order_confidence"], "not_modified")
+        self.assertEqual(len(conditional_hits), 1,
+                         "the stored validator was not re-sent")
+
+    def test_a_feed_url_change_discards_the_stored_validator(self):
+        """A validator belongs to a document. A feed_url edit re-aims the
+        request, and sending the OLD document's ETag invites a 304 about a
+        page we are no longer asking for."""
+        root = Path(tempfile.mkdtemp(prefix="save-articles-vurl-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "news" / "data" / "_state").mkdir(parents=True)
+        (root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "ex.bg,rss,https://ex.bg/NEW-feed.xml\n", encoding="utf-8")
+        (root / "news" / "data" / "_state" / "ex.bg.json").write_text(
+            json.dumps({"domain": "ex.bg", "etag": '"stale"',
+                        "validator_url": "https://ex.bg/OLD-feed.xml",
+                        "retry_urls": []}), encoding="utf-8")
+        run_saver(root, "ex.bg", "2")
+        st = json.loads((root / "news" / "data" / "_state" / "ex.bg.json")
+                        .read_text(encoding="utf-8"))
+        self.assertNotEqual(st.get("etag"), '"stale"')
+
+    def test_a_bot_refused_site_is_not_crawled(self):
+        """Recording that a site refuses an identified bot and then crawling
+        it anyway every night is worse than not recording it: the sweep
+        hammers a source that said no AND raises a permanent `failing`
+        alert."""
+        root = Path(tempfile.mkdtemp(prefix="save-articles-refused-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "news" / "data").mkdir(parents=True)
+        (root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026,bot_policy_aug2026\n"
+            "ex.bg,rss,https://ex.bg/feed,bot_refused\n", encoding="utf-8")
+        code, out = run_saver(root, "ex.bg", "5")
+        self.assertEqual((code, out["error"]), (3, "bot_refused"))
+        self.assertIn("bot_refused", self.sa.STANDING_LISTER_FACTS,
+                      "and it must not count as a broken source")
+
+    def test_the_periodic_unconditional_refresh_has_a_bound(self):
+        """A server with a buggy validator can answer 304 for ever, and a
+        conditional-only sweep would quietly stop collecting that source while
+        every run still reported success."""
+        self.assertGreaterEqual(self.sa.UNCONDITIONAL_EVERY_DAYS, 1)
+        self.assertLessEqual(self.sa.UNCONDITIONAL_EVERY_DAYS, 31)
+
+
 class ReExtractionGuards(unittest.TestCase):
     """The three ways --reextract could destroy a corpus, each pinned.
 

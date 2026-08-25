@@ -25,6 +25,61 @@ content (full body text, paragraphs joined by \n\n), content_chars,
 fetched_at
 ```
 
+## Crawl politeness — the identity, robots.txt, and conditional fetches
+
+This crawls ~70 newsrooms nightly for a project that publishes its
+methodology, so since 2026-08-26 it does so under its own name:
+
+```
+NaiasnoBot/1.0 (+https://electionsbg.com/about; public-interest media monitoring)
+```
+
+It replaced a spoofed Chrome 124 string plus a fabricated
+`Referer: https://www.google.com/`. Impersonating a reader arriving from a
+search result is not something this project should do — and measured across
+all 47 direct-tier domains, it was not buying anything: **45 answer the honest
+identity exactly as they answered the spoofed one.**
+
+⚠️ **Two refuse it.** `svobodnoslovo.eu` and `novavarna.net` 403 an identified
+bot and 200 a browser string. That is those sites declining to be crawled by a
+bot, and the answer is to respect it, not to put the mask back on. They carry
+`bot_policy_<vintage> = bot_refused` in the registry, and the saver **exits 3
+with `bot_refused` before fetching anything** — recording the refusal and then
+crawling nightly anyway would be worse than not recording it, since the sweep
+would hammer a source that said no AND raise a permanent `failing` alert.
+`bot_refused` is a standing fact, so it is not counted as a broken source.
+**Do not "fix" this by restoring a browser UA for them.**
+
+`Crawl-delay` is honoured too: a host asking for one gets `max(--delay, that)`
+between article fetches, reported as `delay` in the summary. Measured before
+this: 0.0005 s between requests to a host asking for 10 s.
+
+⚠️ **A validator belongs to a DOCUMENT, not a domain.** The stored `etag`
+carries the `validator_url` it came from, and a `feed_url` edit discards it —
+sending the old document's ETag invites a 304 about a page we are no longer
+asking for. The same hazard bit once already: the validators used to be
+module-global, so a sitemapindex's child fetches overwrote the feed's with the
+last article page's, and the next run got a 304 on a sitemap that HAD changed
+— zero articles, exit 0, recorded a success, across 40 of the 70 registry rows.
+
+**robots.txt `Disallow` is honoured**, not just mined for its `Sitemap:` line.
+Measured across the same 47 domains: exactly ONE feed URL is disallowed for a
+generic bot (`investor.bg`, already quarantined as structurally stale) and
+ZERO article URLs are — so honouring it costs the corpus essentially nothing,
+which is the whole argument for doing it. An unreadable robots.txt means
+UNKNOWN and unknown means allowed, per the convention robots.txt itself
+specifies. A refusal exits 3 as `robots_disallowed` — a policy statement, not
+a failure, so a nightly run does not count it as a broken source night after
+night, and the URL is never queued for retry.
+
+**Conditional requests.** The lister sends `If-None-Match` / `If-Modified-Since`
+from the validators stored in the intake state, so a nightly re-run of an
+unchanged feed costs the source a header exchange instead of a document
+(`order_confidence: "not_modified"`). ⚠️ **Every 7 days it deliberately fetches
+UNCONDITIONALLY** — a server with a buggy validator can answer 304 for ever,
+and a conditional-only sweep would then stop collecting that source entirely
+while every run still reported success.
+
 Extraction details that were measured, not assumed:
 
 - **windows-1251 is still alive** (moreto.net). Decode follows the
@@ -361,7 +416,7 @@ bash news/scripts/save_all_direct.sh 100 news/data/_summaries_<YYYYMMDD>.jsonl
 ```
 
 Every direct-method domain (rss/sitemap/robots_sitemap/sitemap_news/
-homepage_link — ~47 of 69), 6 domains in parallel (6 requests to 6
+homepage_link — ~47 of 70), 6 domains in parallel (6 requests to 6
 different hosts, one per host, sequential within each). One summary JSON
 line per domain lands in the output file.
 
@@ -453,7 +508,7 @@ expect:
   browser tier — not a bug in the saver.
 - One-off `HTTP Error 404`: sitemap entries for since-deleted articles;
   ignore.
-- `blocked_captcha` and `portal_not_newsroom` (~5 of 69) stay unreachable
+- `blocked_captcha` and `portal_not_newsroom` (~5 of 70) stay unreachable
   — no CAPTCHA solving, ever.
 
 ## Step 5 — the browser tier (17 domains), now wired

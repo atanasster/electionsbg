@@ -97,6 +97,7 @@ import time
 import hashlib
 import csv
 import subprocess
+import tempfile
 import urllib.request
 import urllib.error
 from html.parser import HTMLParser
@@ -715,11 +716,17 @@ def decode_html(body, content_type=""):
 
 
 def fetch_html(url):
+    """One article page, under the project's own identity and within whatever
+    robots.txt allows. The spoofed Chrome string and the fabricated
+    "Referer: https://www.google.com/" are gone: impersonating a reader
+    arriving from a search result is not something this project should do, and
+    measured across all 47 direct-tier domains it was not buying anything."""
+    if not fla.robots_allows(url):
+        raise fla.RobotsDisallowed(url)
     req = urllib.request.Request(fla._normalize_url(url), headers={
         "User-Agent": fla.UA,
         "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
         "Accept-Language": "bg-BG,bg;q=0.9,en;q=0.8",
-        "Referer": "https://www.google.com/",
     })
     with urllib.request.urlopen(req, timeout=fla.TIMEOUT,
                                 context=fla._SSL_CTX) as resp:
@@ -1014,6 +1021,11 @@ STATE_DIR_NAME = "_state"
 # first full sweep produced 24 such 404s in one run.
 MAX_RETRY_ATTEMPTS = 3
 
+# How often to ignore the stored validators and re-fetch a feed in full. A
+# server with a buggy validator can answer 304 for ever; without this the
+# source would quietly stop being collected while every run reported success.
+UNCONDITIONAL_EVERY_DAYS = 7
+
 # Lister outcomes that are STANDING FACTS about an outlet rather than failures
 # to count. A browser-tier domain would otherwise accumulate a failure every
 # night for ever and alert as `failing` when nothing is wrong. Everything else
@@ -1024,13 +1036,15 @@ STANDING_LISTER_FACTS = frozenset({
     "needs_browser", "needs_browser_then_fetch", "blocked_captcha",
     "portal_not_newsroom",
     "domain_not_in_registry_and_quick_probe_failed",
+    "robots_disallowed", "bot_refused",
 })
 
 # Per-article failures that are DECISIONS, not transient errors. These already
 # go to the rejection ledger with its own TTL; queueing them here too would
 # retry tonight what the gate refused on purpose.
 _TERMINAL_FAILURE_RE = re.compile(
-    r"^(non_article_page|title_as_body|thin_body|no title and no content)")
+    r"^(non_article_page|title_as_body|thin_body|no title and no content"
+    r"|robots_disallowed)")
 
 
 def state_path(domain):
@@ -1424,6 +1438,11 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
             return None
         try:
             fresh = fetch_html(url)
+        except fla.RobotsDisallowed:
+            out["failed"].append({"url": url, "detail":
+                                  "robots_disallowed (robots.txt forbids this "
+                                  f"URL for {fla.BOT_NAME}); not re-fetched"})
+            return None
         except (urllib.error.URLError, urllib.error.HTTPError, OSError) as e:
             out["failed"].append({"url": url, "detail": str(e)})
             return None
@@ -1991,6 +2010,26 @@ def main():
         sys.exit(4 if summary["failed"] and not did_work else 0)
 
     state = load_state(domain)
+    # A site that 403s an identified bot and 200s a browser string is declining
+    # to be crawled. Recording that in the registry and then crawling it anyway
+    # every night is worse than not recording it: the sweep hammers a source
+    # that said no AND raises a permanent `failing` alert about it.
+    if registry_flag(domain, "bot_policy_") == "bot_refused" and not (
+            urls_file or prefetched):
+        print(json.dumps({
+            "domain": domain, "error": "bot_refused",
+            "detail": "this site refuses an identified bot (403 to our "
+                      "user-agent, 200 to a browser string). Respecting that "
+                      "is the point of having an honest identity; do not work "
+                      "around it. Registry: bot_policy_<vintage>."}))
+        sys.exit(3)
+    # Scanned BEFORE the listing, because the lister is told which URLs we
+    # already hold so it can skip fetching their titles. BOTH sides: a domain
+    # quarantined yesterday and fresh today must not re-fetch what it holds.
+    corpus_folder, quarantine_folder = domain_folders(domain)
+    have, _ = scan_stored(corpus_folder, quarantine_folder)
+    on_disk = frozenset(have)  # snapshot BEFORE the loop starts adding to it
+
     html_map = {}  # url -> page HTML, when pages were prefetched via browser
     if prefetched:
         # Browser-fetched pages (the browser_only tier): one JSON line per
@@ -2040,9 +2079,65 @@ def main():
         retry_first = [{"url": e["url"]} for e in state.get("retry_urls", [])
                        if isinstance(e, dict) and e.get("url")]
         try:
-            proc = subprocess.run(
-                [sys.executable, str(LISTER), domain, str(want)],
-                capture_output=True, text=True, timeout=LISTER_TIMEOUT)
+            lister_argv = [sys.executable, str(LISTER), domain, str(want)]
+            # The lister fetches article pages to backfill missing titles.
+            # Every URL we already store is one it need not fetch — measured,
+            # ~95% of its fetches were of already-stored pages, each then
+            # fetched a SECOND time by this script in the same night.
+            known_file = None
+            if have:
+                try:
+                    known_file = tempfile.NamedTemporaryFile(
+                        "w", suffix=".urls", delete=False, encoding="utf-8")
+                    known_file.write("\n".join(sorted(have)))
+                    known_file.close()
+                    lister_argv.append(f"--known-urls={known_file.name}")
+                except OSError:
+                    known_file = None
+            # ⚠️ Force an UNCONDITIONAL fetch periodically. A server with a
+            # buggy or over-eager validator can answer 304 for ever, and a
+            # conditional-only sweep would then stop collecting that source
+            # entirely while every run still reported success — the exact
+            # silent-stall shape the intake state exists to make visible.
+            # A stored validator belongs to a specific document. A feed_url
+            # edit re-aims the request, and sending the OLD document's ETag
+            # invites a 304 about a page we are no longer asking for.
+            feed_url = registry_flag(domain, "feed_url_")
+            if (state.get("validator_url")
+                    and feed_url
+                    and canonical_url(state["validator_url"])
+                    != canonical_url(feed_url)):
+                state.pop("etag", None)
+                state.pop("last_modified", None)
+                state.pop("validator_url", None)
+            last_full = state.get("last_unconditional_at")
+            due = True
+            if last_full:
+                try:
+                    due = (datetime.now(timezone.utc)
+                           - datetime.fromisoformat(last_full)
+                           > timedelta(days=UNCONDITIONAL_EVERY_DAYS))
+                except ValueError:
+                    due = True
+            # ⚠️ Stamped only AFTER a successful fetch, below. Stamping here
+            # let a run that failed burn the 7-day slot, so a source whose
+            # validator is broken could go a fortnight without a full fetch.
+            # Last run's validators. The source answers 304 when nothing has
+            # changed, which is the whole point of running this nightly.
+            if not due and state.get("etag"):
+                lister_argv.append(f"--etag={state['etag']}")
+            if not due and state.get("last_modified"):
+                lister_argv.append(
+                    f"--if-modified-since={state['last_modified']}")
+            try:
+                proc = subprocess.run(lister_argv, capture_output=True,
+                                      text=True, timeout=LISTER_TIMEOUT)
+            finally:
+                if known_file:
+                    try:
+                        os.unlink(known_file.name)
+                    except OSError:
+                        pass
         except subprocess.TimeoutExpired:
             record_domain_failure(domain, state, "fetch_failed",
                                   f"lister exceeded {LISTER_TIMEOUT}s")
@@ -2079,6 +2174,15 @@ def main():
             print(json.dumps(listed, ensure_ascii=False))
             sys.exit(proc.returncode or 3)
         articles = listed.get("articles", [])
+        # Store the fresh validators for next time. Only overwrite when the
+        # source SENT one: a 304 response carries no body and often no ETag,
+        # and clearing the stored value would make every subsequent run
+        # unconditional again.
+        for key in ("etag", "last_modified", "validator_url"):
+            if listed.get(key):
+                state[key] = listed[key]
+        if due:
+            state["last_unconditional_at"] = now_iso()
         # Retried URLs go FIRST and are deduped against the fresh listing by
         # canonical key, so a URL that reappeared in the feed is not fetched
         # twice in one run.
@@ -2096,12 +2200,7 @@ def main():
                                                          order_confidence)
     if no_quarantine:
         quarantined, quarantine_reason = False, "--no-quarantine"
-    corpus_folder, quarantine_folder = domain_folders(domain)
     folder = quarantine_folder if quarantined else corpus_folder
-    # BOTH sides: a domain that was quarantined yesterday and is fresh today
-    # must not re-fetch what it already holds, and vice versa.
-    have, _ = scan_stored(corpus_folder, quarantine_folder)
-    on_disk = frozenset(have)  # snapshot BEFORE the loop starts adding to it
     skip_rejected = set() if retry_rejected else rejected_urls(domain)
     # A URL rejected earlier in THIS run must not be appended twice, and with
     # --retry-rejected the ledger's own entries are re-appended every run --
@@ -2109,6 +2208,20 @@ def main():
     # guard with what the ledger already holds makes the append idempotent per
     # URL regardless of which flags are in play.
     ledgered = rejected_urls(domain, max_age_days=None)
+    # A host asking for a Crawl-delay is asking politely and in the one place
+    # designed for it. Measured before this: 0.0005 s between requests to a
+    # host requesting 10 s.
+    host_delay = delay
+    if articles:
+        first = next((a["url"] for a in articles if a.get("url")), None)
+        if first:
+            rp = fla.robots_for(first)
+            try:
+                asked = rp.crawl_delay(fla.BOT_NAME) if rp else None
+            except Exception:
+                asked = None
+            if asked:
+                host_delay = max(delay, float(asked))
     saved, rejected, skipped_rejected, failed = 0, 0, 0, []
     attempted = set()  # canonical keys this run actually tried to fetch
     echo_slack = echo_slack_for(min_body)
@@ -2157,6 +2270,12 @@ def main():
                 write_html_cache(domain, url, html_text)
             rec, is_article = extract_record(html_text, domain, url,
                                              art.get("published"))
+        except fla.RobotsDisallowed:
+            # A policy statement by the site. Terminal, never retried.
+            failed.append({"url": url, "detail":
+                           f"robots_disallowed (robots.txt forbids this URL "
+                           f"for {fla.BOT_NAME})"})
+            continue
         except (urllib.error.URLError, urllib.error.HTTPError) as e:
             failed.append({"url": url, "detail": str(e)})
             continue
@@ -2195,7 +2314,7 @@ def main():
         write_record(folder / article_filename(url, rec["published"]), rec)
         saved += 1
         if not html_map:
-            time.sleep(delay)
+            time.sleep(host_delay)
 
     # Counted against a SNAPSHOT of the disk taken before the loop, not the
     # set the loop grows as it goes — otherwise every URL this run stored is
@@ -2223,6 +2342,7 @@ def main():
         "rejected_ledger": (str(rejected_path(domain))
                             if rejected or skipped_rejected else None),
         "min_body": min_body,
+        "delay": host_delay,
         "failed": failed,
         "list_method": list_method,
         "order_confidence": order_confidence,

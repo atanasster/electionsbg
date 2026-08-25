@@ -127,7 +127,7 @@ registry data; ask first, same as any other write in this repo.
 State plainly: how many domains attempted, how many succeeded, how many
 were flagged stale (and which class — structural vs transient, per Step
 1's distinction), how many needed the browser, how many were skipped and
-why. A silent partial result (say, 61 of 69) reads as complete unless the
+why. A silent partial result (say, 61 of 70) reads as complete unless the
 gap is named.
 
 ## What this skill does NOT do

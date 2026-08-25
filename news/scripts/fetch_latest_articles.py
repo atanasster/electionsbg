@@ -20,6 +20,10 @@ is current — matched by prefix, not a fixed name) and dispatches:
                                     fall back to the Browser tool itself.
     blocked_captcha             -> exits 3; do not attempt to solve it.
     portal_not_newsroom         -> exits 3; not a newsroom.
+    robots_disallowed           -> exits 3; robots.txt forbids the feed URL
+                                   for this bot. A policy statement, not a
+                                   failure — the caller must not count it as
+                                   a broken source.
     (domain not in the CSV)     -> exits 2; caller should probe it fresh
                                     per the update-news-sites skill before
                                     trying again.
@@ -44,11 +48,26 @@ import html
 from email.utils import parsedate_to_datetime
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+import urllib.robotparser
 import xml.etree.ElementTree as ET
 import gzip
 
-UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-      "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+# An HONEST identity. This crawls ~70 newsrooms nightly for a public-interest
+# project that publishes its methodology, so it says what it is and where to
+# complain. It replaced a spoofed Chrome 124 string plus a fabricated
+# "Referer: https://www.google.com/" — impersonating a reader arriving from a
+# search result is not something this project should be doing, and it is not
+# needed: measured 2026-08-26 over all 47 direct-tier domains, 45 answer the
+# honest identity exactly as they answered the spoofed one.
+#
+# ⚠️ TWO REFUSE IT — svobodnoslovo.eu and novavarna.net 403 an identified bot
+# and 200 a browser string. That is those sites declining to be crawled by a
+# bot, and the answer is to respect it, not to put the mask back on. They are
+# marked `bot_refused` in the registry and their articles are simply not
+# collected.
+BOT_NAME = "NaiasnoBot"
+UA = (f"{BOT_NAME}/1.0 (+https://electionsbg.com/about; "
+      "public-interest media monitoring)")
 TIMEOUT = 10
 STALE_AFTER_DAYS = 30  # a top result older than this reads as broken sitemap data, not "latest"
 
@@ -63,7 +82,13 @@ def _ssl_context():
     return ssl.create_default_context()
 
 _SSL_CTX = _ssl_context()
-CSV_PATH = Path(__file__).resolve().parent.parent / "data" / "bg_news_sites.csv"
+# DATA_BG_ROOT overrides the repository root, matching save_articles.py,
+# analyze_articles.py and build_app_data.py. Without it this module could only
+# ever read the committed registry, which is why it had no tests at all: a
+# throwaway tree could not be pointed at.
+_REPO_ROOT = Path(os.environ.get("DATA_BG_ROOT")
+                  or Path(__file__).resolve().parents[2])
+CSV_PATH = _REPO_ROOT / "news" / "data" / "bg_news_sites.csv"
 NEEDS_BROWSER = {"browser_render_scrape"}
 NEEDS_BROWSER_THEN_FETCH = {"browser_then_rss", "browser_then_sitemap"}
 UNAVAILABLE = {"blocked_captcha", "portal_not_newsroom"}
@@ -81,15 +106,106 @@ def _normalize_url(u):
     return urlunsplit((parts.scheme, parts.netloc, path, query, parts.fragment))
 
 
-def fetch(url, accept="*/*"):
-    req = urllib.request.Request(_normalize_url(url), headers={
+# One RobotFileParser per host per process. robots.txt is a per-HOST document
+# and a sweep fetches dozens of pages from the same host, so re-fetching it per
+# request would be both slow and rude in itself.
+_ROBOTS_CACHE = {}
+
+
+def _fetch_robots_text(base):
+    req = urllib.request.Request(f"{base}/robots.txt",
+                                 headers={"User-Agent": UA,
+                                          "Accept": "text/plain"})
+    with urllib.request.urlopen(req, timeout=TIMEOUT,
+                                context=_SSL_CTX) as resp:
+        return resp.read().decode("utf-8", errors="replace")
+
+
+def robots_for(url):
+    """The host's robots.txt, parsed, or None when it could not be read.
+
+    None means UNKNOWN, and every caller treats unknown as allowed — the
+    convention robots.txt itself specifies. A host that 404s its robots.txt is
+    not asking for anything."""
+    parts = urlsplit(_normalize_url(url))
+    host = (parts.scheme or "https", parts.netloc.lower())
+    if host in _ROBOTS_CACHE:
+        return _ROBOTS_CACHE[host]
+    rp = urllib.robotparser.RobotFileParser()
+    try:
+        req = urllib.request.Request(
+            f"{host[0]}://{host[1]}/robots.txt",
+            headers={"User-Agent": UA, "Accept": "text/plain"})
+        with urllib.request.urlopen(req, timeout=TIMEOUT,
+                                    context=_SSL_CTX) as resp:
+            rp.parse(resp.read().decode("utf-8", errors="replace").splitlines())
+    except Exception:
+        rp = None
+    _ROBOTS_CACHE[host] = rp
+    return rp
+
+
+def robots_allows(url):
+    """Whether robots.txt permits US to fetch this URL.
+
+    Measured 2026-08-26 across all 47 direct-tier domains: exactly one feed URL
+    is disallowed for a generic bot (investor.bg, already quarantined as
+    structurally stale) and ZERO article URLs are. Honouring this costs the
+    corpus essentially nothing, which is the whole argument for doing it."""
+    rp = robots_for(url)
+    if rp is None:
+        return True
+    try:
+        return rp.can_fetch(BOT_NAME, _normalize_url(url))
+    except Exception:
+        return True
+
+
+class RobotsDisallowed(Exception):
+    """robots.txt forbids this URL. Not an HTTP error and not retryable."""
+
+
+class NotModified(Exception):
+    """The server answered 304. The caller's cached copy is current."""
+
+
+def fetch(url, accept="*/*", etag=None, last_modified=None, meta=None):
+    """One HTTP GET, under this project's own identity and within robots.txt.
+
+    `meta`, when given, is a dict this fills with the RESPONSE's validators and
+    the URL they belong to. It is a parameter rather than module state because
+    the previous version stashed them on the function object — so a
+    sitemapindex's child fetches, and backfill_titles' article-page fetches,
+    overwrote the FEED's validators with the last article page's. The next run
+    then sent an article page's ETag for the feed and the server answered 304
+    to a sitemap that HAD changed: zero articles, exit 0, recorded a success.
+    40 of the 70 registry rows are in the sitemap family."""
+    if not robots_allows(url):
+        raise RobotsDisallowed(url)
+    headers = {
         "User-Agent": UA,
         "Accept": accept,
         "Accept-Language": "bg-BG,bg;q=0.9,en;q=0.8",
-        "Referer": "https://www.google.com/",
-    })
-    with urllib.request.urlopen(req, timeout=TIMEOUT, context=_SSL_CTX) as resp:
-        body = resp.read()
+    }
+    # Conditional request. A nightly sweep re-downloads the same feed every
+    # night; a 304 costs the source a header exchange instead of a document.
+    if etag:
+        headers["If-None-Match"] = etag
+    if last_modified:
+        headers["If-Modified-Since"] = last_modified
+    req = urllib.request.Request(_normalize_url(url), headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT,
+                                    context=_SSL_CTX) as resp:
+            body = resp.read()
+            if meta is not None:
+                meta["url"] = _normalize_url(url)
+                meta["etag"] = resp.headers.get("ETag")
+                meta["last_modified"] = resp.headers.get("Last-Modified")
+    except urllib.error.HTTPError as e:
+        if e.code == 304:
+            raise NotModified(url) from e
+        raise
     # Some sitemap indexes point at literal .xml.gz children; urllib does not
     # auto-decompress even when the server sets Content-Encoding, so sniff
     # the gzip magic bytes rather than trusting the header or the extension.
@@ -176,7 +292,8 @@ def quick_probe(domain):
     skill if it turns out to need the heavier treatment."""
     base = f"https://{domain}"
     try:
-        robots = fetch(f"{base}/robots.txt", accept="text/plain").decode("utf-8", errors="replace")
+        # robots.txt itself is never subject to robots.txt.
+        robots = _fetch_robots_text(base)
         m = re.search(r"^Sitemap:\s*(\S+)", robots, re.I | re.M)
         candidates = [(m.group(1).strip(), "sitemap")] if m else []
     except Exception:
@@ -185,9 +302,16 @@ def quick_probe(domain):
         (f"{base}/feed", "rss"), (f"{base}/feed/", "rss"), (f"{base}/rss.xml", "rss"),
         (f"{base}/sitemap.xml", "sitemap"), (f"{base}/sitemap_index.xml", "sitemap"),
     ]
+    disallowed = False
     for url, method in candidates:
         try:
             body = fetch(url, accept="application/rss+xml,application/atom+xml,application/xml,text/xml,*/*")
+        except RobotsDisallowed:
+            # NOT "nothing parseable here". The site published a rule and we
+            # obeyed it; reporting that as "try a real browser" invites exactly
+            # the workaround the rule exists to prevent.
+            disallowed = True
+            continue
         except Exception:
             continue
         sig = body[:800]
@@ -195,7 +319,7 @@ def quick_probe(domain):
             return method, url
         if re.search(rb"<urlset|<sitemapindex", sig, re.I):
             return "sitemap", url
-    return None, None
+    return ("robots_disallowed", None) if disallowed else (None, None)
 
 
 def parse_rss_atom(xml_bytes):
@@ -246,7 +370,7 @@ def extract_title_from_html(html_bytes):
 NON_ARTICLE_SITEMAP_HINTS = ("image", "video", "author", "category", "tag", "static", "page")
 
 
-def parse_sitemap(xml_bytes, want, depth=0):
+def parse_sitemap(xml_bytes, want, depth=0, known=None, refused=None):
     root = ET.fromstring(_sanitize_xml(xml_bytes))
     tag = local_tag(root).lower()
 
@@ -262,7 +386,14 @@ def parse_sitemap(xml_bytes, want, depth=0):
                 entries.append((loc_el.text.strip(), parse_dt(lastmod_el.text) if lastmod_el is not None else None))
         # Drop children that are structurally never articles (images, authors,
         # tag/category archives, static pages) before picking among the rest.
-        article_entries = [(u, d) for u, d in entries if not any(h in u.lower() for h in NON_ARTICLE_SITEMAP_HINTS)]
+        # Matched against path SEGMENTS and filename stems, not as bare
+        # substrings — unanchored, "page" matched "sitemap-frontpage-news.xml"
+        # and "video" matched a legitimate "video-interviews" news chunk.
+        def _is_non_article(u):
+            tokens = set(re.split(r"[/_\-.]+", urlsplit(u.lower()).path))
+            return bool(tokens & set(NON_ARTICLE_SITEMAP_HINTS))
+
+        article_entries = [(u, d) for u, d in entries if not _is_non_article(u)]
         if not article_entries:
             article_entries = entries
 
@@ -302,7 +433,18 @@ def parse_sitemap(xml_bytes, want, depth=0):
         merged = []
         for u in candidates:
             try:
-                merged.extend(parse_sitemap(fetch(u, accept="application/xml,text/xml,*/*"), want, depth + 1))
+                merged.extend(parse_sitemap(
+                    fetch(u, accept="application/xml,text/xml,*/*"),
+                    want, depth + 1, known=known, refused=refused))
+            except RobotsDisallowed:
+                # ONE forbidden child must not discard the whole outlet. The
+                # ranking above deliberately tries the most-likely-fresh child
+                # first, so a Disallow on exactly that one used to abort the
+                # descent and report the source as empty — permanently and
+                # silently. Skip it and keep going; the refusal is reported.
+                if refused is not None:
+                    refused.append(u)
+                continue
             except (urllib.error.URLError, urllib.error.HTTPError, ET.ParseError):
                 continue
             fresh_dated = [it for it in merged if it.get("_dt") and
@@ -336,28 +478,74 @@ def parse_sitemap(xml_bytes, want, depth=0):
     return []
 
 
-def backfill_titles(items, want):
-    """For sitemap entries with no <news:title>, fetch each page's <title>/og:title."""
+def backfill_titles(items, want, known=None):
+    """For sitemap entries with no <news:title>, fetch each page's title.
+
+    `known` is the set of canonical URLs the CALLER already has stored. Every
+    one of those is a page the saver will not fetch again and whose title it
+    already holds, so fetching it here is pure waste — measured, ~95% of this
+    function's fetches were of already-stored pages, and each was then fetched
+    a second time by the saver in the same night."""
+    known = known or set()
     out = []
     for it in items[:want]:
         if it["title"] or not it["url"]:
             out.append(it)
             continue
+        if _canonical_for_known(it["url"]) in known:
+            out.append(it)  # already stored; the saver will not refetch it
+            continue
         try:
             html = fetch(it["url"], accept="text/html")
             it["title"] = extract_title_from_html(html)
-        except Exception:
-            pass
+        except (RobotsDisallowed, urllib.error.URLError,
+                urllib.error.HTTPError, OSError):
+            pass  # a missing title is reported as null, never a traceback
         out.append(it)
     return out
+
+
+def _canonical_for_known(url):
+    """The same normalisation save_articles.canonical_url performs, kept to
+    the parts this side can do without importing it: scheme, host case, www.,
+    trailing slash, fragment. Deliberately does NOT strip query parameters —
+    over-normalising here would make a URL look 'known' when it is not, and
+    the only cost of under-normalising is one wasted title fetch."""
+    parts = urlsplit(url.strip())
+    host = parts.netloc.lower()
+    if host.startswith("www."):
+        host = host[4:]
+    path = parts.path or "/"
+    if len(path) > 1 and path.endswith("/"):
+        path = path.rstrip("/") or "/"
+    return urlunsplit(("https", host, path, parts.query, ""))
 
 
 def main():
     args = sys.argv[1:]
     stdin_mode = None  # "rss" or "sitemap", set by --stdin=<kind>
+    etag = last_modified = None
+    known = set()
+    refused_children = []
     for a in list(args):
         if a.startswith("--stdin="):
             stdin_mode = a.split("=", 1)[1]
+            args.remove(a)
+        elif a.startswith("--etag="):
+            etag = a.split("=", 1)[1] or None
+            args.remove(a)
+        elif a.startswith("--if-modified-since="):
+            last_modified = a.split("=", 1)[1] or None
+            args.remove(a)
+        elif a.startswith("--known-urls="):
+            # One canonical URL per line: pages the caller already stores, so
+            # their titles need no fetch here.
+            try:
+                with open(a.split("=", 1)[1], encoding="utf-8") as fh:
+                    known = {_canonical_for_known(x.strip())
+                             for x in fh if x.strip()}
+            except OSError:
+                known = set()
             args.remove(a)
 
     if len(args) < 1:
@@ -374,6 +562,7 @@ def main():
         # document happens here; sitemap title backfill may still fetch
         # individual article pages over the network same as the normal path.
         raw = sys.stdin.buffer.read()
+        feed_meta = {}
         method = "sitemap" if stdin_mode == "sitemap" else "rss"
         url = f"<stdin:{stdin_mode}>"
         is_sitemap_family = stdin_mode == "sitemap"
@@ -386,6 +575,12 @@ def main():
         row, method_col, url_col = load_row(domain)
         if row is None:
             method, url = quick_probe(domain)
+            if method == "robots_disallowed":
+                print(json.dumps({"domain": domain, "error": "robots_disallowed",
+                                  "detail": "every candidate feed URL is "
+                                            "disallowed by robots.txt for "
+                                            f"{BOT_NAME}; not fetched"}))
+                sys.exit(3)
             if method is None:
                 print(json.dumps({"domain": domain, "error": "domain_not_in_registry_and_quick_probe_failed",
                                    "detail": ("not found in bg_news_sites.csv, and a quick robots.txt/feed/sitemap probe found nothing parseable — "
@@ -410,15 +605,41 @@ def main():
             sys.exit(3)
 
         is_sitemap_family = method in ("sitemap", "robots_sitemap", "sitemap_news")
+        feed_meta = {}
         try:
             if method in ("rss", "atom", "homepage_link"):
                 fetch_url = url if url.startswith("http") else f"https://{domain}/{url.lstrip('/')}"
-                items = parse_rss_atom(fetch(fetch_url, accept="application/rss+xml,application/atom+xml,application/xml,text/xml"))
+                items = parse_rss_atom(fetch(
+                    _normalize_url(fetch_url),
+                    accept="application/rss+xml,application/atom+xml,application/xml,text/xml",
+                    etag=etag, last_modified=last_modified, meta=feed_meta))
             elif is_sitemap_family:
-                items = parse_sitemap(fetch(url, accept="application/xml,text/xml,*/*"), want)
+                # The conditional headers ride the TOP-LEVEL document only. A
+                # sitemapindex's children are fetched by parse_sitemap with no
+                # validators of their own, which is correct: a 304 on the index
+                # means the whole tree is unchanged.
+                items = parse_sitemap(fetch(
+                    _normalize_url(url), accept="application/xml,text/xml,*/*",
+                    etag=etag, last_modified=last_modified, meta=feed_meta),
+                    want, known=known, refused=refused_children)
             else:
                 print(json.dumps({"domain": domain, "error": "unknown_method", "detail": method}))
                 sys.exit(3)
+        except RobotsDisallowed as e:
+            # A standing policy statement by the site, not a failure. Exit 3
+            # like the other deliberate stops, so a nightly run does not count
+            # it as a broken source night after night.
+            print(json.dumps({"domain": domain, "error": "robots_disallowed",
+                              "detail": f"robots.txt forbids {e} for "
+                                        f"{BOT_NAME}; not fetched"}))
+            sys.exit(3)
+        except NotModified:
+            print(json.dumps({"domain": domain, "method": method, "source": url,
+                              "count": 0, "order_confidence": "not_modified",
+                              "articles": [],
+                              "detail": "the source answered 304 Not Modified; "
+                                        "nothing has changed since the last run"}))
+            sys.exit(0)
         except (urllib.error.URLError, urllib.error.HTTPError, ET.ParseError) as e:
             print(json.dumps({"domain": domain, "error": "fetch_failed", "detail": str(e)}))
             sys.exit(4)
@@ -447,7 +668,7 @@ def main():
     # newest" until after the sort above).
     top = ordered[:want]
     if is_sitemap_family:
-        top = backfill_titles(top, want)
+        top = backfill_titles(top, want, known=known)
     for it in top:
         # Some sitemaps double-encode entities (title text arrives as the
         # LITERAL string "&quot;" rather than a decoded quote) — unescape
@@ -474,6 +695,21 @@ def main():
     }
     if warning:
         result["warning"] = warning
+    if refused_children:
+        # Reported, never silent: a child sitemap this bot may not read is a
+        # real gap in what the source offered.
+        result["robots_refused_children"] = refused_children
+    # Hand the validators back so the caller can store them and send them next
+    # time. A nightly sweep re-downloads the same feed every night; with these
+    # a 304 costs the source a header exchange instead of a document.
+    # Only the TOP-LEVEL document's validators, and the URL they belong to —
+    # a caller that stores them under the domain alone would keep sending them
+    # after a feed_url edit re-aimed the request at a different document.
+    for key in ("etag", "last_modified"):
+        if feed_meta.get(key):
+            result[key] = feed_meta[key]
+    if feed_meta.get("url"):
+        result["validator_url"] = feed_meta["url"]
     print(json.dumps(result, ensure_ascii=False))
     sys.exit(0)
 
