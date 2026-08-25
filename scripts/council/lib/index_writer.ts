@@ -500,6 +500,13 @@ export const shouldRefusePrune = (
  *
  * Break any one of those and this deletes data, which is why the drop is
  * COUNTED and reported rather than silent, and why it is bounded above.
+ *
+ * `index_corpus.test.ts` holds the resulting invariant over the REAL corpus,
+ * in BOTH directions — every index row has a durable shard, every
+ * `meta.resolutionCount` equals its município's shard count, and (the half
+ * this function's own loop cares most about) every município with a tree on
+ * disk still has an index slot. Verified to discriminate: it fails on the
+ * pre-correction artifact and passes after it.
  */
 const pruneToDurable = (
   obshtinaCode: string,
