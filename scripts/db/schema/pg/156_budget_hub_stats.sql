@@ -210,7 +210,28 @@ $fn$;
 CREATE OR REPLACE FUNCTION budget_hub_stats(
   p_fy int DEFAULT NULL
 ) RETURNS jsonb LANGUAGE sql STABLE AS $$
-  WITH pick AS (
+  -- The per-ПРБ appropriation rollup behind the head's evidence aside: its five rows, the
+  -- total they are drawn from, and how many units carry one. ONE definition, because the
+  -- caption claims the three describe the same population.
+  --
+  -- ⚠️ `coalesce(planned_law_eur, planned_eur)` — the SAME basis `budget_admin_list` (155)
+  -- ranks by, because the aside links into the page that function serves and a list whose
+  -- order disagrees with its own destination is worse than no list. `planned_eur` alone
+  -- carries the Отчет's consolidated restatement in report-years, which moves a unit's rank
+  -- (МОСВ by €43.9m) — and only in report-years, so the two agree on the current corpus and
+  -- a row-level gate cannot tell them apart. `budget_hub_stats.data.test.ts` reads the
+  -- DEFINITIONS for that reason.
+  WITH admin AS (
+    SELECT f.fiscal_year,
+           n.node_id AS "nodeId", n.name_bg AS "nameBg", n.name_en AS "nameEn",
+           sum(coalesce(f.planned_law_eur, f.planned_eur)) AS eur
+      FROM budget_admin_node n
+      JOIN budget_admin_fact f
+        ON f.node_id = n.node_id AND f.kind = 'expenditure'
+     GROUP BY f.fiscal_year, n.node_id, n.name_bg, n.name_en
+    HAVING sum(coalesce(f.planned_law_eur, f.planned_eur)) > 0
+  ),
+  pick AS (
     SELECT * FROM (
       SELECT c.*, 1 AS tier FROM budget_hub_stats_cache c
        WHERE (p_fy IS NULL OR c.fiscal_year = p_fy)
@@ -338,6 +359,45 @@ CREATE OR REPLACE FUNCTION budget_hub_stats(
              WHERE c.cofog_code <> 'TOTAL'
                AND c.fiscal_year = (SELECT max(fiscal_year) FROM budget_cofog)
                AND c.pct_of_total IS NOT NULL) AS "cofogShares",
+           -- The head's EVIDENCE LIST: the five largest first-level spending units in the
+           -- picked year, by appropriation, plus the denominator that keeps them honest.
+           -- ~380 bytes, so the hub stays a single call — the same trade `cofogShares`
+           -- above makes, and the reason this is not a second eager fetch
+           -- (`tests/perf.spec.ts` counts the hub's requests).
+           --
+           -- ⚠️⚠️ THESE ROWS DO NOT DECOMPOSE THE BAND'S HEADLINE, and they sit directly
+           -- under it. The band is the КФП consolidated programme — which folds in НОИ,
+           -- НЗОК and the municipalities — while this is the ЗДБРБ per-ПРБ appropriation:
+           -- measured on FY2026, €13.25bn across 44 units against €29.58bn of projected
+           -- КФП expenditure. A reader adding five rows and finding 30% of the number
+           -- above them is the „destination counts a different set" trap one column over,
+           -- so the total and the unit count ride beside the rows and the caption states
+           -- both. Never publish the rows without them.
+           --
+           -- ⚠️ ALL THREE COME FROM ONE ROLLUP (`a`), not from three sibling subqueries.
+           -- The caption asserts that the five rows are drawn from N units summing to €X;
+           -- with three independently-filtered subqueries that is a coincidence of the
+           -- data rather than a property of the query — measured, they agreed only
+           -- because `budget_admin_fact` happens to hold one expenditure row per
+           -- (node, year) and no non-positive ones.
+           (SELECT jsonb_agg(jsonb_build_object(
+                     'nodeId', u."nodeId", 'nameBg', u."nameBg",
+                     'nameEn', u."nameEn", 'eur', u.eur)
+                   ORDER BY u.eur DESC, u."nodeId")
+              FROM (SELECT * FROM admin a2
+                     WHERE a2.fiscal_year = p.fiscal_year
+                     -- ⚠️ `node_id` BREAKS THE TIE, on both this ORDER BY and the one
+                     -- above, because the corpus HAS ties: FY2023 and FY2024 each carry
+                     -- two nodes at an identical euro. None sits on the rank-5 boundary
+                     -- today, but FY2026's rank-5-to-6 margin is 0.48%, so an amount-only
+                     -- sort makes both the served payload and the gate that checks it
+                     -- non-deterministic the first time one lands there.
+                     ORDER BY a2.eur DESC, a2."nodeId"
+                     LIMIT 5) u)  AS "topSpendingUnits",
+           (SELECT sum(a2.eur) FROM admin a2
+             WHERE a2.fiscal_year = p.fiscal_year)  AS "adminTotalPlannedEur",
+           (SELECT count(*) FROM admin a2
+             WHERE a2.fiscal_year = p.fiscal_year)  AS "adminUnitCount",
            -- The чл. 53 transfer table's OWN coverage: 2018-2026, against the
            -- КФП feed's 2021-2026. A picker built from `yearsAvailable` omits
            -- three years the corpus HAS, and leaves ?fy=2018 rendering

@@ -29,7 +29,7 @@ import {
 } from "@/ux/infographic";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { formatEurCompact, formatEurCompactSigned } from "@/lib/currency";
-import { budgetHubKpis } from "./budgetHubFigures";
+import { budgetHubEvidence, budgetHubKpis } from "./budgetHubFigures";
 import { formatDate } from "@/lib/formatDate";
 import { BUDGET_BANDS } from "./budgetRegistry";
 import { BUDGET_SCENES } from "./budgetScenes";
@@ -263,6 +263,20 @@ export const BudgetHubScreen: FC = () => {
     [stats, moneyLocale, nf, pctFmt, t],
   );
 
+  /** The five largest spending units — see `budgetHubFigures.ts` for why the caption's
+   *  denominator is load-bearing rather than decorative. */
+  const evidence = useMemo(
+    () =>
+      budgetHubEvidence(
+        stats,
+        moneyLocale,
+        i18n.language === "bg" ? "bg" : "en",
+        nf,
+        t,
+      ),
+    [stats, moneyLocale, i18n.language, nf, t],
+  );
+
   /** The bridge between the band's envelope and the tiles' execution. Rendered only while the
    *  year is still running — on a closed year the two describe the same window and the
    *  sentence would be noise.
@@ -327,6 +341,7 @@ export const BudgetHubScreen: FC = () => {
         kpis={kpis}
         kpisPending={4}
         kpiNote={kpiNote}
+        evidence={evidence}
       />
 
       {/* THE LEAD, above the tiles: the one thing on this page that answers

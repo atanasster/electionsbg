@@ -154,7 +154,17 @@ export const BudgetMinistriesScreen: FC = () => {
                   className="flex items-baseline justify-between gap-3 px-4 py-2 text-sm hover:bg-accent/10 focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <span className="flex items-baseline gap-2">
-                    <span className="text-primary">{r.nameBg || r.nodeId}</span>
+                    {/* ⚠ The SAME expression `/budget/ministry/:id` and the /budget head's
+                        evidence aside use. This row rendered `nameBg` unconditionally, so
+                        an EN reader who saw „Judiciary" in the aside and followed „all
+                        spending units" landed on a list headed „съдебната власт" — the same
+                        entity under two names, one click apart. `name_en` is already on the
+                        wire; nothing had to be fetched. */}
+                    <span className="text-primary">
+                      {(i18n.language === "bg"
+                        ? r.nameBg
+                        : r.nameEn || r.nameBg) || r.nodeId}
+                    </span>
                     {r.hasExecution ? (
                       <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
                         {t("budget_units_has_report")}

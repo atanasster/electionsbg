@@ -566,15 +566,20 @@ const HUB_HEAD_BUDGETS: { path: string; maxPx: number; measured: number }[] = [
   // a reader who arrives knowing the MP or the bill they want should not have to guess a tile.
   { path: "/parliament", maxPx: 520, measured: 443 },
   // The same shape as /parliament — identity + deck + a full HubSearch + a 4-cell band —
-  // plus a one-line note bridging the band's envelope to the tiles' execution.
+  // plus an evidence aside and a one-line note bridging the band's envelope to the tiles'
+  // execution.
   //
-  // ⚠ Its basis lines are the longest in the tree („прогнозни разходи по КФП спрямо
-  // прогнозен БВП за 2026 г."), and deliberately: this is the one band whose cells change
-  // basis with the fiscal year, and the caption is what keeps a forecast from reading as the
-  // budget law. So the allowance is declared here rather than the caption being trimmed —
-  // if this trips, check whether a cell was added before shortening the words that make the
-  // existing ones true.
-  { path: "/budget", maxPx: 560, measured: 479 },
+  // ⚠ Its captions are the longest in the tree, in BOTH halves, and deliberately so. The
+  // band's basis lines („прогнозни разходи по КФП спрямо прогнозен БВП за 2026 г.") are the
+  // only thing keeping a forecast from reading as the budget law, and the aside's carries a
+  // three-clause disclaimer without which five ministry rows read as a breakdown of the €29,6
+  // млрд. directly above them. So the allowance is declared here rather than the words being
+  // trimmed — if this trips, check whether a CELL or a ROW was added before shortening the
+  // sentences that make the existing ones true.
+  //
+  // 479 with the band alone; 491 once the aside landed — the aside is 322 px and does not
+  // drive the height, since at `lg` it sits beside the identity column rather than under it.
+  { path: "/budget", maxPx: 560, measured: 491 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {

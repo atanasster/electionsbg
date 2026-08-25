@@ -5,7 +5,7 @@
 // operation, and `budgetBasis.test.ts` §2.3 for the corpus half of the same rule.
 
 import { describe, it, expect } from "vitest";
-import { budgetHubKpis } from "./budgetHubFigures";
+import { budgetHubEvidence, budgetHubKpis } from "./budgetHubFigures";
 import type { BudgetHubStats } from "@/data/budget/useBudgetHubStats";
 import {
   BUDGET_STATS_FIXTURE as RUNNING,
@@ -146,5 +146,74 @@ describe("budgetHubKpis", () => {
         tFor(bgCorpus),
       ),
     ).toEqual([]);
+  });
+});
+
+describe("budgetHubEvidence", () => {
+  const evidence = (stats: BudgetHubStats, lang: "bg" | "en" = "bg") => {
+    const locale = lang === "bg" ? "bg-BG" : "en-GB";
+    return budgetHubEvidence(
+      stats,
+      locale,
+      lang,
+      nfFor(locale),
+      tFor(lang === "bg" ? bgCorpus : enCorpus),
+    );
+  };
+
+  it("ranks the five largest spending units, each to its OWN page", () => {
+    const e = evidence(RUNNING)!;
+    expect(e.rows).toHaveLength(5);
+    // The corpus's OWN name, in full — see the note beside `label` for why it is not
+    // shortened even though four of five share a 16-character prefix.
+    expect(e.rows[0].label).toBe("Министерство на отбраната");
+    expect(nbsp(e.rows[0].value)).toBe("€2,6 млрд.");
+    // Descending, which is what makes it a leaderboard rather than an arbitrary five.
+    const amounts = RUNNING.topSpendingUnits!.map((u) => u.eur);
+    expect([...amounts].sort((a, b) => b - a)).toEqual(amounts);
+    for (const r of e.rows)
+      expect(String(r.to)).toMatch(/^\/budget\/ministry\/admin-/);
+    expect(new Set(e.rows.map((r) => r.id)).size).toBe(5);
+  });
+
+  it("states the denominator, and says the rows are NOT the band's breakdown", () => {
+    // The five rows sum to €8,6 млрд. under a band cell reading €29,6 млрд. — different
+    // perimeters (ЗДБРБ per-ПРБ vs the consolidated КФП), so the caption has to carry both
+    // the corpus total and the disclaimer or the aside reads as an arithmetic error.
+    const e = evidence(RUNNING)!;
+    expect(e.basis).toContain("44");
+    // The separator is a NON-BREAKING space in `Intl` output — match either.
+    expect(nbsp(e.basis!)).toMatch(/€13,3 млрд\./);
+    expect(e.basis).toMatch(/не е разбивка/i);
+    expect(e.basis).toMatch(/по-горе/);
+    expect(evidence(RUNNING, "en")!.basis).toMatch(/not a breakdown/i);
+  });
+
+  it("REFUSES the list when its denominator is missing", () => {
+    // A fragment of an unstated whole is the one thing this aside must never be. On a
+    // database without the gitignored ministry grain the rows are absent anyway; the guard
+    // is for the partial state, where rows exist and the totals do not.
+    expect(
+      evidence({ ...RUNNING, adminTotalPlannedEur: null } as BudgetHubStats),
+    ).toBeUndefined();
+    expect(
+      evidence({ ...RUNNING, adminUnitCount: 0 } as BudgetHubStats),
+    ).toBeUndefined();
+    expect(
+      evidence({ ...RUNNING, topSpendingUnits: [] } as BudgetHubStats),
+    ).toBeUndefined();
+  });
+
+  it("falls back to the Bulgarian name when the corpus has no English one", () => {
+    const units = RUNNING.topSpendingUnits!.map((u, i) =>
+      i === 0 ? { ...u, nameEn: null } : u,
+    );
+    const e = evidence(
+      { ...RUNNING, topSpendingUnits: units } as BudgetHubStats,
+      "en",
+    )!;
+    // Never the nodeId slug, which is what a bare `||` chain on the wrong operand yields.
+    expect(e.rows[0].label).toBe("Министерство на отбраната");
+    expect(e.rows[1].label).toBe("Ministry of the Interior");
   });
 });

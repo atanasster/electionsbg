@@ -360,3 +360,169 @@ test.skipIf(stateSkip)(
     );
   },
 );
+
+test.skipIf(stateSkip)(
+  "the head's evidence rows are the actual top five, on the ranking their destination uses",
+  async () => {
+    // ⚠️ THE BASIS HAS TO MATCH `budget_admin_list`, which /budget/ministries renders:
+    // `coalesce(planned_law_eur, planned_eur)`. `planned_eur` alone carries the Отчет's
+    // consolidated restatement in report-years and moves a unit's rank (МОСВ by €43.9m), so
+    // an aside ranked on it links into a page that disagrees with it about who is largest.
+    const [r] = await allRows<{
+      fy: number;
+      rows: { nodeId: string; eur: number }[] | null;
+      total: number | null;
+      units: number | null;
+    }>(`
+      WITH s AS (SELECT budget_hub_stats(NULL) AS j)
+      SELECT (j ->> 'fiscalYear')::int                       AS fy,
+             (j -> 'topSpendingUnits')                       AS rows,
+             (j ->> 'adminTotalPlannedEur')::numeric         AS total,
+             (j ->> 'adminUnitCount')::int                   AS units
+        FROM s`);
+
+    if (!r.rows?.length) {
+      // A database without the gitignored ministry grain has no rows — and must have no
+      // denominator either, or the head would publish a total for a list it cannot show.
+      // TRUTHINESS, not `=== null`: the two behave differently on an empty corpus —
+      // `sum()` returns NULL while `count()` returns 0 — and the builder's guard covers
+      // both, so the gate has to as well.
+      assert.ok(!r.total, "a total published for a list that cannot be shown");
+      assert.ok(!r.units, "a unit count published for a list that cannot be shown");
+      return;
+    }
+
+    const expected = await allRows<{ nodeId: string; eur: string }>(
+      // `node_id` breaks the tie on BOTH sides — the corpus carries exact ties (FY2023 and
+      // FY2024 each have two nodes at an identical euro), so an amount-only sort here would
+      // make this gate flake the first time one lands on the rank-5 boundary rather than
+      // catch anything. FY2026's rank-5-to-6 margin is 0.48%.
+      `SELECT n.node_id AS "nodeId",
+              sum(coalesce(f.planned_law_eur, f.planned_eur))::text AS eur
+         FROM budget_admin_node n
+         JOIN budget_admin_fact f ON f.node_id = n.node_id
+        WHERE f.kind = 'expenditure' AND f.fiscal_year = $1
+        GROUP BY n.node_id
+       HAVING sum(coalesce(f.planned_law_eur, f.planned_eur)) > 0
+        ORDER BY sum(coalesce(f.planned_law_eur, f.planned_eur)) DESC, n.node_id
+        LIMIT 5`,
+      [r.fy],
+    );
+
+    assert.deepEqual(
+      r.rows.map((x) => x.nodeId),
+      expected.map((x) => x.nodeId),
+      "the head's evidence list is not the corpus's own top five",
+    );
+    // Descending — a list ordered any other way looks like a leaderboard and is not one.
+    const eur = r.rows.map((x) => Number(x.eur));
+    assert.deepEqual(
+      eur,
+      [...eur].sort((a, b) => b - a),
+    );
+
+    // ⚠️⚠️ THE DENOMINATOR IS THE MITIGATION, so it gets the same independent recomputation
+    // the rows get. Without this, dropping `AND f.fiscal_year = p.fiscal_year` from the
+    // rollup publishes €71.86bn across 54 units as FY2026's total — a figure LARGER than
+    // the КФП programme the caption warns the reader not to confuse these rows with — and
+    // every other assertion here stays green, because non-null / greater-than-the-visible-
+    // sum / greater-than-five all hold for it. The unit tests cannot help either: they read
+    // a fixture, so they pin the rendering and never the SQL.
+    assert.ok(r.total && r.units, "rows published without their denominator");
+    const [d] = await allRows<{ total: string; units: number }>(
+      `SELECT sum(a.eur)::text AS total, count(*)::int AS units
+         FROM (SELECT sum(coalesce(f.planned_law_eur, f.planned_eur)) AS eur
+                 FROM budget_admin_fact f
+                WHERE f.kind = 'expenditure' AND f.fiscal_year = $1
+                GROUP BY f.node_id
+               HAVING sum(coalesce(f.planned_law_eur, f.planned_eur)) > 0) a`,
+      [r.fy],
+    );
+    assert.equal(
+      Number(r.total),
+      Number(d.total),
+      "the caption's total is not this year's admin corpus",
+    );
+    assert.equal(
+      Number(r.units),
+      Number(d.units),
+      "the caption's unit count is not this year's admin corpus",
+    );
+
+    // ⚠️ AND THE ROWS ARE A MINORITY OF THAT DENOMINATOR, which is why the caption carries
+    // it. If five units ever DID cover the corpus, the caption's „not a breakdown" would be
+    // the confusing half instead — worth failing on so somebody re-reads it.
+    const shown = eur.reduce((a, b) => a + b, 0);
+    assert.ok(
+      shown < Number(r.total),
+      "the five shown units are the whole admin corpus — re-check the caption",
+    );
+    assert.ok(
+      Number(r.units) > 5,
+      `only ${r.units} units carry an appropriation`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the aside and /budget/ministries rank on the SAME expression",
+  async () => {
+    // ⚠️ THIS CANNOT BE CHECKED FROM THE ROWS, and the attempt is what produced this test:
+    // re-ranking 156's aside on the bare `planned_eur` leaves FY2026's top five UNCHANGED,
+    // because only report-years carry the Отчет's consolidated restatement that separates the
+    // two bases. So the gate would be green on the exact corpus we have and would start
+    // failing years later, on a page nobody was editing.
+    //
+    // Read the DEFINITIONS instead. `budget_admin_list` is what /budget/ministries renders;
+    // if the head's aside ranks on anything else it links into a page that disagrees with it
+    // about who is largest — §7's „the destination counts a different set", inside one head.
+    const RANK = "coalesce(f.planned_law_eur, f.planned_eur)";
+    const bodies = await allRows<{ name: string; def: string }>(`
+      SELECT p.proname AS name, pg_get_functiondef(p.oid) AS def
+        FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
+       WHERE n.nspname = 'public'
+         AND p.proname IN ('budget_hub_stats', 'budget_admin_list')`);
+    assert.equal(
+      bodies.length,
+      2,
+      "one of the two ranking functions is missing",
+    );
+
+    // Whitespace-folded: the two files indent the same expression differently.
+    const fold = (t: string) => t.replace(/\s+/g, " ");
+    const defOf = (name: string) => {
+      const b = bodies.find((x) => x.name === name);
+      assert.ok(b, `${name} is missing`);
+      return fold(b!.def);
+    };
+
+    // ⚠️ SCOPED TO THE ASIDE'S OWN SUBQUERY, not to the whole function body. A first cut
+    // asked „does budget_hub_stats mention the expression anywhere", and it does — the
+    // `adminTotalPlannedEur` denominator right beneath uses the same one. So re-ranking the
+    // aside on the bare `planned_eur` left the gate GREEN, which is the second way this
+    // clause could have gone quiet after the row-level one already had.
+    const hub = defOf("budget_hub_stats");
+    const from = hub.indexOf('AS "nodeId"');
+    const to = hub.indexOf('AS "topSpendingUnits"');
+    assert.ok(
+      from > 0 && to > from,
+      "the topSpendingUnits sub-select moved — this clause is reading nothing",
+    );
+    const aside = hub.slice(from, to);
+    assert.ok(
+      aside.includes(RANK),
+      `the head's aside no longer ranks on \`${RANK}\` — it and /budget/ministries have ` +
+        "diverged, which is invisible until a report-year restatement lands",
+    );
+    assert.ok(
+      defOf("budget_admin_list").includes(RANK),
+      `budget_admin_list no longer ranks on \`${RANK}\``,
+    );
+
+    // Non-vacuity: a typo in RANK would make every assertion above pass by finding nothing.
+    assert.ok(
+      aside.includes("planned_law_eur"),
+      "the sliced sub-select mentions no planned column — this clause is matching nothing",
+    );
+  },
+);

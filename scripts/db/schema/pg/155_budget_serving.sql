@@ -296,7 +296,7 @@ CREATE OR REPLACE FUNCTION budget_admin_list(
 ) RETURNS jsonb LANGUAGE sql STABLE AS $$
   SELECT jsonb_build_object(
     'fiscalYear', p_fy,
-    'rows', coalesce(jsonb_agg(to_jsonb(r) ORDER BY r.amount DESC NULLS LAST), '[]'::jsonb))
+    'rows', coalesce(jsonb_agg(to_jsonb(r) ORDER BY r.amount DESC NULLS LAST, r."nodeId"), '[]'::jsonb))
   FROM (
     -- ORDER BY *inside*, with the LIMIT. Ranking in the outer jsonb_agg while
     -- limiting here returns an ARBITRARY n, sorted — which looks like a
@@ -344,7 +344,12 @@ CREATE OR REPLACE FUNCTION budget_admin_list(
         OR n.name_bg ILIKE '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%'
         OR n.name_en ILIKE '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%'
      GROUP BY n.node_id, n.name_bg, n.name_en, n.eik
-     ORDER BY sum(coalesce(f.planned_law_eur, f.planned_eur)) DESC NULLS LAST
+     -- ⚠️ `node_id` BREAKS THE TIE. The corpus has them — FY2023 and FY2024 each carry
+     -- two nodes at an identical euro — and without a secondary key the row that falls
+     -- off the LIMIT is whichever the plan happened to emit last. 156's evidence aside
+     -- ranks on the same expression and must break ties the same way, or the head and
+     -- the page it links into disagree about who is fifth.
+     ORDER BY sum(coalesce(f.planned_law_eur, f.planned_eur)) DESC NULLS LAST, n.node_id
      LIMIT greatest(1, least(coalesce(p_limit, 300), 1000))
   ) r;
 $$;

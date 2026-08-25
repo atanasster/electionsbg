@@ -5,7 +5,7 @@
 // band values against tile metrics AS RENDERED STRINGS. Extracted, the /budget arm of that
 // gate is three lines, and the plan/forecast rule below can be asserted rather than commented.
 
-import type { HubKpi } from "@/ux/infographic/HubHead";
+import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
 import type { BudgetHubStats } from "@/data/budget/useBudgetHubStats";
 import { formatEurCompact } from "@/lib/currency";
 
@@ -155,4 +155,65 @@ export const budgetHubKpis = (
     });
 
   return out;
+};
+
+/** The head's evidence aside: who the money is appropriated to, with names.
+ *
+ *  ⚠️⚠️ THE CAPTION IS NOT DECORATION HERE — it is what stops the list being read as a
+ *  decomposition of the band above it. These five rows are ЗДБРБ per-ПРБ appropriations;
+ *  the band's expenditure cell is the КФП consolidated programme, which also carries НОИ,
+ *  НЗОК and the municipalities. Measured on FY2026: €13,25 млрд. across 44 units against
+ *  €29,58 млрд. of projected КФП expenditure. Add the five visible rows and you get ~30% of
+ *  the number directly above them, which reads as an error in one of the two.
+ *
+ *  So the list is REFUSED outright when its own denominator is missing. A fragment of an
+ *  unstated whole is the one thing this aside must never be — the same rule
+ *  `varianceCoveredUnits` states one file over („always beside its denominator"). */
+export const budgetHubEvidence = (
+  stats: BudgetHubStats | null | undefined,
+  // ⚠️ `lang` is NARROWED, not a bare string, and the two parameters are adjacent for a
+  // reason worth stating: at the call site both come from `i18n.language` — `moneyLocale`
+  // is `"bg-BG"`/`"en-GB"`, `lang` is `"bg"`/`"en"` — so transposed they still TYPECHECK,
+  // `Intl.NumberFormat("bg")` is valid so the money still formats, and `"bg-BG" === "bg"`
+  // is false so a Bulgarian reader silently gets English unit names at a 200. The union is
+  // what makes that a compile error.
+  moneyLocale: string,
+  lang: "bg" | "en",
+  nf: Intl.NumberFormat,
+  t: T,
+): HubEvidence | undefined => {
+  const rows = stats?.topSpendingUnits;
+  if (!stats || !rows?.length) return undefined;
+  if (!stats.adminTotalPlannedEur || !stats.adminUnitCount) return undefined;
+
+  return {
+    heading: t("budget_evidence_heading"),
+    basis: t("budget_evidence_basis", {
+      year: stats.fiscalYear,
+      units: nf.format(stats.adminUnitCount),
+      total: formatEurCompact(stats.adminTotalPlannedEur, moneyLocale),
+    }),
+    rows: rows.map((r) => ({
+      // `nodeId`, not the name: two units can share one — „Министерство на земеделието" and
+      // „…и храните" are one legal entity across a rename and both carry an appropriation —
+      // and React then reuses the wrong row.
+      id: r.nodeId,
+      // ⚠️ THE CORPUS'S OWN NAME, IN FULL — do not shorten it, and the reason is measured
+      // rather than aesthetic. `HubHead` truncates a label to the 340 px column, and four
+      // of the five largest units begin with the identical „Министерство на ", so dropping
+      // that prefix is the obvious fix: it takes the overflowing rows from three to one.
+      // What it also does is RENAME them. „отбраната" and „труда и социалната политика" are
+      // policy areas, not the names of the bodies the money is appropriated to, and this
+      // aside's whole job is to put names beside the band. Measured in the browser at 1280,
+      // the truncated forms are „Министерство на вътрешните раб…", „…на труда и социал…"
+      // and „…на регионалното р…" — every one still distinguishing, so the ellipsis costs
+      // nothing the rename would not cost more of.
+      label: (lang === "bg" ? r.nameBg : r.nameEn || r.nameBg) || r.nodeId,
+      value: formatEurCompact(r.eur, moneyLocale),
+      // Each row to its OWN page, which is the strongest form of §3.1 rule 4: the
+      // destination does not merely contain the row, it is about it.
+      to: `/budget/ministry/${r.nodeId}`,
+    })),
+    action: { to: "/budget/ministries", label: t("budget_evidence_action") },
+  };
 };

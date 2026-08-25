@@ -32,6 +32,42 @@ export const BUDGET_STATS_FIXTURE = {
   balanceExecutedEur: -1914000000,
   balanceProjectedEur: -3405447950,
   programCount: 76,
+  // The head's evidence list, and its denominator. €13.25bn across 44 units against the
+  // €29.58bn projected above — the gap is the point, not an error.
+  adminTotalPlannedEur: 13252076100,
+  adminUnitCount: 44,
+  topSpendingUnits: [
+    {
+      nodeId: "admin-ministerstvo-na-otbranata",
+      nameBg: "Министерство на отбраната",
+      nameEn: "Ministry of Defence",
+      eur: 2568607900,
+    },
+    {
+      nodeId: "admin-ministerstvo-na-vatreshnite-raboti",
+      nameBg: "Министерство на вътрешните работи",
+      nameEn: "Ministry of the Interior",
+      eur: 2115233200,
+    },
+    {
+      nodeId: "admin-ministerstvo-na-truda-i-sotsialnata-politika",
+      nameBg: "Министерство на труда и социалната политика",
+      nameEn: "Ministry of Labour and Social Policy",
+      eur: 2112455500,
+    },
+    {
+      nodeId: "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
+      nameBg: "Министерство на регионалното развитие и благоустройството",
+      nameEn: "Ministry of Regional Development and Public Works",
+      eur: 1058603600,
+    },
+    {
+      nodeId: "admin-sadebnata-vlast",
+      nameBg: "съдебната власт",
+      nameEn: "Judiciary",
+      eur: 762033000,
+    },
+  ],
 } as unknown as BudgetHubStats;
 
 /** FY2025 — closed. The projection is gone; only the law survives. */

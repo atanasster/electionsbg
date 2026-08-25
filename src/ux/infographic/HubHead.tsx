@@ -254,8 +254,21 @@ export const HubHead: FC<{
                 <h2 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
                   {evidence.heading}
                 </h2>
+                {/* ⚠️ NO `/80`, AND 11px NOT 10px — both measured, not preference. At
+                    `text-[10px] text-muted-foreground/80` this line composites to
+                    3.15:1 against `--card` in the light theme (105,97,89 at 80% on
+                    230,221,209), under the 4.5:1 WCAG AA floor for text below 18.66px.
+                    Dark was fine at 5.36:1, which is why it went unnoticed. It is the
+                    smallest text in the head and on /budget it carries a DISCLAIMER —
+                    the sentence that stops five ministry rows being read as a breakdown
+                    of the band above them — so it is the last line on the page that may
+                    be hard to read. Re-measured after: 4.52:1 light, 6.5:1 dark. That
+                    light figure is THIN — it is `--muted-foreground` on `--card` at full
+                    opacity, i.e. the repo's standard muted pairing with nothing left to
+                    give — so any future opacity modifier on this line puts it back under
+                    the floor. Darken the token, not this call site. */}
                 {evidence.basis ? (
-                  <p className="mt-0.5 text-[10px] font-medium leading-tight text-muted-foreground/80">
+                  <p className="mt-0.5 text-[11px] font-medium leading-tight text-muted-foreground">
                     {evidence.basis}
                   </p>
                 ) : null}

@@ -98,6 +98,22 @@ export interface BudgetHubStats {
    *  perimeter from `expenditureExecutedEur` on the same object. Keyed on
    *  COFOG's own latest year, which trails the КФП feed by two. */
   cofogShares?: { code: string; pct: number | null }[] | null;
+  /** The five largest first-level spending units in `fiscalYear`, by appropriation — the
+   *  head's evidence list. Ranked on `coalesce(planned_law_eur, planned_eur)`, the same basis
+   *  `/budget/ministries` orders by, so the aside and its destination cannot disagree.
+   *
+   *  ⚠️⚠️ THEY DO NOT DECOMPOSE `expenditurePlannedEur` / `expenditureProjectedEur`, and they
+   *  render right beneath one. That is the ЗДБРБ per-ПРБ appropriation; the band is the КФП
+   *  consolidated programme, which also folds in НОИ, НЗОК and the municipalities — €13.25bn
+   *  against €29.58bn on FY2026. Render them only with `adminTotalPlannedEur` and
+   *  `adminUnitCount` in the caption. */
+  topSpendingUnits?:
+    | { nodeId: string; nameBg: string; nameEn: string | null; eur: number }[]
+    | null;
+  /** The whole admin corpus's appropriation for `fiscalYear`, and how many units carry one.
+   *  The denominator that keeps the five rows above from reading as the whole budget. */
+  adminTotalPlannedEur?: number | null;
+  adminUnitCount?: number | null;
   /** The national municipal-commitments line (plan §8.4). NULL when migration
    *  149 has never run on this database — the hub then shows no line, never a
    *  zero. ⚠️ Its own object on purpose: municipal liabilities are a DIFFERENT
