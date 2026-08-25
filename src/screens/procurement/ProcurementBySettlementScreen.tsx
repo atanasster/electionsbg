@@ -321,6 +321,19 @@ export const ProcurementBySettlementScreen: FC = () => {
           'Every signed contract published on the central procurement register (АОП) is pinned to the buyer\'s headquarters. We exclude central ministries, state agencies and nationally-operating state companies — their Sofia HQ tells you nothing about where the contract was spent — and aggregate them separately under "National procurement".'}
       </p>
 
+      {/* THE OG CAPTURE'S WAIT TARGET, and it marks LOADED rather than merely present.
+          Both the figures below and the three choropleths come from `useProcurementGeo`,
+          while the ranked table under them is a separate request — so waiting on a table row
+          let a failed geo call through and the card could be shot with „—" in every KPI and
+          three grey maps, reporting success.
+
+          The hook goes on the „% от общата сума" sub-line rather than on the strip, because
+          the strip always renders — its cells fall back to „—" — so it cannot express
+          „loaded", while that line exists only inside `summary ?`. Two further constraints
+          rule out the obvious alternatives: `capture_routes.test.ts` scans src/ for the
+          LITERAL `data-og="…"`, which a conditional attribute value or a spread hides; and
+          `waitForSelector` waits for VISIBILITY, so a `hidden` marker span never resolves and
+          the capture times out at 30 s. Both were tried. */}
       {/* KPI strip */}
       <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
@@ -357,7 +370,10 @@ export const ProcurementBySettlementScreen: FC = () => {
                 : "—"}
             </div>
             {summary ? (
-              <div className="mt-1 text-xs text-muted-foreground tabular-nums">
+              <div
+                className="mt-1 text-xs text-muted-foreground tabular-nums"
+                data-og="procurement-geo-loaded"
+              >
                 {(localShareOfMoney * 100).toFixed(1)}%{" "}
                 {t("procurement_settlement_of_total") || "of total spending"}
               </div>

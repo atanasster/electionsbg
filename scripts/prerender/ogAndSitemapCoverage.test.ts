@@ -743,6 +743,67 @@ describe("every captured card is referenced by a page", () => {
     ).toEqual([]);
   });
 
+  it("nor does any scripts/og/screenshot_*.ts family script", () => {
+    // ⚠ THE CLAUSE ABOVE READS `capture-screens.ts` AND NOTHING ELSE, and that blind spot is
+    // why three orphan cards — procurement-settlement-{sofia,plovdiv,varna} — sat in
+    // public/og/ from 2026-05-27, shot for pages that referenced them nowhere. The whole
+    // `/procurement/settlement/*` family had no `ogImage` at all and fell through to the
+    // site-wide default, so the cards that would have served it were written and ignored.
+    //
+    // Measured across all family scripts the day that was fixed: 15 cards written, 3
+    // orphaned, all three in the one file. So this checks the ORPHAN property over the other
+    // writers rather than demanding they migrate — the migration is worth doing for framing
+    // reasons (each clips {x:0, y:0} with the site header still in the DOM), but that is a
+    // separate change and this gate should not hold it hostage.
+    const scripts = fs
+      .readdirSync(path.join(REPO, "scripts/og"))
+      .filter((f) => /^screenshot_.*\.ts$/.test(f));
+    const orphans: string[] = [];
+    let cards = 0;
+    let families = 0;
+    for (const f of scripts) {
+      const src = fs.readFileSync(path.join(REPO, "scripts/og", f), "utf8");
+      if (!/public\/og|OG_DIR/.test(src)) continue;
+      // ⚠ NOT QUOTE-ADJACENT. `screenshot_regional.ts` and `screenshot_transport.ts` build the
+      // path as `path.resolve(…, "public/og/sector-regional.png")`, so a `["\'`]…\.png` match
+      // finds nothing in them — while the `public/og` guard above passes and makes them LOOK
+      // scanned. Measured: that shape hid 2 of 10 writers and 2 of 15 cards, and the first
+      // draft of this comment quoted the blind-spotted total (13) as if it were the real one.
+      const named = new Set<string>();
+      for (const m of src.matchAll(/([a-z0-9-]+)\.png/g)) named.add(m[1]);
+      for (const slug of named) {
+        cards++;
+        if (!referenced(slug)) orphans.push(`${f}: ${slug}`);
+      }
+      // `file: \`sector-${id}.png\`` — a family WITHIN a family, so the card name is a
+      // prefix and not a slug. Kept WITH its trailing dash: dropping it yields „sector",
+      // which never satisfies `startsWith("sector-")` and reported a false orphan against a
+      // family that is correctly wired. Matched against the route side's own template
+      // prefixes rather than through `referenced`, which expects a whole slug.
+      for (const m of src.matchAll(/["'`]([a-z0-9-]+-)\$\{/g)) {
+        cards++;
+        families++;
+        const prefix = m[1];
+        if (!templatePrefixes.some((tp) => tp === prefix))
+          orphans.push(`${f}: ${prefix}\${…} family`);
+      }
+    }
+    // Non-vacuity: these scripts still exist and still write cards, so a scan finding none
+    // means the extraction stopped matching, not that the problem went away.
+    expect(cards, "no family-script cards found — has the spec shape changed?").toBeGreaterThan(5); // prettier-ignore
+    // A SECOND floor, for the template branch specifically. Measured: deleting that branch
+    // outright left this test green, because the named-card count alone cleared the floor
+    // above — so the long comment beside it was defending a branch nothing protected.
+    expect(
+      families,
+      "no `prefix-${…}` card family found — the template branch is no longer matching",
+    ).toBeGreaterThan(0);
+    expect(
+      orphans,
+      `written by a family script and referenced by no route: ${orphans.join(", ")}`,
+    ).toEqual([]);
+  });
+
   it("the reference check is not vacuous", () => {
     // Both directions: an unreferenced slug is caught, and the prefix rule has
     // not widened to the point of matching anything.

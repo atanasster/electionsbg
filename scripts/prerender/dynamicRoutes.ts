@@ -919,6 +919,17 @@ export const buildProcurementSettlementRoutes = async (): Promise<
       path: `procurement/settlement/${s.ekatte}`,
       title,
       description,
+      // ⚠ ONE FAMILY CARD FOR ALL 870, and until 2026-08-25 there was none at all — every
+      // settlement page fell through to DEFAULT_OG_IMAGE, so the whole family shared the
+      // site-wide picture. Three bespoke cards (Sofia, Plovdiv, Varna) had been SHOT for this
+      // family in May and referenced by nothing; they were deleted rather than wired, because
+      // 3 of 870 is a special case that buys almost nothing and triples the number of cards
+      // that go stale when the page changes.
+      //
+      // The picker's own card is the right family image precisely because it is not any one
+      // settlement: a card showing Sofia's figures on Plovdiv's page would be worse than a
+      // neutral one. Same shape as /funds/focus/<slug>, whose children share one card.
+      ogImage: "/og/procurement-by-settlement.png",
       bodyHtml: buildProcurementSettlementBody("bg", s),
       jsonLd: [
         buildWebPageLd({ title, description, url }),

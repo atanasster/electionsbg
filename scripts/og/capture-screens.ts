@@ -16,7 +16,7 @@ import { INSTITUTION_PACKS } from "../prerender/institutions";
 const OG_W = 1200;
 const OG_H = 630;
 // Defaults to the standard Vite dev port; override with OG_BASE_URL when the
-// dev server was auto-assigned a different port (matches screenshot_procurement.ts).
+// dev server was auto-assigned a different port.
 const DEV_URL = process.env.OG_BASE_URL ?? "http://localhost:5173";
 const OUT_DIR = path.resolve("public/og");
 
@@ -1209,6 +1209,44 @@ const captures: Capture[] = [
   // populated-branch `data-og`, a row link, a recharts surface). A container
   // that mounts empty would let the capture photograph the skeleton.
   // ---------------------------------------------------------------------------
+
+  {
+    // MOVED HERE from scripts/og/screenshot_procurement.ts, now deleted — the last family
+    // script that still wrote cards this way. It clipped {x:0, y:0} and hid no chrome, so the
+    // card led with the nav bar, the election picker and the search box, and the page began
+    // below them; it had not been re-shot since 2026-05-27, so it also carried the pre-rework
+    // centred, muted title.
+    //
+    // A sub-page, so `anchor: "h1"` rather than `[data-hub-head]` — HIDE_CHROME_CSS drops the
+    // site header, which makes the h1 the top of the page and the clip read title → scope →
+    // intro → the four figures → the three oblast choropleths. NOT the ranked table, which
+    // sits below the clip — an earlier draft of this comment claimed otherwise.
+    //
+    // ⚠ `waitFor` NAMES THE GEO PAYLOAD, and getting this wrong twice is what the attribute
+    // exists for. `"h1, table"` was satisfied by the `h1` alone — `<Title>` renders in the
+    // error branch too — so a failed call produced a card of an empty page. A settlement ROW
+    // LINK fixed that and was still wrong: the rows come from the TABLE's request, while both
+    // the four figures and the three choropleths come from `useProcurementGeo`. With the row
+    // link, a failed /api/db/procurement-geo left „—" in every KPI and three grey maps while
+    // the table loaded and the capture reported success.
+    //
+    // `[data-og="procurement-geo-loaded"]` is set on the KPI strip only when `summary` is
+    // present, so it means „the payload this card is a picture of has arrived".
+    //
+    // `?pscope=all`, like the /procurement hub entry beside it. Without it the page opens on
+    // the SELECTED parliament and the card reads „332 населени места · €2,42 млрд." — one
+    // term's slice, served as the family image for all 870 settlement pages, of which 538
+    // have no contracts in that window at all. At `all` it reads „870 населени места ·
+    // €49,42 млрд.", and that 870 is exactly the number of pages this card serves.
+    // (The pre-2026-08 card showed 388 / €36,07 млрд.; both the corpus and the placement
+    // rules have moved since, which is the sort of drift the freshness gate now catches.)
+    slug: "procurement-by-settlement",
+    routePath: "procurement/by-settlement?pscope=all",
+    waitFor: '[data-og="procurement-geo-loaded"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
 
   // --- /funds sub-pages -------------------------------------------------------
   // MOVED HERE from scripts/og/screenshot_funds.ts, which is now deleted. That script clipped
