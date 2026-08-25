@@ -1,9 +1,15 @@
 # Gate D cannot tell a worse matcher from a bigger corpus — v1
 
-**Status: Tier 1 in progress.** Step 1 (`reached` on `MatchReport` + its unit tests) landed
-2026-08-25; steps 2–2b–3 (baseline field, rejoin wiring, the Gate D assertion) are open, so
-**Gate D still ratchets `matches` and is still red**. No database written, no baseline
-touched. Every figure below was re-derived on **2026-08-25** against local
+**Status: IMPLEMENTED — Tiers 1, 2 and 3, all landed 2026-08-25.** Gate D ratchets `reached`,
+Gate E is live, the diagnostics ship, and the gate is GREEN on the corpus that failed it
+(`e1a7cade1d`, `8dcf726a86`, `2d91593523`, `22886adc2c`). The ratchet was re-minted by
+`npm run kzk:rejoin -- --apply` against LOCAL Postgres, never by hand, and now reads
+`{outcomes: 3078, matched: 2918, reached: 4932, appeals: 8007, decisionsMerits: 4502}`.
+The 2,098 hand-seeded rows are intact. **Still OPEN: §8.2 steps 4–6** — the committed
+`kzk_appeals_summary.json` rebuild, the Cloud SQL publish, and the two ingest stamps, which
+are operator actions this plan does not perform.
+
+Every figure below was re-derived on **2026-08-25** against local
 Postgres (`postgres://postgres:postgres@localhost:5433/electionsbg`, `PGPASSFILE=$PWD/.pgpass`)
 from an instrumented copy of `matchDecisions`, not carried over from the brief that
 commissioned it. Cloud SQL was not touched and is not measured here.
@@ -351,9 +357,41 @@ Two documentation defects found alongside, both stating a superseded reason:
 
 ---
 
-## 6. Recommendation
+## 6. Recommendation — IMPLEMENTED
 
 **Option A + Option B + Option F, in that order. Replace the `matched` ratchet; do not keep it.**
+
+**What the implementation added beyond this section**, each because a review round found it
+five of the seven pinned by a mutant that fails without them (the two placement
+caveats are recorded rather than gated — see the note after the list):
+
+- **`outcomes` needed the same finiteness guard as `reached`.** A non-finite observation
+  writes JSON `null`, `readBaselines` maps that to `FLOOR.outcomes`, and Gate C silently
+  drops **3,078 → 2,098** — the hardcoded floor the ratchet exists to replace — in a
+  committed file. Both bars fail closed now.
+- **`raised` and `wrote` are different questions.** After the swap the steady state is a bar
+  that holds while `matched` drifts, which still rewrites a COMMITTED file; reporting only
+  raises left it modified with the operator told nothing. `recordBaselines` returns
+  `{raised, refreshed, wrote}` and names which observations moved.
+- **A `KzkBaselines` field in neither `RATCHETED` nor `OBSERVED` is never written at all** —
+  verified against the successor field `kzk-matcher-ambiguity-v1` §8 proposes (`upheld`).
+  A compile-time exhaustiveness
+  alias makes that a type error.
+- **`reached`'s placement is load-bearing in BOTH directions.** §4.1 records the downward
+  hazard (a narrowing rule above the `reached.add` loop). The upward one is symmetric and was
+  missing: hoisted above the year-window filter, `reached` goes window-blind and §7.2's
+  `narrow-window` regression stops being detectable. Both are pinned by fixtures.
+- **Gate E must be its own `test()`.** Written as a trailing assertion inside Gate D it never
+  ran on the case it exists for — the ratchet throws first. Verified with a `';'`-split
+  mutant, which reported only "reaches 4166" and never mentioned the 482 rows it orphaned.
+- **`corpusDelta`'s tail must branch on DIRECTION and name the calling gate's bar.** Growth
+  cannot lower a bar; a shrink on either side can, and that is Gate D's own cause 3 — one
+  fixed sentence has the message dismiss the evidence it just produced.
+- **Both new bars are ONE-SIDED**, and §3 did not carry that caveat onto `reached`. An
+  over-MERGING fold reaches more, matches more, and leaves every row accounted: three green
+  gates while a ruling is published against the wrong company. The only guard is
+  `normalizeParty`'s refusal to fold legal forms, pinned by one unit test — recorded beside
+  the claim it qualifies.
 
 Keeping `matches >= ratchet` alongside `reached` preserves the false positive that caused this
 report and buys nothing — every regression it catches, `reached` catches more sharply (§2.3).
@@ -400,8 +438,13 @@ output and in the baseline file.
 ### Tier 3 — diagnosis in the message
 
 7. `KzkBaselines` gains `appeals` / `decisionsMerits`; both gates' messages report the corpus
-   delta since the ratchet was set, and Gate D names the newly-collided groups when `matched`
-   fell while `reached` held. Diagnostic only (§4.6).
+   delta since the ratchet was set. Diagnostic only (§4.6).
+
+   ⚠️ **Shipped WITHOUT the "names the newly-collided groups when `matched` fell while
+   `reached` held" half, deliberately.** That state is a PASSING Gate D — nothing fails, so
+   there is no failure message to put it in, and printing it from a green test is output
+   nobody reads. The rejoin covers the same ground where an operator is actually looking:
+   it prints `reached`, `unresolved.length` and which observations moved on every run.
 
 ### Explicitly NOT in this plan
 
@@ -417,11 +460,11 @@ output and in the baseline file.
 
 ## 7. How the new gate behaves — required, and how to prove it
 
-### 7.1 The real 2026-08-25 case — must PASS
+### 7.1 The real 2026-08-25 case — must PASS ✅ CONFIRMED
 
 | assertion | value | bar | verdict |
 |---|---|---|---|
-| Tier 1 · `reached >= baselines.reached` | 4,932 | 4,929 (pre-crawl) | ✅ passes, +3 |
+| Tier 1 · `reached >= baselines.reached` | 4,932 | 4,932 (as minted) | ✅ passes |
 | Tier 2 · unexplained machine-derived losses | **0** | 0 | ✅ passes |
 | Gate C · `count(outcome) >= 3078` | 3,078 | 3,078 | ✅ passes (unchanged) |
 | hand-seeded floor | 2,098 | 2,098 | ✅ passes |
@@ -429,21 +472,42 @@ output and in the baseline file.
 The two withdrawn matches are onto hand-seeded rows, so Tier 2 does not see them — correct:
 nothing published changed, so nothing should fire.
 
-### 7.2 A genuine regression — must FAIL
+⚠️ The bar in that row is **4,932, not the 4,929 this section originally predicted**. The bar
+was minted from the POST-crawl corpus (there was never a 4,929 in a committed file), so the
+margin is +0 rather than +3 — the gate passes on equality. That is the ratchet working as
+designed and it is what every steady-state run will look like; the +3 the plan predicted is the
+distance a PRE-crawl bar would have had, which no run ever held.
+
+### 7.2 A genuine regression — must FAIL ✅ CONFIRMED
 
 Simulate by variant-injecting the fold, exactly as §2.3 was measured. No repo file is edited;
 a scratch harness re-implements `matchDecisions` with the fold parameterised, reads both tables
 from local Postgres, and reports each metric per variant. The four variants and the recipe:
 
+Every variant below was built and run. Measured outcome in the last column.
+
 | variant | what is broken | must fail via |
 |---|---|---|
-| `no-quote-fold` | drop `.replace(/["'„“”«»]/g,"")` from `normalizeParty` | **Tier 1** (4,914 < 4,932). Gate D today passes this at 2,934. |
-| `no-ws-fold` | drop `.replace(/\s+/g," ")` | **Tier 1** (4,911). Gate D today passes at 2,926. |
+| `no-quote-fold` | drop `.replace(/["'„“”«»]/g,"")` from `normalizeParty` | **Tier 1** (4,914 < 4,932). The RETIRED `matched` gate passed this at 2,934. |
+| `no-ws-fold` | drop `.replace(/\s+/g," ")` | **Tier 1** (4,911). The RETIRED `matched` gate passed at 2,926. |
 | `no-semicolon-split` | `splitInitiators` returns `[init]` | Tier 1 (4,166) **and** Tier 2 (482 rows) |
 | `narrow-window` | candidate filter `c.y === y` only | Tier 1 (4,131) **and** Tier 2 (485 rows) |
 
-The first two are the load-bearing cases: they are the regressions the current gate cannot see,
+The first two are the load-bearing cases: they are the regressions the OLD gate could not see,
 and they are the ones the module header identifies as most fragile.
+
+The `36/36` figures below are mid-Tier-2 counts, quoted because that is where each guard was
+measured. The file went 21 → 30 (Tier 1) → 38 (Tier 2); §11's "21/21 pre-plan" is the same
+series read from the other end.
+
+**Confirmed 2026-08-25.** The `';'`-split mutant fails Gate D at `reaches 4166, below 4932`
+AND Gate E at exactly **482** named rows — independently, in the same run, which is why Gate E
+is a separate `test()`. Three further mutants were built and killed by fixtures the suite did
+not previously have: an R1 narrowing rule folded in above `reached.add` (caught by the
+predating-act fixture), `reached.add` hoisted above the year-window filter (caught by
+"does not reach back two years"), and each of the two partition guards at the foot of
+`matchDecisions` (each of which could be deleted with the suite green at 36/36 before this
+plan landed).
 
 ⚠️ **The simulation must run the gate's own SELECT aliases and its `setsMeritsOutcome` filter.**
 Selecting `*` from `kzk_decisions` yields a row shape `matchDecisions` silently scores at 0
@@ -459,9 +523,14 @@ fold is removed. That runs in the unit suite with no database.
 
 ## 8. The baseline, and whether to publish now
 
-### 8.1 The baseline MUST be re-derived once the gate changes — as an operator step
+### 8.1 The baseline MUST be re-derived once the gate changes — as an operator step ✅ DONE
 
-`reached` (and, under Tier 3, `appeals` / `decisionsMerits`) do not exist in the committed file,
+**Done 2026-08-25** — the committed ratchet now reads
+`{outcomes: 3078, matched: 2918, reached: 4932, appeals: 8007, decisionsMerits: 4502,
+updatedAt: "2026-08-25"}`, minted by the command below against LOCAL Postgres and never edited
+by hand. The rest of this section is the standing rule for the NEXT time a bar field is added.
+
+`reached` (and, under Tier 3, `appeals` / `decisionsMerits`) did not exist in the committed file,
 and `readBaselines` would fall back to `FLOOR` — a bar of 0 that passes forever, the exact
 "cannot tell healthy from frozen" failure the ratchet was built to end. Nothing in this plan
 edits `kzk_baselines.json`. Raising it is one command, **against LOCAL Postgres only** (the
@@ -479,31 +548,33 @@ move — measured, the run writes the same 984 rows to the same values.
 ⚠️ **Ship Tier 1's `recordBaselines` change in the same commit as the gate.** A gate reading a
 field no writer mints is a gate reading `FLOOR`.
 
-### 8.2 `kzk_appeals` — publish, but only after Tier 1 lands
+### 8.2 `kzk_appeals` — publish; Tier 1 has landed, so steps 4–6 are what remain
 
 The ingest was correct and the data is safe on every measurable axis: 9 real complaints filed
 2026-08-24, the 2,098 intact, `count(outcome)` unchanged at 3,078, and `writable` identical at
 984 rows (§2.1) — so publishing changes exactly nine intake rows and no outcome anywhere.
 
-**But do not stamp `state/ingest/kzk_appeals.json` while Gate D is red.** That marker is the
+**Gate D is now GREEN, so the halt no longer applies — steps 1–3 below are done and steps 4–6
+are what an operator still owes.** The rule that produced the halt stands and is worth keeping
+in view: **do not stamp `state/ingest/kzk_appeals.json` while a gate is red.** That marker is the
 orchestrator's "this arm ran clean" signal, and `/process-watch-report` reads it to decide
 whether to re-run the skill. Stamping over a red gate is how the merits arm sat five weeks stale
 — the specific history these four gates were built to prevent. The skill's halt-on-gate-failure
 rule is right; the gate is what is wrong.
 
-Recommended sequence, and Tier 1 is small enough to precede it:
+Recommended sequence — ✅ 1–3 done 2026-08-25, ☐ 4–6 outstanding:
 
-1. Land Tier 1 (matcher field, baseline field, gate assertion, unit test).
-2. `DATABASE_URL=…5433 npm run kzk:rejoin -- --apply` → commit `kzk_baselines.json`.
-3. `npx vitest run scripts/db/tests/kzk_decisions.data.test.ts scripts/db/tests/kzk_appeals_provenance.data.test.ts scripts/db/tests/kzk_suspension.data.test.ts` → all green.
+1. ✅ Land Tier 1 (matcher field, baseline field, gate assertion, unit test) — and Tiers 2–3.
+2. ✅ `DATABASE_URL=…5433 npm run kzk:rejoin -- --apply` → `kzk_baselines.json` committed.
+3. ✅ `npx vitest run scripts/db/tests/kzk_decisions.data.test.ts scripts/db/tests/kzk_appeals_provenance.data.test.ts scripts/db/tests/kzk_suspension.data.test.ts` → 14/14 green.
 4. `npm run kzk:summary` → commit `data/procurement/derived/kzk_appeals_summary.json`.
 5. Publish: `npm run db:load:kzk-decisions:pg:cloud` then `npm run kzk:rejoin:cloud -- --apply`.
 6. Stamp both arms per the skill's Stamping section, quoting the tier-2 **date**, never
    "2,098 outcomes preserved".
 
-If Tier 1 is deferred, the interim option is to publish and stamp with an **explicit** override
-note naming this plan and the §2.1 measurement — never a silent stamp, and never by lowering the
-ratchet.
+The "if Tier 1 is deferred, publish under an explicit override" fallback this section
+originally offered is **moot** — Tier 1 landed, so there is nothing to override. It is not
+reinstated here, because an override note is only ever the second-best answer to a red gate.
 
 ⚠️ **Cloud SQL was not measured for this plan.** `state/ingest/kzk_appeals.json` claims
 local/cloud parity as of 2026-08-22; whether prod's `kzk_appeals` already holds the nine new rows
@@ -521,7 +592,7 @@ was not checked and should be, before step 5 is read as a no-op.
 | `scripts/db/tests/kzk_appeals_provenance.data.test.ts` | Gate D rewritten; new reason-based arm; message text |
 | `scripts/procurement/kzk_match.test.ts` | ambiguation fixture + fold-collapse fixture, both with mutation checks |
 | `data/procurement/derived/kzk_baselines.json` | **not edited by hand** — re-minted by §8.1 |
-| `.claude/skills/update-kzk-appeals/SKILL.md` | Gate D's row and the superseded §5 rationale |
+| `.claude/skills/update-kzk-appeals/SKILL.md` | Gate D's row, the superseded §5 rationale, and a row for the new Gate E |
 
 ## 10. Rollback
 
@@ -536,8 +607,8 @@ message forbidding the only available fix. Same rule the sibling plan's §9 stat
 export PGPASSFILE="$PWD/.pgpass"
 DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' \
   npm run kzk:rejoin -- --dry-run     # read-only; prints matches / ambiguity / writable
-npx vitest run scripts/procurement/kzk_match.test.ts   # 21/21 pre-Tier-1; 30/30 after step 1
-npx vitest run scripts/db/tests/kzk_appeals_provenance.data.test.ts        # Gate D red
+npx vitest run scripts/procurement/kzk_match.test.ts   # 21/21 pre-plan; 38/38 implemented
+npx vitest run scripts/db/tests/kzk_appeals_provenance.data.test.ts        # 6/6 green since 22886adc2c
 ```
 
 Every table in §1–§4 came from an instrumented copy of `matchDecisions` reading both tables

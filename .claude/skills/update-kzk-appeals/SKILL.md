@@ -129,7 +129,7 @@ npx vitest run scripts/db/tests/kzk_decisions.data.test.ts \
 that runs the whole 88-file PG suite *plus* every `*kzk*` file elsewhere — and an unrelated
 gate failing would send you into the "stop, do not sync to cloud" branch below.)
 
-Four gates run here, and they replaced a check that could never fail. The old one was
+Five gates run here, and they replaced a check that could never fail. The old one was
 `count(outcome) >= 2098` — a hardcoded floor that protected the irreplaceable rows and
 *also passed forever*, which is how a frozen arm reported success for five weeks.
 
@@ -139,6 +139,7 @@ Four gates run here, and they replaced a check that could never fail. The old on
 | **B** | *(not a test — read Step 1's output)* the intake crawl prints the tier-2 watermark on every `--apply` and warns past 45 days | `kzk_appeals.ts` |
 | **C** | outcome coverage has not dropped below the ratchet | `kzk_appeals_provenance.data.test.ts` |
 | **D** | re-running the matcher still **reaches** at least as many appeals | `kzk_appeals_provenance.data.test.ts` |
+| **E** | every outcome we already PUBLISHED is still derivable, or explained by a named key collision | `kzk_appeals_provenance.data.test.ts` |
 
 Both bars live in `data/procurement/derived/kzk_baselines.json`, raised by every successful
 `kzk:rejoin --apply` and **only ever upward** — commit it when the rejoin says it moved
@@ -147,6 +148,14 @@ Both bars live in `data/procurement/derived/kzk_baselines.json`, raised by every
 Gate D exists separately because Gate C cannot see a row that stops being matched: it is
 simply absent from `writable`, so its stale outcome survives untouched and `count(outcome)`
 does not move. The only way to see that is to re-run the matcher and compare.
+
+Gate E (added 2026-08-25) is the PER-ROW twin of D and needs no ratchet at all: the database
+is its own snapshot, since `decision_act_no IS NOT NULL` marks the rows the matcher once
+resolved and that column only ever gains rows. It asserts each is still matched, or refused
+with a NAMED collision (a sibling complaint arrived, or a second act claimed it), or citing an
+act that has left the merits-eligible corpus. Anything else means the matcher stopped
+REACHING a row whose outcome we are still serving. It reports "GATE E DISARMED" and checks
+nothing when no machine-derived outcome exists yet — check stderr, as with Gate A.
 
 ⚠️ **Gate D's bar is `reached`, not `matched`, since 2026-08-25 — and any older note saying
 otherwise is describing the defect.** `matched` is NOT monotone under corpus growth: a new
