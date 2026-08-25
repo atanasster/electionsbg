@@ -26,7 +26,7 @@
 
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
-import { execSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import { stripJsxComments } from "../../src/ux/infographic/stripJsxComments";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -918,6 +918,84 @@ describe("a hub's og capture anchors on its head", () => {
         `${rel} is ${w}x${h} — a viewport narrower than OG_W silently clamps the clip`,
       ).toBe("2400x1260");
     }
+  });
+
+  it("no hub card is older than the page it depicts", (ctx) => {
+    // ⚠ THE DEFECT THE ANCHOR CLAUSES CANNOT SEE. /funds' card was correctly configured for
+    // months and simply never re-shot: committed 2026-05-27, it depicted a layout the module
+    // no longer had — a centred title, a StatCard strip and a choropleth, all since removed —
+    // and every figure on it was stale, the paid total by 11% and the MP-linked count by 40%.
+    // Nothing failed. `tests/seo.spec.ts` asserts only that the og:image URL is absolute, and
+    // the clauses above read the capture CONFIG, which was not the thing that was wrong.
+    //
+    // ⚠ WHAT THIS CANNOT SEE, so nobody reads green as more than it is: FIGURE staleness. All
+    // four heads draw from `/api/db` or a generated blob, so a corpus reload moves every
+    // number on every card and touches no tracked file. That same card was ALSO 11% low on
+    // paid funds and 40% low on MP-linked companies, and this clause would have said nothing
+    // about it. Green here means „the card is at least as new as the code that draws it" —
+    // never „the numbers are current".
+    //
+    // COMMIT time, not mtime: a checkout rewrites every mtime to the checkout instant, so an
+    // mtime comparison is noise in CI and meaningless locally after a branch switch.
+    // `execFileSync` with an argv array, not a shell string. These paths are internal
+    // constants today, but `JSON.stringify` is JSON quoting rather than SHELL quoting — a
+    // path containing `$(…)` would execute — and the argv form needs no quoting at all.
+    const at = (rel: string) =>
+      Number(
+        execFileSync("git", ["log", "-1", "--format=%ct", "--", rel], {
+          encoding: "utf8",
+        }).trim(),
+      );
+
+    // ⚠ SHALLOW CLONES MAKE THIS VACUOUS, and CI has one: `actions/checkout@v6` defaults to
+    // fetch-depth 1, so `git log -1` returns the SAME commit for every path and every
+    // comparison passes. Skipped with a distinct reason rather than passing — „there is no
+    // history here" must never read as „the cards are current".
+    const shallow =
+      execSync("git rev-parse --is-shallow-repository", {
+        encoding: "utf8",
+      }).trim() === "true";
+    // ⚠ `ctx.skip`, NOT an `expect(shallow).toBe(true)`. That was the first draft and it is a
+    // TAUTOLOGY on a variable just proven true: it can never fail, so the reason is never
+    // rendered and vitest prints „✓ passed" — a clause that never runs in CI reporting as one
+    // that did. Measured under this repo's vitest: the assertion form prints ✓, this prints
+    // „↓ skipped [shallow clone …]". The file's whole doctrine is that a skip must say why.
+    if (shallow) return ctx.skip("shallow clone — card freshness unverifiable");
+
+    // The head COMPONENT counts too, not only the screen. Excluding it was the first draft's
+    // trade — „a shared-component edit reddens all four at once, and a gate that annoys people
+    // gets deleted" — but that is a forecast, and the measurement contradicts its urgency:
+    // HubHead's last commit is hours older than all four cards, so folding it in reddens ZERO
+    // of four today. A hole left open against a hypothetical cost is the wrong way round.
+    const HEAD = "src/ux/infographic/HubHead.tsx";
+    const headAt = at(HEAD);
+    expect(headAt, `no commit found for ${HEAD}`).toBeGreaterThan(0);
+
+    const stale: string[] = [];
+    for (const [slug, screen] of Object.entries(HUB_CAPTURES)) {
+      const card = at(`public/og/${slug}.png`);
+      const page = at(screen);
+      expect(card, `no commit found for public/og/${slug}.png`).toBeGreaterThan(
+        0,
+      );
+      expect(page, `no commit found for ${screen}`).toBeGreaterThan(0);
+      const newest = Math.max(page, headAt);
+      const src = page >= headAt ? screen : HEAD;
+      if (card < newest)
+        stale.push(
+          `${slug}: card ${new Date(card * 1000).toISOString().slice(0, 10)} < ` +
+            `${src} ${new Date(newest * 1000).toISOString().slice(0, 10)}`,
+        );
+    }
+    expect(
+      stale,
+      `these cards predate the page they show — re-shoot with ` +
+        `\`npx tsx scripts/og/capture-screens.ts ${stale
+          .map((l) => l.split(":")[0])
+          .join(
+            " ",
+          )}\` (dev server up), then LOOK at the PNG: ${stale.join("; ")}`,
+    ).toEqual([]);
   });
 
   it("the map names every HubHead screen, so a new hub cannot slip past", () => {
