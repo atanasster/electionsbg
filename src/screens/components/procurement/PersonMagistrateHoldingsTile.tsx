@@ -28,6 +28,7 @@ import { formatEurCompact, BGN_PER_EUR } from "@/lib/currency";
 import {
   usePersonMagistrateHoldings,
   type MagistrateFiling,
+  type MagistrateHolding,
   declaredPropertyCount,
 } from "@/data/judiciary/useMagistrateHoldings";
 import { MagistrateFilingProperties } from "./MagistrateFilingProperties";
@@ -107,13 +108,18 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
   const filings: MagistrateFiling[] = (holding.filings ?? []).filter((row) =>
     onRegister(row.sourceUrl),
   );
+  // The TS type declares this non-optional, but dev's `/api/db` proxies to the deployed
+  // backend (vite.config.ts) — so a frontend built against a newer payload shape can run
+  // against an older-deployed `magistrate_by_name()` that has not shipped `companies` yet.
+  // Same defensive fallback as `filings` above.
+  const companies: MagistrateHolding["companies"] = holding.companies ?? [];
   // A filing list is displayable content in its own right: a magistrate with no parsed
   // figures and no company still has declarations a reader can open, and that is the whole
   // point of the history.
   const hasContent =
     !!holding.court ||
     hasFinancials ||
-    holding.companies.length > 0 ||
+    companies.length > 0 ||
     filings.length > 0;
   if (!hasContent) return null;
   const shown = allFilings ? filings : filings.slice(0, FILINGS_SHOWN);
@@ -124,7 +130,7 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
   // A card can now render with NOTHING but links — no court, no figures, no company. The
   // title and the caption both describe declaration DATA, so on that card they would
   // describe nothing present. Say what is actually there instead.
-  const filingsOnly = !hasFinancials && holding.companies.length === 0;
+  const filingsOnly = !hasFinancials && companies.length === 0;
 
   return (
     <Card>
@@ -209,7 +215,7 @@ export const PersonMagistrateHoldingsTile: FC<{ name: string }> = ({
         )}
 
         <div className="flex flex-wrap gap-1.5">
-          {holding.companies.map((c, i) => {
+          {companies.map((c, i) => {
             const pct = c.stakePct != null ? ` · ${c.stakePct}%` : "";
             return c.eik ? (
               <Link
