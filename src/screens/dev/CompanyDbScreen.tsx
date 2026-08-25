@@ -776,12 +776,33 @@ export const CompanyDbScreen: FC = () => {
 
   return (
     <div className="w-full px-4 py-6 md:px-6">
+      {/* Hierarchy breadcrumb — at the TOP, above the header, the same order
+          /person/:slug always renders in (PersonProfileScreen.tsx). On an
+          awarder page (/awarder/:eik) the trail is Управление › Обществени
+          поръчки › Възложители › <name>. On a company page it stays
+          sector-scoped for the packed sector awarder seats (АПИ / НОИ / НЗОК
+          / МОН / НАП / Митници), linking up to the sectors hub. Every other
+          company — the common case — gets the generic Управление › Фирми ›
+          <name> trail. Rendered unconditionally (not gated on loading/error):
+          `displayName` falls back to the bare EIK, so navigation stays
+          available even before the fetch resolves. */}
+      {isAwarderRoute ? (
+        <AwarderBreadcrumb current={displayName} />
+      ) : SectorPack ? (
+        <SectorBreadcrumb current={displayName} />
+      ) : (
+        <GovernanceBreadcrumb
+          sectionKey="companies_browse_title"
+          sectionTo="/companies"
+          current={displayName}
+        />
+      )}
       {/* data-og: stable anchor for the OG-card capture of the packed
           institution pages (roads / НОИ / НЗОК / ДФЗ). See
           scripts/og/capture-screens.ts — the clip is top-aligned here so the
           card leads with the institution name, identity chips and headline
           KPI cards. */}
-      <div className="mb-6" data-og="awarder-hero">
+      <div className="mt-3 mb-6" data-og="awarder-hero">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
           {company
             ? company.entity_class && ENTITY_CLASS_KICKER[company.entity_class]
@@ -920,26 +941,6 @@ export const CompanyDbScreen: FC = () => {
               <span className="text-sm text-muted-foreground">Обхват</span>
               <ScopeControl value={scope} onChange={setScope} />
             </div>
-          )}
-          {/* Hierarchy breadcrumb. On an awarder page (/awarder/:eik) the trail
-              is Управление › Обществени поръчки › Възложители › <name>. On a
-              company page it stays sector-scoped for the packed sector
-              awarder seats (АПИ / НОИ / НЗОК / МОН / НАП / Митници), linking
-              up to the sectors hub. Every other company — the common case —
-              gets the generic Управление › Фирми › <name> trail, the same
-              breadcrumb /person/:slug always carries; `displayName` falls
-              back to the bare EIK, so this renders safely even on the
-              corpusOnly branch above (procurement-only, no TR record). */}
-          {isAwarderRoute ? (
-            <AwarderBreadcrumb current={displayName} />
-          ) : SectorPack ? (
-            <SectorBreadcrumb current={displayName} />
-          ) : (
-            <GovernanceBreadcrumb
-              sectionKey="companies_browse_title"
-              sectionTo="/companies"
-              current={displayName}
-            />
           )}
           {sectorCrossLink}
           {/* Entity-graph identity — this EIK is a school (schools.eik join).
