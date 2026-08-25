@@ -86,6 +86,10 @@ const STATS = "data/procurement/derived/sector_stats.json";
 // GITIGNORED (0 of 54 files tracked) — only the reconcile below reads it, and only
 // that test may skip on it.
 const NODE = `data/budget/ministries/${REGIONAL_BUDGET_NODE}.json`;
+const skipNode = exists(NODE)
+  ? false
+  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run npm run budget:ingest";
+reportSkip(import.meta.url, skipNode);
 // TRACKED, so these carry no skip: a missing tracked file is a real defect.
 const ADMIN_REGISTRY = "data/budget/classification/admin.json";
 const PROGRAM_REGISTRY = "data/budget/classification/program.json";
@@ -166,7 +170,7 @@ describe("regional sector — the hub headline is a BUDGET", () => {
     );
   });
 
-  test.skipIf(!exists(NODE))(
+  test.skipIf(skipNode)(
     "EVERY scope reconciles EXACTLY to the МРРБ node — value, year, kind and unavailable",
     () => {
       // A €-band on one scope cannot see a wrong YEAR, a lost `unavailable`

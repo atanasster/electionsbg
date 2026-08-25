@@ -27,23 +27,29 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, exec, end } from "../lib/pg";
 import { MIR_CODES } from "../../../src/data/parliament/nsFolders";
+import { reportSkip } from "../../lib/report_skip";
 
 const SCHEMA_117 = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../schema/pg/117_place_dim.sql",
 );
 
-const reachable = async (): Promise<boolean> => {
+const reachable = async (): Promise<string | false> => {
   try {
     const [c] = await allRows<{ n: string }>(
       "SELECT count(*) n FROM place_dim",
     );
-    return Number(c.n) > 0;
+    return Number(c.n) > 0
+      ? false
+      : "place_dim is empty — run npm run db:load:place-dim:pg";
   } catch {
-    return false;
+    return "Postgres unreachable";
   }
 };
-const ok = await reachable();
+// `reachable()` now returns the REASON, so the gate is the value itself — a `!ok`
+// here would invert it and skip exactly when the corpus is fine.
+const skip = await reachable();
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
@@ -61,7 +67,7 @@ const count = async (where: string): Promise<number> => {
 // itself when those columns drop, and keeping the self-retiring guard in one file avoids a
 // second copy that would simply go red at the DROP.
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "covers every mir/obshtina place_code person_role carries",
   async () => {
     // 'judicial' is excluded BY DESIGN — it resolves against judicial_body (116).
@@ -74,7 +80,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "covers every awarder seat, so by-settlement needs no settlements.json",
   async () => {
     const [r] = await allRows<{ n: string }>(`
@@ -86,7 +92,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "keeps the 31 МИР distinct from the statistical oblasts",
   async () => {
     assert.equal(await count("kind = 'mir'"), MIR_CODES.length);
@@ -112,7 +118,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "carries the synthetic SFO_CITY obshtina and its alias crosswalk",
   async () => {
     // Absent from data/municipalities.json — the ONE code of 295 that file cannot label.
@@ -140,7 +146,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "seeds the two settlements the EKATTE master omits",
   async () => {
     const rows = await allRows<{ code: string; name_bg: string }>(
@@ -164,7 +170,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "carries the out-of-country pseudo-places with no containment",
   async () => {
     // 88 countries as settlements + 6 continents as obshtini, inherited from the source
@@ -181,7 +187,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)("has no dangling containment references", async () => {
+test.skipIf(skip)("has no dangling containment references", async () => {
   assert.equal(
     await count(
       `kind='settlement' AND obshtina_code IS NOT NULL
@@ -200,7 +206,7 @@ test.skipIf(!ok)("has no dangling containment references", async () => {
   assert.equal(await count("oblast_code = ''"), 0);
 });
 
-test.skipIf(!ok)("has the expected row count per namespace", async () => {
+test.skipIf(skip)("has the expected row count per namespace", async () => {
   const rows = await allRows<{ kind: string; n: string }>(
     "SELECT kind, count(*) n FROM place_dim GROUP BY kind ORDER BY kind",
   );
@@ -212,7 +218,7 @@ test.skipIf(!ok)("has the expected row count per namespace", async () => {
   );
 });
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "the kind-check swap preserves the place_dim_sofia_aliases constraint",
   async () => {
     // The single largest risk in the header-completeness change: the DO-block that widens the
@@ -237,7 +243,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "re-applying 117 is idempotent (loader + db:resolve:persons both apply it)",
   async () => {
     // The loader self-applies 117 before its COPY, and db:resolve:persons re-applies it on
@@ -258,7 +264,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "carries the 28 statistical oblast names for the place hero self-join",
   async () => {
     assert.equal(await count("kind = 'oblast'"), 28);
@@ -274,7 +280,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "carries loc + settlement_type on real settlements for the hero thumbnail/title",
   async () => {
     const [varna] = await allRows<{

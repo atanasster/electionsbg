@@ -64,6 +64,7 @@ import { NAP_EIK, TAX_REVENUE_GROUP, TAX_TYPES } from "@/lib/napReferenceData";
 import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { stripComments } from "../../lib/strip_comments";
 import { assertCommitted } from "../../lib/assert_committed";
+import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 /** Read a TRACKED input, failing loudly if it is gone.
@@ -111,7 +112,8 @@ const reachable = async (): Promise<boolean> => {
 // `tsc -b && vite build`. Vitest does not typecheck, so the file would run green
 // while the build is red. Every sibling here uses skipIf.
 const haveDb = await reachable();
-const noDb = !haveDb;
+const skipDb = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skipDb);
 
 afterAll(async () => {
   await end();
@@ -277,7 +279,7 @@ describe("revenue sector — the EIK set", () => {
     }
   });
 
-  test.skipIf(noDb)(
+  test.skipIf(skipDb)(
     "НАП is a real awarder carrying real contracts",
     async () => {
       const [row] = await allRows<{ n: number; eur: number; name: string }>(
@@ -294,7 +296,7 @@ describe("revenue sector — the EIK set", () => {
     },
   );
 
-  test.skipIf(noDb)("the anti-allowlist bodies are NOT members", async () => {
+  test.skipIf(skipDb)("the anti-allowlist bodies are NOT members", async () => {
     const members = new Set(
       SECTOR_DASHBOARDS.revenue.members.map((m) => m.eik),
     );
@@ -534,7 +536,7 @@ describe("revenue sector — the Митници overlap is real and disclosed", 
 // ── beneficiaries ──────────────────────────────────────────────────────────
 
 describe("revenue sector — beneficiaries", () => {
-  test.skipIf(noDb)("no single contractor dominates the corpus", async () => {
+  test.skipIf(skipDb)("no single contractor dominates the corpus", async () => {
     // A SHARE ceiling, never a rank or an absolute €: a leaderboard reordering
     // is the one thing about it that is not a defect. Today the top row is
     // 11.3% (Информационно обслужване АД). A jump past 40% would most likely
@@ -559,7 +561,7 @@ describe("revenue sector — beneficiaries", () => {
     );
   });
 
-  test.skipIf(noDb)("no contract has НАП as its own contractor", async () => {
+  test.skipIf(skipDb)("no contract has НАП as its own contractor", async () => {
     // The register artifact where the buyer lands in the supplier field. Zero
     // today for this awarder; corpus-wide it is 29 rows.
     const [row] = await allRows<{ n: number }>(

@@ -27,24 +27,30 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
-const reachable = async (): Promise<boolean> => {
+const reachable = async (): Promise<string | false> => {
   try {
     const [c] = await allRows<{ n: string }>(
       "SELECT count(*) n FROM person_role WHERE place_code IS NOT NULL",
     );
-    return Number(c.n) > 0;
+    return Number(c.n) > 0
+      ? false
+      : "no person_role row carries a place_code — run npm run db:resolve:persons";
   } catch {
-    return false;
+    return "Postgres unreachable";
   }
 };
-const ok = await reachable();
+// `reachable()` now returns the REASON, so the gate is the value itself — a `!ok`
+// here would invert it and skip exactly when the corpus is fine.
+const skip = await reachable();
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
 });
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "every place_code resolves in place_dim or judicial_body",
   async () => {
     // The invariant the materialised label used to enforce for free. A code that resolves
@@ -67,15 +73,17 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)("the join cannot fan a role out into duplicates", async () => {
-  // Both joins hit a primary key today ((kind,code) and body_code). If a future migration
-  // relaxed either one, a person would silently grow duplicate role rows on their profile.
-  //
-  // Measured as base row count vs joined row count — NOT as "duplicate (person, role,
-  // place) tuples", which person_role legitimately contains: the same candidate role in two
-  // different elections is two rows differing only by `ref` (12k of them), and counting
-  // those would flag the data rather than the join.
-  const [r] = await allRows<{ base: string; joined: string }>(`
+test.skipIf(skip)(
+  "the join cannot fan a role out into duplicates",
+  async () => {
+    // Both joins hit a primary key today ((kind,code) and body_code). If a future migration
+    // relaxed either one, a person would silently grow duplicate role rows on their profile.
+    //
+    // Measured as base row count vs joined row count — NOT as "duplicate (person, role,
+    // place) tuples", which person_role legitimately contains: the same candidate role in two
+    // different elections is two rows differing only by `ref` (12k of them), and counting
+    // those would flag the data rather than the join.
+    const [r] = await allRows<{ base: string; joined: string }>(`
     SELECT
       (SELECT count(*) FROM person_role WHERE place_code IS NOT NULL) AS base,
       (SELECT count(*) FROM person_role r
@@ -84,10 +92,11 @@ test.skipIf(!ok)("the join cannot fan a role out into duplicates", async () => {
          LEFT JOIN judicial_body jb
            ON r.place_kind = 'judicial' AND jb.body_code = r.place_code
         WHERE r.place_code IS NOT NULL) AS joined`);
-  assert.equal(r.joined, r.base);
-});
+    assert.equal(r.joined, r.base);
+  },
+);
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "judicial roles carry a Bulgarian label and no English one",
   async () => {
     // judicial_body has no English name column, and place_label_en was already NULL for
@@ -108,7 +117,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "an unresolvable declared place still renders the source's own words",
   async () => {
     // place_raw is the deliberate carve-out to the label retirement. The ИВСС declaration
@@ -154,7 +163,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "a place that DOES resolve never carries raw fallback text",
   async () => {
     // Otherwise place_raw could silently mask a dictionary miss: the badge would render
@@ -166,7 +175,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "the capital's synthetic obshtina still resolves to a label",
   async () => {
     // SFO_CITY is the one code of 295 that data/municipalities.json cannot label, and it

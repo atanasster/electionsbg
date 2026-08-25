@@ -19,6 +19,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const SHARD_DIR = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -45,11 +46,21 @@ const skip = haveDb ? false : "Postgres unreachable / matview absent";
 reportSkip(import.meta.url, skip);
 const haveShards = existsSync(SHARD_DIR);
 
+const skipShards =
+  skip ||
+  (!haveShards
+    ? "data/officials/municipal/by_obshtina absent — it is committed, so this is a sparse checkout"
+    : false);
+reportSkip(import.meta.url, skipShards);
 afterAll(async () => {
   await end();
 });
 
 // An empty matview is a silent total failure, so it is an assertion, not a skip.
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/officials/municipal/by_obshtina");
+
 test.skipIf(skip)("the roster is not empty", async () => {
   const [c] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM municipal_officials_table",
@@ -128,7 +139,7 @@ test.skipIf(skip)("the §6 privacy gate is applied", async () => {
 // apart, so all 6,647 were published as sitting. Re-pointing it at the view is what makes
 // the assertion mean "the page shows the bench"; the retained cohort is asserted below
 // rather than dropped from the file, so neither half can go missing unnoticed.
-test.skipIf(skip || !haveShards)(
+test.skipIf(skipShards)(
   "per-obshtina membership and roles match the shards exactly",
   async () => {
     // EVERY published field, not just the key columns. The first cut of this test

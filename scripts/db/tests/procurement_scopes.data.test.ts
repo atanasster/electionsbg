@@ -20,18 +20,24 @@ import {
 } from "../../../src/data/scope/windows";
 import { SCOPE_FIRST_YEAR } from "../../../src/data/scope/constants";
 import elections from "../../../src/data/json/elections.json";
+import { reportSkip } from "../../lib/report_skip";
 
-const reachable = async (): Promise<boolean> => {
+const reachable = async (): Promise<string | false> => {
   try {
     const [c] = await allRows<{ n: string }>(
       "SELECT count(*) n FROM procurement_scopes",
     );
-    return Number(c.n) > 0;
+    return Number(c.n) > 0
+      ? false
+      : "procurement_scopes is empty — run npm run db:load:procurement-scopes:pg";
   } catch {
-    return false;
+    return "Postgres unreachable";
   }
 };
-const ok = await reachable();
+// `reachable()` now returns the REASON, so the gate is the value itself — a `!ok`
+// here would invert it and skip exactly when the corpus is fine.
+const skip = await reachable();
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
@@ -43,7 +49,7 @@ type Row = {
   date_to: string | null;
 };
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "carries exactly the windows the shared definition produces",
   async () => {
     // Compared against allScopeWindows() — the same function the React hook and every
@@ -61,7 +67,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "covers every election as its own parliament window",
   async () => {
     // A newly ingested election with no row means the DEFAULT scope for that election has no
@@ -82,7 +88,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "has the corpus-wide scope with both bounds open",
   async () => {
     const [r] = await allRows<Row>(
@@ -94,7 +100,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)("never stores an inverted or empty window", async () => {
+test.skipIf(skip)("never stores an inverted or empty window", async () => {
   // A parliament window whose upper bound precedes its lower bound returns nothing at all,
   // which reads as "this parliament awarded no contracts" rather than as a bug. The CHECK
   // enforces it; asserted anyway so a dropped constraint surfaces here.
@@ -105,7 +111,7 @@ test.skipIf(!ok)("never stores an inverted or empty window", async () => {
   assert.equal(r.n, "0");
 });
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "spans the year range contiguously, from the corpus floor to the current year",
   async () => {
     const rows = await allRows<{ scope_key: string }>(

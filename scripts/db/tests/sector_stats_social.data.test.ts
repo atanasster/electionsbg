@@ -57,6 +57,7 @@ import {
 import { categoryOfCpv, categoryLabel } from "@/lib/socialAttributes";
 import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { assertCommitted } from "../../lib/assert_committed";
+import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 const readJson = <T>(rel: string): T =>
@@ -80,7 +81,8 @@ const reachable = async (): Promise<boolean> => {
 // `tsc -b && vite build`. Vitest does not typecheck, so the file runs green while
 // the build is red. Every one of the 106 sibling files here uses skipIf.
 const haveDb = await reachable();
-const noDb = !haveDb;
+const skipDb = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skipDb);
 
 afterAll(async () => {
   await end();
@@ -111,6 +113,10 @@ type BudgetYear = {
 const STATS = "data/procurement/derived/sector_stats.json";
 const NODE = `data/budget/ministries/${SOCIAL_BUDGET_NODE}.json`;
 
+const skipNode = exists(NODE)
+  ? false
+  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run npm run budget:ingest";
+reportSkip(import.meta.url, skipNode);
 const budgetYears = (): BudgetYear[] =>
   readJson<{ years: BudgetYear[] }>(NODE).years.filter(
     (y) => (ministryYearSeriesEur(y) ?? 0) > 0,
@@ -144,7 +150,7 @@ describe("social sector — the hub headline is the МТСП BUDGET", () => {
   // skipIf, NOT an `if (…) return` — an early return reports a green PASS on any
   // machine without the gitignored ministries tree, which is the shape where a
   // regression net quietly stops being one.
-  test.skipIf(!exists(NODE))(
+  test.skipIf(skipNode)(
     "every scope reconciles EXACTLY to the МТСП node",
     () => {
       const stats = readJson<SectorStats>(STATS);
@@ -187,7 +193,7 @@ describe("social sector — the hub headline is the МТСП BUDGET", () => {
   // SocialBudgetBridgeTile sums the node's PROGRAMS while the hub tile reads its
   // EXPENDITURE. Nothing else pairs those two fields, and if they diverge the page
   // shows one total in its bar chart and another in the tile above it.
-  test.skipIf(!exists(NODE))(
+  test.skipIf(skipNode)(
     "Σ(programs) equals the node's expenditure, per fiscal year",
     () => {
       for (const y of budgetYears()) {
@@ -223,7 +229,7 @@ describe("social sector — the EIK set", () => {
     assert.equal(SECTOR_DASHBOARDS.social!.leadEik, SOCIAL_EIK);
   });
 
-  test.skipIf(noDb)(
+  test.skipIf(skipDb)(
     "every member is a real awarder in the corpus",
     async () => {
       const rows = await allRows<{ eik: string }>(
@@ -272,7 +278,7 @@ describe("social sector — the EIK set", () => {
       );
   });
 
-  test.skipIf(noDb)("АСП dominates the group's procurement", async () => {
+  test.skipIf(skipDb)("АСП dominates the group's procurement", async () => {
     const [row] = await allRows<{ asp: number; total: number }>(
       `SELECT
          COALESCE(SUM(amount_eur) FILTER (WHERE awarder_eik = $2), 0) AS asp,
@@ -341,7 +347,7 @@ describe("social sector — the category labels say what the CPV means", () => {
     assert.notEqual(categoryOfCpv("64200000"), categoryOfCpv(""));
   });
 
-  test.skipIf(noDb)("that split is material, not cosmetic", async () => {
+  test.skipIf(skipDb)("that split is material, not cosmetic", async () => {
     const [row] = await allRows<{ food: number; total: number }>(
       `SELECT
          COALESCE(SUM(amount_eur) FILTER (
@@ -366,7 +372,7 @@ describe("social sector — the category labels say what the CPV means", () => {
 describe("social sector — the leaderboard means what it says", () => {
   // Shares and classifications only. A rank or an absolute € would fail on every
   // fortnightly reload for no reason.
-  test.skipIf(noDb)("no single contractor owns the sector", async () => {
+  test.skipIf(skipDb)("no single contractor owns the sector", async () => {
     const [row] = await allRows<{ top: number; total: number }>(
       `WITH w AS (
          SELECT contractor_eik, SUM(amount_eur) AS eur
@@ -418,7 +424,7 @@ describe("social sector — the leaderboard means what it says", () => {
   // 061 change most needs. Driving it from whatever self-deal rows the corpus
   // actually holds (29 today, €3.87M) keeps it self-scoping, and the guard makes
   // the vacuous state loud instead of green.
-  test.skipIf(noDb)(
+  test.skipIf(skipDb)(
     "no awarder is ever listed as its own supplier",
     async () => {
       const arts = await allRows<{ eik: string; name: string }>(
@@ -459,19 +465,22 @@ describe("social sector — the leaderboard means what it says", () => {
   // Every SOCIAL_ENTITIES member is a real awarder (asserted above), so the group
   // model's per-unit rollup must reconcile with a plain sum — the tile's units
   // list, its АСП share and its footnote total all read that rollup.
-  test.skipIf(noDb)("the group model reconciles with the corpus", async () => {
-    const [row] = await allRows<{ model: number; raw: number }>(
-      `SELECT (awarder_group_model($1, NULL, NULL)->>'totalEur')::numeric AS model,
+  test.skipIf(skipDb)(
+    "the group model reconciles with the corpus",
+    async () => {
+      const [row] = await allRows<{ model: number; raw: number }>(
+        `SELECT (awarder_group_model($1, NULL, NULL)->>'totalEur')::numeric AS model,
               COALESCE(ROUND(SUM(amount_eur)::numeric), 0)                AS raw
          FROM contracts
         WHERE tag = 'contract' AND awarder_eik = ANY($1)`,
-      [SOCIAL_SECTOR_EIKS],
-    );
-    assert.ok(
-      Math.abs(Number(row.model) - Number(row.raw)) <= 1,
-      `group model ${row.model} vs corpus ${row.raw}`,
-    );
-  });
+        [SOCIAL_SECTOR_EIKS],
+      );
+      assert.ok(
+        Math.abs(Number(row.model) - Number(row.raw)) <= 1,
+        `group model ${row.model} vs corpus ${row.raw}`,
+      );
+    },
+  );
 });
 
 // ── the entity list itself ─────────────────────────────────────────────────

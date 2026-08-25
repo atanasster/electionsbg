@@ -61,6 +61,7 @@ import fs from "node:fs";
 import { allRows, end } from "../lib/pg";
 import { buildPriceIndex, type Emit } from "../../prices/build_index";
 import { loadGridsFromPg } from "../../prices/lib/grids_pg";
+import { reportSkip } from "../../lib/report_skip";
 
 // Close the singleton pool so the db:verify runner doesn't hang (FINDING-008).
 afterAll(async () => {
@@ -71,6 +72,13 @@ const RUN = process.env.DB_VERIFY === "1";
 const CACHE = "data/prices/_cache/daily";
 const HAVE_CACHE = fs.existsSync(CACHE);
 
+const skipParity = !RUN
+  ? "DB_VERIFY is not set — this parity arm is opt-in"
+  : !HAVE_CACHE
+    ? "data/prices/_cache/daily absent — that tree is gitignored AND FROZEN (its only writer, " +
+      "parse.ts, was retired by the Postgres migration), so no command recreates it"
+    : false;
+reportSkip(import.meta.url, skipParity);
 const TIE_BROKEN = new Set(["cheapestEik", "cheapestChain", "cheapestStore"]);
 const AVG_TOLERANCE = 0.011; // one 2-decimal rounding step
 
@@ -127,7 +135,7 @@ const cacheDays = (): string[] =>
     .map((f) => f.slice(0, 10))
     .sort();
 
-test.skipIf(!RUN || !HAVE_CACHE)(
+test.skipIf(skipParity)(
   "price_grid_days rebuilds the cache-built artifacts over the shared day span",
   { timeout: 600_000 },
   async () => {

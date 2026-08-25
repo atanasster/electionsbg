@@ -16,24 +16,30 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
-const reachable = async (): Promise<boolean> => {
+const reachable = async (): Promise<string | false> => {
   try {
     const [c] = await allRows<{ n: string }>(
       "SELECT count(*) n FROM procurement_settlement_rank",
     );
-    return Number(c.n) > 0;
+    return Number(c.n) > 0
+      ? false
+      : "procurement_settlement_rank is empty — run npm run db:load:procurement-scopes:pg";
   } catch {
-    return false;
+    return "Postgres unreachable";
   }
 };
-const ok = await reachable();
+// `reachable()` now returns the REASON, so the gate is the value itself — a `!ok`
+// here would invert it and skip exactly when the corpus is fine.
+const skip = await reachable();
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
 });
 
-test.skipIf(!ok)("every scope has a geo payload", async () => {
+test.skipIf(skip)("every scope has a geo payload", async () => {
   // The maps + the KPI header read this by scope_key. A scope in procurement_scopes with
   // no payload row renders an empty map rather than an error.
   const rows = await allRows<{ scope_key: string }>(`
@@ -47,7 +53,7 @@ test.skipIf(!ok)("every scope has a geo payload", async () => {
   );
 });
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "every scope with settlements has ranking rows, and vice versa",
   async () => {
     // A scope legitimately has NO rows when its window predates the corpus (the 2005
@@ -67,7 +73,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "the ranking row count matches the payload's settlementCount, per scope",
   async () => {
     // The STRUCTURAL reconciliation: both derive from the same
@@ -90,7 +96,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "the ranking sums back to the payload total, within rounding",
   async () => {
     // NOT an exact equality, deliberately. Each settlement's totalEur is ROUNDed
@@ -127,7 +133,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "the oblast rollup sums back to the header, within rounding",
   async () => {
     // The three choropleths colour from `oblasti`; if it did not add up to the headline
@@ -157,7 +163,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "matches the live function for the full corpus, row for row",
   async () => {
     // The end-to-end check against the ACTUAL source of truth: unnest
@@ -195,7 +201,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)("carries an English name for every settlement", async () => {
+test.skipIf(skip)("carries an English name for every settlement", async () => {
   // The whole reason the browser stopped downloading the 940 KB EKATTE master. NULL is
   // impossible (the column COALESCEs), so the real failure is name_en falling back to the
   // Bulgarian for rows place_dim does not cover.
@@ -220,7 +226,7 @@ test.skipIf(!ok)("carries an English name for every settlement", async () => {
   assert.equal(sofia?.name_en, "Sofia");
 });
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "the search fold matches Latin input against Cyrillic names",
   async () => {
     // Shliokavica: the server-side replacement for the in-memory latinSkeleton filter the
@@ -242,7 +248,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)("orders deterministically, with a tiebreak", async () => {
+test.skipIf(skip)("orders deterministically, with a tiebreak", async () => {
   // Equal-valued rows must not swap between pages mid-scroll. total_eur alone is not a
   // total order — several settlements share a value.
   // Two consecutive pages must not overlap or skip a row. Taken as OFFSET 0/50/100 slices
@@ -283,7 +289,7 @@ test.skipIf(!ok)("orders deterministically, with a tiebreak", async () => {
 // would keep every reconciliation green while silently moving billions between the
 // per-settlement ranking and the "national procurement" card.
 
-test.skipIf(!ok)("pins settlements to LOCAL-tier buyers only", async () => {
+test.skipIf(skip)("pins settlements to LOCAL-tier buyers only", async () => {
   // A central ministry's Sofia HQ is not where its money was spent — the whole reason the
   // page separates the two. If a national buyer leaked into a settlement, that
   // settlement's total would jump by the ministry's entire budget.
@@ -301,7 +307,7 @@ test.skipIf(!ok)("pins settlements to LOCAL-tier buyers only", async () => {
   assert.equal(r.n, "0");
 });
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "keeps the national tier out of the settlement totals",
   async () => {
     // The national card is reported separately, never folded into the ranking. Checked as a

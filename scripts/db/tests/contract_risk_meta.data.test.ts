@@ -31,8 +31,11 @@ import {
   RISK_CACHE_LOCK_SQL,
 } from "../lib/rebuildRiskCache";
 import { CATALOG_VERSION } from "../../../src/lib/riskFlagCatalog";
+import { reportSkip } from "../../lib/report_skip";
 
 const up = await dbReachable();
+const skipDb = up ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skipDb);
 
 afterAll(async () => {
   if (up) await end();
@@ -58,7 +61,7 @@ const stamp = (version: string | null, rows = 1): Promise<void> =>
     `SELECT contract_risk_stamp(${version === null ? "NULL" : `'${version}'`}, ${rows})`,
   );
 
-describe.skipIf(!up)("contract_risk_meta — the stamp's semantics", () => {
+describe.skipIf(skipDb)("contract_risk_meta — the stamp's semantics", () => {
   test("a version is recorded", async () => {
     await stamp("9.9.9", 42);
     const m = await meta();
@@ -130,7 +133,7 @@ describe.skipIf(!up)("contract_risk_meta — the stamp's semantics", () => {
   });
 });
 
-describe.skipIf(!up)("contract_risk_meta — the wiring", () => {
+describe.skipIf(skipDb)("contract_risk_meta — the wiring", () => {
   test("a bailed-out rebuild does not stamp a version", async () => {
     // The no-arg overload RETURNs 0 without touching the cache when `contracts`
     // or is_direct_award() is missing. The stamped overload must not then claim

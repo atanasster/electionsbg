@@ -12,6 +12,7 @@ import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end, pinLocalDatabase } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 pinLocalDatabase();
 
@@ -35,6 +36,8 @@ const reachable = async (): Promise<boolean> => {
   }
 };
 const up = await reachable();
+const skipDb = up ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skipDb);
 
 afterAll(async () => {
   await end();
@@ -91,7 +94,7 @@ test("public_money_eur is on the company node", () => {
 });
 
 // (presence) When the tables ARE built (P3.3 ran), their keys are intact. Skips on a fresh DB.
-test.skipIf(!up)("built tables carry their primary keys", async () => {
+test.skipIf(skipDb)("built tables carry their primary keys", async () => {
   const [t] = await allRows<{ e: string | null }>(
     "SELECT to_regclass('public.graph_edge')::text AS e",
   );

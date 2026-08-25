@@ -24,6 +24,7 @@ import { DKI_PAGES } from "./sources";
 import { parseDkiPage, type DkiEntry } from "./parse";
 import { loadBuyerCandidates, resolveEntry } from "./resolve";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const RAW = path.resolve(__dirname, "../../../raw_data/culture/dki");
 
@@ -51,6 +52,10 @@ const entries = (): DkiEntry[] =>
         ),
       )
     : [];
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/culture/dki_register.json");
 
 test.skipIf(skip)(
   "refuses rather than capturing a different body when the true EIK is absent",

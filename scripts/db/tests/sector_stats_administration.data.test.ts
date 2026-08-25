@@ -54,6 +54,7 @@ import {
   DAEU_EIK,
 } from "@/lib/administrationReferenceData";
 import { isConsortiumCarrierKey, isConsortiumSupplier } from "@/lib/companyKey";
+import { reportSkip } from "../../lib/report_skip";
 
 /** Per-member € floor for „every member still contributes real money". Each is
  *  well under that member's own 2026-08-19 total and far above zero.
@@ -77,22 +78,25 @@ const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 const readJson = <T>(rel: string): T =>
   JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf-8")) as T;
 
-const reachable = async (): Promise<boolean> => {
+const reachable = async (): Promise<string | false> => {
   try {
     await allRows("SELECT 1");
     const [t] = await allRows<{ ok: boolean }>(
       "SELECT to_regclass('public.contracts') IS NOT NULL AS ok",
     );
-    return !!t?.ok;
+    return t?.ok ? false : "contracts is absent — run npm run db:load:pg";
   } catch {
-    return false;
+    return "Postgres unreachable";
   }
 };
 
 // `test.skipIf(bool)`, never `test(name, { skip }, fn)` — Vitest's `skip` option
 // is typed `boolean`, so a `false | string` is a TS2769 and `npm run build` is
 // `tsc -b && vite build`: the file would run green while the build is red.
-const noDb = !(await reachable());
+// `reachable()` now returns the REASON; negating it would make the gate a bare
+// boolean again and throw the sentence away.
+const skip = await reachable();
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
@@ -228,7 +232,7 @@ describe("administration — the e-gov EIK-set", () => {
     assert.equal(SECTOR_DASHBOARDS.administration.leadEik, ADMIN_GROUP_EIK);
   });
 
-  test.skipIf(noDb)(
+  test.skipIf(skip)(
     "every member is a real awarder in the corpus",
     async () => {
       const rows = await allRows<{ awarder_eik: string; n: number }>(
@@ -245,7 +249,7 @@ describe("administration — the e-gov EIK-set", () => {
   // ЕСМИС was missing until 2026-08-19 and nothing reported it — the headline is
   // headcount so it could not move, and every other figure reconciled. The only
   // symptom was the spend chart starting at 2017.
-  test.skipIf(noDb)(
+  test.skipIf(skip)(
     "the ЕСМИС predecessor is in and carries real money",
     async () => {
       assert.ok(ADMIN_SECTOR_EIKS.includes(ESMIS_EIK));
@@ -268,7 +272,7 @@ describe("administration — the e-gov EIK-set", () => {
   // leaking in (the МВР-into-defense shape, which is hundreds of millions) and a
   // catastrophic collapse. A dropped member is caught by the per-member arm
   // below, by € rather than by presence.
-  test.skipIf(noDb)("the group total stays in band", async () => {
+  test.skipIf(skip)("the group total stays in band", async () => {
     const [r] = await allRows<{ eur: number; n: number }>(
       `SELECT round(sum(amount_eur))::float8 AS eur, count(*)::int AS n
          FROM contracts WHERE tag = 'contract'
@@ -283,7 +287,7 @@ describe("administration — the e-gov EIK-set", () => {
 
   // T5's two substantive claims. The floor-map arm below only fires for members
   // that ARE present, so a removal is invisible to it — this is what catches one.
-  test.skipIf(noDb)(
+  test.skipIf(skip)(
     "МДААР is in the set and still carries its one row",
     async () => {
       assert.ok(
@@ -315,7 +319,7 @@ describe("administration — the e-gov EIK-set", () => {
   // ministry's procurement into a sector that is not it — the МВР-into-defense
   // shape. МДААР is includable precisely because it is a dead record holding one
   // e-gov row; МС is a live buyer holding everything.
-  test.skipIf(noDb)(
+  test.skipIf(skip)(
     "the Council of Ministers is NOT in the group",
     async () => {
       const MS_EIK = "000695025";
@@ -341,7 +345,7 @@ describe("administration — the e-gov EIK-set", () => {
 
   // The arm that DOES catch a drop, per member and by € rather than by presence.
   // See MEMBER_EUR_FLOOR for why the floor is a map.
-  test.skipIf(noDb)("every member still contributes real money", async () => {
+  test.skipIf(skip)("every member still contributes real money", async () => {
     const rows = await allRows<{ eik: string; eur: number }>(
       `SELECT awarder_eik AS eik, round(sum(amount_eur))::float8 AS eur
          FROM contracts WHERE tag = 'contract'
@@ -379,7 +383,7 @@ describe("administration — the beneficiary side", () => {
   // means the label is dead config; reached-but-uncurated means the sector's
   // biggest contractor renders as a private vendor again. Each half alone passes
   // in the state the other one catches.
-  test.skipIf(noDb)(
+  test.skipIf(skip)(
     "ИО is curated as a public body AND still reached",
     async () => {
       assert.ok(
@@ -400,7 +404,7 @@ describe("administration — the beneficiary side", () => {
 
   // A SHARE, never a rank or an absolute €. The ceiling is what would fire if a
   // rollup change started crediting a consortium's full value to every member.
-  test.skipIf(noDb)("no single contractor takes half the sector", async () => {
+  test.skipIf(skip)("no single contractor takes half the sector", async () => {
     const rows = await allRows<{ eik: string; pct: number }>(
       `WITH w AS (
          SELECT * FROM contracts WHERE tag = 'contract'
@@ -438,7 +442,7 @@ describe("administration — the beneficiary side", () => {
   // once" is therefore a statement about VALUE, not about row existence, and that
   // is what this asserts. `061`'s sup CTE additionally drops member rows so they
   // cannot inflate the distinct-supplier count either.
-  test.skipIf(noDb)("a consortium is counted once, by value", async () => {
+  test.skipIf(skip)("a consortium is counted once, by value", async () => {
     const [m] = await allRows<{ n: number; eur: number; worst: number }>(
       `SELECT count(*)::int AS n,
               coalesce(round(sum(amount_eur)), 0)::float8 AS eur,
@@ -490,7 +494,7 @@ describe("administration — the beneficiary side", () => {
   //
   // The three registered carriers are what makes this non-vacuous: an arm that
   // only ever saw `obed-` rows would pass under the OLD prefix rule too.
-  test.skipIf(noDb)(
+  test.skipIf(skip)(
     "the registered ДЗЗД carriers are reachable by the note",
     async () => {
       const rows = await allRows<{ eik: string; eur: number }>(
@@ -535,7 +539,7 @@ describe("administration — the beneficiary side", () => {
   // ⚠ The floor matters as much as the ceiling and is the half that goes vacuous:
   // at zero carriers the note never renders, and „no carriers" would silently
   // become „the note is untestable" rather than a failure.
-  test.skipIf(noDb)("carriers are a real but minority share", async () => {
+  test.skipIf(skip)("carriers are a real but minority share", async () => {
     const [r] = await allRows<{ pct: number; keys: number }>(
       `WITH w AS (
          SELECT * FROM contracts WHERE tag = 'contract'
@@ -601,7 +605,7 @@ describe("administration — leaderboard basis == headline basis", () => {
   // flaky the way exact equality did.
   const TOLERANCE_EUR = 1_000;
 
-  test.skipIf(noDb)(
+  test.skipIf(skip)(
     "every aggregate the page renders comes off one basis",
     async () => {
       const [m] = await allRows<{
@@ -643,7 +647,7 @@ describe("administration — leaderboard basis == headline basis", () => {
   // The serving function must also agree with the corpus on the WINDOWED path,
   // which is the one the KPIs use — a half-open [from, to) slip shows up here and
   // nowhere else.
-  test.skipIf(noDb)("the windowed path agrees with the corpus", async () => {
+  test.skipIf(skip)("the windowed path agrees with the corpus", async () => {
     const [m] = await allRows<{ fn: number; direct: number; n: number }>(
       `WITH m AS (
          SELECT awarder_group_model(ARRAY[${eikList(ADMIN_SECTOR_EIKS)}]::text[],

@@ -19,7 +19,8 @@ export type ViolationKind =
   | "ordering"
   | "literal-label"
   | "silent-inline-skip"
-  | "unasserted-committed-input";
+  | "unasserted-committed-input"
+  | "conflated-probe";
 
 export interface Violation {
   kind: ViolationKind;
@@ -107,6 +108,18 @@ export const carriesReason = (src: string, g: Gate): boolean => {
   if (hasString(rhs)) return true;
   const annotation = g.decl.slice(0, g.decl.indexOf("="));
   if (/:\s*[^=]*\bstring\b/.test(annotation)) return true;
+  // ⚠️ FOLLOW A PROBE'S RETURN TYPE. `const skip = await reachable();` carries no string
+  // itself, but several files declare `const reachable = async (): Promise<string | false>`
+  // and put the sentences inside. Judging on the declaration alone called five such gates
+  // bare — which would have sent a sweep to "author a reason" for gates that already had
+  // better ones, and made the unreported rule blind to them.
+  const call = /=\s*(?:await\s+)?([A-Za-z_$][\w$]*)\s*\(/.exec(g.decl);
+  if (call) {
+    const fn = new RegExp(
+      `\\b(?:const|let|function)\\s+${call[1]}\\b[^\\n]*`,
+    ).exec(src);
+    if (fn && /\bstring\b/.test(fn[0])) return true;
+  }
   return assignmentsTo(src, g).some(({ text }) => hasString(text));
 };
 
@@ -226,11 +239,56 @@ const committedInputs = (
     ) ?? [],
   );
   const out: Violation[] = [];
-  for (const m of src.matchAll(/"((?:data|raw_data|public)\/[^"]+)"/g)) {
-    if (!isTracked(m[1])) continue;
-    if (asserted.has(`"${m[1]}"`)) continue;
-    if (out.some((v) => v.gate === m[1])) continue;
-    out.push({ kind: "unasserted-committed-input", gate: m[1] });
+  // ⚠️ RELATIVE LITERALS COUNT. Many files spell the path as `"../../../data/officials/…"`
+  // inside a path.join, so a regex anchored at `data/` saw nothing and three files dressed a
+  // committed-path skip in a polished reason with no assertion — the entrenchment §8.3 is
+  // about, wearing the tidier message this tier hands out.
+  for (const m of src.matchAll(
+    /"((?:\.\.\/)*(?:data|raw_data|public)\/[^"]+)"/g,
+  )) {
+    const p = m[1].replace(/^(?:\.\.\/)+/, "");
+    if (!isTracked(p)) continue;
+    if (asserted.has(`"${p}"`) || asserted.has(`"${m[1]}"`)) continue;
+    if (out.some((v) => v.gate === p)) continue;
+    out.push({ kind: "unasserted-committed-input", gate: p });
+  }
+  return out;
+};
+
+/**
+ * A probe whose `catch` and whose content check return the SAME falsy value, feeding a gate
+ * with one authored reason.
+ *
+ * ⚠️ THE HALF IT GETS WRONG IS ALWAYS "Postgres unreachable". `mp_arm_sql`'s header records
+ * that being the string a real SQL bug hid behind for two days — "the one warning an
+ * operator is trained to ignore". A probe that answers `false` both when the server is down
+ * and when the relation is empty forces one sentence onto two different worlds, and Tier 1
+ * shipped exactly that mistake once before review caught it.
+ *
+ * Detected structurally: an `async (): Promise<boolean>` whose body has BOTH a `catch`
+ * returning a falsy literal and a content test (`count(*)`, `to_regclass`, `.length`).
+ * Returning `Promise<string | false>` and naming both states is the fix.
+ */
+const conflatedProbes = (src: string): Violation[] => {
+  const out: Violation[] = [];
+  // ⚠️ THE ANNOTATION IS OPTIONAL AND `catch` MAY BIND. Requiring `: Promise<boolean>` and a
+  // bare `catch {` gave the rule two one-token silencing vectors — and because silencing
+  // forces the entry OFF the ratchet list, either would have laundered a violation
+  // permanently, with a green build.
+  for (const m of src.matchAll(
+    /const (\w+) = async \([^)]*\)(?:\s*:\s*Promise<([^>]*)>)?\s*=>\s*\{/g,
+  )) {
+    if (m[2] && /\bstring\b/.test(m[2])) continue; // already tri-state
+    const start = (m.index ?? 0) + m[0].length;
+    const body = src.slice(start, start + 900);
+    const catchesFalsy =
+      /catch\s*(?:\([^)]*\)\s*)?\{[\s\S]{0,80}?return\s+(?:false|0|null);/.test(
+        body,
+      );
+    const testsContent =
+      /count\(\*\)|to_regclass|\.length\s*(?:>|===)|\?\.ok/.test(body);
+    if (catchesFalsy && testsContent)
+      out.push({ kind: "conflated-probe", gate: m[1] });
   }
   return out;
 };
@@ -242,6 +300,7 @@ export const scanSource = (
   const out: Violation[] = [
     ...inlineSkips(src),
     ...committedInputs(src, isTracked),
+    ...conflatedProbes(src),
   ];
   const calls = reportCalls(src);
 

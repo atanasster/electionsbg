@@ -16,24 +16,30 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
-const reachable = async (): Promise<boolean> => {
+const reachable = async (): Promise<string | false> => {
   try {
     const [c] = await allRows<{ n: string }>(
       "SELECT count(*) n FROM contractor_rank",
     );
-    return Number(c.n) > 0;
+    return Number(c.n) > 0
+      ? false
+      : "contractor_rank is empty — run npm run db:load:procurement-scopes:pg";
   } catch {
-    return false;
+    return "Postgres unreachable";
   }
 };
-const ok = await reachable();
+// `reachable()` now returns the REASON, so the gate is the value itself — a `!ok`
+// here would invert it and skip exactly when the corpus is fine.
+const skip = await reachable();
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
 });
 
-test.skipIf(!ok)("every scope has a KPI row", async () => {
+test.skipIf(skip)("every scope has a KPI row", async () => {
   // The 3 headline KPIs read this by scope_key. A scope in procurement_scopes that has
   // ranking rows but no KPI row renders blank tiles. (A scope may legitimately have NO
   // rows at all when its window predates the corpus — checked against contractor_rank,
@@ -50,7 +56,7 @@ test.skipIf(!ok)("every scope has a KPI row", async () => {
   );
 });
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "no malformed-CPV row leaked in as a division row",
   async () => {
     // The 'ALL' rollup absorbs null/malformed-CPV contracts; a per-division row must
@@ -62,7 +68,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "the 'ALL' row is the true total, never the sum of division rows",
   async () => {
     // The header promise: 'ALL' is a super-aggregate computed independently, so it must
@@ -97,7 +103,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "the KPI blob reconciles to the 'ALL' ranking rows",
   async () => {
     // contractor_scope_kpis is built FROM contractor_rank WHERE division='ALL'. If it
@@ -125,7 +131,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)("KPI shares stay within [0, 1]", async () => {
+test.skipIf(skip)("KPI shares stay within [0, 1]", async () => {
   // top10_share / mp_tied_share are fractions; a > 1 value means the numerator escaped
   // the denominator (e.g. an MP-tied filter counting rows outside the 'ALL' set).
   const rows = await allRows<{ scope_key: string }>(`
@@ -139,7 +145,7 @@ test.skipIf(!ok)("KPI shares stay within [0, 1]", async () => {
   );
 });
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "matches the live function for the full corpus, row for row",
   async () => {
     // The end-to-end check against the ACTUAL source of truth: unnest
@@ -169,7 +175,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)(
+test.skipIf(skip)(
   "the search fold matches Latin input against Cyrillic names",
   async () => {
     // Shliokavica: the server-side replacement for the in-memory filter. Folded at write
@@ -184,7 +190,7 @@ test.skipIf(!ok)(
   },
 );
 
-test.skipIf(!ok)("orders deterministically, with a tiebreak", async () => {
+test.skipIf(skip)("orders deterministically, with a tiebreak", async () => {
   // Equal-valued rows must not swap between pages mid-scroll. total_eur alone is not a
   // total order. Taken as OFFSET 0/50/100 slices under the exact ORDER BY the browser
   // sends (default scope+division), which is where a non-total order shows up.

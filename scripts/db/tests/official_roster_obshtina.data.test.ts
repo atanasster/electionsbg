@@ -24,6 +24,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const SHARD_DIR = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -50,6 +51,12 @@ const skip = haveDb ? false : "Postgres unreachable / official_roster empty";
 reportSkip(import.meta.url, skip);
 const haveShards = existsSync(SHARD_DIR);
 
+const skipShards =
+  skip ||
+  (!haveShards
+    ? "data/officials/municipal/by_obshtina absent — it is committed, so this is a sparse checkout"
+    : false);
+reportSkip(import.meta.url, skipShards);
 afterAll(async () => {
   await end();
 });
@@ -57,6 +64,13 @@ afterAll(async () => {
 // Every municipal official has a code. A partial fill is the dangerous state: the roster
 // still loads, the resolver still runs, and only the officials in the un-coded obshtini
 // quietly vanish from a code-scoped query.
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted(
+  "data/officials/municipal/by_obshtina",
+  "data/officials/municipal/index.json",
+);
+
 test.skipIf(skip)(
   "every municipal roster row carries an obshtina code",
   async () => {
@@ -95,7 +109,7 @@ test.skipIf(skip)(
 
 // Codes must be the app's own, not invented. Anything not matching a shard filename would
 //404 the municipal page it keys.
-test.skipIf(skip || !haveShards)(
+test.skipIf(skipShards)(
   "every code in person_role matches a real obshtina shard",
   async () => {
     const known = new Set(
@@ -130,7 +144,7 @@ test.skipIf(skip || !haveShards)(
 // code, is the original defect), and every `extra` must be a departed official — present in
 // the municipal index, absent from the bench. An extra that is in NO index at all is a real
 // failure, and so is a count that drifts from the index's own retained figure.
-test.skipIf(skip || !haveShards)(
+test.skipIf(skipShards)(
   "every shard row is in Postgres under the same code, and the extras are exactly the departed",
   async () => {
     const rows = await allRows<{ place_code: string; ref: string }>(

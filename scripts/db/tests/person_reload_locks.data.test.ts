@@ -32,12 +32,15 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 afterAll(async () => {
   await end();
 });
 
 const haveDb = await dbReachable();
+const skipDb = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skipDb);
 
 const REPO = path.resolve(import.meta.dirname, "../../..");
 
@@ -278,7 +281,7 @@ test("the interpolated-TRUNCATE guard fires on a template literal and not otherw
 // The merge must actually reproduce the corpus TRUNCATE+COPY produced. Row counts
 // alone would pass on a merge that dropped the delete half, so this checks the
 // live tables agree with each other and carry no unfolded name.
-test.skipIf(!haveDb)(
+test.skipIf(skipDb)(
   "candidate_person and person_election_stats are consistent after a merge load",
   async () => {
     const { allRows } = await import("../lib/pg");

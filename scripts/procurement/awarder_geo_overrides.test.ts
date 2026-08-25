@@ -15,6 +15,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { describe, expect, it } from "vitest";
+import { assertCommitted } from "../lib/assert_committed";
 import {
   countSources,
   SOURCE_RANK,
@@ -68,6 +69,10 @@ const load = (): Overrides =>
 // against 15.9d true, plan §2b). So 14 here fires at ~17 real days the first
 // time, and correctly thereafter.
 const MAX_UNAVAILABLE_DAYS = 14;
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/procurement/awarder_geo_overrides.json");
 
 describe("awarder_geo_overrides.json", () => {
   it("exists and is non-empty", () => {

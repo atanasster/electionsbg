@@ -18,6 +18,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const reachable = async (): Promise<string | false> => {
   try {
@@ -35,6 +36,7 @@ const reachable = async (): Promise<string | false> => {
 };
 
 const skip = await reachable();
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();

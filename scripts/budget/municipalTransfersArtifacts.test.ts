@@ -14,6 +14,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { describe, expect, it } from "vitest";
 import { TRANSFER_TYPES } from "./municipal_transfers";
+import { assertCommitted } from "../lib/assert_committed";
 import type {
   MunicipalTransfersByOblastFile,
   MunicipalTransfersIndexFile,
@@ -48,6 +49,10 @@ const RECONCILE_TOLERANCE_EUR = 10;
 // where the invariant is worth pinning hard. FY2026 needs no conversion, so it
 // is exact on both.
 const ROW_TOLERANCE_EUR = 3;
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/budget/municipal_transfers");
 
 describe("the committed municipal-transfer artifacts", () => {
   it("covers every year the index lists", () => {

@@ -63,18 +63,15 @@ afterAll(async () => {
 });
 
 // Server up but table absent/empty is the FINDING, not a skip.
-test.skipIf(dbState === "no-server")(
-  "person_search exists and is populated",
-  () => {
-    assert.equal(
-      dbState,
-      "ok",
-      dbState === "missing"
-        ? "person_search missing — run npm run db:load:person-search:pg (after db:load:persons-browse:pg)"
-        : "person_search exists but is empty",
-    );
-  },
-);
+test.skipIf(skip)("person_search exists and is populated", () => {
+  assert.equal(
+    dbState,
+    "ok",
+    dbState === "missing"
+      ? "person_search missing — run npm run db:load:person-search:pg (after db:load:persons-browse:pg)"
+      : "person_search exists but is empty",
+  );
+});
 
 // (1) All three tiers present — a build that dropped an arm still populates.
 test.skipIf(skip)("all three tiers are populated", async () => {

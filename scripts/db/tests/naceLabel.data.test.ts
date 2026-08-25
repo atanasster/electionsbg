@@ -12,8 +12,11 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { naceDivisionFromLabel } from "../../../src/lib/naceLabel";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
+const skipDb = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skipDb);
 
 afterAll(async () => {
   await end();
@@ -26,7 +29,7 @@ type Row = {
   label: string;
 };
 
-test.skipIf(!haveDb)(
+test.skipIf(skipDb)(
   "company_nkid divisions are reproducible from the label and free of the version bug",
   async () => {
     const rows = await allRows<Row>(
@@ -117,7 +120,7 @@ test.skipIf(!haveDb)(
 // not-fired on plausible ones, and its fire rate stays in a conservative band. The
 // parity harness proves SQL≡TS; this proves the flag actually does something and
 // hasn't collapsed to always-fire (the false-accusation failure) or never-fire.
-test.skipIf(!haveDb)(
+test.skipIf(skipDb)(
   "nkidMismatch fires sensibly in contract_risk_cache (alive + conservative)",
   async () => {
     const cache = await allRows<{ n: number }>(

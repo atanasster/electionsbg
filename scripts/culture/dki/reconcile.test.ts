@@ -22,6 +22,7 @@ import {
 } from "./reconcile";
 import { DKI_PAGES } from "./sources";
 import { MIN_PER_PAGE } from "./ingest";
+import { assertCommitted } from "../../lib/assert_committed";
 
 // `__dirname`, not `process.cwd()` — the cwd form passes only when vitest is
 // invoked from the repo root. And a missing artifact must name the command that
@@ -32,6 +33,10 @@ if (!fs.existsSync(FILE))
     `${FILE} is missing — run \`npm run culture:dki -- --apply\` (needs local Postgres).`,
   );
 const reg = JSON.parse(fs.readFileSync(FILE, "utf8")) as DkiRegisterFile;
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/culture/dki_register.json");
 
 describe("МК ДКИ register", () => {
   it("still parses to a full register on every page", () => {

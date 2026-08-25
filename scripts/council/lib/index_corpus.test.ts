@@ -40,6 +40,8 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const BASE = join(
   dirname(fileURLToPath(import.meta.url)),
@@ -77,6 +79,10 @@ type IndexFile = {
 };
 
 const present = existsSync(INDEX);
+const skipCorpus = present
+  ? false
+  : "data/council/index.json absent — it is committed, so this is a sparse checkout";
+reportSkip(import.meta.url, skipCorpus);
 
 // OUTSIDE the skipped describe, deliberately. `data/council/` is committed
 // (4,820 tracked files) and CI does a full `actions/checkout`, so absence is a
@@ -84,13 +90,17 @@ const present = existsSync(INDEX);
 // aggregate CI summary, where every `*.data.test.ts` also skips without
 // Postgres. The skip below keeps the file runnable in a sparse checkout; this
 // makes absence produce a red line rather than a silent +N on the skip count.
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/council");
+
 it("the council corpus is present", () => {
   expect(present, `${INDEX} is missing — data/council/ is committed`).toBe(
     true,
   );
 });
 
-describe.skipIf(!present)(
+describe.skipIf(skipCorpus)(
   "data/council/index.json agrees with the shard tree",
   () => {
     const idx = JSON.parse(readFileSync(INDEX, "utf8")) as IndexFile;

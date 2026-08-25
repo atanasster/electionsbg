@@ -12,6 +12,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { describe, it, expect } from "vitest";
 import municipalitiesData from "../../data/municipalities.json";
+import { assertCommitted } from "../lib/assert_committed";
 import {
   OBLAST_NAME_TO_CODE,
   OIK_PREFIX_TO_OBLAST,
@@ -45,6 +46,10 @@ const groupByName = (): Map<string, MunicipalityRef[]> => {
 };
 const duplicateGroups = () =>
   [...groupByName().values()].filter((v) => v.length > 1);
+
+// OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
+// working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+assertCommitted("data/municipalities.json");
 
 describe("OBLAST_NAME_TO_CODE", () => {
   // The catalogue's `oblast` column is NOT purely a statistical oblast code — three kinds of

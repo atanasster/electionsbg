@@ -243,8 +243,14 @@ const haveJson = (() => {
     return false;
   }
 })();
+const skipRankings =
+  skip ||
+  (!haveJson
+    ? "data/officials/assets-rankings.json unreadable — it is committed, so this is a sparse checkout"
+    : false);
+reportSkip(import.meta.url, skipRankings);
 
-test.skipIf(skip || !haveJson)(
+test.skipIf(skipRankings)(
   "per-person net-worth parity with assets-rankings.json stays within budget",
   async () => {
     const json = JSON.parse(readFileSync(RANKINGS_JSON, "utf-8")) as {

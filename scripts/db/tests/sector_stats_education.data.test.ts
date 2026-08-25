@@ -89,6 +89,10 @@ type SectorStats = Record<string, Record<string, SectorStat>>;
 const STATS = "data/procurement/derived/sector_stats.json";
 const MINISTRY_NODE = `data/budget/ministries/${EDU_BUDGET_NODE}.json`;
 
+const skipNode = exists(MINISTRY_NODE)
+  ? false
+  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run npm run budget:ingest";
+reportSkip(import.meta.url, skipNode);
 /** The full corpus — the scope every € band below is measured on. */
 const ALL = "all";
 
@@ -143,7 +147,7 @@ describe("education sector — the hub headline is a BUDGET", () => {
     );
   });
 
-  test.skipIf(!exists(MINISTRY_NODE))(
+  test.skipIf(skipNode)(
     "EVERY scope reconciles EXACTLY to the МОН node — value, year and unavailable",
     () => {
       // A €-band on one scope cannot see a wrong YEAR, a lost `unavailable` flag,

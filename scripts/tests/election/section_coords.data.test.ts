@@ -23,6 +23,7 @@ import { describe, test, expect } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { sectionVotesFileName } from "scripts/consts";
+import { reportSkip } from "../../lib/report_skip";
 
 const RAW = path.resolve(__dirname, "../../../raw_data");
 
@@ -37,12 +38,17 @@ const elections = fs.existsSync(RAW)
       .sort()
   : [];
 
+const skipCoords =
+  elections.length === 0
+    ? "no election folders under raw_data/ — the section-coordinate corpus is not on this machine"
+    : false;
+reportSkip(import.meta.url, skipCoords);
 // 2005 renumbered its sections, so the cross-election lookup reaches only ~63%
 // of them. Every later cycle sits above 90%. 25% clears the former without
 // coming anywhere near the 0% this test exists to catch.
 const MIN_COVERAGE = 0.25;
 
-describe.skipIf(elections.length === 0)("section GPS coverage", () => {
+describe.skipIf(skipCoords)("section GPS coverage", () => {
   test.each(elections)("%s has geocoded sections", (year) => {
     const file = path.join(RAW, year, sectionVotesFileName);
     // Read as text first: these files reach ~50 MB and the cheap substring

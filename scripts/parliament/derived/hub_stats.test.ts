@@ -19,6 +19,10 @@ import { assertCommitted } from "../../lib/assert_committed";
 
 const BLOB = "data/parliament/votes/derived/hub_stats.json";
 const haveBlob = existsSync(BLOB);
+const skipHaveBlob = haveBlob
+  ? false
+  : "data/parliament/votes/derived/hub_stats.json absent — it is committed, so this is a sparse checkout";
+reportSkip(import.meta.url, skipHaveBlob);
 const read = <T>(p: string): T => JSON.parse(readFileSync(p, "utf8")) as T;
 
 const skipBlob = !haveBlob
@@ -498,7 +502,7 @@ describe("the committed hub_stats.json", () => {
     assert.equal(blob.byNs["52"].tiles.items, att.totalVoteItems);
   });
 
-  test.skipIf(!haveBlob)(
+  test.skipIf(skipHaveBlob)(
     "membersVoting counts the ROLL, not the members who voted",
     () => {
       // ⚠ THE BASIS THIS PINS IS A SENTENCE ON THE PAGE. /parliament's head captions this

@@ -71,18 +71,15 @@ reportSkip(import.meta.url, skip);
 
 // Not skipped, and deliberately outside the skipIf guard above: if Postgres is up and the
 // matview is absent or empty, that is the FINDING, not a reason to stand down.
-test.skipIf(dbState === "no-server")(
-  "person_browse_table exists and is populated",
-  () => {
-    assert.equal(
-      dbState,
-      "ok",
-      dbState === "missing"
-        ? "person_browse_table does not exist — 090's DROP … CASCADE takes it on every declarations --resolve, so load_declarations_pg.ts must re-apply 120 in the same run"
-        : "person_browse_table exists but is empty",
-    );
-  },
-);
+test.skipIf(skip)("person_browse_table exists and is populated", () => {
+  assert.equal(
+    dbState,
+    "ok",
+    dbState === "missing"
+      ? "person_browse_table does not exist — 090's DROP … CASCADE takes it on every declarations --resolve, so load_declarations_pg.ts must re-apply 120 in the same run"
+      : "person_browse_table exists but is empty",
+  );
+});
 
 // The re-apply that keeps the CASCADE from outliving a run. Asserted against the source
 // because the runtime symptom (an absent matview) is precisely what this file cannot

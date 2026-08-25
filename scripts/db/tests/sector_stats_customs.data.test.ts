@@ -56,6 +56,7 @@ import { CUSTOMS_EIK, CUSTOMS_YEARS } from "@/lib/customsReferenceData";
 import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { stripComments } from "../../lib/strip_comments";
 import { assertCommitted } from "../../lib/assert_committed";
+import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
 
@@ -99,7 +100,8 @@ const reachable = async (): Promise<boolean> => {
 // `tsc -b && vite build`. Vitest does not typecheck, so the file would run green
 // while the build is red. Every sibling here uses skipIf.
 const haveDb = await reachable();
-const noDb = !haveDb;
+const skipDb = haveDb ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skipDb);
 
 afterAll(async () => {
   await end();
@@ -278,7 +280,7 @@ describe("customs sector — the awarder set", () => {
     );
   });
 
-  test.skipIf(noDb)(
+  test.skipIf(skipDb)(
     "CUSTOMS_EIK is a real awarder, and the ТМУ award under it",
     async () => {
       const [row] = await allRows<{ n: number; eur: number; names: number }>(
@@ -327,7 +329,7 @@ describe("customs sector — the awarder set", () => {
     // ⚠ NOT DB-gated, unlike its non-vacuity half below. This is the block that
     // does the work — the lockstep test above is close to a tautology, since all
     // three copies import one constant — and it is a pure in-memory check over an
-    // imported roster. Behind skipIf(noDb) it would not run on a fresh clone, in
+    // imported roster. Behind skipIf(skipDb) it would not run on a fresh clone, in
     // CI without the docker Postgres, or before `db:pg:up`, leaving the tautology
     // as the only EIK-set assertion that executes.
     const members = new Set(
@@ -337,7 +339,7 @@ describe("customs sector — the awarder set", () => {
       assert.ok(!members.has(eik), `${eik} must not be a customs member`);
   });
 
-  test.skipIf(noDb)(
+  test.skipIf(skipDb)(
     "…and each is a real awarder, so that block is not decoration",
     async () => {
       // On the site's money basis, like everything else this file asserts: a body
@@ -376,7 +378,7 @@ type ExciseRegister = {
 
 describe("customs sector — the excise register is on the site's money basis", () => {
   // Not DB-gated: the file is committed, and `readTracked` exists precisely to
-  // fail loudly when a tracked input vanishes. Behind skipIf(noDb) a truncated or
+  // fail loudly when a tracked input vanishes. Behind skipIf(skipDb) a truncated or
   // missing register would go unopened on every DB-less checkout.
   test("the register snapshot is not truncated", () => {
     const reg = readTracked<ExciseRegister>(REGISTER);
@@ -386,7 +388,7 @@ describe("customs sector — the excise register is on the site's money basis", 
     );
   });
 
-  test.skipIf(noDb)(
+  test.skipIf(skipDb)(
     "stored figures equal the tag='contract', carriers-only aggregate",
     async () => {
       const reg = readTracked<ExciseRegister>(REGISTER);
@@ -456,7 +458,7 @@ describe("customs sector — the excise register is on the site's money basis", 
     },
   );
 
-  test.skipIf(noDb)(
+  test.skipIf(skipDb)(
     "MUTATION: dropping either filter changes the answer",
     async () => {
       // Without this, the assertion above is satisfied by an implementation that
@@ -587,7 +589,7 @@ describe("customs sector — the revenue composition reconciles", () => {
 // ── beneficiaries ──────────────────────────────────────────────────────────
 
 describe("customs sector — the beneficiary shape", () => {
-  test.skipIf(noDb)("no single contractor dominates the corpus", async () => {
+  test.skipIf(skipDb)("no single contractor dominates the corpus", async () => {
     // A SHARE, never a rank or an absolute € — both move on every reload, and a
     // leaderboard reordering is the one thing about it that is not a defect.
     // What this catches is a rollup change that starts crediting a consortium's
@@ -611,7 +613,7 @@ describe("customs sector — the beneficiary shape", () => {
     );
   });
 
-  test.skipIf(noDb)(
+  test.skipIf(skipDb)(
     "consortium members carry no money of their own",
     async () => {
       // The carrier holds the whole value and each member €0 (087). If that ever

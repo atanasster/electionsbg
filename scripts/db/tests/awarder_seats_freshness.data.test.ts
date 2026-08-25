@@ -24,6 +24,7 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { allRows, dbReachable, end, pinLocalDatabase, withTx } from "../lib/pg";
 import { compareSeatsToMap } from "../../procurement/awarder_geo_merge";
+import { reportSkip } from "../../lib/report_skip";
 import {
   CHECKED_FLOOR,
   loadMap,
@@ -57,6 +58,8 @@ const seatsFor = async (eiks: string[]): Promise<Map<string, string | null>> =>
   toSeats(await allRows<SeatRow>(SEATS_SQL, [eiks]));
 
 const up = await dbReachable();
+const skipDb = up ? false : "Postgres unreachable";
+reportSkip(import.meta.url, skipDb);
 
 afterAll(async () => {
   await end();
@@ -81,7 +84,7 @@ describe("the committed override map is readable and non-trivial", () => {
   });
 });
 
-describe.skipIf(!up)(
+describe.skipIf(skipDb)(
   "awarder_seats agrees with the committed override map",
   () => {
     it("publishes every buyer the map names, at the EKATTE the map names", async () => {

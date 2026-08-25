@@ -22,6 +22,7 @@ import {
   linkProducerEiks,
 } from "../../culture/producer_eik";
 import type { ProducerBucket } from "../../../src/data/culture/types";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const companies = haveDb
@@ -33,7 +34,12 @@ const companies = haveDb
       )[0]?.n ?? 0,
     )
   : 0;
-const ready = haveDb && companies > 0;
+const skipReady = !haveDb
+  ? "Postgres unreachable"
+  : companies === 0
+    ? "no culture producer companies resolved — run npm run db:load:tr:pg"
+    : false;
+reportSkip(import.meta.url, skipReady);
 
 afterAll(async () => {
   await end();
@@ -48,7 +54,7 @@ const bucket = (producer: string, eik?: string): ProducerBucket => ({
   ...(eik ? { eik } : {}),
 });
 
-test.skipIf(!ready)(
+test.skipIf(skipReady)(
   "links a real producer to its unique TR company",
   async () => {
     const ps = [bucket("„Ню Бояна Филм” ЕАД")];
@@ -62,7 +68,7 @@ test.skipIf(!ready)(
   },
 );
 
-test.skipIf(!ready)(
+test.skipIf(skipReady)(
   "throws — and clears NOTHING — when nothing matches",
   async () => {
     const ps = [
@@ -78,7 +84,7 @@ test.skipIf(!ready)(
   },
 );
 
-test.skipIf(!ready)(
+test.skipIf(skipReady)(
   "leaves an ambiguous name unlinked rather than guessing",
   async () => {
     // A core matching >1 distinct uic must produce no link. Find one that really
@@ -97,7 +103,7 @@ test.skipIf(!ready)(
   },
 );
 
-test.skipIf(!ready)(
+test.skipIf(skipReady)(
   "matches the whole committed top-producer set",
   async () => {
     const { default: overview } = await import(

@@ -241,8 +241,100 @@ describe("committed inputs", () => {
     expect(scan(src)).toEqual([]);
   });
 
+  // ⚠️ Files spell the path relatively inside a path.join; an anchored regex saw none of
+  // them, so three files dressed a committed-path skip in a polished reason with no
+  // assertion — §8.3's entrenchment, wearing the tidier message this tier hands out.
+  test("a RELATIVE literal is resolved and still counts", () => {
+    const src = [
+      `const P = path.join(__dirname, "../../../data/parliament/index.json");`,
+      `const skip = !existsSync(P) ? "absent" : false;`,
+      `reportSkip(import.meta.url, skip);`,
+      `test.skipIf(skip)("t", () => {});`,
+    ].join("\n");
+    expect(scan(src)).toEqual([
+      "unasserted-committed-input:data/parliament/index.json",
+    ]);
+  });
+
   test("a file with no skip gate is not in scope at all", () => {
     expect(scan(`const p = "data/parliament/index.json";`)).toEqual([]);
+  });
+});
+
+// §8.4's third detector. The failure it names is `mp_arm_sql`'s: one sentence forced onto
+// two different worlds, and the half it gets wrong is "Postgres unreachable".
+describe("conflated probes", () => {
+  test("a boolean probe that catches AND counts is flagged", () => {
+    const src = [
+      `const reachable = async (): Promise<boolean> => {`,
+      `  try {`,
+      `    const [c] = await allRows("SELECT count(*) n FROM t");`,
+      `    return Number(c.n) > 0;`,
+      `  } catch {`,
+      `    return false;`,
+      `  }`,
+      `};`,
+    ].join("\n");
+    expect(kinds(src)).toEqual(["conflated-probe:reachable"]);
+  });
+
+  test("a tri-state probe is clean — it names both worlds", () => {
+    const src = [
+      `const reachable = async (): Promise<string | false> => {`,
+      `  try {`,
+      `    const [c] = await allRows("SELECT count(*) n FROM t");`,
+      `    return Number(c.n) > 0 ? false : "t is empty";`,
+      `  } catch {`,
+      `    return "Postgres unreachable";`,
+      `  }`,
+      `};`,
+    ].join("\n");
+    expect(kinds(src)).toEqual([]);
+  });
+
+  // ⚠️ Two one-token silencing vectors review measured. They matter more than an ordinary
+  // blind spot because silencing forces the file OFF the ratchet list — laundering the
+  // violation permanently, with a green build.
+  test("dropping the return annotation does not silence it", () => {
+    const src = [
+      `const reachable = async () => {`,
+      `  try {`,
+      `    const [c] = await allRows("SELECT count(*) n FROM t");`,
+      `    return Number(c.n) > 0;`,
+      `  } catch {`,
+      `    return false;`,
+      `  }`,
+      `};`,
+    ].join("\n");
+    expect(kinds(src)).toEqual(["conflated-probe:reachable"]);
+  });
+
+  test("binding the catch parameter does not silence it", () => {
+    const src = [
+      `const reachable = async (): Promise<boolean> => {`,
+      `  try {`,
+      `    const [c] = await allRows("SELECT count(*) n FROM t");`,
+      `    return Number(c.n) > 0;`,
+      `  } catch (e) {`,
+      `    return false;`,
+      `  }`,
+      `};`,
+    ].join("\n");
+    expect(kinds(src)).toEqual(["conflated-probe:reachable"]);
+  });
+
+  test("a probe with no content test is not conflating", () => {
+    const src = [
+      `const reachable = async (): Promise<boolean> => {`,
+      `  try {`,
+      `    await allRows("SELECT 1");`,
+      `    return true;`,
+      `  } catch {`,
+      `    return false;`,
+      `  }`,
+      `};`,
+    ].join("\n");
+    expect(kinds(src)).toEqual([]);
   });
 });
 

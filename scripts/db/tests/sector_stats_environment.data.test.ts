@@ -113,6 +113,10 @@ type SectorStats = Record<string, Record<string, SectorStat>>;
 const STATS = "data/procurement/derived/sector_stats.json";
 const MINISTRY_NODE = `data/budget/ministries/${MOSV_BUDGET_NODE}.json`;
 
+const skipNode = exists(MINISTRY_NODE)
+  ? false
+  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run npm run budget:ingest";
+reportSkip(import.meta.url, skipNode);
 // ── the hub headline ───────────────────────────────────────────────────────
 
 // OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
@@ -152,7 +156,7 @@ describe("environment sector — the hub headline is a BUDGET", () => {
     );
   });
 
-  test.skipIf(!exists(MINISTRY_NODE))(
+  test.skipIf(skipNode)(
     "EVERY scope reconciles EXACTLY to the МОСВ node — value, year and unavailable",
     () => {
       // The budget analogue of the water/transport exact-reconcile, and the

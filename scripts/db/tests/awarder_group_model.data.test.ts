@@ -32,22 +32,29 @@ import {
 } from "@/lib/awarderModel";
 import type { ProcurementContract } from "@/data/dataTypes";
 import type { SectorClassifier } from "@/lib/awarderModel";
+import { reportSkip } from "../../lib/report_skip";
 
-const reachable = async (): Promise<boolean> => {
+const reachable = async (): Promise<string | false> => {
   try {
     await allRows("SELECT 1");
     const [t] = await allRows<{ ok: boolean }>(
       `SELECT to_regclass('public.contracts') IS NOT NULL
               AND to_regproc('public.awarder_group_model') IS NOT NULL AS ok`,
     );
-    return !!t?.ok;
+    return t?.ok
+      ? false
+      : "contracts is absent (run npm run db:load:pg), or awarder_group_model() is — migration " +
+          "061 has no applier in scripts/, so apply it by hand: npx tsx scripts/db/apply_functions.ts 061_awarder_group_model.sql";
   } catch {
-    return false;
+    return "Postgres unreachable";
   }
 };
 
 // `test.skipIf(bool)`, never `test(name, { skip }, fn)` — see the sibling nets.
-const noDb = !(await reachable());
+// `reachable()` now returns the REASON; negating it would make the gate a bare
+// boolean again and throw the sentence away.
+const skip = await reachable();
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   await end();
@@ -137,7 +144,7 @@ const models = () => {
 describe("awarder_group_model — the two producers agree", () => {
   // THE GATE. Anything that narrows one supplier view and not the other lands
   // here as a set difference, named.
-  test.skipIf(noDb)("the supplier SETS are identical", async () => {
+  test.skipIf(skip)("the supplier SETS are identical", async () => {
     const { sql, fold } = await models();
 
     // Non-vacuity: two empty sets are trivially equal, and an empty corpus or a
@@ -164,7 +171,7 @@ describe("awarder_group_model — the two producers agree", () => {
   // Money is the half that already agreed, so this is a guard against a „fix"
   // to the supplier set that starts dropping rows from the headline too — the
   // narrowing must apply to the SUPPLIER VIEW only.
-  test.skipIf(noDb)("the headline money is untouched by it", async () => {
+  test.skipIf(skip)("the headline money is untouched by it", async () => {
     const { sql, fold } = await models();
     assert.ok(
       Math.abs(sql.totalEur - fold.totalEur) <= 2,
@@ -180,7 +187,7 @@ describe("awarder_group_model — the two producers agree", () => {
   // assertion still passed. Comparing the WHOLE CompetitionStats block means a
   // column dropped from the projection fails here instead of silently making the
   // two models incomparable.
-  test.skipIf(noDb)("the competition stats agree", async () => {
+  test.skipIf(skip)("the competition stats agree", async () => {
     const { sql, fold } = await models();
     assert.ok(sql.directEur > 0, "no direct-award € — this arm is vacuous");
     assert.ok(
@@ -195,7 +202,7 @@ describe("awarder_group_model — the two producers agree", () => {
 
   // Per supplier, and banded by €2 because 061 ROUNDs per supplier while the fold
   // sums raw euros — the same tolerance `totalEur` carries.
-  test.skipIf(noDb)("consortiumEur agrees per supplier", async () => {
+  test.skipIf(skip)("consortiumEur agrees per supplier", async () => {
     const { sql, fold } = await models();
     const foldBy = new Map(fold.suppliers.map((s) => [s.eik, s.consortiumEur]));
 
@@ -226,7 +233,7 @@ describe("awarder_group_model — the two producers agree", () => {
   // Σ consortiumEur must equal what SQL says the carrier rows are worth. This is
   // the arm that fails if 061's FILTER predicate is ever widened to `IS NOT NULL`
   // (which would fold €0 member rows in) or narrowed to the obed- prefix.
-  test.skipIf(noDb)("Σ consortiumEur == the group's carrier €", async () => {
+  test.skipIf(skip)("Σ consortiumEur == the group's carrier €", async () => {
     const { sql } = await models();
     const total = sql.suppliers.reduce((a, s) => a + (s.consortiumEur ?? 0), 0);
     const [r] = await allRows<{ eur: number }>(
@@ -247,7 +254,7 @@ describe("awarder_group_model — the two producers agree", () => {
   // not a boolean. 162 of them exist corpus-wide holding €1.52bn joint against
   // €0.99bn solo. This pins the SHAPE: any refactor to bool_or/bool_and collapses
   // one of the two figures and fails here.
-  test.skipIf(noDb)(
+  test.skipIf(skip)(
     "a mixed supplier keeps both figures distinct",
     async () => {
       const [r] = await allRows<{
