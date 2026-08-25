@@ -1,19 +1,7 @@
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  AlertCircle,
-  Banknote,
-  Car,
-  Coins,
-  CreditCard,
-  ExternalLink,
-  FileText,
-  HandCoins,
-  Home as HomeIcon,
-  Landmark,
-  TrendingUp,
-} from "lucide-react";
+import { Coins, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
@@ -28,47 +16,18 @@ import {
   incomeTotals,
   isDeclaredHolding,
 } from "@/lib/declarations";
+import {
+  CATEGORY_ICONS,
+  CATEGORY_KEYS,
+  CATEGORY_FALLBACKS,
+} from "@/lib/assetCategoryIcons";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 
-const CATEGORY_ICONS: Record<
-  MpAssetCategory,
-  React.ComponentType<{ className?: string }>
-> = {
-  real_estate: HomeIcon,
-  vehicle: Car,
-  cash: Banknote,
-  bank: Landmark,
-  receivable: HandCoins,
-  debt: AlertCircle,
-  credit_limit: CreditCard,
-  investment: TrendingUp,
-  security: FileText,
-};
-
-const CATEGORY_KEYS: Record<MpAssetCategory, string> = {
-  real_estate: "asset_category_real_estate",
-  vehicle: "asset_category_vehicle",
-  cash: "asset_category_cash",
-  bank: "asset_category_bank",
-  receivable: "asset_category_receivable",
-  debt: "asset_category_debt",
-  credit_limit: "asset_category_credit_limit",
-  investment: "asset_category_investment",
-  security: "asset_category_security",
-};
-
-const CATEGORY_FALLBACKS: Record<MpAssetCategory, string> = {
-  real_estate: "Real estate",
-  vehicle: "Vehicles",
-  cash: "Cash",
-  bank: "Bank accounts",
-  receivable: "Receivables",
-  debt: "Debts",
-  credit_limit: "Credit limits",
-  investment: "Investments",
-  security: "Securities & shares",
-};
-
+// This screen's own section order — vehicles read before bank/cash here, unlike the
+// shared CATEGORY_ORDER export, because this page lists sections car-first to match the
+// full-declaration detail layout it mirrors. Deliberately local; only the icon/label maps
+// above are shared, since those must never drift, while a page's own section order is
+// this page's call.
 const ORDER: MpAssetCategory[] = [
   "real_estate",
   "vehicle",

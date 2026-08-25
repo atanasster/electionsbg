@@ -25,6 +25,12 @@ import { assetRowParts } from "./assetRowText";
 import { PersonCryptoHoldings } from "./PersonCryptoHoldings";
 import { PersonHeldAbroad } from "./PersonHeldAbroad";
 import {
+  CATEGORY_ICONS,
+  CATEGORY_KEYS,
+  CATEGORY_FALLBACKS,
+  CATEGORY_ORDER,
+} from "@/lib/assetCategoryIcons";
+import {
   usePersonDeclarations,
   useDeclarationDetail,
   type DeclarationDetail,
@@ -113,6 +119,33 @@ export const PersonDeclarations: FC<{
     );
     if (owned.length === 0) return null;
     return summariseProperties(owned.map((a) => a.description));
+  }, [headlineDetail]);
+
+  // The category breakdown MpAssetsSummary used to show only for MPs, off its own
+  // `mp_assets()` rollup — folded here client-side, off the SAME `headlineDetail.assets`
+  // the property card already reads, so every tier gets it and the two cannot disagree.
+  // Same `isHolding` filter as `propertySummary` — a чуждо row is not the declarant's to
+  // count, here either.
+  const categoryBreakdown = useMemo(() => {
+    const byCat = new Map<
+      string,
+      { count: number; valuedCount: number; totalEur: number }
+    >();
+    for (const a of headlineDetail?.assets ?? []) {
+      if (a.isHolding === false) continue;
+      const entry = byCat.get(a.category) ?? {
+        count: 0,
+        valuedCount: 0,
+        totalEur: 0,
+      };
+      entry.count += 1;
+      if (a.valueEur != null) {
+        entry.valuedCount += 1;
+        entry.totalEur += a.valueEur;
+      }
+      byCat.set(a.category, entry);
+    }
+    return byCat;
   }, [headlineDetail]);
 
   // Narrowed ONCE, above the exit, so FilingList doesn't need a non-null assertion to
@@ -215,6 +248,56 @@ export const PersonDeclarations: FC<{
           </StatCard>
         )}
       </div>
+
+      {categoryBreakdown.size > 0 && (
+        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {CATEGORY_ORDER.filter(
+            (c) => (categoryBreakdown.get(c)?.count ?? 0) > 0,
+          ).map((c) => {
+            const r = categoryBreakdown.get(c)!;
+            const Icon = CATEGORY_ICONS[c];
+            const isDebt = c === "debt";
+            return (
+              <div
+                key={c}
+                className="flex items-start gap-2 rounded-md border bg-muted/30 p-2"
+              >
+                <Icon
+                  className={cn(
+                    "mt-0.5 h-4 w-4 shrink-0",
+                    isDebt
+                      ? "text-red-600 dark:text-red-400"
+                      : "text-muted-foreground",
+                  )}
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-[10px] uppercase tracking-wide text-muted-foreground">
+                    {t(CATEGORY_KEYS[c]) || CATEGORY_FALLBACKS[c]}
+                  </div>
+                  <div className="text-sm font-semibold tabular-nums">
+                    {r.totalEur > 0 ? formatEur(r.totalEur, locale) : "—"}
+                  </div>
+                  {/* The real-estate tile's item count restates the "Декларирани имоти"
+                      StatCard's headline number a few lines above — deliberately: the two
+                      can never disagree (same filtered rows, same render pass), and every
+                      other tile in this grid states its own count the same way. Special-
+                      casing real estate to omit it would read as a missing number, not a
+                      removed duplicate, and would still need to keep the "M unvalued" half
+                      the StatCard does not carry. */}
+                  <div className="text-[11px] text-muted-foreground">
+                    {r.count}{" "}
+                    {r.count === 1
+                      ? t("mp_assets_item") || "item"
+                      : t("mp_assets_items") || "items"}
+                    {r.count > r.valuedCount &&
+                      ` · ${r.count - r.valuedCount} ${t("mp_assets_unvalued") || "unvalued"}`}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       <PersonCryptoHoldings filing={latest} />
 
@@ -569,6 +652,7 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
           ))}
         </div>
       )}
+      <IncomeGroup income={detail.income} locale={locale} />
       {/* Two groups, because they answer different questions and a shared heading
           would mislabel one of them: estate events are what left the estate or was
           paid for by somebody else; interests are the separate интереси filing's
@@ -583,6 +667,53 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
         events={detail.events.filter((e) => INTEREST_EVENT_KINDS.has(e.kind))}
         locale={locale}
       />
+    </div>
+  );
+};
+
+/** Table 12 — annual income, declarant and spouse named separately (never summed: two
+ *  people's money under one figure reads as the declarant's own, which is how a prior
+ *  version of this card once misstated Йотова's income by the whole of her spouse's).
+ *  A category with a zero on both sides is not a declared row, so it is dropped rather
+ *  than shown as "€0 · €0". Self-hides on a filing that declares no income (~most). */
+const IncomeGroup: FC<{
+  income: NonNullable<DeclarationDetail>["income"];
+  locale: string;
+}> = ({ income, locale }) => {
+  const { t } = useTranslation();
+  const rows = income.filter(
+    (r) => (r.eurDeclarant ?? 0) !== 0 || (r.eurSpouse ?? 0) !== 0,
+  );
+  if (rows.length === 0) return null;
+  return (
+    <div className="border-t border-border pt-1">
+      <div className="mb-0.5 font-medium">
+        {t("mp_income_heading") || "Annual income"}
+      </div>
+      {rows.map((r, i) => (
+        <div
+          key={i}
+          className="flex items-baseline justify-between gap-2 py-0.5"
+        >
+          <span className="truncate">{r.category ?? "—"}</span>
+          <span className="shrink-0 tabular-nums text-muted-foreground">
+            {r.eurDeclarant != null ? formatEur(r.eurDeclarant, locale) : "—"}
+            {/* Deliberately asymmetric with the declarant cell above: that one always
+                prints a value or a "—" placeholder, but the spouse badge renders NOTHING
+                — not even a dash — when there is no spousal figure to show, matching
+                MpAssetsSummary's own income line ("the spouse only appears when there is
+                spouse income to show"). A spouse badge is an annotation on the row, not a
+                second required column, so an always-present dash would read as "this
+                filing states the spouse declared nothing" for the common case where the
+                row is the declarant's alone. */}
+            {r.eurSpouse != null && r.eurSpouse !== 0 && (
+              <span className="ml-1 rounded bg-muted px-1 text-[10px] normal-case">
+                {formatEur(r.eurSpouse, locale)} {t("mp_income_spouse")}
+              </span>
+            )}
+          </span>
+        </div>
+      ))}
     </div>
   );
 };

@@ -2,82 +2,29 @@ import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  AlertCircle,
   ArrowDown,
   ArrowRight,
   ArrowUp,
-  Banknote,
-  Car,
   Coins,
-  CreditCard,
   ExternalLink,
-  FileText,
-  HandCoins,
-  Home as HomeIcon,
-  Landmark,
-  TrendingUp,
   Wallet,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
-import type { MpAsset, MpAssetCategory } from "@/data/dataTypes";
+import type { MpAsset } from "@/data/dataTypes";
 import { formatEur, formatEurSigned, toEur } from "@/lib/currency";
 import { incomeTotals, isDeclaredHolding } from "@/lib/declarations";
 import { summariseProperties } from "@/lib/propertyKind";
 import { HolderChip } from "@/screens/person/HolderChip";
+import {
+  CATEGORY_ICONS,
+  CATEGORY_KEYS,
+  CATEGORY_FALLBACKS,
+  CATEGORY_ORDER as ORDER,
+} from "@/lib/assetCategoryIcons";
 
 type Props = { name: string; linkSlug?: string };
-
-const CATEGORY_ICONS: Record<
-  MpAssetCategory,
-  React.ComponentType<{ className?: string }>
-> = {
-  real_estate: HomeIcon,
-  vehicle: Car,
-  cash: Banknote,
-  bank: Landmark,
-  receivable: HandCoins,
-  debt: AlertCircle,
-  credit_limit: CreditCard,
-  investment: TrendingUp,
-  security: FileText,
-};
-
-const CATEGORY_KEYS: Record<MpAssetCategory, string> = {
-  real_estate: "asset_category_real_estate",
-  vehicle: "asset_category_vehicle",
-  cash: "asset_category_cash",
-  bank: "asset_category_bank",
-  receivable: "asset_category_receivable",
-  debt: "asset_category_debt",
-  credit_limit: "asset_category_credit_limit",
-  investment: "asset_category_investment",
-  security: "asset_category_security",
-};
-
-const CATEGORY_FALLBACKS: Record<MpAssetCategory, string> = {
-  real_estate: "Real estate",
-  vehicle: "Vehicles",
-  cash: "Cash",
-  bank: "Bank accounts",
-  receivable: "Receivables",
-  debt: "Debts",
-  credit_limit: "Credit limits",
-  investment: "Investments",
-  security: "Securities & shares",
-};
-
-const ORDER: MpAssetCategory[] = [
-  "real_estate",
-  "bank",
-  "cash",
-  "security",
-  "investment",
-  "vehicle",
-  "receivable",
-  "debt",
-];
 
 /** How many unvalued items show before the list collapses. Everything past this is one
  *  click away, not a separate page: the items are already in the rollup, so expanding

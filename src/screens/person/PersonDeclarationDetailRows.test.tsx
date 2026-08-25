@@ -307,12 +307,126 @@ describe("expanded filing — the abroad block is a lens over the asset list", (
     stubWith(baseDetail({ assets: [bankAbroad()] }));
     render(<PersonDeclarations slug="x" />);
     await expand();
-    // Three times: the plain asset list, the block's total, and the block's own row. If a
-    // future change filters abroad rows out of ownedAssets this drops to two.
+    // Four times: the category-breakdown tile's bank total (the fixture's only bank row),
+    // the plain asset list, the block's total, and the block's own row. If a future change
+    // filters abroad rows out of ownedAssets the last three drop to two.
     await waitFor(() =>
-      expect(screen.getAllByText(/228[  ]?100/)).toHaveLength(3),
+      expect(screen.getAllByText(/228[  ]?100/)).toHaveLength(4),
     );
     // …and the block names the country, which is the whole reason it exists.
     expect(screen.getByText("Белгия")).toBeInTheDocument();
+  });
+});
+
+describe("category breakdown (ported from MpAssetsSummary, every tier)", () => {
+  it("folds several rows of one category into a single tile, totalled", async () => {
+    stubWith(
+      baseDetail({
+        assets: [
+          { ...prop("депозит"), category: "bank", valueEur: 5000 },
+          { ...prop("спестовна сметка"), category: "bank", valueEur: 3000 },
+        ],
+      }),
+    );
+    render(<PersonDeclarations slug="x" />);
+    expect(await screen.findByText("asset_category_bank")).toBeInTheDocument();
+    expect(screen.getByText(/8[  ]?000/)).toBeInTheDocument();
+    expect(screen.getByText(/2\s/)).toBeInTheDocument();
+  });
+
+  it("reports how many of a category's items carry no declared value", async () => {
+    stubWith(
+      baseDetail({
+        assets: [
+          { ...prop("депозит"), category: "bank", valueEur: 5000 },
+          { ...prop("спестовна сметка"), category: "bank", valueEur: null },
+        ],
+      }),
+    );
+    render(<PersonDeclarations slug="x" />);
+    expect(await screen.findByText("asset_category_bank")).toBeInTheDocument();
+    // Total is the ONE valued row; the unvalued one is called out separately rather
+    // than silently vanishing from the count.
+    expect(screen.getByText(/5[  ]?000/)).toBeInTheDocument();
+    expect(screen.getByText(/1 mp_assets_unvalued/)).toBeInTheDocument();
+  });
+
+  it("excludes a чуждо (used, not owned) row from its category's tile", async () => {
+    // Table 3.4 — a used vehicle is not the declarant's holding, so it must not inflate
+    // (or mint) a "Превозни средства" tile, the same rule the property card already
+    // follows for real estate.
+    stubWith(
+      baseDetail({
+        assets: [
+          {
+            ...prop("лек автомобил"),
+            category: "vehicle",
+            valueEur: 12000,
+            isHolding: false,
+            tableNum: "3.4",
+          },
+        ],
+      }),
+    );
+    render(<PersonDeclarations slug="x" />);
+    await screen.findByRole("button", { name: /Началник/ });
+    expect(
+      screen.queryByText("asset_category_vehicle"),
+    ).not.toBeInTheDocument();
+  });
+});
+
+describe("income (Table 12, ported from MpAssetsSummary, every tier)", () => {
+  it("shows a category row naming both the declarant's and the spouse's amount", async () => {
+    stubWith(
+      baseDetail({
+        income: [
+          {
+            category: "Работна заплата",
+            eurDeclarant: 24000,
+            eurSpouse: 12000,
+          },
+        ],
+      }),
+    );
+    render(<PersonDeclarations slug="x" />);
+    await expand();
+    expect(await screen.findByText("Работна заплата")).toBeInTheDocument();
+    expect(screen.getByText(/24[  ]?000/)).toBeInTheDocument();
+    expect(screen.getByText(/12[  ]?000/)).toBeInTheDocument();
+  });
+
+  it("drops a row declared zero on both sides rather than showing €0 · €0", async () => {
+    stubWith(
+      baseDetail({
+        income: [{ category: "Наем", eurDeclarant: 0, eurSpouse: 0 }],
+      }),
+    );
+    render(<PersonDeclarations slug="x" />);
+    await expand();
+    expect(screen.queryByText("Наем")).not.toBeInTheDocument();
+  });
+
+  it("shows a dash for the declarant when only the spouse side is stated", async () => {
+    // The row is kept (spouse side is nonzero) even though the declarant side is
+    // genuinely not stated — null, not a declared zero — which takes the "—" branch
+    // rather than "€0".
+    stubWith(
+      baseDetail({
+        income: [{ category: "Наем", eurDeclarant: null, eurSpouse: 500 }],
+      }),
+    );
+    render(<PersonDeclarations slug="x" />);
+    await expand();
+    expect(await screen.findByText("Наем")).toBeInTheDocument();
+    expect(screen.getByText("—")).toBeInTheDocument();
+    expect(screen.getByText(/500/)).toBeInTheDocument();
+  });
+
+  it("self-hides the heading entirely when the filing declares no income", async () => {
+    stubWith(baseDetail({ income: [] }));
+    render(<PersonDeclarations slug="x" />);
+    await expand();
+    expect(screen.queryByText("mp_income_heading")).not.toBeInTheDocument();
   });
 });
