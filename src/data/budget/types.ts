@@ -127,7 +127,28 @@ export interface NzokStreamSplit {
 }
 
 export interface NzokHospitalReimbursement extends NzokStreamSplit {
-  asOf: string; // "YYYY-MM-DD" (end of the report month)
+  /** "YYYY-MM-DD" (end of the report month) — the БМП anchor.
+   *
+   *  ⚠️ NOT the as-of of every figure on this payload. The three streams publish on
+   *  their own cadences and each is taken at its OWN latest month, so a lagging
+   *  stream's money is presented under this date while being older. Read
+   *  `periodByStream` beside any per-stream figure; measured, devices once lagged
+   *  БМП by five months. */
+  asOf: string;
+  /** The month each stream's figures on THIS payload come from, "YYYY-MM".
+   *
+   *  ⚠️ These are CORPUS-WIDE months, not this company's own. The underlying view
+   *  (`nzok_hospital_payments_latest_rows`) pins every stream to its global
+   *  `max(period)`, so the payload carries those months restricted to the streams
+   *  this company appears in WITHIN them. A stream missing here therefore means
+   *  "no rows in that stream's latest month" — the company may well have older
+   *  ones (measured: 159 EIKs have devices history and no `devices` key) — and its
+   *  per-stream euro figure is 0 either way, since 065 COALESCEs.
+   *
+   *  Absent on a database whose 065 predates this field. Note that is NOT the same
+   *  as "065 is unapplied": 065 long predates the field, so a database can be at
+   *  065 and still return nothing here. */
+  periodByStream?: Partial<Record<NzokPaymentStream, string>>;
   /** The company's ownership (state|municipal|private); null when unclassified. */
   ownership?: NzokOwnership | null;
   totalCumulativeEur: number;
@@ -221,8 +242,19 @@ export interface NzokHospitalPaymentsFile {
     >
   >;
   /** Each stream's own newest ingested month ("YYYY-MM"). The three reports are
-   *  published on their own cadences, so these can differ — the tile footnotes
-   *  the lag rather than silently dropping the lagging stream's money. */
+   *  published on their own cadences, so these can differ.
+   *
+   *  ⚠️ NO national surface reads this yet. The per-EIK twin on
+   *  `NzokHospitalReimbursement` IS footnoted, by `NzokHospitalReimbursementTile`;
+   *  the pack tiles on /awarder/121858220 still present a mixed-months total with
+   *  no date on it — the full €32.3m version of the defect rather than one
+   *  hospital's slice. This comment said the tile footnoted the lag while nothing
+   *  read the field at all, which is how that went unnoticed; do not restore that
+   *  claim without a reader.
+   *
+   *  Total rather than `Partial` unlike the per-EIK twin, and only accidentally
+   *  right: every stream happens to have a loaded month corpus-wide. A stream
+   *  whose every month was refused would break it. */
   periodByStream?: Record<NzokPaymentStream, string>;
   byRzok: {
     code: string;

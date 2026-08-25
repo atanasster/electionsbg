@@ -153,6 +153,24 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   )
   SELECT CASE WHEN COUNT(*) = 0 THEN NULL ELSE jsonb_build_object(
     'asOf', to_char((SELECT d FROM p) + interval '1 month' - interval '1 day', 'YYYY-MM-DD'),
+    -- ⚠️ `asOf` above is the БМП anchor, and the money below is NOT all as of that
+    -- month. `nzok_hospital_payments_latest_rows` takes each stream at its OWN
+    -- latest period — deliberately, so a lagging stream is not silently dropped
+    -- from a hospital's total — which means a single as-of on this payload is a
+    -- claim the figures do not support. Measured before the Tier 1 parser work:
+    -- devices lagged БМП by five months, so every hospital's devices figure was
+    -- February's presented under a July date, and nationally that was €32,312,935
+    -- of devices money — 62.9% of the stream — missing with nothing saying so.
+    --
+    -- So the per-stream as-of ships WITH the per-stream money, and the tile
+    -- footnotes any stream older than the headline. The national payload has
+    -- carried this field since migration 050 and its type comment promised the
+    -- tile footnoted the lag; nothing read it. This is the per-EIK half, which is
+    -- the one a reader actually looks at on /company/:eik.
+    'periodByStream', (
+      SELECT jsonb_object_agg(stream, to_char(period, 'YYYY-MM'))
+      FROM (SELECT DISTINCT stream, period FROM raw) s
+    ),
     'ownership', nzok_eik_ownership(p_eik),
     'totalCumulativeEur', ROUND(SUM(cumulative_eur))::bigint,
     'totalMonthEur', (
