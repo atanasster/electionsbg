@@ -8,6 +8,7 @@
 
 import { describe, expect, it } from "vitest";
 import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 const [{ n } = { n: "0" }] = haveDb
@@ -23,7 +24,7 @@ const skip = !haveDb
     ? "aop_expert is empty — run npm run db:load:aop-experts:pg"
     : null;
 const d = skip ? describe.skip : describe;
-if (skip) console.warn(`aop_experts.data.test: skipped — ${skip}`);
+reportSkip(import.meta.url, skip);
 
 d("aop_expert (174)", () => {
   it("is loaded", async () => {

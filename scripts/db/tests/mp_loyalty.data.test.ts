@@ -8,6 +8,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, end, dbReachable } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -35,6 +36,7 @@ const skip = !haveDb
   : !populated
     ? "mp_loyalty is absent or WITH NO DATA — run db:load:rollcall-derived:pg"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();
@@ -125,7 +127,7 @@ describe("mp_loyalty", () => {
     "reproduces loyalty.json, bar the duplicate casts",
     async () => {
       if (!existsSync(LOYALTY_JSON)) {
-        console.warn("mp_loyalty: loyalty.json absent — parity arm skipped");
+        reportSkip(import.meta.url, "parity arm — loyalty.json absent");
         return;
       }
       const file = JSON.parse(readFileSync(LOYALTY_JSON, "utf8")) as {

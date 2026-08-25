@@ -1,6 +1,12 @@
 # Making a skipped data gate say why — v1
 
-**Status:** SCOPED. Nothing changed. No test file touched.
+**Status:** Tier 1 IN PROGRESS. Step 1 (`f9e9fdba63`) shipped `scripts/lib/report_skip.ts`;
+step 2 migrated the pre-existing emitters. Tier 2 remains unbuilt.
+
+**⚠️ Two numbers in this plan were wrong and are corrected in place:** the emitting/silent
+split is **3 / 167**, not 5 / 165 (see §4's box), and §4's original code sketch showed an API
+that did not survive review — the shipped helper derives its label from `import.meta.url`
+rather than taking a hand-typed one, and its `reason` admits `null`/`undefined`.
 **Measured:** 2026-08-25 against the working tree at `8053186f3e`, local Postgres
 `postgres://postgres:postgres@localhost:5433/electionsbg`, and a simulated database-less
 run (`DATABASE_URL` pointed at a dead port) standing in for CI.
@@ -14,17 +20,17 @@ the pattern should go repo-wide.
 
 **The review's framing understates the problem, and the correction changes what to build.**
 FINDING-002 describes the sibling gates as using a _weaker_ reporting pattern —
-`console.warn` only, invisible when piped. Measured, that is true of **5 files**. The other
-**165 compute a reason string and never emit it at all**:
+`console.warn` only, invisible when piped. Measured, that is true of **3 files**. The other
+**167 compute a reason string and never emit it at all**:
 
 |                                          |   files |
 | ---------------------------------------- | ------: |
 | declare `const skip = <reason> \| false` | **170** |
-| …and emit it somewhere (`console.warn`)  |   **5** |
-| …and emit it nowhere                     | **165** |
+| …and emit it somewhere (`console.warn`)  |   **3** |
+| …and emit it nowhere                     | **167** |
 
 So this is not a reporter-visibility problem with a reporting layer that needs strengthening.
-For 97% of these gates there is no reporting layer at all — a precise, hand-written sentence
+For 98% of these gates there is no reporting layer at all — a precise, hand-written sentence
 (`"declaration.filed_institution is empty — it comes from a crawl or ship_filed_position.ts,
 never from db:refresh"`) is computed at module scope, used as a boolean, and discarded.
 
@@ -56,7 +62,7 @@ helper that writes the reason to stderr, plus one call per file.
 Recommendation: **Tier 1 — the helper plus 170 one-line calls.** Tier 2 (the `gate()` /
 `ctx.skip` rewrite, 1,139 edits) only if a structured consumer ever justifies it.
 **Do not reach for `disableConsoleIntercept`** — measured, it costs +424 lines of unrelated
-output to surface ~165 useful ones (§3).
+output to surface the ~162 useful ones (§3).
 
 ---
 
@@ -105,8 +111,8 @@ describe.skipIf(...)                    14 files
 skip ? describe.skip : describe          2 files   ← the form FINDING-002 quotes
 ctx/t.skip() call form                  32 files
 const skip = <reason>|false            170 files
-  …that emit it                          5 files
-  …that do not                         165 files
+  …that emit it                          3 files
+  …that do not                         167 files
 top-level await computing a skip input  169 files   ← constrains the helper API
   …of the 170, using dbReachable()      75 files   ← the skip is NOT always about Postgres
 ```
@@ -118,8 +124,9 @@ that form; **176** use `test.skipIf`. The conclusion it draws still stands — n
 surfaces the reason — but a sweep scoped to the quoted pattern would touch 2 files and change
 nothing.
 
-The five emitters: `eop_notice_coverage`, `isun_clean_delivery`, `party_pair_break`,
-`aop_experts`, `mp_loyalty`.
+The three emitters: `eop_notice_coverage`, `isun_clean_delivery`, `aop_experts`.
+`party_pair_break` and `mp_loyalty` matched the inventory grep on an IN-TEST partial skip and
+belong to the silent set — see §4's box.
 
 ---
 
@@ -146,40 +153,61 @@ identical run totals on both sides (162 files / 1,565 tests skipped):
  11  ExperimentalWarning: SQLite is an experimental feature
 ```
 
-Paying 424 lines of component-test and pipeline chatter to surface ~165 useful ones is the
+Paying 424 lines of component-test and pipeline chatter to surface the ~162 useful ones is the
 trade that gets a flag reverted a month later. §4 buys the same visibility for zero noise.
 
 ---
 
 ## 4. Tier 1 — emit the reason (a 3-line helper + one call × 170 files)
 
-`scripts/lib/report_skip.ts`:
+`scripts/lib/report_skip.ts` — **as shipped** (`f9e9fdba63`); the original sketch here took a
+hand-typed label and a `string | false`, and review killed both:
 
 ```ts
-/** Announce that a gate is standing down, and why.
- *
- * ⚠️ `process.stderr.write`, NOT `console.warn`, and that is the whole point of this
- * file. Vitest's default reporter INTERCEPTS `console.*` and prints nothing when piped
- * — which is every CI run — so the five gates that already `console.warn` their reason
- * emit nothing where it matters. A direct stderr write is not intercepted: verified
- * 2026-08-25 under the default reporter, piped, with no config change. */
-export const reportSkip = (gate: string, reason: string | false): void => {
-  if (reason) process.stderr.write(`${gate}: skipped — ${reason}\n`);
+export const reportSkip = (
+  moduleUrl: string,
+  reason: string | false | null | undefined,
+): void => {
+  if (!reason) return;
+  process.stderr.write(`${gateName(moduleUrl)}: skipped — ${reason}\n`);
 };
 ```
+
+Two changes from the sketch, each for a measured reason:
+
+- **The label is DERIVED from `import.meta.url`, never hand-typed.** ~170 insertions is ~170
+  chances to paste the neighbouring file's name, and a later rename leaves the label pointing
+  at a file that no longer exists — both invisible, since nobody reads these lines until a CI
+  run is already confusing. Deriving also makes the step-3 codemod insert one _identical_ line
+  everywhere instead of computing a stem per file.
+- **`reason` admits `null` and `undefined`.** The sketch's `string | false` is `TS2345`
+  against `isun_clean_delivery` and `aop_experts`, both of which close their ternary with
+  `: null` — two of the very files this tier must migrate, so step 2 would not have compiled.
+  A bare `boolean` is still rejected: it carries no reason, and stringifying one prints
+  `skipped — true`, which reads like a reason and is not one.
 
 Then, in every file already declaring `const skip = <reason> | false`, one line after it:
 
 ```ts
-reportSkip("magistrate_filing_assets.data.test", skip);
+reportSkip(import.meta.url, skip);
 ```
 
 It is mechanical and codemod-able: the anchor is the `const skip = …;` declaration and the
 insert is position-independent.
 
-**The 5 existing emitters must migrate too, not be left alone.** Their `console.warn` is
-intercepted, so they are invisible in CI exactly like the other 165 — "already reports" is
-true of the source and false of the log.
+**The existing emitters must migrate too, not be left alone.** Their `console.warn` is
+intercepted, so they are invisible in CI exactly like the silent majority — "already
+reports" is true of the source and false of the log.
+
+> **⚠️ Corrected during Tier 1 step 2 (`f9e9fdba63`…): it is 3 emitters, not 5, so the
+> silent set is 167 rather than 165.** The inventory grep was `console\.warn\(.*skip`,
+> which also matched two files whose `console.warn` is an IN-TEST partial skip
+> (`party_pair_break`: "artifact absent — parity arm skipped"; `mp_loyalty`: the same for
+> `loyalty.json`). Both do declare a file-level `const skip` and never emit it, so they
+> belong to the silent set, not the emitting one. All five files are still migrated in
+> step 2 — the THREE in-test warnings are invisible for exactly the same reason and are
+> converted too (`party_pair_break` carries two: a label arm and a parity arm) — but the split above is what the sweep in §6's acceptance is measured
+> against.
 
 **Three cases the codemod must not touch blindly:**
 
@@ -254,7 +282,7 @@ of which exist because the failure they catch is invisible in review:
   exemption fails too.
 
 Without that gate Tier 1 decays the moment the next data gate is written, and it decays
-silently — which is how the 165 got here.
+silently — which is how the 167 got here.
 
 ---
 

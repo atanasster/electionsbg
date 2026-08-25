@@ -11,6 +11,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, end, dbReachable } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -38,6 +39,7 @@ const skip = !haveDb
   : !populated
     ? "party_pair_break is absent or WITH NO DATA — run db:load:rollcall-derived:pg"
     : false;
+reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
   if (haveDb) await end();
@@ -88,8 +90,9 @@ describe("party_pair_break", () => {
         "data/parliament/votes/derived/party_correlation.json",
       );
       if (!existsSync(corr)) {
-        console.warn(
-          "party_pair_break: party_correlation.json absent — label arm skipped",
+        reportSkip(
+          import.meta.url,
+          "label arm — party_correlation.json absent",
         );
         return;
       }
@@ -130,7 +133,7 @@ describe("party_pair_break", () => {
     "carries the same pairs and items as the artifact",
     async () => {
       if (!existsSync(ARTIFACT)) {
-        console.warn("party_pair_break: artifact absent — parity arm skipped");
+        reportSkip(import.meta.url, "parity arm — artifact absent");
         return;
       }
       const file = JSON.parse(readFileSync(ARTIFACT, "utf8")) as {

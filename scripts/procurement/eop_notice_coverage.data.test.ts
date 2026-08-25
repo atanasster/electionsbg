@@ -46,6 +46,7 @@ import { fileURLToPath } from "node:url";
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
 import { EopDossierStore } from "./eop_dossier_store";
 import { strideSample } from "./eop_coverage_sample";
+import { reportSkip } from "../lib/report_skip";
 import {
   parseNoticePairs,
   noticeFields,
@@ -244,13 +245,12 @@ if (!fs.existsSync(STORE)) {
 }
 
 // Reported TWICE on purpose, because neither channel is sufficient alone.
-// `console.warn` matches the sibling gates and is what a developer sees in a TTY;
-// `ctx.skip(reason)` attaches the reason to every skipped test, so it survives into
-// `--reporter=verbose` and the JSON reporter, where the default reporter shows only
-// a bare "8 skipped". Measured: the default reporter prints NEITHER the console line
-// nor a test name when piped, so a gate that reports only through console.warn is
-// invisible in exactly the CI logs that would have to catch it.
-if (skip) console.warn(`eop_notice_coverage.data.test: skipped — ${skip}`);
+// `reportSkip` writes to stderr, which the default reporter does NOT intercept, so the
+// reason survives a piped CI log; `ctx.skip(reason)` attaches it to every skipped test,
+// so it also survives into `--reporter=verbose` and the JSON reporter, where the default
+// reporter shows only a bare "8 skipped". Measured: the default reporter prints neither
+// a `console.warn` nor a test name when piped — which is why this line is not one.
+reportSkip(import.meta.url, skip);
 
 let cov: Coverage | null = null;
 
