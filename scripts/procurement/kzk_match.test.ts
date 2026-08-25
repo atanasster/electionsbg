@@ -186,9 +186,13 @@ describe("matchDecisions", () => {
     const decisions = [
       decision("АКТ-5-15.01.2026", "2026-01-15", "А ЕООД", "ОБЩИНА Б"),
     ];
-    const { matches, unmatched } = matchDecisions(appeals, decisions);
+    const { matches, unmatched, reached } = matchDecisions(appeals, decisions);
     expect(matches).toHaveLength(0);
     expect(unmatched).toBe(1);
+    // The year window is INSIDE `reached` and must stay there: computed above
+    // the filter this reads 1, and the plan's narrow-window regression (§7.2,
+    // 4,131 against 4,932) becomes undetectable.
+    expect(reached).toBe(0);
   });
 
   it("skips — and counts — a party that sued the same buyer twice in the window", () => {
@@ -246,14 +250,169 @@ describe("matchDecisions", () => {
     expect(r.matches.map((m) => m.complaintNo)).toEqual(["ВХР-1"]);
     expect(r.partyAmbiguous).toBe(1);
     expect(r.unmatched).toBe(0); // the act as a whole DID resolve something
+    // The only fixture where `reached` accumulates across TWO party iterations
+    // of one act: ВХР-1 via party А, plus both of party Б's candidates.
+    expect(r.reached).toBe(3);
   });
 
   it("is stable and total on empty inputs", () => {
     expect(matchDecisions([], [])).toEqual({
       matches: [],
+      reached: 0,
       ambiguous: 0,
       partyAmbiguous: 0,
       unmatched: 0,
     });
+  });
+});
+
+// Gate D ratchets `reached`, so these pin the two properties that make it a
+// usable bar: it does not fall when corpus growth ambiguates a group (the false
+// positive that halted a correct publish on 2026-08-25), and it DOES fall when a
+// fold regresses (the false negative a `matches` ratchet has).
+// Plan: docs/plans/kzk-gate-d-ambiguity-v1.md §4.1, §7.
+describe("matchDecisions — reached", () => {
+  const ONE = [appeal("ВХР-1", "А ЕООД", "ОБЩИНА Б", "2026-01-10")];
+  const TWO = [...ONE, appeal("ВХР-2", "А ЕООД", "ОБЩИНА Б", "2026-02-10")];
+  const ACT = [
+    decision("АКТ-5-15.06.2026", "2026-06-15", "А ЕООД", "ОБЩИНА Б"),
+  ];
+
+  it("counts every candidate the window named, matched or not", () => {
+    // Both complaints are candidates; neither is resolvable. `matches` sees
+    // nothing, `reached` sees the two appeals the act actually pointed at.
+    const r = matchDecisions(TWO, ACT);
+    expect(r.matches).toHaveLength(0);
+    expect(r.partyAmbiguous).toBe(1);
+    expect(r.reached).toBe(2);
+  });
+
+  it("does not fall when a new complaint ambiguates a matched group", () => {
+    // THE LIVE 2026-08-25 CASE, in miniature: adding ВХР-2 costs a match and
+    // must not cost a bar. Corpus growth and matcher regression are
+    // indistinguishable in `matches` and separable in `reached`.
+    const before = matchDecisions(ONE, ACT);
+    const after = matchDecisions(TWO, ACT);
+    expect(before.matches).toHaveLength(1);
+    expect(after.matches).toHaveLength(0); // matches FELL on a healthy crawl
+    expect(after.reached).toBeGreaterThanOrEqual(before.reached);
+  });
+
+  it("does not fall when a second act claims an already-matched appeal", () => {
+    // The decisions-side half of the same defect: a merits reload alone can
+    // withdraw a match, so a fix covering only appeal growth is half a fix.
+    const before = matchDecisions(ONE, ACT);
+    const after = matchDecisions(ONE, [
+      ...ACT,
+      decision("АКТ-6-16.06.2026", "2026-06-16", "А ЕООД", "ОБЩИНА Б"),
+    ]);
+    expect(after.ambiguous).toBe(1);
+    expect(after.matches).toHaveLength(0);
+    expect(after.reached).toBeGreaterThanOrEqual(before.reached);
+  });
+
+  it("MUTATION CHECK: `reached` is not `matches` under another name", () => {
+    // Computed after the 1:1 test, `reached` would equal matches.length and the
+    // ambiguation case above would read 1 → 0 exactly as `matches` does. Assert
+    // the SEPARATION as a relationship rather than restating either fixture's
+    // literals — an assertion on the literals is satisfied by both definitions
+    // on any fixture where the coarse one happens not to move.
+    const r = matchDecisions(TWO, ACT);
+    expect(r.matches).toHaveLength(0);
+    expect(r.reached).not.toBe(r.matches.length);
+    expect(r.reached).toBe(r.matches.length + r.partyAmbiguous + 1);
+  });
+
+  it("counts a candidate the act PREDATES — narrowing rules belong below this line", () => {
+    // Pins MatchReport.reached's ⚠️ in the downward direction: R1 ("an act
+    // cannot predate its complaint") and R2 (kzk_case_no) must narrow BELOW the
+    // reached.add loop. Folded in above it, ВХР-2 leaves the union, matches
+    // rises 0 → 1 and reached falls 2 → 1 — corpus-wide 4,932 → 4,753, i.e. the
+    // ratchet fails on the very improvement it ships (plan §4.1). Every other
+    // fixture dates its act after every complaint, so R1 is a no-op on all of
+    // them and this is the only place the hazard is reachable.
+    const r = matchDecisions(
+      [
+        appeal("ВХР-1", "А ЕООД", "ОБЩИНА Б", "2026-01-10"),
+        appeal("ВХР-2", "А ЕООД", "ОБЩИНА Б", "2026-08-01"), // filed AFTER the act
+      ],
+      [decision("АКТ-5-15.06.2026", "2026-06-15", "А ЕООД", "ОБЩИНА Б")],
+    );
+    expect(r.reached).toBe(2);
+    expect(r.matches).toHaveLength(0);
+    expect(r.partyAmbiguous).toBe(1);
+  });
+
+  it("collapses when the name fold stops folding — the regression Gate D missed", () => {
+    // The two sides spell the same firm with different quote styles, which is
+    // the register's normal state. `reached` counts them as one party only
+    // because normalizeParty folds the quotes; drop that fold and this is 0.
+    // (The unit-level twin is "folds the register's mixed quote styles" above —
+    // that one pins the fold, this one pins that `reached` DEPENDS on it, which
+    // is the property the ratchet rests on. Neither is redundant with the other.)
+    //
+    // At corpus scale a `matches` ratchet cannot see this regression at all — it
+    // RAISES the count 2,918 → 2,934, because breaking the fold destroys
+    // collisions faster than matches. This one-appeal fixture cannot reproduce
+    // that (here `matches` falls too); it pins the narrower claim that makes the
+    // corpus-wide collapse possible.
+    const r = matchDecisions(
+      [appeal("ВХР-1", '"АЛФА" ЕООД', "ОБЩИНА Б", "2026-01-10")],
+      [decision("АКТ-5-15.06.2026", "2026-06-15", "„АЛФА“ ЕООД", "ОБЩИНА Б")],
+    );
+    expect(r.reached).toBe(1);
+    expect(r.matches).toHaveLength(1);
+  });
+
+  it("counts an appeal once however many acts reach it", () => {
+    const r = matchDecisions(ONE, [
+      ...ACT,
+      decision("АКТ-6-16.06.2026", "2026-06-16", "А ЕООД", "ОБЩИНА Б"),
+    ]);
+    expect(r.reached).toBe(1);
+  });
+
+  it("never reaches an appeal with no party at all", () => {
+    const r = matchDecisions(
+      [
+        {
+          complaintNo: "ВХР-1",
+          complainant: null,
+          respondent: null,
+          complaintDate: "2026-01-10",
+        },
+      ],
+      ACT,
+    );
+    expect(r.reached).toBe(0);
+    expect(r.unmatched).toBe(1);
+  });
+
+  it("reaches on the complainant alone when BOTH sides leave the respondent blank", () => {
+    // Documents the current behaviour so a change to it is a decision rather
+    // than a drift: `matchDecisions` skips an appeal only when complainant AND
+    // respondent both fold to empty, so a half-blank key still indexes. That was
+    // harmless while `matches` was the ratcheted quantity and is not now —
+    // blank-field noise in either register moves the bar `reached` sets.
+    const r = matchDecisions(
+      [
+        {
+          complaintNo: "ВХР-1",
+          complainant: "А ЕООД",
+          respondent: null,
+          complaintDate: "2026-01-10",
+        },
+      ],
+      [
+        {
+          no: "АКТ-5-15.06.2026",
+          ddate: "2026-06-15",
+          init: "А ЕООД",
+          resp: null,
+          pron: "оставя жалбата без уважение",
+        },
+      ],
+    );
+    expect(r.reached).toBe(1);
   });
 });

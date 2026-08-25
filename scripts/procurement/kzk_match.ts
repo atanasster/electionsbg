@@ -27,10 +27,15 @@
 //     discarded with no counter, so a shrinking match rate looked like a quiet
 //     data trend. Ambiguity and misses are now RETURNED as data, so every rejoin
 //     reports them.
-//     ⚠️ Gate D ratchets `matches` ONLY — it does not assert the other three do
-//     not rise, and must not: corpus growth legitimately raises collisions, so
-//     such a gate would fail on every healthy crawl. This header claimed
-//     otherwise until 2026-08-24. `KzkBaselines` has no field for them.
+//     ⚠️ Gate D ratchets `matches` TODAY, and that is the defect being fixed:
+//     corpus growth withdraws matches, so the gate cannot tell a worse matcher
+//     from a bigger corpus and is currently RED for that reason. It is being
+//     moved onto `reached` (docs/plans/kzk-gate-d-ambiguity-v1.md Tier 1) — see
+//     that field's note. Until `kzk_baselines.ts` carries the field and
+//     `kzk_appeals_provenance.data.test.ts` asserts on it, `reached` is computed
+//     and NOT yet ratcheted. The other three counters are never ratcheted and
+//     must not be: corpus growth legitimately raises collisions, so such a gate
+//     would fail on every healthy crawl. `KzkBaselines` has no field for them.
 //
 // Combined effect, MEASURED on that corpus (2026-08-02) with no new crawl —
 // 4,407 decisions × 7,886 appeals:
@@ -72,14 +77,57 @@ export type DecisionMatch = {
 };
 
 /**
- * The three counters have DIFFERENT UNITS and do not sum to anything meaningful —
+ * The four counters have DIFFERENT UNITS and do not sum to anything meaningful —
  * `matches` can even exceed `decisions.length`, since one consolidated act
- * resolves several complaints. A caller computing a coverage percentage needs the
- * denominator named here.
+ * resolves several complaints. `reached` is the one honest denominator for a
+ * coverage rate (`matches / reached`), and the only field measured in the same
+ * unit as `matches`: DISTINCT APPEALS. `ambiguous` counts appeals,
+ * `partyAmbiguous` counts PARTIES and `unmatched` counts DECISION ROWS.
  */
 export type MatchReport = {
   /** One entry per APPEAL resolved 1:1. May exceed the number of decisions. */
   matches: DecisionMatch[];
+  /**
+   * DISTINCT APPEALS some act's `(party, respondent)` key named inside the year
+   * window — the union of every candidate set below, taken BEFORE the 1:1 test.
+   *
+   * This is the quantity Gate D is being moved onto (Tier 1 of the plan below),
+   * and `matches` is not, because
+   * `matches` IS NOT MONOTONE UNDER CORPUS GROWTH and this is. A new complaint
+   * joining a matched appeal's group makes the group ambiguous, so the matcher
+   * correctly withdraws a match and the count FALLS on a healthy crawl — that
+   * is a false positive that halted a correct publish on 2026-08-25 (2,920 →
+   * 2,918 on nine new complaints). A new act becoming a second claimant does the
+   * same from the decisions side. `reached` cannot fall that way: an appeal only
+   * ever JOINS a group and an act only ever POINTS AT more groups. Measured over
+   * 122 corpus sizes on both sides — `matches` violated monotonicity 3 times,
+   * `reached` zero. See docs/plans/kzk-gate-d-ambiguity-v1.md §2.2/§4.1.
+   *
+   * It is also the STRICTLY better regression detector, which is the part that
+   * is easy to disbelieve. Breaking a name fold destroys COLLISIONS faster than
+   * it destroys matches — more groups collapse to a spurious 1:1 — so two of
+   * four injected regressions RAISE `matches` (quote fold 2,918 → 2,934;
+   * whitespace fold → 2,926) and sail past a `matches` ratchet. All four lower
+   * `reached` (4,914 / 4,911 / 4,166 / 4,131 against 4,932).
+   *
+   * ⚠️ TAKEN AT THE COARSE LEVEL, AND IT MUST STAY THERE. Any future
+   * candidate-NARROWING rule — R1 "an act cannot predate its complaint",
+   * R2 `kzk_case_no` (docs/plans/kzk-matcher-ambiguity-v1.md §4) — must be
+   * applied AFTER this set is taken, i.e. below the `reached.add` loop. Measured
+   * with R1 applied: coarse `reached` is unchanged at 4,932 while a `reached`
+   * computed after the filter collapses to 4,753 — so a narrowing rule folded in
+   * here would fail the ratchet on the very improvement it ships.
+   *
+   * ⚠️ AND IT MUST NOT DRIFT UPWARD EITHER. The line is: the year window DEFINES
+   * an act's reach — which appeals it points at — and stays ABOVE `reached.add`;
+   * R1/R2 REFINE among reached candidates and go BELOW. Both are date rules, so
+   * the precedent alone does not separate them. Moved above the window filter,
+   * `reached` goes window-blind and the plan's `narrow-window` regression
+   * (§7.2, 4,131 against 4,932) stops being detectable at all. Both placements
+   * are pinned by fixtures: "does not reach back two years" asserts
+   * `reached === 0`, and the predating-act fixture asserts `reached === 2`.
+   */
+  reached: number;
   /** APPEALS claimed by more than one act — unresolvable act-side collisions. */
   ambiguous: number;
   /**
@@ -208,8 +256,10 @@ export const classifyOutcome = (
 };
 
 /**
- * Match decisions onto appeals, returning only unambiguous 1:1 resolutions plus
- * the counts of what could not be resolved.
+ * Match decisions onto appeals, returning only unambiguous 1:1 resolutions, the
+ * counts of what could not be resolved, and `reached` — the coarse candidate
+ * union taken BEFORE the 1:1 test (see `MatchReport.reached`; its placement in
+ * the loop is load-bearing in both directions).
  *
  * Both sides are indexed on `complainant|respondent` and then filtered by the
  * year window, rather than keying on the year directly, so a December→January
@@ -232,6 +282,10 @@ export const matchDecisions = (
 
   // complaintNo → every act that claims it. A second claimant makes it ambiguous.
   const claims = new Map<string, Map<string, MatchableDecision>>();
+  // The coarse candidate union — see `MatchReport.reached`. Populated from
+  // `inWindow` BEFORE the 1:1 test, so ambiguity neither adds to it nor takes
+  // from it; a candidate-narrowing rule must go below the `reached.add` loop.
+  const reached = new Set<string>();
   let unmatched = 0;
   let partyAmbiguous = 0;
 
@@ -246,6 +300,7 @@ export const matchDecisions = (
       // The year window: a complaint is decided in its own year or the next one.
       const inWindow = candidates.filter((c) => c.y === y || c.y === y - 1);
       if (inWindow.length === 0) continue; // this party filed nothing in the window
+      for (const c of inWindow) reached.add(c.no);
       if (inWindow.length > 1) {
         // The same party sued the same buyer twice in the window and we cannot
         // tell which act is which. Counted PER PARTY, not per decision: a
@@ -286,5 +341,11 @@ export const matchDecisions = (
   // `< ? -1 : 1` comparator) because that one never returns 0, so equal keys sort
   // inconsistently by argument order — defeating the stability it is here for.
   matches.sort((a, b) => a.complaintNo.localeCompare(b.complaintNo));
-  return { matches, ambiguous, partyAmbiguous, unmatched };
+  return {
+    matches,
+    reached: reached.size,
+    ambiguous,
+    partyAmbiguous,
+    unmatched,
+  };
 };
