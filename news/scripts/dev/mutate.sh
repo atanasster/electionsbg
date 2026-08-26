@@ -28,6 +28,7 @@
 #      The backup is now verified before anything is written, and the restore
 #      against a recorded checksum.
 set -uo pipefail
+export PYTHONDONTWRITEBYTECODE=1
 
 if [ "$#" -ne 3 ]; then
   echo "usage: mutate.sh <file> <suite-cmd> <name> < patch-on-stdin" >&2
@@ -61,15 +62,20 @@ restore() {
 trap restore EXIT
 trap 'INTERRUPTED=1; exit 130' INT TERM
 
+# ⚠️ `$(cat)` strips trailing newlines, so a DELETION mutation — everything
+# after `---` empty — arrives ending in a bare "---" with no newline after it.
+# Matching only $'\n---\n' refused those outright, which silently made the
+# most interesting class of mutation (delete a guard entirely) unexpressible.
 PATCH=$(cat)
 case $PATCH in
-  *$'\n---\n'*) ;;
+  *$'\n---\n'*) OLD=${PATCH%%$'\n'---$'\n'*}; NEW=${PATCH#*$'\n'---$'\n'} ;;
+  *$'\n---')     OLD=${PATCH%$'\n'---};        NEW="" ;;
   *) echo "  $NAME -> REFUSED: patch has no '---' separator line" >&2; exit 2 ;;
 esac
-OLD=${PATCH%%$'\n'---$'\n'*}
-NEW=${PATCH#*$'\n'---$'\n'}
 [ "$OLD" = "$NEW" ] && {
   echo "  $NAME -> REFUSED: replacement is identical to the original" >&2; exit 2; }
+[ -z "$OLD" ] && {
+  echo "  $NAME -> REFUSED: nothing to replace (empty anchor)" >&2; exit 2; }
 
 python3 - "$FILE" "$OLD" "$NEW" <<'PY' || exit 2
 import sys
@@ -85,6 +91,14 @@ p.write_text(s.replace(old, new))
 PY
 
 # ⚠️ THE VERDICT. Exit code only — see note 1 above.
+#
+# ⚠️⚠️ PYTHONDONTWRITEBYTECODE, and it is not hygiene. A mutation that keeps
+# the file's SIZE and mtime-second can leave a stale __pycache__ entry valid,
+# so the interpreter runs the ORIGINAL bytecode and the suite passes —
+# reported as SURVIVED, which is the one verdict this harness must never
+# invent. Reproduced in an isolated fixture: the identical mutation reports
+# SURVIVED with caching on and KILLED with it off. It also poisons the NEXT
+# run, on clean source.
 eval "$SUITE" >/dev/null 2>&1
 RC=$?
 if [ "$RC" -ne 0 ]; then
