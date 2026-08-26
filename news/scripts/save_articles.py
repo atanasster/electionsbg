@@ -591,6 +591,33 @@ def absolutise(base_url, href):
 _LANG_RE = re.compile(r"^([A-Za-z]{2,3})(?:[-_][A-Za-z0-9]+)*$")
 
 
+def registrable_domain(url):
+    """The registrable-ish domain: the last two labels, lowercased.
+
+    Deliberately crude — no public-suffix list, which would be a dependency
+    and a data file to keep current. The only distinction it has to make is
+    "the same outlet on www/m/amp/a section subdomain" from "a completely
+    different publication", and for that the last two labels are enough:
+    dnes.dir.bg and dir.bg compare equal, svobodnaevropa.bg and
+    svobodnatochka.bg do not. It over-merges true multi-label suffixes
+    (foo.co.uk), none of which appear in this registry — every row is .bg,
+    .com, .net, .info or .eu."""
+    try:
+        parts_url = urlsplit(url or "")
+        # ⚠️ `.hostname`, NOT `.netloc.split(":")[0]`. netloc includes the
+        # USERINFO, so the naive split reads the username as the host and
+        # `https://oldpaper.bg:x@newpaper.bg/a` resolves to oldpaper.bg —
+        # letting a mis-attributed article through the one gate that exists to
+        # stop it. urlsplit.hostname strips userinfo and the port for us.
+        host = (parts_url.hostname or "").lower()
+    except ValueError:
+        return None
+    parts = [p for p in host.split(".") if p]
+    if not parts:
+        return None
+    return ".".join(parts[-2:]) if len(parts) >= 2 else parts[0]
+
+
 def normalize_lang(raw):
     if not raw:
         return None
@@ -1248,22 +1275,50 @@ def titles_match(stored, fresh):
     return a == b or a.startswith(b) or b.startswith(a)
 
 
-def gate_reason(rec, is_article, min_body, slack):
-    """None when the record clears the body gate, else the ledger reason.
+def gate_reason(rec, is_article, min_body, slack, expect_domain=None):
+    """None when the record clears every gate, else the ledger reason.
 
     THE ONE DEFINITION. The save path, --reextract pass 1 and --reextract
     pass 2 all ask the same question and must not restate it — the repo's own
     convention (kzk_effective_suspension, declared_label, is_declared_holding:
     name the rule once, never restate it at a call site). Three hand-written
     copies had already diverged: the two re-extraction copies collapsed both
-    reasons into one, losing the forensic breadcrumb the ledger exists for."""
+    reasons into one, losing the forensic breadcrumb the ledger exists for.
+
+    ⚠️ `off_domain` was briefly written INLINE in the save loop instead of
+    here, and the cost was immediate and exactly what this docstring warns
+    about: --reextract does not consult the save loop, so pass 2 PROMOTED a
+    correctly-rejected mis-attributed record straight back into the corpus,
+    and pass 1 left every existing one untouched. A gate that only one of
+    three callers applies is not a gate."""
     if not is_article:
         return "non_article_page"
+    # The ATTRIBUTION gate, before the body gates: whether the text is long
+    # enough does not matter if we are about to file it under the wrong
+    # outlet's name. `expect_domain` is None only where the caller genuinely
+    # cannot know it, and then this is skipped rather than guessed.
+    if expect_domain:
+        landed = registrable_domain(rec.get("canonical") or rec.get("url"))
+        if landed and landed != expect_domain:
+            return "off_domain"
     if body_is_title(rec.get("content"), rec.get("title"), slack=slack):
         return "title_as_body"
     if (rec.get("content_chars") or 0) < min_body:
         return "thin_body"
     return None
+
+
+def expected_domain_for(domain):
+    """The registrable domain an article filed under `domain` must be on.
+
+    Read from the CONFIGURED feed URL, not the row's `domain` string, because
+    that is what "this outlet served this article" operationally means — a few
+    rows legitimately list from a host that is not the bare domain, and the
+    test harness serves from localhost. svobodnaevropa is still caught: its
+    configured feed stays `svobodnaevropa.bg/?feed=rss2` while every article
+    it now yields lands on svobodnatochka.bg."""
+    return (registrable_domain(registry_flag(domain, "feed_url_"))
+            or registrable_domain(f"https://{domain}/"))
 
 
 def echo_slack_for(min_body):
@@ -1785,6 +1840,7 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
 
     Pass 2 revisits the rejection ledger, promoting any page that now yields a
     real body -- the whole point of caching the HTML before the gate."""
+    expect_domain = expected_domain_for(domain)
     # BOTH folders. A quarantined article is precisely the article a
     # structurally stale source can never list again — the population this
     # mode exists for — and resolving only the corpus made --reextract report
@@ -1931,7 +1987,7 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
             out["shrunk_refused"] += 1
             continue
         reason = gate_reason(rec, is_article, record_floor,
-                             echo_slack_for(record_floor))
+                             echo_slack_for(record_floor), expect_domain)
         if reason:
             # The record no longer clears the gate. Ledger it and drop the
             # file, so the corpus never keeps a record the current rules would
@@ -1996,7 +2052,12 @@ def cmd_reextract(domain, min_body, allow_fetch, allow_shrink, delay,
                                   "detail": f"{type(e).__name__}: {e}"})
             continue
         rec["gate_min_body"] = min_body
-        if gate_reason(rec, is_article, min_body, echo_slack_for(min_body)):
+        # ⚠️ expect_domain here too. Without it this pass PROMOTES a record
+        # the save loop correctly refused as mis-attributed — the rejection
+        # ledger is a 30-day retry queue, so a wrong-outlet article comes back
+        # by itself.
+        if gate_reason(rec, is_article, min_body, echo_slack_for(min_body),
+                       expect_domain):
             continue
         rec["promoted_from_rejection_at"] = datetime.now(timezone.utc).isoformat()
         folder.mkdir(parents=True, exist_ok=True)
@@ -2842,6 +2903,8 @@ def main():
     saved, rejected, skipped_rejected, failed = 0, 0, 0, []
     attempted = set()  # canonical keys this run actually tried to fetch
     echo_slack = echo_slack_for(min_body)
+    # What the attribution gate below compares each article URL against.
+    expect_domain = expected_domain_for(domain)
 
     def _reject(url, rec, reason, detail):
         """One body-gate rejection: ledger it once, count it, and report it in
@@ -2906,6 +2969,26 @@ def main():
             continue
         if not rec["title"] and not rec["content"]:
             failed.append({"url": url, "detail": "no title and no content extracted"})
+            continue
+        # ⚠️ THE ATTRIBUTION GATE. Everything this project publishes is a claim
+        # about which OUTLET said something, so a record filed under the wrong
+        # domain is the one error class that cannot be tolerated — and it does
+        # not announce itself: the article is real, the extraction is perfect,
+        # and only the byline is a lie.
+        #
+        # Found live: svobodnaevropa.bg (RFE/RL) now 301s to svobodnatochka.bg
+        # ("Свободна точка"), a different publication, so ten stored records
+        # carried Свободна точка's reporting under RFE/RL's name and tier.
+        # Measured across the whole corpus at the time: those ten were the ONLY
+        # off-domain records of 4,366, so refusing is safe — a legitimate
+        # sibling like dnes.dir.bg is a SUBdomain and compares equal here.
+        if gate_reason(rec, is_article, min_body, echo_slack,
+                       expect_domain) == "off_domain":
+            _reject(url, rec, "off_domain",
+                    f"off_domain (this URL is served by "
+                    f"{registrable_domain(rec.get('canonical') or url)}, not "
+                    f"{expect_domain} — a redirect to another publication, or "
+                    f"a registry row naming a domain that changed hands)")
             continue
         # The BODY GATE. The article gate above is satisfied by JSON-LD alone,
         # so it passes a page whose body the extractor never found — the

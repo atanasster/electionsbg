@@ -2962,6 +2962,260 @@ class ExtractionFixtures(unittest.TestCase):
                                   "the manifest and delete the known_gap flag")
 
 
+class AttributionGate(unittest.TestCase):
+    """A record must be filed under the outlet that actually served it.
+
+    ⚠️ This is the one error class this project cannot tolerate, and the one
+    that does not announce itself: the article is real, the extraction is
+    perfect, and only the byline is a lie. Found live — svobodnaevropa.bg
+    (RFE/RL) now 301s to svobodnatochka.bg ("Свободна точка"), so ten stored
+    records carried one publication's reporting under another's name and
+    tier."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+
+    def test_a_subdomain_is_the_same_outlet(self):
+        """dir.bg's own harvest is mostly dnes.dir.bg / business.dir.bg. A
+        rule that rejected those would drop the #2 outlet entirely."""
+        for host in ("dir.bg", "www.dir.bg", "dnes.dir.bg", "m.dir.bg",
+                     "business.dir.bg"):
+            self.assertEqual(self.sa.registrable_domain(f"https://{host}/a"),
+                             "dir.bg", host)
+
+    def test_a_different_publication_is_not(self):
+        self.assertNotEqual(
+            self.sa.registrable_domain("https://svobodnatochka.bg/a"),
+            self.sa.registrable_domain("https://svobodnaevropa.bg/"))
+
+    def test_it_survives_junk_rather_than_raising(self):
+        for bad in (None, "", "not a url", "https://", "  "):
+            self.sa.registrable_domain(bad)  # must not raise
+        self.assertIsNone(self.sa.registrable_domain("https:///path"))
+
+    def test_a_single_label_host_is_not_split(self):
+        self.assertEqual(self.sa.registrable_domain("http://localhost/a"),
+                         "localhost")
+
+    def test_the_gate_reads_the_canonical_when_there_is_one(self):
+        """A feed can list the old domain while every page canonicalises to
+        the new one — which is exactly the redirect shape this catches."""
+        self.assertEqual(
+            self.sa.registrable_domain("https://svobodnatochka.bg/novini/x"),
+            "svobodnatochka.bg")
+
+    def test_an_article_canonicalising_to_another_publication_is_refused(self):
+        """End to end: the predicate above is only half the gate. Without this
+        the whole `off_domain` branch can be deleted with the suite green."""
+        root = Path(tempfile.mkdtemp(prefix="save-articles-attr-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        data = root / "news" / "data"
+        data.mkdir(parents=True)
+        (data / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "oldpaper.bg,rss,https://oldpaper.bg/feed\n", encoding="utf-8")
+        body = ("<html lang=\"bg\"><head><title>Заглавие</title>"
+                "<meta property=\"og:type\" content=\"article\">"
+                "<link rel=\"canonical\" href=\"https://newpaper.bg/a/1\">"
+                "</head><body><p>" + "текст " * 150 + "</p><p>"
+                + "дума " * 150 + "</p></body></html>")
+        feed = root / "prefetched.jsonl"
+        feed.write_text(json.dumps({
+            "url": "https://oldpaper.bg/a/1", "html": body}) + "\n",
+            encoding="utf-8")
+        env = dict(os.environ, DATA_BG_ROOT=str(root))
+        proc = subprocess.run(
+            [sys.executable, str(SCRIPT_DIR / "save_articles.py"),
+             "oldpaper.bg", "5", f"--prefetched={feed}"],
+            capture_output=True, text=True, env=env)
+        out = json.loads(proc.stdout)
+        self.assertEqual(out["saved"], 0,
+                         "an article served by another publication was stored "
+                         "under this outlet's name")
+        self.assertEqual(out["rejected"], 1)
+        self.assertIn("off_domain", json.dumps(out, ensure_ascii=False))
+        self.assertFalse(list((data / "oldpaper.bg").glob("*.json"))
+                         if (data / "oldpaper.bg").is_dir() else [])
+
+    def test_userinfo_is_not_read_as_the_host(self):
+        """⚠️ `netloc.split(":")[0]` reads the USERNAME as the host, so
+        `https://oldpaper.bg:x@newpaper.bg/a` resolved to oldpaper.bg and
+        walked straight through the one gate that exists to stop it."""
+        self.assertEqual(
+            self.sa.registrable_domain("https://oldpaper.bg:x@newpaper.bg/a"),
+            "newpaper.bg")
+        self.assertEqual(
+            self.sa.registrable_domain("https://user@newpaper.bg:8443/a"),
+            "newpaper.bg")
+
+    def test_a_domain_that_merely_ENDS_WITH_the_expected_one_is_refused(self):
+        """A suffix test instead of equality passes notoldpaper.bg as
+        oldpaper.bg — and typosquat-shaped hosts are exactly what a hijacked
+        redirect lands on."""
+        self.assertNotEqual(self.sa.registrable_domain("https://notoldpaper.bg/a"),
+                            self.sa.registrable_domain("https://oldpaper.bg/a"))
+        self.assertEqual(self.sa.registrable_domain("https://notoldpaper.bg/a"),
+                         "notoldpaper.bg")
+        # ...and at the GATE, not only in the helper. Testing the helper alone
+        # left `!=` replaceable by `.endswith()` with the suite green.
+        rec = {"url": "https://notoldpaper.bg/a/1", "canonical": None,
+               "content": "x" * 900, "content_chars": 900, "title": "Заглавие"}
+        self.assertEqual(
+            self.sa.gate_reason(rec, True, 400, 60, "oldpaper.bg"),
+            "off_domain")
+
+    def test_the_expected_domain_comes_from_the_configured_feed_url(self):
+        """Deleting the feed_url_ arm leaves the gate comparing against the
+        row's bare domain — which rejects every outlet whose registry row
+        lists from another host, i.e. drops their entire harvest."""
+        root = Path(tempfile.mkdtemp(prefix="save-articles-exp-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        data = root / "news" / "data"
+        data.mkdir(parents=True)
+        (data / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "ex.bg,rss,https://feeds.other.bg/ex\n", encoding="utf-8")
+        env = dict(os.environ, DATA_BG_ROOT=str(root))
+        got = subprocess.run(
+            [sys.executable, "-c",
+             "import sys; sys.path.insert(0, %r);"
+             "import save_articles as sa;"
+             "print(sa.expected_domain_for('ex.bg'))" % str(SCRIPT_DIR)],
+            capture_output=True, text=True, env=env)
+        self.assertEqual(got.stdout.strip(), "other.bg", got.stderr[-300:])
+
+    def test_the_gate_falls_back_to_the_url_when_there_is_no_canonical(self):
+        """Most pages carry a canonical; the ones that do not are exactly the
+        thin/odd pages a redirect lands on, so dropping the `or url` fallback
+        disables the gate precisely where it is needed."""
+        rec = {"url": "https://newpaper.bg/a/1", "canonical": None,
+               "content": "x" * 900, "content_chars": 900, "title": "Заглавие"}
+        self.assertEqual(
+            self.sa.gate_reason(rec, True, 400, 60, "oldpaper.bg"),
+            "off_domain")
+
+    def test_the_gate_runs_before_the_body_gates(self):
+        """A mis-attributed article that is also thin must report off_domain:
+        the ledger reason is the forensic breadcrumb, and 'thin_body' would
+        send someone looking at the extractor instead of the registry."""
+        rec = {"url": "https://newpaper.bg/a/1", "canonical": None,
+               "content": "кратко", "content_chars": 6, "title": "Заглавие"}
+        self.assertEqual(
+            self.sa.gate_reason(rec, True, 400, 60, "oldpaper.bg"),
+            "off_domain")
+
+    def test_reextract_does_not_promote_a_mis_attributed_record(self):
+        """⚠️ The gate was first written INLINE in the save loop. --reextract
+        does not consult that loop, so pass 2 promoted a correctly-rejected
+        record straight back into the corpus — the rejection ledger is a
+        30-day retry queue, so it returned by itself."""
+        root = Path(tempfile.mkdtemp(prefix="save-articles-promo-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        data = root / "news" / "data"
+        data.mkdir(parents=True)
+        (data / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "oldpaper.bg,rss,https://oldpaper.bg/feed\n", encoding="utf-8")
+        body = ("<html lang=\"bg\"><head><title>Заглавие</title>"
+                "<meta property=\"og:type\" content=\"article\">"
+                "<link rel=\"canonical\" href=\"https://newpaper.bg/a/1\">"
+                "</head><body><p>" + "текст " * 150 + "</p><p>"
+                + "дума " * 150 + "</p></body></html>")
+        feed = root / "prefetched.jsonl"
+        feed.write_text(json.dumps({
+            "url": "https://oldpaper.bg/a/1", "html": body}) + "\n",
+            encoding="utf-8")
+        env = dict(os.environ, DATA_BG_ROOT=str(root))
+        args = [sys.executable, str(SCRIPT_DIR / "save_articles.py"),
+                "oldpaper.bg"]
+        first = json.loads(subprocess.run(
+            args + ["5", f"--prefetched={feed}"],
+            capture_output=True, text=True, env=env).stdout)
+        self.assertEqual(first["rejected"], 1)
+        # the ledgered rejection is now cached HTML the re-extract can reach
+        second = json.loads(subprocess.run(
+            args + ["--reextract"], capture_output=True, text=True,
+            env=env).stdout)
+        self.assertEqual(second["promoted"], 0, json.dumps(second))
+        folder = data / "oldpaper.bg"
+        self.assertEqual(list(folder.glob("*.json")) if folder.is_dir() else [],
+                         [])
+
+    def test_reextract_demotes_a_mis_attributed_record_already_stored(self):
+        """The other --reextract pass, and the one that repairs history. Pass
+        2 stops a rejected record coming BACK; pass 1 is what removes the ones
+        already on disk from before the gate existed — ten such records were
+        live when it was written. Without expect_domain here, a corpus keeps
+        every mis-attribution it ever acquired."""
+        root = Path(tempfile.mkdtemp(prefix="save-articles-demote-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        data = root / "news" / "data"
+        (data / "oldpaper.bg").mkdir(parents=True)
+        (data / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "oldpaper.bg,rss,https://oldpaper.bg/feed\n", encoding="utf-8")
+        body = ("<html lang=\"bg\"><head><title>Заглавие</title>"
+                "<meta property=\"og:type\" content=\"article\">"
+                "<link rel=\"canonical\" href=\"https://newpaper.bg/a/1\">"
+                "</head><body><p>" + "текст " * 150 + "</p><p>"
+                + "дума " * 150 + "</p></body></html>")
+        # a record stored BEFORE the gate existed, plus the cached page
+        # --reextract rebuilds it from
+        url = "https://oldpaper.bg/a/1"
+        (data / "oldpaper.bg" / "20260101-a1-deadbeef.json").write_text(
+            json.dumps({"domain": "oldpaper.bg", "url": url,
+                        "title": "Заглавие", "published": "2026-01-01T09:00:00+00:00",
+                        "content": "текст " * 150, "content_chars": 900,
+                        "fetched_at": "2026-01-01T09:00:00+00:00"},
+                       ensure_ascii=False), encoding="utf-8")
+        env = dict(os.environ, DATA_BG_ROOT=str(root))
+        subprocess.run(
+            [sys.executable, "-c",
+             "import sys; sys.path.insert(0, %r);"
+             "import save_articles as sa;"
+             "sa.write_html_cache('oldpaper.bg', %r, sys.stdin.read())"
+             % (str(SCRIPT_DIR), url)],
+            input=body, capture_output=True, text=True, env=env, check=True)
+        out = json.loads(subprocess.run(
+            [sys.executable, str(SCRIPT_DIR / "save_articles.py"),
+             "oldpaper.bg", "--reextract"],
+            capture_output=True, text=True, env=env).stdout)
+        self.assertEqual(out["demoted"], 1, json.dumps(out))
+        self.assertEqual(
+            list((data / "oldpaper.bg").glob("*.json")), [],
+            "a mis-attributed record survived --reextract")
+
+    def test_a_same_outlet_subdomain_is_still_saved(self):
+        """The mirror image, and the one that matters for dir.bg: rejecting a
+        legitimate subdomain would drop the #2 outlet's whole harvest."""
+        root = Path(tempfile.mkdtemp(prefix="save-articles-attr2-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        data = root / "news" / "data"
+        data.mkdir(parents=True)
+        (data / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "dir.bg,rss,https://dir.bg/feed\n", encoding="utf-8")
+        body = ("<html lang=\"bg\"><head><title>Заглавие</title>"
+                "<meta property=\"og:type\" content=\"article\">"
+                "<link rel=\"canonical\" href=\"https://dnes.dir.bg/a/1\">"
+                "</head><body><p>" + "текст " * 150 + "</p><p>"
+                + "дума " * 150 + "</p></body></html>")
+        feed = root / "prefetched.jsonl"
+        feed.write_text(json.dumps({
+            "url": "https://dnes.dir.bg/a/1", "html": body}) + "\n",
+            encoding="utf-8")
+        env = dict(os.environ, DATA_BG_ROOT=str(root))
+        proc = subprocess.run(
+            [sys.executable, str(SCRIPT_DIR / "save_articles.py"),
+             "dir.bg", "5", f"--prefetched={feed}"],
+            capture_output=True, text=True, env=env)
+        out = json.loads(proc.stdout)
+        self.assertEqual(out["saved"], 1, proc.stdout)
+
+
 class FieldCoverage(unittest.TestCase):
     """`--intake-report`'s per-field fill.
 
