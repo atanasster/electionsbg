@@ -566,3 +566,192 @@ test.skipIf(skip)(
     }
   },
 );
+
+// ── The premises the /companies SEARCH-FIRST rework rests on ──────────────────────────────
+//
+// docs/plans/companies-search-first-v1.md. Each of these is a claim the SERVING code makes and
+// cannot check for itself: the KPI band withholds two cells because certain figures are
+// tautologies, the money cell is safe to SUM, the „Вид" picker is coarse because `legal_form`
+// is unusable, and `?obshtina` prints a raw code because Sofia has a fourth spelling. If 188's
+// definition or the corpus moves under any of them, the page keeps publishing at a 200.
+
+test.skipIf(skip)(
+  "⚠️ each has_signal arm IMPLIES has_signal, at zero counterexamples",
+  async () => {
+    // WHAT THIS PROTECTS. `companiesKpiBasis` has no „С публична следа" cell precisely because
+    // it would read 100% under ?political=1, ?contracts=1, ?money=1 and each NGO class — the
+    // scope read back to the reader rather than a figure. That refusal is only correct while
+    // these implications hold. Narrow `has_signal` in 188 and the band silently starts
+    // withholding a cell that had become informative, with nothing else noticing.
+    for (const [name, predicate] of [
+      ["is_official_linked", "is_official_linked"],
+      ["contract_count > 0", "contract_count > 0"],
+      ["public_money_eur > 0", "public_money_eur > 0"],
+      ["ngo_assoc", "entity_class = 'ngo_assoc'"],
+      ["ngo_found", "entity_class = 'ngo_found'"],
+      ["chitalishte", "entity_class = 'chitalishte'"],
+    ] as const) {
+      const r = await one<{ n: string; bad: string }>(
+        `SELECT count(*)::text AS n,
+                count(*) FILTER (WHERE NOT has_signal)::text AS bad
+           FROM company_browse_table WHERE ${predicate}`,
+      );
+      // Non-vacuity first: an arm that matched nothing would satisfy the implication trivially.
+      assert.ok(
+        Number(r.n) > 0,
+        `${name} matches no rows — the check is vacuous`,
+      );
+      assert.equal(
+        r.bad,
+        "0",
+        `${r.bad} rows satisfy ${name} but NOT has_signal — the /companies KPI band's ` +
+          `withholding rules assume this implication (plan §1.7)`,
+      );
+    }
+  },
+);
+
+test.skipIf(skip)(
+  "⚠️ the ONLY money outside has_signal is the two NEGATIVE rows, and the gap is exactly them",
+  async () => {
+    // The §2.1 money-sort property, and the reason the head's money cell may be a SUM at all.
+    //
+    // ⚠️ THE GAP IS NOT FLOAT NOISE, and calling it that was wrong. `has_signal` tests
+    // `public_money_eur > 0`, so a company whose only public-money record is NEGATIVE is
+    // HIDDEN — measured 2026-08-26, 4 rows carry negative money and 2 of them are hidden
+    // (€−0.01 each; the other two are читалища at €−16.67 and €−598.83, which stay visible via
+    // the linked arm). So the whole-table sum is exactly €0.02 BELOW the floored one, and that
+    // is a fact about the corpus rather than an artifact of double precision.
+    //
+    // Asserted as an EQUALITY against the hidden arm rather than as a tolerance, because a
+    // tolerance wide enough to swallow €0.02 also swallows any future hidden row up to that
+    // size — and the failure that matters here is a POSITIVE-money row falling outside the
+    // floor, which would mean the floor had stopped implying money and the „от целия регистър"
+    // caption had started describing a smaller number.
+    const r = await one<{
+      all: string;
+      sig: string;
+      hidden: string;
+      hidden_pos: string;
+    }>(`
+      SELECT sum(public_money_eur)::numeric::text AS all,
+             (sum(public_money_eur) FILTER (WHERE has_signal))::numeric::text AS sig,
+             (SELECT sum(public_money_eur)::numeric::text
+                FROM company_browse_table WHERE NOT has_signal) AS hidden,
+             (SELECT count(*)::text FROM company_browse_table
+                WHERE NOT has_signal AND public_money_eur > 0) AS hidden_pos
+        FROM company_browse_table`);
+    assert.ok(
+      Number(r.all) > 0,
+      "no public money in the corpus — the check is vacuous",
+    );
+    // The load-bearing half: not one euro of POSITIVE money sits outside the floor.
+    assert.equal(
+      r.hidden_pos,
+      "0",
+      `${r.hidden_pos} rows hold positive public money and are hidden by the floor — the ` +
+        `/companies money cell sums the whole table under a caption naming the active scope`,
+    );
+    // …and the whole-table sum is the floored one plus exactly the hidden (negative) residue.
+    assert.ok(
+      Math.abs(Number(r.all) - (Number(r.sig) + Number(r.hidden))) < 1e-6,
+      `the sums do not reconcile: all ${r.all} vs signal ${r.sig} + hidden ${r.hidden}`,
+    );
+    assert.ok(
+      Number(r.hidden) <= 0,
+      `the hidden arm holds ${r.hidden} in public money — it is supposed to be negative-only`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "⚠️ legal_form still carries a DOUBLED vocabulary — the reason there is no picker for it",
+  async () => {
+    // ⚠️ INVERTED ON PURPOSE. This fails the day the TR ingest normalises the column, and that
+    // failure MEANS „the §1.5 refusal can be revisited" — a decision nobody would otherwise
+    // re-open. Roughly half the 41 values are Cyrillic labels for codes already in the list
+    // (EOOD 677,498 beside „Еднолично дружество с ограничена отговорност" 52,498), so a picker
+    // would offer both and silently lose the other; `entity_class` is the de-duplicated answer.
+    const pairs = [
+      ["EOOD", "Еднолично дружество с ограничена отговорност"],
+      ["OOD", "Дружество с ограничена отговорност"],
+      ["ASSOC", "Сдружение"],
+      ["FOUND", "Фондация"],
+    ] as const;
+    let doubled = 0;
+    for (const [code, label] of pairs) {
+      const r = await one<{ c: string; l: string }>(
+        `SELECT count(*) FILTER (WHERE legal_form = $1)::text AS c,
+                count(*) FILTER (WHERE legal_form = $2)::text AS l
+           FROM company_browse_table`,
+        [code, label],
+      );
+      if (Number(r.c) > 0 && Number(r.l) > 0) doubled += 1;
+    }
+    assert.ok(
+      doubled > 0,
+      "legal_form no longer carries any code/label pair — the doubling that made a picker " +
+        "unsafe is gone, so docs/plans/companies-search-first-v1.md §1.5 can be revisited",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "⚠️ Sofia is SOF46 here and nothing else — the ?obshtina chip prints a raw code because of it",
+  async () => {
+    // THE FAILURE THAT LOOKS LIKE AN EMPTY RESULT RATHER THAN AN ERROR. `canonicalObshtina()`
+    // maps the governance routes' `SOF00` to `SFO_CITY`, which `person_browse_table` speaks and
+    // this corpus does not — so folding a `?obshtina` here filters the largest municipality in
+    // the country to nothing, under a confident Bulgarian chip. It is one fold away from
+    // happening the first time anyone builds a producer for this param.
+    const r = await one<{ sof46: string; others: string; districts: string }>(`
+      SELECT count(*) FILTER (WHERE obshtina_code = 'SOF46')::text AS sof46,
+             count(*) FILTER (WHERE obshtina_code IN ('SOF00','SOF','SFO_CITY'))::text AS others,
+             count(*) FILTER (WHERE obshtina_code LIKE 'S2%')::text AS districts
+        FROM company_browse_table`);
+    assert.ok(
+      Number(r.sof46) > 100_000,
+      `SOF46 holds ${r.sof46} rows — Sofia's spelling in this corpus has changed`,
+    );
+    assert.equal(
+      r.others,
+      "0",
+      `${r.others} rows use SOF00/SOF/SFO_CITY — this corpus is supposed to speak only SOF46, ` +
+        `and CompaniesActiveFilters prints the raw code on that basis`,
+    );
+    assert.equal(
+      r.districts,
+      "0",
+      `${r.districts} rows carry an S2*** district code — tr_company_place folds Sofia's 24 ` +
+        `rayoni into SOF46, unlike person_browse_table, which keeps them`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "⚠️ every EXAMPLE_TERMS chip on /companies returns rows",
+  async () => {
+    // The chips are the first thing a new reader clicks, and the constant's own contract is
+    // that each returns rows. Only a PG gate can hold that — `companiesExamples.test.ts` runs
+    // without Postgres and can check the SHAPE rules only (no quote, single token, one EIK).
+    // Routed by shape exactly as db_table.js routes it: digits reach the exact `uic` arm,
+    // everything else the transliterated name fold.
+    const { EXAMPLE_TERMS } =
+      await import("../../../src/screens/companies/companiesBrowseConstants");
+    for (const term of EXAMPLE_TERMS) {
+      const isEik = /^[0-9]{8,14}$/.test(term);
+      const r = await one<{ n: string }>(
+        isEik
+          ? `SELECT count(*)::text AS n FROM company_browse_table WHERE uic = $1`
+          : `SELECT count(*)::text AS n FROM company_browse_table
+               WHERE name_fold LIKE '%' || translit_bg_latin($1) || '%'`,
+        [term],
+      );
+      assert.ok(
+        Number(r.n) > 0,
+        `the example chip "${term}" returns NOTHING — a chip that answers with „няма ` +
+          `резултати" is a worse introduction than no chip`,
+      );
+    }
+  },
+);

@@ -631,6 +631,39 @@ const HUB_HEAD_BUDGETS: {
   // hint and example chips + a 4-cell band, with the evidence aside beside the identity column
   // at `lg` rather than under it. ~19% slack, the same band as its neighbours.
   { path: "/persons", maxPx: 560, measured: 469, cells: 4 },
+  // The sibling registry browser, and the same shape: identity + deck + a full search field
+  // with its hint and example chips + a 3-cell band + an evidence aside. Measured 457 px at the
+  // 1280 viewport this project uses (`xl` matches — 1265 is clientWidth after the scrollbar).
+  //
+  // ⚠️ THREE CELLS, NOT FOUR, AND THAT IS THE LANDING'S OWN RULE. The budget is measured where
+  // a reader arrives — with no query and no filter, so no table — and nothing issues a `sum`
+  // aggregate without one. `companiesKpis` therefore withholds the money cell rather than
+  // holding the whole band in skeletons, which `companiesKpiBasis.test.ts` asserts explicitly.
+  // Four is what /companies shows once a table is up. Declaring 4 here is a gate that cannot
+  // pass, which is how this entry was first written.
+  //
+  // ⚠️⚠️ THIS ENTRY GOES RED UNTIL MIGRATION 188 REACHES CLOUD SQL, and that is a real outage
+  // rather than a test problem. Measured 2026-08-26: `/companies` serves 200 HTML on production
+  // while every `companies` request to `/api/db` returns **500** — `company_browse_table` has
+  // never been built there (`ngos` and `persons` on the same route return 200). The `companies`
+  // DbDataTable resource has no `missingMigration` degrade, so the band stays in skeletons,
+  // which carry no `data-kpi-cell` at all and this asserts 0 ≠ 3. The suite forwards
+  // un-emulated function routes to the deployed backend, so a local run sees prod's answer.
+  //
+  // NOT skipped, deliberately: „the migration has not landed yet" must not read as „the head is
+  // within budget". The fix is the operator action CLAUDE.md names — 188's only CREATE path is
+  // `npm run db:load:declarations:pg:cloud -- --resolve`, followed by `db:load:graph:pg:cloud`,
+  // `db:load:tr-company-place:pg:cloud` and `db:load:pg:cloud` for its three denormalized
+  // sources.
+  //
+  // ⚠️ TWO OF THE THREE CAPTIONS ARE LOAD-BEARING SENTENCES, NOT LABELS, and if the CEILING
+  // trips they are the last thing to shorten. „включително заличени вписвания" is the only
+  // thing making 17 675 a true PRESENT-TENSE sentence — 2,105 of them reach the set solely
+  // through filings that have all been withdrawn — and once a table is up „към фирми в
+  // Търговския регистър" is the only thing standing between €76,1 млрд. and a claim about the
+  // €118,1 млрд. `company_public_money` actually holds. Check for a fourth cell, or for the
+  // deck growing a clause, before touching either.
+  { path: "/companies", maxPx: 560, measured: 457, cells: 3 },
   // Identity + deck + a two-state scope control + a full search box + a 4-cell band + a
   // one-line note + an evidence aside. The aside sits beside the identity column at `lg`,
   // so it does not drive the height — the note and the wrapped basis line do.

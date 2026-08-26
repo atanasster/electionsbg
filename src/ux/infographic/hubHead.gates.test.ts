@@ -105,6 +105,18 @@ const HUB_SCREENS = [
   // clauses here would have been the „a gate that cannot see its subject" claim inverted:
   // crediting this entry with work two other clauses were already doing.
   "src/screens/dev/ContractsBrowserDbScreen.tsx",
+  // The other two REGISTRY BROWSERS, and they are the counter-example to the note above:
+  // /persons and /companies DO take a search slot and an evidence list, because both are
+  // SEARCH-FIRST. „The table owns its own search box, correctly placed above the rows it
+  // filters" holds only where a table is always on screen; on these two there is no table
+  // until the reader has asked for one, so the head is the only place a search box can live
+  // and the aside is what a reader gets where the ranked list would have been.
+  //
+  // ⚠️ THE BUDGETS SHOW THE SPLIT: /procurement/contracts is 304 px and /persons is 469.
+  // Entries here buy the basis-year scan; the rendered one-h1 check runs off HUB_HEAD_BUDGETS
+  // in tests/ui.spec.ts, and the static one is a glob.
+  "src/screens/persons/PersonsBrowserScreen.tsx",
+  "src/screens/dev/CompaniesBrowseDbScreen.tsx",
   "src/screens/ParliamentHubScreen.tsx",
   // Its band lives in `budgetHubFigures.ts` — extracted for the /funds reason, so the
   // plan-vs-forecast rule could be asserted rather than commented. Both files are listed:
