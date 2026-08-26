@@ -928,7 +928,7 @@ describe("a hub's og capture anchors on its head", () => {
    *  rather than
    *  `OG_CLIP_VIEWPORT`, and is therefore the exact shape this clause's own comment warns
    *  gets clamped to a short card. */
-  const SIZED_CARDS = ["culture"];
+  const SIZED_CARDS = ["culture", "persons", "official-companies"];
 
   /** Every card whose page is a HubHead — module front pages and sub-pages alike. The
    *  clauses below are claims about the CARD (its anchor, viewport, size, freshness), and a
@@ -938,9 +938,29 @@ describe("a hub's og capture anchors on its head", () => {
     ...SUB_PAGE_CAPTURES,
   };
 
-  /** HubHead call sites that are NOT module front pages, so they ship no hub card. */
+  /** HubHead call sites that are NOT module front pages.
+   *
+   *  ⚠️ „SO THEY SHIP NO HUB CARD" WAS THIS LIST'S WHOLE DEFINITION AND IS NOW TRUE OF ONLY
+   *  SOME OF IT. `ContractsBrowserDbScreen` and `CultureFundsSourceScreen` ship no card of
+   *  their own at all; the two REGISTRY BROWSERS below ship one and it is simply not a HEAD
+   *  card. What the members share is that no clause about a head's card applies to them — not
+   *  that no card exists — so the ones that do have a card are named in `SIZED_CARDS` instead,
+   *  which is the one clause here that reads the PNG rather than the config. */
   const SUB_PAGE_HEADS = [
     "src/screens/dev/ContractsBrowserDbScreen.tsx",
+    // ⚠️ THE TWO REGISTRY BROWSERS SHIP A CARD, AND IT IS NOT A HEAD CARD. /persons and
+    // /companies each have their own capture (`persons`, `official-companies`) — so they are
+    // not here for want of one — but both ANCHOR ON THE TABLE SECTION rather than the head,
+    // deliberately: what is worth sharing from a register is the ROWS. Listing them under
+    // SUB_PAGE_CAPTURES puts them under this file's head-framing, head-viewport and
+    // head-freshness clauses, all three of which are claims about a card that DEPICTS A HEAD
+    // and all three of which they then fail by design. (Measured: doing so turned three green
+    // clauses red at once — „anchors on something other than the head" ×2, a hand-written
+    // viewport, and two cards older than their screens.)
+    //
+    // Neither is a module front page either: both sit under /governance.
+    "src/screens/persons/PersonsBrowserScreen.tsx",
+    "src/screens/dev/CompaniesBrowseDbScreen.tsx",
     // The four /culture/funds source pages share ONE screen. They are sub-pages
     // of the culture module, not module front pages, so they ship no HUB card —
     // they carry their own per-arm og capture entries instead

@@ -836,6 +836,16 @@ export const CompaniesBrowseDbScreen: FC = () => {
             label: t("companies_filter_political", {
               defaultValue: "Свързана с публично лице",
             }),
+            // ⚠️ THE TENSE CAVEAT BELONGS ON THE CONTROL THAT CREATES THE SET, not only on the
+            // figures downstream. Measured 2026-08-26 over the 17,675 this returns: 14,813 hold
+            // a CURRENT registry role, 757 are declared-stake-only, and 2,105 (11.9%) reach it
+            // ONLY through filings that have all been WITHDRAWN. The table chips „бивша" per row
+            // and the KPI band names it in its basis — but a reader who ticks the box and reads
+            // the heading sees neither.
+            hint: t("companies_filter_political_hint", {
+              defaultValue:
+                "включително организации, в които всички вписвания на лицето са заличени",
+            }),
             checked: f.political,
             onChange: f.setPolitical,
           },

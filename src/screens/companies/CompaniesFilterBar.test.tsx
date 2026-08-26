@@ -224,3 +224,53 @@ describe("the label wiring", () => {
     expect(COMPANIES_REGISTRY_ID_PREFIX).not.toBe(PERSONS_REGISTRY_ID_PREFIX);
   });
 });
+
+describe("the political toggle's caveat", () => {
+  it("⚠️ renders a hint, ASSOCIATED with the checkbox", () => {
+    // Of the 17,675 rows this toggle returns, 2,105 (11.9%) reach the set ONLY through registry
+    // filings that have all been WITHDRAWN. The table chips „бивша" per row and the KPI band
+    // names it in its basis — but a reader who ticks the box and reads the heading sees neither,
+    // so the control that CREATES the set has to say it. Associated rather than adjacent: loose
+    // text beside a checkbox is announced with no relationship to it, if at all.
+    const { container } = render(
+      <CompaniesFilterBar
+        selects={[]}
+        toggles={[
+          {
+            key: "political",
+            label: "Свързана с публично лице",
+            hint: "ВКЛЮЧИТЕЛНО ЗАЛИЧЕНИ",
+            checked: false,
+            onChange: () => {},
+          },
+        ]}
+      />,
+    );
+    // ⚠️ RETRIEVED BY LABEL, deliberately, because that is what catches the defect the first
+    // cut shipped: with the hint nested INSIDE the `<label>` it becomes part of the checkbox's
+    // accessible NAME — „Свързана с публично лицевключително организации…", with no separating
+    // space — and is then announced a second time as its description. Querying the input
+    // directly sidesteps exactly that, which is why the first version of this test was green.
+    const box = screen.getByLabelText("Свързана с публично лице");
+    const id = box.getAttribute("aria-describedby")!;
+    expect(id).toMatch(/^companies-toggle-political-/);
+    expect(container.querySelector(`#${CSS.escape(id)}`)!.textContent).toBe(
+      "ВКЛЮЧИТЕЛНО ЗАЛИЧЕНИ",
+    );
+    // …and the hint is NOT part of the name.
+    expect(box.getAttribute("aria-label")).toBeNull();
+  });
+
+  it("a toggle with no hint carries no dangling aria-describedby", () => {
+    // An `aria-describedby` pointing at nothing is worse than none: some screen readers
+    // announce the control with no description and no indication that one was promised.
+    const { container } = render(
+      <CompaniesFilterBar selects={[]} toggles={toggles} />,
+    );
+    expect(
+      container
+        .querySelector('input[type="checkbox"]')!
+        .getAttribute("aria-describedby"),
+    ).toBeNull();
+  });
+});

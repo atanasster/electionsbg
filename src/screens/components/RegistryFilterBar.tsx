@@ -44,6 +44,16 @@ export interface RegistryToggleSpec {
   label: string;
   checked: boolean;
   onChange: (v: boolean) => void;
+  /** A caveat the LABEL cannot carry without becoming a paragraph.
+   *
+   *  ⚠️ FOR A TOGGLE WHOSE POPULATION IS NOT WHAT ITS NAME SUGGESTS. /companies' „свързана с
+   *  публично лице" is the case it was added for: of the 17,675 it returns, 2,105 (11.9%) reach
+   *  the set ONLY through registry filings that have all been WITHDRAWN. The table's „Основание"
+   *  column chips „бивша" per row and the KPI band carries it in its basis — but a reader who
+   *  ticks the box and reads the heading never sees either, so the control that CREATES the set
+   *  has to say it too. Rendered as a `title` and as visible fine print, and associated with the
+   *  checkbox so a screen reader hears it as part of the control rather than as loose text. */
+  hint?: string;
 }
 
 export const RegistryFilterBar: FC<{
@@ -111,20 +121,43 @@ export const RegistryFilterBar: FC<{
           // Aligned to the pickers' BASELINE, not their top: they carry a label line above
           // them, so a top-aligned checkbox floats level with the caption instead of the box.
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 self-end pb-2">
-            {toggles.map((tg) => (
-              <label
-                key={tg.key}
-                className="flex cursor-pointer items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
-              >
-                <input
-                  type="checkbox"
-                  checked={tg.checked}
-                  onChange={(e) => tg.onChange(e.target.checked)}
-                  className="h-3.5 w-3.5"
-                />
-                {tg.label}
-              </label>
-            ))}
+            {toggles.map((tg) => {
+              const hintId = tg.hint
+                ? `${idPrefix}-toggle-${tg.key}-${uid}`
+                : undefined;
+              return (
+                <div key={tg.key} className="min-w-0">
+                  <label className="flex cursor-pointer items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground">
+                    <input
+                      type="checkbox"
+                      checked={tg.checked}
+                      onChange={(e) => tg.onChange(e.target.checked)}
+                      // Associated rather than merely adjacent: a caveat about which rows the
+                      // toggle returns belongs to the CONTROL, and loose text beside a checkbox
+                      // is announced (if at all) with no relationship to it.
+                      aria-describedby={hintId}
+                      className="h-3.5 w-3.5 shrink-0"
+                    />
+                    {tg.label}
+                  </label>
+                  {/* ⚠️ OUTSIDE THE `<label>`, and that is the whole reason this is a `<div>`
+                      wrapper rather than one element. Text inside a label becomes part of the
+                      control's ACCESSIBLE NAME, so a hint nested there is announced twice —
+                      once glued to the label („Свързана с публично лицевключително
+                      организации…", with no separating space) and once as the description —
+                      and it breaks `getByLabelText`, the retrieval `PersonsFilterBar.test.tsx`
+                      documents as canonical for these toggles. */}
+                  {tg.hint ? (
+                    <span
+                      id={hintId}
+                      className="mt-0.5 block pl-[1.25rem] text-[10px] leading-snug text-muted-foreground/80"
+                    >
+                      {tg.hint}
+                    </span>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         ) : null}
         {/* NOT `ml-auto`: in a WRAPPING row it pushes this block to the right edge of whatever

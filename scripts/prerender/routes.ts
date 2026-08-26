@@ -4934,23 +4934,25 @@ export const prerenderRoutes: PrerenderRoute[] = [
     path: "companies",
     title: "Търсене на фирми — Търговски регистър | electionsbg.com",
     description:
-      "Търсене на всяка фирма или организация в Търговския регистър по име или ЕИК — над милион вписвания, с публични средства, връзки с лица на публична длъжност и данни за обществени поръчки където има такива.",
+      "Търсене на всяка фирма или организация в Търговския регистър по име или ЕИК — над милион вписвания, с публични средства, връзки с лица в публичния живот и данни за обществени поръчки където има такива.",
     breadcrumbName: "Фирми",
     ogImage: "/og/official-companies.png",
     bodyHtml: `
-<h1>Фирми</h1>
-<p>Търсене на всяка фирма, сдружение, читалище или фондация, вписани в Търговския регистър, по име или ЕИК. По подразбиране списъкът показва фирмите с някаква обществена следа — публични средства, връзка с лице на публична длъжност, спечелена обществена поръчка или НПО статут — но търсенето обхваща целия регистър.</p>
-<p>Отделен филтър показва само фирмите и организациите, в които лице на публична длъжност — народен представител, министър, кмет, общински съветник, магистрат или член на регулаторен орган — фигурира като собственик или в управлението според Търговския регистър, или е декларирало дял пред Сметната палата. Свързването е по идентичност, а не по съвпадение на име: име, което Търговският регистър приписва на повече от един човек, се отхвърля. Където всички вписвания на лицето при дадена организация са заличени, ролята е отбелязана като бивша.</p>
+<h1>Фирми и организации</h1>
+<p>Търсене на всяка фирма, сдружение, читалище или фондация, вписани в Търговския регистър — над милион вписвания. Търсенето обхваща целия регистър: всяко име и всеки ЕИК, независимо дали за фирмата има какво друго да се каже.</p>
+<p>Отделен изглед показва фирмите с публична следа — получавали публични средства, спечелили обществена поръчка, свързани с лице в публичния живот или с НПО статут. За останалите регистърът дава име, ЕИК, правна форма и състояние — а седалище само където Търговският регистър го е вписал, което е за около една трета от тях. Това е всичко, което страницата твърди за тях.</p>
+<p>Филтърът „свързана с публично лице" показва организациите, в които лице в публичния живот — кандидат на избори, общински съветник, кмет, министър, народен представител, магистрат или член на регулаторен орган — фигурира като собственик или в управлението според Търговския регистър, или е декларирало дял пред Сметната палата. Изброяването следва големината на групите: най-многобройни са кандидатите и общинските съветници, а депутатите са малка част от набора. Свързването е по идентичност, а не по съвпадение на име: име, което Търговският регистър приписва на повече от един човек, се отхвърля. Където всички вписвания на лицето при дадена организация са заличени, ролята е отбелязана като бивша.</p>
 <p>За мрежовия изглед виж <a href="${SITE_URL}/connections">Бизнес-връзки между депутатите</a>.</p>`.trim(),
     english: {
       title: "Company Search — Bulgarian Commerce Registry | electionsbg.com",
       description:
-        "Search every company or organisation in the Bulgarian Commerce Registry by name or EIK — over a million entries, with public money, links to public office-holders, and procurement data where it exists.",
+        "Search every company or organisation in the Bulgarian Commerce Registry by name or EIK — over a million entries, with public money, links to people in public life, and procurement data where it exists.",
       breadcrumbName: "Companies",
       bodyHtml: `
-<h1>Companies</h1>
-<p>Search any company, association, chitalishte or foundation recorded in the Bulgarian Commerce Registry, by name or EIK. The default view shows companies with some public footprint — public money, a link to a public office-holder, a won procurement contract, or NGO status — but the search box reaches the whole registry.</p>
-<p>A separate filter shows only companies and organisations in which a public office-holder — an MP, minister, mayor, councillor, magistrate or regulator — figures as an owner or in management per the Commerce Registry, or has declared a stake to the Court of Audit. Linking is by identity rather than by matching names: a name the Commerce Registry attributes to more than one person is refused. Where every entry for that person at an organisation has been withdrawn, the role is marked as former.</p>
+<h1>Companies and organisations</h1>
+<p>Search any company, association, chitalishte or foundation recorded in the Bulgarian Commerce Registry — over a million entries. The search reaches the whole registry: every name and every EIK, whether or not there is anything else to say about the company.</p>
+<p>A separate view shows the companies with a public footprint — those that received public money, won a public contract, are linked to someone in public life, or hold NGO status. For the rest the registry gives a name, an EIK, a legal form and a status — and a seat only where the Commerce Registry recorded one, which is about a third of them. That is all this page claims about them.</p>
+<p>The "linked to a person in public life" filter shows the organisations in which someone in public life — an election candidate, municipal councillor, mayor, minister, MP, magistrate or regulator — figures as an owner or in management per the Commerce Registry, or has declared a stake to the Court of Audit. The list runs in order of size: candidates and municipal councillors are the largest groups, and MPs are a small part of the set. Linking is by identity rather than by matching names: a name the Commerce Registry attributes to more than one person is refused. Where every entry for that person at an organisation has been withdrawn, the role is marked as former.</p>
 <p>For the network view see <a href="${SITE_URL}/en/connections">MP business connections</a>.</p>`.trim(),
     },
   }),
