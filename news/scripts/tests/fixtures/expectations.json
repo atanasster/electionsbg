@@ -10,7 +10,19 @@
       "min_paras": 0,
       "max_paras": 3,
       "expect_title": "Джорджина осинови децата на Роналдо",
-      "why": "valid JSON-LD, real headline, 205 KB of HTML, one paragraph — the shape that was stored as a complete article 100% of the time"
+      "why": "valid JSON-LD, real headline, 205 KB of HTML, one paragraph — the shape that was stored as a complete article 100% of the time",
+      "expect_fields": {
+        "image": "https://cache1.24chasa.bg/Images/Cache/287/IMAGE_23432287_4000_0.jpg",
+        "image_alt": null,
+        "canonical": "https://www.24chasa.bg/ozhivlenie/article/23432280",
+        "language": "en",
+        "section_path": [
+          "Новини",
+          "Възход и падение"
+        ],
+        "tags": null,
+        "updated": "2026-08-25T20:23:20+00:00"
+      }
     },
     {
       "name": "jsonld_empty_body__forbes",
@@ -22,7 +34,20 @@
       "min_paras": 0,
       "max_paras": 2,
       "expect_title": "Всяка криза е шанс",
-      "why": "611 KB of HTML yielding one paragraph"
+      "why": "611 KB of HTML yielding one paragraph",
+      "expect_fields": {
+        "image": "https://forbesbulgaria.com/wp-content/uploads/2026/08/en__7480.jpg",
+        "image_alt": null,
+        "canonical": "https://forbesbulgaria.com/2026/08/20/vsyaka-kriza-e-shans/",
+        "language": "bg",
+        "section_path": [
+          "Начало",
+          "BrandVoice",
+          "Business BrandVoice"
+        ],
+        "tags": null,
+        "updated": "2026-08-20T08:42:00+00:00"
+      }
     },
     {
       "name": "jsonld_empty_body__toest",
@@ -34,7 +59,18 @@
       "min_paras": 0,
       "max_paras": 2,
       "expect_title": "Седмицата (27 юли – 1 август)",
-      "why": "zero extracted paragraphs"
+      "why": "zero extracted paragraphs",
+      "expect_fields": {
+        "image": "https://storage.ghost.io/c/1e/b4/1eb4ceda-c2c0-4233-8c6f-2fe4853d52fb/content/images/2026/07/Featured-image-1.jpg",
+        "image_alt": null,
+        "canonical": "https://www.toest.bg/sedmitsata-27-yuli-1-avgust/",
+        "language": "bg",
+        "section_path": null,
+        "tags": [
+          "редакционна"
+        ],
+        "updated": "2026-08-01T05:00:04+00:00"
+      }
     },
     {
       "name": "healthy__dnevnik",
@@ -46,7 +82,16 @@
       "min_paras": 30,
       "max_paras": 36,
       "expect_title": "\"Турмс Безмъртния\" на Мика Валтари (откъс)",
-      "why": "browser-tier page with an iubenda cookie banner in the rendered DOM — the banner swamped 100+ paragraphs per article until the junk filter learned iubenda/cmp/consent"
+      "why": "browser-tier page with an iubenda cookie banner in the rendered DOM — the banner swamped 100+ paragraphs per article until the junk filter learned iubenda/cmp/consent",
+      "expect_fields": {
+        "image": "https://img.dnevnik.bg/shimg/zx1200y630d_4948082.jpg",
+        "image_alt": null,
+        "canonical": "https://www.dnevnik.bg/knigi/2026/08/22/4948085_turms_bezmurtniia_na_mika_valtari_otkus/",
+        "language": "bg",
+        "section_path": null,
+        "tags": null,
+        "updated": "2026-08-21T05:36:30.077000+00:00"
+      }
     },
     {
       "name": "healthy__mediapool",
@@ -58,7 +103,19 @@
       "min_paras": 34,
       "max_paras": 40,
       "expect_title": "Косово гласува на предсрочни избори за втори път през 2025 г.",
-      "why": "every mediapool article TRAILS the donor boilerplate as a footer; only a body CONSISTING of it is a shell"
+      "why": "every mediapool article TRAILS the donor boilerplate as a footer; only a body CONSISTING of it is a shell",
+      "expect_fields": {
+        "image": "https://www.mediapool.bg/images/378/facebook_f34df84d078206f0067032f19059fec1.jpg",
+        "image_alt": null,
+        "canonical": "https://www.mediapool.bg/kosovo-glasuva-na-predsrochni-izbori-za-vtori-pat-prez-2025-g-news378700.html",
+        "language": "bg",
+        "section_path": [
+          "Начало",
+          "Свят"
+        ],
+        "tags": null,
+        "updated": "2025-12-28T08:48:07+00:00"
+      }
     },
     {
       "name": "healthy__segabg",
@@ -70,7 +127,20 @@
       "min_paras": 45,
       "max_paras": 53,
       "expect_title": "Трансферите в Първа лига - лято 2026 г.",
-      "why": "long ordinary article"
+      "why": "long ordinary article",
+      "expect_fields": {
+        "image": "https://www.segabg.com/sites/default/files/_sega/styles/article_sega_bar/public/2026/08/pedro.jpg",
+        "image_alt": "Трансферите в Първа лига - лято 2026 г.",
+        "canonical": "https://www.segabg.com/category-sport/transferite-purva-liga-lyato-2026-g",
+        "language": "bg",
+        "section_path": [
+          "Новини",
+          "Спорт",
+          "Футбол БГ"
+        ],
+        "tags": null,
+        "updated": "2026-08-21T05:53:59+00:00"
+      }
     },
     {
       "name": "cp1251__moreto",
@@ -82,7 +152,16 @@
       "min_paras": 16,
       "max_paras": 20,
       "expect_title": "Мощен GPS заглушител е открит и неутрализиран в София",
-      "why": "windows-1251 AND no <p> tags — the longest-contiguous-run fallback, measured past an anti-adblock popup that duplicates the lede plus every menu"
+      "why": "windows-1251 AND no <p> tags — the longest-contiguous-run fallback, measured past an anti-adblock popup that duplicates the lede plus every menu",
+      "expect_fields": {
+        "image": "https://www.moreto.net/imfb/28655.jpg",
+        "image_alt": null,
+        "canonical": "https://www.moreto.net/novini.php?n=534254",
+        "language": "bg",
+        "section_path": null,
+        "tags": null,
+        "updated": null
+      }
     },
     {
       "name": "rendered__glasove",
@@ -94,7 +173,16 @@
       "min_paras": 322,
       "max_paras": 392,
       "expect_title": "Путин: Естествена част от голяма Евразия може да бъде и нейния западен край - Европа. Еднополюсният свят е минало",
-      "why": "'with-sidebar' is a LAYOUT class naming the MAIN column; a bare 'sidebar' substring in the junk regex zeroed every article here"
+      "why": "'with-sidebar' is a LAYOUT class naming the MAIN column; a bare 'sidebar' substring in the junk regex zeroed every article here",
+      "expect_fields": {
+        "image": "https://glasove.com/media/2022/10/28/119604/social.jpg?_=1668175208",
+        "image_alt": null,
+        "canonical": "https://glasove.com/glasovete-koito-pomnim/putin-estestvena-chast-ot-golyama-evraziya-mozhe-da-bade-i-neyniya-zapaden-kray-evropa-ednopolyusniyat-svyat-e-minalo",
+        "language": "bg",
+        "section_path": null,
+        "tags": null,
+        "updated": null
+      }
     },
     {
       "name": "rendered__offnews",
@@ -106,7 +194,19 @@
       "min_paras": 52,
       "max_paras": 62,
       "expect_title": "Фиктивни прегледи и вливки на ''витамини'' в плувен клуб - куп институции не откриват нарушения",
-      "why": "rendered DOM, no machine date"
+      "why": "rendered DOM, no machine date",
+      "expect_fields": {
+        "image": "https://i2.offnews.bg/events/2026/08/18/872930/phpleywvn.jpg",
+        "image_alt": null,
+        "canonical": "https://offnews.bg/razsledvane/fiktivni-pregledi-i-vlivki-na-vitamini-v-pluven-klub-kup-institu-872930.html",
+        "language": "bg",
+        "section_path": [
+          "Новини",
+          "Разследване"
+        ],
+        "tags": null,
+        "updated": null
+      }
     },
     {
       "name": "known_gap__terms_page",
@@ -119,7 +219,16 @@
       "min_paras": 27,
       "max_paras": 31,
       "expect_title": null,
-      "why": "A KNOWN GAP, pinned as it behaves today: a terms-of-use page is stored as a 10,405-char article. It carries no title, no publish date and no JSON-LD, and passes purely on paragraph count. The obvious discriminator — no Article node AND no date — is NOT safe: svobodnoslovo.eu is 100% undated and its articles are real, so that rule would delete a whole domain. Whoever narrows the article gate should make this fixture flip and update the expectation deliberately."
+      "why": "A KNOWN GAP, pinned as it behaves today: a terms-of-use page is stored as a 10,405-char article. It carries no title, no publish date and no JSON-LD, and passes purely on paragraph count. The obvious discriminator — no Article node AND no date — is NOT safe: svobodnoslovo.eu is 100% undated and its articles are real, so that rule would delete a whole domain. Whoever narrows the article gate should make this fixture flip and update the expectation deliberately.",
+      "expect_fields": {
+        "image": null,
+        "image_alt": null,
+        "canonical": null,
+        "language": null,
+        "section_path": null,
+        "tags": null,
+        "updated": null
+      }
     },
     {
       "name": "known_gap__donate_page",
@@ -132,7 +241,19 @@
       "min_paras": 24,
       "max_paras": 28,
       "expect_title": "Подкрепи BIRD",
-      "why": "The same KNOWN GAP, pinned as it behaves today: a donation page stored as a 9,295-char article. Title 'Подкрепи BIRD', no date, no JSON-LD."
+      "why": "The same KNOWN GAP, pinned as it behaves today: a donation page stored as a 9,295-char article. Title 'Подкрепи BIRD', no date, no JSON-LD.",
+      "expect_fields": {
+        "image": "https://bird.bg/wp-content/uploads/2025/12/QR-code-bird-donate.png",
+        "image_alt": null,
+        "canonical": "https://bird.bg/donate/",
+        "language": "bg",
+        "section_path": [
+          "Начало",
+          "Подкрепа за BIRD Support BIRD"
+        ],
+        "tags": null,
+        "updated": "2026-04-08T13:09:13+00:00"
+      }
     },
     {
       "name": "not_article__section_page",
@@ -145,7 +266,18 @@
       "min_paras": 0,
       "max_paras": 2,
       "expect_title": "Спорт",
-      "why": "A section listing: no Article JSON-LD, og:type=website, zero qualifying paragraphs. The ONLY fixture that exercises the article gate's reject direction — without it, replacing the whole listing/homepage protection with `is_article = True` passed the entire suite."
+      "why": "A section listing: no Article JSON-LD, og:type=website, zero qualifying paragraphs. The ONLY fixture that exercises the article gate's reject direction — without it, replacing the whole listing/homepage protection with `is_article = True` passed the entire suite.",
+      "expect_fields": {
+        "image": "https://www.segabg.com/new/assets/brand/sega-logo-small.png",
+        "image_alt": "Спорт",
+        "canonical": "https://www.segabg.com/category-sport",
+        "language": "en",
+        "section_path": [
+          "Новини"
+        ],
+        "tags": null,
+        "updated": null
+      }
     },
     {
       "name": "known_gap__listing_page",
@@ -158,7 +290,19 @@
       "min_paras": 19,
       "max_paras": 23,
       "expect_title": "Анализи - Поглед.инфо",
-      "why": "The third instance of the same KNOWN GAP, and the worst: a section listing extracts 13.5 KB of teaser text and passes every gate. This is the plovdiv24.bg class the skill documents ('the recorded sitemap lists only section pages'). Pinned as it behaves today so a narrowing of the article gate flips it."
+      "why": "The third instance of the same KNOWN GAP, and the worst: a section listing extracts 13.5 KB of teaser text and passes every gate. This is the plovdiv24.bg class the skill documents ('the recorded sitemap lists only section pages'). Pinned as it behaves today so a narrowing of the article gate flips it.",
+      "expect_fields": {
+        "image": "https://pogled.info/assets/images/pogled-logo-8bit.png",
+        "image_alt": null,
+        "canonical": "https://pogled.info/analitichen",
+        "language": "bg",
+        "section_path": [
+          "Начало",
+          "Анализи"
+        ],
+        "tags": null,
+        "updated": null
+      }
     },
     {
       "name": "footer_boilerplate__mediapool",
@@ -170,7 +314,19 @@
       "min_paras": 16,
       "max_paras": 20,
       "expect_title": "Българският филм \"Пакет Вечност\" тръгна по екраните в Европа преди премиерата му у нас",
-      "why": "The stored record for this URL was 666 chars of donor boilerplate; a fresh fetch is a 2,844-char article. That is the shell/footer distinction the analyze skill warns about — the SAME boilerplate trails every full mediapool article, so a shell is a body CONSISTING of it, never one merely containing it. This fixture pins the FULL page, so a junk rule that started eating the footer's neighbours would show up here."
+      "why": "The stored record for this URL was 666 chars of donor boilerplate; a fresh fetch is a 2,844-char article. That is the shell/footer distinction the analyze skill warns about — the SAME boilerplate trails every full mediapool article, so a shell is a body CONSISTING of it, never one merely containing it. This fixture pins the FULL page, so a junk rule that started eating the footer's neighbours would show up here.",
+      "expect_fields": {
+        "image": "https://www.mediapool.bg/images/378/facebook_461f45405ce591e4e7f8281fc9a47ddf.jpg",
+        "image_alt": null,
+        "canonical": "https://www.mediapool.bg/balgarskiyat-film-paket-vechnost-tragna-po-ekranite-v-evropa-predi-premierata-mu-u-nas-news378900.html",
+        "language": "bg",
+        "section_path": [
+          "Начало",
+          "Култура"
+        ],
+        "tags": null,
+        "updated": "2026-01-06T11:12:38+00:00"
+      }
     },
     {
       "name": "short_undated__svobodnoslovo",
@@ -182,7 +338,18 @@
       "min_paras": 13,
       "max_paras": 17,
       "expect_title": "ПРЕДЛОЖЕНИЕ ЗА СЪТРУДНИЧЕСТВО",
-      "why": "A real but very short undated editorial, just above the 400 floor — the band that proves the gate is not simply rejecting everything short. svobodnoslovo.eu carries no dates anywhere."
+      "why": "A real but very short undated editorial, just above the 400 floor — the band that proves the gate is not simply rejecting everything short. svobodnoslovo.eu carries no dates anywhere.",
+      "expect_fields": {
+        "image": "https://svobodnoslovo.eu/media/1/2021/04/24/201/social.jpg?timer=1670193396",
+        "image_alt": "ПРЕДЛОЖЕНИЕ ЗА СЪТРУДНИЧЕСТВО",
+        "canonical": "https://svobodnoslovo.eu/bulgaria/predlozhenie-za-satrudnichestvo/145789",
+        "language": "bg",
+        "section_path": null,
+        "tags": [
+          "Иво Сиромахов"
+        ],
+        "updated": null
+      }
     },
     {
       "name": "long__pogled",
@@ -194,7 +361,19 @@
       "min_paras": 110,
       "max_paras": 134,
       "expect_title": "Миършаймър и големият въпрос: Можеше ли войната в Украйна да бъде избегната?",
-      "why": "36 KB of body — the upper band"
+      "why": "36 KB of body — the upper band",
+      "expect_fields": {
+        "image": "https://pogled.info/imagebank/cache/images/2026/08/21/1-5015cacf91ce__original--facebook-share-square-v24-8aa5a7c2793b.jpg",
+        "image_alt": null,
+        "canonical": "https://pogled.info/analitichen/miarshaymar-i-golemiyat-vapros-mozheshe-li-voynata-v-ukrayna-da-bade-izbegnata.196212",
+        "language": "bg",
+        "section_path": [
+          "Начало",
+          "Анализи"
+        ],
+        "tags": null,
+        "updated": "2026-08-21T04:39:40+00:00"
+      }
     },
     {
       "name": "wire__bta",
@@ -206,7 +385,16 @@
       "min_paras": 36,
       "max_paras": 42,
       "expect_title": "През август 2017 г. в България е отбелязана 1100-годишнината от битката при Ахелой",
-      "why": "agency wire copy, JS-rendered"
+      "why": "agency wire copy, JS-rendered",
+      "expect_fields": {
+        "image": "https://www.bta.bg/upload/13777415/4330831_1223394.jpg?l=750",
+        "image_alt": null,
+        "canonical": "https://www.bta.bg/bg/ot-arhivite/1188282-prez-avgust-2017-g-v-balgariya-e-otbelyazana-1100-godishninata-ot-bitkata-pri-a",
+        "language": "bg",
+        "section_path": null,
+        "tags": null,
+        "updated": null
+      }
     },
     {
       "name": "entities__podtepeto",
@@ -218,7 +406,25 @@
       "min_paras": 0,
       "max_paras": 3,
       "expect_title": "CBD и здравето защо съставът и лабораторният контрол имат значение",
-      "why": "JSON-LD headline carrying &#8222;…&#8220;; 197 stored records carried those verbatim into the LLM prompts and the story-clustering keys"
+      "why": "JSON-LD headline carrying &#8222;…&#8220;; 197 stored records carried those verbatim into the LLM prompts and the story-clustering keys",
+      "expect_fields": {
+        "image": "https://podtepeto.com/wp-content/uploads/2026/08/cbd-i-zdraveto-zastho-sastavat-i-laboratorniyat-kontrol-imat-znachenie.jpg",
+        "image_alt": null,
+        "canonical": "https://podtepeto.com/zdrave/cbd-i-zdraveto-zastho-sastavat-i-laboratorniyat-kontrol-imat-znachenie/",
+        "language": "bg",
+        "section_path": [
+          "Home",
+          "Всички новини"
+        ],
+        "tags": null,
+        "updated": "2026-08-21T13:35:41+00:00"
+      }
     }
-  ]
+  ],
+  "field_notes": {
+    "why_exact": "expect_fields pins EXACT values, not truthiness. A truthiness gate passes on a relative URL stored raw, a truncated language tag and a reversed breadcrumb list — the regressions these fields are prone to.",
+    "language_is_declared_not_detected": "jsonld_empty_body__24chasa and not_article__section_page declare lang=\"en\" while publishing Bulgarian (verified in the frozen HTML). `language` records what the page SAYS. It must never gate the non-Bulgarian quality class on its own.",
+    "image_present_is_not_image_usable": "not_article__section_page and known_gap__listing_page resolve to the SITE LOGO, and known_gap__terms_page to nothing at all. Consumers must survive a wrong image, not only a missing one.",
+    "epoch_dates": "jsonld_empty_body__24chasa emits dateModified as a bare Unix epoch. Before normalize_date grew _epoch_dt it was stored verbatim as the string '1787689400', which nothing downstream could tell from a real timestamp."
+  }
 }

@@ -2962,5 +2962,505 @@ class ExtractionFixtures(unittest.TestCase):
                                   "the manifest and delete the known_gap flag")
 
 
+class FieldCoverage(unittest.TestCase):
+    """`--intake-report`'s per-field fill.
+
+    The report is the artifact that makes an unattended run trustworthy, so
+    every one of these is really about the same thing: a field added to
+    extract_record only reaches records saved AFTER it, and the corpus then
+    sits at a partial fill until every domain is re-crawled. Uncounted, that
+    is invisible; miscounted, it is worse than uncounted.
+
+    ⚠️ These run OUT OF PROCESS via DATA_BG_ROOT, so they cover the real
+    `--intake-report` exit path — the whole point of the crash test below is
+    that the failure was an exit code and an empty stdout, which an in-process
+    call to field_coverage() would not have reproduced."""
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp(prefix="save-articles-cov-"))
+        self.data = self.root / "news" / "data"
+        self.data.mkdir(parents=True)
+        (self.data / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "a.bg,rss,https://a.bg/\nb.bg,rss,https://b.bg/\n",
+            encoding="utf-8")
+
+    def tearDown(self):
+        shutil.rmtree(self.root, ignore_errors=True)
+
+    def write(self, domain, name, rec):
+        d = self.data / domain
+        d.mkdir(parents=True, exist_ok=True)
+        (d / f"{name}.json").write_text(json.dumps(rec, ensure_ascii=False),
+                                        encoding="utf-8")
+
+    def report(self):
+        env = dict(os.environ, DATA_BG_ROOT=str(self.root))
+        proc = subprocess.run(
+            [sys.executable, str(SCRIPT_DIR / "save_articles.py"),
+             "--intake-report"],
+            capture_output=True, text=True, env=env)
+        self.assertEqual(proc.returncode, 0,
+                         f"--intake-report exited {proc.returncode}: "
+                         f"{proc.stderr[-400:]}")
+        self.assertTrue(proc.stdout.strip(), "empty stdout")
+        return json.loads(proc.stdout)
+
+    def test_it_counts_filled_and_absent_per_domain(self):
+        self.write("a.bg", "1", {"url": "https://a.bg/1", "title": "Т",
+                                 "image": "https://cdn.bg/i.jpg"})
+        self.write("a.bg", "2", {"url": "https://a.bg/2", "title": "Т"})
+        self.write("b.bg", "1", {"url": "https://b.bg/1", "title": "Т"})
+        cov = self.report()["field_coverage"]
+        self.assertEqual(cov["records"], 3)
+        self.assertEqual(cov["domains"], 2)
+        self.assertEqual(cov["fields"]["image"]["filled"], 1)
+        self.assertEqual(cov["fields"]["image"]["pct"], 33.3)
+        # a.bg has one image; b.bg has none on ANY record — that second
+        # number is what tells "the source omits it sometimes" from "this
+        # domain has not been re-extracted".
+        self.assertEqual(cov["fields"]["image"]["domains_absent"], 1)
+        self.assertEqual(cov["fields"]["title"]["domains_absent"], 0)
+
+    def test_an_unreadable_record_does_not_take_down_the_report(self):
+        """⚠️ UnicodeDecodeError is neither an OSError nor a JSONDecodeError.
+        Left out of the except tuple, ONE mis-encoded file took the whole
+        report to exit 1 with empty stdout — and this report is the only thing
+        a cron run has to say what it did."""
+        self.write("a.bg", "1", {"url": "https://a.bg/1", "title": "Т"})
+        (self.data / "a.bg" / "bad.json").write_bytes(b'{"url": "\xff\xfe"}')
+        (self.data / "a.bg" / "torn.json").write_text("{not json",
+                                                      encoding="utf-8")
+        cov = self.report()["field_coverage"]
+        self.assertEqual(cov["records"], 1)
+        self.assertEqual(cov["unreadable"], 2)
+
+    def test_a_field_no_record_carries_raises_an_alert(self):
+        """The 'you added a field and never backfilled' state. It cannot be a
+        0% case of the partial alert — gating that alert on `filled` makes
+        exactly this state the one thing it cannot report."""
+        self.write("a.bg", "1", {"url": "https://a.bg/1", "title": "Т"})
+        alerts = [a for a in self.report()["alerts"]
+                  if a["alert"] == "field_never_filled"]
+        self.assertIn("image", " ".join(a["detail"] for a in alerts))
+
+    def test_a_partially_rolled_out_field_raises_a_distinct_alert(self):
+        self.write("a.bg", "1", {"url": "https://a.bg/1", "title": "Т",
+                                 "image": "https://cdn.bg/i.jpg",
+                                 "canonical": "https://a.bg/1",
+                                 "language": "bg", "section_path": ["Начало"],
+                                 "tags": ["х"], "updated": "2026-01-01"})
+        self.write("b.bg", "1", {"url": "https://b.bg/1", "title": "Т"})
+        alerts = {a["alert"] for a in self.report()["alerts"]}
+        self.assertIn("field_partial", alerts)
+        self.assertNotIn("field_never_filled", alerts)
+
+    def test_a_source_supplied_field_never_alerts(self):
+        """author/published are partial FOREVER — 17 domains publish no byline
+        and never will. Alerting on them means 8 alerts on every clean run,
+        which is how an alert list stops being read. Their fill rates stay in
+        field_coverage; only fields a re-extract should bring to 100% alert."""
+        for domain in ("a.bg", "b.bg"):
+            self.write(domain, "1", {
+                "url": f"https://{domain}/1", "title": "Т",
+                "image": "https://cdn.bg/i.jpg", "canonical": f"https://{domain}/1",
+                "language": "bg", "section_path": ["Начало"], "tags": ["х"],
+                "updated": "2026-01-01"})
+        self.write("a.bg", "2", {"url": "https://a.bg/2", "title": "Т",
+                                 "image": "https://cdn.bg/j.jpg",
+                                 "canonical": "https://a.bg/2",
+                                 "language": "bg", "section_path": ["Начало"],
+                                 "tags": ["х"], "updated": "2026-01-01",
+                                 "author": "Иван Иванов"})
+        report = self.report()
+        cov = report["field_coverage"]
+        # the DATA is still reported...
+        self.assertEqual(cov["fields"]["author"]["domains_absent"], 1)
+        # ...and no alert is raised for it
+        for a in report["alerts"]:
+            self.assertNotIn("author", a.get("detail", ""))
+
+    def test_the_quarantine_and_the_caches_are_not_in_the_population(self):
+        """`records` is the SERVING corpus. rows[].stored counts quarantined
+        articles too, so the two numbers legitimately differ — pinned so the
+        difference is a decision rather than a bug someone 'fixes'."""
+        self.write("a.bg", "1", {"url": "https://a.bg/1", "title": "Т"})
+        for hidden in ("_quarantine", "_html", "_state"):
+            d = self.data / hidden / "a.bg"
+            d.mkdir(parents=True, exist_ok=True)
+            (d / "9.json").write_text(
+                json.dumps({"url": "https://a.bg/9", "title": "Т"}),
+                encoding="utf-8")
+        analysis = self.data / "analysis" / "articles" / "a.bg"
+        analysis.mkdir(parents=True, exist_ok=True)
+        (analysis / "9.json").write_text(
+            json.dumps({"url": "https://a.bg/9"}), encoding="utf-8")
+        self.assertEqual(self.report()["field_coverage"]["records"], 1)
+
+    def test_an_empty_corpus_reports_zero_rather_than_dividing_by_it(self):
+        """The shape stays stable at zero records — every field present with
+        0/0.0 rather than an absent table — so a consumer never has to tell
+        "no corpus" from "this key moved"."""
+        report = self.report()
+        cov = report["field_coverage"]
+        self.assertEqual(cov["records"], 0)
+        self.assertEqual(cov["domains"], 0)
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles as sa  # noqa: E402
+        self.assertEqual(set(cov["fields"]), set(sa.REPORTED_FIELDS))
+        for key, entry in cov["fields"].items():
+            self.assertEqual((entry["filled"], entry["pct"],
+                              entry["domains_absent"]), (0, 0.0, 0), key)
+        # and no field alert fires on an empty corpus: "every field is at 0%"
+        # is true and useless when there is nothing to have extracted from.
+        self.assertEqual([a for a in report["alerts"]
+                          if a["alert"].startswith("field_")], [])
+
+    def test_the_reported_fields_are_a_subset_of_what_extract_record_emits(self):
+        """A field renamed in extract_record and not here is reported as 0%
+        for ever — an alert that can never be cleared, which trains people to
+        ignore the list."""
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles as sa  # noqa: E402
+        rec, _ = sa.extract_record(
+            '<html lang="bg"><head><title>Т</title></head>'
+            '<body><p>х</p></body></html>', "ex.bg", "https://ex.bg/a")
+        missing = [k for k in sa.REPORTED_FIELDS if k not in rec]
+        self.assertEqual(missing, [], "REPORTED_FIELDS names keys "
+                                      "extract_record does not emit")
+        self.assertTrue(sa.EXTRACTOR_ROLLOUT_FIELDS <= set(sa.REPORTED_FIELDS))
+
+
+class MetadataFields(unittest.TestCase):
+    """The image / canonical / language / section / tags / updated fields.
+
+    Pinned against the frozen fixtures at EXACT values (expect_fields in the
+    manifest, re-derived on capture). A truthiness assertion would pass on a
+    protocol-relative URL stored raw, a truncated language tag or a breadcrumb
+    list in reverse order, which are the three regressions these are prone to.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+        manifest = FIXTURE_DIR / "expectations.json"
+        if not manifest.exists():  # pragma: no cover - fresh clone
+            raise unittest.SkipTest(
+                "no fixtures — run python3 news/scripts/capture_fixtures.py")
+        cls.manifest = json.loads(manifest.read_text(encoding="utf-8"))
+
+    def test_every_fixture_carries_field_expectations(self):
+        """A new field with no expectation is a field with no gate: the suite
+        stays green through a total regression of it."""
+        import capture_fixtures  # noqa: E402
+        for entry in self.manifest["fixtures"]:
+            with self.subTest(fixture=entry["name"]):
+                got = entry.get("expect_fields")
+                self.assertIsInstance(got, dict, "re-run capture_fixtures.py")
+                self.assertEqual(set(got), set(capture_fixtures.FIELD_KEYS))
+
+    def test_field_keys_names_only_keys_extract_record_emits(self):
+        """A field renamed in extract_record and not in FIELD_KEYS is pinned
+        for ever at None — the expectation passes and the field is ungated."""
+        import capture_fixtures  # noqa: E402
+        rec, _ = self.sa.extract_record(
+            '<html lang="bg"><head><title>Т</title></head>'
+            '<body><p>х</p></body></html>', "ex.bg", "https://ex.bg/a")
+        missing = [k for k in capture_fixtures.FIELD_KEYS if k not in rec]
+        self.assertEqual(missing, [], "FIELD_KEYS names keys extract_record "
+                                      "does not emit")
+
+    def test_the_committed_notes_match_the_generator(self):
+        """field_notes explains what the expectations mean. Written by the
+        generator and never gated, the committed copy silently fell a version
+        behind the source it is generated from."""
+        import capture_fixtures  # noqa: E402
+        self.assertEqual(self.manifest.get("field_notes"),
+                         capture_fixtures.FIELD_NOTES,
+                         "re-run news/scripts/capture_fixtures.py")
+
+    def test_fixtures_extract_the_expected_metadata(self):
+        for entry in self.manifest["fixtures"]:
+            with self.subTest(fixture=entry["name"]):
+                with gzip.open(FIXTURE_DIR / f"{entry['name']}.html.gz", "rt",
+                               encoding="utf-8") as fh:
+                    html = fh.read()
+                rec, _ = self.sa.extract_record(html, entry["domain"],
+                                                entry["url"])
+                for key, want in entry["expect_fields"].items():
+                    self.assertEqual(rec.get(key), want, f"{entry['name']}.{key}")
+
+    def test_no_stored_image_is_relative(self):
+        """A weak net over the fixtures — NONE of the 18 happens to serve a
+        relative image, so this cannot catch a dropped absolutise() on its own.
+        The real gates for that are the two synthetic tests below; this stays
+        because a fixture acquiring a relative URL later should still fail."""
+        seen = 0
+        for entry in self.manifest["fixtures"]:
+            img = entry["expect_fields"]["image"]
+            if img:
+                seen += 1
+                self.assertRegex(img, r"^https?://[^/]+",
+                                 f"{entry['name']} stored a non-absolute image")
+        self.assertGreater(seen, 10, "the assertion above went vacuous")
+
+    def _record_from(self, head, url="https://ex.bg/novini/a"):
+        html = ('<html lang="bg"><head><meta property="og:type" '
+                'content="article"><title>Заглавие на статия</title>'
+                + head + '</head><body><p>' + "дума " * 120 + '</p><p>'
+                + "текст " * 120 + '</p></body></html>')
+        rec, _ = self.sa.extract_record(html, "ex.bg", url)
+        return rec
+
+    def test_extract_record_absolutises_the_image(self):
+        """dariknews.bg serves `//m.netinfo.bg/...`. Stored raw it is a broken
+        image in every grid — and no fixture carries the shape, so without this
+        the chain can lose absolutise() with the suite green."""
+        rec = self._record_from(
+            '<meta property="og:image" content="//cdn.x.bg/i.jpg">')
+        self.assertEqual(rec["image"], "https://cdn.x.bg/i.jpg")
+        rec = self._record_from(
+            '<meta property="og:image" content="/media/i.jpg">')
+        self.assertEqual(rec["image"], "https://ex.bg/media/i.jpg")
+
+    def test_extract_record_absolutises_the_canonical(self):
+        rec = self._record_from('<link rel="canonical" href="/novini/a">')
+        self.assertEqual(rec["canonical"], "https://ex.bg/novini/a")
+
+    def test_an_unusable_image_falls_through_to_the_next_source(self):
+        rec = self._record_from(
+            '<meta property="og:image" content="javascript:alert(1)">'
+            '<meta property="twitter:image" content="https://cdn.x.bg/t.jpg">')
+        self.assertEqual(rec["image"], "https://cdn.x.bg/t.jpg")
+
+    def test_image_alt_is_dropped_when_og_image_did_not_win(self):
+        """og:image:alt describes og:image and nothing else. Carried over to a
+        fallback image it is a WRONG caption, not a missing one."""
+        rec = self._record_from(
+            '<meta property="og:image" content="javascript:alert(1)">'
+            '<meta property="og:image:alt" content="Снимка на нещо друго">'
+            '<meta property="twitter:image" content="https://cdn.x.bg/t.jpg">')
+        self.assertEqual(rec["image"], "https://cdn.x.bg/t.jpg")
+        self.assertIsNone(rec["image_alt"])
+        rec = self._record_from(
+            '<meta property="og:image" content="https://cdn.x.bg/o.jpg">'
+            '<meta property="og:image:alt" content="Точният надпис">')
+        self.assertEqual(rec["image_alt"], "Точният надпис")
+
+    def test_a_breadcrumb_leaf_that_repeats_the_headline_is_dropped(self):
+        """Most sites that emit a breadcrumb end it with the article itself.
+        Kept, every article is its own leaf section and grouping by
+        section_path yields one bucket per article."""
+        crumbs = ('<script type="application/ld+json">'
+                  '{"@type":"BreadcrumbList","itemListElement":['
+                  '{"position":1,"name":"Начало"},'
+                  '{"position":2,"name":"Икономика"},'
+                  '{"position":3,"name":"Заглавие на статия"}]}</script>')
+        self.assertEqual(self._record_from(crumbs)["section_path"],
+                         ["Начало", "Икономика"])
+        # a real leaf section that merely resembles nothing is kept
+        other = crumbs.replace("Заглавие на статия", "Труд и доходи")
+        self.assertEqual(self._record_from(other)["section_path"],
+                         ["Начало", "Икономика", "Труд и доходи"])
+
+    def test_a_single_crumb_equal_to_the_headline_is_kept(self):
+        """The strip needs len > 1: dropping the only crumb would turn a
+        one-element path into an empty list, which reads as 'no breadcrumb'."""
+        crumbs = ('<script type="application/ld+json">'
+                  '{"@type":"BreadcrumbList","itemListElement":['
+                  '{"position":1,"name":"Заглавие на статия"}]}</script>')
+        self.assertEqual(self._record_from(crumbs)["section_path"],
+                         ["Заглавие на статия"])
+
+    def test_language_is_what_the_page_declares_not_what_it_is(self):
+        """Two fixtures declare lang="en" while publishing Bulgarian. Pinned so
+        nobody 'fixes' the extractor to detect the language instead of reading
+        it — and so the non-Bulgarian quality class is never gated on this
+        field alone."""
+        declared = {e["name"]: e["expect_fields"]["language"]
+                    for e in self.manifest["fixtures"]}
+        self.assertEqual(declared.get("jsonld_empty_body__24chasa"), "en")
+        self.assertEqual(declared.get("not_article__section_page"), "en")
+
+    # ---------------------------------------------------------- unit level
+
+    def test_absolutise_resolves_and_refuses(self):
+        base = "https://ex.bg/novini/a"
+        self.assertEqual(self.sa.absolutise(base, "//cdn.x.bg/i.jpg"),
+                         "https://cdn.x.bg/i.jpg")
+        self.assertEqual(self.sa.absolutise(base, "/i.jpg"),
+                         "https://ex.bg/i.jpg")
+        # a cross-origin CDN is NORMAL here and must not be rejected
+        self.assertEqual(self.sa.absolutise(base, "https://cdn4.focus.bg/i.jpg"),
+                         "https://cdn4.focus.bg/i.jpg")
+        for bad in ("", None, "   ", "data:image/png;base64,AAAA",
+                    "javascript:alert(1)", "mailto:a@b.bg"):
+            self.assertIsNone(self.sa.absolutise(base, bad), repr(bad))
+
+    def test_absolutise_strips_control_characters(self):
+        """urlsplit drops \\t\\r\\n from the scheme and authority but leaves
+        every other control byte in the PATH, and urljoin's cross-scheme branch
+        returns its argument nearly verbatim — so a NUL or a U+2028 rode
+        straight through into a stored URL and out into an href."""
+        base = "https://ex.bg/novini/a"
+        for raw, want in (
+                ("https://cdn.bg/i\x00.jpg", "https://cdn.bg/i.jpg"),
+                ("https://cdn.bg/i .jpg", "https://cdn.bg/i.jpg"),
+                ("https://cdn.bg/i\x7f.jpg", "https://cdn.bg/i.jpg"),
+                ("  https://cdn.bg/i.jpg  ", "https://cdn.bg/i.jpg"),
+                ("java\tscript:alert(1)", None),
+                ("\x00\x00", None)):
+            self.assertEqual(self.sa.absolutise(base, raw), want, repr(raw))
+
+    def test_extract_record_stores_no_control_characters_in_a_url(self):
+        rec = self._record_from(
+            '<meta property="og:image" content="https://cdn.bg/i&#x0A;x.jpg">')
+        self.assertIsNotNone(rec["image"])
+        self.assertNotRegex(rec["image"], r"[\x00-\x20\x7f]")
+
+    def test_normalize_lang_keeps_the_subtag_and_refuses_junk(self):
+        for raw, want in (("bg", "bg"), ("bg-BG", "bg"), ("bg_BG", "bg"),
+                          ("EN-us", "en"), ("  bg-BG  ", "bg")):
+            self.assertEqual(self.sa.normalize_lang(raw), want, raw)
+        for bad in ("", None, "b", "bulgarian-language-x", "12", "bg bg"):
+            self.assertIsNone(self.sa.normalize_lang(bad), repr(bad))
+
+    def test_parse_meta_all_keeps_every_occurrence(self):
+        """parse_metas keeps only the FIRST value for a key, which silently
+        truncates a repeated article:tag to one entry."""
+        html = ('<meta property="article:tag" content="ГЕРБ">'
+                '<meta property="article:tag" content="бюджет">'
+                '<meta property="article:tag" content="ГЕРБ">')
+        self.assertEqual(self.sa.parse_meta_all(html, "article:tag"),
+                         ["ГЕРБ", "бюджет"])
+        self.assertEqual(self.sa.parse_metas(html).get("article:tag"), "ГЕРБ")
+        self.assertEqual(self.sa.parse_meta_all(html, "article:section"), [])
+
+    def test_parse_link_rel_treats_rel_as_a_token_set(self):
+        html = ('<link rel="apple-touch-icon" href="/apple.png">'
+                '<link rel="shortcut icon" href="/fav.ico">'
+                '<link rel="canonical" href="https://ex.bg/a">')
+        self.assertEqual(self.sa.parse_link_rel(html, "canonical"),
+                         "https://ex.bg/a")
+        # "shortcut icon" contains the icon token; apple-touch-icon does not
+        self.assertEqual(self.sa.parse_link_rel(html, "icon"), "/fav.ico")
+        self.assertIsNone(self.sa.parse_link_rel(html, "next"))
+
+    def test_breadcrumbs_order_by_position_not_document_order(self):
+        html = ('<script type="application/ld+json">'
+                '{"@type":"BreadcrumbList","itemListElement":['
+                '{"@type":"ListItem","position":3,"name":"Трето"},'
+                '{"@type":"ListItem","position":1,"name":"Първо"},'
+                '{"@type":"ListItem","position":2,"item":{"name":"Второ"}}]}'
+                '</script>')
+        self.assertEqual(self.sa.breadcrumb_path(html),
+                         ["Първо", "Второ", "Трето"])
+        self.assertIsNone(self.sa.breadcrumb_path("<html></html>"))
+
+    def test_a_string_position_orders_like_a_number(self):
+        """`"position": "1"` is the commonest JSON-LD serialisation. Read as
+        absent, a fully-ordered list silently falls back to document order."""
+        html = ('<script type="application/ld+json">'
+                '{"@type":"BreadcrumbList","itemListElement":['
+                '{"position":"3","name":"Трето"},'
+                '{"position":"1","name":"Първо"},'
+                '{"position":"2","name":"Второ"}]}</script>')
+        self.assertEqual(self.sa.breadcrumb_path(html),
+                         ["Първо", "Второ", "Трето"])
+
+    def test_a_mixed_int_and_string_position_list_is_not_scrambled(self):
+        """The worse half: two non-comparable sort keys put the list in an
+        order that is neither position nor document order."""
+        html = ('<script type="application/ld+json">'
+                '{"@type":"BreadcrumbList","itemListElement":['
+                '{"position":3,"name":"Трето"},'
+                '{"position":"1","name":"Първо"},'
+                '{"position":2,"name":"Второ"}]}</script>')
+        self.assertEqual(self.sa.breadcrumb_path(html),
+                         ["Първо", "Второ", "Трето"])
+
+    def test_an_unparseable_position_falls_back_to_document_order(self):
+        html = ('<script type="application/ld+json">'
+                '{"@type":"BreadcrumbList","itemListElement":['
+                '{"position":"пето","name":"Първо"},'
+                '{"position":"","name":"Второ"}]}</script>')
+        self.assertEqual(self.sa.breadcrumb_path(html), ["Първо", "Второ"])
+
+    def test_the_type_test_is_case_insensitive_on_both_readers(self):
+        """jsonld_article lowercases and breadcrumb_path briefly did not, so a
+        page emitting `"@type": "newsarticle"` had a headline on one reader and
+        no section path on the other."""
+        crumbs = ('<script type="application/ld+json">'
+                  '{"@type":"breadcrumblist","itemListElement":['
+                  '{"position":1,"name":"Начало"},'
+                  '{"position":2,"name":"Спорт"}]}</script>')
+        self.assertEqual(self.sa.breadcrumb_path(crumbs), ["Начало", "Спорт"])
+        art = ('<script type="application/ld+json">'
+               '{"@type":"newsarticle","headline":"Заглавие"}</script>')
+        self.assertIsNotNone(self.sa.jsonld_article(art))
+
+    def test_epoch_dates_are_read_and_bounded(self):
+        now = datetime(2026, 8, 26, tzinfo=timezone.utc)
+        self.assertEqual(self.sa.normalize_date("1787689400", now=now),
+                         "2026-08-25T20:23:20+00:00")
+        # milliseconds resolve to the same instant
+        self.assertEqual(self.sa.normalize_date("1787689400000", now=now),
+                         self.sa.normalize_date("1787689400", now=now))
+    def test_an_epoch_shaped_value_outside_the_band_is_refused(self):
+        """⚠️ These must be TEN digits. A 9- or 11-digit value is rejected one
+        step earlier by the digit-count regex, so testing with those leaves the
+        2000-2100 band itself uncovered — deleting the band check kept the
+        suite green.
+
+        Refused (None), not kept as a string: normalize_date's fallback arm
+        stores the site's own text, so an out-of-band value came back as the
+        literal "1000000000" sitting in a date field."""
+        now = datetime(2026, 8, 26, tzinfo=timezone.utc)
+        self.assertEqual(len("1000000000"), 10)
+        # 2001-09-09 — inside the band, so it must still parse
+        self.assertIsNotNone(self.sa.normalize_date("1000000000", now=now))
+        # 1973-03-03 — ten digits, below the band
+        self.assertEqual(len("0100000000"), 10)
+        self.assertIsNone(self.sa.normalize_date("0100000000", now=now))
+        # 2255 — ten digits, above the band
+        self.assertEqual(len("9000000000"), 10)
+        self.assertIsNone(self.sa.normalize_date("9000000000", now=now))
+        # and the same in the 13-digit millisecond form
+        self.assertIsNone(self.sa.normalize_date("0100000000000", now=now))
+
+    def test_a_non_epoch_string_still_keeps_the_sites_own_text(self):
+        """The refusal above must not swallow the pre-existing rule that an
+        unparseable date is kept verbatim rather than lost."""
+        now = datetime(2026, 8, 26, tzinfo=timezone.utc)
+        self.assertEqual(self.sa.normalize_date("вчера", now=now), "вчера")
+        self.assertEqual(self.sa.normalize_date("12345678901", now=now),
+                         "12345678901")
+
+    def test_the_epoch_arm_still_refuses_a_future_date(self):
+        """The fast path returns before the naive/Sofia handling, so it could
+        trivially have skipped the future-skew gate the whole field relies on."""
+        now = datetime(2026, 8, 26, tzinfo=timezone.utc)
+        soon = int(now.timestamp()) + 3600           # inside MAX_FUTURE_SKEW
+        far = int(now.timestamp()) + 60 * 86400      # well past it
+        self.assertIsNotNone(self.sa.normalize_date(str(soon), now=now))
+        self.assertIsNone(self.sa.normalize_date(str(far), now=now))
+
+    def test_updated_goes_through_the_same_refusal_as_published(self):
+        # Relative to now, never an absolute date: a hard-coded 2027-12-01
+        # silently stops testing anything on 2027-12-02 and then fails.
+        far = int((datetime.now(timezone.utc)
+                   + timedelta(days=400)).timestamp())
+        html = ('<html lang="bg"><head>'
+                f'<meta property="article:modified_time" content="{far}">'
+                '<meta property="og:type" content="article">'
+                '<title>Заглавие</title></head><body>'
+                '<p>' + "дума " * 120 + '</p><p>' + "текст " * 120 + '</p>'
+                '</body></html>')
+        rec, _ = self.sa.extract_record(html, "ex.bg", "https://ex.bg/a")
+        self.assertIsNone(rec["updated"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -104,7 +104,7 @@ from html.parser import HTMLParser
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 from pathlib import Path
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 # DATA_BG_ROOT overrides the repository root, matching analyze_articles.py and
@@ -434,6 +434,39 @@ def _jsonld_str(v):
     return None
 
 
+def _jsonld_is_type(node, *wanted):
+    """Whether a JSON-LD node declares any of `wanted`, case-insensitively.
+
+    THE ONE DEFINITION, matching jsonld_article's convention. `breadcrumb_path`
+    briefly tested `str(x) == "BreadcrumbList"` while its neighbour lowercased,
+    so a page emitting `"@type": "breadcrumblist"` had a section path on one
+    reader and none on the other."""
+    t = node.get("@type", "")
+    types = t if isinstance(t, list) else [t]
+    want = {w.lower() for w in wanted}
+    return any(str(x).lower() in want for x in types)
+
+
+def _position_of(item):
+    """schema.org `position` as a number, whatever JSON type it arrived as.
+
+    ⚠️ It is very commonly serialised as a STRING (`"position": "1"`). Read as
+    "absent", a fully-ordered list silently falls back to document order — and
+    a list MIXING the two types comes out scrambled, which is worse than
+    either, because the two sort keys are not comparable."""
+    pos = item.get("position")
+    if isinstance(pos, bool):
+        return None
+    if isinstance(pos, (int, float)):
+        return float(pos)
+    if isinstance(pos, str):
+        try:
+            return float(pos.strip())
+        except ValueError:
+            return None
+    return None
+
+
 def jsonld_article(html_text):
     """The highest-scoring Article-ish node across all JSON-LD blocks
     (pages often carry several — BreadcrumbList, Organization, ItemList)."""
@@ -442,9 +475,7 @@ def jsonld_article(html_text):
         for node in _jsonld_nodes(block):
             if not isinstance(node, dict):
                 continue
-            t = node.get("@type", "")
-            types = t if isinstance(t, list) else [t]
-            if not any(str(x).lower() in JSONLD_TYPES for x in types):
+            if not _jsonld_is_type(node, *JSONLD_TYPES):
                 continue
             score = sum(k in node for k in
                         ("headline", "datePublished", "author",
@@ -463,19 +494,171 @@ def parse_metas(html_text):
     metas = {}
     for m in re.finditer(r"<meta\s[^>]*>", html_text, re.I):
         tag = m.group(0)
-
-        def attr(name):
-            am = re.search(rf'{name}\s*=\s*"([^"]*)"|{name}\s*=\s*\'([^\']*)\'',
-                           tag, re.I)
-            return (am.group(1) or am.group(2)) if am else None
-
-        key = attr("property") or attr("itemprop") or attr("name")
-        val = attr("content")
+        key = (tag_attr(tag, "property") or tag_attr(tag, "itemprop")
+               or tag_attr(tag, "name"))
+        val = tag_attr(tag, "content")
         if key and val:
             k = key.strip().lower()
             if k not in metas:
                 metas[k] = html_unescape2(val.strip())
     return metas
+
+
+def tag_attr(tag, name):
+    """One attribute out of a raw start-tag, quoted either way.
+
+    THE ONE DEFINITION. It was written three times — in parse_metas,
+    parse_meta_all and parse_link_rel — byte-identical, which is three places
+    for a quoting rule to drift apart."""
+    am = re.search(rf'{name}\s*=\s*"([^"]*)"|{name}\s*=\s*\'([^\']*)\'',
+                   tag, re.I)
+    return (am.group(1) or am.group(2)) if am else None
+
+
+def parse_meta_all(html_text, key):
+    """EVERY `content` for one meta key, in document order.
+
+    parse_metas keeps only the FIRST occurrence of a key, which is right for
+    the single-valued fields but silently drops all but one `article:tag` —
+    and a tag list of length 1 is indistinguishable from a page that really
+    carries one tag."""
+    want = key.strip().lower()
+    out = []
+    for m in re.finditer(r"<meta\s[^>]*>", html_text, re.I):
+        tag = m.group(0)
+        k = (tag_attr(tag, "property") or tag_attr(tag, "itemprop")
+             or tag_attr(tag, "name"))
+        val = tag_attr(tag, "content")
+        if k and val and k.strip().lower() == want:
+            v = html_unescape2(val.strip())
+            if v and v not in out:
+                out.append(v)
+    return out
+
+
+def parse_link_rel(html_text, rel):
+    """The first <link> href whose rel set contains `rel`.
+
+    `rel` is a SPACE-SEPARATED SET per the HTML spec, so `rel="shortcut icon"`
+    contains "icon" — matching the attribute whole would miss it, and matching
+    it as a substring would make "icon" match "apple-touch-icon" too."""
+    want = rel.strip().lower()
+    for m in re.finditer(r"<link\s[^>]*>", html_text, re.I):
+        tag = m.group(0)
+        rels = (tag_attr(tag, "rel") or "").lower().split()
+        if want in rels:
+            href = tag_attr(tag, "href")
+            if href and href.strip():
+                return html_unescape2(href.strip())
+    return None
+
+
+def absolutise(base_url, href):
+    """Resolve `href` against the article URL and REFUSE anything that is not
+    an http(s) URL with a host.
+
+    Protocol-relative hrefs are normal here — dariknews.bg serves its images
+    as `//m.netinfo.bg/...` — and stored raw they render as a broken image.
+    A cross-ORIGIN host is also normal (every outlet uses a CDN), so the test
+    is that the result parses and has a host, never that it matches the
+    article's own domain."""
+    if not href or not str(href).strip():
+        return None
+    raw = str(href).strip()
+    # C0 controls, DEL and the Unicode line separators are stripped BEFORE the
+    # join, not after: urlsplit drops \t\r\n from the scheme and authority but
+    # leaves every other control byte in the path, and urljoin's cross-scheme
+    # branch returns the argument nearly verbatim — so a NUL or a U+2028 rode
+    # straight through into the stored URL and out into an href.
+    raw = re.sub(r"[\x00-\x20\x7f  ]", "", raw)
+    if not raw:
+        return None
+    try:
+        parts = urlsplit(urljoin(base_url or "", raw))
+    except ValueError:
+        return None
+    if parts.scheme not in ("http", "https") or not parts.netloc:
+        return None
+    # Re-composed from the parsed parts rather than returned as joined, so what
+    # is stored is exactly what was validated.
+    return urlunsplit(parts)
+
+
+# BCP 47 keeps the language subtag first, so "bg-BG", "bg_BG" and "bg" are one
+# language. Anything that is not a plain 2-3 letter subtag is refused rather
+# than truncated — `language` gates the non-Bulgarian quality class, and a
+# garbage value there is worse than an absent one.
+_LANG_RE = re.compile(r"^([A-Za-z]{2,3})(?:[-_][A-Za-z0-9]+)*$")
+
+
+def normalize_lang(raw):
+    if not raw:
+        return None
+    m = _LANG_RE.match(str(raw).strip())
+    return m.group(1).lower() if m else None
+
+
+def html_lang(html_text):
+    m = re.search(r"<html\b[^>]*\blang\s*=\s*[\"']([^\"']+)[\"']",
+                  html_text, re.I)
+    return normalize_lang(m.group(1)) if m else None
+
+
+def _jsonld_image_url(v):
+    """A JSON-LD `image` is a string, an ImageObject, or a list of either."""
+    if v is None:
+        return None
+    if isinstance(v, str):
+        return v.strip() or None
+    if isinstance(v, dict):
+        for k in ("url", "contentUrl"):
+            got = v.get(k)
+            if isinstance(got, str) and got.strip():
+                return got.strip()
+        return None
+    if isinstance(v, list):
+        for item in v:
+            got = _jsonld_image_url(item)
+            if got:
+                return got
+    return None
+
+
+def breadcrumb_path(html_text):
+    """The BreadcrumbList item names, ordered by their declared `position`.
+
+    Document order is NOT the ordering: schema.org states position is what
+    orders the list, and a page emitting the crumbs out of order would
+    otherwise publish a section path that reads backwards. Items without a
+    position keep document order after the positioned ones."""
+    best = []
+    for block in _jsonld_blocks(html_text):
+        for node in _jsonld_nodes(block):
+            if not isinstance(node, dict):
+                continue
+            if not _jsonld_is_type(node, "BreadcrumbList"):
+                continue
+            items = node.get("itemListElement")
+            if not isinstance(items, list):
+                continue
+            rows = []
+            for i, it in enumerate(items):
+                if not isinstance(it, dict):
+                    continue
+                name = _jsonld_str(it.get("name"))
+                if not name:
+                    item = it.get("item")
+                    if isinstance(item, dict):
+                        name = _jsonld_str(item.get("name"))
+                if not name:
+                    continue
+                pos = _position_of(it)
+                rows.append((0 if pos is not None else 1,
+                             pos if pos is not None else float(i), i, name))
+            names = [r[3] for r in sorted(rows, key=lambda r: (r[0], r[1], r[2]))]
+            if len(names) > len(best):
+                best = names
+    return best or None
 
 
 BG_MONTHS = {
@@ -512,6 +695,37 @@ _DAY_ONLY_RE = re.compile(r"^\s*(\d{4}-\d{2}-\d{2}|\d{8})\s*$")
 # Sofia local and shifted by three hours.
 _RFC2822_MINUS_ZERO_RE = re.compile(r"-0000\s*$")
 
+# A bare Unix epoch. `24chasa.bg` emits JSON-LD `"dateModified": 1787689400`,
+# and parse_dt returns None for it — so without this normalize_date falls
+# through to its "keep the site's own string" arm and stores the INTEGER as a
+# date. Nothing downstream can tell that apart from a real timestamp, and the
+# future-skew refusal never sees it either. Bounded to 2000-2100 so an id or a
+# byte count that happens to sit in a date field is refused rather than
+# rendered as a day in 1973.
+_EPOCH_RE = re.compile(r"^\s*(\d{10}|\d{13})\s*$")
+_EPOCH_MIN = 946684800      # 2000-01-01Z
+_EPOCH_MAX = 4102444800     # 2100-01-01Z
+
+
+def _epoch_dt(raw):
+    m = _EPOCH_RE.match(str(raw))
+    if not m:
+        return None
+    n = int(m.group(1))
+    if len(m.group(1)) == 13:
+        n //= 1000
+    if not (_EPOCH_MIN <= n <= _EPOCH_MAX):
+        return _EPOCH_OUT_OF_BAND
+    return datetime.fromtimestamp(n, tz=timezone.utc)
+
+
+# Distinguishes "not an epoch at all" (None — fall through to the other
+# parsers) from "epoch-shaped but not a plausible date". The second must be
+# REFUSED, not kept: normalize_date's fallback arm stores the site's own
+# string, so an out-of-band value came back as the literal "999999999" in a
+# date field — the exact state _epoch_dt exists to end, one branch over.
+_EPOCH_OUT_OF_BAND = object()
+
 
 def normalize_date(raw, now=None):
     """Normalise a publish date to a UTC ISO-8601 string.
@@ -520,6 +734,13 @@ def normalize_date(raw, now=None):
     than losing it), and None when the value is a date we refuse to store."""
     if not raw:
         return None
+    dt = _epoch_dt(raw)
+    if dt is _EPOCH_OUT_OF_BAND:
+        return None
+    if dt is not None:
+        # Already UTC-aware and unambiguous — skip the naive/Sofia arm, but
+        # still go through the future-skew refusal at the foot of the function.
+        return _refuse_future(dt, now)
     dt = fla.parse_dt(raw)
     naive = dt is not None and dt.tzinfo is None
     if dt is None:
@@ -554,6 +775,15 @@ def normalize_date(raw, now=None):
             # two nights a year, which no consumer here can tell apart from
             # ordinary publishing.
             dt = dt.replace(tzinfo=SOFIA_TZ)
+    return _refuse_future(dt, now)
+
+
+def _refuse_future(dt, now=None):
+    """The one future-skew gate, shared by every arm of normalize_date.
+
+    Split out so the epoch arm cannot bypass it — a fast path that returns
+    before this check is how a refusal rule quietly stops applying to one
+    input shape."""
     now = now or datetime.now(timezone.utc)
     if now.tzinfo is None:
         now = now.replace(tzinfo=timezone.utc)
@@ -638,6 +868,60 @@ def extract_record(html_text, domain, url, list_published=None):
     description = (_jsonld_str(ld.get("description"))
                    or metas.get("og:description") or metas.get("description"))
 
+    # `updated` goes through normalize_date like `published` — same Sofia-TZ
+    # anchor, same future-skew refusal. A second date field parsed its own way
+    # is how the first one's bugs come back.
+    updated = next(
+        (d for d in (normalize_date(src) for src in (
+            _jsonld_str(ld.get("dateModified")),
+            metas.get("article:modified_time"),
+            metas.get("og:updated_time")) if src) if d),
+        None)
+    # A lead image resolved against the article URL. og:image first because it
+    # is what the outlet chose for sharing; the JSON-LD image is the fallback.
+    #
+    # ⚠️ Present is not the same as USABLE, and the URL cannot tell you which:
+    # dariknews.bg's og:image is a branding REDIRECTOR
+    # (mm.netinfo.bg/branding/dbrand.php?p=<base64>) and e-vestnik.bg's is the
+    # author's PORTRAIT, not the article photo. Every consumer must survive a
+    # wrong image, not only a missing one.
+    image, image_src = None, None
+    for src_key, raw_img in (("og:image", metas.get("og:image")),
+                             ("twitter:image", metas.get("twitter:image")),
+                             ("twitter:image:src", metas.get("twitter:image:src")),
+                             ("jsonld", _jsonld_image_url(ld.get("image")))):
+        if not raw_img:
+            continue
+        got = absolutise(url, raw_img)
+        if got:
+            image, image_src = got, src_key
+            break
+    # ⚠️ og:image:alt describes og:image and NOTHING ELSE. Taken unconditionally
+    # it captions whichever image won the chain — so a page whose og:image was
+    # unusable and fell through to the JSON-LD one got the alt text of the
+    # image we did not store, which is a wrong caption rather than a missing
+    # one.
+    image_alt = metas.get("og:image:alt") if image_src == "og:image" else None
+    # The site's own canonical is a CLAIM; canonical_url() is the identity we
+    # key on. Both are stored — a disagreement is a signal (syndication, a
+    # redirect chain), not an error, and collapsing them loses it.
+    canonical = absolutise(url, parse_link_rel(html_text, "canonical")
+                           or metas.get("og:url"))
+    language = (html_lang(html_text)
+                or normalize_lang(metas.get("og:locale"))
+                or normalize_lang(_jsonld_str(ld.get("inLanguage"))))
+    # ⚠️ The last crumb is the ARTICLE, not a section, on most sites that emit
+    # one at all (measured: 6 of the 11 fixtures carrying a breadcrumb). Kept,
+    # it makes every article its own leaf section, so grouping by section_path
+    # yields one bucket per article — the field would be useless for exactly
+    # the thing it exists for. Dropped only when it actually matches the
+    # headline, so a real leaf section is never lost.
+    section_path = breadcrumb_path(html_text)
+    if section_path and title and len(section_path) > 1 \
+            and _norm_for_compare(section_path[-1]) == _norm_for_compare(title):
+        section_path = section_path[:-1]
+    tags = parse_meta_all(html_text, "article:tag")
+
     paras, headings = extract_body(html_text)
     content = _jsonld_str(ld.get("articleBody")) or ("\n\n".join(paras) or None)
 
@@ -658,6 +942,13 @@ def extract_record(html_text, domain, url, list_published=None):
         "keywords": keywords or None,
         "description": description or None,
         "site_name": site_name or None,
+        "image": image,
+        "image_alt": image_alt or None,
+        "canonical": canonical,
+        "language": language,
+        "section_path": section_path,
+        "tags": tags or None,
+        "updated": updated,
         "content": content,
         "content_chars": len(content) if content else 0,
         "fetched_at": datetime.now(timezone.utc).isoformat(),
@@ -1986,10 +2277,126 @@ def cmd_intake_report(stale_after_days=7):
             alerts.append({"domain": domain, "alert": "retry_backlog",
                            "detail": f"{row['retry_queued']} URLs queued for "
                                      f"retry and not draining"})
+    fields = field_coverage()
+    # A field added to extract_record only reaches records saved AFTER it, and
+    # --reextract can only repair the domains that still have a cached page.
+    # So the corpus sits at a partial fill for as long as it takes every
+    # domain to be re-crawled — which is fine, and invisible unless it is
+    # counted. Reported as a number rather than left as a hole somebody
+    # eventually notices in the UI.
+    for key, cov in (sorted(fields.get("fields", {}).items())
+                     if fields.get("records") else ()):
+        if key not in EXTRACTOR_ROLLOUT_FIELDS:
+            # A field the SOURCE supplies (author, published…) is partial
+            # forever — 17 domains publish no byline and never will — so
+            # alerting on it means 8 alerts on every clean run, which is how
+            # an alert list stops being read. Their fill rates are still in
+            # `field_coverage`; only the ones a re-extract is supposed to
+            # bring to 100% can raise an alert.
+            continue
+        if not cov["filled"]:
+            # ⚠️ A separate alert, not a 0% case of the one below. A field the
+            # extractor emits and NO record carries is a backfill that never
+            # ran — and gating the partial alert on `filled` (as the first cut
+            # did) makes exactly that state the one thing it cannot report.
+            alerts.append({
+                "domain": None, "alert": "field_never_filled",
+                "detail": (f"{key}: 0 of {fields['records']} records carry it. "
+                           f"If extract_record emits this field, no record has "
+                           f"been re-extracted since it was added.")})
+        elif cov["domains_absent"]:
+            alerts.append({
+                "domain": None, "alert": "field_partial",
+                "detail": (f"{key}: {cov['filled']}/{fields['records']} records "
+                           f"({cov['pct']}%), absent on all records of "
+                           f"{cov['domains_absent']} of {fields['domains']} "
+                           f"domains — re-crawl or --reextract those")})
     return {"domain": None, "mode": "intake-report",
             "generated_at": now_iso(),
             "domains": len(rows), "stale_after_days": stale_after_days,
+            "field_coverage": fields,
             "alerts": alerts, "rows": rows}
+
+
+# Record keys whose fill rate is worth reporting. Deliberately the metadata
+# fields rather than every key: `domain`/`url`/`fetched_at` are structural and
+# a 100% row for them is noise.
+REPORTED_FIELDS = ("title", "published", "description", "content", "author",
+                   "image", "canonical", "language", "section_path", "tags",
+                   "updated")
+
+# The subset extract_record derives from the PAGE STRUCTURE rather than from a
+# value the source may simply not publish. A domain at 0% on one of these has
+# not been re-extracted since the field was added — an actionable state — while
+# a domain at 0% on `author` just has no bylines. Only these raise alerts.
+EXTRACTOR_ROLLOUT_FIELDS = frozenset({
+    "image", "canonical", "language", "section_path", "tags", "updated"})
+
+
+def field_coverage():
+    """Per-field fill across the stored corpus, and how many domains have the
+    field on NO record at all.
+
+    The second number is the one that matters: a field at 60% could be 60% of
+    every domain (the source sometimes omits it) or 100% of six domains and 0%
+    of the rest (the others have not been re-crawled since it was added).
+    Those are different problems and the percentage cannot tell them apart.
+
+    Population: the SERVING corpus only. `_`-prefixed directories (the html
+    cache, the quarantine, the state dir) and `analysis/` are excluded, so
+    `records` here is deliberately smaller than the sum of `rows[].stored`,
+    which counts quarantined articles too. Re-extracting reaches the
+    quarantine; this report does not describe it, because a quarantined
+    source's fill rate is not a signal anyone acts on.
+
+    Cost: this parses every stored record, which is the full-corpus scan
+    `stored_index_path` exists to avoid in the SAVE path. Measured 2026-08-26
+    at 4,366 records: 0.86 s. Acceptable because --intake-report runs once per
+    sweep rather than twice per domain, and because the index it would
+    otherwise read carries only URLs, not field values. Revisit past ~50k
+    records, where a per-domain field summary in the index would be the fix."""
+    filled = {k: 0 for k in REPORTED_FIELDS}
+    per_domain = {}
+    total = 0
+    unreadable = 0
+    if not DATA_DIR.is_dir():
+        return {"records": 0, "domains": 0, "unreadable": 0, "fields": {}}
+    for child in sorted(DATA_DIR.iterdir()):
+        if not child.is_dir() or child.name.startswith("_") \
+                or child.name == "analysis":
+            continue
+        seen = {k: 0 for k in REPORTED_FIELDS}
+        n = 0
+        for path in child.glob("*.json"):
+            try:
+                rec = json.loads(path.read_text(encoding="utf-8"))
+            # ⚠️ UnicodeDecodeError is NOT an OSError and NOT a
+            # JSONDecodeError. Omitted from this tuple, one mis-encoded record
+            # took `--intake-report` — the artifact that exists so an
+            # unattended run can say what it did — to exit 1 with empty
+            # stdout. Same rule read_retired_domains already follows.
+            except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+                unreadable += 1
+                continue
+            if not isinstance(rec, dict) or "url" not in rec:
+                continue
+            n += 1
+            for k in REPORTED_FIELDS:
+                if rec.get(k):
+                    seen[k] += 1
+                    filled[k] += 1
+        if n:
+            total += n
+            per_domain[child.name] = seen
+    out = {}
+    for k in REPORTED_FIELDS:
+        out[k] = {
+            "filled": filled[k],
+            "pct": round(100 * filled[k] / total, 1) if total else 0.0,
+            "domains_absent": sum(1 for d in per_domain.values() if not d[k]),
+        }
+    return {"records": total, "domains": len(per_domain),
+            "unreadable": unreadable, "fields": out}
 
 
 # --------------------------------------------------------------------- main

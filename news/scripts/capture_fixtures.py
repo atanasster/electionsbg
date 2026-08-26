@@ -280,6 +280,38 @@ def capture(entry, refresh=False, refresh_network=False):
     return source, path.stat().st_size
 
 
+# The record keys whose value is a property of the frozen page rather than a
+# judgement about it, so they are re-derived on capture instead of seeded.
+FIELD_KEYS = ("image", "image_alt", "canonical", "language", "section_path",
+              "tags", "updated")
+
+FIELD_NOTES = {
+    "why_exact": (
+        "expect_fields pins EXACT values, not truthiness. A truthiness gate "
+        "passes on a relative URL stored raw, a truncated language tag and a "
+        "reversed breadcrumb list — the regressions these fields are prone to."),
+    "language_is_declared_not_detected": (
+        "jsonld_empty_body__24chasa and not_article__section_page declare "
+        "lang=\"en\" while publishing Bulgarian (verified in the frozen HTML). "
+        "`language` records what the page SAYS. It must never gate the "
+        "non-Bulgarian quality class on its own."),
+    "image_present_is_not_image_usable": (
+        "not_article__section_page and known_gap__listing_page resolve to the "
+        "SITE LOGO, and known_gap__terms_page to nothing at all. Consumers "
+        "must survive a wrong image, not only a missing one."),
+    "epoch_dates": (
+        "jsonld_empty_body__24chasa emits dateModified as a bare Unix epoch. "
+        "Before normalize_date grew _epoch_dt it was stored verbatim as the "
+        "string '1787689400', which nothing downstream could tell from a real "
+        "timestamp."),
+}
+
+
+def read_fixture(path):
+    with gzip.open(path, "rt", encoding="utf-8") as f:
+        return f.read()
+
+
 def write_fixture(path, html):
     """Atomic, like every other writer in this pipeline. A fixture half-written
     by an interrupted capture is a corrupt gzip that reads as a regression."""
@@ -300,6 +332,12 @@ def main():
                     help="deliberately re-fetch from the network. NOT safe for "
                          "a browser_render_scrape domain, which a plain HTTP "
                          "client cannot fetch at all")
+    ap.add_argument("--rebaseline-fields", action="store_true",
+                    help="accept the metadata a fixture NOW extracts as the "
+                         "new expectation. Without it a changed value is "
+                         "reported and the old one kept, so an extractor "
+                         "regression cannot be recorded as truth by the "
+                         "command the failure message tells you to run.")
     ap.add_argument("--list", action="store_true")
     args = ap.parse_args()
 
@@ -345,9 +383,50 @@ def main():
             print(f"  {name}: {why}", file=sys.stderr)
         return 1
 
+    # The metadata fields are DERIVED from the frozen page, not hand-seeded:
+    # what `og:image` or the breadcrumb list says is a property of the HTML,
+    # so re-reading it here is a re-measurement rather than a re-baseline. The
+    # gate bands above stay in the seed because those encode a judgement.
+    #
+    # ⚠️ Pinned EXACTLY, never as truthiness. A "the field is set" assertion
+    # passes on a relative URL stored raw, a truncated language tag and a
+    # breadcrumb list in reverse order — the three regressions these fields
+    # are actually prone to.
+    #
+    # ⚠️ REFUSES to move an existing expectation unless asked. A plain run
+    # re-derives all 18 — so adding ONE fixture silently re-baselined every
+    # other one, and an extractor regression would be recorded as the new
+    # truth by the very command the failure message tells you to run. New
+    # fixtures are filled in; changed ones are reported and left alone until
+    # --rebaseline-fields says the change is intended.
+    rebaseline_fields = args.rebaseline_fields
+    prior = {e["name"]: e.get("expect_fields")
+             for e in load_manifest().get("fixtures", [])}
+    moved = []
+    for entry in kept:
+        html = read_fixture(fixture_path(entry["name"]))
+        rec, _ = sa.extract_record(html, entry["domain"], entry["url"])
+        fresh = {k: rec.get(k) for k in FIELD_KEYS}
+        was = prior.get(entry["name"])
+        if was is not None and was != fresh and not rebaseline_fields:
+            moved.append((entry["name"],
+                          sorted(k for k in FIELD_KEYS
+                                 if was.get(k) != fresh.get(k))))
+            entry["expect_fields"] = was
+        else:
+            entry["expect_fields"] = fresh
+    if moved:
+        print(f"\n⚠️  {len(moved)} fixture(s) extract DIFFERENT metadata than "
+              f"the manifest records. Kept the old values — re-run with "
+              f"--rebaseline-fields only if the change is intended:",
+              file=sys.stderr)
+        for name, keys in moved:
+            print(f"  {name}: {', '.join(keys)}", file=sys.stderr)
+
     tmp = MANIFEST.with_suffix(".json.tmp")
     tmp.write_text(
-        json.dumps({"fixtures": kept}, ensure_ascii=False, indent=2) + "\n",
+        json.dumps({"fixtures": kept, "field_notes": FIELD_NOTES},
+                   ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8")
     tmp.replace(MANIFEST)
     print(f"\n{len(kept)} fixtures, {total/1024/1024:.1f} MB total -> "
