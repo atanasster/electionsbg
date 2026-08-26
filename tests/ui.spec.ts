@@ -621,11 +621,17 @@ const HUB_HEAD_BUDGETS: {
   // control and an evidence aside, which is why it sits in the /parliament band rather than the
   // 360 one.
   //
-  // ⚠️ If this trips, do NOT shorten the band's captions first. Two of them are load-bearing
-  // sentences rather than labels: the declaration cell's „не е мярка за спазване на закона" is
+  // ⚠️ If this trips, do NOT shorten the band's captions first. One of them is a load-bearing
+  // sentence rather than a label: the declaration cell's „не е мярка за спазване на закона" is
   // the only thing standing between „С декларация 15%" and an accusation against ~10.7k village
-  // mayors who were never required to file, and „по филтрите, не по търсенето" is what stops a
-  // corpus rate being read as a property of the search results. Check for a fifth cell instead.
+  // mayors who were never required to file. Check for a fifth cell instead.
+  //
+  // ⚠️ AND THE BUDGET IS MEASURED WITH NO `?q`, which is now the only state that HAS a band.
+  // The three rate cells are facet-derived and `/api/db/facets` has no free-text parameter, so
+  // under a search they went on describing the filtered corpus while „Лица" moved — captioning
+  // them „ПО ФИЛТРИТЕ, НЕ ПО ТЪРСЕНЕТО" did not fix it, and the band (with the evidence aside
+  // and the mix bar) is withheld whole instead. So a `?q` path added here asserts 0 cells, not
+  // 4. See `personsKpiBasis.ts`.
   //
   // 469 px measured 2026-08-26 at 1280 — identity + deck + scope + a full search field with its
   // hint and example chips + a 4-cell band, with the evidence aside beside the identity column
@@ -736,6 +742,47 @@ const HUB_HEAD_BUDGETS: {
   // fill the identity column beside it, so unlike the sibling hubs the ASIDE drives the
   // height here.
   { path: "/indicators", maxPx: 540, measured: 459, cells: 4 },
+  // Identity + deck + a 4-cell band + a note, and no scope control, no search slot and no
+  // evidence aside. Like /indicators the `?elections` selector in the site header is what
+  // moves these figures, so the head carries no pill of its own.
+  //
+  // ⚠️ THE NARROWEST BAND HEAD IN THE TREE, and the captions are why it is not narrower
+  // still. Two of the four cells are claims about ELECTORAL INTEGRITY — „6" sections in the
+  // risk score's critical band and „4" parties off the Benford curve — and each basis
+  // carries what the figure is NOT: „места, които заслужават поглед, не установени
+  // нарушения" and „тестът бракува и чисти данни, затова това НЕ е доказателство за
+  // фалшификация". The second is the destination page's own caveat; without it a band cell
+  // makes a stronger claim about named parties than the page it links to does. If this
+  // trips, check for a fifth cell — never shorten those two.
+  //
+  // ⚠️ AND THE RISK BASIS MUST NOT SAY „процедурни". That word names the party-blind
+  // SUB-score in this repo, while the figure is the composite over both signal families —
+  // see analysisHubFigures.ts's header and risk_score.ts's circularity warning.
+  //
+  // ⚠️ `cells: 4` IS THE DEFAULT ELECTION'S COUNT, not a constant. A cell is withheld when
+  // the selected cycle's payload lacks that stat, and that is not hypothetical:
+  // data/2005_06_25/analysis_stats.json carries no `persistence`, so that cycle is 3. This
+  // gate runs on the latest election, which carries all four — so if the count comes in
+  // short, check whether the `?elections` default moved before looking for a code change.
+  //
+  // 320 px measured 2026-08-26 at 1280 (1265 clientWidth after the scrollbar).
+  { path: "/parliamentary/analysis", maxPx: 420, measured: 320, cells: 4 },
+  // The sibling hub, sharing one band module and one note with /parliamentary/analysis.
+  //
+  // ⚠️ TWO CELLS, NOT FOUR, AND THAT IS THIS HUB'S OWN SIZE — declaring 4 is a gate that
+  // cannot pass. The band is built from THIS hub's registry, and only `risk` and `turnout`
+  // have a headline number at all; padding it from the analysis payload would be a band
+  // describing a different page. `risk` also points at /risk-score here and /risk-analysis
+  // there, which is why the destinations are not in the shared module.
+  //
+  // ⚠️ 319 px, EIGHT MORE THAN the four-cell hub's — a two-cell band is not a shorter head.
+  // Its deck runs three lines to the analyses hub's two, and the deck's third line is the
+  // „а където изборът има такива данни" clause, which is there because both the recount and
+  // the machine-memory families are `requires`-gated: measured over the 13 parliamentary
+  // cycles, `hasRecount` is true on ONE (2024_10_27) and false on the default 2026_04_19,
+  // and `hasSuemg` on seven. Without the clause the deck names a report family that is not
+  // on the page a reader lands on. Measured 2026-08-26 at 1280.
+  { path: "/parliamentary/reports", maxPx: 400, measured: 319, cells: 2 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {

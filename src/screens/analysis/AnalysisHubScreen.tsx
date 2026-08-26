@@ -8,10 +8,20 @@
 // analysis's headline number for the selected election from the pre-generated
 // analysis_stats.json (one fetch), then routes to the analysis's own screen.
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
-import { TileHubGrid, TileHubSection, FeaturedStrip } from "@/ux/infographic";
+import {
+  FeaturedStrip,
+  HubHead,
+  TileHubGrid,
+  TileHubSection,
+} from "@/ux/infographic";
+import {
+  ANALYSIS_BAND,
+  analysisHubKpis,
+  analysisKpiNote,
+  promotedStats,
+} from "./analysisHubFigures";
 import {
   useAnalysisStats,
   formatAnalysisMetric,
@@ -25,8 +35,35 @@ import { REPORT_SCENES } from "@/screens/reports/hub/reportsHubScenes";
 export const AnalysisHubScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const stats = useAnalysisStats();
-  const title = t("analysis_hub_title");
   const cta = t("analysis_hub_view");
+
+  // statId → the tile that fronts it, so the band can label and link each cell from THIS
+  // hub's own registry rather than restating it. A stat with no tile here gets no cell.
+  const byStat = useMemo(
+    () =>
+      new Map(
+        ANALYSIS_CLUSTERS.flatMap((c) =>
+          c.analyses.flatMap((a) => (a.statId ? [[a.statId, a] as const] : [])),
+        ),
+      ),
+    [],
+  );
+  const kpis = useMemo(
+    () =>
+      analysisHubKpis({
+        band: ANALYSIS_BAND,
+        stats,
+        format: (st) => formatAnalysisMetric(st, i18n.language),
+        formatInt: (n) => n.toLocaleString(i18n.language),
+        labelOf: (id) => t(byStat.get(id)?.titleKey ?? id),
+        hrefOf: (id) => byStat.get(id)?.to,
+        t,
+      }),
+    [stats, i18n.language, byStat, t],
+  );
+  // DERIVED from the cells that rendered — an early cycle carries fewer analyses, and a
+  // constant list would blank the tile of a stat whose cell was withheld.
+  const promoted = useMemo(() => promotedStats(kpis), [kpis]);
 
   const sections: TileHubSection[] = ANALYSIS_CLUSTERS.map((cluster) => ({
     heading: t(cluster.labelKey),
@@ -39,15 +76,29 @@ export const AnalysisHubScreen: FC = () => {
         accent: a.accent,
         scene: ANALYSIS_SCENES[a.id],
         cta,
-        metric: formatAnalysisMetric(stat, i18n.language),
-        metricCaption: analysisMetricCaption(stat, t, i18n.language),
+        // §3.1 rule 5 — a figure is the band's OR the tile's, never both. A promoted tile
+        // renders bare: `InfographicTile` guards its caption behind the metric, so a lone
+        // caption would render nothing at all.
+        ...(a.statId && promoted.has(a.statId)
+          ? {}
+          : {
+              metric: formatAnalysisMetric(stat, i18n.language),
+              metricCaption: analysisMetricCaption(stat, t, i18n.language),
+            }),
       };
     }),
   }));
 
   return (
     <>
-      <Title description={t("analysis_hub_seo_description")}>{title}</Title>
+      <HubHead
+        eyebrow={t("analysis_head_eyebrow")}
+        title={t("analysis_head_title")}
+        seoDescription={t("analysis_hub_seo_description")}
+        deck={t("analysis_head_deck")}
+        kpis={kpis}
+        kpiNote={analysisKpiNote(kpis, t)}
+      />
 
       <div data-og="analysis-hub">
         <TileHubGrid sections={sections} className="mt-4 sm:mt-6" />
@@ -72,8 +123,18 @@ export const AnalysisHubScreen: FC = () => {
             accent: r.accent,
             scene: REPORT_SCENES[r.id],
             cta: t("reports_hub_view"),
-            metric: formatAnalysisMetric(stat, i18n.language),
-            metricCaption: analysisMetricCaption(stat, t, i18n.language),
+            // ⚠️ RULE 5 REACHES THIS STRIP TOO, and it is the easy half to miss: the
+            // featured `riskScore` report carries `statId: "risk"` — the SAME figure the
+            // band promotes — so without this „6" printed twice on one page, once under
+            // „Анализ на изборния риск" pointing at /risk-analysis and once under „Рисков
+            // скор" pointing at /risk-score. Two labels and two destinations for one number
+            // is worse than a plain duplicate.
+            ...(r.statId && promoted.has(r.statId)
+              ? {}
+              : {
+                  metric: formatAnalysisMetric(stat, i18n.language),
+                  metricCaption: analysisMetricCaption(stat, t, i18n.language),
+                }),
           };
         })}
       />

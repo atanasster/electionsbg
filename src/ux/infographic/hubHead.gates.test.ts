@@ -86,6 +86,13 @@ import {
   promotedIndicators,
   type IndicatorPoint,
 } from "@/screens/indicators/indicatorsHubFigures";
+import {
+  ANALYSIS_BAND,
+  REPORTS_BAND,
+  analysisHubKpis,
+  promotedStats,
+} from "@/screens/analysis/analysisHubFigures";
+import type { AnalysisStat } from "@/data/analysis/useAnalysisStats";
 import { AGRI_STATS_FIXTURE } from "@/screens/subsidies/subsidiesHubStats.fixture";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
@@ -131,6 +138,9 @@ const HUB_SCREENS = [
   "src/screens/culture/cultureHubFigures.ts",
   "src/screens/governance/sectorsHubFigures.ts",
   "src/screens/indicators/indicatorsHubFigures.ts",
+  // ONE module, TWO hubs — /parliamentary/analysis and /parliamentary/reports read one
+  // payload through one pair of helpers and their `risk` cell is literally the same figure.
+  "src/screens/analysis/analysisHubFigures.ts",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
@@ -774,6 +784,82 @@ describe("hub head — the band and the tiles are disjoint", () => {
       expect(BAND_INDICATORS).toContain(
         r.id as (typeof BAND_INDICATORS)[number],
       );
+  });
+
+  /** Verbatim from data/2026_04_19/analysis_stats.json, read 2026-08-26. */
+  const ANALYSIS_STATS_FIXTURE: Record<string, AnalysisStat> = {
+    risk: { kind: "count", value: 6, total: 12705, captionKey: "risk_c" },
+    benford: { kind: "count", value: 4, captionKey: "benford_c" },
+    wasted: { kind: "percent", value: 18.02, captionKey: "wasted_c" },
+    persistence: { kind: "percent", value: 43.15, captionKey: "pers_c" },
+    polls: { kind: "score", value: 1.76, captionKey: "polls_c" },
+    turnout: { kind: "percent", value: 50.7, captionKey: "turnout_c" },
+  };
+  const analysisBand = (
+    spec = ANALYSIS_BAND,
+    hrefOf: (s: string) => string = (s) => `/a/${s}`,
+  ) =>
+    analysisHubKpis({
+      band: spec,
+      stats: ANALYSIS_STATS_FIXTURE,
+      format: (st) => (st ? String(st.value) : undefined),
+      formatInt: (n) => String(n),
+      labelOf: (s) => `title:${s}`,
+      hrefOf,
+      t: id,
+    });
+
+  it("no /parliamentary/analysis KPI figure is also a tile metric", () => {
+    const kpis = analysisBand();
+    expect(kpis.length, "the analysis fixture produced no KPI cells").toBe(4);
+    // Every cell displaces exactly one tile — the band carries no sum here, unlike
+    // /governance/sectors, so each figure belongs to one analysis.
+    expect([...promotedStats(kpis)].sort()).toEqual(
+      ANALYSIS_BAND.map((b) => b.statId).sort(),
+    );
+    for (const c of kpis)
+      expect(
+        promotedStats([c]).size,
+        `${c.to} (${c.value}) displaces no tile`,
+      ).toBe(1);
+    expect(
+      new Set(kpis.map((k) => k.value)).size,
+      "two analysis KPI cells render the same string",
+    ).toBe(kpis.length);
+  });
+
+  it("no two /parliamentary/analysis KPI cells share a destination", () => {
+    const tos = analysisBand().map((k) => k.to);
+    expect(tos.length).toBe(4);
+    expect(
+      new Set(tos).size,
+      `duplicate analysis KPI destination in ${tos.join(", ")}`,
+    ).toBe(tos.length);
+  });
+
+  it("⚠️ the SAME stat takes a DIFFERENT destination on each of the two hubs", () => {
+    // `risk` fronts /risk-analysis on the analyses hub and /risk-score on the reports hub, so
+    // `BandStat` deliberately carries no `to` and each screen supplies `hrefOf` from its own
+    // registry. A destination baked into the shared module would be right for one hub and
+    // silently wrong for the other.
+    const onAnalysis = analysisBand(ANALYSIS_BAND, () => "/risk-analysis")[0];
+    const onReports = analysisBand(REPORTS_BAND, () => "/risk-score")[0];
+    expect(onAnalysis.statId).toBe("risk");
+    expect(onReports.statId).toBe("risk");
+    expect(onAnalysis.value).toBe(onReports.value);
+    // …and the CAPTION is identical, because it is one figure. Two basis keys would be two
+    // ways to caption one number, and the weaker one would eventually win.
+    expect(onAnalysis.basis).toBe(onReports.basis);
+    expect(onAnalysis.to).not.toBe(onReports.to);
+  });
+
+  it("/parliamentary/reports carries a TWO-cell band, which is its honest size", () => {
+    // Only `risk` and `turnout` have a headline number in that hub's registry. Padding from
+    // the analysis payload would be a band describing a different page — and the note is
+    // shared with the four-cell hub, so it counts nothing.
+    const kpis = analysisBand(REPORTS_BAND);
+    expect(kpis.map((k) => k.statId)).toEqual(["risk", "turnout"]);
+    expect([...promotedStats(kpis)].sort()).toEqual(["risk", "turnout"]);
   });
 
   it("no two /budget KPI cells share a destination", () => {

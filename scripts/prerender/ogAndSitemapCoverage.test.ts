@@ -901,6 +901,8 @@ describe("a hub's og capture anchors on its head", () => {
     "culture-hub": "src/screens/culture/CultureHubScreen.tsx",
     "governance-sectors": "src/screens/governance/GovernanceSectorsScreen.tsx",
     indicators: "src/screens/indicators/IndicatorsLandingScreen.tsx",
+    "analysis-hub": "src/screens/analysis/AnalysisHubScreen.tsx",
+    "reports-hub": "src/screens/reports/hub/ReportsHubScreen.tsx",
   };
 
   /** Sub-page heads that DO ship a card, slug → the screen behind it.
@@ -971,8 +973,22 @@ describe("a hub's og capture anchors on its head", () => {
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
   const NOT_YET: Record<string, string> = {
-    // EMPTY AGAIN as of 2026-08-26, having been used THREE times that day and paid off
-    // every time within a commit — which is the pattern this map is for.
+    // ⚠️ BOTH ARE THE `governance-sectors` / `indicators` SHAPE — the card IS shot from the
+    // right page and only the ANCHOR is the tile grid, so both are paid by re-anchoring on
+    // `[data-hub-head]` and re-shooting, not by a new slug. Booked here rather than paid in
+    // this commit because the head landed in step 1 and the cards are step 3's work.
+    //
+    // ⚠️ AND THEY GOT WORSE, not merely unchanged, which is why they are named rather than
+    // left silent: both cards lead with tile fronts whose FIGURES this step deliberately
+    // removed (§3.1 rule 5 — the promoted analyses now render bare tiles), so until the
+    // re-shoot each card depicts a grid of numberless tiles instead of the band that took
+    // those numbers.
+    "analysis-hub":
+      "anchors on the tile grid; the four promoted tiles are now bare — re-anchor on the head and re-shoot",
+    "reports-hub":
+      "anchors on the tile grid; both promoted tiles are now bare — re-anchor on the head and re-shoot",
+    // Emptied on 2026-08-26 after being used THREE times that day and paid off every time
+    // within a commit — which is the pattern this map is for.
     //
     //   `culture` — /culture had a head and no card of its own: `/og/culture.png` is shot
     //   from /culture/subsidies and was shared by SIX routes, so the hub's card depicted
