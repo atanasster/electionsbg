@@ -177,3 +177,120 @@ describe("ScopeControl", () => {
     );
   });
 });
+
+// A picker with NO years in it. `/governance/declarations` is sliced by
+// PARLIAMENT — 2024 held two, so no calendar year names one slice — and passes
+// `years={[]}`, leaving "all" as the only option. Both of the picker's default
+// words then name a dimension it does not offer: the trigger says „Години" and
+// its sole item says „Всички години", on a register whose spans are parliaments.
+// Nothing else on the page contradicts either, so the reader is told the register
+// is sliced by year and simply cannot find the years.
+//
+// ⚠️ These assert on i18n KEYS, not on Bulgarian. The suite mounts an
+// untranslated i18n, so `t("procurement_scope_all_years")` returns the key
+// itself — a truthy string, so the `|| "All years"` fallbacks never fire either.
+// Asserting `not.toContain("Всички години")` therefore passes against BOTH
+// implementations and proves nothing; the key is the only value that actually
+// discriminates here.
+describe("a picker with no years", () => {
+  const DECL_YEARS_LABEL = "Всички парламенти";
+  const scopeFromUrl = (url: string): Scope =>
+    (new URLSearchParams(url.split("?")[1] ?? "").get("pscope") as Scope) ||
+    "ns";
+  const YEARS_KEY = "procurement_scope_years";
+  const ALL_YEARS_KEY = "procurement_scope_all_years";
+
+  // CONTROLLED, like the real call site. An uncontrolled <ScopeControl years={[]}>
+  // re-reads `?pscope` through its own bare useScope() and resolves it against the
+  // FULL corpus band, so `y:2019` paints „2019" on a register with no year slices
+  // while the page counts the selected parliament. Writing the fixture uncontrolled
+  // would bake that shape into the suite as the reference usage.
+  const declarations = (url: string, scope?: Scope) =>
+    render(
+      <ScopeControl
+        years={[]}
+        allowAll
+        value={
+          scope ??
+          resolveScope(scopeFromUrl(url), { years: [], allowAll: true })
+        }
+        onChange={() => {}}
+        nsLabelOverride="Този парламент"
+        yearsLabelOverride={DECL_YEARS_LABEL}
+      />,
+      { wrapper: at(url) },
+    );
+
+  it("labels the picker with the override, not „Години“", () => {
+    declarations("/governance/declarations");
+    // The placeholder — what shows while the ns pill is the active one.
+    expect(picker().textContent).toContain(DECL_YEARS_LABEL);
+    expect(picker().textContent).not.toContain(YEARS_KEY);
+    expect(picker()).toHaveAccessibleName(DECL_YEARS_LABEL);
+  });
+
+  it("labels the SELECTED scope with it too", () => {
+    // The half a placeholder-only fix misses: with ?pscope=all the trigger stops
+    // showing the placeholder and renders the active label instead, which was
+    // still the hard-coded „Всички години".
+    declarations("/governance/declarations?pscope=all");
+    expect(picker().textContent).toContain(DECL_YEARS_LABEL);
+    expect(picker().textContent).not.toContain(ALL_YEARS_KEY);
+  });
+
+  it("leaves „Всички години“ alone when the picker HAS years", () => {
+    // The override names the year KIND for a caller that has years, so reusing it
+    // for the aggregate would print that kind where "all of them" belongs. This is
+    // the mutation check on the `yearList.length === 0` condition: delete it and
+    // this fails while both tests above still pass.
+    render(
+      <ScopeControl
+        years={AGRI_YEARS}
+        allowAll
+        nsLabelOverride="Последна година"
+        yearsLabelOverride="Финансови години"
+      />,
+      { wrapper: at("/subsidies?pscope=all") },
+    );
+    expect(picker().textContent).toContain(ALL_YEARS_KEY);
+    expect(picker().textContent).not.toContain("Финансови години");
+  });
+  it("does not stutter when the override IS the only option", () => {
+    // Here the override and the selected label are the same words, so appending the
+    // value unconditionally announces „Всички парламенти: Всички парламенти". Which of
+    // the two scopes is live is carried by the PILL's `aria-pressed`, not by this
+    // trigger, so the label has nothing to add in that case.
+    declarations("/governance/declarations?pscope=all");
+    expect(picker()).toHaveAccessibleName(DECL_YEARS_LABEL);
+  });
+
+  it("announces the SELECTED YEAR on a picker that has years", () => {
+    // `aria-label` overrides the trigger's content, so a bare dimension word announces
+    // identically in every scope: on /culture?pscope=y:2024 the trigger reads „2024"
+    // and used to announce „Години", i.e. the one fact a non-sighted reader needs was
+    // the one suppressed.
+    render(<ScopeControl years={CULTURE_YEARS} allowAll={false} />, {
+      wrapper: at("/culture?pscope=y:2024"),
+    });
+    expect(picker().getAttribute("aria-label")).toContain("2024");
+  });
+
+  it("renders NO picker at all when there is nothing to pick", () => {
+    // `years={[]}` is a supported shape now, so `allowAll={false}` beside it would
+    // otherwise give a focusable trigger opening an empty popover.
+    render(
+      <ScopeControl
+        years={[]}
+        allowAll={false}
+        value="ns"
+        onChange={() => {}}
+        nsLabelOverride="Този парламент"
+      />,
+      { wrapper: at("/governance/declarations") },
+    );
+    expect(screen.queryByRole("combobox")).toBeNull();
+    expect(
+      screen.getByRole("button", { name: "Този парламент" }),
+    ).toBeInTheDocument();
+  });
+});

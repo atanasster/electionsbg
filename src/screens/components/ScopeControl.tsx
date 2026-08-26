@@ -63,6 +63,20 @@ interface Props {
   // Override the "this parliament" pill label (e.g. "Latest year" for datasets
   // with no per-parliament slice). Defaults to the procurement wording.
   nsLabelOverride?: string;
+  // Override the picker's own label — the trigger placeholder and its aria-label.
+  // Defaults to „Години"/"Years", which is the right word only while the picker
+  // actually offers years. A caller passing `years={[]}` (the declarations
+  // register is sliced by PARLIAMENT — 2024 held two, so no calendar year names
+  // one slice) leaves a control whose only option is "all years" advertising a
+  // year dimension it does not have.
+  //
+  // ⚠️ It ALSO replaces the "All years" wording, but ONLY when `years` is empty.
+  // That is the case where "all" is the picker's sole option, so the override IS
+  // the picker and the two labels cannot disagree. With years present it stays
+  // „Всички години": an override there names the year KIND ("Fiscal years"), and
+  // reusing it for the aggregate would print that kind where "all of them"
+  // belongs.
+  yearsLabelOverride?: string;
   // Hide the "All years" option. For datasets read one year at a time (the
   // judiciary caseload is a per-year snapshot with no cross-year aggregate),
   // offering it would select a scope the page cannot render. Defaults to true, so
@@ -79,6 +93,7 @@ export const ScopeControl: FC<Props> = ({
   onChange,
   years,
   nsLabelOverride,
+  yearsLabelOverride,
   allowAll = true,
 }) => {
   const { t, i18n } = useTranslation();
@@ -130,17 +145,29 @@ export const ScopeControl: FC<Props> = ({
   }
 
   const nsActive = scope === "ns";
+  // Nothing to pick — `years={[]}` is a supported shape now, so the combination with
+  // `allowAll={false}` would otherwise render a focusable trigger opening an empty
+  // popover. No caller does this today; the guard keeps it that way.
+  const hasOptions = allowAll || yearList.length > 0;
   const nsLabel =
     nsLabelOverride ??
     (t("procurement_scope_this_ns") || "This parliament") +
       (electionLabel ? ` · ${electionLabel}` : "");
+  const yearsLabel =
+    yearsLabelOverride ?? (t("procurement_scope_years") || "Years");
+  // See `yearsLabelOverride`: the override stands in for "All years" only when it
+  // is the picker's whole span.
+  const allLabel =
+    yearsLabelOverride && yearList.length === 0
+      ? yearsLabelOverride
+      : t("procurement_scope_all_years") || "All years";
   // The trigger's own label, rather than whichever <SelectItem> happens to match
   // — the whole point of the header note. `undefined` for "ns" so Radix falls
   // through to the placeholder.
   const activeLabel = nsActive
     ? undefined
     : scope === "all"
-      ? t("procurement_scope_all_years") || "All years"
+      ? allLabel
       : String(scopeYear(scope));
 
   return (
@@ -163,40 +190,51 @@ export const ScopeControl: FC<Props> = ({
         >
           {nsLabel}
         </button>
-        <Select
-          // "ns" has no matching item → Radix shows the placeholder pill.
-          value={nsActive ? "" : scope}
-          onValueChange={(v) => setScope(v as Scope)}
-        >
-          <SelectTrigger
-            aria-label={t("procurement_scope_years") || "Years"}
-            className={cn(
-              "h-auto w-auto gap-1 rounded-full border-0 px-3 py-1 text-xs font-medium shadow-none focus:ring-0 [&>svg]:h-3 [&>svg]:w-3",
-              nsActive
-                ? "text-muted-foreground hover:text-foreground"
-                : "bg-primary text-primary-foreground [&>svg]:opacity-80",
-            )}
-          >
-            <SelectValue placeholder={t("procurement_scope_years") || "Years"}>
-              {activeLabel}
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent align="end">
-            {allowAll && (
-              <SelectItem value="all">
-                {t("procurement_scope_all_years") || "All years"}
-              </SelectItem>
-            )}
-            {/* Only the years the caller actually covers are offered. An active
-                year outside them is still SHOWN (activeLabel above) — visible
-                and switchable-away-from, without pretending it has data. */}
-            {yearList.map((y) => (
-              <SelectItem key={y} value={`y:${y}`}>
-                {y}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        {hasOptions && (
+          <>
+            <Select
+              // "ns" has no matching item → Radix shows the placeholder pill.
+              value={nsActive ? "" : scope}
+              onValueChange={(v) => setScope(v as Scope)}
+            >
+              <SelectTrigger
+                // The VALUE has to reach the accessible name: `aria-label` overrides the
+                // trigger's content, so a bare dimension word announces identically in
+                // every scope — „Години" whether 2024 or all years is live, and on a
+                // picker whose override IS its only option („Всички парламенти") the two
+                // states become indistinguishable. The pill next to it exposes
+                // `aria-pressed`; this trigger exposes nothing else, so without the value
+                // a non-sighted reader cannot tell which window the page is showing.
+                aria-label={
+                  nsActive || activeLabel === yearsLabel
+                    ? yearsLabel
+                    : `${yearsLabel}: ${activeLabel}`
+                }
+                className={cn(
+                  "h-auto w-auto gap-1 rounded-full border-0 px-3 py-1 text-xs font-medium shadow-none focus:ring-0 [&>svg]:h-3 [&>svg]:w-3",
+                  nsActive
+                    ? "text-muted-foreground hover:text-foreground"
+                    : "bg-primary text-primary-foreground [&>svg]:opacity-80",
+                )}
+              >
+                <SelectValue placeholder={yearsLabel}>
+                  {activeLabel}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent align="end">
+                {allowAll && <SelectItem value="all">{allLabel}</SelectItem>}
+                {/* Only the years the caller actually covers are offered. An active
+                        year outside them is still SHOWN (activeLabel above) — visible
+                        and switchable-away-from, without pretending it has data. */}
+                {yearList.map((y) => (
+                  <SelectItem key={y} value={`y:${y}`}>
+                    {y}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </>
+        )}
       </div>
     </div>
   );

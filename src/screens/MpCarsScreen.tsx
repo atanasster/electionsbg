@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExternalLink } from "lucide-react";
@@ -15,9 +15,9 @@ import { DbDataTable } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 // Generic MP-registry scope→filter helpers (shared with /mp-assets): ns bucket + mp_id IN.
 import {
-  mpAssetsNsScope,
   mpAssetsIdFilters,
-  type MpAssetsScope,
+  mpAssetsNsScope,
+  useMpAssetsScope,
 } from "@/screens/utils/mpAssetsScope";
 import { useRegionScope } from "@/screens/utils/useRegionScope";
 import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
@@ -42,7 +42,16 @@ export const MpCarsScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { selected } = useElectionContext();
   const { partyGroupShortLabel } = useCanonicalParties();
-  const [scope, setScope] = useState<MpAssetsScope>("ns");
+  // ⚠️ THE SCOPE LIVES IN THE URL (`?pscope`), not in local state, and that is what keeps
+  // this page and the /governance/declarations tile that opens it ONE number. The hub reads
+  // the same param; while the scope was `useState("ns")` here, a reader arriving from an
+  // all-parliaments tile silently landed on the selected parliament — 643 cars against 42.
+  // It also makes the view shareable and survive a refresh, which local state never did.
+  //
+  // `years: []` because this corpus is sliced by PARLIAMENT, not by calendar year: 2024 held
+  // two parliaments, so `y:2024` names no single slice and must resolve back to `ns` rather
+  // than render an arbitrary one.
+  const { scope, setScope } = useMpAssetsScope();
   const {
     regionMpIds,
     label: regionLabel,

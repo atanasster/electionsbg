@@ -10,10 +10,15 @@
 // THE TILE'S TABLE. The generator's header carries the measurements and the four grains
 // the first draft of this page got wrong; what matters HERE is the last of them:
 //
-//   /mp-assets and /mp-cars OPEN SCOPED TO THE SELECTED ELECTION (`scope = "ns"`), and
-//   this tile carries `?elections` forward — so those two tiles read the per-parliament
-//   slice, not the lifetime roll-up. The 52nd is 240 MPs and 65 cars; the roll-up is
-//   2,122 and 621. Either number is defensible; only one of them is the page's.
+//   /mp-assets and /mp-cars ARE SCOPED BY `?pscope`, THE SHARED PARAM THIS PAGE READS —
+//   the same value, through the same `useMpAssetsScope`, so those two tiles and the pages
+//   they open cannot show different windows. Measured on the committed blob: the 52nd is
+//   240 MPs and 42 cars, the roll-up 2,122 and 643. Either number is defensible; the tile
+//   and its destination must not each pick a different one.
+//
+//   Until 2026-08-26 the scope was `?elections` plus a local `useState` on each screen, so
+//   the hub could offer no all-time view and the destinations reset to their own default on
+//   arrival — a reader who widened one and followed a link silently got the other's window.
 //
 // The other four are lifetime by nature — /persons, /officials/assets and /mp/companies
 // have no election scope at all.
@@ -27,12 +32,18 @@ import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcr
 import { useDeclarationsHubStats } from "@/data/governance/useDeclarationsHubStats";
 import { HubSearch } from "@/ux/search/HubSearch";
 import { declarationsSearchSources } from "./declarationsSearch";
+import { ScopeControl } from "@/screens/components/ScopeControl";
+import { useMpAssetsScope } from "@/screens/utils/mpAssetsScope";
 import { DECLARATION_BANDS, DECLARATION_TILES } from "./declarationsRegistry";
 import { DECLARATION_SCENES } from "./declarationsScenes";
 
 export const GovernanceDeclarationsScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const { stats, nsStats } = useDeclarationsHubStats();
+  const { stats, nsStats, bucket } = useDeclarationsHubStats();
+  // The RESOLVED scope, handed to the control so the pill and the figures are one
+  // value. Left uncontrolled it re-reads `?pscope` against the full corpus band and
+  // paints a year this register has no slice for — see `useMpAssetsScope`.
+  const { pscope, setPscope } = useMpAssetsScope();
   // Stable identity: the sources close over nothing that changes, and a new array on every
   // render would re-issue every fetch.
   const searchSources = useMemo(
@@ -99,12 +110,23 @@ export const GovernanceDeclarationsScreen: FC = () => {
       out.assets = {
         metric: nf.format(nsStats.mpsWithAssets),
         caption: t("decl_kpi_mps"),
-        // The all-time figure, which is what stops the scoped headline being read as the
+        // The all-time figure, which is what stops the SCOPED headline being read as the
         // whole registry — and names the scope the destination will open in.
-        secondary: t("decl_kpi_assets_secondary", {
-          count: stats.byNs.all?.mpsWithAssets ?? nsStats.mpsWithAssets,
-          n: nf.format(stats.byNs.all?.mpsWithAssets ?? nsStats.mpsWithAssets),
-        }),
+        //
+        // ⚠️ DROPPED WHEN THE BUCKET READ IS THE ROLL-UP, where the headline IS that figure: „2 122 · от 2 122 за
+        // всички парламенти" is the same number printed twice on one tile, which reads as
+        // two facts. The cars tile keeps its secondary because owners (360) is a different
+        // quantity from cars (643) at every scope.
+        ...(bucket === "all"
+          ? {}
+          : {
+              secondary: t("decl_kpi_assets_secondary", {
+                count: stats.byNs.all?.mpsWithAssets ?? nsStats.mpsWithAssets,
+                n: nf.format(
+                  stats.byNs.all?.mpsWithAssets ?? nsStats.mpsWithAssets,
+                ),
+              }),
+            }),
       };
       out.cars = {
         metric: nf.format(nsStats.cars),
@@ -120,7 +142,7 @@ export const GovernanceDeclarationsScreen: FC = () => {
     // any count on that tile is either the sample (understating the register) or the
     // register (overstating what the page draws). The page states both itself.
     return out;
-  }, [stats, nsStats, nf, t]);
+  }, [stats, nsStats, nf, t, bucket]);
 
   const byId = useMemo(
     () => new Map(DECLARATION_TILES.map((tile) => [tile.id, tile])),
@@ -175,6 +197,28 @@ export const GovernanceDeclarationsScreen: FC = () => {
       <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
         {t("decl_hub_intro")}
       </p>
+
+      {/* ⚠️ TWO SCOPES, NOT THE SHARED THREE. This register is sliced by PARLIAMENT, so
+          `years: []` — 2024 held two parliaments and `y:2024` names no single slice, which
+          `resolveScope` then sends back to `ns` rather than rendering an arbitrary one. The
+          picker therefore offers „този парламент" and „всички парламенти" and nothing else.
+
+          It drives `/mp-assets` and `/mp-cars` through the SAME `?pscope` — they used to
+          hold this in local `useState`, so a reader arriving from an all-parliaments tile
+          silently landed on the selected parliament (643 cars against 42). */}
+      <div className="mt-3">
+        <ScopeControl
+          years={[]}
+          allowAll
+          value={pscope}
+          onChange={setPscope}
+          nsLabelOverride={t("decl_scope_ns")}
+          // `yearsLabelOverride` is the PROP's name, not this register's dimension:
+          // it has no year slices at all, which is exactly why the default „Години"
+          // wording had to go.
+          yearsLabelOverride={t("decl_scope_all")}
+        />
+      </div>
 
       {/* Directly under the intro and ABOVE the first band: it is the fastest route to a
           destination and the tiles are the slow one. A reader who already knows the name
