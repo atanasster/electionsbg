@@ -45,14 +45,28 @@
 // Sweeps for `%министерство на здрав%` and `%здравноосигурителна%` / `%РЗОК%`
 // return exactly these two EIKs and nothing else. МЗ has no alias EIK.
 //
-// Deliberately OUT — the SECOND-LEVEL МЗ family: the 28 Центрове за спешна
-// медицинска помощ, the 28 Регионални здравни инспекции and НЦОЗА, together
-// **54 bodies / 2,467 contracts / €86.6m**. Each is its own legal person with
-// its own Булстат and its own /awarder page; they are second-level разпоредители
-// under МЗ rather than parts of it, so adding them is a separate decision about
-// what the tile claims to cover — not an oversight to be quietly corrected.
-// Adding them would also roughly double the member roster, which crosses
-// MEMBER_SEARCH_MIN and changes how the dashboard renders.
+// Deliberately OUT — the SECOND-LEVEL МЗ family: the Центрове за спешна
+// медицинска помощ, the Регионални здравни инспекции and НЦОЗА. Each is its own
+// legal person with its own Булстат and its own /awarder page; they are
+// second-level разпоредители under МЗ rather than parts of it, so adding them is
+// a separate decision about what the tile claims to cover — not an oversight to
+// be quietly corrected. Adding them would also roughly double the member roster,
+// which crosses MEMBER_SEARCH_MIN and changes how the dashboard renders.
+//
+// ⚠ THE ROSTER OF THAT FAMILY IS `mzSecondLevelBodies.ts` — read the count from
+// there, not from here. This paragraph used to print „28 ЦСМП, 28 РЗИ … 54 bodies
+// / 2,467 contracts / €86.6m", which was wrong three ways at once and is exactly
+// why the figures now live in one place: 28+28+1 does not sum to 54; the sweep it
+// came from misses РИОКОЗ Бургас (000053451), whose stored name matches none of
+// its three ILIKEs; and only 23 of the 28 oblasts have РЗИ procurement in the
+// corpus at all. Measured 2026-08-26, `tag = 'contract'`: **55 EIKs / 53
+// institutions / 2,481 contracts / €86,884,070**.
+//
+// Being out of the EIK-SET does not mean being unreachable: since 2026-08-26 the
+// family is SEARCHABLE from /sector/health through NzokSearchBox's fifth group,
+// which lands each body on its own /awarder page. That is a reachability
+// decision and changes no figure on the dashboard — see
+// docs/plans/health-mz-bodies-search-v1.md.
 //
 // Also OUT, and further away: the РЗОК are BRANCHES of НЗОК sharing its Булстат
 // (which is why the corpus carries one contract with НЗОК on both sides — a

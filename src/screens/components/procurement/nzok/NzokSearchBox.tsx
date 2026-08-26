@@ -29,6 +29,7 @@ import { Building2, Pill, Package, Stethoscope, Landmark } from "lucide-react";
 import { SectorEntitySearch } from "@/screens/components/search/SectorEntitySearch";
 import {
   MZ_SECOND_LEVEL_BODIES,
+  MZ_SECOND_LEVEL_INSTITUTION_COUNT,
   MZ_UNIVERSE_LABEL,
   MZ_UNIVERSE_SEARCH_KEYS,
 } from "@/lib/mzSecondLevelBodies";
@@ -260,13 +261,39 @@ export const NzokSearchBox: FC = () => {
         bg: "Намери в здравеопазването",
         en: "Find in health",
       }}
+      // Three of the five subjects, not five. ⚠ THIS LINE HAS A MEASURED BYTE
+      // BUDGET: at 375px the input offers 283px of text room, and the tail is
+      // where the newest subject sits, so an overlong placeholder clips exactly
+      // the thing this tier added. Measured in the running app at 14px Inter —
+      // BG 277px, EN 229px, against 283. Naming all five was 430px. Re-measure
+      // before adding a word; the hint below is where the full list belongs.
       placeholder={{
-        bg: "болница, лекарство, молекула или клинична пътека…",
-        en: "hospital, medicine, molecule or clinical pathway…",
+        bg: "болница, лекарство, ведомство на МЗ…",
+        en: "hospital, medicine, ministry body…",
       }}
+      // Order: how to search → what is covered, with its boundary → the caveat.
+      // A caveat belongs last; between the two coverage sentences it read as a
+      // correction to a correction.
+      //
+      // ⚠ THE COUNT IS `MZ_SECOND_LEVEL_INSTITUTION_COUNT` (53 institutions),
+      // never `MZ_SECOND_LEVEL_BODIES.length` (55 EIKs) — two РЗИ ship both
+      // halves of their РИОКОЗ→РЗИ history, so EIKs would publish two
+      // institutions that do not exist. The roster's own header states the rule.
+      //
+      // ⚠ AND IT IS INDEFINITE — „53 ведомства", never „53-те". The definite
+      // article turns „this is how many the box can find" into „this is how many
+      // there are", and the roster deliberately omits five РЗИ that have no
+      // procurement. It is the same institutions-vs-EIKs over-claim, one level up.
+      //
+      // The middle sentence is the boundary the box could not draw before. It is
+      // about the MONEY on the destination page rather than about how these
+      // bodies are funded: what this page can show is that their € comes from
+      // their own procurement, so a reader landing on ЦСМП Пловдив's €6.9m does
+      // not read it as health-fund spending. „Their budget contains no НЗОК
+      // money at all" is almost certainly true and is not what we measured.
       hint={{
-        bg: "Търси по име, ЕИК, търговско име, INN или код на пътека — приема и изписване на латиница. Лечебните заведения без ЕИК не се търсят: за тях няма отделна страница.",
-        en: "Search by name, EIK, trade name, INN or pathway code — Latin-typed queries work too. Facilities without an EIK are not searchable: they have no page of their own.",
+        bg: `Търси по име, ЕИК, търговско име, INN или код на пътека — приема и изписване на латиница. Включва и ${MZ_SECOND_LEVEL_INSTITUTION_COUNT} ведомства на МЗ (спешна помощ, здравни инспекции, НЦОЗА) — техните суми са от собствени обществени поръчки, а не от НЗОК. Лечебните заведения без ЕИК нямат отделна страница и не се търсят.`,
+        en: `Search by name, EIK, trade name, INN or pathway code — Latin-typed queries work too. Also covers ${MZ_SECOND_LEVEL_INSTITUTION_COUNT} Ministry of Health bodies (emergency care, health inspectorates, NCPHA) — their figures come from their own procurement, not from the NHIF. Facilities without an EIK have no page of their own and are not searchable.`,
       }}
     />
   );

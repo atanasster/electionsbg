@@ -222,7 +222,15 @@ export const HubSearch: FC<{
     .filter((s) =>
       s.kind === "server" ? !server.failed.has(s.id) : Boolean(s.index),
     )
-    .map((s) => pick(s.label, bg).toLowerCase());
+    // Lowercase the FIRST CHARACTER only. A blanket `.toLowerCase()` mangles
+    // every acronym a group label carries — „Молекули (INN)" became „молекули
+    // (inn)" and „Ведомства на МЗ" became „ведомства на мз" — and these labels
+    // are sentence-case by convention, so the first character is the only one
+    // that ever needs folding to sit inside „Няма съвпадения в: …".
+    .map((s) => {
+      const label = pick(s.label, bg);
+      return label.charAt(0).toLowerCase() + label.slice(1);
+    });
   const noResultsLabel = searched.length
     ? bg
       ? `Няма съвпадения в: ${searched.join(", ")}`

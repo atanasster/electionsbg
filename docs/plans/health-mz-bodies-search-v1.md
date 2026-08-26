@@ -321,7 +321,24 @@ Quote **53** (institutions), not 55 — §2.1.
 **c. component test** — `NzokSearchBox.test.tsx` (new): typing „обществено
 здраве" yields a row whose `href` is `/awarder/176094665`; typing „НЦОЗА" does
 too (the acronym is in the canonical label). Mutation check: with the fifth group
-removed both assertions fail.
+removed both assertions fail. Plus three assertions about the COPY, each of which
+is a claim no type or lint check can reach:
+
+- **the hint quotes the institution count, not the EIK count** — assert the
+  rendered hint contains `MZ_SECOND_LEVEL_INSTITUTION_COUNT` (53) and NOT
+  `MZ_SECOND_LEVEL_BODIES.length` (55). Two РЗИ ship both halves of their
+  РИОКОЗ→РЗИ history, so the EIK count would publish two institutions that do not
+  exist, and the two numbers are close enough that nobody would notice.
+- **the English copy carries no Cyrillic** — regex the EN title, placeholder and
+  hint for `[\u0400-\u04FF]`. The site's settled rendering is `NHIF` / `NCPHA`
+  (12 English call sites, zero Cyrillic „НЗОК" in `en/translation.json`), and the
+  clause that shipped in Cyrillic was the one drawing the НЗОК boundary — so the
+  boundary was drawn in Bulgarian and silently not in English.
+- **the hint names every `MzBodyUniverse`** — „(спешна помощ, здравни инспекции,
+  НЦОЗА)" is a third hand-written copy of `MZ_UNIVERSE_LABEL`, with nothing
+  keeping it in step. Assert each universe is represented, so a fourth universe —
+  or a second national centre, which would make naming НЦОЗА an under-description
+  rather than a helpful instance — fails loudly.
 
 **d. `sector_stats.data.test.ts` must stay green untouched.** Its
 „second-level МЗ family is deliberately out of the EIK-set" test is the contract
