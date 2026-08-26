@@ -1137,3 +1137,50 @@ test.skipIf(skip)(
     );
   },
 );
+
+test.skipIf(skip)(
+  "position_type is primary_facet with ONE value renamed — the premise ?position's retirement rests on",
+  async () => {
+    // `?position` was retired as a PURE ALIAS of `?pfacet`, folded on read with a one-entry map
+    // (`private_sector` → `company`). That is a claim about migration 120, not about the UI: if
+    // the two columns ever diverge, the alias silently starts answering a different question
+    // than the URL asks — and nothing else would notice, because both are valid facet values.
+    //
+    // Asserted as the FULL cross-tab, so a rename on either side fails rather than passing over
+    // a pair that no longer exists.
+    const rows = await allRows<{
+      position_type: string;
+      primary_facet: string;
+    }>(
+      `SELECT DISTINCT position_type, primary_facet FROM person_browse_table
+        ORDER BY 1`,
+    );
+    assert.ok(rows.length > 0, "no rows at all");
+    for (const r of rows) {
+      const expected =
+        r.position_type === "private_sector" ? "company" : r.position_type;
+      assert.equal(
+        r.primary_facet,
+        expected,
+        `position_type='${r.position_type}' now pairs with primary_facet='${r.primary_facet}' ` +
+          "— the ?position → ?pfacet alias in useUrlPersonFilters is no longer a rename and " +
+          "must be revisited",
+      );
+    }
+    // Non-vacuity, both directions: the renamed pair must still EXIST, and there must be
+    // pass-through values beside it, or the loop above proves nothing.
+    assert.ok(
+      rows.some(
+        (r) =>
+          r.position_type === "private_sector" && r.primary_facet === "company",
+      ),
+      "the private_sector ⟷ company pair is gone — the alias map's only entry is now dead",
+    );
+    assert.ok(
+      rows.some(
+        (r) => r.position_type != null && r.position_type === r.primary_facet,
+      ),
+      "no identical pair left — the two columns share no vocabulary at all",
+    );
+  },
+);

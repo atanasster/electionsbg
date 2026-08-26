@@ -322,7 +322,7 @@ describe("the term ⇄ ?q seam", () => {
 //
 // WHAT THIS PINS — the requirement the whole rework is for, and the two ways it fails.
 //
-//   TOO CLOSED. Every cross-link into this page is a FILTER rather than a query, so a
+//   TOO CLOSED. Most links into this page are a FILTER rather than a query, so a
 //   search-only gate renders a BLANK page to /parliament's „Депутати" tile, to /court/:code, to
 //   the declarations search — all of which are live links today. That is the failure with no
 //   error, no empty state and nothing on screen to explain it.
@@ -535,7 +535,6 @@ describe("every narrowing gets a chip", () => {
     ["?party=gerb", "a party"],
     ["?oblast=VAR", "an oblast"],
     ["?obshtina=BGS04", "a municipality (NO picker)"],
-    ["?position=private_sector", "a position type (NO picker)"],
     [`?court=${encodeURIComponent(COURT)}`, "an institution"],
     ["?decl=1", "declaration-only"],
     ["?held=1", "held-office-only"],
@@ -612,20 +611,30 @@ describe("every narrowing gets a chip", () => {
     expect(chip.textContent).not.toContain("SFO_CITY");
   });
 
-  it("a position chip is READABLE — never a raw English code", async () => {
-    // `?position` filters `position_type`, whose modal value is `private_sector` — 73,645 rows,
-    // 53.6% of the layer. The facet resolver has no key for it, so labelling the chip through
-    // that one put English snake_case in a Bulgarian chip: the very rule the component's header
-    // states it exists to keep.
+  it("the retired ?position yields ONE chip, and it is the pfacet's", async () => {
+    // `?position` is a pure alias of `?pfacet` and folds on read, so an inbound link keeps
+    // working — but it must produce one chip naming the live dimension, not two, and not a
+    // dimension the page no longer has a control for.
     const { container } = renderAt("?position=private_sector");
     await waitFor(() => expect(fetch).toHaveBeenCalled());
-    const chip = await waitFor(() => {
-      const c = container.querySelector('[role="group"] button[aria-label]');
-      expect(c).not.toBeNull();
-      return c!;
+    const chips = await waitFor(() => {
+      const c = [
+        ...container.querySelectorAll('[role="group"] button[aria-label]'),
+      ];
+      expect(c.length).toBeGreaterThan(0);
+      return c;
     });
-    expect(chip.textContent).toContain("Частен сектор");
-    expect(chip.textContent).not.toContain("private_sector");
+    expect(chips).toHaveLength(1);
+    // BOTH halves. The negative alone passes on a chip that renders nothing readable at all,
+    // which is the state the chips exist to end.
+    //
+    // The positive is asserted on the DIMENSION rather than the value: there is no i18n
+    // instance here, so `facetLabel` falls through to the raw code („company"), while in
+    // production `pp_facet_company` ships as „Бизнес" — `personLabels.test.ts` is what pins
+    // that. What this can prove is that the chip names the LIVE dimension and not the retired
+    // param's, which is the thing the fold could get wrong.
+    expect(chips[0].textContent).toContain("Основна принадлежност");
+    expect(chips[0].textContent).not.toContain("private_sector");
   });
 });
 

@@ -262,7 +262,6 @@ describe("useUrlPersonFilters — every narrowing dimension unlocks the table", 
       "?obshtina=BGS04",
       "a municipality (no picker — the /governance cross-link)",
     ],
-    ["?position=executive", "a position type (no picker — a cross-link)"],
     [`?court=${encodeURIComponent("Окръжен съд - Варна")}`, "an institution"],
     ["?decl=1", "declaration-only"],
     ["?held=1", "held-office-only"],
@@ -284,6 +283,110 @@ describe("useUrlPersonFilters — every narrowing dimension unlocks the table", 
     const { result } = renderHook(useFiltersAndUrl, { wrapper: wrap("") });
     assert.equal(result.current.hasNarrowingFilters, false);
     assert.equal(result.current.hasActiveFilters, false);
+  });
+});
+
+describe("useUrlPersonFilters — ?position is a retired ALIAS of ?pfacet", () => {
+  // Measured 2026-08-26 over all 137,461 rows: the `position_type` × `primary_facet` cross-tab is
+  // perfectly diagonal, with ONE value renamed — private_sector ⟷ company (73,645). So
+  // `?position` could never express a set `?pfacet` could not, and a producer for it would have
+  // been a second control for one partition.
+
+  test("private_sector reads as the pfacet company", () => {
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?position=private_sector"),
+    });
+    assert.equal(result.current.primaryFacet, "company");
+  });
+
+  test("every other value passes through unchanged", () => {
+    for (const v of [
+      "politician",
+      "executive",
+      "public_sector",
+      "magistrate",
+      "regulator",
+    ]) {
+      const { result } = renderHook(useFiltersAndUrl, {
+        wrapper: wrap(`?position=${v}`),
+      });
+      assert.equal(result.current.primaryFacet, v, v);
+    }
+  });
+
+  test("it narrows, so it still opens the table", () => {
+    // The fold must not turn a working inbound link into an unfiltered page.
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?position=private_sector"),
+    });
+    assert.equal(result.current.hasNarrowingFilters, true);
+  });
+
+  test("an explicit ?pfacet WINS over the alias", () => {
+    // A URL carrying both is a caller that knows the live param; the retired one must never
+    // override it.
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?pfacet=magistrate&position=private_sector"),
+    });
+    assert.equal(result.current.primaryFacet, "magistrate");
+  });
+
+  test("the URL is NOT rewritten", () => {
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?position=private_sector"),
+    });
+    assert.match(result.current.search, /position=private_sector/);
+    assert.ok(!result.current.search.includes("pfacet"), result.current.search);
+  });
+
+  test("clearFilters still removes it", () => {
+    // It is out of the hook's public surface but stays in PARAMS: left behind, it would
+    // re-apply the pfacet after a clear.
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?position=private_sector"),
+    });
+    act(() => result.current.clearFilters());
+    assert.equal(result.current.primaryFacet, PERSON_FILTER_ALL);
+    assert.equal(result.current.search, "", result.current.search);
+  });
+
+  test("the chip's × actually clears it — both spellings", () => {
+    // THE ONE THING THE FOLD COULD BREAK. `setPrimaryFacet(null)` deletes `pfacet`, which an
+    // inbound `?position=` URL does not carry — so without deleting BOTH the fold re-applied on
+    // the next render and the × did nothing. The mix bar's deselect is the same call, so no
+    // click sequence reached "no primary facet" at all.
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?position=private_sector"),
+    });
+    assert.equal(result.current.primaryFacet, "company");
+    act(() => result.current.setPrimaryFacet(null));
+    assert.equal(result.current.primaryFacet, PERSON_FILTER_ALL);
+    assert.ok(
+      !result.current.search.includes("position"),
+      result.current.search,
+    );
+  });
+
+  test("picking a DIFFERENT facet drops the alias rather than leaving it behind", () => {
+    // Otherwise un-picking that one falls back onto `?position` instead of clearing.
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?position=private_sector"),
+    });
+    act(() => result.current.setPrimaryFacet("magistrate"));
+    assert.equal(result.current.primaryFacet, "magistrate");
+    assert.ok(
+      !result.current.search.includes("position"),
+      result.current.search,
+    );
+    act(() => result.current.setPrimaryFacet(null));
+    assert.equal(result.current.primaryFacet, PERSON_FILTER_ALL);
+  });
+
+  test("junk is refused rather than folded", () => {
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?position=%3Cscript%3E"),
+    });
+    assert.equal(result.current.primaryFacet, PERSON_FILTER_ALL);
   });
 });
 

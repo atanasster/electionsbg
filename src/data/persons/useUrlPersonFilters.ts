@@ -12,6 +12,7 @@
 //   ?pfacet   — the PRIMARY facet (the mix bar's selection). A different question from
 //               ?facet: "what is this person primarily" vs "is this person also a …".
 //               Single-valued and total, which is what makes the bar a real partition.
+//               ?position is a retired ALIAS of it — see readPrimaryFacet.
 //   ?role     — a role code (mp, councillor, magistrate, manager, …)
 //   ?party    — a party canonicalId; means "EVER affiliated", not "currently"
 //   ?oblast   — a 3-letter oblast code; likewise "holds any role there"
@@ -68,6 +69,46 @@ export const isInstitutionName = (v: string): boolean => NAME.test(v);
 
 const readName = (v: string | null): string =>
   v && NAME.test(v) ? v : PERSON_FILTER_ALL;
+
+/** `?position`'s vocabulary → `?pfacet`'s. ONE value differs; the other five are identical.
+ *
+ *  ⚠️ `?position` IS A PURE ALIAS AND IS RETIRED, not a filter with its own meaning. Measured
+ *  2026-08-26 over all 137,461 rows of `person_browse_table`, the `position_type` × `primary_facet`
+ *  cross-tab is perfectly diagonal:
+ *
+ *    private_sector ⟷ company  73,645   ·  politician 46,139  ·  executive 8,234
+ *    public_sector   5,882     ·  magistrate 3,535            ·  regulator 26
+ *
+ *  So `?position=politician` and `?pfacet=politician` returned the identical rows, and
+ *  `?position=private_sector` was a THIRD spelling of a set `?pfacet=company` and `?sector=private`
+ *  already had two names for. Keeping it would have meant a second control for one partition.
+ *
+ *  It folds on READ rather than being deleted: a hand-built link or an AI tool already emitting
+ *  it keeps working, where a deletion would silently render an UNFILTERED page. The URL is not
+ *  rewritten — an inbound link that quietly becomes a different one is a different promise.
+ *
+ *  ⚠️ THE INVERSE IS A CHOICE, NOT A RENAME, even though the data reads like one. Migration 120
+ *  builds the column as `CASE WHEN tr.facet IN ('company','concession') THEN 'private_sector'
+ *  ELSE tr.facet END` — MANY-to-one, so `private_sector` has two pre-images and this map picks
+ *  `company` because `concession` occurs nowhere in `person_source.facet` today. Should it ever
+ *  appear, `?position=private_sector` would silently answer for only one of the two, and the
+ *  data gate in `person_browse.data.test.ts` is what fails first. */
+const POSITION_TO_FACET: Record<string, string> = { private_sector: "company" };
+
+/** Read `?pfacet`, accepting the retired `?position` as an alias.
+ *
+ *  An explicit `?pfacet` WINS: a URL carrying both is a caller that knows the live param, and
+ *  the alias must never override it. */
+const readPrimaryFacet = (
+  pfacet: string | null,
+  position: string | null,
+): string => {
+  const live = readCode(pfacet);
+  if (live !== PERSON_FILTER_ALL) return live;
+  const legacy = readCode(position);
+  if (legacy === PERSON_FILTER_ALL) return legacy;
+  return POSITION_TO_FACET[legacy] ?? legacy;
+};
 
 /** Read `?obshtina`, folded onto the ONE code the corpus speaks.
  *
@@ -166,7 +207,6 @@ const readQuery = (v: string | null): string => (v ?? "").slice(0, QUERY_MAX);
 
 export interface UrlPersonFilters {
   sector: PersonSector;
-  position: string;
   facet: string;
   primaryFacet: string;
   role: string;
@@ -197,7 +237,6 @@ export interface UrlPersonFilters {
   setObshtina: (v: string) => void;
   setCourt: (v: string) => void;
   setSector: (v: PersonSector) => void;
-  setPosition: (v: string) => void;
   setDeclaredOnly: (v: boolean) => void;
   setHeldOfficeOnly: (v: boolean) => void;
   setSwitchersOnly: (v: boolean) => void;
@@ -212,9 +251,9 @@ export interface UrlPersonFilters {
    *  it is what decides whether the browser shows a table at all. `sector` is a SCOPE, not a
    *  query: switching „Всички" → „Във властта" and getting 63,816 prominence-sorted rows is
    *  precisely the default-table behaviour the search-first rework removes. Every other
-   *  dimension is a reader saying what they want, including the two params with no picker
-   *  (`?position`, `?obshtina`), which are cross-link targets and MUST unlock the table or
-   *  arriving from /governance/:id renders a blank page. */
+   *  dimension is a reader saying what they want, including `?obshtina` — which has no picker
+   *  of its own and MUST unlock the table, or a reader following the governance dashboard's
+   *  „хора, свързани с …" link gets a blank page. */
   hasNarrowingFilters: boolean;
   /** Clear every managed param — INCLUDING `?q` and `?browse` — preserving all others.
    *
@@ -253,9 +292,11 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
   const [params, setParams] = useSearchParams();
 
   const sector = readSector(params.get("sector"));
-  const position = readCode(params.get("position"));
   const facet = readCode(params.get("facet"));
-  const primaryFacet = readCode(params.get("pfacet"));
+  const primaryFacet = readPrimaryFacet(
+    params.get("pfacet"),
+    params.get("position"),
+  );
   const role = readCode(params.get("role"));
   const party = readCode(params.get("party"));
   const oblast = readCode(params.get("oblast"));
@@ -289,7 +330,27 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
   const setters = useMemo(
     () => ({
       setFacet: (v: string) => write("facet", v),
-      setPrimaryFacet: (v: string | null) => write("pfacet", v),
+      // ⚠️ CLEARS BOTH PARAMS, and the retired one is the reason. `?position` folds into
+      // `?pfacet` on READ, so under an inbound `?position=` link a setter that touched only
+      // `pfacet` deleted a param the URL does not carry — the fold then re-applied on the next
+      // render and the chip's × did nothing. The mix bar's deselect is the same call, so no
+      // click sequence could reach "no primary facet"; only „Изчисти филтрите" escaped.
+      //
+      // This is NOT the read-side rewrite the alias deliberately avoids: that would rewrite a
+      // reader's URL behind their back on arrival. This fires only on an explicit action whose
+      // whole meaning is „remove this filter", and removing it means removing both spellings of
+      // it.
+      setPrimaryFacet: (v: string | null) =>
+        setParams(
+          (prev) => {
+            const next = new URLSearchParams(prev);
+            next.delete("position");
+            if (v == null || v === PERSON_FILTER_ALL) next.delete("pfacet");
+            else next.set("pfacet", v);
+            return next;
+          },
+          { replace: true },
+        ),
       setRole: (v: string) => write("role", v),
       setParty: (v: string) => write("party", v),
       setOblast: (v: string) => write("oblast", v),
@@ -299,7 +360,6 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
       // the whole layer. `public` is now the one that must be written explicitly; the
       // registry's own tier=P floor still covers a raw API hit that sends no tier at all.
       setSector: (v: PersonSector) => write("sector", v === "all" ? null : v),
-      setPosition: (v: string) => write("position", v),
       setDeclaredOnly: (v: boolean) => write("decl", v ? "1" : null),
       setHeldOfficeOnly: (v: boolean) => write("held", v ? "1" : null),
       setSwitchersOnly: (v: boolean) => write("switch", v ? "1" : null),
@@ -309,13 +369,12 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
       setQuery: (v: string) => write("q", v.slice(0, QUERY_MAX) || null),
       setBrowseAll: (v: boolean) => write("browse", v ? "1" : null),
     }),
-    [write],
+    [write, setParams],
   );
 
   // Every dimension EXCEPT `sector` — see `hasNarrowingFilters` in the interface for why the
   // scope is not one of these, and why `?position` / `?obshtina` (which have no picker) are.
   const hasNarrowingFilters =
-    position !== PERSON_FILTER_ALL ||
     facet !== PERSON_FILTER_ALL ||
     primaryFacet !== PERSON_FILTER_ALL ||
     role !== PERSON_FILTER_ALL ||
@@ -346,7 +405,6 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
 
   return {
     sector,
-    position,
     facet,
     primaryFacet,
     role,

@@ -75,7 +75,6 @@ import { PersonsLanding, type LandingCard } from "./PersonsLanding";
 import { PersonNetWorthCell, PersonMoneyCell } from "./PersonMoneyCells";
 import { oblastName } from "@/lib/regionalOblast";
 import { useObshtinaLabel } from "@/data/municipalities/useObshtinaLabel";
-import { positionLabel } from "@/screens/components/procurement/personSearchGroups";
 import {
   fetchPersonsCsv,
   downloadCsv,
@@ -103,7 +102,6 @@ export const PersonsBrowserScreen: FC = () => {
 
   const {
     sector,
-    position,
     facet,
     primaryFacet,
     role,
@@ -126,14 +124,13 @@ export const PersonsBrowserScreen: FC = () => {
     setParty,
     setOblast,
     setCourt,
-    // ?obshtina has no picker — it is a CROSS-LINK target (/governance/:id sends a reader
-    // here scoped to one municipality), not something anyone browses to among 289 options.
-    // It is validated, filtered and cleared like the rest.
+    // ?obshtina has no picker — it is the destination of the governance dashboard's „хора,
+    // свързани с …" link, not something anyone browses to among 289 options. It is validated,
+    // filtered, chipped and cleared like the rest.
     setDeclaredOnly,
     setHeldOfficeOnly,
     setSwitchersOnly,
     setObshtina,
-    setPosition,
     hasNarrowingFilters,
     clearFilters,
   } = useUrlPersonFilters();
@@ -258,31 +255,31 @@ export const PersonsBrowserScreen: FC = () => {
     return f;
   }, [declaredOnly, heldOfficeOnly, switchersOnly]);
   // The public⇄private scope (?sector) maps to the matview `tier`: public OMITS the filter so the
-  // registry's tier=P floor applies, private is ['V'], all is ['P','V']. `?position` filters
-  // position_type — it has NO picker (deep-link / cross-link target only, like ?obshtina); the
-  // setter exists for a future control. Both are GLOBAL (not a facet dimension), so they scope
-  // every facet + the table.
+  // registry's tier=P floor applies, private is ['V'], all is ['P','V']. It is GLOBAL (not a
+  // facet dimension), so it scopes every facet AND the table.
   const tierF = useMemo<DbColumnFilter[]>(() => {
     if (sector === "private") return [{ id: "tier", value: ["V"] }];
     if (sector === "all") return [{ id: "tier", value: ["P", "V"] }];
     return [];
   }, [sector]);
-  const positionF = useMemo<DbColumnFilter[]>(
-    () =>
-      position !== PERSON_FILTER_ALL
-        ? [{ id: "position_type", value: [position] }]
-        : [],
-    [position],
-  );
-  // KEPT SEPARATE so the `tiers` facet below can exclude its own dimension while still being
-  // scoped by everything else — a facet that included its own filter would report „Във
-  // властта (63 816)" as whatever the CURRENT scope happens to be, i.e. the option's count
-  // would describe the option the reader has already picked rather than the one they are
-  // considering.
-  const scopeF = useMemo<DbColumnFilter[]>(
-    () => [...tierF, ...positionF],
-    [tierF, positionF],
-  );
+  // ⚠️ `scopeF` IS `tierF` AND NOTHING ELSE, and the alias is not an accident of naming. It
+  // carried a `position_type` filter too until `?position` was retired as a pure alias of
+  // `?pfacet` — kept separate then so the `tiers` facet could exclude its own dimension while
+  // staying scoped by the rest. That distinction now has nothing on the other side of it, so
+  // the two names are one value; `tiers` still passes everything BUT this, which is the half
+  // that matters (a facet including its own filter reports „Във властта (63 816)" as whatever
+  // scope the reader has already chosen, rather than the one they are considering).
+  //
+  // ⚠️ THE COLLAPSE MOVED SIX FACET REQUESTS, and it is worth knowing which way. `positionF`
+  // was in `scopeF`, which threads into `groups`, `roles`, `parties`, `oblasts`, `courts` and
+  // `primary`; the fold puts it in `primaryF`, which threads into `tiers` and `kpis` only. So
+  // an inbound `?position=` link now scopes what `?pfacet` scopes — which IS the retirement,
+  // including where `?pfacet` is imperfect: the Група counts are no longer narrowed by it (so
+  // that spec's exactness claim does not hold for this dimension), and the mix bar no longer
+  // collapses to the single selected segment (which is the own-dimension exclusion working,
+  // and strictly better). Widening `primaryF` into `groups` is a separate decision about
+  // `?pfacet` as a whole, not something to smuggle in behind an alias.
+  const scopeF = tierF;
 
   const extraFilters = useMemo<DbColumnFilter[]>(
     () => [
@@ -378,7 +375,6 @@ export const PersonsBrowserScreen: FC = () => {
         tiers: {
           columns: ["tier"],
           filters: [
-            ...positionF,
             ...groupF,
             ...primaryF,
             ...roleF,
@@ -413,7 +409,6 @@ export const PersonsBrowserScreen: FC = () => {
       }),
       [
         scopeF,
-        positionF,
         groupF,
         primaryF,
         roleF,
@@ -634,7 +629,7 @@ export const PersonsBrowserScreen: FC = () => {
   //     it answers with a 400, i.e. the destructive error panel, on a page whose whole design
   //     is that the table appears only when it can answer.
   //   · `hasNarrowingFilters` — a reader saying what they want, INCLUDING through the two
-  //     params with no picker. Every cross-link into this page is a filter rather than a
+  //     param with no picker. Every cross-link into this page is a filter rather than a
   //     query, so a search-only gate would render a blank page to all of them.
   //   · `browseAll` — the explicit „show me anyway", so the rule can never trap anybody.
   //
@@ -1012,7 +1007,7 @@ export const PersonsBrowserScreen: FC = () => {
   //
   // A `filterSelects.find(s => s.key === …)` lookup would NOT do: the Група spec is
   // conditionally absent (when there is only one group to pick), while its chip must still
-  // render for a `?facet=` deep link. Two of these have no picker at all.
+  // render for a `?facet=` deep link. One of these — obshtina — has no picker at all.
   const dimensionLabels = useMemo(
     () => ({
       facet: t("persons_filter_group_label", { defaultValue: "Група" }),
@@ -1023,9 +1018,6 @@ export const PersonsBrowserScreen: FC = () => {
         defaultValue: "Институция",
       }),
       obshtina: t("persons_filter_obshtina_label", { defaultValue: "Община" }),
-      position: t("persons_filter_position_label", {
-        defaultValue: "Тип длъжност",
-      }),
       pfacet: t("persons_mix_title", { defaultValue: "Основна принадлежност" }),
     }),
     [t],
@@ -1155,11 +1147,11 @@ export const PersonsBrowserScreen: FC = () => {
     ],
   );
 
-  // ⚠️ EVERY NARROWING GETS A CHIP, INCLUDING THE TWO WITH NO PICKER. `?position` and
-  // `?obshtina` are cross-link targets (from /governance/:id and from a role deep link), so
-  // before this a reader arriving through one saw a narrowed table with nothing on the page
-  // naming the narrowing and no control able to widen it. Those two are the reason this
-  // component exists; the other seven are the reason it is legible.
+  // ⚠️ EVERY NARROWING GETS A CHIP, INCLUDING THE ONE WITH NO PICKER. `?obshtina` arrives from
+  // the governance dashboard's „хора, свързани с …" link and has no control of its own, so
+  // before this a reader following it saw a narrowed table with nothing on the page naming the
+  // narrowing and no way to widen it. That one is the reason this component exists; the rest
+  // are the reason it is legible.
   //
   // The labels are resolved through the SAME helpers the pickers use, so a chip can never name
   // a code the control beside it renders differently.
@@ -1225,19 +1217,6 @@ export const PersonsBrowserScreen: FC = () => {
         label: court,
         onRemove: () => setCourt(PERSON_FILTER_ALL),
       });
-    if (position !== PERSON_FILTER_ALL)
-      out.push({
-        id: `position:${position}`,
-        dimension: dimensionLabels.position,
-        // ⚠️ `positionLabel`, NOT `facetLabel`. They look interchangeable and are not:
-        // `?position` filters `position_type`, whose vocabulary is `person_source.facet` —
-        // and its MODAL value, `private_sector` (73,645 rows, 53.6% of the layer), has no
-        // `pp_facet_*` key at all. `facetLabel` would fall through to the raw code, putting
-        // English snake_case in a Bulgarian chip: exactly the "a chip must never name a value
-        // differently from the control beside it" rule this component's header states.
-        label: positionLabel(position, isBg) || position,
-        onRemove: () => setPosition(PERSON_FILTER_ALL),
-      });
     for (const tg of filterToggles)
       if (tg.checked)
         out.push({
@@ -1269,8 +1248,6 @@ export const PersonsBrowserScreen: FC = () => {
     setObshtina,
     court,
     setCourt,
-    position,
-    setPosition,
     filterToggles,
   ]);
 
