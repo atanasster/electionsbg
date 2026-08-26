@@ -85,6 +85,13 @@ const SKILL_LINKS: Record<string, DataChangeLink[]> = {
   "update-officials": [
     { to: "/officials/assets", labelKey: "data_changes_link_officials" },
   ],
+  // ⚠️ "save-news-articles" is deliberately ABSENT rather than overlooked.
+  // The news corpus is served from a SEPARATE origin
+  // (news.electionsbg.com), and DataUpdatesScreen renders every link with a
+  // react-router <Link to={...}>, which treats an absolute URL as a relative
+  // path — so an entry here would render a broken link on the public page.
+  // The changelog row still appears, with its summary and no link, which is
+  // the honest shape until the main site has an internal route to news.
 };
 
 export const linksForSkill = (skill: string): DataChangeLink[] =>
