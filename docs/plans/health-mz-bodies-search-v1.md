@@ -298,8 +298,13 @@ Quote **53** (institutions), not 55 — §2.1.
   Sofia bodies) and „МЗ" (55). Every one of those returned 0 or 1 on the first
   cut: the labels are acronym-led, so the universe label is the ONLY key carrying
   the family noun, and `latinSkeleton` does not fold singular into plural.
-  Mutation check: revert either universe label to a single grammatical number and
-  the first two assertions must fail.
+  Mutation check: strip either universe's own SEARCH KEYS back to a single
+  grammatical number and the first two assertions must fail. (Not "label" — the
+  display label and the fold keys were one string in the first cut and are now
+  separate exports, `MZ_UNIVERSE_LABEL` and `MZ_UNIVERSE_SEARCH_KEYS`.) Assert the
+  key set per universe rather than by total length: the five SHARED keys satisfy
+  any plain floor, so deleting all of `national`'s own keys — and, separately, all
+  eight English keys — left the first cut of this gate 14/14 green.
 
 **b. `scripts/db/tests/mz_second_level_bodies.data.test.ts`** (Postgres)
 

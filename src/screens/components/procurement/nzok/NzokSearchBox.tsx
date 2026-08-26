@@ -31,7 +31,7 @@ import {
   MZ_SECOND_LEVEL_BODIES,
   MZ_SECOND_LEVEL_INSTITUTION_COUNT,
   MZ_UNIVERSE_LABEL,
-  MZ_UNIVERSE_SEARCH_KEYS,
+  mzBodySearchKeys,
 } from "@/lib/mzSecondLevelBodies";
 import { entityGroup } from "@/screens/components/search/entityGroups";
 import { buildEntityIndex } from "@/lib/entitySearchIndex";
@@ -193,7 +193,7 @@ export const NzokSearchBox: FC = () => {
             : MZ_UNIVERSE_LABEL[b.universe].en,
           href: `/awarder/${b.eik}`,
         }),
-        (b) => [b.name, b.eik, ...MZ_UNIVERSE_SEARCH_KEYS[b.universe]],
+        mzBodySearchKeys,
       ),
     [bg],
   );

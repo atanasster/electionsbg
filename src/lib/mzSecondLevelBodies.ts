@@ -15,9 +15,10 @@
 // Adding an EIK here changes what a READER CAN FIND. It must never change what
 // the sector COUNTS — the hub headline is НЗОК's €4.72bn payout on a declared
 // basis, and this family's €86.9m belongs to no total on that page.
-// ⚠ `mzSecondLevelBodies.test.ts` (plan T4a) WILL assert disjointness at all
-// three roster copies — NOT WRITTEN YET, so today that defence is this sentence
-// and nothing else.
+// `mzSecondLevelBodies.test.ts` (plan T4a) asserts disjointness at all three
+// roster copies — `HEALTH_SECTOR_EIKS`, `SECTOR_DASHBOARDS.health.members` and
+// `SECTOR_BROWSE_PACKS.nzok.eiks` — so a tidy-up that folds this list into any of
+// them fails rather than quietly moving €86.9m under the sector's headline.
 //
 // ---------------------------------------------------------------------------
 // Why its own module rather than an export in healthReferenceData.ts
@@ -328,6 +329,21 @@ export const MZ_UNIVERSE_SEARCH_KEYS: Record<
     "national centres",
   ],
 };
+
+/** The fold keys for one body — the ONE definition, so the search box and its
+ *  gate cannot measure different things.
+ *
+ *  It existed twice for a day: `NzokSearchBox` spread `MZ_UNIVERSE_SEARCH_KEYS`
+ *  inline and `mzSecondLevelBodies.test.ts` rebuilt the same spread by hand while
+ *  its comment claimed to measure "what ships". Drop the spread on the shipping
+ *  side and the gate still reports 29 hits for a box that finds none. */
+export const mzBodySearchKeys = (
+  b: MzSecondLevelBody,
+): readonly (string | null | undefined)[] => [
+  b.name,
+  b.eik,
+  ...MZ_UNIVERSE_SEARCH_KEYS[b.universe],
+];
 
 /** Institutions, not EIKs — the two retired predecessor rows are the same two
  *  institutions as their successors. Quote THIS in reader-facing copy.
