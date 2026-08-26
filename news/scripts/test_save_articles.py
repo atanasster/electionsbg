@@ -3216,6 +3216,278 @@ class AttributionGate(unittest.TestCase):
         self.assertEqual(out["saved"], 1, proc.stdout)
 
 
+class CharsetDeclarationTrust(unittest.TestCase):
+    """When a DECLARED charset may be trusted, and when the bytes overrule it.
+
+    ⚠️ Named distinctly from the pre-existing `CharsetDecoding` above. This
+    was first written with that same name and SHADOWED it — Python keeps the
+    last definition, so five tests silently stopped running, including the
+    only coverage of the unknown-charset branch, while the suite still
+    reported OK.
+
+    The defect this covers: a single-byte charset cannot fail.
+
+    ⚠️ A SINGLE-BYTE CHARSET CANNOT FAIL. cp1251 maps every byte 0x00-0xFF, so
+    a page declaring windows-1251 while serving UTF-8 decoded "successfully"
+    into mojibake — and every gate downstream saw a perfectly well-formed
+    string. Nothing in the pipeline could notice."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+
+    TEXT = "Футболният свят потъна в скръб"
+
+    def test_utf8_body_wins_over_a_wrong_cp1251_declaration(self):
+        body = self.TEXT.encode("utf-8")
+        for declared in ("text/html; charset=windows-1251",
+                         "text/html; charset=cp1251",
+                         "text/html; charset=iso-8859-1"):
+            self.assertEqual(self.sa.decode_html(body, declared), self.TEXT,
+                             declared)
+
+    def test_a_genuine_cp1251_page_still_decodes(self):
+        """The regression risk of preferring UTF-8. moreto.net really does
+        serve windows-1251, and its bytes are NOT valid UTF-8 — which is what
+        makes the preference safe."""
+        body = self.TEXT.encode("cp1251")
+        with self.assertRaises(UnicodeDecodeError):
+            body.decode("utf-8")
+        self.assertEqual(
+            self.sa.decode_html(body, "text/html; charset=windows-1251"),
+            self.TEXT)
+
+    def test_a_multibyte_declaration_is_trusted_as_declared(self):
+        """Multi-byte charsets DO raise on bad input, so a successful decode
+        is already evidence — they are not second-guessed."""
+        body = self.TEXT.encode("utf-16")
+        self.assertEqual(
+            self.sa.decode_html(body, "text/html; charset=utf-16"), self.TEXT)
+
+    def test_a_meta_charset_is_read_when_the_header_says_nothing(self):
+        body = ('<meta charset="windows-1251">' + self.TEXT).encode("cp1251")
+        self.assertIn(self.TEXT, self.sa.decode_html(body, "text/html"))
+
+    def test_an_undeclared_cp1251_page_still_falls_back(self):
+        self.assertEqual(self.sa.decode_html(self.TEXT.encode("cp1251"), ""),
+                         self.TEXT)
+
+    def test_ALIAS_SPELLINGS_do_not_bypass_the_guard(self):
+        """⚠️ A hand-written set of charset names was bypassed by ordinary
+        aliases — iso8859-1, latin_1, koi8_r, cp866 all name single-byte
+        codecs Python resolves happily, and each reproduced the original bug
+        in full. The test is now empirical, so every alias is covered."""
+        body = self.TEXT.encode("utf-8")
+        for alias in ("iso8859-1", "latin_1", "koi8_r", "cp866", "cp1252",
+                      "ISO-8859-5", "WINDOWS-1251"):
+            self.assertEqual(
+                self.sa.decode_html(body, f"text/html; charset={alias}"),
+                self.TEXT, alias)
+
+    def test_the_single_byte_test_recognises_cp1251_itself(self):
+        """⚠️ The obvious implementation — "decodes 0-255 without raising" —
+        EXCLUDES cp1251, which leaves byte 0x98 undefined and therefore does
+        raise. That would have exempted the exact codec this guard exists
+        for."""
+        for name in ("cp1251", "windows-1251", "cp1252", "latin_1", "koi8_r"):
+            self.assertTrue(self.sa.is_single_byte_charset(name), name)
+        for name in ("utf-8", "utf-16", "utf-32", "not-a-codec", ""):
+            self.assertFalse(self.sa.is_single_byte_charset(name), name)
+
+    def test_a_header_charset_that_is_unknown_falls_through_to_the_meta(self):
+        """⚠️ An earlier cut returned the header's charset and never reached
+        the <meta> one, so a page whose header named an unknown codec lost the
+        correct declaration sitting in its own markup."""
+        body = ('<meta charset="windows-1251">' + self.TEXT).encode("cp1251")
+        got = self.sa.decode_html(body, "text/html; charset=x-unknown-9000")
+        self.assertIn(self.TEXT, got)
+
+
+class MojibakeRepair(unittest.TestCase):
+    """The detector, and why its first version was wrong.
+
+    ⚠️ The signature is DERIVED from the byte mapping, not guessed. UTF-8
+    Cyrillic is D0 90-BF / D1 80-8F; read as cp1251 that is [РС] followed by a
+    character from cp1251's 0x80-0xBF range — a 64-entry set containing no
+    letter from А-я. An earlier cut used "[РС] followed by any Cyrillic
+    letter", which is ordinary Bulgarian, and flagged 2,113 records of which
+    2,106 were perfectly fine."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+
+    GOOD = ("Русия и София работят по споразумение за ресурси според РИА "
+            "Новости, съобщи Ресто. Работата продължава в Русе и Разград.")
+    BAD = "Футболният свят потъна в скръб".encode("utf-8").decode("cp1251")
+
+    def test_it_flags_real_mojibake(self):
+        self.assertTrue(self.sa.looks_like_mojibake(self.BAD))
+
+    def test_it_does_NOT_flag_ordinary_bulgarian(self):
+        # ⚠️ Every word here starts with Р or С. This is the false-positive
+        # case that made the first detector useless.
+        self.assertFalse(self.sa.looks_like_mojibake(self.GOOD))
+
+    def test_the_second_character_set_excludes_the_common_letters(self):
+        """Derived, not hand-written: if this set ever contained А-я the
+        detector would match ordinary text again."""
+        high = self.sa._CP1251_HIGH
+        self.assertEqual(len(high), 64)
+        self.assertFalse(any("А" <= c <= "я" for c in high))
+
+    def test_short_text_is_never_flagged(self):
+        # Too little Cyrillic to compute a ratio from.
+        self.assertFalse(self.sa.looks_like_mojibake("Рё"))
+        self.assertFalse(self.sa.looks_like_mojibake(""))
+        self.assertFalse(self.sa.looks_like_mojibake(None))
+
+    def test_demojibake_recovers_the_text(self):
+        self.assertEqual(self.sa.demojibake(self.BAD),
+                         "Футболният свят потъна в скръб")
+
+    def test_demojibake_REFUSES_when_it_cannot_improve(self):
+        """⚠️ This rewrites stored records. A repair that cannot be shown to
+        improve the text by the same measure that flagged it is a guess."""
+        self.assertIsNone(self.sa.demojibake(self.GOOD))
+        self.assertIsNone(self.sa.demojibake("plain ascii"))
+        self.assertIsNone(self.sa.demojibake(None))
+
+    def test_a_U_FFFD_is_RECOVERED_not_abandoned(self):
+        """⚠️ The one byte that decides whether this works at all.
+
+        cp1251 leaves exactly one byte undefined — 0x98 — and that is the
+        second byte of UTF-8 uppercase И. The original decode turned it into
+        U+FFFD, and a strict `text.encode("cp1251")` then refuses U+FFFD in
+        BOTH directions, abandoning the whole field over a single letter.
+        Measured on the corpus: that alone was the difference between
+        recovering 0 fields and recovering every mangled headline."""
+        original = "Играч със сериозен опит в елита"
+        mangled = original.encode("utf-8").decode("cp1251", errors="replace")
+        self.assertIn("\ufffd", mangled, "fixture does not exercise 0x98")
+        self.assertTrue(self.sa.looks_like_mojibake(mangled))
+        self.assertEqual(self.sa.demojibake(mangled), original)
+
+    def test_a_partially_mangled_field_is_refused_whole(self):
+        """⚠️ Half-repairing a body is worse than leaving it. Measured, 7
+        content fields in the corpus interleave correct and mangled text, so
+        re-encoding the whole field yields bytes that are not uniformly UTF-8
+        — and decoding those with errors="replace" would inject U+FFFD into a
+        body to salvage part of it."""
+        mixed = ("Това изречение е наред и си остава така. "
+                 + "Другото е повредено".encode("utf-8").decode("cp1251"))
+        self.assertIsNone(self.sa.demojibake(mixed))
+
+
+class RepairEncoding(unittest.TestCase):
+    """The corpus-repair command."""
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp(prefix="save-articles-enc-"))
+        self.addCleanup(shutil.rmtree, self.root, True)
+        self.data = self.root / "news" / "data"
+        (self.data / "ex.bg").mkdir(parents=True)
+        (self.data / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "ex.bg,rss,https://ex.bg/feed\n", encoding="utf-8")
+
+    def write(self, name, **fields):
+        rec = {"domain": "ex.bg", "url": f"https://ex.bg/{name}",
+               "fetched_at": "2026-08-22T09:00:00+00:00"}
+        rec.update(fields)
+        (self.data / "ex.bg" / name).write_text(
+            json.dumps(rec, ensure_ascii=False), encoding="utf-8")
+
+    def stored(self, name):
+        return json.loads(
+            (self.data / "ex.bg" / name).read_text(encoding="utf-8"))
+
+    def run_cmd(self, *flags):
+        env = dict(os.environ, DATA_BG_ROOT=str(self.root))
+        proc = subprocess.run(
+            [sys.executable, str(SCRIPT_DIR / "save_articles.py"), *flags],
+            capture_output=True, text=True, env=env)
+        self.assertEqual(proc.returncode, 0, proc.stderr[-400:])
+        return json.loads(proc.stdout)
+
+    def mangled(self, text):
+        return text.encode("utf-8").decode("cp1251")
+
+    def test_a_dry_run_reports_without_writing(self):
+        self.write("a.json", title=self.mangled("Заглавие на статията днес"),
+                   content="текст " * 60)
+        out = self.run_cmd("--repair-encoding")
+        self.assertEqual(out["repaired"], 1)
+        self.assertFalse(out["applied"])
+        self.assertNotEqual(self.stored("a.json")["title"],
+                            "Заглавие на статията днес")
+
+    def test_apply_recovers_every_mangled_field(self):
+        self.write("a.json",
+                   title=self.mangled("Заглавие на статията днес"),
+                   description=self.mangled("Описание на новината днес тук"),
+                   content="текст " * 60)
+        self.run_cmd("--repair-encoding", "--apply")
+        rec = self.stored("a.json")
+        self.assertEqual(rec["title"], "Заглавие на статията днес")
+        self.assertEqual(rec["description"], "Описание на новината днес тук")
+        self.assertIn("encoding_repaired_at", rec)
+
+    def test_a_clean_record_is_untouched(self):
+        self.write("a.json", title="Русия и София работят по споразумение",
+                   content="Работата продължава в Русе и Разград днес " * 4)
+        out = self.run_cmd("--repair-encoding", "--apply")
+        self.assertEqual(out["repaired"], 0)
+        self.assertEqual(self.stored("a.json")["title"],
+                         "Русия и София работят по споразумение")
+
+    def test_content_chars_is_recomputed(self):
+        """A repaired body is a DIFFERENT length — mojibake is longer than the
+        text it mangles — and content_chars gates the body floor."""
+        body = "Новината продължава с още подробности по темата днес. " * 8
+        self.write("a.json", title="Заглавие", content=self.mangled(body),
+                   content_chars=len(self.mangled(body)))
+        self.run_cmd("--repair-encoding", "--apply")
+        rec = self.stored("a.json")
+        self.assertEqual(rec["content"], body)
+        self.assertEqual(rec["content_chars"], len(body))
+        self.assertLess(rec["content_chars"], len(self.mangled(body)))
+
+    def test_a_half_mangled_record_comes_out_whole(self):
+        self.write("a.json", title=self.mangled("Заглавие на статията днес"),
+                   description="Това описание е наред и не се пипа изобщо")
+        self.run_cmd("--repair-encoding", "--apply")
+        rec = self.stored("a.json")
+        self.assertEqual(rec["title"], "Заглавие на статията днес")
+        self.assertEqual(rec["description"],
+                         "Това описание е наред и не се пипа изобщо")
+
+    def test_a_positional_domain_scopes_the_sweep(self):
+        (self.data / "other.bg").mkdir(parents=True)
+        (self.data / "other.bg" / "b.json").write_text(json.dumps({
+            "domain": "other.bg", "url": "https://other.bg/b",
+            "title": self.mangled("Заглавие на статията днес")},
+            ensure_ascii=False), encoding="utf-8")
+        self.write("a.json", title=self.mangled("Заглавие на статията днес"))
+        out = self.run_cmd("ex.bg", "--repair-encoding", "--apply")
+        self.assertEqual(out["repaired"], 1)
+        other = json.loads(
+            (self.data / "other.bg" / "b.json").read_text(encoding="utf-8"))
+        self.assertNotEqual(other["title"], "Заглавие на статията днес")
+
+    def test_a_second_run_is_a_no_op(self):
+        self.write("a.json", title=self.mangled("Заглавие на статията днес"))
+        self.run_cmd("--repair-encoding", "--apply")
+        first = self.stored("a.json")
+        self.assertEqual(
+            self.run_cmd("--repair-encoding", "--apply")["repaired"], 0)
+        self.assertEqual(self.stored("a.json"), first)
+
+
 class RepairDates(unittest.TestCase):
     """The parse-time future-skew refusal reaches only records written AFTER
     it landed, and --reextract reaches only the 13 of 55 domains whose HTML we

@@ -1054,21 +1054,87 @@ def write_record(path, rec):
 
 # ------------------------------------------------------------------- fetch
 
+_ALL_BYTES = bytes(range(256))
+_SINGLE_BYTE_CACHE: dict = {}
+
+
+def is_single_byte_charset(name) -> bool:
+    """Whether this codec can decode ANY byte sequence without raising.
+
+    ⚠️ Determined EMPIRICALLY, not from a list. A hand-written set of names
+    was bypassed by ordinary alias spellings — `iso8859-1`, `latin_1`,
+    `koi8_r`, `cp866` all name single-byte codecs Python resolves happily, and
+    each one reproduced the original bug in full. Asking the codec covers
+    every alias and every codec, present and future.
+
+    ⚠️ The test is "maps all 256 bytes to 256 characters with almost no
+    undefined slots", NOT "decodes 0-255 without raising". The obvious version
+    excludes cp1251 itself — it leaves byte 0x98 undefined and therefore DOES
+    raise — which would have exempted the exact codec this whole guard exists
+    for. Measured across the codecs in play: cp1251 has 1 undefined slot,
+    cp1252 has 5, latin-1/koi8-r/cp866/iso-8859-5 have 0, and utf-8 has 128.
+    Nothing sits between 5 and 128."""
+    key = (name or "").strip().lower()
+    if key in _SINGLE_BYTE_CACHE:
+        return _SINGLE_BYTE_CACHE[key]
+    try:
+        decoded = _ALL_BYTES.decode(key, errors="replace")
+        got = len(decoded) == 256 and decoded.count("\ufffd") <= 8
+    except (LookupError, ValueError):
+        got = False
+    _SINGLE_BYTE_CACHE[key] = got
+    return got
+
+
 def decode_html(body, content_type=""):
+    """Decode a page body, preferring what the BYTES say over what the page
+    claims.
+
+    ⚠️ A DECLARED SINGLE-BYTE CHARSET CANNOT FAIL, and that is the whole bug.
+    cp1251 maps every byte 0x00-0xFF, so `body.decode("cp1251")` NEVER raises
+    — a page that declares windows-1251 while serving UTF-8 decoded
+    "successfully" into mojibake, and every gate downstream saw a perfectly
+    well-formed string. Measured 2026-08-26 with a signature derived from the
+    byte mapping (see _MOJIBAKE_RE): 7 stored records on actualno.com, 33
+    mangled fields, headlines included.
+
+    ⚠️ An earlier count of "284 records across ~30 domains" was WRONG and is
+    recorded here because the mistake is instructive: it came from a detector
+    that matched "[РС] followed by any Cyrillic letter", which is ordinary
+    Bulgarian — „Русия", „София", „Работа". Measure this class of defect with
+    a signature you can derive, not one that looks right.
+
+    The fix is to test the bytes. Valid UTF-8 is overwhelming evidence of
+    UTF-8: real cp1251 Cyrillic uses 0xC0-0xFF as SINGLE bytes, which almost
+    never form valid UTF-8 sequences — verified against the committed
+    cp1251__moreto fixture, whose wire bytes are not valid UTF-8. So when a
+    single-byte charset is declared and the body is ALSO valid UTF-8, UTF-8
+    wins.
+
+    A declared MULTI-byte charset is trusted as declared: those do raise on
+    bad input, so a successful decode is already evidence."""
+    # ⚠️ BOTH declarations, in order, each tried in full. An earlier cut
+    # returned the header's charset and never reached the <meta> one, so a
+    # page whose header named an unknown codec lost the correct declaration
+    # sitting in its own markup.
     ct = (content_type or "").lower()
-    m = re.search(r"charset=([\w\-]+)", ct)
-    if m:
-        try:
-            return body.decode(m.group(1))
-        except (LookupError, UnicodeDecodeError):
-            pass
+    header = re.search(r"charset=([\w\-]+)", ct)
     head = body[:2048].decode("ascii", errors="ignore")
-    m = re.search(r'charset=["\']?([\w\-]+)', head, re.I)
-    if m:
+    meta = re.search(r'charset=["\']?([\w\-]+)', head, re.I)
+    for match in (header, meta):
+        if not match:
+            continue
+        name = match.group(1)
+        if is_single_byte_charset(name):
+            # It cannot fail, so it cannot be evidence. Ask the bytes instead.
+            try:
+                return body.decode("utf-8")
+            except UnicodeDecodeError:
+                pass  # genuinely single-byte — fall through and honour it
         try:
-            return body.decode(m.group(1))
+            return body.decode(name)
         except (LookupError, UnicodeDecodeError):
-            pass
+            continue
     try:
         return body.decode("utf-8")
     except UnicodeDecodeError:
@@ -2331,6 +2397,159 @@ def cmd_repair_dates(apply_changes=False, only_domain=None):
             "examples": examples}
 
 
+# The mojibake signature, DERIVED from the byte mapping rather than guessed.
+#
+# Bulgarian Cyrillic (U+0410-U+044F) encodes in UTF-8 as D0 90-BF / D1 80-8F.
+# Read one byte at a time as cp1251, D0 becomes "Р" and D1 becomes "С", and
+# the SECOND byte — always in 0x80-0xBF — becomes whatever cp1251 maps that
+# range to. So every mangled character is a pair: [РС] followed by a character
+# from that specific 64-entry set.
+#
+# ⚠️ That set contains NO letter from А-я, which is why this discriminates.
+# An earlier cut used "[РС] followed by any Cyrillic letter" and matched
+# ordinary Bulgarian — „Русия", „София", „Работа" — flagging 2,113 records of
+# which 2,106 were perfectly fine.
+_CP1251_HIGH = bytes(range(0x80, 0xC0)).decode("cp1251", errors="replace")
+_MOJIBAKE_RE = re.compile(f"[РС][{re.escape(_CP1251_HIGH)}]")
+_CYRILLIC_RE = re.compile(r"[\u0400-\u04FF]")
+
+# In real mojibake essentially EVERY Cyrillic character is half of such a
+# pair, so the ratio runs near 1.0; measured across the corpus, healthy text
+# never exceeds ~0.05. 0.3 sits in the empty gap between the two populations.
+MOJIBAKE_RATIO = 0.3
+MOJIBAKE_MIN_CYRILLIC = 20
+
+
+def looks_like_mojibake(text) -> bool:
+    """Whether `text` is UTF-8 that was decoded with a single-byte charset."""
+    if not isinstance(text, str):
+        return False
+    sample = text[:2000]
+    cyrillic = len(_CYRILLIC_RE.findall(sample))
+    if cyrillic < MOJIBAKE_MIN_CYRILLIC:
+        return False
+    return (2 * len(_MOJIBAKE_RE.findall(sample))) / cyrillic >= MOJIBAKE_RATIO
+
+
+def _cp1251_bytes(text):
+    """The cp1251 byte string `text` was decoded FROM, or None.
+
+    ⚠️ Built byte by byte rather than with `text.encode("cp1251")`, because
+    cp1251 leaves exactly ONE byte undefined — 0x98 — and that byte is the
+    second byte of UTF-8 uppercase И. The original decode turned it into
+    U+FFFD, and `encode` then refuses U+FFFD in BOTH directions, so a strict
+    round-trip abandoned the whole field over a single И. Measured: that alone
+    was the difference between recovering 0 fields and recovering every
+    mangled headline in the corpus."""
+    out = bytearray()
+    for ch in text:
+        if ch == "\ufffd":
+            out.append(0x98)
+            continue
+        try:
+            out += ch.encode("cp1251")
+        except UnicodeEncodeError:
+            return None
+    return bytes(out)
+
+
+def demojibake(text):
+    """Recover UTF-8 text that was decoded as cp1251, or None.
+
+    Returns None unless the result is BETTER by the same measure that flagged
+    it — a repair that cannot be shown to improve the text is a guess, and
+    this rewrites stored records.
+
+    ⚠️ That guard is also what contains `looks_like_mojibake`'s false
+    positives. The ratio test does fire on some genuine Ukrainian and on
+    Russian Сё-words, which reach ~0.38-0.45 against a 0.3 threshold — but
+    such text does not round-trip through cp1251 into valid UTF-8, so nothing
+    is ever rewritten. The detector is a CANDIDATE filter; this function is
+    the decision.
+
+    ⚠️ A PARTIALLY mangled field is refused whole rather than half-repaired.
+    Measured on the corpus, 7 of 14 remaining fields are mixed — correctly
+    decoded text interleaved with mangled text — so re-encoding the whole
+    field yields bytes that are not uniformly UTF-8. Decoding those with
+    errors="replace" would inject U+FFFD into a body to salvage part of it,
+    which is worse than leaving it legible-but-wrong and saying so."""
+    if not isinstance(text, str):
+        return None
+    raw = _cp1251_bytes(text)
+    if raw is None:
+        return None
+    try:
+        fixed = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return None
+    if len(_MOJIBAKE_RE.findall(fixed)) >= len(_MOJIBAKE_RE.findall(text)):
+        return None
+    return fixed
+
+
+def cmd_repair_encoding(apply_changes=False, only_domain=None):
+    """Recover records whose text was decoded with the wrong charset.
+
+    ⚠️ Why this exists rather than a re-crawl: a single-byte charset decodes
+    ANY byte sequence without raising, so a page declaring windows-1251 while
+    serving UTF-8 produced a well-formed but meaningless string, and every
+    gate downstream accepted it. Measured 2026-08-26: 7 records on
+    actualno.com, 33 mangled fields, of which 19 recovered and 14 could not —
+    those had already lost a byte to a U+FFFD during the original decode, so
+    the information is simply gone. The rest is recoverable arithmetically — the
+    bytes are intact, only the interpretation was wrong — so re-fetching a
+    rate-limited public register to obtain characters we already hold would
+    be the wrong trade.
+
+    Every field is repaired independently and only when the repair is
+    demonstrably better, so a record that is half-mangled comes out whole."""
+    FIELDS = ("title", "description", "content", "author", "topic",
+              "keywords", "site_name", "image_alt")
+    scanned = changed = 0
+    examples = []
+    for child in sorted(DATA_DIR.iterdir()) if DATA_DIR.is_dir() else []:
+        if not child.is_dir() or child.name.startswith("_") \
+                or child.name == "analysis":
+            continue
+        if only_domain and child.name != only_domain:
+            continue
+        for path in sorted(child.glob("*.json")):
+            try:
+                rec = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+                continue
+            if not isinstance(rec, dict) or "url" not in rec:
+                continue
+            scanned += 1
+            fixed_fields = {}
+            for key in FIELDS:
+                value = rec.get(key)
+                if looks_like_mojibake(value):
+                    got = demojibake(value)
+                    if got:
+                        fixed_fields[key] = got
+            if not fixed_fields:
+                continue
+            changed += 1
+            if len(examples) < 10:
+                examples.append({
+                    "domain": child.name,
+                    "fields": sorted(fixed_fields),
+                    "title_before": (rec.get("title") or "")[:60],
+                    "title_after": (fixed_fields.get("title")
+                                    or rec.get("title") or "")[:60],
+                })
+            if apply_changes:
+                rec.update(fixed_fields)
+                if "content" in fixed_fields:
+                    rec["content_chars"] = len(fixed_fields["content"])
+                rec["encoding_repaired_at"] = now_iso()
+                write_record(path, rec)
+    return {"domain": only_domain, "mode": "repair-encoding",
+            "applied": apply_changes, "scanned": scanned, "repaired": changed,
+            "examples": examples}
+
+
 def cmd_intake_report(stale_after_days=7):
     """One JSON object describing every domain's intake health.
 
@@ -2607,6 +2826,7 @@ def main():
     no_quarantine = False
     intake_report = False
     repair_dates = False
+    repair_encoding = False
     stale_after_days = 7
     stale_after_cli = False
     apply_quarantine = False
@@ -2656,6 +2876,9 @@ def main():
         elif a == "--repair-dates":
             repair_dates = True
             args.remove(a)
+        elif a == "--repair-encoding":
+            repair_encoding = True
+            args.remove(a)
         elif a.startswith("--stale-after="):
             raw = a.split("=", 1)[1]
             if not raw.isdigit():
@@ -2700,6 +2923,11 @@ def main():
         elif a == "--no-cache":
             cache_html = False
             args.remove(a)
+    if repair_encoding:
+        print(json.dumps(cmd_repair_encoding(
+            apply_changes, only_domain=args[0] if args else None),
+            ensure_ascii=False))
+        sys.exit(0)
     if repair_dates:
         # A positional domain SCOPES the sweep rather than being ignored:
         # `save_articles.py ex.bg --repair-dates --apply` rewrote every other
