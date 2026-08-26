@@ -105,6 +105,11 @@ class Gazetteer:
                     "anchor_for": form.get("anchor_for"),
                     # Why the gazetteer refused it, machine-readable.
                     "refusal": form.get("refusal"),
+                    # ⚠️ How strong the surface is as evidence — see
+                    # FORM_KINDS in build_gazetteer.py. 99.1% of person links
+                    # rest on a two-part name, and a consumer that cannot see
+                    # that will render „a person of this name" as an identity.
+                    "form_kind": form.get("form_kind", "name"),
                     # Distinguishes homonyms that share a canonical name —
                     # „Айтос" is both a settlement and an obshtina, and a
                     # candidate list built without it collapses to one.
@@ -314,6 +319,10 @@ def resolve(text: str, gaz: Gazetteer) -> list:
             # for being named once in the last paragraph.
             "role": "mention",
         }
+        # ⚠️ Carried on the mention, not left in the gazetteer, because the
+        # consumer that has to caption it never reads the gazetteer.
+        mention["form_kind"] = ("coref" if basis == "coref_resolved"
+                                else won.get("form_kind", "name"))
         # ⚠️ A KNOWN NON-ENTITY IS NOT A REVIEW CANDIDATE. „войници",
         # „места", „река" are gazetteer surfaces refused as ordinary
         # Bulgarian words, and emitting them as `not_in_gazetteer` filled the

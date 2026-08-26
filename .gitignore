@@ -430,3 +430,10 @@ scratch/
 # Python bytecode cache — news/scripts/ is plain-Python tooling, no build step.
 __pycache__/
 *.pyc
+
+# The reciprocal mention index (news/scripts/build_mention_index.py). Derived
+# from the gitignored news corpus, rebuilt whole every night and bucket-served
+# to the main site's data origin — so committing it churns ~223 files per run
+# for a tree nothing reads out of git. `bucket:sync` and
+# `bucket:sync:paths -- news` both carry it; neither excludes it.
+/data/news/

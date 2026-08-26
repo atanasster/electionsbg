@@ -165,7 +165,15 @@ MENTION_BASES_WITH_ID = frozenset({"gazetteer_exact", "coref_resolved"})
 # about something else is not a reason to put the article on his page.
 MENTION_ROLES = ("subject", "source", "mention")
 
-MENTION_KEYS = frozenset({"kind", "surface", "basis", "id", "role", "candidates"})
+# ⚠️ `form_kind` is in the schema and NOT in MODEL_MAY_SET, so an analyst
+# cannot promote a two-part match to a full-name one. It records how strong
+# the matched surface is as evidence — see FORM_KINDS in build_gazetteer.py:
+# 99.1% of person links rest on a two-part name, and relabelling one as
+# `full_name` would launder the weakest evidence this tier admits into the
+# strongest.
+MENTION_KEYS = frozenset({"kind", "surface", "basis", "id", "role",
+                          "candidates", "form_kind"})
+MENTION_FORM_KINDS = ("full_name", "two_part", "surname", "name", "coref")
 
 # ⚠️⚠️ THE MODEL MAY NOT MINT AN IDENTITY. The dictionary pass
 # (resolve_mentions.py) runs first, off the gazetteer, and every id and basis
@@ -698,6 +706,10 @@ def validate_mentions(mentions) -> list:
         basis = m.get("basis")
         if basis not in MENTION_BASES:
             errs.append(f"{at}.basis must be one of {sorted(MENTION_BASES)}")
+        if m.get("form_kind") is not None \
+                and m["form_kind"] not in MENTION_FORM_KINDS:
+            errs.append(f"{at}.form_kind must be one of "
+                        f"{sorted(MENTION_FORM_KINDS)} or absent")
         if m.get("role") not in MENTION_ROLES:
             errs.append(f"{at}.role must be one of {sorted(MENTION_ROLES)}")
         ident = m.get("id")
@@ -834,6 +846,15 @@ def check_mention_provenance(mentions: list, rec: dict) -> list:
         for field in sorted(MENTION_KEYS - MODEL_MAY_SET):
             if field == "surface":
                 continue  # it is the key; a spelling difference is allowed
+            if field not in m:
+                # ⚠️ FILLED, not rejected. These fields are OURS — the
+                # analyst is not asked to produce `form_kind` or
+                # `candidates`, and refusing a record for omitting one would
+                # make every new field a breaking change for every analyst.
+                # Only a value it SET differently is a claim we must refuse.
+                if ref.get(field) is not None:
+                    m[field] = ref[field]
+                continue
             if m.get(field) != ref.get(field):
                 errs.append(
                     f"{at}.{field}: {m.get(field)!r} does not match the "

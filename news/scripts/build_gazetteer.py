@@ -312,8 +312,27 @@ def is_common_word(surface: str) -> bool:
     return len(parts) == 1 and parts[0].casefold() in COMMON_WORDS
 
 
+# How strong the surface itself is as evidence of identity.
+#
+# ⚠️⚠️ THIS IS NOT DECORATION, and the measurement is why: 464 of 468 person
+# links in the reciprocal index (99.1%) rest on a TWO-PART match, and only 4
+# on a full three-part name. Bulgarian newsrooms write two parts while the
+# identity layer stores three, so „unique among OUR public figures" is the
+# only test a two-part form can pass — and it says nothing about whether the
+# person the article means is in our layer at all. „проф. Николай Витанов",
+# interviewed 50 times by Поглед.инфо, matches a deputy minister of that name
+# and may well be somebody else entirely.
+#
+# The links are kept, because dropping them deletes 99% of the feature and
+# hides the finding. They are LABELLED, so a page can say „a person of this
+# name" where that is all we know, and no consumer can render a two-part
+# match as an identity claim without having seen this field.
+FORM_KINDS = ("full_name", "two_part", "surname", "name")
+
+
 def form(surface: str, resolvable: bool, why: str,
-         ident: str | None = None, kind: str | None = None) -> dict:
+         ident: str | None = None, kind: str | None = None,
+         form_kind: str = "name") -> dict:
     """One surface form, and the identity it is allowed to claim.
 
     ⚠️⚠️ THE ID LIVES ON THE FORM, NOT ON THE ENTRY, and that is the whole
@@ -358,9 +377,11 @@ def form(surface: str, resolvable: bool, why: str,
                    "this corpus — anchor only; a one-word common noun cannot "
                    "be told from the place that shares its name")
         resolvable = False
+    assert form_kind in FORM_KINDS, form_kind
     return {
         "surface": surface,
         "resolvable": resolvable,
+        "form_kind": form_kind,
         "id": ident if resolvable else None,
         # ⚠️ WHAT THIS ANCHOR ANCHORS TO — and it is deliberately NOT `id`.
         # `id` means „you may link this"; `anchor_for` means „if this DOCUMENT
@@ -415,7 +436,8 @@ def person_forms(slug: str, s_full: str, tok_first: str, tok_last: str,
             "full name, unique among public figures" if unique else
             (f"full name shared with {max(full_n - 1, 0)} other public "
              "figure(s) — anchor only") if full_self else
-            "full name does not fold to this person — anchor only", slug))
+            "full name does not fold to this person — anchor only", slug,
+            None, "full_name"))
     two = f"{tok_first} {tok_last}".strip()
     # ⚠️ `tok_first != tok_last` is the SINGLE-TOKEN guard, and it is not
     # covered by the `two != s_full` test beside it: a one-word name folds
@@ -432,7 +454,7 @@ def person_forms(slug: str, s_full: str, tok_first: str, tok_last: str,
             (f"given+family shared with {max(two_n - 1, 0)} other public "
              "figure(s) — anchor only") if two_self else
             (f"given+family matches {two_n} other public figure(s) and not "
-             "this one — anchor only"), slug))
+             "this one — anchor only"), slug, None, "two_part"))
     if tok_last and len(tok_last) >= MIN_SURFACE_CHARS \
             and tok_last.casefold() != s_full.casefold():
         # ⚠️ NEVER resolvable, whatever the count. See the module docstring:
@@ -442,7 +464,7 @@ def person_forms(slug: str, s_full: str, tok_first: str, tok_last: str,
         forms.append(form(
             tok_last, False,
             f"surname alone — {sur_n} public figure(s) share it; coreference "
-            "anchor only, never a standalone match", slug))
+            "anchor only, never a standalone match", slug, None, "surname"))
     return forms
 
 

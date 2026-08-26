@@ -902,6 +902,37 @@ class Mentions(FixtureTestCase):
                          "role": "subject"}])
         self.assertEqual(self.saved()["mentions"][0]["id"], "api-1")
 
+    def test_an_OMITTED_field_is_filled_from_the_dictionary(self):
+        # ⚠️ These fields are OURS — an analyst is not asked to produce
+        # `form_kind`, and refusing a record for omitting one makes every new
+        # field a breaking change for every analyst. Only a value it SET
+        # differently is a claim we refuse.
+        self.write_gazetteer({"version": 1, "entries": [
+            {"kind": "person", "canonical": "Делян Пеевски", "forms": [
+                {"surface": "Делян Пеевски", "resolvable": True,
+                 "id": "dp-1", "form_kind": "full_name", "why": ""}]}]})
+        self.set_body("a1", "Делян Пеевски заяви днес нещо много важно. " * 12)
+        self.save_with([{"kind": "person", "surface": "Делян Пеевски",
+                         "basis": "gazetteer_exact", "id": "dp-1",
+                         "role": "subject"}])
+        self.assertEqual(self.saved()["mentions"][0]["form_kind"], "full_name")
+
+    def test_an_analyst_may_not_PROMOTE_a_two_part_match(self):
+        # ⚠️⚠️ 464 of 468 person links rest on a two-part name. Relabelling
+        # one `full_name` launders the weakest evidence this tier admits into
+        # the strongest, on a page that carries a named individual.
+        self.write_gazetteer({"version": 1, "entries": [
+            {"kind": "person", "canonical": "Делян Славчев Пеевски", "forms": [
+                {"surface": "Делян Пеевски", "resolvable": True, "id": "dp-1",
+                 "form_kind": "two_part", "why": ""}]}]})
+        self.set_body("a1", "Делян Пеевски заяви днес нещо много важно. " * 12)
+        out = self.save_with([{"kind": "person", "surface": "Делян Пеевски",
+                               "basis": "gazetteer_exact", "id": "dp-1",
+                               "form_kind": "full_name", "role": "subject"}],
+                             expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any(".form_kind" in e for e in msgs), msgs)
+
     def test_without_a_gazetteer_the_skip_is_REPORTED(self):
         # ⚠️ A save that quietly accepted every id looks identical to one
         # that verified them. The flag is the only difference.
