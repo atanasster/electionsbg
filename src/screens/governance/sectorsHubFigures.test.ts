@@ -205,7 +205,7 @@ describe("the procurement basis", () => {
 describe("the bases note", () => {
   it("says they do not combine, on a band of ANY length", () => {
     // ⚠️ THE NOTE MUST NOT COUNT THE CELLS. It said „четирите числа" and the band is short
-    // on 8 of 30 scope keys — on one of them it named „поръчките" while that cell was
+    // on 12 of 30 scope keys — on one of them it named „поръчките" while that cell was
     // withheld. The sentence now describes the four bases the SECTORS sit on, which is true
     // at every scope, so the same key is right for a two-cell band as for a four.
     expect(sectorsKpiNote(band(), t)).toBe("sectors_kpi_note");

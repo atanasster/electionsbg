@@ -950,19 +950,21 @@ describe("a hub's og capture anchors on its head", () => {
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
   const NOT_YET: Record<string, string> = {
-    // ⚠️ `governance-sectors` grew a head on 2026-08-26 and its card still anchors on the
-    // tile grid. Unlike `culture` before it, the card IS shot from this page — only the
-    // anchor is wrong — so this is a one-line change plus a re-shoot, taken in the
-    // share-card step rather than the one that built the band. Listed rather than left
-    // unregistered so the map's „every HubHead screen is named" clause still sees it.
-    "governance-sectors":
-      "its card anchors on the tile grid; re-anchor on the head and re-shoot",
-    // WAS EMPTY AGAIN as of 2026-08-26, briefly. It held `culture` for the length of one commit, while
-    // /culture had a head and no card of its own: `/og/culture.png` is shot from
-    // /culture/subsidies and is shared by SIX routes, so the hub's card depicted the film
-    // dashboard — 13% of the money the hub exists to put in proportion. The debt is paid by
-    // the `culture-hub` slug, and the entry is gone rather than left behind as a stale
-    // exemption.
+    // EMPTY AGAIN as of 2026-08-26, having been used TWICE that day and paid off both
+    // times within a commit — which is the pattern this map is for.
+    //
+    //   `culture` — /culture had a head and no card of its own: `/og/culture.png` is shot
+    //   from /culture/subsidies and was shared by SIX routes, so the hub's card depicted
+    //   the film dashboard, 13% of the money the hub exists to put in proportion. Paid by
+    //   a new `culture-hub` slug.
+    //
+    //   `governance-sectors` — the card WAS shot from this page; only the anchor was the
+    //   tile grid, so it led with tile fronts and cut the band and the aside. Paid by
+    //   re-anchoring on `[data-hub-head]` and re-shooting.
+    //
+    // Both entries are gone rather than left behind as stale exemptions. The distinction
+    // between the two is worth keeping: the first needed a new card, the second only a new
+    // anchor, and only the first could not be cleared by a re-shoot.
   };
 
   /** One capture entry's text, by slug. */
@@ -1110,13 +1112,21 @@ describe("a hub's og capture anchors on its head", () => {
     // reddens nothing. PER-HUB rather than global, so an unrelated hub is not reddened by a
     // sibling's edit; the same measurement the HubHead line above rests on applies here too:
     // folding both in reddens zero additional cards today.
-    const FIGURES: Record<string, string> = {
+    // ⚠️ A HUB MAY DECLARE MORE THAN ONE SOURCE, and `governance-sectors` is why. Its
+    // figures come from a GIT-TRACKED payload (data/procurement/derived/sector_stats.json),
+    // unlike the `/api/db` heads whose numbers move with no tracked file — so a corpus
+    // reload CAN redden its card here, and the only reason it would not is this map holding
+    // one path per slug.
+    const FIGURES: Record<string, string | string[]> = {
       budget: "src/screens/budget/budgetHubFigures.ts",
       funds: "src/screens/funds/fundsHubFigures.ts",
       consumption: "src/screens/consumption/consumptionHubFigures.ts",
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
       "culture-hub": "src/screens/culture/cultureHubFigures.ts",
-      "governance-sectors": "src/screens/governance/sectorsHubFigures.ts",
+      "governance-sectors": [
+        "src/screens/governance/sectorsHubFigures.ts",
+        "data/procurement/derived/sector_stats.json",
+      ],
       "governance-declarations":
         "src/screens/governance/declarationsHubFigures.ts",
     };
@@ -1189,16 +1199,19 @@ describe("a hub's og capture anchors on its head", () => {
         0,
       );
       expect(page, `no commit found for ${screen}`).toBeGreaterThan(0);
-      const extra = FIGURES[slug];
-      const extraAt = extra ? at(extra) : 0;
-      if (extra)
-        expect(extraAt, `no commit found for ${extra}`).toBeGreaterThan(0);
+      const extras =
+        FIGURES[slug] === undefined
+          ? []
+          : Array.isArray(FIGURES[slug])
+            ? FIGURES[slug]
+            : [FIGURES[slug] as string];
+      const extraPairs: [string, number][] = extras.map((rel) => {
+        const t = at(rel);
+        expect(t, `no commit found for ${rel}`).toBeGreaterThan(0);
+        return [rel, t];
+      });
       const sources: [string, number][] = (
-        [
-          [screen, page],
-          [HEAD, headAt],
-          ...(extra ? ([[extra, extraAt]] as [string, number][]) : []),
-        ] as [string, number][]
+        [[screen, page], [HEAD, headAt], ...extraPairs] as [string, number][]
       ).filter(([rel]) => !exempt(rel));
       // Every source exempted — nothing left to compare this card against, which must not
       // read as „current". Cannot happen while `screen` is never exemptible, and asserted

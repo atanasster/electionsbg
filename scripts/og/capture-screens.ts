@@ -1350,13 +1350,42 @@ const captures: Capture[] = [
   {
     slug: "governance-sectors",
     routePath: "governance/sectors?pscope=all",
-    // The 15-sector tile hub. Anchor on the tiles wrapper and top-align so the
-    // card leads with the first cluster of infographic tiles + their headline
-    // numbers (payouts / procurement € / matura score). ?pscope=all for the
-    // full-corpus figures on the tender-driven sectors.
-    waitFor: '[data-og="sectors-hub"] a',
-    anchor: '[data-og="sectors-hub"]',
-    leftAlign: true,
+    // ⚠️ RE-ANCHORED ON THE HEAD (§5.3), 2026-08-26. It anchored on the tile grid — right
+    // for a tile hub, and wrong the moment the page grew a head: the card led with tile
+    // fronts and cut the band and the aside, which is where this page's actual argument is.
+    // `?pscope=all` stays, for the full-corpus figures on the tender-driven sectors.
+    //
+    // The comment said „the 15-sector tile hub" and „matura score"; the hub carries
+    // NINETEEN sectors and the `score` basis was retired in 2026-08 (useSectorStats' header
+    // records it).
+    //
+    // ⚠️ THE WAIT COUNTS THE CELLS, because naming them cannot. A band cell is withheld
+    // whenever its basis has no publishable sector — measured over the committed payload,
+    // the band is short on 12 of 30 scope keys, distribution {1:4, 2:4, 3:4, 4:18} — and
+    // this card must not be overwritten by a short one and reported as success.
+    //
+    // The first cut asked for a `/procurement` cell AND an `/sector/` aside row. Both
+    // clauses are LOGICALLY EQUIVALENT here: `sectorsHubEvidence` filters on exactly the
+    // predicate that produces the procurement cell, so aside-present ⟺ procurement-cell-
+    // present. It refused 1 of the 30 keys, and that one was the LEAST short at three cells,
+    // while all four one-cell bands sailed through — each of them being the procurement cell
+    // with a full four-row aside. The sibling chain below asserts LENGTH, which is the thing
+    // that was actually meant.
+    //
+    // `:has(aside a)` rather than a path prefix: the rail's rows link to each sector's own
+    // page and one of them is `/water`, not `/sector/water`, so a prefix would refuse a
+    // perfectly good head on any scope where water were the only publishable roster.
+    //
+    // ⚠️ AN ABSENT PAYLOAD IS CAUGHT: band and aside both come from the one artifact, so a
+    // 404 renders neither, this times out and the previous card survives. Figure STALENESS
+    // is caught too on this hub — unlike the `/api/db` heads, its payload
+    // (data/procurement/derived/sector_stats.json) is GIT-TRACKED, so the coverage gate's
+    // freshness clause compares the card against it. §10's „look at the png" is still the
+    // only thing that can judge the picture.
+    waitFor:
+      "[data-hub-head]:has(aside a) [data-kpi-cell] ~ [data-kpi-cell] ~ [data-kpi-cell] ~ [data-kpi-cell]",
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {

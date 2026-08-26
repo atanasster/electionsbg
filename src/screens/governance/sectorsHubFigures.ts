@@ -176,7 +176,7 @@ export const sectorsHubKpis = (
  *
  *  ⚠️ IT COUNTS THE SECTORS' BASES, NOT THE BAND'S CELLS, and the first cut got that wrong.
  *  It said „четирите числа" — but a cell is withheld whenever its basis has no publishable
- *  sector, and over the committed payload the band is short on 8 of 30 scope keys (cell
+ *  sector, and over the committed payload the band is short on 12 of 30 scope keys (cell
  *  counts {1:4, 2:4, 3:4, 4:18}). On `ns:2005_06_25` it named „поръчките" while that cell
  *  was absent entirely, all four rosters being €0 before the corpus starts. The sentence now
  *  describes the four bases the SECTORS sit on, which is true at every scope and of every
