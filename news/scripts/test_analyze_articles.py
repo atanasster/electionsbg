@@ -138,6 +138,180 @@ class FixtureTestCase(unittest.TestCase):
             return json.load(fh)
 
 
+class TestQueueOrdering(FixtureTestCase):
+    """The queue used to fill domain-by-domain with the domains in
+    ALPHABETICAL order, so under a fixed nightly budget the same handful of
+    outlets were analysed every night and the end of the alphabet never was —
+    the corpus would have been judged alphabetically for ever."""
+
+    def write_registry(self, ranks):
+        path = os.path.join(self.root, "news", "data", "bg_news_sites.csv")
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write("rank,domain,feed_method_aug2026\n")
+            for domain, rank in ranks.items():
+                fh.write(f"{rank},{domain},rss\n")
+
+    def queue(self, limit=10):
+        code, out, err = self.run_cli("--next", "all", "--limit", str(limit))
+        self.assertEqual(code, 0, err[:300])
+        return out["queue"]
+
+    def test_the_queue_is_newest_DAY_first_across_all_domains(self):
+        """other.bg's article must be reachable ahead of test.bg's older one,
+        even though 'other.bg' sorts after 'test.bg' alphabetically.
+
+        The primary key is the DAY, not the timestamp: rank is the tiebreak
+        within a day, and ordering by timestamp first would make it almost
+        never apply since two articles rarely share a second."""
+        q = self.queue()
+        days = [(item["published"] or "")[:10] for item in q]
+        self.assertEqual(days, sorted(days, reverse=True), days)
+        self.assertEqual(days[0], "2026-08-22")
+        self.assertEqual(days[-1], "2026-08-21")
+
+    def test_the_single_newest_article_leads_whatever_its_domain(self):
+        """⚠️ THE discriminating gate. With limit=1 the alphabetical fill
+        returned other.bg's 12:00 article (first domain alphabetically, its
+        newest); the global order must return test.bg's 13:00 one.
+
+        Seven of the eight tests written before this one PASSED against the
+        alphabetical code — including both whose docstrings named the defect —
+        because the fixture's alphabetical order happened to agree with its
+        date order for the first few rows."""
+        q = self.queue(limit=1)
+        self.assertEqual(len(q), 1)
+        self.assertEqual(q[0]["published"], "2026-08-22T13:00:00+00:00")
+        self.assertEqual(q[0]["domain"], "test.bg")
+
+    def test_a_small_budget_reaches_the_newest_from_a_LATER_domain(self):
+        """The starvation itself: a domain late in the alphabet whose article
+        is the newest must be reachable within a tiny budget."""
+        path = os.path.join(self.root, "news", "data", "zzz.bg")
+        os.makedirs(path)
+        with open(os.path.join(path, "20260823-newest.json"), "w",
+                  encoding="utf-8") as fh:
+            json.dump(corpus_article("zzz.bg", "z1", "https://zzz.bg/z",
+                                     "Най-новото",
+                                     "2026-08-23T09:00:00+00:00"), fh,
+                      ensure_ascii=False)
+        q = self.queue(limit=1)
+        self.assertEqual(q[0]["domain"], "zzz.bg",
+                         "the newest article is in the LAST domain "
+                         "alphabetically and must still lead")
+
+    def test_an_undated_outlet_is_reachable_within_a_small_budget(self):
+        """563 of 4,346 real records carry no publish date and EIGHT outlets
+        are 100% undated, including offnews.bg at registry rank 16. Sorting
+        them below every dated record put their first position at 3,423 of
+        3,981 — never analysed under any nightly budget."""
+        path = os.path.join(self.root, "news", "data", "undated.bg")
+        os.makedirs(path)
+        rec = corpus_article("undated.bg", "u1", "https://undated.bg/u",
+                             "Без дата", None)
+        rec["fetched_at"] = "2026-08-23T09:00:00+00:00"
+        with open(os.path.join(path, "nodate-u.json"), "w",
+                  encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+        q = self.queue(limit=2)
+        domains = [i["domain"] for i in q]
+        self.assertIn("undated.bg", domains,
+                      f"an undated outlet must interleave, not be exiled: {q}")
+        entry = next(i for i in q if i["domain"] == "undated.bg")
+        self.assertEqual(entry["order_basis"], "fetched_at",
+                         "and the basis must be reported, since fetched_at is "
+                         "a proxy and not the publication day")
+
+    def test_the_basis_is_reported_for_every_item(self):
+        for item in self.queue():
+            self.assertIn(item["order_basis"],
+                          ("published", "fetched_at", "future_published"))
+
+    def test_outlet_rank_is_the_TIEBREAK_not_the_primary_key(self):
+        """Within one day the significant outlets go first; a big outlet's
+        older piece must never outrank a small one's newer news."""
+        self.write_registry({"other.bg": 1, "test.bg": 60})
+        q = self.queue()
+        # Within 2026-08-22, other.bg (rank 1) leads test.bg (rank 60).
+        same_day = [i for i in q if (i["published"] or "")[:10] == "2026-08-22"]
+        self.assertEqual(same_day[0]["domain"], "other.bg", same_day)
+        # But the OLDER day is last regardless of rank — a big outlet's stale
+        # piece never outranks a newer day.
+        self.assertEqual((q[-1]["published"] or "")[:10], "2026-08-21")
+
+    def test_within_one_outlet_and_day_the_newest_article_leads(self):
+        self.write_registry({"other.bg": 1, "test.bg": 60})
+        mine = [i for i in self.queue()
+                if i["domain"] == "test.bg"
+                and (i["published"] or "")[:10] == "2026-08-22"]
+        stamps = [i["published"] for i in mine]
+        self.assertEqual(stamps, sorted(stamps, reverse=True), stamps)
+
+    def test_the_rank_is_reported_so_a_reader_can_see_the_order(self):
+        self.write_registry({"other.bg": 1, "test.bg": 60})
+        by_domain = {i["domain"]: i.get("outlet_rank") for i in self.queue()}
+        self.assertEqual(by_domain["other.bg"], 1)
+        self.assertEqual(by_domain["test.bg"], 60)
+
+    def test_a_missing_registry_orders_purely_by_date(self):
+        """No registry is not an error — the primary key is still right."""
+        days = [(i["published"] or "")[:10] for i in self.queue()]
+        self.assertEqual(days, sorted(days, reverse=True))
+
+    def test_the_counts_are_self_consistent_for_one_domain(self):
+        """`--next vesti.bg` reported `unanalyzed: 0` beside `returned: 2`,
+        because the analysed count was the WHOLE corpus's.
+
+        Discriminating only when something in ANOTHER domain is analysed —
+        with an empty analysis set both formulas agree, which is why the
+        first version of this test passed against the bug."""
+        self.save(analysis(self.analysis_path("a3"), "https://other.bg/gamma",
+                           "other.bg", action="new_story"))
+        code, out, err = self.run_cli("--next", "test.bg", "--limit", "2")
+        self.assertEqual(code, 0, err[:300])
+        counts = out["counts"]
+        self.assertGreaterEqual(counts["unanalyzed"], counts["returned"])
+        self.assertEqual(counts["corpus"],
+                         counts["analyzed"] + counts["unanalyzed"],
+                         f"counts must describe THIS call's scope: {counts}")
+        self.assertEqual(counts["unanalyzed"], 3,
+                         "test.bg holds 3 unanalysed articles; other.bg's "
+                         "analysed one must not be subtracted from them")
+
+    def test_an_unreadable_record_is_named_not_silently_skipped(self):
+        path = os.path.join(self.root, "news", "data", "test.bg",
+                            "20260822-torn.json")
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write("{not json")
+        code, out, _ = self.run_cli("--next", "all", "--limit", "10")
+        self.assertEqual(code, 0)
+        self.assertTrue(out.get("unreadable"), out)
+        self.assertIn("torn", out["unreadable"][0]["path"])
+
+    def test_a_future_dated_article_does_not_sort_to_the_top(self):
+        """A future publish date sorts first in a newest-first queue for as
+        long as it stays in the future, so it would be re-offered every night
+        ahead of actual news. The corpus holds three (capital.bg conference
+        listings dated to 2026-10-13) from before the saver refused them."""
+        path = os.path.join(self.root, "news", "data", "test.bg",
+                            "20991231-future.json")
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(corpus_article("test.bg", "fut", "https://test.bg/fut",
+                                     "Бъдеща конференция",
+                                     "2099-12-31T10:00:00+00:00"), fh,
+                      ensure_ascii=False)
+        q = self.queue()
+        self.assertNotEqual(q[0]["published"], "2099-12-31T10:00:00+00:00")
+        self.assertEqual(q[-1]["published"], "2099-12-31T10:00:00+00:00",
+                         "a future date tells us nothing; it sorts last")
+        self.assertEqual(q[-1]["order_basis"], "future_published")
+
+    def test_the_order_is_declared_in_the_payload(self):
+        code, out, _ = self.run_cli("--next", "all", "--limit", "2")
+        self.assertEqual(code, 0)
+        self.assertIn("publication day", out["order"])
+        self.assertIn("outlet rank", out["order"])
+
+
 class TestPhantomDomain(FixtureTestCase):
     def test_analysis_dir_is_not_a_corpus_domain(self):
         self.save(analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg"))

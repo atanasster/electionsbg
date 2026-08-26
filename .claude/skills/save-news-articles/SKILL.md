@@ -696,7 +696,8 @@ still wrong (Step 2).
 | `news/scripts/save_all_browser.sh` | the browser-tier sweep: harvest → save → intake report. SEQUENTIAL; budget an hour |
 | `news/scripts/tests/fixtures/` | 18 gzipped real pages (1.0 MB, COMMITTED) + `expectations.json` (GENERATED — edit the seed) + a README on provenance. The only thing standing between an extractor change and a 4,700-page sweep. |
 | `news/data/_rejected/<domain>.jsonl` | body-gate rejection ledger: url, reason, chars, title, timestamp. Untracked; entries expire after 30 days. |
-| `news/data/_state/<domain>.json` | intake state: last success/error, consecutive failures, newest stored day, retry queue. One file per domain — the sweep has six concurrent writers. |
+| `news/data/_state/<domain>.json` | intake state: last success/error, consecutive failures, newest stored day, retry queue, feed validators. One file per domain — the sweep has six concurrent writers. |
+| `news/data/_state/<domain>.index.json` | what is already stored, so a run need not JSON-parse the whole folder. Currency is the file count **and** the folders' newest mtime — the count alone is defeated by a compensating add+remove, which `--reextract --dedupe` reaches whenever it drops a duplicate and promotes a rejection in one pass. An index that could go quietly stale would be worse than none: a missing key re-fetches, a phantom key skips an article for ever. |
 | `news/scripts/save_all_direct.sh` | parallel batch over the direct tier (this skill) |
 | `news/data/<domain>/*.json` | the stored articles, incremental by CANONICAL url |
 | `news/data/_quarantine/<domain>/*.json` | articles from a structurally stale source — same shape, kept out of the corpus so they cannot read as current reporting |

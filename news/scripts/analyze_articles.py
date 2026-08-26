@@ -68,6 +68,7 @@ the repository root (used by the test suite).
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import os
@@ -208,6 +209,106 @@ def load_taxonomy():
 
 
 # ------------------------------------------------------------------ corpus ---
+
+# Where an outlet with no registry row sorts. High rather than low, so an
+# unranked domain is judged AFTER the ranked ones on a tie rather than
+# displacing the national broadcasters.
+DEFAULT_OUTLET_RANK = 999
+
+
+def queue_sort_key(rec, today=None):
+    """(tier, day, basis) — where this record sits in the newest-first queue.
+
+    TWO tiers, not three, and that is the whole point:
+
+      1  orderable — by its publication day when it has one ("published"),
+                     otherwise by the day WE fetched it ("fetched_at")
+      0  a FUTURE publication day — its date tells us nothing
+
+    ⚠️ Undated records INTERLEAVE with dated ones; they do not form a lower
+    tier. 563 of 4,346 records carry no publish date and EIGHT outlets are
+    100% undated — including offnews.bg at registry rank 16. Sorting them
+    below every dated record put their first position at 3,423 of 3,981, so
+    under any nightly budget they would never be analysed: exactly the
+    starvation this ordering was written to cure, reproduced on a different
+    axis and hitting eight outlets instead of one.
+
+    `fetched_at` is when WE saw the article, not when it was published. For a
+    source swept nightly the two are within a day, which is what makes it a
+    usable proxy; for a backfill it is not, and a re-fetched 2007 article
+    would sort as today's news. That is the accepted cost, and it is
+    REPORTED — every queue item carries `order_basis`, so a reader can see
+    which of the two a position rests on.
+
+    Tier 0 is last because a future publication day would otherwise lead a
+    newest-first queue for as long as it stayed in the future and be
+    re-offered every night ahead of real news. The corpus holds three
+    (capital.bg conference listings dated to 2026-10-13) from before the saver
+    began refusing them.
+
+    Days are UTC, matching the stored `published`, which is always +00:00."""
+    today = today or now_iso()[:10]
+    day = day_prefix(rec.get("published"))
+    if day:
+        if day > today:
+            return (0, "", "future_published")
+        return (1, day, "published")
+    return (1, day_prefix(rec.get("fetched_at")) or "", "fetched_at")
+
+
+def day_prefix(value):
+    """The YYYY-MM-DD of an ISO timestamp, or "" when there is not one.
+
+    Shape only — it says nothing about whether the day is usable, which is
+    queue_sort_key's job. Written three times with three different answers
+    before this existed."""
+    if not isinstance(value, str) or len(value) < 10:
+        return ""
+    day = value[:10]
+    if not (day[:4].isdigit() and day[4:5] == "-" and day[5:7].isdigit()
+            and day[7:8] == "-" and day[8:10].isdigit()):
+        return ""
+    return day
+
+
+_RANK_CACHE = None
+
+
+def outlet_ranks():
+    """domain -> rank from the site registry, for the queue's tiebreak.
+
+    Cached for the process. A missing or unparseable registry yields an empty
+    map, which makes every outlet equally ranked — the queue then orders
+    purely by publish date, which is still the right primary key."""
+    global _RANK_CACHE
+    if _RANK_CACHE is not None:
+        return _RANK_CACHE
+    ranks = {}
+    path = os.path.join(DATA_DIR, "bg_news_sites.csv")
+    try:
+        with open(path, newline="", encoding="utf-8") as fh:
+            reader = csv.DictReader(fh)
+            # Matched by PREFIX like every other registry column: the vintaged
+            # ones are renamed on refresh, and a bare "rank" hard-codes an
+            # assumption the rest of this pipeline does not make.
+            col = next((h for h in (reader.fieldnames or [])
+                        if h == "rank" or h.startswith("rank_")), None)
+            if col:
+                for row in reader:
+                    domain = row.get("domain")
+                    raw = (row.get(col) or "").strip()
+                    if not domain or not raw:
+                        continue
+                    # ASCII digits only: str.isdigit() is True for "²", which
+                    # int() then rejects with an uncaught ValueError.
+                    digits = "".join(ch for ch in raw if ch in "0123456789")
+                    if digits:
+                        ranks[domain] = int(digits)
+    except (OSError, csv.Error):
+        pass
+    _RANK_CACHE = ranks   # cached even when empty, so a missing registry is
+    return _RANK_CACHE    # not re-read once per call
+
 
 def corpus_domains():
     """Domain directories under news/data — everything except the analysis
@@ -779,37 +880,88 @@ def cmd_next(args) -> int:
                     hint="choose from the dirs in news/data/ or 'all'")
     index = load_index()
     analyzed_urls = set(index.get("articles", {}))
-    queue = []
+    ranks = outlet_ranks()
+    # Slim tuples, not whole records: holding every unanalysed record measured
+    # 44 MB at 3,978 articles, which is ~7.8 GB at the 700k a year of nightly
+    # accumulation reaches. Only the fields the queue reports are kept.
+    candidates = []
     corpus_total = 0
+    unreadable = []
+    today = now_iso()[:10]
     for domain in domains:
         files = corpus_files(domain) or []
         corpus_total += len(files)
-        if len(queue) >= args.limit:
-            continue
-        recs = []
+        rank = ranks.get(domain, DEFAULT_OUTLET_RANK)
         for f in files:
-            with open(os.path.join(DATA_DIR, domain, f), encoding="utf-8") as fh:
-                rec = json.load(fh)
-            recs.append((f, rec))
-        recs.sort(key=lambda fr: fr[1].get("published") or "", reverse=True)
-        for f, rec in recs:
+            try:
+                with open(os.path.join(DATA_DIR, domain, f),
+                          encoding="utf-8") as fh:
+                    rec = json.load(fh)
+            except (OSError, json.JSONDecodeError) as e:
+                # Named, not silently skipped: an unreadable record is an
+                # article that will never be analysed, and this is the only
+                # place that can say so.
+                unreadable.append({"path": rel_corpus_path(domain, f),
+                                   "detail": f"{type(e).__name__}: {e}"})
+                continue
             if rec.get("url") in analyzed_urls:
                 continue
-            if len(queue) >= args.limit:
-                break
-            queue.append({
-                "path": rel_corpus_path(domain, f),
-                "domain": domain,
-                "title": rec.get("title"),
-                "published": rec.get("published"),
-                "content_chars": rec.get("content_chars"),
-                "author": rec.get("author"),
-                "suspect_too_short": (rec.get("content_chars") or 0) < MIN_CONTENT_CHARS,
-            })
-    return emit(0, domain_filter=args.next_domain, limit=args.limit, queue=queue,
-                counts={"corpus": corpus_total, "analyzed": len(analyzed_urls),
-                        "unanalyzed": max(0, corpus_total - len(analyzed_urls)),
-                        "returned": len(queue)})
+            tier, day, basis = queue_sort_key(rec, today)
+            candidates.append((
+                tier, day, -rank,
+                rec.get("published") or rec.get("fetched_at") or "",
+                domain, f, rec.get("title"), rec.get("published"),
+                rec.get("content_chars"), rec.get("author"), ranks.get(domain),
+                basis,
+            ))
+
+    # ⚠️ GLOBAL, newest-first. The queue used to fill domain-by-domain with
+    # the domains in ALPHABETICAL order, so under a fixed nightly budget
+    # 24chasa.bg and bgdnes.bg were analysed every night and vesti.bg never
+    # was — the corpus would have been judged in alphabetical order for ever.
+    #
+    # Three keys, and the DAY granularity of the first is deliberate: the
+    # outlet rank is the tiebreak WITHIN a day, so the significant outlets are
+    # judged first when the budget runs out, while a big outlet's week-old
+    # piece never outranks today's news from a small one. Ordering by the full
+    # timestamp first would make rank almost never apply, since two articles
+    # rarely share a second. The timestamp is the last key, ordering within
+    # one outlet's day.
+    candidates.sort(reverse=True)
+
+    queue = [{
+        "path": rel_corpus_path(domain, f),
+        "domain": domain,
+        # Reported as the SORTED value, not as null: an unranked outlet is
+        # ordered at DEFAULT_OUTLET_RANK, and printing null while sorting 999
+        # makes the queue's own order unexplainable from its output.
+        "outlet_rank": rank if rank is not None else DEFAULT_OUTLET_RANK,
+        "outlet_ranked": rank is not None,
+        "order_tier": tier,
+        "order_basis": basis,
+        "title": title,
+        "published": published,
+        "content_chars": chars,
+        "author": author,
+        "suspect_too_short": (chars or 0) < MIN_CONTENT_CHARS,
+    } for (tier, _day, _nrank, _stamp, domain, f, title, published, chars,
+           author, rank, basis) in candidates[:args.limit]]
+
+    # ⚠️ Scoped to what this call actually looked at. Reporting the WHOLE
+    # corpus's analysed count beside a single domain's rows produced
+    # `unanalyzed: 0` next to `returned: 2`.
+    result = {
+        "domain_filter": args.next_domain, "limit": args.limit,
+        "order": ("UTC day desc — the publication day, or the fetched_at day "
+                  "when undated — then outlet rank asc, then time desc. A "
+                  "FUTURE publication day sorts last (tier 0)."),
+        "queue": queue,
+        "counts": {"corpus": corpus_total, "analyzed": corpus_total - len(candidates),
+                   "unanalyzed": len(candidates), "returned": len(queue)},
+    }
+    if unreadable:
+        result["unreadable"] = unreadable
+    return emit(0, **result)
 
 
 # -------------------------------------------------------------- work item ---

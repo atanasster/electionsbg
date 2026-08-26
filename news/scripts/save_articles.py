@@ -806,6 +806,73 @@ def article_filename(url, published):
     return f"{date}-{slug or 'article'}-{h}.json"
 
 
+def stored_index_path(domain):
+    """A per-domain index of what is stored, so a run need not JSON-parse the
+    whole folder to find out.
+
+    scan_stored reads and parses EVERY file in a domain's folders on every
+    run. That is fine at 100 files and quadratic-feeling at a year of nightly
+    accumulation: 2,000 articles a day across 70 outlets is ~700k files, and
+    the scan happens twice per domain per night."""
+    return DATA_DIR / STATE_DIR_NAME / f"{domain}.index.json"
+
+
+def load_stored_index(domain, folders):
+    """(canonical keys, newest day) from the index when it is CURRENT, or from
+    a full scan otherwise — rebuilding the index as it goes.
+
+    Currency is the file COUNT plus the newest modification time. The count
+    alone is defeated by a COMPENSATING change — one file added and one
+    removed between runs leaves it unmoved — and `--reextract --dedupe`
+    reaches that state whenever it drops a duplicate and promotes a rejection
+    in the same pass. The mtime catches it: any write to either folder moves
+    the directory's own mtime.
+
+    A rebuild is cheap and a stale index is not: every consumer of `have`
+    reads a missing key as 'not stored yet' and re-fetches, or a phantom key
+    as 'already stored' and skips an article for ever. When in doubt, rescan."""
+    on_disk = sum(len(list(f.glob("*.json"))) for f in folders if f.exists())
+    mtime = max((f.stat().st_mtime_ns for f in folders if f.exists()),
+                default=0)
+    path = stored_index_path(domain)
+    if path.exists():
+        try:
+            d = json.loads(path.read_text(encoding="utf-8"))
+            if (isinstance(d, dict) and d.get("files") == on_disk
+                    and d.get("mtime_ns") == mtime
+                    and isinstance(d.get("urls"), list)):
+                return set(d["urls"]), d.get("newest")
+        except (json.JSONDecodeError, OSError):
+            pass
+    urls, newest = scan_stored(*folders)
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_suffix(".json.tmp")
+        # Re-read the mtime AFTER the scan: writing during the scan would
+        # otherwise be baked in as current.
+        after = max((f.stat().st_mtime_ns for f in folders if f.exists()),
+                    default=0)
+        tmp.write_text(json.dumps({"files": on_disk, "mtime_ns": after,
+                                   "newest": newest, "urls": sorted(urls)},
+                                  ensure_ascii=False), encoding="utf-8")
+        tmp.replace(path)
+    except OSError:
+        pass  # the index is an optimisation; losing it costs a scan, not data
+    return urls, newest
+
+
+def _day_prefix(value):
+    """The YYYY-MM-DD of an ISO timestamp, or None. Shape only — it says
+    nothing about whether the day is usable."""
+    if not isinstance(value, str) or len(value) < 10:
+        return None
+    day = value[:10]
+    if not (day[:4].isdigit() and day[4:5] == "-" and day[5:7].isdigit()
+            and day[7:8] == "-" and day[8:10].isdigit()):
+        return None
+    return day
+
+
 def scan_stored(*folders):
     """One walk over the stored records: (canonical keys, newest publish day).
 
@@ -820,6 +887,7 @@ def scan_stored(*folders):
     calendar day — the two can differ by one for anything published
     00:00-02:59 local."""
     urls, newest = set(), None
+    today = datetime.now(timezone.utc).date().isoformat()
     for folder in folders:
         if not folder.exists():
             continue
@@ -830,12 +898,14 @@ def scan_stored(*folders):
                 continue
             if d.get("url"):
                 urls.add(canonical_url(d["url"]))
-            pub = d.get("published")
-            if isinstance(pub, str) and len(pub) >= 10:
-                day = pub[:10]
-                if day[:4].isdigit() and day[4:5] == "-" and (
-                        newest is None or day > newest):
-                    newest = day
+            day = _day_prefix(d.get("published"))
+            # ⚠️ A FUTURE day is refused here as well as in the queue. The
+            # three legacy capital.bg listings dated 2026-10-13 gave that
+            # domain newest_stored_age_days = -48, which silences the
+            # `going_stale` alert — on the ONE alarm that tells an unattended
+            # run a source has stopped producing, for two months.
+            if day and day <= today and (newest is None or day > newest):
+                newest = day
     return urls, newest
 
 
@@ -1779,8 +1849,12 @@ def cmd_intake_report(stale_after_days=7):
     # p.stem drops only the LAST suffix, so "x.json.tmp" has stem "x.json" and
     # never matched the *.json glob anyway — but a half-written temp file must
     # not become a domain, so filter on the full name.
+    # ⚠️ ".index.json" siblings live in the same directory, so a bare
+    # *.json glob turned every domain into TWO — "ex.bg" and "ex.bg.index" —
+    # and the phantom then raised its own `never_ran` alert.
     seen = {p.name[:-len(".json")] for p in state_dir.glob("*.json")
-            if p.name.endswith(".json")} if state_dir.is_dir() else set()
+            if p.name.endswith(".json")
+            and not p.name.endswith(".index.json")} if state_dir.is_dir() else set()
     # ⚠️ The registry too. Enumerating state files alone made a domain that has
     # NEVER completed a run invisible — which is the original defect's exact
     # shape: the sweep silently dropped 14 of 55 domains and nothing noticed.
@@ -2036,7 +2110,7 @@ def main():
     # already hold so it can skip fetching their titles. BOTH sides: a domain
     # quarantined yesterday and fresh today must not re-fetch what it holds.
     corpus_folder, quarantine_folder = domain_folders(domain)
-    have, _ = scan_stored(corpus_folder, quarantine_folder)
+    have, _ = load_stored_index(domain, (corpus_folder, quarantine_folder))
     on_disk = frozenset(have)  # snapshot BEFORE the loop starts adding to it
 
     html_map = {}  # url -> page HTML, when pages were prefetched via browser
@@ -2450,7 +2524,11 @@ def main():
     # The nightly report's freshness assertion reads this: a live source whose
     # newest stored article is weeks old is either broken or quarantined, and
     # the two must be told apart by something other than silence.
-    _, newest = scan_stored(corpus_folder, quarantine_folder)
+    # After the run, so the index reflects what was just written. On a night
+    # that saved nothing this is an index HIT and costs no parsing at all; on
+    # one that saved, the count moved and this is the single rescan that
+    # rebuilds it — one scan per saving night rather than two.
+    _, newest = load_stored_index(domain, (corpus_folder, quarantine_folder))
     summary["newest_stored"] = newest
     if newest:
         try:

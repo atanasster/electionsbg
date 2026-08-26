@@ -49,9 +49,44 @@ site_relevant is false (filler never joins stories).
 - A file path / URL the user names → work on that article.
 - A domain ("analyze 20 from dnevnik.bg") → `python3
   news/scripts/analyze_articles.py --next <domain> --limit 20`.
-- "analyze unanalyzed articles" → `--next all --limit N` (newest-first per
-  domain, domains alphabetical; queue items carry a `suspect_too_short`
-  flag).
+- "analyze unanalyzed articles" → `--next all --limit N`. The order is
+  **publication day descending, then outlet rank, then time** — globally, not
+  per domain. Queue items carry `outlet_rank` and a `suspect_too_short` flag,
+  and the payload declares its own `order`.
+
+  ⚠️ **It used to fill domain-by-domain with the domains ALPHABETICAL**, so
+  under a fixed nightly budget 24chasa.bg and bgdnes.bg were judged every
+  night and vesti.bg never was — the corpus would have been analysed in
+  alphabetical order for ever.
+
+  The DAY granularity of the first key is deliberate: rank is the tiebreak
+  WITHIN a day, so the significant outlets go first when the budget runs out,
+  while a big outlet's week-old piece never outranks today's news from a small
+  one. Ordering by the full timestamp first would make rank almost never
+  apply, since two articles rarely share a second. Days are UTC, matching the
+  stored `published`.
+
+  ⚠️ **An UNDATED article is ordered by `fetched_at`, interleaved with the
+  dated ones — not exiled below them.** 563 of 4,346 records carry no publish
+  date and EIGHT outlets are 100% undated, including offnews.bg at registry
+  rank 16. Sorting them after every dated record put offnews.bg's first
+  position at **3,423 of 3,981** — never analysed under any nightly budget,
+  which is the same starvation this ordering exists to cure, on a different
+  axis and hitting eight outlets instead of one. Interleaved it is position
+  46. `fetched_at` is when WE saw the article, so for a nightly sweep it is
+  within a day of publication and for a backfill it is not; every queue item
+  therefore carries `order_basis` (`published` / `fetched_at` /
+  `future_published`) so a position can be explained.
+
+  A **future** publish date sorts LAST. It would otherwise lead a newest-first
+  queue for as long as it stayed in the future and be re-offered every night
+  ahead of real news; the corpus holds three (capital.bg conference listings
+  dated to 2026-10-13) from before the saver began refusing them.
+
+  `counts` describes THIS call's scope: `--next <domain>` reported
+  `unanalyzed: 0` beside `returned: 2` while the analysed figure was the whole
+  corpus's. A record that will not parse is named in `unreadable` rather than
+  skipped in silence.
 - Already-analyzed articles are never re-queued. The script prints ONE JSON
   object; exit 2 means unknown domain, 3 bad usage, 4 internal/corrupt-index
   (see Step 4).

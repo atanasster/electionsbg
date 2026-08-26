@@ -882,9 +882,10 @@ class StaleSourceQuarantine(unittest.TestCase):
         self.assertEqual(out["newest_stored"], "2026-08-24")
         self.assertIsInstance(out["newest_stored_age_days"], int)
 
-    def test_a_malformed_stored_date_does_not_break_the_summary(self):
+    def test_a_malformed_stored_date_is_excluded_not_propagated(self):
         """Raising here would print no summary at all — after every article
-        has already been saved."""
+        has already been saved. And an impossible day must not BECOME
+        newest_stored: the real date beside it is the answer."""
         self.write_registry([("ex.bg", "rss", "")])
         self.corpus().mkdir(parents=True, exist_ok=True)
         (self.corpus() / "nodate-x-1.json").write_text(json.dumps({
@@ -895,7 +896,44 @@ class StaleSourceQuarantine(unittest.TestCase):
             ("https://ex.bg/a/65", page("Статия", [PROSE * 5]))])
         _, out = run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
         self.assertEqual(out["saved"], 1)
-        self.assertIsNone(out["newest_stored_age_days"])
+        self.assertEqual(out["newest_stored"], "2026-08-24")
+        self.assertIsInstance(out["newest_stored_age_days"], int)
+
+    def test_a_future_stored_date_cannot_silence_going_stale(self):
+        """capital.bg's three legacy 2026-10-13 listings gave that domain
+        newest_stored_age_days = -48, which silences `going_stale` — on the
+        ONE alarm that tells an unattended run a source has stopped
+        producing — for two months."""
+        self.write_registry([("ex.bg", "rss", "")])
+        self.corpus().mkdir(parents=True, exist_ok=True)
+        for name, day in (("a.json", "2099-10-13"), ("b.json", "2026-01-01")):
+            (self.corpus() / name).write_text(json.dumps({
+                "domain": "ex.bg", "url": f"https://ex.bg/{name}",
+                "title": "T", "content": "x" * 500, "content_chars": 500,
+                "published": f"{day}T09:00:00+00:00"}), encoding="utf-8")
+        write_prefetched(self.feed, [])
+        _, out = run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertEqual(out["newest_stored"], "2026-01-01",
+                         "the future day must not become newest_stored")
+        self.assertGreater(out["newest_stored_age_days"], 0)
+
+    def test_index_files_do_not_become_phantom_domains(self):
+        """The .index.json siblings live in the same directory, so a bare
+        *.json glob turned every domain into two — and the phantom raised its
+        own `never_ran` alert."""
+        self.write_registry([("ex.bg", "rss", "")])
+        write_prefetched(self.feed, [
+            ("https://ex.bg/a/66", page("Статия", [PROSE * 5]))])
+        run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+        self.assertTrue((self.root / "news" / "data" / "_state"
+                         / "ex.bg.index.json").exists())
+        env = dict(os.environ, DATA_BG_ROOT=str(self.root))
+        proc = subprocess.run([sys.executable, str(SAVER), "--intake-report"],
+                              capture_output=True, text=True, env=env,
+                              timeout=120)
+        rep = json.loads(proc.stdout)
+        names = [r["domain"] for r in rep["rows"]]
+        self.assertEqual(names, ["ex.bg"], names)
 
 
 class IntakeState(unittest.TestCase):
@@ -1220,6 +1258,125 @@ class IntakeState(unittest.TestCase):
     def test_stale_after_outside_its_mode_is_refused(self):
         code, out = run_saver(self.root, "ex.bg", "2", "--stale-after=3")
         self.assertEqual((code, out["error"]), (1, "usage"))
+
+
+class StoredIndex(unittest.TestCase):
+    """The per-domain index of what is already stored.
+
+    scan_stored read and JSON-parsed EVERY file in a domain's folders on every
+    run — twice per domain per night. Fine at 100 files; at a year of nightly
+    accumulation (~2,000 articles a day across 70 outlets) it is not.
+
+    ⚠️ Every test here is really about the same thing: an index that can go
+    quietly stale is WORSE than no index, because every consumer of `have`
+    reads a missing key as "not stored yet" and re-fetches — or, on the other
+    side, a phantom key as "already stored" and skips an article for ever."""
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp(prefix="save-articles-idx-"))
+        (self.root / "news" / "data").mkdir(parents=True)
+        (self.root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "ex.bg,rss,https://ex.bg/\n", encoding="utf-8")
+        self.feed = self.root / "prefetched.jsonl"
+
+    def tearDown(self):
+        shutil.rmtree(self.root, ignore_errors=True)
+
+    def index(self, domain="ex.bg"):
+        p = (self.root / "news" / "data" / "_state"
+             / f"{domain}.index.json")
+        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+    def seed(self, n):
+        write_prefetched(self.feed, [
+            (f"https://ex.bg/a/{i}", page(f"Статия {i}", [PROSE * 5]))
+            for i in range(n)])
+        return run_saver(self.root, "ex.bg", "20", f"--prefetched={self.feed}")
+
+    def test_the_index_is_written_and_matches_the_folder(self):
+        self.seed(3)
+        idx = self.index()
+        self.assertEqual(idx["files"], 3)
+        self.assertEqual(len(idx["urls"]), 3)
+        self.assertEqual(idx["newest"], "2026-08-24")
+
+    def test_a_re_run_uses_the_index_and_saves_nothing_new(self):
+        self.seed(3)
+        _, second = self.seed(3)
+        self.assertEqual(second["saved"], 0)
+        self.assertEqual(second["already_present"], 3)
+
+    def test_a_file_deleted_behind_the_index_self_heals(self):
+        """A manual rm, a --dedupe, or a quarantine relocation all change the
+        folder without the index knowing."""
+        self.seed(3)
+        victim = sorted((self.root / "news" / "data" / "ex.bg").glob("*.json"))[0]
+        victim.unlink()
+        _, out = self.seed(3)
+        self.assertEqual(out["saved"], 1, "the deleted article was not re-fetched")
+        self.assertEqual(self.index()["files"], 3)
+
+    def test_a_corrupt_index_falls_back_to_a_full_scan(self):
+        self.seed(2)
+        path = (self.root / "news" / "data" / "_state" / "ex.bg.index.json")
+        path.write_text("{not json", encoding="utf-8")
+        _, out = self.seed(2)
+        self.assertEqual(out["saved"], 0)
+        self.assertEqual(out["already_present"], 2)
+        self.assertEqual(self.index()["files"], 2, "and is rebuilt")
+
+    def test_an_index_of_the_wrong_shape_is_ignored(self):
+        self.seed(2)
+        path = (self.root / "news" / "data" / "_state" / "ex.bg.index.json")
+        path.write_text(json.dumps({"files": 2, "urls": "not a list"}),
+                        encoding="utf-8")
+        _, out = self.seed(2)
+        self.assertEqual(out["already_present"], 2)
+
+    def test_a_stale_count_forces_a_rescan_rather_than_trusting_the_urls(self):
+        """The count is the currency check. A hand-edited index claiming to
+        know about articles that are not there would make the saver skip them
+        for ever."""
+        self.seed(2)
+        path = (self.root / "news" / "data" / "_state" / "ex.bg.index.json")
+        path.write_text(json.dumps(
+            {"files": 99, "newest": None,
+             "urls": ["https://ex.bg/a/0", "https://ex.bg/a/1",
+                      "https://ex.bg/a/2"]}), encoding="utf-8")
+        _, out = self.seed(3)
+        self.assertEqual(out["saved"], 1,
+                         "a/2 must be saved — the phantom key was not trusted")
+
+    def test_a_compensating_add_and_remove_still_forces_a_rescan(self):
+        """The count alone cannot see it — one file added and one removed
+        leaves it unmoved — and --reextract --dedupe reaches that state
+        whenever it drops a duplicate and promotes a rejection in one pass."""
+        self.seed(2)
+        folder = self.root / "news" / "data" / "ex.bg"
+        victim = sorted(folder.glob("*.json"))[0]
+        victim.unlink()
+        (folder / "20260824-planted-cafebabe.json").write_text(json.dumps({
+            "domain": "ex.bg", "url": "https://ex.bg/planted", "title": "T",
+            "content": "x" * 500, "content_chars": 500,
+            "published": "2026-08-24T09:00:00+00:00"}), encoding="utf-8")
+        idx_before = self.index()
+        self.assertEqual(idx_before["files"], 2, "the count is unchanged")
+        _, out = self.seed(2)
+        self.assertEqual(out["saved"], 1,
+                         "the removed article must be re-fetched")
+        self.assertIn("https://ex.bg/planted", self.index()["urls"],
+                      "and the planted one must now be known")
+
+    def test_the_index_covers_the_quarantine_too(self):
+        (self.root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026,quarantine_aug2026\n"
+            "ex.bg,rss,https://ex.bg/,stale_source\n", encoding="utf-8")
+        _, out = self.seed(2)
+        self.assertTrue(out["quarantined"])
+        self.assertEqual(self.index()["files"], 2)
+        _, again = self.seed(2)
+        self.assertEqual(again["already_present"], 2)
 
 
 class CrawlPoliteness(unittest.TestCase):
