@@ -25,6 +25,7 @@
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { HubHead, type HubEvidenceRow } from "@/ux/infographic/HubHead";
 import {
@@ -70,6 +71,7 @@ import {
 import { PersonsAnalysisStrip } from "./PersonsAnalysisStrip";
 import { personsKpis, personsKpiCellCount } from "./personsKpiBasis";
 import { PersonsSearchField } from "./PersonsSearchField";
+import { PersonsLanding, type LandingCard } from "./PersonsLanding";
 import { PersonNetWorthCell, PersonMoneyCell } from "./PersonMoneyCells";
 import { oblastName } from "@/lib/regionalOblast";
 import { positionLabel } from "@/screens/components/procurement/personSearchGroups";
@@ -79,15 +81,14 @@ import {
   EXPORT_MAX,
 } from "@/data/persons/exportPersonsCsv";
 import type { PersonBrowseRow } from "@/data/persons/personBrowseTypes";
-
-/** How long the hero field's value waits before it is written to `?q`.
- *
- *  Named rather than inlined so a test can advance fake timers by the value the screen actually
- *  uses. One of THREE intervals in this page's search path, all with different jobs: none in the
- *  field itself (the box must never lag the keyboard), this one to the URL (bounding router
- *  churn), and 250 ms inside `DbDataTable` to the engine (where the SEARCH_MIN_CHARS contract
- *  lives). Merging any two couples an SEO/navigation concern to a query-cost one. */
-export const URL_MIRROR_MS = 350;
+// Constants and pure rules live beside the screen rather than in it — a component file that
+// also exports non-components breaks Fast Refresh, and each of these is a claim a test needs
+// to make without mounting anything.
+import {
+  URL_MIRROR_MS,
+  EXAMPLE_TERMS,
+  scopeCount,
+} from "./personsBrowseConstants";
 
 export const PersonsBrowserScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -113,6 +114,9 @@ export const PersonsBrowserScreen: FC = () => {
     switchersOnly,
     obshtina,
     query,
+    queryIsSendable,
+    browseAll,
+    setBrowseAll,
     setQuery,
     setSector,
     setFacet,
@@ -293,7 +297,7 @@ export const PersonsBrowserScreen: FC = () => {
   // — the dropdowns describe the CURRENT SECTOR (scopeF is threaded into every one), so under
   // ?sector=private the governance dropdowns collapse to what the name-fold arm actually has
   // (only "Бизнес") rather than advertising public options that would return zero rows.
-  const facets = usePersonFacets(
+  const { merged: facets, bySpec: facetsBySpec } = usePersonFacets(
     useMemo(
       () => ({
         // The group counts are EXACT: the boolean columns counted here are the same ones the
@@ -381,7 +385,16 @@ export const PersonsBrowserScreen: FC = () => {
         // The KPI denominators. has_declaration / is_company are bool facets over the FULL
         // active filter set, so the percentages describe exactly the rows on screen.
         kpis: {
-          columns: ["has_declaration", "is_company", "obshtina_code"],
+          // `parties_n` rides here rather than getting a spec of its own: it is one more column
+          // on a request already in flight, and the landing's „сменили партия" card needs it.
+          // The facet groups an int, so the card sums the buckets at 2 and above.
+          columns: [
+            "has_declaration",
+            "is_company",
+            "obshtina_code",
+            "parties_n",
+            "held_office",
+          ],
           filters: [
             ...scopeF,
             ...groupF,
@@ -409,16 +422,22 @@ export const PersonsBrowserScreen: FC = () => {
   );
 
   // A bool facet answers {true: n, false: m}; the `true` bucket is the group's size.
+  // ⚠️ READ FROM THE `groups` SPEC BY NAME, never from the flat merge. `is_company` is faceted
+  // by BOTH `groups` (which excludes the group filter, as a vocabulary must) and `kpis` (which
+  // includes it, as a denominator must), and the merge is last-wins — so through the flat map
+  // this picker read the KPI spec's answer. Measured at `?facet=mp`: „Бизнес 526" on a control
+  // whose click returns 85 060.
+  const groupFacets = useMemo(() => facetsBySpec.groups ?? {}, [facetsBySpec]);
   const groupOptions = useMemo(
     () =>
       PERSON_GROUPS.map((g) => ({
         value: g.key,
         label: t(g.labelKey, { defaultValue: g.labelBg }),
         count:
-          (facets[g.column] ?? []).find((o) => String(o.value) === "true")
+          (groupFacets[g.column] ?? []).find((o) => String(o.value) === "true")
             ?.count ?? 0,
       })).filter((o) => o.count > 0),
-    [facets, t],
+    [groupFacets, t],
   );
 
   // Keep ?facet valid for the active ?sector. A magistrate can never be tier='V' (the
@@ -431,7 +450,7 @@ export const PersonsBrowserScreen: FC = () => {
   // gated on the groups facet having actually resolved, so this cannot fire against the
   // momentarily-empty groupOptions of a request still in flight (which would otherwise
   // reset a perfectly valid ?facet on every load or sector switch).
-  const groupsLoaded = facets.is_company !== undefined;
+  const groupsLoaded = groupFacets.is_company !== undefined;
   useEffect(() => {
     if (!groupsLoaded) return;
     if (facet === PERSON_FILTER_ALL) return;
@@ -483,20 +502,23 @@ export const PersonsBrowserScreen: FC = () => {
     [facets],
   );
 
+  // The KPI denominators, read from the `kpis` spec by name for the same reason `groupOptions`
+  // reads `groups` by name — these two specs share `is_company` and must not swap answers.
+  const kpiFacets = useMemo(() => facetsBySpec.kpis ?? {}, [facetsBySpec]);
   const boolTrue = (col: string): number | undefined => {
-    const f = facets[col];
+    const f = kpiFacets[col];
     if (!f) return undefined;
     return f.find((o) => String(o.value) === "true")?.count ?? 0;
   };
   const boolTotal = (col: string): number | undefined => {
-    const f = facets[col];
+    const f = kpiFacets[col];
     if (!f) return undefined;
     return f.reduce((s2, o) => s2 + o.count, 0);
   };
   const withDeclaration = boolTrue("has_declaration");
   const withCompanies = boolTrue("is_company");
   const facetTotal = boolTotal("has_declaration");
-  const obshtinaCount = facets.obshtina_code?.length;
+  const obshtinaCount = kpiFacets.obshtina_code?.length;
   const facetMix = useMemo(() => facets.primary_facet ?? [], [facets]);
 
   // Reactive row count for the headline card. The table computes it server-side and hands
@@ -572,13 +594,11 @@ export const PersonsBrowserScreen: FC = () => {
   // The scope control's per-option counts. `tierTotal` is also the head's „от всички N лица"
   // denominator, so the caption and the picker can never name different numbers.
   const tierCounts = useMemo(() => {
-    const f = facets.tier ?? [];
+    const f = facetsBySpec.tiers?.tier ?? [];
     const at = (v: string) =>
       f.find((o) => String(o.value).trim() === v)?.count ?? 0;
-    const p = at("P");
-    const v = at("V");
-    return { p, v, all: p + v };
-  }, [facets]);
+    return { p: at("P"), v: at("V") };
+  }, [facetsBySpec]);
 
   // The one basis that is always true, because the scope is always in play. It names the
   // COUNT rather than the scope's label: „от всички 137 461 лица" is checkable against the
@@ -589,12 +609,7 @@ export const PersonsBrowserScreen: FC = () => {
   // `fetchFacets` swallows a failed response into `{}` at `staleTime: Infinity` — so without
   // this fallback a cold mount whose table beat the facet, or a single 500 on /api/db/facets,
   // publishes „Лица 137 461 · ОТ ВСИЧКИ 0 ЛИЦА" in the largest type on the page, permanently.
-  const scopeN =
-    sector === "private"
-      ? tierCounts.v
-      : sector === "public"
-        ? tierCounts.p
-        : tierCounts.all;
+  const scopeN = scopeCount(sector, tierCounts);
   const scopeBasis =
     scopeN > 0
       ? t("persons_basis_scope", {
@@ -604,6 +619,24 @@ export const PersonsBrowserScreen: FC = () => {
       : t("persons_basis_scope_unknown", {
           defaultValue: "от всички лица в обхвата",
         });
+
+  // ── WHETHER THERE IS A TABLE AT ALL ────────────────────────────────────────────────
+  //
+  // The rule, and each clause is load-bearing:
+  //
+  //   · `queryIsSendable` — a term the ENGINE would accept, counted in characters. One or two
+  //     characters is not yet a query, and opening a table on it would send the engine a term
+  //     it answers with a 400, i.e. the destructive error panel, on a page whose whole design
+  //     is that the table appears only when it can answer.
+  //   · `hasNarrowingFilters` — a reader saying what they want, INCLUDING through the two
+  //     params with no picker. Every cross-link into this page is a filter rather than a
+  //     query, so a search-only gate would render a blank page to all of them.
+  //   · `browseAll` — the explicit „show me anyway", so the rule can never trap anybody.
+  //
+  // ⚠️ `sector` IS DELIBERATELY ABSENT. It is a SCOPE, not a query: switching „Всички" →
+  // „Във властта" and getting 63,816 prominence-sorted rows is precisely the default-table
+  // behaviour this rework removes.
+  const showTable = queryIsSendable || hasNarrowingFilters || browseAll;
 
   /* The band's rule lives in `personsKpiBasis.ts` — four figures answering over three
      different sets, which is a truth table rather than a layout decision. See that file. */
@@ -627,7 +660,19 @@ export const PersonsBrowserScreen: FC = () => {
   };
   const kpis = personsKpis({
     ...kpiInput,
-    count: agg.count,
+    // ⚠️ TWO SOURCES, AND THE FALLBACK IS NOT A CONVENIENCE. The count normally rides the
+    // table's own server-side aggregate — but on the LANDING there is no table, so nothing
+    // would ever set it and the band would sit in skeletons for ever on the page a reader
+    // arrives at first.
+    //
+    // `facetTotal` is the `has_declaration` facet's two buckets summed, and it is EXACT:
+    // that column is NOT NULL across all 137,461 rows (verified 2026-08-26), so the buckets
+    // sum to the table. It is also the right number for this state — the landing has no search
+    // box in play, and the facet is scoped by the same filters the table would have been.
+    //
+    // Only ever a fallback, never a preference: with a table up, `agg.count` is the figure the
+    // rows beneath actually came from, and it moves with the search box while a facet cannot.
+    count: showTable ? agg.count : facetTotal,
     withDeclaration,
     withCompanies,
     facetTotal,
@@ -657,16 +702,28 @@ export const PersonsBrowserScreen: FC = () => {
   //
   // `pfacet` is dropped on purpose: the `groups` facet excludes it, so the counts do not
   // reflect it and carrying it would re-open the same gap one param over.
-  const evidenceHref = useCallback(
-    (key: string): string => {
+  //
+  // ⚠️ `q` IS DROPPED FOR THE SAME REASON, and it is the one a reader would actually hit.
+  // /api/db/facets has NO free-text parameter — every count on this page's entry points is
+  // computed with the search term ignored — so carrying `?q` into the destination would send a
+  // reader to a page narrowed by something their number never accounted for. It is also the
+  // wrong intent: these are entry points OUT of a search, not refinements of one.
+  const entryHref = useCallback(
+    (param: string, value: string): string => {
       const next = new URLSearchParams(activeSearch);
-      next.set("facet", key);
+      next.set(param, value);
       next.delete("pfacet");
       next.delete("browse");
+      next.delete("q");
       return `/persons?${next.toString()}`;
     },
     [activeSearch],
   );
+  const evidenceHref = useCallback(
+    (key: string) => entryHref("facet", key),
+    [entryHref],
+  );
+  const cardHref = entryHref;
   const evidenceRows = useMemo<HubEvidenceRow[]>(
     () =>
       [...groupOptions]
@@ -1205,6 +1262,91 @@ export const PersonsBrowserScreen: FC = () => {
     filterToggles,
   ]);
 
+  // The cross-cutting queries the group list cannot express — a range over `parties_n`, two
+  // booleans, one group that happens to be the largest. Counts from facets already in flight.
+  const landingCards = useMemo<LandingCard[]>(() => {
+    // ⚠️ `?? 0` WHEN THE FACET HAS RESOLVED, and it is the difference between „not loaded" and
+    // „none". A bool facet emits NO `true` bucket when the count is zero, so a bare
+    // `?.count` returns undefined for both — and a card that is genuinely empty then renders a
+    // permanent „—" instead of being suppressed. Live at ?sector=private, where tier V has 0
+    // declarations and 0 held-office: two of the four cards would sit on a dash for ever.
+    // Same spelling as `boolTrue` above, which has always had it.
+    const boolCount = (col: string) =>
+      kpiFacets[col] === undefined
+        ? undefined
+        : (kpiFacets[col].find((o) => String(o.value) === "true")?.count ?? 0);
+    // The facet groups an int, so „switchers" is the sum of every bucket at 2 and above.
+    const parties = kpiFacets.parties_n;
+    const switchers = parties
+      ? parties
+          .filter((o) => Number(o.value) >= 2)
+          .reduce((n, o) => n + o.count, 0)
+      : undefined;
+    return [
+      {
+        key: "switch",
+        label: t("persons_card_switchers", {
+          defaultValue: "Сменили партия",
+        }),
+        hint: t("persons_card_switchers_hint", {
+          defaultValue: "Свързани с две или повече партии.",
+        }),
+        count: switchers,
+        to: cardHref("switch", "1"),
+      },
+      {
+        key: "decl",
+        label: t("persons_card_declared", { defaultValue: "С декларация" }),
+        hint: t("persons_card_declared_hint", {
+          defaultValue: "Подали пред Сметната палата.",
+        }),
+        count: boolCount("has_declaration"),
+        to: cardHref("decl", "1"),
+      },
+      {
+        key: "held",
+        label: t("persons_card_held", { defaultValue: "Заемали длъжност" }),
+        hint: t("persons_card_held_hint", {
+          defaultValue: "Без кандидатите, които не са били избрани.",
+        }),
+        count: boolCount("held_office"),
+        to: cardHref("held", "1"),
+      },
+      {
+        key: "company",
+        label: t("persons_card_company", { defaultValue: "С фирми в ТР" }),
+        hint: t("persons_card_company_hint", {
+          defaultValue: "Съдружници и управители в Търговския регистър.",
+        }),
+        count: boolCount("is_company"),
+        to: cardHref("facet", "company"),
+      },
+    ];
+  }, [kpiFacets, t, cardHref]);
+
+  // Hoisted so the landing and the results branch render the SAME bar rather than two copies
+  // that could drift. It does one job in both places: partition the current set and let a
+  // click narrow it.
+  const mixBar = (
+    <PersonsAnalysisStrip
+      facetMix={facetMix}
+      selectedFacet={primaryFacet === PERSON_FILTER_ALL ? null : primaryFacet}
+      onSelectFacet={setPrimaryFacet}
+      // Under `all` the „Бизнес" segment is PROVABLY the private-sector scope —
+      // primary_facet='company' is 73,645, exactly the tier-V count — so clicking it switches
+      // population rather than narrowing one. Said out loud, because otherwise the page offers
+      // the same narrowing twice under two different names.
+      extraNote={
+        sector === "all"
+          ? t("persons_mix_note_business_is_private", {
+              defaultValue:
+                "При обхват „Всички“ групата „Бизнес“ съвпада с обхвата „Частен сектор“.",
+            })
+          : undefined
+      }
+    />
+  );
+
   return (
     <>
       {/* ABOVE the head, per the head's own order. */}
@@ -1257,7 +1399,9 @@ export const PersonsBrowserScreen: FC = () => {
             <SelectContent>
               <SelectItem value="all">
                 {t("persons_sector_all", { defaultValue: "Всички" })}
-                {tierCounts.all ? ` (${fmtInt(tierCounts.all)})` : ""}
+                {tierCounts.p + tierCounts.v
+                  ? ` (${fmtInt(tierCounts.p + tierCounts.v)})`
+                  : ""}
               </SelectItem>
               <SelectItem value="public">
                 {t("persons_sector_public", { defaultValue: "Във властта" })}
@@ -1277,12 +1421,11 @@ export const PersonsBrowserScreen: FC = () => {
             value={term}
             onChange={setTerm}
             minChars={SEARCH_MIN_CHARS}
-            // ⚠️ HARDCODED, AND CORRECT UNTIL TIER 5. The table is mounted unconditionally
-            // today, so DbDataTable's body hint always has somewhere to render and this
-            // component must stay quiet. Tier 5 replaces it with `showTable`; `examples`
-            // becomes reachable then, which is why it is not passed now — a prop that cannot
-            // render is a prop nobody maintains.
-            tableVisible
+            // The table is what carries the below-the-floor hint in its body; with no table,
+            // this field is the only thing that can explain why two characters produced
+            // nothing.
+            tableVisible={showTable}
+            examples={EXAMPLE_TERMS}
             // Only for a reader who arrived at the LANDING. A filter or `?q` deep link means
             // they asked for a list, and parking the cursor in a search box jumps a screen
             // reader past the h1 and the deck.
@@ -1317,26 +1460,9 @@ export const PersonsBrowserScreen: FC = () => {
           „persons, region" in a Bulgarian page, and this section now nests a second named
           landmark (the filter bar) inside it. */}
       <section aria-label={pageTitle} className="my-4">
-        <PersonsAnalysisStrip
-          facetMix={facetMix}
-          selectedFacet={
-            primaryFacet === PERSON_FILTER_ALL ? null : primaryFacet
-          }
-          onSelectFacet={setPrimaryFacet}
-          // Under `all` the „Бизнес" segment is PROVABLY the private-sector scope —
-          // primary_facet='company' is 73,645, exactly the tier-V count — so clicking it
-          // switches population rather than narrowing one. Said out loud, because otherwise
-          // the page offers the same narrowing twice under two different names.
-          extraNote={
-            sector === "all"
-              ? t("persons_mix_note_business_is_private", {
-                  defaultValue:
-                    "При обхват „Всички“ групата „Бизнес“ съвпада с обхвата „Частен сектор“.",
-                })
-              : undefined
-          }
-        />
-
+        {/* The FILTERS COME FIRST and are always here — they are the other way in, and on the
+            landing they are the only one besides the search box above. They outlive the table
+            for exactly this reason. */}
         <PersonsFilterBar selects={filterSelects} toggles={filterToggles} />
 
         {/* ⚠️ THE EXPORT BELONGS TO THE RESULTS, NOT TO THE FILTERS, and this is the row that
@@ -1360,32 +1486,86 @@ export const PersonsBrowserScreen: FC = () => {
           ) : null}
         </PersonsActiveFilters>
 
-        <DbDataTable<PersonBrowseRow>
-          resource="persons"
-          onData={handleData}
-          extraFilters={extraFilters}
-          columns={columns}
-          defaultSort={[{ id: "prominence", desc: true }]}
-          pageSize={25}
-          // CONTROLLED: the head owns the box. The 250 ms debounce and the
-          // SEARCH_MIN_CHARS floor stay inside the table, which is the only place the
-          // engine's 400-on-a-short-term contract is implemented.
-          search={term}
-          hideSearchInput
-          renderAggregates={(_agg, total, exact) => (
-            // COUNT ONLY. There is deliberately no Σ of the money column: two co-officers
-            // of one company each carry that company's full contract total, so a column
-            // total double-counts — it would be large, plausible and wrong. The registry
-            // declares no sum aggregate for the same reason (db_table.test.js guards it).
-            <span className="text-sm text-muted-foreground">
-              <span className="font-semibold tabular-nums text-foreground">
-                {exact ? "" : "≈"}
-                {new Intl.NumberFormat(isBg ? "bg-BG" : "en-GB").format(total)}
-              </span>{" "}
-              {t("persons_rows_word", { defaultValue: "лица" })}
-            </span>
-          )}
-        />
+        {showTable ? (
+          <>
+            {mixBar}
+            {/* ⚠️ ONLY WHEN `browseAll` IS THE SOLE REASON THE TABLE IS UP. `browseAll` is
+                deliberately not part of `hasActiveFilters` — it narrows nothing, so offering
+                to „clear filters" for it would name the wrong thing — which means it gets no
+                chip and no clear button. Without this a reader who asked to see everything has
+                no way back to the landing except the browser's Back. */}
+            {browseAll && !hasNarrowingFilters && !queryIsSendable ? (
+              <button
+                type="button"
+                onClick={() => setBrowseAll(false)}
+                className="mb-3 text-xs text-primary underline underline-offset-2 hover:no-underline"
+              >
+                {/* The arrow is a glyph in the markup, not in the string — a translator
+                    cannot lose it and a screen reader does not read it aloud. */}
+                <ArrowLeft aria-hidden className="mr-1 inline h-3.5 w-3.5" />
+                {t("persons_back_to_search", {
+                  defaultValue: "Назад към търсенето",
+                })}
+              </button>
+            ) : null}
+          </>
+        ) : (
+          <PersonsLanding
+            cards={landingCards}
+            mix={mixBar}
+            browseAll={{
+              // ⚠️ `scopeN`, NOT `tierCounts.all`, and a count-FREE fallback below zero.
+              // The corpus total is what a reader gets only under „Всички": under „Във
+              // властта" this promised 137 461 and delivered 63 816. And `tierCounts` reads
+              // `facets.tier ?? []`, so before that request lands — every cold visit — the
+              // button read „Разгледай всички 0 лица", permanently after one 500, since
+              // `fetchFacets` caches a failure at `staleTime: Infinity`. The band three
+              // lines up already refuses exactly this shape; the same value serves both.
+              label:
+                scopeN > 0
+                  ? t("persons_browse_all", {
+                      defaultValue: "Разгледай всички {{n}} лица",
+                      n: fmtInt(scopeN),
+                    })
+                  : t("persons_browse_all_unknown", {
+                      defaultValue: "Разгледай всички лица",
+                    }),
+              onClick: () => setBrowseAll(true),
+            }}
+            fmtInt={fmtInt}
+          />
+        )}
+
+        {showTable ? (
+          <DbDataTable<PersonBrowseRow>
+            resource="persons"
+            onData={handleData}
+            extraFilters={extraFilters}
+            columns={columns}
+            defaultSort={[{ id: "prominence", desc: true }]}
+            pageSize={25}
+            // CONTROLLED: the head owns the box. The 250 ms debounce and the
+            // SEARCH_MIN_CHARS floor stay inside the table, which is the only place the
+            // engine's 400-on-a-short-term contract is implemented.
+            search={term}
+            hideSearchInput
+            renderAggregates={(_agg, total, exact) => (
+              // COUNT ONLY. There is deliberately no Σ of the money column: two co-officers
+              // of one company each carry that company's full contract total, so a column
+              // total double-counts — it would be large, plausible and wrong. The registry
+              // declares no sum aggregate for the same reason (db_table.test.js guards it).
+              <span className="text-sm text-muted-foreground">
+                <span className="font-semibold tabular-nums text-foreground">
+                  {exact ? "" : "≈"}
+                  {new Intl.NumberFormat(isBg ? "bg-BG" : "en-GB").format(
+                    total,
+                  )}
+                </span>{" "}
+                {t("persons_rows_word", { defaultValue: "лица" })}
+              </span>
+            )}
+          />
+        ) : null}
       </section>
     </>
   );

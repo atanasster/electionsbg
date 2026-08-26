@@ -14,6 +14,7 @@
 //     here therefore gets its OWN request with its own filter subset.
 //  2. The facets are NOT scoped by the free-text search — the dropdowns describe the
 //     corpus, the table describes the query. Same split the contracts browser documents.
+//  3. TWO SPECS MAY FACET ONE COLUMN, AND THE FLAT MERGE CANNOT SERVE BOTH. See `bySpec`.
 
 import { useQueries } from "@tanstack/react-query";
 import type { DbColumnFilter } from "@/ux/data_table/DbDataTable";
@@ -57,10 +58,30 @@ export interface FacetSpec {
   filters: DbColumnFilter[];
 }
 
+export interface PersonFacetsResult {
+  /** Every spec's buckets in one flat map, for the columns only one spec requests. */
+  merged: PersonFacets;
+  /** Each spec's OWN buckets, keyed by spec name.
+   *
+   *  ⚠️ NOT A CONVENIENCE — THE FLAT MERGE IS LOSSY AND SILENTLY SO. Two specs may facet the
+   *  SAME column with deliberately different filter sets, and both be right: a VOCABULARY
+   *  excludes its own dimension (or the picker collapses to the option already chosen), while a
+   *  DENOMINATOR includes it (or the rate stops describing the rows on screen). `Object.assign`
+   *  then hands the second to both, in `Object.entries` order, with nothing to show for it.
+   *
+   *  Measured on /persons, where `is_company` is in both `groups` and `kpis`: at `?facet=mp`
+   *  the Група picker's „Бизнес" row read **526** (is_company ∧ is_mp) while clicking it
+   *  returned **85 060** — 162× — because the picker was reading the KPI spec's answer. A
+   *  consumer that needs a particular spec's reading must name it. */
+  bySpec: Record<string, PersonFacets>;
+}
+
 /** Run each dimension's facet as its own query. Keyed on its own filter subset, so
  *  changing the role filter re-fetches the party facet (correctly narrowed) without
  *  re-fetching the role facet (which must stay wide). */
-export const usePersonFacets = (specs: Record<string, FacetSpec>) => {
+export const usePersonFacets = (
+  specs: Record<string, FacetSpec>,
+): PersonFacetsResult => {
   const entries = Object.entries(specs);
   const results = useQueries({
     queries: entries.map(([key, spec]) => ({
@@ -76,6 +97,11 @@ export const usePersonFacets = (specs: Record<string, FacetSpec>) => {
     })),
   });
   const merged: PersonFacets = {};
-  for (const r of results) Object.assign(merged, r.data ?? {});
-  return merged;
+  const bySpec: Record<string, PersonFacets> = {};
+  entries.forEach(([key], i) => {
+    const data = results[i]?.data ?? {};
+    bySpec[key] = data;
+    Object.assign(merged, data);
+  });
+  return { merged, bySpec };
 };

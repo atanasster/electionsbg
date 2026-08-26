@@ -20,7 +20,8 @@ import { MemoryRouter, useLocation } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import userEvent from "@testing-library/user-event";
-import { PersonsBrowserScreen, URL_MIRROR_MS } from "./PersonsBrowserScreen";
+import { PersonsBrowserScreen } from "./PersonsBrowserScreen";
+import { URL_MIRROR_MS, scopeCount } from "./personsBrowseConstants";
 
 /** Facet buckets keyed the way `/api/db/facets` returns them. */
 type Facets = Record<string, { value: string; count: number }[]>;
@@ -29,6 +30,11 @@ const bool = (t: number, f: number) => [
   { value: "true", count: t },
   { value: "false", count: f },
 ];
+
+/** A real institution name, spelled the way the CORPUS spells it — with an EM DASH (U+2014).
+ *  The hyphen-minus a keyboard produces matches 0 rows against 47 for this (measured
+ *  2026-08-26); the search folds case and transliteration, not punctuation. */
+const COURT = "Окръжен съд — Варна";
 
 /** The corpus, measured 2026-08-26 on `person_browse_table`. */
 const CORPUS: Facets = {
@@ -49,6 +55,14 @@ const CORPUS: Facets = {
     value: `O${i}`,
     count: 1,
   })),
+  // An INT facet: the switchers card sums every bucket at 2 and above.
+  parties_n: [
+    { value: "0", count: 98_000 },
+    { value: "1", count: 34_315 },
+    { value: "2", count: 4_800 },
+    { value: "3", count: 346 },
+  ],
+  held_office: bool(39_123, 98_338),
   primary_facet: [{ value: "politician", count: 46_139 }],
   primary_role: [],
   party_primary: [],
@@ -182,10 +196,12 @@ describe("the band never publishes a zero corpus", () => {
 describe("the band never captions a count with a search that did not produce it", () => {
   it("drops the search caption when the table reports no term", async () => {
     // Reachable by arriving on ?q=иван and clearing the box, and by any deep link under the
-    // engine's floor (?q=ив). The count jumps to the whole corpus while the caption still
-    // names the term.
-    stubFetch({ total: 137_461, global: undefined });
-    const { container } = renderAt("?q=%D0%B8%D0%B2");
+    // engine's floor. The count jumps to the whole set while the caption still names the term.
+    //
+    // ?role=mp carries it: a two-character `?q` alone no longer opens a table at all (it is not
+    // yet a query), so the state under test needs a narrowing to put one on screen.
+    stubFetch({ total: 2_118, global: undefined });
+    const { container } = renderAt("?role=mp&q=%D0%B8%D0%B2");
     await waitFor(() => expect(fetch).toHaveBeenCalled());
     await waitFor(() => expect(bases(container).length).toBeGreaterThan(0));
     for (const b of bases(container))
@@ -294,6 +310,202 @@ describe("the term ⇄ ?q seam", () => {
   });
 });
 
+// ---- the landing ⇄ results switch ------------------------------------------------
+//
+// WHAT THIS PINS — the requirement the whole rework is for, and the two ways it fails.
+//
+//   TOO CLOSED. Every cross-link into this page is a FILTER rather than a query, so a
+//   search-only gate renders a BLANK page to /parliament's „Депутати" tile, to /court/:code, to
+//   the declarations search — all of which are live links today. That is the failure with no
+//   error, no empty state and nothing on screen to explain it.
+//
+//   TOO OPEN. `?sector` must NOT open the table: it is a scope, and switching „Всички" →
+//   „Във властта" to get 63,816 prominence-sorted rows IS the default-table behaviour being
+//   removed. Nor may a one- or two-character term, which the engine answers with a 400.
+
+describe("whether there is a table at all", () => {
+  beforeEach(() => stubFetch());
+  const table = (c: HTMLElement) => c.querySelector("table");
+
+  it("no table on a bare landing", async () => {
+    const { container } = renderAt("");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    expect(table(container)).toBeNull();
+  });
+
+  it("no table for a SCOPE alone — a scope is not a query", async () => {
+    const { container } = renderAt("?sector=public");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    expect(table(container)).toBeNull();
+  });
+
+  it("no table for a term the engine would refuse", async () => {
+    // Two characters is not yet a query; opening a table on it sends the engine a term it
+    // answers with a 400, i.e. the destructive „Данните не можаха да се заредят." panel.
+    const { container } = renderAt("?q=%D1%8F%D0%B2");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    expect(table(container)).toBeNull();
+  });
+
+  it("a table for a sendable term", async () => {
+    const { container } = renderAt("?q=%D1%8F%D0%B2%D0%BE%D1%80");
+    await waitFor(() => expect(table(container)).not.toBeNull());
+  });
+
+  it("a table for every cross-link that reaches this page", async () => {
+    // Shapes real entry points produce. `fetch` is stubbed, so this asserts the ROUTING rule
+    // only — that each of these opens a table — and says nothing about whether the values
+    // match rows. `personsExamples.test.ts` is what checks a value against the corpus.
+    for (const search of [
+      "?role=mp",
+      `?court=${encodeURIComponent(COURT)}`,
+      "?q=%D1%8F%D0%B2%D0%BE%D1%80&decl=1",
+      "?obshtina=BGS04",
+      "?facet=magistrate",
+    ]) {
+      const { container, unmount } = renderAt(search);
+      await waitFor(() =>
+        expect(table(container), `${search} rendered no table`).not.toBeNull(),
+      );
+      unmount();
+    }
+  });
+
+  it("a table for the explicit ?browse=1, with a way back", async () => {
+    // The escape hatch, and its return path. `browseAll` is deliberately not an "active
+    // filter", so it gets no chip and no clear button — without this affordance a reader who
+    // asked to see everything has only the browser's Back.
+    const { container } = renderAt("?browse=1");
+    await waitFor(() => expect(table(container)).not.toBeNull());
+    const back = screen.getByText(/Назад към търсенето/);
+    await userEvent.click(back);
+    await waitFor(() => expect(table(container)).toBeNull());
+  });
+
+  it("offers no way-back link when a real filter is what opened the table", async () => {
+    // With a chip and a „Изчисти филтрите" already on screen, a third exit is noise.
+    const { container } = renderAt("?browse=1&role=mp");
+    await waitFor(() => expect(table(container)).not.toBeNull());
+    expect(screen.queryByText(/Назад към търсенето/)).toBeNull();
+  });
+
+  it("the landing still carries the filters — they are the other way in", async () => {
+    // They live outside DbDataTable for exactly this reason: inside it they would vanish with
+    // the table, leaving a landing whose only control is the search box.
+    const { container } = renderAt("");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    expect(
+      container.querySelectorAll('[role="combobox"]').length,
+    ).toBeGreaterThan(0);
+  });
+
+  it("the landing's band counts the corpus, from the facet rather than the table", async () => {
+    // There is no table to produce an aggregate, so without the facet fallback the band would
+    // sit in skeletons for ever on the page a reader arrives at first.
+    const { container } = renderAt("");
+    await waitFor(() =>
+      expect(container.querySelectorAll("[data-kpi-cell]").length).toBe(4),
+    );
+    expect(container.querySelector("[data-kpi-cell]")?.textContent).toContain(
+      "137",
+    );
+  });
+});
+
+// ---- the landing's own figures ---------------------------------------------------
+//
+// WHAT THIS PINS. The landing publishes five numbers a reader can click, and each is a promise
+// about what they will get. All five come from facets, so all five can be absent, zero, or
+// scoped differently from the page they lead to — and none of those states errors.
+
+describe("the landing's escape hatch", () => {
+  it("names the SCOPE's count, not the corpus's", () => {
+    // Under „Във властта" the button promised 137 461 and delivered 63 816. Asserted on the
+    // pure rule rather than on the rendered string: `t()` does not interpolate without an i18n
+    // instance, so the number never reaches the DOM in a unit test — and the VALUE, not the
+    // template, is what was wrong.
+    const tiers = { p: 63_816, v: 73_645 };
+    expect(scopeCount("all", tiers)).toBe(137_461);
+    expect(scopeCount("public", tiers)).toBe(63_816);
+    expect(scopeCount("private", tiers)).toBe(73_645);
+  });
+
+  it("drops the count entirely rather than promising ZERO", async () => {
+    // `tierCounts` reads its own facet, so before that request lands — every cold visit — the
+    // button read „Разгледай всички 0 лица", and permanently after one 500 (fetchFacets caches
+    // a failure at staleTime: Infinity).
+    stubFetch({ facets: { ...CORPUS, tier: [] } });
+    renderAt("");
+    // The count-free variant is a DIFFERENT key, so the two are distinguishable even with no
+    // i18n instance: the counted one renders its „{{n}}" placeholder, the fallback does not.
+    const btn = await screen.findByText(/Разгледай всички/);
+    expect(btn.textContent).not.toContain("{{n}}");
+    expect(btn.textContent).not.toMatch(/[0-9]/);
+  });
+
+  it("uses the COUNTED variant ONCE THE TIER FACET LANDS", async () => {
+    // Non-vacuity for the clause above — and note the wait: the button renders the count-free
+    // variant first and swaps when the facet arrives, which is the correct order (a caption is
+    // not ready until the number in it is) and the reason a bare findByText catches the
+    // fallback here too.
+    stubFetch();
+    renderAt("");
+    await waitFor(() =>
+      expect(screen.getByText(/Разгледай всички/).textContent).toContain(
+        "{{n}}",
+      ),
+    );
+  });
+});
+
+describe("the landing's cards", () => {
+  it("suppress a card the facet says is EMPTY, rather than dashing it for ever", async () => {
+    // A bool facet emits no `true` bucket at zero, so "absent" and "none" look alike in the raw
+    // payload. Live at ?sector=private, where tier V has 0 declarations and 0 held-office.
+    stubFetch({
+      facets: {
+        ...CORPUS,
+        has_declaration: bool(0, 73_645),
+        held_office: bool(0, 73_645),
+      },
+    });
+    const { container } = renderAt("?sector=private");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    await waitFor(() =>
+      expect(container.textContent).toContain("Започнете оттук"),
+    );
+    expect(container.textContent).not.toContain("Заемали длъжност");
+    // …and the ones that DO have counts survive.
+    expect(container.textContent).toContain("Сменили партия");
+  });
+
+  it("a card's href carries the active scope — its count is scoped, so its link must be", async () => {
+    stubFetch();
+    const { container } = renderAt("?sector=private");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    const link = await waitFor(() => {
+      const a = [...container.querySelectorAll("a[href*='switch=']")][0];
+      expect(a).toBeTruthy();
+      return a as HTMLAnchorElement;
+    });
+    expect(link.getAttribute("href")).toContain("sector=private");
+  });
+
+  it("an entry-point href never carries ?q", async () => {
+    // /api/db/facets has no free-text parameter, so every count on these cards is computed with
+    // the term ignored. Carrying it would send a reader to a page narrowed by something their
+    // number never accounted for.
+    stubFetch();
+    const { container } = renderAt("?q=%D1%8F%D0%B2");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    const hrefs = [...container.querySelectorAll("a[href^='/persons?']")].map(
+      (a) => a.getAttribute("href") ?? "",
+    );
+    expect(hrefs.length).toBeGreaterThan(0);
+    for (const h of hrefs) expect(h).not.toContain("q=");
+  });
+});
+
 // ---- the chips ------------------------------------------------------------------
 //
 // WHAT THIS PINS. `PersonsActiveFilters` exists because two narrowings — `?position` and
@@ -316,7 +528,7 @@ describe("every narrowing gets a chip", () => {
     ["?oblast=VAR", "an oblast"],
     ["?obshtina=BGS04", "a municipality (NO picker)"],
     ["?position=private_sector", "a position type (NO picker)"],
-    [`?court=${encodeURIComponent("Окръжен съд - Варна")}`, "an institution"],
+    [`?court=${encodeURIComponent(COURT)}`, "an institution"],
     ["?decl=1", "declaration-only"],
     ["?held=1", "held-office-only"],
     ["?switch=1", "party switchers"],
