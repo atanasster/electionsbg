@@ -18,6 +18,7 @@ Run:  python3 news/scripts/test_build_app_data.py
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -25,6 +26,10 @@ import tempfile
 import time
 import unittest
 from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from build_app_data import (  # noqa: E402
+    AXIS_POSITIONS, TOPIC_MIN_POSITIONED, axis_spread)
 
 SCRIPT = os.path.abspath(os.path.join(os.path.dirname(__file__), "build_app_data.py"))
 
@@ -61,7 +66,16 @@ def corpus_article(domain, fname, url, title, published, content="x" * 500):
     }
 
 
-class BuildAppDataTest(unittest.TestCase):
+class BuildAppDataFixture(unittest.TestCase):
+    """The harness only — throwaway root, corpus writers, `run_build`.
+
+    ⚠️ Separate from the tests deliberately. Subclassing a TestCase that owns
+    tests INHERITS them, so every subclass re-runs them as extra subprocess
+    builds under its own name — which is both slow and a lie in the report,
+    since `TopicDistributions.test_non_numeric_rank_does_not_crash` is not a
+    test of topic distributions.
+    """
+
     def setUp(self):
         self.root = tempfile.mkdtemp(prefix="build_app_data_test_")
         self.addCleanup(shutil.rmtree, self.root, True)
@@ -127,6 +141,8 @@ class BuildAppDataTest(unittest.TestCase):
             "published": "2026-08-22T00:00:00+00:00",
         }
 
+
+class BuildAppDataTest(BuildAppDataFixture):
     def test_new_story_member_gets_story_id_from_index(self):
         # An article whose analysis decided new_story (story_id null in the decision
         # block); the resolved id exists only in analysis/index.json.
@@ -893,6 +909,274 @@ class MetadataAndBudget(unittest.TestCase):
         self.assertTrue(row["retired"])
         self.assertEqual(row["logo"], "https://gone.bg/logo.png")
         self.assertEqual(row["retired_reason"], "portal_not_newsroom")
+
+
+class TopicSpread(unittest.TestCase):
+    """The per-topic disagreement measure behind /topics.
+
+    ⚠️ Every assertion here guards a rule that fails SILENTLY. A spread
+    computed over not_applicable verdicts is 0.0, which reads as "every
+    outlet agrees" — the exact opposite of "nobody took a position". And a
+    spread computed over an article's SECONDARY topics lets one piece move
+    three topics' numbers at once.
+    """
+
+    def spread(self, counts, axis="leaning"):
+        return axis_spread(counts, axis)
+
+    def test_one_side_only_is_zero(self):
+        self.assertEqual(
+            self.spread({"progressive": 8})["spread"], 0.0)
+
+    def test_the_two_extremes_is_two(self):
+        self.assertEqual(
+            self.spread({"strong_progressive": 5,
+                         "strong_conservative": 5})["spread"], 2.0)
+
+    def test_a_near_miss_scores_below_a_real_split(self):
+        # ⚠️ ORDINAL, not categorical. strong_progressive vs progressive is a
+        # near miss; strong_progressive vs strong_conservative is a real
+        # disagreement. Entropy scores those two the same, which is why this
+        # is a standard deviation over -2..+2 and not an entropy.
+        near = self.spread({"strong_progressive": 5, "progressive": 5})
+        real = self.spread({"strong_progressive": 5, "strong_conservative": 5})
+        self.assertEqual(near["spread"], 0.5)
+        self.assertLess(near["spread"], real["spread"])
+
+    def test_not_applicable_is_excluded_not_counted_as_centre(self):
+        # ⚠️ THE defect this guards. not_applicable is the MAJORITY verdict
+        # (90% of leaning calls), and it is not a position. Counting it as
+        # neutral would pull every topic's spread toward 0 in proportion to
+        # how little anyone said — i.e. the quietest topics would look like
+        # the most unanimous ones.
+        with_na = self.spread({"strong_progressive": 5,
+                               "strong_conservative": 5,
+                               "not_applicable": 500})
+        without = self.spread({"strong_progressive": 5,
+                               "strong_conservative": 5})
+        self.assertEqual(with_na["spread"], without["spread"])
+        self.assertEqual(with_na["n"], 10)
+
+    def test_an_unknown_label_is_ignored_not_crashed_on(self):
+        # A model emitting a label outside the scale must not take the build
+        # down, and must not be scored as if it were on it.
+        self.assertEqual(self.spread({"progressive": 4, "bogus": 9})["n"], 4)
+
+    def test_fewer_than_two_positions_has_no_spread(self):
+        # ⚠️ A single article has a standard deviation of exactly 0.0, which
+        # renders as "total agreement" about a topic one person wrote about.
+        # None is the only honest answer.
+        self.assertIsNone(self.spread({"progressive": 1})["spread"])
+        self.assertIsNone(self.spread({})["spread"])
+        self.assertEqual(self.spread({})["n"], 0)
+
+    def test_the_floor_is_reported_never_silently_applied(self):
+        # The consumer needs `n` and `enough` beside the number: a spread of
+        # 1.4 over four articles and one over four hundred are different
+        # claims and look identical as a bare float.
+        few = self.spread({"progressive": 2, "conservative": 2})
+        self.assertFalse(few["enough"])
+        many = self.spread({"progressive": TOPIC_MIN_POSITIONED})
+        self.assertTrue(many["enough"])
+        self.assertEqual(many["n"], TOPIC_MIN_POSITIONED)
+
+    def test_a_negative_count_is_refused_rather_than_subtracted(self):
+        # Tolerating this would let a malformed input REDUCE a sample size,
+        # so a topic could report `enough` from fewer articles than it has.
+        with self.assertRaises(ValueError):
+            self.spread({"progressive": 5, "conservative": -3})
+
+    def test_an_unknown_axis_raises_rather_than_returning_empty(self):
+        # "this axis has no positions" and "you asked for an axis that does
+        # not exist" are different answers; only the second is a caller bug,
+        # and returning the first for it hides it for ever.
+        with self.assertRaises(KeyError):
+            self.spread({"progressive": 5}, "tone")
+
+    def test_none_and_zero_counts_are_tolerated(self):
+        self.assertEqual(axis_spread(None, "leaning")["n"], 0)
+        self.assertEqual(self.spread({"progressive": None})["n"], 0)
+        self.assertEqual(self.spread({"progressive": 0})["n"], 0)
+
+    def test_a_zero_variance_never_returns_a_complex_number(self):
+        # The count-based form computes E[x²] − E[x]², which can land a hair
+        # below zero on exact agreement — and a negative ** 0.5 in Python is
+        # COMPLEX, not an error, so it would ship as "(0.0+0j)" in JSON.
+        got = self.spread({"conservative": 1000})["spread"]
+        self.assertIsInstance(got, float)
+        self.assertEqual(got, 0.0)
+
+    def test_the_floor_is_the_same_number_the_client_uses(self):
+        # ⚠️ Written twice, in two languages. A server floor of 20 against a
+        # client floor of 30 renders a spread the page's own caption calls
+        # insufficient — or withholds one it published.
+        ts = (Path(__file__).resolve().parents[2] / "newsapp" / "app"
+              / "data.ts").read_text(encoding="utf-8")
+        m = re.search(r"TOPIC_MIN_POSITIONED\s*=\s*(\d+)", ts)
+        self.assertIsNotNone(m, "TOPIC_MIN_POSITIONED not found in data.ts")
+        self.assertEqual(int(m.group(1)), TOPIC_MIN_POSITIONED)
+
+    def test_the_axis_scales_are_the_same_ones_the_client_draws(self):
+        # The spread's positions and the bar's segment order must cover the
+        # same label set, or the bar draws a verdict the number ignores.
+        labels = (Path(__file__).resolve().parents[2] / "newsapp" / "app"
+                  / "labels.ts").read_text(encoding="utf-8")
+        for axis, const in (("leaning", "LEANING_ORDER"),
+                            ("russia_stance", "RUSSIA_ORDER")):
+            block = re.search(const + r"[^=]*=\s*\[(.*?)\]", labels, re.S)
+            self.assertIsNotNone(block, const)
+            found = set(re.findall(r'"([a-z_]+)"', block.group(1)))
+            self.assertEqual(found, set(AXIS_POSITIONS[axis]),
+                             f"{const} and AXIS_POSITIONS[{axis!r}] disagree")
+
+    def test_the_russia_axis_uses_its_own_scale(self):
+        # The two axes have DIFFERENT label sets. Scoring a Russia verdict
+        # against the leaning positions would drop every one of them.
+        self.assertEqual(
+            self.spread({"strong_pro_russia": 5, "strong_anti_russia": 5},
+                        "russia_stance")["spread"], 2.0)
+        self.assertEqual(
+            self.spread({"strong_pro_russia": 5}, "leaning")["n"], 0)
+
+
+class TopicDistributions(BuildAppDataFixture):
+    """What reaches taxonomy.json — measured through the real script."""
+
+    def article_with(self, domain, fname, *, leaning, topics):
+        url = f"https://{domain}/a/{fname}"
+        self.write_corpus(domain, fname,
+                          corpus_article(domain, fname, url, "Заглавие",
+                                         "2026-08-22T00:00:00+00:00"))
+        self.write_analysis(domain, fname,
+                            self.analysis_record(url, domain,
+                                                 f"{domain}/{fname}",
+                                                 leaning=leaning,
+                                                 topics=topics))
+
+    def cat(self, cat_id):
+        return next(c for c in self.load("taxonomy.json")["categories"]
+                    if c["id"] == cat_id)
+
+    def test_the_primary_topic_alone_carries_the_verdict(self):
+        # ⚠️ An article tagged with three topics is ONE article about its
+        # primary subject. Counting it into all three lets a single piece
+        # move three topics' spreads at once.
+        self.article_with("ex.bg", "20260822-a1-abc.json",
+                          leaning="strong_progressive",
+                          # ⚠️ The primary topic is deliberately NOT first.
+                          # With it first, `next(iter(topics))` and
+                          # `next(t for t in topics if t["primary"])` return
+                          # the same object, so a fall-back-to-first bug
+                          # passes this test with nothing to show for it.
+                          topics=[{"category": "healthcare",
+                                   "subcategory": None, "primary": False},
+                                  {"category": "society",
+                                   "subcategory": None, "primary": True}])
+        self.run_build()
+        self.assertEqual(self.cat("society")["leaning"],
+                         {"strong_progressive": 1})
+        self.assertEqual(self.cat("healthcare")["leaning"], {})
+        # The ARTICLE count still counts both — that is a different question
+        # ("what is this about") from "whose position is this".
+        self.assertEqual(self.cat("healthcare")["article_count"], 1)
+
+    def test_outlets_are_counted_distinct_not_summed(self):
+        for i, dom in enumerate(("ex.bg", "ex.bg", "two.bg")):
+            self.article_with(dom, f"20260822-a{i}-abc.json",
+                              leaning="progressive",
+                              topics=[{"category": "society",
+                                       "subcategory": None, "primary": True}])
+        self.run_build()
+        row = self.cat("society")
+        self.assertEqual(row["outlet_count"], 2)
+        self.assertEqual(row["leaning"], {"progressive": 3})
+
+    def test_the_spread_rides_along_with_its_sample(self):
+        self.article_with("ex.bg", "20260822-a1-abc.json",
+                          leaning="strong_progressive",
+                          topics=[{"category": "society",
+                                   "subcategory": None, "primary": True}])
+        self.article_with("two.bg", "20260822-a2-abc.json",
+                          leaning="strong_conservative",
+                          topics=[{"category": "society",
+                                   "subcategory": None, "primary": True}])
+        self.run_build()
+        got = self.cat("society")["spread"]["leaning"]
+        self.assertEqual(got["spread"], 2.0)
+        self.assertEqual(got["n"], 2)
+        # ⚠️ Below the floor, and it says so. Two articles is not a finding.
+        self.assertFalse(got["enough"])
+
+    def test_a_secondary_only_topic_reports_zero_primaries(self):
+        # ⚠️ THE state the screen has a third message for. „Управление и
+        # кабинет" is tagged on 7 articles and is the MAIN subject of none, so
+        # a consumer reading only article_count says „nobody took a position"
+        # about a topic nobody was ever asked about.
+        self.article_with("ex.bg", "20260822-a1-abc.json",
+                          leaning="progressive",
+                          topics=[{"category": "society",
+                                   "subcategory": None, "primary": True},
+                                  {"category": "healthcare",
+                                   "subcategory": None, "primary": False}])
+        self.run_build()
+        sec = self.cat("healthcare")
+        self.assertEqual(sec["article_count"], 1)
+        self.assertEqual(sec["primary_count"], 0)
+        self.assertEqual(sec["outlet_count"], 0)
+        main = self.cat("society")
+        self.assertEqual(main["primary_count"], 1)
+        self.assertEqual(main["article_count"], 1)
+
+    def test_an_out_of_vocabulary_label_never_reaches_the_bundle(self):
+        # ⚠️ It is not enough that axis_spread ignores it. The CLIENT counts
+        # any label that is not not_applicable as positioned, so a stray
+        # „centre-left" in the distribution makes the bar and the sample size
+        # disagree about the same topic — and violates the declared TS type.
+        self.article_with("ex.bg", "20260822-a1-abc.json",
+                          leaning="centre-left",
+                          topics=[{"category": "society",
+                                   "subcategory": None, "primary": True}])
+        self.run_build()
+        row = self.cat("society")
+        self.assertEqual(row["leaning"], {})
+        self.assertEqual(row["spread"]["leaning"]["n"], 0)
+        # The article is still counted — the verdict is what was refused.
+        self.assertEqual(row["primary_count"], 1)
+
+    def test_a_positioned_article_always_has_a_primary_count(self):
+        # ⚠️ The invariant the screen's three-state shortfall rests on: it
+        # shows „само като второстепенна тема" when primary_count is 0, so a
+        # topic with n > 0 and primary_count 0 would be told nobody wrote
+        # about it while its own spread was computed from articles.
+        self.article_with("ex.bg", "20260822-a1-abc.json",
+                          leaning="progressive",
+                          topics=[{"category": "society",
+                                   "subcategory": None, "primary": True},
+                                  {"category": "healthcare",
+                                   "subcategory": None, "primary": False}])
+        self.run_build()
+        for row in self.load("taxonomy.json")["categories"]:
+            for axis in ("leaning", "russia_stance"):
+                if row["spread"][axis]["n"] > 0:
+                    self.assertGreater(
+                        row["primary_count"], 0,
+                        f"{row['id']} has positions but no primary articles")
+
+    def test_a_topic_nobody_wrote_about_is_empty_not_absent(self):
+        # An untouched category must still carry the keys, with n=0 — a
+        # missing key and "nobody took a position" are different, and a
+        # consumer reading `undefined` renders neither.
+        self.article_with("ex.bg", "20260822-a1-abc.json",
+                          leaning="progressive",
+                          topics=[{"category": "society",
+                                   "subcategory": None, "primary": True}])
+        self.run_build()
+        row = self.cat("healthcare")
+        self.assertEqual(row["leaning"], {})
+        self.assertEqual(row["outlet_count"], 0)
+        self.assertEqual(row["primary_count"], 0)
+        self.assertEqual(row["spread"]["leaning"],
+                         {"spread": None, "n": 0, "enough": False})
 
 
 if __name__ == "__main__":

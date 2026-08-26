@@ -178,3 +178,24 @@ export const formatVisits = (visits: number | null): string => {
   if (visits >= 1_000) return `${Math.round(visits / 1_000)} хил.`;
   return String(visits);
 };
+
+/**
+ * Bulgarian number agreement for „статия" / „статии" — THE one definition.
+ *
+ * ⚠️ The rule is on the LAST DIGIT, not on the value. Every numeral ending in
+ * 1 takes the singular EXCEPT the teens: 1 статия, 21 статия, 101 статия, but
+ * 11 статии. An `n === 1` test is right for exactly one number and wrong for
+ * every other one that ends in 1 — and 21 is reachable on both screens that
+ * use this, since the topic floor is 20 and outlets carry hundreds.
+ *
+ * It lives here rather than in either screen because it existed twice, with
+ * the same gap in both copies, which is how a formatting rule comes to be
+ * fixed on one page and left wrong on the other.
+ */
+export const bgArticleNoun = (n: number): string => {
+  const abs = Math.abs(Math.trunc(n));
+  return abs === 1 ? "статия" : "статии";
+};
+
+/** „21 статия" — the count and its noun, agreeing. */
+export const bgArticles = (n: number): string => `${n} ${bgArticleNoun(n)}`;

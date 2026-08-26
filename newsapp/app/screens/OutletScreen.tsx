@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
+  bgArticles,
   formatVisits,
   LEANING_META,
   relativeTime,
@@ -260,9 +261,9 @@ export const OutletScreen = () => {
             </Badge>
           ) : null}
           <Badge variant="secondary">
-            {outlet.article_count === 1
-              ? "1 статия в корпуса"
-              : `${outlet.article_count} статии в корпуса`}
+            {/* One definition, shared with /topics — this was a private copy
+                carrying the same n===1 gap (21 статии, not 21 статия). */}
+            {bgArticles(outlet.article_count)} в корпуса
           </Badge>
           <Badge variant="secondary">
             {outlet.analyzed_count === 1

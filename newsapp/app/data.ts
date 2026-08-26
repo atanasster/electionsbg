@@ -286,18 +286,89 @@ export const positionedCount = (
 export const hasSpectrum = (counts: Partial<Record<string, number>>): boolean =>
   positionedCount(counts) >= SPECTRUM_MIN_ANALYSED;
 
+export interface AxisSpread {
+  /**
+   * Population standard deviation of the positioned verdicts on a -2..+2
+   * scale. 0 = every outlet in the same bucket; 2 = split between the two
+   * extremes. Null when fewer than two articles carry a position.
+   *
+   * ⚠️ ORDINAL, not categorical. „strong_progressive vs progressive" is a
+   * near miss (0.5) where „strong_progressive vs strong_conservative" is a
+   * real disagreement (2.0); entropy scores those the same.
+   */
+  spread: number | null;
+  /** Articles carrying a position on this axis — never inferred from the total. */
+  n: number;
+  /** Whether `n` clears TOPIC_MIN_POSITIONED. */
+  enough: boolean;
+}
+
 export interface TaxonomyCategory {
   id: string;
   label: { bg: string; en: string };
   route: string | null;
   article_count: number;
   story_count: number;
+  /**
+   * Articles whose PRIMARY topic is this one.
+   *
+   * ⚠️ NOT `article_count`, and the gap is not rounding: „Управление и
+   * кабинет" is tagged on 7 articles and is the main subject of 0. Only
+   * primary articles carry a verdict into the distributions below, so a
+   * `primary_count` of 0 means „nobody wrote about this" — a different fact
+   * from „nobody took a position", which is what a shortfall line says.
+   */
+  primary_count: number;
+  /** Distinct outlets whose PRIMARY topic here is this one. */
+  outlet_count: number;
+  leaning: Partial<Record<Leaning, number>>;
+  russia_stance: Partial<Record<RussiaStance, number>>;
+  spread: { leaning: AxisSpread; russia_stance: AxisSpread };
   subcategories: {
     id: string;
     label: { bg: string; en: string };
     article_count: number;
   }[];
 }
+
+/**
+ * Positioned articles a topic needs before its spread is published.
+ *
+ * ⚠️ NOT the same question as `positionedCount(counts)` beside it. That one
+ * counts what the BAR draws (everything except not_applicable); this floor is
+ * measured against `AxisSpread.n`, which counts what the SPREAD was computed
+ * over (everything on the -2..+2 scale). They agree today and would diverge
+ * the moment a label reached a bundle without a position — which the builder
+ * now refuses, and which its own gate asserts.
+ *
+ * ⚠️ Measured 2026-08-26, NO topic clears this — the best is foreign-policy
+ * with 15 positioned on the Russia axis and 4 on the political one. So the
+ * screen ships with the measure DEFINED and every topic reported as short.
+ * That is the honest state: a "most divisive topics" ranking computed over
+ * n=4 would be decoration with a number attached.
+ *
+ * ⚠️ WRITTEN TWICE, in two languages — the server withholds the spread below
+ * this and the client withholds the number. A client floor of 30 against a
+ * server floor of 20 would render a spread the page's own caption calls
+ * insufficient, or withhold one it had already published. They are pinned
+ * together by `test_the_floor_is_the_same_number_the_client_uses` in
+ * news/scripts/test_build_app_data.py, which reads this literal out of this
+ * file, so moving it needs the constant to stay greppable here.
+ */
+export const TOPIC_MIN_POSITIONED = 20;
+
+/**
+ * Which axis a topic's disagreement should be read on — the one carrying more
+ * positioned articles.
+ *
+ * ⚠️ Chosen PER TOPIC, not fixed. Ukraine splits on the Russia axis and the
+ * budget on the political one; forcing every topic onto one axis renders the
+ * wrong disagreement, or none.
+ */
+export const dominantAxis = (
+  c: Pick<TaxonomyCategory, "spread">,
+): "leaning" | "russia_stance" =>
+  c.spread.russia_stance.n > c.spread.leaning.n ? "russia_stance" : "leaning";
 
 export interface Stats {
   generated_at: string;

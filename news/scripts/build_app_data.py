@@ -96,6 +96,97 @@ EMPTY_CONDUCT = {
     "edited_after_publication": 0,
 }
 
+
+# The ordinal position of each label on its axis, for the topic-spread measure.
+#
+# ⚠️ ORDINAL, not categorical. „strong_progressive vs progressive" is a near
+# miss; „strong_progressive vs strong_conservative" is a real disagreement,
+# and a categorical measure (entropy, Simpson) scores those the same. Spread
+# on a -2..+2 scale respects the order the scale was designed with — the same
+# argument the plan makes for ordinal-weighted Cohen's κ in T4.3.
+#
+# ⚠️ `not_applicable` HAS NO POSITION and is excluded, not mapped to 0. It is
+# the majority verdict, and folding it into the centre would drag every
+# topic's spread toward zero and make the whole measure read "the media
+# agree" — which is the opposite of what it would mean.
+AXIS_POSITIONS = {
+    "leaning": {
+        "strong_progressive": -2, "progressive": -1, "neutral": 0,
+        "conservative": 1, "strong_conservative": 2,
+    },
+    "russia_stance": {
+        "strong_pro_russia": -2, "pro_russia": -1, "neutral": 0,
+        "anti_russia": 1, "strong_anti_russia": 2,
+    },
+}
+
+# Positioned articles a topic needs before its spread is published.
+#
+# ⚠️ Measured 2026-08-26, NO topic clears this — the best is foreign-policy
+# with 15 positioned on the Russia axis and 4 on the political one. The screen
+# therefore ships with the measure defined and every topic reported as short,
+# which is the honest state: a "most divisive topics" ranking computed over
+# n=4 would be decoration with a number attached.
+TOPIC_MIN_POSITIONED = 20
+
+
+def axis_spread(counts: dict, axis: str) -> dict:
+    """Population standard deviation of an axis's positioned verdicts.
+
+    Returns the spread, the sample it was computed over, and whether that
+    sample clears the floor — never a bare number. A consumer that cannot see
+    `n` cannot tell 1.4 over four articles from 1.4 over four hundred.
+
+    `counts` maps a verdict label to how many articles carried it. It tolerates
+    None, an empty dict, a count of None or 0, and any label outside
+    AXIS_POSITIONS — each of which contributes nothing to `n` rather than
+    raising or being scored as a centre position. A NEGATIVE count is the one
+    malformed input that cannot be tolerated silently, since it would subtract
+    from a sample size, so it raises.
+
+    `axis` must be a key of AXIS_POSITIONS; an unknown axis raises rather than
+    returning an empty result, because "this axis has no positions" and "you
+    asked for an axis that does not exist" are different answers and only the
+    second is a bug in the caller.
+
+    Computed FROM THE COUNTS rather than by expanding them into one value per
+    article: the sums of x and x^2 are all a population variance needs, and a
+    single topic can carry thousands of articles.
+    """
+    positions = AXIS_POSITIONS[axis]
+    n = 0
+    total = 0
+    total_sq = 0
+    for label, count in (counts or {}).items():
+        if label not in positions:
+            continue  # not_applicable, or a label this build does not know
+        c = int(count or 0)
+        if c < 0:
+            raise ValueError(
+                f"axis_spread: negative count {c} for {axis} label {label!r} — "
+                "a sample size cannot be reduced by a verdict")
+        if not c:
+            continue
+        pos = positions[label]
+        n += c
+        total += pos * c
+        total_sq += pos * pos * c
+    if n < 2:
+        # ⚠️ A single article has a standard deviation of exactly 0.0, which
+        # renders as "total agreement" about a topic one person wrote about.
+        return {"spread": None, "n": n, "enough": False}
+    mean = total / n
+    var = total_sq / n - mean * mean
+    return {
+        # max(var, 0) guards catastrophic cancellation: the sum-of-squares
+        # form can land a hair below zero when the variance is genuinely 0,
+        # and a negative ** 0.5 is a COMPLEX number in Python — which would
+        # ship as a crash (or as "(0.0+0j)") rather than the 0.0 it means.
+        "spread": round(max(var, 0.0) ** 0.5, 2),
+        "n": n,
+        "enough": n >= TOPIC_MIN_POSITIONED,
+    }
+
 LOGO_COLUMN_PREFIX = "logo_url"
 # Whether the outlet's CDN serves an image to OUR referer, from
 # probe_hotlink.py. `false` lets a card skip straight to the logo tile instead
@@ -678,6 +769,7 @@ def main() -> int:
 
     # ---- corpus + analysis --------------------------------------------------------
     conduct_by_domain: dict[str, dict[str, int]] = {}
+    topic_axes: dict[str, dict] = {}
     analysis_by_url, analysis_by_id = load_analysis(data_dir)
     story_index = load_story_index(data_dir)
     domain_names = sorted(
@@ -755,6 +847,30 @@ def main() -> int:
                 for t in analysis.get("topics") or []:
                     key = (t.get("category"), t.get("subcategory"))
                     topic_article_counts[key] = topic_article_counts.get(key, 0) + 1
+                # Per-CATEGORY distributions, from the PRIMARY topic only. An
+                # article tagged with three topics is one article about its
+                # primary subject; counting it into all three would let one
+                # piece move three topics' spread at once.
+                primary = next((t for t in (analysis.get("topics") or [])
+                                if t.get("primary")), None)
+                if primary and primary.get("category"):
+                    cat = topic_axes.setdefault(
+                        primary["category"],
+                        {"articles": 0, "outlets": set(),
+                         "leaning": {}, "russia_stance": {}})
+                    cat["articles"] += 1
+                    cat["outlets"].add(domain)
+                    # ⚠️ VALIDATED, like the per-domain buckets above. A bare
+                    # truthiness test ships a model's out-of-vocabulary label
+                    # into taxonomy.json: the client counts it as positioned
+                    # (it is not not_applicable) while axis_spread ignores it,
+                    # so the bar and the sample size disagree about the same
+                    # distribution, and the payload violates its own TS type.
+                    if lean in LEANING_LABELS:
+                        cat["leaning"][lean] = cat["leaning"].get(lean, 0) + 1
+                    if stance in RUSSIA_LABELS:
+                        cat["russia_stance"][stance] = (
+                            cat["russia_stance"].get(stance, 0) + 1)
             # ⚠️ COUNTED WITH THEIR DENOMINATORS, never as a bare rate.
             # `updated` is present on 2.7% of the corpus today — only
             # re-extracted domains carry it, and only ~47% of those pages
@@ -911,6 +1027,36 @@ def main() -> int:
     def count_for(cat_id: str, sub_id: str | None) -> int:
         return topic_article_counts.get((cat_id, sub_id), 0)
 
+    def axes_block(cat: dict | None) -> dict:
+        """The distributions and their spread, with the sample each was
+        computed over.
+
+        ⚠️ Never a bare number: a consumer that cannot see `n` cannot tell a
+        spread of 1.4 over four articles from one over four hundred, and today
+        NO topic clears the floor.
+
+        A category nobody wrote about gets the SAME KEYS with zeros rather than
+        missing ones — "nobody took a position" and "this field is not in the
+        payload" render differently, and only the first is true.
+        """
+        cat = cat or {}
+        return {
+            # ⚠️ Articles whose PRIMARY topic is this one, which is a
+            # different number from article_count and can be 0 while that is 7:
+            # „Управление и кабинет" is tagged on seven articles and is the
+            # main subject of none. Without this the screen says „нито една
+            # статия не заема позиция" about a topic nobody has actually
+            # written about — the wrong fact, stated confidently.
+            "primary_count": cat.get("articles", 0),
+            "outlet_count": len(cat.get("outlets") or ()),
+            "leaning": cat.get("leaning", {}),
+            "russia_stance": cat.get("russia_stance", {}),
+            "spread": {
+                axis: axis_spread(cat.get(axis, {}), axis)
+                for axis in AXIS_POSITIONS
+            },
+        }
+
     taxonomy_out = {
         "version": taxonomy_doc.get("version"),
         "generated_at": generated_at,
@@ -922,6 +1068,7 @@ def main() -> int:
                 "article_count": count_for(c["id"], None)
                 + sum(count_for(c["id"], s["id"]) for s in c.get("subcategories") or []),
                 "story_count": story_topic_counts.get(c["id"], 0),
+                **axes_block(topic_axes.get(c["id"])),
                 "subcategories": [
                     {
                         "id": s["id"],
