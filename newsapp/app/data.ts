@@ -50,6 +50,16 @@ export interface TopicRef {
 export interface AnalysisBlock {
   summary_bg: string | null;
   summary_en: string | null;
+  /**
+   * Prose fields the build refused to publish, as field → reason code.
+   *
+   * ⚠️ ABSENT when nothing was withheld, never an empty object: „we published
+   * everything" and „we checked nothing" must not be the same value. The only
+   * code today is `altered_name` — a summary repeating a person's name the
+   * article does not spell that way, which the build withholds rather than
+   * corrects (news/scripts/build_app_data.py).
+   */
+  withheld?: Record<string, string>;
   leaning: {
     label: Leaning | null;
     confidence: number | null;
@@ -164,6 +174,16 @@ export interface Story {
   title_en: string | null;
   summary_bg: string | null;
   summary_en: string | null;
+  /**
+   * Prose fields the build refused to publish, as field → reason code.
+   *
+   * ⚠️ ABSENT when nothing was withheld, never an empty object: „we published
+   * everything" and „we checked nothing" must not be the same value. The only
+   * code today is `altered_name` — a summary repeating a person's name the
+   * article does not spell that way, which the build withholds rather than
+   * corrects (news/scripts/build_app_data.py).
+   */
+  withheld?: Record<string, string>;
   first_published: string | null;
   last_published: string | null;
   topics: TopicRef[];

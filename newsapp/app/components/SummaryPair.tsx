@@ -19,25 +19,44 @@
 // the English visibly SECONDARY — which is honest, because the corpus, the
 // rubric's evidence strings and every label around it are Bulgarian.
 
+/** Why a summary is absent, when we know.
+ *
+ *  ⚠️ „Липсва" AND „ЗАДЪРЖАНО" ARE DIFFERENT FACTS and must not share a
+ *  sentence. The first says the pipeline produced nothing — an upstream
+ *  defect nobody chose. The second says we produced one and refused to
+ *  publish it, which is a decision a reader is entitled to see stated
+ *  rather than left to look like breakage. */
+const WITHHELD_NOTE: Record<string, string> = {
+  altered_name:
+    "Резюмето на български не се показва — изписваше име по начин, " +
+    "по който статията не го изписва.",
+};
+
 export const SummaryPair = ({
   bg,
   en,
+  withheld,
   className = "",
 }: {
   bg: string | null | undefined;
   en: string | null | undefined;
+  /** field → reason code, from the build. Absent when nothing was withheld. */
+  withheld?: Record<string, string> | null;
   className?: string;
 }) => {
-  if (!bg && !en) return null;
+  const note = withheld?.summary_bg
+    ? (WITHHELD_NOTE[withheld.summary_bg] ?? null)
+    : null;
+  if (!bg && !en && !note) return null;
   return (
     <div className={className}>
       {bg ? <p className="max-w-3xl text-foreground/90">{bg}</p> : null}
       {/* Where the missing Bulgarian WOULD have been, not after the English —
           an English summary with no Bulgarian one is an upstream defect, and
           the note belongs in the gap it explains. */}
-      {!bg && en ? (
+      {!bg ? (
         <p className="text-xs text-muted-foreground">
-          Липсва резюме на български.
+          {note ?? (en ? "Липсва резюме на български." : null)}
         </p>
       ) : null}
       {en ? (

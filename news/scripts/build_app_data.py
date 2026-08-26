@@ -610,6 +610,13 @@ def verified_entities(entities: dict, bad: list) -> dict:
     return {**entities, "people": people}
 
 
+# ⚠️ A CODE, NOT PROSE. The reason travels to the app so the reader sees a
+# stated refusal instead of an unexplained gap — but the WORDING belongs to
+# the app, beside every other Bulgarian string it renders. A sentence written
+# here would be the one piece of UI copy living in the pipeline.
+WITHHELD_ALTERED_NAME = "altered_name"
+
+
 def verified_prose(rec: dict, fields: tuple, bad: list) -> dict:
     """The prose fields that do NOT repeat an altered name.
 
@@ -631,7 +638,7 @@ def verified_prose(rec: dict, fields: tuple, bad: list) -> dict:
     except Exception:  # noqa: BLE001
         return {}
     toks = {rm.fold(t) for _, t, _ in bad}
-    out = {}
+    out, why = {}, {}
     for f in fields:
         v = rec.get(f)
         if not v:
@@ -640,8 +647,14 @@ def verified_prose(rec: dict, fields: tuple, bad: list) -> dict:
         if toks & {rm.fold(t) for t in rm.TOKEN_RE.findall(str(v))}:
             _WITHHELD["prose"] += 1
             out[f] = None
+            why[f] = WITHHELD_ALTERED_NAME
         else:
             out[f] = v
+    # ⚠️ Under a key no prose field can collide with, and ABSENT when nothing
+    # was withheld — an empty map would make „we published everything" and
+    # „we checked nothing" the same value.
+    if why:
+        out["_withheld"] = why
     return out
 
 
@@ -653,6 +666,7 @@ def compact_analysis(rec: dict, article: dict) -> dict:
     return {
         "summary_bg": prose.get("summary_bg", rec.get("summary_bg")),
         "summary_en": prose.get("summary_en", rec.get("summary_en")),
+        **({"withheld": prose["_withheld"]} if prose.get("_withheld") else {}),
         "leaning": rec.get("leaning"),
         "russia_stance": rec.get("russia_stance"),
         "ai_generated": rec.get("ai_generated"),
@@ -1152,6 +1166,8 @@ def main() -> int:
                                                st.get("summary_bg")),
                     "summary_en": st_prose.get("summary_en",
                                                st.get("summary_en")),
+                    **({"withheld": st_prose["_withheld"]}
+                       if st_prose.get("_withheld") else {}),
                     "first_published": st.get("first_published"),
                     "last_published": st.get("last_published"),
                     "topics": st.get("topics") or [],

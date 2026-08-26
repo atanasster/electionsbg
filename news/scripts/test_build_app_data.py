@@ -1271,6 +1271,26 @@ class WithholdsAlteredNames(unittest.TestCase):
         self.assertIsNone(prose["summary_bg"])
         self.assertEqual(prose["summary_en"], "Anton Slavchev got a payout.")
 
+    def test_the_REASON_travels_with_the_withholding(self):
+        # ⚠️ Without it the app renders „Липсва резюме на български." — the
+        # generic upstream-defect note — so a deliberate refusal reads as
+        # breakage. The code is machine-readable; the wording is the app's.
+        bad = self.b.altered_names(self.ents, [self.article])
+        prose = self.b.verified_prose(
+            {"summary_bg": "Антон Славев получи обезщетение."},
+            ("summary_bg",), bad)
+        self.assertEqual(prose["_withheld"],
+                         {"summary_bg": self.b.WITHHELD_ALTERED_NAME})
+
+    def test_no_withholding_carries_NO_reason_key_at_all(self):
+        # ⚠️ Absent, never an empty map: „we published everything" and „we
+        # checked nothing" must not be the same value.
+        bad = self.b.altered_names(self.ents, [self.article])
+        prose = self.b.verified_prose(
+            {"summary_en": "Anton Slavchev got a payout."},
+            ("summary_en",), bad)
+        self.assertNotIn("_withheld", prose)
+
     def test_a_clean_record_is_returned_UNTOUCHED(self):
         clean = {"people": ["Иван Христанов"], "parties": [],
                  "institutions": [], "companies": [], "places": []}

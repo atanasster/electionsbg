@@ -72,3 +72,52 @@ describe("SummaryPair", () => {
     expect(container.firstElementChild).toHaveClass("mt-3");
   });
 });
+
+describe("a withheld summary", () => {
+  // ⚠️ „Липсва" AND „ЗАДЪРЖАНО" ARE DIFFERENT FACTS. The first says the
+  // pipeline produced nothing; the second says we produced one and refused
+  // to publish it. Rendering the first for the second makes a deliberate
+  // refusal read as breakage — which is exactly what it looked like on the
+  // KPKONPI story before this.
+  it("states WHY it is missing instead of the generic note", () => {
+    render(
+      <SummaryPair
+        bg={null}
+        en="Anton Slavchev got a payout."
+        withheld={{ summary_bg: "altered_name" }}
+      />,
+    );
+    expect(screen.getByText(/не се показва/)).toBeInTheDocument();
+    expect(screen.queryByText("Липсва резюме на български.")).toBeNull();
+  });
+
+  it("keeps the generic note when nothing was withheld", () => {
+    render(<SummaryPair bg={null} en="Anton Slavchev got a payout." />);
+    expect(screen.getByText("Липсва резюме на български.")).toBeInTheDocument();
+  });
+
+  it("still renders the note when BOTH summaries are gone", () => {
+    // Otherwise a record whose only summary was withheld renders nothing at
+    // all, and the refusal is invisible again.
+    render(
+      <SummaryPair bg={null} en={null} withheld={{ summary_bg: "altered_name" }} />,
+    );
+    expect(screen.getByText(/не се показва/)).toBeInTheDocument();
+  });
+
+  it("falls back to the generic note on an UNKNOWN reason code", () => {
+    // A code the app has no wording for must not render an empty paragraph.
+    render(
+      <SummaryPair bg={null} en="x" withheld={{ summary_bg: "future_code" }} />,
+    );
+    expect(screen.getByText("Липсва резюме на български.")).toBeInTheDocument();
+  });
+
+  it("says nothing when the Bulgarian summary is present", () => {
+    render(
+      <SummaryPair bg="Резюме." en="Summary." withheld={{ summary_en: "altered_name" }} />,
+    );
+    expect(screen.queryByText(/не се показва/)).toBeNull();
+    expect(screen.queryByText("Липсва резюме на български.")).toBeNull();
+  });
+});

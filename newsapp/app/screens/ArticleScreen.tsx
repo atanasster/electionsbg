@@ -258,6 +258,7 @@ export const ArticleScreen = () => {
               <SummaryPair
                 bg={analysis.summary_bg}
                 en={analysis.summary_en}
+                withheld={analysis.withheld}
                 className="mt-2"
               />
               <p className="mt-2 text-xs text-muted-foreground">

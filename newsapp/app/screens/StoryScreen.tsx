@@ -250,6 +250,7 @@ export const StoryScreen = () => {
             <SummaryPair
               bg={story.summary_bg}
               en={story.summary_en}
+              withheld={story.withheld}
               className="mt-3"
             />
           </header>
