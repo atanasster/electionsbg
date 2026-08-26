@@ -1,0 +1,228 @@
+{
+ "Message": [
+  {
+   "Body": [
+    {
+     "Deeds": [
+      {
+       "Deed": [
+        {
+         "$": {
+          "DeedStatus": "N",
+          "CompanyName": "Катя Бентли-студио",
+          "GUID": "7ef4fd23f24d4a0793ef9efde5fe73cf",
+          "UIC": "201581603",
+          "LegalForm": "ET"
+         },
+         "IncomingPackageInfo": [
+          {
+           "$": {
+            "IncomingNumber": "20260619122223",
+            "IncomingGuid": "92090dd0933b41c296758c13b3f44b2f",
+            "PackageType": "ForChange",
+            "LeadingApp": "A1"
+           },
+           "Documents": [
+            []
+           ]
+          }
+         ],
+         "SubDeed": [
+          {
+           "$": {
+            "SubUIC": "0010",
+            "SubUICType": "MainCircumstances",
+            "SubDeedStatus": "A"
+           },
+           "Company": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00020",
+              "RecordIncomingNumber": "20260619122223",
+              "FieldEntryNumber": "20260626164248",
+              "FieldActionDate": "2026-06-26T16:42:48",
+              "FieldEntryDate": "2026-06-26T16:42:48",
+              "RecordID": "204247125",
+              "GroupID": "49839259"
+             },
+             "_": "Катя Бентли-студио"
+            }
+           ],
+           "Transliteration": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00040",
+              "RecordIncomingNumber": "20260619122223",
+              "FieldEntryNumber": "20260626164248",
+              "FieldActionDate": "2026-06-26T16:42:48",
+              "FieldEntryDate": "2026-06-26T16:42:48",
+              "RecordID": "204247126",
+              "GroupID": "49839259"
+             },
+             "_": "Katya Bentley-studio"
+            }
+           ],
+           "Seat": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00050",
+              "RecordIncomingNumber": "20260619122223",
+              "FieldEntryNumber": "20260626164248",
+              "FieldActionDate": "2026-06-26T16:42:48",
+              "FieldEntryDate": "2026-06-26T16:42:48",
+              "RecordID": "204247127",
+              "GroupID": "49839259"
+             },
+             "Address": [
+              {
+               "CountryID": [
+                {
+                 "_": "1"
+                }
+               ],
+               "CountryCode": [
+                {
+                 "_": "BGR"
+                }
+               ],
+               "Country": [
+                {
+                 "_": "БЪЛГАРИЯ"
+                }
+               ],
+               "IsForeign": [
+                {
+                 "_": "false"
+                }
+               ],
+               "DistrictID": [
+                {
+                 "_": "1"
+                }
+               ],
+               "DistrictEkatte": [
+                {
+                 "_": "SOF"
+                }
+               ],
+               "District": [
+                {
+                 "_": "София (столица)"
+                }
+               ],
+               "Municipalityid": [
+                {
+                 "_": "1"
+                }
+               ],
+               "MunicipalityEkatte": [
+                {
+                 "_": "SOF46"
+                }
+               ],
+               "Municipality": [
+                {
+                 "_": "Столична"
+                }
+               ],
+               "SettlementID": [
+                {
+                 "_": "1"
+                }
+               ],
+               "SettlementEKATTE": [
+                {
+                 "_": "68134"
+                }
+               ],
+               "Settlement": [
+                {
+                 "_": "гр. София"
+                }
+               ],
+               "PostCode": [
+                {
+                 "_": "1113"
+                }
+               ]
+              }
+             ]
+            }
+           ],
+           "SubjectOfActivity": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00060",
+              "RecordIncomingNumber": "20260619122223",
+              "FieldEntryNumber": "20260626164248",
+              "FieldActionDate": "2026-06-26T16:42:48",
+              "FieldEntryDate": "2026-06-26T16:42:48",
+              "RecordID": "22266909",
+              "GroupID": "49839259",
+              "IsBank": "false",
+              "IsBankText": "",
+              "IsInsurer": "false",
+              "IsInsurerText": ""
+             },
+             "_": "ТЪРГОВСКА ДЕЙНОСТ В СТРАНАТА И ЧУЖОБИНА И ВСЯКАКВИ СТОКИ В ПЪРВОНАЧАЛЕН, ПРЕРАБОТЕН И ОБРАБОТЕН ВИД."
+            }
+           ],
+           "PhysicalPersonTrader": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00180",
+              "RecordIncomingNumber": "20260619122223",
+              "FieldEntryNumber": "20260626164248",
+              "FieldActionDate": "2026-06-26T16:42:48",
+              "FieldEntryDate": "2026-06-26T16:42:48",
+              "RecordID": "204247150",
+              "GroupID": "49839259"
+             },
+             "Person": [
+              {
+               "$": {
+                "CompetentAuthorityForRegistration": "",
+                "RegistrationNumber": "",
+                "ForeignRegisterCode": "",
+                "ForeignLegalFormCode": "",
+                "CountryCode": "",
+                "CountryCodeBRIS": "",
+                "LegalForm": "",
+                "Position": "",
+                "IsForeignTraderText": "0"
+               },
+               "Name": [
+                {
+                 "_": "КАТЯ ХРИСТОВА БЕНТЛИ"
+                }
+               ],
+               "CountryID": [
+                {
+                 "_": "1"
+                }
+               ],
+               "CountryName": [
+                {
+                 "_": "БЪЛГАРИЯ"
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

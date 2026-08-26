@@ -1,0 +1,113 @@
+{
+ "Message": [
+  {
+   "Body": [
+    {
+     "Deeds": [
+      {
+       "Deed": [
+        {
+         "$": {
+          "DeedStatus": "L",
+          "CompanyName": "&quot;СОТИР МАРКОВ&quot;",
+          "GUID": "cf555bc1040f4f549f09d532c0c829ae",
+          "UIC": "101527775",
+          "LegalForm": "ET"
+         },
+         "_": "",
+         "IncomingPackageInfo": [
+          {
+           "$": {
+            "IncomingNumber": "20210610141714",
+            "IncomingGuid": "ccee3d21ed3843beaa56b36073ea3472",
+            "PackageType": "ForChange",
+            "LeadingApp": "A1"
+           },
+           "_": "",
+           "Documents": [
+            {
+             "_": ""
+            }
+           ]
+          }
+         ],
+         "SubDeed": [
+          {
+           "$": {
+            "SubUIC": "0014",
+            "SubUICType": "MainCircumstances",
+            "SubDeedStatus": "A"
+           },
+           "_": "",
+           "PhysicalPersonTrader": [
+            {
+             "$": {
+              "FieldOperation": "Erase",
+              "FieldIdent": "00180",
+              "RecordIncomingNumber": "20210610141714",
+              "FieldEntryNumber": "20210616121036",
+              "FieldActionDate": "2021-06-16T12:10:36",
+              "FieldEntryDate": "2021-06-16T12:10:36",
+              "RecordID": "17487912",
+              "GroupID": "33572711"
+             },
+             "_": "",
+             "Person": [
+              {
+               "$": {
+                "CompetentAuthorityForRegistration": "",
+                "RegistrationNumber": "",
+                "ForeignRegisterCode": "",
+                "ForeignLegalFormCode": "",
+                "CountryCode": "",
+                "CountryCodeBRIS": "",
+                "LegalForm": "",
+                "Position": "",
+                "IsForeignTraderText": "0"
+               },
+               "_": "",
+               "Name": [
+                {
+                 "_": "СОТИР ПЕТРОВ МАРКОВ"
+                }
+               ],
+               "CountryID": [
+                {
+                 "_": "1"
+                }
+               ],
+               "CountryName": [
+                {
+                 "_": "БЪЛГАРИЯ"
+                }
+               ]
+              }
+             ]
+            }
+           ],
+           "AddemptionOfTrader": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00270",
+              "RecordIncomingNumber": "20210610141714",
+              "FieldEntryNumber": "20210616121036",
+              "FieldActionDate": "2021-06-16T12:10:36",
+              "FieldEntryDate": "2021-06-16T12:10:36",
+              "RecordID": "177067427",
+              "GroupID": "33572711"
+             },
+             "_": "1"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

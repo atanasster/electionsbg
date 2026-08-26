@@ -20,6 +20,27 @@ export type TrRole =
   | "branch_manager"
   | "partner"
   | "sole_owner"
+  // Физическо лице търговец — the natural person BEHIND an ЕТ. Distinct from
+  // `sole_owner`: an ЕТ has no капитал and no дял, because the trader and the
+  // firm are ONE legal subject. So the role carries ownership in substance and
+  // no share in form, and it is deliberately OUT of `tr_owner_share` (003) and
+  // of `isOwnerRole` (owner_share.ts) — both apportion a declared capital that
+  // does not exist here. It IS in `OWNS` (personParticipations.ts), which asks
+  // the other question: owner or manager. See PERSON_SECTION_TO_ROLE in
+  // parse_daily_filing.ts.
+  //
+  // ⚠️ A NEW MEMBER OF THIS UNION IS NEVER A PARSER-ONLY CHANGE — the token is
+  // copied VERBATIM all the way to the UI. `load_tr_pg.ts` puts it in
+  // `tr_person_roles.role`, `tr_officers.roles` and `company_politicians.relations`;
+  // `resolve_persons.ts` puts it in `person_role.role`. Four consumers read it and
+  // EVERY ONE falls back to printing the raw ASCII code when it is unmapped:
+  // `trRoleLabel` / `trRoleList` (src/lib/trRole.ts), `relationLabel` (TWO copies —
+  // procurement and funds), and the `OWNS` fold. So a new role also needs
+  // `tr_role_<name>` and `procurement_rel_<name>` in BOTH locales and a
+  // `ProcurementRelationKind` member, or every page carrying it publishes a Latin
+  // token to a Bulgarian reader. This has already shipped twice — see
+  // dataTypes.ts (`sole_owner`) and load_tr_pg.ts:181 (`declared_role`).
+  | "sole_trader"
   | "actual_owner"
   | "foreign_trader"
   // Non-profit legal entity (ЮЛНЦ) roles — сдружения/фондации/читалища.

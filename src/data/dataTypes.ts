@@ -1359,6 +1359,11 @@ export type ProcurementRelationKind =
   // The single owner of an ЕООД. A real person_role.role value that relationLabel never
   // mapped, so it rendered as the raw token `sole_owner` in both languages.
   | "sole_owner"
+  // The natural person BEHIND an ЕТ — `TrRole.sole_trader`, third in the same series of
+  // unmapped-token defects. NOT `sole_owner`: an ЕТ has no капитал, so the trader owns in
+  // substance and holds no share in form. The BG label must not reuse „едноличен
+  // собственик" either, which is the capital share this one does not have.
+  | "sole_trader"
   | "representative"
   | "liquidator"
   | "procurator"

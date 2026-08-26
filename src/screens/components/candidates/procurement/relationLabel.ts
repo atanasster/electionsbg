@@ -24,6 +24,7 @@ const KEY: Record<ProcurementRelationKind, { en: string; bgKey: string }> = {
   liquidator: { en: "liquidator", bgKey: "procurement_rel_liquidator" },
   procurator: { en: "procurator", bgKey: "procurement_rel_procurator" },
   sole_owner: { en: "sole owner", bgKey: "procurement_rel_sole_owner" },
+  sole_trader: { en: "sole trader", bgKey: "procurement_rel_sole_trader" },
   stake: { en: "declared stake", bgKey: "procurement_rel_stake" },
   // A management role the person DECLARED to the Court of Audit — distinct from a registry
   // role above, which is what the Commerce Registry records of its own accord. Without an

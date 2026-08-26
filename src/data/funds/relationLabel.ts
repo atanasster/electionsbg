@@ -23,6 +23,10 @@ const KEY: Record<string, { en: string; bgKey: string }> = {
   procurator: { en: "procurator", bgKey: "procurement_rel_procurator" },
   stake: { en: "declared stake", bgKey: "procurement_rel_stake" },
   sole_owner: { en: "sole owner", bgKey: "procurement_rel_sole_owner" },
+  // ⚠️ This map is a hand-kept twin of the procurement copy. A role added there and not
+  // here keeps printing the raw ASCII token on the funds surfaces alone — half-fixed reads
+  // exactly like fixed on whichever page you happen to check.
+  sole_trader: { en: "sole trader", bgKey: "procurement_rel_sole_trader" },
   trustee: { en: "trustee", bgKey: "procurement_rel_trustee" },
   verifier: { en: "audit commission", bgKey: "procurement_rel_verifier" },
   ngo_board: { en: "NGO board member", bgKey: "procurement_rel_ngo_board" },

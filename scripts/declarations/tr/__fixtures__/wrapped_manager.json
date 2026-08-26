@@ -1,0 +1,97 @@
+{
+ "Message": [
+  {
+   "Body": [
+    {
+     "Deeds": [
+      {
+       "Deed": [
+        {
+         "$": {
+          "DeedStatus": "N",
+          "CompanyName": "НаРо",
+          "GUID": "eb640905a439428d8f3be430d2c3b691",
+          "UIC": "202965261",
+          "LegalForm": "EOOD"
+         },
+         "IncomingPackageInfo": [
+          {
+           "$": {
+            "IncomingNumber": "20260629115921",
+            "IncomingGuid": "b08a8d9bf1ba4b3893ea87dd65bdd32a",
+            "PackageType": "ForChange",
+            "LeadingApp": "A4"
+           },
+           "Documents": [
+            []
+           ]
+          }
+         ],
+         "SubDeed": [
+          {
+           "$": {
+            "SubUIC": "0017",
+            "SubUICType": "MainCircumstances",
+            "SubDeedStatus": "A"
+           },
+           "Managers": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00070",
+              "FieldEntryNumber": "20260707144616",
+              "FieldActionDate": "2026-07-07T14:46:16",
+              "FieldEntryDate": "2026-07-07T14:46:16"
+             },
+             "Manager": [
+              {
+               "$": {
+                "RecordIncomingNumber": "20260629115921",
+                "RecordID": "204445479",
+                "GroupID": "49905325"
+               },
+               "Person": [
+                {
+                 "$": {
+                  "CompetentAuthorityForRegistration": "",
+                  "RegistrationNumber": "",
+                  "ForeignRegisterCode": "",
+                  "ForeignLegalFormCode": "",
+                  "CountryCode": "BGR",
+                  "CountryCodeBRIS": "",
+                  "LegalForm": "",
+                  "Position": "",
+                  "IsForeignTraderText": "0"
+                 },
+                 "Name": [
+                  {
+                   "_": "Нарине Чрагян"
+                  }
+                 ],
+                 "CountryID": [
+                  {
+                   "_": "1"
+                  }
+                 ],
+                 "CountryName": [
+                  {
+                   "_": "БЪЛГАРИЯ"
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

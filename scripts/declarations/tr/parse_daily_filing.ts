@@ -49,6 +49,14 @@ const PERSON_SECTION_TO_ROLE: Record<string, TrRole> = {
   Liquidators: "liquidator",
   Partners: "partner",
   SoleCapitalOwner: "sole_owner",
+  // ЕТ — the natural person the firm IS. `PhysicalPersonTrader` (FieldIdent
+  // 00180) sat outside this map until 2026-08-26, and because the map is an
+  // ALLOWLIST — not a generic sweep — the section was dropped at parse time
+  // rather than mis-parsed: 8,000 of the 30,252 ЕТ in the daily feed carry one,
+  // and 99.3% of ЕТ rows in `tr_person_roles` had no person at all. The other
+  // ~22k are the ordinary pre-2021 genesis gap (docs/plans/cr-deeds-capture-v1.md)
+  // and only a CR Deeds capture can reach them.
+  PhysicalPersonTrader: "sole_trader",
   ForeignTraders: "foreign_trader",
   ActualOwners: "actual_owner",
   // ЮЛНЦ (non-profit) governing bodies. These nest one level deeper
@@ -107,6 +115,30 @@ const PERSON_RECORD_KEYS = [
   "Trustee13g",
   "CommissionMember15b",
 ];
+
+// `PhysicalPersonTrader` is FLATTER STILL than SoleCapitalOwner: its records are Person[]
+// hanging straight off the GROUP, with no domain-specific wrapper and no per-record
+// RecordID (the fallback to the group's own covers that). Measured over all 1,686 daily
+// files, it is the only section shaped that way, and 0 groups anywhere carry both a wrapper
+// key and a group-level `Person`.
+//
+// ⚠️ SCOPED TO THE ROLE RATHER THAN ADDED TO THE LIST ABOVE, and the difference is the
+// whole point: that list is applied to all 17 person sections, so a global "Person" entry
+// would make the no-double-count property a fact about TODAY'S FEED rather than about this
+// code. If TR ever flattens another section — or adds a group-level `Person` beside an
+// existing wrapper — the loop would push BOTH records and emit two `person_added` events
+// for one human, and they would not even collapse in the replay: the wrapper record carries
+// its own RecordID while the flat one falls back to the group's, so the
+// `${recordId}|${fieldIdent}` key differs and both survive as distinct officer rows,
+// inflating `tr_officers.roles` and `person_link_n` with every row count reconciling.
+// Scoped, that future fails CLOSED — the section is dropped, as it was before — which is a
+// gap somebody notices rather than a duplicate nobody does.
+const FLAT_PERSON_ROLES = new Set<TrRole>(["sole_trader"]);
+
+const recordKeysFor = (role: TrRole): string[] =>
+  FLAT_PERSON_ROLES.has(role)
+    ? [...PERSON_RECORD_KEYS, "Person"]
+    : PERSON_RECORD_KEYS;
 
 // Cell-level helpers. The partner/owner capital share lives on the record's
 // `$.share` as an ABSOLUTE amount (e.g. "3825") + `$.currency` — not a percent.
@@ -170,7 +202,7 @@ const eventsFromPersonGroup = (
 
   // Add: collect all individual person records inside this group.
   const records: Wrapped[] = [];
-  for (const key of PERSON_RECORD_KEYS) {
+  for (const key of recordKeysFor(role)) {
     const list = group[key] as Arr<Wrapped>;
     if (Array.isArray(list)) records.push(...list);
   }

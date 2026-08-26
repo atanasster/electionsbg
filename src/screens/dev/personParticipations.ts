@@ -36,7 +36,18 @@ import { formatOwnerShare } from "@/lib/ownerShare";
  *  the tag COLOUR in PersonScreen, and its „владее N · управлява M" summary. It lives
  *  HERE rather than in the screen because the dependency already runs this way —
  *  PersonScreen imports the fold — so there is no cycle to avoid. */
-export const OWNS = new Set(["sole_owner", "partner", "actual_owner"]);
+/*  `sole_trader` is on the OWNERSHIP side deliberately. An ЕТ and its trader are ONE legal
+ *  subject, so the person owns the enterprise entirely — they simply hold no дял, because
+ *  there is no капитал to hold one of. That is why `tr_owner_share` (003) refuses them a
+ *  percentage while this set admits them: `formatOwnerShare` then renders the role with no
+ *  figure, which is the honest output. Counting them under „управлява" instead would tell a
+ *  reader that somebody MANAGES a firm they are. See TrRole in scripts/declarations/tr/types.ts. */
+export const OWNS = new Set([
+  "sole_owner",
+  "partner",
+  "actual_owner",
+  "sole_trader",
+]);
 
 export interface ParticipationRole {
   uic: string;
