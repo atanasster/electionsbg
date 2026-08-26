@@ -82,6 +82,14 @@ export const useDeclarationsHubStats = (): {
    *  keyed on `scope` would then print „2 122 · от 2 122 за всички парламенти" — the
    *  same number twice, as two facts. Key it on this instead. */
   bucket: string;
+  /** IN FLIGHT — genuinely, not „has no figures".
+   *
+   *  ⚠️ THE TWO ARE NOT THE SAME STATE, AND `stats === undefined` CANNOT TELL THEM APART.
+   *  A 404 is an ANSWER here (see this file's head: the tiles render bare on a checkout
+   *  with no generated blob), and it leaves `stats` undefined exactly as a request in
+   *  flight does. A skeleton keyed on `stats` is therefore a tautology that pulses for
+   *  ever on any hosting deploy that lands before the bucket sync. */
+  pending: boolean;
 } => {
   const { selected } = useElectionContext();
   // ⚠️ `?pscope`, THE SHARED PARAM — the same one /mp-assets and /mp-cars now read, which is
@@ -92,7 +100,7 @@ export const useDeclarationsHubStats = (): {
   // `years: []` because this corpus is sliced by PARLIAMENT, not by calendar year — 2024
   // held two parliaments, so `y:2024` names no single slice and resolves back to `ns`.
   const { scope } = useMpAssetsScope();
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["governance", "declarations-hub-stats"] as const,
     queryFn,
     staleTime: Infinity,
@@ -103,5 +111,11 @@ export const useDeclarationsHubStats = (): {
   // parliamentary selection. Duplicating this rule by hand is how the two would drift.
   const key = mpAssetsNsScope(scope, electionToNsFolder(selected)).val;
 
-  return { stats: data, nsStats: data?.byNs?.[key], scope, bucket: key };
+  return {
+    stats: data,
+    nsStats: data?.byNs?.[key],
+    scope,
+    bucket: key,
+    pending: isPending,
+  };
 };

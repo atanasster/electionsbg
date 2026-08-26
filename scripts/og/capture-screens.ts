@@ -1255,10 +1255,24 @@ const captures: Capture[] = [
   {
     slug: "governance-declarations",
     routePath: "governance/declarations",
-    // The Декларации sub-hub tile grid.
-    waitFor: '[data-og="declarations-hub"] a',
-    anchor: '[data-og="declarations-hub"]',
-    leftAlign: true,
+    // ⚠️ RE-ANCHORED ON THE HEAD (§5.3). It was `[data-og="declarations-hub"]`, the tile
+    // grid — right for a tile hub, and wrong the moment the page grew a band: the card led
+    // with tile fronts and cut every figure. Same move `subsidies` made above, for the same
+    // reason.
+    //
+    // ⚠️ THE WAIT NAMES A SCOPED CELL, not `[data-kpi-cell]` alone. Three of the four cells
+    // are corpus-wide and render from the blob's top level, while the MP cell needs the
+    // selected parliament's SLICE — so a blob whose `byNs` is missing that parliament still
+    // satisfies a bare cell selector with a three-cell band, and the runner would overwrite
+    // a good card with a short one and report success. `/mp-assets` is that cell's
+    // destination, so requiring it makes the scoped half provably present.
+    //
+    // ⚠️ AND THE FIGURES CAN BE ABSENT WITHOUT THE PAGE FAILING — a 404 on the stats blob is
+    // an ANSWER here (the hook renders the tiles bare), so the head paints with no band at
+    // all and no selector below catches it. That is what §10's „look at the png" is for.
+    waitFor: '[data-hub-head]:has(a[href^="/mp-assets"]) [data-kpi-cell]',
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 2500,
   },
   {

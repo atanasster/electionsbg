@@ -26,20 +26,26 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
-import { TileHubGrid, TileHubSection } from "@/ux/infographic";
+import { HubHead, TileHubGrid, TileHubSection } from "@/ux/infographic";
 import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { useDeclarationsHubStats } from "@/data/governance/useDeclarationsHubStats";
 import { HubSearch } from "@/ux/search/HubSearch";
 import { declarationsSearchSources } from "./declarationsSearch";
 import { ScopeControl } from "@/screens/components/ScopeControl";
 import { useMpAssetsScope } from "@/screens/utils/mpAssetsScope";
+import {
+  declarationsHubKpis,
+  declarationsKpiNote,
+  promotedTiles,
+  tileFigures,
+  type TileFigures,
+} from "./declarationsHubFigures";
 import { DECLARATION_BANDS, DECLARATION_TILES } from "./declarationsRegistry";
 import { DECLARATION_SCENES } from "./declarationsScenes";
 
 export const GovernanceDeclarationsScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const { stats, nsStats, bucket } = useDeclarationsHubStats();
+  const { stats, nsStats, bucket, pending } = useDeclarationsHubStats();
   // The RESOLVED scope, handed to the control so the pill and the figures are one
   // value. Left uncontrolled it re-reads `?pscope` against the full corpus band and
   // paints a year this register has no slice for — see `useMpAssetsScope`.
@@ -50,7 +56,6 @@ export const GovernanceDeclarationsScreen: FC = () => {
     () => declarationsSearchSources(i18n.language === "bg"),
     [i18n.language],
   );
-  const title = t("menu_group_declarations") || "Declarations";
 
   const nf = useMemo(
     () => new Intl.NumberFormat(i18n.language === "bg" ? "bg-BG" : "en-GB"),
@@ -59,24 +64,16 @@ export const GovernanceDeclarationsScreen: FC = () => {
 
   // One entry per tile id. Absent when the blob has not been generated — the tiles then
   // render exactly as they did before, without numbers, rather than with zeroes.
-  const metrics = useMemo<
-    Record<string, { metric: string; caption: string; secondary?: string }>
-  >(() => {
+  const metrics = useMemo<Record<string, TileFigures>>(() => {
     if (!stats) return {};
-    const out: Record<
-      string,
-      { metric: string; caption: string; secondary?: string }
-    > = {
+    const out: Record<string, TileFigures> = {
       persons: {
         metric: nf.format(stats.people),
         caption: t("decl_kpi_people"),
-        // nf.format on BOTH lines. i18next interpolates a raw number verbatim, so the
-        // headline read „62 050" and the line under it „19513" — same tile, two number
-        // formats. `count` still carries the numeric value so plural rules keep working.
-        secondary: t("decl_kpi_people_secondary", {
-          count: stats.peopleWithDeclaration,
-          n: nf.format(stats.peopleWithDeclaration),
-        }),
+        // NO `secondary` sentence. This tile's band cell always renders when `stats`
+        // does, so the tile is always demoted and the sentence was unreachable — only
+        // the bare value it falls back to is ever printed.
+        secondaryValue: nf.format(stats.peopleWithDeclaration),
       },
       officials: {
         metric: nf.format(stats.officials),
@@ -93,13 +90,11 @@ export const GovernanceDeclarationsScreen: FC = () => {
       out.companies = {
         metric: nf.format(stats.organisations),
         caption: t("decl_kpi_companies"),
-        // The people attached to them. „17 608" alone reads as a corpus size; paired with
-        // the people it is a statement about public life. NOT „MPs" any more — the
-        // destination covers every tier and they are a minority of it.
-        secondary: t("decl_kpi_companies_secondary", {
-          count: stats.organisationPeople,
-          n: nf.format(stats.organisationPeople),
-        }),
+        // NO `secondary` sentence, for the reason `persons` has none: this tile and its
+        // band cell share ONE condition (`organisations > 0`), so the tile exists only
+        // when the cell rendered and is therefore always demoted. Only the bare value it
+        // falls back to is ever printed.
+        secondaryValue: nf.format(stats.organisationPeople),
       };
     }
 
@@ -120,12 +115,14 @@ export const GovernanceDeclarationsScreen: FC = () => {
         ...(bucket === "all"
           ? {}
           : {
-              secondary: t("decl_kpi_assets_secondary", {
-                count: stats.byNs.all?.mpsWithAssets ?? nsStats.mpsWithAssets,
-                n: nf.format(
-                  stats.byNs.all?.mpsWithAssets ?? nsStats.mpsWithAssets,
-                ),
-              }),
+              // ⚠️ NO `?? nsStats.mpsWithAssets` FALLBACK. With the roll-up absent that
+              // prints THIS parliament's 240 under „депутати за всички парламенти",
+              // directly below a band cell reading „240 · този парламент" — the same
+              // number twice, one of them under a false label. An absent roll-up leaves
+              // the tile bare, which is the rule the slice above already follows.
+              ...(stats.byNs.all
+                ? { secondaryValue: nf.format(stats.byNs.all.mpsWithAssets) }
+                : {}),
             }),
       };
       out.cars = {
@@ -143,6 +140,14 @@ export const GovernanceDeclarationsScreen: FC = () => {
     // register (overstating what the page draws). The page states both itself.
     return out;
   }, [stats, nsStats, nf, t, bucket]);
+
+  const kpis = useMemo(
+    () => declarationsHubKpis(stats, nsStats, bucket, (n) => nf.format(n), t),
+    [stats, nsStats, bucket, nf, t],
+  );
+  // DERIVED from the cells that actually rendered — see `promotedTiles`. A compile-time
+  // list would blank a tile whose band cell was withheld, deleting the figure outright.
+  const promoted = useMemo(() => promotedTiles(kpis), [kpis]);
 
   const byId = useMemo(
     () => new Map(DECLARATION_TILES.map((tile) => [tile.id, tile])),
@@ -166,76 +171,76 @@ export const GovernanceDeclarationsScreen: FC = () => {
               scene: DECLARATION_SCENES[tile.id],
               // NO `cta`. „разгледай →" on every tile restates an affordance the whole card
               // already has.
-              ...(metrics[id]
-                ? {
-                    metric: metrics[id].metric,
-                    metricCaption: metrics[id].caption,
-                    ...(metrics[id].secondary
-                      ? { metricSecondary: metrics[id].secondary }
-                      : {}),
-                  }
-                : {}),
+              // §3.1 rule 5 — a figure is the band's OR the tile's, never both. The
+              // TILE is demoted, not the band cell dropped: a demoted tile keeps its
+              // OTHER figure (persons → those with a filing, companies → the people
+              // behind them, assets → the all-parliaments count), so promoting a
+              // number never removes one from the page.
+              ...tileFigures(metrics[id], promoted.has(id), id, t),
             },
           ];
         }),
       })).filter((section) => section.tiles.length > 0),
-    [t, byId, metrics],
+    [t, byId, metrics, promoted],
   );
 
   return (
     <>
-      <Title
-        description={
+      <DeclarationsBreadcrumb className="mt-5" />
+
+      <HubHead
+        eyebrow={t("decl_head_eyebrow")}
+        title={t("decl_head_title")}
+        seoDescription={
           t("declarations_hub_seo_description") ||
           "Asset and interest declarations of MPs and public officials — connections, assets, cars, companies and net-worth rankings from the Court of Audit register."
         }
-      >
-        {title}
-      </Title>
-      <DeclarationsBreadcrumb className="mt-5" />
+        deck={t("decl_head_deck")}
+        kpis={kpis}
+        // Four cells, and only while the request is genuinely IN FLIGHT.
+        //
+        // ⚠️ `pending`, NEVER `!stats`. A 404 is an answer here — the hook renders the
+        // tiles bare on a checkout with no generated blob — and it leaves `stats`
+        // undefined exactly as a request in flight does, so `!stats` is a tautology
+        // against a band that is empty iff `!stats`: 12 pulse nodes, for ever, on any
+        // hosting deploy that lands before the bucket sync.
+        kpisPending={pending ? 4 : undefined}
+        kpiNote={declarationsKpiNote(kpis, t)}
+        scope={
+          /* ⚠️ TWO SCOPES, NOT THE SHARED THREE. This register is sliced by PARLIAMENT, so
+             `years: []` — 2024 held two parliaments and `y:2024` names no single slice,
+             which `resolveScope` sends back to `ns` rather than rendering an arbitrary one.
 
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-        {t("decl_hub_intro")}
-      </p>
-
-      {/* ⚠️ TWO SCOPES, NOT THE SHARED THREE. This register is sliced by PARLIAMENT, so
-          `years: []` — 2024 held two parliaments and `y:2024` names no single slice, which
-          `resolveScope` then sends back to `ns` rather than rendering an arbitrary one. The
-          picker therefore offers „този парламент" and „всички парламенти" and nothing else.
-
-          It drives `/mp-assets` and `/mp-cars` through the SAME `?pscope` — they used to
-          hold this in local `useState`, so a reader arriving from an all-parliaments tile
-          silently landed on the selected parliament (643 cars against 42). */}
-      <div className="mt-3">
-        <ScopeControl
-          years={[]}
-          allowAll
-          value={pscope}
-          onChange={setPscope}
-          nsLabelOverride={t("decl_scope_ns")}
-          // `yearsLabelOverride` is the PROP's name, not this register's dimension:
-          // it has no year slices at all, which is exactly why the default „Години"
-          // wording had to go.
-          yearsLabelOverride={t("decl_scope_all")}
-        />
-      </div>
-
-      {/* Directly under the intro and ABOVE the first band: it is the fastest route to a
-          destination and the tiles are the slow one. A reader who already knows the name
-          should not have to guess which of six tiles contains it. */}
-      <HubSearch
-        sources={searchSources}
-        idPrefix="decl-search"
-        className="mt-4 max-w-2xl"
-        title={{ bg: "Търсене на човек", en: "Find a person" }}
-        placeholder={{
-          bg: "име на депутат, министър, кмет…",
-          en: "an MP, a minister, a mayor…",
-        }}
-        hint={{
-          bg: "Хората в регистъра на Сметната палата — и тези без подадена декларация.",
-          en: "People in the Court of Audit register — and those with no filing on record.",
-        }}
+             It drives `/mp-assets` and `/mp-cars` through the SAME `?pscope`, and it is
+             handed the RESOLVED value so the pill and the figures are one value. */
+          <ScopeControl
+            years={[]}
+            allowAll
+            value={pscope}
+            onChange={setPscope}
+            nsLabelOverride={t("decl_scope_ns")}
+            // `yearsLabelOverride` is the PROP's name, not this register's dimension:
+            // it has no year slices at all, which is why the default „Години" had to go.
+            yearsLabelOverride={t("decl_scope_all")}
+          />
+        }
+        search={
+          /* The fastest route to a destination; the tiles are the slow one. A reader who
+             already knows the name should not have to guess which of eight tiles holds it. */
+          <HubSearch
+            sources={searchSources}
+            idPrefix="decl-search"
+            title={{ bg: "Търсене на човек", en: "Find a person" }}
+            placeholder={{
+              bg: "име на депутат, министър, кмет…",
+              en: "an MP, a minister, a mayor…",
+            }}
+            hint={{
+              bg: "Хората в регистъра на Сметната палата — и тези без подадена декларация.",
+              en: "People in the Court of Audit register — and those with no filing on record.",
+            }}
+          />
+        }
       />
 
       <div data-og="declarations-hub">

@@ -14,7 +14,7 @@ import type { ReactNode } from "react";
 import { useDeclarationsHubStats } from "./useDeclarationsHubStats";
 
 const BLOB = {
-  computedAt: "2026-08-20",
+  computedAt: "2026-08-25T07:23:18.273Z",
   people: 63782,
   peopleWithDeclaration: 21170,
   officials: 14583,
@@ -59,6 +59,8 @@ afterEach(() => vi.unstubAllGlobals());
 describe("useDeclarationsHubStats follows ?pscope", () => {
   it("reads the selected parliament's slice by default", async () => {
     const r = await load("/governance/declarations");
+    // Settled, so the head shows figures rather than a skeleton.
+    expect(r.current.pending).toBe(false);
     expect(r.current.scope).toBe("ns");
     expect(r.current.bucket).toBe("52");
     expect(r.current.nsStats).toEqual(BLOB.byNs["52"]);
@@ -80,6 +82,25 @@ describe("useDeclarationsHubStats follows ?pscope", () => {
     const r = await load("/governance/declarations?pscope=y:2019");
     expect(r.current.scope).toBe("ns");
     expect(r.current.nsStats).toEqual(BLOB.byNs["52"]);
+  });
+
+  it("reports a 404 as SETTLED, not pending", async () => {
+    // ⚠️ THE ONE THAT KEEPS THE HEAD'S SKELETON HONEST. A missing blob is an ANSWER here —
+    // the tiles render bare on a checkout that never generated one — and it leaves `stats`
+    // undefined exactly as a request in flight does. So the head cannot key its skeleton on
+    // `!stats`: that is a tautology against a band which is empty iff `!stats`, and it
+    // pulses for ever on any hosting deploy landing before the bucket sync (measured: 0 real
+    // cells, 12 pulse nodes, permanently).
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({ ok: false, status: 404, json: async () => null })),
+    );
+    const { result } = renderHook(() => useDeclarationsHubStats(), {
+      wrapper: at("/governance/declarations"),
+    });
+    await waitFor(() => expect(result.current.pending).toBe(false));
+    expect(result.current.stats).toBeUndefined();
+    expect(result.current.nsStats).toBeUndefined();
   });
 
   it("distinguishes the two buckets — the gate is not vacuous", async () => {

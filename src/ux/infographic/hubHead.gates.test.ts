@@ -58,6 +58,12 @@ import {
   subsidiesHubKpis,
   promotedTiles as subsidiesPromotedTiles,
 } from "@/screens/subsidies/subsidiesHubFigures";
+import {
+  DECLARATIONS_BAND_TILES,
+  declarationsHubKpis,
+  promotedTiles as declarationsPromotedTiles,
+} from "@/screens/governance/declarationsHubFigures";
+import type { DeclarationsHubStats } from "@/data/governance/useDeclarationsHubStats";
 import { AGRI_STATS_FIXTURE } from "@/screens/subsidies/subsidiesHubStats.fixture";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
@@ -87,6 +93,7 @@ const HUB_SCREENS = [
   "src/screens/consumption/consumptionHubFigures.ts",
   "src/screens/SubsidiesDashboardScreen.tsx",
   "src/screens/subsidies/subsidiesHubFigures.ts",
+  "src/screens/governance/declarationsHubFigures.ts",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
@@ -350,6 +357,61 @@ describe("hub head — the band and the tiles are disjoint", () => {
     expect(
       new Set(tos).size,
       `duplicate /subsidies KPI destination in ${tos.join(", ")}`,
+    ).toBe(tos.length);
+  });
+
+  // Measured verbatim from the committed data/governance/declarations_hub_stats.json,
+  // 2026-08-26. Kept here rather than imported so the gate fails on a fixture that drifts
+  // from the blob rather than moving with it.
+  const DECLARATIONS_STATS_FIXTURE: DeclarationsHubStats = {
+    computedAt: "2026-08-25T07:23:18.273Z",
+    people: 63782,
+    peopleWithDeclaration: 21170,
+    officials: 14583,
+    organisations: 17620,
+    organisationPeople: 14866,
+    byNs: {
+      "52": { mpsWithAssets: 240, cars: 42, carOwners: 23 },
+      all: { mpsWithAssets: 2122, cars: 643, carOwners: 360 },
+    },
+  };
+  const declarationsBand = () =>
+    declarationsHubKpis(
+      DECLARATIONS_STATS_FIXTURE,
+      DECLARATIONS_STATS_FIXTURE.byNs["52"],
+      "52",
+      (n) => new Intl.NumberFormat("bg-BG").format(n),
+      id,
+    );
+
+  it("no /governance/declarations KPI figure is also a tile metric", () => {
+    const kpis = declarationsBand();
+    expect(kpis.length, "the declarations fixture produced no KPI cells").toBe(
+      4,
+    );
+
+    // ALL FOUR displace a tile here — unlike /subsidies, every destination on this band
+    // is also a tile on the grid below it.
+    const promoted = declarationsPromotedTiles(kpis);
+    expect([...promoted].sort()).toEqual([...DECLARATIONS_BAND_TILES].sort());
+    for (const c of kpis)
+      expect(
+        declarationsPromotedTiles([c]).size,
+        `${c.to} (${c.value}) displaces no tile`,
+      ).toBe(1);
+
+    expect(
+      new Set(kpis.map((k) => k.value)).size,
+      "two /governance/declarations KPI cells render the same string",
+    ).toBe(kpis.length);
+  });
+
+  it("no two /governance/declarations KPI cells share a destination", () => {
+    const tos = declarationsBand().map((k) => k.to);
+    expect(tos.length).toBe(4);
+    expect(
+      new Set(tos).size,
+      `duplicate /governance/declarations KPI destination in ${tos.join(", ")}`,
     ).toBe(tos.length);
   });
 

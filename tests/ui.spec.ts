@@ -629,6 +629,19 @@ const HUB_HEAD_BUDGETS: {
   //
   // `measured` is 0 until this runs against a built dist — see the note on running it.
   { path: "/persons", maxPx: 560, measured: 0, cells: 4 },
+  // Identity + deck + a two-state scope control + a full search box + a 4-cell band + a
+  // one-line note. No evidence aside yet (step 3).
+  //
+  // ⚠️ THE NOTE IS LOAD-BEARING, NOT DECORATION — do not trim it if this trips. The scope
+  // pill sits directly above the band, which is the arrangement that makes a reader assume
+  // every figure under it moved; only the MP cell does. Without the note „63 782 публични
+  // фигури" reads as a claim about ONE parliament, understating the register by its whole
+  // history. Check for a fifth cell instead.
+  //
+  // 513 with a one-line organisations basis; 525 once that cell gained „целият регистър ·"
+  // and wrapped — see FINDING-003's reasoning above. Measured in dev at 1280, the same basis
+  // the entries above use; a Playwright run against a built dist is the authoritative check.
+  { path: "/governance/declarations", maxPx: 590, measured: 525, cells: 4 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {

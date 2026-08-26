@@ -908,6 +908,11 @@ describe("a hub's og capture anchors on its head", () => {
     // they carry their own per-arm og capture entries instead
     // (`culture-funds-<arm>` in scripts/og/capture-screens.ts).
     "src/screens/culture/CultureFundsSourceScreen.tsx",
+    // /governance/declarations is a sub-hub OF the governance module — it sits under
+    // /governance, which owns the module card. So it ships no HUB card and carries its
+    // own og capture entry instead (`governance-declarations` in
+    // scripts/og/capture-screens.ts).
+    "src/screens/governance/GovernanceDeclarationsScreen.tsx",
   ];
 
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
