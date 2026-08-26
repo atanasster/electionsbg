@@ -850,6 +850,35 @@ class RosterCoversNamedOffice(unittest.TestCase):
         self.assertIn("'official_muni'", where)
         self.assertIn("'mayor'", where)
 
+    def test_the_wider_roles_are_gated_on_NAME_RARITY(self):
+        """⚠️ ROLE WAS THE WRONG DISCRIMINATOR. Excluding these wholesale
+        kept out Георги Кандев — head of a service, uniquely named, with a
+        live page — to keep out Йордан Маринов. What separates them is how
+        COMMON the name is: 3 people in the Commerce Registry versus 25."""
+        for role in ("agency_head", "security_service", "secretary_general",
+                     "revenue_agency", "social_fund", "inspectorate"):
+            self.assertIn(role, self.bg.WIDER_EXEC_ROLES, role)
+            # ⚠️ And NOT in the uncapped tier, or the cap never applies.
+            self.assertNotIn(role, self.bg.NAMED_EXEC_ROLES, role)
+
+    def test_the_cap_reaches_the_SQL_and_only_the_wider_tier(self):
+        sql = self.bg.PEOPLE_SQL.format(
+            named_exec="'x'", wider_exec="'y'",
+            cap=self.bg.REGISTRY_NAMESAKE_CAP)
+        self.assertIn(f"<= {self.bg.REGISTRY_NAMESAKE_CAP}", sql)
+        self.assertIn("not in ('y')", sql)
+        self.assertNotIn("{cap}", sql)
+
+    def test_an_ABSENT_registry_row_is_the_rarest_case_not_a_pass(self):
+        # ⚠️ `coalesce(tp.n, 0)` — no registry namesake means nobody of that
+        # name is on file, which is rarer than 1, not a missing check.
+        self.assertIn("coalesce(tp.n, 0)", self.bg.PEOPLE_SQL)
+
+    def test_the_rarity_join_is_a_JOIN_not_a_correlated_subquery(self):
+        # ⚠️ As a subquery the planner re-evaluated a 456k-row aggregate per
+        # person and the build passed psql's 300 s timeout without a row.
+        self.assertIn("left join two_part tp", self.bg.PEOPLE_SQL)
+
     def test_a_FORMER_officeholder_is_not_filtered_out(self):
         # ⚠️ The week a minister resigns is the week the news names them.
         self.assertNotIn("end_date is null", self.bg.PEOPLE_SQL)
@@ -861,7 +890,9 @@ class RosterCoversNamedOffice(unittest.TestCase):
 
     def test_the_roles_reach_the_SQL_as_quoted_literals(self):
         sql = self.bg.PEOPLE_SQL.format(
-            named_exec=", ".join(f"'{r}'" for r in self.bg.NAMED_EXEC_ROLES))
+            named_exec=", ".join(f"'{r}'" for r in self.bg.NAMED_EXEC_ROLES),
+            wider_exec=", ".join(f"'{r}'" for r in self.bg.WIDER_EXEC_ROLES),
+            cap=self.bg.REGISTRY_NAMESAKE_CAP)
         self.assertIn("'military_command'", sql)
         self.assertNotIn("{named_exec}", sql)
 

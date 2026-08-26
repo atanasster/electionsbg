@@ -35,7 +35,14 @@ export const TopicChips = ({
   if (!topics.length) return null;
   const Wrapper = inline ? Fragment : "div";
   return (
-    <Wrapper {...(inline ? {} : { className: "flex flex-wrap gap-1.5" })}>
+    <Wrapper
+      {...(inline
+        ? {}
+        : // ⚠️ `items-start`, so a truncated chip does not stretch to the
+          // height of its neighbours, and `min-w-0` on the children is what
+          // lets `truncate` actually clip inside a flex row.
+          { className: "flex flex-wrap items-start gap-1.5" })}
+    >
       {topics.map((t) => {
         const parts = topicParts(categories, t.category, t.subcategory);
         const key = `${t.category}/${t.subcategory}`;
@@ -46,31 +53,46 @@ export const TopicChips = ({
             </Badge>
           );
         }
-        return (
-          <Badge key={key} variant="secondary" className="font-normal">
-            {parts.map((p, i) => (
-              <span key={p.label}>
-                {i > 0 ? (
-                  <span aria-hidden className="mx-1 text-muted-foreground">
-                    ·
-                  </span>
-                ) : null}
-                {p.href ? (
-                  <a
-                    href={p.href}
-                    rel="noreferrer"
-                    title={`${p.label} в electionsbg.com`}
-                    className="underline decoration-dotted underline-offset-2 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  >
-                    {p.label}
-                  </a>
-                ) : (
-                  p.label
-                )}
-              </span>
-            ))}
-          </Badge>
-        );
+        // ⚠️ ONE PART PER CHIP, not two halves inside one. Bulgarian topic
+        // labels are long — „Декларации и конфликти на интереси" beside
+        // „Лица и длъжностни лица" wrapped to three ragged lines inside a
+        // single pill in a 380px sidebar. Split, each chip truncates on its
+        // own line and the full text stays reachable through `title`.
+        return parts.map((p) => {
+          const inner = (
+            <Badge
+              variant="secondary"
+              className={`block max-w-full truncate font-normal${
+                p.href
+                  ? " underline decoration-dotted underline-offset-2 hover:bg-primary/10 hover:text-primary"
+                  : ""
+              }`}
+            >
+              {p.label}
+            </Badge>
+          );
+          return p.href ? (
+            <a
+              key={`${key}/${p.label}`}
+              href={p.href}
+              rel="noreferrer"
+              // ⚠️ The full label, because the chip may be truncated — a
+              // reader who cannot see the whole topic can still read it.
+              title={`${p.label} — в electionsbg.com`}
+              className="block max-w-full rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {inner}
+            </a>
+          ) : (
+            <span
+              key={`${key}/${p.label}`}
+              title={p.label}
+              className="block max-w-full"
+            >
+              {inner}
+            </span>
+          );
+        });
       })}
     </Wrapper>
   );

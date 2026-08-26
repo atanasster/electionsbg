@@ -15,6 +15,7 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from resolve_mentions import (  # noqa: E402
+    undefinite_forms,
     BASIS_RANK, Gazetteer, article_text, dedupe, decide, fold, resolve)
 
 
@@ -419,6 +420,45 @@ class GazetteerLoading(unittest.TestCase):
         g = gz(person("А", f("Х", True, "a-1")), person("Б", f("Х", True, "b-1")))
         self.assertEqual(len(g.by_surface[fold("Х")]), 2)
 
+
+
+class DefiniteArticle(unittest.TestCase):
+    """⚠️ Bulgarian institutions take the definite article and personal names
+    do not, so a newsroom writes „Антикорупционната комисия" where the
+    register holds the bare form — and nothing in the gazetteer carries the
+    inflected spelling."""
+
+    def test_the_article_comes_off_the_FIRST_word(self):
+        self.assertIn("Софийска градска прокуратура",
+                      undefinite_forms("Софийската градска прокуратура"))
+
+    def test_a_feminine_noun_gets_its_ya_back(self):
+        # „Комисията" − „та" is „Комисия"; the bare stem is tried too.
+        self.assertIn("Комисия", undefinite_forms("Комисията"))
+
+    def test_NATA_is_not_a_suffix(self):
+        # ⚠️ „ната"/„ята" look like suffixes and are not — the „н" belongs to
+        # the stem, so stripping them yields „Антикорупцион", not a word.
+        forms = undefinite_forms("Антикорупционната комисия")
+        self.assertIn("Антикорупционна комисия", forms)
+        self.assertNotIn("Антикорупцион комисия", forms)
+
+    def test_a_short_word_is_left_alone(self):
+        # ⚠️ The word must actually END in a suffix, or the floor is never
+        # reached and the test proves nothing — „Съда" ends in „да" and was
+        # the first version of this, which let the floor be deleted silently.
+        # „Тото" ends in „то" and leaves a two-letter stem.
+        self.assertEqual(undefinite_forms("Тото"), [])
+        self.assertEqual(undefinite_forms("Ято"), [])
+
+    def test_a_word_with_no_article_yields_nothing(self):
+        # ⚠️ Empty, not the same string back — a caller must be able to tell
+        # „no alternative spelling" from „try this again".
+        self.assertEqual(undefinite_forms("България"), [])
+
+    def test_it_never_returns_the_input(self):
+        for w in ("Комисията", "Софийската градска прокуратура", "Прокуратурата"):
+            self.assertNotIn(w, undefinite_forms(w))
 
 if __name__ == "__main__":
     unittest.main()

@@ -473,6 +473,63 @@ ENTITY_ROUTES = {
 }
 
 
+# ⚠️ BULGARIAN INSTITUTIONS TAKE THE DEFINITE ARTICLE AND PERSONAL NAMES DO
+# NOT, so a newsroom writes „Антикорупционната комисия" and „Софийската
+# градска прокуратура" where the register holds the bare form. Nothing in the
+# gazetteer carries the inflected spelling, so those simply did not resolve.
+#
+# ⚠️ THE ARTICLE ATTACHES TO THE FIRST WORD, always — „Софийската градска
+# прокуратура", never „Софийска градската". So only the first token is
+# tried, which is also what keeps this from becoming a general suffix
+# stripper turning „комисия" into „комис".
+#
+# ⚠️ IT IS A FALLBACK, NEVER A REWRITE. The exact surface is looked up first,
+# and this runs only on a miss — so a name that genuinely ends in one of
+# these letters can never be folded away from its own entry.
+# ⚠️ ONLY THE ARTICLE ITSELF. „ната"/„ята" look like suffixes and are not —
+# the „н"/„я" belongs to the stem, so stripping them turns
+# „Антикорупционната" into „Антикорупцион" and „Комисията" into „Комиси",
+# neither of which is a word. The feminine/neuter/plural article is two
+# letters; the masculine „ът"/„ят" mutates the stem („Върховен" →
+# „Върховният"), so it is tried but never relied on.
+DEFINITE_SUFFIXES = ("та", "то", "те", "ът", "ят")
+# Below this a strip produces wreckage: „Съда" − „та" is one letter.
+DEFINITE_MIN_STEM = 3
+
+
+def undefinite_forms(name: str) -> list:
+    """Candidate spellings of `name` with the definite article removed.
+
+    A LIST, not one string, because the article is ambiguous with real word
+    endings — „Комисията" yields „Комисия" only if „я" is put back, and the
+    masculine forms mutate. Every candidate is looked up EXACTLY, so a wrong
+    one simply misses; producing several costs nothing and guessing one
+    loses the right answer.
+    """
+    parts = (name or "").split()
+    if not parts:
+        return []
+    head, rest = parts[0], parts[1:]
+    out = []
+    for suf in DEFINITE_SUFFIXES:
+        if not head.endswith(suf):
+            continue
+        stem = head[: -len(suf)]
+        if len(stem) < DEFINITE_MIN_STEM:
+            continue
+        # The bare stem („Софийската" → „Софийска"), and the stem with „я"
+        # restored („Комисията" → „Комисия"), which is the feminine noun the
+        # article is built on.
+        for cand in (stem, stem + "я"):
+            # ⚠️ Deduped only. A `form != name` guard sat here and was
+            # UNREACHABLE — a strip always removes characters, so no
+            # candidate can equal its input — and no test could cover it.
+            form = " ".join([cand] + rest)
+            if form not in out:
+                out.append(form)
+    return out
+
+
 def entity_link(name: str, gaz: "Gazetteer") -> dict | None:
     """A link for one entity string, or None.
 
@@ -483,7 +540,16 @@ def entity_link(name: str, gaz: "Gazetteer") -> dict | None:
     is the last check, and they can only perform it if they can see who we
     think it is.
     """
-    claims = gaz.by_surface.get(fold(" ".join((name or "").split())))
+    cleaned = " ".join((name or "").split())
+    claims = gaz.by_surface.get(fold(cleaned))
+    if not claims:
+        # ⚠️ ONLY on a miss, and only for the definite article — see
+        # `undefinite`. „Антикорупционната комисия" is the register's
+        # „Антикорупционна комисия" with one suffix.
+        for bare in undefinite_forms(cleaned):
+            claims = gaz.by_surface.get(fold(bare))
+            if claims:
+                break
     if not claims:
         return None
     basis, ident, _ = decide(claims, set())

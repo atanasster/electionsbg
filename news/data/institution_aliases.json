@@ -6,21 +6,21 @@
   "names_on_eik records how many distinct folded names share the EIK as of verified_on. An abbreviation is admitted only when every one of those names is the SAME body — a spelling variant or a unit of it — or when the rendered page was checked directly; see each entry's `evidence`.",
   "A drifting names_on_eik is the signal to re-verify, and the gate compares the stored number against the live corpus."
  ],
- "verified_on": "2026-08-26",
+ "verified_on": "2026-08-27",
  "aliases": [
   {
-   "alias": "МВР",
-   "eik": "000695235",
-   "display": "Министерство на вътрешните работи",
-   "names_on_eik": 2,
-   "evidence": "both names on the EIK are the ministry — „…/МВР/“ and the plain form"
+   "alias": "АПИ",
+   "eik": "000695089",
+   "display": "Агенция „Пътна инфраструктура“",
+   "names_on_eik": 58,
+   "evidence": "an UMBRELLA EIK — the other 57 are regional road offices (ОПУ). Admitted anyway because the rendered page was checked directly on 2026-08-26: https://electionsbg.com/awarder/000695089 titles as the PARENT agency, not an office."
   },
   {
-   "alias": "МО",
-   "eik": "000695324",
-   "display": "Министерство на отбраната",
-   "names_on_eik": 3,
-   "evidence": "the ministry twice plus „Централно военно окръжие“, a unit of it. Independently corroborated: CLAUDE.md records МО as EIK 000695324 for the /defense sector pack."
+   "alias": "Антикорупционна комисия",
+   "eik": "129010997",
+   "display": "Комисия за противодействие на корупцията и за отнемане на незаконно придобитото имущество",
+   "names_on_eik": 1,
+   "evidence": "one name on the EIK. The descriptive name a newsroom uses instead of the legal one; the definite form „Антикорупционната комисия“ reaches it through undefinite_forms"
   },
   {
    "alias": "ДАНС",
@@ -30,11 +30,18 @@
    "evidence": "all three are the agency, differing only in the closing quote and the /ДАНС/ suffix"
   },
   {
-   "alias": "КРС",
-   "eik": "121747864",
-   "display": "Комисия за регулиране на съобщенията",
-   "names_on_eik": 4,
-   "evidence": "all four are the commission, differing in case and the /КРС/ suffix"
+   "alias": "КОНПИ",
+   "eik": "129010997",
+   "display": "Комисия за противодействие на корупцията и за отнемане на незаконно придобитото имущество",
+   "names_on_eik": 1,
+   "evidence": "one name on the EIK. The older half of the abbreviation, still written on its own — same body"
+  },
+  {
+   "alias": "КПК",
+   "eik": "129010997",
+   "display": "Комисия за противодействие на корупцията и за отнемане на незаконно придобитото имущество",
+   "names_on_eik": 1,
+   "evidence": "one name on the EIK. „КПК“ is what newsrooms shortened the commission to after the 2023 split renamed it; it is the same body as КПКОНПИ, already aliased here"
   },
   {
    "alias": "КПКОНПИ",
@@ -44,6 +51,20 @@
    "evidence": "one name on the EIK. ⚠️ 131463734 is the PREDECESSOR body (КОНПИ / КУИППД) and is deliberately NOT aliased — the abbreviation КПКОНПИ names the current commission."
   },
   {
+   "alias": "КРС",
+   "eik": "121747864",
+   "display": "Комисия за регулиране на съобщенията",
+   "names_on_eik": 4,
+   "evidence": "all four are the commission, differing in case and the /КРС/ suffix"
+  },
+  {
+   "alias": "МВР",
+   "eik": "000695235",
+   "display": "Министерство на вътрешните работи",
+   "names_on_eik": 2,
+   "evidence": "both names on the EIK are the ministry — „…/МВР/“ and the plain form"
+  },
+  {
    "alias": "МЗ",
    "eik": "000695317",
    "display": "Министерство на здравеопазването",
@@ -51,11 +72,18 @@
    "evidence": "all five are the ministry — case variants, the /МЗ/ suffix, and its central purchasing body"
   },
   {
-   "alias": "АПИ",
-   "eik": "000695089",
-   "display": "Агенция „Пътна инфраструктура“",
-   "names_on_eik": 58,
-   "evidence": "an UMBRELLA EIK — the other 57 are regional road offices (ОПУ). Admitted anyway because the rendered page was checked directly on 2026-08-26: https://electionsbg.com/awarder/000695089 titles as the PARENT agency, not an office."
+   "alias": "МО",
+   "eik": "000695324",
+   "display": "Министерство на отбраната",
+   "names_on_eik": 3,
+   "evidence": "the ministry twice plus „Централно военно окръжие“, a unit of it. Independently corroborated: CLAUDE.md records МО as EIK 000695324 for the /defense sector pack."
+  },
+  {
+   "alias": "СДВР",
+   "eik": "129009938",
+   "display": "Столична дирекция на вътрешните работи",
+   "names_on_eik": 2,
+   "evidence": "both names on the EIK are the same directorate — the plain form and „…/СДВР/“"
   }
  ],
  "refused": [

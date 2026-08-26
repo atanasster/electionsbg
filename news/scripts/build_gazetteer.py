@@ -493,6 +493,35 @@ def person_forms(slug: str, s_full: str, tok_first: str, tok_last: str,
 # The cost is real and named: проф. Тодор Кантарджиев, head of НЦЗПБ, is an
 # `agency_head` and is quoted in the corpus. Refusing him is what the rule
 # says to do when the alternative is inventing Йордан Маринов.
+# ── The second tier: a wider office, admitted only on a RARE name ─────────
+# ⚠️ ROLE WAS THE WRONG DISCRIMINATOR AND THE MEASUREMENT SAYS SO. Excluding
+# these roles wholesale kept out Георги Кандев — head of a service, uniquely
+# named, with a live /person page — to keep out Йордан Маринов. What actually
+# separates those two is not their office but how COMMON their name is: the
+# Commerce Registry holds 25 people called „Йордан Маринов" and 3 called
+# „Георги Кандев".
+#
+# That matters because the uniqueness test behind every person link asks
+# whether the name is unique among PUBLIC FIGURES — it cannot see the
+# millions of Bulgarians who are not one. `tr_name_fold_people` can, for the
+# ~456k people the registry holds, and is the only population-scale name
+# frequency in this repo.
+#
+# So a wider office is admitted when its holder's name is rare enough that an
+# article writing it probably means them. Distribution over the 1,145
+# uniquely-named holders of these roles: 572 have no registry namesake at
+# all, 343 have 1-2, 121 have 3-5, 62 have 6-10, 47 have 11 or more.
+WIDER_EXEC_ROLES = (
+    "agency_head", "security_service", "secretary_general",
+    "revenue_agency", "social_fund", "inspectorate",
+)
+# ⚠️ The cap applies to the WIDER tier only. A minister named „Иван Иванов"
+# is still refused — by the public-figure uniqueness test, which every tier
+# passes through — and a named office is prominent enough that an article
+# writing the name means the officeholder.
+REGISTRY_NAMESAKE_CAP = 5
+
+
 NAMED_EXEC_ROLES = (
     "cabinet", "political_cabinet", "deputy_minister", "regional_governor",
     "party_leader", "central_bank", "audit_court", "regulator",
@@ -530,6 +559,7 @@ with roster as (
       and (
         pr.source in ('president', 'regulator', 'mep', 'mp')
         or (pr.source = 'official_exec' and pr.role in ({named_exec}))
+        or (pr.source = 'official_exec' and pr.role in ({wider_exec}))
         or (pr.source = 'official_muni' and pr.role = 'mayor')
       )
     -- ⚠️ DETERMINISTIC. The artifact is committed, so a tie broken by heap
@@ -540,6 +570,15 @@ with roster as (
              case when pr.source = 'president' then 0
                   when pr.source = 'mp' then 1 else 2 end,
              pr.role, pr.ref
+), two_part as (
+    -- ⚠️ AGGREGATED ONCE, not probed per person. `tr_name_fold_people` is
+    -- ~456k rows keyed on the THREE-part fold, so a per-person
+    -- `LIKE given||'%' AND LIKE '%'||family` is a full scan each time.
+    select split_part(name_fold, ' ', 1) as g,
+           reverse(split_part(reverse(name_fold), ' ', 1)) as f,
+           sum(people_n) as n
+    from tr_name_fold_people
+    group by 1, 2
 ), surfaced as (
     select r.*,
            btrim(regexp_replace(r.display_name, '\\s+', ' ', 'g')) as s_full,
@@ -566,7 +605,18 @@ select s.person_id, s.slug, s.display_name, s.tier, s.party,
         where p3.status = 'active' and p3.is_public_figure
           and p3.family_fold = translit_bg_latin(s.tok_last)) as sur_n
 from surfaced s
+-- ⚠️ A LEFT JOIN, not a correlated subquery in the WHERE. As a subquery the
+-- planner re-evaluated the 456k-row aggregate per person and the whole build
+-- passed psql's 300 s timeout without returning a row.
+left join two_part tp
+  on tp.g = translit_bg_latin(s.tok_first)
+ and tp.f = translit_bg_latin(s.tok_last)
 where s.tier is not null
+  -- ⚠️ The rarity cap, and ONLY for the wider tier — see WIDER_EXEC_ROLES.
+  -- A missing row means the registry holds nobody of that name, which is the
+  -- rarest case there is, so `coalesce(..., 0)` is the right default and not
+  -- a silent pass.
+  and (s.tier not in ({wider_exec}) or coalesce(tp.n, 0) <= {cap})
 order by s.slug
 """
 
@@ -576,7 +626,9 @@ def build_people(ns: str) -> tuple[list, dict]:
     # this file, never user input, and psql `-v` substitution cannot
     # produce an IN-list from one variable.
     sql = PEOPLE_SQL.format(
-        named_exec=", ".join(f"'{r}'" for r in NAMED_EXEC_ROLES))
+        named_exec=", ".join(f"'{r}'" for r in NAMED_EXEC_ROLES),
+        wider_exec=", ".join(f"'{r}'" for r in WIDER_EXEC_ROLES),
+        cap=REGISTRY_NAMESAKE_CAP)
     return people_entries(query(sql), ns)
 
 
