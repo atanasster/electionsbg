@@ -66,7 +66,7 @@ const CLOUD_DATABASE_URL =
 
 interface Obj {
   name: string;
-  kind: "function" | "view" | "matview" | "table";
+  kind: "function" | "view" | "matview" | "table" | "index";
   def: string;
 }
 
@@ -87,6 +87,20 @@ const OBJECTS_SQL = `
          CASE WHEN c.relkind IN ('v', 'm') THEN md5(pg_get_viewdef(c.oid)) ELSE '' END
     FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
    WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p', 'v', 'm')
+  UNION ALL
+  -- Indexes are in the SAME "applied, never loaded" class as functions — CLAUDE.md names
+  -- 081's alongside 007's query builders — and they are the half this check missed on its
+  -- first cut. A missing index does not change an answer, so nothing about the payload,
+  -- the row counts or the function bodies can reveal it; it surfaces only as a query that
+  -- got slower, which on a pooled route under a 10 s statement_timeout is a 500 nobody can
+  -- attribute. idx_person_role_ref is the worked example: without it an anti-join scanned
+  -- the whole index per probe, 23,916 probes x 3.1 ms = 74 s.
+  --
+  -- The DEFINITION is compared, not just the name: a same-named index rebuilt over
+  -- different columns, or without its partial WHERE, is the silent half of this.
+  SELECT i.indexname, 'index'::text, md5(i.indexdef)
+    FROM pg_indexes i
+   WHERE i.schemaname = 'public'
 `;
 
 const read = async (url: string, label: string): Promise<Map<string, Obj>> => {
@@ -118,9 +132,9 @@ const creatorFile = (key: string): string | undefined => {
   // Anchored on the name so a substring match cannot claim the wrong file, and
   // covering every CREATE spelling these migrations actually use.
   const re = new RegExp(
-    `CREATE\\s+(?:OR\\s+REPLACE\\s+)?(?:UNLOGGED\\s+)?` +
-      `(?:MATERIALIZED\\s+VIEW|VIEW|TABLE|FUNCTION)\\s+` +
-      `(?:IF\\s+NOT\\s+EXISTS\\s+)?(?:public\\.)?${name}\\b`,
+    `CREATE\\s+(?:OR\\s+REPLACE\\s+)?(?:UNIQUE\\s+)?(?:UNLOGGED\\s+)?` +
+      `(?:MATERIALIZED\\s+VIEW|VIEW|TABLE|FUNCTION|INDEX)\\s+` +
+      `(?:CONCURRENTLY\\s+)?(?:IF\\s+NOT\\s+EXISTS\\s+)?(?:public\\.)?${name}\\b`,
     "i",
   );
   return fs
@@ -179,16 +193,46 @@ const main = async (): Promise<number> => {
     return 0;
   }
 
+  // Index-only drift is deliberately EXCLUDED from this command: as the note below
+  // explains, applying the file cannot repair a same-named index, so emitting a
+  // production command that provably no-ops is worse than emitting none.
   const files = [
     ...new Set(
-      [...missing.map((m) => m.file), ...differs.map((d) => d.file)].filter(
-        (f): f is string => Boolean(f),
-      ),
+      [
+        ...missing.map((m) => m.file),
+        ...differs
+          .filter((d) => !d.key.startsWith("index:"))
+          .map((d) => d.file),
+      ].filter((f): f is string => Boolean(f)),
     ),
   ].sort();
   console.log(
     `\n${missing.length} missing, ${differs.length} out of date, ${orphans.length} cloud-only.`,
   );
+  // ⚠️ A DIFFERING INDEX IS THE ONE CASE WHERE "apply it to cloud" CAN BE THE WRONG
+  // ADVICE, so it gets its own note rather than being folded into the command below.
+  // Every index in these migrations is `CREATE INDEX IF NOT EXISTS`, which does not
+  // compare definitions — it sees the NAME, finds it, and no-ops. So a same-named index
+  // built over different columns is immovable by re-applying the file, on EITHER side,
+  // and this check cannot tell you which side is right: it compares the two databases,
+  // not either one against the migration. Read the file and decide.
+  //
+  // Live example, measured 2026-08-27: idx_person_role_place was
+  // (place_kind, place_code) on local and (place_code, source) on cloud. 115 declares the
+  // SECOND, so cloud was correct and local had silently kept an older definition through
+  // every resolve since.
+  const idxDiffers = differs.filter((d) => d.key.startsWith("index:"));
+  if (idxDiffers.length)
+    console.log(
+      `\n⚠️ ${idxDiffers.length} index definition(s) differ. CREATE INDEX IF NOT EXISTS matches on NAME\n` +
+        `   only, so re-applying the file repairs neither side — and this check does not know which\n` +
+        `   side matches the migration. Read the file, then DROP and recreate on whichever is wrong:\n` +
+        idxDiffers
+          .map((d) => `     ${d.key.slice(6)}  (${d.file ?? "no schema file"})`)
+          .join("\n") +
+        "\n",
+    );
+
   if (files.length) {
     console.log(`\nApply to Cloud SQL — ⚠️ READ EACH FILE'S HEADER FIRST:\n`);
     console.log(
