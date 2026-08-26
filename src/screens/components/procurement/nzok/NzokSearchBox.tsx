@@ -223,7 +223,13 @@ export const NzokSearchBox: FC = () => {
       entityGroup(
         "mz",
         "Ведомства на МЗ",
-        "Ministry of Health bodies",
+        // „Bodies under the Ministry of Health", not „Ministry of Health
+        // bodies": HubSearch lowercases a group label's first character to drop
+        // it into „No matches in: …", which turns the latter into „ministry of
+        // Health bodies" — a proper noun with its first word decapitalised and
+        // its second not. Leading with a common noun makes the shared rule
+        // correct here instead of needing an exception for it.
+        "Bodies under the Ministry of Health",
         mzBodies,
         {
           icon: Landmark,
