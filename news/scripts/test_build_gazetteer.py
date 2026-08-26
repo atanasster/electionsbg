@@ -28,7 +28,8 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_gazetteer import (  # noqa: E402
     COMMON_WORDS_MIN_ARTICLES, GIVEN_NAME_EXEMPT, MIN_SURFACE_CHARS,
-    PLACE_STOPWORDS, form, institution_entries, is_common_given_name,
+    PLACE_STOPWORDS, build_aliases, form, institution_entries,
+    is_common_given_name,
     is_common_word, party_entries, people_entries, person_forms,
     place_entries, scan_common_words)
 
@@ -250,6 +251,42 @@ class PureEntryBuilders(unittest.TestCase):
         finally:
             b.COMMON_WORDS = saved
         self.assertTrue(entries[0]["forms"][0]["resolvable"])
+
+    def test_an_UMBRELLA_eik_does_not_resolve(self):
+        # ⚠️⚠️ THE WRONG LINK THIS RULE EXISTS FOR. „Софийска градска
+        # прокуратура" is a unique NAME, but its EIK (121817309) is the whole
+        # prosecution service — 179 district and regional offices share one
+        # legal entity — so the reader landed on a page titled „Прокуратура
+        # на република българия", seated in Благоевград. Asking only „is this
+        # name unique to one EIK" cannot see that; the reverse question can.
+        rows = [{"eik": "121817309", "name": "Софийска градска прокуратура",
+                 "contracts": 892, "names_on_eik": 179}]
+        entries, cov = institution_entries(rows)
+        self.assertFalse(entries[0]["forms"][0]["resolvable"])
+        self.assertIsNone(entries[0]["id"])
+        self.assertIn("umbrella", entries[0]["forms"][0]["why"])
+
+    def test_a_single_named_eik_still_resolves(self):
+        rows = [{"eik": "000970496", "name": "Община Ямбол",
+                 "contracts": 99, "names_on_eik": 1}]
+        entries, _ = institution_entries(rows)
+        self.assertTrue(entries[0]["forms"][0]["resolvable"])
+        self.assertEqual(entries[0]["id"], "000970496")
+
+    def test_the_two_refusals_are_DISTINGUISHABLE(self):
+        # „two bodies share this name" and „this EIK is a legal umbrella" are
+        # different facts and a reviewer acts on them differently.
+        shared_name = institution_entries([
+            {"eik": "1", "name": "ОУ Христо Ботев", "contracts": 30,
+             "names_on_eik": 1},
+            {"eik": "2", "name": "ОУ Христо Ботев", "contracts": 40,
+             "names_on_eik": 1}])[0][0]["forms"][0]["why"]
+        umbrella = institution_entries([
+            {"eik": "3", "name": "Районна прокуратура", "contracts": 9,
+             "names_on_eik": 50}])[0][0]["forms"][0]["why"]
+        self.assertIn("share this name", shared_name)
+        self.assertIn("umbrella", umbrella)
+        self.assertNotIn("umbrella", shared_name)
 
     def test_a_contested_party_surface_resolves_to_NEITHER(self):
         # ⚠️ The single-pass version claimed each surface with `setdefault`,
@@ -540,6 +577,137 @@ class TheCommonWordScan(unittest.TestCase):
         self.assertGreater(COMMON_WORDS_MIN_ARTICLES, 0)
 
 
+class TheInstitutionAliases(unittest.TestCase):
+    """⚠️ Every entry ASSERTS that an abbreviation means an EIK — a claim
+    about a named public body, made by hand. These tests check the file's
+    shape; `institution_aliases.data.test`-style verification against the
+    live corpus is the arm below."""
+
+    @classmethod
+    def setUpClass(cls):
+        path = (Path(__file__).resolve().parents[1] / "data"
+                / "institution_aliases.json")
+        if not path.exists():
+            raise unittest.SkipTest(
+                f"{path} absent — SKIPPING, not passing.")
+        cls.doc = json.loads(path.read_text(encoding="utf-8"))
+
+    def test_every_alias_carries_its_EVIDENCE(self):
+        # ⚠️ „МВР means 000695235" is unfalsifiable without saying how it was
+        # checked. An entry with no evidence is a guess wearing a fact's
+        # clothes, and the next person cannot tell which it was.
+        for a in self.doc["aliases"]:
+            self.assertTrue(a.get("evidence"), a["alias"])
+            self.assertGreater(len(a["evidence"]), 30, a["alias"])
+            self.assertTrue(a.get("eik"), a["alias"])
+            self.assertTrue(a.get("display"), a["alias"])
+            self.assertIsInstance(a.get("names_on_eik"), int, a["alias"])
+
+    def test_the_REFUSALS_are_published_with_reasons(self):
+        # ⚠️ „КЗК is not linked" must read as a decision, not an oversight —
+        # its EIK carries a school and a power company alongside the
+        # commission, which is worth knowing before someone adds it.
+        aliased = {a["alias"] for a in self.doc["aliases"]}
+        for r in self.doc["refused"]:
+            self.assertNotIn(r["alias"], aliased)
+            self.assertGreater(len(r.get("why") or ""), 40, r["alias"])
+
+    def test_no_alias_is_listed_twice(self):
+        aliases = [a["alias"] for a in self.doc["aliases"]]
+        self.assertEqual(len(aliases), len(set(aliases)))
+
+    def test_the_predecessor_body_is_NOT_aliased(self):
+        # ⚠️ 131463734 is КОНПИ/КУИППД, the body КПКОНПИ replaced. Aliasing
+        # the current abbreviation to the old EIK would send a reader to a
+        # commission that no longer exists.
+        eiks = {a["eik"] for a in self.doc["aliases"]}
+        self.assertNotIn("131463734", eiks)
+        self.assertIn("129010997", eiks)
+
+    def test_an_umbrella_EIK_says_how_it_was_checked(self):
+        # ⚠️ АПИ's EIK carries 58 names. It is admitted only because the
+        # rendered page was opened and found to show the parent — so the
+        # entry has to say that, or the exception looks like an oversight.
+        for a in self.doc["aliases"]:
+            if a["names_on_eik"] > 5:
+                self.assertIn("page", a["evidence"].lower(), a["alias"])
+
+
+class TheAliasBuilder(unittest.TestCase):
+    """`build_aliases()` driven directly — the artifact tests read the
+    COMMITTED gazetteer, so mutating the builder changes nothing they see."""
+
+    def test_it_emits_one_entry_per_alias(self):
+        entries, cov = build_aliases()
+        if not entries:
+            self.skipTest("no crosswalk here — SKIPPING, not passing")
+        self.assertEqual(len(entries), cov["aliases"])
+        surfaces = {e["forms"][0]["surface"] for e in entries}
+        self.assertIn("МВР", surfaces)
+        self.assertIn("КПКОНПИ", surfaces)
+
+    def test_every_emitted_alias_RESOLVES(self):
+        # ⚠️ An alias that came out unresolvable would be a hand-verified
+        # claim the builder then threw away — the point of the curation is
+        # that it overrides the heuristics.
+        entries, _ = build_aliases()
+        if not entries:
+            self.skipTest("no crosswalk here — SKIPPING, not passing")
+        for e in entries:
+            f = e["forms"][0]
+            self.assertTrue(f["resolvable"], f["surface"])
+            self.assertEqual(f["id"], e["id"], f["surface"])
+
+    def test_the_evidence_travels_into_the_gazetteer(self):
+        # So „why is МВР linked" is answerable from the artifact alone.
+        entries, _ = build_aliases()
+        if not entries:
+            self.skipTest("no crosswalk here — SKIPPING, not passing")
+        why = entries[0]["forms"][0]["why"]
+        self.assertIn("hand-verified", why)
+        self.assertGreater(len(why), 40)
+
+    def test_each_entry_carries_the_EIK_THE_FILE_NAMES(self):
+        # ⚠️ The builder must not substitute an id. „КПКОНПИ → 131463734"
+        # would send a reader to the PREDECESSOR commission, and a test that
+        # only reads the JSON cannot see a builder that ignores it.
+        entries, _ = build_aliases()
+        if not entries:
+            self.skipTest("no crosswalk here — SKIPPING, not passing")
+        path = (Path(__file__).resolve().parents[1] / "data"
+                / "institution_aliases.json")
+        want = {a["alias"]: a["eik"] for a in
+                json.loads(path.read_text(encoding="utf-8"))["aliases"]}
+        for e in entries:
+            surface = e["forms"][0]["surface"]
+            self.assertEqual(e["id"], want[surface], surface)
+            self.assertEqual(e["forms"][0]["id"], want[surface], surface)
+
+    def test_the_builder_is_actually_WIRED_INTO_the_build(self):
+        # ⚠️ A STATIC SOURCE CHECK, because the artifact tests read the
+        # COMMITTED gazetteer: with `build_aliases()` unwired, the committed
+        # file still holds the aliases and every other test stays green while
+        # the next rebuild drops them.
+        src = (Path(__file__).resolve().parent / "build_gazetteer.py").read_text(
+            encoding="utf-8")
+        body = src[src.index("def main("):]
+        # ⚠️ The SEQUENCE, not just the call. Asserting „build_aliases() is
+        # mentioned" passes on a main() that calls it and then throws the
+        # rows away — which is exactly the shape a careless refactor takes.
+        self.assertIn("rows, cov = build_aliases()\n    entries.extend(rows)",
+                      body,
+                      "main() calls build_aliases but does not extend the "
+                      "entries with its rows — the crosswalk would vanish on "
+                      "the next rebuild while every artifact test stayed "
+                      "green off the committed file")
+
+    def test_the_refusals_reach_the_coverage_block(self):
+        _, cov = build_aliases()
+        if not cov.get("aliases"):
+            self.skipTest("no crosswalk here — SKIPPING, not passing")
+        self.assertIn("КЗК", cov["aliases_refused"])
+
+
 class TheBuiltArtifact(unittest.TestCase):
     """Reads news/data/gazetteer.json when it exists.
 
@@ -592,9 +760,40 @@ class TheBuiltArtifact(unittest.TestCase):
                           if e["kind"] == "company"], [])
 
     def test_no_surface_is_shorter_than_the_floor(self):
+        # ⚠️ ONE EXEMPTION, and it is the curated crosswalk. „МВР" is three
+        # characters, which the floor exists to exclude — because in FREE
+        # TEXT a three-letter token is noise. An alias never meets free text:
+        # the string arrives already classified by the model as an
+        # institution and is matched against a hand-verified list of seven.
+        # The exemption is checked AGAINST THAT FILE, not hard-coded, so a
+        # short surface arriving from anywhere else still fails.
+        path = (Path(__file__).resolve().parents[1] / "data"
+                / "institution_aliases.json")
+        allowed = set()
+        if path.exists():
+            allowed = {a["alias"] for a in
+                       json.loads(path.read_text(encoding="utf-8"))["aliases"]}
         short = [f["surface"] for e in self.doc["entries"] for f in e["forms"]
-                 if len(f["surface"]) < MIN_SURFACE_CHARS]
+                 if len(f["surface"]) < MIN_SURFACE_CHARS
+                 and f["surface"] not in allowed]
         self.assertEqual(short, [])
+
+    def test_every_short_surface_IS_an_alias(self):
+        # The converse, so the exemption cannot quietly widen: anything under
+        # the floor must be in the crosswalk and must carry its evidence.
+        path = (Path(__file__).resolve().parents[1] / "data"
+                / "institution_aliases.json")
+        if not path.exists():
+            self.skipTest("no crosswalk here — SKIPPING, not passing")
+        by_alias = {a["alias"]: a for a in
+                    json.loads(path.read_text(encoding="utf-8"))["aliases"]}
+        short = {f["surface"] for e in self.doc["entries"] for f in e["forms"]
+                 if len(f["surface"]) < MIN_SURFACE_CHARS}
+        self.assertTrue(short, "no short surfaces at all — is the crosswalk "
+                               "reaching the gazetteer?")
+        for s in short:
+            self.assertIn(s, by_alias)
+            self.assertTrue(by_alias[s].get("evidence"))
 
     def test_no_stopworded_place_survived(self):
         surfaces = {f["surface"].casefold() for e in self.doc["entries"]

@@ -1,0 +1,83 @@
+{
+ "version": 1,
+ "why": "Bulgarian newsrooms write an institution's abbreviation; the procurement registry holds its full legal name. „МВР“ and „КПКОНПИ“ exist as EIKs in the corpus but as NO gazetteer surface at all, so the entity linker refused them. This is the crosswalk. Every entry is HAND-VERIFIED against awarder_search and carries the evidence it was verified with.",
+ "rules": [
+  "An entry ASSERTS that this abbreviation means this EIK. It is a claim about a named public body, checked by hand, never derived.",
+  "names_on_eik records how many distinct folded names share the EIK as of verified_on. An abbreviation is admitted only when every one of those names is the SAME body — a spelling variant or a unit of it — or when the rendered page was checked directly; see each entry's `evidence`.",
+  "A drifting names_on_eik is the signal to re-verify, and the gate compares the stored number against the live corpus."
+ ],
+ "verified_on": "2026-08-26",
+ "aliases": [
+  {
+   "alias": "МВР",
+   "eik": "000695235",
+   "display": "Министерство на вътрешните работи",
+   "names_on_eik": 2,
+   "evidence": "both names on the EIK are the ministry — „…/МВР/“ and the plain form"
+  },
+  {
+   "alias": "МО",
+   "eik": "000695324",
+   "display": "Министерство на отбраната",
+   "names_on_eik": 3,
+   "evidence": "the ministry twice plus „Централно военно окръжие“, a unit of it. Independently corroborated: CLAUDE.md records МО as EIK 000695324 for the /defense sector pack."
+  },
+  {
+   "alias": "ДАНС",
+   "eik": "129009710",
+   "display": "Държавна агенция „Национална сигурност“",
+   "names_on_eik": 3,
+   "evidence": "all three are the agency, differing only in the closing quote and the /ДАНС/ suffix"
+  },
+  {
+   "alias": "КРС",
+   "eik": "121747864",
+   "display": "Комисия за регулиране на съобщенията",
+   "names_on_eik": 4,
+   "evidence": "all four are the commission, differing in case and the /КРС/ suffix"
+  },
+  {
+   "alias": "КПКОНПИ",
+   "eik": "129010997",
+   "display": "Комисия за противодействие на корупцията и за отнемане на незаконно придобитото имущество",
+   "names_on_eik": 1,
+   "evidence": "one name on the EIK. ⚠️ 131463734 is the PREDECESSOR body (КОНПИ / КУИППД) and is deliberately NOT aliased — the abbreviation КПКОНПИ names the current commission."
+  },
+  {
+   "alias": "МЗ",
+   "eik": "000695317",
+   "display": "Министерство на здравеопазването",
+   "names_on_eik": 5,
+   "evidence": "all five are the ministry — case variants, the /МЗ/ suffix, and its central purchasing body"
+  },
+  {
+   "alias": "АПИ",
+   "eik": "000695089",
+   "display": "Агенция „Пътна инфраструктура“",
+   "names_on_eik": 58,
+   "evidence": "an UMBRELLA EIK — the other 57 are regional road offices (ОПУ). Admitted anyway because the rendered page was checked directly on 2026-08-26: https://electionsbg.com/awarder/000695089 titles as the PARENT agency, not an office."
+  }
+ ],
+ "refused": [
+  {
+   "alias": "КЗК",
+   "eik": "000698612",
+   "why": "the EIK carries „Средно училище ‘Отец Паисий’“ and „Електроразпределение Юг ЕАД“ alongside the commission — a school and a power company. Whatever that is, it is not a clean identity, and an abbreviation must not point at it."
+  },
+  {
+   "alias": "Столична община",
+   "eik": "000696327",
+   "why": "77 distinct names, every Sofia district office. The parent name is right for the EIK, but the rendered page was not checked and „Район Люлин“ would be a surprising place to land from a story about the municipality."
+  },
+  {
+   "alias": "ЕС · НАТО · Интерпол",
+   "eik": null,
+   "why": "international bodies with no Bulgarian EIK and no page on this site"
+  },
+  {
+   "alias": "БТА · БНТ · Нова телевизия · „24 часа“",
+   "eik": null,
+   "why": "media outlets. They belong to the OUTLET layer of the news app, not to the procurement register — linking them to an awarder page would answer a question nobody asked."
+  }
+ ]
+}

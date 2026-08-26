@@ -585,10 +585,21 @@ def people_entries(rows: list, ns: str) -> tuple[list, dict]:
 
 def build_institutions() -> tuple[list, dict]:
     return institution_entries(query("""
-        select eik, name, contracts
-        from awarder_search
-        where contracts >= :'min'::int and char_length(name) >= :'chars'::int
-        order by name
+        select a.eik, a.name, a.contracts,
+               -- ⚠️⚠️ HOW MANY DIFFERENT INSTITUTIONS SHARE THIS EIK. The
+               -- rule below asked „is this NAME unique to one EIK" and never
+               -- the reverse — so „Софийска градска прокуратура" resolved to
+               -- EIK 121817309 and sent the reader to a page titled
+               -- „Прокуратура на република българия" seated in Благоевград.
+               -- That EIK is the ENTIRE prosecution service: 179 district and
+               -- regional offices share one legal entity. 72 EIKs carry more
+               -- than five names and the worst carries 190.
+               (select count(distinct lower(regexp_replace(b.name, '\\s+', ' ', 'g')))
+                from awarder_search b where b.eik = a.eik) as names_on_eik
+        from awarder_search a
+        where a.contracts >= :'min'::int
+          and char_length(a.name) >= :'chars'::int
+        order by a.name
     """, {"min": MIN_AWARDER_CONTRACTS, "chars": MIN_SURFACE_CHARS}))
 
 
@@ -601,10 +612,13 @@ def institution_entries(rows: list) -> tuple[list, dict]:
     # key was wrong, which is why it looked correct in review.
     by_name: dict[str, list] = {}
     canonical: dict[str, str] = {}
+    umbrella: dict[str, int] = {}
     for r in rows:
         name = " ".join(r["name"].split())
         key = name.casefold()
         by_name.setdefault(key, []).append((r["eik"], r["contracts"]))
+        umbrella[r["eik"]] = max(umbrella.get(r["eik"], 0),
+                                 int(r.get("names_on_eik") or 1))
         # The spelling shown is the busiest holder's, deterministically.
         if key not in canonical or r["contracts"] > canonical[key][1]:
             canonical[key] = (name, r["contracts"])
@@ -615,13 +629,28 @@ def institution_entries(rows: list) -> tuple[list, dict]:
         # ⚠️ ONE NAME, SEVERAL EIKs happens — municipal schools reuse a
         # patron's name across towns. Refused rather than resolved to the
         # busiest, which is the rank-picking the whole tier forbids.
-        unique = len({e for e, _ in holders}) == 1
+        # ⚠️⚠️ TWO QUESTIONS, and the first cut asked only one. „Is this NAME
+        # unique to one EIK" is not „does this EIK STAND FOR this name": EIK
+        # 121817309 is the whole prosecution service, so „Софийска градска
+        # прокуратура" resolved to it and the reader landed on a page titled
+        # „Прокуратура на република българия", seated in Благоевград. 72 EIKs
+        # carry more than five names and the worst carries 190 — the social
+        # assistance agency, the state forestry enterprises, the prosecution.
+        #
+        # A name that maps to an umbrella EIK does not identify its
+        # institution; it identifies a legal wrapper around dozens of them.
+        eiks = {e for e, _ in holders}
+        shared = max((umbrella.get(e, 1) for e in eiks), default=1)
+        unique = len(eiks) == 1 and shared == 1
         if not unique:
             ambiguous += 1
         forms = [form(
             name, unique,
             "unique awarder name" if unique else
-            f"{len(holders)} bodies share this name — anchor only",
+            f"{len(holders)} bodies share this name — anchor only"
+            if len(eiks) > 1 else
+            f"EIK {sorted(eiks)[0]} covers {shared} differently-named bodies "
+            "— it is a legal umbrella, not this institution — anchor only",
             holders[0][0], "institution")]
         entries.append({
             "kind": "institution",
@@ -732,6 +761,48 @@ def place_entries(rows: list) -> tuple[list, dict]:
     return entries, {"places": len(entries), "places_stopworded": stopped,
                      "places_ambiguous": ambiguous,
                      "places_collapsed_to_one": collapsed}
+
+
+def build_aliases() -> tuple[list, dict]:
+    """The hand-verified abbreviation crosswalk.
+
+    ⚠️⚠️ A CURATED ENTRY SIDESTEPS EVERY HEURISTIC IN THIS FILE, on purpose.
+    „МВР" and „КПКОНПИ" are in the corpus as EIKs and as no surface at all —
+    the registry holds „Министерство на вътрешните работи" — so no length
+    floor, no folded match and no umbrella rule could ever have reached them.
+    What makes the link safe is not a rule but a person having checked, and
+    the file records what they checked (see `evidence` on each entry).
+
+    ⚠️ MIN_SURFACE_CHARS DOES NOT APPLY. „МВР" is three characters, which the
+    floor exists to exclude — because in FREE TEXT a three-letter token is
+    noise. Here the string arrives already classified by the model as an
+    institution and matched against a hand-verified list of seven, so the
+    floor is answering a question that is not being asked.
+    """
+    src = ROOT / "news" / "data" / "institution_aliases.json"
+    if not src.exists():
+        return [], {"aliases": 0, "aliases_source": "absent"}
+    doc = json.loads(src.read_text(encoding="utf-8"))
+    entries = []
+    for a in doc.get("aliases") or []:
+        alias, eik = (a.get("alias") or "").strip(), (a.get("eik") or "").strip()
+        if not alias or not eik:
+            continue
+        entries.append({
+            "kind": "institution", "id": eik,
+            "canonical": a.get("display") or alias,
+            "forms": [form(alias, True,
+                           "hand-verified abbreviation — "
+                           + (a.get("evidence") or "")[:160],
+                           eik, "institution", "name")],
+        })
+    return entries, {
+        "aliases": len(entries),
+        "aliases_verified_on": doc.get("verified_on"),
+        # ⚠️ The refusals are published too. „КЗК is not linked" must be
+        # readable as a decision with a reason, not as an oversight.
+        "aliases_refused": [r.get("alias") for r in doc.get("refused") or []],
+    }
 
 
 def build_parties() -> tuple[list, dict]:
@@ -871,6 +942,15 @@ def main() -> int:
         return 0
 
     rows, cov = build_parties()
+    entries.extend(rows)
+    coverage.update(cov)
+
+    # ⚠️ AFTER the institutions, so a curated alias is the LAST claimant on
+    # its surface and `decide()` sees it beside any it collides with. It
+    # cannot silently overwrite one: two entries claiming a surface make it
+    # ambiguous, which is the correct answer if a hand-written alias ever
+    # collides with a real institution name.
+    rows, cov = build_aliases()
     entries.extend(rows)
     coverage.update(cov)
 
