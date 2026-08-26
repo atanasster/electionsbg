@@ -5323,5 +5323,15 @@
   "decl_evidence_action": "the full ranking",
   "persons_browse_all_unknown": "Browse everyone",
   "persons_card_loading": "loading",
-  "my_area_place_people": "People connected to {{name}}"
+  "my_area_place_people": "People connected to {{name}}",
+  "sectors_head_eyebrow": "GOVERNANCE · SECTORS",
+  "sectors_head_title": "The state, by sector",
+  "sectors_head_deck": "Roads, health, pensions, defence, justice and more — what each sector spends, where the money comes from and who receives it.",
+  "sectors_kpi_procurement": "public contracts",
+  "sectors_kpi_procurement_basis": "{{count}} sectors whose money moves by tender",
+  "sectors_kpi_budget_basis": "largest adopted annual budget · {{year}}",
+  "sectors_kpi_payout_basis": "largest sum paid out · {{year}}",
+  "sectors_kpi_headcount_basis": "filled state-administration positions · {{year}}",
+  "sectors_kpi_note": "The figures above are measured in different ways and do NOT sum — the sectors here sit on four different bases: tenders in a selected period, an adopted annual budget, a sum actually paid out, and a headcount. That is why they are ordered by field rather than by size.",
+  "sectors_kpi_procurement_basis_period": "{{count}} sectors whose money moves by tender · {{period}}"
 }

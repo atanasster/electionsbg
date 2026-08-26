@@ -139,9 +139,25 @@ export type SectorStatsFile = Record<string, Record<string, SectorStat>>;
 
 /** The sector→stat map for the active ?pscope, or undefined while loading. */
 export const useSectorStats = (): Record<string, SectorStat> | undefined => {
+  return useSectorStatsQuery().stats;
+};
+
+/** The same lookup, with the query's own IN-FLIGHT flag.
+ *
+ *  ⚠️ `pending` IS NOT `!stats`, AND A HEAD'S SKELETON MUST KEY ON THIS ONE. A missing
+ *  payload is an ANSWER here — the tiles render without numbers, which is the state a
+ *  checkout that never ran `db:gen-sector-stats` is in — and it leaves `stats` undefined
+ *  exactly as a request in flight does. A band that is empty iff `!stats` therefore cannot
+ *  key its skeleton on `!stats`: that is a tautology, and it pulses for ever on any deploy
+ *  where the artifact has not reached the bucket. So does an unknown SCOPE key, which
+ *  resolves to undefined against a perfectly loaded file. */
+export const useSectorStatsQuery = (): {
+  stats: Record<string, SectorStat> | undefined;
+  pending: boolean;
+} => {
   const { all, year, selected } = useScopeWindow();
   const key = all ? "all" : year != null ? `y:${year}` : `ns:${selected}`;
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["procurement", "sector-stats"] as const,
     queryFn: async (): Promise<SectorStatsFile> => {
       const r = await fetch(dataUrl("/procurement/derived/sector_stats.json"));
@@ -150,5 +166,5 @@ export const useSectorStats = (): Record<string, SectorStat> | undefined => {
     },
     staleTime: Infinity,
   });
-  return data?.[key];
+  return { stats: data?.[key], pending: isPending };
 };

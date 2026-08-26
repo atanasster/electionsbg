@@ -72,6 +72,11 @@ import {
   promotedTiles as culturePromotedTiles,
 } from "@/screens/culture/cultureHubFigures";
 import type { CultureHubStats } from "@/data/culture/hubStats";
+import {
+  promotedTiles as sectorsPromotedTiles,
+  sectorsHubKpis,
+} from "@/screens/governance/sectorsHubFigures";
+import type { SectorStat } from "@/data/procurement/useSectorStats";
 import { AGRI_STATS_FIXTURE } from "@/screens/subsidies/subsidiesHubStats.fixture";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
@@ -103,6 +108,7 @@ const HUB_SCREENS = [
   "src/screens/subsidies/subsidiesHubFigures.ts",
   "src/screens/governance/declarationsHubFigures.ts",
   "src/screens/culture/cultureHubFigures.ts",
+  "src/screens/governance/sectorsHubFigures.ts",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
@@ -567,6 +573,60 @@ describe("hub head — the band and the tiles are disjoint", () => {
       expect(bandValues.has(r.value), `${r.label} repeats a KPI value`).toBe(
         false,
       );
+  });
+
+  // Verbatim from the committed sector_stats.json, `all` scope, 2026-08-26.
+  const SECTOR_STATS_FIXTURE: Record<string, SectorStat> = {
+    roads: { kind: "eur", basis: "procurement", value: 8822447923 },
+    water: { kind: "eur", basis: "procurement", value: 3273381511 },
+    transport: { kind: "eur", basis: "procurement", value: 7268093632 },
+    energy: { kind: "eur", basis: "procurement", value: 10271933257 },
+    defense: { kind: "eur", basis: "budget", value: 2568607900, year: 2026 },
+    pension: { kind: "eur", basis: "payout", value: 11078007176, year: 2024 },
+    administration: {
+      kind: "count",
+      basis: "headcount",
+      value: 133275,
+      year: 2025,
+    },
+  };
+  const sectorsBand = () =>
+    sectorsHubKpis(
+      SECTOR_STATS_FIXTURE,
+      "bg",
+      "2011–2026",
+      id,
+      (s) => `title:${s}`,
+      (s) => `/sector/${s}`,
+      "/procurement?pscope=all",
+    );
+
+  it("no /governance/sectors KPI figure is also a tile metric", () => {
+    const kpis = sectorsBand();
+    expect(kpis.length, "the sectors fixture produced no KPI cells").toBe(4);
+
+    // ⚠️ ONLY THREE of the four displace a tile — unlike every sibling hub. The procurement
+    // cell is a SUM over four sectors, so it belongs to no single tile and all four keep
+    // their own figures below it.
+    const promoted = sectorsPromotedTiles(kpis);
+    expect([...promoted].sort()).toEqual(
+      ["administration", "defense", "pension"].sort(),
+    );
+    expect(sectorsPromotedTiles(kpis.slice(0, 1)).size).toBe(0);
+
+    expect(
+      new Set(kpis.map((k) => k.value)).size,
+      "two /governance/sectors KPI cells render the same string",
+    ).toBe(kpis.length);
+  });
+
+  it("no two /governance/sectors KPI cells share a destination", () => {
+    const tos = sectorsBand().map((k) => k.to);
+    expect(tos.length).toBe(4);
+    expect(
+      new Set(tos).size,
+      `duplicate /governance/sectors KPI destination in ${tos.join(", ")}`,
+    ).toBe(tos.length);
   });
 
   it("no two /budget KPI cells share a destination", () => {

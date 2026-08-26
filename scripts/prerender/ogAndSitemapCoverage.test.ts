@@ -899,6 +899,7 @@ describe("a hub's og capture anchors on its head", () => {
     consumption: "src/screens/ConsumptionScreen.tsx",
     subsidies: "src/screens/SubsidiesDashboardScreen.tsx",
     "culture-hub": "src/screens/culture/CultureHubScreen.tsx",
+    "governance-sectors": "src/screens/governance/GovernanceSectorsScreen.tsx",
   };
 
   /** Sub-page heads that DO ship a card, slug → the screen behind it.
@@ -949,7 +950,14 @@ describe("a hub's og capture anchors on its head", () => {
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
   const NOT_YET: Record<string, string> = {
-    // EMPTY AGAIN as of 2026-08-26. It held `culture` for the length of one commit, while
+    // ⚠️ `governance-sectors` grew a head on 2026-08-26 and its card still anchors on the
+    // tile grid. Unlike `culture` before it, the card IS shot from this page — only the
+    // anchor is wrong — so this is a one-line change plus a re-shoot, taken in the
+    // share-card step rather than the one that built the band. Listed rather than left
+    // unregistered so the map's „every HubHead screen is named" clause still sees it.
+    "governance-sectors":
+      "its card anchors on the tile grid; re-anchor on the head and re-shoot",
+    // WAS EMPTY AGAIN as of 2026-08-26, briefly. It held `culture` for the length of one commit, while
     // /culture had a head and no card of its own: `/og/culture.png` is shot from
     // /culture/subsidies and is shared by SIX routes, so the hub's card depicted the film
     // dashboard — 13% of the money the hub exists to put in proportion. The debt is paid by
@@ -1108,6 +1116,7 @@ describe("a hub's og capture anchors on its head", () => {
       consumption: "src/screens/consumption/consumptionHubFigures.ts",
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
       "culture-hub": "src/screens/culture/cultureHubFigures.ts",
+      "governance-sectors": "src/screens/governance/sectorsHubFigures.ts",
       "governance-declarations":
         "src/screens/governance/declarationsHubFigures.ts",
     };

@@ -663,6 +663,15 @@ const HUB_HEAD_BUDGETS: {
   // all is a bonus — it doubles as a bucket-freshness gate.
   // 483 with the band alone; 495 once the evidence aside landed.
   { path: "/culture", maxPx: 560, measured: 495, cells: 4 },
+  // The most COMPACT head in the tree after /procurement/contracts: identity + deck + a
+  // scope control + a 4-cell band + a one-line note, and no search slot (the grid is
+  // nineteen tiles, which is a list a reader scans rather than searches).
+  //
+  // ⚠️ THE NOTE IS THE POINT OF THIS HEAD, not trim-able padding. The four cells sit on four
+  // INCOMMENSURABLE bases — tender € in a window, one year's adopted budget, one year's
+  // actual payout, and a headcount — so a band is exactly where a reader adds them. Only the
+  // first is a sum at all. If this trips, check for a fifth cell.
+  { path: "/governance/sectors", maxPx: 420, measured: 357, cells: 4 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {
