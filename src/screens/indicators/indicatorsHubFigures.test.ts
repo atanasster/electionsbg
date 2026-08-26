@@ -8,19 +8,25 @@
 import { describe, expect, it } from "vitest";
 import {
   BAND_INDICATORS,
+  indicatorsHubEvidence,
   indicatorsHubKpis,
   indicatorsKpiNote,
   promotedIndicators,
   type IndicatorPoint,
+  type PeerRank,
 } from "./indicatorsHubFigures";
 
-const t = (k: string) => k;
+/** Renders the key plus its interpolations, so a row built from the wrong argument shows up
+ *  in the assertion rather than collapsing to a bare key. */
+const t = (k: string, o?: Record<string, unknown>) =>
+  o ? [k, ...Object.values(o).map(String)].join(":") : k;
 
 /** Verbatim from data/macro.json — value, unitLabelBg and the period each series reaches. */
 const POINTS: Record<string, IndicatorPoint> = {
   gdpGrowth: {
     value: 2.7,
     display: "2.7%",
+    period: "2026-Q2",
     periodLabel: "2 тр. 2026",
     unitLabel: "% спрямо същия период предходна година (реален, SCA)",
     title: "Растеж на реалния БВП",
@@ -29,6 +35,7 @@ const POINTS: Record<string, IndicatorPoint> = {
   inflation: {
     value: 5.83,
     display: "5.8%",
+    period: "2026-Q2",
     periodLabel: "2 тр. 2026",
     unitLabel: "% спрямо предходната година (ХИПЦ, тримес. ср.)",
     title: "Инфлация (ХИПЦ)",
@@ -37,6 +44,7 @@ const POINTS: Record<string, IndicatorPoint> = {
   unemployment: {
     value: 3,
     display: "3.0%",
+    period: "2026-Q1",
     periodLabel: "1 тр. 2026",
     unitLabel: "% от активното население (сезонно изгладено)",
     title: "Безработица",
@@ -45,6 +53,7 @@ const POINTS: Record<string, IndicatorPoint> = {
   govDebt: {
     value: 28.5,
     display: "28.5%",
+    period: "2026-Q1",
     periodLabel: "1 тр. 2026",
     unitLabel: "% от БВП",
     title: "Брутен държавен дълг",
@@ -159,5 +168,113 @@ describe("band ↔ grid, §3.1 rule 5", () => {
     const promoted = promotedIndicators(band(partial));
     expect(promoted.has("gdpGrowth")).toBe(true);
     expect(promoted.has("inflation")).toBe(false);
+  });
+});
+
+/** Verbatim from data/macro_peers.json (2026-08-26). Note the field sizes differ. */
+const RANKS: PeerRank[] = [
+  {
+    indicatorKey: "gdpGrowth",
+    title: "Растеж на реалния БВП",
+    rank: 7,
+    total: 22,
+    to: "/indicators/economy",
+  },
+  {
+    indicatorKey: "inflation",
+    title: "Инфлация (ХИПЦ)",
+    rank: 26,
+    total: 27,
+    to: "/indicators/economy",
+  },
+  {
+    indicatorKey: "unemployment",
+    title: "Безработица",
+    rank: 1,
+    total: 27,
+    to: "/indicators/economy",
+  },
+  {
+    indicatorKey: "govDebt",
+    title: "Брутен държавен дълг",
+    rank: 3,
+    total: 27,
+    to: "/indicators/fiscal",
+  },
+];
+
+describe("the evidence rail", () => {
+  const rail = (r: PeerRank[] = RANKS) => indicatorsHubEvidence(r, t);
+
+  it("ANSWERS the band — the same four, ranked", () => {
+    const e = rail()!;
+    expect(e.rows).toHaveLength(4);
+    expect(new Set(e.rows.map((x) => x.id))).toEqual(new Set(BAND_INDICATORS));
+  });
+
+  it("carries the FIELD SIZE on every row, because the fields differ", () => {
+    // Growth ranks in a field of 22 and the rest in 27 — five states had not reported that
+    // quarter. „7th" beside „1st" invites a comparison of two different-sized fields.
+    const e = rail()!;
+    for (const row of e.rows) {
+      const r = RANKS.find((x) => x.indicatorKey === row.id)!;
+      expect(row.value).toContain(String(r.total));
+      expect(row.value).toContain(String(r.rank));
+    }
+    // Non-vacuity: the totals really do differ in the fixture.
+    expect(new Set(RANKS.map((r) => r.total)).size).toBeGreaterThan(1);
+  });
+
+  it("orders by SHARE OF THE FIELD, not by rank number", () => {
+    expect(rail()!.rows.map((x) => x.id)).toEqual([
+      "unemployment",
+      "govDebt",
+      "gdpGrowth",
+      "inflation",
+    ]);
+  });
+
+  it("…and the two orders genuinely differ when the fields do", () => {
+    // ⚠️ ON THE REAL FIXTURE THEY COINCIDE (1, 3, 7, 26 sorts the same either way), so the
+    // clause above cannot tell a percentile sort from a rank sort and a first draft of this
+    // test asserted — falsely — that it could. The disagreement needs a SMALLER field to
+    // show up: 7 of 22 is a worse standing than 8 of 27, and a rank sort puts it first.
+    const fields: PeerRank[] = [
+      { ...RANKS[0], indicatorKey: "gdpGrowth", rank: 7, total: 22 },
+      { ...RANKS[1], indicatorKey: "inflation", rank: 8, total: 27 },
+    ];
+    expect(rail(fields)!.rows.map((x) => x.id)).toEqual([
+      "inflation",
+      "gdpGrowth",
+    ]);
+    const byRank = [...fields]
+      .sort((a, b) => a.rank - b.rank)
+      .map((r) => r.indicatorKey);
+    expect(byRank).toEqual(["gdpGrowth", "inflation"]);
+  });
+
+  it("keys rows on the indicator, and links each to its domain page", () => {
+    for (const row of rail()!.rows) {
+      expect(BAND_INDICATORS).toContain(row.id);
+      expect(String(row.to)).toMatch(/^\/indicators\//);
+    }
+    expect(rail()!.action?.to).toBe("/indicators/compare");
+  });
+
+  it("REFUSES an empty set rather than rendering a blank rail", () => {
+    // The peers payload is a SEPARATE fetch from the macro one, so it can be absent while
+    // the band is full — and „no ranks" under „where Bulgaria sits" reads as „nowhere".
+    expect(indicatorsHubEvidence([], t)).toBeUndefined();
+  });
+
+  it("is deterministic when two indicators share a share of the field", () => {
+    // A rail that reorders between renders is a rail whose gate cannot pin it.
+    const tied: PeerRank[] = [
+      { ...RANKS[2], indicatorKey: "unemployment", rank: 1, total: 27 },
+      { ...RANKS[3], indicatorKey: "govDebt", rank: 1, total: 27 },
+    ];
+    expect(rail(tied)!.rows.map((x) => x.id)).toEqual(
+      rail([...tied].reverse())!.rows.map((x) => x.id),
+    );
   });
 });

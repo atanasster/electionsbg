@@ -28,7 +28,7 @@
 // `asOf` the tiles do, so head and grid cannot show one indicator as of two dates.
 // ═══════════════════════════════════════════════════════════════════════════════════════
 
-import type { HubKpi } from "@/ux/infographic/HubHead";
+import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
 import type { MacroIndicatorKey } from "@/data/macro/useMacro";
 
 type T = (key: string, opts?: Record<string, unknown>) => string;
@@ -70,6 +70,10 @@ export interface IndicatorPoint {
   /** „2026 Q2" / „2026 Q2 г." — already localised by the caller's own formatter, which is
    *  the SAME one the grid tiles use. Two formatters is two spellings of one date. */
   periodLabel: string;
+  /** The RAW „2026-Q2", kept beside the formatted label so a consumer can compare periods
+   *  without re-parsing prose. The peers payload's distribution carries the same string, and
+   *  ranking a Q2 value in a Q1 field is a claim nobody made. */
+  period: string | undefined;
   /** „% от БВП" — from the payload's own metadata, never written here. */
   unitLabel: string;
   title: string;
@@ -124,3 +128,60 @@ export const indicatorsKpiNote = (
   t: T,
 ): string | undefined =>
   kpis.length < 2 ? undefined : t("indicators_kpi_note");
+
+/** One indicator's place among the EU peers, as the caller resolved it. */
+export interface PeerRank {
+  indicatorKey: MacroIndicatorKey;
+  title: string;
+  /** 1 = BEST, already normalised for direction by the payload — rank 1 on unemployment is
+   *  the LOWEST and rank 1 on growth the HIGHEST. Never render it as „highest". */
+  rank: number;
+  /** ⚠️ NOT ALWAYS 27. Measured 2026-08-26: growth ranks in a field of 22 because five
+   *  member states had not reported that quarter. „7th" without it is a different claim
+   *  from „7 of 22". */
+  total: number;
+  to: string;
+}
+
+/** The head's evidence rail: where Bulgaria stands among the EU on the band's own four.
+ *
+ *  ⚠️⚠️ IT ANSWERS THE BAND RATHER THAN DECOMPOSING IT. „5,8% инфлация" is not interpretable
+ *  on its own — the reader's actual question is whether that is bad — and the answer is 26th
+ *  of 27. Same four indicators, same snapshot; the aside is the comparison the band cannot
+ *  make about itself.
+ *
+ *  ⚠️ EVERY ROW CARRIES ITS FIELD SIZE, because the fields differ: 22 for growth, 27 for the
+ *  rest. A bare „7th" beside a bare „1st" invites a comparison of two different-sized
+ *  fields.
+ *
+ *  ⚠️ ORDERED BY PERCENTILE, not by rank, for the same reason — 7 of 22 is a worse standing
+ *  than 3 of 27 and a rank sort would put it first. The basis says so.
+ *
+ *  ⚠️ REFUSED WHEN EMPTY rather than rendered blank: the peers payload is a separate fetch
+ *  from the macro one, so it can legitimately be absent while the band is full, and „no
+ *  ranks" under a „where Bulgaria stands" heading reads as „nowhere". */
+export const indicatorsHubEvidence = (
+  ranks: PeerRank[],
+  t: T,
+): HubEvidence | undefined => {
+  if (!ranks.length) return undefined;
+  const ordered = [...ranks].sort(
+    (a, b) =>
+      a.rank / a.total - b.rank / b.total ||
+      (a.indicatorKey < b.indicatorKey ? -1 : 1),
+  );
+  return {
+    heading: t("indicators_evidence_heading"),
+    basis: t("indicators_evidence_basis"),
+    rows: ordered.map((r) => ({
+      id: r.indicatorKey,
+      label: r.title,
+      value: t("indicators_evidence_rank", { rank: r.rank, total: r.total }),
+      to: r.to,
+    })),
+    action: {
+      to: "/indicators/compare",
+      label: t("indicators_evidence_action"),
+    },
+  };
+};

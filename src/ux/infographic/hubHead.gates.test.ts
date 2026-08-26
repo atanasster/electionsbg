@@ -81,6 +81,7 @@ import type { SectorStat } from "@/data/procurement/useSectorStats";
 import { formatEurCompact } from "@/lib/currency";
 import {
   BAND_INDICATORS,
+  indicatorsHubEvidence,
   indicatorsHubKpis,
   promotedIndicators,
   type IndicatorPoint,
@@ -665,6 +666,7 @@ describe("hub head — the band and the tiles are disjoint", () => {
     gdpGrowth: {
       value: 2.7,
       display: "2.7%",
+      period: "2026-Q2",
       periodLabel: "2 тр. 2026",
       unitLabel: "% спрямо същия период предходна година (реален, SCA)",
       title: "Растеж на реалния БВП",
@@ -673,6 +675,7 @@ describe("hub head — the band and the tiles are disjoint", () => {
     inflation: {
       value: 5.83,
       display: "5.8%",
+      period: "2026-Q2",
       periodLabel: "2 тр. 2026",
       unitLabel: "% спрямо предходната година (ХИПЦ, тримес. ср.)",
       title: "Инфлация (ХИПЦ)",
@@ -681,6 +684,7 @@ describe("hub head — the band and the tiles are disjoint", () => {
     unemployment: {
       value: 3,
       display: "3.0%",
+      period: "2026-Q1",
       periodLabel: "1 тр. 2026",
       unitLabel: "% от активното население (сезонно изгладено)",
       title: "Безработица",
@@ -689,6 +693,7 @@ describe("hub head — the band and the tiles are disjoint", () => {
     govDebt: {
       value: 28.5,
       display: "28.5%",
+      period: "2026-Q1",
       periodLabel: "1 тр. 2026",
       unitLabel: "% от БВП",
       title: "Брутен държавен дълг",
@@ -723,6 +728,40 @@ describe("hub head — the band and the tiles are disjoint", () => {
     const tos = indicatorsHubKpis(INDICATOR_POINTS).map((k) => String(k.to));
     for (const to of tos) expect(to).toMatch(/^\/indicators\//);
     expect(new Set(tos).size).toBeLessThan(tos.length);
+  });
+
+  it("/indicators' aside answers its own band", () => {
+    // Unlike the sibling hubs' rails this one does not DECOMPOSE the band — it interprets
+    // it: „5,8% инфлация" is not readable on its own, and 26th of 27 is the answer. So the
+    // rows are the band's own four indicators, and every row links where that series lives.
+    const e = indicatorsHubEvidence(
+      [
+        {
+          indicatorKey: "gdpGrowth",
+          title: "t",
+          rank: 7,
+          total: 22,
+          to: "/indicators/economy",
+        },
+        {
+          indicatorKey: "unemployment",
+          title: "t",
+          rank: 1,
+          total: 27,
+          to: "/indicators/economy",
+        },
+      ],
+      id,
+    );
+    expect(e?.rows).toHaveLength(2);
+    for (const r of e!.rows) expect(String(r.to)).toMatch(/^\/indicators\//);
+    expect(String(e?.action?.to)).toBe("/indicators/compare");
+    // Every row's id is a band indicator — the rail cannot drift onto a series the head
+    // does not show.
+    for (const r of e!.rows)
+      expect(BAND_INDICATORS).toContain(
+        r.id as (typeof BAND_INDICATORS)[number],
+      );
   });
 
   it("no two /budget KPI cells share a destination", () => {

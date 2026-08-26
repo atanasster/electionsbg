@@ -10,16 +10,19 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useMacro } from "@/data/macro/useMacro";
+import { useMacroPeers } from "@/data/macro/useMacroPeers";
 import { useElectionAsOf } from "@/data/macro/useElectionAsOf";
 import { pickAtOrBefore } from "@/data/macro/kpiSelectors";
 import { formatPeriod } from "@/screens/components/macro/formatPeriod";
 import { DOMAIN_PATHS, KPI_REGISTRY } from "./indicatorsRegistry";
 import {
   BAND_INDICATORS,
+  indicatorsHubEvidence,
   indicatorsHubKpis,
   indicatorsKpiNote,
   promotedIndicators,
   type IndicatorPoint,
+  type PeerRank,
 } from "./indicatorsHubFigures";
 import { formatDate } from "@/lib/formatDate";
 import { KpiTile } from "@/screens/components/macro/KpiTile";
@@ -117,6 +120,7 @@ export const IndicatorsLandingScreen: FC = () => {
   // (?cabinet=) and election (?elections=) survive the section change.
   const { search } = useLocation();
   const { data: macro, isPending } = useMacro();
+  const { data: peers } = useMacroPeers();
   const asOf = useElectionAsOf();
 
   // ⚠️ RESOLVED WITH THE TILES' OWN HELPERS — `pickAtOrBefore` against `useElectionAsOf`,
@@ -138,6 +142,7 @@ export const IndicatorsLandingScreen: FC = () => {
       out[key] = {
         value: point.value,
         display: entry.format(point.value),
+        period: point.period,
         periodLabel: formatPeriod(
           point.period,
           point.year,
@@ -165,6 +170,37 @@ export const IndicatorsLandingScreen: FC = () => {
   }, [macro, asOf, lang, search]);
 
   const kpis = useMemo(() => indicatorsHubKpis(bandPoints), [bandPoints]);
+
+  // ⚠️ THE DISTRIBUTION'S PERIOD MUST MATCH THE CELL'S, and `KpiTile` guards the same thing
+  // for its rank badge. The peers payload and the macro payload are separate fetches with
+  // separate vintages, so a Q1 field can sit beside a Q2 value — and ranking this quarter's
+  // figure in last quarter's field is a claim nobody made. A row whose periods disagree is
+  // DROPPED rather than shown with a caveat: a five-word basis cannot carry „this one is a
+  // quarter behind" per row.
+  const peerRanks = useMemo(() => {
+    const out: PeerRank[] = [];
+    for (const key of BAND_INDICATORS) {
+      const point = bandPoints[key];
+      const dist = peers?.indicators?.[key]?.latestDistribution;
+      const entry = KPI_REGISTRY[key];
+      if (!point || !dist || !entry) continue;
+      if (dist.period !== point.period) continue;
+      if (!dist.rank || !dist.total) continue;
+      out.push({
+        indicatorKey: key,
+        title: point.title,
+        rank: dist.rank,
+        total: dist.total,
+        to: point.to,
+      });
+    }
+    return out;
+  }, [bandPoints, peers]);
+
+  const evidence = useMemo(
+    () => indicatorsHubEvidence(peerRanks, t),
+    [peerRanks, t],
+  );
   // DERIVED from the cells that rendered — a withheld cell must not also blank its grid
   // tile, which would drop the indicator off the page entirely.
   const promoted = useMemo(() => promotedIndicators(kpis), [kpis]);
@@ -200,6 +236,7 @@ export const IndicatorsLandingScreen: FC = () => {
         // a tautology against a band that is empty iff `!macro`.
         kpisPending={isPending ? 4 : undefined}
         kpiNote={indicatorsKpiNote(kpis, t)}
+        evidence={evidence}
       />
 
       <section

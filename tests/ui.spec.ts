@@ -682,9 +682,9 @@ const HUB_HEAD_BUDGETS: {
   // and unlike the sibling hubs it is the aside rather than the band that drives the height
   // here, because there is no search slot to fill the identity column.
   { path: "/governance/sectors", maxPx: 540, measured: 476, cells: 4 },
-  // The most COMPACT head in the tree: identity + deck + a 4-cell band + a note, and no
-  // scope control, no search slot and (so far) no evidence aside. The `?elections` selector
-  // in the site header is what moves these figures, so the head carries no pill of its own.
+  // Identity + deck + a 4-cell band + a note + an evidence aside, and no scope control and
+  // no search slot — the `?elections` selector in the site header is what moves these
+  // figures, so the head carries no pill of its own.
   //
   // ⚠️ THE NOTE IS THE POINT, not trim-able padding. The four cells are percentages of FOUR
   // DIFFERENT THINGS on TWO different quarters — growth against the same quarter a year
@@ -698,7 +698,11 @@ const HUB_HEAD_BUDGETS: {
   // период предходна година (реален, SCA)" is the longest today — so a re-worded unit from
   // Eurostat wraps a cell without a line of source changing. Tighten this only after
   // measuring against the current payload.
-  { path: "/indicators", maxPx: 400, measured: 311, cells: 4 },
+  //
+  // 311 with the band alone; 459 once the peer-rank aside landed — it has no search slot to
+  // fill the identity column beside it, so unlike the sibling hubs the ASIDE drives the
+  // height here.
+  { path: "/indicators", maxPx: 540, measured: 459, cells: 4 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {
