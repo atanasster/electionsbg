@@ -51,6 +51,29 @@ export type CrPersonRow = {
  * without colliding with the daily feed's numeric RecordIDs.
  */
 export const deedToPersonRows = (parsed: CrDeedParsed): CrPersonRow[] => {
+  // ⚠️ „Заличено обстоятелство." IS NOT A TRADER, and for this role the usual
+  // store-it-and-exclude-at-read pattern (tr_owner_share does that for owners) is not
+  // enough: `sole_trader` renders as „едноличен търговец: <name>" on the company page, so
+  // a stored placeholder is a false sentence about a named business. Measured on the
+  // 29,777 captures: exactly ONE carries it — EIK 175238387, and it is an EOOD, which
+  // cannot have a trader at all, so the field is residue rather than an answer.
+  //
+  // ROLE-SCOPED DELIBERATELY, but not for the reason it first appears. Placeholders by
+  // role across the 29,777 captures: partner 4,315, sole_owner 41, manager 32,
+  // actual_owner 3, sole_trader 1. Widening the filter to the two OWNER roles would break
+  // the SQL↔TS twin — `owner_share.ts` and `tr_owner_share` (003) are both calibrated on
+  // exactly that 4,356, and each excludes the placeholder itself at read time.
+  //
+  // ⚠️ THE OTHER 35 (manager, actual_owner) HAVE NO READ-TIME FILTER AT ALL — 003's
+  // exclusion sits INSIDE `WHERE role IN ('partner','sole_owner')`, so it structurally
+  // cannot see them, and neither 008 nor 022 carries one. They render the same false
+  // sentence today. That is a pre-existing defect this change does not fix and does not
+  // widen; it is recorded here so the next reader does not infer coverage that is not
+  // there.
+  const parties = parsed.parties.filter(
+    (p) => p.role !== "sole_trader" || !isDeletedFactPlaceholder(p.name),
+  );
+
   // ⚠️ The sole-owner 100% needs the SAME guard as owner_share.ts's refusal 1: it is
   // 100% by law only when it is the company's ONLY owner. An unconditional 100 is what
   // published companies whose shares summed to a mean of 200.8%. The deed is a capture
@@ -61,13 +84,17 @@ export const deedToPersonRows = (parsed: CrDeedParsed): CrPersonRow[] => {
   //
   // The placeholder exclusion is what keeps that 39 from being ~4,300: without it the
   // register's deleted-fact marker counts as a second owner.
-  const owners = parsed.parties.filter(
+  // Derived from `parties`, not `parsed.parties`: a no-op today (everything the filter
+  // above removes is a `sole_trader`, which this predicate excludes by role anyway) and
+  // the honest source the moment that filter widens — at which point the two arrays would
+  // otherwise disagree about who the owners are, silently.
+  const owners = parties.filter(
     (p) =>
       (p.role === "partner" || p.role === "sole_owner") &&
       !isDeletedFactPlaceholder(p.name) &&
       (p.name ?? "").trim() !== "",
   );
-  return parsed.parties.map((p, i) => ({
+  return parties.map((p, i) => ({
     uic: parsed.uic,
     role: p.role,
     name: p.name,
@@ -184,9 +211,19 @@ export const projectCrDeedsToState = (
         }
 
         const rows = deedToPersonRows(parsed);
-        if (rows.length === 0) continue; // ≥1-party guard: don't wipe on empty parse
+        // ⚠️ TWO DIFFERENT EMPTINESSES, and only one of them means „do not wipe". A parse
+        // that yielded NO PARTIES is a fetch/parse glitch — the case this guard was written
+        // for — so the uic's prior CR rows must survive it. A parse whose parties were all
+        // REMOVED BY THE FILTER above is authoritative: it says this deed names no
+        // projectable person, so a placeholder some earlier run stored has to go, or it is
+        // unreachable for ever. Measured today the second set is empty (the one real
+        // placeholder capture carries two other parties, so the delete runs and the fix is
+        // retroactive); it becomes reachable with the first tier-2/3 ЕТ capture whose
+        // CR_F_18_L is a placeholder and which names nobody else.
+        if (parsed.parties.length === 0) continue;
 
         delCr.run(uic); // idempotent re-run: replace only THIS uic's prior CR rows
+        if (rows.length === 0) continue;
         for (const r of rows) {
           insPerson.run(
             r.uic,

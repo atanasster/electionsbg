@@ -97,6 +97,50 @@ describe("deedToPersonRows", () => {
     expect(owner?.sharePercent).toBe(100);
     expect(rows.find((r) => r.role === "manager")?.sharePercent).toBeNull();
   });
+
+  // Substitute one trader name into the ЕТ fixture's CR_F_18_L and project it.
+  const withTrader = (html: string) => {
+    const body = JSON.parse(loadFixture("et")) as Record<string, unknown>;
+    const walk = (o: unknown): void => {
+      if (Array.isArray(o)) return o.forEach(walk);
+      if (o && typeof o === "object") {
+        const n = o as Record<string, unknown>;
+        if (n.nameCode === "CR_F_18_L")
+          n.htmlData =
+            "<div class='record-container record-container--preview'>" +
+            `<p class='field-text'>${html}</p></div>`;
+        Object.values(n).forEach(walk);
+      }
+    };
+    walk(body);
+    return deedToPersonRows(parseCrDeed(JSON.stringify(body))!);
+  };
+
+  // ⚠️ BOTH DIRECTIONS, because either alone passes on a broken implementation: with the
+  // filter deleted only the first moves, and with it widened to `p.role !== "sole_trader"`
+  // — drop EVERY trader — only the second does. The second is not hypothetical caution:
+  // the CR mapping exists so a future tier-2/3 ЕТ capture carries its trader on arrival,
+  // and today that role has ZERO CR rows, so a regression dropping all of them would
+  // restore the exact defect the mapping was added to fix with nothing to notice it.
+  it("never projects the deleted-fact placeholder as a trader", () => {
+    // Found by verifying the re-derived corpus, not by review: of 29,777 captures exactly
+    // one (EIK 175238387) carries a CR_F_18_L holding „Заличено обстоятелство." — and it
+    // is an EOOD, which cannot have a trader at all. Stored, it renders „едноличен
+    // търговец: Заличено обстоятелство." on that company's page: false twice over.
+    expect(
+      withTrader("Заличено обстоятелство.").filter(
+        (r) => r.role === "sole_trader",
+      ),
+    ).toHaveLength(0);
+  });
+
+  it("still projects a REAL trader — the filter is placeholder-scoped, not role-scoped", () => {
+    const traders = withTrader("ИВАН ПЕТРОВ ГЕОРГИЕВ").filter(
+      (r) => r.role === "sole_trader",
+    );
+    expect(traders).toHaveLength(1);
+    expect(traders[0].name).toBe("ИВАН ПЕТРОВ ГЕОРГИЕВ");
+  });
 });
 
 describe("projectCrDeedsToState — additive merge", () => {
@@ -164,6 +208,31 @@ describe("projectCrDeedsToState — additive merge", () => {
     const rows = rowsFor("121587769");
     expect(rows.filter((r) => r.persons_source === null)).toHaveLength(1);
     expect(rows.some((r) => r.record_id === "daily-1")).toBe(true);
+  });
+
+  it("a re-run removes a placeholder trader an earlier run stored", () => {
+    // The pure-function tests prove the placeholder is never EMITTED. This proves the
+    // consequence a reader cares about — that re-projecting over a state.sqlite which
+    // already holds the bad row REMOVES it. That is the difference between „new corpora
+    // are clean" and „the live corpus is repaired", and it rides entirely on the delCr /
+    // ≥1-party interaction, which is the part of this change most able to break quietly.
+    //
+    // Mirrors the real capture: EIK 175238387 is an EOOD carrying the placeholder
+    // CR_F_18_L alongside real parties, so the ≥1-party guard passes and delCr runs.
+    const db = new DatabaseSync(statePath);
+    db.prepare(
+      `INSERT INTO company_persons
+         (uic, role, name, name_norm, record_id, field_ident, persons_source)
+       VALUES ('121587769','sole_trader','Заличено обстоятелство.','X','cr:9','00180','cr')`,
+    ).run();
+    db.close();
+
+    store.putAnswer("121587769", loadFixture("eood1"), 200, "t");
+    projectCrDeedsToState(statePath, store);
+
+    const cr = rowsFor("121587769").filter((r) => r.persons_source === "cr");
+    expect(cr.filter((r) => r.role === "sole_trader")).toHaveLength(0);
+    expect(cr.length).toBeGreaterThan(0); // …and the real parties are still there
   });
 
   it("fills a NULL предмет на дейност and never overwrites the daily feed's", () => {
