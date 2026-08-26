@@ -47,6 +47,8 @@ import gzip
 import json
 import os
 import re
+import signal
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -225,6 +227,109 @@ def owner_block(meta: dict) -> dict | None:
         "source": source,
         "checked": checked,
     }
+
+
+# The skill name the changelog entry is filed under. `save-news-articles` is
+# the skill an operator actually runs; this script is the last step of it, and
+# is the only step that knows the corpus totals worth reporting.
+CHANGELOG_SKILL = "save-news-articles"
+CHANGELOG_SOURCE = "Български новинарски корпус"
+# Named so a test can shorten it. Generous: `tsx` compiles the CLI on
+# first run, and a cold node start on a loaded machine is seconds.
+STAMP_TIMEOUT_SECONDS = 180
+
+
+def stamp_data_change(summary: str, repo: Path) -> dict:
+    """Append one row to data/data-changes.json via the repo's own CLI.
+
+    ⚠️ Shells out rather than writing the file. `scripts/lib/data-changes.ts`
+    is the ONE writer — it owns the schema, the per-skill link table and the
+    no-op guard that keeps bootstrap runs off the public page. A second
+    implementation here, in a different language, is how two writers come to
+    disagree about a format neither of them owns.
+
+    Never fatal: the bundle is already written and correct by this point, and
+    a missing `npx` (or a repo checked out without node_modules) must not fail
+    a data build.
+    """
+    cli = repo / "scripts" / "append-data-change.ts"
+    if not cli.exists():
+        return {"stamped": False, "reason": "append-data-change.ts not found"}
+    # ⚠️ node_modules/.bin/tsx directly, NOT `npx tsx`. `npx` is a wrapper that
+    # spawns node, which spawns tsx — a three-deep tree — and killing the
+    # direct child on timeout leaves both descendants alive. Measured: after
+    # the timeout fired, the orphans were still running and went on to write
+    # data-changes.json, so the caller reported NOT stamped about a row that
+    # had been appended. A shallower tree plus a process GROUP kill is what
+    # makes the timeout mean something.
+    runner = repo / "node_modules" / ".bin" / "tsx"
+    if not runner.exists():
+        return {"stamped": False, "reason": "node_modules/.bin/tsx not found "
+                                            "— run npm install"}
+    argv = [str(runner), str(cli), CHANGELOG_SKILL,
+            "--summary", summary, "--source", CHANGELOG_SOURCE]
+    try:
+        # The summary reaches the CLI as one argv element and never touches a
+        # shell — no shell=True anywhere on this path.
+        proc = subprocess.Popen(
+            argv, cwd=str(repo), stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, text=True, start_new_session=True)
+    except (OSError, subprocess.SubprocessError) as exc:
+        return {"stamped": False, "reason": f"{type(exc).__name__}: {exc}"}
+    try:
+        stdout, stderr = proc.communicate(timeout=STAMP_TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired:
+        terminate_tree(proc)
+        proc.communicate()
+        return {"stamped": False,
+                "reason": f"timed out after {STAMP_TIMEOUT_SECONDS}s"}
+    if proc.returncode != 0:
+        return {"stamped": False, "reason": (stderr or "").strip()[-200:]}
+    out = (stdout or "").strip()
+    # The CLI prints "· skipped …" when its own no-op guard fires. Reported
+    # rather than swallowed: "nothing changed" and "the stamp failed" are
+    # different states and a caller must be able to tell them apart.
+    return {"stamped": not out.startswith("·"), "detail": out[-200:]}
+
+
+def terminate_tree(proc) -> str:
+    """SIGKILL a timed-out child AND its descendants. Returns what it did.
+
+    ⚠️ The whole point is the DESCENDANTS. A JS runner is not one process —
+    measured on the first cut, `npx tsx <file>` is three deep, and killing the
+    direct child left both grandchildren alive: they went on to write
+    data-changes.json while the caller reported the stamp as failed. Only a
+    process-GROUP kill reaches them, which is why the child is launched with
+    start_new_session.
+
+    ⚠️ And only ever kill a group we CREATED. Demonstrated the hard way while
+    mutation-testing this: with start_new_session removed the child shares OUR
+    group, and killpg then takes down the caller — the build, the test runner,
+    whatever launched it. One syscall turns a catastrophic failure into a
+    leaked child."""
+    try:
+        group = os.getpgid(proc.pid)
+    except OSError:
+        proc.kill()
+        return "kill:no-group"
+    if group == os.getpgid(0):
+        proc.kill()
+        return "kill:own-group"
+    try:
+        os.killpg(group, signal.SIGKILL)
+        return "killpg"
+    except OSError:
+        proc.kill()
+        return "kill:killpg-failed"
+
+
+def bg_plural(n: int, one: str, many: str) -> str:
+    """`n` with its Bulgarian noun form.
+
+    Bulgarian has no "1 статии". The summary is read by a person on a public
+    page, and a corpus that has just been rebuilt down to one article is
+    exactly when somebody is looking at it."""
+    return f"{n} {one if abs(n) == 1 else many}"
 
 
 def now_iso() -> str:
@@ -441,6 +546,12 @@ def main() -> int:
     ap.add_argument("--out", type=Path, default=REPO / "news" / "app-data")
     ap.add_argument("--latest", type=int, default=600)
     ap.add_argument("--quiet", action="store_true")
+    ap.add_argument(
+        "--stamp", action="store_true",
+        help="append a row to data/data-changes.json, the site-wide feed "
+             "behind /data/updates. Off by default: a rebuild is not an "
+             "ingest, and stamping every local rebuild would fill a public "
+             "page with entries nobody acted on.")
     ap.add_argument(
         "--json",
         action="store_true",
@@ -869,6 +980,27 @@ def main() -> int:
             "articles_by_domain": {d: len(r) for d, r in sorted(articles_by_domain.items())},
         },
     )
+
+    if args.stamp:
+        # The summary a reader sees. Deliberately the corpus totals rather
+        # than the file counts: "how much did we collect and how much of it is
+        # judged" is the question /data/updates answers for every other
+        # source, and analysed-vs-collected is the number this corpus most
+        # needs stated in public.
+        pct = round(100 * analyzed_total / max(total_articles, 1), 1)
+        summary = (
+            f"Новинарският корпус преизчислен — "
+            f"{bg_plural(total_articles, 'статия', 'статии')} от "
+            f"{bg_plural(len(domain_names), 'издание', 'издания')}, "
+            f"{bg_plural(analyzed_total, 'анализирана', 'анализирани')} "
+            f"({pct}%), "
+            f"{bg_plural(len(stories), 'история', 'истории')}")
+        stamp = stamp_data_change(summary, REPO)
+        if verbose:
+            print(f"  data-changes: "
+                  f"{'stamped' if stamp.get('stamped') else 'NOT stamped'}"
+                  f" — {stamp.get('detail') or stamp.get('reason')}",
+                  file=sys.stderr)
 
     total_files = len(list(out_dir.rglob("*.json")))
     total_bytes = sum(p.stat().st_size for p in out_dir.rglob("*.json"))

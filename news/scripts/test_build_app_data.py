@@ -22,7 +22,9 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
+from pathlib import Path
 
 SCRIPT = os.path.abspath(os.path.join(os.path.dirname(__file__), "build_app_data.py"))
 
@@ -680,6 +682,171 @@ class MetadataAndBudget(unittest.TestCase):
         import build_app_data as b  # noqa: E402
         self.assertEqual(len(b.OWNER_CATEGORIES), 8)
         self.assertIn("independent", b.OWNER_CATEGORIES)
+
+    # ------------------------------------------------------ T0.7 changelog
+
+    def build_with(self, *extra):
+        proc = subprocess.run(
+            [sys.executable, SCRIPT, "--data-dir", self.data_dir,
+             "--out", self.out_dir, "--json", *extra],
+            capture_output=True, text=True,
+            env=dict(os.environ, DATA_BG_ROOT=self.root))
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        return json.loads(proc.stdout), proc.stderr
+
+    def fake_cli(self, body):
+        """Stand-ins for scripts/append-data-change.ts and the tsx runner.
+
+        ⚠️ The real CLI is TypeScript and writes the repo's live
+        data-changes.json. Invoking it from a test would need node and would
+        write to a committed file — so what is under test here is the contract
+        this script owns: does it invoke the CLI, with the right skill and a
+        real summary, and does it report honestly when the CLI declines.
+
+        ⚠️ The shim is a FILE IN THE TEMP ROOT, not an entry on PATH. An
+        earlier cut shimmed `npx` on PATH, which leaks a stub interpreter into
+        every later test in the process — and `stamp_data_change` no longer
+        goes through PATH at all: it runs node_modules/.bin/tsx by absolute
+        path, precisely so a timeout can kill the process group."""
+        d = os.path.join(self.root, "scripts")
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "append-data-change.ts"), "w",
+                  encoding="utf-8") as fh:
+            fh.write(body)
+        binp = os.path.join(self.root, "node_modules", ".bin")
+        os.makedirs(binp, exist_ok=True)
+        runner = os.path.join(binp, "tsx")
+        with open(runner, "w", encoding="utf-8") as fh:
+            fh.write(f"#!/bin/sh\nexec {sys.executable} \"$@\"\n")
+        os.chmod(runner, 0o755)
+        return runner
+
+    def test_a_rebuild_does_not_stamp_by_default(self):
+        """A rebuild is not an ingest. Stamping every local rebuild would fill
+        a public page with entries nobody acted on."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.fake_cli("import sys, json;"
+                             "open(sys.argv[0] + '.called','w').write('x')")
+        self.build_with()
+        self.assertFalse(os.path.exists(
+            os.path.join(self.root, "scripts", "append-data-change.ts.called")))
+
+    def test_stamp_invokes_the_repo_cli_with_the_corpus_totals(self):
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.fake_cli(
+            "import sys, json;"
+            "open(sys.argv[0] + '.args','w').write(json.dumps(sys.argv[1:]));"
+            "print('\u2713 appended')")
+        _, stderr = self.build_with("--stamp")
+        with open(os.path.join(self.root, "scripts",
+                               "append-data-change.ts.args"),
+                  encoding="utf-8") as fh:
+            argv = json.load(fh)
+        self.assertEqual(argv[0], "save-news-articles")
+        self.assertIn("--summary", argv)
+        summary = argv[argv.index("--summary") + 1]
+        # the numbers a reader needs, not a file count
+        self.assertIn("1 статия", summary)  # not "1 статии"
+        self.assertIn("анализирани", summary)
+        self.assertIn("--source", argv)
+        # ⚠️ NOT assertIn("stamped"), which "NOT stamped" also satisfies —
+        # mutating the success flag to a hardcoded False left this green.
+        self.assertIn("data-changes: stamped", stderr)
+        self.assertNotIn("NOT stamped", stderr)
+
+    def test_a_declined_stamp_is_reported_not_swallowed(self):
+        """The CLI prints '· skipped …' when its own no-op guard fires.
+        'Nothing changed' and 'the stamp failed' are different states."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.fake_cli("print('\u00b7 skipped save-news-articles')")
+        _, stderr = self.build_with("--stamp")
+        self.assertIn("NOT stamped", stderr)
+
+    def test_a_broken_stamp_never_fails_the_build(self):
+        """⚠️ The bundle is already written and correct by this point. A
+        missing npx, or a checkout with no node_modules, must not fail a data
+        build over a changelog row."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.fake_cli("import sys; sys.exit(3)")
+        out, stderr = self.build_with("--stamp")
+        self.assertEqual(out["total_articles"], 1)
+        self.assertIn("NOT stamped", stderr)
+
+    def test_a_missing_tsx_runner_is_reported_rather_than_crashing(self):
+        """A checkout with no node_modules must not fail a data build over a
+        changelog row."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        d = os.path.join(self.root, "scripts")
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "append-data-change.ts"), "w",
+                  encoding="utf-8") as fh:
+            fh.write("print('x')")
+        out, stderr = self.build_with("--stamp")
+        self.assertEqual(out["total_articles"], 1)
+        self.assertIn("npm install", stderr)
+
+    def test_a_timeout_kills_the_whole_process_group(self):
+        """⚠️ Measured on the first cut: `npx tsx <file>` is a three-deep tree,
+        and killing the direct child left both descendants alive — they went
+        on to write data-changes.json while the caller reported NOT stamped.
+
+        The shim therefore SPAWNS A GRANDCHILD, mirroring the real runner. A
+        shim that is a single process cannot tell a group kill from a child
+        kill, and this test passed against both before the grandchild existed.
+        """
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        marker = os.path.join(self.root, "wrote-after-timeout")
+        self.fake_cli(
+            "import subprocess, sys, time;"
+            # the grandchild: outlives its parent unless the GROUP is killed
+            "subprocess.Popen([sys.executable, '-c',"
+            f"  \"import time; time.sleep(3); open({marker!r},'w').write('x')\"]);"
+            "time.sleep(30)")
+        prior = b.STAMP_TIMEOUT_SECONDS
+        self.addCleanup(setattr, b, "STAMP_TIMEOUT_SECONDS", prior)
+        b.STAMP_TIMEOUT_SECONDS = 1
+        got = b.stamp_data_change("резюме", Path(self.root))
+        self.assertFalse(got["stamped"])
+        self.assertIn("timed out", got["reason"])
+        time.sleep(4.5)
+        self.assertFalse(
+            os.path.exists(marker),
+            "a descendant survived the timeout and went on to write")
+
+    def test_the_kill_refuses_to_take_down_its_own_process_group(self):
+        """⚠️ The guard that stops a catastrophe. Without start_new_session the
+        child shares OUR group, and an unguarded killpg would SIGKILL the
+        caller — the build, the test runner, everything. Found by mutation:
+        the harness running these very tests was killed by its own mutant."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        # deliberately NOT start_new_session: same group as this test process
+        proc = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"])
+        self.addCleanup(proc.kill)
+        self.assertEqual(os.getpgid(proc.pid), os.getpgid(0),
+                         "fixture is not in our group — the test proves nothing")
+        action = b.terminate_tree(proc)
+        self.assertEqual(action, "kill:own-group")
+        proc.wait(timeout=5)
+        # and we are still alive to assert it
+        self.assertTrue(True)
+
+    def test_the_kill_uses_the_group_when_the_child_has_its_own(self):
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        proc = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
+                                start_new_session=True)
+        self.addCleanup(proc.kill)
+        self.assertEqual(b.terminate_tree(proc), "killpg")
+        proc.wait(timeout=5)
+
+    def test_a_missing_cli_is_reported_rather_than_crashing(self):
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        out, stderr = self.build_with("--stamp")
+        self.assertEqual(out["total_articles"], 1)
+        self.assertIn("not found", stderr)
 
     def test_an_outlet_carries_its_logo(self):
         self.write_article("ex.bg", "20260822-a1-abc.json")

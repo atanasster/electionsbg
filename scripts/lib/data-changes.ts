@@ -85,13 +85,20 @@ const SKILL_LINKS: Record<string, DataChangeLink[]> = {
   "update-officials": [
     { to: "/officials/assets", labelKey: "data_changes_link_officials" },
   ],
-  // ⚠️ "save-news-articles" is deliberately ABSENT rather than overlooked.
-  // The news corpus is served from a SEPARATE origin
-  // (news.electionsbg.com), and DataUpdatesScreen renders every link with a
-  // react-router <Link to={...}>, which treats an absolute URL as a relative
-  // path — so an entry here would render a broken link on the public page.
-  // The changelog row still appears, with its summary and no link, which is
-  // the honest shape until the main site has an internal route to news.
+  // The news corpus is the one source served from a SEPARATE origin, so this
+  // is the only cross-origin entry in the table.
+  //
+  // ⚠️ That is safe, and an earlier version of this comment claimed the
+  // opposite — that react-router's <Link to={...}> would read an absolute URL
+  // as a relative path and render a broken link. It does not: verified in the
+  // installed react-router 7.17.0, `parseToInfo` matches ABSOLUTE_URL_REGEX,
+  // marks the target `isExternal`, and `Link` emits a plain <a href> with the
+  // absolute URL (chunk-6CSD65Y2.mjs:10493) rather than intercepting the
+  // click. Check the installed version before adding another one, since this
+  // is the only entry that depends on the behaviour.
+  "save-news-articles": [
+    { to: "https://news.electionsbg.com/", labelKey: "data_changes_link_news" },
+  ],
 };
 
 export const linksForSkill = (skill: string): DataChangeLink[] =>
