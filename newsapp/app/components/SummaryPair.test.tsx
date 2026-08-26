@@ -100,7 +100,11 @@ describe("a withheld summary", () => {
     // Otherwise a record whose only summary was withheld renders nothing at
     // all, and the refusal is invisible again.
     render(
-      <SummaryPair bg={null} en={null} withheld={{ summary_bg: "altered_name" }} />,
+      <SummaryPair
+        bg={null}
+        en={null}
+        withheld={{ summary_bg: "altered_name" }}
+      />,
     );
     expect(screen.getByText(/не се показва/)).toBeInTheDocument();
   });
@@ -115,7 +119,11 @@ describe("a withheld summary", () => {
 
   it("says nothing when the Bulgarian summary is present", () => {
     render(
-      <SummaryPair bg="Резюме." en="Summary." withheld={{ summary_en: "altered_name" }} />,
+      <SummaryPair
+        bg="Резюме."
+        en="Summary."
+        withheld={{ summary_en: "altered_name" }}
+      />,
     );
     expect(screen.queryByText(/не се показва/)).toBeNull();
     expect(screen.queryByText("Липсва резюме на български.")).toBeNull();

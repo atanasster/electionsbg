@@ -8,12 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MixBar, type MixSegment } from "@/ux/MixBar";
-import {
-  formatDate,
-  LEANING_META,
-  relativeTime,
-  RUSSIA_META,
-} from "../labels";
+import { formatDate, LEANING_META, relativeTime, RUSSIA_META } from "../labels";
 import { useOutlets, useStories, useTaxonomy, type Story } from "../data";
 import { StoryMemberRow } from "../components/ArticleRow";
 import { EntityChips } from "../components/EntityChips";

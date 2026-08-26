@@ -59,7 +59,10 @@ describe("linking", () => {
       <TopicChips
         categories={taxonomy}
         topics={[
-          { category: "officials-people", subcategory: "declarations-conflicts" },
+          {
+            category: "officials-people",
+            subcategory: "declarations-conflicts",
+          },
         ]}
       />,
     );
