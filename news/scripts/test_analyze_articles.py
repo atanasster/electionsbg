@@ -1170,5 +1170,73 @@ class Mentions(FixtureTestCase):
                             for e in r["errors"]), out)
 
 
+
+class RedoQueuesAlreadyAnalysedWork(FixtureTestCase):
+    """⚠️ `--next` CAN NEVER RETURN THESE. It skips every URL in the index by
+    construction, so the records the review queue flags — the only ones anyone
+    ever wants to re-run — are exactly the ones it cannot offer. Without a
+    second mode the only way to redo one is to delete its analysis, which
+    leaves the record with NO vintage if the re-run then fails."""
+
+    def analysed_url(self):
+        domain, fname, rec = self.articles["a1"]
+        a = analysis(self.analysis_path("a1"), rec["url"], domain)
+        self.save(a)
+        return rec["url"], f"news/data/{domain}/{fname}"
+
+    def test_it_returns_an_article_next_would_skip(self):
+        url, path = self.analysed_url()
+        code, out, _err = self.run_cli("--next", "all", "--limit", "50")
+        self.assertEqual(code, 0)
+        self.assertNotIn(url, [q.get("url") for q in out["queue"]])
+        self.assertNotIn(path, [q["path"] for q in out["queue"]])
+        code, out, _err = self.run_cli("--redo", url)
+        self.assertEqual(code, 0, out)
+        self.assertEqual([q["path"] for q in out["queue"]], [path])
+
+    def test_a_corpus_PATH_works_as_well_as_a_url(self):
+        _url, path = self.analysed_url()
+        code, out, _err = self.run_cli("--redo", path)
+        self.assertEqual(code, 0, out)
+        self.assertEqual([q["path"] for q in out["queue"]], [path])
+
+    def test_an_unknown_target_is_NAMED_and_exits_non_zero(self):
+        # ⚠️ A redo names its own targets, so returning fewer than it was
+        # given is a failure — silently short, it reads as „those were fine".
+        _url, path = self.analysed_url()
+        code, out, _err = self.run_cli("--redo", path, "https://nope.example/x")
+        self.assertEqual(code, 1, out)
+        self.assertEqual(out["missing"], ["https://nope.example/x"])
+        self.assertEqual(len(out["queue"]), 1)
+
+    def test_it_WRITES_NOTHING(self):
+        # The old analysis must survive until --save replaces it, so an
+        # interrupted re-run leaves the record at its previous vintage.
+        url, _path = self.analysed_url()
+        before = self.index()
+        self.run_cli("--redo", url)
+        self.assertEqual(self.index(), before)
+
+    def test_the_dictionary_pass_travels_with_it(self):
+        # ⚠️ Compared against --next rather than asserted directly, so the two
+        # modes cannot drift. The analyst is handed resolved mentions instead
+        # of being asked to produce them, and check_mention_provenance()
+        # refuses any change to them — a redo missing them fails that guard
+        # on every record. (In this fixture there is no gazetteer, so what
+        # travels is `mentions_note`; the point is that it is the SAME key.)
+        domain, fname, rec = self.articles["a1"]
+        code, nxt, _err = self.run_cli("--next", "all", "--limit", "50")
+        self.assertEqual(code, 0)
+        want = next(q for q in nxt["queue"]
+                    if q["path"] == f"news/data/{domain}/{fname}")
+        url, _path = self.analysed_url()
+        code, out, _err = self.run_cli("--redo", url)
+        self.assertEqual(code, 0, out)
+        got = out["queue"][0]
+        for key in ("mentions", "mentions_note"):
+            self.assertEqual(key in got, key in want, key)
+            if key in want:
+                self.assertEqual(got[key], want[key], key)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

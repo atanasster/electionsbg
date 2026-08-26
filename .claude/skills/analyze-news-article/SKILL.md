@@ -54,6 +54,26 @@ site_relevant is false (filler never joins stories).
   per domain. Queue items carry `outlet_rank` and a `suspect_too_short` flag,
   and the payload declares its own `order`.
 
+- "re-analyze this, it got the name wrong" → `--redo <url|path> …`, which
+  takes already-analysed articles by URL or corpus path. `--next` **cannot**
+  return these: it skips every URL in the index by construction, so the
+  records `review_routing.py` flags are exactly the ones it can never offer.
+  `python3 news/scripts/analyze_local.py --redo <url> --model <name>` runs
+  the whole loop against a local model.
+
+  ⚠️ It writes nothing and deletes nothing — the old analysis stays until
+  `--save` replaces it, so an interrupted re-run leaves the record at its
+  previous vintage rather than at none. Deleting the analysis file to force
+  the record back into `--next` has the opposite property.
+
+  ⚠️ It exits **non-zero** and names anything it could not find, because a
+  redo names its own targets: returning fewer records than it was given
+  would read as „those were fine".
+
+  ⚠️ **It does not touch STORIES.** A story carries its own model-written
+  summary, and clustering is deliberately not automatic — so a story whose
+  summary repeats a bad name needs the story path, not this.
+
   ⚠️ **It used to fill domain-by-domain with the domains ALPHABETICAL**, so
   under a fixed nightly budget 24chasa.bg and bgdnes.bg were judged every
   night and vesti.bg never was — the corpus would have been analysed in

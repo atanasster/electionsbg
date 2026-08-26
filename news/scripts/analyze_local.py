@@ -172,6 +172,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--domain", default="all")
+    ap.add_argument("--redo", nargs="+", metavar="URL|PATH",
+                    help="re-analyse these already-analysed articles instead "
+                         "of drawing from the unanalysed queue — the review "
+                         "queue's targets. --limit and --domain do not apply.")
     ap.add_argument("--model", default=os.environ.get("NEWS_LLM_MODEL",
                                                       "local-model"))
     ap.add_argument("--dry-run", action="store_true",
@@ -182,8 +186,15 @@ def main() -> int:
     assets = load_prompt_assets()
     taxonomy_version = json.loads(assets["taxonomy"]).get("version")
 
-    code, queue = run_analyze("--next", args.domain, "--limit", str(args.limit))
+    if args.redo:
+        code, queue = run_analyze("--redo", *args.redo)
+    else:
+        code, queue = run_analyze("--next", args.domain,
+                                  "--limit", str(args.limit))
     if code != 0:
+        # ⚠️ A redo names its own targets, so a partial result is a FAILURE
+        # rather than a short queue — `missing` rides through so the caller
+        # learns which article it asked for and did not get.
         print(json.dumps({"error": "queue_failed", **queue}))
         return 2
     items = queue.get("queue") or []

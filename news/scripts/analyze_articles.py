@@ -1481,6 +1481,66 @@ def cmd_next(args) -> int:
     return emit(0, **result)
 
 
+def cmd_redo(args) -> int:
+    """Queue named corpus articles for RE-analysis, index membership ignored.
+
+    ⚠️ `--next` exists to find work nobody has done; this exists to redo work
+    that was done WRONG. They cannot be the same mode: `--next` skips every
+    URL in the index by construction, so the records the review queue flags —
+    the only ones anybody ever wants to re-run — are exactly the ones it can
+    never return.
+
+    ⚠️ IT WRITES NOTHING AND DELETES NOTHING. The old analysis stays on disk
+    until `--save` replaces it, so a re-run that fails or is interrupted
+    leaves the record at its previous vintage rather than at none. Deleting
+    the analysis file to force it back into `--next` was the obvious
+    alternative and has the opposite property.
+    """
+    if not args.redo:
+        return emit(2, error="no_targets", hint="pass one or more URLs or "
+                    "news/data/<domain>/<file>.json paths")
+    by_url, queue, missing = {}, [], []
+    for domain in corpus_domains():
+        for f in corpus_files(domain) or []:
+            rel = rel_corpus_path(domain, f)
+            try:
+                with open(os.path.join(DATA_DIR, domain, f),
+                          encoding="utf-8") as fh:
+                    rec = json.load(fh)
+            except (OSError, json.JSONDecodeError):
+                continue
+            by_url[rec.get("url")] = (domain, f, rel, rec)
+            by_url[rel] = (domain, f, rel, rec)
+    ranks = outlet_ranks()
+    for target in args.redo:
+        hit = by_url.get(target)
+        if not hit:
+            missing.append(target)
+            continue
+        domain, _f, rel, rec = hit
+        rank = ranks.get(domain)
+        queue.append({
+            "path": rel, "domain": domain,
+            "outlet_rank": rank if rank is not None else DEFAULT_OUTLET_RANK,
+            "outlet_ranked": rank is not None,
+            "order_tier": None, "order_basis": "redo",
+            "title": rec.get("title"), "published": rec.get("published"),
+            "content_chars": rec.get("content_chars"),
+            "author": rec.get("author"),
+            "suspect_too_short":
+                (rec.get("content_chars") or 0) < MIN_CONTENT_CHARS,
+        })
+    attach_dictionary_mentions(queue)
+    result = {"mode": "redo", "queue": queue,
+              "counts": {"requested": len(args.redo), "returned": len(queue)}}
+    if missing:
+        # ⚠️ NAMED, and a non-zero exit. A redo that silently returned fewer
+        # records than it was given would read as "those were fine".
+        result["missing"] = missing
+        return emit(1, **result)
+    return emit(0, **result)
+
+
 # -------------------------------------------------------------- work item ---
 
 def cmd_candidates(args) -> int:
@@ -1672,6 +1732,9 @@ def main() -> int:
                                  exit_on_error=False)
     modes = ap.add_mutually_exclusive_group(required=True)
     modes.add_argument("--next", dest="next_domain", metavar="DOMAIN|all", help="queue of unanalyzed corpus articles")
+    modes.add_argument("--redo", nargs="+", metavar="URL|PATH",
+                       help="re-queue already-analysed articles by url or "
+                            "corpus path (the review queue's targets)")
     modes.add_argument("--candidates", metavar="ARTICLE", help="work item: article + candidate stories")
     modes.add_argument("--save-analysis", metavar="FILE|-", help="persist one analysis record")
     modes.add_argument("--save-batch", metavar="FILE|-", help="persist an array of analysis records")
@@ -1683,6 +1746,8 @@ def main() -> int:
         args = ap.parse_args()
         if args.next_domain:
             return cmd_next(args)
+        if args.redo:
+            return cmd_redo(args)
         if args.candidates:
             return cmd_candidates(args)
         if args.save_analysis or args.save_batch:
