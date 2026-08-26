@@ -111,6 +111,10 @@ export const ENGLISH_STATIC_PAGES = [
   "culture/subsidies",
   "culture/procurement",
   "culture/funds",
+  "culture/funds/isun-eik",
+  "culture/funds/isun-name",
+  "culture/funds/interreg",
+  "culture/funds/dfz",
   "culture/institutions",
   "culture/films",
   "education",
@@ -249,6 +253,25 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `src/screens/culture/CultureProcurementScreen.tsx`,
   },
   { path: "culture/funds", file: `src/screens/culture/CultureFundsScreen.tsx` },
+  // The four source pages share ONE screen, selected by a prop — four static
+  // paths rather than /culture/funds/:source, because each needs its own <loc>,
+  // its own prerendered body and its own og:image.
+  {
+    path: "culture/funds/isun-eik",
+    file: `src/screens/culture/CultureFundsSourceScreen.tsx`,
+  },
+  {
+    path: "culture/funds/isun-name",
+    file: `src/screens/culture/CultureFundsSourceScreen.tsx`,
+  },
+  {
+    path: "culture/funds/interreg",
+    file: `src/screens/culture/CultureFundsSourceScreen.tsx`,
+  },
+  {
+    path: "culture/funds/dfz",
+    file: `src/screens/culture/CultureFundsSourceScreen.tsx`,
+  },
   {
     path: "culture/institutions",
     file: `src/screens/culture/CultureInstitutionsScreen.tsx`,

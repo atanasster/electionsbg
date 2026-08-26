@@ -59,7 +59,13 @@ export const CultureFundsBreakdown: FC<{
   const max = Math.max(1, ...rows.map((r) => r.eur));
 
   return (
-    <section className="mt-6 rounded-xl border bg-card p-4">
+    // `data-og` is the og-capture anchor — the chart IS this page's card, and it
+    // is the one block that is both distinctive per arm and self-explanatory in
+    // a share preview (a heading, a declared axis, and named bars).
+    <section
+      data-og="culture-funds-breakdown"
+      className="mt-6 rounded-xl border bg-card p-4"
+    >
       <h2 className="text-base font-semibold">{heading}</h2>
       <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         {basis}

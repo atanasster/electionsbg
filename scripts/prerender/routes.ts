@@ -2947,9 +2947,10 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Публичните пари за култура извън обществените поръчки идват от няколко различни регистъра, на различни основи: стойност на договор по ИСУН, земеделска субсидия по ДФЗ, публикуван бюджет на партньор по Interreg. Тази страница ги показва един до друг — и казва за всяко число откъде идва и какво НЕ покрива.</p>
 <h2>Какво ще намерите тук</h2>
 <ul>
-<li><strong>ИСУН по ЕИК</strong> — точно съвпадение срещу регистъра на сектора. Възпроизводимо, и подмножество на реда по име.</li>
-<li><strong>ИСУН по име</strong> — долна граница с размита граница; предимно читалища.</li>
-<li><strong>ДФЗ — читалища</strong> — нито един държавен културен институт не получава земеделска субсидия. Присъствието на културата тук са читалищата.</li>
+<li><strong><a href="${SITE_URL}/culture/funds/isun-eik">ИСУН по ЕИК</a></strong> — точно съвпадение срещу регистъра на сектора. Възпроизводимо, и почти — но не изцяло — подмножество на реда по име: страницата казва колко проекта от списъка нямат културна дума в името си.</li>
+<li><strong><a href="${SITE_URL}/culture/funds/isun-name">ИСУН по име</a></strong> — долна граница с размита граница; предимно читалища, и предимно по една програма (ПВУ).</li>
+<li><strong><a href="${SITE_URL}/culture/funds/interreg">Interreg — тематично</a></strong> — публикуван бюджет на партньора, не стойност на договор, и се стига до него през темата на операцията.</li>
+<li><strong><a href="${SITE_URL}/culture/funds/dfz">ДФЗ — читалища</a></strong> — нито един държавен културен институт не получава земеделска субсидия. Присъствието на културата тук са читалищата.</li>
 <li><strong>Проследи парите</strong> — кодът по ПВУ свързва гранта с поръчката, която той плаща.</li>
 </ul>
 <p>Виж и <a href="${SITE_URL}/culture">обзора на сектора</a> и <a href="${SITE_URL}/funds">всички еврофондове</a>.</p>
@@ -2965,13 +2966,189 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Public money for culture outside procurement arrives from several different registers on different bases: a contract value from ИСУН, a farm subsidy from ДФЗ, a partner's published budget from Interreg. This page puts them side by side — and says, for each, where it comes from and what it does NOT cover.</p>
 <h2>What you'll find</h2>
 <ul>
-<li><strong>ИСУН by EIK</strong> — an exact match against the sector register. Reproducible, and a subset of the by-name row.</li>
-<li><strong>ИСУН by name</strong> — a floor with a fuzzy edge; mostly читалища.</li>
-<li><strong>ДФЗ — читалища</strong> — no state cultural institution receives a farm subsidy. Culture's presence here is читалища.</li>
+<li><strong><a href="${SITE_URL}/en/culture/funds/isun-eik">ИСУН by EIK</a></strong> — an exact match against the sector register. Reproducible, and almost — but not quite — a subset of the by-name row: the page says how many listed projects carry no culture word in their name.</li>
+<li><strong><a href="${SITE_URL}/en/culture/funds/isun-name">ИСУН by name</a></strong> — a floor with a fuzzy edge; mostly читалища, and mostly one programme (the RRF).</li>
+<li><strong><a href="${SITE_URL}/en/culture/funds/interreg">Interreg — thematic</a></strong> — a partner's published budget, not a contract value, reached through the operation's theme.</li>
+<li><strong><a href="${SITE_URL}/en/culture/funds/dfz">ДФЗ — читалища</a></strong> — no state cultural institution receives a farm subsidy. Culture's presence here is читалища.</li>
 <li><strong>Follow the money</strong> — the RRF code links a grant to the procurement it paid for.</li>
 </ul>
 <p>See also the <a href="${SITE_URL}/en/culture">sector overview</a> and <a href="${SITE_URL}/en/funds">all EU funds</a>.</p>
 <p>Sources: ИСУН 2020, State Fund Agriculture, keep.eu (Interreg).</p>`.trim(),
+    },
+  }),
+  // ── the four /culture/funds SOURCE pages ───────────────────────────────────
+  //
+  // ⚠️ EACH BODY STATES ITS OWN BASIS AND ITS OWN LIMIT, because a crawler — and
+  // a reader arriving from one — never sees the parent's „these do not sum"
+  // sentence. That is the same argument the rendered pages make with their basis
+  // card, and it applies with more force here: the prerendered body is the whole
+  // page to anything that does not run JavaScript.
+  //
+  // ⚠️ NO FIGURES IN THESE BODIES — INCLUDING SPELLED-OUT COUNTS. The prerender
+  // interpolates from a committed file only where one is REQUIRED at build time
+  // (see `cultureFacts` above); these four arms' numbers live in
+  // `hub_stats.json`, which the prerender does not read, so quoting them here
+  // would be frozen strings beside a page whose every rendered figure
+  // self-updates — the defect `cultureRegistry.ts` and `gen_culture/hub_stats.ts`
+  // were written to end.
+  //
+  // „един проект" slipped past that on the first cut, in four places, four lines
+  // below this banner — and a word is a figure: it is
+  // `eikExactProjects − eikExactAlsoByName`, the value `eikNameMissed()` exists
+  // to derive ONCE, and a frozen body cannot express its other two branches (at
+  // zero the claim inverts; with the field absent from the blob nothing may be
+  // said at all). The bodies now say that the PAGE carries the count.
+  // The prose says what each arm IS; the page says how big it is.
+  staticPage({
+    path: "culture/funds/isun-eik",
+    // Its OWN card, shot from the arm's bar chart — the one block that is both
+    // distinctive per arm and self-explanatory in a preview (a heading, a
+    // declared axis, named bars). The sibling culture sub-pages share
+    // /og/culture.png with a comment saying to give them their own „once a
+    // capture entry and a `data-og` anchor land together"; for these four, both
+    // landed with the page.
+    ogImage: "/og/culture-funds-isun-eik.png",
+    title:
+      "ИСУН по ЕИК — европейските проекти на културните институции | electionsbg.com",
+    description:
+      "Европейските проекти на институциите от регистъра на културата, намерени по точно съвпадение на ЕИК — възпроизводимият ред, с това, което не покрива.",
+    breadcrumbName: "ИСУН по ЕИК",
+    bodyHtml: `
+<h1>ИСУН по ЕИК — европейските проекти на културните институции</h1>
+<p>Един ред тук е проект в ИСУН, а числото е безвъзмездната помощ — това, което публичната каса е платила. Стига се до тези редове по точно съвпадение на ЕИК срещу списъка на сектора, така че всеки с регистъра и корпуса може да ги възпроизведе.</p>
+<h2>Какво този ред НЕ отговаря</h2>
+<p>Само институциите с ЕИК в регистъра. Читалищата — най-широкият културен поток по брой получатели — нямат ЕИК в този списък и не са тук: те се намират само по ИМЕ, на <a href="${SITE_URL}/culture/funds/isun-name">съседния ред</a>. И този ред не се съдържа изцяло в него: страницата казва колко проекта от списъка по ЕИК нямат културна дума в името си.</p>
+<p>Другите потоци — <a href="${SITE_URL}/culture/funds/isun-name">ИСУН по име</a>, <a href="${SITE_URL}/culture/funds/interreg">Interreg</a> и <a href="${SITE_URL}/culture/funds/dfz">ДФЗ</a> — са от различни регистри, на различни основи, и числата им НЕ се събират с това. Виж <a href="${SITE_URL}/culture/funds">прегледа</a>.</p>
+<p>Източник: ИСУН 2020.</p>`.trim(),
+    english: {
+      title:
+        "ИСУН by EIK — the EU projects of Bulgaria's culture institutions | electionsbg.com",
+      description:
+        "The EU projects of the institutions in Bulgaria's culture register, found by exact EIK match — the reproducible arm, with what it does not cover.",
+      breadcrumbName: "ИСУН by EIK",
+      bodyHtml: `
+<h1>ИСУН by EIK — the EU projects of Bulgaria's culture institutions</h1>
+<p>One row here is an ИСУН project, and the figure is the grant — what the public purse paid. These rows are reached by an exact EIK match against the sector register, so anyone with the register and the corpus can reproduce them.</p>
+<h2>What this arm does NOT answer</h2>
+<p>Only the institutions whose EIK is in the register. Читалища — culture's widest stream by recipient count — carry no EIK in that list and are absent: they are reachable only by NAME, on the <a href="${SITE_URL}/en/culture/funds/isun-name">neighbouring arm</a>. Nor is this arm wholly contained by it: the page says how many EIK-listed projects carry no culture word in their name.</p>
+<p>The other streams — <a href="${SITE_URL}/en/culture/funds/isun-name">ИСУН by name</a>, <a href="${SITE_URL}/en/culture/funds/interreg">Interreg</a> and <a href="${SITE_URL}/en/culture/funds/dfz">ДФЗ</a> — come from different registers on different bases, and their figures do NOT add to this one. See the <a href="${SITE_URL}/en/culture/funds">overview</a>.</p>
+<p>Source: ИСУН 2020.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "culture/funds/isun-name",
+    // Its OWN card, shot from the arm's bar chart — the one block that is both
+    // distinctive per arm and self-explanatory in a preview (a heading, a
+    // declared axis, named bars). The sibling culture sub-pages share
+    // /og/culture.png with a comment saying to give them their own „once a
+    // capture entry and a `data-og` anchor land together"; for these four, both
+    // landed with the page.
+    ogImage: "/og/culture-funds-isun-name.png",
+    title:
+      "ИСУН по име — еврофондовете за читалищата и културата | electionsbg.com",
+    description:
+      "Всичко в ИСУН, чието име на бенефициента носи културна дума — предимно читалища, и предимно по една програма. Долна граница с размита граница.",
+    breadcrumbName: "ИСУН по име",
+    bodyHtml: `
+<h1>ИСУН по име — еврофондовете за читалищата и културата</h1>
+<p>Същата величина като реда по ЕИК — безвъзмездна помощ — но върху друга, по-широка съвкупност. Стига се до тези редове по съвпадение на името на бенефициента с културна дума, с изключения срещу „аквакултури“ и „изкуствен интелект“. Това е правило, не оценка: няма степен на сигурност на реда.</p>
+<h2>Една програма носи по-голямата част</h2>
+<p>Тази страница показва разбивката по програма, и първата лента е почти целият ред: Националният план за възстановяване и устойчивост. Тоест това не е широка смес от европейски програми за култура, а предимно един инструмент, който плаща на читалища.</p>
+<h2>Какво този ред НЕ отговаря</h2>
+<p>Едно име може да е изписано по два начина, така че проектите тук са върху по-малко организации, отколкото различни имена. Обратно — институция без културна дума в името си липсва, макар да е в регистъра.</p>
+<p>Другите потоци — <a href="${SITE_URL}/culture/funds/isun-eik">ИСУН по ЕИК</a>, <a href="${SITE_URL}/culture/funds/interreg">Interreg</a> и <a href="${SITE_URL}/culture/funds/dfz">ДФЗ</a> — не се събират с този. Виж <a href="${SITE_URL}/culture/funds">прегледа</a>.</p>
+<p>Източник: ИСУН 2020.</p>`.trim(),
+    english: {
+      title:
+        "ИСУН by name — EU funds reaching читалища and culture | electionsbg.com",
+      description:
+        "Everything in ИСУН whose beneficiary name carries a culture word — mostly читалища, and mostly one programme. A floor with a fuzzy edge.",
+      breadcrumbName: "ИСУН by name",
+      bodyHtml: `
+<h1>ИСУН by name — EU funds reaching читалища and culture</h1>
+<p>The same quantity as the EIK arm — the grant — over a different, wider population. These rows are reached by matching the beneficiary's name against a culture word, guarded against „аквакултури“ and „изкуствен интелект“. It is a rule, not a score: no row carries a confidence grade.</p>
+<h2>One programme carries most of it</h2>
+<p>This page shows the split by programme, and the first bar is nearly the whole arm: the Recovery and Resilience Facility. So this is not a broad mix of European culture programmes but mostly one instrument paying читалища.</p>
+<h2>What this arm does NOT answer</h2>
+<p>One organisation can be spelled two ways, so these projects sit over fewer organisations than distinct names. Conversely, an institution with no culture word in its name is absent even though it is in the register.</p>
+<p>The other streams — <a href="${SITE_URL}/en/culture/funds/isun-eik">ИСУН by EIK</a>, <a href="${SITE_URL}/en/culture/funds/interreg">Interreg</a> and <a href="${SITE_URL}/en/culture/funds/dfz">ДФЗ</a> — do not add to this one. See the <a href="${SITE_URL}/en/culture/funds">overview</a>.</p>
+<p>Source: ИСУН 2020.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "culture/funds/interreg",
+    // Its OWN card, shot from the arm's bar chart — the one block that is both
+    // distinctive per arm and self-explanatory in a preview (a heading, a
+    // declared axis, named bars). The sibling culture sub-pages share
+    // /og/culture.png with a comment saying to give them their own „once a
+    // capture entry and a `data-og` anchor land together"; for these four, both
+    // landed with the page.
+    ogImage: "/og/culture-funds-interreg.png",
+    title:
+      "Interreg за култура и наследство — българските партньори | electionsbg.com",
+    description:
+      "Българските партньори по трансгранични проекти, чиято тема е култура или наследство — публикуван бюджет на партньора, не стойност на договор.",
+    breadcrumbName: "Interreg",
+    bodyHtml: `
+<h1>Interreg за култура и наследство — българските партньори</h1>
+<p>Един ред тук е публикуван БЮДЖЕТ на един партньор, не стойност на договор — затова не е съпоставим с редовете по ИСУН. Свързва се през ТЕМАТА на операцията, не през списък с културни институции: „колко Interreg пари за култура стигат до България“ и „колко културни институции правят Interreg“ са различни въпроси, чиито отговори са в пъти един от друг.</p>
+<h2>Какво този ред НЕ отговаря</h2>
+<p>Само малка част от участията носят ЕИК изобщо, така че филтър или връзка по ЕИК отговаря на около една пета от въпроса. Партньорите тук са предимно общини и НПО, а не държавни културни институти — повечето от тези програми са двустранни, по една граница всяка.</p>
+<p>Другите потоци — <a href="${SITE_URL}/culture/funds/isun-eik">ИСУН по ЕИК</a>, <a href="${SITE_URL}/culture/funds/isun-name">ИСУН по име</a> и <a href="${SITE_URL}/culture/funds/dfz">ДФЗ</a> — не се събират с този. Виж <a href="${SITE_URL}/culture/funds">прегледа</a> и <a href="${SITE_URL}/funds">всички еврофондове</a>.</p>
+<p>Източник: keep.eu (INTERACT).</p>`.trim(),
+    english: {
+      title:
+        "Interreg for culture and heritage — the Bulgarian partners | electionsbg.com",
+      description:
+        "The Bulgarian partners in cross-border projects themed on culture or heritage — a partner's published budget, not a contract value.",
+      breadcrumbName: "Interreg",
+      bodyHtml: `
+<h1>Interreg for culture and heritage — the Bulgarian partners</h1>
+<p>One row here is one partner's published BUDGET, not a contract value — which is why it is not comparable with the ИСУН arms. It is joined through the operation's THEME rather than through a list of culture bodies: „how much Interreg culture money reaches Bulgaria" and „how many culture institutions do Interreg" are different questions whose answers are several times apart.</p>
+<h2>What this arm does NOT answer</h2>
+<p>Only a small share of the participations carry an EIK at all, so an EIK-keyed filter or link answers about a fifth of the question. The partners here are mostly municipalities and NGOs rather than state culture institutes — most of these programmes are bilateral, one border each.</p>
+<p>The other streams — <a href="${SITE_URL}/en/culture/funds/isun-eik">ИСУН by EIK</a>, <a href="${SITE_URL}/en/culture/funds/isun-name">ИСУН by name</a> and <a href="${SITE_URL}/en/culture/funds/dfz">ДФЗ</a> — do not add to this one. See the <a href="${SITE_URL}/en/culture/funds">overview</a> and <a href="${SITE_URL}/en/funds">all EU funds</a>.</p>
+<p>Source: keep.eu (INTERACT).</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "culture/funds/dfz",
+    // Its OWN card, shot from the arm's bar chart — the one block that is both
+    // distinctive per arm and self-explanatory in a preview (a heading, a
+    // declared axis, named bars). The sibling culture sub-pages share
+    // /og/culture.png with a comment saying to give them their own „once a
+    // capture entry and a `data-og` anchor land together"; for these four, both
+    // landed with the page.
+    ogImage: "/og/culture-funds-dfz.png",
+    title:
+      "ДФЗ за народните читалища — земеделските субсидии за култура | electionsbg.com",
+    description:
+      "Земеделските субсидии, изплатени на народни читалища. Нито един държавен културен институт не получава такива — и се стига до тях само по име.",
+    breadcrumbName: "ДФЗ — читалища",
+    bodyHtml: `
+<h1>ДФЗ за народните читалища — земеделските субсидии за култура</h1>
+<p>Един ред тук е ИЗПЛАТЕНА земеделска субсидия по схема на ДФ „Земеделие“ — не договор и не грант. Стига се до тези редове по съвпадение на името с „читалищ“; стъблото няма известно съвпадение с друга дума, затова тук няма изключения.</p>
+<h2>Кога са изплатени</h2>
+<p>Редът не е равномерен поток: изплащанията са силно съсредоточени в първите години, а схемите 321 и 322 по Програмата за развитие на селските райони приключиха. Тоест това е предимно история, а не текущо финансиране.</p>
+<h2>Какво този ред НЕ отговаря</h2>
+<p>Достига се САМО по име. Филтър по ЕИК срещу регистъра на сектора връща практически нищо — единственото съвпадение е едно национално музикално училище по „Училищни схеми“, което е училищна помощ, администрирана от ДФЗ, а не земеделска субсидия за културен институт. Присъствието на културата тук са читалищата, и никой друг.</p>
+<p>Другите потоци — <a href="${SITE_URL}/culture/funds/isun-eik">ИСУН по ЕИК</a>, <a href="${SITE_URL}/culture/funds/isun-name">ИСУН по име</a> и <a href="${SITE_URL}/culture/funds/interreg">Interreg</a> — не се събират с този. Виж <a href="${SITE_URL}/culture/funds">прегледа</a> и <a href="${SITE_URL}/subsidies">всички земеделски субсидии</a>.</p>
+<p>Източник: ДФ „Земеделие“.</p>`.trim(),
+    english: {
+      title:
+        "ДФЗ for народни читалища — farm subsidies reaching culture | electionsbg.com",
+      description:
+        "The farm subsidies paid to народни читалища. No state cultural institution receives one — and they are reachable only by name.",
+      breadcrumbName: "ДФЗ — читалища",
+      bodyHtml: `
+<h1>ДФЗ for народни читалища — farm subsidies reaching culture</h1>
+<p>One row here is a DISBURSED farm subsidy under a State Fund Agriculture scheme — neither a contract nor a grant. These rows are reached by matching the name against „читалищ"; the stem has no known collision, so this arm carries no exclusions.</p>
+<h2>When they were paid</h2>
+<p>This arm is not a steady flow: the payments are heavily concentrated in its first years, and the 321 and 322 rural-development schemes have closed. So it is mostly history rather than current funding.</p>
+<h2>What this arm does NOT answer</h2>
+<p>It is reachable ONLY by name. An EIK filter against the sector register returns essentially nothing — the sole match is one national music school on „Училищни схеми", which is school-food aid ДФЗ merely administers rather than a farm subsidy to a cultural institution. Culture's presence here is читалища and nobody else.</p>
+<p>The other streams — <a href="${SITE_URL}/en/culture/funds/isun-eik">ИСУН by EIK</a>, <a href="${SITE_URL}/en/culture/funds/isun-name">ИСУН by name</a> and <a href="${SITE_URL}/en/culture/funds/interreg">Interreg</a> — do not add to this one. See the <a href="${SITE_URL}/en/culture/funds">overview</a> and <a href="${SITE_URL}/en/subsidies">all farm subsidies</a>.</p>
+<p>Source: State Fund Agriculture.</p>`.trim(),
     },
   }),
   staticPage({

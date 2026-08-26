@@ -5,10 +5,23 @@
 Give each one a standalone page that names the records behind its number, built to the
 dashboard-hub pattern (`HubHead` + KPI band + evidence list + a server-side browse table).
 
-**Status.** **Tier 0 shipped 2026-08-25** — §2's correctness fix: the measured
-`eikExactAlsoByName` figure in the blob and its generator, the rewritten copy on
-both ИСУН rows (figure *and* relationship clause derived, never frozen), and
-`scripts/db/tests/culture_fund_sources.data.test.ts`. Tiers 1–6 unimplemented.
+**Status.** **Shipped 2026-08-26 — all six tiers.** The four pages are live at
+`/culture/funds/{isun-eik,isun-name,interreg,dfz}`, each with its own prerendered
+body, sitemap `<loc>` in both languages, and og card shot from its own chart.
+
+⚠️ **Not yet deployed.** The deploy is ordered and the first step is not optional
+— see §9. Apply pg/189, 190 and 191 to the target BEFORE the `deploy:db` that
+ships the four browse resources: a DbDataTable resource has no `missingMigration`
+degrade, so the wrong order is a 500 on all four pages rather than a narrower
+answer.
+
+Three things the build changed about the plan itself, each recorded where it
+matters rather than only here: the migration is **three files, one per corpus**
+(§4.3's single file aborted `db:refresh` on any fresh clone — `raw_data/agri/` is
+gitignored, so `agri_subsidies` never exists there); the chart data ships as a
+**second artifact**, `fund_sources.json`, because putting it in `hub_stats.json`
+broke that blob's 4 KB budget; and §2's overlap finding turned out to be
+load-bearing in four more places than the one row of copy it started as.
 
 ---
 
@@ -184,11 +197,24 @@ Follow `scripts/db/gen_sql/shlyo_query_fold.ts` exactly — it is the house prec
 „a rule lives in TS and must also exist in SQL":
 
 ```
-scripts/db/gen_sql/culture_match.ts          # emits the migration
-scripts/db/gen_sql/culture_match.test.ts     # the drift gate (--check)
-scripts/db/schema/pg/189_culture_match.sql   # GENERATED — never hand-edited
+scripts/db/gen_sql/culture_match.ts               # emits the migrations
+scripts/db/gen_sql/culture_match.test.ts          # the drift gate (--check)
+scripts/db/schema/pg/189_culture_match_isun.sql       # GENERATED — never hand-edited
+scripts/db/schema/pg/190_culture_match_agri.sql       # GENERATED
+scripts/db/schema/pg/191_culture_match_interreg.sql   # GENERATED
 package.json:  "gen:culture-sql": "tsx scripts/db/gen_sql/culture_match.ts"
 ```
+
+⚠️ **AS BUILT: THREE FILES, ONE PER CORPUS — this section specified one, and one
+aborted `db:refresh` on every fresh clone.** A view's query resolves at CREATE
+time and `exec()` sends a migration as ONE transaction, so a file spanning three
+corpora does not degrade on a database missing one: it raises 42P01 and creates
+NONE of the views. The premise that "by `db:load:interreg:pg` all three corpora
+exist" is false — `raw_data/agri/` is gitignored, `load_agri_pg.ts` returns before
+`runAgriIngest`, and `runAgriIngest` is 046's only applier, so `agri_subsidies`
+never exists on a clean checkout. Split per corpus, each file is applied by the
+code that owns its base table in the same run that created it, and the
+precondition holds by construction rather than by a preflight.
 
 `189_culture_match.sql` contains four views and nothing else:
 
@@ -512,12 +538,12 @@ other three. Plus a test that the word „общо" / „total" appears nowhere 
 | tier | content | ships |
 | --- | --- | --- |
 | **0** ✅ | §2's correctness fix: parent-page copy + the overlap gate | **shipped 2026-08-25** |
-| **1** | `gen:culture-sql` + `189_culture_match.sql` + appliers + the `--check` gate | no UI change |
-| **2** | The four `db_table.js` resources + `deploy:db` | no UI change; verify each resource by hand against §1's table |
-| **3** | `cultureFundSources.ts` + `CultureFundsSourceScreen.tsx` + 4 routes, tables only (no charts) | the pages become real |
-| **4** | `HubHead` band, basis card, cross-arm strip, evidence lists | the hub-grade UI |
-| **5** | The four charts (§5.4) | |
-| **6** | Prerender bodies + sitemap `<loc>`s + og captures + parent-page row links | the pages become indexable and reachable |
+| **1** ✅ | `gen:culture-sql` + `189_culture_match.sql` + appliers + the `--check` gate | no UI change |
+| **2** ✅ | The four `db_table.js` resources + `deploy:db` | no UI change; verify each resource by hand against §1's table |
+| **3** ✅ | `cultureFundSources.ts` + `CultureFundsSourceScreen.tsx` + 4 routes, tables only (no charts) | the pages become real |
+| **4** ✅ | `HubHead` band, basis card, cross-arm strip, evidence lists | the hub-grade UI |
+| **5** ✅ | The four charts (§5.4) | |
+| **6** ✅ | Prerender bodies + sitemap `<loc>`s + og captures + parent-page row links | the pages become indexable and reachable |
 
 Tier 0 is separable and worth shipping first: it is a published claim that is currently
 false, and it does not wait on any of the machinery.

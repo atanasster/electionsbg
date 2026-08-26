@@ -1201,11 +1201,50 @@ describe("the /culture/funds bodies quote no figure", () => {
     "culture/funds/dfz",
   ];
 
-  /** Bulgarian and English number-words up to twenty, plus the ordinals a count
-   *  hides behind. „първата лента" is fine — it points at a position, not a
-   *  quantity — so only cardinals are refused. */
-  const NUMBER_WORDS =
-    /\b(един|една|едно|два|две|три|четири|пет|шест|седем|осем|девет|десет|единайсет|единадесет|дванайсет|дванадесет|тринайсет|тринадесет|четиринайсет|четиринадесет|петнайсет|петнадесет|шестнайсет|шестнадесет|двайсет|двадесет|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|twenty)\b/i;
+  /** Cardinals, Bulgarian and English. */
+  const CARDINAL =
+    "един|една|едно|два|две|три|четири|пет|шест|седем|осем|девет|десет|единайсет|единадесет|дванайсет|дванадесет|петнайсет|петнадесет|шестнайсет|шестнадесет|двайсет|двадесет|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|sixteen|twenty";
+
+  /** What these four arms COUNT — the nouns whose tallies live in
+   *  `hub_stats.json` and are derived on the page. */
+  const COUNTED =
+    "проект|проекта|проекти|плащане|плащания|участие|участия|институция|институции|получател|получатели|бенефициент|бенефициенти|projects?|payments?|participations?|institutions?|recipients?|beneficiaries";
+
+  /** A cardinal DIRECTLY QUALIFYING one of those nouns — „един проект", „one
+   *  listed project", „три плащания".
+   *
+   *  ⚠️ THIS IS A RULE, NOT AN EXEMPTION LIST, and the first cut was the other
+   *  way round: it refused every cardinal anywhere in the prose and then grew
+   *  carve-outs for „one row is …", „mostly one programme", „to this one",
+   *  „One organisation can be spelled two ways" — four in a row, with more
+   *  coming, which is a gate turning into a list of the things it does not
+   *  check. What these pages COUNT is projects, payments, participations,
+   *  institutions and recipients; a programme, an instrument or an organisation
+   *  appearing after „one" in a sentence is grammar, not a tally. Up to three
+   *  words may sit between („one EIK-listed project"), which is the shape the
+   *  defect actually took. */
+  //  ⚠️ `\b` IS ASCII-ONLY AND NEVER MATCHES BESIDE A CYRILLIC LETTER, so the
+  //  first cut of this regex silently missed „един проект" — the very string it
+  //  was written for — while matching the English one and looking correct. Use
+  //  the Unicode-aware lookarounds with the `u` flag. This trap is documented
+  //  repo-wide (see the subcontracting parser's „(Да|Не)" boundary note).
+  const NOT_LETTER = "(?![\\p{L}\\p{N}])";
+  const NOT_LETTER_BEFORE = "(?<![\\p{L}\\p{N}])";
+  //  ONE structural exclusion, and it is a different sentence rather than an
+  //  exception to this one: „един РЕД е …" / „one ROW is …" DEFINES what a row
+  //  is, which every body carries by design — it is the basis statement the last
+  //  test in this block requires. „Един ред тук е проект" says a row is a
+  //  project; it counts nothing.
+  //  ⚠️ And the SAME ASCII trap one level down: `ред\b` does not fire either,
+  //  because `д` is not an ASCII word character. The boundary has to be the
+  //  Unicode lookahead here too.
+  const ROW_DEFINITION = `(?!\\s+(ред|row)${NOT_LETTER})`;
+  const COUNTED_CARDINAL = new RegExp(
+    `${NOT_LETTER_BEFORE}(${CARDINAL})${NOT_LETTER}${ROW_DEFINITION}` +
+      `(?:\\s+[\\p{L}-]+){0,3}\\s+` +
+      `${NOT_LETTER_BEFORE}(${COUNTED})${NOT_LETTER}`,
+    "iu",
+  );
 
   const bodiesFor = (path: string): [string, string][] => {
     const r = prerenderRoutes.find((x) => x.path === path);
@@ -1246,23 +1285,16 @@ describe("the /culture/funds bodies quote no figure", () => {
       }
   });
 
-  it("no body spells a count out in words", () => {
-    // The form the defect actually took. „първата лента" (an ordinal) is fine;
-    // „един проект" is a measurement written as a word.
+  it("no body spells out a count of the rows it describes", () => {
+    // The form the defect took: „един проект от списъка по ЕИК няма културна
+    // дума" — a count of ROWS IN A SET, four lines under a banner forbidding
+    // figures. It is `eikExactProjects − eikExactAlsoByName`, the value
+    // `eikNameMissed()` exists to derive ONCE, and a frozen body cannot express
+    // its other two branches (at zero the claim inverts; with the field missing
+    // from the blob nothing may be said at all).
     for (const p of CULTURE_FUNDS_PATHS)
       for (const [name, html] of bodiesFor(p)) {
-        const m = html
-          .replace(/href="[^"]*"/g, "")
-          // ⚠️ ONE NAMED EXEMPTION, and it is a claim about the arm's SHAPE
-          // rather than a count of its rows: „предимно по една програма" / „mostly
-          // one programme" says a single programme dominates the name arm, which
-          // the PAGE then quantifies from the blob (~83% of rows, ~80% of grant).
-          // It stays true across any plausible corpus move; a row count does not.
-          .replace(
-            /(предимно по една|mostly one) програма|(mostly one) programme/gi,
-            "",
-          )
-          .match(NUMBER_WORDS);
+        const m = html.replace(/href="[^"]*"/g, "").match(COUNTED_CARDINAL);
         expect(
           m?.[0] ?? null,
           `${name} spells out a count („${m?.[0]}") — it is a corpus figure the ` +
@@ -1270,6 +1302,30 @@ describe("the /culture/funds bodies quote no figure", () => {
             `number from the blob`,
         ).toBeNull();
       }
+  });
+
+  it("that rule still fires — it is not a regex that matches nothing", () => {
+    // §13: a scanner whose pattern never matches is green for ever, and this one
+    // was rewritten from a broad refusal into a narrow rule, which is exactly
+    // when a pattern quietly stops matching. These are the shapes it must catch,
+    // and the ones it must let through.
+    for (const bad of [
+      "един проект от списъка по ЕИК няма културна дума",
+      "one EIK-listed project carries no culture word",
+      "три плащания",
+      "two participations",
+    ])
+      expect(bad, `the rule missed „${bad}"`).toMatch(COUNTED_CARDINAL);
+    for (const ok of [
+      "One row here is an ИСУН project",
+      "mostly one programme (the RRF)",
+      "One organisation can be spelled two ways",
+      "their figures do not add to this one",
+      "предимно по една програма",
+    ])
+      expect(ok, `the rule wrongly refuses „${ok}"`).not.toMatch(
+        COUNTED_CARDINAL,
+      );
   });
 
   it("every source body states its own basis and its own limit", () => {
