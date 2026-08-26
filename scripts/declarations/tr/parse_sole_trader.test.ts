@@ -156,6 +156,21 @@ describe("parseTrDailyFiling — PhysicalPersonTrader", () => {
     expect(trader[0].erasedAt).not.toBeNull();
   });
 
+  it("carries the предмет на дейност through to company state", () => {
+    // `SubjectOfActivity` (00060) was unmapped on BOTH ingests until 2026-08-26: absent
+    // from META_FIELD_TO_KIND here, and parsed-then-discarded on the CR side
+    // (`subjectOfActivity` in parse_cr_deeds.ts reached no table). The value sits on the
+    // group's own text, so no nested extraction is involved — which is exactly why the
+    // omission was invisible: nothing failed, the field simply never existed downstream.
+    const meta = events.filter(
+      (e) => e.kind === "company_meta" && e.field === "subject_of_activity",
+    );
+    expect(meta).toHaveLength(1);
+
+    const company = replayEvents(events).get("201581603");
+    expect(company?.subjectOfActivity).toMatch(/^ТЪРГОВСКА ДЕЙНОСТ/);
+  });
+
   it("still parses a wrapped section normally", () => {
     // A real Managers group — Manager[] → Person — one manager in, one out. This is the
     // baseline the scoping must not disturb; it is NOT the guard (see the next test).

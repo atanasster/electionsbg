@@ -29,6 +29,7 @@ const ensureCompany = (
       name: null,
       legalForm: null,
       seat: null,
+      subjectOfActivity: null,
       funds: null,
       status: "unknown",
       lastUpdated: filingDate,
@@ -166,6 +167,20 @@ export const replayEvents = (
           break;
         case "seat":
           if (ev.value) c.seat = ev.value;
+          break;
+        case "subject_of_activity":
+          // LAST WRITER WINS, like every other scalar here — a re-filed предмет на
+          // дейност REPLACES the previous one rather than appending, because the
+          // register re-states the whole field on every change.
+          //
+          // An ERASE does NOT clear it: `company_meta_erased` below handles only the five
+          // status idents, so this keeps its last non-empty value — the same treatment
+          // `name`, `seat`, `objectives` and `means` get, and deliberately not a special
+          // case. Worth knowing because this field is now reader-facing: the register does
+          // blank fields on strike-off (a заличен ЕТ's trader field is empty in the
+          // committed et.json), so a ceased company can render a purpose it no longer
+          // holds. The page prints `status` beside it, which is what carries that.
+          if (ev.value) c.subjectOfActivity = ev.value;
           break;
         case "funds":
           if (ev.value) {

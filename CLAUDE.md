@@ -3530,6 +3530,89 @@ The single-producer fix is `pd.name_en` on the prerender card (the locals query 
 `person:slugs:cloud` mint — the manifest is committed, so a card field changes nothing until
 the file is re-minted from the serving database.
 
+### The ЕТ owner, and the two fields the TR ingest used to drop
+
+**`PhysicalPersonTrader` (FieldIdent 00180) — the natural person an ЕТ IS — was not parsed
+at all until 2026-08-26.** `PERSON_SECTION_TO_ROLE` in `parse_daily_filing.ts` is an
+ALLOWLIST rather than a generic sweep over SubDeed keys, so the section was silently
+DROPPED, not mis-parsed: every ЕТ row in `tr_person_roles` was present and complete and
+simply had no person, which is indistinguishable from the ordinary pre-2021 genesis gap the
+CR Deeds capture exists for. Measured over all 1,686 daily files: **8,000 of 30,252 ЕТ carry
+one already on disk**, against 30,052 ЕТ rows with no person at all. The other ~22k are the
+real genesis gap and only a CR capture can reach them.
+
+The role is **`sole_trader`, never `sole_owner`** — an ЕТ has no капитал and no дял, because
+the trader and the firm are ONE legal subject. So it is OUT of `tr_owner_share` and
+`isOwnerRole` (both apportion a declared capital that does not exist here) and IN the `OWNS`
+fold in `personParticipations.ts`, which asks the different question: owner or manager.
+
+Three things about it are easy to get backwards:
+
+- ⚠️ **A NEW `TrRole` MEMBER IS NEVER A PARSER-ONLY CHANGE.** The token is copied VERBATIM
+  to the UI — `load_tr_pg.ts` into `tr_person_roles.role`, `tr_officers.roles` and
+  `company_politicians.relations`; `resolve_persons.ts` into `person_role.role` — and all
+  four consumers fall back to PRINTING THE RAW ASCII CODE when it is unmapped
+  (`trRoleLabel`/`trRoleList`, `relationLabel` in TWO copies, `OWNS`). So it also needs
+  `tr_role_<name>` + `procurement_rel_<name>` in both locales and a
+  `ProcurementRelationKind` member. This has shipped twice before (`sole_owner`,
+  `declared_role`).
+- **The flat `Person` record key is SCOPED to the role**, not added to the global
+  `PERSON_RECORD_KEYS`. Un-scoped, "cannot double-count" is a fact about today's feed rather
+  than about the code: if TR ever flattens another section, the loop emits two
+  `person_added` events for one human, and they do not collapse in the replay either
+  (the wrapper record carries its own RecordID, the flat one falls back to the group's).
+- **CR's `CR_F_18_L` is the same field**, verified against the committed `et.json` fixture
+  (`{nameCode: "CR_F_18_L", fieldIdent: "00180"}`) rather than inferred from the
+  `CR_F_<n>_L` ↔ `00<n>0` pattern. It currently reaches nothing — 0 of the 29,777 captures
+  are ЕТ — so it is there for a tier-2/3 capture.
+
+**`SubjectOfActivity` (00060) — предмет на дейност — was the second drop**, and a quieter
+one: parsed out of CR Deeds since that ingest was written (`subjectOfActivity`) and
+persisted by NOTHING, so it reached no table and no page. It now runs parser → state →
+sqlite → `tr_companies.subject_of_activity` → `/api/db/company` → the company page.
+
+⚠️ **CR fills it ONLY into a NULL, the opposite precedence from this projection's persons.**
+The persons are additive because the CR body carries no history and so can only add; a
+SCALAR has no record_id namespace to coexist in, and here the DAILY FEED is the fresher
+source — it re-states the field on every change while a capture is frozen at its
+`fetched_at`. Unconditional, the projection would roll ~30k companies back to their capture
+vintage.
+
+⚠️⚠️ **A NEW COLUMN ON `tr_companies` IS A DEPLOY-ORDER DEPENDENCY, under a SQLSTATE the
+serving code does not otherwise handle.** `db_routes.js` guards its schema-dependent arms on
+42883/42P01 — a missing FUNCTION or RELATION. A missing COLUMN is **42703**, which is in no
+degrade helper in that file, and these tables are ancient enough that an arm reading them
+has never needed a guard. The `/api/db/company` arm is #1 of a ~30-way `Promise.all`, so
+that rejection is a 500 on the WHOLE payload — every `/company/:eik` AND every
+`/awarder/:eik`, since `CompanyDbScreen` serves both — while the function-served
+`/company/**` HEAD keeps working, which makes it present as an intermittent front-end bug
+rather than a migration gap. `load_tr_pg.ts` is 003's only loader-side applier and is
+~34.9 min on cloud, so a `deploy:db` landing first is a site-wide outage with a half-hour
+floor on the recovery.
+
+The arm now falls back to the pre-003 column list on 42703 and logs `co:no-subject-column`
+once per process, so the ordering is cosmetic rather than breaking. Apply it anyway — it
+does NOT need the loader, since `ADD COLUMN … text` with no default is catalog-only in
+PG11+:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 003_tr_search.sql
+```
+
+Then the corpus, which is what actually makes either field appear — the change is INERT
+until the state is re-derived, the same shape as 089's backfills:
+
+```bash
+npm run tr:daily-refresh      # replay → state.sqlite (+ the CR projection)
+npm run db:load:tr:pg         # local
+npm run db:load:tr:pg:cloud   # the serving database — nothing runs this automatically
+```
+
+The gates are `scripts/db/tests/tr_sole_trader.data.test.ts` (which SKIPS with a distinct
+reason on a corpus predating the fix — that must never read as "the rule is enforced"),
+`functions/db_routes.company_subject.test.js` for the 42703 degrade, and the parser tests in
+`scripts/declarations/tr/`.
+
 ### `tr_owner_share` — the ONE definition of who owns what percentage of a company
 
 `tr_owner_share` (a VIEW in `003_tr_search.sql`) answers "what fraction of this company

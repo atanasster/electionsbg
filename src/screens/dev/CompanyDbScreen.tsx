@@ -141,6 +141,7 @@ interface Company {
   name: string | null;
   legal_form: string | null;
   seat: string | null;
+  subject_of_activity: string | null;
   status: string | null;
   funds_amount: string | number | null;
   funds_currency: string | null;
@@ -474,6 +475,9 @@ export const CompanyDbScreen: FC = () => {
   const [hadAwarder, setHadAwarder] = useState(false);
   const { selected } = useElectionContext();
   const { t, i18n } = useTranslation();
+  // Предмет на дейност is clamped by default (the field reaches 1,100+ chars);
+  // this is the „покажи всичко“ toggle that makes the quotation readable.
+  const [subjectOpen, setSubjectOpen] = useState(false);
 
   // The active [from, to] window from the local scope control — INCLUSIVE, as the
   // scoped DB endpoints (awarder_procurement …) filter `date <= to`.
@@ -880,6 +884,42 @@ export const CompanyDbScreen: FC = () => {
               {company?.seat ?? institution?.locality}
             </div>
           )
+        )}
+        {/* Предмет на дейност — the prose a firm registered as its purpose. Free text the
+            register does not normalise, so it is presented as a quotation of the filing and
+            never parsed: `company_nkid` (140) is the structured answer, and the two disagree
+            often enough that reading a sector out of this string would be a claim the
+            register does not make. Clamped because the field runs to paragraphs. */}
+        {!loading && !error && company?.subject_of_activity && (
+          <div className="mt-2 max-w-3xl text-sm text-muted-foreground">
+            {/* A LABEL/VALUE STACK, written as one — `line-clamp-N` emits
+                `display: -webkit-box`, which is block-level, so an inline reading with a
+                {" "} separator silently renders as two lines anyway. Saying so in the
+                markup keeps the next reader from "fixing" a space that never applied. */}
+            <div className="text-muted-foreground/70">
+              {t("company_subject_of_activity")}
+            </div>
+            {/* Clamped because the field runs to 1,100+ characters, but a quotation
+                nobody can finish reading is not a quotation: the toggle is what makes it
+                one. `title` covers the hover case; the button covers everyone else. */}
+            <div
+              className={subjectOpen ? "" : "line-clamp-3"}
+              title={company.subject_of_activity}
+            >
+              {company.subject_of_activity}
+            </div>
+            {company.subject_of_activity.length > 240 && (
+              <button
+                type="button"
+                onClick={() => setSubjectOpen((v) => !v)}
+                className="mt-0.5 text-xs text-primary hover:underline"
+              >
+                {subjectOpen
+                  ? t("company_subject_collapse")
+                  : t("company_subject_expand")}
+              </button>
+            )}
+          </div>
         )}
         {!loading && !error && (
           <CompanyRiskChips

@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS companies (
   name           TEXT,
   legal_form     TEXT,
   seat           TEXT,
+  subject_of_activity TEXT,   -- предмет на дейност (free text, un-normalised by the register)
   funds_amount   REAL,
   funds_currency TEXT,
   status         TEXT,
@@ -104,9 +105,9 @@ export const writeStateToSqlite = (
 
   const insertCompany = db.prepare(
     `INSERT INTO companies
-       (uic, name, legal_form, seat, funds_amount, funds_currency, status, last_updated,
-        objectives, means, public_benefit, private_benefit)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       (uic, name, legal_form, seat, subject_of_activity, funds_amount, funds_currency,
+        status, last_updated, objectives, means, public_benefit, private_benefit)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   );
   const insertPerson = db.prepare(
     `INSERT INTO company_persons
@@ -132,6 +133,7 @@ export const writeStateToSqlite = (
         c.name,
         c.legalForm,
         c.seat,
+        c.subjectOfActivity,
         fundsAmount != null && Number.isFinite(fundsAmount)
           ? fundsAmount
           : null,

@@ -108,6 +108,7 @@ const captureToFounding = (
 export type ProjectStats = {
   companies: number; // deeds that contributed ≥1 party
   parties: number; // company_persons rows written
+  subjects: number; // предмет на дейност values that FILLED a gap (rows changed)
   founding: FoundingAnswer[]; // for company_founded (fetch_company_founded's job)
 };
 
@@ -121,7 +122,12 @@ export const projectCrDeedsToState = (
   store: CrDeedsStore,
 ): ProjectStats => {
   const db = new DatabaseSync(stateDbPath);
-  const stats: ProjectStats = { companies: 0, parties: 0, founding: [] };
+  const stats: ProjectStats = {
+    companies: 0,
+    parties: 0,
+    subjects: 0,
+    founding: [],
+  };
   try {
     ensurePersonsSourceColumn(db);
     const delCr = db.prepare(
@@ -133,6 +139,23 @@ export const projectCrDeedsToState = (
           share_amount, share_currency, record_id, group_id, field_ident,
           added_at, erased_at, persons_source)
        VALUES (?, ?, ?, ?, ?, ?, ?, NULL, NULL, ?, NULL, ?, ?, NULL, 'cr')`,
+    );
+    // Предмет на дейност, GAP-FILL ONLY — `subject_of_activity IS NULL OR ''`. The
+    // empty-string arm is belt-and-braces: no current writer can produce '' (state_replay
+    // guards `if (ev.value)` and sqlite_writer passes null), so it is there for a future
+    // one, not for today's corpus.
+    //
+    // ⚠️ The precedence is the opposite way round from this projection's persons, and
+    // deliberately so. The persons are ADDITIVE because the CR body carries no history:
+    // it cannot erase, so a CR row can only add to what the feed knows. A scalar has no
+    // such namespace to hide in — one writer's value replaces the other's — and here the
+    // DAILY FEED is the fresher source, because it re-states this field on every change
+    // while a capture is frozen at its `fetched_at`. So CR fills the silence (a company
+    // that has not re-filed inside the 2021+ window) and never overwrites a live answer.
+    // Unconditional, it would quietly roll ~30k companies back to their capture vintage.
+    const fillSubject = db.prepare(
+      `UPDATE companies SET subject_of_activity = ?
+        WHERE uic = ? AND (subject_of_activity IS NULL OR subject_of_activity = '')`,
     );
 
     // Every uic whose rows this run rewrote — the re-derivation pass below reads them
@@ -146,6 +169,19 @@ export const projectCrDeedsToState = (
         if (!parsed) continue; // unparseable — never touch this uic's rows
         // A founding date is an answer even for a party-less company (e.g. an ET).
         stats.founding.push(captureToFounding(uic, parsed, httpStatus));
+
+        // …and so is the предмет на дейност, which is why this sits ABOVE the ≥1-party
+        // guard rather than beside the person inserts: a capture with no parseable party
+        // still states what the firm registered to do.
+        if (parsed.subjectOfActivity) {
+          // ⚠️ COUNT THE FILL, NOT THE ATTEMPT. Most captures HAVE a предмет на дейност
+          // and most of those companies already carry one from the daily feed, so the
+          // gap-fill's WHERE matches nothing — counting calls reported 3 where 1 row
+          // moved. A stat that reports work not done is worse than no stat, because the
+          // one thing anybody reads it for is whether the CR side is contributing.
+          const res = fillSubject.run(parsed.subjectOfActivity, uic);
+          stats.subjects += Number(res.changes ?? 0);
+        }
 
         const rows = deedToPersonRows(parsed);
         if (rows.length === 0) continue; // ≥1-party guard: don't wipe on empty parse

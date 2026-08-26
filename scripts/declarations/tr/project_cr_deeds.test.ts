@@ -28,8 +28,17 @@ const fixtures = path.join(
 const loadFixture = (name: string) =>
   fs.readFileSync(path.join(fixtures, `${name}.json`), "utf8");
 
-// The company_persons DDL, matching sqlite_writer.ts (incl. persons_source).
+// The state.sqlite DDL this projection touches, matching sqlite_writer.ts. `companies`
+// is here because the projection gap-fills `subject_of_activity` on it — production always
+// has the table (reconstructState writes the whole schema before this runs), so a fixture
+// without it modelled a database that cannot occur.
 const STATE_SCHEMA = `
+CREATE TABLE companies (
+  uic TEXT PRIMARY KEY, name TEXT, legal_form TEXT, seat TEXT,
+  subject_of_activity TEXT, funds_amount REAL, funds_currency TEXT, status TEXT,
+  last_updated TEXT, objectives TEXT, means TEXT,
+  public_benefit INTEGER, private_benefit INTEGER
+);
 CREATE TABLE company_persons (
   uic TEXT NOT NULL, role TEXT NOT NULL, name TEXT NOT NULL, name_norm TEXT NOT NULL,
   position_label TEXT, country TEXT, share_percent REAL, share_amount REAL,
@@ -155,6 +164,51 @@ describe("projectCrDeedsToState — additive merge", () => {
     const rows = rowsFor("121587769");
     expect(rows.filter((r) => r.persons_source === null)).toHaveLength(1);
     expect(rows.some((r) => r.record_id === "daily-1")).toBe(true);
+  });
+
+  it("fills a NULL предмет на дейност and never overwrites the daily feed's", () => {
+    // ⚠️ BOTH HALVES IN ONE TEST, because either alone passes on a broken implementation:
+    // drop the `IS NULL` guard and only the second assertion moves; drop the UPDATE
+    // entirely and only the first does. Mutation-verified — with the whole guard deleted
+    // all 11 other tests in this file stayed green.
+    //
+    // The precedence is the OPPOSITE of this projection's persons, which are additive:
+    // a scalar has no record_id namespace to coexist in, and the daily feed re-states the
+    // field on every change while a capture is frozen at its fetched_at. So CR fills
+    // silence and the feed always wins a contest.
+    const db = new DatabaseSync(statePath);
+    db.prepare(
+      `INSERT INTO companies (uic, name, subject_of_activity) VALUES (?, ?, ?)`,
+    ).run("121587769", "EOOD ONE", "ДАЙЛИ ДЕЙНОСТ");
+    db.prepare(`INSERT INTO companies (uic, name) VALUES (?, ?)`).run(
+      "203190680",
+      "ЕТ WITH NO SUBJECT",
+    );
+    db.close();
+
+    store.putAnswer("121587769", loadFixture("eood1"), 200, "t");
+    store.putAnswer("203190680", loadFixture("ood"), 200, "t");
+    const stats = projectCrDeedsToState(statePath, store);
+
+    const read = new DatabaseSync(statePath);
+    const subj = (uic: string) =>
+      (
+        read
+          .prepare(
+            `SELECT subject_of_activity AS s FROM companies WHERE uic = ?`,
+          )
+          .get(uic) as { s: string | null }
+      ).s;
+    // The daily feed's answer is untouched…
+    expect(subj("121587769")).toBe("ДАЙЛИ ДЕЙНОСТ");
+    // …and the silence is filled.
+    expect(subj("203190680")).toBeTruthy();
+    expect(subj("203190680")).not.toBe("ДАЙЛИ ДЕЙНОСТ");
+    read.close();
+
+    // And the stat counts the FILL, not the attempt: two captures carry a предмет на
+    // дейност, one row moved.
+    expect(stats.subjects).toBe(1);
   });
 
   it("a later capture that yields 0 parties leaves prior CR rows intact", () => {

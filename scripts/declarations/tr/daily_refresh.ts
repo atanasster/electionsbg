@@ -137,7 +137,8 @@ const main = async (): Promise<void> => {
       const proj = projectCrDeedsToState(recon.outPath, store);
       console.log(
         `[tr/daily-refresh] CR Deeds projection: ${proj.companies.toLocaleString()} companies, ` +
-          `${proj.parties.toLocaleString()} owner/officer rows merged`,
+          `${proj.parties.toLocaleString()} owner/officer rows merged, ` +
+          `${proj.subjects.toLocaleString()} предмет-на-дейност gaps filled`,
       );
     } finally {
       store.close();

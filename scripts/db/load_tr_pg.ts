@@ -462,7 +462,7 @@ export const loadTrPg = async (): Promise<{
 
   const companies = tr
     .prepare(
-      "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, last_updated, objectives, means, public_benefit, private_benefit FROM companies WHERE name IS NOT NULL AND name <> ''",
+      "SELECT uic, name, legal_form, seat, subject_of_activity, status, funds_amount, funds_currency, last_updated, objectives, means, public_benefit, private_benefit FROM companies WHERE name IS NOT NULL AND name <> ''",
     )
     .all() as Array<Record<string, string | number | null>>;
   // One changelog row per refresh, covering the whole TR load (companies +
@@ -486,6 +486,7 @@ export const loadTrPg = async (): Promise<{
       "name",
       "legal_form",
       "seat",
+      "subject_of_activity",
       "status",
       "funds_amount",
       "funds_currency",
@@ -498,6 +499,7 @@ export const loadTrPg = async (): Promise<{
           r.name,
           r.legal_form,
           r.seat,
+          r.subject_of_activity,
           r.status,
           r.funds_amount,
           r.funds_currency,

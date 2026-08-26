@@ -83,6 +83,7 @@ const META_FIELD_TO_KIND: Record<string, TrCompanyMetaField> = {
   "00020": "name",
   "00030": "legal_form",
   "00050": "seat",
+  "00060": "subject_of_activity", // предмет на дейност (free text)
   "00310": "funds",
   "00320": "deposited_funds",
   "00260": "cessation",

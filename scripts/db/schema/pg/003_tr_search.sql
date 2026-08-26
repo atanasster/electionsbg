@@ -6,6 +6,29 @@
 -- See docs/plans/postgres-migration-v1.md (Feature 1).
 --
 -- ═══════════════════════════════════════════════════════════════════════════
+-- A NEW COLUMN HERE IS A DEPLOY-ORDER DEPENDENCY FOR ANY ROUTE THAT SELECTS IT,
+-- and it fails under a SQLSTATE the serving code does not otherwise handle.
+--
+-- `functions/db_routes.js` guards its schema-dependent arms on 42883/42P01 — a
+-- missing FUNCTION or RELATION. A missing COLUMN is **42703**, which appears in
+-- no degrade helper in that file. And these tables are ancient, so an arm reading
+-- them has never needed a guard: adding a column silently gives it one.
+--
+-- The /api/db/company arm that selects `subject_of_activity` is #1 of a ~30-way
+-- Promise.all, so before its 42703 fallback existed a database without the column
+-- 500'd the WHOLE company payload — every /company/:eik AND every /awarder/:eik,
+-- since CompanyDbScreen serves both. This loader is the only applier of this file,
+-- and it is ~34.9 min on cloud, so a `deploy:db` landing first would have been a
+-- site-wide outage with a half-hour floor on the recovery.
+--
+-- So: apply this file to the target BEFORE the `deploy:db` that ships a route
+-- reading the new column. It does NOT need the 34.9-minute loader — `ADD COLUMN
+-- … text` with no default is catalog-only in PG11+ and near-instant:
+--
+--   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+--     npx tsx scripts/db/apply_functions.ts 003_tr_search.sql
+--
+-- ═══════════════════════════════════════════════════════════════════════════
 -- THIS FILE MUST NEVER DROP ITS TABLES. Read this before adding a column.
 --
 -- Until 2026-08-10 each table opened with `DROP TABLE IF EXISTS … CASCADE`, and
@@ -59,6 +82,10 @@ CREATE TABLE IF NOT EXISTS tr_companies (
   name           text NOT NULL,
   legal_form     text,
   seat           text,
+  -- Предмет на дейност — free text, un-normalised by the register. NOT a substitute for
+  -- `company_nkid` (140): that is the declarant's own КИД-2008 division and is what the
+  -- nkidMismatch risk flag keys on. This is the prose a firm wrote when it registered.
+  subject_of_activity text,
   status         text,
   funds_amount   numeric,     -- registered capital (капитал)
   funds_currency text,
@@ -127,6 +154,7 @@ ALTER TABLE tr_companies ADD COLUMN IF NOT EXISTS uic            text;
 ALTER TABLE tr_companies ADD COLUMN IF NOT EXISTS name           text;
 ALTER TABLE tr_companies ADD COLUMN IF NOT EXISTS legal_form     text;
 ALTER TABLE tr_companies ADD COLUMN IF NOT EXISTS seat           text;
+ALTER TABLE tr_companies ADD COLUMN IF NOT EXISTS subject_of_activity text;
 ALTER TABLE tr_companies ADD COLUMN IF NOT EXISTS status         text;
 ALTER TABLE tr_companies ADD COLUMN IF NOT EXISTS funds_amount   numeric;
 ALTER TABLE tr_companies ADD COLUMN IF NOT EXISTS funds_currency text;

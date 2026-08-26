@@ -54,6 +54,10 @@ export type TrCompanyMetaField =
   | "name"
   | "legal_form"
   | "seat"
+  // Предмет на дейност (00060) — the free-text purpose a firm registers. Parsed out of
+  // CR Deeds since that ingest was written (`subjectOfActivity`, parse_cr_deeds.ts) and
+  // persisted by NOTHING until 2026-08-26, so it reached no table and no page.
+  | "subject_of_activity"
   | "funds"
   | "deposited_funds"
   | "cessation"
@@ -211,6 +215,8 @@ export type TrCompanyState = {
     | "erased"
     | "unknown";
   lastUpdated: string | null;
+  /** Предмет на дейност — free text, and the register does not normalise it. */
+  subjectOfActivity: string | null;
   /** ЮЛНЦ metadata (null for commercial entities). */
   objectives: string | null;
   means: string | null;

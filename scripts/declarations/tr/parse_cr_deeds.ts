@@ -31,6 +31,7 @@ import { naceDivisionFromLabel } from "../../../src/lib/naceLabel";
  * existing person model. */
 export type CrDeedRole =
   | "sole_owner"
+  | "sole_trader"
   | "partner"
   | "manager"
   | "director"
@@ -47,6 +48,18 @@ const FIELD_TO_ROLE: Record<string, CrDeedRole> = {
   CR_F_10a_L: "ngo_board", // управителен орган на ЮЛНЦ
   CR_F_19_L: "partner", // съдружник (ООД)
   CR_F_23_L: "sole_owner", // едноличен собственик на капитала (ЕООД/ЕАД)
+  // Физическо лице търговец (ЕТ). The code↔fieldIdent pairing is VERIFIED rather than
+  // inferred from the CR_F_<n>_L ↔ 00<n>0 pattern: the committed et.json capture carries
+  // `{ nameCode: "CR_F_18_L", fieldIdent: "00180" }`, and 00180 is the same field the
+  // daily feed's `PhysicalPersonTrader` section rides on (parse_daily_filing.ts). The
+  // guess would have been right, but naming a person as the owner of a business is not a
+  // claim to make on a pattern.
+  //
+  // ⚠️ Currently reaches nothing: 0 of the 29,777 captures are ЕТ (the crawl tiers are
+  // contractor-first), so this maps a field the store does not yet hold. It is here so
+  // that a tier-2/3 capture carries the trader on arrival instead of silently dropping
+  // them the way the daily feed did.
+  CR_F_18_L: "sole_trader", // физическо лице търговец (ЕТ)
   CR_F_550_L: "actual_owner", // ЗМИП действителен собственик
 };
 

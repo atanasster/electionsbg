@@ -333,3 +333,65 @@ describe("parseCrDeed — against real fixtures", () => {
     }
   });
 });
+
+describe("parseCrDeed — ЕТ (физическо лице търговец)", () => {
+  const etRaw = load("et");
+  const et = parseCrDeed(etRaw);
+
+  it("maps CR_F_18_L to sole_trader, the field VERIFIED against the capture", () => {
+    // The mapping was not inferred from the CR_F_<n>_L ↔ 00<n>0 pattern: this fixture
+    // carries `{ nameCode: "CR_F_18_L", fieldIdent: "00180" }`, and 00180 is the ident
+    // the daily feed's `PhysicalPersonTrader` section rides on. Asserting the pairing
+    // here is what keeps the two ingests naming the same field.
+    const raw = JSON.parse(etRaw) as unknown;
+    const idents: string[] = [];
+    const walk = (o: unknown): void => {
+      if (Array.isArray(o)) return o.forEach(walk);
+      if (o && typeof o === "object") {
+        const n = o as Record<string, unknown>;
+        if (n.nameCode === "CR_F_18_L") idents.push(String(n.fieldIdent));
+        Object.values(n).forEach(walk);
+      }
+    };
+    walk(raw);
+    expect(idents).toEqual(["00180"]);
+  });
+
+  it("reads the trader out of a POPULATED CR_F_18_L", () => {
+    // ⚠️ THE COMMITTED FIXTURE CANNOT TEST THIS, and that is the point of synthesising a
+    // body here. Its ЕТ is a заличен търговец whose trader field the register has blanked,
+    // so the parser short-circuits on the empty `htmlData` before ever consulting
+    // FIELD_TO_ROLE — mutation-verified: with `CR_F_18_L: "sole_trader"` deleted, every
+    // other ЕТ assertion in this file still passes. Only a populated field discriminates.
+    const populated = JSON.parse(etRaw) as Record<string, unknown>;
+    const walk = (o: unknown): void => {
+      if (Array.isArray(o)) return o.forEach(walk);
+      if (o && typeof o === "object") {
+        const n = o as Record<string, unknown>;
+        if (n.nameCode === "CR_F_18_L") {
+          n.htmlData =
+            "<div class='record-container record-container--preview'>" +
+            "<p class='field-text'>ИВАН ПЕТРОВ ГЕОРГИЕВ, Държава: БЪЛГАРИЯ</p></div>";
+        }
+        Object.values(n).forEach(walk);
+      }
+    };
+    walk(populated);
+
+    const parsed = parseCrDeed(JSON.stringify(populated));
+    const traders = parsed!.parties.filter((p) => p.role === "sole_trader");
+    expect(traders).toHaveLength(1);
+    expect(traders[0].name).toBe("ИВАН ПЕТРОВ ГЕОРГИЕВ");
+    expect(traders[0].country).toBe("БЪЛГАРИЯ");
+    expect(traders[0].fieldIdent).toBe("00180");
+  });
+
+  it("invents no trader from a struck-off ЕТ's blanked field", () => {
+    // This capture is a заличен търговец (CR_F_27_L says so) and the register BLANKS the
+    // trader on strike-off — `htmlData` is "". Mapping the field must not turn that
+    // silence into a party: naming somebody as the owner of a business on the strength of
+    // an empty cell is the one failure this whole role exists to avoid.
+    expect(et).not.toBeNull();
+    expect(et!.parties.filter((p) => p.role === "sole_trader")).toHaveLength(0);
+  });
+});

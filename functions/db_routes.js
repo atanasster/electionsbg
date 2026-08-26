@@ -1043,10 +1043,33 @@ const DB_ROUTES = {
       cleanDelivery,
       declaredStakes,
     ] = await Promise.all([
+      // ⚠️ 42703 (undefined_column), NOT the usual 42883/42P01 pair every other guarded
+      // arm here tests. `tr_companies` is ancient, so this arm could never fail on a
+      // missing RELATION — but adding a COLUMN gave it a migration dependency where there
+      // was none, under a SQLSTATE no degrade helper in this file handles. And it shares
+      // the route's single Promise.all, so rejecting here 500s the WHOLE company payload
+      // — for every company AND every awarder, since CompanyDbScreen serves both.
+      //
+      // 003's only loader-side applier is `db:load:tr:pg`, ~34.9 min on cloud, so without
+      // this a `deploy:db` landing first is a site-wide outage with a half-hour floor on
+      // the recovery. Falling back to the pre-003 column list keeps the page whole.
       dbRows(
-        "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
+        "SELECT uic, name, legal_form, seat, subject_of_activity, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
         [eik],
-      ),
+      ).catch((e) => {
+        if (e?.code !== "42703") return Promise.reject(e);
+        // Without this line, "003 never reached this database" is indistinguishable from
+        // "this company registered no предмет на дейност" — on every company, silently.
+        logMissOnce(
+          "co:no-subject-column",
+          "tr_companies.subject_of_activity absent — serving the company without it. " +
+            "Apply 003: npx tsx scripts/db/apply_functions.ts 003_tr_search.sql",
+        );
+        return dbRows(
+          "SELECT uic, name, legal_form, seat, NULL::text AS subject_of_activity, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
+          [eik],
+        );
+      }),
       dbRows(
         "SELECT count(*)::int AS contracts, coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS contracts_eur FROM contracts WHERE contractor_eik = $1",
         [eik],
