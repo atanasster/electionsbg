@@ -1,0 +1,264 @@
+{
+ "version": 1,
+ "categories": [
+  {
+   "id": "elections-parliamentary",
+   "label": "Парламентарни избори",
+   "subcategories": [
+    "campaign",
+    "results",
+    "coalition-talks",
+    "electoral-law",
+    "cik-administration",
+    "abroad-voting"
+   ]
+  },
+  {
+   "id": "elections-local",
+   "label": "Местни избори",
+   "subcategories": [
+    "mayors",
+    "councils",
+    "runoffs",
+    "local-administration"
+   ]
+  },
+  {
+   "id": "government",
+   "label": "Управление и кабинет",
+   "subcategories": [
+    "cabinet-formation",
+    "ministers",
+    "coalition-politics",
+    "civil-service"
+   ]
+  },
+  {
+   "id": "parliament",
+   "label": "Парламент и законодателство",
+   "subcategories": [
+    "legislation",
+    "votes-rollcall",
+    "committees",
+    "mp-conduct"
+   ]
+  },
+  {
+   "id": "officials-people",
+   "label": "Лица и длъжностни лица",
+   "subcategories": [
+    "appointments",
+    "dismissals",
+    "declarations-conflicts",
+    "sanctions",
+    "official-investigations"
+   ]
+  },
+  {
+   "id": "budget-fiscal",
+   "label": "Бюджет и данъци",
+   "subcategories": [
+    "state-budget",
+    "municipal-budget",
+    "taxes",
+    "debt",
+    "budget-execution"
+   ]
+  },
+  {
+   "id": "procurement",
+   "label": "Обществени поръчки",
+   "subcategories": [
+    "tenders",
+    "kzk-appeals",
+    "contractors",
+    "overpricing-cartels"
+   ]
+  },
+  {
+   "id": "eu-funds",
+   "label": "ЕС фондове",
+   "subcategories": [
+    "absorption",
+    "programmes",
+    "rrf",
+    "irregularities-fraud"
+   ]
+  },
+  {
+   "id": "farm-subsidies",
+   "label": "Земеделски субсидии",
+   "subcategories": [
+    "dfz-payments",
+    "irregularities"
+   ]
+  },
+  {
+   "id": "party-financing",
+   "label": "Партийно финансиране",
+   "subcategories": [
+    "donations",
+    "spending",
+    "kpkonpi-cases"
+   ]
+  },
+  {
+   "id": "judiciary",
+   "label": "Правосъдие и прокуратура",
+   "subcategories": [
+    "prosecutor-general",
+    "vss",
+    "high-profile-cases",
+    "court-appointments"
+   ]
+  },
+  {
+   "id": "security-defense",
+   "label": "Сигурност и отбрана",
+   "subcategories": [
+    "defense",
+    "interior-mvr",
+    "intelligence",
+    "cyber"
+   ]
+  },
+  {
+   "id": "energy",
+   "label": "Енергетика",
+   "subcategories": [
+    "electricity",
+    "gas",
+    "nuclear",
+    "kevr-prices",
+    "beh"
+   ]
+  },
+  {
+   "id": "infrastructure-transport",
+   "label": "Инфраструктура и транспорт",
+   "subcategories": [
+    "roads",
+    "rail",
+    "public-transport",
+    "water-vik"
+   ]
+  },
+  {
+   "id": "environment",
+   "label": "Околна среда",
+   "subcategories": [
+    "air",
+    "water",
+    "waste",
+    "climate",
+    "protected-areas"
+   ]
+  },
+  {
+   "id": "healthcare",
+   "label": "Здравеопазване",
+   "subcategories": [
+    "nzok",
+    "hospitals",
+    "drugs",
+    "reforms"
+   ]
+  },
+  {
+   "id": "education",
+   "label": "Образование и наука",
+   "subcategories": [
+    "schools",
+    "teachers",
+    "universities-science"
+   ]
+  },
+  {
+   "id": "social-pensions",
+   "label": "Социална политика и пенсии",
+   "subcategories": [
+    "pensions",
+    "social-assistance",
+    "min-wage"
+   ]
+  },
+  {
+   "id": "economy",
+   "label": "Икономика",
+   "subcategories": [
+    "gdp-inflation",
+    "labor-market",
+    "companies-fdi"
+   ]
+  },
+  {
+   "id": "prices-consumption",
+   "label": "Цени и потребление",
+   "subcategories": [
+    "food",
+    "fuel",
+    "housing",
+    "cost-of-living"
+   ]
+  },
+  {
+   "id": "local-news",
+   "label": "Местни новини",
+   "subcategories": [
+    "municipal-problems",
+    "local-utilities",
+    "local-councils"
+   ]
+  },
+  {
+   "id": "demographics",
+   "label": "Демография",
+   "subcategories": [
+    "census",
+    "migration",
+    "population"
+   ]
+  },
+  {
+   "id": "media-press",
+   "label": "Медии и свобода на словото",
+   "subcategories": [
+    "media-ownership",
+    "press-freedom",
+    "disinformation"
+   ]
+  },
+  {
+   "id": "foreign-policy",
+   "label": "Външна политика",
+   "subcategories": [
+    "eu",
+    "nato",
+    "ukraine",
+    "bilateral",
+    "diaspora"
+   ]
+  },
+  {
+   "id": "society",
+   "label": "Общество",
+   "subcategories": [
+    "protests",
+    "minorities",
+    "religion",
+    "human-interest"
+   ]
+  },
+  {
+   "id": "not-site-relevant",
+   "label": "Извън обхвата на сайта",
+   "subcategories": [
+    "weather",
+    "sports",
+    "celebrities",
+    "crime-blotter",
+    "misc-filler"
+   ]
+  }
+ ]
+}
