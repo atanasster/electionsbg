@@ -18,11 +18,48 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatVisits } from "../labels";
-import { useOutlets } from "../data";
+import { hasSpectrum, positionedCount, useOutlets, type Outlet } from "../data";
 import { LeanSpectrum, StanceSpectrum } from "../components/SpectrumBar";
 import { LoadMore } from "../components/LoadMore";
 
 const PAGE_SIZE = 20;
+
+/** Analysed-of-collected, coloured by whether it supports a distribution. */
+const Coverage = ({ outlet: o }: { outlet: Outlet }) => {
+  if (!o.article_count) return <span className="text-muted-foreground">—</span>;
+  const enough = hasSpectrum(o.leaning);
+  return (
+    <span
+      className={enough ? "text-foreground" : "text-muted-foreground"}
+      title={`${o.analyzed_count} анализирани от ${o.article_count} събрани`}
+    >
+      {o.analyzed_count}
+      <span className="text-muted-foreground">/{o.article_count}</span>
+    </span>
+  );
+};
+
+/** What stands where a bar would be. A sentence, never an empty strip. */
+const TooFewSpectrum = ({ outlet: o }: { outlet: Outlet }) => {
+  // ⚠️ THREE states, not two. "Nothing read", "read but nobody takes a
+  // position" and "too few take a position" are different facts about an
+  // outlet, and the middle one is the commonest: not_applicable is the
+  // majority verdict, so an outlet with 100 analysed articles can have 0
+  // positioned. Collapsing them said "няма анализирани статии" about
+  // 24chasa.bg, which has a hundred.
+  const positioned = positionedCount(o.leaning);
+  return (
+    <span className="text-xs text-muted-foreground">
+      {o.analyzed_count === 0
+        ? "няма анализирани статии"
+        : positioned === 0
+          ? `${o.analyzed_count} анализирани, нито една не заема позиция`
+          : positioned === 1
+            ? `от ${o.analyzed_count} анализирани само 1 заема позиция`
+            : `от ${o.analyzed_count} анализирани само ${positioned} заемат позиция`}
+    </span>
+  );
+};
 
 export const OutletsScreen = () => {
   const outlets = useOutlets();
@@ -176,14 +213,30 @@ export const OutletsScreen = () => {
                   <TableCell className="text-right tabular-nums">
                     {o.article_count}
                   </TableCell>
-                  <TableCell className="text-right tabular-nums text-muted-foreground">
-                    {o.analyzed_count || "—"}
+                  {/* ⚠️ COVERAGE IS A COLUMN, not a caption. A spectrum drawn
+                      from a handful of articles is a lie told in colour, and
+                      the reader has to be able to see the sample beside the
+                      bar rather than infer it. */}
+                  <TableCell className="text-right tabular-nums">
+                    <Coverage outlet={o} />
                   </TableCell>
+                  {/* One cell, always visible — the header has one too. An
+                      extra md:hidden duplicate put more cells in every body
+                      row than in the header, which is only invisible while
+                      the CSS happens to be applied. */}
                   <TableCell>
-                    <LeanSpectrum counts={o.leaning} />
+                    {hasSpectrum(o.leaning) ? (
+                      <LeanSpectrum counts={o.leaning} />
+                    ) : (
+                      <TooFewSpectrum outlet={o} />
+                    )}
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
-                    <StanceSpectrum counts={o.russia_stance} />
+                    {hasSpectrum(o.russia_stance) ? (
+                      <StanceSpectrum counts={o.russia_stance} />
+                    ) : (
+                      <span className="text-xs text-muted-foreground">—</span>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

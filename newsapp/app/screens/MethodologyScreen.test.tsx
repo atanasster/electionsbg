@@ -47,6 +47,12 @@ const outlet = (over: Partial<Outlet> = {}): Outlet => ({
   leaning: {},
   russia_stance: {},
   ai_generated: {},
+  conduct: {
+    articles: 0,
+    with_author: 0,
+    updated_known: 0,
+    edited_after_publication: 0,
+  },
   ...over,
 });
 

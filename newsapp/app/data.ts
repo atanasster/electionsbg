@@ -227,7 +227,64 @@ export interface Outlet {
   leaning: Partial<Record<Leaning, number>>;
   russia_stance: Partial<Record<RussiaStance, number>>;
   ai_generated: Partial<Record<AiVerdict, number>>;
+  /**
+   * Measurable conduct, as COUNTS beside their denominators.
+   *
+   * ⚠️ Never pre-divided. `updated_known` is 2.7% of the corpus today, so an
+   * edit RATE computed against `articles` would be a near-zero number that
+   * reads as a finding. The consumer decides whether a base is big enough.
+   */
+  conduct: OutletConduct;
 }
+
+export interface OutletConduct {
+  /** Every stored article from this outlet. */
+  articles: number;
+  with_author: number;
+  /** Articles whose page published a modification date at all. */
+  updated_known: number;
+  /** Of those, the ones edited after publication. */
+  edited_after_publication: number;
+}
+
+/**
+ * Articles that actually POSITION an outlet, before its spectrum is drawn.
+ *
+ * ⚠️ Counted over the labels the bar draws, which EXCLUDE `not_applicable` —
+ * and not_applicable is the majority verdict in this corpus. Gating on
+ * `analyzed_count` instead was wrong for every outlet it passed: 24chasa.bg
+ * clears 100 analysed of which ALL 100 are not_applicable, so it rendered an
+ * empty strip captioned "no analysed articles" — about an outlet with a
+ * hundred of them — while bgdnes.bg drew a full-width bar from 2 positioned
+ * articles out of 70. That second case is the exact "Blitz.bg is 2 of 96"
+ * lie the floor exists to prevent, wearing a large analysed count.
+ *
+ * ⚠️ Any value between 10 and 50 selects the SAME outlets today — measured
+ * 2026-08-26, no outlet sits between 11 and 49 positioned articles. So the
+ * exact number is not yet a judgement call; it becomes one when the analysed
+ * set grows. 30 is where the 95% interval on a proportion narrows to ±18
+ * points.
+ */
+export const SPECTRUM_MIN_ANALYSED = 30;
+
+/** How many of an outlet's articles carry a position on this axis. */
+export const positionedCount = (
+  counts: Partial<Record<string, number>>,
+): number =>
+  Object.entries(counts).reduce(
+    (n, [label, c]) => (label === "not_applicable" ? n : n + (c ?? 0)),
+    0,
+  );
+
+/**
+ * Whether a distribution may be drawn for this outlet on this axis.
+ *
+ * ⚠️ THE ONE DEFINITION, beside its threshold. `/outlets` and `/outlet` both
+ * ask it, and they were briefly two copies — which is how a directory comes
+ * to show a bar for an outlet whose own page refuses to draw one.
+ */
+export const hasSpectrum = (counts: Partial<Record<string, number>>): boolean =>
+  positionedCount(counts) >= SPECTRUM_MIN_ANALYSED;
 
 export interface TaxonomyCategory {
   id: string;

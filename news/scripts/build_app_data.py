@@ -81,6 +81,21 @@ QUALITY_VERDICTS = {
     "not_bulgarian",
     "non_article",
 }
+# Per-outlet CONDUCT, always as counts beside their denominators.
+#
+# ⚠️ Three measures were planned; two are shipped. Republication is NOT
+# derivable from this corpus at all (see the block comment in
+# save_articles.py), and the edit rate has a denominator of 2.7% today — so
+# each number travels with the population it was computed over, and the app
+# refuses to render a rate whose base is too small. A conduct meter drawn from
+# two records is the same lie as a spectrum bar drawn from two articles.
+EMPTY_CONDUCT = {
+    "articles": 0,
+    "with_author": 0,
+    "updated_known": 0,
+    "edited_after_publication": 0,
+}
+
 LOGO_COLUMN_PREFIX = "logo_url"
 # Whether the outlet's CDN serves an image to OUR referer, from
 # probe_hotlink.py. `false` lets a card skip straight to the logo tile instead
@@ -662,6 +677,7 @@ def main() -> int:
             pass
 
     # ---- corpus + analysis --------------------------------------------------------
+    conduct_by_domain: dict[str, dict[str, int]] = {}
     analysis_by_url, analysis_by_id = load_analysis(data_dir)
     story_index = load_story_index(data_dir)
     domain_names = sorted(
@@ -739,6 +755,21 @@ def main() -> int:
                 for t in analysis.get("topics") or []:
                     key = (t.get("category"), t.get("subcategory"))
                     topic_article_counts[key] = topic_article_counts.get(key, 0) + 1
+            # ⚠️ COUNTED WITH THEIR DENOMINATORS, never as a bare rate.
+            # `updated` is present on 2.7% of the corpus today — only
+            # re-extracted domains carry it, and only ~47% of those pages
+            # publish a dateModified at all — so an "edit rate" computed
+            # against `articles` would be a near-zero number that looks like a
+            # finding. The denominator travels with the numerator and the app
+            # decides whether it is enough.
+            conduct = conduct_by_domain.setdefault(domain, dict(EMPTY_CONDUCT))
+            conduct["articles"] += 1
+            if art.get("author"):
+                conduct["with_author"] += 1
+            if art.get("updated"):
+                conduct["updated_known"] += 1
+                if art.get("published") and art["updated"] != art["published"]:
+                    conduct["edited_after_publication"] += 1
             records.append(rec)
             all_latest.append(rec)
         # Newest first; undated records sort last ("" < any ISO date under reverse).
@@ -944,6 +975,7 @@ def main() -> int:
                 "leaning": leaning_by_domain.get(domain, {}),
                 "russia_stance": russia_by_domain.get(domain, {}),
                 "ai_generated": ai_by_domain.get(domain, {}),
+                "conduct": conduct_by_domain.get(domain, EMPTY_CONDUCT),
             }
         )
     # ⚠️ Retired outlets with NO stored articles must be here too. Nine of the
@@ -998,6 +1030,7 @@ def main() -> int:
                 "leaning": leaning_by_domain.get(domain, {}),
                 "russia_stance": russia_by_domain.get(domain, {}),
                 "ai_generated": ai_by_domain.get(domain, {}),
+                "conduct": conduct_by_domain.get(domain, EMPTY_CONDUCT),
             }
         )
     write_json(out_dir / "outlets.json", {"generated_at": generated_at, "outlets": outlets})
