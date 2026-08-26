@@ -27,8 +27,10 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_gazetteer import (  # noqa: E402
-    MIN_SURFACE_CHARS, PLACE_STOPWORDS, form, institution_entries,
-    party_entries, people_entries, person_forms, place_entries)
+    COMMON_WORDS_MIN_ARTICLES, GIVEN_NAME_EXEMPT, MIN_SURFACE_CHARS,
+    PLACE_STOPWORDS, form, institution_entries, is_common_given_name,
+    is_common_word, party_entries, people_entries, person_forms,
+    place_entries, scan_common_words)
 
 GAZETTEER = (Path(os.environ.get("DATA_BG_ROOT")
                   or Path(__file__).resolve().parents[2])
@@ -204,6 +206,51 @@ class PureEntryBuilders(unittest.TestCase):
         # The spelling shown is the busiest holder's, deterministically.
         self.assertEqual(entries[0]["canonical"], "ОБЩИНА ЯМБОЛ")
 
+    def test_a_common_word_institution_advertises_no_id(self):
+        # ⚠️ „Чистота" is a municipal cleaning company AND the word
+        # cleanliness. The form is refused by the common-word filter, and the
+        # entry must follow — an id set from name-uniqueness alone advertises
+        # a link the only form on it will not honour.
+        import build_gazetteer as b
+        saved = b.COMMON_WORDS
+        b.COMMON_WORDS = frozenset({"чистота"})
+        try:
+            entries, _ = institution_entries(
+                [{"eik": "1", "name": "Чистота", "contracts": 99}])
+        finally:
+            b.COMMON_WORDS = saved
+        self.assertFalse(entries[0]["forms"][0]["resolvable"])
+        self.assertIsNone(entries[0]["forms"][0]["id"])
+        self.assertIsNone(entries[0]["id"])
+
+    def test_a_common_word_place_advertises_no_id(self):
+        import build_gazetteer as b
+        saved = b.COMMON_WORDS
+        b.COMMON_WORDS = frozenset({"река"})
+        try:
+            entries, _ = place_entries(
+                [{"kind": "settlement", "code": "1", "name_bg": "Река",
+                  "obl": "SML", "obs": "SML01"}])
+        finally:
+            b.COMMON_WORDS = saved
+        self.assertFalse(entries[0]["forms"][0]["resolvable"])
+        self.assertIsNone(entries[0]["id"])
+
+    def test_a_multi_word_surface_is_not_filtered_on_its_parts(self):
+        # ⚠️ „Стара Загора" contains „стара", an ordinary adjective, and is
+        # not remotely ambiguous. Filtering multi-word surfaces on their parts
+        # would delete most of the real place names in the country.
+        import build_gazetteer as b
+        saved = b.COMMON_WORDS
+        b.COMMON_WORDS = frozenset({"стара", "загора"})
+        try:
+            entries, _ = place_entries(
+                [{"kind": "settlement", "code": "1", "name_bg": "Стара Загора",
+                  "obl": "SZR", "obs": "SZR01"}])
+        finally:
+            b.COMMON_WORDS = saved
+        self.assertTrue(entries[0]["forms"][0]["resolvable"])
+
     def test_a_contested_party_surface_resolves_to_NEITHER(self):
         # ⚠️ The single-pass version claimed each surface with `setdefault`,
         # awarding it to whichever party the file listed FIRST — six
@@ -241,25 +288,55 @@ class PureEntryBuilders(unittest.TestCase):
         # `AF` is both an obshtina and a settlement, `BGS` both a mir and an
         # oblast. A bare code sends a consumer to whichever table it looked in.
         rows = [{"kind": "obshtina", "code": "AF", "name_bg": "Айтос",
-                 "homonyms": 1}]
+                 "obl": "BGS", "obs": "AF"}]
         entries, _ = place_entries(rows)
         self.assertEqual(entries[0]["id"], "obshtina:AF")
         self.assertEqual(entries[0]["forms"][0]["id"], "obshtina:AF")
 
+    def test_one_place_at_several_levels_still_resolves(self):
+        # ⚠️ SAME NAME ≠ DIFFERENT PLACE. „Пловдив" is a settlement, an
+        # obshtina and an oblast — three rows, one city — and counting rows
+        # called that a 3-way ambiguity and refused to link the second-largest
+        # city in the country, along with Варна, Русе, Бургас and 211 other
+        # groups.
+        rows = [{"kind": "settlement", "code": "56784", "name_bg": "Пловдив",
+                 "obl": "PDV", "obs": "PDV22"},
+                {"kind": "obshtina", "code": "PDV22", "name_bg": "Пловдив",
+                 "obl": "PDV", "obs": "PDV22"},
+                {"kind": "oblast", "code": "PDV", "name_bg": "Пловдив",
+                 "obl": "PDV", "obs": None}]
+        entries, cov = place_entries(rows)
+        self.assertEqual(len(entries), 1)
+        self.assertTrue(entries[0]["forms"][0]["resolvable"])
+        # The most SPECIFIC level — a reader means the city.
+        self.assertEqual(entries[0]["id"], "settlement:56784")
+        self.assertEqual(cov["places_collapsed_to_one"], 1)
+        self.assertEqual(cov["places_ambiguous"], 0)
+
+    def test_the_collapse_does_not_swallow_real_homonyms(self):
+        # „Левски" really is villages in three different oblasti.
+        rows = [{"kind": "settlement", "code": "43236", "name_bg": "Левски",
+                 "obl": "PVN", "obs": "PVN16"},
+                {"kind": "settlement", "code": "43222", "name_bg": "Левски",
+                 "obl": "VAR", "obs": "VAR26"}]
+        entries, cov = place_entries(rows)
+        self.assertEqual([e["id"] for e in entries], [None, None])
+        self.assertEqual(cov["places_collapsed_to_one"], 0)
+
     def test_homonym_places_resolve_to_neither(self):
         rows = [{"kind": "settlement", "code": "1", "name_bg": "Абланица",
-                 "homonyms": 3},
+                 "obl": "BLG", "obs": "BLG01"},
                 {"kind": "settlement", "code": "2", "name_bg": "Абланица",
-                 "homonyms": 3}]
+                 "obl": "LOV", "obs": "LOV02"}]
         entries, cov = place_entries(rows)
         self.assertEqual([e["id"] for e in entries], [None, None])
         self.assertEqual(cov["places_ambiguous"], 2)
 
     def test_a_stopworded_place_is_dropped_and_counted(self):
         rows = [{"kind": "settlement", "code": "1", "name_bg": "Победа",
-                 "homonyms": 1},
+                 "obl": "PDV", "obs": "PDV01"},
                 {"kind": "settlement", "code": "2", "name_bg": "Айтос",
-                 "homonyms": 1}]
+                 "obl": "BGS", "obs": "BGS01"}]
         entries, cov = place_entries(rows)
         self.assertEqual([e["canonical"] for e in entries], ["Айтос"])
         self.assertEqual(cov["places_stopworded"], 1)
@@ -298,6 +375,139 @@ class PlaceStopwords(unittest.TestCase):
     def test_it_is_matched_case_folded(self):
         self.assertTrue(all(w == w.casefold() for w in PLACE_STOPWORDS),
                         "entries must be pre-folded or the lookup misses")
+
+
+class TheCommonWordFilter(unittest.TestCase):
+    """⚠️ The dominant false match, and no length or kind rule separates it.
+
+    Measured over 400 articles before this existed: 87% of all mentions were
+    places, and the frequent ones were „места" (204 lowercase corpus
+    occurrences), „подкрепа" (225), „било" (149), „река" (63) — every one a
+    real village AND a word a newsroom writes constantly. „места" resolved as
+    `gazetteer_exact` to a village, from an article about parking. Every true
+    place — София, Пловдив, Варна, Германия — has exactly ZERO.
+    """
+
+    def setUp(self):
+        import build_gazetteer as b
+        self.b = b
+        self._words, self._given = b.COMMON_WORDS, b.COMMON_GIVEN_NAMES
+        b.COMMON_WORDS = frozenset({"места", "река", "стара"})
+        b.COMMON_GIVEN_NAMES = frozenset({"владимир", "софия"})
+        self.addCleanup(self.restore)
+
+    def restore(self):
+        self.b.COMMON_WORDS, self.b.COMMON_GIVEN_NAMES = self._words, self._given
+
+    def test_a_one_word_common_noun_is_refused(self):
+        self.assertTrue(is_common_word("Места"))
+        self.assertFalse(form("Места", True, "why", "x", "place")["resolvable"])
+
+    def test_a_multi_word_surface_is_never_filtered_on_its_parts(self):
+        # ⚠️ „Стара Загора" contains an ordinary adjective and is not remotely
+        # ambiguous. Filtering on parts deletes most of the country.
+        self.assertFalse(is_common_word("Стара Загора"))
+        self.assertTrue(form("Стара Загора", True, "why", "x", "place")["resolvable"])
+
+    def test_a_common_given_name_is_refused_for_PLACES_ONLY(self):
+        # ⚠️ „Владимир" is a village and 942 people's first name; it never
+        # appears lowercase, so the word filter cannot see it.
+        self.assertTrue(is_common_given_name("Владимир"))
+        self.assertFalse(form("Владимир", True, "w", "x", "place")["resolvable"])
+        # A party or institution named after somebody must not be refused.
+        self.assertTrue(form("Владимир", True, "w", "x", "party")["resolvable"])
+        self.assertTrue(form("Владимир", True, "w", "x", None)["resolvable"])
+
+    def test_the_capital_is_exempt_and_the_exemption_is_narrow(self):
+        # ⚠️ 53 of the 54 collisions are villages and the filter is right
+        # about them. It is wrong about exactly one: София is the capital, and
+        # 121 public figures share the name.
+        self.assertIn("софия", GIVEN_NAME_EXEMPT)
+        self.assertFalse(is_common_given_name("София"))
+        self.assertTrue(form("София", True, "w", "x", "place")["resolvable"])
+        self.assertEqual(len(GIVEN_NAME_EXEMPT), 1,
+                         "the exemption list is curated — a new entry needs "
+                         "its own reasoning, not a threshold tuned to fit")
+
+    def test_the_filters_leave_the_anchor_in_place(self):
+        # „Места" really is a village; a document that establishes it some
+        # other way can still corefer to it.
+        f = form("Места", True, "why", "settlement:1", "place")
+        self.assertFalse(f["resolvable"])
+        self.assertIsNone(f["id"])
+        self.assertEqual(f["anchor_for"], "settlement:1")
+
+
+class TheCommonWordScan(unittest.TestCase):
+    def test_it_counts_only_LOWERCASE_tokens(self):
+        # ⚠️ Lowercase is the whole discriminator. A capitalised „Места" is
+        # ambiguous between a village and a sentence-initial common noun; a
+        # lowercase „места" can only be the word.
+        import json as _json
+        import tempfile
+        root = Path(tempfile.mkdtemp())
+        (root / "x.bg").mkdir()
+        for i in range(6):
+            (root / "x.bg" / f"a{i}.json").write_text(_json.dumps(
+                {"content": "Места за паркиране. места, места и още места. "
+                            "Пловдив е град."}), encoding="utf-8")
+        doc = scan_common_words(root, min_count=5)
+        self.assertIn("места", doc["words"])
+        self.assertNotIn("пловдив", doc["words"])
+        self.assertEqual(doc["articles_scanned"], 6)
+
+    def test_an_uppercase_token_is_not_counted_however_often_it_appears(self):
+        # ⚠️ The discriminator is LOWERCASE. Counting every token makes every
+        # frequently-named place a „common word" — „Пловдив" would be refused
+        # along with „места", and the filter would delete the corpus rather
+        # than clean it.
+        import json as _json
+        import tempfile
+        root = Path(tempfile.mkdtemp())
+        (root / "x.bg").mkdir()
+        for i in range(9):
+            (root / "x.bg" / f"a{i}.json").write_text(_json.dumps(
+                {"content": "Пловдив Пловдив Пловдив. места места места."}),
+                encoding="utf-8")
+        doc = scan_common_words(root, min_count=5)
+        self.assertIn("места", doc["words"])
+        # ⚠️ Asserting „пловдив" is absent proves NOTHING: the counter keys
+        # on the RAW token, so counting uppercase would store „Пловдив" and
+        # the lowercase probe misses it either way. What the rule actually
+        # guarantees is that every stored word is lowercase.
+        self.assertNotIn("Пловдив", doc["words"])
+        self.assertEqual([w for w in doc["words"] if w != w.lower()], [],
+                         "an uppercase token reached the common-word list")
+
+    def test_the_rebuild_refuses_rather_than_clobbering(self):
+        # ⚠️⚠️ news/data/<domain>/ is GITIGNORED, so on any machine without
+        # the corpus the scan returns `words: []` — and writing that clobbers
+        # the committed 21,943-word artifact, after which the `exists()`
+        # guard is satisfied, the filter silently does nothing, and „Места"
+        # is a resolvable village again at exit 0.
+        import subprocess
+        import tempfile
+        root = Path(tempfile.mkdtemp())
+        (root / "news" / "data").mkdir(parents=True)
+        committed = root / "news" / "data" / "common_words.json"
+        committed.write_text(json.dumps(
+            {"articles_scanned": 4280, "min_count": 5,
+             "words": ["места", "река"]}), encoding="utf-8")
+        proc = subprocess.run(
+            [sys.executable,
+             str(Path(__file__).with_name("build_gazetteer.py")),
+             "--rebuild-common-words"],
+            capture_output=True, text=True,
+            env={**os.environ, "DATA_BG_ROOT": str(root)})
+        self.assertEqual(proc.returncode, 2, proc.stderr)
+        self.assertIn("refusing to overwrite", proc.stderr)
+        kept = json.loads(committed.read_text(encoding="utf-8"))
+        self.assertEqual(kept["words"], ["места", "река"])
+
+    def test_the_article_floor_is_a_real_number(self):
+        # The rebuild refuses below this rather than overwriting the
+        # committed artifact with an empty list — see main().
+        self.assertGreater(COMMON_WORDS_MIN_ARTICLES, 0)
 
 
 class TheBuiltArtifact(unittest.TestCase):

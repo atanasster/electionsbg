@@ -137,7 +137,16 @@ MENTION_KINDS = ("person", "party", "institution", "company", "place")
 #   ambiguous_refused  matched more than one roster entry. KEPT and COUNTED,
 #                      so "we found no link" is never read as "nobody was
 #                      mentioned".
-#   not_in_gazetteer   no roster entry at all — the queue for roster review.
+#   not_in_gazetteer   NO IDENTITY COULD BE ESTABLISHED. Two shapes reach it
+#                      and both are honest: the surface is unknown to the
+#                      roster (the queue for roster review), or exactly one
+#                      entry claims it and that entry refuses to resolve —
+#                      „Александър Александров" is on the roster and shares
+#                      his full name with 10 other public figures we cannot
+#                      enumerate. `ambiguous_refused` is reserved for the case
+#                      where the candidates can actually be NAMED, since
+#                      „ambiguous" is a claim about a set and the set is the
+#                      evidence..
 MENTION_BASES = ("gazetteer_exact", "coref_resolved",
                  "ambiguous_refused", "not_in_gazetteer")
 

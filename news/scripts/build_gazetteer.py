@@ -44,6 +44,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 ROOT = Path(os.environ.get("DATA_BG_ROOT") or
             Path(__file__).resolve().parents[2])
 OUT = ROOT / "news" / "data" / "gazetteer.json"
@@ -52,6 +54,15 @@ GAZETTEER_VERSION = 1
 # Three queries over indexed tables; slower than this is a hung
 # connection rather than a big corpus.
 QUERY_TIMEOUT_SECONDS = 300
+
+# ⚠️ IMPORTED, not restated. The first cut wrote the pattern out a second
+# time and an escaping slip turned `[^\W\d_]` into `[^\\W\\d_]` — a class
+# matching a literal backslash. It did not fail: the scan found 163 words
+# instead of thousands, the filter silently did nothing, and the gazetteer
+# built cleanly with „места" still resolvable. A word counted here has to be
+# a word the resolver would have matched, and one definition is the only way
+# to guarantee that.
+from resolve_mentions import TOKEN_RE  # noqa: E402
 
 # ⚠️ A surface form shorter than this never resolves, whatever the roster says.
 # „ЕС", „МО", „БГ" and every two-letter surname would otherwise fire on
@@ -65,6 +76,74 @@ MIN_SURFACE_CHARS = 4
 # this body actually appear in public life) rather than on name length.
 MIN_AWARDER_CONTRACTS = 25
 
+# ⚠️⚠️ A ONE-WORD SURFACE THAT IS ALSO AN ORDINARY BULGARIAN WORD IS THE
+# DOMINANT FALSE MATCH, and no length or kind rule separates them. Measured
+# over 400 analysed articles before this filter existed: 87% of all mentions
+# were places, and the frequent ones included „места", „било", „подкрепа",
+# „река", „водата" — every one a real village AND a word a newsroom writes
+# constantly. „места" resolved as `gazetteer_exact` to a village, from an
+# article about parking.
+#
+# The corpus settles it empirically. Counting how often each token appears
+# LOWERCASE mid-sentence across 1,199 articles gives a clean separation with
+# no overlap at all:
+#
+#     места 204 · подкрепа 225 · било 149 · крайна 75 · река 63 · водата 51
+#     София 0 · Пловдив 0 · Варна 0 · Русе 0 · Бургас 0 · Айтос 0 · Германия 0
+#
+# So the rule is: a ONE-WORD surface whose lowercase form occurs at least
+# COMMON_WORD_MIN times in the news corpus may not resolve. It applies to
+# every kind, not just places — „Възраждане" is a party and a word.
+#
+# ⚠️ The list is a COMMITTED ARTIFACT (news/data/common_words.json) rather
+# than a live corpus scan, because news/data/<domain>/ is gitignored: on a
+# fresh clone a live scan finds nothing, the filter silently does not fire,
+# and „места" comes back as a village with every count reconciling. The
+# builder REFUSES to write when the file is absent.
+COMMON_WORDS_FILE = "common_words.json"
+COMMON_WORD_MIN = 5
+
+# Below this the scan found no corpus worth calling one.
+COMMON_WORDS_MIN_ARTICLES = 200
+
+# ⚠️ A ONE-WORD PLACE THAT IS ALSO A COMMON GIVEN NAME is the second false
+# class, and the corpus frequency list cannot see it: „Владимир" is a village
+# AND 942 people's first name, and it never appears lowercase, so it sails
+# through. 54 one-word places collide with a given name held by 50+ people —
+# „Красимир", „Елена", „Ивайло", „Росица". A sentence naming a person then
+# links to a village.
+#
+# The threshold is deliberately generous. A name held by fewer than this is
+# rare enough that the place reading is the likelier one, and refusing it
+# would delete real villages for nothing.
+GIVEN_NAME_MIN_BEARERS = 50
+
+# ⚠️ CURATED, and small on purpose. The given-name filter is right about 53 of
+# its 54 collisions — „Красимир", „Ивайло", „Росица", „Зорница" are villages
+# and a newsroom writing one of those words means the person. It is wrong
+# about exactly one: София is the capital, and 121 public figures share the
+# name. Refusing it is the safe direction (a lost link, never a wrong one)
+# but it costs the most-mentioned place in the corpus, 51 occurrences in 400
+# articles.
+#
+# No derived signal separates it. Obshtina population does not: the villages
+# in the collision list sit inside obshtini of 45k–113k people, well above
+# most oblast centres. The administrative hierarchy does not either — Sofia's
+# oblast is „София (столица)", a different string, so the multi-level collapse
+# that rescues Пловдив and Варна never fires here.
+#
+# So this is a hand-written exemption of one, with its reason attached, rather
+# than a threshold tuned until Sofia passes. A future entry needs the same
+# test: is this place what a Bulgarian newsroom means by the bare word, so
+# overwhelmingly that a person of that name is the surprising reading?
+GIVEN_NAME_EXEMPT = frozenset({"софия"})
+
+# ⚠️ KNOWN RESIDUE, recorded rather than hidden: „Левски" is a town, a
+# football club and Васил Левски. It is refused here only because four
+# villages share the name — a surname or institution collision on a
+# UNIQUELY-named place would still get through. That is a proper-noun
+# ambiguity, which needs the model pass rather than a frequency list.
+
 # ⚠️ Places whose name is also an ordinary Bulgarian word, a common given
 # name, or a national institution's name. `place_dim` has 5,720 rows and its
 # short entries fire constantly: „Средище", „Църква", „Победа", „Езерово" are
@@ -77,6 +156,67 @@ PLACE_STOPWORDS = frozenset({
     "център", "нови", "ново", "нова", "старо", "стара", "стари", "долно",
     "долна", "горно", "горна", "малко", "малка", "голямо", "голяма",
 })
+
+
+def fold_bg(text: str) -> str:
+    """Lookup key for a one-word surface. Case only — see below."""
+    return text.casefold()
+
+
+def given_name_places() -> frozenset:
+    """Place names that are also a given name many Bulgarians bear.
+
+    ⚠️ THE JOIN HAPPENS IN SQL, and that is not laziness. `person.given_fold`
+    is `translit_bg_latin(...)` — a LATIN transliteration — so a Python-side
+    casefold of „Владимир" can never equal „vladimir". Reimplementing that
+    function here is the drift this repo already documents at length
+    (`gen:shlyo-sql` exists for the same reason). Postgres has it; we ask
+    Postgres, and get back plain Bulgarian names to compare by case alone.
+    """
+    rows = query("""
+        with names as (
+            select given_fold as g
+            from person where status = 'active'
+            group by 1 having count(*) >= :'min'::int
+        )
+        select distinct p.name_bg
+        from place_dim p
+        join names n on n.g = translit_bg_latin(p.name_bg)
+        where p.name_bg !~ ' ' and char_length(p.name_bg) >= :'chars'::int
+    """, {"min": GIVEN_NAME_MIN_BEARERS, "chars": MIN_SURFACE_CHARS})
+    return frozenset(r["name_bg"].casefold() for r in rows)
+
+
+def scan_common_words(data_dir: Path, min_count: int = COMMON_WORD_MIN) -> dict:
+    """Tokens the news corpus writes in lowercase — i.e. ordinary words.
+
+    ⚠️ LOWERCASE ONLY, and that is the whole discriminator. A capitalised
+    „Места" is ambiguous between a village and a sentence-initial common
+    noun; a lowercase „места" can only be the word.
+    """
+    counts: dict[str, int] = {}
+    articles = 0
+    for path in sorted(data_dir.glob("*/*.json")):
+        if path.parent.name.startswith("_"):
+            continue
+        try:
+            rec = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        body = rec.get("content") or ""
+        if not body:
+            continue
+        articles += 1
+        for m in TOKEN_RE.finditer(body):
+            tok = m.group()
+            if tok[:1].islower():
+                counts[tok] = counts.get(tok, 0) + 1
+    return {
+        "generated_at": now_iso(),
+        "articles_scanned": articles,
+        "min_count": min_count,
+        "words": sorted(w for w, n in counts.items() if n >= min_count),
+    }
 
 
 def now_iso() -> str:
@@ -139,8 +279,41 @@ def query(sql: str, params: dict | None = None) -> list:
     return json.loads(proc.stdout or "[]")
 
 
+# Populated once by main(). ⚠️ A module global rather than a parameter
+# threaded through five builders, because the alternative is five call sites
+# that can each forget it — and forgetting it does not fail, it republishes
+# „места" as a village.
+COMMON_WORDS: frozenset = frozenset()
+COMMON_GIVEN_NAMES: frozenset = frozenset()
+
+
+def is_common_given_name(surface: str) -> bool:
+    """One token, and it is a first name a lot of Bulgarians have.
+
+    ⚠️ Folded through the same translit the DB uses, and ONE-WORD only — for
+    the same reason as is_common_word: „Свети Влас" contains no given name,
+    and „Елена" is both a town and 895 people.
+    """
+    parts = surface.split()
+    if len(parts) != 1:
+        return False
+    key = fold_bg(parts[0])
+    return key in COMMON_GIVEN_NAMES and key not in GIVEN_NAME_EXEMPT
+
+
+def is_common_word(surface: str) -> bool:
+    """One token, and the corpus writes it in lowercase. See COMMON_WORDS_FILE.
+
+    ⚠️ ONE-WORD ONLY. „Стара Загора" contains „стара", an ordinary adjective,
+    and is not remotely ambiguous; filtering multi-word surfaces on their
+    parts would delete most of the real place names in the country.
+    """
+    parts = surface.split()
+    return len(parts) == 1 and parts[0].casefold() in COMMON_WORDS
+
+
 def form(surface: str, resolvable: bool, why: str,
-         ident: str | None = None) -> dict:
+         ident: str | None = None, kind: str | None = None) -> dict:
     """One surface form, and the identity it is allowed to claim.
 
     ⚠️⚠️ THE ID LIVES ON THE FORM, NOT ON THE ENTRY, and that is the whole
@@ -154,8 +327,38 @@ def form(surface: str, resolvable: bool, why: str,
     The invariant is total and mechanically checkable across all four kinds:
     `resolvable is False` ⟺ `id is None`.
     """
-    return {"surface": surface, "resolvable": resolvable,
-            "id": ident if resolvable else None, "why": why}
+    if resolvable and kind == "place" and is_common_given_name(surface):
+        # ⚠️ PLACES ONLY. A PERSON surface being a given name is the whole
+        # point of a person surface; applying this to every kind would refuse
+        # „Елена Йончева" — no, that is two words — but it would certainly
+        # refuse a party or institution legitimately named after somebody.
+        resolvable = False
+        why = (f"„{surface}\u201c is a given name borne by many Bulgarians — "
+               "anchor only; a person named here would otherwise link to a "
+               "village")
+    if resolvable and is_common_word(surface):
+        # ⚠️ Refused HERE rather than at each call site, so a new kind cannot
+        # be added without the filter. The anchor is kept: „Места" really is a
+        # village, and a document that establishes the place some other way
+        # can still corefer to it.
+        resolvable = False
+        why = (f"„{surface}" + "\u201c is an ordinary Bulgarian word in this "
+               "corpus — anchor only; a one-word common noun cannot be told "
+               "from the place that shares its name")
+    return {
+        "surface": surface,
+        "resolvable": resolvable,
+        "id": ident if resolvable else None,
+        # ⚠️ WHAT THIS ANCHOR ANCHORS TO — and it is deliberately NOT `id`.
+        # `id` means „you may link this"; `anchor_for` means „if this DOCUMENT
+        # independently resolved that entry, this surface refers to it".
+        # Without it a refused form is untraceable, so in-document
+        # coreference — the whole reason bare surnames are kept — could not
+        # be performed at all: „Пеевски" in ¶4 had nothing tying it to the
+        # „Делян Пеевски" the same article resolved in ¶1.
+        **({} if resolvable else {"anchor_for": ident}),
+        "why": why,
+    }
 
 
 def person_forms(slug: str, s_full: str, tok_first: str, tok_last: str,
@@ -219,7 +422,7 @@ def person_forms(slug: str, s_full: str, tok_first: str, tok_last: str,
         forms.append(form(
             tok_last, False,
             f"surname alone — {sur_n} public figure(s) share it; coreference "
-            "anchor only, never a standalone match"))
+            "anchor only, never a standalone match", slug))
     return forms
 
 
@@ -373,15 +576,20 @@ def institution_entries(rows: list) -> tuple[list, dict]:
         unique = len({e for e, _ in holders}) == 1
         if not unique:
             ambiguous += 1
+        forms = [form(
+            name, unique,
+            "unique awarder name" if unique else
+            f"{len(holders)} bodies share this name — anchor only",
+            holders[0][0], "institution")]
         entries.append({
             "kind": "institution",
-            "id": holders[0][0] if unique else None,
+            # ⚠️ CONDITIONAL on the FORM, not on `unique`. `form()` refuses a
+            # one-word common noun on its own — „Чистота" is a municipal
+            # cleaning company and the word cleanliness — so an id set from
+            # `unique` alone advertises a link the form will not honour.
+            "id": holders[0][0] if forms[0]["resolvable"] else None,
             "canonical": name,
-            "forms": [form(
-                name, unique,
-                "unique awarder name" if unique else
-                f"{len(holders)} bodies share this name — anchor only",
-                holders[0][0])],
+            "forms": forms,
         })
     return entries, {"institutions": len(entries),
                      "institutions_ambiguous": ambiguous}
@@ -390,11 +598,21 @@ def institution_entries(rows: list) -> tuple[list, dict]:
 def build_places() -> tuple[list, dict]:
     return place_entries(query("""
         select kind, code, name_bg,
-               count(*) over (partition by name_bg) as homonyms
+               -- ⚠️ The hierarchy, normalised so an OBLAST row (whose
+               -- oblast_code is NULL because it IS the oblast) compares
+               -- equal to the settlement inside it.
+               case when kind = 'oblast' then code else oblast_code end as obl,
+               case when kind = 'obshtina' then code
+                    else obshtina_code end as obs
         from place_dim
         where char_length(name_bg) >= :'chars'::int
-        order by name_bg, code
+        order by name_bg, kind, code
     """, {"chars": MIN_SURFACE_CHARS}))
+
+
+# Most specific first. „Пловдив" in a news article means the CITY, not the
+# oblast — and a reader following the link expects the place they read about.
+PLACE_SPECIFICITY = {"settlement": 0, "obshtina": 1, "oblast": 2, "mir": 3}
 
 
 def place_entries(rows: list) -> tuple[list, dict]:
@@ -405,38 +623,73 @@ def place_entries(rows: list) -> tuple[list, dict]:
     reading the COMMITTED artifact — and mutating the builder then changes
     nothing a test can see. Measured on the first cut: 5 of 9 mutations
     survived for exactly that reason.
+
+    ⚠️⚠️ SAME NAME ≠ DIFFERENT PLACE. „Пловдив" is a settlement, an obshtina
+    and an oblast — three rows, one city — and counting rows called it a
+    3-way ambiguity and refused to link it, along with Варна, Русе, Бургас
+    and 211 other groups. Meanwhile „Левски" really is three different
+    villages in three oblasti and must stay refused. The two are separated by
+    the HIERARCHY, not by the count: rows that agree on their oblast and on
+    their (non-null) obshtina are one place seen at several levels, and the
+    most specific of them is what a reader means.
     """
-    entries = []
-    stopped = ambiguous = 0
+    by_name: dict[str, list] = {}
     for r in rows:
-        kind, code, name = r["kind"], r["code"], r["name_bg"]
-        homonyms = r["homonyms"]
+        by_name.setdefault(r["name_bg"], []).append(r)
+
+    entries = []
+    stopped = ambiguous = collapsed = 0
+    for name, group in sorted(by_name.items()):
         low = name.casefold()
         if low in PLACE_STOPWORDS:
             # ⚠️ „Победа" is a village AND the word victory. Dropped at build
             # time rather than filtered by the resolver, so the omission is
             # visible in the artifact's own coverage block.
-            stopped += 1
+            stopped += len(group)
             continue
-        unique = homonyms == 1
-        if not unique:
+        obls = {r["obl"] for r in group if r["obl"]}
+        obss = {r["obs"] for r in group if r["obs"]}
+        one_place = len(obls) <= 1 and len(obss) <= 1
+        if one_place:
+            if len(group) > 1:
+                collapsed += 1
+            pick = min(group,
+                       key=lambda r: (PLACE_SPECIFICITY.get(r["kind"], 9),
+                                      r["code"]))
+            pid = f"{pick['kind']}:{pick['code']}"
+            forms = [form(name, True,
+                          "unique place" if len(group) == 1 else
+                          f"one place at {len(group)} administrative levels; "
+                          "linked to the most specific", pid, "place")]
+            entries.append({
+                "kind": "place",
+                # ⚠️ CONDITIONAL, like every other kind. `form()` can refuse
+                # this surface on its own (a common word, or a given name many
+                # Bulgarians bear), and an entry id set before that check
+                # advertises a link the only form on it will not honour —
+                # which the artifact gate caught on 53 places.
+                "id": pid if forms[0]["resolvable"] else None,
+                "canonical": name, "place_kind": pick["kind"],
+                "forms": forms,
+            })
+            continue
+        # Genuinely different places sharing a name — refused, all of them.
+        for r in group:
             ambiguous += 1
-        entries.append({
-            "kind": "place",
-            # ⚠️ KIND-QUALIFIED. `place_dim.code` is unique per (kind, code)
-            # and NOT on its own: `AF` is both an obshtina and a settlement,
-            # `BGS` both a mir and an oblast. A bare code sends a consumer to
-            # whichever table it happened to look in.
-            "id": f"{kind}:{code}" if unique else None,
-            "canonical": name, "place_kind": kind,
-            "forms": [form(
-                name, unique,
-                "unique place name" if unique else
-                f"{homonyms} places share this name — anchor only",
-                f"{kind}:{code}")],
-        })
+            entries.append({
+                "kind": "place",
+                # ⚠️ KIND-QUALIFIED. `place_dim.code` is unique per
+                # (kind, code) and NOT on its own: `AF` is both an obshtina
+                # and a settlement, `BGS` both a mir and an oblast.
+                "id": None, "canonical": name, "place_kind": r["kind"],
+                "forms": [form(
+                    name, False,
+                    f"{len(group)} distinct places share this name — "
+                    "anchor only", f"{r['kind']}:{r['code']}")],
+            })
     return entries, {"places": len(entries), "places_stopworded": stopped,
-                     "places_ambiguous": ambiguous}
+                     "places_ambiguous": ambiguous,
+                     "places_collapsed_to_one": collapsed}
 
 
 def build_parties() -> tuple[list, dict]:
@@ -504,11 +757,61 @@ def main() -> int:
     ap.add_argument("--ns", default="52",
                     help="National Assembly whose MPs form the roster")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--rebuild-common-words", action="store_true",
+                    help="rescan the news corpus for ordinary words first "
+                         "(needs news/data/<domain>/, which is gitignored)")
+    ap.add_argument("--allow-word-shrink", action="store_true",
+                    help="permit the common-word list to more than halve")
     args = ap.parse_args()
+
+    global COMMON_WORDS
+    words_path = ROOT / "news" / "data" / COMMON_WORDS_FILE
+    if args.rebuild_common_words:
+        doc = scan_common_words(ROOT / "news" / "data")
+        # ⚠️⚠️ REFUSE RATHER THAN OVERWRITE. news/data/<domain>/ is
+        # gitignored, so on any machine without the corpus this scan returns
+        # `words: []` — and writing that CLOBBERS the committed 21,943-word
+        # artifact, after which the `exists()` guard below is satisfied, the
+        # filter silently does nothing, and „Места" is a resolvable village
+        # again at exit 0. The floor is deliberately crude: the question is
+        # „did a corpus exist", not „is this the best corpus".
+        if doc["articles_scanned"] < COMMON_WORDS_MIN_ARTICLES:
+            print(f"only {doc['articles_scanned']} articles found under "
+                  f"{ROOT / 'news' / 'data'} — refusing to overwrite "
+                  f"{words_path} with a near-empty word list. The corpus is "
+                  "gitignored; run this where it exists.", file=sys.stderr)
+            return 2
+        if words_path.exists():
+            prev = json.loads(words_path.read_text(encoding="utf-8"))
+            before = len(prev.get("words") or ())
+            if before and len(doc["words"]) < before * 0.5:
+                print(f"the word list would shrink {before} → "
+                      f"{len(doc['words'])} — refusing. Pass "
+                      "--allow-word-shrink if the corpus really did.",
+                      file=sys.stderr)
+                if not args.allow_word_shrink:
+                    return 2
+        words_path.write_text(
+            json.dumps(doc, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"wrote {words_path} — {len(doc['words'])} words from "
+              f"{doc['articles_scanned']} articles", file=sys.stderr)
+    if not words_path.exists():
+        # ⚠️ REFUSE. Building without the filter does not fail — it publishes
+        # „места", „река" and „водата" as resolvable villages, and every count
+        # in the coverage block still reconciles.
+        print(f"{words_path} is absent — refusing to build a gazetteer with "
+              "the common-word filter disabled. Run with "
+              "--rebuild-common-words on a machine that has the news corpus.",
+              file=sys.stderr)
+        return 2
+    words_doc = json.loads(words_path.read_text(encoding="utf-8"))
+    COMMON_WORDS = frozenset(words_doc.get("words") or ())
 
     coverage: dict = {}
     entries: list = []
     try:
+        global COMMON_GIVEN_NAMES
+        COMMON_GIVEN_NAMES = given_name_places()
         for build, arg in ((build_people, args.ns),
                            (build_institutions, None),
                            (build_places, None)):
@@ -537,6 +840,9 @@ def main() -> int:
     # consumer cannot read "no company entries" as "no companies matched".
     # 1.02M tr_companies rows cannot be matched by name; a company resolves
     # only on an explicit EIK in the text.
+    coverage["common_words"] = len(COMMON_WORDS)
+    coverage["places_named_like_a_given_name"] = len(COMMON_GIVEN_NAMES)
+    coverage["common_words_from_articles"] = words_doc.get("articles_scanned")
     coverage["companies"] = 0
     coverage["companies_excluded_because"] = (
         "1.02M registry names cannot be matched by name without inventing "
@@ -548,6 +854,15 @@ def main() -> int:
     # not write.
     leaks = [(e["canonical"], f["surface"]) for e in entries
              for f in e["forms"] if not f["resolvable"] and f["id"]]
+    # ⚠️ `anchor_for` must never appear on a RESOLVABLE form: there it would
+    # be a second, unvalidated route to the same identity, and a consumer
+    # reading it would bypass every check `id` went through.
+    strays = [(e["canonical"], f["surface"]) for e in entries
+              for f in e["forms"] if f["resolvable"] and "anchor_for" in f]
+    if strays:
+        raise RuntimeError(
+            f"{len(strays)} resolvable form(s) carry anchor_for — "
+            f"e.g. {strays[:3]}")
     if leaks:
         raise RuntimeError(
             f"{len(leaks)} refused form(s) carry an id — e.g. {leaks[:3]}")
