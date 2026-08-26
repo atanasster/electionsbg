@@ -388,7 +388,10 @@ test.skipIf(stateSkip)(
       // `sum()` returns NULL while `count()` returns 0 — and the builder's guard covers
       // both, so the gate has to as well.
       assert.ok(!r.total, "a total published for a list that cannot be shown");
-      assert.ok(!r.units, "a unit count published for a list that cannot be shown");
+      assert.ok(
+        !r.units,
+        "a unit count published for a list that cannot be shown",
+      );
       return;
     }
 
