@@ -1234,5 +1234,68 @@ class TopicDistributions(BuildAppDataFixture):
                          {"spread": None, "n": 0, "enough": False})
 
 
+
+class WithholdsAlteredNames(unittest.TestCase):
+    """⚠️ A VALIDATOR IS NOT RETROACTIVE. Five records written before the
+    name rule existed carry „Антон Славев" / „Кая Каллас", and the build is
+    the last thing between them and a published page."""
+
+    def setUp(self):
+        import build_app_data
+        self.b = build_app_data
+        self.article = {"title": "", "description": "",
+                        "content": "Антон Славчев подаде оставка. " * 10}
+        self.ents = {"people": ["Антон Славев", "Иван Христанов"],
+                     "parties": [], "institutions": [], "companies": [],
+                     "places": []}
+
+    def test_the_altered_name_is_dropped_and_the_good_one_kept(self):
+        bad = self.b.altered_names(self.ents, [self.article])
+        out = self.b.verified_entities(self.ents, bad)
+        self.assertEqual(out["people"], ["Иван Христанов"])
+
+    def test_it_is_WITHHELD_never_corrected(self):
+        # ⚠️ The near-token is what the SEARCH found, not what the model
+        # meant. Rewriting „Славев" to „Славчев" is the graded guess this
+        # project refuses everywhere else.
+        bad = self.b.altered_names(self.ents, [self.article])
+        out = self.b.verified_entities(self.ents, bad)
+        self.assertNotIn("Антон Славчев", out["people"])
+
+    def test_a_leaked_summary_is_withheld_PER_FIELD(self):
+        bad = self.b.altered_names(self.ents, [self.article])
+        prose = self.b.verified_prose(
+            {"summary_bg": "Антон Славев получи обезщетение.",
+             "summary_en": "Anton Slavchev got a payout."},
+            ("summary_bg", "summary_en"), bad)
+        self.assertIsNone(prose["summary_bg"])
+        self.assertEqual(prose["summary_en"], "Anton Slavchev got a payout.")
+
+    def test_a_clean_record_is_returned_UNTOUCHED(self):
+        clean = {"people": ["Иван Христанов"], "parties": [],
+                 "institutions": [], "companies": [], "places": []}
+        bad = self.b.altered_names(clean, [self.article])
+        self.assertEqual(bad, [])
+        self.assertIs(self.b.verified_entities(clean, bad), clean)
+        self.assertEqual(self.b.verified_prose({"summary_bg": "x"},
+                                               ("summary_bg",), bad), {})
+
+    def test_a_MISSING_article_refuses_nothing(self):
+        # ⚠️ No text is not evidence of a bad name — otherwise a story whose
+        # corpus files are gone loses its whole cast.
+        bad = self.b.altered_names(self.ents, [{}])
+        self.assertEqual(bad, [])
+
+    def test_a_name_is_verified_against_EVERY_member_not_the_first(self):
+        # A story member that never names him must not refuse a name another
+        # member writes in full.
+        bad = self.b.altered_names(
+            self.ents, [{"content": "Нищо общо. " * 20}, self.article])
+        self.assertEqual([n for n, _, _ in bad], ["Антон Славев"])
+        good = self.b.altered_names(
+            {"people": ["Антон Славчев"]},
+            [{"content": "Нищо общо. " * 20}, self.article])
+        self.assertEqual(good, [])
+
 if __name__ == "__main__":
     unittest.main()

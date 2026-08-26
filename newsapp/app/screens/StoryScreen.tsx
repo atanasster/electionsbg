@@ -5,7 +5,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MixBar, type MixSegment } from "@/ux/MixBar";
@@ -14,11 +13,11 @@ import {
   LEANING_META,
   relativeTime,
   RUSSIA_META,
-  topicLabel,
 } from "../labels";
 import { useOutlets, useStories, useTaxonomy, type Story } from "../data";
 import { StoryMemberRow } from "../components/ArticleRow";
 import { EntityChips } from "../components/EntityChips";
+import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
@@ -332,18 +331,7 @@ export const StoryScreen = () => {
               <h2 className="mb-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 Теми
               </h2>
-              <div className="flex flex-wrap gap-1.5">
-                {story.topics.map((t) => (
-                  <Badge
-                    key={`${t.category}/${t.subcategory}`}
-                    variant="secondary"
-                    className="font-normal"
-                  >
-                    {topicLabel(categories, t.category, t.subcategory) ??
-                      t.category}
-                  </Badge>
-                ))}
-              </div>
+              <TopicChips categories={categories} topics={story.topics} />
             </Card>
           ) : null}
 

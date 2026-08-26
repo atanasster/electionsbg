@@ -187,7 +187,8 @@ def record_review(analysis: dict) -> dict:
         import analyze_articles as aa
         rec = analysis.get("_article")
         if isinstance(rec, dict):
-            bad = aa.check_person_names(analysis.get("entities") or {}, rec)
+            bad = aa.check_person_names(
+                analysis.get("entities") or {}, rec, analysis)
             if bad:
                 out["entities"] = bad[0]
     except Exception:  # noqa: BLE001

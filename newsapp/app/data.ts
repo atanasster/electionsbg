@@ -426,6 +426,15 @@ export interface TaxonomyCategory {
   subcategories: {
     id: string;
     label: { bg: string; en: string };
+    /**
+     * A main-site page that IS this subcategory, or null.
+     *
+     * ⚠️ Most are null, and that is a refusal rather than a gap — see
+     * news/topics.json. A chip pointing at a page about something adjacent
+     * is worse than a chip that is not a link, which is the same rule
+     * `entity_links` follows for names.
+     */
+    route: string | null;
     article_count: number;
   }[];
 }

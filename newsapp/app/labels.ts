@@ -117,12 +117,45 @@ export const topicLabel = (
   category: string,
   subcategory: string | null,
 ): string | null => {
+  const parts = topicParts(taxonomy, category, subcategory);
+  return parts.length ? parts.map((p) => p.label).join(" · ") : null;
+};
+
+/** One entry per half of a topic — the category, then the subcategory when
+ *  the article carries one — each with the main-site page it names, or null.
+ *
+ *  ⚠️ THE TWO HALVES ARE SEPARATE DESTINATIONS, which is why this exists
+ *  beside `topicLabel`. „Лица и длъжностни лица · Декларации и конфликти на
+ *  интереси" is the persons browser and the declarations register — two
+ *  pages — so a single link over the joined string sends a reader who
+ *  clicked the second half to the first.
+ *
+ *  ⚠️ ABSOLUTE hrefs, because the news app is a different origin: a relative
+ *  one resolves against news.electionsbg.com, where none of these exist.
+ *  Mirrors the `entity_links` rule in data.ts. */
+export const topicParts = (
+  taxonomy: TaxonomyCategory[] | null,
+  category: string,
+  subcategory: string | null,
+): { label: string; href: string | null }[] => {
   const cat = taxonomy?.find((c) => c.id === category);
-  if (!cat) return null;
+  if (!cat) return [];
+  const out = [{ label: cat.label.bg, href: mainSiteHref(cat.route) }];
   const sub = subcategory
     ? cat.subcategories.find((s) => s.id === subcategory)
     : null;
-  return sub ? `${cat.label.bg} · ${sub.label.bg}` : cat.label.bg;
+  if (sub) out.push({ label: sub.label.bg, href: mainSiteHref(sub.route) });
+  return out;
+};
+
+const MAIN_SITE = "https://electionsbg.com";
+
+const mainSiteHref = (route: string | null | undefined): string | null => {
+  // ⚠️ A ROUTE WITH A DYNAMIC SEGMENT IS NOT A DESTINATION. „/local/:cycle"
+  // is a real route and `/local/:cycle` is a 404 — the taxonomy names the
+  // route PATTERN, and only a concrete path can be linked.
+  if (!route || !route.startsWith("/") || route.includes(":")) return null;
+  return `${MAIN_SITE}${route === "/" ? "" : route}`;
 };
 
 // ---- dates -----------------------------------------------------------------------

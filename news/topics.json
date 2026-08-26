@@ -1,333 +1,1804 @@
 {
-  "version": 1,
-  "generated_at": "2026-08-22",
-  "derived_from": [
-    "src/layout/header/reportMenus.ts",
-    "src/screens/governance/sectorRegistry.ts",
-    "data/data_map.json",
-    "src/routes.tsx"
-  ],
-  "how_to_use": [
-    "Every analyzed article is classified with exactly ONE primary {category, subcategory} pair from this file (plus optional secondary pairs when the article genuinely spans topics).",
-    "When no category fits, use 'not-site-relevant' with its best subcategory — never force a civic category onto weather, sports or celebrity filler.",
-    "An article tagged not-site-relevant carries site_relevant: false in its analysis and is excluded from story clustering for the site.",
-    "Keywords are classification hints (Bulgarian trigger terms), not exhaustive dictionaries — the classifier reads the article, not just keyword matching.",
-    "Bump version when categories/subcategories change; each analysis record stores the taxonomy_version it was classified against.",
-    "route points at the site screen covering the category (informational deep-link for the reader, not a classification signal); null when no dedicated screen exists; values may carry route params (e.g. /local/:cycle) and should be resolved to a concrete cycle at render time.",
-    "site_relevant defaults to true for every category; only 'not-site-relevant' explicitly opts out with false."
-  ],
-  "categories": [
+ "version": 1,
+ "generated_at": "2026-08-22",
+ "derived_from": [
+  "src/layout/header/reportMenus.ts",
+  "src/screens/governance/sectorRegistry.ts",
+  "data/data_map.json",
+  "src/routes.tsx"
+ ],
+ "how_to_use": [
+  "Every analyzed article is classified with exactly ONE primary {category, subcategory} pair from this file (plus optional secondary pairs when the article genuinely spans topics).",
+  "When no category fits, use 'not-site-relevant' with its best subcategory — never force a civic category onto weather, sports or celebrity filler.",
+  "An article tagged not-site-relevant carries site_relevant: false in its analysis and is excluded from story clustering for the site.",
+  "Keywords are classification hints (Bulgarian trigger terms), not exhaustive dictionaries — the classifier reads the article, not just keyword matching.",
+  "Bump version when categories/subcategories change; each analysis record stores the taxonomy_version it was classified against.",
+  "route points at the site screen covering the category (informational deep-link for the reader, not a classification signal); null when no dedicated screen exists; values may carry route params (e.g. /local/:cycle) and should be resolved to a concrete cycle at render time.",
+  "site_relevant defaults to true for every category; only 'not-site-relevant' explicitly opts out with false."
+ ],
+ "categories": [
+  {
+   "id": "elections-parliamentary",
+   "label": {
+    "bg": "Парламентарни избори",
+    "en": "Parliamentary elections"
+   },
+   "route": "/",
+   "keywords": [
+    "парламентарни избори",
+    "предсрочни избори",
+    "изборна кампания",
+    "ЦИК",
+    "бюлетина",
+    "кандидатски листи",
+    "изборна секция",
+    "явка"
+   ],
+   "subcategories": [
     {
-      "id": "elections-parliamentary",
-      "label": { "bg": "Парламентарни избори", "en": "Parliamentary elections" },
-      "route": "/",
-      "keywords": ["парламентарни избори", "предсрочни избори", "изборна кампания", "ЦИК", "бюлетина", "кандидатски листи", "изборна секция", "явка"],
-      "subcategories": [
-        { "id": "campaign", "label": { "bg": "Кампания", "en": "Campaign" }, "keywords": ["турне", "обещание", "щаб", "лобиране", "дебати"] },
-        { "id": "results", "label": { "bg": "Резултати", "en": "Results" }, "keywords": ["резултати", "проценти", "явка", "изход на изборите", "победа", "протокол"] },
-        { "id": "coalition-talks", "label": { "bg": "Преговори за кабинет", "en": "Coalition talks" }, "keywords": ["мандат", "преговори", "първи мандат", "консултации с президента"] },
-        { "id": "electoral-law", "label": { "bg": "Изборно законодателство", "en": "Electoral law" }, "keywords": ["изборен кодекс", "машинално гласуване", "отдалечено гласуване"] },
-        { "id": "cik-administration", "label": { "bg": "ЦИК и администрация на вота", "en": "CIK & vote administration" }, "keywords": ["ЦИК", "секционна комисия", "протокол", "преотваряне на секции"] },
-        { "id": "abroad-voting", "label": { "bg": "Гласуване в чужбина", "en": "Voting abroad" }, "keywords": ["гласуване в чужбина", "избиратели зад граница", "машини в чужбина"] }
-      ]
+     "id": "campaign",
+     "label": {
+      "bg": "Кампания",
+      "en": "Campaign"
+     },
+     "keywords": [
+      "турне",
+      "обещание",
+      "щаб",
+      "лобиране",
+      "дебати"
+     ]
     },
     {
-      "id": "elections-local",
-      "label": { "bg": "Местни избори", "en": "Local elections" },
-      "route": "/local/:cycle",
-      "keywords": ["местни избори", "кметски кандидати", "общински съвет", "балотаж", "кметство"],
-      "subcategories": [
-        { "id": "mayors", "label": { "bg": "Кметски състезания", "en": "Mayoral races" }, "keywords": ["кмет", "кандидат за кмет", "балотаж", "втори тур"] },
-        { "id": "councils", "label": { "bg": "Общински съвети", "en": "Municipal councils (election)" }, "keywords": ["общински съветници", "местни листи"] },
-        { "id": "runoffs", "label": { "bg": "Балотажи", "en": "Runoffs" }, "keywords": ["балотаж", "втори тур", "преизбори"] },
-        { "id": "local-administration", "label": { "bg": "Организация на местния вот", "en": "Local vote administration" }, "keywords": ["местни секции", "протоколи", "преброяване"] }
-      ]
+     "id": "results",
+     "label": {
+      "bg": "Резултати",
+      "en": "Results"
+     },
+     "keywords": [
+      "резултати",
+      "проценти",
+      "явка",
+      "изход на изборите",
+      "победа",
+      "протокол"
+     ]
     },
     {
-      "id": "government",
-      "label": { "bg": "Управление и кабинет", "en": "Government & cabinet" },
-      "route": "/governance",
-      "keywords": ["Министерски съвет", "правителство", "премиер", "министър", "кабинет", "вот на доверие"],
-      "subcategories": [
-        { "id": "cabinet-formation", "label": { "bg": "Съставяне на кабинет", "en": "Cabinet formation" }, "keywords": ["мандат", "предложение за кабинет", "структура на правителството"] },
-        { "id": "ministers", "label": { "bg": "Министри", "en": "Ministers" }, "keywords": ["нов министър", "оставка на министър", "заместник-министър"] },
-        { "id": "coalition-politics", "label": { "bg": "Коалиционна политика", "en": "Coalition politics" }, "keywords": ["коалиционни партньори", "разбирателство", "напрежение в управляващата коалиция"] },
-        { "id": "civil-service", "label": { "bg": "Държавна администрация", "en": "Civil service" }, "keywords": ["държавна администрация", "назначени по партиен принцип", "съкращения в администрацията"] }
-      ]
+     "id": "coalition-talks",
+     "label": {
+      "bg": "Преговори за кабинет",
+      "en": "Coalition talks"
+     },
+     "keywords": [
+      "мандат",
+      "преговори",
+      "първи мандат",
+      "консултации с президента"
+     ]
     },
     {
-      "id": "parliament",
-      "label": { "bg": "Парламент и законодателство", "en": "Parliament & legislation" },
-      "route": "/parliament",
-      "keywords": ["Народно събрание", "депутати", "пленарно заседание", "законопроект", "парламентарна комисия"],
-      "subcategories": [
-        { "id": "legislation", "label": { "bg": "Законодателство", "en": "Legislation" }, "keywords": ["законопроект", "първо четене", "второ четене", "приет закон", "вето"] },
-        { "id": "votes-rollcall", "label": { "bg": "Гласувания", "en": "Votes & rollcall" }, "keywords": ["гласуване", "вот", "регистрация", "депутатски вот"] },
-        { "id": "committees", "label": { "bg": "Комисии", "en": "Committees" }, "keywords": ["комисия", "председател на комисия", "закрито заседание"] },
-        { "id": "mp-conduct", "label": { "bg": "Поведение на депутати", "en": "MP conduct" }, "keywords": ["имоти на депутат", "конфликт на интереси", "декларация на народен представител"] }
-      ]
+     "id": "electoral-law",
+     "label": {
+      "bg": "Изборно законодателство",
+      "en": "Electoral law"
+     },
+     "keywords": [
+      "изборен кодекс",
+      "машинално гласуване",
+      "отдалечено гласуване"
+     ]
     },
     {
-      "id": "officials-people",
-      "label": { "bg": "Лица и длъжностни лица", "en": "Officials & people" },
-      "route": "/persons",
-      "keywords": ["длъжностно лице", "нов шеф", "назначение", "оставка", "освободен", "профил"],
-      "subcategories": [
-        { "id": "appointments", "label": { "bg": "Назначения", "en": "Appointments" }, "keywords": ["назначен", "поема поста", "нов директор"] },
-        { "id": "dismissals", "label": { "bg": "Освобождавания и оставки", "en": "Dismissals & resignations" }, "keywords": ["освободен", "отстранен", "подаде оставка"] },
-        { "id": "declarations-conflicts", "label": { "bg": "Декларации и конфликти на интереси", "en": "Declarations & conflicts of interest" }, "keywords": ["декларация", "конфликт на интереси", "имоти", "градеж"] },
-        { "id": "sanctions", "label": { "bg": "Санкции", "en": "Sanctions" }, "keywords": ["санкции", "„Магнитски“", "забрана за пътуване"] },
-        { "id": "official-investigations", "label": { "bg": "Разследвания срещу длъжностни лица", "en": "Investigations of officials" }, "keywords": ["разследване срещу", "обвинения срещу", "повдигнато обвинение"] }
-      ]
+     "id": "cik-administration",
+     "label": {
+      "bg": "ЦИК и администрация на вота",
+      "en": "CIK & vote administration"
+     },
+     "keywords": [
+      "ЦИК",
+      "секционна комисия",
+      "протокол",
+      "преотваряне на секции"
+     ]
     },
     {
-      "id": "budget-fiscal",
-      "label": { "bg": "Бюджет и данъци", "en": "Budget & taxes" },
-      "route": "/budget",
-      "keywords": ["бюджет", "данък", "ДДС", "дефицит", "приходи", "разходи", "фискален"],
-      "subcategories": [
-        { "id": "state-budget", "label": { "bg": "Държавен бюджет", "en": "State budget" }, "keywords": ["държавен бюджет", "бюджетна процедура", "актуализация на бюджета"] },
-        { "id": "municipal-budget", "label": { "bg": "Общински бюджети", "en": "Municipal budgets" }, "keywords": ["общински бюджет", "бюджет на община"] },
-        { "id": "taxes", "label": { "bg": "Данъци", "en": "Taxes" }, "keywords": ["данъчна реформа", "плосък данък", "данъчни облекчения", "акциз"] },
-        { "id": "debt", "label": { "bg": "Дълг", "en": "Debt" }, "keywords": ["нов дълг", "облигации", "заем", "лимит на дълга"] },
-        { "id": "budget-execution", "label": { "bg": "Изпълнение на бюджета", "en": "Budget execution" }, "keywords": ["изпълнение на бюджета", "дефицит", "превишение"] }
-      ]
-    },
-    {
-      "id": "procurement",
-      "label": { "bg": "Обществени поръчки", "en": "Public procurement" },
-      "route": "/procurement",
-      "keywords": ["обществена поръчка", "търг", "възложител", "оферта", "договор", "КЗК", "изпълнител"],
-      "subcategories": [
-        { "id": "tenders", "label": { "bg": "Търгове и процедури", "en": "Tenders & procedures" }, "keywords": ["открита процедура", "оферти", "техническо предложение", "стойност на поръчката"] },
-        { "id": "kzk-appeals", "label": { "bg": "Жалби и решения на КЗК", "en": "KZK appeals & decisions" }, "keywords": ["КЗК", "жалба", "злоупотреба с доминиращо положение", "картел"] },
-        { "id": "contractors", "label": { "bg": "Изпълнители", "en": "Contractors" }, "keywords": ["изпълнител", "печеливша оферта", "подизпълнител"] },
-        { "id": "overpricing-cartels", "label": { "bg": "Завишени цени и картелни споразумения", "en": "Overpricing & cartels" }, "keywords": ["завишена стойност", "картелно споразумение", "разделяне на поръчки"] }
-      ]
-    },
-    {
-      "id": "eu-funds",
-      "label": { "bg": "ЕС фондове", "en": "EU funds" },
-      "route": "/funds",
-      "keywords": ["европейски фондове", "еврофондове", "усвояване", "оперативна програма", "План за възстановяване", "нерегулярности"],
-      "subcategories": [
-        { "id": "absorption", "label": { "bg": "Усвояване", "en": "Absorption" }, "keywords": ["усвояване", "плащания", "декларирани разходи"] },
-        { "id": "programmes", "label": { "bg": "Програми и проекти", "en": "Programmes & projects" }, "keywords": ["нов проект", "бенефициент", "програма 2021-2027"] },
-        { "id": "rrf", "label": { "bg": "План за възстановяване", "en": "Recovery & Resilience Plan" }, "keywords": ["ПВУ", "План за възстановяване и устойчивост", "втора част"] },
-        { "id": "irregularities-fraud", "label": { "bg": "Нерегулярности и измами", "en": "Irregularities & fraud" }, "keywords": ["измама с еврофондове", "нерегулярност", "проверка на САП"] }
-      ]
-    },
-    {
-      "id": "farm-subsidies",
-      "label": { "bg": "Земеделски субсидии", "en": "Farm subsidies" },
-      "route": "/sector/agri",
-      "keywords": ["ДФЗ", "субсидия", "земеделци", "площни платежи", "КАП"],
-      "subcategories": [
-        { "id": "dfz-payments", "label": { "bg": "Плащания на ДФЗ", "en": "DFZ payments" }, "keywords": ["площна схема", "размер на субсидията", "плащания по схеми"] },
-        { "id": "irregularities", "label": { "bg": "Проверки и измами", "en": "Checks & fraud" }, "keywords": ["измама със субсидии", "проверка на ДФЗ", "санкции"] }
-      ]
-    },
-    {
-      "id": "party-financing",
-      "label": { "bg": "Партийно финансиране", "en": "Party financing" },
-      "route": "/financing",
-      "keywords": ["партийно финансиране", "дарение", "дарители", "разходи за кампания", "КПКОНПИ"],
-      "subcategories": [
-        { "id": "donations", "label": { "bg": "Дарения", "en": "Donations" }, "keywords": ["дарител", "анонимни дарения", "корпоративни дарения"] },
-        { "id": "spending", "label": { "bg": "Разходи и отчети", "en": "Spending & reports" }, "keywords": ["отчет на партия", "разходи за кампания"] },
-        { "id": "kpkonpi-cases", "label": { "bg": "Проверки на КПКОНПИ", "en": "KPKONPI cases" }, "keywords": ["КПКОНПИ", "проверка", "санкция", "имуществена проверка"] }
-      ]
-    },
-    {
-      "id": "judiciary",
-      "label": { "bg": "Правосъдие и прокуратура", "en": "Judiciary & prosecution" },
-      "route": "/judiciary",
-      "keywords": ["прокуратура", "главен прокурор", "съд", "съдия", "ВСС", "обвинение", "присъда", "дело"],
-      "subcategories": [
-        { "id": "prosecutor-general", "label": { "bg": "Главен прокурор и прокуратура", "en": "Prosecutor general & prosecution" }, "keywords": ["главен прокурор", "върховна касационна прокуратура", "структура на прокуратурата"] },
-        { "id": "vss", "label": { "bg": "ВСС и съдийската колегия", "en": "VSS & the judiciary" }, "keywords": ["ВСС", "Висш съдебен съвет", "дисциплинарна процедура"] },
-        { "id": "high-profile-cases", "label": { "bg": "Резонансни дела", "en": "High-profile cases" }, "keywords": ["спира делото", "присъда", "обвинителен акт", "апелация"] },
-        { "id": "court-appointments", "label": { "bg": "Назначения в съдебната система", "en": "Judicial appointments" }, "keywords": ["повишаване", "назначение на съдия", "атестиране"] }
-      ]
-    },
-    {
-      "id": "security-defense",
-      "label": { "bg": "Сигурност и отбрана", "en": "Security & defense" },
-      "route": "/defense",
-      "keywords": ["армия", "отбрана", "военни", "МВР", "полиция", "ДАНС", "сигурност"],
-      "subcategories": [
-        { "id": "defense", "label": { "bg": "Отбрана и въоръжение", "en": "Defense & armament" }, "keywords": ["Българска армия", "бойна машина", "въоръжение", "учение"] },
-        { "id": "interior-mvr", "label": { "bg": "МВР и полиция", "en": "Interior & police" }, "keywords": ["МВР", "полицейски служители", "министър на вътрешните работи"] },
-        { "id": "intelligence", "label": { "bg": "Служби и разузнаване", "en": "Intelligence services" }, "keywords": ["ДАНС", "разузнаване", "военна разузнавателна служба"] },
-        { "id": "cyber", "label": { "bg": "Киберсигурност", "en": "Cybersecurity" }, "keywords": ["кибератака", "киберсигурност", "хакери"] }
-      ]
-    },
-    {
-      "id": "energy",
-      "label": { "bg": "Енергетика", "en": "Energy" },
-      "route": "/sector/energy",
-      "keywords": ["електричество", "ток", "газ", "АЕЦ", "БЕХ", "КЕВР", "ТЕЦ", "нефт"],
-      "subcategories": [
-        { "id": "electricity", "label": { "bg": "Електроенергия", "en": "Electricity" }, "keywords": ["цена на тока", "електроенергия", "доставчик на ток"] },
-        { "id": "gas", "label": { "bg": "Газ", "en": "Gas" }, "keywords": ["Булгаргаз", "газопровод", "доставка на газ"] },
-        { "id": "nuclear", "label": { "bg": "Ядрена енергетика", "en": "Nuclear" }, "keywords": ["АЕЦ „Белене“", "реактор", "ядерено гориво", "АЕЦ „Козлодуй“"] },
-        { "id": "kevr-prices", "label": { "bg": "КЕВР и ценообразуване", "en": "KEVR & pricing" }, "keywords": ["КЕВР", "регулатор", "определена цена"] },
-        { "id": "beh", "label": { "bg": "БЕХ и ТЕЦ", "en": "BEH & thermal plants" }, "keywords": ["БЕХ", "„Марица-изток“", "ТЕЦ"] }
-      ]
-    },
-    {
-      "id": "infrastructure-transport",
-      "label": { "bg": "Инфраструктура и транспорт", "en": "Infrastructure & transport" },
-      "route": "/sector/roads",
-      "keywords": ["пътища", "магистрала", "АПИ", "ремонт", "инфраструктура", "БДЖ", "метро"],
-      "subcategories": [
-        { "id": "roads", "label": { "bg": "Пътища", "en": "Roads" }, "keywords": ["магистрала", "пътен участък", "обход", "АПИ"] },
-        { "id": "rail", "label": { "bg": "Железопътен транспорт", "en": "Rail" }, "keywords": ["БДЖ", "железопътна линия", "влак", "възстановяване на жп линии"] },
-        { "id": "public-transport", "label": { "bg": "Градски транспорт", "en": "Public transport" }, "keywords": ["метро", "автобуси", "трамваи", "билети за градски транспорт"] },
-        { "id": "water-vik", "label": { "bg": "ВиК", "en": "Water & sewerage" }, "keywords": ["ВиК", "водопровод", "отпадни води", "вода"] }
-      ]
-    },
-    {
-      "id": "environment",
-      "label": { "bg": "Околна среда", "en": "Environment" },
-      "route": "/sector/environment",
-      "keywords": ["замърсяване", "въздух", "отпадъци", "сметище", "климат", "биоразнообразие"],
-      "subcategories": [
-        { "id": "air", "label": { "bg": "Въздух", "en": "Air" }, "keywords": ["замърсяване на въздуха", "фини прахови частици", "серен диоксид"] },
-        { "id": "water", "label": { "bg": "Води", "en": "Water" }, "keywords": ["замърсяване на реки", "езера", "язовири"] },
-        { "id": "waste", "label": { "bg": "Отпадъци", "en": "Waste" }, "keywords": ["боклук", "сметище", "рециклиране", "депа"] },
-        { "id": "climate", "label": { "bg": "Климат", "en": "Climate" }, "keywords": ["климатични промени", "зелена сделка", "въглеродни емисии"] },
-        { "id": "protected-areas", "label": { "bg": "Защитени територии", "en": "Protected areas" }, "keywords": ["защитена територия", "НАТУРА 2000", "природен парк"] }
-      ]
-    },
-    {
-      "id": "healthcare",
-      "label": { "bg": "Здравеопазване", "en": "Healthcare" },
-      "route": "/sector/health",
-      "keywords": ["здраве", "болница", "НЗОК", "лекари", "пациенти", "лечение", "медикаменти"],
-      "subcategories": [
-        { "id": "nzok", "label": { "bg": "НЗОК", "en": "NZOK" }, "keywords": ["НЗОК", "пакет от здравни услуги", "договор с НЗОК"] },
-        { "id": "hospitals", "label": { "bg": "Болници", "en": "Hospitals" }, "keywords": ["болница", "клиника", "директор на болница", "стационар"] },
-        { "id": "drugs", "label": { "bg": "Медикаменти", "en": "Drugs" }, "keywords": ["медикамент", "позитивна листа", "рецепта"] },
-        { "id": "reforms", "label": { "bg": "Здравни реформи", "en": "Health reforms" }, "keywords": ["здравна реформа", "структурна реформа", "личен лекар"] }
-      ]
-    },
-    {
-      "id": "education",
-      "label": { "bg": "Образование и наука", "en": "Education & science" },
-      "route": "/education",
-      "keywords": ["образование", "училище", "учители", "МОН", "университет", "матура", "БАН"],
-      "subcategories": [
-        { "id": "schools", "label": { "bg": "Училища", "en": "Schools" }, "keywords": ["училище", "учебна година", "директор на училище"] },
-        { "id": "teachers", "label": { "bg": "Учители", "en": "Teachers" }, "keywords": ["учители", "заплата на учителите", "стачка на учителите"] },
-        { "id": "universities-science", "label": { "bg": "Университети и наука", "en": "Universities & science" }, "keywords": ["университет", "акредитация", "БАН", "научни изследвания"] }
-      ]
-    },
-    {
-      "id": "social-pensions",
-      "label": { "bg": "Социална политика и пенсии", "en": "Social policy & pensions" },
-      "route": "/pensions",
-      "keywords": ["пенсия", "осигуровки", "социални помощи", "минимална заплата", "застаряване"],
-      "subcategories": [
-        { "id": "pensions", "label": { "bg": "Пенсии", "en": "Pensions" }, "keywords": ["пенсия", "индексация", "осигурителен стаж", "пенсионна реформа"] },
-        { "id": "social-assistance", "label": { "bg": "Социални помощи", "en": "Social assistance" }, "keywords": ["социални помощи", "целеви подпомагания", "услуга „личен асистент“"] },
-        { "id": "min-wage", "label": { "bg": "Минимална заплата и доходи", "en": "Minimum wage & incomes" }, "keywords": ["минимална заплата", "доходи", "средна заплата"] }
-      ]
-    },
-    {
-      "id": "economy",
-      "label": { "bg": "Икономика", "en": "Economy" },
-      "route": "/indicators",
-      "keywords": ["икономика", "инфлация", "БВП", "растеж", "инвестиции", "безработица", "фалит"],
-      "subcategories": [
-        { "id": "gdp-inflation", "label": { "bg": "БВП и инфлация", "en": "GDP & inflation" }, "keywords": ["инфлация", "БВП", "растеж", "дефлатор"] },
-        { "id": "labor-market", "label": { "bg": "Пазар на труда", "en": "Labor market" }, "keywords": ["безработица", "заетост", "вакансии", "липса на кадри"] },
-        { "id": "companies-fdi", "label": { "bg": "Компании и инвестиции", "en": "Companies & investment" }, "keywords": ["инвестиция", "завод", "нови работни места", "фалит", "поглъщане"] }
-      ]
-    },
-    {
-      "id": "prices-consumption",
-      "label": { "bg": "Цени и потребление", "en": "Prices & cost of living" },
-      "route": "/consumption",
-      "keywords": ["цени", "скъпо", "продукти", "храни", "гориво", "наем", "кошница"],
-      "subcategories": [
-        { "id": "food", "label": { "bg": "Храни", "en": "Food" }, "keywords": ["цени на храните", "продукти", "пазаруване"] },
-        { "id": "fuel", "label": { "bg": "Горива", "en": "Fuel" }, "keywords": ["горива", "бензин", "дизел"] },
-        { "id": "housing", "label": { "bg": "Жилища", "en": "Housing" }, "keywords": ["наеми", "имоти", "цени на жилищата"] },
-        { "id": "cost-of-living", "label": { "bg": "Стандарт на живот", "en": "Cost of living" }, "keywords": ["скъпотия", "стандарт на живот", "потребителска кошница"] }
-      ]
-    },
-    {
-      "id": "local-news",
-      "label": { "bg": "Местни новини", "en": "Local news" },
-      "route": "/municipality",
-      "keywords": ["община", "кметство", "село", "град", "местен проблем", "квартал"],
-      "subcategories": [
-        { "id": "municipal-problems", "label": { "bg": "Местни проблеми", "en": "Municipal problems" }, "keywords": ["яма", "улица", "озеленяване", "локва", "смет в квартала"] },
-        { "id": "local-utilities", "label": { "bg": "Местни услуги", "en": "Local utilities" }, "keywords": ["вода в квартала", "токът", "сметища", "градски транспорт"] },
-        { "id": "local-councils", "label": { "bg": "Общински съвети (извън избори)", "en": "Local councils (non-election)" }, "keywords": ["общински съвет", "решение на общината", "решение на съветници"] }
-      ]
-    },
-    {
-      "id": "demographics",
-      "label": { "bg": "Демография", "en": "Demographics" },
-      "route": "/demographics",
-      "keywords": ["население", "преброяване", "демография", "застаряване", "изселване", "миграция"],
-      "subcategories": [
-        { "id": "census", "label": { "bg": "Преброяване", "en": "Census" }, "keywords": ["преброяване на населението", "резултати от преброяването"] },
-        { "id": "migration", "label": { "bg": "Миграция", "en": "Migration" }, "keywords": ["емиграция", "изселване", "завръщане", "бежанци"] },
-        { "id": "population", "label": { "bg": "Население", "en": "Population" }, "keywords": ["намаляващо население", "демографска криза", "раждаемост"] }
-      ]
-    },
-    {
-      "id": "media-press",
-      "label": { "bg": "Медии и свобода на словото", "en": "Media & press freedom" },
-      "route": null,
-      "keywords": ["медии", "журналист", "свобода на словото", "притискане", "дезинформация", "пропаганда"],
-      "subcategories": [
-        { "id": "media-ownership", "label": { "bg": "Собственост върху медии", "en": "Media ownership" }, "keywords": ["собственост", "купена медия", "медийна група", "концентрация на медии"] },
-        { "id": "press-freedom", "label": { "bg": "Свобода на словото", "en": "Press freedom" }, "keywords": ["свобода на словото", "натиск върху журналист", "репортери без граници"] },
-        { "id": "disinformation", "label": { "bg": "Дезинформация", "en": "Disinformation" }, "keywords": ["фалшиви новини", "дезинформация", "пропаганда", "ботове"] }
-      ]
-    },
-    {
-      "id": "foreign-policy",
-      "label": { "bg": "Външна политика", "en": "Foreign policy" },
-      "route": null,
-      "keywords": ["ЕС", "НАТО", "Украйна", "дипломация", "Шенген", "двустранни отношения"],
-      "subcategories": [
-        { "id": "eu", "label": { "bg": "Европейски съюз", "en": "European Union" }, "keywords": ["Европейски съюз", "Шенген", "еврокомисар", "европейска комисия"] },
-        { "id": "nato", "label": { "bg": "НАТО", "en": "NATO" }, "keywords": ["НАТО", "северноатлантически съюз", "съвместни учения"] },
-        { "id": "ukraine", "label": { "bg": "Украйна и войната", "en": "Ukraine & the war" }, "keywords": ["Украйна", "войната в Украйна", "помощ за Украйна", "украински бежанци"] },
-        { "id": "bilateral", "label": { "bg": "Двустранни отношения", "en": "Bilateral relations" }, "keywords": ["Турция", "Северна Македония", "Румъния", "Гърция", "посланик"] },
-        { "id": "diaspora", "label": { "bg": "Българи по света", "en": "Diaspora" }, "keywords": ["българи в чужбина", "диаспора", "българска общност"] }
-      ]
-    },
-    {
-      "id": "society",
-      "label": { "bg": "Общество", "en": "Society" },
-      "route": null,
-      "keywords": ["протест", "граждани", "малцинства", "религия", "църква", "общество"],
-      "subcategories": [
-        { "id": "protests", "label": { "bg": "Протести и граждански действия", "en": "Protests & civic action" }, "keywords": ["протест", "митинг", "подписка", "блокада"] },
-        { "id": "minorities", "label": { "bg": "Малцинства и права", "en": "Minorities & rights" }, "keywords": ["малцинства", "етнически", "права", "дискриминация"] },
-        { "id": "religion", "label": { "bg": "Религия", "en": "Religion" }, "keywords": ["БПЦ", "църква", "муфтийство", "верски празници"] },
-        { "id": "human-interest", "label": { "bg": "Хора и истории", "en": "Human interest" }, "keywords": ["история", "любопитно", "спасение", "добрина"] }
-      ]
-    },
-    {
-      "id": "not-site-relevant",
-      "label": { "bg": "Извън обхвата на сайта", "en": "Not site-relevant" },
-      "route": null,
-      "site_relevant": false,
-      "keywords": ["времето", "спорт", "футбол", "хороскоп", "куриози", "зодия"],
-      "subcategories": [
-        { "id": "weather", "label": { "bg": "Времето", "en": "Weather" }, "keywords": ["температура", "валежи", "жълт код", "жега", "сняг", "вятър"] },
-        { "id": "sports", "label": { "bg": "Спорт", "en": "Sports" }, "keywords": ["футбол", "мач", "гол", "отбор", "шампион"] },
-        { "id": "celebrities", "label": { "bg": "Шоубизнес и знаменитости", "en": "Celebrities & showbiz" }, "keywords": ["поп фолк", "звезда", "скандал", "любов"] },
-        { "id": "crime-blotter", "label": { "bg": "Битова престъпност и произшествия", "en": "Crime blotter & accidents" }, "keywords": ["кражба", "палеж", "произшествие", "катастрофа", "удавяне"] },
-        { "id": "misc-filler", "label": { "bg": "Разни", "en": "Misc filler" }, "keywords": ["хороскоп", "празнуват днес", "съвети", "рецепти"] }
-      ]
+     "id": "abroad-voting",
+     "label": {
+      "bg": "Гласуване в чужбина",
+      "en": "Voting abroad"
+     },
+     "keywords": [
+      "гласуване в чужбина",
+      "избиратели зад граница",
+      "машини в чужбина"
+     ]
     }
-  ]
+   ]
+  },
+  {
+   "id": "elections-local",
+   "label": {
+    "bg": "Местни избори",
+    "en": "Local elections"
+   },
+   "route": "/local/:cycle",
+   "keywords": [
+    "местни избори",
+    "кметски кандидати",
+    "общински съвет",
+    "балотаж",
+    "кметство"
+   ],
+   "subcategories": [
+    {
+     "id": "mayors",
+     "label": {
+      "bg": "Кметски състезания",
+      "en": "Mayoral races"
+     },
+     "keywords": [
+      "кмет",
+      "кандидат за кмет",
+      "балотаж",
+      "втори тур"
+     ]
+    },
+    {
+     "id": "councils",
+     "label": {
+      "bg": "Общински съвети",
+      "en": "Municipal councils (election)"
+     },
+     "keywords": [
+      "общински съветници",
+      "местни листи"
+     ]
+    },
+    {
+     "id": "runoffs",
+     "label": {
+      "bg": "Балотажи",
+      "en": "Runoffs"
+     },
+     "keywords": [
+      "балотаж",
+      "втори тур",
+      "преизбори"
+     ]
+    },
+    {
+     "id": "local-administration",
+     "label": {
+      "bg": "Организация на местния вот",
+      "en": "Local vote administration"
+     },
+     "keywords": [
+      "местни секции",
+      "протоколи",
+      "преброяване"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "government",
+   "label": {
+    "bg": "Управление и кабинет",
+    "en": "Government & cabinet"
+   },
+   "route": "/governance",
+   "keywords": [
+    "Министерски съвет",
+    "правителство",
+    "премиер",
+    "министър",
+    "кабинет",
+    "вот на доверие"
+   ],
+   "subcategories": [
+    {
+     "id": "cabinet-formation",
+     "label": {
+      "bg": "Съставяне на кабинет",
+      "en": "Cabinet formation"
+     },
+     "keywords": [
+      "мандат",
+      "предложение за кабинет",
+      "структура на правителството"
+     ]
+    },
+    {
+     "id": "ministers",
+     "label": {
+      "bg": "Министри",
+      "en": "Ministers"
+     },
+     "keywords": [
+      "нов министър",
+      "оставка на министър",
+      "заместник-министър"
+     ]
+    },
+    {
+     "id": "coalition-politics",
+     "label": {
+      "bg": "Коалиционна политика",
+      "en": "Coalition politics"
+     },
+     "keywords": [
+      "коалиционни партньори",
+      "разбирателство",
+      "напрежение в управляващата коалиция"
+     ]
+    },
+    {
+     "id": "civil-service",
+     "label": {
+      "bg": "Държавна администрация",
+      "en": "Civil service"
+     },
+     "route": "/sector/administration",
+     "keywords": [
+      "държавна администрация",
+      "назначени по партиен принцип",
+      "съкращения в администрацията"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "parliament",
+   "label": {
+    "bg": "Парламент и законодателство",
+    "en": "Parliament & legislation"
+   },
+   "route": "/parliament",
+   "keywords": [
+    "Народно събрание",
+    "депутати",
+    "пленарно заседание",
+    "законопроект",
+    "парламентарна комисия"
+   ],
+   "subcategories": [
+    {
+     "id": "legislation",
+     "label": {
+      "bg": "Законодателство",
+      "en": "Legislation"
+     },
+     "keywords": [
+      "законопроект",
+      "първо четене",
+      "второ четене",
+      "приет закон",
+      "вето"
+     ]
+    },
+    {
+     "id": "votes-rollcall",
+     "label": {
+      "bg": "Гласувания",
+      "en": "Votes & rollcall"
+     },
+     "route": "/votes",
+     "keywords": [
+      "гласуване",
+      "вот",
+      "регистрация",
+      "депутатски вот"
+     ]
+    },
+    {
+     "id": "committees",
+     "label": {
+      "bg": "Комисии",
+      "en": "Committees"
+     },
+     "keywords": [
+      "комисия",
+      "председател на комисия",
+      "закрито заседание"
+     ]
+    },
+    {
+     "id": "mp-conduct",
+     "label": {
+      "bg": "Поведение на депутати",
+      "en": "MP conduct"
+     },
+     "keywords": [
+      "имоти на депутат",
+      "конфликт на интереси",
+      "декларация на народен представител"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "officials-people",
+   "label": {
+    "bg": "Лица и длъжностни лица",
+    "en": "Officials & people"
+   },
+   "route": "/persons",
+   "keywords": [
+    "длъжностно лице",
+    "нов шеф",
+    "назначение",
+    "оставка",
+    "освободен",
+    "профил"
+   ],
+   "subcategories": [
+    {
+     "id": "appointments",
+     "label": {
+      "bg": "Назначения",
+      "en": "Appointments"
+     },
+     "keywords": [
+      "назначен",
+      "поема поста",
+      "нов директор"
+     ]
+    },
+    {
+     "id": "dismissals",
+     "label": {
+      "bg": "Освобождавания и оставки",
+      "en": "Dismissals & resignations"
+     },
+     "keywords": [
+      "освободен",
+      "отстранен",
+      "подаде оставка"
+     ]
+    },
+    {
+     "id": "declarations-conflicts",
+     "label": {
+      "bg": "Декларации и конфликти на интереси",
+      "en": "Declarations & conflicts of interest"
+     },
+     "route": "/governance/declarations",
+     "keywords": [
+      "декларация",
+      "конфликт на интереси",
+      "имоти",
+      "градеж"
+     ]
+    },
+    {
+     "id": "sanctions",
+     "label": {
+      "bg": "Санкции",
+      "en": "Sanctions"
+     },
+     "keywords": [
+      "санкции",
+      "„Магнитски“",
+      "забрана за пътуване"
+     ]
+    },
+    {
+     "id": "official-investigations",
+     "label": {
+      "bg": "Разследвания срещу длъжностни лица",
+      "en": "Investigations of officials"
+     },
+     "keywords": [
+      "разследване срещу",
+      "обвинения срещу",
+      "повдигнато обвинение"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "budget-fiscal",
+   "label": {
+    "bg": "Бюджет и данъци",
+    "en": "Budget & taxes"
+   },
+   "route": "/budget",
+   "keywords": [
+    "бюджет",
+    "данък",
+    "ДДС",
+    "дефицит",
+    "приходи",
+    "разходи",
+    "фискален"
+   ],
+   "subcategories": [
+    {
+     "id": "state-budget",
+     "label": {
+      "bg": "Държавен бюджет",
+      "en": "State budget"
+     },
+     "keywords": [
+      "държавен бюджет",
+      "бюджетна процедура",
+      "актуализация на бюджета"
+     ]
+    },
+    {
+     "id": "municipal-budget",
+     "label": {
+      "bg": "Общински бюджети",
+      "en": "Municipal budgets"
+     },
+     "route": "/budget/municipal",
+     "keywords": [
+      "общински бюджет",
+      "бюджет на община"
+     ]
+    },
+    {
+     "id": "taxes",
+     "label": {
+      "bg": "Данъци",
+      "en": "Taxes"
+     },
+     "keywords": [
+      "данъчна реформа",
+      "плосък данък",
+      "данъчни облекчения",
+      "акциз"
+     ]
+    },
+    {
+     "id": "debt",
+     "label": {
+      "bg": "Дълг",
+      "en": "Debt"
+     },
+     "keywords": [
+      "нов дълг",
+      "облигации",
+      "заем",
+      "лимит на дълга"
+     ]
+    },
+    {
+     "id": "budget-execution",
+     "label": {
+      "bg": "Изпълнение на бюджета",
+      "en": "Budget execution"
+     },
+     "route": "/budget/execution",
+     "keywords": [
+      "изпълнение на бюджета",
+      "дефицит",
+      "превишение"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "procurement",
+   "label": {
+    "bg": "Обществени поръчки",
+    "en": "Public procurement"
+   },
+   "route": "/procurement",
+   "keywords": [
+    "обществена поръчка",
+    "търг",
+    "възложител",
+    "оферта",
+    "договор",
+    "КЗК",
+    "изпълнител"
+   ],
+   "subcategories": [
+    {
+     "id": "tenders",
+     "label": {
+      "bg": "Търгове и процедури",
+      "en": "Tenders & procedures"
+     },
+     "route": "/procurement/tenders",
+     "keywords": [
+      "открита процедура",
+      "оферти",
+      "техническо предложение",
+      "стойност на поръчката"
+     ]
+    },
+    {
+     "id": "kzk-appeals",
+     "label": {
+      "bg": "Жалби и решения на КЗК",
+      "en": "KZK appeals & decisions"
+     },
+     "route": "/procurement/appeals",
+     "keywords": [
+      "КЗК",
+      "жалба",
+      "злоупотреба с доминиращо положение",
+      "картел"
+     ]
+    },
+    {
+     "id": "contractors",
+     "label": {
+      "bg": "Изпълнители",
+      "en": "Contractors"
+     },
+     "route": "/procurement/contractors",
+     "keywords": [
+      "изпълнител",
+      "печеливша оферта",
+      "подизпълнител"
+     ]
+    },
+    {
+     "id": "overpricing-cartels",
+     "label": {
+      "bg": "Завишени цени и картелни споразумения",
+      "en": "Overpricing & cartels"
+     },
+     "keywords": [
+      "завишена стойност",
+      "картелно споразумение",
+      "разделяне на поръчки"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "eu-funds",
+   "label": {
+    "bg": "ЕС фондове",
+    "en": "EU funds"
+   },
+   "route": "/funds",
+   "keywords": [
+    "европейски фондове",
+    "еврофондове",
+    "усвояване",
+    "оперативна програма",
+    "План за възстановяване",
+    "нерегулярности"
+   ],
+   "subcategories": [
+    {
+     "id": "absorption",
+     "label": {
+      "bg": "Усвояване",
+      "en": "Absorption"
+     },
+     "route": "/funds/absorption",
+     "keywords": [
+      "усвояване",
+      "плащания",
+      "декларирани разходи"
+     ]
+    },
+    {
+     "id": "programmes",
+     "label": {
+      "bg": "Програми и проекти",
+      "en": "Programmes & projects"
+     },
+     "route": "/funds/programmes",
+     "keywords": [
+      "нов проект",
+      "бенефициент",
+      "програма 2021-2027"
+     ]
+    },
+    {
+     "id": "rrf",
+     "label": {
+      "bg": "План за възстановяване",
+      "en": "Recovery & Resilience Plan"
+     },
+     "route": "/funds/rrf",
+     "keywords": [
+      "ПВУ",
+      "План за възстановяване и устойчивост",
+      "втора част"
+     ]
+    },
+    {
+     "id": "irregularities-fraud",
+     "label": {
+      "bg": "Нерегулярности и измами",
+      "en": "Irregularities & fraud"
+     },
+     "route": "/funds/integrity",
+     "keywords": [
+      "измама с еврофондове",
+      "нерегулярност",
+      "проверка на САП"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "farm-subsidies",
+   "label": {
+    "bg": "Земеделски субсидии",
+    "en": "Farm subsidies"
+   },
+   "route": "/sector/agri",
+   "keywords": [
+    "ДФЗ",
+    "субсидия",
+    "земеделци",
+    "площни платежи",
+    "КАП"
+   ],
+   "subcategories": [
+    {
+     "id": "dfz-payments",
+     "label": {
+      "bg": "Плащания на ДФЗ",
+      "en": "DFZ payments"
+     },
+     "route": "/subsidies",
+     "keywords": [
+      "площна схема",
+      "размер на субсидията",
+      "плащания по схеми"
+     ]
+    },
+    {
+     "id": "irregularities",
+     "label": {
+      "bg": "Проверки и измами",
+      "en": "Checks & fraud"
+     },
+     "keywords": [
+      "измама със субсидии",
+      "проверка на ДФЗ",
+      "санкции"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "party-financing",
+   "label": {
+    "bg": "Партийно финансиране",
+    "en": "Party financing"
+   },
+   "route": "/financing",
+   "keywords": [
+    "партийно финансиране",
+    "дарение",
+    "дарители",
+    "разходи за кампания",
+    "КПКОНПИ"
+   ],
+   "subcategories": [
+    {
+     "id": "donations",
+     "label": {
+      "bg": "Дарения",
+      "en": "Donations"
+     },
+     "keywords": [
+      "дарител",
+      "анонимни дарения",
+      "корпоративни дарения"
+     ]
+    },
+    {
+     "id": "spending",
+     "label": {
+      "bg": "Разходи и отчети",
+      "en": "Spending & reports"
+     },
+     "keywords": [
+      "отчет на партия",
+      "разходи за кампания"
+     ]
+    },
+    {
+     "id": "kpkonpi-cases",
+     "label": {
+      "bg": "Проверки на КПКОНПИ",
+      "en": "KPKONPI cases"
+     },
+     "keywords": [
+      "КПКОНПИ",
+      "проверка",
+      "санкция",
+      "имуществена проверка"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "judiciary",
+   "label": {
+    "bg": "Правосъдие и прокуратура",
+    "en": "Judiciary & prosecution"
+   },
+   "route": "/judiciary",
+   "keywords": [
+    "прокуратура",
+    "главен прокурор",
+    "съд",
+    "съдия",
+    "ВСС",
+    "обвинение",
+    "присъда",
+    "дело"
+   ],
+   "subcategories": [
+    {
+     "id": "prosecutor-general",
+     "label": {
+      "bg": "Главен прокурор и прокуратура",
+      "en": "Prosecutor general & prosecution"
+     },
+     "keywords": [
+      "главен прокурор",
+      "върховна касационна прокуратура",
+      "структура на прокуратурата"
+     ]
+    },
+    {
+     "id": "vss",
+     "label": {
+      "bg": "ВСС и съдийската колегия",
+      "en": "VSS & the judiciary"
+     },
+     "keywords": [
+      "ВСС",
+      "Висш съдебен съвет",
+      "дисциплинарна процедура"
+     ]
+    },
+    {
+     "id": "high-profile-cases",
+     "label": {
+      "bg": "Резонансни дела",
+      "en": "High-profile cases"
+     },
+     "keywords": [
+      "спира делото",
+      "присъда",
+      "обвинителен акт",
+      "апелация"
+     ]
+    },
+    {
+     "id": "court-appointments",
+     "label": {
+      "bg": "Назначения в съдебната система",
+      "en": "Judicial appointments"
+     },
+     "keywords": [
+      "повишаване",
+      "назначение на съдия",
+      "атестиране"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "security-defense",
+   "label": {
+    "bg": "Сигурност и отбрана",
+    "en": "Security & defense"
+   },
+   "route": "/defense",
+   "keywords": [
+    "армия",
+    "отбрана",
+    "военни",
+    "МВР",
+    "полиция",
+    "ДАНС",
+    "сигурност"
+   ],
+   "subcategories": [
+    {
+     "id": "defense",
+     "label": {
+      "bg": "Отбрана и въоръжение",
+      "en": "Defense & armament"
+     },
+     "keywords": [
+      "Българска армия",
+      "бойна машина",
+      "въоръжение",
+      "учение"
+     ]
+    },
+    {
+     "id": "interior-mvr",
+     "label": {
+      "bg": "МВР и полиция",
+      "en": "Interior & police"
+     },
+     "keywords": [
+      "МВР",
+      "полицейски служители",
+      "министър на вътрешните работи"
+     ]
+    },
+    {
+     "id": "intelligence",
+     "label": {
+      "bg": "Служби и разузнаване",
+      "en": "Intelligence services"
+     },
+     "keywords": [
+      "ДАНС",
+      "разузнаване",
+      "военна разузнавателна служба"
+     ]
+    },
+    {
+     "id": "cyber",
+     "label": {
+      "bg": "Киберсигурност",
+      "en": "Cybersecurity"
+     },
+     "keywords": [
+      "кибератака",
+      "киберсигурност",
+      "хакери"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "energy",
+   "label": {
+    "bg": "Енергетика",
+    "en": "Energy"
+   },
+   "route": "/sector/energy",
+   "keywords": [
+    "електричество",
+    "ток",
+    "газ",
+    "АЕЦ",
+    "БЕХ",
+    "КЕВР",
+    "ТЕЦ",
+    "нефт"
+   ],
+   "subcategories": [
+    {
+     "id": "electricity",
+     "label": {
+      "bg": "Електроенергия",
+      "en": "Electricity"
+     },
+     "route": "/consumption/electricity",
+     "keywords": [
+      "цена на тока",
+      "електроенергия",
+      "доставчик на ток"
+     ]
+    },
+    {
+     "id": "gas",
+     "label": {
+      "bg": "Газ",
+      "en": "Gas"
+     },
+     "route": "/consumption/gas",
+     "keywords": [
+      "Булгаргаз",
+      "газопровод",
+      "доставка на газ"
+     ]
+    },
+    {
+     "id": "nuclear",
+     "label": {
+      "bg": "Ядрена енергетика",
+      "en": "Nuclear"
+     },
+     "keywords": [
+      "АЕЦ „Белене“",
+      "реактор",
+      "ядерено гориво",
+      "АЕЦ „Козлодуй“"
+     ]
+    },
+    {
+     "id": "kevr-prices",
+     "label": {
+      "bg": "КЕВР и ценообразуване",
+      "en": "KEVR & pricing"
+     },
+     "keywords": [
+      "КЕВР",
+      "регулатор",
+      "определена цена"
+     ]
+    },
+    {
+     "id": "beh",
+     "label": {
+      "bg": "БЕХ и ТЕЦ",
+      "en": "BEH & thermal plants"
+     },
+     "keywords": [
+      "БЕХ",
+      "„Марица-изток“",
+      "ТЕЦ"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "infrastructure-transport",
+   "label": {
+    "bg": "Инфраструктура и транспорт",
+    "en": "Infrastructure & transport"
+   },
+   "route": "/sector/roads",
+   "keywords": [
+    "пътища",
+    "магистрала",
+    "АПИ",
+    "ремонт",
+    "инфраструктура",
+    "БДЖ",
+    "метро"
+   ],
+   "subcategories": [
+    {
+     "id": "roads",
+     "label": {
+      "bg": "Пътища",
+      "en": "Roads"
+     },
+     "keywords": [
+      "магистрала",
+      "пътен участък",
+      "обход",
+      "АПИ"
+     ]
+    },
+    {
+     "id": "rail",
+     "label": {
+      "bg": "Железопътен транспорт",
+      "en": "Rail"
+     },
+     "keywords": [
+      "БДЖ",
+      "железопътна линия",
+      "влак",
+      "възстановяване на жп линии"
+     ]
+    },
+    {
+     "id": "public-transport",
+     "label": {
+      "bg": "Градски транспорт",
+      "en": "Public transport"
+     },
+     "keywords": [
+      "метро",
+      "автобуси",
+      "трамваи",
+      "билети за градски транспорт"
+     ]
+    },
+    {
+     "id": "water-vik",
+     "label": {
+      "bg": "ВиК",
+      "en": "Water & sewerage"
+     },
+     "route": "/water",
+     "keywords": [
+      "ВиК",
+      "водопровод",
+      "отпадни води",
+      "вода"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "environment",
+   "label": {
+    "bg": "Околна среда",
+    "en": "Environment"
+   },
+   "route": "/sector/environment",
+   "keywords": [
+    "замърсяване",
+    "въздух",
+    "отпадъци",
+    "сметище",
+    "климат",
+    "биоразнообразие"
+   ],
+   "subcategories": [
+    {
+     "id": "air",
+     "label": {
+      "bg": "Въздух",
+      "en": "Air"
+     },
+     "keywords": [
+      "замърсяване на въздуха",
+      "фини прахови частици",
+      "серен диоксид"
+     ]
+    },
+    {
+     "id": "water",
+     "label": {
+      "bg": "Води",
+      "en": "Water"
+     },
+     "keywords": [
+      "замърсяване на реки",
+      "езера",
+      "язовири"
+     ]
+    },
+    {
+     "id": "waste",
+     "label": {
+      "bg": "Отпадъци",
+      "en": "Waste"
+     },
+     "keywords": [
+      "боклук",
+      "сметище",
+      "рециклиране",
+      "депа"
+     ]
+    },
+    {
+     "id": "climate",
+     "label": {
+      "bg": "Климат",
+      "en": "Climate"
+     },
+     "keywords": [
+      "климатични промени",
+      "зелена сделка",
+      "въглеродни емисии"
+     ]
+    },
+    {
+     "id": "protected-areas",
+     "label": {
+      "bg": "Защитени територии",
+      "en": "Protected areas"
+     },
+     "keywords": [
+      "защитена територия",
+      "НАТУРА 2000",
+      "природен парк"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "healthcare",
+   "label": {
+    "bg": "Здравеопазване",
+    "en": "Healthcare"
+   },
+   "route": "/sector/health",
+   "keywords": [
+    "здраве",
+    "болница",
+    "НЗОК",
+    "лекари",
+    "пациенти",
+    "лечение",
+    "медикаменти"
+   ],
+   "subcategories": [
+    {
+     "id": "nzok",
+     "label": {
+      "bg": "НЗОК",
+      "en": "NZOK"
+     },
+     "keywords": [
+      "НЗОК",
+      "пакет от здравни услуги",
+      "договор с НЗОК"
+     ]
+    },
+    {
+     "id": "hospitals",
+     "label": {
+      "bg": "Болници",
+      "en": "Hospitals"
+     },
+     "keywords": [
+      "болница",
+      "клиника",
+      "директор на болница",
+      "стационар"
+     ]
+    },
+    {
+     "id": "drugs",
+     "label": {
+      "bg": "Медикаменти",
+      "en": "Drugs"
+     },
+     "keywords": [
+      "медикамент",
+      "позитивна листа",
+      "рецепта"
+     ]
+    },
+    {
+     "id": "reforms",
+     "label": {
+      "bg": "Здравни реформи",
+      "en": "Health reforms"
+     },
+     "keywords": [
+      "здравна реформа",
+      "структурна реформа",
+      "личен лекар"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "education",
+   "label": {
+    "bg": "Образование и наука",
+    "en": "Education & science"
+   },
+   "route": "/education",
+   "keywords": [
+    "образование",
+    "училище",
+    "учители",
+    "МОН",
+    "университет",
+    "матура",
+    "БАН"
+   ],
+   "subcategories": [
+    {
+     "id": "schools",
+     "label": {
+      "bg": "Училища",
+      "en": "Schools"
+     },
+     "keywords": [
+      "училище",
+      "учебна година",
+      "директор на училище"
+     ]
+    },
+    {
+     "id": "teachers",
+     "label": {
+      "bg": "Учители",
+      "en": "Teachers"
+     },
+     "keywords": [
+      "учители",
+      "заплата на учителите",
+      "стачка на учителите"
+     ]
+    },
+    {
+     "id": "universities-science",
+     "label": {
+      "bg": "Университети и наука",
+      "en": "Universities & science"
+     },
+     "keywords": [
+      "университет",
+      "акредитация",
+      "БАН",
+      "научни изследвания"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "social-pensions",
+   "label": {
+    "bg": "Социална политика и пенсии",
+    "en": "Social policy & pensions"
+   },
+   "route": "/pensions",
+   "keywords": [
+    "пенсия",
+    "осигуровки",
+    "социални помощи",
+    "минимална заплата",
+    "застаряване"
+   ],
+   "subcategories": [
+    {
+     "id": "pensions",
+     "label": {
+      "bg": "Пенсии",
+      "en": "Pensions"
+     },
+     "keywords": [
+      "пенсия",
+      "индексация",
+      "осигурителен стаж",
+      "пенсионна реформа"
+     ]
+    },
+    {
+     "id": "social-assistance",
+     "label": {
+      "bg": "Социални помощи",
+      "en": "Social assistance"
+     },
+     "keywords": [
+      "социални помощи",
+      "целеви подпомагания",
+      "услуга „личен асистент“"
+     ]
+    },
+    {
+     "id": "min-wage",
+     "label": {
+      "bg": "Минимална заплата и доходи",
+      "en": "Minimum wage & incomes"
+     },
+     "keywords": [
+      "минимална заплата",
+      "доходи",
+      "средна заплата"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "economy",
+   "label": {
+    "bg": "Икономика",
+    "en": "Economy"
+   },
+   "route": "/indicators",
+   "keywords": [
+    "икономика",
+    "инфлация",
+    "БВП",
+    "растеж",
+    "инвестиции",
+    "безработица",
+    "фалит"
+   ],
+   "subcategories": [
+    {
+     "id": "gdp-inflation",
+     "label": {
+      "bg": "БВП и инфлация",
+      "en": "GDP & inflation"
+     },
+     "keywords": [
+      "инфлация",
+      "БВП",
+      "растеж",
+      "дефлатор"
+     ]
+    },
+    {
+     "id": "labor-market",
+     "label": {
+      "bg": "Пазар на труда",
+      "en": "Labor market"
+     },
+     "keywords": [
+      "безработица",
+      "заетост",
+      "вакансии",
+      "липса на кадри"
+     ]
+    },
+    {
+     "id": "companies-fdi",
+     "label": {
+      "bg": "Компании и инвестиции",
+      "en": "Companies & investment"
+     },
+     "keywords": [
+      "инвестиция",
+      "завод",
+      "нови работни места",
+      "фалит",
+      "поглъщане"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "prices-consumption",
+   "label": {
+    "bg": "Цени и потребление",
+    "en": "Prices & cost of living"
+   },
+   "route": "/consumption",
+   "keywords": [
+    "цени",
+    "скъпо",
+    "продукти",
+    "храни",
+    "гориво",
+    "наем",
+    "кошница"
+   ],
+   "subcategories": [
+    {
+     "id": "food",
+     "label": {
+      "bg": "Храни",
+      "en": "Food"
+     },
+     "route": "/consumption/basket",
+     "keywords": [
+      "цени на храните",
+      "продукти",
+      "пазаруване"
+     ]
+    },
+    {
+     "id": "fuel",
+     "label": {
+      "bg": "Горива",
+      "en": "Fuel"
+     },
+     "route": "/consumption/fuel",
+     "keywords": [
+      "горива",
+      "бензин",
+      "дизел"
+     ]
+    },
+    {
+     "id": "housing",
+     "label": {
+      "bg": "Жилища",
+      "en": "Housing"
+     },
+     "keywords": [
+      "наеми",
+      "имоти",
+      "цени на жилищата"
+     ]
+    },
+    {
+     "id": "cost-of-living",
+     "label": {
+      "bg": "Стандарт на живот",
+      "en": "Cost of living"
+     },
+     "keywords": [
+      "скъпотия",
+      "стандарт на живот",
+      "потребителска кошница"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "local-news",
+   "label": {
+    "bg": "Местни новини",
+    "en": "Local news"
+   },
+   "route": "/municipality",
+   "keywords": [
+    "община",
+    "кметство",
+    "село",
+    "град",
+    "местен проблем",
+    "квартал"
+   ],
+   "subcategories": [
+    {
+     "id": "municipal-problems",
+     "label": {
+      "bg": "Местни проблеми",
+      "en": "Municipal problems"
+     },
+     "keywords": [
+      "яма",
+      "улица",
+      "озеленяване",
+      "локва",
+      "смет в квартала"
+     ]
+    },
+    {
+     "id": "local-utilities",
+     "label": {
+      "bg": "Местни услуги",
+      "en": "Local utilities"
+     },
+     "keywords": [
+      "вода в квартала",
+      "токът",
+      "сметища",
+      "градски транспорт"
+     ]
+    },
+    {
+     "id": "local-councils",
+     "label": {
+      "bg": "Общински съвети (извън избори)",
+      "en": "Local councils (non-election)"
+     },
+     "keywords": [
+      "общински съвет",
+      "решение на общината",
+      "решение на съветници"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "demographics",
+   "label": {
+    "bg": "Демография",
+    "en": "Demographics"
+   },
+   "route": "/demographics",
+   "keywords": [
+    "население",
+    "преброяване",
+    "демография",
+    "застаряване",
+    "изселване",
+    "миграция"
+   ],
+   "subcategories": [
+    {
+     "id": "census",
+     "label": {
+      "bg": "Преброяване",
+      "en": "Census"
+     },
+     "keywords": [
+      "преброяване на населението",
+      "резултати от преброяването"
+     ]
+    },
+    {
+     "id": "migration",
+     "label": {
+      "bg": "Миграция",
+      "en": "Migration"
+     },
+     "keywords": [
+      "емиграция",
+      "изселване",
+      "завръщане",
+      "бежанци"
+     ]
+    },
+    {
+     "id": "population",
+     "label": {
+      "bg": "Население",
+      "en": "Population"
+     },
+     "keywords": [
+      "намаляващо население",
+      "демографска криза",
+      "раждаемост"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "media-press",
+   "label": {
+    "bg": "Медии и свобода на словото",
+    "en": "Media & press freedom"
+   },
+   "route": null,
+   "keywords": [
+    "медии",
+    "журналист",
+    "свобода на словото",
+    "притискане",
+    "дезинформация",
+    "пропаганда"
+   ],
+   "subcategories": [
+    {
+     "id": "media-ownership",
+     "label": {
+      "bg": "Собственост върху медии",
+      "en": "Media ownership"
+     },
+     "keywords": [
+      "собственост",
+      "купена медия",
+      "медийна група",
+      "концентрация на медии"
+     ]
+    },
+    {
+     "id": "press-freedom",
+     "label": {
+      "bg": "Свобода на словото",
+      "en": "Press freedom"
+     },
+     "keywords": [
+      "свобода на словото",
+      "натиск върху журналист",
+      "репортери без граници"
+     ]
+    },
+    {
+     "id": "disinformation",
+     "label": {
+      "bg": "Дезинформация",
+      "en": "Disinformation"
+     },
+     "keywords": [
+      "фалшиви новини",
+      "дезинформация",
+      "пропаганда",
+      "ботове"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "foreign-policy",
+   "label": {
+    "bg": "Външна политика",
+    "en": "Foreign policy"
+   },
+   "route": null,
+   "keywords": [
+    "ЕС",
+    "НАТО",
+    "Украйна",
+    "дипломация",
+    "Шенген",
+    "двустранни отношения"
+   ],
+   "subcategories": [
+    {
+     "id": "eu",
+     "label": {
+      "bg": "Европейски съюз",
+      "en": "European Union"
+     },
+     "keywords": [
+      "Европейски съюз",
+      "Шенген",
+      "еврокомисар",
+      "европейска комисия"
+     ]
+    },
+    {
+     "id": "nato",
+     "label": {
+      "bg": "НАТО",
+      "en": "NATO"
+     },
+     "keywords": [
+      "НАТО",
+      "северноатлантически съюз",
+      "съвместни учения"
+     ]
+    },
+    {
+     "id": "ukraine",
+     "label": {
+      "bg": "Украйна и войната",
+      "en": "Ukraine & the war"
+     },
+     "keywords": [
+      "Украйна",
+      "войната в Украйна",
+      "помощ за Украйна",
+      "украински бежанци"
+     ]
+    },
+    {
+     "id": "bilateral",
+     "label": {
+      "bg": "Двустранни отношения",
+      "en": "Bilateral relations"
+     },
+     "keywords": [
+      "Турция",
+      "Северна Македония",
+      "Румъния",
+      "Гърция",
+      "посланик"
+     ]
+    },
+    {
+     "id": "diaspora",
+     "label": {
+      "bg": "Българи по света",
+      "en": "Diaspora"
+     },
+     "keywords": [
+      "българи в чужбина",
+      "диаспора",
+      "българска общност"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "society",
+   "label": {
+    "bg": "Общество",
+    "en": "Society"
+   },
+   "route": null,
+   "keywords": [
+    "протест",
+    "граждани",
+    "малцинства",
+    "религия",
+    "църква",
+    "общество"
+   ],
+   "subcategories": [
+    {
+     "id": "protests",
+     "label": {
+      "bg": "Протести и граждански действия",
+      "en": "Protests & civic action"
+     },
+     "keywords": [
+      "протест",
+      "митинг",
+      "подписка",
+      "блокада"
+     ]
+    },
+    {
+     "id": "minorities",
+     "label": {
+      "bg": "Малцинства и права",
+      "en": "Minorities & rights"
+     },
+     "keywords": [
+      "малцинства",
+      "етнически",
+      "права",
+      "дискриминация"
+     ]
+    },
+    {
+     "id": "religion",
+     "label": {
+      "bg": "Религия",
+      "en": "Religion"
+     },
+     "keywords": [
+      "БПЦ",
+      "църква",
+      "муфтийство",
+      "верски празници"
+     ]
+    },
+    {
+     "id": "human-interest",
+     "label": {
+      "bg": "Хора и истории",
+      "en": "Human interest"
+     },
+     "keywords": [
+      "история",
+      "любопитно",
+      "спасение",
+      "добрина"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "not-site-relevant",
+   "label": {
+    "bg": "Извън обхвата на сайта",
+    "en": "Not site-relevant"
+   },
+   "route": null,
+   "site_relevant": false,
+   "keywords": [
+    "времето",
+    "спорт",
+    "футбол",
+    "хороскоп",
+    "куриози",
+    "зодия"
+   ],
+   "subcategories": [
+    {
+     "id": "weather",
+     "label": {
+      "bg": "Времето",
+      "en": "Weather"
+     },
+     "keywords": [
+      "температура",
+      "валежи",
+      "жълт код",
+      "жега",
+      "сняг",
+      "вятър"
+     ]
+    },
+    {
+     "id": "sports",
+     "label": {
+      "bg": "Спорт",
+      "en": "Sports"
+     },
+     "keywords": [
+      "футбол",
+      "мач",
+      "гол",
+      "отбор",
+      "шампион"
+     ]
+    },
+    {
+     "id": "celebrities",
+     "label": {
+      "bg": "Шоубизнес и знаменитости",
+      "en": "Celebrities & showbiz"
+     },
+     "keywords": [
+      "поп фолк",
+      "звезда",
+      "скандал",
+      "любов"
+     ]
+    },
+    {
+     "id": "crime-blotter",
+     "label": {
+      "bg": "Битова престъпност и произшествия",
+      "en": "Crime blotter & accidents"
+     },
+     "keywords": [
+      "кражба",
+      "палеж",
+      "произшествие",
+      "катастрофа",
+      "удавяне"
+     ]
+    },
+    {
+     "id": "misc-filler",
+     "label": {
+      "bg": "Разни",
+      "en": "Misc filler"
+     },
+     "keywords": [
+      "хороскоп",
+      "празнуват днес",
+      "съвети",
+      "рецепти"
+     ]
+    }
+   ]
+  }
+ ]
 }

@@ -712,8 +712,17 @@ def _edit_distance(a: str, b: str, cap: int = NAME_EDIT_DISTANCE) -> int:
     return prev[-1]
 
 
-def check_person_names(entities: dict, rec: dict) -> list:
-    """Refuse a person name the article did not spell that way.
+def altered_person_names(entities: dict, texts) -> list:
+    """(name, our token, the article's token) for every altered person name.
+
+    ⚠️ THE ONE PLACE THE RULE LIVES. `check_person_names` renders these as
+    validator errors and `build_app_data` withholds the names — a second
+    implementation of "is this name in the article" would let the pipeline
+    refuse a record at save time and publish it anyway.
+
+    `texts` is an ITERABLE of article records, not one, because a story is
+    verified against every member: a name one member writes is a name the
+    story may carry, and checking only the first would refuse it.
 
     See the block comment above for why this is people-only and why the test
     is „absent but nearly present" rather than „absent".
@@ -725,15 +734,22 @@ def check_person_names(entities: dict, rec: dict) -> list:
         import resolve_mentions as rm
     except Exception:  # noqa: BLE001
         return []
-    text = " ".join(str(rec.get(k) or "")
-                    for k in ("title", "description", "content"))
-    # ⚠️ folded → the ORIGINAL spelling, so the error can quote the article
+    # ⚠️ folded → the ORIGINAL spelling, so a caller can quote the article
     # rather than our lowercase comparison key. „it writes 'славчев'" sends a
     # reader looking for a word the article does not contain.
     present: dict = {}
-    for t in rm.TOKEN_RE.findall(text):
-        present.setdefault(rm.fold(t), t)
-    errs = []
+    for rec in texts:
+        if not isinstance(rec, dict):
+            continue
+        for key in ("title", "description", "content"):
+            for t in rm.TOKEN_RE.findall(str(rec.get(key) or "")):
+                present.setdefault(rm.fold(t), t)
+    if not present:
+        # ⚠️ NO TEXT IS NOT EVIDENCE OF A BAD NAME. A record whose article is
+        # gone cannot be checked, and refusing every name on it would delete
+        # a story's whole cast on a missing file.
+        return []
+    out = []
     for name in people:
         if not isinstance(name, str):
             continue
@@ -747,13 +763,50 @@ def check_person_names(entities: dict, rec: dict) -> list:
                  and 0 < _edit_distance(folded, t) <= NAME_EDIT_DISTANCE),
                 key=lambda t: _edit_distance(folded, t))
             if near:
+                out.append((name, token, present[near[0]]))
+    return out
+
+
+# The prose fields a fabricated name must not reach either.
+#
+# ⚠️ THE CHIP IS NOT WHERE THE HARM IS. All five affected records repeated
+# the altered surname in `summary_bg` — „ИД-председателят на КПКОНПИ Антон
+# Славев е получил…" is the story's LEAD PARAGRAPH, read by everyone, while
+# the entity chip is a word in a sidebar. A validator that refuses the chip
+# and passes the sentence has refused the quieter half.
+#
+# ⚠️ SCOPED TO TOKENS THE NAME CHECK ALREADY PROVED ALTERED, never a fresh
+# scan of the prose. A summary is Bulgarian prose full of inflected common
+# words, so a general „is this word in the article" sweep over it has the
+# same false-positive problem that keeps institutions and places out of the
+# rule entirely (53 hits, essentially all inflection). This adds no new
+# judgement — it asks only whether a token already ruled bad leaked onward.
+PROSE_FIELDS = ("summary_bg", "summary_en")
+
+
+def check_person_names(entities: dict, rec: dict, analysis: dict = None) -> list:
+    """Refuse a person name the article did not spell that way."""
+    bad = altered_person_names(entities, [rec])
+    errs = [
+        f"entities.people: {name!r} contains {token!r}, which the article "
+        f"does not use — it writes {wrote!r}. Copy a person's name exactly "
+        "as the article spells it; a name one letter off is a claim about "
+        "somebody who may not exist."
+        for name, token, wrote in bad
+    ]
+    if bad and isinstance(analysis, dict):
+        import resolve_mentions as rm
+        want = {rm.fold(t) for _, t, _ in bad}
+        for field in PROSE_FIELDS:
+            v = analysis.get(field)
+            if not v:
+                continue
+            leaked = want & {rm.fold(t) for t in rm.TOKEN_RE.findall(str(v))}
+            if leaked:
                 errs.append(
-                    f"entities.people: {name!r} contains {token!r}, which the "
-                    f"article does not use — it writes "
-                    f"{present[near[0]]!r}. Copy a "
-                    "person's name exactly as the article spells it; a name "
-                    "one letter off is a claim about somebody who may not "
-                    "exist.")
+                    f"{field}: repeats a name the article does not use "
+                    f"({sorted(leaked)}). Fix the name everywhere it appears, "
+                    "not only in entities.people.")
     return errs
 
 
@@ -1006,7 +1059,7 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
         errs.append("ai_generated.signals must be a list of strings")
 
     if isinstance(a.get("entities"), dict):
-        errs.extend(check_person_names(a["entities"], rec))
+        errs.extend(check_person_names(a["entities"], rec, a))
 
     # ⚠️ STRINGS, and it stays that way — see the MENTION_KINDS block above.
     # `entities` feeds story clustering (candidate_stories calls .lower() on

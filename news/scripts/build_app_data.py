@@ -562,22 +562,108 @@ def links_for(entities: dict) -> dict:
     return rm.entity_links(entities, gaz)
 
 
-def compact_analysis(rec: dict) -> dict:
+# ── Names the article never wrote ─────────────────────────────────────────
+# ⚠️ A VALIDATOR IS NOT RETROACTIVE. `analyze_articles` refuses an altered
+# person name at save time now, but three records written before it carry
+# one — „Антон Славев" where the article says „Антон Славчев", „Кая Каллас"
+# where it says „Кая Калас". Publishing those is a claim about somebody who
+# may not exist: „Антон Славев" matches nobody in the identity layer.
+#
+# ⚠️ WITHHELD, NEVER CORRECTED. The near-token is what the SEARCH found, not
+# what the model meant; rewriting „Славев" to „Славчев" would be the graded
+# guess this project refuses everywhere else. Dropping the name loses one
+# chip; inventing one publishes a person.
+#
+# The rule itself is `analyze_articles.altered_person_names` and lives only
+# there — a second copy here is how a pipeline comes to refuse a record at
+# save time and publish it anyway.
+_WITHHELD: dict = {"names": 0, "records": 0, "prose": 0}
+
+
+def _article_text(rel: str) -> dict:
+    """One corpus article, or {} — a missing file must not refuse a name."""
+    try:
+        return json.loads((REPO / rel).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def altered_names(entities: dict, texts: list) -> list:
+    """[(name, our token, the article's token)] — the rule lives elsewhere."""
+    if not entities:
+        return []
+    try:
+        import analyze_articles as aa
+        return aa.altered_person_names(entities, texts)
+    except Exception:  # noqa: BLE001
+        return []
+
+
+def verified_entities(entities: dict, bad: list) -> dict:
+    """`entities` with any altered person name removed."""
+    names = {n for n, _, _ in bad}
+    if not names:
+        return entities
+    _WITHHELD["names"] += len(names)
+    _WITHHELD["records"] += 1
+    people = [n for n in (entities.get("people") or []) if n not in names]
+    return {**entities, "people": people}
+
+
+def verified_prose(rec: dict, fields: tuple, bad: list) -> dict:
+    """The prose fields that do NOT repeat an altered name.
+
+    ⚠️ WITHHOLDING THE CHIP IS NOT ENOUGH — the summary is what the reader
+    actually reads. All five affected records repeat the altered surname in
+    `summary_bg`, so dropping it from `entities` alone left „ИД-председателят
+    на КПКОНПИ Антон Славев е получил…" as the story's lead paragraph.
+
+    ⚠️ PER FIELD, not per record, and that is the point: in every one of the
+    five the ENGLISH summary has the name RIGHT („Anton Slavchev"), so the
+    slip is Bulgarian-side. Withholding the pair would delete a correct
+    sentence to punish a wrong one. `SummaryPair` already renders „Липсва
+    резюме на български." in the gap.
+    """
+    if not bad:
+        return {}
+    try:
+        import resolve_mentions as rm
+    except Exception:  # noqa: BLE001
+        return {}
+    toks = {rm.fold(t) for _, t, _ in bad}
+    out = {}
+    for f in fields:
+        v = rec.get(f)
+        if not v:
+            out[f] = v
+            continue
+        if toks & {rm.fold(t) for t in rm.TOKEN_RE.findall(str(v))}:
+            _WITHHELD["prose"] += 1
+            out[f] = None
+        else:
+            out[f] = v
+    return out
+
+
+def compact_analysis(rec: dict, article: dict) -> dict:
     """Keep everything the article page renders; drop bookkeeping (paths, timestamps)."""
+    bad = altered_names(rec.get("entities"), [article])
+    ents = verified_entities(rec.get("entities"), bad)
+    prose = verified_prose(rec, ("summary_bg", "summary_en"), bad)
     return {
-        "summary_bg": rec.get("summary_bg"),
-        "summary_en": rec.get("summary_en"),
+        "summary_bg": prose.get("summary_bg", rec.get("summary_bg")),
+        "summary_en": prose.get("summary_en", rec.get("summary_en")),
         "leaning": rec.get("leaning"),
         "russia_stance": rec.get("russia_stance"),
         "ai_generated": rec.get("ai_generated"),
-        "entities": rec.get("entities"),
+        "entities": ents,
         # ⚠️ A SIDECAR keyed by the name as written, never a rewrite of
         # `entities` itself — that block is a dict of plain strings the story
         # clustering iterates, and putting objects in it breaks every
         # aggregate (see the MENTION_KINDS note in analyze_articles.py). A
         # name that did not resolve is simply absent, so a renderer cannot
         # turn a null into a dead link.
-        **({"entity_links": links} if (links := links_for(rec.get("entities")))
+        **({"entity_links": links} if (links := links_for(ents))
            else {}),
         # ⚠️ The resolved, linkable SIBLING of `entities` — not a replacement.
         # `entities` stays a dict of plain strings because story clustering
@@ -882,7 +968,7 @@ def main() -> int:
                 rec["story_id"] = story_index.get(art.get("url")) or (
                     analysis.get("story") or {}
                 ).get("story_id")
-                rec["analysis"] = compact_analysis(analysis)
+                rec["analysis"] = compact_analysis(analysis, art)
                 analyzed_by_domain[domain] = analyzed_by_domain.get(domain, 0) + 1
                 lean = (analysis.get("leaning") or {}).get("label")
                 stance = (analysis.get("russia_stance") or {}).get("label")
@@ -1046,13 +1132,26 @@ def main() -> int:
                 story_topic_counts[primary.get("category", "?")] = (
                     story_topic_counts.get(primary.get("category", "?"), 0) + 1
                 )
+            # ⚠️ Against EVERY member, not the first: a name one member
+            # writes is a name the story may carry.
+            st_texts = [_article_text(m["article_path"])
+                        for m in (st.get("members") or [])
+                        if m.get("article_path")]
+            st_bad = altered_names(st.get("entities"), st_texts)
+            st_prose = verified_prose(
+                st, ("summary_bg", "summary_en",
+                     "canonical_title_bg", "canonical_title_en"), st_bad)
             stories.append(
                 {
                     "id": st.get("id"),
-                    "title_bg": st.get("canonical_title_bg"),
-                    "title_en": st.get("canonical_title_en"),
-                    "summary_bg": st.get("summary_bg"),
-                    "summary_en": st.get("summary_en"),
+                    "title_bg": st_prose.get("canonical_title_bg",
+                                             st.get("canonical_title_bg")),
+                    "title_en": st_prose.get("canonical_title_en",
+                                             st.get("canonical_title_en")),
+                    "summary_bg": st_prose.get("summary_bg",
+                                               st.get("summary_bg")),
+                    "summary_en": st_prose.get("summary_en",
+                                               st.get("summary_en")),
                     "first_published": st.get("first_published"),
                     "last_published": st.get("last_published"),
                     "topics": st.get("topics") or [],
@@ -1064,8 +1163,9 @@ def main() -> int:
                     # `.aggregates.by_domain` with no guard — so a story
                     # written before a bucket existed, or by a partial run,
                     # is a blank page rather than a missing chip.
-                    "entities": (ents := {**EMPTY_STORY_ENTITIES,
-                                          **(st.get("entities") or {})}),
+                    "entities": (ents := verified_entities(
+                        {**EMPTY_STORY_ENTITIES,
+                         **(st.get("entities") or {})}, st_bad)),
                     **({"entity_links": slinks}
                        if (slinks := links_for(ents)) else {}),
                     "aggregates": {**EMPTY_STORY_AGGREGATES,
@@ -1127,6 +1227,15 @@ def main() -> int:
                     {
                         "id": s["id"],
                         "label": s["label"],
+                        # ⚠️ Present only where the main site has a page that
+                        # IS this subcategory — most carry none, and that is
+                        # a refusal rather than an omission: a chip pointing
+                        # at an adjacent page is worse than a chip that is
+                        # not a link. test_topic_routes.py checks every route
+                        # here against src/routes.tsx, since a route renamed
+                        # in the other half of the repo leaves this committed
+                        # file green for ever.
+                        "route": s.get("route"),
                         "article_count": count_for(c["id"], s["id"]),
                     }
                     for s in c.get("subcategories") or []
@@ -1289,6 +1398,12 @@ def main() -> int:
         "outlets": len(outlets),
         "files": total_files,
         "bytes": total_bytes,
+        # ⚠️ REPORTED, never silent. These are person names an article does
+        # not contain, dropped from what we publish — a quiet withholding is
+        # indistinguishable from a model that stopped naming anyone.
+        "withheld_person_names": _WITHHELD["names"],
+        "withheld_from_records": _WITHHELD["records"],
+        "withheld_prose_fields": _WITHHELD["prose"],
         "generated_at": generated_at,
     }
     if args.json:

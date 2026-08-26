@@ -577,6 +577,65 @@ class TestCliContract(FixtureTestCase):
         self.assertEqual(out["error"], "bad_arguments")
 
 
+class AlteredNameMustNotSurviveInProse(FixtureTestCase):
+    """⚠️ The chip is a word in a sidebar; the summary is the lead paragraph.
+    All five affected records repeated the altered surname in `summary_bg`, so
+    a validator that refuses only `entities.people` refuses the quieter half."""
+
+    def setUp(self):
+        super().setUp()
+        import analyze_articles
+        self.aa = analyze_articles
+
+    def rec(self, body):
+        return {"title": "", "description": "", "content": body}
+
+    def test_a_leaked_name_in_the_summary_is_refused(self):
+        errs = self.aa.check_person_names(
+            {"people": ["Антон Славев"]},
+            self.rec("Антон Славчев подаде оставка. " * 10),
+            {"summary_bg": "Антон Славев получи обезщетение."})
+        self.assertTrue(any(e.startswith("summary_bg:") for e in errs), errs)
+
+    def test_a_CORRECT_summary_beside_a_bad_chip_is_not_refused(self):
+        # ⚠️ Per FIELD. In all five records the ENGLISH summary has the name
+        # right, so refusing the pair would punish a correct sentence.
+        errs = self.aa.check_person_names(
+            {"people": ["Антон Славев"]},
+            self.rec("Антон Славчев подаде оставка. " * 10),
+            {"summary_en": "Anton Slavchev resigned."})
+        self.assertEqual([e for e in errs if e.startswith("summary_")], [])
+
+    def test_prose_is_only_checked_for_ALREADY_PROVEN_tokens(self):
+        # ⚠️ A summary is Bulgarian prose full of INFLECTED words, and a
+        # general „is this word in the article" sweep over it has the same
+        # false-positive problem that keeps institutions out of the rule
+        # entirely. Here the record IS bad — so the arm runs — and the
+        # summary carries only ordinary inflection plus the good name. Only
+        # the proven token may be reported.
+        errs = self.aa.check_person_names(
+            {"people": ["Антон Славев"]},
+            self.rec("Антон Славчев подаде оставка пред комисия. " * 10),
+            {"summary_bg": "Комисията и комисиите решиха за Славчев."})
+        self.assertEqual([e for e in errs if e.startswith("summary_")], [],
+                         "inflection was reported as an altered name")
+        self.assertTrue(any(e.startswith("entities.people:") for e in errs))
+
+    def test_a_clean_record_examines_no_prose_at_all(self):
+        errs = self.aa.check_person_names(
+            {"people": ["Антон Славчев"]},
+            self.rec("Антон Славчев подаде оставка. " * 10),
+            {"summary_bg": "Комисията, комисиите и на комисията решиха."})
+        self.assertEqual(errs, [])
+
+    def test_no_analysis_means_no_prose_arm_rather_than_a_crash(self):
+        errs = self.aa.check_person_names(
+            {"people": ["Антон Славев"]},
+            self.rec("Антон Славчев подаде оставка. " * 10))
+        self.assertTrue(errs)
+        self.assertFalse(any(e.startswith("summary_") for e in errs))
+
+
 class PersonNamesAreCopied(FixtureTestCase):
     """⚠️⚠️ „Антон Славев" was published where the article said „Антон
     Славчев" — a person who does not exist, while Антон Славчев is in the

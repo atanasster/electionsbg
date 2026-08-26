@@ -33,7 +33,6 @@ import {
   RUSSIA_META,
   formatDateTime,
   relativeTime,
-  topicLabel,
 } from "../labels";
 import {
   useOutletArticles,
@@ -47,6 +46,7 @@ import {
 } from "../data";
 import { ArticleImage } from "../components/ArticleImage";
 import { EntityChips } from "../components/EntityChips";
+import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
 import { StoryMemberRow } from "../components/ArticleRow";
 
@@ -323,15 +323,11 @@ export const ArticleScreen = () => {
                 {labelOf(QUALITY_META, analysis.quality?.verdict)}
               </Badge>
             ) : null}
-            {(analysis.topics ?? []).map((t) => (
-              <Badge
-                key={`${t.category}/${t.subcategory ?? ""}`}
-                variant="secondary"
-                className="font-normal"
-              >
-                {topicLabel(categories, t.category, t.subcategory)}
-              </Badge>
-            ))}
+            <TopicChips
+              categories={categories}
+              topics={analysis.topics ?? []}
+              inline
+            />
           </div>
 
           {(analysis.ai_generated?.signals ?? []).length > 0 ? (
