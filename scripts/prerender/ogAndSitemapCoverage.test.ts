@@ -900,6 +900,7 @@ describe("a hub's og capture anchors on its head", () => {
     subsidies: "src/screens/SubsidiesDashboardScreen.tsx",
     "culture-hub": "src/screens/culture/CultureHubScreen.tsx",
     "governance-sectors": "src/screens/governance/GovernanceSectorsScreen.tsx",
+    indicators: "src/screens/indicators/IndicatorsLandingScreen.tsx",
   };
 
   /** Sub-page heads that DO ship a card, slug → the screen behind it.
@@ -950,7 +951,14 @@ describe("a hub's og capture anchors on its head", () => {
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
   const NOT_YET: Record<string, string> = {
-    // EMPTY AGAIN as of 2026-08-26, having been used TWICE that day and paid off both
+    // ⚠️ `indicators` grew a head on 2026-08-26 and its card still anchors on the KPI grid
+    // — the hand-rolled band the head's four cells were promoted OUT of, so the card now
+    // depicts eight tiles the head deliberately does not lead with. Same shape as
+    // `governance-sectors` before it: the card IS shot from this page and only the anchor
+    // is wrong, so it is a one-line change plus a re-shoot, taken in the share-card step.
+    indicators:
+      "its card anchors on the KPI grid; re-anchor on the head and re-shoot",
+    // WAS EMPTY as of 2026-08-26, having been used TWICE that day and paid off both
     // times within a commit — which is the pattern this map is for.
     //
     //   `culture` — /culture had a head and no card of its own: `/og/culture.png` is shot
@@ -1123,6 +1131,7 @@ describe("a hub's og capture anchors on its head", () => {
       consumption: "src/screens/consumption/consumptionHubFigures.ts",
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
       "culture-hub": "src/screens/culture/cultureHubFigures.ts",
+      indicators: "src/screens/indicators/indicatorsHubFigures.ts",
       "governance-sectors": [
         "src/screens/governance/sectorsHubFigures.ts",
         "data/procurement/derived/sector_stats.json",

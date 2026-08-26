@@ -18,6 +18,7 @@ import {
   type ElectionAsOf,
 } from "@/data/macro/useElectionAsOf";
 import { cn } from "@/lib/utils";
+import { formatQuarter } from "./formatPeriod";
 import { RankBadge } from "./RankBadge";
 
 // Display order on the strip. BG anchors; EU27 next as the headline
@@ -123,13 +124,6 @@ export const PeerSnapshotStrip: FC<{
   const fmt = formatValue ?? ((v: number) => `${v.toFixed(1)}%`);
   const geoLabel = lang === "bg" ? GEO_LABEL_BG : GEO_LABEL_EN;
 
-  // "Q1 2026" → localized
-  const formatPeriod = (period: string): string => {
-    const m = /^(\d{4})-Q([1-4])$/.exec(period);
-    if (!m) return period;
-    return lang === "bg" ? `${m[2]} тр. ${m[1]}` : `${m[1]} Q${m[2]}`;
-  };
-
   const dist = block.latestDistribution;
   // Only surface the rank pill when the EU27-distribution snapshot is from
   // the same quarter as the BG headline value — mixing periods would mislead
@@ -144,7 +138,7 @@ export const PeerSnapshotStrip: FC<{
       )}
     >
       <span className="font-medium text-foreground">
-        {formatPeriod(snapshot.period)}
+        {formatQuarter(snapshot.period, lang)}
       </span>
       <span className="opacity-50">·</span>
       {STRIP_ORDER.map((geo) => {

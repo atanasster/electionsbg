@@ -6,14 +6,25 @@
 // per-cabinet timeline + sortable table live (so the landing keeps no chart of
 // its own).
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
-import { Title } from "@/ux/Title";
 import { useMacro } from "@/data/macro/useMacro";
+import { useElectionAsOf } from "@/data/macro/useElectionAsOf";
+import { pickAtOrBefore } from "@/data/macro/kpiSelectors";
+import { formatPeriod } from "@/screens/components/macro/formatPeriod";
+import { DOMAIN_PATHS, KPI_REGISTRY } from "./indicatorsRegistry";
+import {
+  BAND_INDICATORS,
+  indicatorsHubKpis,
+  indicatorsKpiNote,
+  promotedIndicators,
+  type IndicatorPoint,
+} from "./indicatorsHubFigures";
 import { formatDate } from "@/lib/formatDate";
 import { KpiTile } from "@/screens/components/macro/KpiTile";
 import {
+  HubHead,
   TileHubGrid,
   TileHubSection,
   InfographicTileProps,
@@ -102,10 +113,61 @@ const localDateFromIso = (
 export const IndicatorsLandingScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const { data: macro } = useMacro();
   // URL search string — appended to the hub-tile hrefs so the cabinet anchor
   // (?cabinet=) and election (?elections=) survive the section change.
   const { search } = useLocation();
+  const { data: macro, isPending } = useMacro();
+  const asOf = useElectionAsOf();
+
+  // ⚠️ RESOLVED WITH THE TILES' OWN HELPERS — `pickAtOrBefore` against `useElectionAsOf`,
+  // formatted by the registry's per-indicator `format` and by KpiTile's `formatPeriod`. The
+  // band and the grid show the same indicators as of the same snapshot, so anything the
+  // band computed for itself would be a second opinion about one number.
+  const bandPoints = useMemo(() => {
+    const out: Partial<
+      Record<(typeof BAND_INDICATORS)[number], IndicatorPoint>
+    > = {};
+    if (!macro) return out;
+    for (const key of BAND_INDICATORS) {
+      const entry = KPI_REGISTRY[key];
+      const meta = macro.indicators[key];
+      const point = pickAtOrBefore(macro.series[key], asOf ?? null);
+      // A series with no point at or before the selected election is WITHHELD, not zeroed —
+      // the early elections predate several of these.
+      if (!entry || !meta || !point) continue;
+      out[key] = {
+        value: point.value,
+        display: entry.format(point.value),
+        periodLabel: formatPeriod(
+          point.period,
+          point.year,
+          point.quarter,
+          lang,
+        ),
+        // The unit from the PAYLOAD, never written down: a hand-typed one goes stale the
+        // day Eurostat re-bases a series.
+        unitLabel: lang === "bg" ? meta.unitLabelBg : meta.unitLabelEn,
+        title: lang === "bg" ? meta.titleBg : meta.titleEn,
+        // ⚠️ THROUGH `DOMAIN_PATHS` AND THE REGISTRY'S OWN `anchor`, never re-derived. A
+        // template of `/indicators/${entry.domain}` restates the map and silently drops the
+        // per-indicator anchor some entries carry — and that matters MORE here than on a
+        // tile, because a promoted indicator has no grid tile any more, so this cell is its
+        // only link.
+        //
+        // ⚠️ THE ANCHOR ARM IS UNREACHABLE TODAY and no test covers it — only `euFunds` and
+        // `municipalCommitments` carry an `anchor`, and neither is in BAND_INDICATORS. It is
+        // written for the day one is promoted rather than left to be rediscovered then; the
+        // missing test is a fact about the registry, not an oversight.
+        to: `${DOMAIN_PATHS[entry.domain]}${search}${entry.anchor ? `#${entry.anchor}` : ""}`,
+      };
+    }
+    return out;
+  }, [macro, asOf, lang, search]);
+
+  const kpis = useMemo(() => indicatorsHubKpis(bandPoints), [bandPoints]);
+  // DERIVED from the cells that rendered — a withheld cell must not also blank its grid
+  // tile, which would drop the indicator off the page entirely.
+  const promoted = useMemo(() => promotedIndicators(kpis), [kpis]);
   const fetchedDate = localDateFromIso(macro?.fetchedAt, lang);
 
   const hubTiles: InfographicTileProps[] = HUB_TILES.map((tile) => ({
@@ -122,13 +184,22 @@ export const IndicatorsLandingScreen: FC = () => {
 
   return (
     <div className="pb-12">
-      <Title description={t("indicators_page_description")}>
-        {t("indicators_page_title")}
-      </Title>
       <GovernanceBreadcrumb
         sectionKey="gov_hub_indicators_title"
         sectionTo="/indicators"
-        className="mt-5 mb-6"
+        className="mt-5"
+      />
+
+      <HubHead
+        eyebrow={t("indicators_head_eyebrow")}
+        title={t("indicators_head_title")}
+        seoDescription={t("indicators_page_description")}
+        deck={t("indicators_head_deck")}
+        kpis={kpis}
+        // Four cells, and only while the payload is genuinely IN FLIGHT. `!macro` would be
+        // a tautology against a band that is empty iff `!macro`.
+        kpisPending={isPending ? 4 : undefined}
+        kpiNote={indicatorsKpiNote(kpis, t)}
       />
 
       <section
@@ -137,7 +208,9 @@ export const IndicatorsLandingScreen: FC = () => {
         data-og="indicators-kpi-grid"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-          {LANDING_KPI_ORDER.map((key) => (
+          {/* §3.1 rule 5 — a figure is the band's OR the grid's, never both. The four the
+              head promoted leave the grid; the other eight stay. */}
+          {LANDING_KPI_ORDER.filter((key) => !promoted.has(key)).map((key) => (
             <KpiTile key={key} indicatorKey={key} />
           ))}
         </div>

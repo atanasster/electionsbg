@@ -30,6 +30,7 @@ import {
   type ElectionAsOf,
 } from "@/data/macro/useElectionAsOf";
 import { cn } from "@/lib/utils";
+import { formatQuarter } from "./formatPeriod";
 import { RankBadge } from "./RankBadge";
 
 const DEFAULT_STRIP_ORDER: PeerGeo[] = [
@@ -151,11 +152,7 @@ const PeerRow: FC<{
       : meta.titleEn
     : row.indicatorKey;
 
-  const periodLabel = (() => {
-    const m = /^(\d{4})-Q([1-4])$/.exec(snapshot.period);
-    if (!m) return snapshot.period;
-    return lang === "bg" ? `${m[2]} тр. ${m[1]}` : `${m[1]} Q${m[2]}`;
-  })();
+  const periodLabel = formatQuarter(snapshot.period, lang);
 
   const dist = block.latestDistribution;
   const distAligned = dist != null && dist.period === snapshot.period;

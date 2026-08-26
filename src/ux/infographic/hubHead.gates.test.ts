@@ -79,6 +79,12 @@ import {
 } from "@/screens/governance/sectorsHubFigures";
 import type { SectorStat } from "@/data/procurement/useSectorStats";
 import { formatEurCompact } from "@/lib/currency";
+import {
+  BAND_INDICATORS,
+  indicatorsHubKpis,
+  promotedIndicators,
+  type IndicatorPoint,
+} from "@/screens/indicators/indicatorsHubFigures";
 import { AGRI_STATS_FIXTURE } from "@/screens/subsidies/subsidiesHubStats.fixture";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
@@ -111,6 +117,7 @@ const HUB_SCREENS = [
   "src/screens/governance/declarationsHubFigures.ts",
   "src/screens/culture/cultureHubFigures.ts",
   "src/screens/governance/sectorsHubFigures.ts",
+  "src/screens/indicators/indicatorsHubFigures.ts",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
@@ -651,6 +658,71 @@ describe("hub head — the band and the tiles are disjoint", () => {
       .filter((x) => x.basis === "procurement")
       .reduce((a, x) => a + x.value, 0);
     expect(sectorsBand()[0].value).toBe(formatEurCompact(railTotal, "bg"));
+  });
+
+  // Verbatim from the committed data/macro.json, 2026-08-26.
+  const INDICATOR_POINTS: Record<string, IndicatorPoint> = {
+    gdpGrowth: {
+      value: 2.7,
+      display: "2.7%",
+      periodLabel: "2 тр. 2026",
+      unitLabel: "% спрямо същия период предходна година (реален, SCA)",
+      title: "Растеж на реалния БВП",
+      to: "/indicators/economy",
+    },
+    inflation: {
+      value: 5.83,
+      display: "5.8%",
+      periodLabel: "2 тр. 2026",
+      unitLabel: "% спрямо предходната година (ХИПЦ, тримес. ср.)",
+      title: "Инфлация (ХИПЦ)",
+      to: "/indicators/economy",
+    },
+    unemployment: {
+      value: 3,
+      display: "3.0%",
+      periodLabel: "1 тр. 2026",
+      unitLabel: "% от активното население (сезонно изгладено)",
+      title: "Безработица",
+      to: "/indicators/economy",
+    },
+    govDebt: {
+      value: 28.5,
+      display: "28.5%",
+      periodLabel: "1 тр. 2026",
+      unitLabel: "% от БВП",
+      title: "Брутен държавен дълг",
+      to: "/indicators/fiscal",
+    },
+  };
+
+  it("no /indicators KPI figure is also a grid metric", () => {
+    // ⚠️ A BUILDER-LEVEL CLAUSE, like every hub's here: it pins what `promotedIndicators`
+    // returns, not what the SCREEN does with it. Deleting the screen's grid `.filter(...)`
+    // leaves this green — that half is `IndicatorsLandingScreen.test.tsx`'s, which asserts
+    // the rendered grid's LENGTH and reddens on exactly that cut.
+    const kpis = indicatorsHubKpis(INDICATOR_POINTS);
+    expect(kpis.length, "the indicators fixture produced no KPI cells").toBe(4);
+    // Here the indicator IS the grid tile, so every cell displaces exactly one.
+    expect([...promotedIndicators(kpis)].sort()).toEqual(
+      [...BAND_INDICATORS].sort(),
+    );
+    expect(
+      new Set(kpis.map((k) => k.value)).size,
+      "two /indicators KPI cells render the same string",
+    ).toBe(kpis.length);
+  });
+
+  it("/indicators cells share a destination — DELIBERATELY, unlike every sibling", () => {
+    // ⚠️ THE ONE HUB WITH NO destination-uniqueness CLAUSE, written down so its absence is a
+    // decision rather than an oversight. Three of the four are economy indicators and all
+    // three live on /indicators/economy; the `kpi-<key>` anchor convention exists only on
+    // CabinetKpiTile (/governments/:id), so pointing at a per-indicator anchor on a domain
+    // page would name something that is not there. What IS asserted is that every cell links
+    // into the indicators module at all.
+    const tos = indicatorsHubKpis(INDICATOR_POINTS).map((k) => String(k.to));
+    for (const to of tos) expect(to).toMatch(/^\/indicators\//);
+    expect(new Set(tos).size).toBeLessThan(tos.length);
   });
 
   it("no two /budget KPI cells share a destination", () => {

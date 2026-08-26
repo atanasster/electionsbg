@@ -36,26 +36,9 @@ import { RankBadge } from "./RankBadge";
 import { YoyArrow } from "./YoyArrow";
 import { VerdictChip } from "./VerdictChip";
 import { deriveVerdict } from "./verdict";
+import { formatPeriod } from "./formatPeriod";
 
 const SPARKLINE_MIN_POINTS = 4;
-
-const formatPeriod = (
-  raw: string | undefined,
-  year: number,
-  quarter: 1 | 2 | 3 | 4 | undefined,
-  lang: "bg" | "en",
-): string => {
-  if (raw) {
-    const m = /^(\d{4})-Q([1-4])$/.exec(raw);
-    if (m) {
-      return lang === "bg" ? `${m[2]} тр. ${m[1]}` : `${m[1]} Q${m[2]}`;
-    }
-    return raw;
-  }
-  if (quarter)
-    return lang === "bg" ? `${quarter} тр. ${year}` : `${year} Q${quarter}`;
-  return `${year}`;
-};
 
 type Props = {
   indicatorKey: MacroIndicatorKey;

@@ -682,6 +682,23 @@ const HUB_HEAD_BUDGETS: {
   // and unlike the sibling hubs it is the aside rather than the band that drives the height
   // here, because there is no search slot to fill the identity column.
   { path: "/governance/sectors", maxPx: 540, measured: 476, cells: 4 },
+  // The most COMPACT head in the tree: identity + deck + a 4-cell band + a note, and no
+  // scope control, no search slot and (so far) no evidence aside. The `?elections` selector
+  // in the site header is what moves these figures, so the head carries no pill of its own.
+  //
+  // ⚠️ THE NOTE IS THE POINT, not trim-able padding. The four cells are percentages of FOUR
+  // DIFFERENT THINGS on TWO different quarters — growth against the same quarter a year
+  // earlier, inflation against the previous year, unemployment of the active population,
+  // debt of GDP — so a row of them reads as one scale and is not. If this trips, check for a
+  // fifth cell before touching the sentence.
+  //
+  // ⚠️ THE LOOSEST CEILING HERE (22% slack against 8–17.5% elsewhere), and deliberately: it
+  // is the only entry whose height depends on a BUCKET-SYNCED STRING rather than on code.
+  // Each basis is the indicator's own `unitLabel` from data/macro.json — „% спрямо същия
+  // период предходна година (реален, SCA)" is the longest today — so a re-worded unit from
+  // Eurostat wraps a cell without a line of source changing. Tighten this only after
+  // measuring against the current payload.
+  { path: "/indicators", maxPx: 400, measured: 311, cells: 4 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {
