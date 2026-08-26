@@ -766,11 +766,38 @@ const captures: Capture[] = [
   {
     slug: "indicators",
     routePath: "indicators",
-    // KPI dashboard front door — 12 tiles in a responsive grid with sparklines
-    // and rank badges. Top-aligned so the headline tiles (GDP, inflation,
-    // unemployment, sentiment) land in frame; bottom rows clip off naturally.
-    waitFor: '[data-og="indicators-kpi-grid"]',
-    anchor: '[data-og="indicators-kpi-grid"]',
+    // ⚠️ RE-ANCHORED ON THE HEAD (§5.3), 2026-08-26. It anchored on the KPI grid, which is
+    // the hand-rolled band the head's four cells were promoted OUT of — so the card led with
+    // the eight tiles the page deliberately does NOT lead with, and cut the band, the note
+    // and the peer rail. The comment also said „12 tiles"; the grid renders eight now.
+    //
+    // ⚠️ THE WAIT COUNTS THE CELLS, because naming one cannot. A cell is withheld when its
+    // series has no point at or before the selected election, and `unemployment` starts
+    // 2009-Q1 against 2005-Q1 for the other three — so a short band is a live state, not a
+    // hypothetical, and it must not overwrite a good card. The sibling chain asserts LENGTH;
+    // `:has(aside a)` additionally requires the peer rail, which is the half most likely to
+    // be absent (it renders only when the distribution's period matches the figure's, i.e.
+    // on the LATEST election — this card is shot at the default, which is that election).
+    //
+    // ⚠️ AN ABSENT PAYLOAD IS CAUGHT: the band comes from macro.json and the skeleton cells
+    // carry no `data-kpi-cell`, so a 404 times out here and the previous card survives.
+    // Figure STALENESS is caught too — both payloads (data/macro.json and
+    // data/macro_peers.json) are GIT-TRACKED, so the coverage gate's freshness clause
+    // compares the card against them. §10's „look at the png" is still the only thing that
+    // can judge the picture.
+    //
+    // ⚠️ THIS CLAUSE HAS AN EXPIRY, and it is worth knowing before it fires. The rail's real
+    // precondition is not „the latest election" but „`latestDistribution.period` still equals
+    // the band's clamped period", and the two advance on different clocks: `asOf` is pinned
+    // by the election while the distribution follows Eurostat. gdpGrowth and inflation
+    // already sit exactly on that boundary, so the FIRST refresh past 2026-Q2 drops every
+    // rail row and this selector stops resolving on a page that is perfectly fine. The
+    // failure is fail-safe — the previous card survives and the runner names it on stderr —
+    // and the fix then is to drop `:has(aside a)`, not to weaken the cell chain.
+    waitFor:
+      "[data-hub-head]:has(aside a) [data-kpi-cell] ~ [data-kpi-cell] ~ [data-kpi-cell] ~ [data-kpi-cell]",
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 2000,
   },
   {

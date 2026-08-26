@@ -951,15 +951,8 @@ describe("a hub's og capture anchors on its head", () => {
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
   const NOT_YET: Record<string, string> = {
-    // ⚠️ `indicators` grew a head on 2026-08-26 and its card still anchors on the KPI grid
-    // — the hand-rolled band the head's four cells were promoted OUT of, so the card now
-    // depicts eight tiles the head deliberately does not lead with. Same shape as
-    // `governance-sectors` before it: the card IS shot from this page and only the anchor
-    // is wrong, so it is a one-line change plus a re-shoot, taken in the share-card step.
-    indicators:
-      "its card anchors on the KPI grid; re-anchor on the head and re-shoot",
-    // WAS EMPTY as of 2026-08-26, having been used TWICE that day and paid off both
-    // times within a commit — which is the pattern this map is for.
+    // EMPTY AGAIN as of 2026-08-26, having been used THREE times that day and paid off
+    // every time within a commit — which is the pattern this map is for.
     //
     //   `culture` — /culture had a head and no card of its own: `/og/culture.png` is shot
     //   from /culture/subsidies and was shared by SIX routes, so the hub's card depicted
@@ -970,9 +963,15 @@ describe("a hub's og capture anchors on its head", () => {
     //   tile grid, so it led with tile fronts and cut the band and the aside. Paid by
     //   re-anchoring on `[data-hub-head]` and re-shooting.
     //
-    // Both entries are gone rather than left behind as stale exemptions. The distinction
-    // between the two is worth keeping: the first needed a new card, the second only a new
-    // anchor, and only the first could not be cleared by a re-shoot.
+    //   `indicators` — the same shape a third time, and the sharpest case: its card
+    //   anchored on the hand-rolled KPI grid that the head's four cells were promoted OUT
+    //   of, so the card led with the eight tiles the page deliberately does not lead with.
+    //   Paid the same way.
+    //
+    // All three are gone rather than left behind as stale exemptions. The distinction
+    // between the FIRST and the other two is the part worth keeping: `culture` needed a
+    // whole new card and could never have been cleared by a re-shoot, because its card was
+    // shot from a different page. The other two needed only a new anchor.
   };
 
   /** One capture entry's text, by slug. */
@@ -1131,7 +1130,13 @@ describe("a hub's og capture anchors on its head", () => {
       consumption: "src/screens/consumption/consumptionHubFigures.ts",
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
       "culture-hub": "src/screens/culture/cultureHubFigures.ts",
-      indicators: "src/screens/indicators/indicatorsHubFigures.ts",
+      indicators: [
+        "src/screens/indicators/indicatorsHubFigures.ts",
+        // BOTH payloads are git-tracked, so a refresh of either moves every figure on this
+        // card and CAN redden it. The band reads the first, the peer rail the second.
+        "data/macro.json",
+        "data/macro_peers.json",
+      ],
       "governance-sectors": [
         "src/screens/governance/sectorsHubFigures.ts",
         "data/procurement/derived/sector_stats.json",
@@ -1266,6 +1271,42 @@ describe("a hub's og capture anchors on its head", () => {
     ).toEqual([]);
   });
 
+  /** Cards whose head can render SHORT, and must therefore wait on a cell COUNT.
+   *
+   *  ⚠️ NOTHING ELSE IN THIS FILE LOOKS AT `waitFor`, so a later „simplification" to
+   *  `waitFor: "[data-hub-head]"` passes every other clause here and silently restores the
+   *  defect both of these entries exist to prevent: a partially-rendered band resolving the
+   *  wait, the runner overwriting a good card with a short one, and reporting success.
+   *
+   *  Both members can legitimately be short — `/governance/sectors` on 12 of 30 scope keys
+   *  (a band cell is withheld when its basis has no publishable sector) and `/indicators` on
+   *  1 of 13 elections (`unemployment` starts 2009-Q1 against 2005-Q1 for the rest). Naming
+   *  a cell cannot express that; only a sibling chain asserts LENGTH. */
+  const COUNTED_WAITS = ["governance-sectors", "indicators"];
+
+  it("a head that can render short waits on a cell COUNT, not a selector", () => {
+    const offenders: string[] = [];
+    for (const slug of COUNTED_WAITS) {
+      const entry = entryFor(slug);
+      if (!entry) {
+        offenders.push(`${slug}: no capture entry`);
+        continue;
+      }
+      // Four cells means three `~` hops between `[data-kpi-cell]` selectors.
+      const hops = (entry.match(/\[data-kpi-cell\]\s*~/g) ?? []).length;
+      if (hops < 3)
+        offenders.push(
+          `${slug}: waits on ${hops + 1} cell(s), so a short band resolves it`,
+        );
+    }
+    expect(
+      offenders,
+      `these cards can be overwritten by a short band: ${offenders.join("; ")}`,
+    ).toEqual([]);
+    // Non-vacuity: the list is real and every member has an entry to check.
+    expect(COUNTED_WAITS.length).toBeGreaterThan(1);
+  });
+
   it("the map names every HubHead screen, so a new hub cannot slip past", () => {
     const screens = execSync("grep -rl 'HubHead' src/screens --include=*.tsx", {
       encoding: "utf8",
@@ -1300,8 +1341,9 @@ describe("a hub's og capture anchors on its head", () => {
         /<HubHead\b/.test(stripJsxComments(read(file))),
         `${slug} is mapped to ${file}, which no longer renders a HubHead`,
       ).toBe(true);
-    // ⚠ EMPTY AGAIN, so this loop runs zero times — and it has now earned its keep once, on
-    // 2026-08-26, when `culture` sat here for the length of a single commit. `NOT_YET` is the
+    // ⚠ EMPTY AGAIN, so this loop runs zero times — and it has now earned its keep THREE
+    // times, all on 2026-08-26, each entry paid off within a commit (see NOT_YET's own
+    // comment for which, and for the one that differed). `NOT_YET` is the
     // documented mechanism for a hub that cannot yet frame its head, and a typed map with a
     // live validation loop is what stops the next person adding an exemption with no reason.
     // Do NOT delete it for being empty: emptiness is the healthy state, and the entry that
