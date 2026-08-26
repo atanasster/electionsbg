@@ -15,7 +15,7 @@
 // <Title> — that would emit two h1s.
 
 import { FC, ReactNode } from "react";
-import { Link, type To } from "react-router-dom";
+import { Link, parsePath, type To } from "react-router-dom";
 import { usePreserveParams } from "@/ux/usePreserveParams";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/ux/SEO";
@@ -76,16 +76,32 @@ export interface HubEvidence {
 const useHeadHref = (): ((to: To) => To) => {
   const preserve = usePreserveParams();
   return (to) => {
+    // ⚠️ PARSED, NOT SPLIT, AND RE-EMITTED IN ALL THREE PARTS. This used to take the WHOLE
+    // string as the path and append the merged search to it, so every string `to` carrying its
+    // own params came out DOUBLED — `/companies?political=1` →
+    // `/companies?political=1?political=1`. React Router ROUTES that (everything after the
+    // first `?` is one query string, and `political` parses to `1?political=1`), so the
+    // destination loads and quietly filters by a value no validator accepts: the params are
+    // dropped and the page renders unfiltered under a heading that promised a narrowed set.
+    //
+    // Splitting on `?` alone fixes that and leaves the HASH inside the path, which fails the
+    // same way one character over. `/procurement`'s evidence action is
+    // `"/procurement/overview#procurement-entities"` and that hub forces `?pscope=all`; the
+    // naive form emits `…#procurement-entities?pscope=all`, which `parsePath` reads as a hash
+    // with NO search — the scope is silently dropped AND the anchor matches nothing. That is
+    // verbatim the failure this function exists to prevent.
+    //
     // An object `To` already came from a scope-aware helper (useAwarderHref); merging its
     // search the same way is idempotent and keeps one code path.
-    const path = typeof to === "string" ? to : (to.pathname ?? "");
-    const own =
-      typeof to === "string" ? to.split("?")[1] : to.search?.replace(/^\?/, "");
+    const parsed = typeof to === "string" ? parsePath(to) : to;
+    const path = parsed.pathname ?? "";
+    const hash = parsed.hash ?? "";
+    const own = parsed.search?.replace(/^\?/, "");
     const merged = preserve(
       own ? Object.fromEntries(new URLSearchParams(own)) : undefined,
     );
     const search = merged.toString();
-    return search ? `${path}?${search}` : path;
+    return `${path}${search ? `?${search}` : ""}${hash}`;
   };
 };
 

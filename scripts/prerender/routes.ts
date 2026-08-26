@@ -5094,26 +5094,30 @@ export const prerenderRoutes: PrerenderRoute[] = [
     title:
       "Хора във властта — търсене по роля, партия и област | electionsbg.com",
     description:
-      "Всички хора, които сайтът разпознава — народни представители, кметове, общински съветници, магистрати, държавна администрация, управители на фирми и дарители — в една сортируема и филтрируема таблица.",
+      "Търсете всеки, когото сайтът разпознава — народни представители, кметове, общински съветници, магистрати, държавна администрация и управители на фирми. По име, институция, роля, партия, област или съд.",
     breadcrumbName: "Хора",
     ogImage: "/og/persons.png",
     bodyHtml: `
 <h1>Хора във властта</h1>
 <p>Един човек, събран от девет регистъра: Народното събрание, местната власт, съдебната система, Търговския регистър, декларациите пред Сметната палата и предизборните дарения. Всяко лице има един профил, независимо колко длъжности е заемало и в колко списъка се появява.</p>
-<p>Таблицата се търси по име или институция и се филтрира по група (народни представители, изпълнителна власт, общинска администрация, магистрати, кандидати, ЮЛНЦ, бизнес, дарители), по конкретна роля, по партия — включително „някога свързан с“, което показва и сменилите партия — по област и по съд или институция.</p>
-<p>За хората с подадена декларация се показва нетното декларирано състояние и годината на последната декларация; за свързаните с фирми — броят фирми и стойността на спечелените от тях обществени поръчки. Тези суми са на фирмите, не личен доход, и носят уговорка, когато връзката е установена само по име.</p>
+<p>Страницата започва с търсене. Пишете име, институция или община — или изберете група, роля, партия, област или съд — и списъкът се появява. Може и да се разгледа целият списък наведнъж, но търсенето стеснява по-бързо.</p>
+<p>Обхватът по подразбиране включва и собствениците на фирми, разпознати само по име. При тях записът носи изричен етикет, защото самоличността е съвпадение по име, а не потвърдена връзка; може да се ограничи само до хората във властта.</p>
+<p>Филтрите са по група (народни представители, изпълнителна власт, общинска администрация, магистрати, кандидати, ЮЛНЦ, бизнес), по конкретна роля, по партия — включително „някога свързан с“, което показва и сменилите партия — по област и по съд или институция.</p>
+<p>За хората с подадена декларация се показва нетното декларирано състояние и годината на последната декларация; за свързаните с фирми — броят фирми и стойността на спечелените от тях обществени поръчки. Тези суми са на фирмите, не личен доход, и носят уговорка, когато връзката е установена само по име. Делът „с декларация“ не е мярка за спазване на закона: регистърът обхваща само длъжностите по чл. 6 от ЗПК, а тук се броят и хора, които никога не са заемали такава длъжност.</p>
 <p>Виж и <a href="${SITE_URL}/officials/assets">класацията по декларирано имущество</a>, <a href="${SITE_URL}/connections">свързаните лица</a> и <a href="${SITE_URL}/governance/declarations">декларациите</a>.</p>`.trim(),
     english: {
       title:
         "People in Public Life — search by role, party and province | electionsbg.com",
       description:
-        "Everyone the site can identify — MPs, mayors, councillors, magistrates, state administration, company officers and campaign donors — in one sortable, filterable table.",
+        "Search everyone the site can identify — MPs, mayors, councillors, magistrates, state administration and company officers. By name, institution, role, party, province or court.",
       breadcrumbName: "People",
       bodyHtml: `
 <h1>People in public life</h1>
 <p>One person, assembled from nine registers: parliament, local government, the courts, the commercial register, the declarations filed with the National Audit Office, and campaign donations. Each person has a single profile, however many posts they have held and however many lists they appear on.</p>
-<p>The table searches by name or institution and filters by group (MPs, executive branch, municipal administration, magistrates, candidates, NGOs, business, donors), by specific role, by party — including "ever affiliated with", which surfaces those who switched — by province, and by court or institution.</p>
-<p>For people who have filed a declaration it shows declared net worth and the year of the latest filing; for those linked to companies, the number of companies and the value of public contracts those companies won. Those sums belong to the companies, not to the person, and are qualified wherever the link was established by name alone.</p>
+<p>The page opens with a search. Type a name, an institution or a municipality — or pick a group, role, party, province or court — and the list appears. The whole list can also be browsed at once, though searching narrows it faster.</p>
+<p>The default scope includes company owners identified by name alone. Those records carry an explicit label, because the identity is a name match rather than a verified link; the scope can be narrowed to people in public office only.</p>
+<p>The filters are by group (MPs, executive branch, municipal administration, magistrates, candidates, NGOs, business), by specific role, by party — including "ever affiliated with", which surfaces those who switched — by province, and by court or institution.</p>
+<p>For people who have filed a declaration it shows declared net worth and the year of the latest filing; for those linked to companies, the number of companies and the value of public contracts those companies won. Those sums belong to the companies, not to the person, and are qualified wherever the link was established by name alone. The "with a declaration" share is not a measure of legal compliance: the register covers only the offices listed in art. 6 of the anti-corruption act, while the denominator here includes people who never held one.</p>
 <p>See also the <a href="${SITE_URL}/en/officials/assets">declared-asset ranking</a>, <a href="${SITE_URL}/en/connections">business connections</a> and <a href="${SITE_URL}/en/governance/declarations">declarations</a>.</p>`.trim(),
     },
   }),

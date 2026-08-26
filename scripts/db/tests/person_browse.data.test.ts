@@ -971,3 +971,104 @@ test.skipIf(skip)(
     );
   },
 );
+
+// ---- the identity the /persons UI reasons from --------------------------------------
+//
+// WHAT THIS PINS AND WHY IT IS HERE RATHER THAN IN A COMPONENT TEST. The browser's KPI band
+// withholds two of its four figures under the private scope, because both are TAUTOLOGIES
+// there — no tier-V row can carry a чл. 6 filing, and every tier-V row is is_company by
+// construction. Its mix bar says out loud that under „Всички" the „Бизнес" segment IS the
+// private scope. Both statements are about THIS TABLE, not about the UI, and both are only
+// true while 120's tier semantics hold.
+//
+// If they stop holding, nothing errors: the band silently starts withholding a figure that had
+// become real, and the mix-bar note starts asserting an identity that no longer exists. This is
+// the only place that can catch it.
+
+test.skipIf(skip)(
+  "primary_facet='company' is EXACTLY the private tier",
+  async () => {
+    // The mix-bar note („При обхват „Всички“ групата „Бизнес“ съвпада с обхвата „Частен
+    // сектор“") is a claim about set equality, and the UI offers the same narrowing under two
+    // names on the strength of it. Asserted BOTH ways, so a superset or a subset fails.
+    // NON-VACUITY FIRST. An empty table satisfies any equality, and so does a rename that moved
+    // BOTH sides at once — the assertion below would then pass over two sets that no longer
+    // exist. Both populations have to be there before "they are the same" means anything.
+    const [companies, privates] = await Promise.all([
+      count(
+        `SELECT count(*) n FROM person_browse_table WHERE primary_facet = 'company'`,
+      ),
+      count(`SELECT count(*) n FROM person_browse_table WHERE tier = 'V'`),
+    ]);
+    assert.ok(
+      companies > 1000 && privates > 1000,
+      `primary_facet='company' is ${companies} and tier='V' is ${privates} — one of the two ` +
+        "vocabularies moved, so the equality below would pass over sets that no longer exist",
+    );
+    const stray = await count(
+      `SELECT count(*) n FROM person_browse_table
+        WHERE (primary_facet = 'company') IS DISTINCT FROM (tier = 'V')`,
+    );
+    assert.equal(
+      stray,
+      0,
+      `${stray} rows where primary_facet='company' and tier='V' disagree — the mix bar's ` +
+        "mix-bar equality note and the band's private-scope withholding both rest on this",
+    );
+  },
+);
+
+test.skipIf(skip)("the private tier's two rates are tautologies", async () => {
+  // Measured 2026-08-26: tier V is 73,645 rows with has_declaration 0 and is_company 73,645.
+  // The band withholds „С декларация" and „С фирми в ТР" under ?sector=private BECAUSE of
+  // this — a rendered „0%" there is an accusation about 73,645 named people, and a „100%" is
+  // a figure nobody measured. Should either stop being determined by construction, the
+  // withholding becomes censorship of a real number instead.
+  const [decl, company, total] = await Promise.all([
+    count(
+      `SELECT count(*) n FROM person_browse_table WHERE tier='V' AND has_declaration`,
+    ),
+    // `IS NOT TRUE`, not `NOT`: a matview carries no NOT NULL, and a NULL would slip past
+    // `NOT is_company` silently — unlike the declaration arm, this one has no sibling gate
+    // covering NULLs.
+    count(
+      `SELECT count(*) n FROM person_browse_table
+        WHERE tier='V' AND is_company IS NOT TRUE`,
+    ),
+    count(`SELECT count(*) n FROM person_browse_table WHERE tier='V'`),
+  ]);
+  assert.ok(total > 0, "no tier-V rows at all — the mint did not run");
+  assert.equal(
+    decl,
+    0,
+    `${decl} tier-V rows carry a declaration — the band withholds the declaration rate under ` +
+      "?sector=private on the premise that this is 0 by construction",
+  );
+  assert.equal(
+    company,
+    0,
+    `${company} tier-V rows are NOT is_company — the band withholds the company rate under ` +
+      "?sector=private on the premise that this is 0 by construction",
+  );
+});
+
+test.skipIf(skip)(
+  "has_declaration is NOT NULL, so its facet buckets sum to the table",
+  async () => {
+    // The landing has no table, so the head's „Лица" cell falls back to the has_declaration
+    // facet's two buckets summed. That is EXACT only while the column is NOT NULL: a nullable
+    // one would silently under-count the corpus in the largest type on the page.
+    // Non-vacuity: an empty table has no NULLs either.
+    const rows = await count(`SELECT count(*) n FROM person_browse_table`);
+    assert.ok(rows > 1000, `only ${rows} rows in person_browse_table`);
+    const nulls = await count(
+      `SELECT count(*) n FROM person_browse_table WHERE has_declaration IS NULL`,
+    );
+    assert.equal(
+      nulls,
+      0,
+      `${nulls} rows have a NULL has_declaration — /persons' landing count is the sum of that ` +
+        "column's true/false facet buckets and would silently under-report the corpus",
+    );
+  },
+);

@@ -34,12 +34,33 @@ const KPIS: HubKpi[] = [
   { value: "29 622", label: "suppliers", basis: "firms with a contract" },
 ];
 
-const mount = (props: Partial<Parameters<typeof HubHead>[0]> = {}) =>
+/** `at` is the URL the head is mounted ON. It matters: every href goes through
+ *  `usePreserveParams`, whose whole job is to carry the reader's ambient scope forward — so a
+ *  test that always mounts at a query-less path never exercises it, and an implementation that
+ *  dropped `preserve()` entirely would pass. */
+const mount = (
+  props: Partial<Parameters<typeof HubHead>[0]> = {},
+  at = "/procurement",
+) =>
   render(
-    <MemoryRouter initialEntries={["/procurement"]}>
+    <MemoryRouter initialEntries={[at]}>
       <HubHead {...base} {...props} />
     </MemoryRouter>,
   );
+
+/** One evidence row with the given `to`, for the href assertions. */
+const withRow = (
+  to: Parameters<typeof HubHead>[0]["evidence"] extends
+    | { rows: (infer R)[] }
+    | undefined
+    ? R extends { to?: infer T }
+      ? T
+      : never
+    : never,
+) => ({
+  kpis: KPIS,
+  evidence: { heading: "Groups", rows: [{ label: "Row", value: "1", to }] },
+});
 
 describe("HubHead", () => {
   it("renders exactly one h1", () => {
@@ -113,6 +134,109 @@ describe("HubHead", () => {
     });
     const row = screen.getByText("Агенция Пътна инфраструктура").closest("a");
     expect(row).toHaveAttribute("href", "/awarder/000695089?pscope=all");
+  });
+
+  it("does not DOUBLE the query of a string `to` that carries one", () => {
+    // `path` used to take the whole string, query included, and the merged search was then
+    // appended to it: `/companies?political=1` → `/companies?political=1?political=1`. React
+    // Router routes that — everything after the first `?` is one query string — so the
+    // destination LOADS and quietly filters by `political=1?political=1`, which no validator
+    // accepts, so the params are dropped and the page renders unfiltered under a heading that
+    // promised a narrowed set. Live on /governance/declarations; found on /persons.
+    mount({
+      kpis: KPIS,
+      evidence: {
+        heading: "Groups",
+        rows: [
+          { label: "Business", value: "85 060", to: "/persons?facet=company" },
+        ],
+      },
+    });
+    const row = screen.getByText("Business").closest("a");
+    expect(row).toHaveAttribute("href", "/persons?facet=company");
+  });
+
+  it("keeps a string `to` with no query untouched", () => {
+    mount({
+      kpis: KPIS,
+      evidence: {
+        heading: "Groups",
+        rows: [{ label: "MPs", value: "2 118", to: "/persons" }],
+      },
+    });
+    expect(screen.getByText("MPs").closest("a")).toHaveAttribute(
+      "href",
+      "/persons",
+    );
+  });
+
+  it("carries the reader's ambient scope into every href", () => {
+    // THE HEAD'S STATED REASON FOR EXISTING. Without it, `?pscope=all` in the band read
+    // „€93,6 млрд. · целият корпус" while „виж класацията" landed on the DEFAULT scope — a
+    // top-three with zero names in common with the rows above it. Mounted at a URL that
+    // CARRIES the scope, so an implementation that never calls `preserve()` fails here.
+    mount(withRow("/procurement/overview"), "/procurement?pscope=all");
+    expect(screen.getByText("Row").closest("a")).toHaveAttribute(
+      "href",
+      "/procurement/overview?pscope=all",
+    );
+  });
+
+  it("lets a link's OWN params win over the ambient ones", () => {
+    mount(
+      withRow("/procurement/contracts?pscope=ns"),
+      "/procurement?pscope=all",
+    );
+    expect(screen.getByText("Row").closest("a")).toHaveAttribute(
+      "href",
+      "/procurement/contracts?pscope=ns",
+    );
+  });
+
+  it("strips a param that is NOT a global one", () => {
+    // The allowlist is the point: a page-local param following a reader onto another page
+    // answers a question they did not ask there.
+    mount(withRow("/procurement/overview"), "/procurement?role=mp");
+    expect(screen.getByText("Row").closest("a")).toHaveAttribute(
+      "href",
+      "/procurement/overview",
+    );
+  });
+
+  it("keeps the HASH, and keeps it AFTER the search", () => {
+    // `/procurement`'s evidence action is `"/procurement/overview#procurement-entities"` and
+    // that hub forces `?pscope=all`. Appending the search to a path that still held the hash
+    // emitted `…#procurement-entities?pscope=all`, which parses as a hash with NO search — the
+    // scope silently dropped AND the anchor matching nothing.
+    mount(
+      withRow("/procurement/overview#procurement-entities"),
+      "/procurement?pscope=all",
+    );
+    expect(screen.getByText("Row").closest("a")).toHaveAttribute(
+      "href",
+      "/procurement/overview?pscope=all#procurement-entities",
+    );
+  });
+
+  it("does not leak one link's forced params into the next", () => {
+    // `preserve()` used to strip and re-`set` on the hook's own URLSearchParams and hand the
+    // same object back, so several links built in one render accumulated each other's params.
+    // Measured on /governance: a cell forcing `?pscope=all` leaked it onto the following cell's
+    // scope-free `/funds/beneficiaries`, which then answered for one window. Order-dependent.
+    mount(
+      {
+        kpis: KPIS,
+        evidence: {
+          heading: "Groups",
+          rows: [
+            { label: "Forced", value: "1", to: "/a?pscope=all" },
+            { label: "Free", value: "2", to: "/b" },
+          ],
+        },
+      },
+      "/procurement",
+    );
+    expect(screen.getByText("Free").closest("a")).toHaveAttribute("href", "/b");
   });
 
   it("omits the band and its note entirely rather than rendering empty cells", () => {
