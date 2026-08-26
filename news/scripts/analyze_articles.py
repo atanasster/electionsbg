@@ -40,6 +40,11 @@ everything deterministic around that:
                     story files themselves, regenerating the index and all
                     aggregates. It recovers from a lost or corrupt index
                     and deletes story files nothing points to anymore.
+                    It is also the repair for an index that has drifted
+                    from the disk: an entry whose analysis is gone is
+                    pruned (reported as dropped_orphan_articles) and one
+                    whose path went stale is repointed at the file that is
+                    actually there (stale_article_path).
 
 Storage layout (all under news/data/, which is deliberately untracked):
 
@@ -1710,9 +1715,26 @@ def cmd_stats(_args) -> int:
 # ------------------------------------------------------------------ rebuild ---
 
 def scan_analyses_on_disk():
-    analyses = {}
+    """(url -> analysis record, url -> the repo-relative path it was READ FROM).
+
+    ⚠️ THE SECOND DICT IS WHERE THE FILE ACTUALLY IS — never
+    `analysis_path_for(a["article_path"])`. The index's `path` exists so a
+    consumer can OPEN the file, while `article_path` is frozen at analysis time
+    and names a CORPUS file that can afterwards be re-saved under a different
+    content hash or move to a re-keyed domain directory. Derive the index path
+    from that field and a --rebuild REPRODUCES a dangling entry instead of
+    repairing it, because the record it read is perfectly present on disk —
+    scanning the tree is not enough on its own.
+
+    Measured 2026-08-27 on the live corpus: 5 of 368 entries dangled. Three had
+    no analysis on disk at all and the scan drops those; the other two are this
+    class — novavarna.net (corpus article re-saved under a new hash, so the
+    frozen `article_path` names a file the prune of that bot_refused site left
+    behind) and svobodnaevropa.bg re-keyed to svobodnatochka.bg.
+    """
+    analyses, paths = {}, {}
     if not os.path.isdir(ARTICLES_DIR):
-        return analyses
+        return analyses, paths
     for domain in sorted(os.listdir(ARTICLES_DIR)):
         d = os.path.join(ARTICLES_DIR, domain)
         if not os.path.isdir(d):
@@ -1720,10 +1742,12 @@ def scan_analyses_on_disk():
         for f in sorted(os.listdir(d)):
             if not f.endswith(".json"):
                 continue
-            a = load_json_if_exists(os.path.join(d, f))
+            full = os.path.join(d, f)
+            a = load_json_if_exists(full)
             if isinstance(a, dict) and isinstance(a.get("url"), str):
                 analyses[a["url"]] = a
-    return analyses
+                paths[a["url"]] = os.path.relpath(full, REPO_ROOT)
+    return analyses, paths
 
 
 def scan_story_files():
@@ -1743,7 +1767,7 @@ def cmd_rebuild(_args) -> int:
     old_index = load_index()
     old_stories = scan_story_files()
 
-    analyses = scan_analyses_on_disk()
+    analyses, analysis_paths = scan_analyses_on_disk()
     # pass 1: which story does each ok analysis belong to?
     membership = {}  # url -> story_id
     for url, a in sorted(analyses.items()):
@@ -1816,14 +1840,30 @@ def cmd_rebuild(_args) -> int:
     }
     for url, a in analyses.items():
         index["articles"][url] = {
-            "path": os.path.relpath(analysis_path_for(a["article_path"]), REPO_ROOT),
+            "path": analysis_paths[url],
             "story_id": membership.get(url),
             "domain": a.get("domain"),
             "analyzed_at": a.get("analyzed_at"),
         }
     write_json_atomic(INDEX_PATH, index)
+
+    # What the rebuild reconciled away, reported rather than silently absorbed.
+    # `dropped_orphan_articles` is the prune: an index entry whose analysis is
+    # no longer on disk simply does not come back, and saying so is the only
+    # way an operator can tell "the corpus shrank" from "the scan found
+    # nothing". `stale_article_path` is NOT an error — the index now points at
+    # the file that exists either way — but it is the drift that used to
+    # publish a dangling path, so it stays visible.
+    dropped_articles = sorted(set(old_index.get("articles", {})) - set(analyses))
+    stale_paths = sorted(
+        url for url, a in analyses.items()
+        if not (isinstance(a.get("article_path"), str) and a["article_path"]
+                and os.path.exists(os.path.join(REPO_ROOT, a["article_path"])))
+    )
     return emit(0, analyses=len(analyses), stories=len(stories),
-                dropped_orphan_stories=dropped)
+                dropped_orphan_stories=dropped,
+                dropped_orphan_articles=dropped_articles,
+                stale_article_path=stale_paths)
 
 
 def main() -> int:

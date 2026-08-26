@@ -378,6 +378,95 @@ class TestRebuild(FixtureTestCase):
         self.assertEqual(st["aggregates"]["article_count"], 2)
         self.assertEqual(st["canonical_title_bg"], "Алфа събитие")  # titles survive from the story file
 
+    def test_rebuild_prunes_an_index_entry_whose_analysis_is_gone(self):
+        """The plain half of the drift: the analysis file was removed (a
+        pruned corpus, a bot_refused site) and nothing cleaned the index, so
+        `articles[url].path` named a file that is not there."""
+        self.save(analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg"))
+        self.save(analysis(self.analysis_path("a2"), "https://test.bg/beta", "test.bg",
+                           action="new_story", titles=("Бета", "Beta")))
+        gone = os.path.join(self.root, self.index()["articles"]["https://test.bg/beta"]["path"])
+        os.remove(gone)
+
+        code, out, _ = self.run_cli("--rebuild")
+        self.assertEqual(code, 0)
+        self.assertEqual(out["dropped_orphan_articles"], ["https://test.bg/beta"])
+        idx = self.index()
+        self.assertNotIn("https://test.bg/beta", idx["articles"])
+        self.assertIn("https://test.bg/alpha", idx["articles"])  # not a blanket wipe
+
+    def test_rebuild_repoints_an_entry_whose_article_path_went_stale(self):
+        """⚠️ THE HALF A DISK SCAN ALONE DOES NOT FIX, and the one that was
+        live. The analysis file is present and readable; only the `article_path`
+        FROZEN INSIDE IT names a corpus file that has since moved — re-saved
+        under a new content hash, or re-keyed to another domain directory. A
+        rebuild that derives `path` from that field reproduces the dangle it was
+        run to repair, with every count reconciling."""
+        a = analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg")
+        self.save(a)
+        on_disk = self.index()["articles"]["https://test.bg/alpha"]["path"]
+
+        # freeze a stale article_path INTO the saved analysis, leaving the file
+        # itself exactly where it is — the live novavarna.net shape.
+        stale_corpus = "news/data/test.bg/20260821-alpha-OLDHASH.json"
+        full = os.path.join(self.root, on_disk)
+        with open(full, encoding="utf-8") as fh:
+            rec = json.load(fh)
+        rec["article_path"] = stale_corpus
+        with open(full, "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+
+        code, out, _ = self.run_cli("--rebuild")
+        self.assertEqual(code, 0)
+        entry = self.index()["articles"]["https://test.bg/alpha"]
+        self.assertEqual(entry["path"], on_disk)
+        self.assertTrue(os.path.exists(os.path.join(self.root, entry["path"])))
+        self.assertEqual(out["stale_article_path"], ["https://test.bg/alpha"])
+        self.assertEqual(out["dropped_orphan_articles"], [])  # repointed, NOT pruned
+
+        # ⚠️ MUTATION CHECK. Without this the fixture is satisfiable by the very
+        # implementation the test exists to reject: reconstruct what deriving the
+        # path from `article_path` would have written and require it to be BOTH
+        # different from what was written AND absent from disk. If a future edit
+        # makes the fixture non-stale, this fails and says the test went vacuous
+        # rather than passing on a scenario that no longer discriminates.
+        derived = os.path.join("news", "data", "analysis", "articles",
+                               os.path.relpath(stale_corpus, os.path.join("news", "data")))
+        self.assertNotEqual(derived, entry["path"])
+        self.assertFalse(os.path.exists(os.path.join(self.root, derived)))
+
+    def test_rebuild_leaves_no_dangling_index_entry(self):
+        """The invariant itself, over a corpus carrying BOTH failure shapes at
+        once — one analysis deleted, one left in place with a stale
+        `article_path`. Neither may survive as an entry naming a file that is
+        not there."""
+        for key, url, title in (("a1", "https://test.bg/alpha", ("Алфа", "Alpha")),
+                                ("a2", "https://test.bg/beta", ("Бета", "Beta")),
+                                ("a3", "https://other.bg/gamma", ("Гама", "Gamma"))):
+            self.save(analysis(self.analysis_path(key), url, url.split("/")[2],
+                               action="new_story", titles=title))
+        idx = self.index()
+        os.remove(os.path.join(self.root, idx["articles"]["https://test.bg/beta"]["path"]))
+        full = os.path.join(self.root, idx["articles"]["https://other.bg/gamma"]["path"])
+        with open(full, encoding="utf-8") as fh:
+            rec = json.load(fh)
+        rec["article_path"] = "news/data/other.bg/20260822-gamma-OLDHASH.json"
+        with open(full, "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+
+        # the state --rebuild is run to repair really is broken first
+        before = [u for u, v in self.index()["articles"].items()
+                  if not os.path.exists(os.path.join(self.root, v["path"]))]
+        self.assertEqual(sorted(before), ["https://test.bg/beta"])
+
+        code, _, _ = self.run_cli("--rebuild")
+        self.assertEqual(code, 0)
+        after = self.index()["articles"]
+        dangling = [u for u, v in after.items()
+                    if not os.path.exists(os.path.join(self.root, v["path"]))]
+        self.assertEqual(dangling, [], f"index entries name files that are not on disk: {dangling}")
+        self.assertEqual(sorted(after), ["https://other.bg/gamma", "https://test.bg/alpha"])
+
     def test_rebuild_drops_orphan_story_files(self):
         self.save(analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg"))
         stories_dir = os.path.join(self.root, "news", "data", "analysis", "stories")
