@@ -2187,7 +2187,41 @@ officials-linked population had ~60% place coverage; the full registry does not)
 
 The route (`companies` DbDataTable resource) has no `missingMigration` degrade, so a
 `deploy:db` shipping it before this loader first reaches the target 500s `/companies`
-outright — same ordering rule as `cpv_catalog` / `contractor_rank`. `company_browse.data.test.ts`
+outright — same ordering rule as `cpv_catalog` / `contractor_rank`.
+
+⚠️⚠️ **THAT ORDERING HAZARD IS NOT HYPOTHETICAL — IT HAPPENED, AND AS OF 2026-08-26 IT IS
+STILL LIVE.** Measured that day against the serving database: `to_regclass('company_browse_table')`
+is **NULL** — 188 has never been applied to Cloud SQL at all, which still carries 178's
+`official_companies` — while the deployed function DOES know the `companies` resource. So
+`/api/db/table?q={"resource":"companies"}` returns **500 `{"error":"db error"}`** on every
+request. `/companies` itself answers 200 because that is only the SPA shell; the table inside it
+renders the „Данните не можаха да се заредят." panel. **A 200 on the page is not evidence the
+resource works** — query the API directly, which is the check that found this.
+
+Applying 188 there is the fix and needs nothing else first — it defines both plpgsql wrappers
+(`company_public_money_rows`, `contractor_rank_all_rows`) itself, and the second does NOT yet
+exist on cloud, so no other file can supply it. Verified 2026-08-26 before recommending it:
+all six inputs are present and populated, `app_readonly` exists (188's GRANT is `pg_roles`-guarded
+regardless), and the `official_companies` it DROPs has no reader anywhere — none in `functions/`,
+`ai/` or `src/` outside comments, no `pg_depend` dependent on cloud, and the deployed API answers
+`unknown resource` for it. Cloud inputs are the same vintage as local (`tr_companies` 1,022,592,
+`tr_company_place` 327,161, `contractor_rank` 432,605, `company_public_money` 81,464 — all
+identical; `person_role` at tr/ngo is 199,531 against 201,082, the known resolve-history drift).
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 188_company_browse.sql
+```
+
+⚠️ **OFF-PEAK.** This is a `CREATE MATERIALIZED VIEW` over 1,022,592 `tr_companies` rows joined
+to five more relations, plus ~15 index builds, on a box serving live traffic; the duration is
+**unmeasured on Cloud SQL**. The usual „re-applying 188 blanks /companies" warning does NOT apply
+here — the page is already down, so this can only improve it. Afterwards, 193 is a no-op (188
+carries the same four indexes) but is worth running to confirm, and the check that matters is the
+API, not the page:
+
+```bash
+curl -s "https://electionsbg.com/api/db/table?q=%7B%22resource%22%3A%22companies%22%2C%22limit%22%3A1%7D"
+``` `company_browse.data.test.ts`
 fails on an empty/stale table, on `is_official_linked` disagreeing with an independent recount
 of 178's old two-arm union, and on either plpgsql wrapper drifting from its source.
 
