@@ -194,7 +194,8 @@ export const formatVisits = (visits: number | null): string => {
  */
 export const bgArticleNoun = (n: number): string => {
   const abs = Math.abs(Math.trunc(n));
-  return abs === 1 ? "статия" : "статии";
+  const teens = abs % 100 >= 11 && abs % 100 <= 14;
+  return !teens && abs % 10 === 1 ? "статия" : "статии";
 };
 
 /** „21 статия" — the count and its noun, agreeing. */
