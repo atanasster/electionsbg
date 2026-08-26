@@ -34,6 +34,12 @@
 //     is milliseconds, in parallel with one that has to run anyway.
 //  2. THE DIRECT MISS IS STILL STATED FIRST. „не се срещат заедно в нито една фирма" is true
 //     and is the stronger claim; the bridge is an addition to it, never a replacement.
+//  4. „DID NOT FINISH" IS A THIRD OUTCOME. `bridgedTimedOut` says the second-degree query hit
+//     the pool's statement_timeout, so its empty result means the check never completed. It
+//     must NOT render as the miss copy: „не са вписани заедно и никой не ги свързва" would be
+//     a claim about two named people that nothing established. The first degree still renders
+//     — it succeeded, and the route is built so a timeout on the expensive half cannot take
+//     the cheap half's answer away.
 //  3. EVERY COMPANY PRINTS ITS OFFICER-BODY SIZE. „(7 вписани лица)" is the only thing on the
 //     row that separates a real tie from a seven-member управителен съвет — and the reference
 //     chain this feature was built for runs through two such bodies, which is precisely why
@@ -80,6 +86,11 @@ export interface BridgeRow {
 export interface ConnectionResult {
   shared: ConnectionRow[];
   bridged: BridgeRow[];
+  /** The second-degree query hit the pool's statement_timeout, so `bridged` is empty because
+   *  the check did not FINISH — not because nothing was found. The two must never render the
+   *  same: an empty list that reads as „no indirect link" is a claim about two named people
+   *  that nothing established. */
+  bridgedTimedOut?: boolean;
 }
 
 /** The route's own appetite — `BRIDGE_LIMIT` in functions/db_routes.js. Mirrored here for
@@ -177,6 +188,11 @@ export const PersonConnectionCheck: FC<{
   const shared = result?.shared ?? [];
   // Rule 1 in the header: the second degree is an answer to a MISS, not a supplement to a hit.
   const bridged = result && shared.length === 0 ? result.bridged : [];
+  /** Rule 4: „did not finish" is a THIRD outcome beside „found" and „found nothing", and only
+   *  matters where the second degree would have been shown. */
+  const timedOut = Boolean(
+    result && shared.length === 0 && result.bridgedTimedOut,
+  );
 
   return (
     <Card>
@@ -237,7 +253,13 @@ export const PersonConnectionCheck: FC<{
                   ? `В нашите данни от Търговския регистър „${personName}“ и „${queried}“ не се срещат заедно в нито една фирма.`
                   : `In our Commerce Registry data, “${personName}” and “${queried}” do not appear together at any company.`}
               </div>
-              {bridged.length > 0 ? (
+              {timedOut ? (
+                <div>
+                  {bg
+                    ? "Проверката за връзка през трето лице не завърши навреме, така че за нея нямаме отговор — не че такава връзка няма."
+                    : "The check for a link through a third person did not finish in time, so we have no answer for it — which is not the same as there being none."}
+                </div>
+              ) : bridged.length > 0 ? (
                 <BridgeList
                   rows={bridged}
                   personName={personName}

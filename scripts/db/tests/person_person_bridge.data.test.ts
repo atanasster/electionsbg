@@ -105,11 +105,25 @@ const bridges = (a: string, b: string) =>
 
 type Mutation = [fn: string, mutate: (def: string) => string];
 
-/** Lift the hub cap from person_person_bridge's own body. */
+/** Lift the hub cap from person_person_bridge's own body. Targets the `bridge` CTE, which is
+ *  where exclusion 1 is stated — ONCE, against the count `a_side` carries forward. */
 const NO_HUB_CAP: Mutation = [
   "person_person_bridge",
   (def) =>
-    def.replace("c.company_count, 1) <= 12", "c.company_count, 1) <= 1000000"),
+    def.replace(
+      "WHERE s.company_count <= 12",
+      "WHERE s.company_count <= 1000000",
+    ),
+];
+/** Neuter the deleted-fact-placeholder predicate — the guard that keeps „Заличено
+ *  обстоятелство." out of both the bridge set and the published officer-body counts. */
+const NO_PLACEHOLDER_GUARD: Mutation = [
+  "tr_fold_is_placeholder",
+  (def) =>
+    def.replace(
+      /AS \$function\$[\s\S]*?\$function\$/,
+      "AS $function$ SELECT false $function$",
+    ),
 ];
 /** Neuter the professional-appointment predicate. Mutating the PREDICATE rather than its
  *  four call sites is deliberate: one edit covers every leg, and a leg that has quietly
@@ -570,6 +584,116 @@ test.skipIf(skip)(
     );
   },
 );
+
+test.skipIf(skip)(
+  "the clamp holds at BOTH ends, not just the top",
+  async () => {
+    // ⚠️ GREATEST(1, …) as well as LEAST. A caller passing 0 or a negative must get a bounded
+    // answer, not `LIMIT must not be negative` — through /api/db/connection that is a 500, and
+    // because the route asks both degrees in one Promise.all it would cost the FIRST degree its
+    // answer too. Measured before the fix: p_limit = -1 raised. The function is GRANTed to
+    // app_readonly and reachable from /api/sql, so the route's constant is not the caller set.
+    for (const lim of [-1, 0, 1]) {
+      const [r] = await allRows<{ n: string }>(
+        `SELECT count(*) n FROM person_person_bridge($1, $2, $3)`,
+        [REF_A, REF_B, lim],
+      );
+      assert.ok(
+        num(r.n) >= 1,
+        `p_limit=${lim} returned nothing or raised — the lower clamp is gone`,
+      );
+    }
+  },
+);
+
+test.skipIf(skip)(
+  "the published officer-body size counts only people",
+  async () => {
+    // „Заличено обстоятелство." is the register's deleted-fact placeholder, excluded from
+    // bridging by exclusion 2 — and it was counted as a вписано лице in a_body/b_body until
+    // 2026-08-26. That number carries the row's whole interpretive weight in the UI („N
+    // вписани лица") AND is the primary ORDER BY key, so inflating it also reorders results.
+    //
+    // Sampled bridge-first over companies that actually carry the placeholder; 4,383 do and
+    // 724 of them can bridge. The sample is capped at 300 seed companies — measured ~11 s and
+    // 208 chains, 191 of them at a placeholder-bearing company, which is what the non-vacuity
+    // assertion below needs; 3,000 seeds runs for minutes and buys nothing.
+    const [r] = await allRows<{
+      chains: string;
+      withph: string;
+      agree: string;
+    }>(`
+      WITH ph AS (
+        SELECT DISTINCT uic FROM tr_officers
+         WHERE tr_fold_is_placeholder(name_fold) LIMIT 300),
+      two AS (
+        SELECT o.name_fold, o.uic AS u1,
+               (SELECT x.uic FROM tr_officers x
+                 WHERE x.name_fold = o.name_fold AND x.uic <> o.uic LIMIT 1) AS u2
+          FROM tr_officers o JOIN ph ON ph.uic = o.uic
+         WHERE o.name_fold <> '' AND NOT tr_fold_is_placeholder(o.name_fold)),
+      cand AS (
+        SELECT DISTINCT
+               (SELECT p.name FROM tr_officers p
+                 WHERE p.uic = t.u1 AND p.name_fold <> t.name_fold AND p.name_fold <> ''
+                 LIMIT 1) AS a,
+               (SELECT p.name FROM tr_officers p
+                 WHERE p.uic = t.u2 AND p.name_fold <> t.name_fold AND p.name_fold <> ''
+                 LIMIT 1) AS b
+          FROM two t WHERE t.u2 IS NOT NULL),
+      hit AS (
+        SELECT r.a_eik, r.a_body,
+               (SELECT count(DISTINCT x.name_fold) FROM tr_officers x
+                 WHERE x.uic = r.a_eik AND x.name_fold <> ''
+                   AND NOT tr_fold_is_placeholder(x.name_fold)) AS true_body,
+               EXISTS (SELECT 1 FROM tr_officers x
+                        WHERE x.uic = r.a_eik AND tr_fold_is_placeholder(x.name_fold)) AS ph
+          FROM cand c, LATERAL person_person_bridge(c.a, c.b, 100) r
+         WHERE c.a IS NOT NULL AND c.b IS NOT NULL)
+      SELECT count(*) AS chains,
+             count(*) FILTER (WHERE ph) AS withph,
+             count(*) FILTER (WHERE a_body = true_body) AS agree
+        FROM hit`);
+    assert.ok(
+      num(r.chains) > 0,
+      `no chains sampled (${r.chains}) — the gate is measuring nothing`,
+    );
+    // ⚠️ NON-VACUITY FIRST, in this file's style: „every body count agrees" is trivially true
+    // of a sample in which no company carries the placeholder at all.
+    assert.ok(
+      num(r.withph) > 0,
+      "no sampled bridge company carries the placeholder — the sample has drifted off the shape this gate exists to exercise",
+    );
+    assert.equal(
+      num(r.agree),
+      num(r.chains),
+      "a published officer-body size counts „Заличено обстоятелство.“ as a person",
+    );
+  },
+);
+
+test.skipIf(skip)("the placeholder guard still discriminates", async () => {
+  // The mutation half of the two assertions above: with tr_fold_is_placeholder neutered,
+  // the corpus must actually change — otherwise both tests are satisfied by a body that
+  // never consulted the predicate.
+  const [before] = await allRows<{ n: string }>(
+    `SELECT count(DISTINCT name_fold) n FROM tr_officers
+        WHERE uic IN (SELECT uic FROM tr_officers WHERE tr_fold_is_placeholder(name_fold) LIMIT 200)
+          AND name_fold <> '' AND NOT tr_fold_is_placeholder(name_fold)`,
+  );
+  const after = await without([NO_PLACEHOLDER_GUARD], (q) =>
+    q(
+      `SELECT count(DISTINCT name_fold) n FROM tr_officers
+          WHERE uic IN (SELECT uic FROM tr_officers WHERE name_fold = 'zalicheno obstoyatelstvo.' LIMIT 200)
+            AND name_fold <> '' AND NOT tr_fold_is_placeholder(name_fold)`,
+      [],
+    ),
+  );
+  assert.ok(
+    num((after[0] as { n: string }).n) > num(before.n),
+    `the placeholder predicate has stopped discriminating: ${before.n} guarded vs ${(after[0] as { n: string }).n} unguarded`,
+  );
+});
 
 test.skipIf(skip)(
   "the row cap is enforced in SQL, not left to the caller",

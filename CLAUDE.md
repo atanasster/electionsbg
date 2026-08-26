@@ -3498,8 +3498,13 @@ Five things about it are easy to get backwards:
   ```bash
   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
     003_tr_search.sql 008_connections.sql 022_company_officers.sql \
-    148_person_company_basis.sql 150_mp_tr_roles.sql
+    148_person_company_basis.sql 150_mp_tr_roles.sql 192_person_bridge.sql
   ```
+
+  **192 is in that list because it is a FOURTH serving function riding `db:load:tr:pg`** —
+  `person_person_bridge` (see "applied, never loaded" below). It is not the 150 trap: this one
+  the TR loader DOES apply. It is here so an operator shipping a `tr_owner_share` fix by hand
+  does not leave it on its old body, which is the same "one function got missed" shape.
 
   ⚠️ **150 IS THE ONE `db:load:tr:pg` DOES NOT APPLY** — its only applier in the repo
   is `db:resolve:persons` (`resolve_persons.ts`'s SCHEMA_FILES). So a TR publish alone
@@ -3770,6 +3775,35 @@ reads none of `person_search`'s tables, so a database where that loader has neve
 ```bash
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql
 ```
+
+`person_person_bridge` (migration 192) is the SECOND-DEGREE half of the person page's
+„Проверка на връзка" — one bridge person joining two names that share no company, behind
+`/api/db/connection`'s `bridged` array. **`db:load:tr:pg[:cloud]` is its ONLY applier**, after
+008 — which owns the `officer_name_counts` matview it reads, and against which a `LANGUAGE sql`
+body is validated at CREATE. A body fix ships on its own with:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+  003_tr_search.sql 008_connections.sql 192_person_bridge.sql
+```
+
+Three things about it are easy to get backwards:
+
+- **`db:load:tr:pg` is a `REFRESH_EXCLUSIONS` member, so `db:refresh` never applies 192.** On a
+  machine with a loaded TR corpus, `npm run test:data` therefore FAILS until someone runs the
+  34.9-minute TR loader or the command above. The gate names the fix in its message, so it is
+  survivable — but it is a red test on a fresh checkout rather than a skip, which is the one
+  thing that distinguishes it from every other entry in this section.
+- **The route DEGRADES, in two different ways, and only one of them is a missing migration.**
+  `42883`/`42P01` → `bridged: []` plus a `ppb:not-built:<code>` log; `57014` (the pool's own
+  10 s timeout) → `bridged: []` plus `bridgedTimedOut: true`, which the UI renders as „проверката
+  не завърши" rather than as „no indirect link". Everything else still 500s. Grep those two keys
+  to tell „nothing found" from „192 never landed here" from „the plan on this database is too
+  slow" — three states that look identical in the payload otherwise.
+- ⚠️ **Its Cloud SQL cost is UNMEASURED.** Every figure in 192's header is local, on the table
+  family this repo has a 4h41m incident with. EXPLAIN it against the serving database — under
+  `PREPARE`, since a psql literal constant-folds and hides the generic plan the pooled route
+  actually gets.
 
 **⚠️ The search FOLD is outstanding on Cloud SQL as of 2026-08-20, and it is a two-part
 change that must not be split across deploys.** `translit_bg_latin()` (000) gained two

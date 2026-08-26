@@ -52,6 +52,7 @@ test("asks BOTH degrees, in one round trip, with the limit passed explicitly", a
     b: "Георги",
     shared: [SHARED_ROW],
     bridged: [BRIDGE_ROW],
+    bridgedTimedOut: false,
   });
 });
 
@@ -87,13 +88,57 @@ test("the degradation is logged once, under a greppable key", async () => {
   assert.match(lines[0], /db:load:tr:pg/);
 });
 
-test("⚠️ 57014 is NOT degraded — it is the pool's own timeout, not a missing migration", async () => {
-  // Swallowing it would turn a real regression into a silently narrower answer, on a route
-  // whose direct query has already been paid for by the time it fires.
+test("⚠️ 57014 degrades VISIBLY — the first degree survives and the flag says why", async () => {
+  // The route's whole invariant: a failure of the EXPENSIVE half must not cost the cheap half
+  // its answer. `bridged` rejecting on 57014 propagates through Promise.all → 500 → the
+  // component's failure panel, throwing away a `shared` that came back in milliseconds. And
+  // person_person_bridge is the least-measured query on the route (unmeasured on Cloud SQL,
+  // on the table family this repo has a 4h41m incident with), so it is the realistic trigger.
+  __resetMissLog();
   const db = mockDb({ shared: [SHARED_ROW], bridge: pgError("57014") });
+  const res = await DB_ROUTES.connection(db, { a: "Иван", b: "Георги" });
+  assert.deepEqual(res.body.shared, [SHARED_ROW], "the first degree lost its answer");
+  assert.deepEqual(res.body.bridged, []);
+  // …and NOT silently: an empty `bridged` with no flag renders as „no indirect link", a claim
+  // about two named people that nothing established.
+  assert.equal(res.body.bridgedTimedOut, true);
+});
+
+test("a timeout is logged under its OWN key, not the not-built one", async () => {
+  // The two mean different things to an operator — „192 never landed here" vs „the plan on
+  // this database is too slow" — and only one of them is fixed by running a loader.
+  __resetMissLog();
+  const warn = console.warn;
+  const lines = [];
+  console.warn = (m) => lines.push(String(m));
+  try {
+    const db = mockDb({ bridge: pgError("57014") });
+    await DB_ROUTES.connection(db, { a: "Иван", b: "Георги" });
+  } finally {
+    console.warn = warn;
+  }
+  assert.equal(lines.length, 1);
+  assert.match(lines[0], /^ppb:timeout/);
+  assert.doesNotMatch(lines[0], /not-built/);
+});
+
+test("a NOT-built degrade does not set the timeout flag", async () => {
+  // The flag drives reader-facing copy („проверката не завърши"). A database that never ran
+  // the TR loader did not time out — it has no second degree at all, which is a different
+  // sentence, and the miss copy is the right one there.
+  __resetMissLog();
+  const db = mockDb({ shared: [SHARED_ROW], bridge: pgError("42883") });
+  const res = await DB_ROUTES.connection(db, { a: "Иван", b: "Георги" });
+  assert.equal(res.body.bridgedTimedOut, false);
+});
+
+test("any OTHER error on the bridge still propagates", async () => {
+  // Degrading is only correct for the two states it names. A permission error or a syntax
+  // error is a real regression, and swallowing it would turn one into a narrower answer.
+  const db = mockDb({ shared: [SHARED_ROW], bridge: pgError("42501") });
   await assert.rejects(
     () => DB_ROUTES.connection(db, { a: "Иван", b: "Георги" }),
-    (e) => e.code === "57014",
+    (e) => e.code === "42501",
   );
 });
 

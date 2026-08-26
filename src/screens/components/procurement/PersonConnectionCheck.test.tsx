@@ -406,6 +406,55 @@ describe("PersonConnectionCheck — a second-degree bridge", () => {
     expect(screen.queryByText(/името е вписано/)).toBeNull();
   });
 
+  it("says the check DID NOT FINISH rather than rendering it as a miss", async () => {
+    // A timeout on the expensive half leaves `bridged` empty for a reason that is not „nothing
+    // was found". Rendering the miss copy there is a claim about two named people that nothing
+    // established — the class the component's whole basis line exists to police.
+    show({}, [], []);
+    // The default `show` helper cannot express the flag, so drive the fetch shape directly.
+    const { unmount } = render(
+      <MemoryRouter>
+        <PersonConnectionCheck
+          personName="Иван Петров"
+          fetchCheck={async () => ({
+            shared: [],
+            bridged: [],
+            bridgedTimedOut: true,
+          })}
+        />
+      </MemoryRouter>,
+    );
+    const user = userEvent.setup();
+    const boxes = screen.getAllByPlaceholderText(/друго име/);
+    await user.type(boxes[boxes.length - 1]!, "Георги Георгиев");
+    const buttons = screen.getAllByRole("button", { name: /Провери/ });
+    await user.click(buttons[buttons.length - 1]!);
+    await waitFor(() =>
+      expect(screen.getByText(/не завърши навреме/)).toBeInTheDocument(),
+    );
+    // The direct answer still stands — the route is built so a timeout on the second degree
+    // cannot take the first degree's answer away.
+    expect(screen.getAllByText(/не се срещат заедно/).length).toBeGreaterThan(
+      0,
+    );
+    // …and the absence caveat must NOT appear: it answers a completed miss.
+    expect(screen.queryByText(/Това не значи, че връзка няма/)).toBeNull();
+    unmount();
+  });
+
+  it("a completed miss is still a miss — the flag is not set", async () => {
+    // Mutation guard on the branch above: without it, „не завърши" could be rendered for every
+    // empty result and the test above would still pass.
+    show({}, [], []);
+    await check("Георги Георгиев");
+    await waitFor(() =>
+      expect(
+        screen.getByText(/Това не значи, че връзка няма/),
+      ).toBeInTheDocument(),
+    );
+    expect(screen.queryByText(/не завърши навреме/)).toBeNull();
+  });
+
   it("discloses the cap when the list is exactly full", async () => {
     // No silent caps: at the route's limit the list MAY be truncated, and an undisclosed
     // bound reads as „that is all of them".

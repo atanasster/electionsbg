@@ -120,6 +120,24 @@
 -- ⚠️ Local timings on tr_* have been wrong before — EXPLAIN on Cloud SQL before trusting them.
 -- ═══════════════════════════════════════════════════════════════════════════════════════
 
+-- „Заличено обстоятелство." — the register's DELETED-FACT PLACEHOLDER — named ONCE, for the
+-- reason this file already gives for naming the role predicate: hand-copies of a rule drift.
+-- Three sites ask this question (the a_side filter and both officer-body counts), and they
+-- did drift: the filter excluded the fold while both body counts silently counted it as a
+-- person — see the `sized` CTE for what that cost.
+--
+-- Deliberately NOT the same question as `name_fold <> ''`. The empty fold is „the register
+-- recorded no name at all"; this is „the register recorded that a fact was deleted". Both are
+-- non-persons and they are not the same non-person, so each call site states both.
+CREATE OR REPLACE FUNCTION tr_fold_is_placeholder(p_fold text)
+RETURNS boolean LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
+  SELECT p_fold = 'zalicheno obstoyatelstvo.';
+$$;
+
+COMMENT ON FUNCTION tr_fold_is_placeholder(text) IS
+  'True for the Commerce Registry deleted-fact placeholder „Заличено обстоятелство." — the '
+  'largest name fold in the corpus (4,383 companies) and not a person.';
+
 -- Merge several tr_officers.roles strings into one deduped, comma-separated set.
 --
 -- The output is SORTED, so it is stable across two calls with the same roles in a different
@@ -188,6 +206,10 @@ LANGUAGE sql STABLE AS $$
   -- (fold, company), past the three exclusions.
   a_side AS (
     SELECT ob.name_fold, min(ob.name) AS name, ob.uic,
+           -- Carried forward rather than re-joined in `bridge`. That is not tidiness: it is
+           -- what makes the COALESCE default the header marks „MANDATORY, NOT DEFENSIVE"
+           -- exist ONCE, so no second copy can disagree about what an absent fold counts as.
+           COALESCE(c.company_count, 1)::int AS company_count,
            tr_role_union(array_agg(ob.roles)) AS bridge_roles
     FROM tr_officers ob
     JOIN a_leg ON a_leg.uic = ob.uic
@@ -196,16 +218,16 @@ LANGUAGE sql STABLE AS $$
     WHERE ob.name_fold <> qa.f
       AND ob.name_fold <> qb.f
       AND ob.name_fold <> ''
-      AND ob.name_fold <> 'zalicheno obstoyatelstvo.'
-      AND COALESCE(c.company_count, 1) <= 12
+      AND NOT tr_fold_is_placeholder(ob.name_fold)
       -- A company both subjects sit in is a DIRECT hit; connection_between owns it.
       AND NOT EXISTS (SELECT 1 FROM b_leg x WHERE x.uic = ob.uic)
-    GROUP BY ob.name_fold, ob.uic
+    GROUP BY ob.name_fold, ob.uic, c.company_count
   ),
+  -- The hub cap reads the value a_side carried, so exclusion 1 is stated exactly once.
   bridge AS (
-    SELECT s.name_fold, min(s.name) AS name,
-           COALESCE(min(c.company_count), 1)::int AS company_count
-    FROM a_side s LEFT JOIN officer_name_counts c ON c.name_fold = s.name_fold
+    SELECT s.name_fold, min(s.name) AS name, min(s.company_count)::int AS company_count
+    FROM a_side s
+    WHERE s.company_count <= 12
     GROUP BY s.name_fold
   ),
   -- The second leg: the same bridge at B's companies. The mirror of the direct-hit test is
@@ -229,6 +251,11 @@ LANGUAGE sql STABLE AS $$
     JOIN a_leg  al ON al.uic = sa.uic
     JOIN b_side sb ON sb.name_fold = br.name_fold
     JOIN b_leg  bl ON bl.uic = sb.uic
+    -- ⚠️ INERT TODAY, and kept deliberately. a_side drops every company B sits in and b_side
+    -- joins b_leg, so the two row sets are disjoint by construction and this can never be
+    -- false. It is belt-and-braces against a future edit that relaxes either NOT EXISTS —
+    -- the two clauses that own the direct-hit rule. In a file where every other predicate
+    -- carries a measured justification, an unexplained inert one reads as load-bearing.
     WHERE sb.uic <> sa.uic
       -- All four legs — see exclusion 3 in the header.
       AND NOT tr_role_is_professional_only(al.subject_roles)
@@ -236,12 +263,21 @@ LANGUAGE sql STABLE AS $$
       AND NOT tr_role_is_professional_only(sb.bridge_roles)
       AND NOT tr_role_is_professional_only(bl.subject_roles)
   ),
+  -- ⚠️ THE BODY COUNT MUST EXCLUDE EVERY NON-PERSON, and both kinds, or it publishes a number
+  -- that contradicts exclusion 2 above. This counted the deleted-fact placeholder as a вписано
+  -- лице until 2026-08-26: measured, 4,383 companies carry that row and 724 of them can bridge,
+  -- so e.g. uic 201463544 reported 17 against a true 16. Not cosmetic — the UI prints this as
+  -- „(N вписани лица)", which the header calls the only thing on the row that separates a real
+  -- tie from a seven-member управителен съвет, AND it is the primary ORDER BY key, so an
+  -- inflated body demotes a tighter chain and can push it past the row cap.
   sized AS (
     SELECT p.*,
            (SELECT count(DISTINCT t.name_fold) FROM tr_officers t
-             WHERE t.uic = p.a_eik AND t.name_fold <> '')::int AS a_body,
+             WHERE t.uic = p.a_eik AND t.name_fold <> ''
+               AND NOT tr_fold_is_placeholder(t.name_fold))::int AS a_body,
            (SELECT count(DISTINCT t.name_fold) FROM tr_officers t
-             WHERE t.uic = p.b_eik AND t.name_fold <> '')::int AS b_body
+             WHERE t.uic = p.b_eik AND t.name_fold <> ''
+               AND NOT tr_fold_is_placeholder(t.name_fold))::int AS b_body
     FROM pairs p
   )
   SELECT s.bridge_name, s.company_count,
@@ -252,7 +288,13 @@ LANGUAGE sql STABLE AS $$
   LEFT JOIN tr_companies cb ON cb.uic = s.b_eik
   -- Tightest tie first: the smallest bodies, then the least-worn bridge name.
   ORDER BY s.a_body + s.b_body, s.company_count, s.bridge_name, s.a_eik, s.b_eik
-  LIMIT LEAST(COALESCE(p_limit, 25), 100);
+  -- GREATEST as well as LEAST: without it p_limit = 0 or a negative raises „LIMIT must not be
+  -- negative", which through /api/db/connection is a 500 — and the route asks both degrees in
+  -- one Promise.all, so it would cost the FIRST degree its answer too. Every one of the 11
+  -- sibling clamps in this repo bounds both ends; this was the exception. The function is
+  -- GRANTed to app_readonly and reachable from /api/sql, so „the route passes a constant" is
+  -- not the whole caller set.
+  LIMIT GREATEST(1, LEAST(COALESCE(p_limit, 25), 100));
 $$;
 
 COMMENT ON FUNCTION person_person_bridge(text, text, int) IS
@@ -265,6 +307,7 @@ COMMENT ON FUNCTION person_person_bridge(text, text, int) IS
 -- a database that never ran it.
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION tr_fold_is_placeholder(text) TO app_readonly;
     GRANT EXECUTE ON FUNCTION tr_role_union(text[]) TO app_readonly;
     GRANT EXECUTE ON FUNCTION tr_role_is_professional_only(text) TO app_readonly;
     GRANT EXECUTE ON FUNCTION person_person_bridge(text, text, int) TO app_readonly;

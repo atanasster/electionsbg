@@ -1773,14 +1773,33 @@ const DB_ROUTES = {
   // silent one — a permanently empty second degree with nothing in Cloud Logging is exactly
   // how /api/db/mp-management sat on a stale body for weeks.
   //
-  // ⚠️ 57014 stays OUT of the degrade set. It is the pool's own 10 s statement_timeout, not
-  // a missing migration — the direct query has already been paid for by then, and swallowing
-  // it would turn a real regression into a silently narrower answer. (missingMigrationRows
-  // covers 42883 + 42P01 only, which is the whole set that can mean "192 has not landed".)
+  // ⚠️ 57014 DEGRADES TOO, AND VISIBLY — it does not reject and it is not swallowed.
+  //
+  // It is the pool's own 10 s statement_timeout rather than a missing migration, so it must
+  // not be folded into the not-built arm. But letting it REJECT breaks the invariant three
+  // lines up: Promise.all propagates, index.js maps it to a 500, and the component's `failed`
+  // panel replaces a first-degree answer that had already come back in milliseconds. That is
+  // the realistic trigger, not a hypothetical: person_person_bridge is the expensive half, its
+  // Cloud SQL cost is UNMEASURED (192's header, and this repo has a 4h41m incident on this
+  // exact table family), so the least-measured query on the route would take down the
+  // best-measured one.
+  //
+  // Swallowing it silently is the other wrong answer: an empty `bridged` renders as „no
+  // indirect link", a claim about two named people that nothing established. So the timeout
+  // travels IN THE PAYLOAD as `bridgedTimedOut` and the UI says the check did not finish.
+  //
+  // Anything else still rejects — a real error is not a narrower answer.
+  //
+  // Both degrees are asked unconditionally, in one round trip, even though the UI discards
+  // `bridged` whenever `shared` is non-empty. That waste is bought deliberately: a MISS is the
+  // common case and the case this feature exists for, so sequencing would add a second round
+  // trip to every request that needs the second degree in order to save one on requests that
+  // already have their answer.
   async connection(dbRows, q) {
     const a = s(q, "a");
     const b = s(q, "b");
     if (!a || !b) return { status: 400, body: { error: "missing a or b" } };
+    let bridgedTimedOut = false;
     const [shared, bridged] = await Promise.all([
       dbRows("SELECT * FROM connection_between($1, $2)", [a, b]),
       dbRows("SELECT * FROM person_person_bridge($1, $2, $3)", [
@@ -1788,6 +1807,14 @@ const DB_ROUTES = {
         b,
         BRIDGE_LIMIT,
       ]).catch((e) => {
+        if (e?.code === "57014") {
+          bridgedTimedOut = true;
+          logMissOnce(
+            "ppb:timeout",
+            "person_person_bridge exceeded the statement_timeout — serving the first degree alone and telling the reader the second did not finish. EXPLAIN it against this database.",
+          );
+          return [];
+        }
         if (e?.code !== "42883" && e?.code !== "42P01") return Promise.reject(e);
         logMissOnce(
           `ppb:not-built:${e.code}`,
@@ -1796,7 +1823,7 @@ const DB_ROUTES = {
         return [];
       }),
     ]);
-    return { body: { a, b, shared, bridged } };
+    return { body: { a, b, shared, bridged, bridgedTimedOut } };
   },
   // Company ↔ person connection check: direct roles + 1-hop bridges
   // (company_connection) AND the shortest multi-hop path up to 3 degrees.
