@@ -81,6 +81,20 @@ QUALITY_VERDICTS = {
 }
 LOGO_COLUMN_PREFIX = "logo_url"
 
+# Ownership. Four dated registry columns, ALL HAND-ENTERED — see the block
+# comment in outlets.json's builder for why none of it may be inferred.
+OWNER_COLUMN_PREFIXES = ("owner", "owner_category", "owner_source",
+                         "owner_checked")
+
+# Ground News publishes eight ownership categories and they are a reasonable
+# starting vocabulary, so this is theirs. It is NOT obviously the right
+# partition for Bulgarian media and should be revisited against real
+# structures before the column is filled in bulk.
+OWNER_CATEGORIES = frozenset({
+    "media_conglomerate", "private_equity", "individual", "government",
+    "telecom", "corporation", "independent", "other",
+})
+
 # The shape newsapp/app/data.ts declares for Story.entities / Story.aggregates.
 # Both are dereferenced unguarded by StoryScreen and StoryCard, so every story
 # must carry every key even when the analysis layer produced none.
@@ -122,20 +136,76 @@ def pick_dated_column(row: dict, prefix: str) -> str | None:
     empties makes a re-mint additive: a newly resolved value wins, a gap keeps
     what we had.
 
-    ⚠️ The match is `== prefix` or `prefix + "_"`, never a bare startswith —
-    `logo_urls_backup` is not a logo column, and the retired reader matched it
-    and published its contents as an outlet's mark."""
+    ⚠️ The match is `== prefix` or `prefix + "_<vintage>"`, never a bare
+    startswith, and the VINTAGE MUST BE A SINGLE TOKEN. Both halves are load-
+    bearing and each was got wrong once:
+
+      - a bare startswith matches `logo_urls_backup`, which the retired reader
+        published as an outlet's mark;
+      - `prefix + "_"` alone matches a SIBLING FIELD. `owner` matches
+        `owner_category_aug2026`, `owner_source_aug2026` and
+        `owner_checked_aug2026`, so last-non-empty returned the check DATE as
+        the owner's NAME — a fabricated claim about who owns a newsroom,
+        produced by a prefix rule.
+
+    Requiring the remainder to carry no further underscore separates
+    `owner_aug2026` (vintage) from `owner_category_aug2026` (sibling), and
+    still admits `logo_url_aug2026` and `similarweb_visits_jul2026`, whose
+    underscores are inside the PREFIX rather than after it."""
     best = None
     for key, value in row.items():
         if not key:
             continue
         raw = key.strip().lower()
-        if raw != prefix and not raw.startswith(prefix + "_"):
-            continue
+        if raw != prefix:
+            if not raw.startswith(prefix + "_"):
+                continue
+            if "_" in raw[len(prefix) + 1:]:
+                continue
         got = (value or "").strip()
         if got:
             best = got
     return best
+
+
+def owner_block(meta: dict) -> dict | None:
+    """The ownership claim for one outlet, or None when nothing is recorded.
+
+    Returns None rather than a dict of nulls: a block that exists with empty
+    fields renders as "ownership: unknown", which is a statement. Absent means
+    nobody has looked yet, and the app must be able to tell those apart.
+
+    An unrecognised category is dropped and REPORTED rather than published —
+    a free-text value in a controlled column would become a facet nobody can
+    filter on, and a typo would silently split an owner in two."""
+    name = (meta.get("owner") or "").strip()
+    if not name:
+        return None
+    category = (meta.get("owner_category") or "").strip().lower() or None
+    if category and category not in OWNER_CATEGORIES:
+        print(f"  ! unknown owner_category {category!r} for "
+              f"{meta.get('domain')} — dropped; use one of "
+              f"{sorted(OWNER_CATEGORIES)}", file=sys.stderr)
+        category = None
+    source = (meta.get("owner_source") or "").strip() or None
+    checked = (meta.get("owner_checked") or "").strip() or None
+    # ⚠️ REFUSED without both, rather than published with nulls. This
+    # function's own docstring and the outlets.json comment both say `checked`
+    # is part of the CLAIM — and then the first cut returned a full block with
+    # `source: None, checked: None`, which renders as a present-tense,
+    # unsourced, undated assertion about who owns a named newsroom. Nothing
+    # else in the pipeline can catch that: the row looks complete.
+    if not source or not checked:
+        print(f"  ! owner recorded for {meta.get('domain')} without "
+              f"{'a source' if not source else 'a checked date'} — REFUSED. "
+              f"An ownership claim publishes both or neither.", file=sys.stderr)
+        return None
+    return {
+        "name": name,
+        "category": category,
+        "source": source,
+        "checked": checked,
+    }
 
 
 def now_iso() -> str:
@@ -151,7 +221,7 @@ def write_json(path: Path, payload) -> None:
 # Record keys the shared feed does NOT carry. Named once so the omission is a
 # decision with a reason rather than a field somebody forgot; the per-domain
 # bundle keeps them, and the article page reads that.
-FEED_OMIT = frozenset({"section_path", "image_alt"})
+FEED_OMIT = frozenset({"section_path", "image_alt", "first_seen"})
 
 # The gzip ceiling for latest.json. Not a guess: measured 2026-08-26 at 600
 # records, 174.7 KB gzip BEFORE the metadata fields and 183 KB after, and the
@@ -235,6 +305,79 @@ def compact_analysis(rec: dict) -> dict:
         "model": rec.get("model"),
         "analyzed_at": rec.get("analyzed_at"),
     }
+
+
+def attach_scoop_lag(members: list[dict]) -> None:
+    """Stamp each member with how far behind the cluster's first sighting it is.
+
+    ⚠️ Keyed on `first_seen` (our `fetched_at`), NOT on `published`, and the
+    difference is the whole point. A publication timestamp is set by the
+    outlet: 13% of the corpus has none at all, and the rest is trivially
+    back-dated — so "who broke it" measured on `published` is a claim about
+    whose CMS says what, not about who was first. `first_seen` is ours, is
+    always present, and its bias is knowable (a source we sweep less often
+    looks later than it was).
+
+    ⚠️⚠️ `first_here` IS A RACE RESULT, SO IT NEEDS A RACE. Two conditions
+    have to hold before it can be true, and the first cut checked neither:
+
+      - at least TWO DISTINCT OUTLETS. A single-outlet cluster has no
+        competitor, so "first to report" is not a weak claim, it is a
+        meaningless one. Measured on the real corpus before this guard: 72 of
+        74 single-member stories published `first_here: true`.
+      - a DISTINGUISHABLE lead. If every member sits inside SCOOP_TIE_HOURS
+        the instrument cannot separate them, and flagging all of them says
+        nothing while looking like a finding — 9 of 12 multi-member stories
+        flagged every member, mean 89.1%.
+
+    When neither holds, `scoop_decidable` is False and no member is flagged.
+    The LAG is still reported, because "everyone within the hour" is a true
+    and useful description; only the winner's rosette is withheld.
+
+    `scoop_lag_hours` is None where we cannot tell, which a consumer must
+    render as "unknown" and never as zero.
+    """
+    stamped = [(m, parse_iso_utc(m.get("first_seen"))) for m in members]
+    times = [t for _, t in stamped if t is not None]
+    # ⚠️ min() over parsed datetimes, never over the raw strings. A
+    # lexicographic min across mixed UTC offsets picks the wrong baseline and
+    # then hands a NEGATIVE lag to the outlet that actually was first, and 0.0
+    # ("was first") to one that was not. Every fetched_at is +00:00 today —
+    # this is what keeps that from being load-bearing.
+    base = min(times) if times else None
+    domains = {m.get("domain") for m, t in stamped if t is not None}
+    for m, got in stamped:
+        if base is None or got is None:
+            m["scoop_lag_hours"] = None
+            m["first_here"] = False
+            m["scoop_decidable"] = False
+            continue
+        m["scoop_lag_hours"] = round((got - base).total_seconds() / 3600.0, 2)
+    spread = (max(times) - base).total_seconds() / 3600.0 if times else 0.0
+    decidable = len(domains) >= 2 and spread > SCOOP_TIE_HOURS
+    for m, got in stamped:
+        if got is None:
+            continue
+        m["scoop_decidable"] = decidable
+        m["first_here"] = bool(
+            decidable and m["scoop_lag_hours"] <= SCOOP_TIE_HOURS)
+
+
+# Below this, two sightings are the same sweep as far as this instrument can
+# tell. Deliberately generous: the sweep is sequential over ~60 domains, so
+# minutes of spread between two outlets is our scheduling, not their newsroom.
+SCOOP_TIE_HOURS = 1.0
+
+
+def parse_iso_utc(value):
+    """An ISO timestamp as an aware datetime, or None. Never raises."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        dt = datetime.fromisoformat(value.strip())
+    except ValueError:
+        return None
+    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
 
 def blindspot_of(members: list[dict]) -> dict | None:
@@ -322,6 +465,8 @@ def main() -> int:
                 # Re-read that one family through the shared rule.
                 item[LOGO_COLUMN_PREFIX] = pick_dated_column(
                     row, LOGO_COLUMN_PREFIX)
+                for prefix in OWNER_COLUMN_PREFIXES:
+                    item[prefix] = pick_dated_column(row, prefix)
                 domain = item.get("domain")
                 if domain:
                     outlets_csv[domain] = item
@@ -402,6 +547,10 @@ def main() -> int:
                 "language": art.get("language"),
                 "section_path": art.get("section_path"),
                 "updated": art.get("updated"),
+                # When WE first saw it. The scoop measure keys on this rather
+                # than on `published`, which the outlet controls and 13% of
+                # the corpus lacks entirely.
+                "first_seen": art.get("fetched_at"),
                 "story_id": None,
             }
             if analysis:
@@ -518,9 +667,15 @@ def main() -> int:
                         "published": m.get("published"),
                         "leaning": m.get("leaning"),
                         "russia_stance": m.get("russia_stance"),
+                        # When WE first saw it, which is what the scoop
+                        # measure below keys on — see attach_scoop_lag.
+                        "first_seen": (corpus_records.get(
+                            (m.get("domain"), article_id)) or {}).get(
+                                "first_seen"),
                     }
                 )
             members.sort(key=lambda m: m.get("published") or "")
+            attach_scoop_lag(members)
             primary = next(
                 (t for t in st.get("topics") or [] if t.get("primary")),
                 (st.get("topics") or [{}])[0] if st.get("topics") else None,
@@ -597,6 +752,17 @@ def main() -> int:
                 "domain": domain,
                 "outlet": meta.get("outlet") or domain,
                 "logo": meta.get(LOGO_COLUMN_PREFIX) or None,
+                # ⚠️ ALWAYS HAND-ENTERED, NEVER INFERRED — and the reason is
+                # not caution, it is that the inference would be wrong.
+                # The Commerce Registry gives the REGISTERED owner, which in
+                # Bulgarian media is routinely a holding company or an
+                # offshore vehicle rather than the person in control. So this
+                # publishes what a named register said on a stated date, with
+                # the source beside it, and is never captioned as beneficial
+                # ownership. `checked` is part of the claim, not metadata:
+                # without it the row asserts a present-tense fact about an
+                # organisation on the strength of an undated lookup.
+                "owner": owner_block(meta),
                 "retired": False,
                 "retired_reason": None,
                 "retired_on": None,
@@ -626,6 +792,7 @@ def main() -> int:
                 # — but a MISSING key reads as `undefined`, which is a
                 # different bug from "we have no logo".
                 "logo": (gone or {}).get(LOGO_COLUMN_PREFIX) or None,
+                "owner": None,
                 # A retired outlet's articles stay — they were collected in
                 # good faith — but the app must not present it as a live
                 # source, and two of these asked not to be crawled at all.

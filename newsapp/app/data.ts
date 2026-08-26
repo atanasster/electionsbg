@@ -122,6 +122,27 @@ export interface StoryMember {
   published: string | null;
   leaning: Leaning | null;
   russia_stance: RussiaStance | null;
+  /** When WE first saw it. The scoop measure keys on this, not on `published`. */
+  first_seen: string | null;
+  /**
+   * Hours behind the cluster's earliest sighting. ⚠️ null means we cannot
+   * tell — render that as unknown, never as zero. Ties inside
+   * SCOOP_TIE_HOURS are shared: the sweep is sequential over ~60 domains, so
+   * minutes of spread are our scheduling, not their newsroom.
+   */
+  scoop_lag_hours: number | null;
+  /**
+   * ⚠️ A race result, so it needs a race. False for every member of a
+   * single-outlet cluster, and false for ALL of them when the spread is
+   * inside the tie window — the instrument cannot separate them there, and
+   * flagging everyone says nothing while looking like a finding.
+   */
+  first_here: boolean;
+  /**
+   * Whether a winner was determinable at all. When false, render the lag (it
+   * is true) but never a "first to report" badge.
+   */
+  scoop_decidable: boolean;
 }
 
 export interface Story {
@@ -146,6 +167,16 @@ export interface Story {
   members: StoryMember[];
 }
 
+export interface OutletOwner {
+  name: string;
+  /** One of the eight controlled values; null when the cell was blank or unrecognised. */
+  category: string | null;
+  /** The register page the claim came from. */
+  source: string | null;
+  /** ISO date the lookup was made. Part of the claim, not metadata. */
+  checked: string | null;
+}
+
 export interface Outlet {
   domain: string;
   outlet: string;
@@ -156,6 +187,18 @@ export interface Outlet {
    * (bot_refused); render a monogram then, never a broken image.
    */
   logo: string | null;
+  /**
+   * What a named register said about who owns this outlet, on a stated date.
+   *
+   * ⚠️ NEVER captioned as beneficial ownership. The Commerce Registry records
+   * the REGISTERED owner, which in Bulgarian media is routinely a holding
+   * company or an offshore vehicle rather than the person in control — so any
+   * surface rendering this must show `source` and `checked` beside `name`.
+   *
+   * `null` means nobody has looked yet, which is different from "ownership is
+   * unknown" and must not render as it.
+   */
+  owner: OutletOwner | null;
   /**
    * Removed from the registry. Its articles STAY — they were collected in
    * good faith — but it must not be presented as a live source, and two of

@@ -860,6 +860,37 @@ def strip_site_suffix(title, site_name, domain):
     return title
 
 
+# ⚠️ THERE IS DELIBERATELY NO `republication_of` FIELD, and this note exists
+# so nobody spends another afternoon proposing one.
+#
+# The premise looks solid — Bulgarian outlets reprint each other constantly,
+# and „Източник:" is on 20 of 261 cached pages (7.7%), 38 occurrences.
+# Measured 2026-08-26, what those 38 occurrences are:
+#
+#   32  PHOTO CREDITS, inside a `source-ribbon`, a `<label>` or a caption
+#       paragraph — money.bg crediting GettyImages, EPA/БГНЕС, Google Street
+#       View, a municipal press office. Reading these as republication
+#       publishes "this newsroom reprinted GettyImages" about named outlets.
+#    5  other chrome with no outbound link.
+#    1  a genuine attribution: e-vestnik.bg crediting epicenter.bg WITH a link.
+#
+# In the EXTRACTED BODY — where <figure>, <figcaption> and the junk boxes are
+# already gone — it survives on exactly ONE page of 261, and that one is a
+# SOURCING NOTE rather than a reprint: novavarna.net listing a TV channel and
+# three named officials' statements.
+#
+# So the honest count of usable republication signal is ONE page in 261 by
+# either reading, and a heuristic over the 7.7% would be wrong ~97% of the
+# time in the one direction that matters — a false claim about a named
+# organisation's originality. A link-bearing credit naming another REGISTRY
+# domain is the only shape worth revisiting, and at n=1 there is nothing to
+# validate a parser against.
+#
+# The answerable version of the question is near-identical TITLES inside a
+# story cluster, which needs no new stored field and belongs with the
+# clustering rather than the extractor.
+
+
 def extract_record(html_text, domain, url, list_published=None):
     ld = jsonld_article(html_text) or {}
     metas = parse_metas(html_text)

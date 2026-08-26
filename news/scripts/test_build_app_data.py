@@ -300,7 +300,10 @@ class MetadataAndBudget(unittest.TestCase):
         src = {"id": "a", "published": "2026-01-01", "image": "x",
                "section_path": ["Начало"], "image_alt": "надпис"}
         projected = {k: v for k, v in src.items() if k not in b.FEED_OMIT}
-        self.assertEqual(projected.keys() | b.FEED_OMIT, src.keys())
+        # derived from FEED_OMIT rather than hard-coded, so a field JOINING
+        # the omit list does not make this test stale
+        self.assertEqual(set(projected), set(src) - set(b.FEED_OMIT))
+        self.assertTrue(set(src) & set(b.FEED_OMIT), "fixture covers no omitted key")
         self.assertIn("section_path", src, "the projection mutated its source")
         self.assertIn("image_alt", src)
         self.assertEqual(src["section_path"], ["Начало"])
@@ -414,6 +417,269 @@ class MetadataAndBudget(unittest.TestCase):
         self.assertEqual(set(st["aggregates"]), set(b.EMPTY_STORY_AGGREGATES))
         self.assertEqual(st["entities"]["people"], [])
         self.assertEqual(st["aggregates"]["by_domain"], {})
+
+    # ---------------------------------------------------- T0.4 derived fields
+
+    def test_scoop_lag_keys_on_first_seen_not_on_published(self):
+        """⚠️ The whole design decision. `published` is set by the outlet —
+        13% of the corpus has none and the rest is trivially back-dated — so a
+        lead measured on it is a claim about whose CMS says what. Here the
+        LATER-fetched outlet claims the EARLIER publish date; the measure must
+        follow the fetch."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        members = [
+            {"domain": "slow.bg", "published": "2026-08-22T06:00:00+00:00",
+             "first_seen": "2026-08-22T15:00:00+00:00"},
+            {"domain": "fast.bg", "published": "2026-08-22T09:00:00+00:00",
+             "first_seen": "2026-08-22T10:00:00+00:00"},
+        ]
+        b.attach_scoop_lag(members)
+        by = {m["domain"]: m for m in members}
+        self.assertTrue(by["fast.bg"]["first_here"])
+        self.assertFalse(by["slow.bg"]["first_here"])
+        self.assertEqual(by["fast.bg"]["scoop_lag_hours"], 0.0)
+        self.assertEqual(by["slow.bg"]["scoop_lag_hours"], 5.0)
+
+    def test_scoop_lag_reaches_the_bundle_end_to_end(self):
+        """⚠️ Every other scoop test calls attach_scoop_lag DIRECTLY, so four
+        mutations that make the feature inert — dropping `first_seen` from the
+        record, never calling the helper, reading `published` instead —
+        passed the whole suite. This one goes through the real build."""
+        for dom, fetched in (("fast.bg", "2026-08-22T10:00:00+00:00"),
+                             ("slow.bg", "2026-08-22T18:00:00+00:00")):
+            self.write_article(dom, "20260822-a1-abc.json",
+                               url=f"https://{dom}/a/1",
+                               fetched_at=fetched,
+                               published="2026-08-22T09:00:00+00:00")
+        d = os.path.join(self.data_dir, "analysis", "stories")
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "s1.json"), "w", encoding="utf-8") as fh:
+            json.dump({"story_id": "s1", "title_bg": "Ист", "members": [
+                {"domain": "fast.bg", "article_path":
+                 "news/data/fast.bg/20260822-a1-abc.json",
+                 "url": "https://fast.bg/a/1",
+                 "published": "2026-08-22T09:00:00+00:00"},
+                {"domain": "slow.bg", "article_path":
+                 "news/data/slow.bg/20260822-a1-abc.json",
+                 "url": "https://slow.bg/a/1",
+                 "published": "2026-08-22T09:00:00+00:00"}]}, fh)
+        self.build()
+        members = self.load("stories.json")["stories"][0]["members"]
+        by = {m["domain"]: m for m in members}
+        self.assertEqual(by["fast.bg"]["first_seen"],
+                         "2026-08-22T10:00:00+00:00",
+                         "first_seen never reached the story member")
+        self.assertEqual(by["fast.bg"]["scoop_lag_hours"], 0.0)
+        self.assertEqual(by["slow.bg"]["scoop_lag_hours"], 8.0)
+        self.assertTrue(by["fast.bg"]["first_here"])
+        self.assertFalse(by["slow.bg"]["first_here"])
+
+    def test_a_single_outlet_cluster_claims_no_scoop(self):
+        """⚠️ A race needs a competitor. Before this guard, 72 of 74
+        single-member stories in the real corpus published first_here: true —
+        a 'first to report' rosette where nobody else reported."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        members = [{"domain": "only.bg", "first_seen": "2026-08-22T10:00:00+00:00"}]
+        b.attach_scoop_lag(members)
+        self.assertFalse(members[0]["first_here"])
+        self.assertFalse(members[0]["scoop_decidable"])
+        self.assertEqual(members[0]["scoop_lag_hours"], 0.0,
+                         "the lag is still true and still reported")
+        # two ARTICLES from one outlet is still one outlet
+        two = [{"domain": "only.bg", "first_seen": "2026-08-22T10:00:00+00:00"},
+               {"domain": "only.bg", "first_seen": "2026-08-22T20:00:00+00:00"}]
+        b.attach_scoop_lag(two)
+        self.assertEqual([m["first_here"] for m in two], [False, False])
+
+    def test_a_cluster_with_no_distinguishable_lead_flags_nobody(self):
+        """9 of 12 multi-member stories flagged EVERY member — which says
+        nothing while looking like a finding."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        members = [{"domain": "a.bg", "first_seen": "2026-08-22T10:00:00+00:00"},
+                   {"domain": "b.bg", "first_seen": "2026-08-22T10:20:00+00:00"}]
+        b.attach_scoop_lag(members)
+        self.assertEqual([m["first_here"] for m in members], [False, False])
+        self.assertFalse(members[0]["scoop_decidable"])
+        # ...and the lag survives, because "both within the hour" is true
+        self.assertEqual(members[1]["scoop_lag_hours"], 0.33)
+
+    def test_the_baseline_is_parsed_not_compared_as_a_string(self):
+        """⚠️ A lexicographic min() across mixed UTC offsets picks the wrong
+        baseline, then hands a NEGATIVE lag to the outlet that was actually
+        first and 0.0 ('was first') to one that was not."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        # "2026-08-22T09:00:00+03:00" is 06:00Z — EARLIER than "…T07:00:00+00:00",
+        # but sorts LATER as a string.
+        members = [{"domain": "late.bg", "first_seen": "2026-08-22T07:00:00+00:00"},
+                   {"domain": "early.bg", "first_seen": "2026-08-22T09:00:00+03:00"}]
+        b.attach_scoop_lag(members)
+        by = {m["domain"]: m for m in members}
+        self.assertEqual(by["early.bg"]["scoop_lag_hours"], 0.0)
+        self.assertEqual(by["late.bg"]["scoop_lag_hours"], 1.0)
+        for m in members:
+            self.assertGreaterEqual(m["scoop_lag_hours"], 0,
+                                    "a negative lag means the baseline is wrong")
+
+    def test_an_owner_without_a_source_or_date_is_refused(self):
+        """⚠️ `source` and `checked` are part of the CLAIM. A block with them
+        null renders as a present-tense, unsourced, undated assertion about
+        who owns a named newsroom — and the row looks complete."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.write_registry(",owner_aug2026", ",Холдинг ЕООД")
+        _, stderr = self.build()
+        row = next(o for o in self.load("outlets.json")["outlets"]
+                   if o["domain"] == "ex.bg")
+        self.assertIsNone(row["owner"])
+        self.assertIn("REFUSED", stderr)
+        # a source with no date is refused too — an undated lookup is not a fact
+        self.write_registry(",owner_aug2026,owner_source_aug2026",
+                            ",Холдинг ЕООД,https://papagal.bg/x")
+        self.build()
+        row = next(o for o in self.load("outlets.json")["outlets"]
+                   if o["domain"] == "ex.bg")
+        self.assertIsNone(row["owner"])
+
+    def test_a_tie_inside_the_window_is_shared_not_broken(self):
+        """The sweep is sequential over ~60 domains, so minutes of spread are
+        our scheduling. Picking a winner there invents a lead."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        members = [
+            {"domain": "a.bg", "first_seen": "2026-08-22T10:00:00+00:00"},
+            {"domain": "b.bg", "first_seen": "2026-08-22T10:20:00+00:00"},
+            {"domain": "c.bg", "first_seen": "2026-08-22T14:00:00+00:00"},
+        ]
+        b.attach_scoop_lag(members)
+        self.assertEqual([m["first_here"] for m in members],
+                         [True, True, False])
+        self.assertTrue(members[0]["scoop_decidable"],
+                        "three outlets spanning 4h is a decidable race")
+
+    def test_an_unknown_lag_is_none_and_never_zero(self):
+        """Zero means 'was first'. A member we cannot time must not claim it."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        members = [{"domain": "a.bg", "first_seen": "2026-08-22T10:00:00+00:00"},
+                   {"domain": "b.bg", "first_seen": None}]
+        b.attach_scoop_lag(members)
+        self.assertIsNone(members[1]["scoop_lag_hours"])
+        self.assertFalse(members[1]["first_here"])
+        # ...and a cluster with NO timings at all reports unknown throughout
+        none_at_all = [{"domain": "a.bg", "first_seen": None},
+                       {"domain": "b.bg", "first_seen": ""}]
+        b.attach_scoop_lag(none_at_all)
+        self.assertEqual([m["scoop_lag_hours"] for m in none_at_all],
+                         [None, None])
+
+    def test_a_malformed_timestamp_does_not_raise(self):
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        members = [{"domain": "a.bg", "first_seen": "not a date"},
+                   {"domain": "b.bg", "first_seen": "2026-08-22T10:00:00+00:00"}]
+        b.attach_scoop_lag(members)
+        self.assertIsNone(members[0]["scoop_lag_hours"])
+        self.assertEqual(members[1]["scoop_lag_hours"], 0.0)
+        # ...and NOT first_here: one timeable outlet is not a race, so the
+        # unreadable sibling cannot be used to award the other a scoop.
+        self.assertFalse(members[1]["first_here"])
+        self.assertFalse(members[1]["scoop_decidable"])
+
+    def test_a_naive_timestamp_is_read_as_utc_not_crashed_on(self):
+        """Mixing naive and aware datetimes raises TypeError on subtraction."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        members = [{"domain": "a.bg", "first_seen": "2026-08-22T10:00:00"},
+                   {"domain": "b.bg", "first_seen": "2026-08-22T13:00:00+00:00"}]
+        b.attach_scoop_lag(members)
+        self.assertEqual(members[1]["scoop_lag_hours"], 3.0)
+
+    def test_first_seen_is_not_in_the_shared_feed(self):
+        """Per-article context, not something a card renders."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        self.assertIn("first_seen", b.FEED_OMIT)
+
+    def test_an_outlet_with_no_owner_recorded_gets_null_not_an_empty_block(self):
+        """A block of nulls renders as 'ownership: unknown', which is a
+        statement. Absent means nobody has looked."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.write_registry()
+        self.build()
+        row = next(o for o in self.load("outlets.json")["outlets"]
+                   if o["domain"] == "ex.bg")
+        self.assertIn("owner", row)
+        self.assertIsNone(row["owner"])
+
+    def test_a_recorded_owner_carries_its_source_and_date(self):
+        """⚠️ `source` and `checked` are part of the CLAIM. Without them the
+        row asserts a present-tense fact about a named organisation on the
+        strength of an undated lookup."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.write_registry(
+            ",owner_aug2026,owner_category_aug2026,owner_source_aug2026,"
+            "owner_checked_aug2026",
+            ",Холдинг ЕООД,media_conglomerate,https://papagal.bg/x,2026-08-26")
+        self.build()
+        row = next(o for o in self.load("outlets.json")["outlets"]
+                   if o["domain"] == "ex.bg")
+        self.assertEqual(row["owner"], {
+            "name": "Холдинг ЕООД", "category": "media_conglomerate",
+            "source": "https://papagal.bg/x", "checked": "2026-08-26"})
+
+    def test_an_unknown_owner_category_is_dropped_and_reported(self):
+        """A free-text value in a controlled column becomes a facet nobody can
+        filter on, and a typo silently splits one owner in two."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        # source + checked are required before the block is published at all,
+        # so they have to be present for the CATEGORY branch to be reachable
+        self.write_registry(
+            ",owner_aug2026,owner_category_aug2026,owner_source_aug2026,"
+            "owner_checked_aug2026",
+            ",Холдинг ЕООД,конгломерат,https://papagal.bg/x,2026-08-26")
+        _, stderr = self.build()
+        row = next(o for o in self.load("outlets.json")["outlets"]
+                   if o["domain"] == "ex.bg")
+        self.assertEqual(row["owner"]["name"], "Холдинг ЕООД")
+        self.assertIsNone(row["owner"]["category"])
+        self.assertIn("unknown owner_category", stderr)
+
+    def test_a_sibling_column_is_not_read_as_the_parent(self):
+        """⚠️ `owner` + "_" also matches owner_category/source/checked, so a
+        naive prefix rule returned the CHECK DATE as the owner's NAME — a
+        fabricated claim about who owns a newsroom, manufactured by a string
+        match. The vintage after a prefix must be one token."""
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        row = {
+            "owner_aug2026": "Холдинг ЕООД",
+            "owner_category_aug2026": "media_conglomerate",
+            "owner_source_aug2026": "https://papagal.bg/x",
+            "owner_checked_aug2026": "2026-08-26",
+        }
+        self.assertEqual(b.pick_dated_column(row, "owner"), "Холдинг ЕООД")
+        self.assertEqual(b.pick_dated_column(row, "owner_category"),
+                         "media_conglomerate")
+        self.assertEqual(b.pick_dated_column(row, "owner_checked"),
+                         "2026-08-26")
+        # a prefix whose own name contains an underscore still works
+        self.assertEqual(
+            b.pick_dated_column({"similarweb_visits_jul2026": "1M"},
+                                "similarweb_visits"), "1M")
+        self.assertEqual(
+            b.pick_dated_column({"logo_url_aug2026": "x"}, "logo_url"), "x")
+        # ...and a near-miss is still refused
+        self.assertIsNone(
+            b.pick_dated_column({"logo_urls_backup": "x"}, "logo_url"))
+
+    def test_the_owner_category_vocabulary_is_not_empty(self):
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        import build_app_data as b  # noqa: E402
+        self.assertEqual(len(b.OWNER_CATEGORIES), 8)
+        self.assertIn("independent", b.OWNER_CATEGORIES)
 
     def test_an_outlet_carries_its_logo(self):
         self.write_article("ex.bg", "20260822-a1-abc.json")
