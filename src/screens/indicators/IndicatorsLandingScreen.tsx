@@ -171,12 +171,18 @@ export const IndicatorsLandingScreen: FC = () => {
 
   const kpis = useMemo(() => indicatorsHubKpis(bandPoints), [bandPoints]);
 
-  // ⚠️ THE DISTRIBUTION'S PERIOD MUST MATCH THE CELL'S, and `KpiTile` guards the same thing
-  // for its rank badge. The peers payload and the macro payload are separate fetches with
-  // separate vintages, so a Q1 field can sit beside a Q2 value — and ranking this quarter's
-  // figure in last quarter's field is a claim nobody made. A row whose periods disagree is
-  // DROPPED rather than shown with a caveat: a five-word basis cannot carry „this one is a
-  // quarter behind" per row.
+  // ⚠️ THE DISTRIBUTION'S PERIOD MUST MATCH THE CELL'S — and the DOMINANT reason they differ
+  // is the election selector, not a fetch-vintage skew between the two payloads. The peers
+  // corpus carries only `latestDistribution`, one fixed period per indicator, while the band
+  // walks back to whichever election the reader picked; measured 2026-08-26, the periods
+  // agree on 1 of the 13 elections in the selector. Ranking a 2009 figure in a 2026 field is
+  // a claim nobody made, and there is no historical distribution to rank it in, so the row
+  // is DROPPED rather than shown with a caveat.
+  //
+  // ⚠️ `KpiTile` DOES NOT GUARD THIS THE SAME WAY, and a comment here said it did. Its rank
+  // badge uses a two-arm check plus `peerEligible`; this is a single strict string compare,
+  // which is NARROWER where a point carries no `period` at all (both sides undefined would
+  // otherwise compare equal — hence the explicit truthiness below) and wider nowhere.
   const peerRanks = useMemo(() => {
     const out: PeerRank[] = [];
     for (const key of BAND_INDICATORS) {
@@ -184,6 +190,9 @@ export const IndicatorsLandingScreen: FC = () => {
       const dist = peers?.indicators?.[key]?.latestDistribution;
       const entry = KPI_REGISTRY[key];
       if (!point || !dist || !entry) continue;
+      // Both sides must actually HAVE a period: `MacroPoint.period` is optional, and
+      // `undefined === undefined` would pass a row whose alignment nobody established.
+      if (!point.period || !dist.period) continue;
       if (dist.period !== point.period) continue;
       if (!dist.rank || !dist.total) continue;
       out.push({

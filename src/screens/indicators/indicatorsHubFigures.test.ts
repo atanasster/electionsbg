@@ -206,10 +206,30 @@ const RANKS: PeerRank[] = [
 describe("the evidence rail", () => {
   const rail = (r: PeerRank[] = RANKS) => indicatorsHubEvidence(r, t);
 
+  it("counts the rows it actually has, in the basis", () => {
+    // ⚠️ THE RAIL IS 1–4 ROWS, NOT ALWAYS FOUR. The basis said „същите четири показателя"
+    // — the same counting defect `indicatorsKpiNote` records being caught on the note,
+    // which then survived here. A row is dropped whenever its peer period disagrees with
+    // its figure's, and on 12 of the 13 elections in the selector that is EVERY row.
+    expect(rail()!.basis).toBe("indicators_evidence_basis:4");
+    expect(rail(RANKS.slice(0, 2))!.basis).toBe("indicators_evidence_basis:2");
+  });
+
   it("ANSWERS the band — the same four, ranked", () => {
     const e = rail()!;
     expect(e.rows).toHaveLength(4);
     expect(new Set(e.rows.map((x) => x.id))).toEqual(new Set(BAND_INDICATORS));
+  });
+
+  it("puts the RANK first and the field size second", () => {
+    // ⚠️ TWO `toContain`s CANNOT SEE ARGUMENT ORDER. Swapping `rank` and `total` renders
+    // „22 от 7" — a standing that does not exist, on a rail whose whole job is to say
+    // whether a figure is good — and every other clause in this file passed against it.
+    // The interpolating stub joins the arguments in order, so this pins the order itself.
+    const row = rail()!.rows.find((x) => x.id === "gdpGrowth")!;
+    expect(row.value).toBe("indicators_evidence_rank:7:22");
+    // …and a row whose rank exceeds its field is impossible by construction.
+    for (const r of RANKS) expect(r.rank).toBeLessThanOrEqual(r.total);
   });
 
   it("carries the FIELD SIZE on every row, because the fields differ", () => {

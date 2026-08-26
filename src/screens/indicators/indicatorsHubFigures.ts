@@ -157,9 +157,17 @@ export interface PeerRank {
  *  ⚠️ ORDERED BY PERCENTILE, not by rank, for the same reason — 7 of 22 is a worse standing
  *  than 3 of 27 and a rank sort would put it first. The basis says so.
  *
- *  ⚠️ REFUSED WHEN EMPTY rather than rendered blank: the peers payload is a separate fetch
- *  from the macro one, so it can legitimately be absent while the band is full, and „no
- *  ranks" under a „where Bulgaria stands" heading reads as „nowhere". */
+ *  ⚠️⚠️ IT IS USUALLY ABSENT, AND THAT IS THE DESIGN RATHER THAN A BUG. The payload carries
+ *  only `latestDistribution` — one fixed period per indicator — while the band walks back to
+ *  whichever election the reader picked. So the periods agree only on the LATEST election:
+ *  measured 2026-08-26, the rail renders on 1 of the 13 in the selector and is empty on the
+ *  other 12. Ranking a 2009 figure in a 2026 field is a claim nobody made, and the corpus
+ *  has no historical distribution to rank it in — so the honest options were „absent" or
+ *  „wrong", and this is absent. A fetch-vintage skew between the two payloads produces the
+ *  same drop, but it is the RARE cause, not the main one.
+ *
+ *  ⚠️ REFUSED WHEN EMPTY rather than rendered blank: „no ranks" under a „where Bulgaria
+ *  stands" heading reads as „nowhere". */
 export const indicatorsHubEvidence = (
   ranks: PeerRank[],
   t: T,
@@ -172,7 +180,12 @@ export const indicatorsHubEvidence = (
   );
   return {
     heading: t("indicators_evidence_heading"),
-    basis: t("indicators_evidence_basis"),
+    // ⚠️ THE COUNT IS INTERPOLATED, because the rail is 1–4 rows and not always four. It
+    // said „същите ЧЕТИРИ показателя" — the exact counting defect `indicatorsKpiNote`'s
+    // docblock records being caught on the note, which then survived here. A row is dropped
+    // whenever its peer period disagrees with its figure's, and that is the COMMON case
+    // rather than the rare one (see below).
+    basis: t("indicators_evidence_basis", { count: ordered.length }),
     rows: ordered.map((r) => ({
       id: r.indicatorKey,
       label: r.title,
