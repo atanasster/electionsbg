@@ -1,0 +1,380 @@
+{
+ "type": "object",
+ "properties": {
+  "quality": {
+   "type": "object",
+   "properties": {
+    "verdict": {
+     "type": "string",
+     "enum": [
+      "client_render_shell",
+      "non_article",
+      "not_bulgarian",
+      "ok",
+      "paywall_shell",
+      "too_short"
+     ]
+    },
+    "notes": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "notes",
+    "verdict"
+   ],
+   "additionalProperties": false
+  },
+  "summary_bg": {
+   "type": "string",
+   "minLength": 1
+  },
+  "summary_en": {
+   "type": "string",
+   "minLength": 1
+  },
+  "leaning": {
+   "type": "object",
+   "properties": {
+    "label": {
+     "type": "string",
+     "enum": [
+      "conservative",
+      "neutral",
+      "not_applicable",
+      "progressive",
+      "strong_conservative",
+      "strong_progressive"
+     ]
+    },
+    "confidence": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    },
+    "evidence": {
+     "type": "string",
+     "minLength": 1
+    }
+   },
+   "required": [
+    "confidence",
+    "evidence",
+    "label"
+   ],
+   "additionalProperties": false
+  },
+  "russia_stance": {
+   "type": "object",
+   "properties": {
+    "label": {
+     "type": "string",
+     "enum": [
+      "anti_russia",
+      "neutral",
+      "not_applicable",
+      "pro_russia",
+      "strong_anti_russia",
+      "strong_pro_russia"
+     ]
+    },
+    "confidence": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    },
+    "evidence": {
+     "type": "string",
+     "minLength": 1
+    }
+   },
+   "required": [
+    "confidence",
+    "evidence",
+    "label"
+   ],
+   "additionalProperties": false
+  },
+  "ai_generated": {
+   "type": "object",
+   "properties": {
+    "verdict": {
+     "type": "string",
+     "enum": [
+      "likely_ai",
+      "likely_human",
+      "unclear"
+     ]
+    },
+    "confidence": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    },
+    "signals": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    }
+   },
+   "required": [
+    "confidence",
+    "signals",
+    "verdict"
+   ],
+   "additionalProperties": false
+  },
+  "entities": {
+   "type": "object",
+   "properties": {
+    "people": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "parties": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "institutions": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "companies": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "places": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    }
+   },
+   "required": [
+    "companies",
+    "institutions",
+    "parties",
+    "people",
+    "places"
+   ],
+   "additionalProperties": false
+  },
+  "party_tones": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "party": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tone": {
+      "type": "string",
+      "enum": [
+       "favorable",
+       "mixed",
+       "neutral",
+       "unfavorable"
+      ]
+     }
+    },
+    "required": [
+     "party",
+     "tone"
+    ],
+    "additionalProperties": false
+   }
+  },
+  "topics": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "category": {
+      "type": "string",
+      "enum": [
+       "budget-fiscal",
+       "demographics",
+       "economy",
+       "education",
+       "elections-local",
+       "elections-parliamentary",
+       "energy",
+       "environment",
+       "eu-funds",
+       "farm-subsidies",
+       "foreign-policy",
+       "government",
+       "healthcare",
+       "infrastructure-transport",
+       "judiciary",
+       "local-news",
+       "media-press",
+       "not-site-relevant",
+       "officials-people",
+       "parliament",
+       "party-financing",
+       "prices-consumption",
+       "procurement",
+       "security-defense",
+       "social-pensions",
+       "society"
+      ]
+     },
+     "subcategory": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "enum": [
+       "abroad-voting",
+       "absorption",
+       "air",
+       "appointments",
+       "beh",
+       "bilateral",
+       "budget-execution",
+       "cabinet-formation",
+       "campaign",
+       "celebrities",
+       "census",
+       "cik-administration",
+       "civil-service",
+       "climate",
+       "coalition-politics",
+       "coalition-talks",
+       "committees",
+       "companies-fdi",
+       "contractors",
+       "cost-of-living",
+       "councils",
+       "court-appointments",
+       "crime-blotter",
+       "cyber",
+       "debt",
+       "declarations-conflicts",
+       "defense",
+       "dfz-payments",
+       "diaspora",
+       "disinformation",
+       "dismissals",
+       "donations",
+       "drugs",
+       "electoral-law",
+       "electricity",
+       "eu",
+       "food",
+       "fuel",
+       "gas",
+       "gdp-inflation",
+       "high-profile-cases",
+       "hospitals",
+       "housing",
+       "human-interest",
+       "intelligence",
+       "interior-mvr",
+       "irregularities",
+       "irregularities-fraud",
+       "kevr-prices",
+       "kpkonpi-cases",
+       "kzk-appeals",
+       "labor-market",
+       "legislation",
+       "local-administration",
+       "local-councils",
+       "local-utilities",
+       "mayors",
+       "media-ownership",
+       "migration",
+       "min-wage",
+       "ministers",
+       "minorities",
+       "misc-filler",
+       "mp-conduct",
+       "municipal-budget",
+       "municipal-problems",
+       "nato",
+       "nuclear",
+       "nzok",
+       "official-investigations",
+       "overpricing-cartels",
+       "pensions",
+       "population",
+       "press-freedom",
+       "programmes",
+       "prosecutor-general",
+       "protected-areas",
+       "protests",
+       "public-transport",
+       "rail",
+       "reforms",
+       "religion",
+       "results",
+       "roads",
+       "rrf",
+       "runoffs",
+       "sanctions",
+       "schools",
+       "social-assistance",
+       "spending",
+       "sports",
+       "state-budget",
+       "taxes",
+       "teachers",
+       "tenders",
+       "ukraine",
+       "universities-science",
+       "votes-rollcall",
+       "vss",
+       "waste",
+       "water",
+       "water-vik",
+       "weather",
+       null
+      ]
+     },
+     "primary": {
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "category",
+     "primary",
+     "subcategory"
+    ],
+    "additionalProperties": false
+   }
+  },
+  "site_relevant": {
+   "type": "boolean"
+  }
+ },
+ "required": [
+  "ai_generated",
+  "entities",
+  "leaning",
+  "party_tones",
+  "quality",
+  "russia_stance",
+  "site_relevant",
+  "summary_bg",
+  "summary_en",
+  "topics"
+ ],
+ "additionalProperties": false
+}

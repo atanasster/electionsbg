@@ -1297,8 +1297,32 @@ class WithholdsAlteredNames(unittest.TestCase):
         bad = self.b.altered_names(clean, [self.article])
         self.assertEqual(bad, [])
         self.assertIs(self.b.verified_entities(clean, bad), clean)
-        self.assertEqual(self.b.verified_prose({"summary_bg": "x"},
-                                               ("summary_bg",), bad), {})
+        # ⚠️ The prose arm still RUNS with `bad` empty — a corrected entity
+        # block must not switch it off — so it returns the fields unchanged
+        # and no `_withheld` key, rather than an empty dict.
+        out = self.b.verified_prose({"summary_bg": "Славчев подаде оставка."},
+                                    ("summary_bg",), bad, clean,
+                                    [self.article])
+        self.assertEqual(out["summary_bg"], "Славчев подаде оставка.")
+        self.assertNotIn("_withheld", out)
+
+    def test_a_stale_summary_is_caught_after_the_ENTITIES_are_fixed(self):
+        # ⚠️⚠️ THE HOLE THIS CLOSES. Once a re-analysis corrected
+        # `entities.people`, the prose arm — scoped to the tokens the entity
+        # check proved — stopped examining the summary, and story
+        # 20260822-ed7347ac shipped „Каллас" while its own entities read
+        # „Кая Калас". The record disagreed with itself and every check
+        # passed.
+        fixed = {"people": ["Кая Калас"], "parties": [], "institutions": [],
+                 "companies": [], "places": []}
+        texts = [{"content": "Кая Калас обвини Русия. " * 10}]
+        bad = self.b.altered_names(fixed, texts)
+        self.assertEqual(bad, [], "the entities are correct")
+        out = self.b.verified_prose({"summary_bg": "Каллас обвини Русия."},
+                                    ("summary_bg",), bad, fixed, texts)
+        self.assertIsNone(out["summary_bg"])
+        self.assertEqual(out["_withheld"],
+                         {"summary_bg": self.b.WITHHELD_ALTERED_NAME})
 
     def test_a_MISSING_article_refuses_nothing(self):
         # ⚠️ No text is not evidence of a bad name — otherwise a story whose

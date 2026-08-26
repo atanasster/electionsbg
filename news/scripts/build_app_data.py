@@ -617,7 +617,8 @@ def verified_entities(entities: dict, bad: list) -> dict:
 WITHHELD_ALTERED_NAME = "altered_name"
 
 
-def verified_prose(rec: dict, fields: tuple, bad: list) -> dict:
+def verified_prose(rec: dict, fields: tuple, bad: list,
+                   entities: dict = None, texts: list = None) -> dict:
     """The prose fields that do NOT repeat an altered name.
 
     ⚠️ WITHHOLDING THE CHIP IS NOT ENOUGH — the summary is what the reader
@@ -631,10 +632,9 @@ def verified_prose(rec: dict, fields: tuple, bad: list) -> dict:
     sentence to punish a wrong one. `SummaryPair` already renders „Липсва
     резюме на български." in the gap.
     """
-    if not bad:
-        return {}
     try:
         import resolve_mentions as rm
+        import analyze_articles as aa
     except Exception:  # noqa: BLE001
         return {}
     toks = {rm.fold(t) for _, t, _ in bad}
@@ -644,7 +644,12 @@ def verified_prose(rec: dict, fields: tuple, bad: list) -> dict:
         if not v:
             out[f] = v
             continue
-        if toks & {rm.fold(t) for t in rm.TOKEN_RE.findall(str(v))}:
+        # ⚠️ The second arm runs even with `bad` empty — a corrected entity
+        # block must not switch this check off. See altered_names_in_prose.
+        hit = bool(toks & {rm.fold(t) for t in rm.TOKEN_RE.findall(str(v))})
+        if not hit and texts:
+            hit = bool(aa.altered_names_in_prose(entities, texts, str(v)))
+        if hit:
             _WITHHELD["prose"] += 1
             out[f] = None
             why[f] = WITHHELD_ALTERED_NAME
@@ -662,7 +667,8 @@ def compact_analysis(rec: dict, article: dict) -> dict:
     """Keep everything the article page renders; drop bookkeeping (paths, timestamps)."""
     bad = altered_names(rec.get("entities"), [article])
     ents = verified_entities(rec.get("entities"), bad)
-    prose = verified_prose(rec, ("summary_bg", "summary_en"), bad)
+    prose = verified_prose(rec, ("summary_bg", "summary_en"), bad,
+                           rec.get("entities"), [article])
     return {
         "summary_bg": prose.get("summary_bg", rec.get("summary_bg")),
         "summary_en": prose.get("summary_en", rec.get("summary_en")),
@@ -1154,7 +1160,8 @@ def main() -> int:
             st_bad = altered_names(st.get("entities"), st_texts)
             st_prose = verified_prose(
                 st, ("summary_bg", "summary_en",
-                     "canonical_title_bg", "canonical_title_en"), st_bad)
+                     "canonical_title_bg", "canonical_title_en"), st_bad,
+                st.get("entities"), st_texts)
             stories.append(
                 {
                     "id": st.get("id"),

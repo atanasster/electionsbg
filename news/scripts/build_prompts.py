@@ -132,6 +132,79 @@ ws          ::= [ \\t\\n]*
 '''
 
 
+def _obj(props: dict) -> dict:
+    """A closed object — every property required, no extras.
+
+    ⚠️ `additionalProperties: false` AND a full `required` list, on EVERY
+    object. OpenAI-style structured outputs treat an absent `required` as
+    „all optional", so a provider may legally return `{}` — which validates
+    against the schema and is refused by `analyze_articles.py`, i.e. the
+    exact grammatically-perfect-and-always-refused failure the GBNF header
+    warns about.
+    """
+    return {"type": "object", "properties": props,
+            "required": sorted(props), "additionalProperties": False}
+
+
+def build_json_schema(doc: dict) -> dict:
+    """The same contract as the GBNF, for providers that have no GBNF.
+
+    ⚠️ DERIVED FROM THE SAME CONSTANTS as build_grammar — never hand-written
+    beside it. Two copies of one schema drift, and the way they drift is that
+    one permits a label the validator rejects, producing records that are
+    perfectly formed and refused 100% of the time.
+
+    ⚠️ It carries the SAME stated limit: the category/subcategory PAIRING is
+    not expressible here either. JSON Schema could express it as a oneOf over
+    26 categories, but no provider guarantees oneOf support in structured
+    outputs, and a schema a provider silently downgrades is worse than one
+    that states its limit. The validator knows which pairs exist.
+
+    ⚠️ `prob` is bounded [0,1] by `minimum`/`maximum`, which is STRICTER than
+    the GBNF can be — the grammar has to spell the range out as literals. A
+    provider that ignores numeric bounds degrades to the GBNF's own coverage,
+    never below it.
+    """
+    cats = [c["id"] for c in doc.get("categories") or []]
+    subs = sorted({s["id"] for c in doc.get("categories") or []
+                   for s in c.get("subcategories") or []})
+    string = {"type": "string", "minLength": 1}
+    str0 = {"type": "string"}
+    strings = {"type": "array", "items": string}
+    prob = {"type": "number", "minimum": 0, "maximum": 1}
+    labelled = lambda vals: _obj({
+        "label": {"type": "string", "enum": sorted(vals)},
+        "confidence": prob, "evidence": string})
+    return _obj({
+        "quality": _obj({
+            "verdict": {"type": "string",
+                        "enum": sorted(aa.QUALITY_VERDICTS)},
+            "notes": str0}),
+        "summary_bg": string,
+        "summary_en": string,
+        "leaning": labelled(aa.LEANING_LABELS),
+        "russia_stance": labelled(aa.RUSSIA_LABELS),
+        "ai_generated": _obj({
+            "verdict": {"type": "string", "enum": sorted(aa.AI_VERDICTS)},
+            "confidence": prob, "signals": strings}),
+        "entities": _obj({k: strings for k in
+                          ("people", "parties", "institutions",
+                           "companies", "places")}),
+        "party_tones": {"type": "array", "items": _obj({
+            "party": string,
+            "tone": {"type": "string", "enum": sorted(aa.TONE_LABELS)}})},
+        "topics": {"type": "array", "items": _obj({
+            "category": {"type": "string", "enum": sorted(cats)},
+            # ⚠️ NULLABLE, and expressed as a type UNION rather than as an
+            # enum containing None — a topic with no subcategory is the
+            # common case, and an enum of strings cannot admit null.
+            "subcategory": {"type": ["string", "null"], "enum":
+                            sorted(subs) + [None]},
+            "primary": {"type": "boolean"}})},
+        "site_relevant": {"type": "boolean"},
+    })
+
+
 def write(check: bool) -> int:
     doc = json.loads(TOPICS.read_text(encoding="utf-8"))
     outputs = {
@@ -140,6 +213,8 @@ def write(check: bool) -> int:
              "categories": compact_taxonomy(doc)},
             ensure_ascii=False, indent=1) + "\n",
         PROMPTS / "analyze_schema.gbnf": build_grammar(doc),
+        PROMPTS / "analyze_schema.json": json.dumps(
+            build_json_schema(doc), ensure_ascii=False, indent=1) + "\n",
     }
     stale = []
     for path, content in outputs.items():

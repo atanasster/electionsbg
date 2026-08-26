@@ -71,6 +71,7 @@ def endpoint() -> str:
 
 def complete(system: str, user: str, *, model: str,
              grammar: str | None = None,
+             json_schema: dict | None = None,
              max_tokens: int = 2048,
              temperature: float = 0.2,
              timeout: int = DEFAULT_TIMEOUT,
@@ -113,6 +114,24 @@ def complete(system: str, user: str, *, model: str,
         payload["chat_template_kwargs"] = {"enable_thinking": False}
     if grammar:
         payload["grammar"] = grammar
+    if json_schema:
+        # ⚠️ THE OTHER WAY TO SAY THE SAME THING, for a provider with no
+        # GBNF. llama.cpp takes `grammar`; OpenRouter and the OpenAI-shaped
+        # APIs take `response_format` — so a run against a hosted model has
+        # no constraint at all unless this is sent, and an unconstrained
+        # model invents its own schema rather than failing (measured:
+        # `status`, `political_bias`, `party_sentiment` where the rubric asks
+        # for `quality`, `leaning`, `party_tones`).
+        #
+        # ⚠️ `strict: true` is what makes it a CONSTRAINT rather than a hint.
+        # Without it a provider treats the schema as advisory and the reply
+        # is unconstrained again — indistinguishable, in the payload, from a
+        # provider that never supported it.
+        payload["response_format"] = {
+            "type": "json_schema",
+            "json_schema": {"name": "analysis", "strict": True,
+                            "schema": json_schema},
+        }
     body = json.dumps(payload).encode("utf-8")
     # ⚠️ THE GUARD APPLIES TO `url=` TOO. `url or endpoint()` let a caller
     # pass a remote address directly and bypass the localhost check entirely

@@ -552,5 +552,77 @@ class GrammarProbe(unittest.TestCase):
         self.assertTrue(ok)
         self.assertIn("inconclusive", detail)
 
+
+class SchemaAndGrammarAgree(unittest.TestCase):
+    """⚠️ TWO EXPRESSIONS OF ONE CONTRACT, and the way they drift is that one
+    permits a label the validator rejects — producing records that are
+    perfectly formed and refused 100% of the time, which reads as a model
+    problem and is not one. Both are DERIVED from the same
+    `analyze_articles` constants; this proves the derivation still holds."""
+
+    def setUp(self):
+        doc = json.loads((Path(__file__).resolve().parents[1]
+                          / "topics.json").read_text(encoding="utf-8"))
+        self.schema = build_prompts.build_json_schema(doc)
+        self.gbnf = build_prompts.build_grammar(doc)
+
+    def enums_in(self, node, out):
+        if isinstance(node, dict):
+            if "enum" in node:
+                out.append([v for v in node["enum"] if v is not None])
+            for v in node.values():
+                self.enums_in(v, out)
+        elif isinstance(node, list):
+            for v in node:
+                self.enums_in(v, out)
+        return out
+
+    def test_every_schema_enum_appears_in_the_grammar(self):
+        for vals in self.enums_in(self.schema, []):
+            for v in vals:
+                self.assertIn(f'"\\"{v}\\""', self.gbnf, v)
+
+    def test_the_label_sets_come_from_the_VALIDATOR(self):
+        got = {tuple(sorted(v)) for v in self.enums_in(self.schema, [])}
+        for const in (aa.QUALITY_VERDICTS, aa.LEANING_LABELS,
+                      aa.RUSSIA_LABELS, aa.AI_VERDICTS, aa.TONE_LABELS):
+            self.assertIn(tuple(sorted(const)), got)
+
+    def test_every_object_is_CLOSED_and_fully_required(self):
+        # ⚠️ Structured outputs treat an absent `required` as „all optional",
+        # so a provider may legally return {} — valid against the schema and
+        # refused by the validator.
+        def walk(n):
+            if isinstance(n, dict):
+                if n.get("type") == "object":
+                    self.assertIs(n.get("additionalProperties"), False)
+                    self.assertEqual(sorted(n.get("required") or []),
+                                     sorted(n.get("properties") or {}))
+                for v in n.values():
+                    walk(v)
+            elif isinstance(n, list):
+                for v in n:
+                    walk(v)
+        walk(self.schema)
+
+    def test_subcategory_admits_null(self):
+        # A topic with no subcategory is the common case, and an enum of
+        # strings alone cannot express it.
+        topic = self.schema["properties"]["topics"]["items"]
+        self.assertIn("null", topic["properties"]["subcategory"]["type"])
+        self.assertIn(None, topic["properties"]["subcategory"]["enum"])
+
+    def test_confidence_is_bounded(self):
+        lean = self.schema["properties"]["leaning"]["properties"]
+        self.assertEqual(lean["confidence"]["minimum"], 0)
+        self.assertEqual(lean["confidence"]["maximum"], 1)
+
+    def test_the_committed_file_is_in_step_with_the_generator(self):
+        # Same contract as the .gbnf — `--check` reports a stale artifact.
+        on_disk = json.loads((Path(__file__).resolve().parents[1]
+                              / "prompts" / "analyze_schema.json")
+                             .read_text(encoding="utf-8"))
+        self.assertEqual(on_disk, self.schema)
+
 if __name__ == "__main__":
     unittest.main()

@@ -697,6 +697,9 @@ def is_num(v) -> bool:
 # switched on without a morphological analyser.
 NAME_EDIT_DISTANCE = 2
 NAME_MIN_TOKEN_CHARS = 4
+# Below this, a two-edit window covers most of the word — see
+# altered_names_in_prose.
+NAME_LONG_TOKEN_CHARS = 6
 
 
 def _edit_distance(a: str, b: str, cap: int = NAME_EDIT_DISTANCE) -> int:
@@ -710,6 +713,81 @@ def _edit_distance(a: str, b: str, cap: int = NAME_EDIT_DISTANCE) -> int:
                            prev[j - 1] + (ca != cb)))
         prev = cur
     return prev[-1]
+
+
+def altered_names_in_prose(entities: dict, texts, prose: str) -> list:
+    """(the article's spelling, the prose's spelling) for each altered name.
+
+    ⚠️⚠️ THIS EXISTS BECAUSE THE ENTITY CHECK GOES BLIND THE MOMENT THE
+    ENTITIES ARE FIXED. `altered_person_names` finds names in
+    `entities.people` the article does not use, and the prose arm was scoped
+    to the tokens it proved — so once a re-analysis corrected the entity
+    block, a summary still carrying „Каллас" was examined by nothing and
+    shipped. Measured: story 20260822-ed7347ac published that sentence with
+    `entities.people` reading „Кая Калас", i.e. the record disagreed with
+    itself and every check passed.
+
+    So this anchors the other way round: for each token of a name we BELIEVE
+    (the entities, which the article corroborates), find a near-miss of it in
+    the prose that the article never writes. „Калас" is believed, „Каллас" is
+    one letter away and absent from the article — an alteration, whatever the
+    entity block says.
+
+    ⚠️ ANCHORED ON PERSON NAMES, never a free scan of the prose. A Bulgarian
+    summary is full of inflected common words, and „is this word in the
+    article" over all of them is the false-positive problem that keeps
+    institutions and places out of this rule entirely.
+    """
+    people = (entities or {}).get("people") or []
+    if not people or not (prose or "").strip():
+        return []
+    try:
+        import resolve_mentions as rm
+    except Exception:  # noqa: BLE001
+        return []
+    present = set()
+    for rec in texts:
+        if not isinstance(rec, dict):
+            continue
+        for key in ("title", "description", "content"):
+            for t in rm.TOKEN_RE.findall(str(rec.get(key) or "")):
+                present.add(rm.fold(t))
+    if not present:
+        return []
+    believed = {rm.fold(t) for name in people if isinstance(name, str)
+                for t in rm.TOKEN_RE.findall(name)
+                if len(rm.fold(t)) >= NAME_MIN_TOKEN_CHARS
+                and rm.fold(t) in present}
+    if not believed:
+        return []
+    out, seen = [], set()
+    for tok in rm.TOKEN_RE.findall(prose):
+        folded = rm.fold(tok)
+        if len(folded) < NAME_MIN_TOKEN_CHARS or folded in present:
+            continue
+        if folded in seen:
+            continue
+        # ⚠️ A NAME IN BULGARIAN PROSE IS CAPITALISED, and without this the
+        # rule fires on ordinary words: measured over the whole corpus, 3 of
+        # 4 hits were „пред" (a preposition, 2 edits from „пеев") and „бива"
+        # (a verb, 2 edits from „иван"). Entity names need no such test —
+        # they are names by construction; loose prose does.
+        if not tok[:1].isupper():
+            continue
+        # ⚠️ AND THE WINDOW NARROWS WITH LENGTH. Two edits on a four-letter
+        # token is most of the word, which is how a preposition came within
+        # range of a surname at all. „Каллас"/„Калас" is one edit and
+        # survives either way.
+        limit = NAME_EDIT_DISTANCE if len(folded) >= NAME_LONG_TOKEN_CHARS else 1
+        near = sorted((b for b in believed
+                       if 0 < _edit_distance(folded, b) <= limit),
+                      key=lambda b: _edit_distance(folded, b))
+        if near:
+            seen.add(folded)
+            # The article's own spelling comes from the believed token, which
+            # is by construction a token the article writes.
+            out.append((near[0], tok))
+    return out
 
 
 def altered_person_names(entities: dict, texts) -> list:
@@ -794,7 +872,7 @@ def check_person_names(entities: dict, rec: dict, analysis: dict = None) -> list
         "somebody who may not exist."
         for name, token, wrote in bad
     ]
-    if bad and isinstance(analysis, dict):
+    if isinstance(analysis, dict):
         import resolve_mentions as rm
         want = {rm.fold(t) for _, t, _ in bad}
         for field in PROSE_FIELDS:
@@ -802,6 +880,12 @@ def check_person_names(entities: dict, rec: dict, analysis: dict = None) -> list
             if not v:
                 continue
             leaked = want & {rm.fold(t) for t in rm.TOKEN_RE.findall(str(v))}
+            # ⚠️ THE SECOND ARM RUNS EVEN WHEN `bad` IS EMPTY, and that is the
+            # whole point — a corrected entity block used to switch the prose
+            # check off, so a summary still carrying the altered spelling was
+            # examined by nothing. See altered_names_in_prose.
+            for wrote, used in altered_names_in_prose(entities, [rec], str(v)):
+                leaked.add(rm.fold(used))
             if leaked:
                 errs.append(
                     f"{field}: repeats a name the article does not use "
@@ -1500,6 +1584,7 @@ def cmd_redo(args) -> int:
         return emit(2, error="no_targets", hint="pass one or more URLs or "
                     "news/data/<domain>/<file>.json paths")
     by_url, queue, missing = {}, [], []
+    index = load_index()
     for domain in corpus_domains():
         for f in corpus_files(domain) or []:
             rel = rel_corpus_path(domain, f)
@@ -1519,8 +1604,22 @@ def cmd_redo(args) -> int:
             continue
         domain, _f, rel, rec = hit
         rank = ranks.get(domain)
+        # ⚠️⚠️ THE STORY THE ARTICLE IS ALREADY IN, and carrying it is not a
+        # convenience. `analyze_local` stamps every record `action: "none"`
+        # because clustering is not its job — correct for a NEW article and
+        # DESTRUCTIVE for a re-analysis: „none" DETACHES the article, and a
+        # story left with no members is deleted outright. Measured on the
+        # first real redo: story 20260822-8cccaffb (1 member) was deleted and
+        # its /story/ URL 404'd, while 20260822-ed7347ac went 4 members to 2.
+        # The analysis tree is gitignored, so there is no git to recover from.
+        story_id = (index.get("articles", {}).get(rec.get("url"))
+                    or {}).get("story_id")
         queue.append({
             "path": rel, "domain": domain,
+            # ⚠️ ABSENT means „this article is in no story", never „we did
+            # not look" — a redo of an unclustered article must stay
+            # unclustered rather than inventing a cluster for it.
+            **({"story_id": story_id} if story_id else {}),
             "outlet_rank": rank if rank is not None else DEFAULT_OUTLET_RANK,
             "outlet_ranked": rank is not None,
             "order_tier": None, "order_basis": "redo",

@@ -90,6 +90,7 @@ def save(batch: list, stats: dict) -> bool:
 def load_prompt_assets() -> dict:
     missing = [p.name for p in (PROMPTS / "analyze_system.md",
                                 PROMPTS / "analyze_schema.gbnf",
+                                PROMPTS / "analyze_schema.json",
                                 PROMPTS / "taxonomy_compact.json")
                if not p.exists()]
     if missing:
@@ -99,6 +100,13 @@ def load_prompt_assets() -> dict:
     return {
         "system": (PROMPTS / "analyze_system.md").read_text(encoding="utf-8"),
         "grammar": (PROMPTS / "analyze_schema.gbnf").read_text(encoding="utf-8"),
+        # ⚠️ The SAME contract for a provider with no GBNF — see
+        # build_prompts.build_json_schema. Both are sent: llama.cpp reads the
+        # grammar and ignores response_format, OpenRouter the reverse, and
+        # neither errors on the field it does not know. Sending one or the
+        # other by guessing the provider is a guess that fails silently.
+        "json_schema": json.loads(
+            (PROMPTS / "analyze_schema.json").read_text(encoding="utf-8")),
         "taxonomy": (PROMPTS / "taxonomy_compact.json").read_text(
             encoding="utf-8"),
     }
@@ -183,7 +191,13 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
         **parsed,
         # ⚠️ ALWAYS "none" — see the module docstring. Clustering is not this
         # script's job and a wrong merge cannot be undone automatically.
-        "story": {"action": "none"},
+        # ⚠️ „none" DETACHES, and on a REDO that deletes the story. The
+        # queue carries the article's existing story_id (see cmd_redo); a
+        # record that had one keeps it, and only a genuinely unclustered
+        # article gets „none". Clustering is still not this script's job —
+        # it never CREATES or MOVES a story, it only declines to destroy one.
+        "story": ({"action": "same_story", "story_id": item["story_id"]}
+                  if item.get("story_id") else {"action": "none"}),
     }
     if mentions:
         rec["mentions"] = mentions
@@ -207,10 +221,17 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
 GRAMMAR_PROBE_TOKENS = 8
 
 
-def grammar_is_enforced(grammar: str, model: str, url: str | None = None):
-    """(ok, detail). `ok` is False only on PROOF that the grammar was dropped."""
+def grammar_is_enforced(grammar: str, model: str, url: str | None = None,
+                        json_schema: dict | None = None):
+    """(ok, detail). `ok` is False only on PROOF that the constraint was dropped.
+
+    ⚠️ It must send EXACTLY what the run sends — both the grammar and the
+    schema. A probe that omits one tests a request nobody makes, and would
+    pass against a provider that honours only the field it left out.
+    """
     try:
         answer = llm_client.complete("", "x", model=model, grammar=grammar,
+                                     json_schema=json_schema,
                                      max_tokens=GRAMMAR_PROBE_TOKENS,
                                      url=url)
     except llm_client.LlmError as exc:
@@ -223,7 +244,8 @@ def grammar_is_enforced(grammar: str, model: str, url: str | None = None):
     if text.startswith("{"):
         return True, "enforced"
     return False, (
-        f"the server accepted the GBNF grammar and ignored it — a probe that "
+        f"the server accepted the schema constraint and ignored it — a probe "
+        f"that "
         f"can only produce '{{' returned {text[:40]!r}. Every record this run "
         "produces would be refused by the validator. Try a smaller grammar, "
         "or a server whose llama.cpp build handles one this size.")
@@ -247,8 +269,11 @@ def main() -> int:
     assets = load_prompt_assets()
     taxonomy_version = json.loads(assets["taxonomy"]).get("version")
 
+    constraint_proven = False
     if not args.dry_run:
-        ok, detail = grammar_is_enforced(assets["grammar"], args.model)
+        ok, detail = grammar_is_enforced(assets["grammar"], args.model,
+                                         json_schema=assets["json_schema"])
+        constraint_proven = ok and detail == "enforced"
         if not ok:
             print(json.dumps({"mode": "analyze_local", "model": args.model,
                               "aborted": detail}, ensure_ascii=False))
@@ -297,7 +322,9 @@ def main() -> int:
         try:
             answer = llm_client.complete(
                 assets["system"], prompt, model=args.model,
-                grammar=assets["grammar"], max_tokens=args.max_tokens)
+                grammar=assets["grammar"],
+                json_schema=assets["json_schema"],
+                max_tokens=args.max_tokens)
         except llm_client.LlmError as exc:
             stats["llm_failed"].append({"path": item["path"],
                                         "kind": exc.kind,
@@ -325,11 +352,24 @@ def main() -> int:
         if FIRST_RECORD_IS_A_CANARY and not canary_done:
             canary_done = True
             if not save(batch, stats):
+                # ⚠️ THE DIAGNOSIS DEPENDS ON THE PREFLIGHT, and saying
+                # „probably the grammar" after the preflight has PROVEN the
+                # constraint is enforced sends an operator to rebuild a
+                # grammar that is already working. What survives a working
+                # constraint is what the constraint cannot express — above
+                # all the category/subcategory PAIRING, which neither the
+                # GBNF nor the JSON Schema encodes and which both say so.
                 stats["aborted"] = (
-                    "the first record was rejected by the validator — the "
-                    "model server is probably ignoring the GBNF grammar. "
-                    "Stopping rather than spending the window producing "
-                    "records that will all be refused.")
+                    ("the first record was rejected by the validator, and "
+                     "the constraint IS enforced (the preflight proved it) "
+                     "— so this is a rule the schema cannot express, most "
+                     "likely the category/subcategory pairing. Read the "
+                     "`rejected` errors above; they are the whole diagnosis."
+                     ) if constraint_proven else
+                    ("the first record was rejected by the validator — the "
+                     "model server is probably ignoring the schema "
+                     "constraint. Stopping rather than spending the window "
+                     "producing records that will all be refused."))
                 batch = []
                 break
             batch = []

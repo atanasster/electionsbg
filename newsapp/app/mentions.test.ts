@@ -159,28 +159,73 @@ describe("absent vs empty", () => {
     );
   }
 
+  // The analysis the builder read, keyed by url via the on-disk index.
+  const analysisRoot = path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "..",
+    "..",
+    "news",
+    "data",
+    "analysis",
+  );
+  let indexCache: Record<string, { path: string }> | null = null;
+  const sourceAnalysis = (url: string): Record<string, unknown> | null => {
+    if (indexCache === null) {
+      const p = path.join(analysisRoot, "index.json");
+      indexCache = fs.existsSync(p)
+        ? (JSON.parse(fs.readFileSync(p, "utf-8")).articles ?? {})
+        : {};
+    }
+    const entry = indexCache?.[url];
+    if (!entry) return null;
+    const abs = path.join(analysisRoot, "..", "..", "..", entry.path);
+    return fs.existsSync(abs)
+      ? JSON.parse(fs.readFileSync(abs, "utf-8"))
+      : null;
+  };
+
   (built ? it : it.skip)(
     "never turns an absent mentions key into an empty list",
     () => {
-      // Every analysis on disk today predates mention extraction, so the key
-      // must be absent throughout. An `?? []` anywhere in the builder would
-      // publish „mentions nobody" about all 365 of them.
+      // ⚠️ COMPARED AGAINST THE SOURCE ANALYSIS, not against „no record has
+      // the key". That was the original assertion and it was a PREMISE, not
+      // an invariant: it held only while nothing on disk had been through
+      // mention extraction, and went red the day three records were
+      // re-analysed — reporting a defect that did not exist while saying
+      // nothing about the one that would.
+      //
+      // The rule the builder must obey is that it neither invents the key
+      // nor drops it. An `?? []` anywhere would publish „mentions nobody"
+      // about every record that predates extraction; a filter would lose it
+      // from the ones that have it.
       let analysed = 0;
-      let withKey = 0;
+      let invented = 0;
+      let dropped = 0;
       for (const f of fs.readdirSync(bundleDir)) {
         if (!f.endsWith(".json")) continue;
         const bundle = JSON.parse(
           fs.readFileSync(path.join(bundleDir, f), "utf-8"),
-        ) as { articles?: { analysis?: { mentions?: Mention[] } }[] };
+        ) as {
+          articles?: {
+            analysis?: { mentions?: Mention[] };
+            url?: string;
+          }[];
+        };
         for (const a of bundle.articles ?? []) {
-          if (!a.analysis) continue;
+          if (!a.analysis || !a.url) continue;
+          const src = sourceAnalysis(a.url);
+          if (!src) continue;
           analysed += 1;
-          if ("mentions" in a.analysis) withKey += 1;
+          const inBundle = "mentions" in a.analysis;
+          const inSource = "mentions" in src;
+          if (inBundle && !inSource) invented += 1;
+          if (!inBundle && inSource) dropped += 1;
         }
       }
       // Non-vacuous: if the corpus were empty this would assert nothing.
       expect(analysed).toBeGreaterThan(0);
-      expect(withKey).toBe(0);
+      expect(invented).toBe(0);
+      expect(dropped).toBe(0);
     },
   );
 

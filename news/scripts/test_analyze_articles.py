@@ -636,6 +636,82 @@ class AlteredNameMustNotSurviveInProse(FixtureTestCase):
         self.assertFalse(any(e.startswith("summary_") for e in errs))
 
 
+class ProseIsCheckedEvenWhenEntitiesAreClean(FixtureTestCase):
+    """⚠️⚠️ The hole that shipped „Каллас". The prose arm was scoped to the
+    tokens the ENTITY check proved altered — so the moment a re-analysis
+    corrected `entities.people`, the summary was examined by nothing, and a
+    record went out disagreeing with itself."""
+
+    def setUp(self):
+        super().setUp()
+        import analyze_articles
+        self.aa = analyze_articles
+        self.body = "Кая Калас обвини Русия в тероризъм. " * 10
+        self.ents = {"people": ["Кая Калас"], "parties": [],
+                     "institutions": [], "companies": [], "places": []}
+
+    def test_a_stale_summary_is_caught_with_CORRECT_entities(self):
+        errs = self.aa.check_person_names(
+            self.ents, {"content": self.body},
+            {"summary_bg": "Каллас обвини Русия."})
+        self.assertTrue(any(e.startswith("summary_bg:") for e in errs), errs)
+
+    def test_the_article_SPELLING_passes(self):
+        errs = self.aa.check_person_names(
+            self.ents, {"content": self.body},
+            {"summary_bg": "Калас обвини Русия."})
+        self.assertEqual(errs, [])
+
+    def test_a_LOWERCASE_common_word_is_not_a_name(self):
+        # ⚠️ Measured: without this, 3 of 4 corpus hits were „пред" (a
+        # preposition, 2 edits from „пеев") and „бива" (a verb, 2 edits from
+        # „иван"). A name in Bulgarian prose is capitalised.
+        errs = self.aa.check_person_names(
+            {"people": ["Иван Пеев"], "parties": [], "institutions": [],
+             "companies": [], "places": []},
+            {"content": "Иван Пеев подаде оставка. " * 10},
+            {"summary_bg": "Оставката бива внесена пред комисията."})
+        self.assertEqual(errs, [])
+
+    def test_a_LONG_lowercase_word_is_still_not_a_name(self):
+        # ⚠️ ISOLATES THE CAPITALISATION RULE, which the short cases above do
+        # not — the length window already rejects those. „славчева" is an
+        # ordinary Bulgarian possessive form: 8 characters, ONE edit from the
+        # surname, and absent from the article. Only „a name is capitalised"
+        # keeps it out, and without that a summary is withheld over a
+        # grammatical inflection of a name it spelled correctly.
+        found = self.aa.altered_names_in_prose(
+            {"people": ["Иван Славчев"]},
+            [{"content": "Иван Славчев подаде оставка. " * 10}],
+            "Това е славчева работа.")
+        self.assertEqual(found, [])
+
+    def test_the_same_word_CAPITALISED_is_caught(self):
+        # The pair, so the test above cannot pass by the rule never firing.
+        found = self.aa.altered_names_in_prose(
+            {"people": ["Иван Славчев"]},
+            [{"content": "Иван Славчев подаде оставка. " * 10}],
+            "Славчева подаде оставка.")
+        self.assertEqual([u for _w, u in found], ["Славчева"])
+
+    def test_a_SHORT_token_gets_a_one_edit_window_only(self):
+        # Two edits on a four-letter token is most of the word.
+        found = self.aa.altered_names_in_prose(
+            {"people": ["Иван Пеев"]},
+            [{"content": "Иван Пеев подаде оставка. " * 10}],
+            "Пред комисията.")
+        self.assertEqual(found, [])
+
+    def test_a_name_the_ARTICLE_never_writes_anchors_nothing(self):
+        # ⚠️ The anchor is a name the article CORROBORATES. An entity the
+        # article does not contain cannot license a prose verdict.
+        found = self.aa.altered_names_in_prose(
+            {"people": ["Непознат Човек"]},
+            [{"content": "Съвсем друга статия. " * 10}],
+            "Непознет Човек каза нещо.")
+        self.assertEqual(found, [])
+
+
 class PersonNamesAreCopied(FixtureTestCase):
     """⚠️⚠️ „Антон Славев" was published where the article said „Антон
     Славчев" — a person who does not exist, while Антон Славчев is in the
