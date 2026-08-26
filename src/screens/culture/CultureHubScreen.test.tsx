@@ -82,6 +82,20 @@ const FULL_STATS = {
   interreg: { thematicEur: 0, partnerRows: 0, partners: 0, rowsWithEik: 0 },
   people: { culturalInstituteRoles: 0 },
   budget: { eur: 269051700, fiscalYear: 2026 },
+  topBuyers: [
+    {
+      eik: "000695160",
+      name: "Министерство на културата",
+      eur: 62809215,
+      contracts: 324,
+    },
+    {
+      eik: "201570119",
+      name: "Национален дворец на културата (НДК)",
+      eur: 43723054,
+      contracts: 33,
+    },
+  ],
   films: { eur: 94944781, films: 944, firstYear: 2014, lastYear: 2025 },
 };
 /** A blob minted before the two optional fields existed — the bucket-sync lag state. */
@@ -169,4 +183,40 @@ describe("CultureHubScreen", () => {
       );
     },
   );
+
+  // ⚠️ `evidence={evidence}` IS COVERED BY NOTHING ELSE. The builder is unit-tested, but a
+  // prop that is computed and never passed compiles, type-checks and renders a head with no
+  // aside — which is exactly what happened once in this change, caught only by looking at
+  // the page. The rail also carries the one link on this head that is easiest to get wrong:
+  // both its destinations are parliament-scoped while its figures are whole-corpus, so a
+  // row without `?pscope=all` lands on a page showing zero contracts.
+  it("renders the evidence rail, scoped, when the blob carries it", async () => {
+    mountWith(FULL_STATS);
+    await screen.findByText(/Национален дворец/);
+    const aside = document.querySelector("[data-hub-head] aside");
+    expect(aside, "the head rendered no evidence aside").toBeTruthy();
+
+    const links = [...aside!.querySelectorAll("a")].map((a) =>
+      a.getAttribute("href"),
+    );
+    const awarder = links.filter((h) => h?.includes("/awarder/"));
+    expect(awarder).toHaveLength(2);
+    for (const h of awarder)
+      expect(h, "an awarder row lost its scope").toContain("pscope=all");
+    expect(
+      links.some((h) => h?.includes("/culture/procurement")),
+      "the rail has no action link",
+    ).toBe(true);
+    for (const h of links.filter((x) => x?.includes("/culture/procurement")))
+      expect(h, "the action link lost its scope").toContain("pscope=all");
+  });
+
+  it("renders NO aside when the blob predates the rail", async () => {
+    // `topBuyers` is optional on the wire — the blob ships via bucket:sync, a different
+    // command from `npm run deploy`. An empty rail under „Най-големи възложители" would
+    // read as „this sector has none".
+    mountWith(BARE_STATS);
+    await screen.findByText(/do NOT sum/);
+    expect(document.querySelector("[data-hub-head] aside")).toBeNull();
+  });
 });

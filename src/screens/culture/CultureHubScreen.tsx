@@ -33,6 +33,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { HubHead, TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import {
+  cultureHubEvidence,
   cultureHubKpis,
   demotedMetric,
   cultureStreamsNote,
@@ -40,6 +41,7 @@ import {
 } from "./cultureHubFigures";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { HubSearch } from "@/ux/search/HubSearch";
+import { useAwarderHref } from "@/screens/components/procurement/useAwarderHref";
 import { CULTURE_BANDS, CULTURE_HUB_COPY } from "./cultureRegistry";
 import {
   useCultureHubStats,
@@ -169,6 +171,27 @@ export const CultureHubScreen: FC = () => {
   // are optional on the wire, so a compile-time list would blank a tile whose cell was
   // withheld and delete the figure from the page altogether.
   const promoted = useMemo(() => promotedTiles(kpis), [kpis]);
+  // Through the shared helper, never a hand-built `/awarder/…` — a bare pathname RESETS
+  // the active time scope on the destination.
+  //
+  // ⚠️ AND FORCED TO `?pscope=all`, because the helper preserves the CURRENT scope and this
+  // hub has none: the awarder page then opens on the selected parliament while the rail's
+  // figures are whole-corpus. Measured, the €43.7m НДК row landed on a page showing zero
+  // contracts. Same rule `cultureRegistry.ts` states for every procurement tile.
+  const rawAwarderHref = useAwarderHref();
+  const awarderHref = useMemo(
+    () => (eik: string) => {
+      const to = rawAwarderHref(eik);
+      return typeof to === "string"
+        ? { pathname: to.split("?")[0], search: "?pscope=all" }
+        : { ...to, search: "?pscope=all" };
+    },
+    [rawAwarderHref],
+  );
+  const evidence = useMemo(
+    () => cultureHubEvidence(stats, lang, bg, awarderHref),
+    [stats, lang, bg, awarderHref],
+  );
 
   const sections: TileHubSection[] = CULTURE_BANDS.map((band) => ({
     heading: t(band.labelKey),
@@ -220,6 +243,7 @@ export const CultureHubScreen: FC = () => {
         // and moved it into the band when stats landed — one placement throughout, but a
         // sentence that visibly jumps and shifts everything under it.
         kpiNote={kpis.length || isPending ? cultureStreamsNote(bg) : undefined}
+        evidence={evidence}
         search={
           <HubSearch
             idPrefix="culture-finder"

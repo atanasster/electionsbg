@@ -16,6 +16,7 @@ import type { CultureHubStats } from "@/data/culture/hubStats";
 import { formatEurCompact } from "@/lib/currency";
 import {
   CULTURE_BAND_TILES,
+  cultureHubEvidence,
   cultureHubKpis,
   cultureStreamsNote,
   demotedMetric,
@@ -51,7 +52,39 @@ const STATS = {
     rowsWithEik: 0,
   },
   people: { culturalInstituteRoles: 0 },
-  budget: { eur: 269051700, fiscalYear: 2026, basis: "projected" },
+  budget: { eur: 269051700, fiscalYear: 2026 },
+  topBuyers: [
+    {
+      eik: "000695160",
+      name: "Министерство на културата /МК/",
+      eur: 62809215,
+      contracts: 324,
+    },
+    {
+      eik: "201570119",
+      name: "Национален дворец на културата — клон Варна",
+      eur: 43723054,
+      contracts: 33,
+    },
+    {
+      eik: "176812208",
+      name: "Национална галерия",
+      eur: 4277660,
+      contracts: 27,
+    },
+    {
+      eik: "000670748",
+      name: 'НАРОДЕН ТЕАТЪР "ИВАН ВАЗОВ',
+      eur: 4026269,
+      contracts: 35,
+    },
+    {
+      eik: "000670805",
+      name: "СОФИЙСКА ОПЕРА И БАЛЕТ",
+      eur: 3850952,
+      contracts: 44,
+    },
+  ],
   films: { eur: 94944781, films: 944, firstYear: 2014, lastYear: 2025 },
 } as CultureHubStats;
 
@@ -60,9 +93,14 @@ const band = () => cultureHubKpis(STATS, "bg", true);
 describe("the band", () => {
   it("carries one cell per money stream on a full blob", () => {
     expect(band()).toHaveLength(4);
+    // ⚠️ `?pscope=all` ON THE PROCUREMENT DESTINATION ONLY — the module's own rule, and it
+    // is per-destination because the culture pages do not share one scope convention.
+    // /culture/procurement renders the DEFAULT ScopeControl (ns = the selected parliament),
+    // so a whole-corpus figure landing there bare shows a fraction of itself; /culture/
+    // subsidies overrides ns to mean „всички години"; /culture/funds reads no scope.
     expect(band().map((k) => k.to)).toEqual([
       "/budget/ministries",
-      "/culture/procurement",
+      "/culture/procurement?pscope=all",
       "/culture/subsidies",
       "/culture/funds",
     ]);
@@ -77,7 +115,7 @@ describe("the band", () => {
     const dated = band().filter((k) => /\d{4}/.test(k.basis));
     expect(dated.map((k) => String(k.to))).toEqual([
       "/budget/ministries",
-      "/culture/procurement",
+      "/culture/procurement?pscope=all",
       "/culture/subsidies",
     ]);
     // …and the exception still declares SOMETHING, so „no window" never becomes „no basis".
@@ -139,7 +177,7 @@ describe("the band", () => {
     const cells = cultureHubKpis(bare, "bg", true);
     expect(cells).toHaveLength(2);
     expect(cells.map((k) => k.to)).toEqual([
-      "/culture/procurement",
+      "/culture/procurement?pscope=all",
       "/culture/funds",
     ]);
   });
@@ -206,5 +244,83 @@ describe("band ↔ tile, §3.1 rule 5", () => {
     // to prevent.
     for (const id of ["budget", "subsidies", "funds"])
       expect(demotedMetric(id, STATS, "bg", true)).toEqual({});
+  });
+});
+
+describe("the evidence rail", () => {
+  const href = (eik: string) => `/awarder/${eik}`;
+  const rail = (s: CultureHubStats | null = STATS) =>
+    cultureHubEvidence(s, "bg", true, href);
+
+  it("links every row through the awarder helper", () => {
+    // ⚠️ Never a hand-built `/awarder/…` — a bare pathname RESETS the active time scope on
+    // the destination, which is why the repo has the helper at all.
+    const e = rail();
+    expect(e?.rows).toHaveLength(5);
+    for (const r of e!.rows) expect(String(r.to)).toMatch(/^\/awarder\//);
+    // ⚠️ AND THE SCOPE IS FORCED. Both destinations default to the selected parliament
+    // while these figures are whole-corpus: measured before the fix, the €43.7m НДК row
+    // landed on an awarder page showing ZERO contracts. The href builder the screen passes
+    // is responsible for it, so the fixture here mimics the bare helper and the ACTION —
+    // which this module owns outright — is the one asserted.
+    expect(e?.rows[0].id).toBe("000695160");
+    expect(e?.action?.to).toBe("/culture/procurement?pscope=all");
+  });
+
+  it("keeps the destination's DESCENDING order", () => {
+    // ⚠️ ASSERTED ON THE BUILDER'S OUTPUT, not on the fixture. This read
+    // `STATS.topBuyers.map(...)` and checked it was sorted — which is a statement about the
+    // fixture and passes against ANY implementation, including one that reverses the rows.
+    const rendered = rail()!.rows.map((r) => r.value);
+    const expected = [...STATS.topBuyers!]
+      .sort((a, b) => b.eur - a.eur)
+      .map((r) => formatEurCompact(r.eur, "bg"));
+    expect(rendered).toEqual(expected);
+  });
+
+  it("SAYS the ministry is in its own ranking", () => {
+    // Row one is МК itself: the roster spans the ministry, its funders and the institutes,
+    // so a heading or basis calling these „културните институти" would be false about the
+    // largest row. The basis says so rather than leaving a reader to notice.
+    expect(STATS.topBuyers![0].eik).toBe("000695160");
+    expect(rail()?.basis).toMatch(/министерство/);
+    expect(rail()?.heading).not.toMatch(/институт/i);
+  });
+
+  it("REFUSES when the rows are absent rather than rendering an empty rail", () => {
+    // `topBuyers` is optional on the wire — the blob ships via bucket:sync, a different
+    // command from `npm run deploy` — so a bundle can load against a blob predating it. An
+    // empty rail under „Най-големи възложители" reads as „this sector has none".
+    const bare = { ...STATS };
+    delete bare.topBuyers;
+    expect(cultureHubEvidence(bare, "bg", true, href)).toBeUndefined();
+    expect(
+      cultureHubEvidence({ ...STATS, topBuyers: [] }, "bg", true, href),
+    ).toBeUndefined();
+    // ⚠️ `cultureHubEvidence` DIRECTLY on the null case — a default parameter fires on an
+    // explicit `undefined`, so a helper with one would assert the opposite of its name.
+    expect(cultureHubEvidence(null, "bg", true, href)).toBeUndefined();
+    expect(cultureHubEvidence(undefined, "bg", true, href)).toBeUndefined();
+  });
+
+  it("renders no row the band's procurement cell does not cover", () => {
+    // ⚠️ THE ROW-LEVEL FORM, because the sum comparison alone is weak: measured, dropping
+    // `tag = 'contract'` moves the rail's total by 0.2% against 29% of headroom, so a total
+    // under a total would not notice. Every RENDERED row must be a value the band's cell
+    // could contain, and the largest must not exceed it — that is what „the two halves
+    // count one corpus" means at the granularity a reader sees.
+    const e = rail()!;
+    const cap = STATS.procurement.eur;
+    for (const [i, r] of STATS.topBuyers!.entries()) {
+      expect(
+        r.eur,
+        `row ${i} exceeds the band's own figure`,
+      ).toBeLessThanOrEqual(cap);
+      expect(e.rows[i].value).toBe(formatEurCompact(r.eur, "bg"));
+    }
+    // Non-vacuity: the top five are a substantial share, so the ceiling is a real bound
+    // rather than one any small number would satisfy.
+    const railTotal = STATS.topBuyers!.reduce((a, r) => a + r.eur, 0);
+    expect(railTotal / cap).toBeGreaterThan(0.5);
   });
 });

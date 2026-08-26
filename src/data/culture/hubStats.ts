@@ -126,6 +126,25 @@ export interface CultureHubStats {
     eur: number;
     fiscalYear: number;
   };
+  /** The head's evidence rail: the sector's biggest BUYERS by contract value.
+   *
+   *  ⚠️ BUYERS, NOT SUPPLIERS, AND THAT IS FORCED. `/procurement/contractors` is the
+   *  national leaderboard of ~29,550 and refuses `?sector` by design (contractor_rank
+   *  has no buyer dimension), so a supplier rail would have no destination that can
+   *  name its rows — which is why the `contractors` tile carries no figure either.
+   *
+   *  ⚠️ МК ITSELF IS IN IT, and is the largest. The roster is CULTURE_GROUP_EIKS,
+   *  which spans the ministry, its funders and the state institutes, so the ministry
+   *  appears here as a BUYER of its own contracts rather than as the funder of the
+   *  others. A rail captioned „културните институти" would be false about row one.
+   *
+   *  Optional on the wire, for the reason the two fields below are. */
+  topBuyers?: {
+    eik: string;
+    name: string;
+    eur: number;
+    contracts: number;
+  }[];
   /** НФЦ film subsidy — the stream the hub used to be entirely about (ten of
    *  eleven tiles, 13% of the money). Accumulated, with its own window, which is
    *  why the band cannot sum it with the others. Optional for the reason above. */

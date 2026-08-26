@@ -41,7 +41,25 @@ import {
   isEmpty,
   warnSkip,
 } from "../gen_procurement/preflight";
-import { CULTURE_GROUP_EIKS } from "../../../src/lib/kulturaReferenceData";
+import {
+  CULTURE_BODIES,
+  CULTURE_GROUP_EIKS,
+  STATE_CULTURE_INSTITUTES,
+  ART_SCHOOLS,
+  DKI_CONFIRMED_INSTITUTES,
+} from "../../../src/lib/kulturaReferenceData";
+
+/** EIK → the register's own name for the body, for the evidence rail's labels.
+ *
+ *  The corpus spells one body several ways (EIK 201570119 has five), so a label taken from
+ *  `contracts` is whichever spelling happened to win an aggregate. These are 63 KNOWN
+ *  bodies; the roster is the name they should be called by. */
+const ROSTER_NAME = new Map<string, string>([
+  ...CULTURE_BODIES.map((b) => [b.eik, b.bg] as const),
+  ...STATE_CULTURE_INSTITUTES.map((b) => [b.eik, b.bg] as const),
+  ...ART_SCHOOLS.map((b) => [b.eik, b.bg] as const),
+  ...DKI_CONFIRMED_INSTITUTES.map((b) => [b.eik, b.bg] as const),
+]);
 import {
   cultureNameSql,
   chitalishteNameSql,
@@ -334,6 +352,48 @@ const main = async () => {
       })
     : null;
 
+  // ⚠️ THE RAIL RANKS BUYERS, NOT SUPPLIERS, and that is forced rather than chosen:
+  // /procurement/contractors is the NATIONAL leaderboard and refuses ?sector by design,
+  // so a supplier rail would link somewhere that cannot name its own rows. Same reason
+  // the `contractors` tile ships without a figure.
+  //
+  // The filter is the procurement query's, verbatim — the rail must rank the same corpus
+  // the band's € counts, or the head disagrees with itself.
+  const topBuyers = await allRows<Record<string, string>>(
+    // ⚠️ THE NAME IS THE MODAL SPELLING BY VALUE, NEVER `max(awarder_name)`. `max()` on
+    // text is LEXICOGRAPHIC, and the corpus spells one body several ways: EIK 201570119
+    // has five spellings, and the one `max()` returns says „клон Варна" — a branch that
+    // carries 1 of its 33 contracts and EUR 76,970 of EUR 43.7m, i.e. 0.18%. The rail
+    // renders the label alone (no EIK) and truncates it, so the reader is simply told the
+    // second-largest buyer in Bulgarian culture is a Varna branch office. Ranking the
+    // spellings by the money filed under them picks the one that describes the entity.
+    //
+    // The CURATED roster name wins over all of them where there is one — see the resolve
+    // below — because these are 63 known bodies, not free text.
+    `WITH ranked AS (
+       SELECT awarder_eik AS eik, awarder_name AS name,
+              sum(amount_eur) AS spelling_eur,
+              row_number() OVER (
+                PARTITION BY awarder_eik ORDER BY sum(amount_eur) DESC, awarder_name
+              ) AS rn
+         FROM contracts
+        WHERE tag = 'contract' AND awarder_eik = ANY($1)
+        GROUP BY awarder_eik, awarder_name
+     ), totals AS (
+       SELECT awarder_eik AS eik, sum(amount_eur) AS eur, count(*) AS n
+         FROM contracts
+        WHERE tag = 'contract' AND awarder_eik = ANY($1)
+        GROUP BY awarder_eik
+     )
+     SELECT t.eik, r.name,
+            round(t.eur::numeric, 0)::text AS eur,
+            t.n::text AS n
+       FROM totals t JOIN ranked r ON r.eik = t.eik AND r.rn = 1
+      ORDER BY t.eur DESC, t.eik
+      LIMIT 8`,
+    [eiks],
+  );
+
   const out: CultureHubStats = {
     generatedAt: new Date().toISOString().slice(0, 10),
     procurement: {
@@ -373,6 +433,27 @@ const main = async () => {
       rowsWithEik: num(interreg.with_eik),
     },
     people: { culturalInstituteRoles: num(people.n) },
+    // A row with no name cannot be rendered and a zero cannot be ranked — dropped rather
+    // than published blank, the same rule the two optional cells below follow.
+    // ⚠️ FILTERED BEFORE THE SLICE, not after. The SQL's LIMIT 5 used to be the whole
+    // selection and this filter ran on its output, so one rejected row shortened the rail
+    // to four with no replacement — a silent partial. The query now takes a wider slice and
+    // the slice happens here, after the rows are known good.
+    ...(() => {
+      const rows = topBuyers
+        .filter((r) => r.eik && num(r.eur) > 0)
+        .map((r) => ({
+          eik: r.eik,
+          // The curated roster name where the register knows this body, which it does for
+          // all 63 — the corpus spellings are free text and several per EIK.
+          name: ROSTER_NAME.get(r.eik) ?? r.name,
+          eur: num(r.eur),
+          contracts: num(r.n),
+        }))
+        .filter((r) => r.name)
+        .slice(0, 5);
+      return rows.length ? { topBuyers: rows } : {};
+    })(),
     // Both OMITTED rather than zeroed when their source is absent — `budget` needs
     // 152/153 (a REFRESH_EXCLUSIONS loader, so a fresh clone legitimately has an
     // empty table) and `films` needs a committed file. A zero here would publish

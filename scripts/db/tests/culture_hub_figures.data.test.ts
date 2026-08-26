@@ -409,3 +409,81 @@ test.skipIf(skip)("the four band streams are genuinely incommensurable", () => {
     "procurement no longer predates the budget year — re-read the streams note",
   );
 });
+
+test.skipIf(skip)(
+  "the evidence rail ranks the same corpus the band counts",
+  async () => {
+    const rows = blob().topBuyers;
+    // ⚠️ ABSENT AND EMPTY ARE DIFFERENT, and reading them as one is how this gate would go
+    // green on the state it exists to catch. `undefined` means the blob predates the rail —
+    // a legitimate vintage. `[]` means the generator RAN and produced nothing, which is a
+    // rail that will refuse to render on a sector holding €166.9m of contracts.
+    if (rows === undefined) {
+      reportSkip(
+        import.meta.url,
+        "the blob predates the topBuyers rail — re-run npm run db:gen-culture-hub-stats",
+      );
+      return;
+    }
+    assert.ok(
+      rows.length > 0,
+      "topBuyers is EMPTY, not absent — the generator ran and ranked nothing. The aside " +
+        "will refuse to render on a sector with a nine-figure procurement corpus.",
+    );
+
+    // The generator's filter, written out rather than imported — a gate re-running the
+    // generator's own SQL can only prove the file was freshly written (this file's header).
+    // It is deliberately the SAME filter the procurement band cell uses: if the two ever
+    // diverge, the head's two halves count different populations of „culture contracts".
+    const want = await allRows<Record<string, string>>(
+      `SELECT awarder_eik AS eik, round(sum(amount_eur)::numeric, 0)::text AS eur,
+              count(*)::text AS n
+         FROM contracts
+        WHERE tag = 'contract' AND awarder_eik = ANY($1)
+        GROUP BY awarder_eik
+        ORDER BY sum(amount_eur) DESC, awarder_eik
+        LIMIT 5`,
+      [eiks()],
+    );
+    assert.equal(
+      want.length,
+      5,
+      "fewer than five buyers — every comparison below would be trivially satisfiable",
+    );
+
+    assert.deepEqual(
+      rows.map((r) => r.eik),
+      want.map((r) => r.eik),
+      "the rail is not the sector's top five buyers — check its filter and sort",
+    );
+    for (const [i, r] of rows.entries()) {
+      near(Number(want[i].eur), r.eur, `rail row ${i} (${r.eik})`);
+      assert.equal(
+        r.contracts,
+        Number(want[i].n),
+        `rail row ${i} count drifted`,
+      );
+    }
+
+    // ⚠️ THE ROWS MUST BE A PART OF THE BAND'S FIGURE, not a different total about the same
+    // subject. This is the clause that would catch a rail whose filter drifted off
+    // `tag = 'contract'` or off the roster — both of which produce a plausible ranking of
+    // plausible institutions that simply does not belong to the € printed above it.
+    const railTotal = rows.reduce((a, r) => a + r.eur, 0);
+    assert.ok(
+      railTotal <= blob().procurement.eur,
+      `the rail's five buyers total ${railTotal} against a band figure of ` +
+        `${blob().procurement.eur} — the two are counting different corpora`,
+    );
+
+    // ⚠️ AND THE MINISTRY MUST STILL BE IN IT, because the basis line says so in words. The
+    // roster spans МК, its funders and the institutes, so МК appears as a BUYER of its own
+    // contracts; if it ever left the top five, the sentence „списъкът включва самото
+    // министерство, което е и най-големият възложител" becomes false copy.
+    assert.equal(
+      rows[0].eik,
+      "000695160",
+      "МК is no longer the largest buyer — the rail's basis line says it is, in words",
+    );
+  },
+);

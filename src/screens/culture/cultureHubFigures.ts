@@ -9,7 +9,8 @@
 // `CULTURE_HUB_COPY` and followed by `cultureFundSources.ts`. Each function takes `bg` and
 // returns the finished string, exactly as `tileMetric()` does.
 
-import type { HubKpi } from "@/ux/infographic/HubHead";
+import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
+import type { To } from "react-router-dom";
 import type { CultureHubStats } from "@/data/culture/hubStats";
 import { formatEurCompact, formatInt } from "@/lib/currency";
 
@@ -20,9 +21,19 @@ import { formatEurCompact, formatInt } from "@/lib/currency";
  *  wire (a bundle can load against a blob minted before those fields existed) and the whole
  *  blob is null on a checkout that never ran the generator. A constant list would blank the
  *  tile as well, removing the figure from the page entirely. */
+//
+//  ⚠️ `?pscope=all` ON THE PROCUREMENT DESTINATION, and NOT on the other three. This is the
+//  module's own documented rule (`cultureRegistry.ts`: „EVERY PROCUREMENT TILE CARRIES
+//  ?pscope=all, and it is not decoration"), and it is per-destination because the culture
+//  pages do not share one convention: `/culture/procurement` renders the DEFAULT
+//  `<ScopeControl mode="toggle" />`, where `ns` is the selected parliament, so a corpus-wide
+//  figure landing there without the param shows a fraction of itself. `/culture/subsidies`
+//  overrides `ns` to mean „всички години" and sets `allowAll={false}`, so the param is
+//  unnecessary there and would be clamped away; `/culture/funds` reads no scope at all; and
+//  `/budget/ministries` is another module.
 const TILES_BY_DESTINATION: Record<string, readonly string[]> = {
   "/budget/ministries": ["budget"],
-  "/culture/procurement": ["procurement"],
+  "/culture/procurement?pscope=all": ["procurement"],
   "/culture/subsidies": ["subsidies"],
   "/culture/funds": ["funds"],
 };
@@ -97,7 +108,7 @@ export const cultureHubKpis = (
         ? `${int(s.procurement.contracts)} contracts, accumulated since ${y}`
         : `${int(s.procurement.contracts)} contracts, accumulated`;
     })(),
-    to: "/culture/procurement",
+    to: "/culture/procurement?pscope=all",
   });
 
   if (s.films)
@@ -186,5 +197,63 @@ export const demotedMetric = (
     metricCaption: bg
       ? `договора · ${int(s.procurement.buyers)} институции`
       : `contracts · ${int(s.procurement.buyers)} institutions`,
+  };
+};
+
+/** The head's evidence rail: the sector's biggest BUYERS by contract value.
+ *
+ *  ⚠️ BUYERS, NOT SUPPLIERS, AND THAT IS FORCED. `/procurement/contractors` is the national
+ *  leaderboard of ~29,550 contractors and refuses `?sector` by design — `contractor_rank`
+ *  has no buyer dimension — so a supplier rail would link to a page that cannot name its own
+ *  rows, which is §3.1 rule 4 exactly. It is the same constraint that keeps the `contractors`
+ *  tile figureless, and the tile's own comment records it.
+ *
+ *  ⚠️⚠️ ROW ONE IS THE MINISTRY, AND THE HEADING MUST NOT CALL THESE „ИНСТИТУТИ". The roster
+ *  is `CULTURE_GROUP_EIKS`, which spans МК, its funders and the state institutes — so МК
+ *  appears here as a BUYER of its own contracts (€62.8m over 324) rather than as the funder
+ *  of the rest. „Най-големи възложители" is true of every row; „културните институти" is
+ *  false of the largest one, which is the §0 shape this head is full of.
+ *
+ *  ⚠️ THE € IS THE SAME CORPUS THE BAND COUNTS — same `tag='contract'` filter, same roster —
+ *  so the rail's rows sum to a part of the band's procurement cell rather than to some other
+ *  number that happens to be about culture.
+ *
+ *  ⚠️ EVERY LINK CARRIES `?pscope=all`. Both destinations are parliament-scoped —
+ *  `/awarder/:eik` and `/culture/procurement` each default to the selected election's
+ *  window — while these figures are whole-corpus. Measured before the fix: the €43.7m НДК
+ *  row landed on an awarder page showing ZERO contracts, and „всички поръчки в сектора"
+ *  on €5.4m against the rail's €118.7m. That is the module's own rule, stated at length in
+ *  `cultureRegistry.ts` and gated for the tiles by `cultureRegistry.test.ts`.
+ *
+ *  ⚠️ REFUSED WHEN THE ROWS ARE ABSENT rather than rendered empty: `topBuyers` is optional on
+ *  the wire (this blob ships via `bucket:sync`, a different command from `npm run deploy`), so
+ *  a bundle can load against a blob that predates it. An empty rail under a „biggest buyers"
+ *  heading reads as „this sector has none". */
+export const cultureHubEvidence = (
+  s: CultureHubStats | null | undefined,
+  lang: string,
+  bg: boolean,
+  awarderHref: (eik: string) => To,
+): HubEvidence | undefined => {
+  const rows = s?.topBuyers;
+  if (!rows?.length) return undefined;
+  return {
+    heading: bg ? "Най-големи възложители" : "Largest contracting bodies",
+    basis: bg
+      ? "по стойност на договорите, натрупана за целия корпус — списъкът включва самото министерство, което е и най-големият възложител."
+      : "by contract value, accumulated over the whole corpus. The roster includes the ministry itself, which is also the largest buyer.",
+    rows: rows.map((r) => ({
+      // The ЕИК, not the name: two bodies can share a name and React reuses the row.
+      id: r.eik,
+      label: r.name,
+      value: formatEurCompact(r.eur, lang),
+      // ⚠️ Through the shared helper, never a hand-built `/awarder/…`: a bare pathname
+      // RESETS the active time scope on the destination.
+      to: awarderHref(r.eik),
+    })),
+    action: {
+      to: "/culture/procurement?pscope=all",
+      label: bg ? "всички поръчки в сектора" : "all contracts in the sector",
+    },
   };
 };

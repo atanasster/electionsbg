@@ -67,6 +67,7 @@ import {
 import type { DeclarationsHubStats } from "@/data/governance/useDeclarationsHubStats";
 import {
   CULTURE_BAND_TILES,
+  cultureHubEvidence,
   cultureHubKpis,
   promotedTiles as culturePromotedTiles,
 } from "@/screens/culture/cultureHubFigures";
@@ -498,7 +499,21 @@ describe("hub head — the band and the tiles are disjoint", () => {
     agri: { chitalishtaEur: 18341814, chitalishtaRows: 264 },
     interreg: { thematicEur: 0, partnerRows: 0, partners: 0, rowsWithEik: 0 },
     people: { culturalInstituteRoles: 0 },
-    budget: { eur: 269051700, fiscalYear: 2026, basis: "projected" },
+    budget: { eur: 269051700, fiscalYear: 2026 },
+    topBuyers: [
+      {
+        eik: "000695160",
+        name: "Министерство на културата /МК/",
+        eur: 62809215,
+        contracts: 324,
+      },
+      {
+        eik: "201570119",
+        name: "Национален дворец на културата — клон Варна",
+        eur: 43723054,
+        contracts: 33,
+      },
+    ],
     films: { eur: 94944781, films: 944, firstYear: 2014, lastYear: 2025 },
   } as CultureHubStats;
   const cultureBand = () => cultureHubKpis(CULTURE_STATS_FIXTURE, "bg", true);
@@ -530,6 +545,28 @@ describe("hub head — the band and the tiles are disjoint", () => {
       new Set(tos).size,
       `duplicate /culture KPI destination in ${tos.join(", ")}`,
     ).toBe(tos.length);
+  });
+
+  it("/culture's aside links somewhere its rows can be named", () => {
+    // §3.1 rule 4 applied to the rail: every row goes to that buyer's own awarder page and
+    // the action to the sector's contracts browser. A rail whose rows link nowhere is a
+    // leaderboard the reader cannot check.
+    const e = cultureHubEvidence(
+      CULTURE_STATS_FIXTURE,
+      "bg",
+      true,
+      (eik) => `/awarder/${eik}`,
+    );
+    expect(e?.rows.length).toBeGreaterThan(0);
+    for (const r of e!.rows) expect(String(r.to)).toMatch(/^\/awarder\//);
+    expect(String(e?.action?.to)).toBe("/culture/procurement?pscope=all");
+    // The rail's values must not double the band's: they answer a different question, and a
+    // row repeating a KPI cell is the band/tile clash one column over.
+    const bandValues = new Set(cultureBand().map((k) => k.value));
+    for (const r of e!.rows)
+      expect(bandValues.has(r.value), `${r.label} repeats a KPI value`).toBe(
+        false,
+      );
   });
 
   it("no two /budget KPI cells share a destination", () => {
