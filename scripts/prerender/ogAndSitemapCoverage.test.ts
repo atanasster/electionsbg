@@ -900,6 +900,30 @@ describe("a hub's og capture anchors on its head", () => {
     subsidies: "src/screens/SubsidiesDashboardScreen.tsx",
   };
 
+  /** Sub-page heads that DO ship a card, slug → the screen behind it.
+   *
+   *  ⚠️ THE FRESHNESS CLAUSE BELOW USED TO SEE ONLY `HUB_CAPTURES`, so a sub-page card was
+   *  exempt from it purely by being a sub-page — which is backwards: the exemption exists
+   *  because these pages have no HUB card, not because their card may go stale. A card
+   *  showing a head that has since changed is the same defect wherever the page sits.
+   *
+   *  The other two SUB_PAGE_HEADS members are absent as OPEN WORK, not as decisions against
+   *  them — a slug→screen map expresses both perfectly well (four `culture-funds-<arm>`
+   *  slugs all naming `CultureFundsSourceScreen` is a legal `Record`, and every consumer
+   *  here is keyed by slug). Adding them puts their cards under the freshness rule too. */
+  const SUB_PAGE_CAPTURES: Record<string, string> = {
+    "governance-declarations":
+      "src/screens/governance/GovernanceDeclarationsScreen.tsx",
+  };
+
+  /** Every card whose page is a HubHead — module front pages and sub-pages alike. The
+   *  clauses below are claims about the CARD (its anchor, viewport, size, freshness), and a
+   *  sub-page's card is a card, so all of them read this rather than HUB_CAPTURES. */
+  const HEAD_CAPTURES: Record<string, string> = {
+    ...HUB_CAPTURES,
+    ...SUB_PAGE_CAPTURES,
+  };
+
   /** HubHead call sites that are NOT module front pages, so they ship no hub card. */
   const SUB_PAGE_HEADS = [
     "src/screens/dev/ContractsBrowserDbScreen.tsx",
@@ -908,11 +932,6 @@ describe("a hub's og capture anchors on its head", () => {
     // they carry their own per-arm og capture entries instead
     // (`culture-funds-<arm>` in scripts/og/capture-screens.ts).
     "src/screens/culture/CultureFundsSourceScreen.tsx",
-    // /governance/declarations is a sub-hub OF the governance module — it sits under
-    // /governance, which owns the module card. So it ships no HUB card and carries its
-    // own og capture entry instead (`governance-declarations` in
-    // scripts/og/capture-screens.ts).
-    "src/screens/governance/GovernanceDeclarationsScreen.tsx",
   ];
 
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
@@ -930,7 +949,7 @@ describe("a hub's og capture anchors on its head", () => {
   it("every hub's capture frames its head", () => {
     const checked: string[] = [];
     const offenders: string[] = [];
-    for (const slug of Object.keys(HUB_CAPTURES)) {
+    for (const slug of Object.keys(HEAD_CAPTURES)) {
       if (NOT_YET[slug]) continue;
       const entry = entryFor(slug);
       if (!entry) {
@@ -954,7 +973,7 @@ describe("a hub's og capture anchors on its head", () => {
     // Playwright CLAMPS the clip to the viewport, so a width below OG_W (1200) emits a
     // smaller card with nothing failing — measured, a hand-picked 1180 gave 2360×1260 where
     // the corpus norm is 2400, and two of these three had been 2400 the day before.
-    for (const slug of Object.keys(HUB_CAPTURES)) {
+    for (const slug of Object.keys(HEAD_CAPTURES)) {
       if (NOT_YET[slug]) continue;
       const entry = entryFor(slug) ?? "";
       expect(
@@ -983,7 +1002,7 @@ describe("a hub's og capture anchors on its head", () => {
       const b = fs.readFileSync(path.join(REPO, rel));
       return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
     };
-    for (const slug of Object.keys(HUB_CAPTURES)) {
+    for (const slug of Object.keys(HEAD_CAPTURES)) {
       const rel = `public/og/${slug}.png`;
       expect(
         fs.existsSync(path.join(REPO, rel)),
@@ -1067,6 +1086,8 @@ describe("a hub's og capture anchors on its head", () => {
       funds: "src/screens/funds/fundsHubFigures.ts",
       consumption: "src/screens/consumption/consumptionHubFigures.ts",
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
+      "governance-declarations":
+        "src/screens/governance/declarationsHubFigures.ts",
     };
 
     /** Cards that PREDATE a source and are nonetheless current, each with the reason.
@@ -1082,20 +1103,48 @@ describe("a hub's og capture anchors on its head", () => {
      *  bytes must not move. An entry that no longer reproduces is a stale exemption and the
      *  clause below fails on it — it is not a permanent excuse. Remove an entry the moment
      *  its card is re-shot for any real reason. */
-    const CURRENT_DESPITE: Record<string, string> = {
-      // 2026-08-26 — verified by re-running `capture-screens.ts <slug>`: all five produced
-      // files identical to the committed ones, because the only source change since was
-      // HubHead's `data-kpi-cell` marker.
-      parliament: "HubHead's data-kpi-cell marker does not render",
-      procurement: "HubHead's data-kpi-cell marker does not render",
-      governance: "HubHead's data-kpi-cell marker does not render",
-      budget: "HubHead's data-kpi-cell marker does not render",
-      consumption: "HubHead's data-kpi-cell marker does not render",
+    /** A SOURCE whose current commit changed nothing any card draws, so it may not make a
+     *  card stale. Keyed by path → the exact commit sha that was verified.
+     *
+     *  ⚠️ SOURCE-SCOPED, NOT SLUG-SCOPED, AND THAT IS THE WHOLE POINT. This was a
+     *  `Record<slug, reason>` consulted as `if (CURRENT_DESPITE[slug]) continue`, which
+     *  exempted the card from EVERY source — so a slug listed here for a HubHead edit was
+     *  also silently excused from its own screen and its own figures module. Measured
+     *  2026-08-26: six of eight cards were exempted that way and all eight were stale
+     *  against `HubHead.tsx` AND NOTHING ELSE, so the guard read „2 cards checked" while
+     *  zero cards were being checked against a rendering change.
+     *
+     *  ⚠️ THE SHA IS LOAD-BEARING — it is what makes the exemption EXPIRE. A reason alone
+     *  would excuse `HubHead.tsx` for ever, including the next edit that does move a pixel.
+     *  When the file is committed again the sha stops matching, every card goes stale, and
+     *  the clause fires until somebody re-shoots or re-verifies. That is the correct
+     *  default: a card is presumed stale until a human has looked.
+     *
+     *  ⚠️ VERIFY BY RE-SHOOTING, never by reading the diff. The check that earns an entry
+     *  here is `npx tsx scripts/og/capture-screens.ts <slug>` producing a byte-identical
+     *  file (compare md5). „This looks like it only changes hrefs" is how a rendering change
+     *  gets waved through. */
+    const NON_RENDERING_SOURCE: Record<string, { sha: string; why: string }> = {
+      [HEAD]: {
+        sha: "cf9c4f957bc0fcd12af033034c81fc32f4cc9118",
+        why:
+          "useHeadHref switched from a `?`-split to `parsePath` — it alters the hrefs the " +
+          "head builds and draws nothing. Verified: re-shooting governance-declarations " +
+          "produced an identical md5 (4738a7bb9af3358ef031ccfc828ea401).",
+      },
+    };
+    const shaOf = (rel: string) =>
+      execFileSync("git", ["log", "-1", "--format=%H", "--", rel], {
+        encoding: "utf8",
+      }).trim();
+    /** True while the recorded verification still describes the file's current state. */
+    const exempt = (rel: string): boolean => {
+      const e = NON_RENDERING_SOURCE[rel];
+      return !!e && e.sha === shaOf(rel);
     };
 
     const stale: string[] = [];
-    for (const [slug, screen] of Object.entries(HUB_CAPTURES)) {
-      if (CURRENT_DESPITE[slug]) continue;
+    for (const [slug, screen] of Object.entries(HEAD_CAPTURES)) {
       const card = at(`public/og/${slug}.png`);
       const page = at(screen);
       expect(card, `no commit found for public/og/${slug}.png`).toBeGreaterThan(
@@ -1106,11 +1155,20 @@ describe("a hub's og capture anchors on its head", () => {
       const extraAt = extra ? at(extra) : 0;
       if (extra)
         expect(extraAt, `no commit found for ${extra}`).toBeGreaterThan(0);
-      const sources: [string, number][] = [
-        [screen, page],
-        [HEAD, headAt],
-        ...(extra ? ([[extra, extraAt]] as [string, number][]) : []),
-      ];
+      const sources: [string, number][] = (
+        [
+          [screen, page],
+          [HEAD, headAt],
+          ...(extra ? ([[extra, extraAt]] as [string, number][]) : []),
+        ] as [string, number][]
+      ).filter(([rel]) => !exempt(rel));
+      // Every source exempted — nothing left to compare this card against, which must not
+      // read as „current". Cannot happen while `screen` is never exemptible, and asserted
+      // rather than assumed.
+      expect(
+        sources.length,
+        `${slug}: every source is exempted, so its card is checked against nothing`,
+      ).toBeGreaterThan(0);
       const [src, newest] = sources.reduce((a, b) => (b[1] > a[1] ? b : a));
       if (card < newest)
         stale.push(
@@ -1120,10 +1178,23 @@ describe("a hub's og capture anchors on its head", () => {
     }
     // Non-vacuity: an exemption list that grew to cover every card would leave this
     // asserting nothing while still reading green.
+    // ⚠️ COUNTS CARDS ACTUALLY COMPARED, not entries minus an exemption list. The old form
+    // subtracted slug exemptions, so it reported „2 checked" in a state where every card was
+    // exempted from the only source that had moved — the arithmetic was right and the claim
+    // was false. With source-scoped exemptions every card is compared against at least its
+    // own screen, so this is simply the map size.
     expect(
-      Object.keys(HUB_CAPTURES).length - Object.keys(CURRENT_DESPITE).length,
-      "every hub card is exempted — this clause now checks nothing",
+      Object.keys(HEAD_CAPTURES).length,
+      "no card is being compared — this clause now checks nothing",
     ).toBeGreaterThan(1);
+
+    // The two maps must not share a slug: the freshness loop would then compare one card
+    // twice, and the count above would over-report in the UNSAFE direction.
+    for (const slug of Object.keys(SUB_PAGE_CAPTURES))
+      expect(
+        HUB_CAPTURES[slug],
+        `${slug} is in both HUB_CAPTURES and SUB_PAGE_CAPTURES`,
+      ).toBeUndefined();
     expect(
       stale,
       `these cards predate the page they show — re-shoot with ` +
@@ -1150,7 +1221,11 @@ describe("a hub's og capture anchors on its head", () => {
       .filter((f) => /<HubHead\b/.test(stripJsxComments(read(f))));
     expect(screens.length, "no screen renders HubHead").toBeGreaterThan(2);
 
-    const known = new Set([...Object.values(HUB_CAPTURES), ...SUB_PAGE_HEADS]);
+    const known = new Set([
+      ...Object.values(HUB_CAPTURES),
+      ...Object.values(SUB_PAGE_CAPTURES),
+      ...SUB_PAGE_HEADS,
+    ]);
     const unlisted = screens.filter((f) => !known.has(f));
     expect(
       unlisted,
@@ -1160,7 +1235,7 @@ describe("a hub's og capture anchors on its head", () => {
   });
 
   it("every mapped screen still renders a head, and every exemption still earns it", () => {
-    for (const [slug, file] of Object.entries(HUB_CAPTURES))
+    for (const [slug, file] of Object.entries(HEAD_CAPTURES))
       expect(
         /<HubHead\b/.test(stripJsxComments(read(file))),
         `${slug} is mapped to ${file}, which no longer renders a HubHead`,

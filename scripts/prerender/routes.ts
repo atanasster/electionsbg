@@ -2462,6 +2462,17 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "governance/declarations",
+    // ⚠️ THE INDEXED TITLE IS NOT THE H1, AND THAT IS DELIBERATE — the same trade the
+    // `subsidies` entry below documents at length. The page's own chrome says „Какво
+    // декларират хората във властта", which is the question a reader arrives with;
+    // „декларации на депутати" is the phrase they TYPE, and it is what the nav label and
+    // the breadcrumb already call this hub. So the indexed title names the register and the
+    // H1 names the question.
+    //
+    // The description covers three of the head's four band cells (длъжностни лица,
+    // автомобили/имущество, фирми) plus the evidence rail's net-worth ranking. It does NOT
+    // name the „публични фигури" cell, and that is the one thing to reconsider if this line
+    // is ever rewritten — the band leads with it.
     title: "Декларации на депутати и длъжностни лица | electionsbg.com",
     description:
       "Имущество, интереси и връзки на властта: декларации на депутатите (имущество, автомобили, фирми), бизнес връзки и класация на длъжностните лица по нетно състояние от регистъра на Сметната палата.",
