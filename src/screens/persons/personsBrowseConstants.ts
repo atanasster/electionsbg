@@ -1,3 +1,5 @@
+import { REGISTRY_URL_MIRROR_MS } from "@/screens/components/registrySearchTiming";
+
 // The /persons screen's exported constants and pure rules.
 //
 // They live outside `PersonsBrowserScreen.tsx` because a component file that also exports
@@ -8,12 +10,11 @@
 
 /** How long the hero field's value waits before it is written to `?q`.
  *
- *  Named rather than inlined so a test can advance timers by the value the screen actually
- *  uses. One of THREE intervals in this page's search path, all with different jobs: none in
- *  the field itself (the box must never lag the keyboard), this one to the URL (bounding
- *  router churn), and 250 ms inside `DbDataTable` to the engine (where the SEARCH_MIN_CHARS
- *  contract lives). Merging any two couples an SEO/navigation concern to a query-cost one. */
-export const URL_MIRROR_MS = 350;
+ *  ⚠️ THE ARGUMENT LIVES ONCE, in `registrySearchTiming.ts`, beside the component that owns the
+ *  behaviour — it was copied byte-identically into `companiesBrowseConstants.ts`, so a
+ *  correction to the reasoning would have landed on one page and not the other. The screen goes
+ *  on importing `URL_MIRROR_MS` from here, so no call site moved. */
+export const URL_MIRROR_MS = REGISTRY_URL_MIRROR_MS;
 
 /** Offered as chips on the empty search box. Each must be a value THIS CORPUS ANSWERS — a chip
  *  that returns nothing is a worse introduction than no chip, and it is the first thing a new
@@ -39,11 +40,16 @@ export const EXAMPLE_TERMS = ["Явор", "Окръжен съд — Варна"
 /** How many people the ACTIVE SCOPE holds — the denominator the head's basis names and the
  *  number the „разгледай всички" button promises.
  *
+ *  ⚠️ NAMED `personsScopeCount`, NOT `scopeCount`: /companies has a same-shaped rule whose
+ *  arithmetic is the OPPOSITE (its two scopes NEST rather than partition, so it must never
+ *  sum), and two same-named exports with incompatible semantics in adjacent directories is a
+ *  bare auto-import away from being wrong.
+ *
  *  ⚠️ NOT `p + v` UNCONDITIONALLY. The corpus total is what a reader gets only under „Всички";
  *  under „Във властта" the button promised 137 461 and delivered 63 816. Pure and exported so
  *  the rule is testable without a mounted screen — it is read from two places, and the two must
  *  never name different numbers. */
-export const scopeCount = (
+export const personsScopeCount = (
   sector: "all" | "public" | "private",
   tiers: { p: number; v: number },
 ): number =>

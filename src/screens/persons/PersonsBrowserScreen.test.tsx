@@ -21,7 +21,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import userEvent from "@testing-library/user-event";
 import { PersonsBrowserScreen } from "./PersonsBrowserScreen";
-import { URL_MIRROR_MS, scopeCount } from "./personsBrowseConstants";
+import { URL_MIRROR_MS, personsScopeCount } from "./personsBrowseConstants";
 import { NARROWING_PARAMS } from "@/data/persons/useUrlPersonFilters";
 
 /** Facet buckets keyed the way `/api/db/facets` returns them. */
@@ -434,9 +434,9 @@ describe("the landing's escape hatch", () => {
     // instance, so the number never reaches the DOM in a unit test — and the VALUE, not the
     // template, is what was wrong.
     const tiers = { p: 63_816, v: 73_645 };
-    expect(scopeCount("all", tiers)).toBe(137_461);
-    expect(scopeCount("public", tiers)).toBe(63_816);
-    expect(scopeCount("private", tiers)).toBe(73_645);
+    expect(personsScopeCount("all", tiers)).toBe(137_461);
+    expect(personsScopeCount("public", tiers)).toBe(63_816);
+    expect(personsScopeCount("private", tiers)).toBe(73_645);
   });
 
   it("drops the count entirely rather than promising ZERO", async () => {

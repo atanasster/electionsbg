@@ -87,7 +87,7 @@ import type { PersonBrowseRow } from "@/data/persons/personBrowseTypes";
 import {
   URL_MIRROR_MS,
   EXAMPLE_TERMS,
-  scopeCount,
+  personsScopeCount,
 } from "./personsBrowseConstants";
 
 export const PersonsBrowserScreen: FC = () => {
@@ -609,7 +609,7 @@ export const PersonsBrowserScreen: FC = () => {
   // `fetchFacets` swallows a failed response into `{}` at `staleTime: Infinity` — so without
   // this fallback a cold mount whose table beat the facet, or a single 500 on /api/db/facets,
   // publishes „Лица 137 461 · ОТ ВСИЧКИ 0 ЛИЦА" in the largest type on the page, permanently.
-  const scopeN = scopeCount(sector, tierCounts);
+  const scopeN = personsScopeCount(sector, tierCounts);
   const scopeBasis =
     scopeN > 0
       ? t("persons_basis_scope", {
