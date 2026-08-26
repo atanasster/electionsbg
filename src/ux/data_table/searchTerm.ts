@@ -37,3 +37,34 @@ export const SEARCH_MIN_CHARS = 3;
  *  `termLength` in functions/db_table.js: if the two disagree, one side sends a term the
  *  other refuses. */
 export const termLength = (s: string): number => [...s.normalize("NFC")].length;
+
+/** The CAP — mirrors MAX_SEARCH_TERM in functions/db_table.js, and it is the other half of
+ *  the same rule family as the floor above.
+ *
+ *  ⚠️ CODE UNITS HERE, CHARACTERS AT THE FLOOR, and the asymmetry is deliberate rather than
+ *  an oversight to tidy up. The floor decides whether a term is a QUERY AT ALL, where a
+ *  surrogate pair is one character to pg_trgm and two to `.length`; the cap only has to cut
+ *  a pasted paragraph at the same point the engine does, and the engine cuts with `.slice()`.
+ *  Making them agree would put the client's cut in a different place from the server's.
+ *
+ *  It lives here rather than in each URL hook for the reason the floor does: it had already
+ *  been hand-copied into two of them, so `MAX_SEARCH_TERM` had two client mirrors and no gate
+ *  tying either to the server. `searchTerm.test.ts` now reads the number back out of
+ *  `functions/db_table.js`, so a change on one side fails rather than drifting. */
+export const QUERY_MAX = 200;
+
+/** Read a `?q` URL param. Capped, and DELIBERATELY neither trimmed nor character-validated.
+ *
+ *  ⚠️ NOT TRIMMED. On a search-first page this value IS the controlled field's value, so
+ *  trimming here deletes the space as the reader types it and „Иван Иванов" arrives as
+ *  „ИванИванов". Against a `searchFoldTokens` column that merely loses the token match; against
+ *  a plain `searchFold` one (`companies.name`) the concatenated term matches NOTHING, so the
+ *  page reports „no such company" at a 200 about a company that is in the corpus. DbDataTable
+ *  trims ONCE at the request boundary, which is where the de-duplication this might otherwise
+ *  be for already happens.
+ *
+ *  NOT character-validated because the engine escapes LIKE metacharacters itself (`likeEscape`
+ *  in db_table.js), and a class narrow enough to feel safe rejects real queries —
+ *  „БДЖ-ПЪТНИЧЕСКИ ПРЕВОЗИ", „Окръжен съд - Варна". */
+export const readQueryParam = (v: string | null): string =>
+  (v ?? "").slice(0, QUERY_MAX);

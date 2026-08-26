@@ -40,7 +40,12 @@
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { canonicalObshtina } from "@/lib/obshtinaPlace";
-import { SEARCH_MIN_CHARS, termLength } from "@/ux/data_table/searchTerm";
+import {
+  SEARCH_MIN_CHARS,
+  termLength,
+  QUERY_MAX,
+  readQueryParam,
+} from "@/ux/data_table/searchTerm";
 
 /** Absent-filter sentinel, shared with the select controls (Radix needs a non-empty
  *  value for its "all" item). */
@@ -175,35 +180,24 @@ export const escapeLike = (v: string): string =>
  *  makes the match exact at both boundaries — `' ngo '` can no longer hit `ngo_board`. */
 export const codeSetMatch = (code: string): string => ` ${escapeLike(code)} `;
 
-/** The longest free-text term `?q` will carry — 200 CODE UNITS, applied with the same
- *  `.slice()` idiom the engine uses (`raw.trim().slice(0, MAX_SEARCH_TERM)` in
- *  `functions/db_table.js`), so the two sides agree on where a pasted paragraph is cut.
+/** ⚠️ THE CAP AND THE READER MOVED TO `searchTerm.ts`, beside the floor, and are re-exported
+ *  here so existing importers (and this file's test) keep working.
  *
- *  ⚠️ Code units here, CHARACTERS at the floor (`termLength`). The cap and the floor count
- *  differently on purpose: the floor decides whether a term is a query at all, where a
- *  surrogate pair is one character to pg_trgm and two to `.length`; the cap only has to match
- *  the engine's own truncation point. */
-export const QUERY_MAX = 200;
+ *  They were hand-written here and then hand-copied into `useUrlCompanyFilters`, which made
+ *  `MAX_SEARCH_TERM` in functions/db_table.js a server constant with TWO client mirrors and no
+ *  gate on either — the same shape `searchTerm.ts` was extracted to end for the FLOOR.
+ *  `searchTerm.test.ts` now reads the number back out of the engine source, so the three
+ *  cannot drift. The reasoning („capped, never trimmed, never character-validated", and why
+ *  the cap counts code units while the floor counts characters) lives with the function. */
+export { QUERY_MAX } from "@/ux/data_table/searchTerm";
 
-/** Read `?q`. Capped, and DELIBERATELY neither trimmed nor character-validated.
- *
- *  ⚠️ NOT TRIMMED, and this is the one thing in this file that must not be "tidied up". The
- *  value IS the controlled search field's value (Tier 3 binds `value={query}` — the shape
- *  `DbDataTable`'s controlled arm documents as correct), so trimming here deletes the space
- *  the reader has just typed and „Иван Иванов" becomes untypable: it arrives as „ИванИванов".
- *  Against `person_browse_table` that is not a cosmetic loss — its `name` column is
- *  `searchFoldTokens: true` precisely so a first + family name matches past the patronymic
- *  (docs/plans/person-search-token-match-v1.md), so one concatenated token matches NOTHING and
- *  the page reports „no such person", at a 200, about somebody who is in the corpus.
- *
- *  The de-duplication worry that motivated the trim is already handled one layer down:
- *  `DbDataTable` trims ONCE at the request boundary, and its header says it does so precisely
- *  because a URL-owned term makes stray whitespace likelier.
- *
- *  NOT character-validated because the engine escapes LIKE metacharacters itself (`likeEscape`
- *  in db_table.js), and a class narrow enough to feel safe would reject „Окръжен съд - Варна" —
- *  a term the picker beside it offers verbatim. */
-const readQuery = (v: string | null): string => (v ?? "").slice(0, QUERY_MAX);
+/** The /persons-specific consequence of `readQueryParam` NOT trimming, kept here because it
+ *  is the sharpest example of the rule: `person_browse_table.name` is `searchFoldTokens: true`
+ *  precisely so a first + family name matches past the patronymic
+ *  (docs/plans/person-search-token-match-v1.md), so a term trimmed as it is typed —
+ *  „Иван Иванов" arriving as „ИванИванов" — is one concatenated token that matches NOTHING,
+ *  and the page reports „no such person" at a 200 about somebody who is in the corpus. */
+const readQuery = readQueryParam;
 
 export interface UrlPersonFilters {
   sector: PersonSector;
@@ -344,9 +338,18 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
   const browseAll = params.get("browse") === "1";
   const queryIsSendable = termLength(query.trim()) >= SEARCH_MIN_CHARS;
 
-  // One writer for every param, so "write or delete" is decided in a single place. Reads
-  // the CURRENT params at call time (not from a closure over a render-time copy), so two
-  // filter changes in one tick cannot clobber each other.
+  // One writer for every param, so "write or delete" is decided in a single place, using the
+  // FUNCTIONAL form of setParams so the write merges into the live query string rather than
+  // replacing it from a render-time copy.
+  //
+  // ⚠️ THAT IS NOT "two filter changes in one tick cannot clobber each other", which this
+  // comment claimed until 2026-08-26 and which is FALSE. Measured: react-router hands
+  // `setSearchParams(fn)` the params as of the current RENDER, so two setter calls in one
+  // handler both start from the same base and the second silently drops the first's param.
+  // Every control here sets one filter per interaction, so no path reaches it today — but a
+  // „clear X and set Y" handler must issue ONE setParams rather than two setters.
+  // `useUrlCompanyFilters` carries a `writeMany` for exactly that case, after the /companies
+  // landing's floor button turned out to need `?scope` and `?browse` in a single write.
   const write = useCallback(
     (key: string, value: string | null) => {
       setParams(
