@@ -81,6 +81,21 @@ def complete(system: str, user: str, *, model: str,
     that ignores it will happily return free-form JSON — which is why
     analyze_local.py checks that the FIRST record of a run validated, rather
     than assuming the constraint was applied.
+
+    ⚠️ THINKING IS TURNED OFF, and on a REASONING MODEL that is the
+    difference between working and silently returning nothing. Gemma 4 emits
+    its chain of thought first; llama.cpp routes it to `reasoning_content`
+    and leaves `content` EMPTY until the thinking ends. Measured against
+    `ai/gemma4:12b` through Docker Model Runner: the full rubric prompt spent
+    its whole 2048-token budget reasoning, returned `content: ""` after 508
+    seconds, and surfaced as „Expecting value: line 1 column 1" — a JSON
+    parse error that says nothing about what happened.
+
+    `chat_template_kwargs.enable_thinking` is the knob that works; measured,
+    `reasoning_effort: "none"` and `chat_template_kwargs.thinking` are both
+    ignored. Set NEWS_LLM_THINKING=1 for a model that needs it. A server
+    that does not understand the field ignores it, so this is safe to send
+    to llama.cpp, LM Studio and Ollama alike.
     """
     payload = {
         "model": model,
@@ -94,6 +109,8 @@ def complete(system: str, user: str, *, model: str,
         "temperature": temperature,
         "stream": False,
     }
+    if os.environ.get("NEWS_LLM_THINKING") != "1":
+        payload["chat_template_kwargs"] = {"enable_thinking": False}
     if grammar:
         payload["grammar"] = grammar
     body = json.dumps(payload).encode("utf-8")
@@ -115,8 +132,22 @@ def complete(system: str, user: str, *, model: str,
             choices = doc.get("choices") or []
             if not choices:
                 raise LlmError("empty_response", json.dumps(doc)[:300])
+            msg = choices[0].get("message") or {}
+            # ⚠️ NAMED, never returned as an empty string. A reasoning model
+            # whose thinking was not disabled fills `reasoning_content` and
+            # leaves `content` empty — which every caller then reports as a
+            # JSON parse failure at column 1, sending whoever reads it to
+            # look for a malformed answer that was never produced.
+            if not (msg.get("content") or "").strip() \
+                    and (msg.get("reasoning_content") or "").strip():
+                raise LlmError(
+                    "reasoning_only",
+                    f"the model returned only chain-of-thought "
+                    f"({len(msg['reasoning_content'])} chars) and no answer — "
+                    f"finish_reason={choices[0].get('finish_reason')!r}. "
+                    "Raise --max-tokens, or unset NEWS_LLM_THINKING=1.")
             return {
-                "text": (choices[0].get("message") or {}).get("content") or "",
+                "text": msg.get("content") or "",
                 "model": doc.get("model") or model,
                 "usage": doc.get("usage") or {},
                 "elapsed_s": round(time.monotonic() - started, 2),

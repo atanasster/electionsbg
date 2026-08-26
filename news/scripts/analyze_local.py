@@ -21,6 +21,7 @@ Run:  python3 news/scripts/analyze_local.py --limit 20 --model gemma-4-12b
 
 import argparse
 import json
+import re
 import os
 import subprocess
 import sys
@@ -136,6 +137,27 @@ def build_user_prompt(rec: dict, mentions: list, taxonomy: str) -> str:
     return "\n".join(parts)
 
 
+# ⚠️ A MODEL THAT WAS NOT CONSTRAINED FENCES ITS JSON, and `json.loads` then
+# fails at „line 1 column 1" — an error that describes the fence, not the
+# answer, and sends whoever reads it looking for malformed JSON that is
+# perfectly well formed three characters later. Measured against
+# `ai/gemma4:12b`: every unconstrained reply opened with ```json.
+#
+# ⚠️ THIS IS NOT A SUBSTITUTE FOR THE GRAMMAR AND MUST NOT BE READ AS ONE.
+# A fenced reply means the constraint was dropped, and an unconstrained model
+# also invents its own SCHEMA — the same run produced `status`,
+# `political_bias` and a `leaning.russia` that exist nowhere in the rubric.
+# Stripping the fence turns an unreadable parse error into an honest
+# validation failure; it does not make the record usable.
+FENCE_RE = re.compile(r"^\s*```(?:json)?\s*\n(.*?)\n?\s*```\s*$", re.S)
+
+
+def parse_answer(text: str) -> dict:
+    """The model's JSON, with a code fence removed if it added one."""
+    m = FENCE_RE.match(text or "")
+    return json.loads(m.group(1) if m else text)
+
+
 def record_from(item: dict, article: dict, answer: dict, model: str,
                 taxonomy_version: int, mentions: list) -> dict:
     """Assemble the analysis record the validator expects.
@@ -147,7 +169,7 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
     domain against the corpus anyway, so taking them from the same file it
     will check against is the only version that can be right.
     """
-    parsed = json.loads(answer["text"])
+    parsed = parse_answer(answer["text"])
     rec = {
         "article_path": item["path"],
         "url": article.get("url"),
@@ -168,6 +190,45 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
     return rec
 
 
+# ⚠️ A SERVER CAN ACCEPT `grammar` AND SILENTLY DROP IT, and every downstream
+# symptom then blames something else. Measured against Docker Model Runner
+# serving `ai/gemma4:12b`: one-rule grammars are enforced, the rubric's
+# 6.4 KB grammar is dropped on every request (6 of 6), and the model then
+# invents its OWN schema — `status`, `political_bias`, `party_sentiment`
+# where the rubric asks for `quality`, `leaning`, `party_tones`. With
+# `response_format: json_object` the reply is clean, parseable JSON of
+# entirely the wrong shape, which is the worst of the three states: it looks
+# like a model that cannot follow instructions.
+#
+# The existing canary catches this AFTER the first record — minutes of
+# inference — and can only say „probably". This proves it in about a second,
+# before the window is spent, by asking for the shortest possible answer and
+# checking the ONE thing the grammar guarantees: the root opens with „{".
+GRAMMAR_PROBE_TOKENS = 8
+
+
+def grammar_is_enforced(grammar: str, model: str, url: str | None = None):
+    """(ok, detail). `ok` is False only on PROOF that the grammar was dropped."""
+    try:
+        answer = llm_client.complete("", "x", model=model, grammar=grammar,
+                                     max_tokens=GRAMMAR_PROBE_TOKENS,
+                                     url=url)
+    except llm_client.LlmError as exc:
+        # ⚠️ NOT a verdict. An unreachable server is a different failure and
+        # the run's own error handling should report it, not this.
+        return True, f"probe skipped: {exc}"
+    text = (answer.get("text") or "").strip()
+    if not text:
+        return True, "probe returned nothing — inconclusive, not a verdict"
+    if text.startswith("{"):
+        return True, "enforced"
+    return False, (
+        f"the server accepted the GBNF grammar and ignored it — a probe that "
+        f"can only produce '{{' returned {text[:40]!r}. Every record this run "
+        "produces would be refused by the validator. Try a smaller grammar, "
+        "or a server whose llama.cpp build handles one this size.")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=10)
@@ -185,6 +246,13 @@ def main() -> int:
 
     assets = load_prompt_assets()
     taxonomy_version = json.loads(assets["taxonomy"]).get("version")
+
+    if not args.dry_run:
+        ok, detail = grammar_is_enforced(assets["grammar"], args.model)
+        if not ok:
+            print(json.dumps({"mode": "analyze_local", "model": args.model,
+                              "aborted": detail}, ensure_ascii=False))
+            return 2
 
     if args.redo:
         code, queue = run_analyze("--redo", *args.redo)

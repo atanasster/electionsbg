@@ -429,5 +429,128 @@ class TheRecord(unittest.TestCase):
         self.assertNotIn("mentions", rec)
 
 
+
+class ReasoningModels(unittest.TestCase):
+    """⚠️ Gemma 4 thinks BEFORE it answers, and llama.cpp routes that to
+    `reasoning_content` — leaving `content` EMPTY. Measured: the full rubric
+    prompt spent its whole 2048-token budget reasoning, returned "" after 508
+    seconds, and surfaced as „Expecting value: line 1 column 1" — a JSON
+    error about an answer that was never produced."""
+
+    def respond(self, doc, env=None):
+        import io, urllib.request
+        payload = json.dumps(doc).encode("utf-8")
+        seen = {}
+
+        class Resp(io.BytesIO):
+            def __enter__(self_): return self_
+            def __exit__(self_, *a): return False
+
+        def fake(req, timeout=None):
+            seen["body"] = json.loads(req.data.decode("utf-8"))
+            return Resp(payload)
+
+        old_open, old_env = urllib.request.urlopen, dict(os.environ)
+        urllib.request.urlopen = fake
+        os.environ.update(env or {})
+        try:
+            return llm_client.complete("s", "u", model="m",
+                                       url="http://127.0.0.1:1/v1"), seen
+        finally:
+            urllib.request.urlopen = old_open
+            os.environ.clear(); os.environ.update(old_env)
+
+    def test_thinking_is_disabled_by_default(self):
+        _r, seen = self.respond({"choices": [{"message": {"content": "hi"}}]})
+        self.assertEqual(seen["body"]["chat_template_kwargs"],
+                         {"enable_thinking": False})
+
+    def test_NEWS_LLM_THINKING_1_leaves_it_on(self):
+        # ⚠️ An escape hatch for a model that needs its chain of thought.
+        _r, seen = self.respond({"choices": [{"message": {"content": "hi"}}]},
+                                env={"NEWS_LLM_THINKING": "1"})
+        self.assertNotIn("chat_template_kwargs", seen["body"])
+
+    def test_reasoning_with_no_answer_is_NAMED(self):
+        with self.assertRaises(llm_client.LlmError) as ctx:
+            self.respond({"choices": [{"finish_reason": "length", "message": {
+                "content": "", "reasoning_content": "thinking hard"}}]})
+        self.assertIn("reasoning_only", str(ctx.exception))
+
+    def test_an_ordinary_empty_answer_is_NOT_hijacked(self):
+        # No reasoning_content — that is a different failure and the caller's
+        # own parse error is the honest report of it.
+        r, _ = self.respond({"choices": [{"message": {"content": ""}}]})
+        self.assertEqual(r["text"], "")
+
+
+class FencedJson(unittest.TestCase):
+    """⚠️ An unconstrained model fences its JSON, and `json.loads` then fails
+    at „line 1 column 1" — an error that describes the fence rather than the
+    answer. Stripping it does NOT make the record usable; it makes the
+    failure honest."""
+
+    def test_a_json_fence_is_stripped(self):
+        self.assertEqual(
+            analyze_local.parse_answer('```json\n{"a": 1}\n```'), {"a": 1})
+
+    def test_a_bare_fence_is_stripped(self):
+        self.assertEqual(analyze_local.parse_answer('```\n{"a": 1}\n```'),
+                         {"a": 1})
+
+    def test_unfenced_json_is_untouched(self):
+        self.assertEqual(analyze_local.parse_answer('{"a": 1}'), {"a": 1})
+
+    def test_a_backtick_INSIDE_a_string_is_not_a_fence(self):
+        self.assertEqual(analyze_local.parse_answer('{"a": "``x``"}'),
+                         {"a": "``x``"})
+
+    def test_prose_still_raises_rather_than_being_salvaged(self):
+        with self.assertRaises(json.JSONDecodeError):
+            analyze_local.parse_answer("I am ready. How can I help?")
+
+
+class GrammarProbe(unittest.TestCase):
+    """⚠️ A server can ACCEPT `grammar` and silently drop it. Measured
+    against Docker Model Runner + `ai/gemma4:12b`: one-rule grammars are
+    enforced, the rubric's 6.4 KB grammar is dropped on every request, and
+    the model then invents its own schema. The existing canary catches that
+    after the first record — minutes; this proves it in about a second."""
+
+    def probe(self, text=None, raise_exc=None):
+        def fake(system, user, *, model, grammar=None, max_tokens=None,
+                 url=None, **kw):
+            if raise_exc:
+                raise raise_exc
+            return {"text": text}
+        old = llm_client.complete
+        llm_client.complete = fake
+        try:
+            return analyze_local.grammar_is_enforced("root ::= \"{\"", "m")
+        finally:
+            llm_client.complete = old
+
+    def test_a_dropped_grammar_is_PROVEN_not_guessed(self):
+        ok, detail = self.probe("It looks like you've sent a")
+        self.assertFalse(ok)
+        self.assertIn("ignored it", detail)
+
+    def test_an_enforced_grammar_passes(self):
+        ok, _ = self.probe('{"quality"')
+        self.assertTrue(ok)
+
+    def test_an_UNREACHABLE_server_is_not_a_verdict(self):
+        # ⚠️ A different failure. The run's own error handling reports it;
+        # calling it a grammar defect would send the operator to the wrong
+        # place entirely.
+        ok, detail = self.probe(raise_exc=llm_client.LlmError("unreachable", "x"))
+        self.assertTrue(ok)
+        self.assertIn("skipped", detail)
+
+    def test_an_EMPTY_probe_is_inconclusive_not_a_verdict(self):
+        ok, detail = self.probe("")
+        self.assertTrue(ok)
+        self.assertIn("inconclusive", detail)
+
 if __name__ == "__main__":
     unittest.main()
