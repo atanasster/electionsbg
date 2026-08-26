@@ -72,6 +72,7 @@ import { personsKpis, personsKpiCellCount } from "./personsKpiBasis";
 import { PersonsSearchField } from "./PersonsSearchField";
 import { PersonNetWorthCell, PersonMoneyCell } from "./PersonMoneyCells";
 import { oblastName } from "@/lib/regionalOblast";
+import { positionLabel } from "@/screens/components/procurement/personSearchGroups";
 import {
   fetchPersonsCsv,
   downloadCsv,
@@ -942,6 +943,32 @@ export const PersonsBrowserScreen: FC = () => {
 
   const locale = isBg ? "bg-BG" : "en-GB";
 
+  // ⚠️ ONE MAP, READ BY BOTH THE PICKERS AND THE CHIPS. Typed twice, they agree only because
+  // both were typed correctly — and a divergence produces precisely the defect
+  // `PersonsActiveFilters`'s header calls worse than no chip: a chip naming a dimension the
+  // control beside it names differently, which reads as a second, unexplained filter.
+  //
+  // A `filterSelects.find(s => s.key === …)` lookup would NOT do: the Група spec is
+  // conditionally absent (when there is only one group to pick), while its chip must still
+  // render for a `?facet=` deep link. Two of these have no picker at all.
+  const dimensionLabels = useMemo(
+    () => ({
+      facet: t("persons_filter_group_label", { defaultValue: "Група" }),
+      role: t("persons_filter_role_label", { defaultValue: "Роля" }),
+      party: t("persons_filter_party_label", { defaultValue: "Партия" }),
+      oblast: t("persons_filter_oblast_label", { defaultValue: "Област" }),
+      court: t("persons_filter_institution_label", {
+        defaultValue: "Институция",
+      }),
+      obshtina: t("persons_filter_obshtina_label", { defaultValue: "Община" }),
+      position: t("persons_filter_position_label", {
+        defaultValue: "Тип длъжност",
+      }),
+      pfacet: t("persons_mix_title", { defaultValue: "Основна принадлежност" }),
+    }),
+    [t],
+  );
+
   // The five pickers, as data. Each EXCLUDES its own dimension from the facet that feeds it
   // (see the specs above), so a control never collapses to the one option already chosen.
   const filterSelects = useMemo<PersonsFilterSpec[]>(() => {
@@ -954,7 +981,7 @@ export const PersonsBrowserScreen: FC = () => {
     if (groupOptions.length > 1)
       out.push({
         key: "facet",
-        label: t("persons_filter_group_label", { defaultValue: "Група" }),
+        label: dimensionLabels.facet,
         allLabel: t("persons_filter_all_facets", {
           defaultValue: "Всички групи",
         }),
@@ -966,7 +993,7 @@ export const PersonsBrowserScreen: FC = () => {
     out.push(
       {
         key: "role",
-        label: t("persons_filter_role_label", { defaultValue: "Роля" }),
+        label: dimensionLabels.role,
         allLabel: t("persons_filter_all_roles", {
           defaultValue: "Всички роли",
         }),
@@ -976,7 +1003,7 @@ export const PersonsBrowserScreen: FC = () => {
       },
       {
         key: "party",
-        label: t("persons_filter_party_label", { defaultValue: "Партия" }),
+        label: dimensionLabels.party,
         allLabel: t("persons_filter_all_parties", {
           defaultValue: "Всички партии",
         }),
@@ -986,7 +1013,7 @@ export const PersonsBrowserScreen: FC = () => {
       },
       {
         key: "oblast",
-        label: t("persons_filter_oblast_label", { defaultValue: "Област" }),
+        label: dimensionLabels.oblast,
         allLabel: t("persons_filter_all_oblasts", {
           defaultValue: "Цялата страна",
         }),
@@ -996,9 +1023,7 @@ export const PersonsBrowserScreen: FC = () => {
       },
       {
         key: "court",
-        label: t("persons_filter_institution_label", {
-          defaultValue: "Институция",
-        }),
+        label: dimensionLabels.court,
         allLabel: t("persons_filter_all_institutions", {
           defaultValue: "Всички институции",
         }),
@@ -1012,6 +1037,7 @@ export const PersonsBrowserScreen: FC = () => {
   }, [
     t,
     locale,
+    dimensionLabels,
     groupOptions,
     facet,
     setFacet,
@@ -1082,44 +1108,42 @@ export const PersonsBrowserScreen: FC = () => {
     if (facet !== PERSON_FILTER_ALL)
       out.push({
         id: `facet:${facet}`,
-        dimension: t("persons_filter_group_label", { defaultValue: "Група" }),
+        dimension: dimensionLabels.facet,
         label: labelOf(groupOptions, facet),
         onRemove: () => setFacet(PERSON_FILTER_ALL),
       });
     if (primaryFacet !== PERSON_FILTER_ALL)
       out.push({
         id: `pfacet:${primaryFacet}`,
-        dimension: t("persons_mix_title", {
-          defaultValue: "Основна принадлежност",
-        }),
+        dimension: dimensionLabels.pfacet,
         label: facetLabel(primaryFacet) || primaryFacet,
         onRemove: () => setPrimaryFacet(null),
       });
     if (role !== PERSON_FILTER_ALL)
       out.push({
         id: `role:${role}`,
-        dimension: t("persons_filter_role_label", { defaultValue: "Роля" }),
+        dimension: dimensionLabels.role,
         label: rolePluralLabel(role) || roleLabel(role) || role,
         onRemove: () => setRole(PERSON_FILTER_ALL),
       });
     if (party !== PERSON_FILTER_ALL)
       out.push({
         id: `party:${party}`,
-        dimension: t("persons_filter_party_label", { defaultValue: "Партия" }),
+        dimension: dimensionLabels.party,
         label: displayNameForId(party) || party,
         onRemove: () => setParty(PERSON_FILTER_ALL),
       });
     if (oblast !== PERSON_FILTER_ALL)
       out.push({
         id: `oblast:${oblast}`,
-        dimension: t("persons_filter_oblast_label", { defaultValue: "Област" }),
+        dimension: dimensionLabels.oblast,
         label: oblastName(oblast, isBg) || oblast,
         onRemove: () => setOblast(PERSON_FILTER_ALL),
       });
     if (obshtina !== PERSON_FILTER_ALL)
       out.push({
         id: `obshtina:${obshtina}`,
-        dimension: t("persons_kpi_obshtini", { defaultValue: "Община" }),
+        dimension: dimensionLabels.obshtina,
         // NO code→name dictionary in the client for obshtina (unlike oblast), so the chip
         // shows the code. That is still strictly better than the previous state, in which the
         // filter was applied and named nowhere at all.
@@ -1129,19 +1153,21 @@ export const PersonsBrowserScreen: FC = () => {
     if (court !== PERSON_FILTER_ALL)
       out.push({
         id: `court:${court}`,
-        dimension: t("persons_filter_institution_label", {
-          defaultValue: "Институция",
-        }),
+        dimension: dimensionLabels.court,
         label: court,
         onRemove: () => setCourt(PERSON_FILTER_ALL),
       });
     if (position !== PERSON_FILTER_ALL)
       out.push({
         id: `position:${position}`,
-        dimension: t("persons_filter_position_label", {
-          defaultValue: "Тип длъжност",
-        }),
-        label: facetLabel(position) || position,
+        dimension: dimensionLabels.position,
+        // ⚠️ `positionLabel`, NOT `facetLabel`. They look interchangeable and are not:
+        // `?position` filters `position_type`, whose vocabulary is `person_source.facet` —
+        // and its MODAL value, `private_sector` (73,645 rows, 53.6% of the layer), has no
+        // `pp_facet_*` key at all. `facetLabel` would fall through to the raw code, putting
+        // English snake_case in a Bulgarian chip: exactly the "a chip must never name a value
+        // differently from the control beside it" rule this component's header states.
+        label: positionLabel(position, isBg) || position,
         onRemove: () => setPosition(PERSON_FILTER_ALL),
       });
     for (const tg of filterToggles)
@@ -1153,8 +1179,8 @@ export const PersonsBrowserScreen: FC = () => {
         });
     return out;
   }, [
-    t,
     isBg,
+    dimensionLabels,
     facet,
     groupOptions,
     setFacet,
@@ -1287,7 +1313,10 @@ export const PersonsBrowserScreen: FC = () => {
         }
       />
 
-      <section aria-label="persons" className="my-4">
+      {/* Named for a READER, not for a developer: `aria-label="persons"` announced
+          „persons, region" in a Bulgarian page, and this section now nests a second named
+          landmark (the filter bar) inside it. */}
+      <section aria-label={pageTitle} className="my-4">
         <PersonsAnalysisStrip
           facetMix={facetMix}
           selectedFacet={
@@ -1308,7 +1337,14 @@ export const PersonsBrowserScreen: FC = () => {
           }
         />
 
-        <PersonsFilterBar selects={filterSelects} toggles={filterToggles}>
+        <PersonsFilterBar selects={filterSelects} toggles={filterToggles} />
+
+        {/* ⚠️ THE EXPORT BELONGS TO THE RESULTS, NOT TO THE FILTERS, and this is the row that
+            travels with them. Put in the filter bar it would survive into the Tier-5 landing —
+            the bar is deliberately built to outlive the table — and offer „Свали CSV" for a
+            137,461-row download beside no rows at all. Its request comes from the table's own
+            `onData`, so on the landing there would be nothing to re-issue either. */}
+        <PersonsActiveFilters chips={chips} onClearAll={onClearAll}>
           <button
             type="button"
             onClick={onExport}
@@ -1322,9 +1358,7 @@ export const PersonsBrowserScreen: FC = () => {
               {exportNote}
             </span>
           ) : null}
-        </PersonsFilterBar>
-
-        <PersonsActiveFilters chips={chips} onClearAll={onClearAll} />
+        </PersonsActiveFilters>
 
         <DbDataTable<PersonBrowseRow>
           resource="persons"

@@ -1,12 +1,19 @@
 // The active-filter chips on /persons — one removable chip per applied narrowing.
 //
-// WHY THIS EXISTS AND WHY IT IS NOT COSMETIC. Every cross-link into this page is a FILTER, not
-// a query: `?role=mp` from /parliament, `?court=` from /court/:code, `?obshtina=` from
-// /governance/:id, `?q=…&decl=1` from the declarations search. A reader arriving through one of
-// them saw a narrowed table and, to find out why, had to open five dropdowns and read their
-// selected values — and TWO of the narrowings have no dropdown at all (`?position` and
-// `?obshtina` are cross-link targets only). Those two were literally unfindable: a table
-// filtered to one municipality, with nothing on the page naming it and no control to widen it.
+// WHY THIS EXISTS AND WHY IT IS NOT COSMETIC. Most arrivals at this page are a FILTER rather
+// than a query — `?role=mp` from /parliament, `?court=` from /court/:code, `?role=…` from
+// /culture, `?q=…&decl=1` from the declarations search. A reader arriving through one saw a
+// narrowed table and, to find out why, had to open five dropdowns and read their selected
+// values.
+//
+// ⚠️ AND TWO NARROWINGS HAVE NO DROPDOWN AT ALL. `?position` and `?obshtina` are validated and
+// applied by the hook and have no control of any kind — the screen's own note calls them
+// "deep-link / cross-link target only … the setter exists for a future control". Nothing in
+// the app produces either today (grep: zero `/persons` hrefs carrying them), so they arrive by
+// hand-built link, by an AI tool, or from a governance tile not yet wired. However they arrive,
+// the result before these chips was a table filtered to one municipality with nothing on the
+// page naming it and no way to widen it. Those two are why this component exists; the other
+// nine are why it is legible.
 //
 // ⚠️ THE LABELS COME FROM THE SAME RESOLVERS THE PICKERS USE. A chip that named a code the
 // picker beside it renders differently — „p_16" here, „Народен представител" there — is worse
@@ -15,7 +22,7 @@
 // vocabulary; a value with no label falls back to the raw code rather than to nothing, so a
 // deep link with an unfamiliar value still shows the reader what is applied.
 
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useId } from "react";
 import { useTranslation } from "react-i18next";
 import { X } from "lucide-react";
 
@@ -36,11 +43,20 @@ export const PersonsActiveFilters: FC<{
   children?: ReactNode;
 }> = ({ chips, onClearAll, children }) => {
   const { t } = useTranslation();
+  const uid = useId();
+  const labelId = `persons-active-filters-${uid}`;
   if (chips.length === 0 && !children) return null;
   return (
-    <div className="mb-3 flex flex-wrap items-center gap-2">
+    // A LABELLED GROUP, not a bare row: „Показани са само:" is otherwise loose text with no
+    // relationship to the chips it introduces, so a reader who tabs straight to a chip hears
+    // its own label (which is good) and never the framing.
+    <div
+      role="group"
+      aria-labelledby={chips.length > 0 ? labelId : undefined}
+      className="mb-3 flex flex-wrap items-center gap-2"
+    >
       {chips.length > 0 ? (
-        <span className="text-xs text-muted-foreground">
+        <span id={labelId} className="text-xs text-muted-foreground">
           {t("persons_active_filters", { defaultValue: "Показани са само:" })}
         </span>
       ) : null}
@@ -59,7 +75,7 @@ export const PersonsActiveFilters: FC<{
           // different sources: the verb is translated copy, the value is corpus text already
           // resolved through the picker's own label helpers.
           aria-label={`${t("persons_remove_filter", {
-            defaultValue: "Премахни филтъра",
+            defaultValue: "Премахни филтър",
           })} ${c.dimension ? `${c.dimension}: ` : ""}${c.label}`}
           className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-card py-1 pl-2.5 pr-1.5 text-xs transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >

@@ -36,9 +36,21 @@ export const PersonFilterSelect: FC<{
   /** Accessible name — the trigger otherwise announces only its current value, so a
    *  screen-reader user hears "Кмет" with no indication of which dimension it filters. */
   label?: string;
+  /** Id of a VISIBLE label element. Preferred over `label` when present: it associates the
+   *  control with text the reader can already see, so the dimension is not announced twice
+   *  (once as loose text, once as the control's name) and the two cannot drift apart. */
+  labelledBy?: string;
   /** Locale for the count separators. */
   locale?: string;
-}> = ({ value, onChange, options, allLabel, label, locale = "bg-BG" }) => {
+}> = ({
+  value,
+  onChange,
+  options,
+  allLabel,
+  label,
+  labelledBy,
+  locale = "bg-BG",
+}) => {
   const items =
     value !== PERSON_FILTER_ALL && !options.some((o) => o.value === value)
       ? [{ value, label: value }, ...options]
@@ -48,7 +60,9 @@ export const PersonFilterSelect: FC<{
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger
         className="h-9 w-auto max-w-[220px]"
-        aria-label={label ?? allLabel}
+        {...(labelledBy
+          ? { "aria-labelledby": labelledBy }
+          : { "aria-label": label ?? allLabel })}
       >
         <SelectValue />
       </SelectTrigger>

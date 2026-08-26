@@ -1,10 +1,11 @@
 // The /persons active-filter chips.
 //
-// WHAT THIS PINS. Two of the narrowings this page accepts have NO picker — `?position` and
-// `?obshtina` are cross-link targets only — so before these chips a reader arriving from
-// /governance/:id saw a table filtered to one municipality with nothing naming the filter and
-// no control able to widen it. The chips are the only surface where those two exist, which
-// makes "every applied narrowing gets one" a contract rather than a nicety.
+// WHAT THIS PINS. Two of the narrowings this page accepts have NO picker: `?position` and
+// `?obshtina` are validated and applied by the hook and have no control of any kind. Nothing
+// in the app produces either today, so they arrive by hand-built link or by an AI tool — and
+// before these chips the result was a table filtered to one municipality with nothing naming
+// the filter and no way to widen it. The chips are the only surface where those two exist,
+// which makes "every applied narrowing gets one" a contract rather than a nicety.
 
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -93,14 +94,19 @@ describe("PersonsActiveFilters", () => {
 
   it("a toggle chip carries no dimension prefix", () => {
     // „само с декларация" is already a whole sentence; „Филтър: само с декларация" is worse.
+    //
+    // ⚠️ ASSERTED ON THE CHIP ITSELF. An earlier version checked the page for a „:" — which
+    // the „Показани са само:" lead-in supplies, so it passed whether or not the chip had a
+    // prefix, i.e. it could not fail on the behaviour it names.
     render(
       <PersonsActiveFilters
         chips={[chip("decl", "само с декларация")]}
         onClearAll={() => {}}
       />,
     );
-    expect(screen.getByText("само с декларация")).toBeInTheDocument();
-    expect(screen.queryByText(/:/)).not.toBeNull(); // the „Показани са само:" lead-in
+    const btn = screen.getByRole("button", { name: /само с декларация/ });
+    expect(btn.textContent).toBe("само с декларация");
+    expect(btn.getAttribute("aria-label")).not.toContain(":");
   });
 
   it("clear-all is offered once there is something to clear", async () => {

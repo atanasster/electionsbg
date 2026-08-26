@@ -294,6 +294,73 @@ describe("the term ⇄ ?q seam", () => {
   });
 });
 
+// ---- the chips ------------------------------------------------------------------
+//
+// WHAT THIS PINS. `PersonsActiveFilters` exists because two narrowings — `?position` and
+// `?obshtina` — have NO control of any kind, so a table filtered by one of them named the
+// filter nowhere and offered no way out. A dimension that stops producing a chip is that
+// defect returning, and it is invisible: the table narrows correctly, nothing errors, and the
+// only symptom is a page that will not say why it is short.
+//
+// The list is derived from the hook's own contract (`hasNarrowingFilters`), so a dimension
+// added there without a chip fails here rather than shipping silent.
+
+describe("every narrowing gets a chip", () => {
+  beforeEach(() => stubFetch());
+
+  const NARROWINGS: [string, string][] = [
+    ["?facet=mp", "a group"],
+    ["?pfacet=politician", "a primary facet"],
+    ["?role=mp", "a role"],
+    ["?party=gerb", "a party"],
+    ["?oblast=VAR", "an oblast"],
+    ["?obshtina=BGS04", "a municipality (NO picker)"],
+    ["?position=private_sector", "a position type (NO picker)"],
+    [`?court=${encodeURIComponent("Окръжен съд - Варна")}`, "an institution"],
+    ["?decl=1", "declaration-only"],
+    ["?held=1", "held-office-only"],
+    ["?switch=1", "party switchers"],
+  ];
+
+  for (const [search, what] of NARROWINGS)
+    it(`${what}`, async () => {
+      const { container } = renderAt(search);
+      await waitFor(() => expect(fetch).toHaveBeenCalled());
+      const group = await waitFor(() => {
+        const g = container.querySelector('[role="group"]');
+        expect(g, `${search} rendered no chip row`).not.toBeNull();
+        return g!;
+      });
+      // One chip, plus the „Изчисти филтрите" link and the export button.
+      const chips = [...group.querySelectorAll("button[aria-label]")];
+      expect(chips.length, `${search}`).toBe(1);
+      expect(chips[0].textContent?.trim().length).toBeGreaterThan(0);
+    });
+
+  it("renders no chip row when nothing is narrowed", () => {
+    const { container } = renderAt("");
+    expect(
+      container.querySelector('[role="group"][aria-labelledby]'),
+    ).toBeNull();
+  });
+
+  it("a position chip is READABLE — never a raw English code", async () => {
+    // `?position` filters `position_type`, whose modal value is `private_sector` — 73,645 rows,
+    // 53.6% of the layer. The facet resolver has no key for it, so labelling the chip through
+    // that one put English snake_case in a Bulgarian chip: the very rule the component's header
+    // states it exists to keep.
+    const { container } = renderAt("?position=private_sector");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    const chip = await waitFor(() => {
+      const c = container.querySelector('[role="group"] button[aria-label]');
+      expect(c).not.toBeNull();
+      return c!;
+    });
+    expect(chip.textContent).toContain("Частен сектор");
+    expect(chip.textContent).not.toContain("private_sector");
+  });
+});
+
 describe("the head renders exactly one h1, and it matches the prerendered shell", () => {
   beforeEach(() => stubFetch());
 

@@ -196,11 +196,13 @@ export interface UrlPersonFilters {
    *  the page's primary control, an „Изчисти всички" that leaves a term sitting in it (and the
    *  table still filtered by it) is the more surprising of the two behaviours.
    *
-   *  ⚠️ It DOES clear `?browse`, which the `hasActiveFilters` note above argues against
-   *  surfacing — the two are not in conflict. The distinction is that the button must never
-   *  appear FOR a view mode (nothing has been narrowed, so there is nothing to clear), while
-   *  „clear everything", once it is on screen for some real filter, legitimately returns the
-   *  reader all the way to the landing. */
+   *  ⚠️ It DOES clear `?browse` and `?sector`, neither of which is a narrowing — and the
+   *  „Изчисти филтрите" button is offered only for narrowings. The two are not in conflict:
+   *  the button must never APPEAR for a view mode or a scope (nothing has been narrowed, so
+   *  there is nothing to clear), while „clear everything", once it is on screen for some real
+   *  filter, means everything. A reader who has narrowed to „Магистрати, Варна, само с
+   *  декларация" under „Частен сектор" and clicks a button labelled „изчисти" is asking to
+   *  start over, not to keep one of the five things they set. */
   clearFilters: () => void;
 }
 

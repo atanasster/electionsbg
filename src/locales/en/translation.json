@@ -4904,20 +4904,16 @@
   "nsh_metric2_groups_one": "{{count}} parliamentary group",
   "nsh_metric2_groups_other": "{{count}} parliamentary groups",
   "nsh_metric2_least": "least unified: {{group}} {{value}}",
-  "decl_hub_intro": "What people in power declare — assets, cars, companies and interests, from the Court of Audit register.",
   "decl_band_who": "Who is in the register",
   "decl_band_who_desc": "The people required to declare — and the rankings by declared wealth.",
   "decl_band_business": "The business behind them",
   "decl_band_business_desc": "The companies they hold, and the shared ownership that links them to each other.",
   "decl_kpi_people": "public figures",
-  "decl_kpi_people_secondary": "{{n}} have filed",
   "decl_kpi_officials": "senior officials",
   "decl_kpi_mps": "MPs",
-  "decl_kpi_assets_secondary": "{{n}} across all parliaments",
   "decl_kpi_cars": "cars",
   "decl_kpi_cars_secondary": "held by {{n}} MPs",
   "decl_kpi_companies": "organisations",
-  "decl_kpi_companies_secondary": "linked to {{n}} public figures",
   "interreg_title": "Interreg — cross-border cooperation",
   "interreg_intro": "These projects are not in ИСУН and never were: Interreg runs on a different system (Jems). That is why they sit apart here — and why the euros-per-resident ranking understated border municipalities.",
   "interreg_stat_budget": "Bulgarian share",
@@ -5307,5 +5303,6 @@
   "decl_tile_persons_demoted": "have filed a declaration",
   "decl_tile_companies_demoted": "public figures",
   "decl_tile_assets_demoted": "MPs across all parliaments",
-  "decl_kpi_note_scope": "The scope moves only the MP figure — the register is sliced by parliament and only the MP tables carry that dimension. The rest count the whole register at every scope."
+  "decl_kpi_note_scope": "The scope moves only the MP figure — the register is sliced by parliament and only the MP tables carry that dimension. The rest count the whole register at every scope.",
+  "persons_filter_obshtina_label": "Municipality"
 }
