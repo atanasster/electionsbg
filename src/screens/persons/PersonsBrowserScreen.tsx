@@ -50,7 +50,16 @@ import {
   GROUP_COLUMNS,
   groupByKey,
 } from "@/data/persons/personGroups";
-import { PersonFilterSelect } from "./PersonFilterSelect";
+import { type PersonFilterOption } from "./PersonFilterSelect";
+import {
+  PersonsFilterBar,
+  type PersonsFilterSpec,
+  type PersonsToggleSpec,
+} from "./PersonsFilterBar";
+import {
+  PersonsActiveFilters,
+  type ActiveFilterChip,
+} from "./PersonsActiveFilters";
 import {
   Select,
   SelectContent,
@@ -83,7 +92,7 @@ export const PersonsBrowserScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language?.startsWith("bg") ?? true;
   const { colorFor, displayNameForId } = useCanonicalParties();
-  const { roleLabel, rolePluralLabel } = usePersonLabels();
+  const { roleLabel, rolePluralLabel, facetLabel } = usePersonLabels();
   // The live query string, for the evidence hrefs. NOT `useSearchParams` — `?q` has exactly
   // one reader in this screen (the hook), and a second one would disagree with it past
   // QUERY_MAX.
@@ -116,7 +125,9 @@ export const PersonsBrowserScreen: FC = () => {
     // It is validated, filtered and cleared like the rest.
     setDeclaredOnly,
     setHeldOfficeOnly,
-    hasActiveFilters,
+    setSwitchersOnly,
+    setObshtina,
+    setPosition,
     hasNarrowingFilters,
     clearFilters,
   } = useUrlPersonFilters();
@@ -929,6 +940,245 @@ export const PersonsBrowserScreen: FC = () => {
   });
   const pageTitle = roleName || headTitle;
 
+  const locale = isBg ? "bg-BG" : "en-GB";
+
+  // The five pickers, as data. Each EXCLUDES its own dimension from the facet that feeds it
+  // (see the specs above), so a control never collapses to the one option already chosen.
+  const filterSelects = useMemo<PersonsFilterSpec[]>(() => {
+    const out: PersonsFilterSpec[] = [];
+    // At most one group means picking it can never narrow the set — „Бизнес" and „Всички
+    // групи" return the identical row count — so the control only renders once there is a
+    // REAL choice to make. (Under the default `all` scope there are seven, so this is now the
+    // rare case rather than the usual one; it still fires under ?sector=private, where every
+    // tier='V' row is is_company by construction.)
+    if (groupOptions.length > 1)
+      out.push({
+        key: "facet",
+        label: t("persons_filter_group_label", { defaultValue: "Група" }),
+        allLabel: t("persons_filter_all_facets", {
+          defaultValue: "Всички групи",
+        }),
+        value: facet,
+        options: groupOptions,
+        onChange: setFacet,
+        locale,
+      });
+    out.push(
+      {
+        key: "role",
+        label: t("persons_filter_role_label", { defaultValue: "Роля" }),
+        allLabel: t("persons_filter_all_roles", {
+          defaultValue: "Всички роли",
+        }),
+        value: role,
+        options: roleOptions,
+        onChange: setRole,
+      },
+      {
+        key: "party",
+        label: t("persons_filter_party_label", { defaultValue: "Партия" }),
+        allLabel: t("persons_filter_all_parties", {
+          defaultValue: "Всички партии",
+        }),
+        value: party,
+        options: partyOptions,
+        onChange: setParty,
+      },
+      {
+        key: "oblast",
+        label: t("persons_filter_oblast_label", { defaultValue: "Област" }),
+        allLabel: t("persons_filter_all_oblasts", {
+          defaultValue: "Цялата страна",
+        }),
+        value: oblast,
+        options: oblastOptions,
+        onChange: setOblast,
+      },
+      {
+        key: "court",
+        label: t("persons_filter_institution_label", {
+          defaultValue: "Институция",
+        }),
+        allLabel: t("persons_filter_all_institutions", {
+          defaultValue: "Всички институции",
+        }),
+        value: court,
+        options: courtOptions,
+        onChange: setCourt,
+        locale,
+      },
+    );
+    return out;
+  }, [
+    t,
+    locale,
+    groupOptions,
+    facet,
+    setFacet,
+    role,
+    roleOptions,
+    setRole,
+    party,
+    partyOptions,
+    setParty,
+    oblast,
+    oblastOptions,
+    setOblast,
+    court,
+    courtOptions,
+    setCourt,
+  ]);
+
+  const filterToggles = useMemo<PersonsToggleSpec[]>(
+    () => [
+      {
+        key: "held",
+        label: t("persons_filter_held_office", {
+          defaultValue: "само заемали длъжност",
+        }),
+        checked: heldOfficeOnly,
+        onChange: setHeldOfficeOnly,
+      },
+      {
+        key: "decl",
+        label: t("persons_filter_declared", {
+          defaultValue: "само с декларация",
+        }),
+        checked: declaredOnly,
+        onChange: setDeclaredOnly,
+      },
+      {
+        key: "switch",
+        label: t("persons_filter_switchers", {
+          defaultValue: "само сменили партия",
+        }),
+        checked: switchersOnly,
+        onChange: setSwitchersOnly,
+      },
+    ],
+    [
+      t,
+      heldOfficeOnly,
+      setHeldOfficeOnly,
+      declaredOnly,
+      setDeclaredOnly,
+      switchersOnly,
+      setSwitchersOnly,
+    ],
+  );
+
+  // ⚠️ EVERY NARROWING GETS A CHIP, INCLUDING THE TWO WITH NO PICKER. `?position` and
+  // `?obshtina` are cross-link targets (from /governance/:id and from a role deep link), so
+  // before this a reader arriving through one saw a narrowed table with nothing on the page
+  // naming the narrowing and no control able to widen it. Those two are the reason this
+  // component exists; the other seven are the reason it is legible.
+  //
+  // The labels are resolved through the SAME helpers the pickers use, so a chip can never name
+  // a code the control beside it renders differently.
+  const chips = useMemo<ActiveFilterChip[]>(() => {
+    const out: ActiveFilterChip[] = [];
+    const labelOf = (opts: PersonFilterOption[], v: string) =>
+      opts.find((o) => o.value === v)?.label ?? v;
+    if (facet !== PERSON_FILTER_ALL)
+      out.push({
+        id: `facet:${facet}`,
+        dimension: t("persons_filter_group_label", { defaultValue: "Група" }),
+        label: labelOf(groupOptions, facet),
+        onRemove: () => setFacet(PERSON_FILTER_ALL),
+      });
+    if (primaryFacet !== PERSON_FILTER_ALL)
+      out.push({
+        id: `pfacet:${primaryFacet}`,
+        dimension: t("persons_mix_title", {
+          defaultValue: "Основна принадлежност",
+        }),
+        label: facetLabel(primaryFacet) || primaryFacet,
+        onRemove: () => setPrimaryFacet(null),
+      });
+    if (role !== PERSON_FILTER_ALL)
+      out.push({
+        id: `role:${role}`,
+        dimension: t("persons_filter_role_label", { defaultValue: "Роля" }),
+        label: rolePluralLabel(role) || roleLabel(role) || role,
+        onRemove: () => setRole(PERSON_FILTER_ALL),
+      });
+    if (party !== PERSON_FILTER_ALL)
+      out.push({
+        id: `party:${party}`,
+        dimension: t("persons_filter_party_label", { defaultValue: "Партия" }),
+        label: displayNameForId(party) || party,
+        onRemove: () => setParty(PERSON_FILTER_ALL),
+      });
+    if (oblast !== PERSON_FILTER_ALL)
+      out.push({
+        id: `oblast:${oblast}`,
+        dimension: t("persons_filter_oblast_label", { defaultValue: "Област" }),
+        label: oblastName(oblast, isBg) || oblast,
+        onRemove: () => setOblast(PERSON_FILTER_ALL),
+      });
+    if (obshtina !== PERSON_FILTER_ALL)
+      out.push({
+        id: `obshtina:${obshtina}`,
+        dimension: t("persons_kpi_obshtini", { defaultValue: "Община" }),
+        // NO code→name dictionary in the client for obshtina (unlike oblast), so the chip
+        // shows the code. That is still strictly better than the previous state, in which the
+        // filter was applied and named nowhere at all.
+        label: obshtina,
+        onRemove: () => setObshtina(PERSON_FILTER_ALL),
+      });
+    if (court !== PERSON_FILTER_ALL)
+      out.push({
+        id: `court:${court}`,
+        dimension: t("persons_filter_institution_label", {
+          defaultValue: "Институция",
+        }),
+        label: court,
+        onRemove: () => setCourt(PERSON_FILTER_ALL),
+      });
+    if (position !== PERSON_FILTER_ALL)
+      out.push({
+        id: `position:${position}`,
+        dimension: t("persons_filter_position_label", {
+          defaultValue: "Тип длъжност",
+        }),
+        label: facetLabel(position) || position,
+        onRemove: () => setPosition(PERSON_FILTER_ALL),
+      });
+    for (const tg of filterToggles)
+      if (tg.checked)
+        out.push({
+          id: `toggle:${tg.key}`,
+          label: tg.label,
+          onRemove: () => tg.onChange(false),
+        });
+    return out;
+  }, [
+    t,
+    isBg,
+    facet,
+    groupOptions,
+    setFacet,
+    primaryFacet,
+    setPrimaryFacet,
+    facetLabel,
+    role,
+    roleLabel,
+    rolePluralLabel,
+    setRole,
+    party,
+    displayNameForId,
+    setParty,
+    oblast,
+    setOblast,
+    obshtina,
+    setObshtina,
+    court,
+    setCourt,
+    position,
+    setPosition,
+    filterToggles,
+  ]);
+
   return (
     <>
       {/* ABOVE the head, per the head's own order. */}
@@ -1058,6 +1308,24 @@ export const PersonsBrowserScreen: FC = () => {
           }
         />
 
+        <PersonsFilterBar selects={filterSelects} toggles={filterToggles}>
+          <button
+            type="button"
+            onClick={onExport}
+            disabled={exporting}
+            className="text-xs text-primary underline underline-offset-2 hover:no-underline disabled:opacity-50"
+          >
+            {t("persons_export_csv", { defaultValue: "Свали CSV" })}
+          </button>
+          {exportNote ? (
+            <span role="status" className="text-xs text-muted-foreground">
+              {exportNote}
+            </span>
+          ) : null}
+        </PersonsFilterBar>
+
+        <PersonsActiveFilters chips={chips} onClearAll={onClearAll} />
+
         <DbDataTable<PersonBrowseRow>
           resource="persons"
           onData={handleData}
@@ -1083,120 +1351,6 @@ export const PersonsBrowserScreen: FC = () => {
               {t("persons_rows_word", { defaultValue: "лица" })}
             </span>
           )}
-          toolbar={
-            <>
-              {/* The scope control lives in the HEAD, beside the figures it governs — it was
-                  here, which on a phone is ~400 px below the first number it qualifies. */}
-              {/* At most one group (today, only under sector=private — every tier='V' row
-                  is is_company=true by construction, per personGroups.ts's header) means
-                  picking it can never narrow the set: "Бизнес" and "Всички групи" return the
-                  identical row count. Offering that choice reads as though it does something
-                  it doesn't, so the control only renders once there is a REAL choice to make. */}
-              {groupOptions.length > 1 ? (
-                <PersonFilterSelect
-                  value={facet}
-                  onChange={setFacet}
-                  options={groupOptions}
-                  allLabel={t("persons_filter_all_facets", {
-                    defaultValue: "Всички групи",
-                  })}
-                  label={t("persons_filter_group_label", {
-                    defaultValue: "Група",
-                  })}
-                  locale={isBg ? "bg-BG" : "en-GB"}
-                />
-              ) : null}
-              <PersonFilterSelect
-                value={role}
-                onChange={setRole}
-                options={roleOptions}
-                allLabel={t("persons_filter_all_roles", {
-                  defaultValue: "Всички роли",
-                })}
-                label={t("persons_filter_role_label", { defaultValue: "Роля" })}
-              />
-              <PersonFilterSelect
-                value={party}
-                onChange={setParty}
-                options={partyOptions}
-                allLabel={t("persons_filter_all_parties", {
-                  defaultValue: "Всички партии",
-                })}
-                label={t("persons_filter_party_label", {
-                  defaultValue: "Партия",
-                })}
-              />
-              <PersonFilterSelect
-                value={oblast}
-                onChange={setOblast}
-                options={oblastOptions}
-                allLabel={t("persons_filter_all_oblasts", {
-                  defaultValue: "Цялата страна",
-                })}
-                label={t("persons_filter_oblast_label", {
-                  defaultValue: "Област",
-                })}
-              />
-              <PersonFilterSelect
-                value={court}
-                onChange={setCourt}
-                options={courtOptions}
-                allLabel={t("persons_filter_all_institutions", {
-                  defaultValue: "Всички институции",
-                })}
-                label={t("persons_filter_institution_label", {
-                  defaultValue: "Институция",
-                })}
-                locale={isBg ? "bg-BG" : "en-GB"}
-              />
-              <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <input
-                  type="checkbox"
-                  checked={heldOfficeOnly}
-                  onChange={(e) => setHeldOfficeOnly(e.target.checked)}
-                  className="h-3.5 w-3.5"
-                />
-                {t("persons_filter_held_office", {
-                  defaultValue: "само заемали длъжност",
-                })}
-              </label>
-              <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <input
-                  type="checkbox"
-                  checked={declaredOnly}
-                  onChange={(e) => setDeclaredOnly(e.target.checked)}
-                  className="h-3.5 w-3.5"
-                />
-                {t("persons_filter_declared", {
-                  defaultValue: "само с декларация",
-                })}
-              </label>
-              <button
-                type="button"
-                onClick={onExport}
-                disabled={exporting}
-                className="text-xs text-primary underline underline-offset-2 hover:no-underline disabled:opacity-50"
-              >
-                {t("persons_export_csv", { defaultValue: "Свали CSV" })}
-              </button>
-              {exportNote ? (
-                <span role="status" className="text-xs text-muted-foreground">
-                  {exportNote}
-                </span>
-              ) : null}
-              {hasActiveFilters ? (
-                <button
-                  type="button"
-                  onClick={onClearAll}
-                  className="text-xs text-primary underline underline-offset-2 hover:no-underline"
-                >
-                  {t("contracts_clear_filters", {
-                    defaultValue: "Изчисти филтрите",
-                  })}
-                </button>
-              ) : null}
-            </>
-          }
         />
       </section>
     </>
