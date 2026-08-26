@@ -1,0 +1,2489 @@
+{
+ "version": 1,
+ "generated_at": "2026-08-26T17:04:08+00:00",
+ "seed": "naiasno-gold-v1",
+ "requested_size": 250,
+ "actual_size": 240,
+ "corpus_scanned": 4366,
+ "cells": {
+  "quality_short": {
+   "target": 25,
+   "available": 868,
+   "taken": 25,
+   "residual_share": 0.1988,
+   "signal_prevalence": 0.1988,
+   "oversampled_vs_prevalence": 0.5,
+   "gold_share": 0.1,
+   "why": "body under 400 chars — the too_short gate"
+  },
+  "quality_no_body": {
+   "target": 10,
+   "available": 86,
+   "taken": 10,
+   "residual_share": 0.0197,
+   "signal_prevalence": 0.0197,
+   "oversampled_vs_prevalence": 2.03,
+   "gold_share": 0.04,
+   "why": "no body at all — the extractor's own failure mode"
+  },
+  "russia_dense": {
+   "target": 50,
+   "available": 526,
+   "taken": 50,
+   "residual_share": 0.1205,
+   "signal_prevalence": 0.1207,
+   "oversampled_vs_prevalence": 1.66,
+   "gold_share": 0.2,
+   "why": "3+ Russia/Ukraine terms — the axis that is 94% not_applicable in the current corpus"
+  },
+  "entity_rich": {
+   "target": 50,
+   "available": 1089,
+   "taken": 50,
+   "residual_share": 0.2494,
+   "signal_prevalence": 0.3548,
+   "oversampled_vs_prevalence": 0.56,
+   "gold_share": 0.2,
+   "why": "3+ gazetteer-resolved mentions — measures the mention layer's precision, which matters more than its recall"
+  },
+  "person_linked": {
+   "target": 40,
+   "available": 30,
+   "taken": 30,
+   "residual_share": 0.0069,
+   "signal_prevalence": 0.0765,
+   "oversampled_vs_prevalence": 1.57,
+   "gold_share": 0.12,
+   "why": "at least one resolvable PERSON — the highest-consequence link the site renders"
+  },
+  "no_author": {
+   "target": 25,
+   "available": 628,
+   "taken": 25,
+   "residual_share": 0.1438,
+   "signal_prevalence": 0.347,
+   "oversampled_vs_prevalence": 0.29,
+   "gold_share": 0.1,
+   "why": "no byline — one of the AI-generation signals"
+  },
+  "mainstream": {
+   "target": 50,
+   "available": 1139,
+   "taken": 50,
+   "residual_share": 0.2609,
+   "signal_prevalence": 0.2609,
+   "oversampled_vs_prevalence": 0.77,
+   "gold_share": 0.2,
+   "why": "everything else, so the ordinary case is measured too"
+  }
+ },
+ "shortfall": {
+  "person_linked": {
+   "wanted": 40,
+   "got": 30
+  }
+ },
+ "drawn_for_is_not_a_label": "each article records the CELL IT WAS DRAWN FOR, never a judgment. „russia_dense\" means the word Русия occurs three times; it does not mean the article is pro-Russian, and a scorer treating it as a label would be measuring this file's regex rather than a model.",
+ "articles": [
+  {
+   "path": "news/data/narod.bg/20260808-d0bdd18fd0bcd0b0-d0bfd0b0d180d0b8-d181d18ad0bad180d0b0d189d0-7f8a508f.json",
+   "domain": "narod.bg",
+   "url": "https://narod.bg/2026/08/08/%d0%bd%d1%8f%d0%bc%d0%b0-%d0%bf%d0%b0%d1%80%d0%b8-%d1%81%d1%8a%d0%ba%d1%80%d0%b0%d1%89%d0%b0%d0%b2%d0%b0%d1%82-%d1%81%d0%ba%d0%b0%d1%82%d0%b0%d0%b2%d0%ba%d0%b8%d1%82%d0%b5-%d0%b2%d1%8a%d0%b2-%d0%b2/",
+   "title": "Хвърчат глави на скатавките във властта",
+   "published": "2026-08-08T00:00:00+00:00",
+   "content_chars": 50,
+   "linked_mentions": 1,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/haskovo.net/nodate-zielt-kod-za-zega-v-siebota-v-xaskovsko-f2773740.json",
+   "domain": "haskovo.net",
+   "url": "https://haskovo.net/news/635556/zielt-kod-za-zega-v-siebota-v-xaskovsko",
+   "title": "Жълт код за жега в събота в Хасковско",
+   "published": null,
+   "content_chars": 364,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/burgas24.bg/nodate-regional-business-6f2b23b9.json",
+   "domain": "burgas24.bg",
+   "url": "https://www.burgas24.bg/novini/regionalni/regional_business",
+   "title": "Реагионални бизнес новини",
+   "published": null,
+   "content_chars": 305,
+   "linked_mentions": 2,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/bird.bg/20191219-peps-29e07c29.json",
+   "domain": "bird.bg",
+   "url": "https://bird.bg/peps/",
+   "title": "Декларации на българските политически лица",
+   "published": "2019-12-19T10:50:17+00:00",
+   "content_chars": 49,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/bird.bg/20260226-kalushev-locations-64560697.json",
+   "domain": "bird.bg",
+   "url": "https://bird.bg/kalushev-locations/",
+   "title": "Известните локации, обитавани от групата на Калушев",
+   "published": "2026-02-26T08:30:31+00:00",
+   "content_chars": 176,
+   "linked_mentions": 5,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/focus-news.net/20260807-silistra-novini-d631046a.json",
+   "domain": "focus-news.net",
+   "url": "https://www.focus-news.net/novini/regioni/silistra-novini",
+   "title": "Новини: Силистра (Новини от регионите на България)",
+   "published": "2026-08-07T17:51:17+00:00",
+   "content_chars": 70,
+   "linked_mentions": 2,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/plovdiv24.bg/nodate-international-societ-13310cee.json",
+   "domain": "plovdiv24.bg",
+   "url": "https://www.plovdiv24.bg/novini/mejdunarodni/international_societ",
+   "title": "Общество по света - миграция, климат, протести и социални промени",
+   "published": null,
+   "content_chars": 39,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/dnevnik.bg/20260822-4948385-chetvurt-vek-sled-sblusuka-si-makedonci-i-albanci-92020a40.json",
+   "domain": "dnevnik.bg",
+   "url": "https://www.dnevnik.bg/sviat/2026/08/22/4948385_chetvurt_vek_sled_sblusuka_si_makedonci_i_albanci/",
+   "title": "Четвърт век след сблъсъка си македонци и албанци още спорят за минало, настояще и бъдеще",
+   "published": "2026-08-22T05:00:00+00:00",
+   "content_chars": 130,
+   "linked_mentions": 2,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/narod.bg/20260814-d0b1d18ad0bbd0b3d0b0d180d0b8d18f-d0b7d0b0d0bfd0b0d0b7d0b2d0b-c931ae2f.json",
+   "domain": "narod.bg",
+   "url": "https://narod.bg/2026/08/14/%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f-%d0%b7%d0%b0%d0%bf%d0%b0%d0%b7%d0%b2%d0%b0-%d0%b2%d1%8a%d0%b3%d0%bb%d0%b8%d1%89%d0%bd%d0%b8%d1%82%d0%b5-%d1%86%d0%b5%d0%bd%d1%82%d1%80%d0%b0%d0%bb/",
+   "title": "България запазва въглищните централи, за да гарантира енергийната сигурност при кризи",
+   "published": "2026-08-14T00:00:00+00:00",
+   "content_chars": 96,
+   "linked_mentions": 1,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/toest.bg/20260429-yana-kurshiyska-bibliotekite-sa-hram-na-komunikatsiyata-a61cf9ae.json",
+   "domain": "toest.bg",
+   "url": "https://www.toest.bg/yana-kurshiyska-bibliotekite-sa-hram-na-komunikatsiyata/",
+   "title": "Яна Кършийска: Библиотеките са храм на комуникацията",
+   "published": "2026-04-29T10:16:43+00:00",
+   "content_chars": 52,
+   "linked_mentions": 1,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/bird.bg/20260325-sarafov-2025-973a370d.json",
+   "domain": "bird.bg",
+   "url": "https://bird.bg/sarafov-2025/",
+   "title": "Трета година поред Сарафов ударно мачка знакови дела",
+   "published": "2026-03-25T10:56:15+00:00",
+   "content_chars": 176,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/actualno.com/20260821-absolutno-neochakvan-efekt-dopamin-za-21-avgust-news-2629371-af8a1454.json",
+   "domain": "actualno.com",
+   "url": "https://www.actualno.com/society/absolutno-neochakvan-efekt-dopamin-za-21-avgust-news_2629371.html",
+   "title": "Абсолютно неочакван ефект: Допамин за 21 август",
+   "published": "2026-08-21T22:30:00+00:00",
+   "content_chars": 378,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/svobodnoslovo.eu/nodate-141573-024ba9b8.json",
+   "domain": "svobodnoslovo.eu",
+   "url": "https://svobodnoslovo.eu/politika/priznanieto-na-dogan-22-ma-oblastni-predsedateli-podkrepyat-peevski-smenyame-gi/141573",
+   "title": "Признанието на Доган: 22-ма областни председатели подкрепят Пеевски, сменяме ги!",
+   "published": null,
+   "content_chars": 80,
+   "linked_mentions": 1,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/narod.bg/20260816-d0b8d0b2d0b0d0b9d0bbd0be-d0bcd0b8d180d187d0b5d0b2-d0bdd0b0d1-35c8db38.json",
+   "domain": "narod.bg",
+   "url": "https://narod.bg/2026/08/16/%d0%b8%d0%b2%d0%b0%d0%b9%d0%bb%d0%be-%d0%bc%d0%b8%d1%80%d1%87%d0%b5%d0%b2-%d0%bd%d0%b0%d1%81%d1%8a%d1%81%d0%ba%d0%b2%d0%b0-%d0%b1%d1%83%d0%bd%d1%82%d0%be%d0%b2%d0%b5-%d1%81%d1%80%d0%b5%d1%89%d1%83/",
+   "title": "Ивайло Мирчев насъсква бунтове срещу властта",
+   "published": "2026-08-16T00:00:00+00:00",
+   "content_chars": 55,
+   "linked_mentions": 1,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/varna24.bg/nodate-varnakriminews-1814aebe.json",
+   "domain": "varna24.bg",
+   "url": "https://www.varna24.bg/novini/varna/varnakriminews",
+   "title": "Криминални новини",
+   "published": null,
+   "content_chars": 301,
+   "linked_mentions": 2,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/nova.bg/20260822-D0BFD180D0BED0B3D0BDD0BED0B7D0B0-D0B7D0B0-D0B2D180D0B5D0BCD0-e75f3bc2.json",
+   "domain": "nova.bg",
+   "url": "https://nova.bg/news/view/2026/08/22/548627/%D0%BF%D1%80%D0%BE%D0%B3%D0%BD%D0%BE%D0%B7%D0%B0-%D0%B7%D0%B0-%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D1%82%D0%BE-22082026-%D0%BE%D0%B1%D0%B5%D0%B4%D0%BD%D0%B0/",
+   "title": "Прогноза за времето (22.08.2026 - обедна)",
+   "published": "2026-08-22T10:15:34+00:00",
+   "content_chars": 54,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/varna24.bg/nodate-othersports-6f2709f1.json",
+   "domain": "varna24.bg",
+   "url": "https://www.varna24.bg/sport/othersports",
+   "title": "Спортни новини",
+   "published": null,
+   "content_chars": 176,
+   "linked_mentions": 3,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/varna24.bg/nodate-othervarnanews-6bdb211e.json",
+   "domain": "varna24.bg",
+   "url": "https://www.varna24.bg/novini/varna/othervarnanews",
+   "title": "Други новини",
+   "published": null,
+   "content_chars": 306,
+   "linked_mentions": 3,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/dnevnik.bg/20260730-4939620-shef-gotvachut-i-vodesht-akis-petredzikis-kogato-se-4e38e99a.json",
+   "domain": "dnevnik.bg",
+   "url": "https://www.dnevnik.bg/bacchus/2026/07/29/4939620_shef-gotvachut_i_vodesht_akis_petredzikis_kogato_se/",
+   "title": "Шеф-готвачът и водещ Акис Петредзикис: Храната е връзка със семейството, културата и емоциите",
+   "published": "2026-07-30T05:00:00+00:00",
+   "content_chars": 362,
+   "linked_mentions": 1,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/bird.bg/20260217-petrohangate-million-toys-7b301981.json",
+   "domain": "bird.bg",
+   "url": "https://bird.bg/petrohangate-million-toys/",
+   "title": "Петрохангейт: Мъжки играчки за милион",
+   "published": "2026-02-17T15:08:44+00:00",
+   "content_chars": 176,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/forbesbulgaria.com/20260820-osemte-otroveni-leshoyada-v-tsentralen-balkan-sa-tezhak-udar-3dbff9b8.json",
+   "domain": "forbesbulgaria.com",
+   "url": "https://forbesbulgaria.com/2026/08/20/osemte-otroveni-leshoyada-v-tsentralen-balkan-sa-tezhak-udar-za-balgariya/",
+   "title": "Осемте отровени лешояда в „Централен Балкан“ са тежък удар за България",
+   "published": "2026-08-20T07:44:30+00:00",
+   "content_chars": 70,
+   "linked_mentions": 2,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/varna24.bg/nodate-analitycs-society-46b63c47.json",
+   "domain": "varna24.bg",
+   "url": "https://www.varna24.bg/novini/analitycs/analitycs_society",
+   "title": "Обществени анализи",
+   "published": null,
+   "content_chars": 303,
+   "linked_mentions": 2,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/dnevnik.bg/20260730-4940972-noma-otvaria-otnovo-v-kopenhagen-s-mikrosezonni-menj-d9bfeb39.json",
+   "domain": "dnevnik.bg",
+   "url": "https://www.dnevnik.bg/bacchus/2026/07/30/4940972_noma_otvaria_otnovo_v_kopenhagen_s_mikrosezonni_menjuta/",
+   "title": "Noma отваря отново в Копенхаген с микросезонни менюта",
+   "published": "2026-07-30T09:23:00+00:00",
+   "content_chars": 130,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/plovdiv24.bg/nodate-nationa-others-bc9b969a.json",
+   "domain": "plovdiv24.bg",
+   "url": "https://www.plovdiv24.bg/novini/Bylgaria/nationa_others",
+   "title": "Още новини от страната",
+   "published": null,
+   "content_chars": 31,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/24chasa.bg/20260822-23428820-6466af40.json",
+   "domain": "24chasa.bg",
+   "url": "https://www.24chasa.bg/spravochnik/article/23428820",
+   "title": "Стара вила, преобразена от наследничката, спасява в жегите в цветния си двор",
+   "published": "2026-08-22T13:37:00+00:00",
+   "content_chars": 76,
+   "linked_mentions": 0,
+   "drawn_for": "quality_short"
+  },
+  {
+   "path": "news/data/forbesbulgaria.com/20260820-forbes-men-2026-christmas-8b83274c.json",
+   "domain": "forbesbulgaria.com",
+   "url": "https://forbesbulgaria.com/forbes-men-2026-christmas/",
+   "title": "Forbes Men 2026",
+   "published": "2026-08-20T11:57:43+00:00",
+   "content_chars": 0,
+   "linked_mentions": 0,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/svobodnoslovo.eu/nodate-145811-4521d811.json",
+   "domain": "svobodnoslovo.eu",
+   "url": "https://svobodnoslovo.eu/bulgaria/nay-dyasnata-darzhava-v-sveta/145811",
+   "title": "НАЙ-ДЯСНАТА ДЪРЖАВА В СВЕТА",
+   "published": null,
+   "content_chars": 0,
+   "linked_mentions": 0,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/forbesbulgaria.com/20260416-ranna-registratsiya-2026-f091d4f9.json",
+   "domain": "forbesbulgaria.com",
+   "url": "https://forbesbulgaria.com/store/event-tickets/hr-employer-branding-forum-and-awards-2026/ranna-registratsiya-2026/",
+   "title": "Forbes HR & Employer Branding Forum & Awards 2026",
+   "published": "2026-04-16T13:08:36+00:00",
+   "content_chars": 0,
+   "linked_mentions": 0,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/toest.bg/20250620-glasovete-na-amerika-broy-3-06ca0644.json",
+   "domain": "toest.bg",
+   "url": "https://www.toest.bg/glasovete-na-amerika-broy-3/",
+   "title": "Гласовете на Америка – брой 3",
+   "published": "2025-06-20T09:35:25+00:00",
+   "content_chars": 0,
+   "linked_mentions": 0,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/toest.bg/20260613-sedmitsata-8-13-yuni-a3c45bff.json",
+   "domain": "toest.bg",
+   "url": "https://www.toest.bg/sedmitsata-8-13-yuni/",
+   "title": "Седмицата (8–13 юни)",
+   "published": "2026-06-13T05:00:23+00:00",
+   "content_chars": 0,
+   "linked_mentions": 0,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/toest.bg/20241108-dobre-doshli-v-realnostta-7fb22b84.json",
+   "domain": "toest.bg",
+   "url": "https://www.toest.bg/dobre-doshli-v-realnostta/",
+   "title": "Добре дошли в реалността",
+   "published": "2024-11-08T07:15:12+00:00",
+   "content_chars": 0,
+   "linked_mentions": 0,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/toest.bg/20260612-mashallah-bulgari-2d3d68ec.json",
+   "domain": "toest.bg",
+   "url": "https://www.toest.bg/mashallah-bulgari/",
+   "title": "Машаллах, българи!",
+   "published": "2026-06-12T09:14:04+00:00",
+   "content_chars": 0,
+   "linked_mentions": 3,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/plovdiv24.bg/nodate-analizi-ba387c6f.json",
+   "domain": "plovdiv24.bg",
+   "url": "https://www.plovdiv24.bg/novini/analizi",
+   "title": "Анализи и коментари за Пловдив, България и света",
+   "published": null,
+   "content_chars": 0,
+   "linked_mentions": 2,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/svobodnoslovo.eu/nodate-145755-fc0b0e40.json",
+   "domain": "svobodnoslovo.eu",
+   "url": "https://svobodnoslovo.eu/bulgaria/izmislih-novo-realiti/145755",
+   "title": "Измислих ново реалити",
+   "published": null,
+   "content_chars": 0,
+   "linked_mentions": 0,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/plovdiv24.bg/nodate-culture-news-e8307cd4.json",
+   "domain": "plovdiv24.bg",
+   "url": "https://www.plovdiv24.bg/novini/interesno/culture_news",
+   "title": "Култура и изкуство - театър, опера, балет, музеи, книги и фестивали",
+   "published": null,
+   "content_chars": 0,
+   "linked_mentions": 0,
+   "drawn_for": "quality_no_body"
+  },
+  {
+   "path": "news/data/epicenter.bg/20260822-0-98006d8a.json",
+   "domain": "epicenter.bg",
+   "url": "https://epicenter.bg/article/Otkriha-ostanki-ot-dron-na-plazha-mezhdu-Albena-i-Kranevo/429170/2/0",
+   "title": "Откриха останки от дрон на плажа между Албена и Кранево",
+   "published": "2026-08-22T12:30:00+00:00",
+   "content_chars": 2454,
+   "linked_mentions": 3,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/vesti.bg/20260821-kzk-razkri-kartel-pri-obshtestveni-porychki-za-stroitelna-te-f3d1fe44.json",
+   "domain": "vesti.bg",
+   "url": "https://www.vesti.bg/bulgaria/kzk-razkri-kartel-pri-obshtestveni-porychki-za-stroitelna-tehnika-6268153",
+   "title": "КЗК разкри картел при обществени поръчки за строителна техника",
+   "published": "2026-08-21T10:24:00+00:00",
+   "content_chars": 3404,
+   "linked_mentions": 0,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/glasove.com/nodate-aleksandar-malofeev-sviri-glinka-proshtavane-sas-sankt-peter-560db137.json",
+   "domain": "glasove.com",
+   "url": "https://glasove.com/muzikata-na-glasove/aleksandar-malofeev-sviri-glinka-proshtavane-sas-sankt-peterburg-chuchuligata",
+   "title": "Александър Малофеев свири Глинка: Прощаване със Санкт Петербург: Чучулигата",
+   "published": null,
+   "content_chars": 2059,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/e-vestnik.bg/20260803-neosashtestveniat-istanbulski-dogovor-mitovete-na-rusnatsite-a5fdc00e.json",
+   "domain": "e-vestnik.bg",
+   "url": "https://e-vestnik.bg/40899/neosashtestveniat-istanbulski-dogovor-mitovete-na-rusnatsite/",
+   "title": "Неосъщественият Истанбулски договор - митовете на руснаците",
+   "published": "2026-08-03T13:22:52+00:00",
+   "content_chars": 8206,
+   "linked_mentions": 5,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/frognews.bg/20260821-dokato-kiev-taguva-14-ubiti-stotitsi-raneni-sled-udar-mol-kr-29e05f4b.json",
+   "domain": "frognews.bg",
+   "url": "https://frognews.bg/svqt/dokato-kiev-taguva-14-ubiti-stotitsi-raneni-sled-udar-mol-krivoi-rog.html",
+   "title": "Докато Киев тъгува: 14 убити и стотици ранени след удар по мол в Кривой рог",
+   "published": "2026-08-21T16:05:00+00:00",
+   "content_chars": 2523,
+   "linked_mentions": 1,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-ruskite-z-kanali-podiviaha-ot-gniav-tcisterna-na-lukojl-v-ba-3b1b3e30.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/sviat/ruskite-z-kanali-podiviaha-ot-gniav-tcisterna-na-lukojl-v-balgaria-pa-872956.html",
+   "title": "Руските Z-канали подивяха от гняв: Цистерна на Лукойл в България пълни самолет с оръжие за ВСУ — OFFNews",
+   "published": null,
+   "content_chars": 1048,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/e-vestnik.bg/20260618-vliatelna-maga-blogarka-byah-zhertva-na-ruskata-propaganda-cfab7996.json",
+   "domain": "e-vestnik.bg",
+   "url": "https://e-vestnik.bg/40815/vliatelna-maga-blogarka-byah-zhertva-na-ruskata-propaganda/",
+   "title": "Влиятелна MAGA блогърка: Бях жертва на руската пропаганда",
+   "published": "2026-06-18T10:19:06+00:00",
+   "content_chars": 3878,
+   "linked_mentions": 4,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/capital.bg/20260812-4945178-programata-za-upravlenie-na-kabineta-do-2030-g-po-d4fbeee9.json",
+   "domain": "capital.bg",
+   "url": "https://www.capital.bg/politika_i_ikonomika/bulgaria/2026/08/12/4945178_programata_za_upravlenie_na_kabineta_do_2030_g_po/",
+   "title": "Програмата за управление на кабинета до 2030 г.: По много от всичко",
+   "published": "2026-08-12T19:37:00+00:00",
+   "content_chars": 17988,
+   "linked_mentions": 13,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/mediapool.bg/20260821-po-zaraka-na-putin-ruskite-gradove-shte-badat-ukraseni-s-mat-5ffba2ae.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/po-zaraka-na-putin-ruskite-gradove-shte-badat-ukraseni-s-matryoshki-i-balalaiki-news386739.html",
+   "title": "По заръка на Путин руските градове ще бъдат украсени с матрьошки и балалайки",
+   "published": "2026-08-21T11:40:13+00:00",
+   "content_chars": 3239,
+   "linked_mentions": 1,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-ruski-pravitelstven-samolet-navleze-v-balgaria-873032-9fa98642.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/obshtestvo/ruski-pravitelstven-samolet-navleze-v-balgaria-873032.html",
+   "title": "Руски правителствен самолет навлезе в България — OFFNews",
+   "published": null,
+   "content_chars": 1224,
+   "linked_mentions": 5,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/dir.bg/20260825-ukrayna-nato-iran-i-osaden-amerikanets-sa-versiite-zashto-sh-b5a677f0.json",
+   "domain": "dir.bg",
+   "url": "https://dnes.dir.bg/svyat/ukrayna-nato-iran-i-osaden-amerikanets-sa-versiite-zashto-shefat-na-tsru-otide-v-moskva",
+   "title": "Украйна, НАТО, Иран и осъден американец са версиите защо шефът на ЦРУ отиде в Москва",
+   "published": "2026-08-25T09:00:00+00:00",
+   "content_chars": 2653,
+   "linked_mentions": 5,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/pogled.info/20240909-sasht-zasiliha-natiska-varhu-turtsiya-vav-vrazka-s-bankovi-t-bc403666.json",
+   "domain": "pogled.info",
+   "url": "https://pogled.info/svetoven/sasht-zasiliha-natiska-varhu-turtsiya-vav-vrazka-s-bankovi-tranzaktsii-s-rusiya.173226",
+   "title": "САЩ засилиха натиска върху Турция във връзка с банкови транзакции с Русия",
+   "published": "2024-09-09T08:11:03+00:00",
+   "content_chars": 5840,
+   "linked_mentions": 10,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/fakti.bg/20260822-1076139-rusnacite-napredvat-kam-pokrovsk-i-harkov-vsu-udarih-8dca67da.json",
+   "domain": "fakti.bg",
+   "url": "https://fakti.bg/world/1076139-rusnacite-napredvat-kam-pokrovsk-i-harkov-vsu-udariha-eisk-i-samara",
+   "title": "Руснаците напредват към Покровск и Харков, ВСУ удариха Ейск и Самара",
+   "published": "2026-08-22T15:01:44+00:00",
+   "content_chars": 3743,
+   "linked_mentions": 1,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/trafficnews.bg/20260821-razkriha-kartel-pri-obshtestveni-porachki-stroitelna-tehnika-b208e81f.json",
+   "domain": "trafficnews.bg",
+   "url": "https://trafficnews.bg/bulgaria/razkriha-kartel-pri-obshtestveni-porachki-stroitelna-tehnika-386935/",
+   "title": "Разкриха картел при обществени поръчки за строителна техника",
+   "published": "2026-08-21T11:11:00+00:00",
+   "content_chars": 3403,
+   "linked_mentions": 0,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/mediapool.bg/20251228-ruskite-voenni-dokladvaha-na-putin-che-sa-poeli-kontrola-nad-21c74e3f.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/ruskite-voenni-dokladvaha-na-putin-che-sa-poeli-kontrola-nad-gulyaypole-i-mirnograd-news378697.html",
+   "title": "Руските военни докладваха на Путин, че са поели контрола над Гуляйполе и Мирноград",
+   "published": "2025-12-28T06:50:11+00:00",
+   "content_chars": 2668,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/epicenter.bg/20260811-0-72065e08.json",
+   "domain": "epicenter.bg",
+   "url": "https://epicenter.bg/article/Po-skoro-ot-ochakvanoto--Rusiya-sazdava-svoy-analog-na-Starlink-na-Mask/428426/7/0",
+   "title": "По-скоро от очакваното: Русия създава свой аналог на Starlink на Мъск",
+   "published": "2026-08-11T09:27:00+00:00",
+   "content_chars": 1856,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/petel.bg/20260822-Makron-obyavi-dostavkata-na-raketi-prehvashhachi-za-Ukrayna--d51336c1.json",
+   "domain": "petel.bg",
+   "url": "https://petel.bg/Makron-obyavi-dostavkata-na-raketi-prehvashhachi-za-Ukrayna__665751",
+   "title": "Макрон обяви доставката на ракети прехващачи за Украйна",
+   "published": "2026-08-22T16:08:47+00:00",
+   "content_chars": 1043,
+   "linked_mentions": 1,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/e-vestnik.bg/20260810-zashto-demokratichnata-obshtnost-e-obrechena-da-gubi-947f86b5.json",
+   "domain": "e-vestnik.bg",
+   "url": "https://e-vestnik.bg/40916/zashto-demokratichnata-obshtnost-e-obrechena-da-gubi/",
+   "title": "Защо „демократичната общност“ е обречена да губи - 1.",
+   "published": "2026-08-10T08:18:27+00:00",
+   "content_chars": 5185,
+   "linked_mentions": 3,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/vesti.bg/20260822-ukrainskoto-zname-be-izdignato-pred-sgradata-na-evropejskata-8fd1e89d.json",
+   "domain": "vesti.bg",
+   "url": "https://www.vesti.bg/sviat/ukrainskoto-zname-be-izdignato-pred-sgradata-na-evropejskata-komisiia-6268249",
+   "title": "Украинското знаме бе издигнато пред сградата на Европейската комисия",
+   "published": "2026-08-22T17:26:00+00:00",
+   "content_chars": 1098,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/vesti.bg/20260821-prezidentyt-na-iran-vreme-e-da-slozhim-kraj-na-vojnata-sys-s-0d5629c2.json",
+   "domain": "vesti.bg",
+   "url": "https://www.vesti.bg/sviat/prezidentyt-na-iran-vreme-e-da-slozhim-kraj-na-vojnata-sys-sasht-6268176",
+   "title": "Президентът на Иран: Време е да сложим край на войната със САЩ",
+   "published": "2026-08-21T12:23:00+00:00",
+   "content_chars": 1734,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/clubz.bg/20260820-178509-6a0ca3c1.json",
+   "domain": "clubz.bg",
+   "url": "https://clubz.bg/178509",
+   "title": "Корупционният скандал в Украйна засилва натиска върху Зеленски",
+   "published": "2026-08-20T07:53:40+00:00",
+   "content_chars": 6393,
+   "linked_mentions": 6,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/bloombergtv.bg/20260822-162932-koi-sa-klyuchovite-figuri-v-iran-na-fona-na-voynata-s-45cb9fab.json",
+   "domain": "bloombergtv.bg",
+   "url": "https://www.bloombergtv.bg/a/2-novini/162932-koi-sa-klyuchovite-figuri-v-iran-na-fona-na-voynata-sas-sasht-i-izrael",
+   "title": "Кои са ключовите фигури в Иран на фона на войната със САЩ и Израел",
+   "published": "2026-08-22T13:03:00+00:00",
+   "content_chars": 7931,
+   "linked_mentions": 3,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/news.bg/20260822-zashto-iran-vse-oshte-ne-se-e-predal-c61fc74d.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/konflikti/zashto-iran-vse-oshte-ne-se-e-predal.html",
+   "title": "Защо Иран все още не се е предал?",
+   "published": "2026-08-22T08:00:00+00:00",
+   "content_chars": 11882,
+   "linked_mentions": 5,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/profit.bg/20260822-2026082117483845067-4267d33c.json",
+   "domain": "profit.bg",
+   "url": "https://profit.bg/article/2026082117483845067",
+   "title": "150-годишна одисея: Съкровището на цар Приам от Троя до Москва",
+   "published": "2026-08-22T09:04:00+00:00",
+   "content_chars": 8206,
+   "linked_mentions": 8,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/epicenter.bg/20260822-0-d9e1de42.json",
+   "domain": "epicenter.bg",
+   "url": "https://epicenter.bg/article/Makron-obeshta-raketi-prehvashtachi-za-Ukrayna-sled-ruska-ataka-sreshtu-Krivoy-rog/429187/7/0",
+   "title": "Макрон обеща ракети прехващачи за Украйна след руска атака срещу Кривой рог",
+   "published": "2026-08-22T14:17:00+00:00",
+   "content_chars": 1097,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/fakti.bg/20260825-1076763-misteriata-se-razplita-direktorat-na-cru-djon-ratkli-4453ac25.json",
+   "domain": "fakti.bg",
+   "url": "https://fakti.bg/world/1076763-misteriata-se-razplita-direktorat-na-cru-djon-ratklif-beshe-na-taina-vizita-v-rusia",
+   "title": "Мистерията се разплита! Директорът на ЦРУ Джон Ратклиф беше на тайна визита в Русия",
+   "published": "2026-08-25T15:18:04+00:00",
+   "content_chars": 2717,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/faktor.bg/20260819-anatomiq-na-falshivata-boesposobnost-lovci-na-nadbavki-kak-s-3ea40475.json",
+   "domain": "faktor.bg",
+   "url": "https://faktor.bg/anatomiq-na-falshivata-boesposobnost-lovci-na-nadbavki-kak-shtabnata-byurokraciq-prizemi-balgarskite-iztrebiteli",
+   "title": "Анатомия на фалшивата боеспособност: Ловци на надбавки – как щабната бюрокрация приземи българските изтребители - Фактор",
+   "published": "2026-08-19T10:14:00+00:00",
+   "content_chars": 9778,
+   "linked_mentions": 6,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/economic.bg/20120326-Borisov-razgovarya-s-Putin-za-Belene-22-ace19852.json",
+   "domain": "economic.bg",
+   "url": "https://www.economic.bg/bg/a/view/Borisov-razgovarya-s-Putin-za-Belene-22",
+   "title": "Борисов разговаря с Путин за „Белене“",
+   "published": "2012-03-26T03:18:12+00:00",
+   "content_chars": 794,
+   "linked_mentions": 4,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/pik.bg/20260821-горещо-политическо-лято-калфин-разкодира-посланието-на-лавро-b46b2dc6.json",
+   "domain": "pik.bg",
+   "url": "https://pik.bg/горещо-политическо-лято-калфин-разкодира-посланието-на-лавров-за-радев-и-разкри-има-ли-реа-news1350475.html",
+   "title": "ГОРЕЩО ПОЛИТИЧЕСКО ЛЯТО: Калфин разкодира посланието на Лавров за Радев и разкри има ли реална заплаха от ирански ракети - Информационна агенция ПИК",
+   "published": "2026-08-21T19:30:00+00:00",
+   "content_chars": 10154,
+   "linked_mentions": 13,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/money.bg/20260820-problemat-na-nato-s-boepripasite-ne-e-lipsata-na-finansirane-8a73367b.json",
+   "domain": "money.bg",
+   "url": "https://money.bg/economics/problemat-na-nato-s-boepripasite-ne-e-lipsata-na-finansirane-a-na-pamuk.html",
+   "title": "Проблемът на НАТО с боеприпасите не е липсата на финансиране, а на памук",
+   "published": "2026-08-20T13:01:30+00:00",
+   "content_chars": 3219,
+   "linked_mentions": 4,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/epicenter.bg/20260822-0-779a0e4f.json",
+   "domain": "epicenter.bg",
+   "url": "https://epicenter.bg/article/Germaniya-planira-arsenal-ot-dalekoboyni-orazhiya-za-pochti-12-mlrd--evro/429188/7/0",
+   "title": "Политико: Германия планира арсенал от далекобойни оръжия за почти 12 млрд. евро",
+   "published": "2026-08-22T14:18:00+00:00",
+   "content_chars": 4499,
+   "linked_mentions": 3,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/pogled.info/20260822-putin-drapna-spirachkite-glavnata-tayna-na-rekordniya-udar-p-df769002.json",
+   "domain": "pogled.info",
+   "url": "https://pogled.info/svetoven/russia/putin-drapna-spirachkite-glavnata-tayna-na-rekordniya-udar-po-kiev-kakvo-ne-ni-kazva-ministerstvoto-na-otbranata-kodovo-ime-oreshnik-2m.196252",
+   "title": "„Путин дръпна спирачките.“ Главната тайна на рекордния удар по Киев – какво не ни казва Министерството на отбраната? Кодово име „Орешник-2М“",
+   "published": "2026-08-22T03:26:17+00:00",
+   "content_chars": 7997,
+   "linked_mentions": 11,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/vesti.bg/20260822-franciia-uskoriava-dostavkata-na-voenna-pomosht-za-ukrajna-6-ad899c85.json",
+   "domain": "vesti.bg",
+   "url": "https://www.vesti.bg/sviat/franciia-uskoriava-dostavkata-na-voenna-pomosht-za-ukrajna-6268245",
+   "title": "Франция ускорява доставката на военна помощ за Украйна",
+   "published": "2026-08-22T15:41:00+00:00",
+   "content_chars": 1258,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/pogled.info/20240908-vloomberg-imidzhat-na-germaniya-kato-avtomobilna-svrahdarzha-aebaac13.json",
+   "domain": "pogled.info",
+   "url": "https://pogled.info/svetoven/evropa/vloomberg-imidzhat-na-germaniya-kato-avtomobilna-svrahdarzhava-se-razrushava-poradi-udara-po-Volkswagen.173204",
+   "title": "Вloomberg: Имиджът на Германия като автомобилна свръхдържава се разрушава поради удара по Volkswagen",
+   "published": "2024-09-08T18:14:02+00:00",
+   "content_chars": 11900,
+   "linked_mentions": 10,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/petel.bg/20260822-Uoshingtan-post-Rusnatsite-teglyat-miliardi-ot-bankite-za-da-5be86795.json",
+   "domain": "petel.bg",
+   "url": "https://petel.bg/Uoshingtan-post--Rusnatsite-teglyat-miliardi-ot-bankite--za-da-ne-konfiskuvat-parite-im__665752",
+   "title": "'Уошингтън пост': Руснаците теглят милиарди от банките, за да не конфискуват парите им",
+   "published": "2026-08-22T16:18:03+00:00",
+   "content_chars": 3709,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/dir.bg/20260825-shefat-na-tsru-e-pristignal-v-moskva-s-amerikanskiya-voennot-5a7f3851.json",
+   "domain": "dir.bg",
+   "url": "https://dnes.dir.bg/svyat/shefat-na-tsru-e-pristignal-v-moskva-s-amerikanskiya-voennotransporten-samolet",
+   "title": "Шефът на ЦРУ е пристигнал в Москва с американския военнотранспортен самолет",
+   "published": "2026-08-25T09:00:00+00:00",
+   "content_chars": 1797,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/dir.bg/20260825-kitay-protiv-nezakonnite-ednostranni-sanktsii-na-sasht-sresh-bb488f63.json",
+   "domain": "dir.bg",
+   "url": "https://dnes.dir.bg/svyat/kitay-protiv-nezakonnite-ednostranni-sanktsii-na-sasht-sreshtu-iran",
+   "title": "Китай против \"незаконните едностранни санкции\" на САЩ срещу Иран",
+   "published": "2026-08-25T09:00:00+00:00",
+   "content_chars": 3106,
+   "linked_mentions": 3,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-dvama-dushi-biaha-ubiti-a-52-raneni-pri-ruska-ataka-sreshtu--654fc000.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/sviat/dvama-dushi-biaha-ubiti-a-52-raneni-pri-ruska-ataka-sreshtu-naj-go-873180.html",
+   "title": "Двама души бяха убити, а 52 - ранени, при руска атака срещу най-големия мол в украинския град Кривой Рог — OFFNews",
+   "published": null,
+   "content_chars": 985,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/glasove.com/nodate-politiko-latviya-poiska-7-mlrd-evro-ot-es-zaradi-razhodite-z-675765de.json",
+   "domain": "glasove.com",
+   "url": "https://glasove.com/ikonomika/politiko-latviya-poiska-7-mlrd-evro-ot-es-zaradi-razhodite-za-otbrana-i-zagubite-ot-prekasnatata-targoviya-s-rusiya",
+   "title": "\"Политико\": Латвия поиска 7 млрд. евро от ЕС заради разходите за отбрана и загубите от прекъснатата търговия с Русия",
+   "published": null,
+   "content_chars": 4487,
+   "linked_mentions": 9,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/bta.bg/20260822-1189628-sanktsiite-na-sasht-vazprepyatstvat-usiliyata-na-kub-8748693c.json",
+   "domain": "bta.bg",
+   "url": "https://www.bta.bg/bg/news/economy/1189628-sanktsiite-na-sasht-vazprepyatstvat-usiliyata-na-kuba-da-otvori-ikonomikata-za-c",
+   "title": "Санкциите на САЩ възпрепятстват усилията на Куба да отвори икономиката за частни инвестиции, заяви посланикът на страната в ООН",
+   "published": "2026-08-22T09:33:24+00:00",
+   "content_chars": 7056,
+   "linked_mentions": 2,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/faktor.bg/20260821-anatomiq-na-falshivata-boesposobnost-operaciq-feniks-formula-2291720e.json",
+   "domain": "faktor.bg",
+   "url": "https://faktor.bg/anatomiq-na-falshivata-boesposobnost-operaciq-feniks-formulata-za-raboteshta-balgarska-aviaciq",
+   "title": "Анатомия на фалшивата боеспособност: Операция „Феникс“ – формулата за работеща българска авиация - Фактор",
+   "published": "2026-08-21T10:45:00+00:00",
+   "content_chars": 14042,
+   "linked_mentions": 10,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/pogled.info/20260822-kitay-otbelyazva-rast-na-novosazdadenite-predpriyatiya-s-chu-25962db8.json",
+   "domain": "pogled.info",
+   "url": "https://pogled.info/svetoven/pogled-kitai/kitay-otbelyazva-rast-na-novosazdadenite-predpriyatiya-s-chuzhdestranno-uchastie-vav-visokotehnologichnite-otrasli.196283",
+   "title": "Китай отбелязва ръст на новосъздадените предприятия с чуждестранно участие във високотехнологичните отрасли",
+   "published": "2026-08-22T18:30:00+00:00",
+   "content_chars": 5399,
+   "linked_mentions": 9,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/bloombergtv.bg/20260821-163263-ikonomicheskoto-zadushavane-na-iran-e-nay-malko-bolez-5b156dcf.json",
+   "domain": "bloombergtv.bg",
+   "url": "https://www.bloombergtv.bg/a/94-bloomberg-opinion/163263-ikonomicheskoto-zadushavane-na-iran-e-nay-malko-bolezneniyat-kray-na-voynata",
+   "title": "Икономическото задушаване на Иран е най-малко болезненият край на войната",
+   "published": "2026-08-21T04:33:00+00:00",
+   "content_chars": 7399,
+   "linked_mentions": 12,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/pogled.info/20260822-krahat-na-polk-kalinovski-ot-medien-proekt-na-kiev-do-palna--6d1d8aee.json",
+   "domain": "pogled.info",
+   "url": "https://pogled.info/svetoven/krahat-na-polk-kalinovski-ot-medien-proekt-na-kiev-do-palna-likvidatsiya-na-beloruskiya-tranzit.196262",
+   "title": "Крахът на полк \"Калиновски\": От медиен проект на Киев до пълна ликвидация на белоруския транзит",
+   "published": "2026-08-22T13:30:00+00:00",
+   "content_chars": 7008,
+   "linked_mentions": 10,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/profit.bg/20260819-2026081909264032713-73f30ae1.json",
+   "domain": "profit.bg",
+   "url": "https://profit.bg/article/2026081909264032713",
+   "title": "Риболовът като прикритие за руските шпионски операции край Европа",
+   "published": "2026-08-19T09:26:40+00:00",
+   "content_chars": 7150,
+   "linked_mentions": 4,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/epicenter.bg/20260822-0-f5f234b1.json",
+   "domain": "epicenter.bg",
+   "url": "https://epicenter.bg/article/Eksperti-veshtayat-nay-tezhkata-i-surova-zima-za-Ukrayna-ot-2014-godina-nasam/429161/7/0",
+   "title": "Експерти вещаят най-тежката и сурова зима за Украйна от 2014 година насам",
+   "published": "2026-08-22T08:51:00+00:00",
+   "content_chars": 5970,
+   "linked_mentions": 6,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/frognews.bg/20260817-gotvi-mashtabni-merki-sreshtu-rusiya-prez-septemvri-884d5bf1.json",
+   "domain": "frognews.bg",
+   "url": "https://frognews.bg/novini/gotvi-mashtabni-merki-sreshtu-rusiya-prez-septemvri.html",
+   "title": "ЕС готви мащабни мерки срещу Русия през септември",
+   "published": "2026-08-17T16:43:00+00:00",
+   "content_chars": 1602,
+   "linked_mentions": 5,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/pogled.info/20260822-nasilstvenata-mobilizatsiya-v-ukrayna-zhitel-na-lvov-namushk-2954fa46.json",
+   "domain": "pogled.info",
+   "url": "https://pogled.info/svetoven/ukraina/nasilstvenata-mobilizatsiya-v-ukrayna-zhitel-na-lvov-namushka-lovets-na-hora-toy-napadna-politsay-i-beshe-prostrelyan.196257",
+   "title": "Насилствената мобилизация в Украйна: Жител на Лвов намушка „ловец на хора“. Той нападна полицай и беше прострелян",
+   "published": "2026-08-22T04:15:20+00:00",
+   "content_chars": 6987,
+   "linked_mentions": 10,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/e-vestnik.bg/20260803-hronika-na-pregovorite-mezhdu-rusia-i-ukrayna-prez-2022-g-96174856.json",
+   "domain": "e-vestnik.bg",
+   "url": "https://e-vestnik.bg/40900/hronika-na-pregovorite-mezhdu-rusia-i-ukrayna-prez-2022-g/",
+   "title": "Хроника на преговорите между Русия и Украйна през 2022 г.",
+   "published": "2026-08-03T13:21:13+00:00",
+   "content_chars": 9025,
+   "linked_mentions": 4,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/faktor.bg/20260822-shte-mojem-li-za-dva-meseca-da-izgradim-sistema-koqto-da-ni--53c3261d.json",
+   "domain": "faktor.bg",
+   "url": "https://faktor.bg/shte-mojem-li-za-dva-meseca-da-izgradim-sistema-koqto-da-ni-zashtitava-efikasno-ot-porazqvane-ot-iranski-ili-ruski-raketi",
+   "title": "Ще можем ли за два месеца да изградим система, която да ни защитава ефикасно от поразяване от ирански или руски ракети - Фактор",
+   "published": "2026-08-22T14:27:27+00:00",
+   "content_chars": 5563,
+   "linked_mentions": 6,
+   "drawn_for": "russia_dense"
+  },
+  {
+   "path": "news/data/segabg.com/20260819-za-iznenada-na-heyturite-burgas-ili-gabrovo-shte-e-evropeysk-e083daf4.json",
+   "domain": "segabg.com",
+   "url": "https://www.segabg.com/category-video/za-iznenada-na-heyturite-burgas-ili-gabrovo-shte-e-evropeyska-stolica",
+   "title": "За изненада на хейтърите Бургас или Габрово ще е Европейска столица",
+   "published": "2026-08-19T12:02:53+00:00",
+   "content_chars": 1302,
+   "linked_mentions": 4,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/pik.bg/20260821-разкриха-две-телефонни-измами-в-бургаско-пенсионери-дали-над-da777454.json",
+   "domain": "pik.bg",
+   "url": "https://pik.bg/разкриха-две-телефонни-измами-в-бургаско-пенсионери-дали-над-7000-евро-news1350574.html",
+   "title": "Разкриха две телефонни измами в Бургаско, пенсионери дали над 7000 евро - Информационна агенция ПИК",
+   "published": "2026-08-21T14:15:00+00:00",
+   "content_chars": 893,
+   "linked_mentions": 5,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/moreto.net/20260822-novini-86d01fee.json",
+   "domain": "moreto.net",
+   "url": "https://www.moreto.net/novini.php?n=534253",
+   "title": "България търси F-16 втора употреба за охрана на въздушното си пространство",
+   "published": "2026-08-22T08:23:46+00:00",
+   "content_chars": 1403,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/manager.bg/20260820-stolichna-obstina-poiska-ot-bnt-podrobna-obratna-vrazka-za-k-584621d0.json",
+   "domain": "manager.bg",
+   "url": "https://manager.bg/българия/stolichna-obstina-poiska-ot-bnt-podrobna-obratna-vrazka-za-kandidaturata-si-za-evrovizia-2027-",
+   "title": "Столична община поиска от БНТ подробна обратна връзка за кандидатурата си за „Евровизия 2027“",
+   "published": "2026-08-20T08:30:45+00:00",
+   "content_chars": 2819,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/mediapool.bg/20251229-deputatite-ot-vazrazhdane-sa-s-nai-mnogo-zabelezhki-v-parlam-add077e2.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/deputatite-ot-vazrazhdane-sa-s-nai-mnogo-zabelezhki-v-parlamenta-news378725.html",
+   "title": "Депутатите от \"Възраждане\" са с най-много забележки в парламента",
+   "published": "2025-12-29T11:05:41+00:00",
+   "content_chars": 2892,
+   "linked_mentions": 9,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/epicenter.bg/20260821-0-06b3a60b.json",
+   "domain": "epicenter.bg",
+   "url": "https://epicenter.bg/article/Lili-Ivanova/429083/6/0",
+   "title": "Лили Иванова готви \"магнетичен концерт\" с \"Боянският майстор\" пред храм-паметник \"Ал.Невски\"",
+   "published": "2026-08-21T10:11:00+00:00",
+   "content_chars": 5263,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/bnrnews.bg/20260821-balgariya-beshe-predstavena-sred-25-kulturi-na-uchilishtna-a-f4839fc5.json",
+   "domain": "bnrnews.bg",
+   "url": "https://bnrnews.bg/radiobulgaria/post/518337/balgariya-beshe-predstavena-sred-25-kulturi-na-uchilishtna-asambleya-v-nova-zelandiya",
+   "title": "България беше представена сред 25 култури на училищна асамблея в Нова Зеландия",
+   "published": "2026-08-21T11:38:29+00:00",
+   "content_chars": 1509,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/manager.bg/20260820-sos-ste-prerazgleda-resheniata-za-vazenite-linii-aleko-1-i-k-110930eb.json",
+   "domain": "manager.bg",
+   "url": "https://manager.bg/политика/sos-ste-prerazgleda-resheniata-za-vazenite-linii-aleko-1-i-knazevo-kopitoto-",
+   "title": "СОС ще преразгледа решенията за въжените линии „Алеко 1“ и „Княжево-Копитото“",
+   "published": "2026-08-20T05:52:36+00:00",
+   "content_chars": 755,
+   "linked_mentions": 4,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/trafficnews.bg/20260821-vazstanoviha-emblematichniia-shadravan-trifon-nedelchev-3869-1acf44ce.json",
+   "domain": "trafficnews.bg",
+   "url": "https://trafficnews.bg/plovdiv/vazstanoviha-emblematichniia-shadravan-trifon-nedelchev-386943/",
+   "title": "Възстановиха емблематичния шадраван на Трифон Неделчев в двора на Драматичния театър",
+   "published": "2026-08-21T12:21:00+00:00",
+   "content_chars": 3467,
+   "linked_mentions": 6,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/segabg.com/20260820-ivo-hristov-namekna-che-izborut-na-burgas-za-evroviziya-e-po-7a1e7fed.json",
+   "domain": "segabg.com",
+   "url": "https://www.segabg.com/hot/category-culture/ivo-hristov-namekna-che-izborut-na-burgas-za-evroviziya-e-politicheski",
+   "title": "Иво Христов намекна, че изборът на Бургас за “Евровизия\" е политически",
+   "published": "2026-08-20T10:16:07+00:00",
+   "content_chars": 3836,
+   "linked_mentions": 5,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/dariknews.bg/20260821-nov-kandidat-za-simvol-na-evroviziia-boev-vliza-v-nadprevara-dd38d94c.json",
+   "domain": "dariknews.bg",
+   "url": "https://dariknews.bg/novini/liubopitno/nov-kandidat-za-simvol-na-evroviziia-boev-vliza-v-nadprevarata-2464286",
+   "title": "Нов кандидат за символ на „Евровизия“: Боев влиза в надпреварата",
+   "published": "2026-08-21T08:28:00+00:00",
+   "content_chars": 3918,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/economic.bg/20120606-Vitor-Konstancio-Razumnata-politika-ne-svurshva-s-priemaneto-3233d515.json",
+   "domain": "economic.bg",
+   "url": "https://www.economic.bg/bg/a/view/Vitor-Konstancio-Razumnata-politika-ne-svurshva-s-priemaneto-na-evroto-3742",
+   "title": "Витор Констанцио: Разумната политика не свършва с приемането на еврото",
+   "published": "2012-06-06T08:39:47+00:00",
+   "content_chars": 7818,
+   "linked_mentions": 4,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/bnrnews.bg/20260820-balgariya-dnes-20-avgust-2026-g-fef2e418.json",
+   "domain": "bnrnews.bg",
+   "url": "https://bnrnews.bg/radiobulgaria/post/517967/balgariya-dnes-20-avgust-2026-g",
+   "title": "България днес - 20 август 2026 г.",
+   "published": "2026-08-20T19:00:36+00:00",
+   "content_chars": 893,
+   "linked_mentions": 5,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/money.bg/20260731-v-sledvashtiya-polovin-vek-v-nyakoi-evropeyski-strani-pensio-d19f1271.json",
+   "domain": "money.bg",
+   "url": "https://money.bg/career/v-sledvashtiya-polovin-vek-v-nyakoi-evropeyski-strani-pensionnata-vazrast-shte-dostigne-74-g-nay-golyamoto-uvelichenie-e-13-g.html",
+   "title": "В следващия половин век: В някои европейски страни пенсионната възраст ще достигне 74 г., най-голямото увеличение е 13 г.",
+   "published": "2026-07-31T13:03:02+00:00",
+   "content_chars": 2817,
+   "linked_mentions": 18,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/trafficnews.bg/20260821-otkriha-ruse-dvete-sestri-montansko-koito-biaha-386986-1f2aceab.json",
+   "domain": "trafficnews.bg",
+   "url": "https://trafficnews.bg/plovdiv/otkriha-ruse-dvete-sestri-montansko-koito-biaha-386986/",
+   "title": "Откриха в Русе двете сестри от Монтанско, които бяха в неизвестност три дни",
+   "published": "2026-08-21T17:42:00+00:00",
+   "content_chars": 1292,
+   "linked_mentions": 5,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/mediapool.bg/20260821-parite-v-broi-v-es-rastat-vapreki-digitalnite-plashtaniya-ne-ed49b67c.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/parite-v-broi-v-es-rastat-vapreki-digitalnite-plashtaniya-news386717.html",
+   "title": "Парите в брой в ЕС растат въпреки дигиталните плащания",
+   "published": "2026-08-21T05:12:08+00:00",
+   "content_chars": 2639,
+   "linked_mentions": 8,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/bgnes.bg/20260820-20-mln-evro-i-nadprevara-s-vremeto-burgas-zapochna-podgotovk-6173a1cc.json",
+   "domain": "bgnes.bg",
+   "url": "https://www.bgnes.bg/20-mln-evro-i-nadprevara-s-vremeto-burgas-zapochna-podgotovkata-za-evroviziq",
+   "title": "20 млн. евро и надпревара с времето: Бургас започна подготовката за „Евровизия“",
+   "published": "2026-08-20T11:02:00+00:00",
+   "content_chars": 4720,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/168chasa.bg/20260821-23429388-30a49def.json",
+   "domain": "168chasa.bg",
+   "url": "https://www.168chasa.bg/article/23429388",
+   "title": "3 истории на младежи, които затъват в хазарт",
+   "published": "2026-08-21T17:38:00+00:00",
+   "content_chars": 6625,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/blitz.bg/20260819-in-memoriam-shumnaliev-gradeshe-kashti-ot-dumi-news1167948-f290ab78.json",
+   "domain": "blitz.bg",
+   "url": "https://blitz.bg/nad-55/in-memoriam-shumnaliev-gradeshe-kashti-ot-dumi_news1167948.html",
+   "title": "Ин мемориам: Шумналиев градеше къщи от думи",
+   "published": "2026-08-19T11:08:00+00:00",
+   "content_chars": 6669,
+   "linked_mentions": 7,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/flagman.bg/20260821-388303-bc60f442.json",
+   "domain": "flagman.bg",
+   "url": "https://www.flagman.bg/article/388303",
+   "title": "Мирослав Иванов нападна Иво Христов за Бургас и ядоса свои избиратели",
+   "published": "2026-08-21T14:00:00+00:00",
+   "content_chars": 3024,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/frognews.bg/20260822-golyam-pozhar-obhvana-700-dekara-kray-tri-sela-simeonovgrads-7f47ea32.json",
+   "domain": "frognews.bg",
+   "url": "https://frognews.bg/novini/golyam-pozhar-obhvana-700-dekara-kray-tri-sela-simeonovgradsko.html",
+   "title": "Голям пожар обхвана 700 декара край три села в Симеоновградско",
+   "published": "2026-08-22T17:15:00+00:00",
+   "content_chars": 1180,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/bgdnes.bg/20260821-23428624-d0b8ff14.json",
+   "domain": "bgdnes.bg",
+   "url": "https://www.bgdnes.bg/polezno/article/23428624",
+   "title": "На 24 август сменят тол камера по пътя Микре - Ловеч",
+   "published": "2026-08-21T06:15:00+00:00",
+   "content_chars": 920,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/e-vestnik.bg/20260720-metodat-pobedi-prikazkata-ispania-e-svetoven-shampion-a-sbog-43a585d5.json",
+   "domain": "e-vestnik.bg",
+   "url": "https://e-vestnik.bg/40882/metodat-pobedi-prikazkata-ispania-e-svetoven-shampion-a-sboguvaneto-na-mesi-stana-gorchivo/",
+   "title": "Методът победи приказката: Испания е световен шампион, а сбогуването на Меси стана горчиво",
+   "published": "2026-07-20T10:19:19+00:00",
+   "content_chars": 4345,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/vesti.bg/20260822-naprezhenieto-mezhdu-turciia-i-izrael-zaradi-siriia-se-izost-26966986.json",
+   "domain": "vesti.bg",
+   "url": "https://www.vesti.bg/sviat/naprezhenieto-mezhdu-turciia-i-izrael-zaradi-siriia-se-izostri-do-kraen-predel-obzor-6268218",
+   "title": "Напрежението между Турция и Израел заради Сирия се изостри до краен предел",
+   "published": "2026-08-22T07:01:00+00:00",
+   "content_chars": 7775,
+   "linked_mentions": 8,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/mediapool.bg/20260821-katya-ivkova-natsionalnata-detska-bolnitsa-shte-e-gotova-pre-ddf9f337.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/katya-ivkova-natsionalnata-detska-bolnitsa-shte-e-gotova-prez-2030-g-news386720.html",
+   "title": "Катя Ивкова: Националната детска болница ще е готова през 2030 г.",
+   "published": "2026-08-21T06:27:09+00:00",
+   "content_chars": 6869,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/petel.bg/20260822-Otchetoha-rekorden-trafik-na-leki-avtomobili-ot-Turtsiya-pre-1d5b2b42.json",
+   "domain": "petel.bg",
+   "url": "https://petel.bg/Otchetoha-rekorden-trafik-na-leki-avtomobili-ot-Turtsiya-prez-Kapitan-Andreevo__665701",
+   "title": "Отчетоха рекорден трафик на леки автомобили от Турция през 'Капитан Андреево'",
+   "published": "2026-08-22T09:56:23+00:00",
+   "content_chars": 1599,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/economic.bg/20120615-Deyan-Duneshki-Modernizaciyata-na-postite-ste-produlji-4393-ff494240.json",
+   "domain": "economic.bg",
+   "url": "https://www.economic.bg/bg/a/view/Deyan-Duneshki-Modernizaciyata-na-postite-ste-produlji-4393",
+   "title": "Деян Дънешки: Модернизацията на пощите ще продължи",
+   "published": "2012-06-15T05:59:55+00:00",
+   "content_chars": 8509,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/e-vestnik.bg/20260617-mondial-2026-anglia-gradi-zvezden-otbor-tsyalo-desetiletie-i-9f1c5fd7.json",
+   "domain": "e-vestnik.bg",
+   "url": "https://e-vestnik.bg/40810/mondial-2026-anglia-gradi-zvezden-otbor-tsyalo-desetiletie-i-go-ostavi-u-doma/",
+   "title": "Мондиал 2026: Англия гради звезден отбор цяло десетилетие – и го остави у дома",
+   "published": "2026-06-17T16:10:22+00:00",
+   "content_chars": 7758,
+   "linked_mentions": 6,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/glasove.com/nodate-balgariya-i-sasht-obsadiha-modernizatsiyata-na-armiyata-i-sa-e2952173.json",
+   "domain": "glasove.com",
+   "url": "https://glasove.com/novini/balgariya-i-sasht-obsadiha-modernizatsiyata-na-armiyata-i-savmestnite-proekti",
+   "title": "България и САЩ обсъдиха модернизацията на армията и съвместните проекти",
+   "published": null,
+   "content_chars": 1939,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/e-vestnik.bg/20260820-vazmozhen-li-e-rastezh-bez-znanie-zashto-balgarskata-ikonomi-c2363425.json",
+   "domain": "e-vestnik.bg",
+   "url": "https://e-vestnik.bg/40933/vazmozhen-li-e-rastezh-bez-znanie-zashto-balgarskata-ikonomika-opira-do-hora-a-ne-do-kapital/",
+   "title": "Възможен ли е растеж без знание? Защо българската икономика опира до хора, а не до капитал",
+   "published": "2026-08-20T06:46:28+00:00",
+   "content_chars": 3920,
+   "linked_mentions": 6,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/segabg.com/20260821-bodigardut-na-borisov-zaryaza-nso-zaradi-nego-11e47cce.json",
+   "domain": "segabg.com",
+   "url": "https://www.segabg.com/hot/category-bulgaria/bodigardut-na-borisov-zaryaza-nso-zaradi-nego",
+   "title": "Бодигардът на Борисов заряза НСО заради него",
+   "published": "2026-08-21T09:40:48+00:00",
+   "content_chars": 2469,
+   "linked_mentions": 7,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/news.bg/20260822-iran-zaplashva-podkrepyashtite-ikonomicheskata-voyna-na-sash-86bdda5e.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/int-economics/iran-zaplashva-podkrepyashtite-ikonomicheskata-voyna-na-sasht-strani.html",
+   "title": "Иран заплашва подкрепящите „икономическата война“ на САЩ страни",
+   "published": "2026-08-22T21:41:36+00:00",
+   "content_chars": 2233,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/actualno.com/20260821-magijata-na-vtora-liga-neverojatna-drama-reshi-derbito-na-se-d7599bcf.json",
+   "domain": "actualno.com",
+   "url": "https://www.actualno.com/bgfootball/magijata-na-vtora-liga-neverojatna-drama-reshi-derbito-na-severa-news_2631411.html",
+   "title": "Магията на Втора лига! Невероятна драма реши дербито на Севера",
+   "published": "2026-08-21T22:21:00+00:00",
+   "content_chars": 2080,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/bnrnews.bg/20260820-chasat-na-radio-balgariya-broy-111-c7b2a016.json",
+   "domain": "bnrnews.bg",
+   "url": "https://bnrnews.bg/radiobulgaria/post/517903/chasat-na-radio-balgariya-broy-111",
+   "title": "Часът на Радио България - Брой 111",
+   "published": "2026-08-20T12:00:28+00:00",
+   "content_chars": 498,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-goriat-700-dka-kraj-simeonovgrad-873212-73a92489.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/112/goriat-700-dka-kraj-simeonovgrad-873212.html",
+   "title": "Горят 700 дка край Симеоновград — OFFNews",
+   "published": null,
+   "content_chars": 536,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/economic.bg/20120511-Emil-Hursev-Mukite-na-Gurciya-tepurva-zapochvat-1909-ba55b08f.json",
+   "domain": "economic.bg",
+   "url": "https://www.economic.bg/bg/a/view/Emil-Hursev-Mukite-na-Gurciya-tepurva-zapochvat-1909",
+   "title": "Емил Хърсев: Мъките на Гърция тепърва започват",
+   "published": "2012-05-11T06:29:44+00:00",
+   "content_chars": 4394,
+   "linked_mentions": 4,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/blitz.bg/20260822-klimatolog-balkanskiyat-poluostrov-e-nay-goreshtata-chast-na-977aa42a.json",
+   "domain": "blitz.bg",
+   "url": "https://blitz.bg/analizi-i-komentari/klimatolog-balkanskiyat-poluostrov-e-nay-goreshtata-chast-na-evropa-v-momenta_news1168406.html",
+   "title": "Климатолог: Балканският полуостров е най-горещата част на Европа в момента",
+   "published": "2026-08-22T12:28:00+00:00",
+   "content_chars": 1289,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/profit.bg/20260820-2026082008403326868-81aa3bd0.json",
+   "domain": "profit.bg",
+   "url": "https://profit.bg/article/2026082008403326868",
+   "title": "Вейповете увеличават риска от дихателни проблеми и тютюнопушене при младите, сочи проучване",
+   "published": "2026-08-20T08:40:33+00:00",
+   "content_chars": 6217,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/vesti.bg/20260821-otide-si-goliam-izsledovatel-na-bylgarskoto-hristiiansko-izk-dfdf018c.json",
+   "domain": "vesti.bg",
+   "url": "https://www.vesti.bg/bulgaria/otide-si-goliam-izsledovatel-na-bylgarskoto-hristiiansko-izkustvo-6268154",
+   "title": "Отиде си голям изследовател на българското християнско изкуство",
+   "published": "2026-08-21T10:23:00+00:00",
+   "content_chars": 1716,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/lupa.bg/nodate-es-i-rumaniya-izprashtat-helikopteri-na-sarbiya-za-borba-s-p-eadded9d.json",
+   "domain": "lupa.bg",
+   "url": "https://lupa.bg/news/es-i-rumaniya-izprashtat-helikopteri-na-sarbiya-za-borba-s-pozharite_422275news.html",
+   "title": "ЕС и Румъния изпращат хеликоптери на Сърбия за борба с пожарите",
+   "published": null,
+   "content_chars": 1884,
+   "linked_mentions": 8,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/bloombergtv.bg/20260820-163200-svetat-vodi-greshniya-debat-otnosno-ai-bezopasnostta-10a0e460.json",
+   "domain": "bloombergtv.bg",
+   "url": "https://www.bloombergtv.bg/a/94-bloomberg-opinion/163200-svetat-vodi-greshniya-debat-otnosno-ai-bezopasnostta",
+   "title": "Светът води грешния дебат относно AI безопасността",
+   "published": "2026-08-20T18:00:00+00:00",
+   "content_chars": 6615,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/profit.bg/20260821-2026082114191799891-e394a72b.json",
+   "domain": "profit.bg",
+   "url": "https://profit.bg/article/2026082114191799891",
+   "title": "Турция е поискала червен бюлетин за международно задържане на Бенямин Нетаняху",
+   "published": "2026-08-21T14:24:00+00:00",
+   "content_chars": 1741,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/mediapool.bg/20251229-izdirvat-22-godishen-mladezh-izcheznal-v-raiona-na-zlatnite--bbed00ef.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/izdirvat-22-godishen-mladezh-izcheznal-v-raiona-na-zlatnite-mostove-na-vitosha-news378739.html",
+   "title": "Издирват 22-годишен младеж, изчезнал в района на \"Златните мостове\" на Витоша",
+   "published": "2025-12-29T16:41:59+00:00",
+   "content_chars": 1320,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/segabg.com/20260824-sportut-po-televiziyata-26-avgust-159e7270.json",
+   "domain": "segabg.com",
+   "url": "https://www.segabg.com/category-sport/sportut-po-televiziyata-26-avgust",
+   "title": "Спортът по телевизията - 26 август",
+   "published": "2026-08-24T11:34:56+00:00",
+   "content_chars": 1014,
+   "linked_mentions": 10,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/clubz.bg/20260821-178560-d421e494.json",
+   "domain": "clubz.bg",
+   "url": "https://clubz.bg/178560",
+   "title": "19-годишен рекетьор заплашва чрез видеовръзка хора, че дължат пари",
+   "published": "2026-08-21T08:00:22+00:00",
+   "content_chars": 2183,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/petel.bg/20260822-Pozhar-e-obhvanal-700-dekara-ploshhi-v-zemlishhata-na-tri-se-de56e117.json",
+   "domain": "petel.bg",
+   "url": "https://petel.bg/Pozhar-e-obhvanal-700-dekara-ploshhi-v-zemlishhata-na-tri-sela-v-obshhina-Simeonovgrad__665770",
+   "title": "Пожар е обхванал 700 декара площи в землищата на три села в община Симеоновград",
+   "published": "2026-08-22T20:02:19+00:00",
+   "content_chars": 978,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/bgnes.bg/20260821-podupravitelqt-na-bnb-dimitar-radev-evroto-e-ramka-stabilnos-2b7ef447.json",
+   "domain": "bgnes.bg",
+   "url": "https://www.bgnes.bg/podupravitelqt-na-bnb-dimitar-radev-evroto-e-ramka-stabilnostta-e-izbor",
+   "title": "Управителят на БНБ Димитър Радев: Еврото е рамка. Стабилността е избор",
+   "published": "2026-08-21T17:54:00+00:00",
+   "content_chars": 12187,
+   "linked_mentions": 3,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/dariknews.bg/20260822-rumynskiiat-decebal-zadylzhitelna-spirka-do-bylgarskata-gran-ec2c758a.json",
+   "domain": "dariknews.bg",
+   "url": "https://dariknews.bg/novini/liubopitno/rumynskiiat-decebal-zadylzhitelna-spirka-do-bylgarskata-granica-2464345",
+   "title": "Румънският Децебал: Задължителна спирка до българската граница",
+   "published": "2026-08-22T05:36:00+00:00",
+   "content_chars": 2682,
+   "linked_mentions": 4,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/glasove.com/nodate-tramp-zatana-v-iran-i-grandiozna-koruptsiya-dogodina-shte-go-66fb7c16.json",
+   "domain": "glasove.com",
+   "url": "https://glasove.com/komentari/tramp-zatana-v-iran-i-grandiozna-koruptsiya-dogodina-shte-go-mahnat-ot-beliya-dom",
+   "title": "Тръмп затъна в Иран и грандиозна корупция. Догодина ще го махнат от Белия дом",
+   "published": null,
+   "content_chars": 6373,
+   "linked_mentions": 6,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/novavarna.net/20260821-d181d0bcd0b5d0bdd0b8-d0b2d18ad0b2-d0b2d0b8d0ba-d0b2d0b0d180d-5ded4ac6.json",
+   "domain": "novavarna.net",
+   "url": "https://novavarna.net/2026/08/21/%d1%81%d0%bc%d0%b5%d0%bd%d0%b8-%d0%b2%d1%8a%d0%b2-%d0%b2%d0%b8%d0%ba-%d0%b2%d0%b0%d1%80%d0%bd%d0%b0-%d0%bc%d0%b8%d0%bd%d0%b8%d1%81%d1%82%d1%8a%d1%80-%d1%88%d0%b8%d1%88%d0%ba%d0%be%d0%b2/",
+   "title": "Смени във ВиК – Варна: Министър Шишков разкри, че водопроводът се руши заради некачествени материали",
+   "published": "2026-08-21T13:54:21+00:00",
+   "content_chars": 2165,
+   "linked_mentions": 7,
+   "drawn_for": "entity_rich"
+  },
+  {
+   "path": "news/data/petel.bg/20260822-Demerdzhiev-Obsazhdame-nov-zakon-za-nepalnoletnite-i-promeni-fe60b4ac.json",
+   "domain": "petel.bg",
+   "url": "https://petel.bg/Demerdzhiev--Obsazhdame-nov-zakon-za-nepalnoletnite-i-promeni-v-Nakazatelniya-kodeks__665670",
+   "title": "Демерджиев: Обсъждаме нов закон за непълнолетните и промени в Наказателния кодекс",
+   "published": "2026-08-22T00:30:00+00:00",
+   "content_chars": 1788,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/bgdnes.bg/20260821-23424346-243a7c4f.json",
+   "domain": "bgdnes.bg",
+   "url": "https://www.bgdnes.bg/zdrave/article/23424346",
+   "title": "Министър Ивкова: Основната ни цел е да завършим Националната детска болница",
+   "published": "2026-08-21T05:29:00+00:00",
+   "content_chars": 2168,
+   "linked_mentions": 1,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/bgdnes.bg/20260821-23422956-de8c7784.json",
+   "domain": "bgdnes.bg",
+   "url": "https://www.bgdnes.bg/futbol/article/23422956",
+   "title": "Новата \"Армия\" на финалната права",
+   "published": "2026-08-21T06:30:00+00:00",
+   "content_chars": 1681,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/mediapool.bg/20260821-zadalzhavat-obshtinite-turisticheskiyat-danak-da-otiva-za-re-8a69f2cd.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/zadalzhavat-obshtinite-turisticheskiyat-danak-da-otiva-za-reklama-i-patishta-news386738.html",
+   "title": "Задължават общините туристическият данък да отива за реклама и пътища",
+   "published": "2026-08-21T11:31:57+00:00",
+   "content_chars": 2589,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/pik.bg/20260821-горещо-в-пик-божо-божанов-опразни-банковата-си-сметка-и-разп-ba63c418.json",
+   "domain": "pik.bg",
+   "url": "https://pik.bg/горещо-в-пик-божо-божанов-опразни-банковата-си-сметка-и-разпродаде-акциите-документ-news1350144.html",
+   "title": "ГОРЕЩО В ПИК! Божо Божанов опразни банковата си сметка и разпродаде акциите (ДОКУМЕНТ) - Информационна агенция ПИК",
+   "published": "2026-08-21T06:21:00+00:00",
+   "content_chars": 1115,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/dariknews.bg/20260821-dyrzhavata-dava-pari-ako-se-premestite-da-zhiveete-i-rabotit-c424cdce.json",
+   "domain": "dariknews.bg",
+   "url": "https://dariknews.bg/novini/bylgariia/dyrzhavata-dava-pari-ako-se-premestite-da-zhiveete-i-rabotite-v-malyk-grad-ili-selo-2464305",
+   "title": "Държавата дава пари, ако се преместите да живеете и работите в малък град или село",
+   "published": "2026-08-21T10:26:00+00:00",
+   "content_chars": 3263,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/trafficnews.bg/20260821-tristranniiat-savet-ne-postigna-saglasie-razmera-386980-83d25edc.json",
+   "domain": "trafficnews.bg",
+   "url": "https://trafficnews.bg/bulgaria/tristranniiat-savet-ne-postigna-saglasie-razmera-386980/",
+   "title": "Тристранният съвет не постигна съгласие за размера на минималната заплата",
+   "published": "2026-08-21T16:08:00+00:00",
+   "content_chars": 5232,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/novavarna.net/20260820-d0b4d0b5d0bcd0b5d180d0b4d0b6d0b8d0b5d0b2-d0b2d180d0b5d0bcd0b-75ee32a0.json",
+   "domain": "novavarna.net",
+   "url": "https://novavarna.net/2026/08/20/%d0%b4%d0%b5%d0%bc%d0%b5%d1%80%d0%b4%d0%b6%d0%b8%d0%b5%d0%b2-%d0%b2%d1%80%d0%b5%d0%bc%d0%b5-%d0%b5-%d0%bf%d1%80%d0%be%d0%ba%d1%83%d1%80%d0%b0%d1%82%d1%83%d1%80%d0%b0%d1%82%d0%b0-%d0%b4%d0%b0-%d0%bf/",
+   "title": "Демерджиев: Време е прокуратурата да покаже за кого работи",
+   "published": "2026-08-20T13:22:42+00:00",
+   "content_chars": 1433,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/standartnews.com/20260822-doyde-klyuchova-novina-za-ubiystvoto-na-aleksey-petrov-64445-2eeddca4.json",
+   "domain": "standartnews.com",
+   "url": "https://www.standartnews.com/balgariya-krimi/doyde-klyuchova-novina-za-ubiystvoto-na-aleksey-petrov-644457.html",
+   "title": "Дойде ключова новина за убийството на Алексей Петров",
+   "published": "2026-08-22T11:33:52+00:00",
+   "content_chars": 1326,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/trafficnews.bg/20260821-obrat-remonta-klyuchova-ulitsa-plovdiv-prekratiha-386859-dcebb896.json",
+   "domain": "trafficnews.bg",
+   "url": "https://trafficnews.bg/plovdiv/obrat-remonta-klyuchova-ulitsa-plovdiv-prekratiha-386859/",
+   "title": "Обрат с ремонта на ключова улица в Пловдив: Прекратиха поръчката за близо 3 млн. евро",
+   "published": "2026-08-21T06:00:00+00:00",
+   "content_chars": 1916,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/pik.bg/20260821-високо-напрежение-гълъб-донев-и-синдикатите-с-първи-коментар-28b0dd8c.json",
+   "domain": "pik.bg",
+   "url": "https://pik.bg/високо-напрежение-гълъб-донев-и-синдикатите-с-първи-коментар-след-сделката-за-минималната--news1350690.html",
+   "title": "ВИСОКО НАПРЕЖЕНИЕ! Гълъб Донев и синдикатите с ПЪРВИ КОМЕНТАР след сделката за минималната заплата - Информационна агенция ПИК",
+   "published": "2026-08-21T16:48:00+00:00",
+   "content_chars": 3549,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-mz-s-krachka-nazad-tcentarat-za-asistirana-reproduktcia-niam-b22c8d4f.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/zdrave/mz-s-krachka-nazad-tcentarat-za-asistirana-reproduktcia-niama-da-se-873102.html",
+   "title": "МЗ с крачка назад: Центърът за асистирана репродукция няма да се ''влива'' в НЗОК, РЗИ с относителна самостоятелност — OFFNews",
+   "published": null,
+   "content_chars": 5125,
+   "linked_mentions": 1,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/news.bg/20260821-vlastta-s-ogromna-ambitsiya-za-natsionalnata-detska-bolnitsa-68b0e0ed.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/health/vlastta-s-ogromna-ambitsiya-za-natsionalnata-detska-bolnitsa.html",
+   "title": "Властта с огромна амбиция за Националната детска болница",
+   "published": "2026-08-21T06:31:00+00:00",
+   "content_chars": 1722,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/economic.bg/20250517-izbrano-ad004f4f.json",
+   "domain": "economic.bg",
+   "url": "http://www.economic.bg/bg/a/topics/izbrano",
+   "title": "Рубрика: Избрано",
+   "published": "2025-05-17T12:04:30+00:00",
+   "content_chars": 1278,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/frognews.bg/20260821-bez-saglasie-minimalnata-zaplata-pravitelstvoto-istoricheski-4864947a.json",
+   "domain": "frognews.bg",
+   "url": "https://frognews.bg/politika/bez-saglasie-minimalnata-zaplata-pravitelstvoto-istoricheski-probiv.html",
+   "title": "Без съгласие за минималната заплата. Правителството: Исторически пробив",
+   "published": "2026-08-21T15:40:00+00:00",
+   "content_chars": 2106,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/marica.bg/20260822-gotvqt-nov-srok-za-podavane-na-deklaracii-za-osvobojdavane-o-f7d826ce.json",
+   "domain": "marica.bg",
+   "url": "https://www.marica.bg/region/haskovo/gotvqt-nov-srok-za-podavane-na-deklaracii-za-osvobojdavane-ot-taksa-smet-v-haskovo",
+   "title": "Готвят нов срок за подаване на декларации за освобождаване о...",
+   "published": "2026-08-22T12:26:00+00:00",
+   "content_chars": 1631,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/chernomore.bg/20260822-313520-otkriha-ostanki-ot-dron-na-plazha-mezhdu-albena-i-kra-0c963999.json",
+   "domain": "chernomore.bg",
+   "url": "https://www.chernomore.bg/a/10-bulgaria/313520-otkriha-ostanki-ot-dron-na-plazha-mezhdu-albena-i-kranevo",
+   "title": "Откриха останки от дрон на плажа между Албена и Кранево",
+   "published": "2026-08-22T11:00:00+00:00",
+   "content_chars": 707,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/trafficnews.bg/20260821-plovdiv-iska-yunesko-otsenka-episkopskata-bazilika-i2-386912-f110e1e1.json",
+   "domain": "trafficnews.bg",
+   "url": "https://trafficnews.bg/kultura/plovdiv-iska-yunesko-otsenka-episkopskata-bazilika-i2-386912/",
+   "title": "Пловдив иска от ЮНЕСКО оценка на „Епископската базилика и мозайките на Филипопол\"",
+   "published": "2026-08-21T08:01:00+00:00",
+   "content_chars": 1182,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/segabg.com/20260821-novata-formula-dade-67280-evro-minimalna-zaplata-0cd6a6f9.json",
+   "domain": "segabg.com",
+   "url": "https://www.segabg.com/hot/category-bulgaria/novata-formula-dade-67280-evro-minimalna-zaplata",
+   "title": "Новата формула даде 672,80 евро минимална заплата",
+   "published": "2026-08-21T15:15:16+00:00",
+   "content_chars": 2754,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/mediapool.bg/20251229-pri-proverka-na-tsenite-80-ot-narusheniyata-sa-pri-hranite-n-abd84b95.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/pri-proverka-na-tsenite-80-ot-narusheniyata-sa-pri-hranite-news378730.html",
+   "title": "При проверка на цените: 80% от нарушенията са при храните",
+   "published": "2025-12-29T13:24:42+00:00",
+   "content_chars": 1719,
+   "linked_mentions": 1,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/mediapool.bg/20260821-kolektivniyat-dogovor-v-pivovarniya-bransh-veche-vazhi-za-vs-cba9a2de.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/kolektivniyat-dogovor-v-pivovarniya-bransh-veche-vazhi-za-vsichki-raboteshti-v-sektora-news386728.html",
+   "title": "Колективният договор в пивоварния бранш вече важи за всички работещи в сектора",
+   "published": "2026-08-21T09:39:00+00:00",
+   "content_chars": 2061,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/mediapool.bg/20260821-postignata-e-finalna-dogovorka-za-novata-formula-na-minimaln-92b21018.json",
+   "domain": "mediapool.bg",
+   "url": "https://www.mediapool.bg/postignata-e-finalna-dogovorka-za-novata-formula-na-minimalnata-zaplata-obnovena-news386756.html",
+   "title": "Постигната е финална договорка за новата формула на минималната заплата (обновена)",
+   "published": "2026-08-21T18:23:53+00:00",
+   "content_chars": 3053,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/segabg.com/20260825-stoyan-kolev-se-ukriva-imotnata-dzhungla-na-vutreshniya-mini-c9e18a62.json",
+   "domain": "segabg.com",
+   "url": "https://www.segabg.com/category-then/stoyan-kolev-se-ukriva-imotnata-dzhungla-na-vutreshniya-ministur",
+   "title": "Стоян Колев се укрива в имотната джунгла на вътрешния министър",
+   "published": "2026-08-25T20:07:09+00:00",
+   "content_chars": 3555,
+   "linked_mentions": 1,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/trafficnews.bg/20260821-blizo-7000-uchenitsi-se-iaviavat-popravitelen-zrelosten-3868-2cf9b408.json",
+   "domain": "trafficnews.bg",
+   "url": "https://trafficnews.bg/bulgaria/blizo-7000-uchenitsi-se-iaviavat-popravitelen-zrelosten-386894/",
+   "title": "Близо 7000 ученици се явяват на поправителен зрелостен изпит по БЕЛ",
+   "published": "2026-08-21T05:01:00+00:00",
+   "content_chars": 1704,
+   "linked_mentions": 1,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/bnrnews.bg/20260819-mvr-prizna-za-formalen-podhod-sreshtu-detskata-agresiya-gotv-89bf0208.json",
+   "domain": "bnrnews.bg",
+   "url": "https://bnrnews.bg/radiobulgaria/post/517451/mvr-prizna-za-formalen-podhod-sreshtu-detskata-agresiya-gotvi-nov-zakon",
+   "title": "МВР призна за формален подход срещу детската агресия, готви нов закон",
+   "published": "2026-08-19T13:32:41+00:00",
+   "content_chars": 1279,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/bta.bg/20260822-1190228-kmetovete-na-oryahovo-i-dabuleni-podpisaha-sporazume-32659e8f.json",
+   "domain": "bta.bg",
+   "url": "https://www.bta.bg/bg/news/bulgaria/1190228-kmetovete-na-oryahovo-i-dabuleni-podpisaha-sporazumenie-za-pobratimyavane-na-dva",
+   "title": "Кметовете на Оряхово и Дъбулени подписаха споразумение за побратимяване на двата града",
+   "published": "2026-08-22T18:15:00+00:00",
+   "content_chars": 1446,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-bolnitcite-ne-triabva-da-pecheliat-ot-tova-che-lekuvat-kasno-11b4c79d.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/zdrave/bolnitcite-ne-triabva-da-pecheliat-ot-tova-che-lekuvat-kasno-kazva-s-869461.html",
+   "title": "Болниците не трябва да печелят от това, че лекуват късно, казва служебният здравен министър Михаил Околийски — OFFNews",
+   "published": null,
+   "content_chars": 10014,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/manager.bg/20260821-prodalzavat-pregovorite-mezdu-socialnite-partnori-za-opredel-ecbe8a7b.json",
+   "domain": "manager.bg",
+   "url": "https://manager.bg/българия/prodalzavat-pregovorite-mezdu-socialnite-partnori-za-opredelane-na-minimalnata-zaplata",
+   "title": "Продължават преговорите между социалните партньори за определяне на минималната заплата",
+   "published": "2026-08-21T06:56:31+00:00",
+   "content_chars": 2039,
+   "linked_mentions": 1,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/news.bg/20260818-darzhavata-dava-pari-za-da-se-varnem-na-selo-tragva-nova-ini-2df3e88b.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/society/darzhavata-dava-pari-za-da-se-varnem-na-selo-tragva-nova-initsiativa.html",
+   "title": "Държавата дава пари, за да се върнем на село: Тръгва нова инициатива",
+   "published": "2026-08-18T06:28:00+00:00",
+   "content_chars": 2174,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/capital.bg/nodate-5042-fdb3f8a3.json",
+   "domain": "capital.bg",
+   "url": "https://www.capital.bg/podcast/5042/?ref=header-hamburger",
+   "title": "КТБ: Възход, фалит и наследство - Капитал подкаст",
+   "published": null,
+   "content_chars": 18844,
+   "linked_mentions": 2,
+   "drawn_for": "person_linked"
+  },
+  {
+   "path": "news/data/haskovo.net/nodate-nad-10-000-evro-shhe-e-bonusiet-za-premestvane-na-selo-509fc954.json",
+   "domain": "haskovo.net",
+   "url": "https://haskovo.net/news/635524/nad-10-000-evro-shhe-e-bonusiet-za-premestvane-na-selo",
+   "title": "Над 10 000 евро ще е бонусът за преместване на село",
+   "published": null,
+   "content_chars": 2770,
+   "linked_mentions": 1,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/moreto.net/20260822-novini-44a20349.json",
+   "domain": "moreto.net",
+   "url": "https://www.moreto.net/novini.php?n=534255",
+   "title": "Какво ще бъде времето утре по Черноморието?",
+   "published": "2026-08-22T10:18:14+00:00",
+   "content_chars": 529,
+   "linked_mentions": 0,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/profit.bg/20260819-2026081907465149595-77c6c716.json",
+   "domain": "profit.bg",
+   "url": "https://profit.bg/article/2026081907465149595",
+   "title": "Може ли AI да реши един от големите климатични проблеми на авиацията?",
+   "published": "2026-08-19T07:46:51+00:00",
+   "content_chars": 4702,
+   "linked_mentions": 0,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/petel.bg/20260822-Potushiha-167-pozhara-za-24-chasa-665704-1c7f8043.json",
+   "domain": "petel.bg",
+   "url": "https://petel.bg/Potushiha-167-pozhara-za-24-chasa__665704",
+   "title": "Потушиха 167 пожара за 24 часа",
+   "published": "2026-08-22T10:14:30+00:00",
+   "content_chars": 760,
+   "linked_mentions": 1,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/bgdnes.bg/20260821-23420640-14d01b49.json",
+   "domain": "bgdnes.bg",
+   "url": "https://www.bgdnes.bg/shou/article/23420640",
+   "title": "Филип Буков: Не ме взимайте на сериозно!",
+   "published": "2026-08-21T12:00:00+00:00",
+   "content_chars": 447,
+   "linked_mentions": 0,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/168chasa.bg/20260822-23432707-f40c7fc6.json",
+   "domain": "168chasa.bg",
+   "url": "https://www.168chasa.bg/article/23432707",
+   "title": "Почина Сим Калас - бивш премиер на Естония и баща на Кая Калас",
+   "published": "2026-08-22T17:42:11+00:00",
+   "content_chars": 1224,
+   "linked_mentions": 0,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/bgdnes.bg/20260822-23432206-a3444350.json",
+   "domain": "bgdnes.bg",
+   "url": "https://www.bgdnes.bg/zdrave/article/23432206",
+   "title": "Да си сам, вече не е срамно, модерно е",
+   "published": "2026-08-22T14:05:00+00:00",
+   "content_chars": 6513,
+   "linked_mentions": 2,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/chernomore.bg/20260821-313480-sluchay-na-zaushka-e-registriran-vav-varna-ab264aba.json",
+   "domain": "chernomore.bg",
+   "url": "https://www.chernomore.bg/a/2-varna/313480-sluchay-na-zaushka-e-registriran-vav-varna",
+   "title": "Случай на заушка е регистриран във Варна",
+   "published": "2026-08-21T14:45:00+00:00",
+   "content_chars": 1306,
+   "linked_mentions": 1,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/burgas24.bg/nodate-termsofuse-45f6d651.json",
+   "domain": "burgas24.bg",
+   "url": "https://www.burgas24.bg/pages/termsofuse.html",
+   "title": "",
+   "published": null,
+   "content_chars": 10405,
+   "linked_mentions": 0,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/haskovo.net/nodate-nai-zapomniashhite-se-vizii-ot-met-gala-2025-c51a2889.json",
+   "domain": "haskovo.net",
+   "url": "https://haskovo.net/galeria/2654/nai-zapomniashhite-se-vizii-ot-met-gala-2025",
+   "title": "Най-запомнящите се визии от Мет Гала 2025",
+   "published": null,
+   "content_chars": 844,
+   "linked_mentions": 1,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/segabg.com/20260821-nash-gimnastik-e-4-i-na-evropeyskoto-purvenstvo-f0a19247.json",
+   "domain": "segabg.com",
+   "url": "https://www.segabg.com/category-sport/nash-gimnastik-e-4-i-na-evropeyskoto-purvenstvo",
+   "title": "Наш гимнастик е 4-и на европейското първенство",
+   "published": "2026-08-21T18:01:51+00:00",
+   "content_chars": 1030,
+   "linked_mentions": 0,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/moreto.net/20260822-novini-2df32ac3.json",
+   "domain": "moreto.net",
+   "url": "https://www.moreto.net/novini.php?n=534257",
+   "title": "Тази вечер в кв. \"Аспарухово\": „Най-дългата вечеря на плажа“ с Крисия и Веселин Маринов",
+   "published": "2026-08-22T11:20:19+00:00",
+   "content_chars": 1015,
+   "linked_mentions": 1,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/petel.bg/20260822-Peev-za-zaglushitelya-Imalo-e-vliyanie-varhu-GPS-signalite-n-bcd98ba0.json",
+   "domain": "petel.bg",
+   "url": "https://petel.bg/Peev-za-zaglushitelya--Imalo-e-vliyanie-varhu-GPS-signalite--no-tova-ne-e-povliyalo-varhu-bezopasnostta-na-poletite__665705",
+   "title": "Пеев за заглушителя: Имало е влияние върху GPS сигналите, но това не е повлияло върху безопасността на полетите",
+   "published": "2026-08-22T10:21:29+00:00",
+   "content_chars": 2523,
+   "linked_mentions": 2,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/chernomore.bg/20260822-313491-slanchevo-i-goreshto-vreme-v-tsyalata-strana-dnes-53b3b847.json",
+   "domain": "chernomore.bg",
+   "url": "https://www.chernomore.bg/a/10-bulgaria/313491-slanchevo-i-goreshto-vreme-v-tsyalata-strana-dnes",
+   "title": "Слънчево и горещо време в цялата страна днес",
+   "published": "2026-08-22T06:30:00+00:00",
+   "content_chars": 1120,
+   "linked_mentions": 1,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/segabg.com/20260821-produlzhenieto-na-maykul-shte-pokazhe-negoviya-pogled-kum-ob-12756ae2.json",
+   "domain": "segabg.com",
+   "url": "https://www.segabg.com/category-culture/produlzhenieto-na-maykul-shte-pokazhe-negoviya-pogled-kum-obvineniyata-pedofiliya",
+   "title": "Продължението на \"Майкъл\" ще покаже неговия поглед към обвиненията в педофилия",
+   "published": "2026-08-21T13:03:38+00:00",
+   "content_chars": 3257,
+   "linked_mentions": 0,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/lupa.bg/nodate-vaorazheni-otvlyakoha-60-poklonnici-po-vreme-na-molitva-v-ni-c428f091.json",
+   "domain": "lupa.bg",
+   "url": "https://lupa.bg/news/vaorazheni-otvlyakoha-60-poklonnici-po-vreme-na-molitva-v-nigeriya_422280news.html",
+   "title": "Въоръжени отвлякоха 60 поклонници по време на молитва в Нигерия",
+   "published": null,
+   "content_chars": 1239,
+   "linked_mentions": 1,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/pik.bg/20260821-хора-с-увреждания-на-факелно-шествие-из-софия-news1350555-10f5e5e5.json",
+   "domain": "pik.bg",
+   "url": "https://pik.bg/хора-с-увреждания-на-факелно-шествие-из-софия-news1350555.html",
+   "title": "Хора с увреждания на факелно шествие из София - Информационна агенция ПИК",
+   "published": "2026-08-21T09:15:00+00:00",
+   "content_chars": 643,
+   "linked_mentions": 1,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/chernomore.bg/20260822-313487-vremeto-vav-varna-na-22-avgust-2026-84724956.json",
+   "domain": "chernomore.bg",
+   "url": "https://www.chernomore.bg/a/2-varna/313487-vremeto-vav-varna-na-22-avgust-2026",
+   "title": "Времето във Варна на 22 август 2026",
+   "published": "2026-08-22T05:30:00+00:00",
+   "content_chars": 554,
+   "linked_mentions": 1,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/e-vestnik.bg/20260624-ot-gospodin-darsi-do-midas-naopaki-zashto-si-otide-kiar-star-8658cdc9.json",
+   "domain": "e-vestnik.bg",
+   "url": "https://e-vestnik.bg/40825/ot-gospodin-darsi-do-midas-naopaki-zashto-si-otide-kiar-starmar/",
+   "title": "От „господин Дарси“ до „Мидас наопаки“: защо си отиде Киър Стармър",
+   "published": "2026-06-23T23:08:20+00:00",
+   "content_chars": 5394,
+   "linked_mentions": 2,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/chernomore.bg/20260821-313474-turtsiya-izdade-mezhdunarodna-zapoved-za-arest-na-net-0848884f.json",
+   "domain": "chernomore.bg",
+   "url": "https://www.chernomore.bg/a/15-sviat/313474-turtsiya-izdade-mezhdunarodna-zapoved-za-arest-na-netanyahu",
+   "title": "Турция издаде международна заповед за арест на Нетаняху",
+   "published": "2026-08-21T13:30:00+00:00",
+   "content_chars": 541,
+   "linked_mentions": 2,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/lupa.bg/nodate-polenta-kachamak-s-domati-i-pesto-421203news-e83ba657.json",
+   "domain": "lupa.bg",
+   "url": "https://lupa.bg/news/polenta-kachamak-s-domati-i-pesto_421203news.html",
+   "title": "Полента (качамак) с домати и песто",
+   "published": null,
+   "content_chars": 470,
+   "linked_mentions": 0,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/bgdnes.bg/20260822-23429770-4e542907.json",
+   "domain": "bgdnes.bg",
+   "url": "https://www.bgdnes.bg/bulgaria/article/23429770",
+   "title": "Православен календар за 22 август",
+   "published": "2026-08-22T02:00:00+00:00",
+   "content_chars": 487,
+   "linked_mentions": 0,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/chernomore.bg/20260822-313502-kakvo-shte-bade-vremeto-v-nedelya-de5cccfb.json",
+   "domain": "chernomore.bg",
+   "url": "https://www.chernomore.bg/a/10-bulgaria/313502-kakvo-shte-bade-vremeto-v-nedelya",
+   "title": "Какво ще бъде времето в неделя?",
+   "published": "2026-08-22T09:15:00+00:00",
+   "content_chars": 1537,
+   "linked_mentions": 2,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/168chasa.bg/20260822-23430774-ae40ba24.json",
+   "domain": "168chasa.bg",
+   "url": "https://www.168chasa.bg/article/23430774",
+   "title": "Министър Пеев: Имало е влияние върху GPS сигналите, но това не е повлияло на безопасността",
+   "published": "2026-08-22T07:46:37+00:00",
+   "content_chars": 2204,
+   "linked_mentions": 2,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/profit.bg/20260821-2026082104493204956-34760b46.json",
+   "domain": "profit.bg",
+   "url": "https://profit.bg/article/2026082104493204956",
+   "title": "Скот Бесънт се изправя срещу „облигационните стражи“ на 32-трилионния пазар на американски държавен дълг",
+   "published": "2026-08-21T04:49:32+00:00",
+   "content_chars": 8947,
+   "linked_mentions": 2,
+   "drawn_for": "no_author"
+  },
+  {
+   "path": "news/data/news.bg/20260822-transportniyat-ministar-uveryava-nyama-risk-za-letishteto-sl-dd96bab2.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/crime/transportniyat-ministar-uveryava-nyama-risk-za-letishteto-sled-moshtniya-gps-zaglushitel.html",
+   "title": "Транспортният министър уверява: Няма риск за летището след мощния GPS заглушител",
+   "published": "2026-08-22T08:47:00+00:00",
+   "content_chars": 2210,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/novavarna.net/20260820-d0bfd180d0bed184-d0bad0b0d0bdd182d0b0d180d0b4d0b6d0b8d0b5d0b-86882aa4.json",
+   "domain": "novavarna.net",
+   "url": "https://novavarna.net/2026/08/20/%d0%bf%d1%80%d0%be%d1%84-%d0%ba%d0%b0%d0%bd%d1%82%d0%b0%d1%80%d0%b4%d0%b6%d0%b8%d0%b5%d0%b2-%d0%b7%d0%b0-%d0%bc%d0%be%d1%80%d0%b1%d0%b8%d0%bb%d0%b8-%d0%b7%d0%b0%d0%bf%d0%b0%d0%b4%d0%bd%d0%be%d0%bd/",
+   "title": "Проф. Кантарджиев за морбили, западнонилска треска и чикунгуня",
+   "published": "2026-08-20T10:50:14+00:00",
+   "content_chars": 1922,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/bta.bg/20260822-1190124-pochinala-e-emiliya-topalova-edin-ot-osnovatelite-na-28378ce3.json",
+   "domain": "bta.bg",
+   "url": "https://www.bta.bg/bg/news/lik/1190124-pochinala-e-emiliya-topalova-edin-ot-osnovatelite-na-kukleniya-teatar-v-ruse",
+   "title": "Починала е Емилия Топалова - един от основателите на Кукления театър в Русе",
+   "published": "2026-08-22T12:15:50+00:00",
+   "content_chars": 1388,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/fakti.bg/20260822-1076113-7-neochakvani-nachina-da-izpolzvame-utiata-u-doma-73ce024c.json",
+   "domain": "fakti.bg",
+   "url": "https://fakti.bg/life/1076113-7-neochakvani-nachina-da-izpolzvame-utiata-u-doma",
+   "title": "7 неочаквани начина да използваме ютията у дома",
+   "published": "2026-08-22T12:34:04+00:00",
+   "content_chars": 3715,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/dariknews.bg/20260822-kakvo-e-izobrazeno-na-gyrba-na-pyrvata-bylgarska-banknota-24-17cb292a.json",
+   "domain": "dariknews.bg",
+   "url": "https://dariknews.bg/regioni/gabrovo/kakvo-e-izobrazeno-na-gyrba-na-pyrvata-bylgarska-banknota-2463991",
+   "title": "Какво е изобразено на гърба на първата българска банкнота?",
+   "published": "2026-08-22T04:00:00+00:00",
+   "content_chars": 2624,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-sem-nedopustimo-e-ivo-hristov-da-protivopostavia-bnr-i-bnt-8-2efe4d08.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/medii/sem-nedopustimo-e-ivo-hristov-da-protivopostavia-bnr-i-bnt-872645.html",
+   "title": "СЕМ: Недопустимо е Иво Христов да противопоставя БНР и БНТ — OFFNews",
+   "published": null,
+   "content_chars": 1216,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/frognews.bg/20260817-spryaha-konkursa-glaven-arhitekt-sofiya-zaradi-boykot-gildii-de1b7432.json",
+   "domain": "frognews.bg",
+   "url": "https://frognews.bg/novini/spryaha-konkursa-glaven-arhitekt-sofiya-zaradi-boykot-gildiite.html",
+   "title": "Спряха конкурса за главен архитект на София заради бойкот от гилдиите",
+   "published": "2026-08-17T18:17:00+00:00",
+   "content_chars": 1253,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/novavarna.net/20260822-d189d0b5-d0b8d0bcd0b0-d0bbd0b8-d0b8d0b7d0bdd0b5d0bdd0b0d0b4d-0a46e031.json",
+   "domain": "novavarna.net",
+   "url": "https://novavarna.net/2026/08/22/%d1%89%d0%b5-%d0%b8%d0%bc%d0%b0-%d0%bb%d0%b8-%d0%b8%d0%b7%d0%bd%d0%b5%d0%bd%d0%b0%d0%b4%d0%b8-%d0%b2%d1%8a%d0%b2-%d0%b2%d1%80%d0%b5%d0%bc%d0%b5%d1%82%d0%be-%d0%ba%d1%80%d0%b0%d0%b9-%d0%bc%d0%be%d1%80/",
+   "title": "Ще има ли изненади във времето край морето в почивната неделя",
+   "published": "2026-08-22T10:31:10+00:00",
+   "content_chars": 1429,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/manager.bg/20260820-chetirikratniat-shampion-vav-formula-1-verstapen-udalzi-dogo-0f3990ef.json",
+   "domain": "manager.bg",
+   "url": "https://manager.bg/sport/chetirikratniat-shampion-vav-formula-1-verstapen-udalzi-dogovora-si-s-red-bull",
+   "title": "Четирикратният шампион във Формула 1 Верстапен удължи договора си с Red Bull",
+   "published": "2026-08-20T09:51:43+00:00",
+   "content_chars": 1058,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/actualno.com/20260822-grigor-dimitrov-poluchi-nov-shans-za-us-open-news-2631579-b30c13fe.json",
+   "domain": "actualno.com",
+   "url": "https://www.actualno.com/tennis/grigor-dimitrov-poluchi-nov-shans-za-us-open-news_2631579.html",
+   "title": "Григор Димитров получи нов шанс за US Open",
+   "published": "2026-08-22T17:05:00+00:00",
+   "content_chars": 1935,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/dnevnik.bg/20260816-4944761-galapagos-na-kurt-vonegut-otkus-b1007a0c.json",
+   "domain": "dnevnik.bg",
+   "url": "https://www.dnevnik.bg/knigi/2026/08/16/4944761_galapagos_na_kurt_vonegut_otkus/",
+   "title": "\"Галапагос\" на Кърт Вонегът (откъс)",
+   "published": "2026-08-16T09:33:00+00:00",
+   "content_chars": 4754,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/money.bg/20260825-kompaniyata-koyato-uvelichava-dividentite-si-72-poredni-godi-a338b1ac.json",
+   "domain": "money.bg",
+   "url": "https://money.bg/business/kompaniyata-koyato-uvelichava-dividentite-si-72-poredni-godini.html",
+   "title": "Компанията, която увеличава дивидентите си 72 поредни години",
+   "published": "2026-08-25T07:05:07+00:00",
+   "content_chars": 1959,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/dariknews.bg/20260821-izdirvat-stoiana-stefanova-ot-kazanlyk-za-posledno-e-vidiana-151fb68d.json",
+   "domain": "dariknews.bg",
+   "url": "https://dariknews.bg/regioni/stara-zagora/izdirvat-stoiana-stefanova-ot-kazanlyk-za-posledno-e-vidiana-s-kuche-chihuahua-2464336",
+   "title": "Издирват Стояна Стефанова от Казанлък, за последно е видяна с куче „чихуахуа“",
+   "published": "2026-08-21T16:27:00+00:00",
+   "content_chars": 890,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/clubz.bg/20260820-178511-8907a0ac.json",
+   "domain": "clubz.bg",
+   "url": "https://clubz.bg/178511",
+   "title": "Турция представя първия си изцяло автономен дълбоководен дрон „Дерингьоз“",
+   "published": "2026-08-20T08:05:08+00:00",
+   "content_chars": 2209,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/fakti.bg/20260822-1076137-velikobritania-s-broshura-kam-migrantite-ne-iznasilv-1186f03d.json",
+   "domain": "fakti.bg",
+   "url": "https://fakti.bg/life/1076137-velikobritania-s-broshura-kam-migrantite-ne-iznasilvaite",
+   "title": "Великобритания с брошура към мигрантите: Не изнасилвайте!",
+   "published": "2026-08-22T14:39:11+00:00",
+   "content_chars": 3439,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/bta.bg/20260823-1190262-nay-malko-petima-postradali-pri-zemetresenieto-s-mag-098ad1a2.json",
+   "domain": "bta.bg",
+   "url": "https://www.bta.bg/bg/news/world/1190262-nay-malko-petima-postradali-pri-zemetresenieto-s-magnitud-5-9-v-yaponiya-nyama-",
+   "title": "Най-малко петима пострадали при земетресението с магнитуд 5,9 в Япония; няма опасност от цунами",
+   "published": "2026-08-23T00:28:00+00:00",
+   "content_chars": 1956,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/frognews.bg/20260822-krizata-seuta-prodaljava-18-pogrebani-bez-imena-hiliadi-osht-9e55d928.json",
+   "domain": "frognews.bg",
+   "url": "https://frognews.bg/novini/krizata-seuta-prodaljava--18-pogrebani-bez-imena-hiliadi-oshte-grada.html",
+   "title": "Кризата в Сеута продължава – 18 погребани без имена, хиляди още са в града",
+   "published": "2026-08-22T15:10:00+00:00",
+   "content_chars": 3477,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/marica.bg/20260822-aria-razgoreshti-mrejata-s-plajni-seksi-snimki-e4c9a92b.json",
+   "domain": "marica.bg",
+   "url": "https://www.marica.bg/lajfstajl/aria-razgoreshti-mrejata-s-plajni-seksi-snimki",
+   "title": "Ариа разгорещи мрежата с плажни секси СНИМКИ",
+   "published": "2026-08-22T20:20:00+00:00",
+   "content_chars": 1178,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/flagman.bg/20260822-388336-48b17311.json",
+   "domain": "flagman.bg",
+   "url": "https://www.flagman.bg/article/388336",
+   "title": "МОН сменя финансирането на училищата, Вълчев посочи тежки изкривявания",
+   "published": "2026-08-22T09:00:00+00:00",
+   "content_chars": 3887,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/novavarna.net/20260821-d0bfd0bed0b6d0b0d180-d0bad180d0b0d0b9-d0b2d18ad0bbd187d0b8-d-ba812937.json",
+   "domain": "novavarna.net",
+   "url": "https://novavarna.net/2026/08/21/%d0%bf%d0%be%d0%b6%d0%b0%d1%80-%d0%ba%d1%80%d0%b0%d0%b9-%d0%b2%d1%8a%d0%bb%d1%87%d0%b8-%d0%b4%d0%be%d0%bb-%d0%b5%d0%ba%d0%b8%d0%bf%d0%b8-%d0%bd%d0%b0-%d0%bf%d0%be%d0%b6%d0%b0%d1%80%d0%bd%d0%b0%d1%82/",
+   "title": "Пожар край Вълчи дол: Екипи на пожарната овладяха огъня до жп линията",
+   "published": "2026-08-21T13:00:53+00:00",
+   "content_chars": 958,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/kmeta.bg/20260825-d0bed0b1d189d0b8d0bdd0b8d182d0b5-d0bfd0bed0b8d181d0bad0b0d18-a7838699.json",
+   "domain": "kmeta.bg",
+   "url": "https://kmeta.bg/%d0%be%d0%b1%d1%89%d0%b8%d0%bd%d0%b8%d1%82%d0%b5-%d0%bf%d0%be%d0%b8%d1%81%d0%ba%d0%b0%d1%85%d0%b0-%d1%87%d0%b0%d1%81%d1%82-%d0%be%d1%82-%d0%b4%d0%b0%d0%bd%d1%8a%d0%ba%d0%b0-%d0%b2%d1%8a%d1%80%d1%85/",
+   "title": "Общините поискаха част от данъка върху доходите да остава при тях",
+   "published": "2026-08-25T14:31:01+00:00",
+   "content_chars": 466,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/fakti.bg/20260822-1076101-ministar-valchev-do-1-godina-mon-shte-predloji-proma-7e01cc7c.json",
+   "domain": "fakti.bg",
+   "url": "https://fakti.bg/bulgaria/1076101-ministar-valchev-do-1-godina-mon-shte-predloji-promana-v-modela-na-finansirane-v-obrazovanieto",
+   "title": "Министър Вълчев: До 1 година МОН ще предложи промяна в модела на финансиране в образованието",
+   "published": "2026-08-22T11:40:19+00:00",
+   "content_chars": 2837,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/bgnes.bg/20260822-kartata-na-gta-vi-izteche-onlayn-otgovornost-poe-hakerskata--0cf89f94.json",
+   "domain": "bgnes.bg",
+   "url": "https://www.bgnes.bg/kartata-na-gta-vi-izteche-onlayn-otgovornost-poe-hakerskata-grupa-cyberleek",
+   "title": "Картата на GTA VI изтече онлайн, отговорност пое хакерската група Cyberleek",
+   "published": "2026-08-22T16:25:00+00:00",
+   "content_chars": 3807,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/news.bg/20260822-rusiya-predlozhi-kanada-da-stane-shtat-na-sasht-906e5a6e.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/int-economics/rusiya-predlozhi-kanada-da-stane-shtat-na-sasht.html",
+   "title": "Русия предложи Канада да стане щат на САЩ",
+   "published": "2026-08-22T20:36:07+00:00",
+   "content_chars": 1743,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/news.bg/20260821-ot-restorant-v-dragalevtsi-sa-zaglushavali-letishte-sofiya-b15d31f5.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/crime/ot-restorant-v-dragalevtsi-sa-zaglushavali-letishte-sofiya.html",
+   "title": "От ресторант в \"Драгалевци\" са заглушавали летище \"София\"",
+   "published": "2026-08-21T18:28:02+00:00",
+   "content_chars": 1222,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/pogled.info/20260822-zashto-evolyutsiyata-ne-sazdade-upoyka-za-konskata-muha-i-ka-0997692d.json",
+   "domain": "pogled.info",
+   "url": "https://pogled.info/interesen/zashto-evolyutsiyata-ne-sazdade-upoyka-za-konskata-muha-i-kak-tova-razkriva-logistikata-na-biomasata.196270",
+   "title": "Защо еволюцията не създаде упойка за конската муха и как това разкрива логистиката на биомасата",
+   "published": "2026-08-22T18:15:00+00:00",
+   "content_chars": 7624,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/bta.bg/20260822-1187908-novata-uchebna-godina-v-balgarskoto-uchilishte-chern-2fd5fbd2.json",
+   "domain": "bta.bg",
+   "url": "https://www.bta.bg/bg/bg-world/1187908-novata-uchebna-godina-v-balgarskoto-uchilishte-chernorizets-hrabar-v-hamburg-s",
+   "title": "Новата учебна година в Българското училище „Черноризец Храбър“ в Хамбург ще бъде открита днес",
+   "published": "2026-08-22T05:30:00+00:00",
+   "content_chars": 1344,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/manager.bg/20260723-kakvo-ste-nakara-vashata-marka-da-se-otkroi-72321337.json",
+   "domain": "manager.bg",
+   "url": "https://manager.bg/маркетинг/kakvo-ste-nakara-vashata-marka-da-se-otkroi-",
+   "title": "Какво ще накара вашата марка да се открои?",
+   "published": "2026-07-23T13:31:33+00:00",
+   "content_chars": 5172,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/marica.bg/20260822-bojidar-saraboyukov-ostana-osmi-na-diamantenata-liga-v-lozan-ba3c0204.json",
+   "domain": "marica.bg",
+   "url": "https://www.marica.bg/sport/drugi/bojidar-saraboyukov-ostana-osmi-na-diamantenata-liga-v-lozana",
+   "title": "Божидар Саръбоюков остана осми на Диамантената лига в Лозана",
+   "published": "2026-08-22T04:37:00+00:00",
+   "content_chars": 807,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/kmeta.bg/20260819-d0bad0bcd0b5d182d0bed0b2d0b5d182d0b5-d181-d0bdd0b0d182d0b8d1-6c733146.json",
+   "domain": "kmeta.bg",
+   "url": "https://kmeta.bg/%d0%ba%d0%bc%d0%b5%d1%82%d0%be%d0%b2%d0%b5%d1%82%d0%b5-%d1%81-%d0%bd%d0%b0%d1%82%d0%b8%d1%81%d0%ba-%d0%b7%d0%b0-%d1%84%d0%b8%d0%bd%d0%b0%d0%bd%d1%81%d0%be%d0%b2%d0%b0-%d0%b4%d0%b5%d1%86%d0%b5%d0%bd/",
+   "title": "Кметовете с натиск за финансова децентрализация: Първите промени се чакат преди бюджета за 2027 г.",
+   "published": "2026-08-19T05:43:53+00:00",
+   "content_chars": 466,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/trafficnews.bg/20260821-spriaha-shofyor-tir-izprevarval-nad-15-km-drug-predlozhi-386-3c77bb7a.json",
+   "domain": "trafficnews.bg",
+   "url": "https://trafficnews.bg/trafik/spriaha-shofyor-tir-izprevarval-nad-15-km-drug-predlozhi-386978/",
+   "title": "Спряха шофьор на тир изпреварвал над 1.5 км., друг предложи подкуп",
+   "published": "2026-08-21T15:33:00+00:00",
+   "content_chars": 904,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/fakti.bg/20260822-1076141-mo-vms-izpalniha-zadachi-po-transportirane-na-chasti-fae4f2bb.json",
+   "domain": "fakti.bg",
+   "url": "https://fakti.bg/bulgaria/1076141-mo-vms-izpalniha-zadachi-po-transportirane-na-chasti-ot-bezpilotni-letatelni-aparati",
+   "title": "МО: ВМС изпълниха задачи по транспортиране на части от безпилотни летателни апарати",
+   "published": "2026-08-22T15:34:17+00:00",
+   "content_chars": 916,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/blitz.bg/20260822-apartament-v-sofiya-za-2-500-evrokv-m-realno-mozhe-da-stigne-fdcf7cd1.json",
+   "domain": "blitz.bg",
+   "url": "https://blitz.bg/ikonomika/apartament-v-sofiya-za-2-500-evrokv-m-realno-mozhe-da-stigne-do-3-700-evrokv-m-sled-dovarshvane_news1166802.html",
+   "title": "Апартамент в София за 2 500 евро/кв. м реално може да стигне до 3 700 евро/кв. м след довършване",
+   "published": "2026-08-22T16:10:00+00:00",
+   "content_chars": 10054,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-kolaborantite-prez-vtorata-svetovna-vojna-frontova-linia-s-k-8813b6ed.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/istoria/kolaborantite-prez-vtorata-svetovna-vojna-frontova-linia-s-kamen-neve-872573.html",
+   "title": "Колаборантите през Втората световна война. Фронтова линия с Камен Невенкин — OFFNews",
+   "published": null,
+   "content_chars": 857,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/dariknews.bg/20260821-pochina-vdovicata-na-henri-kisindzhyr-2464341-b6ea1bc7.json",
+   "domain": "dariknews.bg",
+   "url": "https://dariknews.bg/novini/sviat/pochina-vdovicata-na-henri-kisindzhyr-2464341",
+   "title": "Почина вдовицата на Хенри Кисинджър",
+   "published": "2026-08-21T19:01:00+00:00",
+   "content_chars": 1103,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/flagman.bg/20260822-388349-cbaf0cf1.json",
+   "domain": "flagman.bg",
+   "url": "https://www.flagman.bg/article/388349",
+   "title": "Защо самолетите не летят направо през Тихия океан",
+   "published": "2026-08-22T14:30:00+00:00",
+   "content_chars": 2221,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-trut-soushal-shte-predlaga-platen-dostap-do-postovete-na-tra-a6f0d78f.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/medii/trut-soushal-shte-predlaga-platen-dostap-do-postovete-na-tramp-870849.html",
+   "title": "''Трут соушъл'' ще предлага платен достъп до постовете на Тръмп — OFFNews",
+   "published": null,
+   "content_chars": 3120,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/news.bg/20260822-sasht-udari-kanada-s-50-protsentni-mita-sled-provala-na-preg-8e10bc72.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/int-politics/sasht-udari-kanada-s-50-protsentni-mita-sled-provala-na-pregovorite.html",
+   "title": "САЩ удари Канада с 50-процентни мита след провала на преговорите",
+   "published": "2026-08-22T14:50:56+00:00",
+   "content_chars": 2691,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/money.bg/20260822-da-se-pensionirash-s-eur270-miliona-kak-nikos-likos-prodade--b88b9930.json",
+   "domain": "money.bg",
+   "url": "https://money.bg/wealth/da-se-pensionirash-s-eur270-miliona-kak-nikos-likos-prodade-130-godishniya-semeen-biznes-na-yapontsite.html",
+   "title": "Да се \"пенсионираш\" с €270 милиона: Как гръцки предприемач продаде 130-годишен семеен бизнес на японците",
+   "published": "2026-08-22T15:40:03+00:00",
+   "content_chars": 4656,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/dariknews.bg/20260821-vizhte-testa-i-kliucha-s-vernite-otgovori-na-maturata-po-bel-fa5349ac.json",
+   "domain": "dariknews.bg",
+   "url": "https://dariknews.bg/novini/bylgariia/vizhte-testa-i-kliucha-s-vernite-otgovori-na-maturata-po-bel-2464318",
+   "title": "Вижте теста и ключа с верните отговори на матурата по БЕЛ",
+   "published": "2026-08-21T12:06:00+00:00",
+   "content_chars": 1298,
+   "linked_mentions": 0,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/fakti.bg/20260822-1076116-sezonat-na-pojarite-okolo-1000-dushi-baha-evakuirani-38e79c62.json",
+   "domain": "fakti.bg",
+   "url": "https://fakti.bg/world/1076116-sezonat-na-pojarite-okolo-1000-dushi-baha-evakuirani-v-iztochnata-chast-na-ispania",
+   "title": "Сезонът на пожарите! Около 1000 души бяха евакуирани в източната част на Испания",
+   "published": "2026-08-22T12:53:50+00:00",
+   "content_chars": 1552,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/fakti.bg/20260822-1076102-dobrudja-e-izpraven-pred-likvidacia-ef61a51a.json",
+   "domain": "fakti.bg",
+   "url": "https://fakti.bg/sport/1076102-dobrudja-e-izpraven-pred-likvidacia",
+   "title": "Добруджа е изправен пред ликвидация",
+   "published": "2026-08-22T12:29:20+00:00",
+   "content_chars": 2465,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/pogled.info/20260822-prilovat-v-papua-nova-gvineya-izvadi-ot-syankata-vid-uloven--0abe1d85.json",
+   "domain": "pogled.info",
+   "url": "https://pogled.info/interesen/prilovat-v-papua-nova-gvineya-izvadi-ot-syankata-vid-uloven-za-posledno-prez-1970-g.196246",
+   "title": "Приловът в Папуа Нова Гвинея извади от сянката вид, уловен за последно през 1970 г.",
+   "published": "2026-08-22T15:01:00+00:00",
+   "content_chars": 8096,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/manager.bg/20260820-portugalia-prie-zakon-zabranavast-pokrivaneto-na-liceto-na-o-e93d3e41.json",
+   "domain": "manager.bg",
+   "url": "https://manager.bg/свят/portugalia-prie-zakon-zabranavast-pokrivaneto-na-liceto-na-obstestveni-mesta",
+   "title": "Португалия прие закон, забраняващ покриването на лицето на обществени места",
+   "published": "2026-08-20T08:59:51+00:00",
+   "content_chars": 2164,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/offnews.bg/nodate-skrining-za-virusen-hepatit-sred-riskovi-grupi-shte-se-izvar-95bcdd8d.json",
+   "domain": "offnews.bg",
+   "url": "https://offnews.bg/zdrave/skrining-za-virusen-hepatit-sred-riskovi-grupi-shte-se-izvarshva-v-sof-873193.html",
+   "title": "Скрининг за вирусен хепатит сред рискови групи ще се извършва в София — OFFNews",
+   "published": null,
+   "content_chars": 782,
+   "linked_mentions": 2,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/fakti.bg/20260822-1076066-pri-akciata-na-slujbite-v-dragalevci-sa-otkriti-tain-070a12e7.json",
+   "domain": "fakti.bg",
+   "url": "https://fakti.bg/bulgaria/1076066-pri-akciata-na-slujbite-v-dragalevci-sa-otkriti-taini-koridori-i-tunel",
+   "title": "При акцията на службите в „Драгалевци” са открити тайни коридори и тунел",
+   "published": "2026-08-22T08:22:44+00:00",
+   "content_chars": 758,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/marica.bg/20260822-shumni-avtomobili-tormozqt-jitelite-na-draginovo-3cd744bd.json",
+   "domain": "marica.bg",
+   "url": "https://www.marica.bg/region/pazardjik/shumni-avtomobili-tormozqt-jitelite-na-draginovo",
+   "title": "Шумни автомобили тормозят жителите на Драгиново",
+   "published": "2026-08-22T12:22:00+00:00",
+   "content_chars": 683,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/standartnews.com/20260822-dneshniyat-avgustovski-den-krie-tayna-za-idvashtata-zima-644-64c1f17a.json",
+   "domain": "standartnews.com",
+   "url": "https://www.standartnews.com/balgariya-obshtestvo/dneshniyat-avgustovski-den-krie-tayna-za-idvashtata-zima-644412.html",
+   "title": "Днешният августовски ден крие тайна за идващата зима",
+   "published": "2026-08-22T03:59:08+00:00",
+   "content_chars": 3650,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/news.bg/20260814-komandir-na-aviobaza-graf-ignatievo-predpochita-mig-29-pred--e2c92b8c.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/politics/komandir-na-aviobaza-graf-ignatievo-predpochita-mig-29-pred-f-16.html",
+   "title": "Командир на авиобаза \"Граф Игнатиево\" предпочита МиГ-29 пред F-16",
+   "published": "2026-08-14T07:24:00+00:00",
+   "content_chars": 2032,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  },
+  {
+   "path": "news/data/news.bg/20260821-energiyniyat-ministar-uspokoi-nyama-kriza-s-aets-kozloduy-to-11ec09c1.json",
+   "domain": "news.bg",
+   "url": "https://news.bg/energy/energiyniyat-ministar-uspokoi-nyama-kriza-s-aets-kozloduy-tokat-e-osiguren.html",
+   "title": "Енергийният министър успокои: Няма криза с АЕЦ \"Козлодуй\". Токът е осигурен",
+   "published": "2026-08-21T11:38:00+00:00",
+   "content_chars": 1374,
+   "linked_mentions": 1,
+   "drawn_for": "mainstream"
+  }
+ ]
+}

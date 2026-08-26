@@ -3,3 +3,12 @@
 # tracked. See the save-news-articles skill.
 */
 _summaries_*.jsonl
+
+# ⚠️ The gold set IS TRACKED, unlike everything else under a directory here.
+# It is the reference every later score is measured against, so it has to be
+# the SAME 240 articles on every machine and in every run — a gitignored gold
+# set means each box draws its own and no two scores are comparable. It is
+# derived (build_gold_set.py, deterministic from its seed) but the derivation
+# reads the gitignored corpus, so re-deriving it elsewhere is not possible.
+!/gold/
+!/gold/**
