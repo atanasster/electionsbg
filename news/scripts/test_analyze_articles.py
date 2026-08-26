@@ -971,6 +971,43 @@ class Mentions(FixtureTestCase):
         self.assertNotIn("mentions", out["queue"][0])
         self.assertIn("NOT", out["queue"][0]["mentions_note"])
 
+    def test_an_analyst_may_not_set_its_OWN_review_flag(self):
+        # ⚠️⚠️ A model that could set this would set it to nothing — not from
+        # malice, but because a model asked „do you need checking?" answers
+        # the way it answers everything else. The rule is a pure function of
+        # (label, confidence) computed at save time.
+        out = self.save(
+            analysis(self.analysis_path("a1"), "https://test.bg/alpha",
+                     "test.bg", extra={"review": {}}), expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any("computed at save time" in e for e in msgs), msgs)
+
+    def test_the_review_flag_is_STAMPED_when_it_is_earned(self):
+        # A hedged position: the model taking a real stance and saying it is
+        # unsure. On the corpus this is 4% of records.
+        self.save(analysis(self.analysis_path("a1"), "https://test.bg/alpha",
+                           "test.bg",
+                           extra={"russia_stance": {"label": "pro_russia",
+                                                    "confidence": 0.6,
+                                                    "evidence": "e"}}))
+        got = self.saved()
+        self.assertIn("review", got)
+        self.assertIn("russia_stance", got["review"])
+
+    def test_a_confident_not_applicable_carries_NO_review_flag(self):
+        # ⚠️ The calibration: the model is MOST confident where it asserts
+        # nothing (median 0.90 on russia_stance), so a bare threshold would
+        # queue everything real and nothing safe.
+        self.save(analysis(self.analysis_path("a1"), "https://test.bg/alpha",
+                           "test.bg",
+                           extra={"russia_stance": {"label": "not_applicable",
+                                                    "confidence": 0.9,
+                                                    "evidence": "e"},
+                                  "leaning": {"label": "not_applicable",
+                                              "confidence": 0.8,
+                                              "evidence": "e"}}))
+        self.assertNotIn("review", self.saved())
+
     def test_entities_still_takes_only_strings(self):
         # ⚠️ The merge these two blocks exist to prevent. `entities` feeds
         # story clustering, which calls .lower() on each value — an object

@@ -107,13 +107,20 @@ else
     --limit "$LIMIT" --model "$MODEL"
 fi
 
-# ── 5. Reciprocal index ────────────────────────────────────────────────────
+# ── 5. Review queue ────────────────────────────────────────────────────────
+# ⚠️ A pipeline that knows what it does not know is worth more than one
+# confidently wrong on a tenth of its political framing calls — and nobody is
+# watching, so the queue has to arrive in the report rather than wait to be
+# asked for.
+stage review_queue python3 news/scripts/review_routing.py --limit 0 --json
+
+# ── 6. Reciprocal index ────────────────────────────────────────────────────
 stage mention_index python3 news/scripts/build_mention_index.py --json
 
-# ── 6. App bundles ─────────────────────────────────────────────────────────
+# ── 7. App bundles ─────────────────────────────────────────────────────────
 stage bundles python3 news/scripts/build_app_data.py --quiet --json
 
-# ── 7. Report ──────────────────────────────────────────────────────────────
+# ── 8. Report ──────────────────────────────────────────────────────────────
 # ⚠️ The stages come in by PATH, not on stdin. `python3 - < "$STAGES"
 # <<'PYEOF'` applies both redirections and the LATER one wins — so the
 # heredoc replaced the file as stdin, the reader saw the script text instead

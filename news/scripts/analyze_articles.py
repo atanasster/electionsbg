@@ -80,6 +80,8 @@ from pathlib import Path
 # resolve_mentions is a sibling module, and this script is run by path.
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+from review_routing import record_review  # noqa: E402
+
 REPO_ROOT = os.environ.get("DATA_BG_ROOT") or os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", ".."))
 DATA_DIR = os.path.join(REPO_ROOT, "news", "data")
@@ -945,6 +947,17 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
         if not errs:
             errs.extend(check_mention_provenance(a["mentions"], rec))
 
+    # ⚠️⚠️ THE ESCAPE HATCH, COMPUTED HERE AND NOT ACCEPTED FROM THE ANALYST.
+    # A model that could set its own `review` field would set it to nothing —
+    # not from malice, but because a model asked „do you need checking?"
+    # answers the way it answers everything else. The rule is a pure function
+    # of (label, confidence) in review_routing.py, so it is the same for a
+    # frontier model, a 12B and a human, and it is applied AFTER validation so
+    # a rejected record never reaches it.
+    if "review" in a:
+        errs.append("review: computed at save time — an analyst may not set "
+                    "whether its own output needs checking")
+
     tones = a.get("party_tones")
     if not isinstance(tones, list):
         errs.append("party_tones: must be a list")
@@ -1045,6 +1058,17 @@ def save_one(a: dict, tax, cats: dict, index: dict, stats: dict) -> list:
     errs = validate_analysis(a, tax, cats, index)
     if errs:
         return errs
+
+    # ⚠️ STAMPED AFTER VALIDATION, so a rejected record never carries one, and
+    # computed here rather than accepted from the analyst — a model asked „do
+    # you need checking?" answers the way it answers everything else. The rule
+    # is a pure function of (label, confidence); see review_routing.py for why
+    # a bare confidence threshold routes exactly backwards.
+    review = record_review(a)
+    if review:
+        a["review"] = review
+    else:
+        a.pop("review", None)
 
     rel = a["article_path"]
     art_path = analysis_path_for(rel)
