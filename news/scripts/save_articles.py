@@ -758,9 +758,21 @@ def normalize_date(raw, now=None):
     """Normalise a publish date to a UTC ISO-8601 string.
 
     Returns the site's own string unchanged when it cannot be parsed (better
-    than losing it), and None when the value is a date we refuse to store."""
-    if not raw:
+    than losing it), and None when the value is a date we refuse to store.
+
+    ⚠️ Accepts a non-string. Every EXTRACTION route feeds this through
+    `_jsonld_str`, which coerces an int to str — but cmd_repair_dates reads
+    `published` straight off disk, where a record written by an older parser
+    can hold a bare number. Untyped, `raw.strip()` raised AttributeError,
+    aborting the corpus sweep mid-way AND taking --intake-report to exit 1
+    with empty stdout: the same defect the UnicodeDecodeError guard in
+    field_coverage exists to prevent, re-opened one function over."""
+    if raw is None or raw == "":
         return None
+    if not isinstance(raw, str):
+        if isinstance(raw, bool) or not isinstance(raw, (int, float)):
+            return None
+        raw = str(int(raw) if float(raw).is_integer() else raw)
     dt = _epoch_dt(raw)
     if dt is _EPOCH_OUT_OF_BAND:
         return None
@@ -2253,6 +2265,72 @@ def read_retired_domains():
     return out
 
 
+def cmd_repair_dates(apply_changes=False, only_domain=None):
+    """Re-run normalize_date over every stored `published` and demote a value
+    the current rules refuse.
+
+    Population: the SERVING corpus. `_`-prefixed directories (the html cache,
+    the quarantine, the state dir) and `analysis/` are excluded — deliberately
+    the same filter build_app_data.py applies, so this covers exactly what can
+    reach `stats.last_published`. A quarantined record is already out of every
+    view; repairing its date would change nothing a reader sees.
+
+    Why this exists rather than --reextract: the future-skew refusal is a
+    PARSE-TIME rule, so records written before it landed keep their value for
+    ever, and --reextract can only reach a domain whose HTML we still have
+    cached — 13 of 55. The three known offenders are all capital.bg, a
+    browser-tier domain with no cache, which is exactly the gap.
+
+    ⚠️ It demotes to None; it does NOT rename the file. article_filename keys
+    the stored name on the published date, so these keep names beginning
+    2026-10-13 after the value is nulled. Renaming would orphan the analysis
+    sidecar, which is keyed on the corpus path — the record is the source of
+    truth and the mismatch is cosmetic.
+
+    ⚠️ It also does NOT delete the record. A future-dated event announcement
+    is still a real page the outlet published; what is wrong is the claim that
+    it was published on a date that has not happened. Nulling `published`
+    drops it out of every 'latest' ordering (which sorts undated last) while
+    keeping the article."""
+    changed, scanned, examples = 0, 0, []
+    for child in sorted(DATA_DIR.iterdir()) if DATA_DIR.is_dir() else []:
+        if not child.is_dir() or child.name.startswith("_") \
+                or child.name == "analysis":
+            continue
+        if only_domain and child.name != only_domain:
+            continue
+        for path in sorted(child.glob("*.json")):
+            try:
+                rec = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+                continue
+            if not isinstance(rec, dict) or "url" not in rec:
+                continue
+            scanned += 1
+            raw = rec.get("published")
+            # ⚠️ An absent date is not a refused one. Without this, a record
+            # already repaired has `published: None`, normalize_date(None)
+            # returns None, and the sweep "refuses" it again — overwriting
+            # `published_refused` with None and destroying the audit trail the
+            # first run created. That makes the command non-idempotent in the
+            # one way that loses data.
+            if raw is None or raw == "":
+                continue
+            if normalize_date(raw) is not None:
+                continue
+            changed += 1
+            if len(examples) < 10:
+                examples.append({"domain": child.name, "published": raw,
+                                 "title": (rec.get("title") or "")[:70]})
+            if apply_changes:
+                rec["published"] = None
+                rec["published_refused"] = raw
+                write_record(path, rec)
+    return {"domain": only_domain, "mode": "repair-dates",
+            "applied": apply_changes, "scanned": scanned, "refused": changed,
+            "examples": examples}
+
+
 def cmd_intake_report(stale_after_days=7):
     """One JSON object describing every domain's intake health.
 
@@ -2369,6 +2447,25 @@ def cmd_intake_report(stale_after_days=7):
             alerts.append({"domain": domain, "alert": "retry_backlog",
                            "detail": f"{row['retry_queued']} URLs queued for "
                                      f"retry and not draining"})
+    # A future publish date sorts an article to the top of every "latest"
+    # view for as long as it stays in the future, and it is the number
+    # stats.last_published reports as corpus freshness. The parse-time refusal
+    # only covers records written after it landed, so the corpus is swept
+    # here — cheap, and the alternative is noticing it in the UI weeks later.
+    # ⚠️ `refused`, not len(examples). The examples list is capped at 10, so
+    # reporting its length made the alert saturate at "10 records" exactly
+    # when the corpus is worst affected.
+    future = cmd_repair_dates(apply_changes=False)
+    if future["refused"]:
+        first = future["examples"][0]
+        alerts.append({
+            "domain": None, "alert": "unusable_published",
+            "detail": (f"{future['refused']} stored record(s) carry a publish "
+                       f"date the current rules refuse — future-dated past "
+                       f"{MAX_FUTURE_SKEW.days}d, or epoch-shaped outside "
+                       f"2000-2100. e.g. {first['domain']} at "
+                       f"{first['published']}. "
+                       f"Run: save_articles.py --repair-dates --apply")})
     fields = field_coverage()
     # A field added to extract_record only reaches records saved AFTER it, and
     # --reextract can only repair the domains that still have a cached page.
@@ -2509,6 +2606,7 @@ def main():
     dedupe = False
     no_quarantine = False
     intake_report = False
+    repair_dates = False
     stale_after_days = 7
     stale_after_cli = False
     apply_quarantine = False
@@ -2555,6 +2653,9 @@ def main():
         elif a == "--intake-report":
             intake_report = True
             args.remove(a)
+        elif a == "--repair-dates":
+            repair_dates = True
+            args.remove(a)
         elif a.startswith("--stale-after="):
             raw = a.split("=", 1)[1]
             if not raw.isdigit():
@@ -2599,6 +2700,14 @@ def main():
         elif a == "--no-cache":
             cache_html = False
             args.remove(a)
+    if repair_dates:
+        # A positional domain SCOPES the sweep rather than being ignored:
+        # `save_articles.py ex.bg --repair-dates --apply` rewrote every other
+        # domain too, at exit 0.
+        print(json.dumps(cmd_repair_dates(apply_changes,
+                                          only_domain=args[0] if args else None),
+                         ensure_ascii=False))
+        sys.exit(0)
     if intake_report:
         if args:
             print(json.dumps({"error": "usage", "detail":

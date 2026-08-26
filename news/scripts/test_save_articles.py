@@ -3216,6 +3216,229 @@ class AttributionGate(unittest.TestCase):
         self.assertEqual(out["saved"], 1, proc.stdout)
 
 
+class RepairDates(unittest.TestCase):
+    """The parse-time future-skew refusal reaches only records written AFTER
+    it landed, and --reextract reaches only the 13 of 55 domains whose HTML we
+    still cache. The three real offenders were all capital.bg, a browser-tier
+    domain with no cache — precisely the gap.
+
+    ⚠️ They were not a curiosity: stats.last_published, which the app renders
+    as corpus freshness, read 2026-10-13 — seven weeks into the future."""
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp(prefix="save-articles-dates-"))
+        self.addCleanup(shutil.rmtree, self.root, True)
+        self.data = self.root / "news" / "data"
+        (self.data / "ex.bg").mkdir(parents=True)
+        (self.data / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "ex.bg,rss,https://ex.bg/feed\n", encoding="utf-8")
+
+    def write(self, name, published):
+        (self.data / "ex.bg" / name).write_text(json.dumps({
+            "domain": "ex.bg", "url": f"https://ex.bg/{name}",
+            "title": "Заглавие", "published": published,
+            "content": "текст " * 150, "content_chars": 900,
+            "fetched_at": "2026-08-22T09:00:00+00:00"}, ensure_ascii=False),
+            encoding="utf-8")
+
+    def run_cmd(self, *flags):
+        env = dict(os.environ, DATA_BG_ROOT=str(self.root))
+        proc = subprocess.run(
+            [sys.executable, str(SCRIPT_DIR / "save_articles.py"), *flags],
+            capture_output=True, text=True, env=env)
+        self.assertEqual(proc.returncode, 0, proc.stderr[-400:])
+        return json.loads(proc.stdout)
+
+    def stored(self, name):
+        return json.loads((self.data / "ex.bg" / name).read_text(encoding="utf-8"))
+
+    def far_future(self):
+        return (datetime.now(timezone.utc) + timedelta(days=60)).isoformat()
+
+    def test_a_dry_run_reports_without_writing(self):
+        self.write("a.json", self.far_future())
+        out = self.run_cmd("--repair-dates")
+        self.assertEqual(out["refused"], 1)
+        self.assertFalse(out["applied"])
+        self.assertIsNotNone(self.stored("a.json")["published"],
+                             "a dry run wrote to the corpus")
+
+    def test_apply_demotes_the_value_and_keeps_the_original(self):
+        raw = self.far_future()
+        self.write("a.json", raw)
+        out = self.run_cmd("--repair-dates", "--apply")
+        self.assertEqual(out["refused"], 1)
+        rec = self.stored("a.json")
+        self.assertIsNone(rec["published"])
+        self.assertEqual(rec["published_refused"], raw,
+                         "the refused value must survive — a corpus that "
+                         "forgets what it rejected cannot be audited")
+
+    def test_a_good_date_is_untouched(self):
+        self.write("a.json", "2026-08-22T09:00:00+00:00")
+        out = self.run_cmd("--repair-dates", "--apply")
+        self.assertEqual(out["refused"], 0)
+        self.assertEqual(self.stored("a.json")["published"],
+                         "2026-08-22T09:00:00+00:00")
+
+    def test_the_record_is_kept_not_deleted(self):
+        """A future-dated event announcement is still a real page the outlet
+        published. What is false is the DATE, not the article."""
+        self.write("a.json", self.far_future())
+        self.run_cmd("--repair-dates", "--apply")
+        self.assertTrue((self.data / "ex.bg" / "a.json").exists())
+        self.assertEqual(self.stored("a.json")["title"], "Заглавие")
+
+    def test_the_filename_is_deliberately_not_renamed(self):
+        """article_filename keys the stored name on the published date, so a
+        repaired record keeps a name that disagrees with its value. Renaming
+        would orphan the analysis sidecar, which is keyed on the corpus path."""
+        self.write("20261013-a-abc.json", self.far_future())
+        self.run_cmd("--repair-dates", "--apply")
+        self.assertTrue((self.data / "ex.bg" / "20261013-a-abc.json").exists())
+
+    def test_the_intake_report_raises_the_alarm(self):
+        """The repair is a one-off; the alarm is what stops it recurring
+        silently, and it must share the repair's own definition of 'refused'."""
+        self.write("a.json", self.far_future())
+        alerts = self.run_cmd("--intake-report")["alerts"]
+        future = [a for a in alerts if a["alert"] == "unusable_published"]
+        self.assertEqual(len(future), 1, alerts)
+        self.assertIn("--repair-dates", future[0]["detail"])
+
+    def test_the_alarm_is_silent_on_a_clean_corpus(self):
+        self.write("a.json", "2026-08-22T09:00:00+00:00")
+        alerts = self.run_cmd("--intake-report")["alerts"]
+        self.assertEqual(
+            [a for a in alerts if a["alert"] == "unusable_published"], [])
+
+    def test_a_date_inside_the_skew_window_is_not_refused(self):
+        """MAX_FUTURE_SKEW exists because a publisher an hour ahead of us is
+        ordinary. Refusing those would demote real articles."""
+        soon = (datetime.now(timezone.utc) + timedelta(hours=6)).isoformat()
+        self.write("a.json", soon)
+        self.assertEqual(self.run_cmd("--repair-dates")["refused"], 0)
+
+    def test_a_second_run_does_not_destroy_the_audit_trail(self):
+        """⚠️ Without the `raw is None` guard, an already-repaired record has
+        published: None, normalize_date(None) returns None, and the sweep
+        'refuses' it AGAIN — overwriting published_refused with None. That is
+        the one way this command can lose data."""
+        raw = self.far_future()
+        self.write("a.json", raw)
+        self.run_cmd("--repair-dates", "--apply")
+        first = self.stored("a.json")
+        second_out = self.run_cmd("--repair-dates", "--apply")
+        self.assertEqual(second_out["refused"], 0,
+                         "an already-repaired record was refused again")
+        self.assertEqual(self.stored("a.json"), first,
+                         "the second run changed the record")
+        self.assertEqual(self.stored("a.json")["published_refused"], raw)
+
+    def test_a_positional_domain_scopes_the_sweep(self):
+        """`save_articles.py ex.bg --repair-dates --apply` rewrote every OTHER
+        domain too, at exit 0."""
+        (self.data / "other.bg").mkdir(parents=True)
+        (self.data / "other.bg" / "b.json").write_text(json.dumps({
+            "domain": "other.bg", "url": "https://other.bg/b",
+            "title": "Т", "published": self.far_future(),
+            "content": "x", "content_chars": 1}), encoding="utf-8")
+        self.write("a.json", self.far_future())
+        out = self.run_cmd("ex.bg", "--repair-dates", "--apply")
+        self.assertEqual(out["domain"], "ex.bg")
+        self.assertEqual(out["refused"], 1, "the scope was ignored")
+        self.assertIsNone(self.stored("a.json")["published"])
+        other = json.loads((self.data / "other.bg" / "b.json")
+                           .read_text(encoding="utf-8"))
+        self.assertIsNotNone(other["published"],
+                             "a domain outside the scope was rewritten")
+
+    def test_the_quarantine_and_caches_are_outside_the_sweep(self):
+        """Deliberately the same filter build_app_data applies, so this covers
+        exactly what can reach stats.last_published."""
+        self.write("a.json", "2026-08-22T09:00:00+00:00")
+        # ⚠️ `_state` holds .json files DIRECTLY, which is what makes the
+        # `_`-prefix guard load-bearing: `_quarantine` and `_html` nest their
+        # files one level deeper, so a test using only those exercises
+        # nothing — dropping the guard passes.
+        state = self.data / "_state"
+        state.mkdir(parents=True, exist_ok=True)
+        (state / "ex.bg.json").write_text(json.dumps({
+            "url": "https://ex.bg/state", "published": self.far_future()}),
+            encoding="utf-8")
+        (self.data / "_quarantine" / "ex.bg").mkdir(parents=True, exist_ok=True)
+        (self.data / "_quarantine" / "ex.bg" / "q.json").write_text(json.dumps({
+            "domain": "ex.bg", "url": "https://ex.bg/q", "title": "Т",
+            "published": self.far_future()}), encoding="utf-8")
+        out = self.run_cmd("--repair-dates", "--apply")
+        self.assertEqual(out["scanned"], 1, "a hidden directory was swept")
+        self.assertEqual(out["refused"], 0)
+        # the state file must be untouched — rewriting it would corrupt the
+        # per-domain intake state, which is not article data at all
+        self.assertIsNotNone(json.loads(
+            (state / "ex.bg.json").read_text(encoding="utf-8"))["published"])
+
+    def test_a_non_string_published_does_not_abort_the_sweep(self):
+        """⚠️ Every EXTRACTION route feeds normalize_date through _jsonld_str,
+        which coerces an int. This command reads straight off disk, where a
+        record written by an older parser can hold a bare number — and
+        `raw.strip()` then aborted the whole corpus sweep AND took
+        --intake-report to exit 1 with empty stdout."""
+        (self.data / "ex.bg" / "num.json").write_text(json.dumps({
+            "domain": "ex.bg", "url": "https://ex.bg/num", "title": "Т",
+            "published": 20260822, "content": "x", "content_chars": 1}),
+            encoding="utf-8")
+        self.write("a.json", "2026-08-22T09:00:00+00:00")
+        out = self.run_cmd("--repair-dates")
+        self.assertEqual(out["scanned"], 2, "the sweep stopped early")
+        self.assertEqual(out["refused"], 0, "20260822 is a valid date")
+        # and the report that embeds it survives too
+        self.run_cmd("--intake-report")
+
+    def test_the_alert_reports_the_real_count_not_the_example_cap(self):
+        """⚠️ The examples list is capped at 10, so reporting its length made
+        the alert saturate at '10 records' exactly when the corpus is worst
+        affected."""
+        for i in range(14):
+            self.write(f"f{i}.json", self.far_future())
+        alerts = self.run_cmd("--intake-report")["alerts"]
+        hit = [a for a in alerts if a["alert"] == "unusable_published"]
+        self.assertEqual(len(hit), 1)
+        self.assertIn("14 stored record(s)", hit[0]["detail"])
+        # ...and the examples list stays a SAMPLE: bounded, so a corpus-wide
+        # breakage cannot make the report enormous, but not so small that it
+        # names one domain when several are affected.
+        out = self.run_cmd("--repair-dates")
+        self.assertEqual(out["refused"], 14)
+        self.assertGreaterEqual(len(out["examples"]), 5)
+        self.assertLessEqual(len(out["examples"]), 10)
+
+    def test_the_alert_covers_an_epoch_outside_the_band_too(self):
+        """The predicate is 'the current rules refuse this', which is wider
+        than 'future-dated' — the label has to match."""
+        self.write("a.json", "9000000000")
+        alerts = self.run_cmd("--intake-report")["alerts"]
+        hit = [a for a in alerts if a["alert"] == "unusable_published"]
+        self.assertEqual(len(hit), 1, alerts)
+        self.assertIn("epoch-shaped", hit[0]["detail"])
+
+    def test_a_dry_run_reports_what_it_scanned(self):
+        """The three 'not refused' assertions are otherwise vacuous: an
+        implementation that scanned nothing satisfies all of them."""
+        self.write("a.json", "2026-08-22T09:00:00+00:00")
+        self.write("b.json", "2026-08-23T09:00:00+00:00")
+        out = self.run_cmd("--repair-dates")
+        self.assertEqual(out["scanned"], 2)
+        self.assertEqual(out["refused"], 0)
+
+    def test_an_unparseable_date_is_left_alone(self):
+        """normalize_date keeps the site's own string rather than losing it,
+        so 'вчера' is not a refusal and must not be demoted to null."""
+        self.write("a.json", "вчера")
+        self.assertEqual(self.run_cmd("--repair-dates")["refused"], 0)
+
+
 class FieldCoverage(unittest.TestCase):
     """`--intake-report`'s per-field fill.
 
