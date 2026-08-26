@@ -1,8 +1,45 @@
 # News site v1 — from intake to a publishable product
 
-**Status:** Tier 0 is **SHIPPED** (T0.1–T0.7, 2026-08-26) and Tier 5's shared-component half
-with it; Tiers 1–4 and Tier 5's `/en` question are open. The intake audit's F1–F9 shipped
-earlier.
+**Status:** **Every step of Tiers 0–4 that is CODE is shipped** (2026-08-26), and Tier 5's
+shared-component half with them. The intake audit's F1–F9 shipped earlier.
+
+⚠️ „Tiers 0–4 are shipped" would over-claim: **T4.2 is not code and has not been run** — see
+the note under the table. The distinction matters because T4.2 is the step that produces the
+numbers the other three Tier-4 steps exist to compute, so a reader taking the tier as
+complete would expect measurements that do not exist yet.
+
+**The one thing left open is Tier 5's `/en` fork, and it is open on purpose** — this plan
+says so itself: „The second is a project, not a step. It is not sequenced here because
+nothing else in this plan depends on the answer." Nothing built since has changed that.
+What DID land is the half that is right under either answer: `SummaryPair` is now the one
+path to a rendered summary on both the story and article pages, and
+`SummaryPair.gate.test.ts` keeps it that way — a third surface written by hand would render
+`summary_bg` and quietly drop the English, which is invisible to anyone reading in
+Bulgarian, i.e. everyone who tests this app.
+
+| tier | what shipped | commit |
+| --- | --- | --- |
+| T5 | one summary component, so the English cannot quietly stop rendering | `7b88436453` |
+| T1.1 | `/methodology` — the page that makes the rest publishable | `469a280e58` |
+| T1.5 | every news URL gets its own head, and the sitemap is generated | `249e26b955` |
+| T1.2 | `/article` — the judgment, its evidence, and the way back to the source | `ffb8364904` |
+| T1.4 | a distribution is only drawn where there is one to draw | `ed49ea47bc` |
+| T1.3 | `/topics`, ranked by disagreement rather than volume — and reporting that NO topic yet clears the 20-positioned floor | `e684412d78` |
+| T2.0 | `mentions` as a sibling of `entities`, refusing rather than grading | `774699b84c` |
+| T2.1 | the gazetteer — a surface may only claim an identity it owns | `084de1bef0` |
+| T2.2 | `resolve_mentions`, the dictionary pass | `356324c172` |
+| T2.3–4 | the analyst may set a role and may not mint an identity | `9d08ace8fe` |
+| T2.5 | the reciprocal index, with the evidence strength beside every link | `34d8434b66` |
+| T3 | the standalone runner — prompts, GBNF, client, loop, nightly | `d6adb3ef37` |
+| T4.1 | the stratified gold set | `8397521e85` |
+| T4.4 | review routing, calibrated against what the model actually does | `57424c5670` |
+| T4.3 | the per-field scoring harness | `502c60844f` |
+
+**T4.2 — the frontier baseline — is the one Tier 4 step that is not code.** The selector,
+the routing and the scoring harness are all built and tested; what remains is to RUN a
+frontier model over the 240 gold articles and a 50-article subset twice, which is an
+operator action against a paid API, not a step this plan can execute. Everything it will
+need is in place.
 **Written:** 2026-08-26. **Gap-audited the same day** — §7 records what the first draft missed
 and where each correction landed. Every figure was re-measured against `news/data` unless a
 source is named. ⚠️ Figures below are as of that date and the corpus moves; re-measure before
