@@ -66,6 +66,8 @@ export interface AnalysisBlock {
     signals: string[];
   } | null;
   entities: Entities | null;
+  /** name → link, for the entity strings that earned one. */
+  entity_links?: Record<string, EntityLink>;
   /**
    * Resolved, linkable entities — the SIBLING of `entities`, never a
    * replacement.
@@ -167,6 +169,8 @@ export interface Story {
   topics: TopicRef[];
   related_story_ids: string[];
   entities: Entities;
+  /** name → link, for the entity strings that earned one. */
+  entity_links?: Record<string, EntityLink>;
   aggregates: {
     article_count: number;
     outlet_count: number;
@@ -373,6 +377,30 @@ export const isLinkableMention = (m: Mention): boolean =>
   // record should cost a missing link, never a wrong one.
   Boolean(m.id?.trim()) &&
   (m.basis === "gazetteer_exact" || m.basis === "coref_resolved");
+
+/**
+ * A resolved entity, and where it lives on the MAIN site.
+ *
+ * ⚠️ Present only for a name the gazetteer matched OUTRIGHT
+ * (`gazetteer_exact`) against a route electionsbg.com actually serves. A
+ * name that did not resolve is ABSENT from the map rather than present with
+ * a null href — a renderer would happily turn a null into a dead link.
+ *
+ * ⚠️ `canonical` must be SHOWN. All eight people this resolves today matched
+ * on a two-part form, which is how newsrooms write them and is unique among
+ * public figures — but the reader is the last check on whether we picked the
+ * right person, and they can only perform it if they can see who we picked.
+ */
+export interface EntityLink {
+  kind: "person" | "party" | "institution" | "place";
+  id: string;
+  /** The registry's own spelling — „Иван Маркос Христанов" for „Иван Христанов". */
+  canonical: string;
+  /** How strong the surface was as evidence. See FORM_KINDS. */
+  form_kind: string;
+  /** Absolute: the news app is a different origin from electionsbg.com. */
+  href: string;
+}
 
 export interface TaxonomyCategory {
   id: string;

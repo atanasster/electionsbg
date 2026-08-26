@@ -18,6 +18,7 @@ import {
 } from "../labels";
 import { useOutlets, useStories, useTaxonomy, type Story } from "../data";
 import { StoryMemberRow } from "../components/ArticleRow";
+import { EntityChips } from "../components/EntityChips";
 import { SummaryPair } from "../components/SummaryPair";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
@@ -60,29 +61,6 @@ const STANCE_GROUPS: {
   { g: "neutral", meta: "neutral" },
   { g: "anti", meta: "anti_russia" },
 ];
-
-const ENTITY_CHIP_LIMIT = 8;
-
-const EntityChips = ({ title, names }: { title: string; names: string[] }) =>
-  names.length ? (
-    <div>
-      <h3 className="mb-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        {title}
-      </h3>
-      <div className="flex flex-wrap gap-1.5">
-        {names.slice(0, ENTITY_CHIP_LIMIT).map((name) => (
-          <Badge key={name} variant="secondary" className="font-normal">
-            {name}
-          </Badge>
-        ))}
-        {names.length > ENTITY_CHIP_LIMIT ? (
-          <Badge variant="outline" className="text-muted-foreground">
-            +{names.length - ENTITY_CHIP_LIMIT}
-          </Badge>
-        ) : null}
-      </div>
-    </div>
-  ) : null;
 
 export const StoryScreen = () => {
   const { id } = useParams<{ id: string }>();
@@ -370,14 +348,31 @@ export const StoryScreen = () => {
           ) : null}
 
           <Card className="space-y-3 p-4">
-            <EntityChips title="Хора" names={story.entities.people} />
-            <EntityChips title="Партии" names={story.entities.parties} />
+            <EntityChips
+              title="Хора"
+              names={story.entities.people}
+              links={story.entity_links}
+            />
+            <EntityChips
+              title="Партии"
+              names={story.entities.parties}
+              links={story.entity_links}
+            />
             <EntityChips
               title="Институции"
               names={story.entities.institutions}
+              links={story.entity_links}
             />
-            <EntityChips title="Компании" names={story.entities.companies} />
-            <EntityChips title="Места" names={story.entities.places} />
+            <EntityChips
+              title="Компании"
+              names={story.entities.companies}
+              links={story.entity_links}
+            />
+            <EntityChips
+              title="Места"
+              names={story.entities.places}
+              links={story.entity_links}
+            />
           </Card>
 
           {Object.keys(story.aggregates.by_domain).length > 0 ? (

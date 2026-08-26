@@ -429,3 +429,110 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Entity-list resolution: turning the model's `entities` strings into links
+# to the main site.
+#
+# ⚠️ THIS IS A DIFFERENT PROBLEM FROM SCANNING TEXT, and the difference is
+# what makes it safe. `resolve()` above walks free prose, where „места" is a
+# village and „Владимир" is a given name; here the string arrives already
+# classified BY THE MODEL as a person, a place or an institution central to
+# the article. The common-word and given-name hazards do not apply, because
+# nobody put „места" in `entities.places` — the model put „София" there.
+#
+# What DOES still apply is the identity rule, unchanged: a surface may only
+# claim an identity it owns. Only `gazetteer_exact` produces a link.
+#
+# ⚠️ MEASURED, so the ceiling is known rather than assumed. Over the 365
+# analyses: 8 of 138 distinct people resolve, 54 of 138 places, 3 of 7
+# parties, 9 of 121 institutions and 0 of 30 companies. The people are the
+# ones that matter — MPs and ministers — and the institutions are low for a
+# reason no threshold can fix: a Bulgarian article writes „МВР", while the
+# registry holds „Министерство на вътрешните работи". An abbreviation
+# crosswalk is separate work.
+
+# Where each kind lives on the MAIN site. ⚠️ Absolute URLs: the news app is a
+# different origin, so a relative href would 404 against news.electionsbg.com.
+MAIN_SITE = "https://electionsbg.com"
+
+# A real settlement page is keyed by a bare 5-digit EKATTE — see the
+# refusal in entity_link() for the two shapes this excludes.
+EKATTE_RE = re.compile(r"^[0-9]{5}$")
+
+# ⚠️ A kind with no entry here is NOT LINKED, and that is the safe default.
+# `obshtina` and `oblast` place ids resolve to no route on the main site, so
+# a place that is only an obshtina stays plain text rather than becoming a
+# link to a 404.
+ENTITY_ROUTES = {
+    "person": "/person/{id}",
+    "party": "/party/{id}",
+    "institution": "/awarder/{id}",
+    "place:settlement": "/settlement/{id}",
+}
+
+
+def entity_link(name: str, gaz: "Gazetteer") -> dict | None:
+    """A link for one entity string, or None.
+
+    ⚠️ Returns the gazetteer's CANONICAL name beside the href, and every
+    caller must show it. All eight people this resolves today matched on a
+    TWO-PART form („Иван Христанов" → Иван Маркос Христанов), which is how
+    newsrooms write them and is unique among public figures — but the reader
+    is the last check, and they can only perform it if they can see who we
+    think it is.
+    """
+    claims = gaz.by_surface.get(fold(" ".join((name or "").split())))
+    if not claims:
+        return None
+    basis, ident, _ = decide(claims, set())
+    if basis != "gazetteer_exact" or not ident:
+        return None
+    won = next((c for c in claims if c.get("id") == ident), claims[0])
+    kind = won["kind"]
+    # A place id is „<place_kind>:<code>"; the route depends on which.
+    route_key = kind
+    plain_id = ident
+    if kind == "place":
+        place_kind, _, code = ident.partition(":")
+        route_key = f"place:{place_kind}"
+        plain_id = code
+    route = ENTITY_ROUTES.get(route_key)
+    if not route:
+        return None
+    if route_key == "place:settlement" and not EKATTE_RE.match(plain_id):
+        # ⚠️⚠️ A COUNTRY IS NOT A SETTLEMENT. `place_dim` stores foreign
+        # countries under kind='settlement' with a two-letter code — ZA is
+        # South Africa, UA is Ukraine — so „Южна Африка" cheerfully produced
+        # `/settlement/ZA`, a link to a page that does not exist. Sofia's
+        # rayon codes (`68134-2302`) are the same shape of problem from the
+        # other direction. A real settlement page is keyed by a bare 5-digit
+        # EKATTE, and 5,257 of 5,272 rows are one.
+        return None
+    return {
+        "kind": kind,
+        "id": plain_id,
+        "canonical": won["canonical"],
+        "form_kind": won.get("form_kind", "name"),
+        "href": MAIN_SITE + route.format(id=plain_id),
+    }
+
+
+def entity_links(entities: dict, gaz: "Gazetteer") -> dict:
+    """name → link, for every entity string that earned one.
+
+    ⚠️ Keyed on the NAME AS THE MODEL WROTE IT, so a renderer can look up the
+    chip it is about to draw without re-folding anything. A name that did not
+    resolve is simply absent — never present with a null href, which a
+    renderer would happily turn into a dead link.
+    """
+    out = {}
+    for names in (entities or {}).values():
+        for name in names or []:
+            if name in out:
+                continue
+            link = entity_link(name, gaz)
+            if link:
+                out[name] = link
+    return out

@@ -528,6 +528,40 @@ def load_analysis(data_dir: Path) -> tuple[dict[str, dict], dict[str, dict]]:
     return by_url, by_article_id
 
 
+_GAZ: list = []
+
+
+def gazetteer():
+    """The gazetteer, loaded once, or None.
+
+    ⚠️ ABSENT IS TOLERATED. A checkout that has never run build_gazetteer.py
+    must still build a site — it simply builds one with no entity links,
+    which is what it had before. Refusing here would make an optional
+    enrichment a hard build dependency.
+    """
+    if not _GAZ:
+        try:
+            import resolve_mentions as rm
+            # ⚠️ REPO-relative, not from the `--data-dir` flag: the loader
+            # is a module-level helper and the flag is a local in main(). The
+            # test harness sets DATA_BG_ROOT, which REPO already honours, so
+            # a fixture root gets its own gazetteer rather than the real one.
+            path = REPO / "news" / "data" / "gazetteer.json"
+            _GAZ.append(rm.Gazetteer.load(path) if path.exists() else None)
+        except Exception:  # noqa: BLE001
+            _GAZ.append(None)
+    return _GAZ[0]
+
+
+def links_for(entities: dict) -> dict:
+    """name → main-site link, for the entity strings that earned one."""
+    gaz = gazetteer()
+    if gaz is None or not entities:
+        return {}
+    import resolve_mentions as rm
+    return rm.entity_links(entities, gaz)
+
+
 def compact_analysis(rec: dict) -> dict:
     """Keep everything the article page renders; drop bookkeeping (paths, timestamps)."""
     return {
@@ -537,6 +571,14 @@ def compact_analysis(rec: dict) -> dict:
         "russia_stance": rec.get("russia_stance"),
         "ai_generated": rec.get("ai_generated"),
         "entities": rec.get("entities"),
+        # ⚠️ A SIDECAR keyed by the name as written, never a rewrite of
+        # `entities` itself — that block is a dict of plain strings the story
+        # clustering iterates, and putting objects in it breaks every
+        # aggregate (see the MENTION_KINDS note in analyze_articles.py). A
+        # name that did not resolve is simply absent, so a renderer cannot
+        # turn a null into a dead link.
+        **({"entity_links": links} if (links := links_for(rec.get("entities")))
+           else {}),
         # ⚠️ The resolved, linkable SIBLING of `entities` — not a replacement.
         # `entities` stays a dict of plain strings because story clustering
         # iterates it (see the MENTION_KINDS block in analyze_articles.py).
@@ -1022,8 +1064,10 @@ def main() -> int:
                     # `.aggregates.by_domain` with no guard — so a story
                     # written before a bucket existed, or by a partial run,
                     # is a blank page rather than a missing chip.
-                    "entities": {**EMPTY_STORY_ENTITIES,
-                                 **(st.get("entities") or {})},
+                    "entities": (ents := {**EMPTY_STORY_ENTITIES,
+                                          **(st.get("entities") or {})}),
+                    **({"entity_links": slinks}
+                       if (slinks := links_for(ents)) else {}),
                     "aggregates": {**EMPTY_STORY_AGGREGATES,
                                    **(st.get("aggregates") or {})},
                     "blindspot": blindspot_of(members),

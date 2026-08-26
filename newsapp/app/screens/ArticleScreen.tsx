@@ -43,8 +43,10 @@ import {
   type AnalysisBlock,
   type ArticleRecord,
   type Outlet,
+  type EntityLink,
 } from "../data";
 import { ArticleImage } from "../components/ArticleImage";
+import { EntityChips } from "../components/EntityChips";
 import { SummaryPair } from "../components/SummaryPair";
 import { StoryMemberRow } from "../components/ArticleRow";
 
@@ -345,7 +347,10 @@ export const ArticleScreen = () => {
             </Card>
           ) : null}
 
-          <MentionsBlock entities={analysis.entities} />
+          <MentionsBlock
+            entities={analysis.entities}
+            links={analysis.entity_links}
+          />
         </>
       ) : (
         // ⚠️ NO badges. At 8.4% analysed this is the common state, and it must
@@ -414,23 +419,30 @@ export const ArticleScreen = () => {
 };
 
 /**
- * Named entities, as the analysis layer currently holds them.
+ * Named entities — linked where the name earned a link.
  *
- * ⚠️ THESE ARE BARE STRINGS AND THEY ARE NOT LINKS. The corpus stores a name
- * and nothing else — no person slug, no EIK, no EKATTE — and the identity
- * layer keys on three-part Bulgarian names while newsrooms write two. Every
- * one of seventeen corpus names tested against it matched ambiguously:
- * „Радев" is 15 different people. Linking on a name would name the wrong
- * individual, which is the harm the refusal exists to prevent (T2 in
- * docs/plans/news-site-v1.md builds the resolver that can link safely).
+ * ⚠️ MOST OF THEM ARE NOT LINKS, AND THE CAPTION SAYS SO. The identity layer
+ * keys on three-part Bulgarian names while newsrooms write two, so a name is
+ * linked only when it matches exactly ONE public figure. Measured over the
+ * 365 analyses: 8 of 138 distinct people resolve, 54 of 138 places, 3 of 7
+ * parties, 9 of 121 institutions and 0 of 30 companies.
  *
- * So they render as plain chips, and the caption says why there is no link —
- * an unexplained chip invites the reader to assume we checked.
+ * ⚠️ The institution figure is low for a reason no threshold can fix, and it
+ * is worth knowing before someone tries to loosen the match: a Bulgarian
+ * article writes „МВР", while the registry holds „Министерство на
+ * вътрешните работи". None of the abbreviations exists as a surface at all.
+ * That needs a crosswalk.
+ *
+ * The caption is NARROWED rather than removed: an unexplained plain chip
+ * beside a linked one invites the reader to assume the plain one is
+ * unimportant, when what it means is that we could not tell who it was.
  */
 const MentionsBlock = ({
   entities,
+  links,
 }: {
   entities: AnalysisBlock["entities"];
+  links?: Record<string, EntityLink>;
 }) => {
   const groups: [string, string[]][] = [
     ["Хора", entities?.people ?? []],
@@ -441,6 +453,8 @@ const MentionsBlock = ({
   ];
   const present = groups.filter(([, names]) => names.length > 0);
   if (present.length === 0) return null;
+  const all = present.flatMap(([, names]) => names);
+  const unlinked = all.filter((n) => !links?.[n]).length;
   return (
     <Card className="mt-3 p-4">
       <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -450,19 +464,22 @@ const MentionsBlock = ({
         {present.map(([label, names]) => (
           <div key={label} className="flex flex-wrap items-baseline gap-1.5">
             <span className="text-xs text-muted-foreground">{label}:</span>
-            {names.map((n) => (
-              <Badge key={n} variant="secondary" className="font-normal">
-                {n}
-              </Badge>
-            ))}
+            <EntityChips title="" names={names} links={links} inline />
           </div>
         ))}
       </div>
-      <p className="mt-3 text-xs text-muted-foreground">
-        Имената не водят към профили. Българските имена са три части, а медиите
-        пишат две, така че само фамилия съвпада с десетки различни хора в
-        регистъра — а грешната връзка е по-лоша от липсващата.
-      </p>
+      {unlinked > 0 ? (
+        <p className="mt-3 text-xs text-muted-foreground">
+          {unlinked === all.length
+            ? "Нито едно от имената не води към профил."
+            : unlinked === 1
+              ? "Едно от имената не води към профил."
+              : `${unlinked} от имената не водят към профил.`}{" "}
+          Българските имена са три части, а медиите пишат две — свързваме само
+          когато името съвпада с точно един публичен профил, защото грешната
+          връзка е по-лоша от липсващата.
+        </p>
+      ) : null}
     </Card>
   );
 };

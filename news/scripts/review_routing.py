@@ -108,6 +108,57 @@ def field_review(label, confidence) -> str | None:
     return None
 
 
+# ⚠️⚠️ A POLITICAL ARTICLE MARKED „no position on the axis" IS A RUBRIC
+# ERROR, not a judgment, and it is the commonest one in this corpus: of 82
+# analysed articles with a political primary topic, 66% carry
+# `not_applicable` on leaning and only 29% `neutral`. The rubric is explicit
+# that `neutral` is for a political topic handled even-handedly and
+# `not_applicable` for a piece with no political dimension at all — a weather
+# report, a football result.
+#
+# It matters because `not_applicable` is EXCLUDED from the spectrum bar, so
+# such an article vanishes from the story's distribution and is counted as
+# „unrated". A story with seven equally neutral pieces renders as seven of
+# which two were never scored, which is how this was noticed.
+#
+# ⚠️ The prompt is now explicit about it (news/prompts/analyze_system.md), but
+# a prompt change is not retroactive: every record already on disk was
+# produced under the old wording. Flagging the combination is what makes those
+# records actionable instead of invisible.
+POLITICAL_CATEGORIES = frozenset({
+    "government", "parliament", "elections-parliamentary", "elections-local",
+    "judiciary", "procurement", "state-budget", "foreign-policy",
+    "security-defense", "economy", "energy", "healthcare", "education",
+    "social-pensions", "environment", "media-press", "eu-funds",
+})
+
+
+def primary_category(analysis: dict):
+    for t in analysis.get("topics") or []:
+        if isinstance(t, dict) and t.get("primary"):
+            return t.get("category")
+    return None
+
+
+def political_not_applicable(analysis: dict) -> str | None:
+    """Is this a political article that declined the political axis?"""
+    quality = analysis.get("quality")
+    if not isinstance(quality, dict) or quality.get("verdict") != "ok":
+        # A paywall shell or a listing page is correctly not_applicable.
+        return None
+    if not analysis.get("site_relevant"):
+        return None
+    category = primary_category(analysis)
+    if category not in POLITICAL_CATEGORIES:
+        return None
+    leaning = analysis.get("leaning")
+    if not isinstance(leaning, dict) or leaning.get("label") != "not_applicable":
+        return None
+    return (f"primary topic is {category!r} — a political subject handled "
+            "even-handedly is `neutral`, and `not_applicable` drops it out "
+            "of the spectrum bar entirely")
+
+
 def record_review(analysis: dict) -> dict:
     """Every field of one record that needs another look.
 
@@ -128,6 +179,13 @@ def record_review(analysis: dict) -> dict:
         why = field_review(block.get(key), block.get("confidence"))
         if why:
             out[field] = why
+    # ⚠️ Independent of the confidence floors above: this record is flagged
+    # because the LABEL is wrong for the topic, however sure the model was —
+    # and it was sure, at a median confidence of 0.85.
+    if "leaning" not in out:
+        mismatch = political_not_applicable(analysis)
+        if mismatch:
+            out["leaning"] = mismatch
     return out
 
 

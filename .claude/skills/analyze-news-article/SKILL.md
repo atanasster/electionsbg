@@ -135,9 +135,24 @@ sourcing, or loaded wording. Bulgarian-context anchors:
 - progressive: rights-based framing (minorities, Roma, LGBTQ), EU-social
   liberal norms, anti-corruption-as-system-change, welfare expansion.
 - strong_* : the framing dominates the text, no counterweight.
-- `not_applicable` when the article takes no political position — a weather
-  report is NOT `neutral`, it is `not_applicable`. Use `neutral` only for
-  genuinely political topics handled even-handedly.
+- ⚠️⚠️ `neutral` vs `not_applicable` — **the most common error, and it is
+  measurable**: of 82 analysed articles with a POLITICAL primary topic, 66%
+  were given `not_applicable` and only 29% `neutral`. They are not synonyms.
+  - `neutral` = the topic IS political (government, parliament, courts,
+    prosecution, budget, elections, procurement, energy, foreign policy…) and
+    the text handles it even-handedly — a factual report, official statements,
+    attributed claims without evaluative language. **This is the ordinary
+    answer for a news article on a political subject.**
+  - `not_applicable` = the topic has no political dimension at all. Weather, a
+    football result, a car crash, celebrities.
+  - ⚠️ The test is the TOPIC, not the tone. "Takes no position on the axis" in
+    a piece about an МВР and prosecution raid is not `not_applicable` — that
+    is the definition of `neutral`. If `site_relevant` is true and the primary
+    category is not `not-site-relevant`, `not_applicable` is almost certainly
+    wrong.
+  - ⚠️ It matters because `not_applicable` is EXCLUDED from the spectrum bar.
+    A story with seven equally neutral pieces renders as seven of which two
+    are "unrated", which is how this was noticed.
 Every label needs `evidence` — a verbatim quote or a concrete paraphrase.
 
 **Russia stance** — how the text frames Russia and Russian state policy

@@ -16,7 +16,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ArticleRecord, Outlet, Story } from "../data";
 
-const analysed = () => ({
+const analysed = (): NonNullable<ArticleRecord["analysis"]> => ({
   summary_bg: "Кабинетът отложи решението.",
   summary_en: "Cabinet delayed the decision.",
   leaning: {
@@ -164,7 +164,7 @@ describe("the evidence", () => {
     // A verdict whose evidence silently vanishes is the unsupported claim
     // this page exists to avoid making.
     const a = analysed();
-    a.leaning.evidence = "";
+    a.leaning!.evidence = "";
     await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
     expect(await screen.findByText(/не е цитирал изречение/)).toBeVisible();
   });
@@ -268,8 +268,58 @@ describe("mentions", () => {
       article({ analysis: analysed() } as Partial<ArticleRecord>),
     ]);
     const caption = await screen.findByText(/грешната връзка/);
-    expect(caption.textContent).toContain("десетки различни хора");
-    expect(caption.textContent).not.toMatch(/петнайсет/);
+    // ⚠️ Asserted as INTENT, not as a phrase. The first version pinned the
+    // literal „десетки различни хора", which broke the day the caption was
+    // rewritten to count the unlinked names — a real number, from the data
+    // — while the rule it guards never changed: no invented figure about
+    // how many people share a name.
+    expect(caption.textContent).not.toMatch(/петнайсет|15 души|108/);
+    expect(caption.textContent).toMatch(/три части/);
+  });
+
+  it("counts the unlinked names rather than asserting a share", async () => {
+    // ⚠️ The number the caption DOES state must come from the data. The
+    // fixture resolves nothing, so every name is unlinked — and „нито едно"
+    // is the honest way to say that, not a percentage of a denominator the
+    // reader cannot see.
+    await renderAt([
+      article({ analysis: analysed() } as Partial<ArticleRecord>),
+    ]);
+    const caption = await screen.findByText(/грешната връзка/);
+    expect(caption.textContent).toMatch(/Нито едно/);
+  });
+
+  it("links a name the gazetteer resolved, and shows who it resolved to", async () => {
+    // ⚠️ The canonical name must be reachable: all eight people this
+    // resolves matched on a TWO-PART form („Иван Христанов" → Иван Маркос
+    // Христанов), and the reader is the last check on whether we picked the
+    // right person.
+    const a = analysed();
+    a.entities = {
+      people: ["Иван Христанов"],
+      parties: [],
+      institutions: [],
+      companies: [],
+      places: [],
+    };
+    a.entity_links = {
+      "Иван Христанов": {
+        kind: "person",
+        id: "mp-3931",
+        canonical: "Иван Маркос Христанов",
+        form_kind: "two_part",
+        href: "https://electionsbg.com/person/mp-3931",
+      },
+    };
+    await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
+    const link = await screen.findByRole("link", { name: /Иван Христанов/ });
+    expect(link).toHaveAttribute(
+      "href",
+      "https://electionsbg.com/person/mp-3931",
+    );
+    expect(link.getAttribute("title")).toContain("Иван Маркос Христанов");
+    // …and with everything linked, the caveat does not appear at all.
+    expect(screen.queryByText(/грешната връзка/)).toBeNull();
   });
 
   it("renders nothing when no entity was found", async () => {

@@ -134,6 +134,72 @@ class AlwaysReviewed(unittest.TestCase):
         self.assertEqual(ALWAYS_REVIEW & NEUTRAL_LABELS, set())
 
 
+class PoliticalNotApplicable(unittest.TestCase):
+    """⚠️ The commonest rubric error in this corpus, and the one that
+    prompted this rule: 66% of the 82 political articles carry
+    `not_applicable` on leaning where the rubric asks for `neutral`."""
+
+    def rec(self, category="judiciary", label="not_applicable",
+            verdict="ok", relevant=True):
+        return {
+            "quality": {"verdict": verdict},
+            "site_relevant": relevant,
+            "topics": [{"category": category, "primary": True}],
+            "leaning": {"label": label, "confidence": 0.85},
+            "russia_stance": {"label": "not_applicable", "confidence": 0.9},
+            "ai_generated": {"verdict": "likely_human", "confidence": 0.6},
+        }
+
+    def test_a_political_not_applicable_is_flagged(self):
+        got = record_review(self.rec())
+        self.assertIn("leaning", got)
+        self.assertIn("judiciary", got["leaning"])
+
+    def test_it_is_flagged_however_CONFIDENT_the_model_was(self):
+        # ⚠️ Independent of the confidence floors: the label is wrong for the
+        # topic, and the model was sure — median 0.85 across the corpus.
+        r = self.rec()
+        r["leaning"]["confidence"] = 1.0
+        self.assertIn("leaning", record_review(r))
+
+    def test_a_political_NEUTRAL_is_not_flagged(self):
+        # This is the answer the rubric asks for.
+        self.assertNotIn("leaning", record_review(self.rec(label="neutral")))
+
+    def test_a_NON_political_not_applicable_is_not_flagged(self):
+        # A weather report correctly takes no position.
+        self.assertNotIn("leaning",
+                         record_review(self.rec(category="not-site-relevant")))
+        self.assertNotIn("leaning", record_review(self.rec(category="sports")))
+
+    def test_a_NON_OK_record_is_not_flagged(self):
+        # ⚠️ A paywall shell or a listing page is correctly not_applicable —
+        # the rubric requires the full record shape with not_applicable on
+        # both axes. Flagging those would put 127 junk records in the queue.
+        for verdict in ("paywall_shell", "too_short", "non_article"):
+            with self.subTest(verdict=verdict):
+                self.assertNotIn(
+                    "leaning", record_review(self.rec(verdict=verdict)))
+
+    def test_site_relevant_false_is_not_flagged(self):
+        self.assertNotIn("leaning",
+                         record_review(self.rec(relevant=False)))
+
+    def test_a_LOW_CONFIDENCE_reason_is_not_overwritten(self):
+        # Both reasons can apply; the confidence one is more specific about
+        # what the model itself said, so it wins.
+        r = self.rec(label="progressive")
+        r["leaning"]["confidence"] = 0.5
+        self.assertIn("below", record_review(r)["leaning"])
+
+    def test_a_malformed_topic_list_does_not_raise(self):
+        r = self.rec()
+        r["topics"] = ["judiciary"]        # strings, not objects
+        self.assertNotIn("leaning", record_review(r))
+        r["topics"] = None
+        self.assertNotIn("leaning", record_review(r))
+
+
 class MalformedInput(unittest.TestCase):
     def test_a_bool_is_not_a_confidence(self):
         # ⚠️ `bool` IS an `int` in Python, so `True` reads as 1.0 and clears
