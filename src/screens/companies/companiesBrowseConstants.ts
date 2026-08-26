@@ -4,6 +4,7 @@ import type {
   SearchFieldLabel,
 } from "@/screens/components/RegistrySearchField";
 import type { RegistryChipLabels } from "@/screens/components/RegistryActiveFilters";
+import type { RegistryLandingLabels } from "@/screens/components/RegistryLanding";
 
 // The /companies screen's exported constants and pure rules.
 //
@@ -135,3 +136,69 @@ export const COMPANIES_FILTER_BAR_LABEL: SearchFieldLabel = {
  *  test can compare against /persons' wholesale. A per-key assertion catches a wrong key; only
  *  a set comparison catches a whole label object copied from the sibling. */
 export const COMPANIES_REGISTRY_ID_PREFIX = "companies";
+
+export const COMPANIES_LANDING_LABELS: RegistryLandingLabels = {
+  startHere: { key: "companies_start_here", fallback: "Започнете оттук" },
+  loading: { key: "companies_card_loading", fallback: "зарежда се" },
+};
+
+/** The landing's „Започнете оттук" cards — the cross-cutting queries no single picker expresses.
+ *
+ * ⚠️ EACH CARD CARRIES A PARAM PAIR, NOT AN ABSOLUTE HREF. A static `to: "/companies?money=1"`
+ * REPLACES the whole query string, so it silently drops `?scope` and every `usePreserveParams`
+ * global the reader is carrying — `?elections` in particular, which is live on this page (the OG
+ * capture shoots `companies?political=1&elections=2026_04_19`). The landing merges the pair into
+ * the current search instead, which is the `/persons` `entryHref` precedent and the same rule
+ * `RegistryLanding`'s own header states for the browse buttons.
+ *
+ * ⚠️ EVERY CARD MUST BE REACHABLE BY ONE PARAM. The engine ANDs filters and every picker param
+ * is single-valued, so a card needing two is not a card. That is why „НПО, читалища и фондации"
+ * is NOT here, tempting though 30,339 is: it spans three `entity_class` values and `?class`
+ * holds one. The Вид picker covers it.
+ *
+ * ⚠️ AND EVERY COUNT COMES FROM A FACET, never from a constant. The measured figures on
+ * 2026-08-26 were political 17,675 · money 59,884 · contracts 18,689 · chitalishte 3,439 — they
+ * are recorded here as provenance, NOT rendered. `db:load:declarations:pg --resolve`,
+ * `db:load:graph:pg`, `db:load:tr-company-place:pg` and `db:load:pg` all rewrite columns this
+ * table reads, so a hard-coded figure is right on the day it is typed and wrong for as long as
+ * nobody checks. The screen supplies the counts; this list supplies everything else. */
+export const COMPANIES_LANDING_CARDS = [
+  {
+    key: "political",
+    labelKey: "companies_card_political",
+    labelFallback: "Свързани с публично лице",
+    hintKey: "companies_card_political_hint",
+    hintFallback:
+      "Собственик или в управлението според ТР, или деклариран дял пред Сметната палата.",
+    param: "political",
+    value: "1",
+  },
+  {
+    key: "money",
+    labelKey: "companies_card_money",
+    labelFallback: "Получавали публични средства",
+    hintKey: "companies_card_money_hint",
+    hintFallback:
+      "Обществени поръчки, субсидии от ДФЗ, европейски проекти или Interreg.",
+    param: "money",
+    value: "1",
+  },
+  {
+    key: "contracts",
+    labelKey: "companies_card_contracts",
+    labelFallback: "Спечелили обществена поръчка",
+    hintKey: "companies_card_contracts_hint",
+    hintFallback: "Поне един договор в корпуса на обществените поръчки.",
+    param: "contracts",
+    value: "1",
+  },
+  {
+    key: "chitalishta",
+    labelKey: "companies_card_chitalishta",
+    labelFallback: "Читалища",
+    hintKey: "companies_card_chitalishta_hint",
+    hintFallback: "Народните читалища, вписани в регистъра.",
+    param: "class",
+    value: "chitalishte",
+  },
+] as const;

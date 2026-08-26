@@ -18,7 +18,15 @@
 // `companiesBrowseConstants.ts` are the measured half.
 
 import { describe, it, expect } from "vitest";
-import { EXAMPLE_TERMS, companiesScopeCount } from "./companiesBrowseConstants";
+import {
+  EXAMPLE_TERMS,
+  companiesScopeCount,
+  COMPANIES_LANDING_CARDS,
+} from "./companiesBrowseConstants";
+import {
+  NARROWING_PARAMS,
+  COMPANY_CLASSES,
+} from "@/data/companies/useUrlCompanyFilters";
 import { assertRegistryExamples } from "@/screens/components/exampleTerms.testkit";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -162,5 +170,59 @@ describe("companiesScopeCount", () => {
     expect(companiesScopeCount("all", counts)).toBeGreaterThan(
       companiesScopeCount("signal", counts),
     );
+  });
+});
+
+describe("COMPANIES_LANDING_CARDS", () => {
+  it("⚠️ every card is ONE param, structurally", () => {
+    // The engine ANDs filters and every picker param is single-valued, so a card needing two is
+    // not a card. This is why „НПО, читалища и фондации" is not one, tempting though 30,339 is:
+    // it spans three entity_class values and ?class holds one. Carrying a `param`/`value` PAIR
+    // rather than an href makes that a shape rather than a thing to check.
+    for (const c of COMPANIES_LANDING_CARDS) {
+      expect(typeof c.param).toBe("string");
+      expect(typeof c.value).toBe("string");
+    }
+  });
+
+  it("every card's param is one this page OWNS and treats as a NARROWING", () => {
+    // A card pointing at a param outside NARROWING_PARAMS would land on the landing again —
+    // a call to action that appears to do nothing.
+    for (const c of COMPANIES_LANDING_CARDS)
+      expect(
+        (NARROWING_PARAMS as readonly string[]).includes(c.param),
+        `${c.key} uses ?${c.param}, which does not unlock the table`,
+      ).toBe(true);
+  });
+
+  it("every card's VALUE is one the URL hook would accept", () => {
+    // The other half, and the one a key check misses: `?class=ngo` is a valid PARAM with a
+    // value `readOneOf` drops, so the card would open the landing again.
+    for (const c of COMPANIES_LANDING_CARDS) {
+      if (c.param === "class")
+        expect(
+          (COMPANY_CLASSES as readonly string[]).includes(c.value),
+          `${c.key} names entity_class "${c.value}", which the URL hook would drop`,
+        ).toBe(true);
+      else expect(c.value, `${c.key} is a boolean param`).toBe("1");
+    }
+  });
+
+  it("⚠️ names the four cards, so removing one is a decision rather than an edit", () => {
+    // The set is the landing's whole answer to „what can I ask here". A card silently dropped
+    // (or a fifth added past the `lg:grid-cols-4` row) should fail rather than ship.
+    expect(COMPANIES_LANDING_CARDS.map((c) => c.key)).toEqual([
+      "political",
+      "money",
+      "contracts",
+      "chitalishta",
+    ]);
+  });
+
+  it("the keys are unique and the set stays short", () => {
+    const keys = COMPANIES_LANDING_CARDS.map((c) => c.key);
+    expect(new Set(keys).size).toBe(keys.length);
+    // Four is the grid's `lg:grid-cols-4`; more wraps into a second row that reads as a menu.
+    expect(keys.length).toBeLessThanOrEqual(4);
   });
 });

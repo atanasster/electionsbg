@@ -28,12 +28,14 @@ import {
   COMPANIES_CHIP_LABELS,
   COMPANIES_FILTER_BAR_LABEL,
   COMPANIES_SEARCH_LABELS,
+  COMPANIES_LANDING_LABELS,
   COMPANIES_REGISTRY_ID_PREFIX,
 } from "./companiesBrowseConstants";
 import {
   PERSONS_CHIP_LABELS,
   PERSONS_FILTER_BAR_LABEL,
   PERSONS_SEARCH_LABELS,
+  PERSONS_LANDING_LABELS,
   PERSONS_REGISTRY_ID_PREFIX,
 } from "@/screens/persons/personsBrowseConstants";
 
@@ -172,6 +174,7 @@ describe("the label wiring", () => {
     const keys = [
       ...Object.values(COMPANIES_CHIP_LABELS).map((l) => l.key),
       ...Object.values(COMPANIES_SEARCH_LABELS).map((l) => l.key),
+      ...Object.values(COMPANIES_LANDING_LABELS).map((l) => l.key),
       COMPANIES_FILTER_BAR_LABEL.key,
     ];
     for (const k of keys)
@@ -189,11 +192,13 @@ describe("the label wiring", () => {
     const persons = new Set([
       ...Object.values(PERSONS_CHIP_LABELS).map((l) => l.key),
       ...Object.values(PERSONS_SEARCH_LABELS).map((l) => l.key),
+      ...Object.values(PERSONS_LANDING_LABELS).map((l) => l.key),
       PERSONS_FILTER_BAR_LABEL.key,
     ]);
     const companies = [
       ...Object.values(COMPANIES_CHIP_LABELS).map((l) => l.key),
       ...Object.values(COMPANIES_SEARCH_LABELS).map((l) => l.key),
+      ...Object.values(COMPANIES_LANDING_LABELS).map((l) => l.key),
       COMPANIES_FILTER_BAR_LABEL.key,
     ];
     for (const k of companies)
@@ -209,6 +214,9 @@ describe("the label wiring", () => {
     );
     expect(Object.keys(COMPANIES_SEARCH_LABELS).sort()).toEqual(
       Object.keys(PERSONS_SEARCH_LABELS).sort(),
+    );
+    expect(Object.keys(COMPANIES_LANDING_LABELS).sort()).toEqual(
+      Object.keys(PERSONS_LANDING_LABELS).sort(),
     );
   });
 

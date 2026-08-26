@@ -4,6 +4,7 @@ import type {
   SearchFieldLabel,
 } from "@/screens/components/RegistrySearchField";
 import type { RegistryChipLabels } from "@/screens/components/RegistryActiveFilters";
+import type { RegistryLandingLabels } from "@/screens/components/RegistryLanding";
 
 // The /persons screen's exported constants and pure rules.
 //
@@ -102,3 +103,8 @@ export const PERSONS_FILTER_BAR_LABEL: SearchFieldLabel = {
 };
 
 export const PERSONS_REGISTRY_ID_PREFIX = "persons";
+
+export const PERSONS_LANDING_LABELS: RegistryLandingLabels = {
+  startHere: { key: "persons_start_here", fallback: "Започнете оттук" },
+  loading: { key: "persons_card_loading", fallback: "зарежда се" },
+};
