@@ -22,6 +22,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import userEvent from "@testing-library/user-event";
 import { PersonsBrowserScreen } from "./PersonsBrowserScreen";
 import { URL_MIRROR_MS, scopeCount } from "./personsBrowseConstants";
+import { NARROWING_PARAMS } from "@/data/persons/useUrlPersonFilters";
 
 /** Facet buckets keyed the way `/api/db/facets` returns them. */
 type Facets = Record<string, { value: string; count: number }[]>;
@@ -522,24 +523,50 @@ describe("the landing's cards", () => {
 // defect returning, and it is invisible: the table narrows correctly, nothing errors, and the
 // only symptom is a page that will not say why it is short.
 //
-// The list is derived from the hook's own contract (`hasNarrowingFilters`), so a dimension
-// added there without a chip fails here rather than shipping silent.
+// The cases are derived from the hook's own `NARROWING_PARAMS` contract, so a dimension added
+// there without a chip fails here — at compile time — rather than shipping silent.
 
 describe("every narrowing gets a chip", () => {
   beforeEach(() => stubFetch());
 
-  const NARROWINGS: [string, string][] = [
-    ["?facet=mp", "a group"],
-    ["?pfacet=politician", "a primary facet"],
-    ["?role=mp", "a role"],
-    ["?party=gerb", "a party"],
-    ["?oblast=VAR", "an oblast"],
-    ["?obshtina=BGS04", "a municipality (NO picker)"],
-    [`?court=${encodeURIComponent(COURT)}`, "an institution"],
-    ["?decl=1", "declaration-only"],
-    ["?held=1", "held-office-only"],
-    ["?switch=1", "party switchers"],
-  ];
+  // ⚠️ ONE VALID VALUE PER PARAM, KEYED BY THE HOOK'S OWN CONTRACT. The cases are not a
+  // hand-written list of dimensions — that list drifts, and a dimension added to
+  // `NARROWING_PARAMS` without a chip would then ship silent. The `satisfies` below is what
+  // makes it fail at COMPILE time instead: a new narrowing param with no sample here is a type
+  // error, and a sample for a param that is no longer a narrowing is one too.
+  const SAMPLE = {
+    facet: "mp",
+    pfacet: "politician",
+    role: "mp",
+    party: "gerb",
+    oblast: "VAR",
+    obshtina: "BGS04",
+    court: COURT,
+    decl: "1",
+    held: "1",
+    switch: "1",
+  } satisfies Record<(typeof NARROWING_PARAMS)[number], string>;
+
+  const NARROWINGS: [string, string][] = NARROWING_PARAMS.map((p) => [
+    `?${p}=${encodeURIComponent(SAMPLE[p])}`,
+    p,
+  ]);
+
+  it("covers every narrowing the hook declares — checked at RUNTIME, not only by the type", () => {
+    // ⚠️ THE TYPE GATE ALONE IS NOT ENOUGH. `satisfies` catches a missing sample (TS1360) and an
+    // extra one (TS2353) — but it widens to nothing useful the moment `NARROWING_PARAMS` loses
+    // its `as const`, and so does the production `Record` it guards. Both would then accept a
+    // contract missing a dimension, which silently stops unlocking the table. This assertion
+    // survives that, because it compares the key SETS as values.
+    //
+    // (`NARROWINGS.length === NARROWING_PARAMS.length` cannot fail — `.map` preserves length —
+    // so it is deliberately not the check.)
+    expect([...Object.keys(SAMPLE)].sort()).toEqual(
+      [...NARROWING_PARAMS].sort(),
+    );
+    // …and the contract is not empty, which would make the whole loop below vanish silently.
+    expect(NARROWING_PARAMS.length).toBeGreaterThan(5);
+  });
 
   for (const [search, what] of NARROWINGS)
     it(`${what}`, async () => {

@@ -26,6 +26,7 @@ import {
   PERSON_SECTORS,
   PERSON_FILTER_ALL,
   QUERY_MAX,
+  NARROWING_PARAMS,
 } from "./useUrlPersonFilters";
 import { PERSON_GROUPS, groupByKey } from "./personGroups";
 
@@ -250,23 +251,36 @@ describe("useUrlPersonFilters — the sector scope is not a narrowing", () => {
 });
 
 describe("useUrlPersonFilters — every narrowing dimension unlocks the table", () => {
-  // One case per param, because the failure is asymmetric and silent in both directions: a
-  // dimension missing here renders a BLANK page to a reader who deep-linked into it.
-  const cases: [string, string][] = [
-    ["?facet=mp", "a group"],
-    ["?pfacet=politician", "the mix bar's segment"],
-    ["?role=mp", "a role"],
-    ["?party=gerb", "a party"],
-    ["?oblast=VAR", "an oblast"],
-    [
-      "?obshtina=BGS04",
-      "a municipality (no picker — the /governance cross-link)",
-    ],
-    [`?court=${encodeURIComponent("Окръжен съд - Варна")}`, "an institution"],
-    ["?decl=1", "declaration-only"],
-    ["?held=1", "held-office-only"],
-    ["?switch=1", "party switchers"],
-  ];
+  // ⚠️ DERIVED FROM THE CONTRACT, NOT LISTED. One case per param, because the failure is
+  // asymmetric and silent in both directions — a dimension that stops narrowing renders a BLANK
+  // page to a reader who deep-linked into it, and a hand-written list simply would not have a
+  // case for a dimension added later. `satisfies` makes a missing sample a COMPILE error, and
+  // the key-set assertion below survives even the widening that defeats `satisfies`.
+  const SAMPLE = {
+    facet: "mp",
+    pfacet: "politician",
+    role: "mp",
+    party: "gerb",
+    oblast: "VAR",
+    obshtina: "BGS04",
+    court: "Окръжен съд — Варна",
+    decl: "1",
+    held: "1",
+    switch: "1",
+  } satisfies Record<(typeof NARROWING_PARAMS)[number], string>;
+
+  test("a sample exists for every declared narrowing", () => {
+    // The runtime half. `satisfies` widens to nothing useful if `NARROWING_PARAMS` ever loses
+    // its `as const` — and so does the production `Record` it guards, which is what lets a
+    // dimension silently stop unlocking the table.
+    assert.deepEqual(Object.keys(SAMPLE).sort(), [...NARROWING_PARAMS].sort());
+    assert.ok(NARROWING_PARAMS.length > 5);
+  });
+
+  const cases: [string, string][] = NARROWING_PARAMS.map((p) => [
+    `?${p}=${encodeURIComponent(SAMPLE[p])}`,
+    p,
+  ]);
   for (const [search, what] of cases)
     test(`${what} narrows`, () => {
       const { result } = renderHook(useFiltersAndUrl, {

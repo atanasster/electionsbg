@@ -271,9 +271,27 @@ export interface UrlPersonFilters {
   clearFilters: () => void;
 }
 
-const PARAMS = [
-  "sector",
-  "position",
+/** The params that NARROW the set — every one except the scope, the view mode and the term.
+ *
+ *  ⚠️ THIS IS THE CHIP CONTRACT, not documentation. Each of these must produce a removable chip
+ *  on /persons — and for `?obshtina` the chip is the ONLY surface the dimension has, since it
+ *  arrives from the governance dashboard's „хора, свързани с …" link and has no picker. (The
+ *  others do have controls: `?pfacet` is the mix bar, the rest are the filter bar's pickers and
+ *  toggles.) A narrowing with no chip is a table filtered by something the page names nowhere.
+ *  `PersonsBrowserScreen.test.tsx` iterates this list rather than a hand-written copy of it, so
+ *  a dimension added here without a chip fails rather than shipping silent.
+ *
+ *  `sector` is absent because it is a SCOPE, `browse` because it is a view mode, and `q` because
+ *  it narrows through the engine's global arm rather than a column. `position` is absent because
+ *  it is a retired ALIAS that folds into `pfacet` — it still narrows, through that.
+ *
+ *  ⚠️ `as const` IS LOAD-BEARING, NOT STYLE. Without it the type widens to `string[]`, so
+ *  `Record<(typeof NARROWING_PARAMS)[number], boolean>` becomes `Record<string, boolean>` — an
+ *  index signature that accepts a record MISSING a dimension. `narrowingByParam[k]` then returns
+ *  `undefined` for it, that dimension silently stops unlocking the table, and a reader who
+ *  deep-links into it gets a blank page. The `satisfies` in the screen test widens with it and
+ *  stops failing too, which is why the test also asserts the key sets match at RUNTIME. */
+export const NARROWING_PARAMS = [
   "facet",
   "pfacet",
   "role",
@@ -284,6 +302,23 @@ const PARAMS = [
   "decl",
   "held",
   "switch",
+] as const;
+
+/** Every param this hook OWNS — what `clearFilters` deletes.
+ *
+ *  ⚠️ DERIVED FROM `NARROWING_PARAMS`, not repeated beside it. Two hand-written lists is the
+ *  drift this tier exists to end, one level up: a narrowing added to the contract and missed
+ *  here would get a chip, unlock the table, and then SURVIVE „Изчисти филтрите" — and neither
+ *  gate would see it, because the chip gate only checks that a chip exists and the clear test
+ *  pins its own query string by hand.
+ *
+ *  The four extras are the params that are NOT narrowings: the scope, the retired `?position`
+ *  alias (which must still be cleared, or the fold re-applies after a clear), the free-text
+ *  term and the view mode. */
+const PARAMS = [
+  ...NARROWING_PARAMS,
+  "sector",
+  "position",
   "q",
   "browse",
 ] as const;
@@ -374,17 +409,22 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
 
   // Every dimension EXCEPT `sector` — see `hasNarrowingFilters` in the interface for why the
   // scope is not one of these, and why `?position` / `?obshtina` (which have no picker) are.
-  const hasNarrowingFilters =
-    facet !== PERSON_FILTER_ALL ||
-    primaryFacet !== PERSON_FILTER_ALL ||
-    role !== PERSON_FILTER_ALL ||
-    party !== PERSON_FILTER_ALL ||
-    oblast !== PERSON_FILTER_ALL ||
-    obshtina !== PERSON_FILTER_ALL ||
-    court !== PERSON_FILTER_ALL ||
-    declaredOnly ||
-    heldOfficeOnly ||
-    switchersOnly;
+  // Derived from the value each param READS rather than from the query string, so a param the
+  // reader supplied but the validator refused (junk, an over-long value) correctly does NOT
+  // count as a narrowing — the table is not filtered by it either.
+  const narrowingByParam: Record<(typeof NARROWING_PARAMS)[number], boolean> = {
+    facet: facet !== PERSON_FILTER_ALL,
+    pfacet: primaryFacet !== PERSON_FILTER_ALL,
+    role: role !== PERSON_FILTER_ALL,
+    party: party !== PERSON_FILTER_ALL,
+    oblast: oblast !== PERSON_FILTER_ALL,
+    obshtina: obshtina !== PERSON_FILTER_ALL,
+    court: court !== PERSON_FILTER_ALL,
+    decl: declaredOnly,
+    held: heldOfficeOnly,
+    switch: switchersOnly,
+  };
+  const hasNarrowingFilters = NARROWING_PARAMS.some((k) => narrowingByParam[k]);
 
   // `browse` is absent on purpose: it narrows nothing, so lighting „Изчисти филтрите" for it
   // would offer to clear a view mode under the name of a filter. The landing's own „назад"
