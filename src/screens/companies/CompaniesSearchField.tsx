@@ -1,39 +1,17 @@
-// The /companies hero search field — its five strings, over the shared RegistrySearchField.
+// The /companies hero search field — `RegistrySearchField` with this page's strings.
 //
-// ⚠️ THIS FILE IS THE STRINGS AND NOTHING ELSE, for the reason PersonsSearchField's header
-// gives: every behaviour lives once, in the shared component, so the two pages cannot drift
-// on the a11y affordances a reviewer skims.
+// ⚠️ THIS FILE IS THE WIRING AND NOTHING ELSE. Every behaviour lives once, in the shared
+// component, so the two registry pages cannot drift on the a11y affordances a reviewer skims.
+// The strings live in `companiesBrowseConstants.ts` so a test can pin the KEYS — a rendered
+// assertion cannot, because `t` returns `defaultValue` with no i18n instance and several
+// fallbacks are byte-identical to /persons'.
 
 import { FC } from "react";
+import { RegistrySearchField } from "@/screens/components/RegistrySearchField";
 import {
-  RegistrySearchField,
-  type RegistrySearchLabels,
-} from "@/screens/components/RegistrySearchField";
-
-/** ⚠️ THE HINT NAMES ONLY WHAT THE RESOURCE SEARCHES, and for `companies` that is exactly TWO
- *  columns: `name` (through its transliterated fold) and `uic` (exact, routed by shape). It
- *  does NOT search the seat, the oblast, the legal form or the entity class — those are
- *  pickers — so „търсете по град" would teach a query the engine answers with nothing.
- *
- *  ⚠️ „фирма или организация", never „фирма". ~3.4% of the corpus are сдружения, читалища,
- *  фондации, кооперации, клонове and държавни предприятия — 33,948 rows — and the screen's own
- *  column already refuses to call them all фирми. */
-const COMPANIES_SEARCH_LABELS: RegistrySearchLabels = {
-  label: {
-    key: "companies_search_label",
-    fallback: "Търсене на фирма или организация",
-  },
-  placeholder: {
-    key: "companies_search_placeholder",
-    fallback: "Търси фирма, организация или ЕИК…",
-  },
-  hint: {
-    key: "companies_search_hint",
-    fallback: "Търсете по име на фирма или организация, или по ЕИК.",
-  },
-  clear: { key: "companies_search_clear", fallback: "Изчисти търсенето" },
-  examples: { key: "companies_search_examples", fallback: "например" },
-};
+  COMPANIES_SEARCH_LABELS,
+  COMPANIES_REGISTRY_ID_PREFIX,
+} from "./companiesBrowseConstants";
 
 export const CompaniesSearchField: FC<{
   value: string;
@@ -47,6 +25,6 @@ export const CompaniesSearchField: FC<{
   <RegistrySearchField
     {...props}
     labels={COMPANIES_SEARCH_LABELS}
-    idPrefix="companies"
+    idPrefix={COMPANIES_REGISTRY_ID_PREFIX}
   />
 );

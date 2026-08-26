@@ -10,14 +10,12 @@
 // There is no i18n instance in unit tests, so every `t(key, { defaultValue })` renders its
 // fallback — which is what makes the strings assertable here.
 
-import { render, screen, cleanup } from "@testing-library/react";
-import { describe, it, expect, afterEach } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
 import { CompaniesSearchField } from "./CompaniesSearchField";
 import { PersonsSearchField } from "@/screens/persons/PersonsSearchField";
 
 const base = { minChars: 3, tableVisible: false, onChange: () => {} };
-
-afterEach(cleanup);
 
 describe("CompaniesSearchField", () => {
   it("renders the COMPANIES strings, not the persons ones", () => {

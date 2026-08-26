@@ -38,6 +38,11 @@ import { cn } from "@/lib/utils";
 
 /** One translatable string: the key, and its fallback.
  *
+ *  ⚠️ SHARED BY THREE COMPONENTS (this one, RegistryFilterBar, RegistryActiveFilters) and kept
+ *  here rather than moved to a module of its own: it is four lines with no behaviour, and a
+ *  `registryLabels.ts` holding one interface would be a file whose whole content is an import
+ *  hop. If a fourth consumer or any logic lands on it, move it then.
+ *
  *  ⚠️ THE FALLBACK IS NOT A TEST FIXTURE — it is what EVERY language renders for a key the
  *  corpus lacks. A unit test sees it because there is no i18n instance in jsdom, but production
  *  sees it too, and the fallbacks here are Bulgarian: a key missing from `en/translation.json`

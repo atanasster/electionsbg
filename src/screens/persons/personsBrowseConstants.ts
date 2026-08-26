@@ -1,4 +1,9 @@
 import { REGISTRY_URL_MIRROR_MS } from "@/screens/components/registrySearchTiming";
+import type {
+  RegistrySearchLabels,
+  SearchFieldLabel,
+} from "@/screens/components/RegistrySearchField";
+import type { RegistryChipLabels } from "@/screens/components/RegistryActiveFilters";
 
 // The /persons screen's exported constants and pure rules.
 //
@@ -58,3 +63,42 @@ export const personsScopeCount = (
     : sector === "public"
       ? tiers.p
       : tiers.p + tiers.v;
+
+// ── The page's own strings for the shared registry components ─────────────────────────────
+//
+// ⚠️ EXPORTED SO A TEST CAN PIN THE KEYS — see the same block in `companiesBrowseConstants.ts`
+// for why a rendered assertion cannot. They live here rather than beside the components because
+// exporting a constant from a component file breaks Fast Refresh.
+
+/** ⚠️ THE HINT NAMES ONLY WHAT THE RESOURCE SEARCHES. The `persons` resource searches `name` and
+ *  `institution`; „община" is in the sentence because an institution name frequently IS one
+ *  („Столична община"), not because there is a place arm. */
+export const PERSONS_SEARCH_LABELS: RegistrySearchLabels = {
+  label: {
+    key: "persons_search_label",
+    fallback: "Търсене на човек или институция",
+  },
+  placeholder: {
+    key: "persons_search_placeholder",
+    fallback: "Търси име или институция…",
+  },
+  hint: {
+    key: "persons_search_hint",
+    fallback: "Търсете по име, институция или община.",
+  },
+  clear: { key: "persons_search_clear", fallback: "Изчисти търсенето" },
+  examples: { key: "persons_search_examples", fallback: "например" },
+};
+
+export const PERSONS_CHIP_LABELS: RegistryChipLabels = {
+  intro: { key: "persons_active_filters", fallback: "Показани са само:" },
+  remove: { key: "persons_remove_filter", fallback: "Премахни филтъра" },
+  clearAll: { key: "contracts_clear_filters", fallback: "Изчисти филтрите" },
+};
+
+export const PERSONS_FILTER_BAR_LABEL: SearchFieldLabel = {
+  key: "persons_filters_label",
+  fallback: "Филтри",
+};
+
+export const PERSONS_REGISTRY_ID_PREFIX = "persons";

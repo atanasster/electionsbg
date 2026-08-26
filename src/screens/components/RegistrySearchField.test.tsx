@@ -9,8 +9,8 @@
 // The failure that would produce is silent and reads as correct: /companies shipping „Търси име
 // или институция…" over a corpus of a million companies, with every test green.
 
-import { render, screen, cleanup } from "@testing-library/react";
-import { describe, it, expect, afterEach } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
 import {
   RegistrySearchField,
   type RegistrySearchLabels,
@@ -33,8 +33,6 @@ const base = {
   tableVisible: false,
   onChange: () => {},
 };
-
-afterEach(cleanup);
 
 describe("RegistrySearchField — the strings are parameters", () => {
   it("renders every one of the five supplied labels, and none of /persons'", () => {

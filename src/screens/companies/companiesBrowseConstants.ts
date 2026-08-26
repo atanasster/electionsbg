@@ -1,4 +1,9 @@
 import { REGISTRY_URL_MIRROR_MS } from "@/screens/components/registrySearchTiming";
+import type {
+  RegistrySearchLabels,
+  SearchFieldLabel,
+} from "@/screens/components/RegistrySearchField";
+import type { RegistryChipLabels } from "@/screens/components/RegistryActiveFilters";
 
 // The /companies screen's exported constants and pure rules.
 //
@@ -70,3 +75,63 @@ export const companiesScopeCount = (
   scope: "all" | "signal",
   counts: { all: number; signal: number },
 ): number => (scope === "signal" ? counts.signal : counts.all);
+
+// ── The page's own strings for the four shared registry components ────────────────────────
+//
+// ⚠️ THEY LIVE HERE, NOT BESIDE THE COMPONENTS THEY CONFIGURE, for two reasons. The mechanical
+// one: exporting a constant from a component file breaks Fast Refresh
+// (`react-refresh/only-export-components`), which is why this module exists at all. The one
+// that matters: they have to be EXPORTED so a test can pin the KEYS, and a rendered assertion
+// cannot — with no i18n instance mounted, react-i18next's `t` returns `defaultValue` without
+// ever reading the key, and most fallbacks here are byte-identical to their /persons twins. So
+// wiring a /companies component to /persons' label set renders identically and passes every
+// rendered assertion. Mutation-proved during review. The keys are the only thing that differs.
+
+/** ⚠️ THE HINT NAMES ONLY WHAT THE RESOURCE SEARCHES, and for `companies` that is exactly TWO
+ *  columns: `name` (through its transliterated fold) and `uic` (exact, routed by shape). It does
+ *  NOT search the seat, the oblast, the legal form or the entity class — those are pickers — so
+ *  „търсете по град" would teach a query the engine answers with nothing.
+ *
+ *  ⚠️ „фирма или организация", never „фирма". 33,948 rows are сдружения, читалища, фондации,
+ *  кооперации, клонове and държавни предприятия, and the screen's own column already refuses to
+ *  call them all фирми.
+ *
+ *  ⚠️ THE PLACEHOLDER GETS ITS OWN KEY rather than reusing `companies_browse_search`, which
+ *  already exists and reads „Търси фирма или ЕИК…" — reusing it would make the most-read string
+ *  in the component contradict the paragraph above, and because it is an inherited key a copy
+ *  pass looking for new keys would not find it. That key stays on the TABLE toolbar, which is a
+ *  different control in a different place. */
+export const COMPANIES_SEARCH_LABELS: RegistrySearchLabels = {
+  label: {
+    key: "companies_search_label",
+    fallback: "Търсене на фирма или организация",
+  },
+  placeholder: {
+    key: "companies_search_placeholder",
+    fallback: "Търси фирма, организация или ЕИК…",
+  },
+  hint: {
+    key: "companies_search_hint",
+    fallback: "Търсете по име на фирма или организация, или по ЕИК.",
+  },
+  clear: { key: "companies_search_clear", fallback: "Изчисти търсенето" },
+  examples: { key: "companies_search_examples", fallback: "например" },
+};
+
+export const COMPANIES_CHIP_LABELS: RegistryChipLabels = {
+  intro: { key: "companies_active_filters", fallback: "Показани са само:" },
+  remove: { key: "companies_remove_filter", fallback: "Премахни филтъра" },
+  // ⚠️ A CONTRACTS KEY, deliberately reused rather than duplicated: „Изчисти филтрите" is the
+  // same sentence on every browser and was already translated for /procurement/contracts.
+  clearAll: { key: "contracts_clear_filters", fallback: "Изчисти филтрите" },
+};
+
+export const COMPANIES_FILTER_BAR_LABEL: SearchFieldLabel = {
+  key: "companies_filters_label",
+  fallback: "Филтри",
+};
+
+/** Every element-id prefix and label key this page hands the shared components, as ONE object a
+ *  test can compare against /persons' wholesale. A per-key assertion catches a wrong key; only
+ *  a set comparison catches a whole label object copied from the sibling. */
+export const COMPANIES_REGISTRY_ID_PREFIX = "companies";

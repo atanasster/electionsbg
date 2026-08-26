@@ -1,80 +1,27 @@
-// One facet-driven dropdown in the /persons filter row.
+// The /persons facet dropdown — `RegistryFilterSelect` with this page's „all" sentinel.
 //
-// The shared Radix Select, never a native <select> and never a modal dropdown — a modal one
-// locks body scroll behind it (the project's standing UI rule).
-//
-// AN ACTIVE VALUE ALWAYS GETS AN ITEM, even when the facet does not offer it. Radix renders
-// an EMPTY trigger when nothing matches, so a deep link like ?role=X for a code that is
-// nobody's representative role would show a blank box over a table that IS filtered — the
-// reader can see the effect but not the cause. Two live paths reach that state: the role and
-// party vocabularies are facets of the representative seat while the filter matches every
-// seat, and any narrowing can drop the selected value out of its own facet.
+// ⚠️ THE BEHAVIOUR LIVES ONCE, in `@/screens/components/RegistryFilterSelect`, including the
+// rule that matters: an ACTIVE VALUE ALWAYS GETS AN ITEM, because Radix renders an EMPTY
+// trigger (not the placeholder) when nothing matches, so a deep link to a value the facet does
+// not offer shows a blank box over a table that IS filtered. /companies reaches that state too.
 
 import { FC } from "react";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  RegistryFilterSelect,
+  type RegistryFilterOption,
+} from "@/screens/components/RegistryFilterSelect";
 import { PERSON_FILTER_ALL } from "@/data/persons/useUrlPersonFilters";
 
-export interface PersonFilterOption {
-  value: string;
-  label: string;
-  /** Omitted where the facet column and the filter column differ — a count that
-   *  under-promises what clicking returns is worse than no count. */
-  count?: number;
-}
+export type PersonFilterOption = RegistryFilterOption;
 
 export const PersonFilterSelect: FC<{
   value: string;
   onChange: (v: string) => void;
   options: PersonFilterOption[];
   allLabel: string;
-  /** Accessible name — the trigger otherwise announces only its current value, so a
-   *  screen-reader user hears "Кмет" with no indication of which dimension it filters. */
   label?: string;
-  /** Id of a VISIBLE label element. Preferred over `label` when present: it associates the
-   *  control with text the reader can already see, so the dimension is not announced twice
-   *  (once as loose text, once as the control's name) and the two cannot drift apart. */
   labelledBy?: string;
-  /** Locale for the count separators. */
   locale?: string;
-}> = ({
-  value,
-  onChange,
-  options,
-  allLabel,
-  label,
-  labelledBy,
-  locale = "bg-BG",
-}) => {
-  const items =
-    value !== PERSON_FILTER_ALL && !options.some((o) => o.value === value)
-      ? [{ value, label: value }, ...options]
-      : options;
-  if (items.length === 0) return null;
-  return (
-    <Select value={value} onValueChange={onChange}>
-      <SelectTrigger
-        className="h-9 w-auto max-w-[220px]"
-        {...(labelledBy
-          ? { "aria-labelledby": labelledBy }
-          : { "aria-label": label ?? allLabel })}
-      >
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value={PERSON_FILTER_ALL}>{allLabel}</SelectItem>
-        {items.map((o) => (
-          <SelectItem key={o.value} value={o.value}>
-            {o.label}
-            {o.count != null ? ` (${o.count.toLocaleString(locale)})` : ""}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
-};
+}> = (props) => (
+  <RegistryFilterSelect {...props} allValue={PERSON_FILTER_ALL} />
+);
