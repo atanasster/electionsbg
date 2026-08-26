@@ -32,8 +32,10 @@ const OG_CLIP_VIEWPORT = { width: 1200, height: 1400 };
 type Capture = {
   slug: string; // output filename (slug.png in public/og/)
   routePath: string; // dev-server path, no leading slash
-  // CSS selector to wait for before screenshotting. The page is given up to
-  // 60s to render — pick something that only appears after data has loaded.
+  // CSS selector to wait for before screenshotting. Navigation gets 60 s and
+  // THIS SELECTOR 30 s — the 60 belongs to page.goto. Pick something that only
+  // appears after the data has loaded, since a selector that resolves early is
+  // how a short card overwrites a good one. — pick something that only appears after data has loaded.
   waitFor: string;
   // CSS selector for the element to scroll to the top of the viewport AND
   // use as the clip anchor. Defaults to the waitFor selector.
@@ -1152,6 +1154,52 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "culture-hub",
+    routePath: "culture",
+    // The sector hub's OWN card, minted 2026-08-26 when /culture grew a head. Until then
+    // it shared `/og/culture.png` with five sibling pages, and that image is shot from
+    // /culture/subsidies — so the hub's card depicted the film dashboard, which is 13% of
+    // the money the hub exists to put in proportion.
+    //
+    // ⚠️ THE WAIT NAMES THE TWO OPTIONAL CELLS BY THEIR OWN DESTINATIONS, and nothing else
+    // works. Two of the four cells come from fields that are OPTIONAL on the wire (`budget`
+    // and `films` ship via bucket:sync, a different command from `npm run deploy`), so a
+    // short band is a live state — and it is exactly the state that must not overwrite a
+    // good card.
+    //
+    // A bare `[data-kpi-cell]` is satisfied by a two-cell band. So was this selector's first
+    // cut, which asked for a `/culture/procurement` link and an `/awarder/` link: BOTH are
+    // satisfied by the evidence aside alone, because the rail's action link is
+    // `/culture/procurement?pscope=all` and `HubHead` renders it inside the same `<aside>`
+    // as the rows. It named the one cell that is pushed unconditionally and neither of the
+    // two that can vanish — verbatim the failure the paragraph claimed to prevent.
+    //
+    // `data-kpi-cell` sits on the `<Link>` itself (see `KpiCell`), so the two optional cells
+    // can be required directly. `/culture/subsidies` is the films cell and `/budget/…` the
+    // budget cell; the trailing `[data-kpi-cell]` keeps the wait on a cell rather than on
+    // the head, so a head that paints with no band at all still times out.
+    //
+    // ⚠️ THE ASIDE IS DELIBERATELY NOT REQUIRED HERE. It refuses when `topBuyers` is absent,
+    // which is the same bucket-sync lag — but a card showing a full band and no rail is a
+    // worse card, not a wrong one, and requiring it would block a re-shoot on the very
+    // vintage where the band is what changed.
+    //
+    // ⚠️ AN ABSENT BLOB IS CAUGHT HERE, unlike on /subsidies — and this paragraph said the
+    // opposite, inherited verbatim from an entry whose head can genuinely paint figureless
+    // from a second source. A 404 IS an answer (`useCultureHubStats` → null), but this
+    // head's band AND aside both come from that one blob, so it renders neither, the
+    // selector matches nothing, the capture times out and the previous card survives. What
+    // NO selector can see is figure STALENESS: every cell is drawn from a blob `bucket:sync`
+    // ships, so a corpus reload moves each number and touches no tracked file. That is what
+    // §10's „look at the png" is for.
+    waitFor:
+      '[data-hub-head]:has([data-kpi-cell][href^="/budget/ministries"]):has([data-kpi-cell][href^="/culture/subsidies"]) [data-kpi-cell]',
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "culture",
     // /culture/subsidies, NOT /culture: the film dashboard this shot frames moved
     // there when /culture became the sector hub (2026-08-18), and
@@ -1160,11 +1208,13 @@ const captures: Capture[] = [
     // takes the whole run's exit code with it — while /og/culture.png keeps
     // depicting the moved dashboard.
     //
-    // The SLUG stays `culture` on purpose: both the hub and the subsidies page
-    // declare `ogImage: "/og/culture.png"` in scripts/prerender/routes.ts, so
-    // renaming the file would blank the card on two indexed pages. The image
-    // shows the subsidy figures for both, which is exact for one and
-    // representative for the other.
+    // The SLUG stays `culture` on purpose: /culture/subsidies and /culture/films
+    // declare `ogImage: "/og/culture.png"`, so renaming the file would blank the
+    // card on both. This comment said „both the hub and the subsidies page" until
+    // 2026-08-26 and was wrong in both directions — the file was then referenced by
+    // SIX routes, not two, and the hub was about to leave. Everything the film card
+    // did not depict moved to `culture-hub` above; what is left are the two pages it
+    // depicts EXACTLY, which is the right population for it.
     routePath: "culture/subsidies",
     // KPI row + discipline-split bar + subsidy-by-year, top-aligned so the clip
     // leads with the headline numbers. Like the subsidies card, the full-bleed

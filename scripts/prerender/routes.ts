@@ -2865,7 +2865,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
       "Култура — публичните пари за култура и кой ги получава | electionsbg.com",
     description: `Всички публични пари за култура на едно място: бюджетът на Министерството на културата, обществените поръчки на държавните културни институти, филмовите субсидии на НФЦ (${cultureFacts.totalBg} за ${cultureFacts.filmsBg} проекта) и еврофондовете — кой получава, от кого и с каква конкуренция.`,
     breadcrumbName: "Култура",
-    ogImage: "/og/culture.png",
+    ogImage: "/og/culture-hub.png",
     bodyHtml: `
 <h1>Култура — публичните пари за култура и кой ги получава</h1>
 <p>Държавните пари за култура идват по четири различни пътя, които не се събират в едно число: годишният бюджет на Министерството на културата, обществените поръчки на държавните културни институти, филмовите субсидии на Националния филмов център и европейските средства. Тази страница ги показва един до друг — с основата на всяко число, защото едното е годишен поток, а другите са натрупани от 2011 г. насам.</p>
@@ -2899,12 +2899,21 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "culture/procurement",
-    // Shares the sector's card rather than naming a file the capture has not
+    // Shares the SECTOR HUB's card rather than naming a file the capture has not
     // made. `npm run og` shoots what `capture-screens.ts` lists, so pointing at
     // /og/culture-procurement.png before that entry exists would put a 404 in
     // every share preview — strictly worse than a truthful sector card. Give it
     // its own once a capture entry and a `data-og` anchor land together.
-    ogImage: "/og/culture.png",
+    //
+    // ⚠️ MOVED OFF /og/culture.png ON 2026-08-26. That file is shot from
+    // /culture/subsidies and depicts the FILM DASHBOARD, so once the hub grew a
+    // head of its own the phrase „the sector's card" stopped describing it: this
+    // page was sharing a film-subsidy image. The hub card shows the four money
+    // streams and the sector's largest buyers, which is adjacent to this page
+    // rather than about it — a weaker claim than a card of its own, and a much
+    // better one than film. /culture/subsidies and /culture/films keep the film
+    // card, which depicts them exactly.
+    ogImage: "/og/culture-hub.png",
     title:
       "Поръчките на културата — кой купува, от кого и с каква конкуренция | electionsbg.com",
     description:
@@ -2942,12 +2951,21 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "culture/funds",
-    // Shares the sector's card rather than naming a file the capture has not
+    // Shares the SECTOR HUB's card rather than naming a file the capture has not
     // made. `npm run og` shoots what `capture-screens.ts` lists, so pointing at
     // /og/culture-procurement.png before that entry exists would put a 404 in
     // every share preview — strictly worse than a truthful sector card. Give it
     // its own once a capture entry and a `data-og` anchor land together.
-    ogImage: "/og/culture.png",
+    //
+    // ⚠️ MOVED OFF /og/culture.png ON 2026-08-26. That file is shot from
+    // /culture/subsidies and depicts the FILM DASHBOARD, so once the hub grew a
+    // head of its own the phrase „the sector's card" stopped describing it: this
+    // page was sharing a film-subsidy image. The hub card shows the four money
+    // streams and the sector's largest buyers, which is adjacent to this page
+    // rather than about it — a weaker claim than a card of its own, and a much
+    // better one than film. /culture/subsidies and /culture/films keep the film
+    // card, which depicts them exactly.
+    ogImage: "/og/culture-hub.png",
     title:
       "Еврофондове за култура — ИСУН, ДФЗ и Interreg, всяко с основата си | electionsbg.com",
     description:
@@ -3164,12 +3182,21 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "culture/institutions",
-    // Shares the sector's card rather than naming a file the capture has not
+    // Shares the SECTOR HUB's card rather than naming a file the capture has not
     // made. `npm run og` shoots what `capture-screens.ts` lists, so pointing at
     // /og/culture-procurement.png before that entry exists would put a 404 in
     // every share preview — strictly worse than a truthful sector card. Give it
     // its own once a capture entry and a `data-og` anchor land together.
-    ogImage: "/og/culture.png",
+    //
+    // ⚠️ MOVED OFF /og/culture.png ON 2026-08-26. That file is shot from
+    // /culture/subsidies and depicts the FILM DASHBOARD, so once the hub grew a
+    // head of its own the phrase „the sector's card" stopped describing it: this
+    // page was sharing a film-subsidy image. The hub card shows the four money
+    // streams and the sector's largest buyers, which is adjacent to this page
+    // rather than about it — a weaker claim than a card of its own, and a much
+    // better one than film. /culture/subsidies and /culture/films keep the film
+    // card, which depicts them exactly.
+    ogImage: "/og/culture-hub.png",
     title:
       "Културните институции — регистърът и кой ги плаща | electionsbg.com",
     description:
