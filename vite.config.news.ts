@@ -11,6 +11,8 @@ import react from "@vitejs/plugin-react-swc";
 import fs from "node:fs";
 import path from "path";
 import type { Connect, Plugin } from "vite";
+import { applyHead, renderSitemap, writeRoute } from "./newsapp/prerender";
+import { buildRoutes } from "./newsapp/prerenderRoutes";
 import { defineConfig } from "vite";
 
 const DATA_DIR = path.resolve(__dirname, "news", "app-data");
@@ -123,17 +125,6 @@ Allow: /
 Sitemap: ${SITE}/sitemap.xml
 `;
 
-const SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${["/", "/outlets", "/topics", "/methodology"]
-  .map(
-    (path) =>
-      `  <url><loc>${SITE}${path}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>`,
-  )
-  .join("\n")}
-</urlset>
-`;
-
 const LLMS_TXT = `# Наясно Новини (news.electionsbg.com)
 
 > Сравнение как българските медии отразяват едни и същи истории: спектър на
@@ -169,8 +160,58 @@ const writeSeoFilesNews = (): Plugin => ({
     const out = path.resolve(__dirname, "dist-news");
     if (!fs.existsSync(out)) return;
     fs.writeFileSync(path.join(out, "robots.txt"), ROBOTS_TXT);
-    fs.writeFileSync(path.join(out, "sitemap.xml"), SITEMAP_XML);
     fs.writeFileSync(path.join(out, "llms.txt"), LLMS_TXT);
+
+    // ⚠️ PER-ROUTE <head>, and a sitemap generated from the corpus.
+    //
+    // Without this the catch-all rewrite served the SAME index.html at every
+    // URL, so every story and outlet page carried the HOMEPAGE's title,
+    // description and canonical — to a crawler, duplicates of the homepage.
+    // And the sitemap was four hard-coded URLs, so a story added tonight was
+    // invisible by omission with nothing to say so.
+    const template = path.join(out, "index.html");
+    if (!fs.existsSync(template)) {
+      throw new Error(
+        "prerender: dist-news/index.html is missing — nothing to derive a " +
+          "per-route head from",
+      );
+    }
+    const html = fs.readFileSync(template, "utf-8");
+    const routes = buildRoutes(path.resolve(__dirname, "news", "app-data"));
+
+    // ⚠️ VALIDATE BEFORE WRITING ANYTHING. The first cut wrote all 161 pages
+    // and threw afterwards, which left a dist-news full of pages carrying the
+    // homepage's head and NO sitemap.xml — and `deploy:news:fast` skips the
+    // predeploy, so that tree was one command away from being published. The
+    // template either matches or nothing is written.
+    const probe = applyHead(html, routes[0]);
+    if (probe.missing.length > 0) {
+      throw new Error(
+        "prerender: could not rewrite " +
+          probe.missing.join(", ") +
+          " — newsapp/index.html no longer matches newsapp/prerender.ts. " +
+          "Nothing was written.",
+      );
+    }
+    const missing = new Map<string, number>();
+    for (const route of routes) {
+      for (const tag of writeRoute(out, html, route)) {
+        missing.set(tag, (missing.get(tag) ?? 0) + 1);
+      }
+    }
+    // Belt and braces: a route-specific tag (og:image, present only when a
+    // route carries an image) can still miss after the probe passed.
+    if (missing.size > 0) {
+      throw new Error(
+        "prerender: could not rewrite " +
+          [...missing].map(([t, n]) => `${t} (${n} routes)`).join(", "),
+      );
+    }
+    fs.writeFileSync(path.join(out, "sitemap.xml"), renderSitemap(routes));
+    const submitted = routes.filter((r) => r.sitemap !== false).length;
+    console.log(
+      `news prerender: ${routes.length} routes, ${submitted} in the sitemap`,
+    );
   },
 });
 
