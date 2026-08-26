@@ -606,6 +606,31 @@ class Mentions(FixtureTestCase):
         with open(os.path.join(d, os.listdir(d)[0]), encoding="utf-8") as fh:
             return json.load(fh)
 
+    GAZ = {"version": 1, "entries": [
+        {"kind": "person", "canonical": "Делян Пеевски", "forms": [
+            {"surface": "Делян Пеевски", "resolvable": True,
+             "id": "delyan-peevski-ab12cd", "why": ""},
+            {"surface": "Пеевски", "resolvable": False, "id": None,
+             "anchor_for": "delyan-peevski-ab12cd", "why": ""}]},
+        {"kind": "person", "canonical": "Иван Пеевски", "forms": [
+            {"surface": "Иван Пеевски", "resolvable": True, "id": "ip-9",
+             "why": ""},
+            {"surface": "Пеевски", "resolvable": False, "id": None,
+             "anchor_for": "ip-9", "why": ""}]}]}
+
+    def write_gazetteer(self, doc=None):
+        path = os.path.join(self.root, "news", "data", "gazetteer.json")
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(doc if doc is not None else self.GAZ, fh,
+                      ensure_ascii=False)
+
+    def set_body(self, key, text):
+        domain, fname, rec = self.articles[key]
+        rec = dict(rec, content=text, title=text[:60])
+        with open(os.path.join(self.root, "news", "data", domain, fname),
+                  "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+
     def test_a_resolved_mention_is_stored(self):
         self.save_with([self.mention()])
         got = self.saved()["mentions"]
@@ -739,6 +764,181 @@ class Mentions(FixtureTestCase):
         self.save(analysis(self.analysis_path("a1"), "https://test.bg/alpha",
                            "test.bg"))
         self.assertNotIn("mentions", self.saved())
+
+    def test_the_analyst_may_not_MINT_an_identity(self):
+        # ⚠️⚠️ THE check a well-formed lie cannot pass. validate_mentions
+        # proves a mention is SHAPED right; it cannot prove the id is the one
+        # the gazetteer produced, because a fabricated id looks exactly like
+        # a real one. So the dictionary pass is re-run and compared.
+        self.write_gazetteer()
+        self.set_body("a1", "Днес Пеевски заяви пред медиите нещо важно. " * 12)
+        out = self.save_with([self.mention(
+            surface="Пеевски", basis="gazetteer_exact",
+            id="delyan-peevski-ab12cd")], expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any("dictionary pass" in e for e in msgs), msgs)
+
+    def test_an_id_on_a_name_the_dictionary_never_saw_is_refused(self):
+        self.write_gazetteer()
+        self.set_body("a1", "Няма познати имена в този текст изобщо. " * 15)
+        out = self.save_with([self.mention(
+            surface="Непознат Човек", basis="gazetteer_exact",
+            id="fabricated-1")], expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any("may not mint an identity" in e for e in msgs), msgs)
+
+    def test_an_unknown_name_may_be_recorded_WITHOUT_an_id(self):
+        # The analyst can see names a gazetteer never will; that is welcome,
+        # so long as it claims no identity for them.
+        self.write_gazetteer()
+        self.set_body("a1", "Няма познати имена в този текст изобщо. " * 15)
+        self.save_with([self.mention(surface="Непознат Човек",
+                                     basis="not_in_gazetteer", id=None)])
+        self.assertEqual(self.saved()["mentions"][0]["id"], None)
+
+    def test_a_matching_mention_passes_and_keeps_its_role(self):
+        # ⚠️ `role` is the ONE field the analyst may set — a dictionary
+        # cannot tell a story's subject from a name in the last paragraph.
+        self.write_gazetteer()
+        self.set_body("a1", "Делян Пеевски заяви днес нещо много важно. " * 12)
+        self.save_with([self.mention(surface="Делян Пеевски",
+                                     basis="gazetteer_exact",
+                                     id="delyan-peevski-ab12cd",
+                                     role="subject")])
+        got = self.saved()["mentions"][0]
+        self.assertEqual(got["role"], "subject")
+        self.assertEqual(got["id"], "delyan-peevski-ab12cd")
+
+    def test_a_basis_may_not_be_promoted(self):
+        # Two roster people share „Пеевски" and neither full name appears, so
+        # the dictionary refuses. An analyst calling that a coreference is
+        # asserting something the document does not say.
+        self.write_gazetteer()
+        self.set_body("a1", "Днес Пеевски заяви пред медиите нещо важно. " * 12)
+        out = self.save_with([self.mention(
+            surface="Пеевски", basis="coref_resolved",
+            id="delyan-peevski-ab12cd")], expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any(".basis" in e or "dictionary pass" in e
+                            for e in msgs), msgs)
+
+    def test_ONLY_the_id_differing_is_refused(self):
+        # ⚠️ Isolates the id comparison. In the mint test above the basis
+        # ALSO differs, so that test passes even with the id check deleted —
+        # one assertion masking the other is how a guard goes half-dead.
+        self.write_gazetteer()
+        self.set_body("a1", "Делян Пеевски заяви днес нещо много важно. " * 12)
+        out = self.save_with([self.mention(
+            surface="Делян Пеевски", basis="gazetteer_exact",
+            id="somebody-else-99")], expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any(".id:" in e for e in msgs), msgs)
+
+    def test_ONLY_the_basis_differing_is_refused(self):
+        # The mirror image: the id is right, the provenance claim is not.
+        # „coref_resolved" asserts the document named him twice; it did not.
+        self.write_gazetteer()
+        self.set_body("a1", "Делян Пеевски заяви днес нещо много важно. " * 12)
+        out = self.save_with([self.mention(
+            surface="Делян Пеевски", basis="coref_resolved",
+            id="delyan-peevski-ab12cd")], expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any(".basis:" in e for e in msgs), msgs)
+
+    def test_the_analyst_may_not_INVENT_CANDIDATES(self):
+        # ⚠️⚠️ A LIVE HOLE: only `id` and `basis` were compared, so
+        # `candidates` was free text no check touched — and a record could be
+        # saved at exit 0 asserting an article's „Пеевски" was ambiguous
+        # between Бойко Борисов and Цветан Василев. Two names the dictionary
+        # never proposed, about real people, published as our finding.
+        self.write_gazetteer()
+        self.set_body("a1", "Днес Пеевски заяви пред медиите нещо важно. " * 12)
+        out = self.save_with([self.mention(
+            surface="Пеевски", basis="ambiguous_refused", id=None,
+            candidates=["Бойко Борисов (person, bb-1)",
+                        "Цветан Василев (person, cv-1)"])], expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any(".candidates" in e for e in msgs), msgs)
+
+    def test_candidates_may_not_ride_an_INVENTED_mention_either(self):
+        self.write_gazetteer()
+        self.set_body("a1", "Няма познати имена в този текст изобщо. " * 15)
+        out = self.save_with([self.mention(
+            surface="Непознат Човек", basis="not_in_gazetteer", id=None,
+            candidates=["Бойко Борисов", "Цветан Василев"])], expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any(".candidates" in e for e in msgs), msgs)
+
+    def test_the_TRUE_candidates_are_accepted(self):
+        self.write_gazetteer()
+        self.set_body("a1", "Днес Пеевски заяви пред медиите нещо важно. " * 12)
+        # Taken from the dictionary itself rather than hand-written, so this
+        # cannot drift from what the resolver actually produces.
+        import resolve_mentions as rm
+        gaz = rm.Gazetteer(self.GAZ)
+        domain, fname, _ = self.articles["a1"]
+        with open(os.path.join(self.root, "news", "data", domain, fname),
+                  encoding="utf-8") as fh:
+            rec = json.load(fh)
+        truth = rm.dedupe(rm.resolve(rm.article_text(rec), gaz))[0]
+        self.save_with([{**truth, "role": "subject"}])
+        self.assertEqual(self.saved()["mentions"][0].get("candidates"),
+                         truth.get("candidates"))
+
+    def test_a_tidied_up_quote_in_a_surface_is_NOT_treated_as_minting(self):
+        # ⚠️ resolve() slices between token boundaries, so a surface opening
+        # a quote it never closes — „Агенция „Пътна инфраструктура" — ships
+        # unbalanced (49 live mentions, 27 distinct surfaces). An analyst
+        # that closes it matched no truth entry, was accused of minting an
+        # identity, and lost the WHOLE record at exit 3.
+        self.write_gazetteer({"version": 1, "entries": [
+            {"kind": "institution", "canonical": "Агенция Пътна инфраструктура",
+             "forms": [{"surface": "Агенция \u201eПътна инфраструктура",
+                        "resolvable": True, "id": "api-1", "why": ""}]}]})
+        self.set_body("a1", "Агенция \u201eПътна инфраструктура\u201c обяви. " * 12)
+        self.save_with([{"kind": "institution",
+                         "surface": "Агенция \u201eПътна инфраструктура\u201c",
+                         "basis": "gazetteer_exact", "id": "api-1",
+                         "role": "subject"}])
+        self.assertEqual(self.saved()["mentions"][0]["id"], "api-1")
+
+    def test_without_a_gazetteer_the_skip_is_REPORTED(self):
+        # ⚠️ A save that quietly accepted every id looks identical to one
+        # that verified them. The flag is the only difference.
+        self.set_body("a1", "Делян Пеевски заяви днес нещо важно. " * 12)
+        out = self.save_with([self.mention()])
+        self.assertIn("mentions_unverified", out)
+        self.assertIn("build_gazetteer", out["mentions_unverified"])
+
+    def test_with_a_gazetteer_no_such_flag_appears(self):
+        self.write_gazetteer()
+        self.set_body("a1", "Делян Пеевски заяви днес нещо важно. " * 12)
+        out = self.save_with([self.mention(surface="Делян Пеевски",
+                                           id="delyan-peevski-ab12cd")])
+        self.assertNotIn("mentions_unverified", out)
+
+    def test_the_queue_carries_the_dictionary_pass(self):
+        # ⚠️ Deleting `attach_dictionary_mentions(queue)` outright left every
+        # test green — the analyst would simply receive no mentions and be
+        # asked to invent them, which is the whole thing this tier prevents.
+        self.write_gazetteer()
+        self.set_body("a1", "Делян Пеевски заяви днес нещо много важно. " * 12)
+        code, out, _ = self.run_cli("--next", "all", "--limit", "20")
+        self.assertEqual(code, 0)
+        item = next((q for q in out["queue"]
+                     if "Делян Пеевски" in (q.get("title") or "")), None)
+        self.assertIsNotNone(item, out["queue"])
+        self.assertIn("mentions", item)
+        self.assertEqual(item["mentions"][0]["id"], "delyan-peevski-ab12cd")
+        self.assertIn("You may NOT change", item["mentions_note"])
+
+    def test_without_a_gazetteer_the_queue_SAYS_it_did_not_run(self):
+        # ⚠️ An absent key plus no note reads as „this article mentions
+        # nobody" — the absent-vs-empty rule, one layer out.
+        code, out, _ = self.run_cli("--next", "all", "--limit", "3")
+        self.assertEqual(code, 0)
+        self.assertNotIn("mentions", out["queue"][0])
+        self.assertIn("NOT", out["queue"][0]["mentions_note"])
 
     def test_entities_still_takes_only_strings(self):
         # ⚠️ The merge these two blocks exist to prevent. `entities` feeds

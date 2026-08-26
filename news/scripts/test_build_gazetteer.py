@@ -429,6 +429,36 @@ class TheCommonWordFilter(unittest.TestCase):
                          "the exemption list is curated — a new entry needs "
                          "its own reasoning, not a threshold tuned to fit")
 
+    def test_each_refusal_records_a_MACHINE_READABLE_reason(self):
+        # ⚠️ The consumer has to ACT on this and `why` is prose. Without a
+        # code, the resolver cannot tell „refused because it is an ordinary
+        # word" (a known non-entity) from „refused because two people share
+        # it" (a review candidate) — and it emitted 583 mentions of the first
+        # kind into the roster-review queue.
+        self.assertEqual(form("Места", True, "w", "x", "place")["refusal"],
+                         "common_word")
+        self.assertEqual(form("Владимир", True, "w", "x", "place")["refusal"],
+                         "given_name")
+
+    def test_an_ORDINARY_refusal_carries_no_reason_code(self):
+        # ⚠️ The surface must be one NEITHER filter matches, or this pins
+        # nothing: the first version used „Иванов" — not in the fixture's
+        # word or given-name sets — so removing the guards from both branches
+        # of form() left it green, which is also how 99 shipped forms came to
+        # be common words with no reason code.
+        self.assertNotIn("refusal", form("Гоце Делчев", False, "shared", "x"))
+        self.assertIn("refusal", form("Места", False, "shared", "x", "place"))
+
+    def test_an_ALREADY_refused_common_word_still_gets_its_code(self):
+        # ⚠️ Gated on `resolvable`, the code was computed only for forms the
+        # filter itself refused — so a common word the CALLER had already
+        # refused as an ambiguity carried none, and the resolver put it back
+        # in the roster-review queue. 99 shipped forms were in that state.
+        f = form("Места", False, "3 distinct places share this name", "x", "place")
+        self.assertEqual(f["refusal"], "common_word")
+        # …and the caller's reason survives, being the more useful one.
+        self.assertIn("3 distinct places", f["why"])
+
     def test_the_filters_leave_the_anchor_in_place(self):
         # „Места" really is a village; a document that establishes it some
         # other way can still corefer to it.

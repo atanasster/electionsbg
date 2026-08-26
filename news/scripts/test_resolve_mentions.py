@@ -259,6 +259,60 @@ class RefusalIsCarriedThrough(unittest.TestCase):
             if m["basis"] in ("ambiguous_refused", "not_in_gazetteer"):
                 self.assertIsNone(m["id"])
 
+    def test_a_known_non_entity_never_reaches_the_review_queue(self):
+        # ⚠️ „войници", „места", „река" are gazetteer surfaces refused as
+        # ordinary Bulgarian words. Emitting them as `not_in_gazetteer` — the
+        # basis whose whole purpose is „queue this for roster review" — filled
+        # that queue with 583 mentions, 171 distinct, almost all noise. After
+        # the drop it is 77 / 45, and every one is a real person's name.
+        g = gz({"kind": "place", "canonical": "Река", "place_kind": "settlement",
+                "forms": [{"surface": "Река", "resolvable": False, "id": None,
+                           "anchor_for": "settlement:1",
+                           "refusal": "common_word", "why": ""}]})
+        self.assertEqual(resolve("Река тече през града.", g), [])
+
+    def test_an_AMBIGUITY_still_reaches_the_queue(self):
+        # A common noun is not a review candidate; a contested name is.
+        g = gz(person("Иван Пеев", f("Пеев", False, anchor="a-1")),
+               person("Георги Пеев", f("Пеев", False, anchor="b-1")))
+        got = resolve("Пеев заяви.", g)
+        self.assertEqual(got[0]["basis"], "ambiguous_refused")
+
+    def test_the_drop_never_swallows_an_AMBIGUITY(self):
+        # ⚠️ Even when every claim is a common-word refusal. „Елена" is a
+        # word, a given name AND three villages — the villages are a real
+        # ambiguity a reader may want disambiguated, and silently dropping it
+        # loses the fact that the article named a place at all.
+        g = gz({"kind": "place", "canonical": "Елена", "place_kind": "settlement",
+                "forms": [{"surface": "Елена", "resolvable": False, "id": None,
+                           "anchor_for": "settlement:1",
+                           "refusal": "common_word", "why": ""}]},
+               {"kind": "place", "canonical": "Елена", "place_kind": "obshtina",
+                "forms": [{"surface": "Елена", "resolvable": False, "id": None,
+                           "anchor_for": "obshtina:2",
+                           "refusal": "common_word", "why": ""}]})
+        got = resolve("Елена е красив град.", g)
+        self.assertEqual(len(got), 1)
+        self.assertEqual(got[0]["basis"], "ambiguous_refused")
+
+    def test_an_unknown_person_still_reaches_the_queue(self):
+        g = gz(person("Румен Радев", f("Румен Радев", False, anchor="rr-1")))
+        got = resolve("Румен Радев заяви.", g)
+        self.assertEqual(got[0]["basis"], "not_in_gazetteer")
+
+    def test_the_drop_does_not_defeat_coreference(self):
+        # ⚠️ Dropped only when NOTHING about it resolved. A document that
+        # establishes the place some other way still gets its coreference.
+        g = gz({"kind": "place", "canonical": "Река", "place_kind": "settlement",
+                "forms": [{"surface": "село Река", "resolvable": True,
+                           "id": "settlement:1", "why": ""},
+                          {"surface": "Река", "resolvable": False, "id": None,
+                           "anchor_for": "settlement:1",
+                           "refusal": "common_word", "why": ""}]})
+        got = resolve("Пожар в село Река. Река остана без ток.", g)
+        self.assertEqual([m["basis"] for m in got],
+                         ["gazetteer_exact", "coref_resolved"])
+
     def test_the_role_is_never_claimed_by_the_dictionary_pass(self):
         # ⚠️ „subject" would put an article on somebody's page for being named
         # once in the last paragraph. Only the model can tell them apart.

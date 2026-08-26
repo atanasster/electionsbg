@@ -75,6 +75,10 @@ import os
 import re
 import sys
 from datetime import datetime, timezone
+from pathlib import Path
+
+# resolve_mentions is a sibling module, and this script is run by path.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 REPO_ROOT = os.environ.get("DATA_BG_ROOT") or os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -162,6 +166,26 @@ MENTION_BASES_WITH_ID = frozenset({"gazetteer_exact", "coref_resolved"})
 MENTION_ROLES = ("subject", "source", "mention")
 
 MENTION_KEYS = frozenset({"kind", "surface", "basis", "id", "role", "candidates"})
+
+# ⚠️⚠️ THE MODEL MAY NOT MINT AN IDENTITY. The dictionary pass
+# (resolve_mentions.py) runs first, off the gazetteer, and every id and basis
+# in a saved record must be one IT produced. An analyst — a skill, or the
+# local LLM the standalone runner drives — may:
+#
+#   • set `role` (subject / source / mention), which a dictionary cannot know
+#   • ADD mentions the dictionary missed, at `not_in_gazetteer` with no id
+#   • DROP mentions it judges spurious
+#
+# and may not change an `id`, promote a `basis`, or invent one. The reason is
+# the whole of Tier 2: „Иванов" is 1,554 public figures, a model asked to
+# identify one will happily oblige, and a wrong link is shape-identical to a
+# right one. The gazetteer's refusals are the product; a model that can
+# overrule them makes them decorative.
+#
+# Enforced in validate_analysis() by RE-RUNNING the resolver over the same
+# article and comparing. That costs ~6 ms per record and is the only check
+# that cannot be satisfied by a well-formed lie.
+MODEL_MAY_SET = frozenset({"role"})
 
 STOPWORDS = set(
     """на за от с без до из по и или че със в към при след преди над под обаче също само още все
@@ -712,6 +736,113 @@ def validate_mentions(mentions) -> list:
     return errs
 
 
+def _resolver():
+    """The dictionary pass, or None when the gazetteer is absent.
+
+    ⚠️ Imported LAZILY and tolerated as missing. A checkout without
+    news/data/gazetteer.json must still be able to save analyses — the
+    provenance check then cannot run, and says so rather than rejecting the
+    whole corpus.
+    """
+    try:
+        import resolve_mentions as rm
+        gaz_path = Path(DATA_DIR).parent / "data" / "gazetteer.json"
+        if not gaz_path.exists():
+            gaz_path = rm.GAZETTEER
+        if not gaz_path.exists():
+            return None
+        return rm, rm.Gazetteer.load(gaz_path)
+    except Exception:  # noqa: BLE001
+        return None
+
+
+_RESOLVER_CACHE: list = []
+# Set when a record's mentions could not be checked against the gazetteer.
+MENTIONS_UNVERIFIED: list = []
+
+
+def check_mention_provenance(mentions: list, rec: dict) -> list:
+    """Refuse any mention whose IDENTITY the analyst changed.
+
+    ⚠️ THE ONE CHECK A WELL-FORMED LIE CANNOT PASS. `validate_mentions` above
+    proves a mention is SHAPED right — a refused basis carries no id, an
+    ambiguity names two candidates. It cannot prove the id is the one the
+    gazetteer produced, because a fabricated id is shaped exactly like a real
+    one. So the dictionary pass is re-run over the same article and the two
+    are compared.
+
+    The analyst may set `role`, drop a mention, or add one at
+    `not_in_gazetteer` with no id. It may not promote a basis or attach an id
+    the gazetteer refused.
+    """
+    got = _RESOLVER_CACHE[0] if _RESOLVER_CACHE else _resolver()
+    if not _RESOLVER_CACHE:
+        _RESOLVER_CACHE.append(got)
+    if got is None:
+        # ⚠️ RECORDED, not silently skipped. Without a gazetteer this check
+        # cannot run — and a save that quietly accepted every id would look
+        # exactly like one that verified them. The flag rides out on the
+        # save-batch result so an operator can see the guard was off.
+        MENTIONS_UNVERIFIED.append(True)
+        return []
+    rm, gaz = got
+    # ⚠️ KEYED ON THE TOKEN JOIN, not on the raw folded surface. resolve()
+    # slices between token boundaries, so a surface opening a quote it never
+    # closes — „Агенция „Пътна инфраструктура", 49 live mentions across 27
+    # distinct surfaces — ships unbalanced. An analyst that tidies it up then
+    # fails to match ANY truth entry, is accused of minting an identity, and
+    # loses the whole record at exit 3. Comparing on tokens makes the two
+    # spellings equal; verified over the full corpus, it produces zero
+    # collisions between entries with different ids, so it cannot weaken the
+    # guard.
+    def key_of(kind, surface):
+        return (kind, rm.fold(" ".join(rm.TOKEN_RE.findall(str(surface or "")))))
+
+    truth = {}
+    for m in rm.dedupe(rm.resolve(rm.article_text(rec), gaz)):
+        truth[key_of(m["kind"], m["surface"])] = m
+
+    errs = []
+    for i, m in enumerate(mentions):
+        at = f"mentions[{i}]"
+        ref = truth.get(key_of(m.get("kind"), m.get("surface")))
+        if ref is None:
+            # Not something the dictionary found. Allowed — the analyst can
+            # see names a gazetteer never will — but it may claim nothing
+            # about them beyond their existence.
+            if m.get("id") or m.get("basis") != "not_in_gazetteer":
+                errs.append(
+                    f"{at}: {m.get('surface')!r} was not produced by the "
+                    "dictionary pass, so it may only be recorded as "
+                    "not_in_gazetteer with a null id — an analyst may not "
+                    "mint an identity")
+            elif m.get("candidates"):
+                # ⚠️ „ambiguous between X and Y" about a name the dictionary
+                # never saw is a fabricated claim about named individuals.
+                errs.append(
+                    f"{at}.candidates: {m.get('surface')!r} was not produced "
+                    "by the dictionary pass, so no candidates for it can "
+                    "have come from the gazetteer")
+            continue
+        # ⚠️⚠️ EVERY FIELD BUT `role`, and comparing only id+basis was a live
+        # hole: `candidates` is free text that no check touched, so a record
+        # could be saved at exit 0 asserting an article's „Пеевски" was
+        # ambiguous between Бойко Борисов and Цветан Василев — two names the
+        # dictionary never proposed, about real people. The whitelist is
+        # inverted deliberately: a field ADDED to the mention schema is
+        # verified by default rather than silently unguarded.
+        for field in sorted(MENTION_KEYS - MODEL_MAY_SET):
+            if field == "surface":
+                continue  # it is the key; a spelling difference is allowed
+            if m.get(field) != ref.get(field):
+                errs.append(
+                    f"{at}.{field}: {m.get(field)!r} does not match the "
+                    f"dictionary pass ({ref.get(field)!r}) for "
+                    f"{m.get('surface')!r} — an analyst may set "
+                    f"{sorted(MODEL_MAY_SET)} only")
+    return errs
+
+
 def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
     errs = []
     if not isinstance(a, dict):
@@ -790,6 +921,8 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
     # the first can be counted.
     if "mentions" in a:
         errs.extend(validate_mentions(a["mentions"]))
+        if not errs:
+            errs.extend(check_mention_provenance(a["mentions"], rec))
 
     tones = a.get("party_tones")
     if not isinstance(tones, list):
@@ -1018,10 +1151,49 @@ def cmd_save(args) -> int:
         index["updated_at"] = now_iso()
         write_json_atomic(INDEX_PATH, index)
 
+    if MENTIONS_UNVERIFIED:
+        # ⚠️ VISIBLE. Without a gazetteer the provenance check cannot run, and
+        # a save that quietly accepted every id looks identical to one that
+        # verified them — so the fact rides out with the result rather than
+        # being inferable only from a file's absence.
+        stats["mentions_unverified"] = (
+            "no gazetteer — mention ids were NOT checked against the "
+            "dictionary pass; run news/scripts/build_gazetteer.py")
     return emit(0 if not stats["failed"] else 3, mode="save_batch" if args.save_batch else "save_analysis", **stats)
 
 
 # ------------------------------------------------------------------- queue ---
+
+def attach_dictionary_mentions(queue: list) -> None:
+    """Stamp each queue item with what resolve_mentions found.
+
+    ⚠️ ABSENT means „not run", never „nobody was mentioned" — the same
+    distinction the `mentions` block itself carries. Without a gazetteer the
+    key is omitted and `mentions_note` says why, rather than an empty list
+    telling an analyst the article names no one.
+    """
+    got = _resolver()
+    if got is None:
+        for item in queue:
+            item["mentions_note"] = (
+                "not run — news/data/gazetteer.json is absent, so no "
+                "mentions were resolved. This is NOT 'no one was mentioned'.")
+        return
+    rm, gaz = got
+    for item in queue:
+        try:
+            with open(os.path.join(DATA_DIR, item["path"].split("/", 2)[-1]),
+                      encoding="utf-8") as fh:
+                rec = json.load(fh)
+        except (OSError, json.JSONDecodeError):
+            continue
+        item["mentions"] = rm.dedupe(rm.resolve(rm.article_text(rec), gaz))
+        item["mentions_note"] = (
+            "resolved from the gazetteer. You may set `role`, drop a "
+            "mention, or ADD one at basis 'not_in_gazetteer' with id null. "
+            "You may NOT change an id or a basis — a save that does is "
+            "rejected.")
+
 
 def cmd_next(args) -> int:
     if args.limit < 1:
@@ -1103,6 +1275,14 @@ def cmd_next(args) -> int:
     # ⚠️ Scoped to what this call actually looked at. Reporting the WHOLE
     # corpus's analysed count beside a single domain's rows produced
     # `unanalyzed: 0` next to `returned: 2`.
+    # ⚠️ THE DICTIONARY PASS TRAVELS WITH THE QUEUE, and this is what makes
+    # the provenance guard workable rather than adversarial. The analyst is
+    # handed the resolved mentions instead of being asked to produce them, so
+    # its job narrows to what only it can do — the ROLE each entity plays,
+    # and names no gazetteer will ever hold. Everything else is already
+    # decided, and check_mention_provenance() refuses any change to it.
+    attach_dictionary_mentions(queue)
+
     result = {
         "domain_filter": args.next_domain, "limit": args.limit,
         "order": ("UTC day desc — the publication day, or the fetched_at day "

@@ -327,24 +327,37 @@ def form(surface: str, resolvable: bool, why: str,
     The invariant is total and mechanically checkable across all four kinds:
     `resolvable is False` ⟺ `id is None`.
     """
-    if resolvable and kind == "place" and is_common_given_name(surface):
+    # ⚠️ COMPUTED WHETHER OR NOT THE FORM STILL RESOLVES. Gated on
+    # `resolvable`, a form the caller had ALREADY refused (as an ambiguity)
+    # never received a reason code — 99 shipped forms are ordinary Bulgarian
+    # words carrying none, so the resolver could not tell them from review
+    # candidates and put them back in the queue.
+    refusal = None
+    if kind == "place" and is_common_given_name(surface):
         # ⚠️ PLACES ONLY. A PERSON surface being a given name is the whole
         # point of a person surface; applying this to every kind would refuse
         # „Елена Йончева" — no, that is two words — but it would certainly
         # refuse a party or institution legitimately named after somebody.
+        refusal = "given_name"
+        # ⚠️ The caller's `why` is kept when it had ALREADY refused — „4
+        # distinct places share this name" is a more useful thing to read
+        # than „is a given name", and overwriting it loses the ambiguity.
+        if resolvable:
+            why = (f"„{surface}\u201c is a given name borne by many "
+                   "Bulgarians — anchor only; a person named here would "
+                   "otherwise link to a village")
         resolvable = False
-        why = (f"„{surface}\u201c is a given name borne by many Bulgarians — "
-               "anchor only; a person named here would otherwise link to a "
-               "village")
-    if resolvable and is_common_word(surface):
+    if is_common_word(surface):
         # ⚠️ Refused HERE rather than at each call site, so a new kind cannot
         # be added without the filter. The anchor is kept: „Места" really is a
         # village, and a document that establishes the place some other way
         # can still corefer to it.
+        refusal = "common_word"
+        if resolvable:
+            why = (f"„{surface}" + "\u201c is an ordinary Bulgarian word in "
+                   "this corpus — anchor only; a one-word common noun cannot "
+                   "be told from the place that shares its name")
         resolvable = False
-        why = (f"„{surface}" + "\u201c is an ordinary Bulgarian word in this "
-               "corpus — anchor only; a one-word common noun cannot be told "
-               "from the place that shares its name")
     return {
         "surface": surface,
         "resolvable": resolvable,
@@ -357,6 +370,13 @@ def form(surface: str, resolvable: bool, why: str,
         # be performed at all: „Пеевски" in ¶4 had nothing tying it to the
         # „Делян Пеевски" the same article resolved in ¶1.
         **({} if resolvable else {"anchor_for": ident}),
+        # ⚠️ MACHINE-READABLE, because the consumer has to act on it and
+        # `why` is prose. „войници", „места", „река" are refused as ordinary
+        # words — KNOWN NON-ENTITIES — and emitting them as unresolved
+        # mentions filled the roster-review queue with 583 of them, 171
+        # distinct, almost all noise. An ambiguity is a review candidate; a
+        # common noun is not.
+        **({} if refusal is None else {"refusal": refusal}),
         "why": why,
     }
 

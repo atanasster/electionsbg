@@ -103,6 +103,8 @@ class Gazetteer:
                     # the anchor points at, usable only when the document has
                     # already resolved that entry outright.
                     "anchor_for": form.get("anchor_for"),
+                    # Why the gazetteer refused it, machine-readable.
+                    "refusal": form.get("refusal"),
                     # Distinguishes homonyms that share a canonical name —
                     # „Айтос" is both a settlement and an obshtina, and a
                     # candidate list built without it collapses to one.
@@ -312,6 +314,18 @@ def resolve(text: str, gaz: Gazetteer) -> list:
             # for being named once in the last paragraph.
             "role": "mention",
         }
+        # ⚠️ A KNOWN NON-ENTITY IS NOT A REVIEW CANDIDATE. „войници",
+        # „места", „река" are gazetteer surfaces refused as ordinary
+        # Bulgarian words, and emitting them as `not_in_gazetteer` filled the
+        # roster-review queue with 583 mentions, 171 distinct, almost all
+        # noise. They are dropped only when NOTHING about them resolved —
+        # a document that establishes the place some other way still gets its
+        # coreference.
+        if (basis == "not_in_gazetteer"
+                and claims
+                and all(c.get("refusal") in ("common_word", "given_name")
+                        for c in claims)):
+            continue
         if candidates:
             mention["candidates"] = candidates
         out.append(mention)
