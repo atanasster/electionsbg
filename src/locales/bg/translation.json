@@ -5270,7 +5270,7 @@
   "subsidies_evidence_basis": "{{window}} · класирани са само получателите с ЕИК — включително общини и държавни органи по мерките за селските райони; {{pct}}% от парите са на редове без ЕИК и не се приписват на никого",
   "subsidies_evidence_action": "всички получатели",
   "decl_scope_ns": "Този парламент",
-  "decl_scope_years": "Всички парламенти",
+  "decl_scope_all": "Всички парламенти",
   "persons_basis_filters": "по избраните филтри",
   "persons_basis_filters_not_search": "по филтрите, не по търсенето",
   "persons_basis_matching": "по търсене „{{term}}“",
@@ -5287,5 +5287,9 @@
   "persons_head_title": "Хора във властта",
   "persons_basis_scope_unknown": "от всички лица в обхвата",
   "persons_basis_declared_caveat": "не е мярка за спазване на закона",
-  "persons_evidence_basis_filtered": "по брой лица в текущия обхват"
+  "persons_evidence_basis_filtered": "по брой лица в текущия обхват",
+  "persons_search_label": "Търсене на човек или институция",
+  "persons_search_clear": "Изчисти търсенето",
+  "persons_search_hint": "Търсете по име, институция или община.",
+  "persons_search_examples": "например"
 }

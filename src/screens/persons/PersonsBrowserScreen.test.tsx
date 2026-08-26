@@ -16,10 +16,11 @@
 
 import { render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, useLocation } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { PersonsBrowserScreen } from "./PersonsBrowserScreen";
+import userEvent from "@testing-library/user-event";
+import { PersonsBrowserScreen, URL_MIRROR_MS } from "./PersonsBrowserScreen";
 
 /** Facet buckets keyed the way `/api/db/facets` returns them. */
 type Facets = Record<string, { value: string; count: number }[]>;
@@ -98,6 +99,16 @@ const stubFetch = ({ total = 137_461, global, facets = CORPUS }: Stub = {}) =>
     }),
   );
 
+/** The router's live query string, surfaced into the DOM. `window.location` is useless here —
+ *  a MemoryRouter never touches it — and the term↔`?q` seam is precisely a claim about what the
+ *  router holds. */
+const UrlProbe = () => {
+  const { search } = useLocation();
+  return <output data-url={search} />;
+};
+const urlOf = (c: HTMLElement): string =>
+  c.querySelector("output")?.getAttribute("data-url") ?? "";
+
 const renderAt = (search: string) => {
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false, gcTime: 0 } },
@@ -107,6 +118,7 @@ const renderAt = (search: string) => {
       <TooltipProvider>
         <MemoryRouter initialEntries={[`/persons${search}`]}>
           <PersonsBrowserScreen />
+          <UrlProbe />
         </MemoryRouter>
       </TooltipProvider>
     </QueryClientProvider>,
@@ -225,6 +237,60 @@ describe("the evidence rows count the set they link to", () => {
       return a as HTMLAnchorElement;
     });
     expect(link.getAttribute("href")).toContain("sector=private");
+  });
+});
+
+// ---- the term ⇄ ?q seam --------------------------------------------------------
+//
+// WHAT THIS PINS. The box is local state and the URL is written on a debounce, which buys
+// instant typing at the cost of two states that can disagree. Both ways of getting that wrong
+// are reader-visible and neither errors:
+//
+//   · the URL echoing back OUR OWN write must not touch the box (a keystroke landing in that
+//     window would be silently reverted), while the URL moving under us — Back, „Изчисти", an
+//     in-app ?q link — must;
+//   · „Изчисти филтрите" is URL-only, so within the debounce window it deletes a `?q` that was
+//     never written, the box keeps the term, and the pending mirror puts it straight back.
+
+describe("the term ⇄ ?q seam", () => {
+  beforeEach(() => stubFetch());
+
+  it("writes the term to ?q after the mirror interval, and only once", async () => {
+    const { container } = renderAt("");
+    const box = await waitFor(() => screen.getByRole("searchbox"));
+    await userEvent.type(box, "явор");
+    await waitFor(() => expect(urlOf(container)).toContain("q="), {
+      timeout: URL_MIRROR_MS * 4,
+    });
+    // The whole point of the debounce: a four-character word is ONE write, and the term that
+    // lands is the finished one rather than the first keystroke.
+    expect(decodeURIComponent(urlOf(container))).toContain("q=явор");
+    // …and the box kept every character — the echo coming back must not revert one.
+    expect((box as HTMLInputElement).value).toBe("явор");
+  });
+
+  it("clear-filters empties the box AND leaves ?q gone", async () => {
+    // The deterministic four-step failure this guards: arrive filtered, type, clear WITHIN the
+    // debounce window, and watch the term reappear in the URL with the button that clears it.
+    // `clearFilters` is URL-only, and for 350 ms after a keystroke there is no `?q` to delete.
+    const { container } = renderAt("?role=mp");
+    const box = await waitFor(() => screen.getByRole("searchbox"));
+    await userEvent.type(box, "явор");
+    await userEvent.click(await screen.findByText("Изчисти филтрите"));
+    expect((screen.getByRole("searchbox") as HTMLInputElement).value).toBe("");
+    // Long enough for a pending mirror to have fired if one survived the clear.
+    await new Promise((r) => setTimeout(r, URL_MIRROR_MS * 2));
+    expect(urlOf(container)).not.toContain("q=");
+    expect(urlOf(container)).not.toContain("role=");
+  });
+
+  it("follows the URL when it moves under the box", async () => {
+    // The other half of the same ref: an in-app link, a Back, a „clear" must all move the box.
+    // A guard that suppressed every echo would freeze it instead.
+    const { container } = renderAt("?q=%D1%8F%D0%B2%D0%BE%D1%80");
+    const box = await waitFor(() => screen.getByRole("searchbox"));
+    expect((box as HTMLInputElement).value).toBe("явор");
+    expect(urlOf(container)).toContain("q=");
   });
 });
 

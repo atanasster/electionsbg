@@ -5270,7 +5270,7 @@
   "subsidies_evidence_basis": "{{window}} · only recipients with an EIK are ranked — municipalities and state bodies under the rural-development measures included; {{pct}}% of the money sits on rows with no EIK and is attributed to nobody",
   "subsidies_evidence_action": "all recipients",
   "decl_scope_ns": "This parliament",
-  "decl_scope_years": "All parliaments",
+  "decl_scope_all": "All parliaments",
   "persons_basis_filters": "on the selected filters",
   "persons_basis_filters_not_search": "on the filters, not the search",
   "persons_basis_matching": "matching “{{term}}”",
@@ -5287,5 +5287,9 @@
   "persons_head_title": "People in public life",
   "persons_basis_scope_unknown": "of everyone in scope",
   "persons_basis_declared_caveat": "not a measure of legal compliance",
-  "persons_evidence_basis_filtered": "by number of people in the current scope"
+  "persons_evidence_basis_filtered": "by number of people in the current scope",
+  "persons_search_label": "Search for a person or institution",
+  "persons_search_clear": "Clear search",
+  "persons_search_hint": "Search by name, institution or municipality.",
+  "persons_search_examples": "for example"
 }

@@ -32,6 +32,7 @@ import {
   type DbColumnFilter,
   type DbTableResponse,
 } from "@/ux/data_table/DbDataTable";
+import { SEARCH_MIN_CHARS } from "@/ux/data_table/searchTerm";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { Breadcrumbs } from "@/ux/Breadcrumbs";
 import { MpAvatarView } from "@/screens/components/candidates/MpAvatar";
@@ -59,6 +60,7 @@ import {
 } from "@/components/ui/select";
 import { PersonsAnalysisStrip } from "./PersonsAnalysisStrip";
 import { personsKpis, personsKpiCellCount } from "./personsKpiBasis";
+import { PersonsSearchField } from "./PersonsSearchField";
 import { PersonNetWorthCell, PersonMoneyCell } from "./PersonMoneyCells";
 import { oblastName } from "@/lib/regionalOblast";
 import {
@@ -67,6 +69,15 @@ import {
   EXPORT_MAX,
 } from "@/data/persons/exportPersonsCsv";
 import type { PersonBrowseRow } from "@/data/persons/personBrowseTypes";
+
+/** How long the hero field's value waits before it is written to `?q`.
+ *
+ *  Named rather than inlined so a test can advance fake timers by the value the screen actually
+ *  uses. One of THREE intervals in this page's search path, all with different jobs: none in the
+ *  field itself (the box must never lag the keyboard), this one to the URL (bounding router
+ *  churn), and 250 ms inside `DbDataTable` to the engine (where the SEARCH_MIN_CHARS contract
+ *  lives). Merging any two couples an SEO/navigation concern to a query-cost one. */
+export const URL_MIRROR_MS = 350;
 
 export const PersonsBrowserScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -92,6 +103,7 @@ export const PersonsBrowserScreen: FC = () => {
     switchersOnly,
     obshtina,
     query,
+    setQuery,
     setSector,
     setFacet,
     setPrimaryFacet,
@@ -108,6 +120,53 @@ export const PersonsBrowserScreen: FC = () => {
     hasNarrowingFilters,
     clearFilters,
   } = useUrlPersonFilters();
+
+  // ── THE TERM ────────────────────────────────────────────────────────────────────────
+  //
+  // Held HERE rather than in the URL directly, so typing is instant: a `setSearchParams` per
+  // keystroke re-renders the whole screen through the router. The URL is written on its own
+  // debounce, which is what makes a refresh restore the last result (`?q`).
+  //
+  // ⚠️ THREE TIMERS, ALL DIFFERENT JOBS, AND THEY MUST NOT BE MERGED.
+  //   · none here — the box must never lag the keyboard;
+  //   · 350 ms → the URL, bounding history/router churn;
+  //   · 250 ms → the engine, inside DbDataTable, where the SEARCH_MIN_CHARS contract lives.
+  // Sharing one couples an SEO/navigation concern to a query-cost one.
+  const [term, setTerm] = useState(query);
+  // The last value WE put into the URL.
+  //
+  // ⚠️ AN EQUALITY GUARD ALONE IS NOT ENOUGH, and this ref is why. `cur === query` proves the
+  // two agree at the instant the effect runs; it cannot tell „the URL moved under us" (Back,
+  // „Изчисти", an in-app ?q link — the box must follow) from „the URL is echoing back our own
+  // write" (the box must NOT follow, because the reader may have typed since). Treating both
+  // alike reverts a keystroke that lands in the echo window, with nothing to show for it but a
+  // character vanishing from a text field.
+  const mirrored = useRef(query);
+  useEffect(() => {
+    if (query === mirrored.current) return;
+    mirrored.current = query;
+    setTerm(query);
+  }, [query]);
+  useEffect(() => {
+    if (term === query) return;
+    const id = setTimeout(() => {
+      mirrored.current = term;
+      setQuery(term);
+    }, URL_MIRROR_MS);
+    return () => clearTimeout(id);
+  }, [term, query, setQuery]);
+
+  // ⚠️ CLEARING IS TWO HALVES NOW, and doing only the URL half is a deterministic bug rather
+  // than a race. `clearFilters` deletes `?q` — but for the whole 350 ms after a keystroke the
+  // term has not REACHED `?q` yet, so deleting it changes nothing, the re-seed effect never
+  // fires, the box keeps the term, and the pending mirror then writes it straight back. Four
+  // clicks, no sub-millisecond timing: open ?role=mp, type, click „Изчисти филтрите", watch
+  // ?q=<term> reappear and the button come back with it.
+  const onClearAll = useCallback(() => {
+    setTerm("");
+    mirrored.current = "";
+    clearFilters();
+  }, [clearFilters]);
 
   // The active filter set. Code-set columns take a SPACE-PADDED, LIKE-escaped value so the
   // engine's ILIKE '%…%' matches a whole token: ' ngo ' can never hit 'ngo_board', and the
@@ -937,6 +996,23 @@ export const PersonsBrowserScreen: FC = () => {
             </SelectContent>
           </Select>
         }
+        search={
+          <PersonsSearchField
+            value={term}
+            onChange={setTerm}
+            minChars={SEARCH_MIN_CHARS}
+            // ⚠️ HARDCODED, AND CORRECT UNTIL TIER 5. The table is mounted unconditionally
+            // today, so DbDataTable's body hint always has somewhere to render and this
+            // component must stay quiet. Tier 5 replaces it with `showTable`; `examples`
+            // becomes reachable then, which is why it is not passed now — a prop that cannot
+            // render is a prop nobody maintains.
+            tableVisible
+            // Only for a reader who arrived at the LANDING. A filter or `?q` deep link means
+            // they asked for a list, and parking the cursor in a search box jumps a screen
+            // reader past the h1 and the deck.
+            autoFocus={!query && !hasNarrowingFilters}
+          />
+        }
         kpis={kpis}
         kpisPending={pendingCells}
         evidence={
@@ -989,10 +1065,11 @@ export const PersonsBrowserScreen: FC = () => {
           columns={columns}
           defaultSort={[{ id: "prominence", desc: true }]}
           pageSize={25}
-          initialSearch={query}
-          searchPlaceholder={t("persons_search_placeholder", {
-            defaultValue: "Търси име или институция…",
-          })}
+          // CONTROLLED: the head owns the box. The 250 ms debounce and the
+          // SEARCH_MIN_CHARS floor stay inside the table, which is the only place the
+          // engine's 400-on-a-short-term contract is implemented.
+          search={term}
+          hideSearchInput
           renderAggregates={(_agg, total, exact) => (
             // COUNT ONLY. There is deliberately no Σ of the money column: two co-officers
             // of one company each carry that company's full contract total, so a column
@@ -1110,7 +1187,7 @@ export const PersonsBrowserScreen: FC = () => {
               {hasActiveFilters ? (
                 <button
                   type="button"
-                  onClick={clearFilters}
+                  onClick={onClearAll}
                   className="text-xs text-primary underline underline-offset-2 hover:no-underline"
                 >
                   {t("contracts_clear_filters", {
