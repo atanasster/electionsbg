@@ -200,6 +200,43 @@ class PoliticalNotApplicable(unittest.TestCase):
         self.assertNotIn("leaning", record_review(r))
 
 
+class AlteredNamesSurface(unittest.TestCase):
+    """⚠️ The validator refuses this at SAVE time now — but a prompt and a
+    validator are not retroactive. Three records on disk carry „Антон Славев"
+    and „Кая Каллас", and flagging them is what makes those actionable."""
+
+    def rec(self, people, body):
+        return {
+            "quality": {"verdict": "ok"},
+            "site_relevant": True,
+            "topics": [{"category": "society", "primary": True}],
+            "leaning": {"label": "not_applicable", "confidence": 0.8},
+            "russia_stance": {"label": "not_applicable", "confidence": 0.9},
+            "ai_generated": {"verdict": "likely_human", "confidence": 0.6},
+            "entities": {"people": people, "parties": [], "institutions": [],
+                         "companies": [], "places": []},
+            "_article": {"title": "", "description": "", "content": body},
+        }
+
+    def test_an_altered_name_is_flagged(self):
+        got = record_review(self.rec(
+            ["Антон Славев"], "Антон Славчев подаде оставка. " * 12))
+        self.assertIn("entities", got)
+        self.assertIn("Славчев", got["entities"])
+
+    def test_a_correct_name_is_not_flagged(self):
+        got = record_review(self.rec(
+            ["Антон Славчев"], "Антон Славчев подаде оставка. " * 12))
+        self.assertNotIn("entities", got)
+
+    def test_without_the_article_the_check_is_SKIPPED_not_wrong(self):
+        # ⚠️ A record whose corpus file is gone cannot be checked. Silence is
+        # right; inventing a verdict from no text is not.
+        r = self.rec(["Антон Славев"], "")
+        r.pop("_article")
+        self.assertNotIn("entities", record_review(r))
+
+
 class MalformedInput(unittest.TestCase):
     def test_a_bool_is_not_a_confidence(self):
         # ⚠️ `bool` IS an `int` in Python, so `True` reads as 1.0 and clears

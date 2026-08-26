@@ -801,5 +801,69 @@ class TheBuiltArtifact(unittest.TestCase):
         self.assertEqual(sorted(surfaces & PLACE_STOPWORDS), [])
 
 
+
+class RosterCoversNamedOffice(unittest.TestCase):
+    """⚠️ Static over the SQL, because the defect it guards is INVISIBLE in a
+    built file: a role quietly added to NAMED_EXEC_ROLES widens the population
+    that can be linked from a name alone, and every count still reconciles.
+    Measured 2026-08-26 — the full official_exec set produced one false link
+    („Йордан Маринов" → a security-service official, in an article about a man
+    petitioning for a church service)."""
+
+    def setUp(self):
+        import build_gazetteer
+        self.bg = build_gazetteer
+
+    def test_the_bulk_official_roles_stay_OUT(self):
+        # These are numerous and individually unnamed. See NAMED_EXEC_ROLES.
+        for role in ("agency_head", "security_service", "secretary_general",
+                     "revenue_agency", "social_fund", "inspectorate",
+                     "state_enterprise", "procurement_officer",
+                     "hospital_head", "regional_director",
+                     "eu_funds_controller", "academic", "international",
+                     "civil_society"):
+            self.assertNotIn(role, self.bg.NAMED_EXEC_ROLES, role)
+
+    def test_the_named_offices_stay_IN(self):
+        for role in ("cabinet", "political_cabinet", "deputy_minister",
+                     "regional_governor", "party_leader", "central_bank",
+                     "audit_court", "regulator", "military_command",
+                     "media_head"):
+            self.assertIn(role, self.bg.NAMED_EXEC_ROLES, role)
+
+    def test_the_president_regulator_and_mep_SOURCES_are_in(self):
+        # Илияна Йотова is the Vice President; without `president` she was
+        # absent from a Bulgarian political gazetteer entirely.
+        # ⚠️ Against the WHERE, not the whole statement. `'president'` also
+        # appears in the deterministic tiebreak below it, so a whole-string
+        # assertion passes on a roster that no longer SELECTS the President —
+        # measured: that mutation survived.
+        where = (self.bg.PEOPLE_SQL.split("surfaced as")[0]
+                 .split("where")[1].split("order by")[0])
+        for src in ("president", "regulator", "mep", "mp"):
+            self.assertIn(f"'{src}'", where, src)
+
+    def test_the_muni_MAYOR_arm_survives(self):
+        # 300 sitting mayors; the arm is one line and deleting it is silent.
+        where = (self.bg.PEOPLE_SQL.split("surfaced as")[0]
+                 .split("where")[1].split("order by")[0])
+        self.assertIn("'official_muni'", where)
+        self.assertIn("'mayor'", where)
+
+    def test_a_FORMER_officeholder_is_not_filtered_out(self):
+        # ⚠️ The week a minister resigns is the week the news names them.
+        self.assertNotIn("end_date is null", self.bg.PEOPLE_SQL)
+
+    def test_the_mp_arm_is_not_scoped_to_one_parliament(self):
+        # `:'ns'` in the roster WHERE is what dropped every former MP.
+        where = self.bg.PEOPLE_SQL.split("surfaced as")[0]
+        self.assertNotIn(":'ns'", where)
+
+    def test_the_roles_reach_the_SQL_as_quoted_literals(self):
+        sql = self.bg.PEOPLE_SQL.format(
+            named_exec=", ".join(f"'{r}'" for r in self.bg.NAMED_EXEC_ROLES))
+        self.assertIn("'military_command'", sql)
+        self.assertNotIn("{named_exec}", sql)
+
 if __name__ == "__main__":
     unittest.main()

@@ -468,37 +468,77 @@ def person_forms(slug: str, s_full: str, tok_first: str, tok_last: str,
     return forms
 
 
+# ── Which offices put a person in the gazetteer ────────────────────────────
+# ⚠️ THE LINE IS „AN OFFICE A NEWSROOM NAMES ITS HOLDER BY NAME", NOT „a
+# public figure". The two-part uniqueness test behind every person link asks
+# whether the name is unique among PUBLIC FIGURES — it cannot see the millions
+# of Bulgarians who are not. So a roster member whose office no article would
+# ever mention is a name waiting to be attached to somebody else entirely.
+#
+# Measured on the 452-article corpus: widening to the full `official_exec`
+# set produced 7 new links, of which „Йордан Маринов" was FALSE — the article
+# means a man who petitioned for a church service on behalf of a civic
+# committee, and the only public figure of that name is a security-service
+# official. The narrowed set below produced 5, all 5 hand-verified against the
+# article that names them (Йотова, Премянов, Ефтимов, Златанов, Малинов), and
+# regressed none.
+#
+# So these are OUT, and each is out because its holders are numerous and
+# individually unnamed rather than because they matter less:
+#   agency_head (655) · security_service (419) · secretary_general (293)
+#   revenue_agency (301) · social_fund (91) · inspectorate (92)
+#   state_enterprise (2557) · procurement_officer (1030) · hospital_head (696)
+#   regional_director (792) · eu_funds_controller (585) · academic (223)
+#   international (295) · civil_society (34)
+# The cost is real and named: проф. Тодор Кантарджиев, head of НЦЗПБ, is an
+# `agency_head` and is quoted in the corpus. Refusing him is what the rule
+# says to do when the alternative is inventing Йордан Маринов.
+NAMED_EXEC_ROLES = (
+    "cabinet", "political_cabinet", "deputy_minister", "regional_governor",
+    "party_leader", "central_bank", "audit_court", "regulator",
+    "military_command", "media_head",
+)
+# ⚠️ `source` in ('president', 'regulator', 'mep') is SEPARATE from the roles
+# above — `regulator` is both a source (the constitutional judges, the
+# ombudsman, the БНБ governor, the КЗК/КФН/СЕМ chairs) and an official_exec
+# role, and they hold different people.
+#
+# ⚠️ NO `end_date is null` FILTER, AND THAT IS THE POINT. The roster used to
+# carry only sitting officeholders, so a minister who resigned last week fell
+# out of it in the week the news is about them — Илияна Йотова, the Vice
+# President, was absent because her MP term ended and `president` was not a
+# tier at all. The `tiers_mean` coverage note says „held", not „holds".
+
+
 PEOPLE_SQL = """
 with roster as (
     select distinct on (p.person_id)
         p.person_id, p.slug, p.display_name, p.name_fold,
         p.given_fold, p.family_fold,
         case
+            when pr.source = 'president' then 'president'
+            when pr.source = 'regulator' then 'regulator'
+            when pr.source = 'mep' then 'mep'
             when pr.source = 'mp' then 'mp'
             when pr.role in ('cabinet', 'political_cabinet') then 'cabinet'
-            when pr.role = 'deputy_minister' then 'deputy_minister'
-            when pr.role = 'regional_governor' then 'regional_governor'
-            when pr.role = 'mayor' then 'mayor'
+            else pr.role
         end as tier,
         pr.party
     from person_role pr
     join person p using (person_id)
     where p.status = 'active' and p.is_public_figure
       and (
-        (pr.source = 'mp' and split_part(pr.ref, ':', 2) = :'ns')
-        or (pr.source = 'official_exec'
-            and pr.role in ('cabinet', 'political_cabinet', 'deputy_minister',
-                            'regional_governor')
-            and pr.end_date is null)
-        or (pr.source = 'official_muni' and pr.role = 'mayor'
-            and pr.end_date is null)
+        pr.source in ('president', 'regulator', 'mep', 'mp')
+        or (pr.source = 'official_exec' and pr.role in ({named_exec}))
+        or (pr.source = 'official_muni' and pr.role = 'mayor')
       )
     -- ⚠️ DETERMINISTIC. The artifact is committed, so a tie broken by heap
     -- order would churn the file on every rebuild. person_id is the tiebreak
     -- of last resort; an MP who is also a former deputy minister is one entry
     -- and stays on the `mp` tier across runs.
     order by p.person_id,
-             case when pr.source = 'mp' then 0 else 1 end,
+             case when pr.source = 'president' then 0
+                  when pr.source = 'mp' then 1 else 2 end,
              pr.role, pr.ref
 ), surfaced as (
     select r.*,
@@ -532,7 +572,12 @@ order by s.slug
 
 
 def build_people(ns: str) -> tuple[list, dict]:
-    return people_entries(query(PEOPLE_SQL, {"ns": ns}), ns)
+    # ⚠️ The roles are interpolated, not bound: they are a CONSTANT in
+    # this file, never user input, and psql `-v` substitution cannot
+    # produce an IN-list from one variable.
+    sql = PEOPLE_SQL.format(
+        named_exec=", ".join(f"'{r}'" for r in NAMED_EXEC_ROLES))
+    return people_entries(query(sql), ns)
 
 
 def people_entries(rows: list, ns: str) -> tuple[list, dict]:
@@ -565,13 +610,18 @@ def people_entries(rows: list, ns: str) -> tuple[list, dict]:
         "people": len(entries),
         "people_with_no_resolvable_form": anchors_only,
         "people_by_tier": by_tier,
+        # ⚠️ THE ROSTER IS NO LONGER SCOPED TO A PARLIAMENT, so this is the
+        # SITTING NS the caller named — reported because the `mp` tier's party
+        # labels are read from it — and NOT a filter on who is in the file.
+        # It was one until 2026-08-26, which is how a former MP stopped being
+        # findable in the week the news was about them.
         "ns": ns,
-        # ⚠️⚠️ THE TIERS ARE NOT A CLAIM ABOUT WHO HOLDS OFFICE TODAY, and
-        # the numbers make that obvious once stated: the roster carries 229
-        # „regional_governor" rows against Bulgaria's 28 oblasti. The test is
-        # `end_date IS NULL`, which in this corpus means „no end date was
-        # recorded", not „still serving" — 2,495 of 9,842 official_exec roles
-        # carry one at all.
+        "mp_tier_spans": "every National Assembly, not just this ns",
+        # ⚠️⚠️ THE TIERS ARE NOT A CLAIM ABOUT WHO HOLDS OFFICE TODAY, and the
+        # roster no longer even tests `end_date IS NULL` — deliberately, since
+        # the week a minister resigns is the week the news names them. In this
+        # corpus that test meant „no end date was recorded" rather than „still
+        # serving" anyway: 2,495 of 9,842 official_exec roles carry one at all.
         #
         # That is fine for what this file is FOR: it decides whether a NAME
         # identifies one public figure, and a former governor is exactly as

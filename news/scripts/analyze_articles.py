@@ -674,6 +674,89 @@ def is_num(v) -> bool:
     return isinstance(v, (int, float)) and not isinstance(v, bool)
 
 
+# ⚠️⚠️ A PERSON'S NAME MUST BE COPIED, NOT PARAPHRASED, and the model does
+# not always. Measured over the corpus: „Антон Славев" was published where
+# the article said „Антон Славчев" — a person who does not exist, while
+# „Антон Славчев" is in the identity layer with declarations — and „Кая
+# Каллас" twice where the text said „Калас". Three of 344 name tokens.
+#
+# A published name that is one letter from a real one is worse than a missing
+# one: it is a claim about a named individual that no register can confirm,
+# and it silently costs the link that would have made it checkable.
+#
+# ⚠️ THE RULE IS „ABSENT BUT NEARLY PRESENT", not „absent". A model composing
+# „Росен Желязков" from a text that says only „Желязков" is inferring, which
+# is legitimate and common; a model writing „Славев" where the text says
+# „Славчев" is altering. The near-miss is what separates them.
+#
+# ⚠️ PEOPLE ONLY. On institutions and places the same rule fires on Bulgarian
+# INFLECTION — „Съвет" against „съвета", „Софийска" against „софийската",
+# „Русия" against „руският" — 53 hits, essentially all false. Personal names
+# do not take the definite article in running text, which is why the people
+# arm measured 0 false positives on 344 tokens and the others cannot be
+# switched on without a morphological analyser.
+NAME_EDIT_DISTANCE = 2
+NAME_MIN_TOKEN_CHARS = 4
+
+
+def _edit_distance(a: str, b: str, cap: int = NAME_EDIT_DISTANCE) -> int:
+    if abs(len(a) - len(b)) > cap:
+        return cap + 1
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1,
+                           prev[j - 1] + (ca != cb)))
+        prev = cur
+    return prev[-1]
+
+
+def check_person_names(entities: dict, rec: dict) -> list:
+    """Refuse a person name the article did not spell that way.
+
+    See the block comment above for why this is people-only and why the test
+    is „absent but nearly present" rather than „absent".
+    """
+    people = (entities or {}).get("people") or []
+    if not people:
+        return []
+    try:
+        import resolve_mentions as rm
+    except Exception:  # noqa: BLE001
+        return []
+    text = " ".join(str(rec.get(k) or "")
+                    for k in ("title", "description", "content"))
+    # ⚠️ folded → the ORIGINAL spelling, so the error can quote the article
+    # rather than our lowercase comparison key. „it writes 'славчев'" sends a
+    # reader looking for a word the article does not contain.
+    present: dict = {}
+    for t in rm.TOKEN_RE.findall(text):
+        present.setdefault(rm.fold(t), t)
+    errs = []
+    for name in people:
+        if not isinstance(name, str):
+            continue
+        for token in rm.TOKEN_RE.findall(name):
+            folded = rm.fold(token)
+            if len(folded) < NAME_MIN_TOKEN_CHARS or folded in present:
+                continue
+            near = sorted(
+                (t for t in present
+                 if len(t) >= NAME_MIN_TOKEN_CHARS
+                 and 0 < _edit_distance(folded, t) <= NAME_EDIT_DISTANCE),
+                key=lambda t: _edit_distance(folded, t))
+            if near:
+                errs.append(
+                    f"entities.people: {name!r} contains {token!r}, which the "
+                    f"article does not use — it writes "
+                    f"{present[near[0]]!r}. Copy a "
+                    "person's name exactly as the article spells it; a name "
+                    "one letter off is a claim about somebody who may not "
+                    "exist.")
+    return errs
+
+
 def validate_mentions(mentions) -> list:
     """Validate the `mentions` sibling block.
 
@@ -921,6 +1004,9 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
         errs.append("ai_generated.confidence must be a number in [0,1]")
     elif not isinstance(ai.get("signals"), list) or not all(isinstance(s, str) for s in ai["signals"]):
         errs.append("ai_generated.signals must be a list of strings")
+
+    if isinstance(a.get("entities"), dict):
+        errs.extend(check_person_names(a["entities"], rec))
 
     # ⚠️ STRINGS, and it stays that way — see the MENTION_KINDS block above.
     # `entities` feeds story clustering (candidate_stories calls .lower() on

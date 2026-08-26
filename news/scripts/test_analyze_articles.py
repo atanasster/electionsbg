@@ -577,6 +577,85 @@ class TestCliContract(FixtureTestCase):
         self.assertEqual(out["error"], "bad_arguments")
 
 
+class PersonNamesAreCopied(FixtureTestCase):
+    """⚠️⚠️ „Антон Славев" was published where the article said „Антон
+    Славчев" — a person who does not exist, while Антон Славчев is in the
+    identity layer with declarations. „Кая Каллас" twice for „Калас". Three
+    of 344 name tokens across the corpus.
+
+    A name one letter from a real one is worse than a missing one: it is a
+    claim about a named individual that no register can confirm, and it
+    silently costs the link that would have made it checkable.
+    """
+
+    def save_with_people(self, body, people, expect=0):
+        domain, fname, rec = self.articles["a1"]
+        rec = dict(rec, content=body, title=body[:60])
+        with open(os.path.join(self.root, "news", "data", domain, fname),
+                  "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+        a = analysis(self.analysis_path("a1"), "https://test.bg/alpha",
+                     "test.bg")
+        a["entities"] = {"people": people, "parties": [], "institutions": [],
+                         "companies": [], "places": []}
+        return self.save(a, expect=expect)
+
+    def test_an_ALTERED_surname_is_refused(self):
+        out = self.save_with_people(
+            "Антон Славчев подаде оставка от поста. " * 12, ["Антон Славев"],
+            expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any("Славчев" in e for e in msgs), msgs)
+
+    def test_a_DOUBLED_letter_is_refused(self):
+        out = self.save_with_people(
+            "Кая Калас заяви пред журналисти нещо важно. " * 12,
+            ["Кая Каллас"], expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any("Калас" in e for e in msgs), msgs)
+
+    def test_a_name_copied_EXACTLY_passes(self):
+        self.save_with_people(
+            "Антон Славчев подаде оставка от поста. " * 12, ["Антон Славчев"])
+
+    def test_a_name_COMPOSED_from_context_is_allowed(self):
+        # ⚠️ „Absent" is not the test — „absent but NEARLY PRESENT" is. A
+        # model writing „Росен Желязков" from a text that says only
+        # „Желязков" is inferring, which is legitimate and common. Refusing
+        # it would reject most of the corpus.
+        self.save_with_people(
+            "Премиерът Желязков обяви решението на кабинета. " * 12,
+            ["Росен Желязков"])
+
+    def test_a_name_absent_ENTIRELY_is_allowed(self):
+        self.save_with_people(
+            "Няма никакви имена в този текст изобщо, само думи. " * 12,
+            ["Кевин Кастро"])
+
+    def test_a_SHORT_token_is_not_checked(self):
+        # ⚠️ Two- and three-letter tokens sit within two edits of half the
+        # language; checking them would refuse everything.
+        self.save_with_people(
+            "Иван Пеев каза нещо важно на всички днес. " * 12, ["Иван Гео"])
+
+    def test_INSTITUTIONS_are_not_subject_to_the_rule(self):
+        # ⚠️ On institutions and places the same rule fires on Bulgarian
+        # INFLECTION — „Съвет" against „съвета", „Русия" against „руският" —
+        # 53 hits, essentially all false. Personal names do not take the
+        # definite article, which is why only the people arm is switched on.
+        a = analysis(self.analysis_path("a1"), "https://test.bg/alpha",
+                     "test.bg")
+        a["entities"] = {"people": [], "parties": [],
+                         "institutions": ["Съвет на Европа"],
+                         "companies": [], "places": ["Русия"]}
+        domain, fname, rec = self.articles["a1"]
+        with open(os.path.join(self.root, "news", "data", domain, fname),
+                  "w", encoding="utf-8") as fh:
+            json.dump(dict(rec, content="Съвета обсъди руският въпрос. " * 14),
+                      fh, ensure_ascii=False)
+        self.save(a)
+
+
 class Mentions(FixtureTestCase):
     """The `mentions` sibling block.
 

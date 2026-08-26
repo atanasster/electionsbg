@@ -179,6 +179,20 @@ def record_review(analysis: dict) -> dict:
         why = field_review(block.get(key), block.get("confidence"))
         if why:
             out[field] = why
+    # ⚠️ A NAME THE ARTICLE DOES NOT SPELL THAT WAY. The validator refuses
+    # this at save time now, but a prompt and a validator are not
+    # retroactive: three records on disk carry „Антон Славев" and „Кая
+    # Каллас". Flagging them is what makes those actionable.
+    try:
+        import analyze_articles as aa
+        rec = analysis.get("_article")
+        if isinstance(rec, dict):
+            bad = aa.check_person_names(analysis.get("entities") or {}, rec)
+            if bad:
+                out["entities"] = bad[0]
+    except Exception:  # noqa: BLE001
+        pass
+
     # ⚠️ Independent of the confidence floors above: this record is flagged
     # because the LABEL is wrong for the topic, however sure the model was —
     # and it was sure, at a median confidence of 0.85.
@@ -237,6 +251,18 @@ def main() -> int:
         # older rule carries a stale one — a queue that trusted the stamp
         # would silently skip both. The stamp is for consumers; this is the
         # authority.
+        #
+        # ⚠️ The ARTICLE is attached first, so the name check can run. It
+        # rides under a leading underscore and is never stored — elsewhere
+        # `record_review` is a pure function of the analysis, and a corpus
+        # record inside a saved analysis would be a second copy of the text.
+        art = a.get("article_path")
+        if art:
+            try:
+                with open(os.path.join(root, art), encoding="utf-8") as fh:
+                    a["_article"] = json.load(fh)
+            except (OSError, json.JSONDecodeError):
+                pass
         try:
             review = record_review(a)
         except (AttributeError, TypeError) as exc:

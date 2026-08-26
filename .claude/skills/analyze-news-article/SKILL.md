@@ -170,7 +170,18 @@ verbatim or near-verbatim БТА/agency wire copy across outlets is `wire_copy`
 (agency journalism, NOT AI) — list it as a signal, keep the verdict
 `likely_human` unless the text around the wire is machine-ish.
 
-**Entities** — named people, parties (canonical spellings from
+**Entities** — ⚠️⚠️ **A PERSON'S NAME IS COPIED VERBATIM FROM THE TEXT.**
+Do not correct it, complete it from memory, or normalise it. If the article
+writes „Славчев", you write „Славчев" — not „Славев"; if it writes „Калас",
+not „Каллас". A name one letter off names somebody who usually does not
+exist: „Антон Славев" matches nobody in the register, while „Антон Славчев"
+has a profile with declarations — and the wrong spelling silently costs the
+link to the real person. `analyze_articles.py` REJECTS the record when a name
+token is absent from the article but within two edits of one that is present.
+Composing a full name from a text that gives only the surname is inference
+and is allowed; changing a letter is not.
+
+Named people, parties (canonical spellings from
 `data/canonical_parties.json` — "ГЕРБ", "Възраждане", not "Герб"/"реваншите"),
 institutions (ЦИК, КЗК, НИМХ, МВР…), companies, places
 (city/oblast names). Only entities actually central to THIS article.
