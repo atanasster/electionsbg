@@ -43,6 +43,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import gzip
 import json
 import os
 import re
@@ -78,6 +79,17 @@ QUALITY_VERDICTS = {
     "not_bulgarian",
     "non_article",
 }
+LOGO_COLUMN_PREFIX = "logo_url"
+
+# The shape newsapp/app/data.ts declares for Story.entities / Story.aggregates.
+# Both are dereferenced unguarded by StoryScreen and StoryCard, so every story
+# must carry every key even when the analysis layer produced none.
+EMPTY_STORY_ENTITIES = {"people": [], "parties": [], "institutions": [],
+                        "companies": [], "places": []}
+EMPTY_STORY_AGGREGATES = {"article_count": 0, "outlet_count": 0,
+                          "by_leaning": {}, "by_russia_stance": {},
+                          "by_domain": {}}
+
 # CSV column headers carry a data-vintage suffix (_aug2026); match by prefix so a new
 # vintage only changes the suffix, not this script.
 CSV_COLUMN_PREFIXES = (
@@ -88,7 +100,42 @@ CSV_COLUMN_PREFIXES = (
     "type",
     "scope",
     "similarweb_visits",
+    # ⚠️ logo_url is deliberately NOT here. colmap folds every vintage onto one
+    # logical name and the row comprehension resolves the duplicate by COLUMN
+    # ORDER — last wins, including a last that is blank, which is exactly what
+    # a re-mint produces. The logo family is read separately, through
+    # pick_dated_column, and adding it back here would be dead config at best.
 )
+
+
+def pick_dated_column(row: dict, prefix: str) -> str | None:
+    """The value of a dated column family, LAST NON-EMPTY wins.
+
+    THE ONE DEFINITION for both registries. Two things it has to get right,
+    and the first cut got both wrong in different files:
+
+    ⚠️ Vintages ACCUMULATE. resolve_outlet_logos.py appends `logo_url_<new>`
+    beside the old one rather than renaming, and it starts the new column
+    EMPTY, filling only the outlets it could reach. A plain last-wins then
+    takes the blank cell for every outlet the new pass failed on (Cloudflare,
+    bot_refused) and overwrites a perfectly good logo with None. Skipping
+    empties makes a re-mint additive: a newly resolved value wins, a gap keeps
+    what we had.
+
+    ⚠️ The match is `== prefix` or `prefix + "_"`, never a bare startswith —
+    `logo_urls_backup` is not a logo column, and the retired reader matched it
+    and published its contents as an outlet's mark."""
+    best = None
+    for key, value in row.items():
+        if not key:
+            continue
+        raw = key.strip().lower()
+        if raw != prefix and not raw.startswith(prefix + "_"):
+            continue
+        got = (value or "").strip()
+        if got:
+            best = got
+    return best
 
 
 def now_iso() -> str:
@@ -99,6 +146,27 @@ def write_json(path: Path, payload) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, separators=(",", ":"))
+
+
+# Record keys the shared feed does NOT carry. Named once so the omission is a
+# decision with a reason rather than a field somebody forgot; the per-domain
+# bundle keeps them, and the article page reads that.
+FEED_OMIT = frozenset({"section_path", "image_alt"})
+
+# The gzip ceiling for latest.json. Not a guess: measured 2026-08-26 at 600
+# records, 174.7 KB gzip BEFORE the metadata fields and 183 KB after, and the
+# corpus grows ~1-2 KB per day. Past this the answer is to PAGINATE the feed,
+# never to raise the number — every page in the app downloads this file before
+# it can paint.
+#
+# ⚠️ Measured at gzip -9 while a CDN typically serves -6, so the real wire size
+# is a few percent HIGHER than what this check sees. That is the safe
+# direction (the check trips slightly late rather than early), but do not read
+# a figure here as the bytes a reader downloads.
+#
+# ⚠️ FEED_OMIT buys only ~1.5 KB. The expensive unconsumed field is `keywords`
+# at ~17 KB gzip — no screen renders it today. Drop that before widening this.
+FEED_GZIP_BUDGET_BYTES = 220 * 1024
 
 
 def excerpt_of(article: dict, limit: int = 480) -> str:
@@ -246,6 +314,14 @@ def main() -> int:
                         break
             for row in reader:
                 item = {colmap.get(k, k): (v or None) for k, v in row.items() if colmap.get(k)}
+                # ⚠️ The comprehension above resolves a duplicated logical name
+                # by COLUMN ORDER — last wins, INCLUDING a last that is blank.
+                # Logo vintages accumulate rather than being renamed, and a
+                # re-mint starts the new column empty, so plain last-wins
+                # overwrites every good logo the new pass could not re-resolve.
+                # Re-read that one family through the shared rule.
+                item[LOGO_COLUMN_PREFIX] = pick_dated_column(
+                    row, LOGO_COLUMN_PREFIX)
                 domain = item.get("domain")
                 if domain:
                     outlets_csv[domain] = item
@@ -266,6 +342,13 @@ def main() -> int:
                         retired[domain] = {
                             "reason": (row.get("reason") or "").strip() or None,
                             "retired_on": (row.get("retired_on") or "").strip() or None,
+                            # Dated column, through the SAME rule the live
+                            # registry uses — a retired outlet still renders
+                            # its own mark rather than a monogram. Two
+                            # hand-written matchers is how `logo_urls_backup`
+                            # got published as somebody's logo.
+                            "logo_url": pick_dated_column(
+                                row, LOGO_COLUMN_PREFIX),
                         }
         except (OSError, csv.Error, UnicodeDecodeError):
             pass
@@ -309,6 +392,16 @@ def main() -> int:
                 "keywords": art.get("keywords"),
                 "excerpt": excerpt_of(art),
                 "content_chars": art.get("content_chars"),
+                # `excerpt` IS the outlet's own og:description where there is
+                # one (99% of records), falling back to the head of the body.
+                # There is no separate "description" field to add — the
+                # importer has always carried it; only the name changes here.
+                "image": art.get("image"),
+                "image_alt": art.get("image_alt"),
+                "canonical": art.get("canonical"),
+                "language": art.get("language"),
+                "section_path": art.get("section_path"),
+                "updated": art.get("updated"),
                 "story_id": None,
             }
             if analysis:
@@ -360,12 +453,34 @@ def main() -> int:
                 fp.unlink()
 
     # ---- latest.json ----------------------------------------------------------------
-    latest = [r for r in all_latest if r.get("published")]
+    # ⚠️ EVERY page in the app downloads this file, so what goes in it is a
+    # budget decision, not a completeness one. Measured 2026-08-26 before the
+    # metadata fields landed: 763 KB raw / 179 KB gzip for 600 records, and
+    # carrying all of them raw takes it to 955 KB (+25%). `section_path` and
+    # `image_alt` are read on the ARTICLE page only, which already loads the
+    # per-domain bundle, so they are dropped here — the fields that survive
+    # are the ones a card actually renders.
+    latest = [
+        {k: v for k, v in r.items() if k not in FEED_OMIT}
+        for r in all_latest if r.get("published")
+    ]
     latest.sort(key=lambda r: r["published"], reverse=True)
+    latest_path = out_dir / "latest.json"
     write_json(
-        out_dir / "latest.json",
+        latest_path,
         {"generated_at": generated_at, "articles": latest[: args.latest]},
     )
+    # ⚠️ CHECKED, not merely documented. A budget nothing enforces is a
+    # comment, and this one guards the file every page downloads before it can
+    # paint — the failure mode is a slow app, which nobody bisects to a JSON
+    # field. Warns rather than aborts: the bundle is still correct and a build
+    # that refuses to finish over a size is worse than one that says so.
+    feed_gzip = len(gzip.compress(latest_path.read_bytes(), 9))
+    if feed_gzip > FEED_GZIP_BUDGET_BYTES:
+        print(f"  ! latest.json is {feed_gzip / 1024:.0f} KB gzipped, over the "
+              f"{FEED_GZIP_BUDGET_BYTES / 1024:.0f} KB budget. PAGINATE the "
+              f"feed or drop a field from it — do not raise the budget: every "
+              f"page in the app downloads this file.", file=sys.stderr)
 
     # ---- stories.json ----------------------------------------------------------------
     stories_dir = data_dir / "analysis" / "stories"
@@ -425,8 +540,17 @@ def main() -> int:
                     "last_published": st.get("last_published"),
                     "topics": st.get("topics") or [],
                     "related_story_ids": st.get("related_story_ids") or [],
-                    "entities": st.get("entities") or {},
-                    "aggregates": st.get("aggregates") or {},
+                    # ⚠️ Filled to the SHAPE the app's type promises, not
+                    # left as whatever the story file happens to carry.
+                    # `or {}` satisfies neither declaration, and StoryScreen
+                    # dereferences `.entities.people` and
+                    # `.aggregates.by_domain` with no guard — so a story
+                    # written before a bucket existed, or by a partial run,
+                    # is a blank page rather than a missing chip.
+                    "entities": {**EMPTY_STORY_ENTITIES,
+                                 **(st.get("entities") or {})},
+                    "aggregates": {**EMPTY_STORY_AGGREGATES,
+                                   **(st.get("aggregates") or {})},
                     "blindspot": blindspot_of(members),
                     "members": members,
                 }
@@ -472,6 +596,7 @@ def main() -> int:
             {
                 "domain": domain,
                 "outlet": meta.get("outlet") or domain,
+                "logo": meta.get(LOGO_COLUMN_PREFIX) or None,
                 "retired": False,
                 "retired_reason": None,
                 "retired_on": None,
@@ -495,6 +620,12 @@ def main() -> int:
             {
                 "domain": domain,
                 "outlet": domain,
+                # Explicitly null rather than absent. A retired outlet may
+                # still have a resolved mark (retired_sites.csv carries the
+                # column too) and the app falls back to a monogram either way
+                # — but a MISSING key reads as `undefined`, which is a
+                # different bug from "we have no logo".
+                "logo": (gone or {}).get(LOGO_COLUMN_PREFIX) or None,
                 # A retired outlet's articles stay — they were collected in
                 # good faith — but the app must not present it as a live
                 # source, and two of these asked not to be crawled at all.

@@ -57,7 +57,8 @@ REGISTRY = DATA_DIR / "bg_news_sites.csv"
 RETIRED = DATA_DIR / "retired_sites.csv"
 # Dated like every other registry column, so a later re-resolve is a new
 # column rather than a silent overwrite of somebody's hand-checked value.
-LOGO_COLUMN = "logo_url_aug2026"
+LOGO_COLUMN_PREFIX = "logo_url"
+LOGO_COLUMN = f"{LOGO_COLUMN_PREFIX}_aug2026"
 
 
 def logo_from_html(html_text, page_url):
@@ -258,21 +259,34 @@ def main():
         rows, fields = read_rows(path)
         if not rows:
             continue
-        if LOGO_COLUMN not in fields:
-            fields = list(fields) + [LOGO_COLUMN]
+        # ⚠️ REUSE an existing vintage rather than appending a second one.
+        # Appending looks harmless and is not: the new column starts EMPTY and
+        # this pass fills only the outlets it can reach (Cloudflare and
+        # bot_refused ones it cannot), so a consumer resolving the family by
+        # column order takes the blank cell and every unreachable outlet loses
+        # a logo it already had. build_app_data defends against that too — the
+        # two halves are deliberately belt and braces, because this one is
+        # what stops the bad column existing at all.
+        column = next((h for h in fields
+                       if h and (h.strip().lower() == LOGO_COLUMN_PREFIX
+                                 or h.strip().lower().startswith(
+                                     LOGO_COLUMN_PREFIX + "_"))), None)
+        if column is None:
+            column = LOGO_COLUMN
+            fields = list(fields) + [column]
         changed = 0
         for row in rows:
             domain = (row.get("domain") or "").strip()
             if not domain:
                 continue
-            existing = (row.get(LOGO_COLUMN) or "").strip()
+            existing = (row.get(column) or "").strip()
             if existing and not args.overwrite:
                 results[domain] = (existing, "kept")
                 continue
             url, basis = resolve(domain, allow_fetch=args.fetch)
             results[domain] = (url, basis)
             if url and url != existing:
-                row[LOGO_COLUMN] = url
+                row[column] = url
                 changed += 1
         if args.apply:
             write_rows(path, rows, fields)

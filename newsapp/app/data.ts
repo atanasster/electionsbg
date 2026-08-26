@@ -83,8 +83,33 @@ export interface ArticleRecord {
   author: string | null;
   topic: string | null;
   keywords: string | null;
+  /**
+   * The outlet's own og:description where there is one (99% of records),
+   * falling back to the head of the extracted body. There is no separate
+   * "description" — this IS it, renamed on the way into the app.
+   */
   excerpt: string | null;
   content_chars: number | null;
+  /**
+   * The outlet's lead image, HOTLINKED. ⚠️ Present is not the same as usable
+   * and the URL cannot tell you which: some outlets put a branding redirector
+   * or the author's portrait here, and roughly a quarter refuse a request
+   * carrying our referer. Every renderer needs an onError fallback and every
+   * rendered image needs a visible credit.
+   */
+  image: string | null;
+  canonical: string | null;
+  /** What the page DECLARES, not what it is — two outlets say "en" while publishing Bulgarian. */
+  language: string | null;
+  updated: string | null;
+  /**
+   * Breadcrumb section path, article leaf stripped. ⚠️ Carried in
+   * articles/<domain>.json only — never in latest.json, which every page
+   * downloads. Undefined in the feed rather than null.
+   */
+  section_path?: string[] | null;
+  /** og:image:alt, and only when og:image is the image we stored. Feed-omitted like section_path. */
+  image_alt?: string | null;
   story_id: string | null;
   analysis?: AnalysisBlock;
 }
@@ -124,6 +149,21 @@ export interface Story {
 export interface Outlet {
   domain: string;
   outlet: string;
+  /**
+   * The outlet's own mark, resolved once into the registry by
+   * news/scripts/resolve_outlet_logos.py — hotlinked, never copied. Null for
+   * the outlets whose homepage we cannot read (Cloudflare) or must not fetch
+   * (bot_refused); render a monogram then, never a broken image.
+   */
+  logo: string | null;
+  /**
+   * Removed from the registry. Its articles STAY — they were collected in
+   * good faith — but it must not be presented as a live source, and two of
+   * these asked not to be crawled at all.
+   */
+  retired: boolean;
+  retired_reason: string | null;
+  retired_on: string | null;
   rank: number | null;
   tier: string | null;
   type: string | null;
