@@ -266,6 +266,9 @@ export const OFFICIAL_ARM_SQL = armSql(
   `'/officials/' || min(m.mp_id)`,
 );
 
+const BRIDGE_SQL = fileURLToPath(
+  new URL("./schema/pg/192_person_bridge.sql", import.meta.url),
+);
 const PERSON_BREAKDOWNS_SQL = fileURLToPath(
   new URL("./schema/pg/125_person_procurement_breakdowns.sql", import.meta.url),
 );
@@ -626,6 +629,13 @@ export const loadTrPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW company_person_roles");
   // Officer namesake counts (hub pruning for the multi-hop path finder).
   await exec("REFRESH MATERIALIZED VIEW officer_name_counts");
+
+  // Second-degree person↔person bridges (192) — the „Проверка на връзка" block's answer
+  // when two names share no company. It reads the officer_name_counts matview 008 owns and
+  // has just been refreshed above, and a LANGUAGE sql body is validated at CREATE, so it
+  // must be applied AFTER 008 — not beside 003. Nothing else applies it: it is the reason
+  // db:load:tr:pg[:cloud] carries the feature at all.
+  await exec(readFileSync(BRIDGE_SQL, "utf8"));
 
   // Its DUAL — companies by officer count (071), the hub filter the magistrate
   // bridge walk refuses to hop through. Pure derivation of the tr_officers this

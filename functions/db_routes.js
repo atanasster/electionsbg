@@ -214,6 +214,12 @@ const missingMigrationEmpty = (e) =>
 const missingMigrationRows = (e) =>
   e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e);
 
+// How many second-degree bridges /api/db/connection asks for. The SQL clamps to 100 of its
+// own accord; this is the UI's appetite, not the safety bound. Kept module-level so the route
+// test can assert the argument is actually passed rather than defaulted inside the function —
+// a default the caller never exercises is a default nobody has measured.
+const BRIDGE_LIMIT = 25;
+
 // SHLIOKAVITSA — the second needle. Returns the folded query REWRITTEN into the spellings a
 // Bulgarian actually types (6umen, 4erven, sofiq), or null when the query has no rewrite.
 //
@@ -1756,20 +1762,41 @@ const DB_ROUTES = {
     }
     return { body: { ...detail, appeals } };
   },
+  // „Проверка на връзка" — the person page's typed-name check. TWO degrees, in one round
+  // trip: `shared` is co-entry in the SAME company (connection_between, 008) and `bridged`
+  // is the second degree — one bridge person joining two names that share no company
+  // (person_person_bridge, 192).
+  //
+  // ⚠️ `bridged` DEGRADES to [] and `shared` does NOT, and that asymmetry is the point: a
+  // database whose TR loader has not yet applied 192 must still answer the first-degree
+  // question, which is the one this route has always answered. The LOGGED variant, not the
+  // silent one — a permanently empty second degree with nothing in Cloud Logging is exactly
+  // how /api/db/mp-management sat on a stale body for weeks.
+  //
+  // ⚠️ 57014 stays OUT of the degrade set. It is the pool's own 10 s statement_timeout, not
+  // a missing migration — the direct query has already been paid for by then, and swallowing
+  // it would turn a real regression into a silently narrower answer. (missingMigrationRows
+  // covers 42883 + 42P01 only, which is the whole set that can mean "192 has not landed".)
   async connection(dbRows, q) {
     const a = s(q, "a");
     const b = s(q, "b");
     if (!a || !b) return { status: 400, body: { error: "missing a or b" } };
-    return {
-      body: {
+    const [shared, bridged] = await Promise.all([
+      dbRows("SELECT * FROM connection_between($1, $2)", [a, b]),
+      dbRows("SELECT * FROM person_person_bridge($1, $2, $3)", [
         a,
         b,
-        shared: await dbRows("SELECT * FROM connection_between($1, $2)", [
-          a,
-          b,
-        ]),
-      },
-    };
+        BRIDGE_LIMIT,
+      ]).catch((e) => {
+        if (e?.code !== "42883" && e?.code !== "42P01") return Promise.reject(e);
+        logMissOnce(
+          `ppb:not-built:${e.code}`,
+          "person_person_bridge: read failed — serving no second-degree connections, which reads as \u201eno indirect link\u201c. Run db:load:tr:pg[:cloud], or apply 192_person_bridge.sql.",
+        );
+        return [];
+      }),
+    ]);
+    return { body: { a, b, shared, bridged } };
   },
   // Company ↔ person connection check: direct roles + 1-hop bridges
   // (company_connection) AND the shortest multi-hop path up to 3 degrees.
