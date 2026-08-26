@@ -32,6 +32,9 @@ import { cn } from "@/lib/utils";
 import type { DataTableColumnDef } from "./utils";
 import { cellRender } from "./cellRender";
 import { headerRender } from "./headerRender";
+// The search floor lives in its own module — /persons reads it to decide whether to render a
+// table at all, and a page must be able to ask that without importing a React component.
+import { SEARCH_MIN_CHARS, termLength } from "./searchTerm";
 
 export interface DbColumnFilter {
   id: string;
@@ -155,35 +158,6 @@ interface BaseProps<T> {
 type Props<T> = BaseProps<T> & SearchProps;
 
 const numFmt = new Intl.NumberFormat("bg-BG");
-
-/** Mirrors SEARCH_MIN_CHARS in functions/db_table.js — the client stops asking and the
- *  server stops answering, so neither depends on the other getting it right. Same shape
- *  as FIT_MIN_QUERY / useFundsFit.
- *
- *  WHY A FLOOR AT ALL (the server-side header carries the measurement): pg_trgm extracts
- *  no trigram from a 1-2 character pattern, so `col ILIKE '%q%'` stops being an index
- *  probe and becomes a full scan of the gin index — 3,447 buffers and 359-490 ms on
- *  contractor_rank, paid twice per keystroke because the count aggregate repeats it.
- *
- *  WHY THE CLIENT HALF IS NOT OPTIONAL: the engine REFUSES a sub-floor term with a 400
- *  rather than serving an empty result (an empty result would read as "no such
- *  contractor"). Without this guard every one- and two-character keystroke — and every
- *  `?q=` deep link shorter than three characters, which bypasses the debounce entirely
- *  because `initialSearch` seeds the debounced state directly — renders the destructive
- *  "Could not load data." panel on 23 of the 24 registry resources.
- *
- *  ⚠️ The floor suppresses the TERM, never the request: the unfiltered page is the right
- *  thing to show while someone is still typing, and it keeps the aggregates footer
- *  coherent with the rows under it. */
-export const SEARCH_MIN_CHARS = 3;
-
-/** Count characters as Postgres does. `String.length` is UTF-16 code units, so "👍👍" is
- *  4 by that measure and 2 to pg_trgm — which extracts ZERO trigrams from it, i.e. a
- *  strictly worse case than the two-letter term the floor was written for. NFC first so a
- *  decomposed „é" counts as the one character the reader typed. Deliberately identical to
- *  `termLength` in functions/db_table.js: if the two disagree, one side sends a term the
- *  other refuses. */
-const termLength = (s: string): number => [...s.normalize("NFC")].length;
 
 export const DbDataTable = <T,>({
   resource,
