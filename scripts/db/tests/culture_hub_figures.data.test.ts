@@ -274,3 +274,138 @@ test.skipIf(skip)("the artifact is small enough to be a hub blob", () => {
       `headline numbers; anything larger means a per-row payload crept in.`,
   );
 });
+
+test.skipIf(skip)(
+  "the ministry budget matches the corpus, on the documented cross-year basis",
+  async () => {
+    const b = blob().budget;
+    if (!b) {
+      reportSkip(
+        import.meta.url,
+        "the blob predates the budget cell — re-run npm run db:gen-culture-hub-stats",
+      );
+      return;
+    }
+
+    const [row] = await allRows<Record<string, string | null>>(
+      `SELECT f.fiscal_year::text AS y,
+              round(coalesce(f.planned_law_eur, f.planned_eur))::text AS eur,
+              round(f.planned_eur)::text AS plain,
+              (f.planned_law_eur IS NOT NULL)::text AS restated
+         FROM budget_admin_node n
+         JOIN budget_admin_fact f
+           ON f.node_id = n.node_id AND f.kind = 'expenditure'
+        WHERE n.node_id = 'admin-ministerstvo-na-kulturata'
+          -- 153's PK is (fiscal_year, node_id, kind, dimension) and its header warns that
+          -- 'admin' is constant only TODAY: by-economic exists on disk unloaded and
+          -- shares this table, so without the filter ORDER BY ... LIMIT 1 picks
+          -- arbitrarily the day it lands. by-economic keys on eco-* ids, so it cannot
+          -- collide with this node yet — this is insurance, not a live defect.
+          AND f.dimension = 'admin'
+          AND coalesce(f.planned_law_eur, f.planned_eur) > 0
+        ORDER BY f.fiscal_year DESC
+        LIMIT 1`,
+    );
+    assert.ok(row, "МК has no expenditure row — db:load:budget:pg has not run");
+
+    assert.equal(b.fiscalYear, Number(row.y), "the blob's fiscal year drifted");
+    near(Number(row.eur), b.eur, "МК expenditure");
+
+    // ⚠️ THIS CLAUSE REPLACES ONE THAT COMPARED THE GENERATOR'S `CASE` TO ITSELF. The blob
+    // used to carry a `basis: 'law' | 'projected'` derived from `planned_law_eur IS NULL`,
+    // and this gate re-executed that same CASE character-for-character and asserted the two
+    // agreed — which they always would. What it could not see is that the RULE was wrong:
+    // 153's column comments make `planned_eur` the ЗДБ figure and `planned_law_eur` a
+    // marker for „an Отчет restated this at a WIDER scope", so the flag labelled the budget
+    // law a forecast. The field is gone; what is asserted now is the property the head's
+    // caption („по закона за бюджета") actually rests on.
+    assert.equal(
+      row.restated,
+      "false",
+      `МК ${row.y} now carries planned_law_eur — the figure has moved to the Отчет's wider ` +
+        `scope. That is still the budget act, so the caption holds, but the SERIES is no ` +
+        `longer like-for-like with the other years; re-read 153's planned_law_eur comment.`,
+    );
+    assert.equal(
+      b.eur,
+      Number(row.plain),
+      "the blob's figure is not МК's own planned_eur — the coalesce picked something else",
+    );
+
+    // Non-vacuity for the clause above: it only means something while the restated form is
+    // genuinely rare. Measured 2026-08-26: 1 of 401 expenditure rows corpus-wide.
+    const [spread] = await allRows<Record<string, string>>(
+      `SELECT count(*) FILTER (WHERE planned_law_eur IS NOT NULL)::text AS restated,
+              count(*)::text AS total
+         FROM budget_admin_fact WHERE kind = 'expenditure'`,
+    );
+    assert.ok(
+      Number(spread.restated) / Number(spread.total) < 0.1,
+      `${spread.restated} of ${spread.total} expenditure rows are Отчет-restated — the ` +
+        `„rare exception" this gate assumes no longer holds`,
+    );
+  },
+);
+
+test.skipIf(skip)("the film totals match the source the PRERENDER uses", () => {
+  const f = blob().films;
+  if (!f) {
+    reportSkip(
+      import.meta.url,
+      "the blob predates the films cell — re-run npm run db:gen-culture-hub-stats",
+    );
+    return;
+  }
+
+  // ⚠️ AGAINST data/culture/overview.json SPECIFICALLY, because that is the file the
+  // PRERENDER interpolates the same figures from. Deriving them in the generator from
+  // some other table would give the head one number and the indexed HTML another for
+  // one claim — the split-brain the blob exists to end.
+  const overview = JSON.parse(
+    readFileSync("data/culture/overview.json", "utf8"),
+  ) as {
+    totalEur: number;
+    filmCount: number;
+    firstYear: number;
+    lastYear: number;
+  };
+
+  assert.equal(f.eur, overview.totalEur, "film € drifted from overview.json");
+  assert.equal(f.films, overview.filmCount, "film count drifted");
+  assert.equal(f.firstYear, overview.firstYear);
+  assert.equal(f.lastYear, overview.lastYear);
+
+  // The band prints this span; a single-year window would mean the „accumulated over
+  // more than a decade" half of the streams note has stopped being true.
+  assert.ok(
+    f.lastYear > f.firstYear,
+    "the film window collapsed to one year — re-read the streams note before shipping",
+  );
+});
+
+test.skipIf(skip)("the four band streams are genuinely incommensurable", () => {
+  // ⚠️ THE NON-VACUITY BEHIND THE WHOLE HEAD. The band's note claims the four figures
+  // cannot be added because one is a single fiscal year and three accumulate. If that
+  // ever stopped being true the note would be false copy rather than a caveat — so it is
+  // asserted rather than assumed, from the blob's own windows.
+  const b = blob();
+  if (!b.budget || !b.films) {
+    // Reported rather than returned bare: ~170 files in this repo used to compute a precise
+    // skip reason and throw it away, which is what report_skip.ts exists to end. A test that
+    // reads green having asserted nothing must say why.
+    reportSkip(
+      import.meta.url,
+      "the blob predates the budget/films cells — re-run npm run db:gen-culture-hub-stats",
+    );
+    return;
+  }
+
+  // The film window's own length is asserted by the test above (`lastYear > firstYear`);
+  // what THIS clause uniquely contributes is that procurement predates the budget year, so
+  // the two are not accidentally the same window.
+  assert.ok(
+    b.procurement.firstDate !== null &&
+      Number(b.procurement.firstDate.slice(0, 4)) < b.budget.fiscalYear,
+    "procurement no longer predates the budget year — re-read the streams note",
+  );
+});

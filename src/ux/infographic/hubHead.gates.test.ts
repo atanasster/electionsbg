@@ -65,6 +65,12 @@ import {
   promotedTiles as declarationsPromotedTiles,
 } from "@/screens/governance/declarationsHubFigures";
 import type { DeclarationsHubStats } from "@/data/governance/useDeclarationsHubStats";
+import {
+  CULTURE_BAND_TILES,
+  cultureHubKpis,
+  promotedTiles as culturePromotedTiles,
+} from "@/screens/culture/cultureHubFigures";
+import type { CultureHubStats } from "@/data/culture/hubStats";
 import { AGRI_STATS_FIXTURE } from "@/screens/subsidies/subsidiesHubStats.fixture";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
@@ -95,6 +101,7 @@ const HUB_SCREENS = [
   "src/screens/SubsidiesDashboardScreen.tsx",
   "src/screens/subsidies/subsidiesHubFigures.ts",
   "src/screens/governance/declarationsHubFigures.ts",
+  "src/screens/culture/cultureHubFigures.ts",
 ];
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
@@ -464,6 +471,65 @@ describe("hub head — the band and the tiles are disjoint", () => {
       expect(bandValues.has(r.value), `${r.label} repeats a KPI value`).toBe(
         false,
       );
+  });
+
+  // Measured verbatim from the committed data/culture/derived/hub_stats.json, 2026-08-26.
+  const CULTURE_STATS_FIXTURE = {
+    generatedAt: "2026-08-26",
+    procurement: {
+      contracts: 972,
+      eur: 166898550,
+      buyers: 59,
+      suppliers: 408,
+      singleBid: 0,
+      bidKnown: 0,
+      nationalSingleBid: 0,
+      nationalBidKnown: 0,
+      firstDate: "2011-01-19",
+    },
+    risk: { grades: {} },
+    funds: {
+      eikExactEur: 105920570,
+      eikExactProjects: 47,
+      byNameEur: 147024687,
+      byNameProjects: 1365,
+      chitalishtaEur: 0,
+    },
+    agri: { chitalishtaEur: 18341814, chitalishtaRows: 264 },
+    interreg: { thematicEur: 0, partnerRows: 0, partners: 0, rowsWithEik: 0 },
+    people: { culturalInstituteRoles: 0 },
+    budget: { eur: 269051700, fiscalYear: 2026, basis: "projected" },
+    films: { eur: 94944781, films: 944, firstYear: 2014, lastYear: 2025 },
+  } as CultureHubStats;
+  const cultureBand = () => cultureHubKpis(CULTURE_STATS_FIXTURE, "bg", true);
+
+  it("no /culture KPI figure is also a tile metric", () => {
+    const kpis = cultureBand();
+    expect(kpis.length, "the culture fixture produced no KPI cells").toBe(4);
+
+    // All four displace a tile — every destination on this band is also a tile below it.
+    expect([...culturePromotedTiles(kpis)].sort()).toEqual(
+      [...CULTURE_BAND_TILES].sort(),
+    );
+    for (const c of kpis)
+      expect(
+        culturePromotedTiles([c]).size,
+        `${c.to} (${c.value}) displaces no tile`,
+      ).toBe(1);
+
+    expect(
+      new Set(kpis.map((k) => k.value)).size,
+      "two /culture KPI cells render the same string",
+    ).toBe(kpis.length);
+  });
+
+  it("no two /culture KPI cells share a destination", () => {
+    const tos = cultureBand().map((k) => k.to);
+    expect(tos.length).toBe(4);
+    expect(
+      new Set(tos).size,
+      `duplicate /culture KPI destination in ${tos.join(", ")}`,
+    ).toBe(tos.length);
   });
 
   it("no two /budget KPI cells share a destination", () => {

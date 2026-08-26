@@ -69,6 +69,8 @@ const INPUTS: Record<string, string> = {
   person_role: "db:resolve:persons",
   interreg_partners: "db:load:interreg:pg",
   interreg_operations: "db:load:interreg:pg",
+  budget_admin_fact: "db:load:budget:pg",
+  budget_admin_node: "db:load:budget:pg",
 };
 
 // ⚠️ `tenders` is NOT here, because no query below reads it — and declaring an input a generator does
@@ -286,6 +288,52 @@ const main = async () => {
       WHERE role = 'cultural_institute'`,
   );
 
+  // ⚠️ THE MINISTRY'S APPROPRIATION UNDER THE STATE BUDGET ACT — and the coalesce is
+  // 153's own documented cross-year rule, not a fallback to something weaker.
+  // `planned_eur` is the ЗДБ figure (or the Отчет's „Закон" column where a report
+  // exists); `planned_law_eur` is non-NULL ONLY where an Отчет restated the
+  // appropriation at a WIDER scope, which is why any cross-year read must take the
+  // coalesce. Both branches are the law.
+  //
+  // ⚠️ DO NOT DERIVE A „projected" FLAG FROM `planned_law_eur IS NULL`. The first cut
+  // did, and it labelled 400 of 401 expenditure rows a forecast — including all nine
+  // of МК's — putting „не по закона" on the published ЗДБРБ appropriation. The
+  // seasonal extrapolation is real but belongs to `budget_fiscal_year_figure.basis`
+  // (migration 152, the КФП consolidated grain), a different table at a different
+  // grain.
+  const [budget] = await allRows<Record<string, string | null>>(
+    `SELECT f.fiscal_year::text AS y,
+            round(coalesce(f.planned_law_eur, f.planned_eur))::text AS eur
+       FROM budget_admin_node n
+       JOIN budget_admin_fact f
+         ON f.node_id = n.node_id AND f.kind = 'expenditure'
+      WHERE n.node_id = 'admin-ministerstvo-na-kulturata'
+        -- 153's PK is (fiscal_year, node_id, kind, dimension) and its header warns that
+        -- 'admin' is constant only TODAY: by-economic exists on disk unloaded and
+        -- shares this table, so without the filter ORDER BY ... LIMIT 1 picks
+        -- arbitrarily the day it lands. by-economic keys on eco-* ids, so it cannot
+        -- collide with this node yet — this is insurance, not a live defect.
+        AND f.dimension = 'admin'
+        AND coalesce(f.planned_law_eur, f.planned_eur) > 0
+      ORDER BY f.fiscal_year DESC
+      LIMIT 1`,
+  );
+
+  // ⚠️ THE FILM TOTALS COME FROM THE COMMITTED OVERVIEW, NOT FROM POSTGRES, and
+  // that is the same source the PRERENDER interpolates them from. Deriving them
+  // here from some other table would give the head one number and the indexed HTML
+  // another for the same claim — the split-brain the blob was created to end (see
+  // this file's header on frozen strings).
+  const overviewPath = path.join(ROOT, "data/culture/overview.json");
+  const overview = fs.existsSync(overviewPath)
+    ? (JSON.parse(fs.readFileSync(overviewPath, "utf8")) as {
+        totalEur?: number;
+        filmCount?: number;
+        firstYear?: number;
+        lastYear?: number;
+      })
+    : null;
+
   const out: CultureHubStats = {
     generatedAt: new Date().toISOString().slice(0, 10),
     procurement: {
@@ -325,6 +373,38 @@ const main = async () => {
       rowsWithEik: num(interreg.with_eik),
     },
     people: { culturalInstituteRoles: num(people.n) },
+    // Both OMITTED rather than zeroed when their source is absent — `budget` needs
+    // 152/153 (a REFRESH_EXCLUSIONS loader, so a fresh clone legitimately has an
+    // empty table) and `films` needs a committed file. A zero here would publish
+    // „МК spends nothing" / „НФЦ funded no films"; absence publishes no cell.
+    //
+    // ⚠️ EVERY FIELD THE CELL RENDERS IS IN ITS OWN GUARD, and neither guard is a bare
+    // truthiness test on a `text` column. `eur` arrives as a STRING (`::text`), so `"0"`
+    // is truthy — the SQL's `> 0` predicate was doing the work the comment credited to
+    // this expression. And `filmCount` used to sit outside the guard behind a `?? 0`,
+    // which publishes „0 филма" in the basis beside a €94.9m figure: a positive claim
+    // that НФЦ funded no films, which is exactly what this paragraph forbids.
+    ...(Number(budget?.eur) > 0 && budget?.y
+      ? {
+          budget: {
+            eur: num(budget.eur),
+            fiscalYear: Number(budget.y),
+          },
+        }
+      : {}),
+    ...(overview?.totalEur &&
+    overview.filmCount &&
+    overview.firstYear &&
+    overview.lastYear
+      ? {
+          films: {
+            eur: overview.totalEur,
+            films: overview.filmCount,
+            firstYear: overview.firstYear,
+            lastYear: overview.lastYear,
+          },
+        }
+      : {}),
   };
 
   // A blank ARM must not overwrite a good file with zeroes — the same rule

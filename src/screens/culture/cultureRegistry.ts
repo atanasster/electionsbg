@@ -79,6 +79,11 @@ export const CULTURE_HUB_COPY: Record<string, { bg: string; en: string }> = {
   },
 
   culture_tile_budget: { bg: "Бюджет на МК", en: "Ministry budget" },
+  // ⚠️ „ПО ЗАКОН" IS CORRECT — it was briefly deleted here on a false premise and put back.
+  // The figure behind this tile is `coalesce(planned_law_eur, planned_eur)`, and 153's
+  // column comments make both branches the appropriation under the State Budget Act; a NULL
+  // `planned_law_eur` marks „no Отчет restated this at a wider scope", not „this is a
+  // forecast". The head's budget cell says the same thing, from the same field.
   culture_tile_budget_desc: {
     bg: "Годишният бюджет на министерството по закон — поток за една година, не натрупана сума като останалите тук.",
     en: "The ministry's annual budget by law — one year's flow, not a cumulative total like the others here.",

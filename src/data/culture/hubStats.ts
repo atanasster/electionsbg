@@ -100,6 +100,41 @@ export interface CultureHubStats {
     rowsWithEik: number;
   };
   people: { culturalInstituteRoles: number };
+  /** Министерство на културата's appropriation under the State Budget Act — the
+   *  FOURTH stream, and the only one that is a single YEAR rather than an
+   *  accumulation.
+   *
+   *  ⚠️ IT IS THE BUDGET LAW, NOT A FORECAST, AND THIS FIELD SHIPPED SAYING THE
+   *  OPPOSITE. The first cut carried a `basis: 'law' | 'projected'` derived from
+   *  `planned_law_eur IS NULL`, on the belief that a NULL there meant the figure
+   *  fell through to an extrapolation. It does not: 153's own column comments say
+   *  `planned_eur` is „the unit's own Отчет „Закон" column where a report exists,
+   *  the ЗДБ otherwise", and `planned_law_eur` is non-NULL ONLY where an Отчет
+   *  restated the appropriation at a WIDER scope — a scope difference, never a
+   *  law-versus-projection one. Measured 2026-08-26: 1 of 401 expenditure rows
+   *  carries it corpus-wide (МОСВ 2024, named in that comment) and 0 of МК's nine
+   *  years do, so the flag labelled essentially the whole table „прогнозни".
+   *
+   *  The seasonal extrapolation is real but lives one migration over, on
+   *  `budget_fiscal_year_figure.basis` (152, the КФП consolidated grain) — a
+   *  different table at a different grain, which is where the confusion came from.
+   *
+   *  Optional on the wire: this blob ships via `bucket:sync`, a different command
+   *  from `npm run deploy`, so a bundle can load against a blob minted before the
+   *  field existed. Absent means „not measured", never zero. */
+  budget?: {
+    eur: number;
+    fiscalYear: number;
+  };
+  /** НФЦ film subsidy — the stream the hub used to be entirely about (ten of
+   *  eleven tiles, 13% of the money). Accumulated, with its own window, which is
+   *  why the band cannot sum it with the others. Optional for the reason above. */
+  films?: {
+    eur: number;
+    films: number;
+    firstYear: number;
+    lastYear: number;
+  };
 }
 
 /** 404 → null rather than a throw: a checkout that has never run the generator

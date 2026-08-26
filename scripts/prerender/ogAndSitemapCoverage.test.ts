@@ -898,6 +898,7 @@ describe("a hub's og capture anchors on its head", () => {
     budget: "src/screens/budget/BudgetHubScreen.tsx",
     consumption: "src/screens/ConsumptionScreen.tsx",
     subsidies: "src/screens/SubsidiesDashboardScreen.tsx",
+    culture: "src/screens/culture/CultureHubScreen.tsx",
   };
 
   /** Sub-page heads that DO ship a card, slug → the screen behind it.
@@ -936,7 +937,17 @@ describe("a hub's og capture anchors on its head", () => {
 
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
-  const NOT_YET: Record<string, string> = {};
+  const NOT_YET: Record<string, string> = {
+    // ⚠️ THE `culture` CARD IS SHOT FROM /culture/subsidies, NOT /culture — see its entry in
+    // capture-screens.ts. Both pages declare `ogImage: "/og/culture.png"`, so the one image
+    // serves the film dashboard (exactly) and the hub (representatively). The hub grew a
+    // head on 2026-08-26 and the card cannot frame it without taking that card away from
+    // the page it actually depicts, so the fix is a SEPARATE slug shot from /culture — the
+    // share-card step, not this one. Listed rather than left unregistered so the map's
+    // „every HubHead screen is named" clause still sees the screen.
+    culture:
+      "its card is shot from /culture/subsidies, which /culture shares; the hub needs its own slug",
+  };
 
   /** One capture entry's text, by slug. */
   const entryFor = (slug: string): string | null => {
@@ -983,8 +994,10 @@ describe("a hub's og capture anchors on its head", () => {
       checked.push(slug);
     }
     // The same floor its sibling above carries. Without it, an exemption list that grew to
-    // cover every hub would leave this clause asserting nothing while still reading green —
-    // and `NOT_YET` is empty today, which is exactly when the floor is free to add.
+    // cover every hub would leave this clause asserting nothing while still reading green.
+    // `NOT_YET` holds ONE entry today (`culture`), so the floor has one exemption to absorb
+    // — which is precisely the case it exists to reason about, and it still leaves seven
+    // hubs checked.
     expect(checked.length, "no hub viewport was checked").toBeGreaterThan(1);
   });
 
@@ -1086,6 +1099,7 @@ describe("a hub's og capture anchors on its head", () => {
       funds: "src/screens/funds/fundsHubFigures.ts",
       consumption: "src/screens/consumption/consumptionHubFigures.ts",
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
+      culture: "src/screens/culture/cultureHubFigures.ts",
       "governance-declarations":
         "src/screens/governance/declarationsHubFigures.ts",
     };
@@ -1145,6 +1159,13 @@ describe("a hub's og capture anchors on its head", () => {
 
     const stale: string[] = [];
     for (const [slug, screen] of Object.entries(HEAD_CAPTURES)) {
+      // ⚠️ NOT_YET SKIPS THIS CLAUSE TOO, and that is a correctness point rather than
+      // convenience: a card that does not depict this screen cannot have its freshness
+      // judged against it. `culture`'s card is shot from /culture/subsidies, so comparing
+      // its commit time to CultureHubScreen.tsx compares two unrelated things — it would
+      // report stale for ever, and re-shooting could never clear it because the shot page
+      // has not changed. The debt is the missing slug, which the entry names.
+      if (NOT_YET[slug]) continue;
       const card = at(`public/og/${slug}.png`);
       const page = at(screen);
       expect(card, `no commit found for public/og/${slug}.png`).toBeGreaterThan(
@@ -1184,7 +1205,7 @@ describe("a hub's og capture anchors on its head", () => {
     // was false. With source-scoped exemptions every card is compared against at least its
     // own screen, so this is simply the map size.
     expect(
-      Object.keys(HEAD_CAPTURES).length,
+      Object.keys(HEAD_CAPTURES).length - Object.keys(NOT_YET).length,
       "no card is being compared — this clause now checks nothing",
     ).toBeGreaterThan(1);
 
@@ -1240,10 +1261,12 @@ describe("a hub's og capture anchors on its head", () => {
         /<HubHead\b/.test(stripJsxComments(read(file))),
         `${slug} is mapped to ${file}, which no longer renders a HubHead`,
       ).toBe(true);
-    // ⚠ EMPTY TODAY, so this loop runs zero times — deliberately kept rather than deleted.
-    // `NOT_YET` is the documented mechanism for the next hub that cannot yet frame its head,
-    // and a typed map with a live validation loop is what stops the next person adding an
-    // exemption with no reason. If it is still empty a year from now, delete both.
+    // ⚠ ONE ENTRY TODAY (`culture`), so this loop validates it — it ran zero times until
+    // 2026-08-26. `NOT_YET` is the documented mechanism for a hub that cannot yet frame its
+    // head, and a typed map with a live validation loop is what stops the next person adding
+    // an exemption with no reason. Delete both only if `NOT_YET` is empty again AND has
+    // stayed empty — an emptiness that lasted a year was the old reason to delete, and this
+    // entry is why that advice was not acted on.
     for (const slug of Object.keys(NOT_YET)) {
       expect(
         HUB_CAPTURES,

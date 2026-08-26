@@ -31,8 +31,13 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
-import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
+import { HubHead, TileHubGrid, type TileHubSection } from "@/ux/infographic";
+import {
+  cultureHubKpis,
+  demotedMetric,
+  cultureStreamsNote,
+  promotedTiles,
+} from "./cultureHubFigures";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { HubSearch } from "@/ux/search/HubSearch";
 import { CULTURE_BANDS, CULTURE_HUB_COPY } from "./cultureRegistry";
@@ -50,14 +55,15 @@ import { cultureSearchSources } from "./cultureSearch";
  * `db:gen-culture-hub-stats`, or a cold database. The tile then renders with no
  * number, which is the honest state; a `0` would be a claim.
  *
- * EVERY FIGURE IS THE DESTINATION'S OWN, per the dashboard-hub rule. The funds
- * tile is the one that can go wrong quietly: `/culture/funds` ranks the
- * NAME-matched population, so this quotes `byNameEur` and carries the EIK-exact
- * figure as the secondary rather than the other way round — the two are far
- * apart and both true. ⚠️ This comment carried „€147.1m … 56% apart" until
- * 2026-08-25; the register has since widened and the gap is 38.8%. Read the
- * current figures from the blob, never from here — and note the two arms are NOT
- * nested either, which `hubStats.ts`'s `eikExactAlsoByName` measures.
+ * EVERY FIGURE IS THE DESTINATION'S OWN, per the dashboard-hub rule.
+ *
+ * ⚠️ THERE IS NO `funds`, `budget` OR `subsidies` CASE BELOW — all three fall to
+ * `default`, and their tiles render bare because the HEAD carries those figures now
+ * (cultureHubFigures.ts). A paragraph here used to say which funds arm this quoted; it
+ * was stale before the head existed — there has never been such a case — and actively
+ * misleading after it, because a reader checking whether the hub contradicts itself
+ * about funds would have concluded the tile quotes the arm the band does not.
+ * The funds arms and their 38.8% gap are documented where the figure now lives.
  */
 const tileMetric = (
   id: string,
@@ -137,7 +143,7 @@ export const CultureHubScreen: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
-  const { data: stats } = useCultureHubStats();
+  const { data: stats, isPending } = useCultureHubStats();
   // COPY is a Record<string, …>, so TypeScript cannot see a missing key: a typo
   // in the registry would make `COPY[k]` undefined and `.bg` throw, taking the
   // whole hub down rather than one tile's label. `cultureRegistry.test.ts`
@@ -155,6 +161,15 @@ export const CultureHubScreen: FC = () => {
   // identity — a fresh array every render would re-fold on every keystroke.
   const sources = useMemo(() => cultureSearchSources(bg), [bg]);
 
+  const kpis = useMemo(
+    () => cultureHubKpis(stats, lang, bg),
+    [stats, lang, bg],
+  );
+  // DERIVED from the cells that actually rendered — see `promotedTiles`. Two of the four
+  // are optional on the wire, so a compile-time list would blank a tile whose cell was
+  // withheld and delete the figure from the page altogether.
+  const promoted = useMemo(() => promotedTiles(kpis), [kpis]);
+
   const sections: TileHubSection[] = CULTURE_BANDS.map((band) => ({
     heading: t(band.labelKey),
     description: t(band.descKey),
@@ -164,7 +179,14 @@ export const CultureHubScreen: FC = () => {
       desc: t(tile.descKey),
       accent: tile.accent,
       scene: CULTURE_SCENES[tile.id],
-      ...tileMetric(tile.id, stats, lang, bg),
+      // §3.1 rule 5 — a figure is the band's OR the tile's, never both. The TILE is
+      // demoted rather than the cell dropped: `procurement` keeps its OTHER figure
+      // (договори · институции) as its headline, so promoting a number moves it up the
+      // page instead of removing it. The other three carry no tile metric today, so for
+      // them the band is pure gain.
+      ...(promoted.has(tile.id)
+        ? demotedMetric(tile.id, stats, lang, bg)
+        : tileMetric(tile.id, stats, lang, bg)),
     })),
   }));
 
@@ -175,29 +197,56 @@ export const CultureHubScreen: FC = () => {
 
   return (
     <>
-      <Title description={description}>{title}</Title>
       <SectorBreadcrumb currentKey="culture_nav" />
 
-      <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
-        {bg
-          ? "Четирите потока по-долу стоят на различни основи и НЕ се събират: бюджетът на МК е годишен, поръчките и субсидиите са натрупани от 2011 г. и 2014 г. Затова са подредени по източник, а не по размер."
-          : "The four streams below sit on different bases and do NOT sum: the ministry budget is annual, while contracts and subsidies accumulate from 2011 and 2014. They are ordered by source rather than by size."}
-      </p>
-
-      <HubSearch
-        className="mt-4"
-        idPrefix="culture-finder"
-        sources={sources}
-        title={{ bg: "Търси в културата", en: "Search culture" }}
-        placeholder={{
-          bg: "институция, поръчка, човек…",
-          en: "institution, contract, person…",
-        }}
-        hint={{
-          bg: "Институциите се търсят в регистъра на сектора; поръчките и хората — в целия корпус.",
-          en: "Institutions are searched in the sector register; contracts and people across the whole corpus.",
-        }}
+      <HubHead
+        eyebrow={bg ? "СЕКТОР · КУЛТУРА" : "SECTOR · CULTURE"}
+        title={title}
+        seoDescription={description}
+        deck={
+          bg
+            ? "Публичните пари за култура на едно място: бюджетът на Министерството, поръчките на държавните културни институти, филмовите субсидии на НФЦ и еврофондовете."
+            : "Bulgaria's public culture money in one place: the Ministry's budget, the state cultural institutes' contracts, the National Film Center's film subsidy and EU funds."
+        }
+        kpis={kpis}
+        // Four cells, and only while the request is genuinely IN FLIGHT. `!stats` would be
+        // a tautology against a band that is empty iff `!stats`: the hook treats a 404 as
+        // an ANSWER („render the tiles without numbers"), so a skeleton keyed on it pulses
+        // for ever on any checkout that never ran the generator.
+        kpisPending={isPending ? 4 : undefined}
+        // ⚠️ THE TWO GUARDS ARE EXACT COMPLEMENTS, and the condition is „does the band
+        // BLOCK render", not „are there cells". HubHead draws the block for a PENDING band
+        // too, so gating on `kpis.length` alone put the note below the head while loading
+        // and moved it into the band when stats landed — one placement throughout, but a
+        // sentence that visibly jumps and shifts everything under it.
+        kpiNote={kpis.length || isPending ? cultureStreamsNote(bg) : undefined}
+        search={
+          <HubSearch
+            idPrefix="culture-finder"
+            sources={sources}
+            title={{ bg: "Търси в културата", en: "Search culture" }}
+            placeholder={{
+              bg: "институция, поръчка, човек…",
+              en: "institution, contract, person…",
+            }}
+            hint={{
+              bg: "Институциите се търсят в регистъра на сектора; поръчките и хората — в целия корпус.",
+              en: "Institutions are searched in the sector register; contracts and people across the whole corpus.",
+            }}
+          />
+        }
       />
+
+      {/* The streams note's OTHER home, and the exact complement of `kpiNote` above. With
+          no blob AND nothing in flight the head renders no band at all, and `kpiNote` lives
+          inside the band's guard — so without this the page loses the one claim on it that
+          is an argument rather than a number, on exactly the checkouts that have no numbers
+          to argue about. Never zero placements, never two. */}
+      {kpis.length === 0 && !isPending ? (
+        <p className="mt-4 max-w-3xl text-sm text-muted-foreground">
+          {cultureStreamsNote(bg)}
+        </p>
+      ) : null}
 
       <TileHubGrid className="mt-6" sections={sections} />
     </>

@@ -11,18 +11,19 @@
 // Asserted against the ENGLISH copy: the harness's i18n default is `en`, and a
 // test written against the Bulgarian strings passes only by accident of locale.
 
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { afterEach, describe, it, expect, vi } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CultureHubScreen } from "./CultureHubScreen";
 import { CULTURE_HUB_COPY } from "./cultureRegistry";
 import { CULTURE_TILES } from "./cultureRegistry";
 
-// The hub reads data/culture/derived/hub_stats.json for its tile metrics. There
-// is no fetch stub here on purpose: the query fails in jsdom, `stats` stays
-// undefined and `tileMetric` returns nothing — which is the state a checkout
-// that never ran the generator is in, and the one the tiles must render cleanly.
+// The hub reads data/culture/derived/hub_stats.json for its tile metrics AND for the
+// head's four-cell band. `mount()` has no fetch stub on purpose: the query fails in jsdom,
+// `stats` stays undefined and both the band and `tileMetric` render nothing — the state a
+// checkout that never ran the generator is in, and the one the page must render cleanly.
+// `mountWith()` below stubs it, for the states where the band exists.
 // The FIGURES are gated separately, against Postgres, in
 // scripts/db/tests/culture_hub_figures.data.test.ts.
 const mount = () =>
@@ -39,6 +40,57 @@ const mount = () =>
       </MemoryRouter>
     </QueryClientProvider>,
   );
+
+/** The same mount with the hub-stats query answered, so the BAND renders. */
+const mountWith = (data: unknown) => {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async (url: string) =>
+      String(url).includes("hub_stats.json")
+        ? { ok: true, status: 200, json: async () => data }
+        : { ok: false, status: 404, json: async () => null },
+    ),
+  );
+  return mount();
+};
+
+afterEach(() => vi.unstubAllGlobals());
+
+/** Verbatim from the committed blob, 2026-08-26. */
+const FULL_STATS = {
+  generatedAt: "2026-08-26",
+  procurement: {
+    contracts: 972,
+    eur: 166898550,
+    buyers: 59,
+    suppliers: 408,
+    singleBid: 0,
+    bidKnown: 0,
+    nationalSingleBid: 0,
+    nationalBidKnown: 0,
+    firstDate: "2011-01-19",
+  },
+  risk: { grades: {} },
+  funds: {
+    eikExactEur: 105920570,
+    eikExactProjects: 47,
+    byNameEur: 147024687,
+    byNameProjects: 1365,
+    chitalishtaEur: 0,
+  },
+  agri: { chitalishtaEur: 18341814, chitalishtaRows: 264 },
+  interreg: { thematicEur: 0, partnerRows: 0, partners: 0, rowsWithEik: 0 },
+  people: { culturalInstituteRoles: 0 },
+  budget: { eur: 269051700, fiscalYear: 2026 },
+  films: { eur: 94944781, films: 944, firstYear: 2014, lastYear: 2025 },
+};
+/** A blob minted before the two optional fields existed — the bucket-sync lag state. */
+const BARE_STATS = (() => {
+  const b = { ...FULL_STATS } as Record<string, unknown>;
+  delete b.budget;
+  delete b.films;
+  return b;
+})();
 
 describe("CultureHubScreen", () => {
   it("renders every tile as a link to its destination", () => {
@@ -89,4 +141,32 @@ describe("CultureHubScreen", () => {
     mount();
     expect(screen.getAllByRole("combobox").length).toBeGreaterThan(0);
   });
+
+  // ⚠️ THE HIGHEST-RISK INVARIANT ON THIS PAGE, AND IT IS HELD BY TWO GUARDS IN TWO FILES
+  // THAT MUST STAY EXACT COMPLEMENTS. The streams note renders as `kpiNote` when the head
+  // draws its band block and as a paragraph above the grid when it does not — HubHead keeps
+  // `kpiNote` INSIDE that block, so the two conditions cannot simply both be „is there a
+  // note". Tightening one side gives ZERO placements and loosening the other gives TWO, and
+  // both are silent at a 200. The suite could not see either until this fixture existed:
+  // every case mounted with no stub, so only the no-blob state was ever entered.
+  it.each([
+    ["a full blob", FULL_STATS, 4],
+    ["a blob predating the optional cells", BARE_STATS, 2],
+    ["no blob at all", null, 0],
+  ])(
+    "renders the streams note exactly once with %s",
+    async (_label, data, cells) => {
+      mountWith(data);
+      await screen.findByText(/do NOT sum/);
+      expect(
+        screen.getAllByText(/do NOT sum/),
+        "the note must appear exactly once — never zero, never in both homes",
+      ).toHaveLength(1);
+      await waitFor(() =>
+        expect(document.querySelectorAll("[data-kpi-cell]")).toHaveLength(
+          cells,
+        ),
+      );
+    },
+  );
 });

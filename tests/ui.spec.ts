@@ -645,6 +645,22 @@ const HUB_HEAD_BUDGETS: {
   // and wrapped, and unchanged by the evidence aside. Measured in dev at 1280, the same
   // basis the entries above use; a Playwright run against a built dist is authoritative.
   { path: "/governance/declarations", maxPx: 590, measured: 525, cells: 4 },
+  // Identity + deck + a full search box + a 4-cell band + a three-clause note. No scope
+  // control (the hub has no `?pscope`) and no evidence aside yet (step 2).
+  //
+  // ⚠️ THE NOTE IS THE LONGEST IN THE TREE AND MUST NOT BE TRIMMED IF THIS TRIPS. The four
+  // cells are euro figures in one row on four DIFFERENT bases — a fiscal year beside three
+  // decade-long accumulations — and their sum (~€637m) describes nothing. The sentence
+  // saying they do not add is the page's central claim, older than the band; check for a
+  // fifth cell instead.
+  //
+  // ⚠️ AND IF THE COUNT COMES IN UNDER 4, IT IS NOT A CODE CHANGE. This is the only
+  // entry here whose cell count depends on BUCKET-SYNCED optional fields: `budget` and
+  // `films` ship in data/culture/derived/hub_stats.json via `bucket:sync`, a different
+  // command from `npm run deploy`, so a deployed blob minted before those fields exist
+  // yields a two-cell band. Run `bucket:sync` for `culture/derived/`. That this fails at
+  // all is a bonus — it doubles as a bucket-freshness gate.
+  { path: "/culture", maxPx: 560, measured: 483, cells: 4 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {
