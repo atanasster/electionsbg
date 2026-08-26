@@ -57,10 +57,14 @@
 //    clinics with no relation to МЗ.
 //
 // So the roster is hand-verified by EIK and the sweep stays what it is.
-// `mz_second_level_bodies.data.test.ts` (plan T4b) is to reconcile the two in
-// both directions, so that a rename or a newly-procuring body fails loudly
-// instead of going missing. ⚠ NOT WRITTEN YET — until it lands, a body the
-// corpus gains is simply absent here, silently.
+// `mz_second_level_bodies.data.test.ts` (plan T4b) reconciles the two, so a
+// rename or a newly-procuring body fails loudly instead of going missing.
+//
+// ⚠ ONE DIRECTION, and knowing which matters: it asks „is every SWEPT EIK in the
+// roster", never the converse, because the sweep is a lower bound on the family
+// and not its definition. A body the corpus records under a name none of the
+// four ILIKEs match — an acronym-only registration, say — is still invisible to
+// it.
 //
 // ---------------------------------------------------------------------------
 // Measured 2026-08-26 against the local corpus, `tag = 'contract'` throughout
@@ -98,11 +102,13 @@
 // Разград, Сливен, Шумен, Ямбол and Софийска област have no РЗИ procurement in
 // the corpus (23 РЗИ institutions against 28 oblasts). They are omitted rather
 // than shipped as `noAwarderPage` rows: a row with nothing behind it is a dead
-// end. ⚠ THE OMISSION DOES NOT YET RETIRE ITSELF: that argument rests on the
-// T4b corpus→roster arm, which is not written, so nothing currently fails the
-// day РЗИ Разград awards its first contract — exactly the „nobody would ever
-// notice" shape `SectorMember.noAwarderPage`'s own comment warns about. Land
-// T4b and this paragraph becomes true.
+// end. The omission RETIRES ITSELF: `mz_second_level_bodies.data.test.ts`'s
+// corpus→roster arm fires the day РЗИ Разград awards its first contract, naming
+// the EIK — the self-retiring shape `SectorMember.noAwarderPage`'s own comment
+// argues for. ⚠ It fires only if that body's stored `awarder_name` matches one of
+// the sweep's four patterns, which every РЗИ's does today; an acronym-only
+// registration would slip past, and no acronym pattern can be added (`%РЗИ%`
+// matches „с. Бързия").
 //
 // ---------------------------------------------------------------------------
 // Naming follows the РИОСВ precedent in environmentReferenceData.ts: a SHORT

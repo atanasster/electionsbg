@@ -47,9 +47,12 @@ describe("MZ_SECOND_LEVEL_BODIES — structure", () => {
     for (const b of MZ_SECOND_LEVEL_BODIES) {
       expect(b.eik, `malformed EIK on ${b.name}`).toMatch(/^\d{9}$|^\d{13}$/);
       expect(b.name.trim(), `empty name on ${b.eik}`).not.toBe("");
+      // `Record<MzBodyUniverse, …>` makes a truthiness check unfalsifiable, so
+      // assert the CONTENT: a universe added to the union with an empty label
+      // would render a blank sub-line under every one of its rows.
       expect(
-        MZ_UNIVERSE_LABEL[b.universe],
-        `no label for universe "${b.universe}" (${b.eik})`,
+        MZ_UNIVERSE_LABEL[b.universe]?.bg?.trim(),
+        `no Bulgarian label for universe "${b.universe}" (${b.eik})`,
       ).toBeTruthy();
     }
   });
@@ -70,16 +73,34 @@ describe("MZ_SECOND_LEVEL_BODIES — structure", () => {
       // BOTH GRAMMATICAL NUMBERS. latinSkeleton folds „център"→tsentar and
       // „центрове"→tsentrove and neither contains the other, so a plural-only set
       // misses the register's own singular — the defect this file exists to pin.
+      //
+      // ⚠ Tested as a PAIR, not by classifying each key. The first cut used a
+      // „does this look plural" regex and was inert twice over: `\b` is ASCII-only
+      // so it never matches after a Cyrillic letter, and the surviving branch
+      // classified the PLURAL „центрове за спешна медицинска помощ" as singular —
+      // leaving the whole check satisfied by the bare acronym „ЦСМП".
       const bgOwn = own.filter((k) => /[а-я]/i.test(k));
-      const singular = bgOwn.filter((k) => !/[иy]\s*$|и\b/.test(k));
       expect(
         bgOwn.length,
         `universe "${u}" has no Bulgarian keys`,
       ).toBeGreaterThan(1);
+      const folds = bgOwn.map(latinSkeleton);
+      const hasNumberPair = folds.some((a, i) =>
+        folds.some(
+          (b, j) =>
+            i < j &&
+            a !== b &&
+            !a.includes(b) &&
+            !b.includes(a) &&
+            a.slice(0, 5) === b.slice(0, 5),
+        ),
+      );
       expect(
-        singular.length,
-        `universe "${u}" carries no singular form`,
-      ).toBeGreaterThan(0);
+        hasNumberPair,
+        `universe "${u}" declares no singular/plural pair — two keys sharing a ` +
+          `stem whose folds differ, e.g. „център…" / „центрове…". A plural-only ` +
+          `set misses the spelling the register itself uses.`,
+      ).toBe(true);
       // TEST-002: and an English reader must reach the family too. Removing all
       // eight English keys also left the suite green.
       const enOwn = own.filter((k) => /^[a-z ]+$/i.test(k));
@@ -147,6 +168,35 @@ describe("MZ_SECOND_LEVEL_BODIES — retired EIKs and the institution count", ()
       // successor in a dropdown; without it the two read as one institution
       // listed twice.
       expect(b.name, `${b.eik} carries no year`).toMatch(/до \d{4}/);
+      // ⚠ AND THE PAIR MUST BE ONE INSTITUTION, which neither the pointer nor
+      // the corpus dates can establish on their own. Found by mutation: pointing
+      // РИОКОЗ Бургас at НЦОЗА satisfied every other check here AND the
+      // date-succession check in mz_second_level_bodies.data.test.ts, because
+      // РИОКОЗ's last contract does precede НЦОЗА's first. The place in the label
+      // is the only thing that says these are two halves of the same body.
+      // ⚠ REFUSES rather than returning "". Splitting on the em dash yields an
+      // empty string for a label typed with a hyphen, and two empty strings
+      // compare equal — so one typo would turn this into `expect("").toBe("")`
+      // and pass on any pairing at all.
+      const place = (n: string) => {
+        const p = n
+          .split("—")
+          .slice(1)
+          .join("—")
+          .replace(/\(до \d{4}\)/, "")
+          .trim();
+        expect(p, `label "${n}" has no „— <place>" part to compare`).not.toBe(
+          "",
+        );
+        return p;
+      };
+      expect(
+        place(b.name),
+        `${b.eik} (${b.name}) is paired with ${successor?.name}, a different place`,
+      ).toBe(place(successor?.name ?? ""));
+      expect(b.universe, `${b.eik} is paired across universes`).toBe(
+        successor?.universe,
+      );
     }
   });
 
@@ -192,6 +242,9 @@ describe("MZ_SECOND_LEVEL_BODIES — never a sector member", () => {
     expect(EIKS.length).toBeGreaterThan(50);
     expect(HEALTH_SECTOR_EIKS.length).toBe(2);
     expect(SECTOR_BROWSE_PACKS.nzok.eiks.length).toBeGreaterThan(0);
+    // The third copy needed a floor of its own: an empty `members` array
+    // satisfies its disjointness assertion above and nothing else here notices.
+    expect(SECTOR_DASHBOARDS.health.members.length).toBeGreaterThan(0);
     // And the roster genuinely overlaps a set built the way a careless widening
     // would build one, so "disjoint" is a property of these lists rather than of
     // the comparison.
