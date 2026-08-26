@@ -168,6 +168,59 @@ describe("useUrlPersonFilters — ?q", () => {
   });
 });
 
+describe("useUrlPersonFilters — ?obshtina folds Sofia's three synonyms", () => {
+  // Measured 2026-08-26 on `person_browse_table`: `SFO_CITY` is 1,315 rows — the largest
+  // municipality in the corpus — and `SOF00` and `SOF` are 0 each. `SOF00` is the code every
+  // /governance Sofia URL carries, so an unfolded read filters the capital to nothing.
+  for (const synonym of ["SOF00", "SOF"])
+    test(`${synonym} reads as SFO_CITY`, () => {
+      const { result } = renderHook(useFiltersAndUrl, {
+        wrapper: wrap(`?obshtina=${synonym}`),
+      });
+      assert.equal(result.current.obshtina, "SFO_CITY");
+    });
+
+  test("SFO_CITY itself is unchanged", () => {
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?obshtina=SFO_CITY"),
+    });
+    assert.equal(result.current.obshtina, "SFO_CITY");
+  });
+
+  test("an ordinary code is untouched — the fold is Sofia-only", () => {
+    // Non-vacuity: a fold that rewrote everything would pass the clauses above.
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?obshtina=BGS04"),
+    });
+    assert.equal(result.current.obshtina, "BGS04");
+  });
+
+  test("Sofia's районa are NOT folded into the city", () => {
+    // obshtinaPlace.ts's own rule: a кмет на район holds that район's office, and folding the
+    // 24 S2*** codes into the city bundle would erase 24 distinct offices.
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?obshtina=S2414"),
+    });
+    assert.equal(result.current.obshtina, "S2414");
+  });
+
+  test("the URL is NOT rewritten — the fold is read-side only", () => {
+    // An inbound link silently becoming a different link is a different promise, and it makes
+    // any diff of two URLs unreliable.
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?obshtina=SOF00"),
+    });
+    assert.match(result.current.search, /obshtina=SOF00/);
+  });
+
+  test("junk is still refused", () => {
+    const { result } = renderHook(useFiltersAndUrl, {
+      wrapper: wrap("?obshtina=%3Cscript%3E"),
+    });
+    assert.equal(result.current.obshtina, PERSON_FILTER_ALL);
+  });
+});
+
 describe("useUrlPersonFilters — the sector scope is not a narrowing", () => {
   test("a bare ?sector=public is active but narrows nothing", () => {
     // The rule the whole search-first switch rests on: switching the scope must NOT open a

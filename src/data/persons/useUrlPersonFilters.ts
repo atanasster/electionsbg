@@ -17,6 +17,7 @@
 //   ?oblast   — a 3-letter oblast code; likewise "holds any role there"
 //   ?obshtina — an obshtina code; the representative seat only, since obshtina has no
 //               code-SET column (unlike oblast). The /governance/:id cross-link.
+//               CANONICALISED ON READ — see readObshtina.
 //   ?court    — an INSTITUTION NAME (a court, a ministry). A name rather than a code
 //               because the picker facets and filters the same `institution` column, which
 //               keeps its counts exact and needs no code→name dictionary in the client.
@@ -37,6 +38,7 @@
 
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
+import { canonicalObshtina } from "@/lib/obshtinaPlace";
 import { SEARCH_MIN_CHARS, termLength } from "@/ux/data_table/searchTerm";
 
 /** Absent-filter sentinel, shared with the select controls (Radix needs a non-empty
@@ -66,6 +68,30 @@ export const isInstitutionName = (v: string): boolean => NAME.test(v);
 
 const readName = (v: string | null): string =>
   v && NAME.test(v) ? v : PERSON_FILTER_ALL;
+
+/** Read `?obshtina`, folded onto the ONE code the corpus speaks.
+ *
+ *  ⚠️ THE FOLD BELONGS HERE, NOT AT EACH CONSUMER. Sofia has three synonyms — `SFO_CITY` in
+ *  `person_browse_table`, `SOF` in the local-election shards, and `SOF00` in the place-view id
+ *  the governance dashboards ROUTE on — and only the first matches a row: measured 2026-08-26,
+ *  `SFO_CITY` is 1,315 rows and `SOF00`/`SOF` are **0** each. So a reader arriving from
+ *  `/governance/SOF00`, which is every Sofia governance URL, filters the largest municipality
+ *  in the corpus to nothing.
+ *
+ *  Folding at ONE consumer is worse than not folding at all: a chip that resolves the label but
+ *  a filter that sends the raw code renders „Община: Столична община" over an empty table —
+ *  a confident sentence in Bulgarian saying the capital contains nobody, where the unfolded
+ *  code at least read as a failure. Doing it on READ means the filter, the chip, the facets and
+ *  anything added later all see the same value and cannot disagree.
+ *
+ *  Read-side only: the URL is left as the reader wrote it, so an inbound link is not silently
+ *  rewritten into a different one. */
+const readObshtina = (v: string | null): string => {
+  const code = readCode(v);
+  return code === PERSON_FILTER_ALL
+    ? code
+    : (canonicalObshtina(code) ?? PERSON_FILTER_ALL);
+};
 
 /** The public⇄private toggle. `all` (the DEFAULT since the search-first rework) shows the whole
  *  137,461-person layer; `public` shows only people in power; `private` shows the name-fold
@@ -233,7 +259,7 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
   const role = readCode(params.get("role"));
   const party = readCode(params.get("party"));
   const oblast = readCode(params.get("oblast"));
-  const obshtina = readCode(params.get("obshtina"));
+  const obshtina = readObshtina(params.get("obshtina"));
   const court = readName(params.get("court"));
   const declaredOnly = params.get("decl") === "1";
   const heldOfficeOnly = params.get("held") === "1";

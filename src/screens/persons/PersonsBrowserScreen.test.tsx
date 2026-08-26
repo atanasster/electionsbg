@@ -83,9 +83,17 @@ const stubFetch = ({ total = 137_461, global, facets = CORPUS }: Stub = {}) =>
   vi.stubGlobal(
     "fetch",
     vi.fn(async (url: string) => {
-      // The screen also mounts `useCanonicalParties` (for the party pill colours) and
-      // `usePersonLabels`. Neither is under test; both need a well-shaped answer or the
-      // component throws before rendering a single cell.
+      // The screen also mounts `useCanonicalParties` (for the party pill colours),
+      // `usePersonLabels` and — when an ?obshtina chip renders — `useObshtinaLabel`. None is
+      // under test; each needs a well-shaped answer or the component throws before rendering a
+      // single cell.
+      if (url.includes("municipalities.json"))
+        return {
+          ok: true,
+          json: async () => [
+            { obshtina: "BGS04", name: "Бургас", name_en: "Burgas" },
+          ],
+        };
       if (!url.startsWith("/api/db/"))
         return { ok: true, json: async () => ({ parties: [] }) };
       if (url.startsWith("/api/db/facets")) {
@@ -554,6 +562,54 @@ describe("every narrowing gets a chip", () => {
     expect(
       container.querySelector('[role="group"][aria-labelledby]'),
     ).toBeNull();
+  });
+
+  it("an obshtina chip is READABLE — a name, never a bare code", async () => {
+    // This chip is the ONLY surface where `?obshtina` exists; it has no picker. „Община: BGS04"
+    // tells a reader a filter is applied and not which municipality it named.
+    const { container } = renderAt("?obshtina=BGS04");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    // Assert the chip EXISTS before reading it, matching the ?position sibling below: without
+    // it a missing chip fails as „expected undefined to contain «Бургас»", which sends the next
+    // reader to the label resolver when nothing rendered at all.
+    const chip = await waitFor(() => {
+      const c = container.querySelector('[role="group"] button[aria-label]');
+      expect(c).not.toBeNull();
+      return c!;
+    });
+    await waitFor(() => expect(chip.textContent).toContain("Бургас"));
+    expect(chip.textContent).not.toContain("BGS04");
+  });
+
+  it("sends the FOLDED code to the server, not just the folded label", async () => {
+    // ⚠️ THE HALF-FIX IS WORSE THAN NO FIX. Canonicalising only the chip renders „Община:
+    // Столична община" over an empty table — a confident sentence saying the capital contains
+    // nobody — where the raw code at least read as a failure. Asserted on the REQUEST, because
+    // that is the half a label assertion cannot see.
+    renderAt("?obshtina=SOF00");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    const req = [...vi.mocked(fetch).mock.calls]
+      .map((c) => String(c[0]))
+      .find((u) => u.startsWith("/api/db/table"));
+    expect(req).toBeTruthy();
+    const decoded = decodeURIComponent(req!.split("?q=")[1]);
+    expect(decoded).toContain("SFO_CITY");
+    expect(decoded).not.toContain("SOF00");
+  });
+
+  it("names SOFIA, whose code municipalities.json structurally cannot carry", async () => {
+    // `SFO_CITY` is a synthetic bundle rather than an EKATTE municipality — and it is the
+    // LARGEST in the corpus (1,315 of 23,469 placed people), so a resolver reading only that
+    // file fails on exactly the biggest case.
+    const { container } = renderAt("?obshtina=SFO_CITY");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    const chip = await waitFor(() => {
+      const c = container.querySelector('[role="group"] button[aria-label]');
+      expect(c).not.toBeNull();
+      return c!;
+    });
+    expect(chip.textContent).toContain("Столична община");
+    expect(chip.textContent).not.toContain("SFO_CITY");
   });
 
   it("a position chip is READABLE — never a raw English code", async () => {

@@ -74,6 +74,7 @@ import { PersonsSearchField } from "./PersonsSearchField";
 import { PersonsLanding, type LandingCard } from "./PersonsLanding";
 import { PersonNetWorthCell, PersonMoneyCell } from "./PersonMoneyCells";
 import { oblastName } from "@/lib/regionalOblast";
+import { useObshtinaLabel } from "@/data/municipalities/useObshtinaLabel";
 import { positionLabel } from "@/screens/components/procurement/personSearchGroups";
 import {
   fetchPersonsCsv,
@@ -136,6 +137,10 @@ export const PersonsBrowserScreen: FC = () => {
     hasNarrowingFilters,
     clearFilters,
   } = useUrlPersonFilters();
+
+  // Deferred: municipalities.json is only fetched when there is actually a municipality to
+  // name, i.e. when the chip below will render.
+  const obshtinaLabel = useObshtinaLabel(obshtina !== PERSON_FILTER_ALL);
 
   // ── THE TERM ────────────────────────────────────────────────────────────────────────
   //
@@ -1201,10 +1206,16 @@ export const PersonsBrowserScreen: FC = () => {
       out.push({
         id: `obshtina:${obshtina}`,
         dimension: dimensionLabels.obshtina,
-        // NO code→name dictionary in the client for obshtina (unlike oblast), so the chip
-        // shows the code. That is still strictly better than the previous state, in which the
-        // filter was applied and named nowhere at all.
-        label: obshtina,
+        // A NAME, resolved through the one helper that knows both sources — and it has to
+        // know both: `municipalities.json` covers 288 of the 289 codes this column carries and
+        // structurally cannot cover the 289th, because `SFO_CITY` is a synthetic bundle rather
+        // than an EKATTE municipality. It is also the LARGEST (1,315 people). The helper folds
+        // `SOF`/`SOF00` first, so a reader arriving on the code the governance dashboards route
+        // on still gets „Столична община" rather than an echo of a code that matches no row.
+        //
+        // Falls back to the code, never to nothing: this chip is the only surface where
+        // `?obshtina` exists at all.
+        label: obshtinaLabel(obshtina),
         onRemove: () => setObshtina(PERSON_FILTER_ALL),
       });
     if (court !== PERSON_FILTER_ALL)
@@ -1238,6 +1249,7 @@ export const PersonsBrowserScreen: FC = () => {
   }, [
     isBg,
     dimensionLabels,
+    obshtinaLabel,
     facet,
     groupOptions,
     setFacet,
