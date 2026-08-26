@@ -18,7 +18,7 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, end } from "../lib/pg";
+import { allRows, withTx, end } from "../lib/pg";
 import { sumExecutionBuffers } from "../lib/explain_buffers";
 import { reportSkip } from "../../lib/report_skip";
 
@@ -206,28 +206,109 @@ test.skipIf(skip)(
   },
 );
 
+/** Does this plan reach `person_role` through the person_id key rather than scanning it?
+ *
+ *  THIS, not a buffer count, is the invariant. The view's body is an OR-join over
+ *  person_role, which becomes a full scan the moment the predicate stops being pushed down —
+ *  on the hottest page in the person layer, joined once per profile request. */
+const keyedOnPersonRole = (plan: string): boolean =>
+  /Index (Only )?Scan using person_role_pkey/.test(plan) &&
+  !/Seq Scan on person_role\b/.test(plan);
+
+const busiestBridgedPerson = async (): Promise<{
+  person_id: string;
+  roles: string;
+}> => {
+  const [p] = await allRows<{ person_id: string; roles: string }>(
+    `SELECT b.person_id::text, count(r.*)::text AS roles
+       FROM (SELECT DISTINCT person_id FROM person_company_bridge_a) b
+       JOIN person_role r USING (person_id)
+      GROUP BY b.person_id
+      -- person_id breaks the tie, so the pick cannot move when two people share a count.
+      ORDER BY count(r.*) DESC, b.person_id
+      LIMIT 1`,
+  );
+  return p;
+};
+
 test.skipIf(skip)(
   "the per-person Bridge-A lookup stays a keyed lookup, not a scan",
   async () => {
-    // 082 joins this view once per profile request, on the hottest page in the person layer,
-    // and the view's own body is an OR-join over person_role — the shape that becomes a table
-    // scan the moment the person_id predicate stops being pushed down. Measured at 10 buffers
-    // when built (0.266 ms); the ceiling is deliberately loose so ordinary catalog growth does
-    // not fail it, and tight enough that a whole-table plan (person_role is ~315k rows) cannot
-    // pass.
-    const [p] = await allRows<{ person_id: string }>(
-      "SELECT person_id::text FROM person_company_bridge_a LIMIT 1",
-    );
+    // ⚠️ THIS USED TO ASSERT A BUFFER CEILING OF 500 AGAINST AN UNORDERED `LIMIT 1`, AND BOTH
+    // HALVES WERE WRONG. Measured 2026-08-26:
+    //
+    //   - The probe was non-deterministic. `SELECT person_id … LIMIT 1` with no ORDER BY reads
+    //     whichever row is physically first, so a resolve — which DELETEs and re-COPYs
+    //     person_role — silently re-points it at a different person. That is the defect
+    //     person_resolve.data.test.ts's privacy probe documents and fixed with ORDER BY.
+    //   - The ceiling could not discriminate what its message claimed. Cost here tracks the
+    //     PERSON'S ROLE COUNT, not the plan shape: company_politicians (44 pages) is
+    //     seq-scanned once per qualifying role inside the nested loop, so a 1-role person costs
+    //     77 buffers and a 25-role person costs 3,745 — and person_role is reached through
+    //     person_role_pkey in BOTH. The 500 ceiling sat BELOW the worst legitimate plan, so on
+    //     any corpus whose first physical row is a busy person it failed while nothing was wrong.
+    //
+    // So the assertion is now the plan SHAPE, which is what the comment always meant, and the
+    // probe is the WORST realistic case rather than an arbitrary one — deterministic, and
+    // chosen so this cannot be accused of passing by picking the cheapest person.
+    const worst = await busiestBridgedPerson();
     const rows = await allRows<{ "QUERY PLAN": string }>(
       "EXPLAIN (ANALYZE, BUFFERS, COSTS OFF) SELECT * FROM person_company_bridge_a WHERE person_id = $1",
-      [p.person_id],
+      [worst.person_id],
     );
+    const plan = rows.map((r) => r["QUERY PLAN"]).join("\n");
     const buffers = sumExecutionBuffers(rows);
+
     assert.ok(
-      buffers < 500,
-      `the Bridge-A lookup touched ${buffers} buffers for one person — it was 10. The ` +
-        `person_id predicate is no longer reaching person_role_pkey, so /person now pays a ` +
-        `scan of person_role per request:\n${rows.map((r) => r["QUERY PLAN"]).join("\n")}`,
+      keyedOnPersonRole(plan),
+      `the Bridge-A lookup no longer reaches person_role through person_role_pkey, so /person ` +
+        `pays a scan of the whole table per request:\n${plan}`,
+    );
+    // The secondary guard, calibrated BETWEEN the two plans rather than against one sample:
+    // the worst legitimate plan is 3,745 buffers (the 25-role person, identical on local and
+    // Cloud SQL) and the scan this exists to catch is 95,232 local / 124,336 cloud. 20,000
+    // leaves 5.3x headroom above the worst good plan — room for a person with ~130 roles —
+    // and still sits ~5x below the cheapest bad one.
+    assert.ok(
+      buffers < 20_000,
+      `the Bridge-A lookup touched ${buffers} buffers for the busiest person ` +
+        `(${worst.roles} roles) — the worst legitimate plan measured 3,745. The plan is still ` +
+        `keyed, so this is not a lost index: something widened the per-role fan-out.\n${plan}`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "…and that check still discriminates a scan from a lookup",
+  async () => {
+    // Without this the assertion above is only as good as its regex. A predicate that silently
+    // stopped matching — a plan-node rename, an EXPLAIN format change — would report every plan
+    // as keyed and the gate would pass for ever on a corpus doing full scans.
+    //
+    // So the bad plan is CONSTRUCTED and the same predicate run against it. Plain EXPLAIN, not
+    // ANALYZE: the shape is all that is needed, and executing it would read ~1 GB. Inside a
+    // transaction so the planner settings are LOCAL and nothing leaks to another session.
+    const worst = await busiestBridgedPerson();
+    const plan = await withTx(async (c) => {
+      await c.query("SET LOCAL enable_indexscan = off");
+      await c.query("SET LOCAL enable_indexonlyscan = off");
+      await c.query("SET LOCAL enable_bitmapscan = off");
+      const { rows } = await c.query<{ "QUERY PLAN": string }>(
+        "EXPLAIN (COSTS OFF) SELECT * FROM person_company_bridge_a WHERE person_id = $1",
+        [worst.person_id],
+      );
+      return rows.map((r) => r["QUERY PLAN"]).join("\n");
+    });
+    assert.ok(
+      /Seq Scan on person_role\b/.test(plan),
+      "could not construct a scanning plan even with index scans disabled — the calibration " +
+        "above is then untestable, so re-derive it rather than trusting the ceiling",
+    );
+    assert.equal(
+      keyedOnPersonRole(plan),
+      false,
+      `keyedOnPersonRole() reports a deliberately index-free plan as keyed, so it discriminates ` +
+        `nothing and the assertion above is vacuous:\n${plan}`,
     );
   },
 );
