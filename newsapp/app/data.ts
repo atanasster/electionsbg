@@ -66,6 +66,17 @@ export interface AnalysisBlock {
     signals: string[];
   } | null;
   entities: Entities | null;
+  /**
+   * Resolved, linkable entities — the SIBLING of `entities`, never a
+   * replacement.
+   *
+   * ⚠️ `undefined` and `[]` are DIFFERENT and must render differently.
+   * `undefined` means the record predates mention extraction (every one of
+   * the 365 analyses on disk today); `[]` means the extractor ran and found
+   * nobody. A component that treats the first as the second publishes „this
+   * article mentions nobody" about the entire corpus.
+   */
+  mentions?: Mention[];
   party_tones: { party: string; tone: Tone }[] | null;
   topics: TopicRef[] | null;
   quality: { verdict: QualityVerdict | null; notes: string | null } | null;
@@ -302,6 +313,66 @@ export interface AxisSpread {
   /** Whether `n` clears TOPIC_MIN_POSITIONED. */
   enough: boolean;
 }
+
+/** Singular on purpose: a mention is one thing. See MentionBasis. */
+export type MentionKind =
+  | "person"
+  | "party"
+  | "institution"
+  | "company"
+  | "place";
+
+/**
+ * How the mention came to carry — or not carry — an id.
+ *
+ * ⚠️⚠️ THERE IS NO VALUE MEANING "we picked the highest-ranked candidate",
+ * and one must never be added. Bulgarian newsrooms write two-part names while
+ * the identity layer stores three: of 17 corpus names tested, ZERO matched
+ * exactly and every one matched ambiguously when folded (Борисов 7
+ * candidates, Радев 15, Цветан Василев 21). Rank-picking is right for one and
+ * wrong for another, and the output looks identical either way.
+ *
+ * `ambiguous_refused` and `not_in_gazetteer` are KEPT and COUNTED so that
+ * „we found no link" is never rendered as „nobody was mentioned".
+ */
+export type MentionBasis =
+  | "gazetteer_exact"
+  | "coref_resolved"
+  | "ambiguous_refused"
+  | "not_in_gazetteer";
+
+/** What the entity is doing in the story — which decides whether to link. */
+export type MentionRole = "subject" | "source" | "mention";
+
+export interface Mention {
+  kind: MentionKind;
+  /** The string AS WRITTEN in the article, never the roster's spelling. */
+  surface: string;
+  basis: MentionBasis;
+  /**
+   * ⚠️ NULL on both refusal bases, enforced server-side. A link is a claim
+   * about a named individual; only `gazetteer_exact` and `coref_resolved`
+   * have earned one.
+   */
+  id: string | null;
+  role: MentionRole;
+  /** Present on `ambiguous_refused`: the entries that matched, ≥2. */
+  candidates?: string[];
+}
+
+/**
+ * Whether a mention may be rendered as a link — THE one definition.
+ *
+ * Two copies is how a story page comes to link a name that the article page
+ * refuses to, about the same person.
+ */
+export const isLinkableMention = (m: Mention): boolean =>
+  // ⚠️ TRIMMED. `Boolean("  ")` is true, so a whitespace id would render as
+  // a link to `/person/%20%20`. The server rejects that shape, which is
+  // precisely why the client must not depend on it having done so — one bad
+  // record should cost a missing link, never a wrong one.
+  Boolean(m.id?.trim()) &&
+  (m.basis === "gazetteer_exact" || m.basis === "coref_resolved");
 
 export interface TaxonomyCategory {
   id: string;

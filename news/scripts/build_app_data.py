@@ -537,6 +537,16 @@ def compact_analysis(rec: dict) -> dict:
         "russia_stance": rec.get("russia_stance"),
         "ai_generated": rec.get("ai_generated"),
         "entities": rec.get("entities"),
+        # ⚠️ The resolved, linkable SIBLING of `entities` — not a replacement.
+        # `entities` stays a dict of plain strings because story clustering
+        # iterates it (see the MENTION_KINDS block in analyze_articles.py).
+        #
+        # ⚠️ ABSENT means "this record predates mentions", which is every one
+        # of the 365 analyses on disk today; an empty list would mean "this
+        # article mentions nobody". The key is therefore OMITTED rather than
+        # defaulted, so no consumer can count a silence as a zero.
+        **({"mentions": rec["mentions"]} if rec.get("mentions") is not None
+           else {}),
         "party_tones": rec.get("party_tones"),
         "topics": rec.get("topics"),
         "quality": rec.get("quality"),

@@ -94,6 +94,66 @@ TONE_LABELS = {"favorable", "unfavorable", "neutral", "mixed"}
 STORY_ACTIONS = {"new_story", "same_story", "none"}
 ENTITY_BUCKETS = ("people", "parties", "institutions", "companies", "places")
 
+# ─── mentions ────────────────────────────────────────────────────────────────
+#
+# ⚠️⚠️ `mentions` IS A SIBLING OF `entities`, NEVER A REPLACEMENT FOR IT, AND
+# NEVER A SIXTH BUCKET INSIDE IT. Merging them breaks two things at once:
+#
+#   1. `validate_analysis` requires every `entities.<bucket>` value to be a
+#      non-empty STRING and rejects any key outside ENTITY_BUCKETS. Objects
+#      under `entities`, or a bucket named "mentions", fails EVERY record in
+#      the corpus on re-validation.
+#   2. `entities` is load-bearing for story CLUSTERING, not for display.
+#      `candidate_stories()` iterates `entry["entities"][k]` and calls
+#      `name.lower()` and `entity_in_text(name, haystack)`. A dict there
+#      raises AttributeError and the clustering that produces every story
+#      stops working.
+#
+# A later step may DERIVE `entities` from `mentions` for the scorer — but only
+# by projecting the surface strings back out, never by changing what the
+# scorer reads. The same warning is repeated at the `entities` validator.
+#
+# `kind` is SINGULAR and is not ENTITY_BUCKETS: a mention is one thing, and
+# reusing the plural bucket names would invite a `mentions` → `entities`
+# merge by making the two look interchangeable.
+MENTION_KINDS = ("person", "party", "institution", "company", "place")
+
+# How the mention came to carry (or not carry) an id.
+#
+# ⚠️⚠️ THERE IS DELIBERATELY NO VALUE MEANING "RESOLVED BY PICKING THE
+# HIGHEST-RANKED CANDIDATE", and one must never be added. Measured over the
+# corpus: 17 names tested against the identity layer matched ZERO exactly, and
+# every one matched ambiguously when folded to first+last — Пеевски 2
+# candidates, Борисов 7, Радев 15, Цветан Василев 21. Corpus-wide 19.2% of
+# first+last keys are shared. Rank-picking is right for Пеевски and wrong for
+# Цветан Василев, and the two are INDISTINGUISHABLE in the output — which is
+# exactly the `aop_expert` rule one dataset over: refuse rather than grade.
+#
+#   gazetteer_exact    a hand-verified roster entry matched a surface form
+#   coref_resolved     a short form resolved to a LONGER FORM IN THE SAME
+#                      DOCUMENT („Пеевски" in ¶4 after „Делян Пеевски" in ¶1).
+#                      ⚠️ Within the document only — never against the roster,
+#                      which is the rank-picking above wearing a different hat.
+#   ambiguous_refused  matched more than one roster entry. KEPT and COUNTED,
+#                      so "we found no link" is never read as "nobody was
+#                      mentioned".
+#   not_in_gazetteer   no roster entry at all — the queue for roster review.
+MENTION_BASES = ("gazetteer_exact", "coref_resolved",
+                 "ambiguous_refused", "not_in_gazetteer")
+
+# Only the first two may carry an id; the last two must not. Enforced by the
+# validator, because a refused mention that shipped an id would be a named
+# individual linked to a person page on the strength of a shared surname.
+MENTION_BASES_WITH_ID = frozenset({"gazetteer_exact", "coref_resolved"})
+
+# What the entity is DOING in the story, which is what decides whether a link
+# is worth rendering. „subject" is what the piece is about; „source" is quoted
+# or cited; „mention" is passing. A passing mention of Борисов in a paragraph
+# about something else is not a reason to put the article on his page.
+MENTION_ROLES = ("subject", "source", "mention")
+
+MENTION_KEYS = frozenset({"kind", "surface", "basis", "id", "role", "candidates"})
+
 STOPWORDS = set(
     """на за от с без до из по и или че със в към при след преди над под обаче също само още все
     тези този тази това онзи онази както който която които ако когато защото може има няма беше ще
@@ -571,6 +631,78 @@ def is_num(v) -> bool:
     return isinstance(v, (int, float)) and not isinstance(v, bool)
 
 
+def validate_mentions(mentions) -> list:
+    """Validate the `mentions` sibling block.
+
+    ⚠️ SEPARATE from the `entities` validator on purpose — see the
+    MENTION_KINDS block. `entities` is a dict of string lists that story
+    clustering iterates; this is a list of objects that the UI links from.
+    One validator covering both would be the merge those comments forbid.
+
+    The rule that matters is the last one: a mention whose basis is a REFUSAL
+    may not carry an id. That is the whole `aop_expert` discipline in one
+    assertion — the failure it prevents is naming a specific individual as the
+    subject of a story on the strength of a shared surname, which no later
+    gate can catch because a wrong link is shape-identical to a right one.
+    """
+    errs = []
+    if not isinstance(mentions, list):
+        return ["mentions: must be a list (omit the key entirely if none)"]
+    for i, m in enumerate(mentions):
+        at = f"mentions[{i}]"
+        if not isinstance(m, dict):
+            errs.append(f"{at}: must be an object")
+            continue
+        unknown = sorted(set(m) - MENTION_KEYS)
+        if unknown:
+            errs.append(f"{at}: unknown keys {unknown} (use {sorted(MENTION_KEYS)})")
+        if m.get("kind") not in MENTION_KINDS:
+            errs.append(f"{at}.kind must be one of {sorted(MENTION_KINDS)}")
+        surface = m.get("surface")
+        if not isinstance(surface, str) or not surface.strip():
+            errs.append(f"{at}.surface: must be the non-empty string AS WRITTEN "
+                        "in the article")
+        basis = m.get("basis")
+        if basis not in MENTION_BASES:
+            errs.append(f"{at}.basis must be one of {sorted(MENTION_BASES)}")
+        if m.get("role") not in MENTION_ROLES:
+            errs.append(f"{at}.role must be one of {sorted(MENTION_ROLES)}")
+        ident = m.get("id")
+        # ⚠️ Two INDEPENDENT questions, deliberately not chained. As one
+        # if/elif the shape check short-circuits the refusal check, so a
+        # `not_in_gazetteer` mention carrying id=123 was reported only as a
+        # malformed id — the record is still rejected, but the message never
+        # names the rule this module exists for, and a regression in the
+        # refusal branch would be invisible whenever the id was also junk.
+        if ident is not None and (not isinstance(ident, str) or not ident.strip()):
+            errs.append(f"{at}.id: must be a non-empty string or null")
+        # ⚠️ The DEFAULT DIRECTION is a refusal: a basis added to
+        # MENTION_BASES but not to MENTION_BASES_WITH_ID may not carry an id.
+        # Written the other way round, a new basis would silently be allowed
+        # to name an individual.
+        if basis in MENTION_BASES_WITH_ID and not ident:
+            errs.append(f"{at}.id: required when basis is {basis!r} — a "
+                        "resolution with nothing to link to is not a resolution")
+        elif basis in MENTION_BASES and basis not in MENTION_BASES_WITH_ID and ident:
+            # ⚠️ THE assertion this validator exists for.
+            errs.append(f"{at}.id: must be null when basis is {basis!r} — "
+                        "a refused match may not name an individual")
+        cands = m.get("candidates")
+        if cands is not None and (not isinstance(cands, list) or not all(
+                isinstance(c, str) and c.strip() for c in cands)):
+            errs.append(f"{at}.candidates: must be a list of non-empty strings")
+        elif basis == "ambiguous_refused" and len(cands or ()) < 2:
+            # ⚠️ REQUIRED on this basis, not merely validated when present.
+            # Gated on `is not None`, omitting the key passed while `[]` and
+            # `["one"]` were both rejected — so the rule was bypassable by
+            # leaving it out, which is what a generator does by default.
+            # „ambiguous" is a claim about a set, and the set is the evidence.
+            errs.append(f"{at}.candidates: {basis!r} requires at least two — "
+                        "one candidate is not an ambiguity, and none is not "
+                        "evidence of one")
+    return errs
+
+
 def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
     errs = []
     if not isinstance(a, dict):
@@ -627,6 +759,10 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
     elif not isinstance(ai.get("signals"), list) or not all(isinstance(s, str) for s in ai["signals"]):
         errs.append("ai_generated.signals must be a list of strings")
 
+    # ⚠️ STRINGS, and it stays that way — see the MENTION_KINDS block above.
+    # `entities` feeds story clustering (candidate_stories calls .lower() on
+    # each value); `mentions` below is the resolved, linkable sibling. They are
+    # validated separately on purpose and must never be merged.
     ent = a.get("entities")
     if not isinstance(ent, dict):
         errs.append("entities: missing block")
@@ -637,6 +773,14 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
         for k in ent:
             if k not in ENTITY_BUCKETS:
                 errs.append(f"entities.{k}: unknown bucket (use {ENTITY_BUCKETS})")
+
+    # ⚠️ OPTIONAL, and absent is not empty. Every one of the 365 analyses on
+    # disk predates this block; treating a missing `mentions` as "this article
+    # mentions nobody" would publish that claim about the whole corpus. A
+    # record either carries the block or is silent about mentions, and only
+    # the first can be counted.
+    if "mentions" in a:
+        errs.extend(validate_mentions(a["mentions"]))
 
     tones = a.get("party_tones")
     if not isinstance(tones, list):

@@ -1162,6 +1162,61 @@ class TopicDistributions(BuildAppDataFixture):
                         row["primary_count"], 0,
                         f"{row['id']} has positions but no primary articles")
 
+    def test_an_empty_mentions_list_survives_the_bundle(self):
+        # ⚠️ THE distinction, and it was untested: `compact_analysis` uses
+        # `is not None`, and a truthiness check there survived all 64 tests
+        # while silently deleting every empty list. `[]` means the extractor
+        # RAN and found nobody; absent means the record predates extraction.
+        # Collapsing them publishes „this article mentions nobody" about all
+        # 365 analyses on disk.
+        self.write_corpus("ex.bg", "20260822-a1-abc.json",
+                          corpus_article("ex.bg", "20260822-a1-abc.json",
+                                         "https://ex.bg/a/1", "Заглавие",
+                                         "2026-08-22T00:00:00+00:00"))
+        rec = self.analysis_record("https://ex.bg/a/1", "ex.bg",
+                                   "ex.bg/20260822-a1-abc.json")
+        rec["mentions"] = []
+        self.write_analysis("ex.bg", "20260822-a1-abc.json", rec)
+        self.run_build()
+        got = self.load("articles/ex.bg.json")["articles"][0]["analysis"]
+        self.assertIn("mentions", got)
+        self.assertEqual(got["mentions"], [])
+
+    def test_an_absent_mentions_key_stays_absent(self):
+        self.write_corpus("ex.bg", "20260822-a1-abc.json",
+                          corpus_article("ex.bg", "20260822-a1-abc.json",
+                                         "https://ex.bg/a/1", "Заглавие",
+                                         "2026-08-22T00:00:00+00:00"))
+        self.write_analysis("ex.bg", "20260822-a1-abc.json",
+                            self.analysis_record("https://ex.bg/a/1", "ex.bg",
+                                                 "ex.bg/20260822-a1-abc.json"))
+        self.run_build()
+        got = self.load("articles/ex.bg.json")["articles"][0]["analysis"]
+        self.assertNotIn("mentions", got)
+
+    def test_a_resolved_mention_reaches_the_bundle_intact(self):
+        self.write_corpus("ex.bg", "20260822-a1-abc.json",
+                          corpus_article("ex.bg", "20260822-a1-abc.json",
+                                         "https://ex.bg/a/1", "Заглавие",
+                                         "2026-08-22T00:00:00+00:00"))
+        rec = self.analysis_record("https://ex.bg/a/1", "ex.bg",
+                                   "ex.bg/20260822-a1-abc.json")
+        rec["mentions"] = [
+            {"kind": "person", "surface": "Делян Пеевски",
+             "basis": "gazetteer_exact", "id": "dp-1", "role": "subject"},
+            {"kind": "person", "surface": "Василев",
+             "basis": "ambiguous_refused", "id": None, "role": "mention",
+             "candidates": ["a", "b"]},
+        ]
+        self.write_analysis("ex.bg", "20260822-a1-abc.json", rec)
+        self.run_build()
+        got = self.load("articles/ex.bg.json")["articles"][0]["analysis"]["mentions"]
+        # ⚠️ The refused one is CARRIED, not filtered out at the boundary —
+        # "we found no link" and "nobody was mentioned" are different claims.
+        self.assertEqual(len(got), 2)
+        self.assertIsNone(got[1]["id"])
+        self.assertEqual(got[1]["candidates"], ["a", "b"])
+
     def test_a_topic_nobody_wrote_about_is_empty_not_absent(self):
         # An untouched category must still carry the keys, with n=0 — a
         # missing key and "nobody took a position" are different, and a

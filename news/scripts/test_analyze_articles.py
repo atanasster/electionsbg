@@ -18,6 +18,8 @@ import sys
 import tempfile
 import unittest
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 SCRIPT = os.path.abspath(os.path.join(os.path.dirname(__file__), "analyze_articles.py"))
 
 TAXONOMY = {
@@ -573,6 +575,193 @@ class TestCliContract(FixtureTestCase):
         code, out, _ = self.run_cli()
         self.assertEqual(code, 3)
         self.assertEqual(out["error"], "bad_arguments")
+
+
+class Mentions(FixtureTestCase):
+    """The `mentions` sibling block.
+
+    ⚠️ The rule every test here defends is ONE rule: a mention that could not
+    be resolved must not carry an id. Bulgarian newsrooms write two-part names
+    and the identity layer stores three, so of 17 corpus names tested ZERO
+    matched exactly and every one matched ambiguously when folded — Борисов 7
+    candidates, Радев 15, Цветан Василев 21. Rank-picking would be right for
+    one and wrong for another, and a wrong link is SHAPE-IDENTICAL to a right
+    one, so no downstream gate can catch it.
+    """
+
+    def mention(self, **over):
+        m = {"kind": "person", "surface": "Делян Пеевски",
+             "basis": "gazetteer_exact", "id": "delyan-peevski-ab12cd",
+             "role": "subject"}
+        m.update(over)
+        return m
+
+    def save_with(self, mentions, expect=0):
+        return self.save(analysis(self.analysis_path("a1"), "https://test.bg/alpha",
+                                  "test.bg", extra={"mentions": mentions}),
+                         expect=expect)
+
+    def saved(self):
+        d = os.path.join(self.root, "news", "data", "analysis", "articles", "test.bg")
+        with open(os.path.join(d, os.listdir(d)[0]), encoding="utf-8") as fh:
+            return json.load(fh)
+
+    def test_a_resolved_mention_is_stored(self):
+        self.save_with([self.mention()])
+        got = self.saved()["mentions"]
+        self.assertEqual(len(got), 1)
+        self.assertEqual(got[0]["id"], "delyan-peevski-ab12cd")
+        self.assertEqual(got[0]["surface"], "Делян Пеевски")
+
+    def test_a_refused_mention_may_not_carry_an_id(self):
+        # ⚠️⚠️ THE assertion. An id here links a story to a specific named
+        # individual on the strength of a shared surname.
+        for basis in ("ambiguous_refused", "not_in_gazetteer"):
+            with self.subTest(basis=basis):
+                out = self.save_with(
+                    [self.mention(basis=basis, id="tsvetan-vasilev-1",
+                                  candidates=["a", "b"])],
+                    expect=3)
+                self.assertTrue(
+                    any("must be null" in e for r in out["failed"]
+                        for e in r["errors"]), out)
+
+    def test_a_refused_mention_is_KEPT_not_dropped(self):
+        # „we found no link" and „nobody was mentioned" are different claims,
+        # and only the first is true of a refusal.
+        self.save_with([self.mention(basis="ambiguous_refused", id=None,
+                                     candidates=["Цветан Василев (1)",
+                                                 "Цветан Василев (2)"]),
+                        self.mention(basis="not_in_gazetteer", id=None,
+                                     surface="Неизвестен Човек")])
+        got = self.saved()["mentions"]
+        self.assertEqual(len(got), 2)
+        self.assertEqual([m["basis"] for m in got],
+                         ["ambiguous_refused", "not_in_gazetteer"])
+
+    def test_a_resolution_with_nothing_to_link_to_is_refused(self):
+        out = self.save_with([self.mention(id=None)], expect=3)
+        self.assertTrue(any("id: required" in e for r in out["failed"]
+                            for e in r["errors"]), out)
+
+    def test_one_candidate_is_not_an_ambiguity(self):
+        out = self.save_with([self.mention(basis="ambiguous_refused", id=None,
+                                           candidates=["only-one"])], expect=3)
+        self.assertTrue(any("at least two" in e for r in out["failed"]
+                            for e in r["errors"]), out)
+
+    def test_the_vocabularies_are_closed(self):
+        for field, bad in (("kind", "politician"), ("basis", "best_match"),
+                           ("role", "protagonist")):
+            with self.subTest(field=field):
+                out = self.save_with([self.mention(**{field: bad})], expect=3)
+                self.assertTrue(any(f".{field}" in e for r in out["failed"]
+                                    for e in r["errors"]), out)
+
+    def test_there_is_no_rank_picking_basis(self):
+        # ⚠️ A guard against the fix somebody will reach for the first time
+        # this refuses a name they can see is right. Adding a basis meaning
+        # "highest-ranked candidate" re-introduces the whole defect, and it
+        # would pass every other test in this file.
+        import analyze_articles as m
+        for banned in ("best_match", "highest_ranked", "top_candidate",
+                       "fuzzy", "inferred", "probable", "guessed"):
+            self.assertNotIn(banned, m.MENTION_BASES)
+        self.assertEqual(set(m.MENTION_BASES) - set(m.MENTION_BASES_WITH_ID),
+                         {"ambiguous_refused", "not_in_gazetteer"})
+
+    def test_the_surface_string_is_required(self):
+        # ⚠️ The load-bearing one, and it was untested: deleting the check
+        # left every other test green. `surface` is the string AS WRITTEN in
+        # the article — it is what a reader sees, what a roster reviewer
+        # judges, and the only thing tying a refused mention to anything at
+        # all. A mention without it is an id and a shrug.
+        for bad in (None, "", "   ", 42, ["Пеевски"]):
+            with self.subTest(surface=bad):
+                out = self.save_with([self.mention(surface=bad)], expect=3)
+                self.assertTrue(any(".surface" in e for r in out["failed"]
+                                    for e in r["errors"]), out)
+
+    def test_a_mention_must_be_an_object(self):
+        out = self.save_with(["Делян Пеевски"], expect=3)
+        self.assertTrue(any("must be an object" in e for r in out["failed"]
+                            for e in r["errors"]), out)
+
+    def test_the_block_must_be_a_list(self):
+        # ⚠️ A dict here would be the `entities` shape, i.e. exactly the merge
+        # the two blocks exist to prevent — so it has to fail loudly rather
+        # than being iterated as keys.
+        out = self.save_with({"people": ["Пеевски"]}, expect=3)
+        self.assertTrue(any("must be a list" in e for r in out["failed"]
+                            for e in r["errors"]), out)
+
+    def test_candidates_must_be_strings(self):
+        out = self.save_with([self.mention(basis="ambiguous_refused", id=None,
+                                           candidates=[{"slug": "a"}, "b"])],
+                             expect=3)
+        self.assertTrue(any(".candidates" in e for r in out["failed"]
+                            for e in r["errors"]), out)
+
+    def test_ambiguity_cannot_be_claimed_by_omission(self):
+        # ⚠️ Gated on `is not None`, OMITTING the key passed while `[]` and
+        # `["one"]` were both rejected — so the ≥2 rule was bypassable by
+        # leaving it out, which is what a generator does by default.
+        for cands in (None, [], ["only-one"]):
+            with self.subTest(candidates=cands):
+                m = self.mention(basis="ambiguous_refused", id=None)
+                if cands is not None:
+                    m["candidates"] = cands
+                out = self.save_with([m], expect=3)
+                self.assertTrue(any("at least two" in e for r in out["failed"]
+                                    for e in r["errors"]), out)
+
+    def test_a_refusal_names_the_rule_it_broke(self):
+        # ⚠️ The three id checks were one if/elif chain, so a malformed id
+        # short-circuited the refusal check: a not_in_gazetteer mention with
+        # id=123 was reported only as "must be a non-empty string", never as
+        # "may not name an individual". The record was still rejected — but a
+        # regression in the branch this module exists for would be invisible
+        # whenever the id happened to be junk too.
+        out = self.save_with([self.mention(basis="not_in_gazetteer", id=123)],
+                             expect=3)
+        msgs = [e for r in out["failed"] for e in r["errors"]]
+        self.assertTrue(any("must be null" in e for e in msgs), msgs)
+
+    def test_an_unknown_key_is_refused(self):
+        out = self.save_with([self.mention(confidence=0.9)], expect=3)
+        self.assertTrue(any("unknown keys" in e for r in out["failed"]
+                            for e in r["errors"]), out)
+
+    def test_the_block_is_optional_and_absent_is_not_empty(self):
+        # ⚠️ Every one of the 365 analyses on disk predates this block. A
+        # validator requiring it would reject the whole corpus; a builder
+        # defaulting it to [] would publish „mentions nobody" about all of it.
+        self.save(analysis(self.analysis_path("a1"), "https://test.bg/alpha",
+                           "test.bg"))
+        self.assertNotIn("mentions", self.saved())
+
+    def test_entities_still_takes_only_strings(self):
+        # ⚠️ The merge these two blocks exist to prevent. `entities` feeds
+        # story clustering, which calls .lower() on each value — an object
+        # there raises AttributeError and every story stops being built.
+        out = self.save(
+            analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg",
+                     extra={"entities": {"people": [{"surface": "Пеевски"}],
+                                         "parties": [], "institutions": [],
+                                         "companies": [], "places": []}}),
+            expect=3)
+        self.assertTrue(any("entities.people" in e for r in out["failed"]
+                            for e in r["errors"]), out)
+
+    def test_mentions_is_not_accepted_as_a_sixth_entity_bucket(self):
+        out = self.save(
+            analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg",
+                     extra={"entities": {"people": [], "parties": [],
+                                         "institutions": [], "companies": [],
+                                         "places": [], "mentions": []}}),
+            expect=3)
+        self.assertTrue(any("unknown bucket" in e for r in out["failed"]
+                            for e in r["errors"]), out)
 
 
 if __name__ == "__main__":
