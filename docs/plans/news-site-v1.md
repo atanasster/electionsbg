@@ -1,8 +1,9 @@
 # News site v1 — from intake to a publishable product
 
-**Status:** open. Tiers 0–3 are unbuilt; the intake audit's F1–F9 are shipped.
-**Written:** 2026-08-26. Every figure below was re-measured against `news/data` on that date
-unless a source is named.
+**Status:** open. Tiers 0–5 are unbuilt; the intake audit's F1–F9 are shipped.
+**Written:** 2026-08-26. **Gap-audited the same day** — §7 records what the first draft missed
+and where each correction landed. Every figure was re-measured against `news/data` unless a
+source is named.
 
 ---
 
@@ -31,11 +32,12 @@ resolver, the local-model runner, and the evaluation harness. Those are Tiers 2�
 `title` 100% · `description` 99% · `content` 98% · `published` 87% · `site_name` 81% ·
 `author` 65% · `keywords` 55% · `topic` 43%. Median body 1,697 characters.
 
-**The app today.** `newsapp/` has 7 routes. Four screens are built — Home (342 lines),
-Story (435), Outlet (230), Outlets (192). **Three are 8-line placeholders**: Article,
-Topics, Methodology. `newsapp/IDEAS.md` does not exist and never has — `git log --all
---diff-filter=A -- '*IDEAS*'` returns nothing — so there is no prior idea list to verify
-against; this document takes its place.
+**The app today.** `newsapp/` has 7 routes on its own Firebase target (`news`, `dist-news`,
+`news.electionsbg.com`). Four screens are built — Home (342 lines), Story (435),
+Outlet (230), Outlets (192). **Three are 8-line placeholders**: Article, Topics, Methodology.
+`newsapp/IDEAS.md` does not exist and never has — `git log --all --diff-filter=A -- '*IDEAS*'`
+returns nothing — so there is no prior idea list to verify against; this document takes its
+place.
 
 ---
 
@@ -90,6 +92,15 @@ Availability surveyed over **261 cached pages across 13 domains** in `news/data/
 | `tags` | `meta article:tag` (repeated) | 42% | 3/13 |
 | `image_alt` | `og:image:alt` | 5% | 3/13 |
 
+⚠️ **The 98% is availability of a per-article image, not of a usable lead photo.** Verified
+that no domain reuses one image site-wide (0 of 255 images sit on a domain whose distinct-image
+ratio is below 0.8), so these really are per-article — but two shapes in the sample are not
+what the grid wants: **dariknews.bg** serves a branding *redirector*
+(`mm.netinfo.bg/branding/dbrand.php?p=<base64>`) rather than a stable image URL, and
+**e-vestnik.bg** serves the *author's portrait* (`portreti_avtori/…`) rather than the article
+photo. Neither is detectable from the URL alone. Treat the field as best-effort and design
+the grid to survive a wrong or missing image (T0.6).
+
 Deliberately **not** imported, with the reason recorded so nobody re-proposes them:
 
 - `author_url` — 2%, 3 domains. Too sparse to build a byline page on.
@@ -98,7 +109,7 @@ Deliberately **not** imported, with the reason recorded so nobody re-proposes th
 - `word_count` — 41% and only 2 domains, against `content_chars` at 100%. Importing a
   worse copy of a field we already compute is a second answer to one question.
 
-Three rules for this step:
+Four rules for this step:
 
 - **`image` must be absolutised and validated** against the article's own origin before
   storage. A relative or protocol-relative URL (`//m.netinfo.bg/...`, seen on dariknews.bg)
@@ -110,26 +121,53 @@ Three rules for this step:
 - **`canonical` does not replace `canonical_url()`.** The site-declared canonical is a
   *claim*; our normalisation is the identity we key on. Store both — a disagreement between
   them is a signal (syndication, a redirect chain), not an error.
+- **Every new field needs a fixture expectation.** `news/scripts/tests/fixtures/` holds 18
+  frozen pages and `expectations.json` pins what the extractor must produce from each; a new
+  field with no expectation is a field with no gate, and the 196-test suite would stay green
+  through a total regression of it. Extend `expectations.json` in the same commit — that
+  file is the reason F1/F2 could be fixed at all.
 
 `--reextract` is what makes this reach the corpus without re-fetching. It only covers the
 **13 domains with a cached HTML tree (261 pages)**; the other 42 domains acquire the new
-fields as they are re-crawled. That partial state must be visible, not silent — see T0.4.
+fields as they are re-crawled. That partial state must be visible, not silent — the
+`--intake-report` arm should carry per-field fill so "42 domains have no image yet" is a
+number on a report rather than a hole somebody notices in the UI.
 
 ### T0.2 — `outlet_logo` belongs to the outlet, not the article
 
 JSON-LD `Organization.logo` is present on 97% of pages / 11 of 13 domains — but it is a
 **per-outlet constant**. Scraping it 4,366 times gives 4,366 chances to disagree with
 itself. Resolve it once per domain into a new `logo_url_aug2026` column on
-`news/data/bg_news_sites.csv`, written by `update-news-sites`, with a `<link rel="icon">`
-fallback (62% / 12 domains) and a two-letter monogram as the final fallback so row heights
-never reflow.
+`news/data/bg_news_sites.csv`, with a `<link rel="icon">` fallback (62% / 12 domains) and a
+two-letter monogram as the final fallback so row heights never reflow.
 
-### T0.3 — carry the fields through the bundle
+Two things the first draft got wrong here:
+
+- **`update-news-sites` is a deliberately manual skill** ("registry changes want a human", per
+  the intake audit). So the logo column needs a *separate* one-shot resolver script that
+  proposes values for review — not a silent write inside the manual skill.
+- **The column must exist in `retired_sites.csv` too, or degrade.** `build_app_data.py` has a
+  second loop for domains with data but no CSV row, and every retired outlet lands there. Give
+  that branch `logo: null` explicitly and let the monogram fallback carry it, rather than
+  leaving the key absent and letting the app read `undefined`.
+
+### T0.3 — carry the fields through the bundle, within a stated budget
 
 `build_app_data.py` currently emits `id, domain, title, url, published, author, topic,
 keywords, excerpt, content_chars, story_id, analysis?`. Add `image`, `image_alt`,
 `updated`, `section_path`, `language`; add `logo` to each outlet record. Extend
 `newsapp/app/data.ts`'s `ArticleRecord` to match.
+
+⚠️ **This has a measured payload cost the first draft did not state.** `latest.json` is
+**763 KB raw / 179 KB gzip for 600 records**, and every page in the app downloads it.
+Simulating the five new fields onto those records: **955 KB raw (+25%), 188 KB gzip (+5%)**.
+Gzip absorbs most of it because the values repeat, but raw parse cost does not compress.
+Two rules follow:
+
+- **`section_path` and `image_alt` do not belong in `latest.json`.** They are read on the
+  article page only. Put them in the per-article file, not the feed.
+- **Set the budget before the edit, not after.** `latest.json` gzip is the number to watch;
+  if it passes ~220 KB the feed needs paginating rather than widening.
 
 Note `excerpt` is **already** the imported `description` (99% fill), routed through
 `excerpt_of()`. The "short description" the brief asked for is present and simply renamed
@@ -148,6 +186,11 @@ on the way into the app — no ingest work needed, only the rename made visible 
 - **`ownership`** — a registry column (owner, category, source URL, checked-on date),
   hand-entered against the Commerce Registry. Ground News's eight categories are a
   reasonable starting vocabulary. **Never inferred.**
+  ⚠️ The Commerce Registry records the **registered** owner, which in Bulgarian media is
+  frequently a holding company or an offshore vehicle rather than the person in control. The
+  column therefore publishes *what the register says on a stated date*, phrased as such, and
+  must never be captioned as beneficial ownership — that is a claim about named people this
+  corpus cannot support.
 
 ### T0.5 — the three future-dated records
 
@@ -159,9 +202,69 @@ wrong. Fix: a one-off sweep that re-runs `normalize_date()` over stored `publish
 and demotes a refusal to `null` (the record keeps its `fetched_at` ordering), plus a
 `--intake-report` arm that counts future-dated records so this cannot silently recur.
 
+**Leave the filenames alone.** `article_filename()` keys the stored name on the published
+date, so these three keep names beginning `20261013-`, `20260911-`, `20261006-` after the
+value is nulled. Renaming them would orphan their analysis sidecars, which are keyed on the
+corpus path. The mismatch is cosmetic and the record is the source of truth.
+
+### T0.6 — images: how they are served, and the credit they carry ⚠️ NEW
+
+An article photo is somebody else's copyrighted work, and the first draft was silent on both
+how we serve it and what we say about it. **Measured**, requesting each domain's `og:image`
+with our own bot UA and a `news.electionsbg.com` referer:
+
+| result | domains |
+| --- | --- |
+| serves normally (`206`/`200`) | **10 of 13** — 168chasa, actualno, dariknews, dir.bg, fakti, kmeta, money.bg, podtepeto, segabg, vesti |
+| **`403` on a foreign referer** | **mediapool.bg, novavarna.net** |
+| `404` | e-vestnik.bg (on the sampled URL) |
+
+So hotlinking works for roughly three quarters of outlets and **fails silently for the rest**
+— a broken image in the grid, with nothing red anywhere.
+
+**Decisions:**
+
+- **Hotlink; do not copy.** Serving the outlet's own URL makes no reproduction, sends them
+  the request, and means a photo they take down disappears here too. Copying to our bucket
+  would be a reproduction needing a licence we do not have, and would freeze a photo past
+  the point the outlet withdrew it.
+- **Every image renders a visible credit — this is a requirement, not an option.** The
+  home-page grid, the outlet list and the article page all show `© <Outlet>` beneath or
+  overlaid on the image, and the credit is a **link to the source article**, not to our own
+  page. The outlet name comes from the registry (`outlet`), falling back to `site_name`, then
+  the domain. No image is ever rendered without one.
+- **A four-step fallback ladder, because 3 of 13 will fail.** (1) the outlet's image;
+  (2) on load error, the outlet's logo tile on a muted ground; (3) with no logo, the
+  two-letter monogram; (4) the card lays out identically in all four cases so nothing
+  reflows. Implement the error transition in the component (`onError`), because the failure
+  is per-request and per-referer and cannot be predicted at build time.
+- **Record the outlets that refuse.** A `hotlink_ok_aug2026` column on the registry, filled
+  by the same probe used above, lets the grid skip straight to the logo tile for
+  mediapool.bg rather than requesting an image that will 403. Re-probed whenever the registry
+  is refreshed; a `403` is a policy signal, and skipping the request is the polite response
+  to it.
+- **`referrerPolicy="no-referrer-when-downgrade"`, never `no-referrer`.** Stripping the
+  referer would hide from the outlet that the traffic is ours, which is the opposite of what
+  an attribution-carrying link is for.
+- **The `<img>` carries `alt`** from `image_alt` where present (5%), else the article title.
+  `loading="lazy"` and an explicit aspect ratio on every card, so a 600-item feed does not
+  fetch 600 photos and nothing shifts as they arrive.
+
+`/methodology` gains one line under „Кое НЕ правим": we do not host or re-host photographs;
+each image is served by its publisher and credited to them.
+
+### T0.7 — stamp the site changelog
+
+`data/data-changes.json` is the site-wide per-skill feed behind `/data/updates`, written by
+`process-watch-report`. It has entries for `update-persons`, `update-nzok` and the rest —
+**and nothing for news**. A nightly intake that never appears in the update feed is invisible
+to the one surface that exists to say what moved. The news skills should stamp it like every
+other source. (The PG `recent_updates` half of the two-changelog convention does **not**
+apply — the news corpus is static JSON, not a Postgres table.)
+
 ---
 
-## Tier 1 — the three unbuilt screens
+## Tier 1 — the three unbuilt screens, and the SEO they all need
 
 Full mockups, per-screen rationale and the measured field table are in the design brief
 artifact (published 2026-08-26). The decisions that must survive implementation:
@@ -175,9 +278,9 @@ The page that makes the rest publishable. Five blocks:
    articles carry no publication date.
 2. The two axes, each with its five-step legend rendered from the *same* `labels.ts` META
    the cards use, so the explanation cannot drift from the thing it explains.
-3. **„Кое НЕ правим"** — four refusals, each enforced in code today: no truth/falsity
+3. **„Кое НЕ правим"** — five refusals, each enforced in code today: no truth/falsity
    verdict; no single outlet score; no link on an ambiguous name; no CAPTCHA solving and no
-   fake browser identity.
+   fake browser identity; **no hosting or re-hosting of photographs** (T0.6).
 4. Collection: the two tiers, robots.txt honouring, the retirement rules.
 5. **Model accuracy — shipped empty, saying „предстои".** Until Tier 4 exists, a blank that
    says so is the honest content; a placeholder implying a number is worse.
@@ -193,6 +296,8 @@ outlet's specific piece of work.
 - **The outbound link is a card, not a footnote.** We publish a reading; the outlet
   publishes the article. That is both the ethical position and what keeps outlets tolerant
   of being measured.
+- **The lead image carries its credit** (T0.6) — here at full width, so the credit line is
+  unmissable.
 - **A refused mention is rendered** — „Радев · 15 възможни, без връзка" — carrying over the
   `aop_expert` rule verbatim. Dropping it silently reads as "nobody was mentioned".
 - **Framing comparison is three real headlines**, with the spectrum bar above as the index.
@@ -227,6 +332,37 @@ That definition is part of T1.3, not a follow-up.
   to the articles that produced it.
 - **Never a single trust score** — three separate meters with the corpus mean beside each.
 
+### T1.5 — prerender + a real sitemap ⚠️ NEW, and it affects screens already shipped
+
+The first draft filed this as an open question scoped to `/article`. It is larger than that
+and it is already live:
+
+`vite.config.news.ts` writes a **four-URL sitemap** — `/`, `/outlets`, `/topics`,
+`/methodology` — and the app is a plain SPA with a single catch-all rewrite. So **every
+`/story/:id` and every `/outlet/:domain` currently serves the SPA shell's `<title>`,
+description and canonical**, i.e. to a crawler all 86 story pages and all 55 outlet pages
+are duplicates of the homepage. That is precisely the shape CLAUDE.md documents for
+`/funds/contract/**` and `/company/**` on the main site, and the reason those two families
+are function-served.
+
+Tier 1 makes it worse by adding `/article/**` (potentially 4,366 URLs) and `/topics/**`.
+
+The options, in the order they should be considered:
+
+1. **Prerender the finite families** — `/outlet/:domain` (55) and `/topics` subcategories
+   (~103) are small and static between builds. Cheapest correct fix.
+2. **Prerender stories** (86 today, growing) — same mechanism, needs a growth check.
+3. **`/article/**` is the one that needs a decision.** 4,366 and growing is the file-count
+   question CLAUDE.md records for the main site (a 453k-file `dist` has failed to deploy);
+   `dist-news` is a separate target and has never been measured against it. Either
+   prerender with a cap (analysed articles only — 365 today), or serve heads from a small
+   function the way `spa_page.js` does.
+4. **The sitemap must be generated from the bundle**, not hard-coded, so a new story cannot
+   be invisible to a crawler by omission.
+
+⚠️ Whatever is chosen, **`<loc>` and prerendered file must agree** — the main site's
+`families.data.test.ts` exists because they once did not.
+
 ---
 
 ## Tier 2 — mentions: the feature that joins news to the rest of the site
@@ -246,8 +382,28 @@ resolution: **refuse rather than grade**. Picking the highest-ranked candidate w
 right for Пеевски and wrong for Цветан Василев, and the two are indistinguishable in the
 output.
 
-**Invert the design.** Resolve first against dictionaries the repo owns; let the model do
-only what a dictionary cannot.
+### ⚠️ T2.0 — `mentions` is a NEW block. `entities` stays exactly as it is.
+
+**The first draft said "extend the analysis record from bare strings to resolved mentions".
+That would break two things at once, and both are silent-ish failures worth spelling out.**
+
+- **`validate_analysis()` hard-rejects it.** It requires every `entities.<bucket>` value to
+  be a *non-empty string* and rejects any key outside `ENTITY_BUCKETS`. Objects under
+  `entities`, or a sixth bucket named `mentions`, fails **every record in the corpus** on
+  re-validation.
+- **`entities` is load-bearing for story clustering, not display.**
+  `story_candidates()` scores each candidate with `ENTITY_BUCKET_WEIGHTS` by iterating
+  `entry["entities"][k]` and calling `name.lower()` and `entity_in_text(name, haystack)`.
+  A dict there raises `AttributeError`, and the clustering that produces all 86 stories
+  stops working.
+
+So: `mentions` is a **sibling key** beside `entities`, `entities` keeps its string
+contract, and `validate_analysis` gains a *separate* validator for the new block. The two
+must never be merged, and the reason belongs in a comment at both sites. A later step may
+*derive* `entities` from `mentions` for the clustering scorer — but only by projecting the
+surface strings back out, never by changing what the scorer reads.
+
+### The rest of the tier
 
 - **T2.1 `build_gazetteer.py`** → `news/data/gazetteer.json`. People: current MPs, cabinet,
   party leaders, oblast-centre mayors, ВСС and constitutional court, sanctions and ДС
@@ -275,6 +431,15 @@ only what a dictionary cannot.
   the main site gains a „в новините" block on `/person/:slug` and `/company/:eik`. This is
   what makes the news corpus worth having *next to* the procurement and declarations layers
   rather than beside them.
+  ⚠️ **That block crosses a hosting boundary.** `/person` and `/company` are served from the
+  main target — the person page from Postgres via `/api/db`, the company page from
+  `spa_page.js`. A static JSON under `news.electionsbg.com` is a *different origin*. Decide
+  the mechanism before building the index: bucket-serve the mention shards under the main
+  site's data origin (simplest, matches how the main site reads static data), or load them
+  into Postgres with a `db:load:news-mentions:pg:cloud` (the convention every migrated family
+  follows, per CLAUDE.md — a JSON→PG family with no `:cloud` loader goes stale on prod with
+  every row count reconciling). Do **not** cross-origin fetch the news target from the main
+  app.
 
 ---
 
@@ -291,16 +456,17 @@ news/prompts/analyze_schema.gbnf    generated from the record schema — a hard 
 news/prompts/taxonomy_compact.json  labels only (~2k tokens, against topics.json's ~11k)
 news/scripts/llm_client.py          OpenAI-compatible POST to localhost; retry, timeout, token cap
 news/scripts/analyze_local.py       --next → prompt → llm → --save-batch, in one loop
-news/scripts/run_nightly.sh         the six stages, in order, with a report
+news/scripts/run_nightly.sh         the seven stages, in order, with a report
 ```
 
 Nightly sequence: **retry** whatever `intake.json` holds → **harvest** (both tiers) →
 **resolve mentions** (deterministic, no model, so it never fails for LLM reasons) →
-**filter** (small model: quality, topics, site relevance — decides what stage 5 may spend
+**filter** (small model: quality, topics, site relevance — decides what the judge may spend
 time on) → **judge** (12B over the `ok ∧ site_relevant` subset only) → **bundle** →
 **report** one JSON line: domains attempted/succeeded/failed, articles saved, thin-body
-rejects, per-domain freshness, LLM records written, validator rejects, every stale-source
-flag. Nobody is watching, so the run has to say what it did.
+rejects, per-domain freshness, per-field fill (T0.1), LLM records written, validator
+rejects, every stale-source flag — **and a stamp into `data/data-changes.json`** (T0.7).
+Nobody is watching, so the run has to say what it did.
 
 **Model.** Gemma 4 12B is the size that fits a 16 GB Mac mini; the repo already evaluates
 `google/gemma-4-31b-it` in `ai/llm/fcEval.cloud.ts`, which is out of reach on that box.
@@ -349,15 +515,40 @@ label distribution is degenerate — `leaning` is `not_applicable` on 90%, `russ
 
 ---
 
+## Tier 5 — the language decision ⚠️ NEW
+
+`newsapp/` is **Bulgarian-only**: no i18n, no `useTranslation`, `Intl` hardcoded to `bg-BG`,
+no `/en` mirror and no `hreflang`. Meanwhile the analysis rubric produces **`summary_en` for
+every record** and `data.ts` types it — so we are paying a model to write English nobody can
+read, and `/methodology` will describe a Bulgarian-language method to a crawler that only
+ever sees one language.
+
+The main site is fully bilingual with `hreflang` and an `/en` root, so the news app is the
+odd one out. This is a decision, not an oversight to fix by default — either:
+
+- **stay BG-only, and stop generating `summary_en`** (saves tokens on every analysis, and
+  removes a field nothing renders); or
+- **mirror the main site**, which means an `/en` route tree, the `hreflang` pair, and the
+  translated UI corpus — and makes `summary_en` the reason the corpus is worth having in
+  English at all.
+
+What must not persist is the current state: producing the English and rendering none of it.
+
+---
+
 ## Sequencing, and why
 
-**T0 → T1.1 → T1.2 → T1.4 → T1.3 → T2 → T3 → T4.**
+**T0 → T1.1 → T1.5 → T1.2 → T1.4 → T1.3 → T2 → T3 → T4**, with T5 decided before T1.1
+(the methodology page is the first thing that would need translating) and T0.6 landing with
+T0.1 (an imported image with no attribution must never render).
 
 - **T0 first** because every screen renders its fields and it is a day's work with a
   measured payoff — the lead image at 98% availability is the difference between a database
   dump and a news page.
 - **T1.1 (`/methodology`) before any other screen** because it is what makes publishing
   judgments about named organisations defensible. It ships with the accuracy card empty.
+- **T1.5 (prerender) before the new screens, not after**, because it is already wrong for
+  two shipped families and every screen added before it is fixed adds URLs to the problem.
 - **T1.3 (`/topics`) last of the screens** because it needs a disagreement metric with a
   defensible definition, and that is a decision, not an implementation.
 - **T2 before T3** because the mention resolver is deterministic and testable, and putting it
@@ -367,6 +558,27 @@ label distribution is degenerate — `leaning` is `not_applicable` on 90%, `russ
   both models on text neither can see — which is exactly why F1/F2 were sequenced ahead of
   it in the intake audit.
 
+---
+
+## 7. What the gap audit found
+
+Recorded so the corrections are not silently absorbed. Each was checked against the code,
+not inferred.
+
+| # | gap in the first draft | where it landed |
+| --- | --- | --- |
+| G1 | "extend entities to resolved mentions" would fail `validate_analysis` on every record **and** break story clustering (`name.lower()` on a dict) — entities are load-bearing, not display | **T2.0**, new |
+| G2 | images: no serving model, no fallback, **no attribution**. Measured 3 of 13 domains refuse a foreign referer | **T0.6**, new |
+| G3 | the news app ships a **4-URL sitemap** and no prerender, so 86 story pages and 55 outlet pages already serve the homepage's head | **T1.5**, promoted from an open question |
+| G4 | `latest.json` is 763 KB / 179 KB gzip and every page loads it; the new fields add **+25% raw**, unbudgeted | **T0.3** |
+| G5 | the app is BG-only while the rubric generates `summary_en` for every record | **Tier 5**, new |
+| G6 | the news corpus never stamps `data/data-changes.json`, so it is absent from `/data/updates` | **T0.7**, new |
+| G7 | new extractor fields with no `expectations.json` entry are fields with no gate | **T0.1**, rule 4 |
+| G8 | `update-news-sites` is manual, and retired outlets have no CSV row to hold a logo | **T0.2** |
+| G9 | nulling a future `published` does not rename the file it is keyed on | **T0.5** |
+| G10 | the Commerce Registry gives the *registered* owner, not the beneficial one | **T0.4** |
+| G11 | the `/person` „в новините" block crosses a hosting boundary and needs a mechanism | **T2.5** |
+
 ## Open questions
 
 1. **The 20-article floor for an outlet spectrum** is proposed, not derived. It should be set
@@ -375,6 +587,6 @@ label distribution is degenerate — `leaning` is `not_applicable` on 90%, `russ
 3. **Ownership vocabulary** — Ground News's eight categories are a starting point, not
    obviously the right partition for Bulgarian media. Needs one pass against the actual
    ownership structures before the column is created.
-4. **Whether `/article/:domain/:id` needs its own prerender.** It is a per-article page over
-   a corpus of thousands, i.e. the `/funds/contract/**` shape — but the news app is a
-   separate Firebase target and the file-count ceiling has not been checked against it.
+4. **Tier 5's language decision** — bilingual, or BG-only and stop paying for `summary_en`.
+5. **`/article/**` prerender vs. a head-serving function** — needs `dist-news`'s file count
+   measured against the Firebase ceiling first.
