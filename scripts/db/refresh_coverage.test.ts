@@ -21,8 +21,10 @@ import {
   REFRESH_EXCLUSIONS,
   REFRESH_GENERATORS,
   TOLERATED_GITIGNORED_INPUTS,
+  UPLOAD_PUBLISHED_ARTIFACTS,
 } from "./refresh_coverage";
 import { isExcluded } from "../bucket_sync_paths";
+import { stripComments } from "../lib/strip_comments";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -732,5 +734,104 @@ test("an IN-CHAIN loader applies the budget DDL, 155 last", () => {
         `${script} applies ${dep} AFTER 155 — the same 42P01, just later in the file`,
       );
     }
+  }
+});
+
+// ── UPLOAD_PUBLISHED_ARTIFACTS ────────────────────────────────────────────────
+//
+// The registry's own header says why it exists. These three arms are the reason
+// it is a registry and not a comment: an entry here is a CLAIM about a publish
+// path, and all three ways that claim can rot are silent from the reader's side.
+//
+// The publisher arm is the load-bearing one. `rebuildDerived`'s upload list is a
+// plain array of basenames; deleting one line stops publishing the artifact and
+// changes nothing else — no type error, no failing build, no row count. That is
+// how two of this repo's blobs already went stale, and the list even carries a
+// comment warning that "a list that names what it does not publish is the shape
+// somebody fixes by removing the guard". This is the gate for the other
+// direction: removing a name that IS still needed.
+
+test("UPLOAD_PUBLISHED_ARTIFACTS names real, committed artifacts", () => {
+  for (const [key, spec] of Object.entries(UPLOAD_PUBLISHED_ARTIFACTS)) {
+    assert.doesNotThrow(
+      () =>
+        execFileSync("git", ["ls-files", "--error-unmatch", spec.artifact], {
+          cwd: ROOT,
+          stdio: "pipe",
+        }),
+      `${key}: declared artifact ${spec.artifact} is not tracked by git — this registry is for COMMITTED artifacts only, because the check byte-compares the working copy against the bucket`,
+    );
+
+    const covered =
+      spec.artifact === `data/${spec.bucketPath}` ||
+      spec.artifact.startsWith(`data/${spec.bucketPath}/`);
+    assert.ok(
+      covered,
+      `${key}: bucketPath "${spec.bucketPath}" does not cover artifact "${spec.artifact}" — syncing it would not publish the file`,
+    );
+
+    // The mirror of the REFRESH_GENERATORS arm: an artifact under a subtree
+    // bucket_sync_paths REFUSES is un-publishable by the command the check
+    // prints, so the honest signal is a red gate rather than "✗ refusing" in a
+    // log nobody reads.
+    assert.equal(
+      isExcluded(spec.bucketPath),
+      null,
+      `${key}: bucket:sync:paths refuses "${spec.bucketPath}", so the publish command db:check-generated prints cannot work`,
+    );
+  }
+});
+
+test("every UPLOAD_PUBLISHED_ARTIFACTS entry is still named by its publisher", () => {
+  for (const [key, spec] of Object.entries(UPLOAD_PUBLISHED_ARTIFACTS)) {
+    const src = stripComments(
+      readFileSync(path.join(ROOT, spec.publisher), "utf8"),
+    );
+    const basename = spec.artifact.split("/").pop()!;
+
+    // ⚠️ SCOPE THIS TO THE UPLOAD LIST, not to the file. A bare
+    // `src.includes('"hub_stats.json"')` is VACUOUS here and was: the same
+    // basename appears at the WRITE site (`writeJson(path.join(DERIVED_DIR,
+    // "hub_stats.json"), …)`) forty lines up, so deleting the artifact from the
+    // upload array left the gate green — verified by mutation 2026-08-27, which
+    // is the only reason this arm looks the way it does. A publisher that writes
+    // an artifact and no longer uploads it is precisely the defect.
+    //
+    // The shape matched is the one every uploader in this repo uses: an array
+    // literal of basenames iterated into an upload call. Comments are stripped
+    // first, so a basename MENTIONED in the prose around the list (the list
+    // carries a comment naming two artifacts it deliberately no longer
+    // publishes) cannot satisfy it either.
+    const lists = [
+      ...src.matchAll(
+        /for\s*\(\s*const\s+\w+\s+of\s*\[([^\]]*)\]\s*\)\s*\{([\s\S]{0,400}?)\}/g,
+      ),
+    ]
+      .filter(([, , body]) => /upload/i.test(body))
+      .map(([, items]) => items);
+
+    assert.ok(
+      lists.length > 0,
+      `${key}: found no upload list in ${spec.publisher} — the registry claims this file publishes the artifact, and the gate cannot see how`,
+    );
+    assert.ok(
+      lists.some((items) => items.includes(`"${basename}"`)),
+      `${key}: ${spec.publisher} still writes "${basename}" but no longer UPLOADS it — the artifact would be regenerated, committed and never published, which is exactly how it went 16 days stale on the bucket. Re-add it to the upload list, or drop this registry entry if the publish path really moved.`,
+    );
+  }
+});
+
+test("the two artifact registries do not overlap", () => {
+  // A path in both would be checked twice and, worse, would claim two different
+  // publish mechanisms — an operator told to run the wrong one gets a green
+  // command and a still-stale bucket.
+  const genPaths = new Set(
+    Object.values(REFRESH_GENERATORS).map((s) => s.artifact),
+  );
+  for (const [key, spec] of Object.entries(UPLOAD_PUBLISHED_ARTIFACTS)) {
+    assert.ok(
+      !genPaths.has(spec.artifact),
+      `${key}: ${spec.artifact} is also in REFRESH_GENERATORS — pick the registry that matches how it is actually published`,
+    );
   }
 });

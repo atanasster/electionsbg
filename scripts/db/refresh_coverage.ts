@@ -212,3 +212,67 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
     bucketPath: "governance/declarations_hub_stats.json",
   },
 };
+
+/**
+ * The OTHER kind of committed, bucket-served blob — the one `REFRESH_GENERATORS`
+ * structurally cannot hold.
+ *
+ * That registry's axis is "a `db:gen-*` script writes a committed artifact FROM
+ * POSTGRES", which is what `db:check-generated` iterates and what
+ * `refresh_coverage.test.ts` proves is chain-built. `parliament/votes/derived/
+ * hub_stats.json` is the same KIND of object — committed, bucket-served, read by
+ * a hub, silently degrading when absent — and meets none of that description: it
+ * is written by `rebuildDerived` from in-memory objects, not from PG, and it is
+ * published by that script's own `--upload` list rather than by a sync the
+ * orchestrator assembles.
+ *
+ * So it was invisible to the check, and it drifted exactly the way the two blobs
+ * that check was written for drifted. Measured 2026-08-27: the bucket copy was
+ * from **11 August** and carried none of `topGroups` / `otherGroups` /
+ * `otherMembers` for any of the nine parliaments — the 2026-08-25 "the head ranks
+ * the groups" commit regenerated and committed it, and nothing uploaded it,
+ * because `rebuildDerived --upload` only runs on a roll-call INGEST and the
+ * change was a code commit. The publish trigger is not the owning skill's
+ * trigger; here it is not even the owning SCRIPT's trigger.
+ *
+ * ⚠️ IT COMPOUNDS, which is why this one is worth a registry of its own rather
+ * than a note. `gen_governance/hub_stats.ts` reads this file FROM DISK as one of
+ * its four siblings, so a stale bucket copy makes `/governance` and `/parliament`
+ * — one click apart — disagree about the same parliament while both are green
+ * locally.
+ *
+ * SCOPE, deliberately narrow. `rebuildDerived` uploads eleven more artifacts and
+ * they are NOT registered here: none is a hub stat blob, they carry per-record
+ * `computedAt` stamps that make a byte compare report drift on every rebuild
+ * regardless of content (verified 2026-08-27 — the whole set differed from the
+ * bucket on `computedAt` alone), and two of them are 8–12 MB, which a check that
+ * runs on every orchestrator pass should not be downloading. The axis here is
+ * "a HUB reads it", the same axis `REFRESH_GENERATORS` uses.
+ */
+export interface UploadPublishedArtifact {
+  /** The committed artifact, repo-relative. Asserted git-tracked. */
+  artifact: string;
+  /** The `bucket:sync:paths` argument that publishes it. */
+  bucketPath: string;
+  /**
+   * The script whose `--upload` list is the ONLY thing that normally publishes
+   * this artifact, repo-relative. The gate reads this file and fails when it no
+   * longer names the artifact — otherwise the entry quietly becomes a claim
+   * about a publish path that has been deleted.
+   */
+  publisher: string;
+  reason: string;
+}
+
+export const UPLOAD_PUBLISHED_ARTIFACTS: Record<
+  string,
+  UploadPublishedArtifact
+> = {
+  "parliament-hub-stats": {
+    artifact: "data/parliament/votes/derived/hub_stats.json",
+    bucketPath: "parliament/votes/derived/hub_stats.json",
+    publisher: "scripts/parliament/derived/index.ts",
+    reason:
+      "the /parliament hub's per-NS figures AND the parliament arm of the /governance hub-of-hubs, which folds this file from disk. Published only by `rebuildDerived --upload`, i.e. only on a roll-call ingest — so any change to its SHAPE that is not accompanied by an ingest never reaches the bucket",
+  },
+};

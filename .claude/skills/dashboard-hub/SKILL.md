@@ -852,7 +852,8 @@ Not optional, and each exists because its absence shipped something:
 | Blob's keys == the shard files present                                                                                       | A hub with tiles and no detail                                                                                         |
 | Every figure recomputed from its declared basis                                                                              | The six-of-six class                                                                                                   |
 | Every written file appears in `--upload`                                                                                     | Green locally, stale on prod                                                                                           |
-| A PG-generated blob is in `REFRESH_GENERATORS` with a `bucketPath`, and the bucket serves those bytes (`db:check-generated`) | The same defect where no `--upload` list exists to check — a committed blob that 404s, or is stale across a key rename |
+| A committed hub blob is in `REFRESH_GENERATORS` (PG-generated) **or** `UPLOAD_PUBLISHED_ARTIFACTS` (published by a script own `--upload` list), and the bucket serves those bytes (`db:check-generated`) | A committed blob that 404s, or is stale across a key rename. ⚠️ Being IN an `--upload` list is not enough — that list only runs on an INGEST, so a blob whose SHAPE changed in a code commit is never published |
+| Cloud SQL runs the same function/view bodies as local (`db:check-cloud`) | „Applied, never loaded“ — a serving fn changed by a code commit, which flips no watcher, so no orchestrator step ever ships it |
 | Calendar days formatted in UTC                                                                                               | Off-by-one dates                                                                                                       |
 | A scoped source returns out-of-scope rows for a query that has them                                                          | Scope silently filtering — invisible, because the page still shows results                                             |
 | Each search group's cap is independent                                                                                       | An in-scope group eating the out-of-scope budget                                                                       |
@@ -972,7 +973,8 @@ ships and its data-driven bands silently render nothing — the fetch 404s, the 
 it from a green build:
 
 ```bash
-npm run db:check-generated     # every PG-generated hub blob, byte-compared against the bucket
+npm run db:check-generated     # every committed hub blob, byte-compared against the bucket
+npm run db:check-cloud         # every serving fn/view: is Cloud SQL on the same body as local?
 ```
 
 **A NEW blob is `MISSING`, not stale, and the check prints its own remedy** — it reports

@@ -151,7 +151,7 @@ refuses to write a partial artifact on failure.
    it. Measured 2026-08-21: the blob had returned **404 for two days** — committed,
    generator in the chain, never uploaded — and `/culture` served its tiles without
    numbers at a 200, because the hook degrades a 404 to „no figure" on purpose.
-   The orchestrator now checks all four such artifacts unconditionally
+   The orchestrator now checks all six such artifacts unconditionally
    (`npm run db:check-generated`, process-watch-report step 8); the sync above
    still covers it whenever this skill runs, which is a second chance, not the
    mechanism.

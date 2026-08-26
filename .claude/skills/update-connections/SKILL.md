@@ -298,7 +298,7 @@ When a new filing season opens (typically May for prior fiscal year):
    npm run bucket:sync:paths -- governance/declarations_hub_stats.json
    ```
 
-   Verify with `npm run db:check-generated`, which byte-compares all four
+   Verify with `npm run db:check-generated`, which byte-compares all six
    `REFRESH_GENERATORS` artifacts (`scripts/db/refresh_coverage.ts`) against the live bucket
    and exits 1 on any that differ. The registry is where a NEW generated artifact declares
    its publish path; do not re-add that knowledge as prose here.

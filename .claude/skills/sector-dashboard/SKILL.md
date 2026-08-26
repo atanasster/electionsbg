@@ -631,7 +631,7 @@ or a full `db:refresh`) **and published**:
 
 ```bash
 npm run bucket:sync:paths -- procurement/derived/sector_stats.json
-npm run db:check-generated     # byte-compares all four against the live bucket
+npm run db:check-generated     # byte-compares all six against the live bucket
 ```
 
 ⚠️ **THE PUBLISH TRIGGER IS NOT THE OWNING SKILL'S TRIGGER, and that is what makes
@@ -673,7 +673,7 @@ Three rules for a NEW generated artifact:
    `-x` regex in `package.json`, which are kept in lockstep by hand.
 3. **Do not restate the publish path in an `update-*` skill.** That is where this
    knowledge lived when it failed. A full `npm run bucket:sync` would also have
-   caught all four (neither `culture/` nor `governance/` is excluded from it) — but
+   caught all of them (neither `culture/` nor `governance/` nor `parliament/votes/derived/` is excluded from it) — but
    nobody runs the ~30-minute full-tree sync day to day, and the scoped
    `bucket:sync:paths` argument list is assembled per skill. That assembly is the
    gap.

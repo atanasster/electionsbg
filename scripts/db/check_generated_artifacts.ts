@@ -11,6 +11,13 @@
 //   · governance/declarations_hub_stats.json  4 days stale, ACROSS a schema
 //     change (companies/companyMps → organisations/organisationPeople), so the
 //     deployed bundle was reading keys the served blob did not carry.
+//   · parliament/votes/derived/hub_stats.json  16 days stale, ACROSS a schema
+//     change (topGroups/otherGroups/otherMembers added), and INVISIBLE to this
+//     check until 2026-08-27 — it is published by rebuildDerived's own --upload
+//     list rather than by a db:gen-* generator, so REFRESH_GENERATORS could not
+//     hold it. That is what UPLOAD_PUBLISHED_ARTIFACTS is for; both registries
+//     are checked here, because the failure is identical from the reader's side
+//     and the operator should not have to know which mechanism publishes what.
 //
 // Neither is visible to a row count, a test or a build: the hubs degrade a 404
 // to „no figure" on purpose, and a stale blob renders confidently.
@@ -27,7 +34,10 @@ import { createHash } from "node:crypto";
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { REFRESH_GENERATORS } from "./refresh_coverage";
+import {
+  REFRESH_GENERATORS,
+  UPLOAD_PUBLISHED_ARTIFACTS,
+} from "./refresh_coverage";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -59,7 +69,7 @@ const check = async (
       verdict: "unbuilt",
       // Not a publish failure: a checkout that never ran the generator has
       // nothing to publish, and uploading would be the wrong move anyway.
-      detail: `${artifact} absent locally — run \`npm run ${gen}\` first`,
+      detail: `${artifact} absent locally — build it first (${gen})`,
     };
   const buf = readFileSync(local);
 
@@ -118,11 +128,17 @@ const check = async (
 
 const main = async () => {
   const quiet = process.argv.includes("--quiet");
-  const rows = await Promise.all(
-    Object.entries(REFRESH_GENERATORS).map(([gen, spec]) =>
+  const rows = await Promise.all([
+    ...Object.entries(REFRESH_GENERATORS).map(([gen, spec]) =>
       check(gen, spec.artifact, spec.bucketPath),
     ),
-  );
+    // Same comparison, different publish mechanism — see the registry's header.
+    // The `gen` column carries the PUBLISHER rather than a generator script, so
+    // the "unbuilt" hint below names something an operator can actually run.
+    ...Object.entries(UPLOAD_PUBLISHED_ARTIFACTS).map(([key, spec]) =>
+      check(`${key} (${spec.publisher})`, spec.artifact, spec.bucketPath),
+    ),
+  ]);
 
   const mark: Record<Verdict, string> = {
     ok: "✓",
@@ -142,7 +158,7 @@ const main = async () => {
   );
   if (!needsPublish.length) {
     console.log(
-      `\nAll ${rows.length} db:refresh-generated artifacts match the bucket.`,
+      `\nAll ${rows.length} committed bucket-served artifacts match the bucket.`,
     );
     return 0;
   }

@@ -687,7 +687,7 @@ first, then re-run the orchestrator.
    npm run db:check-generated
    ```
 
-   Four COMMITTED artifacts are regenerated from Postgres by `db:refresh` and read by the SPA as static GCS blobs — `procurement/derived/hub_stats.json`, `procurement/derived/sector_stats.json`, `culture/derived/hub_stats.json`, `governance/declarations_hub_stats.json`. The registry is `REFRESH_GENERATORS` in `scripts/db/refresh_coverage.ts`; this command reads it, compares each local file's BYTES against the live bucket object, and prints the exact `bucket:sync:paths` line for any that differ. **It never uploads** — emit that line in Next-steps like every other production command (see "What this skill does NOT do"). Exit 1 means something is unpublished.
+   **SIX** COMMITTED artifacts are bucket-served static GCS blobs that a hub reads. FIVE are regenerated from Postgres by `db:refresh` — `procurement/derived/hub_stats.json`, `procurement/derived/sector_stats.json`, `culture/derived/hub_stats.json`, `governance/hub_stats.json`, `governance/declarations_hub_stats.json` — and their registry is `REFRESH_GENERATORS` in `scripts/db/refresh_coverage.ts`. The sixth, `parliament/votes/derived/hub_stats.json`, is written by `rebuildDerived` from in-memory objects and published by that script's own `--upload` list, so `REFRESH_GENERATORS` structurally cannot hold it; its registry is `UPLOAD_PUBLISHED_ARTIFACTS` in the same file. This command reads BOTH, compares each local file's BYTES against the live bucket object, and prints the exact `bucket:sync:paths` line for any that differ. **It never uploads** — emit that line in Next-steps like every other production command (see "What this skill does NOT do"). Exit 1 means something is unpublished.
 
    ⚠️ **THE PUBLISH TRIGGER IS NOT THE OWNING SKILL'S TRIGGER — that decoupling is the whole reason this step exists**, and reasoning about which skill "owns" a path is what failed. `db:gen-culture-hub-stats` reads contracts, tenders, fund_projects, agri_subsidies, person_role and interreg_partners, so it moves when **`db:refresh`** runs (i.e. under `update-procurement`) — while `update-culture`, the skill that owns `data/culture/` and names its sync, is woken only by `nfc_film_register` / `ncf_grant_results` / `nfc_commissions` / `mc_dki_register`. The skill holding the PATH is never woken by the thing that changes the CONTENT, so no per-skill instruction can close this. Run the check unconditionally rather than trying to work out whether it applies.
 
@@ -698,7 +698,31 @@ first, then re-run the orchestrator.
 
    The two that were fine (`procurement/derived/*`) are exactly the two `update-procurement` names explicitly, which is the tell: this was never a hard command to run, it was an unowned one.
 
+   A third, measured 2026-08-27, is why the check now reads two registries:
+
+   - `parliament/votes/derived/hub_stats.json` — **16 days stale, across a SCHEMA change**, and INVISIBLE to this step until then. The 2026-08-25 „the head ranks the groups" commit added `topGroups` / `otherGroups` / `otherMembers`; the bucket copy was from 11 August and carried none of them for any of the nine parliaments. Its only publisher is `rebuildDerived --upload`, which runs on a roll-call INGEST — and the change was a code commit, so nothing ever ran it. Here the publish trigger is not even the owning SCRIPT's trigger. ⚠️ It COMPOUNDS: `gen_governance/hub_stats.ts` folds this file **from disk**, so a stale bucket copy makes `/governance` and `/parliament` — one click apart — disagree about the same parliament while both are green locally.
+
    A full `npm run bucket:sync` would also have caught all four — `culture/` and `governance/` are not in its `-x` exclusions — but nobody runs the ~30-minute full-tree sync day to day; the orchestrator's real path is the scoped `bucket:sync:paths`, whose argument list is assembled per skill. That is the gap.
+
+8b. **Final post-step: verify Cloud SQL is running the same schema objects as local.** After the artifact check, unconditionally run:
+
+   ```bash
+   npm run db:check-cloud
+   ```
+
+   It diffs every public FUNCTION body, VIEW/matview definition and relation between local Postgres and the Cloud SQL proxy, and reports only objects some `schema/pg/*.sql` file still CREATEs — so local scratch tables are classified as scratch and need no allowlist. Read-only; it prints the `apply_functions.ts` line and exits 1.
+
+   ⚠️ **THIS IS THE ONE CLASS STEP 9 STRUCTURALLY CANNOT SEE, which is why it is a separate unconditional step rather than a row in that table.** Step 9 keys its `:cloud` commands on WHICH SKILL RAN, i.e. on a watcher flip in an upstream SOURCE. A serving function, view or index carries no data, so no `db:load:*` ships it and `deploy:db` ships `functions/` code — a different thing from a Postgres function. A migration edited by a **code commit** flips no watcher, so no row of step 9's table ever fires, and prod keeps running the old body indefinitely with every row count reconciling.
+
+   Measured 2026-08-27, on a serving database every other check called healthy — five objects behind, none of them a 500:
+
+   - `budget_hub_stats()` + its cache (156) — **eight fields missing**, all eight read by `budgetHubFigures.ts`, so `/budget`'s KPI band silently fell back to the projected basis and its evidence aside rendered not at all.
+   - `budget_admin_list()` (155) — missing the `node_id` tiebreak. 155's own comment says 156's evidence aside ranks on the same expression and must break ties the same way, so **these two must ship together** or the head and `/budget/ministries` disagree about who is fifth.
+   - `council_councillor_by_slug()` (161) — **absent entirely**; the route degrades to `null`, so the councillor voting record simply never appeared on `/person`.
+   - `person_by_slug()` (082) — missing `linkBasis` on the NGO arm: 5,670 of 5,727 board seats rendered with no basis mark beneath a companies list that marked every row of its own.
+   - `mp_tr_roles()` (150) — pre-correlation body, 7,745 buffers against 867.
+
+   ⚠️ **Do NOT paste the emitted command blind.** Several of these files open with `DROP MATERIALIZED VIEW` and rebuild WITH DATA in one transaction (156), so applying them blocks that matview's readers — off-peak only — and where a LOADER is the documented path because it also REFRESHes, use the loader (156 → `npm run db:load:budget-hub:pg:cloud`). Order matters: a `LANGUAGE sql` body is validated at CREATE, so a file reading another file's object must follow it.
 
 9. **Sync Cloud SQL for the PG-backed datasets that changed.** Most skills write static JSON under `data/` and ship via `bucket:sync` — those need **no** Cloud SQL step. But a few datasets are ALSO served live from Postgres (local Docker **and** Cloud SQL). Each PG-backed skill reloads the LOCAL Postgres tables inside its own run (procurement/tenders/awarder-seats via `update-procurement`'s `db:refresh`; TR + NGO register via `tr-daily-refresh`'s chained `db:load:tr:pg`; NGO funding via `db:load:ngo-funding:pg`; EU funds via `db:load:funds:pg`). Cloud SQL is a **production** target, so — exactly like `bucket:sync` — do NOT auto-run it: instead **emit the matching `db:load:*:cloud` command(s) in the Next-steps output** whenever a PG-backed skill ran this session.
 
