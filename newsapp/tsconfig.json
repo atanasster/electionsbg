@@ -1,7 +1,17 @@
 {
   "extends": "../tsconfig.app.json",
   "compilerOptions": {
-    "types": ["vite/client"]
+    // ⚠️ jest-dom is here, not only in vitest.setup.ts. That setup file
+    // extends `expect` at RUNTIME; the TypeScript augmentation of the
+    // Assertion interface arrives with this types entry, and without it
+    // `toBeInTheDocument` / `toHaveAttribute` are type errors in every
+    // newsapp component test while the tests themselves pass.
+    //
+    // `node` is for the STATIC GATES — imageCredit.test.ts reads the sources
+    // off disk to prove no component renders an uncredited image. App code
+    // cannot quietly start using node APIs behind this: vite would fail the
+    // browser build, which is a louder gate than tsc.
+    "types": ["vite/client", "@testing-library/jest-dom", "node"]
   },
   "include": ["./**/*.ts", "./**/*.tsx"],
   "exclude": ["tests/**"]

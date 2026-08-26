@@ -4,39 +4,74 @@
     {
       "name": "vite-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 5173,
       "autoPort": true
     },
     {
       "name": "vite-preview",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "preview"],
+      "runtimeArgs": [
+        "run",
+        "preview"
+      ],
       "port": 4173
     },
     {
       "name": "ai-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev:ai"],
+      "runtimeArgs": [
+        "run",
+        "dev:ai"
+      ],
       "port": 5180
     },
     {
       "name": "ai-preview",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "preview:ai", "--", "--port", "4180"],
+      "runtimeArgs": [
+        "run",
+        "preview:ai",
+        "--",
+        "--port",
+        "4180"
+      ],
       "port": 4180
     },
     {
       "name": "ai-dev-5181",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev:ai", "--", "--port", "5181"],
+      "runtimeArgs": [
+        "run",
+        "dev:ai",
+        "--",
+        "--port",
+        "5181"
+      ],
       "port": 5181
     },
     {
       "name": "firebase-emulator",
       "runtimeExecutable": "firebase",
-      "runtimeArgs": ["emulators:start", "--only", "hosting"],
+      "runtimeArgs": [
+        "emulators:start",
+        "--only",
+        "hosting"
+      ],
       "port": 5002
+    },
+    {
+      "name": "news-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev:news"
+      ],
+      "port": 5190,
+      "autoPort": true
     }
   ]
 }

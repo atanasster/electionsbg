@@ -23,10 +23,11 @@ import {
   useStories,
   useTaxonomy,
   type ArticleRecord,
+  type Outlet,
   type Story,
 } from "../data";
 import { StoryCard } from "../components/StoryCard";
-import { ArticleRecordRow } from "../components/ArticleRow";
+import { ArticleCard } from "../components/ArticleCard";
 
 const TIMEFRAMES = [
   { days: 0, label: "Всички" },
@@ -119,9 +120,11 @@ export const HomeScreen = () => {
       ),
     [latest.data, category, days, q],
   );
-  const outletNames = useMemo(() => {
-    const map = new Map<string, string>();
-    for (const o of outlets.data?.outlets ?? []) map.set(o.domain, o.outlet);
+  // The whole record, not just the name: the card's image needs the outlet's
+  // logo (the fallback rung) and its hotlink verdict.
+  const outletByDomain = useMemo(() => {
+    const map = new Map<string, Outlet>();
+    for (const o of outlets.data?.outlets ?? []) map.set(o.domain, o);
     return map;
   }, [outlets.data]);
 
@@ -310,14 +313,16 @@ export const HomeScreen = () => {
             ))}
           </div>
         ) : (
-          <Card className="px-4 py-1">
-            {filteredLatest.slice(0, latestLimit).map((article) => (
-              <ArticleRecordRow
-                key={`${article.domain}/${article.id}`}
-                article={article}
-                outletName={outletNames.get(article.domain)}
-              />
-            ))}
+          <>
+            <div className={STORY_GRID}>
+              {filteredLatest.slice(0, latestLimit).map((article) => (
+                <ArticleCard
+                  key={`${article.domain}/${article.id}`}
+                  article={article}
+                  outlet={outletByDomain.get(article.domain)}
+                />
+              ))}
+            </div>
             {filteredLatest.length > latestLimit ? (
               <div className="py-3">
                 <Button
@@ -334,7 +339,7 @@ export const HomeScreen = () => {
                 Няма статии за избраните филтри.
               </p>
             ) : null}
-          </Card>
+          </>
         )}
       </section>
     </div>

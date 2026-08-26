@@ -26,7 +26,13 @@ export default defineConfig({
         test: {
           name: "browser",
           environment: "jsdom",
-          include: ["src/**/*.test.{ts,tsx}"],
+          // newsapp/** is the standalone news app (news.electionsbg.com). It
+          // is React and belongs in jsdom, and it matched NO project until
+          // 2026-08-26 — so a component test placed there would have been
+          // collected by nothing and passed by never running, which is the
+          // exact case the node project's comment block below describes for
+          // vite/**, video/** and news/scripts/**.
+          include: ["src/**/*.test.{ts,tsx}", "newsapp/**/*.test.{ts,tsx}"],
           // jest-dom matchers + Testing Library auto-cleanup.
           setupFiles: ["./vitest.setup.ts"],
         },

@@ -80,6 +80,11 @@ QUALITY_VERDICTS = {
     "non_article",
 }
 LOGO_COLUMN_PREFIX = "logo_url"
+# Whether the outlet's CDN serves an image to OUR referer, from
+# probe_hotlink.py. `false` lets a card skip straight to the logo tile instead
+# of re-requesting a photo the outlet has said it will not serve us — a 403 is
+# a policy signal, and re-asking on every card is both pointless and rude.
+HOTLINK_COLUMN_PREFIX = "hotlink_ok"
 
 # Ownership. Four dated registry columns, ALL HAND-ENTERED — see the block
 # comment in outlets.json's builder for why none of it may be inferred.
@@ -166,6 +171,20 @@ def pick_dated_column(row: dict, prefix: str) -> str | None:
         if got:
             best = got
     return best
+
+
+def tri_state(raw) -> bool | None:
+    """`yes`/`no` from a registry cell, and None for anything else.
+
+    ⚠️ None means NEVER PROBED and is not the same as False. Collapsing them
+    would make an outlet we have not asked look like one that refused, and
+    only a refusal justifies suppressing the request."""
+    got = (raw or "").strip().lower()
+    if got in ("yes", "true", "1"):
+        return True
+    if got in ("no", "false", "0"):
+        return False
+    return None
 
 
 def owner_block(meta: dict) -> dict | None:
@@ -467,6 +486,8 @@ def main() -> int:
                     row, LOGO_COLUMN_PREFIX)
                 for prefix in OWNER_COLUMN_PREFIXES:
                     item[prefix] = pick_dated_column(row, prefix)
+                item[HOTLINK_COLUMN_PREFIX] = pick_dated_column(
+                    row, HOTLINK_COLUMN_PREFIX)
                 domain = item.get("domain")
                 if domain:
                     outlets_csv[domain] = item
@@ -494,6 +515,14 @@ def main() -> int:
                             # got published as somebody's logo.
                             "logo_url": pick_dated_column(
                                 row, LOGO_COLUMN_PREFIX),
+                            # ⚠️ Read here too, or the tri-state collapses
+                            # false -> null for every retired outlet. It did:
+                            # novavarna.net is `no` in the CSV and was `null`
+                            # in the artifact — and it is the outlet retired
+                            # for bot_refused, with image-bearing articles
+                            # still in the feed.
+                            "hotlink_ok": pick_dated_column(
+                                row, HOTLINK_COLUMN_PREFIX),
                         }
         except (OSError, csv.Error, UnicodeDecodeError):
             pass
@@ -763,6 +792,11 @@ def main() -> int:
                 # without it the row asserts a present-tense fact about an
                 # organisation on the strength of an undated lookup.
                 "owner": owner_block(meta),
+                # Tri-state on purpose: true / false / null-never-probed. A
+                # bool would collapse "we asked and they said no" into "we
+                # never asked", and only the first justifies suppressing the
+                # request.
+                "hotlink_ok": tri_state(meta.get(HOTLINK_COLUMN_PREFIX)),
                 "retired": False,
                 "retired_reason": None,
                 "retired_on": None,
@@ -793,6 +827,8 @@ def main() -> int:
                 # different bug from "we have no logo".
                 "logo": (gone or {}).get(LOGO_COLUMN_PREFIX) or None,
                 "owner": None,
+                "hotlink_ok": tri_state(
+                    (gone or {}).get(HOTLINK_COLUMN_PREFIX)),
                 # A retired outlet's articles stay — they were collected in
                 # good faith — but the app must not present it as a live
                 # source, and two of these asked not to be crawled at all.

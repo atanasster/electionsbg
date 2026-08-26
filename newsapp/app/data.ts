@@ -200,6 +200,16 @@ export interface Outlet {
    */
   owner: OutletOwner | null;
   /**
+   * Whether this outlet's CDN serves an image to OUR referer.
+   *
+   * ⚠️ TRI-STATE. `false` means the outlet answered 403 — skip straight to
+   * the logo tile, because re-asking on every card is pointless and rude.
+   * `null` means never probed, and must still be tried: a wrong `false`
+   * permanently suppresses images an outlet is happy to serve, while a wrong
+   * `true` costs one request the onError fallback already handles.
+   */
+  hotlink_ok: boolean | null;
+  /**
    * Removed from the registry. Its articles STAY — they were collected in
    * good faith — but it must not be presented as a live source, and two of
    * these asked not to be crawled at all.
