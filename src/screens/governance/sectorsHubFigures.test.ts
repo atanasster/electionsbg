@@ -10,8 +10,10 @@
 import { describe, expect, it } from "vitest";
 import type { SectorStat } from "@/data/procurement/useSectorStats";
 import { formatEurCompact } from "@/lib/currency";
+import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import {
   SINGLE_SECTOR_BASES,
+  sectorsHubEvidence,
   promotedTiles,
   sectorsHubKpis,
   sectorsKpiNote,
@@ -247,5 +249,129 @@ describe("band ↔ tile, §3.1 rule 5", () => {
     const noPayout = { ...STATS };
     for (const id of ["pension", "health", "agri"]) delete noPayout[id];
     expect(promotedTiles(band(noPayout)).has("pension")).toBe(false);
+  });
+});
+
+describe("the evidence rail", () => {
+  const rail = (st: Record<string, SectorStat> | undefined = STATS) =>
+    sectorsHubEvidence(st, "bg", t, titleOf, hrefOf);
+
+  it("IS the decomposition of the band's first cell", () => {
+    // The strongest property this head has: the rail's rows sum to EXACTLY the figure above
+    // them, because both are the same basis over the same window. If they ever diverge, the
+    // two halves are counting different populations of „sector procurement".
+    //
+    // ⚠️ DERIVED FROM THE RAIL'S OWN ROWS, never from a re-filtered fixture. This clause
+    // recomputed the total straight off STATS with its own copy of the predicate, which is a
+    // statement about the fixture and passes against ANY rail: doubling every rendered value
+    // (`x.value * 2`) left it green, as did deleting `!unavailable` from the band's side.
+    const r = rail()!;
+    expect(r.rows).toHaveLength(4);
+
+    // Each RENDERED value is that sector's own figure — the clause the doubling mutation
+    // has to get past.
+    for (const row of r.rows)
+      expect(row.value, `${row.id} renders the wrong figure`).toBe(
+        formatEurCompact(STATS[row.id!].value, "bg"),
+      );
+
+    // …and the band's cell is the sum over exactly the sectors THE RAIL LISTED — the clause
+    // an `unavailable` slipping into one side but not the other has to get past.
+    const railTotal = r.rows.reduce((a, row) => a + STATS[row.id!].value, 0);
+    expect(railTotal).toBe(PROC_TOTAL);
+    expect(band()[0].value).toBe(formatEurCompact(railTotal, "bg"));
+  });
+
+  it("keeps that identity when a sector drops out of BOTH sides", () => {
+    // The state the clause above is really guarding: `unavailable` must remove a sector from
+    // the rail AND from the band's sum, or the head shows a total its own rows cannot
+    // account for.
+    const stale: Record<string, SectorStat> = {
+      ...STATS,
+      energy: { ...STATS.energy, unavailable: true },
+    };
+    const r = rail(stale)!;
+    expect(r.rows.map((x) => x.id)).not.toContain("energy");
+    const railTotal = r.rows.reduce((a, row) => a + stale[row.id!].value, 0);
+    expect(band(stale)[0].value).toBe(formatEurCompact(railTotal, "bg"));
+    // Non-vacuity: the dropped sector was a real, large part of the total.
+    expect(railTotal).toBeLessThan(PROC_TOTAL);
+  });
+
+  it("ranks descending and links every row", () => {
+    const r = rail()!;
+    expect(r.rows.map((x) => x.id)).toEqual([
+      "energy",
+      "roads",
+      "transport",
+      "water",
+    ]);
+    for (const row of r.rows) expect(String(row.to)).toMatch(/^\/x\//);
+    expect(r.action?.to).toBe("/procurement");
+  });
+
+  it("keys rows on the SECTOR ID, not the translated title", () => {
+    // Titles are translated; two locales can collide on one string and React then reuses the
+    // wrong row.
+    expect(rail()!.rows.map((x) => x.id)).not.toContain("title:energy");
+  });
+
+  it("SAYS the other sectors are absent by MEASURE, not by size", () => {
+    // ⚠️ THE §0 CLAUSE. Four rows on a page showing nineteen reads as „these are the big
+    // ones", and that is false — Пенсии alone is €11.1bn, larger than every row here, and it
+    // is missing because its money never goes to tender. Ranking all nineteen together is
+    // the one thing this hub must never do.
+    expect(STATS.pension.value).toBeGreaterThan(
+      Math.max(
+        ...Object.values(STATS)
+          .filter((x) => x.basis === "procurement")
+          .map((x) => x.value),
+      ),
+    );
+    expect(rail()!.basis).toBe("sectors_evidence_basis");
+    // ⚠️ AND THE SENTENCE ITSELF, because the key alone is satisfied by any copy. This is
+    // the one clause standing between four rows on a nineteen-sector page and „these are
+    // the big ones"; a copy edit that drops it must redden something.
+    const bgText = bgCorpus.sectors_evidence_basis;
+    expect(
+      bgText,
+      "the disclaimer lost the clause that says they are not absent for being small",
+    ).toMatch(/не липсват, защото са малки/);
+    expect(bgText).toMatch(/бюджет|плащания|щат/);
+    expect(enCorpus.sectors_evidence_basis).toMatch(
+      /not missing because they are small/,
+    );
+  });
+
+  it("contains ONLY the procurement basis", () => {
+    // A rail that admitted another basis would be ranking incommensurable things — the exact
+    // thing the band's note exists to forbid.
+    const ids = new Set(rail()!.rows.map((x) => x.id));
+    for (const [id, x] of Object.entries(STATS))
+      if (x.basis !== "procurement")
+        expect(ids.has(id), `${id} (${x.basis}) is in the rail`).toBe(false);
+  });
+
+  it("REFUSES an empty group rather than rendering a blank rail", () => {
+    // On an early `ns:` scope every roster is €0 — the corpus starts in 2011 — and an empty
+    // rail under „кои сектори минават през търг" reads as „none do".
+    const none = { ...STATS };
+    for (const id of ["roads", "water", "transport", "energy"]) delete none[id];
+    expect(rail(none)).toBeUndefined();
+    expect(
+      sectorsHubEvidence(undefined, "bg", t, titleOf, hrefOf),
+    ).toBeUndefined();
+  });
+
+  it("skips an unavailable sector, as the band does", () => {
+    const stale = {
+      ...STATS,
+      energy: { ...STATS.energy, unavailable: true } as SectorStat,
+    };
+    expect(rail(stale)!.rows.map((x) => x.id)).toEqual([
+      "roads",
+      "transport",
+      "water",
+    ]);
   });
 });

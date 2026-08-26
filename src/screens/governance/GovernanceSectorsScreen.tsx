@@ -14,6 +14,7 @@ import { usePreserveParams } from "@/ux/usePreserveParams";
 import { HubHead, TileHubGrid, TileHubSection } from "@/ux/infographic";
 import {
   promotedTiles,
+  sectorsHubEvidence,
   sectorsHubKpis,
   sectorsKpiNote,
 } from "./sectorsHubFigures";
@@ -76,10 +77,25 @@ export const GovernanceSectorsScreen: FC = () => {
       ),
     [stats, i18n.language, period, t, byId],
   );
-  // DERIVED from the cells that rendered — three of the four name whichever sector is
-  // largest on their basis, so the displaced tile is not knowable until the payload is read.
-  const promoted = useMemo(() => promotedTiles(kpis), [kpis]);
-
+  const evidence = useMemo(
+    () =>
+      sectorsHubEvidence(
+        stats,
+        i18n.language,
+        t,
+        (id) => t(byId.get(id)?.titleKey ?? id),
+        (id) => byId.get(id)?.to,
+      ),
+    [stats, i18n.language, t, byId],
+  );
+  // DERIVED from what the head actually rendered — the band's cells AND the aside's rows.
+  // Three of the four cells name whichever sector is largest on their basis, and the rail's
+  // rows are the four procurement tiles' own figures, so neither set is knowable until the
+  // payload is read.
+  const promoted = useMemo(
+    () => promotedTiles(kpis, evidence),
+    [kpis, evidence],
+  );
   const sections: TileHubSection[] = SECTOR_CLUSTERS.map((cluster) => ({
     heading: t(cluster.labelKey),
     tiles: cluster.sectors.map((s) => ({
@@ -130,6 +146,7 @@ export const GovernanceSectorsScreen: FC = () => {
         // a tautology against a band that is empty iff `!stats`.
         kpisPending={pending ? 4 : undefined}
         kpiNote={sectorsKpiNote(kpis, t)}
+        evidence={evidence}
         scope={<ScopeControl mode="toggle" />}
       />
 

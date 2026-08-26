@@ -105,15 +105,35 @@ describe("GovernanceSectorsScreen", () => {
   });
 
   it("leaves an UNPROMOTED tile its own figure", async () => {
-    // The four procurement sectors are promoted by nothing — the band's first cell is their
-    // SUM and displaces no single tile — so each keeps its own number.
+    // ⚠️ `health`, NOT `roads`. The four procurement sectors ARE promoted — not by a band
+    // cell (the first cell is their SUM and displaces no single tile) but by the evidence
+    // RAIL, whose four rows are those tiles' own figures verbatim. `health` is neither: it
+    // is a payout sector that is not the largest, so nothing in the head shows its number.
     mount();
     await waitFor(() =>
       expect(document.querySelectorAll("[data-kpi-cell]")).toHaveLength(4),
     );
+    const health = tileAt("/sector/health");
+    expect(health, "the health tile is missing").toBeTruthy();
+    expect(health!.textContent).toMatch(/млрд|bn|4,7|4\.7/);
+  });
+
+  it("demotes a tile the ASIDE shows, not only one a band cell shows", async () => {
+    // §3.1: a rail row is a figure no tile and no KPI shows. These four rows are the four
+    // procurement tiles' own metrics — same label, same €, same destination — so without
+    // this the page printed each of them twice, once in the head and once in the grid.
+    mount();
+    await waitFor(() =>
+      expect(document.querySelectorAll("[data-hub-head] aside")).toHaveLength(
+        1,
+      ),
+    );
     const roads = tileAt("/sector/roads");
     expect(roads, "the roads tile is missing").toBeTruthy();
-    expect(roads!.textContent).toMatch(/млрд|bn|8,8|8\.8/);
+    expect(
+      roads!.textContent,
+      "the roads tile repeats the figure its rail row already shows",
+    ).not.toMatch(/8,8|8\.8/);
   });
 
   it("renders the bases note exactly once", async () => {
@@ -122,5 +142,43 @@ describe("GovernanceSectorsScreen", () => {
       expect(document.querySelectorAll("[data-kpi-cell]")).toHaveLength(4),
     );
     expect(screen.getAllByText(/sectors_kpi_note/)).toHaveLength(1);
+  });
+
+  it("renders the evidence rail, decomposing the band's first cell", async () => {
+    // ⚠️ `evidence={evidence}` IS COVERED BY NOTHING ELSE. A prop computed and never passed
+    // compiles, type-checks and renders a head with no aside — it happened once on /culture
+    // in this same series.
+    mount();
+    await waitFor(() =>
+      expect(document.querySelectorAll("[data-kpi-cell]")).toHaveLength(4),
+    );
+    const aside = document.querySelector("[data-hub-head] aside");
+    expect(aside, "the head rendered no evidence aside").toBeTruthy();
+    // Four rows — the four tender-driven sectors, which is what the first cell totals.
+    const rows = [...aside!.querySelectorAll("a")].filter((a) =>
+      /\/sector\/|\/water/.test(a.getAttribute("href") ?? ""),
+    );
+    expect(rows).toHaveLength(4);
+    for (const a of rows)
+      expect(a.getAttribute("href"), "a rail row lost the scope").toContain(
+        "pscope=all",
+      );
+  });
+
+  it("renders NO aside when no sector moves by tender", async () => {
+    // Every roster is €0 on an early `ns:` scope; an empty rail under „кои сектори минават
+    // през търг" would read as „none do".
+    const noProc = {
+      all: Object.fromEntries(
+        Object.entries(STATS.all).filter(
+          ([, v]) => (v as { basis: string }).basis !== "procurement",
+        ),
+      ),
+    };
+    mount(noProc);
+    await waitFor(() =>
+      expect(document.querySelectorAll("[data-kpi-cell]")).toHaveLength(3),
+    );
+    expect(document.querySelector("[data-hub-head] aside")).toBeNull();
   });
 });

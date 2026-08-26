@@ -74,9 +74,11 @@ import {
 import type { CultureHubStats } from "@/data/culture/hubStats";
 import {
   promotedTiles as sectorsPromotedTiles,
+  sectorsHubEvidence,
   sectorsHubKpis,
 } from "@/screens/governance/sectorsHubFigures";
 import type { SectorStat } from "@/data/procurement/useSectorStats";
+import { formatEurCompact } from "@/lib/currency";
 import { AGRI_STATS_FIXTURE } from "@/screens/subsidies/subsidiesHubStats.fixture";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
@@ -627,6 +629,28 @@ describe("hub head — the band and the tiles are disjoint", () => {
       new Set(tos).size,
       `duplicate /governance/sectors KPI destination in ${tos.join(", ")}`,
     ).toBe(tos.length);
+  });
+
+  it("/governance/sectors' aside decomposes its own first cell", () => {
+    // The strongest property this head has, and the reason the rail is these four sectors
+    // rather than „the biggest": both halves are the same basis over the same window, so the
+    // rows sum to EXACTLY the figure above them. A rail that ranked all nineteen would be
+    // ranking incommensurable things — the thing the band's note exists to forbid.
+    const e = sectorsHubEvidence(
+      SECTOR_STATS_FIXTURE,
+      "bg",
+      id,
+      (s) => `title:${s}`,
+      (s) => `/sector/${s}`,
+    );
+    expect(e?.rows).toHaveLength(4);
+    for (const r of e!.rows) expect(String(r.to)).toMatch(/^\/sector\//);
+    expect(String(e?.action?.to)).toBe("/procurement");
+
+    const railTotal = Object.values(SECTOR_STATS_FIXTURE)
+      .filter((x) => x.basis === "procurement")
+      .reduce((a, x) => a + x.value, 0);
+    expect(sectorsBand()[0].value).toBe(formatEurCompact(railTotal, "bg"));
   });
 
   it("no two /budget KPI cells share a destination", () => {

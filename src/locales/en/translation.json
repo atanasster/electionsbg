@@ -5333,5 +5333,8 @@
   "sectors_kpi_payout_basis": "largest sum paid out · {{year}}",
   "sectors_kpi_headcount_basis": "filled state-administration positions · {{year}}",
   "sectors_kpi_note": "The figures above are measured in different ways and do NOT sum — the sectors here sit on four different bases: tenders in a selected period, an adopted annual budget, a sum actually paid out, and a headcount. That is why they are ordered by field rather than by size.",
-  "sectors_kpi_procurement_basis_period": "{{count}} sectors whose money moves by tender · {{period}}"
+  "sectors_kpi_procurement_basis_period": "{{count}} sectors whose money moves by tender · {{period}}",
+  "sectors_evidence_heading": "Which sectors move by tender",
+  "sectors_evidence_basis": "contract value in the selected period — this is what the procurement total above is made of. The other sectors are not missing because they are small: they are measured by budget, payouts or headcount and do not compare with these.",
+  "sectors_evidence_action": "all public contracts"
 }

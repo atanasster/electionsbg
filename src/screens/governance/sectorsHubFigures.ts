@@ -27,7 +27,7 @@
 // the reason the tiles are ordered by cluster rather than by size.
 // ═══════════════════════════════════════════════════════════════════════════════════════
 
-import type { HubKpi } from "@/ux/infographic/HubHead";
+import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
 import type { SectorStat } from "@/data/procurement/useSectorStats";
 import { formatEurCompact } from "@/lib/currency";
 
@@ -54,8 +54,19 @@ export interface SectorKpi extends HubKpi {
  *  name whichever sector happens to be largest on their basis, so the displaced tile is not
  *  knowable until the payload is read — and every cell is withheld when its basis has no
  *  publishable sector. A constant list would blank a tile whose cell never rendered. */
-export const promotedTiles = (kpis: SectorKpi[]): Set<string> =>
-  new Set(kpis.flatMap((k) => (k.sectorId ? [k.sectorId] : [])));
+export const promotedTiles = (
+  kpis: SectorKpi[],
+  evidence?: HubEvidence,
+): Set<string> =>
+  new Set([
+    ...kpis.flatMap((k) => (k.sectorId ? [k.sectorId] : [])),
+    // ⚠️ THE ASIDE'S ROWS COUNT TOO. §3.1's rule is that a rail row is a figure no tile and
+    // no KPI shows — and this rail's four rows are the four procurement tiles' own metrics,
+    // verbatim: same label, same €, same destination. The band cell above them is their SUM,
+    // so none of the four is promoted by a KPI; without this they were printed twice on one
+    // page, once in the head and once in the grid.
+    ...(evidence?.rows ?? []).flatMap((r) => (r.id ? [r.id] : [])),
+  ]);
 
 /** The bases whose cells name a single sector, in band order. Exported for gates. */
 export const SINGLE_SECTOR_BASES = ["budget", "payout", "headcount"] as const;
@@ -172,3 +183,50 @@ export const sectorsHubKpis = (
  *  band length. Returns undefined below two cells, where there is nothing to combine. */
 export const sectorsKpiNote = (kpis: SectorKpi[], t: T): string | undefined =>
   kpis.length < 2 ? undefined : t("sectors_kpi_note");
+
+/** The head's evidence rail: the tender-driven sectors, ranked.
+ *
+ *  ⚠️⚠️ IT IS THE DECOMPOSITION OF THE BAND'S FIRST CELL, and that is the whole reason it
+ *  is these four and not „the biggest sectors". The band sums `procurement` because those
+ *  rosters are disjoint and share a window; the rail shows what that sum is made of, so the
+ *  two halves of the head are one claim at two grains rather than two rankings.
+ *
+ *  ⚠️ AND IT MUST SAY WHY THE OTHER FIFTEEN ARE ABSENT. A ranked list of four sectors on a
+ *  page showing nineteen reads as „these are the big ones" — which is false: Пенсии alone is
+ *  €11.1bn, larger than any row here, and it is not in the list because its money never goes
+ *  to tender. The basis line says so in words. Ranking all nineteen together is the one
+ *  thing this hub must never do.
+ *
+ *  ⚠️ REFUSED WHEN THE GROUP IS EMPTY rather than rendered blank — on an early `ns:` scope
+ *  every roster is €0 (the corpus starts in 2011), and an empty rail under „кои сектори
+ *  минават през търг" reads as „none do". */
+export const sectorsHubEvidence = (
+  stats: SectorStats,
+  lang: string,
+  t: T,
+  titleOf: (sectorId: string) => string,
+  hrefOf: (sectorId: string) => string | undefined,
+): HubEvidence | undefined => {
+  const rows = Object.entries(stats ?? {})
+    .filter(([, x]) => x.basis === "procurement" && !x.unavailable && x.value)
+    // Ties broken by id, for the reason `largestOn` states: a rail that reorders between
+    // renders is a rail whose gate cannot pin it.
+    .sort(([aId, a], [bId, b]) => b.value - a.value || (aId < bId ? -1 : 1));
+  if (!rows.length) return undefined;
+  return {
+    heading: t("sectors_evidence_heading"),
+    basis: t("sectors_evidence_basis"),
+    rows: rows.map(([id, x]) => ({
+      // The sector id, not the title: titles are translated, and a translation collision
+      // would make React reuse the wrong row.
+      id,
+      label: titleOf(id),
+      value: formatEurCompact(x.value, lang),
+      to: hrefOf(id),
+    })),
+    action: {
+      to: "/procurement",
+      label: t("sectors_evidence_action"),
+    },
+  };
+};
