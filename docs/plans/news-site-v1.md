@@ -1,9 +1,12 @@
 # News site v1 — from intake to a publishable product
 
-**Status:** open. Tiers 0–5 are unbuilt; the intake audit's F1–F9 are shipped.
+**Status:** Tier 0 is **SHIPPED** (T0.1–T0.7, 2026-08-26) and Tier 5's shared-component half
+with it; Tiers 1–4 and Tier 5's `/en` question are open. The intake audit's F1–F9 shipped
+earlier.
 **Written:** 2026-08-26. **Gap-audited the same day** — §7 records what the first draft missed
 and where each correction landed. Every figure was re-measured against `news/data` unless a
-source is named.
+source is named. ⚠️ Figures below are as of that date and the corpus moves; re-measure before
+quoting one.
 
 ---
 
@@ -515,32 +518,46 @@ label distribution is degenerate — `leaning` is `not_applicable` on 90%, `russ
 
 ---
 
-## Tier 5 — the language decision ⚠️ NEW
+## Tier 5 — the language decision ⚠️ PARTLY RESOLVED
 
-`newsapp/` is **Bulgarian-only**: no i18n, no `useTranslation`, `Intl` hardcoded to `bg-BG`,
-no `/en` mirror and no `hreflang`. Meanwhile the analysis rubric produces **`summary_en` for
-every record** and `data.ts` types it — so we are paying a model to write English nobody can
-read, and `/methodology` will describe a Bulgarian-language method to a crawler that only
-ever sees one language.
+`newsapp/` is **Bulgarian-only**: no i18n, no `useTranslation`, `Intl` hardcoded
+to `bg-BG`, `<html lang="bg">`, no `/en` mirror and no `hreflang`. The main site
+is fully bilingual, so the news app is the odd one out.
 
-The main site is fully bilingual with `hreflang` and an `/en` root, so the news app is the
-odd one out. This is a decision, not an oversight to fix by default — either:
+⚠️ **The gap audit overstated this and the correction matters.** G5 said the app
+was "producing the English and rendering none of it". That is false: the rubric
+produces `summary_en` for all 365 analysed records, and **`StoryScreen` renders
+it**, in a `<details>` disclosure labelled „Резюме на английски". What is true is
+narrower — the *article* page will need the same treatment, and the app has no
+English MODE.
 
-- **stay BG-only, and stop generating `summary_en`** (saves tokens on every analysis, and
-  removes a field nothing renders); or
-- **mirror the main site**, which means an `/en` route tree, the `hreflang` pair, and the
-  translated UI corpus — and makes `summary_en` the reason the corpus is worth having in
-  English at all.
+**Done (2026-08-26):** the treatment is now a shared `SummaryPair` component
+rather than a block inside `StoryScreen`, so `/article/:domain/:id` (T1.2)
+renders the English through the same path instead of a second copy that
+quietly stops rendering it — a failure invisible to anyone reading in
+Bulgarian, i.e. everyone who tests it. That component is deliberately the part
+that is right under **either** answer below.
 
-What must not persist is the current state: producing the English and rendering none of it.
+**Still open, and genuinely a fork:**
 
----
+- **stay BG-only** — the UI, the corpus, the rubric's evidence strings and every
+  label are Bulgarian, and `summary_en` stays a courtesy for a non-Bulgarian
+  reader rather than a product surface; or
+- **mirror the main site** — an `/en` route tree, the `hreflang` pair, a
+  translated UI corpus, and `summary_en` becomes the reason the corpus is worth
+  having in English at all.
+
+The second is a project, not a step. It is not sequenced here because nothing
+else in this plan depends on the answer.
 
 ## Sequencing, and why
 
-**T0 → T1.1 → T1.5 → T1.2 → T1.4 → T1.3 → T2 → T3 → T4**, with T5 decided before T1.1
-(the methodology page is the first thing that would need translating) and T0.6 landing with
-T0.1 (an imported image with no attribution must never render).
+**T0 → T1.1 → T1.5 → T1.2 → T1.4 → T1.3 → T2 → T3 → T4**. T5's shared-component half
+is done; its `/en` half is not sequenced, because nothing else here depends on it.
+
+⚠️ Within Tier 0, **T0.6 lands with T0.1** — an imported image with no attribution must never
+render, so the credit ships in the same breath as the field. (Both are now shipped; the
+constraint is recorded because it binds any future field of the same kind.)
 
 - **T0 first** because every screen renders its fields and it is a day's work with a
   measured payoff — the lead image at 98% availability is the difference between a database
@@ -571,7 +588,7 @@ not inferred.
 | G2 | images: no serving model, no fallback, **no attribution**. Measured 3 of 13 domains refuse a foreign referer | **T0.6**, new |
 | G3 | the news app ships a **4-URL sitemap** and no prerender, so 86 story pages and 55 outlet pages already serve the homepage's head | **T1.5**, promoted from an open question |
 | G4 | `latest.json` is 763 KB / 179 KB gzip and every page loads it; the new fields add **+25% raw**, unbudgeted | **T0.3** |
-| G5 | the app is BG-only while the rubric generates `summary_en` for every record | **Tier 5**, new |
+| G5 | the app is BG-only while the rubric generates `summary_en` for every record | **Tier 5** — ⚠️ overstated: `StoryScreen` DOES render it; corrected there |
 | G6 | the news corpus never stamps `data/data-changes.json`, so it is absent from `/data/updates` | **T0.7**, new |
 | G7 | new extractor fields with no `expectations.json` entry are fields with no gate | **T0.1**, rule 4 |
 | G8 | `update-news-sites` is manual, and retired outlets have no CSV row to hold a logo | **T0.2** |
@@ -587,6 +604,9 @@ not inferred.
 3. **Ownership vocabulary** — Ground News's eight categories are a starting point, not
    obviously the right partition for Bulgarian media. Needs one pass against the actual
    ownership structures before the column is created.
-4. **Tier 5's language decision** — bilingual, or BG-only and stop paying for `summary_en`.
+4. **Tier 5's language decision** — a full `/en` mirror, or stay BG-only.
+   ⚠️ NOT "stop paying for `summary_en`", which an earlier draft offered: the English IS
+   rendered (in a disclosure, by `SummaryPair`), so dropping it would remove a live surface
+   and make that component dead code.
 5. **`/article/**` prerender vs. a head-serving function** — needs `dist-news`'s file count
    measured against the Firebase ceiling first.

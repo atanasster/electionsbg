@@ -18,6 +18,7 @@ import {
 } from "../labels";
 import { useOutlets, useStories, useTaxonomy, type Story } from "../data";
 import { StoryMemberRow } from "../components/ArticleRow";
+import { SummaryPair } from "../components/SummaryPair";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
 type StanceGroup = "pro" | "neutral" | "anti" | "n/a";
@@ -269,19 +270,11 @@ export const StoryScreen = () => {
               </span>
               <span>обновено {relativeTime(story.last_published)}</span>
             </div>
-            {story.summary_bg ? (
-              <p className="mt-3 max-w-3xl text-foreground/90">
-                {story.summary_bg}
-              </p>
-            ) : null}
-            {story.summary_en ? (
-              <details className="mt-2 text-sm text-muted-foreground">
-                <summary className="cursor-pointer select-none">
-                  Резюме на английски
-                </summary>
-                <p className="mt-1.5">{story.summary_en}</p>
-              </details>
-            ) : null}
+            <SummaryPair
+              bg={story.summary_bg}
+              en={story.summary_en}
+              className="mt-3"
+            />
           </header>
 
           {/* Interactive spectrums — clicking a group filters the member list. */}
