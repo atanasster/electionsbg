@@ -15,7 +15,7 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { createElement, type ReactNode } from "react";
-import { useRegistryFacets } from "./useRegistryFacets";
+import { useRegistryFacets, facetKey } from "./useRegistryFacets";
 
 const wrap = ({ children }: { children: ReactNode }) =>
   createElement(
@@ -168,5 +168,78 @@ describe("useRegistryFacets", () => {
     );
     await waitFor(() => expect(calls.length).toBe(1));
     expect((calls[0] as unknown as { limit: number }).limit).toBe(500);
+  });
+});
+
+describe("facetKey — and the boolean the engine really returns", () => {
+  it('⚠️ a BOOL column comes back as a real boolean, not the string "true"', () => {
+    // THE DEFECT THAT MOTIVATED WIDENING `FacetOption.value`, and it had no test anywhere.
+    // Measured against the live route: `is_official_linked` returns
+    // `[{"value":false,…},{"value":true,"count":17675}]` — node-postgres serialises a PG `bool`
+    // as a boolean, unlike `numeric`, which it serialises as a string, so the two are not even
+    // consistent with each other. A consumer writing `b.value === "true"` matched nothing and
+    // published „Свързани с публично лице 0" where 17,675 belonged: no type error (the field
+    // was declared `string`), no runtime error, and the one figure the page exists for.
+    const buckets = [
+      { value: false, count: 1_004_917 },
+      { value: true, count: 17_675 },
+    ];
+    // The wrong comparison, kept as an executable statement of what went wrong.
+    expect(buckets.find((b) => String(b.value) === "true")?.count).toBe(17_675);
+    expect(
+      buckets.find((b) => (b.value as unknown) === "true"),
+    ).toBeUndefined();
+    // …and the right one.
+    expect(buckets.find((b) => b.value === true)?.count).toBe(17_675);
+  });
+
+  it("facetKey renders every value kind as the string a filter or a t() key needs", () => {
+    expect(facetKey("chitalishte")).toBe("chitalishte");
+    expect(facetKey(true)).toBe("true");
+    expect(facetKey(false)).toBe("false");
+    expect(facetKey(42)).toBe("42");
+  });
+
+  it('⚠️ facetKey(false) is "false", NOT the empty string', () => {
+    // The tempting shorthand `String(v || "")` collapses `false` and `0` to "", so a bool
+    // facet's negative bucket would become a Radix item with an empty value — which Radix
+    // rejects outright — and a `t()` key of `oc_kind_`.
+    expect(facetKey(false)).not.toBe("");
+    expect(facetKey(0)).toBe("0");
+  });
+
+  it("carries a BOOLEAN bucket through the hook unchanged", async () => {
+    // End to end: the type is wide, so nothing coerces on the way out and a consumer sees what
+    // the engine sent.
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(
+        async () =>
+          ({
+            ok: true,
+            json: async () => ({
+              facets: {
+                is_official_linked: [
+                  { value: false, count: 1_004_917 },
+                  { value: true, count: 17_675 },
+                ],
+              },
+            }),
+          }) as unknown as Response,
+      ),
+    );
+    const { result } = renderHook(
+      () =>
+        useRegistryFacets("companies", {
+          a: { columns: ["is_official_linked"], filters: [] },
+        }),
+      { wrapper: wrap },
+    );
+    await waitFor(() =>
+      expect(result.current.bySpec.a?.is_official_linked).toHaveLength(2),
+    );
+    const buckets = result.current.bySpec.a.is_official_linked;
+    expect(buckets.find((b) => b.value === true)?.count).toBe(17_675);
+    expect(typeof buckets[0].value).toBe("boolean");
   });
 });

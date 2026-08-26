@@ -23,11 +23,32 @@ import { useQueries } from "@tanstack/react-query";
 import type { DbColumnFilter } from "@/ux/data_table/DbDataTable";
 
 export interface FacetOption {
-  value: string;
+  /** ⚠️ NOT ALWAYS A STRING, and typing it as one hid a live defect. `runDbFacets` returns the
+   *  column's own JSON value, so a `bool` column comes back as a real boolean — measured
+   *  against the live route, `is_official_linked` is
+   *  `[{"value":false,…},{"value":true,"count":17675}]`. (node-postgres serialises PG `bool`
+   *  as a boolean and PG `numeric` as a string, so the two are not even consistent with each
+   *  other.) Declared `string`, a consumer writes `b.value === "true"`, matches nothing, and
+   *  publishes 0 where 17,675 belongs — with no type error and no runtime error.
+   *
+   *  Widened so the narrowing has to be deliberate: a consumer feeding this into a
+   *  `RegistryFilterOption` (whose `value` really is the string a Radix item carries) must
+   *  `String()` it, and one testing a boolean has to say so. */
+  value: string | number | boolean;
   count: number;
 }
 
 export type RegistryFacets = Record<string, FacetOption[]>;
+
+/** A facet bucket's value as the STRING a filter, a label lookup or a Radix item needs.
+ *
+ *  ⚠️ USE THIS RATHER THAN A BARE CAST. `FacetOption.value` is deliberately wide because the
+ *  engine returns the column's own JSON value, and the one time that was papered over as
+ *  `string` it produced a silent zero on a headline figure (see FacetOption). Routing every
+ *  narrowing through one named helper means a boolean column's `true`/`false` become "true"
+ *  and "false" consistently — which is what `?political=1`-style filters and `t()` keys expect
+ *  — instead of each call site inventing its own coercion. */
+export const facetKey = (v: FacetOption["value"]): string => String(v);
 
 const fetchFacets = async (
   resource: string,

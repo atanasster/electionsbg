@@ -15,6 +15,7 @@
 // the composition is visible before the click, not after it.
 
 import { FC } from "react";
+import { facetKey } from "@/data/registry/useRegistryFacets";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, Users } from "lucide-react";
 import { Link } from "@/ux/Link";
@@ -59,7 +60,10 @@ export const MyAreaPlacePeopleLink: FC<{
   if (!code) return null;
   const mix = data.mix
     .slice(0, MIX_SHOWN)
-    .map((m) => `${fmt(m.count)} ${facetLabel(m.value) || m.value}`)
+    .map(
+      (m) =>
+        `${fmt(m.count)} ${facetLabel(facetKey(m.value)) || facetKey(m.value)}`,
+    )
     .join(" · ");
 
   return (

@@ -46,6 +46,7 @@ import {
   codeSetMatch,
 } from "@/data/persons/useUrlPersonFilters";
 import { usePersonFacets } from "@/data/persons/usePersonFacets";
+import { facetKey } from "@/data/registry/useRegistryFacets";
 import {
   PERSON_GROUPS,
   GROUP_COLUMNS,
@@ -467,23 +468,26 @@ export const PersonsBrowserScreen: FC = () => {
   const roleOptions = useMemo(
     () =>
       (facets.primary_role ?? []).map((o) => ({
-        value: o.value,
-        label: roleLabel(o.value) || o.value,
+        value: facetKey(o.value),
+        label: roleLabel(facetKey(o.value)) || facetKey(o.value),
       })),
     [facets, roleLabel],
   );
   const partyOptions = useMemo(
     () =>
       (facets.party_primary ?? []).map((o) => ({
-        value: o.value,
-        label: displayNameForId(o.value) || o.value,
+        value: facetKey(o.value),
+        label: displayNameForId(facetKey(o.value)) || facetKey(o.value),
       })),
     [facets, displayNameForId],
   );
   const oblastOptions = useMemo(
     () =>
       (facets.oblast_code ?? [])
-        .map((o) => ({ value: o.value, label: oblastName(o.value, isBg) }))
+        .map((o) => ({
+          value: facetKey(o.value),
+          label: oblastName(facetKey(o.value), isBg),
+        }))
         .sort((a, b) => a.label.localeCompare(b.label, "bg")),
     [facets, isBg],
   );
@@ -497,7 +501,11 @@ export const PersonsBrowserScreen: FC = () => {
   const courtOptions = useMemo(
     () =>
       (facets.institution ?? [])
-        .map((o) => ({ value: o.value, label: o.value, count: o.count }))
+        .map((o) => ({
+          value: facetKey(o.value),
+          label: facetKey(o.value),
+          count: o.count,
+        }))
         .sort((a, b) => a.label.localeCompare(b.label, "bg")),
     [facets],
   );

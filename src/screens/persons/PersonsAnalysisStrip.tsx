@@ -24,6 +24,7 @@
 // this person also a …". They filter different columns and are deliberately not merged.
 
 import { FC, useMemo } from "react";
+import { facetKey } from "@/data/registry/useRegistryFacets";
 import { useTranslation } from "react-i18next";
 import { MixBar, type MixSegment } from "@/ux/MixBar";
 import { usePersonLabels } from "@/lib/personLabels";
@@ -70,14 +71,19 @@ export const PersonsAnalysisStrip: FC<{
 
   const segments = useMemo<MixSegment[]>(
     () =>
-      facetMix.map((f) => ({
-        key: f.value,
-        label: facetLabel(f.value) || f.value,
-        count: f.count,
-        color:
-          (dark ? FACET_DARK : FACET_LIGHT)[f.value] ??
-          (dark ? FALLBACK_DARK : FALLBACK_LIGHT),
-      })),
+      facetMix.map((f) => {
+        // A facet value is not always a string — see FacetOption. Narrowed ONCE per bucket so
+        // the key, the label lookup and the colour index cannot disagree about it.
+        const key = facetKey(f.value);
+        return {
+          key,
+          label: facetLabel(key) || key,
+          count: f.count,
+          color:
+            (dark ? FACET_DARK : FACET_LIGHT)[key] ??
+            (dark ? FALLBACK_DARK : FALLBACK_LIGHT),
+        };
+      }),
     [facetMix, facetLabel, dark],
   );
 
