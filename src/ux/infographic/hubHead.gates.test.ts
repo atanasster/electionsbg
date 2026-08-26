@@ -60,6 +60,7 @@ import {
 } from "@/screens/subsidies/subsidiesHubFigures";
 import {
   DECLARATIONS_BAND_TILES,
+  declarationsHubEvidence,
   declarationsHubKpis,
   promotedTiles as declarationsPromotedTiles,
 } from "@/screens/governance/declarationsHubFigures";
@@ -364,16 +365,49 @@ describe("hub head — the band and the tiles are disjoint", () => {
   // 2026-08-26. Kept here rather than imported so the gate fails on a fixture that drifts
   // from the blob rather than moving with it.
   const DECLARATIONS_STATS_FIXTURE: DeclarationsHubStats = {
-    computedAt: "2026-08-25T07:23:18.273Z",
-    people: 63782,
+    computedAt: "2026-08-26T02:16:08.175Z",
+    people: 63816,
     peopleWithDeclaration: 21170,
     officials: 14583,
-    organisations: 17620,
-    organisationPeople: 14866,
+    organisations: 17675,
+    organisationPeople: 14855,
     byNs: {
       "52": { mpsWithAssets: 240, cars: 42, carOwners: 23 },
       all: { mpsWithAssets: 2122, cars: 643, carOwners: 360 },
     },
+    topNetWorth: [
+      {
+        slug: "kiril-ivanov-boshov-863c15",
+        name: "Кирил Иванов Бошов",
+        netWorthEur: 13373236,
+        year: 2025,
+      },
+      {
+        slug: "mp-5100",
+        name: "Делян Славчев Пеевски",
+        netWorthEur: 9849697,
+        year: 2025,
+      },
+      {
+        slug: "mp-3727",
+        name: "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        netWorthEur: 9532733,
+        year: 2021,
+      },
+      {
+        slug: "mp-3056",
+        name: "Станислав Тодоров Трифонов",
+        netWorthEur: 8247384,
+        year: 2026,
+      },
+      {
+        slug: "nadya-vasileva-ivanova-dbb775",
+        name: "Надя Василева Иванова",
+        netWorthEur: 7401386,
+        year: 2025,
+      },
+    ],
+    topNetWorthYears: { first: 2021, last: 2026 },
   };
   const declarationsBand = () =>
     declarationsHubKpis(
@@ -413,6 +447,23 @@ describe("hub head — the band and the tiles are disjoint", () => {
       new Set(tos).size,
       `duplicate /governance/declarations KPI destination in ${tos.join(", ")}`,
     ).toBe(tos.length);
+  });
+
+  it("/governance/declarations' aside links somewhere its rows can be named", () => {
+    // §3.1 rule 4 applied to the rail: every row goes to that person's own profile, and the
+    // action to the page the rail claims to be the first rows of. A rail whose rows link
+    // nowhere is a leaderboard the reader cannot check.
+    const e = declarationsHubEvidence(DECLARATIONS_STATS_FIXTURE, "bg", id);
+    expect(e?.rows.length).toBeGreaterThan(0);
+    for (const r of e!.rows) expect(String(r.to)).toMatch(/^\/person\//);
+    expect(String(e?.action?.to)).toBe("/officials/assets");
+    // The rail's values must not double the band's: they answer a different question, and
+    // a row repeating a KPI cell is the band/tile clash one column over.
+    const bandValues = new Set(declarationsBand().map((k) => k.value));
+    for (const r of e!.rows)
+      expect(bandValues.has(r.value), `${r.label} repeats a KPI value`).toBe(
+        false,
+      );
   });
 
   it("no two /budget KPI cells share a destination", () => {

@@ -19,7 +19,16 @@ import { assertCommitted } from "../../lib/assert_committed";
 
 const BLOB = "data/governance/declarations_hub_stats.json";
 
+interface TopNetWorth {
+  slug: string;
+  name: string;
+  netWorthEur: number;
+  year: number;
+}
+
 interface Blob {
+  topNetWorth?: TopNetWorth[];
+  topNetWorthYears?: { first: number; last: number } | null;
   people: number;
   peopleWithDeclaration: number;
   officials: number;
@@ -256,3 +265,131 @@ test.skipIf(skipBlob)(
     assert.notEqual(blob.organisationPeople, Number(row.cp_links));
   },
 );
+
+test.skipIf(skipBlob)(
+  "the evidence rail IS /officials/assets' own first rows",
+  async (t) => {
+    const blob = load();
+    if (!blob) {
+      reportSkip(
+        import.meta.url,
+        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+      );
+      return t.skip();
+    }
+    if (!blob.topNetWorth?.length) {
+      reportSkip(
+        import.meta.url,
+        "the blob predates the evidence rail — re-run npm run db:gen-declarations-hub-stats",
+      );
+      return t.skip();
+    }
+
+    // ⚠️ THE DESTINATION'S FILTER AND SORT, written out here rather than imported from the
+    // generator — a gate re-running the generator's own SQL can only prove the file was
+    // freshly written (see this file's header). `OfficialsAssetsScreen` renders this matview
+    // with fixedFilters [{is_exec:true}] and defaultSort [{net_worth_eur, desc}]; if either
+    // moves, the rail stops being that page's first rows while its heading keeps naming it.
+    const want = await allRows<Record<string, string>>(`
+      SELECT slug, round(net_worth_eur)::text AS net,
+             round(total_assets_eur)::text AS gross,
+             latest_declaration_year::text AS year
+        FROM officials_rankings_table
+       WHERE is_exec AND net_worth_eur IS NOT NULL
+         AND excluded_asset_rows = 0
+       ORDER BY net_worth_eur DESC, slug
+       LIMIT 5`);
+
+    assert.equal(
+      want.length,
+      5,
+      "the matview returned fewer than five rankable rows — every comparison below would " +
+        "then be trivially satisfiable",
+    );
+
+    assert.deepEqual(
+      blob.topNetWorth.map((r) => r.slug),
+      want.map((r) => r.slug),
+      "the rail is not /officials/assets' first five — check its filter and sort",
+    );
+    for (const [i, r] of blob.topNetWorth.entries())
+      assert.equal(
+        r.netWorthEur,
+        Number(want[i].net),
+        `row ${i} value drifted`,
+      );
+
+    // ⚠️ NET, NOT GROSS — no set or order comparison can tell them apart here. Measured
+    // 2026-08-26, sorting by total_assets_eur yields the SAME five slugs in the same order,
+    // so a generator that switched sort keys passes every comparison above. What separates
+    // them is the VALUE: two of the five carry real debts, so at least one row must disagree
+    // with the gross column or the rail is publishing assets under a „minus задължения" basis.
+    const differs = blob.topNetWorth.filter(
+      (r, i) => r.netWorthEur !== Number(want[i].gross),
+    );
+    assert.ok(
+      differs.length > 0,
+      "every rail row equals total_assets_eur — the rail may be publishing GROSS assets " +
+        "under a net-worth basis, or every top declarant now reports zero debts",
+    );
+
+    // ⚠️ EACH ROW'S YEAR AGAINST THE MATVIEW, not against the blob's own copy of itself.
+    // The year is rendered ON the row („· 2021"), and deriving the check from the blob is
+    // circular: projecting some other integer column as `year` is self-consistent and every
+    // span assertion still passes, while the rail publishes „· 0" beside a named person.
+    for (const [i, r] of blob.topNetWorth.entries())
+      assert.equal(
+        r.year,
+        Number(want[i].year),
+        `row ${i} (${r.slug}) is dated ${r.year}, but its filing is ${want[i].year}`,
+      );
+
+    const years = blob.topNetWorth.map((r) => r.year);
+    assert.ok(
+      blob.topNetWorthYears,
+      "rows without a span — the aside refuses to render, so the head loses its rail",
+    );
+    assert.equal(blob.topNetWorthYears!.first, Math.min(...years));
+    assert.equal(blob.topNetWorthYears!.last, Math.max(...years));
+
+    // ⚠️ NON-VACUITY, and the reason the plural basis wording exists: these are each
+    // person's LATEST filing, so they legitimately mix vintages. Were they ever to agree,
+    // the singular wording would be the honest one — this is here so that becoming a
+    // single-year rail is a decision rather than a silent drift.
+    assert.ok(
+      new Set(years).size > 1,
+      "every rail row shares a year — re-check whether the singular basis wording applies",
+    );
+
+    const vals = blob.topNetWorth.map((r) => r.netWorthEur);
+    assert.deepEqual(
+      vals,
+      [...vals].sort((a, b) => b - a),
+    );
+  },
+);
+
+// No DB and no blob: this reads a source file, so it must run everywhere.
+test("the rail's invariant still rests on what /officials/assets actually does", () => {
+  // ⚠️ THE GATE ABOVE CHECKS ONLY OUR SIDE. The rail's whole claim — that these are that
+  // page's first rows — is a joint property of the generator's query AND the screen's
+  // config, and the screen is the half nothing else here can see. A fixedFilters or
+  // defaultSort edit there silently turns the rail into five people the destination does
+  // not open on, under a heading naming it.
+  //
+  // Read as SOURCE rather than executed: the screen is a React component this node-side
+  // gate cannot render, and both values are literals.
+  const screen = readFileSync("src/screens/OfficialsAssetsScreen.tsx", "utf8");
+  assert.match(
+    screen,
+    /fixedFilters[\s\S]{0,200}\{ id: "is_exec", value: true \}/,
+    "/officials/assets no longer fixes is_exec — the rail's population clause (the " +
+      "register minus municipal officials) may no longer describe its rows",
+  );
+  assert.match(
+    screen,
+    /defaultSort=\{\[\{ id: "net_worth_eur", desc: true \}\]\}/,
+    "/officials/assets no longer opens sorted by net worth — the rail is no longer its " +
+      "first rows",
+  );
+});

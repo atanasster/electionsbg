@@ -5,8 +5,13 @@
 // unreachable from `hubHead.gates.test.ts`, whose band/tile clause compares band values
 // against tile metrics as rendered strings.
 
-import type { HubKpi } from "@/ux/infographic/HubHead";
+import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
 import type { DeclarationsHubStats } from "@/data/governance/useDeclarationsHubStats";
+import { formatEurCompact } from "@/lib/currency";
+// The EN routes never show Cyrillic — useCandidateName states the rule, and the rail's own
+// destination renders this very column through it. Without this the rail whose whole claim is
+// "these are that page's first rows" spells them differently, baked into the prerendered EN HTML.
+import { transliterateName } from "@/data/candidates/transliterateName";
 
 type T = (key: string, opts?: Record<string, unknown>) => string;
 
@@ -168,4 +173,68 @@ export const tileFigures = (
   return caption && m.secondaryValue
     ? { metric: m.secondaryValue, metricCaption: t(caption) }
     : {};
+};
+
+/** The head's evidence rail: the largest declared net worth.
+ *
+ *  ⚠️ THE ROWS ARE THE DESTINATION'S OWN FIRST ROWS, not a ranking of our own — the
+ *  evidence column's SAME-SET rule. `OfficialsAssetsScreen` renders the same matview with
+ *  `fixedFilters [{is_exec:true}]` and `defaultSort [{net_worth_eur, desc}]`, and the
+ *  generator's query is that filter and that sort verbatim. Ranking by `total_assets_eur`
+ *  instead (the column beside it, and the matview's only index) would publish a different
+ *  five under a heading naming this destination.
+ *
+ *  ⚠️⚠️ `is_exec` IS NOT „THE EXECUTIVE", AND THE BASIS SAID IT WAS. 100's definition is
+ *  `bool_or(source <> 'official_muni')` — i.e. every official in the register EXCEPT the
+ *  municipal ones — whose largest categories are school (2,759), state_enterprise (2,420)
+ *  and kindergarten (1,826). Measured 2026-08-26, three of the five rows fail „изпълнителна
+ *  власт" outright: two are `party_leader` and one `social_care`. A population clause is not
+ *  decoration on a rail naming five living people and a euro figure each; it is the sentence
+ *  that says who they are.
+ *
+ *  ⚠️⚠️ THE YEARS DIFFER PER PERSON, AND THE YEAR GOES ON THE ROW. Each row is that person's
+ *  LATEST filing, and people stop filing when they leave office — measured 2026-08-26, the
+ *  five rows span 2021 to 2026, one of them by a minister who left in 2022. „Декларирано
+ *  през 2026" over that row is a false sentence about a named individual, which is the whole
+ *  §0 class. A span in the basis is honest about the SET and cannot be resolved to a member
+ *  (the rows are ordered by value, so there is no positional cue either), so the basis says
+ *  the years differ and each row carries its own.
+ *
+ *  ⚠️ REFUSED WITHOUT THE SPAN, for the reason the subsidies rail is refused without its
+ *  untraceable share: a dated list that cannot say which years it mixes is a claim about
+ *  named people's present wealth that the data does not support. Both halves come from one
+ *  blob, so they cannot disagree.
+ *
+ *  ⚠️ „Net worth" here is DECLARED assets minus DECLARED debts — not a valuation. The
+ *  register excludes property the declarant only uses (`is_declared_holding`), converts
+ *  foreign-currency rows at a dated ECB rate, and counts nothing it was not told about. The
+ *  basis names it as declared rather than as wealth. */
+export const declarationsHubEvidence = (
+  stats: DeclarationsHubStats | undefined,
+  lang: string,
+  t: T,
+): HubEvidence | undefined => {
+  const rows = stats?.topNetWorth;
+  const years = stats?.topNetWorthYears;
+  if (!rows?.length || !years) return undefined;
+  return {
+    heading: t("decl_evidence_heading"),
+    basis:
+      years.first === years.last
+        ? t("decl_evidence_basis_one", { year: years.last })
+        : t("decl_evidence_basis"),
+    rows: rows.map((r) => ({
+      // The slug, not the name: two officials can share one and React reuses the row.
+      id: r.slug,
+      // ⚠️ THE YEAR IS PER ROW, SO IT BELONGS ON THE ROW. The basis names the SPAN, which
+      // is honest about the SET and cannot be resolved to a member — the rows are ordered
+      // by value, so nothing otherwise tells a reader that one of these figures is a 2021
+      // filing by somebody who left office in 2022 and never filed again. „A false sentence
+      // about a named individual" is the §0 harm, and it lives at the row.
+      label: `${lang === "en" ? transliterateName(r.name) : r.name} · ${r.year}`,
+      value: formatEurCompact(r.netWorthEur, lang),
+      to: `/person/${r.slug}`,
+    })),
+    action: { to: "/officials/assets", label: t("decl_evidence_action") },
+  };
 };

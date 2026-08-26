@@ -60,6 +60,28 @@ export interface DeclarationsHubStats {
   organisationPeople: number;
   /** Keyed by `ns` — the numeric parliament ('52'), plus the 'all' roll-up. */
   byNs: Record<string, DeclarationsNsStats>;
+  /** The head's evidence rail — the largest declared net worth, in `/officials/assets`'
+   *  own filter and sort order, so the rail's rows ARE that page's first rows.
+   *
+   *  ⚠️ Absent on a blob generated before 2026-08-26. The evidence builder refuses
+   *  outright in that case rather than rendering an undated list. */
+  topNetWorth?: TopNetWorth[];
+  /** The span of filing years those rows are drawn from. NOT one year: each row is that
+   *  person's LATEST filing and people stop filing when they leave office, so the rail
+   *  legitimately mixes vintages — measured 2026-08-26, five rows spanning 2021 to 2026.
+   *  It rides on the SAME blob as the rows so the two cannot describe different sets. */
+  topNetWorthYears?: { first: number; last: number } | null;
+}
+
+export interface TopNetWorth {
+  /** The /person slug — the row's link, and its React key: two officials can share a name. */
+  slug: string;
+  name: string;
+  /** Declared assets minus declared debts, in EUR. NOT a valuation — the register excludes
+   *  property the declarant only uses and counts nothing it was not told about. */
+  netWorthEur: number;
+  /** The filing this figure comes from. Differs per person, by up to five years. */
+  year: number;
 }
 
 const queryFn = async (): Promise<DeclarationsHubStats | undefined> => {

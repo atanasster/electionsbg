@@ -1,5 +1,12 @@
-// The /governance/declarations band, against a fixture measured verbatim from the committed
-// blob (data/governance/declarations_hub_stats.json, read 2026-08-26).
+// The /governance/declarations band and evidence rail, against a fixture measured verbatim
+// from the committed blob (data/governance/declarations_hub_stats.json, read 2026-08-26).
+//
+// ⚠️ THE FIXTURE IS HAND-COPIED AND NOTHING TIES IT TO THE BLOB. Re-generating the blob
+// (any corpus reload does) moves these numbers and this file will not notice — the band
+// clauses below are written against FIELDS rather than literals for that reason, so a
+// resync is a mechanical edit rather than a rewrite. What DOES check the blob against the
+// corpus is scripts/db/tests/declarations_hub_stats.data.test.ts; this file checks the
+// builders against a shape.
 //
 // What these pin is the §0 class this head is most exposed to: a figure that is
 // arithmetically right and, read as a sentence, false. Three of the four cells are
@@ -10,6 +17,7 @@ import { describe, expect, it } from "vitest";
 import type { DeclarationsHubStats } from "@/data/governance/useDeclarationsHubStats";
 import {
   DECLARATIONS_BAND_TILES,
+  declarationsHubEvidence,
   declarationsHubKpis,
   declarationsKpiNote,
   promotedTiles,
@@ -17,20 +25,55 @@ import {
 } from "./declarationsHubFigures";
 
 const STATS: DeclarationsHubStats = {
-  computedAt: "2026-08-25T07:23:18.273Z",
-  people: 63782,
+  computedAt: "2026-08-26T02:16:08.175Z",
+  people: 63816,
   peopleWithDeclaration: 21170,
   officials: 14583,
-  organisations: 17620,
-  organisationPeople: 14866,
+  organisations: 17675,
+  organisationPeople: 14855,
   byNs: {
     "52": { mpsWithAssets: 240, cars: 42, carOwners: 23 },
     all: { mpsWithAssets: 2122, cars: 643, carOwners: 360 },
   },
+  topNetWorth: [
+    {
+      slug: "kiril-ivanov-boshov-863c15",
+      name: "Кирил Иванов Бошов",
+      netWorthEur: 13373236,
+      year: 2025,
+    },
+    {
+      slug: "mp-5100",
+      name: "Делян Славчев Пеевски",
+      netWorthEur: 9849697,
+      year: 2025,
+    },
+    {
+      slug: "mp-3727",
+      name: "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+      netWorthEur: 9532733,
+      year: 2021,
+    },
+    {
+      slug: "mp-3056",
+      name: "Станислав Тодоров Трифонов",
+      netWorthEur: 8247384,
+      year: 2026,
+    },
+    {
+      slug: "nadya-vasileva-ivanova-dbb775",
+      name: "Надя Василева Иванова",
+      netWorthEur: 7401386,
+      year: 2025,
+    },
+  ],
+  topNetWorthYears: { first: 2021, last: 2026 },
 };
 
+/** Renders the key plus its interpolations, so a basis built from the wrong argument is
+ *  visible in the assertion rather than collapsing to a bare key. */
 const t = (k: string, o?: Record<string, unknown>) =>
-  o && "n" in o ? `${k}:${String(o.n)}` : k;
+  o ? [k, ...Object.values(o).map(String)].join(":") : k;
 const fmt = (n: number) => new Intl.NumberFormat("bg-BG").format(n);
 
 const band = (bucket: string) =>
@@ -60,10 +103,14 @@ describe("the band", () => {
     // say so — the pill is directly above them.
     for (const bucket of ["52", "all"]) {
       const cells = band(bucket).slice(0, 3);
+      // Derived from the fixture rather than re-typed: it still pins WHICH FIELD each cell
+      // reads (a builder taking peopleWithDeclaration for people fails here), and it does
+      // not go stale the next time the blob is regenerated. The values themselves are
+      // pinned by the fixture being verbatim.
       expect(cells.map((c) => c.value)).toEqual([
-        fmt(63782),
-        fmt(14583),
-        fmt(17620),
+        fmt(STATS.people),
+        fmt(STATS.officials),
+        fmt(STATS.organisations),
       ]);
       // ALL THREE declare the window, including the organisations cell — its basis
       // names a companion figure („свързани с N публични фигури"), which is not a
@@ -196,5 +243,82 @@ describe("band ↔ tile, §3.1 rule 5", () => {
     expect([...DECLARATIONS_BAND_TILES].sort()).toEqual(
       [...promotedTiles(band("52"))].sort(),
     );
+  });
+});
+
+describe("the evidence rail", () => {
+  it("renders the destination's own first rows, linked per person", () => {
+    const e = declarationsHubEvidence(STATS, "bg", t);
+    expect(e?.rows).toHaveLength(5);
+    // The slug is the key AND the link — two officials can share a name.
+    expect(e?.rows[0]).toMatchObject({
+      id: "kiril-ivanov-boshov-863c15",
+      to: "/person/kiril-ivanov-boshov-863c15",
+      // ⚠️ THE YEAR IS ON THE ROW. The basis names the span, which is honest about the SET
+      // and cannot be resolved to a member — the rows are ordered by value, so nothing else
+      // tells a reader which of these five is a five-year-old filing.
+      label: "Кирил Иванов Бошов · 2025",
+    });
+  });
+
+  it("transliterates the name on EN, as its own destination does", () => {
+    // /officials/assets renders this very column through `nameForBg`, and the EN routes
+    // never show Cyrillic. Without this the rail whose whole claim is „these are that
+    // page's first rows" spells them differently — and /governance/declarations is
+    // prerendered, so the Cyrillic bakes into the EN static HTML too.
+    const e = declarationsHubEvidence(STATS, "en", t);
+    expect(e?.rows[0].label).toMatch(/^Kiril/);
+    expect(e?.rows[0].label).not.toMatch(/[\u0400-\u04ff]/);
+    expect(e?.action?.to).toBe("/officials/assets");
+  });
+
+  it("keeps the destination's DESCENDING order", () => {
+    // Not a re-sort of our own: /officials/assets opens on net_worth_eur DESC, and a rail
+    // in any other order publishes five people under a heading naming that page.
+    const vals = STATS.topNetWorth!.map((r) => r.netWorthEur);
+    expect([...vals].sort((a, b) => b - a)).toEqual(vals);
+  });
+
+  it("NAMES THE SPAN, because the rows are different vintages", () => {
+    // The §0 clause. Each row is that person's latest filing and people stop filing when
+    // they leave office, so the five span 2021–2026. „Декларирано през 2026" over a
+    // five-year-old figure is a false sentence about a named individual.
+    const e = declarationsHubEvidence(STATS, "bg", t);
+    // Interpolation-free now: the span is stated as „the years differ" and each row
+    // carries its own year, so the basis key takes no arguments.
+    expect(e?.basis).toBe("decl_evidence_basis");
+    // Non-vacuity: the fixture really does mix years.
+    expect(new Set(STATS.topNetWorth!.map((r) => r.year)).size).toBeGreaterThan(
+      1,
+    );
+  });
+
+  it("uses the singular wording only when the years genuinely agree", () => {
+    const one = STATS.topNetWorth!.map((r) => ({ ...r, year: 2026 }));
+    const e = declarationsHubEvidence(
+      {
+        ...STATS,
+        topNetWorth: one,
+        topNetWorthYears: { first: 2026, last: 2026 },
+      },
+      "bg",
+      t,
+    );
+    expect(e?.basis).toBe("decl_evidence_basis_one:2026");
+    // …and the rows still carry their own year, which is what a reader resolves to a person.
+    expect(e?.rows[0].label).toMatch(/· 2026$/);
+  });
+
+  it("REFUSES without the span rather than publishing an undated list", () => {
+    // A blob generated before the rail existed carries the rows' absence, not an empty
+    // rail — and one carrying rows with no span cannot say which years it mixes, which is
+    // a claim about named people's present wealth the data does not support.
+    expect(
+      declarationsHubEvidence({ ...STATS, topNetWorthYears: null }, "bg", t),
+    ).toBeUndefined();
+    expect(
+      declarationsHubEvidence({ ...STATS, topNetWorth: [] }, "bg", t),
+    ).toBeUndefined();
+    expect(declarationsHubEvidence(undefined, "bg", t)).toBeUndefined();
   });
 });

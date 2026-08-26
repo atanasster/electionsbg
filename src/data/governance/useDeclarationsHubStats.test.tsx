@@ -14,16 +14,49 @@ import type { ReactNode } from "react";
 import { useDeclarationsHubStats } from "./useDeclarationsHubStats";
 
 const BLOB = {
-  computedAt: "2026-08-25T07:23:18.273Z",
-  people: 63782,
+  computedAt: "2026-08-26T02:16:08.175Z",
+  people: 63816,
   peopleWithDeclaration: 21170,
   officials: 14583,
-  organisations: 17620,
-  organisationPeople: 14866,
+  organisations: 17675,
+  organisationPeople: 14855,
   byNs: {
     "52": { mpsWithAssets: 240, cars: 42, carOwners: 23 },
     all: { mpsWithAssets: 2122, cars: 643, carOwners: 360 },
   },
+  topNetWorth: [
+    {
+      slug: "kiril-ivanov-boshov-863c15",
+      name: "Кирил Иванов Бошов",
+      netWorthEur: 13373236,
+      year: 2025,
+    },
+    {
+      slug: "mp-5100",
+      name: "Делян Славчев Пеевски",
+      netWorthEur: 9849697,
+      year: 2025,
+    },
+    {
+      slug: "mp-3727",
+      name: "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+      netWorthEur: 9532733,
+      year: 2021,
+    },
+    {
+      slug: "mp-3056",
+      name: "Станислав Тодоров Трифонов",
+      netWorthEur: 8247384,
+      year: 2026,
+    },
+    {
+      slug: "nadya-vasileva-ivanova-dbb775",
+      name: "Надя Василева Иванова",
+      netWorthEur: 7401386,
+      year: 2025,
+    },
+  ],
+  topNetWorthYears: { first: 2021, last: 2026 },
 };
 
 const at = (url: string) =>

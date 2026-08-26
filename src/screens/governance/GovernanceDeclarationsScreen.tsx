@@ -34,6 +34,7 @@ import { declarationsSearchSources } from "./declarationsSearch";
 import { ScopeControl } from "@/screens/components/ScopeControl";
 import { useMpAssetsScope } from "@/screens/utils/mpAssetsScope";
 import {
+  declarationsHubEvidence,
   declarationsHubKpis,
   declarationsKpiNote,
   promotedTiles,
@@ -148,6 +149,10 @@ export const GovernanceDeclarationsScreen: FC = () => {
   // DERIVED from the cells that actually rendered — see `promotedTiles`. A compile-time
   // list would blank a tile whose band cell was withheld, deleting the figure outright.
   const promoted = useMemo(() => promotedTiles(kpis), [kpis]);
+  const evidence = useMemo(
+    () => declarationsHubEvidence(stats, i18n.language, t),
+    [stats, i18n.language, t],
+  );
 
   const byId = useMemo(
     () => new Map(DECLARATION_TILES.map((tile) => [tile.id, tile])),
@@ -206,6 +211,7 @@ export const GovernanceDeclarationsScreen: FC = () => {
         // hosting deploy that lands before the bucket sync.
         kpisPending={pending ? 4 : undefined}
         kpiNote={declarationsKpiNote(kpis, t)}
+        evidence={evidence}
         scope={
           /* ⚠️ TWO SCOPES, NOT THE SHARED THREE. This register is sliced by PARLIAMENT, so
              `years: []` — 2024 held two parliaments and `y:2024` names no single slice,

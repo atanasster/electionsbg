@@ -30,11 +30,12 @@
 //                            fixedFilters [{is_exec:true}] and opens on 13,240; the 6,340
 //                            municipal rows are reached from elsewhere.
 //
-// AND THE TWO MP TILES ARE PER-PARLIAMENT, not lifetime. /mp-assets and /mp-cars both
-// `useState<MpAssetsScope>("ns")`, so they open filtered to the selected election's NS —
-// and the hub tile preserves `?elections`, which would have guaranteed the mismatch on
-// every parliament. `byNs` is therefore keyed exactly the way `mpAssetsNsScope()` keys its
-// filter, 'all' included, and the hook mirrors that lookup.
+// AND THE TWO MP TILES ARE PER-PARLIAMENT, not lifetime. /mp-assets and /mp-cars are
+// scoped by `?pscope` — the shared param the hub reads too, through the same
+// `pscopeToMpAssets` mapping — so `byNs` is keyed exactly the way `mpAssetsNsScope()` keys
+// its filter, 'all' included, and the hook mirrors that lookup. (Until 2026-08-26 both
+// screens held this in a local `useState` while the hub carried only `?elections`, so the
+// hub could offer no all-time view and the destinations reset on arrival.)
 // ===========================================================================
 
 import fs from "node:fs";
@@ -91,6 +92,24 @@ export interface DeclarationsHubStats {
   organisationPeople: number;
   /** Per-parliament, because both MP screens open scoped to the selected election. */
   byNs: Record<string, DeclarationsNsStats>;
+  /** The head's evidence rail: the largest declared net worth, in the destination's own
+   *  order. See `topNetWorth` below for why every field here is load-bearing. */
+  topNetWorth: TopNetWorth[];
+  /** The span of filing years those rows are drawn from. NOT one year — each person's
+   *  LATEST filing is used, and people stop filing when they leave office, so the rail
+   *  legitimately mixes vintages. The basis line names the span rather than implying a
+   *  single year. */
+  topNetWorthYears: { first: number; last: number } | null;
+}
+
+export interface TopNetWorth {
+  /** The /person slug — the row's link, and its React key. Two officials can share a name. */
+  slug: string;
+  name: string;
+  /** Declared assets minus declared debts, in EUR. */
+  netWorthEur: number;
+  /** The filing this figure comes from. Differs per person, by up to five years. */
+  year: number;
 }
 
 const run = async (): Promise<void> => {
@@ -212,6 +231,42 @@ const run = async (): Promise<void> => {
     }
   }
 
+  // ⚠️ THE DESTINATION'S FILTER AND THE DESTINATION'S SORT, verbatim — the evidence
+  // column's SAME-SET rule.
+  // `OfficialsAssetsScreen` renders this same matview with
+  // `fixedFilters [{is_exec:true}]` and `defaultSort [{net_worth_eur, desc}]`, so these
+  // ARE its first rows — which is what §3.1 rule 4 requires of a rail that links there.
+  // Ranking by `total_assets_eur` (the column beside it, and the table's only index) would
+  // publish a different five under a heading naming the destination.
+  const top = await allRows<Record<string, string>>(
+    `SELECT slug, name, latest_declaration_year AS year,
+            round(net_worth_eur)::text AS net
+       FROM officials_rankings_table
+      WHERE is_exec AND net_worth_eur IS NOT NULL
+        -- 090 could not total an implausible declared row, so this person's figures are
+        -- INCOMPLETE — 100's own comment says the UI must caveat them rather than present
+        -- them as whole, and the destination does (officials_excluded_row_hint). A
+        -- five-row rail has no room to, and publishing the number bare states a whole
+        -- fortune we do not have. 1 of 13,641 today, but the mechanism triggers on an
+        -- implausible declared VALUE, so the population most likely to acquire one is
+        -- exactly the one this rail draws from.
+        AND excluded_asset_rows = 0
+      ORDER BY net_worth_eur DESC, slug
+      LIMIT 5`,
+  );
+  // ⚠️ NOT FILTERED FOR A MISSING YEAR, and that is deliberate rather than an oversight.
+  // `latest_declaration_year` is NOT NULL for any row carrying a `net_worth_eur` (both come
+  // from the same filing), so a guard here would be unreachable code asserting a state the
+  // matview cannot produce. What the rail actually needs — that the SPAN describes the rows
+  // — is checked in the data gate against the matview, where it can fail.
+  const topNetWorth = top.map((r) => ({
+    slug: r.slug,
+    name: r.name,
+    netWorthEur: Number(r.net),
+    year: Number(r.year),
+  }));
+  const years = topNetWorth.map((r) => r.year);
+
   const out: DeclarationsHubStats = {
     computedAt: new Date().toISOString(),
     people: Number(row.people),
@@ -220,6 +275,10 @@ const run = async (): Promise<void> => {
     organisations,
     organisationPeople,
     byNs,
+    topNetWorth,
+    topNetWorthYears: years.length
+      ? { first: Math.min(...years), last: Math.max(...years) }
+      : null,
   };
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + "\n");
@@ -228,7 +287,8 @@ const run = async (): Promise<void> => {
     `declarations_hub_stats: ${out.people} people (${out.peopleWithDeclaration} with a filing) · ` +
       `${out.officials} exec officials · ${out.organisations} organisations/` +
       `${out.organisationPeople} people · ` +
-      `${Object.keys(byNs).length} ns partitions (all: ${all?.mpsWithAssets} MPs, ${all?.cars} cars/${all?.carOwners} owners)`,
+      `${Object.keys(byNs).length} ns partitions (all: ${all?.mpsWithAssets} MPs, ${all?.cars} cars/${all?.carOwners} owners) · ` +
+      `top net worth ${topNetWorth.length} rows (${out.topNetWorthYears?.first}-${out.topNetWorthYears?.last})`,
   );
   await end();
 };

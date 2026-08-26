@@ -627,10 +627,13 @@ const HUB_HEAD_BUDGETS: {
   // mayors who were never required to file, and „по филтрите, не по търсенето" is what stops a
   // corpus rate being read as a property of the search results. Check for a fifth cell instead.
   //
-  // `measured` is 0 until this runs against a built dist — see the note on running it.
-  { path: "/persons", maxPx: 560, measured: 0, cells: 4 },
+  // 469 px measured 2026-08-26 at 1280 — identity + deck + scope + a full search field with its
+  // hint and example chips + a 4-cell band, with the evidence aside beside the identity column
+  // at `lg` rather than under it. ~19% slack, the same band as its neighbours.
+  { path: "/persons", maxPx: 560, measured: 469, cells: 4 },
   // Identity + deck + a two-state scope control + a full search box + a 4-cell band + a
-  // one-line note. No evidence aside yet (step 3).
+  // one-line note + an evidence aside. The aside sits beside the identity column at `lg`,
+  // so it does not drive the height — the note and the wrapped basis line do.
   //
   // ⚠️ THE NOTE IS LOAD-BEARING, NOT DECORATION — do not trim it if this trips. The scope
   // pill sits directly above the band, which is the arrangement that makes a reader assume
@@ -639,8 +642,8 @@ const HUB_HEAD_BUDGETS: {
   // history. Check for a fifth cell instead.
   //
   // 513 with a one-line organisations basis; 525 once that cell gained „целият регистър ·"
-  // and wrapped — see FINDING-003's reasoning above. Measured in dev at 1280, the same basis
-  // the entries above use; a Playwright run against a built dist is the authoritative check.
+  // and wrapped, and unchanged by the evidence aside. Measured in dev at 1280, the same
+  // basis the entries above use; a Playwright run against a built dist is authoritative.
   { path: "/governance/declarations", maxPx: 590, measured: 525, cells: 4 },
 ];
 
