@@ -12,11 +12,13 @@ import {
   REPORTS_BAND,
   analysisHubKpis,
   analysisKpiNote,
+  groupedInt,
   promotedStats,
 } from "@/screens/analysis/analysisHubFigures";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useAnalysisHubEvidence } from "@/screens/analysis/useAnalysisHubEvidence";
 import {
-  useAnalysisStats,
+  useAnalysisStatsState,
   formatAnalysisMetric,
   analysisMetricCaption,
 } from "@/data/analysis/useAnalysisStats";
@@ -25,7 +27,9 @@ import { REPORT_SCENES } from "./reportsHubScenes";
 
 export const ReportsHubScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const stats = useAnalysisStats();
+  const { stats, isPending } = useAnalysisStatsState();
+  // ⚠️ ALWAYS-GROUPED — bg does not group four digits on its own; see `groupedInt`.
+  const formatInt = useMemo(() => groupedInt(i18n.language), [i18n.language]);
   const { electionStats } = useElectionContext();
   const cta = t("reports_hub_view");
 
@@ -65,14 +69,21 @@ export const ReportsHubScreen: FC = () => {
         band: REPORTS_BAND,
         stats,
         format: (st) => formatAnalysisMetric(st, i18n.language),
-        formatInt: (n) => n.toLocaleString(i18n.language),
+        formatInt,
         labelOf: (id) => t(byStat.get(id)?.titleKey ?? id),
         hrefOf: (id) => byStat.get(id)?.to,
         t,
       }),
-    [stats, i18n.language, byStat, t],
+    [stats, formatInt, i18n.language, byStat, t],
   );
   const promoted = useMemo(() => promotedStats(kpis), [kpis]);
+  // The rail: how the other 12,699 sections fall out. It answers the band's first cell —
+  // „is six a lot?" — which the cell cannot answer about itself.
+  const evidence = useAnalysisHubEvidence(
+    byStat.get("risk")?.to,
+    formatInt,
+    kpis.some((k) => k.statId === "risk"),
+  );
 
   const sections: TileHubSection[] = REPORT_CLUSTERS.map((cluster) => ({
     heading: t(cluster.labelKey),
@@ -108,7 +119,11 @@ export const ReportsHubScreen: FC = () => {
         seoDescription={t("reports_hub_seo_description")}
         deck={t("reports_head_deck")}
         kpis={kpis}
+        // ⚠️ THE PENDING COUNT, not `!stats` — a 404 is an ANSWER, and the early cycles carry
+        // fewer analyses, so a tautological predicate leaves a permanently shimmering band.
+        kpisPending={isPending ? REPORTS_BAND.length : undefined}
         kpiNote={analysisKpiNote(kpis, t)}
+        evidence={evidence}
       />
 
       <div data-og="reports-hub">

@@ -89,6 +89,7 @@ import {
 import {
   ANALYSIS_BAND,
   REPORTS_BAND,
+  analysisHubEvidence,
   analysisHubKpis,
   promotedStats,
 } from "@/screens/analysis/analysisHubFigures";
@@ -860,6 +861,34 @@ describe("hub head — the band and the tiles are disjoint", () => {
     const kpis = analysisBand(REPORTS_BAND);
     expect(kpis.map((k) => k.statId)).toEqual(["risk", "turnout"]);
     expect([...promotedStats(kpis)].sort()).toEqual(["risk", "turnout"]);
+  });
+
+  it("the analyses rail answers its own band without repeating it", () => {
+    // §3.1: a rail row is a figure no tile and no KPI shows. `critical` IS the band's first
+    // cell on both hubs, so the rail carries the other three bands and names the critical
+    // one in words. „6" printed twice on one page is the band/tile clash one column over.
+    const counts = {
+      low: 10773,
+      elevated: 1629,
+      high: 297,
+      critical: 6,
+      totalSections: 12705,
+    };
+    const e = analysisHubEvidence(
+      counts,
+      (n) => String(n),
+      (b) => `band:${b}`,
+      "/risk-analysis",
+      id,
+    );
+    expect(e?.rows.map((r) => r.id)).toEqual(["high", "elevated", "low"]);
+    const bandValues = new Set(analysisBand().map((k) => k.value));
+    for (const r of e!.rows)
+      expect(bandValues.has(r.value), `${r.label} repeats a KPI value`).toBe(
+        false,
+      );
+    for (const r of e!.rows) expect(String(r.to)).toBe("/risk-analysis");
+    expect(String(e?.action?.to)).toBe("/risk-analysis");
   });
 
   it("no two /budget KPI cells share a destination", () => {

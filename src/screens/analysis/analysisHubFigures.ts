@@ -40,8 +40,12 @@
 // more load-bearing than the figure.
 // ═══════════════════════════════════════════════════════════════════════════════════════
 
-import type { HubKpi } from "@/ux/infographic/HubHead";
+import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
 import type { AnalysisStat } from "@/data/analysis/useAnalysisStats";
+// ⚠️ DERIVED, not restated: a fifth screening band would otherwise land in the spread object,
+// be typed away, and never reach the rail. (A typo IN `EVIDENCE_BANDS` is already caught —
+// `counts[band]` would not index — so only this direction was open.)
+import type { RiskBand } from "@/data/riskScore/useRiskScore";
 
 type T = (key: string, opts?: Record<string, unknown>) => string;
 
@@ -182,3 +186,96 @@ export const analysisKpiNote = (
   kpis: AnalysisKpi[],
   t: T,
 ): string | undefined => (kpis.length < 2 ? undefined : t("analysis_kpi_note"));
+
+/** Thousands-grouped, ALWAYS — the one integer formatter this module's two hubs share.
+ *
+ *  ⚠️⚠️ `n.toLocaleString("bg")` DOES NOT GROUP A FOUR-DIGIT NUMBER, and this module prints
+ *  four- and five-digit counts in one column. Bulgarian CLDR uses `minimumGroupingDigits: 2`,
+ *  so the rail rendered „297 · **1629** · 10 773" — one row ungrouped between two grouped
+ *  ones, which at a glance reads as a magnitude difference rather than a formatting one. EN
+ *  groups from four digits by default, so the defect is invisible in the language the tests
+ *  and the reviewer read.
+ *
+ *  ⚠️ ITS REACH IS THE RAIL AND THE BAND'S INTERPOLATED DENOMINATOR, AND NO FURTHER. The
+ *  band's own VALUE and the tiles' captions still go through the locale default, inside
+ *  `formatAnalysisMetric` / `analysisMetricCaption` — so a four-digit `total` would render
+ *  „от 9999" on a tile beside „от 9 999" in the band. Unreachable on today's corpus
+ *  (`totalSections` is 11,902–12,705 across all 13 folders and `counts.critical` is 2–9), and
+ *  closing it means routing those two through here, which touches every analysis tile. Stated
+ *  rather than implied: an earlier revision of this comment claimed the wider reach. */
+export const groupedInt = (lang: string): ((n: number) => string) => {
+  // ⚠️ `true`, NOT THE DEFAULT — and not the string "always" either. ECMA-402's
+  // GetStringOrBooleanOption normalizes `true` TO "always", so the two are the same option
+  // and only `true` type-checks under this repo's lib without a cast. What produces „1629"
+  // is OMITTING the field: the default resolves to "auto", which defers to the locale's
+  // `minimumGroupingDigits`. Verified on Node 22: `{useGrouping: true}` resolves to "always"
+  // and formats 1629 as „1 629" in bg, while the default resolves to "auto" and does not.
+  // (An earlier revision cast the string in and claimed `true` meant "use the locale's rule";
+  // that was wrong on both halves.) `analysisHubFigures.test.ts` pins the bg four-digit case.
+  const nf = new Intl.NumberFormat(lang, { useGrouping: true });
+  return (n) => nf.format(n);
+};
+
+/** The band counts off `risk_score_summary.json`, as the caller resolved them. */
+export type RiskBandCounts = Record<RiskBand, number> & {
+  totalSections: number;
+};
+
+/** ⚠️ THE THREE BANDS THE HEAD DOES NOT ALREADY SHOW, most severe first — `critical` is
+ *  DELIBERATELY ABSENT. §3.1's rule for a rail is that a row is a figure no tile and no KPI
+ *  shows, and the critical count IS the band's first cell on both hubs; printing it again
+ *  eight centimetres lower is the band/tile clash one column over. The basis points at it in
+ *  words instead of repeating the number. */
+export const EVIDENCE_BANDS = [
+  "high",
+  "elevated",
+  "low",
+] as const satisfies readonly RiskBand[];
+
+/** The head's evidence rail: how the other 12,699 sections fall out.
+ *
+ *  ⚠️⚠️ IT ANSWERS THE BAND'S FIRST CELL RATHER THAN DECOMPOSING IT, which is the same job
+ *  `/indicators`' peer rail does. „6 секции" is not interpretable on its own — the reader's
+ *  actual question is whether six is a lot — and the answer is that 10,773 of 12,705 carry no
+ *  significant signal at all. That is the deflationary direction, and on a page whose two
+ *  loudest figures are electoral-integrity FLAGS the deflationary direction is the one a head
+ *  owes the reader.
+ *
+ *  ⚠️ IT IS THE SAME RAIL ON BOTH HUBS, and that is correct rather than lazy: it is one
+ *  distribution of one corpus, and `risk` is one figure both hubs front. What differs is the
+ *  DESTINATION — /risk-analysis against /risk-score — so `hrefOf` comes from the hub, exactly
+ *  as `BandStat` explains for the band.
+ *
+ *  ⚠️ RULE 4 IS SATISFIED WEAKLY AND ON PURPOSE. There is no per-band URL, so all three rows
+ *  and the action share one destination. That page is a TABLE carrying a band badge on every
+ *  row (`RiskScoreScreen`'s `band` column), so it can name the sections behind „297 висок" —
+ *  it just cannot be deep-linked to them. Do not invent a `?band=` the screen does not read.
+ *
+ *  ⚠️ REFUSED WHEN THE SUMMARY IS ABSENT rather than rendered as zeros: „0 секции с повишен
+ *  риск" is a claim that the corpus was screened and came back clean, which is the exact
+ *  inversion of „nobody ran the screen". */
+export const analysisHubEvidence = (
+  counts: RiskBandCounts | undefined,
+  formatInt: (n: number) => string,
+  labelOf: (band: (typeof EVIDENCE_BANDS)[number]) => string,
+  to: string | undefined,
+  t: T,
+): HubEvidence | undefined => {
+  if (!counts || !counts.totalSections) return undefined;
+  return {
+    heading: t("analysis_evidence_heading"),
+    // ⚠️ THE TOTAL IS INTERPOLATED AND THE CRITICAL COUNT IS NOT. The denominator is what
+    // makes the three rows readable; the critical count is the cell directly above and is
+    // named in words („критичната лента е числото горе") so the page states it once.
+    basis: t("analysis_evidence_basis", {
+      total: formatInt(counts.totalSections),
+    }),
+    rows: EVIDENCE_BANDS.map((band) => ({
+      id: band,
+      label: labelOf(band),
+      value: formatInt(counts[band]),
+      to,
+    })),
+    action: to ? { to, label: t("analysis_evidence_action") } : undefined,
+  };
+};

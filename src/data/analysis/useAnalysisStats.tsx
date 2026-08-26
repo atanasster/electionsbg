@@ -90,12 +90,29 @@ const queryFn = async ({
 
 /** The analysisId→stat map for the selected election, or undefined while
  *  loading / when the file is absent. */
-export const useAnalysisStats = (): AnalysisStatsFile | undefined => {
+const useAnalysisStatsQuery = () => {
   const { selected } = useElectionContext();
-  const { data } = useQuery({
+  return useQuery({
     queryKey: ["analysis_stats", selected] as const,
     queryFn,
     staleTime: Infinity,
   });
-  return data;
+};
+
+export const useAnalysisStats = (): AnalysisStatsFile | undefined =>
+  useAnalysisStatsQuery().data;
+
+/** The same payload plus its LOADING state, for a caller that must reserve the band's height.
+ *
+ *  ⚠️ `useAnalysisStats()` RETURNING undefined IS NOT A PENDING SIGNAL — it is „loading" and
+ *  „this election has no analyses" collapsed into one value, and a `kpisPending` derived from
+ *  it leaves a permanently shimmering band on the early cycles. `isPending` separates them:
+ *  a 404 is an ANSWER, and the band must then render nothing rather than a pulse. Same defect
+ *  and same fix as the declarations hub's `kpisPending={!stats}` tautology. */
+export const useAnalysisStatsState = (): {
+  stats: AnalysisStatsFile | undefined;
+  isPending: boolean;
+} => {
+  const { data, isPending } = useAnalysisStatsQuery();
+  return { stats: data, isPending };
 };

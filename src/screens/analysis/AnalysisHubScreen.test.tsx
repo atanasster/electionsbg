@@ -27,13 +27,21 @@ const STATS = {
   turnout: { kind: "percent", value: 50.7, captionKey: "turnout_c" },
 };
 
-const mount = (data: unknown) => {
+/** Verbatim from data/2026_04_19/reports/section/risk_score_summary.json, 2026-08-26. */
+const SUMMARY = {
+  totalSections: 12705,
+  counts: { low: 10773, elevated: 1629, high: 297, critical: 6 },
+};
+
+const mount = (data: unknown, summary: unknown = SUMMARY) => {
   vi.stubGlobal(
     "fetch",
     vi.fn(async (url: string) =>
       String(url).includes("analysis_stats.json")
         ? { ok: true, status: 200, json: async () => data }
-        : { ok: false, status: 404, json: async () => null },
+        : String(url).includes("risk_score_summary.json")
+          ? { ok: true, status: 200, json: async () => summary }
+          : { ok: false, status: 404, json: async () => null },
     ),
   );
   const Wrapper = ({ children }: { children: ReactNode }) => (
@@ -114,6 +122,67 @@ describe("AnalysisHubScreen", () => {
     ) as HTMLElement | null;
     expect(featured).not.toBeNull();
     expect(featured?.textContent).not.toContain("6");
+  });
+
+  it("renders the rail, answering the band's first cell", async () => {
+    // ⚠️ `evidence={evidence}` IS COVERED BY NOTHING ELSE. A prop computed and never passed
+    // compiles, type-checks and renders a head with no aside — it happened once on /culture
+    // in this same series.
+    mount(STATS);
+    await waitFor(() =>
+      expect(document.querySelector("[data-hub-head] aside")).not.toBeNull(),
+    );
+    const aside = document.querySelector("[data-hub-head] aside")!;
+    // Three rows — high, elevated, low. NOT critical: that is the band cell above.
+    // Separator-agnostic: bg uses a space, en a comma. „10" alone would match almost
+    // anything, including a page that lost the row entirely.
+    const digits = aside.textContent!.replace(/[\s\u00a0\u202f,]/g, "");
+    expect(digits).toContain("297");
+    expect(digits).toContain("10773");
+    // The FOUR-digit row — the case `groupedInt` exists for, asserted on the rendered path.
+    expect(digits).toContain("1629");
+    // ⚠️ COUNT FIRST. A bare `for (… querySelectorAll("a"))` passes on ZERO links, which is
+    // exactly what renders if the destination goes undefined — the gate going quiet under
+    // the regression it guards.
+    const links = [...aside.querySelectorAll("a")];
+    expect(links.length, "the rail rendered no links").toBeGreaterThan(0);
+    for (const a of links)
+      expect(a.getAttribute("href")).toBe("/risk-analysis");
+  });
+
+  it("labels the rows with the band NAMES, as rendered", async () => {
+    // ⚠️ THE RENDERED HALF of the label rule — the source clause in analysisHubFigures.test.ts
+    // guards the key's SHAPE, this guards what a reader sees. The harness mounts an
+    // untranslated i18n, so `t()` returns the key verbatim and the two candidates are
+    // distinguishable: `risk_band_high` against `risk_band_high_caption`, which is a whole
+    // sentence („Няколко сигнала се отличават.") in the shipped corpus.
+    mount(STATS);
+    await waitFor(() =>
+      expect(document.querySelector("[data-hub-head] aside")).not.toBeNull(),
+    );
+    const text = document.querySelector("[data-hub-head] aside")!.textContent!;
+    for (const b of ["high", "elevated", "low"]) {
+      expect(text).toContain(`risk_band_${b}`);
+      expect(text).not.toContain(`risk_band_${b}_caption`);
+    }
+  });
+
+  it("renders NO aside when the band has no risk cell to point at", async () => {
+    // The rail's basis says the critical band „се показва отделно" — a cross-reference to the
+    // KPI. The two are INDEPENDENT fetches, so with the summary present and `risk` absent the
+    // aside would point at a cell that is not on the page.
+    const noRisk = { ...STATS } as Record<string, unknown>;
+    delete noRisk.risk;
+    mount(noRisk);
+    await waitFor(() => expect(cells()).toHaveLength(3));
+    expect(document.querySelector("[data-hub-head] aside")).toBeNull();
+  });
+
+  it("renders NO aside when the risk summary is missing", async () => {
+    // „0 секции с повишен риск" would claim the corpus was screened and came back clean.
+    mount(STATS, null);
+    await waitFor(() => expect(cells().length).toBeGreaterThan(0));
+    expect(document.querySelector("[data-hub-head] aside")).toBeNull();
   });
 
   it("renders NO band at all when the election carries no analyses", async () => {

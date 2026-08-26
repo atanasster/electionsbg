@@ -551,6 +551,14 @@ const HUB_HEAD_BUDGETS: {
    *  /subsidies, 528 px against a 620 ceiling with `kpis` unwired and every assertion here
    *  green. The height and the count together are what make this gate non-vacuous. */
   cells: number;
+  /** How many rows the evidence aside must carry, where the head has one.
+   *
+   *  ⚠️ FOR THE SAME REASON `cells` EXISTS, ONE COLUMN OVER: a ceiling cannot tell „the rail
+   *  fits" from „the rail is gone". Deleting /parliamentary/analysis' aside takes the head
+   *  404 → 320, comfortably INSIDE its budget, with this whole gate green — and on that hub
+   *  the aside is what drives the height, so the ceiling is measuring mostly it. Optional
+   *  because most entries here predate the field; a head with no aside simply omits it. */
+  asideRows?: number;
 }[] = [
   // Eyebrow + h1 + deck + a one-line search + a 4-cell band + the evidence aside.
   { path: "/governance", maxPx: 500, measured: 430, cells: 4 },
@@ -731,7 +739,7 @@ const HUB_HEAD_BUDGETS: {
   // debt of GDP — so a row of them reads as one scale and is not. If this trips, check for a
   // fifth cell before touching the sentence.
   //
-  // ⚠️ THE LOOSEST CEILING HERE (22% slack against 8–17.5% elsewhere), and deliberately: it
+  // ⚠️ LOOSER THAN MOST (17.6% slack against a ~15% median), and deliberately: it
   // is the only entry whose height depends on a BUCKET-SYNCED STRING rather than on code.
   // Each basis is the indicator's own `unitLabel` from data/macro.json — „% спрямо същия
   // период предходна година (реален, SCA)" is the longest today — so a re-worded unit from
@@ -765,8 +773,21 @@ const HUB_HEAD_BUDGETS: {
   // gate runs on the latest election, which carries all four — so if the count comes in
   // short, check whether the `?elections` default moved before looking for a code change.
   //
-  // 320 px measured 2026-08-26 at 1280 (1265 clientWidth after the scrollbar).
-  { path: "/parliamentary/analysis", maxPx: 420, measured: 320, cells: 4 },
+  // 320 with the band alone; 404 once the evidence rail landed. ⚠️ THE RAIL DRIVES THE
+  // HEIGHT HERE, unlike the sibling hubs: there is no search slot filling the identity
+  // column beside it at `lg`, so the aside stacks. Measured 2026-08-26 at 1280 (1265
+  // clientWidth after the scrollbar).
+  //
+  // ⚠️ IF THIS TRIPS, IT IS THE RAIL'S BASIS, not a fifth cell — and that basis is the one
+  // sentence saying a risk BAND is a screen for review rather than a finding. Without it
+  // three rows reading „Висок 297" assert 297 places where something happened.
+  {
+    path: "/parliamentary/analysis",
+    maxPx: 470,
+    measured: 404,
+    cells: 4,
+    asideRows: 3,
+  },
   // The sibling hub, sharing one band module and one note with /parliamentary/analysis.
   //
   // ⚠️ TWO CELLS, NOT FOUR, AND THAT IS THIS HUB'S OWN SIZE — declaring 4 is a gate that
@@ -782,7 +803,15 @@ const HUB_HEAD_BUDGETS: {
   // cycles, `hasRecount` is true on ONE (2024_10_27) and false on the default 2026_04_19,
   // and `hasSuemg` on seven. Without the clause the deck names a report family that is not
   // on the page a reader lands on. Measured 2026-08-26 at 1280.
-  { path: "/parliamentary/reports", maxPx: 400, measured: 319, cells: 2 },
+  // 319 with the band alone; 379 once the rail landed — shorter than its sibling only
+  // because its deck wraps differently, not because a two-cell band is a shorter head.
+  {
+    path: "/parliamentary/reports",
+    maxPx: 435,
+    measured: 379,
+    cells: 2,
+    asideRows: 3,
+  },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {
@@ -793,7 +822,7 @@ test.describe("hub head — the §3.0 height budget", () => {
     "the budget is a claim about the lg layout",
   );
 
-  for (const { path, maxPx, measured, cells } of HUB_HEAD_BUDGETS) {
+  for (const { path, maxPx, measured, cells, asideRows } of HUB_HEAD_BUDGETS) {
     test(`${path} head fits its budget`, async ({ page }) => {
       await page.goto(path, { waitUntil: "networkidle" });
       const head = page.locator("[data-hub-head]");
@@ -811,6 +840,13 @@ test.describe("hub head — the §3.0 height budget", () => {
         head.locator("[data-kpi-cell]"),
         `${path}: the band rendered the wrong number of cells`,
       ).toHaveCount(cells);
+      // …and so is the rail, where one is declared. A deleted aside SHRINKS the head, so the
+      // ceiling above passes on exactly the regression it looks like it would catch.
+      if (asideRows !== undefined)
+        await expect(
+          head.locator("aside a[href]"),
+          `${path}: the evidence rail rendered the wrong number of rows`,
+        ).toHaveCount(asideRows + 1); // the rows plus the rail's own action link
     });
   }
 

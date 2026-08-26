@@ -13,6 +13,9 @@ import type { AnalysisStat } from "@/data/analysis/useAnalysisStats";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import {
   ANALYSIS_BAND,
+  EVIDENCE_BANDS,
+  analysisHubEvidence,
+  groupedInt,
   REPORTS_BAND,
   analysisHubKpis,
   analysisKpiNote,
@@ -175,6 +178,11 @@ describe("the caveats", () => {
     for (const basis of [
       bgCorpus.analysis_kpi_risk_basis,
       enCorpus.analysis_kpi_risk_basis,
+      // ⚠️ THE RAIL'S BASIS CAPTIONS THE SAME COMPOSITE, so the rule binds there too. It was
+      // outside this loop for one revision, which is how a second caption of one score would
+      // have acquired the narrowing the first is guarded against.
+      bgCorpus.analysis_evidence_basis,
+      enCorpus.analysis_evidence_basis,
     ]) {
       expect(basis).not.toMatch(/процедурн|procedural/i);
       expect(basis).not.toMatch(/разпределени|distribution/i);
@@ -245,6 +253,181 @@ describe("band ↔ tile, §3.1 rule 5", () => {
   });
 });
 
+describe("the evidence rail", () => {
+  const COUNTS = {
+    low: 10773,
+    elevated: 1629,
+    high: 297,
+    critical: 6,
+    totalSections: 12705,
+  };
+  const bandLabel = (b: string) => `band:${b}`;
+  // ⚠️ NO DEFAULT ON `to` — a default parameter fires on an EXPLICIT undefined, so
+  // `rail(COUNTS, undefined)` would quietly re-apply it and the „no action" clause would
+  // assert nothing. That trap has now cost this file two clauses; pass both, always.
+  const rail = (
+    to: string | undefined,
+    counts: typeof COUNTS | undefined = COUNTS,
+  ) => analysisHubEvidence(counts, int, bandLabel, to, t);
+  const RISK = "/risk-analysis";
+
+  it("⚠️ OMITS the critical band, which the KPI above it already shows", () => {
+    // §3.1: a rail row is a figure no tile and no KPI shows. The critical count IS the band's
+    // first cell on BOTH hubs, so a row for it would print „6" twice on one page — the
+    // band/tile clash one column over. The basis names it in words instead.
+    expect(rail(RISK)!.rows.map((r) => r.id)).toEqual([
+      "high",
+      "elevated",
+      "low",
+    ]);
+    expect(EVIDENCE_BANDS).not.toContain("critical");
+    for (const r of rail(RISK)!.rows)
+      expect(r.value, "a rail row repeats the KPI's figure").not.toBe(
+        int(COUNTS.critical),
+      );
+  });
+
+  it("orders most severe first, which is not the order of the numbers", () => {
+    // A rail sorted by VALUE would read low → high and bury the finding; these are ordinal
+    // bands, so the severity order is the meaningful one even though it descends by count.
+    const values = rail(RISK)!.rows.map((r) =>
+      Number(r.value.replace(/\D/g, "")),
+    );
+    expect(values).toEqual([297, 1629, 10773]);
+  });
+
+  it("carries the denominator, and NOT the critical count, in its basis", () => {
+    // The total is what makes three bare counts readable; the critical count is the cell
+    // directly above, so the page states it once.
+    expect(rail(RISK)!.basis).toContain(int(12705));
+    expect(rail(RISK)!.basis).not.toContain(`:${COUNTS.critical}`);
+  });
+
+  it("says in words that a band is a SCREEN, not a verdict", () => {
+    // The rail's whole job is deflationary — it answers „is six a lot?" with „10 773 of
+    // 12 705 carry no significant signal". A row labelled „Висок" with no such clause reads
+    // as 297 places where something happened.
+    expect(bgCorpus.analysis_evidence_basis).toMatch(
+      /екран за преглед, а не установени нарушения/,
+    );
+    expect(enCorpus.analysis_evidence_basis).toMatch(
+      /a screen for review, not established irregularities/,
+    );
+    expect(bgCorpus.analysis_evidence_basis).toContain("{{total}}");
+    // ⚠️ AND IT MUST NOT POINT IN A DIRECTION. It said „критичната лента е числото ГОРЕ" —
+    // true on mobile and false at `lg`, where `HubHead` puts the aside in `lg:row-start-1`
+    // and the band in `lg:row-start-2`, i.e. the figure is BELOW the rail on every desktop
+    // viewport and in the share card's own capture width.
+    for (const basis of [
+      bgCorpus.analysis_evidence_basis,
+      enCorpus.analysis_evidence_basis,
+    ])
+      expect(basis).not.toMatch(/горе|above|по-долу|below/i);
+  });
+
+  it("takes its DESTINATION from the hub, like the band does", () => {
+    // /risk-analysis on the analyses hub, /risk-score on the reports hub — one rail, two
+    // pages, so the module cannot own the href.
+    expect(rail("/risk-score")!.rows.every((r) => r.to === "/risk-score")).toBe(
+      true,
+    );
+    expect(rail("/risk-score")!.action?.to).toBe("/risk-score");
+  });
+
+  it("labels each row with the band's OWN name", () => {
+    // TEST-001: nothing asserted the labels, so a screen switching to
+    // `risk_band_${b}_caption` („Няколко сигнала се отличават.") would caption the rail with
+    // sentences and stay green. The label is the band; the sentence is the destination's job.
+    expect(rail(RISK)!.rows.map((r) => r.label)).toEqual([
+      "band:high",
+      "band:elevated",
+      "band:low",
+    ]);
+    // The real keys exist in both corpora — a rail labelled with raw ids is the failure this
+    // guards, and `t()` returns the key verbatim when one is missing.
+    for (const b of EVIDENCE_BANDS) {
+      expect(bgCorpus[`risk_band_${b}`]).toBeTruthy();
+      expect(enCorpus[`risk_band_${b}`]).toBeTruthy();
+    }
+  });
+
+  it("REFUSES when the summary is absent rather than rendering zeros", () => {
+    // „0 секции с повишен риск" claims the corpus was screened and came back clean — the
+    // exact inversion of „nobody ran the screen".
+    expect(
+      analysisHubEvidence(undefined, int, bandLabel, "/x", t),
+    ).toBeUndefined();
+    expect(rail(RISK, { ...COUNTS, totalSections: 0 })).toBeUndefined();
+  });
+
+  it("renders no ACTION when the hub has no risk page", () => {
+    // A „целият скрининг" button going nowhere is worse than no button.
+    const e = rail(undefined);
+    expect(e!.action).toBeUndefined();
+    expect(e!.rows.every((r) => r.to === undefined)).toBe(true);
+  });
+});
+
+describe("the rail, at the source", () => {
+  // TEST-002 + FINDING-003: the wiring — the counts mapping, the row LABEL key and the
+  // destination — was 17 byte-identical lines in each screen with nothing over the copies, so
+  // switching ONE hub's label key would caption one distribution two ways and leave every
+  // clause green. It now lives once, in `useAnalysisHubEvidence`.
+  const screens = [
+    "src/screens/analysis/AnalysisHubScreen.tsx",
+    "src/screens/reports/hub/ReportsHubScreen.tsx",
+  ];
+
+  it("is built in ONE place, which both hubs call", () => {
+    for (const path of screens) {
+      const src = readFileSync(path, "utf-8");
+      expect(src, `${path} does not use the shared rail hook`).toMatch(
+        /useAnalysisHubEvidence\(/,
+      );
+      // …and neither screen re-implements it. The pure builder is the gates test's subject
+      // and must stay React-free; the WIRING must not be duplicated back into a screen.
+      expect(
+        src.includes("analysisHubEvidence("),
+        `${path} builds the rail inline instead of through the hook`,
+      ).toBe(false);
+    }
+  });
+
+  it("names the label key exactly once in the tree", () => {
+    const hook = readFileSync(
+      "src/screens/analysis/useAnalysisHubEvidence.ts",
+      "utf-8",
+    );
+    // ⚠️ THE CLOSING BACKTICK IS LOAD-BEARING. Without it the pattern also matches
+    // `risk_band_${b}_caption` — „Няколко сигнала се отличават." — which captions the rail
+    // with sentences instead of band names. Measured: that mutation passed this clause.
+    expect(hook).toMatch(/risk_band_\$\{b\}`/);
+    for (const path of screens)
+      expect(
+        readFileSync(path, "utf-8"),
+        `${path} carries its own copy of the band label key`,
+      ).not.toMatch(/risk_band_/);
+  });
+});
+
+describe("groupedInt", () => {
+  it("⚠️ groups a FOUR-digit number in bg, which the locale default does not", () => {
+    // Bulgarian CLDR sets minimumGroupingDigits: 2, so `(1629).toLocaleString("bg")` is
+    // „1629" — and this module prints 297 / 1 629 / 10 773 in one column, where the odd one
+    // out reads as a magnitude difference rather than a formatting one.
+    const bg = groupedInt("bg");
+    expect(bg(1629)).not.toBe("1629");
+    expect(bg(1629).replace(/\s|\u00a0|\u202f/g, "")).toBe("1629");
+    expect(bg(10773).replace(/\s|\u00a0|\u202f/g, "")).toBe("10773");
+    // Non-vacuity: the plain form really does fail, so this is not asserting a no-op.
+    expect((1629).toLocaleString("bg")).toBe("1629");
+  });
+
+  it("still groups in en, where the default already did", () => {
+    expect(groupedInt("en")(1629)).toBe("1,629");
+  });
+});
+
 describe("the demotion branch, at the source", () => {
   // ⚠️ A STATIC CLAUSE BECAUSE NO RENDER CAN SEE THIS. `InfographicTile` guards
   // `metricCaption` behind `{metric ? … }` on both layouts, so a promoted tile handed a
@@ -264,6 +447,30 @@ describe("the demotion branch, at the source", () => {
     // Non-vacuity: the regex must actually find the branches it is judging.
     expect(branches.length).toBeGreaterThan(0);
     for (const [, taken] of branches) expect(taken.trim()).toBe("{}");
+  });
+
+  it("⚠️ both screens take the RAIL's and the DENOMINATOR's integers from `groupedInt`", () => {
+    // ⚠️ A STATIC CLAUSE FOR THE SAME REASON AS THE ONE ABOVE: no render can see it. The
+    // component harness mounts EN, and `(1629).toLocaleString("en")` is „1,629" — already
+    // grouped — so a screen reverting to the locale default is byte-identical in the only
+    // language a component test observes. It is wrong ONLY in bg, which is the language the
+    // page ships in. Measured: reverting the analyses hub left all 72 clauses green.
+    for (const path of screens) {
+      const src = readFileSync(path, "utf-8");
+      expect(src, `${path} does not use groupedInt`).toMatch(
+        /groupedInt\(i18n\.language\)/,
+      );
+      // …and no second, ungrouped integer formatter beside it.
+      // ⚠️ SCOPED TO THE DIRECT CALL. Both screens still reach the locale default THROUGH
+      // `formatAnalysisMetric(st, i18n.language)`, which is the band's own value — see
+      // `groupedInt`'s docblock for why that is out of this rule's reach rather than an
+      // oversight. Claiming "never toLocaleString" here would be a message asserting more
+      // than the regex checks.
+      expect(
+        src.match(/toLocaleString\(i18n\.language\)/g) ?? [],
+        `${path} formats an integer outside groupedInt`,
+      ).toEqual([]);
+    }
   });
 
   it("covers BOTH surfaces on the analyses hub", () => {

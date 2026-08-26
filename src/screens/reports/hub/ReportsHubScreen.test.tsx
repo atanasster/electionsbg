@@ -21,13 +21,21 @@ const STATS = {
   wasted: { kind: "percent", value: 18.02, captionKey: "wasted_c" },
 };
 
-const mount = (data: unknown) => {
+/** Verbatim from data/2026_04_19/reports/section/risk_score_summary.json, 2026-08-26. */
+const SUMMARY = {
+  totalSections: 12705,
+  counts: { low: 10773, elevated: 1629, high: 297, critical: 6 },
+};
+
+const mount = (data: unknown, summary: unknown = SUMMARY) => {
   vi.stubGlobal(
     "fetch",
     vi.fn(async (url: string) =>
       String(url).includes("analysis_stats.json")
         ? { ok: true, status: 200, json: async () => data }
-        : { ok: false, status: 404, json: async () => null },
+        : String(url).includes("risk_score_summary.json")
+          ? { ok: true, status: 200, json: async () => summary }
+          : { ok: false, status: 404, json: async () => null },
     ),
   );
   const Wrapper = ({ children }: { children: ReactNode }) => (
@@ -108,6 +116,33 @@ describe("ReportsHubScreen", () => {
       REPORT_CLUSTERS.flatMap((c) => c.reports).filter((r) => r.requires)
         .length,
     ).toBeGreaterThan(0);
+  });
+
+  it("renders the rail, answering the band's first cell", async () => {
+    // ⚠️ `evidence={evidence}` IS COVERED BY NOTHING ELSE. A prop computed and never passed
+    // compiles, type-checks and renders a head with no aside.
+    mount(STATS);
+    await waitFor(() =>
+      expect(document.querySelector("[data-hub-head] aside")).not.toBeNull(),
+    );
+    const aside = document.querySelector("[data-hub-head] aside")!;
+    const digits = aside.textContent!.replace(/[\s\u00a0\u202f,]/g, "");
+    expect(digits).toContain("297");
+    expect(digits).toContain("1629");
+    // ⚠️ /risk-score, NOT the /risk-analysis the same rail points at on the analyses hub.
+    // ⚠️ COUNT FIRST. A bare `for (… querySelectorAll("a"))` passes on ZERO links, which is
+    // exactly what renders if the destination goes undefined — the gate going quiet under
+    // the regression it guards.
+    const links = [...aside.querySelectorAll("a")];
+    expect(links.length, "the rail rendered no links").toBeGreaterThan(0);
+    for (const a of links) expect(a.getAttribute("href")).toBe("/risk-score");
+  });
+
+  it("renders NO aside when the risk summary is missing", async () => {
+    // „0 секции с повишен риск" would claim the corpus was screened and came back clean.
+    mount(STATS, null);
+    await waitFor(() => expect(cells().length).toBeGreaterThan(0));
+    expect(document.querySelector("[data-hub-head] aside")).toBeNull();
   });
 
   it("renders no band when the election carries no analyses", async () => {
