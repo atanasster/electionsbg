@@ -24,7 +24,7 @@
 // but the page has nothing to SAY about them: four of the table's five columns render „—" for a
 // hidden row, three of those by construction. It is a phone book, not a story.
 
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
@@ -58,7 +58,6 @@ import {
 } from "@/screens/companies/companiesKpiBasis";
 import {
   EXAMPLE_TERMS,
-  URL_MIRROR_MS,
   companiesScopeCount,
   COMPANIES_LANDING_CARDS,
 } from "@/screens/companies/companiesBrowseConstants";
@@ -159,31 +158,41 @@ export const CompaniesBrowseDbScreen: FC = () => {
     n.toLocaleString(i18n.language === "bg" ? "bg-BG" : "en-US");
   const fmtEur = (n: number) => formatEurCompact(n, i18n.language);
 
-  // ── THE TERM: local state, mirrored into ?q ──────────────────────────────────────────────
+  // ── THE TERM: a draft in the box, a committed term in ?q ─────────────────────────────────
   //
-  // ⚠️ TWO DEBOUNCES, AND THEY MUST NOT BE COLLAPSED. None in the field itself (the box must
-  // never lag the keyboard); URL_MIRROR_MS here, bounding router churn; and 250 ms inside
-  // DbDataTable on the way to the engine, where the SEARCH_MIN_CHARS contract lives. Merging any
-  // two couples an SEO/navigation concern to a query-cost one.
-  const [term, setTerm] = useState(f.query);
+  // TWO VALUES, and everything downstream reads the second:
+  //   · `draft` — what is in the box. Local, so typing is instant, and seen by nothing else.
+  //   · `f.query` (`?q`) — the COMMITTED term, written once by the reader's submit.
+  //
+  // ⚠️ IT USED TO BE ONE VALUE ON A 350 ms MIRROR. That bought instant typing at the price of
+  // two states that could disagree — hence the ref telling „the URL is echoing our own write"
+  // (ignore) from „the URL moved under us" (follow) — and it sent the engine every prefix of
+  // every word against a 1.02M-row corpus. Committing on submit removes the race rather than
+  // guarding it: the URL now only changes because somebody asked it to.
+  //
+  // What survives is the seed in the other direction — Back, an in-app `?q` link, „Изчисти" —
+  // which must move the box. One effect, no ref.
+  const [draft, setDraft] = useState(f.query);
   const setQuery = f.setQuery;
-  // The URL is the source of truth on ARRIVAL (a deep link, Back), the box on every keystroke
-  // after. Syncing only when they differ keeps a Back press from being swallowed by the mirror.
-  const lastMirrored = useRef(f.query);
-  useEffect(() => {
-    if (f.query !== lastMirrored.current) {
-      lastMirrored.current = f.query;
-      setTerm(f.query);
-    }
-  }, [f.query]);
-  useEffect(() => {
-    if (term === lastMirrored.current) return;
-    const id = setTimeout(() => {
-      lastMirrored.current = term;
-      setQuery(term);
-    }, URL_MIRROR_MS);
-    return () => clearTimeout(id);
-  }, [term, setQuery]);
+  useEffect(() => setDraft(f.query), [f.query]);
+  // Takes the term rather than reading `draft`: the clear × and the example chips submit a value
+  // that is not in state yet.
+  const onSubmitQuery = useCallback((v: string) => setQuery(v), [setQuery]);
+  // ⚠️ „Изчисти" is URL-only, so the box needs its own half — otherwise a reader who typed
+  // something they never submitted watches the results clear while their term sits on in the
+  // box, with „Търси" beside it offering to bring it back.
+  const clearFilters = f.clearFilters;
+  const onClearAll = useCallback(() => {
+    setDraft("");
+    clearFilters();
+  }, [clearFilters]);
+
+  // ⚠️ READ FROM `?q`, NOT FROM THE BOX AND NOT FROM THE TABLE'S RESPONSE. It gates the two
+  // search-blind surfaces (the head band, the head's evidence rail), and each other source is
+  // wrong in its own direction: the box would strip them mid-word, before the reader has asked
+  // for anything, and the response would put them back for the length of every request — which
+  // is exactly when a reader is looking at the head.
+  const searching = f.query.trim().length > 0;
 
   // ── WHETHER THERE IS A TABLE AT ALL ──────────────────────────────────────────────────────
   //
@@ -400,6 +409,12 @@ export const CompaniesBrowseDbScreen: FC = () => {
     politicalActive: f.political,
     contractsActive: f.contractsOnly,
     filtered: f.hasNarrowingFilters,
+    // The band does not render at all under a search — two of its four cells cannot see the
+    // term, and the two that can are restated by the table itself — its row count above the
+    // rows and its money aggregate below them.
+    // See `companiesKpiBasis.ts`; `pendingCells` derives from the same rule, so the skeletons
+    // go too.
+    searchActive: searching,
     scopeBasis,
     fmtInt,
     fmtEur,
@@ -751,8 +766,14 @@ export const CompaniesBrowseDbScreen: FC = () => {
         }
         search={
           <CompaniesSearchField
-            value={term}
-            onChange={setTerm}
+            value={draft}
+            onChange={setDraft}
+            onSubmit={onSubmitQuery}
+            // The term the RESULTS came from, so the field can say „натиснете Търси" when the
+            // box has moved past them. `?q` rather than `agg.term`: the table's value arrives
+            // with the response, so the field would announce a disagreement for the length of
+            // every request that the reader has already resolved.
+            applied={f.query}
             minChars={SEARCH_MIN_CHARS}
             tableVisible={showTable}
             examples={EXAMPLE_TERMS}
@@ -765,7 +786,11 @@ export const CompaniesBrowseDbScreen: FC = () => {
         kpis={kpiCells}
         kpisPending={pendingCells}
         evidence={
-          evidenceRows.length
+          // ⚠️ WITHHELD UNDER A SEARCH, for the band's reason exactly. `/api/db/facets` has no
+          // free-text parameter, so this breakdown is computed with the term IGNORED —
+          // „читалище 8 943" beside seven search results is the same false sentence one column
+          // over. It is an entry point OUT of a search, not a description of one.
+          !searching && evidenceRows.length
             ? {
                 heading: t("companies_evidence_heading", {
                   defaultValue: "Видове",
@@ -868,7 +893,7 @@ export const CompaniesBrowseDbScreen: FC = () => {
         ]}
       />
 
-      <CompaniesActiveFilters chips={chips} onClearAll={f.clearFilters} />
+      <CompaniesActiveFilters chips={chips} onClearAll={onClearAll} />
 
       {showTable ? (
         <>
@@ -893,8 +918,9 @@ export const CompaniesBrowseDbScreen: FC = () => {
             defaultSort={[{ id: "public_money_eur", desc: true }]}
             pageSize={25}
             // CONTROLLED, input hidden — the head owns the box, because on the landing there is
-            // no table for one to sit in.
-            search={term}
+            // no table for one to sit in — and it is the COMMITTED term: the draft reaches
+            // nothing until the reader submits.
+            search={f.query}
             hideSearchInput
             onData={handleData}
             renderAggregates={(footerAgg, total) => (

@@ -16,8 +16,15 @@
 // under a search the three rates keep describing the whole filtered corpus while „Лица" moves.
 // Measured on the live page, `?sector=all&q=yavor`: „Лица 321" beside „С декларация 15%" and
 // „С фирми в ТР 62%", which are 21,170/137,461 and 85,060/137,461. Four numbers, two
-// populations, one heading. The fix is not to hide them — the corpus rate is a real and useful
-// figure — but to make each cell say which set it answered over.
+// populations, one heading.
+//
+// ⚠️ THE FIRST ANSWER TO THAT WAS A CAPTION („ПО ФИЛТРИТЕ, НЕ ПО ТЪРСЕНЕТО"), AND IT DID NOT
+// WORK. A reader who searches „Антон Славчев" and gets ten people reads „15% С декларация" as a
+// fact about those ten however the 10 px line beneath it is worded — a caption cannot outshout
+// the largest type on the page, and three of the four cells were captioned that way at once. So
+// under a search the band is WITHHELD WHOLE (see `searchActive`), rather than published with a
+// disclaimer. Nothing is lost: the one cell that does follow the search is the row count, and
+// the table restates it directly above the rows it counted.
 //
 // ⚠️ A FIGURE IS WITHHELD, NEVER RE-CAPTIONED, WHEN THE READER HAS FILTERED ON ITS OWN
 // DIMENSION. A facet excludes the dimension it enumerates (so the picker keeps offering the
@@ -34,6 +41,16 @@ export interface PersonsKpiInput {
    *  facet total when it is not. `undefined` means NOT LOADED; never render 0 for it. */
   count?: number;
   /** The DEBOUNCED term the count was computed under. Empty/absent = no search. */
+  /* ⚠️ IT SURVIVES THE `searchActive` WITHHOLDING RULE, and this is the one reason. The two
+   *  read different sources — `searchActive` is the URL's `?q`, this is the term the table's
+   *  last response was computed under — so for ONE request after „Изчисти" the URL has no term
+   *  while the aggregate still holds the previous one. The band comes back in that window
+   *  carrying the OLD count, and the ladder's search caption is what makes „Лица" true there;
+   *  without it the figure would be published under the corpus basis, which it is not.
+   *
+   *  Outside that window the search branch of `basisLadder` is unreachable from this band. It
+   *  is not dead code — `contractsKpiBasis` still walks the whole ladder — and it is one
+   *  `searchActive` away from mattering here again. */
   term?: string;
   /** Facet numerators + their shared denominator. `undefined` until the facets resolve. */
   withDeclaration?: number;
@@ -62,6 +79,16 @@ export interface PersonsKpiInput {
   primaryFacet?: string;
   /** Whether any dimension other than the scope is engaged. */
   filtered: boolean;
+  /** Whether the reader has a COMMITTED search term — the page's `?q`, not the box's draft and
+   *  not `term` above.
+   *
+   *  ⚠️ IT IS A DIFFERENT INPUT FROM `term` ON PURPOSE, even though both are about the search.
+   *  `term` is what the FIGURES were computed under and exists to caption them; this is what the
+   *  READER asked for and decides whether there is a band at all. Deriving the second from the
+   *  first would put the band back on screen for the length of every request — `term` arrives
+   *  with the table's aggregate, so it is empty while the search is in flight — which is the one
+   *  moment a reader is looking at the head. */
+  searchActive: boolean;
   /** The scope's own caption — „от всички 137 461 лица" — already formatted. It is the one
    *  basis that is always true, because the scope is always in play. */
   scopeBasis: string;
@@ -88,10 +115,20 @@ export const personsKpis = ({
   sector,
   primaryFacet,
   filtered,
+  searchActive,
   scopeBasis,
   fmtInt,
   t,
 }: PersonsKpiInput): HubKpi[] => {
+  // ⚠️ FIRST, AND BEFORE THE LOADING GUARD. Under a search there is no honest band to draw:
+  // three of the four cells cannot see the term at all, and the fourth is the row count the
+  // table prints above the rows themselves. Withholding it whole also gives the results the
+  // ~180 px the band and its skeletons occupy, on the one view where a reader is looking for a
+  // list rather than for a corpus statement.
+  //
+  // `personsKpiCellCount` runs this same function, so the skeletons go with it and the head
+  // does not reserve height for a band that will never arrive.
+  if (searchActive) return [];
   // The count follows every dimension; the rates follow the filters and NOT the search. The
   // ladder is shared with the contracts band (`@/ux/infographic/kpiBasis`) because the two had
   // already drifted on what counts as a search.

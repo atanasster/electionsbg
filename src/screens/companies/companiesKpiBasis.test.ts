@@ -33,6 +33,9 @@ const base: CompaniesKpiInput = {
   politicalActive: false,
   contractsActive: false,
   filtered: false,
+  // The band's own gate. `false` is the state every OTHER assertion in this file is about —
+  // under a search there is no band at all, which the suite below pins on its own.
+  searchActive: false,
   scopeBasis: "SCOPE",
   fmtInt,
   fmtEur,
@@ -356,5 +359,54 @@ describe("companiesKpiCellCount", () => {
         contractsActive: true,
       }),
     ).toBe(2);
+  });
+});
+
+// ---- the band under a search -----------------------------------------------------------
+//
+// WHY IT IS WITHHELD WHOLE rather than captioned. Two of the four cells are facet-derived and
+// `/api/db/facets` has no free-text parameter, so „17 675 свързани с публично лице" keeps
+// describing the filtered corpus while „Фирми" moves with the box. The two that DO follow the
+// search go with them rather than being left as a two-cell band: the table restates both
+// itself: „75 реда" above the rows, and „€2,4 млрд. в 75 организации" below them.
+describe("under a search there is no band", () => {
+  it("withholds every cell", () => {
+    expect(
+      companiesKpis({
+        ...base,
+        searchActive: true,
+        term: "софарма",
+        count: 75,
+      }),
+    ).toEqual([]);
+  });
+
+  it("withholds them even where the figures are all loaded and unfiltered", () => {
+    // A decision, not a loading state: nothing about the payload can bring the band back.
+    expect(companiesKpis({ ...base, searchActive: true })).toEqual([]);
+  });
+
+  it("takes the skeletons with it, so the head reserves no height for it", () => {
+    expect(companiesKpiCellCount({ ...base, searchActive: true })).toBe(0);
+    // …and the count is non-vacuous without it.
+    expect(
+      companiesKpiCellCount({ ...base, searchActive: false }),
+    ).toBeGreaterThan(0);
+  });
+
+  it("⚠️ still captions a term when the band IS on screen, which is the clear transition", () => {
+    // `searchActive` reads `?q` and `term` reads the table's last response, so for one request
+    // after „Изчисти" the URL has no term while the aggregate still holds the previous one. The
+    // band comes back in that window carrying the OLD figures, and the ladder's search caption
+    // is the only thing that makes them true there — which is why `term` survives the
+    // withholding rule rather than being deleted with it.
+    const ks = companiesKpis({
+      ...base,
+      searchActive: false,
+      term: "софарма",
+      count: 75,
+    });
+    expect(ks[0].value).toBe("75");
+    expect(ks[0].basis).toBe("companies_basis_matching:софарма");
   });
 });

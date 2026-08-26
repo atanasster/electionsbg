@@ -15,7 +15,14 @@ import { describe, it, expect } from "vitest";
 import { CompaniesSearchField } from "./CompaniesSearchField";
 import { PersonsSearchField } from "@/screens/persons/PersonsSearchField";
 
-const base = { minChars: 3, tableVisible: false, onChange: () => {} };
+const base = {
+  minChars: 3,
+  tableVisible: false,
+  onChange: () => {},
+  onSubmit: () => {},
+  // The settled state — see the same constant in `PersonsSearchField.test.tsx`.
+  applied: "",
+};
 
 describe("CompaniesSearchField", () => {
   it("renders the COMPANIES strings, not the persons ones", () => {
@@ -61,6 +68,23 @@ describe("CompaniesSearchField", () => {
     expect(
       screen.getByRole("button", { name: "Изчисти търсенето" }),
     ).toBeInTheDocument();
+  });
+
+  it("labels its submit button and its pending line with THIS page's keys", () => {
+    // Both fallbacks are byte-identical to /persons', so a rendered assertion cannot tell the
+    // two label sets apart here — `companiesBrowseConstants.test`-style key pinning is what
+    // covers that. What this asserts is the half a reader sees: the button exists, and the
+    // „the box has moved past the results" line appears where every other hint is suppressed.
+    const { container } = render(
+      <CompaniesSearchField
+        {...base}
+        value="Софарма Трейдинг"
+        applied="Софарма"
+        tableVisible
+      />,
+    );
+    expect(screen.getByRole("button", { name: "Търси" })).toBeInTheDocument();
+    expect(container.textContent).toContain("Натиснете „Търси“");
   });
 
   it("⚠️ does not share an id prefix with the persons wrapper", () => {

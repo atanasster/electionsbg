@@ -26,6 +26,9 @@ const base = {
   obshtinaActive: false,
   sector: "all" as const,
   filtered: false,
+  // The band's own gate. `false` is the state every OTHER assertion in this file is about —
+  // under a search there is no band at all, which the suite below pins on its own.
+  searchActive: false,
   scopeBasis: SCOPE,
   fmtInt: (n: number) => String(n),
   t,
@@ -282,5 +285,44 @@ describe("the figures themselves", () => {
     ] as Over[])
       for (const k of run(over))
         expect(k.basis.trim().length).toBeGreaterThan(0);
+  });
+});
+
+// ---- the band under a search -----------------------------------------------------------
+//
+// WHY IT IS WITHHELD WHOLE rather than captioned. Three of the four cells are facet-derived and
+// `/api/db/facets` has no free-text parameter, so they keep describing the filtered corpus while
+// „Лица" moves — the shape a caption was tried on first and did not fix, because a 10 px
+// uppercase line cannot outshout the largest type on the page. Measured on the live page,
+// `?sector=all&q=yavor`: „Лица 321" beside „С декларация 15%" and „С фирми в ТР 62%", the last
+// two being 21,170/137,461 and 85,060/137,461.
+describe("under a search there is no band", () => {
+  it("withholds every cell", () => {
+    expect(run({ searchActive: true, term: "yavor", count: 321 })).toEqual([]);
+  });
+
+  it("withholds them even where the figures are all loaded and unfiltered", () => {
+    // A decision, not a loading state: nothing about the payload can bring the band back.
+    expect(run({ searchActive: true })).toEqual([]);
+  });
+
+  it("takes the skeletons with it, so the head reserves no height for it", () => {
+    // `kpisPending` is what makes the head hold space for a band that has not arrived. Left at
+    // four, a search would paint four permanent placeholders where the band used to be — worse
+    // than the band, since a skeleton promises something is coming.
+    expect(personsKpiCellCount({ ...base, searchActive: true })).toBe(0);
+    // …and the count is non-vacuous without it.
+    expect(personsKpiCellCount({ ...base, searchActive: false })).toBe(4);
+  });
+
+  it("⚠️ still captions a term when the band IS on screen, which is the clear transition", () => {
+    // `searchActive` reads `?q` and `term` reads the table's last response, so for one request
+    // after „Изчисти" the URL has no term while `agg` still holds the previous one. The band
+    // comes back in that window carrying the OLD count, and the ladder's search caption is the
+    // only thing that makes „321" true there — which is why `term` survives the withholding
+    // rule rather than being deleted with it.
+    const ks = run({ searchActive: false, term: "yavor", count: 321 });
+    expect(ks[0].value).toBe("321");
+    expect(ks[0].basis).toBe("persons_basis_matching:yavor");
   });
 });

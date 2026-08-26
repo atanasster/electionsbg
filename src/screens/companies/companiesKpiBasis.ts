@@ -19,6 +19,13 @@
 // `global`), so a facet-derived figure keeps describing the filtered corpus while the row
 // count moves with the search box.
 //
+// ⚠️ AND UNDER A SEARCH THE WHOLE BAND IS WITHHELD — see `searchActive`. The caption
+// („ПО ФИЛТРИТЕ, НЕ ПО ТЪРСЕНЕТО") was the first answer to the two ✗ and it did not work: a
+// reader who searches a company name and gets seven rows reads „17 675 свързани с публично
+// лице" as a fact about those seven however the 10 px line beneath it is worded. The two ✓
+// cells go with them rather than being left as a two-cell band, because the table restates
+// both itself — „75 реда" above the rows, „€2,4 млрд. в 75 организации" below them.
+//
 // ⚠️ A FIGURE IS WITHHELD, NEVER RE-CAPTIONED, WHEN THE READER HAS FILTERED ON ITS OWN
 // DIMENSION. A facet excludes the dimension it enumerates (so the picker keeps offering the
 // other options), which means „17 675 свързани" would hold at 17,675 over a set that IS
@@ -41,6 +48,16 @@ export interface CompaniesKpiInput {
    *  every co-officer's row, which is why that band has no money cell at all. */
   sumEur?: number;
   /** The DEBOUNCED term the figures were computed under. Empty/absent = no search. */
+  /* ⚠️ IT SURVIVES THE `searchActive` WITHHOLDING RULE, and this is the one reason. The two
+   *  read different sources — `searchActive` is the URL's `?q`, this is the term the table's
+   *  last response was computed under — so for ONE request after „Изчисти" the URL has no term
+   *  while the aggregate still holds the previous one. The band comes back in that window
+   *  carrying the OLD count, and the ladder's search caption is what makes „Фирми" true there;
+   *  without it the figure would be published under the corpus basis, which it is not.
+   *
+   *  Outside that window the search branch of `basisLadder` is unreachable from this band. It
+   *  is not dead code — `contractsKpiBasis` still walks the whole ladder — and it is one
+   *  `searchActive` away from mattering here again. */
   term?: string;
   /** Facet numerators.
    *
@@ -77,6 +94,16 @@ export interface CompaniesKpiInput {
    *  deriving `filtered` entirely from its own flags; this one cannot (it has narrowings with
    *  no flag here), so it widens instead. */
   filtered: boolean;
+  /** Whether the reader has a COMMITTED search term — the page's `?q`, not the box's draft and
+   *  not `term` above.
+   *
+   *  ⚠️ IT IS A DIFFERENT INPUT FROM `term` ON PURPOSE. `term` is what the FIGURES were computed
+   *  under and exists to caption them; this is what the READER asked for and decides whether
+   *  there is a band at all. Deriving the second from the first would put the band back on
+   *  screen for the length of every request — `term` arrives with the table's aggregate, so it
+   *  is empty while the search is in flight — which is the one moment a reader is looking at the
+   *  head. */
+  searchActive: boolean;
   /** The scope's own caption — „от целия регистър (1 022 592)" — already formatted, because
    *  only the screen knows which scope is active and how many rows it holds.
    *
@@ -104,11 +131,21 @@ export const companiesKpis = ({
   politicalActive,
   contractsActive,
   filtered,
+  searchActive,
   scopeBasis,
   fmtInt,
   fmtEur,
   t,
 }: CompaniesKpiInput): HubKpi[] => {
+  // ⚠️ FIRST, AND BEFORE THE LOADING GUARD. Under a search two of the four cells cannot see the
+  // term at all, and the two that can are restated by the table's own row count and money
+  // footer — directly above the rows they came from. Withholding the band whole also gives the
+  // results the ~180 px it and its skeletons occupy, on the one view where a reader is looking
+  // for a list rather than for a corpus statement.
+  //
+  // `companiesKpiCellCount` runs this same function, so the skeletons go with it and the head
+  // does not reserve height for a band that will never arrive.
+  if (searchActive) return [];
   // The two aggregates follow every dimension; the two facet figures follow the filters and
   // NOT the search. The ladder is shared with the persons and contracts bands
   // (`@/ux/infographic/kpiBasis`) because those two had already drifted on what counts as a

@@ -16,6 +16,8 @@ import {
 export const CompaniesSearchField: FC<{
   value: string;
   onChange: (v: string) => void;
+  onSubmit: (v: string) => void;
+  applied: string;
   minChars: number;
   tableVisible: boolean;
   autoFocus?: boolean;

@@ -10,7 +10,8 @@
 // или институция…" over a corpus of a million companies, with every test green.
 
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import userEvent from "@testing-library/user-event";
+import { describe, it, expect, vi } from "vitest";
 import {
   RegistrySearchField,
   type RegistrySearchLabels,
@@ -24,6 +25,8 @@ const LABELS: RegistrySearchLabels = {
   hint: { key: "x_hint", fallback: "ПОДСКАЗКА" },
   clear: { key: "x_clear", fallback: "ИЗЧИСТИ" },
   examples: { key: "x_examples", fallback: "НАПРИМЕР" },
+  submit: { key: "x_submit", fallback: "ТЪРСИ" },
+  pending: { key: "x_pending", fallback: "НАТИСНЕТЕ" },
 };
 
 const base = {
@@ -32,6 +35,11 @@ const base = {
   minChars: 3,
   tableVisible: false,
   onChange: () => {},
+  onSubmit: () => {},
+  // The settled state: the box agrees with the results. Every assertion about the STANDING
+  // hint needs it, because a draft that has moved past `applied` legitimately replaces that
+  // hint with „натиснете Търси".
+  applied: "",
 };
 
 describe("RegistrySearchField — the strings are parameters", () => {
@@ -41,6 +49,7 @@ describe("RegistrySearchField — the strings are parameters", () => {
     expect(screen.getByPlaceholderText("ПЛЕЙСХОЛДЪР")).toBeInTheDocument();
     expect(screen.getAllByText("ПОДСКАЗКА").length).toBeGreaterThan(0);
     expect(screen.getByText("НАПРИМЕР")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "ТЪРСИ" })).toBeInTheDocument();
     // The leak this test exists for: a hard-coded /persons string surviving the extraction.
     expect(document.body.textContent).not.toMatch(/институция/);
   });
@@ -77,8 +86,15 @@ describe("RegistrySearchField — the strings are parameters", () => {
     // association that came and went with it left a screen-reader user hearing „Търсене…,
     // search" and nothing about the floor. Asserted on the SHARED component because both
     // wrappers inherit it.
+    // `applied` matches the box, so the state is SETTLED — otherwise „натиснете Търси" is
+    // legitimately on screen and the suppression this asserts is about a different sentence.
     const { container } = render(
-      <RegistrySearchField {...base} value="нещо" tableVisible />,
+      <RegistrySearchField
+        {...base}
+        value="нещо"
+        applied="нещо"
+        tableVisible
+      />,
     );
     const input = container.querySelector("input")!;
     const hint = container.querySelector(`#${CSS.escape(input.id)}-hint`);
@@ -86,5 +102,175 @@ describe("RegistrySearchField — the strings are parameters", () => {
     expect(hint!.textContent).toMatch(/ПОДСКАЗКА/);
     // …while the visible <p> is suppressed, so the sentence is not rendered twice.
     expect(container.querySelector("p")).toBeNull();
+  });
+});
+
+// ---- the commit ------------------------------------------------------------------------
+//
+// WHAT THIS PINS. The field holds a DRAFT and reports it on every keystroke; nothing downstream
+// sees a term until one of the five commit paths fires. Each of them is a reader saying „this
+// one" — and the two that clear (Esc, ×) are as much a commit as the button is, because leaving
+// an emptied box uncommitted parks the page in the disagreeing state the × exists to end.
+describe("RegistrySearchField — the term is committed, not live", () => {
+  it("typing reports the draft and commits nothing", async () => {
+    const onChange = vi.fn();
+    const onSubmit = vi.fn();
+    render(
+      <RegistrySearchField
+        {...base}
+        value=""
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />,
+    );
+    await userEvent.type(screen.getByRole("searchbox"), "ив");
+    // Controlled: the parent owns the value, so each keystroke reports against an unchanged "".
+    expect(onChange).toHaveBeenCalledTimes(2);
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it("the button commits the draft", async () => {
+    const onSubmit = vi.fn();
+    render(
+      <RegistrySearchField {...base} value="иванов" onSubmit={onSubmit} />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "ТЪРСИ" }));
+    expect(onSubmit).toHaveBeenCalledWith("иванов");
+  });
+
+  it("Enter commits the draft", async () => {
+    // Through a real <form>, so this is the browser's own behaviour rather than a keydown
+    // handler that could be dropped without any assertion noticing.
+    const onSubmit = vi.fn();
+    render(
+      <RegistrySearchField {...base} value="иванов" onSubmit={onSubmit} />,
+    );
+    screen.getByRole("searchbox").focus();
+    await userEvent.keyboard("{Enter}");
+    expect(onSubmit).toHaveBeenCalledWith("иванов");
+  });
+
+  it("the clear button empties the box AND commits the empty term", async () => {
+    // Both halves. Clearing the draft alone would leave the previous term's results on screen
+    // under an empty box — the reader would have to press a button to finish clearing.
+    const onChange = vi.fn();
+    const onSubmit = vi.fn();
+    render(
+      <RegistrySearchField
+        {...base}
+        value="иванов"
+        applied="иванов"
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "ИЗЧИСТИ" }));
+    expect(onChange).toHaveBeenCalledWith("");
+    expect(onSubmit).toHaveBeenCalledWith("");
+  });
+
+  it("Esc empties the box AND commits the empty term", async () => {
+    const onChange = vi.fn();
+    const onSubmit = vi.fn();
+    render(
+      <RegistrySearchField
+        {...base}
+        value="иванов"
+        applied="иванов"
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />,
+    );
+    screen.getByRole("searchbox").focus();
+    await userEvent.keyboard("{Escape}");
+    expect(onChange).toHaveBeenCalledWith("");
+    expect(onSubmit).toHaveBeenCalledWith("");
+  });
+
+  it("an example chip commits its whole term", async () => {
+    // A chip is a whole question, not the start of one — filling the box and waiting for a
+    // second click would make the page's own introduction the slowest way to use it.
+    const onChange = vi.fn();
+    const onSubmit = vi.fn();
+    render(
+      <RegistrySearchField
+        {...base}
+        value=""
+        examples={["ПРИМЕР"]}
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "ПРИМЕР" }));
+    expect(onChange).toHaveBeenCalledWith("ПРИМЕР");
+    expect(onSubmit).toHaveBeenCalledWith("ПРИМЕР");
+  });
+
+  it("commits a SUB-FLOOR term rather than disabling the button", async () => {
+    // The floor is enforced downstream (`queryIsSendable` keeps the table shut, `DbDataTable`
+    // suppresses the term on its way to the engine), and it EXPLAINS itself here. A disabled
+    // primary action with its explanation suppressed — which is what `tableVisible` does to the
+    // hint — is a page that has stopped responding for no stated reason.
+    const onSubmit = vi.fn();
+    render(<RegistrySearchField {...base} value="ив" onSubmit={onSubmit} />);
+    const button = screen.getByRole("button", { name: "ТЪРСИ" });
+    expect(button).not.toBeDisabled();
+    await userEvent.click(button);
+    expect(onSubmit).toHaveBeenCalledWith("ив");
+  });
+});
+
+// ---- the disagreement ------------------------------------------------------------------
+//
+// Committing on submit buys one problem: the results on screen can legitimately be for a
+// different term than the one in the box. The field owes the reader a statement of that, and it
+// is the ONLY place on the page that can make it — the head band and the table both describe
+// the committed term and have no idea a draft exists.
+describe("RegistrySearchField — it says when the box has moved past the results", () => {
+  it("says so, even with a table up, where every other hint is suppressed", () => {
+    const { container } = render(
+      <RegistrySearchField
+        {...base}
+        value="иванова"
+        applied="иванов"
+        tableVisible
+      />,
+    );
+    expect(container.textContent).toContain("НАТИСНЕТЕ");
+  });
+
+  it("stays quiet once the box and the results agree", () => {
+    const { container } = render(
+      <RegistrySearchField
+        {...base}
+        value="иванов"
+        applied="иванов"
+        tableVisible
+      />,
+    );
+    expect(container.textContent).not.toContain("НАТИСНЕТЕ");
+  });
+
+  it("ignores whitespace, which the term reader deliberately does not trim", () => {
+    // `readQueryParam` keeps trailing space on purpose — a trimmed „Иван Иванов" becomes one
+    // token that matches nothing — so an untrimmed comparison would announce a pending search
+    // on a term that has already been applied.
+    const { container } = render(
+      <RegistrySearchField
+        {...base}
+        value="иванов "
+        applied="иванов"
+        tableVisible
+      />,
+    );
+    expect(container.textContent).not.toContain("НАТИСНЕТЕ");
+  });
+
+  it("prefers the FLOOR warning, which explains an empty page rather than a stale one", () => {
+    const { container } = render(
+      <RegistrySearchField {...base} value="ив" applied="иванов" />,
+    );
+    expect(container.textContent).toContain("Въведете поне 3 знака.");
+    expect(container.textContent).not.toContain("НАТИСНЕТЕ");
   });
 });

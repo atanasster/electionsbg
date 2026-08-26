@@ -3,8 +3,10 @@
 // WHAT THIS PINS. The field is the page's primary control, so three of its behaviours are
 // contracts rather than polish:
 //
-//   · IT REPORTS EVERY KEYSTROKE UNDEBOUNCED. Two debounces already sit downstream (250 ms to
-//     the engine, 350 ms to the URL); a third here would make the box lag the keyboard.
+//   · IT REPORTS EVERY KEYSTROKE UNDEBOUNCED, AND COMMITS NONE OF THEM. The draft is local; the
+//     term reaches `?q`, the engine and the head only when the reader submits. The commit
+//     paths themselves are pinned once, on the shared component
+//     (`RegistrySearchField.test.tsx`) — this file pins /persons' strings.
 //   · IT EXPLAINS A SUB-FLOOR TERM. On this page there is no table under two characters, so
 //     `DbDataTable`'s own body hint has nowhere to render and this is the only explanation a
 //     reader gets for why nothing happened.
@@ -33,8 +35,13 @@ const visibleText = (c: HTMLElement, text: string): boolean =>
 
 const base = {
   onChange: () => {},
+  onSubmit: () => {},
   minChars: 3,
   tableVisible: false,
+  // The SETTLED state: the box agrees with the results on screen. Assertions about the standing
+  // hint need it, since a draft past `applied` legitimately replaces that hint with „натиснете
+  // Търси" — which is the shared component's contract and is pinned there.
+  applied: "",
 };
 
 describe("the term", () => {
@@ -49,17 +56,39 @@ describe("the term", () => {
 
   it("Esc clears", async () => {
     const onChange = vi.fn();
-    render(<PersonsSearchField {...base} value="явор" onChange={onChange} />);
+    const onSubmit = vi.fn();
+    render(
+      <PersonsSearchField
+        {...base}
+        value="явор"
+        applied="явор"
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />,
+    );
     screen.getByRole("searchbox").focus();
     await userEvent.keyboard("{Escape}");
     expect(onChange).toHaveBeenCalledWith("");
+    // …and COMMITS the empty term. Emptying the box without it leaves the previous term's
+    // results on screen under a blank field.
+    expect(onSubmit).toHaveBeenCalledWith("");
   });
 
   it("the clear button clears", async () => {
     const onChange = vi.fn();
-    render(<PersonsSearchField {...base} value="явор" onChange={onChange} />);
+    const onSubmit = vi.fn();
+    render(
+      <PersonsSearchField
+        {...base}
+        value="явор"
+        applied="явор"
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />,
+    );
     await userEvent.click(screen.getByRole("button", { name: /Изчисти/ }));
     expect(onChange).toHaveBeenCalledWith("");
+    expect(onSubmit).toHaveBeenCalledWith("");
   });
 
   it("offers no clear button when there is nothing to clear", () => {
@@ -67,26 +96,21 @@ describe("the term", () => {
     expect(screen.queryByRole("button", { name: /Изчисти/ })).toBeNull();
   });
 
-  it("Enter does not submit", async () => {
-    // Results are live. Letting Enter through would reload the page out from under a query that
-    // has already run.
-    //
-    // ⚠️ ASSERTED ON `defaultPrevented`, not on `onChange`. Enter never fires onChange in any
-    // implementation, so an assertion on that passes whether or not the key is handled — the
-    // test would be green on a component that had dropped the handler entirely.
-    let prevented: boolean | null = null;
-    render(
-      <div
-        onKeyDown={(e) => {
-          if (e.key === "Enter") prevented = e.defaultPrevented;
-        }}
-      >
-        <PersonsSearchField {...base} value="явор" />
-      </div>,
-    );
+  it("Enter commits the term", async () => {
+    // It used to be a deliberate no-op, because results were live and letting the key through
+    // would have reloaded the page out from under a query that had already run. Since the term
+    // is committed rather than live, Enter is the fastest of the five commit paths and the one
+    // a keyboard reader reaches for.
+    const onSubmit = vi.fn();
+    render(<PersonsSearchField {...base} value="явор" onSubmit={onSubmit} />);
     screen.getByRole("searchbox").focus();
     await userEvent.keyboard("{Enter}");
-    expect(prevented).toBe(true);
+    expect(onSubmit).toHaveBeenCalledWith("явор");
+  });
+
+  it("offers a submit button with this page's own label", () => {
+    render(<PersonsSearchField {...base} value="явор" />);
+    expect(screen.getByRole("button", { name: "Търси" })).toBeInTheDocument();
   });
 });
 
@@ -98,12 +122,24 @@ describe("the hint", () => {
     expect(visibleText(container, FLOOR_HINT)).toBe(true);
   });
 
-  it("stays quiet about the floor once the table is up", () => {
-    // The table body carries the same sentence; two copies read as two problems.
+  it("stays quiet about the floor once the table is up ON THE SAME TERM", () => {
+    // The table body carries the same sentence; two copies read as two problems. „On the same
+    // term" is the whole condition — `applied` matches, so the table below really is answering
+    // about „яв".
     const { container } = render(
-      <PersonsSearchField {...base} value="яв" tableVisible />,
+      <PersonsSearchField {...base} value="яв" applied="яв" tableVisible />,
     );
     expect(visibleText(container, FLOOR_HINT)).toBe(false);
+  });
+
+  it("explains a sub-floor DRAFT even with a table up", () => {
+    // The other side of the same condition, and it only exists because the term is committed:
+    // the table here is showing „иванов"'s rows (or a filter's), so nothing below it knows the
+    // reader has typed two characters. Suppressing the sentence would leave them unexplained.
+    const { container } = render(
+      <PersonsSearchField {...base} value="яв" applied="иванов" tableVisible />,
+    );
+    expect(visibleText(container, FLOOR_HINT)).toBe(true);
   });
 
   it("shows guidance rather than the floor warning on an empty box", () => {
@@ -113,8 +149,13 @@ describe("the hint", () => {
   });
 
   it("shows guidance rather than the floor warning on a sendable term", () => {
-    const { container } = render(<PersonsSearchField {...base} value="явор" />);
+    // `applied` matches, so the field has nothing pending to say and falls through to the
+    // standing guidance.
+    const { container } = render(
+      <PersonsSearchField {...base} value="явор" applied="явор" />,
+    );
     expect(visibleText(container, FLOOR_HINT)).toBe(false);
+    expect(visibleText(container, GUIDANCE)).toBe(true);
   });
 });
 
@@ -141,13 +182,15 @@ describe("the examples", () => {
     expect(screen.queryByRole("button", { name: "Явор" })).toBeNull();
   });
 
-  it("a chip sets the term", async () => {
+  it("a chip runs the search", async () => {
     const onChange = vi.fn();
+    const onSubmit = vi.fn();
     render(
       <PersonsSearchField
         {...base}
         value=""
         onChange={onChange}
+        onSubmit={onSubmit}
         examples={["Окръжен съд - Варна"]}
       />,
     );
@@ -155,6 +198,8 @@ describe("the examples", () => {
       screen.getByRole("button", { name: "Окръжен съд - Варна" }),
     );
     expect(onChange).toHaveBeenCalledWith("Окръжен съд - Варна");
+    // …and commits it. A chip is a whole question, not the start of one.
+    expect(onSubmit).toHaveBeenCalledWith("Окръжен съд - Варна");
   });
 });
 

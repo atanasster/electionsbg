@@ -1,4 +1,3 @@
-import { REGISTRY_URL_MIRROR_MS } from "@/screens/components/registrySearchTiming";
 import type {
   RegistrySearchLabels,
   SearchFieldLabel,
@@ -10,17 +9,11 @@ import type { RegistryLandingLabels } from "@/screens/components/RegistryLanding
 //
 // They live outside `PersonsBrowserScreen.tsx` because a component file that also exports
 // non-components breaks Fast Refresh — but the real reason is that each of these is a CLAIM a
-// test needs to make without mounting a screen: what the corpus spells, how long a term waits
-// before it reaches the URL, and which population a scope names. Same shape, and the same
-// reasoning, as `@/ux/data_table/searchTerm`.
-
-/** How long the hero field's value waits before it is written to `?q`.
- *
- *  ⚠️ THE ARGUMENT LIVES ONCE, in `registrySearchTiming.ts`, beside the component that owns the
- *  behaviour — it was copied byte-identically into `companiesBrowseConstants.ts`, so a
- *  correction to the reasoning would have landed on one page and not the other. The screen goes
- *  on importing `URL_MIRROR_MS` from here, so no call site moved. */
-export const URL_MIRROR_MS = REGISTRY_URL_MIRROR_MS;
+// test needs to make without mounting a screen: what the corpus spells and which population a
+// scope names. Same shape, and the same reasoning, as `@/ux/data_table/searchTerm`.
+//
+// (The URL-mirror interval that used to live here is gone with the debounce it timed — the hero
+// field commits on submit, so `?q` is written once, by the reader.)
 
 /** Offered as chips on the empty search box. Each must be a value THIS CORPUS ANSWERS — a chip
  *  that returns nothing is a worse introduction than no chip, and it is the first thing a new
@@ -89,6 +82,11 @@ export const PERSONS_SEARCH_LABELS: RegistrySearchLabels = {
   },
   clear: { key: "persons_search_clear", fallback: "Изчисти търсенето" },
   examples: { key: "persons_search_examples", fallback: "например" },
+  submit: { key: "persons_search_submit", fallback: "Търси" },
+  pending: {
+    key: "persons_search_pending",
+    fallback: "Натиснете „Търси“, за да видите резултатите.",
+  },
 };
 
 export const PERSONS_CHIP_LABELS: RegistryChipLabels = {

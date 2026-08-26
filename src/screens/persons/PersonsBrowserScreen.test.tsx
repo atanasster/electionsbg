@@ -21,7 +21,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import userEvent from "@testing-library/user-event";
 import { PersonsBrowserScreen } from "./PersonsBrowserScreen";
-import { URL_MIRROR_MS, personsScopeCount } from "./personsBrowseConstants";
+import { personsScopeCount } from "./personsBrowseConstants";
 import { NARROWING_PARAMS } from "@/data/persons/useUrlPersonFilters";
 
 /** Facet buckets keyed the way `/api/db/facets` returns them. */
@@ -153,6 +153,11 @@ const bases = (c: HTMLElement): string[] =>
   [...c.querySelectorAll("[data-kpi-cell]")].map(
     (el) => el.querySelector("span:last-child")?.textContent ?? "",
   );
+/** The results table, or null. Hoisted to module scope: two suites ask about it — „is there a
+ *  table at all" and „nothing search-blind renders beside search results" — and the second needs
+ *  it to wait for the results before asserting what is NOT beside them. */
+const table = (c: HTMLElement) => c.querySelector("table");
+
 /** The band's text ONLY — the mix bar below it legitimately prints percentages of its own. */
 const bandText = (c: HTMLElement): string =>
   [...c.querySelectorAll("[data-kpi-cell]")]
@@ -202,19 +207,66 @@ describe("the band never publishes a zero corpus", () => {
   });
 });
 
-describe("the band never captions a count with a search that did not produce it", () => {
-  it("drops the search caption when the table reports no term", async () => {
-    // Reachable by arriving on ?q=иван and clearing the box, and by any deep link under the
-    // engine's floor. The count jumps to the whole set while the caption still names the term.
-    //
-    // ?role=mp carries it: a two-character `?q` alone no longer opens a table at all (it is not
-    // yet a query), so the state under test needs a narrowing to put one on screen.
+// ---- the search-blind surfaces -----------------------------------------------------------
+//
+// WHAT THIS PINS, and it is the reason /persons stopped publishing a head band under a search.
+// `/api/db/facets` has NO free-text parameter — `runDbFacets` calls buildWhere with
+// `{ columns }` and no `global` — so THREE surfaces on this page are computed with the term
+// ignored: the head band's three rate cells, the head's „Групи" evidence rail, and the
+// „Основна принадлежност" mix bar. Measured on the live page, `?sector=all&q=yavor`: „Лица 321"
+// beside „С декларация 15%" and „С фирми в ТР 62%" (21,170 and 85,060 of 137,461), a group rail
+// counting 14,583 in изпълнителна власт, and a full-width bar drawing the whole corpus's mix.
+//
+// Captioning them („ПО ФИЛТРИТЕ, НЕ ПО ТЪРСЕНЕТО") was the first answer and it did not work — a
+// 10 px uppercase line cannot outshout the largest type on the page. All three are withheld
+// instead, which also lifts the results ~400 px up the page on the one view where a reader
+// wants a list.
+describe("nothing search-blind renders beside search results", () => {
+  it("withholds the whole band under a search", async () => {
+    stubFetch({ total: 321, global: "yavor" });
+    const { container } = renderAt("?q=yavor");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    await waitFor(() => expect(table(container)).not.toBeNull());
+    expect(container.querySelectorAll("[data-kpi-cell]").length).toBe(0);
+  });
+
+  it("withholds the evidence rail and the mix bar too", async () => {
+    stubFetch({ total: 321, global: "yavor" });
+    const { container } = renderAt("?q=yavor");
+    await waitFor(() => expect(table(container)).not.toBeNull());
+    // The rail lives in the head's <aside>. The bar is found by its SEGMENTS
+    // (`button[aria-pressed]`, MixBar's own markup) rather than by its heading text — the
+    // „Основна принадлежност" chip carries the same words, so a text assertion would flip on a
+    // fixture that merely adds `?pfacet`.
+    expect(container.querySelector("aside")).toBeNull();
+    expect(container.querySelector("button[aria-pressed]")).toBeNull();
+  });
+
+  it("keeps all three when a FILTER, not a search, is what opened the table", async () => {
+    // Non-vacuity, and the boundary that matters: a facet-derived figure is honest under a
+    // filter — that is the one dimension `/api/db/facets` does see — so `?role=mp` must not
+    // lose the band. A rule keyed on `showTable` rather than on the term would.
+    stubFetch({ total: 2_118 });
+    const { container } = renderAt("?role=mp");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    await waitFor(() =>
+      expect(
+        container.querySelectorAll("[data-kpi-cell]").length,
+      ).toBeGreaterThan(0),
+    );
+    expect(container.querySelector("aside")).not.toBeNull();
+    expect(container.querySelector("button[aria-pressed]")).not.toBeNull();
+  });
+
+  it("withholds them for a SUB-FLOOR term too, which the engine never applied", async () => {
+    // `?q=ив` is not yet a query, so the rows below are the filter's — but the reader typed
+    // something, and „2 118 Лица" under a box reading „ив" is read as 2,118 matches for „ив".
+    // The gate is what the READER asked for (`?q`), never what the engine did with it.
     stubFetch({ total: 2_118, global: undefined });
     const { container } = renderAt("?role=mp&q=%D0%B8%D0%B2");
     await waitFor(() => expect(fetch).toHaveBeenCalled());
-    await waitFor(() => expect(bases(container).length).toBeGreaterThan(0));
-    for (const b of bases(container))
-      expect(b).not.toMatch(/търсене|matching/i);
+    await waitFor(() => expect(table(container)).not.toBeNull());
+    expect(container.querySelectorAll("[data-kpi-cell]").length).toBe(0);
   });
 });
 
@@ -267,51 +319,59 @@ describe("the evidence rows count the set they link to", () => {
 
 // ---- the term ⇄ ?q seam --------------------------------------------------------
 //
-// WHAT THIS PINS. The box is local state and the URL is written on a debounce, which buys
-// instant typing at the cost of two states that can disagree. Both ways of getting that wrong
-// are reader-visible and neither errors:
+// WHAT THIS PINS. The box holds a DRAFT and `?q` holds the COMMITTED term; nothing crosses
+// between them except a submit and a URL move. Both directions are reader-visible and neither
+// errors:
 //
-//   · the URL echoing back OUR OWN write must not touch the box (a keystroke landing in that
-//     window would be silently reverted), while the URL moving under us — Back, „Изчисти", an
-//     in-app ?q link — must;
-//   · „Изчисти филтрите" is URL-only, so within the debounce window it deletes a `?q` that was
-//     never written, the box keeps the term, and the pending mirror puts it straight back.
+//   · typing must reach NOTHING — not the URL, not the engine — until the reader submits, which
+//     is what makes this page's search a decision rather than a query per keystroke;
+//   · the URL moving under the box (Back, an in-app ?q link, „Изчисти филтрите") must move the
+//     box, or it goes on showing a term the page is no longer filtered by.
+//
+// The 350 ms URL mirror this suite used to be about is gone, and with it the two states it
+// created: the ref that told „the URL is echoing our own write" from „the URL moved under us",
+// and the „Изчисти филтрите" failure where deleting a `?q` that had not been written yet let
+// the pending mirror put the term straight back.
 
 describe("the term ⇄ ?q seam", () => {
   beforeEach(() => stubFetch());
 
-  it("writes the term to ?q after the mirror interval, and only once", async () => {
+  it("typing alone never reaches ?q", async () => {
     const { container } = renderAt("");
     const box = await waitFor(() => screen.getByRole("searchbox"));
     await userEvent.type(box, "явор");
-    await waitFor(() => expect(urlOf(container)).toContain("q="), {
-      timeout: URL_MIRROR_MS * 4,
-    });
-    // The whole point of the debounce: a four-character word is ONE write, and the term that
-    // lands is the finished one rather than the first keystroke.
-    expect(decodeURIComponent(urlOf(container))).toContain("q=явор");
-    // …and the box kept every character — the echo coming back must not revert one.
+    // Long enough for any surviving debounce to have fired.
+    await new Promise((r) => setTimeout(r, 500));
+    expect(urlOf(container)).not.toContain("q=");
+    // …and the box kept every character.
     expect((box as HTMLInputElement).value).toBe("явор");
   });
 
+  it("the submit button writes the term to ?q, once", async () => {
+    const { container } = renderAt("");
+    const box = await waitFor(() => screen.getByRole("searchbox"));
+    await userEvent.type(box, "явор");
+    await userEvent.click(screen.getByRole("button", { name: "Търси" }));
+    await waitFor(() => expect(urlOf(container)).toContain("q="));
+    expect(decodeURIComponent(urlOf(container))).toContain("q=явор");
+  });
+
   it("clear-filters empties the box AND leaves ?q gone", async () => {
-    // The deterministic four-step failure this guards: arrive filtered, type, clear WITHIN the
-    // debounce window, and watch the term reappear in the URL with the button that clears it.
-    // `clearFilters` is URL-only, and for 350 ms after a keystroke there is no `?q` to delete.
+    // Still two halves, though no longer a race: `clearFilters` is URL-only, so a reader who
+    // typed something they never submitted would otherwise watch the results clear while their
+    // term sat on in the box with „Търси" beside it offering to bring it back.
     const { container } = renderAt("?role=mp");
     const box = await waitFor(() => screen.getByRole("searchbox"));
     await userEvent.type(box, "явор");
     await userEvent.click(await screen.findByText("Изчисти филтрите"));
     expect((screen.getByRole("searchbox") as HTMLInputElement).value).toBe("");
-    // Long enough for a pending mirror to have fired if one survived the clear.
-    await new Promise((r) => setTimeout(r, URL_MIRROR_MS * 2));
+    await new Promise((r) => setTimeout(r, 500));
     expect(urlOf(container)).not.toContain("q=");
     expect(urlOf(container)).not.toContain("role=");
   });
 
   it("follows the URL when it moves under the box", async () => {
-    // The other half of the same ref: an in-app link, a Back, a „clear" must all move the box.
-    // A guard that suppressed every echo would freeze it instead.
+    // An in-app link, a Back, a „clear" must all move the box.
     const { container } = renderAt("?q=%D1%8F%D0%B2%D0%BE%D1%80");
     const box = await waitFor(() => screen.getByRole("searchbox"));
     expect((box as HTMLInputElement).value).toBe("явор");
@@ -334,7 +394,6 @@ describe("the term ⇄ ?q seam", () => {
 
 describe("whether there is a table at all", () => {
   beforeEach(() => stubFetch());
-  const table = (c: HTMLElement) => c.querySelector("table");
 
   it("no table on a bare landing", async () => {
     const { container } = renderAt("");

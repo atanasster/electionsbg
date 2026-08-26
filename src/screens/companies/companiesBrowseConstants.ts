@@ -1,4 +1,3 @@
-import { REGISTRY_URL_MIRROR_MS } from "@/screens/components/registrySearchTiming";
 import type {
   RegistrySearchLabels,
   SearchFieldLabel,
@@ -10,19 +9,10 @@ import type { RegistryLandingLabels } from "@/screens/components/RegistryLanding
 //
 // They live outside the screen because a component file that also exports non-components
 // breaks Fast Refresh — but the real reason is that each is a CLAIM a test needs to make
-// without mounting a screen: what the corpus spells, and how long a term waits before it
-// reaches the URL. Same shape, and the same reasoning, as `personsBrowseConstants.ts` and
-// `@/ux/data_table/searchTerm`.
-
-/** How long the hero field's value waits before it is written to `?q`.
- *
- *  ⚠️ THE ARGUMENT LIVES ONCE, in `registrySearchTiming.ts`, beside the component that owns the
- *  behaviour. It was written for /persons and copied here byte-identically — value and eight-line
- *  rationale — which meant a correction to either would land on one page and not the other. The
- *  screens go on importing `URL_MIRROR_MS` from their own module, so no call site moved; if
- *  /companies ever wants a different interval against its 1.02M-row corpus, replace this line
- *  with a literal AND a sentence saying why. */
-export const URL_MIRROR_MS = REGISTRY_URL_MIRROR_MS;
+// without mounting a screen: what the corpus spells, and which population a scope names.
+// Same shape, and the same reasoning, as `personsBrowseConstants.ts` and
+// `@/ux/data_table/searchTerm`. (The URL-mirror interval that used to live here is gone with
+// the debounce it timed — the hero field commits on submit.)
 
 /** Offered as chips on the empty search box. Each must be a value THIS CORPUS ANSWERS — a chip
  *  that returns nothing is a worse introduction than no chip, and it is the first thing a new
@@ -117,6 +107,11 @@ export const COMPANIES_SEARCH_LABELS: RegistrySearchLabels = {
   },
   clear: { key: "companies_search_clear", fallback: "Изчисти търсенето" },
   examples: { key: "companies_search_examples", fallback: "например" },
+  submit: { key: "companies_search_submit", fallback: "Търси" },
+  pending: {
+    key: "companies_search_pending",
+    fallback: "Натиснете „Търси“, за да видите резултатите.",
+  },
 };
 
 export const COMPANIES_CHIP_LABELS: RegistryChipLabels = {

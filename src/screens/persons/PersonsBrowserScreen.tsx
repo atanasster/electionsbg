@@ -85,11 +85,7 @@ import type { PersonBrowseRow } from "@/data/persons/personBrowseTypes";
 // Constants and pure rules live beside the screen rather than in it — a component file that
 // also exports non-components breaks Fast Refresh, and each of these is a claim a test needs
 // to make without mounting anything.
-import {
-  URL_MIRROR_MS,
-  EXAMPLE_TERMS,
-  personsScopeCount,
-} from "./personsBrowseConstants";
+import { EXAMPLE_TERMS, personsScopeCount } from "./personsBrowseConstants";
 
 export const PersonsBrowserScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -142,50 +138,43 @@ export const PersonsBrowserScreen: FC = () => {
 
   // ── THE TERM ────────────────────────────────────────────────────────────────────────
   //
-  // Held HERE rather than in the URL directly, so typing is instant: a `setSearchParams` per
-  // keystroke re-renders the whole screen through the router. The URL is written on its own
-  // debounce, which is what makes a refresh restore the last result (`?q`).
+  // TWO VALUES, AND THE DISTINCTION IS THE WHOLE SEARCH BEHAVIOUR OF THIS PAGE:
+  //   · `draft` — what is in the box. Local, so typing is instant, and seen by nothing else.
+  //   · `query` (`?q`) — the COMMITTED term. Written once, by the reader's submit, and the only
+  //     thing the table, the head and every gate below read.
   //
-  // ⚠️ THREE TIMERS, ALL DIFFERENT JOBS, AND THEY MUST NOT BE MERGED.
-  //   · none here — the box must never lag the keyboard;
-  //   · 350 ms → the URL, bounding history/router churn;
-  //   · 250 ms → the engine, inside DbDataTable, where the SEARCH_MIN_CHARS contract lives.
-  // Sharing one couples an SEO/navigation concern to a query-cost one.
-  const [term, setTerm] = useState(query);
-  // The last value WE put into the URL.
+  // ⚠️ IT USED TO BE ONE VALUE ON A 350 ms MIRROR, and dropping that is what made this simple.
+  // A live box meant the URL, the engine and the band each saw every prefix of every word — so
+  // the screen carried a ref to tell „the URL is echoing back our own write" (ignore) from „the
+  // URL moved under us" (follow), and „Изчисти филтрите" had to clear both halves because for
+  // 350 ms after a keystroke there was no `?q` to delete and the pending mirror wrote the term
+  // straight back. None of those states exists any more: the URL only ever changes because
+  // somebody committed, so an echo cannot race a keystroke.
   //
-  // ⚠️ AN EQUALITY GUARD ALONE IS NOT ENOUGH, and this ref is why. `cur === query` proves the
-  // two agree at the instant the effect runs; it cannot tell „the URL moved under us" (Back,
-  // „Изчисти", an in-app ?q link — the box must follow) from „the URL is echoing back our own
-  // write" (the box must NOT follow, because the reader may have typed since). Treating both
-  // alike reverts a keystroke that lands in the echo window, with nothing to show for it but a
-  // character vanishing from a text field.
-  const mirrored = useRef(query);
-  useEffect(() => {
-    if (query === mirrored.current) return;
-    mirrored.current = query;
-    setTerm(query);
-  }, [query]);
-  useEffect(() => {
-    if (term === query) return;
-    const id = setTimeout(() => {
-      mirrored.current = term;
-      setQuery(term);
-    }, URL_MIRROR_MS);
-    return () => clearTimeout(id);
-  }, [term, query, setQuery]);
+  // What survives is the seed in the other direction — Back, an in-app `?q` link, „Изчисти
+  // филтрите" — which must move the box. That is one effect and it needs no ref.
+  const [draft, setDraft] = useState(query);
+  useEffect(() => setDraft(query), [query]);
 
-  // ⚠️ CLEARING IS TWO HALVES NOW, and doing only the URL half is a deterministic bug rather
-  // than a race. `clearFilters` deletes `?q` — but for the whole 350 ms after a keystroke the
-  // term has not REACHED `?q` yet, so deleting it changes nothing, the re-seed effect never
-  // fires, the box keeps the term, and the pending mirror then writes it straight back. Four
-  // clicks, no sub-millisecond timing: open ?role=mp, type, click „Изчисти филтрите", watch
-  // ?q=<term> reappear and the button come back with it.
+  // The commit. Takes the term rather than reading `draft`, because the clear × and the example
+  // chips submit a value that is not in state yet.
+  const onSubmitQuery = useCallback((v: string) => setQuery(v), [setQuery]);
+
+  // ⚠️ STILL TWO HALVES, though no longer a race. `clearFilters` is URL-only, and a reader who
+  // has typed something they never submitted would otherwise watch the results clear while their
+  // half-typed term sat on in the box — with the „Търси" button beside it offering to bring it
+  // back. „Изчисти" means the page starts over, box included.
   const onClearAll = useCallback(() => {
-    setTerm("");
-    mirrored.current = "";
+    setDraft("");
     clearFilters();
   }, [clearFilters]);
+
+  // ⚠️ READ FROM `?q`, NOT FROM THE BOX AND NOT FROM THE TABLE'S RESPONSE. It gates three
+  // search-blind surfaces (the head band, the head's evidence rail, the mix bar), and each
+  // other source is wrong in its own direction: the box would strip them mid-word, before the
+  // reader has asked for anything, and the response would put them back for the length of every
+  // request — which is exactly when a reader is looking at the head.
+  const searching = query.trim().length > 0;
 
   // The active filter set. Code-set columns take a SPACE-PADDED, LIKE-escaped value so the
   // engine's ILIKE '%…%' matches a whole token: ' ngo ' can never hit 'ngo_board', and the
@@ -662,6 +651,10 @@ export const PersonsBrowserScreen: FC = () => {
     sector,
     primaryFacet: primaryFacet === PERSON_FILTER_ALL ? undefined : primaryFacet,
     filtered: hasNarrowingFilters,
+    // The band does not render at all under a search — three of its four cells cannot see the
+    // term, and the fourth is the row count the table prints above the rows. See
+    // `personsKpiBasis.ts`; `pendingCells` derives from the same rule, so the skeletons go too.
+    searchActive: searching,
     scopeBasis,
     fmtInt,
     t,
@@ -1415,8 +1408,14 @@ export const PersonsBrowserScreen: FC = () => {
         }
         search={
           <PersonsSearchField
-            value={term}
-            onChange={setTerm}
+            value={draft}
+            onChange={setDraft}
+            onSubmit={onSubmitQuery}
+            // The term the RESULTS came from, so the field can say „натиснете Търси" when the
+            // box has moved past them. `?q` rather than `agg.term`: the table's value arrives
+            // with the response, so the field would announce a disagreement for the length of
+            // every request that the reader has already resolved.
+            applied={query}
             minChars={SEARCH_MIN_CHARS}
             // The table is what carries the below-the-floor hint in its body; with no table,
             // this field is the only thing that can explain why two characters produced
@@ -1432,7 +1431,13 @@ export const PersonsBrowserScreen: FC = () => {
         kpis={kpis}
         kpisPending={pendingCells}
         evidence={
-          evidenceRows.length
+          // ⚠️ WITHHELD UNDER A SEARCH, for the band's reason exactly. `/api/db/facets` has no
+          // free-text parameter, so these group counts are computed with the term IGNORED —
+          // „Изпълнителна власт 14 583" beside ten search results is the same false sentence
+          // one column over. They are entry points OUT of a search anyway (`entryHref` drops
+          // `?q` deliberately), so a reader who is mid-search is not the audience for them; the
+          // filter bar is the way in that survives.
+          !searching && evidenceRows.length
             ? {
                 heading: t("persons_evidence_heading", {
                   defaultValue: "Групи",
@@ -1485,7 +1490,13 @@ export const PersonsBrowserScreen: FC = () => {
 
         {showTable ? (
           <>
-            {mixBar}
+            {/* ⚠️ NOT UNDER A SEARCH. The bar partitions `primary_facet` from the SAME
+                facet endpoint the band reads, which has no free-text parameter — so beside ten
+                matches it draws the whole filtered corpus's mix at full width and labels it
+                „Основна принадлежност", with no room for a caption to say otherwise. `?pfacet`
+                keeps its removable chip above, so hiding the bar never traps a reader in a
+                selection they cannot undo. */}
+            {searching ? null : mixBar}
             {/* ⚠️ ONLY WHEN `browseAll` IS THE SOLE REASON THE TABLE IS UP. `browseAll` is
                 deliberately not part of `hasActiveFilters` — it narrows nothing, so offering
                 to „clear filters" for it would name the wrong thing — which means it gets no
@@ -1541,10 +1552,12 @@ export const PersonsBrowserScreen: FC = () => {
             columns={columns}
             defaultSort={[{ id: "prominence", desc: true }]}
             pageSize={25}
-            // CONTROLLED: the head owns the box. The 250 ms debounce and the
-            // SEARCH_MIN_CHARS floor stay inside the table, which is the only place the
-            // engine's 400-on-a-short-term contract is implemented.
-            search={term}
+            // CONTROLLED, and it is the COMMITTED term — the box's draft reaches nothing.
+            // The SEARCH_MIN_CHARS floor stays inside the table, which is the only place the
+            // engine's 400-on-a-short-term contract is implemented; its 250 ms debounce now
+            // only ever sees one value, since the term changes on submit rather than on
+            // keystroke.
+            search={query}
             hideSearchInput
             renderAggregates={(_agg, total, exact) => (
               // COUNT ONLY. There is deliberately no Σ of the money column: two co-officers
