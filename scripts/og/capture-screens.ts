@@ -1355,23 +1355,42 @@ const captures: Capture[] = [
   {
     slug: "reports-hub",
     routePath: "parliamentary/reports",
-    // The anomaly-reports tile hub. Anchor on the tiles wrapper and top-align so
-    // the card leads with the first cluster of report tiles.
-    waitFor: '[data-og="reports-hub"] a',
-    anchor: '[data-og="reports-hub"]',
-    leftAlign: true,
+    // ⚠️ RE-ANCHORED ON THE HEAD (§5.3), 2026-08-27 — the `governance-sectors` /
+    // `indicators` move, for the third and fourth time. It anchored on the tile grid, which
+    // was right for a tile hub and wrong the moment the page grew a head. Worse here than
+    // on those two: the head PROMOTED both tiles' figures, so the old card led with tiles
+    // that no longer carry a number at all.
+    //
+    // ⚠️ TWO CELLS, NOT FOUR, and the wait says so. This hub's registry carries a `statId`
+    // for `risk` and `turnout` only, so a four-cell chain would never resolve and every
+    // capture would time out on a page that is rendering correctly.
+    waitFor: "[data-hub-head]:has(aside a) [data-kpi-cell] ~ [data-kpi-cell]",
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
     slug: "analysis-hub",
     routePath: "parliamentary/analysis",
-    // The election-analysis tile hub. Anchor on the tiles wrapper and top-align
-    // so the card leads with the first cluster of infographic tiles + their
-    // headline numbers (critical sections / Benford-flagged parties / wasted
-    // share / stay-rate).
-    waitFor: '[data-og="analysis-hub"] a',
-    anchor: '[data-og="analysis-hub"]',
-    leftAlign: true,
+    // ⚠️ RE-ANCHORED ON THE HEAD (§5.3), 2026-08-27 — see `reports-hub` above. The old
+    // comment described the card as leading with „their headline numbers"; those numbers are
+    // now in the band, and the four tiles behind them render bare.
+    //
+    // ⚠️ THE WAIT COUNTS THE CELLS, because naming them cannot. A cell is withheld when the
+    // selected election's payload lacks that stat — `2005_06_25` carries no `persistence`,
+    // so that cycle is three — and this card must not be overwritten by a short one and
+    // reported as success. The capture runs on the default (latest) election, which carries
+    // all four.
+    //
+    // ⚠️ `:has(aside a)` IS NOT REDUNDANT WITH THE CELL CHAIN HERE, unlike on
+    // /governance/sectors where the two clauses were logically equivalent. The rail comes
+    // from a SECOND fetch (risk_score_summary.json) with no ordering guarantee against the
+    // band's, so a head can genuinely have four cells and no aside for a frame — which is
+    // the state that would be captured.
+    waitFor:
+      "[data-hub-head]:has(aside a) [data-kpi-cell] ~ [data-kpi-cell] ~ [data-kpi-cell] ~ [data-kpi-cell]",
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {

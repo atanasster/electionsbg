@@ -25,6 +25,10 @@
 // that scans nothing passes.
 
 import { describe, expect, it } from "vitest";
+import {
+  ANALYSIS_BAND,
+  REPORTS_BAND,
+} from "@/screens/analysis/analysisHubFigures";
 import fs from "node:fs";
 import { execFileSync, execSync } from "node:child_process";
 import { stripJsxComments } from "../../src/ux/infographic/stripJsxComments";
@@ -973,20 +977,11 @@ describe("a hub's og capture anchors on its head", () => {
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
   const NOT_YET: Record<string, string> = {
-    // ⚠️ BOTH ARE THE `governance-sectors` / `indicators` SHAPE — the card IS shot from the
-    // right page and only the ANCHOR is the tile grid, so both are paid by re-anchoring on
-    // `[data-hub-head]` and re-shooting, not by a new slug. Booked here rather than paid in
-    // this commit because the head landed in step 1 and the cards are step 3's work.
+    // ⚠️ PAID OFF 2026-08-27, within the same run that booked them — `analysis-hub` and
+    // `reports-hub` were re-anchored on `[data-hub-head]` and re-shot, the
+    // `governance-sectors` / `indicators` treatment. Both were the cheap kind: the card was
+    // already shot from the right page and only the anchor was wrong.
     //
-    // ⚠️ AND THEY GOT WORSE, not merely unchanged, which is why they are named rather than
-    // left silent: both cards lead with tile fronts whose FIGURES this step deliberately
-    // removed (§3.1 rule 5 — the promoted analyses now render bare tiles), so until the
-    // re-shoot each card depicts a grid of numberless tiles instead of the band that took
-    // those numbers.
-    "analysis-hub":
-      "anchors on the tile grid; the four promoted tiles are now bare — re-anchor on the head and re-shoot",
-    "reports-hub":
-      "anchors on the tile grid; both promoted tiles are now bare — re-anchor on the head and re-shoot",
     // Emptied on 2026-08-26 after being used THREE times that day and paid off every time
     // within a commit — which is the pattern this map is for.
     //
@@ -1317,22 +1312,39 @@ describe("a hub's og capture anchors on its head", () => {
    *  Both members can legitimately be short — `/governance/sectors` on 12 of 30 scope keys
    *  (a band cell is withheld when its basis has no publishable sector) and `/indicators` on
    *  1 of 13 elections (`unemployment` starts 2009-Q1 against 2005-Q1 for the rest). Naming
-   *  a cell cannot express that; only a sibling chain asserts LENGTH. */
-  const COUNTED_WAITS = ["governance-sectors", "indicators"];
+   *  a cell cannot express that; only a sibling chain asserts LENGTH.
+   *
+   *  ⚠️ THE COUNT IS PER ENTRY, NOT A CONSTANT FOUR. `/parliamentary/reports` is a TWO-cell
+   *  band — its registry carries a `statId` for `risk` and `turnout` only — so a fixed
+   *  four-cell rule would demand a chain that never resolves, and every capture of a
+   *  correctly-rendering page would time out. This was a `hops < 3` literal until
+   *  2026-08-27, when the two-cell hub arrived. */
+  const COUNTED_WAITS: Record<string, number> = {
+    "governance-sectors": 4,
+    indicators: 4,
+    // ⚠️ DERIVED FROM THE BANDS THEMSELVES, not restated. A literal `2` here is a second
+    // copy of `REPORTS_BAND.length`, so adding a third stat to that array would leave the
+    // wait demanding two, this clause asserting two, every test green — and a SHORT band
+    // shot and reported as success, which is the exact defect this clause exists to prevent,
+    // reached without touching it. The other two entries are numbers because their bands are
+    // built from a payload rather than a declared array.
+    "analysis-hub": ANALYSIS_BAND.length,
+    "reports-hub": REPORTS_BAND.length,
+  };
 
   it("a head that can render short waits on a cell COUNT, not a selector", () => {
     const offenders: string[] = [];
-    for (const slug of COUNTED_WAITS) {
+    for (const [slug, cells] of Object.entries(COUNTED_WAITS)) {
       const entry = entryFor(slug);
       if (!entry) {
         offenders.push(`${slug}: no capture entry`);
         continue;
       }
-      // Four cells means three `~` hops between `[data-kpi-cell]` selectors.
+      // N cells means N-1 `~` hops between `[data-kpi-cell]` selectors.
       const hops = (entry.match(/\[data-kpi-cell\]\s*~/g) ?? []).length;
-      if (hops < 3)
+      if (hops < cells - 1)
         offenders.push(
-          `${slug}: waits on ${hops + 1} cell(s), so a short band resolves it`,
+          `${slug}: waits on ${hops + 1} cell(s) of ${cells}, so a short band resolves it`,
         );
     }
     expect(
@@ -1340,7 +1352,7 @@ describe("a hub's og capture anchors on its head", () => {
       `these cards can be overwritten by a short band: ${offenders.join("; ")}`,
     ).toEqual([]);
     // Non-vacuity: the list is real and every member has an entry to check.
-    expect(COUNTED_WAITS.length).toBeGreaterThan(1);
+    expect(Object.keys(COUNTED_WAITS).length).toBeGreaterThan(1);
   });
 
   it("the map names every HubHead screen, so a new hub cannot slip past", () => {

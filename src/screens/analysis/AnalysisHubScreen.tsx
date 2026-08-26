@@ -23,6 +23,8 @@ import {
   groupedInt,
   promotedStats,
 } from "./analysisHubFigures";
+import { useElectionContext } from "@/data/ElectionContext";
+import { localDate } from "@/data/utils";
 import { useAnalysisHubEvidence } from "@/screens/analysis/useAnalysisHubEvidence";
 import {
   useAnalysisStatsState,
@@ -36,6 +38,7 @@ import { REPORT_SCENES } from "@/screens/reports/hub/reportsHubScenes";
 
 export const AnalysisHubScreen: FC = () => {
   const { t, i18n } = useTranslation();
+  const { selected } = useElectionContext();
   const { stats, isPending } = useAnalysisStatsState();
   // ⚠️ ALWAYS-GROUPED — bg does not group four digits on its own; see `groupedInt`.
   const formatInt = useMemo(() => groupedInt(i18n.language), [i18n.language]);
@@ -103,7 +106,14 @@ export const AnalysisHubScreen: FC = () => {
   return (
     <>
       <HubHead
-        eyebrow={t("analysis_head_eyebrow")}
+        // ⚠️ THE ELECTION IS IN THE EYEBROW, because a SHARE CARD IS SEEN WITHOUT ITS
+        // PAGE. Every figure on this head comes from `/${selected}/analysis_stats.json`,
+        // and the control that picks the cycle sits in the site header — outside the card's
+        // frame. So an undated card publishes „6 секции в критичната лента" about no stated
+        // election, on a page whose whole subject is electoral integrity. Same fix
+        // /indicators took, one line up rather than per basis: here every cell shares ONE
+        // cycle, so dating each of them would repeat the same date four times.
+        eyebrow={t("analysis_head_eyebrow", { election: localDate(selected) })}
         title={t("analysis_head_title")}
         seoDescription={t("analysis_hub_seo_description")}
         deck={t("analysis_head_deck")}
