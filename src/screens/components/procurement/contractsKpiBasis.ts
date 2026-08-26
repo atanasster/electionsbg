@@ -15,6 +15,9 @@
 // sentences this band must not publish without saying so.
 
 import type { HubKpi } from "@/ux/infographic";
+import { basisLadder, TERM_MAX } from "@/ux/infographic/kpiBasis";
+
+export { TERM_MAX };
 
 export interface ContractsKpiInput {
   /** Σ€ over the current query, or undefined until the table's aggregates arrive. */
@@ -35,10 +38,6 @@ export interface ContractsKpiInput {
   t: (k: string, o?: Record<string, unknown>) => string;
 }
 
-/** A term is echoed back into a 10 px uppercase line, so it is clamped. The server accepts
- *  200 characters; a pasted contract title took the band from 149 px to 413 px. */
-export const TERM_MAX = 24;
-
 export const contractsKpis = ({
   sumAmountEur,
   count,
@@ -53,25 +52,24 @@ export const contractsKpis = ({
   fmtInt,
   t,
 }: ContractsKpiInput): HubKpi[] => {
-  const searching = !!term;
   const filtered = cpvActive || procActive || singleActive || gradeActive;
-  const shown = (term ?? "").slice(0, TERM_MAX);
 
-  // Σ€ and the count follow every dimension, so their basis only separates „your search" from
-  // „your filters" from „the period".
-  const rowBasis = searching
-    ? t("contracts_basis_matching", { term: shown })
-    : filtered
-      ? t("contracts_basis_filters")
-      : t("contracts_basis_window");
-
-  // A rate that follows the filters but not the search. Never „целия период": with `?cpv=45`
-  // the cell reads 35% against a true period-wide 47%, so a totality claim there is false.
-  const rateBasis = searching
-    ? t("contracts_basis_filters_not_search")
-    : filtered
-      ? t("contracts_basis_filters")
-      : t("contracts_basis_window");
+  // Σ€ and the count follow every dimension; the two rates follow the filters and NOT the
+  // search. The ladder is shared with the /persons band (`@/ux/infographic/kpiBasis`) — this
+  // file used `!!term`, which captions a whitespace-only term as a search, while the sibling
+  // used `!!term.trim()`, so two browsers meant to read as one system disagreed about what a
+  // search is.
+  const { rowBasis, rateBasis } = basisLadder({
+    term,
+    filtered,
+    windowBasis: t("contracts_basis_window"),
+    t,
+    keys: {
+      matching: "contracts_basis_matching",
+      filters: "contracts_basis_filters",
+      filtersNotSearch: "contracts_basis_filters_not_search",
+    },
+  });
 
   return [
     // Gated on ARRIVAL, not `?? 0`. Unconditional cells published „€0 · в избрания период" on

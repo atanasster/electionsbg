@@ -611,6 +611,24 @@ const HUB_HEAD_BUDGETS: {
   //
   // ⚠️ If this trips, do NOT shorten the captions first — check whether a fifth cell arrived.
   { path: "/subsidies", maxPx: 620, measured: 570, cells: 4 },
+  // The SECOND registry browser to take a head, and deliberately NOT shaped like the first.
+  //
+  // ⚠️ READ /procurement/contracts ABOVE FIRST. Its entry says a browser head omits the search
+  // slot because "the table owns its own", and warns that slack in the ceiling is "enough to
+  // quietly acquire" one. /persons acquires it ON PURPOSE: the page is search-first — it
+  // renders NO table until there is a query, a filter or an explicit „разгледай всички", so the
+  // search is the page's primary act rather than the table's accessory. It also carries a scope
+  // control and an evidence aside, which is why it sits in the /parliament band rather than the
+  // 360 one.
+  //
+  // ⚠️ If this trips, do NOT shorten the band's captions first. Two of them are load-bearing
+  // sentences rather than labels: the declaration cell's „не е мярка за спазване на закона" is
+  // the only thing standing between „С декларация 15%" and an accusation against ~10.7k village
+  // mayors who were never required to file, and „по филтрите, не по търсенето" is what stops a
+  // corpus rate being read as a property of the search results. Check for a fifth cell instead.
+  //
+  // `measured` is 0 until this runs against a built dist — see the note on running it.
+  { path: "/persons", maxPx: 560, measured: 0, cells: 4 },
 ];
 
 test.describe("hub head — the §3.0 height budget", () => {

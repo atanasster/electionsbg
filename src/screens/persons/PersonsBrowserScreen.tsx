@@ -24,10 +24,9 @@
 // skipping the index means skipping that too.
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Users } from "lucide-react";
-import { Title } from "@/ux/Title";
+import { HubHead, type HubEvidenceRow } from "@/ux/infographic/HubHead";
 import {
   DbDataTable,
   type DbColumnFilter,
@@ -59,6 +58,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PersonsAnalysisStrip } from "./PersonsAnalysisStrip";
+import { personsKpis, personsKpiCellCount } from "./personsKpiBasis";
 import { PersonNetWorthCell, PersonMoneyCell } from "./PersonMoneyCells";
 import { oblastName } from "@/lib/regionalOblast";
 import {
@@ -73,7 +73,10 @@ export const PersonsBrowserScreen: FC = () => {
   const isBg = i18n.language?.startsWith("bg") ?? true;
   const { colorFor, displayNameForId } = useCanonicalParties();
   const { roleLabel, rolePluralLabel } = usePersonLabels();
-  const [params] = useSearchParams();
+  // The live query string, for the evidence hrefs. NOT `useSearchParams` — `?q` has exactly
+  // one reader in this screen (the hook), and a second one would disagree with it past
+  // QUERY_MAX.
+  const { search: activeSearch } = useLocation();
 
   const {
     sector,
@@ -86,7 +89,9 @@ export const PersonsBrowserScreen: FC = () => {
     court,
     declaredOnly,
     heldOfficeOnly,
+    switchersOnly,
     obshtina,
+    query,
     setSector,
     setFacet,
     setPrimaryFacet,
@@ -100,6 +105,7 @@ export const PersonsBrowserScreen: FC = () => {
     setDeclaredOnly,
     setHeldOfficeOnly,
     hasActiveFilters,
+    hasNarrowingFilters,
     clearFilters,
   } = useUrlPersonFilters();
 
@@ -161,21 +167,42 @@ export const PersonsBrowserScreen: FC = () => {
     const f: DbColumnFilter[] = [];
     if (declaredOnly) f.push({ id: "has_declaration", value: true });
     if (heldOfficeOnly) f.push({ id: "held_office", value: true });
+    // „Сменили партия" — `parties_n >= 2`, 5,146 people. The registry declares
+    // `parties_n: { filter: "range" }`, so this is a range floor rather than a code set.
+    //
+    // ⚠️ IT MUST BE APPLIED, not merely counted. `hasNarrowingFilters` includes it, which
+    // flips the band's basis to „по избраните филтри" and lights „Изчисти филтрите" — so a
+    // param that reached the URL without reaching the query would caption the WHOLE corpus as
+    // filtered. Half-wired is the one state that publishes a false sentence.
+    if (switchersOnly) f.push({ id: "parties_n", min: 2 });
     return f;
-  }, [declaredOnly, heldOfficeOnly]);
+  }, [declaredOnly, heldOfficeOnly, switchersOnly]);
   // The public⇄private scope (?sector) maps to the matview `tier`: public OMITS the filter so the
   // registry's tier=P floor applies, private is ['V'], all is ['P','V']. `?position` filters
   // position_type — it has NO picker (deep-link / cross-link target only, like ?obshtina); the
   // setter exists for a future control. Both are GLOBAL (not a facet dimension), so they scope
   // every facet + the table.
-  const scopeF = useMemo<DbColumnFilter[]>(() => {
-    const f: DbColumnFilter[] = [];
-    if (sector === "private") f.push({ id: "tier", value: ["V"] });
-    else if (sector === "all") f.push({ id: "tier", value: ["P", "V"] });
-    if (position !== PERSON_FILTER_ALL)
-      f.push({ id: "position_type", value: [position] });
-    return f;
-  }, [sector, position]);
+  const tierF = useMemo<DbColumnFilter[]>(() => {
+    if (sector === "private") return [{ id: "tier", value: ["V"] }];
+    if (sector === "all") return [{ id: "tier", value: ["P", "V"] }];
+    return [];
+  }, [sector]);
+  const positionF = useMemo<DbColumnFilter[]>(
+    () =>
+      position !== PERSON_FILTER_ALL
+        ? [{ id: "position_type", value: [position] }]
+        : [],
+    [position],
+  );
+  // KEPT SEPARATE so the `tiers` facet below can exclude its own dimension while still being
+  // scoped by everything else — a facet that included its own filter would report „Във
+  // властта (63 816)" as whatever the CURRENT scope happens to be, i.e. the option's count
+  // would describe the option the reader has already picked rather than the one they are
+  // considering.
+  const scopeF = useMemo<DbColumnFilter[]>(
+    () => [...tierF, ...positionF],
+    [tierF, positionF],
+  );
 
   const extraFilters = useMemo<DbColumnFilter[]>(
     () => [
@@ -260,6 +287,26 @@ export const PersonsBrowserScreen: FC = () => {
             ...toggleF,
           ],
         },
+        // The scope control's OWN counts — „Всички (137 461)" / „Във властта (63 816)" /
+        // „Частен сектор (73 645)". Excludes the tier filter (a facet excludes its own
+        // dimension) and keeps every other, so each option says how many rows it would
+        // return from where the reader is standing.
+        //
+        // ⚠️ THE COUNTS ARE WHY THE DEFAULT MOVING TO `all` IS HONEST. 53.6% of the
+        // unfiltered view is name-folded private-sector owners; the badge says so per row,
+        // and this says it once, at the top, in the control that governs it.
+        tiers: {
+          columns: ["tier"],
+          filters: [
+            ...positionF,
+            ...groupF,
+            ...primaryF,
+            ...roleF,
+            ...partyF,
+            ...placeF,
+            ...toggleF,
+          ],
+        },
         // The KPI denominators. has_declaration / is_company are bool facets over the FULL
         // active filter set, so the percentages describe exactly the rows on screen.
         kpis: {
@@ -277,6 +324,7 @@ export const PersonsBrowserScreen: FC = () => {
       }),
       [
         scopeF,
+        positionF,
         groupF,
         primaryF,
         roleF,
@@ -382,7 +430,7 @@ export const PersonsBrowserScreen: FC = () => {
 
   // Reactive row count for the headline card. The table computes it server-side and hands
   // it back for free; unlike the facets above it DOES react to the free-text search.
-  const [agg, setAgg] = useState<{ count?: number }>({});
+  const [agg, setAgg] = useState<{ count?: number; term?: string }>({});
   // The request that produced the visible page — the CSV export re-issues exactly this at a
   // larger pageSize, so a download can never silently drop the reader's filters or search.
   const lastRequest = useRef<Record<string, unknown> | null>(null);
@@ -391,11 +439,25 @@ export const PersonsBrowserScreen: FC = () => {
       resp: DbTableResponse<PersonBrowseRow>,
       request: Record<string, unknown>,
     ) => {
-      setAgg({ count: resp.aggregates?.count ?? resp.total });
+      const filters = request.filters as { global?: string } | undefined;
+      // The term the count was ACTUALLY computed under — the table's own debounced value, not
+      // whatever is in the URL this millisecond. The band echoes it back, so taking it from
+      // anywhere else captions a figure with a query that did not produce it.
+      setAgg({
+        count: resp.aggregates?.count ?? resp.total,
+        term: filters?.global,
+      });
       lastRequest.current = request;
     },
     [],
   );
+
+  // ⚠️ THE BASIS FLIPS WITH THE URL AND THE COUNT DOES NOT. `DbDataTable` keeps the previous
+  // page while refetching (`keepPreviousData`), so without this a filter click paints „Лица
+  // 137 461 · ПО ИЗБРАНИТЕ ФИЛТРИ" until the response lands — and a SCOPE switch paints two
+  // contradictory numbers in one cell, „Лица 137 461 · от всички 63 816 лица", because
+  // `scopeBasis` carries a figure of its own. Skeletons are the honest state.
+  useEffect(() => setAgg({}), [extraFilters]);
 
   const [exporting, setExporting] = useState(false);
   // Reported INLINE, not through window.alert — the only alert() in src/ would be an
@@ -430,6 +492,122 @@ export const PersonsBrowserScreen: FC = () => {
       setExporting(false);
     }
   }, [exporting, t]);
+
+  const fmtInt = useCallback(
+    (n: number) => n.toLocaleString(isBg ? "bg-BG" : "en-GB"),
+    [isBg],
+  );
+
+  // The scope control's per-option counts. `tierTotal` is also the head's „от всички N лица"
+  // denominator, so the caption and the picker can never name different numbers.
+  const tierCounts = useMemo(() => {
+    const f = facets.tier ?? [];
+    const at = (v: string) =>
+      f.find((o) => String(o.value).trim() === v)?.count ?? 0;
+    const p = at("P");
+    const v = at("V");
+    return { p, v, all: p + v };
+  }, [facets]);
+
+  // The one basis that is always true, because the scope is always in play. It names the
+  // COUNT rather than the scope's label: „от всички 137 461 лица" is checkable against the
+  // band's own first cell, where „от всички лица" is not.
+  //
+  // ⚠️ THE COUNT IS PART OF THE SENTENCE, so the sentence is not ready until the count is.
+  // `tierCounts` comes from a DIFFERENT request than the one the band waits on, and
+  // `fetchFacets` swallows a failed response into `{}` at `staleTime: Infinity` — so without
+  // this fallback a cold mount whose table beat the facet, or a single 500 on /api/db/facets,
+  // publishes „Лица 137 461 · ОТ ВСИЧКИ 0 ЛИЦА" in the largest type on the page, permanently.
+  const scopeN =
+    sector === "private"
+      ? tierCounts.v
+      : sector === "public"
+        ? tierCounts.p
+        : tierCounts.all;
+  const scopeBasis =
+    scopeN > 0
+      ? t("persons_basis_scope", {
+          defaultValue: "от всички {{n}} лица",
+          n: fmtInt(scopeN),
+        })
+      : t("persons_basis_scope_unknown", {
+          defaultValue: "от всички лица в обхвата",
+        });
+
+  /* The band's rule lives in `personsKpiBasis.ts` — four figures answering over three
+     different sets, which is a truth table rather than a layout decision. See that file. */
+  const kpiInput = {
+    // NO `?? query` FALLBACK. `filters.global` is undefined in exactly the two cases where the
+    // term is NOT in play — the box was cleared, or the term is under the engine's floor — and
+    // substituting the URL's `?q` there captions an UNFILTERED count „по търсене „иван"".
+    // Before the first response `count` is undefined, so the band is skeletons and this is
+    // never read.
+    term: agg.term,
+    declActive: declaredOnly,
+    // Read through `personGroups`' own accessor rather than restating the literal key it owns.
+    companyFacetActive: groupByKey(facet)?.column === "is_company",
+    obshtinaActive: obshtina !== PERSON_FILTER_ALL,
+    sector,
+    primaryFacet: primaryFacet === PERSON_FILTER_ALL ? undefined : primaryFacet,
+    filtered: hasNarrowingFilters,
+    scopeBasis,
+    fmtInt,
+    t,
+  };
+  const kpis = personsKpis({
+    ...kpiInput,
+    count: agg.count,
+    withDeclaration,
+    withCompanies,
+    facetTotal,
+    obshtinaCount,
+  });
+  // Derived from the SAME rule, so the skeletons reserve the height the loaded band will
+  // occupy — a fixed 4 reflows to 3 under ?decl=1 / ?facet=company / ?obshtina=, which is the
+  // reflow `kpisPending` exists to prevent.
+  const pendingCells = personsKpiCellCount({
+    ...kpiInput,
+    obshtinaCount,
+  });
+
+  // The head's ranked list IS the group entry points, as links, so a reader who never opens
+  // the Група picker still has a way in. Derived from a facet, never a constant: `is_donor` is
+  // 0 corpus-wide today, and `groupOptions` already drops a zero, so a hard-coded list would
+  // publish a dead link.
+  //
+  // ⚠️ THE COUNT AND THE DESTINATION MUST COUNT THE SAME SET, and a bare `/persons?facet=X`
+  // does not. These counts come from the `groups` facet, which is scoped by the reader's whole
+  // filter set — so under `?sector=private` the „Бизнес" row reads 73 645 while the bare link
+  // lands on a page returning 85 060. (`HubHead` runs every `to` through `usePreserveParams`,
+  // whose allowlist holds no persons param, so the ambient query is stripped; a link's OWN
+  // params survive.) Carrying the active query forward is what makes the row honest — the
+  // „destination counts a different set" failure `useHeadHref`'s header names, reached from
+  // the other side.
+  //
+  // `pfacet` is dropped on purpose: the `groups` facet excludes it, so the counts do not
+  // reflect it and carrying it would re-open the same gap one param over.
+  const evidenceHref = useCallback(
+    (key: string): string => {
+      const next = new URLSearchParams(activeSearch);
+      next.set("facet", key);
+      next.delete("pfacet");
+      next.delete("browse");
+      return `/persons?${next.toString()}`;
+    },
+    [activeSearch],
+  );
+  const evidenceRows = useMemo<HubEvidenceRow[]>(
+    () =>
+      [...groupOptions]
+        .sort((a, b) => b.count - a.count)
+        .map((g) => ({
+          id: g.value,
+          label: g.label,
+          value: fmtInt(g.count),
+          to: evidenceHref(g.value),
+        })),
+    [groupOptions, fmtInt, evidenceHref],
+  );
 
   const columns = useMemo<DataTableColumnDef<PersonBrowseRow, unknown>[]>(
     () => [
@@ -682,14 +860,19 @@ export const PersonsBrowserScreen: FC = () => {
   // as an accurate count of MPs. A filtered view has to say what it is filtered to.
   const roleName =
     role !== PERSON_FILTER_ALL ? rolePluralLabel(role) || role : null;
+  // TWO titles, deliberately. The BREADCRUMB stays „Хора" — short, and one crumb among
+  // several. The <h1> is „Хора във властта", which is what the PRERENDERED shell this page
+  // hydrates already emits (scripts/prerender/routes.ts) and therefore what a crawler indexes;
+  // a hydrated h1 that differs from the served one is a page that says two things.
   const baseTitle = t("persons_title", { defaultValue: "Хора" });
-  const pageTitle = roleName || baseTitle;
+  const headTitle = t("persons_head_title", {
+    defaultValue: "Хора във властта",
+  });
+  const pageTitle = roleName || headTitle;
 
   return (
     <>
-      <Title description="Every person the site can identify across parliament, local government, the courts, the company register and the campaign-finance filings — searchable and filterable.">
-        {pageTitle}
-      </Title>
+      {/* ABOVE the head, per the head's own order. */}
       <Breadcrumbs
         items={[
           { label: t("nav_governance"), to: "/governance" },
@@ -700,27 +883,103 @@ export const PersonsBrowserScreen: FC = () => {
             : [{ label: baseTitle }]),
         ]}
       />
+      {/* HubHead renders the <h1> AND the <SEO>, so this screen must NOT also render <Title>
+          — that emits two h1s, which hubHead.gates.test.ts checks statically and
+          tests/ui.spec.ts checks rendered. */}
+      <HubHead
+        eyebrow={t("persons_head_eyebrow", {
+          defaultValue: "УПРАВЛЕНИЕ · ХОРА",
+        })}
+        title={pageTitle}
+        seoDescription="Every person the site can identify across parliament, local government, the courts, the company register and the campaign-finance filings — searchable and filterable."
+        deck={
+          roleName
+            ? t("persons_intro_role", { role: roleName })
+            : // NAMES BOTH POPULATIONS. The old line — „Един човек, събран от девет
+              // регистъра" — is a true description of the 63,816 resolved people and a false
+              // one of the 73,645 name-folded private owners that are now the majority of the
+              // default view. The per-row badge says so 137,461 times; this says it once.
+              t("persons_head_deck", {
+                defaultValue:
+                  "Един човек, събран от девет регистъра — парламент, местна власт, съд, Търговски регистър и дарения. Обхватът включва и собственици на фирми, разпознати само по име; при тях записът носи етикет.",
+              })
+        }
+        // IN the head, beside the figures it governs, and carrying its own counts — the
+        // scope is the single largest thing a reader can change about every number here.
+        scope={
+          <Select
+            value={sector}
+            onValueChange={(v) => setSector(v as typeof sector)}
+          >
+            <SelectTrigger
+              className="h-9 w-auto max-w-[260px]"
+              aria-label={t("persons_scope_label", {
+                defaultValue: "Обхват",
+              })}
+            >
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">
+                {t("persons_sector_all", { defaultValue: "Всички" })}
+                {tierCounts.all ? ` (${fmtInt(tierCounts.all)})` : ""}
+              </SelectItem>
+              <SelectItem value="public">
+                {t("persons_sector_public", { defaultValue: "Във властта" })}
+                {tierCounts.p ? ` (${fmtInt(tierCounts.p)})` : ""}
+              </SelectItem>
+              <SelectItem value="private">
+                {t("persons_sector_private", {
+                  defaultValue: "Частен сектор",
+                })}
+                {tierCounts.v ? ` (${fmtInt(tierCounts.v)})` : ""}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        }
+        kpis={kpis}
+        kpisPending={pendingCells}
+        evidence={
+          evidenceRows.length
+            ? {
+                heading: t("persons_evidence_heading", {
+                  defaultValue: "Групи",
+                }),
+                // CONDITIONAL, because the counts are: „в регистъра" is a corpus-wide claim
+                // and these rows are scoped by whatever the reader has narrowed to.
+                basis:
+                  hasNarrowingFilters || sector !== "all"
+                    ? t("persons_evidence_basis_filtered", {
+                        defaultValue: "по брой лица в текущия обхват",
+                      })
+                    : t("persons_evidence_basis", {
+                        defaultValue: "по брой лица в регистъра",
+                      }),
+                rows: evidenceRows,
+              }
+            : undefined
+        }
+      />
 
       <section aria-label="persons" className="my-4">
-        <div className="mb-3 flex items-center gap-2 text-sm text-muted-foreground">
-          <Users className="h-4 w-4 shrink-0" />
-          {roleName
-            ? t("persons_intro_role", { role: roleName })
-            : t("persons_intro") ||
-              "Един човек, събран от девет регистъра — парламент, местна власт, съд, Търговски регистър и дарения."}
-        </div>
-
         <PersonsAnalysisStrip
-          count={agg.count}
-          withDeclaration={withDeclaration}
-          withCompanies={withCompanies}
-          facetTotal={facetTotal}
-          obshtinaCount={obshtinaCount}
           facetMix={facetMix}
           selectedFacet={
             primaryFacet === PERSON_FILTER_ALL ? null : primaryFacet
           }
           onSelectFacet={setPrimaryFacet}
+          // Under `all` the „Бизнес" segment is PROVABLY the private-sector scope —
+          // primary_facet='company' is 73,645, exactly the tier-V count — so clicking it
+          // switches population rather than narrowing one. Said out loud, because otherwise
+          // the page offers the same narrowing twice under two different names.
+          extraNote={
+            sector === "all"
+              ? t("persons_mix_note_business_is_private", {
+                  defaultValue:
+                    "При обхват „Всички“ групата „Бизнес“ съвпада с обхвата „Частен сектор“.",
+                })
+              : undefined
+          }
         />
 
         <DbDataTable<PersonBrowseRow>
@@ -730,7 +989,7 @@ export const PersonsBrowserScreen: FC = () => {
           columns={columns}
           defaultSort={[{ id: "prominence", desc: true }]}
           pageSize={25}
-          initialSearch={params.get("q") ?? ""}
+          initialSearch={query}
           searchPlaceholder={t("persons_search_placeholder", {
             defaultValue: "Търси име или институция…",
           })}
@@ -749,28 +1008,8 @@ export const PersonsBrowserScreen: FC = () => {
           )}
           toolbar={
             <>
-              {/* Public⇄private scope. Default "public" (people in power); "private" reveals the
-                  name-fold частен-сектор owners; "all" merges both. */}
-              <Select
-                value={sector}
-                onValueChange={(v) => setSector(v as typeof sector)}
-              >
-                <SelectTrigger
-                  className="h-9 w-auto max-w-[220px]"
-                  aria-label={isBg ? "Сектор" : "Sector"}
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="public">
-                    {isBg ? "Във властта" : "In power"}
-                  </SelectItem>
-                  <SelectItem value="private">
-                    {isBg ? "Частен сектор" : "Private sector"}
-                  </SelectItem>
-                  <SelectItem value="all">{isBg ? "Всички" : "All"}</SelectItem>
-                </SelectContent>
-              </Select>
+              {/* The scope control lives in the HEAD, beside the figures it governs — it was
+                  here, which on a phone is ~400 px below the first number it qualifies. */}
               {/* At most one group (today, only under sector=private — every tier='V' row
                   is is_company=true by construction, per personGroups.ts's header) means
                   picking it can never narrow the set: "Бизнес" and "Всички групи" return the

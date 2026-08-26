@@ -1,18 +1,20 @@
-// The /persons KPI strip.
+// The /persons mix bar.
 //
-// The percentages are the part worth pinning: they are computed from FACET counts, not from
-// the visible page, and their denominator is a separate number from the headline count (the
-// headline reacts to the search box, the facets do not). Getting the denominator wrong
-// produces a plausible percentage that is quietly measuring the wrong population — the kind
-// of error nothing else in the page would reveal.
+// ⚠️ THIS FILE USED TO PIN FOUR KPI CARDS AND NO LONGER CAN, because they are gone: the head
+// band publishes those figures now, with a declared basis each, and their rule is tested in
+// `personsKpiBasis.test.ts`. What was lost with the cards — the denominator distinction the old
+// header described here — is pinned there instead ("rounds the rates against the FACET total,
+// not the row count"), so the coverage moved rather than evaporating.
+//
+// What is left to pin is the bar itself: it must not render a partition of nothing, and its
+// note must be able to carry the caller's extra sentence, which is what tells a reader that
+// under „Всички" the „Бизнес" segment IS the private-sector scope.
 
 import { render as rtlRender, screen } from "@testing-library/react";
 import { describe, test, expect } from "vitest";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { PersonsAnalysisStrip } from "./PersonsAnalysisStrip";
 
-// StatCard's `hint` renders a Radix tooltip, which requires the provider main.tsx mounts
-// at the app root.
 const render = (ui: React.ReactElement) =>
   rtlRender(<TooltipProvider>{ui}</TooltipProvider>);
 
@@ -22,66 +24,58 @@ const base = {
   onSelectFacet: () => {},
 };
 
+const MIX = [
+  { value: "politician", count: 8 },
+  { value: "magistrate", count: 2 },
+];
+
 describe("PersonsAnalysisStrip", () => {
-  test("computes each share against the facet total", () => {
-    render(
-      <PersonsAnalysisStrip
-        {...base}
-        count={1000}
-        withDeclaration={250}
-        withCompanies={100}
-        facetTotal={1000}
-        obshtinaCount={12}
-      />,
-    );
-    expect(screen.getByText("25%")).toBeInTheDocument();
-    expect(screen.getByText("10%")).toBeInTheDocument();
-    expect(screen.getByText("12")).toBeInTheDocument();
-  });
-
-  test("shows an em dash rather than 0% or NaN while the facets are loading", () => {
-    // undefined ≠ zero. Rendering "0%" before the data arrives asserts something false
-    // about the corpus, and `part/undefined` would render NaN%.
-    render(<PersonsAnalysisStrip {...base} count={1000} />);
-    expect(screen.getAllByText("—").length).toBeGreaterThanOrEqual(3);
-    expect(screen.queryByText(/NaN/)).toBeNull();
-  });
-
-  test("a zero denominator does not divide by zero", () => {
-    // An over-narrow filter legitimately produces an empty set.
-    render(
-      <PersonsAnalysisStrip
-        {...base}
-        count={0}
-        withDeclaration={0}
-        withCompanies={0}
-        facetTotal={0}
-        obshtinaCount={0}
-      />,
-    );
-    expect(screen.queryByText(/NaN/)).toBeNull();
-    expect(screen.queryByText(/Infinity/)).toBeNull();
-  });
-
   test("renders the mix bar only when there is a partition to show", () => {
-    const { rerender, container } = render(
-      <PersonsAnalysisStrip {...base} count={10} />,
-    );
+    const { rerender, container } = render(<PersonsAnalysisStrip {...base} />);
     expect(container.textContent).not.toContain("Основна принадлежност");
 
     rerender(
       <TooltipProvider>
-        <PersonsAnalysisStrip
-          {...base}
-          count={10}
-          facetMix={[
-            { value: "politician", count: 8 },
-            { value: "magistrate", count: 2 },
-          ]}
-        />
+        <PersonsAnalysisStrip {...base} facetMix={MIX} />
       </TooltipProvider>,
     );
     expect(screen.getByText(/Основна принадлежност/i)).toBeInTheDocument();
     expect(screen.getByText("80%")).toBeInTheDocument();
+  });
+
+  test("publishes NO percentage of its own beside the bar", () => {
+    // The four KPI cards moved into the head band. If they ever came back here the page would
+    // state each figure twice — which reads as two different facts, not as one repeated — and
+    // the copy here carries no basis, so the lower one would be the unqualified version.
+    const { container } = render(
+      <PersonsAnalysisStrip {...base} facetMix={MIX} />,
+    );
+    expect(container.textContent).not.toContain("С декларация");
+    expect(container.textContent).not.toContain("С фирми в ТР");
+  });
+
+  test("appends extraNote to the standing note rather than replacing it", () => {
+    // Both sentences have to survive: the standing one explains that the bar and the Група
+    // filter answer different questions, and the extra one explains that under „Всички" the
+    // „Бизнес" segment is provably the private-sector scope. Dropping either leaves a reader
+    // with two controls that look like they do the same thing.
+    const { container } = render(
+      <PersonsAnalysisStrip
+        {...base}
+        facetMix={MIX}
+        extraNote="ДОПЪЛНИТЕЛНА БЕЛЕЖКА"
+      />,
+    );
+    expect(container.textContent).toContain("ДОПЪЛНИТЕЛНА БЕЛЕЖКА");
+    expect(container.textContent).toContain("най-високата заемана длъжност");
+  });
+
+  test("renders the standing note alone when there is no extra one", () => {
+    const { container } = render(
+      <PersonsAnalysisStrip {...base} facetMix={MIX} />,
+    );
+    expect(container.textContent).toContain("най-високата заемана длъжност");
+    // A naive join would leave a trailing separator.
+    expect(container.textContent).not.toMatch(/\s{2,}$/);
   });
 });

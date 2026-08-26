@@ -1,11 +1,17 @@
-// The analysis block above the /persons table: four KPI cards and the clickable
-// "Основна принадлежност" mix bar. Mirrors ContractsAnalysisStrip's role on the contracts
-// browser, and the same reactive/static split it documents:
+// The clickable "Основна принадлежност" mix bar above the /persons table.
 //
-//   • the row COUNT rides the table's own server-side aggregate (via onData), so it is free
-//     and it reacts to the free-text search;
-//   • the PERCENTAGES ride /api/db/facets and do NOT move with the search box — they
-//     describe the filtered corpus, not the query.
+// ⚠️ IT USED TO CARRY FOUR KPI CARDS TOO, AND THEY ARE GONE RATHER THAN SWITCHED OFF. The head
+// band publishes the same four figures WITH a declared basis each, and the same number twice on
+// one page reads as two different facts. The sibling `ContractsAnalysisStrip` keeps its cards
+// behind a `showKpis` flag because it has three consumers and two of them have no head; this
+// component has exactly ONE consumer, so a flag here would have been a permanently-false branch
+// keeping `StatCard`, four lucide icons and two long strings — one ~330 characters — alive in
+// the CORE i18n chunk that every page on the site downloads.
+//
+// The caveat those cards carried did NOT die with them: „не е мярка за спазване на закона" now
+// rides in the declaration cell's own `basis`, because `HubKpi` has no hint slot and a rate
+// promoted to the largest type on the page without it reads as an accusation against ~10.7k
+// village mayors. See `personsKpiBasis.ts`.
 //
 // THE MIX BAR PARTITIONS `primary_facet`, NOT THE GROUP FLAGS. A person belongs to several
 // groups at once (routinely both муниципален and бизнес), so stacking the flags would
@@ -19,8 +25,6 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Users, FileText, Briefcase, MapPin } from "lucide-react";
-import { StatCard } from "@/screens/dashboard/StatCard";
 import { MixBar, type MixSegment } from "@/ux/MixBar";
 import { usePersonLabels } from "@/lib/personLabels";
 import { useIsDark } from "@/screens/components/procurement/chartColors";
@@ -51,36 +55,18 @@ const FACET_DARK: Record<string, string> = {
 const FALLBACK_LIGHT = "#94a3b8";
 const FALLBACK_DARK = "#cbd5e1";
 
-const pct = (part: number | undefined, whole: number | undefined): string =>
-  part == null || !whole ? "—" : `${Math.round((part / whole) * 100)}%`;
-
 export const PersonsAnalysisStrip: FC<{
-  /** Reactive row count from the table's aggregates. */
-  count?: number;
-  /** Facet-derived denominators; undefined until the facets resolve. */
-  withDeclaration?: number;
-  withCompanies?: number;
-  facetTotal?: number;
-  /** Distinct municipalities represented in the filtered set. */
-  obshtinaCount?: number;
   /** The primary_facet partition + its selection. */
   facetMix: FacetOption[];
   selectedFacet: string | null;
   onSelectFacet: (v: string | null) => void;
-}> = ({
-  count,
-  withDeclaration,
-  withCompanies,
-  facetTotal,
-  obshtinaCount,
-  facetMix,
-  selectedFacet,
-  onSelectFacet,
-}) => {
-  const { t, i18n } = useTranslation();
+  /** One line under the bar, in addition to the standing note. /persons uses it to say that
+   *  under `?sector=all` the „Бизнес" segment IS the private-sector scope. */
+  extraNote?: string;
+}> = ({ facetMix, selectedFacet, onSelectFacet, extraNote }) => {
+  const { t } = useTranslation();
   const { facetLabel } = usePersonLabels();
   const dark = useIsDark();
-  const locale = i18n.language?.startsWith("bg") ? "bg-BG" : "en-GB";
 
   const segments = useMemo<MixSegment[]>(
     () =>
@@ -97,72 +83,6 @@ export const PersonsAnalysisStrip: FC<{
 
   return (
     <div className="mb-4 space-y-3">
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StatCard label={t("persons_kpi_people", { defaultValue: "Лица" })}>
-          <div className="flex items-baseline gap-2">
-            <Users className="h-5 w-5 shrink-0 text-muted-foreground" />
-            <span className="text-lg font-bold tabular-nums md:text-xl">
-              {count != null ? count.toLocaleString(locale) : "—"}
-            </span>
-          </div>
-        </StatCard>
-        {/* NOT a compliance rate, and the hint says so. The denominator is everyone shown,
-          while the register covers only the offices in чл. 6 от ЗПК — a кмет на кметство, a
-          candidate who never took office and a company owner all count as "no declaration"
-          though none was ever required to file. Read as compliance it would accuse ~10.7k
-          village mayors of failing to declare. Phrased about the OFFICE, not the person:
-          161 of the 7,510 village mayors in person_browse_table do have a filing, because
-          they held some other post too. */}
-        <StatCard
-          label={t("persons_kpi_declared", { defaultValue: "С декларация" })}
-          hint={t("persons_kpi_declared_hint", {
-            defaultValue:
-              "Дял от показаните лица с подадена декларация пред Сметната палата. Не измерва спазване на закона: регистърът обхваща само длъжностите по чл. 6 от ЗПК, а тук се броят и хора, които никога не са заемали такава длъжност — например кмет на кметство или кандидат без избран мандат.",
-          })}
-        >
-          <div className="flex items-baseline gap-2">
-            <FileText className="h-5 w-5 shrink-0 text-muted-foreground" />
-            <span className="text-lg font-bold tabular-nums md:text-xl">
-              {pct(withDeclaration, facetTotal)}
-            </span>
-          </div>
-        </StatCard>
-        <StatCard
-          label={t("persons_kpi_companies", { defaultValue: "С фирми в ТР" })}
-          hint={t("persons_kpi_companies_hint", {
-            defaultValue:
-              "Дял от показаните лица със свързана фирма в Търговския регистър.",
-          })}
-        >
-          <div className="flex items-baseline gap-2">
-            <Briefcase className="h-5 w-5 shrink-0 text-muted-foreground" />
-            <span className="text-lg font-bold tabular-nums md:text-xl">
-              {pct(withCompanies, facetTotal)}
-            </span>
-          </div>
-        </StatCard>
-        {/* HIDDEN WHEN ZERO, rather than shown as „Общини 0".
-            A zero here is almost always STRUCTURAL rather than newsworthy: under
-            ?role=mp no member can hold a municipal seat, so the card could not read
-            anything else, and a hard 0 beside three live figures reads as a broken
-            number rather than as "not applicable to this group". Unfiltered the count
-            is 289, so the card is present exactly when it can vary. */}
-        {obshtinaCount !== 0 ? (
-          <StatCard
-            label={t("persons_kpi_obshtini", { defaultValue: "Общини" })}
-          >
-            <div className="flex items-baseline gap-2">
-              <MapPin className="h-5 w-5 shrink-0 text-muted-foreground" />
-              <span className="text-lg font-bold tabular-nums md:text-xl">
-                {obshtinaCount != null
-                  ? obshtinaCount.toLocaleString(locale)
-                  : "—"}
-              </span>
-            </div>
-          </StatCard>
-        ) : null}
-      </div>
-
       <MixBar
         segments={segments}
         selected={selectedFacet}
@@ -170,10 +90,15 @@ export const PersonsAnalysisStrip: FC<{
         title={t("persons_mix_title", {
           defaultValue: "Основна принадлежност",
         })}
-        note={t("persons_mix_note", {
-          defaultValue:
-            "Групата на най-високата заемана длъжност. Един човек често е в няколко групи — за „също така е…“ използвайте филтъра Група.",
-        })}
+        note={[
+          t("persons_mix_note", {
+            defaultValue:
+              "Групата на най-високата заемана длъжност. Един човек често е в няколко групи — за „също така е…“ използвайте филтъра Група.",
+          }),
+          extraNote,
+        ]
+          .filter(Boolean)
+          .join(" ")}
       />
     </div>
   );

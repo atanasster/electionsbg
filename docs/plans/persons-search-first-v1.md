@@ -420,15 +420,26 @@ absent from `hasActiveFilters` and so gets no „Изчисти" button.
 
 ### 8.1 What this costs and saves
 
-The landing stops issuing the 137 461-row table query entirely; the facet requests remain
-(6 today, still 6 — `parties_n` and `tier` ride existing specs). Measured locally
-2026-08-26, the boolean group facet over the full corpus is **5 568 buffers / 27 ms**, and
-the judicial `institution` facet **3 027 buffers / 3 ms**. React Query holds them at
-`staleTime: Infinity`, so returning to the landing from a result is free.
+The landing stops issuing the 137 461-row table query entirely. The facet requests go from
+**7 to 8**: `parties_n` rides the existing `kpis` spec, but `tier` needed **its own**, because a
+facet must exclude its own dimension and `scopeF` carried both the tier and the position filter
+— so that had to be split (`tierF` / `positionF`) and `tiers` given everything but `tierF`.
+Without it, „Във властта (63 816)" collapses to whatever the reader has already selected.
 
-⚠️ A `tier` facet for the scope-control counts must **exclude `scopeF`** (a facet excludes
-its own dimension) or „Във властта (63 816)" collapses to the selected tier. Give it its
-own spec carrying every filter except the tier one.
+Measured locally 2026-08-26: the boolean group facet over the full corpus is **5 568 buffers /
+27 ms**, the judicial `institution` facet **3 027 buffers / 3 ms**, and the new `tiers` facet a
+parallel seq scan at **5 985 buffers / 52 ms** for a two-bucket answer. React Query holds them
+at `staleTime: Infinity`, so returning to the landing from a result is free.
+
+⚠️ The `tiers` query key deliberately does NOT move with `?sector` — which is what makes a
+scope switch update both the picker's counts and the band's basis with no refetch. Easy to
+break by "tidying" `scopeF` back into its filter list.
+
+⚠️ The band waits on BOTH producers (`count` **and** `facetTotal`), so a failed
+`/api/db/facets` leaves skeletons rather than a caption computed from nothing —
+`fetchFacets` swallows `!r.ok` into `{}` and `useQueries` caches that at `staleTime: Infinity`,
+so one 500 would otherwise be permanent for the session. The `tiers` facet is separate from
+that gate, which is why `scopeBasis` also carries a count-free fallback.
 
 ---
 
