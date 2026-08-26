@@ -131,16 +131,11 @@
 // a reader pasting a name off a contract page reproduced verbatim the „Няма
 // съвпадения" this module exists to end, one family over. `latinSkeleton` folds
 // „център"→`tsentar` and „центрове"→`tsentrove`, and neither contains the other.
-// Hence BOTH numbers in every label — for the family noun, which is the word a
-// reader copies off a contract page. Likewise the „Ведомства на МЗ" prefix:
-// without it the ministry the group is named after matched 1 row of 55.
-//
-// That prefix is deliberately the PLURAL ALONE, which is the one place this file
-// does not carry both numbers. It is not a register term — „ведомство" appears
-// in no body's name and on no contract — it exists only as the search group's
-// own heading in NzokSearchBox, so the string worth matching is the heading a
-// reader can actually see. Keep the two in step: renaming the group means
-// renaming this prefix, or the heading stops finding its own rows.
+// Hence `MZ_UNIVERSE_SEARCH_KEYS` below, which carries BOTH numbers of the
+// family noun and the ministry's own name. It is deliberately separate from the
+// displayed `MZ_UNIVERSE_LABEL`: an earlier cut put the keys INTO the label and
+// every row then rendered a 66-character sub-line repeating the group heading
+// directly above it.
 
 /** Which МЗ second-level family a body belongs to. */
 export type MzBodyUniverse =
@@ -259,17 +254,79 @@ export const MZ_UNIVERSE_LABEL: Record<
   { bg: string; en: string }
 > = {
   csmp: {
-    bg: "Ведомства на МЗ · ЦСМП — център/центрове за спешна медицинска помощ",
-    en: "Ministry of Health bodies · ЦСМП — emergency medical care centre/centres",
+    bg: "Центрове за спешна медицинска помощ",
+    en: "Emergency medical care centres",
   },
   rzi: {
-    bg: "Ведомства на МЗ · РЗИ — регионална здравна инспекция/инспекции",
-    en: "Ministry of Health bodies · РЗИ — regional health inspectorate/inspectorates",
+    bg: "Регионални здравни инспекции",
+    en: "Regional health inspectorates",
   },
   national: {
-    bg: "Ведомства на МЗ · национален център",
-    en: "Ministry of Health bodies · national centre",
+    bg: "Национални центрове към МЗ",
+    en: "National centres under the Ministry of Health",
   },
+};
+
+/** Fold-only keys — NEVER displayed. Separate from `MZ_UNIVERSE_LABEL` because
+ *  the two want opposite things: the label is read once per row and should be
+ *  short, while the keys must carry every spelling a reader might type, most of
+ *  which would be noise on screen.
+ *
+ *  Collapsing them is what the first cut did, and it produced both halves of the
+ *  problem: a display label stretched to „Ведомства на МЗ · ЦСМП —
+ *  център/центрове за спешна медицинска помощ" (66 chars, repeating the group
+ *  heading directly above it and truncating on mobile), and — before that — a
+ *  clean label that matched none of the queries below.
+ *
+ *  ⚠ ONE PHRASE PER ENTRY, never a pre-joined string. `latinSkeleton` strips
+ *  whitespace, so `buildEntityIndex` folds each key into a single token and joins
+ *  the tokens with a space; a key of „център центрове ЦСМП" would fold to one
+ *  unsearchable run, and only the first word would be prefix-matchable.
+ *
+ *  ⚠ BOTH GRAMMATICAL NUMBERS, always. „център" folds to `tsentar` and
+ *  „центрове" to `tsentrove`, and neither contains the other — so a plural-only
+ *  key set misses the register's OWN singular, which is the spelling a reader
+ *  copies off a contract page. See the Naming section in this file's header for
+ *  the measurement. */
+const MZ_SHARED_SEARCH_KEYS: readonly string[] = [
+  // The search group's own heading in NzokSearchBox, so it finds its own rows.
+  // Keep the two in step: renaming the group means renaming this.
+  "ведомства на МЗ",
+  "ведомство",
+  "Министерство на здравеопазването",
+  "Ministry of Health",
+  "МЗ",
+];
+
+export const MZ_UNIVERSE_SEARCH_KEYS: Record<
+  MzBodyUniverse,
+  readonly string[]
+> = {
+  csmp: [
+    ...MZ_SHARED_SEARCH_KEYS,
+    "ЦСМП",
+    "център за спешна медицинска помощ",
+    "центрове за спешна медицинска помощ",
+    "спешна помощ",
+    "emergency medical care centre",
+    "emergency medical care centres",
+  ],
+  rzi: [
+    ...MZ_SHARED_SEARCH_KEYS,
+    "РЗИ",
+    "РИОКОЗ",
+    "регионална здравна инспекция",
+    "регионални здравни инспекции",
+    "regional health inspectorate",
+    "regional health inspectorates",
+  ],
+  national: [
+    ...MZ_SHARED_SEARCH_KEYS,
+    "национален център",
+    "национални центрове",
+    "national centre",
+    "national centres",
+  ],
 };
 
 /** Institutions, not EIKs — the two retired predecessor rows are the same two

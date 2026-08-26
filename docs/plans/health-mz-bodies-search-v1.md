@@ -285,6 +285,13 @@ Quote **53** (institutions), not 55 — §2.1.
   otherwise a reader cannot tell it from the current body;
 - `MZ_SECOND_LEVEL_INSTITUTION_COUNT === 53`, and the reader-facing copy in T3
   quotes that rather than the array length;
+- **disjoint from the НЗОК hospital corpus.** The three roster copies above are
+  the governance question; this is the RENDER question, and nothing else asserts
+  it. Two groups of the same dropdown draw from `nzok_hospital_payments` and from
+  this roster, so an EIK in both would render twice under two headings with two
+  different hrefs (`/company/:eik` and `/awarder/:eik`). Measured 0 of 266 today
+  — assert it stays 0. (This one needs the payments payload, so it belongs in
+  T4b if T4a is to stay Postgres-free.)
 - **the search keys still reach the queries a reader actually types.** Build the
   index the way T2 does and assert hit counts for „център за спешна медицинска
   помощ" (the register's own singular — 29), „инспекция" (25), „София" (2, both
