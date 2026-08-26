@@ -19,6 +19,10 @@ and writes the app-facing bundles consumed by the standalone newsapp's data clie
 
   stats.json                corpus/analysis totals + per-category usage counts
   outlets.json              one entry per CSV outlet (+ any data-only domains), with
+                            a `retired` flag and reason for outlets removed from the
+                            registry — their articles stay, but the app must not
+                            present them as live sources, and two asked not to be
+                            crawled at all
                             article/analysis counts and leaning/russia/ai distributions
   taxonomy.json             categories/subcategories with bg/en labels + usage counts
   stories.json              all story clusters: canonical titles, summaries, aggregates,
@@ -246,6 +250,26 @@ def main() -> int:
                 if domain:
                     outlets_csv[domain] = item
 
+    # Outlets removed from the registry. Their articles were collected in good
+    # faith and stay in the bundle — deleting real reporting because the source
+    # later declined to be crawled would be the wrong correction — but the app
+    # must not present a retired outlet as a live source, and two of these
+    # asked not to be crawled at all.
+    retired: dict[str, dict] = {}
+    retired_path = data_dir / "retired_sites.csv"
+    if retired_path.exists():
+        try:
+            with retired_path.open(encoding="utf-8") as fh:
+                for row in csv.DictReader(fh):
+                    domain = (row.get("domain") or "").strip()
+                    if domain:
+                        retired[domain] = {
+                            "reason": (row.get("reason") or "").strip() or None,
+                            "retired_on": (row.get("retired_on") or "").strip() or None,
+                        }
+        except (OSError, csv.Error, UnicodeDecodeError):
+            pass
+
     # ---- corpus + analysis --------------------------------------------------------
     analysis_by_url, analysis_by_id = load_analysis(data_dir)
     story_index = load_story_index(data_dir)
@@ -448,6 +472,9 @@ def main() -> int:
             {
                 "domain": domain,
                 "outlet": meta.get("outlet") or domain,
+                "retired": False,
+                "retired_reason": None,
+                "retired_on": None,
                 "rank": rank_of(meta) if rank_of(meta) != 10**9 else None,
                 "tier": meta.get("tier"),
                 "type": meta.get("type"),
@@ -463,10 +490,17 @@ def main() -> int:
     for domain in domain_names:  # domains with data but absent from the CSV
         if domain in seen:
             continue
+        gone = retired.get(domain)
         outlets.append(
             {
                 "domain": domain,
                 "outlet": domain,
+                # A retired outlet's articles stay — they were collected in
+                # good faith — but the app must not present it as a live
+                # source, and two of these asked not to be crawled at all.
+                "retired": bool(gone),
+                "retired_reason": (gone or {}).get("reason"),
+                "retired_on": (gone or {}).get("retired_on"),
                 "rank": None,
                 "tier": None,
                 "type": None,

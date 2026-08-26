@@ -26,10 +26,10 @@ for k, v in sorted(c.items(), key=lambda x: -x[1]): print(v, k)
 
 | tier | methods | count | how |
 | --- | --- | --- | --- |
-| direct | `rss`, `sitemap`, `robots_sitemap`, `sitemap_news`, `homepage_link` | ~47 | parallel, scripted |
-| browser-scrape | `browser_render_scrape` | ~12 | sequential, one Browser tab |
-| browser-then-fetch | `browser_then_rss`, `browser_then_sitemap` | ~5 | sequential, one Browser tab |
-| unreachable | `blocked_captcha`, `portal_not_newsroom` | ~5 | skipped, logged with reason |
+| direct | `rss`, `sitemap`, `robots_sitemap`, `sitemap_news`, `homepage_link` | 42 | parallel, scripted |
+| browser-scrape | `browser_render_scrape` | 12 | sequential, `harvest_browser.mjs` |
+| browser-then-fetch | `browser_then_rss`, `browser_then_sitemap` | 5 | sequential, `harvest_browser.mjs` |
+| ~~unreachable~~ | ~~`blocked_captcha`, `portal_not_newsroom`~~ | 0 | **RETIRED 2026-08-26** — see below |
 
 (Counts drift as the registry is refreshed — the query above gives the
 current split; don't hardcode the numbers.)
@@ -87,7 +87,24 @@ page context, pipe the text through `--stdin=<rss|sitemap>`. If a
 CAPTCHA checkbox appears instead of an automatic pass, stop on that domain
 and log it as blocked — do not solve it.
 
-## Step 4 — unreachable tier: log and skip
+## Step 4 — the unreachable tier no longer exists
+
+⚠️ **The five `blocked_captcha` / `portal_not_newsroom` outlets were RETIRED
+from the registry on 2026-08-26** (trud.bg, btvnovinite.bg, afera.bg,
+struma.bg, abv.bg) rather than swept and skipped every night. Six more went
+with them for other reasons; `news/data/retired_sites.csv` records each one
+with its reason, and `fetch_latest_articles.py` refuses a retired domain by
+name with a `retired_<reason>` error rather than re-probing it.
+
+**Read that file before adding a domain.** Two entries are `bot_refused` —
+sites that 403 an identified bot and 200 a browser string. Respecting that is
+the point of having an honest identity: do not probe them, and do not re-add
+either behind a spoofed user-agent.
+
+The section below is kept because the rule it states has not changed, and a
+future outlet can land in this state.
+
+### The rule (historical)
 
 `blocked_captcha` and `portal_not_newsroom` domains contribute nothing.
 List them in the summary with their `feed_notes_*` reason so the gap is
@@ -127,7 +144,7 @@ registry data; ask first, same as any other write in this repo.
 State plainly: how many domains attempted, how many succeeded, how many
 were flagged stale (and which class — structural vs transient, per Step
 1's distinction), how many needed the browser, how many were skipped and
-why. A silent partial result (say, 61 of 70) reads as complete unless the
+why. A silent partial result (say, 52 of 59) reads as complete unless the
 gap is named.
 
 ## What this skill does NOT do

@@ -2,7 +2,7 @@
 /**
  * harvest_browser.mjs — the browser tier, headless.
  *
- * 18 of the 70 registered outlets cannot be reached by a plain HTTP client,
+ * 17 of the 59 registered outlets cannot be reached by a plain HTTP client,
  * and four of them are in the top twenty (dir.bg #2, blitz.bg #3, offnews.bg
  * #16, dnevnik.bg #18, plus bta.bg — the national agency — and capital.bg).
  * Until this existed the whole tier was a Claude session driving a Browser

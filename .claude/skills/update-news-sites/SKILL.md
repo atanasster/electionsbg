@@ -9,6 +9,43 @@ Produces **`news/data/bg_news_sites.csv`** — every Bulgarian news domain worth
 ranked, with three independent measurements beside each so no single vendor's estimate
 is load-bearing.
 
+## ⚠️ Do not re-add a RETIRED outlet
+
+`news/data/retired_sites.csv` records every outlet removed from the registry,
+with the reason and the date. **Read it before adding a domain** — a refresh
+that re-discovers a site and re-adds it blind will rediscover a CAPTCHA wall
+or an empty JS shell from scratch, and in two cases will crawl a site that
+asked not to be.
+
+Eleven were retired on 2026-08-26, in four classes:
+
+| reason | outlets | what it means |
+| --- | --- | --- |
+| `blocked_captcha` | trud.bg, btvnovinite.bg, afera.bg, struma.bg | an INTERACTIVE challenge. Solving one is off limits, so this is permanent unless the site changes. |
+| `bot_refused` | svobodnoslovo.eu, novavarna.net | 403 an identified bot, 200 a browser string. **Respecting that is the point of having an honest identity — do not re-add either behind a spoofed user-agent.** |
+| `broken_sitemaps` | telegraph.bg, bivol.bg | every sitemap child 500s / the tree exceeds a 300s descent |
+| `no_article_text` / `portal_not_newsroom` / `duplicate_outlet` | novini.bg, abv.bg, bgnes.com | an empty Next.js shell; a webmail login page; the English edition of an outlet already registered as bgnes.bg |
+
+⚠️ **dir.bg was NOT retired, and the reason is worth recording** because it
+looks like an aggregator and is not. Measured 2026-08-26: **98% of its
+article-length homepage links point at its own properties** (`dnes.`,
+`business.`, `corner.`, `life.`, `urbn.`, `impressio.`), 1% at one partner;
+its articles carry named staff bylines and 2.6k–8.7k-char original bodies.
+The portal layout across six of its own sub-publications is what makes it
+read as aggregation.
+
+More generally, **cross-outlet duplication does not identify an aggregator in
+this corpus**: it runs 10–35% spread evenly (petel.bg 35%, nova.bg 28%,
+lupa.bg 25%, … segabg.com 10%), which is БТА/БГНЕС wire copy — agency
+journalism, which the analyze skill classifies as `wire_copy` and explicitly
+NOT a defect.
+
+**Retiring a row leaves its corpus folder behind**, unmaintainable by a sweep
+that iterates the CSV. That is a decision, not a defect — but
+`--intake-report` raises `orphan_folder` for each one, with its recorded
+reason, so it can never be mistaken for a live source. svobodnoslovo.eu (98
+articles) and novavarna.net (104) are the two current instances.
+
 ## ⚠️ Carry the curated columns forward
 
 The `feed_*` columns are re-probed and renamed on every refresh. **The
@@ -24,9 +61,9 @@ articles between two folders run to run (its staleness is TRANSIENT), and every
 run summary still reads healthy.
 
 **Copy the existing `quarantine_*` cells across by domain before writing the
-new CSV**, under the new vintage's name. As of 2026-08-26 seven are set:
-bgonair.bg, bivol.bg, bnews.bg, bntnews.bg, dnes.bg, investor.bg, iskra.bg —
-all `stale_source`. Values are `stale_source`, `never`, or empty; anything else
+new CSV**, under the new vintage's name. As of 2026-08-26 6 are set: bgonair.bg, bnews.bg,
+bntnews.bg, dnes.bg, investor.bg, iskra.bg — all `stale_source`. (bivol.bg
+carried one too and was RETIRED out of the registry on the same day.) Values are `stale_source`, `never`, or empty; anything else
 is reported as unrecognised at runtime and falls back to the lister.
 
 ## What the file is

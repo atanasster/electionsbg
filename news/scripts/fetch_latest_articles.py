@@ -281,6 +281,39 @@ def load_row(domain):
     return None, method_col, url_col
 
 
+RETIRED_PATH = _REPO_ROOT / "news" / "data" / "retired_sites.csv"
+
+# The ONE wording, because the whole point of it is that nobody rephrases it
+# into something softer. It was written out four times before this existed.
+BOT_REFUSED_NOTE = (
+    "This site refuses an identified bot (403 to our user-agent, 200 to a "
+    "browser string). Respecting that is the point of having an honest "
+    "identity: do not probe it, and do not re-add it behind a spoofed "
+    "user-agent.")
+
+
+def retired_row(domain):
+    """The retirement record for a domain removed from the registry, or None.
+
+    Consulted BEFORE the ad-hoc probe. Without it, asking for a retired
+    outlet by name re-runs the discovery that retired it — and for the two
+    `bot_refused` entries the probe's own failure message reads "the site may
+    need a real browser", which is precisely the workaround a site that
+    refuses an identified bot asked us not to attempt."""
+    try:
+        with open(RETIRED_PATH, newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                if (row.get("domain") or "").strip() == domain:
+                    return row
+    except (OSError, csv.Error, KeyError, UnicodeDecodeError):
+        # A cp1251-encoded or torn file must not crash the lister. A missing
+        # record reads as "not retired", which is safe for every caller except
+        # the two bot_refused rows — and those are also named in
+        # update-news-sites, so that knowledge is not single-homed here.
+        pass
+    return None
+
+
 def quick_probe(domain):
     """Lightweight ad-hoc discovery for a domain that isn't in the registry
     CSV — tries robots.txt's Sitemap: line, then a short list of common feed
@@ -572,6 +605,30 @@ def main():
             print(json.dumps({"domain": domain, "error": "fetch_failed", "detail": str(e)}))
             sys.exit(4)
     else:
+        # ⚠️ BEFORE the registry lookup, not after. Consulted only on a
+        # registry MISS, a domain present in BOTH files was fetched with no
+        # refusal at all — and update-news-sites rebuilds the registry by
+        # RE-DISCOVERING sites, so that is the likely state after a refresh.
+        # This file is now the durable home of the bot_refused policy: the
+        # bot_policy_* column that used to enforce it went empty the moment
+        # its two rows were retired.
+        gone = retired_row(domain)
+        if gone:
+            reason = (gone.get("reason") or "retired").strip()
+            detail = (gone.get("detail") or "").strip()
+            # bot_refused is a REQUEST, not an obstacle. Probing anyway would
+            # be the workaround the honest identity exists to avoid.
+            print(json.dumps({
+                "domain": domain, "error": f"retired_{reason}",
+                "retired_on": (gone.get("retired_on") or "").strip(),
+                "detail": (f"{domain} was retired from the registry: "
+                           f"{detail or reason}. See "
+                           f"news/data/retired_sites.csv."
+                           + (" " + BOT_REFUSED_NOTE
+                              if reason == "bot_refused" else ""))},
+                ensure_ascii=False))
+            sys.exit(3)
+
         row, method_col, url_col = load_row(domain)
         if row is None:
             method, url = quick_probe(domain)

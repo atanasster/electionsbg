@@ -1243,6 +1243,98 @@ class IntakeState(unittest.TestCase):
         row = next(r for r in rep["rows"] if r["domain"] == "ex.bg")
         self.assertEqual(row["retry_queued"], 0)
 
+    def test_a_folder_with_no_registry_row_reports_itself(self):
+        """Retiring an outlet is a legitimate decision; retiring it SILENTLY
+        is not. bgnes.bg sat with 78 articles and no registry row for weeks
+        precisely because nothing reported 'a folder with no row', and the
+        sweep — which iterates the CSV — could never top it up."""
+        self.write_registry(("kept.bg",))
+        folder = self.root / "news" / "data" / "gone.bg"
+        folder.mkdir(parents=True)
+        (folder / "20260824-x-dead.json").write_text(json.dumps({
+            "domain": "gone.bg", "url": "https://gone.bg/a", "title": "T",
+            "content": "x" * 500, "content_chars": 500,
+            "published": "2026-08-24T09:00:00+00:00"}), encoding="utf-8")
+        rep = self.report()[1]
+        orphans = [a for a in rep["alerts"] if a["alert"] == "orphan_folder"]
+        self.assertEqual([a["domain"] for a in orphans], ["gone.bg"])
+        self.assertIn("no registry row", orphans[0]["detail"])
+        self.assertIn("nobody recorded why", orphans[0]["detail"],
+                      "an orphan with no retirement record must say so")
+
+    def test_a_recorded_retirement_is_named_in_the_alert(self):
+        self.write_registry(("kept.bg",))
+        (self.root / "news" / "data" / "retired_sites.csv").write_text(
+            "domain,reason,detail\n"
+            "gone.bg,bot_refused,403s an identified bot\n", encoding="utf-8")
+        folder = self.root / "news" / "data" / "gone.bg"
+        folder.mkdir(parents=True)
+        (folder / "20260824-x-dead.json").write_text(json.dumps({
+            "domain": "gone.bg", "url": "https://gone.bg/a", "title": "T",
+            "content": "x" * 500, "content_chars": 500,
+            "published": "2026-08-24T09:00:00+00:00"}), encoding="utf-8")
+        rep = self.report()[1]
+        orphan = next(a for a in rep["alerts"]
+                      if a["alert"] == "orphan_folder")
+        self.assertIn("bot_refused", orphan["detail"])
+        row = next(r for r in rep["rows"] if r["domain"] == "gone.bg")
+        self.assertEqual(row["retired_reason"], "bot_refused")
+        self.assertFalse(row["in_registry"])
+
+    def test_an_orphan_does_not_also_raise_going_stale(self):
+        """It is old on purpose. Two alerts for one condition is noise, and
+        `going_stale` means 'a live source stopped producing'."""
+        self.write_registry(("kept.bg",))
+        folder = self.root / "news" / "data" / "gone.bg"
+        folder.mkdir(parents=True)
+        (folder / "20200101-x-old.json").write_text(json.dumps({
+            "domain": "gone.bg", "url": "https://gone.bg/a", "title": "T",
+            "content": "x" * 500, "content_chars": 500,
+            "published": "2020-01-01T09:00:00+00:00"}), encoding="utf-8")
+        alerts = [a["alert"] for a in self.report()[1]["alerts"]
+                  if a["domain"] == "gone.bg"]
+        self.assertEqual(alerts, ["orphan_folder"], alerts)
+
+    def test_the_orphan_detector_ignores_the_scratch_trees(self):
+        """_html, _rejected, _state, _browser and analysis/ all sit in the
+        same directory as the domain folders.
+
+        ⚠️ _quarantine is deliberately NOT in this list: its children ARE
+        domains, so a quarantined folder with no registry row is a real
+        orphan — covered by the next test."""
+        self.write_registry(("kept.bg",))
+        base = self.root / "news" / "data"
+        for name in ("_html", "_rejected", "_state", "_browser", "analysis"):
+            d = base / name / "inner"
+            d.mkdir(parents=True, exist_ok=True)
+            (d / "x.json").write_text("{}", encoding="utf-8")
+        orphans = [a["domain"] for a in self.report()[1]["alerts"]
+                   if a["alert"] == "orphan_folder"]
+        self.assertEqual(orphans, [], orphans)
+
+    def test_a_quarantined_folder_with_no_row_is_still_an_orphan(self):
+        """_quarantine/<domain>/ holds domains, so retiring a quarantined
+        source's row orphans it exactly as it would a corpus folder."""
+        self.write_registry(("kept.bg",))
+        d = self.root / "news" / "data" / "_quarantine" / "gone.bg"
+        d.mkdir(parents=True)
+        (d / "20200101-x.json").write_text(json.dumps({
+            "domain": "gone.bg", "url": "https://gone.bg/a", "title": "T",
+            "content": "x" * 500, "content_chars": 500,
+            "published": "2020-01-01T09:00:00+00:00"}), encoding="utf-8")
+        orphans = [a["domain"] for a in self.report()[1]["alerts"]
+                   if a["alert"] == "orphan_folder"]
+        self.assertEqual(orphans, ["gone.bg"])
+
+    def test_an_empty_folder_is_not_an_orphan(self):
+        """A folder every article was rejected out of is not a retired
+        outlet."""
+        self.write_registry(("kept.bg",))
+        (self.root / "news" / "data" / "empty.bg").mkdir(parents=True)
+        orphans = [a for a in self.report()[1]["alerts"]
+                   if a["alert"] == "orphan_folder"]
+        self.assertEqual(orphans, [])
+
     def test_the_verdict_line_carries_a_domain_key(self):
         """save_all_direct.sh appends it to a file of per-domain summaries; a
         consumer reading `.domain` on every line must not break."""
@@ -1258,6 +1350,96 @@ class IntakeState(unittest.TestCase):
     def test_stale_after_outside_its_mode_is_refused(self):
         code, out = run_saver(self.root, "ex.bg", "2", "--stale-after=3")
         self.assertEqual((code, out["error"]), (1, "usage"))
+
+
+class RegistryAndRetirement(unittest.TestCase):
+    """The committed registry and its retirement record, as data.
+
+    Both files are hand-edited by operators through the update-news-sites
+    skill, so their INVARIANTS need a gate — the partition between them
+    especially, since a domain in both was fetched with no refusal at all."""
+
+    @classmethod
+    def setUpClass(cls):
+        import csv as _csv
+        data = SCRIPT_DIR.parent / "data"
+        with (data / "bg_news_sites.csv").open(newline="", encoding="utf-8") as f:
+            cls.registry = list(_csv.DictReader(f))
+        path = data / "retired_sites.csv"
+        cls.retired = []
+        if path.exists():
+            with path.open(newline="", encoding="utf-8") as f:
+                cls.retired = list(_csv.DictReader(f))
+
+    def col(self, row, prefix):
+        key = next((k for k in row if k == prefix or k.startswith(prefix)), None)
+        return (row.get(key) or "").strip() if key else ""
+
+    def test_the_two_files_are_disjoint(self):
+        """A domain in BOTH is the dangerous state: retired_row() refuses it,
+        but only when the registry lookup misses — so a row in both was
+        fetched with no refusal and raised no alert."""
+        live = {r["domain"] for r in self.registry}
+        gone = {r["domain"] for r in self.retired}
+        self.assertEqual(live & gone, set(),
+                         "a domain cannot be both live and retired")
+
+    def test_no_domain_is_duplicated_within_either_file(self):
+        for name, rows in (("registry", self.registry),
+                           ("retired", self.retired)):
+            with self.subTest(file=name):
+                domains = [r["domain"] for r in rows]
+                dupes = {d for d in domains if domains.count(d) > 1}
+                self.assertEqual(dupes, set(), f"{name}: {dupes}")
+
+    def test_every_retirement_states_a_recognised_reason(self):
+        """An unrecognised reason still refuses the domain, but the operator
+        docs enumerate these and a typo would slip past every reader."""
+        known = {"blocked_captcha", "bot_refused", "broken_sitemaps",
+                 "no_article_text", "portal_not_newsroom", "duplicate_outlet"}
+        for row in self.retired:
+            with self.subTest(domain=row["domain"]):
+                self.assertIn(row.get("reason"), known)
+                self.assertTrue((row.get("detail") or "").strip(),
+                                "a retirement must say WHY in words")
+                self.assertTrue((row.get("retired_on") or "").strip())
+
+    def test_a_retirement_keeps_what_a_re_add_would_need(self):
+        """The registry row was the only place the feed method and URL lived.
+        Dropping them means a re-add rediscovers a CAPTCHA wall from scratch."""
+        for row in self.retired:
+            with self.subTest(domain=row["domain"]):
+                self.assertIn("last_feed_method", row)
+                self.assertTrue((row.get("last_feed_method") or "").strip())
+
+    def test_a_bot_refused_retirement_is_never_a_live_row(self):
+        """The guard used to live in the registry's bot_policy_* column, which
+        went empty the moment its two rows were retired. retired_sites.csv is
+        the durable home now, and nothing may quietly move them back."""
+        refused = {r["domain"] for r in self.retired
+                   if r.get("reason") == "bot_refused"}
+        self.assertTrue(refused, "the two known bot_refused entries are gone")
+        live = {r["domain"] for r in self.registry}
+        self.assertEqual(refused & live, set())
+
+    def test_the_registry_still_carries_its_required_columns(self):
+        row = self.registry[0]
+        for prefix in ("domain", "feed_method_", "feed_url_"):
+            with self.subTest(prefix=prefix):
+                self.assertTrue(any(k == prefix or k.startswith(prefix)
+                                    for k in row), prefix)
+
+    def test_every_live_row_has_a_feed_method(self):
+        for row in self.registry:
+            with self.subTest(domain=row["domain"]):
+                self.assertTrue(self.col(row, "feed_method_"))
+
+    def test_no_live_row_is_flagged_bot_refused(self):
+        """Sweeping a site that said no is the one outcome the honest identity
+        exists to prevent."""
+        for row in self.registry:
+            with self.subTest(domain=row["domain"]):
+                self.assertNotEqual(self.col(row, "bot_policy_"), "bot_refused")
 
 
 class StoredIndex(unittest.TestCase):
@@ -1869,6 +2051,95 @@ class CrawlPoliteness(unittest.TestCase):
         self.assertEqual((code, out["error"]), (3, "bot_refused"))
         self.assertIn("bot_refused", self.sa.STANDING_LISTER_FACTS,
                       "and it must not count as a broken source")
+
+    def test_a_retired_outlet_is_refused_rather_than_probed(self):
+        """Asking for a retired outlet by name used to re-run the discovery
+        that retired it — and for a bot_refused site the probe's own failure
+        message reads 'the site may need a real browser', which is precisely
+        the workaround it asked us not to attempt."""
+        root = Path(tempfile.mkdtemp(prefix="save-articles-retired-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "news" / "data").mkdir(parents=True)
+        (root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "kept.bg,rss,https://kept.bg/feed\n", encoding="utf-8")
+        (root / "news" / "data" / "retired_sites.csv").write_text(
+            "domain,retired_on,reason,detail\n"
+            "refused.bg,2026-08-26,bot_refused,403s an identified bot\n"
+            "walled.bg,2026-08-26,blocked_captcha,interactive challenge\n",
+            encoding="utf-8")
+        env = dict(os.environ, DATA_BG_ROOT=str(root))
+
+        def lister(domain):
+            proc = subprocess.run(
+                [sys.executable, str(SCRIPT_DIR / "fetch_latest_articles.py"),
+                 domain, "2"], capture_output=True, text=True, env=env,
+                timeout=90)
+            return proc.returncode, json.loads(proc.stdout)
+
+        code, out = lister("refused.bg")
+        self.assertEqual(code, 3)
+        self.assertEqual(out["error"], "retired_bot_refused")
+        self.assertIn("do not probe it", out["detail"])
+        self.assertNotIn("may need a real browser", out["detail"])
+
+        code, out = lister("walled.bg")
+        self.assertEqual(code, 3)
+        self.assertEqual(out["error"], "retired_blocked_captcha")
+
+    def test_a_retired_domain_never_accumulates_failures(self):
+        """A retirement is a decision, not an outage. Counting one made three
+        ad-hoc runs raise a permanent `failing` alert — exactly what
+        STANDING_LISTER_FACTS exists to prevent."""
+        self.assertTrue(self.sa.is_standing_fact("retired_bot_refused"))
+        self.assertTrue(self.sa.is_standing_fact("retired_blocked_captcha"))
+        self.assertTrue(self.sa.is_standing_fact("retired_something_new"),
+                        "prefix-matched, so a NEW retirement reason cannot "
+                        "silently start accumulating failures")
+        self.assertFalse(self.sa.is_standing_fact("fetch_failed"))
+        self.assertFalse(self.sa.is_standing_fact(None))
+
+        root = Path(tempfile.mkdtemp(prefix="save-articles-retfail-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "news" / "data").mkdir(parents=True)
+        (root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "kept.bg,rss,https://kept.bg/feed\n", encoding="utf-8")
+        (root / "news" / "data" / "retired_sites.csv").write_text(
+            "domain,retired_on,reason,detail\n"
+            "refused.bg,2026-08-26,bot_refused,403s an identified bot\n",
+            encoding="utf-8")
+        for _ in range(3):
+            run_saver(root, "refused.bg", "2")
+        path = root / "news" / "data" / "_state" / "refused.bg.json"
+        if path.exists():
+            st = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(st.get("consecutive_failures", 0), 0, st)
+
+    def test_a_retired_domain_is_refused_even_when_still_in_the_registry(self):
+        """retired_row() used to be consulted ONLY on a registry miss, so a
+        domain in both files was fetched with no refusal — and
+        update-news-sites rebuilds the registry by RE-DISCOVERING sites, which
+        is exactly how a retired outlet gets back in."""
+        root = Path(tempfile.mkdtemp(prefix="save-articles-both-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "news" / "data").mkdir(parents=True)
+        (root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "domain,feed_method_aug2026,feed_url_aug2026\n"
+            "refused.bg,rss,https://refused.bg/feed\n", encoding="utf-8")
+        (root / "news" / "data" / "retired_sites.csv").write_text(
+            "domain,retired_on,reason,detail\n"
+            "refused.bg,2026-08-26,bot_refused,403s an identified bot\n",
+            encoding="utf-8")
+        env = dict(os.environ, DATA_BG_ROOT=str(root))
+        proc = subprocess.run(
+            [sys.executable, str(SCRIPT_DIR / "fetch_latest_articles.py"),
+             "refused.bg", "2"], capture_output=True, text=True, env=env,
+            timeout=90)
+        out = json.loads(proc.stdout)
+        self.assertEqual(proc.returncode, 3)
+        self.assertEqual(out["error"], "retired_bot_refused",
+                         "a live registry row must not override a retirement")
 
     def test_the_periodic_unconditional_refresh_has_a_bound(self):
         """A server with a buggy validator can answer 304 for ever, and a

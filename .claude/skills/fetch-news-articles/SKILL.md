@@ -1,6 +1,6 @@
 ---
 name: fetch-news-articles
-description: Fetch the latest N articles (default 5) from ONE named news website — title, URL, and publish date where available. Works for any of the 70 Bulgarian outlets in news/data/bg_news_sites.csv (uses its recorded feed method) and, via a lightweight inline probe, for other sites too. Use when the user names a specific outlet and asks for its latest / recent articles, headlines, or news — e.g. "get me the latest 5 from Дневник", "what's on mediapool.bg right now", "pull the top 3 headlines from blitz.bg".
+description: Fetch the latest N articles (default 5) from ONE named news website — title, URL, and publish date where available. Works for any of the 59 Bulgarian outlets in news/data/bg_news_sites.csv (uses its recorded feed method) and, via a lightweight inline probe, for other sites too. Use when the user names a specific outlet and asks for its latest / recent articles, headlines, or news — e.g. "get me the latest 5 from Дневник", "what's on mediapool.bg right now", "pull the top 3 headlines from blitz.bg".
 ---
 
 # fetch-news-articles

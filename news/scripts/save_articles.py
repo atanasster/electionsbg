@@ -1107,7 +1107,21 @@ STANDING_LISTER_FACTS = frozenset({
     "portal_not_newsroom",
     "domain_not_in_registry_and_quick_probe_failed",
     "robots_disallowed", "bot_refused",
+    # Every retired_* variant. A retired outlet is a decision, not an outage,
+    # and counting one made three ad-hoc runs raise a permanent `failing`
+    # alert — exactly what this frozenset exists to prevent.
+    "retired_bot_refused", "retired_blocked_captcha",
+    "retired_broken_sitemaps", "retired_no_article_text",
+    "retired_portal_not_newsroom", "retired_duplicate_outlet", "retired",
 })
+
+
+def is_standing_fact(error):
+    """Whether a lister outcome is a standing fact about the outlet rather
+    than a failure to count. Prefix-matched for the retired_* family, so a NEW
+    retirement reason cannot silently start accumulating failures."""
+    return bool(error) and (error in STANDING_LISTER_FACTS
+                            or error.startswith("retired_"))
 
 # Per-article failures that are DECISIONS, not transient errors. These already
 # go to the rejection ledger with its own TTL; queueing them here too would
@@ -1833,6 +1847,29 @@ def cmd_apply_quarantine(domain, apply_changes):
     return out
 
 
+def read_retired_domains():
+    """domain -> the recorded reason it left the registry.
+
+    news/data/retired_sites.csv keeps WHY, because the registry row was the
+    only place that knowledge lived and deleting it invites someone to re-add
+    the outlet blind and rediscover a CAPTCHA wall from scratch. Two entries
+    say `bot_refused`, which is a request to be left alone rather than an
+    obstacle to route around."""
+    out = {}
+    try:
+        with open(DATA_DIR / "retired_sites.csv", newline="",
+                  encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                domain = (row.get("domain") or "").strip()
+                if domain:
+                    out[domain] = (row.get("reason") or "").strip() or None
+    except (OSError, csv.Error, KeyError, UnicodeDecodeError):
+        # A cp1251-encoded or torn file must not crash --intake-report; a
+        # missing record only costs the alert its reason.
+        pass
+    return out
+
+
 def cmd_intake_report(stale_after_days=7):
     """One JSON object describing every domain's intake health.
 
@@ -1865,12 +1902,31 @@ def cmd_intake_report(stale_after_days=7):
             registry = {r["domain"] for r in csv.DictReader(f) if r.get("domain")}
     except (OSError, csv.Error, KeyError):
         pass
-    domains = sorted(seen | registry)
+    # Domain folders with articles in them. A folder whose registry row was
+    # removed keeps its articles for ever and can never be topped up — the
+    # exact shape of the bgnes.bg defect, which went unnoticed precisely
+    # because nothing reported "a folder with no row". Retiring an outlet is a
+    # legitimate decision; retiring it SILENTLY is not.
+    stored_dirs = set()
+    if DATA_DIR.is_dir():
+        for child in DATA_DIR.iterdir():
+            if child.is_dir() and not child.name.startswith("_") \
+                    and child.name != "analysis" \
+                    and any(child.glob("*.json")):
+                stored_dirs.add(child.name)
+        quarantine_root = DATA_DIR / QUARANTINE_DIR_NAME
+        if quarantine_root.is_dir():
+            for child in quarantine_root.iterdir():
+                if child.is_dir() and any(child.glob("*.json")):
+                    stored_dirs.add(child.name)
+    retired = read_retired_domains()
+    domains = sorted(seen | registry | stored_dirs)
     today = datetime.now(timezone.utc).date()
     rows, alerts = [], []
     for domain in domains:
         st = load_state(domain)
         never_ran = domain not in seen
+        orphan = domain not in registry and domain in stored_dirs
         corpus, quarantine = domain_folders(domain)
         stored = (len(list(corpus.glob("*.json")))
                   + len(list(quarantine.glob("*.json")))
@@ -1882,7 +1938,9 @@ def cmd_intake_report(stale_after_days=7):
                     st["newest_stored"]).date()).days
             except ValueError:
                 age = None
-        row = {"domain": domain, "never_ran": never_ran, "stored": stored,
+        row = {"domain": domain, "never_ran": never_ran,
+               "in_registry": domain in registry,
+               "retired_reason": retired.get(domain), "stored": stored,
                "newest_stored": st.get("newest_stored"),
                "newest_stored_age_days": age,
                "quarantined": bool(st.get("quarantined")),
@@ -1892,7 +1950,26 @@ def cmd_intake_report(stale_after_days=7):
         queued = st.get("retry_urls")
         row["retry_queued"] = len(queued) if isinstance(queued, list) else 0
         rows.append(row)
-        if never_ran:
+        if orphan:
+            # Reported once, with its reason when we have one — a retirement
+            # that was decided is not a defect, but a folder nothing maintains
+            # must never be mistaken for a live source.
+            #
+            # This branch DELIBERATELY suppresses every other alert for the
+            # domain: `going_stale` ("a live source stopped producing"),
+            # `never_ran` and `failing` all presuppose a registry row, and a
+            # retired outlet would otherwise raise two or three at once for
+            # one condition. The alert table says so.
+            why = retired.get(domain)
+            alerts.append({
+                "domain": domain, "alert": "orphan_folder",
+                "detail": (f"{stored} stored articles and no registry row"
+                           + (f"; retired: {why}" if why
+                              else " — and no retired_sites.csv entry either, "
+                                   "so nobody recorded why")
+                           + ". Remove the folder to drop the articles, or "
+                             "re-add the registry row to resume sweeping it.")})
+        elif never_ran:
             alerts.append({"domain": domain, "alert": "never_ran",
                            "detail": "in the registry, but no run has ever "
                                      "completed for it"})
@@ -2182,7 +2259,7 @@ def main():
             sys.exit(4)
         if proc.returncode != 0 or "error" in listed:
             err = listed.get("error", "fetch_failed")
-            if err not in STANDING_LISTER_FACTS:
+            if not is_standing_fact(err):
                 # The one branch that never counted a failure, so the five
                 # browser_then_* domains could never go `failing` however long
                 # their feed stayed broken.
@@ -2300,7 +2377,7 @@ def main():
             # not failures to count — a browser-tier domain would otherwise
             # accumulate a failure every night for ever.
             err = listed.get("error", "fetch_failed")
-            if err not in STANDING_LISTER_FACTS:
+            if not is_standing_fact(err):
                 record_domain_failure(domain, state, err,
                                       listed.get("detail"))
                 listed["consecutive_failures"] = state["consecutive_failures"]

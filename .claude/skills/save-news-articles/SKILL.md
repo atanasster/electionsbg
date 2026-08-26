@@ -37,7 +37,7 @@ NaiasnoBot/1.0 (+https://electionsbg.com/about; public-interest media monitoring
 It replaced a spoofed Chrome 124 string plus a fabricated
 `Referer: https://www.google.com/`. Impersonating a reader arriving from a
 search result is not something this project should do — and measured across
-all 47 direct-tier domains, it was not buying anything: **45 answer the honest
+all 42 direct-tier domains, it was not buying anything: **45 answer the honest
 identity exactly as they answered the spoofed one.**
 
 ⚠️ **Two refuse it.** `svobodnoslovo.eu` and `novavarna.net` 403 an identified
@@ -416,11 +416,11 @@ bash news/scripts/save_all_direct.sh 100 news/data/_summaries_<YYYYMMDD>.jsonl
 ```
 
 Every direct-method domain (rss/sitemap/robots_sitemap/sitemap_news/
-homepage_link — ~47 of 70), 6 domains in parallel (6 requests to 6
+homepage_link — 42 of 59), 6 domains in parallel (6 requests to 6
 different hosts, one per host, sequential within each). One summary JSON
 line per domain lands in the output file.
 
-⚠️ **Cost before you launch: at N=100 this is ~47 sites × 3–6 min ÷ 6
+⚠️ **Cost before you launch: at N=100 this is 42 sites × 3–6 min ÷ 6
 parallel ≈ 30–50 minutes and ~4,700 page fetches.** Say the cost out loud
 before running it; for a spot-check, a handful of domains at N=5 answers
 "does this work" in two minutes. The same anti-hammering rule from
@@ -482,6 +482,7 @@ not a broken one.
 | `going_stale` | newest stored article older than the threshold **and not quarantined** — a quarantined source is old on purpose |
 | `retry_backlog` | 10+ URLs queued and not draining |
 | `never_ran` | in the registry, but no run has ever completed for it |
+| `orphan_folder` | stored articles with no registry row — a retired outlet, named with its reason from `retired_sites.csv`, or an accident if there is no entry |
 
 The report enumerates the REGISTRY as well as the state files. Enumerating
 state files alone made a domain that has never completed a run invisible —
@@ -508,8 +509,9 @@ expect:
   browser tier — not a bug in the saver.
 - One-off `HTTP Error 404`: sitemap entries for since-deleted articles;
   ignore.
-- `blocked_captcha` and `portal_not_newsroom` (~5 of 70) stay unreachable
-  — no CAPTCHA solving, ever.
+- the five `blocked_captcha` / `portal_not_newsroom` outlets were RETIRED
+  from the registry on 2026-08-26 rather than swept and skipped every night;
+  see `news/data/retired_sites.csv`. No CAPTCHA solving, ever.
 
 ## Step 5 — the browser tier, HEADLESS
 
@@ -519,7 +521,7 @@ bash news/scripts/save_all_browser.sh 100 news/data/_summaries_browser_<YYYYMMDD
 ```
 
 ⚠️ **This tier used to be a Claude session driving a Browser tool by hand, so
-a cron job skipped all 18 domains** — four of them in the top twenty (dir.bg
+a cron job skipped all 17 domains** — four of them in the top twenty (dir.bg
 #2, blitz.bg #3, offnews.bg #16, dnevnik.bg #18), plus bta.bg, the national
 agency, and capital.bg. `harvest_browser.mjs` does the same work with
 Playwright, which the repo already depends on.
@@ -585,7 +587,7 @@ flagman.bg, haskovo.net, faktor.bg, lupa.bg, glasove.com, money.bg, bgnes.bg,
 bgnes.com and dir.bg; blitz.bg's feed pulled in seconds (193 KB) where it had
 burned 600s; kmeta.bg 5 articles saved through `--stdin-list`; money.bg 14
 saved / 0 rejected / 0 failed through `--urls-file`; and a whole-tier sweep of
-all 18 domains from a repo path containing a space, on bash 3.2.
+all 17 domains from a repo path containing a space, on bash 3.2.
 
 ### The hand-driven notes this replaced
 
@@ -700,6 +702,7 @@ still wrong (Step 2).
 | `news/data/_state/<domain>.index.json` | what is already stored, so a run need not JSON-parse the whole folder. Currency is the file count **and** the folders' newest mtime — the count alone is defeated by a compensating add+remove, which `--reextract --dedupe` reaches whenever it drops a duplicate and promotes a rejection in one pass. An index that could go quietly stale would be worse than none: a missing key re-fetches, a phantom key skips an article for ever. |
 | `news/scripts/save_all_direct.sh` | parallel batch over the direct tier (this skill) |
 | `news/data/<domain>/*.json` | the stored articles, incremental by CANONICAL url |
+| `news/data/retired_sites.csv` | outlets removed from the registry. TRACKED. Columns: `rank,domain,outlet,type,scope,retired_on,reason,detail,stored_articles,last_feed_method,last_feed_url,last_feed_notes` — the operational three are kept so a re-add needs no re-discovery. `reason` ∈ `blocked_captcha` \| `bot_refused` \| `broken_sitemaps` \| `no_article_text` \| `portal_not_newsroom` \| `duplicate_outlet`. **Read it before re-adding a domain**; two entries are sites that asked not to be crawled. |
 | `news/data/_quarantine/<domain>/*.json` | articles from a structurally stale source — same shape, kept out of the corpus so they cannot read as current reporting |
 | `news/data/_browser/*` | browser-tier scratch: `<domain>.urls` (harvested links), `<domain>.jsonl` (prefetched rendered HTML) — reusable for re-extraction, untracked |
 | `news/data/_html/<domain>/*.json.gz` | the page-HTML cache `--reextract` reads: gzipped `{url, html, cached_at}`, keyed by URL hash, written before the gates. Untracked, ~15 KB/page. |

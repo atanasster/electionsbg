@@ -3,7 +3,7 @@
 # save through the same extractor and gates the direct tier uses.
 #
 # Until harvest_browser.mjs existed this whole tier was a Claude session
-# driving a Browser tool by hand, so a cron job skipped all 18 domains — four
+# driving a Browser tool by hand, so a cron job skipped all 17 domains — four
 # of them in the top twenty (dir.bg #2, blitz.bg #3, offnews.bg #16,
 # dnevnik.bg #18), plus bta.bg, the national agency, and capital.bg.
 #
