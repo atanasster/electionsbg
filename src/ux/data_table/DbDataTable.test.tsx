@@ -320,6 +320,68 @@ describe("DbDataTable controlled search", () => {
     expect(vi.mocked(fetch).mock.calls.length - before).toBe(1);
   });
 
+  /** A controlled host whose term changes on a click — the shape a submitted search box has.
+   *  `rerender` cannot be used here: it replaces the root children, dropping the
+   *  QueryClientProvider `renderTable` wraps them in. */
+  const CommittedHost = ({ committed }: { committed: boolean }) => {
+    const [q, setQ] = useState("апи");
+    return (
+      <>
+        <button onClick={() => setQ("апис")}>refine</button>
+        <DbDataTable<Row>
+          resource="test"
+          columns={[{ accessorKey: "id", header: "id" }]}
+          search={q}
+          hideSearchInput
+          {...(committed ? { searchIsCommitted: true as const } : {})}
+        />
+      </>
+    );
+  };
+
+  it("⚠️ skips the debounce when the parent says the term is COMMITTED", async () => {
+    // The opt-in half. A committed term arrives once per reader intention, so there is nothing
+    // to coalesce — waiting is 250 ms of latency after an explicit button press, on every
+    // refinement while a table is already up. (The FIRST search never paid it either way:
+    // `debounced` is seeded from `search` at mount, so this is only ever about refinements.)
+    //
+    // ⚠️ FAKE TIMERS ADVANCED BY **0 ms**, WHICH IS THE WHOLE ASSERTION. `vi.waitFor` pumps the
+    // fake clock while it polls, so `await vi.waitFor(() => expect(lastGlobal()).toBe("апис"))`
+    // passes with the debounce fully intact — mutation-verified: with the skip replaced by
+    // `if (false)`, that version stayed green. `advanceTimersByTimeAsync(0)` flushes microtasks
+    // (so the request can go out) WITHOUT letting a 250 ms timer fire.
+    vi.useFakeTimers();
+    try {
+      const { getByText } = renderTable(<CommittedHost committed />);
+      await vi.waitFor(() => expect(fetch).toHaveBeenCalled());
+      fireEvent.click(getByText("refine"));
+      await vi.advanceTimersByTimeAsync(0);
+      expect(lastGlobal()).toBe("апис");
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("⚠️ keeps the debounce when the parent does NOT claim a committed term", async () => {
+    // Non-vacuity for the case above, and the reason the flag is explicit rather than inferred
+    // from `search !== undefined`: /persons and /companies were controlled AND typed into for
+    // months, so `if (controlled) skip` would have been one round trip per keystroke against a
+    // 1.02M-row corpus.
+    vi.useFakeTimers();
+    try {
+      const { getByText } = renderTable(<CommittedHost committed={false} />);
+      await vi.waitFor(() => expect(fetch).toHaveBeenCalled());
+      fireEvent.click(getByText("refine"));
+      // Nothing advanced, so the debounce has not fired and the request is still the old term.
+      await vi.advanceTimersByTimeAsync(50);
+      expect(lastGlobal()).toBe("апи");
+      await vi.advanceTimersByTimeAsync(300);
+      await vi.waitFor(() => expect(lastGlobal()).toBe("апис"));
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("applies the floor to a controlled term too", async () => {
     // The whole reason the term is controlled rather than the request: a page that built
     // its own request would have to re-implement this, and the failure is a 400 that

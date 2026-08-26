@@ -45,7 +45,7 @@ import { useTranslation } from "react-i18next";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { termLength } from "@/ux/data_table/searchTerm";
+import { termLength, QUERY_MAX } from "@/ux/data_table/searchTerm";
 import { cn } from "@/lib/utils";
 
 /** One translatable string: the key, and its fallback.
@@ -123,6 +123,21 @@ export const RegistrySearchField: FC<{
   /** Whether the results table is on screen. Suppresses this component's guidance line, because
    *  the table body carries the same sentence. */
   tableVisible: boolean;
+  /** What the committed search RETURNED — „Намерени са 10 лица." — announced through the live
+   *  region below once the box and the results agree again.
+   *
+   *  ⚠️ IT EXISTS BECAUSE AN EXPLICIT SUBMIT SETS AN EXPECTATION A LIVE SEARCH DID NOT. Under
+   *  the old model there was nothing to confirm; now a reader activates a button and, without
+   *  this, hears NOTHING — the region's text goes from „натиснете Търси" to "", and an emptying
+   *  live region is not announced. `DbDataTable` has none of its own (zero `aria-live` in
+   *  `src/ux/data_table/`) and its „N реда" is plain text, so this is the only place the outcome
+   *  can be spoken.
+   *
+   *  ⚠️ THE FIELD CANNOT BUILD IT — it counts nothing. The page owns `agg.count`, so the page
+   *  owns the sentence; optional, because a caller with no count to report must say nothing
+   *  rather than announce a placeholder. Leave it undefined while the request is in flight: a
+   *  count from the PREVIOUS term, announced the moment `dirty` clears, is worse than silence. */
+  resultSummary?: string;
   /** Focus on mount, desktop only. FALSE for an arrival that already asked for something — a
    *  filter deep link, a `?q` link — where the reader wanted a list, not a text cursor. */
   autoFocus?: boolean;
@@ -139,6 +154,7 @@ export const RegistrySearchField: FC<{
   idPrefix,
   minChars,
   tableVisible,
+  resultSummary,
   autoFocus = false,
   examples = [],
   className,
@@ -211,6 +227,12 @@ export const RegistrySearchField: FC<{
     // landmark; the handler's preventDefault is what stops the browser reloading the SPA.
     <form
       role="search"
+      // ⚠️ NAMED, because this component is explicitly built to be mounted twice (see
+      // `idPrefix`). Two unnamed `search` landmarks are indistinguishable in a landmark rota,
+      // which is the one navigation aid a screen-reader user has for skipping to the box. It
+      // reuses the string already rendered as the <label>, so the two can never disagree about
+      // what this box searches.
+      aria-label={t(labels.label.key, { defaultValue: labels.label.fallback })}
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit(value);
@@ -235,6 +257,17 @@ export const RegistrySearchField: FC<{
             type="search"
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            // ⚠️ CAPPED HERE AS WELL AS ON THE URL WRITE, and the pair is what keeps `dirty`
+            // resolvable. Both `setQuery`s slice to QUERY_MAX; an uncapped draft past the cap
+            // therefore submits a term the URL cannot change, so the seeding effect never fires,
+            // `dirty` stays true for ever and the page renders „натиснете Търси" beside a button
+            // that does nothing. Measured before this: a 203-character draft against a 200-
+            // character `?q`, pending true before AND after the submit. Reachable only by paste,
+            // and a dead primary action is the one failure `minChars` below says the design must
+            // never ship. `maxLength` counts UTF-16 code units, which is exactly what `.slice()`
+            // counts on the other side — the character-vs-code-unit split that matters for the
+            // FLOOR does not apply to the cap.
+            maxLength={QUERY_MAX}
             // Esc clears AND commits. Clearing is unambiguous — nobody presses Esc meaning
             // „empty the box but keep showing the old results" — and leaving it uncommitted
             // would put the page in exactly the disagreeing state the × avoids.
@@ -298,7 +331,10 @@ export const RegistrySearchField: FC<{
           text is typically silent — which would make the floor warning, the one sentence that
           exists because nothing else explains the silence, the one least likely to be spoken. */}
       <span role="status" aria-live="polite" className="sr-only">
-        {floorIsOurs ? floorHint : dirty ? pendingHint : ""}
+        {/* Priority follows the visible line, with one arm the visible line does not need: once
+            the box and the results agree, the region reports the OUTCOME rather than going
+            silent. A submit that announces nothing reads as a control that did nothing. */}
+        {floorIsOurs ? floorHint : dirty ? pendingHint : (resultSummary ?? "")}
       </span>
 
       {/* Examples only on the truly empty state. A reader who has never used this page does not

@@ -22,6 +22,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import userEvent from "@testing-library/user-event";
 import { PersonsBrowserScreen } from "./PersonsBrowserScreen";
 import { personsScopeCount } from "./personsBrowseConstants";
+import { QUERY_MAX } from "@/ux/data_table/searchTerm";
 import { NARROWING_PARAMS } from "@/data/persons/useUrlPersonFilters";
 
 /** Facet buckets keyed the way `/api/db/facets` returns them. */
@@ -258,6 +259,25 @@ describe("nothing search-blind renders beside search results", () => {
     expect(container.querySelector("button[aria-pressed]")).not.toBeNull();
   });
 
+  it("withholds the mix bar on the LANDING too, where a sub-floor term leaves no table", async () => {
+    // ⚠️ THE ONLY CASE IN THIS SUITE WITHOUT A TABLE, and it is the state the rule was missing.
+    // `showTable` is `queryIsSendable || hasNarrowingFilters || browseAll`, so a sub-floor `?q`
+    // with NO filter takes the landing branch — where the bar was passed through as
+    // `mix={mixBar}`, ungated, while the band and the rail beside it were correctly withheld.
+    // Every other case here is sendable (`?q=yavor`) or carries a filter (`?role=mp`), so the
+    // suite read as though the rule were unconditional when it covered one branch of two.
+    stubFetch({ total: 137_461, global: undefined });
+    const { container } = renderAt("?q=%D0%B8%D0%B2");
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    // Non-vacuity: assert we really are on the landing, or a future `showTable` change would
+    // silently move this case onto the branch that was already covered.
+    await waitFor(() =>
+      expect(container.textContent).toContain("Започнете оттук"),
+    );
+    expect(table(container)).toBeNull();
+    expect(container.querySelector("button[aria-pressed]")).toBeNull();
+  });
+
   it("withholds them for a SUB-FLOOR term too, which the engine never applied", async () => {
     // `?q=ив` is not yet a query, so the rows below are the filter's — but the reader typed
     // something, and „2 118 Лица" under a box reading „ив" is read as 2,118 matches for „ив".
@@ -368,6 +388,23 @@ describe("the term ⇄ ?q seam", () => {
     await new Promise((r) => setTimeout(r, 500));
     expect(urlOf(container)).not.toContain("q=");
     expect(urlOf(container)).not.toContain("role=");
+  });
+
+  it("⚠️ a draft at the URL writer's cap cannot strand the page in a permanent pending line", async () => {
+    // The end-to-end half of the field's `maxLength`, and the reason it is asserted HERE: the
+    // cap lives in `useUrlPersonFilters.setQuery` (`v.slice(0, QUERY_MAX)`), so only a mounted
+    // screen exercises both sides. Uncapped, typing past a `?q` already at the cap submits a
+    // term the URL cannot change — the seeding effect never fires, `dirty` never clears, and the
+    // pending line stands for ever beside a button that does nothing.
+    const at = "и".repeat(QUERY_MAX);
+    const { container } = renderAt(`?q=${at}`);
+    const box = await waitFor(() => screen.getByRole("searchbox"));
+    await userEvent.type(box, "ъъъ");
+    // The box refused the extra characters, so there is nothing un-applied to announce.
+    expect((box as HTMLInputElement).value).toHaveLength(QUERY_MAX);
+    await userEvent.click(screen.getByRole("button", { name: "Търси" }));
+    await new Promise((r) => setTimeout(r, 200));
+    expect(container.textContent).not.toContain("Натиснете „Търси“");
   });
 
   it("follows the URL when it moves under the box", async () => {
@@ -737,5 +774,77 @@ describe("the head renders exactly one h1, and it matches the prerendered shell"
       return found;
     });
     expect(h1s[0].textContent).toContain("Хора във властта");
+  });
+});
+
+// ---- what the page ASKS FOR under a search ----------------------------------------------
+//
+// `useRegistryFacets` issues ONE HTTP REQUEST PER SPEC, so a spec whose only consumers are
+// withheld is a request computed server-side and thrown away. Two of them are: `kpis` (the head
+// band's denominators, plus the landing cards) and `primary` (the mix bar's partition). Under a
+// search with a table up, neither consumer renders — and `kpis` carries `obshtina_code`, a
+// 289-value facet over the filtered corpus.
+//
+// This is asserted on the REQUESTED COLUMNS rather than on a request count, because the count
+// alone cannot tell „we stopped asking" from „the specs were merged".
+describe("no facet is fetched for a surface the search withholds", () => {
+  /** Every column named across every /api/db/facets request so far. */
+  const facetColumns = (): string[] =>
+    vi
+      .mocked(fetch)
+      .mock.calls.map(([u]) => String(u))
+      .filter((u) => u.startsWith("/api/db/facets"))
+      .flatMap(
+        (u) =>
+          (
+            JSON.parse(decodeURIComponent(u.split("?q=")[1])) as {
+              columns: string[];
+            }
+          ).columns,
+      );
+
+  it("drops the band's and the mix bar's specs once a search has a table", async () => {
+    stubFetch({ total: 321, global: "yavor" });
+    const { container } = renderAt("?q=yavor");
+    await waitFor(() => expect(table(container)).not.toBeNull());
+    const cols = facetColumns();
+    // `kpis` — every column of it, including the 289-value one.
+    expect(cols).not.toContain("obshtina_code");
+    expect(cols).not.toContain("has_declaration");
+    expect(cols).not.toContain("parties_n");
+    // `primary` — the mix bar's partition.
+    expect(cols).not.toContain("primary_facet");
+    // …and the specs that still have a visible consumer are STILL asked for: the Група picker
+    // and the institution picker outlive a search, so this is not „we stopped faceting".
+    expect(cols).toContain("is_mp");
+    expect(cols).toContain("institution");
+  });
+
+  it("⚠️ KEEPS the kpis spec on the LANDING, where the cards still read it", async () => {
+    // The half the obvious `searching ? {} : …` gate gets wrong. A sub-floor `?q` with no
+    // filter renders the landing, whose four cards come from THIS spec — gating on `searching`
+    // alone blanks them while the band they were confused with is withheld anyway.
+    stubFetch({ total: 137_461, global: undefined });
+    const { container } = renderAt("?q=%D0%B8%D0%B2");
+    await waitFor(() =>
+      expect(container.textContent).toContain("Започнете оттук"),
+    );
+    const cols = facetColumns();
+    expect(cols).toContain("has_declaration");
+    expect(cols).toContain("parties_n");
+    // The mix bar is hidden on this branch too, so its spec goes either way.
+    expect(cols).not.toContain("primary_facet");
+  });
+
+  it("asks for everything when nothing is searched", async () => {
+    // Non-vacuity for both cases above.
+    stubFetch();
+    const { container } = renderAt("");
+    await waitFor(() =>
+      expect(container.textContent).toContain("Започнете оттук"),
+    );
+    const cols = facetColumns();
+    expect(cols).toContain("obshtina_code");
+    expect(cols).toContain("primary_facet");
   });
 });

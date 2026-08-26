@@ -83,6 +83,10 @@ type SearchProps =
       onSearchChange?: (term: string) => void;
       /** Hiding the input uncontrolled would leave a term nobody can type or clear. */
       hideSearchInput?: false;
+      /** ⚠️ REFUSED OFF THE CONTROLLED-AND-HIDDEN ARM. „Committed" is a claim about a term the
+       *  PARENT owns and submits; an uncontrolled box is typed into, so the debounce there is
+       *  what stands between a keystroke and a round trip. */
+      searchIsCommitted?: never;
     }
   | {
       /** CONTROLLED free-text search — the page owns the term (typically in the URL).
@@ -100,6 +104,21 @@ type SearchProps =
       /** The page renders its own search field. */
       hideSearchInput: true;
       onSearchChange?: (term: string) => void;
+      /** The parent's `search` is a COMMITTED term — it changes once per reader intention (a
+       *  submitted search box), never per keystroke. Skips the debounce below.
+       *
+       *  ⚠️ EXPLICIT, NEVER INFERRED FROM `search !== undefined`. Controlled does not mean
+       *  committed: /persons and /companies were controlled AND typed into for months, so a
+       *  `if (controlled) skip` would have sent one request per keystroke against a 1.02M-row
+       *  corpus — the exact regression the debounce's own doc-block is about. It is opt-in, so
+       *  a caller that says nothing keeps the debounce.
+       *
+       *  ⚠️ IT ONLY REMOVES LATENCY THAT IS ALREADY PURE. A committed term cannot arrive in a
+       *  burst, so the debounce absorbs nothing on the FIRST search either way (`debounced` is
+       *  seeded from `search` at mount, so that request goes out immediately). What it costs is
+       *  every REFINEMENT while a table is already up: a flat 250 ms after an explicit button
+       *  press, with nothing to coalesce. */
+      searchIsCommitted?: boolean;
     }
   | {
       search: string;
@@ -108,6 +127,11 @@ type SearchProps =
       /** REQUIRED in this arm: the input is fully controlled by the parent's value, so
        *  this is the ONLY way a keystroke can reach it. */
       onSearchChange: (term: string) => void;
+      /** ⚠️ REFUSED HERE TOO, and this is the arm the refusal is FOR. The parent owns the term
+       *  and the box is visible, so the parent is being typed into character by character —
+       *  which is exactly what "controlled" looks like without being committed, and why the
+       *  flag could not simply be inferred from `search !== undefined`. */
+      searchIsCommitted?: never;
     };
 
 interface BaseProps<T> {
@@ -172,6 +196,7 @@ export const DbDataTable = <T,>({
   search,
   onSearchChange,
   hideSearchInput,
+  searchIsCommitted,
   globalCols,
   globalFtsOnly,
   searchMinChars = SEARCH_MIN_CHARS,
@@ -229,9 +254,17 @@ export const DbDataTable = <T,>({
   }, [controlled, search, initialSearch, hideSearchInput, onSearchChange]);
 
   useEffect(() => {
+    // A committed term is already the reader's finished intention, so there is nothing to
+    // coalesce — waiting is latency after an explicit button press. Every other caller keeps
+    // the debounce, including a CONTROLLED one that types (a supported arm), because
+    // controlled is not the same claim as committed.
+    if (searchIsCommitted) {
+      setDebounced(term);
+      return;
+    }
     const id = setTimeout(() => setDebounced(term), 250);
     return () => clearTimeout(id);
-  }, [term]);
+  }, [term, searchIsCommitted]);
 
   // Any change to the query shape (filters/search/sort) returns to page 0.
   //

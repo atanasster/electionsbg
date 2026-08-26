@@ -13,6 +13,22 @@
 // enumerates, so the reader can still see the other options — and the ✗ under search is
 // /api/db/facets having no free-text parameter at all. Neither is a bug to fix here; both are
 // sentences this band must not publish without saying so.
+//
+// ⚠️ OPEN, AND THIS IS NOW THE ONLY BAND OF THE THREE THAT STILL CAPTIONS THE SEARCH ✗ RATHER
+// THAN WITHHOLDING. /persons and /companies stopped publishing their facet-derived cells under
+// a search in 81bb03c030, on the finding that a 10 px uppercase line („ПО ФИЛТРИТЕ, НЕ ПО
+// ТЪРСЕНЕТО") cannot outshout the largest type on the page: a reader who searches a name and
+// gets ten rows reads „15% С декларация" as a fact about those ten however it is captioned.
+// The same reading applies to „1 оферта" and „Пряко възлагане" here, and this page carries more
+// traffic than either.
+//
+// It is DEFERRED rather than overlooked, because the port is not one flag. `ContractsBrowserDbScreen`
+// is UNCONTROLLED (`initialSearch={params.get("q") ?? ""}`), so the only term this screen can
+// see is `agg.term` — which arrives WITH THE RESPONSE. Gating on it flashes the band back for
+// the length of every request, which is precisely the hazard the `searchActive` doc-blocks in
+// the other two modules were written about, and they avoid it only by reading a COMMITTED `?q`
+// the parent owns. Closing this means moving this screen to the committed-term shape first
+// (`useRegistryDraft` + `RegistrySearchField`), which is a change of its own size.
 
 import type { HubKpi } from "@/ux/infographic";
 import { basisLadder, TERM_MAX } from "@/ux/infographic/kpiBasis";

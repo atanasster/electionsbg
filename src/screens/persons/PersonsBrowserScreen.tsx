@@ -73,6 +73,7 @@ import { PersonsAnalysisStrip } from "./PersonsAnalysisStrip";
 import { personsKpis, personsKpiCellCount } from "./personsKpiBasis";
 import { PersonsSearchField } from "./PersonsSearchField";
 import { PersonsLanding, type LandingCard } from "./PersonsLanding";
+import { useRegistryDraft } from "@/screens/components/useRegistryDraft";
 import { PersonNetWorthCell, PersonMoneyCell } from "./PersonMoneyCells";
 import { oblastName } from "@/lib/regionalOblast";
 import { useObshtinaLabel } from "@/data/municipalities/useObshtinaLabel";
@@ -138,43 +139,34 @@ export const PersonsBrowserScreen: FC = () => {
 
   // ── THE TERM ────────────────────────────────────────────────────────────────────────
   //
-  // TWO VALUES, AND THE DISTINCTION IS THE WHOLE SEARCH BEHAVIOUR OF THIS PAGE:
-  //   · `draft` — what is in the box. Local, so typing is instant, and seen by nothing else.
-  //   · `query` (`?q`) — the COMMITTED term. Written once, by the reader's submit, and the only
-  //     thing the table, the head and every gate below read.
+  // A local DRAFT in the box, the COMMITTED term in `?q`, and nothing crossing between them
+  // except a submit and a URL move. The rule — and the reason it needs no echo/move ref, which
+  // is what the 350 ms URL mirror used to require — lives once, in `useRegistryDraft`, because
+  // /companies holds the identical block.
+  const { draft, setDraft, onSubmitQuery, onClearAll, searching } =
+    useRegistryDraft(query, setQuery, clearFilters);
+
+  // ── WHETHER THERE IS A TABLE AT ALL ────────────────────────────────────────────────
   //
-  // ⚠️ IT USED TO BE ONE VALUE ON A 350 ms MIRROR, and dropping that is what made this simple.
-  // A live box meant the URL, the engine and the band each saw every prefix of every word — so
-  // the screen carried a ref to tell „the URL is echoing back our own write" (ignore) from „the
-  // URL moved under us" (follow), and „Изчисти филтрите" had to clear both halves because for
-  // 350 ms after a keystroke there was no `?q` to delete and the pending mirror wrote the term
-  // straight back. None of those states exists any more: the URL only ever changes because
-  // somebody committed, so an echo cannot race a keystroke.
+  // The rule, and each clause is load-bearing:
   //
-  // What survives is the seed in the other direction — Back, an in-app `?q` link, „Изчисти
-  // филтрите" — which must move the box. That is one effect and it needs no ref.
-  const [draft, setDraft] = useState(query);
-  useEffect(() => setDraft(query), [query]);
-
-  // The commit. Takes the term rather than reading `draft`, because the clear × and the example
-  // chips submit a value that is not in state yet.
-  const onSubmitQuery = useCallback((v: string) => setQuery(v), [setQuery]);
-
-  // ⚠️ STILL TWO HALVES, though no longer a race. `clearFilters` is URL-only, and a reader who
-  // has typed something they never submitted would otherwise watch the results clear while their
-  // half-typed term sat on in the box — with the „Търси" button beside it offering to bring it
-  // back. „Изчисти" means the page starts over, box included.
-  const onClearAll = useCallback(() => {
-    setDraft("");
-    clearFilters();
-  }, [clearFilters]);
-
-  // ⚠️ READ FROM `?q`, NOT FROM THE BOX AND NOT FROM THE TABLE'S RESPONSE. It gates three
-  // search-blind surfaces (the head band, the head's evidence rail, the mix bar), and each
-  // other source is wrong in its own direction: the box would strip them mid-word, before the
-  // reader has asked for anything, and the response would put them back for the length of every
-  // request — which is exactly when a reader is looking at the head.
-  const searching = query.trim().length > 0;
+  //   · `queryIsSendable` — a term the ENGINE would accept, counted in characters. One or two
+  //     characters is not yet a query, and opening a table on it would send the engine a term
+  //     it answers with a 400, i.e. the destructive error panel, on a page whose whole design
+  //     is that the table appears only when it can answer.
+  //   · `hasNarrowingFilters` — a reader saying what they want, INCLUDING through the two
+  //     param with no picker. Every cross-link into this page is a filter rather than a
+  //     query, so a search-only gate would render a blank page to all of them.
+  //   · `browseAll` — the explicit „show me anyway", so the rule can never trap anybody.
+  //
+  // ⚠️ `sector` IS DELIBERATELY ABSENT. It is a SCOPE, not a query: switching „Всички" →
+  // „Във властта" and getting 63,816 prominence-sorted rows is precisely the default-table
+  // behaviour this rework removes.
+  //
+  // ⚠️ DECLARED HERE, ABOVE THE FACET SPECS, because two of them are conditional on it — it is
+  // a URL-derived value like `searching`, not a render-time one, so nothing is lost by moving
+  // it up and a `used before declaration` is what happens if it moves back down.
+  const showTable = queryIsSendable || hasNarrowingFilters || browseAll;
 
   // The active filter set. Code-set columns take a SPACE-PADDED, LIKE-escaped value so the
   // engine's ILIKE '%…%' matches a whole token: ' ngo ' can never hit 'ngo_board', and the
@@ -343,17 +335,26 @@ export const PersonsBrowserScreen: FC = () => {
         },
         // The mix bar's own partition — excludes its own dimension like every other facet,
         // so selecting a segment does not collapse the bar to that one segment.
-        primary: {
-          columns: ["primary_facet"],
-          filters: [
-            ...scopeF,
-            ...groupF,
-            ...roleF,
-            ...partyF,
-            ...placeF,
-            ...toggleF,
-          ],
-        },
+        //
+        // ⚠️ NOT REQUESTED UNDER A SEARCH. `useRegistryFacets` issues ONE HTTP REQUEST PER
+        // SPEC, and this one's only consumer is `facetMix` → the mix bar, which is withheld
+        // under `?q` on both the table branch and the landing. Keying it on `searching` rather
+        // than deleting the arm keeps the two in step: whatever gates the bar gates its data.
+        ...(searching
+          ? {}
+          : {
+              primary: {
+                columns: ["primary_facet"],
+                filters: [
+                  ...scopeF,
+                  ...groupF,
+                  ...roleF,
+                  ...partyF,
+                  ...placeF,
+                  ...toggleF,
+                ],
+              },
+            }),
         // The scope control's OWN counts — „Всички (137 461)" / „Във властта (63 816)" /
         // „Частен сектор (73 645)". Excludes the tier filter (a facet excludes its own
         // dimension) and keeps every other, so each option says how many rows it would
@@ -375,27 +376,40 @@ export const PersonsBrowserScreen: FC = () => {
         },
         // The KPI denominators. has_declaration / is_company are bool facets over the FULL
         // active filter set, so the percentages describe exactly the rows on screen.
-        kpis: {
-          // `parties_n` rides here rather than getting a spec of its own: it is one more column
-          // on a request already in flight, and the landing's „сменили партия" card needs it.
-          // The facet groups an int, so the card sums the buckets at 2 and above.
-          columns: [
-            "has_declaration",
-            "is_company",
-            "obshtina_code",
-            "parties_n",
-            "held_office",
-          ],
-          filters: [
-            ...scopeF,
-            ...groupF,
-            ...primaryF,
-            ...roleF,
-            ...partyF,
-            ...placeF,
-            ...toggleF,
-          ],
-        },
+        //
+        // ⚠️ NOT REQUESTED UNDER A SEARCH WITH A TABLE UP, and the second half of that
+        // condition is load-bearing. Every column here feeds the head band (withheld under
+        // `searchActive`) or the LANDING CARDS — and the landing renders under
+        // `searching && !showTable`, i.e. a sub-floor `?q` with no filter, where the cards
+        // still need `parties_n` / `held_office` / the two bools. Gating on `searching` alone
+        // blanks them there. With a table up neither consumer exists, so the whole spec —
+        // including `obshtina_code`, a 289-value facet over the filtered corpus — is computed
+        // server-side and thrown away on every search.
+        ...(searching && showTable
+          ? {}
+          : {
+              kpis: {
+                // `parties_n` rides here rather than getting a spec of its own: it is one more column
+                // on a request already in flight, and the landing's „сменили партия" card needs it.
+                // The facet groups an int, so the card sums the buckets at 2 and above.
+                columns: [
+                  "has_declaration",
+                  "is_company",
+                  "obshtina_code",
+                  "parties_n",
+                  "held_office",
+                ],
+                filters: [
+                  ...scopeF,
+                  ...groupF,
+                  ...primaryF,
+                  ...roleF,
+                  ...partyF,
+                  ...placeF,
+                  ...toggleF,
+                ],
+              },
+            }),
       }),
       [
         scopeF,
@@ -407,6 +421,11 @@ export const PersonsBrowserScreen: FC = () => {
         courtF,
         placeF,
         toggleF,
+        // Two of the specs are CONDITIONAL on these, so the memo has to see them move — the
+        // request set changes when a search starts and when the table opens, not only when a
+        // filter does.
+        searching,
+        showTable,
       ],
     ),
   );
@@ -616,24 +635,6 @@ export const PersonsBrowserScreen: FC = () => {
       : t("persons_basis_scope_unknown", {
           defaultValue: "от всички лица в обхвата",
         });
-
-  // ── WHETHER THERE IS A TABLE AT ALL ────────────────────────────────────────────────
-  //
-  // The rule, and each clause is load-bearing:
-  //
-  //   · `queryIsSendable` — a term the ENGINE would accept, counted in characters. One or two
-  //     characters is not yet a query, and opening a table on it would send the engine a term
-  //     it answers with a 400, i.e. the destructive error panel, on a page whose whole design
-  //     is that the table appears only when it can answer.
-  //   · `hasNarrowingFilters` — a reader saying what they want, INCLUDING through the two
-  //     param with no picker. Every cross-link into this page is a filter rather than a
-  //     query, so a search-only gate would render a blank page to all of them.
-  //   · `browseAll` — the explicit „show me anyway", so the rule can never trap anybody.
-  //
-  // ⚠️ `sector` IS DELIBERATELY ABSENT. It is a SCOPE, not a query: switching „Всички" →
-  // „Във властта" and getting 63,816 prominence-sorted rows is precisely the default-table
-  // behaviour this rework removes.
-  const showTable = queryIsSendable || hasNarrowingFilters || browseAll;
 
   /* The band's rule lives in `personsKpiBasis.ts` — four figures answering over three
      different sets, which is a truth table rather than a layout decision. See that file. */
@@ -1421,6 +1422,20 @@ export const PersonsBrowserScreen: FC = () => {
             // this field is the only thing that can explain why two characters produced
             // nothing.
             tableVisible={showTable}
+            // ⚠️ WHAT THE SUBMIT RETURNED, spoken through the field's live region — the only
+            // place on this page that can. Withheld while the box and the aggregate describe
+            // different terms (`agg.term` arrives with the response), because a count from the
+            // PREVIOUS search announced the instant `dirty` clears is worse than silence.
+            resultSummary={
+              showTable &&
+              agg.count != null &&
+              (agg.term ?? "") === query.trim()
+                ? t("persons_search_results", {
+                    defaultValue: "Намерени са {{n}} лица.",
+                    n: fmtInt(agg.count),
+                  })
+                : undefined
+            }
             examples={EXAMPLE_TERMS}
             // Only for a reader who arrived at the LANDING. A filter or `?q` deep link means
             // they asked for a list, and parking the cursor in a search box jumps a screen
@@ -1490,12 +1505,20 @@ export const PersonsBrowserScreen: FC = () => {
 
         {showTable ? (
           <>
-            {/* ⚠️ NOT UNDER A SEARCH. The bar partitions `primary_facet` from the SAME
-                facet endpoint the band reads, which has no free-text parameter — so beside ten
+            {/* ⚠️ NOT UNDER A SEARCH, ON EITHER BRANCH — see the landing below, which gates
+                the SAME `mixBar` on the SAME value. The bar partitions `primary_facet` from the
+                facet endpoint the band reads, which has no free-text parameter, so beside ten
                 matches it draws the whole filtered corpus's mix at full width and labels it
-                „Основна принадлежност", with no room for a caption to say otherwise. `?pfacet`
-                keeps its removable chip above, so hiding the bar never traps a reader in a
-                selection they cannot undo. */}
+                „Основна принадлежност", with no room for a caption to say otherwise.
+
+                The gate is `?q`, NOT `showTable`: a sub-floor term still means the reader has
+                asked for something, and the bar's words are corpus-wide either way. Gating on
+                the table instead left the bar standing on the landing under `?q=ив` — measured,
+                with the band and the rail correctly withheld beside it — while this comment
+                argued it was gone.
+
+                `?pfacet` keeps its removable chip above, so hiding the bar never traps a reader
+                in a selection they cannot undo. */}
             {searching ? null : mixBar}
             {/* ⚠️ ONLY WHEN `browseAll` IS THE SOLE REASON THE TABLE IS UP. `browseAll` is
                 deliberately not part of `hasActiveFilters` — it narrows nothing, so offering
@@ -1520,7 +1543,15 @@ export const PersonsBrowserScreen: FC = () => {
         ) : (
           <PersonsLanding
             cards={landingCards}
-            mix={mixBar}
+            // The SAME gate as the results branch above, and it is reachable only from here:
+            // `showTable` is `queryIsSendable || hasNarrowingFilters || browseAll`, so a
+            // sub-floor `?q` with no filter lands on this branch with `searching` true.
+            //
+            // ⚠️ THE CARDS ARE NOT GATED WITH IT, and the difference is their framing rather
+            // than their arithmetic. „Започнете оттук" says in words that they are entry points
+            // into the corpus; „Основна принадлежност" over a full-width bar states what a
+            // population IS, which beside a term in the box reads as that term's population.
+            mix={searching ? null : mixBar}
             browseAll={{
               // ⚠️ `scopeN`, NOT `tierCounts.all`, and a count-FREE fallback below zero.
               // The corpus total is what a reader gets only under „Всички": under „Във
@@ -1559,6 +1590,12 @@ export const PersonsBrowserScreen: FC = () => {
             // keystroke.
             search={query}
             hideSearchInput
+            // ⚠️ AND IT IS COMMITTED, so the table's own 250 ms debounce is skipped. It has
+            // nothing to coalesce here — the term changes once per „Търси", never per keystroke
+            // — so on every refinement while a table is up it was a flat 250 ms of latency after
+            // an explicit button press. The FLOOR stays in the table either way; only the wait
+            // goes.
+            searchIsCommitted
             renderAggregates={(_agg, total, exact) => (
               // COUNT ONLY. There is deliberately no Σ of the money column: two co-officers
               // of one company each carry that company's full contract total, so a column

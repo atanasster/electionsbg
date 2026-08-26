@@ -27,8 +27,12 @@ const base = {
 describe("CompaniesSearchField", () => {
   it("renders the COMPANIES strings, not the persons ones", () => {
     render(<CompaniesSearchField {...base} value="" examples={["Софарма"]} />);
+    // Role-scoped: the same string also names the `search` landmark, so a bare label query
+    // matches two elements.
     expect(
-      screen.getByLabelText("Търсене на фирма или организация"),
+      screen.getByRole("searchbox", {
+        name: "Търсене на фирма или организация",
+      }),
     ).toBeInTheDocument();
     expect(
       screen.getByPlaceholderText("Търси фирма, организация или ЕИК…"),

@@ -16,6 +16,7 @@ import {
   RegistrySearchField,
   type RegistrySearchLabels,
 } from "./RegistrySearchField";
+import { QUERY_MAX } from "@/ux/data_table/searchTerm";
 
 // There is no i18n instance in unit tests, so every `t(key, { defaultValue })` renders its
 // fallback — which is what makes the fallbacks assertable here.
@@ -45,7 +46,12 @@ const base = {
 describe("RegistrySearchField — the strings are parameters", () => {
   it("renders every one of the five supplied labels, and none of /persons'", () => {
     render(<RegistrySearchField {...base} value="" examples={["ПРИМЕР"]} />);
-    expect(screen.getByLabelText("ЕТИКЕТ")).toBeInTheDocument();
+    // Role-scoped, not `getByLabelText`: the same string now names the `search` LANDMARK as
+    // well as the box (deliberately — one string, so the two cannot disagree), so a bare
+    // label query is ambiguous.
+    expect(
+      screen.getByRole("searchbox", { name: "ЕТИКЕТ" }),
+    ).toBeInTheDocument();
     expect(screen.getByPlaceholderText("ПЛЕЙСХОЛДЪР")).toBeInTheDocument();
     expect(screen.getAllByText("ПОДСКАЗКА").length).toBeGreaterThan(0);
     expect(screen.getByText("НАПРИМЕР")).toBeInTheDocument();
@@ -266,11 +272,106 @@ describe("RegistrySearchField — it says when the box has moved past the result
     expect(container.textContent).not.toContain("НАТИСНЕТЕ");
   });
 
+  it("⚠️ cannot hold a draft the URL writer would truncate", () => {
+    // The one `dirty` state that CANNOT resolve, and therefore the only one that renders an
+    // instruction pointing at an inert control. Both `setQuery`s slice to QUERY_MAX, so a longer
+    // draft submits a `?q` that does not change, the seeding effect never fires, and „натиснете
+    // Търси" stands for ever beside a button that does nothing.
+    //
+    // Asserted on the ATTRIBUTE rather than on typing: the cap belongs to the URL hook, so a
+    // component test cannot reach the stuck state — what it can pin is that the box refuses to
+    // enter it. `maxlength` (lower-case) is how the DOM spells it.
+    render(<RegistrySearchField {...base} value={"и".repeat(QUERY_MAX)} />);
+    expect(screen.getByRole("searchbox")).toHaveAttribute(
+      "maxlength",
+      String(QUERY_MAX),
+    );
+  });
+
   it("prefers the FLOOR warning, which explains an empty page rather than a stale one", () => {
     const { container } = render(
       <RegistrySearchField {...base} value="ив" applied="иванов" />,
     );
     expect(container.textContent).toContain("Въведете поне 3 знака.");
     expect(container.textContent).not.toContain("НАТИСНЕТЕ");
+  });
+});
+
+// ---- what a screen reader hears --------------------------------------------------------
+//
+// The live region is the only channel this page has for a search's outcome: `DbDataTable` has
+// none of its own (zero `aria-live` in src/ux/data_table/) and its „N реда" is plain text. Under
+// the old live-search model there was nothing to confirm; an explicit submit sets the
+// expectation that activating it reports something, so silence there is a gap the commit
+// created even though neither half is new.
+describe("RegistrySearchField — the submit reports its outcome", () => {
+  const live = (c: HTMLElement) =>
+    c.querySelector('[role="status"]')?.textContent ?? "";
+
+  it("announces the result once the box and the results agree", () => {
+    const { container } = render(
+      <RegistrySearchField
+        {...base}
+        value="иванов"
+        applied="иванов"
+        tableVisible
+        resultSummary="Намерени са 10 лица."
+      />,
+    );
+    expect(live(container)).toBe("Намерени са 10 лица.");
+  });
+
+  it("says the search is PENDING rather than reporting a stale count", () => {
+    // The draft has moved past the results, so the summary describes the previous term. Reading
+    // it out the moment the reader types is the one thing worse than saying nothing.
+    const { container } = render(
+      <RegistrySearchField
+        {...base}
+        value="иванова"
+        applied="иванов"
+        tableVisible
+        resultSummary="Намерени са 10 лица."
+      />,
+    );
+    expect(live(container)).toContain("НАТИСНЕТЕ");
+    expect(live(container)).not.toContain("10");
+  });
+
+  it("goes quiet, not wrong, when the page has nothing to report", () => {
+    // `resultSummary` is optional: a caller with no count in hand must say nothing rather than
+    // announce a placeholder. Before this the region was ALWAYS "" in the settled state, and an
+    // emptying live region is not announced — so the submit was silent.
+    const { container } = render(
+      <RegistrySearchField
+        {...base}
+        value="иванов"
+        applied="иванов"
+        tableVisible
+      />,
+    );
+    expect(live(container)).toBe("");
+  });
+
+  it("prefers the FLOOR warning over the outcome", () => {
+    const { container } = render(
+      <RegistrySearchField
+        {...base}
+        value="ив"
+        applied="ив"
+        resultSummary="Намерени са 10 лица."
+      />,
+    );
+    expect(live(container)).toContain("Въведете поне 3 знака.");
+  });
+});
+
+// ---- the landmark ----------------------------------------------------------------------
+describe("RegistrySearchField — the search landmark is named", () => {
+  it("takes its name from the same string as the visible label", () => {
+    // Two instances is a supported arrangement (see `idPrefix`), and two UNNAMED `search`
+    // landmarks are indistinguishable in a landmark rota — the one navigation aid a
+    // screen-reader user has for reaching the box.
+    render(<RegistrySearchField {...base} value="" />);
+    expect(screen.getByRole("search", { name: "ЕТИКЕТ" })).toBeInTheDocument();
   });
 });

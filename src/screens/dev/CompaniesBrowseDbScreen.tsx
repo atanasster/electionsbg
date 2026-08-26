@@ -45,6 +45,7 @@ import {
 } from "@/data/companies/useUrlCompanyFilters";
 import { useCompanyFacets } from "@/data/companies/useCompanyFacets";
 import { CompaniesSearchField } from "@/screens/companies/CompaniesSearchField";
+import { useRegistryDraft } from "@/screens/components/useRegistryDraft";
 import { CompaniesFilterBar } from "@/screens/companies/CompaniesFilterBar";
 import { CompaniesActiveFilters } from "@/screens/companies/CompaniesActiveFilters";
 import { CompaniesLanding } from "@/screens/companies/CompaniesLanding";
@@ -160,39 +161,11 @@ export const CompaniesBrowseDbScreen: FC = () => {
 
   // ── THE TERM: a draft in the box, a committed term in ?q ─────────────────────────────────
   //
-  // TWO VALUES, and everything downstream reads the second:
-  //   · `draft` — what is in the box. Local, so typing is instant, and seen by nothing else.
-  //   · `f.query` (`?q`) — the COMMITTED term, written once by the reader's submit.
-  //
-  // ⚠️ IT USED TO BE ONE VALUE ON A 350 ms MIRROR. That bought instant typing at the price of
-  // two states that could disagree — hence the ref telling „the URL is echoing our own write"
-  // (ignore) from „the URL moved under us" (follow) — and it sent the engine every prefix of
-  // every word against a 1.02M-row corpus. Committing on submit removes the race rather than
-  // guarding it: the URL now only changes because somebody asked it to.
-  //
-  // What survives is the seed in the other direction — Back, an in-app `?q` link, „Изчисти" —
-  // which must move the box. One effect, no ref.
-  const [draft, setDraft] = useState(f.query);
-  const setQuery = f.setQuery;
-  useEffect(() => setDraft(f.query), [f.query]);
-  // Takes the term rather than reading `draft`: the clear × and the example chips submit a value
-  // that is not in state yet.
-  const onSubmitQuery = useCallback((v: string) => setQuery(v), [setQuery]);
-  // ⚠️ „Изчисти" is URL-only, so the box needs its own half — otherwise a reader who typed
-  // something they never submitted watches the results clear while their term sits on in the
-  // box, with „Търси" beside it offering to bring it back.
-  const clearFilters = f.clearFilters;
-  const onClearAll = useCallback(() => {
-    setDraft("");
-    clearFilters();
-  }, [clearFilters]);
-
-  // ⚠️ READ FROM `?q`, NOT FROM THE BOX AND NOT FROM THE TABLE'S RESPONSE. It gates the two
-  // search-blind surfaces (the head band, the head's evidence rail), and each other source is
-  // wrong in its own direction: the box would strip them mid-word, before the reader has asked
-  // for anything, and the response would put them back for the length of every request — which
-  // is exactly when a reader is looking at the head.
-  const searching = f.query.trim().length > 0;
+  // The rule lives once, in `useRegistryDraft` — /persons holds the identical block, and the
+  // 350 ms URL mirror this replaced was itself retired for having been copied byte-identically
+  // into both screens.
+  const { draft, setDraft, onSubmitQuery, onClearAll, searching } =
+    useRegistryDraft(f.query, f.setQuery, f.clearFilters);
 
   // ── WHETHER THERE IS A TABLE AT ALL ──────────────────────────────────────────────────────
   //
@@ -776,6 +749,18 @@ export const CompaniesBrowseDbScreen: FC = () => {
             applied={f.query}
             minChars={SEARCH_MIN_CHARS}
             tableVisible={showTable}
+            // The outcome of the submit, through the field's live region — see the same prop on
+            // /persons. Withheld until the aggregate describes the term now in `?q`.
+            resultSummary={
+              showTable &&
+              agg.count != null &&
+              (agg.term ?? "") === f.query.trim()
+                ? t("companies_search_results", {
+                    defaultValue: "Намерени са {{n}} фирми.",
+                    n: fmtInt(agg.count),
+                  })
+                : undefined
+            }
             examples={EXAMPLE_TERMS}
             // Only for a reader who arrived at the LANDING. A filter or `?q` deep link means
             // they asked for a list, and parking the cursor in a search box jumps a screen
@@ -922,6 +907,9 @@ export const CompaniesBrowseDbScreen: FC = () => {
             // nothing until the reader submits.
             search={f.query}
             hideSearchInput
+            // Committed, so the table's 250 ms debounce is skipped — see the same prop on
+            // /persons. The SEARCH_MIN_CHARS floor stays in the table.
+            searchIsCommitted
             onData={handleData}
             renderAggregates={(footerAgg, total) => (
               <span className="text-sm text-muted-foreground">

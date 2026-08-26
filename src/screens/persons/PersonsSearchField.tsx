@@ -27,6 +27,7 @@ export const PersonsSearchField: FC<{
   applied: string;
   minChars: number;
   tableVisible: boolean;
+  resultSummary?: string;
   autoFocus?: boolean;
   examples?: string[];
   className?: string;
