@@ -42,6 +42,7 @@ import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
 import { MyAreaCouncilTile } from "./MyAreaCouncilTile";
 import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
+import { MyAreaPlacePeopleLink } from "./MyAreaPlacePeopleLink";
 import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
 import { MunicipalCapitalProjectsTiles } from "@/screens/dashboard/MunicipalCapitalProjectsTiles";
 import { IpopExecutionTile } from "@/screens/dashboard/IpopExecutionTile";
@@ -257,6 +258,15 @@ export const MyAreaScreen: FC = () => {
             The full versions still ship on /municipality/:id and
             /settlement/:id direct routes. */}
         <MyAreaGovernmentCard obshtina={area.obshtina} />
+
+        {/* ⚠️ MOUNTED HERE, NOT INSIDE THE CARD ABOVE, and the difference is availability. The
+            card returns null when it has neither an officials roster nor a local-election
+            bundle — two ingests with nothing to do with the identity layer this links into — so
+            a municipality with people but neither of those would lose its ONLY route into
+            /persons?obshtina= , invisibly. Measured 2026-08-26: VAR05 has 31 placed people and
+            ZERO rows in municipal_officials_current, surviving only on its local bundle. The
+            link carries its own zero-guard, which is the only thing that should hide it. */}
+        <MyAreaPlacePeopleLink obshtina={area.obshtina} />
 
         {/* Band E — Money. The TaxReceiptTile (national-budget COFOG split for
             the user's personal income tax) + the EU-funded projects map carry

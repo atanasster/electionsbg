@@ -1072,3 +1072,68 @@ test.skipIf(skip)(
     );
   },
 );
+
+test.skipIf(skip)(
+  "every placed row is tier P, so the place count and /persons agree",
+  async () => {
+    // The governance dashboards' „хора, свързани с …" link counts through /api/db/facets, which
+    // applies the `persons` resource's own `defaultFilters` — tier P. /persons itself defaults
+    // to `?sector=all`, i.e. tier IN ('P','V'). The two select the identical set ONLY while no
+    // tier-V row carries a place, so a link that says 329 lands on a page that says 329.
+    //
+    // If the name-fold private arm ever gained a place, the link would under-report against its
+    // own destination — a number that is wrong by exactly the rows the reader then sees.
+    const placedV = await count(
+      `SELECT count(*) n FROM person_browse_table
+        WHERE tier = 'V' AND obshtina_code IS NOT NULL`,
+    );
+    assert.equal(
+      placedV,
+      0,
+      `${placedV} tier-V rows carry an obshtina — the governance place link counts at the ` +
+        "registry's tier-P floor and would then under-report against the page it links to",
+    );
+    // Non-vacuity: the invariant is only interesting while placed rows exist at all.
+    const placed = await count(
+      `SELECT count(*) n FROM person_browse_table WHERE obshtina_code IS NOT NULL`,
+    );
+    assert.ok(placed > 1000, `only ${placed} placed rows`);
+  },
+);
+
+test.skipIf(skip)(
+  "primary_facet is NEVER NULL on a placed row, so the facet buckets sum to the count",
+  async () => {
+    // The link's total is the SUM of the `primary_facet` facet's buckets, and `runDbFacets`
+    // drops NULL values — so a NULL there would silently subtract that row from a count printed
+    // beside a link to a page that still lists it.
+    const nulls = await count(
+      `SELECT count(*) n FROM person_browse_table
+        WHERE obshtina_code IS NOT NULL AND primary_facet IS NULL`,
+    );
+    assert.equal(
+      nulls,
+      0,
+      `${nulls} placed rows have a NULL primary_facet — the place link sums facet buckets and ` +
+        "would under-report by exactly those rows",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the placed corpus has fewer distinct facets than the link's request cap",
+  async () => {
+    // Same arithmetic, the other failure mode: `runDbFacets` truncates at `limit`, so a corpus
+    // with more distinct facets than the request asks for loses the tail from the SUM. The link
+    // requests 20 and renders 4.
+    const facets = await count(
+      `SELECT count(DISTINCT primary_facet) n FROM person_browse_table
+        WHERE obshtina_code IS NOT NULL`,
+    );
+    assert.ok(
+      facets > 0 && facets < 20,
+      `${facets} distinct primary_facet values on placed rows — usePlacePersonMix requests a ` +
+        "limit of 20 and sums what comes back, so at or above it the total silently truncates",
+    );
+  },
+);
