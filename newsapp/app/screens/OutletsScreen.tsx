@@ -34,6 +34,12 @@ export const OutletsScreen = () => {
   const sorted = useMemo(() => {
     const list = [...(outlets.data?.outlets ?? [])];
     list.sort((a, b) => {
+      // ⚠️ Retired outlets sort LAST, whatever their rank. They are kept —
+      // their articles were collected in good faith and still count in
+      // stories — but a retired outlet interleaved with live ones by
+      // catalogue rank reads as a live source. Two of them asked not to be
+      // crawled at all.
+      if (a.retired !== b.retired) return a.retired ? 1 : -1;
       // Catalogue rank first (nulls last), then by corpus size.
       if (a.rank == null && b.rank == null)
         return b.article_count - a.article_count;
@@ -124,7 +130,10 @@ export const OutletsScreen = () => {
             </TableHeader>
             <TableBody>
               {filtered.slice(0, limit).map((o) => (
-                <TableRow key={o.domain}>
+                <TableRow
+                  key={o.domain}
+                  className={o.retired ? "opacity-60" : undefined}
+                >
                   <TableCell className="text-muted-foreground tabular-nums">
                     {o.rank ?? "—"}
                   </TableCell>
@@ -135,6 +144,17 @@ export const OutletsScreen = () => {
                     >
                       {o.outlet}
                     </Link>
+                    {/* Named, not merely dimmed: "why is this outlet greyed"
+                        must be answerable from the row itself. */}
+                    {o.retired ? (
+                      <Badge
+                        variant="outline"
+                        className="ml-1.5 font-normal text-muted-foreground"
+                        title={o.retired_reason ?? undefined}
+                      >
+                        оттеглен
+                      </Badge>
+                    ) : null}
                     {o.ai_generated.likely_ai ? (
                       <Badge
                         variant="outline"

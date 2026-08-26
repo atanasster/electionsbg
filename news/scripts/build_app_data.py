@@ -129,6 +129,15 @@ CSV_COLUMN_PREFIXES = (
 )
 
 
+def norm_domain(raw) -> str:
+    """A registry domain, normalised the SAME way on every read path.
+
+    Two readers normalising differently is how one outlet becomes two rows —
+    one live, one retired — and the app then shows a retired source as active
+    beside itself."""
+    return (raw or "").strip().lower().removeprefix("www.")
+
+
 def pick_dated_column(row: dict, prefix: str) -> str | None:
     """The value of a dated column family, LAST NON-EMPTY wins.
 
@@ -599,8 +608,14 @@ def main() -> int:
                     item[prefix] = pick_dated_column(row, prefix)
                 item[HOTLINK_COLUMN_PREFIX] = pick_dated_column(
                     row, HOTLINK_COLUMN_PREFIX)
-                domain = item.get("domain")
+                # ⚠️ Normalised on BOTH sides, identically. The retired
+                # reader strips its domain and this one did not, so a row with
+                # stray whitespace or a capital published the SAME outlet
+                # twice — once live, once retired — a duplicate the old
+                # domain_names-only loop could not produce.
+                domain = norm_domain(item.get("domain"))
                 if domain:
+                    item["domain"] = domain
                     outlets_csv[domain] = item
 
     # Outlets removed from the registry. Their articles were collected in good
@@ -614,11 +629,19 @@ def main() -> int:
         try:
             with retired_path.open(encoding="utf-8") as fh:
                 for row in csv.DictReader(fh):
-                    domain = (row.get("domain") or "").strip()
+                    domain = norm_domain(row.get("domain"))
                     if domain:
                         retired[domain] = {
                             "reason": (row.get("reason") or "").strip() or None,
                             "retired_on": (row.get("retired_on") or "").strip() or None,
+                            # ⚠️ The outlet's NAME, type and scope. Without
+                            # them a retired row renders as a bare domain
+                            # wherever it is listed — "btvnovinite.bg" where
+                            # "bTV Новините" belongs — and the retired_sites
+                            # CSV has carried all three from the start.
+                            "outlet": (row.get("outlet") or "").strip() or None,
+                            "type": (row.get("type") or "").strip() or None,
+                            "scope": (row.get("scope") or "").strip() or None,
                             # Dated column, through the SAME rule the live
                             # registry uses — a retired outlet still renders
                             # its own mark rather than a monogram. Two
@@ -923,14 +946,33 @@ def main() -> int:
                 "ai_generated": ai_by_domain.get(domain, {}),
             }
         )
-    for domain in domain_names:  # domains with data but absent from the CSV
+    # ⚠️ Retired outlets with NO stored articles must be here too. Nine of the
+    # eleven retirements produced nothing before they were retired — four are
+    # behind an interactive CAPTCHA we will not solve — so enumerating only
+    # `domain_names` made 9 of 11 invisible to the app, and both the outlets
+    # directory ("retired outlets stay visible, with their reason") and the
+    # methodology page ("what this corpus does not cover") became unable to
+    # state a fact the registry records.
+    for domain in sorted(set(domain_names) | set(retired)):
         if domain in seen:
+            # ⚠️ In BOTH registries. The live row wins (it is the one a sweep
+            # actually reads), so the outlet publishes as retired=False — and
+            # if the retirement was `bot_refused`, the app then presents an
+            # outlet that asked not to be crawled as a live source. Reported
+            # rather than resolved here: which registry is right is a decision
+            # for whoever edits them.
+            if domain in retired:
+                print(f"  ! {domain} is in BOTH bg_news_sites.csv and "
+                      f"retired_sites.csv (retired: "
+                      f"{retired[domain].get('reason')}). The live row wins "
+                      f"and it will publish as ACTIVE — remove it from one.",
+                      file=sys.stderr)
             continue
         gone = retired.get(domain)
         outlets.append(
             {
                 "domain": domain,
-                "outlet": domain,
+                "outlet": (gone or {}).get("outlet") or domain,
                 # Explicitly null rather than absent. A retired outlet may
                 # still have a resolved mark (retired_sites.csv carries the
                 # column too) and the app falls back to a monogram either way
@@ -948,8 +990,8 @@ def main() -> int:
                 "retired_on": (gone or {}).get("retired_on"),
                 "rank": None,
                 "tier": None,
-                "type": None,
-                "scope": None,
+                "type": (gone or {}).get("type"),
+                "scope": (gone or {}).get("scope"),
                 "visits": None,
                 "article_count": len(articles_by_domain.get(domain, [])),
                 "analyzed_count": analyzed_by_domain.get(domain, 0),
