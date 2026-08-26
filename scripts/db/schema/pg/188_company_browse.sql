@@ -197,6 +197,43 @@ CREATE INDEX idx_company_browse_contractor_total
   ON company_browse_table (contractor_total_eur DESC NULLS LAST, name, uic);
 CREATE INDEX idx_company_browse_person_count
   ON company_browse_table (person_count DESC NULLS LAST, name, uic);
+-- „Поръчки" is a SORTABLE column on /companies and had no index at all, alone among the four
+-- numeric columns the page offers. A PAIR, for the same reason public_money_eur has one: the
+-- default view always sends `has_signal = true`, which rejects 90.3% of the corpus, so an index
+-- that does not lead with it turns that filter into a row Filter and pages deeper than the first
+-- read the whole table. Measured 2026-08-26 on the engine's own arrival SQL:
+--
+--   before (no index)             page 1      23,578 buffers, parallel seq scan + top-N heapsort
+--   plain index, contract-leading page 1          39 buffers
+--   plain index, contract-leading OFFSET 20000 1,030,451 buffers ← WORSE than the seq scan
+--   this pair                     page 1          28 buffers
+--   this pair                     OFFSET 20000  20,068 buffers
+--
+-- ⚠️ THE TIEBREAK IS `uic` ALONE, NOT `name, uic`. buildOrder appends exactly ONE tiebreak —
+-- `r.columns.key ? "key" : r.select[0]` — and `companies` declares no `key`, so select[0] = uic.
+-- The three siblings above carry `name` only because it is an explicit term in `defaultSort`,
+-- which a header click REPLACES. An index spelled `(…, name, uic)` leaves `uic` unsorted and
+-- Postgres degrades to an Incremental Sort on top of the scan. `count(*) WHERE contract_count > 0`
+-- is served by the plain half. Same NULLS LAST rule as the siblings.
+CREATE INDEX idx_company_browse_contracts_default
+  ON company_browse_table (has_signal, contract_count DESC NULLS LAST, uic);
+-- The same pairing for the page's other two sortable numeric columns, which had the plain half
+-- and not the has_signal-leading one. Measured 2026-08-26 at OFFSET 20000 on the default view,
+-- before these:
+--
+--   public_money_eur      206 buffers  ← the only one with a has_signal-leading partner
+--   contractor_total_eur  1,031,019    ← index scan + Rows Removed by Filter: 923,855
+--   person_count             23,331    ← planner abandons the index for a full Sort
+--
+-- 40 MB each. A partial `… WHERE has_signal` is 3.9 MB and plans the same, but the planner
+-- prefers the leading form when both exist and `idx_company_browse_default` above already
+-- establishes that shape here; consistency is worth more than 36 MB on a 37 GB volume.
+CREATE INDEX idx_company_browse_contractor_total_default
+  ON company_browse_table (has_signal, contractor_total_eur DESC NULLS LAST, uic);
+CREATE INDEX idx_company_browse_person_count_default
+  ON company_browse_table (has_signal, person_count DESC NULLS LAST, uic);
+CREATE INDEX idx_company_browse_contract_count
+  ON company_browse_table (contract_count DESC NULLS LAST, uic);
 CREATE INDEX idx_company_browse_entity_class ON company_browse_table (entity_class);
 CREATE INDEX idx_company_browse_status ON company_browse_table (status);
 -- Both reachable today via a deep link (?legal_form=/?obshtina_code=) and via the generic

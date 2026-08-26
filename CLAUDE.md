@@ -2191,6 +2191,39 @@ outright — same ordering rule as `cpv_catalog` / `contractor_rank`. `company_b
 fails on an empty/stale table, on `is_official_linked` disagreeing with an independent recount
 of 178's old two-arm union, and on either plpgsql wrapper drifting from its source.
 
+**Every sortable numeric column needs a `has_signal`-LEADING index, and three of the four were
+missing one.** `has_signal` is a client-side `extraFilters` entry, so it is in the WHERE of every
+default-view query — and an index that sorts correctly without leading on it still produces a
+clean „Index Scan" with no Sort node while reading the whole 1.02M-row table and discarding 90.3%
+as a row Filter. Measured 2026-08-26 at `OFFSET 20000`, which is a page a crawler reaches:
+
+| column | before | after |
+| ------ | ------ | ----- |
+| `public_money_eur` (had one) | 206 | 206 |
+| `contractor_total_eur` | **1,031,019** | 20,112 |
+| `contract_count` | **1,030,451** | 20,068 |
+| `person_count` | 23,331 (full Sort) | 20,122 |
+
+⚠️ **The tiebreak must be `uic`, and it is not a free choice** — `buildOrder` in `db_table.js`
+appends exactly one, `r.columns.key ? "key" : r.select[0]`, and Postgres compares pathkeys
+structurally, so `(…, name, uic)` serves nothing. Nor does a plain `DESC` btree, which is NULLS
+FIRST while the engine emits `DESC NULLS LAST`.
+
+⚠️ **Ship them with 193, NEVER by re-applying 188.** 188 opens with `DROP MATERIALIZED VIEW IF
+EXISTS company_browse_table`, so re-applying it rebuilds 1,022,592 rows while `/companies` — a
+resource with no `missingMigration` degrade — 500s throughout. That is the 122 hazard exactly.
+193 is the same statements with `IF NOT EXISTS`, and both files carry them so a fresh clone and a
+warm database converge:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 193_company_browse_sort_indexes.sql
+```
+
+Cloud SQL needs it by hand and nothing runs it; the four `CREATE INDEX`es take a ShareLock, so
+`/companies` reads through them and only a concurrent write would block. The gate's arm is a
+**buffer ceiling**, not a sort-node ban: neither „is it an Index Scan" nor „is there a Sort" can
+see this defect, since the broken plan satisfies both.
+
 ### The two MP↔company serving functions, and the shard families they retired
 
 `mp_tr_roles(mp_id)` (migration 150, `/api/db/mp-management`) and
