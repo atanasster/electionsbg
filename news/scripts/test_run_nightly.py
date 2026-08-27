@@ -59,6 +59,38 @@ class NightlyRunnerContractTests(unittest.TestCase):
                 self.assertTrue(all(s["result"] == {"skipped": "dry_run"}
                                     for s in data["stages"]))
 
+    def test_model_probe_failure_skips_analysis(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            runner = self.copy_runner(root)
+            source = runner.read_text(encoding="utf-8")
+            source = source.replace(
+                'stage acquire_direct bash news/scripts/save_all_direct.sh "$ARTICLES_PER_SOURCE" \\\n    "news/data/_nightly/$RUN_ID.direct.jsonl"',
+                "stage acquire_direct python3 -c 'import json; print(json.dumps({}))'")
+            source = source.replace(
+                'stage acquire_browser bash news/scripts/save_all_browser.sh "$ARTICLES_PER_SOURCE" \\\n      "news/data/_nightly/$RUN_ID.browser.jsonl" \\\n      "--timeout=$BROWSER_TIMEOUT"',
+                "stage acquire_browser python3 -c 'import json; print(json.dumps({}))'")
+            source = source.replace(
+                'stage probe_model python3 news/scripts/llm_client.py',
+                "stage probe_model python3 -c 'import json,sys; print(json.dumps({})); sys.exit(1)'")
+            for stage in ("check_prompts", "common_words", "review_queue",
+                          "mention_index", "bundles"):
+                start = f"stage {stage} "
+                pos = source.index(start)
+                end = source.index("\n", pos)
+                source = source[:pos] + (
+                    f"stage {stage} python3 -c 'import json; print(json.dumps({{}}))'") + source[end:]
+            runner.write_text(source, encoding="utf-8")
+            proc = self.run_runner_at(runner, "--skip-browser")
+            self.assertEqual(proc.returncode, 1, proc.stderr)
+            report = next((root / "news" / "data" / "_nightly").glob("*.json"))
+            data = __import__("json").loads(report.read_text(encoding="utf-8"))
+            direct = next(s for s in data["stages"] if s["stage"] == "acquire_direct")
+            browser = next(s for s in data["stages"] if s["stage"] == "acquire_browser")
+            self.assertEqual((direct["exit"], browser["exit"]), (0, 0))
+            analysis = next(s for s in data["stages"] if s["stage"] == "analyze")
+            self.assertEqual(analysis["result"], {"skipped": "model_unavailable"})
+
 
 if __name__ == "__main__":
     unittest.main()

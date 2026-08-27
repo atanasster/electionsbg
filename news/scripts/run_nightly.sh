@@ -20,6 +20,7 @@ LIMIT=40
 MODEL=${NEWS_LLM_MODEL:-local-model}
 ARTICLES_PER_SOURCE=${NEWS_ARTICLES_PER_SOURCE:-20}
 BROWSER_TIMEOUT=${NEWS_BROWSER_TIMEOUT:-600}
+STAGE_TIMEOUT=${NEWS_STAGE_TIMEOUT:-7200}
 SKIP_BROWSER=0
 DRY=0
 require_uint() {
@@ -51,12 +52,18 @@ while [ $# -gt 0 ]; do
       BROWSER_TIMEOUT=$2; shift 2
       ;;
     --skip-browser) SKIP_BROWSER=1; shift ;;
+    --stage-timeout)
+      [ "$#" -ge 2 ] || { echo "--stage-timeout requires SECONDS" >&2; exit 2; }
+      require_uint "--stage-timeout" "$2"
+      STAGE_TIMEOUT=$2; shift 2
+      ;;
     --dry-run) DRY=1; shift ;;
     *) echo "unknown argument: $1" >&2; exit 2 ;;
   esac
 done
 require_uint "NEWS_ARTICLES_PER_SOURCE" "$ARTICLES_PER_SOURCE"
 require_uint "NEWS_BROWSER_TIMEOUT" "$BROWSER_TIMEOUT"
+require_uint "NEWS_STAGE_TIMEOUT" "$STAGE_TIMEOUT"
 
 STAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 RUN_ID="$(date -u +%Y-%m-%dT%H%M%SZ)-$$"
@@ -65,6 +72,8 @@ mkdir -p "$OUT_DIR"
 REPORT="$OUT_DIR/$RUN_ID.json"
 STAGES_EXPECTED=9
 REPORT_INTEGRITY_FAILED=0
+LAST_STAGE_NAME=""
+LAST_STAGE_CODE=0
 # ⚠️⚠️ NO `trap … EXIT` HERE, AND THAT IS NOT AN OVERSIGHT. In bash an EXIT
 # trap fires when a COMMAND-SUBSTITUTION SUBSHELL exits, not only when the
 # script does — so `trap 'rm -f "$STAGES"' EXIT` combined with
@@ -88,7 +97,7 @@ stage() {
   local name=$1; shift
   local started out code secs payload
   started=$(date +%s)
-  out=$("$@" 2>&1)
+  out=$(timeout "$STAGE_TIMEOUT" "$@" 2>&1)
   code=$?
   secs=$(( $(date +%s) - started ))
   # The tail, and only if it parses. A stage that printed a traceback would
@@ -103,6 +112,9 @@ stage() {
     # report at all.
     payload=$(printf '%s' "$out" | tail -3 | python3 -c \
       'import json,sys; print(json.dumps({"unparsed": sys.stdin.buffer.read().decode("utf-8", "replace")[:600]}))')
+    # A stage that claims success but emits no machine-readable result cannot
+    # be trusted by the report or an unattended operator.
+    if [ "$code" -eq 0 ]; then code=2; fi
   fi
   if ! printf '%s' "$payload" | NAME="$name" CODE="$code" SECS="$secs" python3 -c '
 import json, os, sys
@@ -113,6 +125,8 @@ print(json.dumps({"stage": os.environ["NAME"], "exit": int(os.environ["CODE"]),
     REPORT_INTEGRITY_FAILED=1
     echo "  [$name] could not record its stage result" >&2
   fi
+  LAST_STAGE_NAME="$name"
+  LAST_STAGE_CODE=$code
   echo "  [$name] exit=$code $(( $(date +%s) - started ))s" >&2
 }
 
@@ -147,6 +161,7 @@ if [ "$DRY" = 1 ]; then
 else
   stage probe_model python3 news/scripts/llm_client.py
 fi
+MODEL_PROBE_CODE=$LAST_STAGE_CODE
 
 # ── 3. Prompt assets in step with the schema ───────────────────────────────
 # ⚠️ A grammar that permits a label the validator rejects yields records that
@@ -173,6 +188,9 @@ fi
 if [ "$DRY" = 1 ]; then
   stage analyze python3 -c \
     'import json; print(json.dumps({"skipped": "dry_run"}))'
+elif [ "$MODEL_PROBE_CODE" -ne 0 ]; then
+  stage analyze python3 -c \
+    'import json; print(json.dumps({"skipped": "model_unavailable"}))'
 else
   stage analyze python3 news/scripts/analyze_local.py \
     --limit "$LIMIT" --model "$MODEL"
@@ -227,6 +245,18 @@ report = {
     "stages_run": len(stages),
     "stages_ok": len(stages) - len(failed),
 }
+# Bundling reports both corpus and analysis counts; copying the difference
+# into the nightly result makes analysis debt visible without another scan.
+bundle = next((s.get("result", {}) for s in stages
+               if s.get("stage") == "bundles"), {})
+total = bundle.get("total_articles")
+analysed = bundle.get("analyzed_articles")
+if isinstance(total, int) and isinstance(analysed, int):
+    report["analysis_backlog"] = {
+        "corpus_total": total,
+        "analyzed_total": analysed,
+        "pending_total": max(0, total - analysed),
+    }
 with open(dest, "w", encoding="utf-8") as fh:
     json.dump(report, fh, ensure_ascii=False, indent=1)
 print(json.dumps({k: report[k] for k in
