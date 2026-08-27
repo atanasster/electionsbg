@@ -1003,6 +1003,7 @@ class IntakeState(unittest.TestCase):
             {"url": "https://ex.bg/a/73", "detail": "thin_body (12 chars < 400 floor)"},
             {"url": "https://ex.bg/a/74", "detail": "title_as_body (…)"},
             {"url": "https://ex.bg/a/75", "detail": "non_article_page (…)"},
+            {"url": "https://ex.bg/a/76", "detail": "off_domain (…)"},
         ], "2026-08-26T00:00:00+00:00")
         self.assertEqual((q, newly), ([], []))
 
@@ -1191,6 +1192,26 @@ class IntakeState(unittest.TestCase):
         _, rep = self.report()
         self.assertEqual(rep["domains"], 2)
         self.assertEqual({a["alert"] for a in rep["alerts"]}, {"never_ran"})
+
+    def test_bootstrap_records_history_without_claiming_a_live_run(self):
+        corpus = self.root / "news" / "data" / "ex.bg"
+        corpus.mkdir(parents=True)
+        (corpus / "legacy.json").write_text(json.dumps({
+            "domain": "ex.bg", "url": "https://ex.bg/legacy", "title": "T",
+            "content": "x" * 500, "content_chars": 500,
+            "published": "2026-08-20T09:00:00+00:00"}), encoding="utf-8")
+        env = dict(os.environ, DATA_BG_ROOT=str(self.root))
+        proc = subprocess.run([sys.executable, str(SAVER), "--bootstrap-state"],
+                              capture_output=True, text=True, env=env, timeout=120)
+        out = json.loads(proc.stdout)
+        self.assertEqual((proc.returncode, out["bootstrapped_count"]), (0, 1))
+        state = self.state()
+        self.assertIsNone(state["last_success_at"])
+        self.assertEqual(state["historical_records"], 1)
+        row = self.report()[1]["rows"][0]
+        self.assertFalse(row["never_ran"])
+        self.assertTrue(row["never_live_checked"])
+        self.assertTrue(row["state_bootstrapped"])
 
     def test_the_report_alerts_on_a_stale_unquarantined_source(self):
         self.write_state({"domain": "ex.bg", "newest_stored": "2026-01-01",

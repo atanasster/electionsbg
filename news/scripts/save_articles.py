@@ -1583,7 +1583,7 @@ def is_standing_fact(error):
 # retry tonight what the gate refused on purpose.
 _TERMINAL_FAILURE_RE = re.compile(
     r"^(non_article_page|title_as_body|thin_body|no title and no content"
-    r"|robots_disallowed)")
+    r"|robots_disallowed|off_domain)")
 
 
 def state_path(domain):
@@ -1639,6 +1639,53 @@ def record_domain_failure(domain, state, error, detail):
     state["last_error"] = {"error": error, "detail": (detail or "")[:400],
                            "at": state["last_attempt_at"]}
     save_state(domain, state)
+
+
+def cmd_bootstrap_state():
+    """Create observational state for legacy corpus folders without claiming
+    that their sources were crawled by the current intake pipeline.
+
+    The first corpus backfill predates per-domain state. Without a marker,
+    those domains all report as ``never_ran`` despite carrying useful stored
+    records; treating the backfill as a success would hide the more important
+    fact that none has been live-checked. This command writes only absent
+    state files, leaving genuine run history untouched.
+    """
+    stored_dirs = set()
+    if DATA_DIR.is_dir():
+        for child in DATA_DIR.iterdir():
+            if child.is_dir() and not child.name.startswith("_") \
+                    and child.name != "analysis" and any(child.glob("*.json")):
+                stored_dirs.add(child.name)
+        quarantine_root = DATA_DIR / QUARANTINE_DIR_NAME
+        if quarantine_root.is_dir():
+            for child in quarantine_root.iterdir():
+                if child.is_dir() and any(child.glob("*.json")):
+                    stored_dirs.add(child.name)
+    out = {"mode": "bootstrap-state", "bootstrapped": [], "skipped": []}
+    stamp = now_iso()
+    for domain in sorted(stored_dirs):
+        path = state_path(domain)
+        if path.exists():
+            out["skipped"].append({"domain": domain, "reason": "state_exists"})
+            continue
+        corpus, quarantine = domain_folders(domain)
+        _, newest = load_stored_index(domain, (corpus, quarantine))
+        stored = len(list(corpus.glob("*.json"))) + len(list(quarantine.glob("*.json")))
+        quarantined = not any(corpus.glob("*.json")) and bool(list(quarantine.glob("*.json")))
+        state = {"domain": domain, "last_attempt_at": None,
+                 "last_success_at": None, "consecutive_failures": 0,
+                 "last_error": None, "newest_stored": newest,
+                 "retry_urls": [], "quarantined": quarantined,
+                 "state_bootstrapped_at": stamp,
+                 "historical_records": stored}
+        if save_state(domain, state):
+            out["bootstrapped"].append({"domain": domain, "stored": stored,
+                                         "newest_stored": newest})
+        else:
+            out.setdefault("failed", []).append(domain)
+    out["bootstrapped_count"] = len(out["bootstrapped"])
+    return out
 
 
 def now_iso():
@@ -2605,7 +2652,12 @@ def cmd_intake_report(stale_after_days=7):
     rows, alerts = [], []
     for domain in domains:
         st = load_state(domain)
+        # A bootstrapped state makes the historical corpus observable, but it
+        # is not a successful live crawl. Keep that distinction separate from
+        # the older ``never_ran`` state used for a completely absent state.
         never_ran = domain not in seen
+        never_live_checked = bool(st.get("state_bootstrapped_at")
+                                  and not st.get("last_success_at"))
         orphan = domain not in registry and domain in stored_dirs
         corpus, quarantine = domain_folders(domain)
         stored = (len(list(corpus.glob("*.json")))
@@ -2619,6 +2671,8 @@ def cmd_intake_report(stale_after_days=7):
             except ValueError:
                 age = None
         row = {"domain": domain, "never_ran": never_ran,
+               "never_live_checked": never_live_checked,
+               "state_bootstrapped": bool(st.get("state_bootstrapped_at")),
                "in_registry": domain in registry,
                "retired_reason": retired.get(domain), "stored": stored,
                "newest_stored": st.get("newest_stored"),
@@ -2653,6 +2707,10 @@ def cmd_intake_report(stale_after_days=7):
             alerts.append({"domain": domain, "alert": "never_ran",
                            "detail": "in the registry, but no run has ever "
                                      "completed for it"})
+        elif never_live_checked:
+            alerts.append({"domain": domain, "alert": "never_live_checked",
+                           "detail": "historical corpus state was bootstrapped; "
+                                     "this source has not completed a live intake run"})
         elif row["consecutive_failures"] >= 3:
             alerts.append({"domain": domain, "alert": "failing",
                            "detail": f"{row['consecutive_failures']} runs in a "
@@ -2831,6 +2889,7 @@ def main():
     stale_after_cli = False
     apply_quarantine = False
     apply_changes = False
+    bootstrap_state = False
     floor_from_cli = False
     for a in list(args):
         if a.startswith("--delay="):
@@ -2872,6 +2931,9 @@ def main():
             args.remove(a)
         elif a == "--intake-report":
             intake_report = True
+            args.remove(a)
+        elif a == "--bootstrap-state":
+            bootstrap_state = True
             args.remove(a)
         elif a == "--repair-dates":
             repair_dates = True
@@ -2945,6 +3007,13 @@ def main():
         print(json.dumps(cmd_intake_report(stale_after_days),
                          ensure_ascii=False))
         sys.exit(0)
+    if bootstrap_state:
+        if args:
+            print(json.dumps({"error": "usage", "detail":
+                              "--bootstrap-state takes no positional arguments"}))
+            sys.exit(1)
+        print(json.dumps(cmd_bootstrap_state(), ensure_ascii=False))
+        sys.exit(0)
     if stale_after_cli and not intake_report:
         print(json.dumps({"error": "usage", "detail":
                           "--stale-after only applies to --intake-report"}))
@@ -2962,7 +3031,8 @@ def main():
                                     "save_articles.py <domain> "
                                     "--apply-quarantine [--apply] | "
                                     "save_articles.py --intake-report "
-                                    "[--stale-after=N]"}))
+                                    "[--stale-after=N] | "
+                                    "save_articles.py --bootstrap-state"}))
         sys.exit(1)
     domain = args[0]
     if len(args) > 1 and not args[1].isdigit():
