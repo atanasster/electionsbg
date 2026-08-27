@@ -30,7 +30,7 @@ import type { Cadence, PublishFrequency, WatchState } from "./types";
 // run cannot push the next check past a full period and halve the effective
 // rate (a daily run taking 5 min must not compound to "23h 59m" and skip a
 // day). The slack is a round number per band, not a fixed percentage — it is
-// 8% hourly, 4% daily, 14% weekly, 3% monthly. Weekly is the loosest because
+// 8% hourly, 8% daily, 14% weekly, 3% monthly. Weekly is the loosest because
 // its nominal period is the one most often missed by a routine that runs at a
 // slightly different hour each day; monthly is the tightest because 29 vs 30
 // days is already a full probe of headroom.
@@ -39,7 +39,7 @@ import type { Cadence, PublishFrequency, WatchState } from "./types";
 // it is not a comment-level edit.
 export const CADENCE_WINDOW_MS: Record<Cadence, number> = {
   hourly: 55 * 60 * 1000,
-  daily: 23 * 60 * 60 * 1000,
+  daily: 22 * 60 * 60 * 1000,
   weekly: 6 * 24 * 60 * 60 * 1000,
   monthly: 29 * 24 * 60 * 60 * 1000,
 };
