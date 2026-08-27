@@ -45,6 +45,7 @@ import {
 } from "../sitemap/route_defs";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
 import { reportSkip } from "../lib/report_skip";
+import { assertCommitted } from "../lib/assert_committed";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -52,6 +53,20 @@ const REPO = path.resolve(
 );
 const read = (p: string) => fs.readFileSync(path.join(REPO, p), "utf8");
 const ORIGIN = SITE_ORIGIN;
+
+// The three GIT-TRACKED payloads the card-freshness clause below treats as sources — the
+// only hub figures a tracked file can move — asserted OUTSIDE it, deliberately.
+//
+// ⚠️ THAT CLAUSE STANDS DOWN IN CI. `actions/checkout@v6` fetches depth 1, so it skips as
+// a shallow clone, and its per-path `no commit found for …` expectation is the only place
+// their presence is ever established. Absence would then be invisible on exactly the run
+// that matters. These are committed, so a missing one is a broken working copy rather
+// than a supported state — see scripts/lib/assert_committed.ts.
+assertCommitted(
+  "data/macro.json",
+  "data/macro_peers.json",
+  "data/procurement/derived/sector_stats.json",
+);
 
 /** Every `<loc>` in the COMMITTED sitemap, origin-stripped ("/budget/law",
  *  "/en/budget/law"). Parsed once at module scope because two describes need it:

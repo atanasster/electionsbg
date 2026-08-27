@@ -32,10 +32,10 @@
 //      exercised: `chitalishteNameSql` takes no `MatchOpts` and has none by
 //      design (cultureMatch.ts — the stem „читалищ" has no known collision).
 //
-// SKIPS have three causes, each named separately and each REPORTED (see
-// `skipReasons` below — a skip nobody prints is the silence report_skip.ts exists
-// to end). Postgres being down is the obvious one; the other two are fresh-clone
-// states rather than failures. The ДФЗ arm reads `agri_subsidies`, whose loader
+// SKIPS have three causes, each named separately and each REPORTED (see the
+// composed `reportSkip` below — a skip nobody prints is the silence
+// report_skip.ts exists to end). Postgres being down is the obvious one; the
+// other two are fresh-clone states rather than failures. The ДФЗ arm reads `agri_subsidies`, whose loader
 // input is the GITIGNORED `raw_data/agri/` cache, and the Interreg arms read
 // tables built from a keep.eu import that is not committed either — so on a clean
 // clone with Postgres up and `db:refresh` run, both are legitimately empty and a
@@ -64,9 +64,20 @@ import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
 
-/** Rows in a relation, or null when the relation is absent — a fresh clone that
- *  has never run the loader at all. Both states skip the arms that read it. */
-const rowCount = async (rel: string): Promise<number | null> => {
+/**
+ * Rows in a relation, or the AUTHORED sentence naming what is missing.
+ *
+ * ⚠️ ABSENT AND EMPTY ARE TWO STATES WITH TWO REMEDIES, and this returned one
+ * `null` for both — the conflated shape `scripts/lib/skip_gate_scan.ts` refuses.
+ * A relation that is not there wants its migration applied; one that is there
+ * and empty wants its loader run, off an input the reader may not have. A single
+ * falsy value for both forces one sentence onto two worlds, and the half it gets
+ * wrong reaches the operator as the remedy they then fail to follow.
+ */
+const rowCount = async (
+  rel: string,
+  remedy: string,
+): Promise<number | string> => {
   try {
     const [r] = await allRows<Record<string, string>>(
       `SELECT count(*) n FROM ${rel}`,
@@ -77,38 +88,57 @@ const rowCount = async (rel: string): Promise<number | null> => {
     // in 189-191 exists to prevent), a 55P03 during a concurrent load, or a plain
     // syntax error would otherwise all print „does not exist — apply the
     // migration", which is the wrong remedy for each of them.
-    if ((e as { code?: string }).code === "42P01") return null;
+    if ((e as { code?: string }).code === "42P01")
+      return `${rel} does not exist — ${remedy}`;
     throw e;
   }
 };
 
-const agriRows = haveDb ? await rowCount("agri_subsidies") : 0;
-const interregRows = haveDb ? await rowCount("interreg_partners") : 0;
+/** `false` while the corpus holds rows, otherwise why it does not — the two
+ *  absent states kept apart, per `rowCount` above. */
+const corpusState = async (
+  rel: string,
+  remedy: string,
+): Promise<string | false> => {
+  const n = await rowCount(rel, `apply its migration, then ${remedy}`);
+  if (typeof n === "string") return n;
+  return n > 0 ? false : `${rel} is empty — ${remedy}`;
+};
 
 const skip = !haveDb ? "Postgres unreachable" : false;
 /** ДФЗ and Interreg only — see the SKIPS note in the header. Their loader inputs
- *  are gitignored, so „empty" on a clean clone is a state, not a defect. */
-const skipAgri = skip
-  ? skip
-  : !agriRows
-    ? "agri_subsidies is empty — db:load:agri:pg needs the gitignored raw_data/agri/ cache"
-    : false;
-const skipInterreg = skip
-  ? skip
-  : !interregRows
-    ? "interreg_partners is empty — db:load:interreg:pg needs a keep.eu import (npm run funds:crawl-interreg)"
-    : false;
+ *  are gitignored, so „empty" on a clean clone is a state, not a defect. The
+ *  probe runs only when `skip` is false, so a database that is down is never
+ *  described as an empty corpus. */
+const skipAgri =
+  skip ||
+  (await corpusState(
+    "agri_subsidies",
+    "db:load:agri:pg needs the gitignored raw_data/agri/ cache",
+  ));
+const skipInterreg =
+  skip ||
+  (await corpusState(
+    "interreg_partners",
+    "db:load:interreg:pg needs a keep.eu import (npm run funds:crawl-interreg)",
+  ));
 
 // ⚠️ ALL THREE causes are reported, not just the first. Without this, 6 of the
 // tests below stand down with no output at all whenever a gitignored corpus is
 // absent — the silence `scripts/lib/report_skip.ts` exists to end. `reportSkip`
 // takes one reason, so a composed sentence is what carries the other two.
-const skipReasons = [skip, skipAgri, skipInterreg].filter(
-  (r, i, a): r is string => typeof r === "string" && a.indexOf(r) === i,
-);
+//
+// ⚠️ AND THE THREE NAMES STAY INSIDE THE CALL. `report_skip_coverage.test.ts`
+// anchors on the gate name appearing in the arguments, so composing through an
+// intermediate `skipReasons` array — which is what this did — reads to it as
+// three gates that report nothing at all, and it fails the corpus gate.
 reportSkip(
   import.meta.url,
-  skipReasons.length ? skipReasons.join(" · ") : false,
+  [skip, skipAgri, skipInterreg]
+    .filter(
+      (r, i, a): r is string => typeof r === "string" && a.indexOf(r) === i,
+    )
+    .join(" · ") || false,
 );
 
 afterAll(async () => {
@@ -435,27 +465,26 @@ test.skipIf(skipInterreg)(
 // each view's rows from the TypeScript and compare.
 
 /** Present-and-populated, per view. A view can be absent (189 never applied
- *  here) or empty (its corpus never loaded), and only the first is a defect. */
-const viewRows = async (v: string): Promise<number | null> => rowCount(v);
+ *  here) or empty (its corpus never loaded), and only the first is a defect —
+ *  the second is what each arm's own gate already stands down for. */
+const viewRows = async (v: string): Promise<number | string> =>
+  rowCount(
+    v,
+    "apply 189: npx tsx scripts/db/apply_functions.ts 189_culture_match.sql",
+  );
 
-const missingView = (n: number | null, v: string) =>
-  n === null
-    ? `${v} does not exist — apply 189: npx tsx scripts/db/apply_functions.ts 189_culture_match.sql`
-    : false;
+/** The absence sentence `rowCount` authored, or `false` when there are rows to
+ *  compare. The view NAME is already in the sentence, so it is not passed again:
+ *  a second copy is a second thing to get out of step with the relation. */
+const missingView = (n: number | string) => (typeof n === "string" ? n : false);
 
 test.skipIf(skip)(
   "the ИСУН views serve exactly what the TypeScript predicates select",
   async () => {
     const eikN = await viewRows("culture_isun_by_eik");
     const nameN = await viewRows("culture_isun_by_name");
-    assert.ok(
-      !missingView(eikN, "culture_isun_by_eik"),
-      String(missingView(eikN, "culture_isun_by_eik")),
-    );
-    assert.ok(
-      !missingView(nameN, "culture_isun_by_name"),
-      String(missingView(nameN, "culture_isun_by_name")),
-    );
+    assert.ok(!missingView(eikN), String(missingView(eikN)));
+    assert.ok(!missingView(nameN), String(missingView(nameN)));
 
     const [ref] = await allRows<Record<string, string>>(
       `SELECT count(*) FILTER (WHERE beneficiary_eik = ANY($1)) eik_n,
@@ -483,10 +512,7 @@ test.skipIf(skipAgri)(
   "the ДФЗ view serves exactly what chitalishteNameSql selects",
   async () => {
     const n = await viewRows("culture_agri_chitalishta");
-    assert.ok(
-      !missingView(n, "culture_agri_chitalishta"),
-      String(missingView(n, "culture_agri_chitalishta")),
-    );
+    assert.ok(!missingView(n), String(missingView(n)));
     const [ref] = await allRows<Record<string, string>>(
       `SELECT count(*) n FROM agri_subsidies WHERE ${chitalishteNameSql("name")}`,
     );
@@ -498,10 +524,7 @@ test.skipIf(skipInterreg)(
   "the Interreg view serves exactly what interregThemeSql selects",
   async () => {
     const n = await viewRows("culture_interreg_thematic");
-    assert.ok(
-      !missingView(n, "culture_interreg_thematic"),
-      String(missingView(n, "culture_interreg_thematic")),
-    );
+    assert.ok(!missingView(n), String(missingView(n)));
     const [ref] = await allRows<Record<string, string>>(
       `SELECT count(*) n FROM interreg_partners p
          JOIN interreg_operations o USING (keep_id)

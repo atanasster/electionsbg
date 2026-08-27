@@ -75,7 +75,15 @@ const eiks = () => [...CULTURE_GROUP_EIKS];
 
 // OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
 // working copy rather than a supported state. See scripts/lib/assert_committed.ts.
-assertCommitted("data/culture/derived/hub_stats.json");
+//
+// `overview.json` is the second one: the films clause reads it directly (it is what the
+// PRERENDER interpolates the same figures from), and every assertion that touches it sits
+// behind `skip`. Without this, a working copy missing it stands down as one more
+// database-less skip instead of saying the tree is broken.
+assertCommitted(
+  "data/culture/derived/hub_stats.json",
+  "data/culture/overview.json",
+);
 
 test.skipIf(skip)("the procurement figures match the corpus", async () => {
   const b = blob();

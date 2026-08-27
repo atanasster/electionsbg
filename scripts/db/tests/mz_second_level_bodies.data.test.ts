@@ -26,19 +26,30 @@ import {
   MZ_SECOND_LEVEL_INSTITUTION_COUNT,
 } from "@/lib/mzSecondLevelBodies";
 
-const reachable = async (): Promise<boolean> => {
+/**
+ * `false` when the corpus is here, otherwise the AUTHORED reason it is not.
+ *
+ * ⚠️ TWO STATES, TWO SENTENCES — this was one probe returning `false` for both,
+ * under the single message „Postgres unreachable / contracts table absent". The
+ * half such a message gets wrong is always the outage, which is the one warning
+ * an operator is trained to ignore (`mp_arm_sql`'s header records it hiding a
+ * two-day one). A server that is down wants the container started; a database
+ * with no `contracts` wants the loader run, and the remedies are not the same.
+ */
+const corpusState = async (): Promise<string | false> => {
   try {
     const [t] = await allRows<{ ok: boolean }>(
       "SELECT to_regclass('public.contracts') IS NOT NULL AS ok",
     );
-    return !!t?.ok;
-  } catch {
-    return false;
+    return t?.ok
+      ? false
+      : "the contracts table is absent — run npm run db:load:pg";
+  } catch (e) {
+    return `Postgres unreachable (${(e as Error).message})`;
   }
 };
 
-const haveDb = await reachable();
-const skip = haveDb ? false : "Postgres unreachable / contracts table absent";
+const skip = await corpusState();
 reportSkip(import.meta.url, skip);
 
 afterAll(async () => {

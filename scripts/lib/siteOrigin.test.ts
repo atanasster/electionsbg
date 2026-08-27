@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
+import { assertCommitted } from "./assert_committed";
 
 /**
  * The domain-migration gate.
@@ -35,6 +36,13 @@ const KNOWN_ORIGINS = [
   "https://naiasno.com",
 ];
 
+// The other half of the sitemap rule above: the back-compat copy has to EXIST at the
+// conventional path for a crawler that probes it, while being announced nowhere. Stated
+// as a presence assertion rather than an `existsSync` beside the robots check, because
+// both files are committed — absence is a broken working copy, not a state to stand down
+// for. See scripts/lib/assert_committed.ts.
+assertCommitted("public/robots.txt", "public/sitemap.xml");
+
 describe("SITE_ORIGIN shape", () => {
   it("is scheme + host with no trailing slash and no path", () => {
     // Every call site concatenates `${SITE_ORIGIN}${path}`, so a trailing slash
@@ -66,13 +74,18 @@ describe("copies that cannot import the constant", () => {
       expect(u, `index.html declares ${u}`).toContain(SITE_ORIGIN);
   });
 
-  it("robots.txt Sitemap: lines match", () => {
+  it("robots.txt announces exactly one sitemap, and it is the index", () => {
+    // ⚠️ THE FLOOR HERE USED TO BE `>= 2`, AND THAT ENCODED THE DEFECT RATHER THAN
+    // THE RULE. `public/sitemap.xml` is a byte-identical back-compat copy of
+    // `sitemap_index.xml`, so announcing both handed every crawler the same 16-shard
+    // index under two URLs with no way to tell they are one document — every shard
+    // discovered twice. 779b06e4a3 dropped the second line and left this gate demanding
+    // it back, which is why CI went red on a correct robots.txt. The copy has to EXIST
+    // for a crawler that probes the conventional path; it must not be advertised.
     const lines = read("public/robots.txt")
       .split("\n")
       .filter((l) => l.toLowerCase().startsWith("sitemap:"));
-    expect(lines.length).toBeGreaterThanOrEqual(2);
-    for (const l of lines)
-      expect(l, `robots.txt: ${l}`).toContain(`${SITE_ORIGIN}/`);
+    expect(lines).toEqual([`Sitemap: ${SITE_ORIGIN}/sitemap_index.xml`]);
   });
 
   it("the GCS CORS config allows the site origin", () => {
