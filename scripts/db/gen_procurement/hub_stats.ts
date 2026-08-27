@@ -39,18 +39,13 @@ import {
   isEmpty,
   warnSkip,
 } from "./preflight";
-import {
-  newestFirst,
-  parliamentWindow,
-  type ElectionRef,
-} from "../../../src/data/scope/windows";
+import { hubStatFor, hubScopes } from "./hub_stats_source";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
   "../../..",
 );
 const OUT = path.join(ROOT, "data/procurement/derived/hub_stats.json");
-const ELECTIONS = path.join(ROOT, "src/data/json/elections.json");
 const MIGRATION = path.join(
   ROOT,
   "scripts/db/schema/pg/062_procurement_hub_counts.sql",
@@ -91,59 +86,12 @@ const FUNCTIONS = [
 // 4,614 → 18,583 B against a 24,000 B gate. THREE rows, not five — five would be ~26.8 KB and
 // break it. Every visitor to /procurement downloads this.
 
-const one = async (
-  from: string | null,
-  to: string | null,
-): Promise<HubStat> => {
-  const [ov] = (await allRows("SELECT procurement_overview($1,$2) AS r", [
-    from,
-    to,
-  ])) as {
-    r: {
-      totals: Record<string, number>;
-      topAwarders?: { eik: string; name: string; totalEur: number }[];
-    };
-  }[];
-  const [hc] = (await allRows("SELECT procurement_hub_counts($1,$2) AS r", [
-    from,
-    to,
-  ])) as {
-    r: { tenders: number; appeals: number; ngos: number };
-  }[];
-  const [rf] = (await allRows("SELECT procurement_risk_feed($1,$2) AS r", [
-    from,
-    to,
-  ])) as {
-    r: { concentrationTotal: number };
-  }[];
-  const [bs] = (await allRows("SELECT procurement_by_settlement($1,$2) AS r", [
-    from,
-    to,
-  ])) as {
-    r: { settlementCount: number };
-  }[];
-  const t = ov.r.totals;
-  return {
-    totalEur: t.totalEur ?? 0,
-    contracts: (t.contracts ?? 0) + (t.amendments ?? 0),
-    contractors: t.contractorCount ?? 0,
-    connected: (t.mpCount ?? 0) + (t.officialCount ?? 0),
-    tenders: hc.r.tenders ?? 0,
-    appeals: hc.r.appeals ?? 0,
-    ngos: hc.r.ngos ?? 0,
-    flags: rf.r.concentrationTotal ?? 0,
-    places: bs.r.settlementCount ?? 0,
-    awarderCount: t.awarderCount ?? 0,
-    // Trimmed to the three fields the head renders. The payload carries contractCount too,
-    // which nothing on the hub shows — and an unused field in a blob every visitor downloads
-    // is the regrowth the byte budget exists to stop.
-    topAwarders: (ov.r.topAwarders ?? []).slice(0, 3).map((a) => ({
-      eik: a.eik,
-      name: a.name,
-      eur: Math.round(a.totalEur ?? 0),
-    })),
-  };
-};
+// `one()` and the scope enumeration now live in ./hub_stats_source, so the freshness gate
+// (scripts/db/tests/procurement_hub_stats.data.test.ts) re-derives from the SAME code this
+// generator writes from. A second copy in the gate would assert that two implementations
+// agree rather than that the artifact matches the corpus. This module cannot be imported —
+// it calls main() at module scope and exits — which is why the shared half is its own file.
+const one = hubStatFor;
 
 /** The name a buyer is MOST OFTEN filed under, per EIK.
  *
@@ -220,37 +168,11 @@ const main = async (): Promise<void> => {
     return;
   }
 
-  // newestFirst + parliamentWindow rather than a local copy of the formula: the loop below
-  // reads elections[i-1] as the next-newer election, which is only correct while the source
-  // happens to be sorted. src/data/scope/windows is the one definition the React hook and
-  // every other scoped precompute share.
-  const elections = newestFirst(
-    JSON.parse(fs.readFileSync(ELECTIONS, "utf8")) as ElectionRef[],
-  );
-  // Distinct contract years present (for the y:<year> scopes the hub's year
-  // picker offers).
-  const yearRows = (await allRows(
-    "SELECT DISTINCT left(date,4) AS y FROM contracts WHERE date >= '2011' ORDER BY y",
-    [],
-  )) as { y: string }[];
-
+  // The scope list and each scope's figures come from ./hub_stats_source, which the
+  // freshness gate imports too — see the note on `one` above.
   const out: Record<string, HubStat> = {};
-
-  // all-corpus
-  out["all"] = await one(null, null);
-
-  // per-parliament windows (newest-first: the next election sits at idx-1)
-  for (const e of elections) {
-    const { from, to } = parliamentWindow(elections, e.name);
-    out[`ns:${e.name}`] = await one(from, to);
-  }
-
-  // per-year windows
-  for (const { y } of yearRows) {
-    const year = Number(y);
-    if (!Number.isFinite(year)) continue;
-    out[`y:${year}`] = await one(`${year}-01-01`, `${year + 1}-01-01`);
-  }
+  for (const { key, from, to } of await hubScopes())
+    out[key] = await one(from, to);
 
   // Replace the arbitrary alias `procurement_overview()` returns with the name the register
   // uses most for that EIK. One query for every buyer any scope selected.

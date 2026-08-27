@@ -135,6 +135,47 @@ The blob is **16,638 B measured 2026-08-27** against a 24,000 B gate, and `topAw
 what fills it. (`hub_stats.ts`'s own header says 18,583 B; that figure is stale and this doc
 repeated it uncritically at first.)
 
+### ⚠️ Step 4, WITHOUT WHICH TIER 0 DOES NOTHING FOR READERS: publish to the bucket
+
+**This step was missing from the first draft of this plan and from the first execution of
+it.** The artifact is read by the browser from GCS (`dataUrl()` →
+`https://storage.googleapis.com/data-electionsbg-com/procurement/derived/hub_stats.json`),
+NOT from the repo. So regenerating and committing updates disk and git and leaves production
+serving the stale copy — measured immediately after the Tier 0 commit landed: the bucket was
+still on `appeals` 7,998 / `connected` 898 / `totalEur` 93,598,306,669 while the repo held
+the corrected figures.
+
+```bash
+npm run bucket:sync:paths -- --dry-run procurement/derived/hub_stats.json   # read it first
+npm run bucket:sync:paths -- procurement/derived/hub_stats.json
+```
+
+`procurement/` is otherwise EXCLUDED from bucket sync (it is PG-served) and this file is one
+of a handful of explicit exceptions. ⚠️ **That does NOT mean the whole-tree sync skips it** —
+an earlier draft of this paragraph said so and was wrong. `bucket:sync`'s `-x` argument is
+`^procurement/(?!roads\.json$|projects/.*|derived/mp_party\.json$|derived/hub_stats\.json$|derived/sector_stats\.json$).*`,
+a NEGATIVE LOOKAHEAD, so this path is exempt from the exclusion and a full `bucket:sync`
+publishes it. `scripts/procurement/ingest.ts --upload` is a third route. The targeted form
+above is simply the cheapest and the one that cannot touch anything else. The upload is a
+single `gsutil cp -Z` (compressed, per the GCS convention; no `-m`, which crashes on macOS).
+
+Verify with a **cache-buster**: the object carries `max-age=300, must-revalidate`, so a plain
+re-read for the next five minutes returns the pre-upload body and looks like a failed publish.
+
+⚠️ **AND THERE IS ALREADY A TOOL FOR THIS — `npm run db:check-generated`.** It fetches every
+`REFRESH_GENERATORS` artifact from the bucket with `cache: "no-store"` and byte-compares it
+against disk, then prints the exact `bucket:sync:paths` command for whatever is stale. Use it
+instead of hand-rolling a curl; this document claimed no such check existed, which was wrong
+and is worth correcting loudly, because it is the difference between a one-command answer and
+believing the class is ungated.
+
+Run 2026-08-27 right after the publish above: `procurement/derived/hub_stats.json OK
+16638 B` — and **five OTHER artifacts reported STALE** on the bucket at the same moment
+(`procurement/derived/sector_stats.json`, `culture/derived/hub_stats.json`,
+`governance/hub_stats.json`, `governance/declarations_hub_stats.json`,
+`parliament/votes/derived/hub_stats.json`). Out of scope here, but it says the publish half of
+this class is unhealthy across the board, not just for this one file.
+
 ⚠️ **`data/governance/hub_stats.json` is DOWNSTREAM of this file** —
 `scripts/db/gen_governance/hub_stats.ts` reads the procurement blob as a FILE. Re-check it
 after regenerating, and regenerate it too if it has moved.
@@ -188,6 +229,18 @@ Requirements the gate must meet, from this file's neighbours:
   derived keys are the same set — a gate that compares zero scopes passes.
 - The failure message must name the fix (`npm run db:gen-hub-stats`) and say that the blob
   is committed, so the repair is a regeneration + commit, not a loader run.
+
+**What this gate does NOT cover, stated so it is not mistaken for covered.** It compares DISK
+to the corpus. The reader-facing artifact is the BUCKET copy, and that is a different
+question — `refresh_coverage.test.ts` checks only that a `bucketPath` is DECLARED and covers
+the artifact, never that the bytes match.
+
+⚠️ But "nothing checks it" would be false, and this document said so before review: **`npm
+run db:check-generated` byte-compares every generator's artifact against the bucket** and
+names the publish command for whatever is stale. What is missing is not the check — it is
+that nothing RUNS the check on the path where the drift is introduced. That is a Tier 2
+concern (wire it beside the regeneration), not a gap in this gate: a `.data.test.ts` must do
+no network, so it could not own it anyway.
 
 ## Tier 2 — wire regeneration into the two ingest paths that move the inputs
 
