@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-27T01:57:23.317Z",
+  "generatedAt": "2026-08-27T19:08:39.301Z",
   "nodes": [
     {
       "id": "src:water",
@@ -586,7 +586,7 @@
       "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-24T21:36:43.386Z",
+      "freshness": "2026-08-27T18:39:26.451Z",
       "skills": [
         "update-kzk-appeals"
       ],
@@ -603,7 +603,7 @@
           "label": "КЗК decisions register (решения и определения по ЗОП)",
           "url": "https://reg.cpc.bg/AllResolutions.aspx?dt=2&ot=2",
           "cadence": "weekly",
-          "freshness": "2026-08-21T06:13:11.722Z"
+          "freshness": "2026-08-27T18:39:26.451Z"
         }
       ],
       "x": 28,
@@ -847,7 +847,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-14T15:05:23.140Z",
+      "freshness": "2026-08-27T18:39:26.451Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -987,7 +987,7 @@
           "label": "НОИ STATB пенсии + НСИ заплати (policy-baseline)",
           "url": "https://nssi.bg/publikacii/statistika/pensii-statistika/",
           "cadence": "weekly",
-          "freshness": "2026-07-13T06:08:38.041Z"
+          "freshness": "2026-08-27T18:39:26.451Z"
         },
         {
           "id": "ipop_mrrb",
@@ -1442,7 +1442,7 @@
       "url": "https://www.nsi.bg/bg/content/2432/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-21T06:05:13.616Z",
+      "freshness": "2026-08-27T18:39:26.451Z",
       "skills": [],
       "sources": [
         {
@@ -1457,7 +1457,7 @@
           "label": "Фискален съвет — publications",
           "url": "https://www.fiscal-council.bg/bg/publikacii",
           "cadence": "weekly",
-          "freshness": "2026-08-21T06:05:13.616Z"
+          "freshness": "2026-08-27T18:39:26.451Z"
         },
         {
           "id": "api_road_charges",
