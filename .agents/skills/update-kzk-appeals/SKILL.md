@@ -1,0 +1,421 @@
+---
+name: update-kzk-appeals
+description: Refresh the КЗК (Commission for Protection of Competition) procurement data from reg.cpc.bg — BOTH arms. The intake register (жалби по ЗОП) into data/procurement/kzk_appeals.json + the kzk_appeals table, and the merits register (решения и определения) into kzk_decisions, folded onto kzk_appeals.outcome by the matcher. Use when the daily watch report flags `kzk_appeals` OR `kzk_decisions` as changed, when the user asks to refresh КЗК appeals / жалби / решения / procurement complaints or outcomes, or after a fresh clone if the kzk_appeals table is empty. Note the intake crawl CANNOT fill an outcome — its COALESCE upserts never write one — so a stale merits arm needs Step 1b, not a re-run of Step 1. Drives a headed Playwright browser and needs Bulgarian egress.
+allowed-tools:
+  - Read
+  - Bash
+  - Edit
+  - Write
+---
+
+# Update КЗК appeals skill
+
+Crawls the КЗК registers (`reg.cpc.bg`) and keeps both arms of the appeals pack current:
+
+- **intake** — every complaint, into `kzk_appeals` (Step 1);
+- **merits** — every ruling, into `kzk_decisions`, then folded onto
+  `kzk_appeals.outcome` by the matcher (Step 1b).
+
+They are separate registers, separate crawls and separate watch markers, because they
+fail independently: the intake arm ran happily for five weeks while the merits arm was
+frozen, and the intake crawl is structurally incapable of fixing that.
+
+Surfaces on `/tenders/:unp` (appeals tile + "under appeal" / "suspended" chips), the
+`/procurement` "Recent appeals (КЗК)" tile, `/procurement/appeals`, the
+`procurementAppeals` AI tool, and — via `upheld_ocids` — the contract Corruption Risk
+Index, which is why a stale outcome is not merely a blank field.
+
+## Two constraints before you start
+
+1. **Headed Playwright.** A desktop browser window opens for ~2 minutes. Fine on a dev
+   machine, which is why the orchestrator runs this unattended — but it is **never** a
+   CI or `npm run prod --all` step.
+2. **Bulgarian egress.** `reg.cpc.bg` returns 403 to non-BG IPs. From elsewhere the crawl
+   fails at page 1; there is no proxy path. Skip the skill and report it.
+
+## Step 0 — Pin the local database (READ THIS FIRST)
+
+`--apply` writes Postgres through `scripts/db/lib/pg.ts`. That module's default is the
+docker container with an **inline** password (`postgres:postgres@localhost:5433`), but an
+ambient `DATABASE_URL` always wins — and every `db:*:cloud` npm script exports a
+**password-less** URL by design, so `pg` falls back to `.pgpass`, which holds the **Cloud
+SQL** password. Against local PG that fails:
+
+```
+error: password authentication failed for user "postgres"   (code 28P01)
+```
+
+Any shell that has run a `:cloud` command this session is poisoned. So always pass the
+local URL inline rather than relying on the default:
+
+```bash
+DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' \
+  npx tsx scripts/procurement/kzk_appeals.ts --year <current-year> --apply
+```
+
+The crawl is idempotent (`mergeWrite` on the JSON, `COALESCE` upserts in PG), and the
+failure above happens at *connect* time — before any write. So a re-run after a `28P01`
+loses nothing and double-counts nothing.
+
+## Step 1 — Crawl the complaints (intake)
+
+```bash
+DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' \
+  npx tsx scripts/procurement/kzk_appeals.ts --year 2026 --apply
+```
+
+Incremental by design — one calendar year. The full 2020→ history is behind `--backfill`
+and stays a one-off operator step (see [[feedback_one_off_backfills]]); `--backfill` and
+`--year` are mutually exclusive, as are `--dry-run` and `--apply`.
+
+Expected output:
+
+```
+  … kzk crawl: page 1, 5/691
+  … kzk crawl: page 126, 630/691
+  2026: 691 complaints
+Parsed 691 complaints (691 with УНП, 0 without).
+Wrote …/data/procurement/kzk_appeals.json (7805 total).
+Upserted 691 into kzk_appeals + resolved buyer_eik.
+```
+
+The `Wrote …` line lands **before** the PG upsert, so a DB failure still leaves the JSON
+correct — check for that line before assuming the crawl needs redoing.
+
+Writes `data/procurement/kzk_appeals.json` (gitignored, PG-served) and upserts the
+`kzk_appeals` table: exact УНП→`tenders` join, plus `recordIngestBatch` so the refresh
+shows up in `recent_updates`.
+
+## Step 1b — Refresh the merits arm (the one that used to go stale)
+
+The intake crawl above **cannot write an outcome** — its upserts are
+`COALESCE(existing, EXCLUDED)` on `outcome`/`suspension`. So a `kzk_appeals` flip does not
+refresh tier 2, and for five weeks nothing noticed. Do the other arm too:
+
+**Pin the database, exactly as in Step 0.** The last two commands WRITE, and neither npm
+script sets `DATABASE_URL` — so in the poisoned shell Step 0 describes they hit **Cloud
+SQL**, where `kzk:rejoin` applies an `ALTER TABLE` + index build (ACCESS EXCLUSIVE on a
+serving table) and refreshes `upheld_ocids`.
+
+```bash
+export KZK_LOCAL='postgres://postgres:postgres@localhost:5433/electionsbg'
+
+npm run kzk:decisions -- --probe                            # FIRST RUN on a machine, or after drift
+npm run kzk:decisions -- --year 2026 --apply                # headed browser + BG egress; no DB
+DATABASE_URL="$KZK_LOCAL" npm run db:load:kzk-decisions:pg  # ships the corpus into kzk_decisions (130)
+DATABASE_URL="$KZK_LOCAL" npm run kzk:rejoin -- --apply     # folds it into kzk_appeals.outcome
+```
+
+Step 1's `--apply` prints the tier-2 watermark and warns when it is more than 45 days
+behind the intake arm — that warning is the cue to run this.
+
+`--probe` matters because the decisions register's markup has never been read by committed
+code: it reports which labels it can find, how far back the pager reaches, and whether
+another `ot` value carries the определения (temporary-measure) register, which is the
+missing authoritative source for `suspension`.
+
+The crawl writes only the JSON — it touches no database, so the loader and the rejoin are
+not optional. Forgetting them is caught by Gate A (below), not by a green crawl.
+
+## Step 2 — Verify the outcomes survived (MANDATORY)
+
+```bash
+npx vitest run scripts/db/tests/kzk_decisions.data.test.ts \
+               scripts/db/tests/kzk_appeals_provenance.data.test.ts \
+               scripts/db/tests/kzk_suspension.data.test.ts
+```
+
+(Not `npm run test:data -- kzk`: vitest treats positional args as OR-ed path filters, so
+that runs the whole 88-file PG suite *plus* every `*kzk*` file elsewhere — and an unrelated
+gate failing would send you into the "stop, do not sync to cloud" branch below.)
+
+Five gates run here, and they replaced a check that could never fail. The old one was
+`count(outcome) >= 2098` — a hardcoded floor that protected the irreplaceable rows and
+*also passed forever*, which is how a frozen arm reported success for five weeks.
+
+| Gate | Asserts | File |
+|---|---|---|
+| **A** | the register's newest act (from the committed `state/watch/kzk_decisions.json`) is present in `kzk_decisions` — **DISARMS itself with a `console.warn` when that file is absent**, so check stderr for `GATE A DISARMED` rather than trusting a green run | `kzk_decisions.data.test.ts` |
+| **B** | *(not a test — read Step 1's output)* the intake crawl prints the tier-2 watermark on every `--apply` and warns past 45 days | `kzk_appeals.ts` |
+| **C** | outcome coverage has not dropped below the ratchet | `kzk_appeals_provenance.data.test.ts` |
+| **D** | re-running the matcher still **reaches** at least as many appeals | `kzk_appeals_provenance.data.test.ts` |
+| **E** | every outcome we already PUBLISHED is still derivable, or explained by a named key collision | `kzk_appeals_provenance.data.test.ts` |
+
+Both bars live in `data/procurement/derived/kzk_baselines.json`, raised by every successful
+`kzk:rejoin --apply` and **only ever upward** — commit it when the rejoin says it moved
+(it also says so when only the `matched` observation drifted, which still rewrites the file).
+
+Gate D exists separately because Gate C cannot see a row that stops being matched: it is
+simply absent from `writable`, so its stale outcome survives untouched and `count(outcome)`
+does not move. The only way to see that is to re-run the matcher and compare.
+
+Gate E (added 2026-08-25) is the PER-ROW twin of D and needs no ratchet at all: the database
+is its own snapshot, since `decision_act_no IS NOT NULL` marks the rows the matcher once
+resolved and that column only ever gains rows. It asserts each is still matched, or refused
+with a NAMED collision (a sibling complaint arrived, or a second act claimed it), or citing an
+act that has left the merits-eligible corpus. Anything else means the matcher stopped
+REACHING a row whose outcome we are still serving. It reports "GATE E DISARMED" and checks
+nothing when no machine-derived outcome exists yet — check stderr, as with Gate A.
+
+⚠️ **Gate D's bar is `reached`, not `matched`, since 2026-08-25 — and any older note saying
+otherwise is describing the defect.** `matched` is NOT monotone under corpus growth: a new
+complaint by a firm that already has a live complaint against the same buyer makes that pair
+ambiguous, the matcher correctly refuses to guess which one a ruling decides, and the count
+FALLS on a perfectly healthy crawl. It did, on nine real complaints (2,920 → 2,918), halting
+a publish in which nothing served would have changed — and it was blind in the other
+direction too, since breaking a name fold RAISES the count. `reached` (the candidate union,
+taken before the 1:1 test) is what growth cannot shrink. `matched` is still recorded beside
+it as an observation and may go DOWN; nothing asserts on it, so a fall in it alone is not a
+defect. Full argument and measurements: `docs/plans/kzk-gate-d-ambiguity-v1.md`.
+
+The ~2,098 rows with a **NULL `decision_act_no`** are still irreplaceable — produced
+interactively before any generator existed — and are protected by a fixed floor, not the
+ratchet. Rows **with** an act number were derived by `kzk:rejoin` and can be rebuilt.
+
+If a gate fails, **stop**. Do not commit, do not sync to cloud, and do not lower the
+ratchet — read the failure message, which names the recovery.
+
+## Step 3 — Rebuild the AI summary
+
+```bash
+npm run kzk:summary
+```
+
+Writes `data/procurement/derived/kzk_appeals_summary.json` — the file the
+`procurementAppeals` AI tool serves. This one **is** committed:
+
+```bash
+git add data/procurement/derived/kzk_appeals_summary.json
+git commit -m "procurement: refresh КЗК appeals summary (N complaints for YYYY)"
+```
+
+Both `kzk_appeals.json` and `kzk_decisions.json` stay gitignored — Postgres serves them,
+the client never fetches them.
+
+## Step 3b — Refresh the /procurement hub blob (MANDATORY, and it was missing)
+
+```bash
+# PIN THE DATABASE, exactly as Step 0 and Step 1b require — see the warning below.
+export KZK_LOCAL='postgres://postgres:postgres@localhost:5433/electionsbg'
+
+DATABASE_URL="$KZK_LOCAL" npm run db:gen-hub-stats               # rewrites the committed blob
+DATABASE_URL="$KZK_LOCAL" npx vitest run scripts/db/tests/procurement_hub_stats.data.test.ts
+git commit -m "procurement: refresh hub stats after the КЗК ingest" -- data/procurement/derived/hub_stats.json
+npm run bucket:sync:paths -- procurement/derived/hub_stats.json  # ← readers fetch THIS, not the repo
+npm run db:check-generated                                       # byte-compares bucket vs disk
+```
+
+⚠️⚠️ **THE PIN IS NOT BOILERPLATE HERE, AND ITS ABSENCE IS UNCATCHABLE.** Neither
+`db:gen-hub-stats` nor the gate calls `pinLocalDatabase()`, so in the poisoned shell Step 0
+describes BOTH read Cloud SQL — the generator would mint a **committed** artifact from the
+serving database, and the gate would then validate it against that same database and pass.
+The two halves move together, so no gate can see it. The two corpora genuinely differ today:
+`connected` is 901 local against 893 on cloud, because `company_politicians` is 985 vs 976.
+
+⚠️ **`kzk_appeals` is one of the five tables `data/procurement/derived/hub_stats.json` is
+built from, and until 2026-08-27 this skill never regenerated it.** That blob is committed,
+bucket-synced and read by every visitor to `/procurement`; nothing else in this skill's path
+rebuilds it, and `db:refresh` — which does — is not what an incremental КЗК ingest runs.
+Measured that day: the blob published `appeals` 7,998 against a live 8,007 (the 08-24 batch),
+stale in the repo AND on the bucket, at a 200, with every gate green.
+
+Three things about this step are easy to get wrong:
+
+- **The commit is not the publish.** The browser reads the blob from GCS, not from the repo,
+  so regenerate → commit → **sync**. Skipping the sync leaves production on the old numbers
+  with a clean git tree. `db:check-generated` is the check that catches it.
+- **Regenerate only when nothing is writing to Postgres.** A blob generated mid-chain is
+  stale on arrival — measured, one landed exact and was €96.3m short of `all.totalEur` ten
+  minutes later because a concurrent load was still committing.
+- **The gate is the verification, not the row count.** `procurement_hub_stats.data.test.ts`
+  compares all 30 scopes × 10 fields against the corpus; a passing КЗК gate says nothing
+  about the hub blob.
+
+## Step 4 — Publish to prod (Cloud SQL)
+
+**Take a LOCAL restore point BEFORE you export any cloud URL.** Until
+`kzk:decisions --backfill --dry-run` is proven to re-derive the 2026-07-04 corpus,
+`kzk_decisions` plus the gitignored `data/procurement/kzk_decisions.json` are its only
+copies, and the ~2,098 hand-seeded outcomes have no copy at all beyond the database.
+`db:dump` snapshots whatever `DATABASE_URL` points at and rewrites `latest` plus the
+committed lockfile — so run it unpinned in this section and the "restore point" is a
+snapshot of Cloud SQL that has clobbered the real one:
+
+```bash
+DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' npm run db:dump
+```
+
+Procurement's CORPUS is served from Cloud SQL, so there is no `bucket:sync` for the
+contracts/tenders/appeals tables. ⚠️ That is not true of the whole tree: four files under
+`data/procurement/` are explicit exemptions from the sync exclusion, and one of them —
+`derived/hub_stats.json` — IS moved by this skill and MUST be synced. See Step 3b.
+
+`kzk_appeals.ts` applies **no DDL of its own** — the table and its two functions must
+already exist on the target. Normally they do: `db:load:tenders:pg[:cloud]` applies
+`042_kzk_appeals.sql` as part of its own schema pass (`load_tenders_pg.ts`, `KZK_FILE`),
+because `tender_appeals()` joins tenders by УНП. So after any `update-procurement` publish,
+the cloud table is already there.
+
+If you're publishing КЗК *without* a tenders load (or onto a fresh cloud DB), apply the
+migration yourself first. It's idempotent (`CREATE TABLE IF NOT EXISTS` +
+`CREATE OR REPLACE FUNCTION`), so running it every time is harmless:
+
+```bash
+# 1. (only if 042 hasn't reached this DB) table + tender_appeals() + kzk_recent_appeals()
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+  npx tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql
+
+# 2. re-crawl straight into Cloud SQL
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+  npx tsx scripts/procurement/kzk_appeals.ts --year 2026 --apply
+```
+
+`apply_functions.ts` takes **bare filenames** relative to `scripts/db/schema/pg/`, not
+paths. Both commands need the Cloud SQL proxy on `127.0.0.1:5434` with the `.pgpass` line
+present — here the password-less URL is *correct*, which is exactly why it must never leak
+into a local invocation (Step 0).
+
+> **`npm run db:dump:cloud` does NOT publish this.** `scripts/db/dump.ts` is a
+> snapshotter: it `pg_dump`s whatever `DATABASE_URL` points at and uploads the dump to GCS
+> for `db:restore`. Pointed at the proxy it dumps Cloud SQL *outward*. It writes nothing
+> into cloud and cannot create the table. Run it after the loaders if you want a restore
+> point; never instead of them. (It was called `db:dump` until 2026-07-10 — that name kept
+> getting copied into deploy checklists as a no-op.)
+
+There is no `db:load:kzk:pg:cloud` wrapper **for the intake arm** — the crawl *is* the
+loader, which is why publishing means re-crawling against the cloud URL.
+
+**The tier-2 decisions arm is different**, and this is the one place the two arms do not
+behave alike. `kzk_decisions` (migration 130) has a real loader, so its corpus ships
+without a re-crawl:
+
+```bash
+npm run db:load:kzk-decisions:pg:cloud
+```
+
+**Both commands, in this order** — the loader ships the corpus, but nothing on prod folds
+it into `kzk_appeals.outcome` until the rejoin runs there too:
+
+```bash
+npm run db:load:kzk-decisions:pg:cloud
+npm run kzk:rejoin:cloud -- --apply
+```
+
+Run them after any `kzk_decisions.ts --apply` crawl, and on a first deploy **before**
+anything reads the table. The loader applies 005 + 130 itself and the rejoin applies 131,
+so they work on a cold database. The rejoin deliberately does NOT update the committed
+ratchet from a serving database — raise that from a local run. Step 0's local-DB pinning hazard applies
+to it identically — an ambient `:cloud` `DATABASE_URL` in the shell will send a *local*
+invocation at Cloud SQL. `db:refresh` runs the local equivalent; nothing runs the cloud
+side automatically.
+
+The alternative is the destructive
+whole-DB `npm run db:sync:cloud -- --yes`, which requires local to be source of truth
+first — including these unregenerable outcome rows.
+
+## The tier-2 gap: merits outcomes
+
+A complaint's *outcome* is not in the intake register. It lives in a separate decisions
+register (`reg.cpc.bg/AllResolutions.aspx?dt=2&ot=2`, field **"Произнасяне"**), joined back
+onto `kzk_appeals.outcome` via an **unambiguous** complainant + respondent + year 1:1 match
+(ambiguous rows stay null — no low-confidence guesses). It also authoritatively sets
+`suspension`, which the intake can only infer from `/спрян/` in `status`.
+
+**The crawler now exists** — `scripts/procurement/kzk_decisions.ts`
+(`npm run kzk:decisions`). Same two constraints as the intake arm: headed browser, BG
+egress. It writes only the JSON store; publishing is the loader plus the rejoin.
+
+```bash
+npm run kzk:decisions -- --probe            # FIRST, on a new machine
+npm run kzk:decisions -- --year 2026 --apply
+npm run db:load:kzk-decisions:pg
+npm run kzk:rejoin -- --apply
+```
+
+**⚠ Run `--probe` before trusting a crawl on a new machine.** The decisions register's
+markup has never been read by committed code — the parser is written against the SHAPE of
+the 2026-07-04 corpus and the sibling register's conventions. `--probe` reports which labels
+it can actually find, how far back the pager reaches, and whether another `ot` value carries
+the определения (temporary-measure) register, which is the missing authoritative source for
+`suspension`.
+
+**The outcomes now have two authors**, told apart by `decision_act_no` (migration 131):
+
+- **act set** → derived by `kzk_rejoin.ts` from the `kzk_decisions` corpus. Re-derivable at
+  will; a better matcher may overwrite it.
+- **act NULL, outcome set** → one of the ~2,098 produced interactively before any of this
+  existed. Still irreplaceable, still never overwritten by any writer.
+
+So: never wipe `kzk_appeals.json` or `TRUNCATE kzk_appeals`, and treat Step 2's assertion as
+a hard gate. But a fresh machine is no longer stuck at intake-only — it can rebuild
+everything except those 2,098.
+
+## Data-integrity contract
+
+| Surface | Behaviour |
+|---|---|
+| Non-BG egress | reg.cpc.bg 403s; crawl fails at page 1. Report, don't retry. |
+| Ambient cloud `DATABASE_URL` | `28P01` at connect, before any write. Re-run with the local URL pinned. |
+| Header-total mismatch | The crawler asserts the parsed count against the page's "Намерени са общо N жалби" header — a pager or Turnstile regression fails loud rather than silently returning a short list. |
+| Markup drift dropping a label | `COALESCE` upserts keep the previously-good value; the row does not flip to unresolved. |
+| `outcome` count drops after a run | The guards regressed. Halt — see Step 2. |
+
+## Stamping
+
+The orchestrator stamps a marker per ARM (each named for its watcher source, not the
+skill). **Two markers, deliberately** — a shared one is how the merits arm sat five weeks
+stale while the intake arm kept reporting success.
+
+```bash
+# intake (Step 1)
+npx tsx scripts/stamp-ingest.ts kzk_appeals --summary "КЗК appeals YYYY intake: N complaints, M total; tier-2 through <max decision_date>"
+npx tsx scripts/append-data-change.ts kzk_appeals --summary "КЗК procurement-appeals register refreshed: N complaints for YYYY" --source "КЗК (reg.cpc.bg)"
+
+# merits (Step 1b) — only if you ran it
+npx tsx scripts/stamp-ingest.ts kzk_decisions --summary "КЗК decisions YYYY: N acts, M total; outcomes now O"
+npx tsx scripts/append-data-change.ts kzk_decisions --summary "КЗК decisions register refreshed: N acts for YYYY" --source "КЗК (reg.cpc.bg)"
+```
+
+⚠️ **Do not write "2,098 outcomes preserved" any more.** That line was literally true for
+five weeks while the arm was frozen — a constant reported as a success. State the tier-2
+DATE, which moves when the data does.
+
+Only stamp after Step 2 passes.
+
+## What this skill does NOT do
+
+- **Does not run a FULL `bucket:sync`.** `procurement/` is broadly excluded from the sync and
+  Cloud SQL serves the corpus. ⚠️ But the exclusion is a negative lookahead with four
+  exemptions, and `procurement/derived/hub_stats.json` is one of them — a committed,
+  bucket-served blob this skill's own ingest stales. Step 3b syncs that ONE path and it is
+  mandatory. This bullet said the flat opposite until 2026-08-27, which is part of why the
+  blob sat stale on the bucket for four days.
+- **Does not run `update-procurement`.** Different source, different corpus. A `kzk_appeals`
+  flip must never enqueue the full АОП re-ingest.
+- **Does not run in CI.** Headed browser + BG egress.
+
+## File map
+
+| Path | Purpose |
+|---|---|
+| `scripts/procurement/kzk_appeals.ts` | Headed crawl + JSON merge + PG upsert (`--year` / `--backfill` / `--apply` / `--dry-run`) |
+| `scripts/procurement/build_kzk_summary.ts` | `npm run kzk:summary` — the `procurementAppeals` AI-tool payload |
+| `scripts/db/schema/pg/042_kzk_appeals.sql` | Table + `tender_appeals(unp)` + `kzk_recent_appeals(limit)` |
+| `scripts/db/apply_functions.ts` | Surgical idempotent DDL apply (bare filenames) |
+| `data/procurement/kzk_appeals.json` | Full complaint store — gitignored, PG-served |
+| `scripts/procurement/kzk_decisions.ts` | Headed decisions crawl (`--probe` / `--year` / `--backfill` / `--apply`) |
+| `scripts/procurement/kzk_decisions_store.ts` | Shared decision shape + validator (rejects column-shifted rows) |
+| `scripts/procurement/kzk_match.ts` | Pure decisions↔appeals join (multi-party split, year\|year-1 window) |
+| `scripts/procurement/kzk_rejoin.ts` | `npm run kzk:rejoin` — re-derive outcomes offline from the stored corpus |
+| `scripts/db/load_kzk_decisions_pg.ts` | `db:load:kzk-decisions:pg` — ships the corpus into `kzk_decisions` (130) |
+| `data/procurement/kzk_decisions.json` | Tier-2 decisions corpus — gitignored; written by `kzk:decisions` |
+| `data/procurement/derived/kzk_appeals_summary.json` | AI summary — **committed** |
+| `scripts/watch/sources/kzk_appeals.ts` | Watcher source (intake) — current-year complaint count + newest id |
+| `scripts/watch/sources/kzk_decisions.ts` | Watcher source (merits) — writes `meta.newestAct`, **Gate A's anchor** |
+| `state/watch/kzk_decisions.json` | That anchor. **Committed.** Gate A disarms without it |
+| `scripts/db/schema/pg/130_kzk_decisions.sql` | The decisions corpus table |
+| `scripts/db/schema/pg/131_kzk_appeal_provenance.sql` | `decision_act_no` — machine-derived vs hand-seeded |
+| `scripts/procurement/kzk_provenance.ts` | The rule deciding what a writer may overwrite |
+| `scripts/procurement/kzk_dependents.ts` | The ONE refresh list every writer calls (matviews + risk grade) |
+| `scripts/procurement/kzk_baselines.ts` | The coverage ratchet behind Gates C/D |
+| `data/procurement/derived/kzk_baselines.json` | That ratchet — **committed**; commit it when the rejoin says it moved |

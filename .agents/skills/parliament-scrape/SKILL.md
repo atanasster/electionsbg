@@ -1,0 +1,229 @@
+---
+name: parliament-scrape
+description: Scrape MP photos, biographies, and seat data from parliament.bg. Use when the user asks to update parliament data, refresh MP profiles, add a newly seated parliament (e.g. 52nd NS after the April 2026 election), regenerate seat allocations, or fix missing photos/bios on candidate pages. Also use to re-run the scraper after a fresh git clone if `public/parliament/index.json` is missing.
+allowed-tools:
+  - Read
+  - Bash
+  - Edit
+  - Write
+---
+
+# Parliament.bg scraper skill
+
+Pulls MP data (photos, bios, region, party, term history) from `parliament.bg`'s public `/api/v1` endpoints and stores it under `public/parliament/`. The frontend integrates this with the existing CIK candidate data via case-insensitive name matching.
+
+## When to use which command
+
+The scraper at `scripts/parliament/scrape_mps.ts` has four operational modes. Pick based on intent:
+
+| Intent | Command | Time | Network calls |
+|---|---|---|---|
+| **First-time scrape** (e.g. after fresh clone, no `index.json`) | `npx tsx scripts/parliament/scrape_mps.ts --all` | ~10 min | ~5200 |
+| **New parliament was seated** (e.g. 52nd NS sworn in after April 2026 election) | `npx tsx scripts/parliament/scrape_mps.ts --all --refresh-current` | ~2 min | ~240 + new IDs |
+| **Just want current 240 MPs as a per-election bundle** | `npx tsx scripts/parliament/scrape_mps.ts --profiles --photos` | ~3 min | ~240 + 240 photos |
+| **Re-emit `index.json` after adding an emitted FIELD** (no new data — the profiles are already on disk) | `npx tsx scripts/parliament/scrape_mps.ts --reindex` | ~2 s | **none** |
+
+`--reindex` needs an existing `index.json` and is exclusive with `--all`. It rebuilds every
+entry from the cached `profiles/{id}.json`, then rewrites `by-id/` and `avatars.json` in the
+same breath — the three are one artifact set and a run that writes only the first leaves them
+contradicting each other.
+
+**It cannot re-derive everything.** The roster half of an entry — `currentRegion`,
+`currentPartyGroup(Short)`, `position`, `isCurrent`, `scrapedAt` — has no counterpart in a
+profile blob and is carried over verbatim from the previous index. `nsFolders` is the subtle
+one: `oldnsList` holds only PAST parliaments, so the CURRENT folder and the name-dedupe's
+folder union both come from the online path. It is UNIONED with the previous value rather
+than replaced, and the run refuses to write if any MP's folder set would shrink. The first
+cut did neither and silently dropped "52" from all 240 sitting MPs (156 entries emptied),
+which reaches 105's per-NS fan-out and `mpSeats.ts`'s seat gate.
+
+**Default to `--all --refresh-current` when in doubt** — it is idempotent, keeps cached files, and produces correct output whether or not a new NS has been seated.
+
+## Inputs and outputs
+
+**Inputs** — none on disk. The scraper reads only from parliament.bg via HTTPS.
+
+**Outputs** under `public/parliament/`:
+- `index.json` (~930 KB) — flat lookup table: every MP's `id`, `normalizedName`, `photoUrl`, `currentRegion`, `seatedRegion`, `currentPartyGroup`, `nsFolders[]`, `isCurrent`. Loaded once by the frontend.
+  - `currentRegion` is the МИР from the **current-NS roster**, so it is `null` for every MP who no longer sits (240 of 2,122). `seatedRegion` is the МИР off the MP's **own profile record**, which parliament.bg carries for all of them (2,122/2,122) — that is the one `db:resolve:persons` reads for `person_role.place_code`. parliament.bg holds only ONE value per person, so for a multi-term MP it is a badge, not a per-parliament history; the per-cycle record lives in `person_election_stats`.
+- `avatars.json` (~37 KB) — slim id→{photo, party-group} projection of `index.json`, auto-regenerated at the end of the `--all` run by `scripts/parliament/build_avatars.ts`. Lets `<MpAvatar>` draw a face + party ring without pulling the full ~930 KB index on connection-only pages (`/company`, `/awarder`, `/officials`). Read by `src/data/parliament/useMpAvatars.tsx`. Regenerate standalone with `npx tsx scripts/parliament/build_avatars.ts`.
+- `profiles/{id}.json` × ~4000 (~5 MB total raw, ~1 MB gzipped) — trimmed bio per MP, lazily fetched on candidate pages.
+- `by-id/{id}.json` × ~2100 (~0.4 KB each) — one `index.json` roster entry per MP, auto-written at the end of every run by `scripts/parliament/lib/writeMpById.ts`. Lets the candidate page resolve one MP by id (`src/data/parliament/useMpEntry.tsx`) without pulling the full ~930 KB index — the procurement→MP deep-link for a former / off-ballot MP loads this shard instead of the roster. Backfill standalone from an existing index with `npx tsx scripts/parliament/build_mp_by_id.ts`. The frontend falls back to the full roster if a shard 404s.
+
+**Both outputs are committed to git** so new contributors can skip the scrape. They are NOT under `/public/2*/` (that path is gitignored), so they survive `npm run prod`.
+
+## Step-by-step: handling a new parliament being seated
+
+When parliament.bg's `coll-list-ns/bg` starts returning a NEW current NS (e.g. 52nd Народно събрание convenes after the 2026-04-19 election), follow this sequence:
+
+1. **Verify the new NS is actually current** — the data only changes when MPs are sworn in, not on election day:
+   ```bash
+   curl -s -A "Mozilla/5.0" -H "X-Requested-With: XMLHttpRequest" \
+     https://www.parliament.bg/api/v1/coll-list-ns/bg | \
+     python3 -c "import json,sys; d=json.load(sys.stdin); print(d['A_ns_CL_value'], d['A_ns_C_active_count'])"
+   ```
+   You should see `52-о Народно събрание 240` (or similar). If you still see the previous NS, parliament.bg hasn't been updated yet — try again later.
+
+2. **Run the incremental update**:
+   ```bash
+   npx tsx scripts/parliament/scrape_mps.ts --all --refresh-current
+   ```
+   This re-fetches the 240 sitting MPs (their `oldnsList` grows when their previous NS becomes "past"), pulls any new IDs assigned by parliament.bg, and rebuilds the deduped index.
+
+3. **Verify the change**:
+   ```bash
+   python3 -c "
+   import json
+   d = json.load(open('public/parliament/index.json'))
+   print('current NS:', d['currentNs'])
+   print('total deduped MPs:', d['total'])
+   "
+   ```
+
+4. **Spot-check the preview** at `/?elections=<latest>` (e.g. `2026_04_19`) — the Top Candidates strip should show photos, and clicking a top candidate should show the MP profile header card with the new NS in the "Terms" line.
+
+5. **Re-decorate local-election bundles** (so any newly-seated MPs whose
+   `photoUrl` just appeared in the index also show their portrait on the
+   local-election mayor / council rows they ran on):
+   ```bash
+   npx tsx scripts/parsers_local/decorate_local_mp_links.ts
+   ```
+   This walks every `data/<cycle>/municipalities/<obshtinaCode>.json`
+   shard for all 9 local-election cycles, re-matching candidate names
+   against the refreshed parliament index. ~10 s, idempotent. Skip only
+   when this run added zero new MPs (`--refresh-current` on an already-up-
+   to-date NS) and you're certain no `photoUrl` changed. When in doubt,
+   re-run — it's a no-op when nothing changed and prevents stale `mpId`
+   stamps after parliament.bg renumbers an MP.
+
+6. **Re-build parliamentary candidate resolution shards** (the parliamentary
+   analogue of step 5). Every `/candidate/*` page resolves its person from a
+   precomputed shard whose `mpId` match + embedded MP `photoUrl` / party group
+   / `isCurrent` come from the parliament index — so a roster refresh leaves
+   those shards stale until they are re-matched:
+   ```bash
+   npx tsx scripts/preferences/rebuild_resolved.ts
+   ```
+   Walks every parliamentary election's `data/<election>/candidates/`,
+   re-matches against the refreshed index, and rewrites only the shards that
+   actually changed (`resolved.json` + `by-slug/*.json`). ~15 s, network-free,
+   idempotent — same skip rule as step 5. These shards are gitignored
+   (`/data/2*/*`) and served from GCS, so **ship them with `bucket:sync`, not a
+   commit**. (The full preferences pipeline, `npm run data -- --candidates`,
+   regenerates them inline; this step is the cheap re-match for when only the
+   parliament index moved.)
+
+7. **Reload Postgres — the roster, profiles and avatars are PG-served now**
+   (persons-pg-retirement-v1 T2.2/T2.3/T2.4). Since that migration `useMps`
+   (roster), `useMpProfile` (bio), `useMpAvatars`, and the MP assets/cars
+   leaderboards read Cloud SQL via `/api/db`, **not** `parliament/index.json` /
+   `profiles/` / `avatars.json` — those are dropped from the bucket and excluded
+   from `bucket:sync`. So a scrape reaches prod ONLY after the loader runs;
+   regenerating the JSON alone changes nothing on the live site:
+   ```bash
+   npm run db:load:mp-roster:pg          # local: mp_profile + mp_profile_detail + mp_roster_meta;
+                                         # also rebuilds the 105 mp_assets_rankings / mp_cars matviews
+   npm run db:load:mp-roster:pg:cloud    # prod Cloud SQL (needs the proxy on :5434 + PGPASSFILE=$PWD/.pgpass)
+   ```
+   The JSON stays on disk as the loader SOURCE (the `mp_serving` / `mp_roster` /
+   `mp_profile_detail` parity gates read it); it is never served from the bucket
+   again. The step-6 `bucket:sync` still ships the gitignored candidate-resolution
+   shards — those remain bucket-served — it just no longer carries the roster.
+
+8. **Commit**:
+   ```bash
+   git add public/parliament/ data/
+   git commit -m "Update parliament data for 52nd NS"
+   ```
+   The diff will mostly be in `index.json` plus 240-ish profile files (the
+   sitting MPs' updated `oldnsList`), and the `mpId` stamps the decorator
+   wrote across local-election bundles. (Candidate resolution shards from
+   step 6 are gitignored — they don't appear here; bucket-sync them instead.)
+
+## Data-integrity contract
+
+The scraper is designed to **fail loud rather than overwrite `data/parliament/index.json` with a near-empty roster** when parliament.bg's API mass-fails.
+
+Fail-loud surfaces (the script throws before any write):
+
+| Surface | Trigger |
+|---|---|
+| HTTP non-2xx on `coll-list-ns/bg` or `mp-profile/<lang>/<id>` after 3 retries | `fetch failed for <url>: <status>` |
+| Deduped MP count < 200 after the full walk | `safety check: deduped MP count N < 200 (kept R raw, …)`. Catches "parliament.bg returned a different shape and we'd write an empty roster". |
+
+Intentional non-fatal skips (documented as normal):
+
+| Surface | Behaviour | Why not a hard fail |
+|---|---|---|
+| MP id returns `[]` from `mp-profile/bg/<id>` | Counted as `empty`, walk continues | parliament.bg has ~1170 gaps in its id sequence — these are real holes, not failures |
+| MP id throws during fetch (network/transient) | Counted as `failed`, walk continues | Occasional 5xx; the retry loop already handles 3 attempts |
+| Photo download fails for one MP | `photoUrl` cleared on that MP's index entry | Doesn't invalidate the rest of the roster; the SPA falls back to initials |
+| English-name backfill (`mp-profile/en/<id>`) fails | Falls back to transliterating the BG name | Older records often have no EN profile; transliteration is acceptable |
+
+Summary line after every run prints `kept R raw → D deduped, E empty ids, F failures` so you can see at a glance whether the run is healthy. A normal `--all --refresh-current` produces D ≈ 2100+ deduped, E ≈ 1170, F ≈ 0.
+
+## Common pitfalls
+
+### Cloudflare blocks results.cik.bg
+The scraper uses `parliament.bg`, NOT `results.cik.bg`. Don't try to extend it to scrape CIK URLs without a headless browser (Playwright) — Cloudflare returns a 403 challenge to plain `curl`/`fetch` requests. CIK is needed only for *original election-day winners* (which we explicitly do not pull here — see "What this skill does NOT do" below).
+
+### Why some MPs have multiple records
+Parliament.bg creates a **separate MP record per NS** for the same person. Borisov has 7 records (one per term he served). The scraper dedupes by normalized name in the index — keeping the entry with `isCurrent === true` if any, otherwise the one with the most `nsFolders`. Profile files keep all variants on disk under their respective IDs (we never delete cached profiles).
+
+### Married names and orthographic variants
+Name matching is case-insensitive whitespace-normalized but exact otherwise. `НЕБИЕ ИСМЕТ КАБАК` (CIK candidate listing) and `НЕБИЕ ИСМЕТ ЦЪРЕНСКА` (parliament.bg, after marriage) will not match. There is no fix in the scraper for this — it is an irreducible 1-2 MPs per parliament.
+
+### Profile bloat
+parliament.bg returns ~30 KB profiles by default with massive `importActList`/`controlList`/`mshipList` arrays we don't use. The scraper trims to ~1.5 KB per profile. **If you ever change the scraper to keep more fields**, update `PROFILE_KEEP` in `scripts/parliament/scrape_mps.ts` AND clear `public/parliament/profiles/` so cached files are re-fetched fresh.
+
+### Empty IDs
+Out of 5200 walked, ~1170 IDs return `[]` — these are gaps in parliament.bg's id sequence. The scraper handles them silently. Do not interpret a high empty count as a failure.
+
+## What this skill does NOT do
+
+- **Does not scrape CIK** (`results.cik.bg`). That requires a headless browser to bypass Cloudflare, and would only matter if you need *original election-day winners* (i.e. the seat allocation as published the day after the vote, before any list-substitutions). Parliament.bg gives the *currently active* member roster, which is what the dashboard's photo integration uses.
+- **Does not download photos to disk.** The frontend hotlinks `https://www.parliament.bg/images/Assembly/{id}.png` directly. There is a `--photos` option on the legacy current-only mode, but `--all` does not download photos because we ship 4000+ MPs and committing 40+ MB of photos would be wasteful. If you need photos offline, fork the script.
+- **Does not produce per-region seat allocation.** The 51st-NS-only mode (`--profiles`) writes a `seats_by_region.json` to its `--out` directory. The historical `--all` mode does not — building per-region per-NS seat data would require either CIK scraping or reconstructing it from `oldnsList` + region-at-the-time, which parliament.bg does not store.
+
+## File map
+
+| Path | Purpose |
+|---|---|
+| `scripts/parliament/scrape_mps.ts` | The scraper. CLI entry. |
+| `scripts/parliament/build_avatars.ts` | Emits `avatars.json` from `index.json`; auto-run by the scraper. |
+| `scripts/parliament/lib/writeMpById.ts` | Emits `by-id/{id}.json` per-MP roster shards; auto-run by the scraper. |
+| `scripts/parliament/build_mp_by_id.ts` | Standalone backfill of `by-id/` from an existing `index.json` (no re-scrape). |
+| `public/parliament/index.json` | Lookup table — committed to git. |
+| `public/parliament/avatars.json` | Slim id→{photo, party} avatar projection — committed to git. |
+| `public/parliament/profiles/{id}.json` | Per-MP bio — committed to git. |
+| `public/parliament/by-id/{id}.json` | Per-MP roster shard — committed to git. |
+| `src/data/parliament/useMps.tsx` | React Query hook for the index. |
+| `src/data/parliament/useMpEntry.tsx` | React Query hook for one `by-id/{id}.json` shard. |
+| `src/data/parliament/useMpAvatars.tsx` | React Query hook for the slim avatar projection. |
+| `src/data/parliament/useMpProfile.tsx` | React Query hook for one profile (lazy). |
+| `src/screens/components/candidates/MpProfileHeader.tsx` | Photo + bio card on the candidate page. |
+| `src/screens/dashboard/TopCandidatesStrip.tsx` | Avatar with photo on the dashboard tile. |
+
+## Frontend integration cheat-sheet
+
+If you change the scraper's output schema, update these in lockstep:
+- `IndexEntry` type in `scripts/parliament/scrape_mps.ts`
+- `MpIndexEntry` type in `src/data/parliament/useMps.tsx`
+- `RawProfile` and `MpProfile` types in `src/data/parliament/useMpProfile.tsx`
+- `PROFILE_KEEP` set in `scripts/parliament/scrape_mps.ts` if adding a new field from the API
+- `AvatarsFile` in `scripts/parliament/build_avatars.ts` + `useMpAvatars.tsx` if the photo path or party-group fields the avatar projection depends on change
+
+A field that must also reach Postgres (as `seatedRegion` and `electedWith` do) needs four
+more, and stopping at `index.json` is the easy mistake — the roster loads green and the field
+is simply absent from every serving surface:
+- the column in `scripts/db/schema/pg/104_mp_roster.sql` — **and** a matching
+  `ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS …` in the reconcile block at the foot of
+  that file, since `CREATE TABLE IF NOT EXISTS` is a no-op on a warm database
+- BOTH lists in `scripts/db/load_mp_roster_pg.ts` (the column names and the value generator —
+  they are positional)
+- the `jsonb_build_object` key in `mp_entry()`, `scripts/db/schema/pg/105_mp_serving.sql`
+- a gate: `mp_serving.data.test.ts` compares `mp_entry()` to the by-id shard in both
+  directions, so a field served but not sharded now fails there; a field the route does not
+  serve needs its own assertion in `mp_roster.data.test.ts` (see `elected_with`).
+
+The match key is `normalizedName = name.toUpperCase().replace(/\s+/g, " ").trim()`. CIK candidate names are title-cased, parliament.bg names are uppercase, so normalization is required — do not rely on case-sensitive equality.

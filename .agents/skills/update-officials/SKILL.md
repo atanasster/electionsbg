@@ -1,0 +1,368 @@
+---
+name: update-officials
+description: Refresh the non-MP officials declarations data — pulls property/interest declarations from register.cacbg.bg (Сметна палата) for cabinet members, deputy ministers, state-agency heads, regional governors, and the municipal tier (mayors, deputy-mayors, council chairs, councillors, chief architects). Use when the daily watch report flags "Сметна палата declarations — executive (officials)" or "Сметна палата declarations — municipal (mayors & councillors)" as changed, when the user asks to refresh officials data, when adding a new declaration year (e.g. 2026 filings appear in spring), or after a fresh git clone if `data/officials/assets-rankings.json` or `data/officials/municipal/index.json` is missing.
+allowed-tools:
+  - Read
+  - Bash
+  - Edit
+  - Write
+---
+
+# Update Officials skill
+
+Scrapes `register.cacbg.bg/{year}/list.xml` for non-MP categories (cabinet, deputy ministers, state-agency heads, regional governors) and writes per-official declaration JSON to `data/officials/declarations/{slug}.json`, plus the `index.json` and `assets-rankings.json` rollups consumed by the `/officials/assets` page, `/officials/{slug}` profile pages, and the dashboard `OfficialsAssetsTile`.
+
+The municipal tier (mayors, deputy-mayors, municipal-council chairs, councillors and chief architects — ~6,400/year) lives in the same register and is ingested by a separate script, `scripts/officials/municipal.ts`, into its own scope under `data/officials/municipal/` (per-official declarations + a roster `index.json`). It is kept separate because the volume is ~15× the executive set and the declarations carry no party affiliation — there is no `/officials/assets`-style ranking page for it; the output is staged for the cross-MP connections graph. The judiciary (ВКС/ВАС/прокурори/съдии) lives in the same register but remains out of scope.
+
+## When to run
+
+| Trigger | Action |
+|---|---|
+| Daily watcher reports `Сметна палата declarations — executive (officials): N declarations in scope` changed | Re-run the executive ingest for the current year (`npx tsx scripts/officials/index.ts`) |
+| Daily watcher reports `Сметна палата declarations — municipal (mayors & councillors): N declarations in scope` changed | Re-run the municipal ingest (`npx tsx scripts/officials/municipal.ts`) |
+| User asks to "refresh officials" / "update cabinet declarations" | Run the executive ingest; run the municipal ingest too if the municipal watcher also flipped |
+| `data/officials/assets-rankings.json` missing (fresh clone) | Cold-start executive ingest |
+| `data/officials/municipal/index.json` missing (fresh clone) | Cold-start municipal ingest (Step 1b — ~30–50 min) |
+| Watcher reports `new declaration year <prev> → <curr>` | The register opened a new cycle. Re-run the flagged ingest with no `--year` — it resolves the newest published year itself. Expect a cold-start-sized run (the whole cycle is new declarations). |
+| Adding a new year of filings | Only needed to pin a *non-newest* year: `--year <YYYY>`. The newest is the default. |
+
+## Step 1 — Ingest
+
+```bash
+npx tsx scripts/officials/index.ts
+```
+
+Default year is 2025. The script:
+
+1. Fetches `register.cacbg.bg/2025/list.xml` (the master directory for that filing year).
+2. Filters Category nodes to executive substrings: "Министър-председател", "министри и заместник-министри", "Областни управители", "държавни агенции", "изпълнителните агенции".
+3. For each matched declaration: fetches the per-person XML (cached under `raw_data/officials/` — gitignored), parses with the shared `scripts/declarations/parse_declaration` parser, and writes one JSON per slug.
+4. Builds `index.json` (one row per official with role + institution) and `assets-rankings.json` (sorted by netWorthEur, with byCategory slices).
+
+Expected output on a normal run (incremental, after a couple of new filings):
+
+```
+→ officials: fetching 2025 list…
+  548 declaration(s) across cabinet/agencies/governors
+  processed 548 declaration(s) for 437 unique official(s)
+  wrote 437 per-official file(s) to data/officials/declarations
+  wrote index.json (437 official(s))
+  wrote assets-rankings.json (top: Евтим Милошев €4.1M, Росен Карадимов €1.5M, …)
+```
+
+A few 2025 declarations carry an obviously mistyped acquisition price (a
+decimal comma dropped at source, inflating an apartment ~100×). The shared
+parser auto-corrects these: `correctRealEstateSeparatorTypo` in
+`scripts/declarations/parse_declaration.ts` divides a built property back
+down whenever its raw price-per-m² is impossibly high — each correction
+prints a `[parse] auto-corrected real-estate value …` line in the run log.
+Rare /1000 typos it deliberately leaves alone sit in the adjacent
+`REAL_ESTATE_VALUE_OVERRIDES` table. If the ranking still looks wrong, run
+the suspicious-value scan (Step 2).
+
+The same parser also `/1000`-corrects implausibly priced 20-year-plus
+vehicles (`correctOldVehicleSeparatorTypo`) and drops byte-identical
+duplicate building rows within a declaration (`dedupeRealEstateRows`) —
+both print `[parse] …` lines in the run log. Land parcels are never
+de-duplicated: restitution leaves owners holding many genuinely-equal
+fragmented plots.
+
+Cold start takes ~90 seconds (network-bound on per-declaration fetches — 150 ms politeness sleep between requests). Re-runs are faster because raw XMLs are cached under `raw_data/officials/`.
+
+## Coverage check — did the ingest take everything the register lists?
+
+```bash
+npx tsx scripts/declarations/coverage.ts            # every folder on file
+npx tsx scripts/declarations/coverage.ts --year 2025
+```
+
+Prints listed-vs-held per tier per register folder. Run it after any ingest
+change, and whenever a tier looks thin.
+
+It exists because an ingest can hold half the corpus with nothing looking wrong:
+the MP leg read only the FIRST `Declaration` node per person and took 246 of the
+285 declarations the 2025 folder lists, for years, while every run reported
+success. Only the two numbers side by side showed it.
+
+Reading a gap: a small one is usually an upstream fact, a large SHARE of a folder
+is usually the ingest dropping rows. Known-good gaps today:
+
+| tier | folder | gap | why |
+|---|---|---|---|
+| executive | 2018 | 403 (8.5%) | XML 404s upstream; the ingest already warns, and `--max-missing` exists to accept it |
+| MPs | various | 4-16 | declarants in the NS category who are not in `data/parliament/index.json` (logged as `no MP match`) |
+
+Anything else, especially a round fraction of a folder, is worth treating as a
+parser or filter bug until proven otherwise.
+
+## Step 1b — Municipal tier
+
+```bash
+npx tsx scripts/officials/municipal.ts
+```
+
+Separate ingest for the local-government tier. The script:
+
+1. Fetches the same `register.cacbg.bg/{year}/list.xml`.
+2. Filters Category nodes to the `Кметове…` family (mayors, deputy-mayors, council chairs, municipal councillors, chief architects).
+3. Maps each declarant's `Position/Name` role label to a role bucket, fetches + parses the per-person XML (same shared parser and `raw_data/officials/` cache as the executive ingest), and writes one JSON per slug under `data/officials/municipal/declarations/`.
+4. Builds `data/officials/municipal/index.json` — a roster with `byRole` counts and one entry per official (slug, name, role, municipality).
+5. **Emits per-obshtina shards** under `data/officials/municipal/by_obshtina/{code}.json` (~288 files; SPA's `/settlement/{обshtina}` page fetches only its own slice). Each shard pre-sorts entries in roster-display order so the dashboard tiles render without re-sorting. Sofia districts each get their own S23xx code; Plovdiv (PDV22) and Varna (VAR06) aggregate districts under a single shard with a `district` tag on each entry; the synthetic `SFO_CITY` shard carries the Sofia city-wide tier (mayor + city council + 9 deputies + 2 architects) and is staged for a future Sofia-wide tile — not yet wired into any SPA page.
+
+Expected output:
+
+```
+→ municipal: fetching 2025 list…
+  6521 declaration(s) in the municipal tier
+  processed 6521 declaration(s) for ~6400 unique official(s)
+  wrote ~6400 per-official file(s) to data/officials/municipal/declarations
+  wrote index.json (~6400 official(s): ~290 mayors, ~700 dep. mayors, ~260 chairs, ~4800 councillors, ~310 architects, 0 other)
+  wrote 288 per-obshtina shard(s) to data/officials/municipal/by_obshtina (max ~36000 bytes)
+```
+
+Cold start takes ~30–50 minutes (~6,500 per-declaration fetches at a 150 ms politeness sleep). Re-runs are far faster — raw XMLs are cached. Sanity: `byRole.councillor` should dominate (~75%), `byRole.mayor` ≈ 290, `byRole.other` should be 0 (a non-zero `other` count means an unmapped role label — inspect `mapRole` in `scripts/officials/municipal.ts`). Shard count should be ≈ 288 (varies as new municipalities enter the registry); `ls data/officials/municipal/by_obshtina | wc -l` for a quick spot check.
+
+If the run aborts with `N roster entries did not map to an obshtina — add aliases in scripts/officials/_aliases.json`, the registry has introduced a new entity name (or renamed an existing one). Dry-run the resolver to enumerate the unmatched strings without re-scraping:
+
+```bash
+npx tsx scripts/officials/municipality_join.ts --dry-run
+```
+
+Add aliases to `scripts/officials/_aliases.json` (key = verbatim registry name, value = obshtina code from `data/municipalities.json`, or the synthetic `SFO_CITY` for Sofia city-wide). After fixing aliases you can re-emit shards in seconds without re-scraping the whole register:
+
+```bash
+npx tsx scripts/officials/build_municipal_shards.ts
+```
+
+## Step 1c — The officials↔company set (NOT built here any more)
+
+**[2026-08-21] There is nothing to run in this step.** `scripts/run-officials-links-only.ts` and the builder behind it (`build_officials_company_links.ts` → `data/officials/derived/company_links.json`) are **DELETED** — `docs/plans/company-page-consolidation-v1.md` (Tier 6). That file was 70,525 links over 9,659 officials and 22,960 UICs, **85.5% of them low-confidence**, graded on the two-sided name test its own header stated — `high` only when the name is unique among officials (`namesakeCount === 1`) AND maps to a single TR company (`trNamesakeCount === 1`). Migration 158's header calls that one-company straitjacket wrong in both directions: it drops a rare-name official's whole set behind one busy registered agent, and passes a name held by two people with six companies each.
+
+The officials↔company set is now **`company_politicians` at `kind='official'`**, built by `db:load:tr:pg` from the gated person layer — `person_role` at source tr/ngo through Bridge A/B, unioned with 096's confirmed declared stakes, and **REFUSED** on a `tr_name_fold_people` fold (148) the Commerce Registry says belongs to more than one human (an unmeasured fold is refused too). A shared name is refused rather than scored, so there is no per-row `confidence` grade left to filter on; what still keeps a Горна Малина councillor off Софарма Трейдинг's billions is the refusal, not a tier.
+
+⚠️ **An officials refresh alone therefore does not move that set — it needs the person layer first.** The order is Step 1d's `db:resolve:persons`, then `npm run db:load:tr:pg`. Both downstream consumers — `pep_connected` (`/update-procurement`) and the funds political-economy join (`/update-funds`) — read the table, so running either before `db:load:tr:pg` republishes the previous vintage at exit 0.
+
+(The old `run-officials-connections-only.ts` officials↔MP JSON bridge is **retired** — connections-engine-v1 §P4.3. `/connections` and the `/person` "Свързани лица" tile now read the live Postgres graph engine, which folds officials from the person layer, not this static bridge.)
+
+> **After a significant officials refresh, re-derive the live connections graph.** The refreshed roster reaches the graph through the person layer, not through any file this step writes. Once the officials roster is re-resolved (`db:resolve:persons` / its cloud chain), run `npm run db:load:graph:pg` (local) / `db:load:graph:pg:cloud` (prod) so the `/connections` graph + the `/person` tile pick up the new officials edges — the `update-persons` cloud chain already sequences this. There is no offline connections rebuild anymore.
+
+## Step 1d — Reload Postgres, IN THIS ORDER
+
+The officials ingest writes `data/officials/index.json`, but the person resolver does **not** read that file — it reads the `official_roster` Postgres table, and the only thing that loads `official_roster` is `db:load:ngo-board-links`. So a refresh that adds officials and skips this step leaves the resolver unable to place any of them: their declarations load with `person_id` NULL, contribute to nobody's wealth series, and the `declarations_load` data tests fail on the resolution rate. Adding ~1,900 filings this way left 518 declarations unresolved (98.9% vs the 99.9% floor) until `official_roster` was reloaded — then 47,982 of 47,983 resolved.
+
+```bash
+npm run db:load:ngo-board-links       # official_roster ← data/officials/{,municipal/}index.json
+npm run db:load:declarations:pg       # filings, person_id LEFT NULL
+npm run db:resolve:persons            # person / person_role from official_roster
+npm run db:load:declarations:pg -- --resolve   # fill person_id, REFRESH person_wealth_year
+npm run db:load:employer-links:pg             # declared employer → procurement buyer (165+168)
+                                              # publish: npm run db:load:employer-links:pg:cloud
+npm run db:load:person-elections:pg   # candidate_person — person_ids were just reassigned
+npm run db:load:tr:pg                 # company_politicians — see the ⚠️ below
+```
+
+`db:load:person-elections:pg` is not optional after a re-resolve: `db:resolve:persons` mints
+new `person_id`s, so `candidate_person` goes stale and its data test fails.
+
+⚠️ **`db:load:tr:pg` IS THE ONE `npm run db:refresh` CANNOT STAND IN FOR.** The rest of this
+block is the same tail `db:refresh` runs, so reaching for that when in doubt is fine — but
+`db:load:tr:pg` is a `REFRESH_EXCLUSIONS` member (its input is the gitignored
+`raw_data/tr/state.sqlite`), so the chain skips it by design. It is what rebuilds
+`company_politicians` from the person layer this step just re-resolved, and both consumers —
+`pep_connected` (`/update-procurement`) and the funds political-economy join (`/update-funds`)
+— read that table. Skipping it republishes the previous vintage at exit 0, which is the failure
+Step 1c warns about; naming it in Step 1c and omitting it here is how an operator working
+top-to-bottom walks into it anyway. It needs the TR store on disk: run
+`npm run tr:daily-refresh` first if the clone has never had one.
+
+**The prerender slug manifest is NOT regenerated by anything above, and `npm run person:slugs`
+will not do it.** `data/person/prerender_slugs.json` feeds the production prerender + sitemap,
+so it is minted only from the database that SERVES production; run against local Postgres the
+emitter warns and refuses to write (see "WHICH DATABASE MAY WRITE THIS FILE" in
+`scripts/person/emit_prerender_slugs.ts`). An officials refresh moves the roster, hence the
+slugs, hence the manifest — so once the same reload has been applied to Cloud SQL, mint it:
+
+```bash
+npm run person:slugs:cloud
+```
+
+Until that runs, the manifest keeps its previous vintage. Nothing goes red — the two
+manifest↔database gates only run against the serving database, and the emitter's own
+post-conditions only fire when it actually writes.
+
+## Step 2 — Verify
+
+```bash
+node -e "
+const r = require('./data/officials/assets-rankings.json');
+console.log('total:', r.total, '/ years:', r.years.join(','));
+console.log('by category:');
+for (const k of Object.keys(r.byCategory)) {
+  console.log('  ', k, r.byCategory[k].length);
+}
+console.log('top 3:', r.topOfficials.slice(0,3).map(o => o.name + ' €' + Math.round(o.netWorthEur).toLocaleString()).join(', '));
+"
+```
+
+Sanity:
+- `total` ≥ 400 for 2025 (expect ~437; sharp drop signals a category-filter regression).
+- `byCategory.cabinet` ≥ 80 (PM, deputy PMs and ministers — **not** deputy
+  ministers, which have had their own `deputy_minister` bucket since the ingest
+  started reading the real position title).
+- `byCategory.deputy_minister` ≥ 10 for a re-derived cycle. Zero across a year
+  that has been re-derived means `positionTitle` came back null and the
+  cabinet/deputy split silently collapsed — check `Position > Name` still
+  exists in `list.xml`.
+- `byCategory.regional_governor` ≈ 60 (28 oblasts × deputies).
+- Top-3 net worths within an order of magnitude of last run.
+
+**Net worth is share-weighted, and that is not a bug to "fix".** A co-owned
+property is filed once PER CO-OWNER, each row repeating the WHOLE property's
+price — the Сметна палата instructions for table 1 column 11 say so in as many
+words: „Посочва се цената на придобиване на имота/правото В ЦЯЛОСТ, както е по
+съответния документ, БЕЗ ДА СЕ ДЕЛИ МЕЖДУ СЪСОБСТВЕНИЦИТЕ", with column 8
+requiring each co-owner's part „самостоятелно на отделен ред". So every total
+multiplies by the declarant's ideal part (`assetShareMultiplier` in
+`src/lib/declarations.ts`, `asset_share_multiplier()` in
+`090_person_wealth.sql`, kept in lockstep by
+`scripts/db/tests/asset_share_multiplier.data.test.ts`).
+
+Summing the rows raw double-counts every jointly-held home. Measured 2026-08-15,
+before the fix: the executive tier over-stated by €202m (14.9%), municipal by
+19.0%, MPs by 12.5% — and the #1 official on `/officials/assets` published
+€30,850,036 against a real €311,695, since his villa was BOTH double-counted and
+carrying a `/1000` separator typo.
+
+Two things follow for this step:
+- A tier total dropping ~15-19% against a pre-2026-08-15 run is the fix, not a
+  regression.
+- `security` rows are never weighted — that column is a COUNT of дялове, not a
+  fraction. Do not "extend" the rule to them.
+
+Roughly 19% of declarants divide the price among co-owners anyway, contrary to
+the instruction; weighting under-states those. That is the deliberate choice —
+it is the safe direction for a public wealth ranking, and it is undetectable on
+a single-row holding.
+
+Scan for mistyped declared values (officials + MPs + municipal, one shared
+report):
+
+```bash
+npx tsx scripts/declarations/check_suspicious_values.ts
+```
+
+A new `FLAG` line for an executive official means a likely separator typo is
+inflating the ranking — add a narrow entry to `REAL_ESTATE_VALUE_OVERRIDES`
+(or `VEHICLE_VALUE_OVERRIDES`) in `scripts/declarations/parse_declaration.ts`,
+then re-run Step 1. Genuinely large holdings keep flagging — that is expected.
+
+The generic detector anchors price-per-m² on the BUILDING (`builtAreaSqm`),
+falling back to the plot only when there is none — column 6 is the сграда and
+column 5 the парцел. Anchoring on the plot both diluted a villa on a large plot
+past detection and left every apartment (which declares площ „0") with no anchor
+at all, i.e. 662 valued rows never checked. It corrects `/100`; a `/1000` typo
+still needs a hand entry, which is why Касчиев's villa has one.
+
+Check the diff:
+
+```bash
+git diff --stat data/officials/
+```
+
+A typical refresh touches `assets-rankings.json` + `index.json` plus a handful of `declarations/{slug}.json` files. Cold-start adds ~437 new files at ~5-25 KB each.
+
+## Step 3 — Upload to bucket
+
+```bash
+gsutil -m -h "Cache-Control:no-cache, max-age=0" rsync -r -J \
+  data/officials/ gs://data-electionsbg-com/officials/
+```
+
+Or use the project-wide rsync:
+
+```bash
+npm run bucket:sync
+```
+
+## Step 4 — Commit
+
+```bash
+git add data/officials/
+git commit -m "officials: refresh declarations for FY <year>"
+```
+
+## CLI flags
+
+```bash
+# Pin a single year. Omitted, both ingests resolve the newest year the
+# register root advertises — no constant to bump when a new cycle publishes.
+npx tsx scripts/officials/index.ts --year 2024
+
+# Cap declarations processed (debug)
+npx tsx scripts/officials/index.ts --limit 30
+
+# Substring filter on declarant name (debug — match a single person)
+npx tsx scripts/officials/index.ts --name "Желязков"
+
+# Parse-only, no writes
+npx tsx scripts/officials/index.ts --dry-run
+```
+
+`scripts/officials/municipal.ts` (Step 1b) accepts the identical `--year` / `--limit` / `--name` / `--dry-run` flags.
+
+## Backfill earlier years
+
+The upstream registry publishes year-keyed directories back to 2015 — `2015`–`2020`, `2022`–`2025`; there is **no plain `2021`** folder (that cycle ships split as `2021_nc` / `2021_nonc` and is not ingested). To add an earlier year:
+
+```bash
+npx tsx scripts/officials/index.ts --year 2024
+npx tsx scripts/officials/index.ts --year 2023
+# etc.
+```
+
+Merge semantics (`scripts/officials/merge.ts`): a run is **authoritative for its target year and additive everywhere else**. It drops only the per-slug rows whose `sourceUrl` sits under the target register folder, then writes the fresh set — so re-running a year picks up upstream corrections *and* removals while leaving every other year alone, and re-running an unchanged year is a no-op. Replacement keys on the folder year in `sourceUrl`, never on `declarationYear`: the parsed year comes from inside the XML and does not track the folder (the live 2025 folder holds rows parsing to 2026 and even 2005).
+
+`index.json` accumulates — entries merge by slug with the higher `latestDeclarationYear` winning, and `years` unions. Treat it as a shared universe file: `scripts/funds/political_links.ts` (which as of 2026-08-21 reads `data/officials/municipal/index.json` beside it — this file is the EXECUTIVE index and resolved 0 of the 116 municipal officials on its own), `ngo/load_ngo_board_links_pg.ts` and `person/resolve_persons.ts` (`official_roster` → `/officials/<slug>`) all read it, so widening it widens the politically-exposed-person universe those builds produce. Re-run them after a backfill.
+
+`assets-rankings.json` rebuilds from every per-slug file on disk (not just the run's year), so officials whose latest filing predates the run are kept. Per slug it rolls up `decls[0]`, which is the most recently *filed* declaration — declarations sort by `declarationYear`, then `filedAt` desc, then `entryNumber`, then `sourceUrl`. That matters for the ~111 officials who file more than once in a year (annual + exit): the exit filing is usually both later and more complete.
+
+> Before this was fixed, backfilling **destroyed** the current year — per-slug files were overwritten with the run's year alone and `index.json` was stamped `years: [targetYear]`. If you are on an older checkout, do not backfill.
+
+### Year coverage (backfilled 2026-07-23)
+
+All ten published years are loaded: 2015–2020 and 2022–2025, totalling 4,212 declarations across 1,495 officials, 822 of whom have more than one year on file.
+
+Two years carry upstream rot — `list.xml` lists declarations whose XML 404s:
+
+| Year | Missing | Note |
+|---|---|---|
+| 2024 | 1 / 654 (0.2%) | within the default tolerance |
+| 2018 | 54 / 382 (14.1%) | genuinely gone upstream (absent under the `2018`, `2018y` and `2018f1` folders alike) — needs `--max-missing 0.2` to load |
+
+```bash
+npx tsx scripts/officials/index.ts --year 2018 --max-missing 0.2
+```
+
+## Data-integrity contract
+
+Fails loud rather than write partial data:
+
+| Surface | Trigger | Action |
+|---|---|---|
+| HTTP non-200 on list.xml | Upstream registry down or year doesn't exist | Throws |
+| Per-declaration fetch fails | Network error fetching one official's XML | Throws (no partial writes) |
+| Per-declaration fetch 404s | `list.xml` references a declaration whose file is gone upstream | Skipped + logged `[missing]`, not retried (a 404 is permanent) and not cached, so a later run retries it if upstream restores the file |
+| `> 5%` of a year's declarations missing upstream | Year is rotted, or we're being rate-limited into 404s | Throws — writing it would publish a partial cohort as complete. Override per run with `--max-missing <0-1>` once you've confirmed the rot is real |
+| Zero declarations match the category filter | Upstream renamed categories or shifted XML schema | Throws — investigate `CATEGORY_MAP` in `scripts/officials/categorise.ts` (and mirror any change into `CATEGORY_SUBSTRINGS` in `scripts/watch/sources/cacbg_officials.ts`; `watcher_lockstep.test.ts` enforces it) |
+| `assets-rankings.json` total drops > 20% | Likely a regression in category filtering | Inspect diff; do NOT commit until cause is identified. **Exception — a one-time drop of 13–20% against a pre-2026-08-15 baseline is the ideal-part weighting, not a regression** (measured: executive −16.1%, municipal −19.9%, MPs −13.3%). Compare against a baseline minted after that date before investigating |
+| Zero entries in the `Кметове…` category | Upstream renamed the municipal category | `municipal.ts` throws |
+| > 2% (or > 20) of municipal declarations fail to parse | Upstream schema drift, not isolated bad records | `municipal.ts` throws; failures below that bar are skipped + logged, not fatal |
+| `> 10 roster entries did not map to an obshtina` | Upstream rename / new municipality / new район | `municipal.ts` throws; dry-run `scripts/officials/municipality_join.ts --dry-run`, add aliases to `scripts/officials/_aliases.json`, then re-emit with `scripts/officials/build_municipal_shards.ts` |
+| Shard for a known обshtina exceeds 40 KB raw | A big city's districts proliferated, or `byRole.councillor` ballooned | Warns (does not throw); consider splitting the shard if the SPA Roster tile becomes janky |
+
+## What this skill does NOT do
+
+- Does NOT build a ranking page for the municipal tier. `municipal.ts` writes per-slug declarations + the global `index.json` + per-obshtina shards under `data/officials/municipal/by_obshtina/` (consumed by the Local government section on every `/settlement/{обshtina}` page); the `/officials/assets`-style sortable ranking remains MP / executive-only because the municipal tier carries no party affiliation.
+- Does NOT scrape the judiciary (ВКС/ВАС/прокурори/съдии). Same register, different editorial scope.
+- Does NOT cross-reference officials to MP-connected companies. That join lives in `data/procurement/derived/mp_connected.json` and is keyed on MP ids, not official slugs. A follow-up could add an "officials connected contractors" rollup if/when the editorial use case justifies it.
+- Does NOT update the `cacbg_declarations` watcher source (that one is mapped to `/update-connections` and tracks the MP scope). The two watchers fingerprint independent slices of the same register.
