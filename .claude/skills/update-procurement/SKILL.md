@@ -183,9 +183,17 @@ field coverage. Run after Steps 1–1c (they read the on-disk shards):
 
 ```bash
 npx tsx scripts/procurement/eop_field_map.ts --apply   # CPV/procedure/bids/euFunded onto contracts — content-join on (buyer,supplier,date) with a consortium value-date fallback. 2020–26 CPV 34%→98%
-npx tsx scripts/procurement/contract_index.ts          # per-year slim shards (derived/contract_index/) for the faceted /procurement/contracts browser
 npx tsx scripts/procurement/by_id_shards.ts            # prefix-sharded per-contract detail store (contracts/by-id/shard/) — the PG load source for /procurement/contract/:key
 ```
+
+⚠️ **`contract_index.ts` is NOT in that block, and putting it there is a silent data defect.**
+It used to be listed second here, which is wrong: the compact row it emits carries `amountEur`
+at position 3, and `rebuild_from_cache.ts` — the pass that re-derives everything else after the
+current-value fold — does **not** regenerate `derived/contract_index/` (it imports
+`writeByIdShards`, and nothing else). So building the index before the fold bakes the SIGNING
+value into the faceted `/procurement/contracts` browser AND into what `db:load:pg` reads, while
+`index.json` and the by-id shards carry the current value. Nothing fails; the two just disagree.
+Run it AFTER `rebuild_from_cache.ts` — see the ordered chain below.
 
 **Current (post-annex) value — the headline basis.** `amountEur` is the CURRENT contract value ("текуща стойност"), matching SIGMA's default list value. It is derived from the ЦАИС ЕОП `анекси` feed and must be (re)applied AFTER every base normalization (`procurement:ingest` and any re-ingest reset `amountEur` back to `toEur(amount)` = the signing value):
 
@@ -195,6 +203,7 @@ npx tsx scripts/procurement/anexi_current_value.ts --apply     # FLIP amountEur 
 npx tsx scripts/procurement/backfill_unp.ts --apply            # УНП onto the shards — the OCDS export carries none at parse time
 npx tsx scripts/procurement/reconcile_cross_source.ts --apply  # cross-source dedup; MUST follow backfill_unp (see below)
 npx tsx scripts/procurement/rebuild_from_cache.ts              # rebuild rollups/by-id/index from the FLIPPED shards (this pass is flip-aware; see below)
+npx tsx scripts/procurement/contract_index.ts                  # AFTER the fold — it encodes amountEur and rebuild_from_cache does NOT regenerate it
 npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent files (mp_connected/pep/flow/top_contractors)
 ```
 

@@ -126,6 +126,29 @@ rewriting them would falsify the record.
 | **whole 15-step publish** | — | **21m20s** |
 | `prices:payloads` | 256 s (4m16s) | **677 s (11m17s)** ⚠️ SLOWER |
 
+**Re-measured again on `db-perf-optimized-N-2`, 2026-08-27**, a second clean publish (contracts
+407,371 / tenders 238,082). Same box, five days later — so these are NOT a second opinion on the
+table above, they are the steps that table left unmeasured, plus two figures elsewhere in this
+file that were still quoting the retired `db-g1-small`:
+
+| step (`…:cloud`) | previously documented | 2026-08-27 |
+| ---------------- | --------------------- | ---------- |
+| `db:load:tr` | **34.9 min** (db-g1-small) | **280 s** — 7.5× off |
+| `db:load:rollcall-derived` → `mp_similarity` | **744.5 s** (db-g1-small, 2026-08-06) | **70.9 s** — 10.5× off, i.e. parity with local (67 s) |
+| `db:load:pg` (contracts) | 426 s (2026-08-22) | 305 s |
+| `db:load:tenders` | 318 s (2026-08-22) | 263 s |
+| `db:load:awarder-seats` | 59 s (2026-08-22) | 56 s |
+| `db:load:employer-links` | 19 s (2026-08-22) | 17 s |
+
+⚠️ **The two top rows are the ones that mattered, because both were being used to AVOID work.**
+"the cloud TR publish is not reader-safe: it is 34.9 min" and "budget a quarter of an hour and do
+not chain `mp_similarity` behind anything urgent" were both being read as reasons not to run a
+step; both were measured on the retired shared-core box and neither survives contact with the
+current one. Both call sites below have been corrected in place to point here. The TRUNCATE
+window on a TR publish is under five minutes, and the roll-call derived rebuild is a ~70 s step.
+Re-measure before quoting either as a reason not to run something.
+
+
 ⚠️ **THE UPGRADE DID NOT MAKE EVERYTHING FASTER, AND THE ONE THAT GOT SLOWER IS THE LESSON.**
 Server-side-dominated steps improved (contracts 1.7×, because its cost is matview refreshes,
 the 30-scope risk precompute and index builds). Steps that stream large RESULT SETS back
@@ -1893,10 +1916,13 @@ no item in the corpus reaches, so it rides on `outcomeFor()`'s definition alone.
 **The derived half (migration 135, `db:load:rollcall-derived:pg`)** builds `mp_attendance`,
 `party_cohesion`, `mp_dissent`, `mp_vote_norm` and `mp_similarity`, declared once in
 `scripts/db/lib/rollcallMatviews.ts`. ~70 s locally, dominated by the quadratic
-`mp_similarity` — **measured on Cloud SQL 2026-08-06: 801 s end to end, of which
-`mp_similarity` alone is 744.5 s (12.4 min, 11x local)** on the then-current db-g1-small at 4,017,519
-casts. Budget a quarter of an hour and do not chain it behind anything urgent. The facts
-half (`db:load:rollcall:pg:cloud`) is ~10 min, dominated by ~2,900 single-row round trips
+`mp_similarity` — measured on Cloud SQL 2026-08-06 at **801 s end to end, of which
+`mp_similarity` alone was 744.5 s (12.4 min, 11x local)** on the then-current db-g1-small at 4,017,519
+casts. ⚠️ **That is no longer the cost — re-measured 2026-08-27 on `db-perf-optimized-N-2`,
+`mp_similarity` is 70.9 s**, i.e. parity with local (67 s) and 10.5× off the figure above. The
+"budget a quarter of an hour and do not chain it behind anything urgent" advice was written for
+the retired shared-core box; it now over-states the step by an order of magnitude. The facts
+half (`db:load:rollcall:pg:cloud`) is dominated by ~2,900 single-row round trips
 through the proxy before the COPY starts. `/api/db/mp-dissents` and
 `/api/db/mp-similarity` read them and DEGRADE to an empty array on `42P01 · 42883 · 55000 ·
 55P03 · 42501` — `55000` is in that set because a matview created `WITH NO DATA` RAISES
@@ -2189,11 +2215,17 @@ The route (`companies` DbDataTable resource) has no `missingMigration` degrade, 
 `deploy:db` shipping it before this loader first reaches the target 500s `/companies`
 outright — same ordering rule as `cpv_catalog` / `contractor_rank`.
 
-⚠️⚠️ **THAT ORDERING HAZARD IS NOT HYPOTHETICAL — IT HAPPENED, AND AS OF 2026-08-26 IT IS
-STILL LIVE.** Measured that day against the serving database: `to_regclass('company_browse_table')`
-is **NULL** — 188 has never been applied to Cloud SQL at all, which still carries 178's
-`official_companies` — while the deployed function DOES know the `companies` resource. So
-`/api/db/table?q={"resource":"companies"}` returns **500 `{"error":"db error"}`** on every
+⚠️⚠️ **THAT ORDERING HAZARD IS NOT HYPOTHETICAL — IT HAPPENED. ✅ RESOLVED 2026-08-27; the
+rest of this section is kept as the worked example, not as a live incident.** Verified that day
+against the serving database: `to_regclass('company_browse_table')` resolves, the matview holds
+**1,022,592 rows**, and `/api/db/table?q={"resource":"companies"}` returns real rows at **200**.
+`db:check-cloud` also reports Cloud SQL matching local on all 1,181 schema-owned objects, which
+it could not do while 188 was absent.
+
+What it looked like while it was live, measured 2026-08-26: `to_regclass('company_browse_table')`
+was **NULL** — 188 had never been applied to Cloud SQL at all, which still carried 178's
+`official_companies` — while the deployed function DID know the `companies` resource. So
+`/api/db/table?q={"resource":"companies"}` returned **500 `{"error":"db error"}`** on every
 request. `/companies` itself answers 200 because that is only the SPA shell; the table inside it
 renders the „Данните не можаха да се заредят." panel. **A 200 on the page is not evidence the
 resource works** — query the API directly, which is the check that found this.
@@ -3494,6 +3526,37 @@ re-attach chain, during which 090's CASCADE leaves `/persons`, `/officials/asset
 own terms, which is the bar that matters: `person_slug_retired` = 24,910 rows, **0** without
 a target, **0** targets missing from `person`, **0** chains.
 
+**Re-confirmed 2026-08-27, after a contracts + TR publish, with the decision re-run from
+scratch — the answer is still no, and these are the numbers to reuse rather than re-derive.**
+Prod had resolved the day before (every `person.created_at` is a single date, 2026-08-26 — the
+resolver DELETEs and re-COPYs, so that column dates the last cloud resolve), and
+`person_slug_lock` holds 144,166 rows against 134,295 persons, i.e. every person is locked and
+a re-resolve would reuse its slug.
+
+- **The net gap is tiny and the gross divergence is not the same thing.** persons 134,370 local
+  vs 134,295 cloud (net −75), but **1,502 slugs local-only and 1,427 cloud-only** — the same
+  people under different slugs. **1,402 of the 1,502 are `-N` collision artifacts** that only
+  ever existed on the local machine.
+- **Nobody who matters is unreachable.** Of the 100 non-artifact local-only slugs, 79 are not
+  public figures (Tier-V private owners) and 21 are — and **all 21 resolve on prod by
+  `display_name` under prod's own slug. Zero genuinely absent.** A "local-only slug" is not a
+  missing person, and testing by slug rather than by name is how you would talk yourself into
+  running this.
+- **The manifest is clean: 0 of 63,836 prerender slugs are unservable on prod** — because it was
+  minted from prod by `person:slugs:cloud`. That is the LATENT risk below, measured, and not
+  currently realised.
+- **Attribution is at parity**: `declaration.person_id` 61,743 and `council_vote.person_id`
+  43,261 on BOTH databases.
+
+So the whole cost of not resolving was ~75 private individuals and ~218 tr/ngo roles (0.06% /
+0.11%). ⚠️ **Do not read the "~37 min" above as current** — it was measured 2026-08-11, before
+the 2026-08-22 box upgrade, and the two other figures re-measured on 2026-08-27 came in 7.5× and
+10.5× faster. The 8-minute CASCADE outage is the argument that survives, not the runtime.
+**Trigger to actually run it:** an input to the person layer moves (`cacbg_officials`/`cacbg_local`
+— phase 1 FIRST, `ivss_declarations`, `cik_results`, `erik_campaign_financing`, or a curated
+sanctions/ДС/regulator edit), or cloud `person_role` at tr/ngo drifts past ~1% of local (~2,000
+roles; it was 218). A TR daily flip on its own is not a trigger.
+
 **That is LATENT, not live** — worth stating so nobody re-derives a panic from it. Both
 consumers (`buildPersonRoutes`, the sitemap's `enumeratePersons`) filter on `prerender`, and
 that ~5,000-entry ex-officials set was identical between the local- and cloud-minted
@@ -3587,7 +3650,8 @@ that rejection is a 500 on the WHOLE payload — every `/company/:eik` AND every
 `/awarder/:eik`, since `CompanyDbScreen` serves both — while the function-served
 `/company/**` HEAD keeps working, which makes it present as an intermittent front-end bug
 rather than a migration gap. `load_tr_pg.ts` is 003's only loader-side applier and is
-~34.9 min on cloud, so a `deploy:db` landing first is a site-wide outage with a half-hour
+~280 s on cloud (re-measured 2026-08-27; the 34.9 min this line used to quote was the retired
+`db-g1-small`), so a `deploy:db` landing first is a site-wide outage with a ~5-minute
 floor on the recovery.
 
 The arm now falls back to the pre-003 column list on 42703 and logs `co:no-subject-column`
@@ -3831,7 +3895,9 @@ TABLE used to give it for free. Three consequences worth knowing:
   atomically and the COPYs then took only `RowExclusiveLock`) — what it served instead was an
   EMPTY table at a 200 for the length of the load, i.e. search confidently answering "no such
   company". An error a route can degrade on beats that, which is why the trade was made, but a
-  cloud TR publish is **not** reader-safe: it is 34.9 min. Paid off by Phase 4b in
+  cloud TR publish is **not** reader-safe: it is **280 s** (re-measured 2026-08-27 on
+  `db-perf-optimized-N-2`; this line read 34.9 min, measured on the retired `db-g1-small`,
+  and that figure was being used to argue against running it at all). Paid off by Phase 4b in
   `docs/plans/cloud-deploy-speed-v1.md` (F21), which also records that an INTERRUPTED load
   used to leave the tables populated but unindexed — the index drops now live inside each
   table's own transaction, so an abort rolls them back.

@@ -150,6 +150,28 @@ output rather than a failed run:
 A CHANGE in either count is worth reading: a 27th recycled id is a new person whose votes
 something keying on `mp_id` alone could attribute to someone else.
 
+## Step 5c — Bump the corpus vintage pins
+
+`scripts/db/tests/rollcall.data.test.ts` pins four absolute counts to the corpus vintage, so
+**every ingest that adds a session turns it red** and nothing else updates them. Not a
+regression — the pins are how the file detects corpus movement it did not expect, and an
+expected move still has to be written down. Read the new values off the loader's own output
+and `index.json` (never off "what makes the test pass"), then update all four:
+
+| pin | source of truth |
+| --- | --- |
+| `Number(r.total)` | `rollcall: … N raw items` from `db:load:rollcall:pg` |
+| `Number(r.stand)` | `… → N stand after dedupeRevotes` |
+| `Number(r.superseded)` | `… (N marked superseded)` |
+| `assert.equal(total, N, "plenary-day count moved")` | `index.json.sessions.length` |
+
+The invariant the file exists to protect must still hold after the edit: `stand < total`, and
+`total − stand === superseded`. If it does not, the dedupe changed and the pins are the
+smallest part of the problem.
+
+Worked example, 2026-08-27 (one session ingested): 16741→16760, 15096→15113, 1645→1647,
+613→614, and 16760 − 15113 = 1647. ✔
+
 ## Step 6 — Commit
 
 ```bash

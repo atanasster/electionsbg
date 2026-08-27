@@ -102,7 +102,11 @@ Eyeball:
 - `gdpGrowth`, `inflation`, `unemployment`, `govDebt`, `budgetBalance`, `currentAccount` should be quarterly (`latest YYYY Q[1-4]`).
 - Latest quarter is at most 1-2 quarters behind current date — Eurostat publishes Q1 in late June, so May-June you see Q4 of prior year; Sep+ you see Q1 of current year.
 - WGI / CPI / Eurobarometer are annual and lag by ~1 year — that's normal.
-- File size should be ~40-50 KB. >100 KB is a regression.
+- ⚠️ **The old "~40-50 KB, >100 KB is a regression" rule is retired — it fires on every healthy
+  run now.** The file has grown with the series count: measured 2026-08-27 it is **184,602 B**,
+  and the committed copy before that run was already 184,542 B. Judge a size change by the DELTA
+  across one run (60 B here — one new quarterly point), not against an absolute ceiling; the real
+  gate is the per-indicator count guard, which fails loudly on its own.
 
 ## Step 3 — Upload to bucket
 
