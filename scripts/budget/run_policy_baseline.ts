@@ -158,7 +158,7 @@ const EXEMPT_PERSONNEL_SHARE = 0.55;
 // Quarterly updates: the filename is STATB{Q}{YYYY}.xls with Q ∈ 1..4
 // (1 = към 31.III, 2 = 30.VI, 3 = 30.IX, 4 = 31.XII) — bump the URL when
 // НОИ publishes the next quarter's bulletin.
-const NOI_STATB_URL = "https://nssi.bg/wp-content/uploads/STATB12026.xls";
+const NOI_STATB_URL = "https://nssi.bg/wp-content/uploads/STATB22026.xls";
 // НОИ's own published monthly cost of topping pensions up to the minimum
 // (Yearbook 2024, table 5.8, end-2024) ≈ 131.6M лв/month. The warn-level
 // validation anchor for the band-grain floor model below.

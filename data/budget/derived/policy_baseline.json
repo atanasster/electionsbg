@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T08:39:22.680Z",
+  "generatedAt": "2026-08-27T19:05:51.782Z",
   "country": "BG",
   "baselineYear": 2025,
   "gdpEur": 116018300000,
@@ -12,7 +12,7 @@
     "consumption": "Eurostat nama_10_co3_p3 + nama_10_gdp (P31_S14)",
     "contributions": "Eurostat gov_10a_taxag D613CE 2024",
     "earnings": "split log-normal + Pareto fit — НОИ СОД 2024 + Eurostat earn_ses_hourly 2022 + the PIT/insurable-base identity",
-    "pensionFloor": "НОИ quarterly bulletin https://nssi.bg/wp-content/uploads/STATB12026.xls (към 2026-03-31)",
+    "pensionFloor": "НОИ quarterly bulletin https://nssi.bg/wp-content/uploads/STATB22026.xls (към 2026-06-30)",
     "teachers": "Eurostat educ_uoe_perp01 2024 + NSI open-data 612 A21 wages 2024"
   },
   "revenue": {
@@ -906,48 +906,48 @@
       "publicSectorShare": 0.18
     },
     "pensionFloor": {
-      "asOf": "2026-03-31",
+      "asOf": "2026-06-30",
       "minimumEur": 322.37,
-      "totalPensioners": 2068299,
+      "totalPensioners": 2069079,
       "bands": [
         {
           "upToEur": 153.46,
-          "count": 2041,
+          "count": 2020,
           "midEur": 76.73
         },
         {
           "upToEur": 241.78,
-          "count": 126550,
+          "count": 126159,
           "midEur": 197.62
         },
         {
           "upToEur": 274.02,
-          "count": 274849,
+          "count": 277953,
           "midEur": 257.9
         },
         {
           "upToEur": 322.37,
-          "count": 410127,
+          "count": 404143,
           "midEur": 298.2
         },
         {
           "upToEur": 400,
-          "count": 440074,
+          "count": 439734,
           "midEur": 361.19
         },
         {
           "upToEur": 500,
-          "count": 244501,
+          "count": 244662,
           "midEur": 450
         },
         {
           "upToEur": 600,
-          "count": 160464,
+          "count": 160738,
           "midEur": 550
         },
         {
           "upToEur": 700,
-          "count": 111097,
+          "count": 111496,
           "midEur": 650
         }
       ]
