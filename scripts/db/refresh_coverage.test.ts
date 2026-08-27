@@ -290,6 +290,20 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
       "magistrate_roster_retention.data.test.ts",
   },
   {
+    after: "db:load:magistrate-filing-assets:pg",
+    before: "db:load:magistrates:pg",
+    why:
+      "db:load:magistrates:pg runs TRUNCATE magistrate CASCADE. magistrate_filing " +
+      "cascades with it; magistrate_filing_asset has NO foreign key and SURVIVES — so " +
+      "the roster reload strips `real_estate_count_parsed` off all 3,587 magistrates " +
+      "and `kind`/`period`/`form_version` off 36,995 filings while leaving 26,142 " +
+      "property rows standing, and this loader is the ONLY thing that stamps them back " +
+      "(from the already-cached filing_cache.json — no new crawl, 2.45 s). Run it " +
+      "first and the roster TRUNCATE immediately undoes it: the property count " +
+      "disappears from every magistrate card with no fallback, because the card refuses " +
+      "the old heuristic rather than fabricating property",
+  },
+  {
     after: "db:load:judicial-bodies:pg",
     before: "db:load:magistrates:pg",
     why:

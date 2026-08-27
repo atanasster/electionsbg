@@ -178,12 +178,21 @@ npm run db:load:magistrate-filing-assets:pg   # REPAIRS what the line above wipe
 npm run db:load:judicial-bodies:pg            # MUST follow court-load AND magistrates
 ```
 
-⚠️ **Three of those four are wired into `db:refresh`; `db:load:magistrate-filing-assets:pg`
-is a `REFRESH_EXCLUSIONS` member (`scripts/db/refresh_coverage.ts`), and that asymmetry is
-the trap.** `npm run db:refresh` therefore runs the magistrates loader — which wipes the
-per-filing declaration metadata, see below — and never the repair, so the property count is
-blank after every full local reload even on a machine that has the crawl cache. Run the
-third command by hand after any `db:refresh` that touched magistrates.
+⚠️ **All four are now wired into `db:refresh`, and the asymmetry this paragraph used to
+warn about is GONE — do not re-create it.** Until 2026-08-28
+`db:load:magistrate-filing-assets:pg` was a `REFRESH_EXCLUSIONS` member while the
+magistrates loader that WIPES its output was in the chain, so every full local reload left
+the property count blank even on a machine holding the crawl cache — and ended in a
+guaranteed red at `test:data`, the chain's only verification step. It now runs at chain
+step 28, immediately after the roster, pinned by an `ORDER_PAIRS` entry in
+`scripts/db/refresh_coverage.test.ts`. Its input stays gitignored; that is declared in
+`TOLERATED_GITIGNORED_INPUTS`, and the loader skips-and-warns at exit 0 without the cache.
+So a `db:refresh` no longer needs a hand-run repair.
+
+⚠️ **THE CLOUD SIDE IS UNCHANGED AND STILL MANUAL.** `db:refresh` only ever touches local
+Postgres. `db:load:magistrates:pg:cloud` inflicts exactly the same wipe on the SERVING
+database with nothing following it, which is the path an `ivss_declarations` watcher flip
+takes — so the `:cloud` block below is still the thing that must not be split up.
 
 **Then publish to Cloud SQL — nothing does this automatically**, and the order is the
 same. Written out in full rather than as a bare-suffix shorthand: that form reads fine to a
@@ -217,8 +226,11 @@ filings** and a parsed property count on **3,587 of 3,594 magistrates**.
 `070_magistrates.sql` records that the card then shows **no count at all** rather than
 falling back to the heuristic one, deliberately: the heuristic invents property against
 magistrates who declared none. So every `ivss_declarations` flip that runs the magistrates
-loader takes the count off every card site-wide until this repair runs — on BOTH sides, and
-including every local `npm run db:refresh` (see the local block above).
+loader takes the count off every card site-wide until this repair runs. On the CLOUD side
+that is still every time, because nothing sequences the repair there. Locally a full
+`npm run db:refresh` now heals itself — the repair is chain step 28, pinned by ORDER_PAIRS
+(see the local block above) — but a hand-run `npm run db:load:magistrates:pg` on its own
+still leaves the count blank until you run the repair after it.
 
 `magistrate_filing_asset` itself has no foreign key and survives the CASCADE, which is why
 the row count reconciles while the cards are blank.

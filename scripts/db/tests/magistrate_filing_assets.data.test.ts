@@ -362,14 +362,24 @@ test("the parser does not fall behind a NEWER form the register has started issu
 
 test("a corpus with property rows also carries the counts derived from them", async () => {
   if (skip) return;
-  // ⚠️ THE HOLE THIS COVERS IS GUARANTEED, NOT HYPOTHETICAL. `db:load:magistrates:pg` is in
-  // db:refresh and TRUNCATEs `magistrate` (and `magistrate_filing` with it), clearing both
-  // real_estate_count_parsed and the `kind` metadata the derivation needs — while the loader
-  // that refills them is a REFRESH_EXCLUSIONS member. So every full refresh blanks the
-  // property count on every magistrate card until db:load:magistrate-filing-assets:pg is run
-  // again. That direction is deliberate (absent beats fabricated), but it must not be
-  // SILENT, and ORDER_PAIRS structurally cannot express it — the asset loader is not in the
-  // chain, so there is no pair to declare.
+  // ⚠️ THE HOLE THIS COVERS IS REAL, AND IT USED TO BE GUARANTEED. `db:load:magistrates:pg`
+  // TRUNCATEs `magistrate` (and `magistrate_filing` with it), clearing both
+  // real_estate_count_parsed and the `kind` metadata the derivation needs, while
+  // `magistrate_filing_asset` has no FK and survives. Until 2026-08-28 the loader that
+  // refills them was a REFRESH_EXCLUSIONS member, so EVERY db:refresh ended here in red —
+  // which is the worst possible place for a permanent failure, since test:data is the
+  // chain's only verification step and a gate that is always red is a gate nobody reads.
+  //
+  // The fix was to run the repair, not to silence the gate: the asset loader is now chain
+  // step 28, immediately after the roster, pinned by ORDER_PAIRS. (That pair could not be
+  // written before — the loader was not in the chain, so there was nothing to order.)
+  //
+  // ⚠️ KEEP THIS TEST ANYWAY. ORDER_PAIRS only constrains db:refresh, and this wipe has
+  // three other entrances that nothing sequences: a hand-run roster reload, the
+  // `update-judiciary` skill's publish block, and `db:load:magistrates:pg:cloud` — the path
+  // an `ivss_declarations` watcher flip actually takes against the SERVING database. The
+  // card renders no count rather than falling back to the old heuristic (deliberate: absent
+  // beats fabricated), so nothing else makes the state visible.
   const [{ assets }] = await allRows<{ assets: string }>(
     "SELECT count(*)::text assets FROM magistrate_filing_asset",
   );

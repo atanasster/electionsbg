@@ -7,9 +7,26 @@
 //
 // ⚠️ ITS INPUT IS GITIGNORED HOST STATE. `filing_cache.json` is the product of a ~3.5-hour
 // crawl of a rate-limited public register, so on a fresh clone it is simply absent — this
-// loader skips and warns rather than failing, exactly like the agri and dossier loaders whose
-// inputs are also uncommitted caches. That is why it belongs in REFRESH_EXCLUSIONS and not in
-// the db:refresh chain.
+// loader skips and warns rather than failing, exactly like the agri and nzok loaders whose
+// inputs are also uncommitted caches.
+//
+// ⚠️ THAT DOES NOT EXCLUDE IT FROM `db:refresh`, AND THIS HEADER SAID IT DID UNTIL
+// 2026-08-28. A gitignored input is what TOLERATED_GITIGNORED_INPUTS resolves (agri,
+// nzok-activities, ngo-funding are all in the chain on exactly that footing); what the old
+// exclusion was really pricing was the CRAWL, which is a different program. This loader only
+// reads the cache the crawl left behind — 2.45 s measured over 36,995 filings.
+//
+// Excluding it was ACTIVELY WRONG, because `db:load:magistrates:pg` IS in the chain and runs
+// `TRUNCATE magistrate CASCADE`. `magistrate_filing` cascades with it; this table has no
+// foreign key and SURVIVES. So every full refresh left the property rows standing beside a
+// roster stripped of `real_estate_count_parsed` and filings stripped of `form_version` — a
+// state magistrate_filing_assets.data.test.ts correctly rejects, at the end of the chain's
+// only verification step, on every single run. It now runs at chain step 28, immediately
+// after the roster; refresh_coverage.test.ts's ORDER_PAIRS pins that order.
+//
+// ⚠️ NOTHING RUNS IT ON THE CLOUD SIDE. `db:load:magistrates:pg:cloud` inflicts the same
+// wipe on the serving database, so the `:cloud` twin must follow it by hand — see
+// .claude/skills/update-judiciary/SKILL.md and docs/plans/red-gates-repair-v1.md §2a.
 //
 // ⚠️ IT ONLY EVER FILLS ROWS FOR FILINGS ALREADY IN `magistrate_filing`. The crawl covers all
 // 51,040 filings across 5,579 names; the published roster is 3,594 magistrates and 37,023

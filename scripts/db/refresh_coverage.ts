@@ -33,13 +33,6 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
     reason:
       "multi-hour load of ~1.02M companies; the TR corpus itself is not committed",
   },
-  "db:load:magistrate-filing-assets:pg": {
-    axes: ["uncommitted-input"],
-    ranBy:
-      "npx tsx scripts/judiciary/crawl_declarations.ts, by hand (docs/plans/magistrate-declaration-detail-v1.md, Tier 3b)",
-    reason:
-      "reads the gitignored raw_data/judiciary/filing_cache.json — absent on a fresh clone, and re-earning it is a ~3.5h crawl of 51,040 PDFs from a rate-limited public register. The loader applies its schema and skips-and-warns when the cache is missing, so a clone still gets the tables.",
-  },
   "db:load:tender-dossier:pg": {
     axes: ["uncommitted-input"],
     ranBy:
@@ -108,6 +101,24 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
  */
 export const TOLERATED_GITIGNORED_INPUTS: Record<string, string[]> = {
   "db:load:agri:pg": ["raw_data/agri"],
+  // ⚠️ THIS ONE WAS A REFRESH_EXCLUSIONS MEMBER UNTIL 2026-08-28, AND THE AXIS WAS
+  // MISREAD. Its exclusion cited "uncommitted-input" — but that axis is exactly what
+  // this map exists to resolve, and the loader already had the skip-shaped guard it
+  // asks for. What the exclusion was really pricing was the ~3.5h CRAWL
+  // (crawl_declarations.ts), which is a different program: this loader only reads the
+  // cache the crawl left behind, and is 2.45 s measured over 36,995 filings.
+  //
+  // Leaving it out was not neutral. `db:load:magistrates:pg` is in the chain and runs
+  // `TRUNCATE magistrate CASCADE`; `magistrate_filing` cascades with it while
+  // `magistrate_filing_asset` (PK (source_url, table_num, ord), NO FK) SURVIVES. So
+  // every full refresh left 26,142 property rows standing beside a roster with
+  // `real_estate_count_parsed` NULL on all 3,587 magistrates and `form_version` NULL
+  // on 36,995 filings — and `test:data`, the chain's ONLY verification step, went red
+  // at the very end on both counts. A guaranteed red at the end of every refresh
+  // teaches people to ignore the one step that checks the corpus.
+  "db:load:magistrate-filing-assets:pg": [
+    "raw_data/judiciary/filing_cache.json",
+  ],
   // db:load:nzok-tariffs:pg is deliberately ABSENT. pathway_tariffs.json used to
   // sit here, but it is now COMMITTED (9 KB, and not regenerable by a routine
   // fetch the way its former neighbours are — rebuilding it means re-parsing the

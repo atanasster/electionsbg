@@ -288,10 +288,18 @@ const run = async (): Promise<void> => {
   // ⚠️ THIS RELOAD JUST BLANKED THE PROPERTY COUNT ON EVERY MAGISTRATE CARD, and nothing
   // else will say so. The TRUNCATE above clears magistrate.real_estate_count_parsed and the
   // magistrate_filing.kind metadata its derivation needs; only
-  // db:load:magistrate-filing-assets:pg can refill them, and that loader is a
-  // REFRESH_EXCLUSIONS member, so db:refresh does NOT run it. The card renders no count
-  // rather than falling back to the old heuristic — deliberate, since that heuristic
-  // fabricates property — which makes the failure invisible unless it is announced here.
+  // db:load:magistrate-filing-assets:pg can refill them. The card renders no count rather
+  // than falling back to the old heuristic — deliberate, since that heuristic fabricates
+  // property — which makes the failure invisible unless it is announced here.
+  //
+  // ⚠️ THIS WARNING IS FOR THE STANDALONE AND CLOUD PATHS, NOT FOR db:refresh, and it used
+  // to say the opposite ("that loader is a REFRESH_EXCLUSIONS member, so db:refresh does
+  // NOT run it"). Since 2026-08-28 the chain runs the repair immediately after this loader
+  // and refresh_coverage.test.ts's ORDER_PAIRS pins it there, so a full local refresh
+  // self-heals. What still does NOT self-heal is every other way this loader runs: a
+  // hand-run `npm run db:load:magistrates:pg`, and above all
+  // `db:load:magistrates:pg:cloud`, which nothing follows automatically — that is the path
+  // an ivss_declarations watcher flip takes, so the warning stays.
   // ⚠️ TWO STATEMENTS, NOT ONE GUARDED BY to_regclass. 185 is applied only by the asset
   // loader, so on a database that has never run the operator crawl the table does not exist —
   // and a `WHERE to_regclass(...) IS NOT NULL` guard does NOT save a query that names it,
