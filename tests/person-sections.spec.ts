@@ -103,6 +103,16 @@ const FILINGS = [
 // Intercept every /api/db call. `overrides` gives the endpoints under test their payload;
 // everything else returns [] — which the object-shaped hooks read as "no data" and self-hide,
 // so unrelated sections don't interfere.
+//
+// ⚠️ THAT DEFAULT IS A LOADED GUN FOR ANY OBJECT-SHAPED ROUTE WHOSE KEY IS ALSO AN
+// `Array.prototype` MEMBER — `entries`, `keys`, `values`, `find`, `length`. A hook reading
+// `body.entries ?? []` off this `[]` gets `Array.prototype.entries`, a FUNCTION, and a
+// `for…of` over it throws during render, which kills the page instead of hiding a tile.
+// It happened: json-retirement-v2 Tier 2 moved `useMpLoyalty` from a bucket shard onto
+// /api/db/mp-loyalty and all three specs below went red with the profile rendered down to
+// „€0". The hook now guards with `Array.isArray`; the default stays `[]` because the
+// array-shaped routes outnumber the object-shaped ones — but a NEW object-shaped route is
+// safe here only if it reads its body defensively.
 async function mockDb(page: Page, overrides: Record<string, unknown>) {
   await page.route("**/api/db/**", async (route) => {
     const path = new URL(route.request().url()).pathname.replace(

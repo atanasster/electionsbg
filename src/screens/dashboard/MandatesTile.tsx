@@ -230,11 +230,19 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
                     )}
                     {row.isSplitChild && parentParty && (
                       <div className="opacity-75 text-xs">
+                        {/* ⚠️ NO `defaultValue` HERE — it is not a safety net, it is a
+                            SECOND corpus entry that only the Bulgarian side has. It made
+                            the EN page render Bulgarian, and — because i18next still calls
+                            `missingKeyHandler` when it falls back to one — it fired
+                            `healMissingKey`, which pulls EVERY deferred locale bundle. So
+                            the home page downloaded budget.json and methodology.json,
+                            undoing the split, while the visible copy looked perfectly fine.
+                            Invisible in CI until the data origin was fixed, because the
+                            split-coalition row only renders once the party data lands. */}
                         {t("from_coalition", {
                           coalition:
                             displayNameFor(parentParty.nickName) ??
                             parentParty.nickName,
-                          defaultValue: `от коалиция ${displayNameFor(parentParty.nickName) ?? parentParty.nickName}`,
                         })}
                       </div>
                     )}

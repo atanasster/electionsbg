@@ -15,7 +15,10 @@ jobs:
   test:
     name: lint + build + playwright
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # Was 25, and run 33036199067 finished in 23m39s — the browser tests now make
+    # real cross-origin data fetches to the GCS bucket (see the Build step), so the
+    # old ceiling had no headroom left.
+    timeout-minutes: 35
 
     steps:
       - uses: actions/checkout@v6
@@ -68,8 +71,25 @@ jobs:
       # The webServer config in playwright.config.ts boots `firebase
       # emulators:start --only hosting`, which serves dist/. So the dist
       # tree must exist before tests run.
+      #
+      # ⚠️ VITE_DATA_BASE_URL IS NOT OPTIONAL HERE, AND ITS ABSENCE FAILS AT 200.
+      # `.env.production` is gitignored, so without this the build resolves an EMPTY
+      # data origin and `dataUrl()` becomes the identity — every `data/**` fetch goes
+      # same-origin, the emulator serves only dist/ (which never holds that tree, and
+      # whose hosting `ignore` list drops `procurement/**/*.json` outright), so the
+      # catch-all answers with the SPA SHELL. firebase.json's `**/*.json` header rule
+      # then stamps it `application/json`, so the fetch looks successful right up to
+      # JSON.parse — the query never resolves, and every hub KPI band renders
+      # skeletons. Measured on run 33036199067: eight `hub head — the §3.0 height
+      # budget` tests failed at 0 `data-kpi-cell`s while the HEIGHT assertion passed,
+      # because a head that lost its band is comfortably inside its budget.
+      #
+      # The origin must also be in `scripts/bucket_cors.json` (127.0.0.1:5002 is the
+      # Playwright baseURL) or the browser blocks it and the symptom is identical.
       - name: Build
         run: npm run build
+        env:
+          VITE_DATA_BASE_URL: https://storage.googleapis.com/data-electionsbg-com
 
       - name: Run Playwright tests
         run: npm test

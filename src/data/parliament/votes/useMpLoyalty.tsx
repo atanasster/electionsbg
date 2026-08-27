@@ -35,7 +35,7 @@ import type { LoyaltyEntry, LoyaltySlice } from "./types";
 // Stable identity for the empty case — see the twin in useAttendance.tsx. The MP
 // scorecard depends on BOTH arrays in one useMemo, so a fresh `[]` from either
 // recomputes it on every render.
-const NO_ENTRIES: LoyaltyEntry[] = [];
+const NO_ENTRIES: Body["entries"] = [];
 
 interface Body {
   ns: number;
@@ -93,14 +93,31 @@ export const useMpLoyalty = (
     staleTime: Infinity,
   });
 
+  // ⚠️ `Array.isArray`, NEVER `data?.entries ?? []`. `data` is a parsed JSON body, so if the
+  // route ever answers with an ARRAY rather than an object — a degrade, a stub, a mis-shaped
+  // payload — `data.entries` resolves to `Array.prototype.ENTRIES`, a FUNCTION. `??` keeps a
+  // function (it is not nullish), and the `for…of` below then throws "function is not
+  // iterable", which is an uncaught error DURING RENDER: it takes the whole /person page
+  // down rather than hiding one tile, and no self-hiding branch can catch it.
+  //
+  // Not hypothetical — `person-sections.spec.ts`'s `mockDb` answers every unmocked
+  // /api/db route with `[]` on the documented theory that "the object-shaped hooks read it
+  // as no data and self-hide". That held while this hook read a bucket shard; it stopped
+  // holding the day json-retirement-v2 Tier 2 moved it onto /api/db/mp-loyalty, and three
+  // person specs went red with the page rendered down to a bare „€0".
+  const entries: Body["entries"] = useMemo(
+    () => (Array.isArray(data?.entries) ? data.entries : NO_ENTRIES),
+    [data],
+  );
+
   const byMpId = useMemo(() => {
     const m = new Map<number, LoyaltyEntry>();
-    for (const e of data?.entries ?? []) {
+    for (const e of entries) {
       if (e.loyaltyPct == null) continue;
       m.set(e.mpId, e as LoyaltyEntry);
     }
     return m;
-  }, [data]);
+  }, [entries]);
 
   // NAME FALLBACK. parliament.bg recycles CSV ids across parliaments, so a candidate page
   // reaching this hook with a roster id that is not this NS's id resolves by name instead —
@@ -109,10 +126,10 @@ export const useMpLoyalty = (
   const fallbackEntry = useMemo(() => {
     if (!name) return undefined;
     const target = name.toLocaleLowerCase("bg");
-    return (data?.entries ?? []).find(
+    return entries.find(
       (e) => (e.name ?? "").toLocaleLowerCase("bg") === target,
     ) as LoyaltyEntry | undefined;
-  }, [name, data]);
+  }, [name, entries]);
 
   const entry: LoyaltyEntry | undefined =
     (mpId != null ? byMpId.get(mpId) : undefined) ?? fallbackEntry;
@@ -122,7 +139,7 @@ export const useMpLoyalty = (
         windowFrom: data.windowFrom,
         windowTo: data.windowTo,
         totalVoteItems: data.totalVoteItems,
-        entries: (data.entries ?? []) as LoyaltyEntry[],
+        entries: entries as LoyaltyEntry[],
       }
     : undefined;
 
@@ -130,7 +147,7 @@ export const useMpLoyalty = (
     file: slice,
     slice,
     ns,
-    entries: (data?.entries as LoyaltyEntry[]) ?? NO_ENTRIES,
+    entries: entries as LoyaltyEntry[],
     entry,
     byMpId,
     /** The chamber medians the scorecard shows a member against. Named `cohort` because that

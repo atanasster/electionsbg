@@ -221,6 +221,28 @@ page needs in order to paint at all; measured, HIGH is a net LCP loss at both 1.
 10 Mbps. Note the whole hint set is still a small net loss at 1.6 Mbps, so re-measure before
 adding a fifth path to a route.
 
+⚠️ **CI IS A THIRD RESOLVER OF THAT SAME VARIABLE, AND IT HAS NO `.env.production` — the
+file is gitignored.** With an empty base `dataUrl()` is the identity, so every `data/**`
+fetch goes SAME-ORIGIN; the Playwright suite runs against the Firebase hosting emulator,
+which serves only `dist/` (and whose `ignore` list drops `procurement/**/*.json` outright),
+so those requests reach the SPA catch-all. **They come back 200 with the SPA SHELL, stamped
+`Content-Type: application/json` by `firebase.json`'s `**/*.json` header rule** — a fetch
+that looks successful right up to `JSON.parse`, after which React Query never resolves and
+every hub KPI band renders skeletons. `.github/workflows/test.yml` therefore sets
+`VITE_DATA_BASE_URL` on its Build step, and `scripts/bucket_cors.json` carries
+`http://127.0.0.1:5002` (the Playwright `baseURL`) so the browser is allowed to read the
+bucket cross-origin. **Both halves, or the symptom is identical** — a missing CORS entry and
+a missing base fail the same way.
+
+That is what failed in CI run 33036199067: eight `hub head — the §3.0 height budget` tests at
+**0 `data-kpi-cell`s**, and in every one of them the HEIGHT assertion PASSED, because a head
+that lost its band is comfortably inside its budget — exactly the case the `cells` count
+exists for. Only the nine hubs reading `/api/db/*` (forwarded to the DEPLOYED function) or
+`/parliament/votes/**` were green; the second is reachable because `public/parliament/votes`
+is a **tracked** symlink into committed data, while `public/procurement` and `public/myarea`
+are untracked local symlinks that exist on a developer's machine and nowhere else. Read a
+green data-backed browser test on a fresh clone with suspicion for that reason.
+
 **`npm run deploy` ships hosting only.** When a change spans hosting and the `db` function
 — a new `/api/db` route, a new hosting rewrite pointing at it — deploy in this order:
 
