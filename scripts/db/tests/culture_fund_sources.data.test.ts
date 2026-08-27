@@ -562,6 +562,32 @@ test.skipIf(skipAgri)(
   },
 );
 
+// ⚠️ 191 IS THE ONE WITH NO INDEX TO WATCH, and until 2026-08-27 that meant nothing watched
+// it at all. The two ceilings above exist because 189/190 ARE index-served and the gate is
+// that they stay so; the Interreg arm never was — it is a hash join of two Seq Scans
+// (interreg_partners 487 buffers, interreg_operations 542) and cannot be indexed, because
+// the theme predicate is a regex on the OPERATION while the page sorts on the PARTNER.
+//
+// That made it the arm most in need of a ceiling and the only one without: both scans grow
+// linearly with the keep.eu corpus, and `db_table_sort_indexes.data.test.ts` has now
+// formally conceded its sort via PLAN_EXCEPTIONS, so nothing else looks at its cost either.
+// A conceded sort must not also mean a conceded scan.
+test.skipIf(skipInterreg)(
+  "the Interreg thematic join stays cheap enough to serve live",
+  async () => {
+    const bufs = await bufsFor(
+      "SELECT count(*) FROM culture_interreg_thematic",
+    );
+    assert.ok(
+      bufs <= 2500,
+      `culture_interreg_thematic cost ${bufs} buffers (ceiling 2500, measured 1030). ` +
+        `Both interreg tables are Seq-Scanned here and neither can be indexed for this ` +
+        `predicate, so the corpus has simply grown past what a live page can carry — 191 ` +
+        `needs a matview rather than a view.`,
+    );
+  },
+);
+
 // ── 7. EVERY ARM'S PAGING TIEBREAK IS UNIQUE ────────────────────────────────
 //
 // `buildOrder` appends ONE tiebreak column — `key` when the resource declares

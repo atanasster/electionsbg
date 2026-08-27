@@ -169,6 +169,46 @@ const CATALOG_EXCEPTIONS: Record<string, string> = {
  * Resources whose arrival legitimately does NOT ride an ordered index, each with the reason
  * and the measurement that settles it. An entry here is a DECISION, not a suppression — a
  * stale one fails below, so removing the reason is not free.
+ *
+ * ONE SHAPE ACCOUNTS FOR THE FOUR CULTURE ARMS below, and recognising it saves re-deriving
+ * the argument each time: a resource whose base is a plain VIEW carrying a CONTENT-DERIVED
+ * predicate — a name regex, an EIK allowlist, a join to a filtered second relation — can
+ * never have its sort index-served, and the reason is structural rather than a missing
+ * migration. The predicate selects a few dozen to a couple of thousand rows scattered
+ * through a large heap, so the only index that could serve
+ * `ORDER BY <col> DESC NULLS LAST … LIMIT 25` is one ordered by that column, which the
+ * planner would then have to walk filtering by the predicate, against a top-N heapsort of
+ * the whole filtered set.
+ *
+ * ⚠️ IT IS FOUR, NOT FIVE. `magistrate_holdings` is also a plain view over a content
+ * predicate, and it is NOT this shape: its source is 3,594 magistrate rows, so the "large
+ * heap" premise the cost argument rests on does not hold and its entry correctly gives a
+ * different reason (too small to index at all). Retro-fitting this argument onto it would
+ * be the overclaim this file exists to prevent, one level up.
+ *
+ * ⚠️ "THE SORT WINS" IS A COST CLAIM ABOUT A CORPUS, so where it can be re-measured it is —
+ * the planted-index mutation check below runs the two arms that HAVE a single candidate
+ * index (isun-eik, agri) and requires the planner to keep refusing it. The other two are
+ * structural and carry no counter-figure on purpose: `culture_isun_name` sorts on a column
+ * whose predicate needs the heap, and `culture_interreg` joins two relations, so neither has
+ * one index to plant. Where an entry quotes a walk length ("~44k index entries") that is
+ * ARITHMETIC from the corpus (matches × corpus ÷ 25), not a measurement — and the planner
+ * does not in fact take that route: given the index it declines to use it at all.
+ *
+ * ⚠️ AN ENTRY IS STILL NOT FREE, because this gate stops watching the cost the moment one is
+ * added. Where the view's own predicate has a cost gate elsewhere, cite it — but only TWO of
+ * the four culture arms have one: `culture_fund_sources.data.test.ts` §6 holds the two
+ * TRIGRAM predicates (isun-name ≤4000, agri ≤1500) and the interreg join (≤2500), so what an
+ * exception here concedes for those three is the SORT, not the scan behind it. `isun-eik`
+ * has none anywhere and needs none — it rides a btree at 174 buffers and is bounded by a
+ * 63-EIK allowlist rather than by corpus size.
+ *
+ * ⚠️ AND THE COVER STANDS DOWN BEFORE THE CONCESSION DOES. This file's `skip` is
+ * `dbReachable()` alone, while §6's ceilings ride corpus-presence skips (`skipAgri`,
+ * `skipInterreg`) — so on a clone without the gitignored agri cache the exception below
+ * applies and the ceiling named as its cover does not run. That is the asymmetry
+ * `culture_fund_sources`' own header warns about; it is recorded here rather than fixed,
+ * because the fix belongs to that file's skip predicates.
  */
 const PLAN_EXCEPTIONS: Record<string, string> = {
   company_person_roles:
@@ -183,10 +223,85 @@ const PLAN_EXCEPTIONS: Record<string, string> = {
     "person_crypto_table is 114 rows / 8 pages, so the planner correctly seq-scans it whatever the " +
     "index says (measured 8 buffers before and after the NULLS LAST fix). 159's index is spelled " +
     "correctly anyway — the catalog arm still enforces that, which is the point of having two arms.",
+  // ── the four /culture/funds arms (189/190/191) ──────────────────────────────────────
+  // All four are the plain-VIEW-over-a-content-predicate shape described above. Measured
+  // 2026-08-27 on the local docker Postgres, via the arrival SQL this file captures — so
+  // these are the ARRIVAL (view + top-N + LIMIT 25) on a COLD cache, and do not reconcile
+  // exactly with `culture_fund_sources.data.test.ts` §6, which measures `count(*) FROM
+  // <view>` warm. The two conventions agree on the buffer figure and diverge on the
+  // milliseconds (isun-name: 1,525 buffers both ways, 35 ms here against §6's 13.7 ms;
+  // agri: 373 cold here against 370 warm there). Both files sum hit+read.
+  culture_isun_eik:
+    "culture_isun_by_eik is a plain VIEW selecting 47 of 82k fund_projects rows through a 63-EIK " +
+    "allowlist. 174 buffers / 1.7 ms: a bitmap on idx_fund_projects_eik plus a 47-row quicksort. " +
+    "A `(grant_eur DESC NULLS LAST, contract_number)` index on fund_projects would have to cover " +
+    "~44k entries to reach 25 of those 47, so sorting all 47 wins — re-measured by the " +
+    "planted-index check below rather than left as arithmetic.",
+  culture_isun_name:
+    "culture_isun_by_name is a plain VIEW selecting 1,560 of 82k fund_projects rows through the " +
+    "cultureMatch NAME regex. 1,525 buffers / 35 ms: a bitmap on idx_fund_projects_bname plus a " +
+    "top-N heapsort. The sort key lives on fund_projects but the predicate is a regex, so an " +
+    "ordered index could only be walked-and-filtered — and the regex needs the heap, since " +
+    "beneficiary_name is not in any ordered index. The scan behind it is separately gated: " +
+    "culture_fund_sources.data.test.ts holds this view to <=4000 buffers precisely so a rule " +
+    "change that defeats pg_trgm cannot hide behind this entry.",
+  culture_agri_chitalishta:
+    "culture_agri_chitalishta is a plain VIEW selecting 264 of 2.48M agri_subsidies rows through " +
+    "`name ~* 'читалищ'`. 373 buffers / 15.8 ms: a bitmap on idx_agri_name_trgm plus a 264-row " +
+    "top-N heapsort. This is the starkest case — an ordered `(total_eur DESC NULLS LAST, id)` " +
+    "index ON agri_subsidies (190 renames the column `subsidy_eur` in the view) would have to " +
+    "cover ~235k entries to reach 25, on a table where the trigram index finds the whole answer " +
+    "in 122 (hit+read, the convention culture_fund_sources' bufsFor uses). Also separately gated " +
+    "at <=1500 buffers there, and re-measured by the planted-index check below.",
+  culture_interreg:
+    "culture_interreg_thematic sorts on interreg_partners.budget_eur while its theme predicate " +
+    "filters interreg_operations.title_en, so the arrival is a hash join of two small relations " +
+    "(12,015 partner rows -> 1,494 Bulgarian; 1,958 operations -> 199 thematic) and NO single " +
+    "index can serve a sort across it. 1,030 buffers / 20.9 ms for 202 rows. The tiebreak is the " +
+    "view's synthetic `keep_id || ':' || partner_seq`, which is an expression and unindexable on " +
+    "its own account.",
 };
 
 const skip = (await dbReachable()) ? false : "Postgres unreachable";
 reportSkip(import.meta.url, skip);
+
+/**
+ * Registry bases that do not exist on THIS database, so the plan arm can stand down for
+ * exactly those resources instead of failing on a `42P01` from a bare `EXPLAIN`.
+ *
+ * ⚠️ THIS IS A SKIP, WHICH THIS FILE IS OTHERWISE HOSTILE TO — so it is deliberately the
+ * narrowest one available: per RESOURCE, computed from the catalog, and announced. The
+ * alternative is worse in both directions. A fresh clone cannot apply every migration: the
+ * culture arms are the worked example, and `190_culture_match_agri.sql` is the sharp one,
+ * because its ONLY applier is `scripts/agri/ingest.ts` — the fetch+load path over the
+ * gitignored `raw_data/agri/` cache — and NOT `db:load:agri:pg`. So `culture_agri_chitalishta`
+ * is legitimately absent on any machine that has never run the agri crawl, and without this
+ * the whole plan arm reports a red gate there for a relation nobody was expected to have.
+ * The catalog arm is unaffected (it joins pg_class and simply finds nothing), and the orphan
+ * sweep below is static over REGISTRY, so neither loses coverage on such a database.
+ */
+const missingBases = skip
+  ? new Set<string>()
+  : await (async () => {
+      const bases = [...new Set(Object.values(REGISTRY).map((r) => r.base))];
+      const present = new Set(
+        (
+          await allRows<{ rel: string }>(
+            `SELECT c.relname AS rel FROM pg_class c
+               JOIN pg_namespace n ON n.oid = c.relnamespace
+              WHERE n.nspname = ANY(current_schemas(false)) AND c.relname = ANY($1)`,
+            [bases],
+          )
+        ).map((r) => r.rel),
+      );
+      return new Set(bases.filter((b) => !present.has(b)));
+    })();
+if (missingBases.size)
+  reportSkip(
+    import.meta.url,
+    `plan arm stood down for ${missingBases.size} resource(s) whose base relation is absent ` +
+      `on this database: ${[...missingBases].sort().join(", ")}`,
+  );
 
 afterAll(async () => {
   await end();
@@ -398,14 +513,20 @@ test.skipIf(skip)(
 
 // ── ARM 2: the plan ───────────────────────────────────────────────────────────────────
 
-for (const name of Object.keys(REGISTRY)) {
-  const desc = (REGISTRY[name].defaultSort ?? []).some(
+/** Does this resource's default arrival sort any column DESCENDING? Only those can be
+ *  refused by a NULLS-ordering mismatch, so only those are in the plan arm — and the orphan
+ *  sweep uses the SAME predicate, because an exception whose resource has stopped sorting
+ *  descending is never read either. */
+const sortsDesc = (name: string): boolean =>
+  (REGISTRY[name]?.defaultSort ?? []).some(
     (s) =>
       (Array.isArray(s) ? s[1] : s.desc) === "desc" ||
       (Array.isArray(s) ? s[1] : s.desc) === true,
   );
-  if (!desc) continue;
-  test.skipIf(skip)(
+
+for (const name of Object.keys(REGISTRY)) {
+  if (!sortsDesc(name)) continue;
+  test.skipIf(skip || missingBases.has(REGISTRY[name].base))(
     `${name}: the engine's own default arrival does not full-sort`,
     async () => {
       const { sql, params } = await arrivalSql(name);
@@ -432,6 +553,104 @@ for (const name of Object.keys(REGISTRY)) {
     },
   );
 }
+
+test("no PLAN_EXCEPTIONS entry is orphaned", () => {
+  // The header promises that "a stale one fails below, so removing the reason is not
+  // free". That was only half true: `CATALOG_EXCEPTIONS` gets a real sweep, and this map
+  // got none — because its ONLY read is inside the per-resource loop, AFTER a `continue`
+  // that skips every resource without a descending default sort. So an entry survived
+  // its own resource being deleted, renamed, or flipped to ascending, with nothing red.
+  //
+  // Two of the four culture keys make that concrete: `culture_isun_eik` /
+  // `culture_isun_name` are not literals in the registry at all — they are minted by
+  // `isunCultureArms()` in functions/db_table.js, so they are one factory rename away
+  // from being dead config, and a factory rename is the edit least likely to prompt a
+  // look in this file.
+  //
+  // ⚠️ NOT `skipIf(skip)`: this is static over REGISTRY and needs no database, so it is
+  // the one arm that still runs on a clone with no Postgres and on one missing a
+  // migration — which is exactly where a stale entry would otherwise sit unexamined.
+  const orphans = Object.keys(PLAN_EXCEPTIONS).filter(
+    (k) => !REGISTRY[k] || !sortsDesc(k),
+  );
+  assert.deepEqual(
+    orphans,
+    [],
+    `PLAN_EXCEPTIONS entries name a resource that no longer exists or no longer sorts ` +
+      `descending, so the plan arm never reads them — delete the entry rather than ` +
+      `leaving a stale reason on the record: ${orphans.join(", ")}`,
+  );
+});
+
+test.skipIf(skip)(
+  "MUTATION CHECK: an ordered index would not rescue the culture arms",
+  async () => {
+    // Two of the culture entries claim an ordered index would be WORSE than the sort. That
+    // is a cost claim about a corpus, not an invariant, so it is re-measured rather than
+    // asserted: plant the index the entry names and require the planner to keep refusing
+    // it. Without this, "the sort wins" is a 2026-08-27 fact that no future run re-tests,
+    // on exceptions whose entire justification is that comparison.
+    //
+    // ⚠️ ONLY THESE TWO, and the omission is the point. `culture_isun_name` sorts on a
+    // column whose predicate needs the heap and `culture_interreg` joins two relations, so
+    // neither has a single candidate index to plant — which is why those two entries carry
+    // a structural argument instead of a counter-figure.
+    const CANDIDATES = [
+      [
+        "culture_isun_eik",
+        "fund_projects",
+        "(grant_eur DESC NULLS LAST, contract_number)",
+      ],
+      [
+        "culture_agri_chitalishta",
+        "agri_subsidies",
+        "(total_eur DESC NULLS LAST, id)",
+      ],
+    ] as const;
+    let probed = 0;
+    for (const [res, rel, cols] of CANDIDATES) {
+      if (missingBases.has(REGISTRY[res].base)) continue;
+      const { sql, params } = await arrivalSql(res);
+      await withTx(async (c) => {
+        await c.query(`CREATE INDEX tmp_ordered_probe ON ${rel} ${cols}`);
+        // ANALYZE inside the transaction, so the planner is choosing against fresh stats
+        // rather than declining an index it has no estimate for.
+        await c.query(`ANALYZE ${rel}`);
+        // The index really exists in THIS transaction. Without this the whole probe is
+        // satisfiable by a CREATE that silently did something else — and it would then
+        // report "the planner refused it" about an index that was never there, which is
+        // the certifies-its-own-absence failure this file's header is about.
+        const { rows } = await c.query(
+          "SELECT count(*)::text AS n FROM pg_class WHERE relname = 'tmp_ordered_probe'",
+        );
+        assert.equal(
+          (rows[0] as { n: string }).n,
+          "1",
+          `${res}: the planted probe index is not in the catalog`,
+        );
+        assert.ok(
+          fullSort(await planOf(sql, params, c)),
+          `${res}: the planner CHOSE an ordered index once it existed, so the ` +
+            `PLAN_EXCEPTIONS reason ("the sort wins") is now false — create the index for ` +
+            `real and delete the entry:\n  CREATE INDEX … ON ${rel} ${cols}`,
+        );
+        probed++;
+        // Roll back: the probe index must not survive the test.
+        throw new Rollback();
+      }).catch((e) => {
+        if (!(e instanceof Rollback)) throw e;
+      });
+    }
+    // Non-vacuity. Both candidates skipping (a database with neither view) would otherwise
+    // pass this silently, and a green "the sort wins" that measured nothing is worse than
+    // no probe at all.
+    assert.ok(
+      probed > 0,
+      "neither candidate was probed — both base views are absent, so this check proved " +
+        "nothing about the PLAN_EXCEPTIONS cost claims",
+    );
+  },
+);
 
 test.skipIf(skip)(
   "MUTATION CHECK: restoring a NULLS FIRST index turns the plan arm red",
