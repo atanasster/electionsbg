@@ -1,6 +1,67 @@
 {
-  "updatedAt": "2026-08-25T10:03:45.512Z",
+  "updatedAt": "2026-08-27T01:56:59.077Z",
   "entries": [
+    {
+      "timestamp": "2026-08-27T01:56:59.077Z",
+      "date": "2026-08-27",
+      "skill": "update-council-minutes",
+      "summary": "Общински съвети: 4,813 решения, 46,121 поименни гласа (93.8% свързани)",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-08-27T01:44:57.974Z",
+      "date": "2026-08-27",
+      "skill": "update-procurement",
+      "summary": "Обществени поръчки: +211 договора от ЦАИС ЕОП; 238,082 процедури; TED 217,994 обявления; АДФИ 1,986 инспекции",
+      "source": "ЦАИС ЕОП / TED / АДФИ"
+    },
+    {
+      "timestamp": "2026-08-27T01:22:47.256Z",
+      "date": "2026-08-27",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 65 119 лица, 125 084 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-08-27T00:51:06.410Z",
+      "date": "2026-08-27",
+      "skill": "tr-daily-refresh",
+      "summary": "Търговски регистър: 220 нови фирми; 1,022,812 общо, 890,923 длъжностни лица",
+      "source": "data.egov.bg Commerce Registry (Търговски регистър)"
+    },
+    {
+      "timestamp": "2026-08-27T00:38:45.195Z",
+      "date": "2026-08-27",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-08-26 (+2 daily archives; 964,393 store rows, 169 settlements, 89 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-08-27T00:32:30.838Z",
+      "date": "2026-08-27",
+      "skill": "update-macro",
+      "summary": "6 Eurostat releases; gdpGrowth/inflation now 2026 Q2, fiscal triple 2026 Q1; peers + pricePli refreshed",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-27T00:31:18.437Z",
+      "date": "2026-08-27",
+      "skill": "update-rollcall",
+      "summary": "1 new session (2026-08-25, id 11160): 19 items, 4560 rows, 0 unresolved",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-08-25T10:03:45.512Z",
       "date": "2026-08-25",

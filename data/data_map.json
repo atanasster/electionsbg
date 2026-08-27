@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-24T22:52:08.925Z",
+  "generatedAt": "2026-08-27T01:57:23.317Z",
   "nodes": [
     {
       "id": "src:water",
@@ -106,7 +106,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-01T11:48:06.587Z",
+      "freshness": "2026-08-26T22:43:35.855Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -117,7 +117,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-08-01T11:48:06.587Z"
+          "freshness": "2026-08-26T22:43:35.855Z"
         },
         {
           "id": "parliament_mps",
@@ -410,7 +410,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-24T21:36:43.386Z",
+      "freshness": "2026-08-26T22:43:35.855Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -432,7 +432,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-08-24T21:36:43.386Z"
+          "freshness": "2026-08-26T22:43:35.855Z"
         },
         {
           "id": "egov_budget_execution",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-24T21:36:43.386Z",
+      "freshness": "2026-08-26T22:43:35.855Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-24T21:36:43.386Z"
+          "freshness": "2026-08-26T22:43:35.855Z"
         }
       ],
       "x": 28,
@@ -1050,7 +1050,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-24T21:36:43.386Z",
+      "freshness": "2026-08-26T22:43:35.855Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1069,7 +1069,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-08-24T21:36:43.386Z"
+          "freshness": "2026-08-26T22:43:35.855Z"
         },
         {
           "id": "municipal_naredba",
@@ -1259,7 +1259,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-08-24T21:36:43.386Z",
+      "freshness": "2026-08-26T22:43:35.855Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1271,7 +1271,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-08-22T15:46:19.647Z"
+          "freshness": "2026-08-26T22:43:35.855Z"
         },
         {
           "id": "eurostat_policy",
@@ -1586,7 +1586,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-24T21:36:43.386Z",
+      "freshness": "2026-08-26T22:43:35.855Z",
       "skills": [
         "update-prices"
       ],
@@ -1596,7 +1596,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-24T21:36:43.386Z"
+          "freshness": "2026-08-26T22:43:35.855Z"
         }
       ],
       "x": 28,
@@ -1661,7 +1661,7 @@
       "url": "https://lisi.transparency.bg/",
       "origin": "intl",
       "cadence": "monthly",
-      "freshness": "2026-05-29T00:27:36.982Z",
+      "freshness": "2026-08-26T22:43:35.855Z",
       "skills": [
         "update-transparency-lisi"
       ],
@@ -1671,7 +1671,7 @@
           "label": "Прозрачност без граници — LISI",
           "url": "https://lisi.transparency.bg/",
           "cadence": "monthly",
-          "freshness": "2026-05-29T00:27:36.982Z"
+          "freshness": "2026-08-26T22:43:35.855Z"
         }
       ],
       "x": 28,
@@ -2022,7 +2022,7 @@
       "url": "https://adfi.minfin.bg/bg/34",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-20T07:23:14.975Z",
+      "freshness": "2026-08-26T22:43:35.855Z",
       "skills": [
         "update-procurement"
       ],
@@ -2032,7 +2032,7 @@
           "label": "АДФИ — доклади от финансови инспекции (adfi.minfin.bg)",
           "url": "https://adfi.minfin.bg/bg/34",
           "cadence": "weekly",
-          "freshness": "2026-08-20T07:23:14.975Z"
+          "freshness": "2026-08-26T22:43:35.855Z"
         }
       ],
       "x": 28,
@@ -2061,7 +2061,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-08-24T21:36:43.386Z",
+      "freshness": "2026-08-26T22:43:35.855Z",
       "skills": [
         "update-procurement"
       ],
@@ -2071,7 +2071,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-08-24T21:36:43.386Z"
+          "freshness": "2026-08-26T22:43:35.855Z"
         }
       ],
       "x": 28,
