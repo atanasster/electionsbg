@@ -1,6 +1,23 @@
 -- The /subsidies hub's ONE stat call. Plan: docs/plans/subsidies-hub-v1.md §5.
 --
 -- ═══════════════════════════════════════════════════════════════════════════════════════════
+-- ⚠️ SHIPPING A CHANGE TO THIS FILE — INCLUDING A FUNCTION-ONLY ONE — GOES THROUGH THE LOADER,
+-- NEVER THROUGH apply_functions.ts:
+--
+--     npm run db:load:agri-hub-stats:pg          # local
+--     npm run db:load:agri-hub-stats:pg:cloud    # the serving database; nothing runs it
+--
+-- The usual escape hatch for a serving-function fix (`apply_functions.ts 162_…`) is WRONG
+-- here and fails in the quiet direction. This file opens with
+-- `DROP MATERIALIZED VIEW IF EXISTS agri_hub_stats_cache` and recreates it `WITH NO DATA`, so
+-- applying it alone leaves the cache unpopulated — and reading an unpopulated matview raises
+-- 55000, which `/api/db/agri-hub-stats` DEGRADES to `null`. Every figure on /subsidies then
+-- disappears at a 200, indefinitely, until somebody happens to run a refresh. The loader
+-- applies 162 + 163 and REFRESHes all three matviews, so the window is only as long as itself
+-- (measured 2026-08-27: 25 s against Cloud SQL, agri_subsidies at 2.48M rows).
+-- ═══════════════════════════════════════════════════════════════════════════════════════════
+--
+-- ═══════════════════════════════════════════════════════════════════════════════════════════
 -- A FUNCTION OVER A MATVIEW, NOT A COMMITTED JSON BLOB — the same departure 145 made for
 -- /funds, for the same two reasons. `feedback_no_json_from_pg` (PG is for live serving and
 -- queryable tables, not for generating committed JSON) and the fact that /subsidies is ALREADY
@@ -342,8 +359,30 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- `sourcesBuilt` precedent from judicial_body_detail(): it lets the tile say
     -- „не е изчислено" instead of publishing a zero.
     'politicalPeople', c.political_people,
+    -- ⚠️ EXISTS, NEVER `count(*) > 0`, AND THE DIFFERENCE IS 5,726 BUFFERS ON A CALL EVERY
+    -- /subsidies VIEW MAKES. Postgres does not rewrite one into the other: `count(*) > 0`
+    -- runs the full aggregate, which here is a Parallel Seq Scan over the 201,082 tr/ngo
+    -- rows of person_role. Measured 2026-08-27 — 5,727 buffers against 1 for the EXISTS
+    -- form, taking the whole agri_hub_stats('') call from 6,229 buffers to 508 locally and
+    -- from 1,479 to 508 on Cloud SQL.
+    --
+    -- ⚠️ THE `1` IS A SEQ SCAN THAT STOPS, NOT AN INDEX SEEK, and the distinction decides
+    -- whether it can regress. EXISTS returns after the FIRST matching row, and a tr/ngo row
+    -- sits on heap page 0, so the planner correctly declines idx_person_role_source_ref and
+    -- reads one page. That bound comes from row layout, not from an index — but the bound it
+    -- replaces was proportional to the whole table, so even a pathological layout could not
+    -- take this back past a handful of pages.
+    --
+    -- ⚠️ IT REGRESSED BY GROWTH RATHER THAN BY AN EDIT — the arm was spelled this way in
+    -- 162's first commit — AND THE COST WAS NEVER PROPORTIONAL TO THE GROWTH. A seq scan
+    -- reads the whole relation, so the arm cost ~5,700 buffers from whenever person_role
+    -- passed ~5,700 pages, not from the last ingest that nudged it. (~17.5k new officer rows
+    -- is ~308 pages at 56.8 rows/page; the 5,726 rise needs ~325,000.) So this had been over
+    -- the dashboard-hub 2,000-buffer ceiling for some time before the gate reported it, and
+    -- the 303-buffer figure the gate quoted from 2026-08-17 predates person_role reaching
+    -- this size. Do not read the gate's two baselines as a fortnight's drift.
     'politicalBasisBuilt',
-      (SELECT count(*) > 0 FROM person_role WHERE source IN ('tr','ngo')),
+      EXISTS (SELECT 1 FROM person_role WHERE source IN ('tr','ngo')),
     'isunEiks',        c.isun_eiks,
     'contractEiks',    c.contract_eiks,
     'crossStream', jsonb_build_object(

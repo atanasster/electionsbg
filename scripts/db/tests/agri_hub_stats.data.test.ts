@@ -368,13 +368,45 @@ test.skipIf(skip)(
       0,
     );
     assert.ok(buffers > 0, `no execution buffers parsed from:\n${text}`);
-    // Measured 2026-08-17: 303 execution buffers. The dashboard-hub skill's ceiling for anything served
-    // live is ~2,000, and this call runs on EVERY /subsidies view — the live aggregate
-    // it replaced was 233,274 buffers for the political arm alone.
+    // Measured 303 on 2026-08-17 and 508 on 2026-08-27. The dashboard-hub skill's ceiling for
+    // anything served live is ~2,000, and this call runs on EVERY /subsidies view — the live
+    // aggregate it replaced was 233,274 buffers for the political arm alone.
+    //
+    // ⚠️ MOST OF THE 508 IS FIRST-CALL SETUP, NOT WORK, and knowing that is what stops the
+    // next failure being misdiagnosed. `agri_hub_stats` is not inlined, so the planning of
+    // its own body is charged to EXECUTION buffers — which is where the parser above looks,
+    // since it strips the outer `Planning:` section. Measured across one session: first call
+    // 508, second and third **42**. The steady-state arms are tiny and account for 67 of
+    // those first-call buffers:
+    //
+    //     agri_hub_stats_cache seek        1     (10 rows on one page)
+    //     person_role EXISTS probe         1     (a Seq Scan that stops on page 0)
+    //     budget_muni_transfer lateral    33     (bitmap on idx_budget_muni_transfer_year)
+    //     agri_payloads scopeYear seek    32     (agri_payloads_pkey) — the THIRD live arm,
+    //                                            easy to miss beside the other two
+    //
+    // Two consequences. Part of the 303 → 508 drift between the two baselines is catalog
+    // growth rather than this function doing more. And a FAILURE here will not be found by
+    // staring at the arms: check whether one has stopped being an index seek (the two that
+    // can grow are the budget_muni_transfer lateral and the agri_payloads seek — NOT the
+    // person_role probe, which is now constant), and read the warm repeat-call number, which
+    // isolates the arms from the setup.
+    //
+    // ⚠️ THIS GATE HAS ALREADY CAUGHT ONE REGRESSION, AND IT AROSE FROM CORPUS GROWTH RATHER
+    // THAN AN EDIT — worth knowing, because the natural reading of a failure here is "someone
+    // changed the function". `politicalBasisBuilt` was written as
+    // `(SELECT count(*) > 0 FROM person_role WHERE source IN ('tr','ngo'))` in 162's first
+    // commit. Postgres does not rewrite that into an existence test, so it ran the full
+    // aggregate — a Parallel Seq Scan at 5,727 buffers, carrying the whole call to 6,229,
+    // against 1 for `EXISTS`. Note the cost tracked person_role's SIZE, not its growth rate,
+    // so it had been over the ceiling well before this gate reported it; see 162's comment on
+    // the arm for why the two baselines are not a fortnight's drift.
     assert.ok(
       buffers < 2000,
-      `agri_hub_stats('') touched ${buffers} buffers (was 303) — the matview seek has ` +
-        `stopped being a seek:\n${text}`,
+      `agri_hub_stats('') touched ${buffers} buffers (was 508 first-call / 42 warm on ` +
+        `2026-08-27) — an arm has stopped being an index seek, or a new one was added ` +
+        `un-precomputed. The budget_muni_transfer lateral and the agri_payloads scopeYear ` +
+        `seek are the two that can grow; the person_role probe is constant.\n${text}`,
     );
   },
 );
