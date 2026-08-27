@@ -39,6 +39,7 @@ while [ $# -gt 0 ]; do
       ;;
     --model)
       [ "$#" -ge 2 ] || { echo "--model requires NAME" >&2; exit 2; }
+      [ -n "$2" ] || { echo "--model requires NAME" >&2; exit 2; }
       MODEL=$2; shift 2
       ;;
     --articles-per-source)
@@ -70,6 +71,8 @@ RUN_ID="$(date -u +%Y-%m-%dT%H%M%SZ)-$$"
 OUT_DIR="$ROOT/news/data/_nightly"
 mkdir -p "$OUT_DIR"
 REPORT="$OUT_DIR/$RUN_ID.json"
+DIRECT_SUMMARY="$OUT_DIR/$RUN_ID.direct.jsonl"
+BROWSER_SUMMARY="$OUT_DIR/$RUN_ID.browser.jsonl"
 STAGES_EXPECTED=9
 REPORT_INTEGRITY_FAILED=0
 LAST_STAGE_NAME=""
@@ -104,7 +107,7 @@ stage() {
   # otherwise put a raw multi-line string into the report and make the whole
   # file unparseable — turning a stage failure into a report failure.
   payload=$(printf '%s' "$out" | tail -1)
-  if ! printf '%s' "$payload" | python3 -c 'import json,sys; json.load(sys.stdin)' 2>/dev/null; then
+  if ! printf '%s' "$payload" | python3 -c 'import json,sys; value=json.load(sys.stdin); sys.exit(0 if isinstance(value, dict) else 1)' 2>/dev/null; then
     # ⚠️ `errors="replace"`, because a stage's output is NOT guaranteed to be
     # UTF-8. A binary blob on stderr — a segfaulting model server, a mangled
     # locale — otherwise reaches the .jsonl as raw bytes and kills the report
@@ -142,13 +145,13 @@ if [ "$DRY" = 1 ]; then
     'import json; print(json.dumps({"skipped": "dry_run"}))'
 else
   stage acquire_direct bash news/scripts/save_all_direct.sh "$ARTICLES_PER_SOURCE" \
-    "news/data/_nightly/$RUN_ID.direct.jsonl"
+    "$DIRECT_SUMMARY"
   if [ "$SKIP_BROWSER" = 1 ]; then
     stage acquire_browser python3 -c \
       'import json; print(json.dumps({"skipped": "configured"}))'
   else
     stage acquire_browser bash news/scripts/save_all_browser.sh "$ARTICLES_PER_SOURCE" \
-      "news/data/_nightly/$RUN_ID.browser.jsonl" \
+      "$BROWSER_SUMMARY" \
       "--timeout=$BROWSER_TIMEOUT"
   fi
 fi
@@ -230,7 +233,8 @@ fi
 # heredoc replaced the file as stdin, the reader saw the script text instead
 # of the stages, and the report said `stages_run: 0` while a perfectly good
 # stages file sat next to it.
-STAMP="$STAMP" REPORT="$REPORT" STAGES="$STAGES" python3 - <<'PYEOF'
+STAMP="$STAMP" REPORT="$REPORT" STAGES="$STAGES" \
+DIRECT_SUMMARY="$DIRECT_SUMMARY" BROWSER_SUMMARY="$BROWSER_SUMMARY" python3 - <<'PYEOF'
 import json, os
 stamp, dest = os.environ["STAMP"], os.environ["REPORT"]
 with open(os.environ["STAGES"], encoding="utf-8") as fh:
@@ -249,6 +253,7 @@ report = {
 # into the nightly result makes analysis debt visible without another scan.
 bundle = next((s.get("result", {}) for s in stages
                if s.get("stage") == "bundles"), {})
+bundle = bundle if isinstance(bundle, dict) else {}
 total = bundle.get("total_articles")
 analysed = bundle.get("analyzed_articles")
 if isinstance(total, int) and isinstance(analysed, int):
@@ -257,6 +262,24 @@ if isinstance(total, int) and isinstance(analysed, int):
         "analyzed_total": analysed,
         "pending_total": max(0, total - analysed),
     }
+acquisition = {}
+for stage_name, artifact_env in (("acquire_direct", "DIRECT_SUMMARY"),
+                                 ("acquire_browser", "BROWSER_SUMMARY")):
+    result = next((s.get("result", {}) for s in stages
+                   if s.get("stage") == stage_name), {})
+    alerts = result.get("alerts") if isinstance(result, dict) else []
+    counts = {}
+    if isinstance(alerts, list):
+        for alert in alerts:
+            kind = alert.get("alert") if isinstance(alert, dict) else None
+            if kind:
+                counts[kind] = counts.get(kind, 0) + 1
+    acquisition[stage_name.removeprefix("acquire_")] = {
+        "artifact": os.environ[artifact_env],
+        "skipped": result.get("skipped") if isinstance(result, dict) else None,
+        "alerts": counts,
+    }
+report["acquisition"] = acquisition
 with open(dest, "w", encoding="utf-8") as fh:
     json.dump(report, fh, ensure_ascii=False, indent=1)
 print(json.dumps({k: report[k] for k in

@@ -31,6 +31,7 @@ class NightlyRunnerContractTests(unittest.TestCase):
             (("--limit",), "--limit requires N"),
             (("--limit", "ten"), "--limit must be a non-negative integer"),
             (("--model",), "--model requires NAME"),
+            (("--model", ""), "--model requires NAME"),
             (("--articles-per-source",), "--articles-per-source requires N"),
             (("--browser-timeout", "slow"),
              "--browser-timeout must be a non-negative integer"),
@@ -58,6 +59,8 @@ class NightlyRunnerContractTests(unittest.TestCase):
                 self.assertEqual(data["stages_ok"], 9)
                 self.assertTrue(all(s["result"] == {"skipped": "dry_run"}
                                     for s in data["stages"]))
+                self.assertEqual(data["acquisition"]["direct"]["skipped"], "dry_run")
+                self.assertEqual(data["acquisition"]["browser"]["skipped"], "dry_run")
 
     def test_model_probe_failure_skips_analysis(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -65,21 +68,18 @@ class NightlyRunnerContractTests(unittest.TestCase):
             runner = self.copy_runner(root)
             source = runner.read_text(encoding="utf-8")
             source = source.replace(
-                'stage acquire_direct bash news/scripts/save_all_direct.sh "$ARTICLES_PER_SOURCE" \\\n    "news/data/_nightly/$RUN_ID.direct.jsonl"',
+                'stage acquire_direct bash news/scripts/save_all_direct.sh "$ARTICLES_PER_SOURCE" \\\n    "$DIRECT_SUMMARY"',
                 "stage acquire_direct python3 -c 'import json; print(json.dumps({}))'")
             source = source.replace(
-                'stage acquire_browser bash news/scripts/save_all_browser.sh "$ARTICLES_PER_SOURCE" \\\n      "news/data/_nightly/$RUN_ID.browser.jsonl" \\\n      "--timeout=$BROWSER_TIMEOUT"',
+                'stage acquire_browser bash news/scripts/save_all_browser.sh "$ARTICLES_PER_SOURCE" \\\n      "$BROWSER_SUMMARY" \\\n      "--timeout=$BROWSER_TIMEOUT"',
                 "stage acquire_browser python3 -c 'import json; print(json.dumps({}))'")
             source = source.replace(
                 'stage probe_model python3 news/scripts/llm_client.py',
                 "stage probe_model python3 -c 'import json,sys; print(json.dumps({})); sys.exit(1)'")
-            for stage in ("check_prompts", "common_words", "review_queue",
-                          "mention_index", "bundles"):
-                start = f"stage {stage} "
-                pos = source.index(start)
-                end = source.index("\n", pos)
-                source = source[:pos] + (
-                    f"stage {stage} python3 -c 'import json; print(json.dumps({{}}))'") + source[end:]
+            for name in ("build_prompts.py", "build_gazetteer.py",
+                         "review_routing.py", "build_mention_index.py",
+                         "build_app_data.py"):
+                (runner.parent / name).write_text("print('{}')\n", encoding="utf-8")
             runner.write_text(source, encoding="utf-8")
             proc = self.run_runner_at(runner, "--skip-browser")
             self.assertEqual(proc.returncode, 1, proc.stderr)
@@ -88,6 +88,8 @@ class NightlyRunnerContractTests(unittest.TestCase):
             direct = next(s for s in data["stages"] if s["stage"] == "acquire_direct")
             browser = next(s for s in data["stages"] if s["stage"] == "acquire_browser")
             self.assertEqual((direct["exit"], browser["exit"]), (0, 0))
+            self.assertTrue(all(s["exit"] == 0 for s in data["stages"]
+                                if s["stage"] not in {"probe_model"}))
             analysis = next(s for s in data["stages"] if s["stage"] == "analyze")
             self.assertEqual(analysis["result"], {"skipped": "model_unavailable"})
 
