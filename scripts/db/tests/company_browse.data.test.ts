@@ -628,16 +628,31 @@ test.skipIf(skip)(
     // size — and the failure that matters here is a POSITIVE-money row falling outside the
     // floor, which would mean the floor had stopped implying money and the „от целия регистър"
     // caption had started describing a smaller number.
+    // ⚠️ EVERY SUM IS TAKEN IN `numeric`, NOT IN `double precision`, and the cast is per-ROW
+    // (`public_money_eur::numeric`) rather than on the total. `public_money_eur` is a double, so
+    // float addition is non-associative and `sum()` depends on the order the planner happens to
+    // combine partial aggregates — measured 2026-08-27, three consecutive runs against an
+    // UNCHANGED table returned 76230498972.5126 / .514 / .515 for the same total. At ~7.6e10 the
+    // float64 ULP is 1.53e-5, i.e. 15x the 1e-6 tolerance this assertion used to carry, so the
+    // reconcile passed or failed on plan order alone. Summed in numeric the three arms are an
+    // exact partition of the same rows and the gap is identically 0, so it is asserted as an
+    // EQUALITY and no epsilon is needed. Do not "fix" a future failure here by widening a
+    // tolerance: a float64 absolute epsilon cannot mean anything against a multi-billion sum.
     const r = await one<{
       all: string;
       sig: string;
       hidden: string;
+      gap: string;
       hidden_pos: string;
     }>(`
-      SELECT sum(public_money_eur)::numeric::text AS all,
-             (sum(public_money_eur) FILTER (WHERE has_signal))::numeric::text AS sig,
-             (SELECT sum(public_money_eur)::numeric::text
+      SELECT sum(public_money_eur::numeric)::text AS all,
+             (sum(public_money_eur::numeric) FILTER (WHERE has_signal))::text AS sig,
+             (SELECT sum(public_money_eur::numeric)::text
                 FROM company_browse_table WHERE NOT has_signal) AS hidden,
+             (sum(public_money_eur::numeric)
+                - coalesce(sum(public_money_eur::numeric) FILTER (WHERE has_signal), 0)
+                - coalesce((SELECT sum(public_money_eur::numeric)
+                              FROM company_browse_table WHERE NOT has_signal), 0))::text AS gap,
              (SELECT count(*)::text FROM company_browse_table
                 WHERE NOT has_signal AND public_money_eur > 0) AS hidden_pos
         FROM company_browse_table`);
@@ -653,9 +668,11 @@ test.skipIf(skip)(
         `/companies money cell sums the whole table under a caption naming the active scope`,
     );
     // …and the whole-table sum is the floored one plus exactly the hidden (negative) residue.
-    assert.ok(
-      Math.abs(Number(r.all) - (Number(r.sig) + Number(r.hidden))) < 1e-6,
-      `the sums do not reconcile: all ${r.all} vs signal ${r.sig} + hidden ${r.hidden}`,
+    assert.equal(
+      Number(r.gap),
+      0,
+      `the sums do not reconcile: all ${r.all} vs signal ${r.sig} + hidden ${r.hidden} ` +
+        `(gap ${r.gap}) — summed in numeric, so this is a real partition defect, not float noise`,
     );
     assert.ok(
       Number(r.hidden) <= 0,
