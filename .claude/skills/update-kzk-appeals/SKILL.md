@@ -192,6 +192,45 @@ git commit -m "procurement: refresh КЗК appeals summary (N complaints for YYY
 Both `kzk_appeals.json` and `kzk_decisions.json` stay gitignored — Postgres serves them,
 the client never fetches them.
 
+## Step 3b — Refresh the /procurement hub blob (MANDATORY, and it was missing)
+
+```bash
+# PIN THE DATABASE, exactly as Step 0 and Step 1b require — see the warning below.
+export KZK_LOCAL='postgres://postgres:postgres@localhost:5433/electionsbg'
+
+DATABASE_URL="$KZK_LOCAL" npm run db:gen-hub-stats               # rewrites the committed blob
+DATABASE_URL="$KZK_LOCAL" npx vitest run scripts/db/tests/procurement_hub_stats.data.test.ts
+git commit -m "procurement: refresh hub stats after the КЗК ingest" -- data/procurement/derived/hub_stats.json
+npm run bucket:sync:paths -- procurement/derived/hub_stats.json  # ← readers fetch THIS, not the repo
+npm run db:check-generated                                       # byte-compares bucket vs disk
+```
+
+⚠️⚠️ **THE PIN IS NOT BOILERPLATE HERE, AND ITS ABSENCE IS UNCATCHABLE.** Neither
+`db:gen-hub-stats` nor the gate calls `pinLocalDatabase()`, so in the poisoned shell Step 0
+describes BOTH read Cloud SQL — the generator would mint a **committed** artifact from the
+serving database, and the gate would then validate it against that same database and pass.
+The two halves move together, so no gate can see it. The two corpora genuinely differ today:
+`connected` is 901 local against 893 on cloud, because `company_politicians` is 985 vs 976.
+
+⚠️ **`kzk_appeals` is one of the five tables `data/procurement/derived/hub_stats.json` is
+built from, and until 2026-08-27 this skill never regenerated it.** That blob is committed,
+bucket-synced and read by every visitor to `/procurement`; nothing else in this skill's path
+rebuilds it, and `db:refresh` — which does — is not what an incremental КЗК ingest runs.
+Measured that day: the blob published `appeals` 7,998 against a live 8,007 (the 08-24 batch),
+stale in the repo AND on the bucket, at a 200, with every gate green.
+
+Three things about this step are easy to get wrong:
+
+- **The commit is not the publish.** The browser reads the blob from GCS, not from the repo,
+  so regenerate → commit → **sync**. Skipping the sync leaves production on the old numbers
+  with a clean git tree. `db:check-generated` is the check that catches it.
+- **Regenerate only when nothing is writing to Postgres.** A blob generated mid-chain is
+  stale on arrival — measured, one landed exact and was €96.3m short of `all.totalEur` ten
+  minutes later because a concurrent load was still committing.
+- **The gate is the verification, not the row count.** `procurement_hub_stats.data.test.ts`
+  compares all 30 scopes × 10 fields against the corpus; a passing КЗК gate says nothing
+  about the hub blob.
+
 ## Step 4 — Publish to prod (Cloud SQL)
 
 **Take a LOCAL restore point BEFORE you export any cloud URL.** Until
@@ -206,7 +245,10 @@ snapshot of Cloud SQL that has clobbered the real one:
 DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' npm run db:dump
 ```
 
-Procurement is served from Cloud SQL, so there is no `bucket:sync` for this dataset.
+Procurement's CORPUS is served from Cloud SQL, so there is no `bucket:sync` for the
+contracts/tenders/appeals tables. ⚠️ That is not true of the whole tree: four files under
+`data/procurement/` are explicit exemptions from the sync exclusion, and one of them —
+`derived/hub_stats.json` — IS moved by this skill and MUST be synced. See Step 3b.
 
 `kzk_appeals.ts` applies **no DDL of its own** — the table and its two functions must
 already exist on the target. Normally they do: `db:load:tenders:pg[:cloud]` applies
@@ -342,7 +384,12 @@ Only stamp after Step 2 passes.
 
 ## What this skill does NOT do
 
-- **Does not run `bucket:sync`.** `procurement/` is excluded from the sync; Cloud SQL serves it.
+- **Does not run a FULL `bucket:sync`.** `procurement/` is broadly excluded from the sync and
+  Cloud SQL serves the corpus. ⚠️ But the exclusion is a negative lookahead with four
+  exemptions, and `procurement/derived/hub_stats.json` is one of them — a committed,
+  bucket-served blob this skill's own ingest stales. Step 3b syncs that ONE path and it is
+  mandatory. This bullet said the flat opposite until 2026-08-27, which is part of why the
+  blob sat stale on the bucket for four days.
 - **Does not run `update-procurement`.** Different source, different corpus. A `kzk_appeals`
   flip must never enqueue the full АОП re-ingest.
 - **Does not run in CI.** Headed browser + BG egress.

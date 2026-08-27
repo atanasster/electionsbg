@@ -250,6 +250,48 @@ Add to `update-kzk-appeals` (after `kzk:rejoin --apply`) and to `process-watch-r
 npm run db:gen-hub-stats
 ```
 
+> **CORRECTION, added 2026-08-27 on executing Tier 2.** §2 above says
+> `process-watch-report` "never regenerates it (0 mentions)" and treats that as the whole
+> gap. The `0 mentions` grep was right and the CONCLUSION was wrong: the orchestrator's
+> Procedure **step 8 already runs `npm run db:check-generated` unconditionally**, and that
+> step's own text documents this class at length — including the insight that "the publish
+> trigger is not the owning skill's trigger", learned from `culture/derived/hub_stats.json`
+> serving a 404 for two days.
+>
+> ⚠️ **But it could not have caught THIS defect, and understanding why is the point.**
+> `db:check-generated` compares LOCAL BYTES to the BUCKET. It answers "was it published?",
+> never "is it CURRENT?" — so when a generator is never re-run, disk and bucket are both
+> stale, they AGREE, and the check prints OK. Verified: through the whole period the blob
+> published `appeals` 7,998 against a live 8,007, this check reported it **OK**.
+>
+> | failure                     | disk vs bucket | caught by                            |
+> | --------------------------- | -------------- | ------------------------------------ |
+> | regenerated, never uploaded | DIFFER         | `db:check-generated` (already wired) |
+> | never regenerated           | AGREE          | Tier 1's gate — disk vs CORPUS (new) |
+>
+> So Tier 2's real content is not "add a check the orchestrator lacks" — it is (a) the
+> per-skill REGENERATION, and (b) making the blind spot explicit at step 8, where a reader
+> would otherwise take a green check as proof of freshness. Both are now in the skills.
+>
+> ⚠️ **SECOND CORRECTION, and it retracts the "highest-value follow-up" this block first
+> named.** An earlier draft said the other five artifacts "have no corpus-freshness gate at
+> all". That is FALSE, it contradicted this document's own §2 (which already credits
+> `hub_stats_pg.data.test.ts` with the parliament blob), and acting on it would have meant
+> rebuilding five gates that exist. Verified 2026-08-27 — all five compare their committed
+> artifact against live Postgres:
+>
+> | artifact                                  | gate                                                                                  |
+> | ----------------------------------------- | ------------------------------------------------------------------------------------- |
+> | `procurement/derived/sector_stats.json`   | `sector_stats.data.test.ts`                                                           |
+> | `culture/derived/hub_stats.json`          | `culture_hub_figures.data.test.ts` — fails with "The corpus moved under the artifact" |
+> | `governance/hub_stats.json`               | `governance_hub_stats.data.test.ts`                                                   |
+> | `governance/declarations_hub_stats.json`  | `declarations_hub_stats.data.test.ts`                                                 |
+> | `parliament/votes/derived/hub_stats.json` | `hub_stats_pg.data.test.ts`                                                           |
+>
+> So the real finding is narrower and better: **`procurement/derived/hub_stats.json` was the
+> ONE of the six with no corpus-freshness gate**, which is precisely why it is the one that
+> went stale. Tier 1 closes it and the set is now complete. There is no follow-up here.
+
 ⚠️ **THERE ARE FIVE OF THESE, NOT TWO, AND ONE IS DOWNSTREAM OF THIS ONE.** CLAUDE.md pairs
 `db:gen-hub-stats` with `db:gen-sector-stats` as "the two committed artifacts db:refresh
 regenerates", and that pairing is now out of date — `package.json` carries
