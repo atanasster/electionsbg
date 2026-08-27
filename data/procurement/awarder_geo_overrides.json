@@ -1,50 +1,50 @@
 {
-  "generatedAt": "2026-08-24T18:36:32.199Z",
-  "count": 2174,
+  "generatedAt": "2026-08-27T00:52:25.760Z",
+  "count": 2177,
   "sources": {
-    "ocds": 334,
+    "ocds": 336,
     "name+oblast": 80,
     "ri": 1291,
     "name": 266,
-    "tr": 107,
+    "tr": 108,
     "mon": 38,
     "mon+oblast": 57,
     "school": 1
   },
   "run": {
     "candidates": 2761,
-    "resolved": 2174,
-    "unresolved": 587
+    "resolved": 2177,
+    "unresolved": 584
   },
   "carriedOver": {},
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-08-24T18:36:32.199Z"
+      "lastFreshAt": "2026-08-27T00:52:25.760Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-08-24T18:36:32.199Z"
+      "lastFreshAt": "2026-08-27T00:52:25.760Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-08-24T18:36:32.199Z"
+      "lastFreshAt": "2026-08-27T00:52:25.760Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-08-24T18:36:32.199Z"
+      "lastFreshAt": "2026-08-27T00:52:25.760Z"
     },
     "mon": {
       "status": "ok",
-      "lastFreshAt": "2026-08-24T18:36:32.199Z"
+      "lastFreshAt": "2026-08-27T00:52:25.760Z"
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-08-24T18:36:32.199Z"
+      "lastFreshAt": "2026-08-27T00:52:25.760Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-08-24T18:36:32.199Z"
+      "lastFreshAt": "2026-08-27T00:52:25.760Z"
     }
   },
   "awarders": {
@@ -373,6 +373,11 @@
       "source": "name",
       "confidence": "name_only"
     },
+    "104523747": {
+      "ekatte": "10447",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "104525135": {
       "ekatte": "65766",
       "source": "ri",
@@ -442,6 +447,11 @@
       "ekatte": "12259",
       "source": "tr",
       "confidence": "name_only"
+    },
+    "106519070": {
+      "ekatte": "62997",
+      "source": "ocds",
+      "confidence": "name+province"
     },
     "106633686": {
       "ekatte": "47714",
@@ -2735,8 +2745,8 @@
     },
     "202311429": {
       "ekatte": "67338",
-      "source": "ocds",
-      "confidence": "name+province"
+      "source": "tr",
+      "confidence": "name_only"
     },
     "202375339": {
       "ekatte": "04279",
@@ -3995,6 +4005,11 @@
     },
     "000048632": {
       "ekatte": "61056",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000048671": {
+      "ekatte": "57491",
       "source": "ocds",
       "confidence": "name+province"
     },

@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-22T18:28:13.349Z",
-  "total": 868,
-  "officialCount": 796,
+  "generatedAt": "2026-08-27T00:53:14.089Z",
+  "total": 871,
+  "officialCount": 799,
   "entries": [
     {
       "slug": "daniel-stanimirov-mihalev-b6f569",
@@ -1386,9 +1386,9 @@
       "role": "agency_head",
       "contractorEik": "121699202",
       "contractorName": "ЛУКОЙЛ-БЪЛГАРИЯ ЕООД",
-      "totalEur": 845582890.24,
+      "totalEur": 845618890.24,
       "totalOther": {},
-      "contractCount": 700,
+      "contractCount": 701,
       "awardCount": 0,
       "relations": [
         {
@@ -1489,8 +1489,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 7,
-          "totalEur": 391385.73,
+          "contractCount": 8,
+          "totalEur": 427385.73,
           "totalOther": {}
         }
       ],
@@ -1539,9 +1539,9 @@
       "role": "revenue_agency",
       "contractorEik": "121699202",
       "contractorName": "ЛУКОЙЛ-БЪЛГАРИЯ ЕООД",
-      "totalEur": 845582890.24,
+      "totalEur": 845618890.24,
       "totalOther": {},
-      "contractCount": 700,
+      "contractCount": 701,
       "awardCount": 0,
       "relations": [
         {
@@ -1642,8 +1642,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 7,
-          "totalEur": 391385.73,
+          "contractCount": 8,
+          "totalEur": 427385.73,
           "totalOther": {}
         }
       ],
@@ -1697,6 +1697,10 @@
       "contractCount": 955,
       "awardCount": 0,
       "relations": [
+        {
+          "role": "actual_owner",
+          "confidence": "high"
+        },
         {
           "role": "director",
           "confidence": "high"
@@ -17088,6 +17092,262 @@
       ]
     },
     {
+      "slug": "evgeni-simeonov-simeonov-e721bd",
+      "name": "Евгени Симеонов Симеонов",
+      "tier": "executive",
+      "role": "agency_head",
+      "contractorEik": "175015362",
+      "contractorName": "Лукойл ейвиейшън българия ЕООД",
+      "totalEur": 23876526.96,
+      "totalOther": {},
+      "contractCount": 38,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "actual_owner",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 1,
+          "totalEur": 225421.51,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 72403.23,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 158021.14,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 110362.35,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 185598.95,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 38776.87,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 7,
+          "totalEur": 677613.5,
+          "totalOther": {}
+        },
+        {
+          "year": "2020",
+          "contractCount": 5,
+          "totalEur": 157077.21,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 6,
+          "totalEur": 387275.71,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 10,
+          "totalEur": 647173.46,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 158500.48,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 110617.25,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 20947685.3,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната",
+          "contractCount": 1,
+          "totalEur": 20841666,
+          "totalOther": {}
+        },
+        {
+          "eik": "129009105",
+          "name": "Държавен авиационен оператор",
+          "contractCount": 21,
+          "totalEur": 1529657.57,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010125",
+          "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
+          "contractCount": 15,
+          "totalEur": 1279781.88,
+          "totalOther": {}
+        },
+        {
+          "eik": "000695235",
+          "name": "Министерство на вътрешните работи /МВР/",
+          "contractCount": 1,
+          "totalEur": 225421.51,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "rumen-penkov-spetsov-3d3d2c",
+      "name": "Румен Пенков Спецов",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "contractorEik": "175015362",
+      "contractorName": "Лукойл ейвиейшън българия ЕООД",
+      "totalEur": 23876526.96,
+      "totalOther": {},
+      "contractCount": 38,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "actual_owner",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 1,
+          "totalEur": 225421.51,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 72403.23,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 158021.14,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 110362.35,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 185598.95,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 38776.87,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 7,
+          "totalEur": 677613.5,
+          "totalOther": {}
+        },
+        {
+          "year": "2020",
+          "contractCount": 5,
+          "totalEur": 157077.21,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 6,
+          "totalEur": 387275.71,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 10,
+          "totalEur": 647173.46,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 158500.48,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 110617.25,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 20947685.3,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната",
+          "contractCount": 1,
+          "totalEur": 20841666,
+          "totalOther": {}
+        },
+        {
+          "eik": "129009105",
+          "name": "Държавен авиационен оператор",
+          "contractCount": 21,
+          "totalEur": 1529657.57,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010125",
+          "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
+          "contractCount": 15,
+          "totalEur": 1279781.88,
+          "totalOther": {}
+        },
+        {
+          "eik": "000695235",
+          "name": "Министерство на вътрешните работи /МВР/",
+          "contractCount": 1,
+          "totalEur": 225421.51,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "elitsa-velizarova-nikolova-22507d",
       "name": "Елица Велизарова Николова",
       "tier": "executive",
@@ -17282,9 +17542,9 @@
       "role": "hospital_head",
       "contractorEik": "175040885",
       "contractorName": "Ридаком ЕООД",
-      "totalEur": 22437846.71,
+      "totalEur": 22458838.01,
       "totalOther": {},
-      "contractCount": 1428,
+      "contractCount": 1430,
       "awardCount": 0,
       "relations": [
         {
@@ -17385,8 +17645,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 64,
-          "totalEur": 1514937.67,
+          "contractCount": 66,
+          "totalEur": 1535928.97,
           "totalOther": {}
         }
       ],
@@ -17408,8 +17668,8 @@
         {
           "eik": "000662721",
           "name": "Национален центьр по заразни и паразитни болести",
-          "contractCount": 92,
-          "totalEur": 1103945.94,
+          "contractCount": 94,
+          "totalEur": 1124937.24,
           "totalOther": {}
         },
         {
@@ -30002,248 +30262,6 @@
       ]
     },
     {
-      "slug": "evgeni-simeonov-simeonov-e721bd",
-      "name": "Евгени Симеонов Симеонов",
-      "tier": "executive",
-      "role": "agency_head",
-      "contractorEik": "175015362",
-      "contractorName": "Лукойл ейвиейшън българия ЕООД",
-      "totalEur": 3034860.96,
-      "totalOther": {},
-      "contractCount": 37,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "actual_owner",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 1,
-          "totalEur": 225421.51,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 1,
-          "totalEur": 72403.23,
-          "totalOther": {}
-        },
-        {
-          "year": "2014",
-          "contractCount": 1,
-          "totalEur": 158021.14,
-          "totalOther": {}
-        },
-        {
-          "year": "2015",
-          "contractCount": 1,
-          "totalEur": 110362.35,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 1,
-          "totalEur": 185598.95,
-          "totalOther": {}
-        },
-        {
-          "year": "2018",
-          "contractCount": 1,
-          "totalEur": 38776.87,
-          "totalOther": {}
-        },
-        {
-          "year": "2019",
-          "contractCount": 7,
-          "totalEur": 677613.5,
-          "totalOther": {}
-        },
-        {
-          "year": "2020",
-          "contractCount": 5,
-          "totalEur": 157077.21,
-          "totalOther": {}
-        },
-        {
-          "year": "2021",
-          "contractCount": 6,
-          "totalEur": 387275.71,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 10,
-          "totalEur": 647173.46,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 1,
-          "totalEur": 158500.48,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 1,
-          "totalEur": 110617.25,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 1,
-          "totalEur": 106019.3,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "129009105",
-          "name": "Държавен авиационен оператор",
-          "contractCount": 21,
-          "totalEur": 1529657.57,
-          "totalOther": {}
-        },
-        {
-          "eik": "129010125",
-          "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
-          "contractCount": 15,
-          "totalEur": 1279781.88,
-          "totalOther": {}
-        },
-        {
-          "eik": "000695235",
-          "name": "Министерство на вътрешните работи /МВР/",
-          "contractCount": 1,
-          "totalEur": 225421.51,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "rumen-penkov-spetsov-3d3d2c",
-      "name": "Румен Пенков Спецов",
-      "tier": "executive",
-      "role": "revenue_agency",
-      "contractorEik": "175015362",
-      "contractorName": "Лукойл ейвиейшън българия ЕООД",
-      "totalEur": 3034860.96,
-      "totalOther": {},
-      "contractCount": 37,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "actual_owner",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 1,
-          "totalEur": 225421.51,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 1,
-          "totalEur": 72403.23,
-          "totalOther": {}
-        },
-        {
-          "year": "2014",
-          "contractCount": 1,
-          "totalEur": 158021.14,
-          "totalOther": {}
-        },
-        {
-          "year": "2015",
-          "contractCount": 1,
-          "totalEur": 110362.35,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 1,
-          "totalEur": 185598.95,
-          "totalOther": {}
-        },
-        {
-          "year": "2018",
-          "contractCount": 1,
-          "totalEur": 38776.87,
-          "totalOther": {}
-        },
-        {
-          "year": "2019",
-          "contractCount": 7,
-          "totalEur": 677613.5,
-          "totalOther": {}
-        },
-        {
-          "year": "2020",
-          "contractCount": 5,
-          "totalEur": 157077.21,
-          "totalOther": {}
-        },
-        {
-          "year": "2021",
-          "contractCount": 6,
-          "totalEur": 387275.71,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 10,
-          "totalEur": 647173.46,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 1,
-          "totalEur": 158500.48,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 1,
-          "totalEur": 110617.25,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 1,
-          "totalEur": 106019.3,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "129009105",
-          "name": "Държавен авиационен оператор",
-          "contractCount": 21,
-          "totalEur": 1529657.57,
-          "totalOther": {}
-        },
-        {
-          "eik": "129010125",
-          "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
-          "contractCount": 15,
-          "totalEur": 1279781.88,
-          "totalOther": {}
-        },
-        {
-          "eik": "000695235",
-          "name": "Министерство на вътрешните работи /МВР/",
-          "contractCount": 1,
-          "totalEur": 225421.51,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
       "slug": "ivan-vladimirov-todorov-8e8358",
       "name": "Иван Владимиров Тодоров",
       "tier": "executive",
@@ -34164,6 +34182,71 @@
       ]
     },
     {
+      "slug": "hristo-borisov-klimentov-7a76b5",
+      "name": "Христо Борисов Климентов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "206710767",
+      "contractorName": "АРТ Стейдж ЕНД фест ЕООД",
+      "totalEur": 2097089.14,
+      "totalOther": {},
+      "contractCount": 60,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 102258.38,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 25,
+          "totalEur": 448209.86,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 10,
+          "totalEur": 344514.85,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 7,
+          "totalEur": 440158.98,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 12,
+          "totalEur": 464583.67,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 5,
+          "totalEur": 297363.4,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000024695",
+          "name": "Община Благоевград",
+          "contractCount": 60,
+          "totalEur": 2097089.14,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "ivanka-dimitrova-aleksandrova-2b9e1c",
       "name": "Иванка Димитрова Александрова",
       "tier": "executive",
@@ -34279,71 +34362,6 @@
           "name": "Община Козлодуй",
           "contractCount": 1,
           "totalEur": 120558.33,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "hristo-borisov-klimentov-7a76b5",
-      "name": "Христо Борисов Климентов",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "contractorEik": "206710767",
-      "contractorName": "АРТ Стейдж ЕНД фест ЕООД",
-      "totalEur": 2069394.17,
-      "totalOther": {},
-      "contractCount": 59,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2021",
-          "contractCount": 1,
-          "totalEur": 102258.38,
-          "totalOther": {}
-        },
-        {
-          "year": "2022",
-          "contractCount": 25,
-          "totalEur": 448209.86,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 10,
-          "totalEur": 344514.85,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 7,
-          "totalEur": 440158.98,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 12,
-          "totalEur": 464583.67,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 4,
-          "totalEur": 269668.43,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000024695",
-          "name": "Община Благоевград",
-          "contractCount": 59,
-          "totalEur": 2069394.17,
           "totalOther": {}
         }
       ]
@@ -46596,6 +46614,71 @@
       ]
     },
     {
+      "slug": "veselin-todorov-daskalov-5d8fdb",
+      "name": "Веселин Тодоров Даскалов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "contractorEik": "175427056",
+      "contractorName": "Пентаграм 2007 ООД",
+      "totalEur": 436890.56,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "partner",
+          "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "80",
+          "valueEur": 2045.17
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 56583.14,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 44635.78,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 106425.41,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 33293.62,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 195952.61,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "101522447",
+          "name": "МБАЛ \"Югозападна болница\" ООД",
+          "contractCount": 5,
+          "totalEur": 436890.56,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "krasimir-petrov-prvanov-2c8561",
       "name": "Красимир Петров Първанов",
       "tier": "executive",
@@ -53467,6 +53550,100 @@
           "name": "ЧЕЗ Разпределение България АД - /Старо наименование Електроразпределение - Столично АД/",
           "contractCount": 1,
           "totalEur": 1022.58,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "kalin-filipov-haitov-f02615",
+      "name": "Калин Филипов Хайтов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "contractorEik": "111582001",
+      "contractorName": "КА МОБИЛ ООД",
+      "totalEur": 152814.65,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "15",
+          "valueEur": 766.94
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 1278.23,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 1065.53,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 752.2,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 1994.03,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 35790.43,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 37281.7,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 4,
+          "totalEur": 74652.53,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "176538885",
+          "name": "ПРОФЕСИОНАЛНА ГИМНАЗИЯ ПО ТЕХНИКА И ЕЛЕКТРОТЕХНИКА \"ХРИСТО БОТЕВ",
+          "contractCount": 3,
+          "totalEur": 73161.26,
+          "totalOther": {}
+        },
+        {
+          "eik": "821152916",
+          "name": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ООД",
+          "contractCount": 2,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        },
+        {
+          "eik": "121858220",
+          "name": "РАЙОННА ЗДРАВНООСИГУРИТЕЛНА КАСА - МОНТАНА",
+          "contractCount": 6,
+          "totalEur": 7569.76,
+          "totalOther": {}
+        },
+        {
+          "eik": "121082521",
+          "name": "Териториално поделение \"Социално осигуряване\" на Национален осигурителен институт /ТП на НОИ/ - Монтана",
+          "contractCount": 1,
+          "totalEur": 502.77,
           "totalOther": {}
         }
       ]
@@ -64025,6 +64202,47 @@
           "name": "Регионална здравна инспекция - варна",
           "contractCount": 2,
           "totalEur": 7996.6,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "dimitr-plamenov-mitev-ce92f4",
+      "name": "Димитър Пламенов Митев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "contractorEik": "205002797",
+      "contractorName": "Метеосторм ООД",
+      "totalEur": 7851.4,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "partner",
+          "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "33",
+          "valueEur": 5.11
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 7851.4,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000455464",
+          "name": "Аграрен университет - Пловдив",
+          "contractCount": 1,
+          "totalEur": 7851.4,
           "totalOther": {}
         }
       ]
