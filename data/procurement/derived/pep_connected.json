@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-27T00:53:14.089Z",
-  "total": 871,
-  "officialCount": 799,
+  "generatedAt": "2026-08-27T21:31:38.274Z",
+  "total": 872,
+  "officialCount": 800,
   "entries": [
     {
       "slug": "daniel-stanimirov-mihalev-b6f569",
@@ -65431,6 +65431,43 @@
           "name": "Община Свиленград",
           "contractCount": 1,
           "totalEur": 2556.46,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "dobromir-dobrev-boyadzhiev-21813f",
+      "name": "Добромир Добрев Бояджиев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "contractorEik": "124628254",
+      "contractorName": "Модус ООД - Добрич",
+      "totalEur": 2454.2,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50%",
+          "valueEur": 1278.23
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 2454.2,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000852932",
+          "name": "Община град Добрич",
+          "contractCount": 1,
+          "totalEur": 2454.2,
           "totalOther": {}
         }
       ]

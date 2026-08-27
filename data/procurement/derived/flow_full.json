@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T00:53:19.096Z",
+  "generatedAt": "2026-08-27T21:31:44.424Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -2984,7 +2984,7 @@
     {
       "id": "awarder:000852932",
       "type": "awarder",
-      "label": "ОБЩИНА ГРАД ДОБРИЧ"
+      "label": "Община град Добрич"
     },
     {
       "id": "contractor:834052321",
@@ -11540,6 +11540,16 @@
       "id": "contractor:126722345",
       "type": "contractor",
       "label": "Хасковски имоти ООД"
+    },
+    {
+      "id": "contractor:124628254",
+      "type": "contractor",
+      "label": "Модус ООД - Добрич"
+    },
+    {
+      "id": "official:dobromir-dobrev-boyadzhiev-21813f",
+      "type": "official",
+      "label": "Добромир Добрев Бояджиев"
     },
     {
       "id": "official:ivailo-petrov-antonov-183037",
@@ -25194,6 +25204,11 @@
       "valueEur": 2556.46
     },
     {
+      "source": "contractor:124628254",
+      "target": "official:dobromir-dobrev-boyadzhiev-21813f",
+      "valueEur": 2454.2
+    },
+    {
       "source": "contractor:111037645",
       "target": "official:ivailo-petrov-antonov-183037",
       "valueEur": 2454.2
@@ -26907,6 +26922,11 @@
       "source": "awarder:000903825",
       "target": "contractor:126722345",
       "valueEur": 2556.46
+    },
+    {
+      "source": "awarder:000852932",
+      "target": "contractor:124628254",
+      "valueEur": 2454.2
     },
     {
       "source": "awarder:201617654",

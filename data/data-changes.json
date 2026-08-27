@@ -1,6 +1,53 @@
 {
-  "updatedAt": "2026-08-27T19:07:13.826Z",
+  "updatedAt": "2026-08-27T22:34:17.938Z",
   "entries": [
+    {
+      "timestamp": "2026-08-27T22:34:17.938Z",
+      "date": "2026-08-27",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-08-27 (+1 daily archive; 986,352 store rows, 169 settlements, 88 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-08-27T22:29:25.181Z",
+      "date": "2026-08-27",
+      "skill": "update-macro",
+      "summary": "EU peer series (10 quarterly + 9 annual indicators, 6 geos) and World Bank WGI (6 dimensions, 2024) refreshed",
+      "source": "Eurostat macro (BG) + World Bank WGI",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-27T22:27:32.410Z",
+      "date": "2026-08-27",
+      "skill": "update-rollcall",
+      "summary": "1 new plenary day: 2026-08-26 (16 items, 3,840 votes) — 615 sessions total",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-27T22:21:34.625Z",
+      "date": "2026-08-27",
+      "skill": "update-procurement",
+      "summary": "EOP self-heal +106 rows/50 buyers; tenders 238,155 procedures; corpus 403,976 contracts + 3,488 amendments",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-08-27T21:58:53.617Z",
+      "date": "2026-08-27",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 65 120 лица, 125 085 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-08-27T19:07:13.826Z",
       "date": "2026-08-27",
@@ -16,13 +63,6 @@
       "source": "КЗК (reg.cpc.bg)"
     },
     {
-      "timestamp": "2026-08-27T02:46:35.280Z",
-      "date": "2026-08-27",
-      "skill": "update-prices",
-      "summary": "КЗП retail prices refreshed through 2026-08-26 (+2 daily archives; 964,393 store rows, 169 settlements, 89 chains)",
-      "source": "КЗП Колко струва (retail prices)"
-    },
-    {
       "timestamp": "2026-08-27T01:56:59.077Z",
       "date": "2026-08-27",
       "skill": "update-council-minutes",
@@ -35,13 +75,6 @@
       "skill": "update-procurement",
       "summary": "Обществени поръчки: +211 договора от ЦАИС ЕОП; 238,082 процедури; TED 217,994 обявления; АДФИ 1,986 инспекции",
       "source": "ЦАИС ЕОП / TED / АДФИ"
-    },
-    {
-      "timestamp": "2026-08-27T01:22:47.256Z",
-      "date": "2026-08-27",
-      "skill": "update-persons",
-      "summary": "Профилите на публичните лица преизчислени — 65 119 лица, 125 084 длъжности",
-      "source": "Регистър на лицата (обединена самоличност)"
     },
     {
       "timestamp": "2026-08-27T00:51:06.410Z",
