@@ -3,29 +3,119 @@
   "ns": "52",
   "partyShort": "ГЕРБ - СДС",
   "loyalty": {
-    "votesCast": 250,
-    "withParty": 241,
-    "loyaltyPct": 0.964,
+    "votesCast": 266,
+    "withParty": 248,
+    "loyaltyPct": 0.9323308270676691,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-07-31",
-    "totalVoteItems": 1198
+    "windowTo": "2026-08-25",
+    "totalVoteItems": 1215
   },
   "attendance": {
-    "totalItems": 1198,
-    "presentCount": 250,
-    "absentCount": 948,
-    "presentPct": 0.20868113522537562
+    "totalItems": 1215,
+    "presentCount": 266,
+    "absentCount": 949,
+    "presentPct": 0.2189300411522634
   },
   "cohort": {
     "size": 268,
-    "votesCastMedian": 913.5,
-    "loyaltyPctMedian": 0.9710668131638152,
-    "presentPctMedian": 0.7625208681135225
+    "votesCastMedian": 926,
+    "loyaltyPctMedian": 0.9712098758883471,
+    "presentPctMedian": 0.7609053497942386
   },
   "dissents": {
-    "totalCast": 250,
-    "dissentCount": 9,
+    "totalCast": 266,
+    "dissentCount": 18,
     "recent": [
+      {
+        "date": "2026-08-25",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-darzhavniya-sluzhitel-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за държавния служител - второ гласуване - параграф 18 (става параграф 19)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2026-08-25",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-darzhavniya-sluzhitel-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за държавния служител - второ гласуване - параграф 18 (става параграф 19) - ал.2",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2026-08-25",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-darzhavniya-sluzhitel-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за държавния служител - второ гласуване - параграф 14 - 16 (става параграф 15 - 17), Преходни и заключителни разпоредби, параграф 17 (става параграф 18)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 22
+      },
+      {
+        "date": "2026-08-25",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-darzhavniya-sluzhitel-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за държавния служител - второ гласуване - параграф 13 (става параграф 14)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2026-08-25",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-darzhavniya-sluzhitel-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за държавния служител - второ гласуване - параграф 12 (става параграф 13)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2026-08-25",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-darzhavniya-sluzhitel-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за държавния служител - второ гласуване - параграф 7 (става параграф 8) до параграф 11 (става параграф 12)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2026-08-25",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-darzhavniya-sluzhitel-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за държавния служител - второ гласуване - параграф 6 (става параграф 7)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2026-08-25",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-darzhavniya-sluzhitel-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за държавния служител - второ гласуване - параграф 2, параграф 3 - нов, параграф 3 (става параграф 4) до параграф 5 (става параграф 6)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 22
+      },
+      {
+        "date": "2026-08-25",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-darzhavniya-sluzhitel-vtoro-glasuvane-naime",
+        "title": "ЗИД на Закона за държавния служител - второ гласуване - наименование",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
       {
         "date": "2026-07-02",
         "item": 3,
@@ -122,204 +212,204 @@
     "topK": [
       {
         "mpId": 5292,
-        "score": 0.4670199480883661,
+        "score": 0.4597032562100294,
         "overlap": 113
       },
       {
+        "mpId": 5259,
+        "score": 0.4595350731576996,
+        "overlap": 214
+      },
+      {
         "mpId": 5223,
-        "score": 0.45704526507945664,
+        "score": 0.4498848442179341,
         "overlap": 74
       },
       {
-        "mpId": 5259,
-        "score": 0.4548467488526558,
-        "overlap": 198
-      },
-      {
         "mpId": 5062,
-        "score": 0.450368921108837,
-        "overlap": 227
+        "score": 0.4479648934043996,
+        "overlap": 230
       },
       {
         "mpId": 5075,
-        "score": 0.4492092641607957,
+        "score": 0.4421716080859058,
         "overlap": 160
       },
       {
         "mpId": 5126,
-        "score": 0.4383493312556658,
+        "score": 0.43148181519987233,
         "overlap": 188
       },
       {
-        "mpId": 5157,
-        "score": 0.4249761683865004,
-        "overlap": 223
-      },
-      {
         "mpId": 5207,
-        "score": 0.42353013969922854,
-        "overlap": 195
+        "score": 0.42396286553273627,
+        "overlap": 209
       },
       {
         "mpId": 5187,
-        "score": 0.41346990364819536,
-        "overlap": 127
+        "score": 0.421943417925539,
+        "overlap": 143
+      },
+      {
+        "mpId": 5157,
+        "score": 0.4183181665335864,
+        "overlap": 223
       },
       {
         "mpId": 5236,
-        "score": 0.40202615577914963,
-        "overlap": 192
-      },
-      {
-        "mpId": 5274,
-        "score": 0.39716717424488784,
-        "overlap": 183
-      },
-      {
-        "mpId": 5061,
-        "score": 0.39626953731193626,
-        "overlap": 197
+        "score": 0.3995822558297637,
+        "overlap": 208
       },
       {
         "mpId": 5133,
-        "score": 0.38806507641847904,
-        "overlap": 164
+        "score": 0.3979258312296602,
+        "overlap": 180
+      },
+      {
+        "mpId": 5274,
+        "score": 0.39737095755361324,
+        "overlap": 199
       },
       {
         "mpId": 5103,
-        "score": 0.3865439885079562,
-        "overlap": 166
+        "score": 0.39339441189267815,
+        "overlap": 182
       },
       {
-        "mpId": 5083,
-        "score": 0.37990848826593737,
-        "overlap": 164
-      },
-      {
-        "mpId": 5220,
-        "score": 0.3723690143536748,
-        "overlap": 173
+        "mpId": 5061,
+        "score": 0.39006127550823727,
+        "overlap": 197
       },
       {
         "mpId": 5152,
-        "score": 0.369498055474452,
-        "overlap": 160
+        "score": 0.37761644528528265,
+        "overlap": 176
       },
       {
         "mpId": 5235,
-        "score": 0.3691752722718864,
-        "overlap": 169
+        "score": 0.3764591904219671,
+        "overlap": 185
       },
       {
-        "mpId": 5195,
-        "score": 0.36490171458150455,
-        "overlap": 151
+        "mpId": 5083,
+        "score": 0.3739565511763452,
+        "overlap": 164
       },
       {
         "mpId": 5165,
-        "score": 0.36484139526303616,
-        "overlap": 99
+        "score": 0.3704533456147104,
+        "overlap": 110
+      },
+      {
+        "mpId": 5216,
+        "score": 0.36794318764692807,
+        "overlap": 175
+      },
+      {
+        "mpId": 5220,
+        "score": 0.3665351964317254,
+        "overlap": 173
       }
     ],
     "bottomK": [
       {
         "mpId": 5171,
-        "score": 0.04442264809581554,
+        "score": 0.04372668889778281,
         "overlap": 192
       },
       {
         "mpId": 5194,
-        "score": 0.04695192246220963,
+        "score": 0.046216337716509334,
         "overlap": 137
       },
       {
         "mpId": 5074,
-        "score": 0.05070161037913889,
-        "overlap": 175
+        "score": 0.05221711683387406,
+        "overlap": 191
       },
       {
         "mpId": 5184,
-        "score": 0.07375735954606097,
+        "score": 0.07260182031103002,
         "overlap": 53
       },
       {
         "mpId": 5273,
-        "score": 0.08479847705794807,
+        "score": 0.08346995922712552,
         "overlap": 215
       },
       {
         "mpId": 5159,
-        "score": 0.08709220966209313,
-        "overlap": 188
+        "score": 0.08515501678358954,
+        "overlap": 203
       },
       {
         "mpId": 5101,
-        "score": 0.08814532234537731,
-        "overlap": 209
+        "score": 0.0885806482735767,
+        "overlap": 225
       },
       {
         "mpId": 5185,
-        "score": 0.09783909218982083,
+        "score": 0.09630627010344252,
         "overlap": 192
       },
       {
         "mpId": 5247,
-        "score": 0.10073290199966675,
+        "score": 0.09915474327441505,
         "overlap": 190
       },
       {
         "mpId": 5060,
-        "score": 0.10221090583004673,
-        "overlap": 189
+        "score": 0.1023775401224451,
+        "overlap": 205
       },
       {
         "mpId": 5234,
-        "score": 0.10815839596388664,
+        "score": 0.10646390376807757,
         "overlap": 215
       },
       {
         "mpId": 5148,
-        "score": 0.11383750884656754,
-        "overlap": 168
-      },
-      {
-        "mpId": 5197,
-        "score": 0.13802105047654475,
-        "overlap": 141
+        "score": 0.11376879827882713,
+        "overlap": 184
       },
       {
         "mpId": 5258,
-        "score": 0.13897520551731019,
-        "overlap": 166
+        "score": 0.13835647984670799,
+        "overlap": 182
+      },
+      {
+        "mpId": 5197,
+        "score": 0.13975487825777724,
+        "overlap": 157
       },
       {
         "mpId": 5168,
-        "score": 0.14709102826274853,
-        "overlap": 140
+        "score": 0.14626563886300933,
+        "overlap": 152
       },
       {
         "mpId": 5205,
-        "score": 0.15643760429214132,
-        "overlap": 163
+        "score": 0.1576891698416997,
+        "overlap": 179
       },
       {
         "mpId": 5281,
-        "score": 0.1612037627151951,
+        "score": 0.1586782212126458,
         "overlap": 64
       },
       {
         "mpId": 5335,
-        "score": 0.17087737218468912,
+        "score": 0.16820027651378072,
         "overlap": 37
       },
       {
         "mpId": 5332,
-        "score": 0.175395793655074,
+        "score": 0.17264790893583778,
         "overlap": 158
       },
       {
         "mpId": 5193,
-        "score": 0.17729791342434584,
+        "score": 0.17452022864126993,
         "overlap": 119
       }
     ]
