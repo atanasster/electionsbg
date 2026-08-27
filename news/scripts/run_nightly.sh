@@ -21,8 +21,17 @@ MODEL=${NEWS_LLM_MODEL:-local-model}
 DRY=0
 while [ $# -gt 0 ]; do
   case $1 in
-    --limit) LIMIT=$2; shift 2 ;;
-    --model) MODEL=$2; shift 2 ;;
+    --limit)
+      [ "$#" -ge 2 ] || { echo "--limit requires N" >&2; exit 2; }
+      case $2 in
+        *[!0-9]*|"") echo "--limit must be a non-negative integer" >&2; exit 2 ;;
+      esac
+      LIMIT=$2; shift 2
+      ;;
+    --model)
+      [ "$#" -ge 2 ] || { echo "--model requires NAME" >&2; exit 2; }
+      MODEL=$2; shift 2
+      ;;
     --dry-run) DRY=1; shift ;;
     *) echo "unknown argument: $1" >&2; exit 2 ;;
   esac
@@ -30,9 +39,10 @@ done
 
 STAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 DAY=${STAMP%%T*}
+RUN_ID="$(date -u +%Y-%m-%dT%H%M%SZ)-$$"
 OUT_DIR="$ROOT/news/data/_nightly"
 mkdir -p "$OUT_DIR"
-REPORT="$OUT_DIR/$DAY.json"
+REPORT="$OUT_DIR/$RUN_ID.json"
 # ⚠️⚠️ NO `trap … EXIT` HERE, AND THAT IS NOT AN OVERSIGHT. In bash an EXIT
 # trap fires when a COMMAND-SUBSTITUTION SUBSHELL exits, not only when the
 # script does — so `trap 'rm -f "$STAGES"' EXIT` combined with
@@ -43,7 +53,7 @@ REPORT="$OUT_DIR/$DAY.json"
 #
 # The file lives beside the report instead and is worth keeping: it is the
 # per-stage stream, and the report is the fold of it.
-STAGES="$OUT_DIR/$DAY.stages.jsonl"
+STAGES="$OUT_DIR/$RUN_ID.stages.jsonl"
 : > "$STAGES"
 
 # ⚠️ NO HEREDOC INSIDE THIS FUNCTION. The first version used
@@ -83,23 +93,30 @@ print(json.dumps({"stage": os.environ["NAME"], "exit": int(os.environ["CODE"]),
 
 echo "== nightly $STAMP ==" >&2
 
-# ── 1. Is there a model at all? ────────────────────────────────────────────
-# ⚠️ FIRST, before an hour of harvesting. A run that collects 400 articles and
-# then finds no model has wasted the window and the bandwidth.
+# ── 1. Acquire the corpus ──────────────────────────────────────────────────
+# A model outage must never suppress acquisition. Fresh source material is
+# useful on its own, and the next healthy analysis run will pick it up.
+stage acquire_direct bash news/scripts/save_all_direct.sh 20 \
+  "news/data/_nightly/$RUN_ID.direct.jsonl"
+stage acquire_browser bash news/scripts/save_all_browser.sh 20 \
+  "news/data/_nightly/$RUN_ID.browser.jsonl"
+
+# ── 2. Is there a model at all? ────────────────────────────────────────────
+# The probe gates analysis only; it deliberately comes after acquisition.
 stage probe_model python3 news/scripts/llm_client.py
 
-# ── 2. Prompt assets in step with the schema ───────────────────────────────
+# ── 3. Prompt assets in step with the schema ───────────────────────────────
 # ⚠️ A grammar that permits a label the validator rejects yields records that
 # are perfectly formed and refused 100% of the time — which reads as a model
 # problem and is not one.
 stage check_prompts python3 news/scripts/build_prompts.py --check
 
-# ── 3. Gazetteer + dictionary pass inputs ──────────────────────────────────
+# ── 4. Gazetteer + dictionary pass inputs ──────────────────────────────────
 # Deterministic, no model, so this stage never fails for LLM reasons.
 stage common_words python3 news/scripts/build_gazetteer.py \
   --rebuild-common-words --json
 
-# ── 4. Judge ───────────────────────────────────────────────────────────────
+# ── 5. Judge ───────────────────────────────────────────────────────────────
 if [ "$DRY" = 1 ]; then
   stage analyze python3 news/scripts/analyze_local.py --dry-run --limit 1
 else
@@ -107,20 +124,20 @@ else
     --limit "$LIMIT" --model "$MODEL"
 fi
 
-# ── 5. Review queue ────────────────────────────────────────────────────────
+# ── 6. Review queue ────────────────────────────────────────────────────────
 # ⚠️ A pipeline that knows what it does not know is worth more than one
 # confidently wrong on a tenth of its political framing calls — and nobody is
 # watching, so the queue has to arrive in the report rather than wait to be
 # asked for.
 stage review_queue python3 news/scripts/review_routing.py --limit 0 --json
 
-# ── 6. Reciprocal index ────────────────────────────────────────────────────
+# ── 7. Reciprocal index ────────────────────────────────────────────────────
 stage mention_index python3 news/scripts/build_mention_index.py --json
 
-# ── 7. App bundles ─────────────────────────────────────────────────────────
+# ── 8. App bundles ─────────────────────────────────────────────────────────
 stage bundles python3 news/scripts/build_app_data.py --quiet --json
 
-# ── 8. Report ──────────────────────────────────────────────────────────────
+# ── 9. Report ──────────────────────────────────────────────────────────────
 # ⚠️ The stages come in by PATH, not on stdin. `python3 - < "$STAGES"
 # <<'PYEOF'` applies both redirections and the LATER one wins — so the
 # heredoc replaced the file as stdin, the reader saw the script text instead
