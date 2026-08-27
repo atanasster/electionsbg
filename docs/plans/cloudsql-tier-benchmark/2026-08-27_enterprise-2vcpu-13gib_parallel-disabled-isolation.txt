@@ -1,0 +1,61 @@
+### Isolation test — Q2 (top-20 awarders by value) with max_parallel_workers_per_gather=0
+### Purpose: rule out "parallel-worker coordination overhead" as the sole explanation for the
+### slowdown measured on Enterprise (2 vCPU / 13 GiB) vs the Enterprise Plus baseline. If a
+### single-threaded run were also slow per-buffer, the cause is raw per-core throughput, not
+### parallelism overhead. Run at 2026-08-27T03:0x UTC, warm cache (all buffers already resident
+### from the prior runs in this same session).
+
+=== run 1 ===
+SET
+                                                                                    QUERY PLAN
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=23832.31..23832.36 rows=20 width=26) (actual time=138.866..138.875 rows=20 loops=1)
+   Buffers: shared hit=22256
+   ->  Sort  (cost=23832.31..23837.90 rows=2237 width=26) (actual time=138.863..138.867 rows=20 loops=1)
+         Sort Key: (sum(amount_eur)) DESC NULLS LAST
+         Sort Method: top-N heapsort  Memory: 27kB
+         Buffers: shared hit=22256
+         ->  GroupAggregate  (cost=0.42..23772.78 rows=2237 width=26) (actual time=0.065..137.945 rows=4418 loops=1)
+               Group Key: awarder_eik
+               Buffers: shared hit=22253
+               ->  Index Only Scan using idx_contracts_awarder_tag_cover on contracts  (cost=0.42..20999.88 rows=366737 width=18) (actual time=0.053..89.085 rows=406562 loops=1)
+                     Index Cond: (tag = 'contract'::text)
+                     Heap Fetches: 0
+                     Buffers: shared hit=22253
+ Planning:
+   Buffers: shared hit=495
+ Planning Time: 1.881 ms
+ Execution Time: 139.050 ms
+(17 rows)
+
+=== run 2 (repeat to confirm stability) ===
+SET
+                                                                                    QUERY PLAN
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=23832.31..23832.36 rows=20 width=26) (actual time=150.218..150.226 rows=20 loops=1)
+   Buffers: shared hit=22256
+   ->  Sort  (cost=23832.31..23837.90 rows=2237 width=26) (actual time=150.216..150.220 rows=20 loops=1)
+         Sort Key: (sum(amount_eur)) DESC NULLS LAST
+         Sort Method: top-N heapsort  Memory: 27kB
+         Buffers: shared hit=22256
+         ->  GroupAggregate  (cost=0.42..23772.78 rows=2237 width=26) (actual time=0.056..149.239 rows=4418 loops=1)
+               Group Key: awarder_eik
+               Buffers: shared hit=22253
+               ->  Index Only Scan using idx_contracts_awarder_tag_cover on contracts  (cost=0.42..20999.88 rows=366737 width=18) (actual time=0.046..97.640 rows=406562 loops=1)
+                     Index Cond: (tag = 'contract'::text)
+                     Heap Fetches: 0
+                     Buffers: shared hit=22253
+ Planning:
+   Buffers: shared hit=495
+ Planning Time: 1.878 ms
+ Execution Time: 150.379 ms
+(17 rows)
+
+### Conclusion
+Single-threaded (139-150ms for ~22.3k buffers, all cache hits) is still slower per buffer
+touched than the Enterprise Plus baseline's 2-worker parallel run (99ms for ~23.9k buffers,
+all cache hits). Ratio of buffer-normalized time: baseline ~4.1us/buffer (2 workers
+overlapping) vs this single-threaded run ~6.2-6.7us/buffer. Parallel-worker overhead alone
+cannot explain a gap of this size when the serial case is already slower than the old
+parallel case handling a comparable buffer count. Points to a genuine per-core throughput
+difference between the two machine classes, not (only) coordination/dispatch cost.

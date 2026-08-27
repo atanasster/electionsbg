@@ -1,0 +1,183 @@
+### electionsbg-pg benchmark — label=after2 — 2026-08-27T03:02:22Z
+
+--- instance edition/tier (from gcloud) ---
+ENTERPRISE	db-custom-2-13312
+
+--- server state ---
+ PostgreSQL 16.14 on x86_64-pc-linux-gnu, compiled by Debian clang version 12.0.1, 64-bit
+
+ 2026-08-27 02:57:30.601959+00
+
+          11
+
+ 4324MB
+
+ 5313608kB
+
+
+--- cumulative cache hit ratio (since stats_reset, for reference only) ---
+ 2026-07-01 20:39:18.922061+00 | 14609667792 | 1191062617 |        92.462
+
+
+--- round-trip latency, SELECT 1 x5 ---
+Time: 35.035 ms
+Time: 34.190 ms
+Time: 35.131 ms
+Time: 36.469 ms
+Time: 36.216 ms
+
+=== Q1: count(*) contracts WHERE tag='contract' (idx_contracts_tag) ===
+                                                                                QUERY PLAN                                                                                 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=6800.85..6800.86 rows=1 width=8) (actual time=73.978..76.331 rows=1 loops=1)
+   Buffers: shared hit=1032
+   ->  Gather  (cost=6800.64..6800.85 rows=2 width=8) (actual time=71.340..76.298 rows=3 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=1032
+         ->  Partial Aggregate  (cost=5800.64..5800.65 rows=1 width=8) (actual time=55.320..55.324 rows=1 loops=3)
+               Buffers: shared hit=1032
+               ->  Parallel Index Only Scan using idx_contracts_tag on contracts  (cost=0.42..5418.62 rows=152807 width=0) (actual time=0.059..31.472 rows=135521 loops=3)
+                     Index Cond: (tag = 'contract'::text)
+                     Heap Fetches: 0
+                     Buffers: shared hit=1032
+ Planning:
+   Buffers: shared hit=481
+ Planning Time: 1.698 ms
+ Execution Time: 76.583 ms
+(16 rows)
+
+
+=== Q2: top-20 awarders by contract value (aggregate over idx_contracts_tag_amount) ===
+                                                                                              QUERY PLAN                                                                                               
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=21660.89..21660.94 rows=20 width=26) (actual time=194.815..197.240 rows=20 loops=1)
+   Buffers: shared hit=23719
+   ->  Sort  (cost=21660.89..21666.48 rows=2237 width=26) (actual time=194.812..197.232 rows=20 loops=1)
+         Sort Key: (sum(amount_eur)) DESC NULLS LAST
+         Sort Method: top-N heapsort  Memory: 27kB
+         Buffers: shared hit=23719
+         ->  Finalize GroupAggregate  (cost=1000.45..21601.37 rows=2237 width=26) (actual time=32.329..194.944 rows=4418 loops=1)
+               Group Key: awarder_eik
+               Buffers: shared hit=23716
+               ->  Gather Merge  (cost=1000.45..21545.44 rows=4474 width=26) (actual time=32.273..188.025 rows=5153 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=23716
+                     ->  Partial GroupAggregate  (cost=0.42..20029.01 rows=2237 width=26) (actual time=0.077..118.894 rows=1718 loops=3)
+                           Group Key: awarder_eik
+                           Buffers: shared hit=23716
+                           ->  Parallel Index Only Scan using idx_contracts_awarder_tag_cover on contracts  (cost=0.42..18860.58 rows=152807 width=18) (actual time=0.060..78.913 rows=135521 loops=3)
+                                 Index Cond: (tag = 'contract'::text)
+                                 Heap Fetches: 0
+                                 Buffers: shared hit=23716
+ Planning:
+   Buffers: shared hit=498
+ Planning Time: 1.849 ms
+ Execution Time: 197.477 ms
+(24 rows)
+
+
+=== Q3: one awarder's contracts, recent-first (idx_contracts_awarder_date) — АПИ EIK 000695089 ===
+                                                                         QUERY PLAN                                                                          
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=0.42..56.61 rows=50 width=79) (actual time=0.040..0.093 rows=50 loops=1)
+   Buffers: shared hit=41
+   ->  Index Scan Backward using idx_contracts_awarder_date on contracts  (cost=0.42..2693.05 rows=2396 width=79) (actual time=0.039..0.088 rows=50 loops=1)
+         Index Cond: (awarder_eik = '000695089'::text)
+         Filter: (tag = 'contract'::text)
+         Buffers: shared hit=41
+ Planning:
+   Buffers: shared hit=503
+ Planning Time: 1.837 ms
+ Execution Time: 0.175 ms
+(10 rows)
+
+
+=== Q4: roll-call votes count for NS 51 (idx_vote_cast_ns_mp) ===
+                                                                                  QUERY PLAN                                                                                   
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=19752.65..19752.66 rows=1 width=8) (actual time=225.183..227.342 rows=1 loops=1)
+   Buffers: shared hit=4144
+   ->  Gather  (cost=19752.44..19752.65 rows=2 width=8) (actual time=225.170..227.331 rows=3 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=4144
+         ->  Partial Aggregate  (cost=18752.44..18752.45 rows=1 width=8) (actual time=199.445..199.447 rows=1 loops=3)
+               Buffers: shared hit=4144
+               ->  Parallel Index Only Scan using idx_vote_cast_ns_mp on vote_cast  (cost=0.43..17600.84 rows=460640 width=0) (actual time=0.078..136.033 rows=374964 loops=3)
+                     Index Cond: (ns = 51)
+                     Heap Fetches: 0
+                     Buffers: shared hit=4144
+ Planning:
+   Buffers: shared hit=123
+ Planning Time: 0.475 ms
+ Execution Time: 227.494 ms
+(16 rows)
+
+
+=== Q5: per-MP vote counts for NS 51 (aggregate) ===
+                                                                                        QUERY PLAN                                                                                        
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=21264.20..21264.22 rows=10 width=12) (actual time=232.700..236.614 rows=10 loops=1)
+   Buffers: shared hit=4147
+   ->  Sort  (cost=21264.20..21267.39 rows=1275 width=12) (actual time=232.698..236.609 rows=10 loops=1)
+         Sort Key: (count(*)) DESC
+         Sort Method: top-N heapsort  Memory: 25kB
+         Buffers: shared hit=4147
+         ->  Finalize GroupAggregate  (cost=1000.45..21236.65 rows=1275 width=12) (actual time=232.136..236.486 rows=309 loops=1)
+               Group Key: mp_id
+               Buffers: shared hit=4144
+               ->  Gather Merge  (cost=1000.45..21211.15 rows=2550 width=12) (actual time=231.980..236.207 rows=601 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=4144
+                     ->  Partial GroupAggregate  (cost=0.43..19916.79 rows=1275 width=12) (actual time=1.489..147.794 rows=200 loops=3)
+                           Group Key: mp_id
+                           Buffers: shared hit=4144
+                           ->  Parallel Index Only Scan using idx_vote_cast_ns_mp on vote_cast  (cost=0.43..17600.84 rows=460640 width=4) (actual time=0.059..92.464 rows=374964 loops=3)
+                                 Index Cond: (ns = 51)
+                                 Heap Fetches: 0
+                                 Buffers: shared hit=4144
+ Planning:
+   Buffers: shared hit=152
+ Planning Time: 0.702 ms
+ Execution Time: 236.816 ms
+(24 rows)
+
+
+=== Q6: full count(*) tr_companies (1M+ row seq/index-only scan) ===
+                                                                                        QUERY PLAN                                                                                         
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=12652.10..12652.11 rows=1 width=8) (actual time=142.983..145.540 rows=1 loops=1)
+   Buffers: shared hit=886
+   ->  Gather  (cost=12651.88..12652.09 rows=2 width=8) (actual time=141.735..145.525 rows=3 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=886
+         ->  Partial Aggregate  (cost=11651.88..11651.89 rows=1 width=8) (actual time=130.444..130.445 rows=1 loops=3)
+               Buffers: shared hit=886
+               ->  Parallel Index Only Scan using idx_tr_companies_entity_class on tr_companies  (cost=0.42..10564.84 rows=434817 width=0) (actual time=0.041..78.223 rows=340937 loops=3)
+                     Heap Fetches: 0
+                     Buffers: shared hit=886
+ Planning:
+   Buffers: shared hit=212
+ Planning Time: 1.019 ms
+ Execution Time: 145.709 ms
+(15 rows)
+
+
+--- bgwriter/checkpointer counters (raw, for delta calc) ---
+-[ RECORD 1 ]---------+------------------------------
+checkpoints_timed     | 17730
+checkpoints_req       | 701
+checkpoint_write_time | 328535490
+checkpoint_sync_time  | 1396149
+buffers_checkpoint    | 11773612
+buffers_clean         | 40947981
+maxwritten_clean      | 299180
+buffers_backend       | 99368735
+buffers_backend_fsync | 0
+buffers_alloc         | 535254664
+stats_reset           | 2026-07-01 20:34:41.228815+00
+
