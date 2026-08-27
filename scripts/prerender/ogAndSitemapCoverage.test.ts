@@ -1233,6 +1233,48 @@ describe("a hub's og capture anchors on its head", () => {
           "head builds and draws nothing. Verified: re-shooting governance-declarations " +
           "produced an identical md5 (4738a7bb9af3358ef031ccfc828ea401).",
       },
+      // ⚠️ THE TWO DATA ENTRIES BELOW ARE A DIFFERENT KIND FROM THE ONE ABOVE, and the
+      // difference is worth knowing before extending either. `HubHead.tsx` is CODE that drew
+      // nothing; these are the card's own FIGURES, refreshed by the daily ingest. So they are
+      // the case this clause is most for and least able to judge: a payload moves every day,
+      // and whether the card moved with it is decided by ROUNDING, not by the diff.
+      "data/macro.json": {
+        sha: "378f80acde16c202e5c9504061128b0c21085865",
+        why:
+          "The 2026-08-27 macro refresh (6 Eurostat releases) moved OTHER series — the four " +
+          "the band draws are untouched: gdpGrowth/inflation/unemployment/govDebt are the " +
+          "same length (86/86/69/85) with the same last point (2026-Q2 2.7, 2026-Q2 5.83, " +
+          "2026-Q1 3, 2026-Q1 28.5), which is exactly what the card shows. Verified by " +
+          "re-shooting twice against separately-started dev servers: identical md5 " +
+          "(a8b4910df51d55824cc6983fdf22a96e).",
+      },
+      // Same commit as macro.json, and it needs its OWN entry rather than riding that one:
+      // the clause reduces to the NEWEST source, so exempting only macro.json promotes this
+      // file to the maximum and the card stays red at the identical timestamp.
+      "data/macro_peers.json": {
+        sha: "378f80acde16c202e5c9504061128b0c21085865",
+        why:
+          "Ships in the same refresh commit as data/macro.json and feeds the peer rail. The " +
+          "rail is unchanged (Безработица 1/27, Брутен държавен дълг 3/27, Растеж 7/22, " +
+          "Инфлация 26/27). Covered by the same byte-identical re-shoot as macro.json — one " +
+          "capture verifies every source of a card at once, since the card is a function of " +
+          "all of them.",
+      },
+      // ⚠️ THE FRAGILE ONE: unlike the two above, these figures DID move — the card is
+      // unchanged only because both land inside the same rounded string. The next refresh
+      // that crosses a rounding boundary WILL move the card, and this entry expires on its
+      // own then (the sha stops matching), which is the correct default. Do not read this
+      // entry as „sector_stats never moves the card".
+      "data/procurement/derived/sector_stats.json": {
+        sha: "82fd0d1927f48f23bfc9dcbf11f63d223452cfc6",
+        why:
+          "The 2026-08-27 procurement refresh moved two of the four procurement-basis " +
+          "sectors by ~0.006% — water 3,273,381,511 → 3,273,951,511 and energy " +
+          "10,271,933,257 → 10,273,420,413 — and both still render €3,3 млрд. and €10,3 " +
+          "млрд.; the headline sum 29.636bn → 29.638bn still renders €29,6 млрд., and the " +
+          "rail's ordering is unchanged. Verified by re-shooting twice: identical md5 " +
+          "(710f562634292854e9ea1b609e62dfcb).",
+      },
     };
     const shaOf = (rel: string) =>
       execFileSync("git", ["log", "-1", "--format=%H", "--", rel], {
