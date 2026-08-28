@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Contract tests for the unattended nightly news pipeline runner."""
 
+import os
 import subprocess
+import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -15,15 +18,22 @@ class NightlyRunnerContractTests(unittest.TestCase):
     def run_runner(self, *args: str) -> subprocess.CompletedProcess[str]:
         return self.run_runner_at(RUNNER, *args)
 
-    def run_runner_at(self, runner: Path, *args: str) -> subprocess.CompletedProcess[str]:
+    def run_runner_at(self, runner: Path, *args: str,
+                      env: dict | None = None) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
             ["bash", str(runner), *args], cwd=runner.parents[2], text=True,
-            capture_output=True, check=False)
+            capture_output=True, check=False, env=env)
 
     def copy_runner(self, root: Path) -> Path:
         runner = root / "news" / "scripts" / "run_nightly.sh"
         runner.parent.mkdir(parents=True)
         runner.write_text(RUNNER.read_text(encoding="utf-8"), encoding="utf-8")
+        source_timeout = RUNNER.parent / "bin" / "timeout"
+        target_timeout = runner.parent / "bin" / "timeout"
+        target_timeout.parent.mkdir(parents=True)
+        target_timeout.write_text(source_timeout.read_text(encoding="utf-8"),
+                                  encoding="utf-8")
+        target_timeout.chmod(0o755)
         return runner
 
     def test_rejects_missing_or_invalid_option_values_before_running(self):
@@ -32,6 +42,14 @@ class NightlyRunnerContractTests(unittest.TestCase):
             (("--limit", "ten"), "--limit must be a non-negative integer"),
             (("--model",), "--model requires NAME"),
             (("--model", ""), "--model requires NAME"),
+            (("--workers",), "--workers requires N"),
+            (("--workers", "0"), "--workers must be at least 1"),
+            (("--workers", "four"), "--workers must be a non-negative integer"),
+            (("--schema-retries",), "--schema-retries requires 0 or 1"),
+            (("--schema-retries", "2"), "--schema-retries must be 0 or 1"),
+            (("--stage-timeout",), "--stage-timeout requires SECONDS"),
+            (("--stage-timeout", "slow"),
+             "--stage-timeout must be a non-negative integer"),
             (("--articles-per-source",), "--articles-per-source requires N"),
             (("--browser-timeout", "slow"),
              "--browser-timeout must be a non-negative integer"),
@@ -47,7 +65,8 @@ class NightlyRunnerContractTests(unittest.TestCase):
             runner = self.copy_runner(root)
             first = self.run_runner_at(
                 runner, "--dry-run", "--articles-per-source", "3",
-                "--browser-timeout", "15", "--skip-browser")
+                "--browser-timeout", "15", "--workers", "4",
+                "--schema-retries", "1", "--skip-browser")
             second = self.run_runner_at(runner, "--dry-run")
             self.assertEqual(first.returncode, 0, first.stderr)
             self.assertEqual(second.returncode, 0, second.stderr)
@@ -61,6 +80,48 @@ class NightlyRunnerContractTests(unittest.TestCase):
                                     for s in data["stages"]))
                 self.assertEqual(data["acquisition"]["direct"]["skipped"], "dry_run")
                 self.assertEqual(data["acquisition"]["browser"]["skipped"], "dry_run")
+
+    def test_live_owner_lock_skips_before_any_stage_starts(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            runner = self.copy_runner(root)
+            lock = root / "news" / "data" / "_nightly" / "pipeline.lock"
+            lock.mkdir(parents=True)
+            (lock / "pid").write_text(str(os.getpid()) + "\n", encoding="utf-8")
+            proc = self.run_runner_at(runner, "--dry-run")
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertEqual(__import__("json").loads(proc.stdout)["skipped"],
+                             "already_running")
+            self.assertEqual(list(lock.parent.glob("*.json")), [])
+
+    def test_runner_supplies_timeout_under_a_minimal_cron_path(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            runner = self.copy_runner(root)
+            env = os.environ.copy()
+            env["PATH"] = f"{Path(sys.executable).parent}:/usr/bin:/bin"
+            proc = self.run_runner_at(runner, "--dry-run", env=env)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+
+    def test_timeout_wrapper_kills_the_descendant_process_group(self):
+        with tempfile.TemporaryDirectory() as temp:
+            marker = Path(temp) / "descendant-survived"
+            wrapper = RUNNER.parent / "bin" / "timeout"
+            child = (
+                "import pathlib,time,sys; time.sleep(.4); "
+                "pathlib.Path(sys.argv[1]).write_text('bad')")
+            parent = (
+                "import subprocess,sys,time; "
+                "subprocess.Popen([sys.executable,'-c',sys.argv[2],sys.argv[1]]); "
+                "time.sleep(5)")
+            proc = subprocess.run(
+                [str(wrapper), "0.1", sys.executable, "-c", parent,
+                 str(marker), child], capture_output=True, text=True,
+                check=False)
+            self.assertEqual(proc.returncode, 124, proc.stderr)
+            time.sleep(.5)
+            self.assertFalse(marker.exists(),
+                             "a descendant survived the timeout process-group kill")
 
     def test_model_probe_failure_skips_analysis(self):
         with tempfile.TemporaryDirectory() as temp:

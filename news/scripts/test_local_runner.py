@@ -366,8 +366,61 @@ class Saving(unittest.TestCase):
         # grammar-ignoring server only after the whole queue, which is the
         # entire nightly window.
         src = (SCRIPTS / "analyze_local.py").read_text(encoding="utf-8")
-        self.assertIn("not canary_done", src)
+        self.assertIn("canary_done = not FIRST_RECORD_IS_A_CANARY", src)
         self.assertNotIn("and n == 1", src)
+
+
+    def test_one_schema_retry_is_bounded_and_a_success_hides_first_rejection(self):
+        import io
+        calls = {}
+        queue = [{"path": name, "domain": "x.bg"}
+                 for name in ("bad.json", "canary.json", "retry.json")]
+
+        def fake_analyze(item, *_args):
+            path = item["path"]
+            calls[path] = calls.get(path, 0) + 1
+            if path == "bad.json":
+                return {"kind": "parse_failed", "path": path,
+                        "detail": "unreadable"}
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": path}}
+
+        save_calls = {}
+
+        def fake_run(*args, stdin=None):
+            if args[0] == "--next":
+                return 0, {"queue": queue}
+            record = json.loads(stdin)[0]
+            path = record["article_path"]
+            save_calls[path] = save_calls.get(path, 0) + 1
+            if path == "retry.json" and save_calls[path] == 1:
+                return 3, {"saved": [], "failed": [{"article_path": path}]}
+            return 0, {"saved": [path], "failed": []}
+
+        argv = ["analyze_local.py", "--limit", "3", "--model", "m",
+                "--workers", "2", "--schema-retries", "1"]
+        assets = {"grammar": "g", "json_schema": {}, "system": "s",
+                  "taxonomy": '{"version": 1}'}
+        output = io.StringIO()
+        with mock.patch.object(sys, "argv", argv), \
+                mock.patch.object(analyze_local, "load_prompt_assets",
+                                  return_value=assets), \
+                mock.patch.object(analyze_local, "grammar_is_enforced",
+                                  return_value=(True, "enforced")), \
+                mock.patch.object(analyze_local, "run_analyze", fake_run), \
+                mock.patch.object(analyze_local, "analyze_one", fake_analyze), \
+                mock.patch("sys.stdout", output):
+            self.assertEqual(analyze_local.main(), 0)
+
+        got = json.loads(output.getvalue())
+        self.assertEqual(got["saved"], 2)
+        self.assertEqual(got["parse_failed"], [
+            {"path": "bad.json", "detail": "unreadable"}])
+        self.assertEqual(got["schema_retry_attempted"], 1)
+        self.assertEqual(got["schema_retry_succeeded"], 1)
+        self.assertEqual(got["rejected"], [])
+        self.assertEqual(calls,
+                         {"bad.json": 1, "canary.json": 1, "retry.json": 2})
 
 
 class TheGrammarNonEmpty(unittest.TestCase):

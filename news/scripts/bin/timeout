@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+"""Small GNU-timeout-compatible subset for the standalone macOS runner."""
+
+import os
+import signal
+import subprocess
+import sys
+
+
+def seconds(value: str) -> float:
+    units = {"s": 1, "m": 60, "h": 3600}
+    suffix = value[-1:].lower()
+    multiplier = units.get(suffix, 1)
+    number = value[:-1] if suffix in units else value
+    duration = float(number)
+    if duration < 0:
+        raise ValueError("duration must be non-negative")
+    return duration * multiplier
+
+
+def terminate_group(proc: subprocess.Popen) -> None:
+    try:
+        os.killpg(proc.pid, signal.SIGTERM)
+        proc.wait(timeout=2)
+    except ProcessLookupError:
+        return
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(proc.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        proc.wait()
+
+
+def main() -> int:
+    if len(sys.argv) < 3:
+        print("usage: timeout DURATION COMMAND [ARG ...]", file=sys.stderr)
+        return 125
+    try:
+        duration = seconds(sys.argv[1])
+    except (ValueError, IndexError):
+        print(f"timeout: invalid duration {sys.argv[1]!r}", file=sys.stderr)
+        return 125
+    try:
+        proc = subprocess.Popen(sys.argv[2:], start_new_session=True)
+    except FileNotFoundError:
+        print(f"timeout: command not found: {sys.argv[2]}", file=sys.stderr)
+        return 127
+
+    def forward(signum, _frame):
+        try:
+            os.killpg(proc.pid, signum)
+        except ProcessLookupError:
+            pass
+
+    signal.signal(signal.SIGINT, forward)
+    signal.signal(signal.SIGTERM, forward)
+    try:
+        return proc.wait(timeout=duration)
+    except subprocess.TimeoutExpired:
+        terminate_group(proc)
+        return 124
+
+
+if __name__ == "__main__":
+    sys.exit(main())

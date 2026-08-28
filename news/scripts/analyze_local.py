@@ -20,6 +20,7 @@ Run:  python3 news/scripts/analyze_local.py --limit 20 --model gemma-4-12b
 """
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import re
 import os
@@ -85,6 +86,64 @@ def save(batch: list, stats: dict) -> bool:
             "detail": json.dumps(out, ensure_ascii=False)[:300]})
         return False
     return not failed
+
+
+def new_save_stats() -> dict:
+    """A private save result, merged only after retry policy is decided."""
+    return {"saved": 0, "rejected": [], "save_failed": []}
+
+
+def merge_save_stats(target: dict, source: dict) -> None:
+    target["saved"] += source["saved"]
+    target["rejected"].extend(source["rejected"])
+    target["save_failed"].extend(source["save_failed"])
+    if source.get("mentions_unverified"):
+        target["mentions_unverified"] = source["mentions_unverified"]
+
+
+def analyze_one(item: dict, assets: dict, model: str, max_tokens: int,
+                taxonomy_version: int) -> dict:
+    """Build one record without writing shared state; safe in a worker."""
+    try:
+        article = json.loads((ROOT / item["path"]).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"kind": "parse_failed", "path": item["path"],
+                "detail": str(exc)[:200]}
+    prompt = build_user_prompt(article, item.get("mentions") or [],
+                               assets["taxonomy"])
+    try:
+        answer = llm_client.complete(
+            assets["system"], prompt, model=model,
+            grammar=assets["grammar"], json_schema=assets["json_schema"],
+            max_tokens=max_tokens)
+    except llm_client.LlmError as exc:
+        return {"kind": "llm_failed", "path": item["path"],
+                "error_kind": exc.kind, "detail": exc.detail[:200]}
+    try:
+        record = record_from(item, article, answer, model, taxonomy_version,
+                             item.get("mentions") or [])
+    except (json.JSONDecodeError, KeyError, TypeError) as exc:
+        return {"kind": "parse_failed", "path": item["path"],
+                "detail": str(exc)[:200]}
+    return {"kind": "record", "item": item, "record": record}
+
+
+def record_worker_failure(stats: dict, result: dict) -> bool:
+    """Record a worker error. True means the endpoint is unusable."""
+    if result["kind"] == "parse_failed":
+        stats["parse_failed"].append({"path": result["path"],
+                                      "detail": result["detail"]})
+        return False
+    stats["llm_failed"].append({"path": result["path"],
+                                "kind": result["error_kind"],
+                                "detail": result["detail"]})
+    return result["error_kind"] in ("unreachable", "remote_refused")
+
+
+def save_attempt(record: dict) -> tuple[bool, dict]:
+    """Try one record without exposing a retryable rejection as final."""
+    attempt_stats = new_save_stats()
+    return save([record], attempt_stats), attempt_stats
 
 
 def load_prompt_assets() -> dict:
@@ -264,7 +323,15 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true",
                     help="build the prompts and print one, calling no model")
     ap.add_argument("--max-tokens", type=int, default=2048)
+    ap.add_argument("--workers", type=int,
+                    default=int(os.environ.get("NEWS_LLM_WORKERS", "4")),
+                    help="concurrent completion requests (default 4)")
+    ap.add_argument("--schema-retries", type=int,
+                    default=int(os.environ.get("NEWS_LLM_SCHEMA_RETRIES", "1")),
+                    help="bounded re-asks after validator rejection (default 1)")
     args = ap.parse_args()
+    if args.workers < 1 or args.schema_retries not in (0, 1):
+        ap.error("--workers must be at least 1 and --schema-retries must be 0 or 1")
 
     assets = load_prompt_assets()
     taxonomy_version = json.loads(assets["taxonomy"]).get("version")
@@ -306,76 +373,107 @@ def main() -> int:
     stats = {"mode": "analyze_local", "model": args.model,
              "queued": len(items), "answered": 0, "saved": 0,
              "llm_failed": [], "parse_failed": [], "rejected": [],
-             "save_failed": [], "elapsed_s": 0.0}
+             "save_failed": [], "elapsed_s": 0.0,
+             "workers": args.workers,
+             "schema_retry_limit": args.schema_retries,
+             "schema_retry_attempted": 0,
+             "schema_retry_succeeded": 0}
     started = time.monotonic()
-    batch = []
-    canary_done = False
-    for n, item in enumerate(items, 1):
-        try:
-            rec = json.loads((ROOT / item["path"]).read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as exc:
-            stats["parse_failed"].append({"path": item["path"],
-                                          "detail": str(exc)[:200]})
-            continue
-        prompt = build_user_prompt(rec, item.get("mentions") or [],
-                                   assets["taxonomy"])
-        try:
-            answer = llm_client.complete(
-                assets["system"], prompt, model=args.model,
-                grammar=assets["grammar"],
-                json_schema=assets["json_schema"],
-                max_tokens=args.max_tokens)
-        except llm_client.LlmError as exc:
-            stats["llm_failed"].append({"path": item["path"],
-                                        "kind": exc.kind,
-                                        "detail": exc.detail[:200]})
-            # ⚠️ An UNREACHABLE server aborts the run; a per-article failure
-            # does not. Continuing through 200 connection refusals produces a
-            # report full of identical errors and no analyses.
-            if exc.kind in ("unreachable", "remote_refused"):
+    remaining = []
+    canary_done = not FIRST_RECORD_IS_A_CANARY
+
+    # Prove one complete model→validator round trip before opening the worker
+    # pool. Otherwise four workers can spend the whole queue on a provider
+    # that accepted `response_format` but returned an unusable shape.
+    for position, item in enumerate(items):
+        if canary_done:
+            remaining = items[position:]
+            break
+        result = analyze_one(item, assets, args.model, args.max_tokens,
+                             taxonomy_version)
+        if result["kind"] != "record":
+            if record_worker_failure(stats, result):
+                remaining = []
                 break
             continue
         stats["answered"] += 1
-        try:
-            batch.append(record_from(item, rec, answer, args.model,
-                                     taxonomy_version,
-                                     item.get("mentions") or []))
-        except (json.JSONDecodeError, KeyError, TypeError) as exc:
-            stats["parse_failed"].append({"path": item["path"],
-                                          "detail": str(exc)[:200]})
-            continue
-
-        # ⚠️ THE CANARY, and it is keyed on the first record BUILT, not on
-        # the queue index. `n == 1` meant an unreadable first article
-        # silently disabled it — the run then discovered a grammar-ignoring
-        # server only after the whole queue, which is the entire window.
-        if FIRST_RECORD_IS_A_CANARY and not canary_done:
-            canary_done = True
-            if not save(batch, stats):
-                # ⚠️ THE DIAGNOSIS DEPENDS ON THE PREFLIGHT, and saying
-                # „probably the grammar" after the preflight has PROVEN the
-                # constraint is enforced sends an operator to rebuild a
-                # grammar that is already working. What survives a working
-                # constraint is what the constraint cannot express — above
-                # all the category/subcategory PAIRING, which neither the
-                # GBNF nor the JSON Schema encodes and which both say so.
-                stats["aborted"] = (
-                    ("the first record was rejected by the validator, and "
-                     "the constraint IS enforced (the preflight proved it) "
-                     "— so this is a rule the schema cannot express, most "
-                     "likely the category/subcategory pairing. Read the "
-                     "`rejected` errors above; they are the whole diagnosis."
-                     ) if constraint_proven else
-                    ("the first record was rejected by the validator — the "
-                     "model server is probably ignoring the schema "
-                     "constraint. Stopping rather than spending the window "
-                     "producing records that will all be refused."))
-                batch = []
+        ok, attempt_stats = save_attempt(result["record"])
+        last_attempt_stats = attempt_stats
+        for _ in range(args.schema_retries):
+            if ok:
                 break
-            batch = []
+            if attempt_stats["save_failed"]:
+                break
+            stats["schema_retry_attempted"] += 1
+            retry = analyze_one(item, assets, args.model, args.max_tokens,
+                                taxonomy_version)
+            if retry["kind"] != "record":
+                record_worker_failure(stats, retry)
+                break
+            stats["answered"] += 1
+            ok, last_attempt_stats = save_attempt(retry["record"])
+        merge_save_stats(stats, last_attempt_stats)
+        if ok:
+            if stats["schema_retry_attempted"]:
+                stats["schema_retry_succeeded"] += 1
+            canary_done = True
+            remaining = items[position + 1:]
+            break
 
-    if batch:
-        save(batch, stats)
+        # ⚠️ THE DIAGNOSIS DEPENDS ON THE PREFLIGHT. One bounded retry has
+        # already ruled out a one-off malformed answer before the run stops.
+        stats["aborted"] = (
+            ("the first record was rejected after its bounded schema retry, "
+             "and the constraint IS enforced — read `rejected` for the rule "
+             "the schema cannot express") if constraint_proven else
+            ("the first record was rejected after its bounded schema retry "
+             "— the model server may be ignoring the schema constraint"))
+        remaining = []
+        break
+
+    retry_queue = []
+    if canary_done and remaining:
+        with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            pending = {
+                pool.submit(analyze_one, item, assets, args.model,
+                            args.max_tokens, taxonomy_version): item
+                for item in remaining
+            }
+            for future in as_completed(pending):
+                result = future.result()
+                if result["kind"] != "record":
+                    record_worker_failure(stats, result)
+                    continue
+                stats["answered"] += 1
+                ok, attempt_stats = save_attempt(result["record"])
+                if ok or attempt_stats["save_failed"] or not args.schema_retries:
+                    merge_save_stats(stats, attempt_stats)
+                else:
+                    stats["schema_retry_attempted"] += 1
+                    retry_queue.append((result["item"], attempt_stats))
+
+    # A second bounded wave preserves the four-request ceiling: retrying in
+    # the main thread while the first pool was active would create a fifth
+    # simultaneous request.
+    if retry_queue:
+        with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            pending = {
+                pool.submit(analyze_one, item, assets, args.model,
+                            args.max_tokens, taxonomy_version): (item, first_stats)
+                for item, first_stats in retry_queue
+            }
+            for future in as_completed(pending):
+                item, first_stats = pending[future]
+                result = future.result()
+                if result["kind"] != "record":
+                    merge_save_stats(stats, first_stats)
+                    record_worker_failure(stats, result)
+                    continue
+                stats["answered"] += 1
+                ok, attempt_stats = save_attempt(result["record"])
+                merge_save_stats(stats, attempt_stats)
+                if ok:
+                    stats["schema_retry_succeeded"] += 1
 
     stats["elapsed_s"] = round(time.monotonic() - started, 1)
     # ⚠️ A save that FAILED to run at all — a bad taxonomy, unreadable JSON —

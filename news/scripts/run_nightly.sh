@@ -11,13 +11,29 @@
 # and the bundles rebuilt, and the report must say which stage failed rather
 # than ending at the first one. Each stage records its own exit code instead.
 #
-# Usage:  news/scripts/run_nightly.sh [--limit N] [--model NAME] [--dry-run]
+# Usage:  news/scripts/run_nightly.sh [--limit N] [--model NAME]
+#          [--workers N] [--schema-retries 0|1] [--dry-run]
 set -uo pipefail
 
 cd "$(dirname "$0")/../.." || exit 2
 ROOT=$(pwd)
+export PATH="$ROOT/news/scripts/bin:$PATH"
+if [ ! -x "$ROOT/news/scripts/bin/timeout" ]; then
+  echo '{"mode":"nightly","error":"missing_timeout_wrapper"}'
+  exit 2
+fi
 LIMIT=40
-MODEL=${NEWS_LLM_MODEL:-local-model}
+if [ -n "${OPENROUTER_API_KEY:-}" ]; then
+  DEFAULT_MODEL=z-ai/glm-5.3-flash
+  export NEWS_LLM_URL=${NEWS_LLM_URL:-https://openrouter.ai/api/v1/chat/completions}
+  export NEWS_LLM_ALLOW_REMOTE=${NEWS_LLM_ALLOW_REMOTE:-1}
+  export NEWS_LLM_REASONING_EFFORT=${NEWS_LLM_REASONING_EFFORT:-low}
+else
+  DEFAULT_MODEL=local-model
+fi
+MODEL=${NEWS_LLM_MODEL:-$DEFAULT_MODEL}
+WORKERS=${NEWS_LLM_WORKERS:-4}
+SCHEMA_RETRIES=${NEWS_LLM_SCHEMA_RETRIES:-1}
 ARTICLES_PER_SOURCE=${NEWS_ARTICLES_PER_SOURCE:-20}
 BROWSER_TIMEOUT=${NEWS_BROWSER_TIMEOUT:-600}
 STAGE_TIMEOUT=${NEWS_STAGE_TIMEOUT:-7200}
@@ -42,6 +58,20 @@ while [ $# -gt 0 ]; do
       [ -n "$2" ] || { echo "--model requires NAME" >&2; exit 2; }
       MODEL=$2; shift 2
       ;;
+    --workers)
+      [ "$#" -ge 2 ] || { echo "--workers requires N" >&2; exit 2; }
+      require_uint "--workers" "$2"
+      [ "$2" -ge 1 ] || { echo "--workers must be at least 1" >&2; exit 2; }
+      WORKERS=$2; shift 2
+      ;;
+    --schema-retries)
+      [ "$#" -ge 2 ] || { echo "--schema-retries requires 0 or 1" >&2; exit 2; }
+      case $2 in
+        0|1) SCHEMA_RETRIES=$2 ;;
+        *) echo "--schema-retries must be 0 or 1" >&2; exit 2 ;;
+      esac
+      shift 2
+      ;;
     --articles-per-source)
       [ "$#" -ge 2 ] || { echo "--articles-per-source requires N" >&2; exit 2; }
       require_uint "--articles-per-source" "$2"
@@ -65,11 +95,68 @@ done
 require_uint "NEWS_ARTICLES_PER_SOURCE" "$ARTICLES_PER_SOURCE"
 require_uint "NEWS_BROWSER_TIMEOUT" "$BROWSER_TIMEOUT"
 require_uint "NEWS_STAGE_TIMEOUT" "$STAGE_TIMEOUT"
+require_uint "NEWS_LLM_WORKERS" "$WORKERS"
+[ "$WORKERS" -ge 1 ] || { echo "NEWS_LLM_WORKERS must be at least 1" >&2; exit 2; }
+case $SCHEMA_RETRIES in
+  0|1) ;;
+  *) echo "NEWS_LLM_SCHEMA_RETRIES must be 0 or 1" >&2; exit 2 ;;
+esac
 
 STAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 RUN_ID="$(date -u +%Y-%m-%dT%H%M%SZ)-$$"
 OUT_DIR="$ROOT/news/data/_nightly"
 mkdir -p "$OUT_DIR"
+LOCK_DIR="$OUT_DIR/pipeline.lock"
+LOCK_ACQUIRED=0
+
+release_lock() {
+  if [ "$LOCK_ACQUIRED" -eq 1 ] && [ -f "$LOCK_DIR/pid" ] && \
+      [ "$(cat "$LOCK_DIR/pid" 2>/dev/null)" = "$$" ]; then
+    rm -f "$LOCK_DIR/pid"
+    rmdir "$LOCK_DIR" 2>/dev/null || true
+  fi
+}
+
+finish() {
+  code=$1
+  release_lock
+  exit "$code"
+}
+
+acquire_lock() {
+  if mkdir "$LOCK_DIR" 2>/dev/null; then
+    printf '%s\n' "$$" > "$LOCK_DIR/pid"
+    LOCK_ACQUIRED=1
+    return 0
+  fi
+  owner=$(cat "$LOCK_DIR/pid" 2>/dev/null || true)
+  case "$owner" in
+    *[!0-9]*|"") owner="" ;;
+  esac
+  if [ -n "$owner" ] && kill -0 "$owner" 2>/dev/null; then
+    printf '{"mode":"nightly","skipped":"already_running","owner_pid":%s}\n' "$owner"
+    return 1
+  fi
+  # The owner is absent or dead. Remove only the two exact lock paths, then
+  # contend once more; another hourly invocation may win this race.
+  rm -f "$LOCK_DIR/pid"
+  rmdir "$LOCK_DIR" 2>/dev/null || true
+  if mkdir "$LOCK_DIR" 2>/dev/null; then
+    printf '%s\n' "$$" > "$LOCK_DIR/pid"
+    LOCK_ACQUIRED=1
+    return 0
+  fi
+  echo '{"mode":"nightly","skipped":"already_running","owner_pid":null}'
+  return 1
+}
+
+if ! acquire_lock; then
+  exit 0
+fi
+# An EXIT trap is deliberately avoided: command substitutions in stage()
+# inherit it on the target bash and could release the parent's lock early.
+trap 'release_lock; exit 130' HUP INT TERM
+
 REPORT="$OUT_DIR/$RUN_ID.json"
 DIRECT_SUMMARY="$OUT_DIR/$RUN_ID.direct.jsonl"
 BROWSER_SUMMARY="$OUT_DIR/$RUN_ID.browser.jsonl"
@@ -196,7 +283,8 @@ elif [ "$MODEL_PROBE_CODE" -ne 0 ]; then
     'import json; print(json.dumps({"skipped": "model_unavailable"}))'
 else
   stage analyze python3 news/scripts/analyze_local.py \
-    --limit "$LIMIT" --model "$MODEL"
+    --limit "$LIMIT" --model "$MODEL" --workers "$WORKERS" \
+    --schema-retries "$SCHEMA_RETRIES"
 fi
 
 # ── 6. Review queue ────────────────────────────────────────────────────────
@@ -301,12 +389,12 @@ fi
 # and never used, which is what hid it.
 if [ "$REPORT_CODE" -ne 0 ]; then
   echo "  the report step itself failed (exit $REPORT_CODE)" >&2
-  exit 2
+  finish 2
 fi
 if [ "$REPORT_INTEGRITY_FAILED" -ne 0 ]; then
-  exit 2
+  finish 2
 fi
 if grep -q '"exit": [^0]' "$STAGES"; then
-  exit 1
+  finish 1
 fi
-exit 0
+finish 0
