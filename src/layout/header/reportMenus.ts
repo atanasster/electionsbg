@@ -94,6 +94,10 @@ export const localMenu: MenuItem[] = [
             link: `/local/${c}/mayors-by-party`,
           },
           {
+            title: "mp_local_menu_title",
+            link: "/governance/mayor-pay",
+          },
+          {
             title: "local_leaderboard_council_votes",
             link: `/local/${c}/council-votes`,
           },
