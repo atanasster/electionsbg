@@ -98,6 +98,7 @@ def complete(system: str, user: str, *, model: str,
              max_tokens: int = 2048,
              temperature: float = 0.2,
              timeout: int = DEFAULT_TIMEOUT,
+             max_attempts: int = MAX_ATTEMPTS,
              url: str | None = None) -> dict:
     """One completion with response, request, usage, and timing metadata.
 
@@ -121,6 +122,8 @@ def complete(system: str, user: str, *, model: str,
     that does not understand the field ignores it, so this is safe to send
     to llama.cpp, LM Studio and Ollama alike.
     """
+    if max_attempts < 1:
+        raise ValueError("max_attempts must be at least 1")
     payload = {
         "model": model,
         "messages": [{"role": "system", "content": system},
@@ -196,11 +199,12 @@ def complete(system: str, user: str, *, model: str,
         "thinking_enabled": os.environ.get("NEWS_LLM_THINKING") == "1",
         "reasoning": payload.get("reasoning"),
         "provider_routing": payload.get("provider"),
+        "transport_attempt_limit": max_attempts,
     }
 
     last = None
     request_started = time.monotonic()
-    for attempt in range(1, MAX_ATTEMPTS + 1):
+    for attempt in range(1, max_attempts + 1):
         attempt_started = time.monotonic()
         req = urllib.request.Request(
             target, data=body, headers=request_headers(target), method="POST")

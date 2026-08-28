@@ -168,7 +168,18 @@ def record_review(analysis: dict) -> dict:
     entire point of measuring per field in the first place.
     """
     out = {}
+    provenance = analysis.get("analysis_provenance") or {}
+    claim_sources = provenance.get("claim_sources") or {}
+    skipped_assessments = set()
+    if (provenance.get("analysis_route") == "free_triage"
+            and analysis.get("site_relevant") is False):
+        skipped_assessments = {
+            field for field, source in claim_sources.items()
+            if source == "not_performed_out_of_scope"
+        }
     for field, key in ROUTED_FIELDS:
+        if field in skipped_assessments:
+            continue
         block = analysis.get(field) or {}
         if not isinstance(block, dict):
             # ⚠️ „leaning": "progressive" — a string where an object belongs.

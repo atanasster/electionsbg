@@ -330,6 +330,20 @@ class TheClient(unittest.TestCase):
                 llm_client.complete("s", "u", model="m")
         self.assertEqual(len(calls), llm_client.MAX_ATTEMPTS)
 
+    def test_free_triage_can_limit_transport_to_one_attempt(self):
+        calls = []
+
+        def fake_urlopen(req, timeout=None):
+            calls.append(1)
+            raise urllib.error.HTTPError(req.full_url, 503, "busy", {}, None)
+
+        with mock.patch.object(llm_client.urllib.request, "urlopen",
+                               fake_urlopen), \
+                mock.patch.object(llm_client.time, "sleep", lambda _: None):
+            with self.assertRaises(llm_client.LlmError):
+                llm_client.complete("s", "u", model="m", max_attempts=1)
+        self.assertEqual(calls, [1])
+
     def test_a_MID_RESPONSE_disconnect_is_an_LlmError(self):
         # ⚠️ The likeliest failure on a 16 GB Mac mini: the server is
         # OOM-killed part-way through generating. IncompleteRead is neither
@@ -647,6 +661,198 @@ class TheRecord(unittest.TestCase):
                          ["first", "accepted"])
         self.assertEqual(got["cumulative_usage"]["total_tokens"], 24)
         self.assertAlmostEqual(got["cumulative_usage"]["cost"], 0.003)
+
+
+class OptionalFreeTriage(unittest.TestCase):
+    def article(self, root, *, title="Прогноза за времето утре",
+                content="Утре температурите ще достигнат двадесет и пет градуса."):
+        rel = "news/data/x.bg/weather.json"
+        path = root / rel
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({
+            "url": "https://x.bg/weather", "domain": "x.bg", "title": title,
+            "content": content,
+        }, ensure_ascii=False), encoding="utf-8")
+        return {"path": rel, "domain": "x.bg", "mentions": []}
+
+    def answer(self, **over):
+        decision = {
+            "decision": "obvious_not_site_relevant", "subcategory": "weather",
+            "confidence": 0.99,
+            "evidence": "Утре температурите ще достигнат двадесет и пет градуса.",
+        }
+        decision.update(over)
+        return {"text": json.dumps(decision, ensure_ascii=False),
+                "model": "free-served", "response_id": "free-1",
+                "usage": {"total_tokens": 30, "cost": 0}}
+
+    def test_exact_high_confidence_weather_can_be_closed_without_paid_model(self):
+        with tempfile.TemporaryDirectory(prefix="triage_") as td:
+            root = Path(td)
+            item = self.article(root)
+            with mock.patch.object(analyze_local, "ROOT", root), \
+                    mock.patch.object(llm_client, "complete",
+                                      return_value=self.answer()):
+                got = analyze_local.triage_one(item, {}, "free", 12, 1)
+        self.assertEqual(got["route"], "free_triage")
+        rec = got["record"]
+        self.assertFalse(rec["site_relevant"])
+        self.assertEqual(rec["model"], "free-served")
+        self.assertEqual(rec["topics"][0]["subcategory"], "weather")
+        self.assertEqual(rec["analysis_provenance"]["claim_sources"]["evidence"],
+                         "free_triage_model_exact_excerpt")
+
+    def test_exact_high_confidence_sports_can_also_close(self):
+        evidence = "Отборът спечели мача с два гола преднина."
+        with tempfile.TemporaryDirectory(prefix="triage_") as td:
+            root = Path(td)
+            item = self.article(root, title="Футболен мач завърши с победа",
+                                content=evidence)
+            with mock.patch.object(analyze_local, "ROOT", root), \
+                    mock.patch.object(llm_client, "complete", return_value=self.answer(
+                        subcategory="sports", evidence=evidence)):
+                got = analyze_local.triage_one(item, {}, "free", 12, 1)
+        self.assertEqual(got["route"], "free_triage")
+        self.assertEqual(got["record"]["topics"][0]["subcategory"], "sports")
+
+    def test_every_nonproof_decision_shape_falls_back(self):
+        cases = [
+            {"decision": "needs_paid_analysis"},
+            {"confidence": 0.97},
+            {"evidence": "Този откъс изобщо не присъства в статията."},
+            {"subcategory": "sports"},  # weather title cannot prove sports
+        ]
+        with tempfile.TemporaryDirectory(prefix="triage_") as td:
+            root = Path(td)
+            item = self.article(root)
+            for overrides in cases:
+                with self.subTest(overrides=overrides), \
+                        mock.patch.object(analyze_local, "ROOT", root), \
+                        mock.patch.object(llm_client, "complete",
+                                          return_value=self.answer(**overrides)):
+                    got = analyze_local.triage_one(item, {}, "free", 12, 1)
+                    self.assertEqual(got["reason"], "triage_not_proven")
+
+    def test_named_entity_veto_calls_no_free_endpoint(self):
+        with tempfile.TemporaryDirectory(prefix="triage_") as td:
+            root = Path(td)
+            item = self.article(root)
+            item["mentions"] = [{"kind": "party", "id": "gerb"}]
+            with mock.patch.object(analyze_local, "ROOT", root), \
+                    mock.patch.object(llm_client, "complete") as complete:
+                got = analyze_local.triage_one(item, {}, "free", 12, 1)
+        self.assertEqual(got["reason"], "named_entity_veto")
+        complete.assert_not_called()
+
+    def test_mentions_must_be_present_verified_and_empty(self):
+        with tempfile.TemporaryDirectory(prefix="triage_") as td:
+            root = Path(td)
+            base = self.article(root)
+            for mentions in (None, "bad"):
+                item = dict(base)
+                if mentions is None:
+                    item.pop("mentions")
+                else:
+                    item["mentions"] = mentions
+                with self.subTest(mentions=mentions), \
+                        mock.patch.object(analyze_local, "ROOT", root), \
+                        mock.patch.object(llm_client, "complete") as complete:
+                    got = analyze_local.triage_one(item, {}, "free", 12, 1)
+                    self.assertEqual(got["reason"], "mentions_unavailable")
+                    complete.assert_not_called()
+
+    def test_all_consequential_mention_kinds_veto_even_without_id(self):
+        with tempfile.TemporaryDirectory(prefix="triage_") as td:
+            root = Path(td)
+            base = self.article(root)
+            for kind in ("person", "party", "institution", "company"):
+                item = {**base, "mentions": [{"kind": kind, "id": None}]}
+                with self.subTest(kind=kind), \
+                        mock.patch.object(analyze_local, "ROOT", root), \
+                        mock.patch.object(llm_client, "complete") as complete:
+                    got = analyze_local.triage_one(item, {}, "free", 12, 1)
+                    self.assertEqual(got["reason"], "named_entity_veto")
+                    complete.assert_not_called()
+
+    def test_low_confidence_or_nonexact_evidence_falls_through_to_paid(self):
+        with tempfile.TemporaryDirectory(prefix="triage_") as td:
+            root = Path(td)
+            item = self.article(root)
+            with mock.patch.object(analyze_local, "ROOT", root), \
+                    mock.patch.object(llm_client, "complete",
+                                      return_value=self.answer(confidence=0.8)), \
+                    mock.patch.object(analyze_local, "analyze_one",
+                                      return_value={"kind": "record", "item": item,
+                                                    "record": {"analysis_provenance": {}}}) \
+                    as paid:
+                got = analyze_local.analyze_routed(
+                    item, {}, "paid", 2048, 1, "free", 12)
+        self.assertEqual(got["route"], "paid_fallback")
+        self.assertEqual(got["record"]["analysis_provenance"]
+                         ["triage_fallback"]["reason"], "triage_not_proven")
+        generation = got["record"]["analysis_provenance"]["triage_fallback"][
+            "generation"]
+        self.assertEqual(generation["usage"]["cost"], 0)
+        self.assertIn("system_prompt_sha256", generation["prompt"])
+        paid.assert_called_once()
+
+    def test_invalid_json_roots_and_transport_errors_always_call_paid(self):
+        bad_answers = ["[]", "null", '"text"', "7"]
+        with tempfile.TemporaryDirectory(prefix="triage_") as td:
+            root = Path(td)
+            item = self.article(root)
+            for text in bad_answers:
+                with self.subTest(text=text), \
+                        mock.patch.object(analyze_local, "ROOT", root), \
+                        mock.patch.object(llm_client, "complete",
+                                          return_value={**self.answer(), "text": text}), \
+                        mock.patch.object(analyze_local, "analyze_one",
+                                          return_value={"kind": "record", "item": item,
+                                                        "record": {"analysis_provenance": {}}}) \
+                        as paid:
+                    got = analyze_local.analyze_routed(
+                        item, {}, "paid", 2048, 1, "free", 12)
+                    self.assertEqual(got["route"], "paid_fallback")
+                    self.assertEqual(got["record"]["analysis_provenance"]
+                                     ["triage_fallback"]["reason"],
+                                     "triage_invalid_response")
+                    paid.assert_called_once()
+
+            with mock.patch.object(analyze_local, "ROOT", root), \
+                    mock.patch.object(llm_client, "complete",
+                                      side_effect=RuntimeError("free down")), \
+                    mock.patch.object(analyze_local, "analyze_one",
+                                      return_value={"kind": "record", "item": item,
+                                                    "record": {"analysis_provenance": {}}}) \
+                    as paid:
+                got = analyze_local.analyze_routed(
+                    item, {}, "paid", 2048, 1, "free", 12)
+                self.assertEqual(got["route"], "paid_fallback")
+                self.assertEqual(got["record"]["analysis_provenance"]
+                                 ["triage_fallback"]["reason"],
+                                 "triage_unavailable")
+                paid.assert_called_once()
+
+    def test_accepted_triage_real_save_has_no_review_debt(self):
+        with tempfile.TemporaryDirectory(prefix="triage_save_") as td:
+            root = Path(td)
+            item = self.article(root)
+            (root / "news" / "topics.json").write_text(
+                json.dumps(article_fixtures.TAXONOMY, ensure_ascii=False),
+                encoding="utf-8")
+            with mock.patch.object(analyze_local, "ROOT", root), \
+                    mock.patch.object(llm_client, "complete",
+                                      return_value=self.answer()):
+                result = analyze_local.triage_one(item, {}, "free", 12, 1)
+                stats = {"saved": 0, "rejected": [], "save_failed": []}
+                self.assertTrue(analyze_local.save([result["record"]], stats))
+            index = json.loads((root / "news" / "data" / "analysis"
+                                / "index.json").read_text(encoding="utf-8"))
+            saved_path = root / index["articles"]["https://x.bg/weather"]["path"]
+            saved = json.loads(saved_path.read_text(encoding="utf-8"))
+            self.assertNotIn("review", saved)
+            self.assertEqual(saved["analysis_provenance"]["claim_sources"]
+                             ["ai_generated"], "not_performed_out_of_scope")
 
     def test_the_url_comes_from_the_CORPUS_record(self):
         # ⚠️ The queue carries no `url` — reading item["url"] raised KeyError

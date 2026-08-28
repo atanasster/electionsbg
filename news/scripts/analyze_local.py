@@ -50,6 +50,27 @@ FIRST_RECORD_IS_A_CANARY = True
 ANALYSIS_PROVENANCE_VERSION = 1
 MAX_USAGE_TOKENS = 1_000_000_000
 MAX_USAGE_COST_USD = 1_000_000
+TRIAGE_SYSTEM = (
+    "Класифицирай само очевидно извън тематичния обхват. При всяко съмнение, "
+    "политика, институция, обществен разход или публична личност избери "
+    "needs_paid_analysis. evidence трябва да е точен откъс от статията.")
+TRIAGE_SCHEMA = {
+    "type": "object", "additionalProperties": False,
+    "properties": {
+        "decision": {"enum": ["obvious_not_site_relevant",
+                               "needs_paid_analysis"]},
+        "subcategory": {"enum": ["weather", "sports"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "evidence": {"type": "string", "minLength": 1},
+    },
+    "required": ["decision", "subcategory", "confidence", "evidence"],
+}
+SAFE_TRIAGE_TITLE_TERMS = {
+    "weather": frozenset({"времето", "прогноза", "температури", "валежи",
+                          "градуси", "буря", "сняг"}),
+    "sports": frozenset({"мач", "футбол", "тенис", "спорт", "отбор",
+                         "шампион", "гол", "турнир"}),
+}
 
 
 def sha256_text(value: str) -> str:
@@ -198,6 +219,140 @@ def analyze_one(item: dict, assets: dict, model: str, max_tokens: int,
         return {"kind": "parse_failed", "path": item["path"],
                 "detail": str(exc)[:200]}
     return {"kind": "record", "item": item, "record": record}
+
+
+def triage_one(item: dict, assets: dict, model: str, timeout: int,
+               taxonomy_version: int) -> dict:
+    """Try the narrow free route; every non-proof returns `fallback`."""
+    if "mentions" not in item or not isinstance(item.get("mentions"), list):
+        return {"kind": "fallback", "reason": "mentions_unavailable"}
+    try:
+        article = json.loads((ROOT / item["path"]).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"kind": "fallback", "reason": "article_unreadable",
+                "detail": str(exc)[:200]}
+    # Known named actors make this consequential by construction. A free
+    # model never gets authority to suppress their article.
+    if any(m.get("kind") in {"person", "party", "institution", "company"}
+           for m in item["mentions"] if isinstance(m, dict)):
+        return {"kind": "fallback", "reason": "named_entity_veto"}
+    prompt = "\n".join([
+        f"ЗАГЛАВИЕ: {article.get('title') or '—'}",
+        f"ТЕКСТ:\n{(article.get('content') or '')[:2000]}",
+    ])
+    request_provenance = {
+        "system_prompt_sha256": sha256_text(TRIAGE_SYSTEM),
+        "json_schema_sha256": sha256_text(json.dumps(
+            TRIAGE_SCHEMA, ensure_ascii=False, sort_keys=True,
+            separators=(",", ":"))),
+        "user_prompt_sha256": sha256_text(prompt),
+        "analysis_route": "free_triage",
+    }
+    try:
+        answer = llm_client.complete(
+            TRIAGE_SYSTEM, prompt, model=model, json_schema=TRIAGE_SCHEMA,
+            max_tokens=160, temperature=0, timeout=timeout, max_attempts=1)
+    except Exception as exc:  # noqa: BLE001 — optional route must fail closed
+        return {"kind": "fallback", "reason": "triage_unavailable",
+                "detail": str(exc)[:200],
+                "request_provenance": request_provenance}
+    answer_summary = {
+        **generation_summary_from_answer(answer),
+        "prompt": request_provenance,
+    }
+    try:
+        decision = parse_answer(answer["text"])
+    except (json.JSONDecodeError, KeyError, TypeError) as exc:
+        return {"kind": "fallback", "reason": "triage_invalid_response",
+                "detail": str(exc)[:200], "answer": answer_summary}
+    if not isinstance(decision, dict):
+        return {"kind": "fallback", "reason": "triage_invalid_response",
+                "detail": f"JSON root is {type(decision).__name__}, not object",
+                "answer": answer_summary}
+    subcategory = decision.get("subcategory")
+    evidence = str(decision.get("evidence") or "")
+    title_tokens = set(re.findall(r"[\w]+", str(
+        article.get("title") or "").casefold(), re.UNICODE))
+    article_folded = " ".join(str(article.get("content") or "").casefold().split())
+    evidence_folded = " ".join(evidence.casefold().split())
+    approved = (
+        decision.get("decision") == "obvious_not_site_relevant"
+        and subcategory in SAFE_TRIAGE_TITLE_TERMS
+        and isinstance(decision.get("confidence"), (int, float))
+        and not isinstance(decision.get("confidence"), bool)
+        and decision["confidence"] >= 0.98
+        and len(evidence.split()) >= 4
+        and evidence_folded in article_folded
+        and bool(title_tokens & SAFE_TRIAGE_TITLE_TERMS[subcategory])
+    )
+    if not approved:
+        return {"kind": "fallback", "reason": "triage_not_proven",
+                "answer": answer_summary}
+
+    output = {
+        "quality": {"verdict": "ok", "notes": "free triage: exact evidence"},
+        "summary_bg": str(article.get("title") or evidence),
+        "summary_en": str(article.get("title") or evidence),
+        "leaning": {"label": "not_applicable", "confidence": 1.0,
+                    "evidence": evidence},
+        "russia_stance": {"label": "not_applicable", "confidence": 1.0,
+                          "evidence": evidence},
+        "ai_generated": {"verdict": "unclear", "confidence": 0.0,
+                         "signals": []},
+        "entities": {key: [] for key in
+                     ("people", "parties", "institutions", "companies", "places")},
+        "party_tones": [],
+        "topics": [{"category": "not-site-relevant",
+                    "subcategory": subcategory, "primary": True}],
+        "site_relevant": False,
+    }
+    triage_answer = {**answer, "text": json.dumps(output, ensure_ascii=False)}
+    record = record_from(item, article, triage_answer, model,
+                         taxonomy_version, [], request_provenance)
+    record["analysis_provenance"]["claim_sources"] = {
+        "confidence": "deterministic_triage_defaults",
+        "evidence": "free_triage_model_exact_excerpt",
+        "ai_generated": "not_performed_out_of_scope",
+        "party_tone_grounding": "not_applicable",
+    }
+    record["triage"] = decision
+    return {"kind": "record", "item": item, "record": record,
+            "route": "free_triage"}
+
+
+def generation_summary_from_answer(answer: dict) -> dict:
+    return {
+        "response_id": answer.get("response_id"),
+        "provider": answer.get("provider"),
+        "model_served": answer.get("model"),
+        "usage": bounded_usage(answer.get("usage") or {}),
+        "transport_elapsed_s": answer.get("transport_elapsed_s"),
+        "transport_attempts": answer.get("attempts"),
+        "request": answer.get("request") or {},
+    }
+
+
+def analyze_routed(item: dict, assets: dict, paid_model: str, max_tokens: int,
+                   taxonomy_version: int, triage_model: str | None,
+                   triage_timeout: int) -> dict:
+    if not triage_model:
+        return analyze_one(item, assets, paid_model, max_tokens,
+                           taxonomy_version)
+    triage = triage_one(item, assets, triage_model, triage_timeout,
+                        taxonomy_version)
+    if triage["kind"] == "record":
+        return triage
+    paid = analyze_one(item, assets, paid_model, max_tokens, taxonomy_version)
+    if paid.get("kind") == "record":
+        paid["record"]["analysis_provenance"]["triage_fallback"] = {
+            "model_requested": triage_model,
+            "reason": triage.get("reason"),
+            **({"generation": triage["answer"]} if triage.get("answer") else {}),
+            **({"prompt": triage["request_provenance"]}
+               if triage.get("request_provenance") else {}),
+        }
+        paid["route"] = "paid_fallback"
+    return paid
 
 
 def record_worker_failure(stats: dict, result: dict) -> bool:
@@ -428,9 +583,18 @@ def main() -> int:
     ap.add_argument("--schema-retries", type=int,
                     default=int(os.environ.get("NEWS_LLM_SCHEMA_RETRIES", "1")),
                     help="bounded re-asks after validator rejection (default 1)")
+    ap.add_argument("--triage-model",
+                    default=os.environ.get("NEWS_LLM_TRIAGE_MODEL") or None,
+                    help="optional free OpenRouter model for proof-only "
+                         "weather/sports triage; all other cases use --model")
+    ap.add_argument("--triage-timeout", type=int,
+                    default=int(os.environ.get("NEWS_LLM_TRIAGE_TIMEOUT", "12")),
+                    help="seconds for one no-retry free triage request")
     args = ap.parse_args()
-    if args.workers < 1 or args.schema_retries not in (0, 1):
-        ap.error("--workers must be at least 1 and --schema-retries must be 0 or 1")
+    if (args.workers < 1 or args.schema_retries not in (0, 1)
+            or args.triage_timeout < 1):
+        ap.error("--workers must be at least 1, --schema-retries must be 0 or 1, "
+                 "and --triage-timeout must be positive")
 
     assets = load_prompt_assets()
     taxonomy_version = json.loads(assets["taxonomy"]).get("version")
@@ -476,7 +640,9 @@ def main() -> int:
              "workers": args.workers,
              "schema_retry_limit": args.schema_retries,
              "schema_retry_attempted": 0,
-             "schema_retry_succeeded": 0}
+             "schema_retry_succeeded": 0,
+             "triage_model": args.triage_model,
+             "triage_accepted": 0, "paid_fallback": 0}
     started = time.monotonic()
     remaining = []
     canary_done = not FIRST_RECORD_IS_A_CANARY
@@ -535,8 +701,9 @@ def main() -> int:
     if canary_done and remaining:
         with ThreadPoolExecutor(max_workers=args.workers) as pool:
             pending = {
-                pool.submit(analyze_one, item, assets, args.model,
-                            args.max_tokens, taxonomy_version): item
+                pool.submit(analyze_routed, item, assets, args.model,
+                            args.max_tokens, taxonomy_version,
+                            args.triage_model, args.triage_timeout): item
                 for item in remaining
             }
             for future in as_completed(pending):
@@ -545,6 +712,10 @@ def main() -> int:
                     record_worker_failure(stats, result)
                     continue
                 stats["answered"] += 1
+                if result.get("route") == "free_triage":
+                    stats["triage_accepted"] += 1
+                elif result.get("route") == "paid_fallback":
+                    stats["paid_fallback"] += 1
                 ok, attempt_stats = save_attempt(result["record"])
                 if ok or attempt_stats["save_failed"] or not args.schema_retries:
                     merge_save_stats(stats, attempt_stats)
