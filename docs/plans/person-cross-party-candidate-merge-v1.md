@@ -414,8 +414,8 @@ After the rebuilt data is running locally:
 5. Each of the three old `/person/...` URLs either remains canonical or redirects once to the
    canonical slug; no chain and no 404.
 6. Searching/filtering by ИТН, ПП or ПП-ДБ can all find the unified person because
-   `party_codes` contains the full career, while `party_primary` may remain the resolver's latest /
-   most representative scalar.
+   `party_codes` contains the full career, while `party_primary` is the latest dated affiliation
+   (ПП-ДБ for the 2023 candidacy).
 
 Completed locally on 2026-08-28: all six checks passed. Search returns one target row with three
 parties; the party-change facet narrows it to that row; the profile retains the 2021 ИТН, 2022 ПП

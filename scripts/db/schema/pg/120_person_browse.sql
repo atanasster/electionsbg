@@ -70,10 +70,10 @@
 -- "REPRESENTATIVE" IS PER-ATTRIBUTE, NOT ONE GLOBAL ROLE. A single winning role cannot
 -- supply everything: an `official_exec` role (a deputy minister) carries NEITHER a party
 -- NOR a place, so sourcing party and place strictly from the top role would blank both
--- for most of the executive. Each scalar therefore comes from the highest-prominence
--- role that HAS that attribute, under the identical ordering. The invariant that
--- survives — and that the test asserts — is the useful one: when the top role itself
--- carries the attribute, the scalar comes from it.
+-- for most of the executive. Place therefore comes from the highest-prominence role that
+-- has one. Party is intentionally different: it is the latest known dated affiliation,
+-- because the chip answers "which party most recently?", not "which party accompanied the
+-- most prominent office?". `person_browse.data.test.ts` pins both selection rules.
 --
 -- ---------------------------------------------------------------------------
 -- MONEY. public_money_eur is Σ contracts.amount_eur over the person's DISTINCT TR
@@ -176,12 +176,27 @@ top_role AS (
   FROM roles
   ORDER BY person_id, prom DESC, start_date DESC NULLS LAST, ref
 ),
--- The representative PARTY — highest-prominence role that HAS one (see the header:
--- an executive role carries no party, so this cannot be the same DISTINCT ON).
+-- The representative PARTY is the LATEST KNOWN affiliation, not the party on the most
+-- prominent role. Candidate rows deliberately carry no role start_date (a candidacy is an
+-- event, not a term), but their ref begins with the election folder's YYYY_MM_DD date. Fold
+-- that date only for this ordering. Dated MP/local/official roles use their real start_date;
+-- prominence is the fallback only when dates tie or are unavailable. Ordering prominence
+-- first made an old MP seat beat a newer candidacy, while leaving candidate-only careers to
+-- the ascending ref fallback — which displayed their oldest party.
 top_party AS (
   SELECT DISTINCT ON (person_id) person_id, party
   FROM roles WHERE party IS NOT NULL
-  ORDER BY person_id, prom DESC, start_date DESC NULLS LAST, ref
+  ORDER BY person_id,
+           COALESCE(
+             start_date,
+             CASE
+               WHEN source = 'candidate'
+                AND split_part(ref, ':', 1) ~ '^\d{4}_\d{2}_\d{2}$'
+               THEN replace(split_part(ref, ':', 1), '_', '-')::date
+             END
+           ) DESC NULLS LAST,
+           prom DESC,
+           ref
 ),
 -- The representative PLACE, same shape. place_raw rides along for the label COALESCE:
 -- the CHECK on person_role guarantees raw and code are mutually exclusive, so a row

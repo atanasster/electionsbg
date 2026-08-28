@@ -294,6 +294,47 @@ test.skipIf(skip)("code sets contain their scalar and are padded", async () => {
   );
 });
 
+test.skipIf(skip)(
+  "party_primary is the latest known dated affiliation",
+  async () => {
+    // Candidate roles are events rather than terms, so person_role.start_date is honestly
+    // NULL; their ref still carries the authoritative election folder date. Dated roles win
+    // newest-first, with prominence only breaking ties or choosing among undated rows.
+    const mismatch = await count(
+      `WITH expected AS (
+       SELECT DISTINCT ON (r.person_id) r.person_id, r.party
+         FROM person_role r
+         JOIN person p ON p.person_id = r.person_id
+        WHERE p.status = 'active'
+          AND (p.is_public_figure OR p.identity_confidence IN ('verified', 'shared_name'))
+          AND r.confidence IN ('exact_id', 'high', 'manual')
+          AND r.party IS NOT NULL
+        ORDER BY r.person_id,
+                 COALESCE(
+                   r.start_date,
+                   CASE
+                     WHEN r.source = 'candidate'
+                      AND split_part(r.ref, ':', 1) ~ '^\\d{4}_\\d{2}_\\d{2}$'
+                     THEN replace(split_part(r.ref, ':', 1), '_', '-')::date
+                   END
+                 ) DESC NULLS LAST,
+                 role_prominence(r.source, r.role) DESC,
+                 r.ref
+     )
+     SELECT count(*) n
+       FROM person_browse_table b
+       JOIN person p ON p.slug = b.slug
+       JOIN expected e ON e.person_id = p.person_id
+      WHERE b.party_primary IS DISTINCT FROM e.party`,
+    );
+    assert.equal(
+      mismatch,
+      0,
+      `${mismatch} row(s) show an older party instead of the latest known affiliation`,
+    );
+  },
+);
+
 // (5) ONE "PRIMARY POST" RULE. Restricted to the six Court-of-Audit officials sources,
 // role_prominence() must pick the same role 100_officials_rankings.sql picks. Both order
 // by (source priority, start_date DESC NULLS LAST, ref), so this holds by construction —

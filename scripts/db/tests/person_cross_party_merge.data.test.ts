@@ -189,13 +189,18 @@ test.skipIf(skip)(
   async () => {
     const [mapping] = await mappings();
     assert.ok(mapping, "target candidacy mappings are absent");
-    const [row] = await allRows<{ parties_n: number; party_codes: string }>(
-      `SELECT parties_n, party_codes
+    const [row] = await allRows<{
+      party_primary: string;
+      parties_n: number;
+      party_codes: string;
+    }>(
+      `SELECT party_primary, parties_n, party_codes
          FROM person_browse_table
         WHERE slug = $1`,
       [mapping.person_slug],
     );
     assert.ok(row, "merged person is absent from person_browse_table");
+    assert.equal(row.party_primary, "p_6", "latest affiliation must be ПП-ДБ");
     assert.equal(row.parties_n, 3);
     assert.deepEqual(btrimCodes(row.party_codes), ["p_0", "p_6", "p_67"]);
   },
