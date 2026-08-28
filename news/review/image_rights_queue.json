@@ -4,25 +4,13 @@
   "policy": "news/config/image_rights_policy.json",
   "publication_default": "deny",
   "counts": {
-    "total": 365,
-    "missing_image": 364,
+    "total": 341,
+    "missing_image": 340,
     "missing_review": 1,
     "unknown_rights": 0,
     "invalid_review": 0
   },
   "items": [
-    {
-      "id": "marica.bg/20260823-mladite-se-strahuvat-ot-izkustveniq-intelekt-zaplashva-misle-8c0f880e",
-      "domain": "marica.bg",
-      "title": "Младите се страхуват от изкуствения интелект, заплашва мисле...",
-      "published": "2026-08-23T01:09:00+00:00",
-      "analyzed_at": "2026-08-23T03:40:00+00:00",
-      "article_url": "https://www.marica.bg/svqt/mladite-se-strahuvat-ot-izkustveniq-intelekt-zaplashva-misleneto-i-karierata-im",
-      "article_path": "news/data/marica.bg/20260823-mladite-se-strahuvat-ot-izkustveniq-intelekt-zaplashva-misle-8c0f880e.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
     {
       "id": "actualno.com/20260822-pylno-klasirane-v-pyrva-liga-202627-levski-na-tochka-ot-vyrh-1b2e8440",
       "domain": "actualno.com",
@@ -43,18 +31,6 @@
       "analyzed_at": "2026-08-23T15:40:00+00:00",
       "article_url": "https://www.actualno.com/bgfootball/pylni-rezultati-na-vsichki-machove-v-pyrva-liga-prez-sezon-202627-samo-levski-prodyljava-bez-greshka-news_2618915.html",
       "article_path": "news/data/actualno.com/20260822-pylni-rezultati-na-vsichki-machove-v-pyrva-liga-prez-sezon-2-eeaf4045.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "bta.bg/20260822-1190252-italiya-nyama-da-priema-obratno-migranti-ot-germaniy-9bd7e970",
-      "domain": "bta.bg",
-      "title": "Италия няма да приема обратно мигранти от Германия скоро въпреки новите правила на ЕС, каза вицепремиерът Салвини",
-      "published": "2026-08-22T23:44:00+00:00",
-      "analyzed_at": "2026-08-23T03:40:00+00:00",
-      "article_url": "https://www.bta.bg/bg/news/world/1190252-italiya-nyama-da-priema-obratno-migranti-ot-germaniya-skoro-vapreki-novite-pravi",
-      "article_path": "news/data/bta.bg/20260822-1190252-italiya-nyama-da-priema-obratno-migranti-ot-germaniy-9bd7e970.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -103,18 +79,6 @@
       "analyzed_at": "2026-08-23T15:40:00+00:00",
       "article_url": "https://www.actualno.com/society/nikoga-ne-ste-si-predstavjali-che-e-vyzmojno-dopamin-za-sybota-news_2629373.html",
       "article_path": "news/data/actualno.com/20260822-nikoga-ne-ste-si-predstavjali-che-e-vyzmojno-dopamin-za-sybo-da82e97c.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "faktor.bg/20260822-ognqn-minchev-s-ostar-analiz-na-parvite-100-dni-na-radev-bal-cd5da2c0",
-      "domain": "faktor.bg",
-      "title": "Огнян Минчев с остър анализ на първите 100 дни на Радев: България поема в опасна посока - Фактор",
-      "published": "2026-08-22T22:21:00+00:00",
-      "analyzed_at": "2026-08-23T03:40:00+00:00",
-      "article_url": "https://faktor.bg/ognqn-minchev-s-ostar-analiz-na-parvite-100-dni-na-radev-balgariq-poema-v-opasna-posoka",
-      "article_path": "news/data/faktor.bg/20260822-ognqn-minchev-s-ostar-analiz-na-parvite-100-dni-na-radev-bal-cd5da2c0.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -240,18 +204,6 @@
       "current_status": null
     },
     {
-      "id": "epicenter.bg/20260822-0-83676128",
-      "domain": "epicenter.bg",
-      "title": "Президентът на Петрова нива към българите от РСМ: Няма да ви предадем, няма да се отречем от вас!",
-      "published": "2026-08-22T20:39:00+00:00",
-      "analyzed_at": "2026-08-23T11:00:00+00:00",
-      "article_url": "https://epicenter.bg/article/Prezidentat-na-Petrova-niva--S-pochit-kam-minaloto-mozhem-da-gradim-obshtoto-badeshte-na-Balgariya-/429204/2/0",
-      "article_path": "news/data/epicenter.bg/20260822-0-83676128.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "24chasa.bg/20260822-23432977-c06818fb",
       "domain": "24chasa.bg",
       "title": "Мощен \"Левски\" загря с 6:0 за мача на годината, АЕК - с 4:0",
@@ -264,18 +216,6 @@
       "current_status": null
     },
     {
-      "id": "dariknews.bg/20260822-vzaimni-udari-s-dronove-zaginali-i-raneni-v-odesa-i-sevastop-1955c681",
-      "domain": "dariknews.bg",
-      "title": "Взаимни удари с дронове: загинали и ранени в Одеса и Севастопол",
-      "published": "2026-08-22T20:32:00+00:00",
-      "analyzed_at": "2026-08-23T03:40:00+00:00",
-      "article_url": "https://dariknews.bg/novini/sviat/vzaimni-udari-s-dronove-zaginali-i-raneni-v-odesa-i-sevastopol-2464379",
-      "article_path": "news/data/dariknews.bg/20260822-vzaimni-udari-s-dronove-zaginali-i-raneni-v-odesa-i-sevastop-1955c681.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "actualno.com/20260822-ogromna-tragedija-otkriha-myrtyv-bivsh-svetoven-shampion-v-b-210854d0",
       "domain": "actualno.com",
       "title": "Огромна трагедия! Откриха мъртъв бивш световен шампион в бокса, който се готвеше за завръщане",
@@ -283,18 +223,6 @@
       "analyzed_at": "2026-08-23T16:40:00+00:00",
       "article_url": "https://www.actualno.com/moresport/ogromna-tragedija-otkriha-myrtyv-bivsh-svetoven-shampion-v-boksa-kojto-se-gotveshe-za-zavryshtane-news_2631617.html",
       "article_path": "news/data/actualno.com/20260822-ogromna-tragedija-otkriha-myrtyv-bivsh-svetoven-shampion-v-b-210854d0.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "dariknews.bg/20260822-iotova-prizova-istoricheskata-pamet-da-byde-syhraniavana-246-e2fbb280",
-      "domain": "dariknews.bg",
-      "title": "Йотова призова историческата памет да бъде съхранявана",
-      "published": "2026-08-22T20:23:00+00:00",
-      "analyzed_at": "2026-08-23T03:40:00+00:00",
-      "article_url": "https://dariknews.bg/novini/bylgariia/iotova-prizova-istoricheskata-pamet-da-byde-syhraniavana-2464378",
-      "article_path": "news/data/dariknews.bg/20260822-iotova-prizova-istoricheskata-pamet-da-byde-syhraniavana-246-e2fbb280.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -396,30 +324,6 @@
       "current_status": null
     },
     {
-      "id": "actualno.com/20260822-naj-dobre-planiranata-operacija-v-bylgarskata-revolucionna-i-f9843f72",
-      "domain": "actualno.com",
-      "title": "Най-добре планираната операция в българската революционна история: Чия беше блестящата идея за \"Радецки\"?",
-      "published": "2026-08-22T19:30:00+00:00",
-      "analyzed_at": "2026-08-23T16:40:00+00:00",
-      "article_url": "https://www.actualno.com/faces/naj-dobre-planiranata-operacija-v-bylgarskata-revolucionna-istorija-chija-beshe-blestjashtata-ideja-za-radecki-news_2620324.html",
-      "article_path": "news/data/actualno.com/20260822-naj-dobre-planiranata-operacija-v-bylgarskata-revolucionna-i-f9843f72.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "actualno.com/20260822-putin-shtjal-da-otmyshtava-kiev-otvori-kutijata-na-pandora-n-7375f0fc",
-      "domain": "actualno.com",
-      "title": "Путин щял да отмъщава: \"Киев отвори кутията на Пандора\"",
-      "published": "2026-08-22T19:27:00+00:00",
-      "analyzed_at": "2026-08-23T16:40:00+00:00",
-      "article_url": "https://www.actualno.com/europe/putin-shtjal-da-otmyshtava-kiev-otvori-kutijata-na-pandora-news_2631607.html",
-      "article_path": "news/data/actualno.com/20260822-putin-shtjal-da-otmyshtava-kiev-otvori-kutijata-na-pandora-n-7375f0fc.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "24chasa.bg/20260822-23432853-45d6272a",
       "domain": "24chasa.bg",
       "title": "Лаптоп се запали в самолет по време на полет, петима пътници са с изгаряния",
@@ -504,18 +408,6 @@
       "current_status": null
     },
     {
-      "id": "168chasa.bg/20260822-23432803-6fd19a84",
-      "domain": "168chasa.bg",
-      "title": "Преди 35 г. опитаха да свалят Горбачов с държавен преврат",
-      "published": "2026-08-22T19:00:00+00:00",
-      "analyzed_at": "2026-08-23T12:30:00+00:00",
-      "article_url": "https://www.168chasa.bg/article/23432803",
-      "article_path": "news/data/168chasa.bg/20260822-23432803-6fd19a84.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "actualno.com/20260822-ot-gerena-kym-italija-levski-izprashta-poreden-talant-kym-ev-c30002d5",
       "domain": "actualno.com",
       "title": "От \"Герена\" към Италия: Левски изпраща пореден талант към Европа",
@@ -523,18 +415,6 @@
       "analyzed_at": "2026-08-23T16:40:00+00:00",
       "article_url": "https://www.actualno.com/bgfootball/ot-gerena-kym-italija-levski-izprashta-poreden-talant-kym-evropa-news_2631599.html",
       "article_path": "news/data/actualno.com/20260822-ot-gerena-kym-italija-levski-izprashta-poreden-talant-kym-ev-c30002d5.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "actualno.com/20260822-ukrajna-udari-petrolnata-rafinerija-v-novokujbishevsk-termin-6a80c774",
-      "domain": "actualno.com",
-      "title": "Украйна удари петролната рафинерия в Новокуйбишевск, терминала в Ейск и унищожи Су-24 в Крим",
-      "published": "2026-08-22T18:45:00+00:00",
-      "analyzed_at": "2026-08-23T16:40:00+00:00",
-      "article_url": "https://www.actualno.com/europe/ukrajna-udari-petrolnata-rafinerija-v-novokujbishevsk-terminala-v-ejsk-i-unishtoji-su-24-v-krim-news_2631601.html",
-      "article_path": "news/data/actualno.com/20260822-ukrajna-udari-petrolnata-rafinerija-v-novokujbishevsk-termin-6a80c774.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -588,18 +468,6 @@
       "current_status": null
     },
     {
-      "id": "168chasa.bg/20260822-23432797-4d1f0922",
-      "domain": "168chasa.bg",
-      "title": "Украйна отвори кутията на Пандора с ударите си по икономически цели в Русия",
-      "published": "2026-08-22T18:26:00+00:00",
-      "analyzed_at": "2026-08-23T12:30:00+00:00",
-      "article_url": "https://www.168chasa.bg/article/23432797",
-      "article_path": "news/data/168chasa.bg/20260822-23432797-4d1f0922.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "24chasa.bg/20260822-23432783-39beacea",
       "domain": "24chasa.bg",
       "title": "Двама убити при украински удар с дрон по автобус в анексирания Севастопол",
@@ -619,18 +487,6 @@
       "analyzed_at": "2026-08-23T14:30:00+00:00",
       "article_url": "https://www.24chasa.bg/mezhdunarodni/article/23432751",
       "article_path": "news/data/24chasa.bg/20260822-23432751-6b571e5e.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "actualno.com/20260822-sreshta-v-kiev-zelenski-predloji-na-choveka-na-trymp-da-kupi-369b98bf",
-      "domain": "actualno.com",
-      "title": "Среща в Киев: Зеленски предложи на човека на Тръмп да купи ракети \"Пейтриът\"",
-      "published": "2026-08-22T18:06:00+00:00",
-      "analyzed_at": "2026-08-23T16:40:00+00:00",
-      "article_url": "https://www.actualno.com/europe/sreshta-v-kiev-zelenski-predloji-na-choveka-na-trymp-da-kupi-raketi-pejtriyt-news_2631595.html",
-      "article_path": "news/data/actualno.com/20260822-sreshta-v-kiev-zelenski-predloji-na-choveka-na-trymp-da-kupi-369b98bf.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -672,18 +528,6 @@
       "current_status": null
     },
     {
-      "id": "epicenter.bg/20260822-0-83dc5a17",
-      "domain": "epicenter.bg",
-      "title": "Втори дрон е открит на плаж край Варна",
-      "published": "2026-08-22T17:58:49+00:00",
-      "analyzed_at": "2026-08-23T11:00:00+00:00",
-      "article_url": "https://epicenter.bg/article/Vtori-dron-e-otkrit-na-plazh-kray-Varna/429203/3/0",
-      "article_path": "news/data/epicenter.bg/20260822-0-83dc5a17.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "24chasa.bg/20260822-23432701-dde4dc22",
       "domain": "24chasa.bg",
       "title": "Китайски робот счупи световния рекорд на Юсейн Болт за бягане на 100 метра (Видео)",
@@ -691,18 +535,6 @@
       "analyzed_at": "2026-08-23T14:30:00+00:00",
       "article_url": "https://www.24chasa.bg/biznes/article/23432701",
       "article_path": "news/data/24chasa.bg/20260822-23432701-dde4dc22.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "168chasa.bg/20260822-23432707-f40c7fc6",
-      "domain": "168chasa.bg",
-      "title": "Почина Сим Калас - бивш премиер на Естония и баща на Кая Калас",
-      "published": "2026-08-22T17:42:11+00:00",
-      "analyzed_at": "2026-08-23T12:30:00+00:00",
-      "article_url": "https://www.168chasa.bg/article/23432707",
-      "article_path": "news/data/168chasa.bg/20260822-23432707-f40c7fc6.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -823,18 +655,6 @@
       "analyzed_at": "2026-08-23T14:30:00+00:00",
       "article_url": "https://www.24chasa.bg/mezhdunarodni/article/23432633",
       "article_path": "news/data/24chasa.bg/20260822-23432633-584b7d4d.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "actualno.com/20260822-zelenski-potvyrdi-sykrashtavame-srokovete-za-novata-frenska--3513d76e",
-      "domain": "actualno.com",
-      "title": "Зеленски потвърди: Съкращаваме сроковете за новата френска ПВО система SAMP/T-NG",
-      "published": "2026-08-22T17:20:00+00:00",
-      "analyzed_at": "2026-08-23T16:40:00+00:00",
-      "article_url": "https://www.actualno.com/europe/zelenski-potvyrdi-sykrashtavame-srokovete-za-novata-frenska-pvo-sistema-sampt-ng-news_2631584.html",
-      "article_path": "news/data/actualno.com/20260822-zelenski-potvyrdi-sykrashtavame-srokovete-za-novata-frenska--3513d76e.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -979,18 +799,6 @@
       "analyzed_at": "2026-08-23T14:30:00+00:00",
       "article_url": "https://www.24chasa.bg/mezhdunarodni/article/23432466",
       "article_path": "news/data/24chasa.bg/20260822-23432466-3f1aca64.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "actualno.com/20260822-ujasen-ot-ruskata-ataka-makron-speshno-prashta-raketi-prehva-3535b268",
-      "domain": "actualno.com",
-      "title": "Ужасен от руската атака, Макрон спешно праща ракети-прехващачи на Украйна",
-      "published": "2026-08-22T16:51:00+00:00",
-      "analyzed_at": "2026-08-23T16:40:00+00:00",
-      "article_url": "https://www.actualno.com/europe/ujasen-ot-ruskata-ataka-makron-speshno-prashta-raketi-prehvashtachi-na-ukrajna-news_2631578.html",
-      "article_path": "news/data/actualno.com/20260822-ujasen-ot-ruskata-ataka-makron-speshno-prashta-raketi-prehva-3535b268.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -1428,18 +1236,6 @@
       "current_status": null
     },
     {
-      "id": "actualno.com/20260822-germanija-gotova-za-udari-dylboko-zad-frontovata-linija-12-m-1c33f5fe",
-      "domain": "actualno.com",
-      "title": "Германия готова за удари дълбоко зад фронтовата линия: 12 млрд. евро в опустошителни ракети",
-      "published": "2026-08-22T14:57:00+00:00",
-      "analyzed_at": "2026-08-23T16:40:00+00:00",
-      "article_url": "https://www.actualno.com/europe/germanija-gotova-za-udari-dylboko-zad-frontovata-linija-12-mlrd-evro-v-opustoshitelni-raketi-news_2631556.html",
-      "article_path": "news/data/actualno.com/20260822-germanija-gotova-za-udari-dylboko-zad-frontovata-linija-12-m-1c33f5fe.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "24chasa.bg/20260822-23432149-4a08bde8",
       "domain": "24chasa.bg",
       "title": "Шестима финансови министри от ЕС искат данък върху печалбите на петролните компании от войната",
@@ -1572,18 +1368,6 @@
       "current_status": null
     },
     {
-      "id": "bgdnes.bg/20260822-23426238-e2438c00",
-      "domain": "bgdnes.bg",
-      "title": "Забраняват лова на пъдпъдъци",
-      "published": "2026-08-22T14:25:00+00:00",
-      "analyzed_at": "2026-08-23T18:50:00+00:00",
-      "article_url": "https://www.bgdnes.bg/lov_i_ribolov/article/23426238",
-      "article_path": "news/data/bgdnes.bg/20260822-23426238-e2438c00.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "24chasa.bg/20260822-23432022-216dc791",
       "domain": "24chasa.bg",
       "title": "Тръмп се заяде с протестиращ, прекъснал речта му: Мама ще ти се кара, тя гласува за нас",
@@ -1668,18 +1452,6 @@
       "current_status": null
     },
     {
-      "id": "actualno.com/20260822-trymp-nikoj-ne-iska-da-e-prezident-v-iran-ne-znam-s-kogo-da--ee87c4fe",
-      "domain": "actualno.com",
-      "title": "Тръмп: Никой не иска да e президент в Иран, не знам с кого да преговарям",
-      "published": "2026-08-22T14:05:00+00:00",
-      "analyzed_at": "2026-08-23T16:40:00+00:00",
-      "article_url": "https://www.actualno.com/asia/trymp-nikoj-ne-iska-da-e-prezident-v-iran-ne-znam-s-kogo-da-pregovarjam-news_2631545.html",
-      "article_path": "news/data/actualno.com/20260822-trymp-nikoj-ne-iska-da-e-prezident-v-iran-ne-znam-s-kogo-da--ee87c4fe.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "24chasa.bg/20260822-23351571-911a514d",
       "domain": "24chasa.bg",
       "title": "Защо се караме по време на почивката",
@@ -1723,30 +1495,6 @@
       "analyzed_at": "2026-08-23T15:10:00+00:00",
       "article_url": "https://www.24chasa.bg/spravochnik/article/23426694",
       "article_path": "news/data/24chasa.bg/20260822-23426694-9f9ef4fa.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "actualno.com/20260822-jotova-pita-v-strasburg-za-sydbata-na-iva-mihajlova-news-263-5005811b",
-      "domain": "actualno.com",
-      "title": "Йотова пита в Страсбург за съдбата на Ива Михайлова",
-      "published": "2026-08-22T13:53:00+00:00",
-      "analyzed_at": "2026-08-23T16:40:00+00:00",
-      "article_url": "https://www.actualno.com/politics/jotova-pita-v-strasburg-za-sydbata-na-iva-mihajlova-news_2631542.html",
-      "article_path": "news/data/actualno.com/20260822-jotova-pita-v-strasburg-za-sydbata-na-iva-mihajlova-news-263-5005811b.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "bgdnes.bg/20260822-23431883-466924c1",
-      "domain": "bgdnes.bg",
-      "title": "ИЗНЕНАДА! Американските самолети си тръгнаха от България",
-      "published": "2026-08-22T13:50:00+00:00",
-      "analyzed_at": "2026-08-23T18:50:00+00:00",
-      "article_url": "https://www.bgdnes.bg/bulgaria/article/23431883",
-      "article_path": "news/data/bgdnes.bg/20260822-23431883-466924c1.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -1807,18 +1555,6 @@
       "analyzed_at": "2026-08-23T16:40:00+00:00",
       "article_url": "https://www.actualno.com/society/prognoza-za-vremeto-23-avgust-2026-g-nedelja-news_2631538.html",
       "article_path": "news/data/actualno.com/20260822-prognoza-za-vremeto-23-avgust-2026-g-nedelja-news-2631538-00484f96.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "manager.bg/20260822-makron-francia-ste-izprati-na-ukraina-novi-raketi-za-protivo-00093f5b",
-      "domain": "manager.bg",
-      "title": "Макрон: Франция ще изпрати на Украйна нови ракети за противовъздушна отбрана",
-      "published": "2026-08-22T13:37:32+00:00",
-      "analyzed_at": "2026-08-26T21:19:35+00:00",
-      "article_url": "https://manager.bg/свят/makron-francia-ste-izprati-na-ukraina-novi-raketi-za-protivovazdushna-otbrana",
-      "article_path": "news/data/manager.bg/20260822-makron-francia-ste-izprati-na-ukraina-novi-raketi-za-protivo-00093f5b.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -1896,18 +1632,6 @@
       "current_status": null
     },
     {
-      "id": "clubz.bg/20260822-178599-2f9ac786",
-      "domain": "clubz.bg",
-      "title": "ПБ ще преговаря за ВСС с партии, които се дистанцират от модела \"Борисов-Пеевски\"",
-      "published": "2026-08-22T13:27:54+00:00",
-      "analyzed_at": "2026-08-23T03:40:00+00:00",
-      "article_url": "https://clubz.bg/178599",
-      "article_path": "news/data/clubz.bg/20260822-178599-2f9ac786.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "24chasa.bg/20260822-23431801-f3c71e3d",
       "domain": "24chasa.bg",
       "title": "Бивш халф на ЦСКА разплака \"Манчестър Юнайтед\" на старта в Англия",
@@ -1927,18 +1651,6 @@
       "analyzed_at": "2026-08-23T15:10:00+00:00",
       "article_url": "https://www.24chasa.bg/mezhdunarodni/article/23431777",
       "article_path": "news/data/24chasa.bg/20260822-23431777-daede03f.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "money.bg/20260822-s-p-500-otnovo-e-pochti-tolkova-skap-kolkoto-prez-1999-g-ist-a3023479",
-      "domain": "money.bg",
-      "title": "S&P 500 отново е почти толкова скъп, колкото през 1999 г. Историята предупреждава, но този път картината е по-сложна",
-      "published": "2026-08-22T13:15:26+00:00",
-      "analyzed_at": "2026-08-23T03:40:00+00:00",
-      "article_url": "https://money.bg/finance/s-p-500-otnovo-e-pochti-tolkova-skap-kolkoto-prez-1999-g-istoriyata-preduprezhdava-no-tozi-pat-kartinata-e-po-slozhna.html",
-      "article_path": "news/data/money.bg/20260822-s-p-500-otnovo-e-pochti-tolkova-skap-kolkoto-prez-1999-g-ist-a3023479.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null

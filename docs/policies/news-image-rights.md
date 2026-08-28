@@ -72,3 +72,14 @@ ended as `unknown`. It deliberately excludes cleared and blocked decisions.
 Queue membership is never publication permission; home cards independently
 require `image_rights.display_home === true` and otherwise use the outlet
 logo/monogram fallback.
+
+Commons backfills are compare-and-set decisions. Replaying an old selection
+may be idempotent, but it must never replace a later `unknown`, `blocked`, or
+different reviewed decision. A changed image or authority requires a new,
+dated selection and separate review.
+
+Illustrations depicting an identifiable person are eligible only when that
+person is named in or directly relevant to the article. The selection records
+its relationship to the article and preserves Commons' designated credit;
+generic portraits of unrelated people are rejected even when the licence is
+otherwise compatible.
