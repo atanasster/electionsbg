@@ -1,12 +1,12 @@
 {
-  "computedAt": "2026-08-27T22:23:29.967Z",
+  "computedAt": "2026-08-28T22:21:42.098Z",
   "byNs": {
     "44": {
       "lastDate": "2021-03-25",
       "coveredFrom": "2020-10-28",
       "coveredTo": "2021-03-25",
       "coverage": "partial",
-      "inRecessDays": 1981,
+      "inRecessDays": 1982,
       "topGroups": [
         {
           "short": "ГЕРБ",
@@ -53,7 +53,7 @@
       "coveredFrom": "2021-04-21",
       "coveredTo": "2021-05-07",
       "coverage": "full",
-      "inRecessDays": 1938,
+      "inRecessDays": 1939,
       "topGroups": [
         {
           "short": "ГЕРБ-СДС",
@@ -100,7 +100,7 @@
       "coveredFrom": "2021-07-21",
       "coveredTo": "2021-09-15",
       "coverage": "full",
-      "inRecessDays": 1807,
+      "inRecessDays": 1808,
       "topGroups": [
         {
           "short": "ИТН",
@@ -147,7 +147,7 @@
       "coveredFrom": "2021-12-03",
       "coveredTo": "2022-07-29",
       "coverage": "full",
-      "inRecessDays": 1490,
+      "inRecessDays": 1491,
       "topGroups": [
         {
           "short": "ПП",
@@ -194,7 +194,7 @@
       "coveredFrom": "2022-10-19",
       "coveredTo": "2023-02-02",
       "coverage": "full",
-      "inRecessDays": 1302,
+      "inRecessDays": 1303,
       "topGroups": [
         {
           "short": "ГЕРБ-СДС",
@@ -241,7 +241,7 @@
       "coveredFrom": "2023-04-12",
       "coveredTo": "2024-06-02",
       "coverage": "full",
-      "inRecessDays": 816,
+      "inRecessDays": 817,
       "topGroups": [
         {
           "short": "ГЕРБ-СДС",
@@ -288,7 +288,7 @@
       "coveredFrom": "2024-06-19",
       "coveredTo": "2024-09-26",
       "coverage": "full",
-      "inRecessDays": 700,
+      "inRecessDays": 701,
       "topGroups": [
         {
           "short": "ГЕРБ-СДС",
@@ -335,7 +335,7 @@
       "coveredFrom": "2024-11-11",
       "coveredTo": "2026-04-01",
       "coverage": "full",
-      "inRecessDays": 148,
+      "inRecessDays": 149,
       "topGroups": [
         {
           "short": "ГЕРБ - СДС",
@@ -378,11 +378,11 @@
       }
     },
     "52": {
-      "lastDate": "2026-08-26",
+      "lastDate": "2026-08-28",
       "coveredFrom": "2026-04-30",
-      "coveredTo": "2026-08-26",
+      "coveredTo": "2026-08-28",
       "coverage": "full",
-      "inRecessDays": 1,
+      "inRecessDays": 0,
       "topGroups": [
         {
           "short": "ПБ",
@@ -408,16 +408,16 @@
       "otherGroups": 1,
       "otherMembers": 12,
       "tiles": {
-        "sessions": 41,
-        "items": 1230,
-        "billsSecondReading": 28,
+        "sessions": 43,
+        "items": 1246,
+        "billsSecondReading": 29,
         "membersVoting": 270,
         "membersProjected": 255,
         "groups": 6,
-        "attendanceWeighted": 0.7302364206423184,
-        "cohesionMean": 0.9703058241458035,
+        "attendanceWeighted": 0.7280812406939589,
+        "cohesionMean": 0.9704848577621386,
         "leastUnifiedGroup": "ГЕРБ - СДС",
-        "leastUnifiedValue": 0.9327843025478584
+        "leastUnifiedValue": 0.9328217601852624
       },
       "seeds": {
         "similarity": "5228",
