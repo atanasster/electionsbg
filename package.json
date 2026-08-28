@@ -14,6 +14,8 @@
     "news:image-rights-queue": "python3 news/scripts/build_image_rights_queue.py",
     "news:image-candidates": "python3 news/scripts/source_commons_images.py",
     "news:image-apply": "python3 news/scripts/apply_commons_images.py",
+    "news:image-coverage": "python3 news/scripts/measure_image_coverage.py --as-of 2026-08-28",
+    "news:image-coverage:gate": "python3 news/scripts/measure_image_coverage.py --enforce",
     "dev:news": "vite --config vite.config.news.ts",
     "typecheck:news": "tsc -p newsapp/tsconfig.json --noEmit",
     "build:news": "npm run news:data && tsc -p newsapp/tsconfig.json --noEmit && vite build --config vite.config.news.ts",

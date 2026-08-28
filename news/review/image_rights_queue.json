@@ -4,8 +4,8 @@
   "policy": "news/config/image_rights_policy.json",
   "publication_default": "deny",
   "counts": {
-    "total": 341,
-    "missing_image": 340,
+    "total": 337,
+    "missing_image": 336,
     "missing_review": 1,
     "unknown_rights": 0,
     "invalid_review": 0
@@ -883,18 +883,6 @@
       "analyzed_at": "2026-08-23T16:40:00+00:00",
       "article_url": "https://www.actualno.com/football/shok-na-starta-na-visshata-liga-bivsh-igrach-na-cska-unizi-manchestyr-unajted-news_2631574.html",
       "article_path": "news/data/actualno.com/20260822-shok-na-starta-na-visshata-liga-bivsh-igrach-na-cska-unizi-m-be6b86d7.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "bnrnews.bg/20260822-nova-vazhna-nahodka-na-perperikon-pechat-na-vizantiyska-impe-47949869",
-      "domain": "bnrnews.bg",
-      "title": "Нова важна находка на Перперикон – печат на византийска императрица",
-      "published": "2026-08-22T16:25:44+00:00",
-      "analyzed_at": "2026-08-23T11:00:00+00:00",
-      "article_url": "https://bnrnews.bg/radiobulgaria/post/518149/nova-vazhna-nahodka-na-perperikon-pechat-na-vizantiyska-imperatritsa",
-      "article_path": "news/data/bnrnews.bg/20260822-nova-vazhna-nahodka-na-perperikon-pechat-na-vizantiyska-impe-47949869.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -2832,18 +2820,6 @@
       "current_status": null
     },
     {
-      "id": "168chasa.bg/20260822-23430772-ff55910d",
-      "domain": "168chasa.bg",
-      "title": "Юлиян Попов: Нивото на Дунав никога не е било толкова ниско",
-      "published": "2026-08-22T07:45:48+00:00",
-      "analyzed_at": "2026-08-23T12:30:00+00:00",
-      "article_url": "https://www.168chasa.bg/article/23430772",
-      "article_path": "news/data/168chasa.bg/20260822-23430772-ff55910d.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
       "id": "168chasa.bg/20260822-23430770-432ce12f",
       "domain": "168chasa.bg",
       "title": "Горещините доведоха до спад в нивото на Седемте рилски езера",
@@ -3187,18 +3163,6 @@
       "analyzed_at": "2026-08-23T11:00:00+00:00",
       "article_url": "https://pik.bg/новият-защитник-на-фараона-от-кремъл-цветан-василев-бълва-от-3-профила-news1350666.html",
       "article_path": "news/data/pik.bg/20260821-новият-защитник-на-фараона-от-кремъл-цветан-василев-бълва-от-d205e14e.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "actualno.com/20260821-trjabva-da-se-borim-glas-ot-kanada-chasove-predi-krajnija-sr-84c9315f",
-      "domain": "actualno.com",
-      "title": "\"Трябва да се борим\": Глас от Канада часове преди крайния срок за митата със САЩ",
-      "published": "2026-08-21T23:45:00+00:00",
-      "analyzed_at": "2026-08-23T17:50:00+00:00",
-      "article_url": "https://www.actualno.com/america/trjabva-da-se-borim-glas-ot-kanada-chasove-predi-krajnija-srok-za-mitata-sys-sasht-news_2631428.html",
-      "article_path": "news/data/actualno.com/20260821-trjabva-da-se-borim-glas-ot-kanada-chasove-predi-krajnija-sr-84c9315f.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null
@@ -3799,18 +3763,6 @@
       "analyzed_at": "2026-08-23T20:20:00+00:00",
       "article_url": "https://www.bgdnes.bg/shou/article/23426877",
       "article_path": "news/data/bgdnes.bg/20260821-23426877-08f8c304.json",
-      "image_url": null,
-      "reason": "missing_image",
-      "current_status": null
-    },
-    {
-      "id": "chernomore.bg/20260821-313460-kzk-ustanovi-kartel-pri-obshtestveni-porachki-za-stro-e348b535",
-      "domain": "chernomore.bg",
-      "title": "КЗК установи картел при обществени поръчки за строителна техника",
-      "published": "2026-08-21T12:00:00+00:00",
-      "analyzed_at": "2026-08-23T03:40:00+00:00",
-      "article_url": "https://www.chernomore.bg/a/10-bulgaria/313460-kzk-ustanovi-kartel-pri-obshtestveni-porachki-za-stroitelna-tehnika",
-      "article_path": "news/data/chernomore.bg/20260821-313460-kzk-ustanovi-kartel-pri-obshtestveni-porachki-za-stro-e348b535.json",
       "image_url": null,
       "reason": "missing_image",
       "current_status": null

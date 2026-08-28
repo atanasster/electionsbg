@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "as_of": "2026-08-28",
+  "window_days": 30,
+  "thresholds": {
+    "current_items": 24,
+    "comparison_stories": 8,
+    "unknown_or_invalid_rights": 0
+  },
+  "measured": {
+    "reviewed_selections": 28,
+    "current_items": 28,
+    "comparison_stories": 8,
+    "invalid_selected_records": [],
+    "unresolved_selections": []
+  },
+  "qualifying_article_ids": [
+    "168chasa.bg/20260822-23430772-ff55910d",
+    "168chasa.bg/20260822-23432707-f40c7fc6",
+    "168chasa.bg/20260822-23432797-4d1f0922",
+    "168chasa.bg/20260822-23432803-6fd19a84",
+    "actualno.com/20260821-trjabva-da-se-borim-glas-ot-kanada-chasove-predi-krajnija-sr-84c9315f",
+    "actualno.com/20260822-germanija-gotova-za-udari-dylboko-zad-frontovata-linija-12-m-1c33f5fe",
+    "actualno.com/20260822-jotova-pita-v-strasburg-za-sydbata-na-iva-mihajlova-news-263-5005811b",
+    "actualno.com/20260822-naj-dobre-planiranata-operacija-v-bylgarskata-revolucionna-i-f9843f72",
+    "actualno.com/20260822-putin-shtjal-da-otmyshtava-kiev-otvori-kutijata-na-pandora-n-7375f0fc",
+    "actualno.com/20260822-sreshta-v-kiev-zelenski-predloji-na-choveka-na-trymp-da-kupi-369b98bf",
+    "actualno.com/20260822-trymp-nikoj-ne-iska-da-e-prezident-v-iran-ne-znam-s-kogo-da--ee87c4fe",
+    "actualno.com/20260822-ujasen-ot-ruskata-ataka-makron-speshno-prashta-raketi-prehva-3535b268",
+    "actualno.com/20260822-ukrajna-udari-petrolnata-rafinerija-v-novokujbishevsk-termin-6a80c774",
+    "actualno.com/20260822-zelenski-potvyrdi-sykrashtavame-srokovete-za-novata-frenska--3513d76e",
+    "bgdnes.bg/20260822-23426238-e2438c00",
+    "bgdnes.bg/20260822-23431883-466924c1",
+    "bnrnews.bg/20260822-nova-vazhna-nahodka-na-perperikon-pechat-na-vizantiyska-impe-47949869",
+    "bta.bg/20260822-1190252-italiya-nyama-da-priema-obratno-migranti-ot-germaniy-9bd7e970",
+    "chernomore.bg/20260821-313460-kzk-ustanovi-kartel-pri-obshtestveni-porachki-za-stro-e348b535",
+    "clubz.bg/20260822-178599-2f9ac786",
+    "dariknews.bg/20260822-iotova-prizova-istoricheskata-pamet-da-byde-syhraniavana-246-e2fbb280",
+    "dariknews.bg/20260822-vzaimni-udari-s-dronove-zaginali-i-raneni-v-odesa-i-sevastop-1955c681",
+    "epicenter.bg/20260822-0-83676128",
+    "epicenter.bg/20260822-0-83dc5a17",
+    "faktor.bg/20260822-ognqn-minchev-s-ostar-analiz-na-parvite-100-dni-na-radev-bal-cd5da2c0",
+    "manager.bg/20260822-makron-francia-ste-izprati-na-ukraina-novi-raketi-za-protivo-00093f5b",
+    "marica.bg/20260823-mladite-se-strahuvat-ot-izkustveniq-intelekt-zaplashva-misle-8c0f880e",
+    "money.bg/20260822-s-p-500-otnovo-e-pochti-tolkova-skap-kolkoto-prez-1999-g-ist-a3023479"
+  ],
+  "comparison_story_ids": [
+    "20260821-16d30760",
+    "20260822-2176b0e5",
+    "20260822-6bc6c852",
+    "20260822-d797b087",
+    "20260822-e38601bd",
+    "20260822-ed7347ac",
+    "20260822-f699f0d1",
+    "nodate-85eb9eca"
+  ],
+  "input_sha256": {
+    "selections": "10c8dfc406e34114fe18bd51eb56e21600ef7ae9683ce929fe7c641b69d32fe4",
+    "queue": "fee9814e43538ebdddefddf777d094e56fc5a663966f5abc5d87323b1b8126b5",
+    "analysis_index": "a7dbebc723390cf76d0badefcd66050d22509dbae10195848977e3004c988a43"
+  },
+  "checks": {
+    "current_items": true,
+    "comparison_stories": true,
+    "no_invalid_selected_rights": true,
+    "all_selections_resolve": true,
+    "queue_matches_corpus": true
+  },
+  "launch_ready": true
+}
