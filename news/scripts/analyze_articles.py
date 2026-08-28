@@ -1053,6 +1053,15 @@ _RESOLVER_CACHE: list = []
 # Set when a record's mentions could not be checked against the gazetteer.
 MENTIONS_UNVERIFIED: list = []
 PARTY_IDS_UNVERIFIED: list = []
+# These translated labels recur in many countries. Surface equality cannot
+# tell a Bulgarian party from Portugal's PSD or Germany's SPD, so deterministic
+# identity must refuse the link even when the local gazetteer has one claim.
+GENERIC_PARTY_IDENTITY_LABELS = frozenset({
+    "демократическа партия", "социалдемократическа партия",
+    "социалистическа партия", "комунистическа партия", "зелена партия",
+    "либерална партия", "консервативна партия", "републиканска партия",
+    "народна партия",
+})
 
 
 def _party_claims(name: str):
@@ -1077,6 +1086,9 @@ def _party_claims(name: str):
 
 def party_id_for_name(name: str) -> str | None:
     """Resolve only a uniquely claimed, explicitly resolvable party surface."""
+    folded_name = " ".join(str(name or "").casefold().split()).strip('"„”')
+    if folded_name in GENERIC_PARTY_IDENTITY_LABELS:
+        return None
     claims = _party_claims(name)
     if claims is None or len(claims) != 1:
         return None

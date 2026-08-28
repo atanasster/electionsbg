@@ -232,6 +232,28 @@ class TestPartyToneV2(FixtureTestCase):
         self.assertIn("unresolved party identity",
                       saved["review"]["party_tones"])
 
+    def test_internationally_generic_party_name_is_never_linked_by_surface(self):
+        self.write_party_gazetteer()
+        # Even if the local gazetteer contains exactly one party with this
+        # translated name, it could be Portugal's PSD or Germany's SPD.
+        with open(os.path.join(self.root, "news", "data", "gazetteer.json"),
+                  encoding="utf-8") as fh:
+            gaz = json.load(fh)
+        gaz["entries"].append({
+            "kind": "party", "id": "bg-socialdem", "canonical":
+            "Социалдемократическа партия", "forms": [{
+                "surface": "Социалдемократическа партия", "resolvable": True,
+                "id": "bg-socialdem", "why": "local party name"}]})
+        with open(os.path.join(self.root, "news", "data", "gazetteer.json"),
+                  "w", encoding="utf-8") as fh:
+            json.dump(gaz, fh, ensure_ascii=False)
+        a = self.record()
+        a["entities"]["parties"] = ["Социалдемократическа партия"]
+        a["party_tones"] = [party_tone(
+            party="Социалдемократическа партия")]
+        self.save(a)
+        self.assertIsNone(self.saved_record()["party_tones"][0]["party_id"])
+
     def test_every_entity_party_requires_exactly_one_tone(self):
         a = self.record()
         a["party_tones"] = []

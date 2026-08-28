@@ -39,6 +39,9 @@ import os
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
+import re
+import unicodedata
+import hashlib
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -64,10 +67,68 @@ def load_set(path: Path) -> dict:
     return out
 
 
+def apply_reference_revision(reference: dict, revision_path: Path) -> dict:
+    """Apply a checked party-only overlay without rewriting frozen gold files."""
+    try:
+        revision = json.loads(revision_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"unreadable_reference_revision: {exc}") from exc
+    records = revision.get("records")
+    if revision.get("version") != 2 or not isinstance(records, dict):
+        raise ValueError("invalid_reference_revision_shape")
+    # This binds the correction overlay to the unchanged selection, rather
+    # than silently applying it after a new draw has replaced the baseline.
+    baseline = revision.get("base_gold_selection")
+    if not isinstance(baseline, str) or not baseline.startswith("news/data/"):
+        raise ValueError("reference_revision_missing_base_path")
+    gold_path = ROOT / baseline
+    if not gold_path.exists():
+        raise ValueError("reference_revision_missing_base_selection")
+    actual = hashlib.sha256(gold_path.read_bytes()).hexdigest()
+    if actual != revision.get("base_gold_selection_sha256"):
+        raise ValueError("reference_revision_base_hash_mismatch")
+    out = {url: dict(row) for url, row in reference.items()}
+    for url, patch in records.items():
+        if url not in out:
+            raise ValueError(f"reference_revision_unknown_url:{url}")
+        parties = patch.get("entities_parties")
+        tones = patch.get("party_tones")
+        if not isinstance(parties, list) or not isinstance(tones, list):
+            raise ValueError(f"reference_revision_bad_party_shape:{url}")
+        party_set = set(parties)
+        tone_set = {item.get("party") for item in tones if isinstance(item, dict)}
+        if party_set != tone_set or len(tone_set) != len(tones):
+            raise ValueError(f"reference_revision_party_coverage:{url}")
+        if any(item.get("tone") not in PARTY_TONES or
+               not isinstance(item.get("confidence"), (int, float)) or
+               isinstance(item.get("confidence"), bool) or
+               not isinstance(item.get("evidence"), str) or not item["evidence"].strip()
+               for item in tones):
+            raise ValueError(f"reference_revision_invalid_tone:{url}")
+        patched = dict(out[url])
+        patched["entities"] = {**(patched.get("entities") or {}),
+                               "parties": parties}
+        patched["party_tones"] = tones
+        patched["party_tones_version"] = 2
+        out[url] = patched
+    return out
+
+
 # The sentinel a refusal is scored as. ⚠️ A string that can never collide
 # with a real label, so it always counts as a miss and shows up by name in
 # the confusion table rather than as a silent absence.
 DECLINED = "__declined__"
+PARTY_TONES = ("favorable", "unfavorable", "neutral", "mixed")
+PARTY_RELEASE_GATES = {
+    "pair_precision": 0.95,
+    "pair_recall": 0.90,
+    "tone_macro_f1": 0.80,
+    "per_tone_recall": 0.70,
+    "wrong_canonical_links": 0,
+    "unsupported_evidence": 0,
+    "valid_schema_before_retry": 0.99,
+    "valid_schema_after_review": 1.0,
+}
 
 
 def counts_table(pairs) -> dict:
@@ -240,6 +301,197 @@ def score_mentions(ref: dict, hyp: dict) -> dict:
     }
 
 
+def normalize_party(value) -> str:
+    """Stable fallback key when an adjudicator has not assigned an ID."""
+    value = unicodedata.normalize("NFKC", str(value or "")).casefold()
+    return re.sub(r"[^\w]+", "", value, flags=re.UNICODE)
+
+
+def party_items(a: dict) -> dict:
+    """Normalized display name → item; identity is scored separately.
+
+    The analyzer rejects duplicates. The scorer still has to survive an old
+    or hand-adjudicated file, so last-write-wins is explicit and duplicates
+    are reported separately by score_party_tones().
+    """
+    return {normalize_party(item.get("party")): item
+            for item in (a.get("party_tones") or [])
+            if normalize_party(item.get("party"))}
+
+
+def source_articles(*sets: dict) -> dict:
+    """Load source records for evidence checks, refusing silent no-op checks."""
+    out = {}
+    for rows in sets:
+        for url, analysis in rows.items():
+            rel = analysis.get("article_path")
+            if not isinstance(rel, str) or not rel.startswith("news/data/"):
+                continue
+            try:
+                article = json.loads((ROOT / rel).read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if article.get("url") == url:
+                out[url] = article
+    return out
+
+
+def _calibration_band(confidence) -> str | None:
+    if isinstance(confidence, bool) or not isinstance(confidence, (int, float)):
+        return None
+    if confidence < 0 or confidence > 1:
+        return None
+    if confidence < 0.6:
+        return "0.00-0.59"
+    if confidence < 0.8:
+        return "0.60-0.79"
+    if confidence < 0.9:
+        return "0.80-0.89"
+    return "0.90-1.00"
+
+
+def score_party_tones(ref: dict, hyp: dict, articles: dict | None = None) -> dict:
+    """Score party detection and tone without collapsing them into one score."""
+    tp = fp = fn = 0
+    tone_pairs = []
+    calibration = defaultdict(lambda: {"n": 0, "confidence": 0.0,
+                                        "correct": 0})
+    evidence_missing = evidence_unsupported = evidence_unverifiable = 0
+    unresolved_ref = unresolved_hyp = wrong_links = 0
+    duplicate_ref = duplicate_hyp = 0
+    represented_urls = 0
+    for url in ref:
+        if url not in hyp:
+            continue
+        raw_r = ref[url].get("party_tones") or []
+        raw_h = hyp[url].get("party_tones") or []
+        duplicate_ref += len(raw_r) - len(party_items(ref[url]))
+        duplicate_hyp += len(raw_h) - len(party_items(hyp[url]))
+        r, h = party_items(ref[url]), party_items(hyp[url])
+        represented_urls += int(bool(r))
+        rk, hk = set(r), set(h)
+        tp += len(rk & hk)
+        fp += len(hk - rk)
+        fn += len(rk - hk)
+        unresolved_ref += sum(1 for item in raw_r if not item.get("party_id"))
+        unresolved_hyp += sum(1 for item in raw_h if not item.get("party_id"))
+        # Pair detection answers „did it find the named party?"; a nullable
+        # reference ID must not turn the same display party into FP+FN. IDs
+        # answer the distinct, higher-consequence identity question below.
+        for name in rk & hk:
+            left, right = r[name].get("party_id"), h[name].get("party_id")
+            if left and right and left != right:
+                wrong_links += 1
+
+        for key in sorted(rk & hk):
+            rt = r[key].get("tone")
+            ht = h[key].get("tone") or DECLINED
+            tone_pairs.append((rt, ht))
+            evidence = h[key].get("evidence")
+            if not isinstance(evidence, str) or not evidence.strip():
+                evidence_missing += 1
+            band = _calibration_band(h[key].get("confidence"))
+            if band:
+                calibration[band]["n"] += 1
+                calibration[band]["confidence"] += h[key]["confidence"]
+                calibration[band]["correct"] += int(rt == ht)
+
+        # Evidence is a claim made by EVERY predicted pair, not only a match.
+        # A false-positive party with an invented quote must fail the same
+        # audit rather than escaping through the detection intersection.
+        if articles is None:
+            evidence_unverifiable += len(raw_h)
+        else:
+            article = articles.get(url)
+            for item in raw_h:
+                evidence = item.get("evidence")
+                if not isinstance(evidence, str) or not evidence.strip():
+                    continue
+                if article is None:
+                    evidence_unverifiable += 1
+                else:
+                    # Shared validator implementation, not a second looser
+                    # notion of grounding for the release report.
+                    from analyze_articles import party_tone_evidence_grounded
+                    if not party_tone_evidence_grounded(evidence, article):
+                        evidence_unsupported += 1
+
+    precision = tp / (tp + fp) if tp + fp else None
+    recall = tp / (tp + fn) if tp + fn else None
+    cal = {}
+    for band in ("0.00-0.59", "0.60-0.79", "0.80-0.89", "0.90-1.00"):
+        row = calibration[band]
+        accuracy = row["correct"] / row["n"] if row["n"] else None
+        mean_conf = row["confidence"] / row["n"] if row["n"] else None
+        cal[band] = {
+            "n": row["n"],
+            "mean_confidence": round(mean_conf, 3) if mean_conf is not None else None,
+            "accuracy": round(accuracy, 3) if accuracy is not None else None,
+            "absolute_gap": round(abs(mean_conf - accuracy), 3)
+            if mean_conf is not None else None,
+        }
+    tones = macro_f1(tone_pairs)
+    return {
+        "articles_with_reference_parties": represented_urls,
+        "detection": {
+            "true_positives": tp, "false_positives": fp,
+            "false_negatives": fn,
+            "precision": round(precision, 3) if precision is not None else None,
+            "recall": round(recall, 3) if recall is not None else None,
+        },
+        "tones": {"n": len(tone_pairs), **tones,
+                  "confusion": confusion(tone_pairs),
+                  "declined_by_hyp": sum(1 for _, h in tone_pairs
+                                          if h == DECLINED)},
+        "calibration": cal,
+        "evidence": {"missing": evidence_missing,
+                     "unsupported": evidence_unsupported,
+                     "unverifiable": evidence_unverifiable,
+                     "grounding_method": "analyze_articles.party_tone_evidence_grounded"},
+        "identity": {"unresolved_in_reference": unresolved_ref,
+                     "unresolved_in_hypothesis": unresolved_hyp,
+                     "wrong_canonical_links": wrong_links},
+        "malformed_duplicates": {"reference": duplicate_ref,
+                                 "hypothesis": duplicate_hyp},
+        "no_party_sentiment_accuracy": (
+            "detection, tone, calibration, evidence and identity remain separate")
+    }
+
+
+def party_release_gate_results(metrics: dict, completion: dict | None = None) -> dict:
+    """Evaluate every release gate; missing evidence fails closed."""
+    completion = completion or {}
+    detection = metrics.get("detection") or {}
+    tones = metrics.get("tones") or {}
+    identity = metrics.get("identity") or {}
+    evidence = metrics.get("evidence") or {}
+    per_tone = tones.get("per_label") or {}
+    checks = {
+        "pair_precision": detection.get("precision"),
+        "pair_recall": detection.get("recall"),
+        "tone_macro_f1": tones.get("macro_f1"),
+        "per_tone_recall": min(
+            (v.get("recall", 0) for v in per_tone.values()), default=None),
+        "wrong_canonical_links": identity.get("wrong_canonical_links"),
+        "unsupported_evidence": (
+            None if evidence.get("unverifiable") else
+            (evidence.get("unsupported", 0) + evidence.get("missing", 0))),
+        "valid_schema_before_retry": completion.get("before_retry"),
+        "valid_schema_after_review": completion.get("after_review"),
+    }
+    detail = {}
+    for name, threshold in PARTY_RELEASE_GATES.items():
+        value = checks.get(name)
+        minimum = name not in {"wrong_canonical_links", "unsupported_evidence"}
+        passed = value is not None and (value >= threshold if minimum
+                                        else value <= threshold)
+        detail[name] = {"value": value,
+                        "minimum" if minimum else "maximum": threshold,
+                        "passed": passed}
+    return {"passed": all(v["passed"] for v in detail.values()),
+            "checks": detail}
+
+
 def score_axis(ref: dict, hyp: dict, field: str) -> dict:
     key = "verdict" if field == "ai_generated" else "label"
     pairs = [((ref[u].get(field) or {}).get(key),
@@ -270,11 +522,23 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--ref", required=True,
                     help="the reference set (the frontier baseline)")
+    ap.add_argument("--ref-revision", default=None,
+                    help="party-only reference overlay bound to the frozen draw")
     ap.add_argument("--hyp", required=True, help="the set being scored")
+    ap.add_argument("--valid-schema-before-retry", type=float, default=None)
+    ap.add_argument("--valid-schema-after-review", type=float, default=None)
+    ap.add_argument("--require-party-gates", action="store_true",
+                    help="exit 3 unless every party-tone release gate passes")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
     ref = load_set(Path(args.ref))
+    if args.ref_revision:
+        try:
+            ref = apply_reference_revision(ref, Path(args.ref_revision))
+        except ValueError as exc:
+            print(json.dumps({"error": str(exc)}))
+            return 2
     hyp = load_set(Path(args.hyp))
     shared = sorted(set(ref) & set(hyp))
     if not shared:
@@ -285,6 +549,7 @@ def main() -> int:
                           "hyp": len(hyp)}))
         return 2
 
+    articles = source_articles(ref, hyp)
     result = {
         "ref": args.ref, "hyp": args.hyp,
         # ⚠️ Counts beside their denominators. „Scored 240" means nothing
@@ -297,6 +562,7 @@ def main() -> int:
             "quality": score_quality(ref, hyp),
             "topics": score_topics(ref, hyp),
             "mentions": score_mentions(ref, hyp),
+            "party_tones": score_party_tones(ref, hyp, articles),
             "leaning": score_axis(ref, hyp, "leaning"),
             "russia_stance": score_axis(ref, hyp, "russia_stance"),
             "ai_generated": score_axis(ref, hyp, "ai_generated"),
@@ -310,9 +576,14 @@ def main() -> int:
             "dominated by the majority class and would call a constant "
             "classifier excellent"),
     }
+    completion = {"before_retry": args.valid_schema_before_retry,
+                  "after_review": args.valid_schema_after_review}
+    result["party_tone_release_gates"] = party_release_gate_results(
+        result["fields"]["party_tones"], completion)
     print(json.dumps(result, ensure_ascii=False,
                      indent=None if args.json else 1))
-    return 0
+    return 3 if (args.require_party_gates and
+                 not result["party_tone_release_gates"]["passed"]) else 0
 
 
 if __name__ == "__main__":

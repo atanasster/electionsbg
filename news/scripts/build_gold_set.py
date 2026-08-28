@@ -147,6 +147,12 @@ def signals_present(rec: dict, mentions: list) -> set:
         out.add("entity_rich")
     if any(m["kind"] == "person" for m in linked):
         out.add("person_linked")
+    # Sampling signal only. It is deliberately NOT in CELLS/TARGET_SHARE:
+    # adding it to the v1 first-match draw would relabel the frozen selection.
+    # The dedicated party supplement owns the balanced party draw; this flag
+    # lets the next general-gold revision report and target party coverage.
+    if any(m.get("kind") == "party" for m in mentions):
+        out.add("party_mention")
     if not (rec.get("author") or "").strip():
         out.add("no_author")
     return out or {"mainstream"}

@@ -1,0 +1,66 @@
+{
+  "version": 2,
+  "base_gold_selection_sha256": "43252b2156cffcb78260ceef4b5837251d33046ebc6323bb7b21cdffe2fed23e",
+  "base_gold_selection": "news/data/gold/gold_set.json",
+  "base_reference": "news/data/gold/reference",
+  "purpose": "Party-entity re-adjudication overlay. The frozen 240-article selection and its original completion audit remain unchanged.",
+  "adjudicated_at": "2026-08-28",
+  "records": {
+    "https://pogled.info/svetoven/evropa/vloomberg-imidzhat-na-germaniya-kato-avtomobilna-svrahdarzhava-se-razrushava-poradi-udara-po-Volkswagen.173204": {
+      "entities_parties": ["Алтернатива за Германия"],
+      "party_tones": [{"party": "Алтернатива за Германия", "party_id": null, "tone": "unfavorable", "confidence": 0.84, "evidence": "Партията е описана като антиимигрантска и като печелеща от разделението Изток-Запад."}]
+    },
+    "https://manager.bg/свят/portugalia-prie-zakon-zabranavast-pokrivaneto-na-liceto-na-obstestveni-mesta": {
+      "entities_parties": ["Социалдемократическа партия"],
+      "party_tones": [{"party": "Социалдемократическа партия", "party_id": null, "tone": "neutral", "confidence": 0.82, "evidence": "Материалът фактологично съобщава, че PSD подкрепя законопроекта, а критиките са изрично приписани на опозиционни партии."}]
+    },
+    "https://glasove.com/komentari/tramp-zatana-v-iran-i-grandiozna-koruptsiya-dogodina-shte-go-mahnat-ot-beliya-dom": {
+      "entities_parties": [],
+      "party_tones": [],
+      "correction_reason": "„нова сила“ е общо словосъчетание, не назована партия."
+    },
+    "https://www.flagman.bg/article/388303": {
+      "entities_parties": ["ПП-ДБ"],
+      "party_tones": [{"party": "ПП-ДБ", "party_id": "p_6", "tone": "unfavorable", "confidence": 0.9, "evidence": "Текстът представя депутата, избран с листата на ПП-ДБ, като предизвикал политическа буря и ядосал свои избиратели."}]
+    },
+    "https://pik.bg/горещо-в-пик-божо-божанов-опразни-банковата-си-сметка-и-разпродаде-акциите-документ-news1350144.html": {
+      "entities_parties": ["Да, България"],
+      "party_tones": [{"party": "Да, България", "party_id": null, "tone": "unfavorable", "confidence": 0.93, "evidence": "Материалът поставя въпроса дали съпредседателят е подал невярна декларация и го описва с ироничното „полулидера“."}]
+    },
+    "https://blitz.bg/nad-55/in-memoriam-shumnaliev-gradeshe-kashti-ot-dumi_news1167948.html": {
+      "entities_parties": [],
+      "party_tones": [],
+      "correction_reason": "„Дано“ е употребено като дума в изречението, не като партия."
+    },
+    "https://www.mediapool.bg/deputatite-ot-vazrazhdane-sa-s-nai-mnogo-zabelezhki-v-parlamenta-news378725.html": {
+      "entities_parties": ["Възраждане", "МЕЧ", "ГЕРБ", "Величие", "Продължаваме промяната- Демократична България", "Има такъв народ"],
+      "party_tones": [
+        {"party": "Възраждане", "party_id": null, "tone": "unfavorable", "confidence": 0.91, "evidence": "Партията е посочена като проруска и с най-много забележки и единствените порицания."},
+        {"party": "МЕЧ", "party_id": null, "tone": "unfavorable", "confidence": 0.79, "evidence": "Председателят на МЕЧ е посочен сред двамата с по девет наказания."},
+        {"party": "ГЕРБ", "party_id": "gerb", "tone": "neutral", "confidence": 0.83, "evidence": "Фактологично е отбелязано, че в редиците на ГЕРБ няма наказан депутат, без оценъчно заключение."},
+        {"party": "Величие", "party_id": null, "tone": "neutral", "confidence": 0.83, "evidence": "Фактологично е отбелязано, че в редиците на Величие няма наказан депутат, без оценъчно заключение."},
+        {"party": "Продължаваме промяната- Демократична България", "party_id": null, "tone": "neutral", "confidence": 0.78, "evidence": "Статията изброява три забележки на депутат от коалицията като част от справка за санкциите."},
+        {"party": "Има такъв народ", "party_id": null, "tone": "neutral", "confidence": 0.76, "evidence": "Материалът фактологично съобщава за размяна на обиди с депутат на ИТН в дебат."}
+      ]
+    },
+    "https://www.segabg.com/hot/category-culture/ivo-hristov-namekna-che-izborut-na-burgas-za-evroviziya-e-politicheski": {
+      "entities_parties": ["ПП-ДБ"],
+      "party_tones": [{"party": "ПП-ДБ", "party_id": "p_6", "tone": "unfavorable", "confidence": 0.84, "evidence": "Цитиран е упрек, че в София, управлявана от кмет на ПП-ДБ, има криза в управлението."}]
+    },
+    "https://www.segabg.com/hot/category-bulgaria/bodigardut-na-borisov-zaryaza-nso-zaradi-nego": {
+      "entities_parties": ["ГЕРБ", "Прогресивна България"],
+      "party_tones": [
+        {"party": "ГЕРБ", "party_id": "gerb", "tone": "neutral", "confidence": 0.77, "evidence": "Статията съпоставя снимки, информация от НСО и позиции на представители на ГЕРБ без собствена оценка."},
+        {"party": "Прогресивна България", "party_id": "p_20", "tone": "neutral", "confidence": 0.77, "evidence": "Позицията на управляващите за свалената охрана е предадена с цитати и насрещния отговор на ГЕРБ."}
+      ]
+    },
+    "https://clubz.bg/178509": {
+      "entities_parties": ["Опозиционна платформа – За живота"],
+      "party_tones": [{"party": "Опозиционна платформа – За живота", "party_id": null, "tone": "neutral", "confidence": 0.78, "evidence": "Партията е посочена фактологично като бивша проруска партия, забранена след руското нахлуване."}]
+    },
+    "https://www.capital.bg/politika_i_ikonomika/bulgaria/2026/08/12/4945178_programata_za_upravlenie_na_kabineta_do_2030_g_po/": {
+      "entities_parties": ["ПБ"],
+      "party_tones": [{"party": "ПБ", "party_id": null, "tone": "mixed", "confidence": 0.81, "evidence": "Програмата, припокриваща предизборната на ПБ, е описана като плюс заради проблемите, които идентифицира, и минус заради липсата на приоритизация и измерими цели."}]
+    }
+  }
+}

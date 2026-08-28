@@ -97,6 +97,13 @@ class CellAssignment(unittest.TestCase):
     def test_everything_else_is_mainstream(self):
         self.assertEqual(self.cell(), "mainstream")
 
+    def test_party_mention_is_a_signal_without_relabelling_v1(self):
+        mentions = [{"kind": "party", "id": "p1"}]
+        rec = {"content": "дума " * 200, "author": "Автор"}
+        self.assertIn("party_mention", bgs.signals_present(rec, mentions))
+        self.assertEqual(bgs.cell_for(rec, mentions), "mainstream")
+        self.assertNotIn("party_mention", dict(bgs.CELLS))
+
     def test_the_rare_cells_come_FIRST(self):
         # ⚠️ ORDER IS THE DESIGN. With `mainstream` first it would swallow
         # every Russia-dense and entity-rich article, and the gold set would
