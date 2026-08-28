@@ -302,7 +302,7 @@ export const StoryScreen = () => {
             >
               Отразяване ({members.length} от {story.members.length})
             </h2>
-            <Card className="px-4 py-1">
+            <Card className="overflow-hidden px-4">
               {members.map((m) => (
                 <StoryMemberRow
                   key={`${m.domain}/${m.article_id ?? m.url}`}

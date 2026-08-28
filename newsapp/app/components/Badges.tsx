@@ -1,7 +1,7 @@
-// Pill badges for the analysis scales. Hue coding rides on a color dot + a
-// 40%-alpha border tint (hex + "66" — labels.ts guarantees 6-digit hex); the
-// text itself stays in the theme's foreground color so light-theme contrast
-// (e.g. slate on cream) can't drop below WCAG AA.
+// Pill badges for the analysis scales. Hue coding rides on a color dot, a
+// 30%-alpha border tint and an 8%-alpha background wash (labels.ts guarantees
+// 6-digit hex); the text stays in the theme's foreground color so light-theme
+// contrast (e.g. slate on cream) can't drop below WCAG AA.
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -38,7 +38,11 @@ const MetaBadge = ({
       variant="outline"
       title={`${titlePrefix}: ${m.label}`}
       aria-label={`${titlePrefix}: ${m.label}`}
-      style={{ borderColor: `${m.color}66` }}
+      className="news-analysis-badge"
+      style={{
+        borderColor: `${m.color}4d`,
+        backgroundColor: `${m.color}14`,
+      }}
     >
       <span
         aria-hidden

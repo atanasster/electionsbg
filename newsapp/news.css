@@ -113,6 +113,50 @@
   box-shadow: 0 0 0 1px hsl(var(--ring));
 }
 
+/* Story sources use stable tracks so outlet-name length cannot move either
+   the headline or its analysis labels. On narrow screens the metadata becomes
+   a quiet first line and the headline receives the full row width. */
+.news-source-row {
+  display: grid;
+  grid-template-areas:
+    "meta action"
+    "content content";
+  grid-template-columns: minmax(0, 1fr) 2rem;
+  gap: 0.5rem 0.75rem;
+  padding: 0.875rem 0;
+  transition: background-color 160ms ease;
+}
+
+.news-source-meta {
+  grid-area: meta;
+}
+
+.news-source-content {
+  grid-area: content;
+}
+
+.news-source-action {
+  grid-area: action;
+}
+
+@media (min-width: 640px) {
+  .news-source-row {
+    grid-template-areas: "meta content action";
+    grid-template-columns: 9.75rem minmax(0, 1fr) 2rem;
+    gap: 1rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .news-source-row:hover {
+    background: hsl(var(--muted) / 0.42);
+  }
+}
+
+.news-analysis-badge {
+  font-weight: 500;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .news-shell .news-story-card,
   .news-shell .news-story-card * {
