@@ -19,6 +19,7 @@
     "dev:news": "vite --config vite.config.news.ts",
     "typecheck:news": "tsc -p newsapp/tsconfig.json --noEmit",
     "build:news": "npm run news:data && tsc -p newsapp/tsconfig.json --noEmit && vite build --config vite.config.news.ts",
+    "news:perf:gate": "tsx scripts/news_performance_budget.ts",
     "preview:news": "vite preview --config vite.config.news.ts",
     "ai:harness": "tsx ai/tools/harness.ts",
     "ai:test": "tsx ai/tests/regression.ts",

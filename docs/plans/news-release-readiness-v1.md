@@ -107,3 +107,27 @@ every audited adjacent control surface (3:1). Keyboard focus traversal remains a
 is a contrast/implementation pass, not a claimed interaction pass. Existing
 component tests cover image alt/fallback behavior, filter pressed state, live-region status,
 skip target, theme action naming, and native button/link semantics.
+
+## T5.4 Performance budgets
+
+Production build run 2026-08-28 with Vite 6.4.3 and the generated corpus used above:
+1,672 modules, 293 prerendered routes (206 sitemap entries), completed in 62 seconds on the
+local host. These are build/resource measurements, not field Core Web Vitals; no LCP/INP
+claim is made without production traffic.
+
+| Critical resource | gzip bytes | Budget | Headroom |
+| --- | ---: | ---: | ---: |
+| root HTML | 1,190 | 2,000 | 40.5% |
+| initial stylesheets | 25,738 | 30,000 | 14.2% |
+| initial JS (entry + modulepreloads) | 127,944 | 140,000 | 8.6% |
+| `home.json` | 32,803 | 33,792 | 2.9% |
+
+`npm run news:perf:gate` reads entry module/style references from the production HTML (so
+async chunks do not become false ambiguity), sums all initial stylesheets and modulepreloaded
+JavaScript, compresses with the repository/CDN convention
+of gzip level 6, fails on missing/ambiguous/out-of-root entry artifacts, and enforces all
+four limits. The homepage reuses the builder’s 33 KiB launch ceiling rather than defining a
+weaker duplicate.
+`scripts/news_performance_budget.test.ts` gates the threshold and multi-failure behavior.
+The JS budget has the least headroom; additions should prefer route-level lazy loading or
+removing shared entry cost rather than raising the limit without a recorded decision.
