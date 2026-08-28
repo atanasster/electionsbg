@@ -56,7 +56,7 @@ def analysis_path(article_path: str) -> Path:
     return ROOT / "news/data/analysis/articles" / rel.parent.name / rel.name
 
 
-def score(ref_dir: Path, hyp_dir: Path) -> dict:
+def score(ref_dir: Path, hyp_dir: Path, *, score_mentions: bool = False) -> dict:
     proc = subprocess.run(
         [sys.executable, str(ROOT / "news/scripts/score_analyses.py"),
          "--ref", str(ref_dir), "--hyp", str(hyp_dir), "--json"],
@@ -72,14 +72,51 @@ def score(ref_dir: Path, hyp_dir: Path) -> dict:
     # The 365 GLM-era references predate the optional resolved `mentions`
     # block. Hypotheses receive today's deterministic gazetteer mentions from
     # --redo, so scoring them against an absent reference block reports fake
-    # false positives and precision 0. This pilot cannot grade mentions.
-    if (result.get("fields") or {}).get("mentions") is not None:
+    # false positives and precision 0. The adjudicated gold set DOES carry
+    # verified mentions, so a config that opts into it must keep that score.
+    if not score_mentions and (result.get("fields") or {}).get("mentions") is not None:
         result["fields"]["mentions"] = {
             "not_scored": True,
             "why": "existing reference analyses predate resolved mentions; "
                    "hypothesis mentions are attached deterministically",
         }
     return result
+
+
+def summarize_usage(rows: list[dict]) -> dict:
+    """Token and billed-cost totals from completed OpenRouter responses.
+
+    Failed requests often carry no usage object, so coverage is explicit. A
+    monthly projection based on three successful rows without saying so is a
+    price estimate with a hidden denominator.
+    """
+    usages = [r.get("usage") for r in rows if isinstance(r.get("usage"), dict)]
+    totals = {
+        "prompt_tokens": sum(int(u.get("prompt_tokens") or 0) for u in usages),
+        "completion_tokens": sum(int(u.get("completion_tokens") or 0) for u in usages),
+        "total_tokens": sum(int(u.get("total_tokens") or 0) for u in usages),
+        "cost_usd": round(sum(float(u.get("cost") or 0) for u in usages), 8),
+    }
+    n = len(usages)
+    per_article = {
+        key: round(value / n, 6) if n else None
+        for key, value in totals.items()
+    }
+    cost = per_article["cost_usd"]
+    projections = {}
+    if cost is not None:
+        for daily in (150, 250, 1000, 1500):
+            projections[str(daily)] = {
+                "daily_usd": round(cost * daily, 4),
+                "monthly_30d_usd": round(cost * daily * 30, 2),
+            }
+    return {
+        "responses_with_usage": n,
+        "attempted_rows": len(rows),
+        "totals": totals,
+        "per_response": per_article,
+        "projections": projections,
+    }
 
 
 def main() -> int:
@@ -99,6 +136,12 @@ def main() -> int:
     config_path = ROOT / args.config
     config = json.loads(config_path.read_text(encoding="utf-8"))
     models = args.models or config["models"]
+    configured_reference = config.get("reference_dir")
+    reference_kind = config.get(
+        "reference_kind",
+        "human_adjudicated_gold" if configured_reference
+        else "existing model-produced analyses")
+    score_mentions = bool(config.get("score_mentions", False))
     endpoint_host = (urlparse(args.url).hostname or "").lower()
     is_local = endpoint_host in llm_client.LOCAL_HOSTS
     if not is_local and not os.environ.get("OPENROUTER_API_KEY") \
@@ -139,7 +182,9 @@ def main() -> int:
                               "detail": queue}, ensure_ascii=False))
             return 2
         item = queue["queue"][0]
-        ref = analysis_path(article_path)
+        ref = ((ROOT / configured_reference / item["domain"]
+                / Path(article_path).name)
+               if configured_reference else analysis_path(article_path))
         if not ref.exists():
             print(json.dumps({"error": "missing_reference",
                               "article": article_path}))
@@ -244,13 +289,15 @@ def main() -> int:
             "articles_attempted": len(rows),
             "valid_records": valid,
             "valid_rate": round(valid / len(rows), 3) if rows else None,
+            "usage": summarize_usage(rows),
             "latency_s": {
                 "mean": round(statistics.mean(latencies), 2) if latencies else None,
                 "median": round(statistics.median(latencies), 2) if latencies else None,
                 "p90": percentile(latencies, .9),
                 "total": round(sum(latencies), 2),
             },
-            "reference_agreement": score(ref_dir, hyp_dir) if valid else None,
+            "reference_agreement": score(
+                ref_dir, hyp_dir, score_mentions=score_mentions) if valid else None,
             "rows": rows,
         }
         write_json(model_dir / "report.json", report)
@@ -261,15 +308,16 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "config": str(config_path.relative_to(ROOT)),
         "output": str(out),
-        "reference_kind": "existing model-produced analyses",
+        "reference_kind": reference_kind,
         "accuracy_warning": (
+            "Scores are against the repository's completed adjudicated gold "
+            "set." if reference_kind == "human_adjudicated_gold" else
             "These are agreement scores against existing GLM-era analyses, "
-            "not accuracy against human gold. Use the stratified 240-article "
-            "gold set after independent adjudication for model selection."),
+            "not accuracy against human gold."),
         "price": ("local inference; no API charge; host power and hardware "
                   "time not measured" if is_local else
-                  "catalogued free endpoints; provider limits/availability "
-                  "can change"),
+                  "Actual billed cost from each response usage object; model "
+                  "catalog prices and provider availability can change."),
         "settings": {
             "endpoint": args.url,
             "temperature": 0.2,
@@ -279,7 +327,7 @@ def main() -> int:
                                   else "strict JSON Schema"),
             "provider_require_parameters": not is_local,
             "reasoning": ("chat template thinking disabled" if is_local else
-                          "effort none, excluded; provider may map mandatory reasoning to its minimum"),
+                          f"effort {os.environ.get('NEWS_LLM_REASONING_EFFORT') or 'none'}, excluded"),
             "requests": "sequential; up to 3 attempts on 429/5xx/timeout with 2s then 4s backoff",
         },
         "models": model_reports,

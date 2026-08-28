@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "purpose": "Focused OpenRouter screening on every human-adjudicated gold article that contains party-tone labels.",
+  "reference_dir": "news/data/gold/reference",
+  "reference_kind": "human_adjudicated_gold",
+  "score_mentions": true,
+  "models": [
+    "nvidia/nemotron-3-super-120b-a12b:free",
+    "openai/gpt-oss-20b",
+    "qwen/qwen3-32b",
+    "google/gemma-4-31b-it",
+    "z-ai/glm-5.3-flash"
+  ],
+  "articles": [
+    "news/data/pogled.info/20240908-vloomberg-imidzhat-na-germaniya-kato-avtomobilna-svrahdarzha-aebaac13.json",
+    "news/data/flagman.bg/20260821-388303-bc60f442.json",
+    "news/data/pik.bg/20260821-горещо-в-пик-божо-божанов-опразни-банковата-си-сметка-и-разп-ba63c418.json",
+    "news/data/segabg.com/20260820-ivo-hristov-namekna-che-izborut-na-burgas-za-evroviziya-e-po-7a1e7fed.json",
+    "news/data/segabg.com/20260821-bodigardut-na-borisov-zaryaza-nso-zaradi-nego-11e47cce.json",
+    "news/data/capital.bg/20260812-4945178-programata-za-upravlenie-na-kabineta-do-2030-g-po-d4fbeee9.json"
+  ]
+}

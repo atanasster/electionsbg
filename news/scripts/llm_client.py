@@ -173,7 +173,13 @@ def complete(system: str, user: str, *, model: str,
         # to their smallest supported budget. Reasoning is never requested
         # back because it is not an analysis artifact.
         if os.environ.get("NEWS_LLM_THINKING") != "1":
-            payload["reasoning"] = {"effort": "none", "exclude": True}
+            # Some OpenRouter endpoints advertise reasoning controls but
+            # reject `none` because reasoning is mandatory (measured on both
+            # GPT-OSS sizes). Let a benchmark request their cheapest accepted
+            # tier explicitly while preserving `none` as the ordinary default.
+            effort = (os.environ.get("NEWS_LLM_REASONING_EFFORT") or
+                      "none").strip()
+            payload["reasoning"] = {"effort": effort, "exclude": True}
     # Encode only after endpoint-specific controls are added. Encoding above
     # this block makes the payload mutations look right in a code review but
     # sends neither of them — caught by test_openrouter_requires_schema_*.
