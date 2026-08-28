@@ -1,4 +1,23 @@
 {
   "schemaVersion": 1,
-  "overrides": []
+  "overrides": [
+    {
+      "kind": "merge",
+      "refA": "2021_11_14:c-24-velislava-ivanova-petrova",
+      "refB": "2022_10_02:c-9-velislava-ivanova-petrova",
+      "note": "Operator adjudication: the ITN 2021 and PP 2022 candidacies are the same Велислава Иванова Петрова.",
+      "decidedBy": "atanasster",
+      "decidedAt": "2026-08-28",
+      "evidence": []
+    },
+    {
+      "kind": "merge",
+      "refA": "2022_10_02:c-9-velislava-ivanova-petrova",
+      "refB": "2023_04_02:c-12-velislava-ivanova-petrova",
+      "note": "Operator adjudication: the PP 2022 and PP-DB 2023 candidacies are the same Велислава Иванова Петрова.",
+      "decidedBy": "atanasster",
+      "decidedAt": "2026-08-28",
+      "evidence": []
+    }
+  ]
 }

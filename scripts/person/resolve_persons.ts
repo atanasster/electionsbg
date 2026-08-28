@@ -2636,6 +2636,7 @@ async function main(): Promise<void> {
 
   const ovCount =
     overrides.merges.length +
+    overrides.refMerges.length +
     overrides.foldSplits.length +
     overrides.refSplits.size;
   const summary =
@@ -2649,7 +2650,8 @@ async function main(): Promise<void> {
     // must not be indistinguishable from "not measured" when it is fine.
     `${orphanedDeadSlugs.length} dead slug(s) with no redirect; ` +
     `${ovCount} human override(s) applied ` +
-    `(${overrides.merges.length} merge, ${overrides.foldSplits.length} fold-split, ${overrides.refSplits.size} ref-split)`;
+    `(${overrides.merges.length} fold-merge, ${overrides.refMerges.length} ref-merge, ` +
+    `${overrides.foldSplits.length} fold-split, ${overrides.refSplits.size} ref-split)`;
   console.log(`  ${summary}`);
 
   // Stamp the marker /process-watch-report compares against, from the run
