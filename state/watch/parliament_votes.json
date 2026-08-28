@@ -1,15 +1,20 @@
 {
-  "detail": "1 new session(s), 1 with roll-call CSV (latest id 11161, 2026-08-26)",
-  "fingerprint": "11161|2026-08-26",
-  "lastChanged": "2026-08-27T21:05:02.864Z",
-  "lastChecked": "2026-08-27T21:05:02.864Z",
+  "detail": "2 new session(s), 2 with roll-call CSV (latest id 11163, 2026-08-28)",
+  "fingerprint": "11163|2026-08-28",
+  "lastChanged": "2026-08-28T21:39:23.265Z",
+  "lastChecked": "2026-08-28T21:39:23.265Z",
   "meta": {
-    "maxId": 11161,
-    "maxDate": "2026-08-26",
+    "maxId": 11163,
+    "maxDate": "2026-08-28",
     "newSinceLast": [
       {
-        "id": 11161,
-        "date": "2026-08-26",
+        "id": 11162,
+        "date": "2026-08-27",
+        "hasRollcall": true
+      },
+      {
+        "id": 11163,
+        "date": "2026-08-28",
         "hasRollcall": true
       }
     ]
