@@ -45,6 +45,10 @@ export const LocalDemographicCleavagesTile: FC<{
     race === "mayor"
       ? "local_mayor_demographic_cleavages_note"
       : "local_demographic_cleavages_note";
+  const titleKey =
+    race === "mayor"
+      ? "local_mayor_demographic_cleavages"
+      : "local_council_demographic_cleavages";
 
   // Maps r in [-1, 1] to a 0..100 horizontal position in the row track.
   const xPct = (r: number) => 50 + Math.max(-1, Math.min(1, r)) * 50;
@@ -55,7 +59,7 @@ export const LocalDemographicCleavagesTile: FC<{
         <Hint text={t(hintKey)} underline={false}>
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4" />
-            <span>{t("dashboard_demographic_cleavages")}</span>
+            <span>{t(titleKey)}</span>
           </div>
         </Hint>
       }
