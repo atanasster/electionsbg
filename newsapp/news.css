@@ -133,3 +133,20 @@
     hsl(var(--foreground) / 0.025)
   );
 }
+/* Explicit tracks keep long image credits from sizing an implicit `auto`
+   column wider than the mobile viewport. */
+.news-supporting-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  .news-supporting-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-supporting-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

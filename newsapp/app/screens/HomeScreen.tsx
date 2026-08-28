@@ -25,7 +25,10 @@ import { HomeFilterControls } from "../components/HomeFilterControls";
 import { buildHomeHierarchy, HOME_SUPPORTING_LIMIT } from "../homeHierarchy";
 import { filterHomeStories, homeCategoryCounts } from "../homeFilters";
 
-const STORY_GRID = "grid gap-3 sm:grid-cols-2 lg:grid-cols-3";
+// The explicit one-column track is minmax(0, 1fr). Without it, CSS Grid's
+// implicit `auto` track expands to a long image-credit's min-content width and
+// makes the entire mobile page horizontally scroll.
+export const STORY_GRID = "news-supporting-grid grid gap-3";
 
 export const HomeScreen = () => {
   const stats = useStats();
